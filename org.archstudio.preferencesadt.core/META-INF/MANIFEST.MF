@@ -5,8 +5,7 @@ Bundle-SymbolicName: org.archstudio.preferencesadt.core;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio.main;bundle-version="5.0.0",
- org.archstudio.myx.eclipse;bundle-version="5.0.0",
+Require-Bundle: org.archstudio.myx.eclipse;bundle-version="5.0.0",
  org.archstudio.myx.fw;bundle-version="5.0.0",
  org.eclipse.ui;bundle-version="3.5.1",
  org.eclipse.jface;bundle-version="3.5.1",

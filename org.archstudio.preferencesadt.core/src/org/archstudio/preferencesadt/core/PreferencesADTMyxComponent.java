@@ -1,6 +1,5 @@
 package org.archstudio.preferencesadt.core;
 
-import org.archstudio.main.ArchStudio5Activator;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
