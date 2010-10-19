@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.archstudio.xadl3.implementation/src"
+    modelPluginID="org.archstudio.xadl3.implementation" modelName="Implementation"
+    importerID="org.eclipse.xsd.ecore.importer" complianceLevel="6.0" copyrightFields="false"
+    usedGenPackages="platform:/resource/org.archstudio.xadl3.xadlcore/xadlcore.genmodel#//xadlcore_3_0 platform:/resource/org.archstudio.xadl3.xlink/xlink.genmodel#//xlink">
+  <foreignModel>model/implementation-3.0.xsd</foreignModel>
+  <genPackages prefix="Implementation_3_0" basePackage="org.archstudio.xadl3" resource="XML"
+      disposableProviderFactory="true" ecorePackage="implementation_3_0.ecore#/">
+    <genClasses image="false" ecoreClass="implementation_3_0.ecore#//Implementation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute implementation_3_0.ecore#//Implementation/id"/>
+    </genClasses>
+    <genClasses ecoreClass="implementation_3_0.ecore#//ImplementationExtension">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference implementation_3_0.ecore#//ImplementationExtension/implementation"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

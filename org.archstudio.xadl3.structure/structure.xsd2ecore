@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xsd2ecore:XSD2EcoreMappingRoot xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd2ecore="http://www.eclipse.org/emf/2002/XSD2Ecore" inputs="model/structure-3.0.xsd#/ http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#/ http://www.archstudio.org/svn/main/schemas/xlink.xsd#/"
+    outputs="structure_3_0.ecore#/ xadlcore_3_0.ecore#/ xlink.ecore#/" topToBottom="true">
+  <nested inputs="bundleentry://241.fwk29115481/cache/www.w3.org/2001/XMLSchema.xsd#//ID;XSDSimpleTypeDefinition=37"
+      outputs="http://www.eclipse.org/emf/2003/XMLType#//ID"/>
+  <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//Extension;XSDComplexTypeDefinition=1"
+      outputs="xadlcore_3_0.ecore#//Extension">
+    <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//Extension;XSDComplexTypeDefinition=1/XSDAttributeUse"
+        outputs="xadlcore_3_0.ecore#//Extension/id"/>
+  </nested>
+  <nested inputs="model/structure-3.0.xsd#//Direction;XSDSimpleTypeDefinition" outputs="structure_3_0.ecore#//Direction">
+    <nested inputs="model/structure-3.0.xsd#//Direction;XSDSimpleTypeDefinition/XSDEnumerationFacet"
+        outputs="structure_3_0.ecore#//Direction/none"/>
+    <nested inputs="model/structure-3.0.xsd#//Direction;XSDSimpleTypeDefinition/XSDEnumerationFacet=1"
+        outputs="structure_3_0.ecore#//Direction/in"/>
+    <nested inputs="model/structure-3.0.xsd#//Direction;XSDSimpleTypeDefinition/XSDEnumerationFacet=2"
+        outputs="structure_3_0.ecore#//Direction/out"/>
+    <nested inputs="model/structure-3.0.xsd#//Direction;XSDSimpleTypeDefinition/XSDEnumerationFacet=3"
+        outputs="structure_3_0.ecore#//Direction/inout"/>
+  </nested>
+  <nested inputs="bundleentry://241.fwk29115481/cache/www.w3.org/2001/XMLSchema.xsd#//string;XSDSimpleTypeDefinition=9"
+      outputs="http://www.eclipse.org/emf/2003/XMLType#//String"/>
+  <nested inputs="model/structure-3.0.xsd#//Interface;XSDComplexTypeDefinition=1"
+      outputs="structure_3_0.ecore#//Interface">
+    <nested inputs="model/structure-3.0.xsd#//Interface;XSDComplexTypeDefinition=1/XSDParticle/XSDModelGroup/XSDParticle"
+        outputs="structure_3_0.ecore#//Interface/ext"/>
+    <nested inputs="model/structure-3.0.xsd#//Interface;XSDComplexTypeDefinition=1/XSDAttributeUse=2"
+        outputs="structure_3_0.ecore#//Interface/direction"/>
+    <nested inputs="model/structure-3.0.xsd#//Interface;XSDComplexTypeDefinition=1/XSDAttributeUse"
+        outputs="structure_3_0.ecore#//Interface/id"/>
+    <nested inputs="model/structure-3.0.xsd#//Interface;XSDComplexTypeDefinition=1/XSDAttributeUse=1"
+        outputs="structure_3_0.ecore#//Interface/name"/>
+  </nested>
+  <nested inputs="bundleentry://241.fwk29115481/cache/www.w3.org/2001/XMLSchema.xsd#//IDREF;XSDSimpleTypeDefinition=38"
+      outputs="http://www.eclipse.org/emf/2003/XMLType#//IDREF"/>
+  <nested inputs="model/structure-3.0.xsd#//InterfaceMapping;XSDComplexTypeDefinition=6"
+      outputs="structure_3_0.ecore#//InterfaceMapping">
+    <nested inputs="model/structure-3.0.xsd#//InterfaceMapping;XSDComplexTypeDefinition=6/XSDParticle/XSDModelGroup/XSDParticle"
+        outputs="structure_3_0.ecore#//InterfaceMapping/outerInterfaceLink"/>
+    <nested inputs="model/structure-3.0.xsd#//InterfaceMapping;XSDComplexTypeDefinition=6/XSDParticle/XSDModelGroup/XSDParticle=1"
+        outputs="structure_3_0.ecore#//InterfaceMapping/innerInterfaceLink"/>
+    <nested inputs="model/structure-3.0.xsd#//InterfaceMapping;XSDComplexTypeDefinition=6/XSDParticle/XSDModelGroup/XSDParticle=2"
+        outputs="structure_3_0.ecore#//InterfaceMapping/ext"/>
+    <nested inputs="model/structure-3.0.xsd#//InterfaceMapping;XSDComplexTypeDefinition=6/XSDAttributeUse"
+        outputs="structure_3_0.ecore#//InterfaceMapping/id"/>
+    <nested inputs="model/structure-3.0.xsd#//InterfaceMapping;XSDComplexTypeDefinition=6/XSDAttributeUse=1"
+        outputs="structure_3_0.ecore#//InterfaceMapping/name"/>
+  </nested>
+  <nested inputs="model/structure-3.0.xsd#//SubStructure;XSDComplexTypeDefinition=5"
+      outputs="structure_3_0.ecore#//SubStructure">
+    <nested inputs="model/structure-3.0.xsd#//SubStructure;XSDComplexTypeDefinition=5/XSDParticle/XSDModelGroup/XSDParticle"
+        outputs="structure_3_0.ecore#//SubStructure/innerStructureLink"/>
+    <nested inputs="model/structure-3.0.xsd#//SubStructure;XSDComplexTypeDefinition=5/XSDParticle/XSDModelGroup/XSDParticle=1"
+        outputs="structure_3_0.ecore#//SubStructure/interfaceMapping"/>
+    <nested inputs="model/structure-3.0.xsd#//SubStructure;XSDComplexTypeDefinition=5/XSDParticle/XSDModelGroup/XSDParticle=2"
+        outputs="structure_3_0.ecore#//SubStructure/ext"/>
+    <nested inputs="model/structure-3.0.xsd#//SubStructure;XSDComplexTypeDefinition=5/XSDAttributeUse"
+        outputs="structure_3_0.ecore#//SubStructure/id"/>
+  </nested>
+  <nested inputs="model/structure-3.0.xsd#//Brick;XSDComplexTypeDefinition=2" outputs="structure_3_0.ecore#//Brick">
+    <nested inputs="model/structure-3.0.xsd#//Brick;XSDComplexTypeDefinition=2/XSDParticle/XSDModelGroup/XSDParticle"
+        outputs="structure_3_0.ecore#//Brick/interface"/>
+    <nested inputs="model/structure-3.0.xsd#//Brick;XSDComplexTypeDefinition=2/XSDParticle/XSDModelGroup/XSDParticle=1"
+        outputs="structure_3_0.ecore#//Brick/subStructure"/>
+    <nested inputs="model/structure-3.0.xsd#//Brick;XSDComplexTypeDefinition=2/XSDAttributeUse"
+        outputs="structure_3_0.ecore#//Brick/id"/>
+    <nested inputs="model/structure-3.0.xsd#//Brick;XSDComplexTypeDefinition=2/XSDAttributeUse=1"
+        outputs="structure_3_0.ecore#//Brick/name"/>
+  </nested>
+  <nested inputs="model/structure-3.0.xsd#//Component;XSDComplexTypeDefinition=3"
+      outputs="structure_3_0.ecore#//Component">
+    <nested inputs="model/structure-3.0.xsd#//Component;XSDComplexTypeDefinition=3/XSDParticle/XSDModelGroup/XSDParticle"
+        outputs="structure_3_0.ecore#//Component/ext"/>
+  </nested>
+  <nested inputs="model/structure-3.0.xsd#//Connector;XSDComplexTypeDefinition=4"
+      outputs="structure_3_0.ecore#//Connector">
+    <nested inputs="model/structure-3.0.xsd#//Connector;XSDComplexTypeDefinition=4/XSDParticle/XSDModelGroup/XSDParticle"
+        outputs="structure_3_0.ecore#//Connector/ext"/>
+  </nested>
+  <nested inputs="model/structure-3.0.xsd#//Link;XSDComplexTypeDefinition=7" outputs="structure_3_0.ecore#//Link">
+    <nested inputs="model/structure-3.0.xsd#//Link;XSDComplexTypeDefinition=7/XSDParticle/XSDModelGroup/XSDParticle"
+        outputs="structure_3_0.ecore#//Link/point1"/>
+    <nested inputs="model/structure-3.0.xsd#//Link;XSDComplexTypeDefinition=7/XSDParticle/XSDModelGroup/XSDParticle=1"
+        outputs="structure_3_0.ecore#//Link/point2"/>
+    <nested inputs="model/structure-3.0.xsd#//Link;XSDComplexTypeDefinition=7/XSDParticle/XSDModelGroup/XSDParticle=2"
+        outputs="structure_3_0.ecore#//Link/ext"/>
+    <nested inputs="model/structure-3.0.xsd#//Link;XSDComplexTypeDefinition=7/XSDAttributeUse"
+        outputs="structure_3_0.ecore#//Link/id"/>
+    <nested inputs="model/structure-3.0.xsd#//Link;XSDComplexTypeDefinition=7/XSDAttributeUse=1"
+        outputs="structure_3_0.ecore#//Link/name"/>
+  </nested>
+  <nested inputs="model/structure-3.0.xsd#//Structure;XSDComplexTypeDefinition" outputs="structure_3_0.ecore#//Structure">
+    <nested inputs="model/structure-3.0.xsd#//Structure;XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle"
+        outputs="structure_3_0.ecore#//Structure/component"/>
+    <nested inputs="model/structure-3.0.xsd#//Structure;XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle=1"
+        outputs="structure_3_0.ecore#//Structure/connector"/>
+    <nested inputs="model/structure-3.0.xsd#//Structure;XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle=2"
+        outputs="structure_3_0.ecore#//Structure/link"/>
+    <nested inputs="model/structure-3.0.xsd#//Structure;XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle=3"
+        outputs="structure_3_0.ecore#//Structure/ext"/>
+    <nested inputs="model/structure-3.0.xsd#//Structure;XSDComplexTypeDefinition/XSDAttributeUse"
+        outputs="structure_3_0.ecore#//Structure/id"/>
+    <nested inputs="model/structure-3.0.xsd#//Structure;XSDComplexTypeDefinition/XSDAttributeUse=1"
+        outputs="structure_3_0.ecore#//Structure/name"/>
+  </nested>
+  <nested inputs="model/structure-3.0.xsd#//structure;XSDElementDeclaration" outputs="structure_3_0.ecore#//DocumentRoot/structure"/>
+  <nested inputs="bundleentry://241.fwk29115481/cache/www.w3.org/2001/XMLSchema.xsd#//anyType;XSDComplexTypeDefinition=28"
+      outputs="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//topLevelElement;XSDElementDeclaration=1"
+      outputs="xadlcore_3_0.ecore#//DocumentRoot/topLevelElement"/>
+  <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//xADL;XSDElementDeclaration/XSDComplexTypeDefinition"
+      outputs="xadlcore_3_0.ecore#//XADLType">
+    <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//xADL;XSDElementDeclaration/XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle"
+        outputs="xadlcore_3_0.ecore#//XADLType/topLevelElementGroup"/>
+    <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//xADL;XSDElementDeclaration/XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle"
+        outputs="xadlcore_3_0.ecore#//XADLType/topLevelElement"/>
+  </nested>
+  <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//xADL;XSDElementDeclaration"
+      outputs="xadlcore_3_0.ecore#//DocumentRoot/xADL"/>
+  <nested inputs="bundleentry://241.fwk29115481/cache/www.w3.org/2001/XMLSchema.xsd#//anyURI;XSDSimpleTypeDefinition=25"
+      outputs="http://www.eclipse.org/emf/2003/XMLType#//AnyURI"/>
+  <nested inputs="http://www.archstudio.org/svn/main/schemas/xlink.xsd#//href;XSDAttributeDeclaration=1"
+      outputs="xlink.ecore#//DocumentRoot/href"/>
+  <nested inputs="http://www.archstudio.org/svn/main/schemas/xlink.xsd#//type;XSDAttributeDeclaration"
+      outputs="xlink.ecore#//DocumentRoot/type"/>
+  <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//SimpleLink;XSDComplexTypeDefinition"
+      outputs="xadlcore_3_0.ecore#//SimpleLink">
+    <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//SimpleLink;XSDComplexTypeDefinition/XSDAttributeUse=2"
+        outputs="xadlcore_3_0.ecore#//SimpleLink/href"/>
+    <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//SimpleLink;XSDComplexTypeDefinition/XSDAttributeUse"
+        outputs="xadlcore_3_0.ecore#//SimpleLink/id"/>
+    <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//SimpleLink;XSDComplexTypeDefinition/XSDAttributeUse=1"
+        outputs="xadlcore_3_0.ecore#//SimpleLink/type"/>
+  </nested>
+</xsd2ecore:XSD2EcoreMappingRoot>

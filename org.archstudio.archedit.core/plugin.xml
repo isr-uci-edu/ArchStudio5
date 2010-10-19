@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.archedit.core.ArchEditMyxComponent">
+      </brick>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.archstudio.archedit.core.ArchEditEditor"
+            default="false"
+            icon="res/archstudio-icon-16x16.png"
+            id="org.archstudio.archedit.core.ArchEditEditor"
+            name="ArchEdit">
+      </editor>
+   </extension>
+
+</plugin>

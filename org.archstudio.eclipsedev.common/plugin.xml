@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="org.archstudio.eclipsedev.schemalocation" name="xADL 3 Schema Location" schema="schema/org.archstudio.eclipsedev.schemalocation.exsd"/>
+
+</plugin>

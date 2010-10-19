@@ -1,0 +1,106 @@
+<xs:schema xmlns="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+           targetNamespace="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
+           elementFormDefault="qualified"
+           attributeFormDefault="qualified"
+           version="3.0.0"
+            
+           ecore:package="org.archstudio.xadl3.xadlcore_3_0"
+           ecore:nsPrefix="xadlcore_3_0">
+
+	<xs:import namespace="http://www.w3.org/1999/xlink"
+	           schemaLocation="http://www.archstudio.org/svn/main/schemas/xlink.xsd"/>
+	<xs:import namespace="http://www.eclipse.org/emf/2002/Ecore" />
+
+	<xs:annotation>
+		<xs:documentation>
+		
+			xADL 3 Core Schema
+
+			This schema defines the core elements for xADL 3 documents.
+			The schema is intentionally small, defining only a few elements
+			that are intended to be common across xADL descriptions and
+			extensions, regardless of domain.
+
+			Changelog:
+			  - 3.0.0:
+			    * Initial version
+			
+		</xs:documentation>
+	</xs:annotation>
+
+	<!-- SCHEMA ROOT ELEMENT: xADL -->
+
+	<xs:element name="xADL">
+		<xs:annotation>
+			<xs:documentation>
+				This is the root element for all xADL documents.  It
+				is a container element, so it can contain a number
+				of top-level xADL elements via the use of a
+				substitution group.
+			</xs:documentation>
+		</xs:annotation>
+
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="topLevelElement"
+				            minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- GLOBAL ELEMENT: topLevelElement -->
+
+	<xs:element name="topLevelElement">
+		<xs:annotation>
+			<xs:documentation>
+				This is a placeholder element for xADL top-level
+				elements (i.e., elements that are direct children
+				of the document root element.  Elements that
+				are intended to be top-level elements should be
+				in the topLevelElement substitutionGroup to
+				declare their intent to be used as top-level
+				elements.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<!-- COMPLEX TYPE: SimpleLink -->
+
+	<xs:complexType name="SimpleLink">
+		<xs:annotation>
+			<xs:documentation>
+				This type is meant to describe elements that are
+				simple outbound links outside the current document
+				(internal links should use IDREFs). Elements of this 
+				type are simple-type XLinks that can use a simple
+				href to link to a document, or XPointer to
+				refer to an element within a document.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:attribute name="id" type="xs:ID" use="required"/>
+		<xs:attribute ref="xlink:type" fixed="simple" use="required"/>
+		<xs:attribute ref="xlink:href" use="required"/>
+	</xs:complexType>
+
+	<!-- COMPLEX TYPE: Extension -->
+    
+	<xs:complexType name="Extension" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+				This is an abstract base type for all extensions that
+				add content to an element.  In general, individual
+				types will create their own abstract Extension base
+				type (e.g., a type Foo will be accompanied by a
+				FooExtension base type that extends Extension)
+				and the type will include a list of zero or more
+				FooExtensions.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="id" type="xs:ID" use="required"/>
+	</xs:complexType>
+	
+</xs:schema>

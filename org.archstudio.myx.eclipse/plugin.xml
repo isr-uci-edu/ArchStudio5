@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="org.archstudio.myx.eclipse.brick" name="Myx Brick" schema="schema/org.archstudio.myx.eclipse.brick.exsd"/>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.myx.comp.MyxRuntimeComponent">
+      </brick>
+   </extension>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.myx.conn.SynchronousMultiwayProxyConnector">
+      </brick>
+   </extension>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.myx.conn.EventPumpConnector">
+      </brick>
+   </extension>
+
+</plugin>

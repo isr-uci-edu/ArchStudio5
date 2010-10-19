@@ -1,0 +1,277 @@
+<?xml version="1.0" ?>
+
+<schema ns="http://www.archstudio.org/schematron/xadl3-structure.xml"
+        xmlns="http://www.ascc.net/xml/schematron"        
+	fpi="+//IDN archstudio.org/SGML Schema//EN">
+
+  <title>xADL 3 Structure Tests Schema</title>
+  
+  <ns uri="http://www.w3.org/1999/xlink" prefix="xlink"/>
+  <ns uri="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd" prefix="core"/>
+  <ns uri="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd" prefix="structure"/>
+
+  <pattern id="E654111F-9B2A-407f-B017-C48E0FA51A4A" 
+   name="xADL 3/Core/No Duplicate IDs"
+   description="Checks for duplicate IDs in a xADL 3 document.">
+    <rule context="*">
+      <let name="id1" value="@*[local-name()='id']"/>
+      <assert test="not($id1) or ($id1 and (count(//@*[local-name()='id' and (.=$id1)]) = 1))">
+        text=Duplicate ID <value-of select="$id1"/> |*|
+        detail=Two elements have the same ID (<value-of select="$id1"/>) in the same document.
+               This is a serious error and most tools will not operate properly
+               on this document until this error is resolved.
+      </assert>
+    </rule>
+  </pattern>
+  
+  <!-- Structures -->
+  
+  <pattern id="D39A21F9-8760-4d9f-8BEF-B8092A6EAC62" 
+   name="xADL 3/Structures/Structure ID Present"
+   description="Checks for the presence of an ID on structures.">
+    <rule context="core:xADL/structure:structure">
+      <assert test="@structure:id">
+        text=Structure <value-of select="./@structure:name"/> must have an ID |*|
+        detail=Structure <value-of select="./@structure:name"/> must have an ID
+      </assert>
+    </rule>
+  </pattern>
+  
+  <pattern id="628967A1-8895-4563-B5BB-311E47EC9A6F" 
+   name="xADL 3/Structures/Structure ID Non-Empty"
+   description="Checks for the presence of a non-empty ID on structures.">
+    <rule context="core:xADL/structure:structure">
+      <assert test="normalize-space(@structure:id) != ''">
+        text=Structure <value-of select="./@structure:name"/> must have a non-empty ID |*|
+        detail=Structure <value-of select="./@structure:name"/> must have a non-empty ID
+      </assert>
+    </rule>
+  </pattern>
+  
+  <pattern id="7E3CA58D-BB94-4007-B7DF-990A7949CF9C" 
+   name="xADL 3/Structures/Structure Name Present"
+   description="Checks for the presence of a name on structures.">
+    <rule context="core:xADL/structure:structure">
+      <assert test="@structure:name">
+        id=<value-of select="@structure:id"/> |*|
+        iddesc=Structure |*|
+        text=Structure must have a name |*|
+        detail=Structure with ID <value-of select="@structure:id"/> must have a name
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="2551A15C-5CD0-4a96-A30D-6E13B86C645B" 
+   name="xADL 3/Structures/Structure Name Non-Empty"
+   description="Checks for the presence of a non-empty name on structures.">
+    <rule context="core:xADL/structure:structure">
+      <assert test="normalize-space(@structure:name) != ''">
+        id=<value-of select="@structure:id"/> |*|
+        iddesc=ArchStructure |*|
+        text=Structure must have a non-empty name |*|
+        detail=Structure with ID <value-of select="@structure:id"/> must have a non-empty name
+      </assert>
+    </rule>
+  </pattern>
+  
+  <!-- Components -->
+
+  <pattern id="043E2E44-3EA6-4f62-A8A6-587B55D3D49E" 
+   name="xADL 3/Structures/Components/Component ID Present"
+   description="Checks for the presence of an ID on components.">
+    <rule context="core:xADL/structure:structure/structure:component">
+      <assert test="@structure:id">
+        text=Component <value-of select="./@structure:name"/> must have an ID |*|
+        detail=Component <value-of select="./@structure:name"/> must have an ID
+      </assert>
+    </rule>
+  </pattern>
+  
+  <pattern id="F7F759A4-196A-4fca-A3C2-135B59EDA46D" 
+   name="xADL 3/Structures/Components/Component ID Non-Empty"
+   description="Checks for the presence of a non-empty ID on components.">
+    <rule context="core:xADL/structure:structure/structure:component">
+      <assert test="normalize-space(@structure:id) != ''">
+        text=Component <value-of select="./@structure:name"/> must have a non-empty ID |*|
+        detail=Component <value-of select="./@structure:name"/> must have a non-empty ID
+      </assert>
+    </rule>
+  </pattern>
+  
+  <pattern id="609D7041-06BB-4277-BB6B-F89E8E1F3DBB" 
+   name="xADL 3/Structures/Components/Component Name Present"
+   description="Checks for the presence of a name on components.">
+    <rule context="core:xADL/structure:structure/structure:component">
+      <assert test="@structure:name">
+        id=<value-of select="@structure:id"/> |*|
+        iddesc=Component |*|
+        text=Component must have a name |*|
+        detail=Component with ID <value-of select="@structure:id"/> must have a name
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="3F2626D5-F342-426e-B7BA-4B54ABAFA258" 
+   name="xADL 3/Structures/Components/Component Name Non-Empty"
+   description="Checks for the presence of a non-empty name on components.">
+    <rule context="core:xADL/structure:structure/structure:component">
+      <assert test="normalize-space(@structure:name) != ''">
+        id=<value-of select="@structure:id"/> |*|
+        iddesc=Component |*|
+        text=Component must have a non-empty name |*|
+        detail=Component with ID <value-of select="@structure:id"/> must have a non-empty name
+      </assert>
+    </rule>
+  </pattern>
+
+  <!-- Component Interfaces -->
+  
+  <pattern id="62A63D7D-C706-4438-A9E1-C4F0A1AC504B" 
+   name="xADL 3/Structures/Components/Interfaces/Component Interface ID Present"
+   description="Checks for the presence of an ID on component interfaces.">
+    <rule context="core:xADL/structure:structure/structure:component/structure:interface">
+      <assert test="@structure:id">
+        text=Component interface <value-of select="./@structure:name"/> must have an ID |*|
+        detail=Component interface <value-of select="./@structure:name"/> must have an ID
+      </assert>
+    </rule>
+  </pattern>
+  
+  <pattern id="79D8B865-41DE-42ad-9B73-51F61A1F02C0" 
+   name="xADL 3/Structures/Components/Interfaces/Component Interface ID Non-Empty"
+   description="Checks for the presence of a non-empty ID on component interfaces.">
+    <rule context="core:xADL/structure:structure/structure:component/structure:interface">
+      <assert test="normalize-space(@structure:id) != ''">
+        text=Component interface <value-of select="./@structure:name"/> must have a non-empty ID |*|
+        detail=Component interface <value-of select="./@structure:name"/> must have a non-empty ID
+      </assert>
+    </rule>
+  </pattern>
+  
+  <pattern id="DD771025-653D-4999-A5CB-BE266EA4D7DC" 
+   name="xADL 3/Structures/Components/Interfaces/Component Interface Name Present"
+   description="Checks for the presence of a name on component interfaces.">
+    <rule context="core:xADL/structure:structure/structure:component/structure:interface">
+      <assert test="@structure:name">
+        id=<value-of select="@structure:id"/> |*|
+        iddesc=Component Interface |*|
+        text=Component interface must have a name |*|
+        detail=Component interface with ID <value-of select="@structure:id"/> must have a name
+      </assert>
+    </rule>
+  </pattern>
+
+  <pattern id="84FF7E3D-8DF7-40e4-9268-99F270326C21" 
+   name="xADL 3/Structures/Components/Interfaces/Component Interface Name Non-Empty"
+   description="Checks for the presence of a non-empty name on component interfaces.">
+    <rule context="core:xADL/structure:structure/structure:component/structure:interface">
+      <assert test="normalize-space(@structure:name) != ''">
+        id=<value-of select="@structure:id"/> |*|
+        iddesc=Component Interface |*|
+        text=Component interface must have a non-empty name |*|
+        detail=Component interface with ID <value-of select="@structure:id"/> must have a non-empty name
+      </assert>
+    </rule>
+  </pattern>
+
+   <!-- Connectors -->
+ 
+   <pattern id="043E2E44-3EA6-4f62-A8A6-587B55D3D49F" 
+    name="xADL 3/Structures/Connectors/Connector ID Present"
+    description="Checks for the presence of an ID on connectors.">
+     <rule context="core:xADL/structure:structure/structure:connector">
+       <assert test="@structure:id">
+         text=Connector <value-of select="./@structure:name"/> must have an ID |*|
+         detail=Connector <value-of select="./@structure:name"/> must have an ID
+       </assert>
+     </rule>
+   </pattern>
+   
+   <pattern id="F7F759A4-196A-4fca-A3C2-135B59EDA46E" 
+    name="xADL 3/Structures/Connectors/Connector ID Non-Empty"
+    description="Checks for the presence of a non-empty ID on connectors.">
+     <rule context="core:xADL/structure:structure/structure:connector">
+       <assert test="normalize-space(@structure:id) != ''">
+         text=Connector <value-of select="./@structure:name"/> must have a non-empty ID |*|
+         detail=Connector <value-of select="./@structure:name"/> must have a non-empty ID
+       </assert>
+     </rule>
+   </pattern>
+   
+   <pattern id="609D7041-06BB-4277-BB6B-F89E8E1F3DBC" 
+    name="xADL 3/Structures/Connectors/Connector Name Present"
+    description="Checks for the presence of a name on connectors.">
+     <rule context="core:xADL/structure:structure/structure:connector">
+       <assert test="@structure:name">
+         id=<value-of select="@structure:id"/> |*|
+         iddesc=Connector |*|
+         text=Connector must have a name |*|
+         detail=Connector with ID <value-of select="@structure:id"/> must have a name
+       </assert>
+     </rule>
+   </pattern>
+ 
+   <pattern id="3F2626D5-F342-426e-B7BA-4B54ABAFA259" 
+    name="xADL 3/Structures/Connectors/Connector Name Non-Empty"
+    description="Checks for the presence of a non-empty name on connectors.">
+     <rule context="core:xADL/structure:structure/structure:connector">
+       <assert test="normalize-space(@structure:name) != ''">
+         id=<value-of select="@structure:id"/> |*|
+         iddesc=Connector |*|
+         text=Connector must have a non-empty name |*|
+         detail=Connector with ID <value-of select="@structure:id"/> must have a non-empty name
+       </assert>
+     </rule>
+   </pattern>
+ 
+   <!-- Connector Interfaces -->
+   
+   <pattern id="62A63D7D-C706-4438-A9E1-C4F0A1AC504C" 
+    name="xADL 3/Structures/Connectors/Interfaces/Connector Interface ID Present"
+    description="Checks for the presence of an ID on connector interfaces.">
+     <rule context="core:xADL/structure:structure/structure:connector/structure:interface">
+       <assert test="@structure:id">
+         text=Connector interface <value-of select="./@structure:name"/> must have an ID |*|
+         detail=Connector interface <value-of select="./@structure:name"/> must have an ID
+       </assert>
+     </rule>
+   </pattern>
+   
+   <pattern id="79D8B865-41DE-42ad-9B73-51F61A1F02C1" 
+    name="xADL 3/Structures/Connectors/Interfaces/Connector Interface ID Non-Empty"
+    description="Checks for the presence of a non-empty ID on connector interfaces.">
+     <rule context="core:xADL/structure:structure/structure:connector/structure:interface">
+       <assert test="normalize-space(@structure:id) != ''">
+         text=Connector interface <value-of select="./@structure:name"/> must have a non-empty ID |*|
+         detail=Connector interface <value-of select="./@structure:name"/> must have a non-empty ID
+       </assert>
+     </rule>
+   </pattern>
+   
+   <pattern id="DD771025-653D-4999-A5CB-BE266EA4D7DD" 
+    name="xADL 3/Structures/Connectors/Interfaces/Connector Interface Name Present"
+    description="Checks for the presence of a name on connector interfaces.">
+     <rule context="core:xADL/structure:structure/structure:connector/structure:interface">
+       <assert test="@structure:name">
+         id=<value-of select="@structure:id"/> |*|
+         iddesc=Connector Interface |*|
+         text=Connector interface must have a name |*|
+         detail=Connector interface with ID <value-of select="@structure:id"/> must have a name
+       </assert>
+     </rule>
+   </pattern>
+ 
+   <pattern id="84FF7E3D-8DF7-40e4-9268-99F270326C22" 
+    name="xADL 3/Structures/Connectors/Interfaces/Connector Interface Name Non-Empty"
+    description="Checks for the presence of a non-empty name on connector interfaces.">
+     <rule context="core:xADL/structure:structure/structure:connector/structure:interface">
+       <assert test="normalize-space(@structure:name) != ''">
+         id=<value-of select="@structure:id"/> |*|
+         iddesc=Connector Interface |*|
+         text=Connector interface must have a non-empty name |*|
+         detail=Connector interface with ID <value-of select="@structure:id"/> must have a non-empty name
+       </assert>
+     </rule>
+   </pattern>
+
+</schema>

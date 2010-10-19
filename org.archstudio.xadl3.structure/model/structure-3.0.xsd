@@ -1,0 +1,285 @@
+<xs:schema xmlns="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:core="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
+           targetNamespace="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd"
+           xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+           elementFormDefault="qualified"
+           attributeFormDefault="qualified"
+           version="3.0.0"
+            
+           ecore:package="org.archstudio.xadl3.structure_3_0"
+           ecore:nsPrefix="structure_3_0">
+
+	<xs:import namespace="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
+	           schemaLocation="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd"/>
+	<xs:import namespace="http://www.eclipse.org/emf/2002/Ecore" />
+
+	<xs:annotation>
+		<xs:documentation>
+
+			xADL 3 Structure Schema
+
+			This schema defines the basic elements that make up architectural
+			structure: components, connectors, interfaces, links, and
+			the scaffolding necessary for hierarchical modeling.  This schema
+			is intentionally neutral about the semantics of these elements;
+			semantics should be provided in extension schemas.
+
+			Changelog:
+			  - 3.0.0
+			    * Initial version
+			
+		</xs:documentation>
+	</xs:annotation>
+
+	<!-- TOP LEVEL ELEMENT: archStructure -->
+
+	<xs:element name="structure" type="Structure" 
+	            substitutionGroup="core:topLevelElement">
+		<xs:annotation>
+			<xs:documentation>
+				This element is a top-level xADL element
+				containing an architectural structure.
+				A single document may contain more than one
+				structure, and structures may be connected
+				to one another via links in substructure
+				relationships.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<!-- COMPLEX TYPE: Structure -->
+	
+	<xs:complexType name="Structure">
+		<xs:annotation>
+			<xs:documentation>
+				This type defines an architectural structure.
+				A structure consists of components, connectors,
+				and links.  Components and connectors internally
+				contain interfaces.  It is possible for one
+				structure to be nested within a component
+				or connector by reference through the use of
+				the subStructure element on components or
+				connectors.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:sequence>
+			<xs:element name="component" type="Component"
+			            minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="connector" type="Connector"
+			            minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="link" type="Link"
+			            minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ext" type="core:Extension"
+			            minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+		
+	<!-- ENUMERATION TYPE: Direction -->
+	
+	<xs:simpleType name="Direction">
+		<xs:annotation>
+			<xs:documentation>
+				This enumeration defines legal interface directions.
+				
+				They are:
+				 - none:  No directionality selected or implied.
+				 - in:    Incoming interface. Provided services
+				          should be "in" interfaces.
+				 - out:   Outgoing interface. Required services
+				          should be "out" interfaces.
+				 - inout: Incoming AND outgoing interface.
+				          Endpoint both provides and requires
+				          a service.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none"/>
+			<xs:enumeration value="in"/>
+			<xs:enumeration value="out"/>
+			<xs:enumeration value="inout"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!-- COMPLEX TYPE: Interface -->
+	
+	<xs:complexType name="Interface">
+		<xs:annotation>
+			<xs:documentation>
+				An interface is a point through which a brick
+				(component or connector) communicates with the
+				outside world. In general, required and provided
+				services will be associated with interfaces.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:sequence>
+			<xs:element name="ext" type="core:Extension"
+			            minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="direction" type="Direction"/>
+	</xs:complexType>
+
+	<!-- COMPLEX TYPE: Brick -->
+	
+	<xs:complexType name="Brick" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+				Brick is the abstract base type for components
+				and connectors.  A brick is a logical element
+				that has an ID, a human-readable name, and
+				zero or more interfaces.  Additionally, a brick
+				may have internal substructure.  This type is
+				defined so that, on a basic level, components
+				and connectors can be treated equally.
+				However, no Brick extension is defined,
+				since we assume that there will be very
+				semantically different extensions for
+				components, connectors, and future types of
+				bricks.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:sequence>
+			<xs:element name="interface" type="Interface"
+			            minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="subStructure" type="SubStructure"
+                        minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+
+	<!-- COMPLEX TYPE: Component -->
+
+	<xs:complexType name="Component">
+		<xs:annotation>
+			<xs:documentation>
+				Components are the loci of computation in an
+				architecture.  They inherit all the properties
+				of a Brick: ID, name, interfaces, and optional
+				substructure.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:complexContent>
+			<xs:extension base="Brick">
+				<xs:sequence>
+					<xs:element name="ext" type="core:Extension"
+					            minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<!-- COMPLEX TYPE: Connector -->
+
+	<xs:complexType name="Connector">
+		<xs:annotation>
+			<xs:documentation>
+				Connectors are the loci of communication in an
+				architecture.  They inherit all the properties
+				of a Brick: ID, name, interfaces, and optional
+				substructure.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:complexContent>
+			<xs:extension base="Brick">
+				<xs:sequence>
+					<xs:element name="ext" type="core:Extension"
+					            minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<!-- COMPLEX TYPE: SubStructure -->
+	
+	<xs:complexType name="SubStructure">
+		<xs:annotation>
+			<xs:documentation>
+				This type allows the specification of
+				sub-structure for a brick (component or connector);
+				that is, the internal structure of a Brick can
+				also contain its own structure of components
+				and connectors.  This allows for hierarchical
+				(and possibly recursive) composition.
+				
+				A subStructure consists of a link to the inner
+				structure, alone with zero or more interface mappings.
+				Interface mappings map (or connect) interfaces on the
+				outer components and connectors with interfaces on
+				the inner components and connectors.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:sequence>
+			<xs:element name="innerStructureLink" type="xs:IDREF" ecore:reference="Structure" />
+			<xs:element name="interfaceMapping" type="InterfaceMapping"
+			            minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ext" type="core:Extension"
+			            minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID" use="required"/>
+	</xs:complexType>
+
+	<!-- COMPLEX TYPE: InterfaceMapping -->
+	
+	<xs:complexType name="InterfaceMapping">
+		<xs:annotation>
+			<xs:documentation>
+				Interface mappings are used in the specification of
+				sub-structure for a Brick (Component or Connector).
+				An interface mapping maps (or connects) an interface
+				on the outer Brick to an interface on an inner Brick.
+				The outerInterfaceLink is a link to the interface
+				on the outer brick.  The innerInterfaceLink is
+				a link to the interface on the inner brick.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:sequence>
+			<xs:element name="outerInterfaceLink" type="xs:IDREF" ecore:reference="Interface" />
+			<xs:element name="innerInterfaceLink" type="xs:IDREF" ecore:reference="Interface" />
+			<xs:element name="ext" type="core:Extension"
+			            minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID" use="required"/>
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+	
+	<!-- COMPLEX TYPE: Link -->
+	
+	<xs:complexType name="Link">
+		<xs:annotation>
+			<xs:documentation>
+				A Link is an architectural construct that
+				connects two elements.  It connects two
+				interfaces.
+				
+				Links are intended to have very limited semantics:
+				they simply indicate an association between two
+				endpoints. If the connection needs to have
+				deeper semantics, consider interposing a connector
+				between the endpoints, since connectors are intended
+				to be semantically-rich elements.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:sequence>
+			<xs:element name="point1" type="xs:IDREF" ecore:reference="Interface" />
+			<xs:element name="point2" type="xs:IDREF" ecore:reference="Interface" />
+			<xs:element name="ext" type="core:Extension"
+			            minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID" use="required"/>
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+
+</xs:schema>

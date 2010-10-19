@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Bootstrap Core
+Bundle-SymbolicName: org.archstudio.bootstrap.core;singleton:=true
+Bundle-Version: 5.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.emf.common;bundle-version="2.5.0",
+ org.archstudio.myx.eclipse;bundle-version="5.0.0",
+ org.archstudio.myx.fw;bundle-version="5.0.0",
+ org.archstudio.xarchadt.common;bundle-version="5.0.0",
+ org.archstudio.aim.common;bundle-version="5.0.0",
+ org.archstudio.xadl.common;bundle-version="5.0.0"

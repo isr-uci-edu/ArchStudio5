@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.archstudio.myx.eclipse" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.archstudio.myx.eclipse" id="org.archstudio.myx.eclipse.brick" name="MyxEclipseBrick"/>
+      </appinfo>
+      <documentation>
+         This extension point is used by Eclipse plug-ins that want to contribute bricks to a Myx application through the Myx-Eclipse Adapter.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="brick"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="brick">
+      <annotation>
+         <documentation>
+            This describes a Myx Brick type that can be plugged into the Myx application.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="class" type="string">
+            <annotation>
+               <documentation>
+                  This is the main class for the brick that implements org.archstudio.myx.fw.IMyxBrick
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.archstudio.myx.fw.IMyxBrick"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         5.0.0
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="examples"/>
+      </appinfo>
+      <documentation>
+         Each &lt;code&gt;org.archstudio.myx.eclipse.brick&lt;/code&gt; specified by a plug-in represents a Myx brick.  Currently the extension point indicates only the brick main class, which implements org.archstudio.myx.fw.IMyxBrick.  A single plug-in can expose multiple Myx bricks by implementing this extension multiple times.
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="apiinfo"/>
+      </appinfo>
+      <documentation>
+         This extension point has no API.
+      </documentation>
+   </annotation>
+
+
+   <annotation>
+      <appinfo>
+         <meta.section type="copyright"/>
+      </appinfo>
+      <documentation>
+         Copyright (C) archstudio.org.
+      </documentation>
+   </annotation>
+
+</schema>

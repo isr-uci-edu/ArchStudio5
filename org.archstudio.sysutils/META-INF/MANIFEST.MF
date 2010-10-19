@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: System Utilities
+Bundle-SymbolicName: org.archstudio.sysutils
+Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
+Export-Package: org.archstudio.sysutils

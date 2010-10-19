@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="org.archstudio.eclipsedev.xadl3SchemaBuilder"
+         name="xADL 3 Schema Project Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="org.archstudio.eclipsedev.core.builder.Xadl3SchemaBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="org.archstudio.eclipsedev.xadl3SchemaNature"
+         name="xADL 3 Schema Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.archstudio.eclipsedev.core.Xadl3SchemaNature">
+         </run>
+      </runtime>
+      <builder
+            id="org.archstudio.eclipsedev.xadl3SchemaBuilder">
+      </builder>
+      <requires-nature
+            id="org.eclipse.pde.PluginNature">
+      </requires-nature>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.archstudio.eclipsedev.core.popupMenuAdditions"
+            nameFilter="*"
+            objectClass="org.eclipse.core.resources.IProject">
+         <menu
+               id="org.archstudio.eclipsedev.core.popupMenuMain"
+               label="ArchStudio 5 Development">
+            <separator
+                  name="addremove">
+            </separator>
+         </menu>
+         <action
+               class="org.archstudio.eclipsedev.core.action.RemoveXadl3SchemaNatureAction"
+               enablesFor="+"
+               id="org.archstudio.eclipsedev.core.removeXadl3SchemaNature"
+               label="Remove xADL 3 Schema Project Nature"
+               menubarPath="org.archstudio.eclipsedev.core.popupMenuMain/addremove"
+               style="push">
+            <enablement>
+               <objectState
+                     name="projectNature"
+                     value="org.archstudio.eclipsedev.xadl3SchemaNature">
+               </objectState>
+            </enablement>
+         </action>
+         <action
+               class="org.archstudio.eclipsedev.core.action.AddXadl3SchemaNatureAction"
+               enablesFor="+"
+               id="org.archstudio.eclipsedev.core.addXadl3SchemaNature"
+               label="Add xADL 3 Schema Project Nature"
+               menubarPath="org.archstudio.eclipsedev.core.popupMenuMain/addremove"
+               style="push">
+            <enablement>
+               <not>
+                  <objectState
+                        name="projectNature"
+                        value="org.archstudio.eclipsedev.xadl3SchemaNature">
+                  </objectState>
+               </not>
+            </enablement>
+         </action>
+         <visibility>
+            <and>
+               <objectState
+                     name="projectNature"
+                     value="org.eclipse.jdt.core.javanature">
+               </objectState>
+               <objectState
+                     name="projectNature"
+                     value="org.eclipse.pde.PluginNature">
+               </objectState>
+            </and>
+         </visibility>
+      </objectContribution>
+   </extension>
+   <extension
+         id="org.archstudio.eclipsedev.xadl3SchemaBuilderProblem"
+         name="xADL 3 Schema Builder Problem"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.eclipsedev.core.EclipseDevMyxComponent">
+      </brick>
+      <brick
+            class="org.archstudio.eclipsedev.core.prefs.EclipseDevPreferencesMyxComponent">
+      </brick>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.archstudio.eclipsedev.core.prefs.EclipseDevPreferencePanel"
+            id="org.archstudio.eclipsedev.core.prefs.EclipseDevPreferencePanel"
+            name="ArchStudio Development">
+      </page>
+   </extension>
+
+</plugin>

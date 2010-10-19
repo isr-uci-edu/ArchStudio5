@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            category="edu.uci.isr.archstudio5.main.ArchStudio5Views"
+            class="org.archstudio.launcher.core.LauncherView"
+            icon="res/archstudio-icon-16x16.png"
+            id="org.archstudio.launcher.core.LauncherView"
+            name="ArchStudio Launcher"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.launcher.core.LauncherMyxComponent">
+      </brick>
+   </extension>
+
+</plugin>

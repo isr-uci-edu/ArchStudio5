@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio ArchEdit Core
+Bundle-SymbolicName: org.archstudio.archedit.core;singleton:=true
+Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.archstudio.filemanager.common;bundle-version="5.0.0",
+ org.archstudio.editormanager.common;bundle-version="5.0.0",
+ org.archstudio.editors.common;bundle-version="5.0.0",
+ org.archstudio.xarchadt.common;bundle-version="5.0.0",
+ org.archstudio.myx.eclipse;bundle-version="5.0.0",
+ org.archstudio.myx.fw;bundle-version="5.0.0",
+ org.eclipse.core.runtime;bundle-version="3.5.0",
+ org.archstudio.swtutils;bundle-version="5.0.0",
+ org.archstudio.main;bundle-version="5.0.0",
+ org.archstudio.common;bundle-version="5.0.0",
+ org.eclipse.swt;bundle-version="3.5.1",
+ org.archstudio.launcher.common;bundle-version="5.0.0",
+ org.archstudio.resources.common;bundle-version="5.0.0",
+ org.eclipse.jface;bundle-version="3.5.1",
+ org.eclipse.ui;bundle-version="3.5.1",
+ org.archstudio.xadl.common;bundle-version="5.0.0",
+ org.archstudio.sysutils;bundle-version="5.0.0",
+ org.eclipse.ui.views;bundle-version="3.4.1",
+ org.eclipse.emf.common;bundle-version="2.5.0"

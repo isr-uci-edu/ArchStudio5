@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio Eclipse Development Support
+Bundle-SymbolicName: org.archstudio.eclipsedev.core;singleton:=true
+Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.archstudio.eclipsedev.common;bundle-version="5.0.0",
+ org.archstudio.dblgen.common;bundle-version="5.0.0",
+ org.archstudio.myx.eclipse;bundle-version="5.0.0",
+ org.archstudio.myx.fw;bundle-version="5.0.0",
+ org.eclipse.core.resources;bundle-version="3.5.1",
+ org.eclipse.core.runtime;bundle-version="3.5.0",
+ org.eclipse.jface;bundle-version="3.5.1",
+ org.eclipse.ui;bundle-version="3.5.1",
+ org.eclipse.pde.core;bundle-version="3.5.100",
+ org.eclipse.emf.common;bundle-version="2.5.0",
+ org.eclipse.emf.ecore;bundle-version="2.5.0"
+Bundle-Activator: org.archstudio.eclipsedev.core.Activator
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: lib/commons-io-1.4.jar,
+ .

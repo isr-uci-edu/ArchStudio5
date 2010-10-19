@@ -1,0 +1,67 @@
+<xs:schema xmlns="http://www.archstudio.org/xadl3/schemas/implementation-3.0.xsd"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns:core="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
+            xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+            targetNamespace="http://www.archstudio.org/xadl3/schemas/implementation-3.0.xsd"
+            elementFormDefault="qualified"
+            attributeFormDefault="qualified"
+            version="3.0.0"
+            
+            ecore:package="org.archstudio.xadl3.implementation_3_0"
+            ecore:nsPrefix="implementation_3_0">
+
+	<xs:import namespace="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
+	           schemaLocation="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd"/>
+	<xs:import namespace="http://www.eclipse.org/emf/2002/Ecore" />
+
+	<xs:annotation>
+		<xs:documentation>
+
+			xADL 3 Abstract Implementation Schema
+
+			This schema defines the concept of an implementation.
+			The concept is abstract, so it is intended to be 
+			specialized by various specific types of implementations.
+			However, it exists so that implementations can be
+			treated similarly.
+
+			Changelog:
+			  - 3.0.0
+			    * Initial version
+			
+		</xs:documentation>
+	</xs:annotation>
+
+	<!-- COMPLEX TYPE: Implementation -->
+	
+	<xs:complexType name="Implementation" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+				This type defines an abstract base type
+				for implementations.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="id" type="xs:ID"/>
+	</xs:complexType>
+
+	<!-- COMPLEX TYPE: ImplementationExtension -->
+	
+	<xs:complexType name="ImplementationExtension">
+		<xs:annotation>
+			<xs:documentation>
+				This type is an extension that can be added
+				to elements to give them implementations.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:complexContent>
+			<xs:extension base="core:Extension">
+				<xs:sequence>
+					<xs:element name="implementation" type="Implementation"
+					            minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>				
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

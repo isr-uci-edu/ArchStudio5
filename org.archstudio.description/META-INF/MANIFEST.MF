@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio 5 Description Generator
+Bundle-SymbolicName: org.archstudio.description
+Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.emf.common;bundle-version="2.5.0",
+ org.archstudio.xadl3.domain;bundle-version="1.0.0",
+ org.archstudio.xadl3.structure;bundle-version="5.0.0",
+ org.archstudio.xadl3.xadlcore;bundle-version="5.0.0",
+ org.archstudio.xadl3.xlink;bundle-version="5.0.0",
+ org.archstudio.xarchadt.common;bundle-version="5.0.0",
+ org.archstudio.xarchadt.core;bundle-version="5.0.0",
+ org.archstudio.xadl.common;bundle-version="5.0.0",
+ org.archstudio.xadl3.implementation;bundle-version="1.0.0",
+ org.archstudio.xadl3.javaimplementation;bundle-version="1.0.0",
+ org.archstudio.xadl3.lookupimplementation;bundle-version="1.0.0"

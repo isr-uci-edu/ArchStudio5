@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.archlight.core.ArchlightMyxComponent">
+      </brick>
+   </extension>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.archlight.core.ArchlightToolAggregatorMyxComponent">
+      </brick>
+   </extension>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.archlight.core.prefs.ArchlightPrefsMyxComponent">
+      </brick>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.archstudio.rootpreferences.core.ArchStudioPreferencePanel"
+            class="org.archstudio.archlight.core.prefs.ArchlightPreferencePanel"
+            id="org.archstudio.archlight.core.prefs.ArchlightPreferencePanel"
+            name="Archlight">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.archstudio.archlight.core.ArchlightEditor"
+            default="false"
+            icon="res/archstudio-icon-16x16.png"
+            id="org.archstudio.archlight.core.ArchlightEditor"
+            name="Archlight">
+      </editor>
+   </extension>
+
+</plugin>

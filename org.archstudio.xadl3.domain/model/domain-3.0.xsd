@@ -1,0 +1,90 @@
+<xs:schema xmlns="http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:core="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
+           xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+           targetNamespace="http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd"
+           elementFormDefault="qualified"
+           attributeFormDefault="qualified"
+           version="3.0.0"
+            
+           ecore:package="org.archstudio.xadl3.domain_3_0"
+           ecore:nsPrefix="domain_3_0">
+
+	<xs:import namespace="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
+	           schemaLocation="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd"/>
+	<xs:import namespace="http://www.eclipse.org/emf/2002/Ecore" />
+
+	<xs:annotation>
+		<xs:documentation>
+
+			xADL 3 Domain Schema
+
+			This schema defines the concept of a domain, 
+			usually applied to interfaces.  In some
+			architectural styles, (Myx, C2) interfaces have 
+			different domains that establish dependency 
+			relationships and topological layout.
+
+			Changelog:
+			  - 3.0.0
+			    * Initial version
+			
+		</xs:documentation>
+	</xs:annotation>
+
+    <!-- SIMPLE TYPE ENUMERATION: DomainType -->
+    
+	<xs:simpleType name="DomainType">
+		<xs:annotation>
+			<xs:documentation>
+				This enumeration defines allowable domains
+				for interfaces in styles that support the
+				notion of domains.
+				
+				They are:
+				 - top:    Top domain.
+				 - bottom: Bottom domain.
+				 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="top"/>
+			<xs:enumeration value="bottom"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+	<!-- COMPLEX TYPE: Domain -->
+	
+	<xs:complexType name="Domain">
+		<xs:annotation>
+			<xs:documentation>
+				This type defines an element that can be
+				added to another element to indicate
+				its domain.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:attribute name="type" type="DomainType" />
+	</xs:complexType>
+
+	<!-- COMPLEX TYPE: DomainExtension -->
+	
+	<xs:complexType name="DomainExtension">
+		<xs:annotation>
+			<xs:documentation>
+				This type is an extension that can be added
+				to elements to give them a domain.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:complexContent>
+			<xs:extension base="core:Extension">
+				<xs:sequence>
+					<xs:element name="domain" type="Domain"/>
+				</xs:sequence>
+			</xs:extension>				
+		</xs:complexContent>
+	</xs:complexType>
+
+</xs:schema>

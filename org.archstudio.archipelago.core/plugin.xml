@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.archipelago.core.ArchipelagoMyxComponent">
+      </brick>
+   </extension>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.archipelago.core.prefs.ArchipelagoPrefsMyxComponent">
+      </brick>
+   </extension>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePrefsMyxComponent">
+      </brick>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.archstudio.archipelago.core.ArchipelagoEditor"
+            default="false"
+            icon="res/archstudio-icon-16x16.png"
+            id="org.archstudio.archipelago.core.ArchipelagoEditor"
+            name="Archipelago">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.archstudio.rootpreferences.core.ArchStudioPreferencePanel"
+            class="org.archstudio.archipelago.core.prefs.ArchipelagoPreferencePanel"
+            id="org.archstudio.archipelago.core.prefs.ArchipelagoPreferencePanel"
+            name="Archipelago">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.archstudio.archipelago.core.prefs.ArchipelagoPreferencePanel"
+            class="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePreferencePanel"
+            id="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePreferencePanel"
+            name="Structure">
+      </page>
+   </extension>
+
+</plugin>

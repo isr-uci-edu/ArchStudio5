@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: xADL 3 Data bindings for structure
+Bundle-SymbolicName: org.archstudio.xadl3.structure;singleton:=true
+Bundle-Version: 5.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: archstudio.org
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.archstudio.xadl3.structure_3_0,
+ org.archstudio.xadl3.structure_3_0.impl,
+ org.archstudio.xadl3.structure_3_0.util
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.emf.ecore.xmi;visibility:=reexport,
+ org.archstudio.xadl3.xadlcore;visibility:=reexport,
+ org.archstudio.xadl3.xlink;visibility:=reexport
+Bundle-ActivationPolicy: lazy

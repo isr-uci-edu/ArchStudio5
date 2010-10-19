@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Myx-Eclipse Bridge
+Bundle-SymbolicName: org.archstudio.myx.eclipse;singleton:=true
+Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.archstudio.myx.fw;bundle-version="5.0.0",
+ org.eclipse.core.runtime;bundle-version="3.5.0"
+Export-Package: org.archstudio.myx.eclipse

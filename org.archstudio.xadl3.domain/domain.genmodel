@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.archstudio.xadl3.domain/src"
+    modelPluginID="org.archstudio.xadl3.domain" modelName="Domain" importerID="org.eclipse.xsd.ecore.importer"
+    complianceLevel="6.0" copyrightFields="false" usedGenPackages="platform:/resource/org.archstudio.xadl3.xadlcore/xadlcore.genmodel#//xadlcore_3_0 platform:/resource/org.archstudio.xadl3.xlink/xlink.genmodel#//xlink">
+  <foreignModel>model/domain-3.0.xsd</foreignModel>
+  <genPackages prefix="Domain_3_0" basePackage="org.archstudio.xadl3" resource="XML"
+      disposableProviderFactory="true" ecorePackage="domain_3_0.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="domain_3_0.ecore#//DomainType">
+      <genEnumLiterals ecoreEnumLiteral="domain_3_0.ecore#//DomainType/top"/>
+      <genEnumLiterals ecoreEnumLiteral="domain_3_0.ecore#//DomainType/bottom"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="domain_3_0.ecore#//DomainTypeObject"/>
+    <genClasses ecoreClass="domain_3_0.ecore#//Domain">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domain_3_0.ecore#//Domain/type"/>
+    </genClasses>
+    <genClasses ecoreClass="domain_3_0.ecore#//DomainExtension">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference domain_3_0.ecore#//DomainExtension/domain"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

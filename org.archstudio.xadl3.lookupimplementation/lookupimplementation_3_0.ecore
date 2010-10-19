@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="lookupimplementation_3_0"
+    nsURI="http://www.archstudio.org/xadl3/schemas/lookupimplementation-3.0.xsd" nsPrefix="lookupimplementation_3_0">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+    <details key="documentation" value="&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;xADL 3 Lookup Implementation Schema&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;This schema defines the concrete concept of a Lookup-based&#xD;&#xA;&#x9;&#x9;&#x9;implementation.&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;Changelog:&#xD;&#xA;&#x9;&#x9;&#x9;  - 3.0.0&#xD;&#xA;&#x9;&#x9;&#x9;    * Initial version&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#x9;xADL 3 Core Schema&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;This schema defines the core elements for xADL 3 documents.&#xD;&#xA;&#x9;&#x9;&#x9;The schema is intentionally small, defining only a few elements&#xD;&#xA;&#x9;&#x9;&#x9;that are intended to be common across xADL descriptions and&#xD;&#xA;&#x9;&#x9;&#x9;extensions, regardless of domain.&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;Changelog:&#xD;&#xA;&#x9;&#x9;&#x9;  - 3.0.0:&#xD;&#xA;&#x9;&#x9;&#x9;    * Initial version&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;xADL 3 Abstract Implementation Schema&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;This schema defines the concept of an implementation.&#xD;&#xA;&#x9;&#x9;&#x9;The concept is abstract, so it is intended to be &#xD;&#xA;&#x9;&#x9;&#x9;specialized by various specific types of implementations.&#xD;&#xA;&#x9;&#x9;&#x9;However, it exists so that implementations can be&#xD;&#xA;&#x9;&#x9;&#x9;treated similarly.&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;Changelog:&#xD;&#xA;&#x9;&#x9;&#x9;  - 3.0.0&#xD;&#xA;&#x9;&#x9;&#x9;    * Initial version&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="LookupImplementation" eSuperTypes="implementation_3_0.ecore#//Implementation">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;This type defines a Lookup-based implementation.&#xD;&#xA;&#x9;&#x9;&#x9;"/>
+    </eAnnotations>
+    <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+      <details key="name" value="LookupImplementation"/>
+      <details key="kind" value="elementOnly"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ext" upperBound="-1" eType="ecore:EClass xadlcore_3_0.ecore#//Extension"
+        containment="true" resolveProxies="false">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="element"/>
+        <details key="name" value="ext"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lookup" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="kind" value="attribute"/>
+        <details key="name" value="lookup"/>
+        <details key="namespace" value="##targetNamespace"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+</ecore:EPackage>

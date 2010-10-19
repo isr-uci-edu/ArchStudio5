@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.issueview.core.ArchlightIssueViewMyxComponent">
+      </brick>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            class="org.archstudio.issueview.core.ArchlightIssueView"
+            icon="res/archstudio-icon-16x16.png"
+            id="org.archstudio.issueview.core.ArchlightIssueView"
+            name="Archlight Issues"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.archstudio.rootpreferences.core.ArchStudioPreferencePanel"
+            id="org.archstudio.rootpreferences.core.ArchStudioPreferencePanel"
+            name="ArchStudio Preferences">
+      </page>
+   </extension>
+   <extension
+         point="org.archstudio.myx.eclipse.brick">
+      <brick
+            class="org.archstudio.rootpreferences.core.RootPreferencesMyxComponent">
+      </brick>
+   </extension>
+
+</plugin>
