@@ -5,7 +5,7 @@
          point="org.eclipse.ui.views">
       <view
             allowMultiple="false"
-            category="edu.uci.isr.archstudio5.main.ArchStudio5Views"
+            category="org.archstudio.main.ArchStudio5Views"
             class="org.archstudio.launcher.core.LauncherView"
             icon="res/archstudio-icon-16x16.png"
             id="org.archstudio.launcher.core.LauncherView"
