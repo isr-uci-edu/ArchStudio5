@@ -535,11 +535,13 @@ public class Main {
 		));
 		*/
 
+		/*
 		xarch.add(structureRef, "component", createEditorComponent(
 			"HPCConfigurationEditor",
 			"org.archstudio.hpc.editor.HPCConfigurationEditorMyxComponent",
 			null
 		));
+		*/
 		
 		xarch.add(structureRef, "link", createLink(
 			getInterfaceRef(structureRef, "xArchADT", "xarch"), 
@@ -838,9 +840,11 @@ public class Main {
 			xarch.add(structureRef, "link", linkRef);
 		}
 		*/
+		/*
 		for(ObjRef linkRef : createEditorLinks(structureRef, "HPCConfigurationEditor")) {
 			xarch.add(structureRef, "link", linkRef);
 		}
+		*/
 		
 		String xmlString = xarch.serialize(docURI);
 		System.err.println(xmlString);
