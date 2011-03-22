@@ -39,7 +39,7 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 
 //import org.archstudio.archipelago.core.flow.FlowTreePlugin;
 //import org.archstudio.archipelago.core.memory.MemoryTreePlugin;
-import org.archstudio.archipelago.core.hpc.HPCTreePlugin;
+//import org.archstudio.archipelago.core.hpc.HPCTreePlugin;
 import org.archstudio.archipelago.core.structure.StructureTreePlugin;
 import org.archstudio.editors.common.AbstractArchstudioOutlinePage;
 import org.archstudio.filemanager.common.IFileManager;
