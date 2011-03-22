@@ -524,7 +524,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		}
 	}
 
-	//projectName = e.g., "edu.uci.isr.xadl3bindings"
+	//projectName = e.g., "org.archstudio.xadl3bindings"
 	public synchronized List<DataBindingGenerationStatus> generateBindings(List<String> schemaURIStrings, String projectName) {
 		List<DataBindingGenerationStatus> statusList = new ArrayList<DataBindingGenerationStatus>();
 

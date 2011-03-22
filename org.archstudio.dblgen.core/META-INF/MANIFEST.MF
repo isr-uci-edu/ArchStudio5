@@ -4,7 +4,7 @@ Bundle-Name: Data Binding Library Generator
 Bundle-SymbolicName: org.archstudio.dblgen.core;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.archstudio.dblgen.core;uses:="edu.uci.isr.dblgen.common,org.eclipse.emf.common.util,edu.uci.isr.myx.fw"
+Export-Package: org.archstudio.dblgen.core;uses:="org.archstudio.dblgen.common,org.eclipse.emf.common.util,org.archstudio.myx.fw"
 Bundle-Vendor: archstudio.org
 Require-Bundle: org.archstudio.dblgen.common;bundle-version="5.0.0",
  org.archstudio.myx.eclipse;bundle-version="5.0.0",
