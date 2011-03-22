@@ -13,7 +13,7 @@ public class TreeNodeDataCache implements IArchipelagoTreeNodeDataCache{
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.archstudio.archipelago.core.ITreeNodeDataCache#setData(edu.uci.isr.xarchflat.ObjRef, java.lang.Object, java.lang.String, java.lang.Object)
+	 * @see org.archstudio.archipelago.core.ITreeNodeDataCache#setData(org.archstudio.xarchflat.ObjRef, java.lang.Object, java.lang.String, java.lang.Object)
 	 */
 	public void setData(ObjRef xArchRef, Object treeNode, String key, Object data){
 		KeyTuple kt = new KeyTuple(xArchRef, treeNode, key);
@@ -21,7 +21,7 @@ public class TreeNodeDataCache implements IArchipelagoTreeNodeDataCache{
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.archstudio.archipelago.core.ITreeNodeDataCache#getData(edu.uci.isr.xarchflat.ObjRef, java.lang.Object, java.lang.String)
+	 * @see org.archstudio.archipelago.core.ITreeNodeDataCache#getData(org.archstudio.xarchflat.ObjRef, java.lang.Object, java.lang.String)
 	 */
 	public Object getData(ObjRef xArchRef, Object treeNode, String key){
 		KeyTuple kt = new KeyTuple(xArchRef, treeNode, key);

@@ -75,7 +75,7 @@ public class StructureLinkEndpointLogic extends AbstractThingLogic implements IB
 									if(newStuckToXArchID != null){
 										ObjRef newStuckToRef = AS.xarch.getByID(xArchRef, newStuckToXArchID);
 										if(newStuckToRef != null){
-											if(AS.xarch.isInstanceOf(newStuckToRef, "edu.uci.isr.xadl3.structure_3_0.Interface")){
+											if(AS.xarch.isInstanceOf(newStuckToRef, "org.archstudio.xadl3.structure_3_0.Interface")){
 												IThing splineGlassThingParentThing = model.getParentThing(sgt);
 												if(splineGlassThingParentThing != null){
 													if(StructureMapper.isLinkAssemblyRootThing(splineGlassThingParentThing)){

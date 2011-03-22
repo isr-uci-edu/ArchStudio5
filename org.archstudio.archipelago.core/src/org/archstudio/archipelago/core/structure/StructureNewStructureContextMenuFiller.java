@@ -13,7 +13,7 @@ import org.archstudio.xadl.common.XadlUtils;
 import org.archstudio.xarchadt.common.ObjRef;
 
 public class StructureNewStructureContextMenuFiller implements IArchipelagoTreeContextMenuFiller{
-	protected String STRUCTURE_FACTORY = "edu.uci.isr.xadl3.structure_3_0";
+	protected String STRUCTURE_FACTORY = "org.archstudio.xadl3.structure_3_0";
 	
 	protected TreeViewer viewer = null;
 	protected ArchipelagoServices AS =  null;

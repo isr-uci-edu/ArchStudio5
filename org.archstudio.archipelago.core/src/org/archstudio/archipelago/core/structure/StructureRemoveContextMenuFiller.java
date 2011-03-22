@@ -16,7 +16,7 @@ public class StructureRemoveContextMenuFiller extends AbstractRemoveContextMenuF
 		if(node != null){
 			if(node instanceof ObjRef){
 				ObjRef targetRef = (ObjRef)node;
-				if(AS.xarch.isInstanceOf(targetRef, "edu.uci.isr.xadl3.structure_3_0.Structure")){
+				if(AS.xarch.isInstanceOf(targetRef, "org.archstudio.xadl3.structure_3_0.Structure")){
 					return true;
 				}
 			}
@@ -26,7 +26,7 @@ public class StructureRemoveContextMenuFiller extends AbstractRemoveContextMenuF
 	
 	protected void remove(ObjRef targetRef){
 		if(targetRef != null){
-			if(AS.xarch.isInstanceOf(targetRef, "edu.uci.isr.xadl3.structure_3_0.Structure")){
+			if(AS.xarch.isInstanceOf(targetRef, "org.archstudio.xadl3.structure_3_0.Structure")){
 				AS.xarch.remove(xArchRef, "Object", targetRef);
 				return;
 			}

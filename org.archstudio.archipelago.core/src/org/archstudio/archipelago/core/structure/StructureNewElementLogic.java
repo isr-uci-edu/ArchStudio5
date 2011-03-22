@@ -21,7 +21,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 
 public class StructureNewElementLogic extends AbstractThingLogic implements IBNAMenuListener{
-	protected static final String STRUCTURE_FACTORY = "edu.uci.isr.xadl3.structure_3_0";
+	protected static final String STRUCTURE_FACTORY = "org.archstudio.xadl3.structure_3_0";
 	
 	protected ArchipelagoServices AS = null;
 	protected ObjRef xArchRef = null;

@@ -32,7 +32,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic{
 						return true;
 					}
 					else if(data instanceof ObjRef){
-						if(AS.xarch.isInstanceOf((ObjRef)data, "edu.uci.isr.xadl3.structure_3_0.Structure")){
+						if(AS.xarch.isInstanceOf((ObjRef)data, "org.archstudio.xadl3.structure_3_0.Structure")){
 							return true;
 						}
 					}
@@ -42,7 +42,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic{
 						return true;
 					}
 					else if(data instanceof ObjRef){
-						if(AS.xarch.isInstanceOf((ObjRef)data, "edu.uci.isr.xadl3.structure_3_0.Structure")){
+						if(AS.xarch.isInstanceOf((ObjRef)data, "org.archstudio.xadl3.structure_3_0.Structure")){
 							return true;
 						}
 					}
@@ -90,7 +90,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic{
 					// Set up a substructure if one doesn't already exist.
 					ObjRef subStructureRef = (ObjRef)AS.xarch.get(outerRef, "subStructure");
 					if(subStructureRef == null){
-						subStructureRef = AS.xarch.create("edu.uci.isr.xadl3.structure_3_0", "subStructure");
+						subStructureRef = AS.xarch.create("org.archstudio.xadl3.structure_3_0", "subStructure");
 						AS.xarch.set(subStructureRef, "id", UIDGenerator.generateUID("subStructure"));
 						AS.xarch.set(outerRef, "subStructure", subStructureRef);
 					}
