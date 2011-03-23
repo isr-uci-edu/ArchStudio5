@@ -167,7 +167,6 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 
     // Initialize simple dependencies
     Xadlcore_3_0Package.eINSTANCE.eClass();
-    Xadlcore_3_0Package.eINSTANCE.eClass();
     XMLTypePackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
