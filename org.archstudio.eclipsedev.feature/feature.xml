@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.archstudio.eclipsedev.feature"
+      label="ArchStudio Eclipse Development Feature"
+      version="5.0.0.qualifier"
+      provider-name="archstudio.org">
+
+   <description>
+      This feature should be installed in a copy of Eclipse used for
+ArchStudio 5 development.
+   </description>
+
+   <copyright>
+      Copyright (C) 2000-2010.
+   </copyright>
+
+   <license>
+      Copyright (c) 2000-2010, archstudio.org and the Regents of the
+University of California
+All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+* Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the
+distribution.
+* Neither the name of the copyright-holders nor the names of
+its contributors may be used to endorse or promote products derived
+from this software without specific prior written permission.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+&quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT
+NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.emf.common" version="2.4.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources" version="3.5.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.codegen" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.codegen.ecore" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.converter" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore.xmi" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.importer" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xsd" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xsd.ecore.importer" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jface" version="3.5.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui" version="3.5.1" match="greaterOrEqual"/>
+      <import plugin="org.archstudio.dblgen.common" version="5.0.0" match="greaterOrEqual"/>
+      <import plugin="org.archstudio.myx.eclipse" version="5.0.0" match="greaterOrEqual"/>
+      <import plugin="org.archstudio.myx.fw" version="5.0.0" match="greaterOrEqual"/>
+      <import plugin="org.archstudio.eclipsedev.common" version="5.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.pde.core" version="3.5.100" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.common" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.5.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="org.archstudio.dblgen.common"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.dblgen.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.eclipsedev.common"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.eclipsedev.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.myx.eclipse"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.myx.fw"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.preferencesadt.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
