@@ -27,6 +27,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SystemUtils {
 
@@ -1031,6 +1033,20 @@ public class SystemUtils {
 			sb.append(stringArray[i]);
 		}
 		sb.append(end);
+		return sb.toString();
+	}
+
+	public static final String message(String message, Object... variables) {
+		StringBuffer sb = new StringBuffer(2 * message.length());
+		Matcher m = Pattern.compile("\\$([0-9]+)").matcher(message);
+		while (m.find()) {
+			int v = Integer.valueOf(m.group(1));
+			if (v >= 0 && v < variables.length)
+				m.appendReplacement(sb, variables[v] == null ? "null" : variables[v].toString());
+			else
+				sb.append(m.group());
+		}
+		m.appendTail(sb);
 		return sb.toString();
 	}
 }

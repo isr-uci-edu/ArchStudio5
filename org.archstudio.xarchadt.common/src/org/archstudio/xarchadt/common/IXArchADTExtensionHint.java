@@ -1,8 +1,8 @@
 package org.archstudio.xarchadt.common;
 
 public interface IXArchADTExtensionHint {
-	public String getExtensionFactoryName();
+	public String getExtensionNsURI();
 	public String getExtensionTypeName();
-	public String getTargetFactoryName();
+	public String getTargetNsURI();
 	public String getTargetTypeName();
 }

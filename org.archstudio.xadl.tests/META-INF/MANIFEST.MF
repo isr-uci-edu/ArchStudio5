@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests
+Bundle-SymbolicName: org.archstudio.xadl.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: org.archstudio.xarchadt.common;bundle-version="5.0.0",
+ org.archstudio.xarchadt.core;bundle-version="5.0.0",
+ org.eclipse.emf.common;bundle-version="2.5.0",
+ org.archstudio.sysutils;bundle-version="5.0.0",
+ org.archstudio.ext.guava;bundle-version="0.8.0",
+ org.archstudio.xadl.common;bundle-version="5.0.0",
+ org.junit,
+ org.archstudio.xadl3.xadlcore;bundle-version="5.0.0",
+ org.archstudio.xadl3.structure;bundle-version="5.0.0"

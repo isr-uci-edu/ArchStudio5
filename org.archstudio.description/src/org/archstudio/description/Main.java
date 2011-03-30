@@ -2,40 +2,37 @@ package org.archstudio.description;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EFactory;
-
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.ObjRef;
-import org.archstudio.xarchadt.core.Factories;
-import org.archstudio.xarchadt.core.XArchADTImpl;
 import org.archstudio.xadl.common.XadlUtils;
 import org.archstudio.xadl3.domain_3_0.DomainType;
-import org.archstudio.xadl3.domain_3_0.Domain_3_0Factory;
-import org.archstudio.xadl3.implementation_3_0.Implementation_3_0Factory;
-import org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Factory;
-import org.archstudio.xadl3.lookupimplementation_3_0.Lookupimplementation_3_0Factory;
+import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
+import org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package;
+import org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package;
+import org.archstudio.xadl3.lookupimplementation_3_0.Lookupimplementation_3_0Package;
 import org.archstudio.xadl3.structure_3_0.Direction;
-import org.archstudio.xadl3.structure_3_0.Structure_3_0Factory;
-import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Factory;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
+import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
+import org.archstudio.xarchadt.common.IXArchADT;
+import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.core.XArchADTImpl;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
 
 public class Main {
 	private static IXArchADT xarch = new XArchADTImpl();
 	
 	static {
-		Map<String, EFactory> factories = new HashMap<String,EFactory>();
-		factories.put("org.archstudio.xadl3.xadlcore_3_0", Xadlcore_3_0Factory.eINSTANCE);
-		factories.put("org.archstudio.xadl3.structure_3_0", Structure_3_0Factory.eINSTANCE);
-		factories.put("org.archstudio.xadl3.domain_3_0", Domain_3_0Factory.eINSTANCE);
-		factories.put("org.archstudio.xadl3.implementation_3_0", Implementation_3_0Factory.eINSTANCE);
-		factories.put("org.archstudio.xadl3.javaimplementation_3_0", Javaimplementation_3_0Factory.eINSTANCE);
-		factories.put("org.archstudio.xadl3.lookupimplementation_3_0", Lookupimplementation_3_0Factory.eINSTANCE);
-		Factories.getInstance().registerFactories(factories);
+		// Note: referencing an EPackage initializes it and its corresponding EFacotry 
+		@SuppressWarnings("unused")
+		EPackage p;
+		p = Xadlcore_3_0Package.eINSTANCE;
+		p = Structure_3_0Package.eINSTANCE;
+		p = Domain_3_0Package.eINSTANCE;
+		p = Implementation_3_0Package.eINSTANCE;
+		p = Javaimplementation_3_0Package.eINSTANCE;
+		p = Lookupimplementation_3_0Package.eINSTANCE;
 	}
 
 	private static ObjRef createJavaImplementation(String mainClass, Properties initParams) {
@@ -846,7 +843,7 @@ public class Main {
 		}
 		*/
 		
-		String xmlString = xarch.serialize(docURI);
+		String xmlString = new String(xarch.serialize(docURI));
 		System.err.println(xmlString);
 	}
 	

@@ -94,7 +94,7 @@ public class NewFileWizard extends Wizard implements INewWizard{
 
 		xarch.set(documentRootRef, "xADL", xADLRef);
 		
-		String fileContents = xarch.serialize(uri);
+		String fileContents = new String(xarch.serialize(uri));
 		xarch.close(uri);
 
 		InputStream is = new ByteArrayInputStream(fileContents.getBytes());

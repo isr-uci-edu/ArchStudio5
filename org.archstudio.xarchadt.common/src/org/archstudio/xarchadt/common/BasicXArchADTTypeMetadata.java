@@ -1,41 +1,61 @@
 package org.archstudio.xarchadt.common;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.Map;
 
 public class BasicXArchADTTypeMetadata implements IXArchADTTypeMetadata {
-	private final String factoryName;
-	private final String instanceTypeName;
-	private final String instanceClassName;
+
+	private static final long serialVersionUID = 5091502840120062712L;
+
+	private final String nsURI;
+	private final String nsPrefix;
+	private final String typeName;
+	private final Map<String, IXArchADTFeature> features;
+
+	@Deprecated
+	private final Class<?> elementClass;
+	@Deprecated
 	private final Class<?> instanceClass;
-	private final List<IXArchADTFeature> features;
-	
-	public BasicXArchADTTypeMetadata(String factoryName, String instanceTypeName, String instanceClassName, Class<?> instanceClass, List<IXArchADTFeature> features){ 
-		this.factoryName = factoryName;
-		this.instanceTypeName = instanceTypeName;
-		this.instanceClassName = instanceClassName;
+
+	public BasicXArchADTTypeMetadata(String nsURI, String nsPrefix, String typeName,
+			Map<String, IXArchADTFeature> features, Class<?> elementClass, Class<?> instanceClass) {
+		super();
+		this.nsURI = nsURI;
+		this.nsPrefix = nsPrefix;
+		this.typeName = typeName;
+		this.features = Collections.unmodifiableMap(features);
+		this.elementClass = elementClass;
 		this.instanceClass = instanceClass;
-		this.features = Collections.unmodifiableList(new ArrayList<IXArchADTFeature>(features));
 	}
-	
-	public String getFactoryName() {
-		return factoryName;
+
+	public String getNsURI() {
+		return nsURI;
 	}
-	
-	public List<IXArchADTFeature> getFeatures(){
+
+	public String getNsPrefix() {
+		return nsPrefix;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public Map<String, IXArchADTFeature> getFeatures() {
 		return features;
 	}
 
-	public String getInstanceTypeName() {
-    	return instanceTypeName;
-    }
+	@Override
+	public Class<?> getElementClass() {
+		return elementClass;
+	}
 
+	@Override
+	public String getInstanceTypeName() {
+		return null;
+	}
+
+	@Override
 	public Class<?> getInstanceClass() {
-    	return instanceClass;
-    }
-	
-	public String getInstanceClassName() {
-		return instanceClassName;
+		return instanceClass;
 	}
 }

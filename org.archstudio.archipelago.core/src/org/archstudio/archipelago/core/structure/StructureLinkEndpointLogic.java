@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.common.ObjRef;
 import org.archstudio.bna.AbstractThingLogic;
 import org.archstudio.bna.BNAModelEvent;
@@ -75,7 +77,7 @@ public class StructureLinkEndpointLogic extends AbstractThingLogic implements IB
 									if(newStuckToXArchID != null){
 										ObjRef newStuckToRef = AS.xarch.getByID(xArchRef, newStuckToXArchID);
 										if(newStuckToRef != null){
-											if(AS.xarch.isInstanceOf(newStuckToRef, "org.archstudio.xadl3.structure_3_0.Interface")){
+											if(XadlUtils.isInstanceOf(AS.xarch, newStuckToRef, Structure_3_0Package.Literals.INTERFACE)){
 												IThing splineGlassThingParentThing = model.getParentThing(sgt);
 												if(splineGlassThingParentThing != null){
 													if(StructureMapper.isLinkAssemblyRootThing(splineGlassThingParentThing)){

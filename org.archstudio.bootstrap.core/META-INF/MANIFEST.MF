@@ -9,4 +9,5 @@ Require-Bundle: org.eclipse.emf.common;bundle-version="2.5.0",
  org.archstudio.myx.fw;bundle-version="5.0.0",
  org.archstudio.xarchadt.common;bundle-version="5.0.0",
  org.archstudio.aim.common;bundle-version="5.0.0",
- org.archstudio.xadl.common;bundle-version="5.0.0"
+ org.archstudio.xadl.common;bundle-version="5.0.0",
+ org.archstudio.xadl3.structure;bundle-version="5.0.0"

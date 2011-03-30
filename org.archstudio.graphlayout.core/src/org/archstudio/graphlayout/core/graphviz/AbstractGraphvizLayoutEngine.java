@@ -18,6 +18,9 @@ import org.archstudio.graphlayout.core.ILayoutEngine;
 import org.archstudio.swtutils.constants.Orientation;
 import org.archstudio.xadl.common.XadlUtils;
 import org.archstudio.xadl3.domain_3_0.DomainType;
+import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
+import org.archstudio.xadl3.structure_3_0.Structure;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.common.IXArchADT;
 import org.archstudio.xarchadt.common.ObjRef;
 
@@ -41,7 +44,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 		if (rootRef == null)
 			throw new IllegalArgumentException("Null root reference in graph layout.");
 
-		if (!xarch.isInstanceOf(rootRef, "org.archstudio.xadl3.structure_3_0.Structure")) {
+		if (!XadlUtils.isInstanceOf(xarch, rootRef, Structure_3_0Package.Literals.STRUCTURE)) {
 			throw new GraphLayoutException("Invalid root reference in graph layout; must be a Structure");
 		}
 
@@ -138,7 +141,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 		if (linkEndpoint1Parent == null) {
 			return;
 		}
-		if (!xarch.isInstanceOf(linkEndpoint1Parent, "org.archstudio.xadl3.structure_3_0.Brick")) {
+		if (!XadlUtils.isInstanceOf(xarch, linkEndpoint1Parent, Structure_3_0Package.Literals.BRICK)) {
 			return;
 		}
 		String linkEndpoint1ParentXArchID = XadlUtils.getID(xarch, linkEndpoint1Parent);
@@ -154,7 +157,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 		if (linkEndpoint2Parent == null) {
 			return;
 		}
-		if (!xarch.isInstanceOf(linkEndpoint2Parent, "org.archstudio.xadl3.structure_3_0.Brick")) {
+		if (!XadlUtils.isInstanceOf(xarch, linkEndpoint2Parent, Structure_3_0Package.Literals.BRICK)) {
 			return;
 		}
 		String linkEndpoint2ParentXArchID = XadlUtils.getID(xarch, linkEndpoint2Parent);
@@ -366,7 +369,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 	protected static Orientation guessInterfaceOrientation(IXArchADT xarch, ObjRef interfaceRef) {
 		// Check the domain
 		for (ObjRef extRef : xarch.getAll(interfaceRef, "ext")) {
-			if (xarch.isInstanceOf(extRef, "org.archstudio.xadl3.domain_3_0.DomainExtension")) {
+			if (XadlUtils.isInstanceOf(xarch, extRef, Domain_3_0Package.Literals.DOMAIN_EXTENSION)) {
 				ObjRef domainRef = (ObjRef) xarch.get(extRef, "domain");
 				if (domainRef != null) {
 					DomainType domainType = (DomainType) xarch.get(domainRef, "type");
