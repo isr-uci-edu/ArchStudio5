@@ -1,42 +1,46 @@
 package org.archstudio.xarchadt.common;
 
-import org.eclipse.emf.common.util.URI;
+import java.util.concurrent.atomic.AtomicLong;
 
 public final class ObjRef implements java.io.Serializable {
-	private static long nextUidNum = 1000;
 
-	private final int hc;
-	private final String uid;
-	
+	private static final long serialVersionUID = -1027266603679479510L;
+
+	private static final AtomicLong atomicLong = new AtomicLong(1000);
+
+	private final Object uid;
+
 	public ObjRef() {
-		uid = "obj" + nextUidNum++;
-		hc = uid.hashCode();
+		this.uid = Long.valueOf(atomicLong.getAndIncrement());
 	}
 
 	public ObjRef(String uid) {
+		if (uid == null)
+			throw new NullPointerException("ObjRef UID may not be null");
 		this.uid = uid;
-		hc = uid.hashCode();
 	}
 
-	public String getUID() {
+	public Object getUID() {
 		return uid;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return hc;
+		return uid.hashCode();
 	}
 
 	@Override
-	public boolean equals(Object otherObjRef) {
-		if (this == otherObjRef) {
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
-		}
-		if (!(otherObjRef instanceof ObjRef)) {
+		if (obj == null)
 			return false;
-		}
-
-		return ((ObjRef) otherObjRef).uid.equals(uid);
+		if (getClass() != obj.getClass())
+			return false;
+		ObjRef other = (ObjRef) obj;
+		if (!uid.equals(other.uid))
+			return false;
+		return true;
 	}
 
 	@Override

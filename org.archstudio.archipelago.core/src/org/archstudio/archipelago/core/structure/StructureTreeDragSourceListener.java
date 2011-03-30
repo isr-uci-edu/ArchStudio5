@@ -6,6 +6,8 @@ import org.eclipse.swt.dnd.DragSourceListener;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.common.ObjRef;
 import org.archstudio.bna.BNAComposite;
 import org.archstudio.bna.BNAUtils;
@@ -24,7 +26,7 @@ public class StructureTreeDragSourceListener implements DragSourceListener {
 	
 	public void dragStart(DragSourceEvent event){
 		if((event.data != null) && (event.data instanceof ObjRef)){
-			if(AS.xarch.isInstanceOf((ObjRef)event.data, "org.archstudio.xadl3.structure_3_0.Structure")){
+			if(XadlUtils.isInstanceOf(AS.xarch, (ObjRef)event.data, Structure_3_0Package.Literals.STRUCTURE)){
 				//For dropping structures on components & connectors; only allow if we're editing a structure.
 				BNAComposite bnaComposite = ArchipelagoUtils.getBNAComposite(AS.editor);
 				if(bnaComposite != null){
@@ -37,7 +39,7 @@ public class StructureTreeDragSourceListener implements DragSourceListener {
 							if(editingXArchID != null){
 								ObjRef editingRef = AS.xarch.getByID(documentRootRef, editingXArchID);
 								if(editingRef != null){
-									if(AS.xarch.isInstanceOf(editingRef, "org.archstudio.xadl3.structure_3_0.Structure")){
+									if(XadlUtils.isInstanceOf(AS.xarch, editingRef, Structure_3_0Package.Literals.STRUCTURE)){
 										event.doit = true;
 										event.detail = DND.DROP_LINK;
 									}

@@ -1,9 +1,9 @@
 package org.archstudio.xarchadt.common;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface IXArchADTQuery {
-	public static final String EXTENSION_HINT_URI = "http://www.archstudio.org/xadl3/schemas/extensionHint";
 
 	/**
 	 * Determines if a given ObjRef is valid, that is, if there is an object
@@ -89,7 +89,7 @@ public interface IXArchADTQuery {
 	 *            Identifiers of things to get.
 	 * @return An array of <CODE>ObjRef</CODE>s referring to the objects gotten.
 	 */
-	public List<ObjRef> get(ObjRef baseObjectRef, String typeOfThing, List<String> ids);
+	public List<ObjRef> getAll(ObjRef baseObjectRef, String typeOfThing, List<String> ids);
 
 	/**
 	 * Gets a set of references to a set of children from an xArch element.
@@ -112,94 +112,6 @@ public interface IXArchADTQuery {
 	 * @return An array of <CODE>ObjRef</CODE>s referring to the objects gotten.
 	 */
 	public List<ObjRef> getAll(ObjRef baseObjectRef, String typeOfThing);
-
-	/**
-	 * Gets metadata describing a compound type (context and simple type name).
-	 * 
-	 * @param type
-	 *            The compound type (see:
-	 *            {@link XArchMetadataUtils#getType(String, String)})
-	 * @return Metadata describing the type of the xArch element.
-	 * 
-	 * @see XArchMetadataUtils#getType(String, String)
-	 */
-	//public IXArchTypeMetadata getTypeMetadata(String type);
-
-	/**
-	 * Gets metadata describing the type of an xArch element. Roughly equivalent
-	 * to: baseObject.getTypeMetadata();
-	 * 
-	 * @param baseObjectRef
-	 *            Reference to an xArch element.
-	 * @return Metadata describing the type of the xArch element.
-	 */
-	//public IXArchTypeMetadata getTypeMetadata(ObjRef baseObjectRef);
-
-	/**
-	 * Gets metadata describing the instance of an xArch element.
-	 * 
-	 * @param baseObjRef
-	 *            Reference to an xArch element.
-	 * @return Metadata describing the instance of the xArch element.
-	 */
-	//public IXArchInstanceMetadata getInstanceMetadata(ObjRef baseObjRef);
-
-	/**
-	 * DEPRICATED: This method reveals the underlying implementing class. Use
-	 * {@link #isInstanceOf(ObjRef, String)}.
-	 * 
-	 * Gets the class name of an xArch element. Roughly equivalent to:
-	 * baseObject.getClass().getName();
-	 * 
-	 * @param baseObjectRef
-	 *            Reference to an xArch element.
-	 * @return The name of the class of that object.
-	 * 
-	 * @deprecated Replaced by {@link #isInstanceOf(ObjRef, String)}
-	 */
-	public String getType(ObjRef baseObjectRef);
-
-	/**
-	 * NOTE: className reveals implementation detail, replace with compound type
-	 * described in {@link XArchMetadataUtils#getType(String, String)}. For
-	 * example, before you would have called this method with
-	 * "org.archstudio.xarch.types.IComponentType", but now the format described in
-	 * {@link XArchMetadataUtils#getType(String, String)}
-	 * 
-	 * Determines if a given xArch element is an instance of a given class.
-	 * Roughly equivalent to: (baseObject instanceof [type])
-	 * 
-	 * @param baseObjectRef
-	 *            Reference to an xArch element.
-	 * @param type
-	 *            The compound type (see:
-	 *            {@link XArchMetadataUtils#getType(String, String)})
-	 * @return <CODE>true</CODE> if the base object was an instance of the given
-	 *         type, <CODE>false</CODE> otherwise.
-	 * 
-	 * @see XArchMetadataUtils#getType(String, String)
-	 */
-	public boolean isInstanceOf(ObjRef baseObjectRef, String type);
-
-	public boolean isInstanceOf(IXArchADTFeature feature, String type);
-	
-	/**
-	 * Determines if toType is either the same as, or a supertype of, the
-	 * fromType parameter. Roughly equivalent to:
-	 * ([toType].isAssignableFrom([fromType])
-	 * 
-	 * @param fromType
-	 *            The from compound type to check (see:
-	 *            {@link XArchMetadataUtils#getType(String, String)})
-	 * @param toType
-	 *            The potential subtype to check (see:
-	 *            {@link XArchMetadataUtils#getType(String, String)})
-	 * @return <CODE>true</CODE> if toType is the same as, or a supertype of,
-	 *         fromType, <CODE>false</CODE> otherwise.
-	 * 
-	 * @see XArchMetadataUtils#getType(String, String)
-	 */
-	public boolean isAssignable(String toType, String fromType);
 
 	/**
 	 * Determines if one node in the XML tree is an ancestor of another. This
@@ -252,19 +164,19 @@ public interface IXArchADTQuery {
 	public ObjRef getParent(ObjRef targetObjectRef);
 
 	/**
-	 * Gets the <CODE>XArchPath</CODE> of the given element.
+	 * Gets the <CODE>XArchADTPath</CODE> of the given element.
 	 * 
 	 * @param ref
 	 *            Reference to the element whose path you want to get.
-	 * @return <CODE>XArchPath</CODE> to that element.
+	 * @return <CODE>XArchADTPath</CODE> to that element.
 	 */
-	//public XArchPath getXArchPath(ObjRef ref);
+	//public XArchADTPath getXArchADTPath(ObjRef ref);
 
 	/**
 	 * Gets an element by its ID within a given xArch tree. If no such element
 	 * exists, returns <CODE>null</CODE>.
 	 * 
-	 * @param xArchRef
+	 * @param documentRootRef
 	 *            Reference to the IXArch object that is the root of the tree to
 	 *            search.
 	 * @param id
@@ -272,9 +184,9 @@ public interface IXArchADTQuery {
 	 * @return reference to the object, or <CODE>null</CODE> if no such object
 	 *         exists.
 	 * @exception IllegalArgumentException
-	 *                if <CODE>xArchRef</CODE> is invalid.
+	 *                if <CODE>documentRootRef</CODE> is invalid.
 	 */
-	public ObjRef getByID(ObjRef xArchRef, String id);
+	public ObjRef getByID(ObjRef documentRootRef, String id);
 
 	/**
 	 * Gets an element by its ID within ANY OPEN xArch tree. If no such element
@@ -290,7 +202,7 @@ public interface IXArchADTQuery {
 	/**
 	 * Resolves an href, as might be found in an XLink.
 	 * 
-	 * @param xArchRef
+	 * @param documentRootRef
 	 *            Reference to the IXArch object that provides the context in
 	 *            which the href exists.
 	 * @param href
@@ -300,22 +212,22 @@ public interface IXArchADTQuery {
 	 * @return Reference to the referenced (by the href) object, or
 	 *         <CODE>null</CODE>.
 	 */
-	public ObjRef resolveHref(ObjRef xArchRef, String href);
+	public ObjRef resolveHref(ObjRef documentRootRef, String href);
 
-	/**
-	 * Resolves an <CODE>XArchPath</CODE> in the context of the given document
-	 * (in terms of an <CODE>ObjRef</CODE> to the top level xArch element of a
-	 * document).
-	 * 
-	 * @param xArchRef
-	 *            Reference to the top-level element of the document within
-	 *            which to resolve the <CODE>XArchPath</CODE>.
-	 * @param xArchPath
-	 *            <CODE>XArchPath</CODE> to resolve.
-	 * @return <CODE>ObjRef</CODE> to the referenced element, or
-	 *         <CODE>null</CODE> if the path cannot be resolved
-	 */
-	//public ObjRef resolveXArchPath(ObjRef xArchRef, XArchPath xArchPath);
+	//	/**
+	//	 * Resolves an <CODE>XArchADTPath</CODE> in the context of the given
+	//	 * document (in terms of an <CODE>ObjRef</CODE> to the top level xArch
+	//	 * element of a document).
+	//	 * 
+	//	 * @param documentRootRef
+	//	 *            Reference to the top-level element of the document within
+	//	 *            which to resolve the <CODE>XArchADTPath</CODE>.
+	//	 * @param XArchADTPath
+	//	 *            <CODE>XArchADTPath</CODE> to resolve.
+	//	 * @return <CODE>ObjRef</CODE> to the referenced element, or
+	//	 *         <CODE>null</CODE> if the path cannot be resolved
+	//	 */
+	//	public ObjRef resolveXArchADTPath(ObjRef documentRootRef, XArchADTPath XArchADTPath);
 
 	/**
 	 * Determines whether two ObjRefs refer to the same underlying object.
@@ -329,16 +241,26 @@ public interface IXArchADTQuery {
 	public boolean equals(ObjRef ref1, ObjRef ref2);
 
 	public XArchADTPath getPath(ObjRef ref);
-	
-	public List<String> getAvailableFactories();
-	
+
 	public ObjRef getDocumentRootRef(ObjRef ref);
 
 	public String getTagName(ObjRef ref);
+
 	public String getContainingFeatureName(ObjRef ref);
+
 	public String getTagsOnlyPathString(ObjRef ref);
-	public IXArchADTTypeMetadata getTypeMetadata(ObjRef ref);
-	public IXArchADTFactoryMetadata getFactoryMetadata(String factoryName);
+
+	public IXArchADTPackageMetadata getPackageMetadata(String nsURI);
+
+	public Collection<IXArchADTPackageMetadata> getAvailablePackageMetadata();
+
+	public IXArchADTTypeMetadata getTypeMetadata(String nsURI, String typeName);
+
+	public IXArchADTTypeMetadata getTypeMetadata(ObjRef objRef);
+
+	public boolean isInstanceOf(ObjRef baseObjRef, String nsURI, String typeName);
+
+	public boolean isInstanceOf(String objectNsURI, String objectTypeName, String nsURI, String typeName);
 
 	public List<IXArchADTExtensionHint> getAllExtensionHints();
 	public List<IXArchADTExtensionHint> getExtensionHintsForExtension(String extensionFactoryName, String extensionTypeName);

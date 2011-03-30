@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.xadl3.hints_3_0.Hints_3_0Package;
 import org.archstudio.xarchadt.common.ObjRef;
 
 public class ArrayPropertyCoder implements IPropertyCoder{
@@ -16,7 +17,7 @@ public class ArrayPropertyCoder implements IPropertyCoder{
 			
 			Object[] arr = (Object[])propertyValue;
 			for(int i = 0; i < arr.length; i++){
-				ObjRef childValueRef = (ObjRef)AS.xarch.create(HintSupport.HINTS_FACTORY, "value");
+				ObjRef childValueRef = (ObjRef)AS.xarch.create(Hints_3_0Package.eNS_URI, "value");
 				if(masterCoder.encode(masterCoder, AS, childValueRef, arr[i])){
 					AS.xarch.add(valueRef, "value", childValueRef);
 				}

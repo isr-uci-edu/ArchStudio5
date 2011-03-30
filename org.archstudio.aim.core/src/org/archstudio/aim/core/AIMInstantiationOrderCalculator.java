@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.archstudio.xadl.common.XadlUtils;
-import org.archstudio.xadl3.domain_3_0.Domain;
 import org.archstudio.xadl3.domain_3_0.DomainType;
+import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
 import org.archstudio.xarchadt.common.IXArchADT;
 import org.archstudio.xarchadt.common.IXArchADTQuery;
 import org.archstudio.xarchadt.common.ObjRef;
@@ -125,7 +125,7 @@ public class AIMInstantiationOrderCalculator {
 	}
 
 	public static DomainType getDomain(IXArchADTQuery xarch, ObjRef interfaceRef) {
-		ObjRef domainExtRef = XadlUtils.getExt(xarch, interfaceRef, "org.archstudio.xadl3.domain_3_0.DomainExtension");
+		ObjRef domainExtRef = XadlUtils.getExt(xarch, interfaceRef, Domain_3_0Package.eNS_URI, "DomainExtension");
 		if (domainExtRef != null) {
 			ObjRef domainRef = (ObjRef) xarch.get(domainExtRef, "domain");
 			if (domainRef != null) {

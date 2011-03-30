@@ -5,12 +5,10 @@ import java.util.Set;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl3.hints_3_0.Hints_3_0Package;
 import org.archstudio.xarchadt.common.ObjRef;
 
 public class HintSupport implements IPropertyCoder{
-	protected static final String HINTS_FACTORY = "org.archstudio.xadl3.hints_3_0";
-	protected static final String HINTS_EXT_CLASS = HINTS_FACTORY + ".HintsExtension";
-	
 	protected static HintSupport __instance = null;
 	
 	protected HintSupport(){}
@@ -18,14 +16,14 @@ public class HintSupport implements IPropertyCoder{
 	public ObjRef getOrCreateHintsExtension(ArchipelagoServices AS, ObjRef ref){
 		ObjRef hintsExtRef = getHintsExtension(AS, ref);
 		if(hintsExtRef == null){
-			hintsExtRef = AS.xarch.create(HINTS_FACTORY, "HintsExtension");
+			hintsExtRef = AS.xarch.create(Hints_3_0Package.eNS_URI, "HintsExtension");
 			AS.xarch.add(ref, "ext", hintsExtRef);
 		}
 		return hintsExtRef;
 	}
 	
 	public ObjRef getHintsExtension(ArchipelagoServices AS, ObjRef ref){
-		ObjRef hintsExtRef = XadlUtils.getExt(AS.xarch, ref, HINTS_EXT_CLASS);
+		ObjRef hintsExtRef = XadlUtils.getExt(AS.xarch, ref, Hints_3_0Package.eNS_URI, "HintsExtension");
 		return hintsExtRef;
 	}
 	
@@ -52,11 +50,11 @@ public class HintSupport implements IPropertyCoder{
 		ObjRef hintRef = findHintByName(AS, eltRef, name);
 		if(hintRef == null){
 			ObjRef hintsExtensionRef = getOrCreateHintsExtension(AS, eltRef);
-			hintRef = AS.xarch.create(HINTS_FACTORY, "hint");
+			hintRef = AS.xarch.create(Hints_3_0Package.eNS_URI, "hint");
 			AS.xarch.set(hintRef, "name", name);
 			AS.xarch.add(hintsExtensionRef, "hint", hintRef);
 		}
-		ObjRef valueRef = AS.xarch.create(HINTS_FACTORY, "value");
+		ObjRef valueRef = AS.xarch.create(Hints_3_0Package.eNS_URI, "value");
 
 		if(encode(this, AS, valueRef, value)){
 			AS.xarch.set(hintRef, "value", valueRef);

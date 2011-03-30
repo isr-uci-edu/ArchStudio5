@@ -3,6 +3,7 @@ package org.archstudio.archedit.core;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.archstudio.editors.common.AbstractArchstudioOutlinePage;
 import org.archstudio.resources.common.IResources;
@@ -11,13 +12,12 @@ import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.common.XadlUtils;
 import org.archstudio.xarchadt.common.IXArchADT;
 import org.archstudio.xarchadt.common.IXArchADTExtensionHint;
-import org.archstudio.xarchadt.common.IXArchADTFactoryElementMetadata;
-import org.archstudio.xarchadt.common.IXArchADTFactoryMetadata;
 import org.archstudio.xarchadt.common.IXArchADTFeature;
+import org.archstudio.xarchadt.common.IXArchADTFeature.FeatureType;
+import org.archstudio.xarchadt.common.IXArchADTPackageMetadata;
 import org.archstudio.xarchadt.common.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.common.ObjRef;
 import org.archstudio.xarchadt.common.XArchADTPath;
-import org.archstudio.xarchadt.common.IXArchADTFeature.FeatureType;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
@@ -419,7 +419,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 		public List<IArchEditNode> getChildren() {
 			List<IArchEditNode> l = new ArrayList<IArchEditNode>();
 
-			for (IXArchADTFeature feature : typeMetadata.getFeatures()) {
+			for (IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
 				String eltName = feature.getName();
 				if (feature.isReference()) {
 					switch (feature.getType()) {
@@ -453,7 +453,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 		}
 
 		public boolean hasChildren() {
-			for (IXArchADTFeature feature : typeMetadata.getFeatures()) {
+			for (IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
 				switch (feature.getType()) {
 				case ELEMENT_MULTIPLE:
 					return true;
@@ -591,9 +591,8 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 		List<Object> items = new ArrayList<Object>();
 
 		final IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(ref);
-		List<String> factoryList = xarch.getAvailableFactories();
 
-		for (final IXArchADTFeature feature : typeMetadata.getFeatures()) {
+		for (final IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
 			if (feature.getType().equals(FeatureType.ELEMENT_SINGLE) || feature.getType().equals(FeatureType.ELEMENT_MULTIPLE)) {
 
 				boolean disabled = false;
@@ -612,12 +611,12 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 					boolean foundOne = false;
 					
 					if (XadlUtils.isExtension(xarch, feature)) {
-						String typeName = typeMetadata.getInstanceTypeName().substring(typeMetadata.getInstanceTypeName().lastIndexOf('.') + 1);
-						System.err.println("factory: " + typeMetadata.getFactoryName());
+						String typeName = typeMetadata.getTypeName().substring(typeMetadata.getInstanceTypeName().lastIndexOf('.') + 1);
+						System.err.println("factory: " + typeMetadata.getNsPrefix());
 						System.err.println("typeName: " + typeName);
-						for (IXArchADTExtensionHint hint : xarch.getExtensionHintsForTarget(typeMetadata.getFactoryName(), typeName)) {
+						for (IXArchADTExtensionHint hint : xarch.getExtensionHintsForTarget(typeMetadata.getNsPrefix(), typeName)) {
 							foundOne = true;
-							Action addEltAction = new AddElementAction(ref, feature, hint.getExtensionFactoryName(), hint.getExtensionTypeName());
+							Action addEltAction = new AddElementAction(ref, feature, hint.getExtensionNsURI(), hint.getExtensionTypeName());
 							submenuManager.add(addEltAction);
 						}
 					}
@@ -626,15 +625,14 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 						submenuManager.add(new Separator());
 					}
 					
-					for (final String factoryName : factoryList) {
-						IXArchADTFactoryMetadata factoryMetadata = xarch.getFactoryMetadata(factoryName);
-						for (IXArchADTFactoryElementMetadata factoryElementMetadata : factoryMetadata.getFactoryElementMetadata()) {
-							final String elementName = factoryElementMetadata.getElementName();
-							final Class<?> elementClass = factoryElementMetadata.getElementClass();
+					for (final IXArchADTPackageMetadata packageMetadata : xarch.getAvailablePackageMetadata()) {
+						for (Map.Entry<String, IXArchADTTypeMetadata> e : packageMetadata.getTypeMetadata().entrySet()) {
+							final String elementName = e.getKey();
+							final Class<?> elementClass = e.getValue().getElementClass();
 
 							if (feature.getFeatureClass().isAssignableFrom(elementClass)) {
 								foundOne = true;
-								Action addEltAction = new AddElementAction(ref, feature, factoryName, elementName);
+								Action addEltAction = new AddElementAction(ref, feature, packageMetadata.getNsPrefix(), elementName);
 								submenuManager.add(addEltAction);
 							}
 						}

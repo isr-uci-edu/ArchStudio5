@@ -164,7 +164,7 @@ public class SchematronMyxComponent extends AbstractMyxSimpleBrick implements IA
 				}
 			}
 			ObjRef docRef = documentRef;
-			String xmlDocument = xarch.serialize(xarch.getURI(docRef));
+			String xmlDocument = new String(xarch.serialize(xarch.getURI(docRef)));
 			int filesToRunSize = filesToRun.size();
 
 			int f = 0;

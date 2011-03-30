@@ -1,29 +1,30 @@
 package org.archstudio.xarchadt.common;
 
 public class BasicXArchADTExtensionHint implements IXArchADTExtensionHint {
-	protected String extensionFactoryName;
+	
+	protected String extensionNsURI;
 	protected String extensionTypeName;
 	
-	protected String targetFactoryName;
+	protected String targetNsURIName;
 	protected String targetTypeName;
 	
-	public BasicXArchADTExtensionHint(String extensionFactoryName, String extensionTypeName, String targetFactoryName, String targetTypeName) {
-		this.extensionFactoryName = extensionFactoryName;
+	public BasicXArchADTExtensionHint(String extensionNsURI, String extensionTypeName, String targetNsURI, String targetTypeName) {
+		this.extensionNsURI = extensionNsURI;
 		this.extensionTypeName = extensionTypeName;
-		this.targetFactoryName = targetFactoryName;
+		this.targetNsURIName = targetNsURI;
 		this.targetTypeName = targetTypeName;
 	}
 
 	public String getExtensionFactoryName() {
-		return extensionFactoryName;
+		return extensionNsURI;
 	}
 
 	public String getExtensionTypeName() {
 		return extensionTypeName;
 	}
 
-	public String getTargetFactoryName() {
-		return targetFactoryName;
+	public String getTargetNsURI() {
+		return targetNsURIName;
 	}
 
 	public String getTargetTypeName() {
@@ -33,9 +34,15 @@ public class BasicXArchADTExtensionHint implements IXArchADTExtensionHint {
 	@Override
 	public String toString() {
 		return "BasicXArchADTExtensionHint [extensionFactoryName="
-			+ extensionFactoryName + ", extensionTypeName="
+			+ extensionNsURI + ", extensionTypeName="
 			+ extensionTypeName + ", targetFactoryName="
-			+ targetFactoryName + ", targetTypeName=" + targetTypeName
+			+ targetNsURIName + ", targetTypeName=" + targetTypeName
 			+ "]";
+	}
+
+	@Override
+	public String getExtensionNsURI() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

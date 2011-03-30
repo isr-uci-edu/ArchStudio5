@@ -94,11 +94,11 @@ public class ArchEditEditor extends AbstractArchstudioEditor {
 					StringBuffer headerLine = new StringBuffer();
 					headerLine.append(XadlUtils.getDisplayName(xarch, selectedRef));
 					headerLine.append(": ");
-					headerLine.append(typeMetadata.getInstanceTypeName());
+					headerLine.append(typeMetadata.getTypeName());
 					lElement.setText(headerLine.toString());
 
 					boolean hasAttribute = false;
-					for (IXArchADTFeature feature : typeMetadata.getFeatures()) {
+					for (IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
 						if (feature.getType().equals(IXArchADTFeature.FeatureType.ATTRIBUTE)) {
 							hasAttribute = true;
 							break;
@@ -157,10 +157,10 @@ public class ArchEditEditor extends AbstractArchstudioEditor {
 		}
 
 		public Object[] getElements(Object inputElement) {
-			java.util.List l = new ArrayList();
+			List l = new ArrayList();
 			IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata((ObjRef) inputElement);
 
-			for (IXArchADTFeature feature : typeMetadata.getFeatures()) {
+			for (IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
 				if (feature.getType().equals(IXArchADTFeature.FeatureType.ATTRIBUTE)) {
 					Object value = xarch.get((ObjRef) inputElement, feature.getName());
 					l.add(new String[] { feature.getName(), value == null ? null : value.toString() });
@@ -250,13 +250,7 @@ public class ArchEditEditor extends AbstractArchstudioEditor {
 
 		private void set(String featureName, String stringValue) {
 			IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(ref);
-			IXArchADTFeature feature = null;
-			for (IXArchADTFeature featureToCheck : typeMetadata.getFeatures()) {
-				if (featureToCheck.getName().equals(featureName)) {
-					feature = featureToCheck;
-					break;
-				}
-			}
+			IXArchADTFeature feature = typeMetadata.getFeatures().get(featureName);
 			if (feature != null) {
 				Object value = null;
 				Class<?> featureClass = feature.getFeatureClass();

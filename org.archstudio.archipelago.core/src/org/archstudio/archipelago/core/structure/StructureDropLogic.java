@@ -7,6 +7,8 @@ import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.util.AbstractTreeDropLogic;
 import org.archstudio.swtutils.LocalSelectionTransfer;
 import org.archstudio.sysutils.UIDGenerator;
+import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.common.ObjRef;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
@@ -32,7 +34,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic{
 						return true;
 					}
 					else if(data instanceof ObjRef){
-						if(AS.xarch.isInstanceOf((ObjRef)data, "org.archstudio.xadl3.structure_3_0.Structure")){
+						if(XadlUtils.isInstanceOf(AS.xarch, (ObjRef)data, Structure_3_0Package.Literals.STRUCTURE)){
 							return true;
 						}
 					}
@@ -42,7 +44,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic{
 						return true;
 					}
 					else if(data instanceof ObjRef){
-						if(AS.xarch.isInstanceOf((ObjRef)data, "org.archstudio.xadl3.structure_3_0.Structure")){
+						if(XadlUtils.isInstanceOf(AS.xarch, (ObjRef)data, Structure_3_0Package.Literals.STRUCTURE)){
 							return true;
 						}
 					}

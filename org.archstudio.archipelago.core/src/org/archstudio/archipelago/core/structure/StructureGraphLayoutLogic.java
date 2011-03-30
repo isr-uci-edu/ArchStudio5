@@ -29,6 +29,7 @@ import org.archstudio.graphlayout.common.gui.GraphLayoutDialog;
 import org.archstudio.resources.common.ArchStudioCommonResources;
 import org.archstudio.swtutils.BSpline;
 import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.common.ObjRef;
 import org.archstudio.bna.AbstractThingLogic;
 import org.archstudio.bna.BNAUtils;
@@ -66,7 +67,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 		String structureXArchID = ept.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 		if(structureXArchID != null){
 			final ObjRef structureRef = AS.xarch.getByID(documentRootRef, structureXArchID);
-			if((structureRef != null) && (AS.xarch.isInstanceOf(structureRef, "org.archstudio.xadl3.structure_3_0.Structure"))){
+			if((structureRef != null) && (XadlUtils.isInstanceOf(AS.xarch, structureRef, Structure_3_0Package.Literals.STRUCTURE))){
 				IAction layoutAction = new Action("Automatic Layout..."){
 					public void run(){
 						doLayout(fview, structureRef, fworldX, fworldY);

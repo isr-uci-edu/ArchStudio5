@@ -2,7 +2,6 @@ package org.archstudio.xarchadt.common;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
 import org.xml.sax.SAXException;
@@ -15,14 +14,25 @@ import org.xml.sax.SAXException;
 public interface IXArchADT extends IXArchADTQuery {
 
 	public ObjRef createDocument(URI uri);
+
+	public ObjRef createDocument(URI uri, String nsURI, String setTypeOfThing, String typOfThing);
+
 	public ObjRef load(URI uri) throws SAXException, IOException;
-	public ObjRef loadFromString(URI uri, String s) throws SAXException, IOException;
+
+	public ObjRef load(URI uri, byte[] content) throws SAXException, IOException;
+
 	public ObjRef cloneDocument(URI oldURI, URI newURI);
+
 	public ObjRef getDocumentRootRef(URI uri);
-	public List<URI> getOpenURIs();
+
+	public Collection<URI> getOpenURIs();
+
 	public URI getURI(ObjRef ref);
+
 	public void save(URI uri) throws IOException;
-	public String serialize(URI uri);
+
+	public byte[] serialize(URI uri);
+
 	public void close(URI uri);
 
 	/**
@@ -52,34 +62,34 @@ public interface IXArchADT extends IXArchADTQuery {
 	 * Adds a set of children to an xArch element. Roughly equivalent to:
 	 * baseObject.add[TypeOfThing](thingsToAdd); So, if the object referred to
 	 * by baseObjectRef implements a method called
-	 * <CODE>void addComponents(Collection c);</CODE> then that would be
-	 * called here as: <CODE>add(baseObjectRef, "Component", cRefs);</CODE>
-	 * where baseObjectRef is a reference to the base object, the typeOfThing is
-	 * shown as "Component", and the thingToAdd is a array of references to
+	 * <CODE>void addComponents(Collection c);</CODE> then that would be called
+	 * here as: <CODE>add(baseObjectRef, "Component", cRefs);</CODE> where
+	 * baseObjectRef is a reference to the base object, the typeOfThing is shown
+	 * as "Component", and the thingToAdd is a array of references to
 	 * <CODE>IComponent</CODE>s.
 	 * 
-	 * @param baseObjectRef
+	 * @param baseObjRef
 	 *            Reference to a base element containing an
 	 *            <CODE>add[typeOfThing]s</CODE> method.
 	 * @param typeOfThing
 	 *            A string containing the type of thing to add. For instance, if
 	 *            the object referred to by baseObjectRef contains a method
-	 *            called <CODE>addComponents</CODE>, then typeOfThing would
-	 *            be "Component".
+	 *            called <CODE>addComponents</CODE>, then typeOfThing would be
+	 *            "Component".
 	 * @param thingToAddRefs
 	 *            References to the objects to add as children of baseObject.
 	 */
-	public void add(ObjRef baseObjectRef, String typeOfThing, Collection<ObjRef> thingsToAddRefs);
+	public void add(ObjRef baseObjRef, String typeOfThing, Collection<ObjRef> thingsToAddRefs);
 
 	/**
 	 * Clears a child or a set of children from an xArch element. Roughly
 	 * equivalent to: baseObject.clear[TypeOfThing](); or
 	 * baseObject.clear[TypeOfThing]s(); So, if the object referred to by
 	 * baseObjectRef implements a method called
-	 * <CODE>void clearDescription();</CODE> then that would be called here
-	 * as: <CODE>clear(baseObjectRef, "Description");</CODE> where
-	 * baseObjectRef is a reference to the base object, and the typeOfThing is
-	 * shown as "Description".
+	 * <CODE>void clearDescription();</CODE> then that would be called here as:
+	 * <CODE>clear(baseObjectRef, "Description");</CODE> where baseObjectRef is
+	 * a reference to the base object, and the typeOfThing is shown as
+	 * "Description".
 	 * 
 	 * @param baseObjectRef
 	 *            Reference to a base element containing an
@@ -88,7 +98,7 @@ public interface IXArchADT extends IXArchADTQuery {
 	 *            A string containing the type of thing to clear. For instance,
 	 *            if the object referred to by baseObjectRef contains a method
 	 *            called <CODE>clearDescription</CODE> or
-	 *            <CODE>clearDescriptions</CODE>, then typeOfThing would be
+	 *            <CODE>clearDescriptions</CODE> , then typeOfThing would be
 	 *            "Description".
 	 */
 	public void clear(ObjRef baseObjectRef, String typeOfThing);
@@ -121,8 +131,8 @@ public interface IXArchADT extends IXArchADTQuery {
 	 * Removes a set of children from a parent element. Roughly equivalent to:
 	 * baseObject.remove[typeOfThing]s(thingsToRemove); So, if the object
 	 * referred to by baseObjectRef implements a method called
-	 * <CODE>void removeComponents(Collection thingsToRemove);</CODE> then
-	 * that would be called here as:
+	 * <CODE>void removeComponents(Collection thingsToRemove);</CODE> then that
+	 * would be called here as:
 	 * <CODE>remove(baseObjectRef, "Component", thingsToRemove);</CODE> where
 	 * baseObjectRef is a reference to the base object, and the typeOfThing is
 	 * shown as "Component". The values to remove are passed as an array of
@@ -146,10 +156,10 @@ public interface IXArchADT extends IXArchADTQuery {
 	 * Sets the value of an attribute or simple-value element. Roughly
 	 * equivalent to: baseObject.set[typeOfThing](value); So, if the object
 	 * referred to by baseObjectRef implements a method called
-	 * <CODE>void setValue(String value);</CODE> then that would be called
-	 * here as: <CODE>set(baseObjectRef, "Value", value);</CODE> where
-	 * baseObjectRef is a reference to the base object, and the typeOfThing is
-	 * shown as "Value". The value to set is passed as a string.
+	 * <CODE>void setValue(String value);</CODE> then that would be called here
+	 * as: <CODE>set(baseObjectRef, "Value", value);</CODE> where baseObjectRef
+	 * is a reference to the base object, and the typeOfThing is shown as
+	 * "Value". The value to set is passed as a string.
 	 * 
 	 * @param baseObjectRef
 	 *            Reference to a base element containing an
@@ -168,8 +178,8 @@ public interface IXArchADT extends IXArchADTQuery {
 	 * Sets the value of an complex-type child element. Roughly equivalent to:
 	 * baseObject.set[typeOfThing](value); So, if the object referred to by
 	 * baseObjectRef implements a method called
-	 * <CODE>void setDescription(IDescription value);</CODE> then that would
-	 * be called here as: <CODE>set(baseObjectRef, "Description", value);</CODE>
+	 * <CODE>void setDescription(IDescription value);</CODE> then that would be
+	 * called here as: <CODE>set(baseObjectRef, "Description", value);</CODE>
 	 * where baseObjectRef is a reference to the base object, and the
 	 * typeOfThing is shown as "Description". The values to set is passed as an
 	 * object reference.
@@ -187,7 +197,7 @@ public interface IXArchADT extends IXArchADTQuery {
 	 */
 	public void set(ObjRef baseObjectRef, String typeOfThing, ObjRef value);
 
-	public ObjRef create(String packageName, String typeOfThing);
+	public ObjRef create(String nsURI, String typeOfThing);
 
 	/**
 	 * Clones an element with the given depth, changing IDs in the copy if
@@ -212,6 +222,6 @@ public interface IXArchADT extends IXArchADTQuery {
 	public void renameXArch(String oldURI, String newURI);
 
 	//	public XArchBulkQueryResults bulkQuery(XArchBulkQuery q);
-	//	public void cleanup(ObjRef xArchRef);
+	//	public void cleanup(ObjRef documentRootRef);
 
 }

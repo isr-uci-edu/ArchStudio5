@@ -16,6 +16,7 @@ import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
 import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 
 public class BootstrapMyxComponent extends AbstractMyxSimpleBrick implements IMyxDynamicBrick {
 
@@ -54,8 +55,8 @@ public class BootstrapMyxComponent extends AbstractMyxSimpleBrick implements IMy
 			if (xADLRef == null) {
 				throw new RuntimeException("Can't find top-level xADL element in document: " + uriString);
 			}
-			List<ObjRef> structureRefs = XadlUtils.getAllSubstitutionGroupElementsByType(xarch, xADLRef, "topLevelElement",
-			        "org.archstudio.xadl3.structure_3_0.Structure");
+			List<ObjRef> structureRefs = XadlUtils.getAllSubstitutionGroupElementsByType(xarch, xADLRef,
+					"topLevelElement", Structure_3_0Package.eNS_URI, "Structure");
 			if (structureRefs.size() == 0) {
 				throw new RuntimeException("Can't find structure element in document: " + uriString);
 			}
