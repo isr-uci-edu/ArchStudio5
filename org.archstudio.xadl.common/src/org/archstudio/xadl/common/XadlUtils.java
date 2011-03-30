@@ -49,6 +49,10 @@ public class XadlUtils {
 		return null;
 	}
 	
+	public static boolean isExtension(IXArchADTQuery xarch, IXArchADTFeature feature) {
+		return xarch.isInstanceOf(feature, "org.archstudio.xadl3.xadlcore_3_0.Extension");
+	}
+	
 	public static ObjRef getLookupImplementation(IXArchADTQuery xarch, ObjRef ref){
 		ObjRef implementationExtRef = XadlUtils.getExt(xarch, ref, "org.archstudio.xadl3.implementation_3_0.ImplementationExtension");
 		if(implementationExtRef != null){

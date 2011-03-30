@@ -87,4 +87,13 @@
 		</xs:complexContent>
 	</xs:complexType>
 
+	<xs:annotation>
+		<xs:appinfo source="http://www.archstudio.org/xadl3/schemas/extensionHint">
+			<hint extensionSchema="http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd"
+			      extensionType="DomainExtension"
+			      targetSchema="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd"
+			      targetType="Interface" />
+		</xs:appinfo>
+	</xs:annotation>
+
 </xs:schema>

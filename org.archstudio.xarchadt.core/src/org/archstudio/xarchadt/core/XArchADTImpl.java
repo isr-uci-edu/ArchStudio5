@@ -19,10 +19,12 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -41,6 +43,7 @@ import org.archstudio.xarchadt.common.BasicXArchADTFactoryMetadata;
 import org.archstudio.xarchadt.common.BasicXArchADTFeature;
 import org.archstudio.xarchadt.common.BasicXArchADTTypeMetadata;
 import org.archstudio.xarchadt.common.IXArchADT;
+import org.archstudio.xarchadt.common.IXArchADTExtensionHint;
 import org.archstudio.xarchadt.common.IXArchADTFactoryElementMetadata;
 import org.archstudio.xarchadt.common.IXArchADTFactoryMetadata;
 import org.archstudio.xarchadt.common.IXArchADTFeature;
@@ -735,6 +738,17 @@ public class XArchADTImpl implements IXArchADT {
 	}
 	
 	@Override
+	public boolean isInstanceOf(IXArchADTFeature feature, String type) {
+		try{
+			Class<?> c = findClass(type);
+			return c.isAssignableFrom(feature.getFeatureClass());
+		}
+		catch(ClassNotFoundException cnfe) {
+			throw new IllegalArgumentException("Can't find type: " + type);
+		}
+	}
+
+	@Override
 	public String getTagName(ObjRef ref){
 		//NB: Sometimes returns null!
 		EObject eobject = get(ref);
@@ -957,7 +971,18 @@ public class XArchADTImpl implements IXArchADT {
 		}
 	}
 	
+	private String getFactoryName(EPackage ePackage) {
+		String ePackageNsURI = ePackage.getNsURI();
+		for (Map.Entry<String,EFactory> e : getFactoryMap().entrySet()) {
+			if (e.getValue().getEPackage().getNsURI().equals(ePackageNsURI)) {
+				return e.getKey();
+			}
+		}
+		return null;
+	}
+	
 	private IXArchADTTypeMetadata getTypeMetadata(EClass eclass) {
+		String factoryName = getFactoryName(eclass.getEPackage());
 		String instanceTypeName = eclass.getInstanceTypeName();
 		String instanceClassName = eclass.getInstanceClassName();
 		Class<?> instanceClass = eclass.getInstanceClass();
@@ -968,17 +993,18 @@ public class XArchADTImpl implements IXArchADT {
 			FeatureType featureType = FeatureType.ATTRIBUTE;
 			String featureClassName = attribute.getEType().getInstanceClassName();
 			Class<?> featureClass  = attribute.getEType().getInstanceClass();
-			featureList.add(new BasicXArchADTFeature(name, featureType, false, featureClassName, featureClass));
+			featureList.add(new BasicXArchADTFeature(name, featureType, false, null, featureClassName, featureClass));
 		}
 		for(EReference reference : eclass.getEAllReferences()) {
 			String name = reference.getName();
 			FeatureType featureType = reference.isMany() ? FeatureType.ELEMENT_MULTIPLE : FeatureType.ELEMENT_SINGLE;
+			String featureFactoryName = getFactoryName(reference.getEType().getEPackage());
 			String featureClassName = reference.getEType().getInstanceClassName();
 			Class<?> featureClass  = reference.getEType().getInstanceClass();
-			featureList.add(new BasicXArchADTFeature(name, featureType, !reference.isContainment(), featureClassName, featureClass));
+			featureList.add(new BasicXArchADTFeature(name, featureType, !reference.isContainment(), featureFactoryName, featureClassName, featureClass));
 		}
 		
-		return new BasicXArchADTTypeMetadata(instanceTypeName, instanceClassName, instanceClass, featureList);
+		return new BasicXArchADTTypeMetadata(factoryName, instanceTypeName, instanceClassName, instanceClass, featureList);
 	}
 	
 	@Override
@@ -1003,7 +1029,36 @@ public class XArchADTImpl implements IXArchADT {
 			}
 		}
 		return new BasicXArchADTFactoryMetadata(factoryName, factoryElementMetadataList);
-		
+	}
+	
+	protected List<IXArchADTExtensionHint> allExtensionHints = null;
+
+	public synchronized List<IXArchADTExtensionHint> getAllExtensionHints() {
+		if (allExtensionHints == null) {
+			allExtensionHints = ExtensionHintUtils.parseExtensionHints(getFactoryMap()); 
+			System.err.println("extension hints = " + allExtensionHints);
+		}
+		return allExtensionHints;
+	}
+	
+	public List<IXArchADTExtensionHint> getExtensionHintsForExtension(String extensionFactoryName, String extensionTypeName) {
+		List<IXArchADTExtensionHint> matchingHints = new ArrayList<IXArchADTExtensionHint>();
+		for (IXArchADTExtensionHint hint : getAllExtensionHints()) {
+			if (extensionFactoryName.equals(hint.getExtensionFactoryName()) && extensionTypeName.equals(hint.getExtensionTypeName())) {
+				matchingHints.add(hint);
+			}
+		}
+		return matchingHints;
+	}
+	
+	public List<IXArchADTExtensionHint> getExtensionHintsForTarget(String targetFactoryName, String targetTypeName) {
+		List<IXArchADTExtensionHint> matchingHints = new ArrayList<IXArchADTExtensionHint>();
+		for (IXArchADTExtensionHint hint : getAllExtensionHints()) {
+			if (targetFactoryName.equals(hint.getTargetFactoryName()) && targetTypeName.equals(hint.getTargetTypeName())) {
+				matchingHints.add(hint);
+			}
+		}
+		return matchingHints;
 	}
 
 }

@@ -281,8 +281,28 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
     createResource(eNS_URI);
 
     // Create annotations
+    // http://www.archstudio.org/xadl3/schemas/extensionHint
+    createExtensionHintAnnotations();
     // http:///org/eclipse/emf/ecore/util/ExtendedMetaData
     createExtendedMetaDataAnnotations();
+  }
+
+  /**
+   * Initializes the annotations for <b>http://www.archstudio.org/xadl3/schemas/extensionHint</b>.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void createExtensionHintAnnotations()
+  {
+    String source = "http://www.archstudio.org/xadl3/schemas/extensionHint";			
+    addAnnotation
+      (this, 
+       source, 
+       new String[] 
+       {
+       "appinfo", "\r\n\t\t\t<hint extensionSchema=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\" extensionType=\"DomainExtension\" targetSchema=\"http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd\" targetType=\"Interface\" xmlns=\"http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd\"/>\r\n\t\t"
+       });									
   }
 
   /**
@@ -293,7 +313,7 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
    */
   protected void createExtendedMetaDataAnnotations()
   {
-    String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";				
+    String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";					
     addAnnotation
       (domainEClass, 
        source, 

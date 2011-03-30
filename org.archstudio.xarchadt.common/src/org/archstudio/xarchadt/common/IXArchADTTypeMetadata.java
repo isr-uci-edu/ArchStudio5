@@ -3,7 +3,7 @@ package org.archstudio.xarchadt.common;
 import java.util.List;
 
 public interface IXArchADTTypeMetadata extends java.io.Serializable {
-
+	public String getFactoryName();
 	public String getInstanceTypeName();
 	public String getInstanceClassName();
 	public Class<?> getInstanceClass();

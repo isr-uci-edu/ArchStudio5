@@ -12,7 +12,7 @@ import org.xml.sax.SAXException;
  * DOM-based xArch libraries. All parameters to this interface are serializable
  * and do not contain direct pointers into the structure of an xArch document.
  */
-public interface IXArchADT extends IXArchADTQuery{
+public interface IXArchADT extends IXArchADTQuery {
 
 	public ObjRef createDocument(URI uri);
 	public ObjRef load(URI uri) throws SAXException, IOException;

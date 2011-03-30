@@ -2,9 +2,8 @@ package org.archstudio.xarchadt.common;
 
 import java.util.List;
 
-import org.eclipse.emf.common.util.URI;
-
 public interface IXArchADTQuery {
+	public static final String EXTENSION_HINT_URI = "http://www.archstudio.org/xadl3/schemas/extensionHint";
 
 	/**
 	 * Determines if a given ObjRef is valid, that is, if there is an object
@@ -182,6 +181,8 @@ public interface IXArchADTQuery {
 	 */
 	public boolean isInstanceOf(ObjRef baseObjectRef, String type);
 
+	public boolean isInstanceOf(IXArchADTFeature feature, String type);
+	
 	/**
 	 * Determines if toType is either the same as, or a supertype of, the
 	 * fromType parameter. Roughly equivalent to:
@@ -339,4 +340,7 @@ public interface IXArchADTQuery {
 	public IXArchADTTypeMetadata getTypeMetadata(ObjRef ref);
 	public IXArchADTFactoryMetadata getFactoryMetadata(String factoryName);
 
+	public List<IXArchADTExtensionHint> getAllExtensionHints();
+	public List<IXArchADTExtensionHint> getExtensionHintsForExtension(String extensionFactoryName, String extensionTypeName);
+	public List<IXArchADTExtensionHint> getExtensionHintsForTarget(String targetFactoryName, String targetTypeName);
 }

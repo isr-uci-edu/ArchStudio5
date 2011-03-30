@@ -10,6 +10,7 @@ import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.common.XadlUtils;
 import org.archstudio.xarchadt.common.IXArchADT;
+import org.archstudio.xarchadt.common.IXArchADTExtensionHint;
 import org.archstudio.xarchadt.common.IXArchADTFactoryElementMetadata;
 import org.archstudio.xarchadt.common.IXArchADTFactoryMetadata;
 import org.archstudio.xarchadt.common.IXArchADTFeature;
@@ -609,6 +610,22 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 
 					// Find all the candidates
 					boolean foundOne = false;
+					
+					if (XadlUtils.isExtension(xarch, feature)) {
+						String typeName = typeMetadata.getInstanceTypeName().substring(typeMetadata.getInstanceTypeName().lastIndexOf('.') + 1);
+						System.err.println("factory: " + typeMetadata.getFactoryName());
+						System.err.println("typeName: " + typeName);
+						for (IXArchADTExtensionHint hint : xarch.getExtensionHintsForTarget(typeMetadata.getFactoryName(), typeName)) {
+							foundOne = true;
+							Action addEltAction = new AddElementAction(ref, feature, hint.getExtensionFactoryName(), hint.getExtensionTypeName());
+							submenuManager.add(addEltAction);
+						}
+					}
+					
+					if (foundOne) {
+						submenuManager.add(new Separator());
+					}
+					
 					for (final String factoryName : factoryList) {
 						IXArchADTFactoryMetadata factoryMetadata = xarch.getFactoryMetadata(factoryName);
 						for (IXArchADTFactoryElementMetadata factoryElementMetadata : factoryMetadata.getFactoryElementMetadata()) {
@@ -617,22 +634,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 
 							if (feature.getFeatureClass().isAssignableFrom(elementClass)) {
 								foundOne = true;
-								Action addEltAction = new Action(SystemUtils.capFirst(elementName)) {
-									public void run() {
-										ObjRef newRef = xarch.create(factoryName, elementName);
-										switch (feature.getType()) {
-										case ELEMENT_SINGLE:
-											xarch.set(ref, feature.getName(), newRef);
-											break;
-										case ELEMENT_MULTIPLE:
-											xarch.add(ref, feature.getName(), newRef);
-										}
-
-										Object[] expandedElements = getTreeViewer().getExpandedElements();
-										getTreeViewer().refresh(true);
-										getTreeViewer().setExpandedElements(expandedElements);
-									}
-								};
+								Action addEltAction = new AddElementAction(ref, feature, factoryName, elementName);
 								submenuManager.add(addEltAction);
 							}
 						}
@@ -645,7 +647,36 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			}
 		}
 		return items;
+	}
+	
+	private class AddElementAction extends Action {
+		private final ObjRef ref;
+		private final IXArchADTFeature feature;
+		private final String factoryName;
+		private final String elementName;
+		
+		public AddElementAction(ObjRef ref, IXArchADTFeature feature, String factoryName, String elementName) {
+			super(SystemUtils.capFirst(elementName));
+			this.ref = ref;
+			this.feature = feature;
+			this.factoryName = factoryName;
+			this.elementName = elementName;
+		}
+		
+		public void run() {
+			ObjRef newRef = xarch.create(factoryName, elementName);
+			switch (feature.getType()) {
+			case ELEMENT_SINGLE:
+				xarch.set(ref, feature.getName(), newRef);
+				break;
+			case ELEMENT_MULTIPLE:
+				xarch.add(ref, feature.getName(), newRef);
+			}
 
+			Object[] expandedElements = getTreeViewer().getExpandedElements();
+			getTreeViewer().refresh(true);
+			getTreeViewer().setExpandedElements(expandedElements);
+		}
 	}
 
 	public void focusEditor(String editorName, ObjRef[] refs) {
