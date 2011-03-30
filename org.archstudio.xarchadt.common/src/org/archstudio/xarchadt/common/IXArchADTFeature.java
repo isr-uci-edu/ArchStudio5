@@ -11,6 +11,7 @@ public interface IXArchADTFeature extends java.io.Serializable {
 	public String getName();
 	public FeatureType getType();
 	public boolean isReference();
+	public String getFactoryName();
 	public String getFeatureClassName();
 	public Class<?> getFeatureClass();
 	
