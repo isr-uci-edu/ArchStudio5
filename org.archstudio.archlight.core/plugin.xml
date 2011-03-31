@@ -33,6 +33,7 @@
       <editor
             class="org.archstudio.archlight.core.ArchlightEditor"
             default="false"
+            extensions="xml"
             icon="res/archstudio-icon-16x16.png"
             id="org.archstudio.archlight.core.ArchlightEditor"
             name="Archlight">

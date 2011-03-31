@@ -12,6 +12,7 @@
       <editor
             class="org.archstudio.aimlauncher.core.AIMLauncherEditor"
             default="false"
+            extensions="xml"
             icon="res/archstudio-icon-16x16.png"
             id="org.archstudio.aimlauncher.core.AIMLauncherEditor"
             name="AIM Launcher">
