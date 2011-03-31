@@ -7,5 +7,20 @@
             class="org.archstudio.filemanager.core.FileManagerMyxComponent">
       </brick>
    </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.archstudio.wizards"
+            name="ArchStudio 5">
+      </category>
+      <wizard
+            category="org.archstudio.wizards"
+            class="org.archstudio.filemanager.core.NewFileWizard"
+            finalPerspective="org.archstudio.main.ArchStudio5Perspective"
+            icon="res/archstudio-icon-16x16.png"
+            id="org.archstudio.filemanager.core.NewFileWizard"
+            name="ArchStudio Architecture Description">
+      </wizard>
+   </extension>
 
 </plugin>
