@@ -450,7 +450,7 @@ public class XArchADTImpl implements IXArchADT {
 				}
 			});
 
-	private static final ConcurrentMap<EClass, Map<String, IXArchADTFeature>> autoFeatureMedata = new MapMaker()//
+	private static final ConcurrentMap<EClass, Map<String, IXArchADTFeature>> autoFeatureMetadata = new MapMaker()//
 			.softValues().makeComputingMap(new Function<EClass, Map<String, IXArchADTFeature>>() {
 				@Override
 				public Map<String, IXArchADTFeature> apply(EClass eClass) {
@@ -499,7 +499,7 @@ public class XArchADTImpl implements IXArchADT {
 					return new BasicXArchADTTypeMetadata(
 							eClass.getEPackage().getNsURI(),
 							eClass.getName(),
-							autoFeatureMedata.get(eClass),
+							autoFeatureMetadata.get(eClass),
 							eClass.isAbstract());
 				}
 			});
@@ -525,11 +525,16 @@ public class XArchADTImpl implements IXArchADT {
 
 	private static final EClass getEClass(EPackage ePackage, String typeName) {
 		EClassifier eClassifier = ePackage.getEClassifier(typeName);
+		if (eClassifier == null) {
+			eClassifier = ePackage.getEClassifier(SystemUtils.capFirst(typeName));
+		}
+		if (eClassifier == null) {
+			throw new IllegalArgumentException(SystemUtils.message("EPackage '$0' does not contain an EClass named '$1'", ePackage, typeName));
+		}
 		if (eClassifier instanceof EClass) {
 			return (EClass) eClassifier;
 		}
-		throw new NullPointerException(SystemUtils.message(//
-				"EPacakge '$0' does not contain an EClass named '$1'", ePackage, typeName));
+		throw new IllegalArgumentException("Classifier was not an instance of EClass");
 	}
 
 	@Override
