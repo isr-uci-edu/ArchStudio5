@@ -15,5 +15,7 @@ Require-Bundle: org.archstudio.main;bundle-version="5.0.0",
  org.archstudio.myx.fw;bundle-version="5.0.0",
  org.eclipse.emf.common;bundle-version="2.5.0",
  org.eclipse.core.resources;bundle-version="3.5.1",
- org.eclipse.core.runtime;bundle-version="3.5.0"
+ org.eclipse.core.runtime;bundle-version="3.5.0",
+ org.archstudio.xadl.common;bundle-version="5.0.0",
+ org.archstudio.xadl3.xadlcore;bundle-version="5.0.0"
 Export-Package: org.archstudio.filemanager.core

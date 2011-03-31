@@ -8,6 +8,8 @@ import org.archstudio.filemanager.core.FileManagerMyxComponent;
 import org.archstudio.main.ArchStudio5Activator;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.sysutils.UIDGenerator;
+import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
 import org.archstudio.xarchadt.common.IXArchADT;
 import org.archstudio.xarchadt.common.ObjRef;
 import org.eclipse.core.resources.IFile;
@@ -90,7 +92,7 @@ public class NewFileWizard extends Wizard implements INewWizard{
 		URI uri = URI.createURI(UIDGenerator.generateUID("urn:"));
 		ObjRef documentRootRef = xarch.createDocument(uri);
 
-		ObjRef xADLRef = xarch.create("org.archstudio.xadl3.xadlcore_3_0", "xADLType");
+		ObjRef xADLRef = XadlUtils.create(xarch, Xadlcore_3_0Package.Literals.XADL_TYPE);
 
 		xarch.set(documentRootRef, "xADL", xADLRef);
 		
