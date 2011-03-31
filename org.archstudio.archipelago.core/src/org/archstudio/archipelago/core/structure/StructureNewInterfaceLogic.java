@@ -16,6 +16,7 @@ import org.archstudio.resources.common.ArchStudioCommonResources;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.common.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Direction;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.common.ObjRef;
 import org.archstudio.bna.AbstractThingLogic;
 import org.archstudio.bna.BNAUtils;
@@ -88,7 +89,7 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 		
 		Action newInterfaceAction = new Action("New Interface", AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_INTERFACE)){
 			public void run(){
-				ObjRef interfaceRef = AS.xarch.create(STRUCTURE_FACTORY, "interface");
+				ObjRef interfaceRef = XadlUtils.create(AS.xarch, Structure_3_0Package.Literals.INTERFACE);
 				AS.xarch.set(interfaceRef, "id", UIDGenerator.generateUID("interface"));
 				XadlUtils.setName(AS.xarch, interfaceRef, "[New Interface]");
 				AS.xarch.set(interfaceRef, "direction", Direction.NONE);

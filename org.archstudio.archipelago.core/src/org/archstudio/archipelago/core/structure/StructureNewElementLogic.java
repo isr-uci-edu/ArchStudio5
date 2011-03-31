@@ -12,6 +12,7 @@ import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.resources.common.ArchStudioCommonResources;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.common.ObjRef;
 import org.archstudio.bna.AbstractThingLogic;
 import org.archstudio.bna.BNAUtils;
@@ -21,8 +22,6 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 
 public class StructureNewElementLogic extends AbstractThingLogic implements IBNAMenuListener{
-	protected static final String STRUCTURE_FACTORY = "org.archstudio.xadl3.structure_3_0";
-	
 	protected ArchipelagoServices AS = null;
 	protected ObjRef xArchRef = null;
 	
@@ -68,7 +67,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 		
 		Action newComponentAction = new Action("New Component"){
 			public void run(){
-				ObjRef componentRef = AS.xarch.create(STRUCTURE_FACTORY, "component");
+				ObjRef componentRef = XadlUtils.create(AS.xarch, Structure_3_0Package.Literals.COMPONENT);
 				AS.xarch.set(componentRef, "id", UIDGenerator.generateUID("component"));
 				XadlUtils.setName(AS.xarch, componentRef, "[New Component]");
 				AS.xarch.add(archStructureRef, "component", componentRef);
@@ -82,7 +81,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 		
 		Action newConnectorAction = new Action("New Connector"){
 			public void run(){
-				ObjRef connectorRef = AS.xarch.create(STRUCTURE_FACTORY, "connector");
+				ObjRef connectorRef = XadlUtils.create(AS.xarch, Structure_3_0Package.Literals.CONNECTOR);
 				AS.xarch.set(connectorRef, "id", UIDGenerator.generateUID("connector"));
 				XadlUtils.setName(AS.xarch, connectorRef, "[New Connector]");
 				AS.xarch.add(archStructureRef, "connector", connectorRef);
@@ -95,7 +94,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 		
 		Action newLinkAction = new Action("New Link"){
 			public void run(){
-				ObjRef linkRef = AS.xarch.create(STRUCTURE_FACTORY, "link");
+				ObjRef linkRef = XadlUtils.create(AS.xarch, Structure_3_0Package.Literals.LINK);
 				AS.xarch.set(linkRef, "id", UIDGenerator.generateUID("link"));
 				XadlUtils.setName(AS.xarch, linkRef, "[New Link]");
 				AS.xarch.add(archStructureRef, "link", linkRef);

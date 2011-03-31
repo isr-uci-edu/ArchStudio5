@@ -10,11 +10,10 @@ import org.archstudio.archipelago.core.FolderNode;
 import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.common.ObjRef;
 
 public class StructureNewStructureContextMenuFiller implements IArchipelagoTreeContextMenuFiller{
-	protected String STRUCTURE_FACTORY = "org.archstudio.xadl3.structure_3_0";
-	
 	protected TreeViewer viewer = null;
 	protected ArchipelagoServices AS =  null;
 	protected ObjRef documentRootRef = null;
@@ -47,7 +46,7 @@ public class StructureNewStructureContextMenuFiller implements IArchipelagoTreeC
 	}
 
 	protected void createNewStructure(){
-		ObjRef newStructureRef = AS.xarch.create(STRUCTURE_FACTORY, "structure");
+		ObjRef newStructureRef = XadlUtils.create(AS.xarch, Structure_3_0Package.Literals.STRUCTURE);
 		String newID = UIDGenerator.generateUID("structure");
 		
 		AS.xarch.set(newStructureRef, "id", newID);

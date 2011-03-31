@@ -36,9 +36,9 @@ public class Main {
 	}
 
 	private static ObjRef createJavaImplementation(String mainClass, Properties initParams) {
-		ObjRef javaImplementationRef = xarch.create("org.archstudio.xadl3.javaimplementation_3_0", "JavaImplementation");
+		ObjRef javaImplementationRef = XadlUtils.create(xarch, Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION);
 		
-		ObjRef javaClassRef = xarch.create("org.archstudio.xadl3.javaimplementation_3_0", "JavaClass");
+		ObjRef javaClassRef = XadlUtils.create(xarch, Javaimplementation_3_0Package.Literals.JAVA_CLASS);
 		xarch.set(javaClassRef, "id", getNewID());
 		xarch.set(javaClassRef, "className", mainClass);
 		
@@ -48,7 +48,7 @@ public class Main {
 					String name = (String)key;
 					String value = initParams.getProperty(name);
 					
-					ObjRef initParamRef = xarch.create("org.archstudio.xadl3.javaimplementation_3_0", "InitializationParameter");
+					ObjRef initParamRef = XadlUtils.create(xarch, Javaimplementation_3_0Package.Literals.INITIALIZATION_PARAMETER);
 					xarch.set(initParamRef, "id", getNewID());
 					xarch.set(initParamRef, "name", name);
 					xarch.set(initParamRef, "value", value);
@@ -64,7 +64,7 @@ public class Main {
 	}
 	
 	private static ObjRef createLookupImplementation(String lookupName) {
-		ObjRef lookupImplementationRef = xarch.create("org.archstudio.xadl3.lookupimplementation_3_0", "LookupImplementation");
+		ObjRef lookupImplementationRef = XadlUtils.create(xarch, Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION);
 		
 		xarch.set(lookupImplementationRef, "lookup", lookupName);
 		
@@ -72,7 +72,7 @@ public class Main {
 	}
 	
 	private static ObjRef createImplementationExt(ObjRef... implementationRefs){
-		ObjRef implementationExtRef = xarch.create("org.archstudio.xadl3.implementation_3_0", "ImplementationExtension");
+		ObjRef implementationExtRef = XadlUtils.create(xarch, Implementation_3_0Package.Literals.IMPLEMENTATION_EXTENSION);
 		for(ObjRef implementationRef : implementationRefs) {
 			xarch.add(implementationExtRef, "implementation", implementationRef);
 		}
@@ -80,13 +80,13 @@ public class Main {
 	}
 	
 	private static ObjRef createInterface(String name, Direction direction, DomainType domain, String javaClass){
-		ObjRef ifaceRef = xarch.create("org.archstudio.xadl3.structure_3_0", "interface");
+		ObjRef ifaceRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.INTERFACE);
 		xarch.set(ifaceRef, "id", getNewID());
 		xarch.set(ifaceRef, "name", name);
 		xarch.set(ifaceRef, "direction", direction);
 		
-		ObjRef domainExtRef = xarch.create("org.archstudio.xadl3.domain_3_0", "DomainExtension");
-		ObjRef domainRef = xarch.create("org.archstudio.xadl3.domain_3_0", "Domain");
+		ObjRef domainExtRef = XadlUtils.create(xarch, Domain_3_0Package.Literals.DOMAIN_EXTENSION);
+		ObjRef domainRef = XadlUtils.create(xarch, Domain_3_0Package.Literals.DOMAIN);
 		xarch.set(domainRef, "type", domain);
 		xarch.set(domainExtRef, "domain", domainRef);
 		xarch.add(ifaceRef, "ext", domainExtRef);
@@ -96,7 +96,7 @@ public class Main {
 	}
 	
 	private static ObjRef createBrick(String typeOfBrick, String name, String javaClass, Properties initParams, ObjRef... ifaceRefs){
-		ObjRef brickRef = xarch.create("org.archstudio.xadl3.structure_3_0", typeOfBrick);
+		ObjRef brickRef = xarch.create(Structure_3_0Package.eNS_URI, typeOfBrick);
 		xarch.set(brickRef, "id", getNewID());
 		xarch.set(brickRef, "name", name);
 		
@@ -175,7 +175,7 @@ public class Main {
 	}
 	
 	private static ObjRef createLink(ObjRef iface1Ref, ObjRef iface2Ref) {
-		ObjRef linkRef = xarch.create("org.archstudio.xadl3.structure_3_0", "link");
+		ObjRef linkRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.LINK);
 		
 		ObjRef brickRef1 = xarch.getParent(iface1Ref);
 		ObjRef brickRef2 = xarch.getParent(iface2Ref);
@@ -229,11 +229,11 @@ public class Main {
 		URI docURI = URI.createURI("urn:archstudio5description");
 		ObjRef rootElementRef = xarch.createDocument(docURI);
 		
-		ObjRef xADLRef = xarch.create("org.archstudio.xadl3.xadlcore_3_0", "xADLType");
+		ObjRef xADLRef = XadlUtils.create(xarch, Xadlcore_3_0Package.Literals.XADL_TYPE);
 		
 		xarch.set(rootElementRef, "xADL", xADLRef);
 		
-		ObjRef structureRef = xarch.create("org.archstudio.xadl3.structure_3_0", "structure");
+		ObjRef structureRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.STRUCTURE);
 		xarch.set(structureRef, "id", getNewID());
 		xarch.set(structureRef, "name", "ArchStudio 5 Main Structure");
 

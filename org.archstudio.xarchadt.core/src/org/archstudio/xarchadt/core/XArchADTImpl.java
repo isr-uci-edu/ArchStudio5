@@ -674,14 +674,14 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@Override
-	public ObjRef createDocument(URI uri, String factoryName, String typeOfThing, String rootElementName) {
+	public ObjRef createDocument(URI uri, String nsURI, String typeOfThing, String rootElementName) {
 		Resource r = resourceSet.getResource(uri, false);
 		if (r != null)
 			return put(r.getContents().get(0));
 		r = resourceSet.createResource(uri, "xml");
 
-		ObjRef documentRootRef = create(factoryName, "DocumentRoot");
-		ObjRef xADLRef = create(factoryName, typeOfThing);
+		ObjRef documentRootRef = create(nsURI, "DocumentRoot");
+		ObjRef xADLRef = create(nsURI, typeOfThing);
 		set(documentRootRef, rootElementName, xADLRef);
 
 		setResourceFinishedLoading(r, true);

@@ -11,6 +11,7 @@ import org.archstudio.archlight.common.ArchlightTest;
 import org.archstudio.common.EclipseUtils;
 import org.archstudio.resources.common.IResources;
 import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl3.archlight_3_0.Archlight_3_0Package;
 import org.archstudio.xarchadt.common.IXArchADT;
 import org.archstudio.xarchadt.common.ObjRef;
 import org.eclipse.jface.action.Action;
@@ -128,11 +129,12 @@ public class ArchlightUtils {
 			}
 			//We didn't find it.  Create ancestor elements if necessary.
 			if (archlightRef == null) {
-				archlightRef = xarch.create("org.archstudio.xadl3.archlight_3_0", "archlight");
+				archlightRef = XadlUtils.create(xarch, Archlight_3_0Package.Literals.ARCHLIGHT);
 				xarch.add(xADLRef, "topLevelElement", archlightRef);
 			}
 			//Let's create the test.
-			ObjRef testRef = xarch.create("org.archstudio.xadl3.archlight_3_0", "test");
+			ObjRef testRef = XadlUtils.create(xarch, Archlight_3_0Package.Literals.TEST);
+			
 			xarch.set(testRef, "id", testToUpdate.getUID());
 			String nameString = "Tool: " + testToUpdate.getToolID() + "; Category: " + testToUpdate.getCategory();
 			XadlUtils.setName(xarch, testRef, nameString);

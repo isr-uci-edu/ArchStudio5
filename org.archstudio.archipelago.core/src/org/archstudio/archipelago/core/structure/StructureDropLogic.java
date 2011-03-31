@@ -92,7 +92,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic{
 					// Set up a substructure if one doesn't already exist.
 					ObjRef subStructureRef = (ObjRef)AS.xarch.get(outerRef, "subStructure");
 					if(subStructureRef == null){
-						subStructureRef = AS.xarch.create("org.archstudio.xadl3.structure_3_0", "subStructure");
+						subStructureRef = XadlUtils.create(AS.xarch, Structure_3_0Package.Literals.SUB_STRUCTURE);
 						AS.xarch.set(subStructureRef, "id", UIDGenerator.generateUID("subStructure"));
 						AS.xarch.set(outerRef, "subStructure", subStructureRef);
 					}
