@@ -5,19 +5,20 @@ import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.xadl.common.XadlUtils;
 import org.archstudio.xadl3.hints_3_0.Hints_3_0Package;
 import org.archstudio.xarchadt.common.ObjRef;
 
 public class ArrayPropertyCoder implements IPropertyCoder{
 
-	public boolean encode(IPropertyCoder masterCoder, ArchipelagoServices AS, ObjRef valueRef, Object propertyValue){
+	public boolean encode(IPropertyCoder masterCoder, ArchipelagoServices AS, ObjRef valueRef, Object propertyValue) {
 		Class<?> c = propertyValue.getClass();
 		if(c.isArray()){
 			AS.xarch.set(valueRef, "type", ArchipelagoUtils.getClassName(c));
 			
 			Object[] arr = (Object[])propertyValue;
-			for(int i = 0; i < arr.length; i++){
-				ObjRef childValueRef = (ObjRef)AS.xarch.create(Hints_3_0Package.eNS_URI, "value");
+			for(int i = 0; i < arr.length; i++) {
+				ObjRef childValueRef = XadlUtils.create(AS.xarch, Hints_3_0Package.Literals.VALUE);
 				if(masterCoder.encode(masterCoder, AS, childValueRef, arr[i])){
 					AS.xarch.add(valueRef, "value", childValueRef);
 				}

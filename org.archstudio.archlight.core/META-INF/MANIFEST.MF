@@ -24,5 +24,6 @@ Require-Bundle: org.archstudio.archlight.common;bundle-version="5.0.0",
  org.archstudio.filemanager.common;bundle-version="5.0.0",
  org.eclipse.emf.common;bundle-version="2.5.0",
  org.eclipse.ui.views;bundle-version="3.4.1",
- org.archstudio.swtutils;bundle-version="5.0.0"
+ org.archstudio.swtutils;bundle-version="5.0.0",
+ org.archstudio.xadl3.archlight;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
