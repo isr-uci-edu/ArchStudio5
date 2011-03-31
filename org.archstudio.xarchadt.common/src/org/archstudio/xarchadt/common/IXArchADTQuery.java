@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 
 public interface IXArchADTQuery {
-
 	/**
 	 * Determines if a given ObjRef is valid, that is, if there is an object
 	 * associated with it.
@@ -239,30 +238,29 @@ public interface IXArchADTQuery {
 	 * @return <code>true</code> if equal, false otherwise.
 	 */
 	public boolean equals(ObjRef ref1, ObjRef ref2);
-
 	public XArchADTPath getPath(ObjRef ref);
-
 	public ObjRef getDocumentRootRef(ObjRef ref);
-
 	public String getTagName(ObjRef ref);
-
 	public String getContainingFeatureName(ObjRef ref);
-
 	public String getTagsOnlyPathString(ObjRef ref);
-
 	public IXArchADTPackageMetadata getPackageMetadata(String nsURI);
-
 	public Collection<IXArchADTPackageMetadata> getAvailablePackageMetadata();
-
 	public IXArchADTTypeMetadata getTypeMetadata(String nsURI, String typeName);
-
 	public IXArchADTTypeMetadata getTypeMetadata(ObjRef objRef);
+	public boolean isInstanceOf(ObjRef baseObjRef, String sourceNsURI, String sourceTypeName);
 
-	public boolean isInstanceOf(ObjRef baseObjRef, String nsURI, String typeName);
-
-	public boolean isInstanceOf(String objectNsURI, String objectTypeName, String nsURI, String typeName);
+	/**
+	 * Determines if an object of the target type can be assigned to a variable
+	 * of the source type.  In other words, determines if the source type is
+	 * the same as, or a supertype or superinterface of, the target type.
+	 * @param sourceNsURI source namespace URI
+	 * @param sourceTypeName source type name
+	 * @param targetNsURI target namespace URI
+	 * @param targetTypeName target type name
+	 * @return true if an object of the target type can be assigned to a variable of the source type
+	 */
+	public boolean isAssignable(String sourceNsURI, String sourceTypeName, String targetNsURI, String targetTypeName);
 
 	public List<IXArchADTExtensionHint> getAllExtensionHints();
-	public List<IXArchADTExtensionHint> getExtensionHintsForExtension(String extensionFactoryName, String extensionTypeName);
-	public List<IXArchADTExtensionHint> getExtensionHintsForTarget(String targetFactoryName, String targetTypeName);
+	public List<IXArchADTExtensionHint> getExtensionHintsForExtension(String extensionNsURI, String extensionTypeName);	public List<IXArchADTExtensionHint> getExtensionHintsForTarget(String targetNsURI, String targetTypeName);
 }
