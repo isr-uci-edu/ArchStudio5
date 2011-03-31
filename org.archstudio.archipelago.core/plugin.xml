@@ -24,6 +24,7 @@
       <editor
             class="org.archstudio.archipelago.core.ArchipelagoEditor"
             default="false"
+            extensions="xml"
             icon="res/archstudio-icon-16x16.png"
             id="org.archstudio.archipelago.core.ArchipelagoEditor"
             name="Archipelago">
