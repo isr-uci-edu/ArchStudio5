@@ -252,24 +252,17 @@ public class ArchEditEditor extends AbstractArchstudioEditor {
 			IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(ref);
 			IXArchADTFeature feature = typeMetadata.getFeatures().get(featureName);
 			if (feature != null) {
-				Object value = null;
-				Class<?> featureClass = feature.getFeatureClass();
-				if (featureClass.equals(java.lang.String.class)) {
-					//It's already a string.
-					value = stringValue;
+				try {
+					// If the feature is an enumeration type, then xarch.set will
+					// automatically try to convert it to an enum and throw
+					// IllegalArgumentException if it's not a valid value.
+					xarch.set(ref, featureName, stringValue);
 				}
-				else if (XadlUtils.isEnumeratorClass(featureClass)) {
-					//It's an EMF enumeration.
-					value = XadlUtils.getEnumeratorValue(featureClass, stringValue);
-					if (value == null) {
-						MessageBox messageBox = new MessageBox(parent.getShell(), SWT.OK | SWT.ICON_ERROR);
-						messageBox.setMessage("Invalid enumeration value.");
-						messageBox.setText("Error");
-						messageBox.open();
-					}
-				}
-				if (value != null) {
-					xarch.set(ref, featureName, value);
+				catch (IllegalArgumentException iae) {
+					MessageBox messageBox = new MessageBox(parent.getShell(), SWT.OK | SWT.ICON_ERROR);
+					messageBox.setMessage("Invalid value for this field.");
+					messageBox.setText("Error");
+					messageBox.open();
 				}
 			}
 			else {

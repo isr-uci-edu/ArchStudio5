@@ -155,7 +155,6 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			public void drop(DropTargetEvent event) {
 				if (textTransfer.isSupportedType(event.currentDataType)) {
 					String text = (String) event.data;
-					//System.err.println("text = " + text);
 					if (text.startsWith("$LINK$")) {
 						text = text.substring("$LINK$".length());
 						int hashLocation = text.lastIndexOf('#');
@@ -185,9 +184,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 								ObjRef targetRef = ((ArchEditElementNode) data).getRef();
 								IXArchADTFeature feature = XadlUtils.getFeatureByName(xarch, parentRef, featureName);
 								if (feature != null) {
-									Class<?> featureClass = feature.getFeatureClass();
-									Class<?> targetClass = xarch.getTypeMetadata(targetRef).getInstanceClass();
-									if (!featureClass.isAssignableFrom(targetClass)) {
+									if (!XadlUtils.isAssignableTo(xarch, feature, xarch.getTypeMetadata(targetRef))) {
 										MessageBox messageBox = new MessageBox(getControl().getShell(), SWT.OK | SWT.ICON_ERROR);
 										messageBox.setMessage("Can't link that kind of element to this link.");
 										messageBox.setText("Error");
@@ -296,15 +293,13 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 	protected class ArchEditReferenceNode implements IArchEditNode, IReferenceNodeInfo {
 		protected final ObjRef parentRef;
 		protected final String featureName;
-		protected final Class<?> featureClass;
 		protected final int index;
 		protected final boolean isMultiple;
 
-		public ArchEditReferenceNode(ObjRef parentRef, String featureName, Class<?> featureClass, boolean isMultiple, int index) {
+		public ArchEditReferenceNode(ObjRef parentRef, String featureName, boolean isMultiple, int index) {
 			super();
 			this.parentRef = parentRef;
 			this.featureName = featureName;
-			this.featureClass = featureClass;
 			this.isMultiple = isMultiple;
 			this.index = index;
 		}
@@ -315,10 +310,6 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 
 		public String getFeatureName() {
 			return featureName;
-		}
-
-		public Class<?> getFeatureClass() {
-			return featureClass;
 		}
 
 		public Image getImage() {
@@ -424,12 +415,12 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 				if (feature.isReference()) {
 					switch (feature.getType()) {
 					case ELEMENT_SINGLE:
-						l.add(new ArchEditReferenceNode(ref, eltName, feature.getFeatureClass(), false, 0));
+						l.add(new ArchEditReferenceNode(ref, eltName, false, 0));
 						break;
 					case ELEMENT_MULTIPLE:
 						List<ObjRef> childElts = xarch.getAll(ref, eltName);
 						for (int i = 0; i < childElts.size(); i++) {
-							l.add(new ArchEditReferenceNode(ref, eltName, feature.getFeatureClass(), true, i));
+							l.add(new ArchEditReferenceNode(ref, eltName, true, i));
 						}
 						break;
 					}
@@ -611,10 +602,8 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 					boolean foundOne = false;
 					
 					if (XadlUtils.isExtension(xarch, feature)) {
-						String typeName = typeMetadata.getTypeName().substring(typeMetadata.getInstanceTypeName().lastIndexOf('.') + 1);
-						System.err.println("factory: " + typeMetadata.getNsPrefix());
-						System.err.println("typeName: " + typeName);
-						for (IXArchADTExtensionHint hint : xarch.getExtensionHintsForTarget(typeMetadata.getNsPrefix(), typeName)) {
+						String typeName = typeMetadata.getTypeName().substring(typeMetadata.getTypeName().lastIndexOf('.') + 1);
+						for (IXArchADTExtensionHint hint : xarch.getExtensionHintsForTarget(typeMetadata.getNsURI(), typeName)) {
 							foundOne = true;
 							Action addEltAction = new AddElementAction(ref, feature, hint.getExtensionNsURI(), hint.getExtensionTypeName());
 							submenuManager.add(addEltAction);
@@ -628,11 +617,9 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 					for (final IXArchADTPackageMetadata packageMetadata : xarch.getAvailablePackageMetadata()) {
 						for (Map.Entry<String, IXArchADTTypeMetadata> e : packageMetadata.getTypeMetadata().entrySet()) {
 							final String elementName = e.getKey();
-							final Class<?> elementClass = e.getValue().getElementClass();
-
-							if (feature.getFeatureClass().isAssignableFrom(elementClass)) {
+							if (XadlUtils.isAssignableTo(xarch, feature, e.getValue()) && !e.getValue().isAbstract()) {
 								foundOne = true;
-								Action addEltAction = new AddElementAction(ref, feature, packageMetadata.getNsPrefix(), elementName);
+								Action addEltAction = new AddElementAction(ref, feature, packageMetadata.getNsURI(), elementName);
 								submenuManager.add(addEltAction);
 							}
 						}
@@ -650,19 +637,19 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 	private class AddElementAction extends Action {
 		private final ObjRef ref;
 		private final IXArchADTFeature feature;
-		private final String factoryName;
+		private final String packageNsURI;
 		private final String elementName;
 		
-		public AddElementAction(ObjRef ref, IXArchADTFeature feature, String factoryName, String elementName) {
+		public AddElementAction(ObjRef ref, IXArchADTFeature feature, String packageNsURI, String elementName) {
 			super(SystemUtils.capFirst(elementName));
 			this.ref = ref;
 			this.feature = feature;
-			this.factoryName = factoryName;
+			this.packageNsURI = packageNsURI;
 			this.elementName = elementName;
 		}
 		
 		public void run() {
-			ObjRef newRef = xarch.create(factoryName, elementName);
+			ObjRef newRef = xarch.create(packageNsURI, elementName);
 			switch (feature.getType()) {
 			case ELEMENT_SINGLE:
 				xarch.set(ref, feature.getName(), newRef);

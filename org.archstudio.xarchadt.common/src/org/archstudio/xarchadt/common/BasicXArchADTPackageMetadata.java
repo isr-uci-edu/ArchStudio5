@@ -9,13 +9,10 @@ import com.google.common.collect.Maps;
 public class BasicXArchADTPackageMetadata implements IXArchADTPackageMetadata {
 
 	private final String nsURI;
-	private final String nsPrefix;
 	private final Map<String, IXArchADTTypeMetadata> typeMetadata;
 
-	public BasicXArchADTPackageMetadata(String nsURI, String nsPrefix,
-			Iterable<IXArchADTTypeMetadata> factoryElementMetadata) {
+	public BasicXArchADTPackageMetadata(String nsURI, Iterable<IXArchADTTypeMetadata> factoryElementMetadata) {
 		this.nsURI = nsURI;
-		this.nsPrefix = nsPrefix;
 		this.typeMetadata = Collections.unmodifiableMap(Maps.uniqueIndex(
 				factoryElementMetadata,
 				new Function<IXArchADTTypeMetadata, String>() {
@@ -28,10 +25,6 @@ public class BasicXArchADTPackageMetadata implements IXArchADTPackageMetadata {
 
 	public String getNsURI() {
 		return nsURI;
-	}
-
-	public String getNsPrefix() {
-		return nsPrefix;
 	}
 
 	public Map<String, IXArchADTTypeMetadata> getTypeMetadata() {

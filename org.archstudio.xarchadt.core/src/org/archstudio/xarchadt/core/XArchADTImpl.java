@@ -3,6 +3,8 @@ package org.archstudio.xarchadt.core;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,6 +26,7 @@ import org.archstudio.xarchadt.common.IXArchADT;
 import org.archstudio.xarchadt.common.IXArchADTExtensionHint;
 import org.archstudio.xarchadt.common.IXArchADTFeature;
 import org.archstudio.xarchadt.common.IXArchADTFeature.FeatureType;
+import org.archstudio.xarchadt.common.IXArchADTFeature.ValueType;
 import org.archstudio.xarchadt.common.IXArchADTFileListener;
 import org.archstudio.xarchadt.common.IXArchADTModelListener;
 import org.archstudio.xarchadt.common.IXArchADTPackageMetadata;
@@ -33,8 +36,12 @@ import org.archstudio.xarchadt.common.XArchADTFileEvent;
 import org.archstudio.xarchadt.common.XArchADTFileEvent.EventType;
 import org.archstudio.xarchadt.common.XArchADTModelEvent;
 import org.archstudio.xarchadt.common.XArchADTPath;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -43,6 +50,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -65,7 +73,6 @@ import com.google.common.collect.MapMaker;
 import com.google.common.collect.Maps;
 
 public class XArchADTImpl implements IXArchADT {
-
 	protected final List<IXArchADTModelListener> modelListeners = new CopyOnWriteArrayList<IXArchADTModelListener>();
 	protected final List<IXArchADTFileListener> fileListeners = new CopyOnWriteArrayList<IXArchADTFileListener>();
 
@@ -81,19 +88,63 @@ public class XArchADTImpl implements IXArchADT {
 		SAVE_OPTIONS_MAP.put(XMLResource.OPTION_ELEMENT_HANDLER, elementHandlerImpl);
 	}
 
+	private static final String EMF_EXTENSION_POINT_ID = "org.eclipse.emf.ecore.generated_package"; 
+	
 	public XArchADTImpl() {
 		resourceSet = new ResourceSetImpl();
 		resourceSet.eAdapters().add(new ContentAdapter());
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-				.put("xml", new GenericXMLResourceFactoryImpl());
-		resourceSet.getResourceFactoryRegistry().getContentTypeToFactoryMap()
-				.put("xml", new GenericXMLResourceFactoryImpl());
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xml", new GenericXMLResourceFactoryImpl());
+		resourceSet.getResourceFactoryRegistry().getContentTypeToFactoryMap().put("xml", new GenericXMLResourceFactoryImpl());
+	
+		registerAllSchemaPackages();
 	}
+	
+	/**
+	 * This method causes the EPackage.eINSTANCE variable of each EMF-generated bundle (plugin)
+	 * in Eclipse to be touched.  This causes the package to spontaneously register
+	 * itself with the EPackage Registry, which is how we find out what EPackages
+	 * are available on the system.  This is an EMF-ism that isn't easily avoided.
+	 * 
+	 * If you are running outside of ArchStudio (like in org.archstudio.description.Main,
+	 * then these bundles will not be available.  What you have to do then is just read
+	 * the eINSTANCE variable for all the EPackages you want to have available to you.
+	 */
+    private void registerAllSchemaPackages() {
+    	IExtensionRegistry reg = Platform.getExtensionRegistry();
+    	if (reg != null) {
+    		// The Extension Registry can be null if we're running outside of Eclipse,
+    		// as happens in, e.g., org.archstudio.description.Main
+    		for (IConfigurationElement configurationElement : reg.getConfigurationElementsFor(EMF_EXTENSION_POINT_ID)) {
+    			String packageClassName = configurationElement.getAttribute("class");
+    			if (packageClassName != null) {
+    				String bundleName = configurationElement.getDeclaringExtension().getContributor().getName();
+    				try {
+    					Class<?> packageClass = Platform.getBundle(bundleName).loadClass(packageClassName);
+    					Field instanceField = packageClass.getDeclaredField("eINSTANCE");
+    					/* EPackage ePackage = (EPackage) */ instanceField.get(packageClass);
+    				}
+    				catch (ClassNotFoundException cnfe) {
+    					System.err.println(cnfe);
+    				}
+    				catch (NoSuchFieldException nsfe) {
+    					System.err.println(nsfe);
+    				}
+    				catch (IllegalAccessException iae) {
+    					System.err.println(iae);
+    				}
+    			}
+    		}
+    	}
+	} 
 
 	// Map ObjRef <-> EObjects
 	private final Object objRefToEObjectLock = new Object();
-	private final BiMap<ObjRef, EObject> objRefToEObject = HashBiMap.create();
-	private final Map<EObject, ObjRef> eObjectToObjRef = objRefToEObject.inverse();
+	
+	// The BiMap is a two-way map
+	private final Map<ObjRef, EObject> objRefToEObject = HashBiMap.create();
+	
+	// Alias the BiMap's inverse rather than maintaining it internally.
+	private final Map<EObject, ObjRef> eObjectToObjRef = ((BiMap<ObjRef, EObject>)objRefToEObject).inverse();
 
 	private ObjRef put(EObject eObject) {
 		synchronized (objRefToEObjectLock) {
@@ -140,35 +191,34 @@ public class XArchADTImpl implements IXArchADT {
 		return object;
 	}
 
-	private static final ConcurrentMap<EClass, Map<String, EStructuralFeature>> autoCaselessFeature = new MapMaker()//
-			.softValues().makeComputingMap(new Function<EClass, Map<String, EStructuralFeature>>() {
+	// Dynamically maps feature names (either uppercase or lowercase) of an EClass to EStructuralFeatures.
+	private static final ConcurrentMap<EClass, Map<String, EStructuralFeature>> autoCaselessFeature = new MapMaker().softValues().makeComputingMap(new Function<EClass, Map<String, EStructuralFeature>>() {
+			Map<String, EStructuralFeature> structuralFeatures = Maps.newHashMap();
+			Map<Integer, EStructuralFeature> featureIDs = Maps.newHashMap();
 
-				Map<String, EStructuralFeature> structuralFeatures = Maps.newHashMap();
-				Map<Integer, EStructuralFeature> featureIDs = Maps.newHashMap();
+			@Override
+			public Map<String, EStructuralFeature> apply(EClass eClass) {
+				structuralFeatures = Maps.newHashMap();
+				featureIDs = Maps.newHashMap();
+				apply0(eClass);
+				return structuralFeatures;
+			}
 
-				@Override
-				public Map<String, EStructuralFeature> apply(EClass eClass) {
-					structuralFeatures = Maps.newHashMap();
-					featureIDs = Maps.newHashMap();
-					apply0(eClass);
-					return structuralFeatures;
-				}
-
-				private void apply0(EClass eClass) {
-					for (EStructuralFeature eStructuralFeature : eClass.getEStructuralFeatures()) {
-						EStructuralFeature conflictingEStructuralFeature = featureIDs.put(
-								eStructuralFeature.getFeatureID(), eStructuralFeature);
-						if (conflictingEStructuralFeature != null) {
-							throw new RuntimeException("Unexpected structural feature");
-						}
-						String name = eStructuralFeature.getName();
-						structuralFeatures.put(SystemUtils.capFirst(name), eStructuralFeature);
-						structuralFeatures.put(SystemUtils.uncapFirst(name), eStructuralFeature);
+			private void apply0(EClass eClass) {
+				for (EStructuralFeature eStructuralFeature : eClass.getEStructuralFeatures()) {
+					EStructuralFeature conflictingEStructuralFeature = featureIDs.put(
+							eStructuralFeature.getFeatureID(), eStructuralFeature);
+					if (conflictingEStructuralFeature != null) {
+						throw new RuntimeException("Unexpected structural feature");
 					}
-					for (EClass eSuperClass : eClass.getESuperTypes())
-						apply0(eSuperClass);
+					String name = eStructuralFeature.getName();
+					structuralFeatures.put(SystemUtils.capFirst(name), eStructuralFeature);
+					structuralFeatures.put(SystemUtils.uncapFirst(name), eStructuralFeature);
 				}
-			});
+				for (EClass eSuperClass : eClass.getESuperTypes())
+					apply0(eSuperClass);
+			}
+		});
 
 	private static final EStructuralFeature getEFeature(EClass eClass, String featureName) {
 		EStructuralFeature eFeature = autoCaselessFeature.get(eClass).get(featureName);
@@ -231,10 +281,35 @@ public class XArchADTImpl implements IXArchADT {
 		EObject baseEObject = get(baseObjRef);
 		baseEObject.eSet(getEFeature(baseEObject, typeOfThing), get(valueObjRef));
 	}
-
+	
 	@Override
 	public void set(ObjRef baseObjRef, String typeOfThing, Object value) {
 		EObject baseEObject = get(baseObjRef);
+		
+		// If the feature is an enumerated type but instead you passed in a string,
+		// then we will try to convert the string to an enumerated type automatically.
+		// If that doesn't work, we throw IllegalArgumentException.
+		EStructuralFeature feature = getEFeature(baseEObject, typeOfThing);
+		if (getValueType(feature).equals(IXArchADTFeature.ValueType.ENUMERATION) && (value != null) && (value instanceof String)) {
+			try {
+				Class<?> enumClass = feature.getEType().getInstanceClass();
+				if (enumClass == null) {
+					throw new IllegalArgumentException("Expected enumeration but got String");
+				}
+				Method m = enumClass.getMethod("get", java.lang.String.class);
+				Object newValue = m.invoke(enumClass, (String)value);
+				if (newValue == null) {
+					throw new IllegalArgumentException("String value " + value.toString() + " not valid for " + enumClass.getCanonicalName());
+				}
+				value = newValue;
+			}
+			catch (NoSuchMethodException nsme) {
+			}
+			catch (InvocationTargetException ite) {
+			}
+			catch (IllegalAccessException iae) {
+			}
+		}
 		baseEObject.eSet(getEFeature(baseEObject, typeOfThing), value);
 	}
 
@@ -345,8 +420,24 @@ public class XArchADTImpl implements IXArchADT {
 		}
 		return false;
 	}
+	
+	private static IXArchADTFeature.ValueType getValueType(EStructuralFeature feature) {
+		Class<?> c = feature.getEType().getInstanceClass();
+		if (c == null) {
+			return ValueType.OBJECT;
+		}
+		else if (Enumerator.class.isAssignableFrom(c)) {
+			return ValueType.ENUMERATION;
+		}
+		else if (String.class.isAssignableFrom(c)) {
+			return ValueType.STRING;
+		}
+		else {
+			return ValueType.OBJECT;
+		}
+	}
 
-	private static final ConcurrentMap<String, EPackage> autoEPackage = new MapMaker()//
+	private static final ConcurrentMap<String, EPackage> autoEPackage = new MapMaker()
 			.softValues().makeComputingMap(new Function<String, EPackage>() {
 				@Override
 				public EPackage apply(String nsURI) {
@@ -367,26 +458,25 @@ public class XArchADTImpl implements IXArchADT {
 					features.addAll(Collections2.transform(eClass.getEAllAttributes(),
 							new Function<EAttribute, IXArchADTFeature>() {
 								public IXArchADTFeature apply(EAttribute eFeature) {
-									return new BasicXArchADTFeature(//
-											eFeature.getName(),//
-											eFeature.eClass().getEPackage().getNsURI(), //
-											eFeature.eClass().getEPackage().getNsPrefix(), //
-											eFeature.eClass().getName(),//
-											FeatureType.ATTRIBUTE,//
-											false, eFeature.eClass().getInstanceClass());
+									return new BasicXArchADTFeature(
+											eFeature.getName(),
+											eFeature.getEType().getEPackage().getNsURI(), 
+											eFeature.getEType().getName(),
+											FeatureType.ATTRIBUTE,
+											getValueType(eFeature),
+											false);
 								};
 							}));
 					features.addAll(Collections2.transform(eClass.getEAllReferences(),
 							new Function<EReference, IXArchADTFeature>() {
 								public IXArchADTFeature apply(EReference eFeature) {
-									return new BasicXArchADTFeature(//
-											eFeature.getName(),//
-											eFeature.eClass().getEPackage().getNsURI(), //
-											eFeature.eClass().getEPackage().getNsPrefix(), //
-											eFeature.eClass().getName(),//
-											eFeature.isMany() ? FeatureType.ELEMENT_MULTIPLE
-													: FeatureType.ELEMENT_SINGLE,//
-											!eFeature.isContainment(), eFeature.eClass().getInstanceClass());
+									return new BasicXArchADTFeature(
+											eFeature.getName(),
+											eFeature.getEType().getEPackage().getNsURI(), 
+											eFeature.getEType().getName(),
+											eFeature.isMany() ? FeatureType.ELEMENT_MULTIPLE : FeatureType.ELEMENT_SINGLE,
+											getValueType(eFeature),
+											!eFeature.isContainment());
 								};
 							}));
 					return Maps.uniqueIndex(features, new Function<IXArchADTFeature, String>() {
@@ -398,31 +488,36 @@ public class XArchADTImpl implements IXArchADT {
 				}
 			});
 
-	private static final ConcurrentMap<EClass, IXArchADTTypeMetadata> autoTypeMedata = new MapMaker()//
+	/**
+	 * This is a map that generates type metadata for an EClass on demand,
+	 * caching it after it's generated.
+	 */
+	private static final ConcurrentMap<EClass, IXArchADTTypeMetadata> autoTypeMetadata = new MapMaker()//
 			.softValues().makeComputingMap(new Function<EClass, IXArchADTTypeMetadata>() {
 				@Override
 				public IXArchADTTypeMetadata apply(EClass eClass) {
-					return new BasicXArchADTTypeMetadata(//
-							eClass.getEPackage().getNsURI(), //
-							eClass.getEPackage().getNsPrefix(), //
-							eClass.getName(), //
-							autoFeatureMedata.get(eClass), //
-							eClass.getInstanceClass(), //
-							eClass.getInstanceClass());
+					return new BasicXArchADTTypeMetadata(
+							eClass.getEPackage().getNsURI(),
+							eClass.getName(),
+							autoFeatureMedata.get(eClass),
+							eClass.isAbstract());
 				}
 			});
 
+	/**
+	 * This is a map that generates package metadata for an EPackage on demand,
+	 * caching it after it's generated.
+	 */
 	private static final ConcurrentMap<EPackage, IXArchADTPackageMetadata> autoPackageMetatadata = new MapMaker()//
 			.softValues().makeComputingMap(new Function<EPackage, IXArchADTPackageMetadata>() {
 				@Override
 				public IXArchADTPackageMetadata apply(EPackage ePackage) {
-					return new BasicXArchADTPackageMetadata(//
-							ePackage.getNsURI(), //
-							ePackage.getNsPrefix(), //
+					return new BasicXArchADTPackageMetadata(
+							ePackage.getNsURI(),
 							Iterables.transform(Iterables.filter(ePackage.getEClassifiers(), EClass.class),
 									new Function<EClass, IXArchADTTypeMetadata>() {
 										public IXArchADTTypeMetadata apply(EClass eClass) {
-											return autoTypeMedata.get(eClass);
+											return autoTypeMetadata.get(eClass);
 										};
 									}));
 				}
@@ -444,32 +539,38 @@ public class XArchADTImpl implements IXArchADT {
 
 	@Override
 	public IXArchADTTypeMetadata getTypeMetadata(String nsURI, String typeName) {
-		return autoTypeMedata.get(getEClass(autoEPackage.get(nsURI), typeName));
+		return autoTypeMetadata.get(getEClass(autoEPackage.get(nsURI), typeName));
 	}
 
 	@Override
 	public IXArchADTTypeMetadata getTypeMetadata(ObjRef objRef) {
-		return autoTypeMedata.get(get(objRef).eClass());
+		return autoTypeMetadata.get(get(objRef).eClass());
 	}
 
 	@Override
 	public List<IXArchADTPackageMetadata> getAvailablePackageMetadata() {
-		return Lists.newArrayList(Collections2.transform(Collections2.transform(//
-				EPackage.Registry.INSTANCE.keySet(), //
-				Functions.forMap(autoEPackage)), //
-				Functions.forMap(autoPackageMetatadata)));
+		return Lists.newArrayList(Collections2.transform(Collections2.transform(
+			EPackage.Registry.INSTANCE.keySet(),
+			Functions.forMap(autoEPackage)),
+			Functions.forMap(autoPackageMetatadata)));
 	}
 
 	@Override
-	public boolean isInstanceOf(String objectNsURI, String objectTypeName, String nsURI, String typeName) {
-		EClass eInstanceClass = getEClass(autoEPackage.get(objectNsURI), objectTypeName);
-		EClass eInstanceOfClass = getEClass(autoEPackage.get(nsURI), typeName);
-		return eInstanceOfClass.isSuperTypeOf(eInstanceClass);
+	public boolean isAssignable(String sourceNsURI, String sourceTypeName, String targetNsURI, String targetTypeName) {
+		EClass eSourceClass = getEClass(autoEPackage.get(sourceNsURI), sourceTypeName);
+		EClass eTargetClass = getEClass(autoEPackage.get(targetNsURI), targetTypeName);
+		if (eSourceClass.equals(EcorePackage.Literals.EOBJECT)) {
+			// This is a special case - all EWhatevers are inherently assignable
+			// to EObject.  This comes up when a schema has an 'any' element.
+			return true;
+		}
+		return eSourceClass.isSuperTypeOf(eTargetClass);
 	}
 
-	public boolean isInstanceOf(ObjRef baseObjRef, String nsURI, String type) {
+	@Override
+	public boolean isInstanceOf(ObjRef baseObjRef, String sourceNsURI, String sourceTypeName) {
 		EObject baseEObject = get(baseObjRef);
-		return baseEObject.eClass().isSuperTypeOf(getEClass(autoEPackage.get(nsURI), type));
+		return getEClass(autoEPackage.get(sourceNsURI), sourceTypeName).isSuperTypeOf(baseEObject.eClass());
 	}
 
 	//
@@ -608,8 +709,6 @@ public class XArchADTImpl implements IXArchADT {
 		newResource.load(LOAD_OPTIONS_MAP);
 		setResourceFinishedLoading(newResource, true);
 
-		System.err.println("newresource type = " + newResource.getContents().get(0).getClass());
-
 		ObjRef rootElementRef = put(newResource.getContents().get(0));
 		fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_OPENED_EVENT, uri, rootElementRef));
 		return rootElementRef;
@@ -730,7 +829,7 @@ public class XArchADTImpl implements IXArchADT {
 			if (parentObj != null) {
 				Object containingObject = parentObj.eGet(containingFeature);
 				if (containingObject instanceof EList) {
-					EList list = (EList) containingObject;
+					EList<?> list = (EList<?>) containingObject;
 					index = list.indexOf(currentObj);
 				}
 			}
@@ -784,16 +883,6 @@ public class XArchADTImpl implements IXArchADT {
 
 	public void removeXArchADTFileListener(IXArchADTFileListener l) {
 		fileListeners.remove(l);
-	}
-
-	private static Method getMethod(Class c, String name) throws NoSuchMethodException {
-		Method[] methods = c.getMethods();
-		for (Method m : methods) {
-			if (m.getName().equals(name)) {
-				return m;
-			}
-		}
-		throw new NoSuchMethodException(name);
 	}
 
 	// This stuff is necessary to suppress the event flurry when a document is
@@ -876,12 +965,12 @@ public class XArchADTImpl implements IXArchADT {
 				newValuePath = getPath(newValueRef);
 			}
 
-			fireXArchADTModelEvent(new XArchADTModelEvent(//
-					evtType, //
-					srcRef, srcAncestors, srcPath, //
-					featureName, //
-					oldValue, oldValuePath, //
-					newValue, newValuePath));
+			fireXArchADTModelEvent(new XArchADTModelEvent(
+				evtType, 
+				srcRef, srcAncestors, srcPath,
+				featureName, 
+				oldValue, oldValuePath, 
+				newValue, newValuePath));
 		}
 	}
 
@@ -889,30 +978,29 @@ public class XArchADTImpl implements IXArchADT {
 
 	public synchronized List<IXArchADTExtensionHint> getAllExtensionHints() {
 		if (allExtensionHints == null) {
-			for (String intiailizeNsURI : EPackage.Registry.INSTANCE.keySet())
-				autoEPackage.get(intiailizeNsURI);
-			allExtensionHints = ExtensionHintUtils.parseExtensionHints(autoEPackage);
-			System.err.println("extension hints = " + allExtensionHints);
+			List<EPackage> allEPackages = Lists.newArrayList();
+			for (String packageNsURI : EPackage.Registry.INSTANCE.keySet()) {
+				allEPackages.add(EPackage.Registry.INSTANCE.getEPackage(packageNsURI));
+			}
+			allExtensionHints = ExtensionHintUtils.parseExtensionHints(allEPackages);
 		}
 		return allExtensionHints;
 	}
 
-	public List<IXArchADTExtensionHint> getExtensionHintsForExtension(String extensionFactoryName,
-			String extensionTypeName) {
+	public List<IXArchADTExtensionHint> getExtensionHintsForExtension(String extensionNsURI, String extensionTypeName) {
 		List<IXArchADTExtensionHint> matchingHints = new ArrayList<IXArchADTExtensionHint>();
 		for (IXArchADTExtensionHint hint : getAllExtensionHints()) {
-			if (extensionFactoryName.equals(hint.getExtensionNsURI())
-					&& extensionTypeName.equals(hint.getExtensionTypeName())) {
+			if (extensionNsURI.equals(hint.getExtensionNsURI()) && extensionTypeName.equals(hint.getExtensionTypeName())) {
 				matchingHints.add(hint);
 			}
 		}
 		return matchingHints;
 	}
 
-	public List<IXArchADTExtensionHint> getExtensionHintsForTarget(String targetFactoryName, String targetTypeName) {
+	public List<IXArchADTExtensionHint> getExtensionHintsForTarget(String targetNsURI, String targetTypeName) {
 		List<IXArchADTExtensionHint> matchingHints = new ArrayList<IXArchADTExtensionHint>();
 		for (IXArchADTExtensionHint hint : getAllExtensionHints()) {
-			if (targetFactoryName.equals(hint.getTargetNsURI()) && targetTypeName.equals(hint.getTargetTypeName())) {
+			if (targetNsURI.equals(hint.getTargetNsURI()) && targetTypeName.equals(hint.getTargetTypeName())) {
 				matchingHints.add(hint);
 			}
 		}

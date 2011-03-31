@@ -9,7 +9,6 @@ import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package;
 import org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package;
 import org.archstudio.xadl3.lookupimplementation_3_0.Lookupimplementation_3_0Package;
-import org.archstudio.xadl3.xadlcore_3_0.Extension;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
 import org.archstudio.xarchadt.common.IXArchADT;
 import org.archstudio.xarchadt.common.IXArchADTFeature;
@@ -19,7 +18,6 @@ import org.archstudio.xarchadt.common.ObjRef;
 import org.archstudio.xarchadt.common.XArchADTModelEvent;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 
 public class XadlUtils {
 
@@ -65,8 +63,7 @@ public class XadlUtils {
 		if (implementationExtRef != null) {
 			List<ObjRef> implementationRefs = xarch.getAll(implementationExtRef, "implementation");
 			for (ObjRef implementationRef : implementationRefs) {
-				if (XadlUtils.isInstanceOf(xarch, implementationRef,
-						Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION)) {
+				if (XadlUtils.isInstanceOf(xarch, implementationRef, Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION)) {
 					return implementationRef;
 				}
 			}
@@ -80,8 +77,7 @@ public class XadlUtils {
 		if (implementationExtRef != null) {
 			List<ObjRef> implementationRefs = xarch.getAll(implementationExtRef, "implementation");
 			for (ObjRef implementationRef : implementationRefs) {
-				if (XadlUtils.isInstanceOf(xarch, implementationRef,
-						Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION)) {
+				if (XadlUtils.isInstanceOf(xarch, implementationRef, Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION)) {
 					return implementationRef;
 				}
 			}
@@ -191,14 +187,21 @@ public class XadlUtils {
 	}
 
 	public static boolean isInstanceOf(IXArchADTQuery xarch, IXArchADTFeature feature, EClass eClass) {
-		return xarch.isInstanceOf(//
-				feature.getNsURI(), feature.getTypeName(), //
-				eClass.getEPackage().getNsURI(), eClass.getName());
+		return xarch.isAssignable(feature.getNsURI(), feature.getTypeName(), eClass.getEPackage().getNsURI(), eClass.getName());
 	}
 
 	public static boolean isInstanceOf(IXArchADTQuery xarch, EClass objectEClass, EClass eClass) {
-		return xarch.isInstanceOf(//
-				objectEClass.getEPackage().getNsURI(), objectEClass.getName(), //
-				eClass.getEPackage().getNsURI(), eClass.getName());
+		return xarch.isAssignable(objectEClass.getEPackage().getNsURI(), objectEClass.getName(), eClass.getEPackage().getNsURI(), eClass.getName());
+	}
+	
+	/**
+	 * Returns true if an instance of the thing referred to by typeMetadata could be assigned to the feature. 
+	 * @param xarch xArchADT instance
+	 * @param feature The feature that is going to be assigned.  
+	 * @param typeMetadata The thing you want to assign to the feature.
+	 * @return
+	 */
+	public static boolean isAssignableTo(IXArchADTQuery xarch, IXArchADTFeature feature, IXArchADTTypeMetadata typeMetadata) {
+		return xarch.isAssignable(feature.getNsURI(), feature.getTypeName(), typeMetadata.getNsURI(), typeMetadata.getTypeName());
 	}
 }
