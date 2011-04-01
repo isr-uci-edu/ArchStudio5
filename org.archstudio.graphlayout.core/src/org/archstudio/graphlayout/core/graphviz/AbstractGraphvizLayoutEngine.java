@@ -19,7 +19,6 @@ import org.archstudio.swtutils.constants.Orientation;
 import org.archstudio.xadl.common.XadlUtils;
 import org.archstudio.xadl3.domain_3_0.DomainType;
 import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
-import org.archstudio.xadl3.structure_3_0.Structure;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.common.IXArchADT;
 import org.archstudio.xarchadt.common.ObjRef;
@@ -422,11 +421,11 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 
 	protected static boolean shouldOrientInterfaces(GraphLayoutParameters params) {
 		Object o = params.getProperty("orientInterfaces");
+		if (o == null) {
+			return false;
+		}
 		if (o instanceof Boolean) {
 			Boolean b = (Boolean) o;
-			if (b == null) {
-				return false;
-			}
 			return b.booleanValue();
 		}
 		return false;

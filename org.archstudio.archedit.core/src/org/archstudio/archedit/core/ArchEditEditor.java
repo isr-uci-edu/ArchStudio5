@@ -202,10 +202,11 @@ public class ArchEditEditor extends AbstractArchstudioEditor {
 		}
 
 		public Object getValue(Object element, String property) {
+			if (element == null) {
+				return "";
+			}
 			if (element instanceof String[]) {
 				String[] elts = (String[]) element;
-				if (elts == null)
-					return "";
 				if (elts[1] == null)
 					return "";
 				return elts[1].toString();

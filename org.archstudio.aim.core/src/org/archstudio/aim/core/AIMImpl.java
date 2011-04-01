@@ -219,12 +219,12 @@ public class AIMImpl implements IAIM {
 			}
 
 			Direction direction1 = (Direction) xarch.get(interface1Ref, "direction");
-			if (interface1Ref == null) {
+			if (direction1 == null) {
 				throw new ArchitectureInstantiationException("Interface " + XadlUtils.getName(xarch, interface1Ref) + " missing direction.");
 			}
 
 			Direction direction2 = (Direction) xarch.get(interface2Ref, "direction");
-			if (interface2Ref == null) {
+			if (direction2 == null) {
 				throw new ArchitectureInstantiationException("Interface " + XadlUtils.getName(xarch, interface1Ref) + " missing direction.");
 			}
 
@@ -423,7 +423,7 @@ public class AIMImpl implements IAIM {
 					throw new ArchitectureInstantiationException("Missing lookup implementation on interface " + XadlUtils.getName(xarch, innerInterfaceRef));
 				}
 				String innerInterfaceLookupImplementationName = (String) xarch.get(innerInterfaceLookupImplementationRef, "lookup");
-				if (innerInterfaceLookupImplementationRef == null) {
+				if (innerInterfaceLookupImplementationName == null) {
 					throw new ArchitectureInstantiationException("Missing lookup implementation information on interface "
 					        + XadlUtils.getName(xarch, innerInterfaceRef));
 				}

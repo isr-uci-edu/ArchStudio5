@@ -59,15 +59,16 @@ public class AIMLauncherEditor extends AbstractArchstudioEditor /*implements IMy
 			this.ref = ref;
 		}
 
-		public boolean canModify(Object element, String property){
+		public boolean canModify(Object element, String property) {
 			return true;
 		}
 
-		public Object getValue(Object element, String property){
+		public Object getValue(Object element, String property) {
+			if (element == null) {
+				return "";
+			}
 			if(element instanceof String[]){
 				String[] elts = (String[])element;
-				if(elts == null)
-					return "";
 				if(elts[1] == null)
 					return "";
 				return elts[1].toString();

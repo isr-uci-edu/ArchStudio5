@@ -1,16 +1,5 @@
 package org.archstudio.bna.demo;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Layout;
-import org.eclipse.swt.widgets.Shell;
-
 import org.archstudio.bna.BNAComposite;
 import org.archstudio.bna.DefaultBNAModel;
 import org.archstudio.bna.DefaultBNAView;
@@ -20,7 +9,6 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
-import org.archstudio.bna.ResourceUtils;
 import org.archstudio.bna.assemblies.BoxAssembly;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSelected;
@@ -65,6 +53,12 @@ import org.archstudio.bna.logics.tracking.StickyBoxTrackingLogic;
 import org.archstudio.bna.logics.tracking.ThingRefTrackingLogic;
 import org.archstudio.bna.logics.tracking.TypedThingSetTrackingLogic;
 import org.archstudio.bna.things.labels.BoxedLabelThing;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 public class BNASWTSynchDemo {
 
@@ -73,7 +67,7 @@ public class BNASWTSynchDemo {
 	SWTBNALayoutLogic swtLayoutLogic;
 
 	public static void main(String args[]) {
-		BNASWTSynchDemo demo = new BNASWTSynchDemo();
+		/* BNASWTSynchDemo demo = */ new BNASWTSynchDemo();
 	}
 
 	public BNASWTSynchDemo() {
@@ -141,7 +135,7 @@ public class BNASWTSynchDemo {
 		//	swtBNALogic.addBNAToSWTMapping(boxes[i].getBoxClassThing().getID(), swtButtons[i]);
 		//}
 
-		GridData gd;
+		// GridData gd;
 
 		// EXAMPLE CLASS
 
