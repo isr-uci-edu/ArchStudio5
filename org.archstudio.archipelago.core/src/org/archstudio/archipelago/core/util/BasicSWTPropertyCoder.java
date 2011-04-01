@@ -1,8 +1,5 @@
 package org.archstudio.archipelago.core.util;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;

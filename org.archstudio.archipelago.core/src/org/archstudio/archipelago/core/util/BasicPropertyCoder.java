@@ -1,8 +1,5 @@
 package org.archstudio.archipelago.core.util;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.xarchadt.common.ObjRef;
 

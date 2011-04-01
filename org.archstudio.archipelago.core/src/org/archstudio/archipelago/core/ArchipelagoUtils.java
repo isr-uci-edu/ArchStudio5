@@ -224,9 +224,9 @@ public class ArchipelagoUtils{
 		viewer.setData("allowCellEditing", null);
 	}
 	
-	public static String getClassName(Class c){
+	public static String getClassName(Class<?> c){
 		if(c.isArray()){
-			Class cc = c.getComponentType();
+			Class<?> cc = c.getComponentType();
 			return getClassName(cc) + "[]";
 		}
 		return c.getName();
