@@ -1,6 +1,6 @@
 package org.archstudio.xarchadt.common;
 
-public class BasicXArchADTExtensionHint implements IXArchADTExtensionHint {
+public class BasicXArchADTSubstitutionHint implements IXArchADTSubstitutionHint {
 	
 	protected String extensionNsURI;
 	protected String extensionTypeName;
@@ -8,7 +8,7 @@ public class BasicXArchADTExtensionHint implements IXArchADTExtensionHint {
 	protected String targetNsURI;
 	protected String targetTypeName;
 	
-	public BasicXArchADTExtensionHint(String extensionNsURI, String extensionTypeName, String targetNsURI, String targetTypeName) {
+	public BasicXArchADTSubstitutionHint(String extensionNsURI, String extensionTypeName, String targetNsURI, String targetTypeName) {
 		this.extensionNsURI = extensionNsURI;
 		this.extensionTypeName = extensionTypeName;
 		this.targetNsURI = targetNsURI;
@@ -16,12 +16,12 @@ public class BasicXArchADTExtensionHint implements IXArchADTExtensionHint {
 	}
 
 	@Override
-	public String getExtensionNsURI() {
+	public String getSourceNsURI() {
 		return extensionNsURI;
 	}
 
 	@Override
-	public String getExtensionTypeName() {
+	public String getSourceTypeName() {
 		return extensionTypeName;
 	}
 
