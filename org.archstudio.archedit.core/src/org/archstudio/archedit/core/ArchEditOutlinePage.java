@@ -11,7 +11,7 @@ import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.common.XadlUtils;
 import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.IXArchADTExtensionHint;
+import org.archstudio.xarchadt.common.IXArchADTSubstitutionHint;
 import org.archstudio.xarchadt.common.IXArchADTFeature;
 import org.archstudio.xarchadt.common.IXArchADTFeature.FeatureType;
 import org.archstudio.xarchadt.common.IXArchADTPackageMetadata;
@@ -603,9 +603,9 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 					
 					if (XadlUtils.isExtension(xarch, feature)) {
 						String typeName = typeMetadata.getTypeName().substring(typeMetadata.getTypeName().lastIndexOf('.') + 1);
-						for (IXArchADTExtensionHint hint : xarch.getExtensionHintsForTarget(typeMetadata.getNsURI(), typeName)) {
+						for (IXArchADTSubstitutionHint hint : xarch.getExtensionHintsForTarget(typeMetadata.getNsURI(), typeName)) {
 							foundOne = true;
-							Action addEltAction = new AddElementAction(ref, feature, hint.getExtensionNsURI(), hint.getExtensionTypeName());
+							Action addEltAction = new AddElementAction(ref, feature, hint.getSourceNsURI(), hint.getSourceTypeName());
 							submenuManager.add(addEltAction);
 						}
 					}

@@ -23,7 +23,7 @@ import org.archstudio.xarchadt.common.BasicXArchADTFeature;
 import org.archstudio.xarchadt.common.BasicXArchADTPackageMetadata;
 import org.archstudio.xarchadt.common.BasicXArchADTTypeMetadata;
 import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.IXArchADTExtensionHint;
+import org.archstudio.xarchadt.common.IXArchADTSubstitutionHint;
 import org.archstudio.xarchadt.common.IXArchADTFeature;
 import org.archstudio.xarchadt.common.IXArchADTFeature.FeatureType;
 import org.archstudio.xarchadt.common.IXArchADTFeature.ValueType;
@@ -979,9 +979,9 @@ public class XArchADTImpl implements IXArchADT {
 		}
 	}
 
-	protected List<IXArchADTExtensionHint> allExtensionHints = null;
+	protected List<IXArchADTSubstitutionHint> allExtensionHints = null;
 
-	public synchronized List<IXArchADTExtensionHint> getAllExtensionHints() {
+	public synchronized List<IXArchADTSubstitutionHint> getAllExtensionHints() {
 		if (allExtensionHints == null) {
 			List<EPackage> allEPackages = Lists.newArrayList();
 			for (String packageNsURI : EPackage.Registry.INSTANCE.keySet()) {
@@ -992,19 +992,19 @@ public class XArchADTImpl implements IXArchADT {
 		return allExtensionHints;
 	}
 
-	public List<IXArchADTExtensionHint> getExtensionHintsForExtension(String extensionNsURI, String extensionTypeName) {
-		List<IXArchADTExtensionHint> matchingHints = new ArrayList<IXArchADTExtensionHint>();
-		for (IXArchADTExtensionHint hint : getAllExtensionHints()) {
-			if (extensionNsURI.equals(hint.getExtensionNsURI()) && extensionTypeName.equals(hint.getExtensionTypeName())) {
+	public List<IXArchADTSubstitutionHint> getExtensionHintsForExtension(String extensionNsURI, String extensionTypeName) {
+		List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
+		for (IXArchADTSubstitutionHint hint : getAllExtensionHints()) {
+			if (extensionNsURI.equals(hint.getSourceNsURI()) && extensionTypeName.equals(hint.getSourceTypeName())) {
 				matchingHints.add(hint);
 			}
 		}
 		return matchingHints;
 	}
 
-	public List<IXArchADTExtensionHint> getExtensionHintsForTarget(String targetNsURI, String targetTypeName) {
-		List<IXArchADTExtensionHint> matchingHints = new ArrayList<IXArchADTExtensionHint>();
-		for (IXArchADTExtensionHint hint : getAllExtensionHints()) {
+	public List<IXArchADTSubstitutionHint> getExtensionHintsForTarget(String targetNsURI, String targetTypeName) {
+		List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
+		for (IXArchADTSubstitutionHint hint : getAllExtensionHints()) {
 			if (targetNsURI.equals(hint.getTargetNsURI()) && targetTypeName.equals(hint.getTargetTypeName())) {
 				matchingHints.add(hint);
 			}

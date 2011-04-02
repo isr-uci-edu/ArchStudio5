@@ -11,8 +11,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.archstudio.xarchadt.common.BasicXArchADTExtensionHint;
-import org.archstudio.xarchadt.common.IXArchADTExtensionHint;
+import org.archstudio.xarchadt.common.BasicXArchADTSubstitutionHint;
+import org.archstudio.xarchadt.common.IXArchADTSubstitutionHint;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EPackage;
 import org.w3c.dom.Document;
@@ -32,8 +32,8 @@ class ExtensionHintUtils {
 	 * @return List of all extension hints found in all the factories in the
 	 *         map.
 	 */
-	public static List<IXArchADTExtensionHint> parseExtensionHints(Collection<EPackage> allEPackages) {
-		List<IXArchADTExtensionHint> allHints = new ArrayList<IXArchADTExtensionHint>();
+	public static List<IXArchADTSubstitutionHint> parseExtensionHints(Collection<EPackage> allEPackages) {
+		List<IXArchADTSubstitutionHint> allHints = new ArrayList<IXArchADTSubstitutionHint>();
 		for (EPackage ePackage : allEPackages) {
 			allHints.addAll(parseExtensionHints(ePackage));
 		}
@@ -48,7 +48,7 @@ class ExtensionHintUtils {
 	 * @return List of all extension hints found in all the factories in the
 	 *         map.
 	 */
-	public static List<IXArchADTExtensionHint> parseExtensionHints(EPackage ePackage) {
+	public static List<IXArchADTSubstitutionHint> parseExtensionHints(EPackage ePackage) {
 		EAnnotation eAnnotation = ePackage.getEAnnotation(EXTENSION_HINT_URI);
 		if (eAnnotation != null) {
 			String extensionHintsText = eAnnotation.getDetails().get("appinfo");
@@ -57,8 +57,8 @@ class ExtensionHintUtils {
 		return Collections.emptyList();
 	}
 
-	public static List<IXArchADTExtensionHint> parseExtensionHints(String xml) {
-		List<IXArchADTExtensionHint> extensionHints = new ArrayList<IXArchADTExtensionHint>();
+	public static List<IXArchADTSubstitutionHint> parseExtensionHints(String xml) {
+		List<IXArchADTSubstitutionHint> extensionHints = new ArrayList<IXArchADTSubstitutionHint>();
 		try {
 			Document doc = parseToDocument(new StringReader("<hints>" + xml + "</hints>"));
 			Element hintsElement = doc.getDocumentElement();
@@ -74,7 +74,7 @@ class ExtensionHintUtils {
 						String targetTypeName = childElement.getAttribute("targetType");
 
 						if ((extensionNsURI != null) && (extensionTypeName != null) && (targetNsURI != null) && (targetTypeName != null)) {
-							extensionHints.add(new BasicXArchADTExtensionHint(extensionNsURI, extensionTypeName, targetNsURI, targetTypeName));
+							extensionHints.add(new BasicXArchADTSubstitutionHint(extensionNsURI, extensionTypeName, targetNsURI, targetTypeName));
 						}
 					}
 				}
