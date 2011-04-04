@@ -261,6 +261,7 @@ public interface IXArchADTQuery {
 	 */
 	public boolean isAssignable(String sourceNsURI, String sourceTypeName, String targetNsURI, String targetTypeName);
 
-	public List<IXArchADTSubstitutionHint> getAllExtensionHints();
-	public List<IXArchADTSubstitutionHint> getExtensionHintsForExtension(String extensionNsURI, String extensionTypeName);	public List<IXArchADTSubstitutionHint> getExtensionHintsForTarget(String targetNsURI, String targetTypeName);
+	public List<IXArchADTSubstitutionHint> getAllSubstitutionHints();
+	public List<IXArchADTSubstitutionHint> getSubstitutionHintsForSource(String sourceNsURI, String sourceTypeName);	
+	public List<IXArchADTSubstitutionHint> getSubstitutionHintsForTarget(String targetNsURI, String targetTypeName);
 }

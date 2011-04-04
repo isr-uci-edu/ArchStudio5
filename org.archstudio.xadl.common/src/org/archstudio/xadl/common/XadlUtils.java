@@ -54,7 +54,8 @@ public class XadlUtils {
 	}
 
 	public static boolean isExtension(IXArchADTQuery xarch, IXArchADTFeature feature) {
-		return isInstanceOf(xarch, feature, Xadlcore_3_0Package.Literals.EXTENSION);
+		EClass extensionEClass = Xadlcore_3_0Package.Literals.EXTENSION;
+		return xarch.isAssignable(extensionEClass.getEPackage().getNsURI(), extensionEClass.getName(), feature.getNsURI(), feature.getTypeName());
 	}
 
 	public static ObjRef getLookupImplementation(IXArchADTQuery xarch, ObjRef ref) {

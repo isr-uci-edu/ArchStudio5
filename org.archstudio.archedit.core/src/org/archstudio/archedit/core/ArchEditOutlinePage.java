@@ -585,7 +585,6 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 
 		for (final IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
 			if (feature.getType().equals(FeatureType.ELEMENT_SINGLE) || feature.getType().equals(FeatureType.ELEMENT_MULTIPLE)) {
-
 				boolean disabled = false;
 				if (feature.getType().equals(FeatureType.ELEMENT_SINGLE)) {
 					Object existingElement = xarch.get(ref, feature.getName());
@@ -603,9 +602,17 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 					
 					if (XadlUtils.isExtension(xarch, feature)) {
 						String typeName = typeMetadata.getTypeName().substring(typeMetadata.getTypeName().lastIndexOf('.') + 1);
-						for (IXArchADTSubstitutionHint hint : xarch.getExtensionHintsForTarget(typeMetadata.getNsURI(), typeName)) {
+						for (IXArchADTSubstitutionHint hint : xarch.getSubstitutionHintsForTarget(typeMetadata.getNsURI(), typeName)) {
 							foundOne = true;
 							Action addEltAction = new AddElementAction(ref, feature, hint.getSourceNsURI(), hint.getSourceTypeName());
+							submenuManager.add(addEltAction);
+						}
+					}
+					else {
+						// This handles substitution groups and the like
+						for (IXArchADTSubstitutionHint hint : xarch.getSubstitutionHintsForSource(typeMetadata.getNsURI(), feature.getName())) {
+							foundOne = true;
+							Action addEltAction = new AddElementAction(ref, feature, hint.getTargetNsURI(), hint.getTargetTypeName());
 							submenuManager.add(addEltAction);
 						}
 					}
