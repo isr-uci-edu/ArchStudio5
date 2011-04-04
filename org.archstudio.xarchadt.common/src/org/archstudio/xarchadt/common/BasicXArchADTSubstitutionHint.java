@@ -1,6 +1,7 @@
 package org.archstudio.xarchadt.common;
 
 public class BasicXArchADTSubstitutionHint implements IXArchADTSubstitutionHint {
+	protected HintType hintType;
 	
 	protected String sourceNsURI;
 	protected String sourceTypeName;
@@ -8,11 +9,17 @@ public class BasicXArchADTSubstitutionHint implements IXArchADTSubstitutionHint 
 	protected String targetNsURI;
 	protected String targetTypeName;
 	
-	public BasicXArchADTSubstitutionHint(String sourceNsURI, String sourceTypeName, String targetNsURI, String targetTypeName) {
+	public BasicXArchADTSubstitutionHint(HintType hintType, String sourceNsURI, String sourceTypeName, String targetNsURI, String targetTypeName) {
+		this.hintType = hintType;
 		this.sourceNsURI = sourceNsURI;
 		this.sourceTypeName = sourceTypeName;
 		this.targetNsURI = targetNsURI;
 		this.targetTypeName = targetTypeName;
+	}
+	
+	@Override
+	public HintType getHintType() {
+		return hintType;
 	}
 
 	@Override
@@ -34,4 +41,13 @@ public class BasicXArchADTSubstitutionHint implements IXArchADTSubstitutionHint 
 	public String getTargetTypeName() {
 		return targetTypeName;
 	}
+
+	@Override
+	public String toString() {
+		return "BasicXArchADTSubstitutionHint [hintType=" + hintType
+				+ ", sourceNsURI=" + sourceNsURI + ", sourceTypeName="
+				+ sourceTypeName + ", targetNsURI=" + targetNsURI
+				+ ", targetTypeName=" + targetTypeName + "]";
+	}
+	
 }

@@ -445,12 +445,11 @@ public class XArchADTImpl implements IXArchADT {
 					if (ePackage != null) {
 						return ePackage;
 					}
-					// TODO: Include instructions on registering EPackages
 					throw new NullPointerException(SystemUtils.message("No EPackage with nsURI: $0", nsURI));
 				}
 			});
 
-	private static final ConcurrentMap<EClass, Map<String, IXArchADTFeature>> autoFeatureMetadata = new MapMaker()//
+	private static final ConcurrentMap<EClass, Map<String, IXArchADTFeature>> autoFeatureMetadata = new MapMaker()
 			.softValues().makeComputingMap(new Function<EClass, Map<String, IXArchADTFeature>>() {
 				@Override
 				public Map<String, IXArchADTFeature> apply(EClass eClass) {
@@ -979,32 +978,35 @@ public class XArchADTImpl implements IXArchADT {
 		}
 	}
 
-	protected List<IXArchADTSubstitutionHint> allExtensionHints = null;
+	protected List<IXArchADTSubstitutionHint> allSubstitutionHints = null;
 
-	public synchronized List<IXArchADTSubstitutionHint> getAllExtensionHints() {
-		if (allExtensionHints == null) {
+	public synchronized List<IXArchADTSubstitutionHint> getAllSubstitutionHints() {
+		if (allSubstitutionHints == null) {
 			List<EPackage> allEPackages = Lists.newArrayList();
 			for (String packageNsURI : EPackage.Registry.INSTANCE.keySet()) {
 				allEPackages.add(EPackage.Registry.INSTANCE.getEPackage(packageNsURI));
 			}
-			allExtensionHints = ExtensionHintUtils.parseExtensionHints(allEPackages);
+			allSubstitutionHints = Lists.newArrayList();
+			allSubstitutionHints.addAll(ExtensionHintUtils.parseExtensionHints(allEPackages));
+			allSubstitutionHints.addAll(SubstitutionHintUtils.parseSubstitutionHints(allEPackages));
 		}
-		return allExtensionHints;
+		
+		return allSubstitutionHints;
 	}
 
-	public List<IXArchADTSubstitutionHint> getExtensionHintsForExtension(String extensionNsURI, String extensionTypeName) {
+	public List<IXArchADTSubstitutionHint> getSubstitutionHintsForSource(String sourceNsURI, String sourceTypeName) {
 		List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
-		for (IXArchADTSubstitutionHint hint : getAllExtensionHints()) {
-			if (extensionNsURI.equals(hint.getSourceNsURI()) && extensionTypeName.equals(hint.getSourceTypeName())) {
+		for (IXArchADTSubstitutionHint hint : getAllSubstitutionHints()) {
+			if (sourceNsURI.equals(hint.getSourceNsURI()) && sourceTypeName.equals(hint.getSourceTypeName())) {
 				matchingHints.add(hint);
 			}
 		}
 		return matchingHints;
 	}
 
-	public List<IXArchADTSubstitutionHint> getExtensionHintsForTarget(String targetNsURI, String targetTypeName) {
+	public List<IXArchADTSubstitutionHint> getSubstitutionHintsForTarget(String targetNsURI, String targetTypeName) {
 		List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
-		for (IXArchADTSubstitutionHint hint : getAllExtensionHints()) {
+		for (IXArchADTSubstitutionHint hint : getAllSubstitutionHints()) {
 			if (targetNsURI.equals(hint.getTargetNsURI()) && targetTypeName.equals(hint.getTargetTypeName())) {
 				matchingHints.add(hint);
 			}

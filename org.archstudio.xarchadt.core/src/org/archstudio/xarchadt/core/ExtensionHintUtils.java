@@ -13,6 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.archstudio.xarchadt.common.BasicXArchADTSubstitutionHint;
 import org.archstudio.xarchadt.common.IXArchADTSubstitutionHint;
+import org.archstudio.xarchadt.common.IXArchADTSubstitutionHint.HintType;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EPackage;
 import org.w3c.dom.Document;
@@ -74,7 +75,7 @@ class ExtensionHintUtils {
 						String targetTypeName = childElement.getAttribute("targetType");
 
 						if ((extensionNsURI != null) && (extensionTypeName != null) && (targetNsURI != null) && (targetTypeName != null)) {
-							extensionHints.add(new BasicXArchADTSubstitutionHint(extensionNsURI, extensionTypeName, targetNsURI, targetTypeName));
+							extensionHints.add(new BasicXArchADTSubstitutionHint(HintType.EXTENSION, extensionNsURI, extensionTypeName, targetNsURI, targetTypeName));
 						}
 					}
 				}
