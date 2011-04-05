@@ -310,7 +310,6 @@ public class XArchADTImpl implements IXArchADT {
 		Class<?> featureClass = feature.getEType().getInstanceClass();
 		if ((featureClass != null) && (value != null)) {
 			if (Enumerator.class.isAssignableFrom(featureClass)) {
-				System.err.println("coercing an enumerator");
 				if (value instanceof String) {
 					try {
 						Method m = featureClass.getMethod("get", java.lang.String.class);
