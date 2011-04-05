@@ -51,6 +51,8 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 	protected boolean showIDs = false;
 	protected boolean showDescriptions = true;
 	protected boolean showObjRefs = false;
+	
+	protected static int nextId = 100;
 
 	public ArchEditOutlinePage(IXArchADT xarch, ObjRef xArchRef, IResources resources) {
 		super(xarch, xArchRef, resources, true, true);
@@ -533,6 +535,12 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 					menuMgr.add(createContextMenuRemoveAction(ref));
 					menuMgr.add(new Separator());
 				}
+				
+				IAction generateIdAction = createContextMenuGenerateIDAction(ref);
+				if (generateIdAction != null) {
+					menuMgr.add(generateIdAction);
+					menuMgr.add(new Separator());
+				}
 
 				List<Object> items = createAddContextMenuItems(ref);
 				if (items.isEmpty()) {
@@ -576,6 +584,31 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			}
 		};
 		return removeAction;
+	}
+	
+	protected IAction createContextMenuGenerateIDAction(ObjRef ref) {
+		final ObjRef fref = ref;
+		final IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(ref);
+		final IXArchADTFeature idFeature = typeMetadata.getFeatures().get("id");
+		if (idFeature == null) {
+			return null;
+		}
+		Action generateIdAction = new Action("Generate ID") {
+			public void run() {
+				String id = "";
+				while (true) {
+					id = typeMetadata.getTypeName() + (nextId++);
+					// Ensure the ID is unique
+					if (xarch.getByID(id) == null) {
+						break;
+					}
+				}
+				xarch.set(fref, "id", id);
+			}
+		};
+		String existingId = (String)xarch.get(ref, "id");
+		generateIdAction.setEnabled(existingId == null);
+		return generateIdAction;
 	}
 
 	protected List<Object> createAddContextMenuItems(final ObjRef ref) {
