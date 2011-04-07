@@ -1,6 +1,8 @@
 package org.archstudio.bna;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -29,7 +31,9 @@ import org.archstudio.swtutils.LocalSelectionTransfer;
 import org.archstudio.swtutils.SWTWidgetUtils;
 
 class BNACompositeEventHandler implements MouseListener, MouseMoveListener, MouseTrackListener, KeyListener, FocusListener, Listener, DropTargetListener {
-
+	// How often the period tick timer thread emits a tick event.
+	public static final int TICK_INTERVAL_IN_MS = 500;
+	
 	public static final int[] SWT_UNTYPED_EVENT_INDEXES = new int[] { SWT.None, SWT.KeyDown, SWT.KeyUp, SWT.MouseDown, SWT.MouseUp, SWT.MouseMove,
 	        SWT.MouseEnter, SWT.MouseExit, SWT.MouseDoubleClick, SWT.Paint, SWT.Move, SWT.Resize, SWT.Dispose, SWT.Selection, SWT.DefaultSelection,
 	        SWT.FocusIn, SWT.FocusOut, SWT.Expand, SWT.Collapse, SWT.Iconify, SWT.Deiconify, SWT.Close, SWT.Show, SWT.Hide, SWT.Modify, SWT.Verify,
@@ -41,8 +45,8 @@ class BNACompositeEventHandler implements MouseListener, MouseMoveListener, Mous
 	protected DropTarget dropTarget = null;
 
 	protected PeriodicMouseEventThread mouseEventThread = null;
-
 	//protected PeriodicDropEventThread dropEventThread = null;
+	protected Timer tickTimer = null;
 
 	public BNACompositeEventHandler(BNAComposite comp) {
 		this.comp = comp;
@@ -51,6 +55,9 @@ class BNACompositeEventHandler implements MouseListener, MouseMoveListener, Mous
 		this.mouseEventThread.start();
 		//this.dropEventThread = new PeriodicDropEventThread(); 
 		//this.dropEventThread.start();
+		tickTimer = new Timer(true);
+		tickTimer.schedule(new TickTimerTask(), 0, TICK_INTERVAL_IN_MS);
+		
 		addListeners();
 		setupContextMenu();
 	}
@@ -60,6 +67,7 @@ class BNACompositeEventHandler implements MouseListener, MouseMoveListener, Mous
 		removeListeners();
 		//this.dropEventThread.terminate();
 		this.mouseEventThread.terminate();
+		this.tickTimer.cancel();
 	}
 
 	public void addListeners() {
@@ -471,7 +479,19 @@ class BNACompositeEventHandler implements MouseListener, MouseMoveListener, Mous
 			if (!comp.isDisposed())
 				comp.getDisplay().syncExec(eventer);
 		}
+	}
+	
+	class TickTimerTask extends TimerTask {
+		private int count = 0;
 
+		@Override
+		public void run() {
+			count++;
+			List<IBNATickListener> logics = logicManager.getThingLogics(IBNATickListener.class);
+			for (IBNATickListener l : logics) {
+				l.timerTick(count);
+			}
+		}
 	}
 
 	protected void handleException(Exception ex) {
