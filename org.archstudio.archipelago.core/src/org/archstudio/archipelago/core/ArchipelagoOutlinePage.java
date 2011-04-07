@@ -41,6 +41,7 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 //import org.archstudio.archipelago.core.memory.MemoryTreePlugin;
 //import org.archstudio.archipelago.core.hpc.HPCTreePlugin;
 import org.archstudio.archipelago.core.structure.StructureTreePlugin;
+import org.archstudio.editormanager.common.IEditorManager;
 import org.archstudio.editors.common.AbstractArchstudioOutlinePage;
 import org.archstudio.filemanager.common.IFileManager;
 import org.archstudio.filemanager.common.IFileManagerListener;
@@ -61,7 +62,7 @@ public class ArchipelagoOutlinePage extends AbstractArchstudioOutlinePage implem
 	
 	protected ArchipelagoServices AS = null;
 	
-	public ArchipelagoOutlinePage(ArchipelagoEditor editor, IXArchADT xarch, ObjRef documentRootRef, IResources resources, IFileManager fileman, IPreferenceStore prefs, IGraphLayout graphLayout){
+	public ArchipelagoOutlinePage(ArchipelagoEditor editor, IXArchADT xarch, ObjRef documentRootRef, IResources resources, IFileManager fileman, IEditorManager editorManager, IPreferenceStore prefs, IGraphLayout graphLayout){
 		super(xarch, documentRootRef, resources, false, true);
 		
 		IArchipelagoEventBus eventBus = new DefaultArchipelagoEventBus();
@@ -71,7 +72,7 @@ public class ArchipelagoOutlinePage extends AbstractArchstudioOutlinePage implem
 		if(data == null){
 			data = new TreeNodeDataCache();
 		}
-		AS = new ArchipelagoServices(eventBus, new DefaultArchipelagoEditorPane(editor), data, xarch, resources, fileman, prefs, graphLayout);
+		AS = new ArchipelagoServices(eventBus, new DefaultArchipelagoEditorPane(editor), data, xarch, resources, fileman, editorManager, prefs, graphLayout);
 		servicesCache.addCacheEntry(this, documentRootRef, data);
 	}
 	

@@ -1,5 +1,6 @@
 package org.archstudio.editors.common;
 
+import org.archstudio.editormanager.common.IEditorManager;
 import org.archstudio.filemanager.common.CantOpenFileException;
 import org.archstudio.filemanager.common.IFileManager;
 import org.archstudio.filemanager.common.IFileManagerListener;
@@ -55,6 +56,7 @@ public abstract class AbstractArchstudioEditor extends EditorPart implements ISe
 
 	protected IXArchADT xarch;
 	protected IFileManager fileman;
+	protected IEditorManager editorManager;
 	protected IResources resources;
 	
 	protected AbstractArchstudioOutlinePage outlinePage = null;
@@ -83,6 +85,7 @@ public abstract class AbstractArchstudioEditor extends EditorPart implements ISe
 		er.map(comp, this);
 		xarch = comp.getXArchADT();
 		fileman = comp.getFileManager();
+		editorManager = comp.getEditorManager();
 		resources = comp.getResources();
 		
 		updateThread.start();
