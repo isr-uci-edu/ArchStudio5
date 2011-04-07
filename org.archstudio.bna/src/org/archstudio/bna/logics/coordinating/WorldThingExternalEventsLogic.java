@@ -20,6 +20,7 @@ import org.archstudio.bna.IBNAMenuListener;
 import org.archstudio.bna.IBNAMouseListener;
 import org.archstudio.bna.IBNAMouseMoveListener;
 import org.archstudio.bna.IBNAMouseTrackListener;
+import org.archstudio.bna.IBNATickListener;
 import org.archstudio.bna.IBNAUntypedListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
@@ -33,7 +34,7 @@ import org.archstudio.bna.logics.tracking.TypedThingSetTrackingLogic;
 import org.archstudio.bna.things.utility.WorldThingPeer;
 
 public class WorldThingExternalEventsLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMouseMoveListener, IBNAMouseTrackListener,
-        IBNAMenuListener, IBNAFocusListener, IBNAKeyListener, IBNADragAndDropListener, IBNAUntypedListener {
+        IBNAMenuListener, IBNAFocusListener, IBNAKeyListener, IBNADragAndDropListener, IBNAUntypedListener, IBNATickListener {
 	protected TypedThingSetTrackingLogic<IHasWorld> ttstl = null;
 
 	public WorldThingExternalEventsLogic(TypedThingSetTrackingLogic<IHasWorld> ttstl) {
@@ -413,5 +414,17 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 
 	public void drop(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
 		dropEvt(view, event, t, worldX, worldY, DropEventType.DROP);
+	}
+	
+	@Override
+	public void timerTick(int count) {
+		for (IHasWorld vt : ttstl.getThings()) {
+			IBNAWorld internalWorld = vt.getWorld();
+			if (internalWorld == null) return;
+
+			for (IBNATickListener l : internalWorld.getThingLogicManager().getThingLogics(IBNATickListener.class)) {
+				l.timerTick(count);
+			}
+		}
 	}
 }
