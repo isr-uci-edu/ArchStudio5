@@ -25,7 +25,6 @@ import org.archstudio.bna.IBNAUntypedListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThingLogic;
 import org.archstudio.bna.constants.DropEventType;
 import org.archstudio.bna.constants.MouseEventType;
 import org.archstudio.bna.facets.IHasUserEditable;
@@ -178,22 +177,19 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 	public void focusGained(IBNAView view, FocusEvent e) {
 		for (IHasWorld vt : ttstl.getThings()) {
 			if (vt instanceof IHasUserEditable) {
-				if (!((IHasUserEditable) vt).isUserEditable())
+				if (!((IHasUserEditable) vt).isUserEditable()) {
 					continue;
+				}
 			}
 
 			IBNAWorld internalWorld = vt.getWorld();
-			if (internalWorld == null)
-				return;
-
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
-			IBNAView internalView = vtp.getInnerView();
-			if (internalView == null)
-				return;
-
-			if (internalView != null) {
-				for (IBNAFocusListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAFocusListener.class)) {
-					l.focusGained(internalView, e);
+			if (internalWorld != null) {
+				WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
+				IBNAView internalView = vtp.getInnerView();
+				if (internalView != null) {
+					for (IBNAFocusListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAFocusListener.class)) {
+						l.focusGained(internalView, e);
+					}
 				}
 			}
 		}
@@ -202,21 +198,18 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 	public void focusLost(IBNAView view, FocusEvent e) {
 		for (IHasWorld vt : ttstl.getThings()) {
 			if (vt instanceof IHasUserEditable) {
-				if (!((IHasUserEditable) vt).isUserEditable())
+				if (!((IHasUserEditable) vt).isUserEditable()) {
 					continue;
+				}
 			}
 			IBNAWorld internalWorld = vt.getWorld();
-			if (internalWorld == null)
-				return;
-
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
-			IBNAView internalView = vtp.getInnerView();
-			if (internalView == null)
-				return;
-
-			if (internalView != null) {
-				for (IBNAFocusListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAFocusListener.class)) {
-					l.focusLost(internalView, e);
+			if (internalWorld != null) {
+				WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
+				IBNAView internalView = vtp.getInnerView();
+				if (internalView != null) {
+					for (IBNAFocusListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAFocusListener.class)) {
+						l.focusLost(internalView, e);
+					}
 				}
 			}
 		}
@@ -225,21 +218,18 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 	public void keyPressed(IBNAView view, KeyEvent e) {
 		for (IHasWorld vt : ttstl.getThings()) {
 			if (vt instanceof IHasUserEditable) {
-				if (!((IHasUserEditable) vt).isUserEditable())
+				if (!((IHasUserEditable) vt).isUserEditable()) {
 					continue;
+				}
 			}
 			IBNAWorld internalWorld = vt.getWorld();
-			if (internalWorld == null)
-				return;
-
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
-			IBNAView internalView = vtp.getInnerView();
-			if (internalView == null)
-				return;
-
-			if (internalView != null) {
-				for (IBNAKeyListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAKeyListener.class)) {
-					l.keyPressed(internalView, e);
+			if (internalWorld != null) {
+				WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
+				IBNAView internalView = vtp.getInnerView();
+				if (internalView != null) {
+					for (IBNAKeyListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAKeyListener.class)) {
+						l.keyPressed(internalView, e);
+					}
 				}
 			}
 		}
@@ -248,22 +238,19 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 	public void keyReleased(IBNAView view, KeyEvent e) {
 		for (IHasWorld vt : ttstl.getThings()) {
 			if (vt instanceof IHasUserEditable) {
-				if (!((IHasUserEditable) vt).isUserEditable())
+				if (!((IHasUserEditable) vt).isUserEditable()) {
 					continue;
+				}
 			}
 
 			IBNAWorld internalWorld = vt.getWorld();
-			if (internalWorld == null)
-				return;
-
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
-			IBNAView internalView = vtp.getInnerView();
-			if (internalView == null)
-				return;
-
-			if (internalView != null) {
-				for (IBNAKeyListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAKeyListener.class)) {
-					l.keyReleased(internalView, e);
+			if (internalWorld != null) {
+				WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
+				IBNAView internalView = vtp.getInnerView();
+				if (internalView != null) {
+					for (IBNAKeyListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAKeyListener.class)) {
+						l.keyReleased(internalView, e);
+					}
 				}
 			}
 		}
@@ -272,22 +259,19 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 	public void handleEvent(IBNAView view, Event event) {
 		for (IHasWorld vt : ttstl.getThings()) {
 			if (vt instanceof IHasUserEditable) {
-				if (!((IHasUserEditable) vt).isUserEditable())
+				if (!((IHasUserEditable) vt).isUserEditable()) {
 					continue;
+				}
 			}
 
 			IBNAWorld internalWorld = vt.getWorld();
-			if (internalWorld == null)
-				return;
-
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
-			IBNAView internalView = vtp.getInnerView();
-			if (internalView == null)
-				return;
-
-			if (internalView != null) {
-				for (IBNAUntypedListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAUntypedListener.class)) {
-					l.handleEvent(internalView, event);
+			if (internalWorld != null) {
+				WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
+				IBNAView internalView = vtp.getInnerView();
+				if (internalView != null) {
+					for (IBNAUntypedListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAUntypedListener.class)) {
+						l.handleEvent(internalView, event);
+					}
 				}
 			}
 		}
@@ -297,25 +281,22 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		for (IHasWorld vt : ttstl.getThings()) {
 			if (t == vt) {
 				if (vt instanceof IHasUserEditable) {
-					if (!((IHasUserEditable) vt).isUserEditable())
+					if (!((IHasUserEditable) vt).isUserEditable()) {
 						continue;
+					}
 				}
 
 				IBNAWorld internalWorld = vt.getWorld();
-				if (internalWorld == null)
-					return;
-
-				WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
-				IBNAView internalView = vtp.getInnerView();
-				if (internalView == null)
-					return;
-
-				if (internalView != null) {
-					IThing internalThing = internalView.getThingAt(localX, localY);
-					int internalWorldX = internalView.getCoordinateMapper().localXtoWorldX(localX);
-					int internalWorldY = internalView.getCoordinateMapper().localYtoWorldY(localY);
-					for (IBNAMenuListener l : internalView.getWorld().getThingLogicManager().getThingLogics(IBNAMenuListener.class)) {
-						l.fillMenu(internalView, m, localX, localY, internalThing, internalWorldX, internalWorldY);
+				if (internalWorld != null) {
+					WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
+					IBNAView internalView = vtp.getInnerView();
+					if (internalView != null) {
+						IThing internalThing = internalView.getThingAt(localX, localY);
+						int internalWorldX = internalView.getCoordinateMapper().localXtoWorldX(localX);
+						int internalWorldY = internalView.getCoordinateMapper().localYtoWorldY(localY);
+						for (IBNAMenuListener l : internalView.getWorld().getThingLogicManager().getThingLogics(IBNAMenuListener.class)) {
+							l.fillMenu(internalView, m, localX, localY, internalThing, internalWorldX, internalWorldY);
+						}
 					}
 				}
 			}
@@ -326,65 +307,62 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		for (IHasWorld vt : ttstl.getThings()) {
 			if (t == vt) {
 				if (vt instanceof IHasUserEditable) {
-					if (!((IHasUserEditable) vt).isUserEditable())
+					if (!((IHasUserEditable) vt).isUserEditable()) {
 						continue;
+					}
 				}
 
 				IBNAWorld internalWorld = vt.getWorld();
-				if (internalWorld == null)
-					return;
+				if (internalWorld != null) {
+					WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
+					IBNAView internalView = vtp.getInnerView();
+					if (internalView != null) {
+						List<IBNADragAndDropListener> tls = internalView.getWorld().getThingLogicManager().getThingLogics(IBNADragAndDropListener.class);
+						if (!tls.isEmpty()) {
+							Composite parentComposite = BNAUtils.getParentComposite(view);
+							Point p = null;
+							if (parentComposite != null) {
+								p = parentComposite.toControl(event.x, event.y);
+							}
+							else {
+								p = new Point(event.x, event.y);
+							}
 
-				WorldThingPeer vtp = (WorldThingPeer) view.getPeer(vt);
-				IBNAView internalView = vtp.getInnerView();
-				if (internalView == null)
-					return;
-
-				if (internalView != null) {
-					List<IBNADragAndDropListener> tls = internalView.getWorld().getThingLogicManager().getThingLogics(IBNADragAndDropListener.class);
-					if (!tls.isEmpty()) {
-						Composite parentComposite = BNAUtils.getParentComposite(view);
-						Point p = null;
-						if (parentComposite != null) {
-							p = parentComposite.toControl(event.x, event.y);
-						}
-						else {
-							p = new Point(event.x, event.y);
-						}
-
-						IThing internalThing = internalView.getThingAt(p.x, p.y);
-						int internalWorldX = internalView.getCoordinateMapper().localXtoWorldX(p.x);
-						int internalWorldY = internalView.getCoordinateMapper().localYtoWorldY(p.y);
-						switch (evtType) {
-						case DRAG_ENTER:
-							for (IBNADragAndDropListener l : tls) {
-								l.dragEnter(internalView, event, internalThing, internalWorldX, internalWorldY);
+							IThing internalThing = internalView.getThingAt(p.x, p.y);
+							int internalWorldX = internalView.getCoordinateMapper().localXtoWorldX(p.x);
+							int internalWorldY = internalView.getCoordinateMapper().localYtoWorldY(p.y);
+							switch (evtType) {
+							case DRAG_ENTER:
+								for (IBNADragAndDropListener l : tls) {
+									l.dragEnter(internalView, event, internalThing, internalWorldX, internalWorldY);
+								}
+								break;
+							case DRAG_OVER:
+								for (IBNADragAndDropListener l : tls) {
+									l.dragOver(internalView, event, internalThing, internalWorldX, internalWorldY);
+								}
+								break;
+							case DRAG_LEAVE:
+								for (IBNADragAndDropListener l : tls) {
+									l.dragLeave(internalView, event, internalThing, internalWorldX, internalWorldY);
+								}
+								break;
+							case DRAG_OPERATION_CHANGED:
+								for (IBNADragAndDropListener l : tls) {
+									l.dragOperationChanged(internalView, event, internalThing, internalWorldX, internalWorldY);
+								}
+								break;
+							case DROP_ACCEPT:
+								for (IBNADragAndDropListener l : tls) {
+									l.dropAccept(internalView, event, internalThing, internalWorldX, internalWorldY);
+								}
+								break;
+							case DROP:
+								for (IBNADragAndDropListener l : tls) {
+									l.drop(internalView, event, internalThing, internalWorldX, internalWorldY);
+								}
+								break;
 							}
-							break;
-						case DRAG_OVER:
-							for (IBNADragAndDropListener l : tls) {
-								l.dragOver(internalView, event, internalThing, internalWorldX, internalWorldY);
-							}
-							break;
-						case DRAG_LEAVE:
-							for (IBNADragAndDropListener l : tls) {
-								l.dragLeave(internalView, event, internalThing, internalWorldX, internalWorldY);
-							}
-							break;
-						case DRAG_OPERATION_CHANGED:
-							for (IBNADragAndDropListener l : tls) {
-								l.dragOperationChanged(internalView, event, internalThing, internalWorldX, internalWorldY);
-							}
-							break;
-						case DROP_ACCEPT:
-							for (IBNADragAndDropListener l : tls) {
-								l.dropAccept(internalView, event, internalThing, internalWorldX, internalWorldY);
-							}
-							break;
-						case DROP:
-							for (IBNADragAndDropListener l : tls) {
-								l.drop(internalView, event, internalThing, internalWorldX, internalWorldY);
-							}
-							break;
 						}
 					}
 				}
@@ -420,10 +398,10 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 	public void timerTick(int count) {
 		for (IHasWorld vt : ttstl.getThings()) {
 			IBNAWorld internalWorld = vt.getWorld();
-			if (internalWorld == null) return;
-
-			for (IBNATickListener l : internalWorld.getThingLogicManager().getThingLogics(IBNATickListener.class)) {
-				l.timerTick(count);
+			if (internalWorld != null) {
+				for (IBNATickListener l : internalWorld.getThingLogicManager().getThingLogics(IBNATickListener.class)) {
+					l.timerTick(count);
+				}
 			}
 		}
 	}
