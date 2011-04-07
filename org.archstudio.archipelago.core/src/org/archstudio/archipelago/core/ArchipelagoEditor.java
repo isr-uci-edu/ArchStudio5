@@ -43,7 +43,7 @@ public class ArchipelagoEditor extends AbstractArchstudioEditor {
 	}
 
 	protected AbstractArchstudioOutlinePage createOutlinePage() {
-		return new ArchipelagoOutlinePage(this, xarch, getDocumentRootRef(), resources, fileman, prefs, graphLayout);
+		return new ArchipelagoOutlinePage(this, xarch, getDocumentRootRef(), resources, fileman, editorManager, prefs, graphLayout);
 	}
 
 	/*
