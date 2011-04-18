@@ -1,6 +1,7 @@
 package org.archstudio.xarchadt.common;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Collection;
 
 import org.eclipse.emf.common.util.URI;
@@ -23,15 +24,7 @@ public interface IXArchADT extends IXArchADTQuery {
 
 	public ObjRef cloneDocument(URI oldURI, URI newURI);
 
-	public ObjRef getDocumentRootRef(URI uri);
-
-	public Collection<URI> getOpenURIs();
-
-	public URI getURI(ObjRef ref);
-
 	public void save(URI uri) throws IOException;
-
-	public byte[] serialize(URI uri);
 
 	public void close(URI uri);
 
@@ -153,13 +146,13 @@ public interface IXArchADT extends IXArchADTQuery {
 	public void remove(ObjRef baseObjectRef, String typeOfThing, Collection<ObjRef> thingsToRemove);
 
 	/**
-	 * Sets the value of an attribute or simple-value element. Roughly
+	 * Sets the value of an attribute, simple-value element, or complex-type child element. Roughly
 	 * equivalent to: baseObject.set[typeOfThing](value); So, if the object
 	 * referred to by baseObjectRef implements a method called
 	 * <CODE>void setValue(String value);</CODE> then that would be called here
 	 * as: <CODE>set(baseObjectRef, "Value", value);</CODE> where baseObjectRef
 	 * is a reference to the base object, and the typeOfThing is shown as
-	 * "Value". The value to set is passed as a string.
+	 * "Value". The value to set is passed as a {@link Serializable} object.
 	 * 
 	 * @param baseObjectRef
 	 *            Reference to a base element containing an
@@ -172,30 +165,7 @@ public interface IXArchADT extends IXArchADTQuery {
 	 * @param value
 	 *            The value to set.
 	 */
-	public void set(ObjRef baseObjectRef, String typeOfThing, Object value);
-
-	/**
-	 * Sets the value of an complex-type child element. Roughly equivalent to:
-	 * baseObject.set[typeOfThing](value); So, if the object referred to by
-	 * baseObjectRef implements a method called
-	 * <CODE>void setDescription(IDescription value);</CODE> then that would be
-	 * called here as: <CODE>set(baseObjectRef, "Description", value);</CODE>
-	 * where baseObjectRef is a reference to the base object, and the
-	 * typeOfThing is shown as "Description". The values to set is passed as an
-	 * object reference.
-	 * 
-	 * @param baseObjectRef
-	 *            Reference to a base element containing an
-	 *            <CODE>set[typeOfThing](...)</CODE> method.
-	 * @param typeOfThing
-	 *            A string containing the type of thing where the value will be
-	 *            set. For instance, if the object referred to by baseObjectRef
-	 *            contains a method called <CODE>setValue</CODE>, then
-	 *            typeOfThing would be "Value".
-	 * @param value
-	 *            The value to set.
-	 */
-	public void set(ObjRef baseObjectRef, String typeOfThing, ObjRef value);
+	public void set(ObjRef baseObjectRef, String typeOfThing, Serializable value);
 
 	public ObjRef create(String nsURI, String typeOfThing);
 

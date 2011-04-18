@@ -3,9 +3,8 @@ package org.archstudio.xarchadt.core;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -23,13 +22,13 @@ import org.archstudio.xarchadt.common.BasicXArchADTFeature;
 import org.archstudio.xarchadt.common.BasicXArchADTPackageMetadata;
 import org.archstudio.xarchadt.common.BasicXArchADTTypeMetadata;
 import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.IXArchADTSubstitutionHint;
 import org.archstudio.xarchadt.common.IXArchADTFeature;
 import org.archstudio.xarchadt.common.IXArchADTFeature.FeatureType;
 import org.archstudio.xarchadt.common.IXArchADTFeature.ValueType;
 import org.archstudio.xarchadt.common.IXArchADTFileListener;
 import org.archstudio.xarchadt.common.IXArchADTModelListener;
 import org.archstudio.xarchadt.common.IXArchADTPackageMetadata;
+import org.archstudio.xarchadt.common.IXArchADTSubstitutionHint;
 import org.archstudio.xarchadt.common.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.common.ObjRef;
 import org.archstudio.xarchadt.common.XArchADTFileEvent;
@@ -184,11 +183,11 @@ public class XArchADTImpl implements IXArchADT {
 		}
 	}
 
-	private Object check(Object object) {
+	private Serializable check(Object object) {
 		if (object instanceof EObject) {
 			return put((EObject) object);
 		}
-		return object;
+		return (Serializable) object;
 	}
 
 	// Dynamically maps feature names (either uppercase or lowercase) of an EClass to EStructuralFeatures.
@@ -277,119 +276,131 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@Override
-	public void set(ObjRef baseObjRef, String typeOfThing, ObjRef valueObjRef) {
+	public void set(ObjRef baseObjRef, String typeOfThing, Serializable value) {
 		EObject baseEObject = get(baseObjRef);
-		baseEObject.eSet(getEFeature(baseEObject, typeOfThing), get(valueObjRef));
-	}
-	
-	@Override
-	public void set(ObjRef baseObjRef, String typeOfThing, Object value) {
-		EObject baseEObject = get(baseObjRef);
-		
-		// If the feature is an enumerated type but instead you passed in a string,
-		// then we will try to convert the string to an enumerated type automatically.
-		// If that doesn't work, we throw IllegalArgumentException.
-		EStructuralFeature feature = getEFeature(baseEObject, typeOfThing);
-		
-		// Be friendly and try to coerce the value into the right type
-		value = coerceValue(feature, value);
-		baseEObject.eSet(getEFeature(baseEObject, typeOfThing), value);
-	}
-	
-	// Tries to coerce the value object into a type of object 
-	// compatible with the given feature.  If a string is passed in
-	// for value, but the feature expects an Integer, it parses it as
-	// an integer and so on.
-	
-	// Ordinarily, I'd be pretty reticent about putting this directly
-	// into xArchADT, but now that Classes have been removed from
-	// Type & Feature metadata, there is no way to do this outside
-	// xArchADT without having something else poking around in the EMF
-	// guts of the xADL model.
-	private Object coerceValue(EStructuralFeature feature, Object value) {
-		Class<?> featureClass = feature.getEType().getInstanceClass();
-		if ((featureClass != null) && (value != null)) {
-			if (Enumerator.class.isAssignableFrom(featureClass)) {
-				if (value instanceof String) {
-					try {
-						Method m = featureClass.getMethod("get", java.lang.String.class);
-						Object newValue = m.invoke(featureClass, (String)value);
-						if (newValue == null) {
-							throw new IllegalArgumentException("String value " + value.toString() + " not valid for " + featureClass.getCanonicalName());
-						}
-						value = newValue;
-					}
-					catch (NoSuchMethodException nsme) {
-					}
-					catch (InvocationTargetException ite) {
-					}
-					catch (IllegalAccessException iae) {
-					}
-				}
-			}
-			else if (boolean.class.isAssignableFrom(featureClass) || Boolean.class.isAssignableFrom(featureClass)) {
-				if (value instanceof String) {
-					value = new Boolean(value.toString());
-				}
-			}
-			else if (char.class.isAssignableFrom(featureClass) || Character.class.isAssignableFrom(featureClass)) {
-				if (value instanceof String) {
-					value = new Character(value.toString().charAt(0));
-				}
-			}
-			else if (short.class.isAssignableFrom(featureClass) || Short.class.isAssignableFrom(featureClass)) {
-				if (value instanceof String) {
-					try {
-						value = new Short(value.toString());
-					}
-					catch (NumberFormatException nfe) {
-						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-					}
-				}
-			}
-			else if (int.class.isAssignableFrom(featureClass) || Integer.class.isAssignableFrom(featureClass)) {
-				if (value instanceof String) {
-					try {
-						value = new Integer(value.toString());
-					}
-					catch (NumberFormatException nfe) {
-						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-					}
-				}
-			}
-			else if (long.class.isAssignableFrom(featureClass) || Long.class.isAssignableFrom(featureClass)) {
-				if (value instanceof String) {
-					try {
-						value = new Long(value.toString());
-					}
-					catch (NumberFormatException nfe) {
-						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-					}
-				}
-			}
-			else if (float.class.isAssignableFrom(featureClass) || Float.class.isAssignableFrom(featureClass)) {
-				if (value instanceof String) {
-					try {
-						value = new Float(value.toString());
-					}
-					catch (NumberFormatException nfe) {
-						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-					}
-				}
-			}
-			else if (double.class.isAssignableFrom(featureClass) || Double.class.isAssignableFrom(featureClass)) {
-				if (value instanceof String) {
-					try {
-						value = new Double(value.toString());
-					}
-					catch (NumberFormatException nfe) {
-						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-					}
-				}
-			}
+		if(value instanceof ObjRef){
+			baseEObject.eSet(getEFeature(baseEObject, typeOfThing), get((ObjRef) value));
 		}
-		return value;
+		else{
+			// If the feature is an enumerated type but instead you passed in a string,
+			// then we will try to convert the string to an enumerated type automatically.
+			// If that doesn't work, we throw IllegalArgumentException.
+			EStructuralFeature feature = getEFeature(baseEObject, typeOfThing);
+			baseEObject.eSet(getEFeature(baseEObject, typeOfThing), value);
+		}
 	}
+	
+	
+	// TODO: An alternative to all of this is to pass Serializable rather than String
+	
+//	@Override
+//	public void set(ObjRef baseObjRef, String typeOfThing, Object value) {
+//		EObject baseEObject = get(baseObjRef);
+//		
+//		// If the feature is an enumerated type but instead you passed in a string,
+//		// then we will try to convert the string to an enumerated type automatically.
+//		// If that doesn't work, we throw IllegalArgumentException.
+//		EStructuralFeature feature = getEFeature(baseEObject, typeOfThing);
+//		
+//		// Be friendly and try to coerce the value into the right type
+//		value = coerceValue(feature, value);
+//		baseEObject.eSet(getEFeature(baseEObject, typeOfThing), value);
+//	}
+//	
+//	// Tries to coerce the value object into a type of object 
+//	// compatible with the given feature.  If a string is passed in
+//	// for value, but the feature expects an Integer, it parses it as
+//	// an integer and so on.
+//	
+//	// Ordinarily, I'd be pretty reticent about putting this directly
+//	// into xArchADT, but now that Classes have been removed from
+//	// Type & Feature metadata, there is no way to do this outside
+//	// xArchADT without having something else poking around in the EMF
+//	// guts of the xADL model.
+//	private Object coerceValue(EStructuralFeature feature, Object value) {
+//		Class<?> featureClass = feature.getEType().getInstanceClass();
+//		if ((featureClass != null) && (value != null)) {
+//			if (Enumerator.class.isAssignableFrom(featureClass)) {
+//				if (value instanceof String) {
+//					try {
+//						Method m = featureClass.getMethod("get", java.lang.String.class);
+//						Object newValue = m.invoke(featureClass, (String)value);
+//						if (newValue == null) {
+//							throw new IllegalArgumentException("String value " + value.toString() + " not valid for " + featureClass.getCanonicalName());
+//						}
+//						value = newValue;
+//					}
+//					catch (NoSuchMethodException nsme) {
+//					}
+//					catch (InvocationTargetException ite) {
+//					}
+//					catch (IllegalAccessException iae) {
+//					}
+//				}
+//			}
+//			else if (boolean.class.isAssignableFrom(featureClass) || Boolean.class.isAssignableFrom(featureClass)) {
+//				if (value instanceof String) {
+//					value = new Boolean(value.toString());
+//				}
+//			}
+//			else if (char.class.isAssignableFrom(featureClass) || Character.class.isAssignableFrom(featureClass)) {
+//				if (value instanceof String) {
+//					value = new Character(value.toString().charAt(0));
+//				}
+//			}
+//			else if (short.class.isAssignableFrom(featureClass) || Short.class.isAssignableFrom(featureClass)) {
+//				if (value instanceof String) {
+//					try {
+//						value = new Short(value.toString());
+//					}
+//					catch (NumberFormatException nfe) {
+//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
+//					}
+//				}
+//			}
+//			else if (int.class.isAssignableFrom(featureClass) || Integer.class.isAssignableFrom(featureClass)) {
+//				if (value instanceof String) {
+//					try {
+//						value = new Integer(value.toString());
+//					}
+//					catch (NumberFormatException nfe) {
+//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
+//					}
+//				}
+//			}
+//			else if (long.class.isAssignableFrom(featureClass) || Long.class.isAssignableFrom(featureClass)) {
+//				if (value instanceof String) {
+//					try {
+//						value = new Long(value.toString());
+//					}
+//					catch (NumberFormatException nfe) {
+//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
+//					}
+//				}
+//			}
+//			else if (float.class.isAssignableFrom(featureClass) || Float.class.isAssignableFrom(featureClass)) {
+//				if (value instanceof String) {
+//					try {
+//						value = new Float(value.toString());
+//					}
+//					catch (NumberFormatException nfe) {
+//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
+//					}
+//				}
+//			}
+//			else if (double.class.isAssignableFrom(featureClass) || Double.class.isAssignableFrom(featureClass)) {
+//				if (value instanceof String) {
+//					try {
+//						value = new Double(value.toString());
+//					}
+//					catch (NumberFormatException nfe) {
+//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
+//					}
+//				}
+//			}
+//		}
+//		return value;
+//	}
 
 	@Override
 	public void clear(ObjRef baseObjRef, String typeOfThing) {
@@ -398,7 +409,7 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@Override
-	public Object get(ObjRef baseObjRef, String typeOfThing) {
+	public Serializable get(ObjRef baseObjRef, String typeOfThing) {
 		EObject baseEObject = get(baseObjRef);
 		return check(baseEObject.eGet(getEFeature(baseEObject, typeOfThing)));
 	}
@@ -904,7 +915,7 @@ public class XArchADTImpl implements IXArchADT {
 			String id = null;
 			EStructuralFeature idFeature = currentObj.eClass().getEStructuralFeature("id");
 			if (idFeature != null) {
-				id = (String) currentObj.eGet(idFeature);
+				id = currentObj.eGet(idFeature).toString();
 			}
 			int index = -1;
 			EObject parentObj = currentObj.eContainer();

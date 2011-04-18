@@ -10,4 +10,5 @@ Require-Bundle: org.archstudio.xarchadt.common;bundle-version="5.0.0",
  org.archstudio.sysutils;bundle-version="5.0.0",
  org.archstudio.xadl3.xadlcore;bundle-version="5.0.0",
  org.archstudio.xadl3.lookupimplementation;bundle-version="1.0.0",
- org.archstudio.xadl3.javaimplementation;bundle-version="1.0.0"
+ org.archstudio.xadl3.javaimplementation;bundle-version="1.0.0",
+ org.archstudio.xarchadt.core;bundle-version="5.0.0"

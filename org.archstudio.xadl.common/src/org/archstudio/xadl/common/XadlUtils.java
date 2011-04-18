@@ -16,9 +16,11 @@ import org.archstudio.xarchadt.common.IXArchADTQuery;
 import org.archstudio.xarchadt.common.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.common.ObjRef;
 import org.archstudio.xarchadt.common.XArchADTModelEvent;
+import org.archstudio.xarchadt.core.XArchADTProxy;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
 public class XadlUtils {
@@ -182,6 +184,7 @@ public class XadlUtils {
 	}
 
 	public static boolean isRootElement(IXArchADTQuery xarch, ObjRef ref) {
+		// FIXME: This won't work for non-xADL documents
 		return xarch.getTagsOnlyPathString(ref).equals("xADL");
 	}
 
@@ -190,8 +193,15 @@ public class XadlUtils {
 	}
 
 	public static ObjRef createDocument(IXArchADT xarch, URI uri, EReference rootReference) {
-		EClass eClass = rootReference.eClass();
+		EClass eClass = rootReference.getEReferenceType();
 		return xarch.createDocument(uri, eClass.getEPackage().getNsURI(), eClass.getName(), rootReference.getName());
+	}
+
+	public static <O extends EObject> O createDocumentEObject(IXArchADT xarch, URI uri, EReference rootReference) {
+		EClass eClass = rootReference.getEReferenceType();
+		ObjRef documentRootRef = xarch.createDocument(uri, eClass.getEPackage().getNsURI(), eClass.getName(),
+				rootReference.getName());
+		return XArchADTProxy.proxy(xarch, (ObjRef) xarch.get(documentRootRef, rootReference.getName()));
 	}
 
 	public static boolean isInstanceOf(IXArchADTQuery xarch, ObjRef baseObjRef, EClass eClass) {
