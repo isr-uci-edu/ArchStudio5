@@ -3,6 +3,9 @@ package org.archstudio.xarchadt.core.internal;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 
 import org.archstudio.sysutils.SystemUtils;
@@ -114,7 +117,9 @@ public class EObjectProxy extends AbstractProxy {
 
 		@Override
 		public String toString() {
-			return "EObject for " + objRef;
+			Class<?>[] ifaces = getClass().getInterfaces();
+			Arrays.sort(ifaces);
+			return Arrays.asList(ifaces) + " for " + objRef;
 		}
 
 		@Override
@@ -163,8 +168,8 @@ public class EObjectProxy extends AbstractProxy {
 							return getHandler(SetEObject.class, new NameContext(name.substring(prefix.length())));
 						if (EList.class.isAssignableFrom(method.getParameterTypes()[0]))
 							return getHandler(SetEList.class, new NameContext(name.substring(prefix.length())));
-						if (String.class.isAssignableFrom(method.getParameterTypes()[0]))
-							return getHandler(SetString.class, new NameContext(name.substring(prefix.length())));
+						// set methods can take many different object types, not just Strings
+						return getHandler(SetString.class, new NameContext(name.substring(prefix.length())));
 					}
 					return getDefaultHandler();
 				}
