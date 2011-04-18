@@ -1,7 +1,10 @@
 package org.archstudio.xarchadt.common;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+
+import org.eclipse.emf.common.util.URI;
 
 public interface IXArchADTQuery {
 	/**
@@ -33,13 +36,13 @@ public interface IXArchADTQuery {
 	 *            the object referred to by baseObjectRef contains a method
 	 *            called <CODE>getDescription</CODE>, then typeOfThing would be
 	 *            "Description".
-	 * @return An <CODE>ObjRef</CODE> referring to the object gotten if the
-	 *         object returned is an xArch element; otherwise a String. For
+	 * @return A <CODE>Object</CODE> referring to the object gotten if the
+	 *         object returned is an xArch element; otherwise a {@link Serializable} object. For
 	 *         instance, if <CODE>typeOfThing</CODE> refers to an attribute or
 	 *         is "Value" (when <CODE>baseObjectRef</CODE> refers to a simple
 	 *         type) then this function will return a string.
 	 */
-	public Object get(ObjRef baseObjectRef, String typeOfThing);
+	public Serializable get(ObjRef baseObjectRef, String typeOfThing);
 
 	/**
 	 * Gets a reference to a child from an xArch element, given the child's ID.
@@ -264,4 +267,13 @@ public interface IXArchADTQuery {
 	public List<IXArchADTSubstitutionHint> getAllSubstitutionHints();
 	public List<IXArchADTSubstitutionHint> getSubstitutionHintsForSource(String sourceNsURI, String sourceTypeName);	
 	public List<IXArchADTSubstitutionHint> getSubstitutionHintsForTarget(String targetNsURI, String targetTypeName);
+
+	public ObjRef getDocumentRootRef(URI uri);
+
+	public Collection<URI> getOpenURIs();
+
+	public URI getURI(ObjRef ref);
+
+	public byte[] serialize(URI uri);
+
 }

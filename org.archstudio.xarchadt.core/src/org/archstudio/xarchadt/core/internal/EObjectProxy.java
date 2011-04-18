@@ -1,11 +1,10 @@
 package org.archstudio.xarchadt.core.internal;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 
 import org.archstudio.sysutils.SystemUtils;
@@ -86,16 +85,16 @@ public class EObjectProxy extends AbstractProxy {
 		}
 	}
 
-	static final class SetString extends Handler<NameContext, ProxyImpl> {
+	static final class SetSerializable extends Handler<NameContext, ProxyImpl> {
 
-		public SetString(NameContext context) {
+		public SetSerializable(NameContext context) {
 			super(context);
 		}
 
 		@SuppressWarnings("cast")
 		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
-			proxy.xarch.set(proxy.objRef, context.name, (String) args[0]);
+			proxy.xarch.set(proxy.objRef, context.name, (Serializable) args[0]);
 			return null;
 		}
 	}
@@ -169,7 +168,7 @@ public class EObjectProxy extends AbstractProxy {
 						if (EList.class.isAssignableFrom(method.getParameterTypes()[0]))
 							return getHandler(SetEList.class, new NameContext(name.substring(prefix.length())));
 						// set methods can take many different object types, not just Strings
-						return getHandler(SetString.class, new NameContext(name.substring(prefix.length())));
+						return getHandler(SetSerializable.class, new NameContext(name.substring(prefix.length())));
 					}
 					return getDefaultHandler();
 				}
