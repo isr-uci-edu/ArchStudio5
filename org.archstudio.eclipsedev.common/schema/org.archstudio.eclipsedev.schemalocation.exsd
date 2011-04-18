@@ -17,7 +17,7 @@
          </appinfo>
       </annotation>
       <complexType>
-         <sequence>
+         <sequence minOccurs="0" maxOccurs="unbounded">
             <element ref="schema"/>
          </sequence>
          <attribute name="point" type="string" use="required">
@@ -83,6 +83,20 @@
                   </enumeration>
                </restriction>
             </simpleType>
+         </attribute>
+         <attribute name="copyLocally" type="boolean">
+            <annotation>
+               <documentation>
+                  Whether the schema should be copied locally to the &apos;models&apos; folder.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  the display name of this schema
+               </documentation>
+            </annotation>
          </attribute>
       </complexType>
    </element>

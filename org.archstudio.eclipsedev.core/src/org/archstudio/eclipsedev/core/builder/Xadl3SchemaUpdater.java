@@ -6,6 +6,7 @@ import java.io.StringBufferInputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -30,6 +31,11 @@ import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.eclipse.pde.core.plugin.IPluginObject;
 import org.eclipse.pde.core.plugin.PluginRegistry;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+
 /*
  * This class makes a non-standard use of Eclipse extension points.  This class
  * lives at the meta-Eclipse level, which means it's part of a plug-in that's 
@@ -46,29 +52,26 @@ public class Xadl3SchemaUpdater {
 	private static final Xadl3SchemaUpdater INSTANCE = new Xadl3SchemaUpdater();
 
 	private enum UpdateFrequency {
-		NEVER("never", -1),
-		EVERY_BUILD("everyBuild", 0),
-		HOURLY("hourly", 60 * 60 * 1000),
-		DAILY("daily", 60 * 60 * 24 * 1000),
-		WEEKLY("weekly", 60 * 60 * 24 * 7 * 1000),
-		MONTHLY("monthly", 60 * 60 * 24 * 30 * 1000);
-		
+		NEVER("never", -1), EVERY_BUILD("everyBuild", 0), HOURLY("hourly", 60 * 60 * 1000), DAILY("daily",
+				60 * 60 * 24 * 1000), WEEKLY("weekly", 60 * 60 * 24 * 7 * 1000), MONTHLY("monthly", 60 * 60 * 24 * 30
+				* 1000);
+
 		private final String stringRepresentation;
 		private final long numMilliseconds;
-		
+
 		private UpdateFrequency(String stringRepresentation, long numMilliseconds) {
 			this.stringRepresentation = stringRepresentation;
 			this.numMilliseconds = numMilliseconds;
 		}
-		
+
 		public String getStringRepresentation() {
 			return stringRepresentation;
 		}
-		
+
 		public long getNumMilliseconds() {
 			return numMilliseconds;
 		}
-		
+
 		public static UpdateFrequency fromString(String stringRepresentation) {
 			for (UpdateFrequency f : UpdateFrequency.values()) {
 				if (f.getStringRepresentation().equals(stringRepresentation)) {
@@ -77,46 +80,55 @@ public class Xadl3SchemaUpdater {
 			}
 			return null;
 		}
-		
+
 		public String toString() {
 			return getStringRepresentation();
 		}
 	}
-	
+
 	private static class Xadl3SchemaLocation {
 		protected final String urlString;
 		protected final UpdateFrequency updateFrequency;
-		
-		public Xadl3SchemaLocation(String urlString, UpdateFrequency updateFrequency) {
+		protected final boolean copyLocally;
+
+		public Xadl3SchemaLocation(String urlString, UpdateFrequency updateFrequency, boolean copyLocally) {
 			this.urlString = urlString;
 			this.updateFrequency = updateFrequency;
+			this.copyLocally = copyLocally;
 		}
-		
-		public String getUrlString() { 
+
+		public String getUrlString() {
 			return urlString;
 		}
-		
+
 		public UpdateFrequency getUpdateFrequency() {
 			return updateFrequency;
 		}
-		
+
+		public boolean isCopyLocally() {
+			return copyLocally;
+		}
+
 		public String toString() {
-			return "Xadl3SchemaLocation {urlString=\"" + getUrlString() + "\"; updateFrequency=" + getUpdateFrequency() + "}";
+			return "Xadl3SchemaLocation {"//
+					+ "urlString=\"" + getUrlString() + "\"; "//
+					+ "updateFrequency=" + getUpdateFrequency() + "; "//
+					+ "copyLocally=" + copyLocally + "}";
 		}
 	}
-	
+
 	private final ResourceSet resourceSet;
 	private final URIConverter uriConverter;
-	
-	private Xadl3SchemaUpdater() { 
+
+	private Xadl3SchemaUpdater() {
 		resourceSet = new ResourceSetImpl();
 		uriConverter = resourceSet.getURIConverter();
 	}
-	
+
 	public boolean hasXadl3Nature(IProject project) throws CoreException {
 		return project.getNature(EclipseDevConstants.NATURE_ID) != null;
 	}
-	
+
 	public List<Xadl3SchemaLocation> getSchemaLocations(IProject project) {
 		List<Xadl3SchemaLocation> locationList = new ArrayList<Xadl3SchemaLocation>();
 		IPluginModelBase workspacePluginModelBase = PluginRegistry.findModel(project);
@@ -124,24 +136,34 @@ public class Xadl3SchemaUpdater {
 			IExtensions pluginExtensions = workspacePluginModelBase.getExtensions();
 			if (pluginExtensions != null) {
 				for (IPluginExtension pluginExtension : pluginExtensions.getExtensions()) {
-					if ((pluginExtension.getPoint() != null) && (pluginExtension.getPoint().equals(EclipseDevConstants.SCHEMALOCATION_EXTENSION_POINT_ID))) {
+					if ((pluginExtension.getPoint() != null)
+							&& (pluginExtension.getPoint()
+									.equals(EclipseDevConstants.SCHEMALOCATION_EXTENSION_POINT_ID))) {
 						IPluginObject[] pluginObjects = pluginExtension.getChildren();
 						if ((pluginObjects != null) && (pluginObjects.length > 0)) {
-							if (pluginObjects[0] instanceof IPluginElement) {
-								IPluginElement pluginElement = (IPluginElement)pluginObjects[0];
+							for (IPluginElement pluginElement : Iterables.filter(Arrays.asList(pluginObjects),
+									IPluginElement.class)) {
 								IPluginAttribute urlAttribute = pluginElement.getAttribute("url");
 								String url = null;
 								if (urlAttribute != null) {
 									url = urlAttribute.getValue();
 								}
-								
-								IPluginAttribute autoUpdateFrequencyAttribute = pluginElement.getAttribute("autoUpdateFrequency");
+
+								IPluginAttribute autoUpdateFrequencyAttribute = pluginElement
+										.getAttribute("autoUpdateFrequency");
 								UpdateFrequency autoUpdateFrequency = null;
 								if (autoUpdateFrequencyAttribute != null) {
-									autoUpdateFrequency = UpdateFrequency.fromString(autoUpdateFrequencyAttribute.getValue());
+									autoUpdateFrequency = UpdateFrequency.fromString(autoUpdateFrequencyAttribute
+											.getValue());
 								}
-								
-								locationList.add(new Xadl3SchemaLocation(url, autoUpdateFrequency));
+
+								IPluginAttribute copyLocallyAttribute = pluginElement.getAttribute("copyLocally");
+								boolean copyLocally = false;
+								if (copyLocallyAttribute != null) {
+									copyLocally = Boolean.valueOf(copyLocallyAttribute.getValue());
+								}
+
+								locationList.add(new Xadl3SchemaLocation(url, autoUpdateFrequency, copyLocally));
 							}
 						}
 					}
@@ -150,15 +172,15 @@ public class Xadl3SchemaUpdater {
 		}
 		return locationList;
 	}
-	
+
 	public URI getSchemaURI(String urlString) {
 		return URI.createURI(urlString);
 	}
-	
+
 	public String getSchemaContents(URI uri) {
 		String result = null;
 		InputStream is = null;
-		try{
+		try {
 			is = uriConverter.createInputStream(uri);
 			result = IOUtils.toString(is);
 		}
@@ -171,18 +193,18 @@ public class Xadl3SchemaUpdater {
 		}
 		return result;
 	}
-	
+
 	public boolean schemaExists(IProject project, String schemaFileName) {
 		IFolder modelFolder = project.getFolder("model");
 		if (modelFolder.exists()) {
 			IFile schemaFile = modelFolder.getFile(schemaFileName);
-			if((schemaFile != null) && (schemaFile.exists())){
+			if ((schemaFile != null) && (schemaFile.exists())) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public String getSchemaContents(IProject project, String schemaFileName) {
 		IFolder modelFolder = project.getFolder("model");
 		if (modelFolder.exists()) {
@@ -204,23 +226,22 @@ public class Xadl3SchemaUpdater {
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-    public Map<String,Long> getSchemaLastUpdatedTimes(IProject project) {
-		/* Last-updated times for schemas are stored as persistent project
-		 *  properties.  The qualified name has two parts: the qualifier
-		 *  is a distinguished URI and the local name is the filename of
-		 *  the schema.  The property value is a stringified Long representing
-		 *  the last updated time for the schema.  
+	public Map<String, Long> getSchemaLastUpdatedTimes(IProject project) {
+		/*
+		 * Last-updated times for schemas are stored as persistent project properties. The qualified name has two parts:
+		 * the qualifier is a distinguished URI and the local name is the filename of the schema. The property value is
+		 * a stringified Long representing the last updated time for the schema.
 		 */
-		Map<String,Long> lastUpdatedTimes = new HashMap<String,Long>();
-		
+		Map<String, Long> lastUpdatedTimes = new HashMap<String, Long>();
+
 		try {
-			for (Iterator it = project.getPersistentProperties().keySet().iterator(); it.hasNext(); ) {
-				QualifiedName qn = (QualifiedName)it.next();
+			for (Iterator it = project.getPersistentProperties().keySet().iterator(); it.hasNext();) {
+				QualifiedName qn = (QualifiedName) it.next();
 				String qualifier = qn.getQualifier();
 				if ((qualifier != null) && qualifier.equals(EclipseDevConstants.SCHEMA_LAST_UPDATE_TIME_URI)) {
 					String schemaName = qn.getLocalName();
@@ -238,10 +259,10 @@ public class Xadl3SchemaUpdater {
 		catch (CoreException ce) {
 			ce.printStackTrace();
 		}
-		                                                                                          
+
 		return lastUpdatedTimes;
 	}
-	
+
 	public long getSchemaLastUpdateTime(IProject project, String schemaFileName) {
 		QualifiedName qn = new QualifiedName(EclipseDevConstants.SCHEMA_LAST_UPDATE_TIME_URI, schemaFileName);
 		try {
@@ -254,24 +275,24 @@ public class Xadl3SchemaUpdater {
 			return -1;
 		}
 	}
-	
+
 	public void setSchemaLastUpdateTime(IProject project, String schemaFileName, long time) {
 		QualifiedName qn = new QualifiedName(EclipseDevConstants.SCHEMA_LAST_UPDATE_TIME_URI, schemaFileName);
 		try {
 			project.setPersistentProperty(qn, Long.toString(time));
 		}
 		catch (CoreException ce) {
-			//This is best-effort
+			// This is best-effort
 			ce.printStackTrace();
 		}
 	}
-	
+
 	public void updateSchemasIfNecessary(IProject project) {
 		for (Xadl3SchemaLocation schemaLocation : getSchemaLocations(project)) {
 			updateSchemaIfNecessary(project, schemaLocation);
 		}
 	}
-	
+
 	private boolean updateTimePassed(long lastUpdateTime, Xadl3SchemaLocation schemaLocation) {
 		if (schemaLocation.getUpdateFrequency().equals(UpdateFrequency.NEVER)) {
 			return false;
@@ -290,15 +311,15 @@ public class Xadl3SchemaUpdater {
 			return false;
 		}
 	}
-	
+
 	private static final DateFormat df = new SimpleDateFormat("yyyy_MM_dd_HHmmss");
-	
+
 	private String getTimestampForBackupFile() {
 		return df.format(new java.util.Date());
 	}
-	
+
 	@SuppressWarnings("deprecation")
-    private boolean writeSchema(IProject project, String schemaFileName, String newContents, boolean backupOldFile) {
+	private boolean writeSchema(IProject project, String schemaFileName, String newContents, boolean backupOldFile) {
 		try {
 			IFolder modelFolder = project.getFolder("model");
 			if (!modelFolder.exists()) {
@@ -332,57 +353,73 @@ public class Xadl3SchemaUpdater {
 		}
 		return false;
 	}
-	
+
 	private void updateSchemaIfNecessary(IProject project, Xadl3SchemaLocation schemaLocation) {
-		String urlString = schemaLocation.getUrlString();
-		URI uri = URI.createURI(urlString);
-		String schemaFileName = uri.path().substring(uri.path().lastIndexOf('/') + 1);
-		
-		// See if the schema already exists.  If so, we may not have to update it.
-		
-		String newSchemaContents = null;
-		boolean needsUpdate = false;
-		if (schemaExists(project, schemaFileName)) {
-			// Check when we last updated it.
-			long lastUpdateTime = getSchemaLastUpdateTime(project, schemaFileName);
-			if (updateTimePassed(lastUpdateTime, schemaLocation)) {
-				// OK, it's time to check for an update.  Let's see if the
-				// schema's contents have changed.
-				newSchemaContents = getSchemaContents(uri);
-				if (newSchemaContents != null) {
-					// Only process if we successfully read the contents
-					String oldSchemaContents = getSchemaContents(project, schemaFileName);
-					if (newSchemaContents.equals(oldSchemaContents)) {
-						// The contents were equivalent; this counts as
-						// a done update.
-						needsUpdate = false;
-						setSchemaLastUpdateTime(project, schemaFileName, new java.util.Date().getTime());
-					}
-					else {
-						//We have to update.
-						needsUpdate = true;
+		if (schemaLocation.isCopyLocally()) {
+			String urlString = schemaLocation.getUrlString();
+			URI uri = URI.createURI(urlString);
+			String schemaFileName = uri.path().substring(uri.path().lastIndexOf('/') + 1);
+
+			// See if the schema already exists. If so, we may not have to
+			// update it.
+
+			String newSchemaContents = null;
+			boolean needsUpdate = false;
+			if (schemaExists(project, schemaFileName)) {
+				// Check when we last updated it.
+				long lastUpdateTime = getSchemaLastUpdateTime(project, schemaFileName);
+				if (updateTimePassed(lastUpdateTime, schemaLocation)) {
+					// OK, it's time to check for an update. Let's see if the
+					// schema's contents have changed.
+					newSchemaContents = getSchemaContents(uri);
+					if (newSchemaContents != null) {
+						// Only process if we successfully read the contents
+						String oldSchemaContents = getSchemaContents(project, schemaFileName);
+						if (newSchemaContents.equals(oldSchemaContents)) {
+							// The contents were equivalent; this counts as
+							// a done update.
+							needsUpdate = false;
+							setSchemaLastUpdateTime(project, schemaFileName, new java.util.Date().getTime());
+						}
+						else {
+							// We have to update.
+							needsUpdate = true;
+						}
 					}
 				}
 			}
-		}
-		else {
-			// If schema does not exist locally, then it definitely
-			// needs an update.
-			needsUpdate = true;
-			newSchemaContents = getSchemaContents(uri);
-		}
-		
-		if (needsUpdate && (newSchemaContents != null)) {
-			boolean success = writeSchema(project, schemaFileName, newSchemaContents, true);
-			if (success) {
-				setSchemaLastUpdateTime(project, schemaFileName, new java.util.Date().getTime());
+			else {
+				// If schema does not exist locally, then it definitely
+				// needs an update.
+				needsUpdate = true;
+				newSchemaContents = getSchemaContents(uri);
+			}
+
+			if (needsUpdate && (newSchemaContents != null)) {
+				boolean success = writeSchema(project, schemaFileName, newSchemaContents, true);
+				if (success) {
+					setSchemaLastUpdateTime(project, schemaFileName, new java.util.Date().getTime());
+				}
 			}
 		}
 	}
 
-	public static Xadl3SchemaUpdater getInstance() { 
-		return INSTANCE; 
+	public static Xadl3SchemaUpdater getInstance() {
+		return INSTANCE;
 	}
-	
 
+	public List<String> getNonCopiedSchemaURIs(IProject project) {
+		return Lists.newArrayList(Iterables.transform(
+				Iterables.filter(getSchemaLocations(project), new Predicate<Xadl3SchemaLocation>() {
+					@Override
+					public boolean apply(Xadl3SchemaLocation input) {
+						return !input.isCopyLocally();
+					}
+				}), new Function<Xadl3SchemaLocation, String>() {
+					@Override
+					public String apply(Xadl3SchemaLocation input) {
+						return input.getUrlString();
+					}
+				}));
+	}
 }
