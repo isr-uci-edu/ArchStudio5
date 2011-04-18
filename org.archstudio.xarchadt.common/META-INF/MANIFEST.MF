@@ -7,5 +7,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.archstudio.xarchadt.common
 Require-Bundle: org.eclipse.emf.common;bundle-version="2.5.0",
  org.archstudio.sysutils;bundle-version="5.0.0",
- org.archstudio.ext.guava;bundle-version="0.8.0"
+ com.google.guava;bundle-version="0.0.0"
 Bundle-Vendor: archstudio.org

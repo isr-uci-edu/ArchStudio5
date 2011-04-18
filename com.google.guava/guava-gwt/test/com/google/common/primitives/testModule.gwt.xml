@@ -1,0 +1,6 @@
+<module>
+ <source path=""/>
+ <entry-point class="com.google.common.primitives.TestModuleEntryPoint" />
+ <inherits name="com.google.gwt.user.User" />
+ <inherits name="com.google.common.primitives.Primitives" />
+</module>
