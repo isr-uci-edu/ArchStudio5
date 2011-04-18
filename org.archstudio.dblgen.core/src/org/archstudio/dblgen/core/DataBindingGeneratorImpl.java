@@ -72,7 +72,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 
 	public synchronized void setMonitor(Monitor emfMonitor) {
 		if (emfMonitor == null) {
-			this.emfMonitor = createBasicPrintingMonitor();
+			this.emfMonitor = DataBindingGeneratorImpl.createBasicPrintingMonitor();
 		}
 		else {
 			this.emfMonitor = emfMonitor;
@@ -96,8 +96,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	 * @throws IOException
 	 *             on an I/O error.
 	 */
-	public static Document parseDocument(InputStream documentInputStream) throws ParserConfigurationException, SAXException,
-			IOException {
+	public static Document parseDocument(InputStream documentInputStream) throws ParserConfigurationException,
+			SAXException, IOException {
 		DocumentBuilder docBuilder;
 		Document doc = null;
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -121,7 +121,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		IProject[] projects = workspace.getRoot().getProjects();
 		for (IProject project : projects) {
 			if (project.isAccessible()) {
-				if (project.hasNature(XADL3_SCHEMA_NATURE_ID)) {
+				if (project.hasNature(DataBindingGeneratorImpl.XADL3_SCHEMA_NATURE_ID)) {
 					projectList.add(project);
 				}
 			}
@@ -142,11 +142,12 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 
 		try {
 			project.accept(new IResourceVisitor() {
+				@Override
 				public boolean visit(IResource resource) throws CoreException {
 					if (resource instanceof IFile) {
 						IFile file = (IFile) resource;
 						String extension = file.getFileExtension();
-						if ((extension != null) && (extension.equals("xsd"))) {
+						if (extension != null && extension.equals("xsd")) {
 							// Get the file path, relative to the project root
 							IPath projectRelativePath = file.getProjectRelativePath();
 
@@ -189,11 +190,12 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 
 		try {
 			project.accept(new IResourceVisitor() {
+				@Override
 				public boolean visit(IResource resource) throws CoreException {
 					if (resource instanceof IFile) {
 						IFile file = (IFile) resource;
 						String extension = file.getFileExtension();
-						if ((extension != null) && (extension.equals("genmodel"))) {
+						if (extension != null && extension.equals("genmodel")) {
 							// Get the file path, relative to the project root
 							IPath projectRelativePath = file.getProjectRelativePath();
 
@@ -237,8 +239,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		InputStream is = null;
 		try {
 			is = schemaFile.getContents();
-			Document doc = parseDocument(is);
-			return getNSURIForDocument(doc);
+			Document doc = DataBindingGeneratorImpl.parseDocument(is);
+			return DataBindingGeneratorImpl.getNSURIForDocument(doc);
 		}
 		finally {
 			if (is != null) {
@@ -250,14 +252,15 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	private static String getNSURIForDocument(Document doc) {
 		Element docElt = doc.getDocumentElement();
 		String xmlns = docElt.getAttribute("xmlns");
-		// FIXME: Determine a valid fallback when xmlns=="". 
+		// TODO: Determine a valid fallback when xmlns=="".
 		// The following schema produce this problem:
 		// - http://gexf.net/1.2draft/gexf.xsd
 		//   ^- Note: gexf.xsd has xs:includes, which complicates copying it locally before processing
 		//      ^- Note: another complication may be when xs:import is used
 		// - http://gexf.net/1.2draft/viz.xsd
-		if(xmlns == null || xmlns.trim().length() == 0)
+		if (xmlns == null || xmlns.trim().length() == 0) {
 			xmlns = docElt.getAttribute("targetNamespace");
+		}
 		return xmlns;
 	}
 
@@ -296,8 +299,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			URI uri = URI.createURI(schemaURIString);
 			// InputStream is = resourceSet.getResource(uri, true).;
 			InputStream is = resourceSet.getURIConverter().createInputStream(uri);
-			Document doc = parseDocument(is);
-			String xmlns = getNSURIForDocument(doc);
+			Document doc = DataBindingGeneratorImpl.parseDocument(is);
+			String xmlns = DataBindingGeneratorImpl.getNSURIForDocument(doc);
 			schemaURItoNSURIMap.put(schemaURIString, xmlns);
 			is.close();
 		}
@@ -349,7 +352,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	public GenPackage getEcoreGenPackage(ResourceSet resourceSet) {
 		for (GenPackage genPackage : getEcoreGenModel(resourceSet).getGenPackages()) {
 			String genPackageNSURI = genPackage.getNSURI();
-			if ((genPackageNSURI != null) && (genPackageNSURI.equals(EcorePackage.eNS_URI))) {
+			if (genPackageNSURI != null && genPackageNSURI.equals(EcorePackage.eNS_URI)) {
 				return genPackage;
 			}
 		}
@@ -429,7 +432,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 						for (Map.Entry<IFile, GenModel> entry : genModelFileToGenModelMap.entrySet()) {
 							for (GenPackage genPackage : entry.getValue().getGenPackages()) {
 								String genPackageNSURI = genPackage.getNSURI();
-								if ((genPackageNSURI != null) && (genPackageNSURI.equals(recordNSURI))) {
+								if (genPackageNSURI != null && genPackageNSURI.equals(recordNSURI)) {
 									recordGenModelFile = entry.getKey();
 									recordGenModel = entry.getValue();
 									recordGenPackage = genPackage;
@@ -437,8 +440,9 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 									break;
 								}
 							}
-							if (found)
+							if (found) {
 								break;
+							}
 						}
 					}
 
@@ -517,6 +521,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			return genPackage;
 		}
 
+		@Override
 		public String toString() {
 			StringBuffer sb = new StringBuffer("SchemaRecord{");
 			sb.append("nsuri = ").append(nsuri).append("; ");
@@ -531,6 +536,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	//projectName = e.g., "org.archstudio.xadl3bindings"
+	@Override
 	public synchronized List<DataBindingGenerationStatus> generateBindings(List<String> schemaURIStrings,
 			String projectName) {
 		List<DataBindingGenerationStatus> statusList = new ArrayList<DataBindingGenerationStatus>();
@@ -542,6 +548,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		importer.setCreateEcoreMap(true);
 
 		IPath genModelContainerPath = ResourcesPlugin.getWorkspace().getRoot().getLocation().append("/" + projectName);
+		// FIXME: files are being placed in the wrong folder if the project is not in the workspace directory
 		importer.setGenModelContainerPath(genModelContainerPath);
 		importer.setGenModelFileName(shortProjectName + ".genmodel");
 
@@ -578,7 +585,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		// primaryNSURIs is a list of NSURIs from schemas in the project
 		Map<String, String> primaryNSURIs = null;
 		try {
-			primaryNSURIs = getNSURIsForSchemaFiles(schemaURIStrings, resourceSet);
+			primaryNSURIs = DataBindingGeneratorImpl.getNSURIsForSchemaFiles(schemaURIStrings, resourceSet);
 		}
 		catch (ParserConfigurationException pce) {
 			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE,
@@ -670,8 +677,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					boolean foundSchema = false;
 					boolean foundGenPackage = false;
 					for (SchemaRecord schemaRecord : schemaRecords) {
-						if ((schemaRecord.getNsuri() != null)
-								&& (schemaRecord.getNsuri().equals(referencedPackageNSURI))) {
+						if (schemaRecord.getNsuri() != null && schemaRecord.getNsuri().equals(referencedPackageNSURI)) {
 							foundSchema = true;
 							if (schemaRecord.getGenPackage() != null) {
 								usedGenPackages.add(schemaRecord.getGenPackage());
@@ -724,6 +730,10 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 				Generator codeGenerator = new Generator();
 				codeGenerator.setInput(genModel);
 				codeGenerator.generate(genModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, emfMonitor);
+
+				// TODO: update plugin's exported packages to include those created
+				// TODO: update plugin's dependencies to include org.eclipse.emf.ecore 
+				// TODO: update plugin's dependencies to include org.eclipse.emf.ecore.xmi
 			}
 		}
 
