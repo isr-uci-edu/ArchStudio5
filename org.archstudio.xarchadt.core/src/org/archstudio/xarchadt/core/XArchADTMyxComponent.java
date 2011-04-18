@@ -1,19 +1,16 @@
 package org.archstudio.xarchadt.core;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.IXArchADTFileListener;
-import org.archstudio.xarchadt.common.IXArchADTModelListener;
-import org.archstudio.xarchadt.common.XArchADTFileEvent;
-import org.archstudio.xarchadt.common.XArchADTModelEvent;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
+import org.archstudio.xarchadt.common.IXArchADTFileListener;
+import org.archstudio.xarchadt.common.IXArchADTModelListener;
+import org.archstudio.xarchadt.common.XArchADTFileEvent;
+import org.archstudio.xarchadt.common.XArchADTModelEvent;
 
 public class XArchADTMyxComponent
     extends AbstractMyxSimpleBrick

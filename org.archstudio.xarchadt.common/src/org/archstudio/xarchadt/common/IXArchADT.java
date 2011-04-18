@@ -15,7 +15,7 @@ public interface IXArchADT extends IXArchADTQuery {
 
 	public ObjRef createDocument(URI uri);
 
-	public ObjRef createDocument(URI uri, String nsURI, String setTypeOfThing, String typOfThing);
+	public ObjRef createDocument(URI uri, String nsURI, String typeOfThing, String rootElementName);
 
 	public ObjRef load(URI uri) throws SAXException, IOException;
 

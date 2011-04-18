@@ -20,24 +20,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 
 public class SystemUtils {
 
 	public static final String fileSeparator = System.getProperty("file.separator");
 
 	public enum OperatingSystem {
-		OS_UNKNOWN,
-		OS_WINDOWS,
-		OS_UNIX
+		OS_UNKNOWN, OS_WINDOWS, OS_UNIX
 	}
 
 	public static String getCanonicalPath(File f) {
@@ -115,7 +121,8 @@ public class SystemUtils {
 		}
 
 		if (os.equals(OperatingSystem.OS_UNIX)) {
-			String[] pathsToSearch = new String[] { "/usr/java/bin", "/usr/lib/java/bin", "/usr/local/java/bin", "/opt/java/bin", "/usr/lib/java/bin" };
+			String[] pathsToSearch = new String[] { "/usr/java/bin", "/usr/lib/java/bin", "/usr/local/java/bin",
+					"/opt/java/bin", "/usr/lib/java/bin" };
 			for (String element : pathsToSearch) {
 				javaExecutable = getFileIfExists(element, javaExecutableName);
 				if (javaExecutable != null) {
@@ -136,8 +143,8 @@ public class SystemUtils {
 			}
 		}
 		else if (os.equals(OperatingSystem.OS_WINDOWS)) {
-			String[] pathsToSearch = new String[] { "C:\\WINDOWS", "C:\\WINDOWS\\SYSTEM", "C:\\WINDOWS\\SYSTEM32", "C:\\WINNT", "C:\\WINNT\\SYSTEM",
-			        "C:\\WINNT\\SYSTEM32" };
+			String[] pathsToSearch = new String[] { "C:\\WINDOWS", "C:\\WINDOWS\\SYSTEM", "C:\\WINDOWS\\SYSTEM32",
+					"C:\\WINNT", "C:\\WINNT\\SYSTEM", "C:\\WINNT\\SYSTEM32" };
 			for (String element : pathsToSearch) {
 				javaExecutable = getFileIfExists(element, javaExecutableName);
 				if (javaExecutable != null) {
@@ -862,11 +869,13 @@ public class SystemUtils {
 		}
 	}
 
-	public static InputStream openURL(String urlString) throws MalformedURLException, FileNotFoundException, IOException {
+	public static InputStream openURL(String urlString) throws MalformedURLException, FileNotFoundException,
+			IOException {
 		return openURL(urlString, null);
 	}
 
-	public static InputStream openURL(String urlString, Class<?> resourceClass) throws MalformedURLException, FileNotFoundException, IOException {
+	public static InputStream openURL(String urlString, Class<?> resourceClass) throws MalformedURLException,
+			FileNotFoundException, IOException {
 		if (urlString.startsWith("file:")) {
 			URL fileURL = new URL(urlString);
 			String filePath = fileURL.getFile(); //Amazingly, this works (albeit for file:// URLs only)
@@ -901,17 +910,13 @@ public class SystemUtils {
 	}
 
 	/*
-	 * public static InputStream openURL(String urlString) throws
-	 * MalformedURLException, FileNotFoundException, IOException { if
-	 * (urlString.startsWith("file:")) { URL fileURL = new URL(urlString);
-	 * String filePath = fileURL.getFile(); //Amazingly, this works (albeit for
-	 * file:// URLs only) File file = new File(filePath); if (!file.exists()) {
-	 * throw new FileNotFoundException(file.getPath()); } if (!file.canRead()) {
-	 * throw new IOException("Can't read file: " + file.getPath()); }
-	 * FileInputStream fis = new FileInputStream(file); return fis; } else if
-	 * (urlString.startsWith("http:")) { URL httpURL = new URL(urlString);
-	 * return httpURL.openStream(); } else { throw new
-	 * MalformedURLException("Invalid URL: " + urlString); } }
+	 * public static InputStream openURL(String urlString) throws MalformedURLException, FileNotFoundException,
+	 * IOException { if (urlString.startsWith("file:")) { URL fileURL = new URL(urlString); String filePath =
+	 * fileURL.getFile(); //Amazingly, this works (albeit for file:// URLs only) File file = new File(filePath); if
+	 * (!file.exists()) { throw new FileNotFoundException(file.getPath()); } if (!file.canRead()) { throw new
+	 * IOException("Can't read file: " + file.getPath()); } FileInputStream fis = new FileInputStream(file); return fis;
+	 * } else if (urlString.startsWith("http:")) { URL httpURL = new URL(urlString); return httpURL.openStream(); } else
+	 * { throw new MalformedURLException("Invalid URL: " + urlString); } }
 	 */
 
 	public static String capFirst(String s) {
@@ -962,6 +967,10 @@ public class SystemUtils {
 			diff = Collections.emptySet();
 		}
 		return diff;
+	}
+
+	public static boolean nullEquals(Object o1, Object o2) {
+		return o1 == null ? o2 == null : o1.equals(o2);
 	}
 
 	public static boolean deepEquals(Object o1, Object o2) {
@@ -1021,14 +1030,14 @@ public class SystemUtils {
 		}
 		return o1.equals(o2);
 	}
-	
-	public static String mergeStrings(String[] stringArray, String front, String seperator, String end){
-		if(stringArray == null || stringArray.length == 0)
+
+	public static String mergeStrings(String[] stringArray, String front, String seperator, String end) {
+		if (stringArray == null || stringArray.length == 0)
 			return "";
 		StringBuffer sb = new StringBuffer();
 		sb.append(front);
-		for(int i=0, length=stringArray.length; i<length; i++){
-			if(i > 0)
+		for (int i = 0, length = stringArray.length; i < length; i++) {
+			if (i > 0)
 				sb.append(seperator);
 			sb.append(stringArray[i]);
 		}
@@ -1048,5 +1057,109 @@ public class SystemUtils {
 		}
 		m.appendTail(sb);
 		return sb.toString();
+	}
+
+	public static final String simpleName(String className) {
+		int index = className.lastIndexOf('.');
+		if (index >= 0) {
+			className = className.substring(index + 1);
+		}
+		return className;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private static final int compare(Object o1, Object o2) {
+		if (o1 == null) {
+			return o2 != null ? -1 : 0;
+		}
+		if (o2 == null) {
+			return 1;
+		}
+		if (o1 instanceof Comparable) {
+			return ((Comparable) o1).compareTo(o2);
+		}
+
+		return o1.toString().compareTo(o2.toString());
+	}
+
+	private static final Comparator<Object> genericComparator = new Comparator<Object>() {
+		@Override
+		public int compare(Object o1, Object o2) {
+			return SystemUtils.compare(o1, o2);
+		};
+	};
+
+	private static final Comparator<Map.Entry<?, ?>> mapEntryKeyComparator = new Comparator<Map.Entry<?, ?>>() {
+		@Override
+		public int compare(Map.Entry<?, ?> o1, Map.Entry<?, ?> o2) {
+			return SystemUtils.compare(o1.getKey(), o2.getKey());
+		}
+	};
+
+	private static final Comparator<Map.Entry<?, ?>> mapEntryValueComparator = new Comparator<Map.Entry<?, ?>>() {
+		@Override
+		public int compare(Map.Entry<?, ?> o1, Map.Entry<?, ?> o2) {
+			return SystemUtils.compare(o1.getValue(), o2.getValue());
+		}
+	};
+
+	private static final Predicate<Map.Entry<?, ?>> nonNullMapEntryKeyPredicate = new Predicate<Map.Entry<?, ?>>() {
+		public boolean apply(Map.Entry<?, ?> input) {
+			return input.getKey() != null;
+		}
+	};
+
+	private static final Predicate<Map.Entry<?, ?>> nonNullMapEntryValuePredicate = new Predicate<Map.Entry<?, ?>>() {
+		public boolean apply(Map.Entry<?, ?> input) {
+			return input.getValue() != null;
+		}
+	};
+
+	public static final <T> List<T> sorted(Iterable<? extends T> iterable, Comparator<? super T> comparator) {
+		List<T> list = Lists.newArrayList(iterable);
+		Collections.sort(list, comparator);
+		return list;
+	}
+
+	public static final <T> List<T> sorted(Iterable<? extends T> iterable) {
+		return SystemUtils.sorted(iterable, SystemUtils.genericComparator);
+	}
+
+	public static final <K, V, E extends Map.Entry<K, V>> List<E> sortedByKey(Iterable<E> entries) {
+		return SystemUtils.sorted(//
+				Iterables.filter(entries, SystemUtils.nonNullMapEntryKeyPredicate),//
+				SystemUtils.mapEntryKeyComparator);
+	}
+
+	public static final <K, V, E extends Map.Entry<K, V>> List<E> sortedByValue(Iterable<E> entries) {
+		return SystemUtils.sorted(//
+				Iterables.filter(entries, SystemUtils.nonNullMapEntryValuePredicate),//
+				SystemUtils.mapEntryValueComparator);
+	}
+
+	public static <T> List<T> createCopyOnWriteArrayList() {
+		return new CopyOnWriteArrayList<T>();
+	}
+
+	@SuppressWarnings("unchecked")
+	public static final <T> T castOrNull(Object o, Class<T> tClass) {
+		if (tClass.isInstance(o)) {
+			return (T) o;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static final <T> T cast(Object o) {
+		return (T) o;
+	}
+
+	public static final <T> Iterable<T> copyCollection(Collection<T> collection) {
+		return collection instanceof CopyOnWriteArrayList || collection instanceof CopyOnWriteArraySet ? collection
+				: Lists.newArrayList(collection);
+	}
+
+	public static final <T, K> Iterable<T> copyCollection(Map<K, Collection<T>> map, K key) {
+		return map != null && map.containsKey(key) ? copyCollection(map.get(key)) : Collections.<T> emptyList();
 	}
 }
