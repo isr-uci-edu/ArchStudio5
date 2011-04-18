@@ -12,8 +12,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.archstudio.dblgen.common.DataBindingGenerationStatus;
-import org.archstudio.dblgen.common.IDataBindingGenerator;
 import org.archstudio.dblgen.common.DataBindingGenerationStatus.Status;
+import org.archstudio.dblgen.common.IDataBindingGenerator;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -51,16 +51,18 @@ import org.xml.sax.SAXException;
 
 public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	public static final String XADL3_SCHEMA_NATURE_ID = "org.archstudio.eclipsedev.xadl3SchemaNature";
-	
+
 	static {
 		//Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("genmodel", new EcoreResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xsd", new XSDResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xml", new XMIResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
 
-		GeneratorAdapterFactory.Descriptor.Registry.INSTANCE.addDescriptor(GenModelPackage.eNS_URI, GenModelGeneratorAdapterFactory.DESCRIPTOR);
+		GeneratorAdapterFactory.Descriptor.Registry.INSTANCE.addDescriptor(GenModelPackage.eNS_URI,
+				GenModelGeneratorAdapterFactory.DESCRIPTOR);
 
-		URIConverter.URI_MAP.put(URI.createURI(EcorePackage.eNS_URI), URI.createURI("platform:/plugin/org.eclipse.emf.ecore/model/Ecore.xsd"));
+		URIConverter.URI_MAP.put(URI.createURI(EcorePackage.eNS_URI),
+				URI.createURI("platform:/plugin/org.eclipse.emf.ecore/model/Ecore.xsd"));
 	}
 
 	private Monitor emfMonitor;
@@ -84,8 +86,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	/**
 	 * Parses an XML file.
 	 * 
-	 * @param fileInputStream
-	 *            Input stream for the XML file
+	 * @param documentInputStream
+	 *            Input stream for XML content
 	 * @return Parsed DOM Document object
 	 * @throws ParserConfigurationException
 	 *             If the parser was misconfigured somehow.
@@ -94,20 +96,21 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	 * @throws IOException
 	 *             on an I/O error.
 	 */
-	public static Document parseFile(InputStream fileInputStream) throws ParserConfigurationException, SAXException, IOException {
+	public static Document parseDocument(InputStream documentInputStream) throws ParserConfigurationException, SAXException,
+			IOException {
 		DocumentBuilder docBuilder;
 		Document doc = null;
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 		docBuilderFactory.setIgnoringElementContentWhitespace(true);
 
 		docBuilder = docBuilderFactory.newDocumentBuilder();
-		doc = docBuilder.parse(fileInputStream);
+		doc = docBuilder.parse(documentInputStream);
 		return doc;
 	}
 
 	/**
-	 * Gets all the projects in the workspace that have the xADL 3 Schema Nature
-	 * added to them. Projects must be open and accessible to be returned.
+	 * Gets all the projects in the workspace that have the xADL 3 Schema Nature added to them. Projects must be open
+	 * and accessible to be returned.
 	 * 
 	 * @return A list of <tt>IProject</tt>s that have the appropriate nature.
 	 * @throws CoreException
@@ -127,8 +130,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Gets a list of .xsd files that exist in the project root or in the
-	 * <tt>model/</tt> directory of the given project.
+	 * Gets a list of .xsd files that exist in the project root or in the <tt>model/</tt> directory of the given
+	 * project.
 	 * 
 	 * @param project
 	 *            Project to test.
@@ -175,8 +178,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Gets a list of <tt>.genmodel</tt> files that exist at the project root of
-	 * the given project.
+	 * Gets a list of <tt>.genmodel</tt> files that exist at the project root of the given project.
 	 * 
 	 * @param project
 	 *            Project to test.
@@ -215,9 +217,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Gets the namespace URI (NSURI) for a given .xsd file. Parses the file,
-	 * extracts the <tt>xmlns</tt> attribute from the root element, and returns
-	 * its contents.
+	 * Gets the namespace URI (NSURI) for a given .xsd file. Parses the file, extracts the <tt>xmlns</tt> attribute from
+	 * the root element, and returns its contents.
 	 * 
 	 * @param schemaFile
 	 *            <tt>IFile</tt> representing schema file to parse
@@ -231,14 +232,13 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	 * @throws CoreException
 	 *             if there was an internal Eclipse error.
 	 */
-	public String getNSURIForSchemaFile(IFile schemaFile) throws ParserConfigurationException, SAXException, IOException, CoreException {
+	public String getNSURIForSchemaFile(IFile schemaFile) throws ParserConfigurationException, SAXException,
+			IOException, CoreException {
 		InputStream is = null;
 		try {
 			is = schemaFile.getContents();
-			Document doc = parseFile(is);
-			Element docElt = doc.getDocumentElement();
-			String xmlns = docElt.getAttribute("xmlns");
-			return xmlns;
+			Document doc = parseDocument(is);
+			return getNSURIForDocument(doc);
 		}
 		finally {
 			if (is != null) {
@@ -247,17 +247,30 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		}
 	}
 
+	private static String getNSURIForDocument(Document doc) {
+		Element docElt = doc.getDocumentElement();
+		String xmlns = docElt.getAttribute("xmlns");
+		// FIXME: Determine a valid fallback when xmlns=="". 
+		// The following schema produce this problem:
+		// - http://gexf.net/1.2draft/gexf.xsd
+		//   ^- Note: gexf.xsd has xs:includes, which complicates copying it locally before processing
+		//      ^- Note: another complication may be when xs:import is used
+		// - http://gexf.net/1.2draft/viz.xsd
+		if(xmlns == null || xmlns.trim().length() == 0)
+			xmlns = docElt.getAttribute("targetNamespace");
+		return xmlns;
+	}
+
 	/**
 	 * Returns a mapping of schema files to NSURIs for those schema files
 	 * 
 	 * @param schemaFileList
 	 *            List of <tt>IFile</tt> representing <tt>.xsd</tt> files.
-	 * @return map mapping <tt>IFile</tt>s in <tt>schemaFileList</tt> to
-	 *         Strings, representing their namespace URIs. Parsing and other
-	 *         errors are ignored and those URIs will not be present in the
-	 *         returned map.
+	 * @return map mapping <tt>IFile</tt>s in <tt>schemaFileList</tt> to Strings, representing their namespace URIs.
+	 *         Parsing and other errors are ignored and those URIs will not be present in the returned map.
 	 */
-	public Map<IFile, String> getNSURIsForSchemaFiles(List<IFile> schemaFileList) throws ParserConfigurationException, SAXException, IOException, CoreException {
+	public Map<IFile, String> getNSURIsForSchemaFiles(List<IFile> schemaFileList) throws ParserConfigurationException,
+			SAXException, IOException, CoreException {
 		Map<IFile, String> schemaToNSURIMap = new HashMap<IFile, String>();
 		for (IFile schemaFile : schemaFileList) {
 			String nsuri = getNSURIForSchemaFile(schemaFile);
@@ -267,27 +280,24 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Returns a mapping of schema URIs (in the Eclipse universe) to namespace
-	 * URIs for those schema files.
+	 * Returns a mapping of schema URIs (in the Eclipse universe) to namespace URIs for those schema files.
 	 * 
 	 * @param schemaURIStrings
 	 *            A list of Eclipse URIs pointing to <tt>.xsd</tt> files.
 	 * @param resourceSet
-	 *            Resource set to use for resolving URIs in
-	 *            <tt>schemaURIStrings</tt>
-	 * @return Mapping from URIs in <tt>schemaURIStrings</tt> to namespace URIs
-	 *         declared in those schemas. Errors and exceptions are ignored and
-	 *         those URIs will not be present in the returned map.
+	 *            Resource set to use for resolving URIs in <tt>schemaURIStrings</tt>
+	 * @return Mapping from URIs in <tt>schemaURIStrings</tt> to namespace URIs declared in those schemas. Errors and
+	 *         exceptions are ignored and those URIs will not be present in the returned map.
 	 */
-	private static Map<String, String> getNSURIsForSchemaFiles(List<String> schemaURIStrings, ResourceSet resourceSet) throws ParserConfigurationException,
-	        SAXException, IOException, CoreException {
+	private static Map<String, String> getNSURIsForSchemaFiles(List<String> schemaURIStrings, ResourceSet resourceSet)
+			throws ParserConfigurationException, SAXException, IOException, CoreException {
 		Map<String, String> schemaURItoNSURIMap = new HashMap<String, String>();
 		for (String schemaURIString : schemaURIStrings) {
 			URI uri = URI.createURI(schemaURIString);
+			// InputStream is = resourceSet.getResource(uri, true).;
 			InputStream is = resourceSet.getURIConverter().createInputStream(uri);
-			Document doc = parseFile(is);
-			Element docElt = doc.getDocumentElement();
-			String xmlns = docElt.getAttribute("xmlns");
+			Document doc = parseDocument(is);
+			String xmlns = getNSURIForDocument(doc);
 			schemaURItoNSURIMap.put(schemaURIString, xmlns);
 			is.close();
 		}
@@ -295,12 +305,11 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Parses a <tt>.genmodel</tt> file and returns the EMF <tt>GenModel</tt>
-	 * class representing that file.
+	 * Parses a <tt>.genmodel</tt> file and returns the EMF <tt>GenModel</tt> class representing that file.
 	 * 
 	 * @param resourceSet
-	 *            Resource set to use for URI resolution (EMF location requires
-	 *            the IFile to be turned into a URI internally).
+	 *            Resource set to use for URI resolution (EMF location requires the IFile to be turned into a URI
+	 *            internally).
 	 * @param genModelFile
 	 *            <tt>IFile</tt> representing <tt>.genmodel</tt> file.
 	 * @return <tt>GenModel</tt> object from parsed file.
@@ -348,15 +357,13 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Returns a mapping of <tt>.genmodel</tt> files to parsed <tt>GenModel</tt>
-	 * objects representing those files.
+	 * Returns a mapping of <tt>.genmodel</tt> files to parsed <tt>GenModel</tt> objects representing those files.
 	 * 
 	 * @param resourceSet
 	 *            <tt>ResourceSet</tt> used to resolve URIs
 	 * @param genModelFileList
 	 *            List of <tt>IFile</tt> objects representing GenModel files.
-	 * @return Map from <tt>IFile</tt> objects passed in to <tt>GenModel</tt>
-	 *         parsed objects.
+	 * @return Map from <tt>IFile</tt> objects passed in to <tt>GenModel</tt> parsed objects.
 	 */
 	public Map<IFile, GenModel> parseGenModelFiles(ResourceSet resourceSet, List<IFile> genModelFileList) {
 		Map<IFile, GenModel> fileToGenModelMap = new HashMap<IFile, GenModel>();
@@ -373,16 +380,16 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Clearinghouse method to get information about all the xADL schema
-	 * projects in the workspace, what schemas they contain, and what
-	 * <tt>.genmodel</tt> files they have.
+	 * Clearinghouse method to get information about all the xADL schema projects in the workspace, what schemas they
+	 * contain, and what <tt>.genmodel</tt> files they have.
 	 * 
 	 * @param importer
 	 *            a ModelImporter object (used for URI resolution)
-	 * @return A list of <tt>SchemaRecord</tt> objects containing information
-	 *         about other schema projects in the workspace.
+	 * @return A list of <tt>SchemaRecord</tt> objects containing information about other schema projects in the
+	 *         workspace.
 	 */
-	private List<SchemaRecord> getSchemaRecords(ModelImporter importer) throws ParserConfigurationException, SAXException, IOException, CoreException {
+	private List<SchemaRecord> getSchemaRecords(ModelImporter importer) throws ParserConfigurationException,
+			SAXException, IOException, CoreException {
 		List<SchemaRecord> schemaRecordList = new ArrayList<SchemaRecord>();
 
 		ResourceSet resourceSet = importer.createResourceSet();
@@ -435,8 +442,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 						}
 					}
 
-					SchemaRecord newSchemaRecord = new SchemaRecord(recordNSURI, xadlSchemaProject, recordGenModelFile, recordSchemaFile, recordGenModel,
-					        recordGenPackage);
+					SchemaRecord newSchemaRecord = new SchemaRecord(recordNSURI, xadlSchemaProject, recordGenModelFile,
+							recordSchemaFile, recordGenModel, recordGenPackage);
 					schemaRecordList.add(newSchemaRecord);
 				}
 			}
@@ -447,12 +454,11 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Internal data structure for capturing data about a Schema in a xADL
-	 * Schema project. Includes namespace URI of the schema, the project
-	 * containing the schema, the <tt>IFile</tt>s representing the schema itself
-	 * and its GenModel, and the parsed GenModel representation and individual
-	 * GenPackage corresponding to the schema.
+	 * Internal data structure for capturing data about a Schema in a xADL Schema project. Includes namespace URI of the
+	 * schema, the project containing the schema, the <tt>IFile</tt>s representing the schema itself and its GenModel,
+	 * and the parsed GenModel representation and individual GenPackage corresponding to the schema.
 	 */
+	@SuppressWarnings("unused")
 	private static class SchemaRecord {
 		/** The namespace URI of the schema */
 		private final String nsuri;
@@ -469,15 +475,15 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		private final IFile schemaFile;
 
 		/**
-		 * The parsed GenModel object containing the GenPackage that refers to
-		 * the schema
+		 * The parsed GenModel object containing the GenPackage that refers to the schema
 		 */
 		private final GenModel genModel;
 
 		/** The parsed GenPackage object referring to the schema. */
 		private final GenPackage genPackage;
 
-		public SchemaRecord(String nsuri, IProject project, IFile genModelFile, IFile schemaFile, GenModel genModel, GenPackage genPackage) {
+		public SchemaRecord(String nsuri, IProject project, IFile genModelFile, IFile schemaFile, GenModel genModel,
+				GenPackage genPackage) {
 			super();
 			this.nsuri = nsuri;
 			this.project = project;
@@ -525,7 +531,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	//projectName = e.g., "org.archstudio.xadl3bindings"
-	public synchronized List<DataBindingGenerationStatus> generateBindings(List<String> schemaURIStrings, String projectName) {
+	public synchronized List<DataBindingGenerationStatus> generateBindings(List<String> schemaURIStrings,
+			String projectName) {
 		List<DataBindingGenerationStatus> statusList = new ArrayList<DataBindingGenerationStatus>();
 
 		String shortProjectName = projectName.substring(projectName.lastIndexOf(".") + 1);
@@ -550,11 +557,13 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			schemaRecords = getSchemaRecords(importer);
 		}
 		catch (ParserConfigurationException pce) {
-			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE, "Parser configuration error parsing schemas", pce));
+			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE,
+					"Parser configuration error parsing schemas", pce));
 			return statusList;
 		}
 		catch (SAXException se) {
-			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE, "Parsing exception parsing schemas", se));
+			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE, "Parsing exception parsing schemas",
+					se));
 			return statusList;
 		}
 		catch (IOException ioe) {
@@ -572,11 +581,13 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			primaryNSURIs = getNSURIsForSchemaFiles(schemaURIStrings, resourceSet);
 		}
 		catch (ParserConfigurationException pce) {
-			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE, "Parser configuration error parsing schemas", pce));
+			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE,
+					"Parser configuration error parsing schemas", pce));
 			return statusList;
 		}
 		catch (SAXException se) {
-			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE, "Parsing exception parsing schemas", se));
+			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE, "Parsing exception parsing schemas",
+					se));
 			return statusList;
 		}
 		catch (IOException ioe) {
@@ -605,7 +616,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			// Yes, in a remarkable display of programming good taste, computeEPackages
 			// does declare that it throws "Exception"
 			e.printStackTrace();
-			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE, "Error computing packages for schemas " + combinedModelURIString, e));
+			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE,
+					"Error computing packages for schemas " + combinedModelURIString, e));
 		}
 
 		if (computePackagesSucceeded) {
@@ -658,7 +670,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					boolean foundSchema = false;
 					boolean foundGenPackage = false;
 					for (SchemaRecord schemaRecord : schemaRecords) {
-						if ((schemaRecord.getNsuri() != null) && (schemaRecord.getNsuri().equals(referencedPackageNSURI))) {
+						if ((schemaRecord.getNsuri() != null)
+								&& (schemaRecord.getNsuri().equals(referencedPackageNSURI))) {
 							foundSchema = true;
 							if (schemaRecord.getGenPackage() != null) {
 								usedGenPackages.add(schemaRecord.getGenPackage());
@@ -668,14 +681,14 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					}
 
 					if (!foundSchema) {
-						statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE, 
-								"Missing project containing schema file with namespace URI " + 
-								referencedPackageNSURI, null));
+						statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE,
+								"Missing project containing schema file with namespace URI " + referencedPackageNSURI,
+								null));
 					}
 					else if (!foundGenPackage) {
-						statusList.add(new DataBindingGenerationStatus(null, Status.WARNING, 
-								"Missing GenModel/GenPackage for schema with namespace URI " + 
-								referencedPackageNSURI, null));
+						statusList.add(new DataBindingGenerationStatus(null, Status.WARNING,
+								"Missing GenModel/GenPackage for schema with namespace URI " + referencedPackageNSURI,
+								null));
 					}
 				}
 				else {
@@ -701,7 +714,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			catch (Exception e) {
 				// Another tasteful function that "throws Exception"
 				e.printStackTrace();
-				statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE, "Error saving generated content for " + combinedModelURIString, e));
+				statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE,
+						"Error saving generated content for " + combinedModelURIString, e));
 			}
 
 			if (modelSaveSucceeded) {

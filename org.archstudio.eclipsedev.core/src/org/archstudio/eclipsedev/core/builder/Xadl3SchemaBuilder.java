@@ -34,6 +34,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.google.common.collect.Lists;
+
 public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 	protected EclipseDevMyxComponent myxComponent = null;
 
@@ -42,11 +44,12 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			return myxComponent;
 		}
 		else {
-			myxComponent = (EclipseDevMyxComponent)MyxRegistry.getSharedInstance().waitForBrick(EclipseDevMyxComponent.class);
+			myxComponent = (EclipseDevMyxComponent) MyxRegistry.getSharedInstance().waitForBrick(
+					EclipseDevMyxComponent.class);
 			return myxComponent;
 		}
 	}
-	
+
 	private ProjectCleanBehaviorType getCleanBehaviorType() {
 		IPreferenceStore preferenceStore = getMyxComponent().getPreferenceStore();
 		return EclipseDevPreferences.getProjectCleanBehavior(preferenceStore);
@@ -108,44 +111,44 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		//getProject().refreshLocal(IResource.DEPTH_INFINITE, monitor);
 		return null;
 	}
-	
+
 	private class Xadl3ResourceDeltaVisitor implements IResourceDeltaVisitor {
 		public boolean projectNeedsRebuild = false;
 
 		protected final IProject project;
 		protected final IFolder modelFolder;
-		
-		public Xadl3ResourceDeltaVisitor(IProject project){
+
+		public Xadl3ResourceDeltaVisitor(IProject project) {
 			this.project = project;
 			modelFolder = getProject().getFolder("model");
 		}
-		
+
 		public boolean visit(IResourceDelta delta) {
-			if(modelFolder == null){
+			if (modelFolder == null) {
 				return false;
 			}
-			
+
 			IResource res = delta.getResource();
-			
+
 			IContainer parent = res.getParent();
-			while(parent != null){
-				if(parent.equals(modelFolder)){
+			while (parent != null) {
+				if (parent.equals(modelFolder)) {
 					projectNeedsRebuild = true;
 					return false;
 				}
 				parent = parent.getParent();
-			}					
+			}
 			return true; // visit the children
 		}
-		
+
 	}
-	
+
 	private void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor) throws CoreException {
 		// See if anything in the model directory changed that would require a rebuild.  If so,
 		// do a full build.
 		Xadl3ResourceDeltaVisitor visitor = new Xadl3ResourceDeltaVisitor(getProject());
 		delta.accept(visitor);
-		if(visitor.projectNeedsRebuild){
+		if (visitor.projectNeedsRebuild) {
 			fullBuild(monitor);
 		}
 	}
@@ -178,7 +181,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		IProject project = getProject();
 
 		ProjectCleanBehaviorType cleanBehaviorType = getCleanBehaviorType();
-		
+
 		switch (cleanBehaviorType) {
 		case DELETE_FILES:
 		case DELETE_FOLDERS:
@@ -199,7 +202,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		case DELETE_NOTHING:
 			break;
 		}
-		
+
 		// Get all folders under the 'src' folder
 		IFolder sourceFolder = project.getFolder("src");
 		if ((sourceFolder != null) && (sourceFolder.exists())) {
@@ -207,7 +210,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			case DELETE_FOLDERS:
 				// Nuke the folders
 				for (IFolder childFolder : getFolderChildren(sourceFolder)) {
-					if(!(childFolder.isHidden() || childFolder.isDerived() || childFolder.isTeamPrivateMember())) {
+					if (!(childFolder.isHidden() || childFolder.isDerived() || childFolder.isTeamPrivateMember())) {
 						childFolder.delete(true, monitor);
 					}
 				}
@@ -222,7 +225,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			}
 		}
 	}
-	
+
 	private void recursiveDeleteJavaFilesInFolder(IFolder folder, IProgressMonitor monitor) throws CoreException {
 		if (folder.isHidden() || folder.isTeamPrivateMember()) {
 			return;
@@ -272,13 +275,14 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 				deleteMarkers(schemaFile);
 			}
 		}
-		
+
 		//Update schemas if necessary
 		Xadl3SchemaUpdater.getInstance().updateSchemasIfNecessary(getProject());
-		
+		List<String> externalSchemaURIs = Xadl3SchemaUpdater.getInstance().getNonCopiedSchemaURIs(getProject());
+
 		//Now build with latest schemas.
 		schemaFilesToProcess = getSchemaFiles();
-		if (schemaFilesToProcess.size() > 0) {
+		if (schemaFilesToProcess.size() > 0 || externalSchemaURIs.size() > 0) {
 			// Get URIs for each schema file
 			List<String> fileURIs = new ArrayList<String>();
 			Map<String, IFile> uriToFileMap = new HashMap<String, IFile>();
@@ -292,7 +296,11 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			String projectName = getProject().getName();
 
 			try {
-				List<DataBindingGenerationStatus> statusList = dataBindingGenerator.generateBindings(fileURIs, projectName);
+				List<String> allURIs = Lists.newArrayList();
+				allURIs.addAll(fileURIs);
+				allURIs.addAll(externalSchemaURIs);
+				List<DataBindingGenerationStatus> statusList = dataBindingGenerator.generateBindings(allURIs,
+						projectName);
 
 				for (DataBindingGenerationStatus status : statusList) {
 					String schemaURI = status.getSchemaURIString();
@@ -300,13 +308,13 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 					if (schemaURI != null) {
 						schemaFile = uriToFileMap.get(schemaURI);
 					}
-					if ((schemaFile == null) && (schemaFilesToProcess.size() > 0)) {
-						schemaFile = schemaFilesToProcess.get(0);
-					}
-					
+					//if ((schemaFile == null) && (schemaFilesToProcess.size() > 0)) {
+					//	schemaFile = schemaFilesToProcess.get(0);
+					//}
+
 					if (schemaFile != null) {
 						String message = status.getMessage();
-						if(status.getThrowable() != null){
+						if (status.getThrowable() != null) {
 							message += "; " + status.getThrowable().getMessage();
 						}
 						DataBindingGenerationStatus.Status statusType = status.getStatus();
@@ -320,19 +328,24 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 				}
 			}
 			catch (PackageComputeException pce) {
-				if(schemaFilesToProcess.size() == 0){
-					addMarker(getProject(), "Package Compute Error while Generating Data Bindings; " + pce.getMessage(), IMarker.SEVERITY_ERROR);
+				if (schemaFilesToProcess.size() == 0) {
+					addMarker(getProject(),
+							"Package Compute Error while Generating Data Bindings; " + pce.getMessage(),
+							IMarker.SEVERITY_ERROR);
 				}
-				else{
-					addMarker(schemaFilesToProcess.get(0), "Package Compute Error while Generating Data Bindings; " + pce.getMessage(), 1, IMarker.SEVERITY_ERROR);
+				else {
+					addMarker(schemaFilesToProcess.get(0), "Package Compute Error while Generating Data Bindings; "
+							+ pce.getMessage(), 1, IMarker.SEVERITY_ERROR);
 				}
 			}
 			catch (IOException ioe) {
-				if(schemaFilesToProcess.size() == 0){
-					addMarker(getProject(), "I/O Error while Generating Data Bindings; " + ioe.getMessage(), IMarker.SEVERITY_ERROR);
+				if (schemaFilesToProcess.size() == 0) {
+					addMarker(getProject(), "I/O Error while Generating Data Bindings; " + ioe.getMessage(),
+							IMarker.SEVERITY_ERROR);
 				}
-				else{
-					addMarker(schemaFilesToProcess.get(0), "I/O Error while Generating Data Bindings; " + ioe.getMessage(), 1, IMarker.SEVERITY_ERROR);
+				else {
+					addMarker(schemaFilesToProcess.get(0),
+							"I/O Error while Generating Data Bindings; " + ioe.getMessage(), 1, IMarker.SEVERITY_ERROR);
 				}
 			}
 		}
@@ -340,20 +353,20 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		final IProject project = getProject();
 
 		Job job = new Job("Refreshing Project") {
-		protected IStatus run(IProgressMonitor monitor) {
-			try {
-				// Wait until all builds are done
-				// Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
-				
-				// Then refresh the project to make sure that everything is synced
-				project.refreshLocal(IProject.DEPTH_INFINITE, monitor);
+			protected IStatus run(IProgressMonitor monitor) {
+				try {
+					// Wait until all builds are done
+					// Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
+
+					// Then refresh the project to make sure that everything is synced
+					project.refreshLocal(IProject.DEPTH_INFINITE, monitor);
+				}
+				catch (CoreException ce) {
+				}
+				// catch (InterruptedException ie) {
+				// }
+				return Status.OK_STATUS;
 			}
-			catch (CoreException ce) {
-			}
-			// catch (InterruptedException ie) {
-			// }
-			return Status.OK_STATUS;
-		}
 		};
 		job.setPriority(Job.SHORT);
 		job.schedule(); // start as soon as possible
