@@ -1083,21 +1083,18 @@ public class SystemUtils {
 	}
 
 	private static final Comparator<Object> genericComparator = new Comparator<Object>() {
-		@Override
 		public int compare(Object o1, Object o2) {
 			return SystemUtils.compare(o1, o2);
 		};
 	};
 
 	private static final Comparator<Map.Entry<?, ?>> mapEntryKeyComparator = new Comparator<Map.Entry<?, ?>>() {
-		@Override
 		public int compare(Map.Entry<?, ?> o1, Map.Entry<?, ?> o2) {
 			return SystemUtils.compare(o1.getKey(), o2.getKey());
 		}
 	};
 
 	private static final Comparator<Map.Entry<?, ?>> mapEntryValueComparator = new Comparator<Map.Entry<?, ?>>() {
-		@Override
 		public int compare(Map.Entry<?, ?> o1, Map.Entry<?, ?> o2) {
 			return SystemUtils.compare(o1.getValue(), o2.getValue());
 		}
