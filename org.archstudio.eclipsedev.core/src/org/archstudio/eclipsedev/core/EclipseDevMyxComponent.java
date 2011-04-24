@@ -1,6 +1,6 @@
 package org.archstudio.eclipsedev.core;
 
-import org.archstudio.dblgen.common.IDataBindingGenerator;
+import org.archstudio.dblgen.IDataBindingGenerator;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;

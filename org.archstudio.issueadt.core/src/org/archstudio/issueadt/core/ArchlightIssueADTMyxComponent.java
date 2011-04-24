@@ -1,14 +1,14 @@
 package org.archstudio.issueadt.core;
 
-import org.archstudio.issueadt.common.ArchlightIssueADTEvent;
-import org.archstudio.issueadt.common.ArchlightIssueADTListener;
+import org.archstudio.issueadt.ArchlightIssueADTEvent;
+import org.archstudio.issueadt.ArchlightIssueADTListener;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.xarchadt.common.IXArchADTFileListener;
-import org.archstudio.xarchadt.common.ObjRef;
-import org.archstudio.xarchadt.common.XArchADTFileEvent;
+import org.archstudio.xarchadt.IXArchADTFileListener;
+import org.archstudio.xarchadt.ObjRef;
+import org.archstudio.xarchadt.XArchADTFileEvent;
 
 public class ArchlightIssueADTMyxComponent extends AbstractMyxSimpleBrick implements ArchlightIssueADTListener, IMyxDynamicBrick, IXArchADTFileListener {
 

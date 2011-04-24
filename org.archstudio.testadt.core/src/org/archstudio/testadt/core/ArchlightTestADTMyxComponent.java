@@ -4,8 +4,8 @@ import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.testadt.common.ArchlightTestADTEvent;
-import org.archstudio.testadt.common.ArchlightTestADTListener;
+import org.archstudio.testadt.ArchlightTestADTEvent;
+import org.archstudio.testadt.ArchlightTestADTListener;
 
 public class ArchlightTestADTMyxComponent extends AbstractMyxSimpleBrick implements ArchlightTestADTListener, IMyxDynamicBrick {
 

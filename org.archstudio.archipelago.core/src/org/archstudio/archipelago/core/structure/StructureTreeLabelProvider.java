@@ -4,10 +4,10 @@ import org.eclipse.swt.graphics.Image;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.IArchipelagoLabelProvider;
-import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
-import org.archstudio.xadlswt.common.XadlTreeUtils;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xadlswt.XadlTreeUtils;
+import org.archstudio.xarchadt.ObjRef;
 
 public class StructureTreeLabelProvider implements IArchipelagoLabelProvider{
 	protected ArchipelagoServices AS = null;

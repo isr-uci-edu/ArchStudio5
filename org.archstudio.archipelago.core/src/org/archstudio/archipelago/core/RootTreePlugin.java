@@ -4,7 +4,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.TreeViewer;
 
 import org.archstudio.bna.constants.GridDisplayType;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 
 public class RootTreePlugin extends AbstractArchipelagoTreePlugin{
 	public RootTreePlugin(TreeViewer viewer, ArchipelagoServices AS, ObjRef xArchRef){

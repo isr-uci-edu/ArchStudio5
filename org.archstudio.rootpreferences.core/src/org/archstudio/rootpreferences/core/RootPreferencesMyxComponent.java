@@ -5,7 +5,7 @@ import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.resources.common.IResources;
+import org.archstudio.resources.IResources;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 public class RootPreferencesMyxComponent extends AbstractMyxSimpleBrick 

@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import org.archstudio.aim.common.ArchitectureInstantiationException;
-import org.archstudio.aim.common.IAIM;
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.aim.ArchitectureInstantiationException;
+import org.archstudio.aim.IAIM;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.myx.fw.EMyxInterfaceDirection;
 import org.archstudio.myx.fw.IMyxBrickDescription;
 import org.archstudio.myx.fw.IMyxBrickInitializationData;
@@ -21,7 +21,7 @@ import org.archstudio.myx.fw.MyxBrickLoadException;
 import org.archstudio.myx.fw.MyxJavaClassBrickDescription;
 import org.archstudio.myx.fw.MyxJavaClassInterfaceDescription;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Direction;
 
 public class AIMImpl implements IAIM {

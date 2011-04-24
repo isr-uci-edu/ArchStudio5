@@ -5,14 +5,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.archstudio.launcher.common.ILaunchData;
-import org.archstudio.launcher.common.ILaunchable;
+import org.archstudio.launcher.ILaunchData;
+import org.archstudio.launcher.ILaunchable;
 import org.archstudio.myx.conn.IMultiwayResults;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.resources.common.IResources;
+import org.archstudio.resources.IResources;
 
 public class LauncherMyxComponent extends AbstractMyxSimpleBrick {
 

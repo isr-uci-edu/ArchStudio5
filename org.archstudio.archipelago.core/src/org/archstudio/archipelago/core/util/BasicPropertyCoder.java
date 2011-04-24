@@ -1,7 +1,7 @@
 package org.archstudio.archipelago.core.util;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 
 public class BasicPropertyCoder implements IPropertyCoder{
 

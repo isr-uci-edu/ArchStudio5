@@ -7,15 +7,15 @@ import java.util.Properties;
 import org.eclipse.emf.common.util.URI;
 import org.xml.sax.SAXException;
 
-import org.archstudio.aim.common.ArchitectureInstantiationException;
-import org.archstudio.aim.common.IAIM;
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.aim.ArchitectureInstantiationException;
+import org.archstudio.aim.IAIM;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 
 public class BootstrapMyxComponent extends AbstractMyxSimpleBrick implements IMyxDynamicBrick {

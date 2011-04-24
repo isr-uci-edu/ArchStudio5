@@ -2,14 +2,14 @@ package org.archstudio.archlight.core;
 
 import java.io.IOException;
 
-import org.archstudio.archlight.common.IArchlightTool;
-import org.archstudio.common.EclipseUtils;
-import org.archstudio.editors.common.AbstractArchstudioEditorMyxComponent;
-import org.archstudio.launcher.common.ILaunchData;
-import org.archstudio.launcher.common.LaunchData;
+import org.archstudio.EclipseUtils;
+import org.archstudio.archlight.IArchlightTool;
+import org.archstudio.editors.AbstractArchstudioEditorMyxComponent;
+import org.archstudio.launcher.ILaunchData;
+import org.archstudio.launcher.LaunchData;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.testadt.common.IArchlightTestADT;
+import org.archstudio.testadt.IArchlightTestADT;
 import org.eclipse.swt.graphics.Image;
 
 public class ArchlightMyxComponent extends AbstractArchstudioEditorMyxComponent {

@@ -1,11 +1,11 @@
 package org.archstudio.noticeview.core;
 
-import org.archstudio.archlight.common.ArchlightNotice;
+import org.archstudio.archlight.ArchlightNotice;
 import org.archstudio.myx.fw.MyxRegistry;
-import org.archstudio.noticeadt.common.ArchlightNoticeADTEvent;
-import org.archstudio.noticeadt.common.ArchlightNoticeADTListener;
-import org.archstudio.noticeadt.common.IArchlightNoticeADT;
-import org.archstudio.resources.common.IResources;
+import org.archstudio.noticeadt.ArchlightNoticeADTEvent;
+import org.archstudio.noticeadt.ArchlightNoticeADTListener;
+import org.archstudio.noticeadt.IArchlightNoticeADT;
+import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.AutoResizeTableLayout;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.IStructuredContentProvider;

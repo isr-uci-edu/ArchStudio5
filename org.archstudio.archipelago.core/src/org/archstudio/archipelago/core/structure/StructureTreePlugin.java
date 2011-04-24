@@ -9,7 +9,7 @@ import org.eclipse.swt.graphics.FontData;
 import org.archstudio.archipelago.core.AbstractArchipelagoTreePlugin;
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 
 public class StructureTreePlugin extends AbstractArchipelagoTreePlugin{
 

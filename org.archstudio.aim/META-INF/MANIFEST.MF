@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Common
+Bundle-SymbolicName: org.archstudio.aim
+Bundle-Version: 5.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.archstudio.myx.eclipse;bundle-version="5.0.0",
+ org.archstudio.myx.fw;bundle-version="5.0.0",
+ org.archstudio.xarchadt;bundle-version="5.0.0"
+Export-Package: org.archstudio.aim

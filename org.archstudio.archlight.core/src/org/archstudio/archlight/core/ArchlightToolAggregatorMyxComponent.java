@@ -2,14 +2,14 @@ package org.archstudio.archlight.core;
 
 import java.util.Collection;
 
-import org.archstudio.archlight.common.IArchlightTool;
+import org.archstudio.archlight.IArchlightTool;
 import org.archstudio.myx.conn.IMultiwayProgressListener;
 import org.archstudio.myx.conn.IMultiwayResults;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;

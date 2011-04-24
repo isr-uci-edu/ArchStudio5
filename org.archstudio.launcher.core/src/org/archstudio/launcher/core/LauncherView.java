@@ -3,14 +3,14 @@ package org.archstudio.launcher.core;
 import java.io.IOException;
 import java.util.List;
 
-import org.archstudio.common.EclipseUtils;
-import org.archstudio.editors.common.XadlEditorMatchingStrategy;
+import org.archstudio.EclipseUtils;
+import org.archstudio.editors.XadlEditorMatchingStrategy;
 import org.archstudio.filemanager.core.NewFileWizard;
-import org.archstudio.launcher.common.ILaunchData;
+import org.archstudio.launcher.ILaunchData;
 import org.archstudio.main.ArchStudio5Activator;
 import org.archstudio.myx.fw.MyxRegistry;
 
-import org.archstudio.resources.common.IResources;
+import org.archstudio.resources.IResources;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.MessageDialog;

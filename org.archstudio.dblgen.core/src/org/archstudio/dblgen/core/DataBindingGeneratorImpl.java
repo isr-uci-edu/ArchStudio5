@@ -11,9 +11,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.archstudio.dblgen.common.DataBindingGenerationStatus;
-import org.archstudio.dblgen.common.DataBindingGenerationStatus.Status;
-import org.archstudio.dblgen.common.IDataBindingGenerator;
+import org.archstudio.dblgen.DataBindingGenerationStatus;
+import org.archstudio.dblgen.IDataBindingGenerator;
+import org.archstudio.dblgen.DataBindingGenerationStatus.Status;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;

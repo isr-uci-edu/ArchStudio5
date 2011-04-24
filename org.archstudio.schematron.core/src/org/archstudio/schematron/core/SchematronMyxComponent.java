@@ -6,21 +6,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.archstudio.archlight.common.ArchlightIssue;
-import org.archstudio.archlight.common.ArchlightTest;
-import org.archstudio.archlight.common.ArchlightTestError;
-import org.archstudio.archlight.common.ArchlightTestResult;
-import org.archstudio.archlight.common.IArchlightTool;
-import org.archstudio.issueadt.common.IArchlightIssueADT;
+import org.archstudio.archlight.ArchlightIssue;
+import org.archstudio.archlight.ArchlightTest;
+import org.archstudio.archlight.ArchlightTestError;
+import org.archstudio.archlight.ArchlightTestResult;
+import org.archstudio.archlight.IArchlightTool;
+import org.archstudio.issueadt.IArchlightIssueADT;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.noticeadt.common.IArchlightNoticeADT;
+import org.archstudio.noticeadt.IArchlightNoticeADT;
 import org.archstudio.sysutils.SystemUtils;
-import org.archstudio.testadt.common.IArchlightTestADT;
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.testadt.IArchlightTestADT;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 public class SchematronMyxComponent extends AbstractMyxSimpleBrick implements IArchlightTool, IMyxDynamicBrick {

@@ -1,11 +1,11 @@
 package org.archstudio.filemanager.core;
 
 import org.archstudio.myx.fw.MyxRegistry;
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.IXArchADTFileListener;
-import org.archstudio.xarchadt.common.IXArchADTModelListener;
-import org.archstudio.xarchadt.common.XArchADTFileEvent;
-import org.archstudio.xarchadt.common.XArchADTModelEvent;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.IXArchADTFileListener;
+import org.archstudio.xarchadt.IXArchADTModelListener;
+import org.archstudio.xarchadt.XArchADTFileEvent;
+import org.archstudio.xarchadt.XArchADTModelEvent;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;

@@ -3,7 +3,7 @@ package org.archstudio.archipelago.core;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 
 public class TreeNodeDataCache implements IArchipelagoTreeNodeDataCache{
 

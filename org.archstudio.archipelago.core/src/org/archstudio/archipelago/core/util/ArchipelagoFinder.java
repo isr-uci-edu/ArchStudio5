@@ -22,7 +22,7 @@ import org.archstudio.bna.assemblies.StickySplineAssembly;
 import org.archstudio.bna.facets.IHasAssemblyData;
 import org.archstudio.bna.things.utility.WorldThing;
 import org.archstudio.bna.things.utility.WorldThingPeer;
-import org.archstudio.resources.common.ArchStudioCommonResources;
+import org.archstudio.resources.ArchStudioCommonResources;
 import org.archstudio.swtutils.DefaultFindResult;
 import org.archstudio.swtutils.IFindResult;
 import org.archstudio.swtutils.IFinder;

@@ -2,7 +2,7 @@ package org.archstudio.archipelago.core.structure;
 
 import org.archstudio.archipelago.core.IArchipelagoEvent;
 import org.archstudio.archipelago.core.structure.StructureMapper.BrickKind;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.assemblies.BoxAssembly;
 import org.archstudio.bna.assemblies.EndpointAssembly;

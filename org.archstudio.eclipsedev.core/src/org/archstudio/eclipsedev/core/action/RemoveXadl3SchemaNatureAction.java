@@ -2,7 +2,7 @@ package org.archstudio.eclipsedev.core.action;
 
 import java.util.Iterator;
 
-import org.archstudio.eclipsedev.common.EclipseDevConstants;
+import org.archstudio.eclipsedev.EclipseDevConstants;
 import org.archstudio.eclipsedev.core.Xadl3SchemaNature;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;

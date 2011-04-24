@@ -14,7 +14,7 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.xadl3.structure_3_0.Direction;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.bna.AbstractThingLogic;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.BNAUtils;

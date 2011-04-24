@@ -4,6 +4,8 @@ import junit.framework.TestCase;
 
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.core.XArchADTImpl;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;

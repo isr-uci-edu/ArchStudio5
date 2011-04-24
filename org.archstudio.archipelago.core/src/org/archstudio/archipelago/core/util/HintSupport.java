@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
-import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.hints_3_0.Hints_3_0Package;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 
 public class HintSupport implements IPropertyCoder{
 	protected static HintSupport __instance = null;

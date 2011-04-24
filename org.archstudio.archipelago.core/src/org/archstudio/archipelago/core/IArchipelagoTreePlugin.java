@@ -3,9 +3,9 @@ package org.archstudio.archipelago.core;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.swt.dnd.DragSourceListener;
 
-import org.archstudio.filemanager.common.IFileManagerListener;
-import org.archstudio.xarchadt.common.IXArchADTFileListener;
-import org.archstudio.xarchadt.common.IXArchADTModelListener;
+import org.archstudio.filemanager.IFileManagerListener;
+import org.archstudio.xarchadt.IXArchADTFileListener;
+import org.archstudio.xarchadt.IXArchADTModelListener;
 
 public interface IArchipelagoTreePlugin{
 	public IArchipelagoTreeContentProvider getContentProvider();

@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.bna.AbstractThingLogic;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;

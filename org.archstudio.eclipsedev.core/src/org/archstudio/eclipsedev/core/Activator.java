@@ -69,7 +69,7 @@ public class Activator extends Plugin {
 		myxRuntime.addBrickLoader(MyxUtils.createName("EclipseBrickLoader"), "org.archstudio.myx.eclipse.MyxEclipseBrickLoader", null);
 
 		IMyxInterfaceDescription dataBindingInterfaceDescription = new MyxJavaClassInterfaceDescription(Collections
-		        .singleton("org.archstudio.dblgen.common.IDataBindingGenerator"));
+		        .singleton("org.archstudio.dblgen.IDataBindingGenerator"));
 		IMyxInterfaceDescription monitorInterfaceDescription = new MyxJavaClassInterfaceDescription(Collections
 		        .singleton("org.eclipse.emf.common.util.Monitor"));
 		IMyxInterfaceDescription preferencesInterfaceDescription = new MyxJavaClassInterfaceDescription(Collections

@@ -5,17 +5,17 @@ import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.archstudio.graphlayout.common.GraphLayout;
-import org.archstudio.graphlayout.common.GraphLayoutException;
-import org.archstudio.graphlayout.common.GraphLayoutParameters;
-import org.archstudio.graphlayout.common.IGraphLayout;
+import org.archstudio.graphlayout.GraphLayout;
+import org.archstudio.graphlayout.GraphLayoutException;
+import org.archstudio.graphlayout.GraphLayoutParameters;
+import org.archstudio.graphlayout.IGraphLayout;
 import org.archstudio.graphlayout.core.graphviz.DotLayoutEngine;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.ObjRef;
 
 public class GraphLayoutMyxComponent extends AbstractMyxSimpleBrick implements IMyxDynamicBrick {
 

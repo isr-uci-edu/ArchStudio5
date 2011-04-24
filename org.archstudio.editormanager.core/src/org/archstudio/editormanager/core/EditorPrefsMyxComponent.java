@@ -1,6 +1,6 @@
 package org.archstudio.editormanager.core;
 
-import org.archstudio.editormanager.common.IEditorManager;
+import org.archstudio.editormanager.IEditorManager;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;

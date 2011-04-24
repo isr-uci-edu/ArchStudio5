@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.archstudio.graphlayout.common.GraphLayoutConstants;
-import org.archstudio.graphlayout.common.GraphLayoutException;
+import org.archstudio.graphlayout.GraphLayoutConstants;
+import org.archstudio.graphlayout.GraphLayoutException;
 import org.archstudio.sysutils.NativeProcess;
 import org.archstudio.sysutils.SystemUtils;
-import org.archstudio.xarchadt.common.IXArchADT;
+import org.archstudio.xarchadt.IXArchADT;
 
 public class DotLayoutEngine extends AbstractGraphvizLayoutEngine {
 

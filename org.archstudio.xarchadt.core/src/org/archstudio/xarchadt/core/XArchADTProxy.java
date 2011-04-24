@@ -1,7 +1,7 @@
 package org.archstudio.xarchadt.core;
 
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.core.internal.EFactoryProxy;
 import org.archstudio.xarchadt.core.internal.EObjectProxy;
 import org.eclipse.emf.ecore.EFactory;

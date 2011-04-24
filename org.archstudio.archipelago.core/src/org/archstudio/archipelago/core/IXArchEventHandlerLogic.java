@@ -1,6 +1,6 @@
 package org.archstudio.archipelago.core;
 
-import org.archstudio.xarchadt.common.XArchADTModelEvent;
+import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogic;
 

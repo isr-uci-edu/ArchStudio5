@@ -13,7 +13,7 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.archstudio.archlight.common.ArchlightTest;
+import org.archstudio.archlight.ArchlightTest;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.w3c.dom.Document;

@@ -11,19 +11,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.archstudio.filemanager.common.CantOpenFileException;
-import org.archstudio.filemanager.common.IFileManager;
-import org.archstudio.filemanager.common.IFileManagerListener;
+import org.archstudio.filemanager.CantOpenFileException;
+import org.archstudio.filemanager.IFileManager;
+import org.archstudio.filemanager.IFileManagerListener;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.IXArchADTFileListener;
-import org.archstudio.xarchadt.common.IXArchADTModelListener;
-import org.archstudio.xarchadt.common.ObjRef;
-import org.archstudio.xarchadt.common.XArchADTFileEvent;
-import org.archstudio.xarchadt.common.XArchADTModelEvent;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.IXArchADTFileListener;
+import org.archstudio.xarchadt.IXArchADTModelListener;
+import org.archstudio.xarchadt.ObjRef;
+import org.archstudio.xarchadt.XArchADTFileEvent;
+import org.archstudio.xarchadt.XArchADTModelEvent;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;

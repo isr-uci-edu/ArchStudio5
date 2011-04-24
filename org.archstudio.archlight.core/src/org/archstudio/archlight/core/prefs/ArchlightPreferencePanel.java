@@ -1,8 +1,8 @@
 package org.archstudio.archlight.core.prefs;
 
-import org.archstudio.archlight.common.ArchlightConstants;
-import org.archstudio.archlight.common.DoubleClickAction;
-import org.archstudio.common.EclipseUtils;
+import org.archstudio.EclipseUtils;
+import org.archstudio.archlight.ArchlightConstants;
+import org.archstudio.archlight.DoubleClickAction;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;

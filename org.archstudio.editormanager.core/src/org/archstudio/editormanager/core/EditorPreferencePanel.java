@@ -1,7 +1,7 @@
 package org.archstudio.editormanager.core;
 
-import org.archstudio.editormanager.common.EditorConstants;
-import org.archstudio.editormanager.common.IEditorManager;
+import org.archstudio.editormanager.EditorConstants;
+import org.archstudio.editormanager.IEditorManager;
 import org.archstudio.main.ArchStudio5Activator;
 import org.archstudio.myx.fw.MyxRegistry;
 

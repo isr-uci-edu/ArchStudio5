@@ -5,11 +5,11 @@ import java.io.IOException;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.graphics.Image;
 
-import org.archstudio.common.EclipseUtils;
-import org.archstudio.editors.common.AbstractArchstudioEditorMyxComponent;
-import org.archstudio.graphlayout.common.IGraphLayout;
-import org.archstudio.launcher.common.ILaunchData;
-import org.archstudio.launcher.common.LaunchData;
+import org.archstudio.EclipseUtils;
+import org.archstudio.editors.AbstractArchstudioEditorMyxComponent;
+import org.archstudio.graphlayout.IGraphLayout;
+import org.archstudio.launcher.ILaunchData;
+import org.archstudio.launcher.LaunchData;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
 

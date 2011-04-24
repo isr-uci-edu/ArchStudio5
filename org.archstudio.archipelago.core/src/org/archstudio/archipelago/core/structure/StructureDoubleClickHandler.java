@@ -2,7 +2,7 @@ package org.archstudio.archipelago.core.structure;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.IArchipelagoTreeDoubleClickHandler;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 
 public class StructureDoubleClickHandler implements IArchipelagoTreeDoubleClickHandler{
 

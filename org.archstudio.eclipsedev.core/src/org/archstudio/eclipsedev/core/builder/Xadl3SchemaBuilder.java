@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.archstudio.dblgen.common.DataBindingGenerationStatus;
-import org.archstudio.dblgen.common.IDataBindingGenerator;
-import org.archstudio.dblgen.common.PackageComputeException;
-import org.archstudio.eclipsedev.common.EclipseDevConstants;
-import org.archstudio.eclipsedev.common.EclipseDevPreferences;
-import org.archstudio.eclipsedev.common.EclipseDevConstants.ProjectCleanBehaviorType;
+import org.archstudio.dblgen.DataBindingGenerationStatus;
+import org.archstudio.dblgen.IDataBindingGenerator;
+import org.archstudio.dblgen.PackageComputeException;
+import org.archstudio.eclipsedev.EclipseDevConstants;
+import org.archstudio.eclipsedev.EclipseDevPreferences;
+import org.archstudio.eclipsedev.EclipseDevConstants.ProjectCleanBehaviorType;
 import org.archstudio.eclipsedev.core.EclipseDevMyxComponent;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.eclipse.core.resources.IContainer;
