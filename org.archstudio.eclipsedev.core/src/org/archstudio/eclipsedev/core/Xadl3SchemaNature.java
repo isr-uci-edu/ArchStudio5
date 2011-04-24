@@ -1,6 +1,6 @@
 package org.archstudio.eclipsedev.core;
 
-import org.archstudio.eclipsedev.common.EclipseDevConstants;
+import org.archstudio.eclipsedev.EclipseDevConstants;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;

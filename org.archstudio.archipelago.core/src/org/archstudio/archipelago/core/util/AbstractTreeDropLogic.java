@@ -6,7 +6,7 @@ import org.eclipse.swt.dnd.DropTargetEvent;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.swtutils.LocalSelectionTransfer;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.bna.AbstractThingLogic;
 import org.archstudio.bna.IBNADragAndDropListener;
 import org.archstudio.bna.IBNAView;

@@ -2,10 +2,10 @@ package org.archstudio.archedit.core;
 
 import java.io.IOException;
 
-import org.archstudio.common.EclipseUtils;
-import org.archstudio.editors.common.AbstractArchstudioEditorMyxComponent;
-import org.archstudio.launcher.common.ILaunchData;
-import org.archstudio.launcher.common.LaunchData;
+import org.archstudio.EclipseUtils;
+import org.archstudio.editors.AbstractArchstudioEditorMyxComponent;
+import org.archstudio.launcher.ILaunchData;
+import org.archstudio.launcher.LaunchData;
 import org.eclipse.swt.graphics.Image;
 
 public class ArchEditMyxComponent extends AbstractArchstudioEditorMyxComponent {

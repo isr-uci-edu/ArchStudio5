@@ -4,7 +4,7 @@ Bundle-Name: Tests
 Bundle-SymbolicName: org.archstudio.xarchadt.tests
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Require-Bundle: org.archstudio.xarchadt.common;bundle-version="5.0.0",
+Require-Bundle: org.archstudio.xarchadt;bundle-version="5.0.0",
  org.archstudio.xarchadt.core;bundle-version="5.0.0",
  org.junit,
  org.archstudio.xadl3.xadlcore;bundle-version="5.0.0",

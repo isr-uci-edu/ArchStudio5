@@ -3,8 +3,8 @@ package org.archstudio.archipelago.core.structure;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
-import org.archstudio.filemanager.common.IFileManagerListener;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.filemanager.IFileManagerListener;
+import org.archstudio.xarchadt.ObjRef;
 
 public class StructureFileManagerListener implements IFileManagerListener{
 	protected ArchipelagoServices AS = null;

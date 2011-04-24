@@ -16,8 +16,8 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.things.SWTXadlSelectorThing;
-import org.archstudio.xadlswt.common.XadlTreeUtils;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xadlswt.XadlTreeUtils;
+import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.bna.AbstractThingLogic;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.BNAUtils;

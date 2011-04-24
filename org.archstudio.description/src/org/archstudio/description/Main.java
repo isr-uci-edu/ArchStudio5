@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.domain_3_0.DomainType;
 import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
 import org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package;
@@ -14,8 +14,8 @@ import org.archstudio.xadl3.lookupimplementation_3_0.Lookupimplementation_3_0Pac
 import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.core.XArchADTImpl;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
@@ -115,10 +115,10 @@ public class Main {
 		List<ObjRef> ifaceRefs = new ArrayList<ObjRef>();
 		ifaceRefs.addAll(Arrays.asList(additionalIfaceRefs));
 
-		ifaceRefs.add(createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.common.IXArchADT"));
+		ifaceRefs.add(createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.IXArchADT"));
 		ifaceRefs.add(createInterface("editormanager", Direction.OUT, DomainType.TOP, "org.archstudio.editormanager.common.IEditorManager"));
-		ifaceRefs.add(createInterface("fileevents", Direction.IN, DomainType.TOP, "org.archstudio.xarchadt.common.IXArchADTFileListener"));
-		ifaceRefs.add(createInterface("modelevents", Direction.IN, DomainType.TOP, "org.archstudio.xarchadt.common.IXArchADTModelListener"));
+		ifaceRefs.add(createInterface("fileevents", Direction.IN, DomainType.TOP, "org.archstudio.xarchadt.IXArchADTFileListener"));
+		ifaceRefs.add(createInterface("modelevents", Direction.IN, DomainType.TOP, "org.archstudio.xarchadt.IXArchADTModelListener"));
 		ifaceRefs.add(createInterface("filemanagerevents", Direction.IN, DomainType.TOP, "org.archstudio.filemanager.common.IFileManagerListener"));
 		ifaceRefs.add(createInterface("focuseditorevents", Direction.IN, DomainType.TOP, "org.archstudio.editors.common.IFocusEditorListener"));
 		ifaceRefs.add(createInterface("resources", Direction.OUT, DomainType.TOP, "org.archstudio.resources.common.IResources"));
@@ -243,9 +243,9 @@ public class Main {
 			"xArchADT",
 			"org.archstudio.xarchadt.core.XArchADTMyxComponent",
 			null,
-			createInterface("xarch", Direction.IN, DomainType.BOTTOM, "org.archstudio.xarchadt.common.IXArchADT"),
-			createInterface("fileevents", Direction.OUT, DomainType.BOTTOM, "org.archstudio.xarchadt.common.IXArchADTFileListener"),
-			createInterface("modelevents", Direction.OUT, DomainType.BOTTOM, "org.archstudio.xarchadt.common.IXArchADTModelListener")
+			createInterface("xarch", Direction.IN, DomainType.BOTTOM, "org.archstudio.xarchadt.IXArchADT"),
+			createInterface("fileevents", Direction.OUT, DomainType.BOTTOM, "org.archstudio.xarchadt.IXArchADTFileListener"),
+			createInterface("modelevents", Direction.OUT, DomainType.BOTTOM, "org.archstudio.xarchadt.IXArchADTModelListener")
 		));
 		
 		xarch.add(structureRef, "component", createComponent(
@@ -282,7 +282,7 @@ public class Main {
 			"org.archstudio.aim.core.AIMMyxComponent",
 			null,
 			createInterface("aim", Direction.IN, DomainType.BOTTOM, "org.archstudio.aim.common.IAIM"),
-			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.common.IXArchADT"),
+			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.IXArchADT"),
 			createInterface("myxruntime", Direction.OUT, DomainType.TOP, "org.archstudio.myx.fw.IMyxRuntime")
 		));
 		
@@ -329,9 +329,9 @@ public class Main {
 			"FileManager",
 			"org.archstudio.filemanager.core.FileManagerMyxComponent",
 			null,
-			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.common.IXArchADT"),
-			createInterface("fileevents", Direction.IN, DomainType.TOP, "org.archstudio.xarchadt.common.IXArchADTFileListener"),
-			createInterface("modelevents", Direction.IN, DomainType.TOP, "org.archstudio.xarchadt.common.IXArchADTModelListener"),
+			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.IXArchADT"),
+			createInterface("fileevents", Direction.IN, DomainType.TOP, "org.archstudio.xarchadt.IXArchADTFileListener"),
+			createInterface("modelevents", Direction.IN, DomainType.TOP, "org.archstudio.xarchadt.IXArchADTModelListener"),
 			createInterface("filemanager", Direction.IN, DomainType.BOTTOM, "org.archstudio.filemanager.common.IFileManager"),
 			createInterface("filemanagerevents", Direction.OUT, DomainType.BOTTOM, "org.archstudio.filemanager.common.IFileManagerListener")
 		));
@@ -340,7 +340,7 @@ public class Main {
 			"GraphLayout",
 			"org.archstudio.graphlayout.core.GraphLayoutMyxComponent",
 			null,
-			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.common.IXArchADT"),
+			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.IXArchADT"),
 			createInterface("preferences", Direction.OUT, DomainType.TOP, "org.eclipse.jface.preference.IPreferenceStore"),
 			createInterface("graphlayout", Direction.IN, DomainType.BOTTOM, "org.archstudio.graphlayout.common.IGraphLayout")
 		));
@@ -375,10 +375,10 @@ public class Main {
 		));
 		
 		xarch.add(structureRef, "connector", createDownwardEventPumpConnector(
-			"XArchADTModelEventPump", "org.archstudio.xarchadt.common.IXArchADTModelListener"));
+			"XArchADTModelEventPump", "org.archstudio.xarchadt.IXArchADTModelListener"));
 				
 		xarch.add(structureRef, "connector", createDownwardEventPumpConnector(
-			"XArchADTFileEventPump", "org.archstudio.xarchadt.common.IXArchADTFileListener"));
+			"XArchADTFileEventPump", "org.archstudio.xarchadt.IXArchADTFileListener"));
 		
 		xarch.add(structureRef, "connector", createDownwardEventPumpConnector(
 			"FileManagerEventPump", "org.archstudio.filemanager.common.IFileManagerListener"));
@@ -402,7 +402,7 @@ public class Main {
 			"org.archstudio.issueadt.core.ArchlightIssueADTMyxComponent",
 			null,
 			createInterface("archlightissueadt", Direction.IN, DomainType.BOTTOM, "org.archstudio.issueadt.common.IArchlightIssueADT"),
-			createInterface("fileevents", Direction.IN, DomainType.TOP, "org.archstudio.xarchadt.common.IXArchADTFileListener"),
+			createInterface("fileevents", Direction.IN, DomainType.TOP, "org.archstudio.xarchadt.IXArchADTFileListener"),
 			createInterface("archlightissueadtevents", Direction.OUT, DomainType.BOTTOM, "org.archstudio.issueadt.common.ArchlightIssueADTListener")
 		));
 
@@ -427,7 +427,7 @@ public class Main {
 			"org.archstudio.issueview.core.ArchlightIssueViewMyxComponent",
 			null,
 			createInterface("archlightissueadt", Direction.OUT, DomainType.TOP, "org.archstudio.issueadt.common.IArchlightIssueADT"),
-			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.common.IXArchADT"),
+			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.IXArchADT"),
 			createInterface("resources", Direction.OUT, DomainType.TOP, "org.archstudio.resources.common.IResources"),
 			createInterface("preferences", Direction.OUT, DomainType.TOP, "org.eclipse.jface.preference.IPreferenceStore"),
 			createInterface("editormanager", Direction.OUT, DomainType.TOP, "org.archstudio.editormanager.common.IEditorManager"),
@@ -448,7 +448,7 @@ public class Main {
 			"org.archstudio.schematron.core.SchematronMyxComponent",
 			null,
 			createInterface("archlighttool", Direction.IN, DomainType.BOTTOM, "org.archstudio.archlight.common.IArchlightTool"),
-			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.common.IXArchADT"),
+			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.IXArchADT"),
 			createInterface("archlightissueadt", Direction.OUT, DomainType.TOP, "org.archstudio.issueadt.common.IArchlightIssueADT"),
 			createInterface("archlighttestadt", Direction.OUT, DomainType.TOP, "org.archstudio.testadt.common.IArchlightTestADT"),
 			createInterface("archlightnoticeadt", Direction.OUT, DomainType.TOP, "org.archstudio.noticeadt.common.IArchlightNoticeADT"),
@@ -468,7 +468,7 @@ public class Main {
 			"org.archstudio.flowchecker.core.FlowCheckerMyxComponent",
 			null,
 			createInterface("archlighttool", Direction.IN, DomainType.BOTTOM, "org.archstudio.archlight.common.IArchlightTool"),
-			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.common.IXArchADT"),
+			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.IXArchADT"),
 			createInterface("archlightissueadt", Direction.OUT, DomainType.TOP, "org.archstudio.issueadt.common.IArchlightIssueADT"),
 			createInterface("archlighttestadt", Direction.OUT, DomainType.TOP, "org.archstudio.testadt.common.IArchlightTestADT"),
 			createInterface("archlightnoticeadt", Direction.OUT, DomainType.TOP, "org.archstudio.noticeadt.common.IArchlightNoticeADT"),
@@ -482,7 +482,7 @@ public class Main {
 			"org.archstudio.memorychecker.core.MemoryCheckerMyxComponent",
 			null,
 			createInterface("archlighttool", Direction.IN, DomainType.BOTTOM, "org.archstudio.archlight.common.IArchlightTool"),
-			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.common.IXArchADT"),
+			createInterface("xarch", Direction.OUT, DomainType.TOP, "org.archstudio.xarchadt.IXArchADT"),
 			createInterface("archlightissueadt", Direction.OUT, DomainType.TOP, "org.archstudio.issueadt.common.IArchlightIssueADT"),
 			createInterface("archlighttestadt", Direction.OUT, DomainType.TOP, "org.archstudio.testadt.common.IArchlightTestADT"),
 			createInterface("archlightnoticeadt", Direction.OUT, DomainType.TOP, "org.archstudio.noticeadt.common.IArchlightNoticeADT"),

@@ -1,6 +1,6 @@
 package org.archstudio.archedit.core;
 
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 
 interface IReferenceNodeInfo extends INodeInfo {
 	public String getFeatureName();

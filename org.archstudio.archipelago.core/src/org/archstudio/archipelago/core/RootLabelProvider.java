@@ -2,10 +2,10 @@ package org.archstudio.archipelago.core;
 
 import org.eclipse.swt.graphics.Image;
 
-import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
-import org.archstudio.xadlswt.common.XadlTreeUtils;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xadlswt.XadlTreeUtils;
+import org.archstudio.xarchadt.ObjRef;
 
 public class RootLabelProvider implements IArchipelagoLabelProvider{
 	protected ArchipelagoServices AS = null;

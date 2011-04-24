@@ -4,8 +4,8 @@ import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.noticeadt.common.ArchlightNoticeADTEvent;
-import org.archstudio.noticeadt.common.ArchlightNoticeADTListener;
+import org.archstudio.noticeadt.ArchlightNoticeADTEvent;
+import org.archstudio.noticeadt.ArchlightNoticeADTListener;
 
 public class ArchlightNoticeADTMyxComponent extends AbstractMyxSimpleBrick implements ArchlightNoticeADTListener, IMyxDynamicBrick {
 

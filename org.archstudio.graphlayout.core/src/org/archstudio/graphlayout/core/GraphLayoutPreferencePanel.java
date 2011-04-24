@@ -5,7 +5,7 @@ import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-import org.archstudio.graphlayout.common.GraphLayoutConstants;
+import org.archstudio.graphlayout.GraphLayoutConstants;
 import org.archstudio.myx.fw.MyxRegistry;
 
 public class GraphLayoutPreferencePanel extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {

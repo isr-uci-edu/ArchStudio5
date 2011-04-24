@@ -7,8 +7,8 @@ import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
+import org.archstudio.EclipseUtils;
 import org.archstudio.archipelago.core.ArchipelagoConstants;
-import org.archstudio.common.EclipseUtils;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.bna.constants.GridDisplayType;
 

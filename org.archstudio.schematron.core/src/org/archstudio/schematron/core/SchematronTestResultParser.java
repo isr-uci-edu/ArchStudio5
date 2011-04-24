@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import org.archstudio.archlight.common.ArchlightElementIdentifier;
-import org.archstudio.archlight.common.ArchlightIssue;
-import org.archstudio.archlight.common.ArchlightTestResult;
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.archlight.ArchlightElementIdentifier;
+import org.archstudio.archlight.ArchlightIssue;
+import org.archstudio.archlight.ArchlightTestResult;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.ObjRef;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

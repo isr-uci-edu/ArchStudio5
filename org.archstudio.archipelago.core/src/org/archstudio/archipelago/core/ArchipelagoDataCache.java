@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 
 public class ArchipelagoDataCache{
 	protected List<CacheEntry> entryList = Collections.synchronizedList(new ArrayList<CacheEntry>());

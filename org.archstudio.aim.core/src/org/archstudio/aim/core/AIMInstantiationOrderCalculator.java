@@ -5,12 +5,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.domain_3_0.DomainType;
 import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.IXArchADTQuery;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.IXArchADTQuery;
+import org.archstudio.xarchadt.ObjRef;
 
 public class AIMInstantiationOrderCalculator {
 	

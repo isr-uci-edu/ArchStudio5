@@ -11,9 +11,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.archstudio.xarchadt.common.BasicXArchADTSubstitutionHint;
-import org.archstudio.xarchadt.common.IXArchADTSubstitutionHint;
-import org.archstudio.xarchadt.common.IXArchADTSubstitutionHint.HintType;
+import org.archstudio.xarchadt.BasicXArchADTSubstitutionHint;
+import org.archstudio.xarchadt.IXArchADTSubstitutionHint;
+import org.archstudio.xarchadt.IXArchADTSubstitutionHint.HintType;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EPackage;
 import org.w3c.dom.Document;

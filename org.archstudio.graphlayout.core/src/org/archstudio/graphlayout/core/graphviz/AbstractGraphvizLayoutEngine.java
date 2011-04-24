@@ -10,18 +10,18 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-import org.archstudio.graphlayout.common.GraphLayout;
-import org.archstudio.graphlayout.common.GraphLayoutException;
-import org.archstudio.graphlayout.common.GraphLayoutParameters;
+import org.archstudio.graphlayout.GraphLayout;
+import org.archstudio.graphlayout.GraphLayoutException;
+import org.archstudio.graphlayout.GraphLayoutParameters;
 import org.archstudio.graphlayout.core.AliasTable;
 import org.archstudio.graphlayout.core.ILayoutEngine;
 import org.archstudio.swtutils.constants.Orientation;
-import org.archstudio.xadl.common.XadlUtils;
+import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.domain_3_0.DomainType;
 import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.ObjRef;
 
 public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 

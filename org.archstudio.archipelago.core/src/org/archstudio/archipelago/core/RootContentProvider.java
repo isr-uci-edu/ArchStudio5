@@ -6,7 +6,7 @@ import java.util.List;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.IWorkbenchSite;
 
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 
 public class RootContentProvider implements IArchipelagoTreeContentProvider{
 

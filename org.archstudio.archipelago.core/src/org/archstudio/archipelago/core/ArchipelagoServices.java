@@ -2,11 +2,11 @@ package org.archstudio.archipelago.core;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import org.archstudio.editormanager.common.IEditorManager;
-import org.archstudio.filemanager.common.IFileManager;
-import org.archstudio.graphlayout.common.IGraphLayout;
-import org.archstudio.resources.common.IResources;
-import org.archstudio.xarchadt.common.IXArchADT;
+import org.archstudio.editormanager.IEditorManager;
+import org.archstudio.filemanager.IFileManager;
+import org.archstudio.graphlayout.IGraphLayout;
+import org.archstudio.resources.IResources;
+import org.archstudio.xarchadt.IXArchADT;
 
 public class ArchipelagoServices{
 	public final IArchipelagoEventBus eventBus;

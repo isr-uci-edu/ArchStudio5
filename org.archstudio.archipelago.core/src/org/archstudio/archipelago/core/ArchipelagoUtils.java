@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Listener;
 
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
-import org.archstudio.xarchadt.common.XArchADTModelEvent;
+import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.archstudio.bna.BNAComposite;
 import org.archstudio.bna.BNAUtils;
 import org.archstudio.bna.DefaultCoordinateMapper;

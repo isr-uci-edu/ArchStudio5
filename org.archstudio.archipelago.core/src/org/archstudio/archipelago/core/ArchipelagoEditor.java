@@ -9,13 +9,13 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 
-import org.archstudio.editors.common.AbstractArchstudioEditor;
-import org.archstudio.editors.common.AbstractArchstudioOutlinePage;
-import org.archstudio.graphlayout.common.IGraphLayout;
-import org.archstudio.resources.common.IResources;
-import org.archstudio.xarchadt.common.ObjRef;
-import org.archstudio.xarchadt.common.XArchADTFileEvent;
-import org.archstudio.xarchadt.common.XArchADTModelEvent;
+import org.archstudio.editors.AbstractArchstudioEditor;
+import org.archstudio.editors.AbstractArchstudioOutlinePage;
+import org.archstudio.graphlayout.IGraphLayout;
+import org.archstudio.resources.IResources;
+import org.archstudio.xarchadt.ObjRef;
+import org.archstudio.xarchadt.XArchADTFileEvent;
+import org.archstudio.xarchadt.XArchADTModelEvent;
 
 public class ArchipelagoEditor extends AbstractArchstudioEditor {
 	protected IPreferenceStore prefs = null;

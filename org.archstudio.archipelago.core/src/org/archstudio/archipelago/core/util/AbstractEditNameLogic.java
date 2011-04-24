@@ -13,8 +13,8 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
-import org.archstudio.xadl.common.XadlUtils;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.bna.AbstractThingLogic;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.BNAUtils;

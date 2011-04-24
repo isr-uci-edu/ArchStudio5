@@ -6,10 +6,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.archstudio.archlight.common.ArchlightTest;
-import org.archstudio.testadt.common.ArchlightTestADTEvent;
-import org.archstudio.testadt.common.ArchlightTestADTListener;
-import org.archstudio.testadt.common.IArchlightTestADT;
+import org.archstudio.archlight.ArchlightTest;
+import org.archstudio.testadt.ArchlightTestADTEvent;
+import org.archstudio.testadt.ArchlightTestADTListener;
+import org.archstudio.testadt.IArchlightTestADT;
 
 public class ArchlightTestADT implements IArchlightTestADT {
 

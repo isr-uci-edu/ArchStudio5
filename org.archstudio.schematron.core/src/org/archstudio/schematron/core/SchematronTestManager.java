@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.archstudio.archlight.common.ArchlightTest;
+import org.archstudio.archlight.ArchlightTest;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jface.preference.IPreferenceStore;

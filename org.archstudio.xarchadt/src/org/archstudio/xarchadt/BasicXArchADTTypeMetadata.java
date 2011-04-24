@@ -1,0 +1,42 @@
+package org.archstudio.xarchadt;
+
+import java.util.Collections;
+import java.util.Map;
+
+public class BasicXArchADTTypeMetadata implements IXArchADTTypeMetadata {
+
+	private static final long serialVersionUID = 5091502840120062712L;
+
+	private final String nsURI;
+	private final String typeName;
+	private final Map<String, IXArchADTFeature> features;
+	private final boolean isAbstract;
+
+	public BasicXArchADTTypeMetadata(String nsURI, String typeName,	Map<String, IXArchADTFeature> features, boolean isAbstract) {
+		super();
+		this.nsURI = nsURI;
+		this.typeName = typeName;
+		this.features = Collections.unmodifiableMap(features);
+		this.isAbstract = isAbstract;
+	}
+
+	@Override
+	public String getNsURI() {
+		return nsURI;
+	}
+
+	@Override
+	public String getTypeName() {
+		return typeName;
+	}
+
+	@Override
+	public Map<String, IXArchADTFeature> getFeatures() {
+		return features;
+	}
+	
+	@Override
+	public boolean isAbstract() {
+		return isAbstract;
+	}
+}

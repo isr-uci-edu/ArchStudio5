@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Xadlutils
+Bundle-SymbolicName: org.archstudio.xadl
+Bundle-Version: 5.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.archstudio.xadl
+Require-Bundle: org.archstudio.xarchadt;bundle-version="5.0.0",
+ org.eclipse.emf.common;bundle-version="2.5.0",
+ org.archstudio.sysutils;bundle-version="5.0.0",
+ org.archstudio.xadl3.xadlcore;bundle-version="5.0.0",
+ org.archstudio.xadl3.lookupimplementation;bundle-version="1.0.0",
+ org.archstudio.xadl3.javaimplementation;bundle-version="1.0.0",
+ org.archstudio.xarchadt.core;bundle-version="5.0.0"

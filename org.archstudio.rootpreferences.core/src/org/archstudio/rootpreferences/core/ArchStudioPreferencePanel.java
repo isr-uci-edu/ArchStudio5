@@ -2,9 +2,9 @@ package org.archstudio.rootpreferences.core;
 
 import java.io.IOException;
 
-import org.archstudio.common.EclipseUtils;
+import org.archstudio.EclipseUtils;
 import org.archstudio.myx.fw.MyxRegistry;
-import org.archstudio.resources.common.IResources;
+import org.archstudio.resources.IResources;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;

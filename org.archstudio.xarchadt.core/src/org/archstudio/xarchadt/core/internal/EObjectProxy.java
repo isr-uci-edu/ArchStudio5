@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.concurrent.ConcurrentMap;
 
 import org.archstudio.sysutils.SystemUtils;
-import org.archstudio.xarchadt.common.IXArchADT;
-import org.archstudio.xarchadt.common.IXArchADTTypeMetadata;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.IXArchADTTypeMetadata;
+import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.core.XArchADTProxy;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;

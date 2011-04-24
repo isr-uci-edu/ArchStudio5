@@ -7,5 +7,5 @@ Bundle-Vendor: archstudio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.archstudio.myx.eclipse;bundle-version="5.0.0",
  org.archstudio.myx.fw;bundle-version="5.0.0",
- org.archstudio.archlight.common;bundle-version="5.0.0",
- org.archstudio.testadt.common;bundle-version="5.0.0"
+ org.archstudio.archlight;bundle-version="5.0.0",
+ org.archstudio.testadt;bundle-version="5.0.0"

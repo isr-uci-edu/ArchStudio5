@@ -7,10 +7,10 @@ import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.xarchadt.common.IXArchADTFileListener;
-import org.archstudio.xarchadt.common.IXArchADTModelListener;
-import org.archstudio.xarchadt.common.XArchADTFileEvent;
-import org.archstudio.xarchadt.common.XArchADTModelEvent;
+import org.archstudio.xarchadt.IXArchADTFileListener;
+import org.archstudio.xarchadt.IXArchADTModelListener;
+import org.archstudio.xarchadt.XArchADTFileEvent;
+import org.archstudio.xarchadt.XArchADTModelEvent;
 
 public class XArchADTMyxComponent
     extends AbstractMyxSimpleBrick

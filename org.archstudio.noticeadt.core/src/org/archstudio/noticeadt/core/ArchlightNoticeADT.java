@@ -6,10 +6,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.archstudio.archlight.common.ArchlightNotice;
-import org.archstudio.noticeadt.common.ArchlightNoticeADTEvent;
-import org.archstudio.noticeadt.common.ArchlightNoticeADTListener;
-import org.archstudio.noticeadt.common.IArchlightNoticeADT;
+import org.archstudio.archlight.ArchlightNotice;
+import org.archstudio.noticeadt.ArchlightNoticeADTEvent;
+import org.archstudio.noticeadt.ArchlightNoticeADTListener;
+import org.archstudio.noticeadt.IArchlightNoticeADT;
 
 public class ArchlightNoticeADT implements IArchlightNoticeADT {
 	public static final int MAX_NOTICE_SIZE = 250;

@@ -1,8 +1,8 @@
 package org.archstudio.eclipsedev.core.prefs;
 
-import org.archstudio.eclipsedev.common.EclipseDevConstants;
-import org.archstudio.eclipsedev.common.EclipseDevPreferences;
-import org.archstudio.eclipsedev.common.EclipseDevConstants.ProjectCleanBehaviorType;
+import org.archstudio.eclipsedev.EclipseDevConstants;
+import org.archstudio.eclipsedev.EclipseDevPreferences;
+import org.archstudio.eclipsedev.EclipseDevConstants.ProjectCleanBehaviorType;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;

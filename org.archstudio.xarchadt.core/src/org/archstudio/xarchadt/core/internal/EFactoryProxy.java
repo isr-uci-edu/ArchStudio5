@@ -6,7 +6,7 @@ import java.lang.reflect.Proxy;
 import java.util.concurrent.ConcurrentMap;
 
 import org.archstudio.sysutils.SystemUtils;
-import org.archstudio.xarchadt.common.IXArchADT;
+import org.archstudio.xarchadt.IXArchADT;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EPackage;
 

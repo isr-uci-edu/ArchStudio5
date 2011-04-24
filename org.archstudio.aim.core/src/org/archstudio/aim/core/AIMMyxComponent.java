@@ -1,6 +1,6 @@
 package org.archstudio.aim.core;
 
-import org.archstudio.xarchadt.common.IXArchADT;
+import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;

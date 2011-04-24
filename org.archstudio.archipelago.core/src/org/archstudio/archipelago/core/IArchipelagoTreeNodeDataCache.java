@@ -1,6 +1,6 @@
 package org.archstudio.archipelago.core;
 
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 
 public interface IArchipelagoTreeNodeDataCache{
 

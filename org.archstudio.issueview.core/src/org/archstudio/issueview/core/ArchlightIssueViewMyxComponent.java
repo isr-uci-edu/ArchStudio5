@@ -1,16 +1,16 @@
 package org.archstudio.issueview.core;
 
-import org.archstudio.editormanager.common.IEditorManager;
-import org.archstudio.issueadt.common.ArchlightIssueADTEvent;
-import org.archstudio.issueadt.common.ArchlightIssueADTListener;
-import org.archstudio.issueadt.common.IArchlightIssueADT;
+import org.archstudio.editormanager.IEditorManager;
+import org.archstudio.issueadt.ArchlightIssueADTEvent;
+import org.archstudio.issueadt.ArchlightIssueADTListener;
+import org.archstudio.issueadt.IArchlightIssueADT;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.resources.common.IResources;
-import org.archstudio.xarchadt.common.IXArchADT;
+import org.archstudio.resources.IResources;
+import org.archstudio.xarchadt.IXArchADT;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 public class ArchlightIssueViewMyxComponent extends AbstractMyxSimpleBrick implements ArchlightIssueADTListener, IMyxDynamicBrick {

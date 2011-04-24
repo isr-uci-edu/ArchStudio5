@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.archstudio.eclipsedev" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.archstudio.eclipsedev" id="org.archstudio.eclipsedev.schemalocation" name="xADL 3 Schema Location"/>
+      </appinfo>
+      <documentation>
+         Allows the option for users creating xADL 3 Schema projects (i.e., data binding projects) to provide additional metadata about where the schemas are located on the Internet, providing the option to automatically get and update the schema from an Internet location instead of maintaining it manually in the model/ folder.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="0" maxOccurs="unbounded">
+            <element ref="schema"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="schema">
+      <annotation>
+         <documentation>
+            Container element describing a schema location to pull from the Internet.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="url" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Internet-accessible URL of schema to download.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="autoUpdateFrequency" use="default" value="never">
+            <annotation>
+               <documentation>
+                  How often to try to automatically update the schema: never (manual only), on every build, hourly, daily, weekly, monthly.
+               </documentation>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="never">
+                  </enumeration>
+                  <enumeration value="everyBuild">
+                  </enumeration>
+                  <enumeration value="hourly">
+                  </enumeration>
+                  <enumeration value="daily">
+                  </enumeration>
+                  <enumeration value="weekly">
+                  </enumeration>
+                  <enumeration value="monthly">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="copyLocally" type="boolean">
+            <annotation>
+               <documentation>
+                  Whether the schema should be copied locally to the &apos;models&apos; folder.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  the display name of this schema
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         5.0.0
+      </documentation>
+   </annotation>
+
+
+
+
+
+</schema>

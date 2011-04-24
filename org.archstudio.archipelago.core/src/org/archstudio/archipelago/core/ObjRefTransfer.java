@@ -3,7 +3,7 @@ package org.archstudio.archipelago.core;
 import org.eclipse.swt.dnd.ByteArrayTransfer;
 import org.eclipse.swt.dnd.TransferData;
 
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 
 public class ObjRefTransfer extends ByteArrayTransfer{
 

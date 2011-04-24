@@ -4,14 +4,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.archstudio.editormanager.common.EditorConstants;
-import org.archstudio.editormanager.common.IEditorManager;
-import org.archstudio.editors.common.IFocusEditorListener;
+import org.archstudio.editormanager.EditorConstants;
+import org.archstudio.editormanager.IEditorManager;
+import org.archstudio.editors.IFocusEditorListener;
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.graphics.Image;
 

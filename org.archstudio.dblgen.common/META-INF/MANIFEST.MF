@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Data Binding Generator Common
-Bundle-SymbolicName: org.archstudio.dblgen.common;singleton:=true
-Bundle-Version: 5.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.emf.common;bundle-version="2.4.0"
-Export-Package: org.archstudio.dblgen.common;uses:="org.eclipse.emf.common.util"
-Bundle-Vendor: archstudio.org

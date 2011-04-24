@@ -6,11 +6,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.archstudio.archlight.common.ArchlightIssue;
-import org.archstudio.issueadt.common.ArchlightIssueADTEvent;
-import org.archstudio.issueadt.common.ArchlightIssueADTListener;
-import org.archstudio.issueadt.common.IArchlightIssueADT;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.archlight.ArchlightIssue;
+import org.archstudio.issueadt.ArchlightIssueADTEvent;
+import org.archstudio.issueadt.ArchlightIssueADTListener;
+import org.archstudio.issueadt.IArchlightIssueADT;
+import org.archstudio.xarchadt.ObjRef;
 
 public class ArchlightIssueADT implements IArchlightIssueADT {
 

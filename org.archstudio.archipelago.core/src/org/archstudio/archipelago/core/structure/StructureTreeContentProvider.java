@@ -9,9 +9,9 @@ import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.FolderNode;
 import org.archstudio.archipelago.core.IArchipelagoTreeContentProvider;
-import org.archstudio.xadl.common.XadlUtils;
-import org.archstudio.xarchadt.common.IXArchADTQuery;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xarchadt.IXArchADTQuery;
+import org.archstudio.xarchadt.ObjRef;
 
 public class StructureTreeContentProvider implements IArchipelagoTreeContentProvider{
 	protected static final String FOLDER_NODE_TYPE = "STRUCTURES";

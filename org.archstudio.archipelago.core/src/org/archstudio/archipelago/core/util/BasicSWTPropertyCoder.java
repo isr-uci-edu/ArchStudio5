@@ -5,7 +5,7 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
-import org.archstudio.xarchadt.common.ObjRef;
+import org.archstudio.xarchadt.ObjRef;
 
 public class BasicSWTPropertyCoder implements IPropertyCoder{
 
