@@ -28,9 +28,9 @@ Bundle-Description: Guava is a suite of core and expanded libraries th
  Guava can be used    by downloading the appropriate module and its de
  pendencies.        Guava (complete) has only one code dependency - ja
  vax.annotation,    per the JSR-305 spec.
-Import-Package: javax.annotation;resolution:=optional,
- sun.misc;resolution:=optional
 Bundle-SymbolicName: com.google.guava
 Bundle-DocURL: http://www.google.com/
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: lib/jsr305.jar,
+ .
 
