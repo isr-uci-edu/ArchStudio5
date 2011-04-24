@@ -33,4 +33,5 @@ Bundle-DocURL: http://www.google.com/
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: lib/jsr305.jar,
  .
+Import-Package: sun.misc;resolution:=optional
 
