@@ -7,19 +7,18 @@ import org.archstudio.myx.fw.IMyxClassManager;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.osgi.framework.Bundle;
 
 /**
- * This is a Myx class manager that can load classes from Myx-Eclipse plugins.
- * This is necessary because otherwise various classes are not available to all
- * bricks when they are being created. For example, if an EventPumpConnector is
- * created that proxies some interface class declared in a plugin, the
- * EventPumpConnector and the Myx framework will have no way to access that
- * plugin. This iterates through available Myx Brick plugins and uses their
- * classloaders to load classes.
+ * This is a Myx class manager that can load classes from Myx-Eclipse plugins. This is necessary because otherwise
+ * various classes are not available to all bricks when they are being created. For example, if an EventPumpConnector is
+ * created that proxies some interface class declared in a plugin, the EventPumpConnector and the Myx framework will
+ * have no way to access that plugin. This iterates through available Myx Brick plugins and uses their classloaders to
+ * load classes.
  */
 public class MyxEclipseClassManager implements IMyxClassManager {
 
-	private Map<String, Class<?>> cache = new HashMap<String, Class<?>>();
+	private final Map<String, Class<?>> cache = new HashMap<String, Class<?>>();
 
 	@Override
 	public Class<?> classForName(String className) throws ClassNotFoundException {
@@ -32,7 +31,8 @@ public class MyxEclipseClassManager implements IMyxClassManager {
 		if (reg != null) {
 			// The Extension Registry can be null if we're running outside of Eclipse,
 			// as happens in, e.g., org.archstudio.description.Main
-			for (IConfigurationElement configurationElement : reg.getConfigurationElementsFor(MyxEclipseBrickLoader.BRICK_EXTENSION_POINT_ID)) {
+			for (IConfigurationElement configurationElement : reg
+					.getConfigurationElementsFor(MyxEclipseBrickLoader.BRICK_EXTENSION_POINT_ID)) {
 				String brickClassName = configurationElement.getAttribute("class");
 				if (brickClassName != null) {
 					String bundleName = configurationElement.getDeclaringExtension().getContributor().getName();
@@ -46,6 +46,20 @@ public class MyxEclipseClassManager implements IMyxClassManager {
 				}
 			}
 		}
+
+		Activator activator = Activator.getDefault();
+		if (activator != null) {
+			for (Bundle b : Activator.getDefault().getBundleContext().getBundles()) {
+				try {
+					Class<?> foundClass = b.loadClass(className);
+					cache.put(className, foundClass);
+					return foundClass;
+				}
+				catch (ClassNotFoundException cnfe) {
+				}
+			}
+		}
+
 		throw new ClassNotFoundException("MyxEclipseClassManager can't find class " + className);
 	}
 }

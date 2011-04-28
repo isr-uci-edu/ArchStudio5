@@ -4,7 +4,9 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.preferencesadt.core.PreferencesADTMyxComponent">
+            class="org.archstudio.preferencesadt.core.PreferencesADTMyxComponent"
+            id="org.archstudio.preferencesadt.core.PreferencesADTMyxComponent"
+            name="Preferences ADT Impl">
       </brick>
    </extension>
 

@@ -4,7 +4,9 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.filemanager.core.FileManagerMyxComponent">
+            class="org.archstudio.filemanager.core.FileManagerMyxComponent"
+            id="org.archstudio.filemanager.core.FileManagerMyxComponent"
+            name="File Manager Impl">
       </brick>
    </extension>
    <extension

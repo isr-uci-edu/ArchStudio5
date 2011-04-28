@@ -4,19 +4,19 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.archlight.core.ArchlightMyxComponent">
+            class="org.archstudio.archlight.core.ArchlightToolAggregatorMyxComponent"
+            id="org.archstudio.archlight.core.ArchlightToolAggregatorMyxComponent"
+            name="Myx Impl">
       </brick>
-   </extension>
-   <extension
-         point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.archlight.core.ArchlightToolAggregatorMyxComponent">
+            class="org.archstudio.archlight.core.ArchlightMyxComponent"
+            id="org.archstudio.archlight.core.ArchlightMyxComponent"
+            name="Archlight Impl">
       </brick>
-   </extension>
-   <extension
-         point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.archlight.core.prefs.ArchlightPrefsMyxComponent">
+            class="org.archstudio.archlight.core.prefs.ArchlightPrefsMyxComponent"
+            id="org.archstudio.archlight.core.prefs.ArchlightPrefsMyxComponent"
+            name="Archlight Prefs Impl">
       </brick>
    </extension>
    <extension

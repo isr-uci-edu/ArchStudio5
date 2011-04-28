@@ -1,0 +1,484 @@
+<%@ jet
+	imports="java.util.* \
+	org.archstudio.myxgen.jet.util.* \
+	org.archstudio.myxgen.jet.brick.* \
+	org.archstudio.myxgen.jet.codegen.CompTemplateUtil \
+	org.archstudio.myxgen.jet.codegen.MyxCodegenConstants" 
+	%>
+<java:merge/>
+<% 
+	//CodegenBrick brick = (CodegenBrick) argument; 
+	CodegenBrick brick = (CodegenBrick)context.getVariable(MyxCodegenConstants.JET2_TEMPLATE_VARIABLE_NAME_BRICK);
+	String packageName = TextUtil.getPackagePart(brick.getFQDefaultImplClassName());
+	String className = TextUtil.getClassPart(brick.getFQDefaultImplClassName());
+	String baseClassName = TextUtil.getClassPart(brick.getFQBaseClassName());
+%>
+<% if (packageName != null && packageName.length() > 0) { 
+%>
+package <%=packageName%>;
+<% }
+%>
+
+<% for(String javaImport : CompTemplateUtil.getImports(brick)){
+%>
+import <%=javaImport%>;
+<% }
+%>
+
+/**
+ * Myx brick component.
+ * <%=CompTemplateUtil.getComment(brick.getDescription(), 0)%>
+ * Following methods are called automatically. They should be overrided as necessary.
+ * <ul>
+ * 	<li> init(): this brick is created</li>
+ *	<li> begin(): this brick is attached to others via links.</li>
+ *	<li> end(): this brick is detached.</li>
+ *	<li> destroy(): this brick is destroyed. </li>
+ * </ul>
+ * The brick interface service object variable(s):
+ *	<table border="1">
+ *	<tr>
+ *		<th>JavaInterface</th><th>service object</th>
+ *		<th>brick interface</th><th>direction</th><th>connection timing</th><th>template type</th>
+ *	</tr>
+<%   //in brickInterfaces
+	 List<CodegenBrickInterface> inIntfs = new ArrayList<CodegenBrickInterface>();
+	 inIntfs.addAll(brick.getInInterfaces()); // of this brick
+	 inIntfs.addAll(brick.getAncesotrInInterfaces());// of ancestors' bricks
+     for(CodegenBrickInterface intf : inIntfs) {
+%>
+<%		//variables
+		if(CompTemplateUtil.isMyxVariable(intf) || CompTemplateUtil.isMyxVariablInBaseClass(intf)) {
+%>
+ *	<tr>
+ *		<td><%=CompTemplateUtil.getVariableType(intf)%></td><td><code><%=intf.getName()%></code></td>
+ *		<td><code><%=intf.getRawName()%></code></td><td><%=intf.getDirection().getSchemaDescription()%></td>
+ *		<td><%=intf.getConnectionTiming().getSchemaDescription()%></td><td><%=intf.getTemplateType().getSchemaDescription()%></td>
+ *	</tr>
+<%		}
+		//implemented
+		else if (CompTemplateUtil.isImplementedInClass(intf)) {
+%>
+ *	<tr>
+ *		<td><%=CompTemplateUtil.getVariableType(intf)%></td><td>this</td>
+ *		<td><code><%=intf.getRawName()%></code></td><td><%=intf.getDirection().getSchemaDescription()%></td>
+ *		<td><%=intf.getConnectionTiming().getSchemaDescription()%></td><td><%=intf.getTemplateType().getSchemaDescription()%></td>
+ *	</tr>
+<%   	}
+	 }// end of in brickInterfaces
+%>
+<% //out brickInterfaces
+	List<CodegenBrickInterface> outIntfs = new ArrayList<CodegenBrickInterface>();
+	outIntfs.addAll(brick.getOutInterfaces());//of this brick
+	outIntfs.addAll(brick.getAncesotrOutInterfaces());// of ancestors' bricks
+	for(CodegenBrickInterface intf : outIntfs) {
+   		if(!CompTemplateUtil.isMyxVariable(intf) && !CompTemplateUtil.isMyxVariablInBaseClass(intf)) {
+			continue;
+   		}
+%>
+ *	<tr>
+ *		<td><%=CompTemplateUtil.getVariableType(intf)%></td><td><code><%=intf.getName()%></code></td>
+ *		<td><code><%=intf.getRawName()%></code></td><td><%=intf.getDirection().getSchemaDescription()%></td>
+ *		<td><%=intf.getConnectionTiming().getSchemaDescription()%></td><td><%=intf.getTemplateType().getSchemaDescription()%></td>
+ *	</tr>
+<%	//proxy variables
+    if(CompTemplateUtil.isProxyVariable(intf) || CompTemplateUtil.isProxyVariableInBaseClass(intf)) {
+%>
+ *	<tr>
+ *		<td><%=CompTemplateUtil.getProxyVariableType(intf)%></td><td><code><%=CompTemplateUtil.getProxyVariableName(intf)%></code> as a proxy for <code><%=intf.getName()%></code></td>
+ *	</tr>
+<%  }// end of proxy variables
+   }// end of out brickInterfaces
+%>
+ *	</table>
+ * <p>
+ * In order to prevent the myx code generator from overwriting the content of method, 
+ * remove "@generated" annotation from java doc comment before re-run the generation
+ * if any change is made to the method.
+ * </p>
+ * @generated
+ */
+public class <%=className%>
+    extends <%=baseClassName%> {
+    
+<% // brickInterface variables
+   for(CodegenBrickInterface intf : CompTemplateUtil.getInMyxVariables(brick)) {
+%>
+
+	/**
+	 * the variable for "<%=intf.getRawName()%>" brickInterface. <%=CompTemplateUtil.getComment(intf.getDescription(), 1)%>
+	 * @generated
+	 */
+	private <%=intf.getSimpleJavaInterfaceName()%> <%=intf.getName()%> = null;
+<% 
+   }// end of for(CodegenBrickInterface intf : inSigs) 
+%>
+<% // brickInterface variables
+   for(CodegenBrickInterface intf : CompTemplateUtil.getOutSingleMyxVariables(brick)) {
+%>
+
+	/**
+	 * the variable for "<%=intf.getRawName()%>" brickInterface. <%=CompTemplateUtil.getComment(intf.getDescription(), 1)%>
+	 * @generated
+	 */
+	private <%=intf.getSimpleJavaInterfaceName()%> <%=intf.getName()%> = null;
+<% 
+   }// end of for(CodegenBrickInterface intf : inSigs) 
+%> 
+<% // brickInterface variables
+   for(CodegenBrickInterface intf : CompTemplateUtil.getOutMultiMyxVariables(brick)) {
+%>
+
+	/**
+	 * the variable for "<%=intf.getRawName()%>" brickInterface. <%=CompTemplateUtil.getComment(intf.getDescription(), 1)%>
+	 * @generated
+	 */
+	private Collection<<%=intf.getSimpleJavaInterfaceName()%>> <%=intf.getName()%> = new ArrayList<<%=intf.getSimpleJavaInterfaceName()%>>();
+<% 
+   }// end of for(CodegenBrickInterface intf : inSigs) 
+%>
+<% // proxy variables
+   for(CodegenBrickInterface intf : brick.getOutInterfaces()) {
+    if(CompTemplateUtil.isProxyVariable(intf)) {
+%>
+
+	/**
+	 * the <%=intf.getSimpleJavaInterfaceName()%> proxy for "<%=intf.getRawName()%>". <%=CompTemplateUtil.getComment(intf.getDescription(), 1)%>
+	 * @generated
+	 */
+	protected <%=intf.getSimpleJavaInterfaceName()%> <%=CompTemplateUtil.getProxyVariableName(intf)%> = <%=CompTemplateUtil.getCreateProxyMethodName(intf)%>();
+	
+<%  }
+   }// end of proxy variables
+%>
+    
+    /**
+	 *   
+<%  //variables that must be assigned values in the constructor
+    Collection<CodegenBrickInterface> intfsForConstructor = CompTemplateUtil.getConstructorVariables(brick);
+    if(!intfsForConstructor.isEmpty() ) {
+%>
+	 * The following variable(s) must be assigned values in the constructor.
+<% // connectBeforeInit (for the client) %>
+	 * <ul>			
+<%		for(CodegenBrickInterface _intf : intfsForConstructor) {
+%>
+	 *  <li>{@link #<%=_intf.getName()%>}</li>
+<%		} // end of for(CodegenBrickInterface _
+%>
+	 * </ul>	
+<%  } // end of if(!intfsForConstructor.isEmpty() 
+%>
+     * @generated
+     */
+<%  // constructors when parent is specified
+	if( brick.hasParentBrick() ) {
+		//constructor from ancestors
+		for(MethodContainer constructor : CompTemplateUtil.getConstructors(brick)) {
+%>
+	<%=constructor.getModifiers()%> <%=className%>(<%=constructor.toParamsSimpleString()%>) {
+		
+		super(<%=constructor.toParamNamesString()%>);
+		
+<%		// variables need to be assigned in the constructor
+		for(CodegenBrickInterface intf : CompTemplateUtil.getConstructorVariables(brick)) {
+%>
+		//TODO: assign a value to this.<%=intf.getName()%>
+<%		}//end of variables need to be assigned in the constructor
+%>
+	}
+<%		}//end of constructors from ancestors
+	}// end of constructors when parent is specified
+	else {
+	// the constructor when parent is not specified
+%>
+	public <%=className%>(){
+	
+<%		// variables need to be assigned in the constructor
+		for(CodegenBrickInterface intf : CompTemplateUtil.getConstructorVariables(brick)) {
+%>
+		//TODO: assign a value to this.<%=intf.getName()%>
+<%		}//end of variables need to be assigned in the constructor
+%>
+	}
+
+<%	}// end of the constructor when parent is not specified
+%>
+
+   	/**
+	 *
+<%  //variables that will be avaialble in init()
+    Collection<CodegenBrickInterface> intfsForInitAvailable = CompTemplateUtil.getInitAvailableVariables(brick);
+    if(!intfsForInitAvailable.isEmpty() ) {
+%>
+	 * The following variable(s) will be assigned values before this method is called.
+<% // connectBeforeInit  
+%>
+	 * <ul>			
+<%		for(CodegenBrickInterface intf : intfsForInitAvailable) {
+%>
+	 *  <li>{@link #<%=intf.getName()%>}</li>
+<%			//proxy variables
+		    if(CompTemplateUtil.isProxyVariable(intf) || CompTemplateUtil.isProxyVariableInBaseClass(intf)) {
+%>
+	 *	<li>{@link #<%=CompTemplateUtil.getProxyVariableName(intf)%>} for a proxy of {@link #<%=intf.getName()%>}</li>
+<%  		}// end of proxy variables
+		} // end of for(CodegenBrickInterface _
+%>
+	 * </ul>	
+<%  } // end of if(!intfsForInitAvailable.isEmpty() 
+
+    //variables that must be assigned values in init()
+    Collection<CodegenBrickInterface> intfsForInitAssign = CompTemplateUtil.getInitAssignVariables(brick);
+    if(!intfsForInitAssign.isEmpty() ) {
+%>
+	 * The following variable(s) must be assigned values before this method exits.
+<% // connectBeforeBegin %>
+	 * <ul>
+<%		for(CodegenBrickInterface intf : intfsForInitAssign) {
+%>
+	 *  <li>{@link #<%=intf.getName()%>}</li>
+<%		}
+%>
+	 * </ul>	
+<%  }// end of if(!intfsForInitAssign.isEmpty() 
+%>
+	 */
+	@Override
+	public void init() {	
+		super.init();
+<%  	//variables that must be assigned values in init()
+		for(CodegenBrickInterface intf : intfsForInitAssign) {
+%>
+	 	//TODO: assign a value to this.<%=intf.getName()%>
+<%
+		} // end of for(CodegenBrickInterface _
+%>
+	}
+	
+	 @Override
+	public void begin() {
+		super.begin();
+		
+		//XXX: all the variables will be available at this point.
+	}
+	
+<%  // proxy variables
+	for(CodegenBrickInterface intf : CompTemplateUtil.getCreateProxyMethodVariables(brick)){
+%>
+
+	/* (non-Javadoc)
+	 *
+	 */
+	/**
+	 * Creates a proxy for <%=intf.getName()%>.
+	 *	<table border="1">
+	 *	<tr>
+	 *		<th>direction</th>
+	 *		<th>connection timing</th>
+	 *		<th>template type</th>
+	 *	</tr>
+	 *	<tr>
+	 * 		<td><%=intf.getDirection().getSchemaDescription()%></td>
+	 *		<td><%=intf.getConnectionTiming().getSchemaDescription()%></td>
+	 * 		<td><%=intf.getTemplateType().getSchemaDescription()%></td>
+	 *	</tr>
+	 *	</table>
+	 * 
+	 * @generated
+	 */
+	@Override
+	protected <%=intf.getSimpleJavaInterfaceName()%> <%=CompTemplateUtil.getCreateProxyMethodName(intf)%>() {
+					
+		return new <%=CompTemplateUtil.getProxyAdapterName(intf)%>(<%=intf.getName()%>) {
+<%      
+        //non-void methods to implement
+		for( MethodContainer method : intf.getJavaInterfaceNonVoidMethods()){
+%>			
+			
+			/* (non-Javadoc)
+			 * @generated
+			 * @see <%=intf.getSimpleJavaInterfaceName()%>#<%=method.getMethodName()%>(<%=method.toParamsSimpleString()%>)
+			 */
+			<%=method.toSimpleString()%>{
+				//TODO: MyxCodeGen:implement code here
+				return <%=method.getDefaultReturnValue()%>;
+			}
+<%		} // end of for( MethodContainer method
+%>
+		};
+	}
+<%
+	} // end of proxy variables
+%>
+
+<%  // implemented methods for in
+	for(CodegenBrickInterface intf : CompTemplateUtil.getImplMethodIn(brick)) {
+		//voidMethods
+		for( MethodContainer method : intf.getJavaInterfaceVoidMethods()){
+%>			
+	
+	/**
+	 * Implementation of <%=intf.getRawName()%>.
+	 *	<table border="1">
+	 *	<tr>
+	 *		<th>direction</th>
+	 *		<th>connection timing</th>
+	 *		<th>template type</th>
+	 *	</tr>
+	 *	<tr>
+	 * 		<td><%=intf.getDirection().getSchemaDescription()%></td>
+	 *		<td><%=intf.getConnectionTiming().getSchemaDescription()%></td>
+	 * 		<td><%=intf.getTemplateType().getSchemaDescription()%></td>
+	 *	</tr>
+	 *	</table>
+	 * @see <%=intf.getSimpleJavaInterfaceName()%>#<%=method.getMethodName()%>(<%=method.toParamsSimpleString()%>)
+	 * @generated
+	 */
+	<%=method.toSimpleString()%>{
+	
+		//TODO: MyxCodeGen:implement code here
+
+	}
+<%		} // end of voidMethods
+		//nonVoidMethods
+		for( MethodContainer method : intf.getJavaInterfaceNonVoidMethods()){
+%>			
+	
+	/**
+	 * Implementation of <%=intf.getRawName()%>.
+	 *	<table border="1">
+	 *	<tr>
+	 *		<th>direction</th>
+	 *		<th>connection timing</th>
+	 *		<th>template type</th>
+	 *	</tr>
+	 *	<tr>
+	 * 		<td><%=intf.getDirection().getSchemaDescription()%></td>
+	 *		<td><%=intf.getConnectionTiming().getSchemaDescription()%></td>
+	 * 		<td><%=intf.getTemplateType().getSchemaDescription()%></td>
+	 *	</tr>
+	 *	</table>
+	 * @see <%=intf.getSimpleJavaInterfaceName()%>#<%=method.getMethodName()%>(<%=method.toParamsSimpleString()%>)
+	 * @generated
+	 */
+	<%=method.toSimpleString()%>{
+	
+		//TODO: MyxCodeGen:implement code here
+		return <%=method.getDefaultReturnValue()%>;
+	}
+<%		} // end of voidMethods
+	} // end of implemented methods for in
+	
+%>
+<%  // implemented methods for out
+	for(CodegenBrickInterface intf : CompTemplateUtil.getImplMethodOut(brick)) {
+		//nonVoidMethods
+		for( MethodContainer method : intf.getJavaInterfaceNonVoidMethods()){
+%>			
+	
+	/**
+	 * Implementation of <%=intf.getRawName()%>.
+	 *	<table border="1">
+	 *	<tr>
+	 *		<th>direction</th>
+	 *		<th>connection timing</th>
+	 *		<th>template type</th>
+	 *	</tr>
+	 *	<tr>
+	 * 		<td><%=intf.getDirection().getSchemaDescription()%></td>
+	 *		<td><%=intf.getConnectionTiming().getSchemaDescription()%></td>
+	 * 		<td><%=intf.getTemplateType().getSchemaDescription()%></td>
+	 *	</tr>
+	 *	</table>
+	 * @see <%=intf.getSimpleJavaInterfaceName()%>#<%=method.getMethodName()%>(<%=method.toParamsSimpleString()%>)
+	 * @generated
+	 */
+	<%=method.toSimpleString()%>{
+	
+		//TODO: MyxCodeGen:implement code here
+		return <%=method.getDefaultReturnValue()%>;
+	}
+<%		} // end of voidMethods
+	} // end of implemented methods for out
+%>
+<% // in brickInterface variables
+   for(CodegenBrickInterface intf : CompTemplateUtil.getInMyxVariables(brick)) {
+%>
+
+	/**
+	 * @generated
+	 */
+	@Override
+	protected <%=intf.getSimpleJavaInterfaceName()%> <%=CompTemplateUtil.getGetterMethodName( intf.getName())%>() {
+		return this.<%=intf.getName()%>;
+	}
+<% 
+   }// end of in brickInterface variables
+%>
+<% // out-single brickInterface variables
+   for(CodegenBrickInterface intf : CompTemplateUtil.getOutSingleMyxVariables(brick)) {
+%>
+
+	/**
+	 * @generated
+	 */
+	@Override
+	protected <%=intf.getSimpleJavaInterfaceName()%> <%=CompTemplateUtil.getGetterMethodName( intf.getName())%>() {
+		return this.<%=intf.getName()%>;
+	}
+	
+	/**
+	 * @generated
+	 */
+	@Override
+	protected void <%=CompTemplateUtil.getSetterMethodName( intf.getName())%>(<%=intf.getSimpleJavaInterfaceName()%> <%=intf.getName()%>) {
+		this.<%=intf.getName()%> = <%=intf.getName()%>;
+	}
+<% 
+   }// end of out-single brickInterface variables
+%> 
+<% // out-multi brickInterface variables
+   for(CodegenBrickInterface intf : CompTemplateUtil.getOutMultiMyxVariables(brick)) {
+%>
+
+	/**
+	 * @generated
+	 */
+	@Override
+	protected Collection<<%=intf.getSimpleJavaInterfaceName()%>> <%=CompTemplateUtil.getGetterMethodName( intf.getName())%>() {
+		return this.<%=intf.getName()%>;
+	}
+
+<% 
+   }// end of out-multi brickInterface variables 
+%>
+<% // proxy variables
+   for(CodegenBrickInterface intf : brick.getOutInterfaces()) {
+    if(CompTemplateUtil.isProxyVariable(intf)) {
+%>
+	/**
+	 * @generated
+	 */
+	@Override
+	protected <%=intf.getSimpleJavaInterfaceName()%> <%=CompTemplateUtil.getGetterMethodName(CompTemplateUtil.getProxyVariableName(intf))%>() {
+		return <%=CompTemplateUtil.getProxyVariableName(intf)%>;
+	}
+		
+	
+<%  }
+   }// end of proxy variables
+%>
+<%	//methods that are not implemented in the parent
+	for(MethodContainer method : brick.getUnimplMethods()) {
+%>
+	<%=method.toSimpleString()%>{
+	
+		//TODO: MyxCodeGen: implement the method declared in the parent brick
+		return <%=method.getDefaultReturnValue()%>;
+	}
+<%
+	}
+%>
+
+}

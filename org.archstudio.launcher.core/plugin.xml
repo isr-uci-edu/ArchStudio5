@@ -16,7 +16,9 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.launcher.core.LauncherMyxComponent">
+            class="org.archstudio.launcher.core.LauncherMyxComponent"
+            id="org.archstudio.launcher.core.LauncherMyxComponent"
+            name="Launcher Impl">
       </brick>
    </extension>
 

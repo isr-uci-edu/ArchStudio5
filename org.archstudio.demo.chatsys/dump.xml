@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Input>
+	<Env srcFolder="src"/>
+	<Brick package="org.archstudio.demo.chatsys.server" class="ChatServerMyxComponent" template="MyxComp.java.jet">
+	</Brick>
+</Input>

@@ -4,7 +4,11 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.aim.core.AIMMyxComponent">
+            baseJavaClass="org.archstudio.aim.core.AIMMyxComponentStub"
+            class="org.archstudio.aim.core.AIMMyxComponent"
+            defaultImplClass="org.archstudio.aim.core.AIMMyxComponent"
+            id="org.archstudio.aim.core.AIMMyxComponent"
+            name="AIM">
       </brick>
    </extension>
 

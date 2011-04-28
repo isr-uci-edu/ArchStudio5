@@ -4,7 +4,9 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.noticeadt.core.ArchlightNoticeADTMyxComponent">
+            class="org.archstudio.noticeadt.core.ArchlightNoticeADTMyxComponent"
+            id="org.archstudio.noticeadt.core.ArchlightNoticeADTMyxComponent"
+            name="Archlight Notice Impl">
       </brick>
    </extension>
 

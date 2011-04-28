@@ -5,10 +5,11 @@ Bundle-SymbolicName: org.archstudio.main;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Activator: org.archstudio.main.ArchStudio5Activator
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.core.resources;bundle-version="3.5.0",
  org.eclipse.ui;bundle-version="3.5.0",
  org.archstudio.myx.eclipse;bundle-version="5.0.0",
- org.archstudio.myx.fw;bundle-version="5.0.0"
+ org.archstudio.myx.fw;bundle-version="5.0.0",
+ org.archstudio.aim;bundle-version="5.0.0",
+ org.archstudio.xarchadt;bundle-version="5.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.archstudio.main

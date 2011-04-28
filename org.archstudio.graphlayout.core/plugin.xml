@@ -4,13 +4,14 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.graphlayout.core.GraphLayoutMyxComponent">
+            class="org.archstudio.graphlayout.core.GraphLayoutMyxComponent"
+            id="org.archstudio.graphlayout.core.GraphLayoutMyxComponent"
+            name="Graph Layout Impl">
       </brick>
-   </extension>
-   <extension
-         point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.graphlayout.core.GraphLayoutPrefsMyxComponent">
+            class="org.archstudio.graphlayout.core.GraphLayoutPrefsMyxComponent"
+            id="org.archstudio.graphlayout.core.GraphLayoutPrefsMyxComponent"
+            name="Graph Layout Prefs Impl">
       </brick>
    </extension>
    <extension

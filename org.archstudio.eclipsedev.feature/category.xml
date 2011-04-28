@@ -5,7 +5,7 @@
    </feature>
    <category-def name="org.archstudio.eclipsedev" label="ArchStudio 5 Eclipse Development">
       <description>
-         Install these features in your copy of Eclipse that is used for ArchStudio 5 development.
+         Install these features in your copy of Eclipse that are used for ArchStudio 5 development.
       </description>
    </category-def>
 </site>

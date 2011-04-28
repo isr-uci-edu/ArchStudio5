@@ -4,7 +4,9 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.issueadt.core.ArchlightIssueADTMyxComponent">
+            class="org.archstudio.issueadt.core.ArchlightIssueADTMyxComponent"
+            id="org.archstudio.issueadt.core.ArchlightIssueADTMyxComponent"
+            name="Archlight Issue Impl">
       </brick>
    </extension>
 

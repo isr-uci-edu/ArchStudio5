@@ -4,7 +4,9 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.archedit.core.ArchEditMyxComponent">
+            class="org.archstudio.archedit.core.ArchEditMyxComponent"
+            id="org.archstudio.archedit.core.ArchEditMyxComponent"
+            name="Arch Edit Impl">
       </brick>
    </extension>
    <extension

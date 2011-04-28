@@ -4,7 +4,9 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.bootstrap.core.BootstrapMyxComponent">
+            class="org.archstudio.bootstrap.core.BootstrapMyxComponent"
+            id="org.archstudio.bootstrap.core.BootstrapMyxComponent"
+            name="Bootstrap Impl">
       </brick>
    </extension>
 

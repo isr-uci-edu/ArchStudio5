@@ -9,7 +9,5 @@ Require-Bundle: org.archstudio.resources;bundle-version="5.0.0",
  org.archstudio.xarchadt;bundle-version="5.0.0",
  org.archstudio.xadl;bundle-version="5.0.0",
  org.eclipse.emf.common;bundle-version="2.5.0",
- org.eclipse.ui;bundle-version="3.5.1",
- org.eclipse.jface;bundle-version="3.5.1",
- org.eclipse.swt;bundle-version="3.5.1"
+ org.eclipse.ui;bundle-version="3.5.1"
 Export-Package: org.archstudio.xadlswt
