@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Example: Chat System
-Bundle-SymbolicName: edu.uci.isr.chatsys;singleton:=true
+Bundle-SymbolicName: org.archstudio.demo.chatsys;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.demo.chatsys,
  org.archstudio.demo.chatsys.client,

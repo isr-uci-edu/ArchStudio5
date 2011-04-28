@@ -51,7 +51,8 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 public abstract class ChatClientMyxComponentStub
 
-implements IMyxDynamicBrick, IMyxLifecycleProcessor, IMyxProvidedServiceProvider {
+implements IMyxDynamicBrick, IMyxLifecycleProcessor,
+		IMyxProvidedServiceProvider {
 
 	/**
 	 * Myx-interface name for inSingleServiceObject chatevents.  
@@ -106,11 +107,13 @@ implements IMyxDynamicBrick, IMyxLifecycleProcessor, IMyxProvidedServiceProvider
 			// connectBeforeBegin 
 
 			if (chatevents == null) {
-				throw new IllegalArgumentException("chatevents must be assigned a value before calling begin()");
+				throw new IllegalArgumentException(
+						"chatevents must be assigned a value before calling begin()");
 			}
 
 			if (chat == null) {
-				throw new IllegalArgumentException("chat must be assigned a value before calling begin()");
+				throw new IllegalArgumentException(
+						"chat must be assigned a value before calling begin()");
 			}
 		}
 	}
@@ -127,7 +130,8 @@ implements IMyxDynamicBrick, IMyxLifecycleProcessor, IMyxProvidedServiceProvider
 	/**
 	 * @generated
 	 */
-	public synchronized void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
+	public synchronized void interfaceConnected(IMyxName interfaceName,
+			Object serviceObject) {
 
 		if (INTERFACE_NAME_OUT_CHAT.equals(interfaceName)) {
 
@@ -144,11 +148,13 @@ implements IMyxDynamicBrick, IMyxLifecycleProcessor, IMyxProvidedServiceProvider
 	/**
 	 * @generated
 	 */
-	public synchronized void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+	public synchronized void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
 
 		if (INTERFACE_NAME_OUT_CHAT.equals(interfaceName)) {
 			if (chat == null) {
-				throw new IllegalArgumentException("chat was not previously connected.");
+				throw new IllegalArgumentException(
+						"chat was not previously connected.");
 			}
 			// removes the serviceObject
 			chat = null;
@@ -160,7 +166,8 @@ implements IMyxDynamicBrick, IMyxLifecycleProcessor, IMyxProvidedServiceProvider
 	/**
 	 * @generated
 	 */
-	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName,
+			Object serviceObject) {
 
 	}
 
@@ -172,7 +179,8 @@ implements IMyxDynamicBrick, IMyxLifecycleProcessor, IMyxProvidedServiceProvider
 		if (INTERFACE_NAME_IN_CHATEVENTS.equals(interfaceName)) {
 
 			if (chatevents == null) {
-				throw new NullPointerException("chatevents service object is null.");
+				throw new NullPointerException(
+						"chatevents service object is null.");
 			}
 			return chatevents;
 		}
@@ -231,7 +239,8 @@ implements IMyxDynamicBrick, IMyxLifecycleProcessor, IMyxProvidedServiceProvider
 	 * Adds a preMyxLifecycleProcessor
 	 * @param preMyxLifecycleProcessor
 	 */
-	protected void addPreMyxLifecycleProcessor(IMyxLifecycleProcessor preMyxLifecycleProcessor) {
+	protected void addPreMyxLifecycleProcessor(
+			IMyxLifecycleProcessor preMyxLifecycleProcessor) {
 
 		// inserts a preMyxLifecycleProcessor into the head of the list
 		this.myxLifecycleProcessors.add(0, preMyxLifecycleProcessor);
