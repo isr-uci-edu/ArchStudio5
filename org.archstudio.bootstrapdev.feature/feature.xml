@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.archstudio.devbootstrap"
-      label="Devbootstrap"
-      version="1.0.0.qualifier">
+      id="org.archstudio.bootstrapdev.feature"
+      label="Bootstrap for ArchStudio Development"
+      version="1.0.0.qualifier"
+      provider-name="archstudio.org">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
