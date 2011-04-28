@@ -4,7 +4,9 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.xarchadt.core.XArchADTMyxComponent">
+            class="org.archstudio.xarchadt.core.XArchADTMyxComponent"
+            id="org.archstudio.xarchadt.core.XArchADTMyxComponent"
+            name="XArch ADT Impl">
       </brick>
    </extension>
 

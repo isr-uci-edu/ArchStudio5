@@ -11,10 +11,9 @@ Require-Bundle: org.archstudio.filemanager.core;bundle-version="5.0.0",
  org.archstudio.resources;bundle-version="5.0.0",
  org.archstudio.editors;bundle-version="5.0.0",
  org.archstudio;bundle-version="5.0.0",
- org.archstudio.myx.eclipse;bundle-version="5.0.0",
  org.archstudio.myx.fw;bundle-version="5.0.0",
  org.eclipse.ui.ide;bundle-version="3.5.1",
  org.eclipse.ui;bundle-version="3.5.1",
- org.eclipse.jface;bundle-version="3.5.1",
  org.eclipse.core.resources;bundle-version="3.5.1",
  org.eclipse.core.runtime;bundle-version="3.5.0"
+Export-Package: org.archstudio.launcher.core

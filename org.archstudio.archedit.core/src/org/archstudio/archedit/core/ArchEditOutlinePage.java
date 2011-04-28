@@ -12,12 +12,12 @@ import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFeature;
+import org.archstudio.xarchadt.IXArchADTFeature.FeatureType;
 import org.archstudio.xarchadt.IXArchADTPackageMetadata;
 import org.archstudio.xarchadt.IXArchADTSubstitutionHint;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTPath;
-import org.archstudio.xarchadt.IXArchADTFeature.FeatureType;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
@@ -51,25 +51,29 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 	protected boolean showIDs = false;
 	protected boolean showDescriptions = true;
 	protected boolean showObjRefs = false;
-	
+
 	protected static int nextId = 100;
 
 	public ArchEditOutlinePage(IXArchADT xarch, ObjRef xArchRef, IResources resources) {
 		super(xarch, xArchRef, resources, true, true);
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-		if (documentRootRef == null)
+		if (documentRootRef == null) {
 			return;
+		}
 		setupDoubleClick();
 		setupDragAndDrop();
 	}
 
+	@Override
 	protected ITreeContentProvider createViewContentProvider() {
 		return new ViewContentProvider();
 	}
 
+	@Override
 	protected ILabelProvider createViewLabelProvider() {
 		return new ViewLabelProvider();
 	}
@@ -88,7 +92,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 						if (referenceNodeInfo.isMultiple()) {
 							List<ObjRef> referenceTargetObjects = xarch.getAll(parentRef, featureName);
 							if (referenceNodeInfo.getIndex() < referenceTargetObjects.size()) {
-								ObjRef referenceTargetRef = (ObjRef) referenceTargetObjects.get(referenceNodeInfo.getIndex());
+								ObjRef referenceTargetRef = referenceTargetObjects.get(referenceNodeInfo.getIndex());
 								if (referenceTargetRef != null) {
 									focusEditor(ArchEditMyxComponent.EDITOR_NAME, new ObjRef[] { referenceTargetRef });
 								}
@@ -96,7 +100,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 						}
 						else {
 							Object referenceTargetObject = xarch.get(parentRef, featureName);
-							if ((referenceTargetObject != null) && (referenceTargetObject instanceof ObjRef)) {
+							if (referenceTargetObject != null && referenceTargetObject instanceof ObjRef) {
 								ObjRef referenceTargetRef = (ObjRef) referenceTargetObject;
 								focusEditor(ArchEditMyxComponent.EDITOR_NAME, new ObjRef[] { referenceTargetRef });
 							}
@@ -180,14 +184,15 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 							return;
 						}
 
-						if ((event.item != null) && (event.item instanceof TreeItem)) {
+						if (event.item != null && event.item instanceof TreeItem) {
 							Object data = ((TreeItem) event.item).getData();
-							if ((data != null) && (data instanceof ArchEditElementNode)) {
+							if (data != null && data instanceof ArchEditElementNode) {
 								ObjRef targetRef = ((ArchEditElementNode) data).getRef();
 								IXArchADTFeature feature = XadlUtils.getFeatureByName(xarch, parentRef, featureName);
 								if (feature != null) {
 									if (!XadlUtils.isAssignableTo(xarch, feature, xarch.getTypeMetadata(targetRef))) {
-										MessageBox messageBox = new MessageBox(getControl().getShell(), SWT.OK | SWT.ICON_ERROR);
+										MessageBox messageBox = new MessageBox(getControl().getShell(), SWT.OK
+												| SWT.ICON_ERROR);
 										messageBox.setMessage("Can't link that kind of element to this link.");
 										messageBox.setText("Error");
 										messageBox.open();
@@ -219,7 +224,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 	}
 
 	class ViewContentProvider implements ITreeContentProvider {
-		private Object[] EMPTY_ARRAY = new Object[0];
+		private final Object[] EMPTY_ARRAY = new Object[0];
 
 		IArchEditNode rootNode = null;
 
@@ -262,6 +267,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 	}
 
 	class ViewLabelProvider extends LabelProvider implements ILabelProvider {
+		@Override
 		public Image getImage(Object element) {
 			if (element instanceof IArchEditNode) {
 				return ((IArchEditNode) element).getImage();
@@ -269,6 +275,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			return null;
 		}
 
+		@Override
 		public String getText(Object element) {
 			return super.getText(element);
 		}
@@ -334,6 +341,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			return index;
 		}
 
+		@Override
 		public String toString() {
 			return getFeatureName();
 		}
@@ -352,9 +360,11 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			return ref;
 		}
 
+		@Override
 		public boolean equals(Object o) {
-			if (o == this)
+			if (o == this) {
 				return true;
+			}
 			if (o instanceof ArchEditElementNode) {
 				if (((ArchEditElementNode) o).ref.equals(ref)) {
 					return true;
@@ -363,16 +373,18 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			return false;
 		}
 
+		@Override
 		public int hashCode() {
 			return ref.hashCode();
 		}
 
+		@Override
 		public String toString() {
 			StringBuffer sb = new StringBuffer();
 
 			sb.append(XadlUtils.getDisplayName(xarch, ref));
 
-			if ((showIDs) && (!showDescriptions)) {
+			if (showIDs && !showDescriptions) {
 				String id = XadlUtils.getID(xarch, ref);
 				if (id != null) {
 					sb.append(" [");
@@ -380,7 +392,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 					sb.append("]");
 				}
 			}
-			else if ((showDescriptions) && (!showIDs)) {
+			else if (showDescriptions && !showIDs) {
 				String desc = XadlUtils.getName(xarch, ref);
 				if (desc != null) {
 					sb.append(" [");
@@ -391,11 +403,13 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			else if (showDescriptions && showIDs) {
 				String id = XadlUtils.getID(xarch, ref);
 				String desc = XadlUtils.getName(xarch, ref);
-				if ((id != null) || (desc != null)) {
-					if (id == null)
+				if (id != null || desc != null) {
+					if (id == null) {
 						id = "(No ID)";
-					if (desc == null)
+					}
+					if (desc == null) {
 						desc = "(No Description)";
+					}
 					sb.append(" [");
 					sb.append(id);
 					sb.append("; ");
@@ -467,8 +481,10 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 		}
 	}
 
+	@Override
 	protected IAction[] createPulldownMenuItems() {
-		Action showIDAction = new Action("Show IDs", Action.AS_CHECK_BOX) {
+		Action showIDAction = new Action("Show IDs", IAction.AS_CHECK_BOX) {
+			@Override
 			public void run() {
 				Object[] expandedElements = getTreeViewer().getExpandedElements();
 				showIDs = isChecked();
@@ -480,7 +496,8 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 		showIDAction.setText("Show IDs");
 		showIDAction.setToolTipText("Show IDs with elements");
 
-		Action showDescAction = new Action("Show Descriptions", Action.AS_CHECK_BOX) {
+		Action showDescAction = new Action("Show Descriptions", IAction.AS_CHECK_BOX) {
+			@Override
 			public void run() {
 				Object[] expandedElements = getTreeViewer().getExpandedElements();
 				showDescriptions = isChecked();
@@ -492,7 +509,8 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 		showDescAction.setText("Show Descriptions");
 		showDescAction.setToolTipText("Show Descriptions with elements");
 
-		Action showObjRefAction = new Action("Show ObjRefs", Action.AS_CHECK_BOX) {
+		Action showObjRefAction = new Action("Show ObjRefs", IAction.AS_CHECK_BOX) {
+			@Override
 			public void run() {
 				Object[] expandedElements = getTreeViewer().getExpandedElements();
 				showObjRefs = isChecked();
@@ -507,10 +525,12 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 		return new Action[] { showIDAction, showDescAction, showObjRefAction };
 	}
 
+	@Override
 	protected void fillContextMenu(IMenuManager menuMgr) {
 		List<INodeInfo> selectedNodeInfos = getSelectedNodeInfos();
 		if (selectedNodeInfos.size() == 0) {
 			Action noAction = new Action("[No Selection]") {
+				@Override
 				public void run() {
 				}
 			};
@@ -519,6 +539,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 		}
 		else if (selectedNodeInfos.size() > 1) {
 			Action noAction = new Action("[Select One Node for Menu]") {
+				@Override
 				public void run() {
 				}
 			};
@@ -535,7 +556,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 					menuMgr.add(createContextMenuRemoveAction(ref));
 					menuMgr.add(new Separator());
 				}
-				
+
 				IAction generateIdAction = createContextMenuGenerateIDAction(ref);
 				if (generateIdAction != null) {
 					menuMgr.add(generateIdAction);
@@ -564,6 +585,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 	public IAction createContextMenuRemoveAction(ObjRef ref) {
 		final ObjRef fref = ref;
 		Action removeAction = new Action("Remove") {
+			@Override
 			public void run() {
 				ObjRef parentRef = xarch.getParent(fref);
 				String featureName = xarch.getContainingFeatureName(fref);
@@ -585,7 +607,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 		};
 		return removeAction;
 	}
-	
+
 	protected IAction createContextMenuGenerateIDAction(ObjRef ref) {
 		final ObjRef fref = ref;
 		final IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(ref);
@@ -594,10 +616,11 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			return null;
 		}
 		Action generateIdAction = new Action("Generate ID") {
+			@Override
 			public void run() {
 				String id = "";
 				while (true) {
-					id = typeMetadata.getTypeName() + (nextId++);
+					id = typeMetadata.getTypeName() + nextId++;
 					// Ensure the ID is unique
 					if (xarch.getByID(id) == null) {
 						break;
@@ -606,7 +629,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 				xarch.set(fref, "id", id);
 			}
 		};
-		String existingId = (String)xarch.get(ref, "id");
+		String existingId = (String) xarch.get(ref, "id");
 		generateIdAction.setEnabled(existingId == null);
 		return generateIdAction;
 	}
@@ -617,7 +640,8 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 		final IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(ref);
 
 		for (final IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
-			if (feature.getType().equals(FeatureType.ELEMENT_SINGLE) || feature.getType().equals(FeatureType.ELEMENT_MULTIPLE)) {
+			if (feature.getType().equals(FeatureType.ELEMENT_SINGLE)
+					|| feature.getType().equals(FeatureType.ELEMENT_MULTIPLE)) {
 				boolean disabled = false;
 				if (feature.getType().equals(FeatureType.ELEMENT_SINGLE)) {
 					Object existingElement = xarch.get(ref, feature.getName());
@@ -632,34 +656,40 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 
 					// Find all the candidates
 					boolean foundOne = false;
-					
+
 					if (XadlUtils.isExtension(xarch, feature)) {
-						String typeName = typeMetadata.getTypeName().substring(typeMetadata.getTypeName().lastIndexOf('.') + 1);
-						for (IXArchADTSubstitutionHint hint : xarch.getSubstitutionHintsForTarget(typeMetadata.getNsURI(), typeName)) {
+						String typeName = typeMetadata.getTypeName().substring(
+								typeMetadata.getTypeName().lastIndexOf('.') + 1);
+						for (IXArchADTSubstitutionHint hint : xarch.getSubstitutionHintsForTarget(
+								typeMetadata.getNsURI(), typeName)) {
 							foundOne = true;
-							Action addEltAction = new AddElementAction(ref, feature, hint.getSourceNsURI(), hint.getSourceTypeName());
+							Action addEltAction = new AddElementAction(ref, feature, hint.getSourceNsURI(),
+									hint.getSourceTypeName());
 							submenuManager.add(addEltAction);
 						}
 					}
 					else {
 						// This handles substitution groups and the like
-						for (IXArchADTSubstitutionHint hint : xarch.getSubstitutionHintsForSource(typeMetadata.getNsURI(), feature.getName())) {
+						for (IXArchADTSubstitutionHint hint : xarch.getSubstitutionHintsForSource(
+								typeMetadata.getNsURI(), feature.getName())) {
 							foundOne = true;
-							Action addEltAction = new AddElementAction(ref, feature, hint.getTargetNsURI(), hint.getTargetTypeName());
+							Action addEltAction = new AddElementAction(ref, feature, hint.getTargetNsURI(),
+									hint.getTargetTypeName());
 							submenuManager.add(addEltAction);
 						}
 					}
-					
+
 					if (foundOne) {
 						submenuManager.add(new Separator());
 					}
-					
+
 					for (final IXArchADTPackageMetadata packageMetadata : xarch.getAvailablePackageMetadata()) {
 						for (Map.Entry<String, IXArchADTTypeMetadata> e : packageMetadata.getTypeMetadata().entrySet()) {
 							final String elementName = e.getKey();
 							if (XadlUtils.isAssignableTo(xarch, feature, e.getValue()) && !e.getValue().isAbstract()) {
 								foundOne = true;
-								Action addEltAction = new AddElementAction(ref, feature, packageMetadata.getNsURI(), elementName);
+								Action addEltAction = new AddElementAction(ref, feature, packageMetadata.getNsURI(),
+										elementName);
 								submenuManager.add(addEltAction);
 							}
 						}
@@ -673,13 +703,13 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 		}
 		return items;
 	}
-	
+
 	private class AddElementAction extends Action {
 		private final ObjRef ref;
 		private final IXArchADTFeature feature;
 		private final String packageNsURI;
 		private final String elementName;
-		
+
 		public AddElementAction(ObjRef ref, IXArchADTFeature feature, String packageNsURI, String elementName) {
 			super(SystemUtils.capFirst(elementName));
 			this.ref = ref;
@@ -687,7 +717,8 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			this.packageNsURI = packageNsURI;
 			this.elementName = elementName;
 		}
-		
+
+		@Override
 		public void run() {
 			ObjRef newRef = xarch.create(packageNsURI, elementName);
 			switch (feature.getType()) {
@@ -704,17 +735,18 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 		}
 	}
 
+	@Override
 	public void focusEditor(String editorName, ObjRef[] refs) {
 		if (refs.length > 0) {
 			List<ArchEditElementNode> nodes = new ArrayList<ArchEditElementNode>(refs.length);
-			for (int i = 0; i < refs.length; i++) {
-				nodes.add(new ArchEditElementNode(refs[i]));
+			for (ObjRef ref : refs) {
+				nodes.add(new ArchEditElementNode(ref));
 			}
 			//Expand the ancestors of the selected items
 			int i = 0;
 			for (ArchEditElementNode node : nodes) {
 				List<ObjRef> ancestors = xarch.getAllAncestors(refs[i++]);
-				for (int j = (ancestors.size() - 1); j >= 1; j--) {
+				for (int j = ancestors.size() - 1; j >= 1; j--) {
 					ArchEditElementNode ancestorNode = new ArchEditElementNode(ancestors.get(j));
 					getTreeViewer().expandToLevel(ancestorNode, 1);
 				}

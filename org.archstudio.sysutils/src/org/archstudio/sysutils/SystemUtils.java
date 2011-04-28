@@ -1159,4 +1159,14 @@ public class SystemUtils {
 	public static final <T, K> Iterable<T> copyCollection(Map<K, Collection<T>> map, K key) {
 		return map != null && map.containsKey(key) ? copyCollection(map.get(key)) : Collections.<T> emptyList();
 	}
+
+	public static final void closeQuietly(InputStream is) {
+		try {
+			if (is != null) {
+				is.close();
+			}
+		}
+		catch (Throwable t) {
+		}
+	}
 }

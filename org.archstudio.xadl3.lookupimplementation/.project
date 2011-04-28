@@ -25,10 +25,15 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>org.archstudio.dblgen.xadl3SchemaBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>org.archstudio.eclipsedev.xadl3SchemaNature</nature>
+		<nature>org.archstudio.dblgen.xadl3SchemaNature</nature>
 	</natures>
 </projectDescription>

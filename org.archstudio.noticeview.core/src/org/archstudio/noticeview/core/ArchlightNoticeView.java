@@ -5,6 +5,8 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.noticeadt.ArchlightNoticeADTEvent;
 import org.archstudio.noticeadt.ArchlightNoticeADTListener;
 import org.archstudio.noticeadt.IArchlightNoticeADT;
+import org.archstudio.noticeview.core.ArchlightNoticeView.ViewContentProvider;
+import org.archstudio.noticeview.core.ArchlightNoticeView.ViewLabelProvider;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.AutoResizeTableLayout;
 import org.eclipse.jface.viewers.ColumnWeightData;

@@ -4,7 +4,9 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.editormanager.core.EditorManagerMyxComponent">
+            class="org.archstudio.editormanager.core.EditorManagerMyxComponent"
+            id="org.archstudio.editormanager.core.EditorManagerMyxComponent"
+            name="Editor Manager Impl">
       </brick>
    </extension>
 

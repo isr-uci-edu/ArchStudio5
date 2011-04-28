@@ -4,7 +4,7 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="xadlcore_3_0"
     nsURI="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd" nsPrefix="xadlcore_3_0">
   <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-    <details key="documentation" value="&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#x9;xADL 3 Core Schema&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;This schema defines the core elements for xADL 3 documents.&#xD;&#xA;&#x9;&#x9;&#x9;The schema is intentionally small, defining only a few elements&#xD;&#xA;&#x9;&#x9;&#x9;that are intended to be common across xADL descriptions and&#xD;&#xA;&#x9;&#x9;&#x9;extensions, regardless of domain.&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;Changelog:&#xD;&#xA;&#x9;&#x9;&#x9;  - 3.0.0:&#xD;&#xA;&#x9;&#x9;&#x9;    * Initial version&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;"/>
+    <details key="documentation" value="&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;xADL 3 Core Schema&#xA;&#xA;&#x9;&#x9;&#x9;This schema defines the core elements for xADL 3 documents.&#xA;&#x9;&#x9;&#x9;The schema is intentionally small, defining only a few elements&#xA;&#x9;&#x9;&#x9;that are intended to be common across xADL descriptions and&#xA;&#x9;&#x9;&#x9;extensions, regardless of domain.&#xA;&#xA;&#x9;&#x9;&#x9;Changelog:&#xA;&#x9;&#x9;&#x9;  - 3.0.0:&#xA;&#x9;&#x9;&#x9;    * Initial version&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="DocumentRoot">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -38,7 +38,7 @@
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" volatile="true"
         transient="true" derived="true" containment="true" resolveProxies="false">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;This is a placeholder element for xADL top-level&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;elements (i.e., elements that are direct children&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;of the document root element.  Elements that&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;are intended to be top-level elements should be&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;in the topLevelElement substitutionGroup to&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;declare their intent to be used as top-level&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;elements.&#xD;&#xA;&#x9;&#x9;&#x9;"/>
+        <details key="documentation" value="&#xA;&#x9;&#x9;&#x9;&#x9;This is a placeholder element for xADL top-level&#xA;&#x9;&#x9;&#x9;&#x9;elements (i.e., elements that are direct children&#xA;&#x9;&#x9;&#x9;&#x9;of the document root element.  Elements that&#xA;&#x9;&#x9;&#x9;&#x9;are intended to be top-level elements should be&#xA;&#x9;&#x9;&#x9;&#x9;in the topLevelElement substitutionGroup to&#xA;&#x9;&#x9;&#x9;&#x9;declare their intent to be used as top-level&#xA;&#x9;&#x9;&#x9;&#x9;elements.&#xA;&#x9;&#x9;&#x9;"/>
       </eAnnotations>
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="element"/>
@@ -49,7 +49,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="xADL" upperBound="-2" eType="#//XADLType"
         volatile="true" transient="true" derived="true" containment="true" resolveProxies="false">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;This is the root element for all xADL documents.  It&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;is a container element, so it can contain a number&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;of top-level xADL elements via the use of a&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;substitution group.&#xD;&#xA;&#x9;&#x9;&#x9;"/>
+        <details key="documentation" value="&#xA;&#x9;&#x9;&#x9;&#x9;This is the root element for all xADL documents.  It&#xA;&#x9;&#x9;&#x9;&#x9;is a container element, so it can contain a number&#xA;&#x9;&#x9;&#x9;&#x9;of top-level xADL elements via the use of a&#xA;&#x9;&#x9;&#x9;&#x9;substitution group.&#xA;&#x9;&#x9;&#x9;"/>
       </eAnnotations>
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="element"/>
@@ -60,7 +60,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Extension" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;This is an abstract base type for all extensions that&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;add content to an element.  In general, individual&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;types will create their own abstract Extension base&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;type (e.g., a type Foo will be accompanied by a&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;FooExtension base type that extends Extension)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;and the type will include a list of zero or more&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;FooExtensions.&#xD;&#xA;&#x9;&#x9;&#x9;"/>
+      <details key="documentation" value="&#xA;&#x9;&#x9;&#x9;&#x9;This is an abstract base type for all extensions that&#xA;&#x9;&#x9;&#x9;&#x9;add content to an element.  In general, individual&#xA;&#x9;&#x9;&#x9;&#x9;types will create their own abstract Extension base&#xA;&#x9;&#x9;&#x9;&#x9;type (e.g., a type Foo will be accompanied by a&#xA;&#x9;&#x9;&#x9;&#x9;FooExtension base type that extends Extension)&#xA;&#x9;&#x9;&#x9;&#x9;and the type will include a list of zero or more&#xA;&#x9;&#x9;&#x9;&#x9;FooExtensions.&#xA;&#x9;&#x9;&#x9;"/>
     </eAnnotations>
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value="Extension"/>
@@ -77,7 +77,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SimpleLink">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;This type is meant to describe elements that are&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;simple outbound links outside the current document&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;(internal links should use IDREFs). Elements of this &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;type are simple-type XLinks that can use a simple&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;href to link to a document, or XPointer to&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;refer to an element within a document.&#xD;&#xA;&#x9;&#x9;&#x9;"/>
+      <details key="documentation" value="&#xA;&#x9;&#x9;&#x9;&#x9;This type is meant to describe elements that are&#xA;&#x9;&#x9;&#x9;&#x9;simple outbound links outside the current document&#xA;&#x9;&#x9;&#x9;&#x9;(internal links should use IDREFs). Elements of this &#xA;&#x9;&#x9;&#x9;&#x9;type are simple-type XLinks that can use a simple&#xA;&#x9;&#x9;&#x9;&#x9;href to link to a document, or XPointer to&#xA;&#x9;&#x9;&#x9;&#x9;refer to an element within a document.&#xA;&#x9;&#x9;&#x9;"/>
     </eAnnotations>
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value="SimpleLink"/>
@@ -116,7 +116,7 @@
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" containment="true"
         resolveProxies="false">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;This is a placeholder element for xADL top-level&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;elements (i.e., elements that are direct children&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;of the document root element.  Elements that&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;are intended to be top-level elements should be&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;in the topLevelElement substitutionGroup to&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;declare their intent to be used as top-level&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;elements.&#xD;&#xA;&#x9;&#x9;&#x9;"/>
+        <details key="documentation" value="&#xA;&#x9;&#x9;&#x9;&#x9;This is a placeholder element for xADL top-level&#xA;&#x9;&#x9;&#x9;&#x9;elements (i.e., elements that are direct children&#xA;&#x9;&#x9;&#x9;&#x9;of the document root element.  Elements that&#xA;&#x9;&#x9;&#x9;&#x9;are intended to be top-level elements should be&#xA;&#x9;&#x9;&#x9;&#x9;in the topLevelElement substitutionGroup to&#xA;&#x9;&#x9;&#x9;&#x9;declare their intent to be used as top-level&#xA;&#x9;&#x9;&#x9;&#x9;elements.&#xA;&#x9;&#x9;&#x9;"/>
       </eAnnotations>
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="element"/>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.archstudio.myxgen.brick">
+      <brick
+            class="org.archstudio.demo.chatsys.server.ChatServerMyxComponent"
+            id="org.archstudio.demo.chatsys.brick1"
+            name="Server Impl">
+         <interface
+               class="org.archstudio.demo.chatsys.IChat"
+               connectionTiming="beforeBegin"
+               direction="inSingleServiceObject"
+               id="org.archstudio.demo.chatsys.interface1"
+               name="chat"
+               templateType="delegate">
+         </interface>
+         <interface
+               class="org.archstudio.demo.chatsys.IChatListener"
+               connectionTiming="beforeBegin"
+               direction="outMultipleServiceObjects"
+               id="org.archstudio.demo.chatsys.interface2"
+               name="chatevents"
+               templateType="delegate">
+         </interface>
+      </brick>
+      <brick
+            class="org.archstudio.demo.chatsys.client.ChatClientMyxComponent"
+            id="org.archstudio.demo.chatsys.brick2"
+            name="Client Impl">
+         <interface
+               class="org.archstudio.demo.chatsys.IChat"
+               connectionTiming="beforeBegin"
+               direction="outSingleServiceObject"
+               id="org.archstudio.demo.chatsys.interface3"
+               name="chat"
+               templateType="delegate">
+         </interface>
+         <interface
+               class="org.archstudio.demo.chatsys.IChatListener"
+               connectionTiming="beforeBegin"
+               direction="inSingleServiceObject"
+               id="org.archstudio.demo.chatsys.interface4"
+               name="chatevents"
+               templateType="delegate">
+         </interface>
+      </brick>
+   </extension>
+
+</plugin>

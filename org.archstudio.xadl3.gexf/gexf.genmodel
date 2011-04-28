@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.archstudio.xadl3.gexf/src"
+    modelPluginID="org.archstudio.xadl3.gexf" modelName="Gexf" importerID="org.eclipse.xsd.ecore.importer"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>http://gexf.net/1.2draft/gexf.xsd</foreignModel>
+  <foreignModel>http://gexf.net/1.2draft/viz.xsd</foreignModel>
+  <genPackages prefix="Gexf" basePackage="net.gexf_1_2" resource="XML" disposableProviderFactory="true"
+      ecorePackage="gexf.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gexf.ecore#//AttrtypeType">
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//AttrtypeType/integer"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//AttrtypeType/long"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//AttrtypeType/double"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//AttrtypeType/float"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//AttrtypeType/boolean"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//AttrtypeType/liststring"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//AttrtypeType/string"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//AttrtypeType/anyURI"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gexf.ecore#//ClassType">
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//ClassType/node"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//ClassType/edge"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gexf.ecore#//DefaultedgetypeType">
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//DefaultedgetypeType/directed"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//DefaultedgetypeType/undirected"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//DefaultedgetypeType/mutual"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gexf.ecore#//EdgetypeType">
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//EdgetypeType/directed"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//EdgetypeType/undirected"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//EdgetypeType/mutual"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gexf.ecore#//IdtypeType">
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//IdtypeType/integer"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//IdtypeType/string"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gexf.ecore#//ModeType">
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//ModeType/static"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//ModeType/dynamic"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gexf.ecore#//TimeformatType">
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//TimeformatType/integer"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//TimeformatType/double"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//TimeformatType/date"/>
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//TimeformatType/dateTime"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gexf.ecore#//VersionType">
+      <genEnumLiterals ecoreEnumLiteral="gexf.ecore#//VersionType/_12"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="gexf.ecore#//AttrtypeTypeObject"/>
+    <genDataTypes ecoreDataType="gexf.ecore#//ClassTypeObject"/>
+    <genDataTypes ecoreDataType="gexf.ecore#//DefaultedgetypeTypeObject"/>
+    <genDataTypes ecoreDataType="gexf.ecore#//EdgetypeTypeObject"/>
+    <genDataTypes ecoreDataType="gexf.ecore#//IdType"/>
+    <genDataTypes ecoreDataType="gexf.ecore#//IdtypeTypeObject"/>
+    <genDataTypes ecoreDataType="gexf.ecore#//ModeTypeObject"/>
+    <genDataTypes ecoreDataType="gexf.ecore#//TimeformatTypeObject"/>
+    <genDataTypes ecoreDataType="gexf.ecore#//TimeType"/>
+    <genDataTypes ecoreDataType="gexf.ecore#//VersionTypeObject"/>
+    <genDataTypes ecoreDataType="gexf.ecore#//WeightType"/>
+    <genDataTypes ecoreDataType="gexf.ecore#//WeightTypeObject"/>
+    <genClasses ecoreClass="gexf.ecore#//AttributeContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute gexf.ecore#//AttributeContent/group"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttributeContent/default"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttributeContent/options"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttributeContent/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttributeContent/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttributeContent/type"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//AttributesContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//AttributesContent/attribute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttributesContent/class"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttributesContent/end"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttributesContent/endopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttributesContent/mode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttributesContent/start"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttributesContent/startopen"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//AttvaluesContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//AttvaluesContent/attvalue"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//AttvalueType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttvalueType/end"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttvalueType/endopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttvalueType/for"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttvalueType/start"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttvalueType/startopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//AttvalueType/value"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//DocumentRoot">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//DocumentRoot/mixed"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/xMLNSPrefixMap"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/xSISchemaLocation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/attribute"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/attvalue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/attvalues"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/color"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//DocumentRoot/creator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//DocumentRoot/default"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//DocumentRoot/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/edge"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/edges"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/gexf"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/graph"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//DocumentRoot/keywords"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/meta"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/node"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/nodes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//DocumentRoot/options"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/parent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/parents"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/position"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/size"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/spell"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/spells"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//DocumentRoot/thickness"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//EdgeContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute gexf.ecore#//EdgeContent/group"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//EdgeContent/attvalues"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//EdgeContent/spells"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//EdgeContent/color"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//EdgeContent/thickness"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//EdgeContent/shape"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//EdgeContent/end"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//EdgeContent/endopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//EdgeContent/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//EdgeContent/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//EdgeContent/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//EdgeContent/start"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//EdgeContent/startopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//EdgeContent/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//EdgeContent/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//EdgeContent/weight"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//EdgesContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//EdgesContent/edge"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//EdgesContent/count"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//GexfContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//GexfContent/meta"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//GexfContent/graph"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//GexfContent/variant"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//GexfContent/version"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//GraphContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute gexf.ecore#//GraphContent/group"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//GraphContent/attributes"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//GraphContent/nodes"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//GraphContent/edges"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//GraphContent/defaultedgetype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//GraphContent/end"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//GraphContent/endopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//GraphContent/idtype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//GraphContent/mode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//GraphContent/start"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//GraphContent/startopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//GraphContent/timeformat"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//MetaContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute gexf.ecore#//MetaContent/group"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//MetaContent/creator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//MetaContent/keywords"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//MetaContent/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//MetaContent/lastmodifieddate"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//NodeContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute gexf.ecore#//NodeContent/group"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//NodeContent/attvalues"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//NodeContent/spells"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//NodeContent/nodes"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//NodeContent/edges"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//NodeContent/parents"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//NodeContent/color"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//NodeContent/position"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//NodeContent/size"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gexf.ecore#//NodeContent/shape"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//NodeContent/end"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//NodeContent/endopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//NodeContent/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//NodeContent/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//NodeContent/pid"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//NodeContent/start"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//NodeContent/startopen"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//NodesContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//NodesContent/node"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//NodesContent/count"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//ParentsContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//ParentsContent/parent"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//ParentType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//ParentType/for"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//SpellsContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gexf.ecore#//SpellsContent/spell"/>
+    </genClasses>
+    <genClasses ecoreClass="gexf.ecore#//SpellType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//SpellType/end"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//SpellType/endopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//SpellType/start"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gexf.ecore#//SpellType/startopen"/>
+    </genClasses>
+  </genPackages>
+  <genPackages prefix="Viz" basePackage="net.gexf_1_2" resource="XML" disposableProviderFactory="true"
+      ecorePackage="viz.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="viz.ecore#//EdgeShapeType">
+      <genEnumLiterals ecoreEnumLiteral="viz.ecore#//EdgeShapeType/solid"/>
+      <genEnumLiterals ecoreEnumLiteral="viz.ecore#//EdgeShapeType/dotted"/>
+      <genEnumLiterals ecoreEnumLiteral="viz.ecore#//EdgeShapeType/dashed"/>
+      <genEnumLiterals ecoreEnumLiteral="viz.ecore#//EdgeShapeType/double"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="viz.ecore#//NodeShapeType">
+      <genEnumLiterals ecoreEnumLiteral="viz.ecore#//NodeShapeType/disc"/>
+      <genEnumLiterals ecoreEnumLiteral="viz.ecore#//NodeShapeType/square"/>
+      <genEnumLiterals ecoreEnumLiteral="viz.ecore#//NodeShapeType/triangle"/>
+      <genEnumLiterals ecoreEnumLiteral="viz.ecore#//NodeShapeType/diamond"/>
+      <genEnumLiterals ecoreEnumLiteral="viz.ecore#//NodeShapeType/image"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="viz.ecore#//AlphaChannel"/>
+    <genDataTypes ecoreDataType="viz.ecore#//AlphaChannelObject"/>
+    <genDataTypes ecoreDataType="viz.ecore#//ColorChannel"/>
+    <genDataTypes ecoreDataType="viz.ecore#//EdgeShapeTypeObject"/>
+    <genDataTypes ecoreDataType="viz.ecore#//NodeShapeTypeObject"/>
+    <genDataTypes ecoreDataType="viz.ecore#//SizeType"/>
+    <genDataTypes ecoreDataType="viz.ecore#//SizeTypeObject"/>
+    <genDataTypes ecoreDataType="viz.ecore#//SpacePoint"/>
+    <genDataTypes ecoreDataType="viz.ecore#//SpacePointObject"/>
+    <genDataTypes ecoreDataType="viz.ecore#//ThicknessType"/>
+    <genDataTypes ecoreDataType="viz.ecore#//ThicknessTypeObject"/>
+    <genClasses ecoreClass="viz.ecore#//ColorContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference viz.ecore#//ColorContent/spells"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//ColorContent/a"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//ColorContent/b"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//ColorContent/end"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//ColorContent/endopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//ColorContent/g"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//ColorContent/r"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//ColorContent/start"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//ColorContent/startopen"/>
+    </genClasses>
+    <genClasses ecoreClass="viz.ecore#//EdgeShapeContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference viz.ecore#//EdgeShapeContent/spells"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//EdgeShapeContent/end"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//EdgeShapeContent/endopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//EdgeShapeContent/start"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//EdgeShapeContent/startopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//EdgeShapeContent/value"/>
+    </genClasses>
+    <genClasses ecoreClass="viz.ecore#//NodeShapeContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference viz.ecore#//NodeShapeContent/spells"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//NodeShapeContent/end"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//NodeShapeContent/endopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//NodeShapeContent/start"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//NodeShapeContent/startopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//NodeShapeContent/uri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//NodeShapeContent/value"/>
+    </genClasses>
+    <genClasses ecoreClass="viz.ecore#//PositionContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference viz.ecore#//PositionContent/spells"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//PositionContent/end"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//PositionContent/endopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//PositionContent/start"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//PositionContent/startopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//PositionContent/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//PositionContent/y"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//PositionContent/z"/>
+    </genClasses>
+    <genClasses ecoreClass="viz.ecore#//SizeContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference viz.ecore#//SizeContent/spells"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//SizeContent/end"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//SizeContent/endopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//SizeContent/start"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//SizeContent/startopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//SizeContent/value"/>
+    </genClasses>
+    <genClasses ecoreClass="viz.ecore#//ThicknessContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference viz.ecore#//ThicknessContent/spells"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//ThicknessContent/end"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//ThicknessContent/endopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//ThicknessContent/start"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//ThicknessContent/startopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//ThicknessContent/value"/>
+    </genClasses>
+    <genClasses ecoreClass="viz.ecore#//DocumentRoot">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EAttribute viz.ecore#//DocumentRoot/mixed"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference viz.ecore#//DocumentRoot/xMLNSPrefixMap"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference viz.ecore#//DocumentRoot/xSISchemaLocation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference viz.ecore#//DocumentRoot/spells"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

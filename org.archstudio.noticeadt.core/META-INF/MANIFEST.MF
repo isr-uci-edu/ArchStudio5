@@ -7,5 +7,5 @@ Bundle-Vendor: archstudio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.archstudio.noticeadt;bundle-version="5.0.0",
  org.archstudio.archlight;bundle-version="5.0.0",
- org.archstudio.myx.eclipse;bundle-version="5.0.0",
  org.archstudio.myx.fw;bundle-version="5.0.0"
+Export-Package: org.archstudio.noticeadt.core

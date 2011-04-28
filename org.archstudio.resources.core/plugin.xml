@@ -4,7 +4,9 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.resources.core.ResourcesMyxComponent">
+            class="org.archstudio.resources.core.ResourcesMyxComponent"
+            id="org.archstudio.resources.core.ResourcesMyxComponent"
+            name="Resources Impl">
       </brick>
    </extension>
 

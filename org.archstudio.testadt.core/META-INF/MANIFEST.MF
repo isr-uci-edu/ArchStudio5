@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.archstudio.testadt.core;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio.myx.eclipse;bundle-version="5.0.0",
- org.archstudio.myx.fw;bundle-version="5.0.0",
+Require-Bundle: org.archstudio.myx.fw;bundle-version="5.0.0",
  org.archstudio.archlight;bundle-version="5.0.0",
  org.archstudio.testadt;bundle-version="5.0.0"
+Export-Package: org.archstudio.testadt.core

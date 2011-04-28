@@ -10,6 +10,8 @@ import org.archstudio.editormanager.IEditorManager;
 import org.archstudio.issueadt.ArchlightIssueADTEvent;
 import org.archstudio.issueadt.ArchlightIssueADTListener;
 import org.archstudio.issueadt.IArchlightIssueADT;
+import org.archstudio.issueview.core.ArchlightIssueView.ViewContentProvider;
+import org.archstudio.issueview.core.ArchlightIssueView.ViewLabelProvider;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.AutoResizeTableLayout;
@@ -85,8 +87,9 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 	public void refreshView() {
 		SWTWidgetUtils.async(viewer, new Runnable() {
 			public void run() {
-				if (!viewer.getControl().isDisposed())
+				if (!viewer.getControl().isDisposed()) {
 					viewer.refresh();
+				}
 			}
 		});
 	}
@@ -126,7 +129,7 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
 			public void doubleClick(DoubleClickEvent event) {
 				String doubleClickActionString = prefs.getString(ArchlightConstants.PREF_DOUBLE_CLICK_ACTION);
-				if ((doubleClickActionString == null) || (doubleClickActionString.length() == 0)) {
+				if (doubleClickActionString == null || doubleClickActionString.length() == 0) {
 					doubleClickActionString = DoubleClickAction.OPEN_DETAIL_WINDOW.name();
 				}
 
@@ -145,7 +148,8 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 					}
 					else if (dca.equals(DoubleClickAction.FOCUS_IN_DEFAULT_EDITOR)) {
 						String defaultEditor = editorManager.getDefaultEditor();
-						Collection<ArchlightElementIdentifier> elementIdentifiers = selectedIssues[0].getElementIdentifiers();
+						Collection<ArchlightElementIdentifier> elementIdentifiers = selectedIssues[0]
+								.getElementIdentifiers();
 						if (elementIdentifiers.size() > 0) {
 							focusEditor(defaultEditor, selectedIssues[0], elementIdentifiers.iterator().next());
 						}
@@ -351,10 +355,11 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 			final ArchlightIssue fissue = issues[0];
 			for (ArchlightElementIdentifier elementIdentifier : elementIdentifiers) {
 				String defaultEditor = editorManager.getDefaultEditor();
-				if ((defaultEditor != null) && (editorManager.isEditorRegistered(defaultEditor))) {
+				if (defaultEditor != null && editorManager.isEditorRegistered(defaultEditor)) {
 					final String fdefaultEditor = defaultEditor;
 					final ArchlightElementIdentifier felementIdentifier = elementIdentifier;
-					IAction focusDefaultEditor = new Action("Focus on " + elementIdentifier.getElementDescription() + " in " + defaultEditor) {
+					IAction focusDefaultEditor = new Action("Focus on " + elementIdentifier.getElementDescription()
+							+ " in " + defaultEditor) {
 						public void run() {
 							focusEditor(fdefaultEditor, fissue, felementIdentifier);
 						}
@@ -362,7 +367,8 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 					m.add(focusDefaultEditor);
 				}
 				if (editors.length > 0) {
-					MenuManager submenu = new MenuManager("Focus on " + elementIdentifier.getElementDescription() + " in...");
+					MenuManager submenu = new MenuManager("Focus on " + elementIdentifier.getElementDescription()
+							+ " in...");
 					if (editors.length > 0) {
 						for (int j = 0; j < editors.length; j++) {
 							final String feditor = editors[j];

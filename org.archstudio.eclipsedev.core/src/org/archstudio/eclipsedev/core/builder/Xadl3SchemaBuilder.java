@@ -10,8 +10,8 @@ import org.archstudio.dblgen.DataBindingGenerationStatus;
 import org.archstudio.dblgen.IDataBindingGenerator;
 import org.archstudio.dblgen.PackageComputeException;
 import org.archstudio.eclipsedev.EclipseDevConstants;
-import org.archstudio.eclipsedev.EclipseDevPreferences;
 import org.archstudio.eclipsedev.EclipseDevConstants.ProjectCleanBehaviorType;
+import org.archstudio.eclipsedev.EclipseDevPreferences;
 import org.archstudio.eclipsedev.core.EclipseDevMyxComponent;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.eclipse.core.resources.IContainer;
@@ -23,7 +23,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -95,7 +94,11 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		}
 	}
 
+	@Override
 	protected IProject[] build(int kind, Map args, IProgressMonitor monitor) throws CoreException {
+
+		//FIXME: this is building schema from plugins that are only installed (i.e., non-workspace)
+
 		if (kind == FULL_BUILD) {
 			fullBuild(monitor);
 		}
@@ -154,7 +157,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 	}
 
 	private List<IFile> getFileChildren(IContainer container) throws CoreException {
-		IResource[] resources = container.members(IContainer.FILE);
+		IResource[] resources = container.members(IResource.FILE);
 		List<IFile> files = new ArrayList<IFile>();
 		for (IResource resource : resources) {
 			if (resource instanceof IFile) {
@@ -165,7 +168,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 	}
 
 	private List<IFolder> getFolderChildren(IContainer container) throws CoreException {
-		IResource[] resources = container.members(IContainer.FOLDER);
+		IResource[] resources = container.members(IResource.FOLDER);
 		List<IFolder> folders = new ArrayList<IFolder>();
 		for (IResource resource : resources) {
 			if (resource instanceof IFolder) {
@@ -175,6 +178,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		return folders;
 	}
 
+	@Override
 	protected void clean(IProgressMonitor monitor) throws CoreException {
 		super.clean(monitor);
 		deleteMarkers(getProject());
@@ -205,7 +209,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 
 		// Get all folders under the 'src' folder
 		IFolder sourceFolder = project.getFolder("src");
-		if ((sourceFolder != null) && (sourceFolder.exists())) {
+		if (sourceFolder != null && sourceFolder.exists()) {
 			switch (cleanBehaviorType) {
 			case DELETE_FOLDERS:
 				// Nuke the folders
@@ -247,12 +251,12 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 
 		IFolder modelFolder = getProject().getFolder("model");
 		if (modelFolder.exists()) {
-			IResource[] fileResources = modelFolder.members(IFolder.FILE);
+			IResource[] fileResources = modelFolder.members(IResource.FILE);
 			for (IResource fileResource : fileResources) {
 				if (fileResource instanceof IFile) {
 					IFile file = (IFile) fileResource;
 					String extension = file.getFileExtension();
-					if ((extension != null) && (extension.equals("xsd"))) {
+					if (extension != null && extension.equals("xsd")) {
 						schemaFiles.add(file);
 					}
 				}
@@ -353,13 +357,14 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		final IProject project = getProject();
 
 		Job job = new Job("Refreshing Project") {
+			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				try {
 					// Wait until all builds are done
 					// Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
 
 					// Then refresh the project to make sure that everything is synced
-					project.refreshLocal(IProject.DEPTH_INFINITE, monitor);
+					project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 				}
 				catch (CoreException ce) {
 				}
@@ -377,7 +382,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 	}
 
 	class XMLErrorHandler extends DefaultHandler {
-		private IFile file;
+		private final IFile file;
 
 		public XMLErrorHandler(IFile file) {
 			this.file = file;
@@ -387,14 +392,17 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			Xadl3SchemaBuilder.this.addMarker(file, e.getMessage(), e.getLineNumber(), severity);
 		}
 
+		@Override
 		public void error(SAXParseException exception) throws SAXException {
 			addMarker(exception, IMarker.SEVERITY_ERROR);
 		}
 
+		@Override
 		public void fatalError(SAXParseException exception) throws SAXException {
 			addMarker(exception, IMarker.SEVERITY_ERROR);
 		}
 
+		@Override
 		public void warning(SAXParseException exception) throws SAXException {
 			addMarker(exception, IMarker.SEVERITY_WARNING);
 		}

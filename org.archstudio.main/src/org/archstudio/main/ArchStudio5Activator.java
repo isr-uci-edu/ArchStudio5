@@ -78,7 +78,7 @@ public class ArchStudio5Activator extends AbstractUIPlugin {
 		myxRuntime.addBrickLoader(MyxUtils.createName("EclipseBrickLoader"), "org.archstudio.myx.eclipse.MyxEclipseBrickLoader", null);
 		
 		IMyxInterfaceDescription xarchInterfaceDescription = 
-			new MyxJavaClassInterfaceDescription(Collections.singleton("org.archstudio.xarchadt.common.IXArchADT"));
+			new MyxJavaClassInterfaceDescription(Collections.singleton(org.archstudio.xarchadt.IXArchADT.class.getName()));
 		IMyxName xarchInterfaceName = MyxUtils.createName("xarch");
 		
 		IMyxInterfaceDescription myxRuntimeInterfaceDescription = 
@@ -86,7 +86,7 @@ public class ArchStudio5Activator extends AbstractUIPlugin {
 		IMyxName myxRuntimeInterfaceName = MyxUtils.createName("myxruntime");
 		
 		IMyxInterfaceDescription aimInterfaceDescription = 
-			new MyxJavaClassInterfaceDescription(Collections.singleton("org.archstudio.aim.common.IAIM"));
+			new MyxJavaClassInterfaceDescription(Collections.singleton(org.archstudio.aim.IAIM.class.getName()));
 		IMyxName aimInterfaceName = MyxUtils.createName("aim");
 		
 		IMyxBrickDescription xarchadtBrickDescription = new MyxJavaClassBrickDescription("org.archstudio.xarchadt.core.XArchADTMyxComponent");

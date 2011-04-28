@@ -35,55 +35,19 @@
             id="org.archstudio.eclipsedev.core.popupMenuAdditions"
             nameFilter="*"
             objectClass="org.eclipse.core.resources.IProject">
-         <menu
-               id="org.archstudio.eclipsedev.core.popupMenuMain"
-               label="ArchStudio 5 Development">
-            <separator
-                  name="addremove">
-            </separator>
-         </menu>
          <action
-               class="org.archstudio.eclipsedev.core.action.RemoveXadl3SchemaNatureAction"
+               class="org.archstudio.eclipsedev.core.action.ToggleXadl3SchemaNatureAction"
                enablesFor="+"
-               id="org.archstudio.eclipsedev.core.removeXadl3SchemaNature"
-               label="Remove xADL 3 Schema Project Nature"
-               menubarPath="org.archstudio.eclipsedev.core.popupMenuMain/addremove"
-               style="push">
+               id="org.archstudio.eclipsedev.xadl3SchemaNature.action"
+               label="Generate xADL 3 Schema DBLs"
+               style="toggle">
             <enablement>
-               <objectState
-                     name="projectNature"
-                     value="org.archstudio.eclipsedev.xadl3SchemaNature">
-               </objectState>
-            </enablement>
-         </action>
-         <action
-               class="org.archstudio.eclipsedev.core.action.AddXadl3SchemaNatureAction"
-               enablesFor="+"
-               id="org.archstudio.eclipsedev.core.addXadl3SchemaNature"
-               label="Add xADL 3 Schema Project Nature"
-               menubarPath="org.archstudio.eclipsedev.core.popupMenuMain/addremove"
-               style="push">
-            <enablement>
-               <not>
-                  <objectState
-                        name="projectNature"
-                        value="org.archstudio.eclipsedev.xadl3SchemaNature">
-                  </objectState>
-               </not>
-            </enablement>
-         </action>
-         <visibility>
-            <and>
-               <objectState
-                     name="projectNature"
-                     value="org.eclipse.jdt.core.javanature">
-               </objectState>
                <objectState
                      name="projectNature"
                      value="org.eclipse.pde.PluginNature">
                </objectState>
-            </and>
-         </visibility>
+            </enablement>
+         </action>
       </objectContribution>
    </extension>
    <extension
@@ -100,10 +64,14 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.eclipsedev.core.EclipseDevMyxComponent">
+            class="org.archstudio.eclipsedev.core.EclipseDevMyxComponent"
+            id="org.archstudio.eclipsedev.core.EclipseDevMyxComponent"
+            name="Eclipse Development Impl">
       </brick>
       <brick
-            class="org.archstudio.eclipsedev.core.prefs.EclipseDevPreferencesMyxComponent">
+            class="org.archstudio.eclipsedev.core.prefs.EclipseDevPreferencesMyxComponent"
+            id="org.archstudio.eclipsedev.core.prefs.EclipseDevPreferencesMyxComponent"
+            name="Eclipse Development Preferences Impl">
       </brick>
    </extension>
    <extension
@@ -113,6 +81,12 @@
             id="org.archstudio.eclipsedev.core.prefs.EclipseDevPreferencePanel"
             name="ArchStudio Development">
       </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="org.archstudio.eclipsedev.core.action.ToggleXadl3SchemaNatureAction">
+      </startup>
    </extension>
 
 </plugin>

@@ -12,7 +12,9 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.rootpreferences.core.RootPreferencesMyxComponent">
+            class="org.archstudio.rootpreferences.core.RootPreferencesMyxComponent"
+            id="org.archstudio.rootpreferences.core.RootPreferencesMyxComponent"
+            name="Root Preferences Impl">
       </brick>
    </extension>
 

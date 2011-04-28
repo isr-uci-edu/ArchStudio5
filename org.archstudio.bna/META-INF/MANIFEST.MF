@@ -6,9 +6,7 @@ Bundle-Version: 5.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.archstudio.swtutils;bundle-version="5.0.0",
- org.eclipse.swt;bundle-version="3.5.1",
  org.archstudio.sysutils;bundle-version="5.0.0",
- org.eclipse.jface;bundle-version="3.5.1",
  org.eclipse.ui;bundle-version="3.5.1"
 Export-Package: org.archstudio.bna,
  org.archstudio.bna.assemblies,
@@ -23,6 +21,7 @@ Export-Package: org.archstudio.bna,
  org.archstudio.bna.logics.swt,
  org.archstudio.bna.logics.tracking,
  org.archstudio.bna.logics.util,
+ org.archstudio.bna.res,
  org.archstudio.bna.things.borders,
  org.archstudio.bna.things.glass,
  org.archstudio.bna.things.labels,

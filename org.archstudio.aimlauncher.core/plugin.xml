@@ -4,7 +4,9 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.aimlauncher.core.AIMLauncherMyxComponent">
+            class="org.archstudio.aimlauncher.core.AIMLauncherMyxComponent"
+            id="org.archstudio.aimlauncher.core.AIMLauncherMyxComponent"
+            name="AIM Launcher Impl">
       </brick>
    </extension>
    <extension

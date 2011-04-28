@@ -4,13 +4,14 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.schematron.core.SchematronMyxComponent">
+            class="org.archstudio.schematron.core.SchematronMyxComponent"
+            id="org.archstudio.schematron.core.SchematronMyxComponent"
+            name="Schematron Impl">
       </brick>
-   </extension>
-   <extension
-         point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.schematron.core.prefs.SchematronPrefsMyxComponent">
+            class="org.archstudio.schematron.core.prefs.SchematronPrefsMyxComponent"
+            id="org.archstudio.schematron.core.prefs.SchematronPrefsMyxComponent"
+            name="Schematron Prefs Impl">
       </brick>
    </extension>
    <extension

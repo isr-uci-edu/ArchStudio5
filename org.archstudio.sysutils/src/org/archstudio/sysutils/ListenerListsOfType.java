@@ -6,8 +6,7 @@ import java.util.Map;
 public class ListenerListsOfType<T>
     extends ListenerList<T>{
 
-	@SuppressWarnings("unchecked")
-	private final Map<Class, ListenerList> classToListenerListMap = new HashMap<Class, ListenerList>();
+	private final Map<Class, ListenerList<T>> classToListenerListMap = new HashMap<Class, ListenerList<T>>();
 
 	public ListenerListsOfType(Class<T> listenersClass){
 		super(listenersClass);
@@ -19,7 +18,7 @@ public class ListenerListsOfType<T>
 
 	@SuppressWarnings("unchecked")
 	private void updateClassToListenerListMap(Object listener, boolean isAdding){
-		for(Map.Entry<Class, ListenerList> entry: classToListenerListMap.entrySet()){
+		for(Map.Entry<Class, ListenerList<T>> entry: classToListenerListMap.entrySet()){
 			Class instanceOf = entry.getKey();
 			if(instanceOf.isAssignableFrom(listener.getClass())){
 				ListenerList listenerList = entry.getValue();

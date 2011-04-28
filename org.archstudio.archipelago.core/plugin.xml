@@ -4,19 +4,19 @@
    <extension
          point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.archipelago.core.ArchipelagoMyxComponent">
+            class="org.archstudio.archipelago.core.ArchipelagoMyxComponent"
+            id="org.archstudio.archipelago.core.ArchipelagoMyxComponent"
+            name="Archipelago Impl">
       </brick>
-   </extension>
-   <extension
-         point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.archipelago.core.prefs.ArchipelagoPrefsMyxComponent">
+            class="org.archstudio.archipelago.core.prefs.ArchipelagoPrefsMyxComponent"
+            id="org.archstudio.archipelago.core.prefs.ArchipelagoPrefsMyxComponent"
+            name="Archipelago Prefs Impl">
       </brick>
-   </extension>
-   <extension
-         point="org.archstudio.myx.eclipse.brick">
       <brick
-            class="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePrefsMyxComponent">
+            class="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePrefsMyxComponent"
+            id="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePrefsMyxComponent"
+            name="Archipelago Structure Prefs Impl">
       </brick>
    </extension>
    <extension

@@ -1,4 +1,7 @@
+/.metadata/
 .svn/
-*/bin/
-*/.settings/
-*/target/classes/
+/*/bin/
+/*/.settings/
+/*/target/classes/
+/*/._codegen_tmp/
+/*/CLASS.java

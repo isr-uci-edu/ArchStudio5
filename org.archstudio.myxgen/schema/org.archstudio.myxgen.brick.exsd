@@ -1,0 +1,358 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.archstudio.myxgen" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.archstudio.myxgen" id="org.archstudio.myxgen.brick" name="MyxBrick"/>
+      </appinfo>
+      <documentation>
+         Defines a myx brick, it&apos;s interfaces, their classes, etc. It essentially replaces the Component/ConnectorType in xADL. 
+MyxCodegen will generate abstract base classes that can be used as the basis for implementing the brick.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="brick" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="brick">
+      <annotation>
+         <documentation>
+            A brick corresponds to a component/connector in an architecture.
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="description" minOccurs="0" maxOccurs="1"/>
+            <element ref="interface" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="parentBrick" minOccurs="0" maxOccurs="1"/>
+         </sequence>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  A unique id in the workspace.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="identifier"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The name of the brick.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string">
+            <annotation>
+               <documentation>
+                  The java class name of the brick where the user should implement brick interface specific code. Myx codegen will generate the java source code specified by this name.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="stubClass" type="string">
+            <annotation>
+               <documentation>
+                  The java class name of the brick. base class where myx framework part will be implemented. Myx codegen will generate the java source code specified by this name.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":org.archstudio.myx.fw.IMyxBrick"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="interface">
+      <annotation>
+         <documentation>
+            An interface is a port through which a brick exposes its service to others or utilize services provided by others.
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="description" minOccurs="0" maxOccurs="1"/>
+         </sequence>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  A unique id within a brick.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="identifier"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The name of this interface. The name will be used as a java variable in the generated code and must be unique in the brick.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="direction" use="required">
+            <annotation>
+               <documentation>
+                  The direction specifies whether the brick gives out its service object through &quot;in&quot; interface or uses other service object(s) through &quot;out&quot; interfaces.  
+&lt;ul&gt;
+ &lt;li&gt;
+ &quot;In&quot; direction indicates that the service object of the brick will be grabbed by other brick(s) through this interface. Specifically, the service object will be given out via org.archstudio.myx.fw.IMyxDynamicBrick#IMyxProvidedServiceProvider(). 
+  &lt;ul&gt; 
+  &lt;li&gt;
+   inSingleServiceObject: the service object will be grabbed through this interface.
+  &lt;/li&gt;
+  &lt;/ul&gt;
+ &lt;/li&gt;
+ 
+ &lt;li&gt;
+ &quot;Out&quot; direction indicates that the brick will use service object(s) through this interface. Specifically, the service object(s) will be obtained through org.archstudio.myx.fw.IMyxDynamicBrick#interfaceConnected(). 
+  &lt;ul&gt;
+  &lt;li&gt;
+  outSingleServiceObject:the brick will grab a single service object through this interface.
+  &lt;/li&gt;
+  &lt;li&gt;
+  outMultipleServiceObjects: the brick will grab multiple service objects through this interface.
+  &lt;/li&gt;
+  &lt;/ul&gt;
+ &lt;/li&gt;
+&lt;/ul&gt;
+               </documentation>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="inSingleServiceObject">
+                  </enumeration>
+                  <enumeration value="outSingleServiceObject">
+                  </enumeration>
+                  <enumeration value="outMultipleServiceObjects">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="templateType" use="required">
+            <annotation>
+               <documentation>
+                  The template type specifies how the service will be implemented in the brick through source code generation.
+&lt;table border=&quot;1&quot;&gt;
+&lt;tr&gt;
+ &lt;th&gt;templateType&lt;/th&gt;
+ &lt;th&gt;valid direction(s)&lt;/th&gt;
+ &lt;th&gt;description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td&gt;none&lt;/td&gt;
+ &lt;td&gt;all&lt;/td&gt;
+ &lt;td&gt;no source code generation.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td&gt;delegate&lt;/td&gt;
+ &lt;td&gt;all&lt;/td&gt;
+ &lt;td&gt;The java interface of this interface will be (or has been) imlemented outside of the brick class, and the brick will delegate to it. A variable will be used to store the connection(s).
+ &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td&gt;delegateWithGetters&lt;/td&gt;
+ &lt;td&gt;all&lt;/td&gt;
+ &lt;td&gt;The java interface of this interface will be (or has been) imlemented outside of the brick class, and the brick will delegate it. Getters and Setters will be used to retrieve the connection(s).
+ &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td&gt;delegateToMyxRegistry&lt;/td&gt;
+ &lt;td&gt;inServiceObject&lt;/td&gt;
+ &lt;td&gt;Calls to this interface are directed to all entries in the MyxRegistry that implement the corresponding java interface.
+ &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td&gt;implementedInBrick&lt;/td&gt;
+ &lt;td&gt;inServiceObject&lt;/td&gt;
+ &lt;td&gt;The java interface of this interface will be implemented in the brick class.
+ &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td&gt;implementedInDelegate&lt;/td&gt;
+ &lt;td&gt;outMultipleServiceObjects&lt;/td&gt;
+ &lt;td&gt;The java interface of this interface will be implemented in a proxy class that delegates the method calling to all the service objects. A variable will be used to store the connection(s).
+ &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td&gt;implementedInDelegateWithGetters&lt;/td&gt;
+ &lt;td&gt;outMultipleServiceObjects&lt;/td&gt;
+ &lt;td&gt;The java interface of this interface will be implemented in a proxy class that delegates the method calling to all the service objects. Getters and Setters will be used to retrieve the connection(s).
+ &lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;
+               </documentation>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="delegate">
+                  </enumeration>
+                  <enumeration value="delegateWithGetters">
+                  </enumeration>
+                  <enumeration value="delegateToMyxRegistry">
+                  </enumeration>
+                  <enumeration value="implementedInBrick">
+                  </enumeration>
+                  <enumeration value="implementedInDelegate">
+                  </enumeration>
+                  <enumeration value="implementedInDelegateWithGetters">
+                  </enumeration>
+                  <enumeration value="none">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="connectionTiming" use="required">
+            <annotation>
+               <documentation>
+                  The connection timing specifies when the service object will be available.  Each brick of myx framework implements org.archstudio.myx.fw.IMyxLifecycleProcessor and its lifecycle methods are called automatically by the framework;
+&lt;ul&gt;
+ &lt;li&gt;
+ init(): when myx brick is instantiated.
+ &lt;/li&gt;
+ &lt;li&gt;
+ begin(): when all of the service objects are attached.
+ &lt;/li&gt;
+ &lt;li&gt;
+ end(): when all of the service objects are detached.
+ &lt;/li&gt;
+ &lt;li&gt;
+ destroy(): when the brick is destroyed.
+ &lt;/li&gt;
+&lt;/ul&gt;
+Each brick also implements org.archstudio.myx.fw.IMyxDynamicBrick, and its methods are automatically called by the framework;
+&lt;ul&gt;
+ &lt;li&gt;
+ interfaceConnected(): when the service object from the peer interface is passed via the peer&apos;s getServiceObject() method.
+ &lt;/li&gt;
+ &lt;li&gt;
+ interfaceDisconnecting(): ?
+ &lt;/li&gt;
+ &lt;li&gt;
+ interfaceDisconnected(): ?
+ &lt;/li&gt;
+&lt;/ul&gt;
+The connection timing specifies when interfaceConnected() will be called.
+&lt;ul&gt;
+ &lt;li&gt;
+ beforeInit: interfaceConnected() will be called before init(); that is, in init(), the service object passed by interfaceConnected will be available.
+ &lt;/li&gt;
+ &lt;li&gt;
+ beforeBegin: interfaceConnected() will be called after init() before begin(). 
+ &lt;/li&gt;
+ &lt;li&gt;
+ anyTime: The developer will implement how to handle the connection timing.
+ &lt;/li&gt;
+&lt;/ul&gt;
+               </documentation>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="beforeBegin">
+                  </enumeration>
+                  <enumeration value="beforeInit">
+                  </enumeration>
+                  <enumeration value="anyTime">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The java interface the service object through this interface will implement. The developer needs to prepare the interface according to the service he/she wants to implement.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="description" type="string">
+      <annotation>
+         <appinfo>
+            <meta.element translatable="true"/>
+         </appinfo>
+         <documentation>
+            Human readable description.
+         </documentation>
+      </annotation>
+   </element>
+
+   <element name="parentBrick">
+      <annotation>
+         <documentation>
+            Optional brick to be extended.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="parentBrick" type="string">
+            <annotation>
+               <documentation>
+                  The parent brick id that will be extended. When this attribute is specified, MyxCodegen will include all the Brick interfaces of the parent (and its ancestors).
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="identifier" basedOn="org.archstudio.myx.eclipse.brick/brick/@id"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appinfo>
+         <meta.section type="since"/>
+      </appinfo>
+      <documentation>
+         ArchStudio 5
+      </documentation>
+   </annotation>
+
+
+   <annotation>
+      <appinfo>
+         <meta.section type="apiinfo"/>
+      </appinfo>
+      <documentation>
+         No API is provided for this extension.
+      </documentation>
+   </annotation>
+
+
+
+</schema>
