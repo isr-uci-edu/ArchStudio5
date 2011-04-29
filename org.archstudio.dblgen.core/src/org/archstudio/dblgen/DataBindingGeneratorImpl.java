@@ -40,7 +40,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.converter.ModelConverter.EPackageConvertInfo;
-import org.eclipse.emf.converter.util.ConverterUtil;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
@@ -48,7 +47,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.emf.importer.ImporterPlugin;
 import org.eclipse.emf.importer.ModelImporter;
 import org.eclipse.pde.core.project.IBundleProjectDescription;
 import org.eclipse.pde.core.project.IBundleProjectService;
@@ -558,6 +556,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		List<DataBindingGenerationStatus> statusList = new ArrayList<DataBindingGenerationStatus>();
 
 		String shortProjectName = projectName.substring(projectName.lastIndexOf(".") + 1);
+		final String finalProjectName = projectName;
 
 		XSDImporter importer = new XSDImporter() {
 			/*
@@ -570,7 +569,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			protected List<Resource> computeResourcesToBeSaved() {
 				List<Resource> resources = super.computeResourcesToBeSaved();
 				// move these resources to the correct location
-				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(finalProjectName);
 				for (Resource resource : resources) {
 					URI uri = resource.getURI();
 					IFile newFile = project.getFile(uri.lastSegment());
