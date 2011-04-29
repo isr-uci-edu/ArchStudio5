@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 
 public class MyxClassManagerException extends Exception implements java.io.Serializable {
 
+	private static final long serialVersionUID = -3134413141857370958L;
+
 	public MyxClassManagerException(ClassNotFoundException cause) {
 		super("Myx class manager class not found", cause);
 	}

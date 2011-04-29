@@ -13,6 +13,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Hashtable;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class LJMServer extends Thread {
 
 	public static final int LJM_STAT_ERROR = 1000;

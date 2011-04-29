@@ -4,7 +4,6 @@ Bundle-Name: Myx Framework
 Bundle-SymbolicName: org.archstudio.myx.fw;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Vendor: archstudio.org
-Bundle-Localization: plugin
 Export-Package: 
  org.archstudio.ljm,
  org.archstudio.myx.comp,

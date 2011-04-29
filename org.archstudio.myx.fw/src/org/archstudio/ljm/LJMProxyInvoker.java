@@ -11,6 +11,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.net.Socket;
 
+@SuppressWarnings("rawtypes")
 public class LJMProxyInvoker implements InvocationHandler {
 
 	protected String objectName;

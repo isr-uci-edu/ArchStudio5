@@ -159,11 +159,13 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 	}
 
 	private List<IFolder> getFolderChildren(IContainer container) throws CoreException {
-		IResource[] resources = container.members(IResource.FOLDER);
 		List<IFolder> folders = new ArrayList<IFolder>();
-		for (IResource resource : resources) {
-			if (resource instanceof IFolder) {
-				folders.add((IFolder) resource);
+		if (container.exists()) {
+			IResource[] resources = container.members(IResource.FOLDER);
+			for (IResource resource : resources) {
+				if (resource instanceof IFolder) {
+					folders.add((IFolder) resource);
+				}
 			}
 		}
 		return folders;
@@ -249,7 +251,8 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			String projectName = getProject().getName();
 
 			dbGenerator.setMonitor(BasicMonitor.toMonitor(monitor));
-			List<DataBindingGenerationStatus> statusList = dbGenerator.generateBindings(fileURIs, schemaLocations, projectName);
+			List<DataBindingGenerationStatus> statusList = dbGenerator.generateBindings(fileURIs, schemaLocations,
+					projectName);
 
 			for (DataBindingGenerationStatus status : statusList) {
 				String schemaURI = status.getSchemaURIString();

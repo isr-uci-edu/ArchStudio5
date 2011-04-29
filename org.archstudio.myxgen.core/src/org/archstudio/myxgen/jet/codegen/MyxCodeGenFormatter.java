@@ -41,8 +41,7 @@ public class MyxCodeGenFormatter {
 	/** line separator */
 	private static final String lineseparator = System.getProperty("line.separator");
 
-	@SuppressWarnings("unchecked")
-	private static final Map formatOptions = new HashMap();
+	private static final Map<String, String> formatOptions = new HashMap<String, String>();
 	static {
 		createFormatOptions();
 	}
@@ -52,7 +51,6 @@ public class MyxCodeGenFormatter {
 	 */
 	private static String formatterFileName = null;
 
-	@SuppressWarnings("unchecked")
 	private static void createFormatOptions() {
 		//TODO: need to read ArchStudio code style
 		formatOptions.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_5);

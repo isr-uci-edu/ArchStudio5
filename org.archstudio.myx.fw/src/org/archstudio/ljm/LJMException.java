@@ -2,6 +2,8 @@ package org.archstudio.ljm;
 
 public class LJMException extends RuntimeException implements java.io.Serializable {
 
+	private static final long serialVersionUID = -2863645800942870129L;
+
 	protected boolean isTransient = false;
 
 	public LJMException(String description) {

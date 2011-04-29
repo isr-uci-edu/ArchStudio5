@@ -4,6 +4,8 @@ import java.util.List;
 
 class MyxBasicWeld implements IMyxWeld {
 
+	private static final long serialVersionUID = 7382920318037362753L;
+
 	protected final List<? extends IMyxName> requiredPath;
 	protected final IMyxName requiredBrickName;
 	protected final IMyxName requiredInterfaceName;

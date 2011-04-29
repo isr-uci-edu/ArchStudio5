@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Hashtable;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class LJMDeployment {
-
-	private static int refCount = 0;
 
 	private static Hashtable objectServers = new Hashtable();
 	private static Hashtable refCounts = new Hashtable();

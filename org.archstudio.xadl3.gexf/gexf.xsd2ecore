@@ -2,9 +2,9 @@
 <xsd2ecore:XSD2EcoreMappingRoot xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd2ecore="http://www.eclipse.org/emf/2002/XSD2Ecore" inputs="http://gexf.net/1.2draft/gexf.xsd#/ http://gexf.net/1.2draft/data.xsd#/ http://gexf.net/1.2draft/dynamics.xsd#/ http://gexf.net/1.2draft/viz.xsd#/ http://gexf.net/1.2draft/phylogenics.xsd#/"
     outputs="gexf.ecore#/ viz.ecore#/" topToBottom="true">
-  <nested inputs="bundleentry://194.fwk1109376982/cache/www.w3.org/2001/XMLSchema.xsd#//string;XSDSimpleTypeDefinition=9"
+  <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//string;XSDSimpleTypeDefinition=9"
       outputs="http://www.eclipse.org/emf/2003/XMLType#//String"/>
-  <nested inputs="bundleentry://194.fwk1109376982/cache/www.w3.org/2001/XMLSchema.xsd#//integer;XSDSimpleTypeDefinition=40"
+  <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//integer;XSDSimpleTypeDefinition=40"
       outputs="http://www.eclipse.org/emf/2003/XMLType#//Integer"/>
   <nested inputs="http://gexf.net/1.2draft/gexf.xsd#//id-type;XSDSimpleTypeDefinition=2"
       outputs="gexf.ecore#//IdType"/>
@@ -51,11 +51,11 @@
     <nested inputs="http://gexf.net/1.2draft/data.xsd#//class-type;XSDSimpleTypeDefinition=1/XSDEnumerationFacet=1"
         outputs="gexf.ecore#//ClassType/edge"/>
   </nested>
-  <nested inputs="bundleentry://194.fwk1109376982/cache/www.w3.org/2001/XMLSchema.xsd#//double;XSDSimpleTypeDefinition=12"
+  <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//double;XSDSimpleTypeDefinition=12"
       outputs="http://www.eclipse.org/emf/2003/XMLType#//Double"/>
-  <nested inputs="bundleentry://194.fwk1109376982/cache/www.w3.org/2001/XMLSchema.xsd#//date;XSDSimpleTypeDefinition=17"
+  <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//date;XSDSimpleTypeDefinition=17"
       outputs="http://www.eclipse.org/emf/2003/XMLType#//Date"/>
-  <nested inputs="bundleentry://194.fwk1109376982/cache/www.w3.org/2001/XMLSchema.xsd#//dateTime;XSDSimpleTypeDefinition=15"
+  <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//dateTime;XSDSimpleTypeDefinition=15"
       outputs="http://www.eclipse.org/emf/2003/XMLType#//DateTime"/>
   <nested inputs="http://gexf.net/1.2draft/dynamics.xsd#//time-type;XSDSimpleTypeDefinition"
       outputs="gexf.ecore#//TimeType"/>
@@ -123,11 +123,11 @@
     <nested inputs="http://gexf.net/1.2draft/dynamics.xsd#//spells-content;XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle"
         outputs="gexf.ecore#//SpellsContent/spell"/>
   </nested>
-  <nested inputs="bundleentry://194.fwk1109376982/cache/www.w3.org/2001/XMLSchema.xsd#//float;XSDSimpleTypeDefinition=11"
+  <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//float;XSDSimpleTypeDefinition=11"
       outputs="http://www.eclipse.org/emf/2003/XMLType#//Float"/>
   <nested inputs="http://gexf.net/1.2draft/viz.xsd#//alpha-channel;XSDSimpleTypeDefinition=1"
       outputs="viz.ecore#//AlphaChannel"/>
-  <nested inputs="bundleentry://194.fwk1109376982/cache/www.w3.org/2001/XMLSchema.xsd#//nonNegativeInteger;XSDSimpleTypeDefinition=47"
+  <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//nonNegativeInteger;XSDSimpleTypeDefinition=47"
       outputs="http://www.eclipse.org/emf/2003/XMLType#//NonNegativeInteger"/>
   <nested inputs="http://gexf.net/1.2draft/viz.xsd#//color-channel;XSDSimpleTypeDefinition"
       outputs="viz.ecore#//ColorChannel"/>
@@ -203,7 +203,7 @@
     <nested inputs="http://gexf.net/1.2draft/viz.xsd#//edge-shape-content;XSDComplexTypeDefinition=5/XSDAttributeUse"
         outputs="viz.ecore#//EdgeShapeContent/value"/>
   </nested>
-  <nested inputs="bundleentry://194.fwk1109376982/cache/www.w3.org/2001/XMLSchema.xsd#//token;XSDSimpleTypeDefinition=29"
+  <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//token;XSDSimpleTypeDefinition=29"
       outputs="http://www.eclipse.org/emf/2003/XMLType#//Token"/>
   <nested inputs="http://gexf.net/1.2draft/gexf.xsd#//edgetype-type;XSDSimpleTypeDefinition=1"
       outputs="gexf.ecore#//EdgetypeType">
@@ -322,7 +322,7 @@
     <nested inputs="http://gexf.net/1.2draft/viz.xsd#//size-content;XSDComplexTypeDefinition=2/XSDAttributeUse"
         outputs="viz.ecore#//SizeContent/value"/>
   </nested>
-  <nested inputs="bundleentry://194.fwk1109376982/cache/www.w3.org/2001/XMLSchema.xsd#//anyURI;XSDSimpleTypeDefinition=25"
+  <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//anyURI;XSDSimpleTypeDefinition=25"
       outputs="http://www.eclipse.org/emf/2003/XMLType#//AnyURI"/>
   <nested inputs="http://gexf.net/1.2draft/viz.xsd#//node-shape-type;XSDSimpleTypeDefinition=4"
       outputs="viz.ecore#//NodeShapeType">

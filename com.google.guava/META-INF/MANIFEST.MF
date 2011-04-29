@@ -1,37 +1,22 @@
 Manifest-Version: 1.0
-Export-Package: com.google.common.base;uses:="javax.annotation";versio
- n="0.0.0.r10-SNAPSHOT",com.google.common.net;uses:="javax.annotation,
- com.google.common.base,com.google.common.io,com.google.common.primiti
- ves,com.google.common.collect";version="0.0.0.r10-SNAPSHOT",com.googl
- e.common.util.concurrent;uses:="com.google.common.base,javax.annotati
- on,com.google.common.collect";version="0.0.0.r10-SNAPSHOT",com.google
- .common.collect;uses:="com.google.common.base,javax.annotation,com.go
- ogle.common.primitives";version="0.0.0.r10-SNAPSHOT",com.google.commo
- n.primitives;uses:="com.google.common.base,sun.misc,javax.annotation"
- ;version="0.0.0.r10-SNAPSHOT",com.google.common.io;uses:="com.google.
- common.base,javax.annotation,com.google.common.primitives";version="0
- .0.0.r10-SNAPSHOT",com.google.common.annotations;version="0.0.0.r10-S
- NAPSHOT"
-Tool: Bnd-1.43.0
-Bundle-Name: Guava (Google Common Libraries)
-Created-By: Apache Maven Bundle Plugin
-Bundle-Vendor: Google
-Build-Jdk: 1.6.0_24
-Bundle-Version: 0.0.0.r10-SNAPSHOT
-Bnd-LastModified: 1303059206239
 Bundle-ManifestVersion: 2
-Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
-Bundle-Description: Guava is a suite of core and expanded libraries th
- at include     utility classes, google's collections, io classes, and
-  much     much more.        This project is a complete packaging of a
- ll the Guava libraries    into a single jar.  Individual portions of 
- Guava can be used    by downloading the appropriate module and its de
- pendencies.        Guava (complete) has only one code dependency - ja
- vax.annotation,    per the JSR-305 spec.
-Bundle-SymbolicName: com.google.guava
-Bundle-DocURL: http://www.google.com/
+Bundle-Name: Guava (Google Common Libraries)
+Bundle-SymbolicName: com.google.guava;singleton:=true
+Bundle-Version: 0.0.0.r9
+Bundle-Vendor: google.com
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: lib/jsr305.jar,
- .
-Import-Package: sun.misc;resolution:=optional
-
+Bundle-ClassPath: .,
+ lib/guava-r09.jar,
+ lib/jsr305.jar
+Bundle-ActivationPolicy: lazy
+Export-Package: com.google.common.annotations,
+ com.google.common.base,
+ com.google.common.base.internal,
+ com.google.common.collect,
+ com.google.common.io,
+ com.google.common.net,
+ com.google.common.primitives,
+ com.google.common.util.concurrent,
+ javax.annotation,
+ javax.annotation.concurrent,
+ javax.annotation.meta

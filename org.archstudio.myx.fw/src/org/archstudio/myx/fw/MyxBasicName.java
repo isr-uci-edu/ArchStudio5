@@ -2,6 +2,8 @@ package org.archstudio.myx.fw;
 
 class MyxBasicName implements IMyxName {
 
+	private static final long serialVersionUID = 7434809370415125742L;
+
 	protected String name;
 
 	public MyxBasicName(String name) {

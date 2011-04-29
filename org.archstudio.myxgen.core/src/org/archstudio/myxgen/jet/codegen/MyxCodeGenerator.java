@@ -241,7 +241,6 @@ public class MyxCodeGenerator {
 	 * @param outputJavaClassName
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	private IFile generateSkeleonCodeJet2(CodegenBrick brick, String templateName, String outputJavaClassName) {
 		IFile generatedFile = null;
 		IFile tmpInputFile = null;
@@ -252,7 +251,7 @@ public class MyxCodeGenerator {
 
 		try {
 			tmpInputFile = createTmpJetInput(outputJavaClassName, templateName);
-			Map variables = new HashMap();
+			Map<String, CodegenBrick> variables = new HashMap<String, CodegenBrick>();
 			variables.put(MyxCodegenConstants.JET2_TEMPLATE_VARIABLE_NAME_BRICK, brick);
 
 			IStatus status = JET2Platform.runTransformOnResource(pluginId, tmpInputFile, variables,

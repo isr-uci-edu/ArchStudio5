@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xsd2ecore:XSD2EcoreMappingRoot xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd2ecore="http://www.eclipse.org/emf/2002/XSD2Ecore" inputs="model/hints-3.0.xsd#/ http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#/ http://www.archstudio.org/svn/main/schemas/xlink.xsd#/"
-    outputs="xadlcore_3_0.ecore#/ xlink.ecore#/ hints_3_0.ecore#/" topToBottom="true">
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd2ecore="http://www.eclipse.org/emf/2002/XSD2Ecore" inputs="model/domain-3.0.xsd#/ http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#/ http://www.archstudio.org/svn/main/schemas/xlink.xsd#/"
+    outputs="xadlcore_3_0.ecore#/ xlink.ecore#/ domain_3_0.ecore#/" topToBottom="true">
   <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//anyType;XSDComplexTypeDefinition=28"
       outputs="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
   <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//topLevelElement;XSDElementDeclaration=1"
@@ -21,6 +21,16 @@
       outputs="http://www.eclipse.org/emf/2003/XMLType#//String"/>
   <nested inputs="http://www.archstudio.org/svn/main/schemas/xlink.xsd#//type;XSDAttributeDeclaration"
       outputs="xlink.ecore#//DocumentRoot/type"/>
+  <nested inputs="model/domain-3.0.xsd#//DomainType;XSDSimpleTypeDefinition" outputs="domain_3_0.ecore#//DomainType">
+    <nested inputs="model/domain-3.0.xsd#//DomainType;XSDSimpleTypeDefinition/XSDEnumerationFacet"
+        outputs="domain_3_0.ecore#//DomainType/top"/>
+    <nested inputs="model/domain-3.0.xsd#//DomainType;XSDSimpleTypeDefinition/XSDEnumerationFacet=1"
+        outputs="domain_3_0.ecore#//DomainType/bottom"/>
+  </nested>
+  <nested inputs="model/domain-3.0.xsd#//Domain;XSDComplexTypeDefinition" outputs="domain_3_0.ecore#//Domain">
+    <nested inputs="model/domain-3.0.xsd#//Domain;XSDComplexTypeDefinition/XSDAttributeUse"
+        outputs="domain_3_0.ecore#//Domain/type"/>
+  </nested>
   <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//ID;XSDSimpleTypeDefinition=37"
       outputs="http://www.eclipse.org/emf/2003/XMLType#//ID"/>
   <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//Extension;XSDComplexTypeDefinition=1"
@@ -28,24 +38,10 @@
     <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//Extension;XSDComplexTypeDefinition=1/XSDAttributeUse"
         outputs="xadlcore_3_0.ecore#//Extension/id"/>
   </nested>
-  <nested inputs="model/hints-3.0.xsd#//Value;XSDComplexTypeDefinition" outputs="hints_3_0.ecore#//Value">
-    <nested inputs="model/hints-3.0.xsd#//Value;XSDComplexTypeDefinition/XSDParticle/XSDModelGroup/XSDParticle"
-        outputs="hints_3_0.ecore#//Value/value"/>
-    <nested inputs="model/hints-3.0.xsd#//Value;XSDComplexTypeDefinition/XSDAttributeUse=1"
-        outputs="hints_3_0.ecore#//Value/data"/>
-    <nested inputs="model/hints-3.0.xsd#//Value;XSDComplexTypeDefinition/XSDAttributeUse"
-        outputs="hints_3_0.ecore#//Value/type"/>
-  </nested>
-  <nested inputs="model/hints-3.0.xsd#//Hint;XSDComplexTypeDefinition=1" outputs="hints_3_0.ecore#//Hint">
-    <nested inputs="model/hints-3.0.xsd#//Hint;XSDComplexTypeDefinition=1/XSDParticle/XSDModelGroup/XSDParticle"
-        outputs="hints_3_0.ecore#//Hint/value"/>
-    <nested inputs="model/hints-3.0.xsd#//Hint;XSDComplexTypeDefinition=1/XSDAttributeUse"
-        outputs="hints_3_0.ecore#//Hint/name"/>
-  </nested>
-  <nested inputs="model/hints-3.0.xsd#//HintsExtension;XSDComplexTypeDefinition=2"
-      outputs="hints_3_0.ecore#//HintsExtension">
-    <nested inputs="model/hints-3.0.xsd#//HintsExtension;XSDComplexTypeDefinition=2/XSDParticle/XSDModelGroup/XSDParticle"
-        outputs="hints_3_0.ecore#//HintsExtension/hint"/>
+  <nested inputs="model/domain-3.0.xsd#//DomainExtension;XSDComplexTypeDefinition=1"
+      outputs="domain_3_0.ecore#//DomainExtension">
+    <nested inputs="model/domain-3.0.xsd#//DomainExtension;XSDComplexTypeDefinition=1/XSDParticle/XSDModelGroup/XSDParticle"
+        outputs="domain_3_0.ecore#//DomainExtension/domain"/>
   </nested>
   <nested inputs="http://www.archstudio.org/svn/main/schemas/xadlcore-3.0.xsd#//SimpleLink;XSDComplexTypeDefinition"
       outputs="xadlcore_3_0.ecore#//SimpleLink">

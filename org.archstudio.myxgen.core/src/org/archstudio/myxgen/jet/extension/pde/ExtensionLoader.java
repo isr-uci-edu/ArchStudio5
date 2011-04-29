@@ -27,6 +27,7 @@ public class ExtensionLoader {
 	/**
 	 * A map such that key = name, value = ExtensionBrick
 	 */
+	@SuppressWarnings("unused")
 	private final Map<String, IMyxBrickExtension> nameBrickMap;
 
 	/**

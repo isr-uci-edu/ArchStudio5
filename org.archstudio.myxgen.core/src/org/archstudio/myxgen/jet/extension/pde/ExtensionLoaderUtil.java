@@ -115,6 +115,7 @@ public class ExtensionLoaderUtil {
 
 		Map<String, IMyxBrickExtension> idBrickMap = new HashMap<String, IMyxBrickExtension>();
 
+		@SuppressWarnings("unused")
 		String projectName = pluginModel.getUnderlyingResource().getProject().getName();
 
 		// gets the extensionPoint of the given javaProject

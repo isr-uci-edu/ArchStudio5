@@ -2,6 +2,7 @@ package org.archstudio.myx.fw;
 
 import java.util.*;
 
+@SuppressWarnings("unused")
 class MyxInterfaceRepository {
 
 	protected Map<IMyxBrick, List<MyxInterface>> brickToInterfaceListMap = Collections.synchronizedMap(new HashMap<IMyxBrick, List<MyxInterface>>());
