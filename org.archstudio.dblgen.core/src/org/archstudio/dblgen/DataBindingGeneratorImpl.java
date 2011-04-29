@@ -14,10 +14,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.archstudio.dblgen.DataBindingGenerationStatus;
 import org.archstudio.dblgen.DataBindingGenerationStatus.Status;
 import org.archstudio.dblgen.builder.Xadl3SchemaLocation;
-import org.archstudio.dblgen.IDataBindingGenerator;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -42,6 +40,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.converter.ModelConverter.EPackageConvertInfo;
+import org.eclipse.emf.converter.util.ConverterUtil;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
@@ -49,6 +48,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.importer.ImporterPlugin;
 import org.eclipse.emf.importer.ModelImporter;
 import org.eclipse.pde.core.project.IBundleProjectDescription;
 import org.eclipse.pde.core.project.IBundleProjectService;
@@ -425,6 +425,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 
 				// List of .genmodel files in the project that we want to parse
 				List<IFile> genModelFiles = getGenModelFilesInProject(xadlSchemaProject);
+				//System.err.println("GenModel files: " + genModelFiles);
 
 				// Parsed GenModel files for each GenModel file
 				Map<IFile, GenModel> genModelFileToGenModelMap = parseGenModelFiles(resourceSet, genModelFiles);
@@ -553,17 +554,36 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 
 	//projectName = e.g., "org.archstudio.xadl3bindings"
 	public synchronized List<DataBindingGenerationStatus> generateBindings(List<String> schemaURIStrings,
-			List<Xadl3SchemaLocation> schemaLocations, String projectName) {
+			List<Xadl3SchemaLocation> schemaLocations, final String projectName) {
 		List<DataBindingGenerationStatus> statusList = new ArrayList<DataBindingGenerationStatus>();
 
 		String shortProjectName = projectName.substring(projectName.lastIndexOf(".") + 1);
 
-		XSDImporter importer = new XSDImporter();
+		XSDImporter importer = new XSDImporter() {
+			/*
+			 * Note: XSDImporter seems to not support non-local files (e.g., projects imported from an external folder,
+			 * linked files, etc.). This is a problem because, in such cases, the generated resources are saved in the
+			 * wrong location. Later, when searching for the resources, they cannot be found and the process fails. To
+			 * resolve this, we extend the base class and move the resources to the correct location before saving them.
+			 */
+			@Override
+			protected List<Resource> computeResourcesToBeSaved() {
+				List<Resource> resources = super.computeResourcesToBeSaved();
+				// move these resources to the correct location
+				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+				for (Resource resource : resources) {
+					URI uri = resource.getURI();
+					IFile newFile = project.getFile(uri.lastSegment());
+					resource.setURI(URI.createURI(newFile.getLocationURI().toString()));
+				}
+				return resources;
+			}
+		};
 		importer.setUsePlatformURI(false);
 		importer.setCreateEcoreMap(true);
 
+		// we still have to assign some value here, even though it doesn't work
 		IPath genModelContainerPath = ResourcesPlugin.getWorkspace().getRoot().getLocation().append("/" + projectName);
-		// FIXME: files are being placed in the wrong folder if the project is not in the workspace directory
 		importer.setGenModelContainerPath(genModelContainerPath);
 		importer.setGenModelFileName(shortProjectName + ".genmodel");
 
@@ -649,7 +669,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			computePackagesSucceeded = true;
 
 			// fix names of external packages
-			Multimap<String, EPackage> m = Multimaps.index(importer.getEPackages(), new Function<EPackage, String>(){
+			Multimap<String, EPackage> m = Multimaps.index(importer.getEPackages(), new Function<EPackage, String>() {
 				@Override
 				public String apply(EPackage input) {
 					return input.getNsURI();
@@ -766,12 +786,18 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			}
 
 			if (modelSaveSucceeded) {
-				genModel.setCanGenerate(true);
+				try {
+					genModel.setCanGenerate(true);
 
-				Generator codeGenerator = new Generator();
-				codeGenerator.setInput(genModel);
-				codeGenerator.generate(genModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, emfMonitor);
-
+					Generator codeGenerator = new Generator();
+					codeGenerator.setInput(genModel);
+					codeGenerator.generate(genModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, emfMonitor);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+					statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE,
+							"Error generating content for " + combinedModelURIString, e));
+				}
 				try {
 					IWorkspace workspace = ResourcesPlugin.getWorkspace();
 					IWorkspaceRoot workspaceRoot = workspace.getRoot();
