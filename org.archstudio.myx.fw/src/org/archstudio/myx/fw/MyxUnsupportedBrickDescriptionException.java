@@ -2,6 +2,8 @@ package org.archstudio.myx.fw;
 
 public class MyxUnsupportedBrickDescriptionException extends Exception {
 
+	private static final long serialVersionUID = -1440007612194744756L;
+
 	public MyxUnsupportedBrickDescriptionException() {
 		super();
 	}

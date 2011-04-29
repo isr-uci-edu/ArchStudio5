@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 
 public class MyxBrickLoaderException extends Exception implements java.io.Serializable {
 
+	private static final long serialVersionUID = 4367443479749769456L;
+
 	public MyxBrickLoaderException(ClassNotFoundException cause) {
 		super("Myx brick loader class not found", cause);
 	}

@@ -51,17 +51,17 @@ public class TypedHashMap implements TypedMap {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <K extends TypedKey<? super V>, V> V get(K key) {
+	public <K extends TypedKey<V>, V> V get(K key) {
 		return (V) map.get(key);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <K extends TypedKey<? super V>, V> V put(K key, V value) {
+	public <K extends TypedKey<V>, V> V put(K key, V value) {
 		return (V) map.put(key, value);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <K extends TypedKey<? super V>, V> V remove(K key) {
+	public <K extends TypedKey<V>, V> V remove(K key) {
 		return (V) map.remove(key);
 	}
 
@@ -85,10 +85,12 @@ public class TypedHashMap implements TypedMap {
 		return map.entrySet();
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		return map.equals(o);
 	}
 
+	@Override
 	public int hashCode() {
 		return map.hashCode();
 	}

@@ -4,6 +4,8 @@ import java.net.InetAddress;
 
 public class LJMEndpoint implements java.io.Serializable {
 
+	private static final long serialVersionUID = -112230200465187936L;
+
 	protected InetAddress host;
 	protected int port;
 	protected String objectName;

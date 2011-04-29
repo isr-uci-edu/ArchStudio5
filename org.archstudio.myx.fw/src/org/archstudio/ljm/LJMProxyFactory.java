@@ -4,6 +4,7 @@ import java.lang.reflect.Proxy;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+@SuppressWarnings("rawtypes")
 public class LJMProxyFactory {
 
 	public static Object createProxy(String host, int port, String objectName, Class[] interfaceClasses) throws LJMException {

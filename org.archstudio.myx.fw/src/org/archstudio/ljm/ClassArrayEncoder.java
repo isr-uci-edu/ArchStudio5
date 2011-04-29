@@ -2,6 +2,7 @@ package org.archstudio.ljm;
 
 import java.util.HashMap;
 
+@SuppressWarnings("rawtypes")
 public class ClassArrayEncoder {
 
 	private static boolean initDone = false;

@@ -14,11 +14,11 @@ public interface TypedMap {
 
 	boolean containsValue(Object value);
 
-	public <K extends TypedKey<? super V>, V> V get(K key);
+	public <K extends TypedKey<V>, V> V get(K key);
 
-	public <K extends TypedKey<? super V>, V> V put(K key, V value);
+	public <K extends TypedKey<V>, V> V put(K key, V value);
 
-	public <K extends TypedKey<? super V>, V> V remove(K key);
+	public <K extends TypedKey<V>, V> V remove(K key);
 
 	public void putAll(TypedMap m);
 

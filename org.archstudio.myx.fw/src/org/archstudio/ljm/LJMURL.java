@@ -6,6 +6,8 @@ import java.net.UnknownHostException;
 
 public class LJMURL implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1239612043748440884L;
+
 	public static final String DEFAULT_PROTOCOL = "ljm";
 
 	protected String protocol;

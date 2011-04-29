@@ -1032,13 +1032,15 @@ public class SystemUtils {
 	}
 
 	public static String mergeStrings(String[] stringArray, String front, String seperator, String end) {
-		if (stringArray == null || stringArray.length == 0)
+		if (stringArray == null || stringArray.length == 0) {
 			return "";
+		}
 		StringBuffer sb = new StringBuffer();
 		sb.append(front);
 		for (int i = 0, length = stringArray.length; i < length; i++) {
-			if (i > 0)
+			if (i > 0) {
 				sb.append(seperator);
+			}
 			sb.append(stringArray[i]);
 		}
 		sb.append(end);
@@ -1050,10 +1052,12 @@ public class SystemUtils {
 		Matcher m = Pattern.compile("\\$([0-9]+)").matcher(message);
 		while (m.find()) {
 			int v = Integer.valueOf(m.group(1));
-			if (v >= 0 && v < variables.length)
+			if (v >= 0 && v < variables.length) {
 				m.appendReplacement(sb, variables[v] == null ? "null" : variables[v].toString());
-			else
+			}
+			else {
 				sb.append(m.group());
+			}
 		}
 		m.appendTail(sb);
 		return sb.toString();
@@ -1134,8 +1138,12 @@ public class SystemUtils {
 				SystemUtils.mapEntryValueComparator);
 	}
 
-	public static <T> List<T> createCopyOnWriteArrayList() {
+	public static <T> CopyOnWriteArrayList<T> newCopyOnWriteArrayList() {
 		return new CopyOnWriteArrayList<T>();
+	}
+
+	public static <T> CopyOnWriteArrayList<T> newCopyOnWriteArrayList(Iterable<T> elements) {
+		return new CopyOnWriteArrayList<T>(Lists.newArrayList(elements));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -1151,16 +1159,16 @@ public class SystemUtils {
 		return (T) o;
 	}
 
-	public static final <T> Iterable<T> copyCollection(Collection<T> collection) {
-		return collection instanceof CopyOnWriteArrayList || collection instanceof CopyOnWriteArraySet ? collection
-				: Lists.newArrayList(collection);
+	public static final <T> Iterable<T> copyIterable(Iterable<T> iterable) {
+		return iterable instanceof CopyOnWriteArrayList || iterable instanceof CopyOnWriteArraySet ? iterable : Lists
+				.newArrayList(iterable);
 	}
 
-	public static final <T, K> Iterable<T> copyCollection(Map<K, Collection<T>> map, K key) {
-		return map != null && map.containsKey(key) ? copyCollection(map.get(key)) : Collections.<T> emptyList();
+	public static final <T, K> Iterable<T> copyIterable(Map<K, ? extends Iterable<T>> map, K key) {
+		return map != null && map.containsKey(key) ? copyIterable(map.get(key)) : Collections.<T> emptyList();
 	}
 
-	public static final void closeQuietly(InputStream is) {
+	public static void closeQuietly(InputStream is) {
 		try {
 			if (is != null) {
 				is.close();

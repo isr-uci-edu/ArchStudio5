@@ -2,7 +2,7 @@
 <xsd2ecore:XSD2EcoreMappingRoot xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsd2ecore="http://www.eclipse.org/emf/2002/XSD2Ecore" inputs="model/xadlcore-3.0.xsd#/ http://www.archstudio.org/svn/main/schemas/xlink.xsd#/"
     outputs="xadlcore_3_0.ecore#/ xlink.ecore#/" topToBottom="true">
-  <nested inputs="bundleentry://194.fwk1109376982/cache/www.w3.org/2001/XMLSchema.xsd#//anyType;XSDComplexTypeDefinition=28"
+  <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//anyType;XSDComplexTypeDefinition=28"
       outputs="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
   <nested inputs="model/xadlcore-3.0.xsd#//topLevelElement;XSDElementDeclaration=1"
       outputs="xadlcore_3_0.ecore#//DocumentRoot/topLevelElement"/>
@@ -12,15 +12,15 @@
         outputs="xadlcore_3_0.ecore#//XADLType/topLevelElement"/>
   </nested>
   <nested inputs="model/xadlcore-3.0.xsd#//xADL;XSDElementDeclaration" outputs="xadlcore_3_0.ecore#//DocumentRoot/xADL"/>
-  <nested inputs="bundleentry://194.fwk1109376982/cache/www.w3.org/2001/XMLSchema.xsd#//anyURI;XSDSimpleTypeDefinition=25"
+  <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//anyURI;XSDSimpleTypeDefinition=25"
       outputs="http://www.eclipse.org/emf/2003/XMLType#//AnyURI"/>
   <nested inputs="http://www.archstudio.org/svn/main/schemas/xlink.xsd#//href;XSDAttributeDeclaration=1"
       outputs="xlink.ecore#//DocumentRoot/href"/>
-  <nested inputs="bundleentry://194.fwk1109376982/cache/www.w3.org/2001/XMLSchema.xsd#//string;XSDSimpleTypeDefinition=9"
+  <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//string;XSDSimpleTypeDefinition=9"
       outputs="http://www.eclipse.org/emf/2003/XMLType#//String"/>
   <nested inputs="http://www.archstudio.org/svn/main/schemas/xlink.xsd#//type;XSDAttributeDeclaration"
       outputs="xlink.ecore#//DocumentRoot/type"/>
-  <nested inputs="bundleentry://194.fwk1109376982/cache/www.w3.org/2001/XMLSchema.xsd#//ID;XSDSimpleTypeDefinition=37"
+  <nested inputs="bundleentry://254.fwk139732265/cache/www.w3.org/2001/XMLSchema.xsd#//ID;XSDSimpleTypeDefinition=37"
       outputs="http://www.eclipse.org/emf/2003/XMLType#//ID"/>
   <nested inputs="model/xadlcore-3.0.xsd#//Extension;XSDComplexTypeDefinition=1" outputs="xadlcore_3_0.ecore#//Extension">
     <nested inputs="model/xadlcore-3.0.xsd#//Extension;XSDComplexTypeDefinition=1/XSDAttributeUse"
