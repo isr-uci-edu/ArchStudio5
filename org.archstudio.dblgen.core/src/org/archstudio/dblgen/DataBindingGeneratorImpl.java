@@ -2,6 +2,7 @@ package org.archstudio.dblgen;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,6 +17,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.archstudio.dblgen.DataBindingGenerationStatus.Status;
 import org.archstudio.dblgen.builder.Xadl3SchemaLocation;
+import org.archstudio.dblgen.core.Activator;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -545,6 +547,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		}
 	}
 
+	@Override
 	public synchronized List<DataBindingGenerationStatus> generateBindings(List<String> schemaURIStrings,
 			String projectName) {
 		return generateBindings(schemaURIStrings, Collections.<Xadl3SchemaLocation> emptyList(), projectName);
@@ -626,8 +629,14 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			}
 			for (Xadl3SchemaLocation schemaLocation : schemaLocations) {
 				String schemaURIString = schemaLocation.getUrl().toString();
-				primaryNSURIs.put(schemaURIString,
-						DataBindingGeneratorImpl.getNSURIForSchema(schemaURIString, resourceSet));
+				try {
+					primaryNSURIs.put(schemaURIString,
+							DataBindingGeneratorImpl.getNSURIForSchema(schemaURIString, resourceSet));
+				}
+				catch (UnknownHostException e) {
+					// TODO: handle external schema better when offline
+					e.printStackTrace();
+				}
 			}
 		}
 		catch (ParserConfigurationException pce) {
@@ -801,7 +810,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					IWorkspace workspace = ResourcesPlugin.getWorkspace();
 					IWorkspaceRoot workspaceRoot = workspace.getRoot();
 					IProject project = workspaceRoot.getProject(projectName);
-					BundleContext context = Activator.getContext();
+					BundleContext context = Activator.getSingleton().getContext();
 					ServiceReference ref = context.getServiceReference(IBundleProjectService.class.getName());
 					IBundleProjectService service = (IBundleProjectService) context.getService(ref);
 					IBundleProjectDescription description = service.getDescription(project);
@@ -831,6 +840,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					packageExports.clear(); // actually, only export created packages
 					Multimap<String, IPackageExportDescription> packageExportsMap = Multimaps.index(packageExports,
 							new Function<IPackageExportDescription, String>() {
+								@Override
 								public String apply(IPackageExportDescription input) {
 									return input.getName();
 								};
@@ -862,17 +872,20 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	private <T> List<T> notNull(T[] e) {
-		if (e == null)
+		if (e == null) {
 			return Lists.newArrayList();
+		}
 		return Lists.newArrayList(e);
 	}
 
 	private void findFoldersWithFiles(IFolder folder, Collection<IFolder> foldersWithFiles) throws CoreException {
 		for (IResource r : folder.members()) {
-			if (r instanceof IFile)
+			if (r instanceof IFile) {
 				foldersWithFiles.add(folder);
-			else
+			}
+			else {
 				findFoldersWithFiles(((IFolder) r), foldersWithFiles);
+			}
 		}
 	}
 }

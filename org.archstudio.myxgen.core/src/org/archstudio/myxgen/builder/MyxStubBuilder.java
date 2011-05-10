@@ -11,7 +11,8 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 
 public class MyxStubBuilder extends IncrementalProjectBuilder {
 
@@ -26,6 +27,7 @@ public class MyxStubBuilder extends IncrementalProjectBuilder {
 			pluginFile = getProject().getFile("plugin.xml");
 		}
 
+		@Override
 		public boolean visit(IResourceDelta delta) {
 			if (pluginFile == null) {
 				return false;
@@ -69,6 +71,9 @@ public class MyxStubBuilder extends IncrementalProjectBuilder {
 	}
 
 	private void fullBuild(IProgressMonitor monitor) {
-		new MyxCodeGenerator(getProject().getName()).generateCode();
+		IJavaProject javaProject = JavaCore.create(getProject());
+		if (javaProject != null) {
+			new MyxCodeGenerator(javaProject).generateCode();
+		}
 	}
 }

@@ -81,5 +81,22 @@
             class="org.archstudio.myxgen.action.ToggleMyxStubNatureAction">
       </startup>
    </extension>
+   <extension
+         point="org.archstudio.myxgen.brick">
+      <brick
+            class="org.archstudio.myxgen.MyxGenMyxComponent"
+            id="org.archstudio.myxgen.core.brick1"
+            name="Myx Component Stub Generator Impl">
+         <interface
+               class="org.archstudio.myxgen.IMyxStubGenerator"
+               delegate="variable"
+               direction="in"
+               getter="true"
+               id="org.archstudio.myxgen.core.interface1"
+               single="true"
+               name="myxgen">
+         </interface>
+      </brick>
+   </extension>
 
 </plugin>

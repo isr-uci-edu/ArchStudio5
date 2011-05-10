@@ -18,7 +18,6 @@
    </license>
 
    <requires>
-      <import plugin="org.archstudio.dblgen" version="5.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.resources" version="3.5.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore.xmi" version="2.5.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.importer" version="2.5.0" match="greaterOrEqual"/>
@@ -31,15 +30,11 @@
       <import plugin="org.eclipse.pde" version="3.6.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.pde.core" version="3.6.2" match="greaterOrEqual"/>
       <import plugin="org.archstudio.sysutils" version="5.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.eclipse" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.archstudio.dblgen" version="5.0.0" match="greaterOrEqual"/>
+      <import plugin="org.archstudio.myxgen" version="5.0.0" match="greaterOrEqual"/>
+      <import plugin="org.archstudio.myx.fw" version="5.0.0" match="greaterOrEqual"/>
+      <import plugin="org.archstudio.eclipse" version="5.0.0" match="greaterOrEqual"/>
    </requires>
-
-   <plugin
-         id="org.archstudio.dblgen"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 
    <plugin
          id="org.archstudio.dblgen.core"
@@ -47,5 +42,41 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="com.google.guava"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.archstudio.sysutils"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.archstudio.dblgen"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.archstudio.myxgen"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.archstudio.myx.fw"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.archstudio.eclipse"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>

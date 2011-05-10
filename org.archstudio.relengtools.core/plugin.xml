@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="false"
+            id="org.archstudio.relengtools.core.objectContribution1"
+            nameFilter="*"
+            objectClass="java.lang.Object">
+         <action
+               class="org.archstudio.relengtools.core.action.RemoveDependencyVersionNumbers"
+               enablesFor="+"
+               id="org.archstudio.relengtools.core.action1"
+               label="Remove Dependency Version Numbers"
+               menubarPath="org.archstudio.eclipse.popupMenuMain/bottom"
+               style="push">
+         </action>
+         <action
+               class="org.archstudio.relengtools.core.action.AddRequiredWorkspacePlugins"
+               enablesFor="+"
+               id="org.archstudio.relengtools.core.action2"
+               label="Add Required Workspace Plugins"
+               menubarPath="org.archstudio.eclipse.popupMenuMain/bottom"
+               style="push">
+         </action>
+         <visibility>
+            <or>
+               <objectClass
+                     name="java.lang.Object">
+               </objectClass>
+               <not>
+                  <objectClass
+                        name="java.lang.Object">
+                  </objectClass>
+               </not>
+            </or>
+         </visibility>
+      </objectContribution>
+   </extension>
+
+</plugin>

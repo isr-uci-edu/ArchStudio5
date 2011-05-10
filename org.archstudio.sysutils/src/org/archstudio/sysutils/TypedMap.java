@@ -6,6 +6,9 @@ import java.util.Set;
 
 public interface TypedMap {
 
+	public static interface Key<V> {
+	}
+
 	public int size();
 
 	boolean isEmpty();
@@ -14,25 +17,27 @@ public interface TypedMap {
 
 	boolean containsValue(Object value);
 
-	public <K extends TypedKey<V>, V> V get(K key);
+	public <K extends Key<V>, V> V get(K key);
 
-	public <K extends TypedKey<V>, V> V put(K key, V value);
+	public <K extends Key<V>, V> V put(K key, V value);
 
-	public <K extends TypedKey<V>, V> V remove(K key);
+	public <K extends Key<V>, V> V remove(K key);
 
 	public void putAll(TypedMap m);
 
 	public void clear();
 
-	public Set<? extends TypedKey<?>> keySet();
+	public Set<? extends Key<?>> keySet();
 
 	public Collection<?> values();
 
-	public Set<? extends Map.Entry<? extends TypedKey<?>, ?>> entrySet();
+	public Set<? extends Map.Entry<? extends Key<?>, ?>> entrySet();
 
+	@Override
 	public boolean equals(Object o);
 
+	@Override
 	public int hashCode();
 
-	Map<? extends TypedKey<?>, ?> asMap();
+	Map<? extends Key<?>, ?> asMap();
 }

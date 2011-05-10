@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.archstudio.dblgen.Activator;
 import org.archstudio.dblgen.DataBindingGenerationStatus;
 import org.archstudio.dblgen.DataBindingGeneratorImpl;
+import org.archstudio.dblgen.core.Activator;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -97,7 +97,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			// getProject().refreshLocal(IResource.DEPTH_INFINITE, monitor);
 		}
 		catch (IOException e) {
-			throw new CoreException(new Status(IStatus.ERROR, Activator.BUNDLE_ID, e.getMessage(), e));
+			throw new CoreException(new Status(IStatus.ERROR, Activator.getSingleton().getId(), e.getMessage(), e));
 		}
 		return null;
 	}
@@ -113,6 +113,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			pluginFile = getProject().getFile("plugin.xml");
 		}
 
+		@Override
 		public boolean visit(IResourceDelta delta) {
 			if (modelFolder != null) {
 				IResource res = delta.getResource();

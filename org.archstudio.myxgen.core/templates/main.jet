@@ -1,40 +1,12 @@
 <%@taglib prefix="ws" id="org.eclipse.jet.workspaceTags" %>
-<%-- Main entry point for asdf --%>
 
-<%-- 
-  Let c:iterate tags set the XPath context object.
-  For 100% compatibility with JET 0.9.x or earlier, remove this statement
- --%>
 <c:setVariable var="org.eclipse.jet.taglib.control.iterateSetsContext" select="true()"/>
 
-<%-- 
-TODO: traverse input model, performing calculations and storing 
-the results as model annotations via c:set tag 
---%>
-
 <ws:project name="{$org.eclipse.jet.resource.project.name}">
-  <ws:folder path="{/Input/Env/@srcFolder}">
-  <c:setVariable select="/Input/Brick" var="BrickInfo"/>
-      <java:class 
-      	package="{$BrickInfo/@package}" 
-      	name="{$BrickInfo/@class}" 
-      	template="templates/{$BrickInfo/@template}"/>
+  <ws:folder path="{$org.archstudio.myxgen.src.folder}">
+  <java:class 
+      	package="{$org.archstudio.myxgen.package}" 
+      	name="{$org.archstudio.myxgen.class}"
+      	template="{$org.archstudio.myxgen.template}"/>
   </ws:folder>
 </ws:project>
-
-<%--
-TODO: traverse annotated model, performing text generation actions 
-such as ws:file, ws:folder and ws:project 
---%>
-   
-
-<%-- For debug purposes, dump the annotated input model in 
-   the root of the project containing the original input model.
-   
-   Note that model formatting may not be identical, and that in
-   the case of non-XML input models, the dump may look quite different.
---%>
-
-<c:if test="isVariableDefined('org.eclipse.jet.resource.project.name')">
-    <ws:file template="templates/dump.jet" path="{$org.eclipse.jet.resource.project.name}/dump.xml"/>
-</c:if>

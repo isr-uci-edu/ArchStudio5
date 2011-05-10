@@ -74,4 +74,21 @@
             class="org.archstudio.dblgen.action.ToggleXadl3SchemaNatureAction">
       </startup>
    </extension>
+   <extension
+         point="org.archstudio.myxgen.brick">
+      <brick
+            class="org.archstudio.dblgen.DblGenComponent"
+            id="org.archstudio.dblgen.core.brick1"
+            name="xADL Data Binding Library (DBL) Generator Impl">
+         <interface
+               class="org.archstudio.dblgen.IDataBindingGenerator"
+               delegate="variable"
+               direction="in"
+               getter="true"
+               id="org.archstudio.dblgen.core.interface1"
+               single="true"
+               name="dblgen">
+         </interface>
+      </brick>
+   </extension>
 </plugin>

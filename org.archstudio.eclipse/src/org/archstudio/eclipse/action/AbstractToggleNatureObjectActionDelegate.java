@@ -68,7 +68,7 @@ public abstract class AbstractToggleNatureObjectActionDelegate extends AbstractO
 		job.schedule();
 	}
 
-	protected static boolean isNatureAdded(Iterable<IProject> projects, String natureID) {
+	protected boolean isNatureAdded(Iterable<IProject> projects, String natureID) {
 		boolean allAdded = true;
 		for (IProject project : projects) {
 			allAdded &= isNatureAdded(project, natureID);
@@ -76,7 +76,7 @@ public abstract class AbstractToggleNatureObjectActionDelegate extends AbstractO
 		return allAdded;
 	}
 
-	protected static boolean isNatureAdded(IProject project, String natureID) {
+	protected boolean isNatureAdded(IProject project, String natureID) {
 		try {
 			IProjectDescription description = project.getDescription();
 			List<String> natures = Lists.newArrayList(description.getNatureIds());
@@ -87,7 +87,7 @@ public abstract class AbstractToggleNatureObjectActionDelegate extends AbstractO
 		return false;
 	}
 
-	protected static boolean setNatureAdded(IProject project, String natureID, boolean addNature) {
+	protected boolean setNatureAdded(IProject project, String natureID, boolean addNature) {
 		try {
 			IProjectDescription description = project.getDescription();
 			List<String> natures = Lists.newArrayList(description.getNatureIds());
