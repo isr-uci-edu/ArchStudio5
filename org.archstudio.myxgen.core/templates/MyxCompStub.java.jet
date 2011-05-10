@@ -1,0 +1,329 @@
+<%@ jet imports="org.archstudio.myx.fw.* \
+	org.archstudio.myxgen.extension.* \
+	org.archstudio.myxgen.jet.codegen.* \
+	org.archstudio.myxgen.jet.util.* \
+	org.archstudio.sysutils.*"%>
+<java:merge/>
+<%
+	BrickExtension brick = (BrickExtension)context.getVariable(BrickExtension.class.getName());
+	String packageName = TextUtil.getPackagePart(brick.getStubClassName());
+	String className = TextUtil.getClassPart(brick.getStubClassName());
+%>
+package <%=packageName%>;
+
+import java.lang.reflect.*;
+import java.util.*;
+import java.util.concurrent.*;
+import org.archstudio.myx.fw.*;
+<%for(String javaImport : MyxCompStubUtil.getImports(brick)) {%>
+import <%=javaImport%>;
+<%}%>
+
+/**
+ * Abstract Myx brick: "<%=brick.getName()%>"
+<%if(brick.getDescription() != null){%>
+ * <p><%=brick.getDescription()%>
+<%}%>
+ *
+ * @generated
+ */
+@SuppressWarnings("unused")
+public abstract class <%=className%>
+	<%=MyxCompStubUtil.getExtendsClause(brick)%>
+    <%=MyxCompStubUtil.getImplementsClause(brick)%> {
+
+	/**
+	 * @generated
+	 */
+	protected final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
+	/**
+	 * @generated
+	 */
+	public void begin(){
+		super.begin();
+		myxRegistry.register(this);
+	}
+	/**
+	 * @generated
+	 */
+	public void end(){
+		myxRegistry.unregister(this);
+		super.end();
+	}
+
+<% // ----- constant myx interface name declarations %>
+
+<%for(InterfaceExtension iface : brick.getInterfaces()) {%>
+	/**
+	 * Myx interface <%=iface.getName()%>: <code><%=MyxCompStubUtil.getConstantName(iface)%></code>
+	<%if(iface.getDescription() != null){%>
+	 * <p><%=iface.getDescription()%>
+	<%}%>
+	 *
+	 * @generated
+	 */
+	public static final IMyxName <%=MyxCompStubUtil.getConstantName(iface)%> = new MyxBasicName("<%=iface.getId()%>");
+<%}%>
+
+<% // ----- myx service object declarations %>
+
+<%for(InterfaceExtension iface : brick.getInterfaces()) {%>
+	<%switch(iface.getServiceObjectDelegate()){%>
+	<%case variable:%>
+	<%case listener:%>
+	/**
+	 * Service object(s) for <%=iface.getName()%>: <code><%=MyxCompStubUtil.getServiceObjectName(iface)%></code>
+	 *
+	 * @see #<%=MyxCompStubUtil.getConstantName(iface)%>
+	 * @generated
+	 */
+		<%if(iface.isSingle()){%>
+	protected <%=iface.getClassName()%> <%=MyxCompStubUtil.getServiceObjectName(iface)%> = null;
+		<%}else{%>
+	protected final Collection<<%=iface.getClassName()%>> <%=MyxCompStubUtil.getServiceObjectName(iface)%> = new CopyOnWriteArrayList<<%=iface.getClassName()%>>();
+		<%}%>
+	<%break;%> 
+	<%case brick:%> 
+		<%if(!iface.isSingle()){%>
+	/**
+	 * Add service object from <%=iface.getName()%>: <code><%=MyxCompStubUtil.getServiceObjectName(iface)%></code>
+	 *
+	 * @see #<%=MyxCompStubUtil.getConstantName(iface)%>
+	 * @generated
+	 */
+	protected abstract void add<%=SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface))%>(<%=iface.getClassName()%> serviceObject);
+
+	/**
+	 * Remove service object from <%=iface.getName()%>: <code><%=MyxCompStubUtil.getServiceObjectName(iface)%></code>
+	 *
+	 * @see #<%=MyxCompStubUtil.getConstantName(iface)%>
+	 * @generated
+	 */
+	protected abstract void remove<%=SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface))%>(<%=iface.getClassName()%> serviceObject);
+		<%}%>
+	<%break;%> 
+	<%case myxRegistry:%>
+	/**
+	 * Service object(s) for <%=iface.getName()%>: <code><%=MyxCompStubUtil.getServiceObjectName(iface)%></code>
+	 *
+	 * @see #<%=MyxCompStubUtil.getConstantName(iface)%>
+	 * @generated
+	 */
+	protected final <%=iface.getClassName()%> <%=MyxCompStubUtil.getServiceObjectName(iface)%> = (<%=iface.getClassName()%>) Proxy.newProxyInstance(//
+			<%=iface.getClassName()%>.class.getClassLoader(),//
+			new Class[] { <%=iface.getClassName()%>.class },//
+			new InvocationHandler() {
+				@Override
+				public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+					for (Object o : myxRegistry.getObjects(<%=className%>.this)) {
+						try {
+							if (o instanceof <%=iface.getClassName()%>) {
+								method.invoke(o, args);
+							}
+						}
+						catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					return null;
+				}
+			});
+	<%break;%> 
+	<%}%>
+	<%if(iface.getServiceObjectDelegate()==EServiceObjectDelegate.listener){%>
+	/**
+	 * Proxy object for <%=iface.getName()%>: <code><%=MyxCompStubUtil.getServiceObjectName(iface)%></code>
+	 *
+	 * @see #<%=MyxCompStubUtil.getConstantName(iface)%>
+	 * @generated
+	 */
+	protected <%=iface.getClassName()%> <%=MyxCompStubUtil.getServiceObjectName(iface)%>Proxy = MyxCompStubUtil.getListener(iface);
+	<%}%>
+<%}%>
+
+<% // ----- myx service object getters %>
+
+<%for(InterfaceExtension iface : brick.getInterfaces()) {%>
+	<%if(iface.isGenerateGetter()){%>
+	/**
+	 * Returns the service object(s) for <code><%=iface.getName()%></code>
+	 *
+	 * @see #<%=MyxCompStubUtil.getConstantName(iface)%>
+	 * @generated
+	 */
+		<%switch(iface.getServiceObjectDelegate()){%>
+		<%case variable:%> 
+			<%if(iface.isSingle()){%>
+	public <%=iface.getClassName()%> get<%=SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface))%>(){
+		return <%=MyxCompStubUtil.getServiceObjectName(iface)%>;
+	}
+			<%}else{%>
+	public Collection<<%=iface.getClassName()%>> get<%=SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface))%>(){
+		return <%=MyxCompStubUtil.getServiceObjectName(iface)%>;
+	}
+			<%}%>
+		<%break;%> 
+		<%case brick:%> 
+			<%if(iface.isSingle()){%>
+	public <%=iface.getClassName()%> get<%=SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface))%>(){
+		return this;
+	}
+			<%}else{%>
+	// TODO: Not sure what to do here
+			<%}%>
+		<%break;%> 
+		<%case myxRegistry:%> 
+			<%if(iface.isSingle()){%>
+	public <%=iface.getClassName()%> get<%=SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface))%>(){
+		return <%=MyxCompStubUtil.getServiceObjectName(iface)%>;
+	}
+			<%}else{%>
+	// TODO: Not sure what to do here
+			<%}%>
+		<%break;%> 
+		<%}%>
+	<%}%>
+<%}%>
+
+<% // ----- myx service object and connection handlers %>
+
+/**
+ * @generated
+ */
+	@Override
+	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
+		if(serviceObject == null){
+			throw new NullPointerException(interfaceName.getName());
+		}
+<%for(InterfaceExtension iface : brick.getInterfaces()) {%>
+	<%if(iface.getDirection() == EMyxInterfaceDirection.OUT){%>
+		if(interfaceName.equals(<%=MyxCompStubUtil.getConstantName(iface)%>)){
+		<%switch(iface.getServiceObjectDelegate()){%>
+		<%case variable:%>
+		<%case listener:%>
+			<%if(iface.isSingle()){%>
+				<%=MyxCompStubUtil.getServiceObjectName(iface)%> = (<%=iface.getClassName()%>) serviceObject;
+			<%}else{%>
+				<%=MyxCompStubUtil.getServiceObjectName(iface)%>.add((<%=iface.getClassName()%>) serviceObject);
+			<%}%>
+		<%break;%> 
+		<%case brick:%> 
+			<%if(iface.isSingle()){%>
+				// TODO: Not sure what to do here
+			<%}else{%>
+				add<%=SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface))%>((<%=iface.getClassName()%>) serviceObject);
+			<%}%>
+		<%break;%> 
+		<%case myxRegistry:%>
+			<%if(iface.isSingle()){%>
+				// TODO: Not sure what to do here
+			<%}else{%>
+				myxRegistry.map(this, serviceObject);
+			<%}%>
+		<%break;%>
+		<%}%>
+		}
+	<%}%>
+<%}%>
+<%if(brick.getParentBrick() != null){%>
+		super.interfaceConnected(interfaceName, serviceObject);
+<%}%>
+	}
+
+/**
+ * @generated
+ */
+	@Override
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+		if(serviceObject == null){
+			throw new NullPointerException(interfaceName.getName());
+		}
+<%for(InterfaceExtension iface : brick.getInterfaces()) {%>
+	<%if(iface.getDirection() == EMyxInterfaceDirection.OUT){%>
+			if(interfaceName.equals(<%=MyxCompStubUtil.getConstantName(iface)%>)){
+		<%switch(iface.getServiceObjectDelegate()){%>
+		<%case variable:%>
+		<%case listener:%>
+			<%if(iface.isSingle()){%>
+				<%=MyxCompStubUtil.getServiceObjectName(iface)%> = null;
+			<%}else{%>
+				<%=MyxCompStubUtil.getServiceObjectName(iface)%>.remove(serviceObject);
+			<%}%>
+		<%break;%> 
+		<%case brick:%>
+			<%if(iface.isSingle()){%>
+				// TODO: Not sure what to do here
+			<%}else{%>
+				remove<%=SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface))%>((<%=iface.getClassName()%>) serviceObject);
+			<%}%>
+		<%break;%>
+		<%case myxRegistry:%>
+			<%if(iface.isSingle()){%>
+				// TODO: Not sure what to do here
+			<%}else{%>
+				myxRegistry.unmap(this, serviceObject);
+			<%}%>
+		<%break;%>
+		<%}%>
+		}
+	<%}%>
+<%}%>
+<%if(brick.getParentBrick() != null){%>
+		super.interfaceDisconnecting(interfaceName, serviceObject);
+<%}%>
+	}
+
+/**
+ * @generated
+ */
+	@Override
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
+<%if(brick.getParentBrick() != null){%>
+		super.interfaceDisconnected(interfaceName, serviceObject);
+<%}%>
+	}
+
+/**
+ * @generated
+ */
+	@Override
+	public Object getServiceObject(IMyxName interfaceName) {
+<%for(InterfaceExtension iface : brick.getInterfaces()) {%>
+	<%if(iface.getDirection() == EMyxInterfaceDirection.IN){%>
+			if(interfaceName.equals(<%=MyxCompStubUtil.getConstantName(iface)%>)){
+		<%switch(iface.getServiceObjectDelegate()){%>
+		<%case variable:%>
+			<%if(iface.isSingle()){%>
+				if(<%=MyxCompStubUtil.getServiceObjectName(iface)%> == null){
+					throw new NullPointerException("<%=MyxCompStubUtil.getServiceObjectName(iface)%>");
+				}
+				return <%=MyxCompStubUtil.getServiceObjectName(iface)%>;
+			<%}else{%>
+				// TODO: Not sure what to do here
+			<%}%>
+		<%break;%> 
+		<%case brick:%>
+			<%if(iface.isSingle()){%>
+				return this;
+			<%}else{%>
+				// TODO: Not sure what to do here
+			<%}%>
+		<%break;%> 
+		<%case myxRegistry:%>
+			<%if(iface.isSingle()){%>
+				return <%=MyxCompStubUtil.getServiceObjectName(iface)%>;
+			<%}else{%>
+				// TODO: Not sure what to do here
+			<%}%>
+		<%break;%>
+		<%}%>
+		}
+	<%}%>
+<%}%>
+<%if(brick.getParentBrick() != null){%>
+		return super.getServiceObject(interfaceName);
+<%}else{%>
+		return null;
+<%}%>
+	}
+}

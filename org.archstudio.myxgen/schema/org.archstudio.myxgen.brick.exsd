@@ -154,141 +154,47 @@ MyxCodegen will generate abstract base classes that can be used as the basis for
             </annotation>
             <simpleType>
                <restriction base="string">
-                  <enumeration value="inSingleServiceObject">
+                  <enumeration value="in">
                   </enumeration>
-                  <enumeration value="outSingleServiceObject">
-                  </enumeration>
-                  <enumeration value="outMultipleServiceObjects">
+                  <enumeration value="out">
                   </enumeration>
                </restriction>
             </simpleType>
          </attribute>
-         <attribute name="templateType" use="required">
+         <attribute name="single" type="boolean" use="required">
             <annotation>
                <documentation>
-                  The template type specifies how the service will be implemented in the brick through source code generation.
-&lt;table border=&quot;1&quot;&gt;
-&lt;tr&gt;
- &lt;th&gt;templateType&lt;/th&gt;
- &lt;th&gt;valid direction(s)&lt;/th&gt;
- &lt;th&gt;description&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
- &lt;td&gt;none&lt;/td&gt;
- &lt;td&gt;all&lt;/td&gt;
- &lt;td&gt;no source code generation.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
- &lt;td&gt;delegate&lt;/td&gt;
- &lt;td&gt;all&lt;/td&gt;
- &lt;td&gt;The java interface of this interface will be (or has been) imlemented outside of the brick class, and the brick will delegate to it. A variable will be used to store the connection(s).
- &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
- &lt;td&gt;delegateWithGetters&lt;/td&gt;
- &lt;td&gt;all&lt;/td&gt;
- &lt;td&gt;The java interface of this interface will be (or has been) imlemented outside of the brick class, and the brick will delegate it. Getters and Setters will be used to retrieve the connection(s).
- &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
- &lt;td&gt;delegateToMyxRegistry&lt;/td&gt;
- &lt;td&gt;inServiceObject&lt;/td&gt;
- &lt;td&gt;Calls to this interface are directed to all entries in the MyxRegistry that implement the corresponding java interface.
- &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
- &lt;td&gt;implementedInBrick&lt;/td&gt;
- &lt;td&gt;inServiceObject&lt;/td&gt;
- &lt;td&gt;The java interface of this interface will be implemented in the brick class.
- &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
- &lt;td&gt;implementedInDelegate&lt;/td&gt;
- &lt;td&gt;outMultipleServiceObjects&lt;/td&gt;
- &lt;td&gt;The java interface of this interface will be implemented in a proxy class that delegates the method calling to all the service objects. A variable will be used to store the connection(s).
- &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
- &lt;td&gt;implementedInDelegateWithGetters&lt;/td&gt;
- &lt;td&gt;outMultipleServiceObjects&lt;/td&gt;
- &lt;td&gt;The java interface of this interface will be implemented in a proxy class that delegates the method calling to all the service objects. Getters and Setters will be used to retrieve the connection(s).
- &lt;/td&gt;
-&lt;/tr&gt;&lt;/table&gt;
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="delegate" use="required">
+            <annotation>
+               <documentation>
+                  
                </documentation>
             </annotation>
             <simpleType>
                <restriction base="string">
-                  <enumeration value="delegate">
+                  <enumeration value="variable">
                   </enumeration>
-                  <enumeration value="delegateWithGetters">
+                  <enumeration value="brick">
                   </enumeration>
-                  <enumeration value="delegateToMyxRegistry">
+                  <enumeration value="listener">
                   </enumeration>
-                  <enumeration value="implementedInBrick">
-                  </enumeration>
-                  <enumeration value="implementedInDelegate">
-                  </enumeration>
-                  <enumeration value="implementedInDelegateWithGetters">
+                  <enumeration value="myxRegistry">
                   </enumeration>
                   <enumeration value="none">
                   </enumeration>
                </restriction>
             </simpleType>
          </attribute>
-         <attribute name="connectionTiming" use="required">
+         <attribute name="getter" type="boolean" use="required">
             <annotation>
                <documentation>
-                  The connection timing specifies when the service object will be available.  Each brick of myx framework implements org.archstudio.myx.fw.IMyxLifecycleProcessor and its lifecycle methods are called automatically by the framework;
-&lt;ul&gt;
- &lt;li&gt;
- init(): when myx brick is instantiated.
- &lt;/li&gt;
- &lt;li&gt;
- begin(): when all of the service objects are attached.
- &lt;/li&gt;
- &lt;li&gt;
- end(): when all of the service objects are detached.
- &lt;/li&gt;
- &lt;li&gt;
- destroy(): when the brick is destroyed.
- &lt;/li&gt;
-&lt;/ul&gt;
-Each brick also implements org.archstudio.myx.fw.IMyxDynamicBrick, and its methods are automatically called by the framework;
-&lt;ul&gt;
- &lt;li&gt;
- interfaceConnected(): when the service object from the peer interface is passed via the peer&apos;s getServiceObject() method.
- &lt;/li&gt;
- &lt;li&gt;
- interfaceDisconnecting(): ?
- &lt;/li&gt;
- &lt;li&gt;
- interfaceDisconnected(): ?
- &lt;/li&gt;
-&lt;/ul&gt;
-The connection timing specifies when interfaceConnected() will be called.
-&lt;ul&gt;
- &lt;li&gt;
- beforeInit: interfaceConnected() will be called before init(); that is, in init(), the service object passed by interfaceConnected will be available.
- &lt;/li&gt;
- &lt;li&gt;
- beforeBegin: interfaceConnected() will be called after init() before begin(). 
- &lt;/li&gt;
- &lt;li&gt;
- anyTime: The developer will implement how to handle the connection timing.
- &lt;/li&gt;
-&lt;/ul&gt;
+                  
                </documentation>
             </annotation>
-            <simpleType>
-               <restriction base="string">
-                  <enumeration value="beforeBegin">
-                  </enumeration>
-                  <enumeration value="beforeInit">
-                  </enumeration>
-                  <enumeration value="anyTime">
-                  </enumeration>
-               </restriction>
-            </simpleType>
          </attribute>
          <attribute name="class" type="string" use="required">
             <annotation>
@@ -327,7 +233,7 @@ The connection timing specifies when interfaceConnected() will be called.
                   The parent brick id that will be extended. When this attribute is specified, MyxCodegen will include all the Brick interfaces of the parent (and its ancestors).
                </documentation>
                <appinfo>
-                  <meta.attribute kind="identifier" basedOn="org.archstudio.myx.eclipse.brick/brick/@id"/>
+                  <meta.attribute kind="identifier" basedOn="org.archstudio.myxgen.brick/brick/@id"/>
                </appinfo>
             </annotation>
          </attribute>

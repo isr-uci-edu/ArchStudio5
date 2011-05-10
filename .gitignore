@@ -3,5 +3,6 @@
 /*/bin/
 /*/.settings/
 /*/target/classes/
-/*/._codegen_tmp/
-/*/CLASS.java
+/*/*.genmodel
+/*/*.xsd2ecore
+/*/*.ecore

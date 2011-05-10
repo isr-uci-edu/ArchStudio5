@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -765,6 +766,7 @@ public class SystemUtils {
 			}
 		}
 
+		@Override
 		public boolean accept(File dir, String name) {
 			for (String element : extensionsToExclude) {
 				if (name.toLowerCase().endsWith(element)) {
@@ -1031,17 +1033,26 @@ public class SystemUtils {
 		return o1.equals(o2);
 	}
 
-	public static String mergeStrings(String[] stringArray, String front, String seperator, String end) {
-		if (stringArray == null || stringArray.length == 0) {
+	public static String join(String front, String seperator, String end, Object... objects) {
+		if (objects == null) {
 			return "";
 		}
-		StringBuffer sb = new StringBuffer();
+		return join(front, seperator, end, Arrays.asList(objects));
+	}
+
+	public static String join(String front, String seperator, String end, Iterable<?> objects) {
+		if (objects == null || Iterables.isEmpty(objects)) {
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
 		sb.append(front);
-		for (int i = 0, length = stringArray.length; i < length; i++) {
-			if (i > 0) {
+		boolean needsSeparator = false;
+		for (Object object : objects) {
+			if (needsSeparator) {
 				sb.append(seperator);
 			}
-			sb.append(stringArray[i]);
+			sb.append(object);
+			needsSeparator = true;
 		}
 		sb.append(end);
 		return sb.toString();
@@ -1071,6 +1082,10 @@ public class SystemUtils {
 		return className;
 	}
 
+	public static final String simpleName(Class<?> clazz) {
+		return simpleName(clazz.getName());
+	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static final int compare(Object o1, Object o2) {
 		if (o1 == null) {
@@ -1087,30 +1102,35 @@ public class SystemUtils {
 	}
 
 	private static final Comparator<Object> genericComparator = new Comparator<Object>() {
+		@Override
 		public int compare(Object o1, Object o2) {
 			return SystemUtils.compare(o1, o2);
 		};
 	};
 
 	private static final Comparator<Map.Entry<?, ?>> mapEntryKeyComparator = new Comparator<Map.Entry<?, ?>>() {
+		@Override
 		public int compare(Map.Entry<?, ?> o1, Map.Entry<?, ?> o2) {
 			return SystemUtils.compare(o1.getKey(), o2.getKey());
 		}
 	};
 
 	private static final Comparator<Map.Entry<?, ?>> mapEntryValueComparator = new Comparator<Map.Entry<?, ?>>() {
+		@Override
 		public int compare(Map.Entry<?, ?> o1, Map.Entry<?, ?> o2) {
 			return SystemUtils.compare(o1.getValue(), o2.getValue());
 		}
 	};
 
 	private static final Predicate<Map.Entry<?, ?>> nonNullMapEntryKeyPredicate = new Predicate<Map.Entry<?, ?>>() {
+		@Override
 		public boolean apply(Map.Entry<?, ?> input) {
 			return input.getKey() != null;
 		}
 	};
 
 	private static final Predicate<Map.Entry<?, ?>> nonNullMapEntryValuePredicate = new Predicate<Map.Entry<?, ?>>() {
+		@Override
 		public boolean apply(Map.Entry<?, ?> input) {
 			return input.getValue() != null;
 		}
@@ -1136,6 +1156,16 @@ public class SystemUtils {
 		return SystemUtils.sorted(//
 				Iterables.filter(entries, SystemUtils.nonNullMapEntryValuePredicate),//
 				SystemUtils.mapEntryValueComparator);
+	}
+
+	public static final <K, V> Iterable<Map.Entry<K, V>> filterByKey(Iterable<Entry<?, V>> entries,
+			final Class<K> keyClass) {
+		return cast(Iterables.filter(entries, new Predicate<Entry<?, V>>() {
+			@Override
+			public boolean apply(Entry<?, V> input) {
+				return keyClass.isInstance(input.getKey());
+			}
+		}));
 	}
 
 	public static <T> CopyOnWriteArrayList<T> newCopyOnWriteArrayList() {
@@ -1176,5 +1206,47 @@ public class SystemUtils {
 		}
 		catch (Throwable t) {
 		}
+	}
+
+	public static final int bound(int lower, int value, int upper) {
+		if (lower < upper) {
+			if (value < lower) {
+				return lower;
+			}
+			if (value > upper) {
+				return upper;
+			}
+		}
+		else {
+			if (value < upper) {
+				return upper;
+			}
+			if (value > lower) {
+				return lower;
+			}
+		}
+		return value;
+	}
+
+	public static final boolean isInBound(int lower, int value, int upper) {
+		return value == bound(lower, value, upper);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static final <T> T firstOrNull(Iterable<?> elements, Class<T> type) {
+		for (Object o : elements) {
+			if (type.isInstance(o)) {
+				return (T) o;
+			}
+		}
+		return null;
+	}
+
+	public static final <T> Iterable<T> emptyIfNull(Iterable<T> elements) {
+		return elements != null ? elements : Collections.<T> emptyList();
+	}
+
+	public static final <T> Iterable<T> emptyIfNull(T... elements) {
+		return elements != null ? Arrays.asList(elements) : Collections.<T> emptyList();
 	}
 }

@@ -20,7 +20,7 @@ public class TypedHashMap implements TypedMap {
 		return new TypedHashMap(expectedSize);
 	}
 
-	private final Map<TypedKey<? extends Object>, Object> map;
+	private final Map<Key<? extends Object>, Object> map;
 
 	protected TypedHashMap() {
 		this.map = Maps.newHashMap();
@@ -51,17 +51,17 @@ public class TypedHashMap implements TypedMap {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <K extends TypedKey<V>, V> V get(K key) {
+	public <K extends Key<V>, V> V get(K key) {
 		return (V) map.get(key);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <K extends TypedKey<V>, V> V put(K key, V value) {
+	public <K extends Key<V>, V> V put(K key, V value) {
 		return (V) map.put(key, value);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <K extends TypedKey<V>, V> V remove(K key) {
+	public <K extends Key<V>, V> V remove(K key) {
 		return (V) map.remove(key);
 	}
 
@@ -73,7 +73,7 @@ public class TypedHashMap implements TypedMap {
 		map.clear();
 	}
 
-	public Set<? extends TypedKey<?>> keySet() {
+	public Set<? extends Key<?>> keySet() {
 		return map.keySet();
 	}
 
@@ -81,7 +81,7 @@ public class TypedHashMap implements TypedMap {
 		return map.values();
 	}
 
-	public Set<? extends Map.Entry<? extends TypedKey<?>, ?>> entrySet() {
+	public Set<? extends Map.Entry<? extends Key<?>, ?>> entrySet() {
 		return map.entrySet();
 	}
 
@@ -95,7 +95,7 @@ public class TypedHashMap implements TypedMap {
 		return map.hashCode();
 	}
 
-	public Map<? extends TypedKey<?>, ?> asMap() {
+	public Map<? extends Key<?>, ?> asMap() {
 		return map;
 	}
 }

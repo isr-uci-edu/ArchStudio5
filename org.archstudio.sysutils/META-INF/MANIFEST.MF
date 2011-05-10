@@ -5,5 +5,5 @@ Bundle-SymbolicName: org.archstudio.sysutils;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.sysutils
-Require-Bundle: com.google.guava;bundle-version="0.0.0"
+Require-Bundle: com.google.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
