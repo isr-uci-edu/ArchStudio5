@@ -62,7 +62,7 @@ public abstract class <%=className%>
 	 *
 	 * @generated
 	 */
-	public static final IMyxName <%=MyxCompStubUtil.getConstantName(iface)%> = new MyxBasicName("<%=iface.getId()%>");
+	public static final IMyxName <%=MyxCompStubUtil.getConstantName(iface)%> = MyxUtils.createName("<%=iface.getId()%>");
 <%}%>
 
 <% // ----- myx service object declarations %>

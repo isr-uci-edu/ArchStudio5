@@ -16,6 +16,9 @@
                   name="top">
             </groupMarker>
             <separator
+                  name="additions">
+            </separator>
+            <separator
                   name="bottom">
             </separator>
          </menu>

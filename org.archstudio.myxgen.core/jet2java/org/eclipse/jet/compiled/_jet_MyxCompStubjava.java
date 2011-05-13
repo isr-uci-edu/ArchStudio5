@@ -151,7 +151,7 @@ if(iface.getDescription() != null){
         out.write(NL);         
         out.write("\tpublic static final IMyxName ");  //$NON-NLS-1$        
         out.write(MyxCompStubUtil.getConstantName(iface));
-        out.write(" = new MyxBasicName(\"");  //$NON-NLS-1$        
+        out.write(" = MyxUtils.createName(\"");  //$NON-NLS-1$        
         out.write(iface.getId());
         out.write("\");");  //$NON-NLS-1$        
         out.write(NL);         

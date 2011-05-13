@@ -16,10 +16,8 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
  * @generated
  */
 @SuppressWarnings("unused")
-public abstract class DblGenComponentStub extends
-		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+public abstract class DblGenComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -48,8 +46,7 @@ public abstract class DblGenComponentStub extends
 	 *
 	 * @generated
 	 */
-	public static final IMyxName IN_DBLGEN = new MyxBasicName(
-			"org.archstudio.dblgen.core.interface1");
+	public static final IMyxName IN_DBLGEN = MyxUtils.createName("org.archstudio.dblgen.core.interface1");
 
 	/**
 	 * Service object(s) for dblgen: <code>dblgen</code>
@@ -83,8 +80,7 @@ public abstract class DblGenComponentStub extends
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -94,8 +90,7 @@ public abstract class DblGenComponentStub extends
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**

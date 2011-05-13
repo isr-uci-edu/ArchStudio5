@@ -46,7 +46,7 @@ public abstract class MyxGenMyxComponentStub extends org.archstudio.myx.fw.Abstr
 	 *
 	 * @generated
 	 */
-	public static final IMyxName IN_MYXGEN = new MyxBasicName("org.archstudio.myxgen.core.interface1");
+	public static final IMyxName IN_MYXGEN = MyxUtils.createName("org.archstudio.myxgen.core.interface1");
 
 	/**
 	 * Service object(s) for myxgen: <code>myxgen</code>
