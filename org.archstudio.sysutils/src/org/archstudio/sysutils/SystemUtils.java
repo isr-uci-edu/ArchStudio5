@@ -1242,6 +1242,14 @@ public class SystemUtils {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static final <T> T firstOrNull(Iterable<?> elements) {
+		for (Object o : elements) {
+			return (T) o;
+		}
+		return null;
+	}
+
 	public static final <T> Iterable<T> emptyIfNull(Iterable<T> elements) {
 		return elements != null ? elements : Collections.<T> emptyList();
 	}
