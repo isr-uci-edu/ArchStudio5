@@ -9,19 +9,21 @@
             name="Server Impl">
          <interface
                class="org.archstudio.demo.chatsys.IChat"
-               connectionTiming="beforeBegin"
-               direction="inSingleServiceObject"
+               delegate="variable"
+               direction="in"
+               getter="true"
                id="org.archstudio.demo.chatsys.interface1"
                name="chat"
-               templateType="delegate">
+               single="true">
          </interface>
          <interface
                class="org.archstudio.demo.chatsys.IChatListener"
-               connectionTiming="beforeBegin"
-               direction="outMultipleServiceObjects"
+               delegate="variable"
+               direction="in"
+               getter="true"
                id="org.archstudio.demo.chatsys.interface2"
                name="chatevents"
-               templateType="delegate">
+               single="true">
          </interface>
       </brick>
       <brick
@@ -30,19 +32,21 @@
             name="Client Impl">
          <interface
                class="org.archstudio.demo.chatsys.IChat"
-               connectionTiming="beforeBegin"
-               direction="outSingleServiceObject"
+               delegate="variable"
+               direction="in"
+               getter="true"
                id="org.archstudio.demo.chatsys.interface3"
                name="chat"
-               templateType="delegate">
+               single="true">
          </interface>
          <interface
                class="org.archstudio.demo.chatsys.IChatListener"
-               connectionTiming="beforeBegin"
-               direction="inSingleServiceObject"
+               delegate="variable"
+               direction="in"
+               getter="true"
                id="org.archstudio.demo.chatsys.interface4"
                name="chatevents"
-               templateType="delegate">
+               single="true">
          </interface>
       </brick>
    </extension>

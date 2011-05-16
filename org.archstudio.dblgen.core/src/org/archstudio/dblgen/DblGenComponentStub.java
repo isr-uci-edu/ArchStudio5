@@ -9,10 +9,13 @@ import org.archstudio.dblgen.IDataBindingGenerator;
 import org.archstudio.myx.fw.IMyxLifecycleProcessor;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "xADL Data Binding Library (DBL) Generator Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -28,6 +31,7 @@ public abstract class DblGenComponentStub extends org.archstudio.myx.fw.Abstract
 	/**
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -36,6 +40,7 @@ public abstract class DblGenComponentStub extends org.archstudio.myx.fw.Abstract
 	/**
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -43,14 +48,14 @@ public abstract class DblGenComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Myx interface dblgen: <code>IN_DBLGEN</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_DBLGEN = MyxUtils.createName("org.archstudio.dblgen.core.interface1");
 
 	/**
 	 * Service object(s) for dblgen: <code>dblgen</code>
-	 *
+	 * 
 	 * @see #IN_DBLGEN
 	 * @generated
 	 */
@@ -58,7 +63,7 @@ public abstract class DblGenComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Returns the service object(s) for <code>dblgen</code>
-	 *
+	 * 
 	 * @see #IN_DBLGEN
 	 * @generated
 	 */

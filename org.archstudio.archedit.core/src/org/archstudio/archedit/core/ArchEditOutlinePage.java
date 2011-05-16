@@ -9,7 +9,6 @@ import org.archstudio.editors.AbstractArchstudioOutlinePage;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.SystemUtils;
-import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFeature;
 import org.archstudio.xarchadt.IXArchADTFeature.FeatureType;
@@ -80,6 +79,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 
 	protected void setupDoubleClick() {
 		getTreeViewer().addDoubleClickListener(new IDoubleClickListener() {
+			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				List<INodeInfo> selectedNodeInfos = getSelectedNodeInfos();
 				if (selectedNodeInfos.size() == 1) {
@@ -117,6 +117,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 		target.setTransfer(new Transfer[] { textTransfer });
 
 		target.addDropListener(new DropTargetListener() {
+			@Override
 			public void dragEnter(DropTargetEvent event) {
 				if (event.detail == DND.DROP_DEFAULT) {
 					if ((event.operations & DND.DROP_COPY) != 0) {
@@ -128,6 +129,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 				}
 			}
 
+			@Override
 			public void dragOver(DropTargetEvent event) {
 				if (textTransfer.isSupportedType(event.currentDataType)) {
 					Object o = textTransfer.nativeToJava(event.currentDataType);
@@ -141,6 +143,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 				event.feedback = DND.FEEDBACK_NONE;
 			}
 
+			@Override
 			public void dragOperationChanged(DropTargetEvent event) {
 				if (event.detail == DND.DROP_DEFAULT) {
 					if ((event.operations & DND.DROP_COPY) != 0) {
@@ -152,12 +155,15 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 				}
 			}
 
+			@Override
 			public void dragLeave(DropTargetEvent event) {
 			}
 
+			@Override
 			public void dropAccept(DropTargetEvent event) {
 			}
 
+			@Override
 			public void drop(DropTargetEvent event) {
 				if (textTransfer.isSupportedType(event.currentDataType)) {
 					String text = (String) event.data;
@@ -228,10 +234,12 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 
 		IArchEditNode rootNode = null;
 
+		@Override
 		public Object[] getElements(Object inputElement) {
 			return getChildren(inputElement);
 		}
 
+		@Override
 		public Object[] getChildren(Object parentElement) {
 			if (parentElement instanceof IWorkbenchSite) {
 				if (rootNode == null) {
@@ -245,10 +253,12 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			return EMPTY_ARRAY;
 		}
 
+		@Override
 		public Object getParent(Object element) {
 			return null;
 		}
 
+		@Override
 		public boolean hasChildren(Object element) {
 			if (element instanceof IWorkbenchSite) {
 				return true;
@@ -259,9 +269,11 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			return false;
 		}
 
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 
+		@Override
 		public void dispose() {
 		}
 	}
@@ -313,30 +325,37 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			this.index = index;
 		}
 
+		@Override
 		public ObjRef getParentRef() {
 			return parentRef;
 		}
 
+		@Override
 		public String getFeatureName() {
 			return featureName;
 		}
 
+		@Override
 		public Image getImage() {
 			return resources.getPlatformImage(ISharedImages.IMG_TOOL_FORWARD);
 		}
 
+		@Override
 		public boolean hasChildren() {
 			return false;
 		}
 
+		@Override
 		public List<IArchEditNode> getChildren() {
 			return Collections.emptyList();
 		}
 
+		@Override
 		public boolean isMultiple() {
 			return isMultiple;
 		}
 
+		@Override
 		public int getIndex() {
 			return index;
 		}
@@ -356,6 +375,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			typeMetadata = xarch.getTypeMetadata(ref);
 		}
 
+		@Override
 		public ObjRef getRef() {
 			return ref;
 		}
@@ -423,6 +443,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			return sb.toString();
 		}
 
+		@Override
 		public List<IArchEditNode> getChildren() {
 			List<IArchEditNode> l = new ArrayList<IArchEditNode>();
 
@@ -459,6 +480,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			return l;
 		}
 
+		@Override
 		public boolean hasChildren() {
 			for (IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
 				switch (feature.getType()) {
@@ -471,6 +493,7 @@ public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
 			return false;
 		}
 
+		@Override
 		public Image getImage() {
 			if (hasChildren()) {
 				return resources.getPlatformImage(ISharedImages.IMG_OBJ_FOLDER);

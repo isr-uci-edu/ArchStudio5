@@ -9,12 +9,13 @@
             name="Myx Runtime Impl">
             
          <interface
-               connectionTiming="beforeBegin"
-               direction="inSingleServiceObject"
-               id="org.archstudio.myx.eclipse.interface2"
                class="org.archstudio.myx.fw.IMyxRuntime"
-               name="myxruntime"
-               templateType="implementedInBrick">
+               delegate="brick"
+               direction="in"
+               getter="true"
+               id="org.archstudio.myx.eclipse.interface2"
+               name="myxRuntime"
+               single="true">
          </interface>
       </brick>
       <brick
@@ -22,36 +23,40 @@
             id="org.archstudio.myx.conn.SynchronousMultiwayProxyConnector"
             name="Synchronous Multiway Proxy Impl">
             <interface
-               connectionTiming="beforeBegin"
-               direction="inSingleServiceObject"
-               id="org.archstudio.myx.eclipse.interface7"
-               class="org.archstudio.myx.conn.IMultiwayResults"
-               name="results"
-               templateType="delegate">
+                  class="org.archstudio.myx.conn.IMultiwayResults"
+                  delegate="variable"
+                  direction="in"
+                  getter="true"
+                  id="org.archstudio.myx.eclipse.interface7"
+                  name="results"
+                  single="true">
          </interface>
          <interface
-               connectionTiming="beforeBegin"
-               direction="outMultipleServiceObjects"
+               class="java.lang.Object"
+               delegate="variable"
+               direction="in"
+               getter="true"
                id="org.archstudio.myx.eclipse.interface5"
-               class="java.lang.Object"
                name="out"
-               templateType="delegate">
+               single="true">
          </interface>
          <interface
-               connectionTiming="beforeBegin"
-               direction="inSingleServiceObject"
-               id="org.archstudio.myx.eclipse.interface6"
                class="java.lang.Object"
+               delegate="variable"
+               direction="in"
+               getter="true"
+               id="org.archstudio.myx.eclipse.interface6"
                name="in"
-               templateType="delegate">
+               single="true">
          </interface>
          <interface
-               connectionTiming="beforeBegin"
-               direction="outMultipleServiceObjects"
-               id="org.archstudio.myx.eclipse.interface8"
                class="org.archstudio.myx.conn.IMultiwayProgressListener"
+               delegate="variable"
+               direction="in"
+               getter="true"
+               id="org.archstudio.myx.eclipse.interface8"
                name="progress"
-               templateType="delegate">
+               single="true">
          </interface>
       </brick>
       <brick
@@ -59,20 +64,22 @@
             id="org.archstudio.myx.conn.EventPumpConnector"
             name="Event Pump Impl">
          <interface
-               connectionTiming="beforeBegin"
-               direction="inSingleServiceObject"
-               id="org.archstudio.myx.eclipse.interface3"
                class="java.lang.Object"
+               delegate="variable"
+               direction="in"
+               getter="true"
+               id="org.archstudio.myx.eclipse.interface3"
                name="in"
-               templateType="delegate">
+               single="true">
          </interface>
          <interface
-               connectionTiming="beforeBegin"
-               direction="outMultipleServiceObjects"
-               id="org.archstudio.myx.eclipse.interface4"
                class="java.lang.Object"
+               delegate="variable"
+               direction="in"
+               getter="true"
+               id="org.archstudio.myx.eclipse.interface4"
                name="out"
-               templateType="delegate">
+               single="true">
          </interface>
       </brick>
    </extension>

@@ -9,10 +9,13 @@ import org.archstudio.myx.fw.IMyxLifecycleProcessor;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myxgen.IMyxStubGenerator;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Myx Component Stub Generator Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -28,6 +31,7 @@ public abstract class MyxGenMyxComponentStub extends org.archstudio.myx.fw.Abstr
 	/**
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -36,6 +40,7 @@ public abstract class MyxGenMyxComponentStub extends org.archstudio.myx.fw.Abstr
 	/**
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -43,14 +48,14 @@ public abstract class MyxGenMyxComponentStub extends org.archstudio.myx.fw.Abstr
 
 	/**
 	 * Myx interface myxgen: <code>IN_MYXGEN</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_MYXGEN = MyxUtils.createName("org.archstudio.myxgen.core.interface1");
 
 	/**
 	 * Service object(s) for myxgen: <code>myxgen</code>
-	 *
+	 * 
 	 * @see #IN_MYXGEN
 	 * @generated
 	 */
@@ -58,7 +63,7 @@ public abstract class MyxGenMyxComponentStub extends org.archstudio.myx.fw.Abstr
 
 	/**
 	 * Returns the service object(s) for <code>myxgen</code>
-	 *
+	 * 
 	 * @see #IN_MYXGEN
 	 * @generated
 	 */

@@ -14,9 +14,10 @@ Require-Bundle: org.archstudio.editors;bundle-version="5.0.0",
  org.archstudio.launcher;bundle-version="5.0.0",
  org.archstudio.resources;bundle-version="5.0.0",
  org.eclipse.ui;bundle-version="3.5.1",
- org.archstudio.xadl;bundle-version="5.0.0",
  org.archstudio.sysutils;bundle-version="5.0.0",
  org.eclipse.ui.views;bundle-version="3.5.1",
  org.archstudio.filemanager;bundle-version="5.0.0",
- org.archstudio.myx.fw;bundle-version="5.0.0"
+ org.archstudio.myx.fw;bundle-version="5.0.0",
+ org.archstudio.myxgen,
+ org.archstudio.xadl;bundle-version="5.0.0"
 Export-Package: org.archstudio.archedit.core

@@ -9,5 +9,6 @@ Require-Bundle: org.archstudio.myx.fw;bundle-version="5.0.0",
  org.archstudio.aim;bundle-version="5.0.0",
  org.archstudio.xadl3.structure;bundle-version="5.0.0",
  org.archstudio.xadl;bundle-version="5.0.0",
- org.archstudio.xadl3.domain;bundle-version="1.0.0"
+ org.archstudio.xadl3.domain;bundle-version="1.0.0",
+ org.archstudio.myxgen
 Export-Package: org.archstudio.aim.core
