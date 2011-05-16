@@ -4,17 +4,29 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.MapMaker;
 
-public class FilterableCopyOnWriteArrayList<E> implements Collection<E> {
+public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 
 	public static final <E> FilterableCopyOnWriteArrayList<E> create() {
 		return new FilterableCopyOnWriteArrayList<E>();
 	}
 
 	CopyOnWriteArrayList<E> list = new CopyOnWriteArrayList<E>();
+	int listModCount = 0;
+	Map<Class<?>, List<?>> filteredLists = new MapMaker().makeComputingMap(new Function<Class<?>, List<?>>() {
+		@Override
+		public List<?> apply(Class<?> input) {
+			return new CopyOnWriteArrayList<Object>(Lists.newArrayList(Iterables.filter(list, input)));
+		}
+	});
+	int filteredListModCount = -1;
 
 	@Override
 	public int size() {
@@ -31,6 +43,7 @@ public class FilterableCopyOnWriteArrayList<E> implements Collection<E> {
 		return list.contains(o);
 	}
 
+	@Override
 	public int indexOf(Object o) {
 		return list.indexOf(o);
 	}
@@ -39,6 +52,7 @@ public class FilterableCopyOnWriteArrayList<E> implements Collection<E> {
 		return list.indexOf(e, index);
 	}
 
+	@Override
 	public int lastIndexOf(Object o) {
 		return list.lastIndexOf(o);
 	}
@@ -62,34 +76,68 @@ public class FilterableCopyOnWriteArrayList<E> implements Collection<E> {
 		return list.toArray(a);
 	}
 
+	@Override
 	public E get(int index) {
 		return list.get(index);
 	}
 
+	@Override
 	public E set(int index, E element) {
-		return list.set(index, element);
+		try {
+			return list.set(index, element);
+		}
+		finally {
+			listModCount++;
+		}
 	}
 
 	@Override
 	public boolean add(E e) {
-		return list.add(e);
+		try {
+			return list.add(e);
+		}
+		finally {
+			listModCount++;
+		}
 	}
 
+	@Override
 	public void add(int index, E element) {
-		list.add(index, element);
+		try {
+			list.add(index, element);
+		}
+		finally {
+			listModCount++;
+		}
 	}
 
+	@Override
 	public E remove(int index) {
-		return list.remove(index);
+		try {
+			return list.remove(index);
+		}
+		finally {
+			listModCount++;
+		}
 	}
 
 	@Override
 	public boolean remove(Object o) {
-		return list.remove(o);
+		try {
+			return list.remove(o);
+		}
+		finally {
+			listModCount++;
+		}
 	}
 
 	public boolean addIfAbsent(E e) {
-		return list.addIfAbsent(e);
+		try {
+			return list.addIfAbsent(e);
+		}
+		finally {
+			listModCount++;
+		}
 	}
 
 	@Override
@@ -99,30 +147,61 @@ public class FilterableCopyOnWriteArrayList<E> implements Collection<E> {
 
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		return list.removeAll(c);
+		try {
+			return list.removeAll(c);
+		}
+		finally {
+			listModCount++;
+		}
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		return list.retainAll(c);
+		try {
+			return list.retainAll(c);
+		}
+		finally {
+			listModCount++;
+		}
 	}
 
 	public int addAllAbsent(Collection<? extends E> c) {
-		return list.addAllAbsent(c);
+		try {
+			return list.addAllAbsent(c);
+		}
+		finally {
+			listModCount++;
+		}
 	}
 
 	@Override
 	public void clear() {
-		list.clear();
+		try {
+			list.clear();
+		}
+		finally {
+			listModCount++;
+		}
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends E> c) {
-		return list.addAll(c);
+		try {
+			return list.addAll(c);
+		}
+		finally {
+			listModCount++;
+		}
 	}
 
+	@Override
 	public boolean addAll(int index, Collection<? extends E> c) {
-		return list.addAll(index, c);
+		try {
+			return list.addAll(index, c);
+		}
+		finally {
+			listModCount++;
+		}
 	}
 
 	@Override
@@ -145,20 +224,27 @@ public class FilterableCopyOnWriteArrayList<E> implements Collection<E> {
 		return list.iterator();
 	}
 
+	@Override
 	public ListIterator<E> listIterator() {
 		return list.listIterator();
 	}
 
+	@Override
 	public ListIterator<E> listIterator(int index) {
 		return list.listIterator(index);
 	}
 
+	@Override
 	public List<E> subList(int fromIndex, int toIndex) {
-		return list.subList(fromIndex, toIndex);
+		throw new UnsupportedOperationException();
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> Iterable<T> filter(Class<T> ofType) {
-		// TODO: cache these results 
-		return Iterables.filter(list, ofType);
+		if (filteredListModCount != listModCount) {
+			filteredListModCount = listModCount;
+			filteredLists.clear();
+		}
+		return (Iterable<T>) filteredLists.get(ofType);
 	}
 }
