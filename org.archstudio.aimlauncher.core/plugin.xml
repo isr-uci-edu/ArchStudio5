@@ -2,14 +2,6 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.archstudio.myx.eclipse.brick">
-      <brick
-            class="org.archstudio.aimlauncher.core.AIMLauncherMyxComponent"
-            id="org.archstudio.aimlauncher.core.AIMLauncherMyxComponent"
-            name="AIM Launcher Impl">
-      </brick>
-   </extension>
-   <extension
          point="org.eclipse.ui.editors">
       <editor
             class="org.archstudio.aimlauncher.core.AIMLauncherEditor"
@@ -19,6 +11,15 @@
             id="org.archstudio.aimlauncher.core.AIMLauncherEditor"
             name="AIM Launcher">
       </editor>
+   </extension>
+   <extension
+         point="org.archstudio.myxgen.brick">
+      <brick
+            class="org.archstudio.aimlauncher.core.AIMLauncherMyxComponent"
+            id="org.archstudio.aimlauncher.core.brick2"
+            name="AIM Launcher Component Impl">
+         <parentBrick></parentBrick>
+      </brick>
    </extension>
 
 </plugin>

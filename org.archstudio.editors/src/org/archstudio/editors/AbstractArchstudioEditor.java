@@ -10,7 +10,6 @@ import org.archstudio.swtutils.Banner;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.DelayedExecuteOnceThread;
 import org.archstudio.sysutils.UIDGenerator;
-import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
@@ -40,14 +39,15 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
-public abstract class AbstractArchstudioEditor extends EditorPart implements ISelectionChangedListener, IXArchADTModelListener, IFocusEditorListener, IFileManagerListener{
+public abstract class AbstractArchstudioEditor extends EditorPart implements ISelectionChangedListener,
+		IXArchADTModelListener, IFocusEditorListener, IFileManagerListener {
 	protected AbstractArchstudioEditorMyxComponent comp = null;
 	protected boolean hasBanner = false;
 	protected boolean updateOnSelectionChange = true;
 	protected boolean updateOutlineOnXArchFlatEvent = true;
 	protected boolean updateEditorOnXArchFlatEvent = true;
 	protected boolean handleUnattachedXArchFlatEvents = false;
-	
+
 	protected String editorName = null;
 	protected Image icon = null;
 	protected String secondaryText = null;
@@ -58,158 +58,171 @@ public abstract class AbstractArchstudioEditor extends EditorPart implements ISe
 	protected IFileManager fileman;
 	protected IEditorManager editorManager;
 	protected IResources resources;
-	
+
 	protected AbstractArchstudioOutlinePage outlinePage = null;
 	protected ObjRef documentRootRef = null;
-	
+
 	protected Composite parent = null;
-	
+
 	protected String uniqueEditorID = null;
-	
-	private DelayedExecuteOnceThread updateThread = new DelayedExecuteOnceThread(500, new Runnable(){
-		public void run(){
-			getSite().getShell().getDisplay().asyncExec(new Runnable(){
-				public void run(){
-					if(updateEditorOnXArchFlatEvent) updateEditor();
-					if(updateOutlineOnXArchFlatEvent) updateOutlinePage();
+
+	private final DelayedExecuteOnceThread updateThread = new DelayedExecuteOnceThread(500, new Runnable() {
+		@Override
+		public void run() {
+			getSite().getShell().getDisplay().asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					if (updateEditorOnXArchFlatEvent) {
+						updateEditor();
+					}
+					if (updateOutlineOnXArchFlatEvent) {
+						updateOutlinePage();
+					}
 				}
 			});
 		};
 	});
-	
-	public AbstractArchstudioEditor(Class<?> myxComponentClass, String editorName){
+
+	public AbstractArchstudioEditor(Class<?> myxComponentClass, String editorName) {
 		super();
 		this.uniqueEditorID = UIDGenerator.generateUID(editorName);
-		comp = (AbstractArchstudioEditorMyxComponent)er.waitForBrick(myxComponentClass);
+		comp = (AbstractArchstudioEditorMyxComponent) er.waitForBrick(myxComponentClass);
 		this.editorName = editorName;
 		er.map(comp, this);
 		xarch = comp.getXArchADT();
 		fileman = comp.getFileManager();
 		editorManager = comp.getEditorManager();
 		resources = comp.getResources();
-		
+
 		updateThread.start();
 	}
-	
-	protected void setHasBanner(boolean hasBanner){
+
+	protected void setHasBanner(boolean hasBanner) {
 		this.hasBanner = hasBanner;
 	}
-	
-	protected void setUpdateOnSelectionChange(boolean updateOnSelectionChange){
+
+	protected void setUpdateOnSelectionChange(boolean updateOnSelectionChange) {
 		this.updateOnSelectionChange = updateOnSelectionChange;
 	}
-	
-	protected void setUpdateOutlineOnXArchFlatEvent(boolean update){
+
+	protected void setUpdateOutlineOnXArchFlatEvent(boolean update) {
 		this.updateOutlineOnXArchFlatEvent = update;
 	}
-	
-	protected void setUpdateEditorOnXArchFlatEvent(boolean update){
+
+	protected void setUpdateEditorOnXArchFlatEvent(boolean update) {
 		this.updateEditorOnXArchFlatEvent = update;
 	}
-	
-	protected void setHandleUnattachedXArchFlatEvents(boolean handle){
+
+	protected void setHandleUnattachedXArchFlatEvents(boolean handle) {
 		this.handleUnattachedXArchFlatEvents = handle;
 	}
-	
-	protected void setBannerInfo(Image icon, String secondaryText){
+
+	protected void setBannerInfo(Image icon, String secondaryText) {
 		this.icon = icon;
 		this.secondaryText = secondaryText;
 	}
-	
-	public void init(IEditorSite site, IEditorInput input) throws PartInitException{
-		if((!(input instanceof IFileEditorInput) && (!(input instanceof IPathEditorInput)))){
+
+	@Override
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		if (!(input instanceof IFileEditorInput) && !(input instanceof IPathEditorInput)) {
 			throw new PartInitException("Input to " + editorName + " must be an XML file");
 		}
 		XadlEditorMatchingStrategy xadlChecker = new XadlEditorMatchingStrategy();
-		if(!xadlChecker.matches(null, input)){
+		if (!xadlChecker.matches(null, input)) {
 			throw new PartInitException("Input to " + editorName + " must have root tag <xArch>");
 		}
 
-		if(input instanceof IFileEditorInput){
-			IFile f = ((IFileEditorInput)input).getFile();
+		if (input instanceof IFileEditorInput) {
+			IFile f = ((IFileEditorInput) input).getFile();
 			ObjRef ref = null;
-			try{
+			try {
 				ref = fileman.open(uniqueEditorID, f);
 			}
-			catch(CantOpenFileException cofe){
+			catch (CantOpenFileException cofe) {
 				throw new PartInitException("Can't open file.", cofe);
 			}
-			
+
 			setPartName(f.getName() + " - " + super.getPartName());
-			
+
 			setSite(site);
 			setInput(input);
 			setDocumentRootRef(ref);
 		}
-		else if(input instanceof IPathEditorInput){
-			IPath p = ((IPathEditorInput)input).getPath();
+		else if (input instanceof IPathEditorInput) {
+			IPath p = ((IPathEditorInput) input).getPath();
 			java.io.File f = p.toFile();
 			ObjRef ref = null;
-			try{
+			try {
 				ref = fileman.open(uniqueEditorID, f);
 			}
-			catch(CantOpenFileException cofe){
+			catch (CantOpenFileException cofe) {
 				throw new PartInitException("Can't open file.", cofe);
 			}
-			
+
 			setPartName(f.getName() + " - " + super.getPartName());
-			
+
 			setSite(site);
 			setInput(input);
 			setDocumentRootRef(ref);
 		}
 
 		outlinePage = createOutlinePage();
-		if(outlinePage != null){
+		if (outlinePage != null) {
 			outlinePage.addSelectionChangedListener(this);
 		}
 	}
-	
+
 	protected abstract AbstractArchstudioOutlinePage createOutlinePage();
-	
-	public void setDocumentRootRef(ObjRef documentRootRef){
+
+	public void setDocumentRootRef(ObjRef documentRootRef) {
 		this.documentRootRef = documentRootRef;
 	}
-	
-	public ObjRef getDocumentRootRef(){
+
+	public ObjRef getDocumentRootRef() {
 		return documentRootRef;
 	}
-	
-	protected void setInput(IEditorInput input){
+
+	@Override
+	protected void setInput(IEditorInput input) {
 		super.setInput(input);
 	}
 
-	public void createPartControl(Composite parent){
+	@Override
+	public void createPartControl(Composite parent) {
 		this.parent = parent;
 		updateEditor();
 	}
-	
-	public void dispose(){
+
+	@Override
+	public void dispose() {
 		clearEditor();
-		if(outlinePage != null){
+		if (outlinePage != null) {
 			outlinePage.removeSelectionChangedListener(this);
 		}
 		updateThread.terminate();
-		if(documentRootRef != null){
+		if (documentRootRef != null) {
 			fileman.close(uniqueEditorID, documentRootRef);
 		}
 		er.unmap(comp, this);
 		super.dispose();
 	}
-	
-	public void selectionChanged(SelectionChangedEvent event){
-		if(updateOnSelectionChange){
+
+	@Override
+	public void selectionChanged(SelectionChangedEvent event) {
+		if (updateOnSelectionChange) {
 			updateEditor();
 		}
 	}
-	
+
 	public void clearEditor() {
 		IWorkbenchPartSite site = getSite();
 		if (site != null) {
 			site.getShell().getDisplay().syncExec(new Runnable() {
+				@Override
 				public void run() {
-					if (parent.isDisposed())
+					if (parent.isDisposed()) {
 						return;
+					}
 					Control[] children = parent.getChildren();
 					for (int i = children.length - 1; i >= 0; i--) {
 						children[i].dispose();
@@ -218,18 +231,19 @@ public abstract class AbstractArchstudioEditor extends EditorPart implements ISe
 			});
 		}
 	}
-	
-	public void updateOutlinePage(){
-		if(outlinePage != null){
+
+	public void updateOutlinePage() {
+		if (outlinePage != null) {
 			outlinePage.updateOutlinePage();
 		}
 	}
-	
-	public void updateEditor(){
+
+	public void updateEditor() {
 		clearEditor();
-		
-		getSite().getShell().getDisplay().syncExec(new Runnable(){
-			public void run(){
+
+		getSite().getShell().getDisplay().syncExec(new Runnable() {
+			@Override
+			public void run() {
 				ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 				sc.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 				sc.setBackgroundMode(SWT.INHERIT_DEFAULT);
@@ -251,11 +265,9 @@ public abstract class AbstractArchstudioEditor extends EditorPart implements ISe
 				gridLayout.verticalSpacing = 5;
 				c.setLayout(gridLayout);
 
-				if(hasBanner){
-					Composite header = new Banner(c, icon,
-						editorName, secondaryText, 
-						resources.getColor(IResources.COLOR_BANNER_BRIGHT), 
-						resources.getColor(IResources.COLOR_BANNER_DARK));
+				if (hasBanner) {
+					Composite header = new Banner(c, icon, editorName, secondaryText, resources
+							.getColor(IResources.COLOR_BANNER_BRIGHT), resources.getColor(IResources.COLOR_BANNER_DARK));
 					header.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL));
 				}
 
@@ -265,95 +277,109 @@ public abstract class AbstractArchstudioEditor extends EditorPart implements ISe
 			}
 		});
 	}
-	
+
 	public abstract void createEditorContents(Composite parent);
 
-	public void doSave(IProgressMonitor monitor){
+	@Override
+	public void doSave(IProgressMonitor monitor) {
 		fileman.save(documentRootRef, monitor);
 	}
 
-	public void doSaveAs(){
+	@Override
+	public void doSaveAs() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	public void fileDirtyStateChanged(ObjRef xArchRef, boolean dirty){
-		if(xArchRef.equals(this.documentRootRef)){
-			getSite().getShell().getDisplay().asyncExec(new Runnable(){
-				public void run(){
+
+	@Override
+	public void fileDirtyStateChanged(ObjRef xArchRef, boolean dirty) {
+		if (xArchRef.equals(this.documentRootRef)) {
+			getSite().getShell().getDisplay().asyncExec(new Runnable() {
+				@Override
+				public void run() {
 					firePropertyChange(IEditorPart.PROP_DIRTY);
 				}
 			});
 		}
 	}
-	
-	public void fileSaving(ObjRef xArchRef, IProgressMonitor monitor){
+
+	@Override
+	public void fileSaving(ObjRef xArchRef, IProgressMonitor monitor) {
 	}
 
-	public boolean isDirty(){
+	@Override
+	public boolean isDirty() {
 		return fileman.isDirty(documentRootRef);
 	}
 
-	public boolean isSaveAsAllowed(){
+	@Override
+	public boolean isSaveAsAllowed() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public void setFocus(){
+	@Override
+	public void setFocus() {
 		parent.getChildren()[0].setFocus();
 	}
-	
-	public Object getAdapter(Class key){
-		if(key.equals(IContentOutlinePage.class)){
+
+	@Override
+	public Object getAdapter(Class key) {
+		if (key.equals(IContentOutlinePage.class)) {
 			return outlinePage;
 		}
 		return super.getAdapter(key);
 	}
-	
-	public void doUpdate(){
+
+	public void doUpdate() {
 		updateThread.execute();
 	}
-	
-	public void doUpdateNow(){
-		getSite().getShell().getDisplay().asyncExec(new Runnable(){
-			public void run(){
+
+	public void doUpdateNow() {
+		getSite().getShell().getDisplay().asyncExec(new Runnable() {
+			@Override
+			public void run() {
 				updateEditor();
 				updateOutlinePage();
 			}
 		});
 	}
-	
-	public final void handleXArchADTModelEvent(XArchADTModelEvent evt){
+
+	@Override
+	public final void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		//if((!evt.getIsAttached()) && (!handleUnattachedXArchFlatEvents)){
 		//	return;
 		//}
-		if(documentRootRef == null) return;
-		if(XadlUtils.isTargetedToDocument(xarch, documentRootRef, evt)){
+		if (documentRootRef == null) {
+			return;
+		}
+		if (XadlUtils.isTargetedToDocument(xarch, documentRootRef, evt)) {
 			updateThread.execute();
 			doHandleXArchADTModelEvent(evt);
 		}
 	}
-	
-	public void doHandleXArchADTModelEvent(XArchADTModelEvent evt){
+
+	public void doHandleXArchADTModelEvent(XArchADTModelEvent evt) {
 	}
-	
-	public void focusEditor(String editorName, ObjRef[] refs){
-		if(editorName.equals(this.editorName)){
-			if(outlinePage != null){
+
+	@Override
+	public void focusEditor(String editorName, ObjRef[] refs) {
+		if (editorName.equals(this.editorName)) {
+			if (outlinePage != null) {
 				outlinePage.focusEditor(editorName, refs);
 			}
 		}
 	}
-	
-	protected void showMessage(String message){
+
+	protected void showMessage(String message) {
 		MessageDialog.openError(getEditorSite().getShell(), "Error", message);
 	}
-	
-	protected void showError(IStatus status){
+
+	protected void showError(IStatus status) {
 		ErrorDialog.openError(getEditorSite().getShell(), "Error", status.getMessage(), status);
 	}
-	
-	public Composite getParentComposite(){
+
+	public Composite getParentComposite() {
 		return parent;
 	}
 }

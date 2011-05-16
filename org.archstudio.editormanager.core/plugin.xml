@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension
-         point="org.archstudio.myx.eclipse.brick">
-      <brick
-            class="org.archstudio.editormanager.core.EditorManagerMyxComponent"
-            id="org.archstudio.editormanager.core.EditorManagerMyxComponent"
-            name="Editor Manager Impl">
-      </brick>
-   </extension>
 
 </plugin>

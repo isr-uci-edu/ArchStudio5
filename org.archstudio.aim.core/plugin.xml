@@ -2,13 +2,38 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.archstudio.myx.eclipse.brick">
+         point="org.archstudio.myxgen.brick">
       <brick
-            baseJavaClass="org.archstudio.aim.core.AIMMyxComponentStub"
             class="org.archstudio.aim.core.AIMMyxComponent"
-            defaultImplClass="org.archstudio.aim.core.AIMMyxComponent"
-            id="org.archstudio.aim.core.AIMMyxComponent"
-            name="AIM">
+            id="org.archstudio.aim.core.brick1"
+            name="AIM Myx Component Impl">
+         <interface
+               class="org.archstudio.aim.IAIM"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="org.archstudio.aim.core.interface1"
+               name="aim"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.myx.fw.IMyxRuntime"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="org.archstudio.aim.core.interface2"
+               name="myxRuntime"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.xarchadt.IXArchADT"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="org.archstudio.aim.core.interface3"
+               name="xarch"
+               single="true">
+         </interface>
       </brick>
    </extension>
 

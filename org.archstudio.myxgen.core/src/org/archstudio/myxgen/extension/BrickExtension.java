@@ -19,25 +19,30 @@ public class BrickExtension extends AbstractExtension {
 
 	public BrickExtension(IPluginModelBase pluginModel, IConfigurationElement element) {
 		super(pluginModel, element);
-		this.name = element.getAttribute("name");
-		this.className = element.getAttribute("class");
-		this.stubClassName = element.getAttribute("stubClass") != null ? element.getAttribute("stubClass") : className
-				+ "Stub";
-		String description = null;
-		String parentBrickId = null;
-		for (IConfigurationElement child : element.getChildren()) {
-			if ("description".equals(child.getName())) {
-				description = child.getValue();
+		try {
+			this.name = element.getAttribute("name");
+			this.className = element.getAttribute("class");
+			this.stubClassName = element.getAttribute("stubClass") != null ? element.getAttribute("stubClass")
+					: className + "Stub";
+			String description = null;
+			String parentBrickId = null;
+			for (IConfigurationElement child : element.getChildren()) {
+				if ("description".equals(child.getName())) {
+					description = child.getValue();
+				}
+				else if ("interface".equals(child.getName())) {
+					interfaces.add(new InterfaceExtension(pluginModel, child));
+				}
+				else if ("parentBrick".equals(child.getName())) {
+					parentBrickId = child.getAttribute("parentBrick");
+				}
 			}
-			else if ("interface".equals(child.getName())) {
-				interfaces.add(new InterfaceExtension(pluginModel, child));
-			}
-			else if ("parentBrick".equals(child.getName())) {
-				parentBrickId = child.getAttribute("parentBrick");
-			}
+			this.description = description;
+			this.parentBrickId = parentBrickId;
 		}
-		this.description = description;
-		this.parentBrickId = parentBrickId;
+		catch (Throwable t) {
+			throw new RuntimeException("Unable to parse " + pluginModel.getBundleDescription().getName(), t);
+		}
 	}
 
 	public BrickExtension getParentBrick() {
