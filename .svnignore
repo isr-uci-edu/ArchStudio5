@@ -1,6 +1,6 @@
 bin
 .settings
 target/classes
-*/*.genmodel
-*/*.xsd2ecore
-*/*.ecore
+*.genmodel
+*.xsd2ecore
+*.ecore
