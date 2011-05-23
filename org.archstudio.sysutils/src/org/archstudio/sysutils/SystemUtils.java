@@ -1190,8 +1190,12 @@ public class SystemUtils {
 	}
 
 	public static final <T> Iterable<T> copyIterable(Iterable<T> iterable) {
-		return iterable instanceof CopyOnWriteArrayList || iterable instanceof CopyOnWriteArraySet ? iterable : Lists
-				.newArrayList(iterable);
+		if (iterable instanceof CopyOnWriteArrayList || iterable instanceof CopyOnWriteArraySet) {
+			return iterable;
+		}
+		synchronized (iterable) {
+			return new CopyOnWriteArrayList<T>(Lists.newArrayList(iterable));
+		}
 	}
 
 	public static final <T, K> Iterable<T> copyIterable(Map<K, ? extends Iterable<T>> map, K key) {
