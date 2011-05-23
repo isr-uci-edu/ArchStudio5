@@ -23,6 +23,14 @@
             </separator>
          </menu>
          <action
+               class="org.archstudio.relengtools.core.action.AddRequiredWorkspacePlugins"
+               enablesFor="+"
+               id="org.archstudio.relengtools.core.action2"
+               label="Add Required Workspace Plugins"
+               menubarPath="org.archstudio.eclipse.popupMenuMain/org.archstudio.relengtools.core.popupMenuMain/additions"
+               style="push">
+         </action>
+         <action
                class="org.archstudio.relengtools.core.action.RemoveDependencyVersionNumbers"
                enablesFor="+"
                id="org.archstudio.relengtools.core.action1"
@@ -31,10 +39,10 @@
                style="push">
          </action>
          <action
-               class="org.archstudio.relengtools.core.action.AddRequiredWorkspacePlugins"
+               class="org.archstudio.relengtools.core.action.SortManifests"
                enablesFor="+"
-               id="org.archstudio.relengtools.core.action2"
-               label="Add Required Workspace Plugins"
+               id="org.archstudio.relengtools.core.action3"
+               label="Sort Manifests"
                menubarPath="org.archstudio.eclipse.popupMenuMain/org.archstudio.relengtools.core.popupMenuMain/additions"
                style="push">
          </action>

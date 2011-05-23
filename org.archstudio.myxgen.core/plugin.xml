@@ -92,7 +92,7 @@
                delegate="variable"
                direction="in"
                getter="true"
-               id="org.archstudio.myxgen.core.interface1"
+               id="myxgen"
                single="true"
                name="myxgen">
          </interface>

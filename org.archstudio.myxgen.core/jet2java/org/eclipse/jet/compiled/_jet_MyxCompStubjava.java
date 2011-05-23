@@ -160,16 +160,12 @@ if(iface.getDescription() != null){
  // ----- myx service object declarations 
         out.write(NL);         
 for(InterfaceExtension iface : brick.getInterfaces()) {
-switch(iface.getServiceObjectDelegate()){
-case variable:
-case listener:
+EServiceObjectDelegate delegate = iface.getServiceObjectDelegate();
+if(delegate.isNeedsVariable()){
         out.write("\t/**");  //$NON-NLS-1$        
         out.write(NL);         
         out.write("\t * Service object(s) for ");  //$NON-NLS-1$        
         out.write(iface.getName());
-        out.write(": <code>");  //$NON-NLS-1$        
-        out.write(MyxCompStubUtil.getServiceObjectName(iface));
-        out.write("</code>");  //$NON-NLS-1$        
         out.write(NL);         
         out.write("\t *");  //$NON-NLS-1$        
         out.write(NL);         
@@ -192,71 +188,16 @@ if(iface.isSingle()){
         out.write(iface.getClassName());
         out.write("> ");  //$NON-NLS-1$        
         out.write(MyxCompStubUtil.getServiceObjectName(iface));
-        out.write(" = new CopyOnWriteArrayList<");  //$NON-NLS-1$        
+        out.write(NL);         
+        out.write("\t\t\t= new CopyOnWriteArrayList<");  //$NON-NLS-1$        
         out.write(iface.getClassName());
         out.write(">();");  //$NON-NLS-1$        
         out.write(NL);         
-}
-break;
-case brick:
-if(!iface.isSingle()){
+if(delegate.isNeedsProxy()){
         out.write("\t/**");  //$NON-NLS-1$        
         out.write(NL);         
-        out.write("\t * Add service object from ");  //$NON-NLS-1$        
+        out.write("\t * Proxy to service objects for ");  //$NON-NLS-1$        
         out.write(iface.getName());
-        out.write(": <code>");  //$NON-NLS-1$        
-        out.write(MyxCompStubUtil.getServiceObjectName(iface));
-        out.write("</code>");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t *");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t * @see #");  //$NON-NLS-1$        
-        out.write(MyxCompStubUtil.getConstantName(iface));
-        out.write(NL);         
-        out.write("\t * @generated");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t */");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\tprotected abstract void add");  //$NON-NLS-1$        
-        out.write(SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface)));
-        out.write("(");  //$NON-NLS-1$        
-        out.write(iface.getClassName());
-        out.write(" serviceObject);");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write(NL);         
-        out.write("\t/**");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t * Remove service object from ");  //$NON-NLS-1$        
-        out.write(iface.getName());
-        out.write(": <code>");  //$NON-NLS-1$        
-        out.write(MyxCompStubUtil.getServiceObjectName(iface));
-        out.write("</code>");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t *");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t * @see #");  //$NON-NLS-1$        
-        out.write(MyxCompStubUtil.getConstantName(iface));
-        out.write(NL);         
-        out.write("\t * @generated");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t */");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\tprotected abstract void remove");  //$NON-NLS-1$        
-        out.write(SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface)));
-        out.write("(");  //$NON-NLS-1$        
-        out.write(iface.getClassName());
-        out.write(" serviceObject);");  //$NON-NLS-1$        
-        out.write(NL);         
-}
-break;
-case myxRegistry:
-        out.write("\t/**");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t * Service object(s) for ");  //$NON-NLS-1$        
-        out.write(iface.getName());
-        out.write(": <code>");  //$NON-NLS-1$        
-        out.write(MyxCompStubUtil.getServiceObjectName(iface));
-        out.write("</code>");  //$NON-NLS-1$        
         out.write(NL);         
         out.write("\t *");  //$NON-NLS-1$        
         out.write(NL);         
@@ -271,80 +212,65 @@ case myxRegistry:
         out.write(iface.getClassName());
         out.write(" ");  //$NON-NLS-1$        
         out.write(MyxCompStubUtil.getServiceObjectName(iface));
-        out.write(" = (");  //$NON-NLS-1$        
+        out.write("Proxy =");  //$NON-NLS-1$        
+        out.write(NL);         
+        out.write("\t\t\t(");  //$NON-NLS-1$        
         out.write(iface.getClassName());
-        out.write(") Proxy.newProxyInstance(//");  //$NON-NLS-1$        
+        out.write(") Proxy.newProxyInstance(");  //$NON-NLS-1$        
         out.write(NL);         
-        out.write("\t\t\t");  //$NON-NLS-1$        
+        out.write("\t\t\t\t");  //$NON-NLS-1$        
         out.write(iface.getClassName());
-        out.write(".class.getClassLoader(),//");  //$NON-NLS-1$        
+        out.write(".class.getClassLoader(),");  //$NON-NLS-1$        
         out.write(NL);         
-        out.write("\t\t\tnew Class[] { ");  //$NON-NLS-1$        
+        out.write("\t\t\t\tnew Class[] { ");  //$NON-NLS-1$        
         out.write(iface.getClassName());
-        out.write(".class },//");  //$NON-NLS-1$        
+        out.write(".class },");  //$NON-NLS-1$        
         out.write(NL);         
-        out.write("\t\t\tnew InvocationHandler() {");  //$NON-NLS-1$        
+        out.write("\t\t\t\tnew InvocationHandler() {");  //$NON-NLS-1$        
         out.write(NL);         
-        out.write("\t\t\t\t@Override");  //$NON-NLS-1$        
+        out.write("\t\t\t\t\t@Override");  //$NON-NLS-1$        
         out.write(NL);         
-        out.write("\t\t\t\tpublic Object invoke(Object proxy, Method method, Object[] args) throws Throwable {");  //$NON-NLS-1$        
+        out.write("\t\t\t\t\tpublic Object invoke(Object proxy, Method method, Object[] args) throws Throwable {");  //$NON-NLS-1$        
         out.write(NL);         
-        out.write("\t\t\t\t\tfor (Object o : myxRegistry.getObjects(");  //$NON-NLS-1$        
+if(!delegate.isNeedsProxy()){
+        out.write("\t\t\t\t\t\tfor (");  //$NON-NLS-1$        
+        out.write(iface.getClassName());
+        out.write(" o : myxRegistry.getObjects(");  //$NON-NLS-1$        
         out.write(className);
-        out.write(".this)) {");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t\t\t\t\t\ttry {");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t\t\t\t\t\t\tif (o instanceof ");  //$NON-NLS-1$        
+        out.write(".this, ");  //$NON-NLS-1$        
         out.write(iface.getClassName());
+        out.write(".class)) {");  //$NON-NLS-1$        
+        out.write(NL);         
+}else{
+        out.write("\t\t\t\t\t\tfor (");  //$NON-NLS-1$        
+        out.write(iface.getClassName());
+        out.write(" o : ");  //$NON-NLS-1$        
+        out.write(MyxCompStubUtil.getServiceObjectName(iface));
         out.write(") {");  //$NON-NLS-1$        
+        out.write(NL);         
+}
+        out.write("\t\t\t\t\t\t\ttry {");  //$NON-NLS-1$        
         out.write(NL);         
         out.write("\t\t\t\t\t\t\t\tmethod.invoke(o, args);");  //$NON-NLS-1$        
         out.write(NL);         
         out.write("\t\t\t\t\t\t\t}");  //$NON-NLS-1$        
         out.write(NL);         
+        out.write("\t\t\t\t\t\t\tcatch (Exception e) {");  //$NON-NLS-1$        
+        out.write(NL);         
+        out.write("\t\t\t\t\t\t\t\te.printStackTrace();");  //$NON-NLS-1$        
+        out.write(NL);         
+        out.write("\t\t\t\t\t\t\t}");  //$NON-NLS-1$        
+        out.write(NL);         
         out.write("\t\t\t\t\t\t}");  //$NON-NLS-1$        
         out.write(NL);         
-        out.write("\t\t\t\t\t\tcatch (Exception e) {");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t\t\t\t\t\t\te.printStackTrace();");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t\t\t\t\t\t}");  //$NON-NLS-1$        
+        out.write("\t\t\t\t\t\treturn null;");  //$NON-NLS-1$        
         out.write(NL);         
         out.write("\t\t\t\t\t}");  //$NON-NLS-1$        
         out.write(NL);         
-        out.write("\t\t\t\t\treturn null;");  //$NON-NLS-1$        
+        out.write("\t\t\t\t});");  //$NON-NLS-1$        
         out.write(NL);         
-        out.write("\t\t\t\t}");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t\t\t});");  //$NON-NLS-1$        
-        out.write(NL);         
-break;
 }
-if(iface.getServiceObjectDelegate()==EServiceObjectDelegate.listener){
-        out.write("\t/**");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t * Proxy object for ");  //$NON-NLS-1$        
-        out.write(iface.getName());
-        out.write(": <code>");  //$NON-NLS-1$        
-        out.write(MyxCompStubUtil.getServiceObjectName(iface));
-        out.write("</code>");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t *");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t * @see #");  //$NON-NLS-1$        
-        out.write(MyxCompStubUtil.getConstantName(iface));
-        out.write(NL);         
-        out.write("\t * @generated");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t */");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\tprotected ");  //$NON-NLS-1$        
-        out.write(iface.getClassName());
-        out.write(" ");  //$NON-NLS-1$        
-        out.write(MyxCompStubUtil.getServiceObjectName(iface));
-        out.write("Proxy = MyxCompStubUtil.getListener(iface);");  //$NON-NLS-1$        
-        out.write(NL);         
+}
 }
 }
         out.write(NL);         
@@ -369,6 +295,7 @@ if(iface.isGenerateGetter()){
         out.write(NL);         
 switch(iface.getServiceObjectDelegate()){
 case variable:
+case events:
 if(iface.isSingle()){
         out.write("\tpublic ");  //$NON-NLS-1$        
         out.write(iface.getClassName());
@@ -398,7 +325,6 @@ if(iface.isSingle()){
 }
 break;
 case brick:
-if(iface.isSingle()){
         out.write("\tpublic ");  //$NON-NLS-1$        
         out.write(iface.getClassName());
         out.write(" get");  //$NON-NLS-1$        
@@ -409,29 +335,6 @@ if(iface.isSingle()){
         out.write(NL);         
         out.write("\t}");  //$NON-NLS-1$        
         out.write(NL);         
-}else{
-        out.write("\t// TODO: Not sure what to do here");  //$NON-NLS-1$        
-        out.write(NL);         
-}
-break;
-case myxRegistry:
-if(iface.isSingle()){
-        out.write("\tpublic ");  //$NON-NLS-1$        
-        out.write(iface.getClassName());
-        out.write(" get");  //$NON-NLS-1$        
-        out.write(SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface)));
-        out.write("(){");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t\treturn ");  //$NON-NLS-1$        
-        out.write(MyxCompStubUtil.getServiceObjectName(iface));
-        out.write(";");  //$NON-NLS-1$        
-        out.write(NL);         
-        out.write("\t}");  //$NON-NLS-1$        
-        out.write(NL);         
-}else{
-        out.write("\t// TODO: Not sure what to do here");  //$NON-NLS-1$        
-        out.write(NL);         
-}
 break;
 }
 }
@@ -463,13 +366,23 @@ if(iface.getDirection() == EMyxInterfaceDirection.OUT){
         out.write(NL);         
 switch(iface.getServiceObjectDelegate()){
 case variable:
-case listener:
+case events:
 if(iface.isSingle()){
+        out.write("\t\t\t\tif(");  //$NON-NLS-1$        
+        out.write(MyxCompStubUtil.getServiceObjectName(iface));
+        out.write(" != null){");  //$NON-NLS-1$        
+        out.write(NL);         
+        out.write("\t\t\t\t\tthrow new IllegalStateException(\"Only a single connection is supported on \"+interfaceName);");  //$NON-NLS-1$        
+        out.write(NL);         
+        out.write("\t\t\t\t}");  //$NON-NLS-1$        
+        out.write(NL);         
         out.write("\t\t\t\t");  //$NON-NLS-1$        
         out.write(MyxCompStubUtil.getServiceObjectName(iface));
         out.write(" = (");  //$NON-NLS-1$        
         out.write(iface.getClassName());
         out.write(") serviceObject;");  //$NON-NLS-1$        
+        out.write(NL);         
+        out.write("\t\t\t\treturn;");  //$NON-NLS-1$        
         out.write(NL);         
 }else{
         out.write("\t\t\t\t");  //$NON-NLS-1$        
@@ -478,27 +391,7 @@ if(iface.isSingle()){
         out.write(iface.getClassName());
         out.write(") serviceObject);");  //$NON-NLS-1$        
         out.write(NL);         
-}
-break;
-case brick:
-if(iface.isSingle()){
-        out.write("\t\t\t\t// TODO: Not sure what to do here");  //$NON-NLS-1$        
-        out.write(NL);         
-}else{
-        out.write("\t\t\t\tadd");  //$NON-NLS-1$        
-        out.write(SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface)));
-        out.write("((");  //$NON-NLS-1$        
-        out.write(iface.getClassName());
-        out.write(") serviceObject);");  //$NON-NLS-1$        
-        out.write(NL);         
-}
-break;
-case myxRegistry:
-if(iface.isSingle()){
-        out.write("\t\t\t\t// TODO: Not sure what to do here");  //$NON-NLS-1$        
-        out.write(NL);         
-}else{
-        out.write("\t\t\t\tmyxRegistry.map(this, serviceObject);");  //$NON-NLS-1$        
+        out.write("\t\t\t\treturn;");  //$NON-NLS-1$        
         out.write(NL);         
 }
 break;
@@ -509,6 +402,9 @@ break;
 }
 if(brick.getParentBrick() != null){
         out.write("\t\tsuper.interfaceConnected(interfaceName, serviceObject);");  //$NON-NLS-1$        
+        out.write(NL);         
+}else{
+        out.write("\t\tthrow new IllegalArgumentException(\"Unhandled interface connection: \"+interfaceName);");  //$NON-NLS-1$        
         out.write(NL);         
 }
         out.write("\t}");  //$NON-NLS-1$        
@@ -538,40 +434,24 @@ if(iface.getDirection() == EMyxInterfaceDirection.OUT){
         out.write(NL);         
 switch(iface.getServiceObjectDelegate()){
 case variable:
-case listener:
+case events:
 if(iface.isSingle()){
         out.write("\t\t\t\t");  //$NON-NLS-1$        
         out.write(MyxCompStubUtil.getServiceObjectName(iface));
         out.write(" = null;");  //$NON-NLS-1$        
+        out.write(NL);         
+        out.write("\t\t\t\treturn;");  //$NON-NLS-1$        
         out.write(NL);         
 }else{
         out.write("\t\t\t\t");  //$NON-NLS-1$        
         out.write(MyxCompStubUtil.getServiceObjectName(iface));
         out.write(".remove(serviceObject);");  //$NON-NLS-1$        
         out.write(NL);         
+        out.write("\t\t\t\treturn;");  //$NON-NLS-1$        
+        out.write(NL);         
 }
 break;
 case brick:
-if(iface.isSingle()){
-        out.write("\t\t\t\t// TODO: Not sure what to do here");  //$NON-NLS-1$        
-        out.write(NL);         
-}else{
-        out.write("\t\t\t\tremove");  //$NON-NLS-1$        
-        out.write(SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface)));
-        out.write("((");  //$NON-NLS-1$        
-        out.write(iface.getClassName());
-        out.write(") serviceObject);");  //$NON-NLS-1$        
-        out.write(NL);         
-}
-break;
-case myxRegistry:
-if(iface.isSingle()){
-        out.write("\t\t\t\t// TODO: Not sure what to do here");  //$NON-NLS-1$        
-        out.write(NL);         
-}else{
-        out.write("\t\t\t\tmyxRegistry.unmap(this, serviceObject);");  //$NON-NLS-1$        
-        out.write(NL);         
-}
 break;
 }
         out.write("\t\t}");  //$NON-NLS-1$        
@@ -580,6 +460,9 @@ break;
 }
 if(brick.getParentBrick() != null){
         out.write("\t\tsuper.interfaceDisconnecting(interfaceName, serviceObject);");  //$NON-NLS-1$        
+        out.write(NL);         
+}else{
+        out.write("\t\tthrow new IllegalArgumentException(\"Unhandled interface disconnection: \"+interfaceName);");  //$NON-NLS-1$        
         out.write(NL);         
 }
         out.write("\t}");  //$NON-NLS-1$        
@@ -601,7 +484,6 @@ if(brick.getParentBrick() != null){
 }
         out.write("\t}");  //$NON-NLS-1$        
         out.write(NL);         
-        out.write(NL);         
         out.write("/**");  //$NON-NLS-1$        
         out.write(NL);         
         out.write(" * @generated");  //$NON-NLS-1$        
@@ -614,13 +496,14 @@ if(brick.getParentBrick() != null){
         out.write(NL);         
 for(InterfaceExtension iface : brick.getInterfaces()) {
 if(iface.getDirection() == EMyxInterfaceDirection.IN){
+if(iface.isSingle()){
         out.write("\t\t\tif(interfaceName.equals(");  //$NON-NLS-1$        
         out.write(MyxCompStubUtil.getConstantName(iface));
         out.write(")){");  //$NON-NLS-1$        
         out.write(NL);         
 switch(iface.getServiceObjectDelegate()){
 case variable:
-if(iface.isSingle()){
+case events:
         out.write("\t\t\t\tif(");  //$NON-NLS-1$        
         out.write(MyxCompStubUtil.getServiceObjectName(iface));
         out.write(" == null){");  //$NON-NLS-1$        
@@ -635,41 +518,22 @@ if(iface.isSingle()){
         out.write(MyxCompStubUtil.getServiceObjectName(iface));
         out.write(";");  //$NON-NLS-1$        
         out.write(NL);         
-}else{
-        out.write("\t\t\t\t// TODO: Not sure what to do here");  //$NON-NLS-1$        
-        out.write(NL);         
-}
 break;
 case brick:
-if(iface.isSingle()){
         out.write("\t\t\t\treturn this;");  //$NON-NLS-1$        
         out.write(NL);         
-}else{
-        out.write("\t\t\t\t// TODO: Not sure what to do here");  //$NON-NLS-1$        
-        out.write(NL);         
-}
-break;
-case myxRegistry:
-if(iface.isSingle()){
-        out.write("\t\t\t\treturn ");  //$NON-NLS-1$        
-        out.write(MyxCompStubUtil.getServiceObjectName(iface));
-        out.write(";");  //$NON-NLS-1$        
-        out.write(NL);         
-}else{
-        out.write("\t\t\t\t// TODO: Not sure what to do here");  //$NON-NLS-1$        
-        out.write(NL);         
-}
 break;
 }
-        out.write("\t\t}");  //$NON-NLS-1$        
+        out.write("\t\t\t}");  //$NON-NLS-1$        
         out.write(NL);         
+}
 }
 }
 if(brick.getParentBrick() != null){
         out.write("\t\treturn super.getServiceObject(interfaceName);");  //$NON-NLS-1$        
         out.write(NL);         
 }else{
-        out.write("\t\treturn null;");  //$NON-NLS-1$        
+        out.write("\t\tthrow new IllegalArgumentException(\"Unhandled interface service object: \"+interfaceName);");  //$NON-NLS-1$        
         out.write(NL);         
 }
         out.write("\t}");  //$NON-NLS-1$        

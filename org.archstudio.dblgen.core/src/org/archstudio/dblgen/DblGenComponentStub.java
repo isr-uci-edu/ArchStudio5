@@ -79,6 +79,7 @@ public abstract class DblGenComponentStub extends org.archstudio.myx.fw.Abstract
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
+		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
 
 	/**
@@ -89,6 +90,7 @@ public abstract class DblGenComponentStub extends org.archstudio.myx.fw.Abstract
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
+		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
@@ -109,6 +111,6 @@ public abstract class DblGenComponentStub extends org.archstudio.myx.fw.Abstract
 			}
 			return dblgen;
 		}
-		return null;
+		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}
 }

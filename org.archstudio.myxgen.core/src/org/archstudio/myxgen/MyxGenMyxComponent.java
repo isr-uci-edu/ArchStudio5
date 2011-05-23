@@ -6,6 +6,7 @@ package org.archstudio.myxgen;
  * @see org.archstudio.myxgen.MyxGenMyxComponentStub
  * @generated
  */
-public class MyxGenMyxComponent extends org.archstudio.myxgen.MyxGenMyxComponentStub {
+public class MyxGenMyxComponent extends
+		org.archstudio.myxgen.MyxGenMyxComponentStub {
 
 }

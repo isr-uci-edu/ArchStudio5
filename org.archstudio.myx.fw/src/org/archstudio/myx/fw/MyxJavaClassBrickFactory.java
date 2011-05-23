@@ -10,7 +10,7 @@ public class MyxJavaClassBrickFactory implements IMyxBrickFactory {
 		this.mainBrickClass = mainBrickClass;
 	}
 
-	public IMyxBrick create(IMyxName name, IMyxBrickInitializationData initializationData) throws MyxBrickCreationException {
+	public IMyxBrick create(IMyxName name, IMyxBrickDescription brickDescription, IMyxBrickInitializationData initializationData) throws MyxBrickCreationException {
 		try {
 			Constructor<?> constructor = mainBrickClass.getConstructor(new Class[0]);
 			Object o = constructor.newInstance(new Object[0]);

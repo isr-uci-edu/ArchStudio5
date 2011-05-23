@@ -98,6 +98,7 @@ public abstract class ChatClientMyxComponentStub extends org.archstudio.myx.fw.A
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
+		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
 
 	/**
@@ -108,6 +109,7 @@ public abstract class ChatClientMyxComponentStub extends org.archstudio.myx.fw.A
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
+		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
@@ -134,6 +136,6 @@ public abstract class ChatClientMyxComponentStub extends org.archstudio.myx.fw.A
 			}
 			return chatevents;
 		}
-		return null;
+		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}
 }

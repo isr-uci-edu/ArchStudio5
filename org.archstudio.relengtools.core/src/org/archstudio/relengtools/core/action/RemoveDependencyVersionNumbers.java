@@ -43,7 +43,14 @@ public class RemoveDependencyVersionNumbers extends AbstractObjectActionDelegate
 				newRequiredBundles.add(service.newRequiredBundle(b.getName(), null, b.isOptional(), b.isExported()));
 			}
 
-			description.setRequiredBundles(requiredBundles.toArray(new IRequiredBundleDescription[0]));
+			// the old bundles aren't getting removed, we force this by clearing the corresponding header name
+			description.setHeader("Require-Bundle", null);
+			description.setRequiredBundles(null);
+			description.apply(null);
+
+			// the hack above requires that we start with a fresh bundle, because we cannot unclear the header name
+			description = service.getDescription(project);
+			description.setRequiredBundles(newRequiredBundles.toArray(new IRequiredBundleDescription[0]));
 			description.apply(null);
 		}
 		catch (CoreException e) {
