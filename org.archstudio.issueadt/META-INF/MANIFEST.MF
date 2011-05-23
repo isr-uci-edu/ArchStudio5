@@ -1,10 +1,10 @@
-Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio IssueADT Common
-Bundle-SymbolicName: org.archstudio.issueadt
-Bundle-Version: 5.0.0.qualifier
-Bundle-Vendor: archstudio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio.xarchadt;bundle-version="5.0.0",
- org.archstudio.archlight;bundle-version="5.0.0"
+Bundle-SymbolicName: org.archstudio.issueadt
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.issueadt
+Manifest-Version: 1.0
+Require-Bundle: org.archstudio.archlight,
+ org.archstudio.xarchadt

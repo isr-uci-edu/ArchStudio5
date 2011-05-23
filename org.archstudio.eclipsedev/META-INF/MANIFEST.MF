@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Eclipse Development Common
-Bundle-SymbolicName: org.archstudio.eclipsedev;singleton:=true
-Bundle-Version: 5.0.0.qualifier
-Bundle-Vendor: archstudio.org
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.archstudio.eclipsedev
-Require-Bundle: org.eclipse.jface;bundle-version="3.5.1"

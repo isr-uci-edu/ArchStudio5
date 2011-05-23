@@ -23,6 +23,8 @@ import org.archstudio.xarchadt.BasicXArchADTPackageMetadata;
 import org.archstudio.xarchadt.BasicXArchADTTypeMetadata;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFeature;
+import org.archstudio.xarchadt.IXArchADTFeature.FeatureType;
+import org.archstudio.xarchadt.IXArchADTFeature.ValueType;
 import org.archstudio.xarchadt.IXArchADTFileListener;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.IXArchADTPackageMetadata;
@@ -30,11 +32,9 @@ import org.archstudio.xarchadt.IXArchADTSubstitutionHint;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTFileEvent;
+import org.archstudio.xarchadt.XArchADTFileEvent.EventType;
 import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.archstudio.xarchadt.XArchADTPath;
-import org.archstudio.xarchadt.IXArchADTFeature.FeatureType;
-import org.archstudio.xarchadt.IXArchADTFeature.ValueType;
-import org.archstudio.xarchadt.XArchADTFileEvent.EventType;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
@@ -87,63 +87,63 @@ public class XArchADTImpl implements IXArchADT {
 		SAVE_OPTIONS_MAP.put(XMLResource.OPTION_ELEMENT_HANDLER, elementHandlerImpl);
 	}
 
-	private static final String EMF_EXTENSION_POINT_ID = "org.eclipse.emf.ecore.generated_package"; 
-	
+	private static final String EMF_EXTENSION_POINT_ID = "org.eclipse.emf.ecore.generated_package";
+
 	public XArchADTImpl() {
 		resourceSet = new ResourceSetImpl();
 		resourceSet.eAdapters().add(new ContentAdapter());
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xml", new GenericXMLResourceFactoryImpl());
-		resourceSet.getResourceFactoryRegistry().getContentTypeToFactoryMap().put("xml", new GenericXMLResourceFactoryImpl());
-	
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
+				.put("xml", new GenericXMLResourceFactoryImpl());
+		resourceSet.getResourceFactoryRegistry().getContentTypeToFactoryMap()
+				.put("xml", new GenericXMLResourceFactoryImpl());
+
 		registerAllSchemaPackages();
 	}
-	
+
 	/**
-	 * This method causes the EPackage.eINSTANCE variable of each EMF-generated bundle (plugin)
-	 * in Eclipse to be touched.  This causes the package to spontaneously register
-	 * itself with the EPackage Registry, which is how we find out what EPackages
-	 * are available on the system.  This is an EMF-ism that isn't easily avoided.
-	 * 
-	 * If you are running outside of ArchStudio (like in org.archstudio.description.Main,
-	 * then these bundles will not be available.  What you have to do then is just read
-	 * the eINSTANCE variable for all the EPackages you want to have available to you.
+	 * This method causes the EPackage.eINSTANCE variable of each EMF-generated bundle (plugin) in Eclipse to be
+	 * touched. This causes the package to spontaneously register itself with the EPackage Registry, which is how we
+	 * find out what EPackages are available on the system. This is an EMF-ism that isn't easily avoided. If you are
+	 * running outside of ArchStudio (like in org.archstudio.description.Main, then these bundles will not be available.
+	 * What you have to do then is just read the eINSTANCE variable for all the EPackages you want to have available to
+	 * you.
 	 */
-    private void registerAllSchemaPackages() {
-    	IExtensionRegistry reg = Platform.getExtensionRegistry();
-    	if (reg != null) {
-    		// The Extension Registry can be null if we're running outside of Eclipse,
-    		// as happens in, e.g., org.archstudio.description.Main
-    		for (IConfigurationElement configurationElement : reg.getConfigurationElementsFor(EMF_EXTENSION_POINT_ID)) {
-    			String packageClassName = configurationElement.getAttribute("class");
-    			if (packageClassName != null) {
-    				String bundleName = configurationElement.getDeclaringExtension().getContributor().getName();
-    				try {
-    					Class<?> packageClass = Platform.getBundle(bundleName).loadClass(packageClassName);
-    					Field instanceField = packageClass.getDeclaredField("eINSTANCE");
-    					/* EPackage ePackage = (EPackage) */ instanceField.get(packageClass);
-    				}
-    				catch (ClassNotFoundException cnfe) {
-    					System.err.println(cnfe);
-    				}
-    				catch (NoSuchFieldException nsfe) {
-    					System.err.println(nsfe);
-    				}
-    				catch (IllegalAccessException iae) {
-    					System.err.println(iae);
-    				}
-    			}
-    		}
-    	}
-	} 
+	private void registerAllSchemaPackages() {
+		IExtensionRegistry reg = Platform.getExtensionRegistry();
+		if (reg != null) {
+			// The Extension Registry can be null if we're running outside of Eclipse,
+			// as happens in, e.g., org.archstudio.description.Main
+			for (IConfigurationElement configurationElement : reg.getConfigurationElementsFor(EMF_EXTENSION_POINT_ID)) {
+				String packageClassName = configurationElement.getAttribute("class");
+				if (packageClassName != null) {
+					String bundleName = configurationElement.getDeclaringExtension().getContributor().getName();
+					try {
+						Class<?> packageClass = Platform.getBundle(bundleName).loadClass(packageClassName);
+						Field instanceField = packageClass.getDeclaredField("eINSTANCE");
+						/* EPackage ePackage = (EPackage) */instanceField.get(packageClass);
+					}
+					catch (ClassNotFoundException cnfe) {
+						System.err.println(cnfe);
+					}
+					catch (NoSuchFieldException nsfe) {
+						System.err.println(nsfe);
+					}
+					catch (IllegalAccessException iae) {
+						System.err.println(iae);
+					}
+				}
+			}
+		}
+	}
 
 	// Map ObjRef <-> EObjects
 	private final Object objRefToEObjectLock = new Object();
-	
+
 	// The BiMap is a two-way map
 	private final Map<ObjRef, EObject> objRefToEObject = HashBiMap.create();
-	
+
 	// Alias the BiMap's inverse rather than maintaining it internally.
-	private final Map<EObject, ObjRef> eObjectToObjRef = ((BiMap<ObjRef, EObject>)objRefToEObject).inverse();
+	private final Map<EObject, ObjRef> eObjectToObjRef = ((BiMap<ObjRef, EObject>) objRefToEObject).inverse();
 
 	private ObjRef put(EObject eObject) {
 		synchronized (objRefToEObjectLock) {
@@ -158,8 +158,9 @@ public class XArchADTImpl implements IXArchADT {
 	private List<ObjRef> put(Collection<EObject> eObjects) {
 		List<ObjRef> objRefs = Lists.newArrayListWithCapacity(eObjects.size());
 		synchronized (objRefToEObjectLock) {
-			for (EObject eObject : eObjects)
+			for (EObject eObject : eObjects) {
 				objRefs.add(put(eObject));
+			}
 			return objRefs;
 		}
 	}
@@ -177,8 +178,9 @@ public class XArchADTImpl implements IXArchADT {
 	private List<EObject> get(Collection<ObjRef> objRefs) {
 		List<EObject> eObjects = Lists.newArrayListWithCapacity(objRefs.size());
 		synchronized (objRefToEObjectLock) {
-			for (ObjRef objRef : objRefs)
+			for (ObjRef objRef : objRefs) {
 				eObjects.add(get(objRef));
+			}
 			return eObjects;
 		}
 	}
@@ -191,33 +193,35 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	// Dynamically maps feature names (either uppercase or lowercase) of an EClass to EStructuralFeatures.
-	private static final ConcurrentMap<EClass, Map<String, EStructuralFeature>> autoCaselessFeature = new MapMaker().softValues().makeComputingMap(new Function<EClass, Map<String, EStructuralFeature>>() {
-			Map<String, EStructuralFeature> structuralFeatures = Maps.newHashMap();
-			Map<Integer, EStructuralFeature> featureIDs = Maps.newHashMap();
+	private static final ConcurrentMap<EClass, Map<String, EStructuralFeature>> autoCaselessFeature = new MapMaker()
+			.softValues().makeComputingMap(new Function<EClass, Map<String, EStructuralFeature>>() {
+				Map<String, EStructuralFeature> structuralFeatures = Maps.newHashMap();
+				Map<Integer, EStructuralFeature> featureIDs = Maps.newHashMap();
 
-			@Override
-			public Map<String, EStructuralFeature> apply(EClass eClass) {
-				structuralFeatures = Maps.newHashMap();
-				featureIDs = Maps.newHashMap();
-				apply0(eClass);
-				return structuralFeatures;
-			}
-
-			private void apply0(EClass eClass) {
-				for (EStructuralFeature eStructuralFeature : eClass.getEStructuralFeatures()) {
-					EStructuralFeature conflictingEStructuralFeature = featureIDs.put(
-							eStructuralFeature.getFeatureID(), eStructuralFeature);
-					if (conflictingEStructuralFeature != null) {
-						throw new RuntimeException("Unexpected structural feature");
-					}
-					String name = eStructuralFeature.getName();
-					structuralFeatures.put(SystemUtils.capFirst(name), eStructuralFeature);
-					structuralFeatures.put(SystemUtils.uncapFirst(name), eStructuralFeature);
+				@Override
+				public Map<String, EStructuralFeature> apply(EClass eClass) {
+					structuralFeatures = Maps.newHashMap();
+					featureIDs = Maps.newHashMap();
+					apply0(eClass);
+					return structuralFeatures;
 				}
-				for (EClass eSuperClass : eClass.getESuperTypes())
-					apply0(eSuperClass);
-			}
-		});
+
+				private void apply0(EClass eClass) {
+					for (EStructuralFeature eStructuralFeature : eClass.getEStructuralFeatures()) {
+						EStructuralFeature conflictingEStructuralFeature = featureIDs.put(
+								eStructuralFeature.getFeatureID(), eStructuralFeature);
+						if (conflictingEStructuralFeature != null) {
+							throw new RuntimeException("Unexpected structural feature");
+						}
+						String name = eStructuralFeature.getName();
+						structuralFeatures.put(SystemUtils.capFirst(name), eStructuralFeature);
+						structuralFeatures.put(SystemUtils.uncapFirst(name), eStructuralFeature);
+					}
+					for (EClass eSuperClass : eClass.getESuperTypes()) {
+						apply0(eSuperClass);
+					}
+				}
+			});
 
 	private static final EStructuralFeature getEFeature(EClass eClass, String featureName) {
 		EStructuralFeature eFeature = autoCaselessFeature.get(eClass).get(featureName);
@@ -236,7 +240,7 @@ public class XArchADTImpl implements IXArchADT {
 	@SuppressWarnings("unchecked")
 	private static final EList<EObject> getEList(EObject eObject, String featureName) {
 		try {
-			return (EList<EObject>) (eObject.eGet(getEFeature(eObject.eClass(), featureName)));
+			return (EList<EObject>) eObject.eGet(getEFeature(eObject.eClass(), featureName));
 		}
 		catch (ClassCastException e) {
 			throw new RuntimeException(SystemUtils.message(//
@@ -278,10 +282,10 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public void set(ObjRef baseObjRef, String typeOfThing, Serializable value) {
 		EObject baseEObject = get(baseObjRef);
-		if(value instanceof ObjRef){
+		if (value instanceof ObjRef) {
 			baseEObject.eSet(getEFeature(baseEObject, typeOfThing), get((ObjRef) value));
 		}
-		else{
+		else {
 			// If the feature is an enumerated type but instead you passed in a string,
 			// then we will try to convert the string to an enumerated type automatically.
 			// If that doesn't work, we throw IllegalArgumentException.
@@ -289,118 +293,117 @@ public class XArchADTImpl implements IXArchADT {
 			baseEObject.eSet(getEFeature(baseEObject, typeOfThing), value);
 		}
 	}
-	
-	
+
 	// TODO: An alternative to all of this is to pass Serializable rather than String
-	
-//	@Override
-//	public void set(ObjRef baseObjRef, String typeOfThing, Object value) {
-//		EObject baseEObject = get(baseObjRef);
-//		
-//		// If the feature is an enumerated type but instead you passed in a string,
-//		// then we will try to convert the string to an enumerated type automatically.
-//		// If that doesn't work, we throw IllegalArgumentException.
-//		EStructuralFeature feature = getEFeature(baseEObject, typeOfThing);
-//		
-//		// Be friendly and try to coerce the value into the right type
-//		value = coerceValue(feature, value);
-//		baseEObject.eSet(getEFeature(baseEObject, typeOfThing), value);
-//	}
-//	
-//	// Tries to coerce the value object into a type of object 
-//	// compatible with the given feature.  If a string is passed in
-//	// for value, but the feature expects an Integer, it parses it as
-//	// an integer and so on.
-//	
-//	// Ordinarily, I'd be pretty reticent about putting this directly
-//	// into xArchADT, but now that Classes have been removed from
-//	// Type & Feature metadata, there is no way to do this outside
-//	// xArchADT without having something else poking around in the EMF
-//	// guts of the xADL model.
-//	private Object coerceValue(EStructuralFeature feature, Object value) {
-//		Class<?> featureClass = feature.getEType().getInstanceClass();
-//		if ((featureClass != null) && (value != null)) {
-//			if (Enumerator.class.isAssignableFrom(featureClass)) {
-//				if (value instanceof String) {
-//					try {
-//						Method m = featureClass.getMethod("get", java.lang.String.class);
-//						Object newValue = m.invoke(featureClass, (String)value);
-//						if (newValue == null) {
-//							throw new IllegalArgumentException("String value " + value.toString() + " not valid for " + featureClass.getCanonicalName());
-//						}
-//						value = newValue;
-//					}
-//					catch (NoSuchMethodException nsme) {
-//					}
-//					catch (InvocationTargetException ite) {
-//					}
-//					catch (IllegalAccessException iae) {
-//					}
-//				}
-//			}
-//			else if (boolean.class.isAssignableFrom(featureClass) || Boolean.class.isAssignableFrom(featureClass)) {
-//				if (value instanceof String) {
-//					value = new Boolean(value.toString());
-//				}
-//			}
-//			else if (char.class.isAssignableFrom(featureClass) || Character.class.isAssignableFrom(featureClass)) {
-//				if (value instanceof String) {
-//					value = new Character(value.toString().charAt(0));
-//				}
-//			}
-//			else if (short.class.isAssignableFrom(featureClass) || Short.class.isAssignableFrom(featureClass)) {
-//				if (value instanceof String) {
-//					try {
-//						value = new Short(value.toString());
-//					}
-//					catch (NumberFormatException nfe) {
-//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-//					}
-//				}
-//			}
-//			else if (int.class.isAssignableFrom(featureClass) || Integer.class.isAssignableFrom(featureClass)) {
-//				if (value instanceof String) {
-//					try {
-//						value = new Integer(value.toString());
-//					}
-//					catch (NumberFormatException nfe) {
-//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-//					}
-//				}
-//			}
-//			else if (long.class.isAssignableFrom(featureClass) || Long.class.isAssignableFrom(featureClass)) {
-//				if (value instanceof String) {
-//					try {
-//						value = new Long(value.toString());
-//					}
-//					catch (NumberFormatException nfe) {
-//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-//					}
-//				}
-//			}
-//			else if (float.class.isAssignableFrom(featureClass) || Float.class.isAssignableFrom(featureClass)) {
-//				if (value instanceof String) {
-//					try {
-//						value = new Float(value.toString());
-//					}
-//					catch (NumberFormatException nfe) {
-//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-//					}
-//				}
-//			}
-//			else if (double.class.isAssignableFrom(featureClass) || Double.class.isAssignableFrom(featureClass)) {
-//				if (value instanceof String) {
-//					try {
-//						value = new Double(value.toString());
-//					}
-//					catch (NumberFormatException nfe) {
-//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-//					}
-//				}
-//			}
-//		}
-//		return value;
-//	}
+
+	//	@Override
+	//	public void set(ObjRef baseObjRef, String typeOfThing, Object value) {
+	//		EObject baseEObject = get(baseObjRef);
+	//		
+	//		// If the feature is an enumerated type but instead you passed in a string,
+	//		// then we will try to convert the string to an enumerated type automatically.
+	//		// If that doesn't work, we throw IllegalArgumentException.
+	//		EStructuralFeature feature = getEFeature(baseEObject, typeOfThing);
+	//		
+	//		// Be friendly and try to coerce the value into the right type
+	//		value = coerceValue(feature, value);
+	//		baseEObject.eSet(getEFeature(baseEObject, typeOfThing), value);
+	//	}
+	//	
+	//	// Tries to coerce the value object into a type of object 
+	//	// compatible with the given feature.  If a string is passed in
+	//	// for value, but the feature expects an Integer, it parses it as
+	//	// an integer and so on.
+	//	
+	//	// Ordinarily, I'd be pretty reticent about putting this directly
+	//	// into xArchADT, but now that Classes have been removed from
+	//	// Type & Feature metadata, there is no way to do this outside
+	//	// xArchADT without having something else poking around in the EMF
+	//	// guts of the xADL model.
+	//	private Object coerceValue(EStructuralFeature feature, Object value) {
+	//		Class<?> featureClass = feature.getEType().getInstanceClass();
+	//		if ((featureClass != null) && (value != null)) {
+	//			if (Enumerator.class.isAssignableFrom(featureClass)) {
+	//				if (value instanceof String) {
+	//					try {
+	//						Method m = featureClass.getMethod("get", java.lang.String.class);
+	//						Object newValue = m.invoke(featureClass, (String)value);
+	//						if (newValue == null) {
+	//							throw new IllegalArgumentException("String value " + value.toString() + " not valid for " + featureClass.getCanonicalName());
+	//						}
+	//						value = newValue;
+	//					}
+	//					catch (NoSuchMethodException nsme) {
+	//					}
+	//					catch (InvocationTargetException ite) {
+	//					}
+	//					catch (IllegalAccessException iae) {
+	//					}
+	//				}
+	//			}
+	//			else if (boolean.class.isAssignableFrom(featureClass) || Boolean.class.isAssignableFrom(featureClass)) {
+	//				if (value instanceof String) {
+	//					value = new Boolean(value.toString());
+	//				}
+	//			}
+	//			else if (char.class.isAssignableFrom(featureClass) || Character.class.isAssignableFrom(featureClass)) {
+	//				if (value instanceof String) {
+	//					value = new Character(value.toString().charAt(0));
+	//				}
+	//			}
+	//			else if (short.class.isAssignableFrom(featureClass) || Short.class.isAssignableFrom(featureClass)) {
+	//				if (value instanceof String) {
+	//					try {
+	//						value = new Short(value.toString());
+	//					}
+	//					catch (NumberFormatException nfe) {
+	//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
+	//					}
+	//				}
+	//			}
+	//			else if (int.class.isAssignableFrom(featureClass) || Integer.class.isAssignableFrom(featureClass)) {
+	//				if (value instanceof String) {
+	//					try {
+	//						value = new Integer(value.toString());
+	//					}
+	//					catch (NumberFormatException nfe) {
+	//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
+	//					}
+	//				}
+	//			}
+	//			else if (long.class.isAssignableFrom(featureClass) || Long.class.isAssignableFrom(featureClass)) {
+	//				if (value instanceof String) {
+	//					try {
+	//						value = new Long(value.toString());
+	//					}
+	//					catch (NumberFormatException nfe) {
+	//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
+	//					}
+	//				}
+	//			}
+	//			else if (float.class.isAssignableFrom(featureClass) || Float.class.isAssignableFrom(featureClass)) {
+	//				if (value instanceof String) {
+	//					try {
+	//						value = new Float(value.toString());
+	//					}
+	//					catch (NumberFormatException nfe) {
+	//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
+	//					}
+	//				}
+	//			}
+	//			else if (double.class.isAssignableFrom(featureClass) || Double.class.isAssignableFrom(featureClass)) {
+	//				if (value instanceof String) {
+	//					try {
+	//						value = new Double(value.toString());
+	//					}
+	//					catch (NumberFormatException nfe) {
+	//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
+	//					}
+	//				}
+	//			}
+	//		}
+	//		return value;
+	//	}
 
 	@Override
 	public void clear(ObjRef baseObjRef, String typeOfThing) {
@@ -509,7 +512,7 @@ public class XArchADTImpl implements IXArchADT {
 		}
 		return false;
 	}
-	
+
 	private static IXArchADTFeature.ValueType getValueType(EStructuralFeature feature) {
 		Class<?> c = feature.getEType().getInstanceClass();
 		if (c == null) {
@@ -526,8 +529,8 @@ public class XArchADTImpl implements IXArchADT {
 		}
 	}
 
-	private static final ConcurrentMap<String, EPackage> autoEPackage = new MapMaker()
-			.softValues().makeComputingMap(new Function<String, EPackage>() {
+	private static final ConcurrentMap<String, EPackage> autoEPackage = new MapMaker().softValues().makeComputingMap(
+			new Function<String, EPackage>() {
 				@Override
 				public EPackage apply(String nsURI) {
 					EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(nsURI);
@@ -545,26 +548,22 @@ public class XArchADTImpl implements IXArchADT {
 					List<IXArchADTFeature> features = Lists.newArrayList();
 					features.addAll(Collections2.transform(eClass.getEAllAttributes(),
 							new Function<EAttribute, IXArchADTFeature>() {
+								@Override
 								public IXArchADTFeature apply(EAttribute eFeature) {
-									return new BasicXArchADTFeature(
-											eFeature.getName(),
-											eFeature.getEType().getEPackage().getNsURI(), 
-											eFeature.getEType().getName(),
-											FeatureType.ATTRIBUTE,
-											getValueType(eFeature),
-											false);
+									return new BasicXArchADTFeature(eFeature.getName(), eFeature.getEType()
+											.getEPackage().getNsURI(), eFeature.getEType().getName(),
+											FeatureType.ATTRIBUTE, getValueType(eFeature), false);
 								};
 							}));
 					features.addAll(Collections2.transform(eClass.getEAllReferences(),
 							new Function<EReference, IXArchADTFeature>() {
+								@Override
 								public IXArchADTFeature apply(EReference eFeature) {
-									return new BasicXArchADTFeature(
-											eFeature.getName(),
-											eFeature.getEType().getEPackage().getNsURI(), 
-											eFeature.getEType().getName(),
-											eFeature.isMany() ? FeatureType.ELEMENT_MULTIPLE : FeatureType.ELEMENT_SINGLE,
-											getValueType(eFeature),
-											!eFeature.isContainment());
+									return new BasicXArchADTFeature(eFeature.getName(), eFeature.getEType()
+											.getEPackage().getNsURI(), eFeature.getEType().getName(),
+											eFeature.isMany() ? FeatureType.ELEMENT_MULTIPLE
+													: FeatureType.ELEMENT_SINGLE, getValueType(eFeature), !eFeature
+													.isContainment());
 								};
 							}));
 					return Maps.uniqueIndex(features, new Function<IXArchADTFeature, String>() {
@@ -577,37 +576,32 @@ public class XArchADTImpl implements IXArchADT {
 			});
 
 	/**
-	 * This is a map that generates type metadata for an EClass on demand,
-	 * caching it after it's generated.
+	 * This is a map that generates type metadata for an EClass on demand, caching it after it's generated.
 	 */
 	private static final ConcurrentMap<EClass, IXArchADTTypeMetadata> autoTypeMetadata = new MapMaker()//
 			.softValues().makeComputingMap(new Function<EClass, IXArchADTTypeMetadata>() {
 				@Override
 				public IXArchADTTypeMetadata apply(EClass eClass) {
-					return new BasicXArchADTTypeMetadata(
-							eClass.getEPackage().getNsURI(),
-							eClass.getName(),
-							autoFeatureMetadata.get(eClass),
-							eClass.isAbstract());
+					return new BasicXArchADTTypeMetadata(eClass.getEPackage().getNsURI(), eClass.getName(),
+							autoFeatureMetadata.get(eClass), eClass.isAbstract());
 				}
 			});
 
 	/**
-	 * This is a map that generates package metadata for an EPackage on demand,
-	 * caching it after it's generated.
+	 * This is a map that generates package metadata for an EPackage on demand, caching it after it's generated.
 	 */
 	private static final ConcurrentMap<EPackage, IXArchADTPackageMetadata> autoPackageMetatadata = new MapMaker()//
 			.softValues().makeComputingMap(new Function<EPackage, IXArchADTPackageMetadata>() {
 				@Override
 				public IXArchADTPackageMetadata apply(EPackage ePackage) {
-					return new BasicXArchADTPackageMetadata(
-							ePackage.getNsURI(),
-							Iterables.transform(Iterables.filter(ePackage.getEClassifiers(), EClass.class),
-									new Function<EClass, IXArchADTTypeMetadata>() {
-										public IXArchADTTypeMetadata apply(EClass eClass) {
-											return autoTypeMetadata.get(eClass);
-										};
-									}));
+					return new BasicXArchADTPackageMetadata(ePackage.getNsURI(), Iterables.transform(
+							Iterables.filter(ePackage.getEClassifiers(), EClass.class),
+							new Function<EClass, IXArchADTTypeMetadata>() {
+								@Override
+								public IXArchADTTypeMetadata apply(EClass eClass) {
+									return autoTypeMetadata.get(eClass);
+								};
+							}));
 				}
 			});
 
@@ -617,7 +611,8 @@ public class XArchADTImpl implements IXArchADT {
 			eClassifier = ePackage.getEClassifier(SystemUtils.capFirst(typeName));
 		}
 		if (eClassifier == null) {
-			throw new IllegalArgumentException(SystemUtils.message("EPackage '$0' does not contain an EClass named '$1'", ePackage, typeName));
+			throw new IllegalArgumentException(SystemUtils.message(
+					"EPackage '$0' does not contain an EClass named '$1'", ePackage, typeName));
 		}
 		if (eClassifier instanceof EClass) {
 			return (EClass) eClassifier;
@@ -642,10 +637,9 @@ public class XArchADTImpl implements IXArchADT {
 
 	@Override
 	public List<IXArchADTPackageMetadata> getAvailablePackageMetadata() {
-		return Lists.newArrayList(Collections2.transform(Collections2.transform(
-			EPackage.Registry.INSTANCE.keySet(),
-			Functions.forMap(autoEPackage)),
-			Functions.forMap(autoPackageMetatadata)));
+		return Lists.newArrayList(Collections2.transform(
+				Collections2.transform(EPackage.Registry.INSTANCE.keySet(), Functions.forMap(autoEPackage)),
+				Functions.forMap(autoPackageMetatadata)));
 	}
 
 	@Override
@@ -769,8 +763,9 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public ObjRef createDocument(URI uri, String nsURI, String typeOfThing, String rootElementName) {
 		Resource r = resourceSet.getResource(uri, false);
-		if (r != null)
+		if (r != null) {
 			return put(r.getContents().get(0));
+		}
 		r = resourceSet.createResource(uri, "xml");
 
 		ObjRef documentRootRef = create(nsURI, "DocumentRoot");
@@ -807,6 +802,7 @@ public class XArchADTImpl implements IXArchADT {
 		return rootElementRef;
 	}
 
+	@Override
 	public ObjRef load(URI uri, byte[] content) throws SAXException, IOException {
 		Resource r = resourceSet.createResource(uri);
 		r.load(new ByteArrayInputStream(content), LOAD_OPTIONS_MAP);
@@ -825,8 +821,9 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public URI getURI(ObjRef ref) {
 		EObject obj = get(ref);
-		if (obj.eResource() == null)
+		if (obj.eResource() == null) {
 			return null;
+		}
 		return obj.eResource().getURI();
 	}
 
@@ -909,8 +906,9 @@ public class XArchADTImpl implements IXArchADT {
 		while (currentObj != null) {
 
 			EStructuralFeature containingFeature = currentObj.eContainingFeature();
-			if (containingFeature == null)
+			if (containingFeature == null) {
 				break;
+			}
 			String containingFeatureName = containingFeature.getName();
 			String id = null;
 			EStructuralFeature idFeature = currentObj.eClass().getEStructuralFeature("id");
@@ -980,7 +978,7 @@ public class XArchADTImpl implements IXArchADT {
 
 	// This stuff is necessary to suppress the event flurry when a document is
 	// loaded.
-	private Set<Resource> resourcesFinishedLoading = new CopyOnWriteArraySet<Resource>();
+	private final Set<Resource> resourcesFinishedLoading = new CopyOnWriteArraySet<Resource>();
 
 	private void setResourceFinishedLoading(Resource r, boolean isFinishedLoading) {
 		if (isFinishedLoading) {
@@ -992,10 +990,12 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	class ContentAdapter extends EContentAdapter {
+		@Override
 		public void notifyChanged(Notification notification) {
 			super.notifyChanged(notification);
-			if (notification.isTouch())
+			if (notification.isTouch()) {
 				return;
+			}
 
 			Object notifier = notification.getNotifier();
 			if (!(notifier instanceof EObject)) {
@@ -1058,17 +1058,14 @@ public class XArchADTImpl implements IXArchADT {
 				newValuePath = getPath(newValueRef);
 			}
 
-			fireXArchADTModelEvent(new XArchADTModelEvent(
-				evtType, 
-				srcRef, srcAncestors, srcPath,
-				featureName, 
-				oldValue, oldValuePath, 
-				newValue, newValuePath));
+			fireXArchADTModelEvent(new XArchADTModelEvent(evtType, srcRef, srcAncestors, srcPath, featureName,
+					oldValue, oldValuePath, newValue, newValuePath));
 		}
 	}
 
 	protected List<IXArchADTSubstitutionHint> allSubstitutionHints = null;
 
+	@Override
 	public synchronized List<IXArchADTSubstitutionHint> getAllSubstitutionHints() {
 		if (allSubstitutionHints == null) {
 			List<EPackage> allEPackages = Lists.newArrayList();
@@ -1079,10 +1076,11 @@ public class XArchADTImpl implements IXArchADT {
 			allSubstitutionHints.addAll(ExtensionHintUtils.parseExtensionHints(allEPackages));
 			allSubstitutionHints.addAll(SubstitutionHintUtils.parseSubstitutionHints(allEPackages));
 		}
-		
+
 		return allSubstitutionHints;
 	}
 
+	@Override
 	public List<IXArchADTSubstitutionHint> getSubstitutionHintsForSource(String sourceNsURI, String sourceTypeName) {
 		List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
 		for (IXArchADTSubstitutionHint hint : getAllSubstitutionHints()) {
@@ -1093,6 +1091,7 @@ public class XArchADTImpl implements IXArchADT {
 		return matchingHints;
 	}
 
+	@Override
 	public List<IXArchADTSubstitutionHint> getSubstitutionHintsForTarget(String targetNsURI, String targetTypeName) {
 		List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
 		for (IXArchADTSubstitutionHint hint : getAllSubstitutionHints()) {

@@ -4,6 +4,7 @@
    <extension
          point="org.archstudio.myxgen.brick">
       <brick
+            abstract="true"
             class="org.archstudio.editors.AbstractArchstudioEditorMyxComponent"
             id="org.archstudio.editors.AbstractArchstudioEditorMyxComponent"
             name="Abstract ArchStudio Editor Component Impl">
@@ -12,7 +13,7 @@
                delegate="variable"
                direction="out"
                getter="true"
-               id="org.archstudio.editors.interface4"
+               id="resources"
                name="resources"
                single="true">
          </interface>
@@ -21,16 +22,16 @@
                delegate="variable"
                direction="out"
                getter="true"
-               id="org.archstudio.editors.interface5"
+               id="editorManager"
                name="editorManager"
                single="true">
          </interface>
          <interface
                class="org.archstudio.editors.IFocusEditorListener"
-               delegate="myxRegistry"
+               delegate="events"
                direction="in"
                getter="true"
-               id="org.archstudio.editors.interface10"
+               id="focusEditorEvents"
                name="focusEditorEvents"
                single="true">
          </interface>
@@ -39,16 +40,16 @@
                delegate="variable"
                direction="out"
                getter="true"
-               id="org.archstudio.editors.interface6"
+               id="fileManager"
                name="fileManager"
                single="true">
          </interface>
          <interface
                class="org.archstudio.filemanager.IFileManagerListener"
-               delegate="myxRegistry"
+               delegate="events"
                direction="in"
                getter="true"
-               id="org.archstudio.editors.interface11"
+               id="fileManagerEvents"
                name="fileManagerEvents"
                single="true">
          </interface>
@@ -57,25 +58,25 @@
                delegate="variable"
                direction="out"
                getter="true"
-               id="org.archstudio.editors.interface7"
+               id="xarch"
                name="xarch"
                single="true">
          </interface>
          <interface
                class="org.archstudio.xarchadt.IXArchADTFileListener"
-               delegate="myxRegistry"
+               delegate="events"
                direction="in"
                getter="true"
-               id="org.archstudio.editors.interface9"
+               id="fileEvents"
                name="fileEvents"
                single="true">
          </interface>
          <interface
                class="org.archstudio.xarchadt.IXArchADTModelListener"
-               delegate="myxRegistry"
+               delegate="events"
                direction="in"
                getter="true"
-               id="org.archstudio.editors.interface8"
+               id="modelEvents"
                name="modelEvents"
                single="true">
          </interface>
@@ -84,7 +85,7 @@
                delegate="brick"
                direction="in"
                getter="true"
-               id="org.archstudio.editors.interface12"
+               id="launcher"
                name="launcher"
                single="true">
          </interface>

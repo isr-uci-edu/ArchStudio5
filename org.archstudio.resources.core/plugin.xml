@@ -2,11 +2,20 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.archstudio.myx.eclipse.brick">
+         point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.resources.core.ResourcesMyxComponent"
             id="org.archstudio.resources.core.ResourcesMyxComponent"
             name="Resources Impl">
+         <interface
+               class="org.archstudio.resources.IResources"
+               delegate="brick"
+               direction="in"
+               getter="true"
+               id="resources"
+               name="resources"
+               single="true">
+         </interface>
       </brick>
    </extension>
 

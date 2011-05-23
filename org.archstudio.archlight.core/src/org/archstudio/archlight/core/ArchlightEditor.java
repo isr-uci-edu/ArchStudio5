@@ -49,6 +49,7 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 		setHasBanner(true);
 	}
 
+	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
 
@@ -58,6 +59,7 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 		setupToolbar(site);
 	}
 
+	@Override
 	protected AbstractArchstudioOutlinePage createOutlinePage() {
 		return new ArchlightOutlinePage(testadt, xarch, getDocumentRootRef(), resources);
 	}
@@ -66,11 +68,12 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 		IActionBars bars = site.getActionBars();
 		IToolBarManager manager = bars.getToolBarManager();
 		IAction[] actions = getToolbarActions();
-		for (int i = 0; i < actions.length; i++) {
-			manager.add(actions[i]);
+		for (IAction action : actions) {
+			manager.add(action);
 		}
 	}
 
+	@Override
 	public void createEditorContents(Composite c) {
 		Object[] selectedNodes = null;
 		if (outlinePage != null) {
@@ -93,10 +96,12 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 		bRunTests.setText("Run Tests");
 		bRunTests.setImage(resources.getImage(ArchlightUtils.IMAGE_RUN_TESTS));
 		bRunTests.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				runTests();
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent event) {
 				runTests();
 			}
@@ -111,10 +116,12 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 		bReloadTests.setText("Reload Tests");
 		bReloadTests.setImage(resources.getImage(ArchlightUtils.IMAGE_RELOAD_TESTS));
 		bReloadTests.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				reloadTests();
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent event) {
 				reloadTests();
 			}
@@ -132,22 +139,21 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 		Label sep2 = new Label(c, SWT.SEPARATOR | SWT.HORIZONTAL);
 		sep2.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL));
 
-		if ((selectedNodes == null) || (selectedNodes.length == 0)) {
+		if (selectedNodes == null || selectedNodes.length == 0) {
 			Label lNothingSelected = new Label(c, SWT.LEFT);
 			lNothingSelected.setBackground(c.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 			lNothingSelected.setFont(resources.getPlatformFont(IResources.PLATFORM_DEFAULT_FONT_ID));
 			lNothingSelected.setText("Select one or more elements in the outline view.");
 		}
 		else {
-			for (int i = 0; i < selectedNodes.length; i++) {
-				if (selectedNodes[i] instanceof ObjRef) {
+			for (final Object node : selectedNodes) {
+				if (node instanceof ObjRef) {
 					Label lElement = new Label(c, SWT.LEFT);
 					lElement.setBackground(c.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 					lElement.setFont(resources.getPlatformFont(IResources.PLATFORM_DEFAULT_FONT_ID));
 					lElement.setText("Select a sub-node of the document for more detail.");
 				}
-				else if ((selectedNodes[i] instanceof FolderNode) || (selectedNodes[i] instanceof ArchlightTest)) {
-					final Object node = selectedNodes[i];
+				else if (node instanceof FolderNode || node instanceof ArchlightTest) {
 					boolean isFolder = node instanceof FolderNode;
 
 					Label lElement = new Label(c, SWT.LEFT);
@@ -157,7 +163,8 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 						lElement.setText("Test Folder: " + ((FolderNode) node).getLastSegment());
 					}
 					else {
-						lElement.setText("Test: " + ArchlightTest.getLastCategoryPathComponent(((ArchlightTest) node).getCategory()));
+						lElement.setText("Test: "
+								+ ArchlightTest.getLastCategoryPathComponent(((ArchlightTest) node).getCategory()));
 					}
 
 					Group g = new Group(c, SWT.NONE);
@@ -182,7 +189,7 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 					lElementDesc.setFont(resources.getPlatformFont(IResources.PLATFORM_DEFAULT_FONT_ID));
 					if (isFolder) {
 						lElementDesc
-						        .setText("This is a test folder.  It is a container for other tests.  You can use it to enable or disable tests as a group.");
+								.setText("This is a test folder.  It is a container for other tests.  You can use it to enable or disable tests as a group.");
 					}
 					else {
 						lElementDesc.setText(((ArchlightTest) node).getLongDescription());
@@ -193,14 +200,16 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 
 					String dropDownImageID = isFolder ? ISharedImages.IMG_OBJ_FOLDER : ISharedImages.IMG_OBJ_FILE;
 					String dropDownText = isFolder ? "Change Test States" : "Change Test State";
-					ToolItem dropDownButton = createToolItem(toolBar, SWT.DROP_DOWN, dropDownText, resources.getPlatformImage(dropDownImageID), null,
-					        dropDownText);
+					ToolItem dropDownButton = createToolItem(toolBar, SWT.DROP_DOWN, dropDownText,
+							resources.getPlatformImage(dropDownImageID), null, dropDownText);
 					dropDownButton.addSelectionListener(new DropdownSelectionListener(dropDownButton) {
+						@Override
 						public void fillDropdownMenu(IMenuManager menuMgr) {
-							List<? extends IAction> actions = ArchlightUtils.createTestMenuActions(xarch, documentRootRef, testadt.getAllTests(), resources,
-							        node);
+							List<? extends IAction> actions = ArchlightUtils.createTestMenuActions(xarch,
+									documentRootRef, testadt.getAllTests(), resources, node);
 							if (actions.isEmpty()) {
 								Action noAction = new Action("[No Actions]") {
+									@Override
 									public void run() {
 									}
 								};
@@ -220,7 +229,8 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 		}
 	}
 
-	private ToolItem createToolItem(ToolBar parent, int type, String text, Image image, Image hotImage, String toolTipText) {
+	private ToolItem createToolItem(ToolBar parent, int type, String text, Image image, Image hotImage,
+			String toolTipText) {
 		ToolItem item = new ToolItem(parent, type);
 		item.setText(text);
 		item.setImage(image);
@@ -229,12 +239,14 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 		return item;
 	}
 
+	@Override
 	public void setFocus() {
 		// parent.getChildren()[0].setFocus();
 	}
 
 	public IAction[] getToolbarActions() {
 		Action runTests = new Action("Run Tests", Action.AS_PUSH_BUTTON) {
+			@Override
 			public void run() {
 				runTests();
 			};
@@ -243,6 +255,7 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 		runTests.setToolTipText("Run Tests");
 
 		Action reloadTests = new Action("Reload Tests", Action.AS_PUSH_BUTTON) {
+			@Override
 			public void run() {
 				reloadTests();
 			};

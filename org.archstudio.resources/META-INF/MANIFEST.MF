@@ -1,11 +1,11 @@
-Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Resources Common
-Bundle-SymbolicName: org.archstudio.resources
-Bundle-Version: 5.0.0.qualifier
-Bundle-Vendor: archstudio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio;bundle-version="5.0.0",
- org.archstudio.swtutils;bundle-version="5.0.0",
- org.eclipse.ui;bundle-version="3.5.1"
+Bundle-SymbolicName: org.archstudio.resources
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.resources
+Manifest-Version: 1.0
+Require-Bundle: org.archstudio,
+ org.archstudio.swtutils,
+ org.eclipse.ui

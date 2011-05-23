@@ -1,21 +1,11 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Schematron Core
-Bundle-SymbolicName: org.archstudio.schematron.core;singleton:=true
-Bundle-Version: 5.0.0.qualifier
-Bundle-Vendor: archstudio.org
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio.myx.fw;bundle-version="5.0.0",
- org.eclipse.emf.codegen.ecore;bundle-version="2.5.0",
- org.archstudio.sysutils;bundle-version="5.0.0",
- org.archstudio.archlight;bundle-version="5.0.0",
- org.archstudio.xarchadt;bundle-version="5.0.0",
- org.archstudio.issueadt;bundle-version="5.0.0",
- org.archstudio.noticeadt;bundle-version="5.0.0",
- org.archstudio.testadt;bundle-version="5.0.0",
- org.eclipse.ui;bundle-version="3.5.1"
 Bundle-ClassPath: lib/xalan.jar,
  .
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio Schematron Core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-SymbolicName: org.archstudio.schematron.core;singleton:=true
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.0.qualifier
 Export-Package: java_cup.runtime,
  org.apache.bcel,
  org.apache.bcel.classfile,
@@ -68,3 +58,13 @@ Export-Package: java_cup.runtime,
  org.archstudio.schematron.core,
  org.archstudio.schematron.core.prefs,
  org.w3c.dom.xpath
+Manifest-Version: 1.0
+Require-Bundle: org.archstudio.archlight,
+ org.archstudio.issueadt,
+ org.archstudio.myx.fw,
+ org.archstudio.noticeadt,
+ org.archstudio.sysutils,
+ org.archstudio.testadt,
+ org.archstudio.xarchadt,
+ org.eclipse.emf.codegen.ecore,
+ org.eclipse.ui

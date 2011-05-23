@@ -2,11 +2,38 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.archstudio.myx.eclipse.brick">
+         point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.xarchadt.core.XArchADTMyxComponent"
             id="org.archstudio.xarchadt.core.XArchADTMyxComponent"
             name="XArch ADT Impl">
+         <interface
+               class="org.archstudio.xarchadt.IXArchADTFileListener"
+               delegate="events"
+               direction="out"
+               getter="true"
+               id="fileEvents"
+               name="fileEvents"
+               single="false">
+         </interface>
+         <interface
+               class="org.archstudio.xarchadt.IXArchADTModelListener"
+               delegate="events"
+               direction="out"
+               getter="true"
+               id="modelEvents"
+               name="modelEvents"
+               single="false">
+         </interface>
+         <interface
+               class="org.archstudio.xarchadt.IXArchADT"
+               delegate="variable"
+               direction="in"
+               getter="true"
+               id="xarch"
+               name="xarch"
+               single="true">
+         </interface>
       </brick>
    </extension>
 

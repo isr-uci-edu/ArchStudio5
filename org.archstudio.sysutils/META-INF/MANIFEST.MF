@@ -1,9 +1,9 @@
-Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: System Utilities
-Bundle-SymbolicName: org.archstudio.sysutils;singleton:=true
-Bundle-Version: 5.0.0.qualifier
-Bundle-Vendor: archstudio.org
-Export-Package: org.archstudio.sysutils
-Require-Bundle: com.google.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-SymbolicName: org.archstudio.sysutils;singleton:=true
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.0.qualifier
+Export-Package: org.archstudio.sysutils
+Manifest-Version: 1.0
+Require-Bundle: com.google.guava

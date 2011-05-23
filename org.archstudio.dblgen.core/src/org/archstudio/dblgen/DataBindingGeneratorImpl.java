@@ -50,10 +50,18 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.importer.ModelImporter;
+import org.eclipse.pde.core.plugin.IExtensionsModelFactory;
+import org.eclipse.pde.core.plugin.IPluginElement;
+import org.eclipse.pde.core.plugin.IPluginExtension;
+import org.eclipse.pde.core.plugin.IPluginExtensionPoint;
+import org.eclipse.pde.core.plugin.IPluginModelBase;
+import org.eclipse.pde.core.plugin.IPluginObject;
+import org.eclipse.pde.core.plugin.PluginRegistry;
 import org.eclipse.pde.core.project.IBundleProjectDescription;
 import org.eclipse.pde.core.project.IBundleProjectService;
 import org.eclipse.pde.core.project.IPackageExportDescription;
 import org.eclipse.pde.core.project.IRequiredBundleDescription;
+import org.eclipse.pde.internal.core.bundle.WorkspaceBundlePluginModel;
 import org.eclipse.xsd.ecore.importer.XSDImporter;
 import org.eclipse.xsd.util.XSDResourceFactoryImpl;
 import org.osgi.framework.BundleContext;
@@ -554,9 +562,22 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	//projectName = e.g., "org.archstudio.xadl3bindings"
+	@SuppressWarnings("restriction")
 	public synchronized List<DataBindingGenerationStatus> generateBindings(List<String> schemaURIStrings,
 			List<Xadl3SchemaLocation> schemaLocations, final String projectName) {
 		List<DataBindingGenerationStatus> statusList = new ArrayList<DataBindingGenerationStatus>();
+
+		// refresh the resources in case they've been modified
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		IProject project = workspaceRoot.getProject(projectName);
+		try {
+			project.refreshLocal(IResource.DEPTH_INFINITE, null);
+		}
+		catch (CoreException e) {
+			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE, "Cannot refresh project content", e));
+			return statusList;
+		}
 
 		String shortProjectName = projectName.substring(projectName.lastIndexOf(".") + 1);
 		final String finalProjectName = projectName;
@@ -740,7 +761,6 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			// Iterate through the referenced packages and add the corresponding gen model to the used list.
 			for (EPackage ePackage : referencedEPackageList) {
 				String referencedPackageNSURI = ePackage.getNsURI();
-
 				// If the referenced package is Ecore, don't process that the same way
 				if (!referencedPackageNSURI.equals(EcorePackage.eNS_URI)) {
 					boolean foundSchema = false;
@@ -807,9 +827,6 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 							"Error generating content for " + combinedModelURIString, e));
 				}
 				try {
-					IWorkspace workspace = ResourcesPlugin.getWorkspace();
-					IWorkspaceRoot workspaceRoot = workspace.getRoot();
-					IProject project = workspaceRoot.getProject(projectName);
 					BundleContext context = Activator.getSingleton().getContext();
 					ServiceReference ref = context.getServiceReference(IBundleProjectService.class.getName());
 					IBundleProjectService service = (IBundleProjectService) context.getService(ref);
@@ -834,7 +851,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					description.setRequiredBundles(requiredBundles
 							.toArray(new IRequiredBundleDescription[requiredBundles.size()]));
 
-					// updated plugin's exported packages to include those created
+					// updated plugin's exported packages to include the java packages created
 
 					List<IPackageExportDescription> packageExports = notNull(description.getPackageExports());
 					packageExports.clear(); // actually, only export created packages
@@ -858,8 +875,89 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					description.setPackageExports(packageExports.toArray(new IPackageExportDescription[packageExports
 							.size()]));
 
+					// make sure that extension are allowed
+
+					description.setExtensionRegistry(true);
+
+					// store the changes
+
 					description.apply(null);
 					project.refreshLocal(IResource.DEPTH_INFINITE, null);
+
+					// add the package and parser extensions to the plugin
+
+					IPluginModelBase plugin = PluginRegistry.findModel(project);
+					{
+						// hack: get an editable IPluginModelBase
+						IFile manifestFile = project.getFile("META-INF/MANIFEST.MF");
+						manifestFile.refreshLocal(IResource.DEPTH_ONE, null);
+						IFile pluginFile = project.getFile("plugin.xml");
+						pluginFile.refreshLocal(IResource.DEPTH_ONE, null);
+						WorkspaceBundlePluginModel model = new WorkspaceBundlePluginModel(manifestFile, pluginFile);
+						plugin = model;
+					}
+
+					IExtensionsModelFactory factory = plugin.getFactory();
+					SCHEMA: for (EPackage ePackage : importer.getEPackages()) {
+						EPackageConvertInfo ePackageConvertInfo = importer.getEPackageConvertInfo(ePackage);
+						if (!ePackageConvertInfo.isConvert()) {
+							continue;
+						}
+
+						String nsURI = ePackage.getNsURI();
+						String packageClassName = null;
+						for (SchemaRecord schemaRecord : schemaRecords) {
+							if (schemaRecord.getNsuri() != null && schemaRecord.getNsuri().equals(nsURI)) {
+								if (schemaRecord.getGenPackage() != null) {
+									packageClassName = "" //
+											+ schemaRecord.getGenPackage().getBasePackage()
+											+ "."
+											+ schemaRecord.getGenPackage().getPackageName()
+											+ "."
+											+ schemaRecord.getGenPackage().getPackageInterfaceName();
+									break;
+								}
+							}
+						}
+						if (packageClassName == null) {
+							continue;
+						}
+
+						// update if it already exists
+						for (IPluginExtensionPoint extension : plugin.getExtensions(true).getExtensionPoints()) {
+							if (extension instanceof IPluginExtension) {
+								IPluginExtension pluginExtension = (IPluginExtension) extension;
+								if ("org.eclipse.emf.ecore.generated_package".equals(pluginExtension.getPoint())) {
+									for (IPluginObject element : pluginExtension.getChildren()) {
+										if ("package".equals(element.getName())) {
+											if (element instanceof IPluginElement) {
+												IPluginElement pElement = (IPluginElement) element;
+												if (nsURI.equals(pElement.getAttribute("uri"))) {
+													pElement.setAttribute("class", packageClassName);
+													continue SCHEMA;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+
+						IPluginExtension extension = factory.createExtension();
+						extension.setPoint("org.eclipse.emf.ecore.generated_package");
+						IPluginElement element = factory.createElement(extension);
+						element.setName("package");
+						element.setAttribute("uri", nsURI);
+						element.setAttribute("class", packageClassName);
+						extension.add(element);
+						plugin.getExtensions(true).add(extension);
+					}
+
+					{
+						// hack: save the editable IPluginModelBase
+						WorkspaceBundlePluginModel model = (WorkspaceBundlePluginModel) plugin;
+						model.save();
+					}
 				}
 				catch (Throwable t) {
 					// well, we tried

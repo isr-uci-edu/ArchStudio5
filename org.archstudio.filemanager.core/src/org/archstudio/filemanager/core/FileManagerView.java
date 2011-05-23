@@ -6,7 +6,6 @@ import org.archstudio.xarchadt.IXArchADTFileListener;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.XArchADTFileEvent;
 import org.archstudio.xarchadt.XArchADTModelEvent;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -35,44 +34,46 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-
-public class FileManagerView extends ViewPart implements IXArchADTFileListener, IXArchADTModelListener{
+public class FileManagerView extends ViewPart implements IXArchADTFileListener, IXArchADTModelListener {
 	private FileManagerMyxComponent comp = null;
-	private MyxRegistry er = MyxRegistry.getSharedInstance();
-	
+	private final MyxRegistry er = MyxRegistry.getSharedInstance();
+
 	private TableViewer viewer;
 	private Action action1;
 	private Action action2;
 	private Action doubleClickAction;
 
 	protected IXArchADT xarch = null;
-	
-	public FileManagerView(){
+
+	public FileManagerView() {
 	}
 
-	public void handleXArchADTFileEvent(XArchADTFileEvent evt){
+	@Override
+	public void handleXArchADTFileEvent(XArchADTFileEvent evt) {
 		refreshView();
 	}
-	
-	public void refreshView(){
-		Display.getDefault().asyncExec(new Runnable(){
-			public void run(){
+
+	public void refreshView() {
+		Display.getDefault().asyncExec(new Runnable() {
+			@Override
+			public void run() {
 				viewer.refresh();
 			}
 		});
 	}
-	
-	public void handleXArchADTModelEvent(XArchADTModelEvent evt){
+
+	@Override
+	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 	}
-	
+
 	/**
-	 * This is a callback that will allow us
-	 * to create the viewer and initialize it.
+	 * This is a callback that will allow us to create the viewer and initialize it.
 	 */
+	@Override
 	public void createPartControl(Composite parent) {
-		comp = (FileManagerMyxComponent)er.waitForBrick(FileManagerMyxComponent.class);
+		comp = (FileManagerMyxComponent) er.waitForBrick(FileManagerMyxComponent.class);
 		er.map(comp, this);
-		xarch = comp.xarch;
+		xarch = comp.getXarch();
 
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(new ViewContentProvider());
@@ -89,6 +90,7 @@ public class FileManagerView extends ViewPart implements IXArchADTFileListener, 
 		MenuManager menuMgr = new MenuManager("#PopupMenu");
 		menuMgr.setRemoveAllWhenShown(true);
 		menuMgr.addMenuListener(new IMenuListener() {
+			@Override
 			public void menuAboutToShow(IMenuManager manager) {
 				FileManagerView.this.fillContextMenu(manager);
 			}
@@ -116,67 +118,76 @@ public class FileManagerView extends ViewPart implements IXArchADTFileListener, 
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
-	
+
 	private void fillLocalToolBar(IToolBarManager manager) {
 	}
 
 	private void makeActions() {
 		doubleClickAction = new Action() {
+			@Override
 			public void run() {
 				ISelection selection = viewer.getSelection();
-				Object obj = ((IStructuredSelection)selection).getFirstElement();
-				showMessage("Double-click detected on "+obj.toString());
+				Object obj = ((IStructuredSelection) selection).getFirstElement();
+				showMessage("Double-click detected on " + obj.toString());
 			}
 		};
 	}
 
 	private void hookDoubleClickAction() {
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
+			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				doubleClickAction.run();
 			}
 		});
 	}
+
 	private void showMessage(String message) {
-		MessageDialog.openInformation(
-			viewer.getControl().getShell(),
-			"Sample View",
-			message);
+		MessageDialog.openInformation(viewer.getControl().getShell(), "Sample View", message);
 	}
 
 	/**
 	 * Passing the focus request to the viewer's control.
 	 */
+	@Override
 	public void setFocus() {
 		viewer.getControl().setFocus();
 	}
-	
+
 	class ViewContentProvider implements IStructuredContentProvider {
+		@Override
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
 		}
+
+		@Override
 		public void dispose() {
 		}
+
+		@Override
 		public Object[] getElements(Object parent) {
 			//return new String[] { "One", "Two", "Three" };
 			return xarch.getOpenURIs().toArray();
 		}
 	}
-	
+
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
+		@Override
 		public String getColumnText(Object obj, int index) {
 			return getText(obj);
 		}
+
+		@Override
 		public Image getColumnImage(Object obj, int index) {
 			return getImage(obj);
 		}
+
+		@Override
 		public Image getImage(Object obj) {
-			return PlatformUI.getWorkbench().
-					getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
+			return PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
 		}
 	}
 
 	class NameSorter extends ViewerSorter {
 	}
-
 
 }

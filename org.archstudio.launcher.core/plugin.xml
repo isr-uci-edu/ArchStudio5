@@ -14,11 +14,38 @@
       </view>
    </extension>
    <extension
-         point="org.archstudio.myx.eclipse.brick">
+         point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.launcher.core.LauncherMyxComponent"
             id="org.archstudio.launcher.core.LauncherMyxComponent"
             name="Launcher Impl">
+         <interface
+               class="org.archstudio.myx.conn.IMultiwayResults"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="results"
+               name="results"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.launcher.ILaunchable"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="launcher"
+               name="launcher"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.resources.IResources"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="resources"
+               name="resources"
+               single="true">
+         </interface>
       </brick>
    </extension>
 

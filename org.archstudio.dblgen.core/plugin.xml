@@ -85,7 +85,7 @@
                delegate="variable"
                direction="in"
                getter="true"
-               id="org.archstudio.dblgen.core.interface1"
+               id="dblgen"
                single="true"
                name="dblgen">
          </interface>

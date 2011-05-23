@@ -2,11 +2,65 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.archstudio.myx.eclipse.brick">
+         point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.issueview.core.ArchlightIssueViewMyxComponent"
             id="org.archstudio.issueview.core.ArchlightIssueViewMyxComponent"
             name="Archlight Issue Impl">
+         <interface
+               class="org.archstudio.xarchadt.IXArchADT"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="xarch"
+               name="xarch"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.resources.IResources"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="resources"
+               name="resources"
+               single="true">
+         </interface>
+         <interface
+               class="org.eclipse.jface.preference.IPreferenceStore"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="preferences"
+               name="preferences"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.editormanager.IEditorManager"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="editorManager"
+               name="editorManager"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.issueadt.ArchlightIssueADTListener"
+               delegate="events"
+               direction="in"
+               getter="true"
+               id="issueEvents"
+               name="issueEvents"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.issueadt.IArchlightIssueADT"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="issues"
+               name="issues"
+               single="true">
+         </interface>
       </brick>
    </extension>
    <extension

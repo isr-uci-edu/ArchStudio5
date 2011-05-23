@@ -9,6 +9,7 @@ import org.archstudio.editors.AbstractArchstudioOutlinePage;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.SystemUtils;
+import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFeature;
 import org.archstudio.xarchadt.IXArchADTFeature.FeatureType;

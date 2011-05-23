@@ -1,12 +1,12 @@
-Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Bootstrap Core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.bootstrap.core;singleton:=true
 Bundle-Version: 5.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio.myx.fw;bundle-version="5.0.0",
- org.archstudio.xarchadt;bundle-version="5.0.0",
- org.archstudio.aim;bundle-version="5.0.0",
- org.archstudio.xadl;bundle-version="5.0.0",
- org.archstudio.xadl3.structure;bundle-version="5.0.0"
 Export-Package: org.archstudio.bootstrap.core
+Manifest-Version: 1.0
+Require-Bundle: org.archstudio.aim,
+ org.archstudio.myx.fw,
+ org.archstudio.xadl,
+ org.archstudio.xadl3.structure,
+ org.archstudio.xarchadt

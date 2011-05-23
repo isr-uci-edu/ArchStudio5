@@ -152,7 +152,7 @@ public class StructureMapper{
 		if((brickAssemblyRootThing == null) || (!isBrickAssemblyRootThing(brickAssemblyRootThing))){
 			isNew = true;
 
-			brickAssembly = BoxAssembly.create(bnaModel, getBrickRootThing(bnaModel));
+			brickAssembly = BoxAssembly.create(bnaModel, brickDescription, getBrickRootThing(bnaModel));
 			brickAssembly.getRootThing().setProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME, xArchID);
 
 			Point p = ArchipelagoUtils.findOpenSpotForNewThing(bnaModel);
@@ -294,7 +294,7 @@ public class StructureMapper{
 			}
 
 			if((iimAssemblyRootThing == null) || (!(iimAssemblyRootThing instanceof IHasAssemblyData))){
-				iimAssembly = MappingAssembly.create(bnaModel, brickAssembly.getMappingRootThing());
+				iimAssembly = MappingAssembly.create(bnaModel, brickDescription, brickAssembly.getMappingRootThing());
 				iimAssembly.getRootThing().setProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME, xArchID);
 				iimAssembly.getRootThing().setProperty("interfaceXArchID", outerInterfaceXArchID);
 
@@ -376,7 +376,7 @@ public class StructureMapper{
 		EndpointAssembly endpointAssembly = null;
 		IThing endpointAssemblyRootThing = ArchipelagoUtils.findThing(bnaModel, xArchID);
 		if((endpointAssemblyRootThing == null) || (!(endpointAssemblyRootThing instanceof IHasAssemblyData))){
-			endpointAssembly = EndpointAssembly.create(bnaModel, brickAssembly.getEndpointRootThing());
+			endpointAssembly = EndpointAssembly.create(bnaModel, brickDescription, brickAssembly.getEndpointRootThing());
 			endpointAssembly.getRootThing().setProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME, xArchID);
 
 			endpointAssembly.getEndpointGlassThing().setAnchorPoint(new Point(brickAssembly.getBoxGlassThing().getBoundingBox().x, brickAssembly.getBoxGlassThing().getBoundingBox().y));
@@ -449,7 +449,7 @@ public class StructureMapper{
 		StickySplineAssembly linkAssembly = null;
 		IThing linkAssemblyRootThing = ArchipelagoUtils.findThing(bnaModel, xArchID);
 		if((linkAssemblyRootThing == null) || (!(linkAssemblyRootThing instanceof IHasAssemblyData))){
-			linkAssembly = StickySplineAssembly.create(bnaModel, getLinkRootThing(bnaModel));
+			linkAssembly = StickySplineAssembly.create(bnaModel, brickDescription, getLinkRootThing(bnaModel));
 			linkAssembly.getRootThing().setProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME, xArchID);
 
 			Point p = ArchipelagoUtils.findOpenSpotForNewThing(bnaModel);

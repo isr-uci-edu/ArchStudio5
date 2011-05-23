@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.archstudio.filemanager.core.FileManagerMyxComponent;
 import org.archstudio.main.ArchStudio5Activator;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.sysutils.UIDGenerator;
@@ -31,8 +30,8 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.osgi.framework.BundleException;
 
-public class NewFileWizard extends Wizard implements INewWizard{
-	private MyxRegistry er = MyxRegistry.getSharedInstance();
+public class NewFileWizard extends Wizard implements INewWizard {
+	private final MyxRegistry er = MyxRegistry.getSharedInstance();
 	private FileManagerMyxComponent comp = null;
 
 	protected IWorkbench workbench;
@@ -42,18 +41,19 @@ public class NewFileWizard extends Wizard implements INewWizard{
 
 	protected IXArchADT xarch = null;
 
-	public NewFileWizard(){
+	public NewFileWizard() {
 	}
 
-	public void init(IWorkbench workbench, IStructuredSelection selection){
-		try{
+	@Override
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		try {
 			Platform.getBundle(ArchStudio5Activator.PLUGIN_ID).start();
 		}
-		catch(BundleException be){
+		catch (BundleException be) {
 			throw new RuntimeException(be);
 		}
 
-		comp = (FileManagerMyxComponent)er.waitForBrick(FileManagerMyxComponent.class);
+		comp = (FileManagerMyxComponent) er.waitForBrick(FileManagerMyxComponent.class);
 		er.map(comp, this);
 		xarch = comp.xarch;
 
@@ -63,17 +63,18 @@ public class NewFileWizard extends Wizard implements INewWizard{
 		//setDefaultPageImageDescriptor(ReadmeImages.README_WIZARD_BANNER);
 	}
 
+	@Override
 	public void addPages() {
 		mainPage = new NewFileCreationPage(workbench, selection);
 		addPage(mainPage);
 	}
 
-
-	public boolean performFinish(){
+	@Override
+	public boolean performFinish() {
 		IPath containerPath = mainPage.getContainerFullPath();
 		String fileName = mainPage.getFileName();
 
-		if(!fileName.toLowerCase().endsWith(".xml")){
+		if (!fileName.toLowerCase().endsWith(".xml")) {
 			fileName += ".xml";
 		}
 
@@ -81,57 +82,53 @@ public class NewFileWizard extends Wizard implements INewWizard{
 
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IFile file = root.getFile(filePath);
-		if(file.exists()){
-			MessageDialog.openError(
-				getShell(),
-				"Error",
-			"File already exists.");
+		if (file.exists()) {
+			MessageDialog.openError(getShell(), "Error", "File already exists.");
 			return false;
 		}
-		
+
 		URI uri = URI.createURI(UIDGenerator.generateUID("urn:"));
 		ObjRef documentRootRef = xarch.createDocument(uri);
 
 		ObjRef xADLRef = XadlUtils.create(xarch, Xadlcore_3_0Package.Literals.XADL_TYPE);
 
 		xarch.set(documentRootRef, "xADL", xADLRef);
-		
+
 		String fileContents = new String(xarch.serialize(uri));
 		xarch.close(uri);
 
 		InputStream is = new ByteArrayInputStream(fileContents.getBytes());
-		try{
+		try {
 			file.create(is, false, null);
 		}
-		catch(CoreException ce){
-			MessageDialog.openError(
-				getShell(),
-				"Error",
-				ce.getMessage());
+		catch (CoreException ce) {
+			MessageDialog.openError(getShell(), "Error", ce.getMessage());
 			return false;
 		}
-		finally{
-			try{
+		finally {
+			try {
 				is.close();
 			}
-			catch(IOException ioe){}
+			catch (IOException ioe) {
+			}
 		}
 
 		return true;
 	}
 
-	static class NewFileCreationPage extends WizardNewFileCreationPage{
-		public NewFileCreationPage(IWorkbench workbench, IStructuredSelection selection){
+	static class NewFileCreationPage extends WizardNewFileCreationPage {
+		public NewFileCreationPage(IWorkbench workbench, IStructuredSelection selection) {
 			super("New Architecture Description", selection);
 			setTitle("New Architecture Description");
 		}
 
-		public void createControl(Composite parent){
+		@Override
+		public void createControl(Composite parent) {
 			super.createControl(parent);
 		}
 	}
 
-	public static void showWizard(Shell shell, IWorkbench workbench){
+	public static void showWizard(Shell shell, IWorkbench workbench) {
 		NewFileWizard wizard = new NewFileWizard();
 		wizard.init(workbench, StructuredSelection.EMPTY);
 		WizardDialog dialog = new WizardDialog(shell, wizard);

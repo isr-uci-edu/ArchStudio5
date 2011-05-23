@@ -57,6 +57,15 @@ public class XadlUtils {
 		return null;
 	}
 
+	public static ObjRef getExt(IXArchADTQuery xarch, ObjRef ref, EClass extClass) {
+		for (ObjRef extRef : xarch.getAll(ref, "ext")) {
+			if (xarch.isInstanceOf(extRef, extClass.getEPackage().getNsURI(), extClass.getName())) {
+				return extRef;
+			}
+		}
+		return null;
+	}
+
 	public static boolean isExtension(IXArchADTQuery xarch, IXArchADTFeature feature) {
 		EClass extensionEClass = Xadlcore_3_0Package.Literals.EXTENSION;
 		return xarch.isAssignable(extensionEClass.getEPackage().getNsURI(), extensionEClass.getName(),
@@ -64,28 +73,20 @@ public class XadlUtils {
 	}
 
 	public static ObjRef getLookupImplementation(IXArchADTQuery xarch, ObjRef ref) {
-		ObjRef implementationExtRef = XadlUtils.getExt(xarch, ref, Implementation_3_0Package.eNS_URI,
-				"ImplementationExtension");
-		if (implementationExtRef != null) {
-			List<ObjRef> implementationRefs = xarch.getAll(implementationExtRef, "implementation");
-			for (ObjRef implementationRef : implementationRefs) {
-				if (XadlUtils.isInstanceOf(xarch, implementationRef,
-						Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION)) {
-					return implementationRef;
-				}
-			}
-		}
-		return null;
+		return getImplementation(xarch, ref, Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION);
 	}
 
 	public static ObjRef getJavaImplementation(IXArchADTQuery xarch, ObjRef ref) {
+		return getImplementation(xarch, ref, Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION);
+	}
+
+	public static ObjRef getImplementation(IXArchADTQuery xarch, ObjRef ref, EClass type) {
 		ObjRef implementationExtRef = XadlUtils.getExt(xarch, ref, Implementation_3_0Package.eNS_URI,
 				"ImplementationExtension");
 		if (implementationExtRef != null) {
 			List<ObjRef> implementationRefs = xarch.getAll(implementationExtRef, "implementation");
 			for (ObjRef implementationRef : implementationRefs) {
-				if (XadlUtils.isInstanceOf(xarch, implementationRef,
-						Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION)) {
+				if (XadlUtils.isInstanceOf(xarch, implementationRef, type)) {
 					return implementationRef;
 				}
 			}

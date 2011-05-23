@@ -24,9 +24,12 @@ import org.archstudio.editors.IFocusEditorListener;
  * @generated
  */
 @SuppressWarnings("unused")
-public abstract class AbstractArchstudioEditorMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
-		implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.launcher.ILaunchable,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
+public abstract class AbstractArchstudioEditorMyxComponentStub extends
+		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.launcher.ILaunchable,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
 	 * @generated
@@ -54,55 +57,62 @@ public abstract class AbstractArchstudioEditorMyxComponentStub extends org.archs
 	 *
 	 * @generated
 	 */
-	public static final IMyxName OUT_RESOURCES = MyxUtils.createName("org.archstudio.editors.interface4");
+	public static final IMyxName OUT_RESOURCES = MyxUtils
+			.createName("resources");
 	/**
 	 * Myx interface editorManager: <code>OUT_EDITOR_MANAGER</code>
 	 *
 	 * @generated
 	 */
-	public static final IMyxName OUT_EDITOR_MANAGER = MyxUtils.createName("org.archstudio.editors.interface5");
+	public static final IMyxName OUT_EDITOR_MANAGER = MyxUtils
+			.createName("editorManager");
 	/**
 	 * Myx interface focusEditorEvents: <code>IN_FOCUS_EDITOR_EVENTS</code>
 	 *
 	 * @generated
 	 */
-	public static final IMyxName IN_FOCUS_EDITOR_EVENTS = MyxUtils.createName("org.archstudio.editors.interface10");
+	public static final IMyxName IN_FOCUS_EDITOR_EVENTS = MyxUtils
+			.createName("focusEditorEvents");
 	/**
 	 * Myx interface fileManager: <code>OUT_FILE_MANAGER</code>
 	 *
 	 * @generated
 	 */
-	public static final IMyxName OUT_FILE_MANAGER = MyxUtils.createName("org.archstudio.editors.interface6");
+	public static final IMyxName OUT_FILE_MANAGER = MyxUtils
+			.createName("fileManager");
 	/**
 	 * Myx interface fileManagerEvents: <code>IN_FILE_MANAGER_EVENTS</code>
 	 *
 	 * @generated
 	 */
-	public static final IMyxName IN_FILE_MANAGER_EVENTS = MyxUtils.createName("org.archstudio.editors.interface11");
+	public static final IMyxName IN_FILE_MANAGER_EVENTS = MyxUtils
+			.createName("fileManagerEvents");
 	/**
 	 * Myx interface xarch: <code>OUT_XARCH</code>
 	 *
 	 * @generated
 	 */
-	public static final IMyxName OUT_XARCH = MyxUtils.createName("org.archstudio.editors.interface7");
+	public static final IMyxName OUT_XARCH = MyxUtils.createName("xarch");
 	/**
 	 * Myx interface fileEvents: <code>IN_FILE_EVENTS</code>
 	 *
 	 * @generated
 	 */
-	public static final IMyxName IN_FILE_EVENTS = MyxUtils.createName("org.archstudio.editors.interface9");
+	public static final IMyxName IN_FILE_EVENTS = MyxUtils
+			.createName("fileEvents");
 	/**
 	 * Myx interface modelEvents: <code>IN_MODEL_EVENTS</code>
 	 *
 	 * @generated
 	 */
-	public static final IMyxName IN_MODEL_EVENTS = MyxUtils.createName("org.archstudio.editors.interface8");
+	public static final IMyxName IN_MODEL_EVENTS = MyxUtils
+			.createName("modelEvents");
 	/**
 	 * Myx interface launcher: <code>IN_LAUNCHER</code>
 	 *
 	 * @generated
 	 */
-	public static final IMyxName IN_LAUNCHER = MyxUtils.createName("org.archstudio.editors.interface12");
+	public static final IMyxName IN_LAUNCHER = MyxUtils.createName("launcher");
 
 	/**
 	 * Service object(s) for resources: <code>resources</code>
@@ -124,26 +134,7 @@ public abstract class AbstractArchstudioEditorMyxComponentStub extends org.archs
 	 * @see #IN_FOCUS_EDITOR_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.editors.IFocusEditorListener focusEditorEvents = (org.archstudio.editors.IFocusEditorListener) Proxy
-			.newProxyInstance(//
-					org.archstudio.editors.IFocusEditorListener.class.getClassLoader(),//
-					new Class[] { org.archstudio.editors.IFocusEditorListener.class },//
-					new InvocationHandler() {
-						@Override
-						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-							for (Object o : myxRegistry.getObjects(AbstractArchstudioEditorMyxComponentStub.this)) {
-								try {
-									if (o instanceof org.archstudio.editors.IFocusEditorListener) {
-										method.invoke(o, args);
-									}
-								}
-								catch (Exception e) {
-									e.printStackTrace();
-								}
-							}
-							return null;
-						}
-					});
+	protected org.archstudio.editors.IFocusEditorListener focusEditorEvents = null;
 	/**
 	 * Service object(s) for fileManager: <code>fileManager</code>
 	 *
@@ -157,26 +148,7 @@ public abstract class AbstractArchstudioEditorMyxComponentStub extends org.archs
 	 * @see #IN_FILE_MANAGER_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.filemanager.IFileManagerListener fileManagerEvents = (org.archstudio.filemanager.IFileManagerListener) Proxy
-			.newProxyInstance(//
-					org.archstudio.filemanager.IFileManagerListener.class.getClassLoader(),//
-					new Class[] { org.archstudio.filemanager.IFileManagerListener.class },//
-					new InvocationHandler() {
-						@Override
-						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-							for (Object o : myxRegistry.getObjects(AbstractArchstudioEditorMyxComponentStub.this)) {
-								try {
-									if (o instanceof org.archstudio.filemanager.IFileManagerListener) {
-										method.invoke(o, args);
-									}
-								}
-								catch (Exception e) {
-									e.printStackTrace();
-								}
-							}
-							return null;
-						}
-					});
+	protected org.archstudio.filemanager.IFileManagerListener fileManagerEvents = null;
 	/**
 	 * Service object(s) for xarch: <code>xarch</code>
 	 *
@@ -190,52 +162,14 @@ public abstract class AbstractArchstudioEditorMyxComponentStub extends org.archs
 	 * @see #IN_FILE_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.xarchadt.IXArchADTFileListener fileEvents = (org.archstudio.xarchadt.IXArchADTFileListener) Proxy
-			.newProxyInstance(//
-					org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),//
-					new Class[] { org.archstudio.xarchadt.IXArchADTFileListener.class },//
-					new InvocationHandler() {
-						@Override
-						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-							for (Object o : myxRegistry.getObjects(AbstractArchstudioEditorMyxComponentStub.this)) {
-								try {
-									if (o instanceof org.archstudio.xarchadt.IXArchADTFileListener) {
-										method.invoke(o, args);
-									}
-								}
-								catch (Exception e) {
-									e.printStackTrace();
-								}
-							}
-							return null;
-						}
-					});
+	protected org.archstudio.xarchadt.IXArchADTFileListener fileEvents = null;
 	/**
 	 * Service object(s) for modelEvents: <code>modelEvents</code>
 	 *
 	 * @see #IN_MODEL_EVENTS
 	 * @generated
 	 */
-	protected final org.archstudio.xarchadt.IXArchADTModelListener modelEvents = (org.archstudio.xarchadt.IXArchADTModelListener) Proxy
-			.newProxyInstance(//
-					org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),//
-					new Class[] { org.archstudio.xarchadt.IXArchADTModelListener.class },//
-					new InvocationHandler() {
-						@Override
-						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-							for (Object o : myxRegistry.getObjects(AbstractArchstudioEditorMyxComponentStub.this)) {
-								try {
-									if (o instanceof org.archstudio.xarchadt.IXArchADTModelListener) {
-										method.invoke(o, args);
-									}
-								}
-								catch (Exception e) {
-									e.printStackTrace();
-								}
-							}
-							return null;
-						}
-					});
+	protected org.archstudio.xarchadt.IXArchADTModelListener modelEvents = null;
 
 	/**
 	 * Returns the service object(s) for <code>resources</code>
@@ -336,46 +270,80 @@ public abstract class AbstractArchstudioEditorMyxComponentStub extends org.archs
 			throw new NullPointerException(interfaceName.getName());
 		}
 		if (interfaceName.equals(OUT_RESOURCES)) {
+			if (resources != null) {
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
+			}
 			resources = (org.archstudio.resources.IResources) serviceObject;
+			return;
 		}
 		if (interfaceName.equals(OUT_EDITOR_MANAGER)) {
+			if (editorManager != null) {
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
+			}
 			editorManager = (org.archstudio.editormanager.IEditorManager) serviceObject;
+			return;
 		}
 		if (interfaceName.equals(OUT_FILE_MANAGER)) {
+			if (fileManager != null) {
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
+			}
 			fileManager = (org.archstudio.filemanager.IFileManager) serviceObject;
+			return;
 		}
 		if (interfaceName.equals(OUT_XARCH)) {
+			if (xarch != null) {
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
+			}
 			xarch = (org.archstudio.xarchadt.IXArchADT) serviceObject;
+			return;
 		}
+		throw new IllegalArgumentException("Unhandled interface connection: "
+				+ interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
 		if (interfaceName.equals(OUT_RESOURCES)) {
 			resources = null;
+			return;
 		}
 		if (interfaceName.equals(OUT_EDITOR_MANAGER)) {
 			editorManager = null;
+			return;
 		}
 		if (interfaceName.equals(OUT_FILE_MANAGER)) {
 			fileManager = null;
+			return;
 		}
 		if (interfaceName.equals(OUT_XARCH)) {
 			xarch = null;
+			return;
 		}
+		throw new IllegalArgumentException(
+				"Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName,
+			Object serviceObject) {
 	}
 
 	/**
@@ -384,20 +352,33 @@ public abstract class AbstractArchstudioEditorMyxComponentStub extends org.archs
 	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_FOCUS_EDITOR_EVENTS)) {
+			if (focusEditorEvents == null) {
+				throw new NullPointerException("focusEditorEvents");
+			}
 			return focusEditorEvents;
 		}
 		if (interfaceName.equals(IN_FILE_MANAGER_EVENTS)) {
+			if (fileManagerEvents == null) {
+				throw new NullPointerException("fileManagerEvents");
+			}
 			return fileManagerEvents;
 		}
 		if (interfaceName.equals(IN_FILE_EVENTS)) {
+			if (fileEvents == null) {
+				throw new NullPointerException("fileEvents");
+			}
 			return fileEvents;
 		}
 		if (interfaceName.equals(IN_MODEL_EVENTS)) {
+			if (modelEvents == null) {
+				throw new NullPointerException("modelEvents");
+			}
 			return modelEvents;
 		}
 		if (interfaceName.equals(IN_LAUNCHER)) {
 			return this;
 		}
-		return null;
+		throw new IllegalArgumentException(
+				"Unhandled interface service object: " + interfaceName);
 	}
 }

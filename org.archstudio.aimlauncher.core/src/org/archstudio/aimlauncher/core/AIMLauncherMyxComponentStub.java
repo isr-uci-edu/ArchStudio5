@@ -1,0 +1,131 @@
+package org.archstudio.aimlauncher.core;
+
+import java.lang.reflect.*;
+import java.util.*;
+import java.util.concurrent.*;
+import org.archstudio.myx.fw.*;
+import org.archstudio.myx.fw.IMyxDynamicBrick;
+import org.archstudio.aim.IAIM;
+import org.archstudio.myx.fw.IMyxLifecycleProcessor;
+import org.archstudio.myx.fw.IMyxBrickItems;
+import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+
+/**
+ * Abstract Myx brick: "AIM Launcher Component Impl"
+ * 
+ * @generated
+ */
+@SuppressWarnings("unused")
+public abstract class AIMLauncherMyxComponentStub extends
+		org.archstudio.editors.AbstractArchstudioEditorMyxComponent implements
+		org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
+
+	protected AIMLauncherMyxComponentStub(String editorName,
+			String eclipseEditorID, boolean registerWithEditorManager) {
+		super(editorName, eclipseEditorID, registerWithEditorManager);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
+
+	/**
+	 * @generated
+	 */
+	@Override
+	public void begin() {
+		super.begin();
+		myxRegistry.register(this);
+	}
+
+	/**
+	 * @generated
+	 */
+	@Override
+	public void end() {
+		myxRegistry.unregister(this);
+		super.end();
+	}
+
+	/**
+	 * Myx interface aim: <code>OUT_AIM</code>
+	 *
+	 * @generated
+	 */
+	public static final IMyxName OUT_AIM = MyxUtils.createName("aim");
+	/**
+	 * Service object(s) for aim: <code>aim</code>
+	 *
+	 * @see #OUT_AIM
+	 * @generated
+	 */
+	protected org.archstudio.aim.IAIM aim = null;
+
+	/**
+	 * Returns the service object(s) for <code>aim</code>
+	 *
+	 * @see #OUT_AIM
+	 * @generated
+	 */
+	public org.archstudio.aim.IAIM getAim() {
+		return aim;
+	}
+
+	/**
+	 * @generated
+	 */
+	@Override
+	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
+		if (serviceObject == null) {
+			throw new NullPointerException(interfaceName.getName());
+		}
+		if (interfaceName.equals(OUT_AIM)) {
+			if (aim != null) {
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
+			}
+			aim = (org.archstudio.aim.IAIM) serviceObject;
+			return;
+		}
+		super.interfaceConnected(interfaceName, serviceObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	@Override
+	public void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
+		if (serviceObject == null) {
+			throw new NullPointerException(interfaceName.getName());
+		}
+		if (interfaceName.equals(OUT_AIM)) {
+			aim = null;
+			return;
+		}
+		super.interfaceDisconnecting(interfaceName, serviceObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	@Override
+	public void interfaceDisconnected(IMyxName interfaceName,
+			Object serviceObject) {
+		super.interfaceDisconnected(interfaceName, serviceObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	@Override
+	public Object getServiceObject(IMyxName interfaceName) {
+		return super.getServiceObject(interfaceName);
+	}
+}

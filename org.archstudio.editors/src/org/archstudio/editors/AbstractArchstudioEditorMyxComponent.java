@@ -13,8 +13,8 @@ public abstract class AbstractArchstudioEditorMyxComponent extends
 	protected String eclipseEditorID = null;
 	protected boolean registerWithEditorManager = false;
 
-	protected AbstractArchstudioEditorMyxComponent(String editorName, String eclipseEditorID,
-			boolean registerWithEditorManager) {
+	protected AbstractArchstudioEditorMyxComponent(String editorName,
+			String eclipseEditorID, boolean registerWithEditorManager) {
 		this.editorName = editorName;
 		this.eclipseEditorID = eclipseEditorID;
 		this.registerWithEditorManager = registerWithEditorManager;

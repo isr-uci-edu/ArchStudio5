@@ -1,9 +1,9 @@
-Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio NoticeADT Common
-Bundle-SymbolicName: org.archstudio.noticeadt
-Bundle-Version: 5.0.0.qualifier
-Bundle-Vendor: archstudio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio.archlight;bundle-version="5.0.0"
+Bundle-SymbolicName: org.archstudio.noticeadt
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.noticeadt
+Manifest-Version: 1.0
+Require-Bundle: org.archstudio.archlight

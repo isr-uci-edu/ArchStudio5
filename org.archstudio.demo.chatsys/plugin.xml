@@ -12,7 +12,7 @@
                delegate="variable"
                direction="in"
                getter="true"
-               id="org.archstudio.demo.chatsys.interface1"
+               id="chat"
                name="chat"
                single="true">
          </interface>
@@ -21,8 +21,8 @@
                delegate="variable"
                direction="in"
                getter="true"
-               id="org.archstudio.demo.chatsys.interface2"
-               name="chatevents"
+               id="chatEvents"
+               name="chatEvents"
                single="true">
          </interface>
       </brick>
@@ -35,7 +35,7 @@
                delegate="variable"
                direction="in"
                getter="true"
-               id="org.archstudio.demo.chatsys.interface3"
+               id="chat"
                name="chat"
                single="true">
          </interface>
@@ -44,8 +44,8 @@
                delegate="variable"
                direction="in"
                getter="true"
-               id="org.archstudio.demo.chatsys.interface4"
-               name="chatevents"
+               id="chatEvents"
+               name="chatEvents"
                single="true">
          </interface>
       </brick>

@@ -16,7 +16,7 @@
          point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.archedit.core.ArchEditMyxComponent"
-            id="org.archstudio.archedit.core.brick2"
+            id="org.archstudio.archedit.core.ArchEditMyxComponent"
             name="ArchEdit Component Impl">
          <parentBrick
                parentBrick="org.archstudio.editors.AbstractArchstudioEditorMyxComponent">

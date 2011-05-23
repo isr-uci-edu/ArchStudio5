@@ -1,12 +1,12 @@
-Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Graph Layout Common
-Bundle-SymbolicName: org.archstudio.graphlayout
-Bundle-Version: 5.0.0.qualifier
-Bundle-Vendor: archstudio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio.xarchadt;bundle-version="5.0.0",
- org.archstudio.swtutils;bundle-version="5.0.0",
- org.eclipse.jface;bundle-version="3.5.1"
+Bundle-SymbolicName: org.archstudio.graphlayout
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.graphlayout,
  org.archstudio.graphlayout.gui
+Manifest-Version: 1.0
+Require-Bundle: org.archstudio.swtutils,
+ org.archstudio.xarchadt,
+ org.eclipse.jface

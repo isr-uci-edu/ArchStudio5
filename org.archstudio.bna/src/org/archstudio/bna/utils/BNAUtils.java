@@ -833,7 +833,7 @@ public class BNAUtils {
 		};
 	};
 
-	public static final Iterable<? extends IThing> getSelectedThings(IBNAModel m) {
+	public static final Iterable<IThing> getSelectedThings(IBNAModel m) {
 		return Iterables.filter(m.getThings(), isSelectedPredicate);
 	}
 

@@ -2,11 +2,29 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.archstudio.myx.eclipse.brick">
+         point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.noticeadt.core.ArchlightNoticeADTMyxComponent"
             id="org.archstudio.noticeadt.core.ArchlightNoticeADTMyxComponent"
             name="Archlight Notice Impl">
+         <interface
+               class="org.archstudio.noticeadt.IArchlightNoticeADT"
+               delegate="variable"
+               direction="in"
+               getter="true"
+               id="notices"
+               name="notices"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.noticeadt.ArchlightNoticeADTListener"
+               delegate="events"
+               direction="out"
+               getter="true"
+               id="noticeEvents"
+               name="noticeEvents"
+               single="false">
+         </interface>
       </brick>
    </extension>
 
