@@ -1,14 +1,13 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Guava (Google Common Libraries)
-Bundle-SymbolicName: com.google.guava;singleton:=true
-Bundle-Version: 0.0.0.r9
-Bundle-Vendor: google.com
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  lib/guava-r09.jar,
  lib/jsr305.jar
-Bundle-ActivationPolicy: lazy
+Bundle-ManifestVersion: 2
+Bundle-Name: Guava (Google Common Libraries)
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-SymbolicName: com.google.guava;singleton:=true
+Bundle-Vendor: google.com
+Bundle-Version: 0.0.0.r9
 Export-Package: com.google.common.annotations,
  com.google.common.base,
  com.google.common.base.internal,
@@ -20,3 +19,4 @@ Export-Package: com.google.common.annotations,
  javax.annotation,
  javax.annotation.concurrent,
  javax.annotation.meta
+Manifest-Version: 1.0

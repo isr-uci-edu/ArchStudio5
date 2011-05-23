@@ -2,21 +2,60 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.archstudio.myx.eclipse.brick">
+         point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.archipelago.core.ArchipelagoMyxComponent"
             id="org.archstudio.archipelago.core.ArchipelagoMyxComponent"
             name="Archipelago Impl">
+         <interface
+               class="org.archstudio.graphlayout.IGraphLayout"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="graphLayout"
+               name="graphLayout"
+               single="true">
+         </interface>
+         <interface
+               class="org.eclipse.jface.preference.IPreferenceStore"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="preferences"
+               name="preferences"
+               single="true">
+         </interface>
+         <parentBrick
+               parentBrick="org.archstudio.editors.AbstractArchstudioEditorMyxComponent">
+         </parentBrick>
       </brick>
       <brick
             class="org.archstudio.archipelago.core.prefs.ArchipelagoPrefsMyxComponent"
             id="org.archstudio.archipelago.core.prefs.ArchipelagoPrefsMyxComponent"
             name="Archipelago Prefs Impl">
+         <interface
+               class="org.eclipse.jface.preference.IPreferenceStore"
+               delegate="variable"
+               direction="in"
+               getter="true"
+               id="preferences"
+               name="preferences"
+               single="true">
+         </interface>
       </brick>
       <brick
             class="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePrefsMyxComponent"
             id="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePrefsMyxComponent"
             name="Archipelago Structure Prefs Impl">
+         <interface
+               class="org.eclipse.jface.preference.IPreferenceStore"
+               delegate="variable"
+               direction="in"
+               getter="true"
+               id="preferences"
+               name="preferences"
+               single="true">
+         </interface>
       </brick>
    </extension>
    <extension
@@ -38,9 +77,6 @@
             id="org.archstudio.archipelago.core.prefs.ArchipelagoPreferencePanel"
             name="Archipelago">
       </page>
-   </extension>
-   <extension
-         point="org.eclipse.ui.preferencePages">
       <page
             category="org.archstudio.archipelago.core.prefs.ArchipelagoPreferencePanel"
             class="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePreferencePanel"

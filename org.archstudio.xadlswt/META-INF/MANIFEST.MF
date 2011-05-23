@@ -1,13 +1,13 @@
-Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: xADL SWT Utilities Common
-Bundle-SymbolicName: org.archstudio.xadlswt
-Bundle-Version: 5.0.0.qualifier
-Bundle-Vendor: archstudio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio.resources;bundle-version="5.0.0",
- org.archstudio.xarchadt;bundle-version="5.0.0",
- org.archstudio.xadl;bundle-version="5.0.0",
- org.eclipse.emf.common;bundle-version="2.5.0",
- org.eclipse.ui;bundle-version="3.5.1"
+Bundle-SymbolicName: org.archstudio.xadlswt
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.xadlswt
+Manifest-Version: 1.0
+Require-Bundle: org.archstudio.resources,
+ org.archstudio.xadl,
+ org.archstudio.xarchadt,
+ org.eclipse.emf.common,
+ org.eclipse.ui

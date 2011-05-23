@@ -3,16 +3,18 @@ package org.archstudio.archlight.core;
 import java.io.IOException;
 
 import org.archstudio.EclipseUtils;
-import org.archstudio.archlight.IArchlightTool;
-import org.archstudio.editors.AbstractArchstudioEditorMyxComponent;
 import org.archstudio.launcher.ILaunchData;
 import org.archstudio.launcher.LaunchData;
-import org.archstudio.myx.fw.IMyxName;
-import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.testadt.IArchlightTestADT;
 import org.eclipse.swt.graphics.Image;
 
-public class ArchlightMyxComponent extends AbstractArchstudioEditorMyxComponent {
+/**
+ * Myx brick: "Archlight Impl"
+ * 
+ * @see org.archstudio.archlight.core.ArchlightMyxComponentStub
+ * @generated
+ */
+public class ArchlightMyxComponent extends
+		org.archstudio.archlight.core.ArchlightMyxComponentStub {
 
 	public static final String EDITOR_NAME = "Archlight";
 	public static final String ECLIPSE_EDITOR_ID = "org.archstudio.archlight.core.ArchlightEditor";
@@ -21,43 +23,23 @@ public class ArchlightMyxComponent extends AbstractArchstudioEditorMyxComponent 
 	public static final String IMAGE_ARCHLIGHT_ICON = "archlight:icon";
 	public static final String URL_ARCHLIGHT_ICON = "res/archlight-icon-32.gif";
 
-	public static final IMyxName INTERFACE_NAME_OUT_TESTADT = MyxUtils.createName("archlighttestadt");
-	public static final IMyxName INTERFACE_NAME_OUT_TOOLS = MyxUtils.createName("archlighttools");
-
-	protected IArchlightTestADT testadt = null;
-	protected IArchlightTool tools = null;
-
 	public ArchlightMyxComponent() {
 		super(EDITOR_NAME, ECLIPSE_EDITOR_ID, false);
 	}
 
-	public void begin() {
-		super.begin();
-
-		testadt = (IArchlightTestADT) MyxUtils.getFirstRequiredServiceObject(this, INTERFACE_NAME_OUT_TESTADT);
-		tools = (IArchlightTool) MyxUtils.getFirstRequiredServiceObject(this, INTERFACE_NAME_OUT_TOOLS);
-	}
-
 	boolean resourcesCreated = false;
+
 	private synchronized void createResources() {
 		if (!resourcesCreated) {
 			try {
-				resources.createImage(IMAGE_ARCHLIGHT_ICON, EclipseUtils.getBytes(URL_BASE + URL_ARCHLIGHT_ICON));
-			}
-			catch (IOException ioe) {
+				resources.createImage(IMAGE_ARCHLIGHT_ICON,
+						EclipseUtils.getBytes(URL_BASE + URL_ARCHLIGHT_ICON));
+			} catch (IOException ioe) {
 				ioe.printStackTrace();
 				throw new RuntimeException("This shouldn't happen.");
 			}
 			resourcesCreated = true;
 		}
-	}
-	
-	public IArchlightTestADT getTestADT() {
-		return testadt;
-	}
-
-	public IArchlightTool getTools() {
-		return tools;
 	}
 
 	public Image getIcon() {
@@ -65,7 +47,10 @@ public class ArchlightMyxComponent extends AbstractArchstudioEditorMyxComponent 
 		return resources.getImage(IMAGE_ARCHLIGHT_ICON);
 	}
 
+	@Override
 	public ILaunchData getLaunchData() {
-		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME, "An Architecture Analysis Framework", getIcon(), ILaunchData.LaunchType.EDITOR);
+		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME,
+				"An Architecture Analysis Framework", getIcon(),
+				ILaunchData.LaunchType.EDITOR);
 	}
 }

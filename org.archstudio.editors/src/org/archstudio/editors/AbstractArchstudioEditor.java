@@ -10,6 +10,7 @@ import org.archstudio.swtutils.Banner;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.DelayedExecuteOnceThread;
 import org.archstudio.sysutils.UIDGenerator;
+import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
@@ -89,7 +90,7 @@ public abstract class AbstractArchstudioEditor extends EditorPart implements ISe
 		comp = (AbstractArchstudioEditorMyxComponent) er.waitForBrick(myxComponentClass);
 		this.editorName = editorName;
 		er.map(comp, this);
-		xarch = comp.getXArchADT();
+		xarch = comp.getXarch();
 		fileman = comp.getFileManager();
 		editorManager = comp.getEditorManager();
 		resources = comp.getResources();

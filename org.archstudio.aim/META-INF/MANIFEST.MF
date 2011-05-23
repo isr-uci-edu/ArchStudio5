@@ -1,8 +1,8 @@
-Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Common
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.aim
 Bundle-Version: 5.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio.xarchadt;bundle-version="5.0.0"
 Export-Package: org.archstudio.aim
+Manifest-Version: 1.0
+Require-Bundle: org.archstudio.xarchadt

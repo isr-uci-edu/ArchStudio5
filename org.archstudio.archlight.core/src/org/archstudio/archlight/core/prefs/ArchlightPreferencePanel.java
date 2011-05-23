@@ -9,28 +9,30 @@ import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-public class ArchlightPreferencePanel extends FieldEditorPreferencePage implements IWorkbenchPreferencePage{
+public class ArchlightPreferencePanel extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 	private ArchlightPrefsMyxComponent comp = null;
-	private MyxRegistry er = MyxRegistry.getSharedInstance();
-	
+	private final MyxRegistry er = MyxRegistry.getSharedInstance();
+
 	protected RadioGroupFieldEditor doubleClickActionEditor;
-	
-	public ArchlightPreferencePanel(){
+
+	public ArchlightPreferencePanel() {
 		super("Archlight General Preferences", GRID);
-		comp = (ArchlightPrefsMyxComponent)er.waitForBrick(ArchlightPrefsMyxComponent.class);
+		comp = (ArchlightPrefsMyxComponent) er.waitForBrick(ArchlightPrefsMyxComponent.class);
 		er.map(comp, this);
-		
-		setPreferenceStore(comp.prefs);
+
+		setPreferenceStore(comp.getPreferences());
 		setDescription("This panel lets you set general preferences for Archlight.");
 	}
-	
-	public void init(IWorkbench workbench){
+
+	@Override
+	public void init(IWorkbench workbench) {
 	}
 
-	protected void createFieldEditors(){
-		doubleClickActionEditor = new RadioGroupFieldEditor(ArchlightConstants.PREF_DOUBLE_CLICK_ACTION, "Double Click Action", 1,
-			EclipseUtils.getFieldEditorPreferenceData(DoubleClickAction.class), 
-			getFieldEditorParent(), true);
+	@Override
+	protected void createFieldEditors() {
+		doubleClickActionEditor = new RadioGroupFieldEditor(ArchlightConstants.PREF_DOUBLE_CLICK_ACTION,
+				"Double Click Action", 1, EclipseUtils.getFieldEditorPreferenceData(DoubleClickAction.class),
+				getFieldEditorParent(), true);
 		addField(doubleClickActionEditor);
 
 	}

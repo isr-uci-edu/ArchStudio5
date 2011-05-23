@@ -9,7 +9,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 public class SchematronPreferencePanel extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 	private SchematronPrefsMyxComponent comp = null;
-	private MyxRegistry er = MyxRegistry.getSharedInstance();
+	private final MyxRegistry er = MyxRegistry.getSharedInstance();
 
 	protected PathEditor testFilePathsPrefEditor;
 
@@ -18,15 +18,18 @@ public class SchematronPreferencePanel extends FieldEditorPreferencePage impleme
 		comp = (SchematronPrefsMyxComponent) er.waitForBrick(SchematronPrefsMyxComponent.class);
 		er.map(comp, this);
 
-		setPreferenceStore(comp.prefs);
+		setPreferenceStore(comp.getPreferences());
 		setDescription("Additional test file paths:");
 	}
 
+	@Override
 	public void init(IWorkbench workbench) {
 	}
 
+	@Override
 	protected void createFieldEditors() {
-		testFilePathsPrefEditor = new PathEditor(SchematronConstants.PREF_TEST_FILE_PATHS, "Test File Paths", "Choose Test File Path", getFieldEditorParent());
+		testFilePathsPrefEditor = new PathEditor(SchematronConstants.PREF_TEST_FILE_PATHS, "Test File Paths",
+				"Choose Test File Path", getFieldEditorParent());
 		addField(testFilePathsPrefEditor);
 	}
 

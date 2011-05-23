@@ -1,18 +1,18 @@
-Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Graph Layout Core
-Bundle-SymbolicName: org.archstudio.graphlayout.core;singleton:=true
-Bundle-Version: 5.0.0.qualifier
-Bundle-Vendor: archstudio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio.swtutils;bundle-version="5.0.0",
- org.archstudio.myx.fw;bundle-version="5.0.0",
- org.archstudio.xarchadt;bundle-version="5.0.0",
- org.archstudio.graphlayout;bundle-version="5.0.0",
- org.archstudio.xadl;bundle-version="5.0.0",
- org.archstudio.sysutils;bundle-version="5.0.0",
- org.eclipse.ui;bundle-version="3.5.1",
- org.archstudio.xadl3.structure;bundle-version="5.0.0",
- org.archstudio.xadl3.domain;bundle-version="1.0.0"
+Bundle-SymbolicName: org.archstudio.graphlayout.core;singleton:=true
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.graphlayout.core,
  org.archstudio.graphlayout.core.graphviz
+Manifest-Version: 1.0
+Require-Bundle: org.archstudio.graphlayout,
+ org.archstudio.myx.fw,
+ org.archstudio.swtutils,
+ org.archstudio.sysutils,
+ org.archstudio.xadl,
+ org.archstudio.xadl3.domain,
+ org.archstudio.xadl3.structure,
+ org.archstudio.xarchadt,
+ org.eclipse.ui

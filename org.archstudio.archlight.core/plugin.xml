@@ -2,21 +2,87 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.archstudio.myx.eclipse.brick">
+         point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.archlight.core.ArchlightToolAggregatorMyxComponent"
             id="org.archstudio.archlight.core.ArchlightToolAggregatorMyxComponent"
             name="Myx Impl">
+         <interface
+               class="org.archstudio.myx.conn.IMultiwayResults"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="results"
+               name="results"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.archlight.IArchlightTool"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="archlightTools"
+               name="archlightTools"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.archlight.IArchlightTool"
+               delegate="brick"
+               direction="in"
+               getter="true"
+               id="archlightTool"
+               name="archlightTool"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.myx.conn.IMultiwayProgressListener"
+               delegate="events"
+               direction="in"
+               getter="true"
+               id="progress"
+               name="progress"
+               single="true">
+         </interface>
       </brick>
       <brick
             class="org.archstudio.archlight.core.ArchlightMyxComponent"
             id="org.archstudio.archlight.core.ArchlightMyxComponent"
             name="Archlight Impl">
+         <parentBrick
+               parentBrick="org.archstudio.editors.AbstractArchstudioEditorMyxComponent">
+         </parentBrick>
+         <interface
+               class="org.archstudio.archlight.IArchlightTool"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="tools"
+               name="tools"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.testadt.IArchlightTestADT"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="testADT"
+               name="testADT"
+               single="true">
+         </interface>
       </brick>
       <brick
             class="org.archstudio.archlight.core.prefs.ArchlightPrefsMyxComponent"
             id="org.archstudio.archlight.core.prefs.ArchlightPrefsMyxComponent"
             name="Archlight Prefs Impl">
+         <interface
+               class="org.eclipse.jface.preference.IPreferenceStore"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="preferences"
+               name="preferences"
+               single="true">
+         </interface>
       </brick>
    </extension>
    <extension

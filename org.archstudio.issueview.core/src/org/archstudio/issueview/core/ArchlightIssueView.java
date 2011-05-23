@@ -10,8 +10,6 @@ import org.archstudio.editormanager.IEditorManager;
 import org.archstudio.issueadt.ArchlightIssueADTEvent;
 import org.archstudio.issueadt.ArchlightIssueADTListener;
 import org.archstudio.issueadt.IArchlightIssueADT;
-import org.archstudio.issueview.core.ArchlightIssueView.ViewContentProvider;
-import org.archstudio.issueview.core.ArchlightIssueView.ViewLabelProvider;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.AutoResizeTableLayout;
@@ -54,7 +52,7 @@ import org.eclipse.ui.part.ViewPart;
 
 public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTListener, IMenuFiller {
 	private ArchlightIssueViewMyxComponent comp = null;
-	private MyxRegistry er = MyxRegistry.getSharedInstance();
+	private final MyxRegistry er = MyxRegistry.getSharedInstance();
 
 	private static final int COLUMN_INDEX_SEVERITY = 0;
 	private static final int COLUMN_INDEX_SUMMARY = 1;
@@ -73,19 +71,21 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 	public ArchlightIssueView() {
 		comp = (ArchlightIssueViewMyxComponent) er.waitForBrick(ArchlightIssueViewMyxComponent.class);
 		er.map(comp, this);
-		xarch = comp.xarch;
-		issueadt = comp.issueadt;
-		resources = comp.resources;
-		editorManager = comp.editorManager;
-		prefs = comp.prefs;
+		xarch = comp.getXarch();
+		issueadt = comp.getArchlightIssues();
+		resources = comp.getResources();
+		editorManager = comp.getEditorManager();
+		prefs = comp.getPreferences();
 	}
 
+	@Override
 	public void issueADTChanged(ArchlightIssueADTEvent evt) {
 		refreshView();
 	}
 
 	public void refreshView() {
 		SWTWidgetUtils.async(viewer, new Runnable() {
+			@Override
 			public void run() {
 				if (!viewer.getControl().isDisposed()) {
 					viewer.refresh();
@@ -94,6 +94,7 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 		});
 	}
 
+	@Override
 	public void createPartControl(Composite parent) {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
 		viewer.setContentProvider(new ViewContentProvider());
@@ -127,6 +128,7 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 		//tv.setCellModifier(new ViewCellModifier(selectedRefs[i]));
 
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
+			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				String doubleClickActionString = prefs.getString(ArchlightConstants.PREF_DOUBLE_CLICK_ACTION);
 				if (doubleClickActionString == null || doubleClickActionString.length() == 0) {
@@ -178,18 +180,22 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 	class ViewContentProvider implements IStructuredContentProvider {
 		//private Object[] EMPTY_ARRAY = new Object[0];
 
+		@Override
 		public Object[] getElements(Object inputElement) {
 			return issueadt.getAllIssues().toArray();
 		}
 
+		@Override
 		public void dispose() {
 		}
 
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 	}
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
+		@Override
 		public String getColumnText(Object obj, int index) {
 			if (obj instanceof ArchlightIssue) {
 				if (index == COLUMN_INDEX_SUMMARY) {
@@ -202,6 +208,7 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 			return null;
 		}
 
+		@Override
 		public Image getColumnImage(Object obj, int index) {
 			if (obj instanceof ArchlightIssue) {
 				if (index == COLUMN_INDEX_SEVERITY) {
@@ -211,11 +218,13 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 			return null;
 		}
 
+		@Override
 		public Image getImage(Object obj) {
 			return null;
 		}
 	}
 
+	@Override
 	public void setFocus() {
 		viewer.getControl().setFocus();
 	}
@@ -331,6 +340,7 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 		buttonOK.setLayoutData(gridData);
 
 		Listener listener = new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				dialog.close();
 			}
@@ -341,6 +351,7 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 		dialog.open();
 	}
 
+	@Override
 	public void fillMenu(IMenuManager m) {
 		ArchlightIssue[] issues = getSelectedIssues();
 		if (issues.length == 0) {
@@ -360,6 +371,7 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 					final ArchlightElementIdentifier felementIdentifier = elementIdentifier;
 					IAction focusDefaultEditor = new Action("Focus on " + elementIdentifier.getElementDescription()
 							+ " in " + defaultEditor) {
+						@Override
 						public void run() {
 							focusEditor(fdefaultEditor, fissue, felementIdentifier);
 						}
@@ -370,10 +382,10 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 					MenuManager submenu = new MenuManager("Focus on " + elementIdentifier.getElementDescription()
 							+ " in...");
 					if (editors.length > 0) {
-						for (int j = 0; j < editors.length; j++) {
-							final String feditor = editors[j];
+						for (final String feditor : editors) {
 							final ArchlightElementIdentifier felementIdentifier = elementIdentifier;
-							IAction focusEditor = new Action(editors[j]) {
+							IAction focusEditor = new Action(feditor) {
+								@Override
 								public void run() {
 									focusEditor(feditor, fissue, felementIdentifier);
 								}
@@ -386,6 +398,7 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 				}
 			}
 			IAction detailAction = new Action("Detail...") {
+				@Override
 				public void run() {
 					showDetailDialog(fissue);
 				}

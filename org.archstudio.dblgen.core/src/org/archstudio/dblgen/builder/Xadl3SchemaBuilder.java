@@ -94,7 +94,8 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 					incrementalBuild(delta, monitor);
 				}
 			}
-			// getProject().refreshLocal(IResource.DEPTH_INFINITE, monitor);
+
+			getProject().refreshLocal(IResource.DEPTH_INFINITE, monitor);
 		}
 		catch (IOException e) {
 			throw new CoreException(new Status(IStatus.ERROR, Activator.getSingleton().getId(), e.getMessage(), e));

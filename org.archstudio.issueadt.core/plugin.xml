@@ -2,11 +2,38 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.archstudio.myx.eclipse.brick">
+         point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.issueadt.core.ArchlightIssueADTMyxComponent"
             id="org.archstudio.issueadt.core.ArchlightIssueADTMyxComponent"
             name="Archlight Issue Impl">
+         <interface
+               class="org.archstudio.issueadt.ArchlightIssueADTListener"
+               delegate="events"
+               direction="out"
+               getter="true"
+               id="issueEvents"
+               name="issueEvents"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.xarchadt.IXArchADTFileListener"
+               delegate="brick"
+               direction="in"
+               getter="true"
+               id="fileEvents"
+               name="fileEvents"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.issueadt.IArchlightIssueADT"
+               delegate="variable"
+               direction="in"
+               getter="true"
+               id="issues"
+               name="issues"
+               single="true">
+         </interface>
       </brick>
    </extension>
 

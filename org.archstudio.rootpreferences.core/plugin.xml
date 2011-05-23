@@ -10,11 +10,29 @@
       </page>
    </extension>
    <extension
-         point="org.archstudio.myx.eclipse.brick">
+         point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.rootpreferences.core.RootPreferencesMyxComponent"
             id="org.archstudio.rootpreferences.core.RootPreferencesMyxComponent"
             name="Root Preferences Impl">
+         <interface
+               class="org.archstudio.resources.IResources"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="resources"
+               name="resources"
+               single="true">
+         </interface>
+         <interface
+               class="org.eclipse.jface.preference.IPreferenceStore"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="preferences"
+               name="preferences"
+               single="true">
+         </interface>
       </brick>
    </extension>
 

@@ -2,11 +2,29 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.archstudio.myx.eclipse.brick">
+         point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.testadt.core.ArchlightTestADTMyxComponent"
             id="org.archstudio.testadt.core.ArchlightTestADTMyxComponent"
             name="org.archstudio.testadt.core.Archlight Test ADT Impl">
+         <interface
+               class="org.archstudio.testadt.IArchlightTestADT"
+               delegate="variable"
+               direction="in"
+               getter="true"
+               id="tests"
+               name="tests"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.testadt.ArchlightTestADTListener"
+               delegate="events"
+               direction="out"
+               getter="true"
+               id="testEvents"
+               name="testEvents"
+               single="true">
+         </interface>
       </brick>
    </extension>
 

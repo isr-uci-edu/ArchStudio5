@@ -16,9 +16,19 @@
          point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.aimlauncher.core.AIMLauncherMyxComponent"
-            id="org.archstudio.aimlauncher.core.brick2"
+            id="org.archstudio.aimlauncher.core.AIMLauncherMyxComponent"
             name="AIM Launcher Component Impl">
-         <parentBrick></parentBrick>
+         <parentBrick
+               parentBrick="org.archstudio.editors.AbstractArchstudioEditorMyxComponent"></parentBrick>
+         <interface
+               class="org.archstudio.aim.IAIM"
+               delegate="variable"
+               direction="out"
+               getter="true"
+               id="aim"
+               name="aim"
+               single="true">
+         </interface>
       </brick>
    </extension>
 

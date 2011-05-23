@@ -5,8 +5,6 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.noticeadt.ArchlightNoticeADTEvent;
 import org.archstudio.noticeadt.ArchlightNoticeADTListener;
 import org.archstudio.noticeadt.IArchlightNoticeADT;
-import org.archstudio.noticeview.core.ArchlightNoticeView.ViewContentProvider;
-import org.archstudio.noticeview.core.ArchlightNoticeView.ViewLabelProvider;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.AutoResizeTableLayout;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -27,7 +25,7 @@ import org.eclipse.ui.part.ViewPart;
 
 public class ArchlightNoticeView extends ViewPart implements ArchlightNoticeADTListener {
 	private ArchlightNoticeViewMyxComponent comp = null;
-	private MyxRegistry er = MyxRegistry.getSharedInstance();
+	private final MyxRegistry er = MyxRegistry.getSharedInstance();
 
 	private static final int COLUMN_INDEX_SEVERITY = 0;
 	private static final int COLUMN_INDEX_SUMMARY = 1;
@@ -43,22 +41,25 @@ public class ArchlightNoticeView extends ViewPart implements ArchlightNoticeADTL
 	public ArchlightNoticeView() {
 		comp = (ArchlightNoticeViewMyxComponent) er.waitForBrick(ArchlightNoticeViewMyxComponent.class);
 		er.map(comp, this);
-		noticeadt = comp.noticeadt;
+		noticeadt = comp.notices;
 		resources = comp.resources;
 	}
 
+	@Override
 	public void noticeADTChanged(ArchlightNoticeADTEvent evt) {
 		refreshView();
 	}
 
 	public void refreshView() {
 		Display.getDefault().asyncExec(new Runnable() {
+			@Override
 			public void run() {
 				viewer.refresh();
 			}
 		});
 	}
 
+	@Override
 	public void createPartControl(Composite parent) {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
 		viewer.setContentProvider(new ViewContentProvider());
@@ -98,18 +99,22 @@ public class ArchlightNoticeView extends ViewPart implements ArchlightNoticeADTL
 	class ViewContentProvider implements IStructuredContentProvider {
 		//private Object[] EMPTY_ARRAY = new Object[0];
 
+		@Override
 		public Object[] getElements(Object inputElement) {
 			return noticeadt.getAllNotices().toArray();
 		}
 
+		@Override
 		public void dispose() {
 		}
 
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 	}
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
+		@Override
 		public String getColumnText(Object obj, int index) {
 			if (obj instanceof ArchlightNotice) {
 				if (index == COLUMN_INDEX_SUMMARY) {
@@ -122,6 +127,7 @@ public class ArchlightNoticeView extends ViewPart implements ArchlightNoticeADTL
 			return null;
 		}
 
+		@Override
 		public Image getColumnImage(Object obj, int index) {
 			if (obj instanceof ArchlightNotice) {
 				if (index == COLUMN_INDEX_SEVERITY) {
@@ -137,11 +143,13 @@ public class ArchlightNoticeView extends ViewPart implements ArchlightNoticeADTL
 			return null;
 		}
 
+		@Override
 		public Image getImage(Object obj) {
 			return null;
 		}
 	}
 
+	@Override
 	public void setFocus() {
 		viewer.getControl().setFocus();
 	}

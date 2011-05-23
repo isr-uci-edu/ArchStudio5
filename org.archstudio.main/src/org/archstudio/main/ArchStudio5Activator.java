@@ -1,27 +1,30 @@
 package org.archstudio.main;
 
-import java.util.Collections;
+import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
+import org.archstudio.aim.ArchitectureInstantiationException;
+import org.archstudio.aim.IAIM;
+import org.archstudio.aim.core.AIMImpl;
+import org.archstudio.myx.eclipse.MyxEclipseUtils;
+import org.archstudio.myx.fw.IMyxRuntime;
+import org.archstudio.myx.fw.MyxUtils;
+import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.ObjRef;
+import org.archstudio.xarchadt.core.XArchADTImpl;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-
-import org.archstudio.myx.eclipse.MyxEclipseUtils;
-import org.archstudio.myx.fw.EMyxInterfaceDirection;
-import org.archstudio.myx.fw.IMyxBrickDescription;
-import org.archstudio.myx.fw.IMyxInterfaceDescription;
-import org.archstudio.myx.fw.IMyxName;
-import org.archstudio.myx.fw.IMyxRuntime;
-import org.archstudio.myx.fw.MyxBasicBrickInitializationData;
-import org.archstudio.myx.fw.MyxJavaClassBrickDescription;
-import org.archstudio.myx.fw.MyxJavaClassInterfaceDescription;
-import org.archstudio.myx.fw.MyxUtils;
+import org.xml.sax.SAXException;
 
 /**
  * The activator class controls the plug-in life cycle
  */
 public class ArchStudio5Activator extends AbstractUIPlugin {
-	
+
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.archstudio.main";
 
@@ -29,17 +32,18 @@ public class ArchStudio5Activator extends AbstractUIPlugin {
 
 	// The shared instance
 	private static ArchStudio5Activator plugin;
-	
+
 	/**
 	 * The constructor
 	 */
 	public ArchStudio5Activator() {
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see org.eclipse.core.runtime.Plugins#start(org.osgi.framework.BundleContext)
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		System.err.println("Starting main plugin");
 		super.start(context);
@@ -51,6 +55,7 @@ public class ArchStudio5Activator extends AbstractUIPlugin {
 	 * (non-Javadoc)
 	 * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
@@ -58,91 +63,64 @@ public class ArchStudio5Activator extends AbstractUIPlugin {
 
 	/**
 	 * Returns the shared instance
-	 *
+	 * 
 	 * @return the shared instance
 	 */
 	public static ArchStudio5Activator getDefault() {
 		return plugin;
 	}
 
-	private void startApplication() throws Exception{
+	private void startApplication() throws Exception {
 		System.out.println("Starting app");
-		
+
 		Properties bootstrapInitProperties = new Properties();
 		bootstrapInitProperties.put("uri", ARCHSTUDIO_DESCRIPTION_URI);
-		
+
 		MyxEclipseUtils.register();
-		
-		IMyxRuntime myxRuntime = MyxUtils.getDefaultImplementation().createRuntime();
-		myxRuntime.addClassManager(MyxUtils.createName("EclipseClassManager"), "org.archstudio.myx.eclipse.MyxEclipseClassManager", null);
-		myxRuntime.addBrickLoader(MyxUtils.createName("EclipseBrickLoader"), "org.archstudio.myx.eclipse.MyxEclipseBrickLoader", null);
-		
-		IMyxInterfaceDescription xarchInterfaceDescription = 
-			new MyxJavaClassInterfaceDescription(Collections.singleton(org.archstudio.xarchadt.IXArchADT.class.getName()));
-		IMyxName xarchInterfaceName = MyxUtils.createName("xarch");
-		
-		IMyxInterfaceDescription myxRuntimeInterfaceDescription = 
-			new MyxJavaClassInterfaceDescription(Collections.singleton("org.archstudio.myx.fw.IMyxRuntime"));
-		IMyxName myxRuntimeInterfaceName = MyxUtils.createName("myxruntime");
-		
-		IMyxInterfaceDescription aimInterfaceDescription = 
-			new MyxJavaClassInterfaceDescription(Collections.singleton(org.archstudio.aim.IAIM.class.getName()));
-		IMyxName aimInterfaceName = MyxUtils.createName("aim");
-		
-		IMyxBrickDescription xarchadtBrickDescription = new MyxJavaClassBrickDescription("org.archstudio.xarchadt.core.XArchADTMyxComponent");
-		IMyxName xarchadtBrickName = MyxUtils.createName("XArchADT");
-		
-		IMyxBrickDescription aimBrickDescription = new MyxJavaClassBrickDescription("org.archstudio.aim.core.AIMMyxComponent");
-		IMyxName aimBrickName = MyxUtils.createName("AIM");
-		
-		IMyxBrickDescription myxRuntimeBrickDescription = new MyxJavaClassBrickDescription("org.archstudio.myx.comp.MyxRuntimeComponent");
-		IMyxName myxRuntimeBrickName = MyxUtils.createName("MyxRuntime");
-		
-		IMyxBrickDescription bootstrapBrickDescription = new MyxJavaClassBrickDescription("org.archstudio.bootstrap.core.BootstrapMyxComponent");
-		IMyxName bootstrapBrickName = MyxUtils.createName("Bootstrap");
-		
-		myxRuntime.addBrick(MyxUtils.DEFAULT_PATH, xarchadtBrickName, xarchadtBrickDescription, null);
-		myxRuntime.init(MyxUtils.DEFAULT_PATH, xarchadtBrickName);
-		myxRuntime.addInterface(MyxUtils.DEFAULT_PATH, xarchadtBrickName, xarchInterfaceName, 
-			xarchInterfaceDescription, EMyxInterfaceDirection.IN);
 
-		myxRuntime.addBrick(MyxUtils.DEFAULT_PATH, myxRuntimeBrickName, myxRuntimeBrickDescription, null);
-		myxRuntime.init(MyxUtils.DEFAULT_PATH, myxRuntimeBrickName);
-		myxRuntime.addInterface(MyxUtils.DEFAULT_PATH, myxRuntimeBrickName, myxRuntimeInterfaceName, 
-			myxRuntimeInterfaceDescription, EMyxInterfaceDirection.IN);
+		final IXArchADT xarch = new XArchADTImpl();
+		final IMyxRuntime myxRuntime = MyxUtils.getDefaultImplementation().createRuntime();
+		final IAIM aim = new AIMImpl(xarch, myxRuntime);
 
-		myxRuntime.addBrick(MyxUtils.DEFAULT_PATH, aimBrickName, aimBrickDescription, null);
-		myxRuntime.init(MyxUtils.DEFAULT_PATH, aimBrickName);
-		myxRuntime.addInterface(MyxUtils.DEFAULT_PATH, aimBrickName, myxRuntimeInterfaceName, 
-				myxRuntimeInterfaceDescription, EMyxInterfaceDirection.OUT);
-		myxRuntime.addInterface(MyxUtils.DEFAULT_PATH, aimBrickName, xarchInterfaceName, 
-			xarchInterfaceDescription, EMyxInterfaceDirection.OUT);
-		myxRuntime.addInterface(MyxUtils.DEFAULT_PATH, aimBrickName, aimInterfaceName, 
-			aimInterfaceDescription, EMyxInterfaceDirection.IN);
-		
-		myxRuntime.addBrick(MyxUtils.DEFAULT_PATH, bootstrapBrickName, bootstrapBrickDescription, new MyxBasicBrickInitializationData(bootstrapInitProperties));
-		myxRuntime.init(MyxUtils.DEFAULT_PATH, bootstrapBrickName);
-		myxRuntime.addInterface(MyxUtils.DEFAULT_PATH, bootstrapBrickName, xarchInterfaceName, 
-				xarchInterfaceDescription, EMyxInterfaceDirection.OUT);
-		myxRuntime.addInterface(MyxUtils.DEFAULT_PATH, bootstrapBrickName, aimInterfaceName, 
-			aimInterfaceDescription, EMyxInterfaceDirection.OUT);
-		
-		myxRuntime.addWeld(myxRuntime.createWeld(MyxUtils.DEFAULT_PATH, aimBrickName, myxRuntimeInterfaceName, 
-				MyxUtils.DEFAULT_PATH, myxRuntimeBrickName, myxRuntimeInterfaceName));
+		myxRuntime.addClassManager(MyxUtils.createName("EclipseClassManager"),
+				org.archstudio.myx.eclipse.MyxEclipseClassManager.class.getName(), null);
+		myxRuntime.addBrickLoader(MyxUtils.createName("EclipseBrickLoader"),
+				org.archstudio.myx.eclipse.MyxEclipseBrickLoader.class.getName(), null);
+		myxRuntime.addBrickLoader(MyxUtils.createName("MyxGenEclipseBrickLoader"),
+				org.archstudio.myxgen.MyxGenEclipseBrickLoader.class.getName(), null);
 
-		myxRuntime.addWeld(myxRuntime.createWeld(MyxUtils.DEFAULT_PATH, aimBrickName, xarchInterfaceName, 
-			MyxUtils.DEFAULT_PATH, xarchadtBrickName, xarchInterfaceName));
-		
-		myxRuntime.addWeld(myxRuntime.createWeld(MyxUtils.DEFAULT_PATH, bootstrapBrickName, xarchInterfaceName, 
-				MyxUtils.DEFAULT_PATH, xarchadtBrickName, xarchInterfaceName));
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				String uriString = ARCHSTUDIO_DESCRIPTION_URI;
+				try {
+					ObjRef docRootRef = xarch.load(URI.createURI(uriString));
+					ObjRef xADLRef = (ObjRef) xarch.get(docRootRef, "xADL");
+					if (xADLRef == null) {
+						throw new RuntimeException("Can't find top-level xADL element in document: " + uriString);
+					}
+					List<ObjRef> structureRefs = XadlUtils.getAllSubstitutionGroupElementsByType(xarch, xADLRef,
+							"topLevelElement", Structure_3_0Package.eNS_URI, "Structure");
+					if (structureRefs.size() == 0) {
+						throw new RuntimeException("Can't find structure element in document: " + uriString);
+					}
 
-		myxRuntime.addWeld(myxRuntime.createWeld(MyxUtils.DEFAULT_PATH, bootstrapBrickName, aimInterfaceName, 
-				MyxUtils.DEFAULT_PATH, aimBrickName, aimInterfaceName));
-		
-		//TODO: Add an event pump here.
-		myxRuntime.begin(MyxUtils.DEFAULT_PATH, xarchadtBrickName);
-		myxRuntime.begin(MyxUtils.DEFAULT_PATH, myxRuntimeBrickName);
-		myxRuntime.begin(MyxUtils.DEFAULT_PATH, aimBrickName);
-		myxRuntime.begin(MyxUtils.DEFAULT_PATH, bootstrapBrickName);
+					aim.instantiate("system", docRootRef, structureRefs.get(0));
+					aim.begin("system");
+				}
+				catch (ArchitectureInstantiationException aie) {
+					aie.printStackTrace();
+					throw new RuntimeException("Can't instantiate architecture with URI " + uriString, aie);
+				}
+				catch (SAXException saxe) {
+					saxe.printStackTrace();
+					throw new RuntimeException("Can't load file with URI " + uriString, saxe);
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+					throw new RuntimeException("Can't load file with URI " + uriString, ioe);
+				}
+			}
+		}).start();
 	}
 }

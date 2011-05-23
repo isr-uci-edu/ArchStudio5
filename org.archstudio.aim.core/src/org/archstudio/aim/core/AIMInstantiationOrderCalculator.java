@@ -1,127 +1,167 @@
 package org.archstudio.aim.core;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.domain_3_0.DomainType;
 import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
+import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTQuery;
 import org.archstudio.xarchadt.ObjRef;
 
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+
 public class AIMInstantiationOrderCalculator {
-	
-	private static class BrickNode {
+
+	public static interface OrderedGroup {
+
+		public Iterable<ObjRef> getBrickRefs();
+
+		public Iterable<ObjRef> getLinkRefs();
+	}
+
+	private static class BrickNode implements OrderedGroup {
 		public ObjRef brickRef;
-		public Set<BrickNode> topBricks = new HashSet<BrickNode>();
-		public Set<BrickNode> bottomBricks = new HashSet<BrickNode>();
-		
+		public Set<BrickNode> topBricks = Sets.newHashSet();
+		public Set<ObjRef> topLinksOut = Sets.newHashSet();
+		public Set<ObjRef> topLinksIn = Sets.newHashSet();
+		public Set<ObjRef> topLinksOther = Sets.newHashSet();
+
 		public BrickNode(ObjRef brickRef) {
 			this.brickRef = brickRef;
 		}
+
+		@Override
+		public Iterable<ObjRef> getBrickRefs() {
+			return brickRef == null ? Collections.<ObjRef> emptyList() : Collections.singletonList(brickRef);
+		}
+
+		@Override
+		public Iterable<ObjRef> getLinkRefs() {
+			return Iterables.concat(topLinksOut, topLinksIn, topLinksOther);
+		}
 	}
 
-	// Returns a list of ObjRef to bricks
-	public static List<ObjRef> calculateInstantiationOrder(IXArchADT xarch, ObjRef structureRef) {
-		List<BrickNode> brickNodeList = calculateBrickGraph(xarch, structureRef);
+	/**
+	 * Returns an ordered list of brick and links to instantiate such that:
+	 * <ul>
+	 * <li>bricks on "top" will be instantiated before bricks on "bottom"</li>
+	 * <li>links directed "out" and on "top" will be welded before links directed "in" and on "bottom"</li>
+	 * </ul>
+	 */
+	public static Iterable<OrderedGroup> calculateInstantiationOrder(IXArchADT xarch, ObjRef structureRef) {
+		List<BrickNode> brickNodes = Lists.newArrayList(calculateBrickGraph(xarch, structureRef));
 		List<BrickNode> sortedBrickNodeList = new ArrayList<BrickNode>();
-		
-		while (!brickNodeList.isEmpty()) {
+
+		while (!brickNodes.isEmpty()) {
 			List<BrickNode> zeroDependencyBricks = new ArrayList<BrickNode>();
-			
+
 			// Find all the (remaining) bricks with no top dependencies
-			for (BrickNode brickNode : brickNodeList) {
+			for (BrickNode brickNode : brickNodes) {
 				if (brickNode.topBricks.size() == 0) {
 					zeroDependencyBricks.add(brickNode);
 				}
 			}
-			
+
 			// Move them to the sorted list
-			brickNodeList.removeAll(zeroDependencyBricks);
+			brickNodes.removeAll(zeroDependencyBricks);
 			sortedBrickNodeList.addAll(zeroDependencyBricks);
-			
-			// Remove all the top-pointers to these bricks (as if we're slicing a layer off the graph)
-			for (BrickNode brickNode : brickNodeList) {
+
+			// Remove all the top-pointers to these bricks (as if we're slicing a layer off the graph)to top bricks 
+			for (BrickNode brickNode : brickNodes) {
 				brickNode.topBricks.removeAll(zeroDependencyBricks);
 			}
-			
+
 			// Now, on our next trip through the list, we will slice off the next set, and the next,
 			// and so on, until the sortedBrickNodeList contains all brick nodes
 		}
-		
+
 		List<ObjRef> orderedBrickRefs = new ArrayList<ObjRef>(sortedBrickNodeList.size());
 		for (BrickNode bn : sortedBrickNodeList) {
 			orderedBrickRefs.add(bn.brickRef);
 		}
-		return orderedBrickRefs;
+		return SystemUtils.cast(sortedBrickNodeList);
 	}
-	
-	private static List<BrickNode> calculateBrickGraph(IXArchADT xarch, ObjRef structureRef) { 
-		List<BrickNode> brickNodeList = new ArrayList<BrickNode>();
+
+	private static Iterable<BrickNode> calculateBrickGraph(IXArchADT xarch, ObjRef structureRef) {
+		Map<ObjRef, BrickNode> brickNodes = Maps.newHashMap();
 
 		for (ObjRef brickRef : xarch.getAll(structureRef, "component")) {
-			brickNodeList.add(new BrickNode(brickRef));
+			brickNodes.put(brickRef, new BrickNode(brickRef));
 		}
 		for (ObjRef brickRef : xarch.getAll(structureRef, "connector")) {
-			brickNodeList.add(new BrickNode(brickRef));
+			brickNodes.put(brickRef, new BrickNode(brickRef));
 		}
-		
-		List<ObjRef> linkRefs = xarch.getAll(structureRef, "link");
-		
-		for (BrickNode brickNode : brickNodeList) {
-			for (ObjRef interfaceRef : xarch.getAll(brickNode.brickRef, "interface")) {
-				DomainType interfaceDomainType = getDomain(xarch, interfaceRef);
-				if (interfaceDomainType != null) {
-					// Find all the bricks connected on this interface
-					for (ObjRef linkRef : linkRefs) {
-						ObjRef point1Ref = (ObjRef)xarch.get(linkRef, "point1");
-						ObjRef point2Ref = (ObjRef)xarch.get(linkRef, "point2");
-						
-						if ((point1Ref != null) && (point2Ref != null)) {
-							ObjRef otherInterfaceRef = null;
-							
-							// See if this link points at this interface
-							if (xarch.equals(interfaceRef, point1Ref)) {
-								otherInterfaceRef = point2Ref;
-							}
-							else if (xarch.equals(interfaceRef, point2Ref)) {
-								otherInterfaceRef = point1Ref;
-							}
-							
-							// If one endpoint does, look at the brick on the other side
-							if (otherInterfaceRef != null) {
-								ObjRef otherBrickRef = xarch.getParent(otherInterfaceRef);
-								
-								// Find the brick node for this other brick
-								BrickNode otherBrickNode = null;
-								for (BrickNode bn : brickNodeList) {
-									if (xarch.equals(bn.brickRef, otherBrickRef)) {
-										otherBrickNode = bn;
-										break;
-									}
-								}
-								
-								if (otherBrickNode != null) {
-									switch (interfaceDomainType.getValue()) {
-									case DomainType.TOP_VALUE:
-										brickNode.topBricks.add(otherBrickNode);
-										break;
-									case DomainType.BOTTOM_VALUE:
-										brickNode.bottomBricks.add(otherBrickNode);
-										break;
-									}
-								}
+
+		// scan the links to populate the "top" fields of each brick
+		List<ObjRef> unknownLinks = Lists.newArrayList();
+		for (ObjRef linkRef : xarch.getAll(structureRef, "link")) {
+			ObjRef iface1Ref = (ObjRef) xarch.get(linkRef, "point1");
+			ObjRef iface2Ref = (ObjRef) xarch.get(linkRef, "point2");
+			if (iface1Ref != null && iface2Ref != null) {
+				BrickNode brick1Node = brickNodes.get(xarch.getParent(iface1Ref));
+				BrickNode brick2Node = brickNodes.get(xarch.getParent(iface2Ref));
+				if (brick1Node != null && brick2Node != null) {
+
+					// see if iface1 is a "top" or "bottom" domain type
+					DomainType iface1DomainType = getDomain(xarch, iface1Ref);
+					DomainType iface2DomainType = getDomain(xarch, iface2Ref);
+					if (iface1DomainType == null) {
+						// if it is null, use the opposite of iface2's domain type
+						if (iface2DomainType != null) {
+							switch (iface2DomainType) {
+							case TOP:
+								iface1DomainType = DomainType.BOTTOM;
+								break;
+							case BOTTOM:
+								iface1DomainType = DomainType.TOP;
+								break;
 							}
 						}
 					}
+
+					// assign the "top" brick to the "bottom" brick's "top" list
+					if (iface1DomainType != null) {
+						// determine which brick is on "top" 
+						BrickNode topBrickNode = brick1Node;
+						BrickNode bottomBrickNode = brick2Node;
+						ObjRef bottomIfaceRef = iface2Ref;
+						if (iface1DomainType == DomainType.TOP) {
+							topBrickNode = brick2Node;
+							bottomBrickNode = brick1Node;
+							bottomIfaceRef = iface1Ref;
+						}
+						bottomBrickNode.topBricks.add(topBrickNode);
+
+						// add the link to the "bottom" brick's "top" links
+						Direction bottomDir = (Direction) xarch.get(bottomIfaceRef, "direction");
+						if (bottomDir != null) {
+							switch (bottomDir) {
+							case IN:
+								bottomBrickNode.topLinksIn.add(linkRef);
+								continue;
+							case OUT:
+								bottomBrickNode.topLinksOut.add(linkRef);
+								continue;
+							}
+						}
+						bottomBrickNode.topLinksOther.add(linkRef);
+					}
 				}
 			}
+			unknownLinks.add(linkRef);
 		}
-		
-		return brickNodeList;
+
+		return brickNodes.values();
 	}
 
 	public static DomainType getDomain(IXArchADTQuery xarch, ObjRef interfaceRef) {

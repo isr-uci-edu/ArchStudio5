@@ -1,9 +1,9 @@
-Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Archlight Common
-Bundle-SymbolicName: org.archstudio.archlight
-Bundle-Version: 5.0.0.qualifier
-Bundle-Vendor: archstudio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio.xarchadt;bundle-version="5.0.0"
+Bundle-SymbolicName: org.archstudio.archlight
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.archlight
+Manifest-Version: 1.0
+Require-Bundle: org.archstudio.xarchadt
