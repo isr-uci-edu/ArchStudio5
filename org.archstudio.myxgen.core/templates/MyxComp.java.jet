@@ -23,7 +23,7 @@ import <%=javaImport%>;
  * @see <%=brick.getStubClassName()%>
  * @generated
  */
-public class <%=className%> extends <%=brick.getStubClassName()%> {
+public <%=brick.isAbstract() ? "abstract" : ""%> class <%=className%> extends <%=brick.getStubClassName()%> {
 
 <%for(InterfaceExtension iface : brick.getInterfaces()) {%>
 	<%switch(iface.getServiceObjectDelegate()){%>

@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -73,7 +74,8 @@ public class PDEUtils {
 			this.pluginModelBases = pluginModelBases;
 		}
 
-		public IConfigurationElement[] getConfigurationElements() throws InvalidRegistryObjectException {
+		@Override
+		public synchronized IConfigurationElement[] getConfigurationElements() throws InvalidRegistryObjectException {
 			List<IConfigurationElement> configurationElements = new ArrayList<IConfigurationElement>();
 			for (IPluginModelBase pluginModelBase : pluginModelBases) {
 				if (!pluginModelBase.isEnabled() || !pluginModelBase.isValid()) {
@@ -89,6 +91,7 @@ public class PDEUtils {
 						IPath path = new Path(installLocation + "/plugin.xml");
 						IFile file = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
 						if (file != null && file.isAccessible()) {
+							file.refreshLocal(IResource.DEPTH_ZERO, null);
 							in = file.getContents();
 							contributor = new ProjectContributor(file.getProject().getName(), file.getProject());
 						}
@@ -97,7 +100,8 @@ public class PDEUtils {
 					if (contributor == null) {
 						BundleDescription bundleDescription = pluginModelBase.getBundleDescription();
 						if (bundleDescription != null) {
-							Bundle[] bundles = Platform.getBundles(bundleDescription.getSymbolicName(), bundleDescription.getVersion().toString());
+							Bundle[] bundles = Platform.getBundles(bundleDescription.getSymbolicName(),
+									bundleDescription.getVersion().toString());
 							if (bundles != null && bundles.length > 0) {
 								URL url = bundles[0].getEntry("plugin.xml");
 								if (url != null) {
@@ -114,15 +118,18 @@ public class PDEUtils {
 						pluginResource.load(in, null);
 
 						EObject documentRoot = pluginResource.getContents().get(0);
-						EObject pluginNode = (EObject) documentRoot.eGet(getEReference(documentRoot.eClass(), "plugin"));
+						EObject pluginNode = (EObject) documentRoot
+								.eGet(getEReference(documentRoot.eClass(), "plugin"));
 						FeatureMap eMap = (FeatureMap) pluginNode.eGet(getEAttribute(pluginNode.eClass(), "any"));
 						@SuppressWarnings("unchecked")
-						EList<EObject> extensions = (EList<EObject>) eMap.get(getEReference(documentRoot.eClass(), "extension"), true);
+						EList<EObject> extensions = (EList<EObject>) eMap.get(
+								getEReference(documentRoot.eClass(), "extension"), true);
 						for (EObject extension : extensions) {
 							if (extensionPointId.equals(extension.eGet(getEAttribute(documentRoot.eClass(), "point")))) {
-								for (EObject configurationElementEObject : extension.eContents().toArray(new EObject[extension.eContents().size()])) {
-									IConfigurationElement configurationElement = new EObjectToIConfigurationElement(pluginModelBase, contributor, null,
-									        configurationElementEObject);
+								for (EObject configurationElementEObject : extension.eContents().toArray(
+										new EObject[extension.eContents().size()])) {
+									IConfigurationElement configurationElement = new EObjectToIConfigurationElement(
+											pluginModelBase, contributor, null, configurationElementEObject);
 									configurationElements.add(configurationElement);
 								}
 							}
@@ -137,52 +144,63 @@ public class PDEUtils {
 			return configurationElements.toArray(new IConfigurationElement[configurationElements.size()]);
 		}
 
+		@Override
 		public IContributor getContributor() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public IPluginDescriptor getDeclaringPluginDescriptor() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public IExtension getExtension(String extensionId) throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public IExtension[] getExtensions() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public String getLabel() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public String getNamespace() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public String getNamespaceIdentifier() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public String getSchemaReference() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public String getSimpleIdentifier() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public String getUniqueIdentifier() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public boolean isValid() {
 			throw new UnsupportedOperationException();
 		}
-		
-		public String getLabel(String locale)
-				throws InvalidRegistryObjectException {
+
+		@Override
+		public String getLabel(String locale) throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 	}
@@ -197,6 +215,7 @@ public class PDEUtils {
 			this.bundle = bundle;
 		}
 
+		@Override
 		public String getName() {
 			return name;
 		}
@@ -212,6 +231,7 @@ public class PDEUtils {
 			this.project = project;
 		}
 
+		@Override
 		public String getName() {
 			return name;
 		}
@@ -224,17 +244,20 @@ public class PDEUtils {
 		private final EObjectToIConfigurationElement parent;
 		private final EObject eObject;
 
-		public EObjectToIConfigurationElement(IPluginModelBase pluginModel, IContributor contributor, EObjectToIConfigurationElement parent, EObject object) {
+		public EObjectToIConfigurationElement(IPluginModelBase pluginModel, IContributor contributor,
+				EObjectToIConfigurationElement parent, EObject object) {
 			this.pluginModel = pluginModel;
 			this.contributor = contributor;
 			this.parent = parent;
 			this.eObject = object;
 		}
 
+		@Override
 		public Object createExecutableExtension(String propertyName) throws CoreException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public String getAttribute(String name) throws InvalidRegistryObjectException {
 			if (eObject instanceof AnyType) {
 				FeatureMap fMap = ((AnyType) eObject).getAnyAttribute();
@@ -248,14 +271,17 @@ public class PDEUtils {
 
 		}
 
+		@Override
 		public String getAttributeAsIs(String name) throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public String[] getAttributeNames() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public IConfigurationElement[] getChildren() throws InvalidRegistryObjectException {
 			EList<EObject> contents = eObject.eContents();
 			IConfigurationElement[] children = new IConfigurationElement[contents.size()];
@@ -265,18 +291,22 @@ public class PDEUtils {
 			return children;
 		}
 
+		@Override
 		public IConfigurationElement[] getChildren(String name) throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public IContributor getContributor() throws InvalidRegistryObjectException {
 			return contributor;
 		}
 
+		@Override
 		public IExtension getDeclaringExtension() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public String getName() throws InvalidRegistryObjectException {
 			if (eObject.eContainmentFeature() != null) {
 				return eObject.eContainmentFeature().getName();
@@ -284,45 +314,52 @@ public class PDEUtils {
 			return eObject.eContainingFeature().getName();
 		}
 
+		@Override
 		public String getNamespace() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public String getNamespaceIdentifier() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public Object getParent() throws InvalidRegistryObjectException {
 			return parent;
 		}
 
+		@Override
 		public String getValue() throws InvalidRegistryObjectException {
 			if (eObject instanceof AnyType) {
-				AnyType anyType = ((AnyType) eObject);
-				if(!anyType.getMixed().isEmpty()) {
-					return (String)anyType.getMixed().getValue(0);
-				}else{
+				AnyType anyType = (AnyType) eObject;
+				if (!anyType.getMixed().isEmpty()) {
+					return (String) anyType.getMixed().getValue(0);
+				}
+				else {
 					return null;
 				}
 			}
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public String getValueAsIs() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public boolean isValid() {
 			return true;
 		}
-		
-		public String getAttribute(String attrName, String locale)
-				throws InvalidRegistryObjectException {
+
+		@Override
+		public String getAttribute(String attrName, String locale) throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
-		
-		public String getValue(String locale)
-				throws InvalidRegistryObjectException {
+
+		@Override
+		public String getValue(String locale) throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 	}

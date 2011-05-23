@@ -1,13 +1,14 @@
-Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Eclipse Artifacts
-Bundle-SymbolicName: org.archstudio.eclipse;singleton:=true
-Bundle-Version: 5.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
- org.eclipse.ui;visibility:=reexport,
- com.google.guava,
- org.eclipse.core.resources,
- org.eclipse.pde.core;bundle-version="3.6.2"
+Bundle-SymbolicName: org.archstudio.eclipse;singleton:=true
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.eclipse,
  org.archstudio.eclipse.action
+Manifest-Version: 1.0
+Require-Bundle: com.google.guava,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime;visibility:=reexport,
+ org.eclipse.pde.core,
+ org.eclipse.ui;visibility:=reexport

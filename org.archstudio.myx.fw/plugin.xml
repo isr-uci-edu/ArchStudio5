@@ -10,10 +10,10 @@
             
          <interface
                class="org.archstudio.myx.fw.IMyxRuntime"
-               delegate="brick"
+               delegate="variable"
                direction="in"
                getter="true"
-               id="org.archstudio.myx.eclipse.interface2"
+               id="myxRuntime"
                name="myxRuntime"
                single="true">
          </interface>
@@ -27,7 +27,7 @@
                   delegate="variable"
                   direction="in"
                   getter="true"
-                  id="org.archstudio.myx.eclipse.interface7"
+                  id="results"
                   name="results"
                   single="true">
          </interface>
@@ -36,7 +36,7 @@
                delegate="variable"
                direction="in"
                getter="true"
-               id="org.archstudio.myx.eclipse.interface5"
+               id="out"
                name="out"
                single="true">
          </interface>
@@ -45,7 +45,7 @@
                delegate="variable"
                direction="in"
                getter="true"
-               id="org.archstudio.myx.eclipse.interface6"
+               id="in"
                name="in"
                single="true">
          </interface>
@@ -54,7 +54,7 @@
                delegate="variable"
                direction="in"
                getter="true"
-               id="org.archstudio.myx.eclipse.interface8"
+               id="progress"
                name="progress"
                single="true">
          </interface>
@@ -68,7 +68,7 @@
                delegate="variable"
                direction="in"
                getter="true"
-               id="org.archstudio.myx.eclipse.interface3"
+               id="in"
                name="in"
                single="true">
          </interface>
@@ -77,7 +77,7 @@
                delegate="variable"
                direction="in"
                getter="true"
-               id="org.archstudio.myx.eclipse.interface4"
+               id="out"
                name="out"
                single="true">
          </interface>

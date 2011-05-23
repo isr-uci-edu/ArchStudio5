@@ -71,7 +71,9 @@ if(brick.getDescription() != null){
         out.write(NL);         
         out.write(" */");  //$NON-NLS-1$        
         out.write(NL);         
-        out.write("public class ");  //$NON-NLS-1$        
+        out.write("public ");  //$NON-NLS-1$        
+        out.write(brick.isAbstract() ? "abstract" : "");
+        out.write(" class ");  //$NON-NLS-1$        
         out.write(className);
         out.write(" extends ");  //$NON-NLS-1$        
         out.write(brick.getStubClassName());

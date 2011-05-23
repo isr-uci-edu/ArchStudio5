@@ -2,16 +2,18 @@ package org.archstudio.myxgen.extension;
 
 import java.util.Collection;
 
+import org.archstudio.myx.fw.IMyxBrickDescription;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.pde.core.plugin.IPluginModelBase;
 
 import com.google.common.collect.Lists;
 
-public class BrickExtension extends AbstractExtension {
+public class BrickExtension extends AbstractExtension implements IMyxBrickDescription {
 
 	protected final String name;
 	protected final String className;
 	protected final String stubClassName;
+	protected final boolean isAbstract;
 	protected final String description;
 	protected final Collection<InterfaceExtension> interfaces = Lists.newArrayList();
 	protected final String parentBrickId;
@@ -24,6 +26,7 @@ public class BrickExtension extends AbstractExtension {
 			this.className = element.getAttribute("class");
 			this.stubClassName = element.getAttribute("stubClass") != null ? element.getAttribute("stubClass")
 					: className + "Stub";
+			this.isAbstract = Boolean.valueOf(element.getAttribute("abstract"));
 			String description = null;
 			String parentBrickId = null;
 			for (IConfigurationElement child : element.getChildren()) {
@@ -63,6 +66,10 @@ public class BrickExtension extends AbstractExtension {
 
 	public String getStubClassName() {
 		return stubClassName;
+	}
+
+	public boolean isAbstract() {
+		return isAbstract;
 	}
 
 	public String getDescription() {

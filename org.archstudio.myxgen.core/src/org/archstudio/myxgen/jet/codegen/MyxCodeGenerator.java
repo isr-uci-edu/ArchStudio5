@@ -48,6 +48,7 @@ public class MyxCodeGenerator {
 	}
 
 	public void generateCode() {
+		BrickExtensionFactory.refresh();
 		for (BrickExtension brick : BrickExtensionFactory.getBrickExtensions()) {
 			try {
 				IPluginBase pluginBase = brick.getPluginModel().getPluginBase();

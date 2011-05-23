@@ -53,13 +53,13 @@ public class MyxCompStubUtil {
 		checkNotNull(brick);
 
 		if (brick.getParentBrick() != null) {
-			return " extends " + brick.getParentBrick().getClass();
+			return " extends " + brick.getParentBrick().getClassName();
 		}
 		return " extends " + AbstractMyxSimpleBrick.class.getName();
 	}
 
 	public static String getServiceObjectName(InterfaceExtension iface) {
-		return iface.getName() + (iface.isSingle() ? "" : "s");
+		return iface.getName();
 	}
 
 	public static String getConstantName(InterfaceExtension iface) {
@@ -75,7 +75,6 @@ public class MyxCompStubUtil {
 
 	public static String getListener(InterfaceExtension iface) {
 
-		// the code below is based on the following
 		// TODO: implement Nobu's generated handlers
 
 		return "(" + iface.getClassName() + ") Proxy.newProxyInstance("//

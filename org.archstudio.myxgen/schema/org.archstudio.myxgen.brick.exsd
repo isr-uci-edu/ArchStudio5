@@ -94,6 +94,12 @@ MyxCodegen will generate abstract base classes that can be used as the basis for
                </appinfo>
             </annotation>
          </attribute>
+         <attribute name="abstract" type="boolean">
+            <annotation>
+               <documentation>
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
@@ -178,11 +184,9 @@ MyxCodegen will generate abstract base classes that can be used as the basis for
                <restriction base="string">
                   <enumeration value="variable">
                   </enumeration>
+                  <enumeration value="events">
+                  </enumeration>
                   <enumeration value="brick">
-                  </enumeration>
-                  <enumeration value="listener">
-                  </enumeration>
-                  <enumeration value="myxRegistry">
                   </enumeration>
                   <enumeration value="none">
                   </enumeration>
