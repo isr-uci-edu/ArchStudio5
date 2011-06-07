@@ -1,5 +1,6 @@
 package org.archstudio.description;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +43,7 @@ public class Main {
 				Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION);
 
 		ObjRef javaClassRef = XadlUtils.create(xarch, Javaimplementation_3_0Package.Literals.JAVA_CLASS);
-		xarch.set(javaClassRef, "id", getNewID());
+		xarch.set(javaClassRef, "id", toID(mainClass.getName()));
 		xarch.set(javaClassRef, "className", mainClass.getName());
 
 		if (initParams != null) {
@@ -53,7 +54,7 @@ public class Main {
 
 					ObjRef initParamRef = XadlUtils.create(xarch,
 							Javaimplementation_3_0Package.Literals.INITIALIZATION_PARAMETER);
-					xarch.set(initParamRef, "id", getNewID());
+					xarch.set(initParamRef, "id", toID(name));
 					xarch.set(initParamRef, "name", name);
 					xarch.set(initParamRef, "value", value);
 
@@ -95,7 +96,7 @@ public class Main {
 
 	private static ObjRef createInterface(String name, Direction direction, DomainType domain, Class<?> javaClass) {
 		ObjRef ifaceRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.INTERFACE);
-		xarch.set(ifaceRef, "id", getNewID());
+		xarch.set(ifaceRef, "id", toID(name));
 		xarch.set(ifaceRef, "name", name);
 		xarch.set(ifaceRef, "direction", direction);
 
@@ -113,7 +114,7 @@ public class Main {
 	private static ObjRef createBrick(String typeOfBrick, String name, Class<?> javaClass, Properties initParams,
 			ObjRef... ifaceRefs) {
 		ObjRef brickRef = xarch.create(Structure_3_0Package.eNS_URI, typeOfBrick);
-		xarch.set(brickRef, "id", getNewID());
+		xarch.set(brickRef, "id", toID(name));
 		xarch.set(brickRef, "name", name);
 
 		xarch.add(brickRef, "interface", Arrays.asList(ifaceRefs));
@@ -199,7 +200,7 @@ public class Main {
 		String name1 = XadlUtils.getName(xarch, brickRef1) + "." + XadlUtils.getName(xarch, iface1Ref);
 		String name2 = XadlUtils.getName(xarch, brickRef2) + "." + XadlUtils.getName(xarch, iface2Ref);
 
-		xarch.set(linkRef, "id", getNewID());
+		xarch.set(linkRef, "id", toID(name1 + "-to-" + name2));
 		xarch.set(linkRef, "name", name1 + "-to-" + name2);
 		xarch.set(linkRef, "point1", iface1Ref);
 		xarch.set(linkRef, "point2", iface2Ref);
@@ -248,7 +249,7 @@ public class Main {
 		xarch.set(rootElementRef, "xADL", xADLRef);
 
 		ObjRef structureRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.STRUCTURE);
-		xarch.set(structureRef, "id", getNewID());
+		xarch.set(structureRef, "id", toID("ArchStudio 5 Main Structure"));
 		xarch.set(structureRef, "name", "ArchStudio 5 Main Structure");
 
 		xarch.add(xADLRef, "topLevelElement", structureRef);
@@ -1094,9 +1095,7 @@ public class Main {
 		System.err.println(xmlString);
 	}
 
-	static int nextID = 0;
-
-	public static String getNewID() {
-		return "id" + ++nextID;
+	private static Serializable toID(String string) {
+		return string.replaceAll("[^a-zA-Z0-9]", "_");
 	}
 }
