@@ -124,7 +124,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 				int y2 = Integer.MIN_VALUE;
 
 				for (IHasBoundingBox t : tttl.getThings(IHasBoundingBox.class)) {
-					if (!Boolean.TRUE.equals(t.getProperty(IBNAView.HIDE_THING_KEY))) {
+					if (!Boolean.TRUE.equals(t.get(IBNAView.HIDE_THING_KEY))) {
 						Rectangle bb = t.getBoundingBox();
 						if (bb != null) {
 							if (bb.width <= 0 || bb.height <= 0) {

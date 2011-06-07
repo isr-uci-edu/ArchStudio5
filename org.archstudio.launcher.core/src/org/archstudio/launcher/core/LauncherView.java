@@ -52,7 +52,7 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 	}
 
 	@Override
-	public void createMyxPartControl(Composite parent) {
+	public void createPartControl(Composite parent) {
 		resources = brick.getResources();
 		launchData = brick.getLaunchData();
 
@@ -250,7 +250,7 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 					return;
 				}
 				else {
-					//TODO:Implement view selection
+					//TODO: Implement view selection
 				}
 			}
 		});
@@ -352,6 +352,6 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 	}
 
 	@Override
-	public void setMyxFocus() {
+	public void setFocus() {
 	}
 }

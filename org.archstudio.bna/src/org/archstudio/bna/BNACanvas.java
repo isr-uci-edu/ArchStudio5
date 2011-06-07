@@ -7,6 +7,7 @@ import java.util.Random;
 
 import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IThing.IThingKey;
+import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.PeerCache;
 import org.archstudio.bna.utils.PeerCache.Cache;
 import org.archstudio.swtutils.SWTWidgetUtils;
@@ -40,9 +41,11 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 
 	protected static class RenderData {
 		protected Rectangle lastLocalBounds = new Rectangle(Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 0);
-		protected int lastBoundsRelevantCount = 0;
+		protected int lastBoundsRelevantCount = -1;
+		protected int lastThingModCount = -1;
 		protected boolean needsLastRenderCleanup = false;
 		protected boolean needsRenderUpdate = true;
+		protected boolean needsCacheUpdate = true;
 	}
 
 	protected final ScrollBar hBar = getHorizontalBar();
@@ -275,6 +278,9 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 			resources = new DeviceResource(rDevice = e.display);
 		}
 
+		e.gc.setAdvanced(true);
+		e.gc.setAntialias(BNARenderingSettings.getAntialiasGraphics(this) ? SWT.ON : SWT.OFF);
+		e.gc.setTextAntialias(BNARenderingSettings.getAntialiasText(this) ? SWT.ON : SWT.OFF);
 		g = new SWTGraphics(e.gc);
 
 		if (DEBUG) {
@@ -298,7 +304,8 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 			}
 
 			try {
-				//// further clip graphics
+				//// further clip graphics (consider for subworlds)
+				//
 				//Rectangle lbb = new Rectangle();
 				//for (IThing thing : bnaModel.getThings()) {
 				//	Cache<IThing, RenderData> cache = getPeerCache(thing);
@@ -319,19 +326,32 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 				IRegion localClip = new BNARegion(localClipRegion, ICoordinateMapper.IDENTITY);
 				IRegion worldClip = new BNARegion(localClipRegion, renderMCM);
 				g.pushState();
+				List<Cache<IThing, RenderData>> caches = Lists.newArrayListWithExpectedSize(256);
 				for (IThing thing : bnaModel.getThings()) {
 					Cache<IThing, RenderData> cache = getPeerCache(thing);
 					RenderData cacheData = cache.renderData;
+					caches.add(cache);
 
-					g.restoreState();
 					if (cacheData.lastBoundsRelevantCount != lastBoundsRelevantCount) {
 						cacheData.lastLocalBounds.setSize(0, 0);
-						cache.renderData.lastBoundsRelevantCount = lastBoundsRelevantCount;
+						cacheData.lastBoundsRelevantCount = lastBoundsRelevantCount;
+						cacheData.needsCacheUpdate = true;
 					}
 					Rectangle drawArea = new Rectangle(cacheData.lastLocalBounds);
 					cache.peer.getLocalBounds(this, renderMCM, g, resources, cacheData.lastLocalBounds);
 					union(cacheData.lastLocalBounds, drawArea);
 
+					if (!cacheData.lastLocalBounds.isEmpty()) {
+						if (cacheData.needsCacheUpdate) {
+							cacheData.needsCacheUpdate = false;
+							cache.peer.updateCache(this, renderMCM);
+						}
+					}
+				}
+				for (Cache<IThing, RenderData> cache : caches) {
+					RenderData cacheData = cache.renderData;
+
+					g.restoreState();
 					if (!cacheData.lastLocalBounds.isEmpty()) {
 						g.clipRect(cacheData.lastLocalBounds);
 						cache.peer.draw(this, renderMCM, g, resources, localClip, worldClip);
@@ -373,6 +393,7 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 						case THING_RESTACKED:
 							cacheData.needsLastRenderCleanup = true;
 							cacheData.needsRenderUpdate = true;
+							cacheData.needsCacheUpdate = true;
 							break;
 						}
 					}
@@ -443,4 +464,10 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 			bounds.union(lastBounds);
 		}
 	}
+
+	@Override
+	public <T extends IThing> IThingPeer<T> getThingPeer(T thing) {
+		Cache<T, RenderData> cache = getPeerCache(thing);
+		return cache.getPeer();
+	};
 }

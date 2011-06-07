@@ -45,7 +45,7 @@ public class StructureXArchEventHandlerLogic extends AbstractThingLogic implemen
 				String targetID = XadlUtils.getID(AS.xarch, (ObjRef)evt.getOldValue());
 				if(targetID != null){
 					EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(model);
-					String editingStructureID = (String)ept.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+					String editingStructureID = (String)ept.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 					if((editingStructureID != null) && (editingStructureID.equals(targetID))){
 						AS.editor.clearEditor();
 						AS.editor.displayDefaultEditor();
@@ -66,7 +66,7 @@ public class StructureXArchEventHandlerLogic extends AbstractThingLogic implemen
 		String structureID = XadlUtils.getID(AS.xarch, structureRef);
 
 		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(model);
-		String editingStructureID = (String)ept.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+		String editingStructureID = (String)ept.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 		
 		if(!BNAUtils.nulleq(structureID, editingStructureID)){
 			return;

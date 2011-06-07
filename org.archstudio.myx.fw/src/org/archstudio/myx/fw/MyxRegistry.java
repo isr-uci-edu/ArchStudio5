@@ -10,7 +10,7 @@ import org.archstudio.myx.fw.MyxRegistryEvent.EventType;
 
 import com.google.common.collect.Iterables;
 
-public class MyxRegistry {
+public final class MyxRegistry {
 
 	/**
 	 * Maps bricks to lists of Objects to which they correspond. Because the lists tend to be iterated over and modified
@@ -116,8 +116,9 @@ public class MyxRegistry {
 			fireEvent = objectList.remove(o);
 			notifyAll();
 		}
-		if (fireEvent)
+		if (fireEvent) {
 			fireMyxRegistryEvent(MyxRegistryEvent.EventType.OBJECT_UNREGISTERED, b, o);
+		}
 	}
 
 	public synchronized List<? extends Object> getObjects(IMyxBrick b) {
@@ -131,7 +132,7 @@ public class MyxRegistry {
 	public <T> Iterable<T> getObjects(IMyxBrick b, Class<T> tClass) {
 		List<Object> objectList = brickToObjectMap.get(b);
 		if (objectList == null) {
-			return Collections.<T>emptyList();
+			return Collections.<T> emptyList();
 		}
 		return Iterables.filter(objectList, tClass);
 	}

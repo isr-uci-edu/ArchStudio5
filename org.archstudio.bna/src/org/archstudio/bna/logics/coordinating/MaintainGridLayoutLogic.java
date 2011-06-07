@@ -137,7 +137,7 @@ public class MaintainGridLayoutLogic extends AbstractMaintainThingsLogic<IHasBou
 	protected void updateFromSource(IBNAModel sourceModel, IHasBoundingBox sourceThing, ThingEvent sourceThingEvent) {
 		IBNAModel targetModel = getBNAModel();
 		Rectangle tableBB = sourceThing.getBoundingBox();
-		GridMasterData gmd = sourceThing.getProperty(GRID_MASTER_DATA_KEY);
+		GridMasterData gmd = sourceThing.get(GRID_MASTER_DATA_KEY);
 		if (tableBB != null && gmd != null) {
 			IThing[] childThings = sourceModel.getChildThings(sourceThing);
 
@@ -149,7 +149,7 @@ public class MaintainGridLayoutLogic extends AbstractMaintainThingsLogic<IHasBou
 
 			// calculate cumulative column and row size hints
 			for (int i = 0; i < childThings.length; i++) {
-				GridData gd = childThings[i].getProperty(GRID_DATA_KEY);
+				GridData gd = childThings[i].get(GRID_DATA_KEY);
 				int row = i / cols;
 				int col = i % cols;
 				//System.err.println("row=" + row + " col=" + col + " hint=" + gd);

@@ -5,14 +5,14 @@ import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IRegion;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.facets.IHasColor;
-import org.archstudio.bna.things.AbstractBoxThingPeer;
+import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends AbstractBoxThingPeer<T> {
+public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends AbstractRectangleThingPeer<T> {
 
 	public DirectionalLabelThingPeer(T thing) {
 		super(thing);

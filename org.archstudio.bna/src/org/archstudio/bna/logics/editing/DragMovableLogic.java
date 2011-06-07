@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -26,13 +25,25 @@ import com.google.common.collect.Maps;
 
 public class DragMovableLogic extends AbstractThingLogic implements IDragMoveListener {
 
-	protected final ThingValueTrackingLogic tvtl;
+	protected ThingValueTrackingLogic tvtl;
 	protected final Map<IRelativeMovable, Point> movingThings = Maps.newHashMap();
 
-	public DragMovableLogic(IThingLogicManager tlm) {
-		this.tvtl = tlm.addThingLogic(ThingValueTrackingLogic.class);
+	public DragMovableLogic() {
+	}
+
+	@Override
+	protected void init() {
+		super.init();
+		tvtl = getBNAWorld().getThingLogicManager().addThingLogic(ThingValueTrackingLogic.class);
 		// this logic relies on events from dml, but does not call it directly
-		tlm.addThingLogic(DragMoveEventsLogic.class);
+		getBNAWorld().getThingLogicManager().addThingLogic(DragMoveEventsLogic.class);
+	}
+
+	@Override
+	protected void destroy() {
+		tvtl = null;
+		movingThings.clear();
+		super.destroy();
 	}
 
 	@Override

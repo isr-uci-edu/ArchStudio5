@@ -1,5 +1,7 @@
 package org.archstudio.issueadt.core;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -103,10 +105,12 @@ public class ArchlightIssueADT implements IArchlightIssueADT {
 	protected List<ArchlightIssueADTListener> listeners = new CopyOnWriteArrayList<ArchlightIssueADTListener>();
 
 	public void addArchlightIssueADTListener(ArchlightIssueADTListener l) {
+		checkNotNull(l);
 		listeners.add(l);
 	}
 
 	public void removeArchlightIssueADTListener(ArchlightIssueADTListener l) {
+		checkNotNull(l);
 		listeners.remove(l);
 	}
 

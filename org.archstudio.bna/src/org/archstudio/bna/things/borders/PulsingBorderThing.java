@@ -4,10 +4,10 @@ import java.util.concurrent.locks.Lock;
 
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
-import org.archstudio.bna.things.AbstractBoxThing;
+import org.archstudio.bna.things.AbstractRectangleThing;
 import org.eclipse.swt.graphics.RGB;
 
-public class PulsingBorderThing extends AbstractBoxThing implements IHasMutableColor, IHasMutableRotatingOffset {
+public class PulsingBorderThing extends AbstractRectangleThing implements IHasMutableColor, IHasMutableRotatingOffset {
 
 	public PulsingBorderThing() {
 		this(null);

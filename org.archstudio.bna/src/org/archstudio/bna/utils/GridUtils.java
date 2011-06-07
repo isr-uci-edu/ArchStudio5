@@ -6,8 +6,6 @@ import java.util.List;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasMinimumSize;
-import org.archstudio.bna.facets.IHasMutableEndpoints;
-import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasMutableMinimumSize;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.things.utility.GridThing;
@@ -125,12 +123,12 @@ public class GridUtils {
 	}
 
 	public static GridThing getGridThing(IBNAModel m) {
-		for (IThing t : m.getAllThings()) {
+		for (IThing t : m.getThings()) {
 			if (t instanceof GridThing) {
 				return (GridThing) t;
 			}
 		}
-		GridThing gt = new GridThing();
+		GridThing gt = new GridThing(null);
 		m.addThing(gt);
 		m.sendToBack(gt);
 		return gt;

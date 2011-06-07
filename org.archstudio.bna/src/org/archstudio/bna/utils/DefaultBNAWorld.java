@@ -58,6 +58,7 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener, IBNASynchr
 				}
 			}
 			catch (Throwable t) {
+				t.printStackTrace();
 			}
 		}
 

@@ -52,7 +52,7 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 	public String getXArchID(IBNAView view, IThing t){
 		if(t instanceof RectangleGlassThing){
 			IThing parentThing = view.getWorld().getBNAModel().getParentThing(t);
-			return parentThing.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+			return parentThing.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 		}
 		return null;
 	}

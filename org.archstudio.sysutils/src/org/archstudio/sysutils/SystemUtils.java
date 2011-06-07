@@ -1179,7 +1179,7 @@ public class SystemUtils {
 
 	@SuppressWarnings("unchecked")
 	public static final <T> T castOrNull(Object o, Class<T> tClass) {
-		if (tClass.isInstance(o)) {
+		if (tClass == null || tClass.isInstance(o)) {
 			return (T) o;
 		}
 		return null;

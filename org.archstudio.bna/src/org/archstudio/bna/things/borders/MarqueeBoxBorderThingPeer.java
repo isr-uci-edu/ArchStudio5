@@ -4,12 +4,12 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IRegion;
 import org.archstudio.bna.IResources;
-import org.archstudio.bna.things.AbstractBoxThingPeer;
+import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-public class MarqueeBoxBorderThingPeer<T extends MarqueeBoxBorderThing> extends AbstractBoxThingPeer<T> {
+public class MarqueeBoxBorderThingPeer<T extends MarqueeBoxBorderThing> extends AbstractRectangleThingPeer<T> {
 
 	public MarqueeBoxBorderThingPeer(T thing) {
 		super(thing);
@@ -32,12 +32,9 @@ public class MarqueeBoxBorderThingPeer<T extends MarqueeBoxBorderThing> extends 
 	}
 
 	@Override
-	public boolean getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
-		if (super.getLocalBounds(view, cm, g, r, boundsResult)) {
-			// width of marquee line
-			boundsResult.expand(3, 3);
-			return true;
-		}
-		return false;
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
+		super.getLocalBounds(view, cm, g, r, boundsResult);
+		// width of marquee line
+		boundsResult.expand(3, 3);
 	}
 }

@@ -286,124 +286,9 @@ public class XArchADTImpl implements IXArchADT {
 			baseEObject.eSet(getEFeature(baseEObject, typeOfThing), get((ObjRef) value));
 		}
 		else {
-			// If the feature is an enumerated type but instead you passed in a string,
-			// then we will try to convert the string to an enumerated type automatically.
-			// If that doesn't work, we throw IllegalArgumentException.
-			EStructuralFeature feature = getEFeature(baseEObject, typeOfThing);
 			baseEObject.eSet(getEFeature(baseEObject, typeOfThing), value);
 		}
 	}
-
-	// TODO: An alternative to all of this is to pass Serializable rather than String
-
-	//	@Override
-	//	public void set(ObjRef baseObjRef, String typeOfThing, Object value) {
-	//		EObject baseEObject = get(baseObjRef);
-	//		
-	//		// If the feature is an enumerated type but instead you passed in a string,
-	//		// then we will try to convert the string to an enumerated type automatically.
-	//		// If that doesn't work, we throw IllegalArgumentException.
-	//		EStructuralFeature feature = getEFeature(baseEObject, typeOfThing);
-	//		
-	//		// Be friendly and try to coerce the value into the right type
-	//		value = coerceValue(feature, value);
-	//		baseEObject.eSet(getEFeature(baseEObject, typeOfThing), value);
-	//	}
-	//	
-	//	// Tries to coerce the value object into a type of object 
-	//	// compatible with the given feature.  If a string is passed in
-	//	// for value, but the feature expects an Integer, it parses it as
-	//	// an integer and so on.
-	//	
-	//	// Ordinarily, I'd be pretty reticent about putting this directly
-	//	// into xArchADT, but now that Classes have been removed from
-	//	// Type & Feature metadata, there is no way to do this outside
-	//	// xArchADT without having something else poking around in the EMF
-	//	// guts of the xADL model.
-	//	private Object coerceValue(EStructuralFeature feature, Object value) {
-	//		Class<?> featureClass = feature.getEType().getInstanceClass();
-	//		if ((featureClass != null) && (value != null)) {
-	//			if (Enumerator.class.isAssignableFrom(featureClass)) {
-	//				if (value instanceof String) {
-	//					try {
-	//						Method m = featureClass.getMethod("get", java.lang.String.class);
-	//						Object newValue = m.invoke(featureClass, (String)value);
-	//						if (newValue == null) {
-	//							throw new IllegalArgumentException("String value " + value.toString() + " not valid for " + featureClass.getCanonicalName());
-	//						}
-	//						value = newValue;
-	//					}
-	//					catch (NoSuchMethodException nsme) {
-	//					}
-	//					catch (InvocationTargetException ite) {
-	//					}
-	//					catch (IllegalAccessException iae) {
-	//					}
-	//				}
-	//			}
-	//			else if (boolean.class.isAssignableFrom(featureClass) || Boolean.class.isAssignableFrom(featureClass)) {
-	//				if (value instanceof String) {
-	//					value = new Boolean(value.toString());
-	//				}
-	//			}
-	//			else if (char.class.isAssignableFrom(featureClass) || Character.class.isAssignableFrom(featureClass)) {
-	//				if (value instanceof String) {
-	//					value = new Character(value.toString().charAt(0));
-	//				}
-	//			}
-	//			else if (short.class.isAssignableFrom(featureClass) || Short.class.isAssignableFrom(featureClass)) {
-	//				if (value instanceof String) {
-	//					try {
-	//						value = new Short(value.toString());
-	//					}
-	//					catch (NumberFormatException nfe) {
-	//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-	//					}
-	//				}
-	//			}
-	//			else if (int.class.isAssignableFrom(featureClass) || Integer.class.isAssignableFrom(featureClass)) {
-	//				if (value instanceof String) {
-	//					try {
-	//						value = new Integer(value.toString());
-	//					}
-	//					catch (NumberFormatException nfe) {
-	//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-	//					}
-	//				}
-	//			}
-	//			else if (long.class.isAssignableFrom(featureClass) || Long.class.isAssignableFrom(featureClass)) {
-	//				if (value instanceof String) {
-	//					try {
-	//						value = new Long(value.toString());
-	//					}
-	//					catch (NumberFormatException nfe) {
-	//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-	//					}
-	//				}
-	//			}
-	//			else if (float.class.isAssignableFrom(featureClass) || Float.class.isAssignableFrom(featureClass)) {
-	//				if (value instanceof String) {
-	//					try {
-	//						value = new Float(value.toString());
-	//					}
-	//					catch (NumberFormatException nfe) {
-	//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-	//					}
-	//				}
-	//			}
-	//			else if (double.class.isAssignableFrom(featureClass) || Double.class.isAssignableFrom(featureClass)) {
-	//				if (value instanceof String) {
-	//					try {
-	//						value = new Double(value.toString());
-	//					}
-	//					catch (NumberFormatException nfe) {
-	//						throw new IllegalArgumentException("Expected numeric value but got " + value.toString(), nfe);
-	//					}
-	//				}
-	//			}
-	//		}
-	//		return value;
-	//	}
 
 	@Override
 	public void clear(ObjRef baseObjRef, String typeOfThing) {
@@ -898,6 +783,7 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public XArchADTPath getPath(ObjRef ref) {
 		List<String> containingFeatureNames = new ArrayList<String>();
+		List<String> containingFeatureStructuralNames = new ArrayList<String>();
 		List<Integer> tagIndexes = new ArrayList<Integer>();
 		List<String> ids = new ArrayList<String>();
 
@@ -910,6 +796,7 @@ public class XArchADTImpl implements IXArchADT {
 				break;
 			}
 			String containingFeatureName = containingFeature.getName();
+			String containingFeatureStructuralName = containingFeatureName;
 			String id = null;
 			EStructuralFeature idFeature = currentObj.eClass().getEStructuralFeature("id");
 			if (idFeature != null) {
@@ -929,16 +816,18 @@ public class XArchADTImpl implements IXArchADT {
 			}
 
 			containingFeatureNames.add(containingFeatureName);
+			containingFeatureStructuralNames.add(containingFeatureStructuralName);
 			ids.add(id);
 			tagIndexes.add(index);
 
 			currentObj = parentObj;
 		}
 		Collections.reverse(containingFeatureNames);
+		Collections.reverse(containingFeatureStructuralNames);
 		Collections.reverse(tagIndexes);
 		Collections.reverse(ids);
 
-		return new XArchADTPath(containingFeatureNames, tagIndexes, ids);
+		return new XArchADTPath(containingFeatureNames, containingFeatureStructuralNames, tagIndexes, ids);
 	}
 
 	@Override
@@ -979,8 +868,7 @@ public class XArchADTImpl implements IXArchADT {
 		fileListeners.remove(l);
 	}
 
-	// This stuff is necessary to suppress the event flurry when a document is
-	// loaded.
+	// This stuff is necessary to suppress the event flurry when a document is loaded.
 	private final Set<Resource> resourcesFinishedLoading = new CopyOnWriteArraySet<Resource>();
 
 	private void setResourceFinishedLoading(Resource r, boolean isFinishedLoading) {

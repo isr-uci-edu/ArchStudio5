@@ -20,7 +20,7 @@ public abstract class AbstractXArchADTTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 
-		// Initialize core packages used, simply by referring to them
+		// Initialize core packages by simply referring to them
 		@SuppressWarnings("unused")
 		EPackage p;
 		p = Xadlcore_3_0Package.eINSTANCE;

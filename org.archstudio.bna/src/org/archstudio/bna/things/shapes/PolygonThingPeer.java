@@ -8,10 +8,11 @@ import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.things.AbstractPolygonThingPeer;
-import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.things.IHasShadowThingPeer;
 import org.eclipse.draw2d.Graphics;
 
-public class PolygonThingPeer<T extends PolygonThing> extends AbstractPolygonThingPeer<T> {
+public class PolygonThingPeer<T extends PolygonThing> extends AbstractPolygonThingPeer<T> implements
+		IHasShadowThingPeer<T> {
 
 	public PolygonThingPeer(T thing) {
 		super(thing);
@@ -23,26 +24,35 @@ public class PolygonThingPeer<T extends PolygonThing> extends AbstractPolygonThi
 			return;
 		}
 
-		int[] xyPoints = BNAUtils.toXYArray(cm, t.getPoints(), t.getAnchorPoint());
-		if (xyPoints.length == 4) {
+		if (localXYPoints.length == 4) {
 			if (r.setForegroundColor(g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
-				g.drawLine(xyPoints[0], xyPoints[1], xyPoints[2], xyPoints[3]);
+				g.drawLine(localXYPoints[0], localXYPoints[1], localXYPoints[2], localXYPoints[3]);
 			}
 		}
-		else if (xyPoints.length > 4) {
+		else if (localXYPoints.length > 4) {
 			if (t.isGradientFilled() && r.setForegroundColor(g, t, IHasSecondaryColor.SECONDARY_COLOR_KEY)) {
 				if (r.setBackgroundColor(g, t, IHasColor.COLOR_KEY)) {
-					g.fillPolygon(xyPoints);
+					g.fillPolygon(localXYPoints);
 				}
 			}
 			else {
 				if (r.setBackgroundColor(g, t, IHasColor.COLOR_KEY)) {
-					g.fillPolygon(xyPoints);
+					g.fillPolygon(localXYPoints);
 				}
 			}
 			if (r.setForegroundColor(g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
-				g.drawPolygon(xyPoints);
+				g.drawPolygon(localXYPoints);
 			}
+		}
+	}
+
+	@Override
+	public void drawShadow(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, boolean fill) {
+		if (fill) {
+			g.fillPolygon(localXYPoints);
+		}
+		else {
+			g.drawPolygon(localXYPoints);
 		}
 	}
 }

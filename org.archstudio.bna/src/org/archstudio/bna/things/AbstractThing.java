@@ -2,13 +2,13 @@ package org.archstudio.bna.things;
 
 import static com.google.common.base.Preconditions.checkState;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
+
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
@@ -22,6 +22,7 @@ import org.archstudio.sysutils.TypedMap.Key;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
+import com.google.common.collect.Sets;
 
 public class AbstractThing implements IThing {
 
@@ -56,7 +57,7 @@ public class AbstractThing implements IThing {
 	public AbstractThing(Object id) {
 		this.id = id == null ? Long.valueOf(atomicLong.getAndIncrement()) : id;
 		initProperties();
-		checkState(initedProperties, "Thing " + this.getClass().getName() + " must call super.initPropeties().");
+		checkState(initedProperties, "Thing %s must call super.initPropeties().", this.getClass().getName());
 	}
 
 	@Override
@@ -64,6 +65,7 @@ public class AbstractThing implements IThing {
 		return id;
 	}
 
+	@OverridingMethodsMustInvokeSuper
 	protected void initProperties() {
 		checkState(!initedProperties, "Thing " + this.getClass().getName()
 				+ " may only call super.initPropeties() once.");
@@ -126,6 +128,7 @@ public class AbstractThing implements IThing {
 		V oldValue;
 		ThingEvent<IThing, IThingKey<V>, V> evt = null;
 		synchronized (properties) {
+			modCount++;
 			oldValue = properties.put(key, value);
 			if (key.isFireEventOnChange() && !SystemUtils.nullEquals(oldValue, value)) {
 				evt = ThingEvent.<IThing, IThingKey<V>, V> create(ThingEvent.EventType.PROPERTY_SET, this, key,
@@ -151,10 +154,18 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
+	public <V> boolean has(IThing.IThingKey<V> key, V value) {
+		synchronized (properties) {
+			return SystemUtils.nullEquals(properties.get(key), value);
+		}
+	};
+
+	@Override
 	public <V> V remove(IThingKey<V> key) {
 		V oldValue;
 		ThingEvent<IThing, IThingKey<V>, V> evt = null;
 		synchronized (properties) {
+			modCount++;
 			boolean containedValue = properties.containsKey(key);
 			oldValue = properties.remove(key);
 			if (containedValue && key.isFireEventOnChange()) {
@@ -198,17 +209,11 @@ public class AbstractThing implements IThing {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Set<IThingKey<?>> keySet() {
 		synchronized (properties) {
-			return Collections.unmodifiableSet(SystemUtils.<Set<IThingKey<?>>> cast(properties.keySet()));
-		}
-	}
-
-	@Override
-	public Set<Entry<IThingKey<?>, ?>> entrySet() {
-		synchronized (properties) {
-			return Collections.unmodifiableSet(SystemUtils.<Set<Entry<IThingKey<?>, ?>>> cast(properties.entrySet()));
+			return Sets.newHashSet((Set<IThingKey<?>>) properties.keySet());
 		}
 	}
 
@@ -221,5 +226,12 @@ public class AbstractThing implements IThing {
 		}
 		sb.append("]");
 		return sb.toString();
+	}
+
+	int modCount = 0;
+
+	@Override
+	public int getModCount() {
+		return modCount;
 	}
 }

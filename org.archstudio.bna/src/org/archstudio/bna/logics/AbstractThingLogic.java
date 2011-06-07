@@ -7,7 +7,7 @@ import org.archstudio.sysutils.SystemUtils;
 
 public abstract class AbstractThingLogic implements IThingLogic {
 
-	protected IBNAWorld bnaWorld = null;
+	private IBNAWorld bnaWorld = null;
 
 	@Override
 	public IBNAWorld getBNAWorld() {

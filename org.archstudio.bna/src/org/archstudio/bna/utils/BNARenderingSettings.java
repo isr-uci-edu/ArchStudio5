@@ -1,5 +1,7 @@
 package org.archstudio.bna.utils;
 
+import org.eclipse.swt.widgets.Widget;
+
 public class BNARenderingSettings {
 	private BNARenderingSettings() {
 	}
@@ -8,7 +10,7 @@ public class BNARenderingSettings {
 	public static final String SETTING_ANTIALIAS_GRAPHICS = "antialiasGraphics";
 	public static final String SETTING_DECORATIVE_GRAPHICS = "decorativeGraphics";
 
-	public static boolean getAntialiasText(BNAComposite c) {
+	public static boolean getAntialiasText(Widget c) {
 		Object o = c.getData(SETTING_ANTIALIAS_TEXT);
 		if (o != null && o instanceof Boolean) {
 			return ((Boolean) o).booleanValue();
@@ -16,7 +18,7 @@ public class BNARenderingSettings {
 		return false;
 	}
 
-	public static boolean getAntialiasGraphics(BNAComposite c) {
+	public static boolean getAntialiasGraphics(Widget c) {
 		Object o = c.getData(SETTING_ANTIALIAS_GRAPHICS);
 		if (o != null && o instanceof Boolean) {
 			return ((Boolean) o).booleanValue();
@@ -24,7 +26,7 @@ public class BNARenderingSettings {
 		return false;
 	}
 
-	public static boolean getDecorativeGraphics(BNAComposite c) {
+	public static boolean getDecorativeGraphics(Widget c) {
 		Object o = c.getData(SETTING_DECORATIVE_GRAPHICS);
 		if (o != null && o instanceof Boolean) {
 			return ((Boolean) o).booleanValue();
@@ -32,15 +34,15 @@ public class BNARenderingSettings {
 		return false;
 	}
 
-	public static void setAntialiasText(BNAComposite c, boolean antialiasText) {
+	public static void setAntialiasText(Widget c, boolean antialiasText) {
 		c.setData(SETTING_ANTIALIAS_TEXT, antialiasText);
 	}
 
-	public static void setAntialiasGraphics(BNAComposite c, boolean antialiasGraphics) {
+	public static void setAntialiasGraphics(Widget c, boolean antialiasGraphics) {
 		c.setData(SETTING_ANTIALIAS_GRAPHICS, antialiasGraphics);
 	}
 
-	public static void setDecorativeGraphics(BNAComposite c, boolean decorativeGraphics) {
+	public static void setDecorativeGraphics(Widget c, boolean decorativeGraphics) {
 		c.setData(SETTING_DECORATIVE_GRAPHICS, decorativeGraphics);
 	}
 }

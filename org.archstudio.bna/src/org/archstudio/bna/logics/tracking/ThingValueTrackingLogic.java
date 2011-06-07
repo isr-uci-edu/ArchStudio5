@@ -1,7 +1,6 @@
 package org.archstudio.bna.logics.tracking;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNASynchronousModelListener;
@@ -15,14 +14,16 @@ import com.google.common.base.Function;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.SetMultimap;
+import com.google.common.collect.Sets;
 
 public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
 
-	private final Map<IThingKey<?>, Multimap<Object, Object>> keyToValueToThingIDsMap = new MapMaker()
-			.makeComputingMap(new Function<IThingKey<?>, Multimap<Object, Object>>() {
+	private final Map<IThingKey<?>, SetMultimap<Object, Object>> keyToValueToThingIDsMap = new MapMaker()
+			.makeComputingMap(new Function<IThingKey<?>, SetMultimap<Object, Object>>() {
 				@Override
-				public Multimap<Object, Object> apply(IThingKey<?> input) {
-					Multimap<Object, Object> m = HashMultimap.create();
+				public SetMultimap<Object, Object> apply(IThingKey<?> input) {
+					SetMultimap<Object, Object> m = HashMultimap.create();
 					for (IThing t : getBNAModel().getThings()) {
 						Object value = t.get(input);
 						if (value != null) {
@@ -43,8 +44,8 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAS
 		case THING_ADDED: {
 			ET thing = evt.getTargetThing();
 			Object thingID = thing.getID();
-			for (Entry<IThingKey<?>, ?> e : thing.entrySet()) {
-				update(thingID, e.getKey(), null, e.getValue());
+			for (IThingKey<?> k : thing.keySet()) {
+				update(thingID, k, null, thing.get(k));
 			}
 			break;
 		}
@@ -57,8 +58,8 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAS
 		case THING_REMOVED: {
 			ET thing = evt.getTargetThing();
 			Object thingID = thing.getID();
-			for (Entry<IThingKey<?>, ?> e : thing.entrySet()) {
-				update(thingID, e.getKey(), e.getValue(), null);
+			for (IThingKey<?> k : thing.keySet()) {
+				update(thingID, k, thing.get(k), null);
 			}
 			break;
 		}
@@ -82,6 +83,14 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAS
 	public <V> Iterable<Object> getThingIDs(IThingKey<V> withKey, V ofValue) {
 		synchronized (keyToValueToThingIDsMap) {
 			return SystemUtils.copyIterable(keyToValueToThingIDsMap.get(withKey).get(ofValue));
+		}
+	}
+
+	public <V1, V2> Iterable<Object> getThingIDs(IThingKey<V1> withKey1, V1 ofValue1, IThingKey<V2> withKey2,
+			V2 ofValue2) {
+		synchronized (keyToValueToThingIDsMap) {
+			return SystemUtils.copyIterable(Sets.intersection(keyToValueToThingIDsMap.get(withKey1).get(ofValue1),
+					keyToValueToThingIDsMap.get(withKey2).get(ofValue2)));
 		}
 	}
 }

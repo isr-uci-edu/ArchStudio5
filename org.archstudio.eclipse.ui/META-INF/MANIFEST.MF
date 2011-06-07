@@ -22,7 +22,8 @@ Require-Bundle: org.archstudio.editormanager,
  org.eclipse.ui.ide,
  org.eclipse.ui.views,
  com.google.guava;bundle-version="0.0.0",
- org.archstudio.eclipse;bundle-version="5.0.0"
+ org.archstudio.eclipse;bundle-version="5.0.0",
+ org.archstudio.eclipse.core;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.archstudio.eclipse.ui.Activator
 Export-Package: org.archstudio.eclipse.ui,

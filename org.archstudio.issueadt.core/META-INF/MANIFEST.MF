@@ -9,4 +9,5 @@ Manifest-Version: 1.0
 Require-Bundle: org.archstudio.archlight,
  org.archstudio.issueadt,
  org.archstudio.myx.fw,
- org.archstudio.xarchadt
+ org.archstudio.xarchadt,
+ com.google.guava;bundle-version="0.0.9"

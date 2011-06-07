@@ -132,7 +132,7 @@ public abstract class AbstractXadlSelectorLogic extends AbstractThingLogic imple
 				SWTXadlSelectorThing st = (SWTXadlSelectorThing) evt.getTargetThing();
 				if (openControls.contains(st)) {
 					if (st.getCompletionStatus() == CompletionStatus.OK) {
-						String targetXArchID = st.getProperty("#targetXArchID");
+						String targetXArchID = st.get("#targetXArchID");
 						if (targetXArchID != null) {
 							ObjRef eltRef = AS.xarch.getByID(xArchRef, targetXArchID);
 							if (eltRef != null) {

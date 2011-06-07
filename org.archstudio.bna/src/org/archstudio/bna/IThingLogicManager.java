@@ -8,11 +8,11 @@ public interface IThingLogicManager {
 
 	public void destroy();
 
-	public <L extends IThingLogic> L addThingLogic(Class<L> tlClass);
+	public <L extends IThingLogic> L addThingLogic(Class<L> thingLogicClass);
 
-	public <L extends IThingLogic> L addThingLogic(L tl);
+	public <L extends IThingLogic> L addThingLogic(L thingLogic);
 
-	public void removeThingLogic(IThingLogic tl);
+	public void removeThingLogic(IThingLogic thingLogic);
 
 	public Iterable<IThingLogic> getAllThingLogics();
 

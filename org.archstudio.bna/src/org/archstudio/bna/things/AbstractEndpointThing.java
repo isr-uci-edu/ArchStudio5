@@ -3,10 +3,13 @@ package org.archstudio.bna.things;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSize;
+import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 public abstract class AbstractEndpointThing extends AbstractAnchorPointThing implements IHasBoundingBox,
@@ -27,7 +30,7 @@ public abstract class AbstractEndpointThing extends AbstractAnchorPointThing imp
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setSize(new Dimension(6, 6));
+		setSize(new Dimension(7, 7));
 		set(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
 	}
 
@@ -50,5 +53,19 @@ public abstract class AbstractEndpointThing extends AbstractAnchorPointThing imp
 	@Override
 	public Rectangle getBoundingBox() {
 		return get(BOUNDING_BOX_KEY);
+	}
+
+	@Override
+	public PrecisionPoint getStickyPointNear(StickyMode stickyMode, Point nearPoint, Point lastStuckPoint) {
+		Rectangle bb = getBoundingBox();
+		switch (stickyMode) {
+		case CENTER:
+			return new PrecisionPoint(bb.getCenter());
+		case EDGE:
+			return BNAUtils.getClosestPointOnRectangle(bb, new Dimension(0, 0), nearPoint);
+		case EDGE_FROM_CENTER:
+			return BNAUtils.getClosestPointOnRectangle(bb, new Dimension(0, 0), nearPoint, bb.getCenter());
+		}
+		throw new IllegalArgumentException(stickyMode.name());
 	}
 }

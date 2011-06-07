@@ -73,7 +73,7 @@ public class StructureLinkEndpointLogic extends AbstractThingLogic implements IB
 							IThing newStuckToParentThing = model.getParentThing(newStuckToThing);
 							if(newStuckToParentThing != null){
 								if(StructureMapper.isInterfaceAssemblyRootThing(newStuckToParentThing)){
-									String newStuckToXArchID = newStuckToParentThing.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+									String newStuckToXArchID = newStuckToParentThing.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 									if(newStuckToXArchID != null){
 										ObjRef newStuckToRef = AS.xarch.getByID(xArchRef, newStuckToXArchID);
 										if(newStuckToRef != null){
@@ -81,7 +81,7 @@ public class StructureLinkEndpointLogic extends AbstractThingLogic implements IB
 												IThing splineGlassThingParentThing = model.getParentThing(sgt);
 												if(splineGlassThingParentThing != null){
 													if(StructureMapper.isLinkAssemblyRootThing(splineGlassThingParentThing)){
-														String linkXArchID = splineGlassThingParentThing.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+														String linkXArchID = splineGlassThingParentThing.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 														if(linkXArchID != null){
 															ObjRef linkRef = AS.xarch.getByID(xArchRef, linkXArchID);
 															if(linkRef != null){
@@ -101,7 +101,7 @@ public class StructureLinkEndpointLogic extends AbstractThingLogic implements IB
 							IThing splineGlassThingParentThing = model.getParentThing(sgt);
 							if(splineGlassThingParentThing != null){
 								if(StructureMapper.isLinkAssemblyRootThing(splineGlassThingParentThing)){
-									String linkXArchID = splineGlassThingParentThing.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+									String linkXArchID = splineGlassThingParentThing.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 									if(linkXArchID != null){
 										ObjRef linkRef = AS.xarch.getByID(xArchRef, linkXArchID);
 										if(linkRef != null){

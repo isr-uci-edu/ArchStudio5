@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: xADL BNA Functions
+Bundle-SymbolicName: org.archstudio.xadlbna
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.archstudio.bna;bundle-version="5.0.0",
+ org.archstudio.xarchadt;bundle-version="5.0.0",
+ org.archstudio.sysutils;bundle-version="5.0.0",
+ org.archstudio.xadl;bundle-version="5.0.0",
+ com.google.guava;bundle-version="0.0.9"
+Export-Package: edu.uci.isr.archstudio4.comp.archipelago.generic.logics.coordinating,
+ edu.uci.isr.archstudio4.comp.archipelago.generic.logics.editing,
+ edu.uci.isr.archstudio4.comp.archipelago.generic.logics.editing.dialogs,
+ edu.uci.isr.archstudio4.comp.archipelago.generic.logics.hints,
+ edu.uci.isr.archstudio4.comp.archipelago.generic.logics.mapping,
+ org.archstudio.xadlbna,
+ org.archstudio.xadlbna.archstructure.logics.mapping,
+ org.archstudio.xadlbna.logics

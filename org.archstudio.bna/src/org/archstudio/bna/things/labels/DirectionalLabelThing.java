@@ -4,12 +4,12 @@ import org.archstudio.bna.facets.IHasMinimumSize;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableFlow;
 import org.archstudio.bna.facets.IHasMutableOrientation;
-import org.archstudio.bna.things.AbstractBoxThing;
+import org.archstudio.bna.things.AbstractRectangleThing;
 import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.swt.graphics.RGB;
 
-public class DirectionalLabelThing extends AbstractBoxThing implements IHasMinimumSize, IHasMutableColor,
+public class DirectionalLabelThing extends AbstractRectangleThing implements IHasMinimumSize, IHasMutableColor,
 		IHasMutableOrientation, IHasMutableFlow {
 
 	public DirectionalLabelThing(Object id) {

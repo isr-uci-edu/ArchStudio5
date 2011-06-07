@@ -1,9 +1,10 @@
 package org.archstudio.bna.utils;
 
-import static org.archstudio.sysutils.SystemUtils.bound;
-import static org.archstudio.sysutils.SystemUtils.isInBound;
-
+import java.awt.Polygon;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
+import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,9 @@ import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasLocalInsets;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IHasSelected;
-import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.GridThing;
-import org.archstudio.bna.utils.PeerCache.Cache;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.swtutils.constants.Orientation;
 import org.archstudio.sysutils.SystemUtils;
@@ -35,6 +34,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -811,7 +811,11 @@ public class BNAUtils {
 					y2 = y;
 				}
 			}
-			return new Point((x1 + x2) / 2, (y1 + y2) / 2);
+			Point p = new Point((x1 + x2) / 2, (y1 + y2) / 2);
+			if (t instanceof IHasAnchorPoint) {
+				p.translate(((IHasAnchorPoint) t).getAnchorPoint());
+			}
+			return p;
 		}
 		if (t instanceof IHasAnchorPoint) {
 			return ((IHasAnchorPoint) t).getAnchorPoint();
@@ -933,131 +937,152 @@ public class BNAUtils {
 		return Float.POSITIVE_INFINITY;
 	}
 
-	public static Point getClosestPointOnPolygon(int[] coords, int px, int py) {
+	public static PrecisionPoint getClosestPointOnPolygon(int[] xyCoords, final int nearX, final int nearY,
+			final int refX, final int refY) {
 
-		// search for closest line segment index
-		int closestIndex = -1;
-		double closestDist = Double.POSITIVE_INFINITY;
-		for (int i = 0; i < coords.length - 3; i += 2) {
-			int x1 = coords[i];
-			int y1 = coords[i + 1];
-			int x2 = coords[i + 2];
-			int y2 = coords[i + 3];
+		if (nearX == refX && nearY == refY) {
+			return new PrecisionPoint(refX, refY);
+		}
 
-			double dist;
-			if ((dist = Line2D.ptSegDistSq(x1, y1, x2, y2, px, py)) < closestDist) {
-				closestDist = dist;
-				closestIndex = i;
+		// convert to a polygon
+		Polygon polygon = new Polygon();
+		for (int i = 0; i < xyCoords.length; i += 2) {
+			polygon.addPoint(xyCoords[i], xyCoords[i + 1]);
+		}
+
+		// search for the point closest to (nearX,nearY) that intersects the referenceLine
+		Line2D referenceLine = new Line2D.Double(refX, refY, nearX, nearY);
+		double[] pathCoords = new double[6];
+		double closestDistanceSq = Double.POSITIVE_INFINITY;
+		PrecisionPoint closestIntersection = new PrecisionPoint(refX, refY);
+		{
+			Point2D lastMoveTo = null;
+			Point2D lastPoint = null;
+			for (PathIterator i = polygon.getPathIterator(new AffineTransform()); !i.isDone(); i.next()) {
+				Line2D lineSegment = null;
+				switch (i.currentSegment(pathCoords)) {
+				case PathIterator.SEG_MOVETO:
+					lastMoveTo = new Point2D.Double(pathCoords[0], pathCoords[1]);
+					lastPoint = lastMoveTo;
+					continue;
+				case PathIterator.SEG_CLOSE:
+					lineSegment = new Line2D.Double(lastPoint, lastMoveTo);
+					break;
+				case PathIterator.SEG_LINETO:
+					Point2D lineTo = new Point2D.Double(pathCoords[0], pathCoords[1]);
+					lineSegment = new Line2D.Double(lastPoint, lineTo);
+					lastPoint = lineTo;
+					break;
+				default:
+					throw new UnsupportedOperationException();
+				}
+
+				Point2D intersection = getLineIntersection(lineSegment, referenceLine);
+				if (lineSegment.ptSegDistSq(intersection) < 0.0000001d) {
+					double distanceSq = intersection.distanceSq(nearX, nearY);
+					if (distanceSq < closestDistanceSq) {
+						closestDistanceSq = distanceSq;
+						closestIntersection = new PrecisionPoint(intersection.getX(), intersection.getY());
+					}
+				}
 			}
 		}
 
-		// calculate closest point on line segment
-		if (closestIndex >= 0) {
-			int x1 = coords[closestIndex];
-			int y1 = coords[closestIndex + 1];
-			int x2 = coords[closestIndex + 2];
-			int y2 = coords[closestIndex + 3];
-			if (x1 != x2) {
-				double m = (double) (y2 - y1) / (x2 - x1);
-				double b = y1 - m * x1;
-				int x = bound(x1, px, x2);
-				int y = (int) Math.round(m * x + b);
-				return new Point(x, y);
-			}
-			else if (y1 != y2) {
-				int y = bound(y1, py, y2);
-				return new Point(x1, y);
-			}
-			return new Point(px, py);
-		}
-
-		return null;
+		return closestIntersection;
 	}
 
-	public static Point getClosestPointOnPolygon(int[] coords, int px, int py, int rx, int ry) {
-
-		// search for closest line segment index
-		if (px != rx) {
-			int cx = px;
-			int cy = py;
-
-			double m = (double) (py - ry) / (px - rx);
-			double b = ry - m * rx;
-
-			int closestIndex = -1;
-			double closestDist = Double.POSITIVE_INFINITY;
-			for (int i = 0; i < coords.length - 3; i += 2) {
-				int x1 = coords[i];
-				int y1 = coords[i + 1];
-				int x2 = coords[i + 2];
-				int y2 = coords[i + 3];
-
-				if (x1 != x2) {
-					double im = (double) (y2 - y1) / (x2 - x1);
-					double ib = y1 - im * x1;
-					int ix = (int) Math.round((ib - b) / (m - im));
-					if (isInBound(x1, ix, x2)) {
-						double dist;
-						if ((dist = Line2D.ptSegDistSq(x1, y1, x2, y2, px, py)) < closestDist) {
-							closestDist = dist;
-							closestIndex = i;
-							cx = ix;
-							cy = (int) Math.round(im * ix + ib);
-						}
-					}
-				}
-				else {
-					// in case the line is vertical
-					int iy = (int) Math.round(m * x1 + b);
-					if (isInBound(y1, iy, y2)) {
-						double dist;
-						if ((dist = Line2D.ptSegDistSq(x1, y1, x2, y2, px, py)) < closestDist) {
-							closestDist = dist;
-							closestIndex = i;
-							cx = x1;
-							cy = iy;
-						}
-					}
-				}
-			}
-
-			if (closestIndex >= 0) {
-				return new Point(cx, cy);
-			}
-		}
-		else {
-			int cy = py;
-
-			int closestIndex = -1;
-			double closestDist = Double.POSITIVE_INFINITY;
-			for (int i = 0; i < coords.length - 3; i += 2) {
-				int x1 = coords[i];
-				int y1 = coords[i + 1];
-				int x2 = coords[i + 2];
-				int y2 = coords[i + 3];
-
-				if (isInBound(x1, px, x2)) {
-					double dist;
-					if ((dist = Line2D.ptSegDistSq(x1, y1, x2, y2, px, py)) < closestDist) {
-						closestDist = dist;
-						closestIndex = i;
-						cy = bound(y1, py, y2);
-					}
-				}
-			}
-
-			if (closestIndex >= 0) {
-				return new Point(px, cy);
-			}
-		}
-
-		return null;
+	private static Point2D.Double getLineIntersection(Line2D l, Line2D r) {
+		// see: http://en.wikipedia.org/wiki/Line-line_intersection
+		double x1 = l.getX1();
+		double y1 = l.getY1();
+		double x2 = l.getX2();
+		double y2 = l.getY2();
+		double x3 = r.getX1();
+		double y3 = r.getY1();
+		double x4 = r.getX2();
+		double y4 = r.getY2();
+		double x1y2 = x1 * y2;
+		double y1x2 = y1 * x2;
+		double x3y4 = x3 * y4;
+		double y3x4 = y3 * x4;
+		double xNumerator = (x1y2 - y1x2) * (x3 - x4) - (x1 - x2) * (x3y4 - y3x4);
+		double yNumerator = (x1y2 - y1x2) * (y3 - y4) - (y1 - y2) * (x3y4 - y3x4);
+		double denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+		return new Point2D.Double(xNumerator / denominator, yNumerator / denominator);
 	}
 
-	public static final Point getClosestPointOnEllipse(Rectangle r, int px, int py) {
+	private static PrecisionPoint getClosestPointOnLineSegment(Line2D l, final int x3, final int y3) {
+		// see: http://paulbourke.net/geometry/pointline/
+		double x1 = l.getX1();
+		double y1 = l.getY1();
+		double x2 = l.getX2();
+		double y2 = l.getY2();
+		double u = ((x3 - x1) * (x2 - x1) + (y3 - y1) * (y2 - y1)) / l.getP2().distanceSq(l.getP1());
+		double x = x1 + u * (x2 - x1);
+		double y = y1 + u * (y2 - y1);
+		Point2D p1 = l.getP1();
+		Point2D p2 = l.getP2();
+
+		// determine if the calculated intersection is between the segment points
+		if (l.ptSegDistSq(x, y) < 0.0000001d) {
+			return new PrecisionPoint(x, y);
+		}
+		// its not, so use the closest end point
+		double dp1 = p1.distanceSq(x3, y3);
+		double dp2 = p2.distanceSq(x3, y3);
+		Point2D p = dp1 < dp2 ? p1 : p2;
+		return new PrecisionPoint(p.getX(), p.getY());
+	}
+
+	public static PrecisionPoint getClosestPointOnPolygon(int[] xyCoords, final int nearX, final int nearY) {
+
+		// convert to a polygon
+		Polygon polygon = new Polygon();
+		for (int i = 0; i < xyCoords.length; i += 2) {
+			polygon.addPoint(xyCoords[i], xyCoords[i + 1]);
+		}
+
+		// search for the closest line segment
+		double[] pathCoords = new double[6];
+		double closestDistanceSq = Double.POSITIVE_INFINITY;
+		Line2D closestLineSeg = null;
+		{
+			Point2D lastMoveTo = null;
+			Point2D lastPoint = null;
+			for (PathIterator i = polygon.getPathIterator(new AffineTransform()); !i.isDone(); i.next()) {
+				Line2D lineSegment = null;
+				switch (i.currentSegment(pathCoords)) {
+				case PathIterator.SEG_MOVETO:
+					lastMoveTo = new Point2D.Double(pathCoords[0], pathCoords[1]);
+					lastPoint = lastMoveTo;
+					continue;
+				case PathIterator.SEG_CLOSE:
+					lineSegment = new Line2D.Double(lastPoint, lastMoveTo);
+					break;
+				case PathIterator.SEG_LINETO:
+					Point2D lineTo = new Point2D.Double(pathCoords[0], pathCoords[1]);
+					lineSegment = new Line2D.Double(lastPoint, lineTo);
+					lastPoint = lineTo;
+					break;
+				default:
+					throw new UnsupportedOperationException();
+				}
+
+				double distanceSq = lineSegment.ptSegDistSq(nearX, nearY);
+				if (distanceSq < closestDistanceSq) {
+					closestDistanceSq = distanceSq;
+					closestLineSeg = lineSegment;
+				}
+			}
+		}
+
+		return getClosestPointOnLineSegment(closestLineSeg, nearX, nearY);
+	}
+
+	public static final PrecisionPoint getClosestPointOnEllipse(Rectangle r, int nearX, int nearY) {
 		// normalize to a circle at (0,0) with a radius of 0.5
-		double npx = (double) (px - r.x) / r.width - 0.5d;
-		double npy = (double) (py - r.y) / r.height - 0.5d;
+		double npx = (double) (nearX - r.x) / r.width - 0.5d;
+		double npy = (double) (nearY - r.y) / r.height - 0.5d;
 
 		// y = mx + b, b = 0;
 		double nM = npy / npx;
@@ -1071,19 +1096,17 @@ public class BNAUtils {
 		double x1 = ((npx < 0 ? -nx : nx) + 0.5d) * r.width + r.x;
 		double y1 = ((npy < 0 ? -ny : ny) + 0.5d) * r.height + r.y;
 
-		return new Point(round(x1), round(y1));
+		return new PrecisionPoint(x1, y1);
 	}
 
-	/*
-	 * Untested!!!
-	 */
-	public static final Point getClosestPointOnEllipse(Rectangle r, int px, int py, int rx, int ry) {
-		if (px != rx) {
+	public static final PrecisionPoint getClosestPointOnEllipse(Rectangle r, int nearX, int nearY, int referenceX,
+			int referenceY) {
+		if (nearX != referenceX) {
 			// normalize to a circle at (0,0) with a radius of 0.5
-			double npx = (double) (px - r.x) / r.width - 0.5d;
-			double npy = (double) (py - r.y) / r.height - 0.5d;
-			double nrx = (double) (rx - r.x) / r.width - 0.5d;
-			double nry = (double) (ry - r.y) / r.height - 0.5d;
+			double npx = (double) (nearX - r.x) / r.width - 0.5d;
+			double npy = (double) (nearY - r.y) / r.height - 0.5d;
+			double nrx = (double) (referenceX - r.x) / r.width - 0.5d;
+			double nry = (double) (referenceY - r.y) / r.height - 0.5d;
 
 			// y = mx + b
 			double nM = (npy - nry) / (npx - nrx);
@@ -1109,27 +1132,28 @@ public class BNAUtils {
 				double x1 = (nx + 0.5d) * r.width + r.x;
 				double y1 = ((npy < 0 ? -ny : ny) + 0.5d) * r.height + r.y;
 
-				return new Point(round(x1), round(y1));
+				return new PrecisionPoint(round(x1), round(y1));
 			}
 		}
 		else {
-			return getClosestPointOnEllipse(r, px, py);
+			return getClosestPointOnEllipse(r, nearX, nearY);
 		}
-		return null;
+
+		throw new IllegalArgumentException("This shouldn't happen");
 	}
 
-	public static Point getClosestPointOnRectangle(Rectangle rectangle, Dimension cornerSize, Point point) {
-		return getClosestPointOnRectangle(rectangle, cornerSize, point, rectangle.getCenter());
+	public static PrecisionPoint getClosestPointOnRectangle(Rectangle rectangle, Dimension cornerSize, Point nearPoint) {
+		return getClosestPointOnRectangle(rectangle, cornerSize, nearPoint, rectangle.getCenter());
 	}
 
-	public static Point getClosestPointOnRectangle(Rectangle rectangle, Dimension cornerSize, Point point,
-			Point centerPoint) {
+	public static PrecisionPoint getClosestPointOnRectangle(Rectangle rectangle, Dimension cornerSize, Point nearPoint,
+			Point referencePoint) {
 		int x1 = rectangle.x;
 		int y1 = rectangle.y;
 		int x2 = x1 + rectangle.width;
 		int y2 = y1 + rectangle.height;
-		Point closestPoint = BNAUtils.getClosestPointOnPolygon(new int[] { x1, y1, x2, y1, x2, y2, x1, y2, x1, y1 },
-				point.x, point.y);
+		PrecisionPoint closestPoint = BNAUtils.getClosestPointOnPolygon(new int[] { x1, y1, x2, y1, x2, y2, x1, y2, x1,
+				y1 }, nearPoint.x, nearPoint.y);
 		if (!cornerSize.isEmpty()) {
 			int cornerWidth = cornerSize.width;
 			int cornerHeight = cornerSize.height;
@@ -1137,11 +1161,13 @@ public class BNAUtils {
 					|| closestPoint.x > rectangle.x + rectangle.width - cornerWidth / 2) {
 				if (closestPoint.y < rectangle.y + cornerHeight / 2
 						|| closestPoint.y > rectangle.y + rectangle.height - cornerHeight / 2) {
-					int cornerX = point.x < centerPoint.x ? rectangle.x : rectangle.x + rectangle.width - cornerWidth;
-					int cornerY = point.y < centerPoint.y ? rectangle.y : rectangle.y + rectangle.height - cornerHeight;
+					int cornerX = nearPoint.x < referencePoint.x ? rectangle.x : rectangle.x + rectangle.width
+							- cornerWidth;
+					int cornerY = nearPoint.y < referencePoint.y ? rectangle.y : rectangle.y + rectangle.height
+							- cornerHeight;
 					Rectangle cornerR = new Rectangle(cornerX, cornerY, cornerWidth, cornerHeight);
-					closestPoint = BNAUtils.getClosestPointOnEllipse(cornerR, point.x, point.y, centerPoint.x,
-							centerPoint.y);
+					closestPoint = BNAUtils.getClosestPointOnEllipse(cornerR, nearPoint.x, nearPoint.y,
+							referencePoint.x, referencePoint.y);
 				}
 			}
 		}
@@ -1181,14 +1207,14 @@ public class BNAUtils {
 		g.pushState();
 		try {
 			g.setForegroundColor(r.getColor(SWT.COLOR_WHITE));
-			g.setLineStyle(SWT.LINE_CUSTOM);
 			g.setLineCap(SWT.CAP_FLAT);
-			g.setLineWidth(2);
+			g.setLineWidth(3);
 			g.setLineStyle(SWT.LINE_SOLID);
 
 			drawMarquee.run();
 
 			g.setForegroundColor(r.getColor(SWT.COLOR_BLACK));
+			g.setLineStyle(SWT.LINE_CUSTOM);
 			g.setLineDash(marquee_dash_patterns[offset % marquee_dash_patterns.length]);
 
 			drawMarquee.run();
@@ -1198,15 +1224,72 @@ public class BNAUtils {
 		}
 	}
 
-	public static final IBNAView getInternalView(IBNAView outerView, IThing worldThing) {
-		if (worldThing instanceof IHasWorld) {
-			Cache<IThing, ?> worldThingPeer = outerView.getPeerCache(worldThing);
-			throw new UnsupportedOperationException("TODO");
-			//if (worldThingPeer instanceof WorldThingPeer) {
-			//	IBNAView internalView = ((WorldThingPeer) worldThingPeer).getInnerView();
-			//	return internalView;
-			//}
+	public static interface DrawShadow {
+		public void drawShadow(boolean fill);
+	}
+
+	public static void drawShadow(Graphics g, IResources r, int dx, int dy, int length, DrawShadow drawShadow) {
+
+		// slow
+
+		//int size = SystemUtils.bound(0, length, 10);
+		//int l = 255;
+		//int d = BNAUtils.round(255 * 0.35);
+		//g.setLineMiterLimit(1);
+		//g.setLineStyle(SWT.LINE_SOLID);
+		//g.setLineCap(SWT.CAP_ROUND);
+		//g.pushState();
+		//try {
+		//	int c = d;
+		//	for (int i = size; i > 0; i--) {
+		//		g.restoreState();
+		//		int t = i / 2;
+		//		g.translate(t, t);
+		//		g.setLineWidth(i);
+		//		c = SystemUtils.bound(0, (l - d) / size * i + d, 255);
+		//		g.setForegroundColor(r.getColor(new RGB(c, c, c)));
+		//		drawShadow.drawShadow(false);
+		//	}
+		//	g.setBackgroundColor(r.getColor(new RGB(c, c, c)));
+		//	drawShadow.drawShadow(true);
+		//}
+		//finally {
+		//	g.popState();
+		//}
+
+		// fast
+
+		int size = SystemUtils.bound(0, length, 10);
+		int d = BNAUtils.round(255 * 0.75);
+		g.setLineMiterLimit(1);
+		g.setLineStyle(SWT.LINE_SOLID);
+		g.setLineCap(SWT.CAP_ROUND);
+		g.pushState();
+		try {
+			int t = size * 3 / 4;
+			g.translate(t, t);
+			g.setBackgroundColor(r.getColor(new RGB(d, d, d)));
+			drawShadow.drawShadow(true);
 		}
+		finally {
+			g.popState();
+		}
+	}
+
+	public static void drawShadowExpandBoundingBox(Rectangle localBoundsResult) {
+		localBoundsResult.width += 10;
+		localBoundsResult.height += 10;
+	}
+
+	public static final IBNAView getInternalView(IBNAView outerView, IThing worldThing) {
+		//		if (worldThing instanceof IHasWorld) {
+		//			Cache<IThing, ?> worldThingPeer = outerView.getPeerCache(worldThing);
+		//			throw new UnsupportedOperationException("TODO");
+		//			//if (worldThingPeer instanceof WorldThingPeer) {
+		//			//	IBNAView internalView = ((WorldThingPeer) worldThingPeer).getInnerView();
+		//			//	return internalView;
+		//			//}
+		//		}
 		return null;
 	}
 
@@ -1314,14 +1397,14 @@ public class BNAUtils {
 		return xyArray;
 	}
 
-	public static Rectangle getLocalBoundingBox(ICoordinateMapper cm, IThing t, Rectangle localResult) {
-		Rectangle localBoundingBox = cm.worldToLocal(t.get(IHasBoundingBox.BOUNDING_BOX_KEY));
+	public static Rectangle getLocalBoundingBox(ICoordinateMapper cm, IHasBoundingBox t, Rectangle localResult) {
+		Rectangle localBoundingBox = cm.worldToLocal(t.getBoundingBox());
 		Insets insets = t.get(IHasLocalInsets.LOCAL_INSETS_KEY);
 		if (insets != null) {
 			localBoundingBox.crop(insets);
 		}
 		localResult.setBounds(localBoundingBox);
-		return localBoundingBox;
+		return localResult;
 	}
 
 	private static final Function<IThing, Object> thingToIDFunction = new Function<IThing, Object>() {
@@ -1331,7 +1414,7 @@ public class BNAUtils {
 		}
 	};
 
-	public static Iterable<Object> getThingIDs(Iterable<IThing> things) {
+	public static Iterable<Object> getThingIDs(Iterable<? extends IThing> things) {
 		return Iterables.transform(things, thingToIDFunction);
 	}
 

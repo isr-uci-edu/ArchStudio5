@@ -39,43 +39,46 @@ public class ArchStudioCommonResources {
 
 		try {
 			resources.createImage(ICON_STRUCTURE,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-structure.gif")));
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/icon-structure.gif")));
 			resources.createImage(ICON_TYPES,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-types.gif")));
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/icon-types.gif")));
 
 			resources.createImage(ICON_OVERLAY_XML,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("decorator-xml.gif")));
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/decorator-xml.gif")));
 			Image xmlOverlay = resources.getImage(ICON_OVERLAY_XML);
 			resources.createOverlayImage(ICON_XML_DOCUMENT, resources.getPlatformImage(ISharedImages.IMG_OBJ_FOLDER),
 					new Image[] { xmlOverlay }, new int[] { IResources.BOTTOM_RIGHT });
 
 			resources.createImage(ICON_COMPONENT,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-component.gif")));
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/icon-component.gif")));
 			resources.createImage(ICON_CONNECTOR,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-connector.gif")));
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/icon-connector.gif")));
 			resources.createImage(ICON_INTERFACE,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-interface.gif")));
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/icon-interface.gif")));
 			resources.createImage(ICON_LINK,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-link.gif")));
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/icon-link.gif")));
 
-			resources.createImage(ICON_COMPONENT_TYPE,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-component-type.gif")));
-			resources.createImage(ICON_CONNECTOR_TYPE,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-connector-type.gif")));
-			resources.createImage(ICON_INTERFACE_TYPE,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-interface-type.gif")));
+			resources
+					.createImage(ICON_COMPONENT_TYPE, SystemUtils.blt(ArchStudioCommonResources.class
+							.getResourceAsStream("res/icon-component-type.gif")));
+			resources
+					.createImage(ICON_CONNECTOR_TYPE, SystemUtils.blt(ArchStudioCommonResources.class
+							.getResourceAsStream("res/icon-connector-type.gif")));
+			resources
+					.createImage(ICON_INTERFACE_TYPE, SystemUtils.blt(ArchStudioCommonResources.class
+							.getResourceAsStream("res/icon-interface-type.gif")));
 
 			resources.createImage(ICON_STATECHART,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-statechart.gif")));
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/icon-statechart.gif")));
 			resources.createImage(ICON_STATE,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-state.gif")));
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/icon-state.gif")));
 			resources.createImage(ICON_INITIAL_STATE,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-initialstate.gif")));
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/icon-initialstate.gif")));
 			resources.createImage(ICON_FINAL_STATE,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-finalstate.gif")));
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/icon-finalstate.gif")));
 
 			resources.createImage(ICON_GRID,
-					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("icon-grid.gif")));
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/icon-grid.gif")));
 		}
 		catch (IOException ioe) {
 			throw new RuntimeException("This shouldn't happen.");

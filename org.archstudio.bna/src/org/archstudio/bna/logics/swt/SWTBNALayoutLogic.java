@@ -98,17 +98,17 @@ public class SWTBNALayoutLogic extends AbstractThingLogic implements IBNAModelLi
 			return;
 		}
 
-		String targetThingID = (String) thing.getProperty(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY);
+		String targetThingID = (String) thing.get(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY);
 
 		if (targetThingID != null) {
 			relayout(bnaWorld.getBNAModel().getThing(targetThingID), layedOut);
 		}
 
 		if (targetThingID != null) {
-			updateLayoutContent(targetThingID, thing, thing.getProperty(IHasSWTLayoutData.SWT_LAYOUT_DATA_KEY), true);
+			updateLayoutContent(targetThingID, thing, thing.get(IHasSWTLayoutData.SWT_LAYOUT_DATA_KEY), true);
 		}
 		if (thing.hasProperty(IHasSWTLayout.SWT_LAYOUT_KEY)) {
-			updateLayoutComposite(thing, (Layout) thing.getProperty(IHasSWTLayout.SWT_LAYOUT_KEY), true);
+			updateLayoutComposite(thing, (Layout) thing.get(IHasSWTLayout.SWT_LAYOUT_KEY), true);
 		}
 	}
 
@@ -117,12 +117,12 @@ public class SWTBNALayoutLogic extends AbstractThingLogic implements IBNAModelLi
 
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
-			if (thing.getProperty(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY) != null) {
-				updateLayoutContent((String) thing.getProperty(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY), thing,
-						thing.getProperty(IHasSWTLayoutData.SWT_LAYOUT_DATA_KEY), false);
+			if (thing.get(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY) != null) {
+				updateLayoutContent((String) thing.get(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY), thing,
+						thing.get(IHasSWTLayoutData.SWT_LAYOUT_DATA_KEY), false);
 			}
-			if (thing.getProperty(IHasSWTLayout.SWT_LAYOUT_KEY) != null) {
-				updateLayoutComposite(thing, (Layout) thing.getProperty(IHasSWTLayout.SWT_LAYOUT_KEY), false);
+			if (thing.get(IHasSWTLayout.SWT_LAYOUT_KEY) != null) {
+				updateLayoutComposite(thing, (Layout) thing.get(IHasSWTLayout.SWT_LAYOUT_KEY), false);
 			}
 		}
 			break;
@@ -130,17 +130,17 @@ public class SWTBNALayoutLogic extends AbstractThingLogic implements IBNAModelLi
 		case THING_CHANGED:
 			if (IHasSWTLayout.SWT_LAYOUT_KEY.equals(evt.getThingEvent().getPropertyName())) {
 				IThing thing = evt.getTargetThing();
-				updateLayoutComposite(thing, (Layout) thing.getProperty(IHasSWTLayout.SWT_LAYOUT_KEY), false);
+				updateLayoutComposite(thing, (Layout) thing.get(IHasSWTLayout.SWT_LAYOUT_KEY), false);
 			}
 			else if (IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY.equals(evt.getThingEvent().getPropertyName())) {
 				IThing thing = evt.getTargetThing();
-				updateLayoutContent((String) thing.getProperty(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY), thing,
-						thing.getProperty(IHasSWTLayoutData.SWT_LAYOUT_DATA_KEY), false);
+				updateLayoutContent((String) thing.get(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY), thing,
+						thing.get(IHasSWTLayoutData.SWT_LAYOUT_DATA_KEY), false);
 			}
 			else if (IHasSWTLayoutData.SWT_LAYOUT_DATA_KEY.equals(evt.getThingEvent().getPropertyName())) {
 				IThing thing = evt.getTargetThing();
-				updateLayoutContent((String) thing.getProperty(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY), thing,
-						thing.getProperty(IHasSWTLayoutData.SWT_LAYOUT_DATA_KEY), false);
+				updateLayoutContent((String) thing.get(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY), thing,
+						thing.get(IHasSWTLayoutData.SWT_LAYOUT_DATA_KEY), false);
 			}
 			break;
 

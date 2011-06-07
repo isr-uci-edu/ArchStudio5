@@ -5,7 +5,7 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import static org.archstudio.sysutils.SystemUtils.emptyIfNull;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
 import javax.annotation.Nullable;
@@ -64,19 +64,18 @@ public abstract class AbstractPropagateValueLogic<F extends IThing, T extends IT
 		}
 	}
 
-	private final Map<IThingKey<?>, IThingKeyKey<?, ?, List<FromThingData>>> keyToFromThingDataKey = new MapMaker()
-			.makeComputingMap(new Function<IThingKey<?>, IThingKeyKey<?, ?, List<FromThingData>>>() {
+	private final Map<IThingKey<?>, IThingKeyKey<?, ?, Collection<FromThingData>>> keyToFromThingDataKey = new MapMaker()
+			.makeComputingMap(new Function<IThingKey<?>, IThingKeyKey<?, ?, Collection<FromThingData>>>() {
 				@Override
-				public IThingKeyKey<?, ?, List<FromThingData>> apply(IThingKey<?> input) {
-					checkNotNull(input);
+				public IThingKeyKey<?, ?, Collection<FromThingData>> apply(IThingKey<?> input) {
 					return ThingKeyKey.create(FromThingData.class, input);
 				}
 			});
 
-	private final Map<IThingKey<?>, IThingKeyKey<?, ?, ToThingData>> keyToToThingDataKey = new MapMaker()
-			.makeComputingMap(new Function<IThingKey<?>, IThingKeyKey<?, ?, ToThingData>>() {
+	private final Map<IThingKey<?>, IThingKeyKey<?, ?, Collection<ToThingData>>> keyToToThingDataKey = new MapMaker()
+			.makeComputingMap(new Function<IThingKey<?>, IThingKeyKey<?, ?, Collection<ToThingData>>>() {
 				@Override
-				public IThingKeyKey<?, ?, ToThingData> apply(IThingKey<?> input) {
+				public IThingKeyKey<?, ?, Collection<ToThingData>> apply(IThingKey<?> input) {
 					checkNotNull(input);
 					return ThingKeyKey.create(ToThingData.class, input);
 				}
@@ -90,37 +89,51 @@ public abstract class AbstractPropagateValueLogic<F extends IThing, T extends IT
 		this.toThingClass = toThingClass;
 	}
 
-	protected void setPropagate(final F fromThing, IThingKey<?> fromKey, @Nullable final IThingKey<?> toKey,
-			final @Nullable D toData, final IThing... toThings) {
+	protected void setPropagate(final F fromThing, final IThingKey<?> fromKey, @Nullable final IThingKey<?> toKey,
+			final @Nullable D toData, final T... toThings) {
 		checkNotNull(fromThing);
 		checkNotNull(fromKey);
 
-		final IThingKeyKey<?, ?, List<FromThingData>> fromDataKey = keyToFromThingDataKey.get(fromKey);
+		final IThingKeyKey<?, ?, Collection<FromThingData>> fromDataKey = keyToFromThingDataKey.get(fromKey);
 		fromThing.synchronizedUpdate(new Runnable() {
 			@Override
 			public void run() {
-				List<FromThingData> data = Lists.newArrayList(emptyIfNull(fromThing.get(fromDataKey)));
-				data.add(new FromThingData(AbstractPropagateValueLogic.this, BNAUtils.getThingIDs(Arrays
+				Collection<FromThingData> fromThingDatas = Sets.newHashSet(emptyIfNull(fromThing.get(fromDataKey)));
+				fromThingDatas.add(new FromThingData(AbstractPropagateValueLogic.this, BNAUtils.getThingIDs(Arrays
 						.asList(toThings)), toKey, toData));
-				fromThing.set(fromDataKey, data);
+				fromThing.set(fromDataKey, Lists.newArrayList(fromThingDatas));
 			}
 		});
-
 		if (toKey != null) {
-			final IThingKeyKey<?, ?, ToThingData> toDataKey = keyToToThingDataKey.get(toKey);
-			ToThingData toThingData = new ToThingData(AbstractPropagateValueLogic.this, fromThing.getID(), fromKey,
-					toData);
-			for (IThing toThing : toThings) {
-				toThing.set(toDataKey, toThingData);
-			}
+			checkPropagation(getBNAModel(), fromThing, toKey, null);
+			setPropagateTrigger(fromThing, fromKey, toKey, toData, toThings);
+		}
+
+	}
+
+	protected void setPropagateTrigger(final F fromThing, final IThingKey<?> fromKey, final IThingKey<?> toKey,
+			final D toData, final T... toThings) {
+		final IThingKeyKey<?, ?, Collection<ToThingData>> toDataKey = keyToToThingDataKey.get(toKey);
+		final ToThingData toThingData = new ToThingData(AbstractPropagateValueLogic.this, fromThing.getID(), fromKey,
+				toData);
+		for (final IThing toThing : toThings) {
+			toThing.synchronizedUpdate(new Runnable() {
+				@Override
+				public void run() {
+					Collection<ToThingData> toThingDatas = Sets.newHashSet(emptyIfNull(toThing.get(toDataKey)));
+					toThingDatas.add(toThingData);
+					toThing.set(toDataKey, Lists.newArrayList(toThingDatas));
+				}
+			});
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <ET extends IThing> void doPropagation(IBNAModel model, ET thing, IThingKey<?> key,
+	protected <ET extends IThing> void checkPropagation(IBNAModel model, ET thing, IThingKey<?> key,
 			@Nullable ThingEvent<ET, ?, ?> thingEvent) {
 		checkNotNull(model);
 		checkNotNull(thing);
+		checkNotNull(key);
 
 		if (key instanceof IThingKeyKey) {
 			IThingKeyKey<?, ?, ?> keyKey = (IThingKeyKey<?, ?, ?>) key;
@@ -133,21 +146,19 @@ public abstract class AbstractPropagateValueLogic<F extends IThing, T extends IT
 		if (keyToToThingDataKey.containsKey(key)) {
 			T toThing = castOrNull(thing, toThingClass);
 			if (toThing != null) {
-				IThingKeyKey<?, ?, ToThingData> toDataKey = keyToToThingDataKey.get(key);
-				ToThingData data = toThing.get(toDataKey);
-				if (data != null) {
-					if (data.source == this && !data.currentlyPropagating) {
+				for (ToThingData toThingData : emptyIfNull(toThing.get(keyToToThingDataKey.get(key)))) {
+					if (toThingData.source == this && !toThingData.currentlyPropagating) {
 						model.beginBulkChange();
-						data.currentlyPropagating = true;
+						toThingData.currentlyPropagating = true;
 						try {
-							F fromThing = castOrNull(model.getThing(data.fromThingID), fromThingClass);
+							F fromThing = castOrNull(model.getThing(toThingData.fromThingID), fromThingClass);
 							if (fromThing != null) {
-								doPropagation(model, fromThing, data.fromThingKey, null, data.toData, toThing, key,
-										(ThingEvent<T, ?, ?>) thingEvent);
+								doPropagation(model, fromThing, toThingData.fromThingKey, null, toThingData.toData,
+										toThing, key, (ThingEvent<T, ?, ?>) thingEvent);
 							}
 						}
 						finally {
-							data.currentlyPropagating = false;
+							toThingData.currentlyPropagating = false;
 							model.endBulkChange();
 						}
 					}
@@ -157,21 +168,21 @@ public abstract class AbstractPropagateValueLogic<F extends IThing, T extends IT
 		if (keyToFromThingDataKey.containsKey(key)) {
 			F fromThing = castOrNull(thing, fromThingClass);
 			if (fromThing != null) {
-				for (FromThingData data : emptyIfNull(fromThing.get(keyToFromThingDataKey.get(key)))) {
-					if (data.source == this && !data.currentlyPropagating) {
+				for (FromThingData fromThingData : emptyIfNull(fromThing.get(keyToFromThingDataKey.get(key)))) {
+					if (fromThingData.source == this && !fromThingData.currentlyPropagating) {
 						model.beginBulkChange();
-						data.currentlyPropagating = true;
+						fromThingData.currentlyPropagating = true;
 						try {
-							for (Object toThingID : data.toThingIDs) {
+							for (Object toThingID : fromThingData.toThingIDs) {
 								T toThing = castOrNull(model.getThing(toThingID), toThingClass);
 								if (toThing != null) {
-									doPropagation(model, fromThing, key, (ThingEvent<F, ?, ?>) thingEvent, data.toData,
-											toThing, data.toKey, null);
+									doPropagation(model, fromThing, key, (ThingEvent<F, ?, ?>) thingEvent,
+											fromThingData.toData, toThing, fromThingData.toKey, null);
 								}
 							}
 						}
 						finally {
-							data.currentlyPropagating = false;
+							fromThingData.currentlyPropagating = false;
 							model.endBulkChange();
 						}
 					}
@@ -188,14 +199,14 @@ public abstract class AbstractPropagateValueLogic<F extends IThing, T extends IT
 	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
 		if (evt.getEventType() == EventType.THING_ADDED) {
 			ET t = evt.getTargetThing();
-			for (IThingKey<?> key : Sets.intersection(t.keySet(), keyToFromThingDataKey.keySet())) {
-				doPropagation(evt.getSource(), t, key, null);
+			for (IThingKey<?> key : Lists.newArrayList(t.keySet())) {
+				checkPropagation(evt.getSource(), t, key, null);
 			}
 		}
 		if (evt.getEventType() == EventType.THING_CHANGED) {
 			ET t = evt.getTargetThing();
 			IThingKey<?> key = evt.getThingEvent().getPropertyName();
-			doPropagation(evt.getSource(), t, key, evt.getThingEvent());
+			checkPropagation(evt.getSource(), t, key, evt.getThingEvent());
 		}
 	}
 }

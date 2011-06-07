@@ -13,7 +13,7 @@ public class ArchlightIssueADTMyxComponent extends org.archstudio.issueadt.core.
 	@Override
 	public void init() {
 		issues = new ArchlightIssueADT();
-		((ArchlightIssueADT) issues).addArchlightIssueADTListener(issueEvents);
+		((ArchlightIssueADT) issues).addArchlightIssueADTListener(issueEventsProxy);
 	}
 
 	@Override

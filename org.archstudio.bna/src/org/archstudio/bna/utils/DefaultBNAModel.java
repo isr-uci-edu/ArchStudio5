@@ -8,6 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.archstudio.bna.BNAModelEvent;
@@ -75,7 +76,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	protected final CopyOnWriteArrayList<IBNASynchronousModelListener> synchListeners = newCopyOnWriteArrayList();
 	protected final CopyOnWriteArrayList<IBNAModelListener> asyncListeners = newCopyOnWriteArrayList();
 	protected final ExecutorService asyncExecutor;
-	protected int bulkChangeCount = 0;
+	protected AtomicInteger bulkChangeCount = new AtomicInteger();
 	protected boolean firedBulkChangeEvent = false;
 
 	public DefaultBNAModel() {
@@ -159,9 +160,9 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void fireBnaModelEvent(BNAModelEvent<ET, EK, EV> evt) {
-		if (bulkChangeCount > 0 && !firedBulkChangeEvent) {
+		if (bulkChangeCount.get() > 0 && !firedBulkChangeEvent) {
 			firedBulkChangeEvent = true;
-			_fireBnaModelEvent(BNAModelEvent.create(this, EventType.BULK_CHANGE_BEGIN, bulkChangeCount > 0));
+			_fireBnaModelEvent(BNAModelEvent.create(this, EventType.BULK_CHANGE_BEGIN, bulkChangeCount.get() > 0));
 		}
 		_fireBnaModelEvent(evt);
 	}
@@ -173,29 +174,31 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public void fireStreamNotificationEvent(String streamNotificationEvent) {
-		fireBnaModelEvent(BNAModelEvent.create(this, EventType.STREAM_NOTIFICATION_EVENT, bulkChangeCount > 0,
+		fireBnaModelEvent(BNAModelEvent.create(this, EventType.STREAM_NOTIFICATION_EVENT, bulkChangeCount.get() > 0,
 				streamNotificationEvent));
 	}
 
 	@Override
 	public <ET extends IThing, EK extends IThingKey<EV>, EV> void thingChanged(ThingEvent<ET, EK, EV> thingEvent) {
-		fireBnaModelEvent(BNAModelEvent.<ET, EK, EV> create(this, EventType.THING_CHANGED, bulkChangeCount > 0,
+		fireBnaModelEvent(BNAModelEvent.<ET, EK, EV> create(this, EventType.THING_CHANGED, bulkChangeCount.get() > 0,
 				thingEvent.getTargetThing(), thingEvent));
 	}
 
 	@Override
 	public void beginBulkChange() {
-		if (bulkChangeCount++ == 0) {
+		if (bulkChangeCount.getAndIncrement() == 0) {
 			firedBulkChangeEvent = false;
 		}
 	}
 
 	@Override
 	public void endBulkChange() {
-		if (--bulkChangeCount <= 0) {
-			bulkChangeCount = 0;
+		if (bulkChangeCount.decrementAndGet() <= 0) {
+			if (bulkChangeCount.get() < 0) {
+				System.err.println("Bulk change count < 0");
+			}
 			if (firedBulkChangeEvent) {
-				fireBnaModelEvent(BNAModelEvent.create(this, EventType.BULK_CHANGE_END, bulkChangeCount > 0));
+				fireBnaModelEvent(BNAModelEvent.create(this, EventType.BULK_CHANGE_END, bulkChangeCount.get() > 0));
 			}
 		}
 	}
@@ -212,7 +215,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 				}
 			}
 		});
-		fireBnaModelEvent(BNAModelEvent.create(this, BNAModelEvent.EventType.THING_ADDED, bulkChangeCount > 0, t));
+		fireBnaModelEvent(BNAModelEvent.create(this, BNAModelEvent.EventType.THING_ADDED, bulkChangeCount.get() > 0, t));
 		return t;
 	}
 
@@ -228,7 +231,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 				}
 			}
 		});
-		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_ADDED, bulkChangeCount > 0, t));
+		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_ADDED, bulkChangeCount.get() > 0, t));
 		return t;
 	}
 
@@ -238,7 +241,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public void removeThing(final IThing t) {
-		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_REMOVING, bulkChangeCount > 0, t));
+		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_REMOVING, bulkChangeCount.get() > 0, t));
 		try {
 			t.synchronizedUpdate(new Runnable() {
 				@Override
@@ -252,7 +255,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 			});
 		}
 		finally {
-			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_REMOVED, bulkChangeCount > 0, t));
+			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_REMOVED, bulkChangeCount.get() > 0, t));
 		}
 	}
 
@@ -343,9 +346,9 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 			thingTree.moveAfter(lowerThing, upperThing);
 			movedThings = thingTree.getChildThings(lowerThing);
 		}
-		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount > 0, lowerThing));
+		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, lowerThing));
 		for (IThing mt : movedThings) {
-			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount > 0, mt));
+			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, mt));
 		}
 	}
 
@@ -357,9 +360,9 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 			thingTreeModCount++;
 			movedThings = thingTree.getChildThings(thing);
 		}
-		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount > 0, thing));
+		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, thing));
 		for (IThing mt : movedThings) {
-			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount > 0, mt));
+			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, mt));
 		}
 	}
 
@@ -371,9 +374,9 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 			thingTreeModCount++;
 			movedThings = thingTree.getChildThings(thing);
 		}
-		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount > 0, thing));
+		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, thing));
 		for (IThing mt : movedThings) {
-			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount > 0, mt));
+			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, mt));
 		}
 	}
 }

@@ -17,8 +17,8 @@ public class PolygonThing extends AbstractPolygonThing implements IHasMutableCol
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setColor(new RGB(192, 192, 128));
-		setSecondaryColor(new RGB(255, 255, 192));
+		setColor(new RGB(128, 192, 128));
+		setSecondaryColor(new RGB(192, 255, 192));
 		setGradientFilled(true);
 		setEdgeColor(new RGB(0, 0, 0));
 	}

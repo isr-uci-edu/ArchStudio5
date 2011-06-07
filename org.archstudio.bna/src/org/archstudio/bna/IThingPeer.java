@@ -37,9 +37,9 @@ public interface IThingPeer<T extends IThing> {
 	 */
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location);
 
-	public boolean getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult);
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult);
 
-	public boolean isOpaqueAndFilled();
+	public void updateCache(IBNAView view, ICoordinateMapper cm);
 
 	public void dispose();
 }

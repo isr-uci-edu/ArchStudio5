@@ -116,7 +116,7 @@ public class SplineReshapeHandleLogic extends AbstractThingLogic implements ISel
 	}
 
 	protected void updateHandle(ReshapeHandleAssembly rhs, IThing targetThing, String pointPropertyName) {
-		Point point = targetThing.getProperty(pointPropertyName);
+		Point point = targetThing.get(pointPropertyName);
 		RGB color = UNSTUCK_COLOR;
 
 		String stickyThingId = StickRelativeMovablesLogic.getStuckToThingId(pointPropertyName, targetThing);

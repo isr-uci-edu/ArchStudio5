@@ -23,7 +23,7 @@ import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
 import org.archstudio.bna.logics.tracking.ReferenceTrackingLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
-import org.archstudio.bna.things.labels.BoxedLabelThing;
+import org.archstudio.bna.things.labels.BoundedLabelThing;
 import org.archstudio.bna.utils.BNAComposite;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAView;
@@ -128,7 +128,7 @@ public class BNASWTSynchDemo {
 		//		swtBNALogic.addBNAToSWTMapping(classBox.getBoxGlassThing().getID(), classBoxSWT);
 
 		// class title BNA
-		BoxedLabelThing classTitle = new BoxedLabelThing();
+		BoundedLabelThing classTitle = new BoundedLabelThing();
 		classTitle.setText("Class");
 		m.addThing(classTitle, classBox.getBoxThing());
 		classTitle.setProperty(IHasSWTLayoutData.SWT_LAYOUT_DATA_KEY, new GridData(SWT.FILL, SWT.CENTER, true, false,
@@ -142,10 +142,10 @@ public class BNASWTSynchDemo {
 		//		classTitleSWT.setLayoutData(classTitle.getProperty(IHasSWTLayoutData.SWT_LAYOUT_DATA_KEY));
 		//		swtBNALogic.addSWTToBNAMapping(classTitleSWT, classTitle.getID());
 
-		BoxedLabelThing[] classOperations = new BoxedLabelThing[3];
+		BoundedLabelThing[] classOperations = new BoundedLabelThing[3];
 		for (int i = 0; i < classOperations.length; i++) {
 			// class operation BNA
-			BoxedLabelThing classOperation = classOperations[i] = new BoxedLabelThing();
+			BoundedLabelThing classOperation = classOperations[i] = new BoundedLabelThing();
 			classOperation.setText("operation " + i);
 			m.addThing(classOperation, classBox.getBoxThing());
 			classOperation.setProperty(IHasSWTLayoutData.SWT_LAYOUT_DATA_KEY, new GridData(SWT.LEFT, SWT.CENTER, true,
@@ -160,10 +160,10 @@ public class BNASWTSynchDemo {
 			//			swtBNALogic.addSWTToBNAMapping(classOperationSWT, classOperation.getID());
 		}
 
-		BoxedLabelThing[] classFields = new BoxedLabelThing[3];
+		BoundedLabelThing[] classFields = new BoundedLabelThing[3];
 		for (int i = 0; i < classFields.length; i++) {
 			// class field BNA
-			BoxedLabelThing classField = classFields[i] = new BoxedLabelThing();
+			BoundedLabelThing classField = classFields[i] = new BoundedLabelThing();
 			classField.setText("field " + i);
 			m.addThing(classField, classBox.getBoxThing());
 			classField.setProperty(IHasSWTLayoutData.SWT_LAYOUT_DATA_KEY, new GridData(SWT.RIGHT, SWT.CENTER, true,

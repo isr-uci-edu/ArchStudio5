@@ -100,7 +100,7 @@ public abstract class AbstractEditNameLogic extends AbstractThingLogic implement
 				SWTTextThing tt = (SWTTextThing)evt.getTargetThing();
 				if(openControls.contains(tt)){
 					if(tt.getCompletionStatus() == CompletionStatus.OK){
-						String targetXArchID = tt.getProperty("#targetXArchID");
+						String targetXArchID = tt.get("#targetXArchID");
 						if(targetXArchID != null){
 							ObjRef eltRef = AS.xarch.getByID(xArchRef, targetXArchID);
 							if(eltRef != null){

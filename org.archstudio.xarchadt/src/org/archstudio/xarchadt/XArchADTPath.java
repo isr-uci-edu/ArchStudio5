@@ -1,38 +1,35 @@
 package org.archstudio.xarchadt;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkPositionIndex;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.archstudio.sysutils.SystemUtils;
+import com.google.common.collect.Lists;
 
 /**
- * An XArchADTPath is similar to an XML XPath but it works for xArch-based XML
- * documents. An XArchADTPath can be converted to and from a string easily with
- * the functions in this class. It is useful for quickly assessing an element's
- * position within an XML document without having to call costly operations to
- * walk around the XML tree.
+ * An XArchADTPath is similar to an XML XPath but it works for xArch-based XML documents. An XArchADTPath can be
+ * converted to and from a string easily with the functions in this class. It is useful for quickly assessing an
+ * element's position within an XML document without having to call costly operations to walk around the XML tree.
  * <p>
- * An XArchADTPath is composed of segments, starting at the XML tree root and
- * proceeding down the tree to the specified element. Each segment has one of
- * the following formats:
+ * An XArchADTPath is composed of segments, starting at the XML tree root and proceeding down the tree to the specified
+ * element. Each segment has one of the following formats:
  * <p>
  * <i>tagName</i> (for elements where that is the only tag)
  * <p>
- * <i>tagName</i>:<i>tagIndex</i> Where tagIndex is the the index of that tag
- * name within the list of all tags with the same name. So, if there are five
- * tags called ComponentInstance in the same place, the third one is
+ * <i>tagName</i>:<i>tagIndex</i> Where tagIndex is the the index of that tag name within the list of all tags with the
+ * same name. So, if there are five tags called ComponentInstance in the same place, the third one is
  * <code>componentInstance:2</code> (remember, indices are zero-based).
  * <p>
- * <i>tagName</i>:id=<i>tagID</i> Where tagID is the ID of the element, if the
- * element has an ID attribute.
+ * <i>tagName</i>:id=<i>tagID</i> Where tagID is the ID of the element, if the element has an ID attribute.
  * <p>
  * So, a sample XArchADTPath might be:
  * <p>
  * <code>xArch/ArchStructure:id=hello there/Component:5/Description</code>
  * <p>
- * Any slashes in the ID or tag name are escaped with a backslash; backslashes
- * are also escaped as a double-backslash.
+ * Any slashes in the ID or tag name are escaped with a backslash; backslashes are also escaped as a double-backslash.
  */
 public class XArchADTPath implements java.io.Serializable {
 
@@ -56,11 +53,6 @@ public class XArchADTPath implements java.io.Serializable {
 			}
 		}
 		return sb.toString();
-	}
-
-	@Deprecated
-	public static final String capFirstLetter(String s) {
-		return SystemUtils.capFirst(s);
 	}
 
 	private static final void addSegment(int i, String s, String tagName, String tagAttribute, List<String> tagNames,
@@ -102,6 +94,7 @@ public class XArchADTPath implements java.io.Serializable {
 
 	private static final XArchADTPath parse(String s) {
 		List<String> tagNames = new ArrayList<String>();
+		List<String> tagElementNames = new ArrayList<String>();
 		List<Integer> tagIndexes = new ArrayList<Integer>();
 		List<String> tagIDs = new ArrayList<String>();
 
@@ -174,8 +167,8 @@ public class XArchADTPath implements java.io.Serializable {
 			throw new IllegalArgumentException("Illegal XArchADTPath Specification; Unexpected end of path in " + s);
 		}
 
-		return new XArchADTPath(Collections.unmodifiableList(tagNames), Collections.unmodifiableList(tagIndexes),
-				Collections.unmodifiableList(tagIDs));
+		return new XArchADTPath(Collections.unmodifiableList(tagNames), Collections.unmodifiableList(tagElementNames),
+				Collections.unmodifiableList(tagIndexes), Collections.unmodifiableList(tagIDs));
 	}
 
 	public static final ObjRef resolve(IXArchADTQuery xarch, ObjRef documentRootRef, XArchADTPath p) {
@@ -274,51 +267,29 @@ public class XArchADTPath implements java.io.Serializable {
 	}
 
 	private final List<String> tagNames;
-	private final int tagNameOffset;
-
+	private final List<String> tagElementNames;
 	private final List<Integer> tagIndexes;
-	private final int tagIndexOffset;
-
 	private final List<String> tagIDs;
-	private final int tagIdOffset;
-
-	private final int pathLength;
 
 	private volatile String stringString = null;
 	private volatile String tagsOnlyString = null;
 	private volatile String dumpString = null;
-	private volatile List<String> externalTagNames = null;
+	private volatile List<String> readOnlyTagNames = null;
 
-	XArchADTPath(List<String> tagNames, int tagNameOffset, List<Integer> tagIndexes, int tagIndexOffset,
-			List<String> tagIDs, int tagIdOffset, int pathLength) {
-		this.tagNames = new ArrayList<String>(tagNames);
-		this.tagNameOffset = tagNameOffset;
-		this.tagIndexes = new ArrayList<Integer>(tagIndexes);
-		this.tagIndexOffset = tagIndexOffset;
-		this.tagIDs = new ArrayList<String>(tagIDs);
-		this.tagIdOffset = tagIdOffset;
-		this.pathLength = pathLength;
-		if (tagNameOffset < 0 || tagNameOffset + pathLength > tagNames.size()) {
-			throw new IndexOutOfBoundsException();
-		}
-		if (tagIndexOffset < 0 || tagIndexOffset + pathLength > tagIndexes.size()) {
-			throw new IndexOutOfBoundsException();
-		}
-		if (tagIdOffset < 0 || tagIdOffset + pathLength > tagIDs.size()) {
-			throw new IndexOutOfBoundsException();
-		}
-	}
+	public XArchADTPath(List<String> tagNames, List<String> tagElementNames, List<Integer> tagIndexes,
+			List<String> tagIDs) {
+		checkArgument(tagNames.size() == tagElementNames.size());
+		checkArgument(tagElementNames.size() == tagIndexes.size());
+		checkArgument(tagIndexes.size() == tagIDs.size());
 
-	public XArchADTPath(List<String> tagNames, List<Integer> tagIndexes, List<String> tagIDs) {
-		this(tagNames, 0, tagIndexes, 0, tagIDs, 0, tagNames.size());
-		if (tagIndexes.size() != pathLength || tagIDs.size() != pathLength) {
-			throw new IllegalArgumentException();
-		}
+		this.tagNames = Lists.newArrayList(tagNames);
+		this.tagElementNames = Lists.newArrayList(tagElementNames);
+		this.tagIndexes = Lists.newArrayList(tagIndexes);
+		this.tagIDs = Lists.newArrayList(tagIDs);
 	}
 
 	XArchADTPath(XArchADTPath XArchADTPath) {
-		this(XArchADTPath.tagNames, XArchADTPath.tagNameOffset, XArchADTPath.tagIndexes, XArchADTPath.tagIndexOffset,
-				XArchADTPath.tagIDs, XArchADTPath.tagIdOffset, XArchADTPath.pathLength);
+		this(XArchADTPath.tagNames, XArchADTPath.tagElementNames, XArchADTPath.tagIndexes, XArchADTPath.tagIDs);
 	}
 
 	/**
@@ -339,7 +310,7 @@ public class XArchADTPath implements java.io.Serializable {
 	 * @return XArchADTPath's length.
 	 */
 	public int getLength() {
-		return pathLength;
+		return tagNames.size();
 	}
 
 	/**
@@ -350,10 +321,8 @@ public class XArchADTPath implements java.io.Serializable {
 	 * @return name of tag at that segment
 	 */
 	public String getTagName(int index) {
-		if (index < 0 || index >= pathLength) {
-			throw new IndexOutOfBoundsException();
-		}
-		return tagNames.get(tagNameOffset + index);
+		checkPositionIndex(index, getLength());
+		return tagNames.get(index);
 	}
 
 	/**
@@ -361,14 +330,11 @@ public class XArchADTPath implements java.io.Serializable {
 	 * 
 	 * @param index
 	 *            Segment number
-	 * @return index of tag at that segment, or -1 if the index is not
-	 *         applicable
+	 * @return index of tag at that segment, or -1 if the index is not applicable
 	 */
 	public int getTagIndex(int index) {
-		if (index < 0 || index >= pathLength) {
-			throw new IndexOutOfBoundsException();
-		}
-		return tagIndexes.get(tagIndexOffset + index);
+		checkPositionIndex(index, getLength());
+		return tagIndexes.get(index);
 	}
 
 	/**
@@ -379,22 +345,23 @@ public class XArchADTPath implements java.io.Serializable {
 	 * @return ID of tag at that segment, or null if the index has no ID
 	 */
 	public String getTagID(int index) {
-		if (index < 0 || index >= pathLength) {
-			throw new IndexOutOfBoundsException();
-		}
-		return tagIDs.get(tagIdOffset + index);
+		checkPositionIndex(index, getLength());
+		return tagIDs.get(index);
 	}
 
-	public XArchADTPath subpath(int beginIndex) {
-		return subpath(beginIndex, pathLength);
+	public XArchADTPath subpath(int fromIndex) {
+		checkPositionIndex(fromIndex, getLength());
+		return subpath(fromIndex, getLength());
 	}
 
-	public XArchADTPath subpath(int beginIndex, int endIndex) {
-		if (beginIndex == 0 && endIndex == pathLength) {
+	public XArchADTPath subpath(int fromIndex, int toIndex) {
+		checkPositionIndex(fromIndex, getLength());
+		checkPositionIndex(toIndex, getLength());
+		if (fromIndex == 0 && toIndex == getLength()) {
 			return this;
 		}
-		return new XArchADTPath(tagNames, tagNameOffset + beginIndex, tagIndexes, tagIndexOffset + beginIndex, tagIDs,
-				tagIdOffset + beginIndex, endIndex - beginIndex);
+		return new XArchADTPath(tagNames.subList(fromIndex, toIndex), tagElementNames.subList(fromIndex, toIndex),
+				tagIndexes.subList(fromIndex, toIndex), tagIDs.subList(fromIndex, toIndex));
 	}
 
 	/**
@@ -405,26 +372,20 @@ public class XArchADTPath implements java.io.Serializable {
 	@Override
 	public String toString() {
 		if (stringString == null) {
-			int iN = tagNameOffset;
-			int iX = tagIndexOffset;
-			int iD = tagIdOffset;
-			int c = pathLength;
-
-			StringBuffer sb = new StringBuffer();
-			while (c-- > 0) {
-				String tagName = tagNames.get(iN++);
-				int tagIndex = tagIndexes.get(iX++);
-				String tagID = tagIDs.get(iD++);
-
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < getLength(); i++) {
+				String tagName = tagNames.get(i);
+				int tagIndex = tagIndexes.get(i);
+				String tagID = tagIDs.get(i);
+				if (i > 0) {
+					sb.append("/");
+				}
 				sb.append(escape(tagName));
 				if (tagID != null) {
 					sb.append(":id=" + escape(tagID));
 				}
 				else if (tagIndex != -1) {
 					sb.append(":" + tagIndex);
-				}
-				if (c > 0) {
-					sb.append("/");
 				}
 			}
 			stringString = sb.toString();
@@ -433,35 +394,21 @@ public class XArchADTPath implements java.io.Serializable {
 	}
 
 	/**
-	 * Converts this XArchADTPath into a string, stripping all information
-	 * except tag names.
+	 * Converts this XArchADTPath into a string, stripping all information except tag names.
 	 * 
 	 * @return String representation of this XArchADTPath with tag names only.
 	 */
 	public String toTagsOnlyString() {
 		if (tagsOnlyString == null) {
-			switch (pathLength) {
-			case 0:
-				tagsOnlyString = "";
-				break;
-			case 1:
-				tagsOnlyString = tagNames.get(tagNameOffset);
-				break;
-			default:
-				int iN = tagNameOffset;
-				int c = pathLength;
-
-				StringBuffer sb = new StringBuffer();
-				while (c-- > 0) {
-					String tagName = tagNames.get(iN++);
-
-					sb.append(escape(tagName));
-					if (c > 0) {
-						sb.append("/");
-					}
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < getLength(); i++) {
+				String tagName = tagNames.get(i);
+				if (i > 0) {
+					sb.append("/");
 				}
-				tagsOnlyString = sb.toString();
+				sb.append(escape(tagName));
 			}
+			tagsOnlyString = sb.toString();
 		}
 		return tagsOnlyString;
 	}
@@ -473,17 +420,11 @@ public class XArchADTPath implements java.io.Serializable {
 	 */
 	public String toDumpString() {
 		if (dumpString == null) {
-			int iN = tagNameOffset;
-			int iX = tagIndexOffset;
-			int iD = tagIdOffset;
-			int c = pathLength;
-
-			StringBuffer sb = new StringBuffer();
-			while (c-- > 0) {
-				String tagName = tagNames.get(iN++);
-				int tagIndex = tagIndexes.get(iX++);
-				String tagID = tagIDs.get(iD++);
-
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < getLength(); i++) {
+				String tagName = tagNames.get(i);
+				int tagIndex = tagIndexes.get(i);
+				String tagID = tagIDs.get(i);
 				sb.append(tagName);
 				sb.append(",");
 				if (tagID != null) {
@@ -503,9 +444,9 @@ public class XArchADTPath implements java.io.Serializable {
 	}
 
 	public List<String> getTagNames() {
-		if (externalTagNames == null) {
-			externalTagNames = Collections.unmodifiableList(new ArrayList<String>(tagNames));
+		if (readOnlyTagNames == null) {
+			readOnlyTagNames = Collections.unmodifiableList(tagNames);
 		}
-		return externalTagNames;
+		return readOnlyTagNames;
 	}
 }

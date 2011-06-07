@@ -45,7 +45,7 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 
 	public ArchEditEditor() {
 		super(ArchEditMyxComponent.class, ArchEditMyxComponent.EDITOR_NAME);
-		setBannerInfo(comp.getIcon(), "Syntax-Directed Architecture Editor");
+		setBannerInfo(brick.getIcon(), "Syntax-Directed Architecture Editor");
 		setHasBanner(true);
 	}
 

@@ -27,7 +27,7 @@ public class StructureEditDirectionLogic extends AbstractEditDirectionLogic{
 	public String getXArchID(IBNAView view, IThing t){
 		if(t instanceof EndpointGlassThing){
 			IThing parentThing = view.getWorld().getBNAModel().getParentThing(t);
-			return parentThing.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+			return parentThing.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 		}
 		return null;
 	}

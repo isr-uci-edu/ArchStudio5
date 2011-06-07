@@ -51,7 +51,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 		
 		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(view.getWorld().getBNAModel());
 
-		String archStructureXArchID = ept.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+		String archStructureXArchID = ept.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 		if(archStructureXArchID == null){
 			//Nothing to set description on
 			return new IAction[0];

@@ -12,4 +12,8 @@ public enum StickyMode {
 		this.dependsOnSecondaryPoint = dependsOnSecondaryPoint;
 		this.isStuckToCenterPoint = isStuckToCenterPoint;
 	}
+
+	public boolean isDependsOnSecondaryPoint() {
+		return dependsOnSecondaryPoint;
+	}
 }

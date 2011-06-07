@@ -73,7 +73,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic{
 			if(t instanceof RectangleGlassThing){
 				IThing pt = view.getWorld().getBNAModel().getParentThing(t);
 				if(pt != null){
-					String xArchID = pt.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+					String xArchID = pt.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 					if(xArchID != null){
 						outerRef = AS.xarch.getByID(documentRootRef, xArchID);
 					}

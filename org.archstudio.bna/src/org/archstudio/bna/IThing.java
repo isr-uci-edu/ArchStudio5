@@ -1,6 +1,5 @@
 package org.archstudio.bna;
 
-import java.util.Map;
 import java.util.Set;
 
 import org.archstudio.sysutils.TypedMap;
@@ -59,11 +58,13 @@ public interface IThing {
 
 	public boolean has(IThingKey<?> key);
 
+	public <V> boolean has(IThingKey<V> key, V value);
+
 	public <V> V remove(IThingKey<V> key);
 
 	public void synchronizedUpdate(Runnable r);
 
 	public Set<IThingKey<?>> keySet();
 
-	public Set<Map.Entry<IThingKey<?>, ?>> entrySet();
+	public int getModCount();
 }

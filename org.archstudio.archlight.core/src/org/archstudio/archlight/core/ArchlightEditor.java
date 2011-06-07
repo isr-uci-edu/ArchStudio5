@@ -40,12 +40,12 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 
 	public ArchlightEditor() {
 		super(ArchlightMyxComponent.class, ArchlightMyxComponent.EDITOR_NAME);
-		tests = comp.getTests();
-		tools = comp.getTools();
+		tests = brick.getTests();
+		tools = brick.getTools();
 
 		ArchlightUtils.initResources(resources);
 
-		setBannerInfo(comp.getIcon(), "Architecture Analysis Framework");
+		setBannerInfo(brick.getIcon(), "Architecture Analysis Framework");
 		setHasBanner(true);
 	}
 
