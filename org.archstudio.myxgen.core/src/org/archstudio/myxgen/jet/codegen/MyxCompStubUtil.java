@@ -10,20 +10,21 @@ import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxLifecycleProcessor;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
-import org.archstudio.myxgen.extension.BrickExtension;
+import org.archstudio.myxgen.extension.MyxGenBrick;
 import org.archstudio.myxgen.extension.EServiceObjectDelegate;
-import org.archstudio.myxgen.extension.InterfaceExtension;
+import org.archstudio.myxgen.extension.MyxGenExtensions;
+import org.archstudio.myxgen.extension.MyxGenInterface;
 import org.archstudio.sysutils.SystemUtils;
 
 public class MyxCompStubUtil {
 
-	public static String getImplementsClause(BrickExtension brick) {
+	public static String getImplementsClause(MyxGenBrick brick) {
 		Collection<String> classes = new HashSet<String>();
 
 		classes.add(IMyxDynamicBrick.class.getName());
 		classes.add(IMyxProvidedServiceProvider.class.getName());
 		classes.add(IMyxLifecycleProcessor.class.getName());
-		for (InterfaceExtension iface : brick.getInterfaces()) {
+		for (MyxGenInterface iface : brick.getInterfaces()) {
 			if (iface.getServiceObjectDelegate() == EServiceObjectDelegate.brick) {
 				classes.add(iface.getClassName());
 			}
@@ -32,7 +33,7 @@ public class MyxCompStubUtil {
 		return SystemUtils.join("implements ", ",", "", classes);
 	}
 
-	public static Iterable<String> getImports(BrickExtension brick) {
+	public static Iterable<String> getImports(MyxGenBrick brick) {
 		assert brick != null;
 
 		Collection<String> classes = new HashSet<String>();
@@ -41,7 +42,7 @@ public class MyxCompStubUtil {
 		classes.add(IMyxProvidedServiceProvider.class.getName());
 		classes.add(IMyxLifecycleProcessor.class.getName());
 		classes.add(IMyxBrickItems.class.getName());
-		for (InterfaceExtension iface : brick.getInterfaces()) {
+		for (MyxGenInterface iface : brick.getInterfaces()) {
 			classes.add(iface.getClassName());
 		}
 
@@ -49,20 +50,20 @@ public class MyxCompStubUtil {
 
 	}
 
-	public static String getExtendsClause(BrickExtension brick) {
+	public static String getExtendsClause(MyxGenBrick brick) {
 		checkNotNull(brick);
 
-		if (brick.getParentBrick() != null) {
-			return " extends " + brick.getParentBrick().getClassName();
+		if (brick.getParentBrickId() != null) {
+			return " extends " + MyxGenExtensions.getActiveMyxGenBrick(brick.getParentBrickId()).getClassName();
 		}
 		return " extends " + AbstractMyxSimpleBrick.class.getName();
 	}
 
-	public static String getServiceObjectName(InterfaceExtension iface) {
+	public static String getServiceObjectName(MyxGenInterface iface) {
 		return iface.getName();
 	}
 
-	public static String getConstantName(InterfaceExtension iface) {
+	public static String getConstantName(MyxGenInterface iface) {
 		StringBuilder sb = new StringBuilder(iface.getDirection().name() + "_");
 		for (char c : iface.getName().toCharArray()) {
 			if (Character.isUpperCase(c)) {
@@ -73,7 +74,7 @@ public class MyxCompStubUtil {
 		return sb.toString();
 	}
 
-	public static String getListener(InterfaceExtension iface) {
+	public static String getListener(MyxGenInterface iface) {
 
 		// TODO: implement Nobu's generated handlers
 

@@ -13,7 +13,7 @@ import org.archstudio.myx.fw.MyxBrickLoadFailedException;
 import org.archstudio.myx.fw.MyxBrickNotFoundException;
 import org.archstudio.myx.fw.MyxJavaClassBrickFactory;
 import org.archstudio.myx.fw.MyxUnsupportedBrickDescriptionException;
-import org.archstudio.myxgen.extension.BrickExtension;
+import org.archstudio.myxgen.extension.MyxGenBrick;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 
@@ -24,8 +24,8 @@ public class MyxGenEclipseBrickLoader implements IMyxBrickLoader {
 		public IMyxBrick create(IMyxName name, IMyxBrickDescription brickDescription,
 				IMyxBrickInitializationData initializationData) throws MyxBrickCreationException {
 			try {
-				BrickExtension brickExtension = (BrickExtension) brickDescription;
-				String bundleName = brickExtension.getPluginModel().getBundleDescription().getSymbolicName();
+				MyxGenBrick brickExtension = (MyxGenBrick) brickDescription;
+				String bundleName = brickExtension.getContributor().getName();
 				Bundle bundle = Platform.getBundle(bundleName);
 				String mainBrickClassName = brickExtension.getClassName();
 
@@ -41,7 +41,7 @@ public class MyxGenEclipseBrickLoader implements IMyxBrickLoader {
 	@Override
 	public IMyxBrickFactory load(IMyxBrickDescription brickDescription) throws MyxBrickNotFoundException,
 			MyxBrickLoadFailedException, MyxUnsupportedBrickDescriptionException {
-		return brickDescription instanceof BrickExtension ? factory : null;
+		return brickDescription instanceof MyxGenBrick ? factory : null;
 	}
 
 	@Override

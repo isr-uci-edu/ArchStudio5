@@ -55,7 +55,6 @@ MyxCodegen will generate abstract base classes that can be used as the basis for
          <sequence>
             <element ref="description" minOccurs="0" maxOccurs="1"/>
             <element ref="interface" minOccurs="0" maxOccurs="unbounded"/>
-            <element ref="parentBrick" minOccurs="0" maxOccurs="1"/>
          </sequence>
          <attribute name="id" type="string" use="required">
             <annotation>
@@ -97,7 +96,18 @@ MyxCodegen will generate abstract base classes that can be used as the basis for
          <attribute name="abstract" type="boolean">
             <annotation>
                <documentation>
+                  
                </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="parentBrick" type="string">
+            <annotation>
+               <documentation>
+                  The parent brick id that will be extended. When this attribute is specified, MyxCodegen will include all the Brick interfaces of the parent (and its ancestors).
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="identifier" basedOn="org.archstudio.myxgen.brick/brick/@id"/>
+               </appinfo>
             </annotation>
          </attribute>
       </complexType>
@@ -129,6 +139,21 @@ MyxCodegen will generate abstract base classes that can be used as the basis for
                   The name of this interface. The name will be used as a java variable in the generated code and must be unique in the brick.
                </documentation>
             </annotation>
+         </attribute>
+         <attribute name="domain">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="top">
+                  </enumeration>
+                  <enumeration value="bottom">
+                  </enumeration>
+               </restriction>
+            </simpleType>
          </attribute>
          <attribute name="direction" use="required">
             <annotation>
@@ -184,9 +209,11 @@ MyxCodegen will generate abstract base classes that can be used as the basis for
                <restriction base="string">
                   <enumeration value="variable">
                   </enumeration>
+                  <enumeration value="brick">
+                  </enumeration>
                   <enumeration value="events">
                   </enumeration>
-                  <enumeration value="brick">
+                  <enumeration value="myxRegistry">
                   </enumeration>
                   <enumeration value="none">
                   </enumeration>
@@ -222,26 +249,6 @@ MyxCodegen will generate abstract base classes that can be used as the basis for
             Human readable description.
          </documentation>
       </annotation>
-   </element>
-
-   <element name="parentBrick">
-      <annotation>
-         <documentation>
-            Optional brick to be extended.
-         </documentation>
-      </annotation>
-      <complexType>
-         <attribute name="parentBrick" type="string">
-            <annotation>
-               <documentation>
-                  The parent brick id that will be extended. When this attribute is specified, MyxCodegen will include all the Brick interfaces of the parent (and its ancestors).
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="identifier" basedOn="org.archstudio.myxgen.brick/brick/@id"/>
-               </appinfo>
-            </annotation>
-         </attribute>
-      </complexType>
    </element>
 
    <annotation>

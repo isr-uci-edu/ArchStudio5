@@ -77,6 +77,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 import com.google.common.collect.Sets;
 
+@SuppressWarnings("restriction")
 public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	public static final String XADL3_SCHEMA_NATURE_ID = "org.archstudio.dblgen.xadl3SchemaNature";
 
@@ -562,7 +563,6 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	//projectName = e.g., "org.archstudio.xadl3bindings"
-	@SuppressWarnings("restriction")
 	public synchronized List<DataBindingGenerationStatus> generateBindings(List<String> schemaURIStrings,
 			List<Xadl3SchemaLocation> schemaLocations, final String projectName) {
 		List<DataBindingGenerationStatus> statusList = new ArrayList<DataBindingGenerationStatus>();

@@ -1,7 +1,7 @@
 package org.archstudio.myxgen.extension;
 
 public enum EServiceObjectDelegate {
-	none(false, false), variable(true, false), events(true, true), brick(false, false);
+	variable(true, false), brick(false, false), events(true, true), myxRegistry(false, true), none(false, false);
 
 	protected final boolean needsVariable;
 	protected final boolean needsProxy;

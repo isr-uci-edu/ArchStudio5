@@ -3,20 +3,20 @@ package org.archstudio.myxgen.extension;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.pde.core.plugin.IPluginModelBase;
+import org.eclipse.core.runtime.IContributor;
 
 public abstract class AbstractExtension {
 
-	protected final IPluginModelBase pluginModel;
+	protected final IContributor contributor;
 	protected final String id;
 
-	public AbstractExtension(IPluginModelBase pluginModel, IConfigurationElement element) {
-		this.pluginModel = checkNotNull(pluginModel);
+	public AbstractExtension(IConfigurationElement element) {
+		this.contributor = checkNotNull(element.getContributor());
 		this.id = checkNotNull(element.getAttribute("id"));
 	}
 
-	public IPluginModelBase getPluginModel() {
-		return pluginModel;
+	public IContributor getContributor() {
+		return contributor;
 	}
 
 	public String getId() {

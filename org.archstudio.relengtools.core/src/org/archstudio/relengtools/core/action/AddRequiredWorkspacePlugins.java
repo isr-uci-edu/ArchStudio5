@@ -2,7 +2,7 @@ package org.archstudio.relengtools.core.action;
 
 import java.util.Arrays;
 
-import org.archstudio.eclipse.action.AbstractObjectActionDelegate;
+import org.archstudio.eclipse.ui.actions.AbstractObjectActionDelegate;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.action.IAction;

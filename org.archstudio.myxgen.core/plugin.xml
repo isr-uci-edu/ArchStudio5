@@ -91,10 +91,11 @@
                class="org.archstudio.myxgen.IMyxStubGenerator"
                delegate="variable"
                direction="in"
+               domain="bottom"
                getter="true"
                id="myxgen"
-               single="true"
-               name="myxgen">
+               name="myxgen"
+               single="true">
          </interface>
       </brick>
    </extension>

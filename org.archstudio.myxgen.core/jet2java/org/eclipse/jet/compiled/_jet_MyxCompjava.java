@@ -35,7 +35,7 @@ public class _jet_MyxCompjava implements JET2Template {
         _jettag_java_merge_5_1.doEnd();
         out.write(NL);         
  
-	BrickExtension brick = (BrickExtension)context.getVariable(BrickExtension.class.getName());
+	MyxGenBrick brick = (MyxGenBrick)context.getVariable(MyxGenBrick.class.getName());
 	String packageName = TextUtil.getPackagePart(brick.getClassName());
 	String className = TextUtil.getClassPart(brick.getClassName());
 
@@ -80,7 +80,7 @@ if(brick.getDescription() != null){
         out.write(" {");  //$NON-NLS-1$        
         out.write(NL);         
         out.write(NL);         
-for(InterfaceExtension iface : brick.getInterfaces()) {
+for(MyxGenInterface iface : brick.getInterfaces()) {
 switch(iface.getServiceObjectDelegate()){
 case brick:
 if(!iface.isSingle()){

@@ -32,8 +32,8 @@ public class MyxBasicRuntime implements IMyxRuntime, IMyxClassManager {
 			// addAppClassLoader(this.getClass().getClassLoader());
 			classManagers.add(new ClassManagerEntry(MyxUtils.createName(DefaultClassManager.class.getName()),
 					new DefaultClassManager()));
-			addBrickLoader(MyxUtils.createName(MyxJavaClassBrickLoader.class.getName()),
-					MyxJavaClassBrickLoader.class.getName(), null);
+			addBrickLoader(MyxUtils.createName(MyxJavaClassBrickLoader.class.getName()), MyxJavaClassBrickLoader.class,
+					null);
 		}
 		catch (MyxBrickLoaderException mble) {
 			throw new RuntimeException("This shouldn't happen.");
@@ -77,10 +77,9 @@ public class MyxBasicRuntime implements IMyxRuntime, IMyxClassManager {
 	}
 
 	@Override
-	public void addBrickLoader(IMyxName loaderName, String className, Properties initParams)
-			throws MyxBrickLoaderException {
+	public void addBrickLoader(IMyxName loaderName, Class<? extends IMyxBrickLoader> brickLoaderClass,
+			Properties initParams) throws MyxBrickLoaderException {
 		try {
-			Class<?> brickLoaderClass = classForName(className);
 			IMyxBrickLoader loader = null;
 			if (initParams == null) {
 				Constructor<?> constructor = brickLoaderClass.getConstructor(new Class[0]);
@@ -98,9 +97,6 @@ public class MyxBasicRuntime implements IMyxRuntime, IMyxClassManager {
 			BrickLoaderEntry ble = new BrickLoaderEntry(loaderName, loader);
 			brickLoaders.add(ble);
 		}
-		catch (ClassNotFoundException cnfe) {
-			throw new MyxBrickLoaderException(cnfe);
-		}
 		catch (NoSuchMethodException nsme) {
 			throw new MyxBrickLoaderException(nsme);
 		}
@@ -116,10 +112,9 @@ public class MyxBasicRuntime implements IMyxRuntime, IMyxClassManager {
 	}
 
 	@Override
-	public void addClassManager(IMyxName classManagerName, String className, Properties initParams)
-			throws MyxClassManagerException {
+	public void addClassManager(IMyxName classManagerName, Class<? extends IMyxClassManager> classManagerClass,
+			Properties initParams) throws MyxClassManagerException {
 		try {
-			Class<?> classManagerClass = classForName(className);
 			IMyxClassManager classManager = null;
 			if (initParams == null) {
 				Constructor<?> constructor = classManagerClass.getConstructor(new Class[0]);
@@ -134,9 +129,6 @@ public class MyxBasicRuntime implements IMyxRuntime, IMyxClassManager {
 
 			ClassManagerEntry cme = new ClassManagerEntry(classManagerName, classManager);
 			classManagers.add(cme);
-		}
-		catch (ClassNotFoundException cnfe) {
-			throw new MyxClassManagerException(cnfe);
 		}
 		catch (NoSuchMethodException nsme) {
 			throw new MyxClassManagerException(nsme);
