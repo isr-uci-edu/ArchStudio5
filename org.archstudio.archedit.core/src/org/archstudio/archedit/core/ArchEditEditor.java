@@ -3,16 +3,14 @@ package org.archstudio.archedit.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.archstudio.editors.AbstractArchstudioEditor;
-import org.archstudio.editors.AbstractArchstudioOutlinePage;
-import org.archstudio.main.ArchStudio5Activator;
+import org.archstudio.eclipse.ui.editors.AbstractArchStudioEditor;
+import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.AutoResizeTableLayout;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.IXArchADTFeature;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ICellModifier;
@@ -41,29 +39,21 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.ISharedImages;
-import org.osgi.framework.BundleException;
 
-public class ArchEditEditor extends AbstractArchstudioEditor {
+public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponent> {
 	public static final String[] COLUMN_NAMES = new String[] { "Name", "Value" };
 
 	public ArchEditEditor() {
 		super(ArchEditMyxComponent.class, ArchEditMyxComponent.EDITOR_NAME);
-		setBannerInfo(((ArchEditMyxComponent) comp).getIcon(), "Syntax-Directed Architecture Editor");
+		setBannerInfo(comp.getIcon(), "Syntax-Directed Architecture Editor");
 		setHasBanner(true);
 	}
 
-	protected AbstractArchstudioOutlinePage createOutlinePage() {
+	protected AbstractArchStudioOutlinePage createOutlinePage() {
 		return new ArchEditOutlinePage(xarch, documentRootRef, resources);
 	}
 
 	public void createEditorContents(Composite parent) {
-		try {
-			Platform.getBundle(ArchStudio5Activator.PLUGIN_ID).start();
-		}
-		catch (BundleException be) {
-			throw new RuntimeException(be);
-		}
-
 		List<INodeInfo> selectedNodeInfos = null;
 		if (outlinePage != null) {
 			selectedNodeInfos = ((ArchEditOutlinePage) outlinePage).getSelectedNodeInfos();
@@ -113,7 +103,8 @@ public class ArchEditEditor extends AbstractArchstudioEditor {
 						lNoAttributes.setText("This element has no attributes.");
 					}
 					else {
-						TableViewer tv = new TableViewer(parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION | SWT.NO_FOCUS);
+						TableViewer tv = new TableViewer(parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION
+								| SWT.NO_FOCUS);
 						tv.setContentProvider(new ViewContentProvider());
 						tv.setLabelProvider(new ViewLabelProvider());
 						tv.setInput(selectedRef);
@@ -297,8 +288,8 @@ public class ArchEditEditor extends AbstractArchstudioEditor {
 		c.pack();
 
 		DragSource[] sources = new DragSource[] {
-		//new DragSource(il, DND.DROP_MOVE | DND.DROP_COPY),
-		        new DragSource(l, DND.DROP_MOVE | DND.DROP_COPY), new DragSource(c, DND.DROP_MOVE | DND.DROP_COPY), };
+				//new DragSource(il, DND.DROP_MOVE | DND.DROP_COPY),
+				new DragSource(l, DND.DROP_MOVE | DND.DROP_COPY), new DragSource(c, DND.DROP_MOVE | DND.DROP_COPY), };
 
 		final ObjRef fParentRef = referenceNodeInfo.getParentRef();
 		final String fFeatureName = referenceNodeInfo.getFeatureName();
@@ -319,7 +310,8 @@ public class ArchEditEditor extends AbstractArchstudioEditor {
 
 				public void dragSetData(DragSourceEvent event) {
 					if (TextTransfer.getInstance().isSupportedType(event.dataType)) {
-						event.data = "$LINK$" + xarch.getPath(fParentRef).toString() + "#" + fFeatureName + ((fIsMultiple ? (":" + fIndex) : ""));
+						event.data = "$LINK$" + xarch.getPath(fParentRef).toString() + "#" + fFeatureName
+								+ ((fIsMultiple ? (":" + fIndex) : ""));
 					}
 				}
 

@@ -1,17 +1,16 @@
 package org.archstudio.testadt.core;
 
 /**
- * Myx brick: "org.archstudio.testadt.core.Archlight Test ADT Impl"
- * 
+ * Myx brick: "Archlight Test ADT Impl"
+ *
  * @see org.archstudio.testadt.core.ArchlightTestADTMyxComponentStub
  * @generated
  */
-public class ArchlightTestADTMyxComponent extends
-		org.archstudio.testadt.core.ArchlightTestADTMyxComponentStub {
+public class ArchlightTestADTMyxComponent extends org.archstudio.testadt.core.ArchlightTestADTMyxComponentStub {
 
 	@Override
 	public void init() {
 		tests = new ArchlightTestADT();
-		((ArchlightTestADT) tests).addArchlightTestADTListener(testEvents);
+		((ArchlightTestADT) tests).addArchlightTestADTListener(testEventsProxy);
 	}
 }

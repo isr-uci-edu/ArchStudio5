@@ -2,9 +2,10 @@ package org.archstudio.archedit.core;
 
 import java.io.IOException;
 
-import org.archstudio.EclipseUtils;
+import org.archstudio.eclipse.ui.EclipseUtils;
 import org.archstudio.launcher.ILaunchData;
 import org.archstudio.launcher.LaunchData;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -13,16 +14,11 @@ import org.eclipse.swt.graphics.Image;
  * @see org.archstudio.archedit.core.ArchEditMyxComponentStub
  * @generated
  */
-public class ArchEditMyxComponent extends
-		org.archstudio.archedit.core.ArchEditMyxComponentStub {
+public class ArchEditMyxComponent extends org.archstudio.archedit.core.ArchEditMyxComponentStub {
 	public static final String EDITOR_NAME = "ArchEdit";
 	public static final String ECLIPSE_EDITOR_ID = "org.archstudio.archedit.core.ArchEditEditor";
 
-	public static final String URL_BASE = "platform:/plugin/org.archstudio.archedit.core/";
-
 	public static final String IMAGE_ARCHEDIT_ICON = "archedit:icon";
-	public static final String URL_ARCHEDIT_ICON = URL_BASE
-			+ "res/archedit-icon-32.gif";
 
 	public ArchEditMyxComponent() {
 		super(EDITOR_NAME, ECLIPSE_EDITOR_ID, true);
@@ -34,8 +30,9 @@ public class ArchEditMyxComponent extends
 		if (!resourcesCreated) {
 			try {
 				resources.createImage(IMAGE_ARCHEDIT_ICON,
-						EclipseUtils.getBytes(URL_ARCHEDIT_ICON));
-			} catch (IOException ioe) {
+						SystemUtils.blt(ArchEditMyxComponent.class.getResourceAsStream("res/archedit-icon-32.gif")));
+			}
+			catch (IOException ioe) {
 				ioe.printStackTrace();
 				throw new RuntimeException("This shouldn't happen.");
 			}
@@ -43,10 +40,8 @@ public class ArchEditMyxComponent extends
 		}
 	}
 
-	@Override
 	public ILaunchData getLaunchData() {
-		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME,
-				"A syntax-directed editor for architecture descriptions",
+		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME, "A syntax-directed editor for architecture descriptions",
 				getIcon(), ILaunchData.LaunchType.EDITOR);
 	}
 

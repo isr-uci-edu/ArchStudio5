@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.archstudio.main.ArchStudio5Activator;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
@@ -16,7 +15,6 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -28,7 +26,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
-import org.osgi.framework.BundleException;
 
 public class NewFileWizard extends Wizard implements INewWizard {
 	private final MyxRegistry er = MyxRegistry.getSharedInstance();
@@ -46,13 +43,6 @@ public class NewFileWizard extends Wizard implements INewWizard {
 
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		try {
-			Platform.getBundle(ArchStudio5Activator.PLUGIN_ID).start();
-		}
-		catch (BundleException be) {
-			throw new RuntimeException(be);
-		}
-
 		comp = (FileManagerMyxComponent) er.waitForBrick(FileManagerMyxComponent.class);
 		er.map(comp, this);
 		xarch = comp.xarch;

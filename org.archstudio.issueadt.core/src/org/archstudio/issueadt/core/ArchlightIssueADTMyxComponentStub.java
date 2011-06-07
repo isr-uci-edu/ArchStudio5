@@ -19,12 +19,9 @@ import org.archstudio.issueadt.core.ArchlightIssueADT;
  * @generated
  */
 @SuppressWarnings("unused")
-public abstract class ArchlightIssueADTMyxComponentStub extends
-		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
-		org.archstudio.xarchadt.IXArchADTFileListener,
-		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
+abstract class ArchlightIssueADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
+		org.archstudio.xarchadt.IXArchADTFileListener, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
 	 * @generated
@@ -52,15 +49,13 @@ public abstract class ArchlightIssueADTMyxComponentStub extends
 	 *
 	 * @generated
 	 */
-	public static final IMyxName OUT_ISSUE_EVENTS = MyxUtils
-			.createName("issueEvents");
+	public static final IMyxName OUT_ISSUE_EVENTS = MyxUtils.createName("issueEvents");
 	/**
 	 * Myx interface fileEvents: <code>IN_FILE_EVENTS</code>
 	 *
 	 * @generated
 	 */
-	public static final IMyxName IN_FILE_EVENTS = MyxUtils
-			.createName("fileEvents");
+	public static final IMyxName IN_FILE_EVENTS = MyxUtils.createName("fileEvents");
 	/**
 	 * Myx interface issues: <code>IN_ISSUES</code>
 	 *
@@ -74,6 +69,30 @@ public abstract class ArchlightIssueADTMyxComponentStub extends
 	 * @generated
 	 */
 	protected org.archstudio.issueadt.ArchlightIssueADTListener issueEvents = null;
+	/**
+	 * Service object proxy for the issueEvents interface.
+	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
+	 *
+	 * @see #OUT_ISSUE_EVENTS
+	 * @generated
+	 */
+	protected final org.archstudio.issueadt.ArchlightIssueADTListener issueEventsProxy = (org.archstudio.issueadt.ArchlightIssueADTListener) Proxy
+			.newProxyInstance(org.archstudio.issueadt.ArchlightIssueADTListener.class.getClassLoader(),
+					new Class[] { org.archstudio.issueadt.ArchlightIssueADTListener.class }, new InvocationHandler() {
+						@Override
+						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+							org.archstudio.issueadt.ArchlightIssueADTListener o = issueEvents;
+							if (o != null) {
+								try {
+									method.invoke(o, args);
+								}
+								catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+							return null;
+						}
+					});
 	/**
 	 * Service object(s) for issues: <code>issues</code>
 	 *
@@ -122,23 +141,19 @@ public abstract class ArchlightIssueADTMyxComponentStub extends
 		}
 		if (interfaceName.equals(OUT_ISSUE_EVENTS)) {
 			if (issueEvents != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			issueEvents = (org.archstudio.issueadt.ArchlightIssueADTListener) serviceObject;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: "
-				+ interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -146,16 +161,14 @@ public abstract class ArchlightIssueADTMyxComponentStub extends
 			issueEvents = null;
 			return;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
@@ -172,7 +185,6 @@ public abstract class ArchlightIssueADTMyxComponentStub extends
 			}
 			return issues;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}
 }

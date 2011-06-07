@@ -26,8 +26,8 @@ public class ArchlightToolAggregatorMyxComponent extends
 
 	@Override
 	public void reloadTests() {
-		if (archlightTools != null) {
-			archlightTools.reloadTests();
+		if (tools != null) {
+			tools.reloadTests();
 		}
 	}
 
@@ -43,15 +43,16 @@ public class ArchlightToolAggregatorMyxComponent extends
 		runningTests = true;
 		final ObjRef fdocumentRef = documentRef;
 		final Collection<String> ftestUIDs = testUIDs;
-		if (archlightTools != null) {
+		if (tools != null) {
 			Job job = new Job("Running Archlight Tests") {
 				@Override
 				protected IStatus run(IProgressMonitor monitor) {
 					try {
 						progressMonitor = monitor;
-						archlightTools.runTests(fdocumentRef, ftestUIDs);
+						tools.runTests(fdocumentRef, ftestUIDs);
 						return Status.OK_STATUS;
-					} finally {
+					}
+					finally {
 						runningTests = false;
 					}
 				}
@@ -62,14 +63,13 @@ public class ArchlightToolAggregatorMyxComponent extends
 		}
 	}
 
-	public void callProgress(int calleeNum, int totalCallees,
-			Object returnValue, Throwable exception) {
+	public void callProgress(int calleeNum, int totalCallees, Object returnValue, Throwable exception) {
 		IProgressMonitor lprogressMonitor = progressMonitor;
 		if (lprogressMonitor != null) {
 			if (calleeNum == 0) {
-				lprogressMonitor.beginTask("Running Archlight Tests",
-						totalCallees);
-			} else {
+				lprogressMonitor.beginTask("Running Archlight Tests", totalCallees);
+			}
+			else {
 				lprogressMonitor.worked(calleeNum);
 			}
 			if (calleeNum == totalCallees) {

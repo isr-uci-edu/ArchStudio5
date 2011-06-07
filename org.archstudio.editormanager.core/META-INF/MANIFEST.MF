@@ -7,8 +7,7 @@ Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.editormanager.core
 Manifest-Version: 1.0
 Require-Bundle: org.archstudio.editormanager,
- org.archstudio.editors,
- org.archstudio.main,
+ org.archstudio.eclipse.ui,
  org.archstudio.myx.fw,
  org.archstudio.myxgen,
  org.archstudio.xarchadt,

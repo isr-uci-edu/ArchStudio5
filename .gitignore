@@ -1,4 +1,5 @@
 /.metadata/
+/External\ Plug-in\ Libraries/
 .svn/
 /*/bin/
 /*/.settings/
@@ -6,3 +7,4 @@
 /*/*.genmodel
 /*/*.xsd2ecore
 /*/*.ecore
+*.xadl3.*/src

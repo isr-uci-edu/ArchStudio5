@@ -2,6 +2,8 @@ package org.archstudio.aim;
 
 public class ArchitectureInstantiationException extends Exception{
 
+	private static final long serialVersionUID = -6637570158761349458L;
+
 	public ArchitectureInstantiationException(){
 		super();
 	}

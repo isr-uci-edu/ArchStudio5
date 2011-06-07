@@ -7,7 +7,7 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasPoints;
-import org.archstudio.bna.things.shapes.BoxThing;
+import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAWorld;
@@ -34,9 +34,9 @@ public class MirrorValueLogicTest {
 
 	@Test
 	public void mirrorRectangle() {
-		BoxThing b1 = model.addThing(new BoxThing(null));
-		BoxThing b2 = model.addThing(new BoxThing(null));
-		BoxThing b3 = model.addThing(new BoxThing(null));
+		RectangleThing b1 = model.addThing(new RectangleThing(null));
+		RectangleThing b2 = model.addThing(new RectangleThing(null));
+		RectangleThing b3 = model.addThing(new RectangleThing(null));
 
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 		mvl.mirrorValue(b1, IHasBoundingBox.BOUNDING_BOX_KEY, b2);

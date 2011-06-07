@@ -116,11 +116,11 @@ public class Main {
 		ObjRef brickRef = xarch.create(Structure_3_0Package.eNS_URI, typeOfBrick);
 		xarch.set(brickRef, "id", toID(name));
 		xarch.set(brickRef, "name", name);
-
+		for (ObjRef ifaceRef : ifaceRefs) {
+			xarch.set(ifaceRef, "id", toID(name) + "_" + xarch.get(ifaceRef, "id"));
+		}
 		xarch.add(brickRef, "interface", Arrays.asList(ifaceRefs));
-
 		xarch.add(brickRef, "ext", createImplementationExt(createMyxGenImplementation(javaClass)));
-
 		return brickRef;
 	}
 
@@ -143,7 +143,7 @@ public class Main {
 		ifaceRefs.add(createInterface("fileManagerEvents", Direction.IN, DomainType.TOP,
 				org.archstudio.filemanager.IFileManagerListener.class));
 		ifaceRefs.add(createInterface("focusEditorEvents", Direction.IN, DomainType.TOP,
-				org.archstudio.editors.IFocusEditorListener.class));
+				org.archstudio.eclipse.ui.IFocusEditorListener.class));
 		ifaceRefs.add(createInterface("resources", Direction.OUT, DomainType.TOP,
 				org.archstudio.resources.IResources.class));
 		ifaceRefs.add(createInterface("fileManager", Direction.OUT, DomainType.TOP,
@@ -334,7 +334,7 @@ public class Main {
 						createInterface("preferences", Direction.OUT, DomainType.TOP,
 								org.eclipse.jface.preference.IPreferenceStore.class),
 						createInterface("focusEditorEvents", Direction.OUT, DomainType.BOTTOM,
-								org.archstudio.editors.IFocusEditorListener.class)));
+								org.archstudio.eclipse.ui.IFocusEditorListener.class)));
 
 		xarch.add(
 				structureRef,
@@ -465,7 +465,7 @@ public class Main {
 				structureRef,
 				"connector",
 				createDownwardEventPumpConnector("FocusEditorEventPump",
-						org.archstudio.editors.IFocusEditorListener.class));
+						org.archstudio.eclipse.ui.IFocusEditorListener.class));
 
 		xarch.add(
 				structureRef,
@@ -865,21 +865,21 @@ public class Main {
 		xarch.add(
 				structureRef,
 				"link",
-				createLink(getInterfaceRef(structureRef, "IssueADT", "issues"),
+				createLink(getInterfaceRef(structureRef, "IssueADT", "issueEvents"),
 						getInterfaceRef(structureRef, "IssueADTEventPump", "in")));
 
 		//  NoticeADT
 		xarch.add(
 				structureRef,
 				"link",
-				createLink(getInterfaceRef(structureRef, "NoticeADT", "notices"),
+				createLink(getInterfaceRef(structureRef, "NoticeADT", "noticeEvents"),
 						getInterfaceRef(structureRef, "NoticeADTEventPump", "in")));
 
 		//  TestADT
 		xarch.add(
 				structureRef,
 				"link",
-				createLink(getInterfaceRef(structureRef, "TestADT", "tests"),
+				createLink(getInterfaceRef(structureRef, "TestADT", "testEvents"),
 						getInterfaceRef(structureRef, "TestADTEventPump", "in")));
 
 		//  IssueView

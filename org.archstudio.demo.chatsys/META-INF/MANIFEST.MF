@@ -8,5 +8,4 @@ Export-Package: org.archstudio.demo.chatsys,
  org.archstudio.demo.chatsys.client,
  org.archstudio.demo.chatsys.server
 Manifest-Version: 1.0
-Require-Bundle: org.archstudio.myx,
- org.archstudio.myx.fw
+Require-Bundle: org.archstudio.myx.fw

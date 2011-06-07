@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Myx Eclipse Utilities
+Bundle-SymbolicName: org.archstudio.myx.eclipse
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.archstudio.myx.eclipse.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.archstudio.myx.fw,
+ org.archstudio.eclipse;bundle-version="5.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.archstudio.myx.eclipse

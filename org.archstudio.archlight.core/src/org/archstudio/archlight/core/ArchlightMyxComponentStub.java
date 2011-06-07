@@ -10,79 +10,54 @@ import org.archstudio.testadt.IArchlightTestADT;
 import org.archstudio.archlight.IArchlightTool;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
-import org.archstudio.myx.fw.IMyxName;
-import org.archstudio.myx.fw.MyxRegistry;
 
 /**
  * Abstract Myx brick: "Archlight Impl"
- * 
+ *
  * @generated
  */
 @SuppressWarnings("unused")
-public abstract class ArchlightMyxComponentStub extends
-		org.archstudio.editors.AbstractArchstudioEditorMyxComponent implements
-		org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+/* package */abstract class ArchlightMyxComponentStub extends
+		org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
-	protected ArchlightMyxComponentStub(String editorName,
-			String eclipseEditorID, boolean registerWithEditorManager) {
+	public ArchlightMyxComponentStub(String editorName, String eclipseEditorID, boolean registerWithEditorManager) {
 		super(editorName, eclipseEditorID, registerWithEditorManager);
 	}
 
 	/**
-	 * @generated
-	 */
-	protected final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
-
-	/**
-	 * @generated
-	 */
-	@Override
-	public void begin() {
-		super.begin();
-		myxRegistry.register(this);
-	}
-
-	/**
-	 * @generated
-	 */
-	@Override
-	public void end() {
-		myxRegistry.unregister(this);
-		super.end();
-	}
-
-	/**
-	 * Myx interface tools: <code>OUT_TOOLS</code>
+	 * Myx name for the <code>tools</code> interface.
 	 *
+	 * MyxGenInterface[name=tools,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.archlight.IArchlightTool,description=null]
 	 * @generated
 	 */
 	public static final IMyxName OUT_TOOLS = MyxUtils.createName("tools");
 	/**
-	 * Myx interface testADT: <code>OUT_TEST_A_D_T</code>
+	 * Myx name for the <code>tests</code> interface.
 	 *
+	 * MyxGenInterface[name=tests,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.testadt.IArchlightTestADT,description=null]
 	 * @generated
 	 */
-	public static final IMyxName OUT_TEST_A_D_T = MyxUtils
-			.createName("testADT");
+	public static final IMyxName OUT_TESTS = MyxUtils.createName("tests");
+
 	/**
-	 * Service object(s) for tools: <code>tools</code>
+	 * Service object(s) for the tools interface.
 	 *
 	 * @see #OUT_TOOLS
 	 * @generated
 	 */
 	protected org.archstudio.archlight.IArchlightTool tools = null;
 	/**
-	 * Service object(s) for testADT: <code>testADT</code>
+	 * Service object(s) for the tests interface.
 	 *
-	 * @see #OUT_TEST_A_D_T
+	 * @see #OUT_TESTS
 	 * @generated
 	 */
-	protected org.archstudio.testadt.IArchlightTestADT testADT = null;
+	protected org.archstudio.testadt.IArchlightTestADT tests = null;
 
 	/**
-	 * Returns the service object(s) for <code>tools</code>
+	 * Returns the service object(s) for the <code>tools</code> interface.
 	 *
 	 * @see #OUT_TOOLS
 	 * @generated
@@ -92,13 +67,13 @@ public abstract class ArchlightMyxComponentStub extends
 	}
 
 	/**
-	 * Returns the service object(s) for <code>testADT</code>
+	 * Returns the service object(s) for the <code>tests</code> interface.
 	 *
-	 * @see #OUT_TEST_A_D_T
+	 * @see #OUT_TESTS
 	 * @generated
 	 */
-	public org.archstudio.testadt.IArchlightTestADT getTestADT() {
-		return testADT;
+	public org.archstudio.testadt.IArchlightTestADT getTests() {
+		return tests;
 	}
 
 	/**
@@ -111,20 +86,16 @@ public abstract class ArchlightMyxComponentStub extends
 		}
 		if (interfaceName.equals(OUT_TOOLS)) {
 			if (tools != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			tools = (org.archstudio.archlight.IArchlightTool) serviceObject;
 			return;
 		}
-		if (interfaceName.equals(OUT_TEST_A_D_T)) {
-			if (testADT != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+		if (interfaceName.equals(OUT_TESTS)) {
+			if (tests != null) {
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
-			testADT = (org.archstudio.testadt.IArchlightTestADT) serviceObject;
+			tests = (org.archstudio.testadt.IArchlightTestADT) serviceObject;
 			return;
 		}
 		super.interfaceConnected(interfaceName, serviceObject);
@@ -134,8 +105,7 @@ public abstract class ArchlightMyxComponentStub extends
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -143,8 +113,8 @@ public abstract class ArchlightMyxComponentStub extends
 			tools = null;
 			return;
 		}
-		if (interfaceName.equals(OUT_TEST_A_D_T)) {
-			testADT = null;
+		if (interfaceName.equals(OUT_TESTS)) {
+			tests = null;
 			return;
 		}
 		super.interfaceDisconnecting(interfaceName, serviceObject);
@@ -154,8 +124,7 @@ public abstract class ArchlightMyxComponentStub extends
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 		super.interfaceDisconnected(interfaceName, serviceObject);
 	}
 

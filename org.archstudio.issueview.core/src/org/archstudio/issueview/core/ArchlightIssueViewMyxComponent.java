@@ -6,7 +6,6 @@ package org.archstudio.issueview.core;
  * @see org.archstudio.issueview.core.ArchlightIssueViewMyxComponentStub
  * @generated
  */
-public class ArchlightIssueViewMyxComponent extends
-		org.archstudio.issueview.core.ArchlightIssueViewMyxComponentStub {
+public class ArchlightIssueViewMyxComponent extends org.archstudio.issueview.core.ArchlightIssueViewMyxComponentStub {
 
 }

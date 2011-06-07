@@ -18,10 +18,8 @@ import org.archstudio.myx.fw.IMyxRuntime;
  * @generated
  */
 @SuppressWarnings("unused")
-public abstract class AIMMyxComponentStub extends
-		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -56,8 +54,7 @@ public abstract class AIMMyxComponentStub extends
 	 *
 	 * @generated
 	 */
-	public static final IMyxName OUT_MYX_RUNTIME = MyxUtils
-			.createName("myxRuntime");
+	public static final IMyxName OUT_MYX_RUNTIME = MyxUtils.createName("myxRuntime");
 	/**
 	 * Myx interface xarch: <code>OUT_XARCH</code>
 	 *
@@ -127,32 +124,26 @@ public abstract class AIMMyxComponentStub extends
 		}
 		if (interfaceName.equals(OUT_MYX_RUNTIME)) {
 			if (myxRuntime != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			myxRuntime = (org.archstudio.myx.fw.IMyxRuntime) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_XARCH)) {
 			if (xarch != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			xarch = (org.archstudio.xarchadt.IXArchADT) serviceObject;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: "
-				+ interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -164,16 +155,14 @@ public abstract class AIMMyxComponentStub extends
 			xarch = null;
 			return;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
@@ -187,7 +176,6 @@ public abstract class AIMMyxComponentStub extends
 			}
 			return aim;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}
 }

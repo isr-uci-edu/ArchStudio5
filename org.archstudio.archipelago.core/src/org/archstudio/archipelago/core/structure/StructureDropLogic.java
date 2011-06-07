@@ -12,7 +12,7 @@ import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.things.glass.BoxGlassThing;
+import org.archstudio.bna.things.glass.RectangleGlassThing;
 
 public class StructureDropLogic extends AbstractTreeDropLogic{
 	public StructureDropLogic(ArchipelagoServices services, ObjRef documentRootRef){
@@ -24,7 +24,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic{
 			//This is a drop on nothing...just return.
 			return false;
 		}
-		else if(t instanceof BoxGlassThing){
+		else if(t instanceof RectangleGlassThing){
 			//Drop on a glass thing
 			
 			IThing pt = view.getWorld().getBNAModel().getParentThing(t);
@@ -70,7 +70,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic{
 		
 		ObjRef outerRef = null;
 		if(t != null){
-			if(t instanceof BoxGlassThing){
+			if(t instanceof RectangleGlassThing){
 				IThing pt = view.getWorld().getBNAModel().getParentThing(t);
 				if(pt != null){
 					String xArchID = pt.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);

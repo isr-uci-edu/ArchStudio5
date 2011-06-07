@@ -20,35 +20,39 @@ public class ArchlightIssueADT implements IArchlightIssueADT {
 		issueList = new ArrayList<ArchlightIssue>();
 	}
 
+	@Override
 	public synchronized List<? extends ArchlightIssue> getAllIssues() {
 		return Collections.unmodifiableList(new ArrayList<ArchlightIssue>(issueList));
 	}
 
+	@Override
 	public synchronized List<? extends ArchlightIssue> getAllIssues(ObjRef documentRootRef) {
 		List<ArchlightIssue> matchingList = new ArrayList<ArchlightIssue>();
 		for (ArchlightIssue issue : issueList) {
-			if ((issue.getDocumentRootRef() != null) && (issue.getDocumentRootRef().equals(documentRootRef))) {
+			if (issue.getDocumentRootRef() != null && issue.getDocumentRootRef().equals(documentRootRef)) {
 				matchingList.add(issue);
 			}
 		}
 		return Collections.unmodifiableList(matchingList);
 	}
 
+	@Override
 	public synchronized List<? extends ArchlightIssue> getAllIssues(String toolID) {
 		List<ArchlightIssue> matchingList = new ArrayList<ArchlightIssue>();
 		for (ArchlightIssue issue : issueList) {
-			if ((issue.getToolID() != null) && (issue.getToolID().equals(toolID))) {
+			if (issue.getToolID() != null && issue.getToolID().equals(toolID)) {
 				matchingList.add(issue);
 			}
 		}
 		return Collections.unmodifiableList(matchingList);
 	}
 
+	@Override
 	public synchronized List<? extends ArchlightIssue> getAllIssues(ObjRef documentRef, String toolID) {
 		List<ArchlightIssue> matchingList = new ArrayList<ArchlightIssue>();
 		for (ArchlightIssue issue : issueList) {
-			if ((issue.getDocumentRootRef() != null) && (issue.getDocumentRootRef().equals(documentRef))) {
-				if ((issue.getToolID() != null) && (issue.getToolID().equals(toolID))) {
+			if (issue.getDocumentRootRef() != null && issue.getDocumentRootRef().equals(documentRef)) {
+				if (issue.getToolID() != null && issue.getToolID().equals(toolID)) {
 					matchingList.add(issue);
 				}
 			}
@@ -56,11 +60,12 @@ public class ArchlightIssueADT implements IArchlightIssueADT {
 		return Collections.unmodifiableList(matchingList);
 	}
 
+	@Override
 	public synchronized List<? extends ArchlightIssue> getAllIssuesByTestUID(ObjRef documentRef, String testUID) {
 		List<ArchlightIssue> matchingList = new ArrayList<ArchlightIssue>();
 		for (ArchlightIssue issue : issueList) {
-			if ((issue.getDocumentRootRef() != null) && (issue.getDocumentRootRef().equals(documentRef))) {
-				if ((issue.getTestUID() != null) && (issue.getToolID().equals(testUID))) {
+			if (issue.getDocumentRootRef() != null && issue.getDocumentRootRef().equals(documentRef)) {
+				if (issue.getTestUID() != null && issue.getToolID().equals(testUID)) {
 					matchingList.add(issue);
 				}
 			}
@@ -68,12 +73,13 @@ public class ArchlightIssueADT implements IArchlightIssueADT {
 		return Collections.unmodifiableList(matchingList);
 	}
 
+	@Override
 	public synchronized List<? extends ArchlightIssue> getAllIssues(ObjRef documentRef, String toolID, String testUID) {
 		List<ArchlightIssue> matchingList = new ArrayList<ArchlightIssue>();
 		for (ArchlightIssue issue : issueList) {
-			if ((issue.getDocumentRootRef() != null) && (issue.getDocumentRootRef().equals(documentRef))) {
-				if ((issue.getToolID() != null) && (issue.getToolID().equals(toolID))) {
-					if ((issue.getTestUID() != null) && (issue.getTestUID().equals(testUID))) {
+			if (issue.getDocumentRootRef() != null && issue.getDocumentRootRef().equals(documentRef)) {
+				if (issue.getToolID() != null && issue.getToolID().equals(toolID)) {
+					if (issue.getTestUID() != null && issue.getTestUID().equals(testUID)) {
 						matchingList.add(issue);
 					}
 				}
@@ -82,11 +88,13 @@ public class ArchlightIssueADT implements IArchlightIssueADT {
 		return Collections.unmodifiableList(matchingList);
 	}
 
+	@Override
 	public void addIssues(Collection<? extends ArchlightIssue> issues) {
 		issueList.addAll(issues);
 		fireIssuesAdded(issues);
 	}
 
+	@Override
 	public void removeIssues(Collection<? extends ArchlightIssue> issues) {
 		issueList.removeAll(issues);
 		fireIssuesRemoved(issues);
@@ -111,10 +119,9 @@ public class ArchlightIssueADT implements IArchlightIssueADT {
 	}
 
 	protected void fireEvent(ArchlightIssueADTEvent.EventType type, Collection<? extends ArchlightIssue> issues) {
-		ArchlightIssueADTListener[] ls = (ArchlightIssueADTListener[]) listeners.toArray(new ArchlightIssueADTListener[listeners.size()]);
 		ArchlightIssueADTEvent evt = new ArchlightIssueADTEvent(type, issues);
-		for (int i = 0; i < ls.length; i++) {
-			((ArchlightIssueADTListener) ls[i]).issueADTChanged(evt);
+		for (ArchlightIssueADTListener l : listeners) {
+			l.issueADTChanged(evt);
 		}
 	}
 

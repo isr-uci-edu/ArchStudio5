@@ -7,9 +7,8 @@ Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.archlight.core,
  org.archstudio.archlight.core.prefs
 Manifest-Version: 1.0
-Require-Bundle: org.archstudio,
- org.archstudio.archlight,
- org.archstudio.editors,
+Require-Bundle: org.archstudio.archlight,
+ org.archstudio.eclipse.ui,
  org.archstudio.filemanager,
  org.archstudio.launcher,
  org.archstudio.myx.fw,
@@ -22,4 +21,5 @@ Require-Bundle: org.archstudio,
  org.archstudio.xarchadt,
  org.eclipse.core.runtime,
  org.eclipse.ui,
- org.eclipse.ui.views
+ org.eclipse.ui.views,
+ org.archstudio.editormanager;bundle-version="5.0.0"

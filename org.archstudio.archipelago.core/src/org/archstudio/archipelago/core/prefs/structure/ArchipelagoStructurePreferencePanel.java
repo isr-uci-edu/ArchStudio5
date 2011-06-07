@@ -24,7 +24,7 @@ public class ArchipelagoStructurePreferencePanel extends FieldEditorPreferencePa
 		comp = (ArchipelagoStructurePrefsMyxComponent)er.waitForBrick(ArchipelagoStructurePrefsMyxComponent.class);
 		er.map(comp, this);
 		
-		setPreferenceStore(comp.prefs);
+		setPreferenceStore(comp.preferences);
 		setDescription("This panel lets you set structure and types preferences for Archipelago.");
 	}
 	

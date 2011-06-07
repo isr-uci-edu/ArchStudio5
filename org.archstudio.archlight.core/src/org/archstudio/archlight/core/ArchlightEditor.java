@@ -6,8 +6,8 @@ import java.util.List;
 import org.archstudio.archlight.ArchlightDocTest;
 import org.archstudio.archlight.ArchlightTest;
 import org.archstudio.archlight.IArchlightTool;
-import org.archstudio.editors.AbstractArchstudioEditor;
-import org.archstudio.editors.AbstractArchstudioOutlinePage;
+import org.archstudio.eclipse.ui.editors.AbstractArchStudioEditor;
+import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.DropdownSelectionListener;
 import org.archstudio.testadt.IArchlightTestADT;
@@ -34,18 +34,18 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PartInitException;
 
-public class ArchlightEditor extends AbstractArchstudioEditor {
-	protected IArchlightTestADT testadt = null;
+public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxComponent> {
+	protected IArchlightTestADT tests = null;
 	protected IArchlightTool tools = null;
 
 	public ArchlightEditor() {
 		super(ArchlightMyxComponent.class, ArchlightMyxComponent.EDITOR_NAME);
-		testadt = ((ArchlightMyxComponent) comp).getTestADT();
-		tools = ((ArchlightMyxComponent) comp).getTools();
+		tests = comp.getTests();
+		tools = comp.getTools();
 
 		ArchlightUtils.initResources(resources);
 
-		setBannerInfo(((ArchlightMyxComponent) comp).getIcon(), "Architecture Analysis Framework");
+		setBannerInfo(comp.getIcon(), "Architecture Analysis Framework");
 		setHasBanner(true);
 	}
 
@@ -60,8 +60,8 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 	}
 
 	@Override
-	protected AbstractArchstudioOutlinePage createOutlinePage() {
-		return new ArchlightOutlinePage(testadt, xarch, getDocumentRootRef(), resources);
+	protected AbstractArchStudioOutlinePage createOutlinePage() {
+		return new ArchlightOutlinePage(tests, xarch, getDocumentRootRef(), resources);
 	}
 
 	protected void setupToolbar(IEditorSite site) {
@@ -206,7 +206,7 @@ public class ArchlightEditor extends AbstractArchstudioEditor {
 						@Override
 						public void fillDropdownMenu(IMenuManager menuMgr) {
 							List<? extends IAction> actions = ArchlightUtils.createTestMenuActions(xarch,
-									documentRootRef, testadt.getAllTests(), resources, node);
+									documentRootRef, tests.getAllTests(), resources, node);
 							if (actions.isEmpty()) {
 								Action noAction = new Action("[No Actions]") {
 									@Override

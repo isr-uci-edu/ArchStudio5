@@ -18,10 +18,8 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
  * @generated
  */
 @SuppressWarnings("unused")
-public abstract class GraphLayoutMyxComponentStub extends
-		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+abstract class GraphLayoutMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -50,15 +48,13 @@ public abstract class GraphLayoutMyxComponentStub extends
 	 *
 	 * @generated
 	 */
-	public static final IMyxName OUT_PREFERENCES = MyxUtils
-			.createName("preferences");
+	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 	/**
 	 * Myx interface graphLayout: <code>IN_GRAPH_LAYOUT</code>
 	 *
 	 * @generated
 	 */
-	public static final IMyxName IN_GRAPH_LAYOUT = MyxUtils
-			.createName("graphLayout");
+	public static final IMyxName IN_GRAPH_LAYOUT = MyxUtils.createName("graphLayout");
 	/**
 	 * Myx interface xarch: <code>OUT_XARCH</code>
 	 *
@@ -128,32 +124,26 @@ public abstract class GraphLayoutMyxComponentStub extends
 		}
 		if (interfaceName.equals(OUT_PREFERENCES)) {
 			if (preferences != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			preferences = (org.eclipse.jface.preference.IPreferenceStore) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_XARCH)) {
 			if (xarch != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			xarch = (org.archstudio.xarchadt.IXArchADT) serviceObject;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: "
-				+ interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -165,16 +155,14 @@ public abstract class GraphLayoutMyxComponentStub extends
 			xarch = null;
 			return;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
@@ -188,7 +176,6 @@ public abstract class GraphLayoutMyxComponentStub extends
 			}
 			return graphLayout;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}
 }

@@ -6,11 +6,11 @@ import org.archstudio.archlight.ArchlightConstants;
 import org.archstudio.archlight.ArchlightElementIdentifier;
 import org.archstudio.archlight.ArchlightIssue;
 import org.archstudio.archlight.DoubleClickAction;
+import org.archstudio.eclipse.ui.views.AbstractArchStudioView;
 import org.archstudio.editormanager.IEditorManager;
 import org.archstudio.issueadt.ArchlightIssueADTEvent;
 import org.archstudio.issueadt.ArchlightIssueADTListener;
 import org.archstudio.issueadt.IArchlightIssueADT;
-import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.AutoResizeTableLayout;
 import org.archstudio.swtutils.IMenuFiller;
@@ -48,11 +48,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchActionConstants;
-import org.eclipse.ui.part.ViewPart;
 
-public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTListener, IMenuFiller {
-	private ArchlightIssueViewMyxComponent comp = null;
-	private final MyxRegistry er = MyxRegistry.getSharedInstance();
+public class ArchlightIssueView extends AbstractArchStudioView<ArchlightIssueViewMyxComponent> implements ArchlightIssueADTListener, IMenuFiller {
 
 	private static final int COLUMN_INDEX_SEVERITY = 0;
 	private static final int COLUMN_INDEX_SUMMARY = 1;
@@ -69,13 +66,15 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 	protected IPreferenceStore prefs = null;
 
 	public ArchlightIssueView() {
-		comp = (ArchlightIssueViewMyxComponent) er.waitForBrick(ArchlightIssueViewMyxComponent.class);
-		er.map(comp, this);
-		xarch = comp.getXarch();
-		issueadt = comp.getArchlightIssues();
-		resources = comp.getResources();
-		editorManager = comp.getEditorManager();
-		prefs = comp.getPreferences();
+		super(ArchlightIssueViewMyxComponent.class);
+	}
+	
+	public void initializeMyxBrick() {
+		xarch = brick.getXarch();
+		issueadt = brick.getIssues();
+		resources = brick.getResources();
+		editorManager = brick.getEditorManager();
+		prefs = brick.getPreferences();
 	}
 
 	@Override
@@ -95,7 +94,7 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 	}
 
 	@Override
-	public void createPartControl(Composite parent) {
+	public void createMyxPartControl(Composite parent) {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
 		viewer.setContentProvider(new ViewContentProvider());
 		viewer.setLabelProvider(new ViewLabelProvider());
@@ -225,7 +224,7 @@ public class ArchlightIssueView extends ViewPart implements ArchlightIssueADTLis
 	}
 
 	@Override
-	public void setFocus() {
+	public void setMyxFocus() {
 		viewer.getControl().setFocus();
 	}
 

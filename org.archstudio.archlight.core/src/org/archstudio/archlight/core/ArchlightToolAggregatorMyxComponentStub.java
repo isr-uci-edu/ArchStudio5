@@ -18,11 +18,9 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
  * @generated
  */
 @SuppressWarnings("unused")
-public abstract class ArchlightToolAggregatorMyxComponentStub extends
-		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
-		org.archstudio.archlight.IArchlightTool,
+/* package */abstract class ArchlightToolAggregatorMyxComponentStub extends
+		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor, org.archstudio.archlight.IArchlightTool,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -47,48 +45,49 @@ public abstract class ArchlightToolAggregatorMyxComponentStub extends
 	}
 
 	/**
-	 * Myx interface results: <code>OUT_RESULTS</code>
+	 * Myx name for the <code>results</code> interface.
 	 *
+	 * MyxGenInterface[name=results,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.myx.conn.IMultiwayResults,description=null]
 	 * @generated
 	 */
 	public static final IMyxName OUT_RESULTS = MyxUtils.createName("results");
 	/**
-	 * Myx interface archlightTools: <code>OUT_ARCHLIGHT_TOOLS</code>
+	 * Myx name for the <code>tools</code> interface.
+	 *
+	 * MyxGenInterface[name=tools,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.archlight.IArchlightTool,description=null]
+	 * @generated
+	 */
+	public static final IMyxName OUT_TOOLS = MyxUtils.createName("tools");
+	/**
+	 * Myx interface tool: <code>IN_TOOL</code>
 	 *
 	 * @generated
 	 */
-	public static final IMyxName OUT_ARCHLIGHT_TOOLS = MyxUtils
-			.createName("archlightTools");
+	public static final IMyxName IN_TOOL = MyxUtils.createName("tool");
 	/**
-	 * Myx interface archlightTool: <code>IN_ARCHLIGHT_TOOL</code>
+	 * Myx name for the <code>progress</code> interface.
 	 *
-	 * @generated
-	 */
-	public static final IMyxName IN_ARCHLIGHT_TOOL = MyxUtils
-			.createName("archlightTool");
-	/**
-	 * Myx interface progress: <code>IN_PROGRESS</code>
-	 *
+	 * MyxGenInterface[name=progress,direction=in,single=true,serviceObjectDelegate=events,generateGetter=true,className=org.archstudio.myx.conn.IMultiwayProgressListener,description=null]
 	 * @generated
 	 */
 	public static final IMyxName IN_PROGRESS = MyxUtils.createName("progress");
+
 	/**
-	 * Service object(s) for results: <code>results</code>
+	 * Service object(s) for the results interface.
 	 *
 	 * @see #OUT_RESULTS
 	 * @generated
 	 */
 	protected org.archstudio.myx.conn.IMultiwayResults results = null;
-
 	/**
-	 * Service object(s) for archlightTools: <code>archlightTools</code>
+	 * Service object(s) for the tools interface.
 	 *
-	 * @see #OUT_ARCHLIGHT_TOOLS
+	 * @see #OUT_TOOLS
 	 * @generated
 	 */
-	protected org.archstudio.archlight.IArchlightTool archlightTools = null;
+	protected org.archstudio.archlight.IArchlightTool tools = null;
 	/**
-	 * Service object(s) for progress: <code>progress</code>
+	 * Service object(s) for the progress interface.
 	 *
 	 * @see #IN_PROGRESS
 	 * @generated
@@ -96,7 +95,32 @@ public abstract class ArchlightToolAggregatorMyxComponentStub extends
 	protected org.archstudio.myx.conn.IMultiwayProgressListener progress = null;
 
 	/**
-	 * Returns the service object(s) for <code>results</code>
+	 * Service object proxy for the progress interface.
+	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
+	 *
+	 * @see #IN_PROGRESS
+	 * @generated
+	 */
+	protected final org.archstudio.myx.conn.IMultiwayProgressListener progressProxy = (org.archstudio.myx.conn.IMultiwayProgressListener) Proxy
+			.newProxyInstance(org.archstudio.myx.conn.IMultiwayProgressListener.class.getClassLoader(),
+					new Class[] { org.archstudio.myx.conn.IMultiwayProgressListener.class }, new InvocationHandler() {
+						@Override
+						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+							org.archstudio.myx.conn.IMultiwayProgressListener o = progress;
+							if (o != null) {
+								try {
+									method.invoke(o, args);
+								}
+								catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+							return null;
+						}
+					});
+
+	/**
+	 * Returns the service object(s) for the <code>results</code> interface.
 	 *
 	 * @see #OUT_RESULTS
 	 * @generated
@@ -106,27 +130,27 @@ public abstract class ArchlightToolAggregatorMyxComponentStub extends
 	}
 
 	/**
-	 * Returns the service object(s) for <code>archlightTools</code>
+	 * Returns the service object(s) for the <code>tools</code> interface.
 	 *
-	 * @see #OUT_ARCHLIGHT_TOOLS
+	 * @see #OUT_TOOLS
 	 * @generated
 	 */
-	public org.archstudio.archlight.IArchlightTool getArchlightTools() {
-		return archlightTools;
+	public org.archstudio.archlight.IArchlightTool getTools() {
+		return tools;
 	}
 
 	/**
-	 * Returns the service object(s) for <code>archlightTool</code>
+	 * Returns the service object(s) for <code>tool</code>
 	 *
-	 * @see #IN_ARCHLIGHT_TOOL
+	 * @see #IN_TOOL
 	 * @generated
 	 */
-	public org.archstudio.archlight.IArchlightTool getArchlightTool() {
+	public org.archstudio.archlight.IArchlightTool getTool() {
 		return this;
 	}
 
 	/**
-	 * Returns the service object(s) for <code>progress</code>
+	 * Returns the service object(s) for the <code>progress</code> interface.
 	 *
 	 * @see #IN_PROGRESS
 	 * @generated
@@ -145,32 +169,26 @@ public abstract class ArchlightToolAggregatorMyxComponentStub extends
 		}
 		if (interfaceName.equals(OUT_RESULTS)) {
 			if (results != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			results = (org.archstudio.myx.conn.IMultiwayResults) serviceObject;
 			return;
 		}
-		if (interfaceName.equals(OUT_ARCHLIGHT_TOOLS)) {
-			if (archlightTools != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+		if (interfaceName.equals(OUT_TOOLS)) {
+			if (tools != null) {
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
-			archlightTools = (org.archstudio.archlight.IArchlightTool) serviceObject;
+			tools = (org.archstudio.archlight.IArchlightTool) serviceObject;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: "
-				+ interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -178,20 +196,18 @@ public abstract class ArchlightToolAggregatorMyxComponentStub extends
 			results = null;
 			return;
 		}
-		if (interfaceName.equals(OUT_ARCHLIGHT_TOOLS)) {
-			archlightTools = null;
+		if (interfaceName.equals(OUT_TOOLS)) {
+			tools = null;
 			return;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
@@ -199,16 +215,12 @@ public abstract class ArchlightToolAggregatorMyxComponentStub extends
 	 */
 	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
-		if (interfaceName.equals(IN_ARCHLIGHT_TOOL)) {
+		if (interfaceName.equals(IN_TOOL)) {
 			return this;
 		}
 		if (interfaceName.equals(IN_PROGRESS)) {
-			if (progress == null) {
-				throw new NullPointerException("progress");
-			}
-			return progress;
+			return progressProxy;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}
 }

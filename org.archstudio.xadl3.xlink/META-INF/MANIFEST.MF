@@ -1,14 +1,14 @@
-Bundle-ClassPath: .
-Bundle-Localization: plugin
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: xADL 3 Data bindings for xlink
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.xadl3.xlink;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: archstudio.org
+Bundle-Localization: plugin
 Export-Package: org.w3.xlink,
  org.w3.xlink.impl,
  org.w3.xlink.util
-Manifest-Version: 1.0
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi;visibility:=reexport
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

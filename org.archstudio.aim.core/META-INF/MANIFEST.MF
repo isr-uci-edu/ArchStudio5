@@ -9,10 +9,10 @@ Require-Bundle: com.google.guava,
  org.archstudio.aim,
  org.archstudio.myx.fw,
  org.archstudio.myxgen,
- org.archstudio.myxgen.core,
  org.archstudio.sysutils,
  org.archstudio.xadl,
  org.archstudio.xadl3.domain,
  org.archstudio.xadl3.myxgen,
  org.archstudio.xadl3.structure,
- org.archstudio.xarchadt
+ org.archstudio.xarchadt,
+ org.archstudio.myxgen.core;bundle-version="5.0.0"

@@ -12,10 +12,9 @@ Export-Package: org.archstudio.archipelago.core,
  org.archstudio.archipelago.core.util
 Manifest-Version: 1.0
 Require-Bundle: com.google.guava,
- org.archstudio,
  org.archstudio.bna,
  org.archstudio.editormanager,
- org.archstudio.editors,
+ org.archstudio.eclipse.ui,
  org.archstudio.filemanager,
  org.archstudio.graphlayout,
  org.archstudio.launcher,
@@ -32,4 +31,6 @@ Require-Bundle: com.google.guava,
  org.archstudio.xarchadt,
  org.eclipse.core.runtime,
  org.eclipse.ui,
- org.eclipse.ui.views
+ org.eclipse.ui.views,
+ org.archstudio.eclipse.core;bundle-version="1.0.0",
+ org.eclipse.draw2d;bundle-version="3.6.2"

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.archstudio.core.ArchStudio5PerspectiveFactory"
+            fixed="false"
+            icon="res/archstudio-icon-16x16.png"
+            id="org.archstudio.main.ArchStudio5Perspective"
+            name="ArchStudio 5">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="org.archstudio.main.ArchStudio5Views"
+            name="ArchStudio 5">
+      </category>
+   </extension>
+
+</plugin>

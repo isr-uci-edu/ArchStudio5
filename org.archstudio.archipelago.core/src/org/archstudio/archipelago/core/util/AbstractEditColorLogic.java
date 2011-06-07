@@ -3,6 +3,13 @@ package org.archstudio.archipelago.core.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IThing;
+import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.IBNAMenuListener;
+import org.archstudio.swtutils.ColorSelectorDialog;
+import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -12,14 +19,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchActionConstants;
-
-import org.archstudio.bna.AbstractThingLogic;
-import org.archstudio.bna.BNAUtils;
-import org.archstudio.bna.IBNAMenuListener;
-import org.archstudio.bna.IBNAView;
-import org.archstudio.bna.IThing;
-import org.archstudio.swtutils.ColorSelectorDialog;
-import org.archstudio.swtutils.SWTWidgetUtils;
 
 public abstract class AbstractEditColorLogic extends AbstractThingLogic implements IBNAMenuListener{
 	protected static RGB copiedRGB = null;

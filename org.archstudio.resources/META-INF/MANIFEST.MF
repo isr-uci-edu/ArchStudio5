@@ -6,6 +6,6 @@ Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.resources
 Manifest-Version: 1.0
-Require-Bundle: org.archstudio,
- org.archstudio.swtutils,
- org.eclipse.ui
+Require-Bundle: org.archstudio.swtutils,
+ org.eclipse.ui,
+ org.archstudio.sysutils;bundle-version="5.0.0"

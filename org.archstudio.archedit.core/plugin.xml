@@ -7,7 +7,7 @@
             class="org.archstudio.archedit.core.ArchEditEditor"
             default="false"
             extensions="xml"
-            icon="res/archstudio-icon-16x16.png"
+            icon="src/org/archstudio/archedit/core/res/archstudio-icon-16x16.png"
             id="org.archstudio.archedit.core.ArchEditEditor"
             name="ArchEdit">
       </editor>
@@ -17,10 +17,8 @@
       <brick
             class="org.archstudio.archedit.core.ArchEditMyxComponent"
             id="org.archstudio.archedit.core.ArchEditMyxComponent"
-            name="ArchEdit Component Impl">
-         <parentBrick
-               parentBrick="org.archstudio.editors.AbstractArchstudioEditorMyxComponent">
-         </parentBrick>
+            name="ArchEdit Component Impl"
+            parentBrick="org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent">
       </brick>
    </extension>
 

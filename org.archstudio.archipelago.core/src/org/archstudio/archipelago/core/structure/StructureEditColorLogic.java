@@ -11,8 +11,8 @@ import org.archstudio.bna.assemblies.BoxAssembly;
 import org.archstudio.bna.assemblies.SplineAssembly;
 import org.archstudio.bna.facets.IHasAssemblyData;
 import org.archstudio.bna.facets.IHasMutableColor;
-import org.archstudio.bna.things.glass.BoxGlassThing;
-import org.archstudio.bna.things.shapes.BoxThing;
+import org.archstudio.bna.things.glass.RectangleGlassThing;
+import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 
 public class StructureEditColorLogic extends AbstractEditColorLogic{
@@ -26,7 +26,7 @@ public class StructureEditColorLogic extends AbstractEditColorLogic{
 	protected boolean matches(IBNAView view, IThing t){
 		IThing pt = view.getWorld().getBNAModel().getParentThing(t);
 		if(pt != null){
-			if((t instanceof BoxGlassThing) && StructureMapper.isBrickAssemblyRootThing(pt)){
+			if((t instanceof RectangleGlassThing) && StructureMapper.isBrickAssemblyRootThing(pt)){
 				return true;
 			}
 			else if(StructureMapper.isLinkAssemblyRootThing(pt)){
@@ -69,7 +69,7 @@ public class StructureEditColorLogic extends AbstractEditColorLogic{
 		if(pt != null){
 			if(StructureMapper.isBrickAssemblyRootThing(pt)){
 				BoxAssembly boxAssembly = BoxAssembly.attach(view.getWorld().getBNAModel(), (IHasAssemblyData)pt);
-				BoxThing boxThing = boxAssembly.getBoxThing();
+				RectangleThing boxThing = boxAssembly.getBoxThing();
 				if(boxThing != null){
 					return boxThing;
 				}

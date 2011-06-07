@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.domain_3_0.DomainType;
 import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
@@ -35,6 +34,7 @@ public class AIMInstantiationOrderCalculator {
 		public Set<ObjRef> topLinksOut = Sets.newHashSet();
 		public Set<ObjRef> topLinksIn = Sets.newHashSet();
 		public Set<ObjRef> topLinksOther = Sets.newHashSet();
+		public Set<ObjRef> otherLinks = Sets.newHashSet();
 
 		public BrickNode(ObjRef brickRef) {
 			this.brickRef = brickRef;
@@ -47,7 +47,7 @@ public class AIMInstantiationOrderCalculator {
 
 		@Override
 		public Iterable<ObjRef> getLinkRefs() {
-			return Iterables.concat(topLinksOut, topLinksIn, topLinksOther);
+			return Iterables.concat(topLinksOut, topLinksIn, topLinksOther, otherLinks);
 		}
 	}
 
@@ -58,18 +58,28 @@ public class AIMInstantiationOrderCalculator {
 	 * <li>links directed "out" and on "top" will be welded before links directed "in" and on "bottom"</li>
 	 * </ul>
 	 */
-	public static Iterable<OrderedGroup> calculateInstantiationOrder(IXArchADT xarch, ObjRef structureRef) {
+	public static List<? extends OrderedGroup> calculateInstantiationOrder(IXArchADT xarch, ObjRef structureRef) {
 		List<BrickNode> brickNodes = Lists.newArrayList(calculateBrickGraph(xarch, structureRef));
 		List<BrickNode> sortedBrickNodeList = new ArrayList<BrickNode>();
 
 		while (!brickNodes.isEmpty()) {
-			List<BrickNode> zeroDependencyBricks = new ArrayList<BrickNode>();
+			Set<BrickNode> zeroDependencyBricks = Sets.newHashSet();
 
 			// Find all the (remaining) bricks with no top dependencies
 			for (BrickNode brickNode : brickNodes) {
 				if (brickNode.topBricks.size() == 0) {
 					zeroDependencyBricks.add(brickNode);
 				}
+			}
+
+			// at some point, we may end up with no zero dependency bricks left,
+			// in which case there is a cycle
+			if (zeroDependencyBricks.size() == 0) {
+				System.err.println("Cycle(s) detected in: ");
+				for (BrickNode n : brickNodes) {
+					System.err.println(" - " + xarch.get(n.brickRef, "name"));
+				}
+				zeroDependencyBricks.addAll(brickNodes);
 			}
 
 			// Move them to the sorted list
@@ -89,7 +99,7 @@ public class AIMInstantiationOrderCalculator {
 		for (BrickNode bn : sortedBrickNodeList) {
 			orderedBrickRefs.add(bn.brickRef);
 		}
-		return SystemUtils.cast(sortedBrickNodeList);
+		return sortedBrickNodeList;
 	}
 
 	private static Iterable<BrickNode> calculateBrickGraph(IXArchADT xarch, ObjRef structureRef) {
@@ -103,7 +113,6 @@ public class AIMInstantiationOrderCalculator {
 		}
 
 		// scan the links to populate the "top" fields of each brick
-		List<ObjRef> unknownLinks = Lists.newArrayList();
 		for (ObjRef linkRef : xarch.getAll(structureRef, "link")) {
 			ObjRef iface1Ref = (ObjRef) xarch.get(linkRef, "point1");
 			ObjRef iface2Ref = (ObjRef) xarch.get(linkRef, "point2");
@@ -116,7 +125,7 @@ public class AIMInstantiationOrderCalculator {
 					DomainType iface1DomainType = getDomain(xarch, iface1Ref);
 					DomainType iface2DomainType = getDomain(xarch, iface2Ref);
 					if (iface1DomainType == null) {
-						// if it is null, use the opposite of iface2's domain type
+						// if it is null, use the opposite domain of iface2's domain type
 						if (iface2DomainType != null) {
 							switch (iface2DomainType) {
 							case TOP:
@@ -157,8 +166,8 @@ public class AIMInstantiationOrderCalculator {
 						bottomBrickNode.topLinksOther.add(linkRef);
 					}
 				}
+				brick1Node.otherLinks.add(linkRef);
 			}
-			unknownLinks.add(linkRef);
 		}
 
 		return brickNodes.values();

@@ -6,11 +6,12 @@
       <brick
             class="org.archstudio.filemanager.core.FileManagerMyxComponent"
             id="org.archstudio.filemanager.core.FileManagerMyxComponent"
-            name="File Manager Impl">
+            name="File Manager Impl B">
          <interface
                class="org.archstudio.xarchadt.IXArchADT"
                delegate="variable"
                direction="out"
+               domain="top"
                getter="true"
                id="xarch"
                name="xarch"
@@ -18,8 +19,9 @@
          </interface>
          <interface
                class="org.archstudio.xarchadt.IXArchADTModelListener"
-               delegate="brick"
+               delegate="myxRegistry"
                direction="in"
+               domain="top"
                getter="true"
                id="modelEvents"
                name="modelEvents"
@@ -27,8 +29,9 @@
          </interface>
          <interface
                class="org.archstudio.xarchadt.IXArchADTFileListener"
-               delegate="events"
+               delegate="myxRegistry"
                direction="in"
+               domain="top"
                getter="true"
                id="fileEvents"
                name="fileEvents"
@@ -38,6 +41,7 @@
                class="org.archstudio.filemanager.IFileManager"
                delegate="brick"
                direction="in"
+               domain="bottom"
                getter="true"
                id="fileManager"
                name="fileManager"
@@ -47,10 +51,11 @@
                class="org.archstudio.filemanager.IFileManagerListener"
                delegate="events"
                direction="out"
+               domain="bottom"
                getter="true"
                id="fileManagerEvents"
                name="fileManagerEvents"
-               single="true">
+               single="false">
          </interface>
       </brick>
    </extension>
@@ -64,7 +69,7 @@
             category="org.archstudio.wizards"
             class="org.archstudio.filemanager.core.NewFileWizard"
             finalPerspective="org.archstudio.main.ArchStudio5Perspective"
-            icon="res/archstudio-icon-16x16.png"
+            icon="src/org/archstudio/filemanager/core/res/archstudio-icon-16x16.png"
             id="org.archstudio.filemanager.core.NewFileWizard"
             name="ArchStudio Architecture Description">
       </wizard>

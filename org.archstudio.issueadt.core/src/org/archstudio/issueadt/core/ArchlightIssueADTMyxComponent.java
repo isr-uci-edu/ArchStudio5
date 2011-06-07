@@ -8,8 +8,7 @@ import org.archstudio.xarchadt.XArchADTFileEvent;
  * @see org.archstudio.issueadt.core.ArchlightIssueADTMyxComponentStub
  * @generated
  */
-public class ArchlightIssueADTMyxComponent extends
-		org.archstudio.issueadt.core.ArchlightIssueADTMyxComponentStub {
+public class ArchlightIssueADTMyxComponent extends org.archstudio.issueadt.core.ArchlightIssueADTMyxComponentStub {
 
 	@Override
 	public void init() {

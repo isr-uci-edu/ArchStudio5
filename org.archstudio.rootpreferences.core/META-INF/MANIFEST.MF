@@ -6,7 +6,6 @@ Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.rootpreferences.core
 Manifest-Version: 1.0
-Require-Bundle: org.archstudio,
- org.archstudio.myx.fw,
+Require-Bundle: org.archstudio.myx.fw,
  org.archstudio.resources,
  org.eclipse.ui

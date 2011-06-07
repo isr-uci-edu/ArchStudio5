@@ -2,14 +2,11 @@ package org.archstudio.editormanager.core;
 
 import org.archstudio.editormanager.EditorConstants;
 import org.archstudio.editormanager.IEditorManager;
-import org.archstudio.main.ArchStudio5Activator;
 import org.archstudio.myx.fw.MyxRegistry;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.osgi.framework.BundleException;
 
 public class EditorPreferencePanel extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 	private EditorPrefsMyxComponent comp = null;
@@ -30,16 +27,6 @@ public class EditorPreferencePanel extends FieldEditorPreferencePage implements 
 	}
 
 	@Override
-	public void init(IWorkbench workbench) {
-		try {
-			Platform.getBundle(ArchStudio5Activator.PLUGIN_ID).start();
-		}
-		catch (BundleException be) {
-			throw new RuntimeException(be);
-		}
-	}
-
-	@Override
 	protected void createFieldEditors() {
 		String[] availableEditors = editorManager.getEditors();
 
@@ -54,4 +41,7 @@ public class EditorPreferencePanel extends FieldEditorPreferencePage implements 
 		addField(defaultEditorEditor);
 	}
 
+	@Override
+	public void init(IWorkbench workbench) {
+	}
 }

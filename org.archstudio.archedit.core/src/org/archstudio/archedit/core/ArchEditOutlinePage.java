@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.archstudio.editors.AbstractArchstudioOutlinePage;
+import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.SystemUtils;
@@ -47,7 +47,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchSite;
 
-public class ArchEditOutlinePage extends AbstractArchstudioOutlinePage {
+public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 	protected boolean showIDs = false;
 	protected boolean showDescriptions = true;
 	protected boolean showObjRefs = false;

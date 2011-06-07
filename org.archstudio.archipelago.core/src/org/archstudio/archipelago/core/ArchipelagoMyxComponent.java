@@ -1,22 +1,24 @@
 package org.archstudio.archipelago.core;
 
+import java.io.IOException;
+
+import org.archstudio.launcher.ILaunchData;
+import org.archstudio.launcher.LaunchData;
+import org.archstudio.sysutils.SystemUtils;
+import org.eclipse.swt.graphics.Image;
+
 /**
  * Myx brick: "Archipelago Impl"
- *
+ * 
  * @see org.archstudio.archipelago.core.ArchipelagoMyxComponentStub
  * @generated
  */
-public class ArchipelagoMyxComponent extends
-		org.archstudio.archipelago.core.ArchipelagoMyxComponentStub {
+public class ArchipelagoMyxComponent extends org.archstudio.archipelago.core.ArchipelagoMyxComponentStub {
 
 	public static final String EDITOR_NAME = "Archipelago";
 	public static final String ECLIPSE_EDITOR_ID = "org.archstudio.archipelago.core.ArchipelagoEditor";
 
-	public static final String URL_BASE = "platform:/plugin/org.archstudio.archipelago.core/";
-
 	public static final String IMAGE_ARCHIPELAGO_ICON = "archipelago:icon";
-	public static final String URL_ARCHIPELAGO_ICON = URL_BASE
-			+ "res/archipelago-icon-32.gif";
 
 	public ArchipelagoMyxComponent() {
 		super(EDITOR_NAME, ECLIPSE_EDITOR_ID, true);
@@ -27,9 +29,10 @@ public class ArchipelagoMyxComponent extends
 	private synchronized void createResources() {
 		if (!resourcesCreated) {
 			try {
-				resources.createImage(IMAGE_ARCHIPELAGO_ICON,
-						EclipseUtils.getBytes(URL_ARCHIPELAGO_ICON));
-			} catch (IOException ioe) {
+				resources.createImage(IMAGE_ARCHIPELAGO_ICON, SystemUtils.blt(ArchipelagoMyxComponent.class
+						.getResourceAsStream("res/archipelago-icon-32.gif")));
+			}
+			catch (IOException ioe) {
 				ioe.printStackTrace();
 				throw new RuntimeException("This shouldn't happen.");
 			}
@@ -42,9 +45,9 @@ public class ArchipelagoMyxComponent extends
 		return resources.getImage(IMAGE_ARCHIPELAGO_ICON);
 	}
 
+	@Override
 	public ILaunchData getLaunchData() {
-		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME,
-				"A graphical architecture editor", getIcon(),
+		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME, "A graphical architecture editor", getIcon(),
 				ILaunchData.LaunchType.EDITOR);
 	}
 }

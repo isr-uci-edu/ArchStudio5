@@ -3,7 +3,7 @@ package org.archstudio.aimlauncher.core;
 import java.util.EnumSet;
 import java.util.List;
 
-import org.archstudio.editors.AbstractArchstudioOutlinePage;
+import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
 import org.archstudio.xadlswt.XadlTreeContentProvider;
 import org.archstudio.xadlswt.XadlTreeLabelProvider;
@@ -16,7 +16,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 
-public class AIMLauncherOutlinePage extends AbstractArchstudioOutlinePage {
+public class AIMLauncherOutlinePage extends AbstractArchStudioOutlinePage {
 
 	public AIMLauncherOutlinePage(IXArchADT xarch, ObjRef documentRootRef, IResources resources) {
 		super(xarch, documentRootRef, resources, false, false);

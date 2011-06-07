@@ -1,16 +1,16 @@
-Bundle-ClassPath: .
-Bundle-Localization: plugin
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: xADL 3 Data bindings for xadlcore
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.xadl3.xadlcore;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: archstudio.org
+Bundle-Localization: plugin
 Export-Package: org.archstudio.xadl3.xadlcore_3_0,
  org.archstudio.xadl3.xadlcore_3_0.impl,
  org.archstudio.xadl3.xadlcore_3_0.util
-Manifest-Version: 1.0
 Require-Bundle: org.archstudio.xadl3.xlink;visibility:=reexport,
  org.archstudio.xadl3.xlink;visibility:=reexport,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

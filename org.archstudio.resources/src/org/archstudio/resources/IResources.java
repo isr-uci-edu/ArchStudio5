@@ -1,5 +1,6 @@
 package org.archstudio.resources;
 
+import org.archstudio.swtutils.OverlayImageIcon;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.graphics.Color;
@@ -7,8 +8,6 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.RGB;
-
-import org.archstudio.swtutils.OverlayImageIcon;
 
 public interface IResources {
 	public static final int TOP_LEFT = OverlayImageIcon.TOP_LEFT;
@@ -39,6 +38,8 @@ public interface IResources {
 
 	public void createImage(String symbolicName, Image image);
 
+	public void createImage(String symbolicName, ImageDescriptor imageDescriptor);
+
 	public void createOverlayImage(String symbolicName, Image base, Image[] overlays, int[] overlayPositions);
 
 	public ImageDescriptor getPlatformImageDescriptor(String symbolicName);
@@ -60,5 +61,4 @@ public interface IResources {
 	public void createDerivedFont(String newSymbolicName, FontData[] existingFontData, int newHeight, int newStyle);
 
 	public Font getFont(String symbolicName);
-
 }

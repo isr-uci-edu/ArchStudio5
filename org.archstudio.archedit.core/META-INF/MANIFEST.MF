@@ -6,18 +6,16 @@ Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.archedit.core
 Manifest-Version: 1.0
-Require-Bundle: org.archstudio,
- org.archstudio.editors,
- org.archstudio.filemanager,
- org.archstudio.launcher,
- org.archstudio.main,
+Require-Bundle: org.archstudio.launcher,
  org.archstudio.myx.fw,
- org.archstudio.myxgen,
  org.archstudio.resources,
  org.archstudio.swtutils,
  org.archstudio.sysutils,
  org.archstudio.xadl,
  org.archstudio.xarchadt,
- org.eclipse.core.runtime,
- org.eclipse.ui,
- org.eclipse.ui.views
+ org.archstudio.eclipse,
+ org.archstudio.eclipse.core,
+ org.archstudio.eclipse.ui;bundle-version="5.0.0",
+ org.eclipse.ui.views;bundle-version="3.6.0",
+ org.archstudio.filemanager;bundle-version="5.0.0",
+ org.archstudio.editormanager;bundle-version="5.0.0"
