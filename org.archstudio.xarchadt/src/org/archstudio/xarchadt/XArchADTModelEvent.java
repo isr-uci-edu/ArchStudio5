@@ -14,22 +14,18 @@ public class XArchADTModelEvent implements java.io.Serializable {
 	}
 
 	protected final EventType eventType;
+	protected final String featureName;
+
 	protected final ObjRef src;
 	protected final List<ObjRef> srcAncestors;
 	protected final XArchADTPath srcPath;
 
-	protected final String featureName;
-
 	protected final Object oldValue;
-
-	/**
-	 * This is the <CODE>XArchADTPath</CODE> to the oldValue if the oldValue is an ObjRef, or <CODE>null</CODE> if it's
-	 * not.
-	 */
+	protected final List<ObjRef> oldValueAncestors;
 	protected final XArchADTPath oldValuePath;
 
 	protected final Object newValue;
-
+	protected final List<ObjRef> newValueAncestors;
 	protected final XArchADTPath newValuePath;
 
 	/**
@@ -51,18 +47,42 @@ public class XArchADTModelEvent implements java.io.Serializable {
 	 */
 	public XArchADTModelEvent(EventType eventType, ObjRef src, List<ObjRef> srcAncestors, XArchADTPath srcPath,
 			String featureName, Object oldValue, XArchADTPath oldValuePath, Object newValue, XArchADTPath newValuePath) {
+		assert srcAncestors.size() == srcPath.getLength() + 1;
+
 		this.eventType = eventType;
+		this.featureName = featureName;
+
 		this.src = src;
 		this.srcAncestors = Collections.unmodifiableList(Lists.newArrayList(srcAncestors));
 		this.srcPath = srcPath;
 
-		this.featureName = featureName;
-
 		this.oldValue = oldValue;
+		this.oldValueAncestors = oldValue instanceof ObjRef ? prepend((ObjRef) oldValue, srcAncestors) : null;
 		this.oldValuePath = oldValuePath;
 
 		this.newValue = newValue;
+		this.newValueAncestors = newValue instanceof ObjRef ? prepend((ObjRef) newValue, srcAncestors) : null;
 		this.newValuePath = newValuePath;
+	}
+
+	private List<ObjRef> prepend(ObjRef objRef, List<ObjRef> srcAncestors) {
+		List<ObjRef> ancestors = Lists.newArrayListWithCapacity(1 + srcAncestors.size());
+		ancestors.add(objRef);
+		ancestors.addAll(srcAncestors);
+		return Collections.unmodifiableList(ancestors);
+	}
+
+	/**
+	 * Get the event type of this event.
+	 * 
+	 * @return Event type.
+	 */
+	public EventType getEventType() {
+		return eventType;
+	}
+
+	public String getFeatureName() {
+		return featureName;
 	}
 
 	/**
@@ -87,21 +107,12 @@ public class XArchADTModelEvent implements java.io.Serializable {
 		return srcPath;
 	}
 
-	/**
-	 * Get the event type of this event.
-	 * 
-	 * @return Event type.
-	 */
-	public EventType getEventType() {
-		return eventType;
-	}
-
-	public String getFeatureName() {
-		return featureName;
-	}
-
 	public Object getOldValue() {
 		return oldValue;
+	}
+
+	public List<ObjRef> getOldValueAncestors() {
+		return oldValueAncestors;
 	}
 
 	public XArchADTPath getOldValuePath() {
@@ -112,19 +123,23 @@ public class XArchADTModelEvent implements java.io.Serializable {
 		return newValue;
 	}
 
+	public List<ObjRef> getNewValueAncestors() {
+		return newValueAncestors;
+	}
+
 	public XArchADTPath getNewValuePath() {
 		return newValuePath;
 	}
 
+	@Override
 	public String toString() {
-		return "XArchADTModelEvent{" + //
+		return "XArchADTModelEvent[" + //
 				"eventType=" + eventType + ", " + //
-				"src=" + src + ", " + //
-				"srcPath=" + srcPath + ", " + //
 				"featureName=" + featureName + ", " + //
 				"oldValue=" + oldValue + ", " + //
-				"oldValuePath=" + oldValuePath + ", " + //
 				"newValue=" + newValue + ", " + //
-				"newValuePath=" + newValuePath + "};";
+				"src=" + src + ", " + //
+				"srcAncestors=" + srcAncestors + ", " + //
+				"srcPath=" + srcPath + "]";
 	}
 }

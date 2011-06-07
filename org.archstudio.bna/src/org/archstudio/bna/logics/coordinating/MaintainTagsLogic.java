@@ -47,7 +47,7 @@ public class MaintainTagsLogic extends AbstractMaintainReferencedThingsLogic<ITh
 	protected void updateFromSource(IBNAModel sourceModel, IThing sourceThing, ThingEvent sourceThingEvent) {
 		IBNAModel targetModel = getBNAModel();
 		if ((sourceThingEvent == null || sourceThingEvent.getPropertyName().equals(SHOW_TAG_KEY))
-				&& Boolean.TRUE.equals(sourceThing.getProperty(SHOW_TAG_KEY))) {
+				&& Boolean.TRUE.equals(sourceThing.get(SHOW_TAG_KEY))) {
 			TagThing t = new TagThing();
 			int delta = 20;
 			Point initialPoint = t.getAnchorPoint();
@@ -78,7 +78,7 @@ public class MaintainTagsLogic extends AbstractMaintainReferencedThingsLogic<ITh
 			}
 		}
 		if (sourceThingEvent != null && sourceThingEvent.getPropertyName().equals(SHOW_TAG_KEY)
-				&& !Boolean.TRUE.equals(sourceThing.getProperty(SHOW_TAG_KEY))) {
+				&& !Boolean.TRUE.equals(sourceThing.get(SHOW_TAG_KEY))) {
 			IAssemblyThing assembly = AssemblyUtils.getAssemblyWithPart(sourceThing);
 			if (assembly != null) {
 				IThing t = assembly.getPart(TAG_PART_NAME);

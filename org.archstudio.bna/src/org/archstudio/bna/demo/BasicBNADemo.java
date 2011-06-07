@@ -4,16 +4,13 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.bna.LinearCoordinateMapper;
 import org.archstudio.bna.constants.ArrowheadShape;
+import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
-import org.archstudio.bna.logics.coordinating.MaintainAnchoredAssemblyOrientationLogic;
-import org.archstudio.bna.logics.coordinating.StickRelativeMovablesLogic;
-import org.archstudio.bna.logics.coordinating.StickRelativeMovablesLogic.StickyMode;
 import org.archstudio.bna.logics.coordinating.MirrorAnchorPointLogic;
 import org.archstudio.bna.logics.coordinating.MirrorBoundingBoxLogic;
-import org.archstudio.bna.logics.coordinating.MirrorPointLogic;
-import org.archstudio.bna.logics.coordinating.AbstractMirrorValueLogic;
 import org.archstudio.bna.logics.coordinating.MoveWithLogic;
 import org.archstudio.bna.logics.editing.BoxReshapeHandleLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
@@ -22,17 +19,9 @@ import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.editing.SplineBreakLogic;
 import org.archstudio.bna.logics.editing.SplineReshapeHandleLogic;
 import org.archstudio.bna.logics.editing.StandardCursorLogic;
-import org.archstudio.bna.logics.events.DragMoveEventsLogic;
 import org.archstudio.bna.logics.events.WorldThingExternalEventsLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
-import org.archstudio.bna.logics.navigating.MouseWheelZoomingLogic;
 import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
-import org.archstudio.bna.logics.tracking.ReferenceTrackingLogic;
-import org.archstudio.bna.logics.tracking.SelectionTrackingLogic;
-import org.archstudio.bna.logics.tracking.KeyReferenceTrackingLogic;
-import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
-import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
-import org.archstudio.bna.utils.BNAComposite;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.DefaultBNAWorld;
@@ -58,21 +47,26 @@ public class BasicBNADemo {
 		setupTopWorld(bnaWorld1);
 		populateModel(m);
 
-		IBNAView bnaView1 = new DefaultBNAView(null, bnaWorld1, new DefaultCoordinateMapper());
+		IBNAView bnaView1 = new DefaultBNAView(null, null, bnaWorld1, new LinearCoordinateMapper());
 
 		IBNAModel m2 = new DefaultBNAModel();
 		IBNAWorld bnaWorld2 = new DefaultBNAWorld("subworld", m2);
 		setupWorld(bnaWorld2);
 
 		populateModel(m2);
-		/*
-		 * IBNAView bnaView2 = new DefaultBNAView(bnaView1, bnaWorld2, new DefaultCoordinateMapper()); ViewThing wt2 =
-		 * new ViewThing(); wt2.setBoundingBox((DefaultCoordinateMapper.DEFAULT_WORLD_WIDTH / 2) + 20,
-		 * (DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2) + 20, 200, 200); wt2.setView(bnaView2); m.addThing(wt2);
-		 * IBNAView bnaView3 = new DefaultBNAView(bnaView1, bnaWorld2, new DefaultCoordinateMapper()); ViewThing wt3 =
-		 * new ViewThing(); wt3.setBoundingBox((DefaultCoordinateMapper.DEFAULT_WORLD_WIDTH / 2) + 200,
-		 * (DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2) + 20, 200, 200); wt3.setView(bnaView3); m.addThing(wt3);
-		 */
+
+		//IBNAView bnaView2 = new DefaultBNAView(bnaView1, bnaWorld2, new DefaultCoordinateMapper());
+		//ViewThing wt2 = new ViewThing();
+		//wt2.setBoundingBox((DefaultCoordinateMapper.DEFAULT_WORLD_WIDTH / 2) + 20,
+		//		(DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2) + 20, 200, 200);
+		//wt2.setView(bnaView2);
+		//m.addThing(wt2);
+		//IBNAView bnaView3 = new DefaultBNAView(bnaView1, bnaWorld2, new DefaultCoordinateMapper());
+		//ViewThing wt3 = new ViewThing();
+		//wt3.setBoundingBox((DefaultCoordinateMapper.DEFAULT_WORLD_WIDTH / 2) + 200,
+		//		(DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2) + 20, 200, 200);
+		//wt3.setView(bnaView3);
+		//m.addThing(wt3);
 
 		populateWithViews(m, bnaView1, bnaWorld2);
 
@@ -95,7 +89,6 @@ public class BasicBNADemo {
 
 	static void setupTopWorld(IBNAWorld bnaWorld) {
 		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
-		logicManager.addThingLogic(new MouseWheelZoomingLogic());
 		logicManager.addThingLogic(new MousePanAndZoomLogic());
 		setupWorld(bnaWorld);
 	}
@@ -103,29 +96,13 @@ public class BasicBNADemo {
 	static void setupWorld(IBNAWorld bnaWorld) {
 		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
 
-		ThingTypeTrackingLogic tttl = new ThingTypeTrackingLogic();
-		logicManager.addThingLogic(tttl);
-		ThingValueTrackingLogic tptl = new ThingValueTrackingLogic();
-		logicManager.addThingLogic(tptl);
-		KeyReferenceTrackingLogic tpptl = new KeyReferenceTrackingLogic(tptl);
-		logicManager.addThingLogic(tpptl);
-		ReferenceTrackingLogic rtl = new ReferenceTrackingLogic();
-		logicManager.addThingLogic(rtl);
-
-		SelectionTrackingLogic stl = new SelectionTrackingLogic();
-		logicManager.addThingLogic(stl);
-
-		logicManager.addThingLogic(new MoveWithLogic(rtl));
-		logicManager.addThingLogic(new MirrorAnchorPointLogic(rtl));
-		logicManager.addThingLogic(new AbstractMirrorValueLogic(rtl, tpptl));
-		logicManager.addThingLogic(new MirrorBoundingBoxLogic(rtl));
-		logicManager.addThingLogic(new MirrorPointLogic(rtl));
-		DragMoveEventsLogic dml = new DragMoveEventsLogic();
-		logicManager.addThingLogic(dml);
-		logicManager.addThingLogic(new RotatingOffsetLogic(tttl));
-		logicManager.addThingLogic(new ClickSelectionLogic(tttl));
-		logicManager.addThingLogic(new MarqueeSelectionLogic(tttl));
-		logicManager.addThingLogic(new DragMovableLogic(dml, tptl));
+		logicManager.addThingLogic(new MoveWithLogic());
+		logicManager.addThingLogic(new MirrorAnchorPointLogic(logicManager));
+		logicManager.addThingLogic(new MirrorBoundingBoxLogic());
+		logicManager.addThingLogic(new RotatingOffsetLogic());
+		logicManager.addThingLogic(new ClickSelectionLogic(logicManager));
+		logicManager.addThingLogic(new MarqueeSelectionLogic(logicManager));
+		logicManager.addThingLogic(new DragMovableLogic(logicManager));
 		logicManager.addThingLogic(new BoxReshapeHandleLogic(stl, dml));
 		logicManager.addThingLogic(new SplineReshapeHandleLogic(stl, dml));
 		logicManager.addThingLogic(new SplineBreakLogic());

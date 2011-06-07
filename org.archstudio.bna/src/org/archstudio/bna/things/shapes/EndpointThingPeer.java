@@ -8,10 +8,12 @@ import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.things.AbstractEndpointThingPeer;
+import org.archstudio.bna.things.IHasShadowThingPeer;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-public class EndpointThingPeer<T extends EndpointThing> extends AbstractEndpointThingPeer<T> {
+public class EndpointThingPeer<T extends EndpointThing> extends AbstractEndpointThingPeer<T> implements
+		IHasShadowThingPeer<T> {
 
 	public EndpointThingPeer(T thing) {
 		super(thing);
@@ -36,6 +38,17 @@ public class EndpointThingPeer<T extends EndpointThing> extends AbstractEndpoint
 		}
 		if (r.setForegroundColor(g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
 			g.drawRectangle(lbb);
+		}
+	}
+
+	@Override
+	public void drawShadow(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, boolean fill) {
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
+		if (fill) {
+			g.fillRectangle(lbb);
+		}
+		else {
+			g.drawRectangle(lbb.x, lbb.y, lbb.width - 1, lbb.height - 1);
 		}
 	}
 }

@@ -142,10 +142,10 @@ public class AIMLauncherEditor extends AbstractArchStudioEditor<AIMLauncherMyxCo
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
 
-		setBannerInfo(comp.getIcon(), "Architecture Instantiation Manager");
+		setBannerInfo(brick.getIcon(), "Architecture Instantiation Manager");
 		setHasBanner(true);
 
-		aim = comp.getAim();
+		aim = brick.getAim();
 
 		try {
 			server = new LJMServer();
@@ -201,7 +201,7 @@ public class AIMLauncherEditor extends AbstractArchStudioEditor<AIMLauncherMyxCo
 					lElement.setText(XadlUtils.getName(xarch, structureRef));
 
 					final Button bInstantiate = new Button(parent, SWT.NONE);
-					bInstantiate.setImage(resources.getImage(AIMLauncherMyxComponent.AIMLAUNCHER_GO_ICON));
+					bInstantiate.setImage(resources.getImage(AIMLauncherMyxComponent.IMAGE_AIMLAUNCHER_GO_ICON));
 					bInstantiate.setText("Instantiate");
 					bInstantiate.addSelectionListener(new SelectionAdapter() {
 						@Override

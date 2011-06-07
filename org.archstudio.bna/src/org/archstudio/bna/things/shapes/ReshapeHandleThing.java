@@ -22,28 +22,34 @@ public class ReshapeHandleThing extends AbstractThing implements IHasMutableColo
 		setOrientation(Orientation.NONE);
 	}
 
+	@Override
 	public void setColor(RGB c) {
-		put(COLOR_KEY, c);
+		set(COLOR_KEY, c);
 	}
 
+	@Override
 	public RGB getColor() {
 		return get(COLOR_KEY);
 	}
 
+	@Override
 	public Point getAnchorPoint() {
 		Point p = get(ANCHOR_POINT_KEY);
 		return new Point(p.x, p.y);
 	}
 
+	@Override
 	public void setAnchorPoint(Point p) {
-		put(ANCHOR_POINT_KEY, p);
+		set(ANCHOR_POINT_KEY, p);
 	}
 
+	@Override
 	public Orientation getOrientation() {
 		return get(ORIENTATION_KEY);
 	}
 
+	@Override
 	public void setOrientation(Orientation orientation) {
-		put(ORIENTATION_KEY, orientation);
+		set(ORIENTATION_KEY, orientation);
 	}
 }

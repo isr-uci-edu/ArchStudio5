@@ -102,7 +102,7 @@ public abstract class AbstractEditDirectionLogic extends AbstractThingLogic impl
 				SWTComboThing lt = (SWTComboThing)evt.getTargetThing();
 				if(openControls.contains(lt)){
 					if(lt.getCompletionStatus() == CompletionStatus.OK){
-						String targetXArchID = lt.getProperty("#targetXArchID");
+						String targetXArchID = lt.get("#targetXArchID");
 						if(targetXArchID != null){
 							ObjRef eltRef = AS.xarch.getByID(xArchRef, targetXArchID);
 							if(eltRef != null){

@@ -1,2 +1,0 @@
-Bundle-ManifestVersion: 2
-Manifest-Version: 1.0

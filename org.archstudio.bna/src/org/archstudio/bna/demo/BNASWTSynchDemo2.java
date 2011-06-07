@@ -4,7 +4,7 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
-import org.archstudio.bna.logics.coordinating.MaintainAnchoredAssemblyOrientationLogic;
+import org.archstudio.bna.logics.coordinating.OrientDirectionalLabelLogic;
 import org.archstudio.bna.logics.coordinating.MirrorAnchorPointLogic;
 import org.archstudio.bna.logics.coordinating.MirrorBoundingBoxLogic;
 import org.archstudio.bna.logics.coordinating.MirrorPointLogic;
@@ -244,7 +244,7 @@ public class BNASWTSynchDemo2 {
 		logicManager.addThingLogic(new BoxReshapeHandleLogic(stl, dml));
 		logicManager.addThingLogic(new SplineReshapeHandleLogic(stl, dml));
 		logicManager.addThingLogic(new SplineBreakLogic());
-		logicManager.addThingLogic(new MaintainAnchoredAssemblyOrientationLogic(rtl));
+		logicManager.addThingLogic(new OrientDirectionalLabelLogic(rtl));
 		logicManager.addThingLogic(new StandardCursorLogic());
 
 		logicManager.addThingLogic(new ModelBoundsTrackingLogic(tttl));

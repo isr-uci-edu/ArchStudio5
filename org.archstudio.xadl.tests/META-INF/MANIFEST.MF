@@ -9,4 +9,5 @@ Require-Bundle: org.archstudio.xadl3.structure,
  org.archstudio.xarchadt,
  org.archstudio.xarchadt.core,
  org.junit,
- org.archstudio.xadl;bundle-version="5.0.0"
+ org.archstudio.xadl;bundle-version="5.0.0",
+ com.google.guava;bundle-version="0.0.9"

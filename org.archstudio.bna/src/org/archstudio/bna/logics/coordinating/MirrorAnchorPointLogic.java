@@ -11,7 +11,7 @@ import org.archstudio.bna.logics.tracking.ReferenceTrackingLogic;
 import org.eclipse.draw2d.geometry.Point;
 
 public class MirrorAnchorPointLogic extends
-		AbstractMaintainReferencedThingsLogic<IHasAnchorPoint, IHasMutableAnchorPoint> {
+		AbstractMirrorValueLogic MaintainReferencedThingsLogic<IHasAnchorPoint, IHasMutableAnchorPoint> {
 
 	private static final String ANCHOR_POINT_MASTER_THING_ID_KEY = "&anchorPointMaster";
 	private static final String ANCHOR_POINT_MIRROR_OFFSETS_PROPETY_NAME = "anchorPointMirrorOffsets";
@@ -37,7 +37,7 @@ public class MirrorAnchorPointLogic extends
 		lock.lock();
 		try {
 			Point ap = sourceThing.getAnchorPoint();
-			Point apo = targetThing.getProperty(ANCHOR_POINT_MIRROR_OFFSETS_PROPETY_NAME);
+			Point apo = targetThing.get(ANCHOR_POINT_MIRROR_OFFSETS_PROPETY_NAME);
 			Point nap = new Point(ap.x, ap.y);
 			if (apo != null) {
 				nap.x += apo.x;

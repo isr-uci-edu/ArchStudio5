@@ -64,7 +64,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 		final int fworldY = worldY;
 		
 		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(view.getWorld().getBNAModel());
-		String structureXArchID = ept.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+		String structureXArchID = ept.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 		if(structureXArchID != null){
 			final ObjRef structureRef = AS.xarch.getByID(documentRootRef, structureXArchID);
 			if((structureRef != null) && (XadlUtils.isInstanceOf(AS.xarch, structureRef, Structure_3_0Package.Literals.STRUCTURE))){
@@ -107,7 +107,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 		if(glp == null){
 			return;
 		}
-		String engineID = (String)glp.getProperty("engineID");
+		String engineID = (String)glp.get("engineID");
 		if(engineID == null){
 			return;
 		}
@@ -300,7 +300,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 	}
 
 	protected static boolean getDontMoveInterfaces(GraphLayoutParameters glp){
-		Object o = glp.getProperty("dontMoveInterfaces");
+		Object o = glp.get("dontMoveInterfaces");
 		if(o == null){
 			return false;
 		}
@@ -311,7 +311,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 	}
 	
 	protected static boolean getDontRouteLinks(GraphLayoutParameters glp){
-		Object o = glp.getProperty("dontRouteLinks");
+		Object o = glp.get("dontRouteLinks");
 		if(o == null){
 			return false;
 		}

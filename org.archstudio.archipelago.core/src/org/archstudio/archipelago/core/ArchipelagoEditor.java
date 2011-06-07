@@ -23,12 +23,12 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 
 	public ArchipelagoEditor() {
 		super(ArchipelagoMyxComponent.class, ArchipelagoMyxComponent.EDITOR_NAME);
-		prefs = comp.getPreferences();
-		graphLayout = comp.getGraphLayout();
+		prefs = brick.getPreferences();
+		graphLayout = brick.getGraphLayout();
 
 		//ArchlightUtils.initResources(resources);
 
-		setBannerInfo(comp.getIcon(), "Graphical Architecture Editor");
+		setBannerInfo(brick.getIcon(), "Graphical Architecture Editor");
 		setHasBanner(true);
 		setUpdateOnSelectionChange(false);
 		setUpdateEditorOnXArchFlatEvent(false);

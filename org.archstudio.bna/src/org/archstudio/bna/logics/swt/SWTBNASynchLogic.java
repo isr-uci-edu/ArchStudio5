@@ -187,7 +187,7 @@ public class SWTBNASynchLogic extends AbstractThingLogic implements ControlListe
 				BNAUtils.convertLocalToWorld(cm, parentControlR);
 			}
 			IThing parentThing = bnaWorld.getBNAModel().getThing(
-					(String) thing.getProperty(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY));
+					(String) thing.get(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY));
 			if (parentThing != null && parentControl != null) {
 				if (parentThing instanceof IHasBoundingBox) {
 					IHasBoundingBox parentThingBB = (IHasBoundingBox) parentThing;
@@ -208,7 +208,7 @@ public class SWTBNASynchLogic extends AbstractThingLogic implements ControlListe
 			IHasBoundingBox thingBB = (IHasBoundingBox) thing;
 			Rectangle thingR = thingBB.getBoundingBox();
 			IThing parentThing = bnaWorld.getBNAModel().getThing(
-					(String) thing.getProperty(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY));
+					(String) thing.get(IHasSWTLayoutData.LAYOUT_TARGET_ID_KEY));
 			if (parentThing != null) {
 				if (parentThing instanceof IHasBoundingBox) {
 					IHasBoundingBox parentThingBB = (IHasBoundingBox) parentThing;

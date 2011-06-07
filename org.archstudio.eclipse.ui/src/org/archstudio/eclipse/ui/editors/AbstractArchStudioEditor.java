@@ -1,5 +1,6 @@
 package org.archstudio.eclipse.ui.editors;
 
+import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.eclipse.ui.IFocusEditorListener;
 import org.archstudio.eclipse.ui.XadlEditorMatchingStrategy;
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
@@ -43,10 +44,11 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
-public abstract class AbstractArchStudioEditor<C extends AbstractArchStudioEditorMyxComponent> extends EditorPart
+public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEditorMyxComponent> extends EditorPart
 		implements ISelectionChangedListener, IXArchADTModelListener, IFocusEditorListener, IFileManagerListener {
 
-	protected C comp = null;
+	protected final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
+	protected final B brick;
 
 	protected boolean hasBanner = false;
 	protected boolean updateOnSelectionChange = true;
@@ -57,8 +59,6 @@ public abstract class AbstractArchStudioEditor<C extends AbstractArchStudioEdito
 	protected String editorName = null;
 	protected Image icon = null;
 	protected String secondaryText = null;
-
-	protected MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
 
 	protected IXArchADT xarch;
 	protected IFileManager fileman;
@@ -90,16 +90,17 @@ public abstract class AbstractArchStudioEditor<C extends AbstractArchStudioEdito
 	});
 
 	@SuppressWarnings("unchecked")
-	public AbstractArchStudioEditor(Class<C> myxComponentClass, String editorName) {
+	public AbstractArchStudioEditor(Class<B> brickClass, String editorName) {
 		super();
+		InstantiateArchStudio.instantiate();
+		this.brick = (B) myxRegistry.waitForBrick(brickClass);
 		this.uniqueEditorID = UIDGenerator.generateUID(editorName);
-		this.comp = (C) myxRegistry.getBrick(myxComponentClass);
 		this.editorName = editorName;
-		myxRegistry.map(comp, this);
-		xarch = comp.getXarch();
-		fileman = comp.getFileManager();
-		editorManager = comp.getEditorManager();
-		resources = comp.getResources();
+		myxRegistry.map(brick, this);
+		xarch = brick.getXarch();
+		fileman = brick.getFileManager();
+		editorManager = brick.getEditorManager();
+		resources = brick.getResources();
 
 		updateThread.start();
 	}
@@ -210,7 +211,7 @@ public abstract class AbstractArchStudioEditor<C extends AbstractArchStudioEdito
 		if (documentRootRef != null) {
 			fileman.close(uniqueEditorID, documentRootRef);
 		}
-		myxRegistry.unmap(comp, this);
+		myxRegistry.unmap(brick, this);
 		super.dispose();
 	}
 

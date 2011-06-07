@@ -27,8 +27,7 @@ import org.eclipse.emf.common.util.URI;
  * @see org.archstudio.filemanager.core.FileManagerMyxComponentStub
  * @generated
  */
-public class FileManagerMyxComponent extends org.archstudio.filemanager.core.FileManagerMyxComponentStub implements
-		IXArchADTFileListener, IXArchADTModelListener {
+public class FileManagerMyxComponent extends org.archstudio.filemanager.core.FileManagerMyxComponentStub {
 
 	protected Set<ObjRef> dirtySet = Collections.synchronizedSet(new HashSet<ObjRef>());
 

@@ -17,16 +17,14 @@ public abstract class AbstractThingPeer<T extends IThing> implements IThingPeer<
 	}
 
 	@Override
+	public void updateCache(IBNAView view, ICoordinateMapper cm) {
+	}
+
+	@Override
 	public void dispose() {
 	}
 
 	@Override
-	public boolean getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
-		return false;
-	}
-
-	@Override
-	public boolean isOpaqueAndFilled() {
-		return false;
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
 	}
 }

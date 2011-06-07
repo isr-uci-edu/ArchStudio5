@@ -22,8 +22,8 @@
 <stringAttribute key="selectedPlugin" value="org.eclipse.jet"/>
 <booleanAttribute key="show_selected_only" value="false"/>
 <stringAttribute key="templateConfig" value="${target_home}\configuration\config.ini"/>
-<stringAttribute key="timestamp" value="1307014679909"/>
-<booleanAttribute key="tracing" value="true"/>
+<stringAttribute key="timestamp" value="1307420476096"/>
+<booleanAttribute key="tracing" value="false"/>
 <mapAttribute key="tracingOptions">
 <mapEntry key="edu.umd.cs.findbugs.plugin.eclipse/debug" value="false"/>
 <mapEntry key="edu.umd.cs.findbugs.plugin.eclipse/debug/builder" value="false"/>

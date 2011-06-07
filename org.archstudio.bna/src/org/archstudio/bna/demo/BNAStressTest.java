@@ -8,9 +8,9 @@ import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
-import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasText;
+import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.coordinating.StickAnchorPointLogic;
@@ -19,10 +19,11 @@ import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
-import org.archstudio.bna.things.glass.BoxGlassThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
+import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.things.glass.SplineGlassThing;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -47,6 +48,10 @@ public class BNAStressTest {
 		final IBNAModel model = new DefaultBNAModel();
 		final IBNAWorld world = new DefaultBNAWorld("top view", model);
 		final BNACanvas view = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, world);
+
+		BNARenderingSettings.setAntialiasGraphics(view, true);
+		BNARenderingSettings.setAntialiasText(view, true);
+		BNARenderingSettings.setDecorativeGraphics(view, true);
 
 		view.setSize(500, 500);
 		view.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
@@ -102,7 +107,7 @@ public class BNAStressTest {
 					int cy1 = y0 + (h + sh) * chi;
 					Object id = id(cwi, chi);
 
-					BoxGlassThing b = Assemblies.createBox(world, id, null);
+					RectangleGlassThing b = Assemblies.createRectangle(world, id, null);
 					b.setBoundingBox(new Rectangle(cx1, cy1, w, h));
 					Assemblies.TEXT_KEY.get(b, model).set(
 							IHasText.TEXT_KEY,
@@ -178,7 +183,7 @@ public class BNAStressTest {
 		return "(" + id + ":" + orientation + "," + index + ")";
 	}
 
-	public static EndpointGlassThing createEndpoint(IBNAWorld world, Object id, IHasBoundingBox parent, Point location,
+	public static EndpointGlassThing createEndpoint(IBNAWorld world, Object id, IIsSticky parent, Point location,
 			Flow flow, Orientation orientation) {
 		IBNAModel model = world.getBNAModel();
 		IThingLogicManager tlm = world.getThingLogicManager();
@@ -206,7 +211,7 @@ public class BNAStressTest {
 		IHasAnchorPoint a1 = (IHasAnchorPoint) model.getThing(id1);
 
 		StickPointsLogic spl = tlm.addThingLogic(StickPointsLogic.class);
-		spl.stick(a0, StickyMode.CENTER, 0, s);
-		spl.stick(a1, StickyMode.CENTER, -1, s);
+		spl.stick((IIsSticky) a0, StickyMode.CENTER, 0, s);
+		spl.stick((IIsSticky) a1, StickyMode.CENTER, -1, s);
 	}
 }

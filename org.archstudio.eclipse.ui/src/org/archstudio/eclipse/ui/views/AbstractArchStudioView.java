@@ -1,99 +1,24 @@
 package org.archstudio.eclipse.ui.views;
 
+import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.myx.fw.IMyxBrick;
 import org.archstudio.myx.fw.IMyxName;
-import org.archstudio.myx.fw.IMyxRegistryListener;
 import org.archstudio.myx.fw.MyxRegistry;
-import org.archstudio.myx.fw.MyxRegistryEvent;
-import org.archstudio.swtutils.SWTWidgetUtils;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 
-public abstract class AbstractArchStudioView<B extends IMyxBrick> extends ViewPart implements IMyxRegistryListener {
+public abstract class AbstractArchStudioView<B extends IMyxBrick> extends ViewPart {
 
-	protected B brick = null;
-	private final Class<B> brickClass;
-	private final IMyxName brickName;
-	private Composite parent = null;
-	private boolean parentCreated = false;
+	protected final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
+	protected final B brick;
 
-	private MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
-
+	@SuppressWarnings("unchecked")
 	public AbstractArchStudioView(Class<B> brickClass) {
-		this.brickClass = brickClass;
-		this.brickName = null;
-		myxRegistry.addMyxRegistryListener(this);
+		InstantiateArchStudio.instantiate();
+		brick = (B) myxRegistry.waitForBrick(brickClass);
 	}
 
+	@SuppressWarnings("unchecked")
 	public AbstractArchStudioView(IMyxName brickName) {
-		this.brickClass = null;
-		this.brickName = brickName;
-		myxRegistry.addMyxRegistryListener(this);
-	}
-
-	@Override
-	final public void createPartControl(Composite parent) {
-		new Label(parent, SWT.NONE).setText("Initializing ArchStudio...");
-		this.parent = parent;
-		checkInitialization();
-	}
-
-	abstract public void createMyxPartControl(Composite parent);
-
-	@Override
-	final public void setFocus() {
-		if (parentCreated) {
-			setMyxFocus();
-		}
-	}
-
-	abstract public void setMyxFocus();
-
-	@SuppressWarnings("unchecked")
-	public void handleMyxRegistryEvent(MyxRegistryEvent evt) {
-		if (evt.getEventType() == MyxRegistryEvent.EventType.BRICK_REGISTERED) {
-			if (brickClass != null && brickClass.getName().equals(evt.getBrick().getClass().getName())) {
-				this.brick = (B) evt.getBrick();
-				SWTWidgetUtils.async(parent, new Runnable() {
-
-					public void run() {
-						checkInitialization();
-					}
-				});
-			}
-			if (brickName != null && brickName.equals(evt.getBrick().getMyxBrickItems().getBrickName())) {
-				this.brick = (B) evt.getBrick();
-				SWTWidgetUtils.async(parent, new Runnable() {
-
-					public void run() {
-						checkInitialization();
-					}
-				});
-			}
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	private void checkInitialization() {
-		if (parent != null && !parent.isDisposed()) {
-			if (brick == null) {
-				brick = (B) myxRegistry.getBrick(brickClass);
-			}
-			if (brick != null && !parentCreated) {
-				parentCreated = true;
-				for (Control control : parent.getChildren()) {
-					control.dispose();
-				}
-				initializeMyxBrick();
-				createMyxPartControl(parent);
-				parent.layout();
-			}
-		}
-	}
-
-	protected void initializeMyxBrick() {
+		brick = (B) myxRegistry.waitForBrick(brickName);
 	}
 }

@@ -25,10 +25,7 @@ import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.core.XArchADTImpl;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.ui.IStartup;
 import org.xml.sax.SAXException;
@@ -41,17 +38,30 @@ public class InstantiateArchStudio implements IStartup {
 	public InstantiateArchStudio() {
 	}
 
+	private static Object lock = new Object();
+	private static boolean instantiated = false;
+
 	@Override
 	public void earlyStartup() {
-		Job job = new Job("Initializing ArchStudio...") {
-			@Override
-			protected IStatus run(IProgressMonitor monitor) {
-				instantiate(new MyxProgessMonitor(monitor));
-				return Status.OK_STATUS;
+		synchronized (lock) {
+			if (!instantiated) {
+				instantiated = true;
+				//Job job = new Job("Initializing ArchStudio...") {
+				//	@Override
+				//	protected IStatus run(IProgressMonitor monitor) {
+				//		instantiate(new MyxProgessMonitor(monitor));
+				//		return Status.OK_STATUS;
+				//	}
+				//};
+				//job.setPriority(Job.INTERACTIVE);
+				//job.schedule();
+				instantiate(new MyxProgessMonitor(new NullProgressMonitor()));
 			}
-		};
-		job.setPriority(Job.LONG);
-		job.schedule();
+		}
+	}
+
+	public static void instantiate() {
+		new InstantiateArchStudio().earlyStartup();
 	}
 
 	public void instantiate(IMyxProgressMonitor monitor) {

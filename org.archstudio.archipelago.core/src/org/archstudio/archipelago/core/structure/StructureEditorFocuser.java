@@ -6,17 +6,18 @@ import java.util.List;
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.IArchipelagoEditorFocuser;
+import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.utils.BNAComposite;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.FlyToUtils;
+import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.graphics.Point;
 
 public class StructureEditorFocuser implements IArchipelagoEditorFocuser {
 	protected TreeViewer viewer = null;
@@ -60,25 +61,23 @@ public class StructureEditorFocuser implements IArchipelagoEditorFocuser {
 
 	protected void focusOnElement(ObjRef structureRef, ObjRef ref) {
 		StructureEditorSupport.setupEditor(AS, structureRef);
-		if (BNAUtils.nulleq(structureRef, ref)) {
+		if (SystemUtils.nullEquals(structureRef, ref)) {
 			return;
 		}
-		BNAComposite bnaComposite = (BNAComposite) ArchipelagoUtils.getBNAComposite(AS.editor);
-		if (bnaComposite != null) {
-			IBNAView view = bnaComposite.getView();
-			if (view != null) {
-				IBNAModel structureModel = view.getWorld().getBNAModel();
-				String xArchID = XadlUtils.getID(AS.xarch, ref);
-				if (xArchID != null) {
-					IThing t = ArchipelagoUtils.findThing(structureModel, xArchID);
-					if (t != null) {
-						IThing glassThing = ArchipelagoUtils.getGlassThing(structureModel, t);
-						if (glassThing != null) {
-							Point p = BNAUtils.getCentralPoint(glassThing);
-							if (p != null) {
-								FlyToUtils.flyTo(view, p.x, p.y);
-								ArchipelagoUtils.pulseNotify(structureModel, glassThing);
-							}
+		BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(AS.editor);
+		IBNAView view = bnaCanvas;
+		if (bnaCanvas != null) {
+			IBNAModel structureModel = view.getBNAWorld().getBNAModel();
+			String xArchID = XadlUtils.getID(AS.xarch, ref);
+			if (xArchID != null) {
+				IThing t = ArchipelagoUtils.findThing(structureModel, xArchID);
+				if (t != null) {
+					IThing glassThing = ArchipelagoUtils.getGlassThing(structureModel, t);
+					if (glassThing != null) {
+						Point p = BNAUtils.getCentralPoint(glassThing);
+						if (p != null) {
+							FlyToUtils.flyTo(view, p.x, p.y);
+							ArchipelagoUtils.pulseNotify(structureModel, glassThing);
 						}
 					}
 				}

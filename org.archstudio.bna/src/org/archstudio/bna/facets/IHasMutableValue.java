@@ -1,5 +1,5 @@
 package org.archstudio.bna.facets;
 
-public interface IHasMutableValue extends IHasValue {
-	public void setValue(Object value);
+public interface IHasMutableValue<V> extends IHasValue<V> {
+	public void setValue(V value);
 }

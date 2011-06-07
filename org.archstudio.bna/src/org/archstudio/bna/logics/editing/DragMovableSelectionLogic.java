@@ -4,7 +4,6 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.facets.IHasUserEditable;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.logics.tracking.SelectionTrackingLogic;
 import org.eclipse.swt.graphics.Point;
 
 public class DragMovableSelectionLogic extends AbstractThingLogic implements IDragMoveListener {
@@ -12,19 +11,23 @@ public class DragMovableSelectionLogic extends AbstractThingLogic implements IDr
 	protected DragMovableLogic dml = null;
 	protected SelectionTrackingLogic stl = null;
 
-	public DragMovableSelectionLogic(DragMovableLogic dml, SelectionTrackingLogic stl) {
-		this.dml = dml;
-		this.stl = stl;
+	public DragMovableSelectionLogic() {
 	}
 
+	@Override
 	protected void init() {
+		dml = getBNAWorld().getThingLogicManager().addThingLogic(DragMovableLogic.class);
+		stl = getBNAWorld().getThingLogicManager().addThingLogic(SelectionDragMovableLogic.class);
 		dml.addDragMoveListener(this);
 	}
 
+	@Override
 	protected void destroy() {
 		dml.removeDragMoveListener(this);
+		dml = null;
 	}
 
+	@Override
 	public void dragMoved(DragMoveEvent evt) {
 		IThing movedThing = evt.getMovedThing();
 		if (movedThing instanceof IHasSelected) {
@@ -32,8 +35,8 @@ public class DragMovableSelectionLogic extends AbstractThingLogic implements IDr
 				IHasSelected[] otherSelectedThings = stl.getSelectedThings();
 				for (IHasSelected otherSelectedThing : otherSelectedThings) {
 					if (!otherSelectedThing.equals(movedThing)) {
-						if ((otherSelectedThing instanceof IDragMovable)
-								&& (otherSelectedThing instanceof IHasUserEditable)) {
+						if (otherSelectedThing instanceof IDragMovable
+								&& otherSelectedThing instanceof IHasUserEditable) {
 							if (((IHasUserEditable) otherSelectedThing).isUserEditable()) {
 								IDragMovable rmt = (IDragMovable) otherSelectedThing;
 								Point rp = rmt.getReferencePoint();
@@ -49,6 +52,7 @@ public class DragMovableSelectionLogic extends AbstractThingLogic implements IDr
 		}
 	}
 
+	@Override
 	public void dragFinished(DragMoveEvent evt) {
 	}
 }

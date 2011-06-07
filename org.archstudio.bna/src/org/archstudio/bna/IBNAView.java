@@ -12,4 +12,6 @@ public interface IBNAView {
 
 	public void setCursor(int swtCursor);
 
+	public <T extends IThing> IThingPeer<T> getThingPeer(T t);
+
 }

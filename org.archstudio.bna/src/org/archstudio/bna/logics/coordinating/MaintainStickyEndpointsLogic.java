@@ -6,15 +6,8 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNASynchronousModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.ThingEvent;
-import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasStickyBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.logics.tracking.IStickyBoxTrackingListener;
-import org.archstudio.bna.logics.tracking.IThingSetListener;
-import org.archstudio.bna.logics.tracking.StickyBoxChangedEvent;
-import org.archstudio.bna.logics.tracking.StickyBoxTrackingLogic;
-import org.archstudio.bna.logics.tracking.ThingRefTrackingLogic;
-import org.archstudio.bna.logics.tracking.ThingSetChangedEvent;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.BNAUtils.PointToRectangleDistanceData;
@@ -35,12 +28,14 @@ public class MaintainStickyEndpointsLogic extends AbstractThingLogic implements 
 		this.sbtl = sbtl;
 	}
 
+	@Override
 	protected void init() {
 		ttstl.addThingSetListener(this);
 		sbtl.addTrackingListener(this);
 		checkAllEndpoints();
 	}
 
+	@Override
 	protected void destroy() {
 		sbtl.removeTrackingListener(this);
 		ttstl.removeThingSetListener(this);
@@ -59,7 +54,7 @@ public class MaintainStickyEndpointsLogic extends AbstractThingLogic implements 
 			String ep1stID = t.getEndpoint1StuckToThingID();
 			Point ep1 = t.getEndpoint1();
 			IThing ep1st = m.getThing(ep1stID);
-			if ((ep1st != null) && (ep1st instanceof IHasStickyBox)) {
+			if (ep1st != null && ep1st instanceof IHasStickyBox) {
 				Rectangle sb = ((IHasStickyBox) ep1st).getStickyBox();
 				if (sb != null) {
 					if (!BNAUtils.isPointOnRectangle(ep1, sb)) {
@@ -74,7 +69,7 @@ public class MaintainStickyEndpointsLogic extends AbstractThingLogic implements 
 			String ep2stID = t.getEndpoint2StuckToThingID();
 			Point ep2 = t.getEndpoint2();
 			IThing ep2st = m.getThing(ep2stID);
-			if ((ep2st != null) && (ep2st instanceof IHasStickyBox)) {
+			if (ep2st != null && ep2st instanceof IHasStickyBox) {
 				Rectangle sb = ((IHasStickyBox) ep2st).getStickyBox();
 				if (sb != null) {
 					if (!BNAUtils.isPointOnRectangle(ep2, sb)) {
@@ -88,6 +83,7 @@ public class MaintainStickyEndpointsLogic extends AbstractThingLogic implements 
 		}
 	}
 
+	@Override
 	public void bnaModelChangedSync(BNAModelEvent evt) {
 		IThing t = evt.getTargetThing();
 		if (t instanceof IHasStickyEndpoints) {

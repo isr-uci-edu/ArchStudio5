@@ -18,8 +18,9 @@ public class GridThing extends AbstractThing implements IHasMutableColor {
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setGridSpacing(0);
-		setGridDisplayType(GridDisplayType.NONE);
+		setColor(new RGB(128, 128, 128));
+		setGridSpacing(2 * 2 * 2 * 3);
+		setGridDisplayType(GridDisplayType.DOTTED_LINES);
 	}
 
 	public void setGridSpacing(int gridSpacing) {
@@ -38,10 +39,12 @@ public class GridThing extends AbstractThing implements IHasMutableColor {
 		return get(GRID_DISPLAY_TYPE_KEY);
 	}
 
+	@Override
 	public void setColor(RGB c) {
 		put(COLOR_KEY, c);
 	}
 
+	@Override
 	public RGB getColor() {
 		return get(COLOR_KEY);
 	}

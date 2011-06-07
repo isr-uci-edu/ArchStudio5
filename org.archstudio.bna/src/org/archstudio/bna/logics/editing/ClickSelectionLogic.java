@@ -4,7 +4,6 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -20,14 +19,21 @@ import com.google.common.collect.Iterables;
 
 public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMenuListener {
 
-	protected final ThingValueTrackingLogic tvtl;
+	protected ThingValueTrackingLogic tvtl;
 
-	public ClickSelectionLogic(IThingLogicManager tlm) {
-		this(tlm.addThingLogic(ThingValueTrackingLogic.class));
+	public ClickSelectionLogic() {
 	}
 
-	protected ClickSelectionLogic(ThingValueTrackingLogic tvtl) {
-		this.tvtl = tvtl;
+	@Override
+	protected void init() {
+		super.init();
+		tvtl = getBNAWorld().getThingLogicManager().addThingLogic(ThingValueTrackingLogic.class);
+	}
+
+	@Override
+	protected void destroy() {
+		super.destroy();
+		tvtl = null;
 	}
 
 	private void removeAllSelections() {

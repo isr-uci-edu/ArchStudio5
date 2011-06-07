@@ -1,11 +1,12 @@
 package org.archstudio.bna.facets;
 
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
 
-public interface IHasValue {
+public interface IHasValue<V> {
 
-	public static final ThingKey<Object, V> VALUE_KEY = ThingKey.createKey("value");
+	public static final IThingKey<Object> VALUE_KEY = ThingKey.create("value");
 
-	public Object getValue();
+	public V getValue();
 
 }

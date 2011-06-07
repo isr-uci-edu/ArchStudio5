@@ -1,60 +1,57 @@
 package org.archstudio.bna.things.shapes;
 
 import org.archstudio.bna.IBNAView;
-import org.archstudio.bna.things.AbstractThingPeer;
-import org.archstudio.bna.utils.BNAComposite;
-import org.archstudio.bna.utils.BNARenderingSettings;
-import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.IRegion;
+import org.archstudio.bna.IResources;
+import org.archstudio.bna.facets.IHasColor;
+import org.archstudio.bna.facets.IHasEdgeColor;
+import org.archstudio.bna.facets.IHasSecondaryColor;
+import org.archstudio.bna.things.AbstractEllipseThingPeer;
+import org.archstudio.bna.things.IHasShadowThingPeer;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Pattern;
 
-public class EllipseThingPeer<T extends EllipseThing> extends AbstractThingPeer<T> {
+public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThingPeer<T> implements
+		IHasShadowThingPeer<T> {
 
 	public EllipseThingPeer(T thing) {
 		super(thing);
 	}
 
 	@Override
-	public void draw(IBNAView view, Graphics g, Rectangle clip, ResourceUtils res) {
-		Rectangle bb = t.getBoundingBox();
-		Rectangle lbb = BNAUtils.worldToLocal(view.getCoordinateMapper(), bb);
-		if (!clip.intersects(lbb)) {
+	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, IRegion localClip, IRegion worldClip) {
+		if (!worldClip.intersects(t.getBoundingBox())) {
 			return;
 		}
 
-		Color fg = res.getColor(t.getColor(), SWT.COLOR_GRAY);
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 
-		boolean isGradientFilled = t.isGradientFilled();
-		if (isGradientFilled) {
-			BNAComposite c = (BNAComposite) BNAUtils.getParentComposite(view);
-			if (c != null) {
-				if (!BNARenderingSettings.getDecorativeGraphics(c)) {
-					isGradientFilled = false;
-				}
+		if (t.isGradientFilled() && r.setForegroundColor(g, t, IHasSecondaryColor.SECONDARY_COLOR_KEY)) {
+			if (r.setBackgroundColor(g, t, IHasColor.COLOR_KEY)) {
+				// TODO: correctly create gradient
+				g.fillOval(lbb);
 			}
 		}
-
-		if (!isGradientFilled) {
-			g.setBackgroundColor(fg);
-			g.fillOval(lbb.x, lbb.y, lbb.width, lbb.height);
-		}
 		else {
-			Color bg = res.getColor(t.getSecondaryColor(), SWT.COLOR_DARK_GRAY);
-			g.setForegroundColor(fg);
-			g.setBackgroundColor(bg);
-			Pattern pattern = new Pattern(res.getDevice(), lbb.x, lbb.y, lbb.x, lbb.y + lbb.height,
-					g.getForegroundColor(), g.getBackgroundColor());
-			g.setBackgroundPattern(pattern);
-			g.fillOval(lbb.x, lbb.y, lbb.width, lbb.height);
-			pattern.dispose();
+			if (r.setBackgroundColor(g, t, IHasColor.COLOR_KEY)) {
+				g.fillOval(lbb);
+			}
+		}
+		if (r.setForegroundColor(g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
+			/* This adjustment makes a drawn oval overlap the edge pixel of a filled oval. */
+			g.drawOval(lbb.x, lbb.y, lbb.width - 1, lbb.height - 1);
 		}
 	}
 
 	@Override
-	public boolean isInThing(IBNAView view, int worldX, int worldY) {
-		return BNAUtils.isWithin(t.getBoundingBox(), worldX, worldY);
+	public void drawShadow(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, boolean fill) {
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
+		if (fill) {
+			g.fillOval(lbb);
+		}
+		else {
+			g.drawOval(lbb.x, lbb.y, lbb.width - 1, lbb.height - 1);
+		}
 	}
 }

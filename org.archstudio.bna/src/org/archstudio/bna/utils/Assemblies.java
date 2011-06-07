@@ -3,7 +3,6 @@ package org.archstudio.bna.utils;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
 
@@ -22,13 +21,17 @@ import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.coordinating.MirrorBoundingBoxLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
-import org.archstudio.bna.things.glass.BoxGlassThing;
+import org.archstudio.bna.things.glass.EllipseGlassThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
+import org.archstudio.bna.things.glass.PolygonGlassThing;
+import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.things.glass.SplineGlassThing;
-import org.archstudio.bna.things.labels.BoxedLabelThing;
+import org.archstudio.bna.things.labels.BoundedLabelThing;
 import org.archstudio.bna.things.labels.DirectionalLabelThing;
-import org.archstudio.bna.things.shapes.BoxThing;
+import org.archstudio.bna.things.shapes.EllipseThing;
 import org.archstudio.bna.things.shapes.EndpointThing;
+import org.archstudio.bna.things.shapes.PolygonThing;
+import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.NoThing;
 import org.eclipse.draw2d.geometry.Insets;
@@ -50,6 +53,7 @@ public class Assemblies {
 
 	public static IThingRefKey<IThing> ROOT_KEY = ThingRefKey.create("assembly-root");
 
+	public static IThingRefKey<IThing> SHADOW_KEY = ThingAssemblyKey.create("assembly-shadow");
 	public static IThingRefKey<IHasColor> BACKGROUND_KEY = ThingAssemblyKey.create("assembly-background");
 	public static IThingRefKey<IHasText> TEXT_KEY = ThingAssemblyKey.create("assembly-text");
 	public static IThingRefKey<DirectionalLabelThing> LABEL_KEY = ThingAssemblyKey.create("assembly-label");
@@ -70,7 +74,6 @@ public class Assemblies {
 	@SuppressWarnings("unused")
 	protected static void initLayers(IBNAModel model) {
 		IThing baseLayerThing = initLayer(model, BASE_LAYER_THING_ID, null);
-		IThing shadowLayerThing = initLayer(model, SHADOW_LAYER_THING_ID, baseLayerThing);
 		IThing splineLayerThing = initLayer(model, SPLINE_LAYER_THING_ID, baseLayerThing);
 		IThing middleLayerThing = initLayer(model, MIDDLE_LAYER_THING_ID, baseLayerThing);
 	}
@@ -87,9 +90,9 @@ public class Assemblies {
 
 	public static Iterable<IThing> getRelatedParts(IBNAModel model, IThing part) {
 		Collection<IThing> allParts = Sets.newHashSet(part);
-		for (Entry<IThingKey<?>, ?> e : part.entrySet()) {
-			if (e.getKey() instanceof ThingAssemblyKey) {
-				IThing t = ((IThingRefKey<?>) e.getKey()).get(part, model);
+		for (IThingKey<?> k : part.keySet()) {
+			if (k instanceof ThingAssemblyKey) {
+				IThing t = ((IThingRefKey<?>) k).get(part, model);
 				if (t != null) {
 					allParts.add(t);
 				}
@@ -98,9 +101,34 @@ public class Assemblies {
 		IThing root = ROOT_KEY.get(part, model);
 		if (root != null) {
 			allParts.add(root);
-			for (Entry<IThingKey<?>, ?> e : root.entrySet()) {
-				if (e.getKey() instanceof ThingAssemblyKey) {
-					IThing t = ((IThingRefKey<?>) e.getKey()).get(root, model);
+			for (IThingKey<?> k : root.keySet()) {
+				if (k instanceof ThingAssemblyKey) {
+					IThing t = ((IThingRefKey<?>) k).get(root, model);
+					if (t != null) {
+						allParts.add(t);
+					}
+				}
+			}
+		}
+		return allParts;
+	}
+
+	public static Iterable<IThing> getParts(IBNAModel model, IThing part) {
+		Collection<IThing> allParts = Sets.newHashSet(part);
+		for (IThingKey<?> k : part.keySet()) {
+			if (k instanceof ThingAssemblyKey) {
+				IThing t = ((IThingRefKey<?>) k).get(part, model);
+				if (t != null) {
+					allParts.add(t);
+				}
+			}
+		}
+		IThing root = ROOT_KEY.get(part, model);
+		if (root != null) {
+			allParts.add(root);
+			for (IThingKey<?> k : root.keySet()) {
+				if (k instanceof ThingAssemblyKey) {
+					IThing t = ((IThingRefKey<?>) k).get(root, model);
 					if (t != null) {
 						allParts.add(t);
 					}
@@ -117,16 +145,35 @@ public class Assemblies {
 		return null;
 	}
 
-	public static BoxGlassThing createBox(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
+	public static EllipseGlassThing createEllipse(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
 		checkNotNull(world);
 
 		IBNAModel model = world.getBNAModel();
 		IThingLogicManager tlm = world.getThingLogicManager();
 
-		BoxThing bkg = model.addThing(new BoxThing(id), parent != null ? parent
-				: getLayer(model, MIDDLE_LAYER_THING_ID));
-		BoxedLabelThing label = model.addThing(new BoxedLabelThing(null), bkg);
-		BoxGlassThing glass = model.addThing(new BoxGlassThing(null), bkg);
+		EllipseThing bkg = model.addThing(new EllipseThing(id),
+				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
+		EllipseGlassThing glass = model.addThing(new EllipseGlassThing(null), bkg);
+
+		mark(glass, BACKGROUND_KEY, bkg);
+
+		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
+
+		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, bkg);
+
+		return glass;
+	}
+
+	public static RectangleGlassThing createRectangle(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
+		checkNotNull(world);
+
+		IBNAModel model = world.getBNAModel();
+		IThingLogicManager tlm = world.getThingLogicManager();
+
+		RectangleThing bkg = model.addThing(new RectangleThing(id),
+				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
+		BoundedLabelThing label = model.addThing(new BoundedLabelThing(null), bkg);
+		RectangleGlassThing glass = model.addThing(new RectangleGlassThing(null), bkg);
 
 		mark(glass, BACKGROUND_KEY, bkg);
 		mark(glass, TEXT_KEY, label);
@@ -136,6 +183,26 @@ public class Assemblies {
 
 		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, bkg);
 		mbbl.mirrorBoundingBox(glass, new Insets(3, 3, 3, 3), label);
+
+		return glass;
+	}
+
+	public static PolygonGlassThing createPolygon(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
+		checkNotNull(world);
+
+		IBNAModel model = world.getBNAModel();
+		IThingLogicManager tlm = world.getThingLogicManager();
+
+		PolygonThing bkg = model.addThing(new PolygonThing(id),
+				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
+		PolygonGlassThing glass = model.addThing(new PolygonGlassThing(null), bkg);
+
+		mark(glass, BACKGROUND_KEY, bkg);
+
+		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
+
+		mvl.mirrorValue(glass, IHasPoints.POINTS_KEY, bkg);
+		mvl.mirrorValue(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, bkg);
 
 		return glass;
 	}

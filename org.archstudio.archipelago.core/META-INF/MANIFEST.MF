@@ -33,4 +33,5 @@ Require-Bundle: com.google.guava,
  org.eclipse.ui,
  org.eclipse.ui.views,
  org.archstudio.eclipse.core;bundle-version="1.0.0",
- org.eclipse.draw2d;bundle-version="3.6.2"
+ org.eclipse.draw2d;bundle-version="3.6.2",
+ org.archstudio.xadlbna;bundle-version="1.0.0"

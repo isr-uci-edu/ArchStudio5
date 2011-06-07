@@ -31,7 +31,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 
 			if (!taggableThings.isEmpty()) {
 				for (final IThing tt : taggableThings) {
-					final boolean isShown = Boolean.TRUE.equals(tt.getProperty(MaintainTagsLogic.SHOW_TAG_KEY));
+					final boolean isShown = Boolean.TRUE.equals(tt.get(MaintainTagsLogic.SHOW_TAG_KEY));
 					IAction tagAction = new Action("Show Tag") {
 
 						@Override

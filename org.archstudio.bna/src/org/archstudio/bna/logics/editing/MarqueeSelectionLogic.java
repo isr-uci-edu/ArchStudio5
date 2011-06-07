@@ -4,7 +4,6 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -22,20 +21,23 @@ import com.google.common.collect.Iterables;
 
 public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMouseMoveListener {
 
-	protected final ThingTypeTrackingLogic tttl;
+	protected ThingTypeTrackingLogic tttl;
+
 	protected MarqueeBoxBorderThing marqueeSelection = null;
 	protected Point initDownWorldPoint = new Point();
 
-	public MarqueeSelectionLogic(IThingLogicManager tlm) {
-		this(tlm.addThingLogic(ThingTypeTrackingLogic.class));
+	public MarqueeSelectionLogic() {
 	}
 
-	public MarqueeSelectionLogic(ThingTypeTrackingLogic tttl) {
-		this.tttl = tttl;
+	@Override
+	protected void init() {
+		super.init();
+		tttl = getBNAWorld().getThingLogicManager().addThingLogic(ThingTypeTrackingLogic.class);
 	}
 
 	@Override
 	protected void destroy() {
+		tttl = null;
 		if (marqueeSelection != null) {
 			IBNAModel m = getBNAModel();
 			if (m != null) {

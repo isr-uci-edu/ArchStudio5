@@ -2,9 +2,9 @@ package org.archstudio.bna.things.utility;
 
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasMutableWorld;
-import org.archstudio.bna.things.AbstractBoxThing;
+import org.archstudio.bna.things.AbstractRectangleThing;
 
-public class WorldThing extends AbstractBoxThing implements IHasMutableWorld {
+public class WorldThing extends AbstractRectangleThing implements IHasMutableWorld {
 
 	public WorldThing() {
 		this(null);

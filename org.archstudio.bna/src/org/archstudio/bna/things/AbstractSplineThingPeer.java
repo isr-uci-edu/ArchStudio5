@@ -34,8 +34,7 @@ public abstract class AbstractSplineThingPeer<T extends AbstractSplineThing> ext
 	}
 
 	@Override
-	public boolean getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
 		cm.worldToLocal(boundsResult.setBounds(t.getBoundingBox()));
-		return true;
 	}
 }

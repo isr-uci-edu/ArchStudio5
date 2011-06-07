@@ -11,12 +11,14 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogic;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasWorld;
+import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.borders.PulsingBorderThing;
 import org.archstudio.bna.things.labels.UserNotificationThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
@@ -41,7 +43,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 public class ArchipelagoUtils {
-	public static final String XARCH_ID_PROPERTY_NAME = "#xArchID";
+	public static final IThingKey<String> XARCH_ID_PROPERTY_NAME = ThingKey.create("xArchID");
 
 	public static List<Object> combine(List<? extends Object> list1, Object o) {
 		List<Object> newList = new ArrayList<Object>(list1.size() + 1);
