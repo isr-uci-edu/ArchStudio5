@@ -104,9 +104,9 @@ public class XArchADTImpl implements IXArchADT {
 	 * This method causes the EPackage.eINSTANCE variable of each EMF-generated bundle (plugin) in Eclipse to be
 	 * touched. This causes the package to spontaneously register itself with the EPackage Registry, which is how we
 	 * find out what EPackages are available on the system. This is an EMF-ism that isn't easily avoided. If you are
-	 * running outside of ArchStudio (like in org.archstudio.description.Main, then these bundles will not be available.
-	 * What you have to do then is just read the eINSTANCE variable for all the EPackages you want to have available to
-	 * you.
+	 * running outside of ArchStudio (like in org.archstudio.description.Main), then these bundles will not be
+	 * available. What you have to do then is just read the eINSTANCE variable for all the EPackages you want to have
+	 * available to you.
 	 */
 	private void registerAllSchemaPackages() {
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
@@ -913,7 +913,10 @@ public class XArchADTImpl implements IXArchADT {
 			String id = null;
 			EStructuralFeature idFeature = currentObj.eClass().getEStructuralFeature("id");
 			if (idFeature != null) {
-				id = currentObj.eGet(idFeature).toString();
+				Object idValue = currentObj.eGet(idFeature);
+				if (idValue != null) {
+					id = idValue.toString();
+				}
 			}
 			int index = -1;
 			EObject parentObj = currentObj.eContainer();
