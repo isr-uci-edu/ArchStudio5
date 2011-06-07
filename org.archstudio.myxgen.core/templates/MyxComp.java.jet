@@ -4,7 +4,7 @@
 	org.archstudio.sysutils.*"%>
 <java:merge/>
 <% 
-	BrickExtension brick = (BrickExtension)context.getVariable(BrickExtension.class.getName());
+	MyxGenBrick brick = (MyxGenBrick)context.getVariable(MyxGenBrick.class.getName());
 	String packageName = TextUtil.getPackagePart(brick.getClassName());
 	String className = TextUtil.getClassPart(brick.getClassName());
 %>
@@ -25,7 +25,7 @@ import <%=javaImport%>;
  */
 public <%=brick.isAbstract() ? "abstract" : ""%> class <%=className%> extends <%=brick.getStubClassName()%> {
 
-<%for(InterfaceExtension iface : brick.getInterfaces()) {%>
+<%for(MyxGenInterface iface : brick.getInterfaces()) {%>
 	<%switch(iface.getServiceObjectDelegate()){%>
 	<%case brick:%>
 		<%if(!iface.isSingle()){%>

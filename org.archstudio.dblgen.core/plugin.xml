@@ -84,10 +84,11 @@
                class="org.archstudio.dblgen.IDataBindingGenerator"
                delegate="variable"
                direction="in"
+               domain="bottom"
                getter="true"
                id="dblgen"
-               single="true"
-               name="dblgen">
+               name="dblgen"
+               single="true">
          </interface>
       </brick>
    </extension>

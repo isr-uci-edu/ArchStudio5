@@ -25,4 +25,5 @@ Require-Bundle: com.google.guava,
  org.eclipse.pde.core,
  org.eclipse.ui,
  org.eclipse.xsd,
- org.eclipse.xsd.ecore.importer
+ org.eclipse.xsd.ecore.importer,
+ org.archstudio.eclipseutils

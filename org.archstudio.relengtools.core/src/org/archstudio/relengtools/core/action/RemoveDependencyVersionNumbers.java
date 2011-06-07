@@ -4,7 +4,7 @@ import static org.archstudio.sysutils.SystemUtils.emptyIfNull;
 
 import java.util.List;
 
-import org.archstudio.eclipse.action.AbstractObjectActionDelegate;
+import org.archstudio.eclipse.ui.actions.AbstractObjectActionDelegate;
 import org.archstudio.relengtools.core.Activator;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;

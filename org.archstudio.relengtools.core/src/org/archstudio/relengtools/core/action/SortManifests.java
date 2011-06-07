@@ -8,13 +8,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.archstudio.eclipse.action.AbstractObjectActionDelegate;
+import org.archstudio.eclipse.ui.actions.AbstractObjectActionDelegate;
 import org.archstudio.relengtools.core.Activator;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.pde.core.project.IBundleProjectDescription;
 import org.eclipse.pde.core.project.IBundleProjectService;
@@ -73,7 +72,7 @@ public class SortManifests extends AbstractObjectActionDelegate {
 			Arrays.sort(lines);
 			manifest = SystemUtils.join("", "\n", "", lines);
 			manifest = manifest.replaceAll(",", ",\n ");
-			if(!manifest.endsWith("\n")){
+			if (!manifest.endsWith("\n")) {
 				manifest += "\n";
 			}
 			manifestFile.setContents(new ByteArrayInputStream(manifest.getBytes()), true, true, null);

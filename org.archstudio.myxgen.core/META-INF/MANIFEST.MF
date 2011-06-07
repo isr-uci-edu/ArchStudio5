@@ -26,4 +26,7 @@ Require-Bundle: com.google.guava,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.jdt.core,
  org.eclipse.jet,
- org.eclipse.pde.core
+ org.eclipse.pde.core,
+ org.eclipse.pde,
+ org.archstudio.myxgen.core,
+ org.archstudio.eclipseutils

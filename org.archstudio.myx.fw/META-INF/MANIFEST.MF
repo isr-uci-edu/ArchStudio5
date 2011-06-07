@@ -11,3 +11,4 @@ Export-Package: org.archstudio.ljm,
  org.archstudio.myx.demo.basic,
  org.archstudio.myx.fw
 Manifest-Version: 1.0
+Require-Bundle: com.google.guava

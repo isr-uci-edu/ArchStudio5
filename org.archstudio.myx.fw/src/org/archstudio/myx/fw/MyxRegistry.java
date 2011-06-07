@@ -8,12 +8,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.archstudio.myx.fw.MyxRegistryEvent.EventType;
 
+import com.google.common.collect.Iterables;
+
 public class MyxRegistry {
 
 	/**
-	 * Maps bricks to lists of Objects to which they correspond. Because the
-	 * lists tend to be iterated over and modified also, CopyOnWriteArrayLists
-	 * should generally be used.
+	 * Maps bricks to lists of Objects to which they correspond. Because the lists tend to be iterated over and modified
+	 * also, CopyOnWriteArrayLists should generally be used.
 	 */
 
 	protected Map<IMyxBrick, List<Object>> brickToObjectMap = Collections
@@ -27,14 +28,12 @@ public class MyxRegistry {
 		synchronized (this) {
 			Object o = brickToObjectMap.get(b);
 			if (o != null) {
-				throw new IllegalArgumentException(
-						"Aleady registered this Myx brick in the Myx Registry");
+				throw new IllegalArgumentException("Aleady registered this Myx brick in the Myx Registry");
 			}
 			brickToObjectMap.put(b, new CopyOnWriteArrayList<Object>());
 			notifyAll();
 		}
-		fireMyxRegistryEvent(MyxRegistryEvent.EventType.BRICK_REGISTERED, b,
-				null);
+		fireMyxRegistryEvent(MyxRegistryEvent.EventType.BRICK_REGISTERED, b, null);
 	}
 
 	public void unregister(IMyxBrick b) {
@@ -42,8 +41,7 @@ public class MyxRegistry {
 			brickToObjectMap.remove(b);
 			notifyAll();
 		}
-		fireMyxRegistryEvent(MyxRegistryEvent.EventType.BRICK_UNREGISTERED, b,
-				null);
+		fireMyxRegistryEvent(MyxRegistryEvent.EventType.BRICK_UNREGISTERED, b, null);
 	}
 
 	public synchronized IMyxBrick getBrick(IMyxName name) {
@@ -60,7 +58,8 @@ public class MyxRegistry {
 		while ((b = getBrick(name)) == null) {
 			try {
 				wait();
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
@@ -81,7 +80,8 @@ public class MyxRegistry {
 		while ((b = getBrick(brickClass)) == null) {
 			try {
 				wait();
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
@@ -92,12 +92,10 @@ public class MyxRegistry {
 		synchronized (this) {
 			List<Object> objectList = brickToObjectMap.get(b);
 			if (objectList == null) {
-				throw new IllegalArgumentException("No such brick registered: "
-						+ MyxUtils.getName(b));
+				throw new IllegalArgumentException("No such brick registered: " + MyxUtils.getName(b));
 			}
 			if (objectList.contains(o)) {
-				throw new IllegalArgumentException("Object " + o
-						+ " is already registered with that brick.");
+				throw new IllegalArgumentException("Object " + o + " is already registered with that brick.");
 			}
 			objectList.add(o);
 			notifyAll();
@@ -110,19 +108,16 @@ public class MyxRegistry {
 		synchronized (this) {
 			List<Object> objectList = brickToObjectMap.get(b);
 			if (objectList == null) {
-				throw new IllegalArgumentException("No such brick registered: "
-						+ MyxUtils.getName(b));
+				throw new IllegalArgumentException("No such brick registered: " + MyxUtils.getName(b));
 			}
 			if (!objectList.contains(o)) {
-				throw new IllegalArgumentException("Object " + o
-						+ " is not registered with that brick.");
+				throw new IllegalArgumentException("Object " + o + " is not registered with that brick.");
 			}
 			fireEvent = objectList.remove(o);
 			notifyAll();
 		}
 		if (fireEvent)
-			fireMyxRegistryEvent(
-					MyxRegistryEvent.EventType.OBJECT_UNREGISTERED, b, o);
+			fireMyxRegistryEvent(MyxRegistryEvent.EventType.OBJECT_UNREGISTERED, b, o);
 	}
 
 	public synchronized List<? extends Object> getObjects(IMyxBrick b) {
@@ -131,6 +126,14 @@ public class MyxRegistry {
 			return Collections.emptyList();
 		}
 		return Collections.unmodifiableList(brickToObjectMap.get(b));
+	}
+
+	public <T> Iterable<T> getObjects(IMyxBrick b, Class<T> tClass) {
+		List<Object> objectList = brickToObjectMap.get(b);
+		if (objectList == null) {
+			return Collections.<T>emptyList();
+		}
+		return Iterables.filter(objectList, tClass);
 	}
 
 	List<IMyxRegistryListener> listeners = new CopyOnWriteArrayList<IMyxRegistryListener>();
@@ -143,8 +146,7 @@ public class MyxRegistry {
 		listeners.remove(l);
 	}
 
-	public void fireMyxRegistryEvent(EventType eventType, IMyxBrick brick,
-			Object object) {
+	public void fireMyxRegistryEvent(EventType eventType, IMyxBrick brick, Object object) {
 		assert !Thread.holdsLock(this);
 
 		MyxRegistryEvent evt = new MyxRegistryEvent(eventType, brick, object);

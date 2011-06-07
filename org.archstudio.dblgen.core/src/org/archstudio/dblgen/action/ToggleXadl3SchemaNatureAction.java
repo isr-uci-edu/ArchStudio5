@@ -1,7 +1,7 @@
 package org.archstudio.dblgen.action;
 
 import org.archstudio.dblgen.Xadl3SchemaNature;
-import org.archstudio.eclipse.action.AbstractToggleNatureObjectActionDelegate;
+import org.archstudio.eclipse.ui.actions.AbstractToggleNatureObjectActionDelegate;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;

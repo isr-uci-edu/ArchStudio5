@@ -1158,14 +1158,15 @@ public class SystemUtils {
 				SystemUtils.mapEntryValueComparator);
 	}
 
+	@SuppressWarnings("unchecked")
 	public static final <K, V> Iterable<Map.Entry<K, V>> filterByKey(Iterable<Entry<?, V>> entries,
 			final Class<K> keyClass) {
-		return cast(Iterables.filter(entries, new Predicate<Entry<?, V>>() {
+		return (Iterable<Map.Entry<K, V>>) (Object) Iterables.filter(entries, new Predicate<Entry<?, V>>() {
 			@Override
 			public boolean apply(Entry<?, V> input) {
 				return keyClass.isInstance(input.getKey());
 			}
-		}));
+		});
 	}
 
 	public static <T> CopyOnWriteArrayList<T> newCopyOnWriteArrayList() {
@@ -1184,9 +1185,14 @@ public class SystemUtils {
 		return null;
 	}
 
+	//	@SuppressWarnings("unchecked")
+	//	public static final <T> T cast(Object o) {
+	//		return (T) o;
+	//	}
+
 	@SuppressWarnings("unchecked")
-	public static final <T> T cast(Object o) {
-		return (T) o;
+	public static final <T, C extends Collection<? extends T>> Iterable<T> cast(C c) {
+		return (Iterable<T>) c;
 	}
 
 	public static final <T> Iterable<T> copyIterable(Iterable<T> iterable) {
@@ -1232,6 +1238,26 @@ public class SystemUtils {
 		return value;
 	}
 
+	public static final double bound(double lower, double value, double upper) {
+		if (lower < upper) {
+			if (value < lower) {
+				return lower;
+			}
+			if (value > upper) {
+				return upper;
+			}
+		}
+		else {
+			if (value < upper) {
+				return upper;
+			}
+			if (value > lower) {
+				return lower;
+			}
+		}
+		return value;
+	}
+
 	public static final boolean isInBound(int lower, int value, int upper) {
 		return value == bound(lower, value, upper);
 	}
@@ -1246,10 +1272,9 @@ public class SystemUtils {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static final <T> T firstOrNull(Iterable<?> elements) {
-		for (Object o : elements) {
-			return (T) o;
+	public static final <T> T firstOrNull(Iterable<T> elements) {
+		for (T o : elements) {
+			return o;
 		}
 		return null;
 	}

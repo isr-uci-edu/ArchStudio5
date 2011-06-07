@@ -11,11 +11,12 @@ import java.util.Map;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.archstudio.myxgen.core.Activator;
-import org.archstudio.myxgen.extension.BrickExtension;
-import org.archstudio.myxgen.extension.BrickExtensionFactory;
+import org.archstudio.myxgen.extension.MyxGenBrick;
+import org.archstudio.myxgen.extension.MyxGenExtensions;
 import org.archstudio.myxgen.jet.util.TextUtil;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.codegen.jet.JETException;
@@ -26,7 +27,6 @@ import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jet.JET2Platform;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.pde.core.plugin.IPluginBase;
 import org.eclipse.text.edits.TextEdit;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -48,13 +48,9 @@ public class MyxCodeGenerator {
 	}
 
 	public void generateCode() {
-		BrickExtensionFactory.refresh();
-		for (BrickExtension brick : BrickExtensionFactory.getBrickExtensions()) {
+		for (MyxGenBrick brick : MyxGenExtensions.getWorkspaceMyxGenBricks(javaProject.getProject())) {
 			try {
-				IPluginBase pluginBase = brick.getPluginModel().getPluginBase();
-				if (pluginBase != null && pluginBase.getId().equals(javaProject.getProject().getName())) {
-					generateCode(brick);
-				}
+				generateCode(brick);
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -62,16 +58,16 @@ public class MyxCodeGenerator {
 		}
 	}
 
-	private void generateCode(BrickExtension brick) {
+	private void generateCode(MyxGenBrick brick) {
 		generateCode(brick, JET_MYX_COMP_STUB_TEMPLATE, checkNotNull(brick.getStubClassName()));
 		generateCode(brick, JET_MYX_COMP_TEMPLATE, checkNotNull(brick.getClassName()));
 	}
 
-	private void generateCode(BrickExtension brick, String jetTemplatePath, String outputJavaClassName) {
+	private void generateCode(MyxGenBrick brick, String jetTemplatePath, String outputJavaClassName) {
 		try {
 			Map<String, Object> variables = Maps.newHashMap();
 
-			variables.put(BrickExtension.class.getName(), brick);
+			variables.put(MyxGenBrick.class.getName(), brick);
 			variables.put("org.eclipse.jet.resource.project.name", javaProject.getProject().getName());
 			variables.put("org.archstudio.myxgen.src.folder", "src");
 			variables.put("org.archstudio.myxgen.package", TextUtil.getPackagePart(outputJavaClassName));
@@ -86,6 +82,8 @@ public class MyxCodeGenerator {
 			if (!status.isOK()) {
 				for (IStatus s : status.getChildren()) {
 					System.err.println(s);
+					if (s.getException() != null)
+						s.getException().printStackTrace();
 				}
 				throw new JETException(status.getMessage(), status.getException());
 			}
@@ -93,6 +91,7 @@ public class MyxCodeGenerator {
 			IFile generatedFile = javaProject.getProject().getFile(
 					"src/" + outputJavaClassName.replace('.', '/') + ".java");
 			formatCode(generatedFile);
+			generatedFile.refreshLocal(IResource.DEPTH_ZERO, new NullProgressMonitor());
 
 		}
 		catch (Exception e) {

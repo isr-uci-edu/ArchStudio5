@@ -1,19 +1,30 @@
 package org.archstudio.myx.conn;
 
-import java.lang.reflect.*;
-import java.util.*;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
-import java.util.concurrent.*;
+import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
+import org.archstudio.myx.fw.IMyxClassManager;
+import org.archstudio.myx.fw.IMyxDynamicBrick;
+import org.archstudio.myx.fw.IMyxInterfaceDescription;
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxJavaClassInterfaceDescription;
+import org.archstudio.myx.fw.MyxUtils;
 
-import org.archstudio.myx.fw.*;
+public class EventPumpConnector extends AbstractMyxSimpleBrick implements IMyxDynamicBrick, InvocationHandler {
 
-public class EventPumpConnector extends AbstractMyxSimpleBrick implements
-		IMyxDynamicBrick, InvocationHandler {
-
-	public static final IMyxName REQUIRED_INTERFACE_NAME = MyxUtils
-			.createName("out");
-	public static final IMyxName PROVIDED_INTERFACE_NAME = MyxUtils
-			.createName("in");
+	public static final IMyxName REQUIRED_INTERFACE_NAME = MyxUtils.createName("out");
+	public static final IMyxName PROVIDED_INTERFACE_NAME = MyxUtils.createName("in");
 
 	protected Object[] trueServiceObjects = new Object[0];
 	protected Object proxyObject = null;
@@ -26,19 +37,16 @@ public class EventPumpConnector extends AbstractMyxSimpleBrick implements
 	public void init() {
 		Set<String> interfaceClassNames = new HashSet<String>();
 
-		IMyxInterfaceDescription miDesc = getMyxBrickItems()
-				.getInterfaceManager().getInterfaceDescription(
-						PROVIDED_INTERFACE_NAME);
+		IMyxInterfaceDescription miDesc = getMyxBrickItems().getInterfaceManager().getInterfaceDescription(
+				PROVIDED_INTERFACE_NAME);
 		if (miDesc instanceof MyxJavaClassInterfaceDescription) {
 			MyxJavaClassInterfaceDescription jmiDesc = (MyxJavaClassInterfaceDescription) miDesc;
-			interfaceClassNames
-					.addAll(jmiDesc.getServiceObjectInterfaceNames());
+			interfaceClassNames.addAll(jmiDesc.getServiceObjectInterfaceNames());
 		}
 
 		int i = 0;
 		while (true) {
-			String interfaceClassName = MyxUtils.getInitProperties(this)
-					.getProperty("interfaceClassName" + i);
+			String interfaceClassName = MyxUtils.getInitProperties(this).getProperty("interfaceClassName" + i);
 			if (interfaceClassName == null)
 				break;
 			interfaceClassNames.add(interfaceClassName);
@@ -49,21 +57,17 @@ public class EventPumpConnector extends AbstractMyxSimpleBrick implements
 		IMyxClassManager classManager = getMyxBrickItems().getClassManager();
 		for (String interfaceClassName : interfaceClassNames) {
 			try {
-				Class<?> interfaceClass = classManager
-						.classForName(interfaceClassName);
+				Class<?> interfaceClass = classManager.classForName(interfaceClassName);
 				interfaceClassList.add(interfaceClass);
-			} catch (ClassNotFoundException cnfe) {
-				throw new IllegalArgumentException(
-						"Can't find interface class: " + cnfe.getMessage());
+			}
+			catch (ClassNotFoundException cnfe) {
+				throw new IllegalArgumentException("Can't find interface class: " + cnfe.getMessage());
 			}
 		}
 
-		Class<?>[] interfaceClasses = interfaceClassList
-				.toArray(new Class[interfaceClassList.size()]);
+		Class<?>[] interfaceClasses = interfaceClassList.toArray(new Class[interfaceClassList.size()]);
 		if (interfaceClasses.length > 0) {
-			proxyObject = Proxy.newProxyInstance(
-					interfaceClasses[0].getClassLoader(), interfaceClasses,
-					this);
+			proxyObject = Proxy.newProxyInstance(interfaceClasses[0].getClassLoader(), interfaceClasses, this);
 		}
 		asyncExecutor = Executors.newSingleThreadExecutor();
 	}
@@ -73,7 +77,8 @@ public class EventPumpConnector extends AbstractMyxSimpleBrick implements
 			asyncExecutor.shutdown();
 			try {
 				asyncExecutor.awaitTermination(5L, TimeUnit.SECONDS);
-			} catch (InterruptedException ie) {
+			}
+			catch (InterruptedException ie) {
 			}
 		}
 	}
@@ -81,28 +86,23 @@ public class EventPumpConnector extends AbstractMyxSimpleBrick implements
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (interfaceName.equals(REQUIRED_INTERFACE_NAME)) {
 			synchronized (this) {
-				List<Object> l = new ArrayList<Object>(
-						Arrays.asList(trueServiceObjects));
+				List<Object> l = new ArrayList<Object>(Arrays.asList(trueServiceObjects));
 				l.add(serviceObject);
 				trueServiceObjects = l.toArray(new Object[l.size()]);
 			}
 
 			if (proxyObject == null) {
 				ClassLoader cl = serviceObject.getClass().getClassLoader();
-				Class<?>[] interfaceClasses = serviceObject.getClass()
-						.getInterfaces();
-				proxyObject = Proxy
-						.newProxyInstance(cl, interfaceClasses, this);
+				Class<?>[] interfaceClasses = serviceObject.getClass().getInterfaces();
+				proxyObject = Proxy.newProxyInstance(cl, interfaceClasses, this);
 			}
 		}
 	}
 
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (interfaceName.equals(REQUIRED_INTERFACE_NAME)) {
 			synchronized (this) {
-				List<Object> l = new ArrayList<Object>(
-						Arrays.asList(trueServiceObjects));
+				List<Object> l = new ArrayList<Object>(Arrays.asList(trueServiceObjects));
 				l.remove(serviceObject);
 				trueServiceObjects = l.toArray(new Object[l.size()]);
 				if (trueServiceObjects.length == 0) {
@@ -112,8 +112,7 @@ public class EventPumpConnector extends AbstractMyxSimpleBrick implements
 		}
 	}
 
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	public Object getServiceObject(IMyxName interfaceName) {
@@ -123,8 +122,7 @@ public class EventPumpConnector extends AbstractMyxSimpleBrick implements
 		return null;
 	}
 
-	public Object invoke(Object proxy, Method method, Object[] args)
-			throws Throwable {
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		if (proxyObject == null) {
 			//Async messages do not have to get delivered.
 			return null;
@@ -142,10 +140,12 @@ public class EventPumpConnector extends AbstractMyxSimpleBrick implements
 				public void run() {
 					try {
 						m.invoke(tso, a);
-					} catch (IllegalAccessException iae) {
+					}
+					catch (IllegalAccessException iae) {
 						iae.printStackTrace();
 						return;
-					} catch (InvocationTargetException ite) {
+					}
+					catch (InvocationTargetException ite) {
 						ite.printStackTrace();
 						return;
 					}
