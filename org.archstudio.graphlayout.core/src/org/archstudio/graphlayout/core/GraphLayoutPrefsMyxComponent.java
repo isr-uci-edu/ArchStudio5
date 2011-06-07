@@ -6,8 +6,7 @@ package org.archstudio.graphlayout.core;
  * @see org.archstudio.graphlayout.core.GraphLayoutPrefsMyxComponentStub
  * @generated
  */
-public class GraphLayoutPrefsMyxComponent extends
-		org.archstudio.graphlayout.core.GraphLayoutPrefsMyxComponentStub {
+public class GraphLayoutPrefsMyxComponent extends org.archstudio.graphlayout.core.GraphLayoutPrefsMyxComponentStub {
 
 	public GraphLayoutPrefsMyxComponent() {
 	}

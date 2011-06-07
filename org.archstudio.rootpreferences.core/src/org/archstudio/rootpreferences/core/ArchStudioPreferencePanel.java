@@ -2,7 +2,6 @@ package org.archstudio.rootpreferences.core;
 
 import java.io.IOException;
 
-import org.archstudio.EclipseUtils;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.resources.IResources;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -35,7 +34,7 @@ public class ArchStudioPreferencePanel extends PreferencePage implements IWorkbe
 		resources = comp.resources;
 		preferences = comp.preferences;
 		try{
-			resources.createImage(IMAGE_PREFERENCES_BANNER, EclipseUtils.getBytes(URL_PREFERENCES_BANNER));
+			resources.createImage(IMAGE_PREFERENCES_BANNER, SystemUtils.blt(URL_PREFERENCES_BANNER));
 		}
 		catch(IOException ioe){
 			throw new RuntimeException("This shouldn't happen.");

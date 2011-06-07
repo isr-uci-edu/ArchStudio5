@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.archstudio.aim.ArchitectureInstantiationException;
+import org.archstudio.myx.fw.MyxNullProgressMonitor;
 import org.archstudio.myx.fw.MyxUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
@@ -18,8 +19,7 @@ import org.xml.sax.SAXException;
  * @see org.archstudio.bootstrap.core.BootstrapMyxComponentStub
  * @generated
  */
-public class BootstrapMyxComponent extends
-		org.archstudio.bootstrap.core.BootstrapMyxComponentStub {
+public class BootstrapMyxComponent extends org.archstudio.bootstrap.core.BootstrapMyxComponentStub {
 
 	protected String uriString = null;
 
@@ -38,41 +38,34 @@ public class BootstrapMyxComponent extends
 		Properties initProperties = MyxUtils.getInitProperties(this);
 		String uriString = initProperties.getProperty("uri");
 		if (uriString == null) {
-			throw new RuntimeException(
-					"No 'uri' property in initialization properties for bootstrapper.");
+			throw new RuntimeException("No 'uri' property in initialization properties for bootstrapper.");
 		}
 		try {
 			ObjRef docRootRef = xarch.load(URI.createURI(uriString));
 			ObjRef xADLRef = (ObjRef) xarch.get(docRootRef, "xADL");
 			if (xADLRef == null) {
-				throw new RuntimeException(
-						"Can't find top-level xADL element in document: "
-								+ uriString);
+				throw new RuntimeException("Can't find top-level xADL element in document: " + uriString);
 			}
-			List<ObjRef> structureRefs = XadlUtils
-					.getAllSubstitutionGroupElementsByType(xarch, xADLRef,
-							"topLevelElement", Structure_3_0Package.eNS_URI,
-							"Structure");
+			List<ObjRef> structureRefs = XadlUtils.getAllSubstitutionGroupElementsByType(xarch, xADLRef,
+					"topLevelElement", Structure_3_0Package.eNS_URI, "Structure");
 			if (structureRefs.size() == 0) {
-				throw new RuntimeException(
-						"Can't find structure element in document: "
-								+ uriString);
+				throw new RuntimeException("Can't find structure element in document: " + uriString);
 			}
 
-			aim.instantiate("system", docRootRef, structureRefs.get(0));
-			aim.begin("system");
-		} catch (ArchitectureInstantiationException aie) {
+			aim.instantiate("system", docRootRef, structureRefs.get(0), new MyxNullProgressMonitor());
+			aim.begin("system", new MyxNullProgressMonitor());
+		}
+		catch (ArchitectureInstantiationException aie) {
 			aie.printStackTrace();
-			throw new RuntimeException(
-					"Can't instantiate architecture with URI " + uriString, aie);
-		} catch (SAXException saxe) {
+			throw new RuntimeException("Can't instantiate architecture with URI " + uriString, aie);
+		}
+		catch (SAXException saxe) {
 			saxe.printStackTrace();
-			throw new RuntimeException("Can't load file with URI " + uriString,
-					saxe);
-		} catch (IOException ioe) {
+			throw new RuntimeException("Can't load file with URI " + uriString, saxe);
+		}
+		catch (IOException ioe) {
 			ioe.printStackTrace();
-			throw new RuntimeException("Can't load file with URI " + uriString,
-					ioe);
+			throw new RuntimeException("Can't load file with URI " + uriString, ioe);
 		}
 	}
 }

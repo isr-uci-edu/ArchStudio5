@@ -11,6 +11,7 @@
                class="org.archstudio.resources.IResources"
                delegate="brick"
                direction="in"
+               domain="bottom"
                getter="true"
                id="resources"
                name="resources"

@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.archstudio.archipelago.core.structure.StructureTreePlugin;
+import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.editormanager.IEditorManager;
-import org.archstudio.editors.AbstractArchstudioOutlinePage;
 import org.archstudio.filemanager.IFileManager;
 import org.archstudio.filemanager.IFileManagerListener;
 import org.archstudio.graphlayout.IGraphLayout;
@@ -52,7 +52,7 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
-public class ArchipelagoOutlinePage extends AbstractArchstudioOutlinePage implements IFileManagerListener {
+public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implements IFileManagerListener {
 	protected List<IArchipelagoTreePlugin> treePluginList = new ArrayList<IArchipelagoTreePlugin>();
 	protected IArchipelagoTreePlugin[] treePlugins = new IArchipelagoTreePlugin[0];
 

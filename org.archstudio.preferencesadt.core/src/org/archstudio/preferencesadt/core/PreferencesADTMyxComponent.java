@@ -6,8 +6,7 @@ package org.archstudio.preferencesadt.core;
  * @see org.archstudio.preferencesadt.core.PreferencesADTMyxComponentStub
  * @generated
  */
-public class PreferencesADTMyxComponent extends
-		org.archstudio.preferencesadt.core.PreferencesADTMyxComponentStub {
+public class PreferencesADTMyxComponent extends org.archstudio.preferencesadt.core.PreferencesADTMyxComponentStub {
 
 	@Override
 	public void init() {

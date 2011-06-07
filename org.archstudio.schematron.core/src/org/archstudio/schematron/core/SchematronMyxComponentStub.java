@@ -21,12 +21,9 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
  * @generated
  */
 @SuppressWarnings("unused")
-public abstract class SchematronMyxComponentStub extends
-		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
-		org.archstudio.archlight.IArchlightTool,
-		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
+abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
+		org.archstudio.archlight.IArchlightTool, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
 	 * @generated
@@ -50,11 +47,11 @@ public abstract class SchematronMyxComponentStub extends
 	}
 
 	/**
-	 * Myx interface tool: <code>IN_TOOL</code>
+	 * Myx interface tools: <code>IN_TOOLS</code>
 	 *
 	 * @generated
 	 */
-	public static final IMyxName IN_TOOL = MyxUtils.createName("tool");
+	public static final IMyxName IN_TOOLS = MyxUtils.createName("tools");
 	/**
 	 * Myx interface notices: <code>OUT_NOTICES</code>
 	 *
@@ -84,8 +81,7 @@ public abstract class SchematronMyxComponentStub extends
 	 *
 	 * @generated
 	 */
-	public static final IMyxName OUT_PREFERENCES = MyxUtils
-			.createName("preferences");
+	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 
 	/**
 	 * Service object(s) for notices: <code>notices</code>
@@ -124,12 +120,12 @@ public abstract class SchematronMyxComponentStub extends
 	protected org.eclipse.jface.preference.IPreferenceStore preferences = null;
 
 	/**
-	 * Returns the service object(s) for <code>tool</code>
+	 * Returns the service object(s) for <code>tools</code>
 	 *
-	 * @see #IN_TOOL
+	 * @see #IN_TOOLS
 	 * @generated
 	 */
-	public org.archstudio.archlight.IArchlightTool getTool() {
+	public org.archstudio.archlight.IArchlightTool getTools() {
 		return this;
 	}
 
@@ -193,59 +189,47 @@ public abstract class SchematronMyxComponentStub extends
 		}
 		if (interfaceName.equals(OUT_NOTICES)) {
 			if (notices != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			notices = (org.archstudio.noticeadt.IArchlightNoticeADT) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_TESTS)) {
 			if (tests != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			tests = (org.archstudio.testadt.IArchlightTestADT) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_ISSUES)) {
 			if (issues != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			issues = (org.archstudio.issueadt.IArchlightIssueADT) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_XARCH)) {
 			if (xarch != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			xarch = (org.archstudio.xarchadt.IXArchADT) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_PREFERENCES)) {
 			if (preferences != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			preferences = (org.eclipse.jface.preference.IPreferenceStore) serviceObject;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: "
-				+ interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -269,16 +253,14 @@ public abstract class SchematronMyxComponentStub extends
 			preferences = null;
 			return;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
@@ -286,10 +268,9 @@ public abstract class SchematronMyxComponentStub extends
 	 */
 	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
-		if (interfaceName.equals(IN_TOOL)) {
+		if (interfaceName.equals(IN_TOOLS)) {
 			return this;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}
 }

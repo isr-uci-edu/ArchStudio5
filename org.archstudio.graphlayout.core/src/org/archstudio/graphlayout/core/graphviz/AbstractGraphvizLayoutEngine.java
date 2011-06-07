@@ -6,10 +6,6 @@ import java.io.StringReader;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
-
 import org.archstudio.graphlayout.GraphLayout;
 import org.archstudio.graphlayout.GraphLayoutException;
 import org.archstudio.graphlayout.GraphLayoutParameters;
@@ -22,6 +18,9 @@ import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 

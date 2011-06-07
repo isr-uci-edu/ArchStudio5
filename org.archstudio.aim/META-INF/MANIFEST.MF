@@ -5,4 +5,5 @@ Bundle-SymbolicName: org.archstudio.aim
 Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.aim
 Manifest-Version: 1.0
-Require-Bundle: org.archstudio.xarchadt
+Require-Bundle: org.archstudio.xarchadt,
+ org.archstudio.myx.fw;bundle-version="5.0.0"

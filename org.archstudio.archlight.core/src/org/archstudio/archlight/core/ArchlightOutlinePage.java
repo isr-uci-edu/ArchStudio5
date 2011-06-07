@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.archstudio.archlight.ArchlightDocTest;
 import org.archstudio.archlight.ArchlightTest;
-import org.archstudio.editors.AbstractArchstudioOutlinePage;
+import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
 import org.archstudio.testadt.IArchlightTestADT;
 import org.archstudio.xarchadt.IXArchADT;
@@ -28,7 +28,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchSite;
 
-public class ArchlightOutlinePage extends AbstractArchstudioOutlinePage {
+public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 	protected IArchlightTestADT testadt = null;
 
 	protected List<? extends ArchlightTest> tests = null;

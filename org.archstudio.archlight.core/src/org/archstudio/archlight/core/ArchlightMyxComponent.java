@@ -2,9 +2,9 @@ package org.archstudio.archlight.core;
 
 import java.io.IOException;
 
-import org.archstudio.EclipseUtils;
 import org.archstudio.launcher.ILaunchData;
 import org.archstudio.launcher.LaunchData;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -13,15 +13,12 @@ import org.eclipse.swt.graphics.Image;
  * @see org.archstudio.archlight.core.ArchlightMyxComponentStub
  * @generated
  */
-public class ArchlightMyxComponent extends
-		org.archstudio.archlight.core.ArchlightMyxComponentStub {
+public class ArchlightMyxComponent extends org.archstudio.archlight.core.ArchlightMyxComponentStub {
 
 	public static final String EDITOR_NAME = "Archlight";
 	public static final String ECLIPSE_EDITOR_ID = "org.archstudio.archlight.core.ArchlightEditor";
 
-	public static final String URL_BASE = "platform:/plugin/org.archstudio.archlight.core/";
 	public static final String IMAGE_ARCHLIGHT_ICON = "archlight:icon";
-	public static final String URL_ARCHLIGHT_ICON = "res/archlight-icon-32.gif";
 
 	public ArchlightMyxComponent() {
 		super(EDITOR_NAME, ECLIPSE_EDITOR_ID, false);
@@ -33,8 +30,9 @@ public class ArchlightMyxComponent extends
 		if (!resourcesCreated) {
 			try {
 				resources.createImage(IMAGE_ARCHLIGHT_ICON,
-						EclipseUtils.getBytes(URL_BASE + URL_ARCHLIGHT_ICON));
-			} catch (IOException ioe) {
+						SystemUtils.blt(ArchlightMyxComponent.class.getResourceAsStream("res/archlight-icon-32.gif")));
+			}
+			catch (IOException ioe) {
 				ioe.printStackTrace();
 				throw new RuntimeException("This shouldn't happen.");
 			}
@@ -49,8 +47,7 @@ public class ArchlightMyxComponent extends
 
 	@Override
 	public ILaunchData getLaunchData() {
-		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME,
-				"An Architecture Analysis Framework", getIcon(),
+		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME, "An Architecture Analysis Framework", getIcon(),
 				ILaunchData.LaunchType.EDITOR);
 	}
 }

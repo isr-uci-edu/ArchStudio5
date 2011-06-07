@@ -1,6 +1,6 @@
 package org.archstudio.aim.core;
 
-import java.util.ArrayList;
+ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
@@ -12,6 +12,7 @@ import org.archstudio.myx.fw.EMyxInterfaceDirection;
 import org.archstudio.myx.fw.IMyxBrickDescription;
 import org.archstudio.myx.fw.IMyxBrickInitializationData;
 import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.IMyxProgressMonitor;
 import org.archstudio.myx.fw.IMyxRuntime;
 import org.archstudio.myx.fw.IMyxWeld;
 import org.archstudio.myx.fw.MyxBasicBrickInitializationData;
@@ -19,9 +20,11 @@ import org.archstudio.myx.fw.MyxBrickCreationException;
 import org.archstudio.myx.fw.MyxBrickLoadException;
 import org.archstudio.myx.fw.MyxJavaClassBrickDescription;
 import org.archstudio.myx.fw.MyxJavaClassInterfaceDescription;
+import org.archstudio.myx.fw.MyxNullProgressMonitor;
+import org.archstudio.myx.fw.MyxSubProgressMonitor;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.myxgen.extension.BrickExtension;
-import org.archstudio.myxgen.extension.BrickExtensionFactory;
+import org.archstudio.myxgen.extension.MyxGenBrick;
+import org.archstudio.myxgen.extension.MyxGenExtensions;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.myxgen_3_0.Myxgen_3_0Package;
 import org.archstudio.xadl3.structure_3_0.Direction;
@@ -49,18 +52,16 @@ public class AIMImpl implements IAIM {
 	}
 
 	@Override
-	public synchronized void instantiate(String name, ObjRef documentRootRef, ObjRef structureRef)
-			throws ArchitectureInstantiationException {
+	public synchronized void instantiate(String name, ObjRef documentRootRef, ObjRef structureRef,
+			IMyxProgressMonitor monitor) throws ArchitectureInstantiationException {
 		if (myx == null) {
 			throw new IllegalStateException("AIMImpl has no Myx Runtime");
 		}
 
 		IMyxName containerName = MyxUtils.createName(name);
-		BrickExtensionFactory.refresh();
-
 		try {
 			myx.addBrick(IMyxRuntime.EMPTY_NAME_LIST, containerName, MyxUtils.getContainerBrickDescription(), null);
-			instantiate(myx, documentRootRef, structureRef, Collections.singletonList(containerName));
+			instantiate(myx, documentRootRef, structureRef, Collections.singletonList(containerName), monitor);
 		}
 		catch (MyxBrickLoadException mble) {
 			throw new ArchitectureInstantiationException("Myx cannot load brick", mble);
@@ -71,7 +72,7 @@ public class AIMImpl implements IAIM {
 	}
 
 	@Override
-	public synchronized void begin(String name) {
+	public synchronized void begin(String name, IMyxProgressMonitor monitor) {
 		if (myx == null) {
 			throw new IllegalStateException("AIMImpl has no Myx Runtime");
 		}
@@ -81,7 +82,7 @@ public class AIMImpl implements IAIM {
 	}
 
 	@Override
-	public synchronized void end(String name) {
+	public synchronized void end(String name, IMyxProgressMonitor monitor) {
 		if (myx == null) {
 			throw new IllegalStateException("AIMImpl has no Myx Runtime");
 		}
@@ -91,7 +92,7 @@ public class AIMImpl implements IAIM {
 	}
 
 	@Override
-	public synchronized void destroy(String name) {
+	public synchronized void destroy(String name, IMyxProgressMonitor monitor) {
 		if (myx == null) {
 			throw new IllegalStateException("AIMImpl has no Myx Runtime");
 		}
@@ -118,23 +119,33 @@ public class AIMImpl implements IAIM {
 		public IMyxName internalBrickInterfaceName;
 	}
 
-	public void instantiate(IMyxRuntime myx, ObjRef xArchRef, ObjRef structureRef, List<IMyxName> containerPath)
-			throws ArchitectureInstantiationException {
+	public void instantiate(IMyxRuntime myx, ObjRef xArchRef, ObjRef structureRef, List<IMyxName> containerPath,
+			IMyxProgressMonitor monitor) throws ArchitectureInstantiationException {
+		if (monitor == null) {
+			monitor = new MyxNullProgressMonitor();
+		}
+
+		monitor.beginTask("Instantiating " + xarch.get(structureRef, "name"), 3);
+
 		// Let's do the components+connectors
 		// This routine orders the bricks in dependency order
-		Iterable<OrderedGroup> orderedGroups = AIMInstantiationOrderCalculator.calculateInstantiationOrder(xarch,
+		List<? extends OrderedGroup> orderedGroups = AIMInstantiationOrderCalculator.calculateInstantiationOrder(xarch,
 				structureRef);
-
 		for (OrderedGroup group : orderedGroups) {
 			for (ObjRef brickRef : group.getBrickRefs()) {
 				System.err.println("should instantiate: " + xarch.get(brickRef, "name") + " ("
 						+ xarch.get(brickRef, "id") + ")");
 			}
 		}
+		monitor.worked(1);
 
 		// Iterate through array and instantiate.
+		IMyxProgressMonitor brickGroupsMonitor = new MyxSubProgressMonitor(monitor, 1,
+				MyxSubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK);
+		brickGroupsMonitor.beginTask("Brick", orderedGroups.size());
 		for (OrderedGroup group : orderedGroups) {
 			for (ObjRef brickRef : group.getBrickRefs()) {
+				brickGroupsMonitor.subTask((String) xarch.get(brickRef, "name"));
 				String brickID = XadlUtils.getID(xarch, brickRef);
 				if (brickID == null) {
 					throw new ArchitectureInstantiationException("Brick missing ID: " + brickRef);
@@ -169,7 +180,8 @@ public class AIMImpl implements IAIM {
 					innerContainerPath.addAll(containerPath);
 					innerContainerPath.add(containerName);
 
-					instantiate(myx, xArchRef, innerStructureRef, innerContainerPath);
+					instantiate(myx, xArchRef, innerStructureRef, innerContainerPath, new MyxSubProgressMonitor(
+							brickGroupsMonitor, 1));
 
 					//Okay, the container is created and added; its inner structure is all
 					//set up, now we have to go about creating and mapping all its interfaces.
@@ -193,7 +205,7 @@ public class AIMImpl implements IAIM {
 							throw new ArchitectureInstantiationException("MyxGen implementation lacks a brick ID: "
 									+ XadlUtils.getName(xarch, brickRef));
 						}
-						BrickExtension brickExtension = BrickExtensionFactory.getBrickExtension(myxGenBrickID, false);
+						MyxGenBrick brickExtension = MyxGenExtensions.getActiveMyxGenBrick(myxGenBrickID);
 						if (brickExtension == null) {
 							throw new ArchitectureInstantiationException("Cannot find MyxGen brick ID " + myxGenBrickID
 									+ ": " + XadlUtils.getName(xarch, brickRef));
@@ -248,11 +260,17 @@ public class AIMImpl implements IAIM {
 					myx.init(containerPath, myxBrickName);
 				}
 			}
+			brickGroupsMonitor.worked(1);
 		}
+		brickGroupsMonitor.done();
 
 		//Process the links
+		IMyxProgressMonitor linkGroupsMonitor = new MyxSubProgressMonitor(monitor, 1,
+				MyxSubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK);
+		linkGroupsMonitor.beginTask("Links", orderedGroups.size());
 		for (OrderedGroup group : orderedGroups) {
 			for (ObjRef linkRef : group.getLinkRefs()) {
+				linkGroupsMonitor.subTask((String) xarch.get(linkRef, "name"));
 				ObjRef interface1Ref = (ObjRef) xarch.get(linkRef, "point1");
 				if (interface1Ref == null) {
 					throw new ArchitectureInstantiationException("Link " + XadlUtils.getName(xarch, linkRef)
@@ -377,7 +395,11 @@ public class AIMImpl implements IAIM {
 							+ weld.toString(), e);
 				}
 			}
+			linkGroupsMonitor.worked(1);
 		}
+		linkGroupsMonitor.done();
+
+		monitor.done();
 	}
 
 	private AIMInterfaceData parseAndValidateInterfaceData(List<IMyxName> containerPath, ObjRef brickRef,

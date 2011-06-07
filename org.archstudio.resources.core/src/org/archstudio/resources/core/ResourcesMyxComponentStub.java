@@ -9,19 +9,19 @@ import org.archstudio.myx.fw.IMyxLifecycleProcessor;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.resources.IResources;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Resources Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
-public abstract class ResourcesMyxComponentStub extends
-		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
-		org.archstudio.resources.IResources,
-		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
+abstract class ResourcesMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
+		org.archstudio.resources.IResources, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
 	 * @generated
@@ -31,6 +31,7 @@ public abstract class ResourcesMyxComponentStub extends
 	/**
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -39,6 +40,7 @@ public abstract class ResourcesMyxComponentStub extends
 	/**
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -46,15 +48,14 @@ public abstract class ResourcesMyxComponentStub extends
 
 	/**
 	 * Myx interface resources: <code>IN_RESOURCES</code>
-	 *
+	 * 
 	 * @generated
 	 */
-	public static final IMyxName IN_RESOURCES = MyxUtils
-			.createName("resources");
+	public static final IMyxName IN_RESOURCES = MyxUtils.createName("resources");
 
 	/**
 	 * Returns the service object(s) for <code>resources</code>
-	 *
+	 * 
 	 * @see #IN_RESOURCES
 	 * @generated
 	 */
@@ -70,29 +71,25 @@ public abstract class ResourcesMyxComponentStub extends
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: "
-				+ interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
@@ -103,7 +100,6 @@ public abstract class ResourcesMyxComponentStub extends
 		if (interfaceName.equals(IN_RESOURCES)) {
 			return this;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}
 }

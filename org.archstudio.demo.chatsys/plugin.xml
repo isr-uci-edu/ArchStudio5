@@ -11,6 +11,7 @@
                class="org.archstudio.demo.chatsys.IChat"
                delegate="variable"
                direction="in"
+               domain="bottom"
                getter="true"
                id="chat"
                name="chat"
@@ -18,8 +19,9 @@
          </interface>
          <interface
                class="org.archstudio.demo.chatsys.IChatListener"
-               delegate="variable"
+               delegate="brick"
                direction="in"
+               domain="bottom"
                getter="true"
                id="chatEvents"
                name="chatEvents"
@@ -34,6 +36,7 @@
                class="org.archstudio.demo.chatsys.IChat"
                delegate="variable"
                direction="in"
+               domain="top"
                getter="true"
                id="chat"
                name="chat"
@@ -41,8 +44,9 @@
          </interface>
          <interface
                class="org.archstudio.demo.chatsys.IChatListener"
-               delegate="variable"
+               delegate="brick"
                direction="in"
+               domain="top"
                getter="true"
                id="chatEvents"
                name="chatEvents"

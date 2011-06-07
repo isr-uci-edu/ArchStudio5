@@ -6,11 +6,13 @@
       <brick
             class="org.archstudio.archipelago.core.ArchipelagoMyxComponent"
             id="org.archstudio.archipelago.core.ArchipelagoMyxComponent"
-            name="Archipelago Impl">
+            name="Archipelago Impl"
+            parentBrick="org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent">
          <interface
                class="org.archstudio.graphlayout.IGraphLayout"
                delegate="variable"
                direction="out"
+               domain="top"
                getter="true"
                id="graphLayout"
                name="graphLayout"
@@ -20,14 +22,12 @@
                class="org.eclipse.jface.preference.IPreferenceStore"
                delegate="variable"
                direction="out"
+               domain="top"
                getter="true"
                id="preferences"
                name="preferences"
                single="true">
          </interface>
-         <parentBrick
-               parentBrick="org.archstudio.editors.AbstractArchstudioEditorMyxComponent">
-         </parentBrick>
       </brick>
       <brick
             class="org.archstudio.archipelago.core.prefs.ArchipelagoPrefsMyxComponent"
@@ -36,7 +36,8 @@
          <interface
                class="org.eclipse.jface.preference.IPreferenceStore"
                delegate="variable"
-               direction="in"
+               direction="out"
+               domain="top"
                getter="true"
                id="preferences"
                name="preferences"
@@ -50,7 +51,8 @@
          <interface
                class="org.eclipse.jface.preference.IPreferenceStore"
                delegate="variable"
-               direction="in"
+               direction="out"
+               domain="top"
                getter="true"
                id="preferences"
                name="preferences"
@@ -64,7 +66,7 @@
             class="org.archstudio.archipelago.core.ArchipelagoEditor"
             default="false"
             extensions="xml"
-            icon="res/archstudio-icon-16x16.png"
+            icon="src/org/archstudio/archipelago/core/res/archstudio-icon-16x16.png"
             id="org.archstudio.archipelago.core.ArchipelagoEditor"
             name="Archipelago">
       </editor>

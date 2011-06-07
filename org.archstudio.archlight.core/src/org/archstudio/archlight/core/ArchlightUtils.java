@@ -6,10 +6,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.archstudio.EclipseUtils;
 import org.archstudio.archlight.ArchlightDocTest;
 import org.archstudio.archlight.ArchlightTest;
 import org.archstudio.resources.IResources;
+import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.archlight_3_0.Archlight_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
@@ -26,8 +26,6 @@ public class ArchlightUtils {
 	public static final int APPLIED = 1;
 	public static final int DISABLED = 2;
 	public static final int NOT_APPLIED = 3;
-
-	public static final String URL_BASE = "platform:/plugin/org.archstudio.archlight.core/";
 
 	public static final String IMAGE_OVERLAY_CHECKBOX_CHECKED = "archlight:checkbox/checked";
 	public static final String IMAGE_OVERLAY_STOPSIGN = "archlight:stopsign";
@@ -49,30 +47,42 @@ public class ArchlightUtils {
 
 	public static void initResources(IResources resources) {
 		try {
-			resources.createImage(IMAGE_RUN_TESTS, EclipseUtils.getBytes(URL_BASE + "res/icon-go.gif"));
-			resources.createImage(IMAGE_RELOAD_TESTS, EclipseUtils.getBytes(URL_BASE + "res/icon-refresh.gif"));
+			resources.createImage(IMAGE_RUN_TESTS,
+					SystemUtils.blt(ArchlightUtils.class.getResourceAsStream("res/icon-go.gif")));
+			resources.createImage(IMAGE_RELOAD_TESTS,
+					SystemUtils.blt(ArchlightUtils.class.getResourceAsStream("res/icon-refresh.gif")));
 
-			resources.createImage(IMAGE_OVERLAY_CHECKBOX_CHECKED, EclipseUtils.getBytes(URL_BASE + "res/decorator-checkbox-checked.gif"));
-			resources.createImage(IMAGE_OVERLAY_CHECKBOX_UNCHECKED, EclipseUtils.getBytes(URL_BASE + "res/decorator-checkbox-unchecked.gif"));
-			resources.createImage(IMAGE_OVERLAY_STOPSIGN, EclipseUtils.getBytes(URL_BASE + "res/decorator-stopsign.gif"));
+			resources.createImage(IMAGE_OVERLAY_CHECKBOX_CHECKED,
+					SystemUtils.blt(ArchlightUtils.class.getResourceAsStream("res/decorator-checkbox-checked.gif")));
+			resources.createImage(IMAGE_OVERLAY_CHECKBOX_UNCHECKED,
+					SystemUtils.blt(ArchlightUtils.class.getResourceAsStream("res/decorator-checkbox-unchecked.gif")));
+			resources.createImage(IMAGE_OVERLAY_STOPSIGN,
+					SystemUtils.blt(ArchlightUtils.class.getResourceAsStream("res/decorator-stopsign.gif")));
 
-			resources.createOverlayImage(IMAGE_FOLDER_APPLIED, resources.getPlatformImage(ISharedImages.IMG_OBJ_FOLDER), new Image[] { resources
-			        .getImage(IMAGE_OVERLAY_CHECKBOX_CHECKED) }, new int[] { IResources.BOTTOM_RIGHT });
+			resources.createOverlayImage(IMAGE_FOLDER_APPLIED,
+					resources.getPlatformImage(ISharedImages.IMG_OBJ_FOLDER),
+					new Image[] { resources.getImage(IMAGE_OVERLAY_CHECKBOX_CHECKED) },
+					new int[] { IResources.BOTTOM_RIGHT });
 
-			resources.createOverlayImage(IMAGE_FOLDER_DISABLED, resources.getPlatformImage(ISharedImages.IMG_OBJ_FOLDER), new Image[] { resources
-			        .getImage(IMAGE_OVERLAY_STOPSIGN) }, new int[] { IResources.BOTTOM_RIGHT });
+			resources.createOverlayImage(IMAGE_FOLDER_DISABLED,
+					resources.getPlatformImage(ISharedImages.IMG_OBJ_FOLDER),
+					new Image[] { resources.getImage(IMAGE_OVERLAY_STOPSIGN) }, new int[] { IResources.BOTTOM_RIGHT });
 
-			resources.createOverlayImage(IMAGE_FOLDER_NOTAPPLIED, resources.getPlatformImage(ISharedImages.IMG_OBJ_FOLDER), new Image[] { resources
-			        .getImage(IMAGE_OVERLAY_CHECKBOX_UNCHECKED) }, new int[] { IResources.BOTTOM_RIGHT });
+			resources.createOverlayImage(IMAGE_FOLDER_NOTAPPLIED,
+					resources.getPlatformImage(ISharedImages.IMG_OBJ_FOLDER),
+					new Image[] { resources.getImage(IMAGE_OVERLAY_CHECKBOX_UNCHECKED) },
+					new int[] { IResources.BOTTOM_RIGHT });
 
-			resources.createOverlayImage(IMAGE_TEST_APPLIED, resources.getPlatformImage(ISharedImages.IMG_OBJ_FILE), new Image[] { resources
-			        .getImage(IMAGE_OVERLAY_CHECKBOX_CHECKED) }, new int[] { IResources.BOTTOM_RIGHT });
+			resources.createOverlayImage(IMAGE_TEST_APPLIED, resources.getPlatformImage(ISharedImages.IMG_OBJ_FILE),
+					new Image[] { resources.getImage(IMAGE_OVERLAY_CHECKBOX_CHECKED) },
+					new int[] { IResources.BOTTOM_RIGHT });
 
-			resources.createOverlayImage(IMAGE_TEST_DISABLED, resources.getPlatformImage(ISharedImages.IMG_OBJ_FILE), new Image[] { resources
-			        .getImage(IMAGE_OVERLAY_STOPSIGN) }, new int[] { IResources.BOTTOM_RIGHT });
+			resources.createOverlayImage(IMAGE_TEST_DISABLED, resources.getPlatformImage(ISharedImages.IMG_OBJ_FILE),
+					new Image[] { resources.getImage(IMAGE_OVERLAY_STOPSIGN) }, new int[] { IResources.BOTTOM_RIGHT });
 
-			resources.createOverlayImage(IMAGE_TEST_NOTAPPLIED, resources.getPlatformImage(ISharedImages.IMG_OBJ_FILE), new Image[] { resources
-			        .getImage(IMAGE_OVERLAY_CHECKBOX_UNCHECKED) }, new int[] { IResources.BOTTOM_RIGHT });
+			resources.createOverlayImage(IMAGE_TEST_NOTAPPLIED, resources.getPlatformImage(ISharedImages.IMG_OBJ_FILE),
+					new Image[] { resources.getImage(IMAGE_OVERLAY_CHECKBOX_UNCHECKED) },
+					new int[] { IResources.BOTTOM_RIGHT });
 		}
 		catch (IOException ioe) {
 			throw new RuntimeException("This shouldn't happen.");
@@ -84,7 +94,8 @@ public class ArchlightUtils {
 		try {
 			ObjRef xADLRef = (ObjRef) xarch.get(docRootRef, "xADL");
 			if (xADLRef != null) {
-				List<ObjRef> archlightRefs = XadlUtils.getAllSubstitutionGroupElementsByTag(xarch, xADLRef, "topLevelElement", "archlight");
+				List<ObjRef> archlightRefs = XadlUtils.getAllSubstitutionGroupElementsByTag(xarch, xADLRef,
+						"topLevelElement", "archlight");
 				if (archlightRefs.size() > 0) {
 					ObjRef archlightRef = archlightRefs.get(0);
 					List<ObjRef> testRefs = xarch.getAll(archlightRef, "test");
@@ -108,12 +119,14 @@ public class ArchlightUtils {
 		return Collections.unmodifiableList(docTestList);
 	}
 
-	public static void makeDocTestApplied(IXArchADT xarch, ObjRef documentRootRef, ArchlightTest testToUpdate, boolean isEnabled) {
+	public static void makeDocTestApplied(IXArchADT xarch, ObjRef documentRootRef, ArchlightTest testToUpdate,
+			boolean isEnabled) {
 		ObjRef xADLRef = (ObjRef) xarch.get(documentRootRef, "xADL");
 		if (xADLRef != null) {
 			ObjRef archlightRef = null;
 
-			List<ObjRef> archlightRefs = XadlUtils.getAllSubstitutionGroupElementsByTag(xarch, xADLRef, "topLevelElement", "archlight");
+			List<ObjRef> archlightRefs = XadlUtils.getAllSubstitutionGroupElementsByTag(xarch, xADLRef,
+					"topLevelElement", "archlight");
 			if (archlightRefs.size() > 0)
 				archlightRef = archlightRefs.get(0);
 
@@ -134,7 +147,7 @@ public class ArchlightUtils {
 			}
 			//Let's create the test.
 			ObjRef testRef = XadlUtils.create(xarch, Archlight_3_0Package.Literals.TEST);
-			
+
 			xarch.set(testRef, "id", testToUpdate.getUID());
 			String nameString = "Tool: " + testToUpdate.getToolID() + "; Category: " + testToUpdate.getCategory();
 			XadlUtils.setName(xarch, testRef, nameString);
@@ -153,7 +166,8 @@ public class ArchlightUtils {
 		if (xADLRef != null) {
 			ObjRef archlightRef = null;
 
-			List<ObjRef> archlightRefs = XadlUtils.getAllSubstitutionGroupElementsByTag(xarch, xADLRef, "topLevelElement", "archlight");
+			List<ObjRef> archlightRefs = XadlUtils.getAllSubstitutionGroupElementsByTag(xarch, xADLRef,
+					"topLevelElement", "archlight");
 			if (archlightRefs.size() > 0)
 				archlightRef = archlightRefs.get(0);
 
@@ -170,7 +184,8 @@ public class ArchlightUtils {
 		}
 	}
 
-	public static void changeTestState(IXArchADT xarch, ObjRef xArchRef, Collection<? extends ArchlightTest> tests, Object element, int newState) {
+	public static void changeTestState(IXArchADT xarch, ObjRef xArchRef, Collection<? extends ArchlightTest> tests,
+			Object element, int newState) {
 		List<ArchlightTest> testsToChange = new ArrayList<ArchlightTest>();
 
 		if (element instanceof ObjRef) {
@@ -206,8 +221,8 @@ public class ArchlightUtils {
 		}
 	}
 
-	public static List<? extends IAction> createTestMenuActions(IXArchADT xarch, ObjRef documentRootRef, Collection<? extends ArchlightTest> tests,
-	        IResources resources, Object element) {
+	public static List<? extends IAction> createTestMenuActions(IXArchADT xarch, ObjRef documentRootRef,
+			Collection<? extends ArchlightTest> tests, IResources resources, Object element) {
 		final IXArchADT fxarch = xarch;
 		final ObjRef fdocumentRootRef = documentRootRef;
 		final Collection<? extends ArchlightTest> ftests = tests;
@@ -222,21 +237,24 @@ public class ArchlightUtils {
 
 		final Object felement = element;
 
-		Action applyAction = new Action("Make " + kindOfThing + " Applied/Enabled", ImageDescriptor.createFromImage(applyIcon)) {
+		Action applyAction = new Action("Make " + kindOfThing + " Applied/Enabled",
+				ImageDescriptor.createFromImage(applyIcon)) {
 			public void run() {
 				changeTestState(fxarch, fdocumentRootRef, ftests, felement, APPLIED);
 			}
 		};
 		actions.add(applyAction);
 
-		Action disableAction = new Action("Make " + kindOfThing + " Applied/Disabled", ImageDescriptor.createFromImage(disableIcon)) {
+		Action disableAction = new Action("Make " + kindOfThing + " Applied/Disabled",
+				ImageDescriptor.createFromImage(disableIcon)) {
 			public void run() {
 				changeTestState(fxarch, fdocumentRootRef, ftests, felement, DISABLED);
 			}
 		};
 		actions.add(disableAction);
 
-		Action unapplyAction = new Action("Make " + kindOfThing + " Unapplied", ImageDescriptor.createFromImage(unapplyIcon)) {
+		Action unapplyAction = new Action("Make " + kindOfThing + " Unapplied",
+				ImageDescriptor.createFromImage(unapplyIcon)) {
 			public void run() {
 				changeTestState(fxarch, fdocumentRootRef, ftests, felement, NOT_APPLIED);
 			}

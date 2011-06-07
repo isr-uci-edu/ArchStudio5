@@ -6,14 +6,13 @@ Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.launcher.core
 Manifest-Version: 1.0
-Require-Bundle: org.archstudio,
- org.archstudio.editors,
+Require-Bundle: org.archstudio.eclipse.ui,
  org.archstudio.filemanager.core,
  org.archstudio.launcher,
- org.archstudio.main,
  org.archstudio.myx.fw,
  org.archstudio.resources,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.eclipse.ui,
- org.eclipse.ui.ide
+ org.eclipse.ui.ide,
+ org.archstudio.sysutils;bundle-version="5.0.0"

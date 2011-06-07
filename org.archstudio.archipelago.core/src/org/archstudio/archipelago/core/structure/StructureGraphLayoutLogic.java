@@ -40,7 +40,7 @@ import org.archstudio.bna.assemblies.BoxAssembly;
 import org.archstudio.bna.assemblies.EndpointAssembly;
 import org.archstudio.bna.assemblies.StickySplineAssembly;
 import org.archstudio.bna.facets.IHasAssemblyData;
-import org.archstudio.bna.things.glass.BoxGlassThing;
+import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.glass.StickySplineGlassThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
@@ -144,7 +144,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 			IThing nodeRootThing = ArchipelagoUtils.findThing(view.getWorld().getBNAModel(), nodeID);
 			if((nodeRootThing != null) && (nodeRootThing instanceof IHasAssemblyData)){
 				BoxAssembly boxAssembly = BoxAssembly.attach(view.getWorld().getBNAModel(), (IHasAssemblyData)nodeRootThing);
-				BoxGlassThing bgt = boxAssembly.getBoxGlassThing();
+				RectangleGlassThing bgt = boxAssembly.getBoxGlassThing();
 				if(bgt != null){
 					bgt.setBoundingBox(nodeBounds);
 				}

@@ -20,38 +20,13 @@ import org.archstudio.myx.fw.MyxUtils;
  * @generated
  */
 @SuppressWarnings("unused")
-public abstract class ArchipelagoMyxComponentStub extends
-		org.archstudio.editors.AbstractArchstudioEditorMyxComponent implements
-		org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+abstract class ArchipelagoMyxComponentStub extends
+		org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
-	protected ArchipelagoMyxComponentStub(String editorName,
-			String eclipseEditorID, boolean registerWithEditorManager) {
+	protected ArchipelagoMyxComponentStub(String editorName, String eclipseEditorID, boolean registerWithEditorManager) {
 		super(editorName, eclipseEditorID, registerWithEditorManager);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
-
-	/**
-	 * @generated
-	 */
-	@Override
-	public void begin() {
-		super.begin();
-		myxRegistry.register(this);
-	}
-
-	/**
-	 * @generated
-	 */
-	@Override
-	public void end() {
-		myxRegistry.unregister(this);
-		super.end();
 	}
 
 	/**
@@ -59,15 +34,13 @@ public abstract class ArchipelagoMyxComponentStub extends
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName OUT_GRAPH_LAYOUT = MyxUtils
-			.createName("graphLayout");
+	public static final IMyxName OUT_GRAPH_LAYOUT = MyxUtils.createName("graphLayout");
 	/**
 	 * Myx interface preferences: <code>OUT_PREFERENCES</code>
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName OUT_PREFERENCES = MyxUtils
-			.createName("preferences");
+	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 
 	/**
 	 * Service object(s) for graphLayout: <code>graphLayout</code>
@@ -114,18 +87,14 @@ public abstract class ArchipelagoMyxComponentStub extends
 		}
 		if (interfaceName.equals(OUT_GRAPH_LAYOUT)) {
 			if (graphLayout != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			graphLayout = (org.archstudio.graphlayout.IGraphLayout) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_PREFERENCES)) {
 			if (preferences != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			preferences = (org.eclipse.jface.preference.IPreferenceStore) serviceObject;
 			return;
@@ -137,8 +106,7 @@ public abstract class ArchipelagoMyxComponentStub extends
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -157,8 +125,7 @@ public abstract class ArchipelagoMyxComponentStub extends
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 		super.interfaceDisconnected(interfaceName, serviceObject);
 	}
 

@@ -12,8 +12,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.archstudio.filemanager.CantOpenFileException;
+import org.archstudio.xarchadt.IXArchADTFileListener;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
+import org.archstudio.xarchadt.XArchADTFileEvent;
 import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -25,29 +27,33 @@ import org.eclipse.emf.common.util.URI;
  * @see org.archstudio.filemanager.core.FileManagerMyxComponentStub
  * @generated
  */
-public class FileManagerMyxComponent extends
-		org.archstudio.filemanager.core.FileManagerMyxComponentStub {
+public class FileManagerMyxComponent extends org.archstudio.filemanager.core.FileManagerMyxComponentStub implements
+		IXArchADTFileListener, IXArchADTModelListener {
 
-	protected Set<ObjRef> dirtySet = Collections
-			.synchronizedSet(new HashSet<ObjRef>());
+	protected Set<ObjRef> dirtySet = Collections.synchronizedSet(new HashSet<ObjRef>());
 
 	//Keeps track of which tools have which documents open. When no tools have
 	//a document open, it is closed in xArchADT.
-	protected Map<ObjRef, List<String>> openerMap = Collections
-			.synchronizedMap(new HashMap<ObjRef, List<String>>());
+	protected Map<ObjRef, List<String>> openerMap = Collections.synchronizedMap(new HashMap<ObjRef, List<String>>());
 
 	public FileManagerMyxComponent() {
 	}
 
 	@Override
+	public void begin() {
+		super.begin();
+		myxRegistry.map(this, this);
+	}
+
+	@Override
 	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
-		for (Object o : myxRegistry.getObjects(this)) {
-			if (o instanceof IXArchADTModelListener) {
-				((IXArchADTModelListener) o).handleXArchADTModelEvent(evt);
-			}
-		}
 		ObjRef documentRootRef = xarch.getDocumentRootRef(evt.getSource());
 		makeDirty(documentRootRef);
+	}
+
+	@Override
+	public void handleXArchADTFileEvent(XArchADTFileEvent evt) {
+		// TODO: When a file is closed, cleanup openerMap, send notifications, etc.
 	}
 
 	private static URI getURI(IFile f) {
@@ -76,38 +82,40 @@ public class FileManagerMyxComponent extends
 		OutputStream os = null;
 		URI uri = null;
 		try {
-			uri = getURI(f);
+			uri = URI.createURI(f.getLocationURI().toASCIIString());
 			ObjRef documentRootRef = xarch.load(uri);
 
 			List<String> toolList = openerMap.get(documentRootRef);
 			if (toolList == null) {
-				toolList = new ArrayList<String>();
+				openerMap.put(documentRootRef, toolList = new ArrayList<String>());
 			}
 			toolList.add(toolID);
-			openerMap.put(documentRootRef, toolList);
 
 			return documentRootRef;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new CantOpenFileException("Can't open file: " + uri, e);
-		} finally {
+		}
+		finally {
 			try {
 				if (is != null) {
 					is.close();
 				}
-			} catch (IOException e) {
+			}
+			catch (IOException e) {
 			}
 			try {
 				if (os != null) {
 					os.close();
 				}
-			} catch (IOException e2) {
+			}
+			catch (IOException e2) {
 			}
 		}
 	}
 
 	@Override
-	public ObjRef open(String toolID, java.io.File f)
-			throws CantOpenFileException {
+	public ObjRef open(String toolID, java.io.File f) throws CantOpenFileException {
 		InputStream is = null;
 		OutputStream os = null;
 		URI uri = null;
@@ -123,20 +131,24 @@ public class FileManagerMyxComponent extends
 			openerMap.put(documentRootRef, toolList);
 
 			return documentRootRef;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new CantOpenFileException("Can't open file: " + uri, e);
-		} finally {
+		}
+		finally {
 			try {
 				if (is != null) {
 					is.close();
 				}
-			} catch (IOException e) {
+			}
+			catch (IOException e) {
 			}
 			try {
 				if (os != null) {
 					os.close();
 				}
-			} catch (IOException e2) {
+			}
+			catch (IOException e2) {
 			}
 		}
 	}
@@ -163,9 +175,7 @@ public class FileManagerMyxComponent extends
 			return;
 		}
 		dirtySet.add(xArchRef);
-		if (fileManagerEvents != null) {
-			fileManagerEvents.fileDirtyStateChanged(xArchRef, true);
-		}
+		fileManagerEventsProxy.fileDirtyStateChanged(xArchRef, true);
 	}
 
 	@Override
@@ -174,9 +184,7 @@ public class FileManagerMyxComponent extends
 			return;
 		}
 		dirtySet.remove(xArchRef);
-		if (fileManagerEvents != null) {
-			fileManagerEvents.fileDirtyStateChanged(xArchRef, false);
-		}
+		fileManagerEventsProxy.fileDirtyStateChanged(xArchRef, false);
 	}
 
 	@Override
@@ -194,8 +202,9 @@ public class FileManagerMyxComponent extends
 			monitor.subTask("Notifying Editors");
 			monitor.worked(2);
 			try {
-				fileManagerEvents.fileSaving(xArchRef, monitor);
-			} catch (Exception e) {
+				fileManagerEventsProxy.fileSaving(xArchRef, monitor);
+			}
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -207,7 +216,8 @@ public class FileManagerMyxComponent extends
 		try {
 			xarch.save(uri);
 			makeClean(xArchRef);
-		} catch (IOException ioe) {
+		}
+		catch (IOException ioe) {
 			//TODO: Handle
 			ioe.printStackTrace();
 		}

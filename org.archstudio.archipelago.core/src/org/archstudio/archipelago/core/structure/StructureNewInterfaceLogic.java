@@ -23,7 +23,7 @@ import org.archstudio.bna.BNAUtils;
 import org.archstudio.bna.IBNAMenuListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.things.glass.BoxGlassThing;
+import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.things.swt.SWTTextThing;
 
 public class StructureNewInterfaceLogic extends AbstractThingLogic implements IBNAMenuListener{
@@ -40,7 +40,7 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 	}
 	
 	public boolean matches(IBNAView view, IThing t){
-		if(t instanceof BoxGlassThing){
+		if(t instanceof RectangleGlassThing){
 			IThing pt = view.getWorld().getBNAModel().getParentThing(t);
 			if(pt != null){
 				return StructureMapper.isBrickAssemblyRootThing(pt);
@@ -50,7 +50,7 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 	}
 	
 	public String getXArchID(IBNAView view, IThing t){
-		if(t instanceof BoxGlassThing){
+		if(t instanceof RectangleGlassThing){
 			IThing parentThing = view.getWorld().getBNAModel().getParentThing(t);
 			return parentThing.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 		}

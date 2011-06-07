@@ -4,12 +4,12 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.OverlayImageIcon;
+import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.jface.resource.ColorRegistry;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -31,8 +31,7 @@ import org.eclipse.ui.PlatformUI;
  * @see org.archstudio.resources.core.ResourcesMyxComponentStub
  * @generated
  */
-public class ResourcesMyxComponent extends
-		org.archstudio.resources.core.ResourcesMyxComponentStub {
+public class ResourcesMyxComponent extends org.archstudio.resources.core.ResourcesMyxComponentStub {
 	private final Object lock = new Object();
 
 	class ResourcesProxy implements InvocationHandler {
@@ -42,8 +41,7 @@ public class ResourcesMyxComponent extends
 		List<Runnable> toExec = new ArrayList<Runnable>();
 
 		@Override
-		public Object invoke(Object proxy, Method method, Object[] args)
-				throws Throwable {
+		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			synchronized (lock) {
 				final Method fMethod = method;
 				final Object[] fArgs = args;
@@ -54,19 +52,22 @@ public class ResourcesMyxComponent extends
 							public void run() {
 								try {
 									fMethod.invoke(resources, fArgs);
-								} catch (Throwable t) {
+								}
+								catch (Throwable t) {
 									t.printStackTrace();
 								}
 							}
 						});
 						return null;
-					} else if (Display.getCurrent() == null) {
+					}
+					else if (Display.getCurrent() == null) {
 						display.asyncExec(new Runnable() {
 							@Override
 							public void run() {
 								try {
 									fMethod.invoke(resources, fArgs);
-								} catch (Throwable t) {
+								}
+								catch (Throwable t) {
 									t.printStackTrace();
 								}
 							}
@@ -129,20 +130,13 @@ public class ResourcesMyxComponent extends
 	}
 
 	public ResourcesMyxComponent() {
-	}
-
-	IResources proxy = null;
-
-	@Override
-	public void init() {
-		proxy = (IResources) Proxy.newProxyInstance(this.getClass()
-				.getClassLoader(), new Class[] { IResources.class },
-				new ResourcesProxy());
-	}
-
-	@Override
-	public void destroy() {
-		proxy = null;
+		final Display d = Display.getDefault();
+		SWTWidgetUtils.sync(d, new Runnable() {
+			@Override
+			public void run() {
+				setDisplay(d);
+			}
+		});
 	}
 
 	protected void checkDevice() {
@@ -154,15 +148,13 @@ public class ResourcesMyxComponent extends
 	@Override
 	public Image getPlatformImage(String symbolicName) {
 		checkDevice();
-		return PlatformUI.getWorkbench().getSharedImages()
-				.getImage(symbolicName);
+		return PlatformUI.getWorkbench().getSharedImages().getImage(symbolicName);
 	}
 
 	@Override
 	public ImageDescriptor getPlatformImageDescriptor(String symbolicName) {
 		checkDevice();
-		return PlatformUI.getWorkbench().getSharedImages()
-				.getImageDescriptor(symbolicName);
+		return PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(symbolicName);
 	}
 
 	@Override
@@ -198,8 +190,7 @@ public class ResourcesMyxComponent extends
 	}
 
 	@Override
-	public void createDerivedFont(String newSymbolicName,
-			FontData[] existingFontData, int newHeight, int newStyle) {
+	public void createDerivedFont(String newSymbolicName, FontData[] existingFontData, int newHeight, int newStyle) {
 		checkDevice();
 		FontData[] fds = existingFontData;
 		FontData[] nfds = new FontData[fds.length];
@@ -254,7 +245,8 @@ public class ResourcesMyxComponent extends
 			Image img = desc.createImage();
 			createImage(symbolicName, img);
 			is.close();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -267,20 +259,19 @@ public class ResourcesMyxComponent extends
 		}
 		try {
 			imageRegistry.put(symbolicName, img);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void createOverlayImage(String symbolicName, Image base,
-			Image[] overlays, int[] overlayPositions) {
+	public void createOverlayImage(String symbolicName, Image base, Image[] overlays, int[] overlayPositions) {
 		checkDevice();
 		if (imageRegistry.get(symbolicName) != null) {
 			return;
 		}
-		OverlayImageIcon oii = new OverlayImageIcon(base, overlays,
-				overlayPositions);
+		OverlayImageIcon oii = new OverlayImageIcon(base, overlays, overlayPositions);
 		imageRegistry.put(symbolicName, oii);
 	}
 

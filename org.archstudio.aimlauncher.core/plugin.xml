@@ -7,7 +7,7 @@
             class="org.archstudio.aimlauncher.core.AIMLauncherEditor"
             default="false"
             extensions="xml"
-            icon="res/archstudio-icon-16x16.png"
+            icon="src/org/archstudio/aimlauncher/core/res/archstudio-icon-16x16.png"
             id="org.archstudio.aimlauncher.core.AIMLauncherEditor"
             name="AIM Launcher">
       </editor>
@@ -17,13 +17,13 @@
       <brick
             class="org.archstudio.aimlauncher.core.AIMLauncherMyxComponent"
             id="org.archstudio.aimlauncher.core.AIMLauncherMyxComponent"
-            name="AIM Launcher Component Impl">
-         <parentBrick
-               parentBrick="org.archstudio.editors.AbstractArchstudioEditorMyxComponent"></parentBrick>
+            name="AIM Launcher Component Impl"
+            parentBrick="org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent">
          <interface
                class="org.archstudio.aim.IAIM"
                delegate="variable"
                direction="out"
+               domain="top"
                getter="true"
                id="aim"
                name="aim"

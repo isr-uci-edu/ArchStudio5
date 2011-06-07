@@ -14,4 +14,5 @@ Require-Bundle: org.archstudio.archlight,
  org.archstudio.swtutils,
  org.archstudio.xarchadt,
  org.eclipse.core.runtime,
- org.eclipse.ui
+ org.eclipse.ui,
+ org.archstudio.eclipse.ui;bundle-version="5.0.0"

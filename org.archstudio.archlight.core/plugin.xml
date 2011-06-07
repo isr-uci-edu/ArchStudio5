@@ -11,6 +11,7 @@
                class="org.archstudio.myx.conn.IMultiwayResults"
                delegate="variable"
                direction="out"
+               domain="top"
                getter="true"
                id="results"
                name="results"
@@ -20,24 +21,27 @@
                class="org.archstudio.archlight.IArchlightTool"
                delegate="variable"
                direction="out"
+               domain="top"
                getter="true"
-               id="archlightTools"
-               name="archlightTools"
+               id="tools"
+               name="tools"
                single="true">
          </interface>
          <interface
                class="org.archstudio.archlight.IArchlightTool"
                delegate="brick"
                direction="in"
+               domain="top"
                getter="true"
-               id="archlightTool"
-               name="archlightTool"
+               id="tool"
+               name="tool"
                single="true">
          </interface>
          <interface
                class="org.archstudio.myx.conn.IMultiwayProgressListener"
                delegate="events"
                direction="in"
+               domain="top"
                getter="true"
                id="progress"
                name="progress"
@@ -47,14 +51,13 @@
       <brick
             class="org.archstudio.archlight.core.ArchlightMyxComponent"
             id="org.archstudio.archlight.core.ArchlightMyxComponent"
-            name="Archlight Impl">
-         <parentBrick
-               parentBrick="org.archstudio.editors.AbstractArchstudioEditorMyxComponent">
-         </parentBrick>
+            name="Archlight Impl"
+            parentBrick="org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent">
          <interface
                class="org.archstudio.archlight.IArchlightTool"
                delegate="variable"
                direction="out"
+               domain="top"
                getter="true"
                id="tools"
                name="tools"
@@ -64,9 +67,10 @@
                class="org.archstudio.testadt.IArchlightTestADT"
                delegate="variable"
                direction="out"
+               domain="top"
                getter="true"
-               id="testADT"
-               name="testADT"
+               id="tests"
+               name="tests"
                single="true">
          </interface>
       </brick>
@@ -78,6 +82,7 @@
                class="org.eclipse.jface.preference.IPreferenceStore"
                delegate="variable"
                direction="out"
+               domain="top"
                getter="true"
                id="preferences"
                name="preferences"
@@ -100,7 +105,7 @@
             class="org.archstudio.archlight.core.ArchlightEditor"
             default="false"
             extensions="xml"
-            icon="res/archstudio-icon-16x16.png"
+            icon="src/org/archstudio/archlight/core/res/archstudio-icon-16x16.png"
             id="org.archstudio.archlight.core.ArchlightEditor"
             name="Archlight">
       </editor>

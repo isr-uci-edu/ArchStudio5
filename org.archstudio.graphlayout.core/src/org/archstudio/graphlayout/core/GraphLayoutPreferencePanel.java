@@ -19,7 +19,7 @@ public class GraphLayoutPreferencePanel extends FieldEditorPreferencePage implem
 		comp = (GraphLayoutPrefsMyxComponent) er.waitForBrick(GraphLayoutPrefsMyxComponent.class);
 		er.map(comp, this);
 
-		setPreferenceStore(comp.prefs);
+		setPreferenceStore(comp.getPreferences());
 		setDescription("This panel lets you set graph layout preferences, particularly the path to the GraphViz toolkit.");
 	}
 

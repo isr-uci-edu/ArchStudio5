@@ -3,16 +3,16 @@ package org.archstudio.launcher.core;
 import java.io.IOException;
 import java.util.List;
 
-import org.archstudio.EclipseUtils;
-import org.archstudio.editors.XadlEditorMatchingStrategy;
+import org.archstudio.eclipse.ui.EclipseUtils;
+import org.archstudio.eclipse.ui.XadlEditorMatchingStrategy;
+import org.archstudio.eclipse.ui.views.AbstractArchStudioView;
 import org.archstudio.filemanager.core.NewFileWizard;
 import org.archstudio.launcher.ILaunchData;
-import org.archstudio.main.ArchStudio5Activator;
-import org.archstudio.myx.fw.MyxRegistry;
-
+import org.archstudio.resources.ArchStudioCommonResources;
 import org.archstudio.resources.IResources;
+import org.archstudio.sysutils.SystemUtils;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
@@ -20,6 +20,7 @@ import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.DropTargetListener;
 import org.eclipse.swt.dnd.Transfer;
+import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -33,13 +34,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.part.ResourceTransfer;
-import org.eclipse.ui.part.ViewPart;
-import org.osgi.framework.BundleException;
 
-public class LauncherView extends ViewPart {
-
-	private LauncherMyxComponent comp = null;
-	private MyxRegistry er = MyxRegistry.getSharedInstance();
+public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 
 	protected static final String IMAGE_ARCHSTUDIO_LOGO = "launcher:logo/archstudio";
 	protected static final String IMAGE_NEW_FILE_ICON = "launcher:icon/new-file";
@@ -52,25 +48,25 @@ public class LauncherView extends ViewPart {
 	protected List<ILaunchData> launchData = null;
 
 	public LauncherView() {
+		super(LauncherMyxComponent.class);
 	}
 
-	public void createPartControl(Composite parent) {
-		try {
-			Platform.getBundle(ArchStudio5Activator.PLUGIN_ID).start();
-		}
-		catch (BundleException be) {
-			throw new RuntimeException(be);
-		}
-		comp = (LauncherMyxComponent) er.waitForBrick(LauncherMyxComponent.class);
-		er.map(comp, this);
-		resources = ((LauncherMyxComponent) comp).getResources();
-		launchData = ((LauncherMyxComponent) comp).getLaunchData();
+	@Override
+	public void createMyxPartControl(Composite parent) {
+		resources = brick.getResources();
+		launchData = brick.getLaunchData();
 
 		try {
-			resources.createImage(IMAGE_ARCHSTUDIO_LOGO, EclipseUtils.getBytes("platform:/plugin/org.archstudio.common/res/archstudio-logo.gif"));
-			resources.createImage(IMAGE_NEW_FILE_ICON, EclipseUtils.getBytes("platform:/plugin/org.archstudio.common/res/icon-new-file-32x32.gif"));
-			resources.createImage(IMAGE_ARCHSTUDIO_ICON, EclipseUtils.getBytes("platform:/plugin/org.archstudio.common/res/archstudio-icon-32x32.png"));
-			resources.createImage(IMAGE_ISR_ICON, EclipseUtils.getBytes("platform:/plugin/org.archstudio.common/res/isr-icon-32x32.gif"));
+			// TODO: clean up this when resources are refactored
+			resources.createImage(IMAGE_ARCHSTUDIO_LOGO,
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/archstudio-logo.gif")));
+			resources
+					.createImage(IMAGE_NEW_FILE_ICON, SystemUtils.blt(ArchStudioCommonResources.class
+							.getResourceAsStream("res/icon-new-file-32x32.gif")));
+			resources.createImage(IMAGE_ARCHSTUDIO_ICON, SystemUtils.blt(ArchStudioCommonResources.class
+					.getResourceAsStream("res/archstudio-icon-32x32.png")));
+			resources.createImage(IMAGE_ISR_ICON,
+					SystemUtils.blt(ArchStudioCommonResources.class.getResourceAsStream("res/isr-icon-32x32.gif")));
 		}
 		catch (IOException ioe) {
 			throw new RuntimeException(ioe);
@@ -104,9 +100,11 @@ public class LauncherView extends ViewPart {
 		Button bNewFile = new Button(cTopButtons, SWT.PUSH | SWT.FLAT);
 		bNewFile.setImage(resources.getImage(IMAGE_NEW_FILE_ICON));
 		bNewFile.setToolTipText("New Architecture Description");
-		bNewFile.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_END | GridData.VERTICAL_ALIGN_CENTER | GridData.GRAB_HORIZONTAL));
+		bNewFile.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_END | GridData.VERTICAL_ALIGN_CENTER
+				| GridData.GRAB_HORIZONTAL));
 		bNewFile.setAlignment(SWT.CENTER);
 		bNewFile.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				NewFileWizard.showWizard(getSite().getShell(), getSite().getWorkbenchWindow().getWorkbench());
 			}
@@ -115,9 +113,11 @@ public class LauncherView extends ViewPart {
 		Button bVisitISRWebPage = new Button(cTopButtons, SWT.PUSH | SWT.FLAT);
 		bVisitISRWebPage.setImage(resources.getImage(IMAGE_ISR_ICON));
 		bVisitISRWebPage.setToolTipText("Visit ISR Website");
-		bVisitISRWebPage.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_END | GridData.VERTICAL_ALIGN_CENTER | GridData.GRAB_HORIZONTAL));
+		bVisitISRWebPage.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_END | GridData.VERTICAL_ALIGN_CENTER
+				| GridData.GRAB_HORIZONTAL));
 		bVisitISRWebPage.setAlignment(SWT.CENTER);
 		bVisitISRWebPage.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				EclipseUtils.openExternalBrowser("http://www.isr.uci.edu/");
 			}
@@ -126,11 +126,13 @@ public class LauncherView extends ViewPart {
 		Button bVisitWebPage = new Button(cTopButtons, SWT.PUSH | SWT.FLAT);
 		bVisitWebPage.setImage(resources.getImage(IMAGE_ARCHSTUDIO_ICON));
 		bVisitWebPage.setToolTipText("Visit ArchStudio Website");
-		bVisitWebPage.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_END | GridData.VERTICAL_ALIGN_CENTER | GridData.GRAB_HORIZONTAL));
+		bVisitWebPage.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_END | GridData.VERTICAL_ALIGN_CENTER
+				| GridData.GRAB_HORIZONTAL));
 		bVisitWebPage.setAlignment(SWT.CENTER);
 		bVisitWebPage.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
-				EclipseUtils.openExternalBrowser("http://www.isr.uci.edu/projects/archstudio/");
+				EclipseUtils.openExternalBrowser("http://www.archstudio.org/");
 			}
 		});
 
@@ -153,26 +155,19 @@ public class LauncherView extends ViewPart {
 		createToolBar(mainGroup, lExplanation);
 
 		/*
-		 * tb.addListener(SWT.MouseExit, new Listener(){ public void
-		 * handleEvent(Event event){ lExplanation.setText(NO_TOOL);
-		 * mainGroup.layout(new Control[]{lExplanation}); } });
-		 * tb.addListener(SWT.MouseMove, new Listener(){ public void
-		 * handleEvent(Event event){ ToolItem ti = tb.getItem(new Point(event.x,
-		 * event.y)); if((ti != null) && (ti.getData() instanceof ILaunchData)){
-		 * ILaunchData ld = (ILaunchData)ti.getData(); String text =
-		 * ld.getDescription(); if(ld.getLaunchType() == ILaunchData.EDITOR){
-		 * text += ".  Drop a file here to begin."; } else if(ld.getLaunchType()
-		 * == ILaunchData.VIEW){ text += ".  Click this button to begin."; }
-		 * lExplanation.setText(text); } else{ lExplanation.setText(NO_TOOL); }
-		 * mainGroup.layout(new Control[]{lExplanation}); } }); for(int i = 0; i
-		 * < tb.getItemCount(); i++){ ToolItem ti = tb.getItem(i);
-		 * if(ti.getData() instanceof ILaunchData){ final ILaunchData ld =
-		 * (ILaunchData)ti.getData(); ti.addListener(SWT.Selection, new
-		 * Listener(){ public void handleEvent(Event event){
-		 * if(ld.getLaunchType() == ILaunchData.EDITOR){ IResource[] res =
-		 * EclipseUtils.selectResourcesToOpen(getSite().getShell(), SWT.SINGLE,
-		 * "Choose file to open", new String[]{"xml"}); if((res != null) &&
-		 * (res.length > 0)){ openEditor(ld, res[0]); } return; } else{
+		 * tb.addListener(SWT.MouseExit, new Listener(){ public void handleEvent(Event event){
+		 * lExplanation.setText(NO_TOOL); mainGroup.layout(new Control[]{lExplanation}); } });
+		 * tb.addListener(SWT.MouseMove, new Listener(){ public void handleEvent(Event event){ ToolItem ti =
+		 * tb.getItem(new Point(event.x, event.y)); if((ti != null) && (ti.getData() instanceof ILaunchData)){
+		 * ILaunchData ld = (ILaunchData)ti.getData(); String text = ld.getDescription(); if(ld.getLaunchType() ==
+		 * ILaunchData.EDITOR){ text += ".  Drop a file here to begin."; } else if(ld.getLaunchType() ==
+		 * ILaunchData.VIEW){ text += ".  Click this button to begin."; } lExplanation.setText(text); } else{
+		 * lExplanation.setText(NO_TOOL); } mainGroup.layout(new Control[]{lExplanation}); } }); for(int i = 0; i <
+		 * tb.getItemCount(); i++){ ToolItem ti = tb.getItem(i); if(ti.getData() instanceof ILaunchData){ final
+		 * ILaunchData ld = (ILaunchData)ti.getData(); ti.addListener(SWT.Selection, new Listener(){ public void
+		 * handleEvent(Event event){ if(ld.getLaunchType() == ILaunchData.EDITOR){ IResource[] res =
+		 * EclipseUtils.selectResourcesToOpen(getSite().getShell(), SWT.SINGLE, "Choose file to open", new
+		 * String[]{"xml"}); if((res != null) && (res.length > 0)){ openEditor(ld, res[0]); } return; } else{
 		 * //TODO:Implement view selection } }; }); } }
 		 */
 
@@ -202,18 +197,21 @@ public class LauncherView extends ViewPart {
 
 		Button bItem = new Button(cItem, SWT.PUSH);
 		bItem.setImage(launchData.getIcon());
-		bItem.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL | GridData.VERTICAL_ALIGN_FILL | GridData.GRAB_VERTICAL));
+		bItem.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL
+				| GridData.VERTICAL_ALIGN_FILL | GridData.GRAB_VERTICAL));
 		bItem.setBackground(resources.getColor(IResources.COLOR_ARCHSTUDIO));
 
 		Label lItem = new Label(cItem, SWT.NONE);
 		lItem.setText(launchData.getName());
 		lItem.setForeground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-		lItem.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_CENTER | GridData.GRAB_HORIZONTAL | GridData.VERTICAL_ALIGN_CENTER));
+		lItem.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_CENTER | GridData.GRAB_HORIZONTAL
+				| GridData.VERTICAL_ALIGN_CENTER));
 		lItem.setBackground(resources.getColor(IResources.COLOR_ARCHSTUDIO));
 
 		final Control[] controls = new Control[] { lDetail };
 
 		bItem.addListener(SWT.MouseExit, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				lDetail.setText(NO_TOOL);
 				lDetail.getParent().layout(controls);
@@ -221,6 +219,7 @@ public class LauncherView extends ViewPart {
 		});
 
 		bItem.addListener(SWT.MouseMove, new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				String text = launchData.getDescription();
 				if (launchData.getLaunchType().equals(ILaunchData.LaunchType.EDITOR)) {
@@ -235,14 +234,17 @@ public class LauncherView extends ViewPart {
 		});
 
 		bItem.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (launchData.getLaunchType().equals(ILaunchData.LaunchType.EDITOR)) {
-					IResource[] res = EclipseUtils.selectResourcesToOpen(getSite().getShell(), SWT.SINGLE, "Choose file to open", new String[] { "xml" });
-					if ((res != null) && (res.length > 0)) {
+					IResource[] res = EclipseUtils.selectResourcesToOpen(getSite().getShell(), SWT.SINGLE,
+							"Choose file to open", new String[] { "xml" });
+					if (res != null && res.length > 0) {
 						openEditor(launchData, res[0]);
 					}
 					return;
@@ -261,6 +263,7 @@ public class LauncherView extends ViewPart {
 		target.setTransfer(types);
 
 		target.addDropListener(new DropTargetListener() {
+			@Override
 			public void dragEnter(DropTargetEvent event) {
 				if (event.detail == DND.DROP_DEFAULT) {
 					if ((event.operations & DND.DROP_COPY) != 0) {
@@ -270,9 +273,9 @@ public class LauncherView extends ViewPart {
 						event.detail = DND.DROP_NONE;
 					}
 				}
-				for (int i = 0; i < event.dataTypes.length; i++) {
-					if (resourceTransfer.isSupportedType(event.dataTypes[i])) {
-						event.currentDataType = event.dataTypes[i];
+				for (TransferData dataType : event.dataTypes) {
+					if (resourceTransfer.isSupportedType(dataType)) {
+						event.currentDataType = dataType;
 						if (event.detail != DND.DROP_COPY) {
 							event.detail = DND.DROP_NONE;
 						}
@@ -281,6 +284,7 @@ public class LauncherView extends ViewPart {
 				}
 			}
 
+			@Override
 			public void dragOver(DropTargetEvent event) {
 				event.feedback = DND.FEEDBACK_SELECT | DND.FEEDBACK_SCROLL;
 				if (resourceTransfer.isSupportedType(event.currentDataType)) {
@@ -293,6 +297,7 @@ public class LauncherView extends ViewPart {
 				event.detail = DND.DROP_NONE;
 			}
 
+			@Override
 			public void dragOperationChanged(DropTargetEvent event) {
 				if (resourceTransfer.isSupportedType(event.currentDataType)) {
 					if (event.detail != DND.DROP_COPY) {
@@ -301,17 +306,21 @@ public class LauncherView extends ViewPart {
 				}
 			}
 
+			@Override
 			public void dragLeave(DropTargetEvent event) {
 			}
 
+			@Override
 			public void dropAccept(DropTargetEvent event) {
 			}
 
+			@Override
 			public void drop(DropTargetEvent event) {
 				if (resourceTransfer.isSupportedType(event.currentDataType)) {
 					IResource[] resources = (IResource[]) event.data;
 					if (!isValidDrop(resources)) {
-						MessageDialog.openError(getSite().getShell(), "Error", "Invalid input: drop a single valid architecture description to begin.");
+						MessageDialog.openError(getSite().getShell(), "Error",
+								"Invalid input: drop a single valid architecture description to begin.");
 					}
 					else {
 						if (launchData.getLaunchType().equals(ILaunchData.LaunchType.EDITOR)) {
@@ -337,11 +346,12 @@ public class LauncherView extends ViewPart {
 	}
 
 	protected void openEditor(ILaunchData ld, IResource resource) {
-		EclipseUtils.openEditor(ld.getEclipseID(), resource.getFullPath());
+		if (resource instanceof IFile) {
+			EclipseUtils.openEditor(ld.getEclipseID(), (IFile) resource);
+		}
 	}
 
-	public void setFocus() {
-
+	@Override
+	public void setMyxFocus() {
 	}
-
 }

@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio Eclipse Core
+Bundle-SymbolicName: org.archstudio.eclipse.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.archstudio.eclipse.core.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.archstudio.eclipse;bundle-version="5.0.0",
+ org.archstudio.xarchadt;bundle-version="5.0.0",
+ org.archstudio.xarchadt.core;bundle-version="5.0.0",
+ org.archstudio.aim;bundle-version="5.0.0",
+ org.archstudio.aim.core;bundle-version="5.0.0",
+ org.eclipse.emf;bundle-version="2.6.0",
+ org.eclipse.emf.common;bundle-version="2.6.0",
+ org.archstudio.myx.fw;bundle-version="5.0.0",
+ org.archstudio.xadl;bundle-version="5.0.0",
+ org.archstudio.sysutils;bundle-version="5.0.0",
+ org.archstudio.myxgen.core;bundle-version="5.0.0",
+ org.archstudio.xadl3.structure;bundle-version="5.0.0",
+ org.archstudio.myx.eclipse;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: archstudio.org
+Export-Package: org.archstudio.eclipse.core,
+ org.archstudio.eclipse.core.startup

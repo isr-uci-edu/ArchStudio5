@@ -1,16 +1,15 @@
 package org.archstudio.archipelago.core.prefs;
 
+import org.archstudio.archipelago.core.ArchipelagoConstants;
+import org.archstudio.bna.constants.GridDisplayType;
+import org.archstudio.eclipse.ui.EclipseUtils;
+import org.archstudio.myx.fw.MyxRegistry;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-
-import org.archstudio.EclipseUtils;
-import org.archstudio.archipelago.core.ArchipelagoConstants;
-import org.archstudio.myx.fw.MyxRegistry;
-import org.archstudio.bna.constants.GridDisplayType;
 
 public class ArchipelagoPreferencePanel extends FieldEditorPreferencePage implements IWorkbenchPreferencePage{
 	private ArchipelagoPrefsMyxComponent comp = null;
@@ -28,7 +27,8 @@ public class ArchipelagoPreferencePanel extends FieldEditorPreferencePage implem
 		comp = (ArchipelagoPrefsMyxComponent)er.waitForBrick(ArchipelagoPrefsMyxComponent.class);
 		er.map(comp, this);
 		
-		setPreferenceStore(comp.prefs);
+		// TODO: How is it that preferences is public? This should cause an error and require getPreferences()
+		setPreferenceStore(comp.preferences);
 		setDescription("This panel lets you set general preferences for Archipelago; feature-specific preferences are in subpanels.");
 	}
 	

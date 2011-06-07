@@ -9,26 +9,26 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 
-import org.archstudio.editors.AbstractArchstudioEditor;
-import org.archstudio.editors.AbstractArchstudioOutlinePage;
+import org.archstudio.eclipse.ui.editors.AbstractArchStudioEditor;
+import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.graphlayout.IGraphLayout;
 import org.archstudio.resources.IResources;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTFileEvent;
 import org.archstudio.xarchadt.XArchADTModelEvent;
 
-public class ArchipelagoEditor extends AbstractArchstudioEditor {
+public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxComponent> {
 	protected IPreferenceStore prefs = null;
 	protected IGraphLayout graphLayout = null;
 
 	public ArchipelagoEditor() {
 		super(ArchipelagoMyxComponent.class, ArchipelagoMyxComponent.EDITOR_NAME);
-		prefs = ((ArchipelagoMyxComponent) comp).getPreferences();
-		graphLayout = ((ArchipelagoMyxComponent) comp).getGraphLayout();
+		prefs = comp.getPreferences();
+		graphLayout = comp.getGraphLayout();
 
 		//ArchlightUtils.initResources(resources);
 
-		setBannerInfo(((ArchipelagoMyxComponent) comp).getIcon(), "Graphical Architecture Editor");
+		setBannerInfo(comp.getIcon(), "Graphical Architecture Editor");
 		setHasBanner(true);
 		setUpdateOnSelectionChange(false);
 		setUpdateEditorOnXArchFlatEvent(false);
@@ -42,15 +42,15 @@ public class ArchipelagoEditor extends AbstractArchstudioEditor {
 		//setupToolbar(site);
 	}
 
-	protected AbstractArchstudioOutlinePage createOutlinePage() {
-		return new ArchipelagoOutlinePage(this, xarch, getDocumentRootRef(), resources, fileman, editorManager, prefs, graphLayout);
+	protected AbstractArchStudioOutlinePage createOutlinePage() {
+		return new ArchipelagoOutlinePage(this, xarch, getDocumentRootRef(), resources, fileman, editorManager, prefs,
+				graphLayout);
 	}
 
 	/*
-	 * protected void setupToolbar(IEditorSite site){ IActionBars bars =
-	 * site.getActionBars(); IToolBarManager manager = bars.getToolBarManager();
-	 * IAction[] actions = getToolbarActions(); for(int i = 0; i <
-	 * actions.length; i++){ manager.add(actions[i]); } }
+	 * protected void setupToolbar(IEditorSite site){ IActionBars bars = site.getActionBars(); IToolBarManager manager =
+	 * bars.getToolBarManager(); IAction[] actions = getToolbarActions(); for(int i = 0; i < actions.length; i++){
+	 * manager.add(actions[i]); } }
 	 */
 
 	public void createEditorContents(Composite c) {

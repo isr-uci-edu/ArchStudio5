@@ -13,22 +13,16 @@ import org.archstudio.filemanager.IFileManagerListener;
 import org.archstudio.xarchadt.IXArchADTFileListener;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
-import org.archstudio.myx.fw.IMyxName;
-import org.archstudio.myx.fw.MyxRegistry;
 
 /**
- * Abstract Myx brick: "File Manager Impl"
+ * Abstract Myx brick: "File Manager Impl B"
  *
  * @generated
  */
 @SuppressWarnings("unused")
-public abstract class FileManagerMyxComponentStub extends
-		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.xarchadt.IXArchADTModelListener,
-		org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
-		org.archstudio.filemanager.IFileManager,
-		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
+abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
+		org.archstudio.filemanager.IFileManager, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
 	 * @generated
@@ -52,63 +46,131 @@ public abstract class FileManagerMyxComponentStub extends
 	}
 
 	/**
-	 * Myx interface xarch: <code>OUT_XARCH</code>
+	 * Myx name for the <code>xarch</code> interface.
 	 *
+	 * MyxGenInterface[name=xarch,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.xarchadt.IXArchADT,description=null]
 	 * @generated
 	 */
 	public static final IMyxName OUT_XARCH = MyxUtils.createName("xarch");
 	/**
-	 * Myx interface modelEvents: <code>IN_MODEL_EVENTS</code>
+	 * Myx name for the <code>modelEvents</code> interface.
 	 *
+	 * MyxGenInterface[name=modelEvents,direction=in,single=true,serviceObjectDelegate=brick,generateGetter=true,className=org.archstudio.xarchadt.IXArchADTModelListener,description=null]
 	 * @generated
 	 */
-	public static final IMyxName IN_MODEL_EVENTS = MyxUtils
-			.createName("modelEvents");
+	public static final IMyxName IN_MODEL_EVENTS = MyxUtils.createName("modelEvents");
 	/**
-	 * Myx interface fileEvents: <code>IN_FILE_EVENTS</code>
+	 * Myx name for the <code>fileEvents</code> interface.
 	 *
+	 * MyxGenInterface[name=fileEvents,direction=in,single=true,serviceObjectDelegate=brick,generateGetter=true,className=org.archstudio.xarchadt.IXArchADTFileListener,description=null]
 	 * @generated
 	 */
-	public static final IMyxName IN_FILE_EVENTS = MyxUtils
-			.createName("fileEvents");
+	public static final IMyxName IN_FILE_EVENTS = MyxUtils.createName("fileEvents");
 	/**
-	 * Myx interface fileManager: <code>IN_FILE_MANAGER</code>
+	 * Myx name for the <code>fileManager</code> interface.
 	 *
+	 * MyxGenInterface[name=fileManager,direction=in,single=true,serviceObjectDelegate=brick,generateGetter=true,className=org.archstudio.filemanager.IFileManager,description=null]
 	 * @generated
 	 */
-	public static final IMyxName IN_FILE_MANAGER = MyxUtils
-			.createName("fileManager");
+	public static final IMyxName IN_FILE_MANAGER = MyxUtils.createName("fileManager");
 	/**
-	 * Myx interface fileManagerEvents: <code>OUT_FILE_MANAGER_EVENTS</code>
+	 * Myx name for the <code>fileManagerEvents</code> interface.
 	 *
+	 * MyxGenInterface[name=fileManagerEvents,direction=out,single=false,serviceObjectDelegate=events,generateGetter=true,className=org.archstudio.filemanager.IFileManagerListener,description=null]
 	 * @generated
 	 */
-	public static final IMyxName OUT_FILE_MANAGER_EVENTS = MyxUtils
-			.createName("fileManagerEvents");
+	public static final IMyxName OUT_FILE_MANAGER_EVENTS = MyxUtils.createName("fileManagerEvents");
+
 	/**
-	 * Service object(s) for xarch: <code>xarch</code>
+	 * Service object(s) for the xarch interface.
 	 *
 	 * @see #OUT_XARCH
 	 * @generated
 	 */
 	protected org.archstudio.xarchadt.IXArchADT xarch = null;
 	/**
-	 * Service object(s) for fileEvents: <code>fileEvents</code>
+	 * Service object proxy for the modelEvents interface.
+	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
+	 *
+	 * @see #IN_MODEL_EVENTS
+	 * @generated
+	 */
+	protected final org.archstudio.xarchadt.IXArchADTModelListener modelEventsProxy = (org.archstudio.xarchadt.IXArchADTModelListener) Proxy
+			.newProxyInstance(org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),
+					new Class[] { org.archstudio.xarchadt.IXArchADTModelListener.class }, new InvocationHandler() {
+						@Override
+						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+							for (org.archstudio.xarchadt.IXArchADTModelListener o : myxRegistry.getObjects(
+									FileManagerMyxComponentStub.this,
+									org.archstudio.xarchadt.IXArchADTModelListener.class)) {
+								try {
+									method.invoke(o, args);
+								}
+								catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+							return null;
+						}
+					});
+	/**
+	 * Service object proxy for the fileEvents interface.
+	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
 	 *
 	 * @see #IN_FILE_EVENTS
 	 * @generated
 	 */
-	protected org.archstudio.xarchadt.IXArchADTFileListener fileEvents = null;
+	protected final org.archstudio.xarchadt.IXArchADTFileListener fileEventsProxy = (org.archstudio.xarchadt.IXArchADTFileListener) Proxy
+			.newProxyInstance(org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),
+					new Class[] { org.archstudio.xarchadt.IXArchADTFileListener.class }, new InvocationHandler() {
+						@Override
+						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+							for (org.archstudio.xarchadt.IXArchADTFileListener o : myxRegistry.getObjects(
+									FileManagerMyxComponentStub.this,
+									org.archstudio.xarchadt.IXArchADTFileListener.class)) {
+								try {
+									method.invoke(o, args);
+								}
+								catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+							return null;
+						}
+					});
 	/**
-	 * Service object(s) for fileManagerEvents: <code>fileManagerEvents</code>
+	 * Service object(s) for the fileManagerEvents interface.
 	 *
 	 * @see #OUT_FILE_MANAGER_EVENTS
 	 * @generated
 	 */
-	protected org.archstudio.filemanager.IFileManagerListener fileManagerEvents = null;
+	protected final Collection<org.archstudio.filemanager.IFileManagerListener> fileManagerEvents = new CopyOnWriteArrayList<org.archstudio.filemanager.IFileManagerListener>();
+	/**
+	 * Service object proxy for the fileManagerEvents interface.
+	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
+	 *
+	 * @see #OUT_FILE_MANAGER_EVENTS
+	 * @generated
+	 */
+	protected final org.archstudio.filemanager.IFileManagerListener fileManagerEventsProxy = (org.archstudio.filemanager.IFileManagerListener) Proxy
+			.newProxyInstance(org.archstudio.filemanager.IFileManagerListener.class.getClassLoader(),
+					new Class[] { org.archstudio.filemanager.IFileManagerListener.class }, new InvocationHandler() {
+						@Override
+						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+							for (org.archstudio.filemanager.IFileManagerListener o : fileManagerEvents) {
+								try {
+									method.invoke(o, args);
+								}
+								catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+							return null;
+						}
+					});
 
 	/**
-	 * Returns the service object(s) for <code>xarch</code>
+	 * Returns the service object(s) for the <code>xarch</code> interface.
 	 *
 	 * @see #OUT_XARCH
 	 * @generated
@@ -118,27 +180,7 @@ public abstract class FileManagerMyxComponentStub extends
 	}
 
 	/**
-	 * Returns the service object(s) for <code>modelEvents</code>
-	 *
-	 * @see #IN_MODEL_EVENTS
-	 * @generated
-	 */
-	public org.archstudio.xarchadt.IXArchADTModelListener getModelEvents() {
-		return this;
-	}
-
-	/**
-	 * Returns the service object(s) for <code>fileEvents</code>
-	 *
-	 * @see #IN_FILE_EVENTS
-	 * @generated
-	 */
-	public org.archstudio.xarchadt.IXArchADTFileListener getFileEvents() {
-		return fileEvents;
-	}
-
-	/**
-	 * Returns the service object(s) for <code>fileManager</code>
+	 * Returns the service object(s) for the <code>fileManager</code> interface.
 	 *
 	 * @see #IN_FILE_MANAGER
 	 * @generated
@@ -148,13 +190,24 @@ public abstract class FileManagerMyxComponentStub extends
 	}
 
 	/**
-	 * Returns the service object(s) for <code>fileManagerEvents</code>
+	 * Returns the service object(s) for the <code>fileManagerEvents</code> interface.
 	 *
 	 * @see #OUT_FILE_MANAGER_EVENTS
 	 * @generated
 	 */
-	public org.archstudio.filemanager.IFileManagerListener getFileManagerEvents() {
+	public Collection<org.archstudio.filemanager.IFileManagerListener> getFileManagerEvents() {
 		return fileManagerEvents;
+	}
+
+	/**
+	 * Returns the proxy service object for the <code>fileManagerEvents</code> interface.
+	 *
+	 * @see #org.archstudio.filemanager.IFileManagerListener fileManagerEventsProxy
+	 * @see #OUT_FILE_MANAGER_EVENTS
+	 * @generated
+	 */
+	public org.archstudio.filemanager.IFileManagerListener getFileManagerEventsProxy() {
+		return fileManagerEventsProxy;
 	}
 
 	/**
@@ -167,32 +220,23 @@ public abstract class FileManagerMyxComponentStub extends
 		}
 		if (interfaceName.equals(OUT_XARCH)) {
 			if (xarch != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			xarch = (org.archstudio.xarchadt.IXArchADT) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_FILE_MANAGER_EVENTS)) {
-			if (fileManagerEvents != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
-			}
-			fileManagerEvents = (org.archstudio.filemanager.IFileManagerListener) serviceObject;
+			fileManagerEvents.add((org.archstudio.filemanager.IFileManagerListener) serviceObject);
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: "
-				+ interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -201,19 +245,17 @@ public abstract class FileManagerMyxComponentStub extends
 			return;
 		}
 		if (interfaceName.equals(OUT_FILE_MANAGER_EVENTS)) {
-			fileManagerEvents = null;
+			fileManagerEvents.remove(serviceObject);
 			return;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
@@ -222,18 +264,14 @@ public abstract class FileManagerMyxComponentStub extends
 	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_MODEL_EVENTS)) {
-			return this;
+			return modelEventsProxy;
 		}
 		if (interfaceName.equals(IN_FILE_EVENTS)) {
-			if (fileEvents == null) {
-				throw new NullPointerException("fileEvents");
-			}
-			return fileEvents;
+			return fileEventsProxy;
 		}
 		if (interfaceName.equals(IN_FILE_MANAGER)) {
 			return this;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}
 }

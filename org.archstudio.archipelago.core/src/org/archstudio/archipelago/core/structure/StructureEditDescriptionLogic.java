@@ -6,7 +6,7 @@ import org.archstudio.archipelago.core.util.AbstractEditNameLogic;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.things.glass.BoxGlassThing;
+import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.glass.StickySplineGlassThing;
 
@@ -17,7 +17,7 @@ public class StructureEditDescriptionLogic extends AbstractEditNameLogic{
 	}
 	
 	public boolean matches(IBNAView view, IThing t){
-		if(t instanceof BoxGlassThing){
+		if(t instanceof RectangleGlassThing){
 			IThing pt = view.getWorld().getBNAModel().getParentThing(t);
 			if(pt != null){
 				return StructureMapper.isBrickAssemblyRootThing(pt);
@@ -39,7 +39,7 @@ public class StructureEditDescriptionLogic extends AbstractEditNameLogic{
 	}
 	
 	public String getXArchID(IBNAView view, IThing t){
-		if(t instanceof BoxGlassThing){
+		if(t instanceof RectangleGlassThing){
 			IThing parentThing = view.getWorld().getBNAModel().getParentThing(t);
 			return parentThing.getProperty(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 		}

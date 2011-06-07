@@ -16,10 +16,8 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
  * @generated
  */
 @SuppressWarnings("unused")
-public abstract class ArchlightPrefsMyxComponentStub extends
-		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+/* package */abstract class ArchlightPrefsMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
+		implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -44,24 +42,25 @@ public abstract class ArchlightPrefsMyxComponentStub extends
 	}
 
 	/**
-	 * Myx interface preferences: <code>OUT_PREFERENCES</code>
+	 * Myx name for the <code>preferences</code> interface.
 	 *
+	 * MyxGenInterface[name=preferences,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.eclipse.jface.preference.IPreferenceStore,description=null]
 	 * @generated
 	 */
-	public static final IMyxName OUT_PREFERENCES = MyxUtils
-			.createName("preferences");
+	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
+
 	/**
-	 * Service object(s) for preferences: <code>preferences</code>
+	 * Service object(s) for the preferences interface.
 	 *
-	 * @see #IN_PREFERENCES
+	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */
 	protected org.eclipse.jface.preference.IPreferenceStore preferences = null;
 
 	/**
-	 * Returns the service object(s) for <code>preferences</code>
+	 * Returns the service object(s) for the <code>preferences</code> interface.
 	 *
-	 * @see #IN_PREFERENCES
+	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */
 	public org.eclipse.jface.preference.IPreferenceStore getPreferences() {
@@ -78,23 +77,19 @@ public abstract class ArchlightPrefsMyxComponentStub extends
 		}
 		if (interfaceName.equals(OUT_PREFERENCES)) {
 			if (preferences != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			preferences = (org.eclipse.jface.preference.IPreferenceStore) serviceObject;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: "
-				+ interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -102,16 +97,14 @@ public abstract class ArchlightPrefsMyxComponentStub extends
 			preferences = null;
 			return;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
@@ -119,7 +112,6 @@ public abstract class ArchlightPrefsMyxComponentStub extends
 	 */
 	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
-		throw new IllegalArgumentException(
-				"Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}
 }

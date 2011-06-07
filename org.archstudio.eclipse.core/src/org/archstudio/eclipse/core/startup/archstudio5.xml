@@ -1,0 +1,2300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xadlcore_3_0:xADL
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:domain_3_0="http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd"
+    xmlns:implementation_3_0="http://www.archstudio.org/xadl3/schemas/implementation-3.0.xsd"
+    xmlns:javaimplementation_3_0="http://www.archstudio.org/xadl3/schemas/javaimplementation-3.0.xsd"
+    xmlns:lookupimplementation_3_0="http://www.archstudio.org/xadl3/schemas/lookupimplementation-3.0.xsd"
+    xmlns:myxgen_3_0="http://www.archstudio.org/xadl3/schemas/myxgen-3.0.xsd" xmlns:structure_3_0="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd"
+    xmlns:xadlcore_3_0="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd">
+  <structure_3_0:structure structure_3_0:id="ArchStudio_5_Main_Structure" structure_3_0:name="ArchStudio 5 Main Structure">
+    <structure_3_0:component structure_3_0:id="xArchADT" structure_3_0:name="xArchADT">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="xArchADT_xarch"
+          structure_3_0:name="xarch">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="xarch"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="xArchADT_fileEvents"
+          structure_3_0:name="fileEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTFileListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTFileListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="xArchADT_modelEvents"
+          structure_3_0:name="modelEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTModelListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTModelListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="modelEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.xarchadt.core.XArchADTMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="Resources" structure_3_0:name="Resources">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Resources_resources"
+          structure_3_0:name="resources">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.resources.IResources"
+                javaimplementation_3_0:id="org_archstudio_resources_IResources"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="resources"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.resources.core.ResourcesMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="PreferencesADT" structure_3_0:name="PreferencesADT">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="PreferencesADT_preferences"
+          structure_3_0:name="preferences">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"
+                javaimplementation_3_0:id="org_eclipse_jface_preference_IPreferenceStore"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="preferences"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.preferencesadt.core.PreferencesADTMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="RootPreferences" structure_3_0:name="RootPreferences">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="RootPreferences_preferences"
+          structure_3_0:name="preferences">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"
+                javaimplementation_3_0:id="org_eclipse_jface_preference_IPreferenceStore"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="preferences"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="RootPreferences_resources"
+          structure_3_0:name="resources">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.resources.IResources"
+                javaimplementation_3_0:id="org_archstudio_resources_IResources"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="resources"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.rootpreferences.core.RootPreferencesMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="MyxRuntime" structure_3_0:name="MyxRuntime">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="MyxRuntime_myxRuntime"
+          structure_3_0:name="myxRuntime">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.myx.fw.IMyxRuntime"
+                javaimplementation_3_0:id="org_archstudio_myx_fw_IMyxRuntime"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="myxRuntime"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.myx.comp.MyxRuntimeComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="AIM" structure_3_0:name="AIM">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="AIM_aim"
+          structure_3_0:name="aim">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.aim.IAIM"
+                javaimplementation_3_0:id="org_archstudio_aim_IAIM"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="aim"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="AIM_xarch"
+          structure_3_0:name="xarch">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="xarch"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="AIM_myxRuntime"
+          structure_3_0:name="myxRuntime">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.myx.fw.IMyxRuntime"
+                javaimplementation_3_0:id="org_archstudio_myx_fw_IMyxRuntime"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="myxRuntime"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.aim.core.AIMMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="EditorManager" structure_3_0:name="EditorManager">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="EditorManager_editorManager"
+          structure_3_0:name="editorManager">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.editormanager.IEditorManager"
+                javaimplementation_3_0:id="org_archstudio_editormanager_IEditorManager"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="editorManager"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="EditorManager_preferences"
+          structure_3_0:name="preferences">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"
+                javaimplementation_3_0:id="org_eclipse_jface_preference_IPreferenceStore"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="preferences"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="EditorManager_focusEditorEvents"
+          structure_3_0:name="focusEditorEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.eclipse.ui.IFocusEditorListener"
+                javaimplementation_3_0:id="org_archstudio_eclipse_ui_IFocusEditorListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="focusEditorEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.editormanager.core.EditorManagerMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="EditorPrefs" structure_3_0:name="EditorPrefs">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="EditorPrefs_editorManager"
+          structure_3_0:name="editorManager">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.editormanager.IEditorManager"
+                javaimplementation_3_0:id="org_archstudio_editormanager_IEditorManager"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="editorManager"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="EditorPrefs_preferences"
+          structure_3_0:name="preferences">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"
+                javaimplementation_3_0:id="org_eclipse_jface_preference_IPreferenceStore"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="preferences"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.editormanager.core.EditorPrefsMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="AIMLauncher" structure_3_0:name="AIMLauncher">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="AIMLauncher_aim"
+          structure_3_0:name="aim">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.aim.IAIM"
+                javaimplementation_3_0:id="org_archstudio_aim_IAIM"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="aim"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="AIMLauncher_xarch"
+          structure_3_0:name="xarch">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="xarch"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="AIMLauncher_editorManager"
+          structure_3_0:name="editorManager">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.editormanager.IEditorManager"
+                javaimplementation_3_0:id="org_archstudio_editormanager_IEditorManager"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="editorManager"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="AIMLauncher_fileEvents"
+          structure_3_0:name="fileEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTFileListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTFileListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="AIMLauncher_modelEvents"
+          structure_3_0:name="modelEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTModelListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTModelListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="modelEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="AIMLauncher_fileManagerEvents"
+          structure_3_0:name="fileManagerEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManagerListener"
+                javaimplementation_3_0:id="org_archstudio_filemanager_IFileManagerListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileManagerEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="AIMLauncher_focusEditorEvents"
+          structure_3_0:name="focusEditorEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.eclipse.ui.IFocusEditorListener"
+                javaimplementation_3_0:id="org_archstudio_eclipse_ui_IFocusEditorListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="focusEditorEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="AIMLauncher_resources"
+          structure_3_0:name="resources">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.resources.IResources"
+                javaimplementation_3_0:id="org_archstudio_resources_IResources"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="resources"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="AIMLauncher_fileManager"
+          structure_3_0:name="fileManager">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManager"
+                javaimplementation_3_0:id="org_archstudio_filemanager_IFileManager"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileManager"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="AIMLauncher_launcher"
+          structure_3_0:name="launcher">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.launcher.ILaunchable"
+                javaimplementation_3_0:id="org_archstudio_launcher_ILaunchable"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="launcher"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.aimlauncher.core.AIMLauncherMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="ArchEdit" structure_3_0:name="ArchEdit">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="ArchEdit_xarch"
+          structure_3_0:name="xarch">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="xarch"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="ArchEdit_editorManager"
+          structure_3_0:name="editorManager">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.editormanager.IEditorManager"
+                javaimplementation_3_0:id="org_archstudio_editormanager_IEditorManager"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="editorManager"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="ArchEdit_fileEvents"
+          structure_3_0:name="fileEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTFileListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTFileListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="ArchEdit_modelEvents"
+          structure_3_0:name="modelEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTModelListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTModelListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="modelEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="ArchEdit_fileManagerEvents"
+          structure_3_0:name="fileManagerEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManagerListener"
+                javaimplementation_3_0:id="org_archstudio_filemanager_IFileManagerListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileManagerEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="ArchEdit_focusEditorEvents"
+          structure_3_0:name="focusEditorEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.eclipse.ui.IFocusEditorListener"
+                javaimplementation_3_0:id="org_archstudio_eclipse_ui_IFocusEditorListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="focusEditorEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="ArchEdit_resources"
+          structure_3_0:name="resources">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.resources.IResources"
+                javaimplementation_3_0:id="org_archstudio_resources_IResources"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="resources"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="ArchEdit_fileManager"
+          structure_3_0:name="fileManager">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManager"
+                javaimplementation_3_0:id="org_archstudio_filemanager_IFileManager"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileManager"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="ArchEdit_launcher"
+          structure_3_0:name="launcher">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.launcher.ILaunchable"
+                javaimplementation_3_0:id="org_archstudio_launcher_ILaunchable"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="launcher"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.archedit.core.ArchEditMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="Launcher" structure_3_0:name="Launcher">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Launcher_resources"
+          structure_3_0:name="resources">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.resources.IResources"
+                javaimplementation_3_0:id="org_archstudio_resources_IResources"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="resources"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Launcher_launcher"
+          structure_3_0:name="launcher">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.launcher.ILaunchable"
+                javaimplementation_3_0:id="org_archstudio_launcher_ILaunchable"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="launcher"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Launcher_results"
+          structure_3_0:name="results">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.myx.conn.IMultiwayResults"
+                javaimplementation_3_0:id="org_archstudio_myx_conn_IMultiwayResults"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="results"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.launcher.core.LauncherMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="FileManager" structure_3_0:name="FileManager">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="FileManager_xarch"
+          structure_3_0:name="xarch">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="xarch"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="FileManager_fileEvents"
+          structure_3_0:name="fileEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTFileListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTFileListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="FileManager_modelEvents"
+          structure_3_0:name="modelEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTModelListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTModelListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="modelEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="FileManager_fileManager"
+          structure_3_0:name="fileManager">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManager"
+                javaimplementation_3_0:id="org_archstudio_filemanager_IFileManager"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileManager"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="FileManager_fileManagerEvents"
+          structure_3_0:name="fileManagerEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManagerListener"
+                javaimplementation_3_0:id="org_archstudio_filemanager_IFileManagerListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileManagerEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.filemanager.core.FileManagerMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="GraphLayout" structure_3_0:name="GraphLayout">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="GraphLayout_xarch"
+          structure_3_0:name="xarch">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="xarch"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="GraphLayout_preferences"
+          structure_3_0:name="preferences">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"
+                javaimplementation_3_0:id="org_eclipse_jface_preference_IPreferenceStore"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="preferences"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="GraphLayout_graphLayout"
+          structure_3_0:name="graphLayout">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.graphlayout.IGraphLayout"
+                javaimplementation_3_0:id="org_archstudio_graphlayout_IGraphLayout"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="graphLayout"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.graphlayout.core.GraphLayoutMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="GraphLayoutPrefs" structure_3_0:name="GraphLayoutPrefs">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="GraphLayoutPrefs_preferences"
+          structure_3_0:name="preferences">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"
+                javaimplementation_3_0:id="org_eclipse_jface_preference_IPreferenceStore"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="preferences"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.graphlayout.core.GraphLayoutPrefsMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="Archipelago" structure_3_0:name="Archipelago">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archipelago_preferences"
+          structure_3_0:name="preferences">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"
+                javaimplementation_3_0:id="org_eclipse_jface_preference_IPreferenceStore"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="preferences"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archipelago_graphLayout"
+          structure_3_0:name="graphLayout">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.graphlayout.IGraphLayout"
+                javaimplementation_3_0:id="org_archstudio_graphlayout_IGraphLayout"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="graphLayout"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archipelago_xarch"
+          structure_3_0:name="xarch">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="xarch"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archipelago_editorManager"
+          structure_3_0:name="editorManager">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.editormanager.IEditorManager"
+                javaimplementation_3_0:id="org_archstudio_editormanager_IEditorManager"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="editorManager"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Archipelago_fileEvents"
+          structure_3_0:name="fileEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTFileListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTFileListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Archipelago_modelEvents"
+          structure_3_0:name="modelEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTModelListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTModelListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="modelEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Archipelago_fileManagerEvents"
+          structure_3_0:name="fileManagerEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManagerListener"
+                javaimplementation_3_0:id="org_archstudio_filemanager_IFileManagerListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileManagerEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Archipelago_focusEditorEvents"
+          structure_3_0:name="focusEditorEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.eclipse.ui.IFocusEditorListener"
+                javaimplementation_3_0:id="org_archstudio_eclipse_ui_IFocusEditorListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="focusEditorEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archipelago_resources"
+          structure_3_0:name="resources">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.resources.IResources"
+                javaimplementation_3_0:id="org_archstudio_resources_IResources"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="resources"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archipelago_fileManager"
+          structure_3_0:name="fileManager">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManager"
+                javaimplementation_3_0:id="org_archstudio_filemanager_IFileManager"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileManager"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Archipelago_launcher"
+          structure_3_0:name="launcher">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.launcher.ILaunchable"
+                javaimplementation_3_0:id="org_archstudio_launcher_ILaunchable"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="launcher"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.archipelago.core.ArchipelagoMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="ArchipelagoPrefs" structure_3_0:name="ArchipelagoPrefs">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="ArchipelagoPrefs_preferences"
+          structure_3_0:name="preferences">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"
+                javaimplementation_3_0:id="org_eclipse_jface_preference_IPreferenceStore"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="preferences"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.archipelago.core.prefs.ArchipelagoPrefsMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="ArchipelagoStructurePrefs" structure_3_0:name="ArchipelagoStructurePrefs">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="ArchipelagoStructurePrefs_preferences"
+          structure_3_0:name="preferences">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"
+                javaimplementation_3_0:id="org_eclipse_jface_preference_IPreferenceStore"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="preferences"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePrefsMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="IssueADT" structure_3_0:name="IssueADT">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="IssueADT_issues"
+          structure_3_0:name="issues">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.issueadt.IArchlightIssueADT"
+                javaimplementation_3_0:id="org_archstudio_issueadt_IArchlightIssueADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="issues"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="IssueADT_fileEvents"
+          structure_3_0:name="fileEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTFileListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTFileListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="IssueADT_issueEvents"
+          structure_3_0:name="issueEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.issueadt.ArchlightIssueADTListener"
+                javaimplementation_3_0:id="org_archstudio_issueadt_ArchlightIssueADTListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="issueEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.issueadt.core.ArchlightIssueADTMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="NoticeADT" structure_3_0:name="NoticeADT">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="NoticeADT_notices"
+          structure_3_0:name="notices">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.noticeadt.IArchlightNoticeADT"
+                javaimplementation_3_0:id="org_archstudio_noticeadt_IArchlightNoticeADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="notices"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="NoticeADT_noticeEvents"
+          structure_3_0:name="noticeEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.noticeadt.ArchlightNoticeADTListener"
+                javaimplementation_3_0:id="org_archstudio_noticeadt_ArchlightNoticeADTListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="noticeEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.noticeadt.core.ArchlightNoticeADTMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="TestADT" structure_3_0:name="TestADT">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="TestADT_tests"
+          structure_3_0:name="tests">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.testadt.IArchlightTestADT"
+                javaimplementation_3_0:id="org_archstudio_testadt_IArchlightTestADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="tests"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="TestADT_testEvents"
+          structure_3_0:name="testEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.testadt.ArchlightTestADTListener"
+                javaimplementation_3_0:id="org_archstudio_testadt_ArchlightTestADTListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="testEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.testadt.core.ArchlightTestADTMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="IssueView" structure_3_0:name="IssueView">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="IssueView_issues"
+          structure_3_0:name="issues">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.issueadt.IArchlightIssueADT"
+                javaimplementation_3_0:id="org_archstudio_issueadt_IArchlightIssueADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="issues"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="IssueView_xarch"
+          structure_3_0:name="xarch">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="xarch"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="IssueView_resources"
+          structure_3_0:name="resources">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.resources.IResources"
+                javaimplementation_3_0:id="org_archstudio_resources_IResources"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="resources"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="IssueView_preferences"
+          structure_3_0:name="preferences">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"
+                javaimplementation_3_0:id="org_eclipse_jface_preference_IPreferenceStore"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="preferences"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="IssueView_editorManager"
+          structure_3_0:name="editorManager">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.editormanager.IEditorManager"
+                javaimplementation_3_0:id="org_archstudio_editormanager_IEditorManager"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="editorManager"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="IssueView_issueEvents"
+          structure_3_0:name="issueEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.issueadt.ArchlightIssueADTListener"
+                javaimplementation_3_0:id="org_archstudio_issueadt_ArchlightIssueADTListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="issueEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.issueview.core.ArchlightIssueViewMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="NoticeView" structure_3_0:name="NoticeView">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="NoticeView_notices"
+          structure_3_0:name="notices">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.noticeadt.IArchlightNoticeADT"
+                javaimplementation_3_0:id="org_archstudio_noticeadt_IArchlightNoticeADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="notices"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="NoticeView_resources"
+          structure_3_0:name="resources">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.resources.IResources"
+                javaimplementation_3_0:id="org_archstudio_resources_IResources"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="resources"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="NoticeView_noticeEvents"
+          structure_3_0:name="noticeEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.noticeadt.ArchlightNoticeADTListener"
+                javaimplementation_3_0:id="org_archstudio_noticeadt_ArchlightNoticeADTListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="noticeEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.noticeview.core.ArchlightNoticeViewMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="Schematron" structure_3_0:name="Schematron">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Schematron_tools"
+          structure_3_0:name="tools">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.archlight.IArchlightTool"
+                javaimplementation_3_0:id="org_archstudio_archlight_IArchlightTool"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="tools"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Schematron_xarch"
+          structure_3_0:name="xarch">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="xarch"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Schematron_issues"
+          structure_3_0:name="issues">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.issueadt.IArchlightIssueADT"
+                javaimplementation_3_0:id="org_archstudio_issueadt_IArchlightIssueADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="issues"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Schematron_tests"
+          structure_3_0:name="tests">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.testadt.IArchlightTestADT"
+                javaimplementation_3_0:id="org_archstudio_testadt_IArchlightTestADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="tests"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Schematron_notices"
+          structure_3_0:name="notices">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.noticeadt.IArchlightNoticeADT"
+                javaimplementation_3_0:id="org_archstudio_noticeadt_IArchlightNoticeADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="notices"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Schematron_preferences"
+          structure_3_0:name="preferences">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"
+                javaimplementation_3_0:id="org_eclipse_jface_preference_IPreferenceStore"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="preferences"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.schematron.core.SchematronMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="SchematronPrefs" structure_3_0:name="SchematronPrefs">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="SchematronPrefs_preferences"
+          structure_3_0:name="preferences">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"
+                javaimplementation_3_0:id="org_eclipse_jface_preference_IPreferenceStore"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="preferences"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.schematron.core.prefs.SchematronPrefsMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="ArchlightToolAggregator" structure_3_0:name="ArchlightToolAggregator">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="ArchlightToolAggregator_results"
+          structure_3_0:name="results">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.myx.conn.IMultiwayResults"
+                javaimplementation_3_0:id="org_archstudio_myx_conn_IMultiwayResults"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="results"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="ArchlightToolAggregator_tools"
+          structure_3_0:name="tools">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.archlight.IArchlightTool"
+                javaimplementation_3_0:id="org_archstudio_archlight_IArchlightTool"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="tools"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="ArchlightToolAggregator_tool"
+          structure_3_0:name="tool">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.archlight.IArchlightTool"
+                javaimplementation_3_0:id="org_archstudio_archlight_IArchlightTool"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="tool"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="ArchlightToolAggregator_progress"
+          structure_3_0:name="progress">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.myx.conn.IMultiwayProgressListener"
+                javaimplementation_3_0:id="org_archstudio_myx_conn_IMultiwayProgressListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="progress"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.archlight.core.ArchlightToolAggregatorMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="Archlight" structure_3_0:name="Archlight">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archlight_tests"
+          structure_3_0:name="tests">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.testadt.IArchlightTestADT"
+                javaimplementation_3_0:id="org_archstudio_testadt_IArchlightTestADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="tests"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archlight_tools"
+          structure_3_0:name="tools">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.archlight.IArchlightTool"
+                javaimplementation_3_0:id="org_archstudio_archlight_IArchlightTool"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="tools"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archlight_xarch"
+          structure_3_0:name="xarch">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADT"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="xarch"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archlight_editorManager"
+          structure_3_0:name="editorManager">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.editormanager.IEditorManager"
+                javaimplementation_3_0:id="org_archstudio_editormanager_IEditorManager"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="editorManager"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Archlight_fileEvents"
+          structure_3_0:name="fileEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTFileListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTFileListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Archlight_modelEvents"
+          structure_3_0:name="modelEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTModelListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTModelListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="modelEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Archlight_fileManagerEvents"
+          structure_3_0:name="fileManagerEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManagerListener"
+                javaimplementation_3_0:id="org_archstudio_filemanager_IFileManagerListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileManagerEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Archlight_focusEditorEvents"
+          structure_3_0:name="focusEditorEvents">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.eclipse.ui.IFocusEditorListener"
+                javaimplementation_3_0:id="org_archstudio_eclipse_ui_IFocusEditorListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="focusEditorEvents"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archlight_resources"
+          structure_3_0:name="resources">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.resources.IResources"
+                javaimplementation_3_0:id="org_archstudio_resources_IResources"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="resources"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archlight_fileManager"
+          structure_3_0:name="fileManager">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManager"
+                javaimplementation_3_0:id="org_archstudio_filemanager_IFileManager"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="fileManager"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Archlight_launcher"
+          structure_3_0:name="launcher">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.launcher.ILaunchable"
+                javaimplementation_3_0:id="org_archstudio_launcher_ILaunchable"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="launcher"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.archlight.core.ArchlightMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="ArchlightPrefs" structure_3_0:name="ArchlightPrefs">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="ArchlightPrefs_preferences"
+          structure_3_0:name="preferences">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"
+                javaimplementation_3_0:id="org_eclipse_jface_preference_IPreferenceStore"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="preferences"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.archlight.core.prefs.ArchlightPrefsMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:connector structure_3_0:id="XArchADTModelEventPump" structure_3_0:name="XArchADTModelEventPump">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="XArchADTModelEventPump_in"
+          structure_3_0:name="in">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTModelListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTModelListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="in"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="XArchADTModelEventPump_out"
+          structure_3_0:name="out">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTModelListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTModelListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="out"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.myx.conn.EventPumpConnector</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:connector>
+    <structure_3_0:connector structure_3_0:id="XArchADTFileEventPump" structure_3_0:name="XArchADTFileEventPump">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="XArchADTFileEventPump_in"
+          structure_3_0:name="in">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTFileListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTFileListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="in"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="XArchADTFileEventPump_out"
+          structure_3_0:name="out">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTFileListener"
+                javaimplementation_3_0:id="org_archstudio_xarchadt_IXArchADTFileListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="out"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.myx.conn.EventPumpConnector</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:connector>
+    <structure_3_0:connector structure_3_0:id="FileManagerEventPump" structure_3_0:name="FileManagerEventPump">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="FileManagerEventPump_in"
+          structure_3_0:name="in">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManagerListener"
+                javaimplementation_3_0:id="org_archstudio_filemanager_IFileManagerListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="in"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="FileManagerEventPump_out"
+          structure_3_0:name="out">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManagerListener"
+                javaimplementation_3_0:id="org_archstudio_filemanager_IFileManagerListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="out"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.myx.conn.EventPumpConnector</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:connector>
+    <structure_3_0:connector structure_3_0:id="FocusEditorEventPump" structure_3_0:name="FocusEditorEventPump">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="FocusEditorEventPump_in"
+          structure_3_0:name="in">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.eclipse.ui.IFocusEditorListener"
+                javaimplementation_3_0:id="org_archstudio_eclipse_ui_IFocusEditorListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="in"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="FocusEditorEventPump_out"
+          structure_3_0:name="out">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.eclipse.ui.IFocusEditorListener"
+                javaimplementation_3_0:id="org_archstudio_eclipse_ui_IFocusEditorListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="out"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.myx.conn.EventPumpConnector</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:connector>
+    <structure_3_0:connector structure_3_0:id="LauncherMultiway" structure_3_0:name="LauncherMultiway">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="LauncherMultiway_in"
+          structure_3_0:name="in">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.launcher.ILaunchable"
+                javaimplementation_3_0:id="org_archstudio_launcher_ILaunchable"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="in"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="LauncherMultiway_out"
+          structure_3_0:name="out">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.launcher.ILaunchable"
+                javaimplementation_3_0:id="org_archstudio_launcher_ILaunchable"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="out"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="LauncherMultiway_results"
+          structure_3_0:name="results">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.myx.conn.IMultiwayResults"
+                javaimplementation_3_0:id="org_archstudio_myx_conn_IMultiwayResults"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="results"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="LauncherMultiway_progress"
+          structure_3_0:name="progress">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.myx.conn.IMultiwayProgressListener"
+                javaimplementation_3_0:id="org_archstudio_myx_conn_IMultiwayProgressListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="progress"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.myx.conn.SynchronousMultiwayProxyConnector</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:connector>
+    <structure_3_0:connector structure_3_0:id="IssueADTEventPump" structure_3_0:name="IssueADTEventPump">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="IssueADTEventPump_in"
+          structure_3_0:name="in">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.issueadt.ArchlightIssueADTListener"
+                javaimplementation_3_0:id="org_archstudio_issueadt_ArchlightIssueADTListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="in"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="IssueADTEventPump_out"
+          structure_3_0:name="out">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.issueadt.ArchlightIssueADTListener"
+                javaimplementation_3_0:id="org_archstudio_issueadt_ArchlightIssueADTListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="out"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.myx.conn.EventPumpConnector</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:connector>
+    <structure_3_0:connector structure_3_0:id="NoticeADTEventPump" structure_3_0:name="NoticeADTEventPump">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="NoticeADTEventPump_in"
+          structure_3_0:name="in">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.noticeadt.ArchlightNoticeADTListener"
+                javaimplementation_3_0:id="org_archstudio_noticeadt_ArchlightNoticeADTListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="in"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="NoticeADTEventPump_out"
+          structure_3_0:name="out">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.noticeadt.ArchlightNoticeADTListener"
+                javaimplementation_3_0:id="org_archstudio_noticeadt_ArchlightNoticeADTListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="out"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.myx.conn.EventPumpConnector</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:connector>
+    <structure_3_0:connector structure_3_0:id="TestADTEventPump" structure_3_0:name="TestADTEventPump">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="TestADTEventPump_in"
+          structure_3_0:name="in">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.testadt.ArchlightTestADTListener"
+                javaimplementation_3_0:id="org_archstudio_testadt_ArchlightTestADTListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="in"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="TestADTEventPump_out"
+          structure_3_0:name="out">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.testadt.ArchlightTestADTListener"
+                javaimplementation_3_0:id="org_archstudio_testadt_ArchlightTestADTListener"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              lookupimplementation_3_0:lookup="out"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+          <myxgen_3_0:brickID>org.archstudio.myx.conn.EventPumpConnector</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:connector>
+    <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_AIM_xarch" structure_3_0:name="xArchADT.xarch-to-AIM.xarch">
+      <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
+      <structure_3_0:point2>AIM_xarch</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="xArchADT_fileEvents_to_XArchADTFileEventPump_in"
+        structure_3_0:name="xArchADT.fileEvents-to-XArchADTFileEventPump.in">
+      <structure_3_0:point1>xArchADT_fileEvents</structure_3_0:point1>
+      <structure_3_0:point2>XArchADTFileEventPump_in</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="xArchADT_modelEvents_to_XArchADTModelEventPump_in"
+        structure_3_0:name="xArchADT.modelEvents-to-XArchADTModelEventPump.in">
+      <structure_3_0:point1>xArchADT_modelEvents</structure_3_0:point1>
+      <structure_3_0:point2>XArchADTModelEventPump_in</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="AIM_myxRuntime_to_MyxRuntime_myxRuntime"
+        structure_3_0:name="AIM.myxRuntime-to-MyxRuntime.myxRuntime">
+      <structure_3_0:point1>AIM_myxRuntime</structure_3_0:point1>
+      <structure_3_0:point2>MyxRuntime_myxRuntime</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="Resources_resources_to_Launcher_resources"
+        structure_3_0:name="Resources.resources-to-Launcher.resources">
+      <structure_3_0:point1>Resources_resources</structure_3_0:point1>
+      <structure_3_0:point2>Launcher_resources</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="LauncherMultiway_in_to_Launcher_launcher"
+        structure_3_0:name="LauncherMultiway.in-to-Launcher.launcher">
+      <structure_3_0:point1>LauncherMultiway_in</structure_3_0:point1>
+      <structure_3_0:point2>Launcher_launcher</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="LauncherMultiway_results_to_Launcher_results"
+        structure_3_0:name="LauncherMultiway.results-to-Launcher.results">
+      <structure_3_0:point1>LauncherMultiway_results</structure_3_0:point1>
+      <structure_3_0:point2>Launcher_results</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_FileManager_xarch" structure_3_0:name="xArchADT.xarch-to-FileManager.xarch">
+      <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
+      <structure_3_0:point2>FileManager_xarch</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_FileManager_fileEvents"
+        structure_3_0:name="XArchADTFileEventPump.out-to-FileManager.fileEvents">
+      <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>FileManager_fileEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_FileManager_modelEvents"
+        structure_3_0:name="XArchADTModelEventPump.out-to-FileManager.modelEvents">
+      <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>FileManager_modelEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="FileManager_fileManagerEvents_to_FileManagerEventPump_in"
+        structure_3_0:name="FileManager.fileManagerEvents-to-FileManagerEventPump.in">
+      <structure_3_0:point1>FileManager_fileManagerEvents</structure_3_0:point1>
+      <structure_3_0:point2>FileManagerEventPump_in</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_EditorManager_preferences"
+        structure_3_0:name="PreferencesADT.preferences-to-EditorManager.preferences">
+      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
+      <structure_3_0:point2>EditorManager_preferences</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_EditorPrefs_editorManager"
+        structure_3_0:name="EditorManager.editorManager-to-EditorPrefs.editorManager">
+      <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
+      <structure_3_0:point2>EditorPrefs_editorManager</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_EditorPrefs_preferences"
+        structure_3_0:name="PreferencesADT.preferences-to-EditorPrefs.preferences">
+      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
+      <structure_3_0:point2>EditorPrefs_preferences</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="EditorManager_focusEditorEvents_to_FocusEditorEventPump_in"
+        structure_3_0:name="EditorManager.focusEditorEvents-to-FocusEditorEventPump.in">
+      <structure_3_0:point1>EditorManager_focusEditorEvents</structure_3_0:point1>
+      <structure_3_0:point2>FocusEditorEventPump_in</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_RootPreferences_preferences"
+        structure_3_0:name="PreferencesADT.preferences-to-RootPreferences.preferences">
+      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
+      <structure_3_0:point2>RootPreferences_preferences</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="Resources_resources_to_RootPreferences_resources"
+        structure_3_0:name="Resources.resources-to-RootPreferences.resources">
+      <structure_3_0:point1>Resources_resources</structure_3_0:point1>
+      <structure_3_0:point2>RootPreferences_resources</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_GraphLayout_xarch" structure_3_0:name="xArchADT.xarch-to-GraphLayout.xarch">
+      <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
+      <structure_3_0:point2>GraphLayout_xarch</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_GraphLayout_preferences"
+        structure_3_0:name="PreferencesADT.preferences-to-GraphLayout.preferences">
+      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
+      <structure_3_0:point2>GraphLayout_preferences</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_GraphLayoutPrefs_preferences"
+        structure_3_0:name="PreferencesADT.preferences-to-GraphLayoutPrefs.preferences">
+      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
+      <structure_3_0:point2>GraphLayoutPrefs_preferences</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_AIMLauncher_xarch" structure_3_0:name="xArchADT.xarch-to-AIMLauncher.xarch">
+      <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
+      <structure_3_0:point2>AIMLauncher_xarch</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_AIMLauncher_editorManager"
+        structure_3_0:name="EditorManager.editorManager-to-AIMLauncher.editorManager">
+      <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
+      <structure_3_0:point2>AIMLauncher_editorManager</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_AIMLauncher_modelEvents"
+        structure_3_0:name="XArchADTModelEventPump.out-to-AIMLauncher.modelEvents">
+      <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>AIMLauncher_modelEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_AIMLauncher_fileEvents"
+        structure_3_0:name="XArchADTFileEventPump.out-to-AIMLauncher.fileEvents">
+      <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>AIMLauncher_fileEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="FocusEditorEventPump_out_to_AIMLauncher_focusEditorEvents"
+        structure_3_0:name="FocusEditorEventPump.out-to-AIMLauncher.focusEditorEvents">
+      <structure_3_0:point1>FocusEditorEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>AIMLauncher_focusEditorEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="FileManagerEventPump_out_to_AIMLauncher_fileManagerEvents"
+        structure_3_0:name="FileManagerEventPump.out-to-AIMLauncher.fileManagerEvents">
+      <structure_3_0:point1>FileManagerEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>AIMLauncher_fileManagerEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="Resources_resources_to_AIMLauncher_resources"
+        structure_3_0:name="Resources.resources-to-AIMLauncher.resources">
+      <structure_3_0:point1>Resources_resources</structure_3_0:point1>
+      <structure_3_0:point2>AIMLauncher_resources</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="FileManager_fileManager_to_AIMLauncher_fileManager"
+        structure_3_0:name="FileManager.fileManager-to-AIMLauncher.fileManager">
+      <structure_3_0:point1>FileManager_fileManager</structure_3_0:point1>
+      <structure_3_0:point2>AIMLauncher_fileManager</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="AIMLauncher_launcher_to_LauncherMultiway_out"
+        structure_3_0:name="AIMLauncher.launcher-to-LauncherMultiway.out">
+      <structure_3_0:point1>AIMLauncher_launcher</structure_3_0:point1>
+      <structure_3_0:point2>LauncherMultiway_out</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="AIM_aim_to_AIMLauncher_aim" structure_3_0:name="AIM.aim-to-AIMLauncher.aim">
+      <structure_3_0:point1>AIM_aim</structure_3_0:point1>
+      <structure_3_0:point2>AIMLauncher_aim</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_ArchEdit_xarch" structure_3_0:name="xArchADT.xarch-to-ArchEdit.xarch">
+      <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
+      <structure_3_0:point2>ArchEdit_xarch</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_ArchEdit_editorManager"
+        structure_3_0:name="EditorManager.editorManager-to-ArchEdit.editorManager">
+      <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
+      <structure_3_0:point2>ArchEdit_editorManager</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_ArchEdit_modelEvents"
+        structure_3_0:name="XArchADTModelEventPump.out-to-ArchEdit.modelEvents">
+      <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>ArchEdit_modelEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_ArchEdit_fileEvents"
+        structure_3_0:name="XArchADTFileEventPump.out-to-ArchEdit.fileEvents">
+      <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>ArchEdit_fileEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="FocusEditorEventPump_out_to_ArchEdit_focusEditorEvents"
+        structure_3_0:name="FocusEditorEventPump.out-to-ArchEdit.focusEditorEvents">
+      <structure_3_0:point1>FocusEditorEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>ArchEdit_focusEditorEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="FileManagerEventPump_out_to_ArchEdit_fileManagerEvents"
+        structure_3_0:name="FileManagerEventPump.out-to-ArchEdit.fileManagerEvents">
+      <structure_3_0:point1>FileManagerEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>ArchEdit_fileManagerEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="Resources_resources_to_ArchEdit_resources"
+        structure_3_0:name="Resources.resources-to-ArchEdit.resources">
+      <structure_3_0:point1>Resources_resources</structure_3_0:point1>
+      <structure_3_0:point2>ArchEdit_resources</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="FileManager_fileManager_to_ArchEdit_fileManager"
+        structure_3_0:name="FileManager.fileManager-to-ArchEdit.fileManager">
+      <structure_3_0:point1>FileManager_fileManager</structure_3_0:point1>
+      <structure_3_0:point2>ArchEdit_fileManager</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="ArchEdit_launcher_to_LauncherMultiway_out"
+        structure_3_0:name="ArchEdit.launcher-to-LauncherMultiway.out">
+      <structure_3_0:point1>ArchEdit_launcher</structure_3_0:point1>
+      <structure_3_0:point2>LauncherMultiway_out</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_Archipelago_xarch" structure_3_0:name="xArchADT.xarch-to-Archipelago.xarch">
+      <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
+      <structure_3_0:point2>Archipelago_xarch</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_Archipelago_editorManager"
+        structure_3_0:name="EditorManager.editorManager-to-Archipelago.editorManager">
+      <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
+      <structure_3_0:point2>Archipelago_editorManager</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_Archipelago_modelEvents"
+        structure_3_0:name="XArchADTModelEventPump.out-to-Archipelago.modelEvents">
+      <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>Archipelago_modelEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_Archipelago_fileEvents"
+        structure_3_0:name="XArchADTFileEventPump.out-to-Archipelago.fileEvents">
+      <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>Archipelago_fileEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="FocusEditorEventPump_out_to_Archipelago_focusEditorEvents"
+        structure_3_0:name="FocusEditorEventPump.out-to-Archipelago.focusEditorEvents">
+      <structure_3_0:point1>FocusEditorEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>Archipelago_focusEditorEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="FileManagerEventPump_out_to_Archipelago_fileManagerEvents"
+        structure_3_0:name="FileManagerEventPump.out-to-Archipelago.fileManagerEvents">
+      <structure_3_0:point1>FileManagerEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>Archipelago_fileManagerEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="Resources_resources_to_Archipelago_resources"
+        structure_3_0:name="Resources.resources-to-Archipelago.resources">
+      <structure_3_0:point1>Resources_resources</structure_3_0:point1>
+      <structure_3_0:point2>Archipelago_resources</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="FileManager_fileManager_to_Archipelago_fileManager"
+        structure_3_0:name="FileManager.fileManager-to-Archipelago.fileManager">
+      <structure_3_0:point1>FileManager_fileManager</structure_3_0:point1>
+      <structure_3_0:point2>Archipelago_fileManager</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="Archipelago_launcher_to_LauncherMultiway_out"
+        structure_3_0:name="Archipelago.launcher-to-LauncherMultiway.out">
+      <structure_3_0:point1>Archipelago_launcher</structure_3_0:point1>
+      <structure_3_0:point2>LauncherMultiway_out</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_Archipelago_preferences"
+        structure_3_0:name="PreferencesADT.preferences-to-Archipelago.preferences">
+      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
+      <structure_3_0:point2>Archipelago_preferences</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="GraphLayout_graphLayout_to_Archipelago_graphLayout"
+        structure_3_0:name="GraphLayout.graphLayout-to-Archipelago.graphLayout">
+      <structure_3_0:point1>GraphLayout_graphLayout</structure_3_0:point1>
+      <structure_3_0:point2>Archipelago_graphLayout</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_ArchipelagoPrefs_preferences"
+        structure_3_0:name="PreferencesADT.preferences-to-ArchipelagoPrefs.preferences">
+      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
+      <structure_3_0:point2>ArchipelagoPrefs_preferences</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_ArchipelagoStructurePrefs_preferences"
+        structure_3_0:name="PreferencesADT.preferences-to-ArchipelagoStructurePrefs.preferences">
+      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
+      <structure_3_0:point2>ArchipelagoStructurePrefs_preferences</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_IssueADT_fileEvents"
+        structure_3_0:name="XArchADTFileEventPump.out-to-IssueADT.fileEvents">
+      <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>IssueADT_fileEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="IssueADT_issueEvents_to_IssueADTEventPump_in"
+        structure_3_0:name="IssueADT.issueEvents-to-IssueADTEventPump.in">
+      <structure_3_0:point1>IssueADT_issueEvents</structure_3_0:point1>
+      <structure_3_0:point2>IssueADTEventPump_in</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="NoticeADT_noticeEvents_to_NoticeADTEventPump_in"
+        structure_3_0:name="NoticeADT.noticeEvents-to-NoticeADTEventPump.in">
+      <structure_3_0:point1>NoticeADT_noticeEvents</structure_3_0:point1>
+      <structure_3_0:point2>NoticeADTEventPump_in</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="TestADT_testEvents_to_TestADTEventPump_in"
+        structure_3_0:name="TestADT.testEvents-to-TestADTEventPump.in">
+      <structure_3_0:point1>TestADT_testEvents</structure_3_0:point1>
+      <structure_3_0:point2>TestADTEventPump_in</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="IssueADT_issues_to_IssueView_issues" structure_3_0:name="IssueADT.issues-to-IssueView.issues">
+      <structure_3_0:point1>IssueADT_issues</structure_3_0:point1>
+      <structure_3_0:point2>IssueView_issues</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_IssueView_xarch" structure_3_0:name="xArchADT.xarch-to-IssueView.xarch">
+      <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
+      <structure_3_0:point2>IssueView_xarch</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="Resources_resources_to_IssueView_resources"
+        structure_3_0:name="Resources.resources-to-IssueView.resources">
+      <structure_3_0:point1>Resources_resources</structure_3_0:point1>
+      <structure_3_0:point2>IssueView_resources</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_IssueView_preferences"
+        structure_3_0:name="PreferencesADT.preferences-to-IssueView.preferences">
+      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
+      <structure_3_0:point2>IssueView_preferences</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_IssueView_editorManager"
+        structure_3_0:name="EditorManager.editorManager-to-IssueView.editorManager">
+      <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
+      <structure_3_0:point2>IssueView_editorManager</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="IssueADTEventPump_out_to_IssueView_issueEvents"
+        structure_3_0:name="IssueADTEventPump.out-to-IssueView.issueEvents">
+      <structure_3_0:point1>IssueADTEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>IssueView_issueEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="NoticeADT_notices_to_NoticeView_notices"
+        structure_3_0:name="NoticeADT.notices-to-NoticeView.notices">
+      <structure_3_0:point1>NoticeADT_notices</structure_3_0:point1>
+      <structure_3_0:point2>NoticeView_notices</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="Resources_resources_to_NoticeView_resources"
+        structure_3_0:name="Resources.resources-to-NoticeView.resources">
+      <structure_3_0:point1>Resources_resources</structure_3_0:point1>
+      <structure_3_0:point2>NoticeView_resources</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="NoticeADTEventPump_out_to_NoticeView_noticeEvents"
+        structure_3_0:name="NoticeADTEventPump.out-to-NoticeView.noticeEvents">
+      <structure_3_0:point1>NoticeADTEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>NoticeView_noticeEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_Schematron_xarch" structure_3_0:name="xArchADT.xarch-to-Schematron.xarch">
+      <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
+      <structure_3_0:point2>Schematron_xarch</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="IssueADT_issues_to_Schematron_issues" structure_3_0:name="IssueADT.issues-to-Schematron.issues">
+      <structure_3_0:point1>IssueADT_issues</structure_3_0:point1>
+      <structure_3_0:point2>Schematron_issues</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="TestADT_tests_to_Schematron_tests" structure_3_0:name="TestADT.tests-to-Schematron.tests">
+      <structure_3_0:point1>TestADT_tests</structure_3_0:point1>
+      <structure_3_0:point2>Schematron_tests</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="NoticeADT_notices_to_Schematron_notices"
+        structure_3_0:name="NoticeADT.notices-to-Schematron.notices">
+      <structure_3_0:point1>NoticeADT_notices</structure_3_0:point1>
+      <structure_3_0:point2>Schematron_notices</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_Schematron_preferences"
+        structure_3_0:name="PreferencesADT.preferences-to-Schematron.preferences">
+      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
+      <structure_3_0:point2>Schematron_preferences</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="Schematron_tools_to_ArchlightToolAggregator_tools"
+        structure_3_0:name="Schematron.tools-to-ArchlightToolAggregator.tools">
+      <structure_3_0:point1>Schematron_tools</structure_3_0:point1>
+      <structure_3_0:point2>ArchlightToolAggregator_tools</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_Archlight_xarch" structure_3_0:name="xArchADT.xarch-to-Archlight.xarch">
+      <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
+      <structure_3_0:point2>Archlight_xarch</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_Archlight_editorManager"
+        structure_3_0:name="EditorManager.editorManager-to-Archlight.editorManager">
+      <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
+      <structure_3_0:point2>Archlight_editorManager</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_Archlight_modelEvents"
+        structure_3_0:name="XArchADTModelEventPump.out-to-Archlight.modelEvents">
+      <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>Archlight_modelEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_Archlight_fileEvents"
+        structure_3_0:name="XArchADTFileEventPump.out-to-Archlight.fileEvents">
+      <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>Archlight_fileEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="FocusEditorEventPump_out_to_Archlight_focusEditorEvents"
+        structure_3_0:name="FocusEditorEventPump.out-to-Archlight.focusEditorEvents">
+      <structure_3_0:point1>FocusEditorEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>Archlight_focusEditorEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="FileManagerEventPump_out_to_Archlight_fileManagerEvents"
+        structure_3_0:name="FileManagerEventPump.out-to-Archlight.fileManagerEvents">
+      <structure_3_0:point1>FileManagerEventPump_out</structure_3_0:point1>
+      <structure_3_0:point2>Archlight_fileManagerEvents</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="Resources_resources_to_Archlight_resources"
+        structure_3_0:name="Resources.resources-to-Archlight.resources">
+      <structure_3_0:point1>Resources_resources</structure_3_0:point1>
+      <structure_3_0:point2>Archlight_resources</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="FileManager_fileManager_to_Archlight_fileManager"
+        structure_3_0:name="FileManager.fileManager-to-Archlight.fileManager">
+      <structure_3_0:point1>FileManager_fileManager</structure_3_0:point1>
+      <structure_3_0:point2>Archlight_fileManager</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="Archlight_launcher_to_LauncherMultiway_out"
+        structure_3_0:name="Archlight.launcher-to-LauncherMultiway.out">
+      <structure_3_0:point1>Archlight_launcher</structure_3_0:point1>
+      <structure_3_0:point2>LauncherMultiway_out</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_SchematronPrefs_preferences"
+        structure_3_0:name="PreferencesADT.preferences-to-SchematronPrefs.preferences">
+      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
+      <structure_3_0:point2>SchematronPrefs_preferences</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_ArchlightPrefs_preferences"
+        structure_3_0:name="PreferencesADT.preferences-to-ArchlightPrefs.preferences">
+      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
+      <structure_3_0:point2>ArchlightPrefs_preferences</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="TestADT_tests_to_Archlight_tests" structure_3_0:name="TestADT.tests-to-Archlight.tests">
+      <structure_3_0:point1>TestADT_tests</structure_3_0:point1>
+      <structure_3_0:point2>Archlight_tests</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="ArchlightToolAggregator_tool_to_Archlight_tools"
+        structure_3_0:name="ArchlightToolAggregator.tool-to-Archlight.tools">
+      <structure_3_0:point1>ArchlightToolAggregator_tool</structure_3_0:point1>
+      <structure_3_0:point2>Archlight_tools</structure_3_0:point2>
+    </structure_3_0:link>
+  </structure_3_0:structure>
+</xadlcore_3_0:xADL>
