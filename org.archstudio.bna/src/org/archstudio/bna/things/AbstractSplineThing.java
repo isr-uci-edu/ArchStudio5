@@ -31,7 +31,7 @@ public class AbstractSplineThing extends AbstractPointsThing implements IHasBoun
 	}
 
 	protected Rectangle calculateBoundingBox() {
-		List<Point> points = getRaw(IHasPoints.POINTS_KEY);
+		List<Point> points = get(IHasPoints.POINTS_KEY);
 		Rectangle allPoints = new Rectangle(points.get(0), points.get(1));
 		for (int i = 2; i < points.size(); i++) {
 			allPoints.union(points.get(i));

@@ -25,8 +25,8 @@ public abstract class AbstractSplineThingPeer<T extends AbstractSplineThing> ext
 		for (int i = 1; i < points.size(); i++) {
 			Point p0 = points.get(i - 1);
 			Point p1 = points.get(i);
-			int dist = Math.abs(BNAUtils.round(Line2D.ptSegDist(p0.x, p0.y, p1.x, p1.y, lp.x, lp.y)));
-			if (dist <= 5) {
+			double distSq = Line2D.ptSegDistSq(p0.x, p0.y, p1.x, p1.y, lp.x, lp.y);
+			if (distSq <= 25) {
 				return true;
 			}
 		}

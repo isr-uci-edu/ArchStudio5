@@ -39,7 +39,7 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 	}
 
 	public void setColor(RGB c) {
-		put(COLOR_KEY, c);
+		set(COLOR_KEY, c);
 	}
 
 	public RGB getColor() {
@@ -47,7 +47,7 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 	}
 
 	public void setSecondaryColor(RGB c) {
-		put(SECONDARY_COLOR_KEY, c);
+		set(SECONDARY_COLOR_KEY, c);
 	}
 
 	public RGB getSecondaryColor() {
@@ -59,7 +59,7 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 	}
 
 	public void setText(String text) {
-		put(TEXT_KEY, text);
+		set(TEXT_KEY, text);
 	}
 
 	public HorizontalAlignment getHorizontalAlignment() {
@@ -67,7 +67,7 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 	}
 
 	public void setHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
-		put(HORIZONTAL_ALIGNMENT_KEY, horizontalAlignment);
+		set(HORIZONTAL_ALIGNMENT_KEY, horizontalAlignment);
 	}
 
 	public VerticalAlignment getVerticalAlignment() {
@@ -75,7 +75,7 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 	}
 
 	public void setVerticalAlignment(VerticalAlignment verticalAlignment) {
-		put(VERTICAL_ALIGNMENT_KEY, verticalAlignment);
+		set(VERTICAL_ALIGNMENT_KEY, verticalAlignment);
 	}
 
 	public String getFontName() {
@@ -83,7 +83,7 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 	}
 
 	public void setFontName(String fontName) {
-		put(FONT_NAME_KEY, fontName);
+		set(FONT_NAME_KEY, fontName);
 	}
 
 	public int getFontSize() {
@@ -91,7 +91,7 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 	}
 
 	public void setFontSize(int fontSize) {
-		put(FONT_SIZE_KEY, fontSize);
+		set(FONT_SIZE_KEY, fontSize);
 	}
 
 	public FontStyle getFontStyle() {
@@ -99,7 +99,7 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 	}
 
 	public void setFontStyle(FontStyle fontStyle) {
-		put(FONT_STYLE_KEY, fontStyle);
+		set(FONT_STYLE_KEY, fontStyle);
 	}
 
 	public int getLife() {
@@ -107,6 +107,6 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 	}
 
 	public void setLife(int life) {
-		put(LIFE_KEY, life);
+		set(LIFE_KEY, life);
 	}
 }

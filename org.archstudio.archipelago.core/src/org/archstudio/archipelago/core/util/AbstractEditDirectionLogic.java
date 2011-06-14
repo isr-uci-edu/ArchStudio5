@@ -89,7 +89,7 @@ public abstract class AbstractEditDirectionLogic extends AbstractThingLogic impl
 				lt.setMovesWithThingID(ft.getID());
 				lt.setEditing(true);
 				openControls.add(lt);
-				fview.getWorld().getBNAModel().addThing(lt, ft);
+				fview.getWorld().getBNAModel().addThing(ft, lt);
 			}
 		};
 		

@@ -4,7 +4,6 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
-import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -25,7 +24,7 @@ public abstract class AbstractEndpointThingPeer<T extends AbstractEndpointThing>
 		cm.worldToLocal(boundsResult.setBounds(t.getBoundingBox()));
 		boundsResult.expand(1, 1);
 		if (this instanceof IHasShadowThingPeer) {
-			BNAUtils.drawShadowExpandBoundingBox(boundsResult);
+			ShadowThingPeer.expandForShadow(cm, boundsResult);
 		}
 	}
 }

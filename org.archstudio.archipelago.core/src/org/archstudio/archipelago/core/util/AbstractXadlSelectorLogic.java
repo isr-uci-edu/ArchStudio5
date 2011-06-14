@@ -115,7 +115,7 @@ public abstract class AbstractXadlSelectorLogic extends AbstractThingLogic imple
 				st.setMovesWithThingID(ft.getID());
 				st.setEditing(true);
 				openControls.add(st);
-				fview.getWorld().getBNAModel().addThing(st, ft);
+				fview.getWorld().getBNAModel().addThing(ft, st);
 			}
 		};
 		ImageDescriptor icon = getMenuItemIcon(eltRef);

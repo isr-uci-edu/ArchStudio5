@@ -1,5 +1,6 @@
 package org.archstudio.bna.logics.hints.coders;
 
+import org.archstudio.bna.logics.hints.IEncodedValue;
 import org.archstudio.bna.logics.hints.IPropertyCoder;
 import org.archstudio.bna.logics.hints.PropertyDecodeException;
 import org.eclipse.swt.graphics.Point;

@@ -25,6 +25,6 @@ public abstract class AbstractThingPeer<T extends IThing> implements IThingPeer<
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
-	}
+	abstract public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r,
+			Rectangle boundsResult);
 }

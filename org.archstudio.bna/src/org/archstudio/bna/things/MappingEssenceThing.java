@@ -22,7 +22,7 @@ public class MappingEssenceThing extends AbstractAnchorPointThing implements IHa
 	}
 
 	public void setInternalEndpointWorldThingID(String worldThingID) {
-		put(INTERNAL_ENDPOINT_WORLD_THING_ID_KEY, worldThingID);
+		set(INTERNAL_ENDPOINT_WORLD_THING_ID_KEY, worldThingID);
 	}
 
 	public Point getInternalEndpoint() {
@@ -30,6 +30,6 @@ public class MappingEssenceThing extends AbstractAnchorPointThing implements IHa
 	}
 
 	public void setInternalEndpoint(Point internalWorldPoint) {
-		put(INTERNAL_ENDPOINT_KEY, BNAUtils.clone(internalWorldPoint));
+		set(INTERNAL_ENDPOINT_KEY, BNAUtils.clone(internalWorldPoint));
 	}
 }

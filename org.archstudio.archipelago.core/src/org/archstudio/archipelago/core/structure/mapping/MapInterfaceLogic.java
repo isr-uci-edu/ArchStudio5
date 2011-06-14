@@ -23,20 +23,24 @@ import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.xadl3.structure_3_0.Direction;
-import org.archstudio.xadlbna.IHasObjRef;
-import org.archstudio.xadlbna.IHasXArchID;
+import org.archstudio.xadlbna.logics.mapping.AbstractXADLToBNAPathLogic;
+import org.archstudio.xadlbna.logics.mapping.BNAPath;
+import org.archstudio.xadlbna.things.IHasObjRef;
+import org.archstudio.xadlbna.things.IHasXArchID;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-
-import edu.uci.isr.archstudio4.comp.archipelago.generic.logics.mapping.AbstractXADLToBNAPathLogic;
-import edu.uci.isr.archstudio4.comp.archipelago.generic.logics.mapping.BNAPath;
 
 public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassThing> {
 
 	private static class DirectionToFlow implements IXADLToBNATranslator<Direction, Flow> {
 		@Override
 		public Flow toBNAValue(Direction xadlValue) {
-			return Flow.valueOf(xadlValue.getLiteral().toUpperCase());
+			return Flow.valueOf(xadlValue.getName().toUpperCase());
+		}
+
+		@Override
+		public Direction toXadlValue(Flow value) {
+			return Direction.valueOf(value.name().toLowerCase());
 		}
 	};
 
@@ -69,10 +73,11 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 
 	public MapInterfaceLogic(IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
 		super(xarch, rootObjRef, objRefPath);
-		mapAttribute("direction", DIRECTION_TO_FLOW, Flow.NONE, BNAPath.create(Assemblies.LABEL_KEY), IHasFlow.FLOW_KEY);
-		mapAttribute("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY);
-		mapAttribute("name", null, "[no description]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY);
-		mapAttribute("name", null, "[no description]", BNAPath.create(), ToolTipLogic.TOOL_TIP_KEY);
+		mapAttribute("direction", DIRECTION_TO_FLOW, Flow.NONE, BNAPath.create(Assemblies.LABEL_KEY),
+				IHasFlow.FLOW_KEY, true);
+		mapAttribute("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
+		mapAttribute("name", null, "[no name]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY, true);
+		mapAttribute("name", null, "[no name]", BNAPath.create(), ToolTipLogic.TOOL_TIP_KEY, true);
 		mapAncestor(1, BNAPath.create(), PARENT_REF_KEY);
 	}
 
@@ -86,7 +91,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 	}
 
 	@Override
-	protected EndpointGlassThing addThing(ObjRef objRef, List<ObjRef> relativeAncestorRefs) {
+	protected EndpointGlassThing addThing(List<ObjRef> relativeAncestorRefs, ObjRef objRef) {
 
 		EndpointGlassThing thing = Assemblies.createEndpoint(getBNAWorld(), null, null);
 

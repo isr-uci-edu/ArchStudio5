@@ -102,12 +102,10 @@ public class AbstractThing implements IThing {
 
 	@Override
 	public <V> V get(IThingKey<V> key) {
-		synchronized (properties) {
-			return key.postRead(properties.get(key));
-		}
+		return key.postRead(getRaw(key));
 	}
 
-	protected <V> V getRaw(IThingKey<V> key) {
+	private <V> V getRaw(IThingKey<V> key) {
 		synchronized (properties) {
 			return properties.get(key);
 		}
@@ -120,7 +118,7 @@ public class AbstractThing implements IThing {
 
 	@Override
 	@Deprecated
-	public <V> V put(IThingKey<V> key, V value) {
+	public <V> V setProperty(IThingKey<V> key, V value) {
 		return set(key, value);
 	}
 

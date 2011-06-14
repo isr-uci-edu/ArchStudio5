@@ -29,7 +29,7 @@ public class ReshapeHandleGlassThing extends AbstractAnchorPointThing implements
 	}
 
 	public void setOrientation(Orientation orientation) {
-		put(ORIENTATION_KEY, orientation);
+		set(ORIENTATION_KEY, orientation);
 	}
 
 	public String getTargetThingID() {
@@ -39,7 +39,7 @@ public class ReshapeHandleGlassThing extends AbstractAnchorPointThing implements
 
 	public void setTargetThingID(String targetThingID) {
 		IThingKey<? super T> key = TARGET_THING_ID_KEY;
-		put(key, targetThingID);
+		set(key, targetThingID);
 	}
 
 	public int getStandardCursor() {

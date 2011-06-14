@@ -21,11 +21,11 @@ public class PulsingBorderThing extends AbstractRectangleThing implements IHasMu
 	protected void initProperties() {
 		super.initProperties();
 		setColor(new RGB(255, 0, 0));
-		put(ROTATING_OFFSET_KEY, 0);
+		set(ROTATING_OFFSET_KEY, 0);
 	}
 
 	public void setColor(RGB c) {
-		put(COLOR_KEY, c);
+		set(COLOR_KEY, c);
 	}
 
 	public RGB getColor() {
@@ -44,7 +44,7 @@ public class PulsingBorderThing extends AbstractRectangleThing implements IHasMu
 		Lock lock = getPropertyLock();
 		lock.lock();
 		try {
-			put(ROTATING_OFFSET_KEY, (getRotatingOffset() + 1));
+			set(ROTATING_OFFSET_KEY, (getRotatingOffset() + 1));
 		}
 		finally {
 			lock.unlock();

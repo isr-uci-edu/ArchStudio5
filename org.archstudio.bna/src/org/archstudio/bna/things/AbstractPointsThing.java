@@ -6,8 +6,6 @@ import java.util.List;
 import org.archstudio.bna.facets.IHasMutablePoints;
 import org.eclipse.draw2d.geometry.Point;
 
-import com.google.common.collect.Lists;
-
 public abstract class AbstractPointsThing extends AbstractRelativeMovableThing implements IHasMutablePoints {
 
 	public AbstractPointsThing(Object id) {
@@ -27,14 +25,14 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 
 	@Override
 	public Point getPoint(int index) {
-		List<Point> points = getRaw(POINTS_KEY);
+		List<Point> points = get(POINTS_KEY);
 		Point p = points.get(index < 0 ? points.size() + index : index);
 		return new Point(p);
 	}
 
 	@Override
 	public int getPointsSize() {
-		return getRaw(POINTS_KEY).size();
+		return get(POINTS_KEY).size();
 	}
 
 	@Override
@@ -47,7 +45,7 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 		synchronizedUpdate(new Runnable() {
 			@Override
 			public void run() {
-				List<Point> newPoints = Lists.newArrayList(getRaw(POINTS_KEY));
+				List<Point> newPoints = get(POINTS_KEY);
 				newPoints.set(index < 0 ? newPoints.size() + index : index, new Point(point));
 				setPoints(newPoints);
 			}
@@ -56,7 +54,6 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 
 	@Override
 	public Point getReferencePoint() {
-		//TODO: return the first unstuck point
 		return getPoint(0);
 	}
 
@@ -66,7 +63,7 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 			synchronizedUpdate(new Runnable() {
 				@Override
 				public void run() {
-					List<Point> newPoints = Lists.newArrayList(getRaw(POINTS_KEY));
+					List<Point> newPoints = get(POINTS_KEY);
 					for (int i = 0; i < newPoints.size(); i++) {
 						//TODO: optimize by only updating unstuck points
 						Point p = newPoints.get(i);

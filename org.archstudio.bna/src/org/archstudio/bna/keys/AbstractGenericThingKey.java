@@ -1,5 +1,7 @@
 package org.archstudio.bna.keys;
 
+import javax.annotation.Nullable;
+
 import org.archstudio.bna.IThing;
 import org.archstudio.sysutils.AbstractGenericKey;
 
@@ -18,12 +20,14 @@ public abstract class AbstractGenericThingKey<D, V> extends AbstractGenericKey<D
 	}
 
 	@Override
-	public V preWrite(V value) {
+	public @Nullable
+	V preWrite(@Nullable V value) {
 		return value;
 	}
 
 	@Override
-	public V postRead(V value) {
+	public @Nullable
+	V postRead(@Nullable V value) {
 		return value;
 	}
 

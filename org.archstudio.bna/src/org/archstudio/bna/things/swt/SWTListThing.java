@@ -19,7 +19,7 @@ public class SWTListThing extends SWTTextThing {
 	}
 
 	public void setOptions(String[] options) {
-		put(OPTIONS_KEY, options);
+		set(OPTIONS_KEY, options);
 	}
 
 	public String[] getOptions() {
@@ -27,7 +27,7 @@ public class SWTListThing extends SWTTextThing {
 	}
 
 	public void setAllowsArbitraryInput(boolean allowsArbitraryInput) {
-		put(ALLOWS_ARBITRARY_INPUT_KEY, allowsArbitraryInput);
+		set(ALLOWS_ARBITRARY_INPUT_KEY, allowsArbitraryInput);
 	}
 
 	public boolean getAllowsArbitraryInput() {

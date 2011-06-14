@@ -257,6 +257,9 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 					projectName);
 
 			for (DataBindingGenerationStatus status : statusList) {
+				if (status.getThrowable() != null) {
+					status.getThrowable().printStackTrace();
+				}
 				String schemaURI = status.getSchemaURIString();
 				IFile schemaFile = null;
 				if (schemaURI != null) {
@@ -266,6 +269,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 				if (schemaFile != null) {
 					String message = status.getMessage();
 					if (status.getThrowable() != null) {
+						status.getThrowable().printStackTrace();
 						message += "; " + status.getThrowable().getMessage();
 					}
 					DataBindingGenerationStatus.Status statusType = status.getStatus();

@@ -1,24 +1,23 @@
 package org.archstudio.bna.logics.background;
 
-import java.util.concurrent.locks.Lock;
-
 import org.archstudio.bna.IBNAModel;
+import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasMutableLife;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 
 public class LifeSapperLogic extends AbstractThingLogic {
 
-	protected final ThingTypeTrackingLogic tttl;
+	protected ThingTypeTrackingLogic tttl;
 	protected LifeSapper sapper = null;
 
-	public LifeSapperLogic(ThingTypeTrackingLogic tttl) {
-		this.tttl = tttl;
+	public LifeSapperLogic() {
 	}
 
 	@Override
 	protected void init() {
 		super.init();
+		tttl = getBNAWorld().getThingLogicManager().addThingLogic(ThingTypeTrackingLogic.class);
 		sapper = new LifeSapper();
 		sapper.setName("LifeSapper");
 		sapper.setDaemon(true);
@@ -54,31 +53,28 @@ public class LifeSapperLogic extends AbstractThingLogic {
 				catch (InterruptedException e) {
 				}
 
-				IHasMutableLife[] things = tttl.getThings(IHasMutableLife.class);
-				if (things.length != 0) {
-					IBNAModel m = getBNAModel();
-					if (m != null) {
-						m.beginBulkChange();
-						try {
-							for (IHasMutableLife t : things) {
-								Lock lock = t.getPropertyLock();
-								lock.lock();
-
-								int life;
-								try {
-									t.setLife(life = t.getLife() - 1);
-								}
-								finally {
-									lock.unlock();
-								}
-								if (life < 0) {
-									m.removeThing(t);
-								}
+				final IBNAModel model = getBNAModel();
+				if (model != null) {
+					model.beginBulkChange();
+					try {
+						for (final IThing t : model.getThings(tttl.getThingIDs(IHasMutableLife.class))) {
+							if (t instanceof IHasMutableLife) {
+								final IHasMutableLife tl = (IHasMutableLife) t;
+								tl.synchronizedUpdate(new Runnable() {
+									@Override
+									public void run() {
+										int life;
+										tl.setLife(life = tl.getLife() - 1);
+										if (life < 0) {
+											model.removeThing(tl);
+										}
+									}
+								});
 							}
 						}
-						finally {
-							m.endBulkChange();
-						}
+					}
+					finally {
+						model.endBulkChange();
 					}
 				}
 			}

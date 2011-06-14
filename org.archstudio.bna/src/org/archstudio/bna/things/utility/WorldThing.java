@@ -19,7 +19,7 @@ public class WorldThing extends AbstractRectangleThing implements IHasMutableWor
 	}
 
 	public void setWorld(IBNAWorld world) {
-		put(WORLD_KEY, world);
+		set(WORLD_KEY, world);
 	}
 
 	public void clearWorld() {

@@ -20,7 +20,7 @@ public class PathEssenceThing extends AbstractAnchorPointThing implements IHasMu
 			public void thingChanged(ThingEvent thingEvent) {
 				Object propertyName = thingEvent.getPropertyName();
 				if (!IHasBoundingBox.BOUNDING_BOX_KEY.equals(propertyName)) {
-					put(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
+					set(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
 				}
 			}
 		});
@@ -30,7 +30,7 @@ public class PathEssenceThing extends AbstractAnchorPointThing implements IHasMu
 	protected void initProperties() {
 		super.initProperties();
 		setPathData(PathDataUtils.EMPTY_PATH_DATA);
-		put(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
+		set(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
 	}
 
 	final protected Rectangle calculateBoundingBox() {
@@ -93,7 +93,7 @@ public class PathEssenceThing extends AbstractAnchorPointThing implements IHasMu
 	}
 
 	public void setPathData(PathData pathData) {
-		put(PATH_DATA_KEY, pathData);
+		set(PATH_DATA_KEY, pathData);
 	}
 
 }

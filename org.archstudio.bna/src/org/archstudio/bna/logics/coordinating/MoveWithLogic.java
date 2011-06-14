@@ -29,18 +29,26 @@ public class MoveWithLogic extends AbstractPropagateValueLogic<IThing, IRelative
 		super(IThing.class, IRelativeMovable.class);
 	}
 
-	public void moveWith(IHasAnchorPoint withThing, MoveWithMode moveWithMode, IRelativeMovable... movableThings) {
+	public void moveWith(IThing withThing, MoveWithMode moveWithMode, IRelativeMovable... movableThings) {
 		checkNotNull(withThing);
 		checkNotNull(moveWithMode);
 
 		setPropagate(withThing, IHasAnchorPoint.ANCHOR_POINT_KEY, null, moveWithMode, movableThings);
+		setPropagate(withThing, IHasBoundingBox.BOUNDING_BOX_KEY, null, moveWithMode, movableThings);
 	}
 
-	public void moveWith(IHasBoundingBox withThing, MoveWithMode moveWithMode, IRelativeMovable... movableThings) {
+	public void moveWith(IHasAnchorPoint withThing, IRelativeMovable... movableThings) {
 		checkNotNull(withThing);
-		checkNotNull(moveWithMode);
 
-		setPropagate(withThing, IHasBoundingBox.BOUNDING_BOX_KEY, null, moveWithMode, movableThings);
+		setPropagate(withThing, IHasAnchorPoint.ANCHOR_POINT_KEY, null, MoveWithMode.TrackAnchorPointOnly,
+				movableThings);
+	}
+
+	public void moveWith(IHasBoundingBox withThing, IRelativeMovable... movableThings) {
+		checkNotNull(withThing);
+
+		setPropagate(withThing, IHasBoundingBox.BOUNDING_BOX_KEY, null, MoveWithMode.TrackBoundingBoxFirst,
+				movableThings);
 	}
 
 	@Override

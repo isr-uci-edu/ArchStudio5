@@ -28,7 +28,7 @@ public class PathThing extends PathEssenceThing implements IHasMutableColor, IHa
 	}
 
 	public void setColor(RGB c) {
-		put(COLOR_KEY, c);
+		set(COLOR_KEY, c);
 	}
 
 	public RGB getSecondaryColor() {
@@ -36,7 +36,7 @@ public class PathThing extends PathEssenceThing implements IHasMutableColor, IHa
 	}
 
 	public void setSecondaryColor(RGB c) {
-		put(SECONDARY_COLOR_KEY, c);
+		set(SECONDARY_COLOR_KEY, c);
 	}
 
 	public boolean isGradientFilled() {
@@ -44,6 +44,6 @@ public class PathThing extends PathEssenceThing implements IHasMutableColor, IHa
 	}
 
 	public void setGradientFilled(boolean newHasGradientFill) {
-		put(GRADIENT_FILLED_KEY, newHasGradientFill);
+		set(GRADIENT_FILLED_KEY, newHasGradientFill);
 	}
 }

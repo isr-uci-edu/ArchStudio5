@@ -6,10 +6,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
+import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.utils.BNARenderingSettings;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.PeerCache;
 import org.archstudio.bna.utils.PeerCache.Cache;
 import org.archstudio.swtutils.SWTWidgetUtils;
@@ -36,6 +38,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, PaintListener {
 
@@ -84,7 +87,7 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 				int dx = mcmLocalOrigin.x - renderLocalOrigin.x;
 				int dy = mcmLocalOrigin.y - renderLocalOrigin.y;
 				org.eclipse.swt.graphics.Rectangle client = getClientArea();
-				scroll(-dx, -dy, 0, 0, client.width, client.height, false);
+				scroll(-dx, -dy, 0, 0, client.width, client.height, true);
 				renderMCM.setLocalOrigin(mcmLocalOrigin);
 			}
 			else {
@@ -180,7 +183,7 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
-				BNACanvas.this.setFocus();
+				BNACanvas.this.forceFocus();
 			}
 		});
 
@@ -241,6 +244,7 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 
 	@Override
 	public Iterable<IThing> getThingsAt(ICoordinate location) {
+		location = DefaultCoordinate.forWorld(location.getWorldPoint(new Point()), renderMCM);
 		List<IThing> things = Lists.newArrayList();
 		for (IThing t : getBNAWorld().getBNAModel().getReverseThings()) {
 			if (peerCache.getPeerCache(t).peer.isInThing(this, renderMCM, location)) {
@@ -278,6 +282,7 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 			bnaModel.fireStreamNotificationEvent(STARTED_RENDERING_EVENT);
 		}
 
+		// SAH: does this make sense any longer now that we're using composites rather than devices? 
 		if (rDevice != e.display) {
 			try {
 				if (resources != null) {
@@ -287,7 +292,8 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 			catch (Throwable t) {
 			}
 			resources = null;
-			resources = new DeviceResource(rDevice = e.display);
+			rDevice = this.getDisplay();
+			resources = new CompositeResource(this);
 		}
 
 		e.gc.setAdvanced(true);
@@ -351,7 +357,7 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 					}
 					Rectangle drawArea = new Rectangle(cacheData.lastLocalBounds);
 					cache.peer.getLocalBounds(this, renderMCM, g, resources, cacheData.lastLocalBounds);
-					union(cacheData.lastLocalBounds, drawArea);
+					BNAUtils.union(cacheData.lastLocalBounds, drawArea);
 
 					if (!cacheData.lastLocalBounds.isEmpty()) {
 						if (cacheData.needsCacheUpdate) {
@@ -388,10 +394,9 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 	@SuppressWarnings("rawtypes")
 	private final Queue<BNAModelEvent> eventQueue = new LinkedList<BNAModelEvent>();
 	private boolean eventQueueBeingProcessed = false;
-	private int redrawCount = 0;
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(final BNAModelEvent<ET, EK, EV> evt) {
 		if (ignoreModelEvents) {
 			if (evt.getEventType() == EventType.STREAM_NOTIFICATION_EVENT
 					&& STARTED_RENDERING_EVENT.equals(evt.getStreamNotification())) {
@@ -409,6 +414,8 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 
 					@Override
 					public void run() {
+						List<IThing> removedThingsToDestroy = Lists.newArrayListWithExpectedSize(eventQueue.size());
+						Set<IThing> thingsToProcess = Sets.newHashSetWithExpectedSize(eventQueue.size());
 						while (true) {
 							BNAModelEvent<?, ?, ?> evt;
 							synchronized (eventQueue) {
@@ -418,59 +425,38 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 									break;
 								}
 							}
-							if (evt.isInBulkChange()) {
-								final IThing t = evt.getTargetThing();
-								if (t != null) {
-									Cache<IThing, RenderData> cache = getPeerCache(t);
-									RenderData cacheData = cache.renderData;
-									switch (evt.getEventType()) {
-									case THING_REMOVED:
-										cacheData.needsLastRenderCleanup = true;
-										break;
-									case THING_ADDED:
-										cacheData.needsRenderUpdate = true;
-										break;
-									case THING_CHANGED:
-									case THING_RESTACKED:
-										cacheData.needsLastRenderCleanup = true;
-										cacheData.needsRenderUpdate = true;
-										cacheData.needsCacheUpdate = true;
-										break;
-									}
+							final IThing t = evt.getTargetThing();
+							if (t != null) {
+								Cache<IThing, RenderData> cache = getPeerCache(t);
+								RenderData cacheData = cache.renderData;
+								switch (evt.getEventType()) {
+								case THING_REMOVED:
+									removedThingsToDestroy.add(t);
+									cacheData.needsLastRenderCleanup = true;
+									break;
+								case THING_ADDED:
+									cacheData.needsRenderUpdate = true;
+									break;
+								case THING_CHANGED:
+								case THING_RESTACKED:
+									cacheData.needsLastRenderCleanup = true;
+									cacheData.needsRenderUpdate = true;
+									cacheData.needsCacheUpdate = true;
+									break;
 								}
+								thingsToProcess.add(t);
 							}
-							else if (evt.getEventType() == EventType.BULK_CHANGE_END) {
-								for (IThing t : bnaModel.getThings()) {
-									processRedrawRect(t);
-								}
-							}
-							else {
-								final IThing t = evt.getTargetThing();
-								if (t != null) {
-									Cache<IThing, RenderData> cache = getPeerCache(t);
-									RenderData cacheData = cache.renderData;
-									switch (evt.getEventType()) {
-									case THING_CHANGED:
-									case THING_RESTACKED:
-										cacheData.needsLastRenderCleanup = true;
-										cacheData.needsRenderUpdate = true;
-										break;
-									case THING_ADDED:
-										cacheData.needsRenderUpdate = true;
-										break;
-									case THING_REMOVED:
-										cacheData.needsLastRenderCleanup = true;
-										break;
-									}
-									processRedrawRect(t);
-								}
-							}
+						}
+						for (IThing thingToProcess : thingsToProcess) {
+							processRedrawRect(thingToProcess);
+						}
+						for (IThing removedThingToDestroy : removedThingsToDestroy) {
+							peerCache.dispose(removedThingToDestroy);
 						}
 						if (!allRedrawRect.isEmpty()) {
 							Point renderLocalOrigin = renderMCM.getLocalOrigin(new Point());
 							allRedrawRect.translate(-renderLocalOrigin.x, -renderLocalOrigin.y);
 							redraw(allRedrawRect.x, allRedrawRect.y, allRedrawRect.width, allRedrawRect.height, false);
-							System.err.println("Redraw = " + redrawCount++);
 						}
 					}
 
@@ -479,28 +465,19 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 						RenderData cacheData = cache.renderData;
 						if (cacheData.needsLastRenderCleanup) {
 							if (cacheData.lastBoundsRelevantCount == lastBoundsRelevantCount) {
-								union(allRedrawRect, cacheData.lastLocalBounds);
+								BNAUtils.union(allRedrawRect, cacheData.lastLocalBounds);
 							}
 							cacheData.needsLastRenderCleanup = false;
 						}
 						if (cacheData.needsRenderUpdate) {
 							cache.peer.getLocalBounds(BNACanvas.this, renderMCM, g, resources,
 									cacheData.lastLocalBounds);
-							union(allRedrawRect, cacheData.lastLocalBounds);
+							BNAUtils.union(allRedrawRect, cacheData.lastLocalBounds);
 							cacheData.needsRenderUpdate = false;
 						}
 					}
 				});
 			}
-		}
-	}
-
-	public static final void union(Rectangle bounds, Rectangle lastBounds) {
-		if (bounds.isEmpty()) {
-			bounds.setBounds(lastBounds);
-		}
-		else if (!lastBounds.isEmpty()) {
-			bounds.union(lastBounds);
 		}
 	}
 

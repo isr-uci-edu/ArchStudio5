@@ -50,7 +50,7 @@ public class TagThing extends AbstractAnchorPointThing implements IHasBoundingBo
 	}
 
 	public void setColor(RGB newColor) {
-		put(COLOR_KEY, newColor);
+		set(COLOR_KEY, newColor);
 	}
 
 	public String getText() {
@@ -58,7 +58,7 @@ public class TagThing extends AbstractAnchorPointThing implements IHasBoundingBo
 	}
 
 	public void setText(String text) {
-		put(TEXT_KEY, text);
+		set(TEXT_KEY, text);
 	}
 
 	public int getAngle() {
@@ -66,7 +66,7 @@ public class TagThing extends AbstractAnchorPointThing implements IHasBoundingBo
 	}
 
 	public void setAngle(int angle) {
-		put(ANGLE_KEY, angle);
+		set(ANGLE_KEY, angle);
 	}
 
 	public Point getIndicatorPoint() {
@@ -74,7 +74,7 @@ public class TagThing extends AbstractAnchorPointThing implements IHasBoundingBo
 	}
 
 	public void setIndicatorPoint(Point p) {
-		put(INDICATOR_POINT_KEY, p);
+		set(INDICATOR_POINT_KEY, p);
 	}
 
 	public String getFontName() {
@@ -82,7 +82,7 @@ public class TagThing extends AbstractAnchorPointThing implements IHasBoundingBo
 	}
 
 	public void setFontName(String fontName) {
-		put(FONT_NAME_KEY, fontName);
+		set(FONT_NAME_KEY, fontName);
 	}
 
 	public int getFontSize() {
@@ -90,7 +90,7 @@ public class TagThing extends AbstractAnchorPointThing implements IHasBoundingBo
 	}
 
 	public void setFontSize(int fontSize) {
-		put(FONT_SIZE_KEY, fontSize);
+		set(FONT_SIZE_KEY, fontSize);
 	}
 
 	public FontStyle getFontStyle() {
@@ -98,11 +98,11 @@ public class TagThing extends AbstractAnchorPointThing implements IHasBoundingBo
 	}
 
 	public void setFontStyle(FontStyle fontStyle) {
-		put(FONT_STYLE_KEY, fontStyle);
+		set(FONT_STYLE_KEY, fontStyle);
 	}
 
 	public void setDontIncreaseFontSize(boolean dontIncrease) {
-		put(DONT_INCREASE_FONT_SIZE_KEY, dontIncrease);
+		set(DONT_INCREASE_FONT_SIZE_KEY, dontIncrease);
 	}
 
 	public boolean getDontIncreaseFontSize() {

@@ -1,6 +1,7 @@
 package org.archstudio.eclipse.core.startup;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URL;
 import java.util.List;
 
@@ -44,20 +45,52 @@ public class InstantiateArchStudio implements IStartup {
 	@Override
 	public void earlyStartup() {
 		synchronized (lock) {
-			if (!instantiated) {
-				instantiated = true;
-				//Job job = new Job("Initializing ArchStudio...") {
-				//	@Override
-				//	protected IStatus run(IProgressMonitor monitor) {
-				//		instantiate(new MyxProgessMonitor(monitor));
-				//		return Status.OK_STATUS;
-				//	}
-				//};
-				//job.setPriority(Job.INTERACTIVE);
-				//job.schedule();
-				instantiate(new MyxProgessMonitor(new NullProgressMonitor()));
+			if (instantiated) {
+				return;
 			}
+			instantiated = true;
 		}
+		//Job job = new Job("Initializing ArchStudio...") {
+		//	@Override
+		//	protected IStatus run(IProgressMonitor monitor) {
+		//		instantiate(new MyxProgessMonitor(monitor));
+		//		return Status.OK_STATUS;
+		//	}
+		//};
+		//job.setPriority(Job.INTERACTIVE);
+		//job.schedule();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				instantiate(new MyxProgessMonitor(new NullProgressMonitor() {
+					protected PrintStream printStream = System.err;
+
+					@Override
+					public void beginTask(String name, int totalWork) {
+						if (name != null && name.length() != 0) {
+							printStream.println(">>> " + name);
+						}
+						super.beginTask(name, totalWork);
+					}
+
+					@Override
+					public void setTaskName(String name) {
+						if (name != null && name.length() != 0) {
+							printStream.println("<>> " + name);
+						}
+						super.setTaskName(name);
+					}
+
+					@Override
+					public void subTask(String name) {
+						if (name != null && name.length() != 0) {
+							printStream.println(">>  " + name);
+						}
+						super.subTask(name);
+					}
+				}));
+			}
+		}).start();
 	}
 
 	public static void instantiate() {

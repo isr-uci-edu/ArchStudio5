@@ -197,7 +197,6 @@ public class BNAStressTest {
 		UserEditableUtils.addEditableQualities(e, IRelativeMovable.USER_MAY_MOVE);
 
 		StickAnchorPointLogic sapl = tlm.addThingLogic(StickAnchorPointLogic.class);
-		sapl.stick(parent, StickyMode.EDGE, e);
 
 		return e;
 	}

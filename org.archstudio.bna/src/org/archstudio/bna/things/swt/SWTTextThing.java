@@ -2,7 +2,7 @@ package org.archstudio.bna.things.swt;
 
 import org.archstudio.bna.facets.IHasMutableText;
 
-public class SWTTextThing extends AbstractSWTThing implements IHasMutableText {
+public class SWTTextThing extends AbstractControlThing implements IHasMutableText {
 
 	public SWTTextThing(Object id) {
 		super(id);
@@ -11,14 +11,16 @@ public class SWTTextThing extends AbstractSWTThing implements IHasMutableText {
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setText("");
+		setText("[text]");
 	}
 
+	@Override
 	public String getText() {
-		return (String) get(TEXT_KEY);
+		return get(TEXT_KEY);
 	}
 
+	@Override
 	public void setText(String text) {
-		put(TEXT_KEY, text);
+		set(TEXT_KEY, text);
 	}
 }

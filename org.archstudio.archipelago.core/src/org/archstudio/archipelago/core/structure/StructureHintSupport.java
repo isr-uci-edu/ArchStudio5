@@ -5,7 +5,7 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
-import org.archstudio.archipelago.core.util.HintSupport;
+import org.archstudio.xadlbna.logics.hints.HintSupport;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.assemblies.BoxAssembly;

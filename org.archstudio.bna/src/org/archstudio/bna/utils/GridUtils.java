@@ -1,6 +1,7 @@
 package org.archstudio.bna.utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.archstudio.bna.IBNAModel;
@@ -130,7 +131,7 @@ public class GridUtils {
 		}
 		GridThing gt = new GridThing(null);
 		m.addThing(gt);
-		m.sendToBack(gt);
+		m.sendToBack(Collections.singleton(gt));
 		return gt;
 	}
 

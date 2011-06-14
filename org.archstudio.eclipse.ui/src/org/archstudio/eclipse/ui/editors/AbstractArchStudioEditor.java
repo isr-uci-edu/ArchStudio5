@@ -291,6 +291,7 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		fileman.save(documentRootRef, monitor);
+		firePropertyChange(PROP_DIRTY);
 	}
 
 	@Override

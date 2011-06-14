@@ -14,6 +14,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.Resource;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -241,10 +242,10 @@ public class SWTWidgetUtils {
 		//System.out.println("B= " + B);
 		//System.out.println("bist = " + b);
 		if (A > 0) {
-			return new Point((Point1.x + ai), (Point1.y - bi));
+			return new Point(Point1.x + ai, Point1.y - bi);
 		}
 		else {
-			return new Point((Point1.x - ai), (Point1.y + bi));
+			return new Point(Point1.x - ai, Point1.y + bi);
 		}
 	}
 
@@ -253,7 +254,7 @@ public class SWTWidgetUtils {
 		int ai = (int) Math.round(a);
 		double b = Dist * Math.sin(angle);
 		int bi = (int) Math.round(b);
-		return new Point((Point1.x + ai), (Point1.y - bi));
+		return new Point(Point1.x + ai, Point1.y - bi);
 	}
 
 	public static void async(Widget w, Runnable r) {
@@ -318,5 +319,27 @@ public class SWTWidgetUtils {
 				}
 			}
 		});
+	}
+
+	public static <R extends Resource> R quietlyDispose(R r) {
+		try {
+			if (r != null) {
+				r.dispose();
+			}
+		}
+		catch (Exception e) {
+		}
+		return null;
+	}
+
+	public static <W extends Widget> W quietlyDispose(W d) {
+		try {
+			if (d != null) {
+				d.dispose();
+			}
+		}
+		catch (Exception e) {
+		}
+		return null;
 	}
 }
