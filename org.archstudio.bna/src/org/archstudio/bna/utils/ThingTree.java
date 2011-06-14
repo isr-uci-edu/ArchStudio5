@@ -152,6 +152,19 @@ class ThingTree {
 		}
 	}
 
+	public void reparent(IThing newParentThing, IThing thing) {
+		Node newParentThingNode = getNode(newParentThing, false);
+		Node thingNode = getNode(thing, false);
+		if (newParentThingNode != null && thingNode != null) {
+			if (thingNode.parent != null) {
+				thingNode.parent.children.remove(thingNode);
+				thingNode.parent = null;
+			}
+			newParentThingNode.children.add(thingNode);
+			thingNode.parent = newParentThingNode;
+		}
+	}
+
 	protected List<IThing> appendAllDescendants(Node parent, List<IThing> toList) {
 		for (Node child : parent.children) {
 			toList.add(child.t);

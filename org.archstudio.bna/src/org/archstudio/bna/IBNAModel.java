@@ -55,9 +55,12 @@ public interface IBNAModel {
 
 	public Iterable<IThing> getDescendantThings(IThing thing);
 
-	public void stackAbove(IThing upperThing, IThing lowerThing);
+	public void stackAbove(IThing lowerThing, Iterable<? extends IThing> upperThings);
 
-	public void bringToFront(IThing thing);
+	public void bringToFront(Iterable<? extends IThing> things);
 
-	public void sendToBack(IThing thing);
+	public void sendToBack(Iterable<? extends IThing> things);
+
+	public void reparent(IThing newParent, IThing thing);
+
 }

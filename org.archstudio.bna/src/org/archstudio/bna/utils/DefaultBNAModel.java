@@ -340,41 +340,55 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
-	public void stackAbove(IThing upperThing, IThing lowerThing) {
-		List<IThing> movedThings;
+	public void stackAbove(IThing lowerThing, Iterable<? extends IThing> toStackAboveThings) {
 		synchronized (thingTree) {
-			thingTree.moveAfter(lowerThing, upperThing);
-			movedThings = thingTree.getChildThings(lowerThing);
+			for (IThing toStackAboveThing : toStackAboveThings) {
+				thingTree.moveAfter(toStackAboveThing, lowerThing);
+			}
 		}
-		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, lowerThing));
+		for (IThing mt : toStackAboveThings) {
+			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, mt));
+		}
+	}
+
+	@Override
+	public void bringToFront(Iterable<? extends IThing> things) {
+		List<IThing> movedThings = Lists.newArrayList(things);
+		synchronized (thingTree) {
+			for (IThing thing : things) {
+				thingTree.bringToFront(thing);
+				thingTreeModCount++;
+				movedThings.addAll(thingTree.getChildThings(thing));
+			}
+		}
 		for (IThing mt : movedThings) {
 			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, mt));
 		}
 	}
 
 	@Override
-	public void bringToFront(IThing thing) {
-		List<IThing> movedThings;
+	public void sendToBack(Iterable<? extends IThing> things) {
+		List<IThing> movedThings = Lists.newArrayList(things);
 		synchronized (thingTree) {
-			thingTree.bringToFront(thing);
-			thingTreeModCount++;
-			movedThings = thingTree.getChildThings(thing);
+			for (IThing thing : things) {
+				thingTree.sendToBack(thing);
+				thingTreeModCount++;
+				movedThings.addAll(thingTree.getChildThings(thing));
+			}
 		}
-		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, thing));
 		for (IThing mt : movedThings) {
 			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, mt));
 		}
 	}
 
 	@Override
-	public void sendToBack(IThing thing) {
-		List<IThing> movedThings;
+	public void reparent(IThing newParentThing, IThing thing) {
+		List<IThing> movedThings = Lists.newArrayList(thing);
 		synchronized (thingTree) {
-			thingTree.sendToBack(thing);
+			thingTree.reparent(newParentThing, thing);
 			thingTreeModCount++;
-			movedThings = thingTree.getChildThings(thing);
+			movedThings.addAll(thingTree.getChildThings(thing));
 		}
-		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, thing));
 		for (IThing mt : movedThings) {
 			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, mt));
 		}
