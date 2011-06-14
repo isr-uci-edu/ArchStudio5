@@ -2,18 +2,22 @@ package org.archstudio.archipelago.core.structure.mapping;
 
 import java.util.List;
 
-import org.archstudio.bna.IThingLogic;
+import org.archstudio.bna.IBNAModel;
+import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.constants.StickyMode;
+import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasFlow;
+import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasText;
+import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
-import org.archstudio.bna.logics.coordinating.OrientDirectionalLabelLogic;
 import org.archstudio.bna.logics.coordinating.ActionOnMatchingValueLogic;
+import org.archstudio.bna.logics.coordinating.ActionOnMatchingValueLogic.MatchFoundAction;
+import org.archstudio.bna.logics.coordinating.OrientDirectionalLabelLogic;
 import org.archstudio.bna.logics.coordinating.StickAnchorPointLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
-import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
-import org.archstudio.bna.things.AbstractRectangleThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -38,43 +42,53 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 
 	private static final DirectionToFlow DIRECTION_TO_FLOW = new DirectionToFlow();
 
-	private final IThingLogic parentMappingKey;
-
-	protected ThingValueTrackingLogic values = null;
 	protected StickAnchorPointLogic stick = null;
 	protected OrientDirectionalLabelLogic orient = null;
-	protected ActionOnMatchingValueLogic rovp = null;
+	protected ActionOnMatchingValueLogic action = null;
 
-	public MapInterfaceLogic(IXArchADT xarch, ObjRef rootObjRef, String objRefPath, MapBrickLogic parentMappingKey) {
+	private final IThingKey<ObjRef> PARENT_REF_KEY = ActionOnMatchingValueLogic.create("parentObjRef",
+			IHasObjRef.OBJREF_KEY, new MatchFoundAction<ObjRef>() {
+				@Override
+				public void found(IThing sourceThing, IThingKey<ObjRef> sourceKey, IThing targetThing,
+						IThingKey<ObjRef> targetKey, ObjRef value) {
+					IBNAModel model = getBNAModel();
+					if (model != null) {
+						model.beginBulkChange();
+						try {
+							model.reparent(targetThing, Assemblies.BACKGROUND_KEY.get(sourceThing, model));
+							stick.stick((IIsSticky) targetThing, StickyMode.EDGE, (IHasMutableAnchorPoint) sourceThing);
+							orient.orient((IHasBoundingBox) targetThing,
+									Assemblies.LABEL_KEY.get(sourceThing, getBNAModel()));
+						}
+						finally {
+							model.endBulkChange();
+						}
+					}
+				}
+			});
+
+	public MapInterfaceLogic(IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
 		super(xarch, rootObjRef, objRefPath);
-		this.parentMappingKey = parentMappingKey;
 		mapAttribute("direction", DIRECTION_TO_FLOW, Flow.NONE, BNAPath.create(Assemblies.LABEL_KEY), IHasFlow.FLOW_KEY);
 		mapAttribute("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY);
 		mapAttribute("name", null, "[no description]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY);
 		mapAttribute("name", null, "[no description]", BNAPath.create(), ToolTipLogic.TOOL_TIP_KEY);
+		mapAncestor(1, BNAPath.create(), PARENT_REF_KEY);
 	}
 
 	@Override
 	public void init() {
-		values = getBNAWorld().getThingLogicManager().addThingLogic(ThingValueTrackingLogic.class);
 		stick = getBNAWorld().getThingLogicManager().addThingLogic(StickAnchorPointLogic.class);
 		orient = getBNAWorld().getThingLogicManager().addThingLogic(OrientDirectionalLabelLogic.class);
-		rovp = getBNAWorld().getThingLogicManager().addThingLogic(ActionOnMatchingValueLogic.class);
+		action = getBNAWorld().getThingLogicManager().addThingLogic(ActionOnMatchingValueLogic.class);
+		getBNAWorld().getThingLogicManager().addThingLogic(ActionOnMatchingValueLogic.class);
 		super.init();
 	}
 
 	@Override
 	protected EndpointGlassThing addThing(ObjRef objRef, List<ObjRef> relativeAncestorRefs) {
 
-		// this should be present, if not we want the iterator error to be thrown
-		AbstractRectangleThing brickThing = (AbstractRectangleThing) getBNAModel().getThing(
-				values.getThingIDs(IHasObjRef.OBJREF_KEY, relativeAncestorRefs.get(1), MAPPING_KEY, parentMappingKey)
-						.iterator().next());
-
-		EndpointGlassThing thing = Assemblies.createEndpoint(getBNAWorld(), null, brickThing);
-
-		stick.stick(brickThing, StickyMode.EDGE, thing);
-		orient.orient(brickThing, Assemblies.LABEL_KEY.get(thing, getBNAModel()));
+		EndpointGlassThing thing = Assemblies.createEndpoint(getBNAWorld(), null, null);
 
 		UserEditableUtils.addEditableQualities(thing, IRelativeMovable.USER_MAY_MOVE);
 		UserEditableUtils.addEditableQualities(thing, IHasMutableText.USER_MAY_EDIT_TEXT);

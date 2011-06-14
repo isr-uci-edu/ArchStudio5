@@ -209,12 +209,12 @@ public class Assemblies {
 
 	public static EndpointGlassThing createEndpoint(IBNAWorld world, @Nullable Object id, IThing parent) {
 		checkNotNull(world);
-		checkNotNull(parent);
 
 		IBNAModel model = world.getBNAModel();
 		IThingLogicManager tlm = world.getThingLogicManager();
 
-		EndpointThing bkg = model.addThing(new EndpointThing(id), parent);
+		EndpointThing bkg = model.addThing(new EndpointThing(id),
+				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
 		DirectionalLabelThing label = model.addThing(new DirectionalLabelThing(null), bkg);
 		label.setLocalInsets(new Insets(2, 2, 2, 2));
 		EndpointGlassThing glass = model.addThing(new EndpointGlassThing(null), bkg);
