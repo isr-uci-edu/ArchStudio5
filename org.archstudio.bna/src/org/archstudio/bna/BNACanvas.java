@@ -2,7 +2,9 @@ package org.archstudio.bna;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 
 import org.archstudio.bna.BNAModelEvent.EventType;
@@ -38,6 +40,7 @@ import com.google.common.collect.Lists;
 public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, PaintListener {
 
 	protected static final boolean DEBUG = false;
+	private static final String STARTED_RENDERING_EVENT = "Started rendering " + BNACanvas.class;
 
 	protected static class RenderData {
 		protected Rectangle lastLocalBounds = new Rectangle(Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 0);
@@ -264,8 +267,17 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 	IResources resources = null;
 	Graphics g = null;
 
+	// ignore the flurry of events that occur before rendering the BNA World for the first time
+	boolean startedRendering = false;
+	boolean ignoreModelEvents = true;
+
 	@Override
 	public void paintControl(PaintEvent e) {
+		if (!startedRendering) {
+			startedRendering = true;
+			bnaModel.fireStreamNotificationEvent(STARTED_RENDERING_EVENT);
+		}
+
 		if (rDevice != e.display) {
 			try {
 				if (resources != null) {
@@ -372,88 +384,115 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 		}
 	}
 
+	// collect events into a queue and process them in bulk within the paint thread
+	@SuppressWarnings("rawtypes")
+	private final Queue<BNAModelEvent> eventQueue = new LinkedList<BNAModelEvent>();
+	private boolean eventQueueBeingProcessed = false;
+	private int redrawCount = 0;
+
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(final BNAModelEvent<ET, EK, EV> evt) {
-		SWTWidgetUtils.async(this, new Runnable() {
-			@Override
-			public void run() {
-				if (evt.isInBulkChange()) {
-					final ET t = evt.getTargetThing();
-					if (t != null) {
-						Cache<ET, RenderData> cache = getPeerCache(t);
-						RenderData cacheData = cache.renderData;
-						switch (evt.getEventType()) {
-						case THING_REMOVED:
-							cacheData.needsLastRenderCleanup = true;
-							break;
-						case THING_ADDED:
-							cacheData.needsRenderUpdate = true;
-							break;
-						case THING_CHANGED:
-						case THING_RESTACKED:
-							cacheData.needsLastRenderCleanup = true;
-							cacheData.needsRenderUpdate = true;
-							cacheData.needsCacheUpdate = true;
-							break;
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+		if (ignoreModelEvents) {
+			if (evt.getEventType() == EventType.STREAM_NOTIFICATION_EVENT
+					&& STARTED_RENDERING_EVENT.equals(evt.getStreamNotification())) {
+				ignoreModelEvents = false;
+			}
+			return;
+		}
+		synchronized (eventQueue) {
+			eventQueue.add(evt);
+			if (!eventQueueBeingProcessed) {
+				eventQueueBeingProcessed = true;
+				SWTWidgetUtils.async(this, new Runnable() {
+
+					Rectangle allRedrawRect = new Rectangle();
+
+					@Override
+					public void run() {
+						while (true) {
+							BNAModelEvent<?, ?, ?> evt;
+							synchronized (eventQueue) {
+								evt = eventQueue.poll();
+								if (evt == null) {
+									eventQueueBeingProcessed = false;
+									break;
+								}
+							}
+							if (evt.isInBulkChange()) {
+								final IThing t = evt.getTargetThing();
+								if (t != null) {
+									Cache<IThing, RenderData> cache = getPeerCache(t);
+									RenderData cacheData = cache.renderData;
+									switch (evt.getEventType()) {
+									case THING_REMOVED:
+										cacheData.needsLastRenderCleanup = true;
+										break;
+									case THING_ADDED:
+										cacheData.needsRenderUpdate = true;
+										break;
+									case THING_CHANGED:
+									case THING_RESTACKED:
+										cacheData.needsLastRenderCleanup = true;
+										cacheData.needsRenderUpdate = true;
+										cacheData.needsCacheUpdate = true;
+										break;
+									}
+								}
+							}
+							else if (evt.getEventType() == EventType.BULK_CHANGE_END) {
+								for (IThing t : bnaModel.getThings()) {
+									processRedrawRect(t);
+								}
+							}
+							else {
+								final IThing t = evt.getTargetThing();
+								if (t != null) {
+									Cache<IThing, RenderData> cache = getPeerCache(t);
+									RenderData cacheData = cache.renderData;
+									switch (evt.getEventType()) {
+									case THING_CHANGED:
+									case THING_RESTACKED:
+										cacheData.needsLastRenderCleanup = true;
+										cacheData.needsRenderUpdate = true;
+										break;
+									case THING_ADDED:
+										cacheData.needsRenderUpdate = true;
+										break;
+									case THING_REMOVED:
+										cacheData.needsLastRenderCleanup = true;
+										break;
+									}
+									processRedrawRect(t);
+								}
+							}
+						}
+						if (!allRedrawRect.isEmpty()) {
+							Point renderLocalOrigin = renderMCM.getLocalOrigin(new Point());
+							allRedrawRect.translate(-renderLocalOrigin.x, -renderLocalOrigin.y);
+							redraw(allRedrawRect.x, allRedrawRect.y, allRedrawRect.width, allRedrawRect.height, false);
+							System.err.println("Redraw = " + redrawCount++);
 						}
 					}
-				}
-				else if (evt.getEventType() == EventType.BULK_CHANGE_END) {
-					Rectangle redrawRect = new Rectangle();
-					for (IThing t : bnaModel.getThings()) {
-						processRedrawRect(redrawRect, t);
-					}
-					doRedrawRect(redrawRect);
-				}
-				else {
-					final ET t = evt.getTargetThing();
-					if (t != null) {
-						Rectangle redrawRect = new Rectangle();
-						Cache<ET, RenderData> cache = getPeerCache(t);
+
+					private void processRedrawRect(IThing t) {
+						Cache<IThing, RenderData> cache = getPeerCache(t);
 						RenderData cacheData = cache.renderData;
-						switch (evt.getEventType()) {
-						case THING_CHANGED:
-						case THING_RESTACKED:
-							cacheData.needsLastRenderCleanup = true;
-							cacheData.needsRenderUpdate = true;
-							break;
-						case THING_ADDED:
-							cacheData.needsRenderUpdate = true;
-							break;
-						case THING_REMOVED:
-							cacheData.needsLastRenderCleanup = true;
-							break;
+						if (cacheData.needsLastRenderCleanup) {
+							if (cacheData.lastBoundsRelevantCount == lastBoundsRelevantCount) {
+								union(allRedrawRect, cacheData.lastLocalBounds);
+							}
+							cacheData.needsLastRenderCleanup = false;
 						}
-						processRedrawRect(redrawRect, t);
-						doRedrawRect(redrawRect);
+						if (cacheData.needsRenderUpdate) {
+							cache.peer.getLocalBounds(BNACanvas.this, renderMCM, g, resources,
+									cacheData.lastLocalBounds);
+							union(allRedrawRect, cacheData.lastLocalBounds);
+							cacheData.needsRenderUpdate = false;
+						}
 					}
-				}
+				});
 			}
-
-			private void processRedrawRect(Rectangle redrawRect, IThing t) {
-				Cache<IThing, RenderData> cache = getPeerCache(t);
-				RenderData cacheData = cache.renderData;
-				if (cacheData.needsLastRenderCleanup) {
-					if (cacheData.lastBoundsRelevantCount == lastBoundsRelevantCount) {
-						union(redrawRect, cacheData.lastLocalBounds);
-					}
-					cacheData.needsLastRenderCleanup = false;
-				}
-				if (cacheData.needsRenderUpdate) {
-					cache.peer.getLocalBounds(BNACanvas.this, renderMCM, g, resources, cacheData.lastLocalBounds);
-					union(redrawRect, cacheData.lastLocalBounds);
-					cacheData.needsRenderUpdate = false;
-				}
-			}
-
-			private void doRedrawRect(Rectangle redrawRect) {
-				if (!redrawRect.isEmpty()) {
-					Point renderLocalOrigin = renderMCM.getLocalOrigin(new Point());
-					redrawRect.translate(-renderLocalOrigin.x, -renderLocalOrigin.y);
-					redraw(redrawRect.x, redrawRect.y, redrawRect.width, redrawRect.height, false);
-				}
-			}
-		});
+		}
 	}
 
 	public static final void union(Rectangle bounds, Rectangle lastBounds) {
