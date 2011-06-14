@@ -9,4 +9,6 @@ Require-Bundle: com.google.guava,
  org.archstudio.xadl3.structure,
  org.archstudio.xarchadt,
  org.archstudio.xarchadt.core,
- org.junit
+ org.junit,
+ org.eclipse.emf;bundle-version="2.6.0",
+ org.archstudio.xadl3.xadlcore;bundle-version="5.0.0"

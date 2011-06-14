@@ -66,6 +66,15 @@ public class XadlUtils {
 		return null;
 	}
 
+	public static ObjRef createExt(IXArchADT xarch, ObjRef ref, EClass extClass) {
+		ObjRef extRef = getExt(xarch, ref, extClass);
+		if (extRef == null) {
+			extRef = create(xarch, extClass);
+			xarch.add(ref, "ext", extRef);
+		}
+		return extRef;
+	}
+
 	public static boolean isExtension(IXArchADTQuery xarch, IXArchADTFeature feature) {
 		EClass extensionEClass = Xadlcore_3_0Package.Literals.EXTENSION;
 		return xarch.isAssignable(extensionEClass.getEPackage().getNsURI(), extensionEClass.getName(),
@@ -234,5 +243,22 @@ public class XadlUtils {
 			IXArchADTTypeMetadata typeMetadata) {
 		return xarch.isAssignable(feature.getNsURI(), feature.getTypeName(), typeMetadata.getNsURI(),
 				typeMetadata.getTypeName());
+	}
+
+	public static void remove(IXArchADT xarch, ObjRef objRef) {
+		ObjRef parentRef = xarch.getParent(objRef);
+		if (parentRef != null) {
+			IXArchADTTypeMetadata type = xarch.getTypeMetadata(parentRef);
+			String elementName = xarch.getContainingFeatureName(objRef);
+			switch (type.getFeatures().get(elementName).getType()) {
+			case ATTRIBUTE:
+			case ELEMENT_SINGLE:
+				xarch.clear(parentRef, elementName);
+				break;
+			case ELEMENT_MULTIPLE:
+				xarch.remove(parentRef, elementName, objRef);
+				break;
+			}
+		}
 	}
 }

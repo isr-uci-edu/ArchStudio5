@@ -8,10 +8,10 @@ import org.archstudio.xarchadt.XArchADTPath;
 
 public interface IXArchRelativePathTrackerListener {
 
-	public void processAdd(ObjRef objRef, List<ObjRef> relativeAncestorRefs);
+	public void processAdd(List<ObjRef> relLineageRefs, ObjRef objRef);
 
-	public void processUpdate(ObjRef objRef, List<ObjRef> relativeAncestorRefs, XArchADTModelEvent evt,
-			XArchADTPath relativeSourceTargetPath);
+	public void processUpdate(List<ObjRef> relLineageRefs, XArchADTPath relPath, ObjRef objRef, XArchADTModelEvent evt);
 
-	public void processRemove(ObjRef objRef, List<ObjRef> relativeAncestorRefs);
+	public void processRemove(List<ObjRef> relLineageRefs, ObjRef objRef);
+
 }

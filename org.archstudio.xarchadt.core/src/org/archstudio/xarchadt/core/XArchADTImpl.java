@@ -40,6 +40,7 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
@@ -145,6 +146,10 @@ public class XArchADTImpl implements IXArchADT {
 	// Alias the BiMap's inverse rather than maintaining it internally.
 	private final Map<EObject, ObjRef> eObjectToObjRef = ((BiMap<ObjRef, EObject>) objRefToEObject).inverse();
 
+	private Serializable put(Object object) {
+		return object instanceof EObject ? put((EObject) object) : (Serializable) object;
+	}
+
 	private ObjRef put(EObject eObject) {
 		synchronized (objRefToEObjectLock) {
 			ObjRef objRef = eObjectToObjRef.get(eObject);
@@ -249,8 +254,20 @@ public class XArchADTImpl implements IXArchADT {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	private static final EMap<Object, Object> getEMap(EObject eObject, String featureName) {
+		try {
+			return (EMap<Object, Object>) eObject.eGet(getEFeature(eObject.eClass(), featureName));
+		}
+		catch (ClassCastException e) {
+			throw new RuntimeException(SystemUtils.message(//
+					"EObject of type '$0:$1' does not have an EList for feature '$2'", //
+					eObject.eClass().getEPackage().getNsURI(), eObject.eClass().getName(), featureName), e);
+		}
+	}
+
 	private void invalidateAllObjRefs(URI uri) {
-		// TODO: invalid objRefs
+		// TODO: invalidate objRefs
 		// this is one case where having two separate maps works better
 	}
 
@@ -270,6 +287,13 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@Override
+	public void put(ObjRef baseObjRef, String typeOfThing, Serializable key, Serializable value) {
+		getEMap(get(baseObjRef), typeOfThing).put(//
+				key instanceof ObjRef ? get((ObjRef) key) : key, //
+				value instanceof ObjRef ? get((ObjRef) value) : value);
+	}
+
+	@Override
 	public void remove(ObjRef baseObjRef, String typeOfThing, ObjRef thingToRemoveObjRef) {
 		getEList(get(baseObjRef), typeOfThing).remove(get(thingToRemoveObjRef));
 	}
@@ -277,6 +301,12 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public void remove(ObjRef baseObjRef, String typeOfThing, Collection<ObjRef> thingsToRemoveObjRefs) {
 		getEList(get(baseObjRef), typeOfThing).removeAll(get(thingsToRemoveObjRefs));
+	}
+
+	@Override
+	public Serializable remove(ObjRef baseObjRef, String typeOfThing, Serializable key) {
+		return put(getEMap(get(baseObjRef), typeOfThing).removeKey(//
+				key instanceof ObjRef ? get((ObjRef) key) : key));
 	}
 
 	@Override
@@ -307,39 +337,45 @@ public class XArchADTImpl implements IXArchADT {
 		return put(getEList(get(baseObjRef), typeOfThing));
 	}
 
-	@Override
-	public ObjRef get(ObjRef baseObjRef, String typeOfThing, String id) {
-		EObject baseEObject = get(baseObjRef);
-		EObject eFeature = getEFeature(baseEObject, typeOfThing);
-		Resource resource = baseEObject.eResource();
-		EObject eObjectByID = resource.getEObject(id);
-		if (eObjectByID != null) {
-			if (baseEObject.equals(eObjectByID.eContainer())) {
-				if (eFeature.equals(eObjectByID.eContainingFeature())) {
-					return put(eObjectByID);
-				}
-			}
-		}
-		return null;
-	}
+	//@Override
+	//public ObjRef get(ObjRef baseObjRef, String typeOfThing, String id) {
+	//	EObject baseEObject = get(baseObjRef);
+	//	EObject eFeature = getEFeature(baseEObject, typeOfThing);
+	//	Resource resource = baseEObject.eResource();
+	//	EObject eObjectByID = resource.getEObject(id);
+	//	if (eObjectByID != null) {
+	//		if (baseEObject.equals(eObjectByID.eContainer())) {
+	//			if (eFeature.equals(eObjectByID.eContainingFeature())) {
+	//				return put(eObjectByID);
+	//			}
+	//		}
+	//	}
+	//	return null;
+	//}
+
+	//@Override
+	//public List<ObjRef> getAll(ObjRef baseObjRef, String typeOfThing, List<String> ids) {
+	//	EObject baseEObject = get(baseObjRef);
+	//	EObject eFeature = getEFeature(baseEObject, typeOfThing);
+	//	Resource resource = baseEObject.eResource();
+	//	List<EObject> eObjectsByID = Lists.newArrayListWithCapacity(ids.size());
+	//	for (String id : ids) {
+	//		EObject eObjectByID = resource.getEObject(id);
+	//		if (eObjectByID != null) {
+	//			if (baseEObject.equals(eObjectByID.eContainer())) {
+	//				if (eFeature.equals(eObjectByID.eContainingFeature())) {
+	//					eObjectsByID.add(eObjectByID);
+	//				}
+	//			}
+	//		}
+	//	}
+	//	return put(eObjectsByID);
+	//}
 
 	@Override
-	public List<ObjRef> getAll(ObjRef baseObjRef, String typeOfThing, List<String> ids) {
-		EObject baseEObject = get(baseObjRef);
-		EObject eFeature = getEFeature(baseEObject, typeOfThing);
-		Resource resource = baseEObject.eResource();
-		List<EObject> eObjectsByID = Lists.newArrayListWithCapacity(ids.size());
-		for (String id : ids) {
-			EObject eObjectByID = resource.getEObject(id);
-			if (eObjectByID != null) {
-				if (baseEObject.equals(eObjectByID.eContainer())) {
-					if (eFeature.equals(eObjectByID.eContainingFeature())) {
-						eObjectsByID.add(eObjectByID);
-					}
-				}
-			}
-		}
-		return put(eObjectsByID);
+	public Serializable get(ObjRef baseObjRef, String typeOfThing, Serializable key) {
+		return put(getEMap(get(baseObjRef), typeOfThing).get(//
+				key instanceof ObjRef ? get((ObjRef) key) : key));
 	}
 
 	@Override
@@ -381,6 +417,11 @@ public class XArchADTImpl implements IXArchADT {
 			eObject = eObject.eContainer();
 		}
 		return ancestorObjRefs;
+	}
+
+	@Override
+	public List<ObjRef> getLineage(ObjRef targetObjRef) {
+		return Lists.reverse(getAllAncestors(targetObjRef));
 	}
 
 	@Override
@@ -783,7 +824,6 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public XArchADTPath getPath(ObjRef ref) {
 		List<String> containingFeatureNames = new ArrayList<String>();
-		List<String> containingFeatureStructuralNames = new ArrayList<String>();
 		List<Integer> tagIndexes = new ArrayList<Integer>();
 		List<String> ids = new ArrayList<String>();
 
@@ -796,7 +836,6 @@ public class XArchADTImpl implements IXArchADT {
 				break;
 			}
 			String containingFeatureName = containingFeature.getName();
-			String containingFeatureStructuralName = containingFeatureName;
 			String id = null;
 			EStructuralFeature idFeature = currentObj.eClass().getEStructuralFeature("id");
 			if (idFeature != null) {
@@ -816,18 +855,16 @@ public class XArchADTImpl implements IXArchADT {
 			}
 
 			containingFeatureNames.add(containingFeatureName);
-			containingFeatureStructuralNames.add(containingFeatureStructuralName);
 			ids.add(id);
 			tagIndexes.add(index);
 
 			currentObj = parentObj;
 		}
 		Collections.reverse(containingFeatureNames);
-		Collections.reverse(containingFeatureStructuralNames);
 		Collections.reverse(tagIndexes);
 		Collections.reverse(ids);
 
-		return new XArchADTPath(containingFeatureNames, containingFeatureStructuralNames, tagIndexes, ids);
+		return new XArchADTPath(containingFeatureNames, tagIndexes, ids);
 	}
 
 	@Override
@@ -896,6 +933,39 @@ public class XArchADTImpl implements IXArchADT {
 				return;
 			}
 
+			String featureName;
+			Object feature = notification.getFeature();
+			if (feature instanceof EReference) {
+				featureName = ((EReference) feature).getName();
+			}
+			else if (feature instanceof EStructuralFeature) {
+				featureName = ((EStructuralFeature) feature).getName();
+			}
+			else {
+				return;
+			}
+
+			ObjRef srcRef = put((EObject) notifier);
+			List<ObjRef> srcAncestors = getAllAncestors(srcRef);
+			XArchADTPath srcPath = getPath(srcRef);
+
+			Object oldValue = notification.getOldValue();
+			XArchADTPath oldValuePath = null;
+			if (oldValue instanceof EObject) {
+				ObjRef oldValueRef = put((EObject) oldValue);
+				oldValue = oldValueRef;
+				oldValuePath = srcPath.getLength() == 0 ? new XArchADTPath(featureName) : new XArchADTPath(
+						srcPath.toString() + "/" + featureName);
+			}
+
+			Object newValue = notification.getNewValue();
+			XArchADTPath newValuePath = null;
+			if (newValue instanceof EObject) {
+				ObjRef newValueRef = put((EObject) newValue);
+				newValue = newValueRef;
+				newValuePath = getPath(newValueRef);
+			}
+
 			XArchADTModelEvent.EventType evtType;
 			switch (notification.getEventType()) {
 			case Notification.ADD:
@@ -912,41 +982,6 @@ public class XArchADTImpl implements IXArchADT {
 				break;
 			default:
 				return;
-			}
-
-			String featureName;
-			Object feature = notification.getFeature();
-			if (feature instanceof EReference) {
-				featureName = ((EReference) feature).getName();
-			}
-			else if (feature instanceof EStructuralFeature) {
-				featureName = ((EStructuralFeature) feature).getName();
-			}
-			else {
-				return;
-			}
-
-			ObjRef srcRef = put((EObject) notifier);
-
-			List<ObjRef> srcAncestors = getAllAncestors(srcRef);
-			XArchADTPath srcPath = getPath(srcRef);
-
-			Object oldValue = notification.getOldValue();
-			XArchADTPath oldValuePath = null;
-
-			if (oldValue instanceof EObject) {
-				ObjRef oldValueRef = put((EObject) oldValue);
-				oldValue = oldValueRef;
-				oldValuePath = getPath(oldValueRef);
-			}
-
-			Object newValue = notification.getNewValue();
-			XArchADTPath newValuePath = null;
-
-			if (newValue instanceof EObject) {
-				ObjRef newValueRef = put((EObject) newValue);
-				newValue = newValueRef;
-				newValuePath = getPath(newValueRef);
 			}
 
 			fireXArchADTModelEvent(new XArchADTModelEvent(evtType, srcRef, srcAncestors, srcPath, featureName,

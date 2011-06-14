@@ -42,8 +42,9 @@
 	</xs:complexType>
 	
 	<!-- COMPLEX TYPE: Hint -->
+	<!-- See: http://wiki.eclipse.org/index.php/EMF-FAQ#How_do_I_create_a_Map_in_EMF.3F -->
 	
-	<xs:complexType name="Hint">
+	<xs:complexType name="Hint" ecore:instanceClass="java.util.Map$Entry" >
 		<xs:annotation>
 			<xs:documentation>
 				This type defines a basic name-value pair hint.
@@ -51,10 +52,10 @@
 		</xs:annotation>
 		
 		<xs:sequence>
-			<xs:element name="value" type="Value"/>
+			<xs:element ecore:name="value" name="value" type="Value"/>
 		</xs:sequence>
 		
-		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute ecore:name="key" name="name" type="xs:string"/>
 	</xs:complexType>
 
 	<!-- COMPLEX TYPE: HintsExtension -->
@@ -70,7 +71,8 @@
 		<xs:complexContent>
 			<xs:extension base="core:Extension">
 				<xs:sequence>
-					<xs:element name="hint" type="Hint"
+					<xs:element 
+								name="hint" type="Hint"
 					            minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>				
