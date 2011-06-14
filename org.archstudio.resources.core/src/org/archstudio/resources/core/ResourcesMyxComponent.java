@@ -131,7 +131,7 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 
 	public ResourcesMyxComponent() {
 		final Display d = Display.getDefault();
-		SWTWidgetUtils.sync(d, new Runnable() {
+		SWTWidgetUtils.async(d, new Runnable() {
 			@Override
 			public void run() {
 				setDisplay(d);

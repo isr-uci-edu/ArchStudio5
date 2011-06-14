@@ -64,7 +64,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <L extends IThingLogic> L addThingLogic(Class<L> tlClass) {
+	public synchronized <L extends IThingLogic> L addThingLogic(Class<L> tlClass) {
 		try {
 			IThingLogic tl = typedLogics.get(tlClass);
 			if (tl != null) {
@@ -90,7 +90,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 	}
 
 	@Override
-	public <L extends IThingLogic> L addThingLogic(L tl) {
+	public synchronized <L extends IThingLogic> L addThingLogic(L tl) {
 		long time;
 		if (DEBUG) {
 			time = System.nanoTime();
@@ -108,7 +108,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 	}
 
 	@Override
-	public void removeThingLogic(IThingLogic tl) {
+	public synchronized void removeThingLogic(IThingLogic tl) {
 		fireThingLogicManagerEvent(EventType.LOGIC_REMOVING, tl);
 		long time;
 		if (DEBUG) {
