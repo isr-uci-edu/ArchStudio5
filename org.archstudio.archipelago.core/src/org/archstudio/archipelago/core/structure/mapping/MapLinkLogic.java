@@ -29,8 +29,8 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> {
 
 	protected StickPointsLogic stick = null;
 
-	private final IThingKey<ObjRef> POINT1_REF_KEY = ActionOnMatchingValueLogic.create("point1", IHasObjRef.OBJREF_KEY,
-			new MatchFoundAction<ObjRef>() {
+	private final IThingKey<ObjRef> POINT1_REF_KEY = ActionOnMatchingValueLogic.create("point1ObjRef",
+			IHasObjRef.OBJREF_KEY, new MatchFoundAction<ObjRef>() {
 				@Override
 				public void found(IThing sourceThing, IThingKey<ObjRef> sourceKey, IThing targetThing,
 						IThingKey<ObjRef> targetKey, ObjRef value) {
@@ -38,8 +38,8 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> {
 				}
 			});
 
-	private final IThingKey<ObjRef> POINT2_REF_KEY = ActionOnMatchingValueLogic.create("point2", IHasObjRef.OBJREF_KEY,
-			new MatchFoundAction<ObjRef>() {
+	private final IThingKey<ObjRef> POINT2_REF_KEY = ActionOnMatchingValueLogic.create("point2ObjRef",
+			IHasObjRef.OBJREF_KEY, new MatchFoundAction<ObjRef>() {
 				@Override
 				public void found(IThing sourceThing, IThingKey<ObjRef> sourceKey, IThing targetThing,
 						IThingKey<ObjRef> targetKey, ObjRef value) {

@@ -70,6 +70,22 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 		});
 	}
 
+	protected void mapAncestor(final int ancestorIndex, final BNAPath targetThingPath,
+			final IThing.IThingKey<ObjRef> thingValueKey) {
+		xadlUpdaters.add(new IXADLToBNAUpdater() {
+
+			@Override
+			public void updateBNA(ObjRef objRef, XArchADTModelEvent evt, XArchADTPath xadlPath, IThing rootThing) {
+				IThing targetThing = BNAPath.resolve(getBNAModel(), rootThing, targetThingPath);
+				if (targetThing != null) {
+					List<ObjRef> ancestorRefs = xarch.getAllAncestors(objRef);
+					targetThing.set(thingValueKey,
+							ancestorIndex < ancestorRefs.size() ? ancestorRefs.get(ancestorIndex) : null);
+				}
+			}
+		});
+	}
+
 	@Override
 	protected void updateThing(ObjRef objRef, List<ObjRef> relativeAncestorRefs, XArchADTModelEvent evt,
 			XArchADTPath relativeSourceTargetPath, T thing) {

@@ -127,12 +127,12 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new MarqueeSelectionLogic());
 		logicManager.addThingLogic(new MousePanAndZoomLogic());
 
-		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "component/interface", //
-				logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "component", //
-						new Dimension(120, 80)))));
-		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "connector/interface", //
-				logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "connector", //
-						new Dimension(240, 36)))));
+		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "component/interface"));
+		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "component", //
+				new Dimension(120, 80)));
+		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "connector/interface"));
+		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "connector", //
+				new Dimension(240, 36)));
 		logicManager.addThingLogic(new MapLinkLogic(AS.xarch, structureRef, "link"));
 
 		//logicManager.addThingLogic(new AssemblyLogic());, new Dimension(100,80)
