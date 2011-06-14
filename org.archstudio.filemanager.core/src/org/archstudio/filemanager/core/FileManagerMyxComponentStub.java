@@ -21,8 +21,9 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
  */
 @SuppressWarnings("unused")
 abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
-		org.archstudio.filemanager.IFileManager, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
+		org.archstudio.xarchadt.IXArchADTModelListener, org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor, org.archstudio.filemanager.IFileManager,
+		org.archstudio.xarchadt.IXArchADTFileListener, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
 	 * @generated
@@ -89,56 +90,6 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 	 */
 	protected org.archstudio.xarchadt.IXArchADT xarch = null;
 	/**
-	 * Service object proxy for the modelEvents interface.
-	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
-	 *
-	 * @see #IN_MODEL_EVENTS
-	 * @generated
-	 */
-	protected final org.archstudio.xarchadt.IXArchADTModelListener modelEventsProxy = (org.archstudio.xarchadt.IXArchADTModelListener) Proxy
-			.newProxyInstance(org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),
-					new Class[] { org.archstudio.xarchadt.IXArchADTModelListener.class }, new InvocationHandler() {
-						@Override
-						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-							for (org.archstudio.xarchadt.IXArchADTModelListener o : myxRegistry.getObjects(
-									FileManagerMyxComponentStub.this,
-									org.archstudio.xarchadt.IXArchADTModelListener.class)) {
-								try {
-									method.invoke(o, args);
-								}
-								catch (Exception e) {
-									e.printStackTrace();
-								}
-							}
-							return null;
-						}
-					});
-	/**
-	 * Service object proxy for the fileEvents interface.
-	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
-	 *
-	 * @see #IN_FILE_EVENTS
-	 * @generated
-	 */
-	protected final org.archstudio.xarchadt.IXArchADTFileListener fileEventsProxy = (org.archstudio.xarchadt.IXArchADTFileListener) Proxy
-			.newProxyInstance(org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),
-					new Class[] { org.archstudio.xarchadt.IXArchADTFileListener.class }, new InvocationHandler() {
-						@Override
-						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-							for (org.archstudio.xarchadt.IXArchADTFileListener o : myxRegistry.getObjects(
-									FileManagerMyxComponentStub.this,
-									org.archstudio.xarchadt.IXArchADTFileListener.class)) {
-								try {
-									method.invoke(o, args);
-								}
-								catch (Exception e) {
-									e.printStackTrace();
-								}
-							}
-							return null;
-						}
-					});
-	/**
 	 * Service object(s) for the fileManagerEvents interface.
 	 *
 	 * @see #OUT_FILE_MANAGER_EVENTS
@@ -177,6 +128,26 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 	 */
 	public org.archstudio.xarchadt.IXArchADT getXarch() {
 		return xarch;
+	}
+
+	/**
+	 * Returns the service object(s) for the <code>modelEvents</code> interface.
+	 *
+	 * @see #IN_MODEL_EVENTS
+	 * @generated
+	 */
+	public org.archstudio.xarchadt.IXArchADTModelListener getModelEvents() {
+		return this;
+	}
+
+	/**
+	 * Returns the service object(s) for the <code>fileEvents</code> interface.
+	 *
+	 * @see #IN_FILE_EVENTS
+	 * @generated
+	 */
+	public org.archstudio.xarchadt.IXArchADTFileListener getFileEvents() {
+		return this;
 	}
 
 	/**
@@ -264,10 +235,10 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_MODEL_EVENTS)) {
-			return modelEventsProxy;
+			return this;
 		}
 		if (interfaceName.equals(IN_FILE_EVENTS)) {
-			return fileEventsProxy;
+			return this;
 		}
 		if (interfaceName.equals(IN_FILE_MANAGER)) {
 			return this;

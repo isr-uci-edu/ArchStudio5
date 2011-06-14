@@ -19,7 +19,7 @@
          </interface>
          <interface
                class="org.archstudio.xarchadt.IXArchADTModelListener"
-               delegate="myxRegistry"
+               delegate="brick"
                direction="in"
                domain="top"
                getter="true"
@@ -29,7 +29,7 @@
          </interface>
          <interface
                class="org.archstudio.xarchadt.IXArchADTFileListener"
-               delegate="myxRegistry"
+               delegate="brick"
                direction="in"
                domain="top"
                getter="true"
