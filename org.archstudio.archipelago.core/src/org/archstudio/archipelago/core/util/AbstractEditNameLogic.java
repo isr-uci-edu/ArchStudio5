@@ -87,7 +87,7 @@ public abstract class AbstractEditNameLogic extends AbstractThingLogic implement
 				tt.setMovesWithThingID(ft.getID());
 				tt.setEditing(true);
 				openControls.add(tt);
-				fview.getWorld().getBNAModel().addThing(tt, ft);
+				fview.getWorld().getBNAModel().addThing(ft, tt);
 			}
 		};
 		

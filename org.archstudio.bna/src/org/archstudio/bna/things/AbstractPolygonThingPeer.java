@@ -47,7 +47,7 @@ public abstract class AbstractPolygonThingPeer<T extends AbstractPolygonThing> e
 	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
 		cm.worldToLocal(boundsResult.setBounds(t.getBoundingBox()));
 		if (this instanceof IHasShadowThingPeer) {
-			BNAUtils.drawShadowExpandBoundingBox(boundsResult);
+			ShadowThingPeer.expandForShadow(cm, boundsResult);
 		}
 	}
 }

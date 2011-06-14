@@ -4,10 +4,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.archstudio.bna.logics.hints.BasicEncodedValue;
+import org.archstudio.bna.logics.hints.IEncodedValue;
 import org.archstudio.bna.logics.hints.IPropertyCoder;
 import org.archstudio.bna.logics.hints.PropertyDecodeException;
-
 
 public class ArrayPropertyCoder implements IPropertyCoder {
 
@@ -83,18 +82,22 @@ public class ArrayPropertyCoder implements IPropertyCoder {
 			this.data = data;
 		}
 
+		@Override
 		public void setType(String t) {
 			escape(this.type, t);
 		}
 
+		@Override
 		public void setData(String d) {
 			escape(this.data, d);
 		}
 
+		@Override
 		public String getType() {
 			throw new UnsupportedOperationException();
 		}
 
+		@Override
 		public String getData() {
 			throw new UnsupportedOperationException();
 		}

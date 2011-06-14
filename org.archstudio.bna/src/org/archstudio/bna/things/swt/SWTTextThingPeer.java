@@ -1,89 +1,70 @@
 package org.archstudio.bna.things.swt;
 
 import org.archstudio.bna.IBNAView;
-import org.archstudio.bna.constants.CompletionStatus;
-import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.IResources;
+import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
-public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractSWTControlThingPeer<T, Text> {
+public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThingPeer<T, Text> {
 
 	public SWTTextThingPeer(T thing) {
 		super(thing);
 	}
 
-	/* Hack to fix a swing bug about setting bounds */
-	private org.eclipse.swt.graphics.Rectangle lastBounds = null;
-
 	@Override
-	protected void createControl(IBNAView view, Graphics g, Rectangle clip, ResourceUtils res, Composite composite) {
-		lastBounds = null;
-		control = new Text(composite, SWT.BORDER | SWT.FLAT | SWT.SINGLE);
-
-		String text = t.getText();
-		if (text == null) {
-			text = "";
-		}
-		control.setText(text);
-		control.selectAll();
-		control.pack();
-
-		updateControl(view, g, clip, res, composite);
-
-		control.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				t.setText(control.getText());
+	protected Text createControl(final IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
+		final Text control = new Text(r.getComposite(), SWT.BORDER | SWT.FLAT | SWT.SINGLE);
+		control.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				remove(view);
 			}
 		});
 		control.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.character == SWT.CR) {
-					t.setCompletionStatus(CompletionStatus.OK);
-					t.setEditing(false);
+					t.setText(control.getText());
+					remove(view);
 				}
 				else if (e.character == SWT.ESC) {
-					t.setCompletionStatus(CompletionStatus.CANCEL);
-					t.setEditing(false);
+					remove(view);
 				}
 			}
 		});
+		control.setText(t.getText());
+		control.selectAll();
+		control.forceFocus();
+		return control;
 	}
 
 	@Override
-	protected void updateControl(IBNAView view, Graphics g, Rectangle clip, ResourceUtils res, Composite composite) {
-		Point lap = BNAUtils.worldToLocal(view.getCoordinateMapper(), t.getAnchorPoint());
+	protected Rectangle getBounds(Text control, IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
+		Rectangle bounds = super.getBounds(control, view, cm, g, r);
+
 		GC gc = null;
 		try {
 			gc = new GC(control.getDisplay());
-			org.eclipse.swt.graphics.Rectangle bounds = lastBounds != null ? lastBounds : control.getBounds();
 			gc.setFont(control.getFont());
 			int minHeight = gc.getFontMetrics().getHeight();
 			int minWidth = gc.textExtent(control.getText()).x + gc.getFontMetrics().getAverageCharWidth() * 4;
-			org.eclipse.swt.graphics.Rectangle newBounds = control.computeTrim(lap.x, lap.y, minWidth, minHeight);
-			newBounds.width = Math.max(newBounds.width, bounds.width);
-			newBounds.height = Math.max(newBounds.height, bounds.height);
-			newBounds.x -= newBounds.width / 2;
-			newBounds.y -= newBounds.height / 2;
-			if (!BNAUtils.nulleq(lastBounds, newBounds)) {
-				lastBounds = newBounds;
-				control.setBounds(newBounds);
-			}
+			org.eclipse.swt.graphics.Rectangle newBounds = control.computeTrim(bounds.x, bounds.y, minWidth, minHeight);
+			bounds.width = Math.max(newBounds.width, bounds.width);
+			bounds.height = Math.max(newBounds.height, bounds.height);
 		}
 		finally {
-			if (gc != null) {
-				gc.dispose();
-				gc = null;
-			}
+			SWTWidgetUtils.quietlyDispose(gc);
 		}
+
+		return bounds;
 	}
 }

@@ -24,7 +24,7 @@ import com.google.common.collect.Maps;
 
 public class DefaultThingLogicManager implements IThingLogicManager {
 
-	protected static final boolean DEBUG = false;
+	protected static final boolean DEBUG = true;
 	protected final Map<Object, AtomicLong> logicStats = !DEBUG ? null : new MapMaker().weakKeys().makeComputingMap(
 			new Function<Object, AtomicLong>() {
 				@Override

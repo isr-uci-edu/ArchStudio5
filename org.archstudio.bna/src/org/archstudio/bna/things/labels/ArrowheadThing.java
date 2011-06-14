@@ -36,11 +36,11 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 	}
 
 	public void setArrowheadSize(int arrowheadSize) {
-		put(ARROWHEAD_SIZE_KEY, arrowheadSize);
+		set(ARROWHEAD_SIZE_KEY, arrowheadSize);
 	}
 
 	public void setColor(RGB c) {
-		put(COLOR_KEY, c);
+		set(COLOR_KEY, c);
 	}
 
 	public RGB getColor() {
@@ -48,7 +48,7 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 	}
 
 	public void setSecondaryColor(RGB c) {
-		put(SECONDARY_COLOR_KEY, c);
+		set(SECONDARY_COLOR_KEY, c);
 	}
 
 	public RGB getSecondaryColor() {
@@ -60,7 +60,7 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 	}
 
 	public void setArrowheadShape(ArrowheadShape arrowheadShape) {
-		put(ARROWHEAD_SHAPE_KEY, arrowheadShape);
+		set(ARROWHEAD_SHAPE_KEY, arrowheadShape);
 	}
 
 	public boolean isArrowheadFilled() {
@@ -68,7 +68,7 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 	}
 
 	public void setArrowheadFilled(boolean arrowheadFilled) {
-		put(ARROWHEAD_FILLED_KEY, arrowheadFilled);
+		set(ARROWHEAD_FILLED_KEY, arrowheadFilled);
 	}
 
 	public Point getSecondaryAnchorPoint() {
@@ -76,6 +76,6 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 	}
 
 	public void setSecondaryAnchorPoint(Point secondaryAnchorPoint) {
-		put(SECONDARY_ANCHOR_POINT_KEY, secondaryAnchorPoint);
+		set(SECONDARY_ANCHOR_POINT_KEY, secondaryAnchorPoint);
 	}
 }

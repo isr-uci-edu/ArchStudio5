@@ -30,8 +30,8 @@ public class MirrorPointLogic extends AbstractPropagateValueLogic<IHasPoints, IT
 	public void mirror(IHasPoints thingWithPoints, int pointIndex, IRelativeMovable... mirroringThings) {
 		checkNotNull(thingWithPoints);
 
-		setPropagate(thingWithPoints, IHasPoints.POINTS_KEY, null, new MirrorPointLogicData(pointIndex),
-				mirroringThings);
+		setPropagate(thingWithPoints, IHasPoints.POINTS_KEY, IHasPoints.POINTS_KEY,
+				new MirrorPointLogicData(pointIndex), mirroringThings);
 	}
 
 	public void mirror(IHasPoints thingWithPoints, int pointIndex, IHasMutableAnchorPoint... mirroringThings) {

@@ -54,7 +54,7 @@ public interface IThing {
 	public <V> V set(IThingKey<V> key, V value);
 
 	@Deprecated
-	public <V> V put(IThingKey<V> key, V value);
+	public <V> V setProperty(IThingKey<V> key, V value);
 
 	public boolean has(IThingKey<?> key);
 

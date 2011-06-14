@@ -53,7 +53,7 @@ public class ImageThing extends AbstractRectangleThing implements IHasMutableHor
 	}
 
 	public void setHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
-		put(HORIZONTAL_ALIGNMENT_KEY, horizontalAlignment);
+		set(HORIZONTAL_ALIGNMENT_KEY, horizontalAlignment);
 	}
 
 	public VerticalAlignment getVerticalAlignment() {
@@ -61,7 +61,7 @@ public class ImageThing extends AbstractRectangleThing implements IHasMutableHor
 	}
 
 	public void setVerticalAlignment(VerticalAlignment verticalAlignment) {
-		put(VERTICAL_ALIGNMENT_KEY, verticalAlignment);
+		set(VERTICAL_ALIGNMENT_KEY, verticalAlignment);
 	}
 
 	@Deprecated
@@ -71,7 +71,7 @@ public class ImageThing extends AbstractRectangleThing implements IHasMutableHor
 
 	@Deprecated
 	public void setImagePath(String s) {
-		put(IMAGE_PATH_KEY, s);
+		set(IMAGE_PATH_KEY, s);
 	}
 
 	public ImageData getImageData() {
@@ -79,7 +79,7 @@ public class ImageThing extends AbstractRectangleThing implements IHasMutableHor
 	}
 
 	public void setImageData(ImageData imageData) {
-		put(IHasImage.IMAGE_DATA_KEY, imageData);
+		set(IHasImage.IMAGE_DATA_KEY, imageData);
 	}
 
 	public boolean isScaled() {
@@ -87,6 +87,6 @@ public class ImageThing extends AbstractRectangleThing implements IHasMutableHor
 	}
 
 	public void setScaled(boolean scaled) {
-		put(SCALED_KEY, scaled);
+		set(SCALED_KEY, scaled);
 	}
 }

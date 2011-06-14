@@ -37,7 +37,7 @@ public class RotaterThing extends AbstractAnchorPointThing implements IHasBoundi
 
 	@Override
 	public void setRadius(int radius) {
-		put(RADIUS_KEY, radius);
+		set(RADIUS_KEY, radius);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class RotaterThing extends AbstractAnchorPointThing implements IHasBoundi
 
 	@Override
 	public void setAngle(int degrees) {
-		put(ANGLE_KEY, degrees);
+		set(ANGLE_KEY, degrees);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class RotaterThing extends AbstractAnchorPointThing implements IHasBoundi
 	}
 
 	public void setAdjustmentIncrement(int increment) {
-		put(ADJUSTMENT_INCREMENT_KEY, increment);
+		set(ADJUSTMENT_INCREMENT_KEY, increment);
 	}
 
 	public int getAdjustmentIncrement() {

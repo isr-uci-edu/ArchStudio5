@@ -11,16 +11,19 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
-import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IHasText;
+import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.keys.AbstractThingRefKey;
 import org.archstudio.bna.keys.IThingRefKey;
+import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.coordinating.MirrorBoundingBoxLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
+import org.archstudio.bna.logics.coordinating.StickAnchorPointLogic;
 import org.archstudio.bna.things.glass.EllipseGlassThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.glass.PolygonGlassThing;
@@ -51,15 +54,16 @@ public class Assemblies {
 		}
 	}
 
-	public static IThingRefKey<IThing> ROOT_KEY = ThingRefKey.create("assembly-root");
+	private static final IThingKey<Boolean> IS_ROOT_KEY = ThingKey.create("assembly-is-root");
+	private static final IThingRefKey<IThing> ROOT_KEY = ThingRefKey.create("assembly-root");
+	private static final IThingKey<IThingRefKey<?>> PART_KEY = ThingKey.create("assembly-part");
 
-	public static IThingRefKey<IThing> SHADOW_KEY = ThingAssemblyKey.create("assembly-shadow");
-	public static IThingRefKey<IHasColor> BACKGROUND_KEY = ThingAssemblyKey.create("assembly-background");
-	public static IThingRefKey<IHasText> TEXT_KEY = ThingAssemblyKey.create("assembly-text");
-	public static IThingRefKey<DirectionalLabelThing> LABEL_KEY = ThingAssemblyKey.create("assembly-label");
+	public static final IThingRefKey<IThing> SHADOW_KEY = ThingAssemblyKey.create("assembly-shadow");
+	public static final IThingRefKey<IThing> BACKGROUND_KEY = ThingAssemblyKey.create("assembly-background");
+	public static final IThingRefKey<IHasText> TEXT_KEY = ThingAssemblyKey.create("assembly-text");
+	public static final IThingRefKey<DirectionalLabelThing> LABEL_KEY = ThingAssemblyKey.create("assembly-label");
 
-	private static final Object BASE_LAYER_THING_ID = new Object();
-	public static final Object SHADOW_LAYER_THING_ID = new Object();
+	public static final Object BASE_LAYER_THING_ID = new Object();
 	public static final Object SPLINE_LAYER_THING_ID = new Object();
 	public static final Object MIDDLE_LAYER_THING_ID = new Object();
 
@@ -83,9 +87,32 @@ public class Assemblies {
 		return model.getThing(layerThingID);
 	}
 
-	protected static <T extends IThing> void mark(IThing root, IThingRefKey<T> name, T part) {
+	protected static final <T extends IThing> void mark(IThing root, IThingRefKey<T> name, T part) {
+		root.set(IS_ROOT_KEY, true);
 		root.set(name, part.getID());
 		part.set(ROOT_KEY, root.getID());
+		part.set(PART_KEY, name);
+	}
+
+	public static final IThing getAssemblyWithPart(IBNAModel model, IThing part) {
+		checkNotNull(part);
+
+		return model.getThing(part.get(ROOT_KEY));
+	}
+
+	public static final IThing getAssemblyWithRootOrPart(IBNAModel model, IThing rootOrPart) {
+		checkNotNull(rootOrPart);
+
+		if (rootOrPart.has(IS_ROOT_KEY, true)) {
+			return rootOrPart;
+		}
+		return model.getThing(rootOrPart.get(ROOT_KEY));
+	}
+
+	public static final IThingRefKey<?> getPartKey(IThing part) {
+		checkNotNull(part);
+
+		return part.get(PART_KEY);
 	}
 
 	public static Iterable<IThing> getRelatedParts(IBNAModel model, IThing part) {
@@ -113,36 +140,17 @@ public class Assemblies {
 		return allParts;
 	}
 
-	public static Iterable<IThing> getParts(IBNAModel model, IThing part) {
-		Collection<IThing> allParts = Sets.newHashSet(part);
-		for (IThingKey<?> k : part.keySet()) {
+	public static Iterable<IThing> getParts(IBNAModel model, IThing root) {
+		Collection<IThing> allParts = Sets.newHashSet(root);
+		for (IThingKey<?> k : root.keySet()) {
 			if (k instanceof ThingAssemblyKey) {
-				IThing t = ((IThingRefKey<?>) k).get(part, model);
+				IThing t = ((IThingRefKey<?>) k).get(root, model);
 				if (t != null) {
 					allParts.add(t);
 				}
 			}
 		}
-		IThing root = ROOT_KEY.get(part, model);
-		if (root != null) {
-			allParts.add(root);
-			for (IThingKey<?> k : root.keySet()) {
-				if (k instanceof ThingAssemblyKey) {
-					IThing t = ((IThingRefKey<?>) k).get(root, model);
-					if (t != null) {
-						allParts.add(t);
-					}
-				}
-			}
-		}
 		return allParts;
-	}
-
-	public static IThing getAssemblyWithPart(IBNAModel model, IThing part) {
-		if (part != null) {
-			return model.getThing(part.get(ROOT_KEY));
-		}
-		return null;
 	}
 
 	public static EllipseGlassThing createEllipse(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
@@ -207,7 +215,7 @@ public class Assemblies {
 		return glass;
 	}
 
-	public static EndpointGlassThing createEndpoint(IBNAWorld world, @Nullable Object id, IThing parent) {
+	public static EndpointGlassThing createEndpoint(IBNAWorld world, @Nullable Object id, @Nullable IIsSticky parent) {
 		checkNotNull(world);
 
 		IBNAModel model = world.getBNAModel();
@@ -227,6 +235,11 @@ public class Assemblies {
 		mvl.mirrorValue(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, bkg);
 		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, label);
 
+		if (parent != null) {
+			StickAnchorPointLogic sapl = tlm.addThingLogic(StickAnchorPointLogic.class);
+			sapl.stick(parent, StickyMode.EDGE, glass);
+		}
+
 		return glass;
 	}
 
@@ -239,6 +252,8 @@ public class Assemblies {
 		SplineThing bkg = model.addThing(new SplineThing(id),
 				parent != null ? parent : getLayer(model, SPLINE_LAYER_THING_ID));
 		SplineGlassThing glass = model.addThing(new SplineGlassThing(null), bkg);
+
+		mark(glass, BACKGROUND_KEY, bkg);
 
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 

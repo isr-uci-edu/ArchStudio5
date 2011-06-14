@@ -9,7 +9,6 @@ import org.archstudio.bna.logics.hints.coders.EnumPropertyCoder;
 import org.archstudio.bna.logics.hints.coders.NativePropertyCoder;
 import org.archstudio.bna.logics.hints.coders.SWTPropertyCoder;
 
-
 public class MasterPropertyCoder implements IPropertyCoder {
 
 	static MasterPropertyCoder singleton = new MasterPropertyCoder();
@@ -19,9 +18,9 @@ public class MasterPropertyCoder implements IPropertyCoder {
 	public MasterPropertyCoder() {
 		propertyCoders.add(new NativePropertyCoder());
 		propertyCoders.add(new EnumPropertyCoder());
+		propertyCoders.add(new Draw2DPropertyCoder());
 		propertyCoders.add(new ArrayPropertyCoder());
 		propertyCoders.add(new SWTPropertyCoder());
-		propertyCoders.add(new Draw2DPropertyCoder());
 	}
 
 	public boolean encode(IPropertyCoder masterCoder, IEncodedValue encodedValue, Object value) {
@@ -44,7 +43,8 @@ public class MasterPropertyCoder implements IPropertyCoder {
 	}
 
 	public Object decode(IPropertyCoder masterCoder, IEncodedValue encodedValue) throws PropertyDecodeException {
-		if (encodedValue == null || "null".equals(encodedValue.getType()) || null == encodedValue.getType() || null == encodedValue.getData()) {
+		if (encodedValue == null || "null".equals(encodedValue.getType()) || null == encodedValue.getType()
+				|| null == encodedValue.getData()) {
 			return null;
 		}
 		if (masterCoder == null) {

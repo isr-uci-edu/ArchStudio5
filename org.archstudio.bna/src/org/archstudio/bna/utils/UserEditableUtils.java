@@ -5,7 +5,8 @@ import java.util.Set;
 
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
-import org.archstudio.bna.keys.SetThingKey;
+import org.archstudio.bna.keys.AbstractCollectionThingKey;
+import org.archstudio.bna.keys.CollectionThingKey;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -13,8 +14,8 @@ import com.google.common.collect.Sets;
 
 public class UserEditableUtils {
 
-	private static final IThingKey<Set<String>> USER_EDITABLE_QUALITIES_KEY = SetThingKey
-			.create("userEditableQualities");
+	private static final IThingKey<Set<String>> USER_EDITABLE_QUALITIES_KEY = CollectionThingKey.create(
+			"userEditableQualities", AbstractCollectionThingKey.<String> set(null));
 
 	public static void addEditableQualities(final IThing thing, final String... qualities) {
 		thing.synchronizedUpdate(new Runnable() {

@@ -68,7 +68,7 @@ public abstract class AbstractAnchorPointThing extends AbstractRelativeMovableTh
 	}
 
 	@Override
-	public PrecisionPoint getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
+	public PrecisionPoint getStickyPointNear(StickyMode stickyMode, Point nearPoint, Point refPoint) {
 		return new PrecisionPoint(getAnchorPoint());
 	}
 }

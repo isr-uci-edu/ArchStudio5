@@ -35,7 +35,7 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 	protected void init() {
 		super.init();
 		tvtl = getBNAWorld().getThingLogicManager().addThingLogic(ThingValueTrackingLogic.class);
-		// this logic relies on events from dml, but does not call it directly
+		// this logic relies on events from the DragMoveEventsLogic
 		getBNAWorld().getThingLogicManager().addThingLogic(DragMoveEventsLogic.class);
 	}
 
@@ -68,11 +68,8 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 				else {
 					movingThings.put(movingThing, movingThing.getReferencePoint());
 				}
-
-				for (IRelativeMovable rmt : movingThings.keySet()) {
-					for (IThing t : Assemblies.getRelatedParts(model, rmt)) {
-						model.bringToFront(t);
-					}
+				for (IThing thing : movingThings.keySet()) {
+					model.bringToFront(Assemblies.getRelatedParts(model, thing));
 				}
 			}
 			finally {

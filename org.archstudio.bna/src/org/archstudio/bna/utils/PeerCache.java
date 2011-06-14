@@ -66,4 +66,11 @@ public class PeerCache<D> {
 	public <T extends IThing> Cache<T, D> getPeerCache(T thing) {
 		return (Cache<T, D>) autoPeers.get(thing);
 	}
+
+	public void dispose(IThing thing) {
+		Cache<?, ?> cache = autoPeers.remove(thing);
+		if (cache != null) {
+			cache.peer.dispose();
+		}
+	}
 }

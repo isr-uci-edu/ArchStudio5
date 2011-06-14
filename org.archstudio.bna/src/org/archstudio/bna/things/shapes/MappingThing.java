@@ -27,7 +27,7 @@ public class MappingThing extends MappingEssenceThing implements IHasMutableColo
 	}
 
 	public void setColor(RGB c) {
-		put(COLOR_KEY, c);
+		set(COLOR_KEY, c);
 	}
 
 	public RGB getColor() {
@@ -39,7 +39,7 @@ public class MappingThing extends MappingEssenceThing implements IHasMutableColo
 	}
 
 	public void setLineStyle(int lineStyle) {
-		put(LINE_STYLE_KEY, lineStyle);
+		set(LINE_STYLE_KEY, lineStyle);
 	}
 
 	public int getLineWidth() {
@@ -47,6 +47,6 @@ public class MappingThing extends MappingEssenceThing implements IHasMutableColo
 	}
 
 	public void setLineWidth(int lineWidth) {
-		put(LINE_WIDTH_KEY, lineWidth);
+		set(LINE_WIDTH_KEY, lineWidth);
 	}
 }

@@ -1238,6 +1238,26 @@ public class SystemUtils {
 		return value;
 	}
 
+	public static final double bound(float lower, float value, float upper) {
+		if (lower < upper) {
+			if (value < lower) {
+				return lower;
+			}
+			if (value > upper) {
+				return upper;
+			}
+		}
+		else {
+			if (value < upper) {
+				return upper;
+			}
+			if (value > lower) {
+				return lower;
+			}
+		}
+		return value;
+	}
+
 	public static final double bound(double lower, double value, double upper) {
 		if (lower < upper) {
 			if (value < lower) {

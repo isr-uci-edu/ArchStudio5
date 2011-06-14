@@ -9,10 +9,13 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Composite;
 
 public interface IResources {
 
 	public Device getDevice();
+
+	public Composite getComposite();
 
 	public void dispose();
 

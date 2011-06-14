@@ -30,37 +30,164 @@ import com.google.common.collect.Sets;
 public abstract class AbstractPropagateValueLogic<F extends IThing, T extends IThing, D> extends AbstractThingLogic
 		implements IBNASynchronousModelListener {
 
-	private final class FromThingData {
-		public boolean currentlyPropagating = false;
+	private static final class FromThingData {
+		public volatile boolean currentlyPropagating = false;
 		public final Object source;
-		public final Iterable<Object> toThingIDs;
+		public final Object toThingID;
 		@Nullable
-		public final IThingKey<?> toKey;
+		public final IThingKey<?> toThingKey;
 		@Nullable
-		public final D toData;
+		public final Object toData;
 
-		public FromThingData(Object source, Iterable<Object> toThingIDs, @Nullable IThingKey<?> toKey,
-				@Nullable D toData) {
+		public FromThingData(Object source, Object toThingID, @Nullable IThingKey<?> toThingKey, @Nullable Object toData) {
 			this.source = checkNotNull(source);
-			this.toThingIDs = checkNotNull(toThingIDs);
-			this.toKey = toKey;
+			this.toThingID = checkNotNull(toThingID);
+			this.toThingKey = toThingKey;
 			this.toData = toData;
+		}
+
+		@Override
+		public String toString() {
+			return "FromThingData [source=" + source.getClass() + ", toThingID=" + toThingID + ", toThingKey="
+					+ toThingKey + ", toData=" + toData + "]";
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + (source == null ? 0 : source.hashCode());
+			result = prime * result + (toData == null ? 0 : toData.hashCode());
+			result = prime * result + (toThingID == null ? 0 : toThingID.hashCode());
+			result = prime * result + (toThingKey == null ? 0 : toThingKey.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+			if (obj == null) {
+				return false;
+			}
+			if (getClass() != obj.getClass()) {
+				return false;
+			}
+			FromThingData other = (FromThingData) obj;
+			if (source == null) {
+				if (other.source != null) {
+					return false;
+				}
+			}
+			else if (!source.equals(other.source)) {
+				return false;
+			}
+			if (toData == null) {
+				if (other.toData != null) {
+					return false;
+				}
+			}
+			else if (!toData.equals(other.toData)) {
+				return false;
+			}
+			if (toThingID == null) {
+				if (other.toThingID != null) {
+					return false;
+				}
+			}
+			else if (!toThingID.equals(other.toThingID)) {
+				return false;
+			}
+			if (toThingKey == null) {
+				if (other.toThingKey != null) {
+					return false;
+				}
+			}
+			else if (!toThingKey.equals(other.toThingKey)) {
+				return false;
+			}
+			return true;
 		}
 	}
 
-	private final class ToThingData {
-		public boolean currentlyPropagating = false;
+	private static final class ToThingData {
+		public volatile boolean currentlyPropagating = false;
 		public final Object source;
 		public final Object fromThingID;
 		public final IThingKey<?> fromThingKey;
 		@Nullable
-		public final D toData;
+		public final Object toData;
 
-		private ToThingData(Object source, Object fromThingID, IThingKey<?> fromKey, @Nullable D toData) {
+		private ToThingData(Object source, Object fromThingID, IThingKey<?> fromThingKey, @Nullable Object toData) {
 			this.source = checkNotNull(source);
 			this.fromThingID = checkNotNull(fromThingID);
-			this.fromThingKey = checkNotNull(fromKey);
+			this.fromThingKey = checkNotNull(fromThingKey);
 			this.toData = toData;
+		}
+
+		@Override
+		public String toString() {
+			return "ToThingData [fromThingID=" + fromThingID + ", fromThingKey=" + fromThingKey + ", toData=" + toData
+					+ ", source=" + source.getClass() + "]";
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + (fromThingID == null ? 0 : fromThingID.hashCode());
+			result = prime * result + (fromThingKey == null ? 0 : fromThingKey.hashCode());
+			result = prime * result + (source == null ? 0 : source.hashCode());
+			result = prime * result + (toData == null ? 0 : toData.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+			if (obj == null) {
+				return false;
+			}
+			if (getClass() != obj.getClass()) {
+				return false;
+			}
+			ToThingData other = (ToThingData) obj;
+			if (fromThingID == null) {
+				if (other.fromThingID != null) {
+					return false;
+				}
+			}
+			else if (!fromThingID.equals(other.fromThingID)) {
+				return false;
+			}
+			if (fromThingKey == null) {
+				if (other.fromThingKey != null) {
+					return false;
+				}
+			}
+			else if (!fromThingKey.equals(other.fromThingKey)) {
+				return false;
+			}
+			if (source == null) {
+				if (other.source != null) {
+					return false;
+				}
+			}
+			else if (!source.equals(other.source)) {
+				return false;
+			}
+			if (toData == null) {
+				if (other.toData != null) {
+					return false;
+				}
+			}
+			else if (!toData.equals(other.toData)) {
+				return false;
+			}
+			return true;
 		}
 	}
 
@@ -99,8 +226,9 @@ public abstract class AbstractPropagateValueLogic<F extends IThing, T extends IT
 			@Override
 			public void run() {
 				Collection<FromThingData> fromThingDatas = Sets.newHashSet(emptyIfNull(fromThing.get(fromDataKey)));
-				fromThingDatas.add(new FromThingData(AbstractPropagateValueLogic.this, BNAUtils.getThingIDs(Arrays
-						.asList(toThings)), toKey, toData));
+				for (Object toThingID : BNAUtils.getThingIDs(Arrays.asList(toThings))) {
+					fromThingDatas.add(new FromThingData(AbstractPropagateValueLogic.this, toThingID, toKey, toData));
+				}
 				fromThing.set(fromDataKey, Lists.newArrayList(fromThingDatas));
 			}
 		});
@@ -153,7 +281,7 @@ public abstract class AbstractPropagateValueLogic<F extends IThing, T extends IT
 						try {
 							F fromThing = castOrNull(model.getThing(toThingData.fromThingID), fromThingClass);
 							if (fromThing != null) {
-								doPropagation(model, fromThing, toThingData.fromThingKey, null, toThingData.toData,
+								doPropagation(model, fromThing, toThingData.fromThingKey, null, (D) toThingData.toData,
 										toThing, key, (ThingEvent<T, ?, ?>) thingEvent);
 							}
 						}
@@ -173,12 +301,10 @@ public abstract class AbstractPropagateValueLogic<F extends IThing, T extends IT
 						model.beginBulkChange();
 						fromThingData.currentlyPropagating = true;
 						try {
-							for (Object toThingID : fromThingData.toThingIDs) {
-								T toThing = castOrNull(model.getThing(toThingID), toThingClass);
-								if (toThing != null) {
-									doPropagation(model, fromThing, key, (ThingEvent<F, ?, ?>) thingEvent,
-											fromThingData.toData, toThing, fromThingData.toKey, null);
-								}
+							T toThing = castOrNull(model.getThing(fromThingData.toThingID), toThingClass);
+							if (toThing != null) {
+								doPropagation(model, fromThing, key, (ThingEvent<F, ?, ?>) thingEvent,
+										(D) fromThingData.toData, toThing, fromThingData.toThingKey, null);
 							}
 						}
 						finally {

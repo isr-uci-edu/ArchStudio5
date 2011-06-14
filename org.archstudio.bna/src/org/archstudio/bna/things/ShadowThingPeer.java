@@ -17,17 +17,33 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import com.google.common.collect.Lists;
 
 /**
- * Rendered all shadows at the same time. Otherwise, areas of shadow overlap are darker than they ought to be.
+ * Render all shadows at the same time. Otherwise, shadows do not overlap correctly.
  */
 public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T> {
 
-	public static void expandForShadow(Rectangle boundsResult) {
-		boundsResult.width += 6;
-		boundsResult.height += 6;
-	}
-
 	public ShadowThingPeer(T thing) {
 		super(thing);
+	}
+
+	private static int getOffset(ICoordinateMapper cm) {
+		return BNAUtils.round(cm.getLocalScale() * 2);
+	}
+
+	private static int getSize(ICoordinateMapper cm) {
+		return BNAUtils.round(cm.getLocalScale() * 3);
+	}
+
+	public static void expandForShadow(ICoordinateMapper cm, Rectangle boundsResult) {
+		if (!boundsResult.isEmpty()) {
+			final int offset = getOffset(cm);
+			final int size = getSize(cm);
+			final int minInset = offset - size;
+			final int maxInset = offset + size;
+			boundsResult.x += minInset;
+			boundsResult.y += minInset;
+			boundsResult.width += maxInset - minInset;
+			boundsResult.height += maxInset - minInset;
+		}
 	}
 
 	@Override
@@ -47,8 +63,10 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 			}
 		}
 
+		final int offset = getOffset(cm);
+		final int size = getSize(cm);
 		if (!shadowThingPeers.isEmpty()) {
-			BNAUtils.drawShadow(g, r, 1, 1, 2 + BNAUtils.round(cm.getLocalScale() * 2), new DrawShadow() {
+			BNAUtils.drawShadow(g, r, offset, offset, size, 2, new DrawShadow() {
 				@Override
 				public void drawShadow(boolean fill) {
 					for (IHasShadowThingPeer<?> tp : shadowThingPeers) {

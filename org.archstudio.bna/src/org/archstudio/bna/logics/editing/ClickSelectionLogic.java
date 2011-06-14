@@ -30,12 +30,6 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 		tvtl = getBNAWorld().getThingLogicManager().addThingLogic(ThingValueTrackingLogic.class);
 	}
 
-	@Override
-	protected void destroy() {
-		super.destroy();
-		tvtl = null;
-	}
-
 	private void removeAllSelections() {
 		IBNAModel model = getBNAModel();
 		if (model != null) {

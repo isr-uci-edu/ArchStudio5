@@ -9,7 +9,7 @@ public abstract class AbstractSWTTreeThing extends AbstractSWTThing implements I
 	}
 
 	public void setValue(Object value) {
-		put(VALUE_KEY, value);
+		set(VALUE_KEY, value);
 	}
 
 	public Object getValue() {

@@ -8,6 +8,8 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
@@ -152,6 +154,9 @@ public class BNAUtils {
 				&& isWithin(outsideRect, in.x + in.width, in.y + in.height);
 	}
 
+	/**
+	 * @deprecated Use {@link SystemUtils#nullEquals(Object, Object)} instead.
+	 */
 	@Deprecated
 	public static boolean nulleq(Object o1, Object o2) {
 		return SystemUtils.nullEquals(o1, o2);
@@ -788,7 +793,8 @@ public class BNAUtils {
 	//		return getParentComposite(view.getParentView());
 	//	}
 
-	public static Point getCentralPoint(IThing t) {
+	public static @Nullable
+	Point getCentralPoint(IThing t) {
 		if (t instanceof IHasPoints) {
 			List<Point> points = ((IHasPoints) t).getPoints();
 			int x1 = Integer.MAX_VALUE;
@@ -796,20 +802,10 @@ public class BNAUtils {
 			int x2 = Integer.MIN_VALUE;
 			int y2 = Integer.MIN_VALUE;
 			for (Point p : points) {
-				int x = p.x;
-				int y = p.y;
-				if (x < x1) {
-					x1 = x;
-				}
-				if (x > x2) {
-					x2 = x;
-				}
-				if (y < y1) {
-					y1 = y;
-				}
-				if (y > y2) {
-					y2 = y;
-				}
+				x1 = Math.min(x1, p.x);
+				x2 = Math.max(x2, p.x);
+				y1 = Math.min(y1, p.y);
+				y2 = Math.max(y2, p.y);
 			}
 			Point p = new Point((x1 + x2) / 2, (y1 + y2) / 2);
 			if (t instanceof IHasAnchorPoint) {
@@ -821,10 +817,9 @@ public class BNAUtils {
 			return ((IHasAnchorPoint) t).getAnchorPoint();
 		}
 		if (t instanceof IHasBoundingBox) {
-			Rectangle r = ((IHasBoundingBox) t).getBoundingBox();
-			return new Point(r.x + r.width / 2, r.y + r.height / 2);
+			return ((IHasBoundingBox) t).getBoundingBox().getCenter();
 		}
-		throw new IllegalArgumentException("Cannot determine center point: " + t);
+		return null;
 	}
 
 	private static final Predicate<IThing> isSelectedPredicate = new Predicate<IThing>() {
@@ -1228,57 +1223,32 @@ public class BNAUtils {
 		public void drawShadow(boolean fill);
 	}
 
-	public static void drawShadow(Graphics g, IResources r, int dx, int dy, int length, DrawShadow drawShadow) {
+	public static void drawShadow(Graphics g, IResources r, int dx, int dy, int size, int granularity,
+			DrawShadow drawShadow) {
 
-		// slow
+		final float minBrightness = 0.75f;
+		final float maxBrightness = 0.95f;
+		final int width = granularity = Math.max(1, granularity);
 
-		//int size = SystemUtils.bound(0, length, 10);
-		//int l = 255;
-		//int d = BNAUtils.round(255 * 0.35);
-		//g.setLineMiterLimit(1);
-		//g.setLineStyle(SWT.LINE_SOLID);
-		//g.setLineCap(SWT.CAP_ROUND);
-		//g.pushState();
-		//try {
-		//	int c = d;
-		//	for (int i = size; i > 0; i--) {
-		//		g.restoreState();
-		//		int t = i / 2;
-		//		g.translate(t, t);
-		//		g.setLineWidth(i);
-		//		c = SystemUtils.bound(0, (l - d) / size * i + d, 255);
-		//		g.setForegroundColor(r.getColor(new RGB(c, c, c)));
-		//		drawShadow.drawShadow(false);
-		//	}
-		//	g.setBackgroundColor(r.getColor(new RGB(c, c, c)));
-		//	drawShadow.drawShadow(true);
-		//}
-		//finally {
-		//	g.popState();
-		//}
-
-		// fast
-
-		int size = SystemUtils.bound(0, length, 10);
-		int d = BNAUtils.round(255 * 0.75);
 		g.setLineMiterLimit(1);
 		g.setLineStyle(SWT.LINE_SOLID);
 		g.setLineCap(SWT.CAP_ROUND);
+		g.translate(dx, dy);
 		g.pushState();
 		try {
-			int t = size * 3 / 4;
-			g.translate(t, t);
-			g.setBackgroundColor(r.getColor(new RGB(d, d, d)));
+			for (int step = size * 2 + 1; step > 1; step -= width) {
+				float brightness = (float) SystemUtils.bound(0d, minBrightness + (maxBrightness - minBrightness) * step
+						/ (size * 2 + 1), 1d);
+				g.setForegroundColor(r.getColor(new RGB(0.0f, 0.0f, brightness)));
+				g.setLineWidth(step);
+				drawShadow.drawShadow(false);
+			}
+			g.setBackgroundColor(r.getColor(new RGB(0f, 0f, minBrightness)));
 			drawShadow.drawShadow(true);
 		}
 		finally {
 			g.popState();
 		}
-	}
-
-	public static void drawShadowExpandBoundingBox(Rectangle localBoundsResult) {
-		localBoundsResult.width += 10;
-		localBoundsResult.height += 10;
 	}
 
 	public static final IBNAView getInternalView(IBNAView outerView, IThing worldThing) {
@@ -1397,7 +1367,7 @@ public class BNAUtils {
 		return xyArray;
 	}
 
-	public static Rectangle getLocalBoundingBox(ICoordinateMapper cm, IHasBoundingBox t, Rectangle localResult) {
+	public static final Rectangle getLocalBoundingBox(ICoordinateMapper cm, IHasBoundingBox t, Rectangle localResult) {
 		Rectangle localBoundingBox = cm.worldToLocal(t.getBoundingBox());
 		Insets insets = t.get(IHasLocalInsets.LOCAL_INSETS_KEY);
 		if (insets != null) {
@@ -1414,11 +1384,11 @@ public class BNAUtils {
 		}
 	};
 
-	public static Iterable<Object> getThingIDs(Iterable<? extends IThing> things) {
+	public static final Iterable<Object> getThingIDs(Iterable<? extends IThing> things) {
 		return Iterables.transform(things, thingToIDFunction);
 	}
 
-	public static Iterable<IThing> getThings(final IBNAModel model, Iterable<Object> thingIDs) {
+	public static final Iterable<IThing> getThings(final IBNAModel model, Iterable<Object> thingIDs) {
 		return Iterables.filter(Iterables.transform(thingIDs, new Function<Object, IThing>() {
 			@Override
 			public IThing apply(Object input) {
@@ -1426,4 +1396,14 @@ public class BNAUtils {
 			}
 		}), Predicates.notNull());
 	}
+
+	public static final void union(Rectangle result, Rectangle other) {
+		if (result.isEmpty()) {
+			result.setBounds(other);
+		}
+		else if (!other.isEmpty()) {
+			result.union(other);
+		}
+	}
+
 }

@@ -29,7 +29,7 @@ public class ToolTipLogic extends AbstractThingLogic implements IBNAMouseMoveLis
 	public void mouseMove(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
 		//if (t != lastThing) {
 		//	lastThing = t;
-		//	Composite c = BNAUtils.getParentComposite(view);
+		//	Composite c = r.BNAUtils.getParentComposite(view);
 		//	if (c != null) {
 		//		String toolTip = ToolTipLogic.getToolTip(t);
 		//		if (!BNAUtils.nulleq(toolTip, c.getToolTipText())) {

@@ -2,6 +2,8 @@ package org.archstudio.bna.logics.hints;
 
 public class PropertyDecodeException extends Exception {
 
+	private static final long serialVersionUID = -4216197359615379071L;
+
 	public PropertyDecodeException() {
 	}
 
@@ -16,5 +18,4 @@ public class PropertyDecodeException extends Exception {
 	public PropertyDecodeException(String message, Throwable cause) {
 		super(message, cause);
 	}
-
 }

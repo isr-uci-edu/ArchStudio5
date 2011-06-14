@@ -4,15 +4,12 @@ import java.awt.geom.RoundRectangle2D;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
-import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
 import org.archstudio.bna.things.shapes.RectangleThing;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-public abstract class AbstractRoundedRectangleThingPeer<T extends RectangleThing> extends AbstractThingPeer<T> {
+public abstract class AbstractRoundedRectangleThingPeer<T extends RectangleThing> extends AbstractRectangleThingPeer<T> {
 
 	public AbstractRoundedRectangleThingPeer(T thing) {
 		super(thing);
@@ -32,11 +29,5 @@ public abstract class AbstractRoundedRectangleThingPeer<T extends RectangleThing
 			return true;
 		}
 		return false;
-	}
-
-	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
-		cm.worldToLocal(boundsResult.setBounds(t.getBoundingBox()));
-		return true;
 	}
 }

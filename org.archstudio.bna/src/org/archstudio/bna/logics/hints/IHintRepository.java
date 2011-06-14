@@ -1,19 +1,26 @@
 package org.archstudio.bna.logics.hints;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import org.archstudio.bna.IBNAWorld;
-import org.archstudio.bna.assemblies.IAssembly;
+import org.archstudio.bna.IThing;
 
 public interface IHintRepository {
 
-	public Object getContextForAssembly(IBNAWorld world, IAssembly assembly);
+	public @Nullable
+	Object getContextForThing(IBNAWorld world, IThing thing);
 
-	public IAssembly[] getAssembliesForContext(IBNAWorld world, Object context);
+	public Iterable<IThing> getThingsForContext(IBNAWorld world, Object context);
 
-	public String[] getStoredHintNames(Object context);
+	public List<String> getStoredHintNames(Object context);
 
-	public void storeHint(Object context, String hintName, Object hintValue);
+	public void storeHint(Object context, String hintName, Serializable hintValue);
 
-	public Object getHint(Object context, String hintName);
+	public @Nullable
+	Object getHint(Object context, String hintName) throws PropertyDecodeException;
 
 	public void addHintRepositoryChangeListener(IHintRepositoryChangeListener l);
 

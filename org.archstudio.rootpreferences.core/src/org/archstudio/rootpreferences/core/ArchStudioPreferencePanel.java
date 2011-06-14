@@ -33,7 +33,7 @@ public class ArchStudioPreferencePanel extends PreferencePage implements IWorkbe
 		preferences = comp.preferences;
 		try {
 			resources.createImage(IMAGE_PREFERENCES_BANNER,
-					SystemUtils.blt(ArchStudioPreferencePanel.class.getResourceAsStream("/res/banner.png")));
+					SystemUtils.blt(ArchStudioPreferencePanel.class.getResourceAsStream("res/banner.png")));
 		}
 		catch (IOException ioe) {
 			throw new RuntimeException("This shouldn't happen.");

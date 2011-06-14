@@ -1,7 +1,5 @@
 package org.archstudio.bna.logics.editing;
 
-import java.util.concurrent.locks.Lock;
-
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
@@ -17,22 +15,18 @@ import org.eclipse.swt.events.KeyEvent;
 
 public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListener {
 
+	@Override
 	public void keyPressed(IBNAView view, KeyEvent e) {
-	}
-
-	public void keyReleased(IBNAView view, KeyEvent e) {
 		if (e.keyCode == SWT.ARROW_LEFT || e.keyCode == SWT.ARROW_UP || e.keyCode == SWT.ARROW_DOWN
 				|| e.keyCode == SWT.ARROW_RIGHT) {
-			IThing[] selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
-			Orientation o = orientationForKeyCode(e.keyCode);
-			int gridSpacing = GridUtils.getGridSpacing(view.getBNAWorld().getBNAModel());
-			int distance = gridSpacing == 0 ? 5 : gridSpacing;
-
 			IBNAModel model = getBNAModel();
-			if (model != null && selectedThings.length > 0) {
+			if (model != null) {
 				model.beginBulkChange();
 				try {
-					for (IThing t : selectedThings) {
+					Orientation o = orientationForKeyCode(e.keyCode);
+					int gridSpacing = GridUtils.getGridSpacing(view.getBNAWorld().getBNAModel());
+					int distance = gridSpacing == 0 ? 5 : gridSpacing;
+					for (IThing t : BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) {
 						if (t instanceof IRelativeMovable) {
 							nudge(o, distance, (IRelativeMovable) t);
 							//if(gridSpacing != 0){
@@ -46,6 +40,10 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 				}
 			}
 		}
+	}
+
+	@Override
+	public void keyReleased(IBNAView view, KeyEvent e) {
 	}
 
 	private Orientation orientationForKeyCode(int keyCode) {
@@ -82,15 +80,13 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 		return p2;
 	}
 
-	protected void nudge(Orientation o, int distance, IRelativeMovable t) {
-		Lock lock = t.getPropertyLock();
-		lock.lock();
-		try {
-			Point p = t.getReferencePoint();
-			t.setReferencePoint(nudge(o, distance, p));
-		}
-		finally {
-			lock.unlock();
-		}
+	protected void nudge(final Orientation o, final int distance, final IRelativeMovable t) {
+		t.synchronizedUpdate(new Runnable() {
+			@Override
+			public void run() {
+				Point p = t.getReferencePoint();
+				t.setReferencePoint(nudge(o, distance, p));
+			}
+		});
 	}
 }

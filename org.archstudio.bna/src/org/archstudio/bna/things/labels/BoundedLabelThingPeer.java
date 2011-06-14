@@ -16,7 +16,6 @@ import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.LabelUtils;
-import org.archstudio.bna.utils.WeakThingListener;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -42,12 +41,12 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 
 	public BoundedLabelThingPeer(T thing) {
 		super(thing);
-		thing.addThingListener(new WeakThingListener(thing, new IThingListener() {
+		thing.addThingListener(new IThingListener() {
 			@Override
 			public <ET extends IThing, EK extends IThingKey<EV>, EV> void thingChanged(ThingEvent<ET, EK, EV> thingEvent) {
 				needsTextLayout = true;
 			}
-		}));
+		});
 	}
 
 	@Override

@@ -23,8 +23,9 @@ public abstract class AbstractStickyLogic<F extends IIsSticky, T extends IThing,
 		super(fromThingClass, toThingClass);
 	}
 
-	protected void setPropagate(F fromStickyThing, @Nullable IThingKey<?> toKey, @Nullable D toData, T... toThings) {
+	protected void setPropagate(F fromStickyThing, IThingKey<?> toKey, @Nullable D toData, T... toThings) {
 		checkNotNull(fromStickyThing);
+		checkNotNull(toKey);
 
 		for (IThingKey<?> fromKey : fromStickyThing.getStickyModifyingKeys()) {
 			super.setPropagate(fromStickyThing, fromKey, toKey, toData, toThings);

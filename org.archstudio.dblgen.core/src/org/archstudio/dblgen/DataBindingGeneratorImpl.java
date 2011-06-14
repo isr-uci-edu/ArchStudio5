@@ -982,7 +982,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 				foldersWithFiles.add(folder);
 			}
 			else {
-				findFoldersWithFiles(((IFolder) r), foldersWithFiles);
+				findFoldersWithFiles((IFolder) r, foldersWithFiles);
 			}
 		}
 	}

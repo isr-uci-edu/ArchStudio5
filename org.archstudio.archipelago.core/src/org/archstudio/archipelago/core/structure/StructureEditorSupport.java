@@ -1,6 +1,7 @@
 package org.archstudio.archipelago.core.structure;
 
 import org.archstudio.archipelago.core.ArchipelagoConstants;
+import org.archstudio.archipelago.core.ArchipelagoMyxComponent;
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.structure.mapping.MapBrickLogic;
@@ -11,9 +12,14 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.bna.logics.ProxyToLogicsLogic;
+import org.archstudio.bna.logics.background.LifeSapperLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
+import org.archstudio.bna.logics.editing.EditTextLogic;
+import org.archstudio.bna.logics.editing.KeyNudgerLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
+import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.things.ShadowThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
@@ -22,7 +28,13 @@ import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAWorld;
+import org.archstudio.myx.fw.IMyxBrick;
+import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadlbna.logics.editing.RemoveElementLogic;
+import org.archstudio.xadlbna.logics.hints.XadlHintRepository;
+import org.archstudio.xarchadt.IXArchADTFileListener;
+import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
@@ -32,6 +44,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
 public class StructureEditorSupport {
+
 	//For tree node cache
 	public static final String BNA_WORLD_KEY = "bnaWorld";
 
@@ -100,15 +113,13 @@ public class StructureEditorSupport {
 			}
 			bnaModel = new DefaultBNAModel();
 
-			EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaModel);
-			ept.set(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME, archStructureID);
+			//EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaModel);
+			//ept.set(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME, archStructureID);
 
 			bnaWorld = new DefaultBNAWorld("structure", bnaModel);
 			AS.treeNodeDataCache.setData(documentRootRef, structureRef, BNA_WORLD_KEY, bnaWorld);
 
 			// ArchipelagoUtils.applyGridPreferences(AS, bnaModel);
-			bnaModel.addThing(new ShadowThing(null));
-			bnaModel.addThing(new GridThing(null));
 
 			setupWorld(AS, structureRef, bnaWorld);
 			//AS.eventBus.fireArchipelagoEvent(new StructureEvents.WorldCreatedEvent(structureRef, bnaWorld));
@@ -122,27 +133,35 @@ public class StructureEditorSupport {
 	static void setupWorld(ArchipelagoServices AS, ObjRef structureRef, IBNAWorld bnaWorld) {
 		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
 
+		logicManager.addThingLogic(new SynchronizeHintsLogic(new XadlHintRepository(AS.xarch)));
+
+		bnaWorld.getBNAModel().addThing(new ShadowThing(null));
+		bnaWorld.getBNAModel().addThing(new GridThing(null));
+
 		logicManager.addThingLogic(new ClickSelectionLogic());
 		logicManager.addThingLogic(new DragMovableLogic());
+		logicManager.addThingLogic(new EditTextLogic());
+		logicManager.addThingLogic(new KeyNudgerLogic());
+		logicManager.addThingLogic(new LifeSapperLogic());
 		logicManager.addThingLogic(new MarqueeSelectionLogic());
 		logicManager.addThingLogic(new MousePanAndZoomLogic());
+		//logicManager.addThingLogic(new RotatingOffsetLogic());
+		//logicManager.addThingLogic(new SnapToGridLogic());
+		//logicManager.addThingLogic(new ToolTipLogic());
 
+		logicManager.addThingLogic(new RemoveElementLogic(AS.xarch));
+		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "component", new Dimension(120, 80)));
 		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "component/interface"));
-		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "component", //
-				new Dimension(120, 80)));
+		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "connector", new Dimension(240, 36)));
 		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "connector/interface"));
-		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "connector", //
-				new Dimension(240, 36)));
 		logicManager.addThingLogic(new MapLinkLogic(AS.xarch, structureRef, "link"));
 
-		//logicManager.addThingLogic(new AssemblyLogic());, new Dimension(100,80)
-		//logicManager.addThingLogic(new MoveWithLogic(trtl, bbtl, aptl));
-		//DragMovableLogic dml = new DragMovableLogic();
-		//logicManager.addThingLogic(dml);
-		//logicManager.addThingLogic(new SnapToGridLogic(dml, stl));
-		//logicManager.addThingLogic(new KeyNudgerLogic());
-		//logicManager.addThingLogic(new RotatingOffsetLogic(ttstlOffset));
-		//logicManager.addThingLogic(new LifeSapperLogic(ttstlLife));
+		ProxyToLogicsLogic logicProxy = logicManager.addThingLogic(new ProxyToLogicsLogic());
+		final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
+		final IMyxBrick brick = myxRegistry.waitForBrick(ArchipelagoMyxComponent.class);
+		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTModelListener.class));
+		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTFileListener.class));
+
 		//logicManager.addThingLogic(new ClickSelectionLogic(ttstlSelected));
 		//logicManager.addThingLogic(new MarqueeSelectionLogic(ttstlSelected));
 		//logicManager.addThingLogic(new DragMovableSelectionLogic(dml, stl));
@@ -156,7 +175,6 @@ public class StructureEditorSupport {
 		//logicManager.addThingLogic(new BoundingBoxRailLogic(trtl, bbtl, aptl));
 		//logicManager.addThingLogic(new EndpointFlowOrientationLogic(aptl));
 		//logicManager.addThingLogic(new StandardCursorLogic());
-		//logicManager.addThingLogic(new ToolTipLogic());
 		//logicManager.addThingLogic(new RotaterLogic());
 		//
 		//ModelBoundsTrackingLogic mbtl = new ModelBoundsTrackingLogic(bbtl, aptl);

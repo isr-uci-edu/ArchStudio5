@@ -14,6 +14,6 @@ public class MappingGlassThing extends MappingEssenceThing implements IHasMutabl
 	}
 
 	public void setInternalEndpointStuckToThingID(String internalWorldThingID) {
-		put(INTERNAL_ENDPOINT_STUCK_TO_THING_ID_KEY, internalWorldThingID);
+		set(INTERNAL_ENDPOINT_STUCK_TO_THING_ID_KEY, internalWorldThingID);
 	}
 }
