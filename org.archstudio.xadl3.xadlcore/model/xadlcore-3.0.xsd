@@ -100,7 +100,6 @@
 				FooExtensions.
 			</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="id" type="xs:ID" use="required"/>
 	</xs:complexType>
 	
 </xs:schema>

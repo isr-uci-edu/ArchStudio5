@@ -212,7 +212,7 @@
 				(and possibly recursive) composition.
 				
 				A subStructure consists of a link to the inner
-				structure, alone with zero or more interface mappings.
+				structure, along with zero or more interface mappings.
 				Interface mappings map (or connect) interfaces on the
 				outer components and connectors with interfaces on
 				the inner components and connectors.

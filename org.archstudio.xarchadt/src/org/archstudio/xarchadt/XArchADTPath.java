@@ -94,7 +94,6 @@ public class XArchADTPath implements java.io.Serializable {
 
 	private static final XArchADTPath parse(String s) {
 		List<String> tagNames = new ArrayList<String>();
-		List<String> tagElementNames = new ArrayList<String>();
 		List<Integer> tagIndexes = new ArrayList<Integer>();
 		List<String> tagIDs = new ArrayList<String>();
 
@@ -167,8 +166,8 @@ public class XArchADTPath implements java.io.Serializable {
 			throw new IllegalArgumentException("Illegal XArchADTPath Specification; Unexpected end of path in " + s);
 		}
 
-		return new XArchADTPath(Collections.unmodifiableList(tagNames), Collections.unmodifiableList(tagElementNames),
-				Collections.unmodifiableList(tagIndexes), Collections.unmodifiableList(tagIDs));
+		return new XArchADTPath(Collections.unmodifiableList(tagNames), Collections.unmodifiableList(tagIndexes),
+				Collections.unmodifiableList(tagIDs));
 	}
 
 	public static final ObjRef resolve(IXArchADTQuery xarch, ObjRef documentRootRef, XArchADTPath p) {
@@ -267,7 +266,6 @@ public class XArchADTPath implements java.io.Serializable {
 	}
 
 	private final List<String> tagNames;
-	private final List<String> tagElementNames;
 	private final List<Integer> tagIndexes;
 	private final List<String> tagIDs;
 
@@ -276,20 +274,17 @@ public class XArchADTPath implements java.io.Serializable {
 	private volatile String dumpString = null;
 	private volatile List<String> readOnlyTagNames = null;
 
-	public XArchADTPath(List<String> tagNames, List<String> tagElementNames, List<Integer> tagIndexes,
-			List<String> tagIDs) {
-		checkArgument(tagNames.size() == tagElementNames.size());
-		checkArgument(tagElementNames.size() == tagIndexes.size());
+	public XArchADTPath(List<String> tagNames, List<Integer> tagIndexes, List<String> tagIDs) {
+		checkArgument(tagNames.size() == tagIndexes.size());
 		checkArgument(tagIndexes.size() == tagIDs.size());
 
 		this.tagNames = Lists.newArrayList(tagNames);
-		this.tagElementNames = Lists.newArrayList(tagElementNames);
 		this.tagIndexes = Lists.newArrayList(tagIndexes);
 		this.tagIDs = Lists.newArrayList(tagIDs);
 	}
 
 	XArchADTPath(XArchADTPath XArchADTPath) {
-		this(XArchADTPath.tagNames, XArchADTPath.tagElementNames, XArchADTPath.tagIndexes, XArchADTPath.tagIDs);
+		this(XArchADTPath.tagNames, XArchADTPath.tagIndexes, XArchADTPath.tagIDs);
 	}
 
 	/**
@@ -360,8 +355,8 @@ public class XArchADTPath implements java.io.Serializable {
 		if (fromIndex == 0 && toIndex == getLength()) {
 			return this;
 		}
-		return new XArchADTPath(tagNames.subList(fromIndex, toIndex), tagElementNames.subList(fromIndex, toIndex),
-				tagIndexes.subList(fromIndex, toIndex), tagIDs.subList(fromIndex, toIndex));
+		return new XArchADTPath(tagNames.subList(fromIndex, toIndex), tagIndexes.subList(fromIndex, toIndex),
+				tagIDs.subList(fromIndex, toIndex));
 	}
 
 	/**

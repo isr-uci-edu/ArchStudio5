@@ -9,8 +9,7 @@ Bundle-Localization: plugin
 Export-Package: org.archstudio.xadl3.structure_3_0,
  org.archstudio.xadl3.structure_3_0.impl,
  org.archstudio.xadl3.structure_3_0.util
-Require-Bundle: org.archstudio.xadl3.xadlcore;visibility:=reexport,
- org.archstudio.xadl3.xadlcore;visibility:=reexport,
- org.eclipse.emf.ecore,
- org.eclipse.emf.ecore.xmi
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ org.archstudio.xadl3.xadlcore;bundle-version="5.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
