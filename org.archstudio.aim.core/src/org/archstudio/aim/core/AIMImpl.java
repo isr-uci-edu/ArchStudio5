@@ -1,6 +1,6 @@
 package org.archstudio.aim.core;
 
- import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
@@ -131,12 +131,6 @@ public class AIMImpl implements IAIM {
 		// This routine orders the bricks in dependency order
 		List<? extends OrderedGroup> orderedGroups = AIMInstantiationOrderCalculator.calculateInstantiationOrder(xarch,
 				structureRef);
-		for (OrderedGroup group : orderedGroups) {
-			for (ObjRef brickRef : group.getBrickRefs()) {
-				System.err.println("should instantiate: " + xarch.get(brickRef, "name") + " ("
-						+ xarch.get(brickRef, "id") + ")");
-			}
-		}
 		monitor.worked(1);
 
 		// Iterate through array and instantiate.
