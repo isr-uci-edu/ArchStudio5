@@ -1208,7 +1208,7 @@ public class SystemUtils {
 		return map != null && map.containsKey(key) ? copyIterable(map.get(key)) : Collections.<T> emptyList();
 	}
 
-	public static void closeQuietly(InputStream is) {
+	public static <T extends InputStream> T closeQuietly(T is) {
 		try {
 			if (is != null) {
 				is.close();
@@ -1216,6 +1216,7 @@ public class SystemUtils {
 		}
 		catch (Throwable t) {
 		}
+		return null;
 	}
 
 	public static final int bound(int lower, int value, int upper) {
@@ -1238,7 +1239,7 @@ public class SystemUtils {
 		return value;
 	}
 
-	public static final double bound(float lower, float value, float upper) {
+	public static final float bound(float lower, float value, float upper) {
 		if (lower < upper) {
 			if (value < lower) {
 				return lower;
@@ -1282,14 +1283,8 @@ public class SystemUtils {
 		return value == bound(lower, value, upper);
 	}
 
-	@SuppressWarnings("unchecked")
-	public static final <T> T firstOrNull(Iterable<?> elements, Class<T> type) {
-		for (Object o : elements) {
-			if (type.isInstance(o)) {
-				return (T) o;
-			}
-		}
-		return null;
+	public static final <T> T firstOrNull(Iterable<?> elements, Class<T> andOfType) {
+		return castOrNull(firstOrNull(elements), andOfType);
 	}
 
 	public static final <T> T firstOrNull(Iterable<T> elements) {
