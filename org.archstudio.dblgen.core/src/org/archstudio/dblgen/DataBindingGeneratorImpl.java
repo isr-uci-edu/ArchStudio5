@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -68,6 +69,8 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.google.common.base.Function;
@@ -323,8 +326,49 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			return DataBindingGeneratorImpl.getNSURIForDocument(doc);
 		}
 		finally {
-			SystemUtils.closeQuietly(is);
+			is = SystemUtils.closeQuietly(is);
 		}
+	}
+
+	/**
+	 * Returns the namespace to location mappings contained within a schema URI (in the Eclipse universe).
+	 * 
+	 * @param schemaURIString
+	 *            an Eclipse URI pointing to an <tt>.xsd</tt> resource.
+	 * @param resourceSet
+	 *            Resource set to use for resolving URIs in <tt>schemaURIStrings</tt>
+	 * @return namespace URI to location mappings declared in the schema
+	 */
+	public Map<String, String> getImportsForSchema(String schemaURIString, ResourceSet resourceSet)
+			throws ParserConfigurationException, SAXException, IOException, CoreException {
+		InputStream is = null;
+		try {
+			URI uri = URI.createURI(schemaURIString);
+			is = resourceSet.getURIConverter().createInputStream(uri);
+			Document doc = DataBindingGeneratorImpl.parseDocument(is);
+			return DataBindingGeneratorImpl.getImportsForDocument(doc);
+		}
+		finally {
+			is = SystemUtils.closeQuietly(is);
+		}
+	}
+
+	private static Map<String, String> getImportsForDocument(Document doc) {
+		Map<String, String> imports = Maps.newHashMap();
+		Element docElt = doc.getDocumentElement();
+		NodeList children = docElt.getChildNodes();
+		for (int i = 0; i < children.getLength(); i++) {
+			Node n = children.item(i);
+			if (n.getNodeName().endsWith(":import") && n instanceof Element) {
+				Element child = (Element) n;
+				String namespace = child.getAttribute("namespace");
+				String schemaLocation = child.getAttribute("schemaLocation");
+				if (namespace != null && schemaLocation != null && schemaLocation.length() > 0) {
+					imports.put(namespace, schemaLocation);
+				}
+			}
+		}
+		return imports;
 	}
 
 	/**
@@ -421,6 +465,9 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			// Get all the xADL schema projects in the workspace.
 			List<IProject> xadlSchemaProjects = getXadlSchemaProjects();
 
+			// Store all the schema imports
+			Map<String, String> imports = Maps.newHashMap();
+
 			// Iterate through each project
 			for (IProject xadlSchemaProject : xadlSchemaProjects) {
 
@@ -431,6 +478,11 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 				// Schema URIs for each XSD file.  
 				Map<IFile, String> schemaToNSURIMap = getNSURIsForSchemaFiles(schemaFiles);
 				//System.err.println("Schema URIs: " + schemaToNSURIMap);
+
+				// Imports for each XSD file.
+				for (IFile file : schemaFiles) {
+					imports.putAll(getImportsForSchema(file.getLocationURI().toString(), resourceSet));
+				}
 
 				// List of .genmodel files in the project that we want to parse
 				List<IFile> genModelFiles = getGenModelFilesInProject(xadlSchemaProject);
@@ -468,7 +520,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					}
 
 					SchemaRecord newSchemaRecord = new SchemaRecord(recordNSURI, xadlSchemaProject, recordGenModelFile,
-							recordSchemaFile, recordGenModel, recordGenPackage);
+							recordSchemaFile, recordGenModel, recordGenPackage, imports);
 					schemaRecordList.add(newSchemaRecord);
 				}
 			}
@@ -507,8 +559,13 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		/** The parsed GenPackage object referring to the schema. */
 		private final GenPackage genPackage;
 
+		/**
+		 * The imports within the XSD file
+		 */
+		private final Map<String, String> imports;
+
 		public SchemaRecord(String nsuri, IProject project, IFile genModelFile, IFile schemaFile, GenModel genModel,
-				GenPackage genPackage) {
+				GenPackage genPackage, Map<String, String> imports) {
 			super();
 			this.nsuri = nsuri;
 			this.project = project;
@@ -516,6 +573,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			this.schemaFile = schemaFile;
 			this.genModel = genModel;
 			this.genPackage = genPackage;
+			this.imports = imports;
 		}
 
 		public String getNsuri() {
@@ -540,6 +598,10 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 
 		public GenPackage getGenPackage() {
 			return genPackage;
+		}
+
+		public Map<String, String> getImports() {
+			return imports;
 		}
 
 		@Override
@@ -639,6 +701,28 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		catch (CoreException ce) {
 			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE, "Core exception parsing schemas", ce));
 			return statusList;
+		}
+
+		// Map the schemaLocations to the local files to support offline use as well as locally modified schema
+		Multimap<String, SchemaRecord> nsuriToSchemaRecord = Multimaps.index(schemaRecords,
+				new Function<SchemaRecord, String>() {
+					@Override
+					public String apply(SchemaRecord input) {
+						return input.getNsuri();
+					}
+				});
+		for (SchemaRecord schemaRecord : schemaRecords) {
+			for (Entry<String, String> e : schemaRecord.getImports().entrySet()) {
+				URI schemaLocation = URI.createURI(e.getValue());
+				SchemaRecord sourceRecord = SystemUtils.firstOrNull(nsuriToSchemaRecord.get(e.getKey()));
+				if (sourceRecord != null && sourceRecord.getSchemaFile() != null) {
+					java.net.URI fileURI = sourceRecord.getSchemaFile().getLocationURI();
+					if (fileURI != null) {
+						// we have to use the global map as the importer doesn't expose a local one
+						URIConverter.URI_MAP.put(schemaLocation, URI.createURI(fileURI.toASCIIString()));
+					}
+				}
+			}
 		}
 
 		// primaryNSURIs is a list of NSURIs from schemas in the project
