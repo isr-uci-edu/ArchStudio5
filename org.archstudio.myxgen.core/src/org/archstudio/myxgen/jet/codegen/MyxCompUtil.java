@@ -3,7 +3,7 @@ package org.archstudio.myxgen.jet.codegen;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.archstudio.myxgen.extension.MyxGenBrick;
+import org.archstudio.myx.myxgen.extension.MyxGenBrick;
 
 public class MyxCompUtil {
 

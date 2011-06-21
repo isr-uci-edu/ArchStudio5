@@ -2,7 +2,6 @@ package org.archstudio.archedit.core;
 
 import java.io.IOException;
 
-import org.archstudio.eclipse.ui.EclipseUtils;
 import org.archstudio.launcher.ILaunchData;
 import org.archstudio.launcher.LaunchData;
 import org.archstudio.sysutils.SystemUtils;

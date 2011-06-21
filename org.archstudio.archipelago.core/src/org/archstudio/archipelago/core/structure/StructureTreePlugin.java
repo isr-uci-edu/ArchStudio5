@@ -1,15 +1,14 @@
 package org.archstudio.archipelago.core.structure;
 
+import org.archstudio.archipelago.core.AbstractArchipelagoTreePlugin;
+import org.archstudio.archipelago.core.ArchipelagoServices;
+import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
+import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.graphics.FontData;
-
-import org.archstudio.archipelago.core.AbstractArchipelagoTreePlugin;
-import org.archstudio.archipelago.core.ArchipelagoServices;
-import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
-import org.archstudio.xarchadt.ObjRef;
 
 public class StructureTreePlugin extends AbstractArchipelagoTreePlugin{
 

@@ -1,9 +1,7 @@
 package org.archstudio.bna.things.glass;
 
-import org.archstudio.bna.facets.IHasMutableInternalWorldMapping;
-import org.archstudio.bna.things.MappingEssenceThing;
 
-public class MappingGlassThing extends MappingEssenceThing implements IHasMutableInternalWorldMapping {
+public class MappingGlassThing extends AbstractMappingThing implements IHasMutableInternalWorldMapping {
 
 	public MappingGlassThing(Object id) {
 		super(id);

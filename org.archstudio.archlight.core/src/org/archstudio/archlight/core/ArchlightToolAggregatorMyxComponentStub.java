@@ -4,13 +4,20 @@ import java.lang.reflect.*;
 import java.util.*;
 import java.util.concurrent.*;
 import org.archstudio.myx.fw.*;
-import org.archstudio.myx.conn.IMultiwayProgressListener;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
+import org.archstudio.myx.java.conn.IMultiwayResults;
 import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.myx.conn.IMultiwayResults;
 import org.archstudio.archlight.IArchlightTool;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
+import org.archstudio.myx.java.conn.IMultiwayProgressListener;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Myx Impl"
@@ -47,7 +54,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 	/**
 	 * Myx name for the <code>results</code> interface.
 	 *
-	 * MyxGenInterface[name=results,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.myx.conn.IMultiwayResults,description=null]
+	 * MyxGenInterface[name=results,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.myx.java.conn.IMultiwayResults,description=null]
 	 * @generated
 	 */
 	public static final IMyxName OUT_RESULTS = MyxUtils.createName("results");
@@ -67,7 +74,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 	/**
 	 * Myx name for the <code>progress</code> interface.
 	 *
-	 * MyxGenInterface[name=progress,direction=in,single=true,serviceObjectDelegate=events,generateGetter=true,className=org.archstudio.myx.conn.IMultiwayProgressListener,description=null]
+	 * MyxGenInterface[name=progress,direction=in,single=true,serviceObjectDelegate=events,generateGetter=true,className=org.archstudio.myx.java.conn.IMultiwayProgressListener,description=null]
 	 * @generated
 	 */
 	public static final IMyxName IN_PROGRESS = MyxUtils.createName("progress");
@@ -78,7 +85,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 	 * @see #OUT_RESULTS
 	 * @generated
 	 */
-	protected org.archstudio.myx.conn.IMultiwayResults results = null;
+	protected org.archstudio.myx.java.conn.IMultiwayResults results = null;
 	/**
 	 * Service object(s) for the tools interface.
 	 *
@@ -92,7 +99,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 	 * @see #IN_PROGRESS
 	 * @generated
 	 */
-	protected org.archstudio.myx.conn.IMultiwayProgressListener progress = null;
+	protected org.archstudio.myx.java.conn.IMultiwayProgressListener progress = null;
 
 	/**
 	 * Service object proxy for the progress interface.
@@ -101,12 +108,13 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 	 * @see #IN_PROGRESS
 	 * @generated
 	 */
-	protected final org.archstudio.myx.conn.IMultiwayProgressListener progressProxy = (org.archstudio.myx.conn.IMultiwayProgressListener) Proxy
-			.newProxyInstance(org.archstudio.myx.conn.IMultiwayProgressListener.class.getClassLoader(),
-					new Class[] { org.archstudio.myx.conn.IMultiwayProgressListener.class }, new InvocationHandler() {
+	protected final org.archstudio.myx.java.conn.IMultiwayProgressListener progressProxy = (org.archstudio.myx.java.conn.IMultiwayProgressListener) Proxy
+			.newProxyInstance(org.archstudio.myx.java.conn.IMultiwayProgressListener.class.getClassLoader(),
+					new Class[] { org.archstudio.myx.java.conn.IMultiwayProgressListener.class },
+					new InvocationHandler() {
 						@Override
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-							org.archstudio.myx.conn.IMultiwayProgressListener o = progress;
+							org.archstudio.myx.java.conn.IMultiwayProgressListener o = progress;
 							if (o != null) {
 								try {
 									method.invoke(o, args);
@@ -125,7 +133,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 	 * @see #OUT_RESULTS
 	 * @generated
 	 */
-	public org.archstudio.myx.conn.IMultiwayResults getResults() {
+	public org.archstudio.myx.java.conn.IMultiwayResults getResults() {
 		return results;
 	}
 
@@ -155,7 +163,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 	 * @see #IN_PROGRESS
 	 * @generated
 	 */
-	public org.archstudio.myx.conn.IMultiwayProgressListener getProgress() {
+	public org.archstudio.myx.java.conn.IMultiwayProgressListener getProgress() {
 		return progress;
 	}
 
@@ -171,7 +179,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 			if (results != null) {
 				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
-			results = (org.archstudio.myx.conn.IMultiwayResults) serviceObject;
+			results = (org.archstudio.myx.java.conn.IMultiwayResults) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_TOOLS)) {

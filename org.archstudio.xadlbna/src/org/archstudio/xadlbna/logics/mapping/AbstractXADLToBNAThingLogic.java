@@ -108,10 +108,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 			updatingThings++;
 			try {
 				for (IThing t : model.getThings(tvtl.getThingIDs(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY, this))) {
-					for (IThing t2 : Assemblies.getParts(model, t)) {
-						model.removeThing(t2);
-					}
-					model.removeThing(t);
+					Assemblies.removeRootAndParts(model, t);
 				}
 			}
 			finally {

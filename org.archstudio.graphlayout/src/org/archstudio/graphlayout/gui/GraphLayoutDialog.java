@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.archstudio.graphlayout.GraphLayout;
+import org.archstudio.graphlayout.GraphLayoutException;
+import org.archstudio.graphlayout.GraphLayoutParameters;
+import org.archstudio.graphlayout.IGraphLayout;
+import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -20,12 +25,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-
-import org.archstudio.graphlayout.GraphLayout;
-import org.archstudio.graphlayout.GraphLayoutException;
-import org.archstudio.graphlayout.GraphLayoutParameters;
-import org.archstudio.graphlayout.IGraphLayout;
-import org.archstudio.xarchadt.ObjRef;
 
 public class GraphLayoutDialog extends Dialog {
 	public static void main(String[] args) {

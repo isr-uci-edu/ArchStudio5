@@ -4,6 +4,8 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.facets.IHasUserEditable;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.logics.events.DragMoveEvent;
+import org.archstudio.bna.logics.events.IDragMoveListener;
 import org.eclipse.swt.graphics.Point;
 
 public class DragMovableSelectionLogic extends AbstractThingLogic implements IDragMoveListener {

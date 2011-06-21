@@ -2,6 +2,7 @@ package org.archstudio.bna.facets;
 
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.things.borders.MarqueeBoxBorderThing;
+import org.archstudio.bna.things.glass.RectangleGlassThing;
 
 public interface IHasMutableRotatingOffset extends IHasRotatingOffset {
 

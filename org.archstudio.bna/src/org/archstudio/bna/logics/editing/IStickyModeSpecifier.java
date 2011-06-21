@@ -1,7 +1,7 @@
 package org.archstudio.bna.logics.editing;
 
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.logics.coordinating.StickRelativeMovablesLogic.StickyMode;
+import org.archstudio.bna.constants.StickyMode;
 
 public interface IStickyModeSpecifier {
 

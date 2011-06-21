@@ -287,8 +287,8 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@Override
-	public void put(ObjRef baseObjRef, String typeOfThing, Serializable key, Serializable value) {
-		getEMap(get(baseObjRef), typeOfThing).put(//
+	public Serializable put(ObjRef baseObjRef, String typeOfThing, Serializable key, Serializable value) {
+		return (Serializable) getEMap(get(baseObjRef), typeOfThing).put(//
 				key instanceof ObjRef ? get((ObjRef) key) : key, //
 				value instanceof ObjRef ? get((ObjRef) value) : value);
 	}

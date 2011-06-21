@@ -9,6 +9,7 @@ import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.WeakThingListener;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Display;
 
 public class ImageThingPeer<T extends ImageThing> extends AbstractThingPeer<T> {

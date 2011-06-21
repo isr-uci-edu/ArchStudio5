@@ -32,6 +32,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Region;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -105,7 +106,7 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 	protected final PeerCache<RenderData> peerCache = new PeerCache<RenderData>();
 
 	public BNACanvas(Composite parent, int style, IBNAWorld bnaWorld) {
-		super(parent, style | SWT.NO_REDRAW_RESIZE | SWT.H_SCROLL | SWT.V_SCROLL);
+		super(parent, style | SWT.NO_REDRAW_RESIZE);
 		this.mcm = new LinearCoordinateMapper();
 		this.bnaWorld = checkNotNull(bnaWorld);
 		this.bnaModel = checkNotNull(bnaWorld.getBNAModel());
@@ -233,6 +234,11 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 	}
 
 	@Override
+	public Control getControl() {
+		return this;
+	}
+
+	@Override
 	public IBNAWorld getBNAWorld() {
 		return bnaWorld;
 	}
@@ -341,39 +347,37 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 				//}
 
 				// render things
-				IRegion localClip = new BNARegion(localClipRegion, ICoordinateMapper.IDENTITY);
-				IRegion worldClip = new BNARegion(localClipRegion, renderMCM);
 				g.pushState();
-				List<Cache<IThing, RenderData>> caches = Lists.newArrayListWithExpectedSize(256);
+				List<Cache<IThing, RenderData>> cachesToRender = Lists.newArrayListWithExpectedSize(256);
 				for (IThing thing : bnaModel.getThings()) {
 					Cache<IThing, RenderData> cache = getPeerCache(thing);
 					RenderData cacheData = cache.renderData;
-					caches.add(cache);
 
 					if (cacheData.lastBoundsRelevantCount != lastBoundsRelevantCount) {
 						cacheData.lastLocalBounds.setSize(0, 0);
+						cache.peer.getLocalBounds(this, renderMCM, g, resources, cacheData.lastLocalBounds);
 						cacheData.lastBoundsRelevantCount = lastBoundsRelevantCount;
 						cacheData.needsCacheUpdate = true;
 					}
-					Rectangle drawArea = new Rectangle(cacheData.lastLocalBounds);
-					cache.peer.getLocalBounds(this, renderMCM, g, resources, cacheData.lastLocalBounds);
-					BNAUtils.union(cacheData.lastLocalBounds, drawArea);
 
 					if (!cacheData.lastLocalBounds.isEmpty()) {
 						if (cacheData.needsCacheUpdate) {
 							cacheData.needsCacheUpdate = false;
 							cache.peer.updateCache(this, renderMCM);
 						}
+
+						Rectangle r = cacheData.lastLocalBounds;
+						if (localClipRegion.intersects(r.x, r.y, r.width, r.height)) {
+							cachesToRender.add(cache);
+						}
 					}
 				}
-				for (Cache<IThing, RenderData> cache : caches) {
+				for (Cache<IThing, RenderData> cache : cachesToRender) {
 					RenderData cacheData = cache.renderData;
 
 					g.restoreState();
-					if (!cacheData.lastLocalBounds.isEmpty()) {
-						g.clipRect(cacheData.lastLocalBounds);
-						cache.peer.draw(this, renderMCM, g, resources, localClip, worldClip);
-					}
+					g.clipRect(cacheData.lastLocalBounds);
+					cache.peer.draw(this, renderMCM, g, resources);
 				}
 			}
 			catch (Throwable t) {

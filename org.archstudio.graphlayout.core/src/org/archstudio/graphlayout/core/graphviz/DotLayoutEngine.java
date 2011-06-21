@@ -5,13 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jface.preference.IPreferenceStore;
-
 import org.archstudio.graphlayout.GraphLayoutConstants;
 import org.archstudio.graphlayout.GraphLayoutException;
 import org.archstudio.sysutils.NativeProcess;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xarchadt.IXArchADT;
+import org.eclipse.jface.preference.IPreferenceStore;
 
 public class DotLayoutEngine extends AbstractGraphvizLayoutEngine {
 

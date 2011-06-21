@@ -12,7 +12,6 @@ import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
-import org.archstudio.bna.logics.coordinating.StickAnchorPointLogic;
 import org.archstudio.bna.logics.coordinating.StickPointsLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
@@ -73,6 +72,7 @@ public class MiscDemo {
 
 	private static void addUILogics(IBNAView view) {
 		IThingLogicManager tlm = view.getBNAWorld().getThingLogicManager();
+
 		//tlm.addThingLogic(RotatingOffsetLogic.class);
 		tlm.addThingLogic(MousePanAndZoomLogic.class);
 		tlm.addThingLogic(MarqueeSelectionLogic.class);
@@ -85,6 +85,9 @@ public class MiscDemo {
 
 		IBNAWorld world = view.getBNAWorld();
 		IBNAModel model = world.getBNAModel();
+
+		//model.addThing(new ShadowThing(null));
+		//model.addThing(new GridThing(null));
 
 		ICoordinateMapper cm = view.getCoordinateMapper();
 		Point offset = cm.getLocalBounds(new Rectangle()).getCenter();
@@ -195,8 +198,6 @@ public class MiscDemo {
 		Assemblies.LABEL_KEY.get(e, model).setOrientation(orientation);
 
 		UserEditableUtils.addEditableQualities(e, IRelativeMovable.USER_MAY_MOVE);
-
-		StickAnchorPointLogic sapl = tlm.addThingLogic(StickAnchorPointLogic.class);
 
 		return e;
 	}

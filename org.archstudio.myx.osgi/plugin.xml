@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.archstudio.myxgen.brick">
+      <brick
+            class="org.archstudio.myx.osgi.conn.OSGiEventPumpConnector"
+            id="org.archstudio.myx.osgi.conn.OSGiEventPumpConnector"
+            name="OSGi Event Pump Connector"
+            parentBrick="org.archstudio.myx.java.conn.EventPumpConnector">
+      </brick>
+      <brick
+            class="org.archstudio.myx.osgi.conn.OSGiSynchEventPumpConnector"
+            id="org.archstudio.myx.osgi.conn.OSGiSynchEventPumpConnector"
+            name="OSGi Synch Event Pump Connector">
+      </brick>
+   </extension>
+
+</plugin>

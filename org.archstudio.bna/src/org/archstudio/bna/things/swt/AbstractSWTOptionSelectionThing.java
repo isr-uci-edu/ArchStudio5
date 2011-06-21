@@ -1,12 +1,18 @@
 package org.archstudio.bna.things.swt;
 
-import org.archstudio.bna.*;
 import org.archstudio.bna.constants.CompletionStatus;
 import org.archstudio.bna.constants.IFontConstants;
-import org.archstudio.bna.facets.*;
+import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasMutableAnchorPoint;
+import org.archstudio.bna.facets.IHasMutableColor;
+import org.archstudio.bna.facets.IHasMutableCompletionStatus;
+import org.archstudio.bna.facets.IHasMutableEditing;
+import org.archstudio.bna.facets.IHasMutableFontData;
+import org.archstudio.bna.facets.IHasMutableHorizontalAlignment;
+import org.archstudio.bna.facets.IHasMutableText;
+import org.archstudio.bna.things.AbstractThing;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
-
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;

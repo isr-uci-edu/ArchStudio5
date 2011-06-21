@@ -2,28 +2,22 @@ package org.archstudio.bna.things.shapes;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IRegion;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasSecondaryColor;
+import org.archstudio.bna.facets.peers.IHasShadowPeer;
 import org.archstudio.bna.things.AbstractPolygonThingPeer;
-import org.archstudio.bna.things.IHasShadowThingPeer;
 import org.eclipse.draw2d.Graphics;
 
-public class PolygonThingPeer<T extends PolygonThing> extends AbstractPolygonThingPeer<T> implements
-		IHasShadowThingPeer<T> {
+public class PolygonThingPeer<T extends PolygonThing> extends AbstractPolygonThingPeer<T> implements IHasShadowPeer<T> {
 
 	public PolygonThingPeer(T thing) {
 		super(thing);
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, IRegion localClip, IRegion worldClip) {
-		if (!worldClip.intersects(t.getBoundingBox())) {
-			return;
-		}
-
+	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 		if (localXYPoints.length == 4) {
 			if (r.setForegroundColor(g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
 				g.drawLine(localXYPoints[0], localXYPoints[1], localXYPoints[2], localXYPoints[3]);

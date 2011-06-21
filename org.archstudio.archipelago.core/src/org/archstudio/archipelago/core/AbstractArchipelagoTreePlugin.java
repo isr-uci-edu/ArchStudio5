@@ -1,11 +1,10 @@
 package org.archstudio.archipelago.core;
 
-import org.eclipse.jface.viewers.ICellModifier;
-import org.eclipse.swt.dnd.DragSourceListener;
-
 import org.archstudio.filemanager.IFileManagerListener;
 import org.archstudio.xarchadt.IXArchADTFileListener;
 import org.archstudio.xarchadt.IXArchADTModelListener;
+import org.eclipse.jface.viewers.ICellModifier;
+import org.eclipse.swt.dnd.DragSourceListener;
 
 public class AbstractArchipelagoTreePlugin implements IArchipelagoTreePlugin{
 

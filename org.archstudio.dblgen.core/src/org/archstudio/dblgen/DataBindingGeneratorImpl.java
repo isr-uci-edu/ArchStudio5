@@ -19,6 +19,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.archstudio.dblgen.DataBindingGenerationStatus.Status;
 import org.archstudio.dblgen.builder.Xadl3SchemaLocation;
 import org.archstudio.dblgen.core.Activator;
+import org.archstudio.osgiutils.OSGiUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -66,7 +67,6 @@ import org.eclipse.pde.internal.core.bundle.WorkspaceBundlePluginModel;
 import org.eclipse.xsd.ecore.importer.XSDImporter;
 import org.eclipse.xsd.util.XSDResourceFactoryImpl;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -912,8 +912,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 				}
 				try {
 					BundleContext context = Activator.getSingleton().getContext();
-					ServiceReference ref = context.getServiceReference(IBundleProjectService.class.getName());
-					IBundleProjectService service = (IBundleProjectService) context.getService(ref);
+					IBundleProjectService service = OSGiUtils.getServiceReference(context, IBundleProjectService.class);
 					IBundleProjectDescription description = service.getDescription(project);
 
 					// Update plugin's dependencies to include org.eclipse.emf.ecore & org.eclipse.emf.ecore.xmi

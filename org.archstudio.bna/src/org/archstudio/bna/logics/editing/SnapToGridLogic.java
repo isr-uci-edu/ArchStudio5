@@ -1,7 +1,7 @@
 package org.archstudio.bna.logics.editing;
 
+import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAModel;
-import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.events.DragMoveEvent;
@@ -19,50 +19,32 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 	@Override
 	protected void init() {
 		super.init();
-		// dml: this logic listens to dml events, this ensures that its present
+		// this logic listens to events from the following
 		getBNAWorld().getThingLogicManager().addThingLogic(DragMoveEventsLogic.class);
-
 	}
 
-	int initialAdjustedOffsetX = 0;
-	int initialAdjustedOffsetY = 0;
+	Point referencePointToInitialMousePointDelta = new Point();
 
 	@Override
 	public void dragStarted(DragMoveEvent evt) {
-		initialAdjustedOffsetX = 0;
-		initialAdjustedOffsetY = 0;
-		IBNAModel model = getBNAModel();
-		if (model != null) {
-			int gridSpacing = GridUtils.getGridSpacing(model);
-			if (gridSpacing != 0) {
-				Point initialAdjustedPoint = evt.getAdjustedLocation().getWorldPoint(new Point());
-				Point snappedAdjustedPoint = GridUtils.snapToGrid(gridSpacing, initialAdjustedPoint);
-				initialAdjustedOffsetX = snappedAdjustedPoint.x - initialAdjustedPoint.x;
-				initialAdjustedOffsetY = snappedAdjustedPoint.y - initialAdjustedPoint.y;
-
-				// adjust the point so that it is on the grid
-				evt.setAdjustedWorldPoint(GridUtils.snapToGrid(gridSpacing,
-						evt.getAdjustedLocation().getWorldPoint(new Point())));
-
-				// we also include the delta of the snapped reference point
-				// the first time only in order to initially move it to the 
-				// snapped postiion
-				IThing initialThing = evt.getInitialThing();
-				if (initialThing instanceof IRelativeMovable) {
-					Point referencePoint = ((IRelativeMovable) initialThing).getReferencePoint();
-					Point snappedReferencePoint = GridUtils.snapToGrid(gridSpacing, referencePoint);
-					evt.setAdjustedWorldX(evt.getAdjustedWorldX() - (snappedReferencePoint.x - referencePoint.x));
-					evt.setAdjustedWorldY(evt.getAdjustedWorldY() - (snappedReferencePoint.y - referencePoint.y));
-				}
-			}
+		referencePointToInitialMousePointDelta.setLocation(0, 0);
+		if (evt.getInitialThing() instanceof IRelativeMovable) {
+			/*
+			 * Include the delta from the reference point to the initial mouse point in order for the relative movable
+			 * thing to be aligned with the grid.
+			 */
+			Point initialRelativeMovablePoint = ((IRelativeMovable) evt.getInitialThing()).getReferencePoint();
+			Point initialMousePoint = evt.getInitialLocation().getWorldPoint(new Point());
+			Point delta = initialMousePoint.getTranslated(initialRelativeMovablePoint.getNegated());
+			referencePointToInitialMousePointDelta.setLocation(delta);
 		}
+
+		dragMoved(evt);
 	}
 
 	@Override
 	public void dragMoved(DragMoveEvent evt) {
-		Point adjustedWorldPoint = evt.getAdjustedWorldPoint();
-		adjustedWorldPoint = new Point(adjustedWorldPoint.x + initialAdjustedOffsetX, adjustedWorldPoint.y
-				+ initialAdjustedOffsetY);
+		Point adjustedWorldPoint = evt.getAdjustedLocation().getWorldPoint(new Point());
 		if ((evt.getEvt().stateMask & SWT.MOD3) == 0) {
 			IBNAModel model = getBNAModel();
 			if (model != null) {
@@ -70,13 +52,17 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 				if (gridSpacing != 0) {
 					// adjust the point so that it is on the grid
 					adjustedWorldPoint = GridUtils.snapToGrid(gridSpacing, adjustedWorldPoint);
+					adjustedWorldPoint.translate(referencePointToInitialMousePointDelta);
 				}
 			}
 		}
-		evt.setAdjustedWorldPoint(adjustedWorldPoint);
+
+		evt.setAdjustedLocation(new DefaultCoordinate(evt.getView().getCoordinateMapper()
+				.worldToLocal(adjustedWorldPoint.getCopy()), adjustedWorldPoint));
 	}
 
 	@Override
 	public void dragFinished(DragMoveEvent evt) {
 	}
+
 }

@@ -11,7 +11,13 @@ import org.archstudio.myx.fw.IMyxLifecycleProcessor;
 import org.archstudio.xarchadt.IXArchADTFileListener;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
-import org.archstudio.issueadt.core.ArchlightIssueADT;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Archlight Issue Impl"

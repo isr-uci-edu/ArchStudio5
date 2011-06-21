@@ -2,7 +2,6 @@ package org.archstudio.bna.things.glass;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IRegion;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
@@ -17,12 +16,7 @@ public class RectangleGlassThingPeer<T extends RectangleGlassThing> extends Abst
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, final Graphics g, IResources r, IRegion localClip,
-			IRegion worldClip) {
-		if (!worldClip.intersects(t.getBoundingBox())) {
-			return;
-		}
-
+	public void draw(IBNAView view, ICoordinateMapper cm, final Graphics g, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			final Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 			BNAUtils.drawMarquee(g, r, t.getRotatingOffset(), false, new Runnable() {

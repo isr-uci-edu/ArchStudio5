@@ -1,10 +1,5 @@
 package org.archstudio.archipelago.core.structure;
 
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.viewers.TreeViewer;
-
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.FolderNode;
 import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
@@ -12,6 +7,10 @@ import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.viewers.TreeViewer;
 
 public class StructureNewStructureContextMenuFiller implements IArchipelagoTreeContextMenuFiller{
 	protected TreeViewer viewer = null;

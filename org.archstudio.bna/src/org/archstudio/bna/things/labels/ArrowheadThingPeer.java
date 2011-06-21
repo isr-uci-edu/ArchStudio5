@@ -25,10 +25,6 @@ public class ArrowheadThingPeer<T extends ArrowheadThing> extends AbstractThingP
 		Point lp1 = BNAUtils.worldToLocal(cm, t.getAnchorPoint());
 		Point lp2 = BNAUtils.worldToLocal(cm, t.getReferencePoint());
 
-		if (!clip.contains(lp1) && clip.contains(lp2)) {
-			return;
-		}
-
 		ArrowheadShape arrowheadShape = t.getArrowheadShape();
 		if (arrowheadShape == null || arrowheadShape == ArrowheadShape.NONE) {
 			return;

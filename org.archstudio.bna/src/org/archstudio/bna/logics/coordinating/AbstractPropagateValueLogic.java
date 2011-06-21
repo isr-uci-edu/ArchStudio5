@@ -208,8 +208,8 @@ public abstract class AbstractPropagateValueLogic<F extends IThing, T extends IT
 				}
 			});
 
-	private final Class<F> fromThingClass;
-	private final Class<T> toThingClass;
+	protected final Class<F> fromThingClass;
+	protected final Class<T> toThingClass;
 
 	protected AbstractPropagateValueLogic(Class<F> fromThingClass, Class<T> toThingClass) {
 		this.fromThingClass = fromThingClass;

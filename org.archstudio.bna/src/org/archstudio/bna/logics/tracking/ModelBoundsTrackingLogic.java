@@ -2,7 +2,6 @@ package org.archstudio.bna.logics.tracking;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
-import org.archstudio.bna.IBNASynchronousLockModelListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;

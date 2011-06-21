@@ -4,7 +4,6 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.logics.tracking.ReferenceTrackingLogic;
-import org.archstudio.bna.logics.tracking.ReferenceTrackingLogic.ReferenceThingKey;
 import org.archstudio.sysutils.SystemUtils;
 
 public abstract class AbstractMaintainReferencedThingsLogic<S extends IThing, T extends IThing> extends

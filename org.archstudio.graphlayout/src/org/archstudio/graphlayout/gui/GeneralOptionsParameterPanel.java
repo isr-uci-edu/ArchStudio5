@@ -1,13 +1,12 @@
 package org.archstudio.graphlayout.gui;
 
+import org.archstudio.graphlayout.GraphLayoutParameters;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-
-import org.archstudio.graphlayout.GraphLayoutParameters;
 
 public class GeneralOptionsParameterPanel implements IGraphLayoutParameterPanel {
 

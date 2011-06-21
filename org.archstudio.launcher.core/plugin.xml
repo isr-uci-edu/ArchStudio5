@@ -20,7 +20,7 @@
             id="org.archstudio.launcher.core.LauncherMyxComponent"
             name="Launcher Impl">
          <interface
-               class="org.archstudio.myx.conn.IMultiwayResults"
+               class="org.archstudio.myx.java.conn.IMultiwayResults"
                delegate="variable"
                direction="out"
                domain="top"

@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.OverlayImageIcon;
-import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.jface.resource.ColorRegistry;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -95,8 +94,7 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 	protected ImageRegistry imageRegistry = null;
 	protected ColorRegistry colorRegistry = null;
 
-	public void setDisplay(Display display) {
-		checkDevice();
+	protected void setDisplay(Display display) {
 		synchronized (lock) {
 			if (this.display != null) {
 				this.display = null;
@@ -130,18 +128,16 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 	}
 
 	public ResourcesMyxComponent() {
-		final Display d = Display.getDefault();
-		SWTWidgetUtils.async(d, new Runnable() {
-			@Override
-			public void run() {
-				setDisplay(d);
-			}
-		});
 	}
 
 	protected void checkDevice() {
 		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
+		synchronized (lock) {
+			if (this.display == null) {
+				setDisplay(Display.getDefault());
+			}
 		}
 	}
 
@@ -263,6 +259,11 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void createImage(String symbolicName, ImageDescriptor imageDescriptor) {
+		createImage(symbolicName, imageDescriptor.createImage());
 	}
 
 	@Override

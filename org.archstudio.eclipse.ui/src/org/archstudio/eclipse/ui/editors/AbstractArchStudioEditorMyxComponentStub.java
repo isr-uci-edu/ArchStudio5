@@ -17,6 +17,13 @@ import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.editormanager.IEditorManager;
 import org.archstudio.xarchadt.IXArchADTFileListener;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Abstract ArchStudio Editor Component Impl"

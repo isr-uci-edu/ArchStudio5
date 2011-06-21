@@ -4,97 +4,115 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.domain_3_0.DomainType;
 import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
+import org.archstudio.xadl3.implementation_3_0.Implementation;
+import org.archstudio.xadl3.implementation_3_0.ImplementationExtension;
+import org.archstudio.xadl3.implementation_3_0.Implementation_3_0Factory;
 import org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package;
+import org.archstudio.xadl3.implementation_3_0.InitializationParametersImplementation;
+import org.archstudio.xadl3.javaimplementation_3_0.JavaClass;
+import org.archstudio.xadl3.javaimplementation_3_0.JavaImplementation;
+import org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Factory;
 import org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package;
+import org.archstudio.xadl3.lookupimplementation_3_0.LookupImplementation;
+import org.archstudio.xadl3.lookupimplementation_3_0.Lookupimplementation_3_0Factory;
 import org.archstudio.xadl3.lookupimplementation_3_0.Lookupimplementation_3_0Package;
+import org.archstudio.xadl3.myxgen_3_0.MyxGen;
+import org.archstudio.xadl3.myxgen_3_0.Myxgen_3_0Factory;
 import org.archstudio.xadl3.myxgen_3_0.Myxgen_3_0Package;
+import org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation;
+import org.archstudio.xadl3.osgiimplementation_3_0.Osgiimplementation_3_0Factory;
+import org.archstudio.xadl3.osgiimplementation_3_0.Osgiimplementation_3_0Package;
+import org.archstudio.xadl3.structure_3_0.Brick;
 import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.core.XArchADTImpl;
+import org.archstudio.xarchadt.core.XArchADTProxy;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 
-public class Main {
-	private static IXArchADT xarch = new XArchADTImpl();
+import com.google.common.collect.Maps;
 
-	static {
+public class Main {
+
+	public static void main(String[] args) {
+		new Main().execute();
+	}
+
+	{
 		// Note: referencing an EPackage initializes it and its corresponding EFactory 
 		@SuppressWarnings("unused")
 		EPackage p;
 		p = Xadlcore_3_0Package.eINSTANCE;
 		p = Structure_3_0Package.eINSTANCE;
 		p = Domain_3_0Package.eINSTANCE;
-		p = Implementation_3_0Package.eINSTANCE;
-		p = Javaimplementation_3_0Package.eINSTANCE;
-		p = Lookupimplementation_3_0Package.eINSTANCE;
-		p = Myxgen_3_0Package.eINSTANCE;
 	}
 
-	private static ObjRef createJavaImplementation(Class<?> mainClass, Properties initParams) {
-		ObjRef javaImplementationRef = XadlUtils.create(xarch,
-				Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION);
+	private final IXArchADT xarch = new XArchADTImpl();
 
-		ObjRef javaClassRef = XadlUtils.create(xarch, Javaimplementation_3_0Package.Literals.JAVA_CLASS);
-		xarch.set(javaClassRef, "id", toID(mainClass.getName()));
-		xarch.set(javaClassRef, "className", mainClass.getName());
+	protected final Implementation_3_0Factory implFactory = XArchADTProxy.proxy(xarch,
+			Implementation_3_0Package.eINSTANCE.getNsURI());
+	protected final Javaimplementation_3_0Factory javaFactory = XArchADTProxy.proxy(xarch,
+			Javaimplementation_3_0Package.eINSTANCE.getNsURI());
+	protected final Lookupimplementation_3_0Factory lookupFactory = XArchADTProxy.proxy(xarch,
+			Lookupimplementation_3_0Package.eINSTANCE.getNsURI());
+	protected final Myxgen_3_0Factory myxgenFactory = XArchADTProxy
+			.proxy(xarch, Myxgen_3_0Package.eINSTANCE.getNsURI());
+	protected final Osgiimplementation_3_0Factory osgiFactory = XArchADTProxy.proxy(xarch,
+			Osgiimplementation_3_0Package.eINSTANCE.getNsURI());
 
-		if (initParams != null) {
-			for (Object key : initParams.keySet()) {
-				if (key instanceof String) {
-					String name = (String) key;
-					String value = initParams.getProperty(name);
-
-					ObjRef initParamRef = XadlUtils.create(xarch,
-							Javaimplementation_3_0Package.Literals.INITIALIZATION_PARAMETER);
-					xarch.set(initParamRef, "id", toID(name));
-					xarch.set(initParamRef, "name", name);
-					xarch.set(initParamRef, "value", value);
-
-					xarch.add(javaClassRef, "initializationParameter", initParamRef);
-				}
-			}
-		}
-
-		xarch.set(javaImplementationRef, "mainClass", javaClassRef);
-
-		return javaImplementationRef;
+	private Implementation createMyxGenImplementation(Class<?> mainClass) {
+		MyxGen impl = myxgenFactory.createMyxGen();
+		impl.setBrickID(mainClass.getName());
+		return impl;
 	}
 
-	private static ObjRef createMyxGenImplementation(Class<?> mainClass) {
-		ObjRef myxGenImplementationRef = XadlUtils.create(xarch, Myxgen_3_0Package.Literals.MYX_GEN);
-
-		xarch.set(myxGenImplementationRef, "brickID", mainClass.getName());
-
-		return myxGenImplementationRef;
+	private JavaClass createJavaClass(String className) {
+		JavaClass javaClass = javaFactory.createJavaClass();
+		javaClass.setClassName(className);
+		return javaClass;
 	}
 
-	private static ObjRef createLookupImplementation(String lookupName) {
-		ObjRef lookupImplementationRef = XadlUtils.create(xarch,
-				Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION);
-
-		xarch.set(lookupImplementationRef, "lookup", lookupName);
-
-		return lookupImplementationRef;
+	private Implementation createJavaImplementation(Class<?> mainClass, Class<?>... auxClasses) {
+		JavaImplementation impl = javaFactory.createJavaImplementation();
+		impl.setMainClass(createJavaClass(mainClass.getName()));
+		return impl;
 	}
 
-	private static ObjRef createImplementationExt(ObjRef... implementationRefs) {
-		ObjRef implementationExtRef = XadlUtils.create(xarch,
-				Implementation_3_0Package.Literals.IMPLEMENTATION_EXTENSION);
-		for (ObjRef implementationRef : implementationRefs) {
-			xarch.add(implementationExtRef, "implementation", implementationRef);
-		}
-		return implementationExtRef;
+	private Implementation createLookupImplementation(String lookupName) {
+		LookupImplementation impl = lookupFactory.createLookupImplementation();
+		impl.setLookup(lookupName);
+		return impl;
 	}
 
-	private static ObjRef createInterface(String name, Direction direction, DomainType domain, Class<?> javaClass) {
+	private Implementation createOSGiImplementation(String bundle) {
+		OSGiImplementation impl = osgiFactory.createOSGiImplementation();
+		impl.setBundle(bundle);
+		return impl;
+	}
+
+	private Implementation createInitializationParams(Map<String, String> parameters) {
+		InitializationParametersImplementation impl = implFactory.createInitializationParametersImplementation();
+		impl.getInitializationParameter().putAll(parameters);
+		return impl;
+	}
+
+	private ObjRef addImplementations(ObjRef baseRef, Implementation... implementations) {
+		ImplementationExtension ext = XArchADTProxy.proxy(xarch,
+				XadlUtils.createExt(xarch, baseRef, Implementation_3_0Package.Literals.IMPLEMENTATION_EXTENSION));
+		ext.getImplementation().addAll(Arrays.asList(implementations));
+		return baseRef;
+	}
+
+	private ObjRef createInterface(String name, Direction direction, DomainType domain, Class<?> javaClass) {
 		ObjRef ifaceRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.INTERFACE);
 		xarch.set(ifaceRef, "id", toID(name));
 		xarch.set(ifaceRef, "name", name);
@@ -106,13 +124,12 @@ public class Main {
 		xarch.set(domainExtRef, "domain", domainRef);
 		xarch.add(ifaceRef, "ext", domainExtRef);
 
-		xarch.add(ifaceRef, "ext",
-				createImplementationExt(createJavaImplementation(javaClass, null), createLookupImplementation(name)));
+		addImplementations(ifaceRef, createJavaImplementation(javaClass), createLookupImplementation(name));
+
 		return ifaceRef;
 	}
 
-	private static ObjRef createBrick(String typeOfBrick, String name, Class<?> javaClass, Properties initParams,
-			ObjRef... ifaceRefs) {
+	private ObjRef createBrick(String typeOfBrick, String name, Class<?> javaClass, ObjRef... ifaceRefs) {
 		ObjRef brickRef = xarch.create(Structure_3_0Package.eNS_URI, typeOfBrick);
 		xarch.set(brickRef, "id", toID(name));
 		xarch.set(brickRef, "name", name);
@@ -120,16 +137,17 @@ public class Main {
 			xarch.set(ifaceRef, "id", toID(name) + "_" + xarch.get(ifaceRef, "id"));
 		}
 		xarch.add(brickRef, "interface", Arrays.asList(ifaceRefs));
-		xarch.add(brickRef, "ext", createImplementationExt(createMyxGenImplementation(javaClass)));
+
+		addImplementations(brickRef, createMyxGenImplementation(javaClass));
+
 		return brickRef;
 	}
 
-	private static ObjRef createComponent(String name, Class<?> javaClass, Properties initParams, ObjRef... ifaceRefs) {
-		return createBrick("component", name, javaClass, initParams, ifaceRefs);
+	private ObjRef createComponent(String name, Class<?> javaClass, ObjRef... ifaceRefs) {
+		return createBrick("component", name, javaClass, ifaceRefs);
 	}
 
-	private static ObjRef createEditorComponent(String name, Class<?> javaClass, Properties initParams,
-			ObjRef... additionalIfaceRefs) {
+	private ObjRef createEditorComponent(String name, Class<?> javaClass, ObjRef... additionalIfaceRefs) {
 		List<ObjRef> ifaceRefs = new ArrayList<ObjRef>();
 		ifaceRefs.addAll(Arrays.asList(additionalIfaceRefs));
 
@@ -151,10 +169,10 @@ public class Main {
 		ifaceRefs.add(createInterface("launcher", Direction.IN, DomainType.BOTTOM,
 				org.archstudio.launcher.ILaunchable.class));
 
-		return createBrick("component", name, javaClass, initParams, ifaceRefs.toArray(new ObjRef[0]));
+		return createBrick("component", name, javaClass, ifaceRefs.toArray(new ObjRef[0]));
 	}
 
-	private static List<ObjRef> createEditorLinks(ObjRef structureRef, String editorComponentName) {
+	private List<ObjRef> createEditorLinks(ObjRef structureRef, String editorComponentName) {
 		List<ObjRef> linkList = new ArrayList<ObjRef>();
 
 		linkList.add(createLink(getInterfaceRef(structureRef, "xArchADT", "xarch"),
@@ -187,11 +205,7 @@ public class Main {
 		return linkList;
 	}
 
-	private static ObjRef createConnector(String name, Class<?> javaClass, Properties initParams, ObjRef... ifaceRefs) {
-		return createBrick("connector", name, javaClass, initParams, ifaceRefs);
-	}
-
-	private static ObjRef createLink(ObjRef iface1Ref, ObjRef iface2Ref) {
+	private ObjRef createLink(ObjRef iface1Ref, ObjRef iface2Ref) {
 		ObjRef linkRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.LINK);
 
 		ObjRef brickRef1 = xarch.getParent(iface1Ref);
@@ -208,7 +222,7 @@ public class Main {
 		return linkRef;
 	}
 
-	private static ObjRef getInterfaceRef(ObjRef structureRef, String targetBrickName, String targetInterfaceName) {
+	private ObjRef getInterfaceRef(ObjRef structureRef, String targetBrickName, String targetInterfaceName) {
 		List<ObjRef> brickRefs = new ArrayList<ObjRef>();
 		brickRefs.addAll(xarch.getAll(structureRef, "component"));
 		brickRefs.addAll(xarch.getAll(structureRef, "connector"));
@@ -227,20 +241,27 @@ public class Main {
 				+ targetBrickName);
 	}
 
-	public static Properties createSingletonProperties(String name, String value) {
+	public Properties createSingletonProperties(String name, String value) {
 		Properties p = new Properties();
 		p.setProperty(name, value);
 		return p;
 	}
 
-	private static ObjRef createDownwardEventPumpConnector(String name, Class<?> interfaceClass) {
-		return createConnector(name, org.archstudio.myx.conn.EventPumpConnector.class,
-				createSingletonProperties("interfaceClass0", interfaceClass.getName()),
-				createInterface("in", Direction.IN, DomainType.TOP, interfaceClass),
-				createInterface("out", Direction.OUT, DomainType.BOTTOM, interfaceClass));
+	private ObjRef createConnector(String name, String bundleName, Class<?> javaClass, Map<String, String> initParams,
+			ObjRef... ifaceRefs) {
+		ObjRef brickRef = createBrick("connector", name, javaClass, ifaceRefs);
+		Brick brick = XArchADTProxy.proxy(xarch, brickRef);
+		return addImplementations(brickRef, createOSGiImplementation(bundleName),
+				createInitializationParams(initParams));
 	}
 
-	public static void main(String[] args) {
+	private ObjRef createDownwardEventPumpConnector(String name, String osgiBundle, Map<String, String> initParams) {
+		return createConnector(name, osgiBundle, org.archstudio.myx.osgi.conn.OSGiEventPumpConnector.class, initParams,
+				createInterface("in", Direction.IN, DomainType.TOP, Object.class),
+				createInterface("out", Direction.OUT, DomainType.BOTTOM, Object.class));
+	}
+
+	public void execute() {
 		URI docURI = URI.createURI("urn:archstudio5description");
 		ObjRef rootElementRef = xarch.createDocument(docURI);
 
@@ -260,7 +281,6 @@ public class Main {
 				createComponent(
 						"xArchADT",
 						org.archstudio.xarchadt.core.XArchADTMyxComponent.class,
-						null,
 						createInterface("xarch", Direction.IN, DomainType.BOTTOM,
 								org.archstudio.xarchadt.IXArchADT.class),
 						createInterface("fileEvents", Direction.OUT, DomainType.BOTTOM,
@@ -274,7 +294,6 @@ public class Main {
 				createComponent(
 						"Resources",
 						org.archstudio.resources.core.ResourcesMyxComponent.class,
-						null,
 						createInterface("resources", Direction.IN, DomainType.BOTTOM,
 								org.archstudio.resources.IResources.class)));
 
@@ -284,7 +303,6 @@ public class Main {
 				createComponent(
 						"PreferencesADT",
 						org.archstudio.preferencesadt.core.PreferencesADTMyxComponent.class,
-						null,
 						createInterface("preferences", Direction.IN, DomainType.BOTTOM,
 								org.eclipse.jface.preference.IPreferenceStore.class)));
 
@@ -294,7 +312,6 @@ public class Main {
 				createComponent(
 						"RootPreferences",
 						org.archstudio.rootpreferences.core.RootPreferencesMyxComponent.class,
-						null,
 						createInterface("preferences", Direction.OUT, DomainType.TOP,
 								org.eclipse.jface.preference.IPreferenceStore.class),
 						createInterface("resources", Direction.OUT, DomainType.TOP,
@@ -305,8 +322,7 @@ public class Main {
 				"component",
 				createComponent(
 						"MyxRuntime",
-						org.archstudio.myx.comp.MyxRuntimeComponent.class,
-						null,
+						org.archstudio.myx.java.comp.MyxRuntimeComponent.class,
 						createInterface("myxRuntime", Direction.IN, DomainType.BOTTOM,
 								org.archstudio.myx.fw.IMyxRuntime.class)));
 
@@ -316,7 +332,6 @@ public class Main {
 				createComponent(
 						"AIM",
 						org.archstudio.aim.core.AIMMyxComponent.class,
-						null,
 						createInterface("aim", Direction.IN, DomainType.BOTTOM, org.archstudio.aim.IAIM.class),
 						createInterface("xarch", Direction.OUT, DomainType.TOP, org.archstudio.xarchadt.IXArchADT.class),
 						createInterface("myxRuntime", Direction.OUT, DomainType.TOP,
@@ -328,7 +343,6 @@ public class Main {
 				createComponent(
 						"EditorManager",
 						org.archstudio.editormanager.core.EditorManagerMyxComponent.class,
-						null,
 						createInterface("editorManager", Direction.IN, DomainType.BOTTOM,
 								org.archstudio.editormanager.IEditorManager.class),
 						createInterface("preferences", Direction.OUT, DomainType.TOP,
@@ -342,7 +356,6 @@ public class Main {
 				createComponent(
 						"EditorPrefs",
 						org.archstudio.editormanager.core.EditorPrefsMyxComponent.class,
-						null,
 						createInterface("editorManager", Direction.OUT, DomainType.TOP,
 								org.archstudio.editormanager.IEditorManager.class),
 						createInterface("preferences", Direction.OUT, DomainType.TOP,
@@ -352,10 +365,10 @@ public class Main {
 				structureRef,
 				"component",
 				createEditorComponent("AIMLauncher", org.archstudio.aimlauncher.core.AIMLauncherMyxComponent.class,
-						null, createInterface("aim", Direction.OUT, DomainType.TOP, org.archstudio.aim.IAIM.class)));
+						createInterface("aim", Direction.OUT, DomainType.TOP, org.archstudio.aim.IAIM.class)));
 
 		xarch.add(structureRef, "component",
-				createEditorComponent("ArchEdit", org.archstudio.archedit.core.ArchEditMyxComponent.class, null));
+				createEditorComponent("ArchEdit", org.archstudio.archedit.core.ArchEditMyxComponent.class));
 
 		xarch.add(
 				structureRef,
@@ -363,13 +376,12 @@ public class Main {
 				createComponent(
 						"Launcher",
 						org.archstudio.launcher.core.LauncherMyxComponent.class,
-						null,
 						createInterface("resources", Direction.OUT, DomainType.TOP,
 								org.archstudio.resources.IResources.class),
 						createInterface("launcher", Direction.OUT, DomainType.TOP,
 								org.archstudio.launcher.ILaunchable.class),
 						createInterface("results", Direction.OUT, DomainType.TOP,
-								org.archstudio.myx.conn.IMultiwayResults.class)));
+								org.archstudio.myx.java.conn.IMultiwayResults.class)));
 
 		xarch.add(
 				structureRef,
@@ -377,7 +389,6 @@ public class Main {
 				createComponent(
 						"FileManager",
 						org.archstudio.filemanager.core.FileManagerMyxComponent.class,
-						null,
 						createInterface("xarch", Direction.OUT, DomainType.TOP, org.archstudio.xarchadt.IXArchADT.class),
 						createInterface("fileEvents", Direction.IN, DomainType.TOP,
 								org.archstudio.xarchadt.IXArchADTFileListener.class),
@@ -394,7 +405,6 @@ public class Main {
 				createComponent(
 						"GraphLayout",
 						org.archstudio.graphlayout.core.GraphLayoutMyxComponent.class,
-						null,
 						createInterface("xarch", Direction.OUT, DomainType.TOP, org.archstudio.xarchadt.IXArchADT.class),
 						createInterface("preferences", Direction.OUT, DomainType.TOP,
 								org.eclipse.jface.preference.IPreferenceStore.class),
@@ -407,7 +417,6 @@ public class Main {
 				createComponent(
 						"GraphLayoutPrefs",
 						org.archstudio.graphlayout.core.GraphLayoutPrefsMyxComponent.class,
-						null,
 						createInterface("preferences", Direction.OUT, DomainType.TOP,
 								org.eclipse.jface.preference.IPreferenceStore.class)));
 
@@ -417,7 +426,6 @@ public class Main {
 				createEditorComponent(
 						"Archipelago",
 						org.archstudio.archipelago.core.ArchipelagoMyxComponent.class,
-						null,
 						createInterface("preferences", Direction.OUT, DomainType.TOP,
 								org.eclipse.jface.preference.IPreferenceStore.class),
 						createInterface("graphLayout", Direction.OUT, DomainType.TOP,
@@ -429,7 +437,6 @@ public class Main {
 				createComponent(
 						"ArchipelagoPrefs",
 						org.archstudio.archipelago.core.prefs.ArchipelagoPrefsMyxComponent.class,
-						null,
 						createInterface("preferences", Direction.OUT, DomainType.TOP,
 								org.eclipse.jface.preference.IPreferenceStore.class)));
 
@@ -439,49 +446,48 @@ public class Main {
 				createComponent(
 						"ArchipelagoStructurePrefs",
 						org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePrefsMyxComponent.class,
-						null,
 						createInterface("preferences", Direction.OUT, DomainType.TOP,
 								org.eclipse.jface.preference.IPreferenceStore.class)));
 
 		xarch.add(
 				structureRef,
 				"connector",
-				createDownwardEventPumpConnector("XArchADTModelEventPump",
-						org.archstudio.xarchadt.IXArchADTModelListener.class));
+				createDownwardEventPumpConnector("XArchADTModelEventPump", "org.archstudio.xarchadt.core",
+						interfaceClass(org.archstudio.xarchadt.IXArchADTModelListener.class)));
 
 		xarch.add(
 				structureRef,
 				"connector",
-				createDownwardEventPumpConnector("XArchADTFileEventPump",
-						org.archstudio.xarchadt.IXArchADTFileListener.class));
+				createDownwardEventPumpConnector("XArchADTFileEventPump", "org.archstudio.xarchadt.core",
+						interfaceClass(org.archstudio.xarchadt.IXArchADTFileListener.class)));
 
 		xarch.add(
 				structureRef,
 				"connector",
-				createDownwardEventPumpConnector("FileManagerEventPump",
-						org.archstudio.filemanager.IFileManagerListener.class));
+				createDownwardEventPumpConnector("FileManagerEventPump", "org.archstudio.filemanager.core",
+						interfaceClass(org.archstudio.filemanager.IFileManagerListener.class)));
 
 		xarch.add(
 				structureRef,
 				"connector",
-				createDownwardEventPumpConnector("FocusEditorEventPump",
-						org.archstudio.eclipse.ui.IFocusEditorListener.class));
+				createDownwardEventPumpConnector("FocusEditorEventPump", "org.archstudio.editormanager.core",
+						interfaceClass(org.archstudio.eclipse.ui.IFocusEditorListener.class)));
 
 		xarch.add(
 				structureRef,
 				"connector",
 				createConnector(
 						"LauncherMultiway",
-						org.archstudio.myx.conn.SynchronousMultiwayProxyConnector.class,
-						createSingletonProperties("interfaceClass0",
-								org.archstudio.launcher.ILaunchable.class.getName()),
+						"org.archstudio.launcher.core",
+						org.archstudio.myx.java.conn.SynchronousMultiwayProxyConnector.class,
+						interfaceClass(org.archstudio.launcher.ILaunchable.class),
 						createInterface("in", Direction.IN, DomainType.BOTTOM,
 								org.archstudio.launcher.ILaunchable.class),
 						createInterface("out", Direction.OUT, DomainType.TOP, org.archstudio.launcher.ILaunchable.class),
 						createInterface("results", Direction.IN, DomainType.BOTTOM,
-								org.archstudio.myx.conn.IMultiwayResults.class),
+								org.archstudio.myx.java.conn.IMultiwayResults.class),
 						createInterface("progress", Direction.OUT, DomainType.BOTTOM,
-								org.archstudio.myx.conn.IMultiwayProgressListener.class)));
+								org.archstudio.myx.java.conn.IMultiwayProgressListener.class)));
 
 		//Archlight
 		xarch.add(
@@ -490,7 +496,6 @@ public class Main {
 				createComponent(
 						"IssueADT",
 						org.archstudio.issueadt.core.ArchlightIssueADTMyxComponent.class,
-						null,
 						createInterface("issues", Direction.IN, DomainType.BOTTOM,
 								org.archstudio.issueadt.IArchlightIssueADT.class),
 						createInterface("fileEvents", Direction.IN, DomainType.TOP,
@@ -504,7 +509,6 @@ public class Main {
 				createComponent(
 						"NoticeADT",
 						org.archstudio.noticeadt.core.ArchlightNoticeADTMyxComponent.class,
-						null,
 						createInterface("notices", Direction.IN, DomainType.BOTTOM,
 								org.archstudio.noticeadt.IArchlightNoticeADT.class),
 						createInterface("noticeEvents", Direction.OUT, DomainType.BOTTOM,
@@ -516,7 +520,6 @@ public class Main {
 				createComponent(
 						"TestADT",
 						org.archstudio.testadt.core.ArchlightTestADTMyxComponent.class,
-						null,
 						createInterface("tests", Direction.IN, DomainType.BOTTOM,
 								org.archstudio.testadt.IArchlightTestADT.class),
 						createInterface("testEvents", Direction.OUT, DomainType.BOTTOM,
@@ -528,7 +531,6 @@ public class Main {
 				createComponent(
 						"IssueView",
 						org.archstudio.issueview.core.ArchlightIssueViewMyxComponent.class,
-						null,
 						createInterface("issues", Direction.OUT, DomainType.TOP,
 								org.archstudio.issueadt.IArchlightIssueADT.class),
 						createInterface("xarch", Direction.OUT, DomainType.TOP, org.archstudio.xarchadt.IXArchADT.class),
@@ -547,7 +549,6 @@ public class Main {
 				createComponent(
 						"NoticeView",
 						org.archstudio.noticeview.core.ArchlightNoticeViewMyxComponent.class,
-						null,
 						createInterface("notices", Direction.OUT, DomainType.TOP,
 								org.archstudio.noticeadt.IArchlightNoticeADT.class),
 						createInterface("resources", Direction.OUT, DomainType.TOP,
@@ -561,7 +562,6 @@ public class Main {
 				createComponent(
 						"Schematron",
 						org.archstudio.schematron.core.SchematronMyxComponent.class,
-						null,
 						createInterface("tools", Direction.IN, DomainType.BOTTOM,
 								org.archstudio.archlight.IArchlightTool.class),
 						createInterface("xarch", Direction.OUT, DomainType.TOP, org.archstudio.xarchadt.IXArchADT.class),
@@ -580,7 +580,6 @@ public class Main {
 				createComponent(
 						"SchematronPrefs",
 						org.archstudio.schematron.core.prefs.SchematronPrefsMyxComponent.class,
-						null,
 						createInterface("preferences", Direction.OUT, DomainType.TOP,
 								org.eclipse.jface.preference.IPreferenceStore.class)));
 
@@ -630,15 +629,14 @@ public class Main {
 				createComponent(
 						"ArchlightToolAggregator",
 						org.archstudio.archlight.core.ArchlightToolAggregatorMyxComponent.class,
-						null,
 						createInterface("results", Direction.OUT, DomainType.BOTTOM,
-								org.archstudio.myx.conn.IMultiwayResults.class),
+								org.archstudio.myx.java.conn.IMultiwayResults.class),
 						createInterface("tools", Direction.OUT, DomainType.TOP,
 								org.archstudio.archlight.IArchlightTool.class),
 						createInterface("tool", Direction.IN, DomainType.BOTTOM,
 								org.archstudio.archlight.IArchlightTool.class),
 						createInterface("progress", Direction.IN, DomainType.TOP,
-								org.archstudio.myx.conn.IMultiwayProgressListener.class)));
+								org.archstudio.myx.java.conn.IMultiwayProgressListener.class)));
 
 		xarch.add(
 				structureRef,
@@ -646,7 +644,6 @@ public class Main {
 				createEditorComponent(
 						"Archlight",
 						org.archstudio.archlight.core.ArchlightMyxComponent.class,
-						null,
 						createInterface("tests", Direction.OUT, DomainType.TOP,
 								org.archstudio.testadt.IArchlightTestADT.class),
 						createInterface("tools", Direction.OUT, DomainType.TOP,
@@ -658,27 +655,26 @@ public class Main {
 				createComponent(
 						"ArchlightPrefs",
 						org.archstudio.archlight.core.prefs.ArchlightPrefsMyxComponent.class,
-						null,
 						createInterface("preferences", Direction.OUT, DomainType.TOP,
 								org.eclipse.jface.preference.IPreferenceStore.class)));
 
 		xarch.add(
 				structureRef,
 				"connector",
-				createDownwardEventPumpConnector("IssueADTEventPump",
-						org.archstudio.issueadt.ArchlightIssueADTListener.class));
+				createDownwardEventPumpConnector("IssueADTEventPump", "org.archstudio.issueadt.core",
+						interfaceClass(org.archstudio.issueadt.ArchlightIssueADTListener.class)));
 
 		xarch.add(
 				structureRef,
 				"connector",
-				createDownwardEventPumpConnector("NoticeADTEventPump",
-						org.archstudio.noticeadt.ArchlightNoticeADTListener.class));
+				createDownwardEventPumpConnector("NoticeADTEventPump", "org.archstudio.noticeadt",
+						interfaceClass(org.archstudio.noticeadt.ArchlightNoticeADTListener.class)));
 
 		xarch.add(
 				structureRef,
 				"connector",
-				createDownwardEventPumpConnector("TestADTEventPump",
-						org.archstudio.testadt.ArchlightTestADTListener.class));
+				createDownwardEventPumpConnector("TestADTEventPump", "org.archstudio.testadt",
+						interfaceClass(org.archstudio.testadt.ArchlightTestADTListener.class)));
 
 		//xarch.add(
 		//		structureRef,
@@ -1095,7 +1091,13 @@ public class Main {
 		System.err.println(xmlString);
 	}
 
-	private static Serializable toID(String string) {
+	private Map<String, String> interfaceClass(Class<?> interfaceClass) {
+		Map<String, String> initParams = Maps.newHashMap();
+		initParams.put("interfaceClassName0", interfaceClass.getName());
+		return initParams;
+	}
+
+	private Serializable toID(String string) {
 		return string.replaceAll("[^a-zA-Z0-9]", "_");
 	}
 }

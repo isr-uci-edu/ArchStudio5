@@ -5,7 +5,7 @@ import org.eclipse.jet.JET2Template;
 import org.eclipse.jet.JET2Writer;
 import org.eclipse.jet.taglib.RuntimeTagElement;
 import org.eclipse.jet.taglib.TagInfo;
-import org.archstudio.myxgen.extension.*;
+import org.archstudio.myx.myxgen.extension.*;
 import org.archstudio.myxgen.jet.codegen.*;
 import org.archstudio.myxgen.jet.util.*;
 import org.archstudio.sysutils.*;

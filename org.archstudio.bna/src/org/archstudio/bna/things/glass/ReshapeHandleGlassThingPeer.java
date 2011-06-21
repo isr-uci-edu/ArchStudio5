@@ -1,23 +1,27 @@
 package org.archstudio.bna.things.glass;
 
 import org.archstudio.bna.IBNAView;
-import org.archstudio.bna.things.AbstractThingPeer;
+import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.IResources;
+import org.archstudio.bna.things.AbstractBoundedAnchorPointThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-public class ReshapeHandleGlassThingPeer<T extends ReshapeHandleGlassThing> extends AbstractThingPeer<T> {
+public class ReshapeHandleGlassThingPeer<T extends ReshapeHandleGlassThing> extends
+		AbstractBoundedAnchorPointThingPeer<T> {
 
-	public static final int HANDLE_WIDTH = 5;
-	public static final int HANDLE_HEIGHT = 5;
+	public static final int HANDLE_WIDTH = 6;
+	public static final int HANDLE_HEIGHT = 6;
 
 	public ReshapeHandleGlassThingPeer(T thing) {
 		super(thing);
 	}
 
 	@Override
-	public void draw(IBNAView view, Graphics g, Rectangle clip, ResourceUtils res) {
+	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 	}
 
 	@Override

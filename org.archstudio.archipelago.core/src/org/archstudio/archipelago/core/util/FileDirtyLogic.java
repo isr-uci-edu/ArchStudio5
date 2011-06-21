@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
-import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.bna.AbstractThingLogic;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
@@ -13,11 +11,11 @@ import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
-import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasMidpoints;
+import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.borders.MarqueeBoxBorderThing;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.things.shapes.ReshapeHandleThing;
+import org.archstudio.xarchadt.ObjRef;
 
 public class FileDirtyLogic extends AbstractThingLogic implements IBNAModelListener{
 	protected ArchipelagoServices AS = null;

@@ -1,6 +1,7 @@
 package org.archstudio.archipelago.core.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
@@ -20,7 +21,7 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
-public abstract class AbstractEditColorLogic extends AbstractThingLogic implements IBNAMenuListener{
+public abstract class AbstractEditColorLogic extends AbstractThingLogic implements IBNAMenuListener {
 	protected static RGB copiedRGB = null;
 
 	protected Color[] currentColors = null;
@@ -29,105 +30,113 @@ public abstract class AbstractEditColorLogic extends AbstractThingLogic implemen
 	protected ImageDescriptor copySwatchDescriptor = null;
 	protected Color defaultColor = null;
 	protected ImageDescriptor defaultSwatchDescriptor = null;
-	
-	public AbstractEditColorLogic(){
+
+	public AbstractEditColorLogic() {
 	}
-	
-	public void destroy(){
+
+	@Override
+	public void destroy() {
 		super.destroy();
 		disposeResources();
 	}
-	
+
 	protected abstract boolean matches(IBNAView view, IThing t);
+
 	protected abstract RGB getDefaultRGB(IBNAView view, IThing[] thingsToEdit);
+
 	protected abstract RGB getRGB(IBNAView view, IThing t);
+
 	protected abstract void setRGB(IBNAView view, IThing t, RGB newRGB);
-	
-	protected void disposeResources(){
-		if(currentColors != null){
-			for(int i = 0; i < currentColors.length; i++){
-				if((currentColors[i] != null) && (!currentColors[i].isDisposed())){
+
+	protected void disposeResources() {
+		if (currentColors != null) {
+			for (int i = 0; i < currentColors.length; i++) {
+				if (currentColors[i] != null && !currentColors[i].isDisposed()) {
 					currentColors[i].dispose();
 				}
 			}
 			currentColors = null;
 		}
-		if((copyColor != null) && (!copyColor.isDisposed())){
+		if (copyColor != null && !copyColor.isDisposed()) {
 			copyColor.dispose();
 		}
-		if((defaultColor != null) && (!defaultColor.isDisposed())){
+		if (defaultColor != null && !defaultColor.isDisposed()) {
 			defaultColor.dispose();
 		}
 	}
-	
-	public void fillMenu(IBNAView view, IMenuManager m, int localX, int localY, IThing t, int worldX, int worldY){
-		if(t == null) return;
-		List<IThing> selectedThings = BNAUtils.getSelectedThings(view.getWorld().getBNAModel());
+
+	public void fillMenu(IBNAView view, IMenuManager m, int localX, int localY, IThing t, int worldX, int worldY) {
+		if (t == null) {
+			return;
+		}
+		Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
 
 		List<IThing> thingsToEditList = new ArrayList<IThing>();
-		if(selectedThings.size() > 0){
+		if (selectedThings.size() > 0) {
 			for (IThing selectedThing : selectedThings) {
-				if(matches(view, selectedThing)){
+				if (matches(view, selectedThing)) {
 					thingsToEditList.add(selectedThing);
 				}
 			}
 		}
-		else{
-			if(matches(view, t)){
+		else {
+			if (matches(view, t)) {
 				thingsToEditList.add(t);
 			}
 		}
-		if(thingsToEditList.size() == 0){
+		if (thingsToEditList.size() == 0) {
 			return;
 		}
 		IThing[] thingsToEdit = thingsToEditList.toArray(new IThing[thingsToEditList.size()]);
-		
-		for(IAction action : getActions(view, thingsToEdit, worldX, worldY)){
+
+		for (IAction action : getActions(view, thingsToEdit, worldX, worldY)) {
 			m.add(action);
 		}
 		m.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
-	
-	protected IAction[] getActions(IBNAView view, IThing[] thingsToEdit, int worldX, int worldY){
-		Display d = BNAUtils.getParentComposite(view).getDisplay();
+
+	protected IAction[] getActions(IBNAView view, IThing[] thingsToEdit, int worldX, int worldY) {
+		Display d = view.getControl().getDisplay();
 		final IBNAView fview = view;
 		final IThing[] fthingsToEdit = thingsToEdit;
 		final int fworldX = worldX;
 		final int fworldY = worldY;
-		
+
 		disposeResources();
-		
+
 		List<IAction> actionList = new ArrayList<IAction>(10);
-		
+
 		List<Color> colorList = new ArrayList<Color>(thingsToEdit.length);
-		for(int i = 0; i < thingsToEdit.length; i++){
-			RGB rgb = getRGB(view, thingsToEdit[i]);
-			if(rgb != null){
+		for (IThing element : thingsToEdit) {
+			RGB rgb = getRGB(view, element);
+			if (rgb != null) {
 				Color c = new Color(d, rgb);
 				colorList.add(c);
 			}
 		}
-		
+
 		currentColors = colorList.toArray(new Color[colorList.size()]);
 		currentSwatchDescriptor = SWTWidgetUtils.createColorSwatch(d, currentColors, 16, 16, false, true);
-		
+
 		RGB initialRGB = null;
-		if(currentColors.length == 1){
+		if (currentColors.length == 1) {
 			initialRGB = currentColors[0].getRGB();
 		}
 		final RGB finitialRGB = initialRGB;
-		Action assignColorAction = new Action("Assign Color..."){
-			public void run(){
+		Action assignColorAction = new Action("Assign Color...") {
+			@Override
+			public void run() {
 				chooseAndAssignColor(fview, fthingsToEdit, finitialRGB);
 			}
 		};
 		assignColorAction.setImageDescriptor(currentSwatchDescriptor);
 		actionList.add(assignColorAction);
-		
+
 		final RGB defaultRGB = getDefaultRGB(view, thingsToEdit);
-		if(defaultRGB != null){
-			Action resetToDefaultColorAction = new Action("Reset to Default Color"){
-				public void run(){
+		if (defaultRGB != null) {
+			Action resetToDefaultColorAction = new Action("Reset to Default Color") {
+				@Override
+				public void run() {
 					assignColor(fview, fthingsToEdit, defaultRGB);
 				}
 			};
@@ -137,49 +146,51 @@ public abstract class AbstractEditColorLogic extends AbstractThingLogic implemen
 			resetToDefaultColorAction.setImageDescriptor(defaultSwatchDescriptor);
 			actionList.add(resetToDefaultColorAction);
 		}
-		
-		if(currentColors.length == 1){
-			Action copyColorAction = new Action("Copy Color"){
-				public void run(){
+
+		if (currentColors.length == 1) {
+			Action copyColorAction = new Action("Copy Color") {
+				@Override
+				public void run() {
 					copiedRGB = currentColors[0].getRGB();
 				}
 			};
 			copyColorAction.setImageDescriptor(currentSwatchDescriptor);
 			actionList.add(copyColorAction);
 		}
-		else{
+		else {
 			actionList.add(SWTWidgetUtils.createNoAction("Copy Color"));
 		}
-		
-		if(copiedRGB != null){
-			Action pasteColorAction = new Action("Paste Color"){
-				public void run(){
+
+		if (copiedRGB != null) {
+			Action pasteColorAction = new Action("Paste Color") {
+				@Override
+				public void run() {
 					assignColor(fview, fthingsToEdit, copiedRGB);
 				}
 			};
-			
+
 			copyColor = new Color(d, copiedRGB);
 			copySwatchDescriptor = SWTWidgetUtils.createColorSwatch(d, copyColor, 16, 16, false, true);
 			pasteColorAction.setImageDescriptor(copySwatchDescriptor);
 			actionList.add(pasteColorAction);
 		}
-		else{
+		else {
 			actionList.add(SWTWidgetUtils.createNoAction("Paste Color"));
 		}
-		
+
 		return actionList.toArray(new IAction[actionList.size()]);
 	}
-	
-	protected void chooseAndAssignColor(IBNAView view, IThing[] thingsToEdit, RGB initialRGB){
-		ColorSelectorDialog csd = new ColorSelectorDialog(BNAUtils.getParentComposite(view).getShell());
+
+	protected void chooseAndAssignColor(IBNAView view, IThing[] thingsToEdit, RGB initialRGB) {
+		ColorSelectorDialog csd = new ColorSelectorDialog(view.getControl().getShell());
 		RGB rgb = csd.open(initialRGB);
-		if(rgb != null){
+		if (rgb != null) {
 			assignColor(view, thingsToEdit, rgb);
 		}
 	}
-	
-	protected void assignColor(IBNAView view, IThing[] thingsToEdit, RGB rgb){
-		for(IThing t : thingsToEdit){
+
+	protected void assignColor(IBNAView view, IThing[] thingsToEdit, RGB rgb) {
+		for (IThing t : thingsToEdit) {
 			setRGB(view, t, rgb);
 		}
 	}

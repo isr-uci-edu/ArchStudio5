@@ -15,27 +15,19 @@ import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
-import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasMidpoints;
-import org.archstudio.bna.facets.IHasMutableEndpoints;
-import org.archstudio.bna.facets.IHasMutableMidpoints;
+import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.logics.coordinating.StickRelativeMovablesLogic;
-import org.archstudio.bna.logics.coordinating.StickRelativeMovablesLogic.StickyMode;
 import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.logics.events.DragMoveEventsLogic;
 import org.archstudio.bna.logics.events.IDragMoveListener;
-import org.archstudio.bna.logics.tracking.ISelectionTrackingListener;
-import org.archstudio.bna.logics.tracking.SelectionChangedEvent;
-import org.archstudio.bna.logics.tracking.SelectionTrackingLogic;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
-import org.archstudio.bna.utils.AssemblyUtils;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.SplineUtils;
 import org.archstudio.bna.utils.SplineUtils.SplineData;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.graphics.RGB;
 
 public class SplineReshapeHandleLogic extends AbstractThingLogic implements ISelectionTrackingListener,
@@ -67,18 +59,19 @@ public class SplineReshapeHandleLogic extends AbstractThingLogic implements ISel
 
 	public SplineReshapeHandleLogic(SelectionTrackingLogic stl, DragMoveEventsLogic dml) {
 		this.stl = stl;
-		// dml: this logic listens to dml events, this ensures that the designer remembers to include it
 	}
 
 	@Override
 	protected void init() {
 		stl.addSelectionTrackingListener(this);
 		checkHandles();
+		// this logic listens to events from the following
+		getBNAWorld().getThingLogicManager().addThingLogic(DragMoveEventsLogic.class);
 	}
 
 	@Override
 	protected void destroy() {
-		removeHandles();
+		removeHandles(model);
 		stl.removeSelectionTrackingListener(this);
 	}
 
@@ -90,11 +83,12 @@ public class SplineReshapeHandleLogic extends AbstractThingLogic implements ISel
 		return reshapeHandles;
 	}
 
+	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		if (targetThing != null) {
 			if (evt.getEventType() == EventType.THING_REMOVING) {
 				if (targetThing.equals(evt.getTargetThing())) {
-					removeHandles();
+					removeHandles(model);
 				}
 			}
 			if (evt.getEventType() == EventType.THING_CHANGED) {
@@ -105,7 +99,7 @@ public class SplineReshapeHandleLogic extends AbstractThingLogic implements ISel
 		}
 	}
 
-	protected synchronized void removeHandles() {
+	protected synchronized void removeHandles(IBNAModel model) {
 		if (reshapeHandles != null) {
 			IBNAModel m = getBNAModel();
 			if (m != null) {
@@ -175,7 +169,7 @@ public class SplineReshapeHandleLogic extends AbstractThingLogic implements ISel
 				try {
 					if (reshapeHandles == null
 							|| reshapeHandles.getAllReshapeHandleAssemblies().length != points.size()) {
-						removeHandles();
+						removeHandles(model);
 						reshapeHandles = new SplineReshapeHandlesAssembly(m, null, null, points.size());
 					}
 					ReshapeHandleAssembly[] rhs = reshapeHandles.getAllReshapeHandleAssemblies();
@@ -206,7 +200,7 @@ public class SplineReshapeHandleLogic extends AbstractThingLogic implements ISel
 		if (selectedThings.length != 1 || !equalz(targetThing, selectedThings[0])) {
 			// The selection has changed to a different thing
 			if (targetThing != null) {
-				removeHandles();
+				removeHandles(model);
 				targetThing = null;
 			}
 		}
@@ -238,6 +232,7 @@ public class SplineReshapeHandleLogic extends AbstractThingLogic implements ISel
 		return stickyModeSpecifiers.remove(stickyModeSpecifier);
 	}
 
+	@Override
 	public StickyMode[] getAllowableStickyModes(IThing thing, String propertyName, IThing stickToThing) {
 		if (!thing.equals(stickToThing) && UserEditableUtils.isEditable(stickToThing)) {
 			if (stickyModeSpecifiers.size() == 0) {
@@ -322,9 +317,11 @@ public class SplineReshapeHandleLogic extends AbstractThingLogic implements ISel
 		checkHandles();
 	}
 
+	@Override
 	public void dragStarted(DragMoveEvent evt) {
 	}
 
+	@Override
 	public void dragMoved(DragMoveEvent evt) {
 		if (targetThing != null) {
 			IThing movedThing = evt.getInitialThing();
@@ -360,6 +357,7 @@ public class SplineReshapeHandleLogic extends AbstractThingLogic implements ISel
 		}
 	}
 
+	@Override
 	public void dragFinished(DragMoveEvent evt) {
 		if (targetThing != null) {
 			IThing movedThing = evt.getInitialThing();

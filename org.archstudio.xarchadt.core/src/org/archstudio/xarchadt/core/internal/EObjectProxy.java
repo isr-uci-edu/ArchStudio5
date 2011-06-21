@@ -13,6 +13,7 @@ import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.core.XArchADTProxy;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -33,6 +34,18 @@ public class EObjectProxy extends AbstractProxy {
 		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			return proxy(proxy.xarch, (ObjRef) proxy.xarch.get(proxy.objRef, context.name));
+		}
+	}
+
+	static final class Get_EMap extends Handler<NameContext, ProxyImpl> {
+
+		public Get_EMap(NameContext context) {
+			super(context);
+		}
+
+		@Override
+		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
+			return EMapProxy.proxy(proxy.xarch, proxy.objRef, context.name);
 		}
 	}
 
@@ -60,9 +73,9 @@ public class EObjectProxy extends AbstractProxy {
 		}
 	}
 
-	static final class SetEObject extends Handler<NameContext, ProxyImpl> {
+	static final class Set_EObject extends Handler<NameContext, ProxyImpl> {
 
-		public SetEObject(NameContext context) {
+		public Set_EObject(NameContext context) {
 			super(context);
 		}
 
@@ -73,9 +86,21 @@ public class EObjectProxy extends AbstractProxy {
 		}
 	}
 
-	static final class SetEList extends Handler<NameContext, ProxyImpl> {
+	static final class Set_EMap extends Handler<NameContext, ProxyImpl> {
 
-		public SetEList(NameContext context) {
+		public Set_EMap(NameContext context) {
+			super(context);
+		}
+
+		@Override
+		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
+			return EMapProxy.proxy(proxy.xarch, proxy.objRef, context.name);
+		}
+	}
+
+	static final class Set_EList extends Handler<NameContext, ProxyImpl> {
+
+		public Set_EList(NameContext context) {
 			super(context);
 		}
 
@@ -85,9 +110,9 @@ public class EObjectProxy extends AbstractProxy {
 		}
 	}
 
-	static final class SetSerializable extends Handler<NameContext, ProxyImpl> {
+	static final class Set_Serializable extends Handler<NameContext, ProxyImpl> {
 
-		public SetSerializable(NameContext context) {
+		public Set_Serializable(NameContext context) {
 			super(context);
 		}
 
@@ -125,50 +150,67 @@ public class EObjectProxy extends AbstractProxy {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + ((objRef == null) ? 0 : objRef.hashCode());
+			result = prime * result + (objRef == null ? 0 : objRef.hashCode());
 			return result;
 		}
 
 		@Override
 		public boolean equals(Object obj) {
-			if (this == obj)
+			if (this == obj) {
 				return true;
-			if (obj == null)
+			}
+			if (obj == null) {
 				return false;
-			if (obj instanceof Proxy)
+			}
+			if (obj instanceof Proxy) {
 				obj = Proxy.getInvocationHandler(obj);
-			if (getClass() != obj.getClass())
+			}
+			if (getClass() != obj.getClass()) {
 				return false;
+			}
 			ProxyImpl other = (ProxyImpl) obj;
 			if (objRef == null) {
-				if (other.objRef != null)
+				if (other.objRef != null) {
 					return false;
+				}
 			}
-			else if (!objRef.equals(other.objRef))
+			else if (!objRef.equals(other.objRef)) {
 				return false;
+			}
 			return true;
 		}
 	}
 
 	static final ConcurrentMap<Method, Handler<NameContext, ProxyImpl>> methods = new MapMaker().softKeys()
 			.makeComputingMap(new Function<Method, Handler<NameContext, ProxyImpl>>() {
+				@Override
 				public Handler<NameContext, ProxyImpl> apply(Method method) {
 					String name = method.getName();
 					String prefix;
 					if (name.startsWith(prefix = "get")) {
-						if (EObject.class.isAssignableFrom(method.getReturnType()))
+						if (EObject.class.isAssignableFrom(method.getReturnType())) {
 							return getHandler(Get_EObject.class, new NameContext(name.substring(prefix.length())));
-						if (EList.class.isAssignableFrom(method.getReturnType()))
+						}
+						if (EMap.class.isAssignableFrom(method.getReturnType())) {
+							return getHandler(Get_EMap.class, new NameContext(name.substring(prefix.length())));
+						}
+						if (EList.class.isAssignableFrom(method.getReturnType())) {
 							return getHandler(Get_EList.class, new NameContext(name.substring(prefix.length())));
+						}
 						return getHandler(Get_Object.class, new NameContext(name.substring(prefix.length())));
 					}
 					if (name.startsWith(prefix = "set")) {
-						if (EObject.class.isAssignableFrom(method.getParameterTypes()[0]))
-							return getHandler(SetEObject.class, new NameContext(name.substring(prefix.length())));
-						if (EList.class.isAssignableFrom(method.getParameterTypes()[0]))
-							return getHandler(SetEList.class, new NameContext(name.substring(prefix.length())));
+						if (EObject.class.isAssignableFrom(method.getParameterTypes()[0])) {
+							return getHandler(Set_EObject.class, new NameContext(name.substring(prefix.length())));
+						}
+						if (EMap.class.isAssignableFrom(method.getParameterTypes()[0])) {
+							return getHandler(Set_EMap.class, new NameContext(name.substring(prefix.length())));
+						}
+						if (EList.class.isAssignableFrom(method.getParameterTypes()[0])) {
+							return getHandler(Set_EList.class, new NameContext(name.substring(prefix.length())));
+						}
 						// set methods can take many different object types, not just Strings
-						return getHandler(SetSerializable.class, new NameContext(name.substring(prefix.length())));
+						return getHandler(Set_Serializable.class, new NameContext(name.substring(prefix.length())));
 					}
 					return getDefaultHandler();
 				}
@@ -184,8 +226,9 @@ public class EObjectProxy extends AbstractProxy {
 
 	@SuppressWarnings("unchecked")
 	public static final <T extends EObject> T proxy(IXArchADT xarch, ObjRef objRef) {
-		if (objRef == null)
+		if (objRef == null) {
 			return null;
+		}
 		ConcurrentMap<ObjRef, EObject> proxies = autoXArchProxies.get(xarch);
 		T proxy = (T) proxies.get(objRef);
 		if (proxy == null) {
@@ -225,8 +268,9 @@ public class EObjectProxy extends AbstractProxy {
 	}
 
 	public static final ObjRef unproxy(EObject eObject) {
-		if (eObject == null)
+		if (eObject == null) {
 			return null;
+		}
 
 		return ((ProxyImpl) Proxy.getInvocationHandler(eObject)).objRef;
 	}

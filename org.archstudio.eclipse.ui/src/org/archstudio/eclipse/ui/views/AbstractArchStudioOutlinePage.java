@@ -6,7 +6,6 @@ import org.archstudio.swtutils.IMenuFiller;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.ILabelProvider;

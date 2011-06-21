@@ -21,7 +21,7 @@ public abstract class AbstractRoundedRectangleThing extends AbstractRectangleThi
 	public Dimension getCornerSize() {
 		Dimension d = get(CORNER_SIZE_KEY);
 		if (!d.isEmpty()) {
-			Rectangle r = getRaw(IHasBoundingBox.BOUNDING_BOX_KEY);
+			Rectangle r = get(IHasBoundingBox.BOUNDING_BOX_KEY);
 			d.width = Math.min(d.width, r.width / 2);
 			d.height = Math.min(d.height, r.height / 2);
 		}

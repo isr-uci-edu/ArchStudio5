@@ -1,9 +1,7 @@
 package org.archstudio.bna.logics.editing;
 
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.logics.tracking.ISelectionTrackingListener;
-import org.archstudio.bna.logics.tracking.SelectionChangedEvent;
-import org.archstudio.bna.logics.tracking.SelectionTrackingLogic;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.graphics.RGB;
 
 public class StickySplineEndpointsColorLogic extends AbstractThingLogic implements ISelectionTrackingListener,

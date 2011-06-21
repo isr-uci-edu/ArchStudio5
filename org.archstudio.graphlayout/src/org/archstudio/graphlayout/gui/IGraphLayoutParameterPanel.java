@@ -1,8 +1,7 @@
 package org.archstudio.graphlayout.gui;
 
-import org.eclipse.swt.widgets.Composite;
-
 import org.archstudio.graphlayout.GraphLayoutParameters;
+import org.eclipse.swt.widgets.Composite;
 
 interface IGraphLayoutParameterPanel {
 	public void createPanel(Composite parent);

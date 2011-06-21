@@ -2,8 +2,10 @@ package org.archstudio.bna.utils;
 
 import static org.archstudio.sysutils.SystemUtils.newCopyOnWriteArrayList;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -273,17 +275,17 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
-	public Iterable<IThing> getThings(Iterable<Object> thingIDs) {
-		return Iterables.transform(thingIDs, new Function<Object, IThing>() {
+	public List<IThing> getThings(Iterable<Object> thingIDs) {
+		return Lists.newArrayList(Iterables.transform(thingIDs, new Function<Object, IThing>() {
 			@Override
 			public IThing apply(Object input) {
 				return getThing(input);
 			}
-		});
+		}));
 	}
 
 	@Override
-	public Iterable<IThing> getThings() {
+	public List<IThing> getThings() {
 		synchronized (thingTree) {
 			if (thingTreeListAtModCount != thingTreeModCount) {
 				thingTreeList = thingTree.getAllThings();
@@ -294,7 +296,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
-	public Iterable<IThing> getReverseThings() {
+	public List<IThing> getReverseThings() {
 		synchronized (thingTree) {
 			if (thingTreeListAtModCount != thingTreeModCount) {
 				thingTreeList = thingTree.getAllThings();
@@ -319,46 +321,48 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
-	public Iterable<IThing> getChildThings(IThing thing) {
+	public Collection<IThing> getChildThings(IThing thing) {
 		synchronized (thingTree) {
 			return thingTree.getChildThings(thing);
 		}
 	}
 
 	@Override
-	public Iterable<IThing> getAncestorThings(IThing thing) {
+	public List<IThing> getAncestorThings(IThing thing) {
 		synchronized (thingTree) {
 			return thingTree.getAncestorThings(thing);
 		}
 	}
 
 	@Override
-	public Iterable<IThing> getDescendantThings(IThing thing) {
+	public List<IThing> getDescendantThings(IThing thing) {
 		synchronized (thingTree) {
 			return thingTree.getAllDescendantThings(thing);
 		}
 	}
 
-	@Override
-	public void stackAbove(IThing lowerThing, Iterable<? extends IThing> toStackAboveThings) {
-		synchronized (thingTree) {
-			for (IThing toStackAboveThing : toStackAboveThings) {
-				thingTree.moveAfter(toStackAboveThing, lowerThing);
-			}
-		}
-		for (IThing mt : toStackAboveThings) {
-			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, mt));
-		}
-	}
+	//@Override
+	//public void stackAbove(IThing lowerThing, Iterable<? extends IThing> toStackAboveThings) {
+	//	synchronized (thingTree) {
+	//		for (IThing toStackAboveThing : toStackAboveThings) {
+	//			thingTree.moveAfter(toStackAboveThing, lowerThing);
+	//		}
+	//	}
+	//	for (IThing mt : toStackAboveThings) {
+	//		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, mt));
+	//	}
+	//}
 
 	@Override
-	public void bringToFront(Iterable<? extends IThing> things) {
-		List<IThing> movedThings = Lists.newArrayList(things);
+	public void bringToFront(Set<? extends IThing> things) {
+		List<IThing> movedThings = Lists.newArrayListWithExpectedSize(things.size());
 		synchronized (thingTree) {
-			for (IThing thing : things) {
-				thingTree.bringToFront(thing);
-				thingTreeModCount++;
-				movedThings.addAll(thingTree.getChildThings(thing));
+			for (IThing thing : getThings()) {
+				if (things.contains(thing)) {
+					thingTree.bringToFront(thing);
+					thingTreeModCount++;
+					movedThings.addAll(thingTree.getChildThings(thing));
+				}
 			}
 		}
 		for (IThing mt : movedThings) {
@@ -367,13 +371,15 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
-	public void sendToBack(Iterable<? extends IThing> things) {
-		List<IThing> movedThings = Lists.newArrayList(things);
+	public void sendToBack(Set<? extends IThing> things) {
+		List<IThing> movedThings = Lists.newArrayListWithExpectedSize(things.size());
 		synchronized (thingTree) {
-			for (IThing thing : things) {
-				thingTree.sendToBack(thing);
-				thingTreeModCount++;
-				movedThings.addAll(thingTree.getChildThings(thing));
+			for (IThing thing : getThings()) {
+				if (things.contains(thing)) {
+					thingTree.sendToBack(thing);
+					thingTreeModCount++;
+					movedThings.addAll(thingTree.getChildThings(thing));
+				}
 			}
 		}
 		for (IThing mt : movedThings) {

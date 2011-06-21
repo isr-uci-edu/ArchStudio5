@@ -9,14 +9,14 @@ public class DragMoveEvent {
 
 	private final IBNAView view;
 	private final MouseEvent evt;
-	private final Iterable<IThing> initialThings;
+	private final IThing initialThing;
 	private final ICoordinate initialLocation;
-	private final ICoordinate adjustedLocation;
+	private ICoordinate adjustedLocation;
 
-	public DragMoveEvent(IBNAView view, MouseEvent evt, Iterable<IThing> initialThings, ICoordinate initialLocation) {
+	public DragMoveEvent(IBNAView view, MouseEvent evt, IThing initialThing, ICoordinate initialLocation) {
 		this.view = view;
 		this.evt = evt;
-		this.initialThings = initialThings;
+		this.initialThing = initialThing;
 		this.initialLocation = initialLocation;
 		this.adjustedLocation = initialLocation;
 	}
@@ -25,7 +25,7 @@ public class DragMoveEvent {
 		super();
 		this.view = evt.view;
 		this.evt = evt.evt;
-		this.initialThings = evt.initialThings;
+		this.initialThing = evt.initialThing;
 		this.initialLocation = evt.initialLocation;
 		this.adjustedLocation = adjustedLocation;
 	}
@@ -38,8 +38,8 @@ public class DragMoveEvent {
 		return evt;
 	}
 
-	public Iterable<IThing> getInitialThings() {
-		return initialThings;
+	public IThing getInitialThing() {
+		return initialThing;
 	}
 
 	public ICoordinate getInitialLocation() {
@@ -49,4 +49,9 @@ public class DragMoveEvent {
 	public ICoordinate getAdjustedLocation() {
 		return adjustedLocation;
 	}
+
+	public void setAdjustedLocation(ICoordinate adjustedLocation) {
+		this.adjustedLocation = adjustedLocation;
+	}
+
 }

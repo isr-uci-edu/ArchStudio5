@@ -13,8 +13,13 @@ import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
+import org.archstudio.bna.facets.IHasAngle;
 import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasHorizontalAlignment;
+import org.archstudio.bna.facets.IHasOffset;
+import org.archstudio.bna.facets.IHasOrientation;
 import org.archstudio.bna.facets.IHasPoints;
+import org.archstudio.bna.facets.IHasSize;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.keys.AbstractThingRefKey;
@@ -23,22 +28,30 @@ import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.coordinating.MirrorBoundingBoxLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
+import org.archstudio.bna.logics.coordinating.OrientDirectionalLabelLogic;
 import org.archstudio.bna.logics.coordinating.StickAnchorPointLogic;
 import org.archstudio.bna.things.glass.EllipseGlassThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.glass.PolygonGlassThing;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
+import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.things.glass.SplineGlassThing;
+import org.archstudio.bna.things.labels.AnchoredLabelThing;
 import org.archstudio.bna.things.labels.BoundedLabelThing;
 import org.archstudio.bna.things.labels.DirectionalLabelThing;
 import org.archstudio.bna.things.shapes.EllipseThing;
 import org.archstudio.bna.things.shapes.EndpointThing;
 import org.archstudio.bna.things.shapes.PolygonThing;
 import org.archstudio.bna.things.shapes.RectangleThing;
+import org.archstudio.bna.things.shapes.ReshapeHandleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.NoThing;
+import org.archstudio.swtutils.constants.HorizontalAlignment;
+import org.archstudio.swtutils.constants.Orientation;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Sets;
 
 public class Assemblies {
@@ -115,7 +128,7 @@ public class Assemblies {
 		return part.get(PART_KEY);
 	}
 
-	public static Iterable<IThing> getRelatedParts(IBNAModel model, IThing part) {
+	public static Collection<IThing> getRelatedParts(IBNAModel model, IThing part) {
 		Collection<IThing> allParts = Sets.newHashSet(part);
 		for (IThingKey<?> k : part.keySet()) {
 			if (k instanceof ThingAssemblyKey) {
@@ -140,8 +153,8 @@ public class Assemblies {
 		return allParts;
 	}
 
-	public static Iterable<IThing> getParts(IBNAModel model, IThing root) {
-		Collection<IThing> allParts = Sets.newHashSet(root);
+	public static Collection<IThing> getParts(IBNAModel model, IThing root) {
+		Collection<IThing> allParts = Sets.newHashSet();
 		for (IThingKey<?> k : root.keySet()) {
 			if (k instanceof ThingAssemblyKey) {
 				IThing t = ((IThingRefKey<?>) k).get(root, model);
@@ -153,11 +166,17 @@ public class Assemblies {
 		return allParts;
 	}
 
+	public static void removeRootAndParts(IBNAModel model, IThing root) {
+		for (IThing part : getParts(model, root)) {
+			removeRootAndParts(model, part);
+		}
+		model.removeThing(root);
+	}
+
 	public static EllipseGlassThing createEllipse(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
 		checkNotNull(world);
 
 		IBNAModel model = world.getBNAModel();
-		IThingLogicManager tlm = world.getThingLogicManager();
 
 		EllipseThing bkg = model.addThing(new EllipseThing(id),
 				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
@@ -165,6 +184,7 @@ public class Assemblies {
 
 		mark(glass, BACKGROUND_KEY, bkg);
 
+		IThingLogicManager tlm = world.getThingLogicManager();
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 
 		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, bkg);
@@ -176,7 +196,6 @@ public class Assemblies {
 		checkNotNull(world);
 
 		IBNAModel model = world.getBNAModel();
-		IThingLogicManager tlm = world.getThingLogicManager();
 
 		RectangleThing bkg = model.addThing(new RectangleThing(id),
 				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
@@ -186,6 +205,7 @@ public class Assemblies {
 		mark(glass, BACKGROUND_KEY, bkg);
 		mark(glass, TEXT_KEY, label);
 
+		IThingLogicManager tlm = world.getThingLogicManager();
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
 
@@ -215,29 +235,99 @@ public class Assemblies {
 		return glass;
 	}
 
+	private static final Function<Orientation, Integer> orientationToAngleFn = new Function<Orientation, Integer>() {
+		@Override
+		public Integer apply(Orientation input) {
+			switch (input) {
+
+			case NORTHWEST:
+			case SOUTHEAST:
+				return 45;
+
+			case EAST:
+			case WEST:
+				return 0;
+
+			case NORTHEAST:
+			case SOUTHWEST:
+				return -45;
+
+			case NORTH:
+			case SOUTH:
+				return -90;
+
+			default:
+				return 0;
+			}
+		}
+	};
+
+	private static final Function<Orientation, HorizontalAlignment> orientationToHorizontalAlignmentFn = new Function<Orientation, HorizontalAlignment>() {
+		@Override
+		public HorizontalAlignment apply(Orientation input) {
+			switch (input) {
+
+			case SOUTHEAST:
+			case EAST:
+			case NORTHEAST:
+			case NORTH:
+				return HorizontalAlignment.RIGHT;
+
+			case NORTHWEST:
+			case WEST:
+			case SOUTHWEST:
+			case SOUTH:
+				return HorizontalAlignment.LEFT;
+
+			default:
+				return HorizontalAlignment.CENTER;
+			}
+		}
+	};
+
+	private static final Function<Dimension, Integer> sizeToOffsetFn = new Function<Dimension, Integer>() {
+		@Override
+		public Integer apply(Dimension input) {
+			//return (int) Math.ceil(Math.sqrt(input.width * input.width / 4 + input.height * input.height / 4));
+			return Math.max(input.width, input.height);
+		}
+	};
+
 	public static EndpointGlassThing createEndpoint(IBNAWorld world, @Nullable Object id, @Nullable IIsSticky parent) {
 		checkNotNull(world);
 
 		IBNAModel model = world.getBNAModel();
-		IThingLogicManager tlm = world.getThingLogicManager();
 
 		EndpointThing bkg = model.addThing(new EndpointThing(id),
 				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
 		DirectionalLabelThing label = model.addThing(new DirectionalLabelThing(null), bkg);
 		label.setLocalInsets(new Insets(2, 2, 2, 2));
+		AnchoredLabelThing text = model.addThing(new AnchoredLabelThing(null), bkg);
 		EndpointGlassThing glass = model.addThing(new EndpointGlassThing(null), bkg);
 
 		mark(glass, BACKGROUND_KEY, bkg);
 		mark(glass, LABEL_KEY, label);
+		mark(glass, TEXT_KEY, text);
 
+		IThingLogicManager tlm = world.getThingLogicManager();
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 
 		mvl.mirrorValue(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, bkg);
+		mvl.mirrorValue(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, text);
+		mvl.mirrorValue(label, IHasOrientation.ORIENTATION_KEY, IHasAngle.ANGLE_KEY, orientationToAngleFn, text);
+		mvl.mirrorValue(label, IHasOrientation.ORIENTATION_KEY, IHasHorizontalAlignment.HORIZONTAL_ALIGNMENT_KEY,
+				orientationToHorizontalAlignmentFn, text);
+		mvl.mirrorValue(glass, IHasSize.SIZE_KEY, IHasOffset.OFFSET_KEY, sizeToOffsetFn, text);
+		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, label);
 		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, label);
 
 		if (parent != null) {
 			StickAnchorPointLogic sapl = tlm.addThingLogic(StickAnchorPointLogic.class);
 			sapl.stick(parent, StickyMode.EDGE, glass);
+			if (parent instanceof IHasBoundingBox) {
+				OrientDirectionalLabelLogic odll = tlm.addThingLogic(OrientDirectionalLabelLogic.class);
+				odll.orient((IHasBoundingBox) parent, label);
+			}
 		}
 
 		return glass;
@@ -247,7 +337,6 @@ public class Assemblies {
 		checkNotNull(world);
 
 		IBNAModel model = world.getBNAModel();
-		IThingLogicManager tlm = world.getThingLogicManager();
 
 		SplineThing bkg = model.addThing(new SplineThing(id),
 				parent != null ? parent : getLayer(model, SPLINE_LAYER_THING_ID));
@@ -255,9 +344,29 @@ public class Assemblies {
 
 		mark(glass, BACKGROUND_KEY, bkg);
 
+		IThingLogicManager tlm = world.getThingLogicManager();
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 
 		mvl.mirrorValue(glass, IHasPoints.POINTS_KEY, bkg);
+
+		return glass;
+	}
+
+	public static ReshapeHandleGlassThing createHandle(IBNAWorld world, @Nullable Object id, IThing parent) {
+		checkNotNull(world);
+		checkNotNull(parent);
+
+		IBNAModel model = world.getBNAModel();
+
+		ReshapeHandleThing bkg = model.addThing(new ReshapeHandleThing(null), parent);
+		ReshapeHandleGlassThing glass = model.addThing(new ReshapeHandleGlassThing(null), bkg);
+
+		mark(glass, BACKGROUND_KEY, bkg);
+
+		IThingLogicManager tlm = world.getThingLogicManager();
+		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
+
+		mvl.mirrorValue(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, bkg);
 
 		return glass;
 	}

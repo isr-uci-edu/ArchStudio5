@@ -1,5 +1,12 @@
 package org.archstudio.archipelago.core;
 
+import org.archstudio.eclipse.ui.editors.AbstractArchStudioEditor;
+import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
+import org.archstudio.graphlayout.IGraphLayout;
+import org.archstudio.resources.IResources;
+import org.archstudio.xarchadt.ObjRef;
+import org.archstudio.xarchadt.XArchADTFileEvent;
+import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
@@ -8,14 +15,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
-
-import org.archstudio.eclipse.ui.editors.AbstractArchStudioEditor;
-import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
-import org.archstudio.graphlayout.IGraphLayout;
-import org.archstudio.resources.IResources;
-import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.xarchadt.XArchADTFileEvent;
-import org.archstudio.xarchadt.XArchADTModelEvent;
 
 public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxComponent> {
 	protected IPreferenceStore prefs = null;

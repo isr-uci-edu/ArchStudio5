@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -14,30 +13,18 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.archstudio.myx.fw.IMyxLifecycleProcessor.Operation;
 
-public class MyxBasicRuntime implements IMyxRuntime, IMyxClassManager {
+public class MyxBasicRuntime implements IMyxRuntime {
 	protected IMyxContainer mainContainer = new MyxContainer();
 
 	protected final List<BrickLoaderEntry> brickLoaders = Collections
 			.synchronizedList(new CopyOnWriteArrayList<BrickLoaderEntry>());
-	protected final List<ClassManagerEntry> classManagers = Collections
-			.synchronizedList(new CopyOnWriteArrayList<ClassManagerEntry>());
 	protected final Map<IMyxBrickDescription, IMyxBrickFactory> brickDescriptionToFactoryMap = Collections
 			.synchronizedMap(new HashMap<IMyxBrickDescription, IMyxBrickFactory>());
 	protected final List<IMyxWeld> weldList = Collections.synchronizedList(new CopyOnWriteArrayList<IMyxWeld>());
 
 	protected final MyxInterfaceRepository interfaceRepository = new MyxInterfaceRepository();
 
-	public MyxBasicRuntime() {
-		try {
-			// addAppClassLoader(this.getClass().getClassLoader());
-			classManagers.add(new ClassManagerEntry(MyxUtils.createName(DefaultClassManager.class.getName()),
-					new DefaultClassManager()));
-			addBrickLoader(MyxUtils.createName(MyxJavaClassBrickLoader.class.getName()), MyxJavaClassBrickLoader.class,
-					null);
-		}
-		catch (MyxBrickLoaderException mble) {
-			throw new RuntimeException("This shouldn't happen.");
-		}
+	protected MyxBasicRuntime() {
 	}
 
 	protected static class BrickLoaderEntry {
@@ -58,24 +45,6 @@ public class MyxBasicRuntime implements IMyxRuntime, IMyxClassManager {
 		}
 	}
 
-	protected static class ClassManagerEntry {
-		private final IMyxName classManagerName;
-		private final IMyxClassManager classManager;
-
-		public ClassManagerEntry(IMyxName classManagerName, IMyxClassManager classManager) {
-			this.classManagerName = classManagerName;
-			this.classManager = classManager;
-		}
-
-		public IMyxName getClassManagerName() {
-			return classManagerName;
-		}
-
-		public IMyxClassManager getClassManager() {
-			return classManager;
-		}
-	}
-
 	@Override
 	public void addBrickLoader(IMyxName loaderName, Class<? extends IMyxBrickLoader> brickLoaderClass,
 			Properties initParams) throws MyxBrickLoaderException {
@@ -92,7 +61,6 @@ public class MyxBasicRuntime implements IMyxRuntime, IMyxClassManager {
 				loader = (IMyxBrickLoader) o;
 			}
 			loader.setRuntime(this);
-			loader.setClassManager(this);
 
 			BrickLoaderEntry ble = new BrickLoaderEntry(loaderName, loader);
 			brickLoaders.add(ble);
@@ -108,39 +76,6 @@ public class MyxBasicRuntime implements IMyxRuntime, IMyxClassManager {
 		}
 		catch (InvocationTargetException ite) {
 			throw new MyxBrickLoaderException(ite);
-		}
-	}
-
-	@Override
-	public void addClassManager(IMyxName classManagerName, Class<? extends IMyxClassManager> classManagerClass,
-			Properties initParams) throws MyxClassManagerException {
-		try {
-			IMyxClassManager classManager = null;
-			if (initParams == null) {
-				Constructor<?> constructor = classManagerClass.getConstructor(new Class[0]);
-				Object o = constructor.newInstance(new Object[0]);
-				classManager = (IMyxClassManager) o;
-			}
-			else {
-				Constructor<?> constructor = classManagerClass.getConstructor(new Class<?>[] { Properties.class });
-				Object o = constructor.newInstance(new Object[] { initParams });
-				classManager = (IMyxClassManager) o;
-			}
-
-			ClassManagerEntry cme = new ClassManagerEntry(classManagerName, classManager);
-			classManagers.add(cme);
-		}
-		catch (NoSuchMethodException nsme) {
-			throw new MyxClassManagerException(nsme);
-		}
-		catch (IllegalAccessException iae) {
-			throw new MyxClassManagerException(iae);
-		}
-		catch (InstantiationException ie) {
-			throw new MyxClassManagerException(ie);
-		}
-		catch (InvocationTargetException ite) {
-			throw new MyxClassManagerException(ite);
 		}
 	}
 
@@ -247,7 +182,7 @@ public class MyxBasicRuntime implements IMyxRuntime, IMyxClassManager {
 		//Next, the interface manager
 		IMyxInterfaceManager interfaceManager = new MyxBasicInterfaceManager(this, path, brickName);
 
-		IMyxBrickItems brickItems = new MyxBasicBrickItems(brickName, requiredServiceProvider, interfaceManager, this,
+		IMyxBrickItems brickItems = new MyxBasicBrickItems(brickName, requiredServiceProvider, interfaceManager,
 				brickDescription, initializationData);
 		b.setMyxBrickItems(brickItems);
 
@@ -663,83 +598,4 @@ public class MyxBasicRuntime implements IMyxRuntime, IMyxClassManager {
 		}
 	}
 
-	protected List<ClassLoader> appClassLoaders = new ArrayList<ClassLoader>();
-
-	protected void addAppClassLoader(ClassLoader cl) {
-		if (cl != null) {
-			synchronized (appClassLoaders) {
-				for (ClassLoader cl2 : appClassLoaders) {
-					if (cl2.equals(cl)) {
-						return;
-					}
-				}
-				appClassLoaders.add(cl);
-			}
-		}
-	}
-
-	protected Collection<? extends ClassLoader> getAppClassLoaders() {
-		synchronized (appClassLoaders) {
-			HashSet<ClassLoader> s = new HashSet<ClassLoader>();
-			ClassLoader[] appClassLoaderArray = appClassLoaders.toArray(new ClassLoader[appClassLoaders.size()]);
-			for (ClassLoader element : appClassLoaderArray) {
-				s.add(element);
-			}
-			//Collection<? extends ClassLoader> externalClassLoaders = MyxClassLoaders.getClassLoaders();
-			for (ClassLoader cl : MyxClassLoaders.getClassLoaders()) {
-				s.add(cl);
-			}
-			return Collections.unmodifiableSet(s);
-		}
-	}
-
-	class DefaultClassManager implements IMyxClassManager {
-		@Override
-		public Class<?> classForName(String className) throws ClassNotFoundException {
-			List<ClassLoader> classLoaderList = new ArrayList<ClassLoader>();
-			classLoaderList.add(ClassLoader.getSystemClassLoader());
-			classLoaderList.add(this.getClass().getClassLoader());
-			classLoaderList.add(Thread.currentThread().getContextClassLoader());
-			classLoaderList.addAll(getAppClassLoaders());
-
-			for (ClassLoader cl : classLoaderList) {
-				try {
-					Class<?> c = Class.forName(className, true, cl);
-					if (c != null) {
-						return c;
-					}
-				}
-				catch (Throwable cnfe) {
-					// we don't need to see these
-
-					//System.err.println(i);
-					//cnfe.printStackTrace();
-				}
-			}
-			throw new ClassNotFoundException(className);
-		}
-	}
-
-	@Override
-	public Class<?> classForName(String className) throws ClassNotFoundException {
-		ClassNotFoundException lastClassNotFoundException = null;
-		for (ClassManagerEntry cme : classManagers) {
-			try {
-				Class<?> c = cme.getClassManager().classForName(className);
-				return c;
-			}
-			catch (ClassNotFoundException cnfe) {
-				lastClassNotFoundException = cnfe;
-			}
-		}
-		throw lastClassNotFoundException;
-	}
-
-	public void addClassLoader(ClassLoader cl) {
-		appClassLoaders.add(cl);
-	}
-
-	public void removeClassLoader(ClassLoader cl) {
-		appClassLoaders.remove(cl);
-	}
 }

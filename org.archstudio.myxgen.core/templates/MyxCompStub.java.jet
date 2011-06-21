@@ -1,5 +1,5 @@
 <%@ jet imports="org.archstudio.myx.fw.* \
-	org.archstudio.myxgen.extension.* \
+	org.archstudio.myx.myxgen.extension.* \
 	org.archstudio.myxgen.jet.codegen.* \
 	org.archstudio.myxgen.jet.util.* \
 	org.archstudio.sysutils.*"%>
@@ -57,7 +57,7 @@ import <%=javaImport%>;
 <% // ----- constant myx interface name declarations %>
 
 <%for(MyxGenInterface iface : brick.getInterfaces()) {%>
-	<%EServiceObjectDelegate delegate = iface.getServiceObjectDelegate();%>		
+	<%//EServiceObjectDelegate delegate = iface.getServiceObjectDelegate();%>		
 	/**
 	 * Myx name for the <code><%=iface.getName()%></code> interface.
 	<%if(iface.getDescription() != null){%>

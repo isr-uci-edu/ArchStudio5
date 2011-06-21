@@ -3,6 +3,7 @@ package org.archstudio.bna.logics.editing;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IThing;
@@ -22,6 +23,7 @@ import org.eclipse.draw2d.geometry.Point;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 public class DragMovableLogic extends AbstractThingLogic implements IDragMoveListener {
 
@@ -53,23 +55,25 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 			model.beginBulkChange();
 			try {
 				movingThings.clear();
-				IRelativeMovable movingThing = SystemUtils.firstOrNull(UserEditableUtils.getEditableForAllQualities(
-						Iterables.filter(evt.getInitialThings(), IRelativeMovable.class),
-						IRelativeMovable.USER_MAY_MOVE));
-				List<IRelativeMovable> selectedThings = Lists.newArrayList(Iterables.filter(
-						BNAUtils.getThings(model, tvtl.getThingIDs(IHasSelected.SELECTED_KEY, Boolean.TRUE)),
-						IRelativeMovable.class));
+				IRelativeMovable movingThing = SystemUtils.castOrNull(evt.getInitialThing(), IRelativeMovable.class);
+				if (UserEditableUtils.isEditableForAllQualities(movingThing, IRelativeMovable.USER_MAY_MOVE)) {
+					List<IRelativeMovable> selectedThings = Lists.newArrayList(Iterables.filter(
+							BNAUtils.getThings(model, tvtl.getThingIDs(IHasSelected.SELECTED_KEY, Boolean.TRUE)),
+							IRelativeMovable.class));
 
-				if (selectedThings.contains(movingThing)) {
-					for (IRelativeMovable rmt : selectedThings) {
-						movingThings.put(rmt, rmt.getReferencePoint());
+					if (selectedThings.contains(movingThing)) {
+						for (IRelativeMovable rmt : selectedThings) {
+							movingThings.put(rmt, rmt.getReferencePoint());
+						}
 					}
-				}
-				else {
-					movingThings.put(movingThing, movingThing.getReferencePoint());
-				}
-				for (IThing thing : movingThings.keySet()) {
-					model.bringToFront(Assemblies.getRelatedParts(model, thing));
+					else {
+						movingThings.put(movingThing, movingThing.getReferencePoint());
+					}
+					Set<IThing> moveToFrontThings = Sets.newHashSet();
+					for (IThing thing : movingThings.keySet()) {
+						moveToFrontThings.addAll(Assemblies.getRelatedParts(model, thing));
+					}
+					model.bringToFront(moveToFrontThings);
 				}
 			}
 			finally {

@@ -10,13 +10,11 @@ Export-Package: org.archstudio.myxgen,
  org.archstudio.myxgen.action,
  org.archstudio.myxgen.builder,
  org.archstudio.myxgen.core,
- org.archstudio.myxgen.extension,
  org.archstudio.myxgen.jet.codegen,
  org.archstudio.myxgen.jet.util
 Manifest-Version: 1.0
 Require-Bundle: com.google.guava,
  org.archstudio.eclipse,
- org.archstudio.myx.fw,
  org.archstudio.myxgen,
  org.archstudio.sysutils,
  org.eclipse.core.resources,
@@ -28,4 +26,6 @@ Require-Bundle: com.google.guava,
  org.eclipse.jet,
  org.eclipse.pde.core,
  org.eclipse.pde,
- org.archstudio.eclipseutils
+ org.archstudio.eclipseutils,
+ org.archstudio.myx.myxgen;bundle-version="1.0.0",
+ org.archstudio.myx.fw;bundle-version="5.0.0"

@@ -1,4 +1,4 @@
-<%@ jet imports="org.archstudio.myxgen.extension.* \
+<%@ jet imports="org.archstudio.myx.myxgen.extension.* \
 	org.archstudio.myxgen.jet.codegen.* \
 	org.archstudio.myxgen.jet.util.* \
 	org.archstudio.sysutils.*"%>

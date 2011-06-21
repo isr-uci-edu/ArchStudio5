@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.facets.IHasMinimumSize;
+import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.BNAAlignUtils;
 import org.archstudio.bna.utils.BNADistributeUtils;

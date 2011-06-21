@@ -4,11 +4,11 @@ import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableGradientFill;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
-import org.archstudio.bna.things.AbstractEndpointThing;
+import org.archstudio.bna.things.AbstractBoundedAnchorPointThing;
 import org.eclipse.swt.graphics.RGB;
 
-public class EndpointThing extends AbstractEndpointThing implements IHasMutableColor, IHasMutableSecondaryColor,
-		IHasMutableGradientFill, IHasMutableEdgeColor {
+public class EndpointThing extends AbstractBoundedAnchorPointThing implements IHasMutableColor,
+		IHasMutableSecondaryColor, IHasMutableGradientFill, IHasMutableEdgeColor {
 
 	public EndpointThing(Object id) {
 		super(id);

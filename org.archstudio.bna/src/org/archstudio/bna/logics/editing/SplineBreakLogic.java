@@ -4,7 +4,6 @@ import java.awt.geom.Line2D;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMouseListener;

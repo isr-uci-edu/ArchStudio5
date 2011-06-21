@@ -5,6 +5,11 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.ObjRef;
+import org.archstudio.xarchadt.core.XArchADTProxy;
+import org.eclipse.emf.ecore.EObject;
+
 import com.google.common.base.Function;
 import com.google.common.collect.MapMaker;
 
@@ -26,25 +31,30 @@ public class AbstractProxy {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + ((name == null) ? 0 : name.hashCode());
+			result = prime * result + (name == null ? 0 : name.hashCode());
 			return result;
 		}
 
 		@Override
 		public boolean equals(Object obj) {
-			if (this == obj)
+			if (this == obj) {
 				return true;
-			if (obj == null)
+			}
+			if (obj == null) {
 				return false;
-			if (getClass() != obj.getClass())
+			}
+			if (getClass() != obj.getClass()) {
 				return false;
+			}
 			NameContext other = (NameContext) obj;
 			if (name == null) {
-				if (other.name != null)
+				if (other.name != null) {
 					return false;
+				}
 			}
-			else if (!name.equals(other.name))
+			else if (!name.equals(other.name)) {
 				return false;
+			}
 			return true;
 		}
 	}
@@ -75,8 +85,8 @@ public class AbstractProxy {
 			 * This is a last resort handler to call the basic Object methods on the actual proxy object itself, e.g.:
 			 * #toString(), #equals(Object), and #hashCode()
 			 * 
-			 * Note: an IllegalArgumentException with the message of 'object is not an instance of declaring class'
-			 * may occur if the methods map does not crate a specialized handler for the method being called.
+			 * Note: an IllegalArgumentException with the message of 'object is not an instance of declaring class' may
+			 * occur if the methods map does not crate a specialized handler for the method being called.
 			 */
 			return method.invoke(proxy, args);
 		}
@@ -121,6 +131,22 @@ public class AbstractProxy {
 	@SuppressWarnings("unchecked")
 	protected static final <H extends Handler<?, ?>> H getDefaultHandler() {
 		return (H) DEFAULT_HANDLER;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected static <T> T unproxy(Object o) {
+		if (o instanceof EObject) {
+			return (T) XArchADTProxy.unproxy((EObject) o);
+		}
+		return (T) o;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected static <T> T proxy(IXArchADT xarch, Object o) {
+		if (o instanceof ObjRef) {
+			return (T) XArchADTProxy.proxy(xarch, (ObjRef) o);
+		}
+		return (T) o;
 	}
 
 }

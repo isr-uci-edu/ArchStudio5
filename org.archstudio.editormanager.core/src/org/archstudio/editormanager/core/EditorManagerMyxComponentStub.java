@@ -7,10 +7,17 @@ import org.archstudio.myx.fw.*;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.eclipse.ui.IFocusEditorListener;
 import org.archstudio.editormanager.IEditorManager;
+import org.archstudio.eclipse.ui.IFocusEditorListener;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Editor Manager Myx Component"

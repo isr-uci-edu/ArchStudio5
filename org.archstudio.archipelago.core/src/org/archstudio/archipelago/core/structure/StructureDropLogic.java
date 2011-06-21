@@ -1,18 +1,17 @@
 package org.archstudio.archipelago.core.structure;
 
-import org.eclipse.swt.dnd.DropTargetEvent;
-
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.util.AbstractTreeDropLogic;
+import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IThing;
+import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.swtutils.LocalSelectionTransfer;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.bna.IBNAView;
-import org.archstudio.bna.IThing;
-import org.archstudio.bna.things.glass.RectangleGlassThing;
+import org.eclipse.swt.dnd.DropTargetEvent;
 
 public class StructureDropLogic extends AbstractTreeDropLogic{
 	public StructureDropLogic(ArchipelagoServices services, ObjRef documentRootRef){
