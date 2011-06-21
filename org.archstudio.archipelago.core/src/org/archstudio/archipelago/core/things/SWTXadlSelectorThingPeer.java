@@ -2,17 +2,16 @@ package org.archstudio.archipelago.core.things;
 
 import java.util.Set;
 
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.ITreeContentProvider;
-
+import org.archstudio.bna.IThing;
+import org.archstudio.bna.things.swt.AbstractSWTTreeThingPeer;
 import org.archstudio.resources.IResources;
 import org.archstudio.xadlswt.XadlTreeContentProvider;
 import org.archstudio.xadlswt.XadlTreeLabelProvider;
 import org.archstudio.xadlswt.XadlTreeUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.bna.IThing;
-import org.archstudio.bna.things.swt.AbstractSWTTreeThingPeer;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 
 public class SWTXadlSelectorThingPeer extends AbstractSWTTreeThingPeer{
 

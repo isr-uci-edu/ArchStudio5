@@ -5,10 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasMidpoints;
-import org.archstudio.bna.facets.IHasMutableEndpoints;
-import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.eclipse.draw2d.geometry.Point;
 
 public class SplineUtils {

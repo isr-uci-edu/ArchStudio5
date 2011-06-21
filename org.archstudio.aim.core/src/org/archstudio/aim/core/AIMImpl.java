@@ -3,10 +3,11 @@ package org.archstudio.aim.core;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 
 import org.archstudio.aim.ArchitectureInstantiationException;
 import org.archstudio.aim.IAIM;
+import org.archstudio.aim.IMyxBrickDescriptionFromXadl;
 import org.archstudio.aim.core.AIMInstantiationOrderCalculator.OrderedGroup;
 import org.archstudio.myx.fw.EMyxInterfaceDirection;
 import org.archstudio.myx.fw.IMyxBrickDescription;
@@ -18,22 +19,29 @@ import org.archstudio.myx.fw.IMyxWeld;
 import org.archstudio.myx.fw.MyxBasicBrickInitializationData;
 import org.archstudio.myx.fw.MyxBrickCreationException;
 import org.archstudio.myx.fw.MyxBrickLoadException;
-import org.archstudio.myx.fw.MyxJavaClassBrickDescription;
+import org.archstudio.myx.fw.MyxContainer;
 import org.archstudio.myx.fw.MyxJavaClassInterfaceDescription;
 import org.archstudio.myx.fw.MyxNullProgressMonitor;
 import org.archstudio.myx.fw.MyxSubProgressMonitor;
+import org.archstudio.myx.fw.MyxUnsupportedBrickDescriptionException;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.myxgen.extension.MyxGenBrick;
-import org.archstudio.myxgen.extension.MyxGenExtensions;
+import org.archstudio.myx.java.MyxJavaClassBrickDescription;
+import org.archstudio.myx.java.MyxJavaClassBrickDescriptionFromXadl;
+import org.archstudio.myx.myxgen.MyxGenBrickDescriptionFromXadl;
+import org.archstudio.myx.osgi.MyxOSGiBrickDescriptionFromXadl;
 import org.archstudio.xadl.XadlUtils;
-import org.archstudio.xadl3.myxgen_3_0.Myxgen_3_0Package;
+import org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package;
 import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
 public class AIMImpl implements IAIM {
 	protected IXArchADT xarch = null;
 	protected IMyxRuntime myx = null;
+	protected IMyxBrickDescription containerDescription = new MyxJavaClassBrickDescription(MyxContainer.class.getName());
 
 	public AIMImpl() {
 	}
@@ -60,8 +68,11 @@ public class AIMImpl implements IAIM {
 
 		IMyxName containerName = MyxUtils.createName(name);
 		try {
-			myx.addBrick(IMyxRuntime.EMPTY_NAME_LIST, containerName, MyxUtils.getContainerBrickDescription(), null);
+			myx.addBrick(IMyxRuntime.EMPTY_NAME_LIST, containerName, containerDescription, null);
 			instantiate(myx, documentRootRef, structureRef, Collections.singletonList(containerName), monitor);
+		}
+		catch (MyxUnsupportedBrickDescriptionException e) {
+			throw new ArchitectureInstantiationException("Myx cannot load brick description", e);
 		}
 		catch (MyxBrickLoadException mble) {
 			throw new ArchitectureInstantiationException("Myx cannot load brick", mble);
@@ -120,7 +131,8 @@ public class AIMImpl implements IAIM {
 	}
 
 	public void instantiate(IMyxRuntime myx, ObjRef xArchRef, ObjRef structureRef, List<IMyxName> containerPath,
-			IMyxProgressMonitor monitor) throws ArchitectureInstantiationException {
+			IMyxProgressMonitor monitor) throws ArchitectureInstantiationException,
+			MyxUnsupportedBrickDescriptionException {
 		if (monitor == null) {
 			monitor = new MyxNullProgressMonitor();
 		}
@@ -133,7 +145,7 @@ public class AIMImpl implements IAIM {
 				structureRef);
 		monitor.worked(1);
 
-		// Iterate through array and instantiate.
+		// Iterate through the list and instantiate.
 		IMyxProgressMonitor brickGroupsMonitor = new MyxSubProgressMonitor(monitor, 1,
 				MyxSubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK);
 		brickGroupsMonitor.beginTask("Brick", orderedGroups.size());
@@ -154,7 +166,7 @@ public class AIMImpl implements IAIM {
 					//Create the container:
 					IMyxName containerName = MyxUtils.createName(brickID);
 					try {
-						myx.addBrick(containerPath, containerName, MyxUtils.getContainerBrickDescription(), null);
+						myx.addBrick(containerPath, containerName, containerDescription, null);
 					}
 					catch (MyxBrickLoadException mble) {
 						throw new ArchitectureInstantiationException("Myx cannot load brick", mble);
@@ -189,47 +201,31 @@ public class AIMImpl implements IAIM {
 					}
 				}
 				else {
-					IMyxBrickDescription myxBrickDescription = null;
 					IMyxBrickInitializationData initData = null;
-
-					ObjRef myxGenRef = XadlUtils.getImplementation(xarch, brickRef, Myxgen_3_0Package.Literals.MYX_GEN);
-					if (myxGenRef != null) {
-						String myxGenBrickID = (String) xarch.get(myxGenRef, "brickID");
-						if (myxGenBrickID == null) {
-							throw new ArchitectureInstantiationException("MyxGen implementation lacks a brick ID: "
-									+ XadlUtils.getName(xarch, brickRef));
-						}
-						MyxGenBrick brickExtension = MyxGenExtensions.getActiveMyxGenBrick(myxGenBrickID);
-						if (brickExtension == null) {
-							throw new ArchitectureInstantiationException("Cannot find MyxGen brick ID " + myxGenBrickID
-									+ ": " + XadlUtils.getName(xarch, brickRef));
-						}
-						myxBrickDescription = brickExtension;
-					}
-					else {
-						ObjRef javaImplementationRef = XadlUtils.getJavaImplementation(xarch, brickRef);
-						if (javaImplementationRef == null) {
-							throw new ArchitectureInstantiationException("Could not find Java implementation on brick "
-									+ XadlUtils.getName(xarch, brickRef));
-						}
-						ObjRef mainClassRef = (ObjRef) xarch.get(javaImplementationRef, "mainClass");
-						if (mainClassRef == null) {
-							throw new ArchitectureInstantiationException(
-									"Java implementation lacks main class on brick "
-											+ XadlUtils.getName(xarch, brickRef));
-						}
-						String mainClassName = (String) xarch.get(mainClassRef, "className");
-						if (mainClassName == null) {
-							throw new ArchitectureInstantiationException(
-									"Java implementation lacks main class name on brick "
-											+ XadlUtils.getName(xarch, brickRef));
-						}
-						//We have the main class name; let's get the properties (if any)
-						Properties initializationParameters = getProperties(mainClassRef);
+					ObjRef initializationParametersRef = XadlUtils.getImplementation(xarch, brickRef,
+							Implementation_3_0Package.Literals.INITIALIZATION_PARAMETERS_IMPLEMENTATION);
+					if (initializationParametersRef != null) {
+						Map<String, String> initializationParameters = getProperties(initializationParametersRef);
 						if (initializationParameters != null) {
 							initData = new MyxBasicBrickInitializationData(initializationParameters);
 						}
-						myxBrickDescription = new MyxJavaClassBrickDescription(mainClassName);
+					}
+
+					IMyxBrickDescription myxBrickDescription = null;
+					List<IMyxBrickDescriptionFromXadl> implParsers = Lists.newArrayList();
+					//TODO: use some extension mechanisms
+					implParsers.add(new MyxGenBrickDescriptionFromXadl());
+					implParsers.add(new MyxOSGiBrickDescriptionFromXadl());
+					implParsers.add(new MyxJavaClassBrickDescriptionFromXadl());
+					for (IMyxBrickDescriptionFromXadl implParser : implParsers) {
+						myxBrickDescription = implParser.parse(xarch, brickRef);
+						if (myxBrickDescription != null) {
+							break;
+						}
+					}
+
+					if (myxBrickDescription == null) {
+						throw new ArchitectureInstantiationException("Myx cannot parse brick implementation");
 					}
 
 					try {
@@ -533,14 +529,14 @@ public class AIMImpl implements IAIM {
 				+ XadlUtils.getName(xarch, interfaceRef) + " on brick " + XadlUtils.getName(xarch, brickRef));
 	}
 
-	private Properties getProperties(ObjRef javaClassRef) {
-		List<ObjRef> initializationParamRefs = xarch.getAll(javaClassRef, "initializationParameter");
+	private Map<String, String> getProperties(ObjRef initializationParametersRef) {
+		List<ObjRef> initializationParamRefs = xarch.getAll(initializationParametersRef, "initializationParameter");
 		if (initializationParamRefs.size() == 0) {
 			return null;
 		}
-		Properties p = new Properties();
+		Map<String, String> p = Maps.newHashMap();
 		for (ObjRef initializationParamRef : initializationParamRefs) {
-			String name = (String) xarch.get(initializationParamRef, "name");
+			String name = (String) xarch.get(initializationParamRef, "key");
 			String value = (String) xarch.get(initializationParamRef, "value");
 			if (name != null && value != null) {
 				p.put(name, value);

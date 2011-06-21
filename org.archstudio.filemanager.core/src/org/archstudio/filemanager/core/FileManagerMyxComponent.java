@@ -12,8 +12,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.archstudio.filemanager.CantOpenFileException;
-import org.archstudio.xarchadt.IXArchADTFileListener;
-import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTFileEvent;
 import org.archstudio.xarchadt.XArchADTModelEvent;

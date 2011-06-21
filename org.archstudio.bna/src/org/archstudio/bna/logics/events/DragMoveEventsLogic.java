@@ -4,39 +4,32 @@ import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.IBNAMouseListener;
 import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
-
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
 
 public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMouseMoveListener {
 
 	DragMoveEvent currentEvent = null;
 
-	public DragMoveEventsLogic(IThingLogicManager tlm) {
+	public DragMoveEventsLogic() {
 	}
 
 	@Override
 	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
 		if (evt.button == 1 && (evt.stateMask & SWT.MODIFIER_MASK) == 0) {
-			Iterable<IThing> editableThings = Iterables.filter(t, new Predicate<IThing>() {
-				@Override
-				public boolean apply(IThing input) {
-					return input instanceof IRelativeMovable
-							&& UserEditableUtils.isEditableForAllQualities(input, IRelativeMovable.USER_MAY_MOVE);
-				}
-			});
-			if (!Iterables.isEmpty(editableThings)) {
-				view.setCursor(SWT.CURSOR_SIZEALL);
-				fireDragStartedEvent(currentEvent = new DragMoveEvent(view, evt, editableThings,
+			IRelativeMovable relativeMovableThing = SystemUtils.firstOrNull(t, IRelativeMovable.class);
+			if (relativeMovableThing != null
+					&& UserEditableUtils
+							.isEditableForAllQualities(relativeMovableThing, IRelativeMovable.USER_MAY_MOVE)) {
+				view.setCursor(SWT.CURSOR_HAND);
+				fireDragStartedEvent(currentEvent = new DragMoveEvent(view, evt, relativeMovableThing,
 						DefaultCoordinate.forLocal(new Point(evt.x, evt.y), view.getCoordinateMapper())));
 
 			}

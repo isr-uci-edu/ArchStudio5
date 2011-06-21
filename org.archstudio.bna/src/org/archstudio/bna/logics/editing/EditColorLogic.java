@@ -1,13 +1,17 @@
 package org.archstudio.bna.logics.editing;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasMutableColor;
+import org.archstudio.bna.facets.IHasMutableText;
+import org.archstudio.bna.facets.IHasToolTip;
+import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.utils.AssemblyUtils;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -23,7 +27,19 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
+import com.google.common.collect.Iterables;
+
 public abstract class EditColorLogic extends AbstractThingLogic implements IBNAMenuListener {
+
+	private static final class EditColorLogicData {
+		public final Collection<String> thingIDs;
+
+		public EditColorLogicData(Collection<String> thingIDs) {
+			this.thingIDs = thingIDs;
+		}
+	}
+
+	private static final IThingKey<EditColorLogicData> DATA_KEY = ThingKey.create(EditColorLogic.class);
 
 	protected static RGB copiedRGB = null;
 
@@ -72,23 +88,31 @@ public abstract class EditColorLogic extends AbstractThingLogic implements IBNAM
 	}
 
 	public void fillMenu(IBNAView view, Point localPoint, Point worldPoint, Iterable<IThing> things, IMenuManager m) {
-		if (things == null) {
-			return;
-		}
-		List<IHasMutableColor> thingsToEdit = new ArrayList<IHasMutableColor>();
-		for (IThing selectedThing : BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) {
-			IAssemblyThing assembly = AssemblyUtils.getAssemblyWithPart(selectedThing);
-			if (assembly != null) {
-				for (IThing partThing : assembly.getParts()) {
-					if (partThing instanceof IHasMutableColor
-							&& UserEditableUtils.isEditableForAnyQualities(partThing,
-									IHasMutableColor.USER_MAY_EDIT_COLOR)) {
-						thingsToEdit.add((IHasMutableColor) partThing);
-						break;
+		public void fillMenu(final IBNAView view, Iterable<IThing> things, final ICoordinate location, IMenuManager m) {
+			IThing editThing = null;
+			if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) <= 1) {
+				MAIN: for (IThing thing : things) {
+					for (IThing assemblyPartThing : Assemblies.getRelatedParts(view.getBNAWorld().getBNAModel(), thing)) {
+						if (UserEditableUtils.isEditableForAnyQualities(assemblyPartThing,
+								IHasMutableText.USER_MAY_EDIT_TEXT, IHasToolTip.USER_MAY_EDIT_TOOL_TIP)) {
+							editThing = assemblyPartThing;
+							break MAIN;
+						}
 					}
 				}
 			}
+			final IThing finalThing = editThing;
+			if (finalThing != null) {
+				m.add(new Action("Edit Description...") {
+
+					@Override
+					public void run() {
+						initEdit(finalThing);
+					}
+				});
+			}
 		}
+
 		if (thingsToEdit.size() == 0) {
 			return;
 		}

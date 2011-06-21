@@ -7,7 +7,6 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.MaintainTagsLogic;
-import org.archstudio.bna.utils.AssemblyUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.draw2d.geometry.Point;

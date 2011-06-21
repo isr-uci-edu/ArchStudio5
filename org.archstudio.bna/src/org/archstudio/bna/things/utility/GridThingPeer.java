@@ -3,7 +3,6 @@ package org.archstudio.bna.things.utility;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IRegion;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.facets.IHasColor;
@@ -21,7 +20,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, IRegion localClip, IRegion worldClip) {
+	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 		int gridSpacing = t.getGridSpacing();
 		if (gridSpacing == 0) {
 			return;

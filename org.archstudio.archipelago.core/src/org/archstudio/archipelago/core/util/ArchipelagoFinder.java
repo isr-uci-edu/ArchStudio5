@@ -4,28 +4,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Point;
-
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.structure.StructureMapper;
-import org.archstudio.bna.BNAUtils;
-import org.archstudio.bna.FlyToUtils;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.assemblies.BoxAssembly;
-import org.archstudio.bna.assemblies.EndpointAssembly;
-import org.archstudio.bna.assemblies.StickySplineAssembly;
-import org.archstudio.bna.facets.IHasAssemblyData;
 import org.archstudio.bna.things.utility.WorldThing;
 import org.archstudio.bna.things.utility.WorldThingPeer;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.FlyToUtils;
 import org.archstudio.resources.ArchStudioCommonResources;
 import org.archstudio.swtutils.DefaultFindResult;
 import org.archstudio.swtutils.IFindResult;
 import org.archstudio.swtutils.IFinder;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Point;
 
 public class ArchipelagoFinder implements IFinder<IBNAView>{
 

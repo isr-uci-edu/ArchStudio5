@@ -12,6 +12,7 @@ import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.IBNAMouseListener;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.events.MouseEvent;
 
@@ -54,36 +55,33 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 	@Override
 	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
 		if (evt.button == 1) {
-			if (!Iterables.isEmpty(t)) {
-				for (IHasMutableSelected mst : UserEditableUtils.getEditableForAllQualities(t,
-						IHasMutableSelected.class, IHasMutableSelected.USER_MAY_SELECT)) {
-					boolean controlPressed = BNAUtils.wasControlPressed(evt);
-					boolean shiftPressed = BNAUtils.wasShiftPressed(evt);
+			IHasMutableSelected mst = SystemUtils.firstOrNull(t, IHasMutableSelected.class);
+			if (mst != null && UserEditableUtils.isEditableForAllQualities(mst, IHasMutableSelected.USER_MAY_SELECT)) {
+				boolean controlPressed = BNAUtils.wasControlPressed(evt);
+				boolean shiftPressed = BNAUtils.wasShiftPressed(evt);
 
-					if (!controlPressed && !shiftPressed) {
-						//Only deselect everything if the thing we're clicking on is not selected
-						if (!mst.isSelected()) {
-							removeAllSelections();
-						}
-						mst.setSelected(true);
+				if (!controlPressed && !shiftPressed) {
+					//Only deselect everything if the thing we're clicking on is not selected
+					if (!mst.isSelected()) {
+						removeAllSelections();
 					}
-					else if (controlPressed && !shiftPressed) {
-						//Toggle selection
-						mst.setSelected(!mst.isSelected());
-					}
-					else if (shiftPressed && !controlPressed) {
-						//Add to selection
-						mst.setSelected(true);
-					}
-					else if (shiftPressed && controlPressed) {
-						//Subtract from selection
-						mst.setSelected(false);
-					}
-
-					break;
+					mst.setSelected(true);
 				}
+				else if (controlPressed && !shiftPressed) {
+					//Toggle selection
+					mst.setSelected(!mst.isSelected());
+				}
+				else if (shiftPressed && !controlPressed) {
+					//Add to selection
+					mst.setSelected(true);
+				}
+				else if (shiftPressed && controlPressed) {
+					//Subtract from selection
+					mst.setSelected(false);
+				}
+				return;
 			}
-			else {
+			if (Iterables.isEmpty(t)) {
 				boolean controlPressed = BNAUtils.wasControlPressed(evt);
 				boolean shiftPressed = BNAUtils.wasShiftPressed(evt);
 

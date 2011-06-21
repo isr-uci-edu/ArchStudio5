@@ -4,7 +4,6 @@ import java.util.Set;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IRegion;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
@@ -64,11 +63,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, IRegion localClip, IRegion worldClip) {
-		if (!worldClip.intersects(t.getBoundingBox())) {
-			return;
-		}
-
+	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 		if (r.setForegroundColor(g, t, IHasColor.COLOR_KEY)) {
 
 			Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t, new Rectangle());

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.archstudio.eclipse.ArchStudioNature;
-import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -19,7 +18,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
@@ -48,11 +46,11 @@ public class EclipseUtils {
 
 		List<IProject> l = new ArrayList<IProject>();
 		IProject[] projects = root.getProjects();
-		for (int i = 0; i < projects.length; i++) {
-			if (projects[i].isOpen()) {
+		for (IProject project : projects) {
+			if (project.isOpen()) {
 				try {
-					if (projects[i].getNature(ArchStudioNature.ID) != null) {
-						l.add(projects[i]);
+					if (project.getNature(ArchStudioNature.ID) != null) {
+						l.add(project);
 					}
 				}
 				catch (CoreException ce) {
@@ -61,14 +59,15 @@ public class EclipseUtils {
 				}
 			}
 		}
-		return (IProject[]) l.toArray(new IProject[l.size()]);
+		return l.toArray(new IProject[l.size()]);
 	}
 
 	public static IFileEditorInput getFileEditorInput(IPath path) {
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IFile file = root.getFile(path);
-		if (file == null)
+		if (file == null) {
 			return null;
+		}
 		IFileEditorInput fileEditorInput = new FileEditorInput(file);
 		return fileEditorInput;
 	}
@@ -128,6 +127,7 @@ public class EclipseUtils {
 		final IFile targetFile = workspace.getRoot().getFile(targetPath);
 
 		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
+			@Override
 			protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException,
 					InterruptedException {
 				IPath targetContainerPath = targetPath.removeLastSegments(1);

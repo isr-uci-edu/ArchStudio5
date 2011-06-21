@@ -10,10 +10,10 @@ import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.myx.fw.IMyxLifecycleProcessor;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
-import org.archstudio.myxgen.extension.MyxGenBrick;
-import org.archstudio.myxgen.extension.EServiceObjectDelegate;
-import org.archstudio.myxgen.extension.MyxGenExtensions;
-import org.archstudio.myxgen.extension.MyxGenInterface;
+import org.archstudio.myx.myxgen.extension.EServiceObjectDelegate;
+import org.archstudio.myx.myxgen.extension.MyxGenBrick;
+import org.archstudio.myx.myxgen.extension.MyxGenExtensions;
+import org.archstudio.myx.myxgen.extension.MyxGenInterface;
 import org.archstudio.sysutils.SystemUtils;
 
 public class MyxCompStubUtil {

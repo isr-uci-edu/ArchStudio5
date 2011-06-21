@@ -23,9 +23,6 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractThingPeer<
 	public void draw(IBNAView view, Graphics g, Rectangle clip, ResourceUtils res) {
 		Rectangle bb = t.getBoundingBox();
 		Rectangle lbb = BNAUtils.worldToLocal(view.getCoordinateMapper(), bb);
-		if (!clip.intersects(lbb)) {
-			return;
-		}
 
 		Path path = new Path(res.getDevice());
 		path.addArc(lbb.x, lbb.y, lbb.width, lbb.height, 0, 360);

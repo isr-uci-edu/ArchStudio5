@@ -6,6 +6,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -49,6 +50,7 @@ import org.eclipse.swt.widgets.Widget;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
@@ -782,7 +784,7 @@ public class BNAUtils {
 		SWTWidgetUtils.sync(d, r);
 	}
 
-	//	public static Composite getParentComposite(IBNAView view) {
+	//	public static Widget getParentsComposite(IBNAView view) {
 	//		if (view == null) {
 	//			return null;
 	//		}
@@ -832,8 +834,8 @@ public class BNAUtils {
 		};
 	};
 
-	public static final Iterable<IThing> getSelectedThings(IBNAModel m) {
-		return Iterables.filter(m.getThings(), isSelectedPredicate);
+	public static final Collection<IThing> getSelectedThings(IBNAModel m) {
+		return Collections2.filter(m.getThings(), isSelectedPredicate);
 	}
 
 	public static final int sizeOfSelectedThings(IBNAModel m) {
@@ -1406,4 +1408,8 @@ public class BNAUtils {
 		}
 	}
 
+	public static RGB adjustBrightness(RGB rgb, float factor) {
+		float[] hsb = rgb.getHSB();
+		return new RGB(hsb[0], hsb[1], SystemUtils.bound(0f, hsb[2] * factor, 1f));
+	}
 }

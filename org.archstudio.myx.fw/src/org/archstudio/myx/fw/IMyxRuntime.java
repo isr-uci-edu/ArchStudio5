@@ -12,9 +12,6 @@ public interface IMyxRuntime {
 	public void addBrickLoader(IMyxName loaderName, Class<? extends IMyxBrickLoader> brickLoaderClass,
 			Properties initParams) throws MyxBrickLoaderException;
 
-	public void addClassManager(IMyxName loaderName, Class<? extends IMyxClassManager> classManagerClass,
-			Properties initParams) throws MyxClassManagerException;
-
 	public void removeBrickLoader(IMyxName loaderName);
 
 	public Collection<? extends IMyxName> getBrickLoaderNames();

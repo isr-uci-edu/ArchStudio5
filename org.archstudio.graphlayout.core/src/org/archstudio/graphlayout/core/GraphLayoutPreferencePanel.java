@@ -1,12 +1,11 @@
 package org.archstudio.graphlayout.core;
 
+import org.archstudio.graphlayout.GraphLayoutConstants;
+import org.archstudio.myx.fw.MyxRegistry;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-
-import org.archstudio.graphlayout.GraphLayoutConstants;
-import org.archstudio.myx.fw.MyxRegistry;
 
 public class GraphLayoutPreferencePanel extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 	private GraphLayoutPrefsMyxComponent comp = null;

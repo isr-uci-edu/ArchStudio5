@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.archstudio.eclipse.ui.actions.AbstractObjectActionDelegate;
+import org.archstudio.osgiutils.OSGiUtils;
 import org.archstudio.relengtools.core.Activator;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.core.resources.IFile;
@@ -19,7 +20,6 @@ import org.eclipse.pde.core.project.IBundleProjectDescription;
 import org.eclipse.pde.core.project.IBundleProjectService;
 import org.eclipse.pde.core.project.IRequiredBundleDescription;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 
 import com.google.common.collect.Lists;
 
@@ -38,8 +38,7 @@ public class SortManifests extends AbstractObjectActionDelegate {
 	private void run(IAction action, IProject project) {
 		try {
 			BundleContext context = Activator.getSingleton().getContext();
-			ServiceReference ref = context.getServiceReference(IBundleProjectService.class.getName());
-			IBundleProjectService service = (IBundleProjectService) context.getService(ref);
+			IBundleProjectService service = OSGiUtils.getServiceReference(context, IBundleProjectService.class);
 			IBundleProjectDescription description = service.getDescription(project);
 			List<IRequiredBundleDescription> requiredBundles = Lists.newArrayList(emptyIfNull(description
 					.getRequiredBundles()));
@@ -70,7 +69,7 @@ public class SortManifests extends AbstractObjectActionDelegate {
 			manifest = manifest.replaceAll(",\r?\n ", ",");
 			String[] lines = manifest.split("\r?\n");
 			Arrays.sort(lines);
-			manifest = SystemUtils.join("", "\n", "", lines);
+			manifest = SystemUtils.join("", "\n", "", (Object[]) lines);
 			manifest = manifest.replaceAll(",", ",\n ");
 			if (!manifest.endsWith("\n")) {
 				manifest += "\n";

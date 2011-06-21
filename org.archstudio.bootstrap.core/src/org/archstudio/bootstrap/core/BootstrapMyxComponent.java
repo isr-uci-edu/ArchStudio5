@@ -2,7 +2,7 @@ package org.archstudio.bootstrap.core;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 
 import org.archstudio.aim.ArchitectureInstantiationException;
 import org.archstudio.myx.fw.MyxNullProgressMonitor;
@@ -35,8 +35,8 @@ public class BootstrapMyxComponent extends org.archstudio.bootstrap.core.Bootstr
 	}
 
 	public void _begin() {
-		Properties initProperties = MyxUtils.getInitProperties(this);
-		String uriString = initProperties.getProperty("uri");
+		Map<String, String> initProperties = MyxUtils.getInitProperties(this);
+		String uriString = initProperties.get("uri");
 		if (uriString == null) {
 			throw new RuntimeException("No 'uri' property in initialization properties for bootstrapper.");
 		}

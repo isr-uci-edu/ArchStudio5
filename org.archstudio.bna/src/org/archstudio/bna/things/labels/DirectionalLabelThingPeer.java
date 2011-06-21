@@ -2,7 +2,6 @@ package org.archstudio.bna.things.labels;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IRegion;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
@@ -19,11 +18,7 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, IRegion localClip, IRegion worldClip) {
-		if (!worldClip.intersects(t.getBoundingBox())) {
-			return;
-		}
-
+	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t, new Rectangle());
 
 		Flow f = t.getFlow();

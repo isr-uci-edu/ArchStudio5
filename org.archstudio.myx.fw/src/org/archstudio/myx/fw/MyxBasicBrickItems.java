@@ -5,20 +5,20 @@ public class MyxBasicBrickItems implements IMyxBrickItems {
 	protected IMyxName brickName;
 	protected IMyxRequiredServiceProvider requiredServiceProvider;
 	protected IMyxInterfaceManager interfaceManager;
-	protected IMyxClassManager classManager;
 	protected IMyxBrickDescription brickDescription;
 	protected IMyxBrickInitializationData initializationData;
 
-	public MyxBasicBrickItems(IMyxName brickName, IMyxRequiredServiceProvider requiredServiceProvider, IMyxInterfaceManager interfaceManager,
-	        IMyxClassManager classManager, IMyxBrickDescription brickDescription, IMyxBrickInitializationData initializationData) {
+	public MyxBasicBrickItems(IMyxName brickName, IMyxRequiredServiceProvider requiredServiceProvider,
+			IMyxInterfaceManager interfaceManager, IMyxBrickDescription brickDescription,
+			IMyxBrickInitializationData initializationData) {
 		this.brickName = brickName;
 		this.requiredServiceProvider = requiredServiceProvider;
 		this.interfaceManager = interfaceManager;
-		this.classManager = classManager;
 		this.brickDescription = brickDescription;
 		this.initializationData = initializationData;
 	}
 
+	@Override
 	public IMyxInterfaceManager getInterfaceManager() {
 		return interfaceManager;
 	}
@@ -27,6 +27,7 @@ public class MyxBasicBrickItems implements IMyxBrickItems {
 		this.interfaceManager = interfaceManager;
 	}
 
+	@Override
 	public IMyxRequiredServiceProvider getRequiredServiceProvider() {
 		return requiredServiceProvider;
 	}
@@ -35,6 +36,7 @@ public class MyxBasicBrickItems implements IMyxBrickItems {
 		this.requiredServiceProvider = requiredServiceProvider;
 	}
 
+	@Override
 	public IMyxName getBrickName() {
 		return brickName;
 	}
@@ -43,14 +45,7 @@ public class MyxBasicBrickItems implements IMyxBrickItems {
 		this.brickName = brickName;
 	}
 
-	public IMyxClassManager getClassManager() {
-		return classManager;
-	}
-
-	public void setClassManager(IMyxClassManager classManager) {
-		this.classManager = classManager;
-	}
-
+	@Override
 	public IMyxBrickDescription getBrickDescription() {
 		return brickDescription;
 	}
@@ -59,6 +54,7 @@ public class MyxBasicBrickItems implements IMyxBrickItems {
 		this.brickDescription = brickDescription;
 	}
 
+	@Override
 	public IMyxBrickInitializationData getInitializationData() {
 		return initializationData;
 	}

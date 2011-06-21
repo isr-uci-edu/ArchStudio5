@@ -15,4 +15,6 @@ Require-Bundle: com.google.guava,
  org.eclipse.pde.core,
  org.eclipse.ui,
  org.archstudio.eclipseutils;bundle-version="1.0.0",
- org.archstudio.eclipse;bundle-version="5.0.0"
+ org.archstudio.eclipse;bundle-version="5.0.0",
+ org.archstudio.eclipse.ui;bundle-version="5.0.0",
+ org.archstudio.osgiutils;bundle-version="1.0.0"

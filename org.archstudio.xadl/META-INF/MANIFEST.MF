@@ -6,8 +6,8 @@ Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.xadl
 Manifest-Version: 1.0
 Require-Bundle: org.archstudio.sysutils,
- org.archstudio.xadl3.javaimplementation,
- org.archstudio.xadl3.lookupimplementation,
+ org.archstudio.xadl3.implementation.java,
+ org.archstudio.xadl3.implementation.lookup,
  org.archstudio.xarchadt,
  org.archstudio.xarchadt.core,
  com.google.guava;bundle-version="0.0.9"

@@ -12,17 +12,13 @@ public interface IThingPeer<T extends IThing> {
 	 * @param view
 	 *            The {@link IBNAView} that sets the context for drawing the {@link IThing}.
 	 * @param cm
-	 *            TODO
+	 *            The {@link ICoordinateMapper} to use for rendering. Note, this may differ from that of the view.
 	 * @param g
 	 *            The {@link Graphics} on which to draw the Thing.
-	 * @param localClip
-	 *            TODO
-	 * @param worldClip
-	 *            TODO
 	 * @param res
 	 *            The {@link IResources} to use for creating resources.
 	 */
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, IRegion localClip, IRegion worldClip);
+	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r);
 
 	/**
 	 * Determine if the given point (in {@link ICoordinateMapper world coordinates}) is "in" the peer's associated

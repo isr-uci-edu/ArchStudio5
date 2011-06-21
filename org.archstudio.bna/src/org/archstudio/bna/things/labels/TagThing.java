@@ -34,6 +34,7 @@ public class TagThing extends AbstractAnchorPointThing implements IHasBoundingBo
 		setDontIncreaseFontSize(true);
 	}
 
+	@Override
 	public Rectangle getBoundingBox() {
 		// TODO: Note why this is so
 		Rectangle r = get(BOUNDING_BOX_KEY);
@@ -45,30 +46,37 @@ public class TagThing extends AbstractAnchorPointThing implements IHasBoundingBo
 		return new Rectangle(p.x, p.y, 1, 1);
 	}
 
+	@Override
 	public RGB getColor() {
 		return get(COLOR_KEY);
 	}
 
+	@Override
 	public void setColor(RGB newColor) {
 		set(COLOR_KEY, newColor);
 	}
 
+	@Override
 	public String getText() {
 		return get(TEXT_KEY);
 	}
 
+	@Override
 	public void setText(String text) {
 		set(TEXT_KEY, text);
 	}
 
+	@Override
 	public int getAngle() {
 		return get(ANGLE_KEY);
 	}
 
+	@Override
 	public void setAngle(int angle) {
 		set(ANGLE_KEY, angle);
 	}
 
+	@Override
 	public Point getIndicatorPoint() {
 		return get(INDICATOR_POINT_KEY);
 	}
@@ -77,34 +85,42 @@ public class TagThing extends AbstractAnchorPointThing implements IHasBoundingBo
 		set(INDICATOR_POINT_KEY, p);
 	}
 
+	@Override
 	public String getFontName() {
 		return get(FONT_NAME_KEY);
 	}
 
+	@Override
 	public void setFontName(String fontName) {
 		set(FONT_NAME_KEY, fontName);
 	}
 
+	@Override
 	public int getFontSize() {
 		return get(FONT_SIZE_KEY);
 	}
 
+	@Override
 	public void setFontSize(int fontSize) {
 		set(FONT_SIZE_KEY, fontSize);
 	}
 
+	@Override
 	public FontStyle getFontStyle() {
 		return get(FONT_STYLE_KEY);
 	}
 
+	@Override
 	public void setFontStyle(FontStyle fontStyle) {
 		set(FONT_STYLE_KEY, fontStyle);
 	}
 
+	@Override
 	public void setDontIncreaseFontSize(boolean dontIncrease) {
 		set(DONT_INCREASE_FONT_SIZE_KEY, dontIncrease);
 	}
 
+	@Override
 	public boolean getDontIncreaseFontSize() {
 		return get(DONT_INCREASE_FONT_SIZE_KEY);
 	}

@@ -13,6 +13,15 @@ import org.archstudio.filemanager.IFileManagerListener;
 import org.archstudio.xarchadt.IXArchADTFileListener;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.Collection;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "File Manager Impl B"

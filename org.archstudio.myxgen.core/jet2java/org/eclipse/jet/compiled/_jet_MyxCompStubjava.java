@@ -6,7 +6,7 @@ import org.eclipse.jet.JET2Writer;
 import org.eclipse.jet.taglib.RuntimeTagElement;
 import org.eclipse.jet.taglib.TagInfo;
 import org.archstudio.myx.fw.*;
-import org.archstudio.myxgen.extension.*;
+import org.archstudio.myx.myxgen.extension.*;
 import org.archstudio.myxgen.jet.codegen.*;
 import org.archstudio.myxgen.jet.util.*;
 import org.archstudio.sysutils.*;
@@ -134,7 +134,7 @@ if(brick.getParentBrickId() == null){
  // ----- constant myx interface name declarations 
         out.write(NL);         
 for(MyxGenInterface iface : brick.getInterfaces()) {
-EServiceObjectDelegate delegate = iface.getServiceObjectDelegate();
+//EServiceObjectDelegate delegate = iface.getServiceObjectDelegate();
         out.write("\t/**");  //$NON-NLS-1$        
         out.write(NL);         
         out.write("\t * Myx name for the <code>");  //$NON-NLS-1$        

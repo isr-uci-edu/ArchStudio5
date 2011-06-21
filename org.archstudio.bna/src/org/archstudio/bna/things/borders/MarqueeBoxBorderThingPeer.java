@@ -2,7 +2,6 @@ package org.archstudio.bna.things.borders;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IRegion;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
@@ -16,12 +15,7 @@ public class MarqueeBoxBorderThingPeer<T extends MarqueeBoxBorderThing> extends 
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, final Graphics g, IResources r, IRegion localClip,
-			IRegion worldClip) {
-		if (!worldClip.intersects(t.getBoundingBox())) {
-			return;
-		}
-
+	public void draw(IBNAView view, ICoordinateMapper cm, final Graphics g, IResources r) {
 		final Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		BNAUtils.drawMarquee(g, r, t.getRotatingOffset(), false, new Runnable() {
 			@Override

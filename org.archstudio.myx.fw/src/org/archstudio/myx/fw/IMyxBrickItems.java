@@ -1,6 +1,7 @@
 package org.archstudio.myx.fw;
 
 public interface IMyxBrickItems {
+
 	public IMyxName getBrickName();
 
 	public IMyxBrickDescription getBrickDescription();
@@ -11,5 +12,4 @@ public interface IMyxBrickItems {
 
 	public IMyxInterfaceManager getInterfaceManager();
 
-	public IMyxClassManager getClassManager();
 }

@@ -22,11 +22,11 @@ import com.google.common.collect.MapMaker;
 
 public class EListProxy extends AbstractProxy {
 
-	static final class ProxyImpl extends AbstractList<EObject> implements EList<EObject>, InvocationHandler {
+	static class ProxyImpl<E> extends AbstractList<E> implements EList<E>, InvocationHandler {
 
-		private final IXArchADT xarch;
-		private final ObjRef objRef;
-		private final String name;
+		protected final IXArchADT xarch;
+		protected final ObjRef objRef;
+		protected final String name;
 
 		public ProxyImpl(IXArchADT xarch, ObjRef objRef, String name) {
 			this.xarch = xarch;
@@ -40,18 +40,19 @@ public class EListProxy extends AbstractProxy {
 		}
 
 		@Override
-		public void move(int newPosition, EObject object) {
+		public void move(int newPosition, E object) {
 			throw new UnsupportedOperationException();
 		}
 
 		@Override
-		public EObject move(int newPosition, int oldPosition) {
+		public E move(int newPosition, int oldPosition) {
 			throw new UnsupportedOperationException();
 		}
 
 		@Override
-		public EObject get(int index) {
-			return XArchADTProxy.proxy(xarch, xarch.getAll(objRef, name).get(index));
+		@SuppressWarnings("unchecked")
+		public E get(int index) {
+			return (E) XArchADTProxy.proxy(xarch, xarch.getAll(objRef, name).get(index));
 		}
 
 		@Override
@@ -60,9 +61,10 @@ public class EListProxy extends AbstractProxy {
 		}
 
 		@Override
-		public Iterator<EObject> iterator() {
+		@SuppressWarnings("unchecked")
+		public Iterator<E> iterator() {
 			final Iterator<ObjRef> i = Lists.newArrayList(xarch.getAll(objRef, name)).iterator();
-			return new Iterator<EObject>() {
+			return new Iterator<E>() {
 
 				ObjRef current = null;
 
@@ -72,14 +74,15 @@ public class EListProxy extends AbstractProxy {
 				}
 
 				@Override
-				public EObject next() {
-					return XArchADTProxy.proxy(xarch, current = i.next());
+				public E next() {
+					return (E) proxy(xarch, current = i.next());
 				}
 
 				@Override
 				public void remove() {
-					if (current == null)
+					if (current == null) {
 						throw new IllegalStateException();
+					}
 					i.remove();
 					xarch.remove(objRef, name, current);
 					current = null;
@@ -88,15 +91,15 @@ public class EListProxy extends AbstractProxy {
 		}
 
 		@Override
-		public boolean add(EObject e) {
-			xarch.add(objRef, name, XArchADTProxy.unproxy(e));
+		public boolean add(E e) {
+			xarch.add(objRef, name, (ObjRef) unproxy(e));
 			return true;
 		}
 
 		@Override
 		public boolean remove(Object o) {
 			if (o instanceof EObject) {
-				xarch.remove(objRef, name, XArchADTProxy.unproxy((EObject) o));
+				xarch.remove(objRef, name, (ObjRef) unproxy(o));
 				return true;
 			}
 			return false;
@@ -111,34 +114,43 @@ public class EListProxy extends AbstractProxy {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + ((name == null) ? 0 : name.hashCode());
-			result = prime * result + ((objRef == null) ? 0 : objRef.hashCode());
+			result = prime * result + (name == null ? 0 : name.hashCode());
+			result = prime * result + (objRef == null ? 0 : objRef.hashCode());
 			return result;
 		}
 
+		@SuppressWarnings("rawtypes")
 		@Override
 		public boolean equals(Object obj) {
-			if (this == obj)
+			if (this == obj) {
 				return true;
-			if (obj == null)
+			}
+			if (obj == null) {
 				return false;
-			if (obj instanceof Proxy)
+			}
+			if (obj instanceof Proxy) {
 				obj = Proxy.getInvocationHandler(obj);
-			if (getClass() != obj.getClass())
+			}
+			if (getClass() != obj.getClass()) {
 				return false;
+			}
 			ProxyImpl other = (ProxyImpl) obj;
 			if (name == null) {
-				if (other.name != null)
+				if (other.name != null) {
 					return false;
+				}
 			}
-			else if (!name.equals(other.name))
+			else if (!name.equals(other.name)) {
 				return false;
+			}
 			if (objRef == null) {
-				if (other.objRef != null)
+				if (other.objRef != null) {
 					return false;
+				}
 			}
-			else if (!objRef.equals(other.objRef))
+			else if (!objRef.equals(other.objRef)) {
 				return false;
+			}
 			return true;
 		}
 	}
@@ -163,7 +175,7 @@ public class EListProxy extends AbstractProxy {
 					proxy = (EList<Object>) Proxy.newProxyInstance(//
 							instanceClass.getClassLoader(), //
 							new Class<?>[] { instanceClass }, //
-							new ProxyImpl(xarch, objRef, name)));
+							new ProxyImpl<EObject>(xarch, objRef, name)));
 		}
 		return (EList<T>) proxy;
 	}

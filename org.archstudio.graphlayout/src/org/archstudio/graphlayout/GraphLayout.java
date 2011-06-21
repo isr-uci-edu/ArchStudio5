@@ -1,6 +1,7 @@
 package org.archstudio.graphlayout;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.swt.graphics.Point;

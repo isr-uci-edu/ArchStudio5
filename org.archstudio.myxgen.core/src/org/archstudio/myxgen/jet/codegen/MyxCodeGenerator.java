@@ -10,9 +10,9 @@ import java.util.Map;
 
 import javax.xml.parsers.SAXParserFactory;
 
+import org.archstudio.myx.myxgen.extension.MyxGenBrick;
+import org.archstudio.myx.myxgen.extension.MyxGenExtensions;
 import org.archstudio.myxgen.core.Activator;
-import org.archstudio.myxgen.extension.MyxGenBrick;
-import org.archstudio.myxgen.extension.MyxGenExtensions;
 import org.archstudio.myxgen.jet.util.TextUtil;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.core.resources.IFile;

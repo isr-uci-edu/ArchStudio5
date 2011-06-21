@@ -1,9 +1,11 @@
 package org.archstudio.bna.things.labels;
 
 import org.archstudio.bna.constants.IFontConstants;
+import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableFontData;
 import org.archstudio.bna.facets.IHasMutableHorizontalAlignment;
+import org.archstudio.bna.facets.IHasMutableOffset;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasMutableVerticalAlignment;
 import org.archstudio.bna.facets.IRelativeMovable;
@@ -14,7 +16,8 @@ import org.archstudio.swtutils.constants.VerticalAlignment;
 import org.eclipse.swt.graphics.RGB;
 
 public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHasMutableText, IHasMutableColor,
-		IHasMutableHorizontalAlignment, IHasMutableVerticalAlignment, IHasMutableFontData, IRelativeMovable {
+		IHasMutableHorizontalAlignment, IHasMutableVerticalAlignment, IHasMutableFontData, IRelativeMovable,
+		IHasMutableAngle, IHasMutableOffset {
 
 	public AnchoredLabelThing(Object id) {
 		super(id);
@@ -25,10 +28,12 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 		setText("[text]");
 		setColor(new RGB(0, 0, 0));
 		setFontName(IFontConstants.DEFAULT_FONT_NAME);
-		setFontSize(12);
+		setFontSize(10);
 		setFontStyle(FontStyle.NORMAL);
 		setHorizontalAlignment(HorizontalAlignment.CENTER);
 		setVerticalAlignment(VerticalAlignment.MIDDLE);
+		setAngle(0);
+		setOffset(0);
 		super.initProperties();
 	}
 
@@ -110,5 +115,25 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 	@Override
 	public void setDontIncreaseFontSize(boolean dontIncrease) {
 		set(DONT_INCREASE_FONT_SIZE_KEY, dontIncrease);
+	}
+
+	@Override
+	public int getAngle() {
+		return get(ANGLE_KEY);
+	}
+
+	@Override
+	public void setAngle(int degrees) {
+		set(ANGLE_KEY, degrees);
+	}
+
+	@Override
+	public int getOffset() {
+		return get(OFFSET_KEY);
+	}
+
+	@Override
+	public void setOffset(int offset) {
+		set(OFFSET_KEY, offset);
 	}
 }

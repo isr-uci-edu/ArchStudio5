@@ -26,4 +26,5 @@ Require-Bundle: com.google.guava,
  org.eclipse.ui,
  org.eclipse.xsd,
  org.eclipse.xsd.ecore.importer,
- org.archstudio.eclipseutils
+ org.archstudio.eclipseutils,
+ org.archstudio.osgiutils;bundle-version="1.0.0"

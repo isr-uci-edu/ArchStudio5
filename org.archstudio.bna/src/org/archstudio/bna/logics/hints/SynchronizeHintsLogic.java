@@ -10,6 +10,7 @@ import org.archstudio.bna.IBNASynchronousModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IRelativeMovable;
@@ -45,16 +46,15 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNASyn
 		this.hintRepository = hintRepository;
 		addHintSynchronizer(new PropertyHintSynchronizer("bounds", IHasBoundingBox.BOUNDING_BOX_KEY,
 				IRelativeMovable.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE));
+		addHintSynchronizer(new PropertyHintSynchronizer("location", IHasAnchorPoint.ANCHOR_POINT_KEY,
+				IRelativeMovable.USER_MAY_MOVE));
 		//addHintSynchronizer(new PropertyHintSynchronizer("color", IHasColor.COLOR_KEY,
 		//		IHasMutableColor.USER_MAY_EDIT_COLOR));
-		//addHintSynchronizer(new PropertyHintSynchronizer(IHasBoundingBox.BOUNDING_BOX_KEY,
-		//		IRelativeMovable.USER_MAY_MOVE));
 		//addHintSynchronizer(new PropertyHintSynchronizer(IHasAngle.ANGLE_KEY, IHasMutableAngle.USER_MAY_CHANGE_ANGLE));
 		//addHintSynchronizer(new PropertyHintSynchronizer(IHasMidpoints.MIDPOINTS_KEY,
 		//		IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS));
 		//addHintSynchronizer(new BooleanHintSynchronizer(MaintainTagsLogic.SHOW_TAG_KEY,
 		//		MaintainTagsLogic.USER_MAY_SHOW_TAG));
-		//addHintSynchronizer(new PointHintSynchronizer(IHasAnchorPoint.ANCHOR_POINT_KEY, IRelativeMovable.USER_MAY_MOVE));
 	}
 
 	final protected CopyOnWriteArrayList<IHintSynchronizer> hintSynchronizers = new CopyOnWriteArrayList<IHintSynchronizer>();

@@ -153,7 +153,7 @@ public interface IXArchADT extends IXArchADTQuery {
 	 */
 	public void renameXArch(String oldURI, String newURI);
 
-	void put(ObjRef baseObjRef, String typeOfThing, Serializable key, Serializable value);
+	Serializable put(ObjRef baseObjRef, String typeOfThing, Serializable key, Serializable value);
 
 	Serializable remove(ObjRef baseObjRef, String typeOfThing, Serializable key);
 

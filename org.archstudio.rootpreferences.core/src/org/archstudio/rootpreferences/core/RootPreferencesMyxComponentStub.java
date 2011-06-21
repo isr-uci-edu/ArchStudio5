@@ -10,6 +10,9 @@ import org.archstudio.myx.fw.IMyxLifecycleProcessor;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.resources.IResources;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Root Preferences Impl"

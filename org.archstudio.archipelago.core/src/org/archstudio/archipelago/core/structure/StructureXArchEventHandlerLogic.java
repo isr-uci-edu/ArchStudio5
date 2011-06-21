@@ -1,22 +1,20 @@
 package org.archstudio.archipelago.core.structure;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.IXArchEventHandlerLogic;
+import org.archstudio.bna.IBNAModel;
+import org.archstudio.bna.IBNAWorld;
+import org.archstudio.bna.facets.IHasWorld;
+import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.archstudio.xarchadt.XArchADTModelEvent.EventType;
-import org.archstudio.bna.AbstractThingLogic;
-import org.archstudio.bna.BNAUtils;
-import org.archstudio.bna.IBNAModel;
-import org.archstudio.bna.IBNAWorld;
-import org.archstudio.bna.facets.IHasWorld;
-import org.archstudio.bna.logics.tracking.TypedThingSetTrackingLogic;
-import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 
 public class StructureXArchEventHandlerLogic extends AbstractThingLogic implements IXArchEventHandlerLogic{
 	protected ArchipelagoServices AS = null;

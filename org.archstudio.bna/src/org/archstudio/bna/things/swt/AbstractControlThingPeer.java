@@ -3,7 +3,6 @@ package org.archstudio.bna.things.swt;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IRegion;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
@@ -34,8 +33,7 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 	}
 
 	@Override
-	public final void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, IRegion localClip,
-			IRegion worldClip) {
+	public final void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 
 		if (control == null) {
 			control = createControl(view, cm, g, r);

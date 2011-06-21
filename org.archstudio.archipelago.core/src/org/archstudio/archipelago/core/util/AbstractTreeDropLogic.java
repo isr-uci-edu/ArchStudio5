@@ -1,18 +1,17 @@
 package org.archstudio.archipelago.core.util;
 
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.dnd.DND;
-import org.eclipse.swt.dnd.DropTargetEvent;
-
 import org.archstudio.archipelago.core.ArchipelagoServices;
-import org.archstudio.swtutils.LocalSelectionTransfer;
-import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.bna.AbstractThingLogic;
-import org.archstudio.bna.IBNADragAndDropListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.borders.PulsingBorderThing;
+import org.archstudio.bna.utils.IBNADragAndDropListener;
+import org.archstudio.swtutils.LocalSelectionTransfer;
+import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DropTargetEvent;
 
 public abstract class AbstractTreeDropLogic extends AbstractThingLogic implements IBNADragAndDropListener{
 	protected ArchipelagoServices AS = null;

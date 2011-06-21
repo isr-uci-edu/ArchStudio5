@@ -11,13 +11,13 @@ import org.archstudio.bna.facets.IHasFlow;
 import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasText;
+import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.ActionOnMatchingValueLogic;
 import org.archstudio.bna.logics.coordinating.ActionOnMatchingValueLogic.MatchFoundAction;
 import org.archstudio.bna.logics.coordinating.OrientDirectionalLabelLogic;
 import org.archstudio.bna.logics.coordinating.StickAnchorPointLogic;
-import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -77,7 +77,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 				IHasFlow.FLOW_KEY, true);
 		mapAttribute("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		mapAttribute("name", null, "[no name]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY, true);
-		mapAttribute("name", null, "[no name]", BNAPath.create(), ToolTipLogic.TOOL_TIP_KEY, true);
+		mapAttribute("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
 		mapAncestor(1, BNAPath.create(), PARENT_REF_KEY);
 	}
 

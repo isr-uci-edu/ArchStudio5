@@ -49,7 +49,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
-public class ArchlightIssueView extends AbstractArchStudioView<ArchlightIssueViewMyxComponent> implements ArchlightIssueADTListener, IMenuFiller {
+public class ArchlightIssueView extends AbstractArchStudioView<ArchlightIssueViewMyxComponent> implements
+		ArchlightIssueADTListener, IMenuFiller {
 
 	private static final int COLUMN_INDEX_SEVERITY = 0;
 	private static final int COLUMN_INDEX_SUMMARY = 1;
@@ -68,7 +69,7 @@ public class ArchlightIssueView extends AbstractArchStudioView<ArchlightIssueVie
 	public ArchlightIssueView() {
 		super(ArchlightIssueViewMyxComponent.class);
 	}
-	
+
 	public void initializeMyxBrick() {
 		xarch = brick.getXarch();
 		issueadt = brick.getIssues();
@@ -94,7 +95,7 @@ public class ArchlightIssueView extends AbstractArchStudioView<ArchlightIssueVie
 	}
 
 	@Override
-	public void createMyxPartControl(Composite parent) {
+	public void createPartControl(Composite parent) {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
 		viewer.setContentProvider(new ViewContentProvider());
 		viewer.setLabelProvider(new ViewLabelProvider());
@@ -224,7 +225,7 @@ public class ArchlightIssueView extends AbstractArchStudioView<ArchlightIssueVie
 	}
 
 	@Override
-	public void setMyxFocus() {
+	public void setFocus() {
 		viewer.getControl().setFocus();
 	}
 

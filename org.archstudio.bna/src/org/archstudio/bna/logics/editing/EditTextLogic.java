@@ -11,6 +11,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasText;
+import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.MoveWithLogic;
@@ -61,7 +62,7 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 			MAIN: for (IThing thing : things) {
 				for (IThing assemblyPartThing : Assemblies.getRelatedParts(view.getBNAWorld().getBNAModel(), thing)) {
 					if (UserEditableUtils.isEditableForAnyQualities(assemblyPartThing,
-							IHasMutableText.USER_MAY_EDIT_TEXT, ToolTipLogic.USER_MAY_EDIT_TOOL_TIP)) {
+							IHasMutableText.USER_MAY_EDIT_TEXT, IHasToolTip.USER_MAY_EDIT_TOOL_TIP)) {
 						editThing = assemblyPartThing;
 						break MAIN;
 					}
@@ -92,7 +93,7 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 				MAIN: for (IThing thing : BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) {
 					for (IThing assemblyPartThing : Assemblies.getRelatedParts(view.getBNAWorld().getBNAModel(), thing)) {
 						if (UserEditableUtils.isEditableForAnyQualities(assemblyPartThing,
-								IHasMutableText.USER_MAY_EDIT_TEXT, ToolTipLogic.USER_MAY_EDIT_TOOL_TIP)) {
+								IHasMutableText.USER_MAY_EDIT_TEXT, IHasToolTip.USER_MAY_EDIT_TOOL_TIP)) {
 							editThing = assemblyPartThing;
 							break MAIN;
 						}
@@ -137,7 +138,7 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 					((IHasMutableText) t).setText(tt.getText());
 				}
 				else if (t != null
-						&& UserEditableUtils.isEditableForAnyQualities(t, ToolTipLogic.USER_MAY_EDIT_TOOL_TIP)) {
+						&& UserEditableUtils.isEditableForAnyQualities(t, IHasToolTip.USER_MAY_EDIT_TOOL_TIP)) {
 					ToolTipLogic.setToolTip(t, tt.getText());
 				}
 			}

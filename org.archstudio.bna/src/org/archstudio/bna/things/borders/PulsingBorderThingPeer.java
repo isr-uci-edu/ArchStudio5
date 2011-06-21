@@ -29,10 +29,6 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 		int pulse = offset % RADIANT_COUNT;
 		Rectangle elbb = lbb.getExpanded(SPACER_WIDTH * pulse, SPACER_WIDTH * pulse);
 
-		if (!clip.intersects(elbb)) {
-			return;
-		}
-
 		RGB rgb = t.getColor();
 		if (rgb == null) {
 			rgb = DEFAULT_BASE_RGB;

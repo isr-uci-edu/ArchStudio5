@@ -1,5 +1,9 @@
 package org.archstudio.bna;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
 public interface IBNAModel {
 
 	public void addBNAModelListener(IBNAModelListener l);
@@ -39,27 +43,27 @@ public interface IBNAModel {
 
 	public IThing getThing(Object thingId);
 
-	public Iterable<IThing> getThings();
+	public List<IThing> getThings();
 
-	public Iterable<IThing> getThings(Iterable<Object> thingIDs);
+	public List<IThing> getThings(Iterable<Object> thingIDs);
 
-	public Iterable<IThing> getReverseThings();
+	public List<IThing> getReverseThings();
 
 	public int getNumThings();
 
 	public IThing getParentThing(IThing thing);
 
-	public Iterable<IThing> getChildThings(IThing thing);
+	public Collection<IThing> getChildThings(IThing thing);
 
-	public Iterable<IThing> getAncestorThings(IThing thing);
+	public Collection<IThing> getAncestorThings(IThing thing);
 
-	public Iterable<IThing> getDescendantThings(IThing thing);
+	public Collection<IThing> getDescendantThings(IThing thing);
 
-	public void stackAbove(IThing lowerThing, Iterable<? extends IThing> upperThings);
+	//public void stackAbove(IThing lowerThing, Iterable<? extends IThing> upperThings);
 
-	public void bringToFront(Iterable<? extends IThing> things);
+	public void bringToFront(Set<? extends IThing> things);
 
-	public void sendToBack(Iterable<? extends IThing> things);
+	public void sendToBack(Set<? extends IThing> things);
 
 	public void reparent(IThing newParent, IThing thing);
 

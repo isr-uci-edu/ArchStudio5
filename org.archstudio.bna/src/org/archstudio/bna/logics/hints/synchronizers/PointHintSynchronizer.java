@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
-import org.archstudio.bna.logics.coordinating.MaintainStickyPointLogic;
-import org.archstudio.bna.logics.coordinating.MaintainStickyPointLogic.StickyMode;
 import org.archstudio.bna.logics.coordinating.MoveWithLogic;
 import org.archstudio.bna.logics.hints.IHintRepository;
 import org.archstudio.sysutils.SystemUtils;

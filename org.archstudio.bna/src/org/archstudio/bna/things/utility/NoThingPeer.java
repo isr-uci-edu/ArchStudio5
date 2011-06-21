@@ -3,7 +3,6 @@ package org.archstudio.bna.things.utility;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IRegion;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.things.AbstractThingPeer;
@@ -17,7 +16,7 @@ public final class NoThingPeer<T extends IThing> extends AbstractThingPeer<IThin
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, IRegion localClip, IRegion worldClip) {
+	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 	}
 
 	@Override

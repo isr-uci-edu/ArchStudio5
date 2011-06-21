@@ -1,10 +1,9 @@
 package org.archstudio.archipelago.core.util;
 
-import org.eclipse.jface.viewers.ICellModifier;
-
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.jface.viewers.ICellModifier;
 
 public abstract class AbstractEditNameCellModifier implements ICellModifier{
 	protected ArchipelagoServices AS = null;

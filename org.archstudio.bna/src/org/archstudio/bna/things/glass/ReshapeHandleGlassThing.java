@@ -2,17 +2,12 @@ package org.archstudio.bna.things.glass;
 
 import org.archstudio.bna.facets.IHasMutableOrientation;
 import org.archstudio.bna.facets.IHasStandardCursor;
-import org.archstudio.bna.keys.ThingKey;
-import org.archstudio.bna.things.AbstractAnchorPointThing;
+import org.archstudio.bna.things.AbstractBoundedAnchorPointThing;
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.swt.SWT;
 
-public class ReshapeHandleGlassThing extends AbstractAnchorPointThing implements IHasMutableOrientation,
-		IHasMutableTargetThing, IHasStandardCursor {
-
-	public ReshapeHandleGlassThing() {
-		this(null);
-	}
+public class ReshapeHandleGlassThing extends AbstractBoundedAnchorPointThing implements IHasMutableOrientation,
+		IHasStandardCursor {
 
 	public ReshapeHandleGlassThing(Object id) {
 		super(id);
@@ -24,24 +19,17 @@ public class ReshapeHandleGlassThing extends AbstractAnchorPointThing implements
 		setOrientation(Orientation.NONE);
 	}
 
+	@Override
 	public Orientation getOrientation() {
 		return get(ORIENTATION_KEY);
 	}
 
+	@Override
 	public void setOrientation(Orientation orientation) {
 		set(ORIENTATION_KEY, orientation);
 	}
 
-	public String getTargetThingID() {
-		K key = TARGET_THING_ID_KEY;
-		return get(key);
-	}
-
-	public void setTargetThingID(String targetThingID) {
-		IThingKey<? super T> key = TARGET_THING_ID_KEY;
-		set(key, targetThingID);
-	}
-
+	@Override
 	public int getStandardCursor() {
 		switch (getOrientation()) {
 		case NORTHWEST:
@@ -64,5 +52,4 @@ public class ReshapeHandleGlassThing extends AbstractAnchorPointThing implements
 			return SWT.CURSOR_SIZEALL;
 		}
 	}
-
 }

@@ -1,13 +1,12 @@
 package org.archstudio.archipelago.core.util;
 
+import org.archstudio.archipelago.core.ArchipelagoServices;
+import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
+import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.TreeViewer;
-
-import org.archstudio.archipelago.core.ArchipelagoServices;
-import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
-import org.archstudio.xarchadt.ObjRef;
 
 public abstract class AbstractRemoveContextMenuFiller implements IArchipelagoTreeContextMenuFiller{
 	protected TreeViewer viewer = null;

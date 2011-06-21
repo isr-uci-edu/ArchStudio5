@@ -3,8 +3,6 @@ package org.archstudio.archipelago.core.structure;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.jface.viewers.Viewer;
-
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.FolderNode;
@@ -12,6 +10,7 @@ import org.archstudio.archipelago.core.IArchipelagoTreeContentProvider;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.IXArchADTQuery;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.jface.viewers.Viewer;
 
 public class StructureTreeContentProvider implements IArchipelagoTreeContentProvider{
 	protected static final String FOLDER_NODE_TYPE = "STRUCTURES";

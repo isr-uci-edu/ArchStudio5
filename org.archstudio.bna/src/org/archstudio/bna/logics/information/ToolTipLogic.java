@@ -3,39 +3,35 @@ package org.archstudio.bna.logics.information;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
-import org.archstudio.bna.keys.ThingKey;
+import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.IBNAMouseMoveListener;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.widgets.Control;
 
 public class ToolTipLogic extends AbstractThingLogic implements IBNAMouseMoveListener {
 
-	public static final String USER_MAY_EDIT_TOOL_TIP = "userMayEditToolTip";
-
-	public static final IThingKey<String> TOOL_TIP_KEY = ThingKey.create("toolTip");
-
 	public static final void setToolTip(IThing thing, String toolTip) {
-		thing.set(TOOL_TIP_KEY, toolTip);
+		thing.set(IHasToolTip.TOOL_TIP_KEY, toolTip);
 	}
 
 	public static final String getToolTip(IThing thing) {
-		return thing == null ? null : thing.get(TOOL_TIP_KEY);
+		return thing == null ? null : thing.get(IHasToolTip.TOOL_TIP_KEY);
 	}
 
 	protected IThing lastThing = null;
 
 	@Override
 	public void mouseMove(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
-		//if (t != lastThing) {
-		//	lastThing = t;
-		//	Composite c = r.BNAUtils.getParentComposite(view);
-		//	if (c != null) {
-		//		String toolTip = ToolTipLogic.getToolTip(t);
-		//		if (!BNAUtils.nulleq(toolTip, c.getToolTipText())) {
-		//			c.setToolTipText(toolTip);
-		//		}
-		//	}
-		//}
+		IThing newThing = SystemUtils.firstOrNull(things);
+		if (newThing != lastThing) {
+			lastThing = newThing;
+			String toolTip = ToolTipLogic.getToolTip(newThing);
+			Control c = view.getControl();
+			if (!SystemUtils.nullEquals(toolTip, c.getToolTipText())) {
+				c.setToolTipText(toolTip);
+			}
+		}
 	}
 }

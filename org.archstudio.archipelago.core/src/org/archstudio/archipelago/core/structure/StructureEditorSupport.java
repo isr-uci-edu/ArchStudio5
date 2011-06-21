@@ -14,12 +14,17 @@ import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.logics.ProxyToLogicsLogic;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
+import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.EditTextLogic;
 import org.archstudio.bna.logics.editing.KeyNudgerLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
+import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
+import org.archstudio.bna.logics.editing.SnapToGridLogic;
+import org.archstudio.bna.logics.editing.StandardCursorLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
+import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.things.ShadowThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
@@ -85,10 +90,6 @@ public class StructureEditorSupport {
 		BNARenderingSettings.setDecorativeGraphics(bnaCanvas,
 				AS.prefs.getBoolean(ArchipelagoConstants.PREF_DECORATIVE_GRAPHICS));
 
-		//StructureMapper.updateStructure(AS, bnaWorld, structureRef);
-
-		//ArchipelagoUtils.addZoomWidget(bnaCanvas, bnaView);
-
 		bnaCanvas.pack();
 		parentComposite.layout(true);
 
@@ -138,6 +139,8 @@ public class StructureEditorSupport {
 		bnaWorld.getBNAModel().addThing(new ShadowThing(null));
 		bnaWorld.getBNAModel().addThing(new GridThing(null));
 
+		logicManager.addThingLogic(new SnapToGridLogic());
+
 		logicManager.addThingLogic(new ClickSelectionLogic());
 		logicManager.addThingLogic(new DragMovableLogic());
 		logicManager.addThingLogic(new EditTextLogic());
@@ -145,14 +148,19 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new LifeSapperLogic());
 		logicManager.addThingLogic(new MarqueeSelectionLogic());
 		logicManager.addThingLogic(new MousePanAndZoomLogic());
-		//logicManager.addThingLogic(new RotatingOffsetLogic());
-		//logicManager.addThingLogic(new SnapToGridLogic());
-		//logicManager.addThingLogic(new ToolTipLogic());
+		logicManager.addThingLogic(new ReshapeRectangleLogic());
+		logicManager.addThingLogic(new RotatingOffsetLogic());
+		logicManager.addThingLogic(new StandardCursorLogic());
+		logicManager.addThingLogic(new ToolTipLogic());
 
 		logicManager.addThingLogic(new RemoveElementLogic(AS.xarch));
-		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "component", new Dimension(120, 80)));
+		logicManager.addThingLogic(new StructureNewElementLogic(AS.xarch, AS.resources, structureRef));
+
+		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "component", //
+				new Dimension(120, 80), ArchipelagoStructureConstants.DEFAULT_COMPONENT_RGB));
 		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "component/interface"));
-		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "connector", new Dimension(240, 36)));
+		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "connector", //
+				new Dimension(240, 36), ArchipelagoStructureConstants.DEFAULT_CONNECTOR_RGB));
 		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "connector/interface"));
 		logicManager.addThingLogic(new MapLinkLogic(AS.xarch, structureRef, "link"));
 
@@ -162,10 +170,6 @@ public class StructureEditorSupport {
 		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTModelListener.class));
 		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTFileListener.class));
 
-		//logicManager.addThingLogic(new ClickSelectionLogic(ttstlSelected));
-		//logicManager.addThingLogic(new MarqueeSelectionLogic(ttstlSelected));
-		//logicManager.addThingLogic(new DragMovableSelectionLogic(dml, stl));
-		//logicManager.addThingLogic(new BoxReshapeHandleLogic(stl, bbtl, dml));
 		//SplineReshapeHandleLogic srhl = new SplineReshapeHandleLogic(stl, epstl, mpstl, dml);
 		//logicManager.addThingLogic(srhl);
 		//logicManager.addThingLogic(new StickySplineEndpointsLogic(ttstlSticky, srhl));

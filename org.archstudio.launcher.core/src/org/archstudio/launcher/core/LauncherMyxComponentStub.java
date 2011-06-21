@@ -5,12 +5,15 @@ import java.util.*;
 import java.util.concurrent.*;
 import org.archstudio.myx.fw.*;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
+import org.archstudio.myx.java.conn.IMultiwayResults;
 import org.archstudio.launcher.ILaunchable;
 import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.myx.conn.IMultiwayResults;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.resources.IResources;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Launcher Impl"
@@ -68,7 +71,7 @@ abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 	 * @see #OUT_RESULTS
 	 * @generated
 	 */
-	protected org.archstudio.myx.conn.IMultiwayResults results = null;
+	protected org.archstudio.myx.java.conn.IMultiwayResults results = null;
 	/**
 	 * Service object(s) for launcher: <code>launcher</code>
 	 *
@@ -90,7 +93,7 @@ abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 	 * @see #OUT_RESULTS
 	 * @generated
 	 */
-	public org.archstudio.myx.conn.IMultiwayResults getResults() {
+	public org.archstudio.myx.java.conn.IMultiwayResults getResults() {
 		return results;
 	}
 
@@ -126,7 +129,7 @@ abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 			if (results != null) {
 				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
-			results = (org.archstudio.myx.conn.IMultiwayResults) serviceObject;
+			results = (org.archstudio.myx.java.conn.IMultiwayResults) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_LAUNCHER)) {

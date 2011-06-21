@@ -4,27 +4,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.Separator;
-import org.eclipse.ui.IWorkbenchActionConstants;
-
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IThing;
+import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.things.glass.RectangleGlassThing;
+import org.archstudio.bna.things.swt.SWTTextThing;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.resources.ArchStudioCommonResources;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.bna.AbstractThingLogic;
-import org.archstudio.bna.BNAUtils;
-import org.archstudio.bna.IBNAMenuListener;
-import org.archstudio.bna.IBNAView;
-import org.archstudio.bna.IThing;
-import org.archstudio.bna.things.glass.RectangleGlassThing;
-import org.archstudio.bna.things.swt.SWTTextThing;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.Separator;
+import org.eclipse.ui.IWorkbenchActionConstants;
 
 public class StructureNewInterfaceLogic extends AbstractThingLogic implements IBNAMenuListener{
 	protected static final String STRUCTURE_FACTORY = "org.archstudio.xadl3.structure_3_0";

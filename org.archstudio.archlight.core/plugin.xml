@@ -8,7 +8,7 @@
             id="org.archstudio.archlight.core.ArchlightToolAggregatorMyxComponent"
             name="Myx Impl">
          <interface
-               class="org.archstudio.myx.conn.IMultiwayResults"
+               class="org.archstudio.myx.java.conn.IMultiwayResults"
                delegate="variable"
                direction="out"
                domain="top"
@@ -38,7 +38,7 @@
                single="true">
          </interface>
          <interface
-               class="org.archstudio.myx.conn.IMultiwayProgressListener"
+               class="org.archstudio.myx.java.conn.IMultiwayProgressListener"
                delegate="events"
                direction="in"
                domain="top"

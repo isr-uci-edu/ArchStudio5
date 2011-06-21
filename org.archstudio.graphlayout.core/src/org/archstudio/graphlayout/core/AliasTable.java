@@ -1,6 +1,8 @@
 package org.archstudio.graphlayout.core;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AliasTable {
 	protected Map<String, String> truenameToAlias = null;

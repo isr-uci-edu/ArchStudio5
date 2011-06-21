@@ -5,10 +5,10 @@ import java.util.List;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IRegion;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.facets.peers.IHasShadowPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.BNAUtils.DrawShadow;
 import org.eclipse.draw2d.Graphics;
@@ -26,11 +26,11 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	}
 
 	private static int getOffset(ICoordinateMapper cm) {
-		return BNAUtils.round(cm.getLocalScale() * 2);
+		return (int) Math.ceil(cm.getLocalScale());
 	}
 
 	private static int getSize(ICoordinateMapper cm) {
-		return BNAUtils.round(cm.getLocalScale() * 3);
+		return (int) Math.ceil(cm.getLocalScale());
 	}
 
 	public static void expandForShadow(ICoordinateMapper cm, Rectangle boundsResult) {
@@ -47,33 +47,31 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	}
 
 	@Override
-	public void draw(final IBNAView view, final ICoordinateMapper cm, final Graphics g, final IResources r,
-			IRegion localClip, IRegion worldClip) {
-
-		Rectangle boundsResult = new Rectangle();
-		final List<IHasShadowThingPeer<?>> shadowThingPeers = Lists.newArrayListWithExpectedSize(256);
-		for (IThing t : view.getBNAWorld().getBNAModel().getThings()) {
-			IThingPeer<?> tp = view.getThingPeer(t);
-			if (tp instanceof IHasShadowThingPeer) {
-				IHasShadowThingPeer<?> stp = (IHasShadowThingPeer<?>) tp;
-				tp.getLocalBounds(view, cm, g, r, boundsResult);
-				if (localClip.intersects(boundsResult)) {
+	public void draw(final IBNAView view, final ICoordinateMapper cm, final Graphics g, final IResources r) {
+		if (g.getAdvanced()) {
+			Rectangle boundsResult = new Rectangle();
+			final List<IHasShadowPeer<?>> shadowThingPeers = Lists.newArrayListWithExpectedSize(256);
+			for (IThing t : view.getBNAWorld().getBNAModel().getThings()) {
+				IThingPeer<?> tp = view.getThingPeer(t);
+				if (tp instanceof IHasShadowPeer) {
+					IHasShadowPeer<?> stp = (IHasShadowPeer<?>) tp;
+					tp.getLocalBounds(view, cm, g, r, boundsResult);
 					shadowThingPeers.add(stp);
 				}
 			}
-		}
 
-		final int offset = getOffset(cm);
-		final int size = getSize(cm);
-		if (!shadowThingPeers.isEmpty()) {
-			BNAUtils.drawShadow(g, r, offset, offset, size, 2, new DrawShadow() {
-				@Override
-				public void drawShadow(boolean fill) {
-					for (IHasShadowThingPeer<?> tp : shadowThingPeers) {
-						tp.drawShadow(view, cm, g, r, fill);
+			final int offset = getOffset(cm);
+			final int size = getSize(cm);
+			if (!shadowThingPeers.isEmpty()) {
+				BNAUtils.drawShadow(g, r, offset, offset, size, 2, new DrawShadow() {
+					@Override
+					public void drawShadow(boolean fill) {
+						for (IHasShadowPeer<?> tp : shadowThingPeers) {
+							tp.drawShadow(view, cm, g, r, fill);
+						}
 					}
-				}
-			});
+				});
+			}
 		}
 	}
 

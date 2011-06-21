@@ -22,4 +22,5 @@ Require-Bundle: org.archstudio.archlight,
  org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.ui.views,
- org.archstudio.editormanager;bundle-version="5.0.0"
+ org.archstudio.editormanager;bundle-version="5.0.0",
+ org.archstudio.myx.java;bundle-version="1.0.0"

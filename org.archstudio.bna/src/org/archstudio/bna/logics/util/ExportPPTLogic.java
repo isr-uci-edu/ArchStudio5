@@ -9,7 +9,6 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
-import org.archstudio.bna.utils.BNAComposite;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAView;

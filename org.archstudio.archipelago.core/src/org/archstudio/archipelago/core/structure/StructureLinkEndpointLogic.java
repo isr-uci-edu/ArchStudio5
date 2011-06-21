@@ -5,17 +5,15 @@ import java.util.Set;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
-import org.archstudio.xadl.XadlUtils;
-import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
-import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.bna.AbstractThingLogic;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.ThingEvent;
-import org.archstudio.bna.facets.IHasStickyEndpoints;
-import org.archstudio.bna.things.glass.StickySplineGlassThing;
+import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
+import org.archstudio.xarchadt.ObjRef;
 
 public class StructureLinkEndpointLogic extends AbstractThingLogic implements IBNAModelListener{
 	protected ArchipelagoServices AS = null;

@@ -1,14 +1,12 @@
 package org.archstudio.bna.things.shapes;
 
-import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableOrientation;
-import org.archstudio.bna.things.AbstractThing;
+import org.archstudio.bna.things.AbstractBoundedAnchorPointThing;
 import org.archstudio.swtutils.constants.Orientation;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.graphics.RGB;
 
-public class ReshapeHandleThing extends AbstractThing implements IHasMutableColor, IHasMutableAnchorPoint,
+public class ReshapeHandleThing extends AbstractBoundedAnchorPointThing implements IHasMutableColor,
 		IHasMutableOrientation {
 
 	public ReshapeHandleThing(Object id) {
@@ -18,7 +16,7 @@ public class ReshapeHandleThing extends AbstractThing implements IHasMutableColo
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setAnchorPoint(new Point(0, 0));
+		setColor(new RGB(0, 0, 255));
 		setOrientation(Orientation.NONE);
 	}
 
@@ -30,17 +28,6 @@ public class ReshapeHandleThing extends AbstractThing implements IHasMutableColo
 	@Override
 	public RGB getColor() {
 		return get(COLOR_KEY);
-	}
-
-	@Override
-	public Point getAnchorPoint() {
-		Point p = get(ANCHOR_POINT_KEY);
-		return new Point(p.x, p.y);
-	}
-
-	@Override
-	public void setAnchorPoint(Point p) {
-		set(ANCHOR_POINT_KEY, p);
 	}
 
 	@Override

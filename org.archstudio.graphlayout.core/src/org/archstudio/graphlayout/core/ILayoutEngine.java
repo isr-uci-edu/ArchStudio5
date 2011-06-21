@@ -1,12 +1,11 @@
 package org.archstudio.graphlayout.core;
 
-import org.eclipse.jface.preference.IPreferenceStore;
-
 import org.archstudio.graphlayout.GraphLayout;
 import org.archstudio.graphlayout.GraphLayoutException;
 import org.archstudio.graphlayout.GraphLayoutParameters;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.jface.preference.IPreferenceStore;
 
 public interface ILayoutEngine {
 	public String getID();

@@ -14,6 +14,9 @@ import org.archstudio.testadt.IArchlightTestADT;
 import org.archstudio.archlight.IArchlightTool;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Schematron Impl"

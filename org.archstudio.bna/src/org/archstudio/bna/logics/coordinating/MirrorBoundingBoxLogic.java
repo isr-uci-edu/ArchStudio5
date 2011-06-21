@@ -31,7 +31,7 @@ public class MirrorBoundingBoxLogic extends
 			@Override
 			public void run() {
 				Rectangle bb = fromThing.getBoundingBox();
-				bb.crop(insets);
+				bb.shrink(insets);
 				toThing.setBoundingBox(bb);
 			}
 		});
