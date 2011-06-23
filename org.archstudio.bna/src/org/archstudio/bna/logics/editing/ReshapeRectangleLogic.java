@@ -30,28 +30,28 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 		Point location = boundingBox.getCenter();
 		switch (data) {
 		case NORTHEAST:
-			location = boundingBox.getTopLeft();
+			location = boundingBox.getTopRight();
 			break;
 		case NORTH:
 			location = boundingBox.getTop();
 			break;
 		case NORTHWEST:
-			location = boundingBox.getTopRight();
+			location = boundingBox.getTopLeft();
 			break;
 		case EAST:
-			location = boundingBox.getLeft();
-			break;
-		case WEST:
 			location = boundingBox.getRight();
 			break;
+		case WEST:
+			location = boundingBox.getLeft();
+			break;
 		case SOUTHEAST:
-			location = boundingBox.getBottomLeft();
+			location = boundingBox.getBottomRight();
 			break;
 		case SOUTH:
 			location = boundingBox.getBottom();
 			break;
 		case SOUTHWEST:
-			location = boundingBox.getBottomRight();
+			location = boundingBox.getBottomLeft();
 			break;
 		}
 		toThing.setAnchorPoint(location);
@@ -108,7 +108,7 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 		int nx2 = bb.x + bb.width;
 		int ny2 = bb.y + bb.height;
 
-		Point ap = evt.getAdjustedLocation().getWorldPoint(new Point());
+		Point ap = evt.getAdjustedMouseLocation().getWorldPoint(new Point());
 
 		switch (data) {
 		case NORTHWEST:
@@ -141,10 +141,10 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 			break;
 		}
 
-		bb.x = nx1;
-		bb.y = ny1;
-		bb.width = nx2 - nx1;
-		bb.height = ny2 - ny1;
+		bb.x = Math.min(nx1, nx2);
+		bb.y = Math.min(ny1, ny2);
+		bb.width = Math.max(0, Math.max(nx1, nx2) - bb.x);
+		bb.height = Math.max(0, Math.max(ny1, ny2) - bb.y);
 
 		reshapingThing.setBoundingBox(bb);
 	}

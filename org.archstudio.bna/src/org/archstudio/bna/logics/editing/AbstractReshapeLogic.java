@@ -7,12 +7,14 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasSelected;
+import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.AbstractPropagateValueLogic;
 import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.logics.events.IDragMoveListener;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.sysutils.SystemUtils;
 
 import com.google.common.collect.Iterables;
@@ -85,6 +87,7 @@ public abstract class AbstractReshapeLogic<F extends IThing, D> extends
 
 	protected <T extends ReshapeHandleGlassThing> T addHandle(T handle, D data) {
 		reshapeHandles.put(handle, data);
+		UserEditableUtils.addEditableQualities(handle, IRelativeMovable.USER_MAY_MOVE);
 		return handle;
 	}
 

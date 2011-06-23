@@ -179,6 +179,10 @@ public class AbstractThing implements IThing {
 		}
 	}
 
+	public boolean hasProperty(IThingKey<?> key) {
+		return has(key);
+	}
+
 	@Override
 	public <V> boolean has(IThing.IThingKey<V> key, V value) {
 		synchronized (properties) {

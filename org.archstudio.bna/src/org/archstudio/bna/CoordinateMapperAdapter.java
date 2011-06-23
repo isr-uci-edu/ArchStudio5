@@ -13,7 +13,11 @@ import com.google.common.collect.Lists;
 
 public abstract class CoordinateMapperAdapter implements IMutableCoordinateMapper, Cloneable {
 
-	protected Rectangle worldBounds = new Rectangle(0, 0, 20000, 20000);
+	public static final Rectangle getDefaultBounds() {
+		return new Rectangle(0, 0, 20000, 20000);
+	}
+
+	protected Rectangle worldBounds = getDefaultBounds();
 	protected double localScale = 1.0d;
 	protected Point localOrigin = new Point(worldBounds.getCenter());
 
