@@ -43,6 +43,12 @@ public interface IBNAModel {
 
 	public IThing getThing(Object thingId);
 
+	/**
+	 * @deprecated Use {@link #getThings()} instead.
+	 */
+	@Deprecated
+	public List<IThing> getAllThings();
+
 	public List<IThing> getThings();
 
 	public List<IThing> getThings(Iterable<Object> thingIDs);

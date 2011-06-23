@@ -11,23 +11,26 @@ public class DragMoveEvent {
 	private final MouseEvent evt;
 	private final IThing initialThing;
 	private final ICoordinate initialLocation;
-	private ICoordinate adjustedLocation;
+	private ICoordinate adjustedThingLocation;
+	private ICoordinate adjustedMouseLocation;
 
 	public DragMoveEvent(IBNAView view, MouseEvent evt, IThing initialThing, ICoordinate initialLocation) {
 		this.view = view;
 		this.evt = evt;
 		this.initialThing = initialThing;
 		this.initialLocation = initialLocation;
-		this.adjustedLocation = initialLocation;
+		this.adjustedThingLocation = initialLocation;
+		this.adjustedMouseLocation = initialLocation;
 	}
 
-	public DragMoveEvent(DragMoveEvent evt, ICoordinate adjustedLocation) {
+	public DragMoveEvent(DragMoveEvent evt, ICoordinate movedLocation) {
 		super();
 		this.view = evt.view;
 		this.evt = evt.evt;
 		this.initialThing = evt.initialThing;
 		this.initialLocation = evt.initialLocation;
-		this.adjustedLocation = adjustedLocation;
+		this.adjustedThingLocation = movedLocation;
+		this.adjustedMouseLocation = movedLocation;
 	}
 
 	public IBNAView getView() {
@@ -46,12 +49,20 @@ public class DragMoveEvent {
 		return initialLocation;
 	}
 
-	public ICoordinate getAdjustedLocation() {
-		return adjustedLocation;
+	public ICoordinate getAdjustedThingLocation() {
+		return adjustedThingLocation;
 	}
 
-	public void setAdjustedLocation(ICoordinate adjustedLocation) {
-		this.adjustedLocation = adjustedLocation;
+	public void setAdjustedThingLocation(ICoordinate adjustedLocation) {
+		this.adjustedThingLocation = adjustedLocation;
+	}
+
+	public ICoordinate getAdjustedMouseLocation() {
+		return adjustedMouseLocation;
+	}
+
+	public void setAdjustedMouseLocation(ICoordinate adjustedMouseLocation) {
+		this.adjustedMouseLocation = adjustedMouseLocation;
 	}
 
 }

@@ -285,6 +285,11 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
+	public List<IThing> getAllThings() {
+		return getThings();
+	}
+
+	@Override
 	public List<IThing> getThings() {
 		synchronized (thingTree) {
 			if (thingTreeListAtModCount != thingTreeModCount) {

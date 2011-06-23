@@ -50,11 +50,11 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 
 	@Override
 	public void dragStarted(DragMoveEvent evt) {
+		movingThings.clear();
 		IBNAModel model = getBNAModel();
 		if (model != null) {
 			model.beginBulkChange();
 			try {
-				movingThings.clear();
 				IRelativeMovable movingThing = SystemUtils.castOrNull(evt.getInitialThing(), IRelativeMovable.class);
 				if (UserEditableUtils.isEditableForAllQualities(movingThing, IRelativeMovable.USER_MAY_MOVE)) {
 					List<IRelativeMovable> selectedThings = Lists.newArrayList(Iterables.filter(
@@ -88,7 +88,7 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 		if (model != null) {
 			model.beginBulkChange();
 			try {
-				Point worldDelta = evt.getAdjustedLocation().getWorldPoint(new Point());
+				Point worldDelta = evt.getAdjustedThingLocation().getWorldPoint(new Point());
 				worldDelta.translate(evt.getInitialLocation().getWorldPoint(new Point()).negate());
 				for (Entry<IRelativeMovable, Point> e : movingThings.entrySet()) {
 					e.getKey().setReferencePoint(e.getValue().getTranslated(worldDelta));

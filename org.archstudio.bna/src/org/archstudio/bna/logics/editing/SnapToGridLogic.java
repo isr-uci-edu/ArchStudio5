@@ -29,36 +29,46 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 	public void dragStarted(DragMoveEvent evt) {
 		referencePointToInitialMousePointDelta.setLocation(0, 0);
 		if (evt.getInitialThing() instanceof IRelativeMovable) {
-			/*
-			 * Include the delta from the reference point to the initial mouse point in order for the relative movable
-			 * thing to be aligned with the grid.
-			 */
-			Point initialRelativeMovablePoint = ((IRelativeMovable) evt.getInitialThing()).getReferencePoint();
-			Point initialMousePoint = evt.getInitialLocation().getWorldPoint(new Point());
-			Point delta = initialMousePoint.getTranslated(initialRelativeMovablePoint.getNegated());
-			referencePointToInitialMousePointDelta.setLocation(delta);
+			IBNAModel model = getBNAModel();
+			if (model != null) {
+				int gridSpacing = GridUtils.getGridSpacing(model);
+				if (gridSpacing != 0) {
+					// calculate relative movable and mouse point delta, used to translate between them when snapping 
+					Point initialRelativeMovablePoint = ((IRelativeMovable) evt.getInitialThing()).getReferencePoint();
+					Point initialMousePoint = evt.getInitialLocation().getWorldPoint(new Point());
+					Point delta = initialMousePoint.getTranslated(initialRelativeMovablePoint.getNegated());
+					referencePointToInitialMousePointDelta.setLocation(delta);
+				}
+			}
 		}
-
-		dragMoved(evt);
 	}
 
 	@Override
 	public void dragMoved(DragMoveEvent evt) {
-		Point adjustedWorldPoint = evt.getAdjustedLocation().getWorldPoint(new Point());
+		Point adjustedThingWorldPoint = evt.getAdjustedThingLocation().getWorldPoint(new Point());
+		Point adjustedMouseWorldPoint = evt.getAdjustedMouseLocation().getWorldPoint(new Point());
+
 		if ((evt.getEvt().stateMask & SWT.MOD3) == 0) {
 			IBNAModel model = getBNAModel();
 			if (model != null) {
 				int gridSpacing = GridUtils.getGridSpacing(model);
 				if (gridSpacing != 0) {
-					// adjust the point so that it is on the grid
-					adjustedWorldPoint = GridUtils.snapToGrid(gridSpacing, adjustedWorldPoint);
-					adjustedWorldPoint.translate(referencePointToInitialMousePointDelta);
+					// adjust the mouse point to the relative movable point 
+					adjustedThingWorldPoint.translate(referencePointToInitialMousePointDelta.getNegated());
+					// snap it to the grid
+					adjustedThingWorldPoint = GridUtils.snapToGrid(gridSpacing, adjustedThingWorldPoint.getCopy());
+					// adjust it back to the mouse point
+					adjustedThingWorldPoint.translate(referencePointToInitialMousePointDelta);
+					// adjust the absolute mouse point
+					adjustedMouseWorldPoint = GridUtils.snapToGrid(gridSpacing, adjustedMouseWorldPoint.getCopy());
 				}
 			}
 		}
 
-		evt.setAdjustedLocation(new DefaultCoordinate(evt.getView().getCoordinateMapper()
-				.worldToLocal(adjustedWorldPoint.getCopy()), adjustedWorldPoint));
+		evt.setAdjustedThingLocation(new DefaultCoordinate(evt.getView().getCoordinateMapper()
+				.worldToLocal(adjustedThingWorldPoint.getCopy()), adjustedThingWorldPoint.getCopy()));
+		evt.setAdjustedMouseLocation(new DefaultCoordinate(evt.getView().getCoordinateMapper()
+				.worldToLocal(adjustedMouseWorldPoint.getCopy()), adjustedMouseWorldPoint.getCopy()));
 	}
 
 	@Override

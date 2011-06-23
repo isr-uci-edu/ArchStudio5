@@ -17,48 +17,41 @@ public class StandardCursorLogic extends AbstractThingLogic implements IBNAMouse
 	boolean downOnCursor = false;
 
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
 		isDown = true;
-		if (t instanceof IHasStandardCursor) {
-			downOnCursor = true;
-		}
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
 		isDown = false;
-		if (downOnCursor) {
-			Object src = evt.getSource();
-			if (src != null && src instanceof Control) {
-				Control control = (Control) src;
-				control.setCursor(null);
-			}
-		}
-		downOnCursor = false;
+		updateCursor(view, evt, things, location);
 	}
 
 	@Override
 	public void mouseMove(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
 		if (!isDown) {
-			Object src = evt.getSource();
-			if (src != null && src instanceof Control) {
-				Control control = (Control) src;
+			updateCursor(view, evt, things, location);
+		}
+	}
+
+	protected void updateCursor(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+		int cursor = SWT.NONE;
+		Object src = evt.getSource();
+		if (src != null && src instanceof Control) {
+			Control control = (Control) src;
+			if (control != null && !control.isDisposed()) {
 				for (IThing t : things) {
 					if (t instanceof IHasStandardCursor) {
 						IHasStandardCursor sct = (IHasStandardCursor) t;
-						int cursor = sct.getStandardCursor();
-						if (cursor == SWT.NONE) {
-							control.setCursor(null);
-						}
-						else {
-							control.setCursor(evt.display.getSystemCursor(cursor));
-						}
+						cursor = sct.getStandardCursor();
 						break;
 					}
-					if (control != null && !control.isDisposed()) {
-						control.setCursor(null);
-						return;
-					}
+				}
+				if (cursor == SWT.NONE) {
+					control.setCursor(null);
+				}
+				else {
+					control.setCursor(evt.display.getSystemCursor(cursor));
 				}
 			}
 		}

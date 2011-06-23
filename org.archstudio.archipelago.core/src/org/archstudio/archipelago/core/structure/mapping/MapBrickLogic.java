@@ -2,6 +2,7 @@ package org.archstudio.archipelago.core.structure.mapping;
 
 import java.util.List;
 
+import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
@@ -41,8 +42,10 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 	@Override
 	protected RectangleGlassThing addThing(List<ObjRef> relativeAncestorRefs, ObjRef objRef) {
 
+		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
+
 		RectangleGlassThing thing = Assemblies.createRectangle(getBNAWorld(), null, null);
-		thing.setBoundingBox(new Rectangle(new Point(10000, 10000), defaultSize));
+		thing.setBoundingBox(new Rectangle(newPointSpot, defaultSize));
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasColor.COLOR_KEY, defaultColor);
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasSecondaryColor.SECONDARY_COLOR_KEY,
 				BNAUtils.adjustBrightness(defaultColor, 1.5f));

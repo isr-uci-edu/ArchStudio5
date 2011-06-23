@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.archstudio.bna.BNACanvas;
+import org.archstudio.bna.CoordinateMapperAdapter;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
@@ -28,6 +29,8 @@ import org.archstudio.bna.utils.ZoomUtils;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
 import org.archstudio.xarchadt.XArchADTModelEvent;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -35,9 +38,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -125,25 +126,21 @@ public class ArchipelagoUtils {
 
 	public static void setNewThingSpot(IBNAModel m, int worldX, int worldY) {
 		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
-		ept.setProperty("#newThingSpotWorldX", worldX);
-		ept.setProperty("#newThingSpotWorldY", worldY);
+		ept.setNewThingSpot(new Point(worldX, worldY));
 	}
 
 	public static Point findOpenSpotForNewThing(IBNAModel m) {
 		try {
 			EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
-			if (ept.hasProperty("#newThingSpotWorldX") && ept.hasProperty("#newThingSpotWorldY")) {
-				int wx = ept.getProperty("#newThingSpotWorldX");
-				int wy = ept.getProperty("#newThingSpotWorldY");
-				return new Point(wx, wy);
+			if (ept.hasProperty(EnvironmentPropertiesThing.NEW_THING_SPOT_KEY)) {
+				return ept.getNewThingSpot();
 			}
 		}
 		catch (Exception e) {
 		}
 
-		Point p = new Point(DefaultCoordinateMapper.DEFAULT_WORLD_WIDTH / 2 + 30,
-				DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2 + 30);
-		List<IThing> allThings = m.getAllThings();
+		Point p = new Point(CoordinateMapperAdapter.getDefaultBounds().getCenter().translate(30, 30));
+		List<IThing> allThings = m.getThings();
 		while (true) {
 			boolean found = false;
 			for (IThing t : allThings) {

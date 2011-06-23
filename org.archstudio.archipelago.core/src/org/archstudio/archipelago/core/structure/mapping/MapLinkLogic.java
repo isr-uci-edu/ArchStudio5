@@ -2,6 +2,7 @@ package org.archstudio.archipelago.core.structure.mapping;
 
 import java.util.List;
 
+import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.constants.StickyMode;
@@ -23,6 +24,7 @@ import org.archstudio.xadlbna.things.IHasObjRef;
 import org.archstudio.xadlbna.things.IHasXArchID;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.draw2d.geometry.Point;
 
 public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> {
 
@@ -65,7 +67,11 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> {
 	@Override
 	protected SplineGlassThing addThing(List<ObjRef> relativeAncestorRefs, ObjRef objRef) {
 
+		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
+
 		SplineGlassThing thing = Assemblies.createSpline(getBNAWorld(), null, null);
+		thing.setPoint(0, newPointSpot.getTranslated(-50, 50));
+		thing.setPoint(-1, newPointSpot.getTranslated(50, -50));
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
 				IRelativeMovable.USER_MAY_MOVE, IHasMutableText.USER_MAY_EDIT_TEXT);
