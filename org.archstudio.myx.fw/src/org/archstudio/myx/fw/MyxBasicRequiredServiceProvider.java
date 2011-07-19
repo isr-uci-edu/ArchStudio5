@@ -1,11 +1,17 @@
 package org.archstudio.myx.fw;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 class MyxBasicRequiredServiceProvider implements IMyxRequiredServiceProvider {
 
 	//Maps interface names to Lists of service objects
-	protected Map<IMyxName, List<Object>> serviceMap = Collections.synchronizedMap(new HashMap<IMyxName, List<Object>>());
+	protected Map<IMyxName, List<Object>> serviceMap = Collections
+			.synchronizedMap(new HashMap<IMyxName, List<Object>>());
 
 	public MyxBasicRequiredServiceProvider() {
 	}

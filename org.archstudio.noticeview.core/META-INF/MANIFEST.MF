@@ -10,6 +10,6 @@ Require-Bundle: org.archstudio.archlight,
  org.archstudio.myx.fw,
  org.archstudio.noticeadt,
  org.archstudio.resources,
- org.archstudio.swtutils,
+ org.archstudio.utils.swt,
  org.eclipse.core.runtime,
  org.eclipse.ui

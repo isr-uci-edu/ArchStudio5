@@ -22,7 +22,8 @@ public class MyxBasicInterfaceManager implements IMyxInterfaceManager {
 		this.brickName = brickName;
 	}
 
-	public void addInterface(IMyxName interfaceName, IMyxInterfaceDescription interfaceDescription, EMyxInterfaceDirection interfaceDirection) {
+	public void addInterface(IMyxName interfaceName, IMyxInterfaceDescription interfaceDescription,
+			EMyxInterfaceDirection interfaceDirection) {
 		runtime.addInterface(path, brickName, interfaceName, interfaceDescription, interfaceDirection);
 	}
 

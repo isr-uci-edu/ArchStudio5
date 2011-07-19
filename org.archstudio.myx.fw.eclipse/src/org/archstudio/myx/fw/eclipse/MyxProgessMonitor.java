@@ -6,7 +6,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 public class MyxProgessMonitor implements IMyxProgressMonitor {
 
 	private final IProgressMonitor monitor;
-	
+
 	public MyxProgessMonitor(IProgressMonitor monitor) {
 		this.monitor = monitor;
 	}

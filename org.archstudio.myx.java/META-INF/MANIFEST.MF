@@ -4,11 +4,8 @@ Bundle-Name: Myx Java Functionality
 Bundle-SymbolicName: org.archstudio.myx.java;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio.myx.fw;bundle-version="5.0.0",
- org.archstudio.aim;bundle-version="5.0.0",
- org.archstudio.xarchadt;bundle-version="5.0.0",
- org.archstudio.xadl;bundle-version="5.0.0",
- com.google.guava;bundle-version="0.0.9"
+Require-Bundle: org.archstudio.myx.fw,
+ com.google.guava
 Export-Package: org.archstudio.myx.java,
  org.archstudio.myx.java.comp,
  org.archstudio.myx.java.conn

@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.archstudio.archlight.ArchlightNotice;
 
-public interface IArchlightNoticeADT{
+public interface IArchlightNoticeADT {
 
 	public void addNotices(String toolID, List<String> messages);
 
@@ -15,8 +15,7 @@ public interface IArchlightNoticeADT{
 
 	public void addNotice(String toolID, String message, Throwable error);
 
-	public void addNotice(String toolID, String message, String additionalDetail,
-		Throwable error);
+	public void addNotice(String toolID, String message, String additionalDetail, Throwable error);
 
 	public void addNotice(ArchlightNotice ttn);
 

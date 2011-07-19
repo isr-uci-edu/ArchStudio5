@@ -6,13 +6,14 @@ public class BasicXArchADTFeature implements IXArchADTFeature {
 
 	private final String nsURI;
 	private final String typeName;
-	
+
 	private final String name;
 	private final FeatureType featureType;
 	private final ValueType valueType;
 	private final boolean reference;
 
-	public BasicXArchADTFeature(String name, String nsURI, String typeName, FeatureType featureType, ValueType valueType, boolean reference) {
+	public BasicXArchADTFeature(String name, String nsURI, String typeName, FeatureType featureType,
+			ValueType valueType, boolean reference) {
 		this.name = name;
 		this.nsURI = nsURI;
 		this.typeName = typeName;
@@ -35,12 +36,12 @@ public class BasicXArchADTFeature implements IXArchADTFeature {
 	public String getName() {
 		return name;
 	}
-	
+
 	@Override
 	public FeatureType getType() {
 		return featureType;
 	}
-	
+
 	@Override
 	public ValueType getValueType() {
 		return valueType;
@@ -53,8 +54,7 @@ public class BasicXArchADTFeature implements IXArchADTFeature {
 
 	@Override
 	public String toString() {
-		return "BasicXArchADTFeature [nsURI=" + nsURI + ", typeName="
-				+ typeName + ", name=" + name + ", featureType=" + featureType
-				+ ", valueType=" + valueType + ", reference=" + reference + "]";
+		return "BasicXArchADTFeature [nsURI=" + nsURI + ", typeName=" + typeName + ", name=" + name + ", featureType="
+				+ featureType + ", valueType=" + valueType + ", reference=" + reference + "]";
 	}
 }

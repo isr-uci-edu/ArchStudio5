@@ -1,19 +1,19 @@
 package org.archstudio.archipelago.core.util;
 
-public class PropertyDecodeException extends Exception{
+public class PropertyDecodeException extends Exception {
 
-	public PropertyDecodeException(){
+	public PropertyDecodeException() {
 	}
 
-	public PropertyDecodeException(String message){
+	public PropertyDecodeException(String message) {
 		super(message);
 	}
 
-	public PropertyDecodeException(Throwable cause){
+	public PropertyDecodeException(Throwable cause) {
 		super(cause);
 	}
 
-	public PropertyDecodeException(String message, Throwable cause){
+	public PropertyDecodeException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

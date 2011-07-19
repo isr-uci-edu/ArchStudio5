@@ -1,5 +1,7 @@
 package org.archstudio.eclipse;
 
+import org.archstudio.utils.osgi.AbstractActivator;
+
 public class Activator extends AbstractActivator {
 
 	private static Activator singleton;

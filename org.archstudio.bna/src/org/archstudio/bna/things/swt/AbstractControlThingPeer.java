@@ -40,17 +40,22 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 		}
 
 		// update bounds
-		Rectangle newBounds = getBounds(control, view, cm, g, r);
-		Rectangle oldBounds = BNAUtils.toRectangle(control.getBounds());
+		final Rectangle newBounds = getBounds(control, view, cm, g, r);
+		final Rectangle oldBounds = BNAUtils.toRectangle(control.getBounds());
 		if (!oldBounds.equals(newBounds)) {
-			if (!oldBounds.getSize().equals(newBounds.getSize())) {
-				control.setSize(newBounds.width, newBounds.height);
-				if (control instanceof Composite) {
-					((Composite) control).layout(true, true);
-					control.pack(true);
+			SWTWidgetUtils.async(control, new Runnable(){
+				@Override
+				public void run() {
+					if (!oldBounds.getSize().equals(newBounds.getSize())) {
+						control.setSize(newBounds.width, newBounds.height);
+						if (control instanceof Composite) {
+							((Composite) control).layout(true, true);
+							control.pack(true);
+						}
+					}
+					control.setLocation(newBounds.x, newBounds.y);
 				}
-			}
-			control.setLocation(newBounds.x, newBounds.y);
+			});
 		}
 	}
 

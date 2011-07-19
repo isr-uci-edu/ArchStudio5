@@ -25,7 +25,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "File Manager Impl B"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -57,58 +57,79 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 
 	/**
 	 * Myx name for the <code>xarch</code> interface.
-	 *
-	 * MyxGenInterface[name=xarch,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.xarchadt.IXArchADT,description=null]
+	 * 
+	 * MyxGenInterface[name=xarch,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .xarchadt.IXArchADT,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_XARCH = MyxUtils.createName("xarch");
 	/**
 	 * Myx name for the <code>modelEvents</code> interface.
-	 *
-	 * MyxGenInterface[name=modelEvents,direction=in,single=true,serviceObjectDelegate=brick,generateGetter=true,className=org.archstudio.xarchadt.IXArchADTModelListener,description=null]
+	 * 
+	 * MyxGenInterface[name=modelEvents,direction=in,single=true,
+	 * serviceObjectDelegate
+	 * =brick,generateGetter=true,className=org.archstudio.xarchadt
+	 * .IXArchADTModelListener,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_MODEL_EVENTS = MyxUtils.createName("modelEvents");
 	/**
 	 * Myx name for the <code>fileEvents</code> interface.
-	 *
-	 * MyxGenInterface[name=fileEvents,direction=in,single=true,serviceObjectDelegate=brick,generateGetter=true,className=org.archstudio.xarchadt.IXArchADTFileListener,description=null]
+	 * 
+	 * MyxGenInterface[name=fileEvents,direction=in,single=true,
+	 * serviceObjectDelegate
+	 * =brick,generateGetter=true,className=org.archstudio.xarchadt
+	 * .IXArchADTFileListener,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_FILE_EVENTS = MyxUtils.createName("fileEvents");
 	/**
 	 * Myx name for the <code>fileManager</code> interface.
-	 *
-	 * MyxGenInterface[name=fileManager,direction=in,single=true,serviceObjectDelegate=brick,generateGetter=true,className=org.archstudio.filemanager.IFileManager,description=null]
+	 * 
+	 * MyxGenInterface[name=fileManager,direction=in,single=true,
+	 * serviceObjectDelegate
+	 * =brick,generateGetter=true,className=org.archstudio.filemanager
+	 * .IFileManager,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_FILE_MANAGER = MyxUtils.createName("fileManager");
 	/**
 	 * Myx name for the <code>fileManagerEvents</code> interface.
-	 *
-	 * MyxGenInterface[name=fileManagerEvents,direction=out,single=false,serviceObjectDelegate=events,generateGetter=true,className=org.archstudio.filemanager.IFileManagerListener,description=null]
+	 * 
+	 * MyxGenInterface[name=fileManagerEvents,direction=out,single=false,
+	 * serviceObjectDelegate
+	 * =events,generateGetter=true,className=org.archstudio.
+	 * filemanager.IFileManagerListener,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_FILE_MANAGER_EVENTS = MyxUtils.createName("fileManagerEvents");
 
 	/**
 	 * Service object(s) for the xarch interface.
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */
 	protected org.archstudio.xarchadt.IXArchADT xarch = null;
 	/**
 	 * Service object(s) for the fileManagerEvents interface.
-	 *
+	 * 
 	 * @see #OUT_FILE_MANAGER_EVENTS
 	 * @generated
 	 */
 	protected final Collection<org.archstudio.filemanager.IFileManagerListener> fileManagerEvents = new CopyOnWriteArrayList<org.archstudio.filemanager.IFileManagerListener>();
 	/**
-	 * Service object proxy for the fileManagerEvents interface.
-	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
-	 *
+	 * Service object proxy for the fileManagerEvents interface. Calls to the
+	 * proxy object are automatically delegated to all service objects of this
+	 * interface.
+	 * 
 	 * @see #OUT_FILE_MANAGER_EVENTS
 	 * @generated
 	 */
@@ -131,7 +152,7 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 
 	/**
 	 * Returns the service object(s) for the <code>xarch</code> interface.
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */
@@ -141,7 +162,7 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 
 	/**
 	 * Returns the service object(s) for the <code>modelEvents</code> interface.
-	 *
+	 * 
 	 * @see #IN_MODEL_EVENTS
 	 * @generated
 	 */
@@ -151,7 +172,7 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 
 	/**
 	 * Returns the service object(s) for the <code>fileEvents</code> interface.
-	 *
+	 * 
 	 * @see #IN_FILE_EVENTS
 	 * @generated
 	 */
@@ -161,7 +182,7 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 
 	/**
 	 * Returns the service object(s) for the <code>fileManager</code> interface.
-	 *
+	 * 
 	 * @see #IN_FILE_MANAGER
 	 * @generated
 	 */
@@ -170,8 +191,9 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 	}
 
 	/**
-	 * Returns the service object(s) for the <code>fileManagerEvents</code> interface.
-	 *
+	 * Returns the service object(s) for the <code>fileManagerEvents</code>
+	 * interface.
+	 * 
 	 * @see #OUT_FILE_MANAGER_EVENTS
 	 * @generated
 	 */
@@ -180,9 +202,10 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 	}
 
 	/**
-	 * Returns the proxy service object for the <code>fileManagerEvents</code> interface.
-	 *
-	 * @see #org.archstudio.filemanager.IFileManagerListener fileManagerEventsProxy
+	 * Returns the proxy service object for the <code>fileManagerEvents</code>
+	 * interface.
+	 * 
+	 * @see #org fileManagerEventsProxy
 	 * @see #OUT_FILE_MANAGER_EVENTS
 	 * @generated
 	 */

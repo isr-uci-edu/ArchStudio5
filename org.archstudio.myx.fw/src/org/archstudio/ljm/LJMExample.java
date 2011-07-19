@@ -41,8 +41,8 @@ public class LJMExample {
 		/*
 		 * On the client side, get a reference to the deployed object
 		 */
-		IExampleInterface deployedObject = (IExampleInterface) LJMProxyFactory.createProxy("localhost", server.getPort(), "ANameForTheDeployedObject",
-		        new Class[] { IExampleInterface.class });
+		IExampleInterface deployedObject = (IExampleInterface) LJMProxyFactory.createProxy("localhost",
+				server.getPort(), "ANameForTheDeployedObject", new Class[] { IExampleInterface.class });
 
 		System.err.println("The deployed object's value is " + deployedObject.getValue());
 

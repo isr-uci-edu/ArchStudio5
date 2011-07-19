@@ -96,7 +96,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		EndpointGlassThing thing = Assemblies.createEndpoint(getBNAWorld(), null, null);
 
 		UserEditableUtils.addEditableQualities(thing, IRelativeMovable.USER_MAY_MOVE);
-		UserEditableUtils.addEditableQualities(thing, IHasMutableText.USER_MAY_EDIT_TEXT);
+		UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, getBNAModel()), IHasMutableText.USER_MAY_EDIT_TEXT);
 
 		return thing;
 	}

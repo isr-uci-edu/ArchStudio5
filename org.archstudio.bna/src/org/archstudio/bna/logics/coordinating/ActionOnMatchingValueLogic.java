@@ -21,8 +21,10 @@ import com.google.common.collect.MapMaker;
 import com.google.common.collect.Multimap;
 
 /**
- * This logic performs an action (specified within the key) whenever another thing is found that has the same value
- * stored within a <code>targetKey</code> of the other thing. This is useful for maintaining references to other things.
+ * This logic performs an action (specified within the key) whenever another
+ * thing is found that has the same value stored within a <code>targetKey</code>
+ * of the other thing. This is useful for maintaining references to other
+ * things.
  * 
  * @see #create(Object, IThingKey, MatchFoundAction)
  */

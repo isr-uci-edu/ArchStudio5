@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="edu.uci.isr.infrastructure.bad.buckminster.antlib.buckminster">
+
+	<import file="eclipse.xml" />
+	<import file="utils.xml" />
+
+	<property name="default.buckminster.args" value="" />
+	<property name="default.buckminster.loglevel" value="INFO" />
+	<property name="default.buckminster.workspace" value="${default.eclipse.workspace}" />
+	<property name="default.buckminster.failonerror" value="${default.eclipse.failonerror}" />
+	<property name="default.buckminster.maxmem" value="${default.eclipse.maxmem}" />
+	<property name="default.buckminster.maxperm" value="${default.eclipse.maxperm}" />
+
+	<macrodef name="buckminster">
+		<attribute name="command" default="--help" />
+		<attribute name="loglevel" default="${default.buckminster.loglevel}" />
+		<attribute name="location" default="${default.buckminster.location}" />
+		<attribute name="workspace" default="${default.buckminster.workspace}" />
+		<attribute name="temp" default="${buckminster.temp}" />
+		<attribute name="failonerror" default="${default.buckminster.failonerror}" />
+		<attribute name="maxmem" default="${default.buckminster.maxmem}" />
+		<attribute name="maxperm" default="${default.buckminster.maxperm}" />
+		<element name="args" optional="true" implicit="true" />
+		<sequential>
+			<eclipse location="@{location}" workspace="@{workspace}" temp="@{temp}" failonerror="@{failonerror}" maxmem="@{maxmem}" maxperm="@{maxperm}">
+				<arg line="${default.buckminster.args}" />
+				<arg value="--loglevel" />
+				<arg value="@{loglevel}" />
+				<arg value="--displaystacktrace" />
+				<args />
+				<syspropertyset>
+					<propertyset refid="proxy.properties" />
+				</syspropertyset>
+			</eclipse>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="director">
+		<attribute name="location" default="${default.director.location}" />
+		<element name="args" optional="true" implicit="true" />
+		<sequential>
+			<equinox location="@{location}">
+				<args />
+				<syspropertyset>
+					<propertyset refid="proxy.properties" />
+				</syspropertyset>
+			</equinox>
+		</sequential>
+	</macrodef>
+
+	<target name="install-director" unless="_ok_${default.director.location}">
+
+		<echo>Downloading and extracting director ...</echo>
+
+		<!-- installation only involves downloading and extracting the director zip file -->
+		<property name="director.zip.url" value="http://www.eclipse.org/downloads/download.php?file=/tools/buckminster/products/director_latest.zip&amp;r=1" />
+		<get-and-extract-unless-ok property="default.director.location" src="${director.zip.url}" todir="${global.cache.location}" />
+
+	</target>
+
+</project>

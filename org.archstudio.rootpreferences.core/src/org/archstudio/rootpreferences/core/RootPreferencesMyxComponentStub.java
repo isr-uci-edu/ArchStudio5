@@ -16,7 +16,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Root Preferences Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -47,27 +47,27 @@ abstract class RootPreferencesMyxComponentStub extends org.archstudio.myx.fw.Abs
 
 	/**
 	 * Myx interface resources: <code>OUT_RESOURCES</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_RESOURCES = MyxUtils.createName("resources");
 	/**
 	 * Myx interface preferences: <code>OUT_PREFERENCES</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 
 	/**
 	 * Service object(s) for resources: <code>resources</code>
-	 *
+	 * 
 	 * @see #OUT_RESOURCES
 	 * @generated
 	 */
 	protected org.archstudio.resources.IResources resources = null;
 	/**
 	 * Service object(s) for preferences: <code>preferences</code>
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */
@@ -75,7 +75,7 @@ abstract class RootPreferencesMyxComponentStub extends org.archstudio.myx.fw.Abs
 
 	/**
 	 * Returns the service object(s) for <code>resources</code>
-	 *
+	 * 
 	 * @see #OUT_RESOURCES
 	 * @generated
 	 */
@@ -85,7 +85,7 @@ abstract class RootPreferencesMyxComponentStub extends org.archstudio.myx.fw.Abs
 
 	/**
 	 * Returns the service object(s) for <code>preferences</code>
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */

@@ -26,7 +26,8 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 
 	public static final String EOL = System.getProperty("line.separator");
 
-	public GraphLayout layoutGraph(IXArchADT xarch, IPreferenceStore prefs, ObjRef rootRef, GraphLayoutParameters params) throws GraphLayoutException {
+	public GraphLayout layoutGraph(IXArchADT xarch, IPreferenceStore prefs, ObjRef rootRef, GraphLayoutParameters params)
+			throws GraphLayoutException {
 		StringBuffer sb = new StringBuffer();
 		AliasTable at = new AliasTable();
 		createGraph(sb, at, xarch, rootRef, params);
@@ -36,9 +37,11 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 		return gl;
 	}
 
-	protected abstract String runLayoutTool(IXArchADT xarch, IPreferenceStore prefs, String toolInput) throws GraphLayoutException;
+	protected abstract String runLayoutTool(IXArchADT xarch, IPreferenceStore prefs, String toolInput)
+			throws GraphLayoutException;
 
-	protected void createGraph(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef rootRef, GraphLayoutParameters params) throws GraphLayoutException {
+	protected void createGraph(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef rootRef,
+			GraphLayoutParameters params) throws GraphLayoutException {
 		if (rootRef == null)
 			throw new IllegalArgumentException("Null root reference in graph layout.");
 
@@ -56,8 +59,8 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 		sb.append("}" + EOL);
 	}
 
-	protected void createGraphParameters(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef rootRef, GraphLayoutParameters params)
-	        throws GraphLayoutException {
+	protected void createGraphParameters(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef rootRef,
+			GraphLayoutParameters params) throws GraphLayoutException {
 		Object o = params.getProperty("nodeSep");
 		if ((o != null) && (o instanceof Double)) {
 			sb.append("  nodesep = ");
@@ -75,7 +78,8 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 		}
 	}
 
-	protected void createBricks(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef rootRef, GraphLayoutParameters params) throws GraphLayoutException {
+	protected void createBricks(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef rootRef,
+			GraphLayoutParameters params) throws GraphLayoutException {
 		List<ObjRef> componentRefs = xarch.getAll(rootRef, "component");
 		for (ObjRef componentRef : componentRefs) {
 			createBrick(sb, at, xarch, componentRef, params, true);
@@ -87,8 +91,8 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 		}
 	}
 
-	protected void createBrick(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef brickRef, GraphLayoutParameters params, boolean isComponent)
-	        throws GraphLayoutException {
+	protected void createBrick(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef brickRef,
+			GraphLayoutParameters params, boolean isComponent) throws GraphLayoutException {
 		double rw = isComponent ? params.getRelativeComponentWidth() : params.getRelativeConnectorWidth();
 		double rh = isComponent ? params.getRelativeComponentHeight() : params.getRelativeConnectorHeight();
 
@@ -118,14 +122,16 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 		}
 	}
 
-	protected void createLinks(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef rootRef, GraphLayoutParameters params) throws GraphLayoutException {
+	protected void createLinks(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef rootRef,
+			GraphLayoutParameters params) throws GraphLayoutException {
 		List<ObjRef> linkRefs = xarch.getAll(rootRef, "link");
 		for (ObjRef linkRef : linkRefs) {
 			createLink(sb, at, xarch, linkRef, params);
 		}
 	}
 
-	protected void createLink(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef linkRef, GraphLayoutParameters params) throws GraphLayoutException {
+	protected void createLink(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef linkRef,
+			GraphLayoutParameters params) throws GraphLayoutException {
 		String linkXArchID = XadlUtils.getID(xarch, linkRef);
 		if (linkXArchID == null) {
 			return;
@@ -222,7 +228,8 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 
 	//------------
 
-	public GraphLayout processOutput(AliasTable at, IXArchADT xarch, ObjRef rootRef, GraphLayoutParameters params, String output) throws GraphLayoutException {
+	public GraphLayout processOutput(AliasTable at, IXArchADT xarch, ObjRef rootRef, GraphLayoutParameters params,
+			String output) throws GraphLayoutException {
 		try {
 			GraphLayout gl = new GraphLayout();
 

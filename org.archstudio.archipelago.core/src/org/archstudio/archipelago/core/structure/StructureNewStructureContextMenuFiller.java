@@ -12,28 +12,27 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.TreeViewer;
 
-public class StructureNewStructureContextMenuFiller implements IArchipelagoTreeContextMenuFiller{
+public class StructureNewStructureContextMenuFiller implements IArchipelagoTreeContextMenuFiller {
 	protected TreeViewer viewer = null;
-	protected ArchipelagoServices AS =  null;
+	protected ArchipelagoServices AS = null;
 	protected ObjRef documentRootRef = null;
-	
-	public StructureNewStructureContextMenuFiller(TreeViewer viewer, ArchipelagoServices AS, ObjRef documentRootRef){
+
+	public StructureNewStructureContextMenuFiller(TreeViewer viewer, ArchipelagoServices AS, ObjRef documentRootRef) {
 		this.viewer = viewer;
 		this.AS = AS;
 		this.documentRootRef = documentRootRef;
 	}
-	
-	
-	public void fillContextMenu(IMenuManager m, Object[] selectedNodes){
-		if((selectedNodes != null) && (selectedNodes.length == 1)){
+
+	public void fillContextMenu(IMenuManager m, Object[] selectedNodes) {
+		if ((selectedNodes != null) && (selectedNodes.length == 1)) {
 			Object selectedNode = selectedNodes[0];
-			if(selectedNode instanceof FolderNode){
-				FolderNode fn = (FolderNode)selectedNode;
+			if (selectedNode instanceof FolderNode) {
+				FolderNode fn = (FolderNode) selectedNode;
 				String fnType = fn.getType();
-				if(fnType != null){
-					if(fnType.equals(StructureTreeContentProvider.FOLDER_NODE_TYPE)){
-						IAction newStructureAction = new Action("New Structure"){
-							public void run(){
+				if (fnType != null) {
+					if (fnType.equals(StructureTreeContentProvider.FOLDER_NODE_TYPE)) {
+						IAction newStructureAction = new Action("New Structure") {
+							public void run() {
 								createNewStructure();
 							}
 						};
@@ -44,15 +43,15 @@ public class StructureNewStructureContextMenuFiller implements IArchipelagoTreeC
 		}
 	}
 
-	protected void createNewStructure(){
+	protected void createNewStructure() {
 		ObjRef newStructureRef = XadlUtils.create(AS.xarch, Structure_3_0Package.Literals.STRUCTURE);
 		String newID = UIDGenerator.generateUID("structure");
-		
+
 		AS.xarch.set(newStructureRef, "id", newID);
 		XadlUtils.setName(AS.xarch, newStructureRef, "[New Structure]");
-		
-		ObjRef xADLRef = (ObjRef)AS.xarch.get(documentRootRef, "xADL");
-		if(xADLRef != null){
+
+		ObjRef xADLRef = (ObjRef) AS.xarch.get(documentRootRef, "xADL");
+		if (xADLRef != null) {
 			AS.xarch.add(xADLRef, "topLevelElement", newStructureRef);
 		}
 	}

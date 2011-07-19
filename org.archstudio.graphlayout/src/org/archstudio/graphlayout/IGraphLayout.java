@@ -7,5 +7,6 @@ public interface IGraphLayout {
 
 	public String getEngineDescription(String engineID);
 
-	public GraphLayout layoutGraph(String engineID, ObjRef rootRef, GraphLayoutParameters params) throws GraphLayoutException;
+	public GraphLayout layoutGraph(String engineID, ObjRef rootRef, GraphLayoutParameters params)
+			throws GraphLayoutException;
 }

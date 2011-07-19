@@ -180,7 +180,8 @@ public class SchematronTestManager {
 			for (ArchlightTest fileTest : testFile.getArchlightTests()) {
 				String testUID = fileTest.getUID();
 				if (testUIDs.contains(testUID)) {
-					SchematronInitializationException e = new SchematronInitializationException("Duplicate Test UID: " + testUID);
+					SchematronInitializationException e = new SchematronInitializationException("Duplicate Test UID: "
+							+ testUID);
 					newWarnings.add(e);
 				}
 				else {

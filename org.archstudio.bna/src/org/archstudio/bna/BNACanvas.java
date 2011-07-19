@@ -18,6 +18,7 @@ import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.SWTGraphics;
+import org.eclipse.draw2d.ScaledGraphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
@@ -59,14 +60,17 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 	protected final ScrollBar vBar = getVerticalBar();
 	protected final IMutableCoordinateMapper mcm;
 	/*
-	 * This ICoordinateMapper is special in two ways: First, it is only updated in the SWT thread so that painting is
-	 * consistent with scrolling. When this is not the case, rapidly sliding a scroll bar back and forth causes
-	 * artifacts on the display. Second, it translation of coordinates is turned off so that the translation can occur
-	 * within the graphics object during rendering. When translation remains enabled, the local cache values becomes
-	 * inconsistent with the rendered thins once the canvas is scrolled.
+	 * This ICoordinateMapper is special in two ways: First, it is only updated
+	 * in the SWT thread so that painting is consistent with scrolling. When
+	 * this is not the case, rapidly sliding a scroll bar back and forth causes
+	 * artifacts on the display. Second, it translation of coordinates is turned
+	 * off so that the translation can occur within the graphics object during
+	 * rendering. When translation remains enabled, the local cache values
+	 * becomes inconsistent with the rendered thins once the canvas is scrolled.
 	 */
 	/*
-	 * The relationship of coordinate mappers is: mcm <-> scrollbars -> (renderMCM <=> scrollableMCM)
+	 * The relationship of coordinate mappers is: mcm <-> scrollbars ->
+	 * (renderMCM <=> scrollableMCM)
 	 */
 	protected final IMutableCoordinateMapper renderMCM;
 	protected final IScrollableCoordinateMapper scrollableMCM; // null if renderMCM is not IScrollableCoordinateMapper
@@ -88,8 +92,8 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 				int dx = mcmLocalOrigin.x - renderLocalOrigin.x;
 				int dy = mcmLocalOrigin.y - renderLocalOrigin.y;
 				org.eclipse.swt.graphics.Rectangle client = getClientArea();
-				scroll(-dx, -dy, 0, 0, client.width, client.height, true);
 				renderMCM.setLocalOrigin(mcmLocalOrigin);
+				scroll(-dx, -dy, 0, 0, client.width, client.height, true);
 			}
 			else {
 				renderMCM.setLocalOrigin(mcmLocalOrigin);
@@ -106,7 +110,7 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 	protected final PeerCache<RenderData> peerCache = new PeerCache<RenderData>();
 
 	public BNACanvas(Composite parent, int style, IBNAWorld bnaWorld) {
-		super(parent, style | SWT.NO_REDRAW_RESIZE);
+		super(parent, style | SWT.NO_REDRAW_RESIZE | SWT.DOUBLE_BUFFERED);
 		this.mcm = new LinearCoordinateMapper();
 		this.bnaWorld = checkNotNull(bnaWorld);
 		this.bnaModel = checkNotNull(bnaWorld.getBNAModel());
@@ -244,6 +248,11 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 	}
 
 	@Override
+	public IBNAWorld getWorld() {
+		return bnaWorld;
+	};
+
+	@Override
 	public ICoordinateMapper getCoordinateMapper() {
 		return mcm;
 	}
@@ -286,10 +295,10 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 		if (!startedRendering) {
 			startedRendering = true;
 			bnaModel.fireStreamNotificationEvent(STARTED_RENDERING_EVENT);
+			redraw();
 		}
 
-		// SAH: does this make sense any longer now that we're using composites rather than devices? 
-		if (rDevice != e.display) {
+		if (resources == null || rDevice != e.display) {
 			try {
 				if (resources != null) {
 					resources.dispose();
@@ -372,12 +381,22 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 						}
 					}
 				}
+				//System.err.println("Cached things to render: "+cachesToRender.size());
+				Cache<?,?> lastCache = null;
 				for (Cache<IThing, RenderData> cache : cachesToRender) {
 					RenderData cacheData = cache.renderData;
 
-					g.restoreState();
-					g.clipRect(cacheData.lastLocalBounds);
-					cache.peer.draw(this, renderMCM, g, resources);
+					try {
+						g.clipRect(cacheData.lastLocalBounds);
+						cache.peer.draw(this, renderMCM, new ScaledGraphics(g), resources);
+						g.restoreState();
+					}
+					catch (Exception e2) {
+						System.err.println(lastCache != null ? lastCache.peer.getClass() : "null");
+						System.err.println(cache.peer.getClass());
+						e2.printStackTrace();
+					}
+					lastCache = cache;
 				}
 			}
 			catch (Throwable t) {
@@ -489,5 +508,5 @@ public class BNACanvas extends Canvas implements IBNAView, IBNAModelListener, Pa
 	public <T extends IThing> IThingPeer<T> getThingPeer(T thing) {
 		Cache<T, RenderData> cache = getPeerCache(thing);
 		return cache.getPeer();
-	};
+	}
 }

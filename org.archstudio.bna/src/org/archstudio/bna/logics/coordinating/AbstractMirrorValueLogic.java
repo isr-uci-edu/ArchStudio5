@@ -10,7 +10,8 @@ import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.IThingRefKeyKey;
 import org.archstudio.bna.logics.tracking.ReferenceTrackingLogic;
 
-public class AbstractMirrorValueLogic<S extends IThing, T extends IThing> extends AbstractMaintainRelationshipsLogic<S, T> {
+public class AbstractMirrorValueLogic<S extends IThing, T extends IThing> extends
+		AbstractMaintainRelationshipsLogic<S, T> {
 
 	public AbstractMirrorValueLogic(Class<S> sourceThingClass, Class<T> targetThingClass, ReferenceTrackingLogic rtl) {
 		super(sourceThingClass, targetThingClass, null, rtl);

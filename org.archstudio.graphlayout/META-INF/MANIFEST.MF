@@ -7,6 +7,6 @@ Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.graphlayout,
  org.archstudio.graphlayout.gui
 Manifest-Version: 1.0
-Require-Bundle: org.archstudio.swtutils,
+Require-Bundle: org.archstudio.utils.swt,
  org.archstudio.xarchadt,
  org.eclipse.jface

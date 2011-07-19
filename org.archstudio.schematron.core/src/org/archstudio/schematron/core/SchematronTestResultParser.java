@@ -22,7 +22,8 @@ public class SchematronTestResultParser {
 
 	//Returns an array of objects.  Each Object is either a TronTestResult
 	//or a SchematronTestException in case the test result parsing failed.
-	public static List<? extends Object> parseTestResults(IXArchADT xarch, ObjRef documentRef, String toolID, Document schematronProcessingResults) {
+	public static List<? extends Object> parseTestResults(IXArchADT xarch, ObjRef documentRef, String toolID,
+			Document schematronProcessingResults) {
 		List<Object> testResultList = new ArrayList<Object>();
 		List<TestResultSnippet> resultSnippets = null;
 		try {
@@ -43,8 +44,8 @@ public class SchematronTestResultParser {
 		return Collections.unmodifiableList(testResultList);
 	}
 
-	private static ArchlightTestResult parseResultSnippet(IXArchADT xarch, ObjRef documentRef, String toolID, TestResultSnippet snippet)
-	        throws SchematronTestException {
+	private static ArchlightTestResult parseResultSnippet(IXArchADT xarch, ObjRef documentRef, String toolID,
+			TestResultSnippet snippet) throws SchematronTestException {
 		String testUID = snippet.activePatternElement.getAttribute("id");
 		if (testUID == null) {
 			String desc = "Test result had no UID";
@@ -105,7 +106,8 @@ public class SchematronTestResultParser {
 			 * ref = xarch.getByID(documentRef, id); System.out.println(ref);
 			 * System.out.println(xarch.getXArchPath(ref)); }
 			 */
-			archlightIssues.add(new ArchlightIssue(testUID, documentRef, toolID, severity, headline, detailedDescription, iconHref, elementIdentifiers));
+			archlightIssues.add(new ArchlightIssue(testUID, documentRef, toolID, severity, headline,
+					detailedDescription, iconHref, elementIdentifiers));
 		}
 		return new ArchlightTestResult(documentRef, testUID, archlightIssues);
 	}
@@ -133,7 +135,8 @@ public class SchematronTestResultParser {
 	//So all the failed assertions are at the top level but split
 	//up by active-patterns.  There will always be an active-pattern
 	//heading even if there are no failed-asserts
-	private static List<TestResultSnippet> parseTestResultSnippets(Document schematronProcessingResults) throws SchematronTestException {
+	private static List<TestResultSnippet> parseTestResultSnippets(Document schematronProcessingResults)
+			throws SchematronTestException {
 		List<TestResultSnippet> testResultSnippetList = new ArrayList<TestResultSnippet>();
 
 		Element rootElement = schematronProcessingResults.getDocumentElement();
@@ -243,7 +246,8 @@ public class SchematronTestResultParser {
 					String propName = propertyElements[i].substring(0, equalsIndex).trim();
 					String propValue = propertyElements[i].substring(equalsIndex + 1).trim();
 					if (newProperties.containsKey(propName)) {
-						throw new SchematronTestException("Test result has multiple segments with name '" + propName + "'");
+						throw new SchematronTestException("Test result has multiple segments with name '" + propName
+								+ "'");
 					}
 					newProperties.put(propName, propValue);
 				}

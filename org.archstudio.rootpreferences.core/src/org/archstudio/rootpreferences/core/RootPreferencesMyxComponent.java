@@ -2,7 +2,7 @@ package org.archstudio.rootpreferences.core;
 
 /**
  * Myx brick: "Root Preferences Impl"
- *
+ * 
  * @see org.archstudio.rootpreferences.core.RootPreferencesMyxComponentStub
  * @generated
  */

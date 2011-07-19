@@ -24,7 +24,8 @@ import com.google.common.collect.MapMaker;
 import com.google.common.collect.Multimap;
 
 /**
- * This logic keeps track of {@link #mark(ThingKey) marked }thing keys that reference other things by their id.
+ * This logic keeps track of {@link #mark(ThingKey) marked }thing keys that
+ * reference other things by their id.
  */
 public class ReferenceTrackingLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
 

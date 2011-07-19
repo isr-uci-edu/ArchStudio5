@@ -8,5 +8,5 @@ Export-Package: org.archstudio.resources.core
 Manifest-Version: 1.0
 Require-Bundle: org.archstudio.myx.fw,
  org.archstudio.resources,
- org.archstudio.swtutils,
+ org.archstudio.utils.swt,
  org.eclipse.ui

@@ -29,35 +29,6 @@
       </builder>
    </extension>
    <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="true"
-            id="org.archstudio.dblgen.core.objectContribution1"
-            nameFilter="*"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               class="org.archstudio.dblgen.action.ToggleXadl3SchemaNatureAction"
-               enablesFor="+"
-               id="org.archstudio.dblgen.xadl3SchemaNature.action"
-               label="Generate xADL 3 Schema DBLs"
-               menubarPath="org.archstudio.eclipse.popupMenuMain/bottom"
-               style="toggle">
-         </action>
-         <visibility>
-            <and>
-               <objectState
-                     name="projectNature"
-                     value="org.eclipse.jdt.core.javanature">
-               </objectState>
-               <objectState
-                     name="projectNature"
-                     value="org.eclipse.pde.PluginNature">
-               </objectState>
-            </and>
-         </visibility>
-      </objectContribution>
-   </extension>
-   <extension
          id="org.archstudio.dblgen.xadl3SchemaBuilderProblem"
          name="xADL 3 Schema Builder Problem"
          point="org.eclipse.core.resources.markers">
@@ -67,12 +38,6 @@
       <persistent
             value="true">
       </persistent>
-   </extension>
-   <extension
-         point="org.eclipse.ui.startup">
-      <startup
-            class="org.archstudio.dblgen.action.ToggleXadl3SchemaNatureAction">
-      </startup>
    </extension>
    <extension
          point="org.archstudio.myxgen.brick">

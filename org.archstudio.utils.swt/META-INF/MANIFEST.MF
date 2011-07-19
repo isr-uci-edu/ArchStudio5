@@ -1,0 +1,15 @@
+Bundle-ManifestVersion: 2
+Bundle-Name: SWT Utility Classes
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-SymbolicName: org.archstudio.utils.swt
+Bundle-Vendor: archstudio.org
+Bundle-Version: 5.0.0.qualifier
+Export-Package: biz.volantec.utils.widgets,
+ org.archstudio.swtutils,
+ org.archstudio.swtutils.constants,
+ org.archstudio.swtutils.res
+Manifest-Version: 1.0
+Require-Bundle: org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.ide

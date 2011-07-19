@@ -6,7 +6,6 @@ import org.archstudio.bna.logics.hints.PropertyDecodeException;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-
 public class Draw2DPropertyCoder implements IPropertyCoder {
 
 	public boolean encode(IPropertyCoder masterCoder, IEncodedValue encodedValue, Object value) {

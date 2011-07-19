@@ -3,16 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: OSGi Myx Functionality
 Bundle-SymbolicName: org.archstudio.myx.osgi;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.archstudio.myx.fw;bundle-version="5.0.0",
- org.eclipse.osgi.services;bundle-version="3.3.0",
- org.eclipse.core.runtime;bundle-version="3.7.0",
- org.archstudio.xadl;bundle-version="5.0.0",
- org.archstudio.xarchadt;bundle-version="5.0.0",
- org.archstudio.xadl3.implementation.osgi;bundle-version="1.0.0",
- org.archstudio.xadl3.implementation.java;bundle-version="1.0.0",
- org.archstudio.myx.java;bundle-version="1.0.0",
- org.archstudio.myxgen,
- org.archstudio.aim;bundle-version="5.0.0"
+Require-Bundle: org.archstudio.myx.fw,
+ org.eclipse.core.runtime,
+ org.archstudio.myx.java
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.archstudio.myx.osgi,
  org.archstudio.myx.osgi.conn

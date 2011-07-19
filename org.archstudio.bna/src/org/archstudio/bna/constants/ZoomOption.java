@@ -35,8 +35,9 @@ public enum ZoomOption {
 	}
 
 	/**
-	 * Returns a list of lable-value pairs. Such as { {"None", "NONE"}, {"Wheel", "WHEEL"}, {"Shift + Wheel",
-	 * "SHIFT_WHEEL"}, {"Ctrl + Wheel", "CTRL_WHEEL"}}.
+	 * Returns a list of lable-value pairs. Such as { {"None", "NONE"},
+	 * {"Wheel", "WHEEL"}, {"Shift + Wheel", "SHIFT_WHEEL"}, {"Ctrl + Wheel",
+	 * "CTRL_WHEEL"}}.
 	 * 
 	 * @see edu.uci.isr.archstudio4.comp.archipelago.prefs.ArchipelagoPreferencePanel
 	 * @return

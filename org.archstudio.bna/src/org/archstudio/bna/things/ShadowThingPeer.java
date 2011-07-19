@@ -17,7 +17,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import com.google.common.collect.Lists;
 
 /**
- * Render all shadows at the same time. Otherwise, shadows do not overlap correctly.
+ * Render all shadows at the same time. Otherwise, shadows do not overlap
+ * correctly.
  */
 public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T> {
 

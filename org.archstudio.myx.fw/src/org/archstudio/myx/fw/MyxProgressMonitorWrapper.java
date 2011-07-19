@@ -1,23 +1,22 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2006 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * Copyright (c) 2000, 2006 IBM Corporation and others. All rights reserved.
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ * and is available at http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors:
- *     IBM Corporation - initial API and implementation
+ * Contributors: IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.archstudio.myx.fw;
 
-
 /**
- * An abstract wrapper around a progress monitor which,
- * unless overridden, forwards <code>IMyxProgressMonitor</code>
- * and <code>IMyxProgressMonitorWithBlocking</code> methods to the wrapped progress monitor.
+ * An abstract wrapper around a progress monitor which, unless overridden,
+ * forwards <code>IMyxProgressMonitor</code> and
+ * <code>IMyxProgressMonitorWithBlocking</code> methods to the wrapped progress
+ * monitor.
  * <p>
  * This class can be used without OSGi running.
- * </p><p>
+ * </p>
+ * <p>
  * Clients may subclass.
  * </p>
  */
@@ -26,21 +25,21 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	/** The wrapped progress monitor. */
 	private IMyxProgressMonitor progressMonitor;
 
-	/** 
+	/**
 	 * Creates a new wrapper around the given monitor.
-	 *
-	 * @param monitor the progress monitor to forward to
+	 * 
+	 * @param monitor
+	 *            the progress monitor to forward to
 	 */
 	protected MyxProgressMonitorWrapper(IMyxProgressMonitor monitor) {
 		progressMonitor = monitor;
 	}
 
-	/** 
-	 * This implementation of a <code>IMyxProgressMonitor</code>
-	 * method forwards to the wrapped progress monitor.
-	 * Clients may override this method to do additional
-	 * processing.
-	 *
+	/**
+	 * This implementation of a <code>IMyxProgressMonitor</code> method forwards
+	 * to the wrapped progress monitor. Clients may override this method to do
+	 * additional processing.
+	 * 
 	 * @see IMyxProgressMonitor#beginTask(String, int)
 	 */
 	public void beginTask(String name, int totalWork) {
@@ -48,11 +47,10 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation of a <code>IMyxProgressMonitor</code>
-	 * method forwards to the wrapped progress monitor.
-	 * Clients may override this method to do additional
-	 * processing.
-	 *
+	 * This implementation of a <code>IMyxProgressMonitor</code> method forwards
+	 * to the wrapped progress monitor. Clients may override this method to do
+	 * additional processing.
+	 * 
 	 * @see IMyxProgressMonitor#done()
 	 */
 	public void done() {
@@ -61,7 +59,7 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 
 	/**
 	 * Returns the wrapped progress monitor.
-	 *
+	 * 
 	 * @return the wrapped progress monitor
 	 */
 	public IMyxProgressMonitor getWrappedProgressMonitor() {
@@ -69,11 +67,10 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation of a <code>IMyxProgressMonitor</code>
-	 * method forwards to the wrapped progress monitor.
-	 * Clients may override this method to do additional
-	 * processing.
-	 *
+	 * This implementation of a <code>IMyxProgressMonitor</code> method forwards
+	 * to the wrapped progress monitor. Clients may override this method to do
+	 * additional processing.
+	 * 
 	 * @see IMyxProgressMonitor#internalWorked(double)
 	 */
 	public void internalWorked(double work) {
@@ -81,11 +78,10 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation of a <code>IMyxProgressMonitor</code>
-	 * method forwards to the wrapped progress monitor.
-	 * Clients may override this method to do additional
-	 * processing.
-	 *
+	 * This implementation of a <code>IMyxProgressMonitor</code> method forwards
+	 * to the wrapped progress monitor. Clients may override this method to do
+	 * additional processing.
+	 * 
 	 * @see IMyxProgressMonitor#isCanceled()
 	 */
 	public boolean isCanceled() {
@@ -93,11 +89,10 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation of a <code>IMyxProgressMonitor</code>
-	 * method forwards to the wrapped progress monitor.
-	 * Clients may override this method to do additional
-	 * processing.
-	 *
+	 * This implementation of a <code>IMyxProgressMonitor</code> method forwards
+	 * to the wrapped progress monitor. Clients may override this method to do
+	 * additional processing.
+	 * 
 	 * @see IMyxProgressMonitor#setCanceled(boolean)
 	 */
 	public void setCanceled(boolean b) {
@@ -105,11 +100,10 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation of a <code>IMyxProgressMonitor</code>
-	 * method forwards to the wrapped progress monitor.
-	 * Clients may override this method to do additional
-	 * processing.
-	 *
+	 * This implementation of a <code>IMyxProgressMonitor</code> method forwards
+	 * to the wrapped progress monitor. Clients may override this method to do
+	 * additional processing.
+	 * 
 	 * @see IMyxProgressMonitor#setTaskName(String)
 	 */
 	public void setTaskName(String name) {
@@ -117,11 +111,10 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation of a <code>IMyxProgressMonitor</code>
-	 * method forwards to the wrapped progress monitor.
-	 * Clients may override this method to do additional
-	 * processing.
-	 *
+	 * This implementation of a <code>IMyxProgressMonitor</code> method forwards
+	 * to the wrapped progress monitor. Clients may override this method to do
+	 * additional processing.
+	 * 
 	 * @see IMyxProgressMonitor#subTask(String)
 	 */
 	public void subTask(String name) {
@@ -129,11 +122,10 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation of a <code>IMyxProgressMonitor</code>
-	 * method forwards to the wrapped progress monitor.
-	 * Clients may override this method to do additional
-	 * processing.
-	 *
+	 * This implementation of a <code>IMyxProgressMonitor</code> method forwards
+	 * to the wrapped progress monitor. Clients may override this method to do
+	 * additional processing.
+	 * 
 	 * @see IMyxProgressMonitor#worked(int)
 	 */
 	public void worked(int work) {

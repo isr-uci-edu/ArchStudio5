@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="org_archstudio_buckminster_build" basedir=".">
+
+	<import file="antlib/buckminster.xml" />
+	<configure-proxy-and-variables />
+
+	<property environment="env" />
+
+	<target name="delete">
+
+		<assert-nonempty property="dir" message="The root of the directory tree to delete" />
+		<assert-nonempty property="includes" message="A comma- or space-separated list of file patterns to delete" />
+		<!-- A comma- or space-separated list of file patterns to retain -->
+		<property name="excludes" value="." />
+
+		<echo>Deleting '${includes}' from '${dir}', excluding '${excludes}'</echo>
+		<delete includeemptydirs="true" defaultexcludes="false">
+			<fileset dir="${dir}" includes="${includes}" excludes="${excludes}" />
+		</delete>
+
+	</target>
+
+	<target name="install-buckminster">
+
+		<assert-nonempty property="eclipse.home" message="Missing eclipse.home" />
+		<property name="director.home" value="${eclipse.home}/../director" />
+
+		<get-and-extract-unless-ok src="http://www.eclipse.org/downloads/download.php?file=/tools/buckminster/products/director_latest.zip&amp;r=1" todir="${director.home}" />
+
+		<buckminster location="${eclipse.home}">
+			<arg value="listsite" />
+			<redirector outputproperty="uninstall_feature_command">
+				<outputfilterchain>
+					<headfilter skip="1" />
+					<replaceregex pattern="^[\s]*" replace="" flags="g" />
+					<replaceregex pattern="[\s]+.*$" replace="" flags="g" />
+					<replaceregex pattern="^(.*)$" replace="-uninstallIU \1.feature.group " flags="g" />
+					<striplinebreaks />
+				</outputfilterchain>
+			</redirector>
+		</buckminster>
+		<!-- create an innocuous command, otherwise -->
+		<property name="uninstall_feature_command" value="" />
+
+		<director location="${director.home}">
+			<arg value="-d" />
+			<arg value="${eclipse.home}" />
+			<arg value="-p" />
+			<arg value="Buckminster" />
+			<arg value="-r" />
+			<arg value="http://download.eclipse.org/tools/buckminster/headless-3.6" />
+			<arg value="-r" />
+			<arg value="http://download.cloudsmith.com/buckminster/external-3.6" />
+			<arg line="${uninstall_feature_command}" />
+			<arg value="-installIU" />
+			<arg value="org.eclipse.equinox.p2.director.feature.feature.group," />
+			<arg value="-installIU" />
+			<arg value="org.eclipse.buckminster.emma.headless.feature.feature.group," />
+			<arg value="-installIU" />
+			<arg value="org.eclipse.buckminster.pde.headless.feature.feature.group," />
+			<arg value="-installIU" />
+			<arg value="org.eclipse.buckminster.subclipse.headless.feature.feature.group," />
+			<arg value="-installIU" />
+			<arg value="org.eclipse.buckminster.maven.headless.feature.feature.group," />
+			<arg value="-installIU" />
+			<arg value="org.eclipse.buckminster.cmdline.product," />
+			<arg value="-installIU" />
+			<arg value="org.eclipse.buckminster.core.headless.feature.feature.group," />
+			<arg value="-installIU" />
+			<arg value="org.eclipse.buckminster.git.headless.feature.feature.group," />
+			<arg value="-installIU" />
+			<arg value="org.eclipse.buckminster.cvs.headless.feature.feature.group" />
+		</director>
+	</target>
+
+
+	<target name="create-cquery">
+
+		<assert-nonempty property="buckminster.component" message="Missing buckminster.component" />
+		<property name="buckminster.component.type" value="eclipse.feature" />
+		<assert-nonempty property="rmap.url" message="Missing rmap.url" />
+		<property name="workspace.root" location="${env.WORKSPACE}" />
+
+		<property name="componnet.cquery.location" location="${workspace.root}/component.cquery" />
+		<makeurl property="cquery.url" file="${basedir}/defaults/component.cquery" />
+
+		<echo>Retrieving the cquery: ${cquery.url}</echo>
+		<get src="${cquery.url}" dest="${componnet.cquery.location}" />
+
+		<echo>Setting the cquery's component type: ${buckminster.component.type}</echo>
+		<xslt-set inout="${componnet.cquery.location}" style="${basedir}/xsl/set-cquery-componentType.xsl" value="${buckminster.component.type}" />
+
+		<echo>Expanding properties within the cquery: ${componnet.cquery.location}</echo>
+		<expand-file inout="${componnet.cquery.location}" />
+
+	</target>
+
+	<target name="resolve-cquery">
+
+		<property name="workspace.root" location="${env.WORKSPACE}" />
+		<assert-nonempty property="eclipse.home" message="Missing eclipse.home" />
+		<property name="buckminster.temp" location="${workspace.root}/buckminster.temp" />
+		<property name="buckminster.temp.root" location="${buckminster.temp}" />
+		<property name="buckminster.output.root" location="${workspace.root}/buckminster.output" />
+
+		<echo>Resolving the cquery...</echo>
+		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
+			<arg value="resolve" />
+			<arg value="component.cquery" />
+			<syspropertyset>
+				<propertyref builtin="commandline" />
+				<propertyref prefix="buckminster." />
+			</syspropertyset>
+		</buckminster>
+
+	</target>
+
+	<target name="build-update-site">
+
+		<property name="workspace.root" location="${env.WORKSPACE}" />
+		<assert-nonempty property="eclipse.home" message="Missing eclipse.home" />
+		<property name="buckminster.temp" location="${workspace.root}/buckminster.temp" />
+		<property name="buckminster.temp.root" location="${buckminster.temp}" />
+		<property name="buckminster.output.root" location="${workspace.root}/buckminster.output" />
+		<assert-nonempty property="buckminster.component" message="Missing buckminster.component" />
+
+		<echo>Building the update site...: ${buckminster.component}</echo>
+		<mkdir dir="${buckminster.output.root}" />
+		<mkdir dir="${buckminster.temp}" />
+		<buckminster location="${eclipse.home}" workspace="${workspace.root}" loglevel="DEBUG">
+			<!-- <arg value="-P" />
+			<arg value="${basedir}/defaults/buckminster.properties" /> -->
+			<arg value="perform" />
+			<arg value="${buckminster.component}#site.p2" />
+			<syspropertyset>
+				<propertyref builtin="commandline" />
+				<propertyref prefix="buckminster.output" />
+				<propertyref prefix="buckminster.temp" />
+			</syspropertyset>
+		</buckminster>
+
+		<echo>Moving the update site to ${buckminster.component}</echo>
+		<mkdir dir="${workspace.root}/${buckminster.component}" />
+		<move todir="${workspace.root}/${buckminster.component}">
+			<fileset dir="${buckminster.output.root}" includes="${buckminster.component}_*/site.p2/**/*" />
+			<!-- copy src/*/*/X to dest/X -->
+			<regexpmapper from="^[^/\\]+[/\\][^/\\]+[/\\](.*)$" to="\1" />
+		</move>
+
+	</target>
+
+	<target name="update-buckminster">
+
+		<assert-nonempty property="eclipse.home" message="Missing eclipse.home" />
+		<property name="director.home" value="${eclipse.home}/../director" />
+		<assert-nonempty property="buckminster.component" message="Missing buckminster.component" />
+		<assert-nonempty property="update.site.feature" message="Missing update.site.feature" />
+
+		<echo>Updating feature "${update.site.feature}" in "${eclipse.home}" using "${director.home}" from "${buckminster.component}"</echo>
+		<!-- determine if feature is already installed -->
+		<buckminster location="${eclipse.home}">
+			<arg value="listsite" />
+			<redirector outputproperty="uninstall_feature_command">
+				<outputfilterchain>
+					<replaceregex pattern="^[\s]*" replace="" flags="g" />
+					<replaceregex pattern="[\s]+.*$" replace="" flags="g" />
+					<linecontains>
+						<contains value="${update.site.feature}" />
+					</linecontains>
+					<!-- create an uninstall command, if so -->
+					<replaceregex pattern="^(.*)$" replace="-u \1.feature.group" flags="g" />
+				</outputfilterchain>
+			</redirector>
+		</buckminster>
+		<!-- create an innocuous command, otherwise -->
+		<property name="uninstall_feature_command" value="" />
+
+		<makeurl property="repository.url" file="${workspace.root}/${buckminster.component}" validate="false" />
+		<director location="${director.home}">
+			<arg value="-d" />
+			<arg value="${eclipse.home}" />
+			<arg value="-p" />
+			<arg value="Buckminster" />
+			<arg value="-r" />
+			<arg value="${repository.url}" />
+			<arg value="-followReferences" />
+			<arg line="${uninstall_feature_command}" />
+			<arg value="-i" />
+			<arg value="${update.site.feature}.feature.group" />
+		</director>
+
+	</target>
+
+</project>

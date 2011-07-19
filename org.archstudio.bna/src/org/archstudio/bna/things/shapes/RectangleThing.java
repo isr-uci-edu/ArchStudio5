@@ -7,8 +7,8 @@ import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.things.AbstractRoundedRectangleThing;
 import org.eclipse.swt.graphics.RGB;
 
-public class RectangleThing extends AbstractRoundedRectangleThing implements IHasMutableColor, IHasMutableSecondaryColor,
-		IHasMutableGradientFill, IHasMutableEdgeColor {
+public class RectangleThing extends AbstractRoundedRectangleThing implements IHasMutableColor,
+		IHasMutableSecondaryColor, IHasMutableGradientFill, IHasMutableEdgeColor {
 
 	public RectangleThing(Object id) {
 		super(id);

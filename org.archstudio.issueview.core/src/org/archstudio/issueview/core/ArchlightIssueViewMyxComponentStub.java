@@ -26,7 +26,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Archlight Issue Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -57,86 +57,111 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 
 	/**
 	 * Myx name for the <code>xarch</code> interface.
-	 *
-	 * MyxGenInterface[name=xarch,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.xarchadt.IXArchADT,description=null]
+	 * 
+	 * MyxGenInterface[name=xarch,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .xarchadt.IXArchADT,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_XARCH = MyxUtils.createName("xarch");
 	/**
 	 * Myx name for the <code>resources</code> interface.
-	 *
-	 * MyxGenInterface[name=resources,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.resources.IResources,description=null]
+	 * 
+	 * MyxGenInterface[name=resources,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .resources.IResources,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_RESOURCES = MyxUtils.createName("resources");
 	/**
 	 * Myx name for the <code>preferences</code> interface.
-	 *
-	 * MyxGenInterface[name=preferences,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.eclipse.jface.preference.IPreferenceStore,description=null]
+	 * 
+	 * MyxGenInterface[name=preferences,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.eclipse.jface
+	 * .preference.IPreferenceStore,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 	/**
 	 * Myx name for the <code>editorManager</code> interface.
-	 *
-	 * MyxGenInterface[name=editorManager,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.editormanager.IEditorManager,description=null]
+	 * 
+	 * MyxGenInterface[name=editorManager,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .editormanager.IEditorManager,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_EDITOR_MANAGER = MyxUtils.createName("editorManager");
 	/**
 	 * Myx name for the <code>issueEvents</code> interface.
-	 *
-	 * MyxGenInterface[name=issueEvents,direction=in,single=true,serviceObjectDelegate=brick,generateGetter=true,className=org.archstudio.issueadt.ArchlightIssueADTListener,description=null]
+	 * 
+	 * MyxGenInterface[name=issueEvents,direction=in,single=true,
+	 * serviceObjectDelegate
+	 * =brick,generateGetter=true,className=org.archstudio.issueadt
+	 * .ArchlightIssueADTListener,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_ISSUE_EVENTS = MyxUtils.createName("issueEvents");
 	/**
 	 * Myx name for the <code>issues</code> interface.
-	 *
-	 * MyxGenInterface[name=issues,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.issueadt.IArchlightIssueADT,description=null]
+	 * 
+	 * MyxGenInterface[name=issues,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .issueadt.IArchlightIssueADT,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_ISSUES = MyxUtils.createName("issues");
 
 	/**
 	 * Service object(s) for the xarch interface.
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */
 	protected org.archstudio.xarchadt.IXArchADT xarch = null;
 	/**
 	 * Service object(s) for the resources interface.
-	 *
+	 * 
 	 * @see #OUT_RESOURCES
 	 * @generated
 	 */
 	protected org.archstudio.resources.IResources resources = null;
 	/**
 	 * Service object(s) for the preferences interface.
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */
 	protected org.eclipse.jface.preference.IPreferenceStore preferences = null;
 	/**
 	 * Service object(s) for the editorManager interface.
-	 *
+	 * 
 	 * @see #OUT_EDITOR_MANAGER
 	 * @generated
 	 */
 	protected org.archstudio.editormanager.IEditorManager editorManager = null;
 	/**
 	 * Service object(s) for the issueEvents interface.
-	 *
+	 * 
 	 * @see #IN_ISSUE_EVENTS
 	 * @generated
 	 */
 	protected final Collection<org.archstudio.issueadt.ArchlightIssueADTListener> issueEvents = new CopyOnWriteArrayList<org.archstudio.issueadt.ArchlightIssueADTListener>();
 	/**
-	 * Service object proxy for the issueEvents interface.
-	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
-	 *
+	 * Service object proxy for the issueEvents interface. Calls to the proxy
+	 * object are automatically delegated to all service objects of this
+	 * interface.
+	 * 
 	 * @see #IN_ISSUE_EVENTS
 	 * @generated
 	 */
@@ -158,7 +183,7 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 					});
 	/**
 	 * Service object(s) for the issues interface.
-	 *
+	 * 
 	 * @see #OUT_ISSUES
 	 * @generated
 	 */
@@ -166,7 +191,7 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 
 	/**
 	 * Returns the service object(s) for the <code>xarch</code> interface.
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */
@@ -176,7 +201,7 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 
 	/**
 	 * Returns the service object(s) for the <code>resources</code> interface.
-	 *
+	 * 
 	 * @see #OUT_RESOURCES
 	 * @generated
 	 */
@@ -186,7 +211,7 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 
 	/**
 	 * Returns the service object(s) for the <code>preferences</code> interface.
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */
@@ -195,8 +220,9 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 	}
 
 	/**
-	 * Returns the service object(s) for the <code>editorManager</code> interface.
-	 *
+	 * Returns the service object(s) for the <code>editorManager</code>
+	 * interface.
+	 * 
 	 * @see #OUT_EDITOR_MANAGER
 	 * @generated
 	 */
@@ -206,7 +232,7 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 
 	/**
 	 * Returns the service object(s) for the <code>issueEvents</code> interface.
-	 *
+	 * 
 	 * @see #IN_ISSUE_EVENTS
 	 * @generated
 	 */
@@ -215,9 +241,10 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 	}
 
 	/**
-	 * Returns the proxy service object for the <code>issueEvents</code> interface.
-	 *
-	 * @see #org.archstudio.issueadt.ArchlightIssueADTListener issueEventsProxy
+	 * Returns the proxy service object for the <code>issueEvents</code>
+	 * interface.
+	 * 
+	 * @see #org issueEventsProxy
 	 * @see #IN_ISSUE_EVENTS
 	 * @generated
 	 */
@@ -227,7 +254,7 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 
 	/**
 	 * Returns the service object(s) for the <code>issues</code> interface.
-	 *
+	 * 
 	 * @see #OUT_ISSUES
 	 * @generated
 	 */

@@ -17,7 +17,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Graph Layout Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -48,40 +48,40 @@ abstract class GraphLayoutMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 
 	/**
 	 * Myx interface preferences: <code>OUT_PREFERENCES</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 	/**
 	 * Myx interface graphLayout: <code>IN_GRAPH_LAYOUT</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_GRAPH_LAYOUT = MyxUtils.createName("graphLayout");
 	/**
 	 * Myx interface xarch: <code>OUT_XARCH</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_XARCH = MyxUtils.createName("xarch");
 
 	/**
 	 * Service object(s) for preferences: <code>preferences</code>
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */
 	protected org.eclipse.jface.preference.IPreferenceStore preferences = null;
 	/**
 	 * Service object(s) for graphLayout: <code>graphLayout</code>
-	 *
+	 * 
 	 * @see #IN_GRAPH_LAYOUT
 	 * @generated
 	 */
 	protected org.archstudio.graphlayout.IGraphLayout graphLayout = null;
 	/**
 	 * Service object(s) for xarch: <code>xarch</code>
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */
@@ -89,7 +89,7 @@ abstract class GraphLayoutMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 
 	/**
 	 * Returns the service object(s) for <code>preferences</code>
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */
@@ -99,7 +99,7 @@ abstract class GraphLayoutMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 
 	/**
 	 * Returns the service object(s) for <code>graphLayout</code>
-	 *
+	 * 
 	 * @see #IN_GRAPH_LAYOUT
 	 * @generated
 	 */
@@ -109,7 +109,7 @@ abstract class GraphLayoutMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 
 	/**
 	 * Returns the service object(s) for <code>xarch</code>
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */

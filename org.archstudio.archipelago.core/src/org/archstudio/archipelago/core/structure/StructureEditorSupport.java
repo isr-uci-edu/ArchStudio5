@@ -70,8 +70,7 @@ public class StructureEditorSupport {
 		fl.type = SWT.HORIZONTAL;
 		parentComposite.setLayout(fl);
 
-		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL | SWT.NO_BACKGROUND
-				| SWT.DOUBLE_BUFFERED, bnaWorld);
+		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, bnaWorld);
 		bnaCanvas.setBackground(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
 		bnaCanvas.addDisposeListener(new DisposeListener() {
@@ -155,6 +154,7 @@ public class StructureEditorSupport {
 
 		logicManager.addThingLogic(new RemoveElementLogic(AS.xarch));
 		logicManager.addThingLogic(new StructureNewElementLogic(AS.xarch, AS.resources, structureRef));
+		logicManager.addThingLogic(new StructureNewInterfaceLogic(AS.xarch, AS.resources));
 
 		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "component", //
 				new Dimension(120, 80), ArchipelagoStructureConstants.DEFAULT_COMPONENT_RGB));

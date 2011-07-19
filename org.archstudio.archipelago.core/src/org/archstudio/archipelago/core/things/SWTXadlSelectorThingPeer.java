@@ -13,27 +13,27 @@ import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 
-public class SWTXadlSelectorThingPeer extends AbstractSWTTreeThingPeer{
+public class SWTXadlSelectorThingPeer extends AbstractSWTTreeThingPeer {
 
 	protected SWTXadlSelectorThing lt;
-	
-	public SWTXadlSelectorThingPeer(IThing t){
+
+	public SWTXadlSelectorThingPeer(IThing t) {
 		super(t);
-		if(!(t instanceof SWTXadlSelectorThing)){
+		if (!(t instanceof SWTXadlSelectorThing)) {
 			throw new IllegalArgumentException("SWTXadlSelectorThingPeer can only peer for SWTXadlSelectorThing");
 		}
-		this.lt = (SWTXadlSelectorThing)t;
+		this.lt = (SWTXadlSelectorThing) t;
 	}
-	
-	protected Object getInput(){
+
+	protected Object getInput() {
 		return lt.getContentProviderRootRef();
 	}
-	
-	protected ITreeContentProvider getContentProvider(){
+
+	protected ITreeContentProvider getContentProvider() {
 		IXArchADT xarch = lt.getRepository();
-		if(xarch != null){
+		if (xarch != null) {
 			ObjRef rootRef = lt.getContentProviderRootRef();
-			if(rootRef != null){
+			if (rootRef != null) {
 				Set<XadlTreeUtils.Type> flags = lt.getContentProviderFlags();
 				XadlTreeContentProvider contentProvider = new XadlTreeContentProvider(xarch, rootRef, flags);
 				return contentProvider;
@@ -41,12 +41,12 @@ public class SWTXadlSelectorThingPeer extends AbstractSWTTreeThingPeer{
 		}
 		return null;
 	}
-	
-	protected ILabelProvider getLabelProvider(){
+
+	protected ILabelProvider getLabelProvider() {
 		IXArchADT xarch = lt.getRepository();
-		if(xarch != null){
+		if (xarch != null) {
 			IResources resources = lt.getResources();
-			if(resources != null){
+			if (resources != null) {
 				return new XadlTreeLabelProvider(xarch, resources);
 			}
 		}

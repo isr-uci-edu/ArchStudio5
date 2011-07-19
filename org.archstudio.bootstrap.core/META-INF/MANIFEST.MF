@@ -10,4 +10,4 @@ Require-Bundle: org.archstudio.aim,
  org.archstudio.xadl,
  org.archstudio.xadl3.structure,
  org.archstudio.xarchadt,
- org.eclipse.emf.common;bundle-version="2.7.0"
+ org.eclipse.emf.common

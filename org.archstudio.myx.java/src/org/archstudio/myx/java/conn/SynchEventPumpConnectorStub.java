@@ -9,10 +9,15 @@ import java.lang.Object;
 import org.archstudio.myx.fw.IMyxLifecycleProcessor;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
+import java.util.Collection;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Synch Event Pump Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -22,7 +27,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 
 	/**
 	 * Myx name for the <code>synch</code> interface.
-	 *
+	 * 
 	 * @generated
 	 */
 	// MyxGenInterface[name=synch,direction=out,single=false,serviceObjectDelegate=variable,generateGetter=true,className=java.lang.Object,description=null]
@@ -30,7 +35,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 
 	/**
 	 * Service object(s) for the synch interface.
-	 *
+	 * 
 	 * @see #OUT_SYNCH
 	 * @generated
 	 */
@@ -38,7 +43,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 
 	/**
 	 * Returns the service object(s) for the <code>synch</code> interface.
-	 *
+	 * 
 	 * @see #OUT_SYNCH
 	 * @generated
 	 */

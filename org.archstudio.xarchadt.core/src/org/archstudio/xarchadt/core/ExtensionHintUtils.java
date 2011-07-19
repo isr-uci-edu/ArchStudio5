@@ -24,12 +24,13 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 class ExtensionHintUtils {
-	public static final String EXTENSION_HINT_URI = "http://www.archstudio.org/xadl3/schemas/extensionHint"; 
+	public static final String EXTENSION_HINT_URI = "http://www.archstudio.org/xadl3/schemas/extensionHint";
 
 	/**
 	 * Find all hints in all the packages.
 	 * 
-	 * @param allEPackages All the EPackages to check for hints
+	 * @param allEPackages
+	 *            All the EPackages to check for hints
 	 * @return List of all extension hints found in all the factories in the
 	 *         map.
 	 */
@@ -74,20 +75,23 @@ class ExtensionHintUtils {
 						String targetNsURI = childElement.getAttribute("targetSchema");
 						String targetTypeName = childElement.getAttribute("targetType");
 
-						if ((extensionNsURI != null) && (extensionTypeName != null) && (targetNsURI != null) && (targetTypeName != null)) {
-							extensionHints.add(new BasicXArchADTSubstitutionHint(HintType.EXTENSION, extensionNsURI, extensionTypeName, targetNsURI, targetTypeName));
+						if ((extensionNsURI != null) && (extensionTypeName != null) && (targetNsURI != null)
+								&& (targetTypeName != null)) {
+							extensionHints.add(new BasicXArchADTSubstitutionHint(HintType.EXTENSION, extensionNsURI,
+									extensionTypeName, targetNsURI, targetTypeName));
 						}
 					}
 				}
 			}
-		} 
+		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return extensionHints;
 	}
 
-	public static Document parseToDocument(java.io.Reader r) throws SAXException, IOException, ParserConfigurationException {
+	public static Document parseToDocument(java.io.Reader r) throws SAXException, IOException,
+			ParserConfigurationException {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setNamespaceAware(true);
 		dbf.setValidating(false);

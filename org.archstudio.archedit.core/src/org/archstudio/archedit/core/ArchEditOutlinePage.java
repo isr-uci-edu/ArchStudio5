@@ -10,6 +10,8 @@ import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl3.xadlcore_3_0.Extension;
+import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFeature;
 import org.archstudio.xarchadt.IXArchADTFeature.FeatureType;
@@ -681,7 +683,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 					// Find all the candidates
 					boolean foundOne = false;
 
-					if (XadlUtils.isExtension(xarch, feature)) {
+					if (XadlUtils.isInstanceOf(xarch, feature, Xadlcore_3_0Package.Literals.EXTENSION)) {
 						String typeName = typeMetadata.getTypeName().substring(
 								typeMetadata.getTypeName().lastIndexOf('.') + 1);
 						for (IXArchADTSubstitutionHint hint : xarch.getSubstitutionHintsForTarget(

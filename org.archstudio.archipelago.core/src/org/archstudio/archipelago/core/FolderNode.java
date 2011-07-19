@@ -1,38 +1,38 @@
 package org.archstudio.archipelago.core;
 
-public class FolderNode{
+public class FolderNode {
 	protected String type;
 	protected String text;
 	protected Object parent;
-	
-	public FolderNode(Object parent, String type, String text){
-		if(parent == null){
+
+	public FolderNode(Object parent, String type, String text) {
+		if (parent == null) {
 			throw new IllegalArgumentException("Null parent");
 		}
-		if(type == null){
+		if (type == null) {
 			throw new IllegalArgumentException("Null type");
 		}
-		if(text == null){
+		if (text == null) {
 			throw new IllegalArgumentException("Null text");
 		}
 		this.type = type;
 		this.text = text;
 		this.parent = parent;
 	}
-	
-	public Object getParent(){
+
+	public Object getParent() {
 		return parent;
 	}
-	
-	public String getType(){
+
+	public String getType() {
 		return type;
 	}
-	
-	public String getText(){
+
+	public String getText() {
 		return text;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return text;
 	}
 }

@@ -26,7 +26,8 @@ public class GraphLayoutPreferencePanel extends FieldEditorPreferencePage implem
 	}
 
 	protected void createFieldEditors() {
-		graphvizPathEditor = new DirectoryFieldEditor(GraphLayoutConstants.PREF_GRAPHVIZ_PATH, "Path to Graphviz", getFieldEditorParent());
+		graphvizPathEditor = new DirectoryFieldEditor(GraphLayoutConstants.PREF_GRAPHVIZ_PATH, "Path to Graphviz",
+				getFieldEditorParent());
 		addField(graphvizPathEditor);
 	}
 

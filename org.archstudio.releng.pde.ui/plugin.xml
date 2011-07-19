@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="false"
+            id="org.archstudio.relengtools.core.objectContribution1"
+            nameFilter="*"
+            objectClass="java.lang.Object">
+         <menu
+               id="org.archstudio.relengtools.core.popupMenuMain"
+               label="Release Tools"
+               path="org.archstudio.eclipse.popupMenuMain/bottom">
+            <groupMarker
+                  name="top">
+            </groupMarker>
+            <separator
+                  name="additions">
+            </separator>
+            <separator
+                  name="bottom">
+            </separator>
+         </menu>
+         <action
+               class="org.archstudio.releng.pde.actions.AddRequiredWorkspacePlugins"
+               enablesFor="+"
+               id="org.archstudio.relengtools.core.action2"
+               label="Add Required Workspace Plugins"
+               menubarPath="org.archstudio.eclipse.popupMenuMain/org.archstudio.relengtools.core.popupMenuMain/additions"
+               style="push">
+         </action>
+         <action
+               class="org.archstudio.releng.pde.actions.RemoveDependencyVersionNumbers"
+               enablesFor="+"
+               id="org.archstudio.relengtools.core.action1"
+               label="Remove Dependency Version Numbers"
+               menubarPath="org.archstudio.eclipse.popupMenuMain/org.archstudio.relengtools.core.popupMenuMain/additions"
+               style="push">
+         </action>
+         <action
+               class="org.archstudio.releng.pde.actions.SortManifests"
+               enablesFor="+"
+               id="org.archstudio.relengtools.core.action3"
+               label="Sort Manifests"
+               menubarPath="org.archstudio.eclipse.popupMenuMain/org.archstudio.relengtools.core.popupMenuMain/additions"
+               style="push">
+         </action>
+         <visibility>
+            <or>
+               <objectClass
+                     name="java.lang.Object">
+               </objectClass>
+               <not>
+                  <objectClass
+                        name="java.lang.Object">
+                  </objectClass>
+               </not>
+            </or>
+         </visibility>
+      </objectContribution>
+   </extension>
+
+</plugin>

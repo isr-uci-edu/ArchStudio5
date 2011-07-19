@@ -1,6 +1,6 @@
 package org.archstudio.eclipse.core;
 
-import org.archstudio.eclipse.AbstractActivator;
+import org.archstudio.utils.osgi.AbstractActivator;
 
 public class Activator extends AbstractActivator {
 

@@ -12,7 +12,7 @@ import org.archstudio.myx.fw.IMyxName;
 
 /**
  * Abstract Myx brick: "ArchEdit Component Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")

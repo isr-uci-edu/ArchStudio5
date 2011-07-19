@@ -6,11 +6,6 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.eclipse.jet.builder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
 			</arguments>
@@ -21,7 +16,7 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.archstudio.myxgen.myxStubBuilder</name>
+			<name>org.eclipse.pde.SchemaBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -29,7 +24,5 @@
 	<natures>
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>org.eclipse.jet.jet2Nature</nature>
-		<nature>org.archstudio.myxgen.myxStubNature</nature>
 	</natures>
 </projectDescription>

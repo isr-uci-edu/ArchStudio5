@@ -10,4 +10,4 @@ Require-Bundle: org.archstudio.archlight,
  org.archstudio.issueadt,
  org.archstudio.myx.fw,
  org.archstudio.xarchadt,
- com.google.guava;bundle-version="0.0.9"
+ com.google.guava

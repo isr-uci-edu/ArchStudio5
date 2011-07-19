@@ -326,7 +326,8 @@ public class LJMServer extends Thread {
 					//System.err.println("retVal: ?");
 					retVal = targetMethod.invoke(targetObject, paramValues);
 					//System.err.println("retVal: "+retVal);
-					if (targetMethod.getReturnType().equals(void.class) || targetMethod.getReturnType().equals(Void.class)) {
+					if (targetMethod.getReturnType().equals(void.class)
+							|| targetMethod.getReturnType().equals(Void.class)) {
 						try {
 							oos.writeInt(LJM_STAT_DONE);
 							oos.flush();
@@ -342,7 +343,8 @@ public class LJMServer extends Thread {
 						if (retVal != null && !(retVal instanceof java.io.Serializable)) {
 							try {
 								oos.writeInt(LJM_STAT_ERROR);
-								oos.writeObject(new LJMException("Return type (" + retVal.getClass().getName() + ") is not serializable."));
+								oos.writeObject(new LJMException("Return type (" + retVal.getClass().getName()
+										+ ") is not serializable."));
 								oos.flush();
 							}
 							catch (IOException writeException) {

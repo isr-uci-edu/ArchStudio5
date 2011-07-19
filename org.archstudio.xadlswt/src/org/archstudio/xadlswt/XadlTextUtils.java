@@ -10,10 +10,11 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 
 public class XadlTextUtils {
-	public static Text createXadlTextField(final IXArchADT xarch, final ObjRef ref, final String fieldName, final Composite parent, Object layoutData) {
+	public static Text createXadlTextField(final IXArchADT xarch, final ObjRef ref, final String fieldName,
+			final Composite parent, Object layoutData) {
 		Object currentDataObject = xarch.get(ref, fieldName);
 		String currentDataString = (currentDataObject == null) ? "" : currentDataObject.toString();
-		
+
 		final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
 		text.setEditable(true);
 		text.setText(currentDataString);
@@ -24,13 +25,13 @@ public class XadlTextUtils {
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
-			
+
 			public void widgetSelected(SelectionEvent e) {
 				String input = text.getText();
 				try {
 					xarch.set(ref, fieldName, input);
 				}
-				catch(IllegalArgumentException iae){
+				catch (IllegalArgumentException iae) {
 					MessageBox messageBox = new MessageBox(parent.getShell(), SWT.OK | SWT.ICON_ERROR);
 					messageBox.setMessage(iae.getMessage());
 					messageBox.setText("Error");

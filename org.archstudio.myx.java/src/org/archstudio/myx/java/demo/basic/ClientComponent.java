@@ -1,4 +1,4 @@
-package org.archstudio.myx.demo.basic;
+package org.archstudio.myx.java.demo.basic;
 
 import org.archstudio.myx.fw.AbstractMyxSimpleBrick;
 import org.archstudio.myx.fw.IMyxName;

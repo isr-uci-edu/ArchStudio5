@@ -18,7 +18,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Event Pump Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -49,14 +49,14 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Myx name for the <code>in</code> interface.
-	 *
+	 * 
 	 * @generated
 	 */
 	// MyxGenInterface[name=in,direction=in,single=true,serviceObjectDelegate=variable,generateGetter=true,className=java.lang.Object,description=null]
 	public static final IMyxName IN_IN = MyxUtils.createName("in");
 	/**
 	 * Myx name for the <code>out</code> interface.
-	 *
+	 * 
 	 * @generated
 	 */
 	// MyxGenInterface[name=out,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=java.lang.Object,description=null]
@@ -64,14 +64,14 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Service object(s) for the in interface.
-	 *
+	 * 
 	 * @see #IN_IN
 	 * @generated
 	 */
 	protected java.lang.Object in = null;
 	/**
 	 * Service object(s) for the out interface.
-	 *
+	 * 
 	 * @see #OUT_OUT
 	 * @generated
 	 */
@@ -79,7 +79,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Returns the service object(s) for the <code>in</code> interface.
-	 *
+	 * 
 	 * @see #IN_IN
 	 * @generated
 	 */
@@ -89,7 +89,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Returns the service object(s) for the <code>out</code> interface.
-	 *
+	 * 
 	 * @see #OUT_OUT
 	 * @generated
 	 */

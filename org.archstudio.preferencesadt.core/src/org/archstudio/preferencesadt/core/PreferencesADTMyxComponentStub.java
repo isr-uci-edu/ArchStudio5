@@ -83,7 +83,7 @@ abstract class PreferencesADTMyxComponentStub extends org.archstudio.myx.fw.Abst
 
 	/**
 	 * Proxy to service objects for propertyEvents
-	 *
+	 * 
 	 * @see #OUT_PROPERTY_EVENTS
 	 * @generated
 	 */
@@ -116,7 +116,7 @@ abstract class PreferencesADTMyxComponentStub extends org.archstudio.myx.fw.Abst
 
 	/**
 	 * Returns the service object(s) for <code>propertyEvents</code>
-	 *
+	 * 
 	 * @see #OUT_PROPERTY_EVENTS
 	 * @generated
 	 */
@@ -125,9 +125,10 @@ abstract class PreferencesADTMyxComponentStub extends org.archstudio.myx.fw.Abst
 	}
 
 	/**
-	 * Returns the proxy service object for the <code>propertyEvents</code> interface.
-	 *
-	 * @see #org.eclipse.jface.util.IPropertyChangeListener propertyEventsProxy
+	 * Returns the proxy service object for the <code>propertyEvents</code>
+	 * interface.
+	 * 
+	 * @see #org propertyEventsProxy
 	 * @see #OUT_PROPERTY_EVENTS
 	 * @generated
 	 */

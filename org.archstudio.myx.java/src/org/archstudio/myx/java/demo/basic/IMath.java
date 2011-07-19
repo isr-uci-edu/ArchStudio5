@@ -1,4 +1,4 @@
-package org.archstudio.myx.demo.basic;
+package org.archstudio.myx.java.demo.basic;
 
 public interface IMath {
 	public int add(int a, int b);

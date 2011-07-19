@@ -12,5 +12,6 @@ public interface ILayoutEngine {
 
 	public String getDescription();
 
-	public GraphLayout layoutGraph(IXArchADT xarch, IPreferenceStore prefs, ObjRef rootRef, GraphLayoutParameters params) throws GraphLayoutException;
+	public GraphLayout layoutGraph(IXArchADT xarch, IPreferenceStore prefs, ObjRef rootRef, GraphLayoutParameters params)
+			throws GraphLayoutException;
 }

@@ -18,11 +18,12 @@ import org.eclipse.emf.ecore.util.ExtendedMetaData;
 
 class SubstitutionHintUtils {
 	private static final String DOCUMENT_ROOT_NAME = "DocumentRoot";
-	
+
 	/**
 	 * Find all hints in all the packages.
 	 * 
-	 * @param allEPackages All the EPackages to check for hints
+	 * @param allEPackages
+	 *            All the EPackages to check for hints
 	 * @return List of all substitution hints found in all the factories in the
 	 *         map.
 	 */
@@ -44,16 +45,16 @@ class SubstitutionHintUtils {
 	 */
 	public static List<IXArchADTSubstitutionHint> parseSubstitutionHints(EPackage ePackage) {
 		List<IXArchADTSubstitutionHint> hintList = new ArrayList<IXArchADTSubstitutionHint>();
-		
+
 		EClassifier eClassifier = ePackage.getEClassifier(DOCUMENT_ROOT_NAME);
 		if ((eClassifier != null) && (eClassifier instanceof EClass)) {
-			EClass eClass = (EClass)eClassifier;
+			EClass eClass = (EClass) eClassifier;
 			for (EStructuralFeature feature : eClass.getEAllStructuralFeatures()) {
 				if (feature instanceof EReference) {
-					EReference eReference = (EReference)feature;
+					EReference eReference = (EReference) feature;
 					EAnnotation eAnnotation = eReference.getEAnnotation(ExtendedMetaData.ANNOTATION_URI);
 					if (eAnnotation != null) {
-						EMap<String,String> detailsMap = eAnnotation.getDetails();
+						EMap<String, String> detailsMap = eAnnotation.getDetails();
 						if (detailsMap != null) {
 							String affiliation = detailsMap.get("affiliation");
 							if (affiliation != null) {
@@ -61,14 +62,15 @@ class SubstitutionHintUtils {
 								if (hashIndex != -1) {
 									String sourceNsURI = affiliation.substring(0, hashIndex);
 									String sourceTypeName = affiliation.substring(hashIndex + 1);
-									
+
 									EClassifier eType = eReference.getEType();
 									if (eType != null) {
 										String targetNsURI = eType.getEPackage().getNsURI();
 										String targetTypeName = eType.getName();
-										hintList.add(new BasicXArchADTSubstitutionHint(HintType.SUBSTITUTION_GROUP, sourceNsURI, sourceTypeName, targetNsURI, targetTypeName));
+										hintList.add(new BasicXArchADTSubstitutionHint(HintType.SUBSTITUTION_GROUP,
+												sourceNsURI, sourceTypeName, targetNsURI, targetTypeName));
 									}
-									
+
 								}
 							}
 						}

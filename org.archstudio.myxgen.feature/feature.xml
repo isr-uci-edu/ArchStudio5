@@ -17,44 +17,38 @@
       [Enter License Description here.]
    </license>
 
+   <includes
+         id="org.archstudio.dblgen.headless.feature"
+         version="0.0.0"/>
+
    <requires>
-      <import plugin="org.eclipse.core.resources" version="3.6.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.runtime" version="3.6.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.codegen" version="2.6.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.ecore" version="2.6.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.ecore.xmi" version="2.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.jdt.core" version="3.6.2" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.jet" version="1.1.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.pde.core" version="3.6.2" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.pde"/>
-      <import plugin="org.archstudio.myx.myxgen" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.myx.fw" version="5.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.core.runtime" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.sysutils" version="5.0.0" match="greaterOrEqual"/>
-      <import plugin="com.google.guava" version="0.0.9" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.resources" version="5.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.pde.core" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.resources" version="3.7.100" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf" version="2.6.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.ecore" version="2.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.ecore.xmi" version="2.7.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.myx.osgi" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.xarchadt" version="5.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.xadl" version="5.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.aim" version="5.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.xadl3.implementation.myxgen" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.xadl3.implementation.osgi" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.xadl3.implementation.java" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.xarchadt.core" version="5.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.myx.java" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.osgi.services" version="3.3.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.common"/>
-      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jet"/>
+      <import plugin="org.eclipse.pde.core"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
    </requires>
 
    <plugin
-         id="org.archstudio.myxgen.core"
+         id="org.archstudio.myxgen.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.eclipse.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.osgi"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -67,91 +61,14 @@
          version="0.0.0"/>
 
    <plugin
-         id="org.archstudio.eclipse"
+         id="org.archstudio.myxgen.core"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.myxgen"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.sysutils"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.eclipseutils"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.myx.myxgen"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.archstudio.myx.fw"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.resources"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.myx.osgi"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.xarchadt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.xadl"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.aim"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.xadl3.implementation.myxgen"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.xadl3.implementation.osgi"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.xadl3.implementation.java"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.xarchadt.core"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
@@ -163,31 +80,33 @@
          version="0.0.0"/>
 
    <plugin
-         id="org.archstudio.swtutils"
+         id="org.archstudio.myx.osgi"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
 
    <plugin
-         id="org.archstudio.xadl3.implementation.lookup"
+         id="org.archstudio.myxgen"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
 
    <plugin
-         id="org.archstudio.xadl3.implementation"
+         id="org.archstudio.utils.eclipse"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
-         id="org.archstudio.xadl3.xadlcore"
+         id="org.archstudio.utils.system"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
-         id="org.archstudio.xadl3.xlink"
+         id="org.archstudio.eclipse"
          download-size="0"
          install-size="0"
          version="0.0.0"/>

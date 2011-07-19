@@ -25,7 +25,8 @@ public class DotLayoutEngine extends AbstractGraphvizLayoutEngine {
 		return LAYOUT_ENGINE_DESCRIPTION;
 	}
 
-	protected String runLayoutTool(IXArchADT xarch, IPreferenceStore prefs, String toolInput) throws GraphLayoutException {
+	protected String runLayoutTool(IXArchADT xarch, IPreferenceStore prefs, String toolInput)
+			throws GraphLayoutException {
 		SystemUtils.OperatingSystem os = SystemUtils.guessOperatingSystem();
 		String toolFilename = "dot";
 		if (os.equals(SystemUtils.OperatingSystem.OS_WINDOWS)) {

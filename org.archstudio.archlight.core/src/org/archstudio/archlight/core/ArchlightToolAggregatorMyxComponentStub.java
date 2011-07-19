@@ -21,7 +21,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Myx Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -53,58 +53,71 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Myx name for the <code>results</code> interface.
-	 *
-	 * MyxGenInterface[name=results,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.myx.java.conn.IMultiwayResults,description=null]
+	 * 
+	 * MyxGenInterface[name=results,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .myx.java.conn.IMultiwayResults,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_RESULTS = MyxUtils.createName("results");
 	/**
 	 * Myx name for the <code>tools</code> interface.
-	 *
-	 * MyxGenInterface[name=tools,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.archlight.IArchlightTool,description=null]
+	 * 
+	 * MyxGenInterface[name=tools,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .archlight.IArchlightTool,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_TOOLS = MyxUtils.createName("tools");
 	/**
 	 * Myx interface tool: <code>IN_TOOL</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_TOOL = MyxUtils.createName("tool");
 	/**
 	 * Myx name for the <code>progress</code> interface.
-	 *
-	 * MyxGenInterface[name=progress,direction=in,single=true,serviceObjectDelegate=events,generateGetter=true,className=org.archstudio.myx.java.conn.IMultiwayProgressListener,description=null]
+	 * 
+	 * MyxGenInterface[name=progress,direction=in,single=true,
+	 * serviceObjectDelegate
+	 * =events,generateGetter=true,className=org.archstudio.
+	 * myx.java.conn.IMultiwayProgressListener,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_PROGRESS = MyxUtils.createName("progress");
 
 	/**
 	 * Service object(s) for the results interface.
-	 *
+	 * 
 	 * @see #OUT_RESULTS
 	 * @generated
 	 */
 	protected org.archstudio.myx.java.conn.IMultiwayResults results = null;
 	/**
 	 * Service object(s) for the tools interface.
-	 *
+	 * 
 	 * @see #OUT_TOOLS
 	 * @generated
 	 */
 	protected org.archstudio.archlight.IArchlightTool tools = null;
 	/**
 	 * Service object(s) for the progress interface.
-	 *
+	 * 
 	 * @see #IN_PROGRESS
 	 * @generated
 	 */
 	protected org.archstudio.myx.java.conn.IMultiwayProgressListener progress = null;
 
 	/**
-	 * Service object proxy for the progress interface.
-	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
-	 *
+	 * Service object proxy for the progress interface. Calls to the proxy
+	 * object are automatically delegated to all service objects of this
+	 * interface.
+	 * 
 	 * @see #IN_PROGRESS
 	 * @generated
 	 */
@@ -129,7 +142,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Returns the service object(s) for the <code>results</code> interface.
-	 *
+	 * 
 	 * @see #OUT_RESULTS
 	 * @generated
 	 */
@@ -139,7 +152,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Returns the service object(s) for the <code>tools</code> interface.
-	 *
+	 * 
 	 * @see #OUT_TOOLS
 	 * @generated
 	 */
@@ -149,7 +162,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Returns the service object(s) for <code>tool</code>
-	 *
+	 * 
 	 * @see #IN_TOOL
 	 * @generated
 	 */
@@ -159,7 +172,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Returns the service object(s) for the <code>progress</code> interface.
-	 *
+	 * 
 	 * @see #IN_PROGRESS
 	 * @generated
 	 */

@@ -75,15 +75,15 @@ public class Main {
 		return impl;
 	}
 
-	private JavaClass createJavaClass(String className) {
+	private JavaClass createJavaClass(Class<?> theClass) {
 		JavaClass javaClass = javaFactory.createJavaClass();
-		javaClass.setClassName(className);
+		javaClass.setClassName(theClass.getName());
 		return javaClass;
 	}
 
 	private Implementation createJavaImplementation(Class<?> mainClass, Class<?>... auxClasses) {
 		JavaImplementation impl = javaFactory.createJavaImplementation();
-		impl.setMainClass(createJavaClass(mainClass.getName()));
+		impl.setMainClass(createJavaClass(mainClass));
 		return impl;
 	}
 

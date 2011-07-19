@@ -29,13 +29,13 @@ abstract class AIMLauncherMyxComponentStub extends
 
 	/**
 	 * Myx interface aim: <code>OUT_AIM</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_AIM = MyxUtils.createName("aim");
 	/**
 	 * Service object(s) for aim: <code>aim</code>
-	 *
+	 * 
 	 * @see #OUT_AIM
 	 * @generated
 	 */
@@ -43,7 +43,7 @@ abstract class AIMLauncherMyxComponentStub extends
 
 	/**
 	 * Returns the service object(s) for <code>aim</code>
-	 *
+	 * 
 	 * @see #OUT_AIM
 	 * @generated
 	 */

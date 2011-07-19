@@ -7,7 +7,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
-
 public class SWTPropertyCoder implements IPropertyCoder {
 
 	public boolean encode(IPropertyCoder masterCoder, IEncodedValue encodedValue, Object value) {

@@ -12,78 +12,84 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.xadl.XadlUtils;
-import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.ObjRef;
 
-public class StructureLinkEndpointLogic extends AbstractThingLogic implements IBNAModelListener{
+public class StructureLinkEndpointLogic extends AbstractThingLogic implements IBNAModelListener {
 	protected ArchipelagoServices AS = null;
 	protected ObjRef xArchRef = null;
-	
+
 	protected Set<String> linksBeingUpdated = new HashSet<String>();
 
-	public StructureLinkEndpointLogic(ArchipelagoServices services, ObjRef xArchRef){
+	public StructureLinkEndpointLogic(ArchipelagoServices services, ObjRef xArchRef) {
 		this.AS = services;
 		this.xArchRef = xArchRef;
 	}
-	
-	public void destroy(){
+
+	public void destroy() {
 		linksBeingUpdated.clear();
 	}
-	
-	public void bnaModelChanged(BNAModelEvent evt){
-		if(evt.getEventType().equals(BNAModelEvent.EventType.STREAM_NOTIFICATION_EVENT)){
+
+	public void bnaModelChanged(BNAModelEvent evt) {
+		if (evt.getEventType().equals(BNAModelEvent.EventType.STREAM_NOTIFICATION_EVENT)) {
 			String not = evt.getStreamNotification();
-			if(not != null){
-				if(not.startsWith("+updateLink$")){
+			if (not != null) {
+				if (not.startsWith("+updateLink$")) {
 					linksBeingUpdated.add(not.substring(not.indexOf('$') + 1));
 				}
-				if(not.startsWith("-updateLink$")){
+				if (not.startsWith("-updateLink$")) {
 					linksBeingUpdated.remove(not.substring(not.indexOf('$') + 1));
 				}
 			}
 			return;
 		}
-		IBNAModel model = (IBNAModel)evt.getSource();
-		if(model != null){
-			if(evt.getEventType().equals(BNAModelEvent.EventType.THING_CHANGED)){
+		IBNAModel model = (IBNAModel) evt.getSource();
+		if (model != null) {
+			if (evt.getEventType().equals(BNAModelEvent.EventType.THING_CHANGED)) {
 				IThing targetThing = evt.getTargetThing();
-				if(targetThing instanceof StickySplineGlassThing){
-					StickySplineGlassThing sgt = (StickySplineGlassThing)targetThing;
-					if(linksBeingUpdated.contains(sgt.getID())){
+				if (targetThing instanceof StickySplineGlassThing) {
+					StickySplineGlassThing sgt = (StickySplineGlassThing) targetThing;
+					if (linksBeingUpdated.contains(sgt.getID())) {
 						return;
 					}
 					ThingEvent tevt = evt.getThingEvent();
-					if(tevt != null){
+					if (tevt != null) {
 						int endpointNum = 0;
 						String propertyName = tevt.getPropertyName();
-						if((propertyName != null) && (propertyName.equals(IHasStickyEndpoints.ENDPOINT_1_STUCK_TO_THING_ID_PROPERTY_NAME))){
+						if ((propertyName != null)
+								&& (propertyName.equals(IHasStickyEndpoints.ENDPOINT_1_STUCK_TO_THING_ID_PROPERTY_NAME))) {
 							endpointNum = 1;
 						}
-						else if((propertyName != null) && (propertyName.equals(IHasStickyEndpoints.ENDPOINT_2_STUCK_TO_THING_ID_PROPERTY_NAME))){
+						else if ((propertyName != null)
+								&& (propertyName.equals(IHasStickyEndpoints.ENDPOINT_2_STUCK_TO_THING_ID_PROPERTY_NAME))) {
 							endpointNum = 2;
 						}
-						else{
+						else {
 							return;
 						}
-						String newStuckToThingID = (String)tevt.getNewPropertyValue();
+						String newStuckToThingID = (String) tevt.getNewPropertyValue();
 						IThing newStuckToThing = model.getThing(newStuckToThingID);
-						if(newStuckToThing != null){
+						if (newStuckToThing != null) {
 							IThing newStuckToParentThing = model.getParentThing(newStuckToThing);
-							if(newStuckToParentThing != null){
-								if(StructureMapper.isInterfaceAssemblyRootThing(newStuckToParentThing)){
-									String newStuckToXArchID = newStuckToParentThing.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
-									if(newStuckToXArchID != null){
+							if (newStuckToParentThing != null) {
+								if (StructureMapper.isInterfaceAssemblyRootThing(newStuckToParentThing)) {
+									String newStuckToXArchID = newStuckToParentThing
+											.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+									if (newStuckToXArchID != null) {
 										ObjRef newStuckToRef = AS.xarch.getByID(xArchRef, newStuckToXArchID);
-										if(newStuckToRef != null){
-											if(XadlUtils.isInstanceOf(AS.xarch, newStuckToRef, Structure_3_0Package.Literals.INTERFACE)){
+										if (newStuckToRef != null) {
+											if (XadlUtils.isInstanceOf(AS.xarch, newStuckToRef,
+													Structure_3_0Package.Literals.INTERFACE)) {
 												IThing splineGlassThingParentThing = model.getParentThing(sgt);
-												if(splineGlassThingParentThing != null){
-													if(StructureMapper.isLinkAssemblyRootThing(splineGlassThingParentThing)){
-														String linkXArchID = splineGlassThingParentThing.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
-														if(linkXArchID != null){
+												if (splineGlassThingParentThing != null) {
+													if (StructureMapper
+															.isLinkAssemblyRootThing(splineGlassThingParentThing)) {
+														String linkXArchID = splineGlassThingParentThing
+																.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+														if (linkXArchID != null) {
 															ObjRef linkRef = AS.xarch.getByID(xArchRef, linkXArchID);
-															if(linkRef != null){
-																AS.xarch.set(linkRef, "point" + endpointNum, newStuckToRef);
+															if (linkRef != null) {
+																AS.xarch.set(linkRef, "point" + endpointNum,
+																		newStuckToRef);
 															}
 														}
 													}
@@ -94,15 +100,16 @@ public class StructureLinkEndpointLogic extends AbstractThingLogic implements IB
 								}
 							}
 						}
-						else{
+						else {
 							//Disconnected the point
 							IThing splineGlassThingParentThing = model.getParentThing(sgt);
-							if(splineGlassThingParentThing != null){
-								if(StructureMapper.isLinkAssemblyRootThing(splineGlassThingParentThing)){
-									String linkXArchID = splineGlassThingParentThing.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
-									if(linkXArchID != null){
+							if (splineGlassThingParentThing != null) {
+								if (StructureMapper.isLinkAssemblyRootThing(splineGlassThingParentThing)) {
+									String linkXArchID = splineGlassThingParentThing
+											.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+									if (linkXArchID != null) {
 										ObjRef linkRef = AS.xarch.getByID(xArchRef, linkXArchID);
-										if(linkRef != null){
+										if (linkRef != null) {
 											AS.xarch.clear(linkRef, "point" + endpointNum);
 										}
 									}

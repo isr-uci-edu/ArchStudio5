@@ -23,7 +23,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Archlight Notice View Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -54,40 +54,40 @@ abstract class ArchlightNoticeViewMyxComponentStub extends org.archstudio.myx.fw
 
 	/**
 	 * Myx interface resources: <code>OUT_RESOURCES</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_RESOURCES = MyxUtils.createName("resources");
 	/**
 	 * Myx interface noticeEvents: <code>IN_NOTICE_EVENTS</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_NOTICE_EVENTS = MyxUtils.createName("noticeEvents");
 	/**
 	 * Myx interface notices: <code>OUT_NOTICES</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_NOTICES = MyxUtils.createName("notices");
 
 	/**
 	 * Service object(s) for resources: <code>resources</code>
-	 *
+	 * 
 	 * @see #OUT_RESOURCES
 	 * @generated
 	 */
 	protected org.archstudio.resources.IResources resources = null;
 	/**
 	 * Service object(s) for noticeEvents: <code>noticeEvents</code>
-	 *
+	 * 
 	 * @see #IN_NOTICE_EVENTS
 	 * @generated
 	 */
 	protected final Collection<org.archstudio.noticeadt.ArchlightNoticeADTListener> noticeEvents = new CopyOnWriteArrayList<org.archstudio.noticeadt.ArchlightNoticeADTListener>();
 	/**
 	 * Proxy to service objects for noticeEvents
-	 *
+	 * 
 	 * @see #IN_NOTICE_EVENTS
 	 * @generated
 	 */
@@ -109,7 +109,7 @@ abstract class ArchlightNoticeViewMyxComponentStub extends org.archstudio.myx.fw
 					});
 	/**
 	 * Service object(s) for notices: <code>notices</code>
-	 *
+	 * 
 	 * @see #OUT_NOTICES
 	 * @generated
 	 */
@@ -117,7 +117,7 @@ abstract class ArchlightNoticeViewMyxComponentStub extends org.archstudio.myx.fw
 
 	/**
 	 * Returns the service object(s) for <code>resources</code>
-	 *
+	 * 
 	 * @see #OUT_RESOURCES
 	 * @generated
 	 */
@@ -127,7 +127,7 @@ abstract class ArchlightNoticeViewMyxComponentStub extends org.archstudio.myx.fw
 
 	/**
 	 * Returns the service object(s) for <code>noticeEvents</code>
-	 *
+	 * 
 	 * @see #IN_NOTICE_EVENTS
 	 * @generated
 	 */
@@ -136,9 +136,10 @@ abstract class ArchlightNoticeViewMyxComponentStub extends org.archstudio.myx.fw
 	}
 
 	/**
-	 * Returns the proxy service object for the <code>noticeEvents</code> interface.
-	 *
-	 * @see #org.archstudio.noticeadt.ArchlightNoticeADTListener noticeEventsProxy
+	 * Returns the proxy service object for the <code>noticeEvents</code>
+	 * interface.
+	 * 
+	 * @see #org noticeEventsProxy
 	 * @see #IN_NOTICE_EVENTS
 	 * @generated
 	 */
@@ -148,14 +149,14 @@ abstract class ArchlightNoticeViewMyxComponentStub extends org.archstudio.myx.fw
 
 	/**
 	 * Returns the service object(s) for <code>noticeEvents</code>
-	 *
+	 * 
 	 * @see #IN_NOTICE_EVENTS
 	 * @generated
 	 */
 	// TODO: Not sure what to do here
 	/**
 	 * Returns the service object(s) for <code>notices</code>
-	 *
+	 * 
 	 * @see #OUT_NOTICES
 	 * @generated
 	 */

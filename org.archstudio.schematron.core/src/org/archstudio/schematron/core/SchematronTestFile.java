@@ -48,7 +48,8 @@ public class SchematronTestFile {
 		}
 	}
 
-	protected SchematronTestFile(String toolID, String sourceURL, String xmlContents) throws SchematronTestFileParseException {
+	protected SchematronTestFile(String toolID, String sourceURL, String xmlContents)
+			throws SchematronTestFileParseException {
 		this.toolID = toolID;
 		this.sourceURL = sourceURL;
 		parseContents(xmlContents);
@@ -64,15 +65,18 @@ public class SchematronTestFile {
 
 			Element rootElement = this.document.getDocumentElement();
 			if (rootElement == null) {
-				throw new SchematronTestFileParseException("Tests file missing root element" + ((sourceURL == null) ? "" : ": " + sourceURL));
+				throw new SchematronTestFileParseException("Tests file missing root element"
+						+ ((sourceURL == null) ? "" : ": " + sourceURL));
 			}
 			String nsuri = rootElement.getAttribute("xmlns");
 			if (nsuri == null) {
-				throw new SchematronTestFileParseException("Tests file missing xmlns declaration" + ((sourceURL == null) ? "" : ": " + sourceURL));
+				throw new SchematronTestFileParseException("Tests file missing xmlns declaration"
+						+ ((sourceURL == null) ? "" : ": " + sourceURL));
 			}
 			nsuri = nsuri.trim();
 			if (!nsuri.equals(SCHEMATRON_NSURI)) {
-				throw new SchematronTestFileParseException("Tests file URI must be " + SCHEMATRON_NSURI + ": " + ((sourceURL == null) ? "" : sourceURL));
+				throw new SchematronTestFileParseException("Tests file URI must be " + SCHEMATRON_NSURI + ": "
+						+ ((sourceURL == null) ? "" : sourceURL));
 			}
 
 			//Find all the patterns and get their IDs
@@ -85,22 +89,26 @@ public class SchematronTestFile {
 					if ((tagName != null) && (tagName.equals("pattern"))) {
 						String testUID = childElt.getAttribute("id");
 						if ((testUID == null) || (testUID.trim().length() == 0)) {
-							newParseWarnings.add("Warning: Schematron tests file has pattern with no UID" + ((sourceURL == null) ? "" : ": " + sourceURL));
+							newParseWarnings.add("Warning: Schematron tests file has pattern with no UID"
+									+ ((sourceURL == null) ? "" : ": " + sourceURL));
 						}
 						else {
 							String testCategory = childElt.getAttribute("name");
 							if ((testCategory == null) || (testCategory.trim().length() == 0)) {
-								newParseWarnings.add("Warning: Schematron tests file has pattern with no category (name)"
-								        + ((sourceURL == null) ? "" : ": " + sourceURL));
+								newParseWarnings
+										.add("Warning: Schematron tests file has pattern with no category (name)"
+												+ ((sourceURL == null) ? "" : ": " + sourceURL));
 								testCategory = "UnknownTest/" + testUID;
 							}
 							String testDescription = childElt.getAttribute("description");
 							if ((testDescription == null) || (testDescription.trim().length() == 0)) {
 								newParseWarnings.add("Warning: Schematron tests file has pattern with no description"
-								        + ((sourceURL == null) ? "" : ": " + sourceURL) + " has pattern with no description.");
+										+ ((sourceURL == null) ? "" : ": " + sourceURL)
+										+ " has pattern with no description.");
 								testDescription = "[No Description]";
 							}
-							ArchlightTest tt = new ArchlightTest(testUID.trim(), toolID, testCategory.trim(), testDescription.trim());
+							ArchlightTest tt = new ArchlightTest(testUID.trim(), toolID, testCategory.trim(),
+									testDescription.trim());
 							newArchlightTests.add(tt);
 						}
 					}
@@ -111,7 +119,8 @@ public class SchematronTestFile {
 			parseWarnings = newParseWarnings;
 		}
 		catch (ParserConfigurationException pce) {
-			throw new SchematronTestFileParseException("XML Parser Configuration Error parsing document" + ((sourceURL == null) ? "" : ": " + sourceURL), pce);
+			throw new SchematronTestFileParseException("XML Parser Configuration Error parsing document"
+					+ ((sourceURL == null) ? "" : ": " + sourceURL), pce);
 		}
 		catch (SAXException se) {
 			String loc = "";
@@ -122,10 +131,12 @@ public class SchematronTestFile {
 				loc = " at line " + lineNo + ", column " + colNo;
 			}
 
-			throw new SchematronTestFileParseException("XML Parse Error parsing document" + loc + ((sourceURL == null) ? "" : ": " + sourceURL), se);
+			throw new SchematronTestFileParseException("XML Parse Error parsing document" + loc
+					+ ((sourceURL == null) ? "" : ": " + sourceURL), se);
 		}
 		catch (IOException ioe) {
-			throw new SchematronTestFileParseException("I/O Error parsing document" + ((sourceURL == null) ? "" : ": " + sourceURL), ioe);
+			throw new SchematronTestFileParseException("I/O Error parsing document"
+					+ ((sourceURL == null) ? "" : ": " + sourceURL), ioe);
 		}
 	}
 
@@ -145,7 +156,8 @@ public class SchematronTestFile {
 		return Collections.unmodifiableList(new ArrayList<String>(parseWarnings));
 	}
 
-	public static SchematronTestFile create(String toolID, String sourceURL, InputStream is) throws SchematronTestFileParseException, IOException {
+	public static SchematronTestFile create(String toolID, String sourceURL, InputStream is)
+			throws SchematronTestFileParseException, IOException {
 		//Note: the sourceURL here is only used to identify the document,
 		//not to reload it or anything.
 		StringBuffer sb = new StringBuffer();
@@ -169,13 +181,14 @@ public class SchematronTestFile {
 		return is;
 	}
 
-	public static SchematronTestFile create(String toolID, String urlString) throws SchematronTestFileParseException, IOException, FileNotFoundException,
-	        MalformedURLException {
+	public static SchematronTestFile create(String toolID, String urlString) throws SchematronTestFileParseException,
+			IOException, FileNotFoundException, MalformedURLException {
 		InputStream is = openURI(urlString);
 		return create(toolID, urlString, is);
 	}
 
-	public static SchematronTestFile create(SchematronTestFile originalTestFile, List<String> testUIDs) throws SchematronTestFileParseException {
+	public static SchematronTestFile create(SchematronTestFile originalTestFile, List<String> testUIDs)
+			throws SchematronTestFileParseException {
 		//For faster lookups
 		HashSet<String> testUIDSet = new HashSet<String>(testUIDs);
 
@@ -188,7 +201,8 @@ public class SchematronTestFile {
 		Element rootElement = newFileDoc.getDocumentElement();
 		if (rootElement == null) {
 			//This shoudln't happen
-			throw new SchematronTestFileParseException("Tests file missing root element" + ((newFile.sourceURL == null) ? "" : ": " + newFile.sourceURL));
+			throw new SchematronTestFileParseException("Tests file missing root element"
+					+ ((newFile.sourceURL == null) ? "" : ": " + newFile.sourceURL));
 		}
 
 		//Find all the patterns and get their IDs;

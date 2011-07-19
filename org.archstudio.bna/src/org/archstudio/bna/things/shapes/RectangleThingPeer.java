@@ -34,7 +34,10 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 			}
 		}
 		if (r.setForegroundColor(g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
-			/* This adjustment makes a drawn rectangle overlap the edge pixel of a filled rectangle. */
+			/*
+			 * This adjustment makes a drawn rectangle overlap the edge pixel of
+			 * a filled rectangle.
+			 */
 			g.drawRectangle(lbb.x, lbb.y, lbb.width - 1, lbb.height - 1);
 		}
 	}

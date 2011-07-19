@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry excluding="edu/uci/isr/myx2/eclipse/codegen/translator/|org/archstudio/myxgen/jet/translator/" kind="src" path="src"/>
-	<classpathentry kind="src" path="jet2java"/>
+	<classpathentry excluding="org/archstudio/myxgen/eclipse/MyxGenBrickDescriptionFromXadl.java" kind="src" path="src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

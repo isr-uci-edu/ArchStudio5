@@ -17,30 +17,31 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 
-public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage implements IFocusEditorListener{
+public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage implements IFocusEditorListener {
 	protected IXArchADT xarch;
 	protected IResources resources = null;
-	
+
 	protected ObjRef documentRootRef = null;
-	
+
 	protected boolean hasPulldownMenu = false;
 	protected boolean hasContextMenu = false;
 
-	public AbstractArchStudioOutlinePage(IXArchADT xarch, ObjRef documentRootRef, IResources resources, boolean hasPulldownMenu, boolean hasContextMenu){
+	public AbstractArchStudioOutlinePage(IXArchADT xarch, ObjRef documentRootRef, IResources resources,
+			boolean hasPulldownMenu, boolean hasContextMenu) {
 		this.xarch = xarch;
 		this.documentRootRef = documentRootRef;
 		this.resources = resources;
 		this.hasPulldownMenu = hasPulldownMenu;
 		this.hasContextMenu = hasContextMenu;
 	}
-	
-	public void init(IPageSite pageSite){
+
+	public void init(IPageSite pageSite) {
 		super.init(pageSite);
 	}
-	
-	public void createControl(Composite parent){
+
+	public void createControl(Composite parent) {
 		super.createControl(parent);
-		if(documentRootRef == null)
+		if (documentRootRef == null)
 			return;
 		TreeViewer viewer = getTreeViewer();
 		viewer.setContentProvider(createViewContentProvider());
@@ -49,54 +50,59 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 		viewer.setInput(getSite());
 
 		// Do Pulldown Menu
-		if(hasPulldownMenu){
+		if (hasPulldownMenu) {
 			IMenuManager menu = getSite().getActionBars().getMenuManager();
 			IAction[] actions = createPulldownMenuItems();
-			for(int i = 0; i < actions.length; i++){
+			for (int i = 0; i < actions.length; i++) {
 				menu.add(actions[i]);
 			}
 		}
 
 		// Do Context Menu
-		if(hasContextMenu){
-			SWTWidgetUtils.setupContextMenu("#PopupMenu", getTreeViewer().getControl(), getSite(), new IMenuFiller(){
-				public void fillMenu(IMenuManager m){
+		if (hasContextMenu) {
+			SWTWidgetUtils.setupContextMenu("#PopupMenu", getTreeViewer().getControl(), getSite(), new IMenuFiller() {
+				public void fillMenu(IMenuManager m) {
 					fillContextMenu(m);
 				}
 			});
 		}
 	}
-	
+
 	protected abstract ITreeContentProvider createViewContentProvider();
+
 	protected abstract ILabelProvider createViewLabelProvider();
-	
-	protected IAction[] createPulldownMenuItems(){ 
-		return new IAction[0]; 
+
+	protected IAction[] createPulldownMenuItems() {
+		return new IAction[0];
 	}
-	
-	protected void fillContextMenu(IMenuManager m){}
-	
-	public void updateOutlinePage(){
-		if(getTreeViewer() == null) return;
-		if(getTreeViewer().getTree() == null) return;
-		if(getTreeViewer().getTree().isDisposed()) return;
+
+	protected void fillContextMenu(IMenuManager m) {
+	}
+
+	public void updateOutlinePage() {
+		if (getTreeViewer() == null)
+			return;
+		if (getTreeViewer().getTree() == null)
+			return;
+		if (getTreeViewer().getTree().isDisposed())
+			return;
 		Object[] expandedElements = getTreeViewer().getExpandedElements();
 		getTreeViewer().refresh(true);
 		getTreeViewer().setExpandedElements(expandedElements);
 	}
 
-	public Object[] getSelectedObjects(){
+	public Object[] getSelectedObjects() {
 		ISelection selection = getSelection();
-		if(selection instanceof IStructuredSelection){
-			IStructuredSelection ss = (IStructuredSelection)selection;
+		if (selection instanceof IStructuredSelection) {
+			IStructuredSelection ss = (IStructuredSelection) selection;
 			Object[] nodes = ss.toArray();
 			return nodes;
 		}
-		else{
+		else {
 			return new Object[0];
 		}
 	}
-	
+
 	public abstract void focusEditor(String editorName, ObjRef[] refs);
 
 }

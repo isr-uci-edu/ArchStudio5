@@ -165,17 +165,21 @@ public class BasicBNADemo {
 		spline.getEndpoint2ArrowheadThing().setSecondaryColor(new RGB(128, 128, 128));
 		spline.getEndpoint2ArrowheadThing().setArrowheadFilled(true);
 		/*
-		 * final PathAssembly[] paths = new PathAssembly[50]; for (int i = 0; i < paths.length; i++) { PathAssembly path
-		 * = PathAssembly.create(m, null); path.getPathThing().setGradientFilled(true);
+		 * final PathAssembly[] paths = new PathAssembly[50]; for (int i = 0; i
+		 * < paths.length; i++) { PathAssembly path = PathAssembly.create(m,
+		 * null); path.getPathThing().setGradientFilled(true);
 		 * path.getPathGlassThing().setPathData(newExamplePathData(100, 100));
-		 * path.getPathGlassThing().moveRelative((DefaultCoordinateMapper. DEFAULT_WORLD_WIDTH / 2) + 220 + (i 10),
-		 * (DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2) + 20 + (i 10)); path.getPathGlassThing().setSelected((i %
-		 * 2) == 0); paths[i] = path; }
+		 * path.getPathGlassThing().moveRelative((DefaultCoordinateMapper.
+		 * DEFAULT_WORLD_WIDTH / 2) + 220 + (i 10),
+		 * (DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2) + 20 + (i 10));
+		 * path.getPathGlassThing().setSelected((i % 2) == 0); paths[i] = path;
+		 * }
 		 */
 		/*
 		 * MarqueeBorderThing mbt = new MarqueeBorderThing();
 		 * mbt.setBoundingBox((DefaultCoordinateMapper.DEFAULT_WORLD_WIDTH / 2),
-		 * (DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2), 100, 100); m.addThing(mbt);
+		 * (DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2), 100, 100);
+		 * m.addThing(mbt);
 		 */
 		// final ScrolledComposite sc1 = new ScrolledComposite(shell, SWT.H_SCROLL |
 		// SWT.V_SCROLL | SWT.BORDER);

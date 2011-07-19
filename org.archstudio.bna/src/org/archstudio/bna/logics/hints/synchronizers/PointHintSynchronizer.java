@@ -48,7 +48,8 @@ public class PointHintSynchronizer extends PropertyHintSynchronizer {
 	protected final int moveWithInfoHintSuffixLength;
 	protected final List<String> oldMovesWithHintNames = new ArrayList<String>();
 
-	public PointHintSynchronizer(String hintSuffix, Class<? extends IThing> thingInterface, String propertyName, String... userProperties) {
+	public PointHintSynchronizer(String hintSuffix, Class<? extends IThing> thingInterface, String propertyName,
+			String... userProperties) {
 		super(hintSuffix, thingInterface, propertyName, userProperties);
 
 		this.stuckToThingIdPropertyName = MaintainStickyPointLogic.getReferenceName(propertyName);
@@ -109,14 +110,16 @@ public class PointHintSynchronizer extends PropertyHintSynchronizer {
 		return value;
 	}
 
-	protected List<String> getStuckInfoHintNames(IHintRepository repository, Object context, String partPath, String[] parts, IThing thing) {
+	protected List<String> getStuckInfoHintNames(IHintRepository repository, Object context, String partPath,
+			String[] parts, IThing thing) {
 		List<String> hintNames = new ArrayList<String>();
 		hintNames.add(partPath + stuckInfoHintSuffix);
 		hintNames.addAll(oldStuckHintNames);
 		return hintNames;
 	}
 
-	protected List<String> getMovesWithHintNames(IHintRepository repository, Object context, String partPath, String[] parts, IThing thing) {
+	protected List<String> getMovesWithHintNames(IHintRepository repository, Object context, String partPath,
+			String[] parts, IThing thing) {
 		List<String> hintNames = new ArrayList<String>();
 		hintNames.add(partPath + moveWithInfoHintSuffix);
 		hintNames.addAll(oldMovesWithHintNames);
@@ -124,7 +127,8 @@ public class PointHintSynchronizer extends PropertyHintSynchronizer {
 	}
 
 	@Override
-	protected List<String> getHintNames(IHintRepository repository, Object context, String partPath, String[] parts, IThing thing) {
+	protected List<String> getHintNames(IHintRepository repository, Object context, String partPath, String[] parts,
+			IThing thing) {
 		List<String> hintNames = new ArrayList<String>();
 		if (thing.getProperty(stuckToThingIdPropertyName) != null) {
 			hintNames.addAll(getStuckInfoHintNames(repository, context, partPath, parts, thing));
@@ -148,8 +152,8 @@ public class PointHintSynchronizer extends PropertyHintSynchronizer {
 	}
 
 	@Override
-	protected void restoreHint(IHintRepository repository, Object context, String partPath, String[] parts, IThing thing, Object propertyName, String hintName,
-	        Object hintValue) {
+	protected void restoreHint(IHintRepository repository, Object context, String partPath, String[] parts,
+			IThing thing, Object propertyName, String hintName, Object hintValue) {
 		if (hintName.endsWith(stuckInfoHintSuffix)) {
 			IThing stickyThing = world.getBNAModel().getThing((String) thing.getProperty(stuckToThingIdPropertyName));
 			if (stickyThing != null) {
@@ -192,7 +196,8 @@ public class PointHintSynchronizer extends PropertyHintSynchronizer {
 			return;
 		}
 		else if (hintName.endsWith(moveWithInfoHintSuffix)) {
-			IThing moveWithThing = world.getBNAModel().getThing((String) thing.getProperty(moveWithThingIdPropertyName));
+			IThing moveWithThing = world.getBNAModel()
+					.getThing((String) thing.getProperty(moveWithThingIdPropertyName));
 			if (moveWithThing != null) {
 				Lock lock = thing.getPropertyLock();
 				lock.lock();
@@ -230,12 +235,13 @@ public class PointHintSynchronizer extends PropertyHintSynchronizer {
 	}
 
 	@Override
-	public void filteredThingChanged(IHintRepository repository, Object context, String partPath, String[] parts, IThing thing, Object propertyName,
-	        Object oldValue, Object newValue) {
+	public void filteredThingChanged(IHintRepository repository, Object context, String partPath, String[] parts,
+			IThing thing, Object propertyName, Object oldValue, Object newValue) {
 		try {
 			if (stuckToThingIdPropertyName.equals(propertyName)) {
 				// the thing has been stuck to something else, restore the stuck info
-				IThing stuckThing = world.getBNAModel().getThing((String) thing.getProperty(stuckToThingIdPropertyName));
+				IThing stuckThing = world.getBNAModel()
+						.getThing((String) thing.getProperty(stuckToThingIdPropertyName));
 				if (stuckThing != null) {
 					filteredRestoreHints(repository, context, partPath, parts, thing);
 				}
@@ -247,7 +253,8 @@ public class PointHintSynchronizer extends PropertyHintSynchronizer {
 
 			if (moveWithThingIdPropertyName.equals(propertyName)) {
 				// the thing has been moved to something else, restore the moveWith info
-				IThing moveWithThing = world.getBNAModel().getThing((String) thing.getProperty(moveWithThingIdPropertyName));
+				IThing moveWithThing = world.getBNAModel().getThing(
+						(String) thing.getProperty(moveWithThingIdPropertyName));
 				if (moveWithThing != null) {
 					filteredRestoreHints(repository, context, partPath, parts, thing);
 				}
@@ -264,16 +271,19 @@ public class PointHintSynchronizer extends PropertyHintSynchronizer {
 	}
 
 	@Override
-	protected void filteredRestoreHints(IHintRepository repository, Object context, String partPath, String[] parts, IThing thing) {
+	protected void filteredRestoreHints(IHintRepository repository, Object context, String partPath, String[] parts,
+			IThing thing) {
 		super.filteredRestoreHints(repository, context, partPath, parts, thing);
 		storeMoveWithHint(repository, context, partPath, parts, thing);
 		storeStickyThingHint(repository, context, partPath, parts, thing);
 	}
 
-	protected void storeStickyThingHint(IHintRepository repository, Object context, String partPath, String[] parts, IThing thing) {
+	protected void storeStickyThingHint(IHintRepository repository, Object context, String partPath, String[] parts,
+			IThing thing) {
 		IThing stickyThing = world.getBNAModel().getThing((String) thing.getProperty(stuckToThingIdPropertyName));
 		if (stickyThing != null) {
-			Object oldHint = cleanupStuckInfoHint(getFirstHint(repository, context, getStuckInfoHintNames(repository, context, partPath, parts, thing)));
+			Object oldHint = cleanupStuckInfoHint(getFirstHint(repository, context,
+					getStuckInfoHintNames(repository, context, partPath, parts, thing)));
 			Object newHint = null;
 
 			StickyMode s = thing.getProperty(stickyModePropertyName);
@@ -314,7 +324,8 @@ public class PointHintSynchronizer extends PropertyHintSynchronizer {
 		}
 	}
 
-	protected void storeMoveWithHint(IHintRepository repository, Object context, String partPath, String[] parts, IThing thing) {
+	protected void storeMoveWithHint(IHintRepository repository, Object context, String partPath, String[] parts,
+			IThing thing) {
 		IThing moveWithThing = world.getBNAModel().getThing((String) thing.getProperty(moveWithThingIdPropertyName));
 		if (moveWithThing != null) {
 			Object oldHint = repository.getHint(context, partPath + moveWithInfoHintSuffix);

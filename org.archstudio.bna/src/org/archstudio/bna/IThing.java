@@ -2,6 +2,7 @@ package org.archstudio.bna;
 
 import java.util.Set;
 
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.sysutils.TypedMap;
 
 /**
@@ -20,7 +21,8 @@ public interface IThing {
 	}
 
 	/**
-	 * Gets the class that maintains and draws the graphical representation of this Thing.
+	 * Gets the class that maintains and draws the graphical representation of
+	 * this Thing.
 	 * 
 	 * @return The Thing's Peer's class.
 	 */
@@ -34,7 +36,8 @@ public interface IThing {
 	public Object getID();
 
 	/**
-	 * Adds a listener to this Thing that will be notified when the Thing changes.
+	 * Adds a listener to this Thing that will be notified when the Thing
+	 * changes.
 	 * 
 	 * @param tl
 	 *            Thing listener to add.
@@ -42,7 +45,8 @@ public interface IThing {
 	public void addThingListener(IThingListener tl);
 
 	/**
-	 * Removes a listener to this Thing that will no longer be notified when the Thing changes.
+	 * Removes a listener to this Thing that will no longer be notified when the
+	 * Thing changes.
 	 * 
 	 * @param tl
 	 *            Thing listener to remove.
@@ -50,6 +54,9 @@ public interface IThing {
 	public void removeThingListener(IThingListener tl);
 
 	public <V> V get(IThingKey<V> key);
+
+	@Deprecated
+	public <V> V getProperty(IThingKey<V> key);
 
 	public <V> V set(IThingKey<V> key, V value);
 

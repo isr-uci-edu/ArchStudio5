@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.archstudio.aim.ArchitectureInstantiationException;
 import org.archstudio.aim.IAIM;
-import org.archstudio.aim.IMyxBrickDescriptionFromXadl;
 import org.archstudio.aim.core.AIMInstantiationOrderCalculator.OrderedGroup;
 import org.archstudio.myx.fw.EMyxInterfaceDirection;
 import org.archstudio.myx.fw.IMyxBrickDescription;
@@ -26,11 +25,14 @@ import org.archstudio.myx.fw.MyxSubProgressMonitor;
 import org.archstudio.myx.fw.MyxUnsupportedBrickDescriptionException;
 import org.archstudio.myx.fw.MyxUtils;
 import org.archstudio.myx.java.MyxJavaClassBrickDescription;
-import org.archstudio.myx.java.MyxJavaClassBrickDescriptionFromXadl;
-import org.archstudio.myx.myxgen.MyxGenBrickDescriptionFromXadl;
-import org.archstudio.myx.osgi.MyxOSGiBrickDescriptionFromXadl;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl.myx.IMyxBrickDescriptionFromXadl;
+import org.archstudio.xadl.myx.MyxGenBrickDescriptionFromXadl;
+import org.archstudio.xadl.myx.MyxJavaClassBrickDescriptionFromXadl;
+import org.archstudio.xadl.myx.MyxOSGiBrickDescriptionFromXadl;
 import org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package;
+import org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package;
+import org.archstudio.xadl3.lookupimplementation_3_0.Lookupimplementation_3_0Package;
 import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
@@ -341,14 +343,16 @@ public class AIMImpl implements IAIM {
 							+ XadlUtils.getName(xarch, requiredBrickRef) + " missing ID.");
 				}
 
-				ObjRef providedLookupImplementationRef = XadlUtils.getLookupImplementation(xarch, providedInterfaceRef);
+				ObjRef providedLookupImplementationRef = XadlUtils.getImplementation(xarch, providedInterfaceRef,
+						Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION);
 				if (providedLookupImplementationRef == null) {
 					throw new ArchitectureInstantiationException("Interface "
 							+ XadlUtils.getName(xarch, providedInterfaceRef) + " on brick "
 							+ XadlUtils.getName(xarch, providedBrickRef) + " missing lookup implementation.");
 				}
 
-				ObjRef requiredLookupImplementationRef = XadlUtils.getLookupImplementation(xarch, requiredInterfaceRef);
+				ObjRef requiredLookupImplementationRef = XadlUtils.getImplementation(xarch, requiredInterfaceRef,
+						Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION);
 				if (requiredLookupImplementationRef == null) {
 					throw new ArchitectureInstantiationException("Interface "
 							+ XadlUtils.getName(xarch, requiredInterfaceRef) + " on brick "
@@ -401,7 +405,8 @@ public class AIMImpl implements IAIM {
 		}
 
 		//We have to get the implementation lookup name for the interface.
-		ObjRef lookupImplementationRef = XadlUtils.getLookupImplementation(xarch, interfaceRef);
+		ObjRef lookupImplementationRef = XadlUtils.getImplementation(xarch, interfaceRef,
+				Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION);
 		if (lookupImplementationRef == null) {
 			throw new ArchitectureInstantiationException("Missing lookup implementation on interface "
 					+ XadlUtils.getName(xarch, interfaceRef));
@@ -431,7 +436,8 @@ public class AIMImpl implements IAIM {
 
 		List<String> serviceObjectInterfaceNames = new ArrayList<String>();
 
-		ObjRef javaImplementationRef = XadlUtils.getJavaImplementation(xarch, interfaceRef);
+		ObjRef javaImplementationRef = XadlUtils.getImplementation(xarch, interfaceRef,
+				Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION);
 		if (javaImplementationRef != null) {
 			List<ObjRef> classRefs = new ArrayList<ObjRef>();
 			ObjRef mainClassRef = (ObjRef) xarch.get(javaImplementationRef, "mainClass");
@@ -504,8 +510,8 @@ public class AIMImpl implements IAIM {
 							+ XadlUtils.getName(xarch, innerBrickRef));
 				}
 
-				ObjRef innerInterfaceLookupImplementationRef = XadlUtils.getLookupImplementation(xarch,
-						innerInterfaceRef);
+				ObjRef innerInterfaceLookupImplementationRef = XadlUtils.getImplementation(xarch, innerInterfaceRef,
+						Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION);
 				if (innerInterfaceLookupImplementationRef == null) {
 					throw new ArchitectureInstantiationException("Missing lookup implementation on interface "
 							+ XadlUtils.getName(xarch, innerInterfaceRef));
