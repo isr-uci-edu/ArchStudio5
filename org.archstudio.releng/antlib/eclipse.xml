@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="edu.uci.isr.infrastructure.bad.buckminster.antlib.eclipse">
+
+	<import file="equinox.xml" />
+
+	<property name="default.eclipse.workspace" value="@{location}/workspace" />
+	<property name="default.eclipse.temp" value="${default.equinox.temp}" />
+	<property name="default.eclipse.failonerror" value="${default.equinox.failonerror}" />
+	<property name="default.eclipse.maxmem" value="${default.equinox.maxmem}" />
+	<property name="default.eclipse.maxperm" value="${default.equinox.maxperm}" />
+
+	<macrodef name="eclipse">
+		<attribute name="workspace" default="${default.eclipse.workspace}" />
+		<attribute name="dir" default="@{workspace}" />
+		<attribute name="location" />
+		<attribute name="temp" default="${default.eclipse.temp}" />
+		<attribute name="failonerror" default="${default.eclipse.failonerror}" />
+		<attribute name="maxmem" default="${default.eclipse.maxmem}" />
+		<attribute name="maxperm" default="${default.eclipse.maxperm}" />
+		<element name="args" optional="true" implicit="true" />
+		<sequential>
+			<mkdir dir="@{workspace}" />
+			<equinox location="@{location}" temp="@{temp}" failonerror="@{failonerror}" maxmem="@{maxmem}" maxperm="@{maxperm}" dir="@{dir}">
+				<arg value="-data" />
+				<arg value="@{workspace}" />
+				<args />
+			</equinox>
+		</sequential>
+	</macrodef>
+
+</project>

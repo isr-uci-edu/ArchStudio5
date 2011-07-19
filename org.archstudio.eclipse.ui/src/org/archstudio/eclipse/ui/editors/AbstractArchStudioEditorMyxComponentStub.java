@@ -27,7 +27,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Abstract ArchStudio Editor Component Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -59,86 +59,123 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Myx name for the <code>resources</code> interface.
-	 *
-	 * MyxGenInterface[name=resources,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.resources.IResources,description=null]
+	 * 
+	 * MyxGenInterface[name=resources,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .resources.IResources,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_RESOURCES = MyxUtils.createName("resources");
 	/**
 	 * Myx name for the <code>editorManager</code> interface.
-	 *
-	 * MyxGenInterface[name=editorManager,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.editormanager.IEditorManager,description=null]
+	 * 
+	 * MyxGenInterface[name=editorManager,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .editormanager.IEditorManager,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_EDITOR_MANAGER = MyxUtils.createName("editorManager");
 	/**
 	 * Myx name for the <code>focusEditorEvents</code> interface.
-	 *
-	 * MyxGenInterface[name=focusEditorEvents,direction=in,single=true,serviceObjectDelegate=myxRegistry,generateGetter=true,className=org.archstudio.eclipse.ui.IFocusEditorListener,description=null]
+	 * 
+	 * MyxGenInterface[name=focusEditorEvents,direction=in,single=true,
+	 * serviceObjectDelegate
+	 * =myxRegistry,generateGetter=true,className=org.archstudio
+	 * .eclipse.ui.IFocusEditorListener,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_FOCUS_EDITOR_EVENTS = MyxUtils.createName("focusEditorEvents");
 	/**
 	 * Myx name for the <code>fileManager</code> interface.
-	 *
-	 * MyxGenInterface[name=fileManager,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.filemanager.IFileManager,description=null]
+	 * 
+	 * MyxGenInterface[name=fileManager,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .filemanager.IFileManager,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_FILE_MANAGER = MyxUtils.createName("fileManager");
 	/**
 	 * Myx name for the <code>fileManagerEvents</code> interface.
-	 *
-	 * MyxGenInterface[name=fileManagerEvents,direction=in,single=true,serviceObjectDelegate=myxRegistry,generateGetter=true,className=org.archstudio.filemanager.IFileManagerListener,description=null]
+	 * 
+	 * MyxGenInterface[name=fileManagerEvents,direction=in,single=true,
+	 * serviceObjectDelegate
+	 * =myxRegistry,generateGetter=true,className=org.archstudio
+	 * .filemanager.IFileManagerListener,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_FILE_MANAGER_EVENTS = MyxUtils.createName("fileManagerEvents");
 	/**
 	 * Myx name for the <code>xarch</code> interface.
-	 *
-	 * MyxGenInterface[name=xarch,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.xarchadt.IXArchADT,description=null]
+	 * 
+	 * MyxGenInterface[name=xarch,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .xarchadt.IXArchADT,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_XARCH = MyxUtils.createName("xarch");
 	/**
 	 * Myx name for the <code>fileEvents</code> interface.
-	 *
-	 * MyxGenInterface[name=fileEvents,direction=in,single=true,serviceObjectDelegate=myxRegistry,generateGetter=true,className=org.archstudio.xarchadt.IXArchADTFileListener,description=null]
+	 * 
+	 * MyxGenInterface[name=fileEvents,direction=in,single=true,
+	 * serviceObjectDelegate
+	 * =myxRegistry,generateGetter=true,className=org.archstudio
+	 * .xarchadt.IXArchADTFileListener,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_FILE_EVENTS = MyxUtils.createName("fileEvents");
 	/**
 	 * Myx name for the <code>modelEvents</code> interface.
-	 *
-	 * MyxGenInterface[name=modelEvents,direction=in,single=true,serviceObjectDelegate=myxRegistry,generateGetter=true,className=org.archstudio.xarchadt.IXArchADTModelListener,description=null]
+	 * 
+	 * MyxGenInterface[name=modelEvents,direction=in,single=true,
+	 * serviceObjectDelegate
+	 * =myxRegistry,generateGetter=true,className=org.archstudio
+	 * .xarchadt.IXArchADTModelListener,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_MODEL_EVENTS = MyxUtils.createName("modelEvents");
 	/**
 	 * Myx name for the <code>launcher</code> interface.
-	 *
-	 * MyxGenInterface[name=launcher,direction=in,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.launcher.ILaunchable,description=null]
+	 * 
+	 * MyxGenInterface[name=launcher,direction=in,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .launcher.ILaunchable,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_LAUNCHER = MyxUtils.createName("launcher");
 
 	/**
 	 * Service object(s) for the resources interface.
-	 *
+	 * 
 	 * @see #OUT_RESOURCES
 	 * @generated
 	 */
 	protected org.archstudio.resources.IResources resources = null;
 	/**
 	 * Service object(s) for the editorManager interface.
-	 *
+	 * 
 	 * @see #OUT_EDITOR_MANAGER
 	 * @generated
 	 */
 	protected org.archstudio.editormanager.IEditorManager editorManager = null;
 	/**
-	 * Service object proxy for the focusEditorEvents interface.
-	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
-	 *
+	 * Service object proxy for the focusEditorEvents interface. Calls to the
+	 * proxy object are automatically delegated to all service objects of this
+	 * interface.
+	 * 
 	 * @see #IN_FOCUS_EDITOR_EVENTS
 	 * @generated
 	 */
@@ -162,15 +199,16 @@ import org.archstudio.myx.fw.MyxUtils;
 					});
 	/**
 	 * Service object(s) for the fileManager interface.
-	 *
+	 * 
 	 * @see #OUT_FILE_MANAGER
 	 * @generated
 	 */
 	protected org.archstudio.filemanager.IFileManager fileManager = null;
 	/**
-	 * Service object proxy for the fileManagerEvents interface.
-	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
-	 *
+	 * Service object proxy for the fileManagerEvents interface. Calls to the
+	 * proxy object are automatically delegated to all service objects of this
+	 * interface.
+	 * 
 	 * @see #IN_FILE_MANAGER_EVENTS
 	 * @generated
 	 */
@@ -194,15 +232,16 @@ import org.archstudio.myx.fw.MyxUtils;
 					});
 	/**
 	 * Service object(s) for the xarch interface.
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */
 	protected org.archstudio.xarchadt.IXArchADT xarch = null;
 	/**
-	 * Service object proxy for the fileEvents interface.
-	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
-	 *
+	 * Service object proxy for the fileEvents interface. Calls to the proxy
+	 * object are automatically delegated to all service objects of this
+	 * interface.
+	 * 
 	 * @see #IN_FILE_EVENTS
 	 * @generated
 	 */
@@ -225,9 +264,10 @@ import org.archstudio.myx.fw.MyxUtils;
 						}
 					});
 	/**
-	 * Service object proxy for the modelEvents interface.
-	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
-	 *
+	 * Service object proxy for the modelEvents interface. Calls to the proxy
+	 * object are automatically delegated to all service objects of this
+	 * interface.
+	 * 
 	 * @see #IN_MODEL_EVENTS
 	 * @generated
 	 */
@@ -252,7 +292,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Returns the service object(s) for the <code>resources</code> interface.
-	 *
+	 * 
 	 * @see #OUT_RESOURCES
 	 * @generated
 	 */
@@ -261,8 +301,9 @@ import org.archstudio.myx.fw.MyxUtils;
 	}
 
 	/**
-	 * Returns the service object(s) for the <code>editorManager</code> interface.
-	 *
+	 * Returns the service object(s) for the <code>editorManager</code>
+	 * interface.
+	 * 
 	 * @see #OUT_EDITOR_MANAGER
 	 * @generated
 	 */
@@ -271,14 +312,15 @@ import org.archstudio.myx.fw.MyxUtils;
 	}
 
 	/**
-	 * Returns the service object(s) for the <code>focusEditorEvents</code> interface.
-	 *
+	 * Returns the service object(s) for the <code>focusEditorEvents</code>
+	 * interface.
+	 * 
 	 * @see #IN_FOCUS_EDITOR_EVENTS
 	 * @generated
 	 */
 	/**
 	 * Returns the service object(s) for the <code>fileManager</code> interface.
-	 *
+	 * 
 	 * @see #OUT_FILE_MANAGER
 	 * @generated
 	 */
@@ -287,14 +329,15 @@ import org.archstudio.myx.fw.MyxUtils;
 	}
 
 	/**
-	 * Returns the service object(s) for the <code>fileManagerEvents</code> interface.
-	 *
+	 * Returns the service object(s) for the <code>fileManagerEvents</code>
+	 * interface.
+	 * 
 	 * @see #IN_FILE_MANAGER_EVENTS
 	 * @generated
 	 */
 	/**
 	 * Returns the service object(s) for the <code>xarch</code> interface.
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */
@@ -304,19 +347,19 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Returns the service object(s) for the <code>fileEvents</code> interface.
-	 *
+	 * 
 	 * @see #IN_FILE_EVENTS
 	 * @generated
 	 */
 	/**
 	 * Returns the service object(s) for the <code>modelEvents</code> interface.
-	 *
+	 * 
 	 * @see #IN_MODEL_EVENTS
 	 * @generated
 	 */
 	/**
 	 * Returns the service object(s) for the <code>launcher</code> interface.
-	 *
+	 * 
 	 * @see #IN_LAUNCHER
 	 * @generated
 	 */

@@ -1,7 +1,8 @@
-package org.archstudio.myx.demo.basic;
+package org.archstudio.myx.java.demo.basic;
 
 import java.util.Collections;
-import java.util.Properties;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.archstudio.myx.fw.EMyxInterfaceDirection;
 import org.archstudio.myx.fw.IMyxImplementation;
@@ -11,7 +12,7 @@ import org.archstudio.myx.fw.IMyxWeld;
 import org.archstudio.myx.fw.MyxBasicBrickInitializationData;
 import org.archstudio.myx.fw.MyxJavaClassInterfaceDescription;
 import org.archstudio.myx.fw.MyxUtils;
-import org.archstudio.myx.MyxJavaClassBrickDescription;
+import org.archstudio.myx.java.MyxJavaClassBrickDescription;
 
 public class App {
 
@@ -78,7 +79,7 @@ public class App {
 			myx.addBrick(null, serverName, serverDesc, null);
 			myx.addBrick(null, clientName, clientDesc, null);
 
-			Properties proxyProperties = new Properties();
+			Map<String, String> proxyProperties = new HashMap<String, String>();
 			proxyProperties.put("interfaceClassName0", "org.archstudio.myx.demo.basic.IMath");
 			myx.addBrick(null, proxyName, proxyDesc, new MyxBasicBrickInitializationData(proxyProperties));
 

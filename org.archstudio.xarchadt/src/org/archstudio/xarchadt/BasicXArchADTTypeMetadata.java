@@ -12,7 +12,8 @@ public class BasicXArchADTTypeMetadata implements IXArchADTTypeMetadata {
 	private final Map<String, IXArchADTFeature> features;
 	private final boolean isAbstract;
 
-	public BasicXArchADTTypeMetadata(String nsURI, String typeName,	Map<String, IXArchADTFeature> features, boolean isAbstract) {
+	public BasicXArchADTTypeMetadata(String nsURI, String typeName, Map<String, IXArchADTFeature> features,
+			boolean isAbstract) {
 		super();
 		this.nsURI = nsURI;
 		this.typeName = typeName;
@@ -34,7 +35,7 @@ public class BasicXArchADTTypeMetadata implements IXArchADTTypeMetadata {
 	public Map<String, IXArchADTFeature> getFeatures() {
 		return features;
 	}
-	
+
 	@Override
 	public boolean isAbstract() {
 		return isAbstract;

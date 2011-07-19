@@ -50,12 +50,8 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 	}
 
 	protected IAction[] getActions(IBNAView view, IThing t, int worldX, int worldY) {
-		final IBNAView fview = view;
-		final IThing ft = t;
-		final int fworldX = worldX;
-		final int fworldY = worldY;
-
-		ArchipelagoUtils.setNewThingSpot(view.getBNAWorld().getBNAModel(), fworldX, fworldY);
+		
+		ArchipelagoUtils.setNewThingSpot(view.getBNAWorld().getBNAModel(), worldX, worldY);
 
 		Action newComponentAction = new Action("New Component") {
 			@Override

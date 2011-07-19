@@ -15,5 +15,5 @@ Require-Bundle: org.archstudio.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.ui.ide,
- org.archstudio.sysutils;bundle-version="5.0.0",
- org.archstudio.myx.java;bundle-version="1.0.0"
+ org.archstudio.utils.system,
+ org.archstudio.myx.java

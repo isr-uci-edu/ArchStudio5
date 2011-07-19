@@ -24,17 +24,19 @@ import org.eclipse.swt.widgets.Shell;
 
 public class XadlSelectorDialog {
 
-	public static ObjRef showSelectorDialog(Shell parentShell, String text, IXArchADT xarch, IResources resources, ObjRef rootRef,
-	        Set<XadlTreeUtils.Type> showFlags, Set<XadlTreeUtils.Type> selectionFlags) {
-		ObjRef[] results = showSelectorDialog(parentShell, text, xarch, resources, rootRef, showFlags, selectionFlags, false);
+	public static ObjRef showSelectorDialog(Shell parentShell, String text, IXArchADT xarch, IResources resources,
+			ObjRef rootRef, Set<XadlTreeUtils.Type> showFlags, Set<XadlTreeUtils.Type> selectionFlags) {
+		ObjRef[] results = showSelectorDialog(parentShell, text, xarch, resources, rootRef, showFlags, selectionFlags,
+				false);
 		if (results == null) {
 			return null;
 		}
 		return results[0];
 	}
 
-	public static ObjRef[] showSelectorDialog(Shell parentShell, String text, IXArchADT xarch, IResources resources, ObjRef rootRef,
-	        Set<XadlTreeUtils.Type> showFlags, Set<XadlTreeUtils.Type> selectionFlags, final boolean allowMultipleSelections) {
+	public static ObjRef[] showSelectorDialog(Shell parentShell, String text, IXArchADT xarch, IResources resources,
+			ObjRef rootRef, Set<XadlTreeUtils.Type> showFlags, Set<XadlTreeUtils.Type> selectionFlags,
+			final boolean allowMultipleSelections) {
 		final Shell dialog = new Shell(parentShell, SWT.RESIZE | SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM);
 		dialog.setText(text);
 
@@ -81,14 +83,13 @@ public class XadlSelectorDialog {
 		final IXArchADT fxarch = xarch;
 		final Set<XadlTreeUtils.Type> fselectionFlags = selectionFlags;
 		final Listener okListener = new Listener() {
-			@SuppressWarnings("unchecked")
-            public void handleEvent(Event event) {
+			public void handleEvent(Event event) {
 				IStructuredSelection selection = (IStructuredSelection) treeViewer.getSelection();
 				if (!validateSelection(fxarch, selection, fselectionFlags)) {
 					MessageBox messageBox = new MessageBox(dialog, SWT.ICON_ERROR | SWT.OK);
 					messageBox.setText("Error - Invalid Selection");
-					messageBox.setMessage("Please select one " + (allowMultipleSelections ? "or more " : "") + "of the following: "
-					        + getSelectionString(fselectionFlags) + ".");
+					messageBox.setMessage("Please select one " + (allowMultipleSelections ? "or more " : "")
+							+ "of the following: " + getSelectionString(fselectionFlags) + ".");
 					messageBox.open();
 				}
 				else {
@@ -158,7 +159,8 @@ public class XadlSelectorDialog {
 		return sb.toString();
 	}
 
-	protected static boolean validateSelection(IXArchADT xarch, IStructuredSelection selection, Set<XadlTreeUtils.Type> selectionFlags) {
+	protected static boolean validateSelection(IXArchADT xarch, IStructuredSelection selection,
+			Set<XadlTreeUtils.Type> selectionFlags) {
 		Object[] selectedObjects = selection.toArray();
 		if (selectedObjects.length == 0)
 			return false;

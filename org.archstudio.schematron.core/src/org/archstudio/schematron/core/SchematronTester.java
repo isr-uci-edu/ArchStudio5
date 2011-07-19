@@ -13,66 +13,66 @@ import javax.xml.transform.dom.DOMSource;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-public class SchematronTester{
+public class SchematronTester {
 
 	protected String xmlDocumentToTest;
 	protected SchematronTestFile testFile;
 	protected TransformerFactory transformerFactory;
 	protected Document result = null;
-	
-	public SchematronTester(String xmlDocumentToTest, SchematronTestFile testFile){
+
+	public SchematronTester(String xmlDocumentToTest, SchematronTestFile testFile) {
 		this.xmlDocumentToTest = xmlDocumentToTest;
 		this.testFile = testFile;
 	}
-	
-	public void runTest() throws SchematronInitializationException, SchematronTestException{
+
+	public void runTest() throws SchematronInitializationException, SchematronTestException {
 		DOMSource metastylesheetSource = SchematronUtils.getSchematronMetastylesheet();
 		Transformer transformer1 = SchematronUtils.getTransformer(metastylesheetSource);
-		
+
 		DOMSource rulesFileSource = null;
 		Document doc = testFile.getDocument();
 		rulesFileSource = new DOMSource(doc);
 
 		DOMResult tempStylesheetResult = SchematronUtils.getEmptyDOMResult();
-		try{
+		try {
 			transformer1.transform(rulesFileSource, tempStylesheetResult);
 		}
-		catch(TransformerException te){
+		catch (TransformerException te) {
 			throw new SchematronTestException(te);
 		}
-		
+
 		DOMSource tempStylesheetSource = new DOMSource(tempStylesheetResult.getNode());
 		Transformer transformer2 = SchematronUtils.getTransformer(tempStylesheetSource);
 
 		DOMSource documentToTestSource = null;
-		try{
+		try {
 			StringReader r = new StringReader(xmlDocumentToTest);
 			Document docToTest = SchematronUtils.parseToDocument(r);
 			r.close();
 			documentToTestSource = new DOMSource(docToTest);
 		}
-		catch(ParserConfigurationException pce){
+		catch (ParserConfigurationException pce) {
 			throw new SchematronTestException(pce);
 		}
-		catch(SAXException se){
+		catch (SAXException se) {
 			throw new SchematronTestException(se);
 		}
-		catch(IOException ioe){
+		catch (IOException ioe) {
 			throw new SchematronTestException(ioe);
 		}
-		
+
 		DOMResult finalResult = SchematronUtils.getEmptyDOMResult();
-		try{
+		try {
 			transformer2.transform(documentToTestSource, finalResult);
-			this.result = (Document)finalResult.getNode();
+			this.result = (Document) finalResult.getNode();
 		}
-		catch(TransformerException te){
+		catch (TransformerException te) {
 			throw new SchematronTestException(te);
 		}
 	}
-	
-	public Document getResult(){
+
+	public Document getResult() {
 		return result;
 	}
-	
+
 }

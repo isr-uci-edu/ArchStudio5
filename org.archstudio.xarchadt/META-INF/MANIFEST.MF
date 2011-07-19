@@ -7,5 +7,5 @@ Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.xarchadt
 Manifest-Version: 1.0
 Require-Bundle: com.google.guava,
- org.archstudio.sysutils,
+ org.archstudio.utils.system,
  org.eclipse.emf.common

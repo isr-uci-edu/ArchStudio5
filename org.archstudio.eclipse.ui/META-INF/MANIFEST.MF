@@ -5,14 +5,11 @@ Bundle-SymbolicName: org.archstudio.eclipse.ui;singleton:=true
 Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
 Manifest-Version: 1.0
-Require-Bundle: org.archstudio.editormanager,
- org.archstudio.filemanager,
- org.archstudio.launcher,
- org.archstudio.myx.fw,
+Require-Bundle: org.archstudio.myx.fw,
  org.archstudio.myxgen,
  org.archstudio.resources,
- org.archstudio.swtutils,
- org.archstudio.sysutils,
+ org.archstudio.utils.swt,
+ org.archstudio.utils.system,
  org.archstudio.xadl,
  org.archstudio.xarchadt,
  org.eclipse.core.resources,
@@ -21,9 +18,13 @@ Require-Bundle: org.archstudio.editormanager,
  org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.ui.views,
- com.google.guava;bundle-version="0.0.0",
- org.archstudio.eclipse;bundle-version="5.0.0",
- org.archstudio.eclipse.core;bundle-version="1.0.0"
+ com.google.guava,
+ org.archstudio.eclipse,
+ org.archstudio.utils.osgi,
+ org.archstudio.editormanager;bundle-version="5.0.0",
+ org.archstudio.filemanager;bundle-version="5.0.0",
+ org.archstudio.eclipse.core;bundle-version="1.0.0",
+ org.archstudio.launcher;bundle-version="5.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.archstudio.eclipse.ui.Activator
 Export-Package: org.archstudio.eclipse.ui,

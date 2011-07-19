@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.archstudio.myxgen.core.objectContribution1"
+            nameFilter="*"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="org.archstudio.myxgen.ui.actions.ToggleMyxStubNatureAction"
+               enablesFor="+"
+               id="org.archstudio.myxgen.myxStubNature.action"
+               label="Generate Myx Component Stubs"
+               menubarPath="org.archstudio.eclipse.popupMenuMain/bottom"
+               style="toggle">
+         </action>
+         <visibility>
+            <and>
+               <objectState
+                     name="projectNature"
+                     value="org.eclipse.jdt.core.javanature">
+               </objectState>
+               <objectState
+                     name="projectNature"
+                     value="org.eclipse.pde.PluginNature">
+               </objectState>
+            </and>
+         </visibility>
+      </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="org.archstudio.myxgen.ui.actions.ToggleMyxStubNatureAction">
+      </startup>
+   </extension>
+</plugin>

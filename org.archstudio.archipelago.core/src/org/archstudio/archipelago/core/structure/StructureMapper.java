@@ -11,7 +11,6 @@ import org.archstudio.bna.things.utility.NoThing;
 import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.xadl.XadlUtils;
-import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;

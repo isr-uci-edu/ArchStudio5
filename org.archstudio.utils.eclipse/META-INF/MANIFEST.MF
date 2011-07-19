@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse
+Bundle-SymbolicName: org.archstudio.utils.eclipse;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ com.google.guava,
+ org.archstudio.utils.osgi
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.archstudio.utils.eclipse

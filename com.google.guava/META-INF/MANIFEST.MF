@@ -1,4 +1,3 @@
-Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  lib/guava-r09.jar,
  lib/jsr305.jar
@@ -10,7 +9,7 @@ Bundle-Vendor: google.com
 Bundle-Version: 0.0.9.qualifier
 Export-Package: com.google.common.annotations,
  com.google.common.base,
- com.google.common.base.internal,
+ com.google.common.base.internal;x-internal:=true,
  com.google.common.collect,
  com.google.common.io,
  com.google.common.net,

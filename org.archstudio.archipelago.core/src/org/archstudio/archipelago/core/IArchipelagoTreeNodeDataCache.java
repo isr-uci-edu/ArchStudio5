@@ -2,7 +2,7 @@ package org.archstudio.archipelago.core;
 
 import org.archstudio.xarchadt.ObjRef;
 
-public interface IArchipelagoTreeNodeDataCache{
+public interface IArchipelagoTreeNodeDataCache {
 
 	public void setData(ObjRef documentRootRef, Object treeNode, String key, Object data);
 

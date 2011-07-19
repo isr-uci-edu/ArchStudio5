@@ -8,30 +8,40 @@ import org.eclipse.emf.common.util.URI;
 
 public interface IXArchADTQuery {
 	/**
-	 * Determines if a given ObjRef is valid, that is, if there is an object associated with it.
+	 * Determines if a given ObjRef is valid, that is, if there is an object
+	 * associated with it.
 	 * 
 	 * @param ref
 	 *            ObjRef to check.
-	 * @return <CODE>true</CODE> if there is an associated object, <CODE>false</CODE> otherwise.
+	 * @return <CODE>true</CODE> if there is an associated object,
+	 *         <CODE>false</CODE> otherwise.
 	 */
 	public boolean isValidObjRef(ObjRef ref);
 
 	/**
-	 * Gets a reference to a child or a single value from an xArch element. Roughly equivalent to:
-	 * baseObject.get[TypeOfThing](); So, if the object referred to by baseObjRef implements a method called
-	 * <CODE>IDescription getDescription();</CODE> then that would be called here as:
-	 * <CODE>ObjRef descriptionRef = (ObjRef)get(baseObjRef, "Description");</CODE> where baseObjRef is a reference to
-	 * the base object, and the typeOfThing is shown as "Description".
+	 * Gets a reference to a child or a single value from an xArch element.
+	 * Roughly equivalent to: baseObject.get[TypeOfThing](); So, if the object
+	 * referred to by baseObjRef implements a method called
+	 * <CODE>IDescription getDescription();</CODE> then that would be called
+	 * here as:
+	 * <CODE>ObjRef descriptionRef = (ObjRef)get(baseObjRef, "Description");</CODE>
+	 * where baseObjRef is a reference to the base object, and the typeOfThing
+	 * is shown as "Description".
 	 * 
 	 * @param baseObjRef
-	 *            Reference to a base element containing an <CODE>get[typeOfThing]</CODE> method.
+	 *            Reference to a base element containing an
+	 *            <CODE>get[typeOfThing]</CODE> method.
 	 * @param typeOfThing
-	 *            A string containing the type of thing to get. For instance, if the object referred to by baseObjRef
-	 *            contains a method called <CODE>getDescription</CODE>, then typeOfThing would be "Description".
-	 * @return A <CODE>Object</CODE> referring to the object gotten if the object returned is an xArch element;
-	 *         otherwise a {@link Serializable} object. For instance, if <CODE>typeOfThing</CODE> refers to an attribute
-	 *         or is "Value" (when <CODE>baseObjRef</CODE> refers to a simple type) then this function will return a
-	 *         string.
+	 *            A string containing the type of thing to get. For instance, if
+	 *            the object referred to by baseObjRef contains a method called
+	 *            <CODE>getDescription</CODE>, then typeOfThing would be
+	 *            "Description".
+	 * @return A <CODE>Object</CODE> referring to the object gotten if the
+	 *         object returned is an xArch element; otherwise a
+	 *         {@link Serializable} object. For instance, if
+	 *         <CODE>typeOfThing</CODE> refers to an attribute or is "Value"
+	 *         (when <CODE>baseObjRef</CODE> refers to a simple type) then this
+	 *         function will return a string.
 	 */
 	public Serializable get(ObjRef baseObjRef, String typeOfThing);
 
@@ -72,32 +82,41 @@ public interface IXArchADTQuery {
 	//public List<ObjRef> getAll(ObjRef baseObjRef, String typeOfThing, List<String> ids);
 
 	/**
-	 * Gets a set of references to a set of children from an xArch element. Roughly equivalent to:
-	 * baseObject.getAll[TypeOfThing]s(ids); So, if the object referred to by baseObjRef implements a method called
-	 * <CODE>Collection getAllDescriptions();</CODE> then that would be called here as:
-	 * <CODE>ObjRef[] descriptionRefs = getAll(baseObjRef, "Description");</CODE> where baseObjRef is a reference to the
-	 * base object, and the typeOfThing is shown as "Description".
+	 * Gets a set of references to a set of children from an xArch element.
+	 * Roughly equivalent to: baseObject.getAll[TypeOfThing]s(ids); So, if the
+	 * object referred to by baseObjRef implements a method called
+	 * <CODE>Collection getAllDescriptions();</CODE> then that would be called
+	 * here as:
+	 * <CODE>ObjRef[] descriptionRefs = getAll(baseObjRef, "Description");</CODE>
+	 * where baseObjRef is a reference to the base object, and the typeOfThing
+	 * is shown as "Description".
 	 * 
 	 * @param baseObjRef
-	 *            Reference to a base element containing an <CODE>getAll[typeOfThing]s</CODE> method.
+	 *            Reference to a base element containing an
+	 *            <CODE>getAll[typeOfThing]s</CODE> method.
 	 * @param typeOfThing
-	 *            A string containing the type of thing to get. For instance, if the object referred to by baseObjRef
-	 *            contains a method called <CODE>getAllDescriptions</CODE>, then typeOfThing would be "Description".
+	 *            A string containing the type of thing to get. For instance, if
+	 *            the object referred to by baseObjRef contains a method called
+	 *            <CODE>getAllDescriptions</CODE>, then typeOfThing would be
+	 *            "Description".
 	 * @return An array of <CODE>ObjRef</CODE>s referring to the objects gotten.
 	 */
 	public List<ObjRef> getAll(ObjRef baseObjRef, String typeOfThing);
 
 	/**
-	 * Determines if one node in the XML tree is an ancestor of another. This method is more efficient than using the
-	 * output of <CODE>getAllAncestors(...)</CODE>, since <CODE>getAllAncestors(...)</CODE> makes wrapper objects for
-	 * each ancestor, and this one just looks at the underlying XML nodes.
+	 * Determines if one node in the XML tree is an ancestor of another. This
+	 * method is more efficient than using the output of
+	 * <CODE>getAllAncestors(...)</CODE>, since
+	 * <CODE>getAllAncestors(...)</CODE> makes wrapper objects for each
+	 * ancestor, and this one just looks at the underlying XML nodes.
 	 * 
 	 * @param childRef
 	 *            The potential child node.
 	 * @param ancestorRef
 	 *            The potential ancestor node.
-	 * @return <CODE>true</CODE> if the node referred to by <CODE>ancestorRef</CODE> is an ancestor of the node referred
-	 *         to by <CODE>childRef</CODE>, <CODE>false</CODE> otherwise.
+	 * @return <CODE>true</CODE> if the node referred to by
+	 *         <CODE>ancestorRef</CODE> is an ancestor of the node referred to
+	 *         by <CODE>childRef</CODE>, <CODE>false</CODE> otherwise.
 	 */
 	public boolean hasAncestor(ObjRef childRef, ObjRef ancestorRef);
 
@@ -106,8 +125,10 @@ public interface IXArchADTQuery {
 	 * 
 	 * @param childRef
 	 *            The node to check.
-	 * @return <CODE>true</CODE> if the node referred to by <CODE>childRef</CODE> is attached to the root node of the
-	 *         document; (i.e. the root node is an ancestor of the node), <CODE>false</CODE> otherwise.
+	 * @return <CODE>true</CODE> if the node referred to by
+	 *         <CODE>childRef</CODE> is attached to the root node of the
+	 *         document; (i.e. the root node is an ancestor of the node),
+	 *         <CODE>false</CODE> otherwise.
 	 */
 	public boolean isAttached(ObjRef childRef);
 
@@ -116,8 +137,9 @@ public interface IXArchADTQuery {
 	 * 
 	 * @param targetObjRef
 	 *            Reference to target object.
-	 * @return Array of references to ancestors, in order starting with (and including) the target object, then its
-	 *         parent, then its parent's parent, etc.
+	 * @return Array of references to ancestors, in order starting with (and
+	 *         including) the target object, then its parent, then its parent's
+	 *         parent, etc.
 	 */
 	public List<ObjRef> getAllAncestors(ObjRef targetObjRef);
 
@@ -128,7 +150,8 @@ public interface IXArchADTQuery {
 	 * 
 	 * @param targetObjRef
 	 *            Reference to target object.
-	 * @return A reference to its parent in the XML tree, or <CODE>null</CODE> if it has none.
+	 * @return A reference to its parent in the XML tree, or <CODE>null</CODE>
+	 *         if it has none.
 	 */
 	public ObjRef getParent(ObjRef targetObjRef);
 
@@ -142,24 +165,29 @@ public interface IXArchADTQuery {
 	//public XArchADTPath getXArchADTPath(ObjRef ref);
 
 	/**
-	 * Gets an element by its ID within a given xArch tree. If no such element exists, returns <CODE>null</CODE>.
+	 * Gets an element by its ID within a given xArch tree. If no such element
+	 * exists, returns <CODE>null</CODE>.
 	 * 
 	 * @param documentRootRef
-	 *            Reference to the IXArch object that is the root of the tree to search.
+	 *            Reference to the IXArch object that is the root of the tree to
+	 *            search.
 	 * @param id
 	 *            The ID to search for.
-	 * @return reference to the object, or <CODE>null</CODE> if no such object exists.
+	 * @return reference to the object, or <CODE>null</CODE> if no such object
+	 *         exists.
 	 * @exception IllegalArgumentException
 	 *                if <CODE>documentRootRef</CODE> is invalid.
 	 */
 	public ObjRef getByID(ObjRef documentRootRef, String id);
 
 	/**
-	 * Gets an element by its ID within ANY OPEN xArch tree. If no such element exists, returns <CODE>null</CODE>.
+	 * Gets an element by its ID within ANY OPEN xArch tree. If no such element
+	 * exists, returns <CODE>null</CODE>.
 	 * 
 	 * @param id
 	 *            The ID to search for.
-	 * @return reference to the object, or <CODE>null</CODE> if no such object exists.
+	 * @return reference to the object, or <CODE>null</CODE> if no such object
+	 *         exists.
 	 */
 	public ObjRef getByID(String id);
 
@@ -167,11 +195,14 @@ public interface IXArchADTQuery {
 	 * Resolves an href, as might be found in an XLink.
 	 * 
 	 * @param documentRootRef
-	 *            Reference to the IXArch object that provides the context in which the href exists.
+	 *            Reference to the IXArch object that provides the context in
+	 *            which the href exists.
 	 * @param href
-	 *            The href to resolve. May be local or remote. <I>Note:</I> For this version of the library, hrefs must
-	 *            be in the form <CODE>#id</CODE> or <CODE>http://....#id</CODE>
-	 * @return Reference to the referenced (by the href) object, or <CODE>null</CODE>.
+	 *            The href to resolve. May be local or remote. <I>Note:</I> For
+	 *            this version of the library, hrefs must be in the form
+	 *            <CODE>#id</CODE> or <CODE>http://....#id</CODE>
+	 * @return Reference to the referenced (by the href) object, or
+	 *         <CODE>null</CODE>.
 	 */
 	public ObjRef resolveHref(ObjRef documentRootRef, String href);
 
@@ -222,8 +253,9 @@ public interface IXArchADTQuery {
 	public boolean isInstanceOf(ObjRef baseObjRef, String sourceNsURI, String sourceTypeName);
 
 	/**
-	 * Determines if an object of the target type can be assigned to a variable of the source type. In other words,
-	 * determines if the source type is the same as, or a supertype or superinterface of, the target type.
+	 * Determines if an object of the target type can be assigned to a variable
+	 * of the source type. In other words, determines if the source type is the
+	 * same as, or a supertype or superinterface of, the target type.
 	 * 
 	 * @param sourceNsURI
 	 *            source namespace URI
@@ -233,7 +265,8 @@ public interface IXArchADTQuery {
 	 *            target namespace URI
 	 * @param targetTypeName
 	 *            target type name
-	 * @return true if an object of the target type can be assigned to a variable of the source type
+	 * @return true if an object of the target type can be assigned to a
+	 *         variable of the source type
 	 */
 	public boolean isAssignable(String sourceNsURI, String sourceTypeName, String targetNsURI, String targetTypeName);
 

@@ -21,7 +21,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Archlight Issue Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -52,33 +52,34 @@ abstract class ArchlightIssueADTMyxComponentStub extends org.archstudio.myx.fw.A
 
 	/**
 	 * Myx interface issueEvents: <code>OUT_ISSUE_EVENTS</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_ISSUE_EVENTS = MyxUtils.createName("issueEvents");
 	/**
 	 * Myx interface fileEvents: <code>IN_FILE_EVENTS</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_FILE_EVENTS = MyxUtils.createName("fileEvents");
 	/**
 	 * Myx interface issues: <code>IN_ISSUES</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_ISSUES = MyxUtils.createName("issues");
 	/**
 	 * Service object(s) for issueEvents: <code>issueEvents</code>
-	 *
+	 * 
 	 * @see #IN_ISSUE_EVENTS
 	 * @generated
 	 */
 	protected org.archstudio.issueadt.ArchlightIssueADTListener issueEvents = null;
 	/**
-	 * Service object proxy for the issueEvents interface.
-	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
-	 *
+	 * Service object proxy for the issueEvents interface. Calls to the proxy
+	 * object are automatically delegated to all service objects of this
+	 * interface.
+	 * 
 	 * @see #OUT_ISSUE_EVENTS
 	 * @generated
 	 */
@@ -101,7 +102,7 @@ abstract class ArchlightIssueADTMyxComponentStub extends org.archstudio.myx.fw.A
 					});
 	/**
 	 * Service object(s) for issues: <code>issues</code>
-	 *
+	 * 
 	 * @see #IN_ISSUES
 	 * @generated
 	 */
@@ -109,7 +110,7 @@ abstract class ArchlightIssueADTMyxComponentStub extends org.archstudio.myx.fw.A
 
 	/**
 	 * Returns the service object(s) for <code>issueEvents</code>
-	 *
+	 * 
 	 * @see #IN_ISSUE_EVENTS
 	 * @generated
 	 */
@@ -119,7 +120,7 @@ abstract class ArchlightIssueADTMyxComponentStub extends org.archstudio.myx.fw.A
 
 	/**
 	 * Returns the service object(s) for <code>fileEvents</code>
-	 *
+	 * 
 	 * @see #IN_FILE_EVENTS
 	 * @generated
 	 */
@@ -129,7 +130,7 @@ abstract class ArchlightIssueADTMyxComponentStub extends org.archstudio.myx.fw.A
 
 	/**
 	 * Returns the service object(s) for <code>issues</code>
-	 *
+	 * 
 	 * @see #IN_ISSUES
 	 * @generated
 	 */

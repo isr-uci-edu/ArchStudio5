@@ -179,26 +179,26 @@ public class ArchipelagoUtils {
 		return (BNACanvas) editorPane.getProperty(EDITOR_PANE_PROPERTY_BNA_COMPOSITE);
 	}
 
-	public static void sendEventToInnerViews(XArchADTModelEvent evt, IBNAWorld world,
-			TypedThingSetTrackingLogic<IHasWorld> ttstlView) {
-		//Ship the event to subviews
-		IHasWorld[] worldThings = ttstlView.getThings();
-		if (worldThings != null) {
-			for (IHasWorld vt : worldThings) {
-				IBNAWorld innerWorld = vt.getWorld();
-				if (innerWorld != null) {
-					IThingLogicManager innerThingLogicManager = innerWorld.getThingLogicManager();
-					if (innerThingLogicManager != null) {
-						for (IThingLogic innerThingLogic : innerThingLogicManager.getAllThingLogics()) {
-							if (innerThingLogic instanceof IXArchEventHandlerLogic) {
-								((IXArchEventHandlerLogic) innerThingLogic).handleXArchADTModelEvent(evt, innerWorld);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+	//public static void sendEventToInnerViews(XArchADTModelEvent evt, IBNAWorld world,
+	//		TypedThingSetTrackingLogic<IHasWorld> ttstlView) {
+	//	//Ship the event to subviews
+	//	IHasWorld[] worldThings = ttstlView.getThings();
+	//	if (worldThings != null) {
+	//		for (IHasWorld vt : worldThings) {
+	//			IBNAWorld innerWorld = vt.getWorld();
+	//			if (innerWorld != null) {
+	//				IThingLogicManager innerThingLogicManager = innerWorld.getThingLogicManager();
+	//				if (innerThingLogicManager != null) {
+	//					for (IThingLogic innerThingLogic : innerThingLogicManager.getAllThingLogics()) {
+	//						if (innerThingLogic instanceof IXArchEventHandlerLogic) {
+	//							((IXArchEventHandlerLogic) innerThingLogic).handleXArchADTModelEvent(evt, innerWorld);
+	//						}
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
 
 	public static void showUserNotification(IBNAModel m, String text, int worldX, int worldY) {
 		UserNotificationThing unt = new UserNotificationThing();
@@ -268,31 +268,31 @@ public class ArchipelagoUtils {
 		}
 	}
 
-	public static IThing getGlassThing(IBNAModel m, IThing rootThing) {
-		if (rootThing != null && rootThing instanceof IHasAssemblyData) {
-			IHasAssemblyData assemblyRootThing = (IHasAssemblyData) rootThing;
-			String assemblyKind = assemblyRootThing.getAssemblyKind();
-			if (assemblyKind != null) {
-				if (assemblyKind.equals(BoxAssembly.ASSEMBLY_KIND)) {
-					BoxAssembly a = BoxAssembly.attach(m, assemblyRootThing);
-					return a.getBoxGlassThing();
-				}
-				else if (assemblyKind.equals(StickySplineAssembly.ASSEMBLY_KIND)) {
-					StickySplineAssembly a = StickySplineAssembly.attach(m, assemblyRootThing);
-					return a.getSplineGlassThing();
-				}
-				else if (assemblyKind.equals(SplineAssembly.ASSEMBLY_KIND)) {
-					SplineAssembly a = SplineAssembly.attach(m, assemblyRootThing);
-					return a.getSplineGlassThing();
-				}
-				else if (assemblyKind.equals(EndpointAssembly.ASSEMBLY_KIND)) {
-					EndpointAssembly a = EndpointAssembly.attach(m, assemblyRootThing);
-					return a.getEndpointGlassThing();
-				}
-			}
-		}
-		return null;
-	}
+	//	public static IThing getGlassThing(IBNAModel m, IThing rootThing) {
+	//		if (rootThing != null && rootThing instanceof IHasAssemblyData) {
+	//			IHasAssemblyData assemblyRootThing = (IHasAssemblyData) rootThing;
+	//			String assemblyKind = assemblyRootThing.getAssemblyKind();
+	//			if (assemblyKind != null) {
+	//				if (assemblyKind.equals(BoxAssembly.ASSEMBLY_KIND)) {
+	//					BoxAssembly a = BoxAssembly.attach(m, assemblyRootThing);
+	//					return a.getBoxGlassThing();
+	//				}
+	//				else if (assemblyKind.equals(StickySplineAssembly.ASSEMBLY_KIND)) {
+	//					StickySplineAssembly a = StickySplineAssembly.attach(m, assemblyRootThing);
+	//					return a.getSplineGlassThing();
+	//				}
+	//				else if (assemblyKind.equals(SplineAssembly.ASSEMBLY_KIND)) {
+	//					SplineAssembly a = SplineAssembly.attach(m, assemblyRootThing);
+	//					return a.getSplineGlassThing();
+	//				}
+	//				else if (assemblyKind.equals(EndpointAssembly.ASSEMBLY_KIND)) {
+	//					EndpointAssembly a = EndpointAssembly.attach(m, assemblyRootThing);
+	//					return a.getEndpointGlassThing();
+	//				}
+	//			}
+	//		}
+	//		return null;
+	//	}
 
 	public static IStructuredSelection addToSelection(ISelection os, Object[] thingsToAdd) {
 		Set<Object> newSelections = new HashSet<Object>();
@@ -338,14 +338,17 @@ public class ArchipelagoUtils {
 		});
 
 		/*
-		 * final IToolBarManager tb = AS.editor.getActionBars().getToolBarManager();
+		 * final IToolBarManager tb =
+		 * AS.editor.getActionBars().getToolBarManager();
 		 * 
-		 * final ControlContribution cc = new ControlContribution("ZOOM"){ protected Control createControl(Canvas
-		 * parent){ final Control zoomWidget = ZoomUtils.createZoomWidget(parent, bnaCanvas,
-		 * bnaView.getCoordinateMapper()); return zoomWidget; } }; tb.add(cc); tb.markDirty(); tb.update(true);
+		 * final ControlContribution cc = new ControlContribution("ZOOM"){
+		 * protected Control createControl(Canvas parent){ final Control
+		 * zoomWidget = ZoomUtils.createZoomWidget(parent, bnaCanvas,
+		 * bnaView.getCoordinateMapper()); return zoomWidget; } }; tb.add(cc);
+		 * tb.markDirty(); tb.update(true);
 		 * 
-		 * bnaCanvas.addDisposeListener(new DisposeListener(){ public void widgetDisposed(DisposeEvent e){
-		 * tb.remove(cc); tb.update(true); } });
+		 * bnaCanvas.addDisposeListener(new DisposeListener(){ public void
+		 * widgetDisposed(DisposeEvent e){ tb.remove(cc); tb.update(true); } });
 		 */
 	}
 }

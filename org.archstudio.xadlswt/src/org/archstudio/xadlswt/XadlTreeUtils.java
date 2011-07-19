@@ -12,31 +12,27 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.swt.graphics.Image;
 
-public class XadlTreeUtils{
+public class XadlTreeUtils {
 
 	public enum Type {
-		UNKNOWN("unknown"),
-		DOCUMENTROOT("document root element"),
-		XADLELEMENT("xADL element"),
-		STRUCTURE("structure"),
-		COMPONENT("component"),
-		COMPONENT_INTERFACE("component interface"),
-		CONNECTOR("connector"),
-		CONNECTOR_INTERFACE("connector interface");
-		
+		UNKNOWN("unknown"), DOCUMENTROOT("document root element"), XADLELEMENT("xADL element"), STRUCTURE("structure"), COMPONENT(
+				"component"), COMPONENT_INTERFACE("component interface"), CONNECTOR("connector"), CONNECTOR_INTERFACE(
+				"connector interface");
+
 		private String description;
-		private Type(String description){
+
+		private Type(String description) {
 			this.description = description;
 		}
-		
-		public String getDescription(){
+
+		public String getDescription() {
 			return description;
 		}
 	}
 
-	protected static Map<String,Type> pathToTypeMap = new HashMap<String,Type>();
-	
-	static{
+	protected static Map<String, Type> pathToTypeMap = new HashMap<String, Type>();
+
+	static {
 		pathToTypeMap.put("", Type.DOCUMENTROOT);
 		pathToTypeMap.put("xADL", Type.XADLELEMENT);
 		pathToTypeMap.put("xADL/structure", Type.STRUCTURE);
@@ -45,16 +41,16 @@ public class XadlTreeUtils{
 		pathToTypeMap.put("xADL/structure/connector", Type.CONNECTOR);
 		pathToTypeMap.put("xADL/structure/connector/interface", Type.CONNECTOR_INTERFACE);
 	}
-	
-	public static Type getType(IXArchADT xarch, ObjRef ref){
+
+	public static Type getType(IXArchADT xarch, ObjRef ref) {
 		String pathString = xarch.getTagsOnlyPathString(ref);
 		Type type = pathToTypeMap.get(pathString);
 		return type == null ? Type.UNKNOWN : type;
 	}
-	
-	public static Image getIconForType(IResources resources, Type type){
+
+	public static Image getIconForType(IResources resources, Type type) {
 		ArchStudioCommonResources.init(resources);
-		switch(type){
+		switch (type) {
 		case UNKNOWN:
 			return null;
 		case DOCUMENTROOT:
@@ -74,15 +70,16 @@ public class XadlTreeUtils{
 			return null;
 		}
 	}
-	
-	public static List<String> typesToStrings(Set<Type> types){
+
+	public static List<String> typesToStrings(Set<Type> types) {
 		List<String> stringList = new ArrayList<String>();
-		
-		for(Type t : types) {
+
+		for (Type t : types) {
 			stringList.add(t.getDescription());
 		}
 		return stringList;
 	}
 
-	private XadlTreeUtils(){}
+	private XadlTreeUtils() {
+	}
 }

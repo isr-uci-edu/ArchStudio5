@@ -8,7 +8,7 @@ Export-Package: org.archstudio.filemanager.core
 Manifest-Version: 1.0
 Require-Bundle: org.archstudio.filemanager,
  org.archstudio.myx.fw,
- org.archstudio.sysutils,
+ org.archstudio.utils.system,
  org.archstudio.xadl,
  org.archstudio.xadl3.xadlcore,
  org.archstudio.xarchadt,

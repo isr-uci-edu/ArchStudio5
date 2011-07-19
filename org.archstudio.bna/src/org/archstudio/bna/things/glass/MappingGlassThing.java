@@ -1,6 +1,5 @@
 package org.archstudio.bna.things.glass;
 
-
 public class MappingGlassThing extends AbstractMappingThing implements IHasMutableInternalWorldMapping {
 
 	public MappingGlassThing(Object id) {

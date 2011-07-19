@@ -10,16 +10,15 @@ import java.util.Map;
 
 import javax.xml.parsers.SAXParserFactory;
 
-import org.archstudio.myx.myxgen.extension.MyxGenBrick;
-import org.archstudio.myx.myxgen.extension.MyxGenExtensions;
+import org.archstudio.myxgen.MyxGenBrick;
 import org.archstudio.myxgen.core.Activator;
+import org.archstudio.myxgen.eclipse.extension.MyxGenExtensions;
 import org.archstudio.myxgen.jet.util.TextUtil;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.ToolFactory;
@@ -85,7 +84,7 @@ public class MyxCodeGenerator {
 					if (s.getException() != null)
 						s.getException().printStackTrace();
 				}
-				throw new JETException(status.getMessage(), status.getException());
+				throw new Exception(status.getMessage(), status.getException());
 			}
 
 			IFile generatedFile = javaProject.getProject().getFile(

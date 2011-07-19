@@ -16,7 +16,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Client Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -47,19 +47,19 @@ abstract class ChatClientMyxComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Myx interface chat: <code>IN_CHAT</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_CHAT = MyxUtils.createName("chat");
 	/**
 	 * Myx interface chatEvents: <code>IN_CHAT_EVENTS</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_CHAT_EVENTS = MyxUtils.createName("chatEvents");
 	/**
 	 * Service object(s) for chat: <code>chat</code>
-	 *
+	 * 
 	 * @see #IN_CHAT
 	 * @generated
 	 */
@@ -67,7 +67,7 @@ abstract class ChatClientMyxComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Returns the service object(s) for <code>chat</code>
-	 *
+	 * 
 	 * @see #IN_CHAT
 	 * @generated
 	 */
@@ -77,7 +77,7 @@ abstract class ChatClientMyxComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Returns the service object(s) for <code>chatEvents</code>
-	 *
+	 * 
 	 * @see #IN_CHAT_EVENTS
 	 * @generated
 	 */

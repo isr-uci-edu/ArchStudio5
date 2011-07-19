@@ -17,23 +17,34 @@
       [Enter License Description here.]
    </license>
 
+   <includes
+         id="org.archstudio.dblgen.headless.feature"
+         version="0.0.0"/>
+
    <requires>
+      <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.swt"/>
       <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.emf.importer"/>
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.pde"/>
       <import plugin="org.eclipse.pde.core"/>
-      <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.xsd"/>
       <import plugin="org.eclipse.xsd.ecore.importer"/>
-      <import plugin="org.archstudio.osgiutils" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.osgi" version="3.7.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
-         id="org.archstudio.dblgen.core"
+         id="org.archstudio.dblgen.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.eclipse.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -52,10 +63,32 @@
          version="0.0.0"/>
 
    <plugin
-         id="org.archstudio.eclipse"
+         id="org.archstudio.dblgen.core"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.eclipse"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.osgi"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.system"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.archstudio.myx.fw"
@@ -65,24 +98,6 @@
 
    <plugin
          id="org.archstudio.myxgen"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.sysutils"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.eclipseutils"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.archstudio.osgiutils"
          download-size="0"
          install-size="0"
          version="0.0.0"/>

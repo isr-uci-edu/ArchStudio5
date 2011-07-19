@@ -8,24 +8,24 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.xarchadt.ObjRef;
 
-public class StructureEditDirectionLogic extends AbstractEditDirectionLogic{
-	
-	public StructureEditDirectionLogic(ArchipelagoServices AS, ObjRef xArchRef){
+public class StructureEditDirectionLogic extends AbstractEditDirectionLogic {
+
+	public StructureEditDirectionLogic(ArchipelagoServices AS, ObjRef xArchRef) {
 		super(AS, xArchRef);
 	}
-	
-	public boolean matches(IBNAView view, IThing t){
-		if(t instanceof EndpointGlassThing){
+
+	public boolean matches(IBNAView view, IThing t) {
+		if (t instanceof EndpointGlassThing) {
 			IThing pt = view.getWorld().getBNAModel().getParentThing(t);
-			if(pt != null){
+			if (pt != null) {
 				return StructureMapper.isInterfaceAssemblyRootThing(pt);
 			}
 		}
 		return false;
 	}
-	
-	public String getXArchID(IBNAView view, IThing t){
-		if(t instanceof EndpointGlassThing){
+
+	public String getXArchID(IBNAView view, IThing t) {
+		if (t instanceof EndpointGlassThing) {
 			IThing parentThing = view.getWorld().getBNAModel().getParentThing(t);
 			return parentThing.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 		}

@@ -30,10 +30,13 @@ public class FocusEditorUtils {
 	}
 
 	private static void _focusEditor(IXArchADT xarch, ObjRef ref, String editorID, String editorName) {
-		if (ref == null) return;
-		if (!xarch.isValidObjRef(ref)) return;
+		if (ref == null)
+			return;
+		if (!xarch.isValidObjRef(ref))
+			return;
 		ObjRef xArchRef = xarch.getDocumentRootRef(ref);
-		if (!xarch.isValidObjRef(xArchRef)) return;
+		if (!xarch.isValidObjRef(xArchRef))
+			return;
 
 		URI uri = xarch.getURI(xArchRef);
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
@@ -51,7 +54,8 @@ public class FocusEditorUtils {
 				if (page != null) {
 					try {
 						IFileEditorInput fileEditorInput = new FileEditorInput(file);
-						IEditorPart editorPart = page.openEditor(fileEditorInput, editorID, true, IWorkbenchPage.MATCH_ID | IWorkbenchPage.MATCH_INPUT);
+						IEditorPart editorPart = page.openEditor(fileEditorInput, editorID, true,
+								IWorkbenchPage.MATCH_ID | IWorkbenchPage.MATCH_INPUT);
 						if (editorPart instanceof IFocusEditorListener) {
 							((IFocusEditorListener) editorPart).focusEditor(editorName, new ObjRef[] { ref });
 						}
@@ -63,6 +67,5 @@ public class FocusEditorUtils {
 			}
 		}
 	}
-
 
 }

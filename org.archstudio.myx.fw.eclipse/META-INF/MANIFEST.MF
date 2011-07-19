@@ -6,7 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.myx.fw.eclipse.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.myx.fw,
- org.archstudio.eclipse;bundle-version="5.0.0"
+ org.archstudio.eclipse,
+ org.archstudio.utils.osgi
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.archstudio.myx.fw.eclipse

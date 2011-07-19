@@ -52,7 +52,8 @@ public class GraphLayoutDialog extends Dialog {
 				}
 			}
 
-			public GraphLayout layoutGraph(String engineID, ObjRef rootRef, GraphLayoutParameters params) throws GraphLayoutException {
+			public GraphLayout layoutGraph(String engineID, ObjRef rootRef, GraphLayoutParameters params)
+					throws GraphLayoutException {
 				System.err.println("laying out now.");
 				return null;
 			}
@@ -314,7 +315,8 @@ public class GraphLayoutDialog extends Dialog {
 		shell.pack(true);
 	}
 
-	protected List<NamedGraphLayoutParameters> presetList = Collections.synchronizedList(new ArrayList<NamedGraphLayoutParameters>());
+	protected List<NamedGraphLayoutParameters> presetList = Collections
+			.synchronizedList(new ArrayList<NamedGraphLayoutParameters>());
 
 	protected void addPreset(String name, GraphLayoutParameters params) {
 		presetList.add(new NamedGraphLayoutParameters(name, params));
@@ -334,7 +336,8 @@ public class GraphLayoutDialog extends Dialog {
 		}
 	}
 
-	protected List<IGraphLayoutParameterPanelProvider> panelProviderList = Collections.synchronizedList(new ArrayList<IGraphLayoutParameterPanelProvider>());
+	protected List<IGraphLayoutParameterPanelProvider> panelProviderList = Collections
+			.synchronizedList(new ArrayList<IGraphLayoutParameterPanelProvider>());
 
 	protected void addPanelProvider(IGraphLayoutParameterPanelProvider panelProvider) {
 		panelProviderList.add(panelProvider);

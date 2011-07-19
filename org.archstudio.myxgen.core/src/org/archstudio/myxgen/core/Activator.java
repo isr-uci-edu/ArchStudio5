@@ -1,10 +1,10 @@
 package org.archstudio.myxgen.core;
 
-import org.archstudio.eclipse.AbstractActivator;
+import org.archstudio.utils.osgi.AbstractActivator;
 
 public class Activator extends AbstractActivator {
 
-	private static Activator singleton = null;
+	private static Activator singleton;
 
 	public Activator() {
 		singleton = this;

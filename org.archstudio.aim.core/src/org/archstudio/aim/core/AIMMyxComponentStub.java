@@ -17,7 +17,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "AIM Myx Component Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -48,40 +48,40 @@ abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 
 	/**
 	 * Myx interface aim: <code>IN_AIM</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_AIM = MyxUtils.createName("aim");
 	/**
 	 * Myx interface myxRuntime: <code>OUT_MYX_RUNTIME</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_MYX_RUNTIME = MyxUtils.createName("myxRuntime");
 	/**
 	 * Myx interface xarch: <code>OUT_XARCH</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_XARCH = MyxUtils.createName("xarch");
 
 	/**
 	 * Service object(s) for aim: <code>aim</code>
-	 *
+	 * 
 	 * @see #IN_AIM
 	 * @generated
 	 */
 	protected org.archstudio.aim.IAIM aim = null;
 	/**
 	 * Service object(s) for myxRuntime: <code>myxRuntime</code>
-	 *
+	 * 
 	 * @see #OUT_MYX_RUNTIME
 	 * @generated
 	 */
 	protected org.archstudio.myx.fw.IMyxRuntime myxRuntime = null;
 	/**
 	 * Service object(s) for xarch: <code>xarch</code>
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */
@@ -89,7 +89,7 @@ abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 
 	/**
 	 * Returns the service object(s) for <code>aim</code>
-	 *
+	 * 
 	 * @see #OUT_AIM
 	 * @generated
 	 */
@@ -99,7 +99,7 @@ abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 
 	/**
 	 * Returns the service object(s) for <code>myxRuntime</code>
-	 *
+	 * 
 	 * @see #OUT_MYX_RUNTIME
 	 * @generated
 	 */
@@ -109,7 +109,7 @@ abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 
 	/**
 	 * Returns the service object(s) for <code>xarch</code>
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */

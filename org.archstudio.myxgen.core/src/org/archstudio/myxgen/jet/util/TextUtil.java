@@ -12,8 +12,8 @@ public class TextUtil {
 	}
 
 	/**
-	 * Returns the package name from the fully qualified class name. For example, "package.name" will be returned from
-	 * "package.name.Foo".
+	 * Returns the package name from the fully qualified class name. For
+	 * example, "package.name" will be returned from "package.name.Foo".
 	 * 
 	 * @param javaFQClass
 	 * @return
@@ -28,7 +28,8 @@ public class TextUtil {
 	}
 
 	/**
-	 * Creates a upper case hyphenated word. For example, "XARCH_FLAT_EVENTS" will be created from "xarchFlatEvents".
+	 * Creates a upper case hyphenated word. For example, "XARCH_FLAT_EVENTS"
+	 * will be created from "xarchFlatEvents".
 	 * 
 	 * @param str
 	 * @return

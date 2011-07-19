@@ -1,7 +1,7 @@
 package org.archstudio.dblgen;
 
 import org.archstudio.dblgen.builder.Xadl3SchemaBuilder;
-import org.archstudio.eclipse.AbstractNature;
+import org.archstudio.utils.eclipse.AbstractNature;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.CoreException;
 
@@ -18,7 +18,7 @@ public class Xadl3SchemaNature extends AbstractNature {
 		super.configure();
 
 		IFolder modelFolder = project.getFolder("model");
-		if(!modelFolder.exists())
+		if (!modelFolder.exists())
 			modelFolder.create(true, true, null);
 	}
 }

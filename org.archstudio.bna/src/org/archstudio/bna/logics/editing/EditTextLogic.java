@@ -61,7 +61,7 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 		if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) <= 1) {
 			MAIN: for (IThing thing : things) {
 				for (IThing assemblyPartThing : Assemblies.getRelatedParts(view.getBNAWorld().getBNAModel(), thing)) {
-					if (UserEditableUtils.isEditableForAnyQualities(assemblyPartThing,
+					if (assemblyPartThing instanceof IHasMutableText && UserEditableUtils.isEditableForAnyQualities(assemblyPartThing,
 							IHasMutableText.USER_MAY_EDIT_TEXT, IHasToolTip.USER_MAY_EDIT_TOOL_TIP)) {
 						editThing = assemblyPartThing;
 						break MAIN;

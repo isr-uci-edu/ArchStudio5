@@ -111,7 +111,8 @@ public class SchematronUtils {
 		return new DOMResult();
 	}
 
-	public static Document parseToDocument(java.io.Reader r) throws SAXException, IOException, ParserConfigurationException {
+	public static Document parseToDocument(java.io.Reader r) throws SAXException, IOException,
+			ParserConfigurationException {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setNamespaceAware(true);
 		dbf.setValidating(false);

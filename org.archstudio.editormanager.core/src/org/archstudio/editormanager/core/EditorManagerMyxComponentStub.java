@@ -21,7 +21,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Editor Manager Myx Component"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -52,44 +52,57 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 
 	/**
 	 * Myx name for the <code>editorManager</code> interface.
-	 *
-	 * MyxGenInterface[name=editorManager,direction=in,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.editormanager.IEditorManager,description=null]
+	 * 
+	 * MyxGenInterface[name=editorManager,direction=in,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .editormanager.IEditorManager,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_EDITOR_MANAGER = MyxUtils.createName("editorManager");
 	/**
 	 * Myx name for the <code>focusEditorEvents</code> interface.
-	 *
-	 * MyxGenInterface[name=focusEditorEvents,direction=out,single=true,serviceObjectDelegate=events,generateGetter=true,className=org.archstudio.editors.IFocusEditorListener,description=null]
+	 * 
+	 * MyxGenInterface[name=focusEditorEvents,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =events,generateGetter=true,className=org.archstudio.
+	 * editors.IFocusEditorListener,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_FOCUS_EDITOR_EVENTS = MyxUtils.createName("focusEditorEvents");
 	/**
 	 * Myx name for the <code>preferences</code> interface.
-	 *
-	 * MyxGenInterface[name=preferences,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.eclipse.jface.preference.IPreferenceStore,description=null]
+	 * 
+	 * MyxGenInterface[name=preferences,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.eclipse.jface
+	 * .preference.IPreferenceStore,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 
 	/**
 	 * Service object(s) for the editorManager interface.
-	 *
+	 * 
 	 * @see #IN_EDITOR_MANAGER
 	 * @generated
 	 */
 	protected org.archstudio.editormanager.IEditorManager editorManager = null;
 	/**
 	 * Service object(s) for the focusEditorEvents interface.
-	 *
+	 * 
 	 * @see #OUT_FOCUS_EDITOR_EVENTS
 	 * @generated
 	 */
 	protected org.archstudio.eclipse.ui.IFocusEditorListener focusEditorEvents = null;
 	/**
-	 * Service object proxy for the focusEditorEvents interface.
-	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
-	 *
+	 * Service object proxy for the focusEditorEvents interface. Calls to the
+	 * proxy object are automatically delegated to all service objects of this
+	 * interface.
+	 * 
 	 * @see #OUT_FOCUS_EDITOR_EVENTS
 	 * @generated
 	 */
@@ -112,15 +125,16 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 					});
 	/**
 	 * Service object(s) for the preferences interface.
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */
 	protected org.eclipse.jface.preference.IPreferenceStore preferences = null;
 
 	/**
-	 * Returns the service object(s) for the <code>editorManager</code> interface.
-	 *
+	 * Returns the service object(s) for the <code>editorManager</code>
+	 * interface.
+	 * 
 	 * @see #IN_EDITOR_MANAGER
 	 * @generated
 	 */
@@ -129,8 +143,9 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 	}
 
 	/**
-	 * Returns the service object(s) for the <code>focusEditorEvents</code> interface.
-	 *
+	 * Returns the service object(s) for the <code>focusEditorEvents</code>
+	 * interface.
+	 * 
 	 * @see #OUT_FOCUS_EDITOR_EVENTS
 	 * @generated
 	 */
@@ -140,7 +155,7 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 
 	/**
 	 * Returns the service object(s) for the <code>preferences</code> interface.
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */

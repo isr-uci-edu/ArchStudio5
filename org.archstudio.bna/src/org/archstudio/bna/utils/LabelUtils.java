@@ -9,8 +9,9 @@ import org.eclipse.swt.graphics.TextLayout;
 public class LabelUtils {
 
 	/**
-	 * Updates the {@link TextLayout} so that it fits within its given width and specified height, returning the
-	 * boundaries of the resulting layout; or <code>null</code> if none exists.
+	 * Updates the {@link TextLayout} so that it fits within its given width and
+	 * specified height, returning the boundaries of the resulting layout; or
+	 * <code>null</code> if none exists.
 	 */
 	public static Rectangle setFontToRender(IResources r, TextLayout textLayout, int maxHeight, String name, int size,
 			FontStyle style) {
@@ -23,9 +24,10 @@ public class LabelUtils {
 		}
 
 		/*
-		 * It doesn't fit, height-wise, when we lay out the text. We need to find the largest font size than will fit
-		 * when the text is laid out, but which is within the maximum height specified. We essentially do a binary
-		 * search for a valid font size.
+		 * It doesn't fit, height-wise, when we lay out the text. We need to
+		 * find the largest font size than will fit when the text is laid out,
+		 * but which is within the maximum height specified. We essentially do a
+		 * binary search for a valid font size.
 		 */
 		int maxSize = size;
 		int minSize = 1;

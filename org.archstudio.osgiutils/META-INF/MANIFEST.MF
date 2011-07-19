@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: OSGi Utilities
-Bundle-SymbolicName: org.archstudio.osgiutils;singleton:=true
-Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.osgi;bundle-version="3.7.0"
-Export-Package: org.archstudio.osgiutils

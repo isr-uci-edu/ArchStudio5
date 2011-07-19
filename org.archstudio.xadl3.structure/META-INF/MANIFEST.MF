@@ -11,5 +11,5 @@ Export-Package: org.archstudio.xadl3.structure_3_0,
  org.archstudio.xadl3.structure_3_0.util
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
- org.archstudio.xadl3.xadlcore;bundle-version="5.0.0"
+ org.archstudio.xadl3.xadlcore
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

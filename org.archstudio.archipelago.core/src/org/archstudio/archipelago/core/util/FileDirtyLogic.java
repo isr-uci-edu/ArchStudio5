@@ -17,44 +17,44 @@ import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.things.shapes.ReshapeHandleThing;
 import org.archstudio.xarchadt.ObjRef;
 
-public class FileDirtyLogic extends AbstractThingLogic implements IBNAModelListener{
+public class FileDirtyLogic extends AbstractThingLogic implements IBNAModelListener {
 	protected ArchipelagoServices AS = null;
 	protected ObjRef xArchRef = null;
 
 	protected static Set<String> propertyNameSet = new HashSet<String>();
-	
-	static{
-		propertyNameSet.add(IHasBoundingBox.BOUNDING_BOX_PROPERTY_NAME);
-		propertyNameSet.add(IHasAnchorPoint.ANCHOR_POINT_PROPERTY_NAME);
+
+	static {
+		propertyNameSet.add(IHasBoundingBox.BOUNDING_BOX_KEY);
+		propertyNameSet.add(IHasAnchorPoint.ANCHOR_POINT_KEY);
 		propertyNameSet.add(IHasMidpoints.MIDPOINTS_PROPERTY_NAME);
 		propertyNameSet.add(IHasEndpoints.ENDPOINT_1_PROPERTY_NAME);
 		propertyNameSet.add(IHasEndpoints.ENDPOINT_2_PROPERTY_NAME);
 		propertyNameSet.add(IHasColor.COLOR_PROPERTY_NAME);
 	}
-	
-	public FileDirtyLogic(ArchipelagoServices services, ObjRef xArchRef){
+
+	public FileDirtyLogic(ArchipelagoServices services, ObjRef xArchRef) {
 		this.AS = services;
 		this.xArchRef = xArchRef;
 	}
-	
-	public void bnaModelChanged(BNAModelEvent evt){
+
+	public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent tevt = evt.getThingEvent();
-		if(tevt != null){
+		if (tevt != null) {
 			IThing targetThing = tevt.getTargetThing();
-			if(targetThing != null){
-				if(targetThing instanceof MarqueeBoxBorderThing){
+			if (targetThing != null) {
+				if (targetThing instanceof MarqueeBoxBorderThing) {
 					return;
 				}
-				if(targetThing instanceof ReshapeHandleThing){
+				if (targetThing instanceof ReshapeHandleThing) {
 					return;
 				}
-				if(targetThing instanceof ReshapeHandleGlassThing){
+				if (targetThing instanceof ReshapeHandleGlassThing) {
 					return;
 				}
 			}
 			String propertyName = tevt.getPropertyName();
-			if(propertyName != null){
-				if(propertyNameSet.contains(propertyName)){
+			if (propertyName != null) {
+				if (propertyNameSet.contains(propertyName)) {
 					AS.fileman.makeDirty(xArchRef);
 				}
 			}

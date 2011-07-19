@@ -22,7 +22,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Archlight Test ADT Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -53,37 +53,45 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 
 	/**
 	 * Myx name for the <code>tests</code> interface.
-	 *
-	 * MyxGenInterface[name=tests,direction=in,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.testadt.IArchlightTestADT,description=null]
+	 * 
+	 * MyxGenInterface[name=tests,direction=in,single=true,serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio.testadt.
+	 * IArchlightTestADT,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_TESTS = MyxUtils.createName("tests");
 	/**
 	 * Myx name for the <code>testEvents</code> interface.
-	 *
-	 * MyxGenInterface[name=testEvents,direction=out,single=false,serviceObjectDelegate=events,generateGetter=true,className=org.archstudio.testadt.ArchlightTestADTListener,description=null]
+	 * 
+	 * MyxGenInterface[name=testEvents,direction=out,single=false,
+	 * serviceObjectDelegate
+	 * =events,generateGetter=true,className=org.archstudio.
+	 * testadt.ArchlightTestADTListener,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_TEST_EVENTS = MyxUtils.createName("testEvents");
 
 	/**
 	 * Service object(s) for the tests interface.
-	 *
+	 * 
 	 * @see #IN_TESTS
 	 * @generated
 	 */
 	protected org.archstudio.testadt.IArchlightTestADT tests = null;
 	/**
 	 * Service object(s) for the testEvents interface.
-	 *
+	 * 
 	 * @see #OUT_TEST_EVENTS
 	 * @generated
 	 */
 	protected final Collection<org.archstudio.testadt.ArchlightTestADTListener> testEvents = new CopyOnWriteArrayList<org.archstudio.testadt.ArchlightTestADTListener>();
 	/**
-	 * Service object proxy for the testEvents interface.
-	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
-	 *
+	 * Service object proxy for the testEvents interface. Calls to the proxy
+	 * object are automatically delegated to all service objects of this
+	 * interface.
+	 * 
 	 * @see #OUT_TEST_EVENTS
 	 * @generated
 	 */
@@ -106,7 +114,7 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 
 	/**
 	 * Returns the service object(s) for the <code>tests</code> interface.
-	 *
+	 * 
 	 * @see #IN_TESTS
 	 * @generated
 	 */
@@ -116,7 +124,7 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 
 	/**
 	 * Returns the service object(s) for the <code>testEvents</code> interface.
-	 *
+	 * 
 	 * @see #OUT_TEST_EVENTS
 	 * @generated
 	 */
@@ -125,9 +133,10 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 	}
 
 	/**
-	 * Returns the proxy service object for the <code>testEvents</code> interface.
-	 *
-	 * @see #org.archstudio.testadt.ArchlightTestADTListener testEventsProxy
+	 * Returns the proxy service object for the <code>testEvents</code>
+	 * interface.
+	 * 
+	 * @see #org testEventsProxy
 	 * @see #OUT_TEST_EVENTS
 	 * @generated
 	 */

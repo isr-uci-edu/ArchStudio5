@@ -1,40 +1,41 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2007 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * Copyright (c) 2000, 2007 IBM Corporation and others. All rights reserved.
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ * and is available at http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors:
- *     IBM Corporation - initial API and implementation
+ * Contributors: IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.archstudio.myx.fw;
-
 
 /**
  * For new implementations consider using {@link SubMonitor}.
  * 
- * A progress monitor that uses a given amount of work ticks
- * from a parent monitor. It can be used as follows:
+ * A progress monitor that uses a given amount of work ticks from a parent
+ * monitor. It can be used as follows:
+ * 
  * <pre>
- *     try {
- *         pm.beginTask("Main Task", 100);
- *         doSomeWork(pm, 30);
- *         SubProgressMonitor subMonitor= new SubProgressMonitor(pm, 40);
- *         try {
- *             subMonitor.beginTask("", 300);
- *             doSomeWork(subMonitor, 300);
- *         } finally {
- *             subMonitor.done();
- *         }
- *         doSomeWork(pm, 30);
- *     } finally {
- *         pm.done();
- *     }
+ * try {
+ * 	pm.beginTask(&quot;Main Task&quot;, 100);
+ * 	doSomeWork(pm, 30);
+ * 	SubProgressMonitor subMonitor = new SubProgressMonitor(pm, 40);
+ * 	try {
+ * 		subMonitor.beginTask(&quot;&quot;, 300);
+ * 		doSomeWork(subMonitor, 300);
+ * 	}
+ * 	finally {
+ * 		subMonitor.done();
+ * 	}
+ * 	doSomeWork(pm, 30);
+ * }
+ * finally {
+ * 	pm.done();
+ * }
  * </pre>
  * <p>
  * This class can be used without OSGi running.
- * </p><p>
+ * </p>
+ * <p>
  * This class may be instantiated or subclassed by clients.
  * </p>
  * 
@@ -43,16 +44,16 @@ package org.archstudio.myx.fw;
 public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 
 	/**
-	 * Style constant indicating that calls to <code>subTask</code>
-	 * should not have any effect.
-	 *
+	 * Style constant indicating that calls to <code>subTask</code> should not
+	 * have any effect.
+	 * 
 	 * @see #SubProgressMonitor(IMyxProgressMonitor,int,int)
 	 */
 	public static final int SUPPRESS_SUBTASK_LABEL = 1 << 1;
 	/**
-	 * Style constant indicating that the main task label 
-	 * should be prepended to the subtask label.
-	 *
+	 * Style constant indicating that the main task label should be prepended to
+	 * the subtask label.
+	 * 
 	 * @see #SubProgressMonitor(IMyxProgressMonitor,int,int)
 	 */
 	public static final int PREPEND_MAIN_LABEL_TO_SUBTASK = 1 << 2;
@@ -67,31 +68,34 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	private String mainTaskLabel;
 
 	/**
-	 * Creates a new sub-progress monitor for the given monitor. The sub 
-	 * progress monitor uses the given number of work ticks from its 
-	 * parent monitor.
-	 *
-	 * @param monitor the parent progress monitor
-	 * @param ticks the number of work ticks allocated from the
-	 *    parent monitor
+	 * Creates a new sub-progress monitor for the given monitor. The sub
+	 * progress monitor uses the given number of work ticks from its parent
+	 * monitor.
+	 * 
+	 * @param monitor
+	 *            the parent progress monitor
+	 * @param ticks
+	 *            the number of work ticks allocated from the parent monitor
 	 */
 	public MyxSubProgressMonitor(IMyxProgressMonitor monitor, int ticks) {
 		this(monitor, ticks, 0);
 	}
 
 	/**
-	 * Creates a new sub-progress monitor for the given monitor. The sub 
-	 * progress monitor uses the given number of work ticks from its 
-	 * parent monitor.
-	 *
-	 * @param monitor the parent progress monitor
-	 * @param ticks the number of work ticks allocated from the
-	 *    parent monitor
-	 * @param style one of
-	 *    <ul>
-	 *    <li> <code>SUPPRESS_SUBTASK_LABEL</code> </li>
-	 *    <li> <code>PREPEND_MAIN_LABEL_TO_SUBTASK</code> </li>
-	 *    </ul>
+	 * Creates a new sub-progress monitor for the given monitor. The sub
+	 * progress monitor uses the given number of work ticks from its parent
+	 * monitor.
+	 * 
+	 * @param monitor
+	 *            the parent progress monitor
+	 * @param ticks
+	 *            the number of work ticks allocated from the parent monitor
+	 * @param style
+	 *            one of
+	 *            <ul>
+	 *            <li> <code>SUPPRESS_SUBTASK_LABEL</code></li>
+	 *            <li> <code>PREPEND_MAIN_LABEL_TO_SUBTASK</code></li>
+	 *            </ul>
 	 * @see #SUPPRESS_SUBTASK_LABEL
 	 * @see #PREPEND_MAIN_LABEL_TO_SUBTASK
 	 */
@@ -101,15 +105,16 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 		this.style = style;
 	}
 
-	/* (Intentionally not javadoc'd)
-	 * Implements the method <code>IMyxProgressMonitor.beginTask</code>.
-	 *
-	 * Starts a new main task. Since this progress monitor is a sub
-	 * progress monitor, the given name will NOT be used to update
-	 * the progress bar's main task label. That means the given 
-	 * string will be ignored. If style <code>PREPEND_MAIN_LABEL_TO_SUBTASK
-	 * <code> is specified, then the given string will be prepended to
-	 * every string passed to <code>subTask(String)</code>.
+	/*
+	 * (Intentionally not javadoc'd) Implements the method
+	 * <code>IMyxProgressMonitor.beginTask</code>.
+	 * 
+	 * Starts a new main task. Since this progress monitor is a sub progress
+	 * monitor, the given name will NOT be used to update the progress bar's
+	 * main task label. That means the given string will be ignored. If style
+	 * <code>PREPEND_MAIN_LABEL_TO_SUBTASK <code> is specified, then the given
+	 * string will be prepended to every string passed to
+	 * <code>subTask(String)</code>.
 	 */
 	public void beginTask(String name, int totalWork) {
 		nestedBeginTasks++;
@@ -126,8 +131,9 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 		}
 	}
 
-	/* (Intentionally not javadoc'd)
-	 * Implements the method <code>IMyxProgressMonitor.done</code>.
+	/*
+	 * (Intentionally not javadoc'd) Implements the method
+	 * <code>IMyxProgressMonitor.done</code>.
 	 */
 	public void done() {
 		// Ignore if more done calls than beginTask calls or if we are still
@@ -144,8 +150,9 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 		sentToParent = 0;
 	}
 
-	/* (Intentionally not javadoc'd)
-	 * Implements the internal method <code>IMyxProgressMonitor.internalWorked</code>.
+	/*
+	 * (Intentionally not javadoc'd) Implements the internal method
+	 * <code>IMyxProgressMonitor.internalWorked</code>.
 	 */
 	public void internalWorked(double work) {
 		if (usedUp || nestedBeginTasks != 1) {
@@ -160,8 +167,9 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 		}
 	}
 
-	/* (Intentionally not javadoc'd)
-	 * Implements the method <code>IMyxProgressMonitor.subTask</code>.
+	/*
+	 * (Intentionally not javadoc'd) Implements the method
+	 * <code>IMyxProgressMonitor.subTask</code>.
 	 */
 	public void subTask(String name) {
 		if ((style & SUPPRESS_SUBTASK_LABEL) != 0) {
@@ -175,8 +183,9 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 		super.subTask(label);
 	}
 
-	/* (Intentionally not javadoc'd)
-	 * Implements the method <code>IMyxProgressMonitor.worked</code>.
+	/*
+	 * (Intentionally not javadoc'd) Implements the method
+	 * <code>IMyxProgressMonitor.worked</code>.
 	 */
 	public void worked(int work) {
 		internalWorked(work);

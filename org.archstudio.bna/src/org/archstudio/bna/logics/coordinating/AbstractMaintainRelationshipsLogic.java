@@ -23,11 +23,14 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
 /**
- * This class maintains relationships between a single source thing and multiple target things--where changes to the
- * source thing should trigger updates to the target thing(s). The target thing(s) must reference the source thing using
- * a {@link IThingRefKey} or by the byThingRefKey property. Source things may be in a different {@link IBNAModel} than
- * the logic and target things. This allows for mirroring values from things in other BNA worlds, such as spline end
- * points of an outer world, being stuck to source things in a sub-world.
+ * This class maintains relationships between a single source thing and multiple
+ * target things--where changes to the source thing should trigger updates to
+ * the target thing(s). The target thing(s) must reference the source thing
+ * using a {@link IThingRefKey} or by the byThingRefKey property. Source things
+ * may be in a different {@link IBNAModel} than the logic and target things.
+ * This allows for mirroring values from things in other BNA worlds, such as
+ * spline end points of an outer world, being stuck to source things in a
+ * sub-world.
  */
 public abstract class AbstractMaintainRelationshipsLogic<S extends IThing, T extends IThing> extends AbstractThingLogic
 		implements IBNASynchronousModelListener {

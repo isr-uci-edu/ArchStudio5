@@ -2,7 +2,7 @@ package org.archstudio.noticeview.core;
 
 /**
  * Myx brick: "Archlight Notice View Impl"
- *
+ * 
  * @see org.archstudio.noticeview.core.ArchlightNoticeViewMyxComponentStub
  * @generated
  */

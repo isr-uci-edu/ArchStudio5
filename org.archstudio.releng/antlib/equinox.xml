@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="edu.uci.isr.infrastructure.bad.buckminster.antlib.equinox">
+
+	<import file="utils.xml" />
+
+	<property name="default.equinox.temp" value="@{location}/temp" />
+	<property name="default.equinox.failonerror" value="true" />
+	<property name="default.equinox.maxmem" value="768m" />
+	<property name="default.equinox.maxperm" value="256m" />
+
+	<macrodef name="equinox">
+		<attribute name="location" />
+		<attribute name="dir" default="@{location}" />
+		<attribute name="temp" default="${default.equinox.temp}" />
+		<attribute name="failonerror" default="${default.equinox.failonerror}" />
+		<attribute name="maxmem" default="${default.equinox.maxmem}" />
+		<attribute name="maxperm" default="${default.equinox.maxperm}" />
+		<element name="args" optional="true" implicit="true" />
+		<sequential>
+			<!-- check the ini file for the specific jar to use -->
+			<loadresource property="_equinox_jar_@{location}">
+				<fileset dir="@{location}" includes="*.ini" />
+				<filterchain>
+					<linecontainsregexp>
+						<regexp pattern="org\.eclipse\.equinox\.launcher_.*\.jar" />
+					</linecontainsregexp>
+					<striplinebreaks />
+					<prefixlines prefix="@{location}/" />
+				</filterchain>
+			</loadresource>
+			<!-- if that fails (the property remains unset), check the plugins folder for the specific plugin -->
+			<path id="_equinox_jar_refid_@{location}">
+				<last>
+					<sort>
+						<fileset dir="@{location}" includes="plugins/org.eclipse.equinox.launcher_*.jar" />
+					</sort>
+				</last>
+			</path>
+			<property name="_equinox_jar_@{location}" refid="_equinox_jar_refid_@{location}" />
+
+			<mkdir dir="@{temp}" />
+			<java jar="${_equinox_jar_@{location}}" fork="true" failonerror="@{failonerror}" dir="@{dir}" newenvironment="true">
+				<args />
+				<jvmarg value="-Djava.io.tmpdir=@{temp}" />
+				<jvmarg value="-Xmx@{maxmem}" />
+				<jvmarg value="-XX:MaxPermSize=@{maxperm}" />
+				<syspropertyset>
+					<propertyset refid="proxy.properties" />
+				</syspropertyset>
+			</java>
+		</sequential>
+	</macrodef>
+
+</project>

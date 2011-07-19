@@ -13,8 +13,7 @@ public class BasicXArchADTPackageMetadata implements IXArchADTPackageMetadata {
 
 	public BasicXArchADTPackageMetadata(String nsURI, Iterable<IXArchADTTypeMetadata> factoryElementMetadata) {
 		this.nsURI = nsURI;
-		this.typeMetadata = Collections.unmodifiableMap(Maps.uniqueIndex(
-				factoryElementMetadata,
+		this.typeMetadata = Collections.unmodifiableMap(Maps.uniqueIndex(factoryElementMetadata,
 				new Function<IXArchADTTypeMetadata, String>() {
 					@Override
 					public String apply(IXArchADTTypeMetadata input) {

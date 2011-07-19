@@ -15,7 +15,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Graph Layout Prefs Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -46,13 +46,13 @@ abstract class GraphLayoutPrefsMyxComponentStub extends org.archstudio.myx.fw.Ab
 
 	/**
 	 * Myx interface preferences: <code>OUT_PREFERENCES</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 	/**
 	 * Service object(s) for preferences: <code>preferences</code>
-	 *
+	 * 
 	 * @see #IN_PREFERENCES
 	 * @generated
 	 */
@@ -60,7 +60,7 @@ abstract class GraphLayoutPrefsMyxComponentStub extends org.archstudio.myx.fw.Ab
 
 	/**
 	 * Returns the service object(s) for <code>preferences</code>
-	 *
+	 * 
 	 * @see #IN_PREFERENCES
 	 * @generated
 	 */

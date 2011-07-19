@@ -5,8 +5,7 @@ import org.archstudio.bna.constants.CompletionStatus;
 import org.archstudio.bna.keys.ThingKey;
 
 public interface IHasCompletionStatus extends IThing {
-	public static final IThingKey<CompletionStatus> COMPLETION_STATUS_KEY = ThingKey.create("completionStatus",
-			false);
+	public static final IThingKey<CompletionStatus> COMPLETION_STATUS_KEY = ThingKey.create("completionStatus", false);
 
 	public CompletionStatus getCompletionStatus();
 }

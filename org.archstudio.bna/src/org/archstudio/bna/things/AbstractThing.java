@@ -133,6 +133,12 @@ public class AbstractThing implements IThing {
 		return key.postRead(getRaw(key));
 	}
 
+	@Override
+	@Deprecated
+	public <V> V getProperty(IThingKey<V> key) {
+		return get(key);
+	}
+
 	private <V> V getRaw(IThingKey<V> key) {
 		synchronized (properties) {
 			return properties.get(key);

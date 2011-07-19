@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.6"?>
+
+<target includeMode="feature" name="Eclipse 3.7 Platform SDK" sequenceNumber="6">
+<locations>
+<location includeAllPlatforms="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.platform.sdk" version="3.7.0.I20110613-1736"/>
+<unit id="org.eclipse.rcp.sdk.id" version="3.7.0.I20110613-1736"/>
+<unit id="org.eclipse.sdk.ide" version="3.7.0.I20110613-1736"/>
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.7.0.v20110606-0949"/>
+<unit id="org.eclipse.draw2d.sdk.feature.group" version="3.7.0.v20110425-2050-7A7I-8yF4F18BBI4E8L558F38x42"/>
+<unit id="org.eclipse.jet.sdk.feature.group" version="1.1.1.v201101271243-42186A5NsKEQPHRQeFaJS4A35"/>
+<unit id="org.eclipse.uml2.sdk.feature.group" version="3.2.0.v201105231350"/>
+<unit id="org.eclipse.xsd.sdk.feature.group" version="2.7.0.v20110606-0949"/>
+<repository location="http://download.eclipse.org/releases/indigo"/>
+</location>
+<location includeAllPlatforms="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.buckminster.core.feature.feature.group" version="1.4.0.v20110712-1350"/>
+<unit id="org.eclipse.buckminster.pde.feature.feature.group" version="1.4.0.v20110630-2045"/>
+<unit id="org.eclipse.buckminster.license.feature.feature.group" version="1.0.0.v20110603-0451"/>
+<repository location="http://download.eclipse.org/tools/buckminster/updates-3.7"/>
+</location>
+<location includeAllPlatforms="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.buckminster.cmdline.product" version="1.4.0.v20110629-1242"/>
+<unit id="org.eclipse.buckminster.core.headless.feature.feature.group" version="1.4.0.v20110711-1825"/>
+<unit id="org.eclipse.buckminster.license.feature.feature.group" version="1.0.0.v20110603-0451"/>
+<repository location="http://download.eclipse.org/tools/buckminster/headless-3.7"/>
+</location>
+</locations>
+<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+</target>

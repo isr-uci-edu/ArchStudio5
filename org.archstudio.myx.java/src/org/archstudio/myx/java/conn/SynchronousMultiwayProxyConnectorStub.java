@@ -11,10 +11,16 @@ import org.archstudio.myx.fw.IMyxLifecycleProcessor;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 import org.archstudio.myx.java.conn.IMultiwayProgressListener;
+import java.util.Collection;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Synchronous Multiway Proxy Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -45,56 +51,56 @@ import org.archstudio.myx.java.conn.IMultiwayProgressListener;
 
 	/**
 	 * Myx name for the <code>results</code> interface.
-	 *
+	 * 
 	 * @generated
 	 */
 	// MyxGenInterface[name=results,direction=in,single=false,serviceObjectDelegate=brick,generateGetter=true,className=org.archstudio.myx.java.conn.IMultiwayResults,description=null]
 	public static final IMyxName IN_RESULTS = MyxUtils.createName("results");
 	/**
 	 * Myx name for the <code>out</code> interface.
-	 *
+	 * 
 	 * @generated
 	 */
 	// MyxGenInterface[name=out,direction=out,single=false,serviceObjectDelegate=variable,generateGetter=true,className=java.lang.Object,description=null]
 	public static final IMyxName OUT_OUT = MyxUtils.createName("out");
 	/**
 	 * Myx name for the <code>in</code> interface.
-	 *
+	 * 
 	 * @generated
 	 */
 	// MyxGenInterface[name=in,direction=in,single=true,serviceObjectDelegate=variable,generateGetter=true,className=java.lang.Object,description=null]
 	public static final IMyxName IN_IN = MyxUtils.createName("in");
 	/**
 	 * Myx name for the <code>progress</code> interface.
-	 *
+	 * 
 	 * @generated
 	 */
 	// MyxGenInterface[name=progress,direction=out,single=false,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.myx.java.conn.IMultiwayProgressListener,description=null]
 	public static final IMyxName OUT_PROGRESS = MyxUtils.createName("progress");
 	/**
 	 * Service object(s) for the results interface.
-	 *
+	 * 
 	 * @see #IN_RESULTS
 	 * @generated
 	 */
 	protected org.archstudio.myx.java.conn.IMultiwayResults results = null;
 	/**
 	 * Service object(s) for the out interface.
-	 *
+	 * 
 	 * @see #OUT_OUT
 	 * @generated
 	 */
 	protected final Collection<java.lang.Object> out = new CopyOnWriteArrayList<java.lang.Object>();
 	/**
 	 * Service object(s) for the in interface.
-	 *
+	 * 
 	 * @see #IN_IN
 	 * @generated
 	 */
 	protected java.lang.Object in = null;
 	/**
 	 * Service object(s) for the progress interface.
-	 *
+	 * 
 	 * @see #IN_PROGRESS
 	 * @generated
 	 */
@@ -102,7 +108,7 @@ import org.archstudio.myx.java.conn.IMultiwayProgressListener;
 
 	/**
 	 * Returns the service object(s) for the <code>results</code> interface.
-	 *
+	 * 
 	 * @see #IN_RESULTS
 	 * @generated
 	 */
@@ -112,7 +118,7 @@ import org.archstudio.myx.java.conn.IMultiwayProgressListener;
 
 	/**
 	 * Returns the service object(s) for the <code>out</code> interface.
-	 *
+	 * 
 	 * @see #OUT_OUT
 	 * @generated
 	 */
@@ -122,7 +128,7 @@ import org.archstudio.myx.java.conn.IMultiwayProgressListener;
 
 	/**
 	 * Returns the service object(s) for the <code>in</code> interface.
-	 *
+	 * 
 	 * @see #IN_IN
 	 * @generated
 	 */
@@ -132,7 +138,7 @@ import org.archstudio.myx.java.conn.IMultiwayProgressListener;
 
 	/**
 	 * Returns the service object(s) for the <code>progress</code> interface.
-	 *
+	 * 
 	 * @see #IN_PROGRESS
 	 * @generated
 	 */

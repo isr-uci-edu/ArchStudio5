@@ -16,7 +16,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Bootstrap Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -47,27 +47,27 @@ abstract class BootstrapMyxComponentStub extends org.archstudio.myx.fw.AbstractM
 
 	/**
 	 * Myx interface xarch: <code>OUT_XARCH</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_XARCH = MyxUtils.createName("xarch");
 	/**
 	 * Myx interface aim: <code>OUT_AIM</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_AIM = MyxUtils.createName("aim");
 
 	/**
 	 * Service object(s) for xarch: <code>xarch</code>
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */
 	protected org.archstudio.xarchadt.IXArchADT xarch = null;
 	/**
 	 * Service object(s) for aim: <code>aim</code>
-	 *
+	 * 
 	 * @see #OUT_AIM
 	 * @generated
 	 */
@@ -75,7 +75,7 @@ abstract class BootstrapMyxComponentStub extends org.archstudio.myx.fw.AbstractM
 
 	/**
 	 * Returns the service object(s) for <code>xarch</code>
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */
@@ -85,7 +85,7 @@ abstract class BootstrapMyxComponentStub extends org.archstudio.myx.fw.AbstractM
 
 	/**
 	 * Returns the service object(s) for <code>aim</code>
-	 *
+	 * 
 	 * @see #OUT_AIM
 	 * @generated
 	 */

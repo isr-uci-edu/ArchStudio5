@@ -1,6 +1,8 @@
 package org.archstudio.myx.fw;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 public class MyxContainer implements IMyxContainer {
@@ -10,7 +12,7 @@ public class MyxContainer implements IMyxContainer {
 
 	protected final IMyxProvidedServiceProvider providedServiceProvider;
 	protected final Set<? extends IMyxLifecycleProcessor> lifecycleProcessors = Collections.synchronizedSet(Collections
-	        .singleton(new MyxContainerLifecycleProcessor(this)));
+			.singleton(new MyxContainerLifecycleProcessor(this)));
 
 	public MyxContainer() {
 		providedServiceProvider = new MyxBasicProvidedServiceProvider();

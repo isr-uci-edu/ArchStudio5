@@ -23,7 +23,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "XArch ADT Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -54,33 +54,33 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 
 	/**
 	 * Myx interface fileEvents: <code>OUT_FILE_EVENTS</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_FILE_EVENTS = MyxUtils.createName("fileEvents");
 	/**
 	 * Myx interface modelEvents: <code>OUT_MODEL_EVENTS</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_MODEL_EVENTS = MyxUtils.createName("modelEvents");
 	/**
 	 * Myx interface xarch: <code>IN_XARCH</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_XARCH = MyxUtils.createName("xarch");
 
 	/**
 	 * Service object(s) for fileEvents
-	 *
+	 * 
 	 * @see #OUT_FILE_EVENTS
 	 * @generated
 	 */
 	protected final Collection<org.archstudio.xarchadt.IXArchADTFileListener> fileEvents = new CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTFileListener>();
 	/**
 	 * Proxy to service objects for fileEvents
-	 *
+	 * 
 	 * @see #OUT_FILE_EVENTS
 	 * @generated
 	 */
@@ -102,14 +102,14 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 					});
 	/**
 	 * Service object(s) for modelEvents
-	 *
+	 * 
 	 * @see #OUT_MODEL_EVENTS
 	 * @generated
 	 */
 	protected final Collection<org.archstudio.xarchadt.IXArchADTModelListener> modelEvents = new CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTModelListener>();
 	/**
 	 * Proxy to service objects for modelEvents
-	 *
+	 * 
 	 * @see #OUT_MODEL_EVENTS
 	 * @generated
 	 */
@@ -131,7 +131,7 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 					});
 	/**
 	 * Service object(s) for xarch
-	 *
+	 * 
 	 * @see #IN_XARCH
 	 * @generated
 	 */
@@ -139,7 +139,7 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 
 	/**
 	 * Returns the service object(s) for <code>fileEvents</code>
-	 *
+	 * 
 	 * @see #OUT_FILE_EVENTS
 	 * @generated
 	 */
@@ -148,9 +148,10 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 	}
 
 	/**
-	 * Returns the proxy service object for the <code>fileEvents</code> interface.
-	 *
-	 * @see #org.archstudio.xarchadt.IXArchADTFileListener fileEventsProxy
+	 * Returns the proxy service object for the <code>fileEvents</code>
+	 * interface.
+	 * 
+	 * @see #org fileEventsProxy
 	 * @see #OUT_FILE_EVENTS
 	 * @generated
 	 */
@@ -160,7 +161,7 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 
 	/**
 	 * Returns the service object(s) for <code>modelEvents</code>
-	 *
+	 * 
 	 * @see #OUT_MODEL_EVENTS
 	 * @generated
 	 */
@@ -169,9 +170,10 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 	}
 
 	/**
-	 * Returns the proxy service object for the <code>modelEvents</code> interface.
-	 *
-	 * @see #org.archstudio.xarchadt.IXArchADTModelListener modelEventsProxy
+	 * Returns the proxy service object for the <code>modelEvents</code>
+	 * interface.
+	 * 
+	 * @see #org modelEventsProxy
 	 * @see #OUT_MODEL_EVENTS
 	 * @generated
 	 */
@@ -181,7 +183,7 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 
 	/**
 	 * Returns the service object(s) for <code>xarch</code>
-	 *
+	 * 
 	 * @see #IN_XARCH
 	 * @generated
 	 */

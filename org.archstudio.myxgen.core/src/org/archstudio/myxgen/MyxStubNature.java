@@ -1,7 +1,7 @@
 package org.archstudio.myxgen;
 
-import org.archstudio.eclipse.AbstractNature;
 import org.archstudio.myxgen.builder.MyxStubBuilder;
+import org.archstudio.utils.eclipse.AbstractNature;
 import org.eclipse.core.resources.IProjectNature;
 
 public class MyxStubNature extends AbstractNature implements IProjectNature {

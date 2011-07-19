@@ -1,16 +1,24 @@
 package org.archstudio.myx.fw;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("unused")
 class MyxInterfaceRepository {
 
-	protected Map<IMyxBrick, List<MyxInterface>> brickToInterfaceListMap = Collections.synchronizedMap(new HashMap<IMyxBrick, List<MyxInterface>>());
+	protected Map<IMyxBrick, List<MyxInterface>> brickToInterfaceListMap = Collections
+			.synchronizedMap(new HashMap<IMyxBrick, List<MyxInterface>>());
 
 	public MyxInterfaceRepository() {
 	}
 
-	public void addInterface(IMyxBrick b, IMyxName interfaceName, IMyxInterfaceDescription interfaceDescription, EMyxInterfaceDirection interfaceDirection) {
+	public void addInterface(IMyxBrick b, IMyxName interfaceName, IMyxInterfaceDescription interfaceDescription,
+			EMyxInterfaceDirection interfaceDirection) {
 		synchronized (brickToInterfaceListMap) {
 			List<MyxInterface> l = brickToInterfaceListMap.get(b);
 			if (l == null) {
@@ -21,14 +29,15 @@ class MyxInterfaceRepository {
 		}
 	}
 
-	public void addInterface(IMyxBrick b, IMyxName interfaceName, IMyxInterfaceDescription interfaceDescription, EMyxInterfaceDirection interfaceDirection,
-	        IMyxName internalBrickName, IMyxName internalInterfaceName) {
+	public void addInterface(IMyxBrick b, IMyxName interfaceName, IMyxInterfaceDescription interfaceDescription,
+			EMyxInterfaceDirection interfaceDirection, IMyxName internalBrickName, IMyxName internalInterfaceName) {
 		synchronized (brickToInterfaceListMap) {
 			List<MyxInterface> l = brickToInterfaceListMap.get(b);
 			if (l == null) {
 				brickToInterfaceListMap.put(b, l = new ArrayList<MyxInterface>());
 			}
-			MyxInterface mi = new MyxMappedInterface(interfaceName, interfaceDescription, interfaceDirection, internalBrickName, internalInterfaceName);
+			MyxInterface mi = new MyxMappedInterface(interfaceName, interfaceDescription, interfaceDirection,
+					internalBrickName, internalInterfaceName);
 			l.add(mi);
 		}
 	}
@@ -148,7 +157,8 @@ class MyxInterfaceRepository {
 		protected IMyxInterfaceDescription interfaceDescription;
 		protected EMyxInterfaceDirection interfaceDirection;
 
-		public MyxInterface(IMyxName interfaceName, IMyxInterfaceDescription interfaceDescription, EMyxInterfaceDirection interfaceDirection) {
+		public MyxInterface(IMyxName interfaceName, IMyxInterfaceDescription interfaceDescription,
+				EMyxInterfaceDirection interfaceDirection) {
 			this.interfaceName = interfaceName;
 			this.interfaceDescription = interfaceDescription;
 			this.interfaceDirection = interfaceDirection;
@@ -183,8 +193,8 @@ class MyxInterfaceRepository {
 		protected IMyxName internalBrickName;
 		protected IMyxName internalInterfaceName;
 
-		public MyxMappedInterface(IMyxName interfaceName, IMyxInterfaceDescription interfaceDescription, EMyxInterfaceDirection interfaceDirection,
-		        IMyxName internalBrickName, IMyxName internalInterfaceName) {
+		public MyxMappedInterface(IMyxName interfaceName, IMyxInterfaceDescription interfaceDescription,
+				EMyxInterfaceDirection interfaceDirection, IMyxName internalBrickName, IMyxName internalInterfaceName) {
 			super(interfaceName, interfaceDescription, interfaceDirection);
 			this.internalBrickName = internalBrickName;
 			this.internalInterfaceName = internalInterfaceName;

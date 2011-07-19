@@ -15,7 +15,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Archipelago Structure Prefs Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -46,14 +46,14 @@ abstract class ArchipelagoStructurePrefsMyxComponentStub extends org.archstudio.
 
 	/**
 	 * Myx interface preferences: <code>OUT_PREFERENCES</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 
 	/**
 	 * Service object(s) for preferences: <code>preferences</code>
-	 *
+	 * 
 	 * @see #IN_PREFERENCES
 	 * @generated
 	 */
@@ -61,7 +61,7 @@ abstract class ArchipelagoStructurePrefsMyxComponentStub extends org.archstudio.
 
 	/**
 	 * Returns the service object(s) for <code>preferences</code>
-	 *
+	 * 
 	 * @see #IN_PREFERENCES
 	 * @generated
 	 */

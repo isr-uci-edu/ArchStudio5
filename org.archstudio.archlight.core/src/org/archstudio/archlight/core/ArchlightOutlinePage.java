@@ -158,11 +158,14 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 							return 1; //Tests always after folders
 						}
 						else if ((o1 instanceof FolderNode) && (o2 instanceof FolderNode)) {
-							return ((FolderNode) o1).getLastSegment().compareToIgnoreCase(((FolderNode) o2).getLastSegment());
+							return ((FolderNode) o1).getLastSegment().compareToIgnoreCase(
+									((FolderNode) o2).getLastSegment());
 						}
 						else if ((o1 instanceof ArchlightTest) && (o2 instanceof ArchlightTest)) {
-							return ArchlightTest.getLastCategoryPathComponent(((ArchlightTest) o1).getCategory()).compareTo(
-							        ArchlightTest.getLastCategoryPathComponent(((ArchlightTest) o2).getCategory()));
+							return ArchlightTest.getLastCategoryPathComponent(((ArchlightTest) o1).getCategory())
+									.compareTo(
+											ArchlightTest.getLastCategoryPathComponent(((ArchlightTest) o2)
+													.getCategory()));
 						}
 						return 0;
 					};
@@ -273,7 +276,8 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 		}
 		else {
 			Object node = selectedNodes[0];
-			List<? extends IAction> actions = ArchlightUtils.createTestMenuActions(xarch, documentRootRef, tests, resources, node);
+			List<? extends IAction> actions = ArchlightUtils.createTestMenuActions(xarch, documentRootRef, tests,
+					resources, node);
 			if (actions.isEmpty()) {
 				Action noAction = new Action("[No Actions]") {
 					public void run() {

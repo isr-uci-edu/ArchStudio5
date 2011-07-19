@@ -17,8 +17,9 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
-public abstract class AbstractSWTOptionSelectionThing extends AbstractThing implements IHasMutableText, IHasMutableAnchorPoint, IHasBoundingBox,
-        IMutableMovesWith, IHasMutableColor, IHasMutableHorizontalAlignment, IHasMutableFontData, IHasMutableCompletionStatus, IHasMutableEditing {
+public abstract class AbstractSWTOptionSelectionThing extends AbstractThing implements IHasMutableText,
+		IHasMutableAnchorPoint, IHasBoundingBox, IMutableMovesWith, IHasMutableColor, IHasMutableHorizontalAlignment,
+		IHasMutableFontData, IHasMutableCompletionStatus, IHasMutableEditing {
 
 	public AbstractSWTOptionSelectionThing(String id) {
 		super(id);

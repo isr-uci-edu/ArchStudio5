@@ -6,7 +6,7 @@ import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.swt.dnd.DragSourceListener;
 
-public class AbstractArchipelagoTreePlugin implements IArchipelagoTreePlugin{
+public class AbstractArchipelagoTreePlugin implements IArchipelagoTreePlugin {
 
 	protected IArchipelagoTreeContentProvider contentProvider = null;
 	protected IArchipelagoTreeDoubleClickHandler doubleClickHandler = null;
@@ -18,44 +18,44 @@ public class AbstractArchipelagoTreePlugin implements IArchipelagoTreePlugin{
 	protected IFileManagerListener fileManagerListener = null;
 	protected DragSourceListener dragSourceListener = null;
 	protected IArchipelagoEditorFocuser editorFocuser = null;
-	
-	public IArchipelagoTreeContentProvider getContentProvider(){
+
+	public IArchipelagoTreeContentProvider getContentProvider() {
 		return contentProvider;
 	}
-	
-	public IArchipelagoTreeDoubleClickHandler getDoubleClickHandler(){
+
+	public IArchipelagoTreeDoubleClickHandler getDoubleClickHandler() {
 		return doubleClickHandler;
 	}
-	
-	public IArchipelagoLabelProvider getLabelProvider(){
+
+	public IArchipelagoLabelProvider getLabelProvider() {
 		return labelProvider;
 	}
-	
-	public IArchipelagoTreeContextMenuFiller[] getContextMenuFillers(){
+
+	public IArchipelagoTreeContextMenuFiller[] getContextMenuFillers() {
 		return contextMenuFillers;
 	}
-	
-	public ICellModifier[] getCellModifiers(){
+
+	public ICellModifier[] getCellModifiers() {
 		return cellModifiers;
 	}
-	
-	public IXArchADTFileListener getXArchADTFileListener(){
+
+	public IXArchADTFileListener getXArchADTFileListener() {
 		return fileListener;
 	}
-	
-	public IXArchADTModelListener getXArchADTModelListener(){
+
+	public IXArchADTModelListener getXArchADTModelListener() {
 		return flatListener;
 	}
-	
-	public DragSourceListener getDragSourceListener(){
+
+	public DragSourceListener getDragSourceListener() {
 		return dragSourceListener;
 	}
-	
-	public IFileManagerListener getFileManagerListener(){
+
+	public IFileManagerListener getFileManagerListener() {
 		return fileManagerListener;
 	}
-	
-	public IArchipelagoEditorFocuser getEditorFocuser(){
+
+	public IArchipelagoEditorFocuser getEditorFocuser() {
 		return editorFocuser;
 	}
 }

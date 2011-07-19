@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.archstudio.ljm.LJMProxyFactory;
 import org.archstudio.ljm.LJMServer;
 
-
 public class MyxRemoteRuntime extends MyxBasicRuntime {
 
 	public static void main(String[] args) throws IOException {
@@ -33,8 +32,8 @@ public class MyxRemoteRuntime extends MyxBasicRuntime {
 			}
 		}
 
-		IMyxRuntimeRegistry myxRegistry = (IMyxRuntimeRegistry) LJMProxyFactory.createProxy(registryHost, registryPort, registryName,
-		        new Class[] { IMyxRuntimeRegistry.class });
+		IMyxRuntimeRegistry myxRegistry = (IMyxRuntimeRegistry) LJMProxyFactory.createProxy(registryHost, registryPort,
+				registryName, new Class[] { IMyxRuntimeRegistry.class });
 		MyxRemoteRuntime myxRuntime = new MyxRemoteRuntime();
 
 		LJMServer server = new LJMServer();

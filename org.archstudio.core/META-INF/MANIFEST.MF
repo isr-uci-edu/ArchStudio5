@@ -20,4 +20,4 @@ Require-Bundle: org.archstudio.aim,
  org.eclipse.core.runtime,
  org.eclipse.emf.common,
  org.eclipse.ui,
- org.archstudio.launcher.core;bundle-version="5.0.0"
+ org.archstudio.launcher.core

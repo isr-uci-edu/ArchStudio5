@@ -16,7 +16,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Editor Prefs Myx Component"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -47,37 +47,46 @@ abstract class EditorPrefsMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 
 	/**
 	 * Myx name for the <code>editorManager</code> interface.
-	 *
-	 * MyxGenInterface[name=editorManager,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.editormanager.IEditorManager,description=null]
+	 * 
+	 * MyxGenInterface[name=editorManager,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .editormanager.IEditorManager,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_EDITOR_MANAGER = MyxUtils.createName("editorManager");
 	/**
 	 * Myx name for the <code>preferences</code> interface.
-	 *
-	 * MyxGenInterface[name=preferences,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.eclipse.jface.preference.IPreferenceStore,description=null]
+	 * 
+	 * MyxGenInterface[name=preferences,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.eclipse.jface
+	 * .preference.IPreferenceStore,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 
 	/**
 	 * Service object(s) for the editorManager interface.
-	 *
+	 * 
 	 * @see #OUT_EDITOR_MANAGER
 	 * @generated
 	 */
 	protected org.archstudio.editormanager.IEditorManager editorManager = null;
 	/**
 	 * Service object(s) for the preferences interface.
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */
 	protected org.eclipse.jface.preference.IPreferenceStore preferences = null;
 
 	/**
-	 * Returns the service object(s) for the <code>editorManager</code> interface.
-	 *
+	 * Returns the service object(s) for the <code>editorManager</code>
+	 * interface.
+	 * 
 	 * @see #OUT_EDITOR_MANAGER
 	 * @generated
 	 */
@@ -87,7 +96,7 @@ abstract class EditorPrefsMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 
 	/**
 	 * Returns the service object(s) for the <code>preferences</code> interface.
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */

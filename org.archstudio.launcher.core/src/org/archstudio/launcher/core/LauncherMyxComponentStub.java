@@ -17,7 +17,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Launcher Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -48,40 +48,40 @@ abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 
 	/**
 	 * Myx interface results: <code>OUT_RESULTS</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_RESULTS = MyxUtils.createName("results");
 	/**
 	 * Myx interface launcher: <code>OUT_LAUNCHER</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_LAUNCHER = MyxUtils.createName("launcher");
 	/**
 	 * Myx interface resources: <code>OUT_RESOURCES</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_RESOURCES = MyxUtils.createName("resources");
 
 	/**
 	 * Service object(s) for results: <code>results</code>
-	 *
+	 * 
 	 * @see #OUT_RESULTS
 	 * @generated
 	 */
 	protected org.archstudio.myx.java.conn.IMultiwayResults results = null;
 	/**
 	 * Service object(s) for launcher: <code>launcher</code>
-	 *
+	 * 
 	 * @see #OUT_LAUNCHER
 	 * @generated
 	 */
 	protected org.archstudio.launcher.ILaunchable launcher = null;
 	/**
 	 * Service object(s) for resources: <code>resources</code>
-	 *
+	 * 
 	 * @see #OUT_RESOURCES
 	 * @generated
 	 */
@@ -89,7 +89,7 @@ abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 
 	/**
 	 * Returns the service object(s) for <code>results</code>
-	 *
+	 * 
 	 * @see #OUT_RESULTS
 	 * @generated
 	 */
@@ -99,7 +99,7 @@ abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 
 	/**
 	 * Returns the service object(s) for <code>launcher</code>
-	 *
+	 * 
 	 * @see #OUT_LAUNCHER
 	 * @generated
 	 */
@@ -109,7 +109,7 @@ abstract class LauncherMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 
 	/**
 	 * Returns the service object(s) for <code>resources</code>
-	 *
+	 * 
 	 * @see #OUT_RESOURCES
 	 * @generated
 	 */

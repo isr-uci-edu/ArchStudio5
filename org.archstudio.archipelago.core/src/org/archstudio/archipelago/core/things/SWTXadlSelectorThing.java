@@ -10,50 +10,50 @@ import org.archstudio.xadlswt.XadlTreeUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 
-public class SWTXadlSelectorThing extends AbstractSWTTreeThing{
+public class SWTXadlSelectorThing extends AbstractSWTTreeThing {
 
-	public SWTXadlSelectorThing(){
+	public SWTXadlSelectorThing() {
 		this(BNAUtils.generateUID(SWTXadlSelectorThing.class.getName()));
 	}
-	
-	public SWTXadlSelectorThing(String id){
+
+	public SWTXadlSelectorThing(String id) {
 		super(id);
 	}
-	
-	protected void initProperties(){
+
+	protected void initProperties() {
 		super.initProperties();
 		setContentProviderFlags(EnumSet.noneOf(XadlTreeUtils.Type.class));
 	}
-	
-	public void setRepository(IXArchADT xarch){
+
+	public void setRepository(IXArchADT xarch) {
 		setProperty("$xarch", xarch);
 	}
-	
-	public IXArchADT getRepository(){
+
+	public IXArchADT getRepository() {
 		return getProperty("$xarch");
 	}
-	
-	public void setResources(IResources resources){
+
+	public void setResources(IResources resources) {
 		setProperty("$resources", resources);
 	}
-	
-	public IResources getResources(){
+
+	public IResources getResources() {
 		return getProperty("$resources");
 	}
-	
-	public void setContentProviderRootRef(ObjRef rootRef){
+
+	public void setContentProviderRootRef(ObjRef rootRef) {
 		setProperty("rootRef", rootRef);
 	}
-	
-	public ObjRef getContentProviderRootRef(){
+
+	public ObjRef getContentProviderRootRef() {
 		return getProperty("rootRef");
 	}
-	
-	public void setContentProviderFlags(Set<XadlTreeUtils.Type> contentProviderFlags){
+
+	public void setContentProviderFlags(Set<XadlTreeUtils.Type> contentProviderFlags) {
 		setProperty("contentProviderFlags", contentProviderFlags);
 	}
-	
-	public Set<XadlTreeUtils.Type> getContentProviderFlags(){
+
+	public Set<XadlTreeUtils.Type> getContentProviderFlags() {
 		return getProperty("contentProviderFlags");
 	}
 }

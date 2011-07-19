@@ -1,12 +1,15 @@
 package org.archstudio.myx.fw;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class AbstractMyxFlexibleBrick implements IMyxBrick {
 
 	private IMyxBrickItems brickItems = null;
-	protected List<IMyxLifecycleProcessor> lifecycleProcessors = Collections.synchronizedList(new CopyOnWriteArrayList<IMyxLifecycleProcessor>());
+	protected List<IMyxLifecycleProcessor> lifecycleProcessors = Collections
+			.synchronizedList(new CopyOnWriteArrayList<IMyxLifecycleProcessor>());
 	protected MyxBasicProvidedServiceProvider providedServiceProvider = new MyxBasicProvidedServiceProvider();
 
 	public void addLifecycleProcessor(IMyxLifecycleProcessor lp) {

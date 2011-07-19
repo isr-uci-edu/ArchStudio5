@@ -15,7 +15,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Schematron Prefs Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -46,13 +46,13 @@ abstract class SchematronPrefsMyxComponentStub extends org.archstudio.myx.fw.Abs
 
 	/**
 	 * Myx interface preferences: <code>OUT_PREFERENCES</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 	/**
 	 * Service object(s) for preferences: <code>preferences</code>
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */
@@ -60,7 +60,7 @@ abstract class SchematronPrefsMyxComponentStub extends org.archstudio.myx.fw.Abs
 
 	/**
 	 * Returns the service object(s) for <code>preferences</code>
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */

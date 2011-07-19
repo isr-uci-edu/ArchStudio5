@@ -8,7 +8,6 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.xadl.XadlUtils;
-import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSourceEvent;

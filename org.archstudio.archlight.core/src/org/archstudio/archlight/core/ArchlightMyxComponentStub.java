@@ -15,7 +15,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Archlight Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -30,29 +30,37 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Myx name for the <code>tools</code> interface.
-	 *
-	 * MyxGenInterface[name=tools,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.archlight.IArchlightTool,description=null]
+	 * 
+	 * MyxGenInterface[name=tools,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .archlight.IArchlightTool,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_TOOLS = MyxUtils.createName("tools");
 	/**
 	 * Myx name for the <code>tests</code> interface.
-	 *
-	 * MyxGenInterface[name=tests,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.testadt.IArchlightTestADT,description=null]
+	 * 
+	 * MyxGenInterface[name=tests,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.archstudio
+	 * .testadt.IArchlightTestADT,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_TESTS = MyxUtils.createName("tests");
 
 	/**
 	 * Service object(s) for the tools interface.
-	 *
+	 * 
 	 * @see #OUT_TOOLS
 	 * @generated
 	 */
 	protected org.archstudio.archlight.IArchlightTool tools = null;
 	/**
 	 * Service object(s) for the tests interface.
-	 *
+	 * 
 	 * @see #OUT_TESTS
 	 * @generated
 	 */
@@ -60,7 +68,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Returns the service object(s) for the <code>tools</code> interface.
-	 *
+	 * 
 	 * @see #OUT_TOOLS
 	 * @generated
 	 */
@@ -70,7 +78,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Returns the service object(s) for the <code>tests</code> interface.
-	 *
+	 * 
 	 * @see #OUT_TESTS
 	 * @generated
 	 */

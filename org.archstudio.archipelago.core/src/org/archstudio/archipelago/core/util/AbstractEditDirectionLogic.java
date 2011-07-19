@@ -15,7 +15,6 @@ import org.archstudio.bna.things.swt.SWTComboThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.IBNAMouseListener;
-import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;

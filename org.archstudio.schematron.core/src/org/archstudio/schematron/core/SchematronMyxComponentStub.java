@@ -20,7 +20,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Schematron Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -51,72 +51,72 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Myx interface tools: <code>IN_TOOLS</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName IN_TOOLS = MyxUtils.createName("tools");
 	/**
 	 * Myx interface notices: <code>OUT_NOTICES</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_NOTICES = MyxUtils.createName("notices");
 	/**
 	 * Myx interface tests: <code>OUT_TESTS</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_TESTS = MyxUtils.createName("tests");
 	/**
 	 * Myx interface issues: <code>OUT_ISSUES</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_ISSUES = MyxUtils.createName("issues");
 	/**
 	 * Myx interface xarch: <code>OUT_XARCH</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_XARCH = MyxUtils.createName("xarch");
 	/**
 	 * Myx interface preferences: <code>OUT_PREFERENCES</code>
-	 *
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 
 	/**
 	 * Service object(s) for notices: <code>notices</code>
-	 *
+	 * 
 	 * @see #OUT_NOTICES
 	 * @generated
 	 */
 	protected org.archstudio.noticeadt.IArchlightNoticeADT notices = null;
 	/**
 	 * Service object(s) for tests: <code>tests</code>
-	 *
+	 * 
 	 * @see #OUT_TESTS
 	 * @generated
 	 */
 	protected org.archstudio.testadt.IArchlightTestADT tests = null;
 	/**
 	 * Service object(s) for issues: <code>issues</code>
-	 *
+	 * 
 	 * @see #OUT_ISSUES
 	 * @generated
 	 */
 	protected org.archstudio.issueadt.IArchlightIssueADT issues = null;
 	/**
 	 * Service object(s) for xarch: <code>xarch</code>
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */
 	protected org.archstudio.xarchadt.IXArchADT xarch = null;
 	/**
 	 * Service object(s) for preferences: <code>preferences</code>
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */
@@ -124,7 +124,7 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Returns the service object(s) for <code>tools</code>
-	 *
+	 * 
 	 * @see #IN_TOOLS
 	 * @generated
 	 */
@@ -134,7 +134,7 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Returns the service object(s) for <code>notices</code>
-	 *
+	 * 
 	 * @see #OUT_NOTICES
 	 * @generated
 	 */
@@ -144,7 +144,7 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Returns the service object(s) for <code>tests</code>
-	 *
+	 * 
 	 * @see #OUT_TESTS
 	 * @generated
 	 */
@@ -154,7 +154,7 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Returns the service object(s) for <code>issues</code>
-	 *
+	 * 
 	 * @see #OUT_ISSUES
 	 * @generated
 	 */
@@ -164,7 +164,7 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Returns the service object(s) for <code>xarch</code>
-	 *
+	 * 
 	 * @see #OUT_XARCH
 	 * @generated
 	 */
@@ -174,7 +174,7 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Returns the service object(s) for <code>preferences</code>
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */

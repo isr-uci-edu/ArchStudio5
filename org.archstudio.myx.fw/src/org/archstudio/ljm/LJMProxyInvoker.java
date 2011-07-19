@@ -51,7 +51,8 @@ public class LJMProxyInvoker implements InvocationHandler {
 			}
 			catch (IOException ioe) {
 				close();
-				throw new LJMException("Can't connect to remote host (" + endpoint.getHost() + " : " + endpoint.getPort() + ": " + ioe.toString(), ioe);
+				throw new LJMException("Can't connect to remote host (" + endpoint.getHost() + " : "
+						+ endpoint.getPort() + ": " + ioe.toString(), ioe);
 			}
 		}
 	}

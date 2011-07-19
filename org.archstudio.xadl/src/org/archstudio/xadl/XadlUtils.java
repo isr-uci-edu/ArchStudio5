@@ -7,20 +7,15 @@ import java.util.List;
 
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package;
-import org.archstudio.xadl3.javaimplementation_3_0.Javaimplementation_3_0Package;
-import org.archstudio.xadl3.lookupimplementation_3_0.Lookupimplementation_3_0Package;
-import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFeature;
 import org.archstudio.xarchadt.IXArchADTQuery;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
-import org.archstudio.xarchadt.core.XArchADTProxy;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
 public class XadlUtils {
@@ -75,33 +70,19 @@ public class XadlUtils {
 		return extRef;
 	}
 
-	public static boolean isExtension(IXArchADTQuery xarch, IXArchADTFeature feature) {
-		EClass extensionEClass = Xadlcore_3_0Package.Literals.EXTENSION;
-		return xarch.isAssignable(extensionEClass.getEPackage().getNsURI(), extensionEClass.getName(),
-				feature.getNsURI(), feature.getTypeName());
-	}
-
-	public static ObjRef getLookupImplementation(IXArchADTQuery xarch, ObjRef ref) {
-		return getImplementation(xarch, ref, Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION);
-	}
-
-	public static ObjRef getJavaImplementation(IXArchADTQuery xarch, ObjRef ref) {
-		return getImplementation(xarch, ref, Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION);
-	}
-
 	public static ObjRef getImplementation(IXArchADTQuery xarch, ObjRef ref, EClass type) {
-		ObjRef implementationExtRef = XadlUtils.getExt(xarch, ref, Implementation_3_0Package.eNS_URI,
-				"ImplementationExtension");
-		if (implementationExtRef != null) {
-			List<ObjRef> implementationRefs = xarch.getAll(implementationExtRef, "implementation");
-			for (ObjRef implementationRef : implementationRefs) {
-				if (XadlUtils.isInstanceOf(xarch, implementationRef, type)) {
-					return implementationRef;
+			ObjRef implementationExtRef = XadlUtils.getExt(xarch, ref, Implementation_3_0Package.eNS_URI,
+					"ImplementationExtension");
+			if (implementationExtRef != null) {
+				List<ObjRef> implementationRefs = xarch.getAll(implementationExtRef, "implementation");
+				for (ObjRef implementationRef : implementationRefs) {
+					if (XadlUtils.isInstanceOf(xarch, implementationRef, type)) {
+						return implementationRef;
+					}
 				}
 			}
+			return null;
 		}
-		return null;
-	}
 
 	public static List<ObjRef> getAllSubstitutionGroupElementsByType(IXArchADTQuery xarch, ObjRef ref,
 			String substitutionGroupName, String targetNsURI, String targetTypeName) {
@@ -207,12 +188,12 @@ public class XadlUtils {
 		return xarch.createDocument(uri, eClass.getEPackage().getNsURI(), eClass.getName(), rootReference.getName());
 	}
 
-	public static <O extends EObject> O createDocumentEObject(IXArchADT xarch, URI uri, EReference rootReference) {
-		EClass eClass = rootReference.getEReferenceType();
-		ObjRef documentRootRef = xarch.createDocument(uri, eClass.getEPackage().getNsURI(), eClass.getName(),
-				rootReference.getName());
-		return XArchADTProxy.proxy(xarch, (ObjRef) xarch.get(documentRootRef, rootReference.getName()));
-	}
+//	public static <O extends EObject> O createDocumentEObject(IXArchADT xarch, URI uri, EReference rootReference) {
+//		EClass eClass = rootReference.getEReferenceType();
+//		ObjRef documentRootRef = xarch.createDocument(uri, eClass.getEPackage().getNsURI(), eClass.getName(),
+//				rootReference.getName());
+//		return XArchADTProxy.proxy(xarch, (ObjRef) xarch.get(documentRootRef, rootReference.getName()));
+//	}
 
 	public static boolean isInstanceOf(IXArchADTQuery xarch, ObjRef baseObjRef, EClass eClass) {
 		return xarch.isInstanceOf(baseObjRef, eClass.getEPackage().getNsURI(), eClass.getName());
@@ -229,7 +210,8 @@ public class XadlUtils {
 	}
 
 	/**
-	 * Returns true if an instance of the thing referred to by typeMetadata could be assigned to the feature.
+	 * Returns true if an instance of the thing referred to by typeMetadata
+	 * could be assigned to the feature.
 	 * 
 	 * @param xarch
 	 *            xArchADT instance

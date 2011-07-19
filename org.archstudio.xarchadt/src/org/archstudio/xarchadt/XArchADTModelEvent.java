@@ -32,18 +32,21 @@ public class XArchADTModelEvent implements java.io.Serializable {
 	 * Create a new xArch event.
 	 * 
 	 * @param src
-	 *            xArch element that is the source of this event (i.e. that changed.)
+	 *            xArch element that is the source of this event (i.e. that
+	 *            changed.)
 	 * @param eventType
 	 *            One of the event types (above) that indicates what happened.
 	 * @param srcType
 	 *            One of the event types (above) that indicates what changed.
 	 * @param targetName
-	 *            Name of the element or attribute that was set/added/cleared/removed.
+	 *            Name of the element or attribute that was
+	 *            set/added/cleared/removed.
 	 * @param target
-	 *            The attribute/element/value that was set/added/cleared/removed.
+	 *            The attribute/element/value that was
+	 *            set/added/cleared/removed.
 	 * @param isAttached
-	 *            <code>true</code> if the element that was changed is actually connected to the xArch element emitting
-	 *            this event or not.
+	 *            <code>true</code> if the element that was changed is actually
+	 *            connected to the xArch element emitting this event or not.
 	 */
 	public XArchADTModelEvent(EventType eventType, ObjRef src, List<ObjRef> srcAncestors, XArchADTPath srcPath,
 			String featureName, Object oldValue, XArchADTPath oldValuePath, Object newValue, XArchADTPath newValuePath) {

@@ -15,7 +15,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Archlight Prefs Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -46,15 +46,19 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Myx name for the <code>preferences</code> interface.
-	 *
-	 * MyxGenInterface[name=preferences,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.eclipse.jface.preference.IPreferenceStore,description=null]
+	 * 
+	 * MyxGenInterface[name=preferences,direction=out,single=true,
+	 * serviceObjectDelegate
+	 * =variable,generateGetter=true,className=org.eclipse.jface
+	 * .preference.IPreferenceStore,description=null]
+	 * 
 	 * @generated
 	 */
 	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 
 	/**
 	 * Service object(s) for the preferences interface.
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */
@@ -62,7 +66,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Returns the service object(s) for the <code>preferences</code> interface.
-	 *
+	 * 
 	 * @see #OUT_PREFERENCES
 	 * @generated
 	 */

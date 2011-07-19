@@ -7,9 +7,10 @@ import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.logics.AbstractThingLogic;
 
 /*
- * Note! This class cannot rely on a TypedThingSetTrackingLogic, because it needs the typed thing set during the destroy
- * operation and it can't be guaranteed to exist at that time (the TTSTL is probably already destroyed before we get
- * here)
+ * Note! This class cannot rely on a TypedThingSetTrackingLogic, because it
+ * needs the typed thing set during the destroy operation and it can't be
+ * guaranteed to exist at that time (the TTSTL is probably already destroyed
+ * before we get here)
  */
 public class WorldThingDestroyLogic extends AbstractThingLogic {
 	protected boolean removeDestroyedViews = false;

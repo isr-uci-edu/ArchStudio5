@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="org.archstudio.dblgen.xadl3SchemaNature"
+         name="xADL 3 Schema Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.archstudio.dblgen.Xadl3SchemaNature">
+         </run>
+      </runtime>
+      <builder
+            id="org.archstudio.dblgen.xadl3SchemaBuilder">
+      </builder>
+      <requires-nature
+            id="org.eclipse.pde.PluginNature">
+      </requires-nature>
+   </extension>
+   <extension
+         id="org.archstudio.dblgen.xadl3SchemaBuilder"
+         name="xADL 3 Schema Project Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="org.archstudio.dblgen.builder.Xadl3SchemaBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.archstudio.dblgen.core.objectContribution1"
+            nameFilter="*"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="org.archstudio.dblgen.ui.actions.ToggleXadl3SchemaNatureAction"
+               enablesFor="+"
+               id="org.archstudio.dblgen.xadl3SchemaNature.action"
+               label="Generate xADL 3 Schema DBLs"
+               menubarPath="org.archstudio.eclipse.popupMenuMain/bottom"
+               style="toggle">
+         </action>
+         <visibility>
+            <and>
+               <objectState
+                     name="projectNature"
+                     value="org.eclipse.jdt.core.javanature">
+               </objectState>
+               <objectState
+                     name="projectNature"
+                     value="org.eclipse.pde.PluginNature">
+               </objectState>
+            </and>
+         </visibility>
+      </objectContribution>
+   </extension>
+   <extension
+         id="org.archstudio.dblgen.xadl3SchemaBuilderProblem"
+         name="xADL 3 Schema Builder Problem"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="org.archstudio.dblgen.ui.actions.ToggleXadl3SchemaNatureAction">
+      </startup>
+   </extension>
+   <extension
+         point="org.archstudio.myxgen.brick">
+      <brick
+            class="org.archstudio.dblgen.DblGenComponent"
+            id="org.archstudio.dblgen.core.brick1"
+            name="xADL Data Binding Library (DBL) Generator Impl">
+         <interface
+               class="org.archstudio.dblgen.IDataBindingGenerator"
+               delegate="variable"
+               direction="in"
+               domain="bottom"
+               getter="true"
+               id="dblgen"
+               name="dblgen"
+               single="true">
+         </interface>
+      </brick>
+   </extension>
+</plugin>

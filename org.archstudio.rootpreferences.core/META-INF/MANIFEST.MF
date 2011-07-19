@@ -9,4 +9,4 @@ Manifest-Version: 1.0
 Require-Bundle: org.archstudio.myx.fw,
  org.archstudio.resources,
  org.eclipse.ui,
- org.archstudio.sysutils;bundle-version="5.0.0"
+ org.archstudio.utils.system

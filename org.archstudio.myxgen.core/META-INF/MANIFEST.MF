@@ -1,31 +1,30 @@
-Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.archstudio.myxgen.core.Activator
-Bundle-ManifestVersion: 2
-Bundle-Name: Myx Component Stub Generator
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-SymbolicName: org.archstudio.myxgen.core;singleton:=true
-Bundle-Vendor: archstudio.org
-Bundle-Version: 5.0.0.qualifier
-Export-Package: org.archstudio.myxgen,
- org.archstudio.myxgen.action,
- org.archstudio.myxgen.builder,
- org.archstudio.myxgen.core,
- org.archstudio.myxgen.jet.codegen,
- org.archstudio.myxgen.jet.util
 Manifest-Version: 1.0
-Require-Bundle: com.google.guava,
- org.archstudio.eclipse,
+Bundle-ManifestVersion: 2
+Bundle-Name: Core
+Bundle-SymbolicName: org.archstudio.myxgen.core
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.archstudio.myxgen.core.Activator
+Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.myxgen,
- org.archstudio.sysutils,
+ org.archstudio.myx.fw,
+ org.archstudio.utils.system,
+ com.google.guava,
  org.eclipse.core.resources,
- org.eclipse.core.runtime,
- org.eclipse.emf.codegen,
- org.eclipse.emf.ecore,
- org.eclipse.emf.ecore.xmi,
  org.eclipse.jdt.core,
  org.eclipse.jet,
+ org.archstudio.utils.osgi,
+ org.archstudio.utils.eclipse,
  org.eclipse.pde.core,
- org.eclipse.pde,
- org.archstudio.eclipseutils,
- org.archstudio.myx.myxgen;bundle-version="1.0.0",
- org.archstudio.myx.fw;bundle-version="5.0.0"
+ org.archstudio.myx.osgi,
+ org.archstudio.myx.java,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.archstudio.myxgen,
+ org.archstudio.myxgen.builder,
+ org.archstudio.myxgen.core,
+ org.archstudio.myxgen.eclipse,
+ org.archstudio.myxgen.eclipse.extension,
+ org.archstudio.myxgen.jet.codegen,
+ org.archstudio.myxgen.jet.util

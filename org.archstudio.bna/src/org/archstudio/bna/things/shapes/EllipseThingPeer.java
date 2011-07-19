@@ -33,7 +33,10 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 			}
 		}
 		if (r.setForegroundColor(g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
-			/* This adjustment makes a drawn oval overlap the edge pixel of a filled oval. */
+			/*
+			 * This adjustment makes a drawn oval overlap the edge pixel of a
+			 * filled oval.
+			 */
 			g.drawOval(lbb.x, lbb.y, lbb.width - 1, lbb.height - 1);
 		}
 	}

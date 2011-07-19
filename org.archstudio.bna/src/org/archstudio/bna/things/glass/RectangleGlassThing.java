@@ -6,7 +6,8 @@ import org.archstudio.bna.facets.IHasRotatingOffset;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractRectangleThing;
 
-public class RectangleGlassThing extends AbstractRectangleThing implements IHasMutableSelected, IHasMutableRotatingOffset {
+public class RectangleGlassThing extends AbstractRectangleThing implements IHasMutableSelected,
+		IHasMutableRotatingOffset {
 
 	public RectangleGlassThing(Object id) {
 		super(id);

@@ -10,26 +10,32 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 /**
- * An XArchADTPath is similar to an XML XPath but it works for xArch-based XML documents. An XArchADTPath can be
- * converted to and from a string easily with the functions in this class. It is useful for quickly assessing an
- * element's position within an XML document without having to call costly operations to walk around the XML tree.
+ * An XArchADTPath is similar to an XML XPath but it works for xArch-based XML
+ * documents. An XArchADTPath can be converted to and from a string easily with
+ * the functions in this class. It is useful for quickly assessing an element's
+ * position within an XML document without having to call costly operations to
+ * walk around the XML tree.
  * <p>
- * An XArchADTPath is composed of segments, starting at the XML tree root and proceeding down the tree to the specified
- * element. Each segment has one of the following formats:
+ * An XArchADTPath is composed of segments, starting at the XML tree root and
+ * proceeding down the tree to the specified element. Each segment has one of
+ * the following formats:
  * <p>
  * <i>tagName</i> (for elements where that is the only tag)
  * <p>
- * <i>tagName</i>:<i>tagIndex</i> Where tagIndex is the the index of that tag name within the list of all tags with the
- * same name. So, if there are five tags called ComponentInstance in the same place, the third one is
+ * <i>tagName</i>:<i>tagIndex</i> Where tagIndex is the the index of that tag
+ * name within the list of all tags with the same name. So, if there are five
+ * tags called ComponentInstance in the same place, the third one is
  * <code>componentInstance:2</code> (remember, indices are zero-based).
  * <p>
- * <i>tagName</i>:id=<i>tagID</i> Where tagID is the ID of the element, if the element has an ID attribute.
+ * <i>tagName</i>:id=<i>tagID</i> Where tagID is the ID of the element, if the
+ * element has an ID attribute.
  * <p>
  * So, a sample XArchADTPath might be:
  * <p>
  * <code>xArch/ArchStructure:id=hello there/Component:5/Description</code>
  * <p>
- * Any slashes in the ID or tag name are escaped with a backslash; backslashes are also escaped as a double-backslash.
+ * Any slashes in the ID or tag name are escaped with a backslash; backslashes
+ * are also escaped as a double-backslash.
  */
 public class XArchADTPath implements java.io.Serializable {
 
@@ -325,7 +331,8 @@ public class XArchADTPath implements java.io.Serializable {
 	 * 
 	 * @param index
 	 *            Segment number
-	 * @return index of tag at that segment, or -1 if the index is not applicable
+	 * @return index of tag at that segment, or -1 if the index is not
+	 *         applicable
 	 */
 	public int getTagIndex(int index) {
 		checkPositionIndex(index, getLength());
@@ -389,7 +396,8 @@ public class XArchADTPath implements java.io.Serializable {
 	}
 
 	/**
-	 * Converts this XArchADTPath into a string, stripping all information except tag names.
+	 * Converts this XArchADTPath into a string, stripping all information
+	 * except tag names.
 	 * 
 	 * @return String representation of this XArchADTPath with tag names only.
 	 */
