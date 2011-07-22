@@ -18,7 +18,7 @@
 		<element name="args" optional="true" implicit="true" />
 		<sequential>
 			<!-- check the ini file for the specific jar to use -->
-			<loadresource property="_equinox_jar_@{location}">
+			<loadresource property="_equinox_jar_@{location}" failonerror="false">
 				<fileset dir="@{location}" includes="*.ini" />
 				<filterchain>
 					<linecontainsregexp>

@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="org_archstudio_buckminster_build" basedir=".">
+<project name="org_archstudio_buckminster_build">
 
 	<import file="antlib/buckminster.xml" />
 	<configure-proxy-and-variables />
 
 	<property environment="env" />
 
-	<target name="delete">
+	<target name="clean">
 
-		<assert-nonempty property="dir" message="The root of the directory tree to delete" />
-		<assert-nonempty property="includes" message="A comma- or space-separated list of file patterns to delete" />
-		<!-- A comma- or space-separated list of file patterns to retain -->
-		<property name="excludes" value="." />
+		<assert-nonempty property="dir" message="The root of the directory tree to clean" />
+		<assert-nonempty property="delete" message="A comma- or space-separated list of file patterns to delete" />
+		<assert-nonempty property="retain" message="A comma- or space-separated list of file patterns to retain" />
 
-		<echo>Deleting '${includes}' from '${dir}', excluding '${excludes}'</echo>
+		<echo>Deleting '${delete}' from '${dir}', but retaining '${retain}'</echo>
 		<delete includeemptydirs="true" defaultexcludes="false">
-			<fileset dir="${dir}" includes="${includes}" excludes="${excludes}" />
+			<fileset dir="${dir}" includes="${delete}" excludes="${retain}" />
 		</delete>
 
 	</target>
@@ -23,54 +22,11 @@
 	<target name="install-buckminster">
 
 		<assert-nonempty property="eclipse.home" message="Missing eclipse.home" />
-		<property name="director.home" value="${eclipse.home}/../director" />
+		<property name="director.home" location="${eclipse.home}/../director" />
 
-		<get-and-extract-unless-ok src="http://www.eclipse.org/downloads/download.php?file=/tools/buckminster/products/director_latest.zip&amp;r=1" todir="${director.home}" />
+		<install-director todir="${director.home}" />
+		<install-buckminster todir="${eclipse.home}" director.home="${director.home}" />
 
-		<buckminster location="${eclipse.home}">
-			<arg value="listsite" />
-			<redirector outputproperty="uninstall_feature_command">
-				<outputfilterchain>
-					<headfilter skip="1" />
-					<replaceregex pattern="^[\s]*" replace="" flags="g" />
-					<replaceregex pattern="[\s]+.*$" replace="" flags="g" />
-					<replaceregex pattern="^(.*)$" replace="-uninstallIU \1.feature.group " flags="g" />
-					<striplinebreaks />
-				</outputfilterchain>
-			</redirector>
-		</buckminster>
-		<!-- create an innocuous command, otherwise -->
-		<property name="uninstall_feature_command" value="" />
-
-		<director location="${director.home}">
-			<arg value="-d" />
-			<arg value="${eclipse.home}" />
-			<arg value="-p" />
-			<arg value="Buckminster" />
-			<arg value="-r" />
-			<arg value="http://download.eclipse.org/tools/buckminster/headless-3.6" />
-			<arg value="-r" />
-			<arg value="http://download.cloudsmith.com/buckminster/external-3.6" />
-			<arg line="${uninstall_feature_command}" />
-			<arg value="-installIU" />
-			<arg value="org.eclipse.equinox.p2.director.feature.feature.group," />
-			<arg value="-installIU" />
-			<arg value="org.eclipse.buckminster.emma.headless.feature.feature.group," />
-			<arg value="-installIU" />
-			<arg value="org.eclipse.buckminster.pde.headless.feature.feature.group," />
-			<arg value="-installIU" />
-			<arg value="org.eclipse.buckminster.subclipse.headless.feature.feature.group," />
-			<arg value="-installIU" />
-			<arg value="org.eclipse.buckminster.maven.headless.feature.feature.group," />
-			<arg value="-installIU" />
-			<arg value="org.eclipse.buckminster.cmdline.product," />
-			<arg value="-installIU" />
-			<arg value="org.eclipse.buckminster.core.headless.feature.feature.group," />
-			<arg value="-installIU" />
-			<arg value="org.eclipse.buckminster.git.headless.feature.feature.group," />
-			<arg value="-installIU" />
-			<arg value="org.eclipse.buckminster.cvs.headless.feature.feature.group" />
-		</director>
 	</target>
 
 
@@ -102,11 +58,12 @@
 		<property name="buckminster.temp" location="${workspace.root}/buckminster.temp" />
 		<property name="buckminster.temp.root" location="${buckminster.temp}" />
 		<property name="buckminster.output.root" location="${workspace.root}/buckminster.output" />
+		<makeurl property="resolve.url" file="${basedir}/defaults/component.cquery" />
 
 		<echo>Resolving the cquery...</echo>
 		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
 			<arg value="resolve" />
-			<arg value="component.cquery" />
+			<arg value="${resolve.url}" />
 			<syspropertyset>
 				<propertyref builtin="commandline" />
 				<propertyref prefix="buckminster." />
@@ -152,7 +109,7 @@
 	<target name="update-buckminster">
 
 		<assert-nonempty property="eclipse.home" message="Missing eclipse.home" />
-		<property name="director.home" value="${eclipse.home}/../director" />
+		<property name="director.home" location="${eclipse.home}/../director" />
 		<assert-nonempty property="buckminster.component" message="Missing buckminster.component" />
 		<assert-nonempty property="update.site.feature" message="Missing update.site.feature" />
 
@@ -191,4 +148,6 @@
 
 	</target>
 
+	<target name="resolvebuildupdate" depends="resolve-cquery, build-update-site, update-buckminster" />
+	
 </project>
