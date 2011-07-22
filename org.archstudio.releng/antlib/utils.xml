@@ -34,8 +34,6 @@
 
 	<macrodef name="configure-proxy-and-variables">
 		<sequential>
-			<echo>Configuring proxy ...</echo>
-
 			<set-if-nonempty property="setproxy.password" value="${http.proxyPassword}" else="" test="http.proxyPassword" />
 			<set-if-nonempty property="setproxy.user" value="${http.proxyUser}" else="" test="http.proxyUser" />
 			<set-if-nonempty property="setproxy.port" value="${http.proxyPort}" else="80" test="http.proxyPort" />
@@ -190,7 +188,6 @@
 	</macrodef>
 
 	<macrodef name="is-ok">
-		<attribute name="name" default="_throw_away_property" />
 		<attribute name="location" />
 		<sequential>
 			<property name="@{name}" location="@{location}" />
@@ -198,29 +195,29 @@
 				<and>
 					<available file="@{location}" />
 					<available file="@{location}.ok" />
-					<uptodate srcfile="@{location}" targetfile="@{location}.ok" />
+					<!-- <uptodate srcfile="@{location}" targetfile="@{location}.ok" /> -->
 				</and>
 			</condition>
 		</sequential>
 	</macrodef>
 
-	<target name="--is-ok">
-		<is-ok location="${tofile}" />
-	</target>
-
 	<macrodef name="set-ok">
 		<attribute name="location" />
 		<sequential>
-			<touch file="@{location}" />
+			<!-- <touch file="@{location}" /> -->
 			<touch file="@{location}.ok" />
 		</sequential>
 	</macrodef>
 
-	<target name="--get-unless-ok" depends="--is-ok" unless="_ok_${tofile}">
+	<target name="--is-ok_tofile">
+		<is-ok location="${tofile}" />
+	</target>
+
+	<target name="--get-unless-ok" depends="--is-ok_tofile" unless="_ok_${tofile}">
 		<delete file="${tofile}" failonerror="false" quiet="true" />
 		<delete file="${tofile}.ok" failonerror="false" quiet="true" />
 		<get dest="${tofile}" src="${src}" />
-		<touch file="${tofile}.ok" />
+		<set-ok location="${tofile}" />
 	</target>
 
 	<macrodef name="get-unless-ok">
@@ -234,29 +231,36 @@
 		</sequential>
 	</macrodef>
 
-	<target name="--extract-unless-ok" depends="--is-ok" unless="_ok_${todir}">
-		<delete dir="${todir}" failonerror="false" quiet="true" />
-		<delete file="${todir}.ok" failonerror="false" quiet="true" />
+	<target name="--is-ok_subdir">
+		<is-ok location="${subdir}" />
+	</target>
+
+	<target name="--extract-unless-ok" depends="--is-ok_subdir" unless="_ok_${subdir}">
+		<delete dir="${subdir}" failonerror="false" quiet="true" />
+		<delete file="${subdir}.ok" failonerror="false" quiet="true" />
 		<!-- maybe support something other than .zip, one day -->
 		<unzip dest="${todir}" src="${src}" />
-		<touch file="${todir}.ok" />
+		<set-ok location="${subdir}" />
 	</target>
 
 	<macrodef name="extract-unless-ok">
 		<attribute name="src" />
 		<attribute name="todir" />
+		<attribute name="subdir" default="@{todir}" />
 		<sequential>
 			<ant target="--extract-unless-ok">
 				<property name="src" location="@{src}" />
 				<property name="todir" location="@{todir}" />
+				<property name="subdir" location="@{subdir}" />
 			</ant>
 		</sequential>
 	</macrodef>
 
+	<!--
 	<macrodef name="get-and-extract-unless-ok">
 		<attribute name="src" />
-		<attribute name="todir" default="${basedir}" />
-		<attribute name="property" default="_throw_away_property" />
+		<attribute name="tofile" default="_throw_away_property" />
+		<attribute name="todir" />
 		<sequential>
 			<loadresource property="_filename_@{src}">
 				<string>@{src}</string>
@@ -264,28 +268,21 @@
 					<replaceregex pattern="^.*[/=]([^/=]+\.zip).*$" replace="\1" />
 				</filterchain>
 			</loadresource>
-			<loadresource property="_basename_@{src}">
-				<propertyresource name="_filename_@{src}" />
-				<filterchain>
-					<replaceregex pattern="^(.+)(\.zip)$" replace="\1" />
-				</filterchain>
-			</loadresource>
-			<condition property="_todir_@{src}" value="${@{property}}" else="${todir}/${_basename_@{src}}">
+			<condition property="_tofile_@{src}" value="@{tofile}" else="@{todir}/../${_filename_@{src}}">
 				<and>
-					<isset property="@{property}" />
-					<length string="${@{property}}" when="greater" length="0" />
+					<isset property="@{tofile}" />
+					<length string="@{tofile}" when="greater" length="0" />
 					<not>
-						<equals arg1="@{property}" arg2="_throw_away_property" />
+						<equals arg1="@{tofile}" arg2="_throw_away_property" />
 					</not>
 				</and>
 			</condition>
-			<property name="@{property}" location="${_todir_@{src}}" />
 			<mkdir dir="@{todir}" />
-			<get-unless-ok src="@{src}" tofile="@{todir}/${_filename_@{src}}" />
-			<mkdir dir="${_todir_@{src}}" />
-			<extract-unless-ok src="@{todir}/${_filename_@{src}}" todir="${_todir_@{src}}" />
+			<get-unless-ok src="@{src}" tofile="${_tofile_@{src}}" />
+			<extract-unless-ok src="${_tofile_@{src}}" todir="@{todir}" />
 		</sequential>
 	</macrodef>
+	-->
 
 	<macrodef name="path-union">
 		<attribute name="base" />
@@ -323,5 +320,5 @@
 			</taskdef>
 		</sequential>
 	</macrodef>
-
+	
 </project>

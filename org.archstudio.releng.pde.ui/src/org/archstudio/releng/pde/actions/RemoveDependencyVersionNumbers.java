@@ -1,11 +1,10 @@
 package org.archstudio.releng.pde.actions;
 
-import static org.archstudio.sysutils.SystemUtils.emptyIfNull;
-
 import java.util.List;
 
 import org.archstudio.eclipse.ui.actions.AbstractObjectActionDelegate;
-import org.archstudio.releng.pde.Activator;
+import org.archstudio.releng.pde.ui.Activator;
+import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.utils.osgi.OSGiUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -34,7 +33,7 @@ public class RemoveDependencyVersionNumbers extends AbstractObjectActionDelegate
 			BundleContext context = Activator.getSingleton().getContext();
 			IBundleProjectService service = OSGiUtils.getServiceReference(context, IBundleProjectService.class);
 			IBundleProjectDescription description = service.getDescription(project);
-			List<IRequiredBundleDescription> requiredBundles = Lists.newArrayList(emptyIfNull(description
+			List<IRequiredBundleDescription> requiredBundles = Lists.newArrayList(SystemUtils.emptyIfNull(description
 					.getRequiredBundles()));
 
 			List<IRequiredBundleDescription> newRequiredBundles = Lists.newArrayList();

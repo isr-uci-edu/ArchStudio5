@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.archstudio.eclipse.ui.actions.AbstractObjectActionDelegate;
-import org.archstudio.releng.pde.Activator;
+import org.archstudio.releng.pde.ui.Activator;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.utils.osgi.OSGiUtils;
 import org.eclipse.core.resources.IFile;
