@@ -29,8 +29,8 @@ public class EllipseGlassThingPeer<T extends EllipseGlassThing> extends Abstract
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
-		super.getLocalBounds(view, cm, g, r, boundsResult);
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
+		super.getLocalBounds(view, cm, r, boundsResult);
 		// width of marquee line
 		boundsResult.expand(3, 3);
 	}

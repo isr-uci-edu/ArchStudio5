@@ -19,6 +19,8 @@ public class RectangleGlassThingPeer<T extends RectangleGlassThing> extends Abst
 	public void draw(IBNAView view, ICoordinateMapper cm, final Graphics g, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			final Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
+			lbb.width -= 1;
+			lbb.height -= 1;
 			BNAUtils.drawMarquee(g, r, t.getRotatingOffset(), false, new Runnable() {
 				@Override
 				public void run() {
@@ -29,8 +31,8 @@ public class RectangleGlassThingPeer<T extends RectangleGlassThing> extends Abst
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
-		super.getLocalBounds(view, cm, g, r, boundsResult);
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
+		super.getLocalBounds(view, cm, r, boundsResult);
 		// width of marquee line
 		boundsResult.expand(3, 3);
 	}

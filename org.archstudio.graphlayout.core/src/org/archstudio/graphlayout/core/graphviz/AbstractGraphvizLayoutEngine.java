@@ -18,14 +18,15 @@ import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 
 	public static final String EOL = System.getProperty("line.separator");
 
+	@Override
 	public GraphLayout layoutGraph(IXArchADT xarch, IPreferenceStore prefs, ObjRef rootRef, GraphLayoutParameters params)
 			throws GraphLayoutException {
 		StringBuffer sb = new StringBuffer();
@@ -42,8 +43,9 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 
 	protected void createGraph(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef rootRef,
 			GraphLayoutParameters params) throws GraphLayoutException {
-		if (rootRef == null)
+		if (rootRef == null) {
 			throw new IllegalArgumentException("Null root reference in graph layout.");
+		}
 
 		if (!XadlUtils.isInstanceOf(xarch, rootRef, Structure_3_0Package.Literals.STRUCTURE)) {
 			throw new GraphLayoutException("Invalid root reference in graph layout; must be a Structure");
@@ -62,7 +64,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 	protected void createGraphParameters(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef rootRef,
 			GraphLayoutParameters params) throws GraphLayoutException {
 		Object o = params.getProperty("nodeSep");
-		if ((o != null) && (o instanceof Double)) {
+		if (o != null && o instanceof Double) {
 			sb.append("  nodesep = ");
 			sb.append(((Double) o).toString());
 			sb.append(";");
@@ -70,7 +72,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 		}
 
 		o = params.getProperty("rankSep");
-		if ((o != null) && (o instanceof Double)) {
+		if (o != null && o instanceof Double) {
 			sb.append("  ranksep = ");
 			sb.append(((Double) o).toString());
 			sb.append(";");
@@ -262,8 +264,8 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 					//of the box, so we have to offset it by half the width
 					//and half the height to get the UL coordinate.
 
-					xd -= (widthd / 2.0d);
-					yd -= (heightd / 2.0d);
+					xd -= widthd / 2.0d;
+					yd -= heightd / 2.0d;
 
 					xd *= scale;
 					int x = (int) Math.round(xd);
@@ -364,7 +366,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 	protected static boolean hasOrientedInterface(IXArchADT xarch, ObjRef brickRef) {
 		for (ObjRef interfaceRef : xarch.getAll(brickRef, "interface")) {
 			Orientation o = guessInterfaceOrientation(xarch, interfaceRef);
-			if ((o != null) && (!o.equals(Orientation.NONE))) {
+			if (o != null && !o.equals(Orientation.NONE)) {
 				return true;
 			}
 		}

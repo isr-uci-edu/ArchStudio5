@@ -18,8 +18,8 @@ public class DragMovableSelectionLogic extends AbstractThingLogic implements IDr
 
 	@Override
 	protected void init() {
-		dml = getBNAWorld().getThingLogicManager().addThingLogic(DragMovableLogic.class);
-		stl = getBNAWorld().getThingLogicManager().addThingLogic(SelectionDragMovableLogic.class);
+		dml = addThingLogic(DragMovableLogic.class);
+		stl = addThingLogic(SelectionDragMovableLogic.class);
 		dml.addDragMoveListener(this);
 	}
 

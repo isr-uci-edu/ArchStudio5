@@ -7,7 +7,6 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.facets.peers.IHasShadowPeer;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -25,7 +24,7 @@ public abstract class AbstractEllipseThingPeer<T extends AbstractEllipseThing> e
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
 		cm.worldToLocal(boundsResult.setBounds(t.getBoundingBox()));
 		if (this instanceof IHasShadowPeer) {
 			ShadowThingPeer.expandForShadow(cm, boundsResult);

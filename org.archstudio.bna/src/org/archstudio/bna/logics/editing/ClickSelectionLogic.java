@@ -20,7 +20,7 @@ import com.google.common.collect.Iterables;
 
 public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMenuListener {
 
-	protected ThingValueTrackingLogic tvtl;
+	protected ThingValueTrackingLogic valuesLogic;
 
 	public ClickSelectionLogic() {
 	}
@@ -28,7 +28,7 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 	@Override
 	protected void init() {
 		super.init();
-		tvtl = getBNAWorld().getThingLogicManager().addThingLogic(ThingValueTrackingLogic.class);
+		valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
 	}
 
 	private void removeAllSelections() {
@@ -37,7 +37,7 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 			model.beginBulkChange();
 			try {
 				for (IHasMutableSelected t : Iterables.filter(
-						BNAUtils.getThings(model, tvtl.getThingIDs(IHasSelected.SELECTED_KEY, Boolean.TRUE)),
+						BNAUtils.getThings(model, valuesLogic.getThingIDs(IHasSelected.SELECTED_KEY, Boolean.TRUE)),
 						IHasMutableSelected.class)) {
 					t.setSelected(false);
 				}

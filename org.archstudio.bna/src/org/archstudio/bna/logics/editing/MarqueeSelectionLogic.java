@@ -21,23 +21,18 @@ import com.google.common.collect.Iterables;
 
 public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMouseMoveListener {
 
-	protected ThingTypeTrackingLogic tttl;
+	protected ThingTypeTrackingLogic typesLogic;
 
 	protected MarqueeBoxBorderThing marqueeSelection = null;
 	protected Point initDownWorldPoint = new Point();
 
-	public MarqueeSelectionLogic() {
-	}
-
-	@Override
-	protected void init() {
-		super.init();
-		tttl = getBNAWorld().getThingLogicManager().addThingLogic(ThingTypeTrackingLogic.class);
+	public MarqueeSelectionLogic(ThingTypeTrackingLogic typesLogic) {
+		this.typesLogic = typesLogic;
 	}
 
 	@Override
 	protected void destroy() {
-		tttl = null;
+		typesLogic = null;
 		if (marqueeSelection != null) {
 			IBNAModel m = getBNAModel();
 			if (m != null) {
@@ -86,7 +81,7 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 					model.beginBulkChange();
 					try {
 						for (IHasMutableSelected mst : Iterables.filter(
-								BNAUtils.getThings(model, tttl.getThingIDs(IHasMutableSelected.class)),
+								BNAUtils.getThings(model, typesLogic.getThingIDs(IHasMutableSelected.class)),
 								IHasMutableSelected.class)) {
 							if (!BNAUtils.wasControlPressed(evt)) {
 								mst.setSelected(false);

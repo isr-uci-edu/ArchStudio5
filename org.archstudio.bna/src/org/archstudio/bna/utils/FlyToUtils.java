@@ -82,8 +82,8 @@ public class FlyToUtils {
 							IBNAModel model = fview.getBNAWorld().getBNAModel();
 							model.beginBulkChange();
 							try {
-								Point p = BNAUtils.toPoint(SWTWidgetUtils.calcPointOnLineAtDist(BNAUtils.toSwtPoint(o),
-										BNAUtils.toSwtPoint(d), segLengths[i]));
+								Point p = BNAUtils.toPoint(SWTWidgetUtils.calcPointOnLineAtDist(BNAUtils.toPoint(o),
+										BNAUtils.toPoint(d), segLengths[i]));
 
 								if (i < segLengths.length / 2) {
 									cm.rescaleRelative(-scaleFactor);

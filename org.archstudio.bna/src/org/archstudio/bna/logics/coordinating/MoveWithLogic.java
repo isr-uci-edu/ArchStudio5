@@ -29,26 +29,25 @@ public class MoveWithLogic extends AbstractPropagateValueLogic<IThing, IRelative
 		super(IThing.class, IRelativeMovable.class);
 	}
 
-	public void moveWith(IThing withThing, MoveWithMode moveWithMode, IRelativeMovable... movableThings) {
+	public void moveWith(IThing withThing, MoveWithMode moveWithMode, IRelativeMovable movableThing) {
 		checkNotNull(withThing);
 		checkNotNull(moveWithMode);
 
-		setPropagate(withThing, IHasAnchorPoint.ANCHOR_POINT_KEY, null, moveWithMode, movableThings);
-		setPropagate(withThing, IHasBoundingBox.BOUNDING_BOX_KEY, null, moveWithMode, movableThings);
+		setPropagate(withThing, IHasAnchorPoint.ANCHOR_POINT_KEY, null, moveWithMode, movableThing);
+		setPropagate(withThing, IHasBoundingBox.BOUNDING_BOX_KEY, null, moveWithMode, movableThing);
 	}
 
-	public void moveWith(IHasAnchorPoint withThing, IRelativeMovable... movableThings) {
+	public void moveWith(IHasAnchorPoint withThing, IRelativeMovable movableThing) {
 		checkNotNull(withThing);
 
-		setPropagate(withThing, IHasAnchorPoint.ANCHOR_POINT_KEY, null, MoveWithMode.TrackAnchorPointOnly,
-				movableThings);
+		setPropagate(withThing, IHasAnchorPoint.ANCHOR_POINT_KEY, null, MoveWithMode.TrackAnchorPointOnly, movableThing);
 	}
 
-	public void moveWith(IHasBoundingBox withThing, IRelativeMovable... movableThings) {
+	public void moveWith(IHasBoundingBox withThing, IRelativeMovable movableThing) {
 		checkNotNull(withThing);
 
 		setPropagate(withThing, IHasBoundingBox.BOUNDING_BOX_KEY, null, MoveWithMode.TrackBoundingBoxFirst,
-				movableThings);
+				movableThing);
 	}
 
 	@Override

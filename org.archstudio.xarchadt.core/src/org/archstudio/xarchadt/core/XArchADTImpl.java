@@ -73,6 +73,9 @@ import com.google.common.collect.MapMaker;
 import com.google.common.collect.Maps;
 
 public class XArchADTImpl implements IXArchADT {
+
+	private static final boolean DEBUG = false;
+
 	protected final List<IXArchADTModelListener> modelListeners = new CopyOnWriteArrayList<IXArchADTModelListener>();
 	protected final List<IXArchADTFileListener> fileListeners = new CopyOnWriteArrayList<IXArchADTFileListener>();
 
@@ -156,7 +159,7 @@ public class XArchADTImpl implements IXArchADT {
 		synchronized (objRefToEObjectLock) {
 			ObjRef objRef = eObjectToObjRef.get(eObject);
 			if (objRef == null && eObject != null) {
-				eObjectToObjRef.put(eObject, objRef = new ObjRef());
+				eObjectToObjRef.put(eObject, objRef = new ObjRef(DEBUG ? eObject : null));
 			}
 			return objRef;
 		}
@@ -939,10 +942,7 @@ public class XArchADTImpl implements IXArchADT {
 
 			String featureName;
 			Object feature = notification.getFeature();
-			if (feature instanceof EReference) {
-				featureName = ((EReference) feature).getName();
-			}
-			else if (feature instanceof EStructuralFeature) {
+			if (feature instanceof EStructuralFeature) {
 				featureName = ((EStructuralFeature) feature).getName();
 			}
 			else {
@@ -957,17 +957,22 @@ public class XArchADTImpl implements IXArchADT {
 			XArchADTPath oldValuePath = null;
 			if (oldValue instanceof EObject) {
 				ObjRef oldValueRef = put((EObject) oldValue);
+				boolean hasId = ((EObject) oldValue).eClass().getEStructuralFeature("id") != null;
+				Object valueId = hasId ? get(oldValueRef, "id") : null;
 				oldValue = oldValueRef;
 				oldValuePath = srcPath.getLength() == 0 ? new XArchADTPath(featureName) : new XArchADTPath(
-						srcPath.toString() + "/" + featureName);
+						srcPath.toString() + "/" + featureName + (valueId == null ? "" : ":id=" + valueId));
 			}
 
 			Object newValue = notification.getNewValue();
 			XArchADTPath newValuePath = null;
 			if (newValue instanceof EObject) {
 				ObjRef newValueRef = put((EObject) newValue);
+				boolean hasId = ((EObject) newValue).eClass().getEStructuralFeature("id") != null;
+				Object valueId = hasId ? get(newValueRef, "id") : null;
 				newValue = newValueRef;
-				newValuePath = getPath(newValueRef);
+				newValuePath = srcPath.getLength() == 0 ? new XArchADTPath(featureName) : new XArchADTPath(
+						srcPath.toString() + "/" + featureName + (valueId == null ? "" : ":id=" + valueId));
 			}
 
 			XArchADTModelEvent.EventType evtType;

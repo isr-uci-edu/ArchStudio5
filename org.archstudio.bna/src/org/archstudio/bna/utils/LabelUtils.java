@@ -1,10 +1,14 @@
 package org.archstudio.bna.utils;
 
+import java.util.Set;
+
 import org.archstudio.bna.IResources;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.TextLayout;
+
+import com.google.common.collect.Sets;
+import com.google.common.primitives.Ints;
 
 public class LabelUtils {
 
@@ -13,14 +17,14 @@ public class LabelUtils {
 	 * specified height, returning the boundaries of the resulting layout; or
 	 * <code>null</code> if none exists.
 	 */
-	public static Rectangle setFontToRender(IResources r, TextLayout textLayout, int maxHeight, String name, int size,
+	public static int resizeTextLayoutToFit(IResources r, TextLayout textLayout, int maxHeight, String name, int size,
 			FontStyle style) {
 
-		Font initialFont = r.getFont(name, size, style);
-		textLayout.setFont(initialFont);
+		textLayout.setFont(r.getFont(name, size, style));
+		Set<Integer> allowableLineBreaks = getAllowableLinebreaks(textLayout.getText());
 		Rectangle bounds = BNAUtils.toRectangle(textLayout.getBounds());
-		if (bounds.height <= maxHeight) {
-			return bounds;
+		if (allowableLineBreaks.containsAll(Ints.asList(textLayout.getLineOffsets())) && bounds.height <= maxHeight) {
+			return size;
 		}
 
 		/*
@@ -29,30 +33,43 @@ public class LabelUtils {
 		 * but which is within the maximum height specified. We essentially do a
 		 * binary search for a valid font size.
 		 */
-		int maxSize = size;
+		int maxSize = size - 1;
 		int minSize = 1;
 		int maxSizeThatFits = 0;
-		int fontSize = size;
-		while (true) {
-			if (maxSize <= minSize || maxSize - 1 == minSize) {
-				if (maxSizeThatFits == 0) {
-					return null;
-				}
-				if (fontSize != maxSizeThatFits) {
-					textLayout.setFont(r.getFont(name, maxSizeThatFits, style));
-				}
-				return BNAUtils.toRectangle(textLayout.getBounds());
-			}
+		while (maxSize >= minSize) {
 			int testSize = (maxSize - minSize) / 2 + minSize;
-			textLayout.setFont(r.getFont(name, fontSize = testSize, style));
+			textLayout.setFont(r.getFont(name, testSize, style));
 			bounds = BNAUtils.toRectangle(textLayout.getBounds());
-			if (bounds.height > maxHeight) {
-				maxSize = testSize;
+			boolean allowedLineBreaks = allowableLineBreaks.containsAll(Ints.asList(textLayout.getLineOffsets()));
+			if (bounds.height > maxHeight || !allowedLineBreaks) {
+				maxSize = testSize - 1;
+				continue;
 			}
 			else {
-				minSize = testSize;
-				maxSizeThatFits = minSize;
+				if (allowedLineBreaks) {
+					maxSizeThatFits = testSize;
+				}
+				minSize = testSize + 1;
+				continue;
 			}
 		}
+		if (maxSizeThatFits == 0) {
+			return 0;
+		}
+		textLayout.setFont(r.getFont(name, maxSizeThatFits, style));
+		return maxSizeThatFits;
+	}
+
+	private static Set<Integer> getAllowableLinebreaks(String text) {
+		Set<Integer> breaks = Sets.newHashSet(0, text.length());
+		int index = 0;
+		for (String s : text.split("\\s")) {
+			index += s.length();
+			breaks.add(index);
+			index++;
+			breaks.add(index);
+		}
+		breaks.remove(text.length() + 1);
+		return breaks;
 	}
 }

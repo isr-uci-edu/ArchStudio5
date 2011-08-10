@@ -1,5 +1,7 @@
 package org.archstudio.bna.logics;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogic;
@@ -14,16 +16,8 @@ public abstract class AbstractThingLogic implements IThingLogic {
 		return bnaWorld;
 	}
 
-	protected IBNAModel getBNAModel() {
-		IBNAWorld bnaWorld = getBNAWorld();
-		if (bnaWorld != null) {
-			return bnaWorld.getBNAModel();
-		}
-		return null;
-	}
-
 	@Override
-	public final void setBNAWorld(IBNAWorld newBNAWorld) {
+	public void setBNAWorld(IBNAWorld newBNAWorld) {
 		if (!SystemUtils.nullEquals(this.bnaWorld, newBNAWorld)) {
 			if (this.bnaWorld != null) {
 				destroy();
@@ -33,6 +27,16 @@ public abstract class AbstractThingLogic implements IThingLogic {
 				init();
 			}
 		}
+	}
+
+	protected IBNAModel getBNAModel() {
+		IBNAWorld bnaWorld = checkNotNull(getBNAWorld());
+		return bnaWorld.getBNAModel();
+	}
+
+	protected <L extends IThingLogic> L addThingLogic(Class<L> logicClass) {
+		IBNAWorld bnaWorld = checkNotNull(getBNAWorld());
+		return bnaWorld.getThingLogicManager().addThingLogic(logicClass);
 	}
 
 	protected void init() {

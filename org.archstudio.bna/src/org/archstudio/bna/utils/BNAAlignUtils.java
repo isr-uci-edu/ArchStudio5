@@ -3,9 +3,8 @@ package org.archstudio.bna.utils;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
-import org.archstudio.bna.facets.IHasMinimumSize;
 import org.archstudio.bna.facets.IHasMutableAnchorPoint;
-import org.archstudio.bna.facets.IHasMutableMinimumSize;
+import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
 import org.eclipse.draw2d.geometry.Point;
@@ -34,10 +33,10 @@ public class BNAAlignUtils {
 				}
 			}
 			for (IThing t : things) {
-				if (t instanceof IHasMinimumSize) {
-					Rectangle boundingBox = ((IHasMutableMinimumSize) t).getBoundingBox();
+				if (t instanceof IHasMutableBoundingBox) {
+					Rectangle boundingBox = ((IHasMutableBoundingBox) t).getBoundingBox();
 					Rectangle newBoundingBox = new Rectangle(boundingBox.x, y, boundingBox.width, boundingBox.height);
-					((IHasMutableMinimumSize) t).setBoundingBox(newBoundingBox);
+					((IHasMutableBoundingBox) t).setBoundingBox(newBoundingBox);
 				}
 				else if (t instanceof IHasMutableAnchorPoint) {
 					Point anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
@@ -64,11 +63,11 @@ public class BNAAlignUtils {
 			}
 			y = y / i;
 			for (IThing t : things) {
-				if (t instanceof IHasMinimumSize) {
-					Rectangle boundingBox = ((IHasMutableMinimumSize) t).getBoundingBox();
+				if (t instanceof IHasMutableBoundingBox) {
+					Rectangle boundingBox = ((IHasMutableBoundingBox) t).getBoundingBox();
 					Rectangle newBoundingBox = new Rectangle(boundingBox.x, y - boundingBox.height / 2,
 							boundingBox.width, boundingBox.height);
-					((IHasMutableMinimumSize) t).setBoundingBox(newBoundingBox);
+					((IHasMutableBoundingBox) t).setBoundingBox(newBoundingBox);
 				}
 				else if (t instanceof IHasMutableAnchorPoint) {
 					Point anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
@@ -95,11 +94,11 @@ public class BNAAlignUtils {
 				}
 			}
 			for (IThing t : things) {
-				if (t instanceof IHasMinimumSize) {
-					Rectangle boundingBox = ((IHasMutableMinimumSize) t).getBoundingBox();
+				if (t instanceof IHasMutableBoundingBox) {
+					Rectangle boundingBox = ((IHasMutableBoundingBox) t).getBoundingBox();
 					Rectangle newBoundingBox = new Rectangle(boundingBox.x, y - boundingBox.height, boundingBox.width,
 							boundingBox.height);
-					((IHasMutableMinimumSize) t).setBoundingBox(newBoundingBox);
+					((IHasMutableBoundingBox) t).setBoundingBox(newBoundingBox);
 				}
 				else if (t instanceof IHasMutableAnchorPoint) {
 					Point anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
@@ -131,10 +130,10 @@ public class BNAAlignUtils {
 				}
 			}
 			for (IThing t : things) {
-				if (t instanceof IHasMinimumSize) {
-					Rectangle boundingBox = ((IHasMutableMinimumSize) t).getBoundingBox();
+				if (t instanceof IHasMutableBoundingBox) {
+					Rectangle boundingBox = ((IHasMutableBoundingBox) t).getBoundingBox();
 					Rectangle newBoundingBox = new Rectangle(x, boundingBox.y, boundingBox.width, boundingBox.height);
-					((IHasMutableMinimumSize) t).setBoundingBox(newBoundingBox);
+					((IHasMutableBoundingBox) t).setBoundingBox(newBoundingBox);
 				}
 				else if (t instanceof IHasMutableAnchorPoint) {
 					Point anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
@@ -161,11 +160,11 @@ public class BNAAlignUtils {
 			}
 			x = x / i;
 			for (IThing t : things) {
-				if (t instanceof IHasMinimumSize) {
-					Rectangle boundingBox = ((IHasMutableMinimumSize) t).getBoundingBox();
+				if (t instanceof IHasMutableBoundingBox) {
+					Rectangle boundingBox = ((IHasMutableBoundingBox) t).getBoundingBox();
 					Rectangle newBoundingBox = new Rectangle(x - boundingBox.width / 2, boundingBox.y,
 							boundingBox.width, boundingBox.height);
-					((IHasMutableMinimumSize) t).setBoundingBox(newBoundingBox);
+					((IHasMutableBoundingBox) t).setBoundingBox(newBoundingBox);
 				}
 				else if (t instanceof IHasMutableAnchorPoint) {
 					Point anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
@@ -192,11 +191,11 @@ public class BNAAlignUtils {
 				}
 			}
 			for (IThing t : things) {
-				if (t instanceof IHasMinimumSize) {
-					Rectangle boundingBox = ((IHasMutableMinimumSize) t).getBoundingBox();
+				if (t instanceof IHasMutableBoundingBox) {
+					Rectangle boundingBox = ((IHasMutableBoundingBox) t).getBoundingBox();
 					Rectangle newBoundingBox = new Rectangle(x - boundingBox.width, boundingBox.y, boundingBox.width,
 							boundingBox.height);
-					((IHasMutableMinimumSize) t).setBoundingBox(newBoundingBox);
+					((IHasMutableBoundingBox) t).setBoundingBox(newBoundingBox);
 				}
 				else if (t instanceof IHasMutableAnchorPoint) {
 					Point anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();

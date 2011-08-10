@@ -1,4 +1,4 @@
-package org.archstudio.xadlbna.logics.mapping;
+package org.archstudio.bna.utils;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -13,7 +13,17 @@ import com.google.common.collect.Lists;
 public class BNAPath {
 
 	public static BNAPath create(IThingRefKey<?>... thingRefKeys) {
-		return new BNAPath(Arrays.asList(thingRefKeys));
+		return BNAPath.create(Arrays.asList(thingRefKeys));
+	}
+
+	public static BNAPath create(Iterable<IThingRefKey<?>> thingRefKeys) {
+		return new BNAPath(thingRefKeys);
+	}
+
+	private static final BNAPath EMPTY_PATH = BNAPath.create();
+
+	public static BNAPath emptyPath() {
+		return EMPTY_PATH;
 	}
 
 	public static IThing resolve(IBNAModel bnaModel, IThing rootThing, BNAPath targetThingPath) {
@@ -26,7 +36,7 @@ public class BNAPath {
 
 	private final List<IThingRefKey<?>> keyPath;
 
-	protected BNAPath(List<IThingRefKey<?>> keyPath) {
+	protected BNAPath(Iterable<IThingRefKey<?>> keyPath) {
 		this.keyPath = Lists.newArrayList(keyPath);
 	}
 

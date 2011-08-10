@@ -8,10 +8,10 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.sysutils.SystemUtils;
 
 import com.google.common.base.Function;
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.SetMultimap;
@@ -82,15 +82,16 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAS
 
 	public <V> Iterable<Object> getThingIDs(IThingKey<V> withKey, V ofValue) {
 		synchronized (keyToValueToThingIDsMap) {
-			return SystemUtils.copyIterable(keyToValueToThingIDsMap.get(withKey).get(ofValue));
+			return Lists.newArrayList(keyToValueToThingIDsMap.get(withKey).get(ofValue));
 		}
 	}
 
 	public <V1, V2> Iterable<Object> getThingIDs(IThingKey<V1> withKey1, V1 ofValue1, IThingKey<V2> withKey2,
 			V2 ofValue2) {
 		synchronized (keyToValueToThingIDsMap) {
-			return SystemUtils.copyIterable(Sets.intersection(keyToValueToThingIDsMap.get(withKey1).get(ofValue1),
+			return Lists.newArrayList(Sets.intersection(keyToValueToThingIDsMap.get(withKey1).get(ofValue1),
 					keyToValueToThingIDsMap.get(withKey2).get(ofValue2)));
 		}
 	}
+
 }

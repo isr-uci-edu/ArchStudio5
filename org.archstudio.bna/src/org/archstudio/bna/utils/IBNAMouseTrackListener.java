@@ -7,10 +7,10 @@ import org.eclipse.swt.events.MouseEvent;
 
 public interface IBNAMouseTrackListener {
 
-	public void mouseEnter(IBNAView view, MouseEvent e, Iterable<IThing> t, ICoordinate location);
+	public void mouseEnter(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location);
 
-	public void mouseExit(IBNAView view, MouseEvent e, Iterable<IThing> t, ICoordinate location);
+	public void mouseExit(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location);
 
-	public void mouseHover(IBNAView view, MouseEvent e, Iterable<IThing> t, ICoordinate location);
+	public void mouseHover(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location);
 
 }

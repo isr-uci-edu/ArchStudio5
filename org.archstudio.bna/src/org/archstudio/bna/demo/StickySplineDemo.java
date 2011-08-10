@@ -20,7 +20,7 @@ import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.coordinating.MirrorPointLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
-import org.archstudio.bna.logics.coordinating.StickPointsLogic;
+import org.archstudio.bna.logics.coordinating.AbstractStickPointsLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
@@ -94,7 +94,7 @@ public class StickySplineDemo {
 
 		IBNAWorld world = view.getBNAWorld();
 		IBNAModel model = world.getBNAModel();
-		StickPointsLogic spl = world.getThingLogicManager().addThingLogic(StickPointsLogic.class);
+		AbstractStickPointsLogic spl = world.getThingLogicManager().addThingLogic(AbstractStickPointsLogic.class);
 		MirrorPointLogic mpl = world.getThingLogicManager().addThingLogic(MirrorPointLogic.class);
 
 		ICoordinateMapper cm = view.getCoordinateMapper();

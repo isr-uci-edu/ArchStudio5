@@ -95,8 +95,7 @@ public class AbstractThing implements IThing {
 
 	@OverridingMethodsMustInvokeSuper
 	protected void initProperties() {
-		checkState(!initedProperties, "Thing " + this.getClass().getName()
-				+ " may only call super.initPropeties() once.");
+		checkState(!initedProperties, "Thing %s may only call super.initPropeties() once.", this.getClass());
 		initedProperties = true;
 	}
 
@@ -164,7 +163,7 @@ public class AbstractThing implements IThing {
 			oldValue = properties.put(key, value);
 			if (key.isFireEventOnChange() && !SystemUtils.nullEquals(oldValue, value)) {
 				evt = ThingEvent.<IThing, IThingKey<V>, V> create(ThingEvent.EventType.PROPERTY_SET, this, key,
-						oldValue, value);
+						key.postRead(oldValue), key.postRead(value));
 				if (synchronizedUpdateEvents != null) {
 					synchronizedUpdateEvents.add(evt);
 					return oldValue;

@@ -8,6 +8,6 @@ import org.eclipse.jface.action.IMenuManager;
 public interface IBNAMenuListener {
 
 	//Menu events
-	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager m);
+	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu);
 
 }

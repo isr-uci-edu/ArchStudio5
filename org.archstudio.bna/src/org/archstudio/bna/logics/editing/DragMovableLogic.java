@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
+import org.archstudio.bna.facets.IHasReferencePoint;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -27,23 +29,25 @@ import com.google.common.collect.Sets;
 
 public class DragMovableLogic extends AbstractThingLogic implements IDragMoveListener {
 
-	protected ThingValueTrackingLogic tvtl;
+	protected ThingValueTrackingLogic valuesLogic;
+
 	protected final Map<IRelativeMovable, Point> movingThings = Maps.newHashMap();
+	protected final Point lastAdjustedMousePoint = new Point();
 
 	public DragMovableLogic() {
+		super();
 	}
 
 	@Override
 	protected void init() {
 		super.init();
-		tvtl = getBNAWorld().getThingLogicManager().addThingLogic(ThingValueTrackingLogic.class);
-		// this logic relies on events from the DragMoveEventsLogic
-		getBNAWorld().getThingLogicManager().addThingLogic(DragMoveEventsLogic.class);
+		this.valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
+		// this logic listens to events from the following
+		addThingLogic(DragMoveEventsLogic.class);
 	}
 
 	@Override
 	protected void destroy() {
-		tvtl = null;
 		movingThings.clear();
 		super.destroy();
 	}
@@ -51,23 +55,36 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 	@Override
 	public void dragStarted(DragMoveEvent evt) {
 		movingThings.clear();
+		evt.getAdjustedThingLocation().getWorldPoint(lastAdjustedMousePoint);
 		IBNAModel model = getBNAModel();
 		if (model != null) {
 			model.beginBulkChange();
 			try {
 				IRelativeMovable movingThing = SystemUtils.castOrNull(evt.getInitialThing(), IRelativeMovable.class);
 				if (UserEditableUtils.isEditableForAllQualities(movingThing, IRelativeMovable.USER_MAY_MOVE)) {
-					List<IRelativeMovable> selectedThings = Lists.newArrayList(Iterables.filter(
-							BNAUtils.getThings(model, tvtl.getThingIDs(IHasSelected.SELECTED_KEY, Boolean.TRUE)),
-							IRelativeMovable.class));
+					List<IRelativeMovable> selectedThings = Lists
+							.newArrayList(Iterables.filter(
+									BNAUtils.getThings(model,
+											valuesLogic.getThingIDs(IHasSelected.SELECTED_KEY, Boolean.TRUE)),
+									IRelativeMovable.class));
 
 					if (selectedThings.contains(movingThing)) {
 						for (IRelativeMovable rmt : selectedThings) {
-							movingThings.put(rmt, rmt.getReferencePoint());
+							if (rmt instanceof IHasMutableReferencePoint) {
+								movingThings.put(rmt, ((IHasReferencePoint) rmt).getReferencePoint());
+							}
+							else {
+								movingThings.put(rmt, null);
+							}
 						}
 					}
 					else {
-						movingThings.put(movingThing, movingThing.getReferencePoint());
+						if (movingThing instanceof IHasMutableReferencePoint) {
+							movingThings.put(movingThing, ((IHasReferencePoint) movingThing).getReferencePoint());
+						}
+						else {
+							movingThings.put(movingThing, null);
+						}
 					}
 					Set<IThing> moveToFrontThings = Sets.newHashSet();
 					for (IThing thing : movingThings.keySet()) {
@@ -88,13 +105,23 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 		if (model != null) {
 			model.beginBulkChange();
 			try {
-				Point worldDelta = evt.getAdjustedThingLocation().getWorldPoint(new Point());
-				worldDelta.translate(evt.getInitialLocation().getWorldPoint(new Point()).negate());
+				Point referencePointDelta = evt.getAdjustedThingLocation().getWorldPoint(new Point());
+				referencePointDelta.translate(evt.getInitialLocation().getWorldPoint(new Point()).getNegated());
+				Point relativePointDelta = evt.getAdjustedThingLocation().getWorldPoint(new Point());
+				relativePointDelta.translate(lastAdjustedMousePoint.getNegated());
+
 				for (Entry<IRelativeMovable, Point> e : movingThings.entrySet()) {
-					e.getKey().setReferencePoint(e.getValue().getTranslated(worldDelta));
+					if (e.getKey() instanceof IHasMutableReferencePoint) {
+						((IHasMutableReferencePoint) e.getKey()).setReferencePoint(e.getValue().getTranslated(
+								referencePointDelta));
+					}
+					else {
+						e.getKey().moveRelative(relativePointDelta);
+					}
 				}
 			}
 			finally {
+				evt.getAdjustedThingLocation().getWorldPoint(lastAdjustedMousePoint);
 				model.endBulkChange();
 			}
 		}

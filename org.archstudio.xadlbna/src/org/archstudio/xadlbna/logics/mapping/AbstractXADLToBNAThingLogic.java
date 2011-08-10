@@ -5,6 +5,7 @@ import java.util.List;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.keys.IThingRefKey;
@@ -12,6 +13,7 @@ import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.xadl.IXArchRelativePathTrackerListener;
 import org.archstudio.xadl.XArchRelativePathTracker;
 import org.archstudio.xadlbna.things.IHasObjRef;
@@ -28,6 +30,8 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 
 	protected final static IThingKey<Object> MAPPING_KEY = ThingKey.create(AbstractXADLToBNAThingLogic.class);
 
+	protected ThingValueTrackingLogic valuesLogic = null;
+
 	protected final IXArchADT xarch;
 	protected final XArchRelativePathTracker tracker;
 
@@ -39,19 +43,23 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 		tracker.addTrackerListener(this);
 	}
 
-	protected ThingValueTrackingLogic tvtl = null;
+	@Override
+	public void setBNAWorld(IBNAWorld newBNAWorld) {
+		super.setBNAWorld(newBNAWorld);
+		if (newBNAWorld != null) {
+			tracker.startScanning();
+		}
+	}
 
 	@Override
-	public void init() {
+	protected void init() {
 		super.init();
-		tvtl = getBNAWorld().getThingLogicManager().addThingLogic(ThingValueTrackingLogic.class);
-		tracker.startScanning();
+		valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
 	}
 
 	@Override
 	public void destroy() {
 		tracker.stopScanning();
-		tvtl = null;
 		super.destroy();
 	}
 
@@ -89,7 +97,8 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 			model.beginBulkChange();
 			updatingThings++;
 			try {
-				for (IThing t : model.getThings(tvtl.getThingIDs(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY, this))) {
+				for (IThing t : model.getThings(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
+						this))) {
 					updateThing(relLineageRefs, relPath, objRef, evt, (T) t);
 				}
 			}
@@ -107,7 +116,8 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 			model.beginBulkChange();
 			updatingThings++;
 			try {
-				for (IThing t : model.getThings(tvtl.getThingIDs(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY, this))) {
+				for (IThing t : model.getThings(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
+						this))) {
 					Assemblies.removeRootAndParts(model, t);
 				}
 			}
@@ -132,7 +142,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 						if (thing.has(MAPPING_KEY, this)) {
 							ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);
 							if (objRef != null) {
-								storeThingData(objRef, (T) thing, new BNAPath(Lists.reverse(bnaPathSegments)), evt);
+								storeThingData(objRef, (T) thing, BNAPath.create(Lists.reverse(bnaPathSegments)), evt);
 								break;
 							}
 						}

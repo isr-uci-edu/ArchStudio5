@@ -35,4 +35,5 @@ Require-Bundle: com.google.guava,
  org.eclipse.ui.views,
  org.archstudio.eclipse.core,
  org.eclipse.draw2d,
- org.archstudio.xadlbna
+ org.archstudio.xadlbna,
+ org.archstudio.xadl3.domain

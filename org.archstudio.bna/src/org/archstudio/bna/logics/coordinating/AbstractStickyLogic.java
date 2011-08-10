@@ -23,12 +23,12 @@ public abstract class AbstractStickyLogic<F extends IIsSticky, T extends IThing,
 		super(fromThingClass, toThingClass);
 	}
 
-	protected void setPropagate(F fromStickyThing, IThingKey<?> toKey, @Nullable D toData, T... toThings) {
+	protected void setPropagate(F fromStickyThing, IThingKey<?> toKey, @Nullable D toData, T toThing) {
 		checkNotNull(fromStickyThing);
 		checkNotNull(toKey);
 
 		for (IThingKey<?> fromKey : fromStickyThing.getStickyModifyingKeys()) {
-			super.setPropagate(fromStickyThing, fromKey, toKey, toData, toThings);
+			super.setPropagate(fromStickyThing, fromKey, toKey, toData, toThing);
 		}
 	}
 
@@ -52,7 +52,7 @@ public abstract class AbstractStickyLogic<F extends IIsSticky, T extends IThing,
 
 				// calculate the closest sticky point on the sticky thing, given the current point as reference
 				StickyMode stickyMode = getStickyMode(data);
-				Point stickyPoint = fromThing.getStickyPointNear(stickyMode, nearPoint, nearPoint);
+				Point stickyPoint = fromThing.getStickyPointNear(stickyMode, nearPoint);
 
 				// update the actual stuck point
 				setStuckPoint(model, fromThing, fromKey, fromThingEvent, data, toThing, toKey, toThingEvent,

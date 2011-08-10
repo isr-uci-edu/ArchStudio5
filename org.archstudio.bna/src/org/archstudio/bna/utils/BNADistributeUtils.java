@@ -8,7 +8,7 @@ import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMinimumSize;
 import org.archstudio.bna.facets.IHasMutableAnchorPoint;
-import org.archstudio.bna.facets.IHasMutableMinimumSize;
+import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -74,7 +74,7 @@ public class BNADistributeUtils {
 			if (distributableThings[i] instanceof IHasMinimumSize) {
 				Rectangle currentBounds = ((IHasBoundingBox) distributableThings[i]).getBoundingBox();
 				currentBounds.x = distributeAt;
-				((IHasMutableMinimumSize) distributableThings[i]).setBoundingBox(currentBounds);
+				((IHasMutableBoundingBox) distributableThings[i]).setBoundingBox(currentBounds);
 			}
 			else if (distributableThings[i] instanceof IHasMutableAnchorPoint
 					&& distributableThings[i] instanceof IHasBoundingBox) {
@@ -99,7 +99,7 @@ public class BNADistributeUtils {
 			if (distributableThings[i] instanceof IHasMinimumSize) {
 				Rectangle currentBounds = ((IHasBoundingBox) distributableThings[i]).getBoundingBox();
 				currentBounds.y = distributeAt;
-				((IHasMutableMinimumSize) distributableThings[i]).setBoundingBox(currentBounds);
+				((IHasMutableBoundingBox) distributableThings[i]).setBoundingBox(currentBounds);
 			}
 			else if (distributableThings[i] instanceof IHasMutableAnchorPoint
 					&& distributableThings[i] instanceof IHasBoundingBox) {
@@ -150,7 +150,7 @@ public class BNADistributeUtils {
 			if (distributableThings[i] instanceof IHasMinimumSize) {
 				Rectangle currentBounds = ((IHasBoundingBox) distributableThings[i]).getBoundingBox();
 				currentBounds.x = distributeAt;
-				((IHasMutableMinimumSize) distributableThings[i]).setBoundingBox(currentBounds);
+				((IHasMutableBoundingBox) distributableThings[i]).setBoundingBox(currentBounds);
 				distributeAt += currentBounds.width;
 			}
 			else if (distributableThings[i] instanceof IHasMutableAnchorPoint
@@ -204,7 +204,7 @@ public class BNADistributeUtils {
 			if (distributableThings[i] instanceof IHasMinimumSize) {
 				Rectangle currentBounds = ((IHasBoundingBox) distributableThings[i]).getBoundingBox();
 				currentBounds.y = distributeAt;
-				((IHasMutableMinimumSize) distributableThings[i]).setBoundingBox(currentBounds);
+				((IHasMutableBoundingBox) distributableThings[i]).setBoundingBox(currentBounds);
 				distributeAt += currentBounds.height;
 			}
 			else if (distributableThings[i] instanceof IHasMutableAnchorPoint
@@ -226,6 +226,7 @@ public class BNADistributeUtils {
 	}
 
 	static class XComparator implements Comparator<IThing> {
+		@Override
 		public int compare(IThing o1, IThing o2) {
 			int x1, x2;
 
@@ -266,6 +267,7 @@ public class BNADistributeUtils {
 	}
 
 	static class YComparator implements Comparator<IThing> {
+		@Override
 		public int compare(IThing o1, IThing o2) {
 			int y1, y2;
 

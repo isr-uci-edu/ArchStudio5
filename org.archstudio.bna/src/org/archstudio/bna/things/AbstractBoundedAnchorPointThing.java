@@ -33,7 +33,7 @@ public abstract class AbstractBoundedAnchorPointThing extends AbstractAnchorPoin
 		super.initProperties();
 		setSize(new Dimension(6, 6));
 		set(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
-		addEdgeModifyingKey(IHasSize.SIZE_KEY);
+		addShapeModifyingKey(IHasSize.SIZE_KEY);
 	}
 
 	protected Rectangle calculateBoundingBox() {
@@ -58,7 +58,7 @@ public abstract class AbstractBoundedAnchorPointThing extends AbstractAnchorPoin
 	}
 
 	@Override
-	public PrecisionPoint getStickyPointNear(StickyMode stickyMode, Point nearPoint, Point lastStuckPoint) {
+	public PrecisionPoint getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Rectangle bb = getBoundingBox();
 		switch (stickyMode) {
 		case CENTER:

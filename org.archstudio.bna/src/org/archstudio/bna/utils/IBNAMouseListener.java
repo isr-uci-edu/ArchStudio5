@@ -7,8 +7,8 @@ import org.eclipse.swt.events.MouseEvent;
 
 public interface IBNAMouseListener {
 
-	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location);
+	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location);
 
-	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location);
+	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location);
 
 }

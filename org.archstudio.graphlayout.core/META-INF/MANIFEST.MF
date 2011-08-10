@@ -15,4 +15,5 @@ Require-Bundle: org.archstudio.graphlayout,
  org.archstudio.xadl3.domain,
  org.archstudio.xadl3.structure,
  org.archstudio.xarchadt,
- org.eclipse.ui
+ org.eclipse.ui,
+ org.eclipse.draw2d

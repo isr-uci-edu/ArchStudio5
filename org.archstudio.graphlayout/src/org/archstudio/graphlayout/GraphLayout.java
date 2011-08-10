@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.archstudio.swtutils.constants.Orientation;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public class GraphLayout implements java.io.Serializable {
 
@@ -75,7 +75,7 @@ public class GraphLayout implements java.io.Serializable {
 		}
 
 		public AbstractPort[] getAllPorts() {
-			return (AbstractPort[]) ports.toArray(new AbstractPort[0]);
+			return ports.toArray(new AbstractPort[0]);
 		}
 	}
 
@@ -129,8 +129,8 @@ public class GraphLayout implements java.io.Serializable {
 		}
 
 		public Edge(Point[] pointArray) {
-			for (int i = 0; i < pointArray.length; i++) {
-				points.add(pointArray[i]);
+			for (Point element : pointArray) {
+				points.add(element);
 			}
 		}
 
@@ -169,7 +169,7 @@ public class GraphLayout implements java.io.Serializable {
 		}
 
 		public Point getPointAt(int i) {
-			return (Point) points.get(i);
+			return points.get(i);
 		}
 
 		public String getEdgeId() {

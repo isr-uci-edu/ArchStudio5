@@ -8,16 +8,16 @@ import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 
 public class LifeSapperLogic extends AbstractThingLogic {
 
-	protected ThingTypeTrackingLogic tttl;
+	protected ThingTypeTrackingLogic typeLogic;
 	protected LifeSapper sapper = null;
 
-	public LifeSapperLogic() {
+	public LifeSapperLogic(ThingTypeTrackingLogic typesLogic) {
+		this.typeLogic = typesLogic;
 	}
 
 	@Override
 	protected void init() {
 		super.init();
-		tttl = getBNAWorld().getThingLogicManager().addThingLogic(ThingTypeTrackingLogic.class);
 		sapper = new LifeSapper();
 		sapper.setName("LifeSapper");
 		sapper.setDaemon(true);
@@ -57,7 +57,7 @@ public class LifeSapperLogic extends AbstractThingLogic {
 				if (model != null) {
 					model.beginBulkChange();
 					try {
-						for (final IThing t : model.getThings(tttl.getThingIDs(IHasMutableLife.class))) {
+						for (final IThing t : model.getThings(typeLogic.getThingIDs(IHasMutableLife.class))) {
 							if (t instanceof IHasMutableLife) {
 								final IHasMutableLife tl = (IHasMutableLife) t;
 								tl.synchronizedUpdate(new Runnable() {

@@ -504,17 +504,17 @@ public class BNAUtils {
 			return new Point(p.x, p.y);
 		}
 
-		int ox1 = oldRect.x;
-		int ox2 = oldRect.x + oldRect.width;
-		int oy1 = oldRect.y;
-		int oy2 = oldRect.y + oldRect.height;
+		//int ox1 = oldRect.x;
+		//int ox2 = oldRect.x + oldRect.width;
+		//int oy1 = oldRect.y;
+		//int oy2 = oldRect.y + oldRect.height;
 		int ow = oldRect.width;
 		int oh = oldRect.height;
 
-		int nx1 = newRect.x;
-		int nx2 = newRect.x + newRect.width;
-		int ny1 = newRect.y;
-		int ny2 = newRect.y + newRect.height;
+		//int nx1 = newRect.x;
+		//int nx2 = newRect.x + newRect.width;
+		//int ny1 = newRect.y;
+		//int ny2 = newRect.y + newRect.height;
 		int nw = newRect.width;
 		int nh = newRect.height;
 
@@ -524,8 +524,8 @@ public class BNAUtils {
 		double sx = (double) nw / (double) ow;
 		double sy = (double) nh / (double) oh;
 
-		int dx = nx1 - ox1;
-		int dy = ny1 - oy1;
+		//int dx = nx1 - ox1;
+		//int dy = ny1 - oy1;
 
 		Point p2 = new Point(p.x, p.y);
 
@@ -1208,7 +1208,7 @@ public class BNAUtils {
 		try {
 			g.setForegroundColor(r.getColor(SWT.COLOR_WHITE));
 			g.setLineCap(SWT.CAP_FLAT);
-			g.setLineWidth(3);
+			g.setLineWidth(2);
 			g.setLineStyle(SWT.LINE_SOLID);
 
 			drawMarquee.run();
@@ -1238,9 +1238,9 @@ public class BNAUtils {
 		g.setLineMiterLimit(1);
 		g.setLineStyle(SWT.LINE_SOLID);
 		g.setLineCap(SWT.CAP_ROUND);
-		g.translate(dx, dy);
 		g.pushState();
 		try {
+			g.translate(dx, dy);
 			for (int step = size * 2 + 1; step > 1; step -= width) {
 				float brightness = (float) SystemUtils.bound(0d, minBrightness + (maxBrightness - minBrightness) * step
 						/ (size * 2 + 1), 1d);
@@ -1257,15 +1257,17 @@ public class BNAUtils {
 	}
 
 	public static final IBNAView getInternalView(IBNAView outerView, IThing worldThing) {
+		// TODO: internal views
+		throw new UnsupportedOperationException("TODO");
 		//		if (worldThing instanceof IHasWorld) {
 		//			Cache<IThing, ?> worldThingPeer = outerView.getPeerCache(worldThing);
-		//			throw new UnsupportedOperationException("TODO");
+		//			
 		//			//if (worldThingPeer instanceof WorldThingPeer) {
 		//			//	IBNAView internalView = ((WorldThingPeer) worldThingPeer).getInnerView();
 		//			//	return internalView;
 		//			//}
 		//		}
-		return null;
+		//return null;
 	}
 
 	public static final IBNAView getInternalView(IBNAView outerView, String worldThingID) {
@@ -1319,9 +1321,27 @@ public class BNAUtils {
 		return null;
 	}
 
+	public static org.eclipse.swt.graphics.Point toPoint(Point p) {
+		if (p != null) {
+			return new org.eclipse.swt.graphics.Point(p.x, p.y);
+		}
+		return null;
+	}
+
 	public static Point[] toPoints(org.eclipse.swt.graphics.Point[] points) {
 		if (points != null) {
 			Point[] dPoints = new Point[points.length];
+			for (int i = 0, length = points.length; i < length; i++) {
+				dPoints[i] = toPoint(points[i]);
+			}
+			return dPoints;
+		}
+		return null;
+	}
+
+	public static org.eclipse.swt.graphics.Point[] toPoints(Point[] points) {
+		if (points != null) {
+			org.eclipse.swt.graphics.Point[] dPoints = new org.eclipse.swt.graphics.Point[points.length];
 			for (int i = 0, length = points.length; i < length; i++) {
 				dPoints[i] = toPoint(points[i]);
 			}
@@ -1334,19 +1354,7 @@ public class BNAUtils {
 		return new Rectangle(r.x, r.y, r.width, r.height);
 	}
 
-	public static org.eclipse.swt.graphics.Point toSwtPoint(Point r) {
-		return new org.eclipse.swt.graphics.Point(r.x, r.y);
-	}
-
-	public static org.eclipse.swt.graphics.Point[] toSwtPoints(Point[] points) {
-		org.eclipse.swt.graphics.Point[] sPoints = new org.eclipse.swt.graphics.Point[points.length];
-		for (int i = 0, length = points.length; i < length; i++) {
-			sPoints[i] = toSwtPoint(points[i]);
-		}
-		return sPoints;
-	}
-
-	public static org.eclipse.swt.graphics.Rectangle toSwtRectangle(Rectangle r) {
+	public static org.eclipse.swt.graphics.Rectangle toRectangle(Rectangle r) {
 		return new org.eclipse.swt.graphics.Rectangle(r.x, r.y, r.width, r.height);
 	}
 

@@ -39,7 +39,7 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 	@Override
 	public void mouseMove(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
 		if (currentEvent != null) {
-			fireDragMoveEvent(currentEvent = new DragMoveEvent(currentEvent, DefaultCoordinate.forLocal(new Point(
+			fireDragMoveEvent(currentEvent = new DragMoveEvent(currentEvent, evt, DefaultCoordinate.forLocal(new Point(
 					evt.x, evt.y), view.getCoordinateMapper())));
 		}
 	}
@@ -48,8 +48,8 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
 		if (currentEvent != null) {
 			view.setCursor(SWT.CURSOR_ARROW);
-			fireDragFinishedEvent(currentEvent = new DragMoveEvent(currentEvent, DefaultCoordinate.forLocal(new Point(
-					evt.x, evt.y), view.getCoordinateMapper())));
+			fireDragFinishedEvent(currentEvent = new DragMoveEvent(currentEvent, evt, DefaultCoordinate.forLocal(
+					new Point(evt.x, evt.y), view.getCoordinateMapper())));
 			currentEvent = null;
 		}
 	}

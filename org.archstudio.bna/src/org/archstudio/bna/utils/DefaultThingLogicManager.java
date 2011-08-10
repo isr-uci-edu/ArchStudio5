@@ -64,19 +64,13 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public synchronized <L extends IThingLogic> L addThingLogic(Class<L> tlClass) {
+	public <L extends IThingLogic> L addThingLogic(Class<L> logicClass) {
 		try {
-			IThingLogic tl = typedLogics.get(tlClass);
-			if (tl != null) {
-				return (L) tl;
+			L logic = (L) typedLogics.get(logicClass);
+			if (logic != null) {
+				return logic;
 			}
-			for (Constructor<?> c : tlClass.getConstructors()) {
-				Class<?>[] paramTypes = c.getParameterTypes();
-				if (paramTypes.length == 1 && IThingLogicManager.class.isAssignableFrom(paramTypes[0])) {
-					return addThingLogic((L) c.newInstance(this));
-				}
-			}
-			for (Constructor<?> c : tlClass.getConstructors()) {
+			for (Constructor<?> c : logicClass.getConstructors()) {
 				Class<?>[] paramTypes = c.getParameterTypes();
 				if (paramTypes.length == 0) {
 					return addThingLogic((L) c.newInstance());
@@ -84,9 +78,9 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 			}
 		}
 		catch (Exception e) {
-			throw new IllegalArgumentException("Unable to instantiate logic: " + tlClass, e);
+			throw new IllegalArgumentException("Unable to instantiate logic: " + logicClass, e);
 		}
-		throw new IllegalArgumentException("Unable to instantiate logic: " + tlClass);
+		throw new IllegalArgumentException("Unable to instantiate logic: " + logicClass);
 	}
 
 	@Override
@@ -96,7 +90,8 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 			time = System.nanoTime();
 		}
 		tl.setBNAWorld(bnaWorld);
-		checkArgument(logics.add(tl), "Logic was already added: %s", tl);
+		checkArgument(!logics.contains(tl), "Logic was already added: %s", tl);
+		logics.add(tl);
 		typedLogics.put(tl.getClass(), tl);
 		if (DEBUG) {
 			time = System.nanoTime() - time;
@@ -136,7 +131,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 
 	@Override
 	public void destroy() {
-		// perform remove in reverse order since latter logics often depend on former logics
+		// perform removals in reverse order since latter logics often depend on former logics
 		for (IThingLogic logic : Lists.newArrayList(Lists.reverse(logics))) {
 			removeThingLogic(logic);
 		}

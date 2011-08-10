@@ -15,7 +15,9 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasAngle;
 import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasHorizontalAlignment;
+import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasOffset;
 import org.archstudio.bna.facets.IHasOrientation;
 import org.archstudio.bna.facets.IHasPoints;
@@ -29,7 +31,7 @@ import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.coordinating.MirrorBoundingBoxLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.coordinating.OrientDirectionalLabelLogic;
-import org.archstudio.bna.logics.coordinating.StickAnchorPointLogic;
+import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.things.glass.EllipseGlassThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.glass.PolygonGlassThing;
@@ -67,11 +69,10 @@ public class Assemblies {
 		}
 	}
 
-	private static final IThingKey<Boolean> IS_ROOT_KEY = ThingKey.create("assembly-is-root");
-	private static final IThingRefKey<IThing> ROOT_KEY = ThingRefKey.create("assembly-root");
-	private static final IThingKey<IThingRefKey<?>> PART_KEY = ThingKey.create("assembly-part");
+	private static final IThingKey<Boolean> IS_ROOT_KEY = ThingKey.create("is-assembly-root");
+	private static final IThingRefKey<IThing> ROOT_KEY = ThingRefKey.create("my-assembly-root");
+	private static final IThingKey<IThingRefKey<?>> PART_KEY = ThingKey.create("my-assembly-part");
 
-	public static final IThingRefKey<IThing> SHADOW_KEY = ThingAssemblyKey.create("assembly-shadow");
 	public static final IThingRefKey<IThing> BACKGROUND_KEY = ThingAssemblyKey.create("assembly-background");
 	public static final IThingRefKey<IHasText> TEXT_KEY = ThingAssemblyKey.create("assembly-text");
 	public static final IThingRefKey<DirectionalLabelThing> LABEL_KEY = ThingAssemblyKey.create("assembly-label");
@@ -107,13 +108,22 @@ public class Assemblies {
 		part.set(PART_KEY, name);
 	}
 
+	public static final <T extends IThing> T getPart(IBNAModel model, IThing root, IThingRefKey<T> name) {
+		checkNotNull(model);
+		checkNotNull(name);
+
+		return name.get(root, model);
+	}
+
 	public static final IThing getAssemblyWithPart(IBNAModel model, IThing part) {
+		checkNotNull(model);
 		checkNotNull(part);
 
 		return model.getThing(part.get(ROOT_KEY));
 	}
 
 	public static final IThing getAssemblyWithRootOrPart(IBNAModel model, IThing rootOrPart) {
+		checkNotNull(model);
 		checkNotNull(rootOrPart);
 
 		if (rootOrPart.has(IS_ROOT_KEY, true)) {
@@ -210,7 +220,7 @@ public class Assemblies {
 		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
 
 		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, bkg);
-		mbbl.mirrorBoundingBox(glass, new Insets(3, 3, 3, 3), label);
+		mbbl.mirrorBoundingBox(glass, label, new Insets(3, 3, 3, 3));
 
 		return glass;
 	}
@@ -314,19 +324,20 @@ public class Assemblies {
 
 		mvl.mirrorValue(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, bkg);
 		mvl.mirrorValue(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, text);
-		mvl.mirrorValue(label, IHasOrientation.ORIENTATION_KEY, IHasAngle.ANGLE_KEY, orientationToAngleFn, text);
-		mvl.mirrorValue(label, IHasOrientation.ORIENTATION_KEY, IHasHorizontalAlignment.HORIZONTAL_ALIGNMENT_KEY,
-				orientationToHorizontalAlignmentFn, text);
-		mvl.mirrorValue(glass, IHasSize.SIZE_KEY, IHasOffset.OFFSET_KEY, sizeToOffsetFn, text);
+		mvl.mirrorValue(label, IHasOrientation.ORIENTATION_KEY, text, IHasAngle.ANGLE_KEY, orientationToAngleFn);
+		mvl.mirrorValue(label, IHasOrientation.ORIENTATION_KEY, text, IHasHorizontalAlignment.HORIZONTAL_ALIGNMENT_KEY,
+				orientationToHorizontalAlignmentFn);
+		mvl.mirrorValue(glass, IHasSize.SIZE_KEY, text, IHasOffset.OFFSET_KEY, sizeToOffsetFn);
 		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, label);
 		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, label);
 
 		if (parent != null) {
-			StickAnchorPointLogic sapl = tlm.addThingLogic(StickAnchorPointLogic.class);
-			sapl.stick(parent, StickyMode.EDGE, glass);
+			StickPointLogic stickLogic = tlm.addThingLogic(StickPointLogic.class);
+			stickLogic.setStickyMode(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, StickyMode.EDGE);
+			stickLogic.setThingRef(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, parent.getID());
 			if (parent instanceof IHasBoundingBox) {
-				OrientDirectionalLabelLogic odll = tlm.addThingLogic(OrientDirectionalLabelLogic.class);
-				odll.orient((IHasBoundingBox) parent, label);
+				OrientDirectionalLabelLogic orientLogic = tlm.addThingLogic(OrientDirectionalLabelLogic.class);
+				orientLogic.orient((IHasBoundingBox) parent, label);
 			}
 		}
 
@@ -347,14 +358,15 @@ public class Assemblies {
 		IThingLogicManager tlm = world.getThingLogicManager();
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 
-		mvl.mirrorValue(glass, IHasPoints.POINTS_KEY, bkg);
+		mvl.mirrorValue(glass, IHasEndpoints.ENDPOINT_1_KEY, bkg);
+		mvl.mirrorValue(glass, IHasMidpoints.MIDPOINTS_KEY, bkg);
+		mvl.mirrorValue(glass, IHasEndpoints.ENDPOINT_2_KEY, bkg);
 
 		return glass;
 	}
 
 	public static ReshapeHandleGlassThing createHandle(IBNAWorld world, @Nullable Object id, IThing parent) {
 		checkNotNull(world);
-		checkNotNull(parent);
 
 		IBNAModel model = world.getBNAModel();
 

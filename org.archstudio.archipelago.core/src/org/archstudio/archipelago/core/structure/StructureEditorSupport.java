@@ -15,17 +15,22 @@ import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.logics.ProxyToLogicsLogic;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
+import org.archstudio.bna.logics.editing.AlignAndDistributeLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.EditTextLogic;
 import org.archstudio.bna.logics.editing.KeyNudgerLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
+import org.archstudio.bna.logics.editing.RectifyToGridLogic;
 import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
+import org.archstudio.bna.logics.editing.ReshapeSplineLogic;
 import org.archstudio.bna.logics.editing.SnapToGridLogic;
+import org.archstudio.bna.logics.editing.SplineBreakLogic;
 import org.archstudio.bna.logics.editing.StandardCursorLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
+import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.ShadowThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.GridThing;
@@ -36,8 +41,12 @@ import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.myx.fw.IMyxBrick;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xadlbna.logics.editing.RemoveElementLogic;
+import org.archstudio.xadlbna.logics.editing.XadlReshapeSplineGuide;
 import org.archstudio.xadlbna.logics.hints.XadlHintRepository;
+import org.archstudio.xadlbna.things.IHasObjRef;
+import org.archstudio.xadlbna.things.IHasXArchID;
 import org.archstudio.xarchadt.IXArchADTFileListener;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
@@ -93,6 +102,8 @@ public class StructureEditorSupport {
 		parentComposite.layout(true);
 
 		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAWorld().getBNAModel());
+		ept.set(IHasObjRef.OBJREF_KEY, structureRef);
+		ept.set(IHasXArchID.XARCH_ID_KEY, (String) AS.xarch.get(structureRef, "id"));
 		BNAUtils.restoreCoordinateMapperData((IMutableCoordinateMapper) bnaCanvas.getCoordinateMapper(), ept);
 
 		ArchipelagoUtils.setBNACanvas(AS.editor, bnaCanvas);
@@ -138,23 +149,40 @@ public class StructureEditorSupport {
 		bnaWorld.getBNAModel().addThing(new ShadowThing(null));
 		bnaWorld.getBNAModel().addThing(new GridThing(null));
 
+		ThingTypeTrackingLogic typesLogic = logicManager.addThingLogic(new ThingTypeTrackingLogic());
+
+		// general editing logics
+
+		// these logics need to be first
 		logicManager.addThingLogic(new SnapToGridLogic());
 
+		// these logics are alphabetized
 		logicManager.addThingLogic(new ClickSelectionLogic());
 		logicManager.addThingLogic(new DragMovableLogic());
 		logicManager.addThingLogic(new EditTextLogic());
 		logicManager.addThingLogic(new KeyNudgerLogic());
-		logicManager.addThingLogic(new LifeSapperLogic());
-		logicManager.addThingLogic(new MarqueeSelectionLogic());
+		logicManager.addThingLogic(new LifeSapperLogic(typesLogic));
+		logicManager.addThingLogic(new MarqueeSelectionLogic(typesLogic));
 		logicManager.addThingLogic(new MousePanAndZoomLogic());
 		logicManager.addThingLogic(new ReshapeRectangleLogic());
+		logicManager.addThingLogic(new ReshapeSplineLogic()).addReshapeSplineGuides(
+				new XadlReshapeSplineGuide(AS.xarch, Structure_3_0Package.Literals.LINK,
+						Structure_3_0Package.Literals.INTERFACE, -1, 0));
 		logicManager.addThingLogic(new RotatingOffsetLogic());
+		logicManager.addThingLogic(new SplineBreakLogic());
 		logicManager.addThingLogic(new StandardCursorLogic());
 		logicManager.addThingLogic(new ToolTipLogic());
 
-		logicManager.addThingLogic(new RemoveElementLogic(AS.xarch));
+		// menu logics
+
 		logicManager.addThingLogic(new StructureNewElementLogic(AS.xarch, AS.resources, structureRef));
 		logicManager.addThingLogic(new StructureNewInterfaceLogic(AS.xarch, AS.resources));
+		logicManager.addThingLogic(new RemoveElementLogic(AS.xarch));
+		logicManager.addThingLogic(new AlignAndDistributeLogic());
+		logicManager.addThingLogic(new RectifyToGridLogic());
+		logicManager.addThingLogic(new StructureGraphLayoutLogic(AS.xarch, AS.resources, AS.graphLayout, structureRef));
+
+		// xADL mapping logics
 
 		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "component", //
 				new Dimension(120, 80), ArchipelagoStructureConstants.DEFAULT_COMPONENT_RGB));
@@ -164,85 +192,32 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "connector/interface"));
 		logicManager.addThingLogic(new MapLinkLogic(AS.xarch, structureRef, "link"));
 
+		// propagate external events logics
+
 		ProxyToLogicsLogic logicProxy = logicManager.addThingLogic(new ProxyToLogicsLogic());
 		final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
 		final IMyxBrick brick = myxRegistry.waitForBrick(ArchipelagoMyxComponent.class);
 		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTModelListener.class));
 		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTFileListener.class));
 
-		//SplineReshapeHandleLogic srhl = new SplineReshapeHandleLogic(stl, epstl, mpstl, dml);
-		//logicManager.addThingLogic(srhl);
-		//logicManager.addThingLogic(new StickySplineEndpointsLogic(ttstlSticky, srhl));
-		//logicManager.addThingLogic(new StickySplineEndpointsColorLogic(stl, srhl));
-		//logicManager.addThingLogic(new MaintainStickyEndpointsLogic(trtl, ttstlStickyEndpoints, sbtl));
 		//logicManager.addThingLogic(new SplineBreakLogic());
-		//logicManager.addThingLogic(new BoundingBoxRailLogic(trtl, bbtl, aptl));
-		//logicManager.addThingLogic(new EndpointFlowOrientationLogic(aptl));
-		//logicManager.addThingLogic(new StandardCursorLogic());
 		//logicManager.addThingLogic(new RotaterLogic());
 		//
 		//ModelBoundsTrackingLogic mbtl = new ModelBoundsTrackingLogic(bbtl, aptl);
 		//logicManager.addThingLogic(mbtl);
-		//
 		//WorldThingInternalEventsLogic vtiel = new WorldThingInternalEventsLogic(ttstlView);
 		//logicManager.addThingLogic(vtiel);
 		//logicManager.addThingLogic(new WorldThingExternalEventsLogic(ttstlView));
 		////logicManager.addThingLogic(new WorldThingDestroyLogic(true));
-		//
 		//logicManager.addThingLogic(new StructureDropLogic(AS, documentRootRef));
-		//
-		////(interface-interface) mapping handling logics
-		//TypedThingSetTrackingLogic<MappingGlassThing> ttstlMapping = new TypedThingSetTrackingLogic<MappingGlassThing>(
-		//		MappingGlassThing.class);
-		//logicManager.addThingLogic(ttstlMapping);
-		//
 		//logicManager.addThingLogic(new MaintainMappingEndpointsLogic(trtl, ttstlMapping, vtiel));
-		//
-		////XArchEvent logics
-		//logicManager.addThingLogic(new StructureXArchEventHandlerLogic(AS, ttstlView));
-		//
-		//logicManager.addThingLogic(new FileDirtyLogic(AS, documentRootRef));
 		//
 		////Menu logics
 		//logicManager.addThingLogic(new FindDialogLogic(new ArchipelagoFinder(AS)));
-		//logicManager.addThingLogic(new AlignAndDistributeLogic());
-		//logicManager.addThingLogic(new RectifyToGridLogic());
-		//logicManager.addThingLogic(new StructureEditDescriptionLogic(AS, documentRootRef));
 		//logicManager.addThingLogic(new StructureEditDirectionLogic(AS, documentRootRef));
-		//logicManager.addThingLogic(new StructureNewElementLogic(AS, documentRootRef));
-		//logicManager.addThingLogic(new StructureNewInterfaceLogic(AS, documentRootRef));
 		//logicManager.addThingLogic(new ShowHideTagsLogic());
 		//logicManager.addThingLogic(new RotateTagsLogic());
-		//logicManager.addThingLogic(new StructureLinkEndpointLogic(AS, documentRootRef));
 		//logicManager.addThingLogic(new StructureEditColorLogic(AS));
-		//logicManager.addThingLogic(new StructureRemoveLogic(AS, documentRootRef));
-		//logicManager.addThingLogic(new StructureGraphLayoutLogic(AS, documentRootRef));
 		//logicManager.addThingLogic(new ExportBitmapLogic(mbtl));
 	}
-	//public static void readHints(ArchipelagoServices AS, IBNAModel modelToPopulate, ObjRef structureRef) {
-	//	StructureHintSupport.readHintsForStructure(AS, modelToPopulate, structureRef);
-	//}
-	//
-	//public static void writeHints(ArchipelagoServices AS, ObjRef documentRootRef, IProgressMonitor monitor) {
-	//	ObjRef xADLRef = (ObjRef) AS.xarch.get(documentRootRef, "xADL");
-	//	if (xADLRef != null) {
-	//		for (ObjRef structureRef : XadlUtils.getAllSubstitutionGroupElementsByTag(AS.xarch, xADLRef,
-	//				"topLevelElement", "structure")) {
-	//			String structureName = XadlUtils.getName(AS.xarch, structureRef);
-	//			if (structureName == null) {
-	//				structureName = "[Unnamed Structure]";
-	//			}
-	//			monitor.setTaskName("Storing Hints for " + structureName);
-	//
-	//			IBNAWorld world = (IBNAWorld) AS.treeNodeDataCache
-	//					.getData(documentRootRef, structureRef, BNA_WORLD_KEY);
-	//			if (world != null) {
-	//				IBNAModel model = world.getBNAModel();
-	//				if (model != null) {
-	//					StructureHintSupport.writeHintsForStructure(AS, model, structureRef);
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
 }
