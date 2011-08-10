@@ -44,8 +44,8 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 
 			Rectangle lClip = g.getClip(new Rectangle());
 			Rectangle wClip = cm.localToWorld(lClip.getCopy());
-			int wx = wClip.x();
-			int wy = wClip.y();
+			int wx = wClip.x;
+			int wy = wClip.y;
 			int wx2 = wClip.right();
 			int wy2 = wClip.bottom();
 
@@ -55,6 +55,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 			if (gdt == GridDisplayType.SOLID_LINES || gdt == GridDisplayType.DOTTED_LINES) {
 				if (gdt == GridDisplayType.DOTTED_LINES) {
 					g.setLineWidth(1);
+					g.setLineCap(SWT.CAP_SQUARE);
 					g.setLineStyle(SWT.LINE_DOT);
 				}
 				else {
@@ -97,7 +98,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
 		boundsResult.x = boundsResult.y = Integer.MIN_VALUE / 2;
 		boundsResult.width = boundsResult.height = Integer.MAX_VALUE;
 	}

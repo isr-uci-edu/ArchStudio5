@@ -3,6 +3,7 @@ package org.archstudio.archipelago.core.structure;
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.util.AbstractRemoveContextMenuFiller;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.viewers.TreeViewer;
 
@@ -12,6 +13,7 @@ public class StructureRemoveContextMenuFiller extends AbstractRemoveContextMenuF
 		super(viewer, services, xArchRef);
 	}
 
+	@Override
 	protected boolean matches(Object node) {
 		if (node != null) {
 			if (node instanceof ObjRef) {
@@ -24,6 +26,7 @@ public class StructureRemoveContextMenuFiller extends AbstractRemoveContextMenuF
 		return false;
 	}
 
+	@Override
 	protected void remove(ObjRef targetRef) {
 		if (targetRef != null) {
 			if (XadlUtils.isInstanceOf(AS.xarch, targetRef, Structure_3_0Package.Literals.STRUCTURE)) {

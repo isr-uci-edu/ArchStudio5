@@ -11,6 +11,7 @@ public class DragMoveEvent {
 	private final MouseEvent evt;
 	private final IThing initialThing;
 	private final ICoordinate initialLocation;
+	private final ICoordinate mouseLocation;
 	private ICoordinate adjustedThingLocation;
 	private ICoordinate adjustedMouseLocation;
 
@@ -19,16 +20,18 @@ public class DragMoveEvent {
 		this.evt = evt;
 		this.initialThing = initialThing;
 		this.initialLocation = initialLocation;
+		this.mouseLocation = initialLocation;
 		this.adjustedThingLocation = initialLocation;
 		this.adjustedMouseLocation = initialLocation;
 	}
 
-	public DragMoveEvent(DragMoveEvent evt, ICoordinate movedLocation) {
+	public DragMoveEvent(DragMoveEvent oldEvent, MouseEvent evt, ICoordinate movedLocation) {
 		super();
-		this.view = evt.view;
-		this.evt = evt.evt;
-		this.initialThing = evt.initialThing;
-		this.initialLocation = evt.initialLocation;
+		this.view = oldEvent.view;
+		this.evt = evt;
+		this.initialThing = oldEvent.initialThing;
+		this.initialLocation = oldEvent.initialLocation;
+		this.mouseLocation = movedLocation;
 		this.adjustedThingLocation = movedLocation;
 		this.adjustedMouseLocation = movedLocation;
 	}
@@ -47,6 +50,10 @@ public class DragMoveEvent {
 
 	public ICoordinate getInitialLocation() {
 		return initialLocation;
+	}
+
+	public ICoordinate getMouseLocation() {
+		return mouseLocation;
 	}
 
 	public ICoordinate getAdjustedThingLocation() {

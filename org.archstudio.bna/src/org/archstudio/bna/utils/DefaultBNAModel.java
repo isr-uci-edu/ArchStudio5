@@ -198,6 +198,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		if (bulkChangeCount.decrementAndGet() <= 0) {
 			if (bulkChangeCount.get() < 0) {
 				System.err.println("Bulk change count < 0");
+				bulkChangeCount.incrementAndGet();
 			}
 			if (firedBulkChangeEvent) {
 				fireBnaModelEvent(BNAModelEvent.create(this, EventType.BULK_CHANGE_END, bulkChangeCount.get() > 0));

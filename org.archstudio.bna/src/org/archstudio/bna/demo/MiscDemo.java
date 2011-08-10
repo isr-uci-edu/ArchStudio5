@@ -12,7 +12,7 @@ import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
-import org.archstudio.bna.logics.coordinating.StickPointsLogic;
+import org.archstudio.bna.logics.coordinating.AbstractStickPointsLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
@@ -210,7 +210,7 @@ public class MiscDemo {
 		IHasAnchorPoint a0 = (IHasAnchorPoint) model.getThing(id0);
 		IHasAnchorPoint a1 = (IHasAnchorPoint) model.getThing(id1);
 
-		StickPointsLogic spl = tlm.addThingLogic(StickPointsLogic.class);
+		AbstractStickPointsLogic spl = tlm.addThingLogic(AbstractStickPointsLogic.class);
 		spl.stick((IIsSticky) a0, StickyMode.CENTER, 0, s);
 		spl.stick((IIsSticky) a1, StickyMode.CENTER, -1, s);
 

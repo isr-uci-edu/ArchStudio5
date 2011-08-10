@@ -12,10 +12,10 @@ Require-Bundle: org.eclipse.ui,
  org.archstudio.xarchadt,
  org.archstudio.myx.fw,
  org.archstudio.xadl,
- org.archstudio.myx.java;bundle-version="1.0.0",
- org.archstudio.xadl3.implementation.myxgen;bundle-version="1.0.0",
- org.archstudio.xarchadt.core;bundle-version="5.0.0",
- org.archstudio.myxgen.core;bundle-version="1.0.0"
+ org.archstudio.myx.java,
+ org.archstudio.xadl3.implementation.myxgen,
+ org.archstudio.xarchadt.core,
+ org.archstudio.myxgen.core
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.archstudio.xadl.myx

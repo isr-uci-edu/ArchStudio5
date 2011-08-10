@@ -25,7 +25,7 @@ public final class NoThingPeer<T extends IThing> extends AbstractThingPeer<IThin
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
 		boundsResult.width = boundsResult.height = 0;
 	}
 }

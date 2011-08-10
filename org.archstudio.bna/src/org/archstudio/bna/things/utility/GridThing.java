@@ -18,8 +18,8 @@ public class GridThing extends AbstractThing implements IHasMutableColor {
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setColor(new RGB(128, 128, 128));
-		setGridSpacing(2 * 2 * 2 * 3);
+		setColor(new RGB(192, 192, 192));
+		setGridSpacing(2 * 2 * 2 * 3); // supports subdividing by 2, 4, 8, 3, 6, etc.
 		setGridDisplayType(GridDisplayType.DOTTED_LINES);
 	}
 

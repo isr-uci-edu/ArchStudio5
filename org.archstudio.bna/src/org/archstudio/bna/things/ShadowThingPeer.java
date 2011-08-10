@@ -27,11 +27,11 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	}
 
 	private static int getOffset(ICoordinateMapper cm) {
-		return (int) Math.ceil(cm.getLocalScale());
+		return (int) Math.ceil(cm.getLocalScale() + 2);
 	}
 
 	private static int getSize(ICoordinateMapper cm) {
-		return (int) Math.ceil(cm.getLocalScale());
+		return (int) Math.ceil(cm.getLocalScale() + 2);
 	}
 
 	public static void expandForShadow(ICoordinateMapper cm, Rectangle boundsResult) {
@@ -56,7 +56,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 				IThingPeer<?> tp = view.getThingPeer(t);
 				if (tp instanceof IHasShadowPeer) {
 					IHasShadowPeer<?> stp = (IHasShadowPeer<?>) tp;
-					tp.getLocalBounds(view, cm, g, r, boundsResult);
+					tp.getLocalBounds(view, cm, r, boundsResult);
 					shadowThingPeers.add(stp);
 				}
 			}
@@ -77,7 +77,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
 		boundsResult.x = boundsResult.y = Integer.MIN_VALUE / 2;
 		boundsResult.width = boundsResult.height = Integer.MAX_VALUE;
 	}

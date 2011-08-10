@@ -1,13 +1,15 @@
 package org.archstudio.bna.things.glass;
 
 import org.archstudio.bna.facets.IHasMutableOrientation;
+import org.archstudio.bna.facets.IHasMutableTargetThingID;
 import org.archstudio.bna.facets.IHasStandardCursor;
+import org.archstudio.bna.facets.IHasTargetThingID;
 import org.archstudio.bna.things.AbstractBoundedAnchorPointThing;
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.swt.SWT;
 
 public class ReshapeHandleGlassThing extends AbstractBoundedAnchorPointThing implements IHasMutableOrientation,
-		IHasStandardCursor {
+		IHasStandardCursor, IHasMutableTargetThingID {
 
 	public ReshapeHandleGlassThing(Object id) {
 		super(id);
@@ -17,6 +19,7 @@ public class ReshapeHandleGlassThing extends AbstractBoundedAnchorPointThing imp
 	protected void initProperties() {
 		super.initProperties();
 		setOrientation(Orientation.NONE);
+		setTargetThingID(null);
 	}
 
 	@Override
@@ -52,4 +55,15 @@ public class ReshapeHandleGlassThing extends AbstractBoundedAnchorPointThing imp
 			return SWT.CURSOR_SIZEALL;
 		}
 	}
+
+	@Override
+	public Object getThingID() {
+		return get(IHasTargetThingID.THING_ID_KEY);
+	}
+
+	@Override
+	public void setTargetThingID(Object thingID) {
+		set(IHasTargetThingID.THING_ID_KEY, thingID);
+	}
+
 }

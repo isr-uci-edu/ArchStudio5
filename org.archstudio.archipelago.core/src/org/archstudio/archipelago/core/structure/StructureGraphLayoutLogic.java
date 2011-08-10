@@ -2,84 +2,102 @@ package org.archstudio.archipelago.core.structure;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
-import org.archstudio.bna.things.glass.RectangleGlassThing;
+import org.archstudio.bna.things.glass.SplineGlassThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.graphlayout.GraphLayout;
 import org.archstudio.graphlayout.GraphLayoutException;
 import org.archstudio.graphlayout.GraphLayoutParameters;
+import org.archstudio.graphlayout.IGraphLayout;
 import org.archstudio.graphlayout.gui.GraphLayoutDialog;
 import org.archstudio.resources.ArchStudioCommonResources;
+import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.BSpline;
+import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
+import org.archstudio.xadlbna.things.IHasObjRef;
+import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
-public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBNAMenuListener {
-	protected ArchipelagoServices AS = null;
-	protected ObjRef documentRootRef = null;
+import com.google.common.collect.Iterables;
 
-	public StructureGraphLayoutLogic(ArchipelagoServices services, ObjRef documentRootRef) {
-		this.AS = services;
+public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBNAMenuListener {
+	protected final IXArchADT xarch;
+	protected final IResources resources;
+	protected final IGraphLayout graphLayout;
+	protected final ObjRef documentRootRef;
+
+	public StructureGraphLayoutLogic(IXArchADT xarch, IResources resources, IGraphLayout graphLayout,
+			ObjRef documentRootRef) {
+		this.xarch = xarch;
+		this.resources = resources;
+		this.graphLayout = graphLayout;
 		this.documentRootRef = documentRootRef;
 	}
 
-	public void fillMenu(IBNAView view, IMenuManager m, int localX, int localY, IThing t, int worldX, int worldY) {
-		if (t != null) {
+	@Override
+	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
+		if (!Iterables.isEmpty(things)) {
 			return;
 		}
 
 		final IBNAView fview = view;
-		final int fworldX = worldX;
-		final int fworldY = worldY;
+		final Point fworld = location.getWorldPoint(new Point());
+		final int fworldX = fworld.x;
+		final int fworldY = fworld.y;
 
-		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(view.getWorld().getBNAModel());
-		String structureXArchID = ept.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
-		if (structureXArchID != null) {
-			final ObjRef structureRef = AS.xarch.getByID(documentRootRef, structureXArchID);
-			if ((structureRef != null)
-					&& (XadlUtils.isInstanceOf(AS.xarch, structureRef, Structure_3_0Package.Literals.STRUCTURE))) {
-				IAction layoutAction = new Action("Automatic Layout...") {
-					public void run() {
-						doLayout(fview, structureRef, fworldX, fworldY);
-					}
+		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(view.getBNAWorld().getBNAModel());
+		final ObjRef structureRef = ept.get(IHasObjRef.OBJREF_KEY);
+		if (structureRef != null
+				&& XadlUtils.isInstanceOf(xarch, structureRef, Structure_3_0Package.Literals.STRUCTURE)) {
+			IAction layoutAction = new Action("Automatic Layout...") {
+				@Override
+				public void run() {
+					doLayout(fview, structureRef, fworldX, fworldY);
+				}
 
-					public ImageDescriptor getImageDescriptor() {
-						return AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_STRUCTURE);
-					}
-				};
-				m.add(layoutAction);
-				m.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-			}
+				@Override
+				public ImageDescriptor getImageDescriptor() {
+					return resources.getImageDescriptor(ArchStudioCommonResources.ICON_STRUCTURE);
+				}
+			};
+			menu.add(layoutAction);
+			menu.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		}
 	}
 
 	protected void doLayoutInJob(final IBNAView view, final ObjRef structureRef, final int worldX, final int worldY,
 			final String engineID, final GraphLayoutParameters glp) {
 		Job job = new Job("Laying Out") {
+			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				doLayout(view, structureRef, worldX, worldY, engineID, glp);
 				return Status.OK_STATUS;
@@ -94,35 +112,36 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 	}
 
 	protected void doLayout(IBNAView view, ObjRef structureRef, int worldX, int worldY) {
-		GraphLayoutDialog gld = new GraphLayoutDialog(BNAUtils.getParentComposite(view).getShell());
-		GraphLayoutParameters glp = gld.open(AS.graphLayout);
+		GraphLayoutDialog gld = new GraphLayoutDialog(view.getControl().getShell());
+		GraphLayoutParameters glp = gld.open(graphLayout);
 		if (glp == null) {
 			return;
 		}
-		String engineID = (String) glp.get("engineID");
+		String engineID = (String) glp.getProperty("engineID");
 		if (engineID == null) {
 			return;
 		}
 		doLayoutInJob(view, structureRef, worldX, worldY, engineID, glp);
-		BNAUtils.getParentComposite(view).forceFocus();
+		view.getControl().forceFocus();
 	}
 
 	protected void doLayout(final IBNAView view, ObjRef structureRef, int worldX, int worldY, String engineID,
 			GraphLayoutParameters glp) {
 		try {
-			GraphLayout gl = AS.graphLayout.layoutGraph(engineID, structureRef, glp);
-			view.getWorld().getBNAModel().beginBulkChange();
+			GraphLayout gl = graphLayout.layoutGraph(engineID, structureRef, glp);
+			view.getBNAWorld().getBNAModel().beginBulkChange();
 			applyGraphLayout(view, structureRef, gl, glp, worldX, worldY);
 		}
 		catch (final GraphLayoutException gle) {
-			BNAUtils.getParentComposite(view).getDisplay().asyncExec(new Runnable() {
+			SWTWidgetUtils.async(view.getControl(), new Runnable() {
+				@Override
 				public void run() {
-					MessageDialog.openError(BNAUtils.getParentComposite(view).getShell(), "Error", gle.getMessage());
+					MessageDialog.openError(view.getControl().getShell(), "Error", gle.getMessage());
 				}
 			});
 		}
 		finally {
-			view.getWorld().getBNAModel().endBulkChange();
+			view.getBNAWorld().getBNAModel().endBulkChange();
 		}
 	}
 
@@ -135,14 +154,9 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 			nodeBounds.x += worldX;
 			nodeBounds.y += worldY;
 
-			IThing nodeRootThing = ArchipelagoUtils.findThing(view.getWorld().getBNAModel(), nodeID);
-			if ((nodeRootThing != null) && (nodeRootThing instanceof IHasAssemblyData)) {
-				BoxAssembly boxAssembly = BoxAssembly.attach(view.getWorld().getBNAModel(),
-						(IHasAssemblyData) nodeRootThing);
-				RectangleGlassThing bgt = boxAssembly.getBoxGlassThing();
-				if (bgt != null) {
-					bgt.setBoundingBox(nodeBounds);
-				}
+			IThing nodeRootThing = ArchipelagoUtils.findThing(view.getBNAWorld().getBNAModel(), nodeID);
+			if (nodeRootThing instanceof IHasMutableBoundingBox) {
+				((IHasMutableBoundingBox) nodeRootThing).setBoundingBox(nodeBounds);
 			}
 		}
 		if (!getDontMoveInterfaces(glp)) {
@@ -164,11 +178,11 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 			GraphLayout.Edge edge = gl.getEdgeAt(i);
 			String linkXArchID = edge.getEdgeId();
 
-			ObjRef linkRef = AS.xarch.getByID(documentRootRef, linkXArchID);
+			ObjRef linkRef = xarch.getByID(documentRootRef, linkXArchID);
 			if (linkRef != null) {
-				ObjRef interface1Ref = (ObjRef) AS.xarch.get(linkRef, "point1");
+				ObjRef interface1Ref = (ObjRef) xarch.get(linkRef, "point1");
 				if (interface1Ref != null) {
-					String interface1ID = XadlUtils.getID(AS.xarch, interface1Ref);
+					String interface1ID = XadlUtils.getID(xarch, interface1Ref);
 					if (interface1ID != null) {
 						if (edge.getNumPoints() > 0) {
 							Point interface1Point = edge.getPointAt(0);
@@ -182,9 +196,9 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 					}
 				}
 
-				ObjRef interface2Ref = (ObjRef) AS.xarch.get(linkRef, "point2");
+				ObjRef interface2Ref = (ObjRef) xarch.get(linkRef, "point2");
 				if (interface2Ref != null) {
-					String interface2ID = XadlUtils.getID(AS.xarch, interface2Ref);
+					String interface2ID = XadlUtils.getID(xarch, interface2Ref);
 					if (interface2ID != null) {
 						if (edge.getNumPoints() > 0) {
 							Point interface2Point = edge.getPointAt(edge.getNumPoints() - 1);
@@ -201,28 +215,23 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 		}
 
 		for (String interfaceXArchID : interfaceIDtoPointListMap.keySet()) {
-			IThing nodeRootThing = ArchipelagoUtils.findThing(view.getWorld().getBNAModel(), interfaceXArchID);
-			if ((nodeRootThing != null) && (nodeRootThing instanceof IHasAssemblyData)) {
-				EndpointAssembly boxAssembly = EndpointAssembly.attach(view.getWorld().getBNAModel(),
-						(IHasAssemblyData) nodeRootThing);
-				EndpointGlassThing egt = boxAssembly.getEndpointGlassThing();
-				if (egt != null) {
-					List<Point> pointList = interfaceIDtoPointListMap.get(interfaceXArchID);
-					if (pointList.size() > 0) {
-						//Average the points
-						Point p = new Point(0, 0);
-						for (Point p2 : pointList) {
-							p.x += p2.x;
-							p.y += p2.y;
-						}
-						p.x /= pointList.size();
-						p.y /= pointList.size();
-
-						p.x += worldX;
-						p.y += worldY;
-
-						egt.setAnchorPoint(p);
+			IThing nodeRootThing = ArchipelagoUtils.findThing(view.getBNAWorld().getBNAModel(), interfaceXArchID);
+			if (nodeRootThing instanceof EndpointGlassThing) {
+				List<Point> pointList = interfaceIDtoPointListMap.get(interfaceXArchID);
+				if (pointList.size() > 0) {
+					//Average the points
+					Point p = new Point(0, 0);
+					for (Point p2 : pointList) {
+						p.x += p2.x;
+						p.y += p2.y;
 					}
+					p.x /= pointList.size();
+					p.y /= pointList.size();
+
+					p.x += worldX;
+					p.y += worldY;
+
+					((EndpointGlassThing) nodeRootThing).setAnchorPoint(p);
 				}
 			}
 		}
@@ -246,17 +255,12 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 
 			//The points returned by dot are actually B-spline control points;
 			//we can convert these into rectilinear waypoints to simulate a curve.
-			Point[] midpoints = BSpline.bspline(controlPoints, 2);
+			Point[] midpoints = BNAUtils.toPoints(BSpline.bspline(BNAUtils.toPoints(controlPoints), 2));
 			midpoints = optimizePoints(midpoints);
 
-			IThing linkRootThing = ArchipelagoUtils.findThing(view.getWorld().getBNAModel(), edgeID);
-			if ((linkRootThing != null) && (linkRootThing instanceof IHasAssemblyData)) {
-				StickySplineAssembly splineAssembly = StickySplineAssembly.attach(view.getWorld().getBNAModel(),
-						(IHasAssemblyData) linkRootThing);
-				StickySplineGlassThing sgt = splineAssembly.getSplineGlassThing();
-				if (sgt != null) {
-					sgt.setMidpoints(midpoints);
-				}
+			IThing linkRootThing = ArchipelagoUtils.findThing(view.getBNAWorld().getBNAModel(), edgeID);
+			if (linkRootThing instanceof SplineGlassThing) {
+				((SplineGlassThing) linkRootThing).setMidpoints(Arrays.asList(midpoints));
 			}
 		}
 	}
@@ -265,18 +269,18 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 		List<Point> optimizedPoints = new ArrayList<Point>();
 		Point lastPoint = null;
 
-		for (int i = 0; i < points.length; i++) {
+		for (Point point : points) {
 			if (lastPoint == null) {
-				optimizedPoints.add(points[i]);
-				lastPoint = points[i];
+				optimizedPoints.add(point);
+				lastPoint = point;
 			}
 			else {
-				double dist = Point2D.distance(lastPoint.x, lastPoint.y, points[i].x, points[i].y);
+				double dist = Point2D.distance(lastPoint.x, lastPoint.y, point.x, point.y);
 				if (dist < 12.5) {
 					continue;
 				}
-				optimizedPoints.add(points[i]);
-				lastPoint = points[i];
+				optimizedPoints.add(point);
+				lastPoint = point;
 			}
 		}
 		return optimizedPoints.toArray(new Point[optimizedPoints.size()]);
@@ -288,20 +292,15 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 			GraphLayout.Edge edge = gl.getEdgeAt(i);
 			String edgeID = edge.getEdgeId();
 
-			IThing linkRootThing = ArchipelagoUtils.findThing(view.getWorld().getBNAModel(), edgeID);
-			if ((linkRootThing != null) && (linkRootThing instanceof IHasAssemblyData)) {
-				StickySplineAssembly splineAssembly = StickySplineAssembly.attach(view.getWorld().getBNAModel(),
-						(IHasAssemblyData) linkRootThing);
-				StickySplineGlassThing sgt = splineAssembly.getSplineGlassThing();
-				if (sgt != null) {
-					sgt.setMidpoints(null);
-				}
+			IThing linkRootThing = ArchipelagoUtils.findThing(view.getBNAWorld().getBNAModel(), edgeID);
+			if (linkRootThing instanceof SplineGlassThing) {
+				((SplineGlassThing) linkRootThing).setMidpoints(Collections.<Point> emptyList());
 			}
 		}
 	}
 
 	protected static boolean getDontMoveInterfaces(GraphLayoutParameters glp) {
-		Object o = glp.get("dontMoveInterfaces");
+		Object o = glp.getProperty("dontMoveInterfaces");
 		if (o == null) {
 			return false;
 		}
@@ -312,7 +311,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 	}
 
 	protected static boolean getDontRouteLinks(GraphLayoutParameters glp) {
-		Object o = glp.get("dontRouteLinks");
+		Object o = glp.getProperty("dontRouteLinks");
 		if (o == null) {
 			return false;
 		}

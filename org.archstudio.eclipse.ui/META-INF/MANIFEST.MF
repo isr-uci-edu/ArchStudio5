@@ -21,10 +21,10 @@ Require-Bundle: org.archstudio.myx.fw,
  com.google.guava,
  org.archstudio.eclipse,
  org.archstudio.utils.osgi,
- org.archstudio.editormanager;bundle-version="5.0.0",
- org.archstudio.filemanager;bundle-version="5.0.0",
- org.archstudio.eclipse.core;bundle-version="1.0.0",
- org.archstudio.launcher;bundle-version="5.0.0"
+ org.archstudio.editormanager,
+ org.archstudio.filemanager,
+ org.archstudio.eclipse.core,
+ org.archstudio.launcher
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.archstudio.eclipse.ui.Activator
 Export-Package: org.archstudio.eclipse.ui,

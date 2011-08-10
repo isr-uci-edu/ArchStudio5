@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Composite;
 import com.google.common.base.Function;
 import com.google.common.collect.MapMaker;
 
-public class CompositeResource implements IResources {
+public class Resources implements IResources {
 
 	final Composite c;
 	final Device d;
@@ -35,9 +35,15 @@ public class CompositeResource implements IResources {
 		}
 	});
 
-	public CompositeResource(Composite c) {
+	public Resources(Composite c) {
 		this.c = c;
 		this.d = c.getDisplay();
+	}
+
+	public Resources(Composite c, Device d) {
+		super();
+		this.c = c;
+		this.d = d;
 	}
 
 	@Override

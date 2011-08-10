@@ -1,7 +1,5 @@
 package org.archstudio.bna.things.labels;
 
-import java.util.Set;
-
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
@@ -10,11 +8,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
-import org.archstudio.bna.facets.IHasAngle;
 import org.archstudio.bna.facets.IHasColor;
-import org.archstudio.bna.facets.IHasFontData;
-import org.archstudio.bna.facets.IHasOffset;
-import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.things.AbstractAnchorPointThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
@@ -24,17 +18,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.TextLayout;
 
-import com.google.common.collect.Sets;
-
 public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends AbstractAnchorPointThingPeer<T> {
-
-	protected static final Set<IThingKey<?>> UPDATE_ON_CHANGE = Sets.<IThingKey<?>> newHashSet(//
-			IHasText.TEXT_KEY,//
-			IHasFontData.FONT_NAME_KEY,//
-			IHasFontData.FONT_SIZE_KEY,//
-			IHasFontData.FONT_STYLE_KEY,//
-			IHasAngle.ANGLE_KEY,//
-			IHasOffset.OFFSET_KEY);
 
 	protected boolean needsTextLayout = true;
 	protected TextLayout textLayout = null;
@@ -65,7 +49,7 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 		}
 	}
 
-	protected void doLayout(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
+	protected void doLayout(IBNAView view, ICoordinateMapper cm, IResources r) {
 		if (textLayout == null || textLayout.getDevice() != r.getDevice()) {
 			if (textLayout != null) {
 				try {
@@ -93,16 +77,21 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 			if (cm.getLocalScale() < 1) {
 				size *= cm.getLocalScale();
 			}
-			textLayout.setFont(r.getFont(t.getFontName(), size, t.getFontStyle()));
-			Rectangle textBounds = BNAUtils.toRectangle(textLayout.getBounds());
-			textLayoutSize = textBounds.getSize();
+			if (size > 0) {
+				textLayout.setFont(r.getFont(t.getFontName(), size, t.getFontStyle()));
+				Rectangle textBounds = BNAUtils.toRectangle(textLayout.getBounds());
+				textLayoutSize = textBounds.getSize();
+			}
+			else {
+				textLayoutSize = new Dimension(0, 0);
+			}
 		}
 	}
 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 		if (r.setForegroundColor(g, t, IHasColor.COLOR_KEY)) {
-			doLayout(view, cm, g, r);
+			doLayout(view, cm, r);
 			if (textLayoutSize != null) {
 				Point worldAnchor = t.getAnchorPoint();
 				Point localOffset = new Point(0, 0);
@@ -146,8 +135,8 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
-		doLayout(view, cm, g, r);
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
+		doLayout(view, cm, r);
 		if (textLayoutSize != null) {
 			Point anchor = cm.worldToLocal(t.getAnchorPoint());
 			int offset = t.getOffset();

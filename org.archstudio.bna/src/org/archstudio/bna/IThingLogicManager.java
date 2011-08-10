@@ -8,7 +8,7 @@ public interface IThingLogicManager {
 
 	public void destroy();
 
-	public <L extends IThingLogic> L addThingLogic(Class<L> thingLogicClass);
+	public <L extends IThingLogic> L addThingLogic(Class<L> logicClass);
 
 	public <L extends IThingLogic> L addThingLogic(L thingLogic);
 

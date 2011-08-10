@@ -75,7 +75,7 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
 		cm.worldToLocal(boundsResult.setBounds(t.getBoundingBox()));
 		if (control != null) {
 			org.eclipse.swt.graphics.Rectangle bounds = control.getBounds();

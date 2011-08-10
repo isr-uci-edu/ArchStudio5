@@ -28,9 +28,8 @@ public class SplineGlassThingPeer<T extends SplineGlassThing> extends AbstractSp
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r,
-			org.eclipse.draw2d.geometry.Rectangle boundsResult) {
-		super.getLocalBounds(view, cm, g, r, boundsResult);
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, org.eclipse.draw2d.geometry.Rectangle boundsResult) {
+		super.getLocalBounds(view, cm, r, boundsResult);
 		// width of marquee line
 		boundsResult.expand(3, 3);
 	}

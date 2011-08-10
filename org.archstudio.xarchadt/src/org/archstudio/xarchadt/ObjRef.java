@@ -1,5 +1,6 @@
 package org.archstudio.xarchadt;
 
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicLong;
 
 public final class ObjRef implements java.io.Serializable {
@@ -11,13 +12,16 @@ public final class ObjRef implements java.io.Serializable {
 	private final Object uid;
 
 	public ObjRef() {
-		this.uid = Long.valueOf(atomicLong.getAndIncrement());
+		this(null);
 	}
 
-	public ObjRef(String uid) {
-		if (uid == null)
-			throw new NullPointerException("ObjRef UID may not be null");
-		this.uid = uid;
+	public ObjRef(Object debugValue) {
+		if (debugValue == null) {
+			this.uid = atomicLong.getAndIncrement();
+		}
+		else {
+			this.uid = Arrays.asList(atomicLong.getAndIncrement(), debugValue);
+		}
 	}
 
 	public Object getUID() {
@@ -31,15 +35,19 @@ public final class ObjRef implements java.io.Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		ObjRef other = (ObjRef) obj;
-		if (!uid.equals(other.uid))
+		if (!uid.equals(other.uid)) {
 			return false;
+		}
 		return true;
 	}
 

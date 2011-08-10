@@ -1,61 +1,63 @@
 package org.archstudio.bna.logics.editing;
 
+import static org.archstudio.sysutils.SystemUtils.castOrNull;
+import static org.archstudio.sysutils.SystemUtils.firstOrNull;
+
 import java.awt.geom.Line2D;
+import java.util.List;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.facets.IHasMutableMidpoints;
+import org.archstudio.bna.facets.IHasMutablePoints;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.IBNAMouseListener;
-import org.archstudio.bna.utils.SplineUtils;
-import org.archstudio.bna.utils.SplineUtils.SplineData;
+import org.archstudio.bna.utils.IBNAMouseClickListener;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.events.MouseEvent;
 
-public class SplineBreakLogic extends AbstractThingLogic implements IBNAMouseListener {
+public class SplineBreakLogic extends AbstractThingLogic implements IBNAMouseClickListener {
 
 	public SplineBreakLogic() {
 	}
 
-	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> t, Point localPoint, Point worldPoint) {
+	@Override
+	public void mouseClick(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
 	}
 
-	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> t, Point localPoint, Point worldPoint) {
-	}
+	@Override
+	public void mouseDoubleClick(IBNAView view, MouseEvent evt, Iterable<IThing> things, final ICoordinate location) {
+		final IHasMutablePoints t = castOrNull(firstOrNull(things), IHasMutablePoints.class);
+		if (t != null && UserEditableUtils.isEditableForAllQualities(t, IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS)) {
 
-	public void mouseClick(IBNAView view, MouseEvent evt, Iterable<IThing> t, Point localPoint, Point worldPoint) {
-	}
+			t.synchronizedUpdate(new Runnable() {
+				@Override
+				public void run() {
 
-	public void mouseDoubleClick(IBNAView view, MouseEvent evt, Iterable<IThing> t, Point localPoint, Point worldPoint) {
-		if (t instanceof IHasMutableMidpoints
-				&& UserEditableUtils.isEditableForAllQualities(t, IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS)) {
-
-			SplineData sd = SplineUtils.getPoints(t);
-
-			// insert the new point
-			Point lastPoint = null;
-			boolean pointAdded = false;
-			for (int i = 0; i < sd.allPoints.size(); i++) {
-				Point p = sd.allPoints.get(i);
-				if (lastPoint != null) {
-					int dist = BNAUtils.round(Line2D.ptSegDist(p.x, p.y, lastPoint.x, lastPoint.y, localPoint,
-							worldPoint));
-					if (dist <= 5) {
-						pointAdded = true;
-						sd.allPoints.add(i, new Point(localPoint, worldPoint));
-						break;
+					// insert the new point
+					boolean pointAdded = false;
+					Point worldPoint = location.getWorldPoint(new Point());
+					List<Point> points = t.getPoints();
+					for (int i = 1; i < points.size(); i++) {
+						Point p1 = points.get(i - 1);
+						Point p2 = points.get(i);
+						double dist = Line2D.ptSegDist(p2.x, p2.y, p1.x, p1.y, worldPoint.x, worldPoint.y);
+						if (dist <= 5) {
+							pointAdded = true;
+							points.add(i, new Point(worldPoint.x, worldPoint.y));
+							break;
+						}
 					}
+
+					// if a point wasn't added, do so now
+					if (!pointAdded) {
+						points.add(new Point(worldPoint.x, worldPoint.y));
+					}
+
+					t.setPoints(points);
 				}
-				lastPoint = p;
-			}
-
-			// if a point wasn't added, do so now
-			if (!pointAdded) {
-				sd.getMidpoints().add(new Point(localPoint, worldPoint));
-			}
-
-			SplineUtils.setPoints(t, sd);
+			});
 		}
 	}
 }

@@ -1,16 +1,17 @@
 package org.archstudio.bna.utils;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.facets.IHasMinimumSize;
-import org.archstudio.bna.facets.IHasMutableMinimumSize;
+import org.archstudio.bna.facets.IHasMutableBoundingBox;
+import org.archstudio.bna.facets.IHasMutableEndpoints;
+import org.archstudio.bna.facets.IHasMutableMidpoints;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
+import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.things.utility.GridThing;
-import org.archstudio.bna.utils.SplineUtils.SplineData;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -25,36 +26,39 @@ public class GridUtils {
 			return;
 		}
 
-		for (IThing t : m.getAllThings()) {
+		for (IThing t : m.getThings()) {
 			if (t instanceof IHasMutableEndpoints) {
 				rectifyToGrid(gridSpacing, (IHasMutableEndpoints) t);
 			}
-			if (t instanceof IHasMutableMidpoints) {
+			if (t instanceof IHasMutableMidpoints
+					&& UserEditableUtils.isEditableForAllQualities(t, IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS)) {
 				rectifyToGrid(gridSpacing, (IHasMutableMidpoints) t);
 			}
-			if (t instanceof IHasMinimumSize) {
-				rectifyToGrid(gridSpacing, (IHasMinimumSize) t);
+			if (t instanceof IHasMutableBoundingBox
+					&& UserEditableUtils.isEditableForAllQualities(t, IHasMutableSize.USER_MAY_RESIZE)) {
+				rectifyToGrid(gridSpacing, (IHasMutableBoundingBox) t);
 			}
-			else if (t instanceof IRelativeMovable) {
-				rectifyToGrid(gridSpacing, (IRelativeMovable) t);
+			else if (t instanceof IHasMutableReferencePoint
+					&& UserEditableUtils.isEditableForAllQualities(t, IRelativeMovable.USER_MAY_MOVE)) {
+				rectifyToGrid(gridSpacing, (IHasMutableReferencePoint) t);
 			}
 		}
 	}
 
-	public static void rectifyToGrid(int gridSpacing, IRelativeMovable t) {
+	public static void rectifyToGrid(int gridSpacing, IHasMutableReferencePoint t) {
 		Point p = t.getReferencePoint();
 		p = GridUtils.snapToGrid(gridSpacing, p);
 		t.setReferencePoint(p);
 	}
 
-	public static void rectifyToGrid(int gridSpacing, IHasMinimumSize t) {
+	public static void rectifyToGrid(int gridSpacing, IHasMutableBoundingBox t) {
 		Rectangle r = t.getBoundingBox();
 
 		if (UserEditableUtils.isEditableForAllQualities(t, IRelativeMovable.USER_MAY_MOVE)) {
 			r.x = GridUtils.snapToGrid(gridSpacing, r.x);
 			r.y = GridUtils.snapToGrid(gridSpacing, r.y);
 		}
-		if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableMinimumSize.USER_MAY_RESIZE)) {
+		if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableSize.USER_MAY_RESIZE)) {
 			int x1 = r.x;
 			int y1 = r.y;
 			int x2 = r.x + r.width;
@@ -81,46 +85,33 @@ public class GridUtils {
 
 	public static void rectifyToGrid(int gridSpacing, IHasMutableEndpoints t) {
 		Point ep1 = t.getEndpoint1();
-		Point nep1 = GridUtils.snapToGrid(gridSpacing, new Point(ep1.x, ep1.y));
-
+		if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1)) {
+			ep1 = GridUtils.snapToGrid(gridSpacing, new Point(ep1.x, ep1.y));
+		}
 		Point ep2 = t.getEndpoint2();
-		Point nep2 = GridUtils.snapToGrid(gridSpacing, new Point(ep2.x, ep2.y));
-
-		if (nep1.x == nep2.x && nep1.y == nep2.y) {
-			nep2.x += gridSpacing;
-			nep2.y += gridSpacing;
+		if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2)) {
+			ep2 = GridUtils.snapToGrid(gridSpacing, new Point(ep2.x, ep2.y));
+		}
+		if (ep1.x == ep2.x && ep1.y == ep2.y) {
+			ep1.x -= gridSpacing;
+			ep1.y += gridSpacing;
+			ep2.x += gridSpacing;
+			ep2.y -= gridSpacing;
 		}
 
-		if (t instanceof IHasStickyEndpoints) {
-			if (((IHasStickyEndpoints) t).getEndpoint1StuckToThingID() == null) {
-				t.setEndpoint1(nep1);
-			}
-			if (((IHasStickyEndpoints) t).getEndpoint2StuckToThingID() == null) {
-				t.setEndpoint2(nep2);
-			}
-		}
-		else {
-			t.setEndpoint1(nep1);
-			t.setEndpoint2(nep2);
-		}
+		t.setEndpoint1(ep1);
+		t.setEndpoint2(ep2);
 	}
 
 	public static void rectifyToGrid(int gridSpacing, IHasMutableMidpoints t) {
-		SplineData sd = SplineUtils.getPoints(t);
-		List<Point> newPoints = new ArrayList<Point>();
+		List<Point> midPoints = t.getMidpoints();
 
-		Point lastPoint = null;
-		for (Point p : sd.allPoints) {
+		for (Point p : midPoints) {
 			p.x = GridUtils.snapToGrid(gridSpacing, p.x);
 			p.y = GridUtils.snapToGrid(gridSpacing, p.y);
-			if (lastPoint == null || !lastPoint.equals(p)) {
-				newPoints.add(p);
-			}
-			lastPoint = p;
 		}
 
-		sd.allPoints = newPoints;
-		t.setMidpoints(sd.getMidpoints().toArray(new Point[0]));
+		t.setMidpoints(midPoints);
 	}
 
 	public static GridThing getGridThing(IBNAModel m) {

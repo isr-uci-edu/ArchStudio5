@@ -10,8 +10,6 @@ import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasColor;
-import org.archstudio.bna.facets.IHasFontData;
-import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.LabelUtils;
@@ -26,16 +24,11 @@ import com.google.common.collect.Sets;
 
 public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends AbstractRectangleThingPeer<T> {
 
-	protected static final Set<IThingKey<?>> UPDATE_ON_CHANGE = Sets.<IThingKey<?>> newHashSet(//
-			IHasText.TEXT_KEY,//
-			IHasFontData.FONT_NAME_KEY,//
-			IHasFontData.FONT_SIZE_KEY,//
-			IHasFontData.FONT_STYLE_KEY);
-
 	protected boolean needsTextLayout = true;
 	protected TextLayout textLayout = null;
 	protected Dimension textLayoutBounds = new Dimension();
 	protected Dimension textLayoutSize = null;
+	protected int textFontSize = 0;
 	protected double lastScale = Double.NaN;
 
 	public BoundedLabelThingPeer(T thing) {
@@ -54,7 +47,8 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 			try {
 				textLayout.dispose();
 			}
-			catch (Exception e) {
+			catch (Throwable t) {
+				t.printStackTrace();
 			}
 			finally {
 				textLayout = null;
@@ -92,15 +86,12 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 
 				textLayout.setText(t.getText());
 				textLayout.setWidth(lbb.width);
-				Rectangle textBounds = LabelUtils.setFontToRender(r, textLayout, lbb.height, t.getFontName(),
+				textFontSize = LabelUtils.resizeTextLayoutToFit(r, textLayout, lbb.height, t.getFontName(),
 						t.getFontSize(), t.getFontStyle());
-				if (textBounds != null) {
-					textLayoutSize = textBounds.getSize();
-				}
+				textLayoutSize = BNAUtils.toRectangle(textLayout.getBounds()).getSize();
 			}
 
-			if (textLayoutSize != null) {
-
+			if (textLayoutSize != null && textFontSize > 0) {
 				int x = lbb.x;
 				int y = lbb.y;
 
@@ -129,6 +120,8 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 				}
 
 				g.drawTextLayout(textLayout, x, y);
+				//g.setFont(textLayout.getFont());
+				//g.drawText(textLayout.getText(), x, y);
 			}
 			else {
 				g.setLineStyle(SWT.LINE_SOLID);
@@ -150,8 +143,21 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, Rectangle boundsResult) {
-		super.getLocalBounds(view, cm, g, r, boundsResult);
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
+		super.getLocalBounds(view, cm, r, boundsResult);
 		boundsResult.crop(t.getLocalInsets());
+	}
+
+	private static Set<Integer> getAllowableLinebreaks(String text) {
+		Set<Integer> breaks = Sets.newHashSet(0, text.length());
+		int index = 0;
+		for (String s : text.split("\\s")) {
+			index += s.length();
+			breaks.add(index);
+			index++;
+			breaks.add(index);
+		}
+		breaks.remove(text.length() + 1);
+		return breaks;
 	}
 }
