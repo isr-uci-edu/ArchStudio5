@@ -26,8 +26,13 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	protected MarqueeBoxBorderThing marqueeSelection = null;
 	protected Point initDownWorldPoint = new Point();
 
-	public MarqueeSelectionLogic(ThingTypeTrackingLogic typesLogic) {
-		this.typesLogic = typesLogic;
+	public MarqueeSelectionLogic() {
+	}
+
+	@Override
+	protected void init() {
+		super.init();
+		this.typesLogic = addThingLogic(ThingTypeTrackingLogic.class);
 	}
 
 	@Override

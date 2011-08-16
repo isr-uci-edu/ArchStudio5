@@ -1,10 +1,13 @@
 package org.archstudio.bna.things;
 
+import java.util.List;
+
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.facets.IHasMutablePoints;
 import org.archstudio.bna.facets.IHasMutableReferencePoint;
+import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.draw2d.geometry.Point;
@@ -39,6 +42,16 @@ public abstract class AbstractPolygonThing extends AbstractPointsThing implement
 	@Override
 	public void setAnchorPoint(Point p) {
 		set(ANCHOR_POINT_KEY, p);
+	}
+
+	@Override
+	public List<Point> getPoints() {
+		return get(IHasPoints.POINTS_KEY);
+	}
+
+	@Override
+	public void setPoints(List<Point> points) {
+		set(IHasPoints.POINTS_KEY, points);
 	}
 
 	@Override

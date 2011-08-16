@@ -12,20 +12,20 @@ import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
+import org.archstudio.bna.facets.IHasEndpoints;
+import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
-import org.archstudio.bna.logics.coordinating.MirrorPointLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
-import org.archstudio.bna.logics.coordinating.AbstractStickPointsLogic;
+import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
-import org.archstudio.bna.things.ShadowThing;
 import org.archstudio.bna.things.glass.EllipseGlassThing;
 import org.archstudio.bna.things.glass.PolygonGlassThing;
 import org.archstudio.bna.things.glass.SplineGlassThing;
@@ -65,7 +65,7 @@ public class StickySplineDemo {
 		shell.setSize(400, 400);
 		shell.open();
 
-		model.addThing(new ShadowThing(null));
+		// model.addThing(new ShadowThing(null));
 
 		populateModel(view);
 		addLogics(view);
@@ -94,8 +94,8 @@ public class StickySplineDemo {
 
 		IBNAWorld world = view.getBNAWorld();
 		IBNAModel model = world.getBNAModel();
-		AbstractStickPointsLogic spl = world.getThingLogicManager().addThingLogic(AbstractStickPointsLogic.class);
-		MirrorPointLogic mpl = world.getThingLogicManager().addThingLogic(MirrorPointLogic.class);
+		StickPointLogic spl = world.getThingLogicManager().addThingLogic(StickPointLogic.class);
+		MirrorValueLogic mvl = world.getThingLogicManager().addThingLogic(MirrorValueLogic.class);
 
 		ICoordinateMapper cm = view.getCoordinateMapper();
 		Point offset = cm.getWorldBounds(new Rectangle()).getCenter();
@@ -106,6 +106,7 @@ public class StickySplineDemo {
 		for (int j = 0; j < 2; j++) {
 			for (StickyMode stickyMode : StickyMode.values()) {
 				PolygonGlassThing p = Assemblies.createPolygon(world, null, null);
+				((IHasMutableColor) Assemblies.BACKGROUND_KEY.get(p, model)).setColor(null);
 				p.setAnchorPoint(offset.getTranslated(r.nextInt(200) + 50, r.nextInt(200) + 50));
 				List<Point> points = Lists.newArrayList();
 				points.add(new Point(-50, -50));
@@ -128,7 +129,6 @@ public class StickySplineDemo {
 
 				AnchoredLabelThing label = model.addThing(new AnchoredLabelThing(null));
 				label.setText(stickyMode.name());
-				MirrorValueLogic mvl = world.getThingLogicManager().addThingLogic(MirrorValueLogic.class);
 				mvl.mirrorValue(p, IHasAnchorPoint.ANCHOR_POINT_KEY, label);
 				shapeThings.add(p);
 			}
@@ -145,15 +145,15 @@ public class StickySplineDemo {
 
 				SplineGlassThing s = Assemblies.createSpline(world, null, null);
 
-				spl.stick(ft, fsm, 0, s);
+				spl.stick(s, IHasEndpoints.ENDPOINT_1_KEY, fsm, ft);
 				EllipseGlassThing e0 = Assemblies.createEllipse(world, null, ft);
 				e0.setBoundingBox(new Rectangle(0, 0, 7, 7));
-				mpl.mirror(s, 0, e0);
+				mvl.mirrorValue(s, IHasEndpoints.ENDPOINT_1_KEY, e0);
 
-				spl.stick(tt, tsm, -1, s);
+				spl.stick(s, IHasEndpoints.ENDPOINT_2_KEY, tsm, tt);
 				EllipseGlassThing e1 = Assemblies.createEllipse(world, null, tt);
 				e1.setBoundingBox(new Rectangle(0, 0, 7, 7));
-				mpl.mirror(s, -1, e1);
+				mvl.mirrorValue(s, IHasEndpoints.ENDPOINT_2_KEY, e1);
 
 				//StickRelativeMovablesLogic.stickPoint(fa.getPart("glass"), IHasEndpoints.ENDPOINT_1_KEY,
 				//		fromStickyMode, s.getSplineGlassThing());

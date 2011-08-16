@@ -1,5 +1,6 @@
 package org.archstudio.bna.demo;
 
+import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
@@ -16,12 +17,13 @@ import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
+import org.archstudio.bna.logics.editing.ReshapeSplineLogic;
 import org.archstudio.bna.logics.editing.SplineBreakLogic;
-import org.archstudio.bna.logics.editing.SplineReshapeHandleLogic;
 import org.archstudio.bna.logics.editing.StandardCursorLogic;
-import org.archstudio.bna.logics.events.WorldThingExternalEventsLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
+import org.archstudio.bna.things.glass.RectangleGlassThing;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.DefaultBNAWorld;
@@ -45,15 +47,14 @@ public class BasicBNADemo {
 
 		IBNAWorld bnaWorld1 = new DefaultBNAWorld("bna", m);
 		setupTopWorld(bnaWorld1);
-		populateModel(m);
+		populateModel(bnaWorld1);
 
 		IBNAView bnaView1 = new DefaultBNAView(null, null, bnaWorld1, new LinearCoordinateMapper());
 
 		IBNAModel m2 = new DefaultBNAModel();
 		IBNAWorld bnaWorld2 = new DefaultBNAWorld("subworld", m2);
 		setupWorld(bnaWorld2);
-
-		populateModel(m2);
+		populateModel(bnaWorld2);
 
 		//IBNAView bnaView2 = new DefaultBNAView(bnaView1, bnaWorld2, new DefaultCoordinateMapper());
 		//ViewThing wt2 = new ViewThing();
@@ -68,10 +69,10 @@ public class BasicBNADemo {
 		//wt3.setView(bnaView3);
 		//m.addThing(wt3);
 
-		populateWithViews(m, bnaView1, bnaWorld2);
+		// populateWithViews(m, bnaView1, bnaWorld2);
 
-		final BNAComposite bnaComposite = new BNAComposite(shell, SWT.V_SCROLL | SWT.H_SCROLL | SWT.DOUBLE_BUFFERED,
-				bnaView1);
+		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL | SWT.DOUBLE_BUFFERED,
+				bnaWorld1);
 		bnaComposite.setSize(500, 500);
 		bnaComposite.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
 
@@ -97,40 +98,40 @@ public class BasicBNADemo {
 		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
 
 		logicManager.addThingLogic(new MoveWithLogic());
-		logicManager.addThingLogic(new MirrorAnchorPointLogic(logicManager));
+		logicManager.addThingLogic(new MirrorAnchorPointLogic());
 		logicManager.addThingLogic(new MirrorBoundingBoxLogic());
 		logicManager.addThingLogic(new RotatingOffsetLogic());
-		logicManager.addThingLogic(new ClickSelectionLogic(logicManager));
-		logicManager.addThingLogic(new MarqueeSelectionLogic(logicManager));
-		logicManager.addThingLogic(new DragMovableLogic(logicManager));
-		logicManager.addThingLogic(new ReshapeRectangleLogic(stl, dml));
-		logicManager.addThingLogic(new SplineReshapeHandleLogic(stl, dml));
+		logicManager.addThingLogic(new ClickSelectionLogic());
+		logicManager.addThingLogic(new MarqueeSelectionLogic());
+		logicManager.addThingLogic(new DragMovableLogic());
+		logicManager.addThingLogic(new ReshapeRectangleLogic());
+		logicManager.addThingLogic(new ReshapeSplineLogic());
 		logicManager.addThingLogic(new SplineBreakLogic());
-		logicManager.addThingLogic(new MaintainAnchoredAssemblyOrientationLogic(rtl));
 		logicManager.addThingLogic(new StandardCursorLogic());
 
-		logicManager.addThingLogic(new ModelBoundsTrackingLogic(tttl));
-		logicManager.addThingLogic(new WorldThingExternalEventsLogic(tttl));
+		logicManager.addThingLogic(new ModelBoundsTrackingLogic());
+		//logicManager.addThingLogic(new WorldThingExternalEventsLogic(tttl));
 
 	}
 
-	static void populateModel(/* BNAComposite c, */IBNAModel m) {
-		final BoxAssembly[] boxes = new BoxAssembly[50];
+	static void populateModel(IBNAWorld world) {
+		final IBNAModel model = world.getBNAModel();
+		final RectangleGlassThing[] boxes = new RectangleGlassThing[50];
 
 		for (int i = 0; i < boxes.length; i++) {
-			BoxAssembly box = new BoxAssembly(m, null, null);
+			RectangleGlassThing box = Assemblies.createRectangle(world, null, null);
 			box.getBoxThing().setGradientFilled(true);
 			box.getBoxBorderThing().setLineStyle(SWT.LINE_DASH);
 			box.getBoxBorderThing().setColor(new RGB(0, 0, 0));
 			box.getBoxedLabelThing().setText("Now is the time for all good men to come to the aid of their country");
 			box.getBoxedLabelThing().setColor(new RGB(255, 0, 0));
-			box.getBoxGlassThing().setBoundingBox(DefaultCoordinateMapper.DEFAULT_WORLD_WIDTH / 2 + 20 + i * 10,
+			box.getRectangleGlassThing().setBoundingBox(DefaultCoordinateMapper.DEFAULT_WORLD_WIDTH / 2 + 20 + i * 10,
 					DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2 + 20 + i * 10, 100, 100);
-			box.getBoxGlassThing().setSelected(i % 2 == 0);
+			box.getRectangleGlassThing().setSelected(i % 2 == 0);
 			boxes[i] = box;
 		}
 
-		EndpointAssembly endpoint = new EndpointAssembly(m, null, null);
+		EndpointAssembly endpoint = new EndpointAssembly(world, null, null);
 		endpoint.getBoxThing().setColor(new RGB(255, 255, 255));
 		endpoint.getBoxBorderThing().setColor(new RGB(0, 0, 0));
 		endpoint.getDirectionalLabelThing().setColor(new RGB(0, 0, 0));
@@ -139,7 +140,7 @@ public class BasicBNADemo {
 		endpoint.getEndpointGlassThing().setAnchorPoint(
 				new Point(DefaultCoordinateMapper.DEFAULT_WORLD_WIDTH / 2 + 20,
 						DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2 + 20));
-		StickRelativeMovablesLogic.stickPoint(boxes[0].getBoxGlassThing(), IHasAnchorPoint.ANCHOR_POINT_KEY,
+		StickRelativeMovablesLogic.stickPoint(boxes[0].getRectangleGlassThing(), IHasAnchorPoint.ANCHOR_POINT_KEY,
 				StickyMode.EDGE, endpoint.getEndpointGlassThing());
 
 		SplineAssembly spline = new SplineAssembly(m, null, null);
@@ -185,30 +186,32 @@ public class BasicBNADemo {
 		// SWT.V_SCROLL | SWT.BORDER);
 	}
 
-	static void populateWithViews(IBNAModel m, IBNAView parentView, IBNAWorld internalWorld) {
-		BoxAssembly vbox1 = new BoxAssembly(m, null, null);
-		vbox1.getBoxThing().setGradientFilled(true);
-		vbox1.getBoxBorderThing().setLineStyle(SWT.LINE_DASH);
-		vbox1.getBoxBorderThing().setColor(new RGB(0, 0, 0));
-		vbox1.getBoxedLabelThing().setText("Viewsion 1");
-		vbox1.getBoxedLabelThing().setColor(new RGB(255, 0, 0));
-		vbox1.getBoxGlassThing().setBoundingBox(DefaultCoordinateMapper.DEFAULT_WORLD_WIDTH / 2 + 20 + 200,
-				DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2 + 20 + 100, 200, 200);
-		vbox1.getBoxGlassThing().setSelected(false);
-		vbox1.getWorldThing().setWorld(internalWorld);
-		//vbox1.getViewThing().setView(new DefaultBNAView(parentView, internalWorld, new DefaultCoordinateMapper()));
-
-		BoxAssembly vbox2 = new BoxAssembly(m, null, null);
-		vbox2.getBoxThing().setGradientFilled(true);
-		vbox2.getBoxBorderThing().setLineStyle(SWT.LINE_DASH);
-		vbox2.getBoxBorderThing().setColor(new RGB(0, 0, 0));
-		vbox2.getBoxedLabelThing().setText("Viewsion 2");
-		vbox2.getBoxedLabelThing().setColor(new RGB(255, 0, 0));
-		vbox2.getBoxGlassThing().setBoundingBox(DefaultCoordinateMapper.DEFAULT_WORLD_WIDTH / 2 + 20 + 400,
-				DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2 + 20 + 100, 200, 200);
-		vbox2.getBoxGlassThing().setSelected(false);
-		vbox2.getWorldThing().setWorld(internalWorld);
-		//vbox2.getViewThing().setView(new DefaultBNAView(parentView, internalWorld, new DefaultCoordinateMapper()));
-
+	static void populateWithViews(IBNAWorld world, IBNAView parentView, IBNAWorld internalWorld) {
+		//		IBNAModel model = world.getBNAModel();
+		//
+		//		RectangleGlassThing vbox1 = Assemblies.createRectangle(world, null, null);
+		//		vbox1.getBoxThing().setGradientFilled(true);
+		//		vbox1.getBoxBorderThing().setLineStyle(SWT.LINE_DASH);
+		//		vbox1.getBoxBorderThing().setColor(new RGB(0, 0, 0));
+		//		vbox1.getBoxedLabelThing().setText("Viewsion 1");
+		//		vbox1.getBoxedLabelThing().setColor(new RGB(255, 0, 0));
+		//		vbox1.getRectangleGlassThing().setBoundingBox(DefaultCoordinateMapper.DEFAULT_WORLD_WIDTH / 2 + 20 + 200,
+		//				DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2 + 20 + 100, 200, 200);
+		//		vbox1.getRectangleGlassThing().setSelected(false);
+		//		vbox1.getWorldThing().setWorld(internalWorld);
+		//		//vbox1.getViewThing().setView(new DefaultBNAView(parentView, internalWorld, new DefaultCoordinateMapper()));
+		//
+		//		RectangleGlassThing vbox2 = Assemblies.createRectangle(world, null, null);
+		//		Assemblies.BACKGROUND_KEY.get(vbox2, model).set(IHasGradientFill.GRADIENT_FILLED_KEY, true);
+		//		Assemblies.BACKGROUND_KEY.get(vbox2, model).set(IHasLineStyle.LINE_STYLE_KEY, SWT.LINE_DASH);
+		//		vbox2.getBoxBorderThing().setColor(new RGB(0, 0, 0));
+		//		vbox2.getBoxedLabelThing().setText("Viewsion 2");
+		//		vbox2.getBoxedLabelThing().setColor(new RGB(255, 0, 0));
+		//		vbox2.getRectangleGlassThing().setBoundingBox(DefaultCoordinateMapper.DEFAULT_WORLD_WIDTH / 2 + 20 + 400,
+		//				DefaultCoordinateMapper.DEFAULT_WORLD_HEIGHT / 2 + 20 + 100, 200, 200);
+		//		vbox2.getRectangleGlassThing().setSelected(false);
+		//		vbox2.getWorldThing().setWorld(internalWorld);
+		//		//vbox2.getViewThing().setView(new DefaultBNAView(parentView, internalWorld, new DefaultCoordinateMapper()));
+		//
 	}
 }

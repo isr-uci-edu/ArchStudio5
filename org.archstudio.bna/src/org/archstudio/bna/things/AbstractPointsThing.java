@@ -1,6 +1,5 @@
 package org.archstudio.bna.things;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.archstudio.bna.IThing;
@@ -10,6 +9,8 @@ import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutablePoints;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+
+import com.google.common.collect.Lists;
 
 public abstract class AbstractPointsThing extends AbstractRelativeMovableThing implements IHasMutablePoints,
 		IHasBoundingBox {
@@ -29,7 +30,7 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setPoints(Arrays.<Point> asList(new Point(0, 0), new Point(0, 0)));
+		setPoints(Lists.newArrayList(new Point(0, 0), new Point(0, 0)));
 		set(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
 	}
 

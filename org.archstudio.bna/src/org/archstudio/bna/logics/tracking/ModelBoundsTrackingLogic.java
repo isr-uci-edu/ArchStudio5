@@ -2,17 +2,18 @@ package org.archstudio.bna.logics.tracking;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
-import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNASynchronousModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.IIsHidden;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNASynchronousLockModelListener {
+public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
 
 	public static Rectangle getModelBounds(IBNAWorld world) {
 		IThingLogicManager tlm = world.getThingLogicManager();
@@ -29,21 +30,27 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 				if (tttl == null) {
 					tlm.addThingLogic(tttl = new ThingTypeTrackingLogic());
 				}
-				tlm.addThingLogic(mbtl = new ModelBoundsTrackingLogic(tttl));
+				tlm.addThingLogic(mbtl = new ModelBoundsTrackingLogic());
 			}
 		}
 		return mbtl.getModelBounds();
 	}
 
-	protected final ThingTypeTrackingLogic tttl;
+	protected ThingTypeTrackingLogic tttl = null;
 
 	private Rectangle modelBounds = null;
 
-	public ModelBoundsTrackingLogic(ThingTypeTrackingLogic tttl) {
-		this.tttl = tttl;
+	public ModelBoundsTrackingLogic() {
 	}
 
-	public void bnaModelChangedSyncLock(BNAModelEvent evt) {
+	@Override
+	protected void init() {
+		super.init();
+		tttl = addThingLogic(ThingTypeTrackingLogic.class);
+	}
+
+	@Override
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
@@ -64,7 +71,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 		}
 			break;
 		case THING_CHANGED: {
-			ThingEvent te = evt.getThingEvent();
+			ThingEvent<ET, EK, EV> te = evt.getThingEvent();
 			if (IHasBoundingBox.BOUNDING_BOX_KEY.equals(te.getPropertyName())) {
 				synchronized (this) {
 					updateModelBounds((Rectangle) te.getOldPropertyValue(), (Rectangle) te.getNewPropertyValue());
@@ -90,7 +97,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 				}
 			}
 			if (nbb != null) {
-				Rectangle newModelBounds = BNAUtils.clone(modelBounds);
+				Rectangle newModelBounds = modelBounds.getCopy();
 				if (nbb.width <= 0 || nbb.height <= 0) {
 					return;
 				}
@@ -122,8 +129,8 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 				int x2 = Integer.MIN_VALUE;
 				int y2 = Integer.MIN_VALUE;
 
-				for (IHasBoundingBox t : tttl.getThings(IHasBoundingBox.class)) {
-					if (!Boolean.TRUE.equals(t.get(IBNAView.HIDE_THING_KEY))) {
+				for (IHasBoundingBox t : tttl.getThings(m, IHasBoundingBox.class)) {
+					if (!Boolean.TRUE.equals(t.get(IIsHidden.HIDDEN_KEY))) {
 						Rectangle bb = t.getBoundingBox();
 						if (bb != null) {
 							if (bb.width <= 0 || bb.height <= 0) {
@@ -153,9 +160,9 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 		synchronized (this) {
 			updateModelBounds();
 			if (modelBounds != null) {
-				return BNAUtils.clone(modelBounds);
+				return modelBounds.getCopy();
 			}
-			return BNAUtils.NONEXISTENT_RECTANGLE;
+			return new Rectangle(Integer.MIN_VALUE, Integer.MIN_VALUE, 0, 0);
 		}
 	}
 }

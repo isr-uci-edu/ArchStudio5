@@ -162,7 +162,7 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new EditTextLogic());
 		logicManager.addThingLogic(new KeyNudgerLogic());
 		logicManager.addThingLogic(new LifeSapperLogic(typesLogic));
-		logicManager.addThingLogic(new MarqueeSelectionLogic(typesLogic));
+		logicManager.addThingLogic(new MarqueeSelectionLogic());
 		logicManager.addThingLogic(new MousePanAndZoomLogic());
 		logicManager.addThingLogic(new ReshapeRectangleLogic());
 		logicManager.addThingLogic(new ReshapeSplineLogic()).addReshapeSplineGuides(

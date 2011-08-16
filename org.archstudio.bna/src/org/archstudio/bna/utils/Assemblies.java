@@ -15,8 +15,11 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasAngle;
 import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasColor;
+import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasHorizontalAlignment;
+import org.archstudio.bna.facets.IHasLineStyle;
 import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasOffset;
 import org.archstudio.bna.facets.IHasOrientation;
@@ -67,6 +70,10 @@ public class Assemblies {
 		protected ThingAssemblyKey(D keyData, boolean isFireEventOnChange) {
 			super(keyData, isFireEventOnChange);
 		}
+	}
+
+	private static class Generics<BACKGROUND extends IHasColor & IHasEdgeColor & IHasLineStyle> {
+
 	}
 
 	private static final IThingKey<Boolean> IS_ROOT_KEY = ThingKey.create("is-assembly-root");
