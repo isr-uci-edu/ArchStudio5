@@ -34,8 +34,13 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 
 	protected ThingTypeTrackingLogic tttl = null;
 
-	public WorldThingExternalEventsLogic(ThingTypeTrackingLogic tttl) {
-		this.tttl = tttl;
+	public WorldThingExternalEventsLogic() {
+	}
+
+	@Override
+	protected void init() {
+		super.init();
+		tttl = addThingLogic(ThingTypeTrackingLogic.class);
 	}
 
 	protected IHasWorld draggingIn = null;
@@ -154,6 +159,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		mouseEvt(view, evt, t, MouseEventType.MOUSE_HOVER);
 	}
 
+	@Override
 	public void focusGained(IBNAView view, FocusEvent e) {
 		for (IHasWorld vt : tttl.getThings(IHasWorld.class)) {
 			//if(vt instanceof IHasUserEditable){
@@ -182,6 +188,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
+	@Override
 	public void focusLost(IBNAView view, FocusEvent e) {
 		for (IHasWorld vt : tttl.getThings(IHasWorld.class)) {
 			//if(vt instanceof IHasUserEditable){
@@ -209,6 +216,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
+	@Override
 	public void keyPressed(IBNAView view, KeyEvent e) {
 		for (IHasWorld vt : tttl.getThings(IHasWorld.class)) {
 			//if(vt instanceof IHasUserEditable){
@@ -235,6 +243,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
+	@Override
 	public void keyReleased(IBNAView view, KeyEvent e) {
 		for (IHasWorld vt : tttl.getThings(IHasWorld.class)) {
 			//if(vt instanceof IHasUserEditable){
@@ -262,6 +271,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
+	@Override
 	public void handleEvent(IBNAView view, Event event) {
 		for (IHasWorld vt : tttl.getThings(IHasWorld.class)) {
 			//if(vt instanceof IHasUserEditable){

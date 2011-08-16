@@ -8,13 +8,13 @@ import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
+import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
-import org.archstudio.bna.logics.coordinating.StickAnchorPointLogic;
-import org.archstudio.bna.logics.coordinating.AbstractStickPointsLogic;
+import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
@@ -191,7 +191,6 @@ public class BNAStressTest {
 	public static EndpointGlassThing createEndpoint(IBNAWorld world, Object id, IIsSticky parent, Point location,
 			Flow flow, Orientation orientation) {
 		IBNAModel model = world.getBNAModel();
-		IThingLogicManager tlm = world.getThingLogicManager();
 
 		EndpointGlassThing e = Assemblies.createEndpoint(world, id, parent);
 		e.setAnchorPoint(location);
@@ -200,8 +199,6 @@ public class BNAStressTest {
 		Assemblies.LABEL_KEY.get(e, model).setOrientation(orientation);
 
 		UserEditableUtils.addEditableQualities(e, IRelativeMovable.USER_MAY_MOVE);
-
-		StickAnchorPointLogic sapl = tlm.addThingLogic(StickAnchorPointLogic.class);
 
 		return e;
 	}
@@ -214,8 +211,10 @@ public class BNAStressTest {
 		IHasAnchorPoint a0 = (IHasAnchorPoint) model.getThing(id0);
 		IHasAnchorPoint a1 = (IHasAnchorPoint) model.getThing(id1);
 
-		AbstractStickPointsLogic spl = tlm.addThingLogic(AbstractStickPointsLogic.class);
-		spl.stick((IIsSticky) a0, StickyMode.CENTER, 0, s);
-		spl.stick((IIsSticky) a1, StickyMode.CENTER, -1, s);
+		StickPointLogic spl = tlm.addThingLogic(StickPointLogic.class);
+		spl.setStickyMode(s, IHasEndpoints.ENDPOINT_1_KEY, StickyMode.CENTER);
+		spl.setThingRef(s, IHasEndpoints.ENDPOINT_1_KEY, a0.getID());
+		spl.setStickyMode(s, IHasEndpoints.ENDPOINT_2_KEY, StickyMode.CENTER);
+		spl.setThingRef(s, IHasEndpoints.ENDPOINT_2_KEY, a1.getID());
 	}
 }

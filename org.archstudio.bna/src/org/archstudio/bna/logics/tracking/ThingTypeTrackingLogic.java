@@ -5,13 +5,15 @@ import java.util.Map;
 import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNASynchronousModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.sysutils.SystemUtils;
 
 import com.google.common.base.Function;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.Sets;
 
@@ -80,10 +82,15 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNASy
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public <T extends IThing> Iterable<Object> getThingIDs(Class<T> ofType) {
 		synchronized (classToThingIDs) {
-			return SystemUtils.copyIterable(classToThingIDs.get(ofType));
+			return Lists.newArrayList(classToThingIDs.get(ofType));
+		}
+	}
+
+	public <T extends IThing> Iterable<T> getThings(IBNAModel model, Class<T> ofType) {
+		synchronized (classToThingIDs) {
+			return Iterables.filter(model.getThings(classToThingIDs.get(ofType)), ofType);
 		}
 	}
 }

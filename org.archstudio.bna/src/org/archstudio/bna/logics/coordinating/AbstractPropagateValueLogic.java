@@ -22,7 +22,6 @@ import org.archstudio.bna.keys.ThingKeyKey;
 import org.archstudio.bna.keys.ThingRefKeyKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
-import org.archstudio.bna.utils.BNAUtils;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
@@ -132,39 +131,48 @@ public abstract class AbstractPropagateValueLogic<FROM_THING extends IThing, TO_
 		});
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
 		switch (evt.getEventType()) {
 		case THING_CHANGED: {
 
 			// if a fromThing is modified, perform all propagations from it
-			IBNAModel model = evt.getSource();
-			ThingEvent<FROM_THING, EK, EV> fromThingEvent = BNAUtils.castOrNull(evt.getThingEvent(), fromThingClass);
-			if (fromThingEvent != null) {
-				FROM_THING fromThing = fromThingEvent.getTargetThing();
-				for (IThingRefKeyKey<FROM_THING, ?, TO_KEY> thingRefKey : fromThingRefKeys) {
-					for (TO_THING toThing : Iterables.filter(
-							model.getThings(valuesLogic.getThingIDs(thingRefKey, fromThing.getID())), toThingClass)) {
-						doPropagationUnlessInCycle(model, fromThing, fromThingEvent, toThing, null,
-								thingRefKey.getKey());
-					}
-				}
+			if (fromThingClass.isInstance(evt.getTargetThing())) {
+				fromThingChangedSync((BNAModelEvent<FROM_THING, EK, EV>) evt);
 			}
 
 			// if a propagated value or its related data is externally modified, re-propagate the value
-			TO_KEY toKey = toThingSettingsKeys.get(evt.getThingEvent().getPropertyName());
-			if (toKey != null) {
-				ThingEvent<TO_THING, EK, EV> toThingEvent = BNAUtils.castOrNull(evt.getThingEvent(), toThingClass);
-				if (toThingEvent != null) {
-					TO_THING toThing = toThingEvent.getTargetThing();
-					IThingRefKey<FROM_THING> fromThingRefKey = getThingRefKey(toKey);
-					FROM_THING fromThing = castOrNull(fromThingRefKey.get(toThing, model), fromThingClass);
-					if (fromThing != null) {
-						doPropagationUnlessInCycle(model, fromThing, null, toThing, toThingEvent, toKey);
-					}
-				}
+			if (toThingClass.isInstance(evt.getTargetThing())) {
+				toThingChangedSync((BNAModelEvent<TO_THING, EK, EV>) evt);
+			}
+
+		}
+		}
+	}
+
+	protected <EK extends IThingKey<EV>, EV> void fromThingChangedSync(BNAModelEvent<FROM_THING, EK, EV> evt) {
+		IBNAModel model = evt.getSource();
+		FROM_THING fromThing = evt.getTargetThing();
+		for (IThingRefKeyKey<FROM_THING, ?, TO_KEY> thingRefKey : fromThingRefKeys) {
+			for (TO_THING toThing : Iterables.filter(
+					model.getThings(valuesLogic.getThingIDs(thingRefKey, fromThing.getID())), toThingClass)) {
+				doPropagationUnlessInCycle(model, fromThing, evt.getThingEvent(), toThing, null, thingRefKey.getKey());
 			}
 		}
+	}
+
+	protected <EK extends IThingKey<EV>, EV> void toThingChangedSync(BNAModelEvent<TO_THING, EK, EV> evt) {
+		IBNAModel model = evt.getSource();
+		TO_KEY toKey = toThingSettingsKeys.get(evt.getThingEvent().getPropertyName());
+		if (toKey != null) {
+			ThingEvent<TO_THING, EK, EV> toThingEvent = evt.getThingEvent();
+			TO_THING toThing = toThingEvent.getTargetThing();
+			IThingRefKey<FROM_THING> fromThingRefKey = getThingRefKey(toKey);
+			FROM_THING fromThing = castOrNull(fromThingRefKey.get(toThing, model), fromThingClass);
+			if (fromThing != null) {
+				doPropagationUnlessInCycle(model, fromThing, null, toThing, toThingEvent, toKey);
+			}
 		}
 	}
 
