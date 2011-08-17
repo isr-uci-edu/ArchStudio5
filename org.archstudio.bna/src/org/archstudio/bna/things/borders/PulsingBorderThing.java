@@ -4,6 +4,7 @@ import java.util.concurrent.locks.Lock;
 
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
+import org.archstudio.bna.facets.IHasRotatingOffset;
 import org.archstudio.bna.things.AbstractRectangleThing;
 import org.eclipse.swt.graphics.RGB;
 
@@ -41,13 +42,13 @@ public class PulsingBorderThing extends AbstractRectangleThing implements IHasMu
 	}
 
 	public void incrementRotatingOffset() {
-		Lock lock = getPropertyLock();
-		lock.lock();
-		try {
-			set(ROTATING_OFFSET_KEY, (getRotatingOffset() + 1));
-		}
-		finally {
-			lock.unlock();
-		}
+		synchronizedUpdate(new Runnable() {
+			@Override
+			public void run() {
+				Integer io = get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
+				int i = io == null ? 0 : io + 1;
+				set(IHasRotatingOffset.ROTATING_OFFSET_KEY, i);
+			}
+		});
 	}
 }
