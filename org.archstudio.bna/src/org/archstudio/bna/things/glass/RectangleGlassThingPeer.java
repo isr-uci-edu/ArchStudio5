@@ -21,12 +21,7 @@ public class RectangleGlassThingPeer<T extends RectangleGlassThing> extends Abst
 			final Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 			lbb.width -= 1;
 			lbb.height -= 1;
-			BNAUtils.drawMarquee(g, r, t.getRotatingOffset(), false, new Runnable() {
-				@Override
-				public void run() {
-					g.drawRectangle(lbb);
-				}
-			});
+			BNAUtils.drawMarquee(g, r, t.getRotatingOffset(), lbb);
 		}
 	}
 

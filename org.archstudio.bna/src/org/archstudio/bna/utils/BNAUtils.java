@@ -34,6 +34,7 @@ import org.archstudio.swtutils.constants.Orientation;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
@@ -1173,50 +1174,33 @@ public class BNAUtils {
 		}
 		return closestPoint;
 	}
-
-	//private static final int[][] dash = new int[][] { { 1, 1, 5, 1, 1, 7, 1, 7 }, { 1, 7, 1, 1, 5, 1, 1, 7 }, { 1, 7, 1, 7, 1, 1, 5, 1 } };
-	//private static final int[][] dash = new int[][] { { 1, 1, 3, 1, 1, 5, 1, 5 }, { 1, 5, 1, 1, 3, 1, 1, 5 }, { 1, 5, 1, 5, 1, 1, 3, 1 } };
-	//private static final int[][] dash = new int[][] { { 1, 1, 1, 1, 1, 3, 1, 3 }, { 1, 3, 1, 1, 1, 1, 1, 3 }, { 1, 3, 1, 3, 1, 1, 1, 1 } };
-	private static final int marquee_dot = 1;
-	private static final int marquee_space = marquee_dot;
-	private static final int marquee_dash = 3 * marquee_dot;
-	private static final int marquee_cycle_length = 3;
-	private static final int[][] marquee_dash_patterns;
-	static {
-		marquee_dash_patterns = new int[marquee_cycle_length][];
-		for (int i = 0; i < marquee_cycle_length; i++) {
-			int k = 0;
-			int[] pattern = new int[marquee_cycle_length + marquee_cycle_length + 2];
-			for (int j = 0; j < marquee_cycle_length; j++) {
-				pattern[k++] = marquee_dot;
-				if (j == i) {
-					pattern[k++] = marquee_space;
-					pattern[k++] = marquee_dash;
-					pattern[k++] = marquee_space;
-				}
-				else {
-					pattern[k++] = marquee_space + marquee_dash + marquee_space;
-				}
+	
+	// Convenience method for drawMarquee(..., Runnable).
+	public static void drawMarquee(final Graphics g, IResources r, int offset, final Rectangle rect) {
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				g.drawRectangle(rect);
 			}
-			marquee_dash_patterns[i] = pattern;
-		}
+		};
+		drawMarquee(g, r, offset, runnable);
 	}
 
-	public static void drawMarquee(Graphics g, IResources r, int offset, boolean reverse, Runnable drawMarquee) {
-
+	public static void drawMarquee(Graphics g, IResources r, int offset, Runnable drawMarquee) {
 		g.pushState();
 		try {
+			g.setLineStyle(SWT.LINE_SOLID);
 			g.setForegroundColor(r.getColor(SWT.COLOR_WHITE));
 			g.setLineCap(SWT.CAP_FLAT);
-			g.setLineWidth(2);
-			g.setLineStyle(SWT.LINE_SOLID);
-
+			g.setLineWidth(1);
+			
 			drawMarquee.run();
-
-			g.setForegroundColor(r.getColor(SWT.COLOR_BLACK));
+			
 			g.setLineStyle(SWT.LINE_CUSTOM);
-			g.setLineDash(marquee_dash_patterns[offset % marquee_dash_patterns.length]);
-
+			g.setForegroundColor(r.getColor(SWT.COLOR_BLACK));
+			g.setLineDash(new int[] {4, 4});
+			((SWTGraphics)g).setLineDashOffset(offset % 8);
+			
 			drawMarquee.run();
 		}
 		finally {
