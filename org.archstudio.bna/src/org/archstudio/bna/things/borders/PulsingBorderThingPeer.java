@@ -1,8 +1,10 @@
 package org.archstudio.bna.things.borders;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
+import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.IResources;
 import org.archstudio.bna.things.AbstractThingPeer;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -10,7 +12,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 
 public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends AbstractThingPeer<T> {
-
 	public static final int RADIANT_COUNT = 3;
 	public static final int SPACER_WIDTH = 3;
 
@@ -18,13 +19,13 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 	protected static final RGB DEFAULT_BASE_RGB = new RGB(255, 0, 0);
 
 	public PulsingBorderThingPeer(T thing) {
-		super(t);
+		super(thing);
 	}
 
 	@Override
-	public void draw(IBNAView view, Graphics g, Rectangle clip, ResourceUtils res) {
+	public void draw(IBNAView view, ICoordinateMapper cm, final Graphics g, IResources r) {
 		Rectangle bb = t.getBoundingBox();
-		Rectangle lbb = BNAUtils.worldToLocal(view.getCoordinateMapper(), bb);
+		Rectangle lbb = view.getCoordinateMapper().worldToLocal(bb);
 		int offset = t.getRotatingOffset();
 		int pulse = offset % RADIANT_COUNT;
 		Rectangle elbb = lbb.getExpanded(SPACER_WIDTH * pulse, SPACER_WIDTH * pulse);
@@ -39,14 +40,24 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 			SWTWidgetUtils.lighten(ergb);
 		}
 
-		g.setForegroundColor(res.getColor(rgb, DEFAULT_BASE_SYSTEM_COLOR));
+		g.setForegroundColor(r.getColor(rgb));
 		g.drawRectangle(lbb);
-		g.setForegroundColor(res.getColor(ergb, DEFAULT_BASE_SYSTEM_COLOR));
+		g.setForegroundColor(r.getColor(ergb));
 		g.drawRectangle(elbb);
 	}
 
 	@Override
-	public boolean isInThing(IBNAView view, int worldX, int worldY) {
+	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
+	}
+	
+	@Override
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
+		Rectangle bb = t.getBoundingBox();
+		Rectangle lbb = view.getCoordinateMapper().worldToLocal(bb);
+		int offset = t.getRotatingOffset();
+		int pulse = offset % RADIANT_COUNT;
+		Rectangle elbb = lbb.getExpanded(SPACER_WIDTH * pulse, SPACER_WIDTH * pulse);
+		boundsResult.setBounds(elbb);
 	}
 }
