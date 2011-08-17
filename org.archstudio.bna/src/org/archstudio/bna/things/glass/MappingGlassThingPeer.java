@@ -46,7 +46,7 @@ public class MappingGlassThingPeer<T extends MappingGlassThing> extends Abstract
 			// check that the point is not within the internally referenced thing
 			IThing mappedThing = iView.getBNAWorld().getBNAModel().getThing(t.getInternalEndpointStuckToThingID());
 			if (mappedThing != null) {
-				IThingPeer mappedThingPeer = iView.getPeerCache(mappedThing);
+				IThingPeer mappedThingPeer = iView.getPeerCacheEntry(mappedThing);
 				if (mappedThingPeer != null) {
 					int iWorldX = BNAUtils.round(iCM.localXtoWorldX(cm.worldXtoLocalX((float) worldX)));
 					int iWorldY = BNAUtils.round(iCM.localYtoWorldY(cm.worldYtoLocalY((float) worldY)));

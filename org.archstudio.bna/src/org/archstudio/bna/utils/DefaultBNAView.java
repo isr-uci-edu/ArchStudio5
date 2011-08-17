@@ -6,12 +6,14 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.utils.PeerCache.Cache;
+import org.archstudio.bna.IThingPeer;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.widgets.Control;
 
 import com.google.common.collect.Lists;
@@ -19,19 +21,24 @@ import com.google.common.collect.Lists;
 public class DefaultBNAView implements IBNAView {
 
 	@Nullable
-	final protected IBNAView parentView;
-	final protected IBNAWorld bnaWorld;
-	final protected ICoordinateMapper cm;
-	final protected PeerCache<> peerCache = new PeerCache();
-	final protected Control control;
+	protected final IBNAView parentView;
+	protected final IBNAWorld bnaWorld;
+	protected final ICoordinateMapper cm;
+	protected final PeerCache peerCache;
+	protected final Control control;
 
-	public DefaultBNAView(@Nullable Control control, @Nullable IBNAView parentView, IBNAWorld bnaWorld,
-			ICoordinateMapper cm) {
+	public DefaultBNAView(@Nullable Control control, @Nullable IBNAView parentView, IBNAWorld bnaWorld, ICoordinateMapper cm) {
 		super();
 		this.control = control;
 		this.parentView = parentView;
+		this.peerCache = new PeerCache();
 		this.bnaWorld = checkNotNull(bnaWorld);
 		this.cm = checkNotNull(cm);
+	}
+	
+	@Override
+	public Control getControl() {
+		return control;
 	}
 
 	@Override
@@ -51,29 +58,23 @@ public class DefaultBNAView implements IBNAView {
 
 	@Override
 	public Iterable<IThing> getThingsAt(ICoordinate location) {
+		location = DefaultCoordinate.forWorld(location.getWorldPoint(new Point()), cm);
 		List<IThing> things = Lists.newArrayList();
 		for (IThing t : getBNAWorld().getBNAModel().getReverseThings()) {
-			if (!Boolean.TRUE.equals(t.get(IIsBackground.BACKGROUND_KEY))) {
-				if (peerCache.getPeerCache(t).peer.isInThing(this, cm, location)) {
-					things.add(t);
-				}
+			if (peerCache.getPeer(t).isInThing(this, cm, location)) {
+				things.add(t);
 			}
 		}
 		return things;
 	}
-
+	
 	@Override
-	public <T extends IThing, D> Cache<T, D> getPeerCache(T thing) {
-		return peerCache.getPeerCache(thing);
-		@Override
-		protected Cache<IThing, CacheData> getPeerCache(IThing t) {
-			PeerCache.Cache<IThing, CacheData> pc = getPeerCache(t);
-			if (pc.renderData == null) {
-				pc.renderData = new CacheData();
-			}
-			return pc;
-		}
-
+	public <T extends IThing> IThingPeer<T> getThingPeer(T thing) {
+		return peerCache.getPeer(thing);
+	}
+	
+	public <T extends IThing> void disposePeer(T thing) {
+		peerCache.disposePeer(thing);
 	}
 
 	@Override
