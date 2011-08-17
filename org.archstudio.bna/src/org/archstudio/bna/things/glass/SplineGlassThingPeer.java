@@ -18,7 +18,7 @@ public class SplineGlassThingPeer<T extends SplineGlassThing> extends AbstractSp
 	public void draw(IBNAView view, ICoordinateMapper cm, final Graphics g, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			final int[] localXYArray = BNAUtils.toXYArray(BNAUtils.getWorldToLocal(cm, t.getPoints()));
-			BNAUtils.drawMarquee(g, r, t.getRotatingOffset(), false, new Runnable() {
+			BNAUtils.drawMarquee(g, r, t.getRotatingOffset(), new Runnable() {
 				@Override
 				public void run() {
 					g.drawPolyline(localXYArray);

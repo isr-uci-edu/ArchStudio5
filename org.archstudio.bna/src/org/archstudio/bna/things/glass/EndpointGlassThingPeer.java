@@ -19,12 +19,7 @@ public class EndpointGlassThingPeer<T extends EndpointGlassThing> extends Abstra
 	public void draw(IBNAView view, ICoordinateMapper cm, final Graphics g, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			final Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
-			BNAUtils.drawMarquee(g, r, t.getRotatingOffset(), false, new Runnable() {
-				@Override
-				public void run() {
-					g.drawRectangle(lbb);
-				}
-			});
+			BNAUtils.drawMarquee(g, r, t.getRotatingOffset(), lbb);
 		}
 	}
 }
