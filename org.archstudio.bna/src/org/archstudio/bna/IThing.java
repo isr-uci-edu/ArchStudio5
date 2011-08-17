@@ -2,7 +2,6 @@ package org.archstudio.bna;
 
 import java.util.Set;
 
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.sysutils.TypedMap;
 
 /**
@@ -11,13 +10,9 @@ import org.archstudio.sysutils.TypedMap;
 public interface IThing {
 
 	public static interface IThingKey<V> extends TypedMap.Key<V> {
-
 		public boolean isFireEventOnChange();
-
 		public V preWrite(V value);
-
 		public V postRead(V value);
-
 	}
 
 	/**
