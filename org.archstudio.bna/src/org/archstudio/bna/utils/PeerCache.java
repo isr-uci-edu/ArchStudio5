@@ -9,28 +9,7 @@ import org.archstudio.bna.IThingPeer;
 import com.google.common.base.Function;
 import com.google.common.collect.MapMaker;
 
-public class PeerCache<D> {
-
-	public static class Cache<T extends IThing, D> {
-		public final IThingPeer<T> peer;
-		public D renderData;
-
-		public Cache(IThingPeer<T> peer) {
-			this.peer = peer;
-		}
-
-		public D getRenderData() {
-			return renderData;
-		}
-
-		public void setRenderData(D renderData) {
-			this.renderData = renderData;
-		}
-
-		public IThingPeer<T> getPeer() {
-			return peer;
-		}
-	}
+public class PeerCache {
 
 	protected static Map<Class<IThingPeer<?>>, Constructor<?>> autoConstructors = new MapMaker()
 			.makeComputingMap(new Function<Class<IThingPeer<?>>, Constructor<?>>() {
@@ -47,14 +26,12 @@ public class PeerCache<D> {
 				}
 			});
 
-	protected static Map<IThing, Cache<?, ?>> autoPeers = new MapMaker().weakKeys().makeComputingMap(
-			new Function<IThing, Cache<?, ?>>() {
-				@SuppressWarnings("unchecked")
+	protected static Map<IThing, IThingPeer<?>> autoPeers = new MapMaker().weakKeys().makeComputingMap(
+			new Function<IThing, IThingPeer<?>>() {
 				@Override
-				public Cache<?, ?> apply(IThing input) {
+				public IThingPeer<?> apply(IThing input) {
 					try {
-						return new Cache<IThing, Object>((IThingPeer<IThing>) autoConstructors
-								.get(input.getPeerClass()).newInstance(input));
+						return (IThingPeer<?>)autoConstructors.get(input.getPeerClass()).newInstance(input);
 					}
 					catch (Exception e) {
 						throw new RuntimeException("Cannot create peer: " + input, e);
@@ -63,14 +40,14 @@ public class PeerCache<D> {
 			});
 
 	@SuppressWarnings("unchecked")
-	public <T extends IThing> Cache<T, D> getPeerCache(T thing) {
-		return (Cache<T, D>) autoPeers.get(thing);
+	public <T extends IThing> IThingPeer<T> getPeer(T thing) {
+		return (IThingPeer<T>)autoPeers.get(thing);
 	}
 
-	public void dispose(IThing thing) {
-		Cache<?, ?> cache = autoPeers.remove(thing);
-		if (cache != null) {
-			cache.peer.dispose();
+	public void disposePeer(IThing thing) {
+		IThingPeer<?> peer = autoPeers.remove(thing);
+		if (peer != null) {
+			peer.dispose();
 		}
 	}
 }

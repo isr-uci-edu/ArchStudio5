@@ -85,9 +85,9 @@ public class StructureEditorSupport {
 		bnaCanvas.addDisposeListener(new DisposeListener() {
 			@Override
 			public void widgetDisposed(DisposeEvent e) {
-				EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAWorld()
+				EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAView().getBNAWorld()
 						.getBNAModel());
-				BNAUtils.saveCoordinateMapperData(bnaCanvas.getCoordinateMapper(), ept);
+				BNAUtils.saveCoordinateMapperData(bnaCanvas.getBNAView().getCoordinateMapper(), ept);
 				bnaCanvas.removeDisposeListener(this);
 			}
 		});
@@ -101,10 +101,10 @@ public class StructureEditorSupport {
 		bnaCanvas.pack();
 		parentComposite.layout(true);
 
-		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAWorld().getBNAModel());
+		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAView().getBNAWorld().getBNAModel());
 		ept.set(IHasObjRef.OBJREF_KEY, structureRef);
 		ept.set(IHasXArchID.XARCH_ID_KEY, (String) AS.xarch.get(structureRef, "id"));
-		BNAUtils.restoreCoordinateMapperData((IMutableCoordinateMapper) bnaCanvas.getCoordinateMapper(), ept);
+		BNAUtils.restoreCoordinateMapperData((IMutableCoordinateMapper) bnaCanvas.getBNAView().getCoordinateMapper(), ept);
 
 		ArchipelagoUtils.setBNACanvas(AS.editor, bnaCanvas);
 		bnaCanvas.setFocus();

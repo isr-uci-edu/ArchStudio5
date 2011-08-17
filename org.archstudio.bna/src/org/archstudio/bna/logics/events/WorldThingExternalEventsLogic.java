@@ -65,7 +65,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		//		if(vt instanceof IHasUserEditable){
 		//			if(!((IHasUserEditable)vt).isUserEditable()) return;
 		//		}
-		WorldThingPeer vtp = (WorldThingPeer) view.getPeerCache(vt);
+		WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
 		IBNAView internalView = vtp.getInnerView();
 		if (internalView == null) {
 			return;
@@ -173,7 +173,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 				return;
 			}
 
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCache(vt);
+			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
 			IBNAView internalView = vtp.getInnerView();
 			if (internalView == null) {
 				return;
@@ -201,7 +201,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 				return;
 			}
 
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCache(vt);
+			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
 			IBNAView internalView = vtp.getInnerView();
 			if (internalView == null) {
 				return;
@@ -229,7 +229,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 				return;
 			}
 
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCache(vt);
+			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
 			IBNAView internalView = vtp.getInnerView();
 			if (internalView == null) {
 				return;
@@ -257,7 +257,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 				return;
 			}
 
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCache(vt);
+			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
 			IBNAView internalView = vtp.getInnerView();
 			if (internalView == null) {
 				return;
@@ -285,7 +285,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 				return;
 			}
 
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCache(vt);
+			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
 			IBNAView internalView = vtp.getInnerView();
 			if (internalView == null) {
 				return;
@@ -314,7 +314,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 					return;
 				}
 
-				WorldThingPeer vtp = (WorldThingPeer) view.getPeerCache(vt);
+				WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
 				IBNAView internalView = vtp.getInnerView();
 				if (internalView == null) {
 					return;
@@ -347,7 +347,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 					return;
 				}
 
-				WorldThingPeer vtp = (WorldThingPeer) view.getPeerCache(vt);
+				WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
 				IBNAView internalView = vtp.getInnerView();
 				if (internalView == null) {
 					return;
