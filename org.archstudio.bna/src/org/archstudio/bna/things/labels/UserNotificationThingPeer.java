@@ -1,6 +1,9 @@
 package org.archstudio.bna.things.labels;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
+import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.IResources;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.FontStyle;
@@ -11,6 +14,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.TextLayout;
 
 public class UserNotificationThingPeer<T extends UserNotificationThing> extends AbstractThingPeer<T> {
@@ -24,14 +28,13 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 		super(thing);
 	}
 
-	@Override
-	public void draw(IBNAView view, Graphics g, Rectangle clip, ResourceUtils res) {
+	private Rectangle getBasicLocalRectangle(IBNAView view, ICoordinateMapper cm, IResources r) {
 		String text = t.getText();
 		if (text == null || text.trim().length() == 0) {
-			return;
+			return null;
 		}
 
-		Point lap = BNAUtils.worldToLocal(view.getCoordinateMapper(), t.getAnchorPoint());
+		Point lap = cm.worldToLocal(t.getAnchorPoint());
 
 		String fontName = t.getFontName();
 		int fontSize = t.getFontSize();
@@ -41,36 +44,60 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 		HorizontalAlignment horizontalAlignment = t.getHorizontalAlignment();
 
 		TextLayout tl = null;
+		tl = new TextLayout(r.getDevice());
+		tl.setText(text);
+		tl.setFont(r.getFont(fontName, fontSize, fontStyle));
+
+		Rectangle textExtent = BNAUtils.toRectangle(tl.getBounds());
+
+		int textWidth = textExtent.width;
+		int textHeight = textExtent.height;
+
+		switch (horizontalAlignment) {
+		case CENTER:
+			lap.x = lap.x - textWidth / 2;
+			break;
+		case RIGHT:
+			lap.x = lap.x - textWidth;
+			break;
+		}
+
+		switch (verticalAlignment) {
+		case MIDDLE:
+			lap.y = lap.y - textHeight / 2;
+			break;
+		case BOTTOM:
+			lap.y = lap.y - textHeight;
+			break;
+		}
+		
+		if (tl != null) {
+			tl.dispose();
+		}
+
+		return new Rectangle(lap.x, lap.y, textWidth, textHeight);
+	}
+
+	
+	@Override
+	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
+		System.err.println("drawing unt!");
+		String text = t.getText();
+		if (text == null || text.trim().length() == 0) {
+			return;
+		}
+		
+		Rectangle basicLocalRectangle = getBasicLocalRectangle(view, cm, r);
+
+		String fontName = t.getFontName();
+		int fontSize = t.getFontSize();
+		FontStyle fontStyle = t.getFontStyle();
+
+		TextLayout tl = null;
 		try {
-			tl = new TextLayout(res.getDevice());
+			tl = new TextLayout(r.getDevice());
 			tl.setText(text);
-			tl.setFont(res.getFont(fontName, fontSize, fontStyle.toSWT()));
-
-			Rectangle textExtent = BNAUtils.toRectangle(tl.getBounds());
-			if (!clip.intersects(textExtent)) {
-				return;
-			}
-
-			int textWidth = textExtent.width;
-			int textHeight = textExtent.height;
-
-			switch (horizontalAlignment) {
-			case CENTER:
-				lap.x = lap.x - textWidth / 2;
-				break;
-			case RIGHT:
-				lap.x = lap.x - textWidth;
-				break;
-			}
-
-			switch (verticalAlignment) {
-			case MIDDLE:
-				lap.y = lap.y - textHeight / 2;
-				break;
-			case BOTTOM:
-				lap.y = lap.y - textHeight;
-				break;
-			}
+			tl.setFont(r.getFont(fontName, fontSize, fontStyle));
 
 			//Life drops from 16 to 0
 			int life = t.getLife();
@@ -84,17 +111,19 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 			g.setAlpha(alpha);
 
 			//Draw a little shadow
-			g.setForegroundColor(res.getColor(null, SWT.COLOR_DARK_GRAY));
-			g.drawLine(lap.x - 1, lap.y - 1 + textHeight + 4, lap.x - 1 + textWidth + 4, lap.y - 1 + textHeight + 4);
-			g.drawLine(lap.x - 1 + textWidth + 4, lap.y - 1, lap.x - 1 + textWidth + 4, lap.y - 1 + textHeight + 4);
+			g.setForegroundColor(r.getColor(SWT.COLOR_DARK_GRAY));
+			g.drawLine(basicLocalRectangle.x - 1, basicLocalRectangle.y - 1 + basicLocalRectangle.height + 4, basicLocalRectangle.x - 1 + basicLocalRectangle.width + 4, basicLocalRectangle.y - 1 + basicLocalRectangle.height + 4);
+			g.drawLine(basicLocalRectangle.x - 1 + basicLocalRectangle.width + 4, basicLocalRectangle.y - 1, basicLocalRectangle.x - 1 + basicLocalRectangle.width + 4, basicLocalRectangle.y - 1 + basicLocalRectangle.height + 4);
 
-			Color bg = res.getColor(t.getSecondaryColor(), SWT.COLOR_GRAY);
+			RGB secondaryColorRGB = t.getSecondaryColor();
+			Color bg = secondaryColorRGB != null ? r.getColor(secondaryColorRGB) : r.getColor(SWT.COLOR_GRAY);
 			g.setBackgroundColor(bg);
-			g.fillRectangle(lap.x - 2, lap.y - 2, textWidth + 4, textHeight + 4);
+			g.fillRectangle(basicLocalRectangle.x - 2, basicLocalRectangle.y - 2, basicLocalRectangle.width + 4, basicLocalRectangle.height + 4);
 
-			Color fg = res.getColor(t.getColor(), SWT.COLOR_BLACK);
+			RGB primaryColorRGB = t.getColor();
+			Color fg = primaryColorRGB != null ? r.getColor(primaryColorRGB) : r.getColor(SWT.COLOR_BLACK);
 			g.setForegroundColor(fg);
-			g.drawText(text, lap.x, lap.y);
+			g.drawText(text, basicLocalRectangle.x, basicLocalRectangle.y);
 
 		}
 		finally {
@@ -104,9 +133,16 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 			}
 		}
 	}
-
+	
 	@Override
-	public boolean isInThing(IBNAView view, int worldX, int worldY) {
+	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}
+	
+	@Override
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
+		Rectangle basicLocalRectangle = getBasicLocalRectangle(view, cm, r);
+		boundsResult.setBounds(basicLocalRectangle.expand(5, 5));
+	}
+
 }

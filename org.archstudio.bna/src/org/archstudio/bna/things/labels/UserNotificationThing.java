@@ -38,74 +38,102 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 		setLife(16);
 	}
 
+	@Override
 	public void setColor(RGB c) {
 		set(COLOR_KEY, c);
 	}
 
+	@Override
 	public RGB getColor() {
 		return get(COLOR_KEY);
 	}
 
+	@Override
 	public void setSecondaryColor(RGB c) {
 		set(SECONDARY_COLOR_KEY, c);
 	}
 
+	@Override
 	public RGB getSecondaryColor() {
 		return get(SECONDARY_COLOR_KEY);
 	}
 
+	@Override
 	public String getText() {
 		return (String) get(TEXT_KEY);
 	}
 
+	@Override
 	public void setText(String text) {
 		set(TEXT_KEY, text);
 	}
 
+	@Override
 	public HorizontalAlignment getHorizontalAlignment() {
 		return (HorizontalAlignment) get(HORIZONTAL_ALIGNMENT_KEY);
 	}
 
+	@Override
 	public void setHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
 		set(HORIZONTAL_ALIGNMENT_KEY, horizontalAlignment);
 	}
 
+	@Override
 	public VerticalAlignment getVerticalAlignment() {
 		return (VerticalAlignment) get(VERTICAL_ALIGNMENT_KEY);
 	}
 
+	@Override
 	public void setVerticalAlignment(VerticalAlignment verticalAlignment) {
 		set(VERTICAL_ALIGNMENT_KEY, verticalAlignment);
 	}
 
+	@Override
 	public String getFontName() {
 		return (String) get(FONT_NAME_KEY);
 	}
 
+	@Override
 	public void setFontName(String fontName) {
 		set(FONT_NAME_KEY, fontName);
 	}
 
+	@Override
 	public int getFontSize() {
 		return get(FONT_SIZE_KEY);
 	}
 
+	@Override
 	public void setFontSize(int fontSize) {
 		set(FONT_SIZE_KEY, fontSize);
 	}
 
+	@Override
 	public FontStyle getFontStyle() {
 		return (FontStyle) get(FONT_STYLE_KEY);
 	}
 
+	@Override
 	public void setFontStyle(FontStyle fontStyle) {
 		set(FONT_STYLE_KEY, fontStyle);
 	}
+	
+	@Override
+	public boolean getDontIncreaseFontSize() {
+		return get(DONT_INCREASE_FONT_SIZE_KEY);
+	}
+	
+	@Override
+	public void setDontIncreaseFontSize(boolean dontIncreaseFontSize) {
+		set(DONT_INCREASE_FONT_SIZE_KEY, dontIncreaseFontSize);
+	}
 
+	@Override
 	public int getLife() {
 		return get(LIFE_KEY);
 	}
 
+	@Override
 	public void setLife(int life) {
 		set(LIFE_KEY, life);
 	}
