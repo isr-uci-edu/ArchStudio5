@@ -142,6 +142,8 @@ public class StructureEditorSupport {
 	}
 
 	static void setupWorld(ArchipelagoServices AS, ObjRef structureRef, IBNAWorld bnaWorld) {
+		ObjRef documentRootRef = AS.xarch.getDocumentRootRef(structureRef);
+
 		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
 
 		logicManager.addThingLogic(new SynchronizeHintsLogic(new XadlHintRepository(AS.xarch)));
@@ -171,6 +173,7 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new RotatingOffsetLogic());
 		logicManager.addThingLogic(new SplineBreakLogic());
 		logicManager.addThingLogic(new StandardCursorLogic());
+		logicManager.addThingLogic(new StructureDropLogic(AS, documentRootRef));
 		logicManager.addThingLogic(new ToolTipLogic());
 
 		// menu logics
@@ -209,7 +212,6 @@ public class StructureEditorSupport {
 		//logicManager.addThingLogic(vtiel);
 		//logicManager.addThingLogic(new WorldThingExternalEventsLogic(ttstlView));
 		////logicManager.addThingLogic(new WorldThingDestroyLogic(true));
-		//logicManager.addThingLogic(new StructureDropLogic(AS, documentRootRef));
 		//logicManager.addThingLogic(new MaintainMappingEndpointsLogic(trtl, ttstlMapping, vtiel));
 		//
 		////Menu logics
