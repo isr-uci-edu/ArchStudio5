@@ -65,7 +65,7 @@ public class StructureEditorFocuser implements IArchipelagoEditorFocuser {
 			return;
 		}
 		BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(AS.editor);
-		IBNAView view = bnaCanvas;
+		IBNAView view = bnaCanvas.getBNAView();
 		if (bnaCanvas != null) {
 			IBNAModel structureModel = view.getBNAWorld().getBNAModel();
 			String xArchID = XadlUtils.getID(AS.xarch, ref);
