@@ -22,7 +22,7 @@ public class StructureXArchEventHandler implements IXArchADTModelListener {
 	public synchronized void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		BNACanvas currentlyEditingCanvas = ArchipelagoUtils.getBNACanvas(AS.editor);
 		if (currentlyEditingCanvas != null) {
-			IBNAView view = currentlyEditingCanvas;
+			IBNAView view = currentlyEditingCanvas.getBNAView();
 			if (view != null) {
 				IBNAWorld world = view.getBNAWorld();
 				if (world != null) {
