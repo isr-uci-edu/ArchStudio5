@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFeature;
 import org.archstudio.xarchadt.IXArchADTQuery;
@@ -69,20 +70,32 @@ public class XadlUtils {
 		}
 		return extRef;
 	}
+	
+	public static boolean isBrick(IXArchADTQuery xarch, ObjRef ref) {
+		return xarch.isInstanceOf(ref, Structure_3_0Package.eNS_URI, "Brick");
+	}
+	
+	public static boolean isComponent(IXArchADTQuery xarch, ObjRef ref) {
+		return xarch.isInstanceOf(ref, Structure_3_0Package.eNS_URI, "Component");
+	}
 
+	public static boolean isConnector(IXArchADTQuery xarch, ObjRef ref) {
+		return xarch.isInstanceOf(ref, Structure_3_0Package.eNS_URI, "Component");
+	}
+	
 	public static ObjRef getImplementation(IXArchADTQuery xarch, ObjRef ref, EClass type) {
-			ObjRef implementationExtRef = XadlUtils.getExt(xarch, ref, Implementation_3_0Package.eNS_URI,
-					"ImplementationExtension");
-			if (implementationExtRef != null) {
-				List<ObjRef> implementationRefs = xarch.getAll(implementationExtRef, "implementation");
-				for (ObjRef implementationRef : implementationRefs) {
-					if (XadlUtils.isInstanceOf(xarch, implementationRef, type)) {
-						return implementationRef;
-					}
+		ObjRef implementationExtRef = XadlUtils.getExt(xarch, ref, Implementation_3_0Package.eNS_URI,
+				"ImplementationExtension");
+		if (implementationExtRef != null) {
+			List<ObjRef> implementationRefs = xarch.getAll(implementationExtRef, "implementation");
+			for (ObjRef implementationRef : implementationRefs) {
+				if (XadlUtils.isInstanceOf(xarch, implementationRef, type)) {
+					return implementationRef;
 				}
 			}
-			return null;
 		}
+		return null;
+	}
 
 	public static List<ObjRef> getAllSubstitutionGroupElementsByType(IXArchADTQuery xarch, ObjRef ref,
 			String substitutionGroupName, String targetNsURI, String targetTypeName) {
