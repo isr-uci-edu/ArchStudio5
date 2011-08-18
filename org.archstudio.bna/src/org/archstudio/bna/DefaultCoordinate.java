@@ -31,4 +31,9 @@ public class DefaultCoordinate implements ICoordinate {
 		return result.setLocation(worldPoint);
 	}
 
+	@Override
+	public String toString() {
+		return "DefaultCoordinate [localPoint=" + localPoint + ", worldPoint=" + worldPoint + "]";
+	}
+
 }
