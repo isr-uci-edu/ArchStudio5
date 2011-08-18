@@ -1,7 +1,10 @@
 package org.archstudio.archipelago.core.util;
 
+import java.util.Iterator;
+
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -42,7 +45,7 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 		return null;
 	}
 
-	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
+	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
 		//Two possibilities: either the platform we are on can give us the data
 		//or it can't.  If it can, we can make a more educated decision here.
 
@@ -52,51 +55,55 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 			Object o = transfer.nativeToJava(event.currentDataType);
 			data = getDataFromSelection(o);
 		}
-		return acceptDrop(view, event, t, worldX, worldY, data);
+		return acceptDrop(view, event, ts, location, data);
 	}
 
-	protected abstract boolean acceptDrop(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY,
-			Object data);
+	protected abstract boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location, Object data);
 
-	public void dragEnter(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
-		if (acceptDrop(view, event, t, worldX, worldY)) {
+	@Override
+	public void dragEnter(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
+		if (acceptDrop(view, event, ts, location)) {
 			event.detail = DND.DROP_LINK;
 		}
 	}
 
-	public void dragLeave(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
+	@Override
+	public void dragLeave(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
 		if (pulser != null) {
-			view.getWorld().getBNAModel().removeThing(pulser);
+			view.getBNAWorld().getBNAModel().removeThing(pulser);
 			pulser = null;
 		}
 	}
 
-	public void dragOver(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
-		if (acceptDrop(view, event, t, worldX, worldY)) {
+	@Override
+	public void dragOver(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
+		if (acceptDrop(view, event, ts, location)) {
+			IThing t = getSingleThing(ts);
 			event.detail = DND.DROP_LINK;
 			if ((pulser == null) && (t != null) && (t instanceof IHasBoundingBox)) {
 				pulser = new PulsingBorderThing();
 				pulser.setBoundingBox(((IHasBoundingBox) t).getBoundingBox());
-				view.getWorld().getBNAModel().addThing(pulser);
+				view.getBNAWorld().getBNAModel().addThing(pulser, t);
 			}
 			else if ((pulser != null) && (t != null) && (t instanceof IHasBoundingBox)) {
 				pulser.setBoundingBox(((IHasBoundingBox) t).getBoundingBox());
 			}
 			else if (pulser != null) {
-				view.getWorld().getBNAModel().removeThing(pulser);
+				view.getBNAWorld().getBNAModel().removeThing(pulser);
 				pulser = null;
 			}
 		}
 		else {
 			if (pulser != null) {
-				view.getWorld().getBNAModel().removeThing(pulser);
+				view.getBNAWorld().getBNAModel().removeThing(pulser);
 				pulser = null;
 			}
 		}
 	}
 
-	public void dropAccept(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
-		if (acceptDrop(view, event, t, worldX, worldY)) {
+	@Override
+	public void dropAccept(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
+		if (acceptDrop(view, event, ts, location)) {
 			event.detail = DND.DROP_LINK;
 			LocalSelectionTransfer transfer = LocalSelectionTransfer.getInstance();
 			for (int i = 0; i < event.dataTypes.length; i++) {
@@ -107,9 +114,22 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 			}
 		}
 	}
-
-	public void dragOperationChanged(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
+	
+	@Override
+	public void dragOperationChanged(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
 	}
-
-	public abstract void drop(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY);
+	
+	@Override
+	public void drop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
+	}
+	
+	protected static IThing getSingleThing(Iterable<IThing> ts) {
+		if (ts != null) {
+			Iterator<IThing> iterator = ts.iterator();
+			if (iterator.hasNext()) {
+				return iterator.next();
+			}
+		}
+		return null;
+	}
 }

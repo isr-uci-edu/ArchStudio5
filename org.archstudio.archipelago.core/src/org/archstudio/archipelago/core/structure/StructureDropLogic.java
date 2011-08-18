@@ -2,14 +2,18 @@ package org.archstudio.archipelago.core.structure;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.archipelago.core.structure.mapping.MapBrickLogic;
 import org.archstudio.archipelago.core.util.AbstractTreeDropLogic;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.swtutils.LocalSelectionTransfer;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.dnd.DropTargetEvent;
 
 public class StructureDropLogic extends AbstractTreeDropLogic {
@@ -17,27 +21,17 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 		super(services, documentRootRef);
 	}
 
-	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY, Object data) {
+	@Override
+	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location, Object data) {
+		IThing t = getSingleThing(ts);
 		if (t == null) {
 			//This is a drop on nothing...just return.
 			return false;
 		}
 		else if (t instanceof RectangleGlassThing) {
 			//Drop on a glass thing
-
-			IThing pt = view.getWorld().getBNAModel().getParentThing(t);
-			if (pt != null) {
-				if (StructureMapper.isComponentAssemblyRootThing(pt)) {
-					if (data == null) {
-						return true;
-					}
-					else if (data instanceof ObjRef) {
-						if (XadlUtils.isInstanceOf(AS.xarch, (ObjRef) data, Structure_3_0Package.Literals.STRUCTURE)) {
-							return true;
-						}
-					}
-				}
-				else if (StructureMapper.isConnectorAssemblyRootThing(pt)) {
+			if (t != null) {
+				if (MapBrickLogic.isBrickRootThing(t)) {
 					if (data == null) {
 						return true;
 					}
@@ -52,16 +46,18 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 		return false;
 	}
 
-	public void drop(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
+	@Override
+	public void drop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
 		if (pulser != null) {
-			view.getWorld().getBNAModel().removeThing(pulser);
+			view.getBNAWorld().getBNAModel().removeThing(pulser);
 			pulser = null;
 		}
 
-		if (!acceptDrop(view, event, t, worldX, worldY)) {
+		if (!acceptDrop(view, event, ts, location)) {
 			return;
 		}
 
+		IThing t = getSingleThing(ts);
 		if (t == null) {
 			throw new IllegalArgumentException("Drop on null - this shouldn't happen.");
 		}
@@ -69,7 +65,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 		ObjRef outerRef = null;
 		if (t != null) {
 			if (t instanceof RectangleGlassThing) {
-				IThing pt = view.getWorld().getBNAModel().getParentThing(t);
+				IThing pt = view.getBNAWorld().getBNAModel().getParentThing(t);
 				if (pt != null) {
 					String xArchID = pt.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 					if (xArchID != null) {
@@ -96,8 +92,8 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 					}
 					AS.xarch.set(subStructureRef, "innerStructureLink", structureRef);
 
-					ArchipelagoUtils.showUserNotification(view.getWorld().getBNAModel(), "Substructure Assigned",
-							worldX, worldY);
+					ArchipelagoUtils.showUserNotification(view.getBNAWorld().getBNAModel(), "Substructure Assigned",
+							location.getWorldPoint(new Point()).x, location.getWorldPoint(new Point()).y);
 				}
 			}
 		}

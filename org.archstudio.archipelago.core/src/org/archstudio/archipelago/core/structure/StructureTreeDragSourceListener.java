@@ -29,7 +29,7 @@ public class StructureTreeDragSourceListener implements DragSourceListener {
 			if (XadlUtils.isInstanceOf(AS.xarch, (ObjRef) event.data, Structure_3_0Package.Literals.STRUCTURE)) {
 				//For dropping structures on components & connectors; only allow if we're editing a structure.
 				BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(AS.editor);
-				IBNAView view = bnaCanvas;
+				IBNAView view = bnaCanvas.getBNAView();
 				if (bnaCanvas != null) {
 					IBNAModel m = view.getBNAWorld().getBNAModel();
 					if (m != null) {
