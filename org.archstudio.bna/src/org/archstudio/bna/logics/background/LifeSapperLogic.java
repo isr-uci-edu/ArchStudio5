@@ -52,7 +52,6 @@ public class LifeSapperLogic extends AbstractThingLogic {
 				}
 				catch (InterruptedException e) {
 				}
-
 				final IBNAModel model = getBNAModel();
 				if (model != null) {
 					model.beginBulkChange();
