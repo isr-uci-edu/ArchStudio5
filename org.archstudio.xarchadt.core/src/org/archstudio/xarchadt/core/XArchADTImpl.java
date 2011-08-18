@@ -413,6 +413,10 @@ public class XArchADTImpl implements IXArchADT {
 		return EcoreUtil.isAncestor(get(ancestorObjRef), get(childObjRef));
 	}
 
+	/** 
+	 * Get the ancestors of the target ObjRef, from the target to the root
+	 * and including the target.
+	 */
 	@Override
 	public List<ObjRef> getAllAncestors(ObjRef targetObjRef) {
 		EObject eObject = get(targetObjRef);
@@ -424,6 +428,10 @@ public class XArchADTImpl implements IXArchADT {
 		return ancestorObjRefs;
 	}
 
+	/**
+	 * Gets the reverse of the ancestors: the list of ObjRefs
+	 * from the root to the target, including the target.
+	 */
 	@Override
 	public List<ObjRef> getLineage(ObjRef targetObjRef) {
 		return Lists.reverse(getAllAncestors(targetObjRef));
