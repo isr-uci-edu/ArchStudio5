@@ -81,7 +81,6 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 	
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
-		System.err.println("drawing unt!");
 		String text = t.getText();
 		if (text == null || text.trim().length() == 0) {
 			return;
