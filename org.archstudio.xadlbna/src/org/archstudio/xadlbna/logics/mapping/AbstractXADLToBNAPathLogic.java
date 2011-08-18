@@ -49,6 +49,14 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	private final Collection<IBNAUpdater> bnaUpdaters = Lists.newArrayList();
 	private final Multimap<BNAPath, IXADLUpdater> bnaPathXADLUpdaters = ArrayListMultimap.create();
 
+	protected void addBNAUpdater(IBNAUpdater bnaUpdater) {
+		bnaUpdaters.add(bnaUpdater);
+	}
+	
+	protected void addXADLUpdater(BNAPath bnaPath, IXADLUpdater xadlUpdater) {
+		bnaPathXADLUpdaters.put(bnaPath, xadlUpdater);
+	}
+	
 	@Override
 	protected void updateThing(List<ObjRef> relativeLineageRefs, XArchADTPath relativePath, ObjRef objRef,
 			XArchADTModelEvent evt, T thing) {
