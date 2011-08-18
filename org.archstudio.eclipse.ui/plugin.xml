@@ -102,25 +102,5 @@
    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="true"
-            id="org.archstudio.eclipse.objectContribution1"
-            nameFilter="*"
-            objectClass="java.lang.Object">
-         <menu
-               icon="res/archstudio-icon-32x32.png"
-               id="org.archstudio.eclipse.popupMenuMain"
-               label="ArchStudio 5 Development">
-            <groupMarker
-                  name="top">
-            </groupMarker>
-            <separator
-                  name="additions">
-            </separator>
-            <separator
-                  name="bottom">
-            </separator>
-         </menu>
-      </objectContribution>
    </extension>
 </plugin>
