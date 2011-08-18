@@ -15,14 +15,17 @@ import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.IBNAMouseTrackListener;
 import org.archstudio.bna.utils.IBNAUntypedListener;
 import org.archstudio.swtutils.IMenuFiller;
+import org.archstudio.swtutils.LocalSelectionTransfer;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.DropTargetListener;
+import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyEvent;
@@ -55,8 +58,8 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 	protected final IBNAView view;
 	protected final ICoordinateMapper cm;
 	protected final IThingLogicManager thingLogicManager;
-	//protected final PeriodicDropEventThread dropEventThread = null;
-	//protected final DropTarget dropTarget;
+	protected final PeriodicDropEventThread dropEventThread;
+	protected final DropTarget dropTarget;
 	protected final PeriodicMouseEventThread mouseEventThread;
 
 	public BNASWTEventHandler(Control control, IBNAView view) {
@@ -66,8 +69,8 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 		this.thingLogicManager = view.getBNAWorld().getThingLogicManager();
 		this.mouseEventThread = new PeriodicMouseEventThread();
 		this.mouseEventThread.start();
-		//this.dropEventThread = new PeriodicDropEventThread();
-		//this.dropEventThread.start();
+		this.dropEventThread = new PeriodicDropEventThread();
+		this.dropEventThread.start();
 
 		control.addMouseWheelListener(this);
 		control.addMouseListener(this);
@@ -78,9 +81,9 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 		for (int eventType : SWT_UNTYPED_EVENT_INDEXES) {
 			control.addListener(eventType, this);
 		}
-		//dropTarget = new DropTarget(canvas, DND.DROP_MOVE | DND.DROP_COPY | DND.DROP_DEFAULT | DND.DROP_LINK);
-		//dropTarget.setTransfer(new Transfer[] { LocalSelectionTransfer.getInstance() });
-		//dropTarget.addDropListener(this);
+		dropTarget = new DropTarget(control, DND.DROP_MOVE | DND.DROP_COPY | DND.DROP_DEFAULT | DND.DROP_LINK);
+		dropTarget.setTransfer(new Transfer[] { LocalSelectionTransfer.getInstance() });
+		dropTarget.addDropListener(this);
 
 		SWTWidgetUtils.setupContextMenu("#PopupMenu", control, new IMenuFiller() {
 
@@ -311,7 +314,10 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 	}
 
 	protected void dropEvt(DropTargetEvent e, DropEventType evtType) {
-		ICoordinate location = DefaultCoordinate.forLocal(lastMouseActionPoint, cm);
+		// This is necessary because the point in 'e' is in a different coordinate system
+		// - referenced to the window or something.  This puts it so 0,0 is the upper-left of the canvas
+		org.eclipse.swt.graphics.Point pointFromControlPerspective = control.toControl(e.x, e.y);
+		ICoordinate location = DefaultCoordinate.forLocal(new Point(pointFromControlPerspective.x, pointFromControlPerspective.y), cm);
 		Iterable<IThing> t = view.getThingsAt(location);
 
 		try {
@@ -401,18 +407,18 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 	}
 
 	class PeriodicMouseEventThread extends PeriodicEventThread {
-
 		@Override
 		public void doEvent() {
 			mouseEvt((MouseEvent) evt, MouseEventType.MOUSE_MOVE);
 		}
 	}
 
-	//class PeriodicDropEventThread extends PeriodicEventThread {
-	//	public void doEvent() {
-	//		dropEvt((DropTargetEvent) evt, DropEventType.DRAG_OVER);
-	//	}
-	//}
+	class PeriodicDropEventThread extends PeriodicEventThread {
+		@Override
+		public void doEvent() {
+			dropEvt((DropTargetEvent) evt, DropEventType.DRAG_OVER);
+		}
+	}
 
 	abstract class PeriodicEventThread extends Thread {
 

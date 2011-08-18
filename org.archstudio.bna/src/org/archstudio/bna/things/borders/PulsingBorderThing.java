@@ -1,7 +1,5 @@
 package org.archstudio.bna.things.borders;
 
-import java.util.concurrent.locks.Lock;
-
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasRotatingOffset;
