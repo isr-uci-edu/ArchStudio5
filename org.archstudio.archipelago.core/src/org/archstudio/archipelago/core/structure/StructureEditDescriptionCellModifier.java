@@ -3,6 +3,7 @@ package org.archstudio.archipelago.core.structure;
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.util.AbstractEditNameCellModifier;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.ObjRef;
 
 public class StructureEditDescriptionCellModifier extends AbstractEditNameCellModifier {
