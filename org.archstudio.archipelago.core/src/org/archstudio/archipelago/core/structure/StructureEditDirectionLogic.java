@@ -16,7 +16,7 @@ public class StructureEditDirectionLogic extends AbstractEditDirectionLogic {
 
 	public boolean matches(IBNAView view, IThing t) {
 		if (t instanceof EndpointGlassThing) {
-			IThing pt = view.getWorld().getBNAModel().getParentThing(t);
+			IThing pt = view.getBNAWorld().getBNAModel().getParentThing(t);
 			if (pt != null) {
 				return StructureMapper.isInterfaceAssemblyRootThing(pt);
 			}
@@ -26,7 +26,7 @@ public class StructureEditDirectionLogic extends AbstractEditDirectionLogic {
 
 	public String getXArchID(IBNAView view, IThing t) {
 		if (t instanceof EndpointGlassThing) {
-			IThing parentThing = view.getWorld().getBNAModel().getParentThing(t);
+			IThing parentThing = view.getBNAWorld().getBNAModel().getParentThing(t);
 			return parentThing.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
 		}
 		return null;

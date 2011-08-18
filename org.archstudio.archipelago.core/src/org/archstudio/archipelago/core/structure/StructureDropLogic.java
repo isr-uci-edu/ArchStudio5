@@ -63,15 +63,10 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 		}
 
 		ObjRef outerRef = null;
-		if (t != null) {
-			if (t instanceof RectangleGlassThing) {
-				IThing pt = view.getBNAWorld().getBNAModel().getParentThing(t);
-				if (pt != null) {
-					String xArchID = pt.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
-					if (xArchID != null) {
-						outerRef = AS.xarch.getByID(documentRootRef, xArchID);
-					}
-				}
+		if ((t != null) && (t instanceof RectangleGlassThing)) {
+			String xArchID = t.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+			if (xArchID != null) {
+				outerRef = AS.xarch.getByID(documentRootRef, xArchID);
 			}
 		}
 
@@ -92,8 +87,9 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 					}
 					AS.xarch.set(subStructureRef, "innerStructureLink", structureRef);
 
+					Point worldPoint = location.getWorldPoint(new Point());
 					ArchipelagoUtils.showUserNotification(view.getBNAWorld().getBNAModel(), "Substructure Assigned",
-							location.getWorldPoint(new Point()).x, location.getWorldPoint(new Point()).y);
+							worldPoint.x, worldPoint.y);
 				}
 			}
 		}
