@@ -26,6 +26,7 @@ import org.archstudio.bna.facets.IHasOrientation;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IHasSize;
 import org.archstudio.bna.facets.IHasText;
+import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.keys.AbstractThingRefKey;
 import org.archstudio.bna.keys.IThingRefKey;
@@ -51,6 +52,7 @@ import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.ReshapeHandleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.NoThing;
+import org.archstudio.bna.things.utility.WorldThing;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -83,6 +85,7 @@ public class Assemblies {
 	public static final IThingRefKey<IThing> BACKGROUND_KEY = ThingAssemblyKey.create("assembly-background");
 	public static final IThingRefKey<IHasText> TEXT_KEY = ThingAssemblyKey.create("assembly-text");
 	public static final IThingRefKey<DirectionalLabelThing> LABEL_KEY = ThingAssemblyKey.create("assembly-label");
+	public static final IThingRefKey<IHasWorld> WORLD_KEY = ThingAssemblyKey.create("assembly-world");
 
 	public static final Object BASE_LAYER_THING_ID = new Object();
 	public static final Object SPLINE_LAYER_THING_ID = new Object();
@@ -211,7 +214,6 @@ public class Assemblies {
 
 	public static RectangleGlassThing createRectangle(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
 		checkNotNull(world);
-
 		IBNAModel model = world.getBNAModel();
 
 		RectangleThing bkg = model.addThing(new RectangleThing(id),
@@ -228,6 +230,31 @@ public class Assemblies {
 
 		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, bkg);
 		mbbl.mirrorBoundingBox(glass, label, new Insets(3, 3, 3, 3));
+
+		return glass;
+	}
+
+	public static RectangleGlassThing createRectangleWithWorld(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
+		checkNotNull(world);
+		IBNAModel model = world.getBNAModel();
+
+		RectangleThing bkg = model.addThing(new RectangleThing(id),
+				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
+		BoundedLabelThing label = model.addThing(new BoundedLabelThing(null), bkg);
+		RectangleGlassThing glass = model.addThing(new RectangleGlassThing(null), bkg);
+		WorldThing worldThing = model.addThing(new WorldThing(null), bkg);
+
+		mark(glass, BACKGROUND_KEY, bkg);
+		mark(glass, TEXT_KEY, label);
+		mark(glass, WORLD_KEY, worldThing);
+
+		IThingLogicManager tlm = world.getThingLogicManager();
+		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
+		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
+
+		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, bkg);
+		mbbl.mirrorBoundingBox(glass, label, new Insets(3, 3, 3, 3));
+		mbbl.mirrorBoundingBox(glass, worldThing, new Insets(3, 3, 3, 3));
 
 		return glass;
 	}

@@ -24,8 +24,7 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, final Graphics g, IResources r) {
-		Rectangle bb = t.getBoundingBox();
-		Rectangle lbb = view.getCoordinateMapper().worldToLocal(bb);
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		int offset = t.getRotatingOffset();
 		int pulse = offset % RADIANT_COUNT;
 		Rectangle elbb = lbb.getExpanded(SPACER_WIDTH * pulse, SPACER_WIDTH * pulse);
@@ -40,6 +39,9 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 			SWTWidgetUtils.lighten(ergb);
 		}
 
+		g.setLineCap(SWT.CAP_SQUARE);
+		g.setLineStyle(SWT.LINE_SOLID);
+		g.setLineWidth(1);
 		g.setForegroundColor(r.getColor(rgb));
 		g.drawRectangle(lbb);
 		g.setForegroundColor(r.getColor(ergb));
@@ -53,11 +55,10 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 	
 	@Override
 	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
-		Rectangle bb = t.getBoundingBox();
-		Rectangle lbb = view.getCoordinateMapper().worldToLocal(bb);
+		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		int offset = t.getRotatingOffset();
 		int pulse = offset % RADIANT_COUNT;
-		Rectangle elbb = lbb.getExpanded(SPACER_WIDTH * pulse, SPACER_WIDTH * pulse);
+		Rectangle elbb = lbb.getExpanded(SPACER_WIDTH * pulse + 2, SPACER_WIDTH * pulse + 2);
 		boundsResult.setBounds(elbb);
 	}
 }
