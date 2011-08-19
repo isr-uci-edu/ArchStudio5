@@ -80,7 +80,7 @@ public class XadlUtils {
 	}
 
 	public static boolean isConnector(IXArchADTQuery xarch, ObjRef ref) {
-		return xarch.isInstanceOf(ref, Structure_3_0Package.eNS_URI, "Component");
+		return xarch.isInstanceOf(ref, Structure_3_0Package.eNS_URI, "Connector");
 	}
 	
 	public static ObjRef getImplementation(IXArchADTQuery xarch, ObjRef ref, EClass type) {
