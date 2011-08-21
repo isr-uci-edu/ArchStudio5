@@ -43,6 +43,7 @@
 		<attribute name="eclipse.version" default="3.6" />
 		<sequential>
 			<install-director todir="@{director.home}" />
+			<mkdir dir="@{todir}" />
 			<delete includeemptydirs="true" defaultexcludes="false">
 				<fileset dir="@{todir}" excludes="artifacts.xml,plugins/**/*" />
 			</delete>
@@ -94,6 +95,7 @@
 		<!-- todir must end in /director -->
 		<attribute name="todir" />
 		<sequential>
+			<mkdir dir="@{todir}" />
 			<get-unless-ok src="http://www.eclipse.org/downloads/download.php?file=/tools/buckminster/products/director_latest.zip&amp;r=1" tofile="@{todir}/../director_latest.zip" />
 			<extract-unless-ok src="@{todir}/../director_latest.zip" todir="@{todir}/../" subdir="@{todir}" />
 		</sequential>
