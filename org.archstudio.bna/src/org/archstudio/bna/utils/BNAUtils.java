@@ -1199,7 +1199,9 @@ public class BNAUtils {
 			g.setLineStyle(SWT.LINE_CUSTOM);
 			g.setForegroundColor(r.getColor(SWT.COLOR_BLACK));
 			g.setLineDash(new int[] {4, 4});
-			((SWTGraphics)g).setLineDashOffset(offset % 8);
+			if(g instanceof SWTGraphics){
+				((SWTGraphics)g).setLineDashOffset(offset % 8);
+			}
 			
 			drawMarquee.run();
 		}

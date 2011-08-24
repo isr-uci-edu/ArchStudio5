@@ -6,10 +6,6 @@ import org.archstudio.bna.things.AbstractRectangleThing;
 
 public class WorldThing extends AbstractRectangleThing implements IHasMutableWorld {
 
-	public WorldThing() {
-		this(null);
-	}
-
 	public WorldThing(Object id) {
 		super(id);
 	}

@@ -21,12 +21,12 @@ import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasHorizontalAlignment;
 import org.archstudio.bna.facets.IHasLineStyle;
 import org.archstudio.bna.facets.IHasMidpoints;
+import org.archstudio.bna.facets.IHasMutableText;
+import org.archstudio.bna.facets.IHasMutableWorld;
 import org.archstudio.bna.facets.IHasOffset;
 import org.archstudio.bna.facets.IHasOrientation;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IHasSize;
-import org.archstudio.bna.facets.IHasText;
-import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.keys.AbstractThingRefKey;
 import org.archstudio.bna.keys.IThingRefKey;
@@ -83,9 +83,9 @@ public class Assemblies {
 	private static final IThingKey<IThingRefKey<?>> PART_KEY = ThingKey.create("my-assembly-part");
 
 	public static final IThingRefKey<IThing> BACKGROUND_KEY = ThingAssemblyKey.create("assembly-background");
-	public static final IThingRefKey<IHasText> TEXT_KEY = ThingAssemblyKey.create("assembly-text");
+	public static final IThingRefKey<IHasMutableText> TEXT_KEY = ThingAssemblyKey.create("assembly-text");
 	public static final IThingRefKey<DirectionalLabelThing> LABEL_KEY = ThingAssemblyKey.create("assembly-label");
-	public static final IThingRefKey<IHasWorld> WORLD_KEY = ThingAssemblyKey.create("assembly-world");
+	public static final IThingRefKey<IHasMutableWorld> WORLD_KEY = ThingAssemblyKey.create("assembly-world");
 
 	public static final Object BASE_LAYER_THING_ID = new Object();
 	public static final Object SPLINE_LAYER_THING_ID = new Object();
@@ -235,25 +235,17 @@ public class Assemblies {
 	}
 
 	public static RectangleGlassThing createRectangleWithWorld(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
-		checkNotNull(world);
+		RectangleGlassThing glass = createRectangle(world, id, parent);
+
 		IBNAModel model = world.getBNAModel();
 
-		RectangleThing bkg = model.addThing(new RectangleThing(id),
-				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
-		BoundedLabelThing label = model.addThing(new BoundedLabelThing(null), bkg);
-		RectangleGlassThing glass = model.addThing(new RectangleGlassThing(null), bkg);
-		WorldThing worldThing = model.addThing(new WorldThing(null), bkg);
+		WorldThing worldThing = model.addThing(new WorldThing(null), glass);
 
-		mark(glass, BACKGROUND_KEY, bkg);
-		mark(glass, TEXT_KEY, label);
 		mark(glass, WORLD_KEY, worldThing);
 
 		IThingLogicManager tlm = world.getThingLogicManager();
-		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
 
-		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, bkg);
-		mbbl.mirrorBoundingBox(glass, label, new Insets(3, 3, 3, 3));
 		mbbl.mirrorBoundingBox(glass, worldThing, new Insets(3, 3, 3, 3));
 
 		return glass;

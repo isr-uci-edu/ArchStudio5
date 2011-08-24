@@ -266,24 +266,6 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 				e.gc.drawRectangle(e.x, e.y, e.width - 1, e.height - 1);
 			}
 
-			//// further clip graphics (consider for subworlds)
-			//
-			//Rectangle lbb = new Rectangle();
-			//for (IThing thing : bnaModel.getThings()) {
-			//	Cache<IThing, RenderData> cache = getPeerCache(thing);
-			//	RenderData cacheData = cache.renderData;
-			//	if (!cacheData.needsLastRenderCleanup && !cacheData.needsRenderUpdate) {
-			//		if (cache.peer.getLocalBounds(this, renderMCM, g, resources, lbb)) {
-			//			if (cache.peer.isOpaqueAndFilled()) {
-			//				localClipRegion.subtract(lbb.x, lbb.y, lbb.width, lbb.height);
-			//			}
-			//		}
-			//		else {
-			//			localClipRegion.add(lbb.x, lbb.y, lbb.width, lbb.height);
-			//		}
-			//	}
-			//}
-
 			// update thing caches
 			List<IThing> thingsToRender = Lists.newArrayListWithExpectedSize(bnaModel.getNumThings());
 			for (IThing thing : bnaModel.getThings()) {

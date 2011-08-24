@@ -1,10 +1,16 @@
 package org.archstudio.bna.logics.coordinating;
 
+import static org.archstudio.sysutils.SystemUtils.castOrNull;
+import static org.archstudio.sysutils.SystemUtils.firstOrNull;
+
 import java.util.List;
 
+import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.DropEventType;
 import org.archstudio.bna.constants.MouseEventType;
 import org.archstudio.bna.facets.IHasUserEditable;
@@ -22,409 +28,340 @@ import org.archstudio.bna.utils.IBNAMouseListener;
 import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.IBNAMouseTrackListener;
 import org.archstudio.bna.utils.IBNAUntypedListener;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 
 public class WorldThingExternalEventsLogic extends AbstractThingLogic implements IBNAMouseListener,
-		IBNAMouseMoveListener, IBNAMouseTrackListener, IBNAMenuListener, IBNAFocusListener, IBNAKeyListener,
-		IBNADragAndDropListener, IBNAUntypedListener {
-	protected ThingTypeTrackingLogic ttstl = null;
+		IBNAMouseClickListener, IBNAMouseMoveListener, IBNAMouseTrackListener, IBNAMenuListener, IBNAFocusListener,
+		IBNAKeyListener, IBNADragAndDropListener, IBNAUntypedListener {
 
-	public WorldThingExternalEventsLogic(ThingTypeTrackingLogic ttstl) {
-		this.ttstl = ttstl;
+	protected ThingTypeTrackingLogic typeLogic = null;
+
+	public WorldThingExternalEventsLogic() {
+	}
+
+	@Override
+	protected void init() {
+		super.init();
+		typeLogic = addThingLogic(ThingTypeTrackingLogic.class);
 	}
 
 	protected IHasWorld draggingIn = null;
 
-	protected void mouseEvt(IBNAView view, MouseEvent e, IThing t, MouseEventType type) {
-		IHasWorld vt = null;
+	protected void mouseEvt(IBNAView view, MouseEvent e, Iterable<IThing> t, MouseEventType type) {
+		IHasWorld worldThing = null;
 		if (draggingIn != null) {
-			vt = draggingIn;
+			worldThing = draggingIn;
 		}
 		else {
-			if ((t != null) && (t instanceof IHasWorld)) {
-				vt = (IHasWorld) t;
-			}
+			worldThing = castOrNull(firstOrNull(t), IHasWorld.class);
 		}
-		if (vt == null) {
+		if (worldThing == null) {
 			return;
 		}
-		IBNAWorld internalWorld = vt.getWorld();
-		if (internalWorld == null) {
+		IBNAWorld innerWorld = worldThing.getWorld();
+		if (innerWorld == null) {
 			return;
 		}
-		if (vt instanceof IHasUserEditable) {
-			if (!((IHasUserEditable) vt).isUserEditable())
-				return;
-		}
-		WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
-		IBNAView internalView = vtp.getInnerView();
-		if (internalView == null)
+		WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
+		IBNAView innerView = worldThingPeer.getInnerView();
+		if (innerView == null)
 			return;
 
-		if ((type == MouseEventType.MOUSE_UP) || (type == MouseEventType.MOUSE_DOWN)
-				|| (type == MouseEventType.MOUSE_CLICK) || (type == MouseEventType.MOUSE_DOUBLECLICK)) {
-			List<IBNAMouseListener> logics = internalWorld.getThingLogicManager().getThingLogics(
-					IBNAMouseListener.class);
-			if (!logics.isEmpty()) {
-				IThing internalThing = internalView.getThingAt(e.x, e.y);
-				int worldX = internalView.getCoordinateMapper().localXtoWorldX(e.x);
-				int worldY = internalView.getCoordinateMapper().localYtoWorldY(e.y);
+		IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
+		ICoordinate innerLocation = DefaultCoordinate.forLocal(new Point(e.x, e.y), innerView.getCoordinateMapper());
+		Iterable<IThing> innerThings = view.getThingsAt(innerLocation);
 
-				switch (type) {
-				case MOUSE_UP:
-					draggingIn = null;
-					for (IBNAMouseListener l : logics) {
-						l.mouseUp(internalView, e, internalThing, worldX, worldY);
-					}
-					break;
-				case MOUSE_DOWN:
-					draggingIn = vt;
-					for (IBNAMouseListener l : logics) {
-						l.mouseDown(internalView, e, internalThing, worldX, worldY);
-					}
-					break;
-				case MOUSE_CLICK:
-					for (IBNAMouseClickListener l : logics) {
-						l.mouseClick(internalView, e, internalThing, worldX, worldY);
-					}
-					break;
-				case MOUSE_DOUBLECLICK:
-					for (IBNAMouseClickListener l : logics) {
-						l.mouseDoubleClick(internalView, e, internalThing, worldX, worldY);
-					}
-					break;
-				}
+		switch (type) {
+		case MOUSE_UP:
+			draggingIn = null;
+			for (IBNAMouseListener l : innerTlm.getThingLogics(IBNAMouseListener.class)) {
+				l.mouseUp(innerView, e, innerThings, innerLocation);
 			}
-		}
-		else if (type == MouseEventType.MOUSE_MOVE) {
-			List<IBNAMouseMoveListener> logics = internalWorld.getThingLogicManager().getThingLogics(
-					IBNAMouseMoveListener.class);
-			if (!logics.isEmpty()) {
-				IThing internalThing = internalView.getThingAt(e.x, e.y);
-				int worldX = internalView.getCoordinateMapper().localXtoWorldX(e.x);
-				int worldY = internalView.getCoordinateMapper().localYtoWorldY(e.y);
-
-				for (IBNAMouseMoveListener l : logics) {
-					l.mouseMove(internalView, e, internalThing, worldX, worldY);
-				}
+			break;
+		case MOUSE_DOWN:
+			draggingIn = worldThing;
+			for (IBNAMouseListener l : innerTlm.getThingLogics(IBNAMouseListener.class)) {
+				l.mouseDown(innerView, e, innerThings, innerLocation);
 			}
-		}
-		else if ((type == MouseEventType.MOUSE_ENTER) || (type == MouseEventType.MOUSE_EXIT)
-				|| (type == MouseEventType.MOUSE_HOVER)) {
-			List<IBNAMouseTrackListener> logics = internalWorld.getThingLogicManager().getThingLogics(
-					IBNAMouseTrackListener.class);
-
-			if (!logics.isEmpty()) {
-				IThing internalThing = internalView.getThingAt(e.x, e.y);
-				int worldX = internalView.getCoordinateMapper().localXtoWorldX(e.x);
-				int worldY = internalView.getCoordinateMapper().localYtoWorldY(e.y);
-
-				switch (type) {
-				case MOUSE_ENTER:
-					for (IBNAMouseTrackListener l : logics) {
-						l.mouseEnter(internalView, e, internalThing, worldX, worldY);
-					}
-					break;
-				case MOUSE_EXIT:
-					for (IBNAMouseTrackListener l : logics) {
-						l.mouseExit(internalView, e, internalThing, worldX, worldY);
-					}
-					break;
-				case MOUSE_HOVER:
-					for (IBNAMouseTrackListener l : logics) {
-						l.mouseHover(internalView, e, internalThing, worldX, worldY);
-					}
-					break;
-				}
+			break;
+		case MOUSE_CLICK:
+			for (IBNAMouseClickListener l : innerTlm.getThingLogics(IBNAMouseClickListener.class)) {
+				l.mouseClick(innerView, e, innerThings, innerLocation);
 			}
+			break;
+		case MOUSE_DOUBLECLICK:
+			for (IBNAMouseClickListener l : innerTlm.getThingLogics(IBNAMouseClickListener.class)) {
+				l.mouseDoubleClick(innerView, e, innerThings, innerLocation);
+			}
+			break;
+		case MOUSE_MOVE:
+			for (IBNAMouseMoveListener l : innerTlm.getThingLogics(IBNAMouseMoveListener.class)) {
+				l.mouseMove(innerView, e, innerThings, innerLocation);
+			}
+			break;
+		case MOUSE_ENTER:
+			for (IBNAMouseTrackListener l : innerTlm.getThingLogics(IBNAMouseTrackListener.class)) {
+				l.mouseEnter(innerView, e, innerThings, innerLocation);
+			}
+			break;
+		case MOUSE_EXIT:
+			for (IBNAMouseTrackListener l : innerTlm.getThingLogics(IBNAMouseTrackListener.class)) {
+				l.mouseExit(innerView, e, innerThings, innerLocation);
+			}
+			break;
+		case MOUSE_HOVER:
+			for (IBNAMouseTrackListener l : innerTlm.getThingLogics(IBNAMouseTrackListener.class)) {
+				l.mouseHover(innerView, e, innerThings, innerLocation);
+			}
+			break;
 		}
 	}
 
-	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> t,
-			org.eclipse.draw2d.geometry.Point localPoint, org.eclipse.draw2d.geometry.Point worldPoint) {
-		mouseEvt(view, evt, t, MouseEventType.MOUSE_DOWN);
+	@Override
+	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+		mouseEvt(view, evt, things, MouseEventType.MOUSE_DOWN);
 	}
 
-	public void mouseMove(IBNAView view, MouseEvent evt, IThing t, int worldX, int worldY) {
-		mouseEvt(view, evt, t, MouseEventType.MOUSE_MOVE);
+	@Override
+	public void mouseMove(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+		mouseEvt(view, evt, things, MouseEventType.MOUSE_MOVE);
 	}
 
-	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> t, Point localPoint, Point worldPoint) {
-		mouseEvt(view, evt, t, MouseEventType.MOUSE_UP);
+	@Override
+	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+		mouseEvt(view, evt, things, MouseEventType.MOUSE_UP);
 	}
 
-	public void mouseClick(IBNAView view, MouseEvent evt, Iterable<IThing> t,
-			org.eclipse.draw2d.geometry.Point localPoint, org.eclipse.draw2d.geometry.Point worldPoint) {
-		mouseEvt(view, evt, t, MouseEventType.MOUSE_CLICK);
+	@Override
+	public void mouseClick(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+		mouseEvt(view, evt, things, MouseEventType.MOUSE_CLICK);
 	}
 
-	public void mouseDoubleClick(IBNAView view, MouseEvent evt, Iterable<IThing> t,
-			org.eclipse.draw2d.geometry.Point localPoint, org.eclipse.draw2d.geometry.Point worldPoint) {
-		mouseEvt(view, evt, t, MouseEventType.MOUSE_DOUBLECLICK);
+	@Override
+	public void mouseDoubleClick(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+		mouseEvt(view, evt, things, MouseEventType.MOUSE_DOUBLECLICK);
 	}
 
-	public void mouseEnter(IBNAView view, MouseEvent evt, IThing t, int worldX, int worldY) {
-		mouseEvt(view, evt, t, MouseEventType.MOUSE_ENTER);
+	@Override
+	public void mouseEnter(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+		mouseEvt(view, evt, things, MouseEventType.MOUSE_ENTER);
 	}
 
-	public void mouseExit(IBNAView view, MouseEvent evt, IThing t, int worldX, int worldY) {
-		mouseEvt(view, evt, t, MouseEventType.MOUSE_EXIT);
+	@Override
+	public void mouseExit(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+		mouseEvt(view, evt, things, MouseEventType.MOUSE_EXIT);
 	}
 
-	public void mouseHover(IBNAView view, MouseEvent evt, IThing t, int worldX, int worldY) {
-		mouseEvt(view, evt, t, MouseEventType.MOUSE_HOVER);
+	@Override
+	public void mouseHover(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+		mouseEvt(view, evt, things, MouseEventType.MOUSE_HOVER);
 	}
 
 	public void focusGained(IBNAView view, FocusEvent e) {
-		for (IHasWorld vt : ttstl.getThings()) {
-			if (vt instanceof IHasUserEditable) {
-				if (!((IHasUserEditable) vt).isUserEditable())
-					continue;
+		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
+			IBNAWorld innerWorld = worldThing.getWorld();
+			if (innerWorld == null) {
+				return;
 			}
-
-			IBNAWorld internalWorld = vt.getWorld();
-			if (internalWorld == null)
+			WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
+			IBNAView innerView = worldThingPeer.getInnerView();
+			if (innerView == null)
 				return;
 
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
-			IBNAView internalView = vtp.getInnerView();
-			if (internalView == null)
-				return;
-
-			if (internalView != null) {
-				for (IBNAFocusListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAFocusListener.class)) {
-					l.focusGained(internalView, e);
-				}
+			for (IBNAFocusListener l : innerWorld.getThingLogicManager().getThingLogics(IBNAFocusListener.class)) {
+				l.focusGained(innerView, e);
 			}
 		}
 	}
 
 	public void focusLost(IBNAView view, FocusEvent e) {
-		for (IHasWorld vt : ttstl.getThings()) {
-			if (vt instanceof IHasUserEditable) {
-				if (!((IHasUserEditable) vt).isUserEditable())
-					continue;
+		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
+			IBNAWorld innerWorld = worldThing.getWorld();
+			if (innerWorld == null) {
+				return;
 			}
-			IBNAWorld internalWorld = vt.getWorld();
-			if (internalWorld == null)
+			WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
+			IBNAView innerView = worldThingPeer.getInnerView();
+			if (innerView == null)
 				return;
 
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
-			IBNAView internalView = vtp.getInnerView();
-			if (internalView == null)
-				return;
-
-			if (internalView != null) {
-				for (IBNAFocusListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAFocusListener.class)) {
-					l.focusLost(internalView, e);
-				}
+			for (IBNAFocusListener l : innerWorld.getThingLogicManager().getThingLogics(IBNAFocusListener.class)) {
+				l.focusLost(innerView, e);
 			}
 		}
 	}
 
 	public void keyPressed(IBNAView view, KeyEvent e) {
-		for (IHasWorld vt : ttstl.getThings()) {
-			if (vt instanceof IHasUserEditable) {
-				if (!((IHasUserEditable) vt).isUserEditable())
-					continue;
+		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
+			IBNAWorld innerWorld = worldThing.getWorld();
+			if (innerWorld == null) {
+				return;
 			}
-			IBNAWorld internalWorld = vt.getWorld();
-			if (internalWorld == null)
+			WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
+			IBNAView innerView = worldThingPeer.getInnerView();
+			if (innerView == null)
 				return;
 
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
-			IBNAView internalView = vtp.getInnerView();
-			if (internalView == null)
-				return;
-
-			if (internalView != null) {
-				for (IBNAKeyListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAKeyListener.class)) {
-					l.keyPressed(internalView, e);
-				}
+			for (IBNAKeyListener l : innerWorld.getThingLogicManager().getThingLogics(IBNAKeyListener.class)) {
+				l.keyPressed(innerView, e);
 			}
 		}
 	}
 
 	public void keyReleased(IBNAView view, KeyEvent e) {
-		for (IHasWorld vt : ttstl.getThings()) {
-			if (vt instanceof IHasUserEditable) {
-				if (!((IHasUserEditable) vt).isUserEditable())
-					continue;
+		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
+			IBNAWorld innerWorld = worldThing.getWorld();
+			if (innerWorld == null) {
+				return;
 			}
-
-			IBNAWorld internalWorld = vt.getWorld();
-			if (internalWorld == null)
+			WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
+			IBNAView innerView = worldThingPeer.getInnerView();
+			if (innerView == null)
 				return;
 
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
-			IBNAView internalView = vtp.getInnerView();
-			if (internalView == null)
-				return;
-
-			if (internalView != null) {
-				for (IBNAKeyListener l : internalWorld.getThingLogicManager().getThingLogics(IBNAKeyListener.class)) {
-					l.keyReleased(internalView, e);
-				}
+			for (IBNAKeyListener l : innerWorld.getThingLogicManager().getThingLogics(IBNAKeyListener.class)) {
+				l.keyReleased(innerView, e);
 			}
 		}
 	}
 
 	public void handleEvent(IBNAView view, Event event) {
-		for (IHasWorld vt : ttstl.getThings()) {
-			if (vt instanceof IHasUserEditable) {
-				if (!((IHasUserEditable) vt).isUserEditable())
-					continue;
+		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
+			IBNAWorld innerWorld = worldThing.getWorld();
+			if (innerWorld == null) {
+				return;
 			}
-
-			IBNAWorld internalWorld = vt.getWorld();
-			if (internalWorld == null)
+			WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
+			IBNAView innerView = worldThingPeer.getInnerView();
+			if (innerView == null)
 				return;
 
-			WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
-			IBNAView internalView = vtp.getInnerView();
-			if (internalView == null)
+			for (IBNAUntypedListener l : innerWorld.getThingLogicManager().getThingLogics(IBNAUntypedListener.class)) {
+				l.handleEvent(innerView, event);
+			}
+		}
+	}
+
+	@Override
+	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
+		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
+			IBNAWorld innerWorld = worldThing.getWorld();
+			if (innerWorld == null) {
+				return;
+			}
+			WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
+			IBNAView innerView = worldThingPeer.getInnerView();
+			if (innerView == null)
 				return;
 
-			if (internalView != null) {
-				for (IBNAUntypedListener l : internalWorld.getThingLogicManager().getThingLogics(
-						IBNAUntypedListener.class)) {
-					l.handleEvent(internalView, event);
-				}
+			IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
+			ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(new Point()),
+					innerView.getCoordinateMapper());
+			Iterable<IThing> innerThings = view.getThingsAt(innerLocation);
+
+			for (IBNAMenuListener l : innerTlm.getThingLogics(IBNAMenuListener.class)) {
+				l.fillMenu(innerView, innerThings, innerLocation, menu);
 			}
 		}
 	}
 
-	public void fillMenu(IBNAView view, Point localPoint, org.eclipse.draw2d.geometry.Point worldPoint,
-			Iterable<IThing> things, IMenuManager m) {
-		for (IHasWorld vt : ttstl.getThings()) {
-			if (things == vt) {
-				if (vt instanceof IHasUserEditable) {
-					if (!((IHasUserEditable) vt).isUserEditable())
-						continue;
+	public void dropEvt(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location,
+			DropEventType eventType) {
+		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
+			if (t == worldThing) {
+				IBNAWorld innerWorld = worldThing.getWorld();
+				if (innerWorld == null) {
+					return;
 				}
-
-				IBNAWorld internalWorld = vt.getWorld();
-				if (internalWorld == null)
+				WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
+				IBNAView innerView = worldThingPeer.getInnerView();
+				if (innerView == null)
 					return;
 
-				WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
-				IBNAView internalView = vtp.getInnerView();
-				if (internalView == null)
-					return;
+				IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
+				ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(new Point()),
+						innerView.getCoordinateMapper());
+				Iterable<IThing> innerThings = view.getThingsAt(innerLocation);
 
-				if (internalView != null) {
-					IThing internalThing = internalView.getThingAt(localPoint, localY);
-					int internalWorldX = internalView.getCoordinateMapper().localXtoWorldX(localPoint);
-					int internalWorldY = internalView.getCoordinateMapper().localYtoWorldY(localY);
-					for (IBNAMenuListener l : internalView.getBNAWorld().getThingLogicManager()
-							.getThingLogics(IBNAMenuListener.class)) {
-						l.fillMenu(internalView, localPoint, worldPoint, internalThing, m);
+				//Composite parentComposite = BNAUtils.getParentComposite(view);
+				//Point p = null;
+				//if (parentComposite != null) {
+				//	p = parentComposite.toControl(event.x, event.y);
+				//}
+				//else {
+				//	p = new Point(event.x, event.y);
+				//}
+
+				switch (eventType) {
+				case DRAG_ENTER:
+					for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
+						l.dragEnter(innerView, event, innerThings, innerLocation);
 					}
-				}
-			}
-		}
-	}
-
-	protected void dropEvt(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY, DropEventType evtType) {
-		for (IHasWorld vt : ttstl.getThings()) {
-			if (t == vt) {
-				if (vt instanceof IHasUserEditable) {
-					if (!((IHasUserEditable) vt).isUserEditable())
-						continue;
-				}
-
-				IBNAWorld internalWorld = vt.getWorld();
-				if (internalWorld == null)
-					return;
-
-				WorldThingPeer vtp = (WorldThingPeer) view.getPeerCacheEntry(vt);
-				IBNAView internalView = vtp.getInnerView();
-				if (internalView == null)
-					return;
-
-				if (internalView != null) {
-					List<IBNADragAndDropListener> tls = internalView.getBNAWorld().getThingLogicManager()
-							.getThingLogics(IBNADragAndDropListener.class);
-					if (!tls.isEmpty()) {
-						Composite parentComposite = BNAUtils.getParentComposite(view);
-						Point p = null;
-						if (parentComposite != null) {
-							p = parentComposite.toControl(event.x, event.y);
-						}
-						else {
-							p = new Point(event.x, event.y);
-						}
-
-						IThing internalThing = internalView.getThingAt(p.x, p.y);
-						int internalWorldX = internalView.getCoordinateMapper().localXtoWorldX(p.x);
-						int internalWorldY = internalView.getCoordinateMapper().localYtoWorldY(p.y);
-						switch (evtType) {
-						case DRAG_ENTER:
-							for (IBNADragAndDropListener l : tls) {
-								l.dragEnter(internalView, event, internalThing, internalWorldX, internalWorldY);
-							}
-							break;
-						case DRAG_OVER:
-							for (IBNADragAndDropListener l : tls) {
-								l.dragOver(internalView, event, internalThing, internalWorldX, internalWorldY);
-							}
-							break;
-						case DRAG_LEAVE:
-							for (IBNADragAndDropListener l : tls) {
-								l.dragLeave(internalView, event, internalThing, internalWorldX, internalWorldY);
-							}
-							break;
-						case DRAG_OPERATION_CHANGED:
-							for (IBNADragAndDropListener l : tls) {
-								l.dragOperationChanged(internalView, event, internalThing, internalWorldX,
-										internalWorldY);
-							}
-							break;
-						case DROP_ACCEPT:
-							for (IBNADragAndDropListener l : tls) {
-								l.dropAccept(internalView, event, internalThing, internalWorldX, internalWorldY);
-							}
-							break;
-						case DROP:
-							for (IBNADragAndDropListener l : tls) {
-								l.drop(internalView, event, internalThing, internalWorldX, internalWorldY);
-							}
-							break;
-						}
+					break;
+				case DRAG_OVER:
+					for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
+						l.dragOver(innerView, event, innerThings, innerLocation);
 					}
+					break;
+				case DRAG_LEAVE:
+					for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
+						l.dragLeave(innerView, event, innerThings, innerLocation);
+					}
+					break;
+				case DRAG_OPERATION_CHANGED:
+					for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
+						l.dragOperationChanged(innerView, event, innerThings, innerLocation);
+					}
+					break;
+				case DROP_ACCEPT:
+					for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
+						l.dropAccept(innerView, event, innerThings, innerLocation);
+					}
+					break;
+				case DROP:
+					for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
+						l.drop(innerView, event, innerThings, innerLocation);
+					}
+					break;
 				}
 			}
 		}
 	}
 
-	public void dragEnter(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
-		dropEvt(view, event, t, worldX, worldY, DropEventType.DRAG_ENTER);
+	@Override
+	public void dragEnter(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location) {
+		dropEvt(view, event, t, location, DropEventType.DRAG_ENTER);
 	}
 
-	public void dragOver(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
-		dropEvt(view, event, t, worldX, worldY, DropEventType.DRAG_OVER);
+	@Override
+	public void dragOver(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location) {
+		dropEvt(view, event, t, location, DropEventType.DRAG_OVER);
 	}
 
-	public void dragOperationChanged(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
-		dropEvt(view, event, t, worldX, worldY, DropEventType.DRAG_OPERATION_CHANGED);
+	@Override
+	public void dragOperationChanged(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location) {
+		dropEvt(view, event, t, location, DropEventType.DRAG_OPERATION_CHANGED);
 	}
 
-	public void dragLeave(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
-		dropEvt(view, event, t, worldX, worldY, DropEventType.DRAG_LEAVE);
+	@Override
+	public void dragLeave(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location) {
+		dropEvt(view, event, t, location, DropEventType.DRAG_LEAVE);
 	}
 
-	public void dropAccept(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
-		dropEvt(view, event, t, worldX, worldY, DropEventType.DROP_ACCEPT);
+	@Override
+	public void dropAccept(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location) {
+		dropEvt(view, event, t, location, DropEventType.DROP_ACCEPT);
 	}
 
-	public void drop(IBNAView view, DropTargetEvent event, IThing t, int worldX, int worldY) {
-		dropEvt(view, event, t, worldX, worldY, DropEventType.DROP);
+	@Override
+	public void drop(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location) {
+		dropEvt(view, event, t, location, DropEventType.DROP);
 	}
 }

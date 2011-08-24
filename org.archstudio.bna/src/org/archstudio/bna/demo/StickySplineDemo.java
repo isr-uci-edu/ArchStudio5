@@ -53,22 +53,22 @@ public class StickySplineDemo {
 
 		final IBNAModel model = new DefaultBNAModel();
 		final IBNAWorld world = new DefaultBNAWorld("top view", model);
-		final BNACanvas view = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, world);
+		final BNACanvas canvas = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, world);
 
-		BNARenderingSettings.setAntialiasGraphics(view, true);
-		BNARenderingSettings.setAntialiasText(view, true);
-		BNARenderingSettings.setDecorativeGraphics(view, true);
+		BNARenderingSettings.setAntialiasGraphics(canvas, true);
+		BNARenderingSettings.setAntialiasText(canvas, true);
+		BNARenderingSettings.setDecorativeGraphics(canvas, true);
 
-		view.setSize(500, 500);
-		view.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
+		canvas.setSize(500, 500);
+		canvas.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
 
 		shell.setSize(400, 400);
 		shell.open();
 
 		// model.addThing(new ShadowThing(null));
 
-		populateModel(view);
-		addLogics(view);
+		populateModel(canvas.getBNAView());
+		addLogics(canvas.getBNAView());
 
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
