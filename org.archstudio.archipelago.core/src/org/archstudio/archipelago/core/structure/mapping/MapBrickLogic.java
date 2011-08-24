@@ -2,17 +2,22 @@ package org.archstudio.archipelago.core.structure.mapping;
 
 import java.util.List;
 
+import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.archipelago.core.structure.StructureEditorSupport;
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasMutableText;
+import org.archstudio.bna.facets.IHasMutableWorld;
 import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
+import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
@@ -37,7 +42,7 @@ import org.eclipse.swt.graphics.RGB;
  * Maps xADL Bricks (i.e., Components or Connectors) to BNA Rectangle Assemblies.
  */
 public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThing> {
-
+	protected final ArchipelagoServices AS;
 	protected final Dimension defaultSize;
 	protected final RGB defaultColor;
 	
@@ -48,8 +53,9 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 	
 	protected static final IThingKey<RootThingType> BRICK_ROOT_THING_TYPE_KEY = ThingKey.create("rootThingType", false);
 
-	public MapBrickLogic(IXArchADT xarch, ObjRef rootObjRef, String objRefPath, Dimension defaultSize, RGB defaultColor) {
+	public MapBrickLogic(ArchipelagoServices AS, IXArchADT xarch, ObjRef rootObjRef, String objRefPath, Dimension defaultSize, RGB defaultColor) {
 		super(xarch, rootObjRef, objRefPath);
+		this.AS = AS;
 		this.defaultSize = defaultSize;
 		this.defaultColor = defaultColor;
 	}
@@ -64,11 +70,43 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		IBNAUpdater fakeBNAUpdater = new IBNAUpdater() {
 			@Override
 			public void updateBNA(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt, IThing rootThing) {
+				/*
 				System.err.println("Fake BNA Updater:");
 				System.err.println("  ObjRef = " + objRef);
 				System.err.println("  xadlPath = " + ((xadlPath == null) ? "null" : xadlPath.toDumpString()));
 				System.err.println("  evt = " + evt);
 				System.err.println("  rootThing = " + rootThing);
+				*/
+				
+				IThing rectangleGlassThing = rootThing;
+				IThing worldThing = BNAPath.resolve(getBNAModel(), rootThing, BNAPath.create(Assemblies.WORLD_KEY));
+
+				if ((rectangleGlassThing != null) && (worldThing != null)) {
+					ObjRef innerStructureRef = null;
+					String innerStructureXArchID = null;
+
+					ObjRef subStructureRef = (ObjRef)xarch.get(objRef, "subStructure");
+					if (subStructureRef != null) {
+						innerStructureRef = (ObjRef)xarch.get(subStructureRef, "innerStructureLink");
+						if (innerStructureRef != null) {
+							innerStructureXArchID = XadlUtils.getID(xarch, innerStructureRef);
+						}
+					}
+					// If innerStructureXArchID is null, then we need to remove the world from the worldThing.
+					// Otherwise, we need to add it and hook it up.
+					if (innerStructureXArchID != null) {
+						System.err.println("Assigning inner world 1");
+						ObjRef documentRootRef = AS.xarch.getDocumentRootRef(objRef);
+						IBNAWorld internalWorld = StructureEditorSupport.setupWorld(AS, documentRootRef, innerStructureRef);
+						if (internalWorld != null) {
+							System.err.println("Assigning inner world 2: " + internalWorld);
+							((IHasMutableWorld)worldThing).setWorld(internalWorld);
+						}
+					}
+					else {
+						((IHasMutableWorld)worldThing).remove(IHasWorld.WORLD_KEY);
+					}
+				}
 			}
 		};
 		

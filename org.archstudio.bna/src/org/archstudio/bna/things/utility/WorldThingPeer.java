@@ -9,6 +9,7 @@ import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.LinearCoordinateMapper;
+import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAView;
@@ -72,10 +73,14 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractThingPeer<T> i
 	}
 
 	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
+		System.err.println("Drawing world thing");
+
 		IBNAWorld innerWorld = t.getWorld();
 		if (innerWorld == null) {
 			return;
 		}
+
+		System.err.println("Drawing world thing 2");
 
 		if ((innerView != null) && (!innerWorld.equals(innerView.getBNAWorld()))) {
 			innerView = null;
@@ -85,21 +90,31 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractThingPeer<T> i
 			innerView = new DefaultBNAView(view.getControl(), view, t.getWorld(), new LinearCoordinateMapper());
 		}
 
+		System.err.println("Drawing world thing 3");
+		
 		updateLocalBoundingBox(view.getCoordinateMapper());
 		if ((localBoundingBox.height < 5) || (localBoundingBox.width < 5)) {
 			return;
 		}
+		
+		System.err.println("Drawing world thing 4");
+		
+		ModelBoundsTrackingLogic mbtl = null;
+		for (ModelBoundsTrackingLogic mbtlInstance : innerWorld.getThingLogicManager().getThingLogics(ModelBoundsTrackingLogic.class)) {
+			mbtl = mbtlInstance;
+		}
 
-		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(innerView.getBNAWorld().getBNAModel());
-		if (ept == null) {
+		if (mbtl == null) {
 			return;
 		}
-		
-		Rectangle modelBounds = ept.getModelBounds();
+
+		Rectangle modelBounds = mbtl.getModelBounds();
 		if (modelBounds == null) {
 			return;
 		}
-		
+
+		System.err.println("Drawing world thing 5: " + modelBounds);
+
 		if ((modelBounds.x == Integer.MIN_VALUE) || (modelBounds.width == 0) || (modelBounds.height == 0)) {
 			Rectangle worldBounds = new Rectangle();
 			innerView.getCoordinateMapper().getWorldBounds(worldBounds);
@@ -118,6 +133,8 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractThingPeer<T> i
 				double sx = (double) localBoundingBox.width / (double) modelBounds.width;
 				double sy = (double) localBoundingBox.height / (double) modelBounds.height;
 				double s = Math.min(sx, sy);
+				
+				System.err.println("setting local scale: " + s);
 				imcm.setLocalScale(s);
 
 				double ddx = (s == sx) ? 0.0d : ((localBoundingBox.width / s) - modelBounds.width) / 2.0d;
@@ -126,7 +143,10 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractThingPeer<T> i
 				int dx = BNAUtils.round(ddx);
 				int dy = BNAUtils.round(ddy);
 
-				imcm.setLocalOrigin(new Point(modelBounds.x - BNAUtils.round(localBoundingBox.x / s) - dx, modelBounds.y - BNAUtils.round(localBoundingBox.y / s) - dy));
+				Point localOrigin = new Point(modelBounds.x - BNAUtils.round(localBoundingBox.x / s) - dx, modelBounds.y - BNAUtils.round(localBoundingBox.y / s) - dy);
+				System.err.println("setting local origin: " + localOrigin);
+
+				imcm.setLocalOrigin(localOrigin);
 			}
 		}
 		localBoundingBoxChanged = false;
@@ -141,6 +161,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractThingPeer<T> i
 		g.getClip(oldClip);
 		
 		g.setClip(clip);
+		System.err.println("drawing thinggz; clip = " + clip);
 		for (IThing thing : innerView.getBNAWorld().getBNAModel().getThings()) {
 			IThingPeer<?> peer = innerView.getThingPeer(thing);
 			peer.draw(innerView, innerView.getCoordinateMapper(), g, r);

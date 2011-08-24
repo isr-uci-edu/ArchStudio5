@@ -30,6 +30,7 @@ import org.archstudio.bna.logics.editing.StandardCursorLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
+import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.ShadowThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
@@ -124,15 +125,17 @@ public class StructureEditorSupport {
 			}
 			bnaModel = new DefaultBNAModel();
 
-			//EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaModel);
-			//ept.set(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME, archStructureID);
-
 			bnaWorld = new DefaultBNAWorld("structure", bnaModel);
 			AS.treeNodeDataCache.setData(documentRootRef, structureRef, BNA_WORLD_KEY, bnaWorld);
 
 			// ArchipelagoUtils.applyGridPreferences(AS, bnaModel);
 
 			setupWorld(AS, structureRef, bnaWorld);
+
+			EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaModel);
+			ept.set(IHasObjRef.OBJREF_KEY, structureRef);
+			ept.set(IHasXArchID.XARCH_ID_KEY, (String) AS.xarch.get(structureRef, "id"));
+
 			//AS.eventBus.fireArchipelagoEvent(new StructureEvents.WorldCreatedEvent(structureRef, bnaWorld));
 		}
 
@@ -187,10 +190,10 @@ public class StructureEditorSupport {
 
 		// xADL mapping logics
 
-		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "component", //
+		logicManager.addThingLogic(new MapBrickLogic(AS, AS.xarch, structureRef, "component", //
 				new Dimension(120, 80), ArchipelagoStructureConstants.DEFAULT_COMPONENT_RGB));
 		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "component/interface"));
-		logicManager.addThingLogic(new MapBrickLogic(AS.xarch, structureRef, "connector", //
+		logicManager.addThingLogic(new MapBrickLogic(AS, AS.xarch, structureRef, "connector", //
 				new Dimension(240, 36), ArchipelagoStructureConstants.DEFAULT_CONNECTOR_RGB));
 		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "connector/interface"));
 		logicManager.addThingLogic(new MapLinkLogic(AS.xarch, structureRef, "link"));
@@ -206,8 +209,8 @@ public class StructureEditorSupport {
 		//logicManager.addThingLogic(new SplineBreakLogic());
 		//logicManager.addThingLogic(new RotaterLogic());
 		//
-		//ModelBoundsTrackingLogic mbtl = new ModelBoundsTrackingLogic(bbtl, aptl);
-		//logicManager.addThingLogic(mbtl);
+		ModelBoundsTrackingLogic mbtl = new ModelBoundsTrackingLogic();
+		logicManager.addThingLogic(mbtl);
 		//WorldThingInternalEventsLogic vtiel = new WorldThingInternalEventsLogic(ttstlView);
 		//logicManager.addThingLogic(vtiel);
 		//logicManager.addThingLogic(new WorldThingExternalEventsLogic(ttstlView));
