@@ -12,10 +12,6 @@ import org.eclipse.swt.graphics.RGB;
 public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMutableColor, IHasMutableSecondaryColor,
 		IHasMutableArrowhead, IHasMutableSecondaryAnchorPoint {
 
-	public ArrowheadThing() {
-		this(null);
-	}
-
 	public ArrowheadThing(Object id) {
 		super(id);
 	}

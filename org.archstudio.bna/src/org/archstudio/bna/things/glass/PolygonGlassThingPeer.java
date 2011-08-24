@@ -19,7 +19,7 @@ public class PolygonGlassThingPeer<T extends PolygonGlassThing> extends Abstract
 	public void draw(IBNAView view, ICoordinateMapper cm, final Graphics g, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			final int[] xyPoints = BNAUtils.toXYArray(cm, t.getPoints(), t.getAnchorPoint());
-			BNAUtils.drawMarquee(g, r, t.getRotatingOffset(), false, new Runnable() {
+			BNAUtils.drawMarquee(g, r, t.getRotatingOffset(), new Runnable() {
 				@Override
 				public void run() {
 					g.drawPolygon(xyPoints);
@@ -31,7 +31,5 @@ public class PolygonGlassThingPeer<T extends PolygonGlassThing> extends Abstract
 	@Override
 	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
 		super.getLocalBounds(view, cm, r, boundsResult);
-		// width of marquee line
-		boundsResult.expand(3, 3);
 	}
 }
