@@ -7,6 +7,7 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasFlow;
 import org.archstudio.bna.facets.IHasLineWidth;
+import org.archstudio.bna.facets.IHasMutableFlow;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
@@ -40,7 +41,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 
 		@Override
 		public Direction toXadlValue(Flow value) {
-			return Direction.valueOf(value.name().toLowerCase());
+			return Direction.valueOf(value.name().toUpperCase());
 		}
 	};
 
@@ -98,6 +99,8 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		UserEditableUtils.addEditableQualities(thing, IRelativeMovable.USER_MAY_MOVE);
 		UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, getBNAModel()),
 				IHasMutableText.USER_MAY_EDIT_TEXT);
+		UserEditableUtils.addEditableQualities(Assemblies.LABEL_KEY.get(thing, getBNAModel()),
+				IHasMutableFlow.USER_MAY_EDIT_FLOW);
 
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel())
 				.set(syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingKey()),

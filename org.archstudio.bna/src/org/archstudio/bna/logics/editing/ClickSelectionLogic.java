@@ -106,8 +106,8 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 			removeAllSelections();
 		}
 		else {
-			for (IHasMutableSelected mst : UserEditableUtils.getEditableForAllQualities(things,
-					IHasMutableSelected.class, IHasMutableSelected.USER_MAY_SELECT)) {
+			IHasMutableSelected mst = SystemUtils.firstOrNull(things, IHasMutableSelected.class);
+			if (mst != null && UserEditableUtils.isEditableForAllQualities(mst, IHasMutableSelected.USER_MAY_SELECT)) {
 
 				if (!mst.isSelected()) {
 					removeAllSelections();

@@ -8,7 +8,7 @@ Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
 Manifest-Version: 1.0
 Require-Bundle: org.archstudio.myxgen,
- org.eclipse.jet,
  org.archstudio.myxgen.core,
  org.archstudio.utils.system,
- org.archstudio.myx.fw
+ org.archstudio.myx.fw,
+ org.eclipse.jet

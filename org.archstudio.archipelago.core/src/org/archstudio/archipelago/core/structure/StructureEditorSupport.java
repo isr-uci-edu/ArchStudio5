@@ -18,6 +18,7 @@ import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.editing.AlignAndDistributeLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
+import org.archstudio.bna.logics.editing.EditFlowLogic;
 import org.archstudio.bna.logics.editing.EditTextLogic;
 import org.archstudio.bna.logics.editing.KeyNudgerLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
@@ -164,6 +165,7 @@ public class StructureEditorSupport {
 		// these logics are alphabetized
 		logicManager.addThingLogic(new ClickSelectionLogic());
 		logicManager.addThingLogic(new DragMovableLogic());
+		logicManager.addThingLogic(new EditFlowLogic());
 		logicManager.addThingLogic(new EditTextLogic());
 		logicManager.addThingLogic(new KeyNudgerLogic());
 		logicManager.addThingLogic(new LifeSapperLogic(typesLogic));
