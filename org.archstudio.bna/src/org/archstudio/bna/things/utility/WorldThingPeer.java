@@ -113,7 +113,11 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 				IMutableCoordinateMapper imcm = (IMutableCoordinateMapper) icm;
 				double sx = (double) localBoundingBox.width / (double) modelBounds.width;
 				double sy = (double) localBoundingBox.height / (double) modelBounds.height;
-				double s = Math.min(sx, sy);
+				double ps = 1;
+				if(innerView.getParentView() != null){
+					ps = innerView.getParentView().getCoordinateMapper().getLocalScale();
+				}
+				double s = Math.min(ps, Math.min(sx, sy));
 				imcm.setLocalScale(s);
 				int dx = BNAUtils.round((localBoundingBox.width - modelBounds.width * s) / 2);
 				int dy = BNAUtils.round((localBoundingBox.height - modelBounds.height * s) / 2);

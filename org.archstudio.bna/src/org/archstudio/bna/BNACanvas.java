@@ -56,70 +56,40 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		super(parent, style | SWT.NO_REDRAW_RESIZE | SWT.DOUBLE_BUFFERED);
 		checkNotNull(bnaWorld);
 		checkNotNull(bnaWorld.getBNAModel());
-		
+
 		this.bnaView = new DefaultBNAView(this, null, bnaWorld, new LinearCoordinateMapper());
 		this.eventHandler = new BNASWTEventHandler(this, bnaView);
 		this.resources = new Resources(this);
 
-		this.renderMCM = new LinearCoordinateMapper();
-		renderMCM.setTranslate(false);
-
-		final IMutableCoordinateMapper mcm = getCoordinateMapper();
-		
 		this.addControlListener(new ControlAdapter() {
 			@Override
 			public void controlResized(ControlEvent e) {
-				doUpdateRender(mcm.getLocalScale(), mcm.getLocalOrigin(new Point()));
-				doUpdateBars();
-			}
-		});
-
-		// coordinate mapping
-		hBar.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				if (!isScrollBarUpdating) {
-					mcm.synchronizedUpdate(new Runnable() {
-						@Override
-						public void run() {
-							Rectangle localBounds = mcm.getLocalBounds(new Rectangle());
-							Point localOrigin = mcm.getLocalOrigin(new Point());
-							mcm.setLocalOrigin(new Point(hBar.getSelection() + localBounds.x, localOrigin.y));
-						}
-					});
-				}
-			}
-		});
-		vBar.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				if (!isScrollBarUpdating) {
-					mcm.synchronizedUpdate(new Runnable() {
-						@Override
-						public void run() {
-							Rectangle localBounds = mcm.getLocalBounds(new Rectangle());
-							Point localOrigin = mcm.getLocalOrigin(new Point());
-							mcm.setLocalOrigin(new Point(localOrigin.x, vBar.getSelection() + localBounds.y));
-						}
-					});
-				}
+				updateScrollBars();
 			}
 		});
 		getCoordinateMapper().addCoordinateMapperListener(new ICoordinateMapperListener() {
 			@Override
 			public void coordinateMappingsChanged(final CoordinateMapperEvent evt) {
-				SWTWidgetUtils.sync(BNACanvas.this, new Runnable() {
-					@Override
-					public void run() {
-						doUpdateBars();
-						doUpdateRender(evt.getNewLocalScale(), evt.getNewLocalOrigin());
-					}
-				});
+				if (Display.getCurrent() == null) {
+					SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+				}
+				updateScrollBars();
 			}
 		});
-		
-		doUpdateRender(mcm.getLocalScale(), mcm.getLocalOrigin(new Point()));
-		doUpdateBars();
+		hBar.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				updateCM();
+			}
+		});
+		vBar.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				updateCM();
+			}
+		});
+		updateScrollBars();
+		updateCM();
 
 		// prevent the mouse wheel from scrolling the canvas
 		addListener(SWT.MouseWheel, new Listener() {
@@ -151,79 +121,74 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		super.dispose();
 	}
 
-	//protected final IMutableCoordinateMapper mcm;
-	/*
-	 * the renderMCM ICoordinateMapper is special in two ways: First, it is only
-	 * updated in the SWT thread so that painting is consistent with scrolling.
-	 * If this is not done, rapidly sliding a scroll bar back and forth causes
-	 * artifacts on the display. Second, it does not translate coordinates so
-	 * that the translation may be performed within the graphics object during
-	 * rendering. If this is not done, the local cache values for each thing
-	 * become inconsistent with the rendered things once the canvas is scrolled.
-	 */
-	/*
-	 * Coordinate mapper relationships: mcm <-> scrollbars -> renderMCM
-	 */
-	protected final IScrollableCoordinateMapper renderMCM;
-	boolean isScrollBarUpdating = false;
-	int lastBoundsRelevantCount = 0;
+	boolean isUpdatingScrollBars = false;
+	boolean isUpdatingCM = false;
 
-	protected void doUpdateRender(double localScale, Point localOrigin) {
-		ICoordinateMapper mcm = getCoordinateMapper();
-		final double newLocalScale = mcm.getLocalScale();
-		final Point newLocalOrigin = mcm.getLocalOrigin(new Point());
-
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-		}
-
-		if (renderMCM.getLocalScale() != newLocalScale) {
-			// the scale changed, force a redraw of everything
-			renderMCM.setLocalScale(newLocalScale);
-			renderMCM.setLocalOrigin(newLocalOrigin);
-			lastBoundsRelevantCount++;
-			redraw();
+	protected void updateScrollBars() {
+		if (isUpdatingCM)
 			return;
-		}
-		Point renderLocalOrigin = renderMCM.getLocalOrigin(new Point());
-		if (!renderLocalOrigin.equals(newLocalOrigin)) {
-			// scroll the screen to align with the desired offset
-			int dx = newLocalOrigin.x - renderLocalOrigin.x;
-			int dy = newLocalOrigin.y - renderLocalOrigin.y;
-			org.eclipse.swt.graphics.Rectangle client = getClientArea();
-			/*
-			 * scroll before updating the renderMCM, as the old painting events
-			 * (with the old renderMCM settings) will be flushed... then the new
-			 * renderMCM settings should be put into effect
-			 */
-			scroll(-dx, -dy, 0, 0, client.width, client.height, true);
-			renderMCM.setLocalOrigin(newLocalOrigin);
-			// scroll automatically causes a redraw of the newly revealed area
-			return;
-		}
-	}
-
-	protected void doUpdateBars() {
-		final IMutableCoordinateMapper mcm = getCoordinateMapper();
-
-		org.eclipse.swt.graphics.Rectangle client = getClientArea();
-		Rectangle localBounds = mcm.getLocalBounds(new Rectangle());
-		Point localOrigin = mcm.getLocalOrigin(new Point());
-		doUpdateBar(hBar, localOrigin.x - localBounds.x, client.width, localBounds.width);
-		doUpdateBar(vBar, localOrigin.y - localBounds.y, client.height, localBounds.height);
-	}
-
-	private void doUpdateBar(ScrollBar bar, int selection, int thumb, int total) {
-		isScrollBarUpdating = true;
+		isUpdatingScrollBars = true;
 		try {
-			// ScrollBar silently fails when certain constraints are violated
-			thumb = Math.min(thumb, total);
-			bar.setValues(Math.max(0, selection), 0, Math.max(1, total - thumb), Math.max(1, thumb),
-					Math.max(1, thumb / 10), Math.max(1, thumb / 3));
+			IMutableCoordinateMapper mcm = getCoordinateMapper();
+			updateCanvas(mcm.getLocalScale(), mcm.getLocalOrigin(new Point()));
+			org.eclipse.swt.graphics.Rectangle client = getClientArea();
+			Rectangle localBounds = mcm.getLocalBounds(new Rectangle());
+			Point localOrigin = mcm.getLocalOrigin(new Point());
+			updateScrollBar(hBar, localOrigin.x - localBounds.x, client.width, localBounds.width);
+			updateScrollBar(vBar, localOrigin.y - localBounds.y, client.height, localBounds.height);
 		}
 		finally {
-			isScrollBarUpdating = false;
+			isUpdatingScrollBars = false;
 		}
+	}
+
+	private void updateScrollBar(ScrollBar bar, int selection, int thumb, int total) {
+		// ScrollBar silently fails when certain constraints are violated
+		thumb = Math.min(thumb, total);
+		bar.setValues(Math.max(0, selection), 0, Math.max(1, total - thumb), Math.max(1, thumb),
+				Math.max(1, thumb / 10), Math.max(1, thumb / 3));
+	}
+
+	protected void updateCM() {
+		if (!isUpdatingScrollBars) {
+			isUpdatingCM = true;
+			try {
+				IMutableCoordinateMapper mcm = getCoordinateMapper();
+				Rectangle localBounds = mcm.getLocalBounds(new Rectangle());
+				Point newLocalOrigin = new Point(hBar.getSelection() + localBounds.x, vBar.getSelection()
+						+ localBounds.y);
+				updateCanvas(mcm.getLocalScale(), newLocalOrigin);
+				mcm.setLocalOrigin(newLocalOrigin);
+			}
+			finally {
+				isUpdatingCM = false;
+			}
+		}
+	}
+
+	int lastBoundsRelevantCount = 0;
+	double lastLocalScale = 0;
+	Point lastLocalOrigin = new Point(0, 0);
+
+	protected void updateCanvas(double newLocalScale, Point newLocalOrigin) {
+		if (lastLocalScale != newLocalScale) {
+			// the scale changed, force a redraw of everything
+			lastBoundsRelevantCount++;
+			redraw();
+		}
+		else if (!lastLocalOrigin.equals(newLocalOrigin)) {
+			// scroll the screen to align with the desired origin
+			int dx = newLocalOrigin.x - lastLocalOrigin.x;
+			int dy = newLocalOrigin.y - lastLocalOrigin.y;
+			org.eclipse.swt.graphics.Rectangle client = getClientArea();
+			scroll(-dx, -dy, 0, 0, client.width, client.height, true);
+			for (RenderData renderData : autoRenderData.values()) {
+				renderData.lastLocalBounds.translate(-dx, -dy);
+			}
+			// scroll automatically causes a redraw of the newly revealed area
+		}
+		lastLocalScale = newLocalScale;
+		lastLocalOrigin = newLocalOrigin;
 	}
 
 	// ignore the flurry of events that occur before rendering the BNA World for the first time
@@ -254,10 +219,6 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 			localClipRegion = new Region(e.display);
 			e.gc.getClipping(localClipRegion);
 
-			Point renderLocalOrigin = renderMCM.getLocalOrigin(new Point());
-			g.translate(-renderLocalOrigin.x, -renderLocalOrigin.y);
-			localClipRegion.translate(renderLocalOrigin.x, renderLocalOrigin.y);
-
 			if (DEBUG >= 2) {
 				int debugColor = new Random().nextInt(256);
 				e.gc.setBackground(e.display.getSystemColor(debugColor & 0x0F));
@@ -271,10 +232,11 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 			for (IThing thing : bnaModel.getThings()) {
 				IThingPeer<?> peer = getBNAView().getThingPeer(thing);
 				RenderData renderData = getRenderData(thing);
-				
+
 				if (renderData.lastBoundsRelevantCount != lastBoundsRelevantCount) {
 					renderData.lastLocalBounds.setSize(0, 0);
-					peer.getLocalBounds(getBNAView(), renderMCM, resources, renderData.lastLocalBounds);
+					peer.getLocalBounds(getBNAView(), getBNAView().getCoordinateMapper(), resources,
+							renderData.lastLocalBounds);
 					renderData.lastBoundsRelevantCount = lastBoundsRelevantCount;
 					renderData.needsCacheUpdate = true;
 				}
@@ -282,7 +244,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 				if (!renderData.lastLocalBounds.isEmpty()) {
 					if (renderData.needsCacheUpdate) {
 						renderData.needsCacheUpdate = false;
-						peer.updateCache(getBNAView(), renderMCM);
+						peer.updateCache(getBNAView(), getBNAView().getCoordinateMapper());
 					}
 
 					Rectangle r = renderData.lastLocalBounds;
@@ -308,7 +270,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 							g.restoreState();
 						}
 						g.clipRect(renderData.lastLocalBounds);
-						peer.draw(getBNAView(), renderMCM, g, resources);
+						peer.draw(getBNAView(), getBNAView().getCoordinateMapper(), g, resources);
 						g.restoreState();
 					}
 					catch (Exception e2) {
@@ -400,8 +362,8 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 							getBNAView().disposePeer(removedThingToDestroy);
 						}
 						if (!allRedrawRect.isEmpty()) {
-							Point renderLocalOrigin = renderMCM.getLocalOrigin(new Point());
-							allRedrawRect.translate(-renderLocalOrigin.x, -renderLocalOrigin.y);
+							//Point renderLocalOrigin = getBNAView().getCoordinateMapper().getLocalOrigin(new Point());
+							//allRedrawRect.translate(-renderLocalOrigin.x, -renderLocalOrigin.y);
 							redraw(allRedrawRect.x, allRedrawRect.y, allRedrawRect.width, allRedrawRect.height, false);
 						}
 					}
@@ -416,7 +378,8 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 							cacheData.needsLastRenderCleanup = false;
 						}
 						if (cacheData.needsRenderUpdate) {
-							peer.getLocalBounds(getBNAView(), renderMCM, resources, cacheData.lastLocalBounds);
+							peer.getLocalBounds(getBNAView(), getBNAView().getCoordinateMapper(), resources,
+									cacheData.lastLocalBounds);
 							BNAUtils.union(allRedrawRect, cacheData.lastLocalBounds);
 							cacheData.needsRenderUpdate = false;
 						}
@@ -429,28 +392,27 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 	public IBNAView getBNAView() {
 		return bnaView;
 	}
-	
+
 	private IMutableCoordinateMapper getCoordinateMapper() {
-		return (IMutableCoordinateMapper)getBNAView().getCoordinateMapper();
+		return (IMutableCoordinateMapper) getBNAView().getCoordinateMapper();
 	}
-	
+
 	private static class RenderData implements IThingPeerData {
 		protected Rectangle lastLocalBounds = new Rectangle(Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 0);
 		protected int lastBoundsRelevantCount = -1;
-		protected int lastThingModCount = -1;
 		protected boolean needsLastRenderCleanup = false;
 		protected boolean needsRenderUpdate = true;
 		protected boolean needsCacheUpdate = true;
 	}
-	
-	private static Map<IThing,RenderData> autoRenderData = new MapMaker().weakKeys().makeComputingMap(
-			new Function<IThing,RenderData>() {
+
+	private static Map<IThing, RenderData> autoRenderData = new MapMaker().weakKeys().makeComputingMap(
+			new Function<IThing, RenderData>() {
 				@Override
 				public RenderData apply(IThing input) {
 					return new RenderData();
 				}
 			});
-	
+
 	private <T extends IThing> RenderData getRenderData(T thing) {
 		return autoRenderData.get(thing);
 	}

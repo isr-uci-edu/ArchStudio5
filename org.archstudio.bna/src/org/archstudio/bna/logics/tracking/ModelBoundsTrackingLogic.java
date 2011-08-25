@@ -10,6 +10,7 @@ import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IIsHidden;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -17,26 +18,11 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 
 	public static Rectangle getModelBounds(IBNAWorld world) {
 		IThingLogicManager tlm = world.getThingLogicManager();
-		ModelBoundsTrackingLogic mbtl = null;
-		if (tlm != null) {
-			for (ModelBoundsTrackingLogic tl : tlm.getThingLogics(ModelBoundsTrackingLogic.class)) {
-				mbtl = tl;
-			}
-			if (mbtl == null) {
-				ThingTypeTrackingLogic tttl = null;
-				for (ThingTypeTrackingLogic tl : tlm.getThingLogics(ThingTypeTrackingLogic.class)) {
-					tttl = tl;
-				}
-				if (tttl == null) {
-					tlm.addThingLogic(tttl = new ThingTypeTrackingLogic());
-				}
-				tlm.addThingLogic(mbtl = new ModelBoundsTrackingLogic());
-			}
-		}
+		ModelBoundsTrackingLogic mbtl = tlm.addThingLogic(ModelBoundsTrackingLogic.class);
 		return mbtl.getModelBounds();
 	}
 
-	protected ThingTypeTrackingLogic tttl = null;
+	protected ThingTypeTrackingLogic typeLogic = null;
 
 	private Rectangle modelBounds = null;
 
@@ -46,7 +32,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 	@Override
 	protected void init() {
 		super.init();
-		tttl = addThingLogic(ThingTypeTrackingLogic.class);
+		typeLogic = addThingLogic(ThingTypeTrackingLogic.class);
 	}
 
 	@Override
@@ -129,7 +115,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 				int x2 = Integer.MIN_VALUE;
 				int y2 = Integer.MIN_VALUE;
 
-				for (IHasBoundingBox t : tttl.getThings(m, IHasBoundingBox.class)) {
+				for (IHasBoundingBox t : typeLogic.getThings(m, IHasBoundingBox.class)) {
 					if (!Boolean.TRUE.equals(t.get(IIsHidden.HIDDEN_KEY))) {
 						Rectangle bb = t.getBoundingBox();
 						if (bb != null) {
