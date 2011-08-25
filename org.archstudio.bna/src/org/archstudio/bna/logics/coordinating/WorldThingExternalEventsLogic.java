@@ -1,9 +1,6 @@
 package org.archstudio.bna.logics.coordinating;
 
-import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import static org.archstudio.sysutils.SystemUtils.firstOrNull;
-
-import java.util.List;
 
 import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
@@ -13,12 +10,10 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.DropEventType;
 import org.archstudio.bna.constants.MouseEventType;
-import org.archstudio.bna.facets.IHasUserEditable;
 import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.utility.WorldThingPeer;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNADragAndDropListener;
 import org.archstudio.bna.utils.IBNAFocusListener;
 import org.archstudio.bna.utils.IBNAKeyListener;
@@ -34,7 +29,6 @@ import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 
 public class WorldThingExternalEventsLogic extends AbstractThingLogic implements IBNAMouseListener,
@@ -54,13 +48,13 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 
 	protected IHasWorld draggingIn = null;
 
-	protected void mouseEvt(IBNAView view, MouseEvent e, Iterable<IThing> t, MouseEventType type) {
+	protected void mouseEvt(IBNAView view, MouseEvent e, Iterable<IThing> t, ICoordinate location, MouseEventType type) {
 		IHasWorld worldThing = null;
 		if (draggingIn != null) {
 			worldThing = draggingIn;
 		}
 		else {
-			worldThing = castOrNull(firstOrNull(t), IHasWorld.class);
+			worldThing = firstOrNull(t, IHasWorld.class);
 		}
 		if (worldThing == null) {
 			return;
@@ -75,8 +69,8 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 			return;
 
 		IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
-		ICoordinate innerLocation = DefaultCoordinate.forLocal(new Point(e.x, e.y), innerView.getCoordinateMapper());
-		Iterable<IThing> innerThings = view.getThingsAt(innerLocation);
+		ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(new Point()), innerView.getCoordinateMapper());
+		Iterable<IThing> innerThings = innerView.getThingsAt(innerLocation);
 
 		switch (type) {
 		case MOUSE_UP:
@@ -126,42 +120,42 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 
 	@Override
 	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
-		mouseEvt(view, evt, things, MouseEventType.MOUSE_DOWN);
+		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_DOWN);
 	}
 
 	@Override
 	public void mouseMove(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
-		mouseEvt(view, evt, things, MouseEventType.MOUSE_MOVE);
+		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_MOVE);
 	}
 
 	@Override
 	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
-		mouseEvt(view, evt, things, MouseEventType.MOUSE_UP);
+		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_UP);
 	}
 
 	@Override
 	public void mouseClick(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
-		mouseEvt(view, evt, things, MouseEventType.MOUSE_CLICK);
+		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_CLICK);
 	}
 
 	@Override
 	public void mouseDoubleClick(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
-		mouseEvt(view, evt, things, MouseEventType.MOUSE_DOUBLECLICK);
+		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_DOUBLECLICK);
 	}
 
 	@Override
 	public void mouseEnter(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
-		mouseEvt(view, evt, things, MouseEventType.MOUSE_ENTER);
+		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_ENTER);
 	}
 
 	@Override
 	public void mouseExit(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
-		mouseEvt(view, evt, things, MouseEventType.MOUSE_EXIT);
+		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_EXIT);
 	}
 
 	@Override
 	public void mouseHover(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
-		mouseEvt(view, evt, things, MouseEventType.MOUSE_HOVER);
+		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_HOVER);
 	}
 
 	public void focusGained(IBNAView view, FocusEvent e) {

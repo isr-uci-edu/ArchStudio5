@@ -24,6 +24,7 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -154,7 +155,7 @@ public abstract class AbstractPropagateValueLogic<FROM_THING extends IThing, TO_
 	protected <EK extends IThingKey<EV>, EV> void fromThingChangedSync(BNAModelEvent<FROM_THING, EK, EV> evt) {
 		IBNAModel model = evt.getSource();
 		FROM_THING fromThing = evt.getTargetThing();
-		for (IThingRefKeyKey<FROM_THING, ?, TO_KEY> thingRefKey : fromThingRefKeys) {
+		for (IThingRefKeyKey<FROM_THING, ?, TO_KEY> thingRefKey : Lists.newArrayList(fromThingRefKeys)) {
 			for (TO_THING toThing : Iterables.filter(
 					model.getThings(valuesLogic.getThingIDs(thingRefKey, fromThing.getID())), toThingClass)) {
 				doPropagationUnlessInCycle(model, fromThing, evt.getThingEvent(), toThing, null, thingRefKey.getKey());

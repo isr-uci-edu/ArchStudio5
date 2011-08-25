@@ -48,7 +48,7 @@ public class LifeSapperLogic extends AbstractThingLogic {
 		public void run() {
 			while (!shouldTerminate) {
 				try {
-					Thread.sleep(250);
+					Thread.sleep(125);
 				}
 				catch (InterruptedException e) {
 				}

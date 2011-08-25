@@ -45,7 +45,8 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 	protected final ArchipelagoServices AS;
 	protected final Dimension defaultSize;
 	protected final RGB defaultColor;
-	
+
+	// TODO: Are these really necessary?
 	enum RootThingType {
 		COMPONENT,
 		CONNECTOR
@@ -95,11 +96,9 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 					// If innerStructureXArchID is null, then we need to remove the world from the worldThing.
 					// Otherwise, we need to add it and hook it up.
 					if (innerStructureXArchID != null) {
-						System.err.println("Assigning inner world 1");
 						ObjRef documentRootRef = AS.xarch.getDocumentRootRef(objRef);
 						IBNAWorld internalWorld = StructureEditorSupport.setupWorld(AS, documentRootRef, innerStructureRef);
 						if (internalWorld != null) {
-							System.err.println("Assigning inner world 2: " + internalWorld);
 							((IHasMutableWorld)worldThing).setWorld(internalWorld);
 						}
 					}
@@ -135,8 +134,6 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, getBNAModel()),
 				IHasMutableText.USER_MAY_EDIT_TEXT);
 
-		// TODO: really, all the component/connector specific code should be moved out of this class, this is a generic brick mapper
-		// see how the defaultColor/defaultSize are passed in the interface to keep this class generic?
 		if (XadlUtils.isComponent(xarch, objRef)) {
 			thing.set(BRICK_ROOT_THING_TYPE_KEY, RootThingType.COMPONENT);
 		}

@@ -5,6 +5,7 @@ import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.logics.AbstractThingLogic;
 
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 
 public class RotatingOffsetLogic extends AbstractThingLogic {
 
@@ -46,7 +47,7 @@ public class RotatingOffsetLogic extends AbstractThingLogic {
 		public void run() {
 			while (!shouldTerminate) {
 				try {
-					Thread.sleep(500);
+					Thread.sleep(125);
 				}
 				catch (InterruptedException e) {
 				}
@@ -55,8 +56,8 @@ public class RotatingOffsetLogic extends AbstractThingLogic {
 				if (model != null) {
 					model.beginBulkChange();
 					try {
-						for (IHasMutableRotatingOffset t : Iterables.filter(model.getThings(),
-								IHasMutableRotatingOffset.class)) {
+						for (IHasMutableRotatingOffset t : Lists.newArrayList(Iterables.filter(model.getThings(),
+								IHasMutableRotatingOffset.class))) {
 							if (t.shouldIncrementRotatingOffset()) {
 								t.incrementRotatingOffset();
 							}

@@ -15,11 +15,8 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasAngle;
 import org.archstudio.bna.facets.IHasBoundingBox;
-import org.archstudio.bna.facets.IHasColor;
-import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasHorizontalAlignment;
-import org.archstudio.bna.facets.IHasLineStyle;
 import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasMutableWorld;
@@ -36,6 +33,8 @@ import org.archstudio.bna.logics.coordinating.MirrorBoundingBoxLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.coordinating.OrientDirectionalLabelLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
+import org.archstudio.bna.logics.coordinating.WorldThingExternalEventsLogic;
+import org.archstudio.bna.logics.coordinating.WorldThingInternalEventsLogic;
 import org.archstudio.bna.things.glass.EllipseGlassThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.glass.PolygonGlassThing;
@@ -72,10 +71,6 @@ public class Assemblies {
 		protected ThingAssemblyKey(D keyData, boolean isFireEventOnChange) {
 			super(keyData, isFireEventOnChange);
 		}
-	}
-
-	private static class Generics<BACKGROUND extends IHasColor & IHasEdgeColor & IHasLineStyle> {
-
 	}
 
 	private static final IThingKey<Boolean> IS_ROOT_KEY = ThingKey.create("is-assembly-root");
@@ -245,6 +240,8 @@ public class Assemblies {
 
 		IThingLogicManager tlm = world.getThingLogicManager();
 		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
+		tlm.addThingLogic(WorldThingInternalEventsLogic.class);
+		tlm.addThingLogic(WorldThingExternalEventsLogic.class);
 
 		mbbl.mirrorBoundingBox(glass, worldThing, new Insets(3, 3, 3, 3));
 
