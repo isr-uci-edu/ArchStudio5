@@ -27,7 +27,7 @@ public class DefaultBNAView implements IBNAView {
 	protected final PeerCache peerCache;
 	protected final Control control;
 
-	public DefaultBNAView(@Nullable Control control, @Nullable IBNAView parentView, IBNAWorld bnaWorld, ICoordinateMapper cm) {
+	public DefaultBNAView(Control control, @Nullable IBNAView parentView, IBNAWorld bnaWorld, ICoordinateMapper cm) {
 		super();
 		this.control = control;
 		this.parentView = parentView;
@@ -35,7 +35,7 @@ public class DefaultBNAView implements IBNAView {
 		this.bnaWorld = checkNotNull(bnaWorld);
 		this.cm = checkNotNull(cm);
 	}
-	
+
 	@Override
 	public Control getControl() {
 		return control;
@@ -67,12 +67,12 @@ public class DefaultBNAView implements IBNAView {
 		}
 		return things;
 	}
-	
+
 	@Override
 	public <T extends IThing> IThingPeer<T> getThingPeer(T thing) {
 		return peerCache.getPeer(thing);
 	}
-	
+
 	public <T extends IThing> void disposePeer(T thing) {
 		peerCache.disposePeer(thing);
 	}

@@ -1,13 +1,18 @@
 package org.archstudio.bna.logics.editing;
 
+import static org.archstudio.sysutils.SystemUtils.newCopyOnWriteArrayList;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.jface.viewers.ISelection;
@@ -27,8 +32,7 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 			this.workbenchSite = workbenchSite;
 		}
 
-		private final ListenerList<EclipseSelectionProviderLogic> allEclipseSelectionProviderLogics = new ListenerList<EclipseSelectionProviderLogic>(
-				EclipseSelectionProviderLogic.class);
+		private final CopyOnWriteArrayList<EclipseSelectionProviderLogic> allEclipseSelectionProviderLogics = newCopyOnWriteArrayList();
 
 		public void addEclipseSelectionProvider(EclipseSelectionProviderLogic eclipseSelectionProviderLogic) {
 			allEclipseSelectionProviderLogics.add(eclipseSelectionProviderLogic);
@@ -38,8 +42,7 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 			allEclipseSelectionProviderLogics.remove(eclipseSelectionProviderLogic);
 		}
 
-		private final ListenerList<ISelectionChangedListener> selectionChangedListeners = new ListenerList<ISelectionChangedListener>(
-				ISelectionChangedListener.class);
+		private final CopyOnWriteArrayList<ISelectionChangedListener> selectionChangedListeners = newCopyOnWriteArrayList();
 
 		public void addSelectionChangedListener(ISelectionChangedListener listener) {
 			selectionChangedListeners.add(listener);
@@ -72,7 +75,7 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 		}
 
 		public void setSelection(EclipseSelectionProviderLogic eclipseSelectionProviderLogic, Object[] selectedObjects) {
-			for (EclipseSelectionProviderLogic l : allEclipseSelectionProviderLogics.getListeners()) {
+			for (EclipseSelectionProviderLogic l : allEclipseSelectionProviderLogics) {
 				if (l != eclipseSelectionProviderLogic) {
 					l._unselectAll();
 				}
@@ -120,7 +123,8 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 	private int inBulkChange = 0;
 	private int ignoreSelection = 0;
 
-	public void bnaModelChanged(BNAModelEvent evt) {
+	@Override
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 		switch (evt.getEventType()) {
 		case BULK_CHANGE_BEGIN:
 			inBulkChange++;

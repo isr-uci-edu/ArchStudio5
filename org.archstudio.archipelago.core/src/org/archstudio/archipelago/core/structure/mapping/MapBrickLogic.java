@@ -68,6 +68,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		syncAttribute("name", null, "[no name]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY, true);
 		syncAttribute("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
 		
+		// TODO: eventually this should use an XPath
 		IBNAUpdater fakeBNAUpdater = new IBNAUpdater() {
 			@Override
 			public void updateBNA(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt, IThing rootThing) {

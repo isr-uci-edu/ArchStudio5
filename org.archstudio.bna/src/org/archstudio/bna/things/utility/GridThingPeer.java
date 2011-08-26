@@ -21,6 +21,10 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
+		// only draw for the top level things
+		if(view.getParentView() != null)
+			return;
+		
 		int gridSpacing = t.getGridSpacing();
 		if (gridSpacing == 0) {
 			return;

@@ -9,13 +9,6 @@ public class LinearCoordinateMapper extends CoordinateMapperAdapter implements I
 	public LinearCoordinateMapper() {
 	}
 
-	protected boolean translate = true;
-
-	@Override
-	public void setTranslate(boolean translate) {
-		this.translate = translate;
-	}
-
 	@Override
 	public Rectangle getLocalBounds(Rectangle result) {
 		result.setBounds(worldBounds);
@@ -26,35 +19,27 @@ public class LinearCoordinateMapper extends CoordinateMapperAdapter implements I
 	@Override
 	public Point worldToLocal(Point worldPointResult) {
 		worldPointResult.scale(localScale);
-		if (translate) {
-			worldPointResult.translate(-localOrigin.x, -localOrigin.y);
-		}
+		worldPointResult.translate(-localOrigin.x, -localOrigin.y);
 		return worldPointResult;
 	}
 
 	@Override
 	public synchronized Rectangle worldToLocal(Rectangle worldRectangleResult) {
 		worldRectangleResult.scale(localScale);
-		if (translate) {
-			worldRectangleResult.translate(-localOrigin.x, -localOrigin.y);
-		}
+		worldRectangleResult.translate(-localOrigin.x, -localOrigin.y);
 		return worldRectangleResult;
 	}
 
 	@Override
 	public Point localToWorld(Point localPointResult) {
-		if (translate) {
-			localPointResult.translate(localOrigin);
-		}
+		localPointResult.translate(localOrigin);
 		localPointResult.scale(1 / localScale);
 		return localPointResult;
 	}
 
 	@Override
 	public synchronized Rectangle localToWorld(Rectangle localRectangleResult) {
-		if (translate) {
-			localRectangleResult.translate(localOrigin);
-		}
+		localRectangleResult.translate(localOrigin);
 		return localRectangleResult.scale(1 / localScale);
 	}
 }

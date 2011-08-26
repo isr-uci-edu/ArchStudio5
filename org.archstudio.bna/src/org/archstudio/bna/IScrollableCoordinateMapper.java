@@ -9,7 +9,4 @@ import org.eclipse.swt.widgets.Canvas;
  * @see {@link Canvas#scroll(int, int, int, int, int, int, boolean)}
  */
 public interface IScrollableCoordinateMapper extends IMutableCoordinateMapper {
-
-	public void setTranslate(boolean translate);
-
 }

@@ -57,7 +57,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		checkNotNull(bnaWorld);
 		checkNotNull(bnaWorld.getBNAModel());
 
-		this.bnaView = new DefaultBNAView(this, null, bnaWorld, new LinearCoordinateMapper());
+		this.bnaView = new DefaultBNAView(parent, null, bnaWorld, new LinearCoordinateMapper());
 		this.eventHandler = new BNASWTEventHandler(this, bnaView);
 		this.resources = new Resources(this);
 
@@ -143,6 +143,8 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 	}
 
 	private void updateScrollBar(ScrollBar bar, int selection, int thumb, int total) {
+		assert isUpdatingScrollBars;
+		
 		// ScrollBar silently fails when certain constraints are violated
 		thumb = Math.min(thumb, total);
 		bar.setValues(Math.max(0, selection), 0, Math.max(1, total - thumb), Math.max(1, thumb),
@@ -182,6 +184,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 			int dy = newLocalOrigin.y - lastLocalOrigin.y;
 			org.eclipse.swt.graphics.Rectangle client = getClientArea();
 			scroll(-dx, -dy, 0, 0, client.width, client.height, true);
+			// update the cached local bounds as well
 			for (RenderData renderData : autoRenderData.values()) {
 				renderData.lastLocalBounds.translate(-dx, -dy);
 			}
@@ -405,7 +408,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		protected boolean needsCacheUpdate = true;
 	}
 
-	private static Map<IThing, RenderData> autoRenderData = new MapMaker().weakKeys().makeComputingMap(
+	private Map<IThing, RenderData> autoRenderData = new MapMaker().weakKeys().makeComputingMap(
 			new Function<IThing, RenderData>() {
 				@Override
 				public RenderData apply(IThing input) {

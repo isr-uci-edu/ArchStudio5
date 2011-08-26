@@ -10,6 +10,7 @@ import org.archstudio.archipelago.core.structure.mapping.MapLinkLogic;
 import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
+import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.logics.ProxyToLogicsLogic;
@@ -31,8 +32,6 @@ import org.archstudio.bna.logics.editing.StandardCursorLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
-import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
-import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.ShadowThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.GridThing;
@@ -84,13 +83,20 @@ public class StructureEditorSupport {
 		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, bnaWorld);
 		bnaCanvas.setBackground(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
+		final EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAView()
+				.getBNAWorld().getBNAModel());
+
+		ept.set(IHasObjRef.OBJREF_KEY, structureRef);
+		ept.set(IHasXArchID.XARCH_ID_KEY, (String) AS.xarch.get(structureRef, "id"));
+
+		// persist the coordinate mapper
+		
+		final ICoordinateMapper cm = bnaCanvas.getBNAView().getCoordinateMapper();
+		BNAUtils.restoreCoordinateMapperData((IMutableCoordinateMapper) cm, ept);
 		bnaCanvas.addDisposeListener(new DisposeListener() {
 			@Override
 			public void widgetDisposed(DisposeEvent e) {
-				EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAView().getBNAWorld()
-						.getBNAModel());
-				BNAUtils.saveCoordinateMapperData(bnaCanvas.getBNAView().getCoordinateMapper(), ept);
-				bnaCanvas.removeDisposeListener(this);
+				BNAUtils.saveCoordinateMapperData(cm, ept);
 			}
 		});
 
@@ -102,11 +108,6 @@ public class StructureEditorSupport {
 
 		bnaCanvas.pack();
 		parentComposite.layout(true);
-
-		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAView().getBNAWorld().getBNAModel());
-		ept.set(IHasObjRef.OBJREF_KEY, structureRef);
-		ept.set(IHasXArchID.XARCH_ID_KEY, (String) AS.xarch.get(structureRef, "id"));
-		BNAUtils.restoreCoordinateMapperData((IMutableCoordinateMapper) bnaCanvas.getBNAView().getCoordinateMapper(), ept);
 
 		ArchipelagoUtils.setBNACanvas(AS.editor, bnaCanvas);
 		bnaCanvas.setFocus();
@@ -133,14 +134,8 @@ public class StructureEditorSupport {
 
 			setupWorld(AS, structureRef, bnaWorld);
 
-			EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaModel);
-			ept.set(IHasObjRef.OBJREF_KEY, structureRef);
-			ept.set(IHasXArchID.XARCH_ID_KEY, (String) AS.xarch.get(structureRef, "id"));
-
 			//AS.eventBus.fireArchipelagoEvent(new StructureEvents.WorldCreatedEvent(structureRef, bnaWorld));
 		}
-
-		//StructureMapper.updateStructure(AS, bnaWorld, structureRef);
 
 		return bnaWorld;
 	}
@@ -155,20 +150,16 @@ public class StructureEditorSupport {
 		bnaWorld.getBNAModel().addThing(new ShadowThing(null));
 		bnaWorld.getBNAModel().addThing(new GridThing(null));
 
-		ThingTypeTrackingLogic typesLogic = logicManager.addThingLogic(new ThingTypeTrackingLogic());
-
-		// general editing logics
-
 		// these logics need to be first
+
 		logicManager.addThingLogic(new SnapToGridLogic());
 
-		// these logics are alphabetized
+		// generic logics -- alphabetized
+		
 		logicManager.addThingLogic(new ClickSelectionLogic());
 		logicManager.addThingLogic(new DragMovableLogic());
-		logicManager.addThingLogic(new EditFlowLogic());
-		logicManager.addThingLogic(new EditTextLogic());
 		logicManager.addThingLogic(new KeyNudgerLogic());
-		logicManager.addThingLogic(new LifeSapperLogic(typesLogic));
+		logicManager.addThingLogic(new LifeSapperLogic());
 		logicManager.addThingLogic(new MarqueeSelectionLogic());
 		logicManager.addThingLogic(new MousePanAndZoomLogic());
 		logicManager.addThingLogic(new ReshapeRectangleLogic());
@@ -181,10 +172,12 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new StructureDropLogic(AS, documentRootRef));
 		logicManager.addThingLogic(new ToolTipLogic());
 
-		// menu logics
+		// menu logics -- order dictates menu order
 
 		logicManager.addThingLogic(new StructureNewElementLogic(AS.xarch, AS.resources, structureRef));
 		logicManager.addThingLogic(new StructureNewInterfaceLogic(AS.xarch, AS.resources));
+		logicManager.addThingLogic(new EditTextLogic());
+		logicManager.addThingLogic(new EditFlowLogic());
 		logicManager.addThingLogic(new RemoveElementLogic(AS.xarch));
 		logicManager.addThingLogic(new AlignAndDistributeLogic());
 		logicManager.addThingLogic(new RectifyToGridLogic());
@@ -208,20 +201,16 @@ public class StructureEditorSupport {
 		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTModelListener.class));
 		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTFileListener.class));
 
-		//logicManager.addThingLogic(new SplineBreakLogic());
+		// these logics need to be last
+
+		// these logics need to be reintegrated
+		
 		//logicManager.addThingLogic(new RotaterLogic());
-		//
-		ModelBoundsTrackingLogic mbtl = new ModelBoundsTrackingLogic();
-		logicManager.addThingLogic(mbtl);
-		//WorldThingInternalEventsLogic vtiel = new WorldThingInternalEventsLogic(ttstlView);
-		//logicManager.addThingLogic(vtiel);
-		//logicManager.addThingLogic(new WorldThingExternalEventsLogic(ttstlView));
-		////logicManager.addThingLogic(new WorldThingDestroyLogic(true));
 		//logicManager.addThingLogic(new MaintainMappingEndpointsLogic(trtl, ttstlMapping, vtiel));
 		//
 		////Menu logics
+		//
 		//logicManager.addThingLogic(new FindDialogLogic(new ArchipelagoFinder(AS)));
-		//logicManager.addThingLogic(new StructureEditDirectionLogic(AS, documentRootRef));
 		//logicManager.addThingLogic(new ShowHideTagsLogic());
 		//logicManager.addThingLogic(new RotateTagsLogic());
 		//logicManager.addThingLogic(new StructureEditColorLogic(AS));
