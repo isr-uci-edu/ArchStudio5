@@ -45,31 +45,31 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 	protected Rectangle lastModelBounds = BNAUtils.NONEXISTENT_RECTANGLE;
 	protected Rectangle clip = new Rectangle(0, 0, 0, 0);
 
-	public static void setupCoordinateMapper(WorldThing vt, ICoordinateMapper cm, IMutableCoordinateMapper icm) {
-		IBNAWorld innerWorld = vt.getWorld();
-		if (innerWorld != null) {
-			Rectangle localBoundingBox = cm.worldToLocal(BNAUtils.normalizeRectangle(vt.getBoundingBox()));
-			EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(innerWorld.getBNAModel());
-			if (ept == null) {
-				return;
-			}
-
-			Rectangle modelBounds = ept.getModelBounds();
-			if (modelBounds == null) {
-				return;
-			}
-
-			double sx = (double) localBoundingBox.width / (double) modelBounds.width;
-			double sy = (double) localBoundingBox.height / (double) modelBounds.height;
-			double s = Math.min(sx, sy);
-			icm.setLocalScale(s);
-			double ddx = (s == sx) ? 0.0d : ((localBoundingBox.width / s) - modelBounds.width) / 2.0d;
-			double ddy = (s == sy) ? 0.0d : ((localBoundingBox.height / s) - modelBounds.height) / 2.0d;
-			int dx = BNAUtils.round(ddx);
-			int dy = BNAUtils.round(ddy);
-			icm.align(localBoundingBox.getTopLeft().translate(dx, dy), modelBounds.getTopLeft());
-		}
-	}
+//	public static void setupCoordinateMapper(WorldThing vt, ICoordinateMapper cm, IMutableCoordinateMapper icm) {
+//		IBNAWorld innerWorld = vt.getWorld();
+//		if (innerWorld != null) {
+//			Rectangle localBoundingBox = cm.worldToLocal(BNAUtils.normalizeRectangle(vt.getBoundingBox()));
+//			EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(innerWorld.getBNAModel());
+//			if (ept == null) {
+//				return;
+//			}
+//
+//			Rectangle modelBounds = ept.getModelBounds();
+//			if (modelBounds == null) {
+//				return;
+//			}
+//
+//			double sx = (double) localBoundingBox.width / (double) modelBounds.width;
+//			double sy = (double) localBoundingBox.height / (double) modelBounds.height;
+//			double s = Math.min(sx, sy);
+//			icm.setLocalScale(s);
+//			double ddx = (s == sx) ? 0.0d : ((localBoundingBox.width / s) - modelBounds.width) / 2.0d;
+//			double ddy = (s == sy) ? 0.0d : ((localBoundingBox.height / s) - modelBounds.height) / 2.0d;
+//			int dx = BNAUtils.round(ddx);
+//			int dy = BNAUtils.round(ddy);
+//			icm.align(localBoundingBox.getTopLeft().translate(dx, dy), modelBounds.getTopLeft());
+//		}
+//	}
 
 	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 		IBNAWorld innerWorld = t.getWorld();
@@ -113,15 +113,11 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 				IMutableCoordinateMapper imcm = (IMutableCoordinateMapper) icm;
 				double sx = (double) localBoundingBox.width / (double) modelBounds.width;
 				double sy = (double) localBoundingBox.height / (double) modelBounds.height;
-				double ps = 1;
-				if(innerView.getParentView() != null){
-					ps = innerView.getParentView().getCoordinateMapper().getLocalScale();
-				}
-				double s = Math.min(ps, Math.min(sx, sy));
-				imcm.setLocalScale(s);
-				int dx = BNAUtils.round((localBoundingBox.width - modelBounds.width * s) / 2);
-				int dy = BNAUtils.round((localBoundingBox.height - modelBounds.height * s) / 2);
-				imcm.align(localBoundingBox.getTopLeft().translate(dx, dy), modelBounds.getTopLeft());
+				double parentScale = view.getCoordinateMapper().getLocalScale();
+				double scale = Math.min(parentScale, Math.min(sx, sy));
+				int dx = BNAUtils.round((localBoundingBox.width - modelBounds.width * scale) / 2);
+				int dy = BNAUtils.round((localBoundingBox.height - modelBounds.height * scale) / 2);
+				imcm.setLocalScaleAndAlign(scale, localBoundingBox.getTopLeft().translate(dx, dy), modelBounds.getTopLeft());
 			}
 		}
 		localBoundingBoxChanged = false;
