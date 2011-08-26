@@ -1,12 +1,13 @@
 package org.archstudio.archipelago.core.structure.mapping;
 
+import static org.archstudio.bna.constants.StickyMode.EDGE;
+
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasFlow;
-import org.archstudio.bna.facets.IHasLineWidth;
 import org.archstudio.bna.facets.IHasMutableFlow;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasText;
@@ -45,15 +46,18 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		}
 	};
 
-	private static final IXADLToBNATranslator<String, Integer> DOMAIN_TO_EDGE_WIDTH = new IXADLToBNATranslator<String, Integer>() {
+	private static final IXADLToBNATranslator<String, StickyMode> DOMAIN_TO_STICKY_MODE = new IXADLToBNATranslator<String, StickyMode>() {
 
 		@Override
-		public Integer toBNAValue(String xadlValue) {
-			return DomainType.TOP.equals(xadlValue) ? 2 : 1;
+		public StickyMode toBNAValue(String xadlValue) {
+			if (xadlValue == null)
+				return EDGE;
+			// TODO: add necessary sticky modes
+			return DomainType.TOP.equals(xadlValue) ? StickyMode.EDGE : StickyMode.EDGE;
 		};
 
 		@Override
-		public String toXadlValue(Integer value) {
+		public String toXadlValue(StickyMode value) {
 			throw new UnsupportedOperationException();
 		};
 	};
@@ -81,12 +85,9 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		syncAttribute("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		syncAttribute("name", null, "[no name]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY, true);
 		syncAttribute("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
-		syncXAttribute(
-				"ext[*[namespace-uri()='" + Domain_3_0Package.eNS_URI + "']]/domain/@type",
-				//"ext[*[namespace-uri()='http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd')]]/Domain/type",
-				//"ext[*[starts-with(namespace-uri(), 'http://www.archstudio.org/xadl3/schemas/domain-')]]/Domain/type",
-				DOMAIN_TO_EDGE_WIDTH, null, BNAPath.create(Assemblies.BACKGROUND_KEY), IHasLineWidth.LINE_WIDTH_KEY,
-				false);
+		syncXAttribute("ext[*[namespace-uri()='" + Domain_3_0Package.eNS_URI + "']]/domain/@type",
+				DOMAIN_TO_STICKY_MODE, null, BNAPath.create(Assemblies.BACKGROUND_KEY),
+				stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), false);
 	}
 
 	@Override

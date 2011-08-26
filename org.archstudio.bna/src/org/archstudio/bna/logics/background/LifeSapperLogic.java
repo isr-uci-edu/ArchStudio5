@@ -11,13 +11,13 @@ public class LifeSapperLogic extends AbstractThingLogic {
 	protected ThingTypeTrackingLogic typeLogic;
 	protected LifeSapper sapper = null;
 
-	public LifeSapperLogic(ThingTypeTrackingLogic typesLogic) {
-		this.typeLogic = typesLogic;
+	public LifeSapperLogic() {
 	}
 
 	@Override
 	protected void init() {
 		super.init();
+		typeLogic = addThingLogic(ThingTypeTrackingLogic.class);
 		sapper = new LifeSapper();
 		sapper.setName("LifeSapper");
 		sapper.setDaemon(true);

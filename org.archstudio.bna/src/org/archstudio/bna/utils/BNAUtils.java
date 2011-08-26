@@ -112,8 +112,9 @@ public class BNAUtils {
 
 	public static final Rectangle NONEXISTENT_RECTANGLE = new Rectangle(Integer.MIN_VALUE, Integer.MIN_VALUE, 0, 0);
 
-	public static final IThingKey<Point> OFFSET_KEY = ThingKey.create("offset");
 	public static final IThingKey<Double> SCALE_KEY = ThingKey.create("scale");
+	public static final IThingKey<Point> LOCAL_KEY = ThingKey.create("local");
+	public static final IThingKey<Point> WORLD_KEY = ThingKey.create("world");
 
 	public static final int round(double d) {
 		return (int) Math.round(d);
@@ -858,14 +859,14 @@ public class BNAUtils {
 	}
 
 	public static void saveCoordinateMapperData(ICoordinateMapper cm, EnvironmentPropertiesThing ept) {
-		ept.set(OFFSET_KEY, cm.localToWorld(cm.getLocalOrigin(new Point())));
 		ept.set(SCALE_KEY, cm.getLocalScale());
+		ept.set(LOCAL_KEY, cm.getLocalOrigin(new Point()));
+		ept.set(WORLD_KEY, cm.localToWorld(cm.getLocalOrigin(new Point())));
 	}
 
 	public static void restoreCoordinateMapperData(IMutableCoordinateMapper cm, EnvironmentPropertiesThing ept) {
 		try {
-			cm.setLocalOrigin(ept.get(OFFSET_KEY));
-			cm.setLocalScale(ept.get(SCALE_KEY));
+			cm.setLocalScaleAndAlign(ept.get(SCALE_KEY), ept.get(LOCAL_KEY), ept.get(WORLD_KEY));
 		}
 		catch (Exception e) {
 		}
@@ -1174,7 +1175,7 @@ public class BNAUtils {
 		}
 		return closestPoint;
 	}
-	
+
 	// Convenience method for drawMarquee(..., Runnable).
 	public static void drawMarquee(final Graphics g, IResources r, int offset, final Rectangle rect) {
 		Runnable runnable = new Runnable() {
@@ -1193,16 +1194,16 @@ public class BNAUtils {
 			g.setForegroundColor(r.getColor(SWT.COLOR_WHITE));
 			g.setLineCap(SWT.CAP_FLAT);
 			g.setLineWidth(1);
-			
+
 			drawMarquee.run();
-			
+
 			g.setLineStyle(SWT.LINE_CUSTOM);
 			g.setForegroundColor(r.getColor(SWT.COLOR_BLACK));
-			g.setLineDash(new int[] {4, 4});
-			if(g instanceof SWTGraphics){
-				((SWTGraphics)g).setLineDashOffset(offset % 8);
+			g.setLineDash(new int[] { 4, 4 });
+			if (g instanceof SWTGraphics) {
+				((SWTGraphics) g).setLineDashOffset(offset % 8);
 			}
-			
+
 			drawMarquee.run();
 		}
 		finally {

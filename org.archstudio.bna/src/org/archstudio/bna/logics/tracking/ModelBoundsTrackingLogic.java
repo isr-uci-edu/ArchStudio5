@@ -10,7 +10,6 @@ import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IIsHidden;
 import org.eclipse.draw2d.geometry.Rectangle;
 
