@@ -29,7 +29,7 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 	}
 
 	protected Rectangle getBounds(C control, IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
-		return cm.worldToLocal(t.getBoundingBox()).translate(cm.getLocalOrigin(new Point()).negate());
+		return cm.worldToLocal(t.getBoundingBox());
 	}
 
 	@Override

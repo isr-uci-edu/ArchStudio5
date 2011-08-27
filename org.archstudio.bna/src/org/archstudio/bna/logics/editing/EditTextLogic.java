@@ -80,7 +80,7 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 	public void keyReleased(IBNAView view, KeyEvent e) {
 		if (SWT.F2 == e.keyCode) {
 			IThing editThing = null;
-			if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) <= 1) {
+			if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) == 1) {
 				MAIN: for (IThing thing : BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) {
 					for (IThing assemblyPartThing : Assemblies.getRelatedParts(view.getBNAWorld().getBNAModel(), thing)) {
 						if (UserEditableUtils.isEditableForAnyQualities(assemblyPartThing,
@@ -91,7 +91,8 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 					}
 				}
 			}
-			initEdit(editThing);
+			if(editThing != null)
+				initEdit(editThing);
 		}
 	}
 
