@@ -76,7 +76,7 @@ public class StructureEditorFocuser implements IArchipelagoEditorFocuser {
 					if (glassThing != null) {
 						Point p = BNAUtils.getCentralPoint(glassThing);
 						if (p != null) {
-							FlyToUtils.flyTo(view, p.x, p.y);
+							FlyToUtils.flyTo(view, p);
 							ArchipelagoUtils.pulseNotify(structureModel, glassThing);
 						}
 					}

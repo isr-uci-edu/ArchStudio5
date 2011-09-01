@@ -2,6 +2,7 @@ package org.archstudio.bna.logics.coordinating;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
@@ -11,7 +12,6 @@ import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.ThingKey;
-import org.archstudio.bna.logics.tracking.ReferenceTrackingLogic;
 import org.archstudio.bna.things.labels.TagThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -23,7 +23,7 @@ public class MaintainTagsLogic extends AbstractMaintainReferencedThingsLogic<ITh
 	public static final String USER_MAY_SHOW_TAG = "userMayShowTag";
 
 	public static final String TAG_PART_NAME = "tag";
-	public static final ThingKey<Boolean, V> SHOW_TAG_KEY = ThingKey.createKey("showTag");
+	public static final IThingKey<Boolean> SHOW_TAG_KEY = ThingKey.create("showTag");
 
 	public MaintainTagsLogic(ReferenceTrackingLogic rtl) {
 		super(IThing.class, new String[] { SHOW_TAG_KEY, IHasText.TEXT_KEY }, TagThing.class, new String[] {}, rtl,

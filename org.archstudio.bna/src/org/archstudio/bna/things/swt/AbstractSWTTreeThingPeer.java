@@ -4,6 +4,7 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.constants.CompletionStatus;
 import org.archstudio.bna.utils.BNAUtils;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
@@ -21,7 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ScrollBar;
 
 public abstract class AbstractSWTTreeThingPeer<T extends AbstractSWTTreeThing> extends
-		AbstractSWTViewerThingPeer<T, TreeViewer> {
+		AbstractViewerThingPeer<T, TreeViewer> {
 
 	public static final int DEFAULT_CONTROL_WIDTH = 340;
 	public static final int DEFAULT_CONTROL_HEIGHT = 220;
@@ -35,22 +36,6 @@ public abstract class AbstractSWTTreeThingPeer<T extends AbstractSWTTreeThing> e
 	protected abstract ITreeContentProvider getContentProvider();
 
 	protected abstract ILabelProvider getLabelProvider();
-
-	protected void updateLocalBoundingBox(ICoordinateMapper cm) {
-		Point p = t.getAnchorPoint();
-		Point lp = BNAUtils.worldToLocal(cm, p);
-
-		if (control != null) {
-			int cw = control.getControl().getBounds().width;
-			int ch = control.getControl().getBounds().height;
-			localBoundingBox = new Rectangle(lp.x - (cw / 2), lp.y - (ch / 2), cw, ch);
-		}
-		else {
-			localBoundingBox = new Rectangle(lp.x - (DEFAULT_CONTROL_WIDTH / 2), lp.y - (DEFAULT_CONTROL_HEIGHT / 2),
-					DEFAULT_CONTROL_WIDTH, DEFAULT_CONTROL_HEIGHT);
-		}
-		t.setProperty("#boundingBox", BNAUtils.localToWorld(cm, localBoundingBox));
-	}
 
 	public void draw(IBNAView view, GC g) {
 		updateLocalBoundingBox(view.getCoordinateMapper());
@@ -87,7 +72,6 @@ public abstract class AbstractSWTTreeThingPeer<T extends AbstractSWTTreeThing> e
 
 			if (composite.isFocusControl())
 				control.getControl().forceFocus();
-			;
 
 			control.addDoubleClickListener(new IDoubleClickListener() {
 				public void doubleClick(DoubleClickEvent event) {

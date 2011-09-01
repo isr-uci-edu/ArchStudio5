@@ -1,26 +1,33 @@
 package org.archstudio.archipelago.core.util;
 
+import static org.archstudio.sysutils.SystemUtils.castOrNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
-import org.archstudio.archipelago.core.structure.StructureMapper;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.things.utility.WorldThing;
 import org.archstudio.bna.things.utility.WorldThingPeer;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.FlyToUtils;
 import org.archstudio.resources.ArchStudioCommonResources;
 import org.archstudio.swtutils.DefaultFindResult;
 import org.archstudio.swtutils.IFindResult;
 import org.archstudio.swtutils.IFinder;
+import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
+import org.archstudio.xadlbna.things.IHasObjRef;
+import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Point;
 
 public class ArchipelagoFinder implements IFinder<IBNAView> {
 
@@ -33,7 +40,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 	@SuppressWarnings("unchecked")
 	public IFindResult[] find(IBNAView context, String search) {
 		List<IFindResult> resultList = new ArrayList<IFindResult>();
-		find(context, context.getWorld().getBNAModel(), search, "", resultList);
+		find(context, context.getBNAWorld().getBNAModel(), search, "", resultList);
 		Collections.sort(resultList);
 		return resultList.toArray(new IFindResult[resultList.size()]);
 	}
@@ -42,53 +49,58 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 		Object o = selectedResult.getData();
 		if ((o != null) && (o instanceof FindResultData)) {
 			final FindResultData frd = (FindResultData) o;
-			FlyToUtils.flyTo(frd.view, frd.p.x, frd.p.y);
+			FlyToUtils.flyTo(frd.view, frd.p.getCopy());
 
 			IThing t = frd.t;
-			ArchipelagoUtils.pulseNotify(frd.view.getWorld().getBNAModel(), t);
+			ArchipelagoUtils.pulseNotify(frd.view.getBNAWorld().getBNAModel(), t);
 		}
 	}
 
 	protected void find(IBNAView context, IBNAModel m, String search, String prefix, List<IFindResult> resultList) {
-		for (IThing t : m.getAllThings()) {
+		for (IThing t : m.getThings()) {
 			IFindResult r = null;
-			if (StructureMapper.isComponentAssemblyRootThing(t)) {
-				BoxAssembly a = BoxAssembly.attach(m, (IHasAssemblyData) t);
-				if (a.getBoxedLabelThing() != null) {
-					if (matches(search, a.getBoxedLabelThing().getText())) {
-						r = createFindResult(context, a.getBoxedLabelThing(), prefix, a.getBoxedLabelThing().getText(),
-								AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_COMPONENT));
-					}
+			IThing assembly = Assemblies.isAssembly(t) ? t : null;
+			ObjRef objRef = assembly != null ? assembly.get(IHasObjRef.OBJREF_KEY) : null;
+			if (assembly != null && objRef != null
+					&& XadlUtils.isInstanceOf(AS.xarch, objRef, Structure_3_0Package.Literals.COMPONENT)) {
+				String text = Assemblies.TEXT_KEY.get(assembly, m).getText();
+				if (matches(search, text)) {
+					r = createFindResult(context, assembly, prefix, text,
+							AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_COMPONENT));
 				}
-				find(context, a, search, resultList);
+				find(context, assembly, search, text, resultList);
 			}
-			else if (StructureMapper.isConnectorAssemblyRootThing(t)) {
-				BoxAssembly a = BoxAssembly.attach(m, (IHasAssemblyData) t);
-				if (a.getBoxedLabelThing() != null) {
-					if (matches(search, a.getBoxedLabelThing().getText())) {
-						r = createFindResult(context, a.getBoxedLabelThing(), prefix, a.getBoxedLabelThing().getText(),
-								AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_CONNECTOR));
-					}
+			if (assembly != null && objRef != null
+					&& XadlUtils.isInstanceOf(AS.xarch, objRef, Structure_3_0Package.Literals.CONNECTOR)) {
+				String text = Assemblies.TEXT_KEY.get(assembly, m).getText();
+				if (matches(search, text)) {
+					r = createFindResult(context, assembly, prefix, text,
+							AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_CONNECTOR));
 				}
-				find(context, a, search, resultList);
+				find(context, assembly, search, text, resultList);
 			}
-			else if (StructureMapper.isInterfaceAssemblyRootThing(t)) {
-				EndpointAssembly a = EndpointAssembly.attach(m, (IHasAssemblyData) t);
-				if (a.getEndpointGlassThing() != null) {
-					if (matches(search, a.getEndpointGlassThing().getToolTip())) {
-						r = createFindResult(context, a.getEndpointGlassThing(), prefix, a.getEndpointGlassThing()
-								.getToolTip(),
-								AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_INTERFACE));
-					}
+			if (assembly != null && objRef != null
+					&& XadlUtils.isInstanceOf(AS.xarch, objRef, Structure_3_0Package.Literals.INTERFACE)) {
+				String text = ToolTipLogic.getToolTip(assembly);
+				if (matches(search, text)) {
+					r = createFindResult(context, assembly, prefix, text,
+							AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_INTERFACE));
 				}
 			}
-			else if (StructureMapper.isLinkAssemblyRootThing(t)) {
-				StickySplineAssembly a = StickySplineAssembly.attach(m, (IHasAssemblyData) t);
-				if (a.getSplineGlassThing() != null) {
-					if (matches(search, a.getSplineGlassThing().getToolTip())) {
-						r = createFindResult(context, a.getSplineGlassThing(), prefix, a.getSplineGlassThing()
-								.getToolTip(), AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_LINK));
-					}
+			if (assembly != null && objRef != null
+					&& XadlUtils.isInstanceOf(AS.xarch, objRef, Structure_3_0Package.Literals.LINK)) {
+				String text = ToolTipLogic.getToolTip(assembly);
+				if (matches(search, text)) {
+					r = createFindResult(context, assembly, prefix, text,
+							AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_LINK));
+				}
+			}
+			if (assembly != null && objRef != null
+					&& XadlUtils.isInstanceOf(AS.xarch, objRef, Structure_3_0Package.Literals.INTERFACE_MAPPING)) {
+				String text = ToolTipLogic.getToolTip(assembly);
+				if (matches(search, text)) {
+					r = createFindResult(context, assembly, prefix, text,
+							AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_LINK));
 				}
 			}
 			if (r != null) {
@@ -105,24 +117,18 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 		return (target.indexOf(query) != -1);
 	}
 
-	protected void find(IBNAView context, BoxAssembly ba, String search, List<IFindResult> resultList) {
-		String prefix = "[No Description]/";
-		if (ba.getBoxedLabelThing() != null) {
-			String text = ba.getBoxedLabelThing().getText();
-			if (text != null) {
-				prefix = text + "/";
-			}
-		}
-
-		WorldThing wt = ba.getWorldThing();
-
-		WorldThingPeer wtp = (WorldThingPeer) context.getPeer(wt);
-
+	protected void find(IBNAView context, IThing boxAssembly, String search, String prefix, List<IFindResult> resultList) {
+		WorldThing wt = castOrNull(Assemblies.WORLD_KEY.get(boxAssembly, context.getBNAWorld().getBNAModel()),
+				WorldThing.class);
 		if (wt != null) {
-			IBNAWorld world = wt.getWorld();
-			if (world != null) {
-				IBNAModel internalModel = world.getBNAModel();
-				find(wtp.getInnerView(), internalModel, search, prefix, resultList);
+			@SuppressWarnings("unchecked")
+			WorldThingPeer<WorldThing> wtp = castOrNull(context.getThingPeer(wt), WorldThingPeer.class);
+			if (wtp != null) {
+				IBNAWorld world = wt.getWorld();
+				if (world != null) {
+					IBNAModel internalModel = world.getBNAModel();
+					find(wtp.getInnerView(), internalModel, search, prefix + "/", resultList);
+				}
 			}
 		}
 	}

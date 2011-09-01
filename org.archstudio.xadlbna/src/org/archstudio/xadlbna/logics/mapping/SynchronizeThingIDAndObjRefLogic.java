@@ -19,9 +19,8 @@ import org.archstudio.xarchadt.ObjRef;
 
 import com.google.common.collect.Sets;
 
-public class SynchronizeObjRefAndThingIDLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
+public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
 
-	int inUpdateCount = 0;
 	ThingValueTrackingLogic valuesLogic = null;
 	Set<IThingKeyKey<?, IThingKey<Object>, ObjRef>> objRef2Keys = Sets.newHashSet();
 	Set<IThingKey<Object>> thingIDKeys = Sets.newHashSet();
@@ -42,6 +41,8 @@ public class SynchronizeObjRefAndThingIDLogic extends AbstractThingLogic impleme
 		super.init();
 		valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
 	}
+
+	int inUpdateCount = 0;
 
 	@Override
 	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {

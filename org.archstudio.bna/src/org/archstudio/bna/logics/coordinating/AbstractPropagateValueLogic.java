@@ -12,9 +12,11 @@ import javax.annotation.Nullable;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.keys.IThingKeyKey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.IThingRefKeyKey;
@@ -72,6 +74,16 @@ public abstract class AbstractPropagateValueLogic<FROM_THING extends IThing, TO_
 		return key;
 	}
 
+	protected <T extends IThing> IThingRefKey<T> getSettingKey(TO_KEY toKey, IThingRefKey<T> settingKey) {
+		checkNotNull(toKey);
+		checkNotNull(settingKey);
+
+		IThingRefKeyKey<T, ?, TO_KEY> key = ThingRefKeyKey.create(settingKey, toKey);
+		toThingSettingsKeys.put(key, key.getKey());
+		toThingSettingsKeys.put(toKey, toKey);
+		return key;
+	}
+
 	protected void addSettingKey(TO_KEY toKey, IThingKey<?> settingKey) {
 		toThingSettingsKeys.put(settingKey, toKey);
 		toThingSettingsKeys.put(toKey, toKey);
@@ -96,9 +108,18 @@ public abstract class AbstractPropagateValueLogic<FROM_THING extends IThing, TO_
 	public IThingRefKey<FROM_THING> getThingRefKey(TO_KEY toKey) {
 		checkNotNull(toKey);
 
-		IThingRefKeyKey<FROM_THING, ?, TO_KEY> key = ThingRefKeyKey.create("propagateFromThing", toKey);
+		IThingRefKeyKey<FROM_THING, ?, TO_KEY> key = ThingRefKeyKey.create("&propagateFromThingID", toKey);
 		toThingSettingsKeys.put(key, key.getKey());
 		fromThingRefKeys.add(key);
+		return key;
+	}
+
+	public IThingRefKey<IHasWorld> getWorldThingRefKey(TO_KEY toKey) {
+		checkNotNull(toKey);
+
+		IThingRefKeyKey<IHasWorld, ?, TO_KEY> key = ThingRefKeyKey.create("&propagateFromWorldThingID", toKey);
+		toThingSettingsKeys.put(key, key.getKey());
+		toThingSettingsKeys.put(toKey, toKey);
 		return key;
 	}
 
@@ -153,33 +174,46 @@ public abstract class AbstractPropagateValueLogic<FROM_THING extends IThing, TO_
 	}
 
 	protected <EK extends IThingKey<EV>, EV> void fromThingChangedSync(BNAModelEvent<FROM_THING, EK, EV> evt) {
-		IBNAModel model = evt.getSource();
+		// note: we use the event source in order to propagate changes from an inner world to outer worlds
 		FROM_THING fromThing = evt.getTargetThing();
 		for (IThingRefKeyKey<FROM_THING, ?, TO_KEY> thingRefKey : Lists.newArrayList(fromThingRefKeys)) {
 			for (TO_THING toThing : Iterables.filter(
-					model.getThings(valuesLogic.getThingIDs(thingRefKey, fromThing.getID())), toThingClass)) {
-				doPropagationUnlessInCycle(model, fromThing, evt.getThingEvent(), toThing, null, thingRefKey.getKey());
+			// note: we propagate changes to things in the logic's BNA model to propagate 
+			// to propagate from the inner world to the outer world
+					getBNAModel().getThings(valuesLogic.getThingIDs(thingRefKey, fromThing.getID())), toThingClass)) {
+				doPropagationUnlessInCycle(evt.getSource(), fromThing, evt.getThingEvent(), toThing, null, thingRefKey.getKey());
 			}
 		}
 	}
 
 	protected <EK extends IThingKey<EV>, EV> void toThingChangedSync(BNAModelEvent<TO_THING, EK, EV> evt) {
-		IBNAModel model = evt.getSource();
 		TO_KEY toKey = toThingSettingsKeys.get(evt.getThingEvent().getPropertyName());
 		if (toKey != null) {
 			ThingEvent<TO_THING, EK, EV> toThingEvent = evt.getThingEvent();
 			TO_THING toThing = toThingEvent.getTargetThing();
 			IThingRefKey<FROM_THING> fromThingRefKey = getThingRefKey(toKey);
-			FROM_THING fromThing = castOrNull(fromThingRefKey.get(toThing, model), fromThingClass);
+			IBNAModel fromModel = evt.getSource();
+			IThingRefKey<IHasWorld> worldThingRefKey = getWorldThingRefKey(toKey);
+			Object worldThingID = toThing.get(worldThingRefKey);
+			if(worldThingID != null){
+				IHasWorld worldThing = castOrNull(evt.getSource().getThing(worldThingID), IHasWorld.class);
+				if(worldThing != null){
+					IBNAWorld world = worldThing.getWorld();
+					if(world != null){
+						fromModel = world.getBNAModel();
+					}
+				}
+			}
+			FROM_THING fromThing = castOrNull(fromThingRefKey.get(toThing, fromModel), fromThingClass);
 			if (fromThing != null) {
-				doPropagationUnlessInCycle(model, fromThing, null, toThing, toThingEvent, toKey);
+				doPropagationUnlessInCycle(fromModel, fromThing, null, toThing, toThingEvent, toKey);
 			}
 		}
 	}
 
 	private final Set<Object> updatingThingIDs = Sets.newHashSet();
 
-	private void doPropagationUnlessInCycle(final IBNAModel model, final FROM_THING fromThing,
+	private void doPropagationUnlessInCycle(final IBNAModel fromModel, final FROM_THING fromThing,
 			@Nullable final ThingEvent<FROM_THING, ?, ?> fromThingEvent, final TO_THING toThing,
 			@Nullable final ThingEvent<TO_THING, ?, ?> toThingEvent, final TO_KEY toKey) {
 
@@ -189,7 +223,7 @@ public abstract class AbstractPropagateValueLogic<FROM_THING extends IThing, TO_
 				toThing.synchronizedUpdate(new Runnable() {
 					@Override
 					public void run() {
-						doSynchronizedPropagation(model, fromThing, fromThingEvent, toThing, toThingEvent, toKey);
+						doSynchronizedPropagation(fromModel, fromThing, fromThingEvent, toThing, toThingEvent, toKey);
 					}
 				});
 			}
@@ -199,7 +233,7 @@ public abstract class AbstractPropagateValueLogic<FROM_THING extends IThing, TO_
 		}
 	}
 
-	abstract protected void doSynchronizedPropagation(IBNAModel model, FROM_THING fromThing,
+	abstract protected void doSynchronizedPropagation(IBNAModel fromModel, FROM_THING fromThing,
 			ThingEvent<FROM_THING, ?, ?> fromThingEvent, TO_THING toThing, ThingEvent<TO_THING, ?, ?> toThingEvent,
 			TO_KEY toKey);
 

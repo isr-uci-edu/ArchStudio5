@@ -25,7 +25,7 @@ import org.archstudio.xadl3.domain_3_0.DomainType;
 import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
 import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xadlbna.logics.mapping.AbstractXADLToBNAPathLogic;
-import org.archstudio.xadlbna.logics.mapping.SynchronizeObjRefAndThingIDLogic;
+import org.archstudio.xadlbna.logics.mapping.SynchronizeThingIDAndObjRefLogic;
 import org.archstudio.xadlbna.things.IHasXArchID;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
@@ -62,7 +62,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		};
 	};
 
-	SynchronizeObjRefAndThingIDLogic syncLogic = null;
+	SynchronizeThingIDAndObjRefLogic syncLogic = null;
 	ReparentToThingIDLogic reparentLogic = null;
 	ReorientToThingIDLogic reorientLogic = null;
 	StickPointLogic stickLogic = null;
@@ -75,7 +75,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 	public void init() {
 		super.init();
 
-		syncLogic = addThingLogic(SynchronizeObjRefAndThingIDLogic.class);
+		syncLogic = addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
 		reparentLogic = addThingLogic(ReparentToThingIDLogic.class);
 		reorientLogic = addThingLogic(ReorientToThingIDLogic.class);
 		stickLogic = addThingLogic(StickPointLogic.class);
@@ -91,7 +91,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 	}
 
 	@Override
-	protected EndpointGlassThing addThing(List<ObjRef> relativeAncestorRefs, ObjRef objRef) {
+	protected EndpointGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
 		EndpointGlassThing thing = Assemblies.createEndpoint(getBNAWorld(), null, null);
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
@@ -103,17 +103,20 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		UserEditableUtils.addEditableQualities(Assemblies.LABEL_KEY.get(thing, getBNAModel()),
 				IHasMutableFlow.USER_MAY_EDIT_FLOW);
 
-		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel())
-				.set(syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingKey()),
-						relativeAncestorRefs.get(1));
+		/*
+		 * restack so that the parent is the thing that represents the first
+		 * ancestor (i.e., the component or connector)
+		 */
+		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(
+				syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingIDKey()), relLineageRefs.get(1));
 
-		Assemblies.LABEL_KEY.get(thing, getBNAModel())
-				.set(syncLogic.syncObjRefKeyToThingIDKey(reorientLogic.getReorientToThingKey()),
-						relativeAncestorRefs.get(1));
+		/* orient to the parent thing */
+		Assemblies.LABEL_KEY.get(thing, getBNAModel()).set(
+				syncLogic.syncObjRefKeyToThingIDKey(reorientLogic.getReorientToThingKey()), relLineageRefs.get(1));
 
 		stickLogic.setStickyMode(thing, IHasAnchorPoint.ANCHOR_POINT_KEY, StickyMode.EDGE);
 		thing.set(syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getThingRefKey(IHasAnchorPoint.ANCHOR_POINT_KEY)),
-				relativeAncestorRefs.get(1));
+				relLineageRefs.get(1));
 
 		return thing;
 	}

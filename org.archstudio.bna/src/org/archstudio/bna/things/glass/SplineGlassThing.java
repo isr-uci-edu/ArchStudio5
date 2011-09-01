@@ -8,7 +8,7 @@ import org.archstudio.bna.things.AbstractSplineThing;
 
 public class SplineGlassThing extends AbstractSplineThing implements IHasMutableSelected, IHasMutableRotatingOffset {
 
-	public SplineGlassThing(String id) {
+	public SplineGlassThing(Object id) {
 		super(id);
 	}
 

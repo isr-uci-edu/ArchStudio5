@@ -1,8 +1,10 @@
 package org.archstudio.bna.things.swt;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.draw2d.Graphics;
@@ -19,7 +21,8 @@ public abstract class AbstractSWTViewerThingPeer<T extends AbstractSWTThing, V e
 	public AbstractSWTViewerThingPeer(T thing) {
 		super(thing);
 		t.addThingListener(new IThingListener() {
-			public void thingChanged(ThingEvent<?, ?> thingEvent) {
+			@Override
+			public <ET extends IThing, EK extends IThingKey<EV>, EV> void thingChanged(ThingEvent<ET, EK, EV> thingEvent) {
 				disposeViewer();
 			}
 		});

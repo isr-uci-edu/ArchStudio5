@@ -69,7 +69,8 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 			return;
 
 		IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
-		ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(new Point()), innerView.getCoordinateMapper());
+		ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(new Point()),
+				innerView.getCoordinateMapper());
 		Iterable<IThing> innerThings = innerView.getThingsAt(innerLocation);
 
 		switch (type) {
@@ -120,7 +121,9 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 
 	@Override
 	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
-		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_DOWN);
+		if (firstOrNull(things, IHasWorld.class) != null) {
+			mouseEvt(view, evt, things, location, MouseEventType.MOUSE_DOWN);
+		}
 	}
 
 	@Override
@@ -135,12 +138,16 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 
 	@Override
 	public void mouseClick(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
-		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_CLICK);
+		if (firstOrNull(things, IHasWorld.class) != null) {
+			mouseEvt(view, evt, things, location, MouseEventType.MOUSE_CLICK);
+		}
 	}
 
 	@Override
 	public void mouseDoubleClick(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
-		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_DOUBLECLICK);
+		if (firstOrNull(things, IHasWorld.class) != null) {
+			mouseEvt(view, evt, things, location, MouseEventType.MOUSE_DOUBLECLICK);
+		}
 	}
 
 	@Override

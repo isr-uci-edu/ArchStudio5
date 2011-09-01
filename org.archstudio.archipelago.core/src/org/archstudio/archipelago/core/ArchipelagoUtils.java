@@ -44,7 +44,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 public class ArchipelagoUtils {
-	public static final IThingKey<String> XARCH_ID_PROPERTY_NAME = ThingKey.create("xArchID");
+	public static final IThingKey<String> XARCH_ID_KEY = ThingKey.create("xArchID");
 
 	public static List<Object> combine(List<? extends Object> list1, Object o) {
 		List<Object> newList = new ArrayList<Object>(list1.size() + 1);
@@ -62,7 +62,7 @@ public class ArchipelagoUtils {
 	public static IThing findThing(IBNAModel m, String xArchID) {
 		for (IThing t : m.getAllThings()) {
 			if (!(t instanceof EnvironmentPropertiesThing)) {
-				String id = t.getProperty(XARCH_ID_PROPERTY_NAME);
+				String id = t.getProperty(XARCH_ID_KEY);
 				if (id != null && id.equals(xArchID)) {
 					return t;
 				}
@@ -74,7 +74,7 @@ public class ArchipelagoUtils {
 	public static IThing[] findAllThings(IBNAModel m, String xArchID) {
 		List<IThing> results = new ArrayList<IThing>();
 		for (IThing t : m.getAllThings()) {
-			String id = t.getProperty(XARCH_ID_PROPERTY_NAME);
+			String id = t.getProperty(XARCH_ID_KEY);
 			if (id != null && id.equals(xArchID)) {
 				results.add(t);
 			}

@@ -1,6 +1,7 @@
 package org.archstudio.bna.utils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static org.archstudio.sysutils.SystemUtils.nullEquals;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.widgets.Control;
 
@@ -25,20 +27,33 @@ public class DefaultBNAView implements IBNAView {
 	protected final IBNAWorld bnaWorld;
 	protected final ICoordinateMapper cm;
 	protected final PeerCache peerCache;
-	protected final Control control;
+	protected Control control = null;
 
-	public DefaultBNAView(Control control, @Nullable IBNAView parentView, IBNAWorld bnaWorld, ICoordinateMapper cm) {
+	public DefaultBNAView(@Nullable IBNAView parentView, IBNAWorld bnaWorld, ICoordinateMapper cm) {
 		super();
-		this.control = control;
+		this.control = parentView != null ? parentView.getControl() : null;
 		this.parentView = parentView;
 		this.peerCache = new PeerCache();
 		this.bnaWorld = checkNotNull(bnaWorld);
 		this.cm = checkNotNull(cm);
 	}
 
-	@Override
 	public Control getControl() {
 		return control;
+	}
+
+	public void setControl(Control control) {
+		if (!nullEquals(this.control, control)) {
+			this.control = control;
+			for (IThing t : getBNAWorld().getBNAModel().getThings()) {
+				IThingPeer<?> tp = getThingPeer(t);
+				if (tp instanceof IHasInnerViewPeer) {
+					IBNAView innerView = ((IHasInnerViewPeer) tp).getInnerView();
+					if (innerView != null)
+						innerView.setControl(control);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -75,12 +90,5 @@ public class DefaultBNAView implements IBNAView {
 
 	public <T extends IThing> void disposePeer(T thing) {
 		peerCache.disposePeer(thing);
-	}
-
-	@Override
-	public void setCursor(int swtCursor) {
-		if (control != null) {
-			control.getDisplay().getSystemCursor(swtCursor);
-		}
 	}
 }

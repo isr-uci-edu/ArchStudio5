@@ -18,7 +18,7 @@ public class MirrorBoundingBoxLogic extends AbstractMirrorValueLogic<IHasBoundin
 				new Function<Rectangle, Rectangle>() {
 					@Override
 					public Rectangle apply(Rectangle input) {
-						return input.getCropped(insets);
+						return input.getShrinked(insets);
 					}
 				});
 	}

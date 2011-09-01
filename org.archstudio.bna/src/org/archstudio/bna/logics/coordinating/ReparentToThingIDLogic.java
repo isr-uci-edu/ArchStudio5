@@ -14,7 +14,7 @@ public class ReparentToThingIDLogic extends AbstractThingLogic implements IBNASy
 
 	public static final IThingRefKey<IThing> REPARENT_TO_THING_KEY = ThingRefKey.create(ReparentToThingIDLogic.class);
 
-	public IThingRefKey<IThing> getReparentToThingKey() {
+	public IThingRefKey<IThing> getReparentToThingIDKey() {
 		return REPARENT_TO_THING_KEY;
 	}
 

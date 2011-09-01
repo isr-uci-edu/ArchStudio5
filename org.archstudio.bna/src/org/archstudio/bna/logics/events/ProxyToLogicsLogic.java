@@ -1,4 +1,4 @@
-package org.archstudio.bna.logics;
+package org.archstudio.bna.logics.events;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.bna.logics.AbstractThingLogic;
 
 import com.google.common.base.Function;
 import com.google.common.collect.MapMaker;

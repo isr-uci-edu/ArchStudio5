@@ -22,6 +22,7 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 		super.initProperties();
 		setMinimumSize(new Dimension(5, 5));
 		setBoundingBox(new Rectangle(0, 0, 10, 10));
+		addShapeModifyingKey(BOUNDING_BOX_KEY);
 	}
 
 	@Override

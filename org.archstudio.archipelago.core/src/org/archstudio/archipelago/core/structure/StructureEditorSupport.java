@@ -7,13 +7,15 @@ import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.structure.mapping.MapBrickLogic;
 import org.archstudio.archipelago.core.structure.mapping.MapInterfaceLogic;
 import org.archstudio.archipelago.core.structure.mapping.MapLinkLogic;
+import org.archstudio.archipelago.core.structure.mapping.MapMappingsLogic;
+import org.archstudio.archipelago.core.util.ArchipelagoFinder;
 import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThingLogicManager;
-import org.archstudio.bna.logics.ProxyToLogicsLogic;
+import org.archstudio.bna.LinearCoordinateMapper;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.editing.AlignAndDistributeLogic;
@@ -29,7 +31,9 @@ import org.archstudio.bna.logics.editing.ReshapeSplineLogic;
 import org.archstudio.bna.logics.editing.SnapToGridLogic;
 import org.archstudio.bna.logics.editing.SplineBreakLogic;
 import org.archstudio.bna.logics.editing.StandardCursorLogic;
+import org.archstudio.bna.logics.events.ProxyToLogicsLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
+import org.archstudio.bna.logics.information.FindDialogLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.things.ShadowThing;
@@ -38,6 +42,7 @@ import org.archstudio.bna.things.utility.GridThing;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAModel;
+import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.myx.fw.IMyxBrick;
 import org.archstudio.myx.fw.MyxRegistry;
@@ -80,7 +85,8 @@ public class StructureEditorSupport {
 		fl.type = SWT.HORIZONTAL;
 		parentComposite.setLayout(fl);
 
-		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, bnaWorld);
+		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, new DefaultBNAView(
+				null, bnaWorld, new LinearCoordinateMapper()));
 		bnaCanvas.setBackground(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
 		final EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAView()
@@ -90,7 +96,7 @@ public class StructureEditorSupport {
 		ept.set(IHasXArchID.XARCH_ID_KEY, (String) AS.xarch.get(structureRef, "id"));
 
 		// persist the coordinate mapper
-		
+
 		final ICoordinateMapper cm = bnaCanvas.getBNAView().getCoordinateMapper();
 		BNAUtils.restoreCoordinateMapperData((IMutableCoordinateMapper) cm, ept);
 		bnaCanvas.addDisposeListener(new DisposeListener() {
@@ -140,7 +146,7 @@ public class StructureEditorSupport {
 		return bnaWorld;
 	}
 
-	static void setupWorld(ArchipelagoServices AS, ObjRef structureRef, IBNAWorld bnaWorld) {
+	static void setupWorld(final ArchipelagoServices AS, ObjRef structureRef, IBNAWorld bnaWorld) {
 		ObjRef documentRootRef = AS.xarch.getDocumentRootRef(structureRef);
 
 		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
@@ -155,7 +161,7 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new SnapToGridLogic());
 
 		// generic logics -- alphabetized
-		
+
 		logicManager.addThingLogic(new ClickSelectionLogic());
 		logicManager.addThingLogic(new DragMovableLogic());
 		logicManager.addThingLogic(new KeyNudgerLogic());
@@ -178,6 +184,7 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new StructureNewInterfaceLogic(AS.xarch, AS.resources));
 		logicManager.addThingLogic(new EditTextLogic());
 		logicManager.addThingLogic(new EditFlowLogic());
+		logicManager.addThingLogic(new FindDialogLogic(new ArchipelagoFinder(AS)));
 		logicManager.addThingLogic(new RemoveElementLogic(AS.xarch));
 		logicManager.addThingLogic(new AlignAndDistributeLogic());
 		logicManager.addThingLogic(new RectifyToGridLogic());
@@ -186,12 +193,16 @@ public class StructureEditorSupport {
 		// xADL mapping logics
 
 		logicManager.addThingLogic(new MapBrickLogic(AS, AS.xarch, structureRef, "component", //
-				new Dimension(120, 80), ArchipelagoStructureConstants.DEFAULT_COMPONENT_RGB));
+				new Dimension(120, 80), ArchipelagoStructureConstants.DEFAULT_COMPONENT_RGB, 2));
 		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "component/interface"));
 		logicManager.addThingLogic(new MapBrickLogic(AS, AS.xarch, structureRef, "connector", //
-				new Dimension(240, 36), ArchipelagoStructureConstants.DEFAULT_CONNECTOR_RGB));
+				new Dimension(240, 36), ArchipelagoStructureConstants.DEFAULT_CONNECTOR_RGB, 1));
 		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "connector/interface"));
 		logicManager.addThingLogic(new MapLinkLogic(AS.xarch, structureRef, "link"));
+		logicManager.addThingLogic(new MapMappingsLogic(AS.xarch, structureRef,
+				"component/subStructure/interfaceMapping"));
+		logicManager.addThingLogic(new MapMappingsLogic(AS.xarch, structureRef,
+				"connector/subStructure/interfaceMapping"));
 
 		// propagate external events logics
 
@@ -204,9 +215,8 @@ public class StructureEditorSupport {
 		// these logics need to be last
 
 		// these logics need to be reintegrated
-		
+
 		//logicManager.addThingLogic(new RotaterLogic());
-		//logicManager.addThingLogic(new MaintainMappingEndpointsLogic(trtl, ttstlMapping, vtiel));
 		//
 		////Menu logics
 		//

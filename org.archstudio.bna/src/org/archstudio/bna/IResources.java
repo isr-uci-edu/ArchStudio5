@@ -8,6 +8,8 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 
@@ -29,6 +31,8 @@ public interface IResources {
 
 	public Font getFont(String fontName, int size, FontStyle style);
 
+	public Image getImage(ImageData imageData);
+	
 	public boolean setFont(Graphics g, IHasFontData thing);
 
 	public boolean setLineStyle(Graphics g, IHasLineData thing);

@@ -9,6 +9,8 @@ import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMutableColor;
+import org.archstudio.bna.facets.IHasMutableEndpoints;
+import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasMutablePoints;
 import org.archstudio.bna.facets.IHasStandardCursor;
 import org.archstudio.bna.facets.IIsSticky;
@@ -16,6 +18,7 @@ import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
@@ -51,9 +54,27 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		reshapeSplineGuides.addAll(Arrays.asList(guides));
 	}
 
+	int potentialHandles = 0;
 	@Override
 	protected void addHandles() {
+		potentialHandles = 0;
 		for (int i = 0; i < reshapingThing.getPointsSize(); i++) {
+			potentialHandles ++;
+
+			if (i == 0) {
+				if (!UserEditableUtils.isEditableForAnyQualities(reshapingThing,
+						IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1, IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT1))
+					continue;
+			}
+			else if (i == reshapingThing.getPointsSize() - 1) {
+				if (!UserEditableUtils.isEditableForAnyQualities(reshapingThing,
+						IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2, IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT2))
+					continue;
+			}
+			else if (!UserEditableUtils.isEditableForAnyQualities(reshapingThing,
+					IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS))
+				continue;
+
 			addHandle(Assemblies.createHandle(getBNAWorld(), null, null), i);
 		}
 	}
@@ -61,7 +82,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 	@Override
 	protected synchronized void updateHandles() {
 		if (reshapingThing != null) {
-			if (reshapeHandles.size() != reshapingThing.getPointsSize()) {
+			if (potentialHandles != reshapingThing.getPointsSize()) {
 				removeHandles();
 				addHandles();
 			}

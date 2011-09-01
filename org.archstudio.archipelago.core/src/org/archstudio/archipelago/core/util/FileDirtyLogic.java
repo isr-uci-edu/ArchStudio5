@@ -26,10 +26,10 @@ public class FileDirtyLogic extends AbstractThingLogic implements IBNAModelListe
 	static {
 		propertyNameSet.add(IHasBoundingBox.BOUNDING_BOX_KEY);
 		propertyNameSet.add(IHasAnchorPoint.ANCHOR_POINT_KEY);
-		propertyNameSet.add(IHasMidpoints.MIDPOINTS_PROPERTY_NAME);
-		propertyNameSet.add(IHasEndpoints.ENDPOINT_1_PROPERTY_NAME);
-		propertyNameSet.add(IHasEndpoints.ENDPOINT_2_PROPERTY_NAME);
-		propertyNameSet.add(IHasColor.COLOR_PROPERTY_NAME);
+		propertyNameSet.add(IHasMidpoints.MIDPOINTS_KEY);
+		propertyNameSet.add(IHasEndpoints.ENDPOINT_1_KEY);
+		propertyNameSet.add(IHasEndpoints.ENDPOINT_2_KEY);
+		propertyNameSet.add(IHasColor.COLOR_KEY);
 	}
 
 	public FileDirtyLogic(ArchipelagoServices services, ObjRef xArchRef) {

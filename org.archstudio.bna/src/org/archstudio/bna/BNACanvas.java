@@ -13,7 +13,6 @@ import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.SWTGraphics;
@@ -52,15 +51,17 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 	protected final BNASWTEventHandler eventHandler;
 	protected final IResources resources;
 
-	public BNACanvas(Composite parent, int style, IBNAWorld bnaWorld) {
+	public BNACanvas(Composite parent, int style, IBNAView bnaView) {
 		super(parent, style | SWT.NO_REDRAW_RESIZE | SWT.DOUBLE_BUFFERED);
-		checkNotNull(bnaWorld);
-		checkNotNull(bnaWorld.getBNAModel());
+		checkNotNull(bnaView);
+		checkNotNull(bnaView.getBNAWorld());
+		checkNotNull(bnaView.getBNAWorld().getBNAModel());
 
-		this.bnaView = new DefaultBNAView(parent, null, bnaWorld, new LinearCoordinateMapper());
+		this.bnaView = bnaView;
 		this.eventHandler = new BNASWTEventHandler(this, bnaView);
 		this.resources = new Resources(this);
 
+		bnaView.setControl(this);
 		this.addControlListener(new ControlAdapter() {
 			@Override
 			public void controlResized(ControlEvent e) {

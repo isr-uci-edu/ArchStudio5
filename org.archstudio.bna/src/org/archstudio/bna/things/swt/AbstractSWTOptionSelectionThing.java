@@ -13,9 +13,10 @@ import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.things.AbstractThing;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.graphics.Rectangle;
+
 
 public abstract class AbstractSWTOptionSelectionThing extends AbstractThing implements IHasMutableText,
 		IHasMutableAnchorPoint, IHasBoundingBox, IMutableMovesWith, IHasMutableColor, IHasMutableHorizontalAlignment,
@@ -49,11 +50,11 @@ public abstract class AbstractSWTOptionSelectionThing extends AbstractThing impl
 	}
 
 	public void setAnchorPoint(Point newAnchorPoint) {
-		setProperty(ANCHOR_POINT_PROPERTY_NAME, newAnchorPoint);
+		setProperty(ANCHOR_POINT_KEY, newAnchorPoint);
 	}
 
 	public Point getAnchorPoint() {
-		Point p = (Point) getProperty(ANCHOR_POINT_PROPERTY_NAME);
+		Point p = (Point) getProperty(ANCHOR_POINT_KEY);
 		return new Point(p.x, p.y);
 	}
 
@@ -70,75 +71,75 @@ public abstract class AbstractSWTOptionSelectionThing extends AbstractThing impl
 	}
 
 	public void setColor(RGB c) {
-		setProperty(COLOR_PROPERTY_NAME, c);
+		setProperty(COLOR_KEY, c);
 	}
 
 	public RGB getColor() {
-		return getProperty(COLOR_PROPERTY_NAME);
+		return getProperty(COLOR_KEY);
 	}
 
 	public String getText() {
-		return (String) getProperty(TEXT_PROPERTY_NAME);
+		return (String) getProperty(TEXT_KEY);
 	}
 
 	public void setText(String text) {
-		setProperty(TEXT_PROPERTY_NAME, text);
+		setProperty(TEXT_KEY, text);
 	}
 
 	public HorizontalAlignment getHorizontalAlignment() {
-		return (HorizontalAlignment) getProperty(HORIZONTAL_ALIGNMENT_PROPERTY_NAME);
+		return (HorizontalAlignment) getProperty(HORIZONTAL_ALIGNMENT_KEY);
 	}
 
 	public void setHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
-		setProperty(HORIZONTAL_ALIGNMENT_PROPERTY_NAME, horizontalAlignment);
+		setProperty(HORIZONTAL_ALIGNMENT_KEY, horizontalAlignment);
 	}
 
 	public String getFontName() {
-		return (String) getProperty(FONT_NAME_PROPERTY_NAME);
+		return (String) getProperty(FONT_NAME_KEY);
 	}
 
 	public void setFontName(String fontName) {
-		setProperty(FONT_NAME_PROPERTY_NAME, fontName);
+		setProperty(FONT_NAME_KEY, fontName);
 	}
 
 	public int getFontSize() {
-		return getProperty(FONT_SIZE_PROPERTY_NAME);
+		return getProperty(FONT_SIZE_KEY);
 	}
 
 	public void setFontSize(int fontSize) {
-		setProperty(FONT_SIZE_PROPERTY_NAME, fontSize);
+		setProperty(FONT_SIZE_KEY, fontSize);
 	}
 
 	public FontStyle getFontStyle() {
-		return (FontStyle) getProperty(FONT_STYLE_PROPERTY_NAME);
+		return (FontStyle) getProperty(FONT_STYLE_KEY);
 	}
 
 	public void setFontStyle(FontStyle fontStyle) {
-		setProperty(FONT_STYLE_PROPERTY_NAME, fontStyle);
+		setProperty(FONT_STYLE_KEY, fontStyle);
 	}
 
 	public void setEditing(boolean editing) {
-		setProperty(EDITING_PROPERTY_NAME, editing);
+		setProperty(EDITING_KEY, editing);
 	}
 
 	public boolean isEditing() {
-		return getProperty(EDITING_PROPERTY_NAME);
+		return getProperty(EDITING_KEY);
 	}
 
 	public void setMovesWithMode(int mode) {
-		setProperty(MOVES_WITH_MODE_PROPERTY_NAME, mode);
+		setProperty(MOVES_WITH_MODE_KEY, mode);
 	}
 
 	public int getMovesWithMode() {
-		return getProperty(MOVES_WITH_MODE_PROPERTY_NAME);
+		return getProperty(MOVES_WITH_MODE_KEY);
 	}
 
 	public void setMovesWithThingID(String movesWithThingID) {
-		setProperty(MOVES_WITH_THING_ID_PROPERTY_NAME, movesWithThingID);
+		setProperty(MOVES_WITH_THING_ID_KEY, movesWithThingID);
 	}
 
 	public String getMovesWithThingID() {
-		return getProperty(MOVES_WITH_THING_ID_PROPERTY_NAME);
+		return getProperty(MOVES_WITH_THING_ID_KEY);
 	}
 
 	public Point getReferencePoint() {
@@ -150,10 +151,10 @@ public abstract class AbstractSWTOptionSelectionThing extends AbstractThing impl
 	}
 
 	public CompletionStatus getCompletionStatus() {
-		return getProperty(COMPLETION_STATUS_PROPERTY_NAME);
+		return getProperty(COMPLETION_STATUS_KEY);
 	}
 
 	public void setCompletionStatus(CompletionStatus completionStatus) {
-		setProperty(COMPLETION_STATUS_PROPERTY_NAME, completionStatus);
+		setProperty(COMPLETION_STATUS_KEY, completionStatus);
 	}
 }
