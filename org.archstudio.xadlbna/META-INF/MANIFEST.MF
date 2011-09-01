@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: xADL BNA Functions
+Bundle-Name: ArchStudio xADL BNA Functions
 Bundle-SymbolicName: org.archstudio.xadlbna;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -15,3 +15,4 @@ Export-Package: org.archstudio.xadlbna.logics.editing,
  org.archstudio.xadlbna.logics.hints,
  org.archstudio.xadlbna.logics.mapping,
  org.archstudio.xadlbna.things
+Bundle-Vendor: archstudio.org

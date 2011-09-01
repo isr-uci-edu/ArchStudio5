@@ -1,7 +1,7 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: SWT Utility Classes
+Bundle-Name: ArchStudio SWT Utility Classes
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-SymbolicName: org.archstudio.utils.swt
+Bundle-SymbolicName: org.archstudio.utils.swt;singleton:=true
 Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
 Export-Package: biz.volantec.utils.widgets,

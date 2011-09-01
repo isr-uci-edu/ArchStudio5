@@ -1,7 +1,7 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: xArchADT Common
+Bundle-Name: ArchStudio xArchADT Common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-SymbolicName: org.archstudio.xarchadt
+Bundle-SymbolicName: org.archstudio.xarchadt;singleton:=true
 Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.xarchadt

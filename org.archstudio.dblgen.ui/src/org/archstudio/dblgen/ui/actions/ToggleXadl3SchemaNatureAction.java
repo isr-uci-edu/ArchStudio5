@@ -20,8 +20,8 @@ public class ToggleXadl3SchemaNatureAction extends AbstractToggleNatureObjectAct
 			MessageBox messageBox = new MessageBox(PlatformUI.getWorkbench().getDisplay().getActiveShell(),
 					SWT.ICON_WARNING | SWT.YES | SWT.NO);
 			messageBox.setMessage("Generating xADL data bindings in " + project.getName()
-					+ " will erase the contents of its current src folder. Erase the contents of " + project.getName()
-					+ " src folder?");
+					+ " will erase the contents of its current src folder. This operation"
+					+ " cannot be undone. Proceed?");
 			int rc = messageBox.open();
 			if (rc == SWT.YES)
 				return super.setNatureAdded(project, natureID, addNature);

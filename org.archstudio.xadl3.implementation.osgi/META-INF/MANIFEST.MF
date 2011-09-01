@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: xADL 3 bindings for implementation.osgi
 Bundle-SymbolicName: org.archstudio.xadl3.implementation.osgi;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Vendor: %providerName
+Bundle-Vendor: archstudio.org
 Bundle-Localization: plugin
 Export-Package: org.archstudio.xadl3.osgiimplementation_3_0,
  org.archstudio.xadl3.osgiimplementation_3_0.impl,
@@ -16,4 +16,3 @@ Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.xadl3.xlink;visibility:=reexport,
  org.archstudio.xadl3.implementation;visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ActivationPolicy: lazy

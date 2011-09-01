@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Ui
+Bundle-Name: ArchStudio Release Engineering UI Tools
 Bundle-SymbolicName: org.archstudio.releng.pde.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.releng.pde.ui.Activator
@@ -16,3 +16,4 @@ Require-Bundle: org.eclipse.ui,
  org.archstudio.utils.system
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: archstudio.org

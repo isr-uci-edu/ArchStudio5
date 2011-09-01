@@ -1,5 +1,5 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: Resources Core
+Bundle-Name: ArchStudio Resources Core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.resources.core;singleton:=true
 Bundle-Vendor: archstudio.org

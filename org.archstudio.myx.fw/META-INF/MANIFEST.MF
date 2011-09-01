@@ -1,6 +1,6 @@
 Bundle-ClassPath: .
 Bundle-ManifestVersion: 2
-Bundle-Name: Myx Framework
+Bundle-Name: ArchStudio Myx Framework
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.myx.fw;singleton:=true
 Bundle-Vendor: archstudio.org

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Myx Java Functionality
+Bundle-Name: ArchStudio Myx Java Functionality
 Bundle-SymbolicName: org.archstudio.myx.java;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -9,3 +9,4 @@ Require-Bundle: org.archstudio.myx.fw,
 Export-Package: org.archstudio.myx.java,
  org.archstudio.myx.java.comp,
  org.archstudio.myx.java.conn
+Bundle-Vendor: archstudio.org

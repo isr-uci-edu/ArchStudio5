@@ -9,3 +9,4 @@ Require-Bundle: com.google.guava,
  org.archstudio.utils.system,
  org.eclipse.draw2d,
  org.junit
+Bundle-Vendor: archstudio.org

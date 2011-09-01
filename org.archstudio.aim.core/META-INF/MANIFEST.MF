@@ -23,3 +23,4 @@ Require-Bundle: com.google.guava,
  org.archstudio.xadl3.implementation.osgi,
  org.archstudio.xadl.myx,
  org.archstudio.xadl3.implementation.lookup
+Bundle-Vendor: archstudio.org

@@ -1,10 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Myxgen
-Bundle-SymbolicName: org.archstudio.myx.myxgen
+Bundle-Name: ArchStudio Myx Component Stub Generator Myx Extensions
+Bundle-SymbolicName: org.archstudio.myx.myxgen;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.myx.myxgen.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: archstudio.org

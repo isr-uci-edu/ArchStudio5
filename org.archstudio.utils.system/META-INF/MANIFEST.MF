@@ -1,5 +1,5 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: System Utilities
+Bundle-Name: ArchStudio System Utilities
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.utils.system;singleton:=true
 Bundle-Vendor: archstudio.org

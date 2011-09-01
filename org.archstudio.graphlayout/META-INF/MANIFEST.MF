@@ -1,7 +1,7 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: Graph Layout Common
+Bundle-Name: ArchStudio Graph Layout Common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-SymbolicName: org.archstudio.graphlayout
+Bundle-SymbolicName: org.archstudio.graphlayout;singleton:=true
 Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.graphlayout,
