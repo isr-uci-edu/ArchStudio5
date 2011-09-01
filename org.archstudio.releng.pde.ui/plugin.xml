@@ -7,7 +7,7 @@
             adaptable="false"
             id="org.archstudio.relengtools.core.objectContribution1"
             nameFilter="*"
-            objectClass="java.lang.Object">
+            objectClass="org.eclipse.core.resources.IProject">
          <menu
                id="org.archstudio.relengtools.core.popupMenuMain"
                label="Release Tools"
@@ -46,18 +46,6 @@
                menubarPath="org.archstudio.eclipse.popupMenuMain/org.archstudio.relengtools.core.popupMenuMain/additions"
                style="push">
          </action>
-         <visibility>
-            <or>
-               <objectClass
-                     name="java.lang.Object">
-               </objectClass>
-               <not>
-                  <objectClass
-                        name="java.lang.Object">
-                  </objectClass>
-               </not>
-            </or>
-         </visibility>
       </objectContribution>
    </extension>
 
