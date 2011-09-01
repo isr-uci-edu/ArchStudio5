@@ -1,5 +1,5 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: xArchADT Core
+Bundle-Name: ArchStudio xArchADT Core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.xarchadt.core;singleton:=true
 Bundle-Vendor: archstudio.org

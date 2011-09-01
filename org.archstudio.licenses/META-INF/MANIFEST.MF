@@ -1,6 +1,6 @@
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Licenses
-Bundle-SymbolicName: org.archstudio.licenses
-Bundle-Vendor: Institute for Software Research
+Bundle-SymbolicName: org.archstudio.licenses;singleton:=true
+Bundle-Vendor: archstudio.org
 Bundle-Version: 1.0.0.qualifier
 Manifest-Version: 1.0

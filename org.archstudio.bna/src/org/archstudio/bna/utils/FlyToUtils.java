@@ -83,33 +83,4 @@ public class FlyToUtils {
 		flyThread.start();
 	}
 
-	public static int[] calcSteps(int numPixels, int numSteps) {
-		if (numSteps % 2 == 0) {
-			numSteps++;
-		}
-
-		int[] steps = new int[numSteps];
-
-		int np = numPixels;
-		int mp = numSteps / 2;
-		for (int i = mp; i >= 0; i--) {
-			np = np / 2;
-			steps[i] = np;
-		}
-
-		//int j = 1;
-		for (int i = mp + 1; i < numSteps; i++) {
-			steps[i] = steps[mp] + steps[mp] - steps[numSteps - i - 1];
-			//j++;
-		}
-		return steps;
-	}
-
-	//Base-2 logarithm
-	private static double lg(double x) {
-		double a = Math.log(x);
-		double b = Math.log(2.0);
-		return a / b;
-	}
-
 }

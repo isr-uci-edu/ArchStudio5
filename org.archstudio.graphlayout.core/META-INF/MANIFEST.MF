@@ -1,5 +1,5 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: Graph Layout Core
+Bundle-Name: ArchStudio Graph Layout Core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.graphlayout.core;singleton:=true
 Bundle-Vendor: archstudio.org

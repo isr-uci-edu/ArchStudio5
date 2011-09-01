@@ -1,5 +1,5 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio IssueADT Core
+Bundle-Name: ArchStudio Issue ADT Core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.issueadt.core;singleton:=true
 Bundle-Vendor: archstudio.org

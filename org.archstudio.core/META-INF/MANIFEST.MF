@@ -21,3 +21,4 @@ Require-Bundle: org.archstudio.aim,
  org.eclipse.emf.common,
  org.eclipse.ui,
  org.archstudio.launcher.core
+Bundle-Vendor: archstudio.org

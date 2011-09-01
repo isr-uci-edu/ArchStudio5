@@ -1,7 +1,7 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: Resources Common
+Bundle-Name: ArchStudio Resources Common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-SymbolicName: org.archstudio.resources
+Bundle-SymbolicName: org.archstudio.resources;singleton:=true
 Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.resources

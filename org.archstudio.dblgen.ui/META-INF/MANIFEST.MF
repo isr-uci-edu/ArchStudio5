@@ -17,3 +17,4 @@ Require-Bundle: org.archstudio.utils.eclipse,
  org.eclipse.core.runtime,
  org.archstudio.dblgen.core,
  org.archstudio.utils.osgi
+Bundle-Vendor: archstudio.org

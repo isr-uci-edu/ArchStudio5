@@ -1,7 +1,7 @@
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.archstudio.myxgen.core.Activator
 Bundle-ManifestVersion: 2
-Bundle-Name: Myx Component Stub Generator
+Bundle-Name: ArchStudio Myx Component Stub Generator JET Extensions
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.myxgen.jet;singleton:=true
 Bundle-Vendor: archstudio.org

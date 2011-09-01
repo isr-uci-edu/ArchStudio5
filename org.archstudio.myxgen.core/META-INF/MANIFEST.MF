@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Core
-Bundle-SymbolicName: org.archstudio.myxgen.core
+Bundle-Name: ArchStudio Myx Component Stub Generator Core
+Bundle-SymbolicName: org.archstudio.myxgen.core;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.myxgen.core.Activator
 Require-Bundle: org.eclipse.core.runtime,
@@ -28,3 +28,4 @@ Export-Package: org.archstudio.myxgen,
  org.archstudio.myxgen.eclipse.extension,
  org.archstudio.myxgen.jet.codegen,
  org.archstudio.myxgen.jet.util
+Bundle-Vendor: archstudio.org

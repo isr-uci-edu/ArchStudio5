@@ -1,5 +1,5 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Editors Common
+Bundle-Name: ArchStudio Eclipse Editors UI Common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.eclipse.ui;singleton:=true
 Bundle-Vendor: archstudio.org

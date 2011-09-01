@@ -1,7 +1,7 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: Tests
+Bundle-Name: ArchStudio XArch ADT Tests
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-SymbolicName: org.archstudio.xarchadt.tests
+Bundle-SymbolicName: org.archstudio.xarchadt.tests;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Export-Package: org.archstudio.xarchadt.common
 Manifest-Version: 1.0
@@ -12,3 +12,4 @@ Require-Bundle: com.google.guava,
  org.junit,
  org.eclipse.emf,
  org.archstudio.xadl3.xadlcore
+Bundle-Vendor: archstudio.org

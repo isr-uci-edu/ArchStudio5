@@ -7,3 +7,4 @@ Export-Package: org.archstudio.aim
 Manifest-Version: 1.0
 Require-Bundle: org.archstudio.xarchadt,
  org.archstudio.myx.fw
+Bundle-Vendor: archstudio.org

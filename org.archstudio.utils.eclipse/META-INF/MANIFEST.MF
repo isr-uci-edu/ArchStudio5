@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Eclipse
+Bundle-Name: ArchStudio Eclipse Utilities
 Bundle-SymbolicName: org.archstudio.utils.eclipse;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
@@ -9,3 +9,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.utils.osgi
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.archstudio.utils.eclipse
+Bundle-Vendor: archstudio.org
