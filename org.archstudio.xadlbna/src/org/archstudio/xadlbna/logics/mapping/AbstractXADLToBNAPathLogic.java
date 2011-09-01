@@ -42,7 +42,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 * @param <B>
 	 *            the BNA type
 	 */
-	public interface IXADLToBNATranslator<X extends Serializable, B> {
+	public static interface IXADLToBNATranslator<X extends Serializable, B> {
 
 		public B toBNAValue(X xadlValue);
 
@@ -55,7 +55,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 * {@link #updateBNA(ObjRef, XArchADTPath, XArchADTModelEvent, IThing)} for
 	 * a description.
 	 */
-	public interface IBNAUpdater {
+	public abstract class IBNAUpdater {
 
 		/**
 		 * Updates the BNA Assembly/Thing from the xADL ObjRef
@@ -63,11 +63,12 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 		 * @see AbstractXADLToBNAThingLogic#updateThing(List, XArchADTPath,
 		 *      ObjRef, XArchADTModelEvent, IThing)
 		 */
-		public void updateBNA(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt, IThing rootThing);
+		public void updateBNA(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt, T rootThing) {
+		}
 
 	}
 
-	public interface IXADLUpdater {
+	public abstract class IXADLUpdater {
 
 		/**
 		 * Updates the xADL ObjRef from the BNA Assembly/Thing
@@ -75,8 +76,9 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 		 * @see AbstractXADLToBNAThingLogic#storeThingData(ObjRef, IThing,
 		 *      BNAPath, BNAModelEvent)
 		 */
-		public <ET extends IThing, EK extends IThingKey<EV>, EV> void updateXADL(IThing rootThing,
-				BNAPath relativeBNAPath, BNAModelEvent<ET, EK, EV> evt, ObjRef objRef);
+		public <ET extends IThing, EK extends IThingKey<EV>, EV> void updateXADL(T rootThing, BNAPath relativeBNAPath,
+				BNAModelEvent<ET, EK, EV> evt, ObjRef objRef) {
+		}
 
 	}
 
@@ -157,7 +159,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 			@SuppressWarnings("unchecked")
 			@Override
-			public void updateBNA(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt, IThing rootThing) {
+			public void updateBNA(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt, T rootThing) {
 
 				// this maps updates from the xADL attribute to the BNA Thing's property
 
@@ -186,7 +188,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 				@SuppressWarnings("unchecked")
 				@Override
-				public <ET extends IThing, EK extends IThingKey<EV>, EV> void updateXADL(IThing rootThing,
+				public <ET extends IThing, EK extends IThingKey<EV>, EV> void updateXADL(T rootThing,
 						BNAPath relativeBNAPath, BNAModelEvent<ET, EK, EV> evt, ObjRef objRef) {
 
 					// this updates xADL attributes from the BNA Thing's property value
@@ -259,6 +261,10 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 		//		}
 		//	});
 		//}
+	}
+
+	protected void mapXPath(final String xPath, IBNAUpdater bnaUpdater) {
+		
 	}
 
 	//	/**

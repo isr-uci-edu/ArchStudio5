@@ -1,144 +1,143 @@
 package org.archstudio.bna.logics.coordinating;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static org.archstudio.sysutils.SystemUtils.castOrNull;
-
-import javax.annotation.Nullable;
-
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
-import org.archstudio.bna.IBNASynchronousModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasEndpoints;
+import org.archstudio.bna.facets.IHasMidpoints;
+import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IIsSticky;
-import org.archstudio.bna.keys.ThingKeyKey;
-import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
+import org.archstudio.bna.keys.ThingKey;
+import org.archstudio.bna.things.glass.MappingGlassThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import com.google.common.collect.Iterables;
+public abstract class AbstractStickPointLogic extends AbstractPropagateValueLogic<IIsSticky, IThing, IThingKey<Point>> {
 
-public abstract class AbstractStickPointLogic<STUCK_THING extends IThing> extends AbstractThingLogic implements
-		IBNASynchronousModelListener {
+	protected static final IThingKey<StickyMode> STICKY_MODE_KEY = ThingKey.create("stickyMode");
 
-	protected final Class<STUCK_THING> stuckThingClass;
+	public AbstractStickPointLogic() {
+		super(IIsSticky.class, IThing.class);
+	}
 
-	protected final IThingKey<Point> pointKey;
-	protected final IThingKey<StickyMode> stickyModeKey;
-	protected final IThingKey<Object> thingIDKey;
+	public IThingKey<StickyMode> getStickyModeKey(IThingKey<Point> forPointKey) {
+		return getSettingKey(forPointKey, STICKY_MODE_KEY);
+	}
 
-	protected ThingValueTrackingLogic vtl = null;
+	public StickyMode getStickyMode(IThing pointThing, IThingKey<Point> forPointKey) {
+		StickyMode stickyMode = getSetting(pointThing, forPointKey, STICKY_MODE_KEY);
+		if (stickyMode == null) {
+			stickyMode = StickyMode.CENTER;
+		}
+		return stickyMode;
+	}
 
-	public AbstractStickPointLogic(Class<STUCK_THING> stuckThingClass, IThingKey<Point> pointKey) {
-		this.stuckThingClass = stuckThingClass;
-		this.pointKey = pointKey;
-		this.stickyModeKey = ThingKeyKey.create("stickyMode", pointKey);
-		this.thingIDKey = ThingKeyKey.create("thingID", pointKey);
+	public void setStickyMode(IThing pointThing, IThingKey<Point> forPointKey, StickyMode stickyMode) {
+		setSetting(pointThing, forPointKey, STICKY_MODE_KEY, stickyMode);
+	}
+
+	public void unstick(IThing pointThing, IThingKey<Point> forPointKey) {
+		unpropagate(pointThing, forPointKey);
 	}
 
 	@Override
-	protected void init() {
-		super.init();
-		vtl = addThingLogic(ThingValueTrackingLogic.class);
+	protected <EK extends IThingKey<EV>, EV> void fromThingChangedSync(BNAModelEvent<IIsSticky, EK, EV> evt) {
+		if (evt.getTargetThing().isShapeModifyingKey(evt.getThingEvent().getPropertyName())) {
+			super.fromThingChangedSync(evt);
+		}
 	}
 
-	public void stick(final STUCK_THING thing, @Nullable final IIsSticky toStickyThing, final StickyMode stickyMode) {
-		checkNotNull(thing);
-		checkNotNull(stickyMode);
+	@Override
+	protected void doSynchronizedPropagation(IBNAModel fromModel, IIsSticky fromThing,
+			ThingEvent<IIsSticky, ?, ?> fromThingEvent, IThing toThing, ThingEvent<IThing, ?, ?> toThingEvent,
+			IThingKey<Point> toKey) {
 
-		thing.synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				thing.set(stickyModeKey, stickyMode);
-				thing.set(thingIDKey, toStickyThing != null ? toStickyThing.getID() : null);
+		StickyMode stickyMode = getSetting(toThing, toKey, STICKY_MODE_KEY);
+		if (stickyMode == null) {
+			return;
+		}
+		Point nearPoint = getNearPoint(toThing, toKey, stickyMode);
+		if (nearPoint == null) {
+			return;
+		}
+
+		// adjust the point proportionally if the 'stickyThing' has a rectangle and was just resized/moved
+		if (fromThingEvent != null) {
+			if (IHasBoundingBox.BOUNDING_BOX_KEY.equals(fromThingEvent.getPropertyName())) {
+				nearPoint = BNAUtils.movePointWith((Rectangle) fromThingEvent.getOldPropertyValue(),
+						(Rectangle) fromThingEvent.getNewPropertyValue(), nearPoint);
 			}
-		});
+		}
+
+		// calculate the closest sticky point on the sticky thing, given the current point as reference
+		Point stickyPoint = fromThing.getStickyPointNear(stickyMode, nearPoint);
+
+		// update the actual stuck point and secondary point if necessary
+		toThing.set(toKey, stickyPoint);
+		updateSecondaryPoint(fromModel, fromThing, null, toThing, null, toKey);
 	}
 
-	public IThingKey<StickyMode> getStickyModeKey() {
-		return stickyModeKey;
+	protected Point getNearPoint(IThing pointThing, IThingKey<Point> pointKey, StickyMode stickyMode) {
+		if (stickyMode.isDependsOnSecondaryPoint() && pointKey.equals(IHasEndpoints.ENDPOINT_1_KEY)) {
+			return ((IHasPoints) pointThing).getPoint(1);
+		}
+		if (stickyMode.isDependsOnSecondaryPoint() && pointKey.equals(IHasEndpoints.ENDPOINT_2_KEY)) {
+			return ((IHasPoints) pointThing).getPoint(-2);
+		}
+		if (stickyMode.isDependsOnSecondaryPoint() && pointKey.equals(MappingGlassThing.WORLD_POINT_KEY)) {
+			Point p = ((IHasPoints) pointThing).getPoint(-2);
+			// approximate inner world coordinates
+			p.translate(((IHasPoints) pointThing).getPoint(-1).getNegated());
+			p.translate(pointThing.get(MappingGlassThing.WORLD_POINT_KEY));
+			return p;
+		}
+		return pointThing.get(pointKey);
 	}
 
-	public IThingKey<Object> getThingIDKey() {
-		return thingIDKey;
-	}
+	boolean updatingSecondaryPoint = false;
 
-	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
-		switch (evt.getEventType()) {
-		case THING_CHANGED: {
-			EK p = evt.getThingEvent().getPropertyName();
-			ThingEvent<IIsSticky, EK, EV> stickyEvent = BNAUtils.castOrNull(evt.getThingEvent(), IIsSticky.class);
-			if (stickyEvent != null) {
-				IIsSticky stickyThing = stickyEvent.getTargetThing();
-				if (stickyThing.isShapeModifyingKey(stickyEvent.getPropertyName())) {
-					for (STUCK_THING stuckThing : Iterables.filter(
-							evt.getSource().getThings(vtl.getThingIDs(thingIDKey, stickyThing.getID())),
-							stuckThingClass)) {
-						updateStuckPoint(evt.getSource(), stickyThing, stickyEvent, stuckThing, null);
-					}
+	protected void updateSecondaryPoint(IBNAModel model, IIsSticky fromThing,
+			ThingEvent<IIsSticky, ?, ?> fromThingEvent, IThing toThing, ThingEvent<IThing, ?, ?> toThingEvent,
+			IThingKey<Point> toKey) {
+		if (updatingSecondaryPoint) {
+			return;
+		}
+		try {
+			updatingSecondaryPoint = true;
+			// check whether another endpoint depends on this point as a StickyMode#isDependsOnSecondaryPoint
+			if (toThing instanceof IHasEndpoints) {
+				IThingKey<Point> otherEndpointKey = null;
+				if (IHasEndpoints.ENDPOINT_1_KEY.equals(toKey)) {
+					otherEndpointKey = IHasEndpoints.ENDPOINT_2_KEY;
 				}
-			}
-			if (p.equals(stickyModeKey) || p.equals(thingIDKey) || p.equals(pointKey)) {
-				ThingEvent<STUCK_THING, EK, EV> stuckThingEvent = BNAUtils.castOrNull(evt.getThingEvent(),
-						stuckThingClass);
-				if (stuckThingEvent != null) {
-					STUCK_THING stuckThing = stuckThingEvent.getTargetThing();
-					IIsSticky stickyThing = castOrNull(evt.getSource().getThing(stuckThing.get(thingIDKey)),
-							IIsSticky.class);
-					if (stickyThing != null) {
-						updateStuckPoint(evt.getSource(), stickyThing, null, stuckThing, stuckThingEvent);
+				else if (IHasEndpoints.ENDPOINT_2_KEY.equals(toKey) || MappingGlassThing.WORLD_POINT_KEY.equals(toKey)) {
+					otherEndpointKey = IHasEndpoints.ENDPOINT_1_KEY;
+				}
+				// if midpoints are present, then they are the potential secondary points
+				if (toThing instanceof IHasMidpoints && !((IHasMidpoints) toThing).getMidpoints().isEmpty()) {
+					otherEndpointKey = null;
+				}
+				if (otherEndpointKey != null) {
+					StickyMode otherEndpointStickyMode = getStickyMode(toThing, otherEndpointKey);
+					// only update if the the other point depends on a secondary point 
+					if (otherEndpointStickyMode != null && otherEndpointStickyMode.isDependsOnSecondaryPoint()) {
+						IThing otherFromThing = model.getThing(getThingRef(toThing, otherEndpointKey));
+						if (fromThingClass.isInstance(otherFromThing)) {
+							doSynchronizedPropagation(model, (IIsSticky) otherFromThing, null, toThing, null,
+									otherEndpointKey);
+						}
 					}
 				}
 			}
 		}
+		finally {
+			updatingSecondaryPoint = false;
 		}
 	}
 
-	protected void updateStuckPoint(final IBNAModel model, final IIsSticky stickyThing,
-			@Nullable final ThingEvent<IIsSticky, ?, ?> stickyThingEvent, final STUCK_THING stuckThing,
-			@Nullable final ThingEvent<STUCK_THING, ?, ?> stuckThingEvent) {
-		stuckThing.synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				Point nearPoint = getNearPoint(stuckThing);
-
-				// adjust the point proportionally if the 'fromThing' has a rectangle and was just resized/moved
-				if (stickyThingEvent != null) {
-					if (IHasBoundingBox.BOUNDING_BOX_KEY.equals(stickyThingEvent.getPropertyName())) {
-						nearPoint = BNAUtils.movePointWith((Rectangle) stickyThingEvent.getOldPropertyValue(),
-								(Rectangle) stickyThingEvent.getNewPropertyValue(), nearPoint);
-					}
-				}
-
-				// calculate the closest sticky point on the sticky thing, given the current point as reference
-				StickyMode stickyMode = getStickyMode(stuckThing);
-				if (stickyMode == null) {
-					stickyMode = StickyMode.CENTER;
-				}
-				Point stickyPoint = stickyThing.getStickyPointNear(stickyMode, nearPoint);
-
-				// update the actual stuck point
-				setStuckPoint(stuckThing, stickyPoint);
-			}
-		});
-	}
-
-	protected @Nullable
-	Point getNearPoint(STUCK_THING stuckThing) {
-		return stuckThing.get(pointKey);
-	}
-
-	protected StickyMode getStickyMode(STUCK_THING stuckThing) {
-		return stuckThing.get(stickyModeKey);
-	}
-
-	protected void setStuckPoint(STUCK_THING stuckThing, Point stuckPoint) {
-		stuckThing.set(pointKey, stuckPoint);
-	}
 }

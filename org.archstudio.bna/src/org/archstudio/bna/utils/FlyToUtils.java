@@ -1,16 +1,17 @@
 package org.archstudio.bna.utils;
 
-import org.archstudio.bna.IBNAModel;
+import static org.archstudio.sysutils.SystemUtils.castOrNull;
+
 import org.archstudio.bna.IBNAView;
-import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 
 public class FlyToUtils {
 
-	public static synchronized void flyTo(IBNAView view, int wx, int wy) {
+	public static synchronized void flyTo(IBNAView view, final Point toWorldPoint) {
+
 		//if the given view is not the top-level view, then translate
 		//the world coordinates into world coordinates for the top view.
 		//Then change the view to be the top level view.
@@ -19,101 +20,67 @@ public class FlyToUtils {
 			while (topLevelView.getParentView() != null) {
 				topLevelView = topLevelView.getParentView();
 			}
-			int lx = view.getCoordinateMapper().worldXtoLocalX(wx);
-			int ly = view.getCoordinateMapper().worldYtoLocalY(wy);
-
-			wx = topLevelView.getCoordinateMapper().localXtoWorldX(lx);
-			wy = topLevelView.getCoordinateMapper().localYtoWorldY(ly);
+			view.getCoordinateMapper().worldToLocal(toWorldPoint);
+			topLevelView.getCoordinateMapper().localToWorld(toWorldPoint);
 			view = topLevelView;
 		}
 
-		final IBNAView fview = view;
-		final int worldX = wx;
-		final int worldY = wy;
-
-		ICoordinateMapper nmcm = view.getCoordinateMapper();
-		if (!(nmcm instanceof IMutableCoordinateMapper)) {
+		final Control control = view.getControl();
+		if (control == null) {
 			return;
 		}
-		final IMutableCoordinateMapper cm = (IMutableCoordinateMapper) nmcm;
+		final IMutableCoordinateMapper cm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
+		if (cm == null) {
+			return;
+		}
+		final double originalScale = cm.getLocalScale();
+		final Point localCenter = BNAUtils.toPoint(control.getSize()).scale(0.5d);
 
-		final Composite c = BNAUtils.getParentComposite(view);
-		if (c != null) {
-			final int componentWidth = c.getSize().x;
-			final int componentHeight = c.getSize().y;
+		Thread flyThread = new Thread() {
+			@Override
+			public void run() {
 
-			Thread flyThread = new Thread() {
+				try {
+					Point worldStart = cm.localToWorld(localCenter.getCopy());
+					Point worldEnd = toWorldPoint.getCopy();
+					Point worldDiff = worldEnd.getTranslated(worldStart.getNegated());
 
-				@Override
-				public void run() {
-					synchronized (FlyToUtils.class) {
-						int lcx = componentWidth / 2;
-						int lcy = componentHeight / 2;
-
-						int ox = cm.localXtoWorldX(0);
-						int oy = cm.localYtoWorldY(0);
-
-						int cx = cm.localXtoWorldX(lcx);
-						int cy = cm.localYtoWorldY(lcy);
-
-						//System.out.println("Calculating fly to from " + cx + "," + cy + " to " + worldX + "," + worldY + ".");
-
-						int dx = worldX - cx;
-						int dy = worldY - cy;
-
-						int lineLength = (int) Math.round(Math.sqrt(dx * dx + dy * dy));
-
-						int[] segLengths = calcSteps(lineLength, ((int) Math.round(lg(lineLength)) * 2));
-						//int[] segLengths = calcSteps(lineLength, 20);
-
-						Point o = new Point(ox, oy);
-						Point d = new Point(ox + dx, oy + dy);
-
-						//System.out.println("O = " + o.x + "," + o.y + " ; D =  " + d.x + "," + d.y + ".");
-						double oscale = cm.getScale();
-
-						//System.out.println(c2.util.ArrayUtils.arrayToString(segLengths));
-
-						double scaleFactor = oscale / 50.0d;
-
-						Point lastPoint = o;
-						for (int i = 0; i < segLengths.length; i++) {
-
-							IBNAModel model = fview.getBNAWorld().getBNAModel();
-							model.beginBulkChange();
-							try {
-								Point p = BNAUtils.toPoint(SWTWidgetUtils.calcPointOnLineAtDist(BNAUtils.toPoint(o),
-										BNAUtils.toPoint(d), segLengths[i]));
-
-								if (i < segLengths.length / 2) {
-									cm.rescaleRelative(-scaleFactor);
-								}
-								if (i > segLengths.length / 2) {
-									cm.rescaleRelative(scaleFactor);
-								}
-
-								cm.repositionRelative(p.x - lastPoint.x, p.y - lastPoint.y);
-								lastPoint = p;
+					for (double d = 0; d < Math.PI / 2; d += Math.PI / 8) {
+						long startTime = System.currentTimeMillis();
+						double transposeFactor = Math.sin(d);
+						double scaleFactor = 1; // / Math.sin(d * 2);
+						final Point worldIntermediate = worldStart.getTranslated(worldDiff.getScaled(transposeFactor));
+						final double intermediateScale = originalScale * scaleFactor;
+						SWTWidgetUtils.sync(control, new Runnable() {
+							@Override
+							public void run() {
+								cm.setLocalScaleAndAlign(intermediateScale, localCenter, worldIntermediate);
 							}
-							finally {
-								model.endBulkChange();
-							}
-
+						});
+						long elapsedTime = System.currentTimeMillis() - startTime;
+						long delay = 50 - elapsedTime;
+						if (delay > 0) {
 							try {
-								Thread.sleep(100);
+								Thread.sleep(delay);
 							}
 							catch (InterruptedException e) {
+								e.printStackTrace();
 							}
 						}
-
-						cm.rescaleAbsolute(oscale);
-						cm.repositionAbsolute(ox + dx, oy + dy);
-
 					}
 				}
-			};
-			flyThread.start();
-		}
+				finally {
+					// finally, set the cm to the correct scale and position
+					SWTWidgetUtils.async(control, new Runnable() {
+						@Override
+						public void run() {
+							cm.setLocalScaleAndAlign(originalScale, localCenter, toWorldPoint);
+						}
+					});
+				}
+			}
+		};
+		flyThread.start();
 	}
 
 	public static int[] calcSteps(int numPixels, int numSteps) {

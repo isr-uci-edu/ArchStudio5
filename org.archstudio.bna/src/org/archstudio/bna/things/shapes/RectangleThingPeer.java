@@ -9,6 +9,7 @@ import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.facets.peers.IHasShadowPeer;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectangleThingPeer<T> implements
@@ -34,11 +35,15 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 			}
 		}
 		if (r.setForegroundColor(g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
-			/*
-			 * This adjustment makes a drawn rectangle overlap the edge pixel of
-			 * a filled rectangle.
-			 */
-			g.drawRectangle(lbb.x, lbb.y, lbb.width - 1, lbb.height - 1);
+			r.setLineStyle(g, t);
+			int width = t.getLineWidth();
+			g.setLineWidth(width);
+			// shrink the lbb so that the edge lies just within the background
+			lbb.shrink(new Insets(width / 2, width / 2, (width - 1) / 2, (width - 1) / 2));
+			for (int i = t.getCount(); i >= 1; i--) {
+				g.drawRectangle(lbb.x, lbb.y, lbb.width - 1, lbb.height - 1);
+				lbb.shrink(width * 2, width * 2);
+			}
 		}
 	}
 
@@ -52,4 +57,5 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 			g.drawRectangle(lbb.x, lbb.y, lbb.width - 1, lbb.height - 1);
 		}
 	}
+
 }

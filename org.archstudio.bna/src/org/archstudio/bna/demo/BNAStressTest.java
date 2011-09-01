@@ -6,6 +6,7 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.bna.LinearCoordinateMapper;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasEndpoints;
@@ -27,6 +28,7 @@ import org.archstudio.bna.things.utility.GridThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAModel;
+import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Flow;
@@ -49,7 +51,7 @@ public class BNAStressTest {
 
 		final IBNAModel model = new DefaultBNAModel();
 		final IBNAWorld world = new DefaultBNAWorld("top view", model);
-		final BNACanvas canvas = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, world);
+		final BNACanvas canvas = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, new DefaultBNAView(shell, null, world, new LinearCoordinateMapper()));
 
 		BNARenderingSettings.setAntialiasGraphics(canvas, true);
 		BNARenderingSettings.setAntialiasText(canvas, true);

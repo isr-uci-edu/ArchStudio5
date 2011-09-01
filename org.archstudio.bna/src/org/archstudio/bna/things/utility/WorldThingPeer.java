@@ -9,18 +9,16 @@ import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.LinearCoordinateMapper;
+import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
-import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.SWT;
 
-public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThingPeer<T> implements IThingPeer<T> {
+public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThingPeer<T> implements IThingPeer<T>, IHasInnerViewPeer {
 	protected IBNAView innerView = null;
 
 	protected boolean localBoundingBoxChanged = false;
@@ -45,32 +43,6 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 	protected Rectangle lastModelBounds = BNAUtils.NONEXISTENT_RECTANGLE;
 	protected Rectangle clip = new Rectangle(0, 0, 0, 0);
 
-//	public static void setupCoordinateMapper(WorldThing vt, ICoordinateMapper cm, IMutableCoordinateMapper icm) {
-//		IBNAWorld innerWorld = vt.getWorld();
-//		if (innerWorld != null) {
-//			Rectangle localBoundingBox = cm.worldToLocal(BNAUtils.normalizeRectangle(vt.getBoundingBox()));
-//			EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(innerWorld.getBNAModel());
-//			if (ept == null) {
-//				return;
-//			}
-//
-//			Rectangle modelBounds = ept.getModelBounds();
-//			if (modelBounds == null) {
-//				return;
-//			}
-//
-//			double sx = (double) localBoundingBox.width / (double) modelBounds.width;
-//			double sy = (double) localBoundingBox.height / (double) modelBounds.height;
-//			double s = Math.min(sx, sy);
-//			icm.setLocalScale(s);
-//			double ddx = (s == sx) ? 0.0d : ((localBoundingBox.width / s) - modelBounds.width) / 2.0d;
-//			double ddy = (s == sy) ? 0.0d : ((localBoundingBox.height / s) - modelBounds.height) / 2.0d;
-//			int dx = BNAUtils.round(ddx);
-//			int dy = BNAUtils.round(ddy);
-//			icm.align(localBoundingBox.getTopLeft().translate(dx, dy), modelBounds.getTopLeft());
-//		}
-//	}
-
 	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 		IBNAWorld innerWorld = t.getWorld();
 		if (innerWorld == null) {
@@ -82,7 +54,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		}
 
 		if (innerView == null) {
-			innerView = new DefaultBNAView(view.getControl(), view, t.getWorld(), new LinearCoordinateMapper());
+			innerView = new DefaultBNAView(view, t.getWorld(), new LinearCoordinateMapper());
 		}
 
 		updateLocalBoundingBox(cm);
@@ -97,14 +69,13 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		}
 
 		if ((modelBounds.x == Integer.MIN_VALUE) || (modelBounds.width == 0) || (modelBounds.height == 0)) {
-			Rectangle worldBounds = new Rectangle();
-			innerView.getCoordinateMapper().getWorldBounds(worldBounds);
+			Rectangle worldBounds = innerView.getCoordinateMapper().getWorldBounds(new Rectangle());
 			modelBounds.x = worldBounds.x + (worldBounds.width / 2);
 			modelBounds.y = worldBounds.y + (worldBounds.height / 2);
-
 			modelBounds.width = 100;
 			modelBounds.height = 100;
 		}
+		modelBounds.expand(1, 1);
 
 		ICoordinateMapper icm = innerView.getCoordinateMapper();
 

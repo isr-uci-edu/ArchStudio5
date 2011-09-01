@@ -8,6 +8,7 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.GridUtils;
 import org.archstudio.bna.utils.IBNAKeyListener;
+import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
@@ -81,12 +82,13 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 	}
 
 	protected void nudge(final Orientation o, final int distance, final IRelativeMovable t) {
-		t.synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				Point p = t.getReferencePoint();
-				t.setReferencePoint(nudge(o, distance, p));
-			}
-		});
+		if (UserEditableUtils.isEditableForAllQualities(t, IRelativeMovable.USER_MAY_MOVE)) {
+			t.synchronizedUpdate(new Runnable() {
+				@Override
+				public void run() {
+					t.moveRelative(nudge(o, distance, new Point(0, 0)));
+				}
+			});
+		}
 	}
 }

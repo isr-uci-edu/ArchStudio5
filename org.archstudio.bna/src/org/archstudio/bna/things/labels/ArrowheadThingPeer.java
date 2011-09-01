@@ -1,11 +1,12 @@
 package org.archstudio.bna.things.labels;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.IResources;
 import org.archstudio.bna.constants.ArrowheadShape;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.utils.ArrowheadUtils;
-import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -19,11 +20,10 @@ public class ArrowheadThingPeer<T extends ArrowheadThing> extends AbstractThingP
 	}
 
 	@Override
-	public void draw(IBNAView view, Graphics g, Rectangle clip, ResourceUtils res) {
+	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 
-		ICoordinateMapper cm = view.getCoordinateMapper();
-		Point lp1 = BNAUtils.worldToLocal(cm, t.getAnchorPoint());
-		Point lp2 = BNAUtils.worldToLocal(cm, t.getReferencePoint());
+		Point lp1 = cm.worldToLocal(t.getAnchorPoint());
+		Point lp2 = cm.worldToLocal(t.getReferencePoint());
 
 		ArrowheadShape arrowheadShape = t.getArrowheadShape();
 		if (arrowheadShape == null || arrowheadShape == ArrowheadShape.NONE) {
@@ -33,8 +33,8 @@ public class ArrowheadThingPeer<T extends ArrowheadThing> extends AbstractThingP
 		int arrowheadSize = t.getArrowheadSize();
 		boolean arrowheadFilled = t.isArrowheadFilled();
 
-		Color fg = res.getColor(t.getColor(), SWT.COLOR_BLACK);
-		Color bg = res.getColor(t.getSecondaryColor(), SWT.COLOR_BLACK);
+		Color fg = r.getColor(t.getColor(), SWT.COLOR_BLACK);
+		Color bg = r.getColor(t.getSecondaryColor(), SWT.COLOR_BLACK);
 
 		int[] points = ArrowheadUtils.calculateTriangularArrowhead(wp2.x, wp2.y, wp1.x, wp1.y, arrowheadSize);
 		if (points == null) {
@@ -59,7 +59,7 @@ public class ArrowheadThingPeer<T extends ArrowheadThing> extends AbstractThingP
 	}
 
 	@Override
-	public boolean isInThing(IBNAView view, int worldX, int worldY) {
+	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}
 }

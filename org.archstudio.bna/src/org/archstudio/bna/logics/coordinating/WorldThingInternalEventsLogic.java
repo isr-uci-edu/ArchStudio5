@@ -1,10 +1,7 @@
 package org.archstudio.bna.logics.coordinating;
 
-import static org.archstudio.sysutils.SystemUtils.newCopyOnWriteArrayList;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
@@ -111,26 +108,16 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	protected CopyOnWriteArrayList<IInternalBNAModelListener> internalBNAModelListeners = newCopyOnWriteArrayList();
-
-	public void addInternalBNAModelListener(IInternalBNAModelListener l) {
-		internalBNAModelListeners.add(l);
-	}
-
-	public void removeInternalBNAModelListener(IInternalBNAModelListener l) {
-		internalBNAModelListeners.remove(l);
-	}
-
 	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void fireInternalBNAModelEvent(IHasWorld src,
 			BNAModelEvent<ET, EK, EV> evt) {
-		for (IInternalBNAModelListener l : internalBNAModelListeners) {
+		for (IInternalBNAModelListener l : getBNAWorld().getThingLogicManager().getThingLogics(IInternalBNAModelListener.class)) {
 			l.internalBNAModelChanged(src, evt);
 		}
 	}
 
 	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void fireInternalBNAModelEventSync(IHasWorld src,
 			BNAModelEvent<ET, EK, EV> evt) {
-		for (IInternalBNAModelListener l : internalBNAModelListeners) {
+		for (IInternalBNAModelListener l : getBNAWorld().getThingLogicManager().getThingLogics(IInternalBNAModelListener.class)) {
 			l.internalBNAModelChangedSync(src, evt);
 		}
 	}

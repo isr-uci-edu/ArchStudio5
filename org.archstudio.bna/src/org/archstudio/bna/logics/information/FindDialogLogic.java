@@ -1,9 +1,9 @@
 package org.archstudio.bna.logics.information;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAKeyListener;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.swtutils.FindDialog;
@@ -15,7 +15,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
 public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListener, IBNAMenuListener {
@@ -40,17 +40,18 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 	public void keyReleased(IBNAView view, KeyEvent e) {
 	}
 
-	public void fillMenu(final IBNAView view, final Point localPoint, Point worldPoint, Iterable<IThing> things,
-			IMenuManager m) {
-		if (things == null && view.getParentView() == null) {
+	@Override
+	public void fillMenu(final IBNAView view, Iterable<IThing> things, final ICoordinate location, IMenuManager menu) {
+		if (view.getParentView() == null) {
 			IAction findAction = new Action("Find...") {
 				@Override
 				public void run() {
-					showFindDialog(view, localPoint, localY);
+					Point localPoint = location.getLocalPoint(new Point());
+					showFindDialog(view, localPoint.x, localPoint.y);
 				}
 			};
-			m.add(findAction);
-			m.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+			menu.add(findAction);
+			menu.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		}
 	}
 
@@ -60,7 +61,7 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 			fd.getParent().setFocus();
 		}
 		else {
-			Composite c = BNAUtils.getParentComposite(view);
+			Control c = view.getControl();
 			if (c != null) {
 				fd = new FindDialog<IBNAView>(finder, c.getShell());
 				//if(localX != Integer.MIN_VALUE){

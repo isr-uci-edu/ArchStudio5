@@ -37,6 +37,7 @@ import org.archstudio.bna.logics.coordinating.WorldThingExternalEventsLogic;
 import org.archstudio.bna.logics.coordinating.WorldThingInternalEventsLogic;
 import org.archstudio.bna.things.glass.EllipseGlassThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
+import org.archstudio.bna.things.glass.MappingGlassThing;
 import org.archstudio.bna.things.glass.PolygonGlassThing;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
@@ -113,6 +114,10 @@ public class Assemblies {
 		part.set(PART_KEY, name);
 	}
 
+	public static boolean isAssembly(IThing potentialRootThing) {
+		return Boolean.TRUE.equals(potentialRootThing.get(IS_ROOT_KEY));
+	}
+	
 	public static final <T extends IThing> T getPart(IBNAModel model, IThing root, IThingRefKey<T> name) {
 		checkNotNull(model);
 		checkNotNull(name);
@@ -243,7 +248,7 @@ public class Assemblies {
 		tlm.addThingLogic(WorldThingInternalEventsLogic.class);
 		tlm.addThingLogic(WorldThingExternalEventsLogic.class);
 
-		mbbl.mirrorBoundingBox(glass, worldThing, new Insets(3, 3, 3, 3));
+		mbbl.mirrorBoundingBox(glass, worldThing, new Insets(6, 6, 6, 6));
 
 		return glass;
 	}
@@ -375,6 +380,27 @@ public class Assemblies {
 		SplineThing bkg = model.addThing(new SplineThing(id),
 				parent != null ? parent : getLayer(model, SPLINE_LAYER_THING_ID));
 		SplineGlassThing glass = model.addThing(new SplineGlassThing(null), bkg);
+
+		mark(glass, BACKGROUND_KEY, bkg);
+
+		IThingLogicManager tlm = world.getThingLogicManager();
+		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
+
+		mvl.mirrorValue(glass, IHasEndpoints.ENDPOINT_1_KEY, bkg);
+		mvl.mirrorValue(glass, IHasMidpoints.MIDPOINTS_KEY, bkg);
+		mvl.mirrorValue(glass, IHasEndpoints.ENDPOINT_2_KEY, bkg);
+
+		return glass;
+	}
+
+	public static MappingGlassThing createMapping(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
+		checkNotNull(world);
+
+		IBNAModel model = world.getBNAModel();
+
+		SplineThing bkg = model.addThing(new SplineThing(id),
+				parent != null ? parent : getLayer(model, SPLINE_LAYER_THING_ID));
+		MappingGlassThing glass = model.addThing(new MappingGlassThing(null), bkg);
 
 		mark(glass, BACKGROUND_KEY, bkg);
 

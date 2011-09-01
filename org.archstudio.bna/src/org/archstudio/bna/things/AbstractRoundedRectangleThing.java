@@ -15,6 +15,7 @@ public abstract class AbstractRoundedRectangleThing extends AbstractRectangleThi
 	protected void initProperties() {
 		super.initProperties();
 		setCornerSize(new Dimension(0, 0));
+		addShapeModifyingKey(CORNER_SIZE_KEY);
 	}
 
 	@Override

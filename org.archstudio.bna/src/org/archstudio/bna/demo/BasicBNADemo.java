@@ -59,7 +59,7 @@ public class BasicBNADemo {
 		setupTopWorld(bnaWorld1);
 		populateModel(bnaWorld1);
 
-		IBNAView bnaView1 = new DefaultBNAView(null, null, bnaWorld1, new LinearCoordinateMapper());
+		IBNAView bnaView1 = new DefaultBNAView(shell, null, bnaWorld1, new LinearCoordinateMapper());
 
 		IBNAModel m2 = new DefaultBNAModel();
 		IBNAWorld bnaWorld2 = new DefaultBNAWorld("subworld", m2);
@@ -69,7 +69,7 @@ public class BasicBNADemo {
 		populateWithViews(bnaWorld1, bnaView1, bnaWorld2);
 
 		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL | SWT.DOUBLE_BUFFERED,
-				bnaWorld1);
+				bnaView1);
 		bnaComposite.setSize(500, 500);
 		bnaComposite.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
 

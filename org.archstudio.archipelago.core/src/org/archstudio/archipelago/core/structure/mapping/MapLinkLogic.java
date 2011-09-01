@@ -5,6 +5,7 @@ import java.util.List;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasEndpoints;
+import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableText;
@@ -16,7 +17,7 @@ import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.xadlbna.logics.mapping.AbstractXADLToBNAPathLogic;
-import org.archstudio.xadlbna.logics.mapping.SynchronizeObjRefAndThingIDLogic;
+import org.archstudio.xadlbna.logics.mapping.SynchronizeThingIDAndObjRefLogic;
 import org.archstudio.xadlbna.things.IHasXArchID;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
@@ -24,7 +25,7 @@ import org.eclipse.draw2d.geometry.Point;
 
 public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> {
 
-	SynchronizeObjRefAndThingIDLogic syncLogic = null;
+	SynchronizeThingIDAndObjRefLogic syncLogic = null;
 	StickPointLogic stickLogic = null;
 
 	public MapLinkLogic(IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
@@ -35,7 +36,7 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> {
 	public void init() {
 		super.init();
 
-		syncLogic = addThingLogic(SynchronizeObjRefAndThingIDLogic.class);
+		syncLogic = addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
 		stickLogic = addThingLogic(StickPointLogic.class);
 
 		syncAttribute("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
@@ -49,7 +50,7 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> {
 	}
 
 	@Override
-	protected SplineGlassThing addThing(List<ObjRef> relativeAncestorRefs, ObjRef objRef) {
+	protected SplineGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
 		SplineGlassThing thing = Assemblies.createSpline(getBNAWorld(), null, null);
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
@@ -58,11 +59,14 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> {
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
 				IRelativeMovable.USER_MAY_MOVE, IHasMutableText.USER_MAY_EDIT_TEXT,
-				IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS, IHasMutableMidpoints.USER_MAY_REMOVE_MIDPOINTS,
-				IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS);
+				IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS,
+				IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS,
+				IHasMutableMidpoints.USER_MAY_REMOVE_MIDPOINTS,//
+				IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1, IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT1,
+				IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2, IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT2);
 
-		thing.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), StickyMode.CENTER);
-		thing.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY), StickyMode.CENTER);
+		thing.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), StickyMode.EDGE_FROM_CENTER);
+		thing.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY), StickyMode.EDGE_FROM_CENTER);
 
 		return thing;
 	}

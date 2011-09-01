@@ -1145,7 +1145,29 @@ public class BNAUtils {
 	}
 
 	public static PrecisionPoint getClosestPointOnRectangle(Rectangle rectangle, Dimension cornerSize, Point nearPoint) {
-		return getClosestPointOnRectangle(rectangle, cornerSize, nearPoint, rectangle.getCenter());
+		int x1 = rectangle.x;
+		int y1 = rectangle.y;
+		int x2 = x1 + rectangle.width;
+		int y2 = y1 + rectangle.height;
+		PrecisionPoint closestPoint = BNAUtils.getClosestPointOnPolygon(new int[] { x1, y1, x2, y1, x2, y2, x1, y2, x1,
+				y1 }, nearPoint.x, nearPoint.y);
+		if (!cornerSize.isEmpty()) {
+			int cornerWidth = cornerSize.width;
+			int cornerHeight = cornerSize.height;
+			if (closestPoint.x < rectangle.x + cornerWidth / 2
+					|| closestPoint.x > rectangle.x + rectangle.width - cornerWidth / 2) {
+				if (closestPoint.y < rectangle.y + cornerHeight / 2
+						|| closestPoint.y > rectangle.y + rectangle.height - cornerHeight / 2) {
+					int cornerX = nearPoint.x < rectangle.getCenter().x ? rectangle.x : rectangle.x + rectangle.width
+							- cornerWidth;
+					int cornerY = nearPoint.y < rectangle.getCenter().y ? rectangle.y : rectangle.y + rectangle.height
+							- cornerHeight;
+					Rectangle cornerR = new Rectangle(cornerX, cornerY, cornerWidth, cornerHeight);
+					closestPoint = BNAUtils.getClosestPointOnEllipse(cornerR, nearPoint.x, nearPoint.y);
+				}
+			}
+		}
+		return closestPoint;
 	}
 
 	public static PrecisionPoint getClosestPointOnRectangle(Rectangle rectangle, Dimension cornerSize, Point nearPoint,
@@ -1155,7 +1177,7 @@ public class BNAUtils {
 		int x2 = x1 + rectangle.width;
 		int y2 = y1 + rectangle.height;
 		PrecisionPoint closestPoint = BNAUtils.getClosestPointOnPolygon(new int[] { x1, y1, x2, y1, x2, y2, x1, y2, x1,
-				y1 }, nearPoint.x, nearPoint.y);
+				y1 }, nearPoint.x, nearPoint.y, referencePoint.x, referencePoint.y);
 		if (!cornerSize.isEmpty()) {
 			int cornerWidth = cornerSize.width;
 			int cornerHeight = cornerSize.height;
@@ -1190,20 +1212,19 @@ public class BNAUtils {
 	public static void drawMarquee(Graphics g, IResources r, int offset, Runnable drawMarquee) {
 		g.pushState();
 		try {
-			g.setLineStyle(SWT.LINE_SOLID);
-			g.setForegroundColor(r.getColor(SWT.COLOR_WHITE));
-			g.setLineCap(SWT.CAP_FLAT);
 			g.setLineWidth(1);
 
+			g.setLineStyle(SWT.LINE_SOLID);
+			g.setForegroundColor(r.getColor(SWT.COLOR_WHITE));
 			drawMarquee.run();
 
 			g.setLineStyle(SWT.LINE_CUSTOM);
 			g.setForegroundColor(r.getColor(SWT.COLOR_BLACK));
+			g.setLineCap(SWT.CAP_FLAT);
 			g.setLineDash(new int[] { 4, 4 });
 			if (g instanceof SWTGraphics) {
 				((SWTGraphics) g).setLineDashOffset(offset % 8);
 			}
-
 			drawMarquee.run();
 		}
 		finally {
@@ -1371,7 +1392,7 @@ public class BNAUtils {
 		Rectangle localBoundingBox = cm.worldToLocal(t.getBoundingBox());
 		Insets insets = t.get(IHasLocalInsets.LOCAL_INSETS_KEY);
 		if (insets != null) {
-			localBoundingBox.crop(insets);
+			localBoundingBox.shrink(insets);
 		}
 		localResult.setBounds(localBoundingBox);
 		return localResult;

@@ -4,7 +4,7 @@ import org.archstudio.bna.IThing.IThingKey;
 
 import com.google.common.base.Function;
 
-public class CloneThingKey<D, V> extends AbstractCloneThingKey<D, V> implements IThingKey<V> {
+public class CloneThingKey<D, V> extends AbstractCloneThingKey<D, V> {
 
 	public static final <D, V> IThingKey<V> create(D keyData, Function<V, V> cloneFunction) {
 		return new CloneThingKey<D, V>(keyData, true, cloneFunction);

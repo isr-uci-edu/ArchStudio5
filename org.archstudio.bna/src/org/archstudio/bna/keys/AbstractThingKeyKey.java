@@ -13,7 +13,7 @@ public abstract class AbstractThingKeyKey<N, K extends IThingKey<?>, V> extends 
 	protected final K key;
 
 	protected AbstractThingKeyKey(boolean isFireEventOnChange, N name, K key) {
-		super(Lists.newArrayList(key, name), isFireEventOnChange);
+		super(Lists.newArrayList(name, key), isFireEventOnChange);
 		this.name = name;
 		this.key = key;
 	}

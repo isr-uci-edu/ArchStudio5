@@ -5,7 +5,7 @@ import org.archstudio.bna.keys.ThingKey;
 
 public interface IHasValue<V> {
 
-	public static final IThingKey<Object> VALUE_KEY = ThingKey.create("value");
+	public IThingKey<Object> VALUE_KEY = ThingKey.create("value");
 
 	public V getValue();
 

@@ -3,7 +3,6 @@ package org.archstudio.bna.things.swt;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IRegion;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
@@ -55,7 +54,7 @@ public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C 
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, IRegion localClip, IRegion worldClip) {
+	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 		Composite composite = r.getComposite();
 		if (composite == null) {
 			return;

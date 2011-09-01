@@ -2,6 +2,7 @@ package org.archstudio.bna.logics.coordinating;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMinimumSize;
@@ -55,9 +56,9 @@ public class MaintainGridLayoutLogic extends AbstractMaintainThingsLogic<IHasBou
 		}
 	}
 
-	public static final ThingKey<?, V> GRID_MASTER_DATA_KEY = ThingKey.createKey("gridMasterData");
+	public static final IThingKey<Object> GRID_MASTER_DATA_KEY = ThingKey.createKey("gridMasterData");
 
-	public static final ThingKey<?, V> GRID_DATA_KEY = ThingKey.createKey("gridData");
+	public static final IThingKey<Object> GRID_DATA_KEY = ThingKey.createKey("gridData");
 
 	private static final int[] calculateSizes(int totalSize, SizeHint[] hints) {
 

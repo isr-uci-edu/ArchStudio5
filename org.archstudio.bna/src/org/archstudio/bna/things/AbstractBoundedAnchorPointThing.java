@@ -6,7 +6,6 @@ import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSize;
-import org.archstudio.bna.facets.IHasSize;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -33,7 +32,8 @@ public abstract class AbstractBoundedAnchorPointThing extends AbstractAnchorPoin
 		super.initProperties();
 		setSize(new Dimension(6, 6));
 		set(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
-		addShapeModifyingKey(IHasSize.SIZE_KEY);
+		addShapeModifyingKey(SIZE_KEY);
+		addShapeModifyingKey(BOUNDING_BOX_KEY);
 	}
 
 	protected Rectangle calculateBoundingBox() {

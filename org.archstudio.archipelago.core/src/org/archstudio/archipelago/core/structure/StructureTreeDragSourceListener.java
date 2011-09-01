@@ -34,7 +34,7 @@ public class StructureTreeDragSourceListener implements DragSourceListener {
 					IBNAModel m = view.getBNAWorld().getBNAModel();
 					if (m != null) {
 						EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
-						String editingXArchID = ept.get(ArchipelagoUtils.XARCH_ID_PROPERTY_NAME);
+						String editingXArchID = ept.get(ArchipelagoUtils.XARCH_ID_KEY);
 						if (editingXArchID != null) {
 							ObjRef editingRef = AS.xarch.getByID(documentRootRef, editingXArchID);
 							if (editingRef != null) {

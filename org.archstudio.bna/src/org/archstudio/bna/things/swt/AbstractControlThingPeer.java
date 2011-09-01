@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Control;
 public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C extends Control> extends
 		AbstractThingPeer<T> {
 
-	private C control = null;
+	protected C control = null;
 
 	public AbstractControlThingPeer(T thing) {
 		super(thing);
@@ -33,7 +33,7 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 	}
 
 	@Override
-	public final void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
+	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 
 		if (control == null) {
 			control = createControl(view, cm, g, r);
