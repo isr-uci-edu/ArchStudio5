@@ -467,13 +467,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.archstudio.xadl3.gexf"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.archstudio.xadl3.hints"
          download-size="0"
          install-size="0"
