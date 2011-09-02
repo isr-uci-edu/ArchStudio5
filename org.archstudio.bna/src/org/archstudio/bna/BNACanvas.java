@@ -145,7 +145,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 
 	private void updateScrollBar(ScrollBar bar, int selection, int thumb, int total) {
 		assert isUpdatingScrollBars;
-		
+
 		// ScrollBar silently fails when certain constraints are violated
 		thumb = Math.min(thumb, total);
 		bar.setValues(Math.max(0, selection), 0, Math.max(1, total - thumb), Math.max(1, thumb),
@@ -183,13 +183,18 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 			// scroll the screen to align with the desired origin
 			int dx = newLocalOrigin.x - lastLocalOrigin.x;
 			int dy = newLocalOrigin.y - lastLocalOrigin.y;
-			org.eclipse.swt.graphics.Rectangle client = getClientArea();
-			scroll(-dx, -dy, 0, 0, client.width, client.height, true);
+
+			// for the moment, redraw is fast enough with the cached local bounds
+			// consider scroll again later, for larger and graphically more complex architectures
+			redraw();
+			//org.eclipse.swt.graphics.Rectangle client = getClientArea();
+			//scroll(-dx, -dy, 0, 0, client.width, client.height, true);
+			//// scroll automatically causes a redraw of the newly revealed area
+
 			// update the cached local bounds as well
 			for (RenderData renderData : autoRenderData.values()) {
 				renderData.lastLocalBounds.translate(-dx, -dy);
 			}
-			// scroll automatically causes a redraw of the newly revealed area
 		}
 		lastLocalScale = newLocalScale;
 		lastLocalOrigin = newLocalOrigin;

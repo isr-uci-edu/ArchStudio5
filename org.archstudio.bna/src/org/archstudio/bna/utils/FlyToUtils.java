@@ -36,7 +36,7 @@ public class FlyToUtils {
 		final double originalScale = cm.getLocalScale();
 		final Point localCenter = BNAUtils.toPoint(control.getSize()).scale(0.5d);
 
-		Thread flyThread = new Thread() {
+		Thread flyThread = new Thread(FlyToUtils.class.getName()) {
 			@Override
 			public void run() {
 
@@ -45,28 +45,21 @@ public class FlyToUtils {
 					Point worldEnd = toWorldPoint.getCopy();
 					Point worldDiff = worldEnd.getTranslated(worldStart.getNegated());
 
-					for (double d = 0; d < Math.PI / 2; d += Math.PI / 8) {
-						long startTime = System.currentTimeMillis();
+					long duration = 1000;
+					long startTime = System.currentTimeMillis();
+					long currentTime;
+					long endTime = startTime + duration;
+					while ((currentTime = System.currentTimeMillis()) < endTime) {
+						double d = Math.PI / 2 * (currentTime - startTime) / duration;
 						double transposeFactor = Math.sin(d);
-						double scaleFactor = 1; // / Math.sin(d * 2);
 						final Point worldIntermediate = worldStart.getTranslated(worldDiff.getScaled(transposeFactor));
-						final double intermediateScale = originalScale * scaleFactor;
+						final double intermediateScale = Math.max(0.0001, originalScale - originalScale * 0.7 * Math.sin(d * 2));
 						SWTWidgetUtils.sync(control, new Runnable() {
 							@Override
 							public void run() {
 								cm.setLocalScaleAndAlign(intermediateScale, localCenter, worldIntermediate);
 							}
 						});
-						long elapsedTime = System.currentTimeMillis() - startTime;
-						long delay = 50 - elapsedTime;
-						if (delay > 0) {
-							try {
-								Thread.sleep(delay);
-							}
-							catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-						}
 					}
 				}
 				finally {
