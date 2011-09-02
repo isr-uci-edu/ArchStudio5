@@ -1,5 +1,6 @@
 package org.archstudio.archipelago.core;
 
+import org.archstudio.archipelago.core.IArchipelagoLabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
 

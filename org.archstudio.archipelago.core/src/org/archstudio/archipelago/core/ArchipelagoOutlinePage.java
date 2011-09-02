@@ -7,6 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.archstudio.archipelago.core.IArchipelagoEditorFocuser;
+import org.archstudio.archipelago.core.IArchipelagoLabelProvider;
+import org.archstudio.archipelago.core.IArchipelagoTreeContentProvider;
+import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
+import org.archstudio.archipelago.core.IArchipelagoTreeDoubleClickHandler;
+import org.archstudio.archipelago.core.IArchipelagoTreePlugin;
 import org.archstudio.archipelago.core.structure.StructureTreePlugin;
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.editormanager.IEditorManager;
@@ -92,6 +98,8 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		//addTreePlugin(new StatechartsTreePlugin(getTreeViewer(), AS, xArchRef));
 		//addTreePlugin(new StatelineTreePlugin(getTreeViewer(), AS, xArchRef));
 		//addTreePlugin(new HPCTreePlugin(getTreeViewer(), AS, documentRootRef));
+		
+		
 
 		getTreeViewer().expandToLevel(4);
 		getTreeViewer().reveal(documentRootRef);

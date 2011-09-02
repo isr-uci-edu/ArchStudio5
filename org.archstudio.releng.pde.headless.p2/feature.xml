@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.archstudio.releng.pde.headless.p2"
-      label="P2"
+      label="ArchStudio Release Engineering Tools P2 Update Site for Buckminster Build"
       version="1.0.0.qualifier">
 
    <description url="http://www.example.com/description">
