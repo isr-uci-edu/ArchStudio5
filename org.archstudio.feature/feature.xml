@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.archstudio.feature"
-      label="Feature"
-      version="1.0.0.qualifier">
+      label="ArchStudio Architecting Environment Feature"
+      version="5.0.0.qualifier"
+      provider-name="archstudio.org">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
@@ -559,5 +560,12 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+
+   <plugin
+         id="org.archstudio.archipelago"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>

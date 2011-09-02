@@ -1,5 +1,11 @@
 package org.archstudio.archipelago.core;
 
+import org.archstudio.archipelago.core.IArchipelagoEditorFocuser;
+import org.archstudio.archipelago.core.IArchipelagoLabelProvider;
+import org.archstudio.archipelago.core.IArchipelagoTreeContentProvider;
+import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
+import org.archstudio.archipelago.core.IArchipelagoTreeDoubleClickHandler;
+import org.archstudio.archipelago.core.IArchipelagoTreePlugin;
 import org.archstudio.filemanager.IFileManagerListener;
 import org.archstudio.xarchadt.IXArchADTFileListener;
 import org.archstudio.xarchadt.IXArchADTModelListener;

@@ -1,5 +1,6 @@
 package org.archstudio.archipelago.core;
 
+import org.archstudio.archipelago.core.IArchipelagoLabelProvider;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
 import org.archstudio.xadlswt.XadlTreeUtils;

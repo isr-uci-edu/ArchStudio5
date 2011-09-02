@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.archstudio.dblgen.headless.feature"
-      label="Feature"
-      version="1.0.0.qualifier">
+      label="ArchStudio xADL Data Binding Library (DBL) Generator Feature for Buckminster Build"
+      version="1.0.0.qualifier"
+      provider-name="archstudio.org">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
