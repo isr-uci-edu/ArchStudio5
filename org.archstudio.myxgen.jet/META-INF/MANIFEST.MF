@@ -1,5 +1,5 @@
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.archstudio.myxgen.core.Activator
+Bundle-Activator: org.archstudio.myxgen.jet.Activator
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Myx Component Stub Generator JET Extensions
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -11,4 +11,17 @@ Require-Bundle: org.archstudio.myxgen,
  org.archstudio.myxgen.core,
  org.archstudio.utils.system,
  org.archstudio.myx.fw,
- org.eclipse.jet
+ org.eclipse.jet,
+ com.google.guava;bundle-version="0.0.9",
+ org.eclipse.core.resources;bundle-version="3.7.100",
+ org.eclipse.core.runtime;bundle-version="3.7.0",
+ org.eclipse.jdt.core;bundle-version="3.7.0",
+ org.archstudio.utils.osgi;bundle-version="1.0.0",
+ org.archstudio.utils.eclipse;bundle-version="1.0.0"
+Export-Package: org.archstudio.myxgen,
+ org.archstudio.myxgen.builder,
+ org.archstudio.myxgen.jet,
+ org.archstudio.myxgen.jet.codegen,
+ org.archstudio.myxgen.jet.compiled,
+ org.archstudio.myxgen.jet.util,
+ org.eclipse.jet.compiled

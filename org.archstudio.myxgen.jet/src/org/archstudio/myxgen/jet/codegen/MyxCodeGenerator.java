@@ -11,8 +11,8 @@ import java.util.Map;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.archstudio.myxgen.MyxGenBrick;
-import org.archstudio.myxgen.core.Activator;
 import org.archstudio.myxgen.eclipse.extension.MyxGenExtensions;
+import org.archstudio.myxgen.jet.Activator;
 import org.archstudio.myxgen.jet.util.TextUtil;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.core.resources.IFile;
