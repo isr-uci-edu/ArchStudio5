@@ -10,6 +10,7 @@ import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.FlyToUtils;
 import org.archstudio.sysutils.SystemUtils;
@@ -72,7 +73,7 @@ public class StructureEditorFocuser implements IArchipelagoEditorFocuser {
 			if (xArchID != null) {
 				IThing t = ArchipelagoUtils.findThing(structureModel, xArchID);
 				if (t != null) {
-					IThing glassThing = ArchipelagoUtils.getGlassThing(structureModel, t);
+					IThing glassThing = Assemblies.getAssemblyWithRootOrPart(structureModel, t);
 					if (glassThing != null) {
 						Point p = BNAUtils.getCentralPoint(glassThing);
 						if (p != null) {

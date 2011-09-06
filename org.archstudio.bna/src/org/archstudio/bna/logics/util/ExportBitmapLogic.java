@@ -3,11 +3,16 @@ package org.archstudio.bna.logics.util;
 import java.io.File;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
+import org.archstudio.bna.ICoordinate;
+import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.LinearCoordinateMapper;
+import org.archstudio.bna.Resources;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
 import org.archstudio.bna.utils.BNARenderingSettings;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.eclipse.draw2d.Graphics;
@@ -24,6 +29,8 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -39,33 +46,36 @@ public class ExportBitmapLogic extends AbstractThingLogic implements IBNAMenuLis
 		this.mbtl = mbtl;
 	}
 
-	public void fillMenu(IBNAView view, Point localPoint, Point worldPoint, Iterable<IThing> things, IMenuManager m) {
-		if (things == null) {
-			final IBNAView fview = view;
-			IAction saveAsPNGAction = new Action("Save as PNG...") {
+	@Override
+	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
+		if (things.iterator().hasNext())
+			return;
 
-				@Override
-				public void run() {
-					saveAsBitmap(fview, "png", "Portable Network Graphics (*.png)", SWT.IMAGE_PNG);
-				}
-			};
-			m.add(saveAsPNGAction);
+		final IBNAView fview = view;
+		IAction saveAsPNGAction = new Action("Save as PNG...") {
 
-			IAction saveAsJPEGAction = new Action("Save as JPEG...") {
+			@Override
+			public void run() {
+				saveAsBitmap(fview, "png", "Portable Network Graphics (*.png)", SWT.IMAGE_PNG);
+			}
+		};
+		menu.add(saveAsPNGAction);
 
-				@Override
-				public void run() {
-					saveAsBitmap(fview, "jpg", "Joint Photographic Experts Group (*.jpg)", SWT.IMAGE_JPEG);
-				}
-			};
-			m.add(saveAsJPEGAction);
+		IAction saveAsJPEGAction = new Action("Save as JPEG...") {
 
-			m.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-		}
+			@Override
+			public void run() {
+				saveAsBitmap(fview, "jpg", "Joint Photographic Experts Group (*.jpg)", SWT.IMAGE_JPEG);
+			}
+		};
+		menu.add(saveAsJPEGAction);
+
+		menu.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
 
 	protected void saveAsBitmap(IBNAView view, String extension, String bitmapName, int swtImageType) {
-		Shell s = BNAUtils.getParentComposite(view).getShell();
+		Control c = view.getComposite();
+		Shell s = c.getShell();
 		FileDialog fd = new FileDialog(s, SWT.SAVE);
 		fd.setText("Save");
 		String[] filterExt = { "*." + extension };
@@ -99,15 +109,15 @@ public class ExportBitmapLogic extends AbstractThingLogic implements IBNAMenuLis
 	protected ImageData createImage(IBNAView view) {
 		ImageData imageData = null;
 		Rectangle bounds = mbtl.getModelBounds();
-		BNAComposite bnaComposite = (BNAComposite) BNAUtils.getParentComposite(view);
-		Display d = bnaComposite.getDisplay();
-		ResourceUtils res = ResourceUtils.resourceUtilsFor(d);
+		Composite c = view.getComposite();
+		Display d = c.getDisplay();
+		Resources r = new Resources(c);
 
-		DefaultCoordinateMapper cm = new DefaultCoordinateMapper();
-		cm.repositionAbsolute(bounds.x - IMAGE_PADDING, bounds.y - IMAGE_PADDING);
-		cm.rescaleAbsolute(1.0);
+		IMutableCoordinateMapper icm = new LinearCoordinateMapper();
+		icm.setLocalScaleAndAlign(1, new Point(IMAGE_PADDING, IMAGE_PADDING), bounds.getTopLeft());
 
-		DefaultBNAView newView = new DefaultBNAView(view, view.getBNAWorld(), cm);
+		DefaultBNAView innerView = new DefaultBNAView(view, view.getBNAWorld(), icm);
+		IBNAWorld innerWorld = view.getBNAWorld();
 
 		Image image = null;
 		GC gc = null;
@@ -117,12 +127,27 @@ public class ExportBitmapLogic extends AbstractThingLogic implements IBNAMenuLis
 			image = new Image(d, bounds.width + 2 * IMAGE_PADDING, bounds.height + 2 * IMAGE_PADDING);
 			gc = new GC(image);
 			g = new SWTGraphics(gc);
-			Rectangle clip = BNAUtils.toRectangle(image.getBounds());
 
-			gc.setAntialias(BNARenderingSettings.getAntialiasGraphics(bnaComposite) ? SWT.ON : SWT.OFF);
-			gc.setTextAntialias(BNARenderingSettings.getAntialiasText(bnaComposite) ? SWT.ON : SWT.OFF);
+			gc.setAntialias(BNARenderingSettings.getAntialiasGraphics(c) ? SWT.ON : SWT.OFF);
+			gc.setTextAntialias(BNARenderingSettings.getAntialiasText(c) ? SWT.ON : SWT.OFF);
 
-			BNAUtils.renderWorld(newView, g, clip, res);
+			ModelBoundsTrackingLogic mbtl = innerWorld.getThingLogicManager().addThingLogic(
+					ModelBoundsTrackingLogic.class);
+			Rectangle modelBounds = mbtl.getModelBounds();
+			if (modelBounds != null) {
+
+				g.pushState();
+				try {
+					for (IThing thing : innerView.getBNAWorld().getBNAModel().getThings()) {
+						IThingPeer<?> peer = innerView.getThingPeer(thing);
+						g.restoreState();
+						peer.draw(innerView, icm, g, r);
+					}
+				}
+				finally {
+					g.popState();
+				}
+			}
 
 			imageData = image.getImageData();
 		}

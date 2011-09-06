@@ -42,6 +42,11 @@ public class AbstractMirrorValueLogic<FROM_THING extends IThing, TO_THING extend
 	}
 
 	public <FV, TV> void mirrorValue(final FROM_THING fromThing, final IThingKey<FV> fromKey, final TO_THING toThing,
+			final IThingKey<TV> toKey) {
+		mirrorValue(fromThing, fromKey, toThing, toKey, null);
+	}
+
+	public <FV, TV> void mirrorValue(final FROM_THING fromThing, final IThingKey<FV> fromKey, final TO_THING toThing,
 			final IThingKey<TV> toKey, @Nullable final Function<FV, TV> transformFunction) {
 		checkNotNull(fromThing);
 		checkNotNull(fromKey);

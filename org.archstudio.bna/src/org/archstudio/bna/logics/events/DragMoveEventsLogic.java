@@ -28,7 +28,7 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 			if (relativeMovableThing != null
 					&& UserEditableUtils
 							.isEditableForAllQualities(relativeMovableThing, IRelativeMovable.USER_MAY_MOVE)) {
-				view.getControl().setCursor(view.getControl().getDisplay().getSystemCursor(SWT.CURSOR_HAND));
+				view.getComposite().setCursor(view.getComposite().getDisplay().getSystemCursor(SWT.CURSOR_HAND));
 				fireDragStartedEvent(currentEvent = new DragMoveEvent(view, evt, relativeMovableThing,
 						DefaultCoordinate.forLocal(new Point(evt.x, evt.y), view.getCoordinateMapper())));
 
@@ -47,7 +47,7 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 	@Override
 	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
 		if (currentEvent != null) {
-			view.getControl().setCursor(view.getControl().getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
+			view.getComposite().setCursor(view.getComposite().getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
 			fireDragFinishedEvent(currentEvent = new DragMoveEvent(currentEvent, evt, DefaultCoordinate.forLocal(
 					new Point(evt.x, evt.y), view.getCoordinateMapper())));
 			currentEvent = null;

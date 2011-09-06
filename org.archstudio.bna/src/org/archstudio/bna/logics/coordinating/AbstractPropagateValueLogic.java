@@ -178,10 +178,13 @@ public abstract class AbstractPropagateValueLogic<FROM_THING extends IThing, TO_
 		FROM_THING fromThing = evt.getTargetThing();
 		for (IThingRefKeyKey<FROM_THING, ?, TO_KEY> thingRefKey : Lists.newArrayList(fromThingRefKeys)) {
 			for (TO_THING toThing : Iterables.filter(
-			// note: we propagate changes to things in the logic's BNA model to propagate 
-			// to propagate from the inner world to the outer world
-					getBNAModel().getThings(valuesLogic.getThingIDs(thingRefKey, fromThing.getID())), toThingClass)) {
-				doPropagationUnlessInCycle(evt.getSource(), fromThing, evt.getThingEvent(), toThing, null, thingRefKey.getKey());
+			/*
+			 * note: we propagate changes to things in the logic's BNA model to
+			 * allow propagation from an inner world to an outer world
+			 */
+			getBNAModel().getThings(valuesLogic.getThingIDs(thingRefKey, fromThing.getID())), toThingClass)) {
+				doPropagationUnlessInCycle(evt.getSource(), fromThing, evt.getThingEvent(), toThing, null,
+						thingRefKey.getKey());
 			}
 		}
 	}
@@ -195,11 +198,11 @@ public abstract class AbstractPropagateValueLogic<FROM_THING extends IThing, TO_
 			IBNAModel fromModel = evt.getSource();
 			IThingRefKey<IHasWorld> worldThingRefKey = getWorldThingRefKey(toKey);
 			Object worldThingID = toThing.get(worldThingRefKey);
-			if(worldThingID != null){
+			if (worldThingID != null) {
 				IHasWorld worldThing = castOrNull(evt.getSource().getThing(worldThingID), IHasWorld.class);
-				if(worldThing != null){
+				if (worldThing != null) {
 					IBNAWorld world = worldThing.getWorld();
-					if(world != null){
+					if (world != null) {
 						fromModel = world.getBNAModel();
 					}
 				}

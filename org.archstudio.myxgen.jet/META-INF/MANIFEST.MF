@@ -22,6 +22,5 @@ Export-Package: org.archstudio.myxgen,
  org.archstudio.myxgen.builder,
  org.archstudio.myxgen.jet,
  org.archstudio.myxgen.jet.codegen,
- org.archstudio.myxgen.jet.compiled,
  org.archstudio.myxgen.jet.util,
  org.eclipse.jet.compiled

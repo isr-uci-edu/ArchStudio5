@@ -97,7 +97,7 @@ public class ZoomUtils {
 			zoomLevels[z++] = zoomLevelToString(ZOOM_VALUES[i]);
 		}
 		combo.setItems(zoomLevels);
-		combo.setText(zoomLevelToString(cm.getScale()));
+		combo.setText(zoomLevelToString(cm.getLocalScale()));
 
 		final ICoordinateMapperListener cml = new ICoordinateMapperListener() {
 
@@ -106,7 +106,7 @@ public class ZoomUtils {
 
 					public void run() {
 						try {
-							combo.setText(zoomLevelToString(evt.getNewScale()));
+							combo.setText(zoomLevelToString(evt.getNewLocalScale()));
 						}
 						catch (Throwable t) {
 							t.printStackTrace();
@@ -123,13 +123,13 @@ public class ZoomUtils {
 				public void widgetSelected(SelectionEvent e) {
 					try {
 						double newScale = stringToZoomLevel(combo.getText());
-						if (newScale == cm.getScale()) {
+						if (newScale == cm.getLocalScale()) {
 							return;
 						}
 						scaleToCenter(bna, (IMutableCoordinateMapper) cm, newScale);
 					}
 					catch (NumberFormatException nfe) {
-						combo.setText(zoomLevelToString(cm.getScale()));
+						combo.setText(zoomLevelToString(cm.getLocalScale()));
 					}
 				}
 
@@ -150,18 +150,20 @@ public class ZoomUtils {
 	}
 
 	public static void scaleToCenter(Control w, IMutableCoordinateMapper mcm, double newScale) {
-		Point size = BNAUtils.toPoint(w.getSize());
-		int lcx = size.x / 2;
-		int lcy = size.y / 2;
-		int worldCenterX = mcm.localXtoWorldX(lcx);
-		int worldCenterY = mcm.localYtoWorldY(lcy);
+		// TODO: I think this can be replaced with mcm.setLocalScaleAndAlign(localScale, localPoint, worldPoint)
 
-		mcm.rescaleAbsolute(newScale);
-
-		int newWorldCenterX = mcm.localXtoWorldX(lcx);
-		int newWorldCenterY = mcm.localYtoWorldY(lcy);
-		int dwcx = newWorldCenterX - worldCenterX;
-		int dwcy = newWorldCenterY - worldCenterY;
-		mcm.repositionRelative(-dwcx, -dwcy);
+		//		Point size = BNAUtils.toPoint(w.getSize());
+		//		int lcx = size.x / 2;
+		//		int lcy = size.y / 2;
+		//		int worldCenterX = mcm.localXtoWorldX(lcx);
+		//		int worldCenterY = mcm.localYtoWorldY(lcy);
+		//
+		//		mcm.rescaleAbsolute(newScale);
+		//
+		//		int newWorldCenterX = mcm.localXtoWorldX(lcx);
+		//		int newWorldCenterY = mcm.localYtoWorldY(lcy);
+		//		int dwcx = newWorldCenterX - worldCenterX;
+		//		int dwcy = newWorldCenterY - worldCenterY;
+		//		mcm.repositionRelative(-dwcx, -dwcy);
 	}
 }

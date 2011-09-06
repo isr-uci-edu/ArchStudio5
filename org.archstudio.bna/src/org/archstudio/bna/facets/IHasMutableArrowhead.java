@@ -6,6 +6,4 @@ public interface IHasMutableArrowhead extends IHasArrowhead {
 	public void setArrowheadShape(ArrowheadShape arrowheadShape);
 
 	public void setArrowheadSize(int arrowheadSize);
-
-	public void setArrowheadFilled(boolean arrowheadFilled);
 }

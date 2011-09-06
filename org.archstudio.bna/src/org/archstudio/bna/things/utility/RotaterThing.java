@@ -14,10 +14,6 @@ public class RotaterThing extends AbstractAnchorPointThing implements IHasBoundi
 	public static final IThingKey<Integer> ROTATED_THING_IDS_KEY = ThingKey.create("rotatedThingIDs");
 	public static final IThingKey<Integer> ADJUSTMENT_INCREMENT_KEY = ThingKey.create("adjustmentIncrement");
 
-	public RotaterThing() {
-		this(null);
-	}
-
 	public RotaterThing(Object id) {
 		super(id);
 	}

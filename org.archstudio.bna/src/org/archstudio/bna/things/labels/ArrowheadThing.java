@@ -21,7 +21,6 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 		super.initProperties();
 		setArrowheadShape(ArrowheadShape.NONE);
 		setArrowheadSize(5);
-		setArrowheadFilled(false);
 		setColor(new RGB(0, 0, 0));
 		setSecondaryColor(new RGB(0, 0, 0));
 		setSecondaryAnchorPoint(new Point(0, 0));
@@ -57,14 +56,6 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 
 	public void setArrowheadShape(ArrowheadShape arrowheadShape) {
 		set(ARROWHEAD_SHAPE_KEY, arrowheadShape);
-	}
-
-	public boolean isArrowheadFilled() {
-		return get(ARROWHEAD_FILLED_KEY);
-	}
-
-	public void setArrowheadFilled(boolean arrowheadFilled) {
-		set(ARROWHEAD_FILLED_KEY, arrowheadFilled);
 	}
 
 	public Point getSecondaryAnchorPoint() {

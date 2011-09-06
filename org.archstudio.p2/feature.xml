@@ -29,4 +29,8 @@
          id="org.archstudio.releng.pde.feature"
          version="0.0.0"/>
 
+   <includes
+         id="org.archstudio.feature"
+         version="0.0.0"/>
+
 </feature>

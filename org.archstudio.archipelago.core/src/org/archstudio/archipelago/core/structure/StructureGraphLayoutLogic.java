@@ -112,7 +112,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 	}
 
 	protected void doLayout(IBNAView view, ObjRef structureRef, int worldX, int worldY) {
-		GraphLayoutDialog gld = new GraphLayoutDialog(view.getControl().getShell());
+		GraphLayoutDialog gld = new GraphLayoutDialog(view.getComposite().getShell());
 		GraphLayoutParameters glp = gld.open(graphLayout);
 		if (glp == null) {
 			return;
@@ -122,7 +122,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 			return;
 		}
 		doLayoutInJob(view, structureRef, worldX, worldY, engineID, glp);
-		view.getControl().forceFocus();
+		view.getComposite().forceFocus();
 	}
 
 	protected void doLayout(final IBNAView view, ObjRef structureRef, int worldX, int worldY, String engineID,
@@ -133,10 +133,10 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 			applyGraphLayout(view, structureRef, gl, glp, worldX, worldY);
 		}
 		catch (final GraphLayoutException gle) {
-			SWTWidgetUtils.async(view.getControl(), new Runnable() {
+			SWTWidgetUtils.async(view.getComposite(), new Runnable() {
 				@Override
 				public void run() {
-					MessageDialog.openError(view.getControl().getShell(), "Error", gle.getMessage());
+					MessageDialog.openError(view.getComposite().getShell(), "Error", gle.getMessage());
 				}
 			});
 		}
@@ -255,7 +255,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 
 			//The points returned by dot are actually B-spline control points;
 			//we can convert these into rectilinear waypoints to simulate a curve.
-			Point[] midpoints = BNAUtils.toPoints(BSpline.bspline(BNAUtils.toPoints(controlPoints), 2));
+			Point[] midpoints = BSpline.bspline(controlPoints, 2);
 			midpoints = optimizePoints(midpoints);
 
 			IThing linkRootThing = ArchipelagoUtils.findThing(view.getBNAWorld().getBNAModel(), edgeID);

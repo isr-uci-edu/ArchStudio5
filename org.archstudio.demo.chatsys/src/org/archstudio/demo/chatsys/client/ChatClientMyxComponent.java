@@ -8,4 +8,10 @@ package org.archstudio.demo.chatsys.client;
  */
 public class ChatClientMyxComponent extends org.archstudio.demo.chatsys.client.ChatClientMyxComponentStub {
 
+	@Override
+	public void messageSent(String sender, String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

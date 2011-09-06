@@ -28,7 +28,7 @@ public class ToolTipLogic extends AbstractThingLogic implements IBNAMouseMoveLis
 		if (newThing != lastThing) {
 			lastThing = newThing;
 			String toolTip = ToolTipLogic.getToolTip(newThing);
-			Control c = view.getControl();
+			Control c = view.getComposite();
 			if(!SystemUtils.nullEquals(toolTip, c.getToolTipText())) {
 				c.setToolTipText(toolTip);
 			}

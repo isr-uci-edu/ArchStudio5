@@ -1,6 +1,6 @@
 package org.archstudio.bna;
 
-import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Composite;
 
 public interface IBNAView {
 
@@ -16,8 +16,8 @@ public interface IBNAView {
 
 	public <T extends IThing> void disposePeer(T t);
 
-	public void setControl(Control control);
+	public void setComposite(Composite composite);
 	
-	public Control getControl();
+	public Composite getComposite();
 
 }

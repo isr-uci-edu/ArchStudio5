@@ -13,6 +13,7 @@ import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.SWTGraphics;
@@ -51,6 +52,10 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 	protected final BNASWTEventHandler eventHandler;
 	protected final IResources resources;
 
+	public BNACanvas(Composite parent, int style, IBNAWorld bnaWorld){
+		this(parent, style, new DefaultBNAView(null, bnaWorld, new LinearCoordinateMapper()));
+	}
+	
 	public BNACanvas(Composite parent, int style, IBNAView bnaView) {
 		super(parent, style | SWT.NO_REDRAW_RESIZE | SWT.DOUBLE_BUFFERED);
 		checkNotNull(bnaView);
@@ -61,7 +66,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		this.eventHandler = new BNASWTEventHandler(this, bnaView);
 		this.resources = new Resources(this);
 
-		bnaView.setControl(this);
+		bnaView.setComposite(this);
 		this.addControlListener(new ControlAdapter() {
 			@Override
 			public void controlResized(ControlEvent e) {
@@ -217,10 +222,9 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 
 		Graphics g = null;
 		Region localClipRegion = null;
-		IResources resources = null;
+
 		try {
 			g = new SWTGraphics(e.gc);
-			resources = new Resources(this, e.gc.getDevice());
 			g.setAdvanced(true);
 			g.setAntialias(BNARenderingSettings.getAntialiasGraphics(this) ? SWT.ON : SWT.OFF);
 			g.setTextAntialias(BNARenderingSettings.getAntialiasText(this) ? SWT.ON : SWT.OFF);
@@ -299,9 +303,6 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		}
 		finally {
 			localClipRegion = SWTWidgetUtils.quietlyDispose(localClipRegion);
-			if (resources != null) {
-				resources.dispose();
-			}
 			if (g != null) {
 				g.dispose();
 			}

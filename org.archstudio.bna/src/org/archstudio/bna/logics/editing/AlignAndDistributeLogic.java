@@ -46,7 +46,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 	}
 
 	protected void loadImages(IBNAView view) {
-		Display disp = view.getControl().getDisplay();
+		Display disp = view.getComposite().getDisplay();
 		imageRegistry = new ImageRegistry(disp);
 
 		imageRegistry.put(ALIGN_LEFT, new Image(disp, getClass().getResourceAsStream("res/align-left.gif")));

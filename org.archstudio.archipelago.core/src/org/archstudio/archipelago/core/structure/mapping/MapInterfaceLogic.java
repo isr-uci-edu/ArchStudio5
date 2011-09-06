@@ -9,13 +9,13 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasFlow;
 import org.archstudio.bna.facets.IHasMutableFlow;
-import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.ReorientToThingIDLogic;
 import org.archstudio.bna.logics.coordinating.ReparentToThingIDLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
+import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
@@ -98,14 +98,14 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		thing.setAnchorPoint(newPointSpot);
 
 		UserEditableUtils.addEditableQualities(thing, IRelativeMovable.USER_MAY_MOVE);
-		UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, getBNAModel()),
-				IHasMutableText.USER_MAY_EDIT_TEXT);
+		//UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, getBNAModel()), IHasMutableText.USER_MAY_EDIT_TEXT);
 		UserEditableUtils.addEditableQualities(Assemblies.LABEL_KEY.get(thing, getBNAModel()),
 				IHasMutableFlow.USER_MAY_EDIT_FLOW);
+		UserEditableUtils.addEditableQualities(thing, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG);
 
 		/*
-		 * restack so that the parent is the thing that represents the first
-		 * ancestor (i.e., the component or connector)
+		 * restack on top of the thing representing the first ancestor (i.e.,
+		 * the component or connector)
 		 */
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(
 				syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingIDKey()), relLineageRefs.get(1));
