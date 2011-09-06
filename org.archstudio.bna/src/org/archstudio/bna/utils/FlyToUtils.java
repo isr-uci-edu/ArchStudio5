@@ -25,7 +25,7 @@ public class FlyToUtils {
 			view = topLevelView;
 		}
 
-		final Control control = view.getControl();
+		final Control control = view.getComposite();
 		if (control == null) {
 			return;
 		}

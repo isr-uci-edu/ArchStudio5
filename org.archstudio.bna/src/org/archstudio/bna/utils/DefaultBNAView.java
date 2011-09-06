@@ -16,7 +16,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Composite;
 
 import com.google.common.collect.Lists;
 
@@ -27,30 +27,30 @@ public class DefaultBNAView implements IBNAView {
 	protected final IBNAWorld bnaWorld;
 	protected final ICoordinateMapper cm;
 	protected final PeerCache peerCache;
-	protected Control control = null;
+	protected Composite composite = null;
 
 	public DefaultBNAView(@Nullable IBNAView parentView, IBNAWorld bnaWorld, ICoordinateMapper cm) {
 		super();
-		this.control = parentView != null ? parentView.getControl() : null;
+		this.composite = parentView != null ? parentView.getComposite() : null;
 		this.parentView = parentView;
 		this.peerCache = new PeerCache();
 		this.bnaWorld = checkNotNull(bnaWorld);
 		this.cm = checkNotNull(cm);
 	}
 
-	public Control getControl() {
-		return control;
+	public Composite getComposite() {
+		return composite;
 	}
 
-	public void setControl(Control control) {
-		if (!nullEquals(this.control, control)) {
-			this.control = control;
+	public void setComposite(Composite composite) {
+		if (!nullEquals(this.composite, composite)) {
+			this.composite = composite;
 			for (IThing t : getBNAWorld().getBNAModel().getThings()) {
 				IThingPeer<?> tp = getThingPeer(t);
 				if (tp instanceof IHasInnerViewPeer) {
 					IBNAView innerView = ((IHasInnerViewPeer) tp).getInnerView();
 					if (innerView != null)
-						innerView.setControl(control);
+						innerView.setComposite(composite);
 				}
 			}
 		}

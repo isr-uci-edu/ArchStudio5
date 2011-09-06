@@ -9,7 +9,6 @@ Export-Package: org.archstudio.archipelago.core,
  org.archstudio.archipelago.core.prefs.structure,
  org.archstudio.archipelago.core.structure,
  org.archstudio.archipelago.core.structure.mapping,
- org.archstudio.archipelago.core.things,
  org.archstudio.archipelago.core.util
 Manifest-Version: 1.0
 Require-Bundle: com.google.guava,

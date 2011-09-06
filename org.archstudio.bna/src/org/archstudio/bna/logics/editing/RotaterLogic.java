@@ -1,5 +1,7 @@
 package org.archstudio.bna.logics.editing;
 
+import static org.archstudio.sysutils.SystemUtils.firstOrNull;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -19,12 +21,10 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 	protected boolean pressed = false;
 
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
 		if (evt.button == 1) {
-			if (t instanceof RotaterThing) {
-				pressed = true;
-				rt = (RotaterThing) t;
-			}
+			rt = firstOrNull(things, RotaterThing.class);
+			pressed = rt != null;
 		}
 	}
 
@@ -42,8 +42,9 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 			int rwx = anchorPointWorld.x;
 			int rwy = anchorPointWorld.y;
 
-			int dx = worldX - rwx;
-			int dy = worldY - rwy;
+			Point wPoint = location.getWorldPoint(new Point());
+			int dx = wPoint.x - rwx;
+			int dy = wPoint.y - rwy;
 
 			double angleInRadians = Math.atan((double) dy / (double) dx);
 			double angleInDegrees = angleInRadians * 180 / Math.PI;
@@ -67,8 +68,9 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 	}
 
 	@Override
-	public void mouseDoubleClick(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseDoubleClick(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
 		if (evt.button == 1) {
+			IThing t = firstOrNull(things);
 			if (t instanceof RotaterThing) {
 				view.getBNAWorld().getBNAModel().removeThing(t);
 			}

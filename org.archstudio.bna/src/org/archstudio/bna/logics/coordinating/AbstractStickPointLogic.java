@@ -6,13 +6,16 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.constants.StickyMode;
+import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasEndpoints;
+import org.archstudio.bna.facets.IHasIndicatorPoint;
 import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.glass.MappingGlassThing;
+import org.archstudio.bna.things.labels.TagThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -63,6 +66,7 @@ public abstract class AbstractStickPointLogic extends AbstractPropagateValueLogi
 		}
 		Point nearPoint = getNearPoint(toThing, toKey, stickyMode);
 		if (nearPoint == null) {
+			System.err.println("Warning: nearPoint was null, skipping");
 			return;
 		}
 
@@ -96,6 +100,10 @@ public abstract class AbstractStickPointLogic extends AbstractPropagateValueLogi
 			p.translate(pointThing.get(MappingGlassThing.WORLD_POINT_KEY));
 			return p;
 		}
+		if (stickyMode.isDependsOnSecondaryPoint() && pointKey.equals(IHasIndicatorPoint.INDICATOR_POINT_KEY)) {
+			if (pointThing instanceof IHasAnchorPoint)
+				return ((IHasAnchorPoint) pointThing).getAnchorPoint();
+		}
 		return pointThing.get(pointKey);
 	}
 
@@ -117,6 +125,9 @@ public abstract class AbstractStickPointLogic extends AbstractPropagateValueLogi
 				}
 				else if (IHasEndpoints.ENDPOINT_2_KEY.equals(toKey) || MappingGlassThing.WORLD_POINT_KEY.equals(toKey)) {
 					otherEndpointKey = IHasEndpoints.ENDPOINT_1_KEY;
+				}
+				else if (IHasAnchorPoint.ANCHOR_POINT_KEY.equals(toKey) && toThing instanceof TagThing) {
+					otherEndpointKey = IHasIndicatorPoint.INDICATOR_POINT_KEY;
 				}
 				// if midpoints are present, then they are the potential secondary points
 				if (toThing instanceof IHasMidpoints && !((IHasMidpoints) toThing).getMidpoints().isEmpty()) {

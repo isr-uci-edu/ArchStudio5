@@ -3,7 +3,6 @@ package org.archstudio.bna.logics.hints;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.archstudio.bna.logics.hints.coders.ArrayPropertyCoder;
 import org.archstudio.bna.logics.hints.coders.Draw2DPropertyCoder;
 import org.archstudio.bna.logics.hints.coders.EnumPropertyCoder;
 import org.archstudio.bna.logics.hints.coders.NativePropertyCoder;
@@ -19,7 +18,6 @@ public class MasterPropertyCoder implements IPropertyCoder {
 		propertyCoders.add(new NativePropertyCoder());
 		propertyCoders.add(new EnumPropertyCoder());
 		propertyCoders.add(new Draw2DPropertyCoder());
-		propertyCoders.add(new ArrayPropertyCoder());
 		propertyCoders.add(new SWTPropertyCoder());
 	}
 

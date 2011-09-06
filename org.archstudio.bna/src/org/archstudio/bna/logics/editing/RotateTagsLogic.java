@@ -1,15 +1,17 @@
 package org.archstudio.bna.logics.editing;
 
+import static org.archstudio.sysutils.SystemUtils.firstOrNull;
+
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasAngle;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.logics.coordinating.AbstractMirrorValueLogic;
+import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.things.labels.TagThing;
 import org.archstudio.bna.things.utility.RotaterThing;
 import org.archstudio.bna.utils.IBNAMenuListener;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -18,24 +20,31 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 
 public class RotateTagsLogic extends AbstractThingLogic implements IBNAMenuListener {
 
-	public void fillMenu(final IBNAView view, Point localPoint, Point worldPoint, final Iterable<IThing> things,
-			IMenuManager m) {
-		if (things instanceof TagThing) {
+	MirrorValueLogic mirrorLogic;
+
+	@Override
+	protected void init() {
+		super.init();
+		mirrorLogic = addThingLogic(MirrorValueLogic.class);
+	}
+
+	@Override
+	public void fillMenu(final IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
+		final TagThing tt = firstOrNull(things, TagThing.class);
+		if (tt != null) {
 			IAction rotateAction = new Action("Rotate Tag") {
 
 				@Override
 				public void run() {
-					TagThing tt = (TagThing) things;
-					RotaterThing rt = new RotaterThing();
+					RotaterThing rt = view.getBNAWorld().getBNAModel().addThing(new RotaterThing(null));
 					rt.setAngle(tt.getAngle());
 
-					AbstractMirrorValueLogic.mirrorValue(tt, IHasAnchorPoint.ANCHOR_POINT_KEY, rt);
-					AbstractMirrorValueLogic.mirrorValue(rt, IHasAngle.ANGLE_KEY, tt);
-					view.getBNAWorld().getBNAModel().addThing(rt);
+					mirrorLogic.mirrorValue(tt, IHasAnchorPoint.ANCHOR_POINT_KEY, rt);
+					mirrorLogic.mirrorValue(rt, IHasAngle.ANGLE_KEY, tt);
 				}
 			};
-			m.add(rotateAction);
-			m.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+			menu.add(rotateAction);
+			menu.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		}
 	}
 }

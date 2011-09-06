@@ -51,7 +51,7 @@ public class BNAStressTest {
 
 		final IBNAModel model = new DefaultBNAModel();
 		final IBNAWorld world = new DefaultBNAWorld("top view", model);
-		final BNACanvas canvas = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, new DefaultBNAView(shell, null, world, new LinearCoordinateMapper()));
+		final BNACanvas canvas = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, world);
 
 		BNARenderingSettings.setAntialiasGraphics(canvas, true);
 		BNARenderingSettings.setAntialiasText(canvas, true);

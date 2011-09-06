@@ -15,7 +15,6 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThingLogicManager;
-import org.archstudio.bna.LinearCoordinateMapper;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.editing.AlignAndDistributeLogic;
@@ -28,6 +27,9 @@ import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.editing.RectifyToGridLogic;
 import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
 import org.archstudio.bna.logics.editing.ReshapeSplineLogic;
+import org.archstudio.bna.logics.editing.RotateTagsLogic;
+import org.archstudio.bna.logics.editing.RotaterLogic;
+import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.editing.SnapToGridLogic;
 import org.archstudio.bna.logics.editing.SplineBreakLogic;
 import org.archstudio.bna.logics.editing.StandardCursorLogic;
@@ -42,7 +44,6 @@ import org.archstudio.bna.things.utility.GridThing;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAModel;
-import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.myx.fw.IMyxBrick;
 import org.archstudio.myx.fw.MyxRegistry;
@@ -85,8 +86,7 @@ public class StructureEditorSupport {
 		fl.type = SWT.HORIZONTAL;
 		parentComposite.setLayout(fl);
 
-		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, new DefaultBNAView(
-				null, bnaWorld, new LinearCoordinateMapper()));
+		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, bnaWorld);
 		bnaCanvas.setBackground(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
 		final EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAView()
@@ -172,6 +172,7 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new ReshapeSplineLogic()).addReshapeSplineGuides(
 				new XadlReshapeSplineGuide(AS.xarch, Structure_3_0Package.Literals.LINK,
 						Structure_3_0Package.Literals.INTERFACE, -1, 0));
+		logicManager.addThingLogic(new RotaterLogic());
 		logicManager.addThingLogic(new RotatingOffsetLogic());
 		logicManager.addThingLogic(new SplineBreakLogic());
 		logicManager.addThingLogic(new StandardCursorLogic());
@@ -184,8 +185,10 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new StructureNewInterfaceLogic(AS.xarch, AS.resources));
 		logicManager.addThingLogic(new EditTextLogic());
 		logicManager.addThingLogic(new EditFlowLogic());
+		logicManager.addThingLogic(new ShowHideTagsLogic());
 		logicManager.addThingLogic(new FindDialogLogic(new ArchipelagoFinder(AS)));
 		logicManager.addThingLogic(new RemoveElementLogic(AS.xarch));
+		logicManager.addThingLogic(new RotateTagsLogic());
 		logicManager.addThingLogic(new AlignAndDistributeLogic());
 		logicManager.addThingLogic(new RectifyToGridLogic());
 		logicManager.addThingLogic(new StructureGraphLayoutLogic(AS.xarch, AS.resources, AS.graphLayout, structureRef));
@@ -216,13 +219,10 @@ public class StructureEditorSupport {
 
 		// these logics need to be reintegrated
 
-		//logicManager.addThingLogic(new RotaterLogic());
 		//
 		////Menu logics
 		//
 		//logicManager.addThingLogic(new FindDialogLogic(new ArchipelagoFinder(AS)));
-		//logicManager.addThingLogic(new ShowHideTagsLogic());
-		//logicManager.addThingLogic(new RotateTagsLogic());
 		//logicManager.addThingLogic(new StructureEditColorLogic(AS));
 		//logicManager.addThingLogic(new ExportBitmapLogic(mbtl));
 	}

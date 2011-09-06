@@ -96,11 +96,9 @@ public abstract class AbstractEditColorLogic extends AbstractThingLogic implemen
 	}
 
 	protected IAction[] getActions(IBNAView view, IThing[] thingsToEdit, int worldX, int worldY) {
-		Display d = view.getControl().getDisplay();
+		Display d = view.getComposite().getDisplay();
 		final IBNAView fview = view;
 		final IThing[] fthingsToEdit = thingsToEdit;
-		final int fworldX = worldX;
-		final int fworldY = worldY;
 
 		disposeResources();
 
@@ -182,7 +180,7 @@ public abstract class AbstractEditColorLogic extends AbstractThingLogic implemen
 	}
 
 	protected void chooseAndAssignColor(IBNAView view, IThing[] thingsToEdit, RGB initialRGB) {
-		ColorSelectorDialog csd = new ColorSelectorDialog(view.getControl().getShell());
+		ColorSelectorDialog csd = new ColorSelectorDialog(view.getComposite().getShell());
 		RGB rgb = csd.open(initialRGB);
 		if (rgb != null) {
 			assignColor(view, thingsToEdit, rgb);

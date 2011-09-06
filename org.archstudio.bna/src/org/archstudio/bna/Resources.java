@@ -1,6 +1,7 @@
 package org.archstudio.bna;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasFontData;
@@ -11,39 +12,42 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 
 import com.google.common.base.Function;
+import com.google.common.collect.MapEvictionListener;
 import com.google.common.collect.MapMaker;
 
 public class Resources implements IResources {
 
-	final Composite c;
-	final Device d;
+	// Note: this needs to be a composite (not a control) to support adding controls as part of thing peers
+	final Composite composite;
+	final Device device;
 
 	final Map<RGB, Color> autoColorCache = new MapMaker().makeComputingMap(new Function<RGB, Color>() {
 		@Override
 		public Color apply(RGB input) {
-			return new Color(d, input);
+			return new Color(device, input);
 		}
 	});
 	final Map<FontData, Font> autoFontCache = new MapMaker().makeComputingMap(new Function<FontData, Font>() {
 		@Override
 		public Font apply(FontData input) {
-			return new Font(d, input);
+			return new Font(device, input);
 		}
 	});
 
 	public Resources(Composite c) {
-		this.c = c;
-		this.d = c.getDisplay();
+		this(c, c.getDisplay());
 	}
 
 	public Resources(Composite c, Device d) {
 		super();
-		this.c = c;
-		this.d = d;
+		this.composite = c;
+		this.device = d;
 	}
 
 	@Override
@@ -60,7 +64,7 @@ public class Resources implements IResources {
 
 	@Override
 	public Color getColor(int systemColor) {
-		return d.getSystemColor(systemColor);
+		return device.getSystemColor(systemColor);
 	}
 
 	@Override
@@ -111,11 +115,29 @@ public class Resources implements IResources {
 
 	@Override
 	public Device getDevice() {
-		return d;
+		return device;
 	}
 
 	@Override
 	public Composite getComposite() {
-		return c;
+		return composite;
+	}
+
+	Map<ImageData, Image> imageCache = new MapMaker().softKeys()
+			.evictionListener(new MapEvictionListener<ImageData, Image>() {
+				@Override
+				public void onEviction(ImageData key, Image value) {
+					value.dispose();
+				}
+			}).makeComputingMap(new Function<ImageData, Image>() {
+				@Override
+				public Image apply(ImageData input) {
+					return new Image(device, input);
+				}
+			});
+
+	@Override
+	public Image getImage(ImageData imageData) {
+		return imageCache.get(imageData);
 	}
 }

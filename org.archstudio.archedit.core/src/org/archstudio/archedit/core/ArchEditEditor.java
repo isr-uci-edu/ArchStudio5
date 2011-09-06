@@ -148,7 +148,7 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 		}
 
 		public Object[] getElements(Object inputElement) {
-			List l = new ArrayList();
+			List<String[]> l = new ArrayList<String[]>();
 			IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata((ObjRef) inputElement);
 
 			for (IXArchADTFeature feature : typeMetadata.getFeatures().values()) {

@@ -15,7 +15,6 @@ import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.debug.core.ILaunch;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -128,10 +127,10 @@ public class AIMLauncherEditor extends AbstractArchStudioEditor<AIMLauncherMyxCo
 	Map<String, LaunchData> launchDatas = Collections.synchronizedMap(new HashMap<String, LaunchData>());
 
 	private class LaunchData {
-		String name;
-		ObjRef documentRootRef = null;
-		ObjRef structureRef = null;
-		ILaunch launch = null;
+		//String name;
+		//ObjRef documentRootRef = null;
+		//ObjRef structureRef = null;
+		//ILaunch launch = null;
 	}
 
 	public AIMLauncherEditor() {

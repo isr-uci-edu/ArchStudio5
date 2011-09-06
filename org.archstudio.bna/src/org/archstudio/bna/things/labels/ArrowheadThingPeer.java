@@ -1,17 +1,21 @@
 package org.archstudio.bna.things.labels;
 
+import java.util.Arrays;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.constants.ArrowheadShape;
+import org.archstudio.bna.facets.IHasColor;
+import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.utils.ArrowheadUtils;
+import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
 
 public class ArrowheadThingPeer<T extends ArrowheadThing> extends AbstractThingPeer<T> {
 
@@ -31,35 +35,37 @@ public class ArrowheadThingPeer<T extends ArrowheadThing> extends AbstractThingP
 		}
 
 		int arrowheadSize = t.getArrowheadSize();
-		boolean arrowheadFilled = t.isArrowheadFilled();
-
-		Color fg = r.getColor(t.getColor(), SWT.COLOR_BLACK);
-		Color bg = r.getColor(t.getSecondaryColor(), SWT.COLOR_BLACK);
-
-		int[] points = ArrowheadUtils.calculateTriangularArrowhead(wp2.x, wp2.y, wp1.x, wp1.y, arrowheadSize);
+		int[] points = ArrowheadUtils.calculateTriangularArrowhead(lp2.x, lp2.y, lp1.x, lp1.y, arrowheadSize);
 		if (points == null) {
 			return;
 		}
-		for (int i = 0; i < points.length; i += 2) {
-			points[i] = cm.worldXtoLocalX(points[i]);
-			points[i + 1] = cm.worldYtoLocalY(points[i + 1]);
-		}
+		Point[] pointArray = BNAUtils.toPointArray(points);
+		BNAUtils.worldToLocal(cm, Arrays.asList(pointArray));
+		points = BNAUtils.toXYArray(Arrays.asList(pointArray));
 
-		if (arrowheadFilled) {
-			g.setBackgroundColor(bg);
+		if (r.setBackgroundColor(g, t, IHasColor.COLOR_KEY)) {
 			g.fillPolygon(points);
 		}
-		g.setForegroundColor(fg);
-		if (arrowheadShape == ArrowheadShape.WEDGE) {
-			g.drawPolyline(points);
-		}
-		else if (arrowheadShape == ArrowheadShape.TRIANGLE) {
-			g.drawPolygon(points);
+
+		if (r.setForegroundColor(g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
+			if (arrowheadShape == ArrowheadShape.WEDGE) {
+				g.drawPolyline(points);
+			}
+			else if (arrowheadShape == ArrowheadShape.TRIANGLE) {
+				g.drawPolygon(points);
+			}
 		}
 	}
 
 	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
+	}
+	
+	@Override
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
+		boundsResult.setBounds(t.getAnchorPoint(), new Dimension(1,1));
+		int arrowheadSize = t.getArrowheadSize();
+		boundsResult.expand(arrowheadSize, arrowheadSize);
 	}
 }

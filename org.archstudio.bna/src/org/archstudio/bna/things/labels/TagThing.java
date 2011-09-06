@@ -1,7 +1,7 @@
 package org.archstudio.bna.things.labels;
 
 import org.archstudio.bna.constants.IFontConstants;
-import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasIndicatorPoint;
 import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableColor;
@@ -12,12 +12,10 @@ import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.things.AbstractAnchorPointThing;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.RGB;
 
-public class TagThing extends AbstractAnchorPointThing implements IHasBoundingBox, IHasMutableColor,
-		IHasMutableAnchorPoint, IHasMutableText, IHasMutableAngle, IHasMutableIndicatorPoint, IHasMutableFontData,
-		IRelativeMovable {
+public class TagThing extends AbstractAnchorPointThing implements IHasMutableColor, IHasMutableAnchorPoint,
+		IHasMutableText, IHasMutableAngle, IHasMutableIndicatorPoint, IHasMutableFontData, IRelativeMovable {
 
 	public TagThing(Object id) {
 		super(id);
@@ -32,18 +30,8 @@ public class TagThing extends AbstractAnchorPointThing implements IHasBoundingBo
 		setFontSize(10);
 		setFontStyle(FontStyle.NORMAL);
 		setDontIncreaseFontSize(true);
-	}
-
-	@Override
-	public Rectangle getBoundingBox() {
-		// TODO: Note why this is so
-		Rectangle r = get(BOUNDING_BOX_KEY);
-		if (r != null) {
-			return new Rectangle(r.x, r.y, r.width, r.height);
-		}
-
-		Point p = get(ANCHOR_POINT_KEY);
-		return new Rectangle(p.x, p.y, 1, 1);
+		setColor(new RGB(0, 0, 0));
+		addShapeModifyingKey(IHasIndicatorPoint.INDICATOR_POINT_KEY);
 	}
 
 	@Override

@@ -61,7 +61,7 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 			fd.getParent().setFocus();
 		}
 		else {
-			Control c = view.getControl();
+			Control c = view.getComposite();
 			if (c != null) {
 				fd = new FindDialog<IBNAView>(finder, c.getShell());
 				//if(localX != Integer.MIN_VALUE){
