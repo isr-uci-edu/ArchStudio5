@@ -66,7 +66,7 @@ public class TagThingPeer<T extends TagThing> extends AbstractThingPeer<T> {
 
 			try {
 				g.setFont(r.getFont(fontName, fontSize, fontStyle));
-				
+
 				tl = new TextLayout(r.getDevice());
 				tl.setFont(g.getFont());
 				tl.setText(text);
@@ -89,12 +89,12 @@ public class TagThingPeer<T extends TagThing> extends AbstractThingPeer<T> {
 						}
 					}
 
-					g.drawString(text, textX, textY);
+					g.drawString(text, textX, textY - textBounds.height / 2);
 				}
 				else {
 					AffineTransform transform = new AffineTransform();
 					transform.translate(textX, textY);
-					transform.rotate(angle);
+					transform.rotate(Math.PI * angle / 180);
 					GeneralPath path = new GeneralPath(new Rectangle2D.Float(textX, textY, textBounds.width,
 							textBounds.height));
 					path.transform(transform);
@@ -117,7 +117,7 @@ public class TagThingPeer<T extends TagThing> extends AbstractThingPeer<T> {
 
 					g.translate(textX, textY);
 					g.rotate(angle);
-					g.drawString(text, 0, 0);
+					g.drawString(text, 0, -textBounds.height / 2);
 				}
 			}
 			finally {

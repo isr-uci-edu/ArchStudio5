@@ -67,17 +67,18 @@ public final class MyxRegistry {
 		return b;
 	}
 
-	public synchronized IMyxBrick getBrick(Class<?> brickClass) {
+	@SuppressWarnings("unchecked")
+	public synchronized <B extends IMyxBrick> B getBrick(Class<B> brickClass) {
 		for (IMyxBrick b : brickToObjectMap.keySet()) {
 			if (brickClass.equals(b.getClass())) {
-				return b;
+				return (B) b;
 			}
 		}
 		return null;
 	}
 
-	public synchronized IMyxBrick waitForBrick(Class<?> brickClass) {
-		IMyxBrick b = null;
+	public synchronized <B extends IMyxBrick> B waitForBrick(Class<B> brickClass) {
+		B b = null;
 		while ((b = getBrick(brickClass)) == null) {
 			try {
 				wait();

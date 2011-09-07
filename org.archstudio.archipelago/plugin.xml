@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="org.archstudio.archipelago" name="ArchipelagoTreePlugin" schema="schema/org.archstudio.archipelago.exsd"/>
+   <extension-point id="org.archstudio.archipelago" name="ArchipelagoPlugins" schema="schema/org.archstudio.archipelago.exsd"/>
 
 </plugin>
