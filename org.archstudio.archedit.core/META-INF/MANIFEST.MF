@@ -22,4 +22,5 @@ Require-Bundle: org.archstudio.launcher,
  org.eclipse.jface,
  org.eclipse.ui,
  org.archstudio.xarchadt.core,
- org.archstudio.xadl3.xadlcore
+ org.archstudio.xadl3.xadlcore,
+ com.google.guava;bundle-version="0.0.9"

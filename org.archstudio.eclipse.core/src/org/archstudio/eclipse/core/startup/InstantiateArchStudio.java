@@ -1,6 +1,7 @@
 package org.archstudio.eclipse.core.startup;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.URL;
 import java.util.List;
@@ -95,6 +96,8 @@ public class InstantiateArchStudio implements IStartup {
 	}
 
 	public void instantiate(IMyxProgressMonitor monitor) {
+		// allow override of archstudio.xml file using org.archstudio.startup.uri
+		URI docRootURI = URI.createURI(System.getProperty("org.archstudio.startup.uri", ARCHSTUDIO_URI));
 		try {
 			final IXArchADT xarch = new XArchADTImpl();
 			final IMyxRuntime myxRuntime = MyxUtils.getDefaultImplementation().createRuntime();
@@ -105,32 +108,33 @@ public class InstantiateArchStudio implements IStartup {
 			registerBrickLoader(myxRuntime, MyxOSGiBrickLoader.class);
 			registerBrickLoader(myxRuntime, MyxJavaClassBrickLoader.class);
 
-			ObjRef docRootRef = xarch.load(URI.createURI(ARCHSTUDIO_URI),
-					SystemUtils.blt(ARCHSTUDIO_DESCRIPTION.openStream()));
+			InputStream docRootIS = new URL(docRootURI.toString()).openStream();
+			ObjRef docRootRef = xarch.load(docRootURI, SystemUtils.blt(docRootIS));
+			
 			ObjRef xADLRef = (ObjRef) xarch.get(docRootRef, "xADL");
 			if (xADLRef == null) {
-				throw new RuntimeException("Can't find top-level xADL element in document: " + ARCHSTUDIO_URI);
+				throw new RuntimeException("Can't find top-level xADL element in document: " + docRootURI);
 			}
 			List<ObjRef> structureRefs = XadlUtils.getAllSubstitutionGroupElementsByType(xarch, xADLRef,
 					"topLevelElement", Structure_3_0Package.eNS_URI, "Structure");
 			if (structureRefs.size() == 0) {
-				throw new RuntimeException("Can't find structure element in document: " + ARCHSTUDIO_URI);
+				throw new RuntimeException("Can't find structure element in document: " + docRootURI);
 			}
 
 			aim.instantiate("system", docRootRef, structureRefs.get(0), monitor);
 			aim.begin("system", monitor);
 		}
 		catch (ArchitectureInstantiationException aie) {
-			throw new RuntimeException("Can't instantiate architecture with URI " + ARCHSTUDIO_URI, aie);
+			throw new RuntimeException("Can't instantiate architecture with URI " + docRootURI, aie);
 		}
 		catch (SAXException saxe) {
-			throw new RuntimeException("Can't load file with URI " + ARCHSTUDIO_URI, saxe);
+			throw new RuntimeException("Can't load file with URI " + docRootURI, saxe);
 		}
 		catch (IOException ioe) {
-			throw new RuntimeException("Can't load file with URI " + ARCHSTUDIO_URI, ioe);
+			throw new RuntimeException("Can't load file with URI " + docRootURI, ioe);
 		}
 		catch (Exception e) {
-			throw new RuntimeException("Can't instantiate architecture with URI " + ARCHSTUDIO_URI, e);
+			throw new RuntimeException("Can't instantiate architecture with URI " + docRootURI, e);
 		}
 	}
 

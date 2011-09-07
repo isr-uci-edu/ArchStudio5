@@ -185,6 +185,7 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new StructureNewInterfaceLogic(AS.xarch, AS.resources));
 		logicManager.addThingLogic(new EditTextLogic());
 		logicManager.addThingLogic(new EditFlowLogic());
+		//logicManager.addThingLogic(new StructureEditColorLogic(AS));
 		logicManager.addThingLogic(new ShowHideTagsLogic());
 		logicManager.addThingLogic(new FindDialogLogic(new ArchipelagoFinder(AS)));
 		logicManager.addThingLogic(new RemoveElementLogic(AS.xarch));
@@ -192,20 +193,23 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new AlignAndDistributeLogic());
 		logicManager.addThingLogic(new RectifyToGridLogic());
 		logicManager.addThingLogic(new StructureGraphLayoutLogic(AS.xarch, AS.resources, AS.graphLayout, structureRef));
+		//logicManager.addThingLogic(new ExportBitmapLogic(mbtl));
 
 		// xADL mapping logics
 
 		logicManager.addThingLogic(new MapBrickLogic(AS, AS.xarch, structureRef, "component", //
 				new Dimension(120, 80), ArchipelagoStructureConstants.DEFAULT_COMPONENT_RGB, 2));
 		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "component/interface"));
+		logicManager.addThingLogic(new MapMappingsLogic(AS.xarch, structureRef,
+				"component/subStructure/interfaceMapping"));
+
 		logicManager.addThingLogic(new MapBrickLogic(AS, AS.xarch, structureRef, "connector", //
 				new Dimension(240, 36), ArchipelagoStructureConstants.DEFAULT_CONNECTOR_RGB, 1));
 		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "connector/interface"));
-		logicManager.addThingLogic(new MapLinkLogic(AS.xarch, structureRef, "link"));
-		logicManager.addThingLogic(new MapMappingsLogic(AS.xarch, structureRef,
-				"component/subStructure/interfaceMapping"));
 		logicManager.addThingLogic(new MapMappingsLogic(AS.xarch, structureRef,
 				"connector/subStructure/interfaceMapping"));
+
+		logicManager.addThingLogic(new MapLinkLogic(AS.xarch, structureRef, "link"));
 
 		// propagate external events logics
 
@@ -217,13 +221,5 @@ public class StructureEditorSupport {
 
 		// these logics need to be last
 
-		// these logics need to be reintegrated
-
-		//
-		////Menu logics
-		//
-		//logicManager.addThingLogic(new FindDialogLogic(new ArchipelagoFinder(AS)));
-		//logicManager.addThingLogic(new StructureEditColorLogic(AS));
-		//logicManager.addThingLogic(new ExportBitmapLogic(mbtl));
 	}
 }

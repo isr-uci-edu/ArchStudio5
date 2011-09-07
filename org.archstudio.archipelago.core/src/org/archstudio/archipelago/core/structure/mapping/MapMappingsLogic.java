@@ -76,7 +76,7 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThi
 				IHasMutableSelected.USER_MAY_SELECT);
 
 		thing.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), StickyMode.CENTER);
-		thing.set(stickLogic.getStickyModeKey(MappingGlassThing.WORLD_POINT_KEY), StickyMode.EDGE_FROM_CENTER);
+		thing.set(stickLogic.getStickyModeKey(MappingGlassThing.WORLD_POINT_KEY), StickyMode.CENTER);
 
 		// stack above the world thing
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(

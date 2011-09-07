@@ -1,5 +1,6 @@
 package org.archstudio.archipelago.core;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,12 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.archstudio.archipelago.core.IArchipelagoEditorFocuser;
-import org.archstudio.archipelago.core.IArchipelagoLabelProvider;
-import org.archstudio.archipelago.core.IArchipelagoTreeContentProvider;
-import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
-import org.archstudio.archipelago.core.IArchipelagoTreeDoubleClickHandler;
-import org.archstudio.archipelago.core.IArchipelagoTreePlugin;
 import org.archstudio.archipelago.core.structure.StructureTreePlugin;
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.editormanager.IEditorManager;
@@ -28,7 +23,10 @@ import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTFileEvent;
 import org.archstudio.xarchadt.XArchADTModelEvent;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
@@ -98,8 +96,23 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		//addTreePlugin(new StatechartsTreePlugin(getTreeViewer(), AS, xArchRef));
 		//addTreePlugin(new StatelineTreePlugin(getTreeViewer(), AS, xArchRef));
 		//addTreePlugin(new HPCTreePlugin(getTreeViewer(), AS, documentRootRef));
-		
-		
+
+		// scan eclipse plugins and create additional tree plugins
+		// TODO: sort these using some scheme?
+		for (IConfigurationElement element : Platform.getExtensionRegistry().getConfigurationElementsFor(
+				"org.archstudio.archipelago")) {
+			try {
+				String className = element.getAttribute("class");
+				String pluginName = element.getContributor().getName();
+				Class<?> clazz = Platform.getBundle(pluginName).loadClass(className);
+				Constructor<?> classConstructor = clazz.getConstructor(new Class<?>[0]);
+				Object obj = classConstructor.newInstance(new Object[0]);
+				addTreePlugin((IArchipelagoTreePlugin) obj);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
 		getTreeViewer().expandToLevel(4);
 		getTreeViewer().reveal(documentRootRef);
