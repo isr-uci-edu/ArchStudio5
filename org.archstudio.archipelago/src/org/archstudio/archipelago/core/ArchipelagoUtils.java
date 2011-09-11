@@ -135,33 +135,29 @@ public class ArchipelagoUtils {
 		}
 
 		Point p = new Point(CoordinateMapperAdapter.getDefaultBounds().getCenter().translate(30, 30));
-		List<IThing> allThings = m.getThings();
-		while (true) {
-			boolean found = false;
-			for (IThing t : allThings) {
-				if (t instanceof IHasBoundingBox) {
-					Rectangle r = ((IHasBoundingBox) t).getBoundingBox();
-					if (r.x == p.x && r.y == p.y) {
-						found = true;
-						break;
-					}
-				}
-				if (t instanceof IHasAnchorPoint) {
-					Point ap = ((IHasAnchorPoint) t).getAnchorPoint();
-					if (ap.x == p.x && ap.y == p.y) {
-						found = true;
-						break;
-					}
+		// first find all things along the points of interest
+		int dyx = p.y - p.x;
+		Set<Integer> xValues = new HashSet<Integer>();
+		for (IThing t : m.getThings()) {
+			if (t instanceof IHasBoundingBox) {
+				Rectangle r = ((IHasBoundingBox) t).getBoundingBox();
+				if (r.y - r.x == dyx) {
+					xValues.add(r.x);
 				}
 			}
-			if (!found) {
-				return p;
-			}
-			else {
-				p.x += 10;
-				p.y += 10;
+			if (t instanceof IHasAnchorPoint) {
+				Point ap = ((IHasAnchorPoint) t).getAnchorPoint();
+				if (p.y - p.x == dyx) {
+					xValues.add(p.x);
+				}
 			}
 		}
+		// now find an open point
+		while (xValues.contains(p.x)) {
+			p.x += 10;
+			p.y += 10;
+		}
+		return p;
 	}
 
 	public static final String EDITOR_PANE_PROPERTY_BNA_COMPOSITE = "bnaCanvas";
