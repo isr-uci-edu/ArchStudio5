@@ -2,6 +2,7 @@ package org.archstudio.dblgen.builder;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +25,20 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.BasicMonitor;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.URIConverter;
+import org.eclipse.pde.core.plugin.IExtensions;
+import org.eclipse.pde.core.plugin.IPluginElement;
+import org.eclipse.pde.core.plugin.IPluginExtension;
+import org.eclipse.pde.core.plugin.IPluginModelBase;
+import org.eclipse.pde.core.plugin.IPluginObject;
+import org.eclipse.pde.core.plugin.PluginRegistry;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Iterables;
 
 public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 
@@ -211,9 +223,11 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			for (IResource fileResource : fileResources) {
 				if (fileResource instanceof IFile) {
 					IFile file = (IFile) fileResource;
-					String extension = file.getFileExtension();
-					if (extension != null && extension.equals("xsd")) {
-						schemaFiles.add(file);
+					if (file.exists()) {
+						String extension = file.getFileExtension();
+						if (extension != null && extension.equals("xsd")) {
+							schemaFiles.add(file);
+						}
 					}
 				}
 			}
@@ -239,6 +253,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		// Update schemas if necessary
 		Xadl3SchemaUpdater.getInstance().updateSchemasIfNecessary(getProject());
 		List<Xadl3SchemaLocation> schemaLocations = Xadl3SchemaLocation.parse(getProject());
+		addURIMappings(getProject());
 
 		// Now build with latest schemas.
 		schemaFilesToProcess = getSchemaFiles();
@@ -306,6 +321,33 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		};
 		job.setPriority(Job.SHORT);
 		job.schedule(); // start as soon as possible
+	}
+
+	private void addURIMappings(IProject project) {
+		IPluginModelBase workspacePluginModelBase = PluginRegistry.findModel(project);
+		if (workspacePluginModelBase != null) {
+			IExtensions extensions = workspacePluginModelBase.getExtensions();
+			if (extensions != null) {
+				for (IPluginExtension pluginExtension : extensions.getExtensions()) {
+					if (pluginExtension.getPoint() != null
+							&& pluginExtension.getPoint().equals("org.eclipse.emf.ecore.uri_mapping")) {
+						IPluginObject[] pluginObjects = pluginExtension.getChildren();
+						if (pluginObjects != null && pluginObjects.length > 0) {
+							for (IPluginElement pluginElement : Iterables.filter(Arrays.asList(pluginObjects),
+									IPluginElement.class)) {
+								URI source = URI.createURI(Preconditions.checkNotNull(pluginElement.getAttribute(
+										"source").getValue()));
+								URI target = URI.createURI(Preconditions.checkNotNull(pluginElement.getAttribute(
+										"target").getValue()));
+								if (source != null && target != null) {
+									URIConverter.URI_MAP.put(source, target);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	class XMLErrorHandler extends DefaultHandler {
