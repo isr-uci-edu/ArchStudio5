@@ -4,9 +4,23 @@
    <extension
          point="org.eclipse.emf.ecore.uri_mapping">
       <mapping
-            source="http://gexf.net/1.2draft"
-            target="platform:/resource/org.archstudio.xadl3.gexf/model.offline">
+            source="http://gexf.net/1.2draft/"
+            target="platform:/resource/org.archstudio.xadl3.gexf/model.offline/">
       </mapping>
    </extension>
-
+   <extension
+         point="org.archstudio.dblgen.schemalocation">
+      <schema
+            autoUpdateFrequency="never"
+            copyLocally="false"
+            name="net.gexf_1_2.gexf"
+            url="http://gexf.net/1.2draft/gexf.xsd">
+      </schema>
+      <schema
+            autoUpdateFrequency="never"
+            copyLocally="false"
+            name="net.gexf_1_2.viz"
+            url="http://gexf.net/1.2draft/viz.xsd">
+      </schema>
+   </extension>
 </plugin>
