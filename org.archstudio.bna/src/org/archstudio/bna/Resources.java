@@ -1,7 +1,6 @@
 package org.archstudio.bna;
 
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasFontData;
@@ -109,7 +108,9 @@ public class Resources implements IResources {
 	@Override
 	public boolean setLineStyle(Graphics g, IHasLineData thing) {
 		g.setLineStyle(thing.getLineStyle());
-		g.setLineWidth(thing.getLineWidth());
+		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=155511
+		int width = thing.getLineWidth();
+		g.setLineWidth(width == 1 ? 0 : width);
 		return true;
 	}
 

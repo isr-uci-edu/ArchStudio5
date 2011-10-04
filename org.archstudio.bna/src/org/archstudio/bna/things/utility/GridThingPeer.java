@@ -21,9 +21,10 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 		// only draw for the top level things
-		if(view.getParentView() != null)
+		if (view.getParentView() != null) {
 			return;
-		
+		}
+
 		int worldGridStep = t.getGridSpacing();
 		if (worldGridStep == 0) {
 			return;
@@ -33,11 +34,12 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 		if (gdt == null || gdt == GridDisplayType.NONE) {
 			return;
 		}
-		
+
 		if (r.setForegroundColor(g, t, IHasColor.COLOR_KEY)) {
 
-			while(worldGridStep * cm.getLocalScale() <= 8)
+			while (worldGridStep * cm.getLocalScale() <= 8) {
 				worldGridStep *= 2;
+			}
 
 			Rectangle lClip = g.getClip(new Rectangle());
 			Rectangle wClip = cm.localToWorld(lClip.getCopy());
@@ -49,14 +51,14 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 			int dx = wx % worldGridStep;
 			int dy = wy % worldGridStep;
 
+			// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=155511
+			g.setLineWidth(0);
 			if (gdt == GridDisplayType.SOLID_LINES || gdt == GridDisplayType.DOTTED_LINES) {
 				if (gdt == GridDisplayType.DOTTED_LINES) {
-					g.setLineWidth(1);
 					g.setLineCap(SWT.CAP_SQUARE);
 					g.setLineStyle(SWT.LINE_DOT);
 				}
 				else {
-					g.setLineWidth(1);
 					g.setLineStyle(SWT.LINE_SOLID);
 				}
 				// "~1" rounds down to the nearest even number, which is necessary
@@ -71,7 +73,6 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 				}
 			}
 			else if (gdt == GridDisplayType.DOTS_AT_CORNERS) {
-				g.setLineWidth(1);
 				for (int i = wx - dx; i <= wx2; i += worldGridStep) {
 					int gx = cm.worldToLocal(new Point(i, wy)).x;
 					for (int j = wy - dy; j <= wy2; j += worldGridStep) {
@@ -81,7 +82,6 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 				}
 			}
 			else if (gdt == GridDisplayType.CROSSES_AT_CORNERS) {
-				g.setLineWidth(1);
 				for (int i = wx - dx; i <= wx2; i += worldGridStep) {
 					int gx = cm.worldToLocal(new Point(i, wy)).x;
 					for (int j = wy - dy; j <= wy2; j += worldGridStep) {
