@@ -29,25 +29,25 @@
 
 	</target>
 
+	<target name="import-target">
 
-	<target name="create-cquery">
-
-		<assert-nonempty property="buckminster.component" message="Missing buckminster.component" />
-		<property name="buckminster.component.type" value="eclipse.feature" />
-		<assert-nonempty property="rmap.url" message="Missing rmap.url" />
 		<property name="workspace.root" location="${env.WORKSPACE}" />
+		<assert-nonempty property="eclipse.home" message="Missing eclipse.home" />
+		<property name="buckminster.temp" location="${workspace.root}/buckminster.temp" />
+		<property name="buckminster.temp.root" location="${buckminster.temp}" />
+		<property name="buckminster.output.root" location="${workspace.root}/buckminster.output" />
+		<makeurl property="target.url" file="${basedir}/defaults/eclipse-${eclipse.version}.target" />
 
-		<property name="componnet.cquery.location" location="${workspace.root}/component.cquery" />
-		<makeurl property="cquery.url" file="${basedir}/defaults/component.cquery" />
-
-		<echo>Retrieving the cquery: ${cquery.url}</echo>
-		<get src="${cquery.url}" dest="${componnet.cquery.location}" />
-
-		<echo>Setting the cquery's component type: ${buckminster.component.type}</echo>
-		<xslt-set inout="${componnet.cquery.location}" style="${basedir}/xsl/set-cquery-componentType.xsl" value="${buckminster.component.type}" />
-
-		<echo>Expanding properties within the cquery: ${componnet.cquery.location}</echo>
-		<expand-file inout="${componnet.cquery.location}" />
+		<echo>Importing target...</echo>
+		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
+			<arg value="importtargetdefinition" />
+			<arg value="-A" />
+			<arg value="${target.url}" />
+			<syspropertyset>
+				<propertyref builtin="commandline" />
+				<propertyref prefix="buckminster." />
+			</syspropertyset>
+		</buckminster>
 
 	</target>
 
@@ -149,5 +149,5 @@
 	</target>
 
 	<target name="resolvebuildupdate" depends="resolve-cquery, build-update-site, update-buckminster" />
-	
+
 </project>
