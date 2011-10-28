@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 /**
@@ -209,7 +210,7 @@ public class XArchADTPath implements java.io.Serializable {
 				catch (Exception e) {
 				}
 				try {
-					for (ObjRef ref : xarch.getAll(curNode, tagName)) {
+					for (ObjRef ref : Iterables.filter(xarch.getAll(curNode, tagName), ObjRef.class)) {
 						try {
 							String objectID = (String) xarch.get(ref, "id");
 							if (objectID != null) {
@@ -241,7 +242,8 @@ public class XArchADTPath implements java.io.Serializable {
 					catch (Exception e) {
 					}
 					try {
-						List<ObjRef> refs = xarch.getAll(curNode, tagName);
+						List<ObjRef> refs = Lists.newArrayList(Iterables.filter(xarch.getAll(curNode, tagName),
+								ObjRef.class));
 						if (refs != null && refs.size() > 0) {
 							curNode = refs.get(0);
 							continue;
@@ -254,7 +256,8 @@ public class XArchADTPath implements java.io.Serializable {
 				}
 				else {
 					try {
-						List<ObjRef> refs = xarch.getAll(curNode, tagName);
+						List<ObjRef> refs = Lists.newArrayList(Iterables.filter(xarch.getAll(curNode, tagName),
+								ObjRef.class));
 						if (refs != null && refs.size() > 0) {
 							curNode = refs.get(tagIndex);
 							continue;

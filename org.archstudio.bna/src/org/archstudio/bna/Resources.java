@@ -1,6 +1,6 @@
 package org.archstudio.bna;
 
-import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasFontData;
@@ -16,9 +16,11 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 
-import com.google.common.base.Function;
-import com.google.common.collect.MapEvictionListener;
-import com.google.common.collect.MapMaker;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.RemovalListener;
+import com.google.common.cache.RemovalNotification;
 
 public class Resources implements IResources {
 
@@ -26,18 +28,44 @@ public class Resources implements IResources {
 	final Composite composite;
 	final Device device;
 
-	final Map<RGB, Color> autoColorCache = new MapMaker().makeComputingMap(new Function<RGB, Color>() {
-		@Override
-		public Color apply(RGB input) {
-			return new Color(device, input);
-		}
-	});
-	final Map<FontData, Font> autoFontCache = new MapMaker().makeComputingMap(new Function<FontData, Font>() {
-		@Override
-		public Font apply(FontData input) {
-			return new Font(device, input);
-		}
-	});
+	final Cache<RGB, Color> colorCache = CacheBuilder.newBuilder().expireAfterAccess(10, TimeUnit.MINUTES)
+			.removalListener(new RemovalListener<RGB, Color>() {
+				@Override
+				public void onRemoval(RemovalNotification<RGB, Color> notification) {
+					notification.getValue().dispose();
+				}
+			}).build(new CacheLoader<RGB, Color>() {
+				@Override
+				public Color load(RGB input) {
+					return new Color(device, input);
+				}
+			});
+
+	final Cache<FontData, Font> fontCache = CacheBuilder.newBuilder().expireAfterAccess(10, TimeUnit.MINUTES)
+			.removalListener(new RemovalListener<FontData, Font>() {
+				@Override
+				public void onRemoval(RemovalNotification<FontData, Font> notification) {
+					notification.getValue().dispose();
+				}
+			}).build(new CacheLoader<FontData, Font>() {
+				@Override
+				public Font load(FontData input) {
+					return new Font(device, input);
+				}
+			});
+
+	final Cache<ImageData, Image> imageCache = CacheBuilder.newBuilder().expireAfterAccess(10, TimeUnit.MINUTES)
+			.removalListener(new RemovalListener<ImageData, Image>() {
+				@Override
+				public void onRemoval(RemovalNotification<ImageData, Image> notification) {
+					notification.getValue().dispose();
+				}
+			}).build(new CacheLoader<ImageData, Image>() {
+				@Override
+				public Image load(ImageData input) {
+					return new Image(device, input);
+				}
+			});
 
 	public Resources(Composite c) {
 		this(c, c.getDisplay());
@@ -51,14 +79,12 @@ public class Resources implements IResources {
 
 	@Override
 	public void dispose() {
-		for (Color c : autoColorCache.values()) {
-			try {
-				c.dispose();
-			}
-			catch (Throwable t) {
-			}
-		}
-		autoColorCache.clear();
+		colorCache.invalidateAll();
+		colorCache.cleanUp();
+		fontCache.invalidateAll();
+		fontCache.cleanUp();
+		imageCache.invalidateAll();
+		imageCache.cleanUp();
 	}
 
 	@Override
@@ -68,7 +94,7 @@ public class Resources implements IResources {
 
 	@Override
 	public Color getColor(RGB color) {
-		return autoColorCache.get(color);
+		return colorCache.getUnchecked(color);
 	}
 
 	@Override
@@ -93,7 +119,7 @@ public class Resources implements IResources {
 
 	@Override
 	public Font getFont(String fontName, int size, FontStyle style) {
-		return autoFontCache.get(new FontData(fontName, size, style.toSWT()));
+		return fontCache.getUnchecked(new FontData(fontName, size, style.toSWT()));
 	}
 
 	@Override
@@ -124,21 +150,8 @@ public class Resources implements IResources {
 		return composite;
 	}
 
-	Map<ImageData, Image> imageCache = new MapMaker().softKeys()
-			.evictionListener(new MapEvictionListener<ImageData, Image>() {
-				@Override
-				public void onEviction(ImageData key, Image value) {
-					value.dispose();
-				}
-			}).makeComputingMap(new Function<ImageData, Image>() {
-				@Override
-				public Image apply(ImageData input) {
-					return new Image(device, input);
-				}
-			});
-
 	@Override
 	public Image getImage(ImageData imageData) {
-		return imageCache.get(imageData);
+		return imageCache.getUnchecked(imageData);
 	}
 }

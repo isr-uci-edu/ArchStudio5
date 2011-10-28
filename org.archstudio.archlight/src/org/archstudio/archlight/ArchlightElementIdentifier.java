@@ -4,6 +4,8 @@ import org.archstudio.xarchadt.ObjRef;
 
 public class ArchlightElementIdentifier implements java.io.Serializable {
 
+	private static final long serialVersionUID = 3313771265145301624L;
+
 	protected String elementID;
 	protected ObjRef elementRef;
 	protected String elementDescription;
@@ -46,6 +48,7 @@ public class ArchlightElementIdentifier implements java.io.Serializable {
 		this.elementRef = elementRef;
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof ArchlightElementIdentifier)) {
 			return false;
@@ -56,15 +59,19 @@ public class ArchlightElementIdentifier implements java.io.Serializable {
 	}
 
 	private static boolean nulleq(Object o1, Object o2) {
-		if ((o1 == null) && (o2 == null))
+		if (o1 == null && o2 == null) {
 			return true;
-		if ((o1 == null) && (o2 != null))
+		}
+		if (o1 == null && o2 != null) {
 			return false;
-		if ((o1 != null) && (o2 == null))
+		}
+		if (o1 != null && o2 == null) {
 			return false;
+		}
 		return o1.equals(o2);
 	}
 
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer("ArchlightElementIdentifier[");
 		buf.append("elementID=").append(elementID).append("; ");

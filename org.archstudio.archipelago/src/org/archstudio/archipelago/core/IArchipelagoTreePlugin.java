@@ -26,4 +26,6 @@ public interface IArchipelagoTreePlugin {
 	public IArchipelagoEditorFocuser getEditorFocuser();
 
 	public DragSourceListener getDragSourceListener();
+
+	public void setEditor(IArchipelagoEditorPane editor);
 }

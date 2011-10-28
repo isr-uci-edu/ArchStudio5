@@ -43,7 +43,7 @@ public class NewFileWizard extends Wizard implements INewWizard {
 
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		comp = (FileManagerMyxComponent) er.waitForBrick(FileManagerMyxComponent.class);
+		comp = er.waitForBrick(FileManagerMyxComponent.class);
 		er.map(comp, this);
 		xarch = comp.xarch;
 
@@ -122,8 +122,7 @@ public class NewFileWizard extends Wizard implements INewWizard {
 		NewFileWizard wizard = new NewFileWizard();
 		wizard.init(workbench, StructuredSelection.EMPTY);
 		WizardDialog dialog = new WizardDialog(shell, wizard);
-
-		int result = dialog.open();
+		dialog.open();
 	}
 
 }

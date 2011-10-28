@@ -1,7 +1,6 @@
 package biz.volantec.utils.widgets;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IResource;
@@ -26,7 +25,6 @@ import org.eclipse.ui.ResourceWorkingSetFilter;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
-import org.eclipse.ui.views.navigator.ResourceNavigator;
 
 /**
  * 
@@ -46,23 +44,23 @@ public class WSFileDialog extends Dialog {
 
 	private TreeViewer viewer;
 
-	private IResource rootElement;
+	private final IResource rootElement;
 
-	private boolean expand;
+	private final boolean expand;
 
 	private String[] extensions;
 
-	private FilePatternFilter patternFilter = new FilePatternFilter();
+	private final FilePatternFilter patternFilter = new FilePatternFilter();
 
-	private ResourceWorkingSetFilter workingSetFilter = new ResourceWorkingSetFilter();
+	private final ResourceWorkingSetFilter workingSetFilter = new ResourceWorkingSetFilter();
 
-	private IWorkingSet workingSet;
+	private final IWorkingSet workingSet;
 
-	private int selectionStyle;
+	private final int selectionStyle;
 
 	private IResource[] result;
 
-	private String title;
+	private final String title;
 
 	/**
 	 * 
@@ -169,6 +167,7 @@ public class WSFileDialog extends Dialog {
 	 * .Composite)
 	 */
 
+	@Override
 	protected Control createDialogArea(Composite parent) {
 
 		Composite comp = (Composite) super.createDialogArea(parent);
@@ -197,8 +196,6 @@ public class WSFileDialog extends Dialog {
 
 	protected TreeViewer createViewer(Composite parent) {
 
-		ResourceNavigator nav = new ResourceNavigator();
-
 		final TreeViewer viewer =
 
 		new TreeViewer(parent, selectionStyle | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
@@ -220,6 +217,7 @@ public class WSFileDialog extends Dialog {
 		}
 
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
+			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				ISelection selection = viewer.getSelection();
 				if (!selection.isEmpty()) {
@@ -293,11 +291,12 @@ public class WSFileDialog extends Dialog {
 	 * 
 	 */
 
+	@Override
 	protected void okPressed() {
 
 		ISelection selection = viewer.getSelection();
 
-		List data = new ArrayList();
+		List<IResource> data = new ArrayList<IResource>();
 
 		if (!selection.isEmpty()) {
 
@@ -305,21 +304,18 @@ public class WSFileDialog extends Dialog {
 
 				IStructuredSelection sel = (IStructuredSelection) selection;
 
-				for (Iterator i = sel.iterator(); i.hasNext();) {
-
-					Object next = i.next();
+				for (Object next : sel.toList()) {
 
 					IResource resource = null;
 
-					if (next instanceof IResource)
-
+					if (next instanceof IResource) {
 						resource = (IResource) next;
-
+					}
 					else if (next instanceof IAdaptable) {
 
-						if (resource == null)
-
+						if (resource == null) {
 							resource = (IResource) ((IAdaptable) next).getAdapter(IResource.class);
+						}
 
 					}
 
@@ -335,7 +331,7 @@ public class WSFileDialog extends Dialog {
 
 		}
 
-		result = (IResource[]) data.toArray(new IResource[] {});
+		result = data.toArray(new IResource[] {});
 
 		super.okPressed();
 
@@ -358,8 +354,9 @@ public class WSFileDialog extends Dialog {
 			return getMultiResult()[0];
 
 		}
-		else
+		else {
 			return null;
+		}
 
 	}
 
@@ -378,8 +375,9 @@ public class WSFileDialog extends Dialog {
 			return result;
 
 		}
-		else
+		else {
 			return null;
+		}
 
 	}
 
@@ -402,10 +400,12 @@ public class WSFileDialog extends Dialog {
 		 * 
 		 */
 
+		@Override
 		public boolean select(Viewer viewer, Object parentElement, Object element) {
 
-			if (extensions == null || extensions.length == 0)
+			if (extensions == null || extensions.length == 0) {
 				return true;
+			}
 
 			IResource resource = null;
 
@@ -424,18 +424,21 @@ public class WSFileDialog extends Dialog {
 
 			if (resource != null && !resource.isDerived()) {
 
-				if (resource.getType() != IResource.FILE)
+				if (resource.getType() != IResource.FILE) {
 					return true;
+				}
 
 				String extension = resource.getFileExtension();
 
-				if (extension == null)
+				if (extension == null) {
 					return true;
+				}
 
-				for (int i = 0; i < extensions.length; i++) {
+				for (String extension2 : extensions) {
 
-					if (extension.equalsIgnoreCase(extensions[i]))
+					if (extension.equalsIgnoreCase(extension2)) {
 						return true;
+					}
 
 				}
 

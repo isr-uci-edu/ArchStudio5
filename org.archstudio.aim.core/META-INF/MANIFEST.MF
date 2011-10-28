@@ -5,8 +5,7 @@ Bundle-SymbolicName: org.archstudio.aim.core;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.aim.core
 Manifest-Version: 1.0
-Require-Bundle: com.google.guava,
- org.archstudio.aim,
+Require-Bundle: org.archstudio.aim,
  org.archstudio.myx.fw,
  org.archstudio.myxgen,
  org.archstudio.utils.system,
@@ -22,5 +21,6 @@ Require-Bundle: com.google.guava,
  org.archstudio.xadl3.implementation.java,
  org.archstudio.xadl3.implementation.osgi,
  org.archstudio.xadl.myx,
- org.archstudio.xadl3.implementation.lookup
+ org.archstudio.xadl3.implementation.lookup,
+ com.google.guava;bundle-version="10.0.1"
 Bundle-Vendor: archstudio.org

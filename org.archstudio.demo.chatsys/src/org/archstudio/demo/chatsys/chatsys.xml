@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xadlcore_3_0:xADL
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:archlight_3_0="http://www.archstudio.org/xadl3/schemas/archlight-3.0.xsd"
+    xmlns:hints_3_0="http://www.archstudio.org/xadl3/schemas/hints-3.0.xsd" xmlns:implementation_3_0="http://www.archstudio.org/xadl3/schemas/implementation-3.0.xsd"
+    xmlns:myxgen_3_0="http://www.archstudio.org/xadl3/schemas/myxgen-3.0.xsd" xmlns:structure_3_0="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd"
+    xmlns:xadlcore_3_0="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd">
+  <structure_3_0:structure structure_3_0:id="structure0a53496a-4ca148ae-caa72b53-dad30004"
+      structure_3_0:name="Chat System">
+    <structure_3_0:component structure_3_0:id="component0a53496a-4ca1afa4-9e393d0f-dad30005"
+        structure_3_0:name="Server">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="interface0a53496a-4ca23286-bac12082-dad30008"
+          structure_3_0:name="[New Interface]">
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:name="location">
+            <hints_3_0:value hints_3_0:data="10152,10120" hints_3_0:type="org.eclipse.draw2d.geometry.Point"/>
+          </hints_3_0:hint>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="interface0a53496a-4ca2c252-0e2e96a3-dad30009"
+          structure_3_0:name="[New Interface]">
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:name="location">
+            <hints_3_0:value hints_3_0:data="10200,10120" hints_3_0:type="org.eclipse.draw2d.geometry.Point"/>
+          </hints_3_0:hint>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="bounds">
+          <hints_3_0:value hints_3_0:data="10116,10040,120,80" hints_3_0:type="org.eclipse.draw2d.geometry.Rectangle"/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen" implementation_3_0:id="MyxGen100">
+          <myxgen_3_0:brickID>org.archstudio.demo.chatsys.brick1</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="component0a53496a-4ca1da7e-3da5dd84-dad30006"
+        structure_3_0:name="Client 1">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="interface0a53496a-4ca30f65-304f15b2-dad3000a"
+          structure_3_0:name="[New Interface]">
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:name="location">
+            <hints_3_0:value hints_3_0:data="10104,10208" hints_3_0:type="org.eclipse.draw2d.geometry.Point"/>
+          </hints_3_0:hint>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="interface0a53496a-4ca330e8-4a015348-dad3000b"
+          structure_3_0:name="[New Interface]">
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:name="location">
+            <hints_3_0:value hints_3_0:data="10056,10208" hints_3_0:type="org.eclipse.draw2d.geometry.Point"/>
+          </hints_3_0:hint>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="bounds">
+          <hints_3_0:value hints_3_0:data="10020,10208,120,80" hints_3_0:type="org.eclipse.draw2d.geometry.Rectangle"/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="component0a53496a-4ca20425-c33dc037-dad30007"
+        structure_3_0:name="Client 2">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="interface0a53496a-4ca37feb-4e7bb5f9-dad3000c"
+          structure_3_0:name="[New Interface]">
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:name="location">
+            <hints_3_0:value hints_3_0:data="10248,10208" hints_3_0:type="org.eclipse.draw2d.geometry.Point"/>
+          </hints_3_0:hint>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="interface0a53496a-4ca39434-ac231c68-dad3000d"
+          structure_3_0:name="[New Interface]">
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:name="location">
+            <hints_3_0:value hints_3_0:data="10296,10208" hints_3_0:type="org.eclipse.draw2d.geometry.Point"/>
+          </hints_3_0:hint>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="bounds">
+          <hints_3_0:value hints_3_0:data="10212,10208,120,80" hints_3_0:type="org.eclipse.draw2d.geometry.Rectangle"/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:link structure_3_0:id="link0a53496a-4ca3f6af-269696f5-dad3000e"
+        structure_3_0:name="[New Link]">
+      <structure_3_0:point1>interface0a53496a-4ca330e8-4a015348-dad3000b</structure_3_0:point1>
+      <structure_3_0:point2>interface0a53496a-4ca23286-bac12082-dad30008</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="link0a53496a-4ca43fc9-f54b44cb-dad3000f"
+        structure_3_0:name="[New Link]">
+      <structure_3_0:point1>interface0a53496a-4ca30f65-304f15b2-dad3000a</structure_3_0:point1>
+      <structure_3_0:point2>interface0a53496a-4ca2c252-0e2e96a3-dad30009</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="link0a53496a-4ca45dd3-2019879e-dad30010"
+        structure_3_0:name="[New Link]">
+      <structure_3_0:point1>interface0a53496a-4ca37feb-4e7bb5f9-dad3000c</structure_3_0:point1>
+      <structure_3_0:point2>interface0a53496a-4ca23286-bac12082-dad30008</structure_3_0:point2>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="link0a53496a-4ca47a8a-5bd3f219-dad30011"
+        structure_3_0:name="[New Link]">
+      <structure_3_0:point1>interface0a53496a-4ca39434-ac231c68-dad3000d</structure_3_0:point1>
+      <structure_3_0:point2>interface0a53496a-4ca2c252-0e2e96a3-dad30009</structure_3_0:point2>
+    </structure_3_0:link>
+  </structure_3_0:structure>
+</xadlcore_3_0:xADL>

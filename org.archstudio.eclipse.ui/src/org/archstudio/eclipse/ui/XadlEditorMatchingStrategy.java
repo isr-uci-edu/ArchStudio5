@@ -12,6 +12,7 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPathEditorInput;
 
 public class XadlEditorMatchingStrategy implements org.eclipse.ui.IEditorMatchingStrategy {
+	@Override
 	public boolean matches(IEditorReference editorRef, IEditorInput input) {
 
 		Reader r = null;
@@ -20,8 +21,9 @@ public class XadlEditorMatchingStrategy implements org.eclipse.ui.IEditorMatchin
 			if (input instanceof IFileEditorInput) {
 				IFileEditorInput fileInput = (IFileEditorInput) input;
 				IFile f = fileInput.getFile();
-				if (!f.getName().toLowerCase().endsWith(".xml"))
+				if (!f.getName().toLowerCase().endsWith(".xml")) {
 					return false;
+				}
 				r = new InputStreamReader(f.getContents());
 			}
 			else if (input instanceof IPathEditorInput) {
@@ -78,7 +80,6 @@ public class XadlEditorMatchingStrategy implements org.eclipse.ui.IEditorMatchin
 
 	private static final int BEFORE_TAG = 0;
 	private static final int IN_TAG = 1;
-	private static final int DONE = 2;
 
 	public String readTag(Reader r) throws IOException {
 		StringBuffer sb = new StringBuffer();

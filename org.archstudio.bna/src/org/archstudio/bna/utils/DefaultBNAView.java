@@ -38,19 +38,22 @@ public class DefaultBNAView implements IBNAView {
 		this.cm = checkNotNull(cm);
 	}
 
+	@Override
 	public Composite getComposite() {
 		return composite;
 	}
 
+	@Override
 	public void setComposite(Composite composite) {
 		if (!nullEquals(this.composite, composite)) {
 			this.composite = composite;
-			for (IThing t : getBNAWorld().getBNAModel().getThings()) {
+			for (IThing t : getBNAWorld().getBNAModel().getAllThings()) {
 				IThingPeer<?> tp = getThingPeer(t);
 				if (tp instanceof IHasInnerViewPeer) {
 					IBNAView innerView = ((IHasInnerViewPeer) tp).getInnerView();
-					if (innerView != null)
+					if (innerView != null) {
 						innerView.setComposite(composite);
+					}
 				}
 			}
 		}
@@ -88,6 +91,7 @@ public class DefaultBNAView implements IBNAView {
 		return peerCache.getPeer(thing);
 	}
 
+	@Override
 	public <T extends IThing> void disposePeer(T thing) {
 		peerCache.disposePeer(thing);
 	}

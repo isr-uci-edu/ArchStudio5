@@ -9,6 +9,8 @@ import org.archstudio.archlight.ArchlightTest;
 
 public class ArchlightTestADTEvent implements java.io.Serializable {
 
+	private static final long serialVersionUID = -6448627789883470715L;
+
 	public enum EventType {
 		TESTS_ADDED, TESTS_REMOVED
 	}

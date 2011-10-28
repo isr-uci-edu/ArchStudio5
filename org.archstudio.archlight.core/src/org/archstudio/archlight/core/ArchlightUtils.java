@@ -20,6 +20,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
 
+import com.google.common.collect.Iterables;
+
 public class ArchlightUtils {
 
 	public static final String ARCHLIGHT_ISSUE_VIEW_ECLIPSE_ID = "org.archstudio.issueview.core.ArchlightIssueView";
@@ -98,15 +100,16 @@ public class ArchlightUtils {
 						"topLevelElement", "archlight");
 				if (archlightRefs.size() > 0) {
 					ObjRef archlightRef = archlightRefs.get(0);
-					List<ObjRef> testRefs = xarch.getAll(archlightRef, "test");
-					for (ObjRef testRef : testRefs) {
+					for (ObjRef testRef : Iterables.filter(xarch.getAll(archlightRef, "test"), ObjRef.class)) {
 						String testUID = XadlUtils.getID(xarch, testRef);
 						String testName = XadlUtils.getName(xarch, testRef);
-						if (testName == null)
+						if (testName == null) {
 							testName = "[no data]";
+						}
 						Boolean enabled = (Boolean) xarch.get(testRef, "enabled");
-						if (enabled == null)
+						if (enabled == null) {
 							enabled = Boolean.FALSE;
+						}
 						ArchlightDocTest newDocTest = new ArchlightDocTest(testUID, testName, enabled.booleanValue());
 						docTestList.add(newDocTest);
 					}
@@ -127,13 +130,14 @@ public class ArchlightUtils {
 
 			List<ObjRef> archlightRefs = XadlUtils.getAllSubstitutionGroupElementsByTag(xarch, xADLRef,
 					"topLevelElement", "archlight");
-			if (archlightRefs.size() > 0)
+			if (archlightRefs.size() > 0) {
 				archlightRef = archlightRefs.get(0);
+			}
 
 			if (archlightRef != null) {
-				for (ObjRef testRef : xarch.getAll(archlightRef, "test")) {
+				for (ObjRef testRef : Iterables.filter(xarch.getAll(archlightRef, "test"), ObjRef.class)) {
 					String testUID = (String) xarch.get(testRef, "id");
-					if ((testUID != null) && testUID.equals(testToUpdate.getUID())) {
+					if (testUID != null && testUID.equals(testToUpdate.getUID())) {
 						//Found it.  Just update with the new status.
 						xarch.set(testRef, "enabled", isEnabled);
 						return;
@@ -168,13 +172,14 @@ public class ArchlightUtils {
 
 			List<ObjRef> archlightRefs = XadlUtils.getAllSubstitutionGroupElementsByTag(xarch, xADLRef,
 					"topLevelElement", "archlight");
-			if (archlightRefs.size() > 0)
+			if (archlightRefs.size() > 0) {
 				archlightRef = archlightRefs.get(0);
+			}
 
 			if (archlightRef != null) {
-				for (ObjRef testRef : xarch.getAll(archlightRef, "test")) {
+				for (ObjRef testRef : Iterables.filter(xarch.getAll(archlightRef, "test"), ObjRef.class)) {
 					String testUID = (String) xarch.get(testRef, "id");
-					if ((testUID != null) && testUID.equals(testToUpdate.getUID())) {
+					if (testUID != null && testUID.equals(testToUpdate.getUID())) {
 						//Found it.  Remove it
 						xarch.remove(archlightRef, "test", testRef);
 						return;
@@ -196,7 +201,7 @@ public class ArchlightUtils {
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < basePathSegments.length; i++) {
 				sb.append(basePathSegments[i]);
-				if (i != (basePathSegments.length - 1)) {
+				if (i != basePathSegments.length - 1) {
 					sb.append("/");
 				}
 			}
@@ -212,7 +217,7 @@ public class ArchlightUtils {
 		}
 
 		for (ArchlightTest test : testsToChange) {
-			if ((newState == ArchlightUtils.APPLIED) || (newState == ArchlightUtils.DISABLED)) {
+			if (newState == ArchlightUtils.APPLIED || newState == ArchlightUtils.DISABLED) {
 				ArchlightUtils.makeDocTestApplied(xarch, xArchRef, test, newState == ArchlightUtils.APPLIED);
 			}
 			else if (newState == ArchlightUtils.NOT_APPLIED) {
@@ -239,6 +244,7 @@ public class ArchlightUtils {
 
 		Action applyAction = new Action("Make " + kindOfThing + " Applied/Enabled",
 				ImageDescriptor.createFromImage(applyIcon)) {
+			@Override
 			public void run() {
 				changeTestState(fxarch, fdocumentRootRef, ftests, felement, APPLIED);
 			}
@@ -247,6 +253,7 @@ public class ArchlightUtils {
 
 		Action disableAction = new Action("Make " + kindOfThing + " Applied/Disabled",
 				ImageDescriptor.createFromImage(disableIcon)) {
+			@Override
 			public void run() {
 				changeTestState(fxarch, fdocumentRootRef, ftests, felement, DISABLED);
 			}
@@ -255,6 +262,7 @@ public class ArchlightUtils {
 
 		Action unapplyAction = new Action("Make " + kindOfThing + " Unapplied",
 				ImageDescriptor.createFromImage(unapplyIcon)) {
+			@Override
 			public void run() {
 				changeTestState(fxarch, fdocumentRootRef, ftests, felement, NOT_APPLIED);
 			}

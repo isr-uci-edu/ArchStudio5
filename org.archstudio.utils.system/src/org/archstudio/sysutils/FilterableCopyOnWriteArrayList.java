@@ -4,13 +4,13 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.google.common.base.Function;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.MapMaker;
 
 public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 
@@ -20,12 +20,13 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 
 	CopyOnWriteArrayList<E> list = new CopyOnWriteArrayList<E>();
 	int listModCount = 0;
-	Map<Class<?>, List<?>> filteredLists = new MapMaker().makeComputingMap(new Function<Class<?>, List<?>>() {
+	Cache<Class<?>, List<?>> filteredListsCache = CacheBuilder.newBuilder().build(new CacheLoader<Class<?>, List<?>>() {
 		@Override
-		public List<?> apply(Class<?> input) {
-			return new CopyOnWriteArrayList<Object>(Lists.newArrayList(Iterables.filter(list, input)));
+		public List<?> load(Class<?> ofType) throws Exception {
+			return new CopyOnWriteArrayList<Object>(Lists.newArrayList(Iterables.filter(list, ofType)));
 		}
 	});
+
 	int filteredListModCount = -1;
 
 	@Override
@@ -243,8 +244,8 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 	public <T> Iterable<T> filter(Class<T> ofType) {
 		if (filteredListModCount != listModCount) {
 			filteredListModCount = listModCount;
-			filteredLists.clear();
+			filteredListsCache.invalidateAll();
 		}
-		return (Iterable<T>) filteredLists.get(ofType);
+		return (Iterable<T>) filteredListsCache.getUnchecked(ofType);
 	}
 }

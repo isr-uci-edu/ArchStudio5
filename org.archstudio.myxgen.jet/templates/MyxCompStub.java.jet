@@ -27,7 +27,6 @@ import <%=javaImport%>;
  *
  * @generated
  */
-@SuppressWarnings("unused")
 /* package */ abstract class <%=className%>
 	<%=MyxCompStubUtil.getExtendsClause(brick)%>
     <%=MyxCompStubUtil.getImplementsClause(brick)%> {

@@ -295,7 +295,6 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 			public void dragOver(DropTargetEvent event) {
 				event.feedback = DND.FEEDBACK_SELECT | DND.FEEDBACK_SCROLL;
 				if (resourceTransfer.isSupportedType(event.currentDataType)) {
-					IResource[] resources = (IResource[]) event.data;
 					if (launchData.getLaunchType().equals(ILaunchData.LaunchType.EDITOR)) {
 						event.detail = DND.DROP_COPY;
 						return;

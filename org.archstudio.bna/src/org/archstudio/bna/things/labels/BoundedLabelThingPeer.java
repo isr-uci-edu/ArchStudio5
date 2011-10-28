@@ -145,7 +145,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 	@Override
 	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
 		super.getLocalBounds(view, cm, r, boundsResult);
-		boundsResult.crop(t.getLocalInsets());
+		boundsResult.shrink(t.getLocalInsets());
 	}
 
 	private static Set<Integer> getAllowableLinebreaks(String text) {

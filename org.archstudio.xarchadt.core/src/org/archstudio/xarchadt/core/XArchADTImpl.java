@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -43,6 +42,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -57,16 +57,17 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
+import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.ElementHandlerImpl;
 import org.eclipse.emf.ecore.xmi.impl.GenericXMLResourceFactoryImpl;
 import org.xml.sax.SAXException;
 
 import com.google.common.base.Function;
-import com.google.common.base.Functions;
-import com.google.common.collect.BiMap;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
@@ -83,6 +84,10 @@ public class XArchADTImpl implements IXArchADT {
 	private final ResourceSet resourceSet;
 
 	private static final Map<Object, Object> LOAD_OPTIONS_MAP = new HashMap<Object, Object>();
+	static {
+		// This allows root elements in other schema
+		LOAD_OPTIONS_MAP.put(XMLResource.OPTION_EXTENDED_META_DATA, true);
+	}
 
 	private static final ElementHandlerImpl elementHandlerImpl = new ElementHandlerImpl(false);
 	private static final Map<Object, Object> SAVE_OPTIONS_MAP = new HashMap<Object, Object>();
@@ -144,34 +149,18 @@ public class XArchADTImpl implements IXArchADT {
 
 	// Map ObjRef <-> EObjects
 	private final Object objRefToEObjectLock = new Object();
-
-	// The BiMap is a two-way map
-	private final Map<ObjRef, EObject> objRefToEObject = HashBiMap.create();
-
-	// Alias the BiMap's inverse rather than maintaining it internally.
-	private final Map<EObject, ObjRef> eObjectToObjRef = ((BiMap<ObjRef, EObject>) objRefToEObject).inverse();
-
-	private Serializable put(Object object) {
-		return object instanceof EObject ? put((EObject) object) : (Serializable) object;
-	}
+	private final Map<ObjRef, EObject> objRefToEObject = new MapMaker().softKeys().makeMap();
+	private final Map<EObject, ObjRef> eObjectToObjRef = new MapMaker().weakValues().makeMap();
 
 	private ObjRef put(EObject eObject) {
 		synchronized (objRefToEObjectLock) {
 			ObjRef objRef = eObjectToObjRef.get(eObject);
 			if (objRef == null && eObject != null) {
-				eObjectToObjRef.put(eObject, objRef = new ObjRef(DEBUG ? eObject : null));
+				objRef = new ObjRef(DEBUG ? eObject : null);
+				eObjectToObjRef.put(eObject, objRef);
+				objRefToEObject.put(objRef, eObject);
 			}
 			return objRef;
-		}
-	}
-
-	private List<ObjRef> put(Collection<EObject> eObjects) {
-		List<ObjRef> objRefs = Lists.newArrayListWithCapacity(eObjects.size());
-		synchronized (objRefToEObjectLock) {
-			for (EObject eObject : eObjects) {
-				objRefs.add(put(eObject));
-			}
-			return objRefs;
 		}
 	}
 
@@ -185,16 +174,6 @@ public class XArchADTImpl implements IXArchADT {
 		}
 	}
 
-	private List<EObject> get(Collection<ObjRef> objRefs) {
-		List<EObject> eObjects = Lists.newArrayListWithCapacity(objRefs.size());
-		synchronized (objRefToEObjectLock) {
-			for (ObjRef objRef : objRefs) {
-				eObjects.add(get(objRef));
-			}
-			return eObjects;
-		}
-	}
-
 	private Serializable check(Object object) {
 		if (object instanceof EObject) {
 			return put((EObject) object);
@@ -202,14 +181,22 @@ public class XArchADTImpl implements IXArchADT {
 		return (Serializable) object;
 	}
 
+	private Object uncheck(Serializable serializable) {
+		if (serializable instanceof ObjRef) {
+			return get((ObjRef) serializable);
+		}
+		return serializable;
+	}
+
 	// Dynamically maps feature names (either uppercase or lowercase) of an EClass to EStructuralFeatures.
-	private static final ConcurrentMap<EClass, Map<String, EStructuralFeature>> autoCaselessFeature = new MapMaker()
-			.softValues().makeComputingMap(new Function<EClass, Map<String, EStructuralFeature>>() {
+	private static final Cache<EClass, Map<String, EStructuralFeature>> caselessFeatureCache = CacheBuilder
+			.newBuilder().build(new CacheLoader<EClass, Map<String, EStructuralFeature>>() {
+
 				Map<String, EStructuralFeature> structuralFeatures = Maps.newHashMap();
 				Map<Integer, EStructuralFeature> featureIDs = Maps.newHashMap();
 
 				@Override
-				public Map<String, EStructuralFeature> apply(EClass eClass) {
+				public Map<String, EStructuralFeature> load(EClass eClass) throws Exception {
 					structuralFeatures = Maps.newHashMap();
 					featureIDs = Maps.newHashMap();
 					apply0(eClass);
@@ -234,7 +221,7 @@ public class XArchADTImpl implements IXArchADT {
 			});
 
 	private static final EStructuralFeature getEFeature(EClass eClass, String featureName) {
-		EStructuralFeature eFeature = autoCaselessFeature.get(eClass).get(featureName);
+		EStructuralFeature eFeature = caselessFeatureCache.getUnchecked(eClass).get(featureName);
 		if (eFeature == null) {
 			throw new IllegalArgumentException(SystemUtils.message(//
 					"EClass '$0' does not contain EFeature '$1' in EPackage '$2'.",//
@@ -248,9 +235,9 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static final EList<EObject> getEList(EObject eObject, String featureName) {
+	private static final EList<Object> getEList(EObject eObject, String featureName) {
 		try {
-			return (EList<EObject>) eObject.eGet(getEFeature(eObject.eClass(), featureName));
+			return (EList<Object>) eObject.eGet(getEFeature(eObject.eClass(), featureName));
 		}
 		catch (ClassCastException e) {
 			throw new RuntimeException(SystemUtils.message(//
@@ -266,63 +253,37 @@ public class XArchADTImpl implements IXArchADT {
 		}
 		catch (ClassCastException e) {
 			throw new RuntimeException(SystemUtils.message(//
-					"EObject of type '$0:$1' does not have an EList for feature '$2'", //
+					"EObject of type '$0:$1' does not have an EMap for feature '$2'", //
 					eObject.eClass().getEPackage().getNsURI(), eObject.eClass().getName(), featureName), e);
 		}
 	}
 
-	private void invalidateAllObjRefs(URI uri) {
-		// TODO: invalidate objRefs
-		// this is one case where having two separate maps works better
-	}
-
 	@Override
 	public boolean isValidObjRef(ObjRef objRef) {
-		return objRefToEObject.containsKey(objRef);
-	}
-
-	@Override
-	public void add(ObjRef baseObjRef, String typeOfThing, ObjRef thingToAddObjRef) {
-		getEList(get(baseObjRef), typeOfThing).add(get(thingToAddObjRef));
-	}
-
-	@Override
-	public void add(ObjRef baseObjRef, String typeOfThing, Collection<ObjRef> thingsToAddObjRefs) {
-		getEList(get(baseObjRef), typeOfThing).addAll(get(thingsToAddObjRefs));
-	}
-
-	@Override
-	public Serializable put(ObjRef baseObjRef, String typeOfThing, Serializable key, Serializable value) {
-		return (Serializable) getEMap(get(baseObjRef), typeOfThing).put(//
-				key instanceof ObjRef ? get((ObjRef) key) : key, //
-				value instanceof ObjRef ? get((ObjRef) value) : value);
-	}
-
-	@Override
-	public void remove(ObjRef baseObjRef, String typeOfThing, ObjRef thingToRemoveObjRef) {
-		getEList(get(baseObjRef), typeOfThing).remove(get(thingToRemoveObjRef));
-	}
-
-	@Override
-	public void remove(ObjRef baseObjRef, String typeOfThing, Collection<ObjRef> thingsToRemoveObjRefs) {
-		getEList(get(baseObjRef), typeOfThing).removeAll(get(thingsToRemoveObjRefs));
-	}
-
-	@Override
-	public Serializable remove(ObjRef baseObjRef, String typeOfThing, Serializable key) {
-		return put(getEMap(get(baseObjRef), typeOfThing).removeKey(//
-				key instanceof ObjRef ? get((ObjRef) key) : key));
+		return get(objRef) != null;
 	}
 
 	@Override
 	public void set(ObjRef baseObjRef, String typeOfThing, Serializable value) {
 		EObject baseEObject = get(baseObjRef);
-		if (value instanceof ObjRef) {
-			baseEObject.eSet(getEFeature(baseEObject, typeOfThing), get((ObjRef) value));
-		}
-		else {
-			baseEObject.eSet(getEFeature(baseEObject, typeOfThing), value);
-		}
+		baseEObject.eSet(getEFeature(baseEObject, typeOfThing), uncheck(value));
+	}
+
+	@Override
+	public Serializable get(ObjRef baseObjRef, String typeOfThing) {
+		return get(baseObjRef, typeOfThing, true);
+	}
+
+	@Override
+	public Serializable get(ObjRef baseObjRef, String typeOfThing, boolean resolve) {
+		EObject baseEObject = get(baseObjRef);
+		return check(baseEObject.eGet(getEFeature(baseEObject, typeOfThing), resolve));
+	}
+
+	@Override
+	public Serializable resolve(ObjRef objRef) {
+		EObject baseEObject = get(objRef);
+		return check(EcoreUtil.resolve(baseEObject, baseEObject.eResource()));
 	}
 
 	@Override
@@ -332,55 +293,52 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@Override
-	public Serializable get(ObjRef baseObjRef, String typeOfThing) {
-		EObject baseEObject = get(baseObjRef);
-		return check(baseEObject.eGet(getEFeature(baseEObject, typeOfThing)));
+	public void add(ObjRef baseObjRef, String typeOfThing, Serializable thingToAdd) {
+		getEList(get(baseObjRef), typeOfThing).add(uncheck(thingToAdd));
 	}
 
 	@Override
-	public List<ObjRef> getAll(ObjRef baseObjRef, String typeOfThing) {
-		return put(getEList(get(baseObjRef), typeOfThing));
+	public void add(ObjRef baseObjRef, String typeOfThing, Collection<? extends Serializable> thingsToAdd) {
+		for (Serializable thingToAdd : thingsToAdd) {
+			getEList(get(baseObjRef), typeOfThing).add(uncheck(thingToAdd));
+		}
 	}
 
-	//@Override
-	//public ObjRef get(ObjRef baseObjRef, String typeOfThing, String id) {
-	//	EObject baseEObject = get(baseObjRef);
-	//	EObject eFeature = getEFeature(baseEObject, typeOfThing);
-	//	Resource resource = baseEObject.eResource();
-	//	EObject eObjectByID = resource.getEObject(id);
-	//	if (eObjectByID != null) {
-	//		if (baseEObject.equals(eObjectByID.eContainer())) {
-	//			if (eFeature.equals(eObjectByID.eContainingFeature())) {
-	//				return put(eObjectByID);
-	//			}
-	//		}
-	//	}
-	//	return null;
-	//}
-
-	//@Override
-	//public List<ObjRef> getAll(ObjRef baseObjRef, String typeOfThing, List<String> ids) {
-	//	EObject baseEObject = get(baseObjRef);
-	//	EObject eFeature = getEFeature(baseEObject, typeOfThing);
-	//	Resource resource = baseEObject.eResource();
-	//	List<EObject> eObjectsByID = Lists.newArrayListWithCapacity(ids.size());
-	//	for (String id : ids) {
-	//		EObject eObjectByID = resource.getEObject(id);
-	//		if (eObjectByID != null) {
-	//			if (baseEObject.equals(eObjectByID.eContainer())) {
-	//				if (eFeature.equals(eObjectByID.eContainingFeature())) {
-	//					eObjectsByID.add(eObjectByID);
-	//				}
-	//			}
-	//		}
-	//	}
-	//	return put(eObjectsByID);
-	//}
+	@Override
+	public List<Serializable> getAll(ObjRef baseObjRef, String typeOfThing) {
+		EList<Object> list = getEList(get(baseObjRef), typeOfThing);
+		List<Serializable> result = Lists.newArrayListWithCapacity(list.size());
+		for (Object object : list) {
+			result.add(check(object));
+		}
+		return result;
+	}
 
 	@Override
-	public Serializable get(ObjRef baseObjRef, String typeOfThing, Serializable key) {
-		return put(getEMap(get(baseObjRef), typeOfThing).get(//
-				key instanceof ObjRef ? get((ObjRef) key) : key));
+	public void remove(ObjRef baseObjRef, String typeOfThing, Serializable thingToRemove) {
+		getEList(get(baseObjRef), typeOfThing).remove(uncheck(thingToRemove));
+	}
+
+	@Override
+	public void remove(ObjRef baseObjRef, String typeOfThing, Collection<? extends Serializable> thingsToRemove) {
+		for (Serializable thingToRemove : thingsToRemove) {
+			getEList(get(baseObjRef), typeOfThing).remove(uncheck(thingToRemove));
+		}
+	}
+
+	@Override
+	public Serializable put(ObjRef baseObjRef, String typeOfThing, Serializable key, Serializable value) {
+		return check(getEMap(get(baseObjRef), typeOfThing).put(uncheck(key), uncheck(value)));
+	}
+
+	@Override
+	public Serializable getByKey(ObjRef baseObjRef, String typeOfThing, Serializable key) {
+		return check(getEMap(get(baseObjRef), typeOfThing).get(uncheck(key)));
+	}
+
+	@Override
+	public Serializable removeByKey(ObjRef baseObjRef, String typeOfThing, Serializable key) {
+		return check(getEMap(get(baseObjRef), typeOfThing).removeKey(uncheck(key)));
 	}
 
 	@Override
@@ -413,10 +371,6 @@ public class XArchADTImpl implements IXArchADT {
 		return EcoreUtil.isAncestor(get(ancestorObjRef), get(childObjRef));
 	}
 
-	/**
-	 * Get the ancestors of the target ObjRef, from the target to the root and
-	 * including the target.
-	 */
 	@Override
 	public List<ObjRef> getAllAncestors(ObjRef targetObjRef) {
 		EObject eObject = get(targetObjRef);
@@ -428,10 +382,6 @@ public class XArchADTImpl implements IXArchADT {
 		return ancestorObjRefs;
 	}
 
-	/**
-	 * Gets the reverse of the ancestors: the list of ObjRefs from the root to
-	 * the target, including the target.
-	 */
 	@Override
 	public List<ObjRef> getLineage(ObjRef targetObjRef) {
 		return Lists.reverse(getAllAncestors(targetObjRef));
@@ -468,10 +418,11 @@ public class XArchADTImpl implements IXArchADT {
 		}
 	}
 
-	private static final ConcurrentMap<String, EPackage> autoEPackage = new MapMaker().softValues().makeComputingMap(
-			new Function<String, EPackage>() {
+	private static final Cache<String, EPackage> ePackageCache = CacheBuilder.newBuilder().build(
+			new CacheLoader<String, EPackage>() {
+
 				@Override
-				public EPackage apply(String nsURI) {
+				public EPackage load(String nsURI) throws Exception {
 					EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(nsURI);
 					if (ePackage != null) {
 						return ePackage;
@@ -480,10 +431,11 @@ public class XArchADTImpl implements IXArchADT {
 				}
 			});
 
-	private static final ConcurrentMap<EClass, Map<String, IXArchADTFeature>> autoFeatureMetadata = new MapMaker()
-			.softValues().makeComputingMap(new Function<EClass, Map<String, IXArchADTFeature>>() {
+	private static final Cache<EClass, Map<String, IXArchADTFeature>> featureMetadataCache = CacheBuilder.newBuilder()
+			.build(new CacheLoader<EClass, Map<String, IXArchADTFeature>>() {
+
 				@Override
-				public Map<String, IXArchADTFeature> apply(EClass eClass) {
+				public Map<String, IXArchADTFeature> load(EClass eClass) throws Exception {
 					List<IXArchADTFeature> features = Lists.newArrayList();
 					features.addAll(Collections2.transform(eClass.getEAllAttributes(),
 							new Function<EAttribute, IXArchADTFeature>() {
@@ -518,12 +470,13 @@ public class XArchADTImpl implements IXArchADT {
 	 * This is a map that generates type metadata for an EClass on demand,
 	 * caching it after it's generated.
 	 */
-	private static final ConcurrentMap<EClass, IXArchADTTypeMetadata> autoTypeMetadata = new MapMaker()//
-			.softValues().makeComputingMap(new Function<EClass, IXArchADTTypeMetadata>() {
+	private static final Cache<EClass, IXArchADTTypeMetadata> typeMetadataCache = CacheBuilder.newBuilder().build(
+			new CacheLoader<EClass, IXArchADTTypeMetadata>() {
+
 				@Override
-				public IXArchADTTypeMetadata apply(EClass eClass) {
+				public IXArchADTTypeMetadata load(EClass eClass) throws Exception {
 					return new BasicXArchADTTypeMetadata(eClass.getEPackage().getNsURI(), eClass.getName(),
-							autoFeatureMetadata.get(eClass), eClass.isAbstract());
+							featureMetadataCache.get(eClass), eClass.isAbstract());
 				}
 			});
 
@@ -531,16 +484,17 @@ public class XArchADTImpl implements IXArchADT {
 	 * This is a map that generates package metadata for an EPackage on demand,
 	 * caching it after it's generated.
 	 */
-	private static final ConcurrentMap<EPackage, IXArchADTPackageMetadata> autoPackageMetatadata = new MapMaker()//
-			.softValues().makeComputingMap(new Function<EPackage, IXArchADTPackageMetadata>() {
+	private static final Cache<EPackage, IXArchADTPackageMetadata> packageMetatadataCache = CacheBuilder.newBuilder()
+			.build(new CacheLoader<EPackage, IXArchADTPackageMetadata>() {
+
 				@Override
-				public IXArchADTPackageMetadata apply(EPackage ePackage) {
+				public IXArchADTPackageMetadata load(EPackage ePackage) throws Exception {
 					return new BasicXArchADTPackageMetadata(ePackage.getNsURI(), Iterables.transform(
 							Iterables.filter(ePackage.getEClassifiers(), EClass.class),
 							new Function<EClass, IXArchADTTypeMetadata>() {
 								@Override
 								public IXArchADTTypeMetadata apply(EClass eClass) {
-									return autoTypeMetadata.get(eClass);
+									return typeMetadataCache.getUnchecked(eClass);
 								};
 							}));
 				}
@@ -563,30 +517,34 @@ public class XArchADTImpl implements IXArchADT {
 
 	@Override
 	public IXArchADTPackageMetadata getPackageMetadata(String nsURI) {
-		return autoPackageMetatadata.get(autoEPackage.get(nsURI));
+		return packageMetatadataCache.getUnchecked(ePackageCache.getUnchecked(nsURI));
 	}
 
 	@Override
 	public IXArchADTTypeMetadata getTypeMetadata(String nsURI, String typeName) {
-		return autoTypeMetadata.get(getEClass(autoEPackage.get(nsURI), typeName));
+		return typeMetadataCache.getUnchecked(getEClass(ePackageCache.getUnchecked(nsURI), typeName));
 	}
 
 	@Override
 	public IXArchADTTypeMetadata getTypeMetadata(ObjRef objRef) {
-		return autoTypeMetadata.get(get(objRef).eClass());
+		return typeMetadataCache.getUnchecked(get(objRef).eClass());
 	}
 
 	@Override
 	public List<IXArchADTPackageMetadata> getAvailablePackageMetadata() {
-		return Lists.newArrayList(Collections2.transform(
-				Collections2.transform(EPackage.Registry.INSTANCE.keySet(), Functions.forMap(autoEPackage)),
-				Functions.forMap(autoPackageMetatadata)));
+		return Lists.newArrayList(Collections2.transform(EPackage.Registry.INSTANCE.keySet(),
+				new Function<String, IXArchADTPackageMetadata>() {
+					@Override
+					public IXArchADTPackageMetadata apply(String nsURI) {
+						return packageMetatadataCache.getUnchecked(ePackageCache.getUnchecked(nsURI));
+					}
+				}));
 	}
 
 	@Override
 	public boolean isAssignable(String sourceNsURI, String sourceTypeName, String targetNsURI, String targetTypeName) {
-		EClass eSourceClass = getEClass(autoEPackage.get(sourceNsURI), sourceTypeName);
-		EClass eTargetClass = getEClass(autoEPackage.get(targetNsURI), targetTypeName);
+		EClass eSourceClass = getEClass(ePackageCache.getUnchecked(sourceNsURI), sourceTypeName);
+		EClass eTargetClass = getEClass(ePackageCache.getUnchecked(targetNsURI), targetTypeName);
 		if (eSourceClass.equals(EcorePackage.Literals.EOBJECT)) {
 			// This is a special case - all EWhatevers are inherently assignable
 			// to EObject.  This comes up when a schema has an 'any' element.
@@ -598,7 +556,7 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public boolean isInstanceOf(ObjRef baseObjRef, String sourceNsURI, String sourceTypeName) {
 		EObject baseEObject = get(baseObjRef);
-		return getEClass(autoEPackage.get(sourceNsURI), sourceTypeName).isSuperTypeOf(baseEObject.eClass());
+		return getEClass(ePackageCache.getUnchecked(sourceNsURI), sourceTypeName).isSuperTypeOf(baseEObject.eClass());
 	}
 
 	//
@@ -609,52 +567,52 @@ public class XArchADTImpl implements IXArchADT {
 	//	
 	//	
 
-	static int copyNonce = 0;
-
-	@Override
-	public ObjRef cloneElement(ObjRef targetObjectRef) {
-		EObject eobject = get(targetObjectRef);
-
-		@SuppressWarnings("serial")
-		EcoreUtil.Copier xadlCopier = new EcoreUtil.Copier() {
-			@Override
-			protected void copyAttribute(EAttribute eAttribute, EObject eObject, EObject copyEObject) {
-				// don't clone IDs.
-				if (eAttribute.getName().equals("id")) {
-					String id = (String) eObject.eGet(eAttribute);
-					if (id == null) {
-						id = "";
-					}
-					id += "c" + copyNonce;
-					copyNonce++;
-					copyEObject.eSet(eAttribute, id);
-				}
-				else {
-					super.copyAttribute(eAttribute, eObject, copyEObject);
-				}
-			}
-		};
-
-		EObject result = xadlCopier.copy(eobject);
-		xadlCopier.copyReferences();
-
-		ObjRef clonedRef = put(result);
-		return clonedRef;
-	}
-
-	@Override
-	public ObjRef cloneDocument(URI oldURI, URI newURI) {
-		try {
-			load(newURI, serialize(oldURI));
-			return getDocumentRootRef(newURI);
-		}
-		catch (SAXException ioe) {
-			throw new RuntimeException("This shouldn't happen.");
-		}
-		catch (IOException ioe) {
-			throw new RuntimeException("This shouldn't happen.");
-		}
-	}
+	//	static int copyNonce = 0;
+	//
+	//	@Override
+	//	public ObjRef cloneElement(ObjRef targetObjectRef) {
+	//		EObject eobject = get(targetObjectRef);
+	//
+	//		@SuppressWarnings("serial")
+	//		EcoreUtil.Copier xadlCopier = new EcoreUtil.Copier() {
+	//			@Override
+	//			protected void copyAttribute(EAttribute eAttribute, EObject eObject, EObject copyEObject) {
+	//				// don't clone IDs.
+	//				if (eAttribute.getName().equals("id")) {
+	//					String id = (String) eObject.eGet(eAttribute);
+	//					if (id == null) {
+	//						id = "";
+	//					}
+	//					id += "c" + copyNonce;
+	//					copyNonce++;
+	//					copyEObject.eSet(eAttribute, id);
+	//				}
+	//				else {
+	//					super.copyAttribute(eAttribute, eObject, copyEObject);
+	//				}
+	//			}
+	//		};
+	//
+	//		EObject result = xadlCopier.copy(eobject);
+	//		xadlCopier.copyReferences();
+	//
+	//		ObjRef clonedRef = put(result);
+	//		return clonedRef;
+	//	}
+	//
+	//	@Override
+	//	public ObjRef cloneDocument(URI oldURI, URI newURI) {
+	//		try {
+	//			load(newURI, serialize(oldURI));
+	//			return getDocumentRootRef(newURI);
+	//		}
+	//		catch (SAXException ioe) {
+	//			throw new RuntimeException("This shouldn't happen.");
+	//		}
+	//		catch (IOException ioe) {
+	//			throw new RuntimeException("This shouldn't happen.");
+	//		}
+	//	}
 
 	@Override
 	public List<URI> getOpenURIs() {
@@ -681,7 +639,6 @@ public class XArchADTImpl implements IXArchADT {
 
 	@Override
 	public void close(URI uri) {
-		invalidateAllObjRefs(uri);
 		Resource r = resourceSet.getResource(uri, false);
 		setResourceFinishedLoading(r, false);
 		r.unload();
@@ -690,7 +647,7 @@ public class XArchADTImpl implements IXArchADT {
 
 	@Override
 	public ObjRef create(String nsURI, String typeOfThing) {
-		EPackage ePackage = autoEPackage.get(nsURI);
+		EPackage ePackage = ePackageCache.getUnchecked(nsURI);
 		EClass eClass = getEClass(ePackage, typeOfThing);
 		EObject eObject = ePackage.getEFactoryInstance().create(eClass);
 		return put(eObject);
@@ -698,7 +655,7 @@ public class XArchADTImpl implements IXArchADT {
 
 	@Override
 	public ObjRef createDocument(URI uri) {
-		return createDocument(uri, Xadlcore_3_0Package.eNS_URI, "XADLType", "xADL");
+		return createDocument(uri, Xadlcore_3_0Package.eINSTANCE.getNsURI(), "XADLType", "xADL");
 	}
 
 	@Override
@@ -734,8 +691,22 @@ public class XArchADTImpl implements IXArchADT {
 			}
 		}
 
-		Resource newResource = resourceSet.getResource(uri, true);
-		newResource.load(LOAD_OPTIONS_MAP);
+		Resource newResource = null;
+		try {
+			newResource = resourceSet.getResource(uri, false);
+			if (newResource == null) {
+				newResource = resourceSet.createResource(uri);
+			}
+			if (!newResource.isLoaded()) {
+				newResource.load(LOAD_OPTIONS_MAP);
+			}
+		}
+		catch (WrappedException e) {
+			// This catches problems with the model itself, such as unresolved dependencies
+			e.printStackTrace();
+			// We still want to open the model (and eventually correct these problems)
+			newResource = resourceSet.getResource(uri, false);
+		}
 		setResourceFinishedLoading(newResource, true);
 
 		ObjRef rootElementRef = put(newResource.getContents().get(0));
@@ -757,6 +728,7 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public void renameXArch(String oldURI, String newURI) {
 		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -973,6 +945,9 @@ public class XArchADTImpl implements IXArchADT {
 			}
 
 			Object newValue = notification.getNewValue();
+			if (newValue instanceof FeatureMap.Entry) {
+				newValue = ((FeatureMap.Entry) newValue).getValue();
+			}
 			XArchADTPath newValuePath = null;
 			if (newValue instanceof EObject) {
 				ObjRef newValueRef = put((EObject) newValue);

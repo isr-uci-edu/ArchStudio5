@@ -10,4 +10,5 @@ Require-Bundle: org.archstudio.resources,
  org.archstudio.xadl,
  org.archstudio.xarchadt,
  org.eclipse.emf.common,
- org.eclipse.ui
+ org.eclipse.ui,
+ com.google.guava;bundle-version="10.0.1"

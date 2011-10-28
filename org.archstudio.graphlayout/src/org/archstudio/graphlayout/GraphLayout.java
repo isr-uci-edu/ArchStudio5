@@ -9,6 +9,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 public class GraphLayout implements java.io.Serializable {
 
+	private static final long serialVersionUID = -6699237769430902424L;
+
 	protected List<Node> nodes;
 	protected List<Edge> edges;
 

@@ -8,6 +8,8 @@ import org.archstudio.xarchadt.ObjRef;
 
 public class ArchlightIssue implements java.io.Serializable {
 
+	private static final long serialVersionUID = -4160980442451729079L;
+
 	public final static int SEVERITY_INFO = 100;
 	public final static int SEVERITY_WARNING = 200;
 	public final static int SEVERITY_ERROR = 300;
@@ -100,6 +102,7 @@ public class ArchlightIssue implements java.io.Serializable {
 		this.testUID = testUID;
 	}
 
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer("ArchlightIssue[");
 		buf.append("headline=").append(headline).append("; ");
@@ -133,6 +136,7 @@ public class ArchlightIssue implements java.io.Serializable {
 		return buf.toString();
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof ArchlightIssue)) {
 			return false;
@@ -140,30 +144,35 @@ public class ArchlightIssue implements java.io.Serializable {
 		ArchlightIssue otherIssue = (ArchlightIssue) o;
 
 		return nulleq(testUID, otherIssue.testUID) && nulleq(documentRootRef, otherIssue.documentRootRef)
-				&& nulleq(toolID, otherIssue.toolID) && (severity == otherIssue.severity)
+				&& nulleq(toolID, otherIssue.toolID) && severity == otherIssue.severity
 				&& nulleq(headline, otherIssue.headline) && nulleq(detailedDescription, otherIssue.detailedDescription)
 				&& nulleq(iconHref, otherIssue.iconHref)
 				&& elementIdentifiers.containsAll(otherIssue.elementIdentifiers)
 				&& otherIssue.elementIdentifiers.containsAll(elementIdentifiers);
 	}
 
+	@Override
 	public int hashCode() {
 		return hc(testUID) ^ hc(toolID) ^ hc(headline);
 	}
 
 	private static int hc(Object o) {
-		if (o == null)
+		if (o == null) {
 			return Object.class.hashCode();
+		}
 		return o.hashCode();
 	}
 
 	private static boolean nulleq(Object o1, Object o2) {
-		if ((o1 == null) && (o2 == null))
+		if (o1 == null && o2 == null) {
 			return true;
-		if ((o1 == null) && (o2 != null))
+		}
+		if (o1 == null && o2 != null) {
 			return false;
-		if ((o1 != null) && (o2 == null))
+		}
+		if (o1 != null && o2 == null) {
 			return false;
+		}
 		return o1.equals(o2);
 	}
 }

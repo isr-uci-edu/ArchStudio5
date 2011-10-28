@@ -2,6 +2,8 @@ package org.archstudio.archipelago.core.util;
 
 public class PropertyDecodeException extends Exception {
 
+	private static final long serialVersionUID = -4856826932015195977L;
+
 	public PropertyDecodeException() {
 	}
 

@@ -37,7 +37,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 		this.AS = AS;
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
 	public IFindResult[] find(IBNAView context, String search) {
 		List<IFindResult> resultList = new ArrayList<IFindResult>();
 		find(context, context.getBNAWorld().getBNAModel(), search, "", resultList);
@@ -45,9 +45,10 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 		return resultList.toArray(new IFindResult[resultList.size()]);
 	}
 
+	@Override
 	public void selected(IFindResult selectedResult) {
 		Object o = selectedResult.getData();
-		if ((o != null) && (o instanceof FindResultData)) {
+		if (o != null && o instanceof FindResultData) {
 			final FindResultData frd = (FindResultData) o;
 			FlyToUtils.flyTo(frd.view, frd.p.getCopy());
 
@@ -57,7 +58,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 	}
 
 	protected void find(IBNAView context, IBNAModel m, String search, String prefix, List<IFindResult> resultList) {
-		for (IThing t : m.getThings()) {
+		for (IThing t : m.getAllThings()) {
 			IFindResult r = null;
 			IThing assembly = Assemblies.isAssembly(t) ? t : null;
 			ObjRef objRef = assembly != null ? assembly.get(IHasObjRef.OBJREF_KEY) : null;
@@ -110,11 +111,12 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 	}
 
 	protected static boolean matches(String query, String target) {
-		if ((query == null) || (target == null))
+		if (query == null || target == null) {
 			return false;
+		}
 		query = query.toLowerCase();
 		target = target.toLowerCase();
-		return (target.indexOf(query) != -1);
+		return target.indexOf(query) != -1;
 	}
 
 	protected void find(IBNAView context, IThing boxAssembly, String search, String prefix, List<IFindResult> resultList) {
@@ -141,8 +143,9 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 		if (p == null) {
 			return null;
 		}
-		if (prefix == null)
+		if (prefix == null) {
 			prefix = "";
+		}
 		return new DefaultFindResult(new FindResultData(view, t, p), prefix + text, image);
 	}
 

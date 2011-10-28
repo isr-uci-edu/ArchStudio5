@@ -1,9 +1,11 @@
 package org.archstudio.archlight;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 public class ArchlightTest implements java.io.Serializable {
+	private static final long serialVersionUID = -3225797932676933094L;
 	protected String uid;
 	protected String toolID;
 	protected String category;
@@ -49,6 +51,7 @@ public class ArchlightTest implements java.io.Serializable {
 		this.uid = uid;
 	}
 
+	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer("ArchlightTest[");
 		sb.append("uid=").append(uid).append(",");
@@ -64,13 +67,13 @@ public class ArchlightTest implements java.io.Serializable {
 	}
 
 	public static String[] getCategoryPathComponents(String category) {
-		List pathComponentList = new ArrayList(6);
+		List<String> pathComponentList = Lists.newArrayList();
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < category.length(); i++) {
 			char ch = category.charAt(i);
 			switch (ch) {
 			case '\\':
-				if ((i + 1) < category.length()) {
+				if (i + 1 < category.length()) {
 					char nextch = category.charAt(i + 1);
 					if (nextch == '/') {
 						sb.append('/');
@@ -100,9 +103,10 @@ public class ArchlightTest implements java.io.Serializable {
 		if (segment.length() > 0) {
 			pathComponentList.add(segment);
 		}
-		return (String[]) pathComponentList.toArray(new String[0]);
+		return pathComponentList.toArray(new String[0]);
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof ArchlightTest)) {
 			return false;
@@ -112,19 +116,24 @@ public class ArchlightTest implements java.io.Serializable {
 				&& nulleq(longDescription, otherTest.longDescription);
 	}
 
+	@Override
 	public int hashCode() {
-		if (uid == null)
+		if (uid == null) {
 			return getClass().hashCode();
+		}
 		return uid.hashCode();
 	}
 
 	private static boolean nulleq(Object o1, Object o2) {
-		if ((o1 == null) && (o2 == null))
+		if (o1 == null && o2 == null) {
 			return true;
-		if ((o1 == null) && (o2 != null))
+		}
+		if (o1 == null && o2 != null) {
 			return false;
-		if ((o1 != null) && (o2 == null))
+		}
+		if (o1 != null && o2 == null) {
 			return false;
+		}
 		return o1.equals(o2);
 	}
 }

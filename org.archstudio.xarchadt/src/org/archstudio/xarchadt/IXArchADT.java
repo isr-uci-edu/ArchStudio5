@@ -22,7 +22,7 @@ public interface IXArchADT extends IXArchADTQuery {
 
 	public ObjRef load(URI uri, byte[] content) throws SAXException, IOException;
 
-	public ObjRef cloneDocument(URI oldURI, URI newURI);
+	// public ObjRef cloneDocument(URI oldURI, URI newURI);
 
 	public void save(URI uri) throws IOException;
 
@@ -49,7 +49,7 @@ public interface IXArchADT extends IXArchADTQuery {
 	 * @param thingToAddRef
 	 *            Reference to the object to add as a child of baseObject.
 	 */
-	public void add(ObjRef baseObjRef, String typeOfThing, ObjRef thingToAddRef);
+	public void add(ObjRef baseObjRef, String typeOfThing, Serializable thingToAddRef);
 
 	/**
 	 * Adds a set of children to an xArch element. Roughly equivalent to:
@@ -72,7 +72,7 @@ public interface IXArchADT extends IXArchADTQuery {
 	 * @param thingToAddRefs
 	 *            References to the objects to add as children of baseObject.
 	 */
-	public void add(ObjRef baseObjRef, String typeOfThing, Collection<ObjRef> thingsToAddRefs);
+	public void add(ObjRef baseObjRef, String typeOfThing, Collection<? extends Serializable> thingsToAddRefs);
 
 	/**
 	 * Clears a child or a set of children from an xArch element. Roughly
@@ -117,7 +117,7 @@ public interface IXArchADT extends IXArchADTQuery {
 	 * @param thingToRemove
 	 *            A reference to the object to remove.
 	 */
-	public void remove(ObjRef baseObjRef, String typeOfThing, ObjRef thingToRemove);
+	public void remove(ObjRef baseObjRef, String typeOfThing, Serializable valueToRemove);
 
 	/**
 	 * Removes a set of children from a parent element. Roughly equivalent to:
@@ -141,7 +141,7 @@ public interface IXArchADT extends IXArchADTQuery {
 	 * @param thingToRemove
 	 *            An array of references to the objects to remove.
 	 */
-	public void remove(ObjRef baseObjRef, String typeOfThing, Collection<ObjRef> thingsToRemove);
+	public void remove(ObjRef baseObjRef, String typeOfThing, Collection<? extends Serializable> thingsToRemove);
 
 	/**
 	 * Sets the value of an attribute, simple-value element, or complex-type
@@ -167,15 +167,15 @@ public interface IXArchADT extends IXArchADTQuery {
 
 	public ObjRef create(String nsURI, String typeOfThing);
 
-	/**
-	 * Clones an element with the given depth, changing IDs in the copy if
-	 * necessary to maintain consistency.
-	 * 
-	 * @param targetObjRef
-	 *            Element to clone.
-	 * @return <CODE>ObjRef</CODE> to the cloned element.
-	 */
-	public ObjRef cloneElement(ObjRef targetObjRef);
+	///**
+	// * Clones an element with the given depth, changing IDs in the copy if
+	// * necessary to maintain consistency.
+	// * 
+	// * @param targetObjRef
+	// *            Element to clone.
+	// * @return <CODE>ObjRef</CODE> to the cloned element.
+	// */
+	//public ObjRef cloneElement(ObjRef targetObjRef);
 
 	/**
 	 * Changes the URI of an open document. All ObjRefs remain valid. An
@@ -191,7 +191,7 @@ public interface IXArchADT extends IXArchADTQuery {
 
 	Serializable put(ObjRef baseObjRef, String typeOfThing, Serializable key, Serializable value);
 
-	Serializable remove(ObjRef baseObjRef, String typeOfThing, Serializable key);
+	Serializable removeByKey(ObjRef baseObjRef, String typeOfThing, Serializable key);
 
 	//	public XArchBulkQueryResults bulkQuery(XArchBulkQuery q);
 	//	public void cleanup(ObjRef documentRootRef);

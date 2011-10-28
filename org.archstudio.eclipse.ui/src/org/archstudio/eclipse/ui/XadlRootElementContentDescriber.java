@@ -11,6 +11,7 @@ import org.eclipse.core.runtime.content.IContentDescription;
 
 public class XadlRootElementContentDescriber implements IContentDescriber {
 
+	@Override
 	public int describe(InputStream contents, IContentDescription description) throws IOException {
 		Reader r = null;
 		r = new InputStreamReader(contents);
@@ -46,13 +47,13 @@ public class XadlRootElementContentDescriber implements IContentDescriber {
 		}
 	}
 
+	@Override
 	public QualifiedName[] getSupportedOptions() {
 		return new QualifiedName[0];
 	}
 
 	private static final int BEFORE_TAG = 0;
 	private static final int IN_TAG = 1;
-	private static final int DONE = 2;
 
 	public String readTag(Reader r) throws IOException {
 		StringBuffer sb = new StringBuffer();

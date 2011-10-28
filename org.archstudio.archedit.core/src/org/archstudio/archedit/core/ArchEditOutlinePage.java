@@ -48,6 +48,9 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchSite;
 
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+
 public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 	protected boolean showIDs = false;
 	protected boolean showDescriptions = true;
@@ -92,7 +95,8 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 						String featureName = referenceNodeInfo.getFeatureName();
 
 						if (referenceNodeInfo.isMultiple()) {
-							List<ObjRef> referenceTargetObjects = xarch.getAll(parentRef, featureName);
+							List<ObjRef> referenceTargetObjects = Lists.newArrayList(Iterables.filter(
+									xarch.getAll(parentRef, featureName), ObjRef.class));
 							if (referenceNodeInfo.getIndex() < referenceTargetObjects.size()) {
 								ObjRef referenceTargetRef = referenceTargetObjects.get(referenceNodeInfo.getIndex());
 								if (referenceTargetRef != null) {
@@ -211,8 +215,10 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 											xarch.set(parentRef, featureName, targetRef);
 										}
 										else {
-											List<ObjRef> oldRefs = xarch.getAll(parentRef, featureName);
-											List<ObjRef> newRefs = xarch.getAll(parentRef, featureName);
+											List<ObjRef> oldRefs = Lists.newArrayList(Iterables.filter(
+													xarch.getAll(parentRef, featureName), ObjRef.class));
+											List<ObjRef> newRefs = Lists.newArrayList(Iterables.filter(
+													xarch.getAll(parentRef, featureName), ObjRef.class));
 											//Remove all the old refs
 											//TODO: Fix this with better list manipulating operations
 											xarch.remove(parentRef, featureName, oldRefs);
@@ -457,9 +463,9 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 						l.add(new ArchEditReferenceNode(ref, eltName, false, 0));
 						break;
 					case ELEMENT_MULTIPLE:
-						List<ObjRef> childElts = xarch.getAll(ref, eltName);
-						for (int i = 0; i < childElts.size(); i++) {
-							l.add(new ArchEditReferenceNode(ref, eltName, true, i));
+						int size = Iterables.size(Iterables.filter(xarch.getAll(ref, eltName), ObjRef.class));
+						for (int i = 0; i < size; i++) {
+							l.add(new ArchEditReferenceNode(ref, eltName, true, i++));
 						}
 						break;
 					}
@@ -473,7 +479,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 						}
 						break;
 					case ELEMENT_MULTIPLE:
-						for (ObjRef childRef2 : xarch.getAll(ref, eltName)) {
+						for (ObjRef childRef2 : Iterables.filter(xarch.getAll(ref, eltName), ObjRef.class)) {
 							l.add(new ArchEditElementNode(childRef2));
 						}
 					}
@@ -655,7 +661,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			}
 		};
 		String existingId = (String) xarch.get(ref, "id");
-		generateIdAction.setEnabled(existingId == null);
+		generateIdAction.setEnabled(existingId == null || existingId.trim().length() == 0);
 		return generateIdAction;
 	}
 
@@ -768,9 +774,8 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 				nodes.add(new ArchEditElementNode(ref));
 			}
 			//Expand the ancestors of the selected items
-			int i = 0;
 			for (ArchEditElementNode node : nodes) {
-				List<ObjRef> ancestors = xarch.getAllAncestors(refs[i++]);
+				List<ObjRef> ancestors = xarch.getAllAncestors(node.ref);
 				for (int j = ancestors.size() - 1; j >= 1; j--) {
 					ArchEditElementNode ancestorNode = new ArchEditElementNode(ancestors.get(j));
 					getTreeViewer().expandToLevel(ancestorNode, 1);

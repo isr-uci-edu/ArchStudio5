@@ -2,16 +2,15 @@ package org.archstudio.xarchadt.core.internal;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.util.Map;
-import java.util.concurrent.ConcurrentMap;
 
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.core.XArchADTProxy;
 import org.eclipse.emf.ecore.EObject;
 
-import com.google.common.base.Function;
-import com.google.common.collect.MapMaker;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 
 public class AbstractProxy {
 
@@ -94,31 +93,27 @@ public class AbstractProxy {
 		}
 	}
 
-	private static final ConcurrentMap<Class<? extends Handler<?, ?>>, Map<Object, Handler<?, ?>>> autoHandler = new MapMaker()
-			.makeComputingMap(new Function<Class<? extends Handler<?, ?>>, Map<Object, Handler<?, ?>>>() {
+	private static final Cache<Class<? extends Handler<?, ?>>, Cache<Object, Handler<?, ?>>> handlerCache = CacheBuilder
+			.newBuilder().build(new CacheLoader<Class<? extends Handler<?, ?>>, Cache<Object, Handler<?, ?>>>() {
 				@Override
-				public Map<Object, Handler<?, ?>> apply(final Class<? extends Handler<?, ?>> handlerClass) {
-					return new MapMaker().makeComputingMap(new Function<Object, Handler<?, ?>>() {
+				public Cache<Object, Handler<?, ?>> load(final Class<? extends Handler<?, ?>> handlerClass)
+						throws Exception {
+					return CacheBuilder.newBuilder().build(new CacheLoader<Object, Handler<?, ?>>() {
 						@Override
-						public Handler<?, ?> apply(Object context) {
-							try {
-								if (context == VOID_CONTEXT) {
-									return handlerClass.getConstructor().newInstance();
-								}
-								return handlerClass.getConstructor(context.getClass()).newInstance(context);
+						public AbstractProxy.Handler<?, ?> load(Object context) throws Exception {
+							if (context == VOID_CONTEXT) {
+								return handlerClass.getConstructor().newInstance();
 							}
-							catch (Exception e) {
-								throw new RuntimeException(e);
-							}
-						}
+							return handlerClass.getConstructor(context.getClass()).newInstance(context);
+						};
 					});
-				}
+				};
 			});
 
 	@SuppressWarnings("unchecked")
 	protected static final <H extends Handler<C, P>, C, P extends InvocationHandler> H getHandler(
 			Class<H> handlerClass, C context) {
-		return (H) autoHandler.get(handlerClass).get(context);
+		return (H) handlerCache.getUnchecked(handlerClass).getUnchecked(context);
 	}
 
 	private static final Object VOID_CONTEXT = new Object();

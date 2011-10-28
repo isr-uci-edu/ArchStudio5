@@ -12,7 +12,6 @@ import org.eclipse.swt.graphics.RGB;
 // Generate new tetradic color schemes at:
 // http://wellstyled.com/tools/colorscheme2/index-en.html
 
-@SuppressWarnings({ "unchecked" })
 public class ColorSchemeLoader {
 
 	protected ColorScheme[] defaultColorSchemes = null;
@@ -34,10 +33,10 @@ public class ColorSchemeLoader {
 	}
 
 	public ColorScheme[] loadColorSchemes(InputStream is) {
-		List schemeList = new ArrayList();
+		List<ColorScheme> schemeList = new ArrayList<ColorScheme>();
 
 		String name = null;
-		List colorArrayList = new ArrayList();
+		List<RGB[]> colorArrayList = new ArrayList<RGB[]>();
 
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -45,7 +44,7 @@ public class ColorSchemeLoader {
 				String line = br.readLine();
 				if (line == null) {
 					if (name != null) {
-						RGB[][] colorArrays = (RGB[][]) colorArrayList.toArray(new RGB[0][]);
+						RGB[][] colorArrays = colorArrayList.toArray(new RGB[0][]);
 						ColorScheme scheme = new ColorScheme(name, colorArrays);
 						schemeList.add(scheme);
 					}
@@ -60,7 +59,7 @@ public class ColorSchemeLoader {
 				}
 				else if (line.startsWith("&")) {
 					if (name != null) {
-						RGB[][] colorArrays = (RGB[][]) colorArrayList.toArray(new RGB[0][]);
+						RGB[][] colorArrays = colorArrayList.toArray(new RGB[0][]);
 						ColorScheme scheme = new ColorScheme(name, colorArrays);
 						schemeList.add(scheme);
 					}
@@ -69,16 +68,16 @@ public class ColorSchemeLoader {
 				}
 				else {
 					String[] colorStrings = line.split("\\b");
-					List colorList = new ArrayList();
-					for (int i = 0; i < colorStrings.length; i++) {
-						String colorString = colorStrings[i].trim();
+					List<RGB> colorList = new ArrayList<RGB>();
+					for (String colorString2 : colorStrings) {
+						String colorString = colorString2.trim();
 						if (colorString.length() > 0) {
 							try {
 								int colorRgb = Integer.parseInt(colorString, 16);
 
 								int r = (colorRgb & 0xff0000) >> 16;
 								int g = (colorRgb & 0x00ff00) >> 8;
-								int b = (colorRgb & 0x0000ff);
+								int b = colorRgb & 0x0000ff;
 
 								RGB rgb = new RGB(r, g, b);
 								colorList.add(rgb);
@@ -87,7 +86,7 @@ public class ColorSchemeLoader {
 							}
 						}
 					}
-					RGB[] colorArray = (RGB[]) colorList.toArray(new RGB[0]);
+					RGB[] colorArray = colorList.toArray(new RGB[0]);
 					colorArrayList.add(colorArray);
 				}
 			}
@@ -99,7 +98,7 @@ public class ColorSchemeLoader {
 		}
 		catch (IOException ioe2) {
 		}
-		ColorScheme[] colorSchemeArray = (ColorScheme[]) schemeList.toArray(new ColorScheme[0]);
+		ColorScheme[] colorSchemeArray = schemeList.toArray(new ColorScheme[0]);
 		return colorSchemeArray;
 	}
 

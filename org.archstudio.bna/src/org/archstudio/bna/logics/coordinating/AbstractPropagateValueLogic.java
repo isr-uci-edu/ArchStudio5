@@ -182,7 +182,7 @@ public abstract class AbstractPropagateValueLogic<FROM_THING extends IThing, TO_
 			 * note: we propagate changes to things in the logic's BNA model to
 			 * allow propagation from an inner world to an outer world
 			 */
-			getBNAModel().getThings(valuesLogic.getThingIDs(thingRefKey, fromThing.getID())), toThingClass)) {
+			getBNAModel().getThingsByID(valuesLogic.getThingIDs(thingRefKey, fromThing.getID())), toThingClass)) {
 				doPropagationUnlessInCycle(evt.getSource(), fromThing, evt.getThingEvent(), toThing, null,
 						thingRefKey.getKey());
 			}

@@ -56,7 +56,7 @@ public class LifeSapperLogic extends AbstractThingLogic {
 				if (model != null) {
 					model.beginBulkChange();
 					try {
-						for (final IThing t : model.getThings(typeLogic.getThingIDs(IHasMutableLife.class))) {
+						for (final IThing t : model.getThingsByID(typeLogic.getThingIDs(IHasMutableLife.class))) {
 							if (t instanceof IHasMutableLife) {
 								final IHasMutableLife tl = (IHasMutableLife) t;
 								tl.synchronizedUpdate(new Runnable() {

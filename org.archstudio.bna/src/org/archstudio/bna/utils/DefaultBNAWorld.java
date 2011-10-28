@@ -14,16 +14,17 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
 
-import com.google.common.base.Function;
-import com.google.common.collect.MapMaker;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 
 public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener, IBNASynchronousModelListener {
 
 	protected static final boolean DEBUG = false;
-	protected final Map<Object, AtomicLong> listenerStats = !DEBUG ? null : new MapMaker().weakKeys().makeComputingMap(
-			new Function<Object, AtomicLong>() {
+	protected final Cache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().weakKeys()
+			.build(new CacheLoader<Object, AtomicLong>() {
 				@Override
-				public AtomicLong apply(Object input) {
+				public AtomicLong load(Object input) {
 					return new AtomicLong();
 				}
 			});
@@ -54,7 +55,7 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener, IBNASynchr
 				logic.bnaModelChanged(evt);
 				if (DEBUG) {
 					lTime = System.nanoTime() - lTime;
-					listenerStats.get(logic).addAndGet(lTime);
+					debugStats.getUnchecked(logic).addAndGet(lTime);
 				}
 			}
 			catch (Throwable t) {
@@ -64,7 +65,7 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener, IBNASynchr
 
 		if (DEBUG) {
 			System.err.println("----");
-			for (Map.Entry<Object, AtomicLong> e : sortedByValue(listenerStats.entrySet())) {
+			for (Map.Entry<Object, AtomicLong> e : sortedByValue(debugStats.asMap().entrySet())) {
 				System.err.println(e.getValue() + " " + e.getKey());
 			}
 		}
@@ -81,7 +82,7 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener, IBNASynchr
 				logic.bnaModelChangedSync(evt);
 				if (DEBUG) {
 					lTime = System.nanoTime() - lTime;
-					listenerStats.get(logic).addAndGet(lTime);
+					debugStats.get(logic).addAndGet(lTime);
 				}
 			}
 			catch (Throwable t) {

@@ -16,7 +16,9 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.emf.common.util.EMap;
 
-import com.google.common.base.Function;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 import com.google.common.collect.MapMaker;
 
 public class EMapProxy extends AbstractProxy {
@@ -133,17 +135,18 @@ public class EMapProxy extends AbstractProxy {
 		}
 	}
 
-	static final ConcurrentMap<IXArchADT, ConcurrentMap<List<Object>, EMap<Object, Object>>> autoXArchProxies = new MapMaker()//
-			.weakKeys().makeComputingMap(new Function<IXArchADT, ConcurrentMap<List<Object>, EMap<Object, Object>>>() {
+	static final Cache<IXArchADT, ConcurrentMap<List<Object>, EMap<Object, Object>>> xArchProxiesCache = CacheBuilder
+			.newBuilder().weakKeys()
+			.build(new CacheLoader<IXArchADT, ConcurrentMap<List<Object>, EMap<Object, Object>>>() {
 				@Override
-				public ConcurrentMap<List<Object>, EMap<Object, Object>> apply(IXArchADT input) {
+				public ConcurrentMap<List<Object>, EMap<Object, Object>> load(IXArchADT key) throws Exception {
 					return new MapMaker().softValues().makeMap();
 				}
 			});
 
 	@SuppressWarnings("unchecked")
 	public static final <K, V> EMap<K, V> proxy(IXArchADT xarch, ObjRef objRef, String name) {
-		ConcurrentMap<List<Object>, EMap<Object, Object>> proxies = autoXArchProxies.get(xarch);
+		ConcurrentMap<List<Object>, EMap<Object, Object>> proxies = xArchProxiesCache.getUnchecked(xarch);
 		EMap<Object, Object> proxy = proxies.get(Arrays.asList(objRef, name));
 		if (proxy == null) {
 			@SuppressWarnings("rawtypes")

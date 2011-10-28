@@ -10,7 +10,9 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EPackage;
 
-import com.google.common.base.Function;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 import com.google.common.collect.MapMaker;
 
 public class EFactoryProxy extends AbstractProxy {
@@ -39,7 +41,7 @@ public class EFactoryProxy extends AbstractProxy {
 
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-			return methods.get(method).invoke(this, method, args);
+			return methodsCache.get(method).invoke(this, method, args);
 		}
 
 		@Override
@@ -51,32 +53,38 @@ public class EFactoryProxy extends AbstractProxy {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + ((nsURI == null) ? 0 : nsURI.hashCode());
+			result = prime * result + (nsURI == null ? 0 : nsURI.hashCode());
 			return result;
 		}
 
 		@Override
 		public boolean equals(Object obj) {
-			if (this == obj)
+			if (this == obj) {
 				return true;
-			if (obj == null)
+			}
+			if (obj == null) {
 				return false;
-			if (getClass() != obj.getClass())
+			}
+			if (getClass() != obj.getClass()) {
 				return false;
+			}
 			ProxyImpl other = (ProxyImpl) obj;
 			if (nsURI == null) {
-				if (other.nsURI != null)
+				if (other.nsURI != null) {
 					return false;
+				}
 			}
-			else if (!nsURI.equals(other.nsURI))
+			else if (!nsURI.equals(other.nsURI)) {
 				return false;
+			}
 			return true;
 		}
 	}
 
-	static final ConcurrentMap<Method, Handler<NameContext, ProxyImpl>> methods = new MapMaker().softKeys()
-			.makeComputingMap(new Function<Method, Handler<NameContext, ProxyImpl>>() {
-				public Handler<NameContext, ProxyImpl> apply(Method method) {
+	static final Cache<Method, Handler<NameContext, ProxyImpl>> methodsCache = CacheBuilder.newBuilder().build(
+			new CacheLoader<Method, Handler<NameContext, ProxyImpl>>() {
+				@Override
+				public Handler<NameContext, ProxyImpl> load(Method method) throws Exception {
 					String name = method.getName();
 					String prefix;
 					if (name.startsWith(prefix = "create")) {
@@ -86,17 +94,17 @@ public class EFactoryProxy extends AbstractProxy {
 				};
 			});
 
-	static final ConcurrentMap<IXArchADT, ConcurrentMap<String, EFactory>> autoXArchProxies = new MapMaker()//
-			.weakKeys().makeComputingMap(new Function<IXArchADT, ConcurrentMap<String, EFactory>>() {
+	static final Cache<IXArchADT, ConcurrentMap<String, EFactory>> xArchProxiesCache = CacheBuilder.newBuilder()
+			.weakKeys().build(new CacheLoader<IXArchADT, ConcurrentMap<String, EFactory>>() {
 				@Override
-				public ConcurrentMap<String, EFactory> apply(IXArchADT input) {
+				public ConcurrentMap<String, EFactory> load(IXArchADT key) throws Exception {
 					return new MapMaker().softValues().makeMap();
 				}
 			});
 
 	@SuppressWarnings("unchecked")
 	public static final <T extends EFactory> T proxy(IXArchADT xarch, String nsURI) {
-		ConcurrentMap<String, EFactory> proxies = autoXArchProxies.get(xarch);
+		ConcurrentMap<String, EFactory> proxies = xArchProxiesCache.getUnchecked(xarch);
 		T proxy = (T) proxies.get(nsURI);
 		if (proxy == null) {
 			EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(nsURI);

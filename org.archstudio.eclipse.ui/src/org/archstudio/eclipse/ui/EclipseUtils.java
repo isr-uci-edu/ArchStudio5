@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.archstudio.eclipse.ArchStudioNature;
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -21,7 +20,6 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -81,8 +79,8 @@ public class EclipseUtils {
 				if (page != null) {
 					try {
 						IFileEditorInput fileEditorInput = new FileEditorInput(file);
-						IEditorPart editorPart = page.openEditor(fileEditorInput, editorID, true,
-								IWorkbenchPage.MATCH_INPUT | IWorkbenchPage.MATCH_ID);
+						page.openEditor(fileEditorInput, editorID, true, IWorkbenchPage.MATCH_INPUT
+								| IWorkbenchPage.MATCH_ID);
 					}
 					catch (PartInitException pie) {
 						//pie.printStackTrace();
@@ -100,8 +98,6 @@ public class EclipseUtils {
 	}
 
 	public static IPath selectFile(Shell shell, String targetExtension) {
-		final Shell fshell = shell;
-
 		SaveAsDialog sad = new SaveAsDialog(shell);
 		sad.open();
 		IPath initialTargetPath = sad.getResult();
@@ -136,10 +132,9 @@ public class EclipseUtils {
 					createContainer = false;
 				}
 				ContainerGenerator gen = new ContainerGenerator(targetContainerPath);
-				IContainer res = null;
 				try {
 					if (createContainer) {
-						res = gen.generateContainer(monitor); // creates project A and folder B if required
+						gen.generateContainer(monitor); // creates project A and folder B if required
 					}
 					if (targetFile.exists()) {
 						targetFile.delete(false, monitor);
@@ -211,8 +206,8 @@ public class EclipseUtils {
 		}
 	}
 
-	public static String[][] getFieldEditorPreferenceData(Class<? extends Enum> enumClass) {
-		Enum[] enumConstants = enumClass.getEnumConstants();
+	public static String[][] getFieldEditorPreferenceData(Class<? extends Enum<?>> enumClass) {
+		Enum<?>[] enumConstants = enumClass.getEnumConstants();
 		String[][] values = new String[enumConstants.length][];
 		for (int i = 0; i < enumConstants.length; i++) {
 			values[i] = new String[] { enumConstants[i].toString(), enumConstants[i].name() };

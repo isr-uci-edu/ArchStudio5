@@ -15,6 +15,7 @@ import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTargetEvent;
+import org.eclipse.swt.dnd.TransferData;
 
 public abstract class AbstractTreeDropLogic extends AbstractThingLogic implements IBNADragAndDropListener {
 	protected ArchipelagoServices AS = null;
@@ -81,12 +82,12 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 		if (acceptDrop(view, event, ts, location)) {
 			IThing t = getSingleThing(ts);
 			event.detail = DND.DROP_LINK;
-			if ((pulser == null) && (t != null) && (t instanceof IHasBoundingBox)) {
-				pulser = new PulsingBorderThing();
+			if (pulser == null && t != null && t instanceof IHasBoundingBox) {
+				pulser = new PulsingBorderThing(null);
 				pulser.setBoundingBox(((IHasBoundingBox) t).getBoundingBox());
 				view.getBNAWorld().getBNAModel().addThing(pulser, t);
 			}
-			else if ((pulser != null) && (t != null) && (t instanceof IHasBoundingBox)) {
+			else if (pulser != null && t != null && t instanceof IHasBoundingBox) {
 				pulser.setBoundingBox(((IHasBoundingBox) t).getBoundingBox());
 			}
 			else if (pulser != null) {
@@ -107,9 +108,9 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 		if (acceptDrop(view, event, ts, location)) {
 			event.detail = DND.DROP_LINK;
 			LocalSelectionTransfer transfer = LocalSelectionTransfer.getInstance();
-			for (int i = 0; i < event.dataTypes.length; i++) {
-				if (transfer.isSupportedType(event.dataTypes[i])) {
-					event.currentDataType = event.dataTypes[i];
+			for (TransferData dataType : event.dataTypes) {
+				if (transfer.isSupportedType(dataType)) {
+					event.currentDataType = dataType;
 					break;
 				}
 			}

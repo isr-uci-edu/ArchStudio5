@@ -106,15 +106,15 @@ public class AIMInstantiationOrderCalculator {
 	private static Iterable<BrickNode> calculateBrickGraph(IXArchADT xarch, ObjRef structureRef) {
 		Map<ObjRef, BrickNode> brickNodes = Maps.newHashMap();
 
-		for (ObjRef brickRef : xarch.getAll(structureRef, "component")) {
+		for (ObjRef brickRef : Iterables.filter(xarch.getAll(structureRef, "component"), ObjRef.class)) {
 			brickNodes.put(brickRef, new BrickNode(brickRef));
 		}
-		for (ObjRef brickRef : xarch.getAll(structureRef, "connector")) {
+		for (ObjRef brickRef : Iterables.filter(xarch.getAll(structureRef, "connector"), ObjRef.class)) {
 			brickNodes.put(brickRef, new BrickNode(brickRef));
 		}
 
 		// scan the links to populate the "top" fields of each brick
-		for (ObjRef linkRef : xarch.getAll(structureRef, "link")) {
+		for (ObjRef linkRef : Iterables.filter(xarch.getAll(structureRef, "link"), ObjRef.class)) {
 			ObjRef iface1Ref = (ObjRef) xarch.get(linkRef, "point1");
 			ObjRef iface2Ref = (ObjRef) xarch.get(linkRef, "point2");
 			if (iface1Ref != null && iface2Ref != null) {

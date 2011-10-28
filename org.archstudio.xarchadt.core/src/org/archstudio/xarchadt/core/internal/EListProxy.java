@@ -1,5 +1,6 @@
 package org.archstudio.xarchadt.core.internal;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -16,8 +17,10 @@ import org.archstudio.xarchadt.core.XArchADTProxy;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.MapMaker;
 
 public class EListProxy extends AbstractProxy {
@@ -52,7 +55,7 @@ public class EListProxy extends AbstractProxy {
 		@Override
 		@SuppressWarnings("unchecked")
 		public E get(int index) {
-			return (E) XArchADTProxy.proxy(xarch, xarch.getAll(objRef, name).get(index));
+			return (E) XArchADTProxy.proxy(xarch, (ObjRef) xarch.getAll(objRef, name).get(index));
 		}
 
 		@Override
@@ -63,7 +66,7 @@ public class EListProxy extends AbstractProxy {
 		@Override
 		@SuppressWarnings("unchecked")
 		public Iterator<E> iterator() {
-			final Iterator<ObjRef> i = Lists.newArrayList(xarch.getAll(objRef, name)).iterator();
+			final Iterator<ObjRef> i = Iterables.filter(xarch.getAll(objRef, name), ObjRef.class).iterator();
 			return new Iterator<E>() {
 
 				ObjRef current = null;
@@ -92,14 +95,14 @@ public class EListProxy extends AbstractProxy {
 
 		@Override
 		public boolean add(E e) {
-			xarch.add(objRef, name, (ObjRef) unproxy(e));
+			xarch.add(objRef, name, (Serializable) unproxy(e));
 			return true;
 		}
 
 		@Override
 		public boolean remove(Object o) {
 			if (o instanceof EObject) {
-				xarch.remove(objRef, name, (ObjRef) unproxy(o));
+				xarch.remove(objRef, name, (Serializable) unproxy(o));
 				return true;
 			}
 			return false;
@@ -155,17 +158,17 @@ public class EListProxy extends AbstractProxy {
 		}
 	}
 
-	static final ConcurrentMap<IXArchADT, ConcurrentMap<List<Object>, EList<Object>>> autoXArchProxies = new MapMaker()//
-			.weakKeys().makeComputingMap(new Function<IXArchADT, ConcurrentMap<List<Object>, EList<Object>>>() {
+	static final Cache<IXArchADT, ConcurrentMap<List<Object>, EList<Object>>> xArchProxiesCache = CacheBuilder
+			.newBuilder().weakKeys().build(new CacheLoader<IXArchADT, ConcurrentMap<List<Object>, EList<Object>>>() {
 				@Override
-				public ConcurrentMap<List<Object>, EList<Object>> apply(IXArchADT input) {
+				public ConcurrentMap<List<Object>, EList<Object>> load(IXArchADT input) {
 					return new MapMaker().softValues().makeMap();
 				}
 			});
 
 	@SuppressWarnings("unchecked")
 	public static final <T extends EObject> EList<T> proxy(IXArchADT xarch, ObjRef objRef, String name) {
-		ConcurrentMap<List<Object>, EList<Object>> proxies = autoXArchProxies.get(xarch);
+		ConcurrentMap<List<Object>, EList<Object>> proxies = xArchProxiesCache.getUnchecked(xarch);
 		EList<Object> proxy = proxies.get(Arrays.asList(objRef, name));
 		if (proxy == null) {
 			@SuppressWarnings("rawtypes")

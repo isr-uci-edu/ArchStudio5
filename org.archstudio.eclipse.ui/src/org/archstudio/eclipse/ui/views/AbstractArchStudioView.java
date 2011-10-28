@@ -11,10 +11,9 @@ public abstract class AbstractArchStudioView<B extends IMyxBrick> extends ViewPa
 	protected final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
 	protected final B brick;
 
-	@SuppressWarnings("unchecked")
 	public AbstractArchStudioView(Class<B> brickClass) {
 		InstantiateArchStudio.instantiate();
-		brick = (B) myxRegistry.waitForBrick(brickClass);
+		brick = myxRegistry.waitForBrick(brickClass);
 	}
 
 	@SuppressWarnings("unchecked")

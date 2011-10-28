@@ -16,19 +16,20 @@ import org.archstudio.bna.ThingLogicManagerEvent;
 import org.archstudio.bna.ThingLogicManagerEvent.EventType;
 import org.archstudio.sysutils.FilterableCopyOnWriteArrayList;
 
-import com.google.common.base.Function;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.MapMaker;
 import com.google.common.collect.Maps;
 
 public class DefaultThingLogicManager implements IThingLogicManager {
 
 	protected static final boolean DEBUG = true;
-	protected final Map<Object, AtomicLong> logicStats = !DEBUG ? null : new MapMaker().weakKeys().makeComputingMap(
-			new Function<Object, AtomicLong>() {
+	protected final Cache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().weakKeys()
+			.build(new CacheLoader<Object, AtomicLong>() {
 				@Override
-				public AtomicLong apply(Object input) {
+				public AtomicLong load(Object input) {
 					return new AtomicLong();
 				}
 			});
@@ -95,7 +96,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 		typedLogics.put(tl.getClass(), tl);
 		if (DEBUG) {
 			time = System.nanoTime() - time;
-			logicStats.get(tl).addAndGet(time);
+			debugStats.getUnchecked(tl).addAndGet(time);
 		}
 		fireThingLogicManagerEvent(EventType.LOGIC_ADDED, tl);
 
@@ -114,7 +115,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 		typedLogics.remove(tl.getClass());
 		if (DEBUG) {
 			time = System.nanoTime() - time;
-			logicStats.get(tl).addAndGet(time);
+			debugStats.getUnchecked(tl).addAndGet(time);
 		}
 		fireThingLogicManagerEvent(EventType.LOGIC_REMOVED, tl);
 	}

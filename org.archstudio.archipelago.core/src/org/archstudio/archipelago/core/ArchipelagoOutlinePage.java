@@ -106,6 +106,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 				Class<?> clazz = Platform.getBundle(pluginName).loadClass(className);
 				Constructor<?> classConstructor = clazz.getConstructor(new Class<?>[0]);
 				Object obj = classConstructor.newInstance(new Object[0]);
+				((IArchipelagoTreePlugin) obj).setEditor(AS.editor);
 				addTreePlugin((IArchipelagoTreePlugin) obj);
 			}
 			catch (Exception e) {

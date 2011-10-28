@@ -9,11 +9,13 @@ import java.util.concurrent.TimeUnit;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IThingKey;
 
 class ThreadModelEventProcessor {
 	protected ExecutorService asyncExecutor = null;
 
-	private List<IBNAModelListener> modelListeners = new CopyOnWriteArrayList<IBNAModelListener>();
+	private final List<IBNAModelListener> modelListeners = new CopyOnWriteArrayList<IBNAModelListener>();
 
 	public ThreadModelEventProcessor() {
 		asyncExecutor = Executors.newSingleThreadExecutor();
@@ -34,6 +36,7 @@ class ThreadModelEventProcessor {
 		final Runnable r = new Runnable() {
 			boolean hasRun = false;
 
+			@Override
 			public void run() {
 				hasRun = !hasRun;
 			}
@@ -48,10 +51,11 @@ class ThreadModelEventProcessor {
 		}
 	}
 
-	public void fireBNAModelEvent(BNAModelEvent evt) {
-		final BNAModelEvent fevt = evt;
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void fireBNAModelEvent(BNAModelEvent<ET, EK, EV> evt) {
+		final BNAModelEvent<ET, EK, EV> fevt = evt;
 		final List<IBNAModelListener> fmodelListeners = modelListeners;
 		Runnable r = new Runnable() {
+			@Override
 			public void run() {
 				for (IBNAModelListener ml : fmodelListeners) {
 					ml.bnaModelChanged(fevt);

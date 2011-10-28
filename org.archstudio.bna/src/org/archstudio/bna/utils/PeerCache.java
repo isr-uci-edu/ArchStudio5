@@ -1,53 +1,47 @@
 package org.archstudio.bna.utils;
 
 import java.lang.reflect.Constructor;
-import java.util.Map;
 
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
 
-import com.google.common.base.Function;
-import com.google.common.collect.MapMaker;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 
 public class PeerCache {
 
-	protected static Map<Class<IThingPeer<?>>, Constructor<?>> autoConstructors = new MapMaker()
-			.makeComputingMap(new Function<Class<IThingPeer<?>>, Constructor<?>>() {
+	protected static Cache<Class<? extends IThingPeer<?>>, Constructor<?>> constructorsCache = CacheBuilder
+			.newBuilder().build(new CacheLoader<Class<? extends IThingPeer<?>>, Constructor<?>>() {
+
 				@Override
-				public Constructor<?> apply(Class<IThingPeer<?>> input) {
-					for (Constructor<?> c : input.getConstructors()) {
+				public Constructor<?> load(Class<? extends IThingPeer<?>> key) throws Exception {
+					for (Constructor<?> c : key.getConstructors()) {
 						if (c.getParameterTypes().length == 1) {
 							if (IThing.class.isAssignableFrom(c.getParameterTypes()[0])) {
 								return c;
 							}
 						}
 					}
-					throw new IllegalArgumentException("Cannot find appropriate constructor: " + input);
+					throw new IllegalArgumentException("Cannot find appropriate constructor: " + key);
 				}
 			});
 
-	protected static Map<IThing, IThingPeer<?>> autoPeers = new MapMaker().weakKeys().makeComputingMap(
-			new Function<IThing, IThingPeer<?>>() {
+	protected static Cache<IThing, IThingPeer<?>> peersCache = CacheBuilder.newBuilder().weakKeys()
+			.build(new CacheLoader<IThing, IThingPeer<?>>() {
+
 				@Override
-				public IThingPeer<?> apply(IThing input) {
-					try {
-						return (IThingPeer<?>) autoConstructors.get(input.getPeerClass()).newInstance(input);
-					}
-					catch (Exception e) {
-						throw new RuntimeException("Cannot create peer: " + input, e);
-					}
+				public IThingPeer<?> load(IThing key) throws Exception {
+					return (IThingPeer<?>) constructorsCache.get(key.getPeerClass()).newInstance(key);
 				}
 			});
 
 	@SuppressWarnings("unchecked")
 	public <T extends IThing> IThingPeer<T> getPeer(T thing) {
-		return (IThingPeer<T>) autoPeers.get(thing);
+		return (IThingPeer<T>) peersCache.getUnchecked(thing);
 	}
 
 	public void disposePeer(IThing thing) {
-		IThingPeer<?> peer = autoPeers.remove(thing);
-		if (peer != null) {
-			peer.dispose();
-		}
+		getPeer(thing).dispose();
 	}
 }

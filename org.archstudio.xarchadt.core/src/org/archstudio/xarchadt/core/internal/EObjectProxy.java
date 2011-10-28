@@ -20,6 +20,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import com.google.common.base.Function;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.MapMaker;
 
@@ -136,7 +139,7 @@ public class EObjectProxy extends AbstractProxy {
 
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-			return methods.get(method).invoke(this, method, args);
+			return methodsCache.get(method).invoke(this, method, args);
 		}
 
 		@Override
@@ -181,10 +184,10 @@ public class EObjectProxy extends AbstractProxy {
 		}
 	}
 
-	static final ConcurrentMap<Method, Handler<NameContext, ProxyImpl>> methods = new MapMaker().softKeys()
-			.makeComputingMap(new Function<Method, Handler<NameContext, ProxyImpl>>() {
+	static final Cache<Method, Handler<NameContext, ProxyImpl>> methodsCache = CacheBuilder.newBuilder().build(
+			new CacheLoader<Method, Handler<NameContext, ProxyImpl>>() {
 				@Override
-				public Handler<NameContext, ProxyImpl> apply(Method method) {
+				public Handler<NameContext, ProxyImpl> load(Method method) throws Exception {
 					String name = method.getName();
 					String prefix;
 					if (name.startsWith(prefix = "get")) {
@@ -216,10 +219,10 @@ public class EObjectProxy extends AbstractProxy {
 				}
 			});
 
-	static final ConcurrentMap<IXArchADT, ConcurrentMap<ObjRef, EObject>> autoXArchProxies = new MapMaker()//
-			.weakKeys().makeComputingMap(new Function<IXArchADT, ConcurrentMap<ObjRef, EObject>>() {
+	static final Cache<IXArchADT, ConcurrentMap<ObjRef, EObject>> xArchProxiesCache = CacheBuilder.newBuilder()
+			.weakKeys().build(new CacheLoader<IXArchADT, ConcurrentMap<ObjRef, EObject>>() {
 				@Override
-				public ConcurrentMap<ObjRef, EObject> apply(IXArchADT input) {
+				public ConcurrentMap<ObjRef, EObject> load(IXArchADT xarch) throws Exception {
 					return new MapMaker().softValues().makeMap();
 				}
 			});
@@ -229,7 +232,7 @@ public class EObjectProxy extends AbstractProxy {
 		if (objRef == null) {
 			return null;
 		}
-		ConcurrentMap<ObjRef, EObject> proxies = autoXArchProxies.get(xarch);
+		ConcurrentMap<ObjRef, EObject> proxies = xArchProxiesCache.getUnchecked(xarch);
 		T proxy = (T) proxies.get(objRef);
 		if (proxy == null) {
 			IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(objRef);

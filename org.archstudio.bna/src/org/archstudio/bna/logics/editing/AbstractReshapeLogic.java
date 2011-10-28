@@ -115,7 +115,7 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		if (model != null) {
 			Iterable<Object> selectedThingIDs = valuesLogic.getThingIDs(IHasSelected.SELECTED_KEY, Boolean.TRUE);
 			if (Iterables.size(selectedThingIDs) == 1) {
-				selectedThing = firstOrNull(model.getThings(selectedThingIDs), reshapingThingClass);
+				selectedThing = firstOrNull(model.getThingsByID(selectedThingIDs), reshapingThingClass);
 			}
 			if (selectedThing == null || selectedThing != reshapingThing) {
 				untrack();

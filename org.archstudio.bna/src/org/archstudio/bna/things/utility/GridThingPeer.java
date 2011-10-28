@@ -8,6 +8,7 @@ import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
@@ -54,22 +55,28 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 			// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=155511
 			g.setLineWidth(0);
 			if (gdt == GridDisplayType.SOLID_LINES || gdt == GridDisplayType.DOTTED_LINES) {
+				int dashLength = 1;
 				if (gdt == GridDisplayType.DOTTED_LINES) {
 					g.setLineCap(SWT.CAP_SQUARE);
 					g.setLineStyle(SWT.LINE_DOT);
+					dashLength = 6;
 				}
 				else {
 					g.setLineStyle(SWT.LINE_SOLID);
 				}
-				// "~1" rounds down to the nearest even number, which is necessary
-				// so that the DOTTED_LINES pattern is draw consistently when scrolled
 				for (int i = wx - dx; i <= wx2; i += worldGridStep) {
 					int gx = cm.worldToLocal(new Point(i, wy)).x;
-					g.drawLine(gx, lClip.y & ~1, gx, lClip.y + lClip.height + 2);
+					if (g instanceof SWTGraphics) {
+						((SWTGraphics) g).setLineDashOffset(0);
+					}
+					g.drawLine(gx, lClip.y / dashLength * dashLength, gx, lClip.y + lClip.height + 2);
 				}
 				for (int i = wy - dy; i <= wy2; i += worldGridStep) {
 					int gy = cm.worldToLocal(new Point(wx, i)).y;
-					g.drawLine(lClip.x & ~1, gy, lClip.x + lClip.width + 2, gy);
+					if (g instanceof SWTGraphics) {
+						((SWTGraphics) g).setLineDashOffset(0);
+					}
+					g.drawLine(lClip.x / dashLength * dashLength, gy, lClip.x + lClip.width + 2, gy);
 				}
 			}
 			else if (gdt == GridDisplayType.DOTS_AT_CORNERS) {

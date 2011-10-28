@@ -2,7 +2,6 @@ package org.archstudio.archipelago.core;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -57,7 +56,7 @@ public class ArchipelagoUtils {
 	public static IThing findThing(IBNAModel m, String xArchID) {
 		for (IThing t : m.getAllThings()) {
 			if (!(t instanceof EnvironmentPropertiesThing)) {
-				String id = t.getProperty(XARCH_ID_KEY);
+				String id = t.get(XARCH_ID_KEY);
 				if (id != null && id.equals(xArchID)) {
 					return t;
 				}
@@ -69,7 +68,7 @@ public class ArchipelagoUtils {
 	public static IThing[] findAllThings(IBNAModel m, String xArchID) {
 		List<IThing> results = new ArrayList<IThing>();
 		for (IThing t : m.getAllThings()) {
-			String id = t.getProperty(XARCH_ID_KEY);
+			String id = t.get(XARCH_ID_KEY);
 			if (id != null && id.equals(xArchID)) {
 				results.add(t);
 			}
@@ -125,8 +124,8 @@ public class ArchipelagoUtils {
 	}
 
 	public static Point findOpenSpotForNewThing(IBNAModel m) {
+		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
 		try {
-			EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
 			if (ept.hasProperty(EnvironmentPropertiesThing.NEW_THING_SPOT_KEY)) {
 				return ept.getNewThingSpot();
 			}
@@ -134,29 +133,39 @@ public class ArchipelagoUtils {
 		catch (Exception e) {
 		}
 
-		Point p = new Point(CoordinateMapperAdapter.getDefaultBounds().getCenter().translate(30, 30));
-		// first find all things along the points of interest
-		int dyx = p.y - p.x;
-		Set<Integer> xValues = new HashSet<Integer>();
-		for (IThing t : m.getThings()) {
-			if (t instanceof IHasBoundingBox) {
-				Rectangle r = ((IHasBoundingBox) t).getBoundingBox();
-				if (r.y - r.x == dyx) {
-					xValues.add(r.x);
-				}
-			}
-			if (t instanceof IHasAnchorPoint) {
-				Point ap = ((IHasAnchorPoint) t).getAnchorPoint();
-				if (p.y - p.x == dyx) {
-					xValues.add(p.x);
-				}
-			}
-		}
-		// now find an open point
-		while (xValues.contains(p.x)) {
+		Point p;
+		if (ept.hasProperty(EnvironmentPropertiesThing.LAST_OPEN_SPOT_KEY)) {
+			p = ept.getLastOpenSpot();
 			p.x += 10;
 			p.y += 10;
 		}
+		else {
+			p = new Point(CoordinateMapperAdapter.getDefaultBounds().getCenter().translate(30, 30));
+			// first find all things along the points of interest
+			int dyx = p.y - p.x;
+			Set<Integer> xValues = new HashSet<Integer>();
+			for (IThing t : m.getAllThings()) {
+				if (t instanceof IHasBoundingBox) {
+					Rectangle r = ((IHasBoundingBox) t).getBoundingBox();
+					if (r.y - r.x == dyx) {
+						xValues.add(r.x);
+					}
+				}
+				if (t instanceof IHasAnchorPoint) {
+					Point ap = ((IHasAnchorPoint) t).getAnchorPoint();
+					if (ap.y - ap.x == dyx) {
+						xValues.add(ap.x);
+					}
+				}
+			}
+			// now find an open point
+			while (xValues.contains(p.x)) {
+				p.x += 10;
+				p.y += 10;
+			}
+		}
+
+		ept.setLastOpenSpot(p);
 		return p;
 	}
 
@@ -243,7 +252,7 @@ public class ArchipelagoUtils {
 				Thread pulserThread = new Thread() {
 					@Override
 					public void run() {
-						PulsingBorderThing pbt = new PulsingBorderThing();
+						PulsingBorderThing pbt = new PulsingBorderThing(null);
 						pbt.setBoundingBox(bb);
 						m.addThing(pbt);
 						try {
@@ -289,8 +298,8 @@ public class ArchipelagoUtils {
 		Set<Object> newSelections = new HashSet<Object>();
 		if (os != null) {
 			if (os instanceof IStructuredSelection) {
-				for (Iterator it = ((IStructuredSelection) os).iterator(); it.hasNext();) {
-					newSelections.add(it.next());
+				for (Object element : ((IStructuredSelection) os).toList()) {
+					newSelections.add(element);
 				}
 			}
 		}

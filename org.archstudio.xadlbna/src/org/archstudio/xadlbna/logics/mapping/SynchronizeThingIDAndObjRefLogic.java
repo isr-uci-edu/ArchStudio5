@@ -22,17 +22,17 @@ import com.google.common.collect.Sets;
 public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
 
 	ThingValueTrackingLogic valuesLogic = null;
-	Set<IThingKeyKey<?, IThingKey<Object>, ObjRef>> objRef2Keys = Sets.newHashSet();
+	Set<IThingKeyKey<?, IThingKey<Object>, ObjRef>> objRefKeys = Sets.newHashSet();
 	Set<IThingKey<Object>> thingIDKeys = Sets.newHashSet();
 
 	public IThingKey<ObjRef> syncObjRefKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
-		return getObjRef2Key(thingRefKey);
+		return getObjRefKey(thingRefKey);
 	}
 
-	private IThingKey<ObjRef> getObjRef2Key(IThingKey<Object> thingIDKey) {
+	private IThingKey<ObjRef> getObjRefKey(IThingKey<Object> thingIDKey) {
 		thingIDKeys.add(thingIDKey);
 		IThingKeyKey<?, IThingKey<Object>, ObjRef> objRefKey = ThingKeyKey.create("objRef", thingIDKey);
-		objRef2Keys.add(objRefKey);
+		objRefKeys.add(objRefKey);
 		return objRefKey;
 	}
 
@@ -56,12 +56,12 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 				IThing t = evt.getTargetThing();
 				ObjRef objRef = t.get(IHasObjRef.OBJREF_KEY);
 				if (objRef != null) {
-					setThingIdForObjRef2(objRef, t.getID());
+					setThingIdForObjRef(objRef, t.getID());
 				}
-				for (IThingKeyKey<?, IThingKey<Object>, ObjRef> objRef2Key : objRef2Keys) {
-					ObjRef objRef2 = t.get(objRef2Key);
-					if (objRef2 != null) {
-						t.set(objRef2Key.getKey(), firstOrNull(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef2)));
+				for (IThingKeyKey<?, IThingKey<Object>, ObjRef> objRefKey : objRefKeys) {
+					objRef = t.get(objRefKey);
+					if (objRef != null) {
+						t.set(objRefKey.getKey(), firstOrNull(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef)));
 					}
 				}
 				break;
@@ -75,20 +75,20 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 					IThing thingWithReference = evt.getTargetThing();
 					IThing referencedThing = evt.getSource().getThing(thingWithReference.get(idKey));
 					ObjRef objRef = referencedThing != null ? referencedThing.get(IHasObjRef.OBJREF_KEY) : null;
-					thingWithReference.set(getObjRef2Key(idKey), objRef);
+					thingWithReference.set(getObjRefKey(idKey), objRef);
 				}
 				else if (IHasObjRef.OBJREF_KEY.equals(p)) {
 					IThing thingWithObjRef = evt.getTargetThing();
 					ObjRef objRef = thingWithObjRef.get(IHasObjRef.OBJREF_KEY);
-					setThingIdForObjRef2(objRef, thingWithObjRef.getID());
+					setThingIdForObjRef(objRef, thingWithObjRef.getID());
 				}
-				else if (objRef2Keys.contains(p)) {
-					IThing thingWithObjRef2 = evt.getTargetThing();
+				else if (objRefKeys.contains(p)) {
+					IThing thingWithObjRef = evt.getTargetThing();
 					@SuppressWarnings("unchecked")
-					IThingKeyKey<?, IThingKey<Object>, ObjRef> objRef2Key = (IThingKeyKey<?, IThingKey<Object>, ObjRef>) p;
-					ObjRef objRef2 = thingWithObjRef2.get(objRef2Key);
-					thingWithObjRef2.set(objRef2Key.getKey(),
-							firstOrNull(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef2)));
+					IThingKeyKey<?, IThingKey<Object>, ObjRef> objRefKey = (IThingKeyKey<?, IThingKey<Object>, ObjRef>) p;
+					ObjRef objRef = thingWithObjRef.get(objRefKey);
+					thingWithObjRef.set(objRefKey.getKey(),
+							firstOrNull(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef)));
 				}
 				break;
 			}
@@ -96,7 +96,7 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 				IThing t = evt.getTargetThing();
 				ObjRef objRef = t.get(IHasObjRef.OBJREF_KEY);
 				if (objRef != null) {
-					setThingIdForObjRef2(objRef, null);
+					setThingIdForObjRef(objRef, null);
 				}
 				break;
 			}
@@ -107,10 +107,10 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 		}
 	}
 
-	private void setThingIdForObjRef2(ObjRef objRef, Object thingId) {
-		for (IThingKeyKey<?, IThingKey<Object>, ObjRef> objRef2Key : objRef2Keys) {
-			for (IThing thingWithObjRef2 : getBNAModel().getThings(valuesLogic.getThingIDs(objRef2Key, objRef))) {
-				thingWithObjRef2.set(objRef2Key.getKey(), thingId);
+	private void setThingIdForObjRef(ObjRef objRef, Object thingId) {
+		for (IThingKeyKey<?, IThingKey<Object>, ObjRef> objRefKey : objRefKeys) {
+			for (IThing thingWithObjRef : getBNAModel().getThingsByID(valuesLogic.getThingIDs(objRefKey, objRef))) {
+				thingWithObjRef.set(objRefKey.getKey(), thingId);
 			}
 		}
 	}

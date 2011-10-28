@@ -1,16 +1,18 @@
 Bundle-ClassPath: .,
- lib/guava-r09.jar,
- lib/jsr305.jar
+ lib/jsr305.jar,
+ lib/guava-10.0.1.jar
 Bundle-ManifestVersion: 2
 Bundle-Name: Guava (Google Common Libraries)
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: com.google.guava;singleton:=true
 Bundle-Vendor: archstudio.org
-Bundle-Version: 0.0.9.qualifier
+Bundle-Version: 10.0.1.qualifier
 Export-Package: com.google.common.annotations,
  com.google.common.base,
- com.google.common.base.internal;x-internal:=true,
+ com.google.common.base.internal,
+ com.google.common.cache,
  com.google.common.collect,
+ com.google.common.eventbus,
  com.google.common.io,
  com.google.common.net,
  com.google.common.primitives,

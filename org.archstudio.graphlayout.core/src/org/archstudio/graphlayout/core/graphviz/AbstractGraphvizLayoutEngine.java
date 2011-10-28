@@ -3,7 +3,6 @@ package org.archstudio.graphlayout.core.graphviz;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import org.archstudio.graphlayout.GraphLayout;
@@ -21,6 +20,8 @@ import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.preference.IPreferenceStore;
+
+import com.google.common.collect.Iterables;
 
 public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 
@@ -82,13 +83,11 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 
 	protected void createBricks(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef rootRef,
 			GraphLayoutParameters params) throws GraphLayoutException {
-		List<ObjRef> componentRefs = xarch.getAll(rootRef, "component");
-		for (ObjRef componentRef : componentRefs) {
+		for (ObjRef componentRef : Iterables.filter(xarch.getAll(rootRef, "component"), ObjRef.class)) {
 			createBrick(sb, at, xarch, componentRef, params, true);
 		}
 		sb.append(EOL);
-		List<ObjRef> connectorRefs = xarch.getAll(rootRef, "connector");
-		for (ObjRef connectorRef : connectorRefs) {
+		for (ObjRef connectorRef : Iterables.filter(xarch.getAll(rootRef, "connector"), ObjRef.class)) {
 			createBrick(sb, at, xarch, connectorRef, params, false);
 		}
 	}
@@ -126,8 +125,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 
 	protected void createLinks(StringBuffer sb, AliasTable at, IXArchADT xarch, ObjRef rootRef,
 			GraphLayoutParameters params) throws GraphLayoutException {
-		List<ObjRef> linkRefs = xarch.getAll(rootRef, "link");
-		for (ObjRef linkRef : linkRefs) {
+		for (ObjRef linkRef : Iterables.filter(xarch.getAll(rootRef, "link"), ObjRef.class)) {
 			createLink(sb, at, xarch, linkRef, params);
 		}
 	}
@@ -245,6 +243,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 				}
 				else if (line.startsWith("node")) {
 					StringTokenizer tok = new StringTokenizer(line);
+					@SuppressWarnings("unused")
 					String nodeToken = tok.nextToken();
 					String eltToken = tok.nextToken();
 					String xToken = tok.nextToken();
@@ -286,6 +285,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 				}
 				else if (line.startsWith("edge")) {
 					StringTokenizer tok = new StringTokenizer(line);
+					@SuppressWarnings("unused")
 					String edgeToken = tok.nextToken();
 					String endpt1Token = tok.nextToken();
 					String endpt2Token = tok.nextToken();
@@ -364,7 +364,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 	//------------
 
 	protected static boolean hasOrientedInterface(IXArchADT xarch, ObjRef brickRef) {
-		for (ObjRef interfaceRef : xarch.getAll(brickRef, "interface")) {
+		for (ObjRef interfaceRef : Iterables.filter(xarch.getAll(brickRef, "interface"), ObjRef.class)) {
 			Orientation o = guessInterfaceOrientation(xarch, interfaceRef);
 			if (o != null && !o.equals(Orientation.NONE)) {
 				return true;
@@ -375,7 +375,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 
 	protected static Orientation guessInterfaceOrientation(IXArchADT xarch, ObjRef interfaceRef) {
 		// Check the domain
-		for (ObjRef extRef : xarch.getAll(interfaceRef, "ext")) {
+		for (ObjRef extRef : Iterables.filter(xarch.getAll(interfaceRef, "ext"), ObjRef.class)) {
 			if (XadlUtils.isInstanceOf(xarch, extRef, Domain_3_0Package.Literals.DOMAIN_EXTENSION)) {
 				ObjRef domainRef = (ObjRef) xarch.get(extRef, "domain");
 				if (domainRef != null) {

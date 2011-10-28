@@ -695,8 +695,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 
 		ResourceSet resourceSet = importer.createResourceSet();
 
-		// Determine what schemas are available in the workspace, and parse their
-		// genmodel files 
+		// Determine what schemas are available in the workspace, and parse their genmodel files 
 		List<SchemaRecord> schemaRecords = null;
 		try {
 			schemaRecords = getSchemaRecords(importer);
@@ -975,7 +974,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					description.setPackageExports(packageExports.toArray(new IPackageExportDescription[packageExports
 							.size()]));
 
-					// make sure that extension are allowed
+					// make sure that extensions are allowed
 
 					description.setExtensionRegistry(true);
 

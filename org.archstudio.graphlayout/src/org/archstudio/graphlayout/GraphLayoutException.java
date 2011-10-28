@@ -2,6 +2,8 @@ package org.archstudio.graphlayout;
 
 public class GraphLayoutException extends Exception {
 
+	private static final long serialVersionUID = -7180849776609895945L;
+
 	public GraphLayoutException() {
 		super();
 	}

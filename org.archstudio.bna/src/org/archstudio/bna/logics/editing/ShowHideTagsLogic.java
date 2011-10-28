@@ -50,8 +50,8 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 		valueLogic = addThingLogic(ThingValueTrackingLogic.class);
 		stickLogic = addThingLogic(StickPointLogic.class);
 		mirrorLogic = addThingLogic(MirrorValueLogic.class);
-		for (IIsSticky forThing : Iterables.filter(getBNAModel().getThings(valueLogic.getThingIDs(SHOW_TAG_KEY, true)),
-				IIsSticky.class)) {
+		for (IIsSticky forThing : Iterables.filter(
+				getBNAModel().getThingsByID(valueLogic.getThingIDs(SHOW_TAG_KEY, true)), IIsSticky.class)) {
 			showTag(forThing);
 		}
 	}
@@ -62,17 +62,19 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 		if (!Iterables.isEmpty(things)) {
 			final IIsSticky st = castOrNull(Assemblies.getAssemblyWithRootOrPart(m, firstOrNull(things)),
 					IIsSticky.class);
-			if (st != null) {
+			if (st != null && UserEditableUtils.isEditableForAllQualities(st, USER_MAY_SHOW_HIDE_TAG)) {
 				final TagThing tt = getTag(st);
 				// lookup tags for thing
 				IAction tagAction = new Action("Show Tag") {
 
 					@Override
 					public void run() {
-						if (tt == null)
+						if (tt == null) {
 							showTag(st);
-						else
+						}
+						else {
 							hideTag(st);
+						}
 					}
 				};
 				tagAction.setChecked(tt != null);
@@ -83,7 +85,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 
 	protected TagThing getTag(IIsSticky forThing) {
 		return firstOrNull(Iterables.filter(
-				getBNAModel().getThings(
+				getBNAModel().getThingsByID(
 						valueLogic.getThingIDs(stickLogic.getThingRefKey(IHasIndicatorPoint.INDICATOR_POINT_KEY),
 								forThing.getID())), TagThing.class));
 	}

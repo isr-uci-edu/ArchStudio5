@@ -48,8 +48,9 @@ public class ExportBitmapLogic extends AbstractThingLogic implements IBNAMenuLis
 
 	@Override
 	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
-		if (things.iterator().hasNext())
+		if (things.iterator().hasNext()) {
 			return;
+		}
 
 		final IBNAView fview = view;
 		IAction saveAsPNGAction = new Action("Save as PNG...") {
@@ -138,7 +139,7 @@ public class ExportBitmapLogic extends AbstractThingLogic implements IBNAMenuLis
 
 				g.pushState();
 				try {
-					for (IThing thing : innerView.getBNAWorld().getBNAModel().getThings()) {
+					for (IThing thing : innerView.getBNAWorld().getBNAModel().getAllThings()) {
 						IThingPeer<?> peer = innerView.getThingPeer(thing);
 						g.restoreState();
 						peer.draw(innerView, icm, g, r);
