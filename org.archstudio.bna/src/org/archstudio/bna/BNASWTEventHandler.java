@@ -317,7 +317,8 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 		// This is necessary because the point in 'e' is in a different coordinate system
 		// - referenced to the window or something.  This puts it so 0,0 is the upper-left of the canvas
 		org.eclipse.swt.graphics.Point pointFromControlPerspective = control.toControl(e.x, e.y);
-		ICoordinate location = DefaultCoordinate.forLocal(new Point(pointFromControlPerspective.x, pointFromControlPerspective.y), cm);
+		ICoordinate location = DefaultCoordinate.forLocal(new Point(pointFromControlPerspective.x,
+				pointFromControlPerspective.y), cm);
 		Iterable<IThing> t = view.getThingsAt(location);
 
 		try {

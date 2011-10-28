@@ -36,8 +36,7 @@ import com.google.common.collect.Lists;
  * 
  * @param <T>
  *            The type of BNA Assembly/Thing that will be created by this class
- *            to represent targeted ObjRefs, see
- *            {@link #addThing(List, ObjRef)}
+ *            to represent targeted ObjRefs, see {@link #addThing(List, ObjRef)}
  */
 public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends AbstractThingLogic implements
 		IBNASynchronousModelListener, IXArchADTModelListener, IXArchRelativePathTrackerListener {

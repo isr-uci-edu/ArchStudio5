@@ -110,7 +110,7 @@ public class InstantiateArchStudio implements IStartup {
 
 			InputStream docRootIS = new URL(docRootURI.toString()).openStream();
 			ObjRef docRootRef = xarch.load(docRootURI, SystemUtils.blt(docRootIS));
-			
+
 			ObjRef xADLRef = (ObjRef) xarch.get(docRootRef, "xADL");
 			if (xADLRef == null) {
 				throw new RuntimeException("Can't find top-level xADL element in document: " + docRootURI);

@@ -61,10 +61,10 @@ public class ArrowheadThingPeer<T extends ArrowheadThing> extends AbstractThingP
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}
-	
+
 	@Override
 	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
-		boundsResult.setBounds(t.getAnchorPoint(), new Dimension(1,1));
+		boundsResult.setBounds(t.getAnchorPoint(), new Dimension(1, 1));
 		int arrowheadSize = t.getArrowheadSize();
 		boundsResult.expand(arrowheadSize, arrowheadSize);
 	}

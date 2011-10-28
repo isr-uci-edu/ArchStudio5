@@ -6,8 +6,8 @@ import org.archstudio.bna.facets.IIsSticky;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 
-public abstract class AbstractAnchorPointThing extends AbstractRelativeMovableReferencePointThing implements IHasMutableAnchorPoint,
-		IIsSticky {
+public abstract class AbstractAnchorPointThing extends AbstractRelativeMovableReferencePointThing implements
+		IHasMutableAnchorPoint, IIsSticky {
 
 	public AbstractAnchorPointThing(Object id) {
 		super(id);

@@ -37,5 +37,5 @@ public class StickInternalPointLogic extends AbstractStickPointLogic implements 
 		// TODO: translate p to the internal coordinate space
 		return p;
 	}
-	
+
 }

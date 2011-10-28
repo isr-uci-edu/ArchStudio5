@@ -381,7 +381,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	}
 
 	/**
-	 * Monitors the events for changes to ObjRefs relevant to the xPath. 
+	 * Monitors the events for changes to ObjRefs relevant to the xPath.
 	 */
 	@Override
 	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {

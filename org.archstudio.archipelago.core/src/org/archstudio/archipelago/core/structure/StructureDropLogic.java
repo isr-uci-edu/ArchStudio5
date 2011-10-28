@@ -17,13 +17,14 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.dnd.DropTargetEvent;
 
 public class StructureDropLogic extends AbstractTreeDropLogic {
-	
+
 	public StructureDropLogic(ArchipelagoServices services, ObjRef documentRootRef) {
 		super(services, documentRootRef);
 	}
 
 	@Override
-	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location, Object data) {
+	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location,
+			Object data) {
 		IThing t = getSingleThing(ts);
 		if (t == null) {
 			//This is a drop on nothing...just return.

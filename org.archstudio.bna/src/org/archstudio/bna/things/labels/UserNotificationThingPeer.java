@@ -70,7 +70,7 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 			lap.y = lap.y - textHeight;
 			break;
 		}
-		
+
 		if (tl != null) {
 			tl.dispose();
 		}
@@ -78,14 +78,13 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 		return new Rectangle(lap.x, lap.y, textWidth, textHeight);
 	}
 
-	
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 		String text = t.getText();
 		if (text == null || text.trim().length() == 0) {
 			return;
 		}
-		
+
 		Rectangle basicLocalRectangle = getBasicLocalRectangle(view, cm, r);
 
 		String fontName = t.getFontName();
@@ -111,13 +110,18 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 
 			//Draw a little shadow
 			g.setForegroundColor(r.getColor(SWT.COLOR_DARK_GRAY));
-			g.drawLine(basicLocalRectangle.x - 1, basicLocalRectangle.y - 1 + basicLocalRectangle.height + 4, basicLocalRectangle.x - 1 + basicLocalRectangle.width + 4, basicLocalRectangle.y - 1 + basicLocalRectangle.height + 4);
-			g.drawLine(basicLocalRectangle.x - 1 + basicLocalRectangle.width + 4, basicLocalRectangle.y - 1, basicLocalRectangle.x - 1 + basicLocalRectangle.width + 4, basicLocalRectangle.y - 1 + basicLocalRectangle.height + 4);
+			g.drawLine(basicLocalRectangle.x - 1, basicLocalRectangle.y - 1 + basicLocalRectangle.height + 4,
+					basicLocalRectangle.x - 1 + basicLocalRectangle.width + 4, basicLocalRectangle.y - 1
+							+ basicLocalRectangle.height + 4);
+			g.drawLine(basicLocalRectangle.x - 1 + basicLocalRectangle.width + 4, basicLocalRectangle.y - 1,
+					basicLocalRectangle.x - 1 + basicLocalRectangle.width + 4, basicLocalRectangle.y - 1
+							+ basicLocalRectangle.height + 4);
 
 			RGB secondaryColorRGB = t.getSecondaryColor();
 			Color bg = secondaryColorRGB != null ? r.getColor(secondaryColorRGB) : r.getColor(SWT.COLOR_GRAY);
 			g.setBackgroundColor(bg);
-			g.fillRectangle(basicLocalRectangle.x - 2, basicLocalRectangle.y - 2, basicLocalRectangle.width + 4, basicLocalRectangle.height + 4);
+			g.fillRectangle(basicLocalRectangle.x - 2, basicLocalRectangle.y - 2, basicLocalRectangle.width + 4,
+					basicLocalRectangle.height + 4);
 
 			RGB primaryColorRGB = t.getColor();
 			Color fg = primaryColorRGB != null ? r.getColor(primaryColorRGB) : r.getColor(SWT.COLOR_BLACK);
@@ -132,12 +136,12 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}
-	
+
 	@Override
 	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
 		Rectangle basicLocalRectangle = getBasicLocalRectangle(view, cm, r);

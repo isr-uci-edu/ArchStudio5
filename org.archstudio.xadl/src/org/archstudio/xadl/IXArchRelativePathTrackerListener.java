@@ -43,8 +43,7 @@ public interface IXArchRelativePathTrackerListener {
 	 * @param evt
 	 *            The modifying event.
 	 */
-	public void processUpdate(List<ObjRef> relLineageRefs,
-			XArchADTPath relPath, ObjRef objRef, XArchADTModelEvent evt);
+	public void processUpdate(List<ObjRef> relLineageRefs, XArchADTPath relPath, ObjRef objRef, XArchADTModelEvent evt);
 
 	/**
 	 * Called for each removed ObjRef that was previously referenced by the

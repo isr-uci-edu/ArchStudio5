@@ -3,7 +3,6 @@ package org.archstudio.archipelago.core;
 import java.util.Collections;
 import java.util.List;
 
-import org.archstudio.archipelago.core.IArchipelagoTreeContentProvider;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.IWorkbenchSite;

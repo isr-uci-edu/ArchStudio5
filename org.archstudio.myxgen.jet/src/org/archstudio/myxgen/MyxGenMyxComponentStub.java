@@ -9,10 +9,13 @@ import org.archstudio.myx.fw.IMyxLifecycleProcessor;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myxgen.IMyxStubGenerator;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
+import org.archstudio.myx.fw.IMyxName;
+import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.MyxUtils;
 
 /**
  * Abstract Myx brick: "Myx Component Stub Generator Impl"
- *
+ * 
  * @generated
  */
 @SuppressWarnings("unused")
@@ -43,7 +46,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 
 	/**
 	 * Myx name for the <code>myxgen</code> interface.
-	 *
+	 * 
 	 * @generated
 	 */
 	// MyxGenInterface[name=myxgen,direction=in,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.myxgen.IMyxStubGenerator,description=null]
@@ -51,7 +54,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 
 	/**
 	 * Service object(s) for the myxgen interface.
-	 *
+	 * 
 	 * @see #IN_MYXGEN
 	 * @generated
 	 */
@@ -59,7 +62,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 
 	/**
 	 * Returns the service object(s) for the <code>myxgen</code> interface.
-	 *
+	 * 
 	 * @see #IN_MYXGEN
 	 * @generated
 	 */

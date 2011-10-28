@@ -52,7 +52,7 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}
-	
+
 	@Override
 	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
 		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());

@@ -70,11 +70,11 @@ public class XadlUtils {
 		}
 		return extRef;
 	}
-	
+
 	public static boolean isBrick(IXArchADTQuery xarch, ObjRef ref) {
 		return xarch.isInstanceOf(ref, Structure_3_0Package.eNS_URI, "Brick");
 	}
-	
+
 	public static boolean isComponent(IXArchADTQuery xarch, ObjRef ref) {
 		return xarch.isInstanceOf(ref, Structure_3_0Package.eNS_URI, "Component");
 	}
@@ -82,7 +82,7 @@ public class XadlUtils {
 	public static boolean isConnector(IXArchADTQuery xarch, ObjRef ref) {
 		return xarch.isInstanceOf(ref, Structure_3_0Package.eNS_URI, "Connector");
 	}
-	
+
 	public static ObjRef getImplementation(IXArchADTQuery xarch, ObjRef ref, EClass type) {
 		ObjRef implementationExtRef = XadlUtils.getExt(xarch, ref, Implementation_3_0Package.eNS_URI,
 				"ImplementationExtension");
@@ -201,12 +201,12 @@ public class XadlUtils {
 		return xarch.createDocument(uri, eClass.getEPackage().getNsURI(), eClass.getName(), rootReference.getName());
 	}
 
-//	public static <O extends EObject> O createDocumentEObject(IXArchADT xarch, URI uri, EReference rootReference) {
-//		EClass eClass = rootReference.getEReferenceType();
-//		ObjRef documentRootRef = xarch.createDocument(uri, eClass.getEPackage().getNsURI(), eClass.getName(),
-//				rootReference.getName());
-//		return XArchADTProxy.proxy(xarch, (ObjRef) xarch.get(documentRootRef, rootReference.getName()));
-//	}
+	//	public static <O extends EObject> O createDocumentEObject(IXArchADT xarch, URI uri, EReference rootReference) {
+	//		EClass eClass = rootReference.getEReferenceType();
+	//		ObjRef documentRootRef = xarch.createDocument(uri, eClass.getEPackage().getNsURI(), eClass.getName(),
+	//				rootReference.getName());
+	//		return XArchADTProxy.proxy(xarch, (ObjRef) xarch.get(documentRootRef, rootReference.getName()));
+	//	}
 
 	public static boolean isInstanceOf(IXArchADTQuery xarch, ObjRef baseObjRef, EClass eClass) {
 		return xarch.isInstanceOf(baseObjRef, eClass.getEPackage().getNsURI(), eClass.getName());

@@ -1,10 +1,9 @@
 /.metadata/
 /External\ Plug-in\ Libraries/
-.svn/
 /*/bin/
 /*/.settings/
 /*/target/classes/
-/*/*.genmodel
-/*/*.xsd2ecore
-/*/*.ecore
-*.xadl3.*/src
+/*.xadl3.*/*.genmodel
+/*.xadl3.*/*.xsd2ecore
+/*.xadl3.*/*.ecore
+/*.xadl3.*/src

@@ -1,9 +1,9 @@
 package org.archstudio.bna.things;
 
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
-import org.archstudio.bna.IThing.IThingKey;
 
 public class DebugThingListener implements IThingListener {
 

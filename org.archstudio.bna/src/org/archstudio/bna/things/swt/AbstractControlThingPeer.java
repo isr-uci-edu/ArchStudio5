@@ -43,7 +43,7 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 		final Rectangle newBounds = getBounds(control, view, cm, g, r);
 		final Rectangle oldBounds = BNAUtils.toRectangle(control.getBounds());
 		if (!oldBounds.equals(newBounds)) {
-			SWTWidgetUtils.async(control, new Runnable(){
+			SWTWidgetUtils.async(control, new Runnable() {
 				@Override
 				public void run() {
 					if (!oldBounds.getSize().equals(newBounds.getSize())) {

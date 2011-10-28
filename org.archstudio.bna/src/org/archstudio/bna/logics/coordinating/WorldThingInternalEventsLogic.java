@@ -110,14 +110,16 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 
 	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void fireInternalBNAModelEvent(IHasWorld src,
 			BNAModelEvent<ET, EK, EV> evt) {
-		for (IInternalBNAModelListener l : getBNAWorld().getThingLogicManager().getThingLogics(IInternalBNAModelListener.class)) {
+		for (IInternalBNAModelListener l : getBNAWorld().getThingLogicManager().getThingLogics(
+				IInternalBNAModelListener.class)) {
 			l.internalBNAModelChanged(src, evt);
 		}
 	}
 
 	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void fireInternalBNAModelEventSync(IHasWorld src,
 			BNAModelEvent<ET, EK, EV> evt) {
-		for (IInternalBNAModelListener l : getBNAWorld().getThingLogicManager().getThingLogics(IInternalBNAModelListener.class)) {
+		for (IInternalBNAModelListener l : getBNAWorld().getThingLogicManager().getThingLogics(
+				IInternalBNAModelListener.class)) {
 			l.internalBNAModelChangedSync(src, evt);
 		}
 	}

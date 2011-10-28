@@ -17,20 +17,20 @@ public abstract class AbstractViewerThingPeer<T extends AbstractViewerThing, C e
 	}
 
 	@SuppressWarnings("unchecked")
-	protected final C createControl(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r){
+	protected final C createControl(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 		return (C) viewer.getControl();
 	}
-	
+
 	protected abstract V createViewer(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r);
 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
-		
-		if(viewer == null){
+
+		if (viewer == null) {
 			viewer = createViewer(view, cm, g, r);
 		}
-		
+
 		super.draw(view, cm, g, r);
 	}
-	
+
 }

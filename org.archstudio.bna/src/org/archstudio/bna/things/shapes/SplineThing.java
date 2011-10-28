@@ -52,5 +52,5 @@ public class SplineThing extends AbstractSplineThing implements IHasMutableEdgeC
 	public void setLineWidth(int lineWidth) {
 		set(LINE_WIDTH_KEY, lineWidth);
 	}
-	
+
 }

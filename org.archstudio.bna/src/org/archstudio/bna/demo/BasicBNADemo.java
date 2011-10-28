@@ -68,9 +68,8 @@ public class BasicBNADemo {
 
 		populateWithViews(bnaWorld1, bnaView1, bnaWorld2);
 
-		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL | SWT.DOUBLE_BUFFERED,
-				bnaView1);
-		
+		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL | SWT.DOUBLE_BUFFERED, bnaView1);
+
 		bnaComposite.setSize(500, 500);
 		bnaComposite.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
 
@@ -107,7 +106,7 @@ public class BasicBNADemo {
 		logicManager.addThingLogic(new SplineBreakLogic());
 		logicManager.addThingLogic(new StandardCursorLogic());
 		logicManager.addThingLogic(new ToolTipLogic());
-		
+
 		logicManager.addThingLogic(new WorldThingExternalEventsLogic());
 	}
 
@@ -125,12 +124,12 @@ public class BasicBNADemo {
 			box.setBoundingBox(new Rectangle(CoordinateMapperAdapter.getDefaultBounds().getSize().width / 2 + 20 + i
 					* 10, CoordinateMapperAdapter.getDefaultBounds().getSize().height / 2 + 20 + i * 10, 100, 100));
 			box.setSelected(i % 2 == 0);
-			
+
 			UserEditableUtils.addEditableQualities(box, IHasMutableSelected.USER_MAY_SELECT,
 					IHasMutableSize.USER_MAY_RESIZE, IRelativeMovable.USER_MAY_MOVE);
 			UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(box, model),
 					IHasMutableText.USER_MAY_EDIT_TEXT);
-			
+
 			boxes[i] = box;
 		}
 

@@ -55,28 +55,28 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNASy
 	@Override
 	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
 		switch (evt.getEventType()) {
-			case THING_ADDED: {
-				IThing t = evt.getTargetThing();
-				synchronized (classToThingIDs) {
-					for (Map.Entry<Class<IThing>, Collection<Object>> e : classToThingIDs.entrySet()) {
-						if (e.getKey().isInstance(t)) {
-							e.getValue().add(t.getID());
-						}
+		case THING_ADDED: {
+			IThing t = evt.getTargetThing();
+			synchronized (classToThingIDs) {
+				for (Map.Entry<Class<IThing>, Collection<Object>> e : classToThingIDs.entrySet()) {
+					if (e.getKey().isInstance(t)) {
+						e.getValue().add(t.getID());
 					}
 				}
 			}
+		}
 			break;
-	
-			case THING_REMOVED: {
-				IThing t = evt.getTargetThing();
-				synchronized (classToThingIDs) {
-					for (Map.Entry<Class<IThing>, Collection<Object>> e : classToThingIDs.entrySet()) {
-						if (e.getKey().isInstance(t)) {
-							e.getValue().remove(t.getID());
-						}
+
+		case THING_REMOVED: {
+			IThing t = evt.getTargetThing();
+			synchronized (classToThingIDs) {
+				for (Map.Entry<Class<IThing>, Collection<Object>> e : classToThingIDs.entrySet()) {
+					if (e.getKey().isInstance(t)) {
+						e.getValue().remove(t.getID());
 					}
 				}
 			}
+		}
 			break;
 		}
 	}

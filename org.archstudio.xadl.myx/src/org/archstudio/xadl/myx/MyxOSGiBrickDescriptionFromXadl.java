@@ -25,7 +25,8 @@ public class MyxOSGiBrickDescriptionFromXadl implements IMyxBrickDescriptionFrom
 					+ XadlUtils.getName(xarch, brickRef));
 		}
 
-		ObjRef javaImplementationRef = XadlUtils.getImplementation(xarch, brickRef, Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION);
+		ObjRef javaImplementationRef = XadlUtils.getImplementation(xarch, brickRef,
+				Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION);
 		if (javaImplementationRef == null) {
 			throw new MyxUnsupportedBrickDescriptionException("Osgi implementation lacks java implementation on brick "
 					+ XadlUtils.getName(xarch, brickRef));

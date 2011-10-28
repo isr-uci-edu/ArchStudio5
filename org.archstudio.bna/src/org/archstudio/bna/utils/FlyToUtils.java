@@ -53,7 +53,8 @@ public class FlyToUtils {
 						double d = Math.PI / 2 * (currentTime - startTime) / duration;
 						double transposeFactor = Math.sin(d);
 						final Point worldIntermediate = worldStart.getTranslated(worldDiff.getScaled(transposeFactor));
-						final double intermediateScale = Math.max(0.0001, originalScale - originalScale * 0.7 * Math.sin(d * 2));
+						final double intermediateScale = Math.max(0.0001,
+								originalScale - originalScale * 0.7 * Math.sin(d * 2));
 						SWTWidgetUtils.sync(control, new Runnable() {
 							@Override
 							public void run() {

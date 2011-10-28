@@ -58,7 +58,8 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 		return acceptDrop(view, event, ts, location, data);
 	}
 
-	protected abstract boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location, Object data);
+	protected abstract boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts,
+			ICoordinate location, Object data);
 
 	@Override
 	public void dragEnter(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
@@ -114,15 +115,15 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 			}
 		}
 	}
-	
+
 	@Override
 	public void dragOperationChanged(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
 	}
-	
+
 	@Override
 	public void drop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
 	}
-	
+
 	protected static IThing getSingleThing(Iterable<IThing> ts) {
 		if (ts != null) {
 			Iterator<IThing> iterator = ts.iterator();

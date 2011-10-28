@@ -1,6 +1,5 @@
 package org.archstudio.archipelago.core;
 
-import org.archstudio.archipelago.core.IArchipelagoEditorFocuser;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.TreeViewer;

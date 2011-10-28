@@ -32,7 +32,7 @@ public interface IResources {
 	public Font getFont(String fontName, int size, FontStyle style);
 
 	public Image getImage(ImageData imageData);
-	
+
 	public boolean setFont(Graphics g, IHasFontData thing);
 
 	public boolean setLineStyle(Graphics g, IHasLineData thing);

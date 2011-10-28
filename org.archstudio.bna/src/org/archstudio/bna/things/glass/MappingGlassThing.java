@@ -11,7 +11,8 @@ import org.eclipse.draw2d.geometry.Point;
  * the peer to be in the coordinate space of the WORLD_REF and is used to set
  * the ENDPOINT_2
  */
-// FIXME: setting the world point in the peer will cause problems if multiple views of the model are deployed
+// FIXME: setting the world point in the peer will cause problems if multiple
+// views of the model are deployed
 public class MappingGlassThing extends SplineGlassThing {
 
 	public static final IThingRefKey<IHasWorld> WORLD_REF_KEY = ThingRefKey.create("&worldThingID");

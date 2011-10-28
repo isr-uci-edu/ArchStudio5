@@ -35,9 +35,9 @@ import com.google.common.collect.Iterables;
 public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuListener {
 
 	public static final String USER_MAY_SHOW_HIDE_TAG = "userMayShowHideTag";
-	
+
 	public static final IThingRefKey<TagThing> TAG_KEY = ThingRefKey.create("assembly-tag");
-	
+
 	public static final IThingKey<Boolean> SHOW_TAG_KEY = ThingKey.create("showTag");
 
 	protected ThingValueTrackingLogic valueLogic;
@@ -60,7 +60,8 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
 		IBNAModel m = getBNAModel();
 		if (!Iterables.isEmpty(things)) {
-			final IIsSticky st = castOrNull(Assemblies.getAssemblyWithRootOrPart(m, firstOrNull(things)), IIsSticky.class);
+			final IIsSticky st = castOrNull(Assemblies.getAssemblyWithRootOrPart(m, firstOrNull(things)),
+					IIsSticky.class);
 			if (st != null) {
 				final TagThing tt = getTag(st);
 				// lookup tags for thing
@@ -91,12 +92,13 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 		TagThing t = getTag(forThing);
 		if (t == null) {
 			t = getBNAModel().addThing(new TagThing(null));
-			t.setAnchorPoint(forThing.getStickyPointNear(StickyMode.CENTER, new Point(0,0)));
+			t.setAnchorPoint(forThing.getStickyPointNear(StickyMode.CENTER, new Point(0, 0)));
 			UserEditableUtils.addEditableQualities(t, IRelativeMovable.USER_MAY_MOVE);
 			stickLogic.stick(t, IHasIndicatorPoint.INDICATOR_POINT_KEY, StickyMode.EDGE_FROM_CENTER, forThing);
-			if(forThing instanceof IHasText){
+			if (forThing instanceof IHasText) {
 				mirrorLogic.mirrorValue(forThing, IHasText.TEXT_KEY, t);
-			}else{
+			}
+			else {
 				mirrorLogic.mirrorValue(forThing, IHasToolTip.TOOL_TIP_KEY, t, IHasText.TEXT_KEY);
 			}
 			Assemblies.markPart(forThing, TAG_KEY, t);

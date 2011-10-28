@@ -55,11 +55,12 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 	}
 
 	int potentialHandles = 0;
+
 	@Override
 	protected void addHandles() {
 		potentialHandles = 0;
 		for (int i = 0; i < reshapingThing.getPointsSize(); i++) {
-			potentialHandles ++;
+			potentialHandles++;
 
 			if (i == 0) {
 				if (!UserEditableUtils.isEditableForAnyQualities(reshapingThing,
