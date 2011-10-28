@@ -26,7 +26,7 @@ public class GridUtils {
 			return;
 		}
 
-		for (IThing t : m.getThings()) {
+		for (IThing t : m.getAllThings()) {
 			if (t instanceof IHasMutableEndpoints) {
 				rectifyToGrid(gridSpacing, (IHasMutableEndpoints) t);
 			}
@@ -115,7 +115,7 @@ public class GridUtils {
 	}
 
 	public static GridThing getGridThing(IBNAModel m) {
-		for (IThing t : m.getThings()) {
+		for (IThing t : m.getAllThings()) {
 			if (t instanceof GridThing) {
 				return (GridThing) t;
 			}

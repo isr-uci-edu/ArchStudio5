@@ -28,7 +28,6 @@ import org.archstudio.xadl3.myxgen_3_0.Myxgen_3_0Package;
 import org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation;
 import org.archstudio.xadl3.osgiimplementation_3_0.Osgiimplementation_3_0Factory;
 import org.archstudio.xadl3.osgiimplementation_3_0.Osgiimplementation_3_0Package;
-import org.archstudio.xadl3.structure_3_0.Brick;
 import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
@@ -39,6 +38,8 @@ import org.archstudio.xarchadt.core.XArchADTProxy;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class ArchStudioDescription {
@@ -224,13 +225,13 @@ public class ArchStudioDescription {
 
 	private ObjRef getInterfaceRef(ObjRef structureRef, String targetBrickName, String targetInterfaceName) {
 		List<ObjRef> brickRefs = new ArrayList<ObjRef>();
-		brickRefs.addAll(xarch.getAll(structureRef, "component"));
-		brickRefs.addAll(xarch.getAll(structureRef, "connector"));
+		brickRefs.addAll(Lists.newArrayList(Iterables.filter(xarch.getAll(structureRef, "component"), ObjRef.class)));
+		brickRefs.addAll(Lists.newArrayList(Iterables.filter(xarch.getAll(structureRef, "connector"), ObjRef.class)));
 		for (ObjRef brickRef : brickRefs) {
 			String brickName = XadlUtils.getName(xarch, brickRef);
 			if (brickName != null && brickName.equals(targetBrickName)
 					|| XadlUtils.getID(xarch, brickRef).equals(toID(targetBrickName))) {
-				for (ObjRef interfaceRef : xarch.getAll(brickRef, "interface")) {
+				for (ObjRef interfaceRef : Iterables.filter(xarch.getAll(brickRef, "interface"), ObjRef.class)) {
 					String interfaceName = XadlUtils.getName(xarch, interfaceRef);
 					if (interfaceName != null && interfaceName.equals(targetInterfaceName)) {
 						return interfaceRef;
@@ -251,7 +252,6 @@ public class ArchStudioDescription {
 	private ObjRef createConnector(String name, String bundleName, Class<?> javaClass, Map<String, String> initParams,
 			ObjRef... ifaceRefs) {
 		ObjRef brickRef = createBrick("connector", name, javaClass, ifaceRefs);
-		Brick brick = XArchADTProxy.proxy(xarch, brickRef);
 		return addImplementations(brickRef, createOSGiImplementation(bundleName),
 				createInitializationParams(initParams));
 	}

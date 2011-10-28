@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
@@ -15,7 +14,6 @@ import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.swtutils.SWTWidgetUtils;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -36,9 +34,10 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 
-import com.google.common.base.Function;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 import com.google.common.collect.Lists;
-import com.google.common.collect.MapMaker;
 import com.google.common.collect.Sets;
 
 public class BNACanvas extends Canvas implements IBNAModelListener, PaintListener {
@@ -131,8 +130,9 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 	boolean isUpdatingCM = false;
 
 	protected void updateScrollBars() {
-		if (isUpdatingCM)
+		if (isUpdatingCM) {
 			return;
+		}
 		isUpdatingScrollBars = true;
 		try {
 			IMutableCoordinateMapper mcm = getCoordinateMapper();
@@ -197,7 +197,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 			//// scroll automatically causes a redraw of the newly revealed area
 
 			// update the cached local bounds as well
-			for (RenderData renderData : autoRenderData.values()) {
+			for (RenderData renderData : renderDataCache.asMap().values()) {
 				renderData.lastLocalBounds.translate(-dx, -dy);
 			}
 		}
@@ -220,7 +220,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 			return;
 		}
 
-		Graphics g = null;
+		SWTGraphics g = null;
 		Region localClipRegion = null;
 
 		try {
@@ -242,7 +242,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 
 			// update thing caches
 			List<IThing> thingsToRender = Lists.newArrayListWithExpectedSize(bnaModel.getNumThings());
-			for (IThing thing : bnaModel.getThings()) {
+			for (IThing thing : bnaModel.getAllThings()) {
 				IThingPeer<?> peer = getBNAView().getThingPeer(thing);
 				RenderData renderData = getRenderData(thing);
 
@@ -415,16 +415,16 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		protected boolean needsCacheUpdate = true;
 	}
 
-	private Map<IThing, RenderData> autoRenderData = new MapMaker().weakKeys().makeComputingMap(
-			new Function<IThing, RenderData>() {
+	private final Cache<IThing, RenderData> renderDataCache = CacheBuilder.newBuilder().build(
+			new CacheLoader<IThing, RenderData>() {
 				@Override
-				public RenderData apply(IThing input) {
+				public RenderData load(IThing input) {
 					return new RenderData();
 				}
 			});
 
 	private <T extends IThing> RenderData getRenderData(T thing) {
-		return autoRenderData.get(thing);
+		return renderDataCache.getUnchecked(thing);
 	}
 
 }

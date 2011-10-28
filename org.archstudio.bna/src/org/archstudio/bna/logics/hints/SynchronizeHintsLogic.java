@@ -73,7 +73,8 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNASyn
 
 	@Override
 	public void init() {
-		checkState(Iterables.isEmpty(getBNAModel().getThings()), "SynchronizeHintsLogic must be added before things.");
+		checkState(Iterables.isEmpty(getBNAModel().getAllThings()),
+				"SynchronizeHintsLogic must be added before things.");
 
 		super.init();
 		for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {

@@ -11,21 +11,23 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 
-import com.google.common.base.Function;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.MapMaker;
 import com.google.common.collect.Sets;
 
 public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
 
-	private final Map<Class<IThing>, Collection<Object>> classToThingIDs = new MapMaker()
-			.makeComputingMap(new Function<Class<IThing>, Collection<Object>>() {
+	private final Cache<Class<? extends IThing>, Collection<Object>> classToThingIDsCache = CacheBuilder.newBuilder()
+			.build(new CacheLoader<Class<? extends IThing>, Collection<Object>>() {
+
 				@Override
-				public Collection<Object> apply(Class<IThing> input) {
+				public Collection<Object> load(Class<? extends IThing> key) throws Exception {
 					Set<Object> things = Sets.newHashSet();
-					for (IThing t : getBNAModel().getThings()) {
-						if (input.isInstance(t)) {
+					for (IThing t : getBNAModel().getAllThings()) {
+						if (key.isInstance(t)) {
 							things.add(t.getID());
 						}
 					}
@@ -37,18 +39,9 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNASy
 	}
 
 	@Override
-	protected void init() {
-		super.init();
-		synchronized (classToThingIDs) {
-			classToThingIDs.clear();
-		}
-	}
-
-	@Override
 	protected void destroy() {
-		synchronized (classToThingIDs) {
-			classToThingIDs.clear();
-		}
+		classToThingIDsCache.invalidateAll();
+		classToThingIDsCache.cleanUp();
 		super.destroy();
 	}
 
@@ -57,8 +50,8 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNASy
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing t = evt.getTargetThing();
-			synchronized (classToThingIDs) {
-				for (Map.Entry<Class<IThing>, Collection<Object>> e : classToThingIDs.entrySet()) {
+			synchronized (classToThingIDsCache) {
+				for (Map.Entry<Class<? extends IThing>, Collection<Object>> e : classToThingIDsCache.asMap().entrySet()) {
 					if (e.getKey().isInstance(t)) {
 						e.getValue().add(t.getID());
 					}
@@ -69,8 +62,8 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNASy
 
 		case THING_REMOVED: {
 			IThing t = evt.getTargetThing();
-			synchronized (classToThingIDs) {
-				for (Map.Entry<Class<IThing>, Collection<Object>> e : classToThingIDs.entrySet()) {
+			synchronized (classToThingIDsCache) {
+				for (Map.Entry<Class<? extends IThing>, Collection<Object>> e : classToThingIDsCache.asMap().entrySet()) {
 					if (e.getKey().isInstance(t)) {
 						e.getValue().remove(t.getID());
 					}
@@ -82,14 +75,14 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNASy
 	}
 
 	public <T extends IThing> Iterable<Object> getThingIDs(Class<T> ofType) {
-		synchronized (classToThingIDs) {
-			return Lists.newArrayList(classToThingIDs.get(ofType));
+		synchronized (classToThingIDsCache) {
+			return Lists.newArrayList(classToThingIDsCache.getUnchecked(ofType));
 		}
 	}
 
 	public <T extends IThing> Iterable<T> getThings(IBNAModel model, Class<T> ofType) {
-		synchronized (classToThingIDs) {
-			return Iterables.filter(model.getThings(classToThingIDs.get(ofType)), ofType);
+		synchronized (classToThingIDsCache) {
+			return Iterables.filter(model.getThingsByID(classToThingIDsCache.getUnchecked(ofType)), ofType);
 		}
 	}
 }

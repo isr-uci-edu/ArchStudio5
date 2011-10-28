@@ -64,17 +64,20 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 
 			if (i == 0) {
 				if (!UserEditableUtils.isEditableForAnyQualities(reshapingThing,
-						IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1, IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT1))
+						IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1, IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT1)) {
 					continue;
+				}
 			}
 			else if (i == reshapingThing.getPointsSize() - 1) {
 				if (!UserEditableUtils.isEditableForAnyQualities(reshapingThing,
-						IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2, IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT2))
+						IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2, IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT2)) {
 					continue;
+				}
 			}
 			else if (!UserEditableUtils.isEditableForAnyQualities(reshapingThing,
-					IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS))
+					IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS)) {
 				continue;
+			}
 
 			addHandle(Assemblies.createHandle(getBNAWorld(), null, null), i);
 		}
@@ -132,7 +135,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 			}
 
 			// if moved close to a sticky thing, stick to it
-			for (IIsSticky stickyThing : Iterables.filter(Lists.reverse(getBNAModel().getThings()), IIsSticky.class)) {
+			for (IIsSticky stickyThing : Iterables.filter(Lists.reverse(getBNAModel().getAllThings()), IIsSticky.class)) {
 				for (IReshapeSplineGuide guide : reshapeSplineGuides) {
 					StickyMode stickyMode = guide.getStickyMode(reshapingThing, stickyThing, data);
 					if (stickyMode != null) {

@@ -1,7 +1,6 @@
 package org.archstudio.xadlswt;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -42,7 +41,7 @@ public class XadlSelectorDialog {
 
 		dialog.setLayout(new GridLayout(1, false));
 
-		int treeViewerFlags = allowMultipleSelections ? (SWT.MULTI | SWT.BORDER) : (SWT.SINGLE | SWT.BORDER);
+		int treeViewerFlags = allowMultipleSelections ? SWT.MULTI | SWT.BORDER : SWT.SINGLE | SWT.BORDER;
 
 		final TreeViewer treeViewer = new TreeViewer(dialog, treeViewerFlags);
 		treeViewer.setContentProvider(new XadlTreeContentProvider(xarch, rootRef, showFlags));
@@ -83,6 +82,7 @@ public class XadlSelectorDialog {
 		final IXArchADT fxarch = xarch;
 		final Set<XadlTreeUtils.Type> fselectionFlags = selectionFlags;
 		final Listener okListener = new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				IStructuredSelection selection = (IStructuredSelection) treeViewer.getSelection();
 				if (!validateSelection(fxarch, selection, fselectionFlags)) {
@@ -93,8 +93,10 @@ public class XadlSelectorDialog {
 					messageBox.open();
 				}
 				else {
-					for (Iterator it = selection.iterator(); it.hasNext();) {
-						results.add((ObjRef) it.next());
+					for (Object result : selection.toList()) {
+						if (result instanceof ObjRef) {
+							results.add((ObjRef) result);
+						}
 					}
 					dialog.close();
 				}
@@ -103,6 +105,7 @@ public class XadlSelectorDialog {
 		bOK.addListener(SWT.Selection, okListener);
 
 		treeViewer.addDoubleClickListener(new IDoubleClickListener() {
+			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				okListener.handleEvent(null);
 			}
@@ -118,6 +121,7 @@ public class XadlSelectorDialog {
 		bCancel.setLayoutData(bCancelData);
 
 		Listener cancelListener = new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				dialog.close();
 			}
@@ -147,7 +151,7 @@ public class XadlSelectorDialog {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < strings.size(); i++) {
 			if (i != 0) {
-				if (i == (strings.size() - 1)) {
+				if (i == strings.size() - 1) {
 					sb.append(" or ");
 				}
 				else {
@@ -162,11 +166,12 @@ public class XadlSelectorDialog {
 	protected static boolean validateSelection(IXArchADT xarch, IStructuredSelection selection,
 			Set<XadlTreeUtils.Type> selectionFlags) {
 		Object[] selectedObjects = selection.toArray();
-		if (selectedObjects.length == 0)
+		if (selectedObjects.length == 0) {
 			return false;
-		for (int i = 0; i < selectedObjects.length; i++) {
-			if (selectedObjects[i] instanceof ObjRef) {
-				ObjRef ref = (ObjRef) selectedObjects[i];
+		}
+		for (Object selectedObject : selectedObjects) {
+			if (selectedObject instanceof ObjRef) {
+				ObjRef ref = (ObjRef) selectedObject;
 				XadlTreeUtils.Type typeOfRef = XadlTreeUtils.getType(xarch, ref);
 				if (!selectionFlags.contains(typeOfRef)) {
 					return false;

@@ -89,11 +89,10 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		};
 	});
 
-	@SuppressWarnings("unchecked")
 	public AbstractArchStudioEditor(Class<B> brickClass, String editorName) {
 		super();
 		InstantiateArchStudio.instantiate();
-		this.brick = (B) myxRegistry.waitForBrick(brickClass);
+		this.brick = myxRegistry.waitForBrick(brickClass);
 		this.uniqueEditorID = UIDGenerator.generateUID(editorName);
 		this.editorName = editorName;
 		myxRegistry.map(brick, this);

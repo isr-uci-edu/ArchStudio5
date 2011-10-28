@@ -20,9 +20,12 @@ import org.archstudio.myx.fw.MyxUtils;
  * @generated
  */
 @SuppressWarnings("unused")
-abstract class ChatServerMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
-		org.archstudio.demo.chatsys.IChatListener, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
+abstract class ChatServerMyxComponentStub extends
+		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+		org.archstudio.demo.chatsys.IChatListener,
+		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
 	 * @generated
@@ -56,7 +59,8 @@ abstract class ChatServerMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName IN_CHAT_EVENTS = MyxUtils.createName("chatEvents");
+	public static final IMyxName IN_CHAT_EVENTS = MyxUtils
+			.createName("chatEvents");
 	/**
 	 * Service object(s) for chat: <code>chat</code>
 	 * 
@@ -93,25 +97,29 @@ abstract class ChatServerMyxComponentStub extends org.archstudio.myx.fw.Abstract
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: "
+				+ interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
-		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName,
+			Object serviceObject) {
 	}
 
 	/**
@@ -128,6 +136,7 @@ abstract class ChatServerMyxComponentStub extends org.archstudio.myx.fw.Abstract
 		if (interfaceName.equals(IN_CHAT_EVENTS)) {
 			return this;
 		}
-		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface service object: " + interfaceName);
 	}
 }

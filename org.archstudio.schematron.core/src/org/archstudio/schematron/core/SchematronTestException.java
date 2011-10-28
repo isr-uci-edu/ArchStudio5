@@ -2,6 +2,8 @@ package org.archstudio.schematron.core;
 
 public class SchematronTestException extends Exception {
 
+	private static final long serialVersionUID = 7277861192648909009L;
+
 	protected String testUID;
 
 	public SchematronTestException() {

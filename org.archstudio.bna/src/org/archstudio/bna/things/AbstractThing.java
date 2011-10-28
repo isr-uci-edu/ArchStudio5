@@ -3,7 +3,6 @@ package org.archstudio.bna.things;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
@@ -19,20 +18,21 @@ import org.archstudio.sysutils.TypedHashMap;
 import org.archstudio.sysutils.TypedMap;
 import org.archstudio.sysutils.TypedMap.Key;
 
-import com.google.common.base.Function;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 import com.google.common.collect.Lists;
-import com.google.common.collect.MapMaker;
 import com.google.common.collect.Sets;
 
 public class AbstractThing implements IThing {
 
 	private static final AtomicLong atomicLong = new AtomicLong(0);
 
-	private static final Map<Class<IThing>, Class<IThingPeer<?>>> autoDefaultPeerClass = new MapMaker()
-			.makeComputingMap(new Function<Class<IThing>, Class<IThingPeer<?>>>() {
+	private static final Cache<Class<? extends IThing>, Class<IThingPeer<?>>> defaultPeerClassCache = CacheBuilder
+			.newBuilder().build(new CacheLoader<Class<? extends IThing>, Class<IThingPeer<?>>>() {
 				@SuppressWarnings("unchecked")
 				@Override
-				public Class<IThingPeer<?>> apply(Class<IThing> input) {
+				public Class<IThingPeer<?>> load(Class<? extends IThing> input) throws Exception {
 					Class<?> thingClass = input;
 					while (thingClass != null) {
 						try {
@@ -43,7 +43,7 @@ public class AbstractThing implements IThing {
 						}
 						thingClass = thingClass.getSuperclass();
 					}
-					throw new RuntimeException(new ClassNotFoundException("IThingPeer not found: " + input.getName()));
+					throw new ClassNotFoundException("IThingPeer not found: " + input.getName());
 				}
 			});
 
@@ -101,7 +101,7 @@ public class AbstractThing implements IThing {
 
 	@Override
 	public Class<? extends IThingPeer<?>> getPeerClass() {
-		return autoDefaultPeerClass.get(this.getClass());
+		return defaultPeerClassCache.getUnchecked(this.getClass());
 	}
 
 	private final CopyOnWriteArrayList<IThingListener> thingListeners = new CopyOnWriteArrayList<IThingListener>();

@@ -56,7 +56,7 @@ public class RotatingOffsetLogic extends AbstractThingLogic {
 				if (model != null) {
 					model.beginBulkChange();
 					try {
-						for (IHasMutableRotatingOffset t : Lists.newArrayList(Iterables.filter(model.getThings(),
+						for (IHasMutableRotatingOffset t : Lists.newArrayList(Iterables.filter(model.getAllThings(),
 								IHasMutableRotatingOffset.class))) {
 							if (t.shouldIncrementRotatingOffset()) {
 								t.incrementRotatingOffset();

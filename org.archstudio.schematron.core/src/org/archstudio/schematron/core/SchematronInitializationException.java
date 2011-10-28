@@ -1,6 +1,9 @@
 package org.archstudio.schematron.core;
 
 public class SchematronInitializationException extends Exception {
+
+	private static final long serialVersionUID = -6861289096035638950L;
+
 	public SchematronInitializationException() {
 		super();
 	}

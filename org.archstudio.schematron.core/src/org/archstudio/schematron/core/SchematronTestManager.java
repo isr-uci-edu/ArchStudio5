@@ -79,7 +79,6 @@ public class SchematronTestManager {
 		List<String> testFileBaseURLList = new ArrayList<String>();
 		testFileBaseURLList.add(DEFAULT_TEST_FILE_URL);
 
-		int i = 0;
 		String s = preferences.getString(SchematronConstants.PREF_TEST_FILE_PATHS);
 		System.out.println(s);
 		while (true) {

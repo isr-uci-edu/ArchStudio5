@@ -109,11 +109,13 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 			try {
 				// start by creating and updating the thing
 				T thing = addThing(relLineageRefs, objRef);
-				updateThing(relLineageRefs, null, objRef, null, thing);
-				// note which ObjRef the thing represents
-				thing.set(IHasObjRef.OBJREF_KEY, objRef);
-				// mark the thing as originating from, and being synchronized by this logic
-				thing.set(MAPPING_KEY, this);
+				if (thing != null) {
+					updateThing(relLineageRefs, null, objRef, null, thing);
+					// note which ObjRef the thing represents
+					thing.set(IHasObjRef.OBJREF_KEY, objRef);
+					// mark the thing as originating from, and being synchronized by this logic
+					thing.set(MAPPING_KEY, this);
+				}
 			}
 			finally {
 				updatingThings--;
@@ -135,7 +137,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 			model.beginBulkChange();
 			updatingThings++;
 			try {
-				for (IThing t : model.getThings(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
+				for (IThing t : model.getThingsByID(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
 						this))) {
 					updateThing(relLineageRefs, relPath, objRef, evt, (T) t);
 				}
@@ -158,7 +160,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 			model.beginBulkChange();
 			updatingThings++;
 			try {
-				for (IThing t : model.getThings(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
+				for (IThing t : model.getThingsByID(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
 						this))) {
 					Assemblies.removeRootAndParts(model, t);
 				}
@@ -214,9 +216,12 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * @param objRef
 	 *            The objRef that is to be represented as a Thing in the BNA
 	 *            model
-	 * @return The thing that was created to represent the ObjRef
+	 * @return The thing that was created to represent the ObjRef, or
+	 *         <code>null</code> if no thing should be added for the given
+	 *         objRef.
 	 */
-	protected abstract T addThing(List<ObjRef> relativeLineageRefs, ObjRef objRef);
+	protected abstract @Nullable
+	T addThing(List<ObjRef> relativeLineageRefs, ObjRef objRef);
 
 	/**
 	 * Updates the Thing returned from {@link #addThing(List, ObjRef)} to

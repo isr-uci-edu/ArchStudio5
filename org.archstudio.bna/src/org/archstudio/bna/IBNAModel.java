@@ -48,14 +48,20 @@ public interface IBNAModel {
 
 	public IThing getThing(Object thingId);
 
-	/**
-	 * @deprecated Use {@link #getThings()} instead.
-	 */
-	@Deprecated
 	public List<IThing> getAllThings();
 
+	/**
+	 * @deprecated Use {@link #getAllThings()} instead.
+	 */
+	@Deprecated
 	public List<IThing> getThings();
 
+	public List<IThing> getThingsByID(Iterable<Object> thingIDs);
+
+	/**
+	 * @deprecated Use {@link #getThingsByID()} instead.
+	 */
+	@Deprecated
 	public List<IThing> getThings(Iterable<Object> thingIDs);
 
 	public List<IThing> getReverseThings();

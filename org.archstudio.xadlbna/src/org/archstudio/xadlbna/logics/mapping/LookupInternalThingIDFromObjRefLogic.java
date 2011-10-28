@@ -119,7 +119,7 @@ public class LookupInternalThingIDFromObjRefLogic extends AbstractThingLogic imp
 
 	private void setThingID(IHasWorld src, ObjRef objRef, IThing t) {
 		for (IThingRefKey<?> idKey : idKeys) {
-			for (IThing refThing : getBNAModel().getThings(valuesLogic.getThingIDs(//
+			for (IThing refThing : getBNAModel().getThingsByID(valuesLogic.getThingIDs(//
 					_getObjRefKeyFor(idKey), objRef,//
 					_getWorldThingIDKeyFor(idKey), src.getID()))) {
 				refThing.set(idKey, t != null ? t.getID() : null);

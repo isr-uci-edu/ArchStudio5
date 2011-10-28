@@ -837,7 +837,7 @@ public class BNAUtils {
 	};
 
 	public static final Collection<IThing> getSelectedThings(IBNAModel m) {
-		return Collections2.filter(m.getThings(), isSelectedPredicate);
+		return Collections2.filter(m.getAllThings(), isSelectedPredicate);
 	}
 
 	public static final int sizeOfSelectedThings(IBNAModel m) {
@@ -1210,6 +1210,10 @@ public class BNAUtils {
 	}
 
 	public static void drawMarquee(Graphics g, IResources r, int offset, Runnable drawMarquee) {
+		float oldLineDashOffset = 0;
+		if (g instanceof SWTGraphics) {
+			oldLineDashOffset = ((SWTGraphics) g).getLineDashOffset();
+		}
 		g.pushState();
 		try {
 			g.setLineWidth(1);
@@ -1229,6 +1233,9 @@ public class BNAUtils {
 		}
 		finally {
 			g.popState();
+			if (g instanceof SWTGraphics) {
+				((SWTGraphics) g).setLineDashOffset(oldLineDashOffset);
+			}
 		}
 	}
 

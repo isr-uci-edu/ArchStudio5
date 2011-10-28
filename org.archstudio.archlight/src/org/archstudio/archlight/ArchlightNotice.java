@@ -1,6 +1,9 @@
 package org.archstudio.archlight;
 
 public class ArchlightNotice implements java.io.Serializable {
+
+	private static final long serialVersionUID = 518740025276233364L;
+
 	protected String toolID;
 	protected String message;
 	protected String additionalDetail;

@@ -21,6 +21,7 @@ import org.archstudio.xarchadt.XArchADTPath;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -303,7 +304,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 					break;
 
 				case ELEMENT_SINGLE: {
-					ObjRef childRef = (ObjRef) xarch.get(objRef, xPathSegment.name);
+					ObjRef childRef = (ObjRef) xarch.get(objRef, xPathSegment.name, false);
 					if (childRef != null) {
 						if (xPathSegment.predicate.apply(childRef)) {
 							relLineageRefs.add(childRef);
@@ -319,7 +320,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 
 				case ELEMENT_MULTIPLE: {
 					relLineageRefs.add(null);
-					for (ObjRef childRef : xarch.getAll(objRef, xPathSegment.name)) {
+					for (ObjRef childRef : Iterables.filter(xarch.getAll(objRef, xPathSegment.name), ObjRef.class)) {
 						if (xPathSegment.predicate.apply(childRef)) {
 							relLineageRefs.set(relLineageRefs.size() - 1, childRef);
 							scanObjRef(relLineageRefs, childRef, xPathSegmentIndex + 1);

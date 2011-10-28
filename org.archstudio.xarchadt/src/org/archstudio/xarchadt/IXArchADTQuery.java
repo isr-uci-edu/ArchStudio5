@@ -81,6 +81,10 @@ public interface IXArchADTQuery {
 	// */
 	//public List<ObjRef> getAll(ObjRef baseObjRef, String typeOfThing, List<String> ids);
 
+	public Serializable get(ObjRef baseObjRef, String typeOfThing, boolean resolve);
+
+	public Serializable resolve(ObjRef objRef);
+
 	/**
 	 * Gets a set of references to a set of children from an xArch element.
 	 * Roughly equivalent to: baseObject.getAll[TypeOfThing]s(ids); So, if the
@@ -101,7 +105,7 @@ public interface IXArchADTQuery {
 	 *            "Description".
 	 * @return An array of <CODE>ObjRef</CODE>s referring to the objects gotten.
 	 */
-	public List<ObjRef> getAll(ObjRef baseObjRef, String typeOfThing);
+	public List<Serializable> getAll(ObjRef baseObjRef, String typeOfThing);
 
 	/**
 	 * Determines if one node in the XML tree is an ancestor of another. This
@@ -155,13 +159,13 @@ public interface IXArchADTQuery {
 	 */
 	public ObjRef getParent(ObjRef targetObjRef);
 
-	/**
-	 * Gets the <CODE>XArchADTPath</CODE> of the given element.
-	 * 
-	 * @param ref
-	 *            Reference to the element whose path you want to get.
-	 * @return <CODE>XArchADTPath</CODE> to that element.
-	 */
+	///**
+	// * Gets the <CODE>XArchADTPath</CODE> of the given element.
+	// * 
+	// * @param ref
+	// *            Reference to the element whose path you want to get.
+	// * @return <CODE>XArchADTPath</CODE> to that element.
+	// */
 	//public XArchADTPath getXArchADTPath(ObjRef ref);
 
 	/**
@@ -284,6 +288,6 @@ public interface IXArchADTQuery {
 
 	public byte[] serialize(URI uri);
 
-	Serializable get(ObjRef baseObjRef, String typeOfThing, Serializable key);
+	Serializable getByKey(ObjRef baseObjRef, String typeOfThing, Serializable key);
 
 }

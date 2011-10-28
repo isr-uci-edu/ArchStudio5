@@ -21,6 +21,7 @@ import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
 
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 public class XadlHintRepository implements IHintRepository, IXArchADTModelListener {
@@ -70,7 +71,7 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 	@Override
 	public Iterable<IThing> getThingsForContext(IBNAWorld world, Object context) {
 		ThingValueTrackingLogic tvtl = world.getThingLogicManager().addThingLogic(ThingValueTrackingLogic.class);
-		return world.getBNAModel().getThings(tvtl.getThingIDs(IHasObjRef.OBJREF_KEY, (ObjRef) context));
+		return world.getBNAModel().getThingsByID(tvtl.getThingIDs(IHasObjRef.OBJREF_KEY, (ObjRef) context));
 	}
 
 	@Override
@@ -78,7 +79,7 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 		List<String> names = Lists.newArrayList();
 		ObjRef hintsExtRef = XadlUtils.getExt(xarch, (ObjRef) context, Hints_3_0Package.Literals.HINTS_EXTENSION);
 		if (hintsExtRef != null) {
-			for (ObjRef hintRef : xarch.getAll(hintsExtRef, "hint")) {
+			for (ObjRef hintRef : Iterables.filter(xarch.getAll(hintsExtRef, "hint"), ObjRef.class)) {
 				names.add((String) xarch.get(hintRef, "name"));
 			}
 		}
@@ -88,7 +89,7 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 	@Override
 	public void storeHint(Object context, String hintName, Serializable hintValue) {
 		ObjRef hintsExtRef = XadlUtils.createExt(xarch, (ObjRef) context, Hints_3_0Package.Literals.HINTS_EXTENSION);
-		ObjRef hintRef = (ObjRef) xarch.get(hintsExtRef, "hint", hintName);
+		ObjRef hintRef = (ObjRef) xarch.getByKey(hintsExtRef, "hint", hintName);
 		if (hintRef == null) {
 			hintRef = XadlUtils.create(xarch, Hints_3_0Package.Literals.VALUE);
 			encode(hintRef, hintValue);
@@ -102,7 +103,7 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 	public Object getHint(Object context, String hintName) throws PropertyDecodeException {
 		ObjRef hintsExtRef = XadlUtils.getExt(xarch, (ObjRef) context, Hints_3_0Package.Literals.HINTS_EXTENSION);
 		if (hintsExtRef != null) {
-			ObjRef hintRef = (ObjRef) xarch.get(hintsExtRef, "hint", hintName);
+			ObjRef hintRef = (ObjRef) xarch.getByKey(hintsExtRef, "hint", hintName);
 			if (hintRef != null) {
 				return decode(hintRef);
 			}

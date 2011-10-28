@@ -77,8 +77,6 @@ if(brick.getDescription() != null){
         out.write(NL);         
         out.write(" */");  //$NON-NLS-1$        
         out.write(NL);         
-        out.write("@SuppressWarnings(\"unused\")");  //$NON-NLS-1$        
-        out.write(NL);         
         out.write("/* package */ abstract class ");  //$NON-NLS-1$        
         out.write(className);
         out.write(NL);         

@@ -123,7 +123,7 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 			final IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
 			if (mcm != null) {
 				Rectangle r = new Rectangle();
-				for (IThing thing : getBNAModel().getThings()) {
+				for (IThing thing : getBNAModel().getAllThings()) {
 					if (thing instanceof IHasBoundingBox) {
 						union(r, ((IHasBoundingBox) thing).getBoundingBox());
 					}

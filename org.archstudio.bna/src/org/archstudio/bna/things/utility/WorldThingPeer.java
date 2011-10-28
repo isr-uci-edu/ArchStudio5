@@ -29,6 +29,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		super(thing);
 	}
 
+	@Override
 	public IBNAView getInnerView() {
 		return innerView;
 	}
@@ -44,13 +45,14 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 	protected Rectangle lastModelBounds = BNAUtils.NONEXISTENT_RECTANGLE;
 	protected Rectangle clip = new Rectangle(0, 0, 0, 0);
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
 		IBNAWorld innerWorld = t.getWorld();
 		if (innerWorld == null) {
 			return;
 		}
 
-		if ((innerView != null) && (!innerWorld.equals(innerView.getBNAWorld()))) {
+		if (innerView != null && !innerWorld.equals(innerView.getBNAWorld())) {
 			innerView = null;
 		}
 
@@ -59,7 +61,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		}
 
 		updateLocalBoundingBox(cm);
-		if ((localBoundingBox.height < 5) || (localBoundingBox.width < 5)) {
+		if (localBoundingBox.height < 5 || localBoundingBox.width < 5) {
 			return;
 		}
 
@@ -69,10 +71,10 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 			return;
 		}
 
-		if ((modelBounds.x == Integer.MIN_VALUE) || (modelBounds.width == 0) || (modelBounds.height == 0)) {
+		if (modelBounds.x == Integer.MIN_VALUE || modelBounds.width == 0 || modelBounds.height == 0) {
 			Rectangle worldBounds = innerView.getCoordinateMapper().getWorldBounds(new Rectangle());
-			modelBounds.x = worldBounds.x + (worldBounds.width / 2);
-			modelBounds.y = worldBounds.y + (worldBounds.height / 2);
+			modelBounds.x = worldBounds.x + worldBounds.width / 2;
+			modelBounds.y = worldBounds.y + worldBounds.height / 2;
 			modelBounds.width = 100;
 			modelBounds.height = 100;
 		}
@@ -98,7 +100,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 
 		g.pushState();
 		try {
-			for (IThing thing : innerView.getBNAWorld().getBNAModel().getThings()) {
+			for (IThing thing : innerView.getBNAWorld().getBNAModel().getAllThings()) {
 				IThingPeer<?> peer = innerView.getThingPeer(thing);
 				g.restoreState();
 				peer.draw(innerView, icm, g, r);
@@ -109,6 +111,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		}
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate coordinate) {
 		if (t.getWorld() != null && innerView != null) {
 			return super.isInThing(view, cm, coordinate);

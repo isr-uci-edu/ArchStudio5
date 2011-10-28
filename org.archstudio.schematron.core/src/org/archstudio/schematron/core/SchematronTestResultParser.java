@@ -56,12 +56,10 @@ public class SchematronTestResultParser {
 			throw new SchematronTestException(desc);
 		}
 		List<ArchlightIssue> archlightIssues = new ArrayList<ArchlightIssue>(snippet.failedAssertElements.length);
-		for (int j = 0; j < snippet.failedAssertElements.length; j++) {
-			Element failedAssertElt = snippet.failedAssertElements[j];
-			String locationXPath = failedAssertElt.getAttribute("location");
+		for (Element failedAssertElt : snippet.failedAssertElements) {
 			Element contentElt = (Element) failedAssertElt.getFirstChild();
 			String content = getElementContents(contentElt);
-			if ((content == null) || (content.equals(""))) {
+			if (content == null || content.equals("")) {
 				SchematronTestException ste = new SchematronTestException("Failed assert had no content.");
 				ste.setTestUID(testUID);
 				throw ste;
@@ -154,7 +152,7 @@ public class SchematronTestResultParser {
 						//Save the old snippet
 						TestResultSnippet snippet = new TestResultSnippet();
 						snippet.activePatternElement = activePatternElement;
-						snippet.failedAssertElements = (Element[]) failedAssertElementList.toArray(new Element[0]);
+						snippet.failedAssertElements = failedAssertElementList.toArray(new Element[0]);
 						testResultSnippetList.add(snippet);
 					}
 					activePatternElement = childElt;
@@ -169,7 +167,7 @@ public class SchematronTestResultParser {
 			//Save the old snippet
 			TestResultSnippet snippet = new TestResultSnippet();
 			snippet.activePatternElement = activePatternElement;
-			snippet.failedAssertElements = (Element[]) failedAssertElementList.toArray(new Element[0]);
+			snippet.failedAssertElements = failedAssertElementList.toArray(new Element[0]);
 			testResultSnippetList.add(snippet);
 		}
 
@@ -182,7 +180,7 @@ public class SchematronTestResultParser {
 	}
 
 	private static class ContentProperties {
-		private Properties properties;
+		private final Properties properties;
 
 		public ContentProperties(Properties properties) {
 			this.properties = properties;
@@ -234,17 +232,17 @@ public class SchematronTestResultParser {
 		public static ContentProperties create(String content) throws SchematronTestException {
 			Properties newProperties = new Properties();
 			String[] propertyElements = content.split(CONTENT_ELEMENT_DELIMITER_REGEX);
-			for (int i = 0; i < propertyElements.length; i++) {
-				int equalsIndex = propertyElements[i].indexOf("=");
+			for (String propertyElement : propertyElements) {
+				int equalsIndex = propertyElement.indexOf("=");
 				if (equalsIndex == -1) {
 					if (newProperties.containsKey("text")) {
 						throw new SchematronTestException("Test result has multiple segments with name 'text'");
 					}
-					newProperties.put("text", propertyElements[i].trim());
+					newProperties.put("text", propertyElement.trim());
 				}
 				else {
-					String propName = propertyElements[i].substring(0, equalsIndex).trim();
-					String propValue = propertyElements[i].substring(equalsIndex + 1).trim();
+					String propName = propertyElement.substring(0, equalsIndex).trim();
+					String propValue = propertyElement.substring(equalsIndex + 1).trim();
 					if (newProperties.containsKey(propName)) {
 						throw new SchematronTestException("Test result has multiple segments with name '" + propName
 								+ "'");

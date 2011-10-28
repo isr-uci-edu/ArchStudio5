@@ -37,6 +37,7 @@ import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -193,7 +194,7 @@ public class AIMImpl implements IAIM {
 
 					//Okay, the container is created and added; its inner structure is all
 					//set up, now we have to go about creating and mapping all its interfaces.
-					for (ObjRef interfaceRef : xarch.getAll(brickRef, "interface")) {
+					for (ObjRef interfaceRef : Iterables.filter(xarch.getAll(brickRef, "interface"), ObjRef.class)) {
 						AIMInterfaceData aid = parseAndValidateMappedInterfaceData(containerPath, brickRef,
 								interfaceRef);
 						MyxJavaClassInterfaceDescription aidDesc = new MyxJavaClassInterfaceDescription(
@@ -242,7 +243,7 @@ public class AIMImpl implements IAIM {
 
 					//Okay, the brick is created and added; now we have to go about
 					//creating all its interfaces.
-					for (ObjRef interfaceRef : xarch.getAll(brickRef, "interface")) {
+					for (ObjRef interfaceRef : Iterables.filter(xarch.getAll(brickRef, "interface"), ObjRef.class)) {
 						AIMInterfaceData aid = parseAndValidateInterfaceData(containerPath, brickRef, interfaceRef);
 						MyxJavaClassInterfaceDescription aidDesc = new MyxJavaClassInterfaceDescription(
 								aid.serviceObjectInterfaceNames);
@@ -444,7 +445,8 @@ public class AIMImpl implements IAIM {
 			if (mainClassRef != null) {
 				classRefs.add(mainClassRef);
 			}
-			classRefs.addAll(xarch.getAll(javaImplementationRef, "auxClass"));
+			classRefs.addAll(Lists.newArrayList(Iterables.filter(xarch.getAll(javaImplementationRef, "auxClass"),
+					ObjRef.class)));
 
 			for (ObjRef classRef : classRefs) {
 				String className = (String) xarch.get(classRef, "className");
@@ -480,9 +482,8 @@ public class AIMImpl implements IAIM {
 					+ XadlUtils.getName(xarch, brickRef));
 		}
 
-		List<ObjRef> interfaceMappingRefs = xarch.getAll(subStructureRef, "interfaceMapping");
-
-		for (ObjRef interfaceMappingRef : interfaceMappingRefs) {
+		for (ObjRef interfaceMappingRef : Iterables.filter(xarch.getAll(subStructureRef, "interfaceMapping"),
+				ObjRef.class)) {
 			ObjRef outerInterfaceRef = (ObjRef) xarch.get(interfaceMappingRef, "outerInterfaceLink");
 			if (outerInterfaceRef == null) {
 				throw new ArchitectureInstantiationException("Invalid outer interface link for mapping "
@@ -536,12 +537,9 @@ public class AIMImpl implements IAIM {
 	}
 
 	private Map<String, String> getProperties(ObjRef initializationParametersRef) {
-		List<ObjRef> initializationParamRefs = xarch.getAll(initializationParametersRef, "initializationParameter");
-		if (initializationParamRefs.size() == 0) {
-			return null;
-		}
 		Map<String, String> p = Maps.newHashMap();
-		for (ObjRef initializationParamRef : initializationParamRefs) {
+		for (ObjRef initializationParamRef : Iterables.filter(
+				xarch.getAll(initializationParametersRef, "initializationParameter"), ObjRef.class)) {
 			String name = (String) xarch.get(initializationParamRef, "key");
 			String value = (String) xarch.get(initializationParamRef, "value");
 			if (name != null && value != null) {

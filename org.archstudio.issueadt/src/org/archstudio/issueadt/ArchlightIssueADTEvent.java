@@ -8,6 +8,9 @@ import java.util.List;
 import org.archstudio.archlight.ArchlightIssue;
 
 public class ArchlightIssueADTEvent implements java.io.Serializable {
+
+	private static final long serialVersionUID = 496913768288784116L;
+
 	public enum EventType {
 		ISSUES_ADDED, ISSUES_REMOVED
 	}

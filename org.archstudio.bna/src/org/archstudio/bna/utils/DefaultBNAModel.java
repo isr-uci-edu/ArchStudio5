@@ -24,6 +24,9 @@ import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 
 import com.google.common.base.Function;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
@@ -31,10 +34,10 @@ import com.google.common.collect.MapMaker;
 public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	protected static final boolean DEBUG = false;
-	protected final Map<Object, AtomicLong> listenerStats = !DEBUG ? null : new MapMaker().weakKeys().makeComputingMap(
-			new Function<Object, AtomicLong>() {
+	protected final Cache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().weakKeys()
+			.build(new CacheLoader<Object, AtomicLong>() {
 				@Override
-				public AtomicLong apply(Object input) {
+				public AtomicLong load(Object input) {
 					return new AtomicLong();
 				}
 			});
@@ -115,7 +118,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 				l.bnaModelChangedSync(evt);
 				if (DEBUG) {
 					lTime = System.nanoTime() - lTime;
-					listenerStats.get(l).addAndGet(lTime);
+					debugStats.getUnchecked(l).addAndGet(lTime);
 				}
 			}
 			catch (Throwable t) {
@@ -150,7 +153,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 						l.bnaModelChanged(evt);
 						if (DEBUG) {
 							lTime = System.nanoTime() - lTime;
-							listenerStats.get(l).addAndGet(lTime);
+							debugStats.getUnchecked(l).addAndGet(lTime);
 						}
 					}
 					catch (Throwable t) {
@@ -276,7 +279,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
-	public List<IThing> getThings(Iterable<Object> thingIDs) {
+	public List<IThing> getThingsByID(Iterable<Object> thingIDs) {
 		return Lists.newArrayList(Iterables.transform(thingIDs, new Function<Object, IThing>() {
 			@Override
 			public IThing apply(Object input) {
@@ -285,13 +288,14 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		}));
 	}
 
+	@Deprecated
 	@Override
-	public List<IThing> getAllThings() {
-		return getThings();
+	public List<IThing> getThings(Iterable<Object> thingIDs) {
+		return getThingsByID(thingIDs);
 	}
 
 	@Override
-	public List<IThing> getThings() {
+	public List<IThing> getAllThings() {
 		synchronized (thingTree) {
 			if (thingTreeListAtModCount != thingTreeModCount) {
 				thingTreeList = thingTree.getAllThings();
@@ -299,6 +303,12 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 			}
 			return thingTreeList;
 		}
+	}
+
+	@Deprecated
+	@Override
+	public List<IThing> getThings() {
+		return getAllThings();
 	}
 
 	@Override

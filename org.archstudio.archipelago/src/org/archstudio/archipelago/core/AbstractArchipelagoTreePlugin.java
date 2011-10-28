@@ -18,6 +18,7 @@ public class AbstractArchipelagoTreePlugin implements IArchipelagoTreePlugin {
 	protected IFileManagerListener fileManagerListener = null;
 	protected DragSourceListener dragSourceListener = null;
 	protected IArchipelagoEditorFocuser editorFocuser = null;
+	protected IArchipelagoEditorPane editor = null;
 
 	public IArchipelagoTreeContentProvider getContentProvider() {
 		return contentProvider;
@@ -57,5 +58,9 @@ public class AbstractArchipelagoTreePlugin implements IArchipelagoTreePlugin {
 
 	public IArchipelagoEditorFocuser getEditorFocuser() {
 		return editorFocuser;
+	}
+
+	public void setEditor(IArchipelagoEditorPane editor) {
+		this.editor = editor;
 	}
 }

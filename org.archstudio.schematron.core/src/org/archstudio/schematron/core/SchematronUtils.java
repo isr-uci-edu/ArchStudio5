@@ -36,7 +36,7 @@ public class SchematronUtils {
 
 	public static String getXalanVersion() {
 		try {
-			Class<?> environmentCheck = Class.forName("org.apache.xalan.xslt.EnvironmentCheck");
+			Class.forName("org.apache.xalan.xslt.EnvironmentCheck");
 		}
 		catch (ClassNotFoundException cnfe) {
 			return null;
@@ -204,6 +204,7 @@ public class SchematronUtils {
 			this.baseResolver = baseResolver;
 		}
 
+		@Override
 		public Source resolve(String href, String base) throws TransformerException {
 			if (href.equals("skeleton1-6.xsl")) {
 				return schematronSkeleton;

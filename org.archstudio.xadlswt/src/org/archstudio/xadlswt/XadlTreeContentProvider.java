@@ -14,6 +14,8 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.IWorkbenchSite;
 
+import com.google.common.collect.Iterables;
+
 public class XadlTreeContentProvider implements ITreeContentProvider {
 
 	protected static final Object[] EMPTY_ARRAY = new Object[0];
@@ -41,8 +43,9 @@ public class XadlTreeContentProvider implements ITreeContentProvider {
 
 	protected Filter getFilter(Type type) {
 		for (Filter f : filters) {
-			if (f.getType().equals(type))
+			if (f.getType().equals(type)) {
 				return f;
+			}
 		}
 		return null;
 	}
@@ -51,14 +54,16 @@ public class XadlTreeContentProvider implements ITreeContentProvider {
 		return flags.contains(type);
 	}
 
+	@Override
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
 	}
 
 	protected boolean isAllowedByFilter(ObjRef ref, Type type) {
 		Filter f = getFilter(type);
-		if (f == null)
+		if (f == null) {
 			return true;
+		}
 
 		for (ObjRef elt : f.getElts()) {
 			if (ref.equals(elt)) {
@@ -70,8 +75,7 @@ public class XadlTreeContentProvider implements ITreeContentProvider {
 
 	private void addChildren(List<ObjRef> l, ObjRef ref, String childName, Type childType) {
 		if (shouldShow(childType)) {
-			List<ObjRef> childRefs = xarch.getAll(ref, childName);
-			for (ObjRef childRef : childRefs) {
+			for (ObjRef childRef : Iterables.filter(xarch.getAll(ref, childName), ObjRef.class)) {
 				if (isAllowedByFilter(childRef, childType)) {
 					l.add(childRef);
 				}
@@ -79,6 +83,7 @@ public class XadlTreeContentProvider implements ITreeContentProvider {
 		}
 	}
 
+	@Override
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof XadlTreeInput) {
 			return new Object[] { xarch.get(rootRef, "xADL") };
@@ -120,6 +125,7 @@ public class XadlTreeContentProvider implements ITreeContentProvider {
 		return EMPTY_ARRAY;
 	}
 
+	@Override
 	public Object getParent(Object element) {
 		if (element instanceof ObjRef) {
 			return xarch.getParent((ObjRef) element);
@@ -127,13 +133,16 @@ public class XadlTreeContentProvider implements ITreeContentProvider {
 		return null;
 	}
 
+	@Override
 	public boolean hasChildren(Object element) {
 		return getChildren(element).length > 0;
 	}
 
+	@Override
 	public void dispose() {
 	}
 
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
 

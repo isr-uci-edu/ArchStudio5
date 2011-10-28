@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GraphLayoutParameters implements java.io.Serializable {
+
+	private static final long serialVersionUID = 7404468772149560496L;
+
 	//Relative factors should be close to 1.0, but if you want connectors to be
 	//twice as wide as they are tall, set relativeConnectorHeight to 1.0
 	//and relativeConnectorWidth to 2.0. Dot seems to work best if the smallest

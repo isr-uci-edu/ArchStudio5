@@ -8,6 +8,8 @@ import org.archstudio.archlight.ArchlightNotice;
 
 public class ArchlightNoticeADTEvent implements java.io.Serializable {
 
+	private static final long serialVersionUID = -7747341870875373427L;
+
 	public enum EventType {
 		NOTICES_ADDED, NOTICES_REMOVED
 	}

@@ -1,7 +1,6 @@
 package org.archstudio.myxgen.eclipse.extension;
 
 import java.util.Arrays;
-import java.util.Map;
 
 import org.archstudio.myxgen.MyxGenBrick;
 import org.eclipse.core.resources.IProject;
@@ -14,8 +13,10 @@ import org.eclipse.core.runtime.RegistryFactory;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.MapMaker;
 
 public class MyxGenExtensions {
 
@@ -26,10 +27,10 @@ public class MyxGenExtensions {
 			.substring(EXTENSION_POINT_ID.lastIndexOf('.') + 1);
 
 	final static private IExtensionRegistry pluginRegistry = RegistryFactory.getRegistry();
-	final static private Map<String, MyxGenBrick> pluginMyxGenBricks = new MapMaker()
-			.makeComputingMap(new Function<String, MyxGenBrick>() {
+	final static private Cache<String, MyxGenBrick> pluginMyxGenBricksCache = CacheBuilder.newBuilder().build(
+			new CacheLoader<String, MyxGenBrick>() {
 				@Override
-				public MyxGenBrick apply(String myxGenBrickID) {
+				public MyxGenBrick load(String myxGenBrickID) {
 					for (IConfigurationElement c : workspaceRegistry.getConfigurationElementsFor(
 							EXTENSION_POINT_NAMESPACE, EXTENSION_POINT_NAME)) {
 						if (myxGenBrickID.equals(c.getAttribute("id"))) {
@@ -45,31 +46,32 @@ public class MyxGenExtensions {
 
 			@Override
 			public void removed(IExtensionPoint[] extensionPoints) {
-				pluginMyxGenBricks.clear();
+				pluginMyxGenBricksCache.invalidateAll();
 			}
 
 			@Override
 			public void removed(IExtension[] extensions) {
-				pluginMyxGenBricks.clear();
+				pluginMyxGenBricksCache.invalidateAll();
 			}
 
 			@Override
 			public void added(IExtensionPoint[] extensionPoints) {
-				pluginMyxGenBricks.clear();
+				pluginMyxGenBricksCache.invalidateAll();
 			}
 
 			@Override
 			public void added(IExtension[] extensions) {
-				pluginMyxGenBricks.clear();
+				pluginMyxGenBricksCache.invalidateAll();
 			}
 		}, EXTENSION_POINT_ID);
 	}
 
 	private static final IExtensionRegistry workspaceRegistry = new WorkspaceExtensionRegistry();
-	private static final Map<String, MyxGenBrick> workspaceMyxGenBricks = new MapMaker()
-			.makeComputingMap(new Function<String, MyxGenBrick>() {
+	private static final Cache<String, MyxGenBrick> workspaceMyxGenBricksCache = CacheBuilder.newBuilder().build(
+			new CacheLoader<String, MyxGenBrick>() {
+
 				@Override
-				public MyxGenBrick apply(String myxGenBrickID) {
+				public MyxGenBrick load(String myxGenBrickID) throws Exception {
 					for (IConfigurationElement c : workspaceRegistry.getConfigurationElementsFor(
 							EXTENSION_POINT_NAMESPACE, EXTENSION_POINT_NAME)) {
 						if (myxGenBrickID.equals(c.getAttribute("id"))) {
@@ -85,32 +87,33 @@ public class MyxGenExtensions {
 
 			@Override
 			public void removed(IExtensionPoint[] extensionPoints) {
-				workspaceMyxGenBricks.clear();
+				workspaceMyxGenBricksCache.invalidateAll();
 			}
 
 			@Override
 			public void removed(IExtension[] extensions) {
-				workspaceMyxGenBricks.clear();
+				workspaceMyxGenBricksCache.invalidateAll();
 			}
 
 			@Override
 			public void added(IExtensionPoint[] extensionPoints) {
-				workspaceMyxGenBricks.clear();
+				workspaceMyxGenBricksCache.invalidateAll();
 			}
 
 			@Override
 			public void added(IExtension[] extensions) {
-				workspaceMyxGenBricks.clear();
+				workspaceMyxGenBricksCache.invalidateAll();
 			}
+
 		}, EXTENSION_POINT_ID);
 	}
 
 	public static MyxGenBrick getExtenalMyxGenBrick(String myxGenBrickId) {
-		return pluginMyxGenBricks.get(myxGenBrickId);
+		return pluginMyxGenBricksCache.getUnchecked(myxGenBrickId);
 	}
 
 	public static MyxGenBrick getWorkspaceMyxGenBrick(String myxGenBrickId) {
-		return workspaceMyxGenBricks.get(myxGenBrickId);
+		return workspaceMyxGenBricksCache.getUnchecked(myxGenBrickId);
 	}
 
 	public static MyxGenBrick getActiveMyxGenBrick(String myxGenBrickId) {
@@ -140,7 +143,7 @@ public class MyxGenExtensions {
 		return Iterables.transform(configurationElementsInProject, new Function<IConfigurationElement, MyxGenBrick>() {
 			@Override
 			public MyxGenBrick apply(IConfigurationElement input) {
-				return workspaceMyxGenBricks.get(input.getAttribute("id"));
+				return workspaceMyxGenBricksCache.getUnchecked(input.getAttribute("id"));
 			}
 		});
 	}
