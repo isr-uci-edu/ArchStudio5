@@ -67,7 +67,7 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 
 		return outerEllipse.contains(lPoint.x, lPoint.y) && !innerEllipse.contains(lPoint.x, lPoint.y);
 	}
-	
+
 	@Override
 	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
 		cm.worldToLocal(boundsResult.setBounds(t.getBoundingBox()));

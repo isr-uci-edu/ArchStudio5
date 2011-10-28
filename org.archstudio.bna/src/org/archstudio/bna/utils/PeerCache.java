@@ -31,7 +31,7 @@ public class PeerCache {
 				@Override
 				public IThingPeer<?> apply(IThing input) {
 					try {
-						return (IThingPeer<?>)autoConstructors.get(input.getPeerClass()).newInstance(input);
+						return (IThingPeer<?>) autoConstructors.get(input.getPeerClass()).newInstance(input);
 					}
 					catch (Exception e) {
 						throw new RuntimeException("Cannot create peer: " + input, e);
@@ -41,7 +41,7 @@ public class PeerCache {
 
 	@SuppressWarnings("unchecked")
 	public <T extends IThing> IThingPeer<T> getPeer(T thing) {
-		return (IThingPeer<T>)autoPeers.get(thing);
+		return (IThingPeer<T>) autoPeers.get(thing);
 	}
 
 	public void disposePeer(IThing thing) {

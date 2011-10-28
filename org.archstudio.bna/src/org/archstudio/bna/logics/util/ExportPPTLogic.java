@@ -15,7 +15,7 @@ public class ExportPPTLogic extends AbstractThingLogic implements IBNAMenuListen
 	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
 		// TODO Auto-generated method stub
 	}
-	
+
 	//	protected static final int IMAGE_PADDING = 5;
 	//
 	//	protected ModelBoundsTrackingLogic mbtl = null;

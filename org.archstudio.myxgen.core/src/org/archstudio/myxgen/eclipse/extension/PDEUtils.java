@@ -93,7 +93,8 @@ public class PDEUtils {
 						if (file != null && file.isAccessible()) {
 							file.refreshLocal(IResource.DEPTH_ZERO, null);
 							in = file.getContents();
-							contributor = new ProjectContributor(pluginModelBase.getPluginBase().getId(), file.getProject());
+							contributor = new ProjectContributor(pluginModelBase.getPluginBase().getId(),
+									file.getProject());
 						}
 					}
 

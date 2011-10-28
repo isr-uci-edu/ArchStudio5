@@ -52,10 +52,10 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 	protected final BNASWTEventHandler eventHandler;
 	protected final IResources resources;
 
-	public BNACanvas(Composite parent, int style, IBNAWorld bnaWorld){
+	public BNACanvas(Composite parent, int style, IBNAWorld bnaWorld) {
 		this(parent, style, new DefaultBNAView(null, bnaWorld, new LinearCoordinateMapper()));
 	}
-	
+
 	public BNACanvas(Composite parent, int style, IBNAView bnaView) {
 		super(parent, style | SWT.NO_REDRAW_RESIZE | SWT.DOUBLE_BUFFERED);
 		checkNotNull(bnaView);

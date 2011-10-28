@@ -12,7 +12,8 @@ public class MyxJavaClassBrickDescriptionFromXadl implements IMyxBrickDescriptio
 
 	@Override
 	public IMyxBrickDescription parse(IXArchADT xarch, ObjRef brickRef) throws MyxUnsupportedBrickDescriptionException {
-		ObjRef javaImplementationRef = XadlUtils.getImplementation(xarch, brickRef, Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION);
+		ObjRef javaImplementationRef = XadlUtils.getImplementation(xarch, brickRef,
+				Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION);
 		if (javaImplementationRef == null) {
 			return null;
 		}

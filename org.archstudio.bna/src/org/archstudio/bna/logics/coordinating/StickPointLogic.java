@@ -7,8 +7,7 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IIsSticky;
 import org.eclipse.draw2d.geometry.Point;
 
-public class StickPointLogic extends AbstractStickPointLogic implements
-		IBNASynchronousModelListener {
+public class StickPointLogic extends AbstractStickPointLogic implements IBNASynchronousModelListener {
 
 	public StickPointLogic() {
 	}

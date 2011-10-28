@@ -1,6 +1,5 @@
 package org.archstudio.myxgen.jet;
 
-
 import org.archstudio.utils.osgi.AbstractActivator;
 
 public class Activator extends AbstractActivator {

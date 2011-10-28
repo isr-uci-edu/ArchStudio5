@@ -23,7 +23,6 @@ import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTFileEvent;
 import org.archstudio.xarchadt.XArchADTModelEvent;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;

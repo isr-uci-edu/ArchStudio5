@@ -50,9 +50,9 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	@Override
 	public void draw(final IBNAView view, final ICoordinateMapper cm, final Graphics g, final IResources r) {
 		// only draw for the top level things
-		if(view.getParentView() != null)
+		if (view.getParentView() != null)
 			return;
-		
+
 		if (g.getAdvanced()) {
 			Rectangle boundsResult = new Rectangle();
 			final List<IHasShadowPeer<?>> shadowThingPeers = Lists.newArrayListWithExpectedSize(256);

@@ -64,7 +64,7 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 
 	protected IAction[] getActions(IBNAView view, IThing t, int worldX, int worldY) {
 
-		final ObjRef eltRef = t.get(IHasObjRef.OBJREF_KEY); 
+		final ObjRef eltRef = t.get(IHasObjRef.OBJREF_KEY);
 		if (eltRef == null) {
 			//Nothing to create an interface on
 			return new IAction[0];

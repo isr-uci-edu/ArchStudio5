@@ -264,7 +264,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	}
 
 	protected void mapXPath(final String xPath, IBNAUpdater bnaUpdater) {
-		
+
 	}
 
 	//	/**

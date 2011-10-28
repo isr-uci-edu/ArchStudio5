@@ -5,20 +5,14 @@ import org.osgi.framework.BundleContext;
 
 // Use the following for subclasses
 /*
-
- public class Activator extends AbstractActivator {
-
- private static Activator singleton;
-
- public Activator() {
- singleton = this;
- }
-
- public static final Activator getSingleton() {
- return singleton;
- }
- }
-
+ * 
+ * public class Activator extends AbstractActivator {
+ * 
+ * private static Activator singleton;
+ * 
+ * public Activator() { singleton = this; }
+ * 
+ * public static final Activator getSingleton() { return singleton; } }
  */
 
 public abstract class AbstractActivator implements BundleActivator {

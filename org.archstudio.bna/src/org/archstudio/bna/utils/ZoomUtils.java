@@ -5,7 +5,6 @@ import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.ICoordinateMapperListener;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.swtutils.SWTWidgetUtils;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;

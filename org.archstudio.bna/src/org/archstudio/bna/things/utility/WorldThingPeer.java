@@ -18,7 +18,8 @@ import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThingPeer<T> implements IThingPeer<T>, IHasInnerViewPeer {
+public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThingPeer<T> implements IThingPeer<T>,
+		IHasInnerViewPeer {
 	protected IBNAView innerView = null;
 
 	protected boolean localBoundingBoxChanged = false;
@@ -88,7 +89,8 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 				double scale = Math.min(parentScale, Math.min(sx, sy));
 				int dx = BNAUtils.round((localBoundingBox.width - modelBounds.width * scale) / 2);
 				int dy = BNAUtils.round((localBoundingBox.height - modelBounds.height * scale) / 2);
-				imcm.setLocalScaleAndAlign(scale, localBoundingBox.getTopLeft().translate(dx, dy), modelBounds.getTopLeft());
+				imcm.setLocalScaleAndAlign(scale, localBoundingBox.getTopLeft().translate(dx, dy),
+						modelBounds.getTopLeft());
 			}
 		}
 		localBoundingBoxChanged = false;

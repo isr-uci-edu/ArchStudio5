@@ -11,7 +11,7 @@ public class ChatClientMyxComponent extends org.archstudio.demo.chatsys.client.C
 	@Override
 	public void messageSent(String sender, String message) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

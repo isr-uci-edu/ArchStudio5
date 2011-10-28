@@ -117,12 +117,12 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 	public void setFontStyle(FontStyle fontStyle) {
 		set(FONT_STYLE_KEY, fontStyle);
 	}
-	
+
 	@Override
 	public boolean getDontIncreaseFontSize() {
 		return get(DONT_INCREASE_FONT_SIZE_KEY);
 	}
-	
+
 	@Override
 	public void setDontIncreaseFontSize(boolean dontIncreaseFontSize) {
 		set(DONT_INCREASE_FONT_SIZE_KEY, dontIncreaseFontSize);

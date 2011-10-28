@@ -91,7 +91,7 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 					}
 				}
 			}
-			if(editThing != null)
+			if (editThing != null)
 				initEdit(editThing);
 		}
 	}

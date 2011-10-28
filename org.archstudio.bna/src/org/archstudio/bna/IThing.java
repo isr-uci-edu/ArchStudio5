@@ -11,7 +11,9 @@ public interface IThing {
 
 	public static interface IThingKey<V> extends TypedMap.Key<V> {
 		public boolean isFireEventOnChange();
+
 		public V preWrite(V value);
+
 		public V postRead(V value);
 	}
 

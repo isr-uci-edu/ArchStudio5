@@ -93,7 +93,7 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThi
 
 		// TODO: merge & specialize the StickInternalPointLogic and LookupInternalThingIDFromObjRefLogic so that they simply work with a MappingThing
 		// currently, this is too confusing and difficult to configure/follow
-		
+
 		// set the world thing ID for the stick inner point logic
 		thing.set(syncLogic.syncObjRefKeyToThingIDKey(stickInternalLogic
 				.getWorldThingRefKey(MappingGlassThing.WORLD_POINT_KEY)), Lists.reverse(relativeLineageRefs).get(1));
@@ -101,6 +101,7 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThi
 		thing.set(syncLogic.syncObjRefKeyToThingIDKey(lookupInternalLogic.getWorldThingIDKeyFor(stickInternalLogic
 				.getThingRefKey(MappingGlassThing.WORLD_POINT_KEY))), Lists.reverse(relativeLineageRefs).get(1));
 		// set the world thing ID for the mapping thing
-		thing.set(syncLogic.syncObjRefKeyToThingIDKey(MappingGlassThing.WORLD_REF_KEY), Lists.reverse(relativeLineageRefs).get(1));
+		thing.set(syncLogic.syncObjRefKeyToThingIDKey(MappingGlassThing.WORLD_REF_KEY),
+				Lists.reverse(relativeLineageRefs).get(1));
 	}
 }
