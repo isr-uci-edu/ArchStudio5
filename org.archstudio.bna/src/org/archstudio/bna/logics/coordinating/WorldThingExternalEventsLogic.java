@@ -2,6 +2,8 @@ package org.archstudio.bna.logics.coordinating;
 
 import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
+import java.util.List;
+
 import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
@@ -65,13 +67,14 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 		WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
 		IBNAView innerView = worldThingPeer.getInnerView();
-		if (innerView == null)
+		if (innerView == null) {
 			return;
+		}
 
 		IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
 		ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(new Point()),
 				innerView.getCoordinateMapper());
-		Iterable<IThing> innerThings = innerView.getThingsAt(innerLocation);
+		List<IThing> innerThings = innerView.getThingsAt(innerLocation);
 
 		switch (type) {
 		case MOUSE_UP:
@@ -120,51 +123,52 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 	}
 
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (firstOrNull(things, IHasWorld.class) != null) {
 			mouseEvt(view, evt, things, location, MouseEventType.MOUSE_DOWN);
 		}
 	}
 
 	@Override
-	public void mouseMove(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_MOVE);
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_UP);
 	}
 
 	@Override
-	public void mouseClick(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+	public void mouseClick(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (firstOrNull(things, IHasWorld.class) != null) {
 			mouseEvt(view, evt, things, location, MouseEventType.MOUSE_CLICK);
 		}
 	}
 
 	@Override
-	public void mouseDoubleClick(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+	public void mouseDoubleClick(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (firstOrNull(things, IHasWorld.class) != null) {
 			mouseEvt(view, evt, things, location, MouseEventType.MOUSE_DOUBLECLICK);
 		}
 	}
 
 	@Override
-	public void mouseEnter(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+	public void mouseEnter(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_ENTER);
 	}
 
 	@Override
-	public void mouseExit(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+	public void mouseExit(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_EXIT);
 	}
 
 	@Override
-	public void mouseHover(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+	public void mouseHover(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_HOVER);
 	}
 
+	@Override
 	public void focusGained(IBNAView view, FocusEvent e) {
 		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
@@ -173,8 +177,9 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 			}
 			WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
 			IBNAView innerView = worldThingPeer.getInnerView();
-			if (innerView == null)
+			if (innerView == null) {
 				return;
+			}
 
 			for (IBNAFocusListener l : innerWorld.getThingLogicManager().getThingLogics(IBNAFocusListener.class)) {
 				l.focusGained(innerView, e);
@@ -182,6 +187,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
+	@Override
 	public void focusLost(IBNAView view, FocusEvent e) {
 		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
@@ -190,8 +196,9 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 			}
 			WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
 			IBNAView innerView = worldThingPeer.getInnerView();
-			if (innerView == null)
+			if (innerView == null) {
 				return;
+			}
 
 			for (IBNAFocusListener l : innerWorld.getThingLogicManager().getThingLogics(IBNAFocusListener.class)) {
 				l.focusLost(innerView, e);
@@ -199,6 +206,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
+	@Override
 	public void keyPressed(IBNAView view, KeyEvent e) {
 		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
@@ -207,8 +215,9 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 			}
 			WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
 			IBNAView innerView = worldThingPeer.getInnerView();
-			if (innerView == null)
+			if (innerView == null) {
 				return;
+			}
 
 			for (IBNAKeyListener l : innerWorld.getThingLogicManager().getThingLogics(IBNAKeyListener.class)) {
 				l.keyPressed(innerView, e);
@@ -216,6 +225,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
+	@Override
 	public void keyReleased(IBNAView view, KeyEvent e) {
 		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
@@ -224,8 +234,9 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 			}
 			WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
 			IBNAView innerView = worldThingPeer.getInnerView();
-			if (innerView == null)
+			if (innerView == null) {
 				return;
+			}
 
 			for (IBNAKeyListener l : innerWorld.getThingLogicManager().getThingLogics(IBNAKeyListener.class)) {
 				l.keyReleased(innerView, e);
@@ -233,6 +244,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
+	@Override
 	public void handleEvent(IBNAView view, Event event) {
 		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
@@ -241,8 +253,9 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 			}
 			WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
 			IBNAView innerView = worldThingPeer.getInnerView();
-			if (innerView == null)
+			if (innerView == null) {
 				return;
+			}
 
 			for (IBNAUntypedListener l : innerWorld.getThingLogicManager().getThingLogics(IBNAUntypedListener.class)) {
 				l.handleEvent(innerView, event);
@@ -251,7 +264,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
 			if (innerWorld == null) {
@@ -259,13 +272,14 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 			}
 			WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
 			IBNAView innerView = worldThingPeer.getInnerView();
-			if (innerView == null)
+			if (innerView == null) {
 				return;
+			}
 
 			IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
 			ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(new Point()),
 					innerView.getCoordinateMapper());
-			Iterable<IThing> innerThings = view.getThingsAt(innerLocation);
+			List<IThing> innerThings = view.getThingsAt(innerLocation);
 
 			for (IBNAMenuListener l : innerTlm.getThingLogics(IBNAMenuListener.class)) {
 				l.fillMenu(innerView, innerThings, innerLocation, menu);
@@ -283,13 +297,14 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 				}
 				WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
 				IBNAView innerView = worldThingPeer.getInnerView();
-				if (innerView == null)
+				if (innerView == null) {
 					return;
+				}
 
 				IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
 				ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(new Point()),
 						innerView.getCoordinateMapper());
-				Iterable<IThing> innerThings = view.getThingsAt(innerLocation);
+				List<IThing> innerThings = view.getThingsAt(innerLocation);
 
 				//Composite parentComposite = BNAUtils.getParentComposite(view);
 				//Point p = null;
@@ -337,32 +352,32 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 	}
 
 	@Override
-	public void dragEnter(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location) {
-		dropEvt(view, event, t, location, DropEventType.DRAG_ENTER);
+	public void dragEnter(IBNAView view, DropTargetEvent event, List<IThing> things, ICoordinate location) {
+		dropEvt(view, event, things, location, DropEventType.DRAG_ENTER);
 	}
 
 	@Override
-	public void dragOver(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location) {
-		dropEvt(view, event, t, location, DropEventType.DRAG_OVER);
+	public void dragOver(IBNAView view, DropTargetEvent event, List<IThing> things, ICoordinate location) {
+		dropEvt(view, event, things, location, DropEventType.DRAG_OVER);
 	}
 
 	@Override
-	public void dragOperationChanged(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location) {
-		dropEvt(view, event, t, location, DropEventType.DRAG_OPERATION_CHANGED);
+	public void dragOperationChanged(IBNAView view, DropTargetEvent event, List<IThing> things, ICoordinate location) {
+		dropEvt(view, event, things, location, DropEventType.DRAG_OPERATION_CHANGED);
 	}
 
 	@Override
-	public void dragLeave(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location) {
-		dropEvt(view, event, t, location, DropEventType.DRAG_LEAVE);
+	public void dragLeave(IBNAView view, DropTargetEvent event, List<IThing> things, ICoordinate location) {
+		dropEvt(view, event, things, location, DropEventType.DRAG_LEAVE);
 	}
 
 	@Override
-	public void dropAccept(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location) {
-		dropEvt(view, event, t, location, DropEventType.DROP_ACCEPT);
+	public void dropAccept(IBNAView view, DropTargetEvent event, List<IThing> things, ICoordinate location) {
+		dropEvt(view, event, things, location, DropEventType.DROP_ACCEPT);
 	}
 
 	@Override
-	public void drop(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location) {
-		dropEvt(view, event, t, location, DropEventType.DROP);
+	public void drop(IBNAView view, DropTargetEvent event, List<IThing> things, ICoordinate location) {
+		dropEvt(view, event, things, location, DropEventType.DROP);
 	}
 }

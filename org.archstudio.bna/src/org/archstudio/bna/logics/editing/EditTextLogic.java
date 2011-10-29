@@ -2,6 +2,8 @@ package org.archstudio.bna.logics.editing;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.List;
+
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
@@ -46,7 +48,7 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 	}
 
 	@Override
-	public void fillMenu(final IBNAView view, Iterable<IThing> things, final ICoordinate location, IMenuManager m) {
+	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager m) {
 		IThing editThing = null;
 		if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) <= 1) {
 			MAIN: for (IThing thing : things) {

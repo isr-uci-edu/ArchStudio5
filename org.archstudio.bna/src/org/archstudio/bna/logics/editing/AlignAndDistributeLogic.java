@@ -74,7 +74,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		if (imageRegistry == null) {
 			loadImages(view);
 		}

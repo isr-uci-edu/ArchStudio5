@@ -3,6 +3,8 @@ package org.archstudio.bna.logics.editing;
 import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
+import java.util.List;
+
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -57,9 +59,9 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		IBNAModel m = getBNAModel();
-		if (!Iterables.isEmpty(things)) {
+		if (!things.isEmpty()) {
 			final IIsSticky st = castOrNull(Assemblies.getAssemblyWithRootOrPart(m, firstOrNull(things)),
 					IIsSticky.class);
 			if (st != null && UserEditableUtils.isEditableForAllQualities(st, USER_MAY_SHOW_HIDE_TAG)) {

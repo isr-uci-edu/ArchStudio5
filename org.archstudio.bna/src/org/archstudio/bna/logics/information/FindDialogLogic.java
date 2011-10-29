@@ -1,5 +1,7 @@
 package org.archstudio.bna.logics.information;
 
+import java.util.List;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -41,7 +43,7 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 	}
 
 	@Override
-	public void fillMenu(final IBNAView view, Iterable<IThing> things, final ICoordinate location, IMenuManager menu) {
+	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
 		if (view.getParentView() == null) {
 			IAction findAction = new Action("Find...") {
 				@Override

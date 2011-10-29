@@ -1,5 +1,7 @@
 package org.archstudio.bna.logics.editing;
 
+import java.util.List;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -22,7 +24,7 @@ public class EditFlowLogic extends AbstractThingLogic implements IBNAMenuListene
 	}
 
 	@Override
-	public void fillMenu(final IBNAView view, Iterable<IThing> things, final ICoordinate location, IMenuManager menu) {
+	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
 		IThing editThing = null;
 		if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) <= 1) {
 			MAIN: for (IThing thing : things) {

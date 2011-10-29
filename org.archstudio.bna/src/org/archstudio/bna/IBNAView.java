@@ -1,5 +1,7 @@
 package org.archstudio.bna;
 
+import java.util.List;
+
 import org.eclipse.swt.widgets.Composite;
 
 public interface IBNAView {
@@ -10,7 +12,7 @@ public interface IBNAView {
 
 	public ICoordinateMapper getCoordinateMapper();
 
-	public Iterable<IThing> getThingsAt(ICoordinate location);
+	public List<IThing> getThingsAt(ICoordinate location);
 
 	public <T extends IThing> IThingPeer<T> getThingPeer(T t);
 

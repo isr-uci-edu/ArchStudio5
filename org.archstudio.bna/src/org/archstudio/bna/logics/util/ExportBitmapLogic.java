@@ -1,6 +1,7 @@
 package org.archstudio.bna.logics.util;
 
 import java.io.File;
+import java.util.List;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
@@ -47,7 +48,7 @@ public class ExportBitmapLogic extends AbstractThingLogic implements IBNAMenuLis
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		if (things.iterator().hasNext()) {
 			return;
 		}

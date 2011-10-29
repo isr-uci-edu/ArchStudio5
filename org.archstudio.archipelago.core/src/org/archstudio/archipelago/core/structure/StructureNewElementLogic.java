@@ -1,5 +1,7 @@
 package org.archstudio.archipelago.core.structure;
 
+import java.util.List;
+
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -39,7 +41,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager m) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		if (matches(view, SystemUtils.firstOrNull(things))) {
 			Point world = location.getWorldPoint(new Point());
 			for (IAction action : getActions(view, SystemUtils.firstOrNull(things), world.x, world.y)) {

@@ -2,6 +2,8 @@ package org.archstudio.bna.logics.editing;
 
 import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
+import java.util.List;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -29,7 +31,7 @@ public class RotateTagsLogic extends AbstractThingLogic implements IBNAMenuListe
 	}
 
 	@Override
-	public void fillMenu(final IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		final TagThing tt = firstOrNull(things, TagThing.class);
 		if (tt != null) {
 			IAction rotateAction = new Action("Rotate Tag") {

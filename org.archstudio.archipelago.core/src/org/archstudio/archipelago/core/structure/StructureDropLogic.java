@@ -1,5 +1,7 @@
 package org.archstudio.archipelago.core.structure;
 
+import java.util.List;
+
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.util.AbstractTreeDropLogic;
@@ -49,7 +51,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 	}
 
 	@Override
-	public void drop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
+	public void drop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (pulser != null) {
 			view.getBNAWorld().getBNAModel().removeThing(pulser);
 			pulser = null;

@@ -1,5 +1,7 @@
 package org.archstudio.bna.logics.events;
 
+import java.util.List;
+
 import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -22,7 +24,7 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (evt.button == 1 && (evt.stateMask & SWT.MODIFIER_MASK) == 0) {
 			IRelativeMovable relativeMovableThing = SystemUtils.firstOrNull(t, IRelativeMovable.class);
 			if (relativeMovableThing != null
@@ -37,7 +39,7 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	public void mouseMove(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (currentEvent != null) {
 			fireDragMoveEvent(currentEvent = new DragMoveEvent(currentEvent, evt, DefaultCoordinate.forLocal(new Point(
 					evt.x, evt.y), view.getCoordinateMapper())));
@@ -45,7 +47,7 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (currentEvent != null) {
 			view.getComposite().setCursor(view.getComposite().getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
 			fireDragFinishedEvent(currentEvent = new DragMoveEvent(currentEvent, evt, DefaultCoordinate.forLocal(

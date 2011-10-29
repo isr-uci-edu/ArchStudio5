@@ -1,6 +1,7 @@
 package org.archstudio.archipelago.core.util;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.bna.IBNAView;
@@ -63,14 +64,14 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 			ICoordinate location, Object data);
 
 	@Override
-	public void dragEnter(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
+	public void dragEnter(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (acceptDrop(view, event, ts, location)) {
 			event.detail = DND.DROP_LINK;
 		}
 	}
 
 	@Override
-	public void dragLeave(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
+	public void dragLeave(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (pulser != null) {
 			view.getBNAWorld().getBNAModel().removeThing(pulser);
 			pulser = null;
@@ -78,7 +79,7 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 	}
 
 	@Override
-	public void dragOver(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
+	public void dragOver(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (acceptDrop(view, event, ts, location)) {
 			IThing t = getSingleThing(ts);
 			event.detail = DND.DROP_LINK;
@@ -104,7 +105,7 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 	}
 
 	@Override
-	public void dropAccept(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
+	public void dropAccept(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (acceptDrop(view, event, ts, location)) {
 			event.detail = DND.DROP_LINK;
 			LocalSelectionTransfer transfer = LocalSelectionTransfer.getInstance();
@@ -118,11 +119,11 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 	}
 
 	@Override
-	public void dragOperationChanged(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
+	public void dragOperationChanged(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 	}
 
 	@Override
-	public void drop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
+	public void drop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 	}
 
 	protected static IThing getSingleThing(Iterable<IThing> ts) {
