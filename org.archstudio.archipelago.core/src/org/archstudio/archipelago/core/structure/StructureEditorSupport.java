@@ -185,6 +185,7 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new StructureNewInterfaceLogic(AS.xarch, AS.resources));
 		logicManager.addThingLogic(new EditTextLogic());
 		logicManager.addThingLogic(new EditFlowLogic());
+		logicManager.addThingLogic(new StructureAssignMyxGenLogic(AS.xarch));
 		//logicManager.addThingLogic(new StructureEditColorLogic(AS));
 		logicManager.addThingLogic(new ShowHideTagsLogic());
 		logicManager.addThingLogic(new FindDialogLogic(new ArchipelagoFinder(AS)));

@@ -13,6 +13,7 @@ public class MyxGenInterface extends AbstractExtension {
 	protected final boolean generateGetter;
 	protected final String className;
 	protected final String description;
+	protected final String domain;
 
 	public MyxGenInterface(IConfigurationElement element) {
 		super(element);
@@ -30,6 +31,7 @@ public class MyxGenInterface extends AbstractExtension {
 			}
 		}
 		this.description = description;
+		this.domain = element.getAttribute("domain");
 	}
 
 	public String getName() {
@@ -56,6 +58,10 @@ public class MyxGenInterface extends AbstractExtension {
 		return className;
 	}
 
+	public String getDomain() {
+		return domain;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -69,6 +75,7 @@ public class MyxGenInterface extends AbstractExtension {
 				+ "serviceObjectDelegate=" + serviceObjectDelegate + ","//
 				+ "generateGetter=" + generateGetter + ","//
 				+ "className=" + className + ","//
+				+ "domain=" + domain + ","//
 				+ "description=" + description + "]";
 	}
 }

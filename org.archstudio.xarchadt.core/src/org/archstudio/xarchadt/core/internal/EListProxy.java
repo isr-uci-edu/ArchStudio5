@@ -109,6 +109,11 @@ public class EListProxy extends AbstractProxy {
 		}
 
 		@Override
+		public void clear() {
+			xarch.remove(objRef, name, xarch.getAll(objRef, name));
+		}
+
+		@Override
 		public String toString() {
 			return SystemUtils.message("EList of '$0' for $1", name, objRef);
 		}
