@@ -20,7 +20,7 @@
          <interface
                class="org.archstudio.demo.chatsys.IChatListener"
                delegate="brick"
-               direction="in"
+               direction="out"
                domain="bottom"
                getter="true"
                id="chatEvents"
@@ -35,7 +35,7 @@
          <interface
                class="org.archstudio.demo.chatsys.IChat"
                delegate="variable"
-               direction="in"
+               direction="out"
                domain="top"
                getter="true"
                id="chat"

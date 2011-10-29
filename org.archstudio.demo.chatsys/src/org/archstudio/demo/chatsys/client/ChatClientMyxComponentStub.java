@@ -49,11 +49,12 @@ abstract class ChatClientMyxComponentStub extends
 	}
 
 	/**
-	 * Myx interface chat: <code>IN_CHAT</code>
-	 * 
+	 * Myx name for the <code>chat</code> interface.
+	 *
 	 * @generated
 	 */
-	public static final IMyxName IN_CHAT = MyxUtils.createName("chat");
+	// MyxGenInterface[name=chat,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.demo.chatsys.IChat,domain=top,description=null]
+	public static final IMyxName OUT_CHAT = MyxUtils.createName("chat");
 	/**
 	 * Myx interface chatEvents: <code>IN_CHAT_EVENTS</code>
 	 * 
@@ -97,6 +98,15 @@ abstract class ChatClientMyxComponentStub extends
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
+		if (interfaceName.equals(OUT_CHAT)) {
+			if (chat != null) {
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
+			}
+			chat = (org.archstudio.demo.chatsys.IChat) serviceObject;
+			return;
+		}
 		throw new IllegalArgumentException("Unhandled interface connection: "
 				+ interfaceName);
 	}
@@ -109,6 +119,10 @@ abstract class ChatClientMyxComponentStub extends
 			Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
+		}
+		if (interfaceName.equals(OUT_CHAT)) {
+			chat = null;
+			return;
 		}
 		throw new IllegalArgumentException(
 				"Unhandled interface disconnection: " + interfaceName);
@@ -127,12 +141,6 @@ abstract class ChatClientMyxComponentStub extends
 	 */
 	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
-		if (interfaceName.equals(IN_CHAT)) {
-			if (chat == null) {
-				throw new NullPointerException("chat");
-			}
-			return chat;
-		}
 		if (interfaceName.equals(IN_CHAT_EVENTS)) {
 			return this;
 		}
