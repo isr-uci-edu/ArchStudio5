@@ -23,11 +23,11 @@ public class SplineBreakLogic extends AbstractThingLogic implements IBNAMouseCli
 	}
 
 	@Override
-	public void mouseClick(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+	public void mouseClick(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 	}
 
 	@Override
-	public void mouseDoubleClick(IBNAView view, MouseEvent evt, Iterable<IThing> things, final ICoordinate location) {
+	public void mouseDoubleClick(IBNAView view, MouseEvent evt, List<IThing> things, final ICoordinate location) {
 		final IHasMutablePoints t = castOrNull(firstOrNull(things), IHasMutablePoints.class);
 		if (t != null && UserEditableUtils.isEditableForAllQualities(t, IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS)) {
 

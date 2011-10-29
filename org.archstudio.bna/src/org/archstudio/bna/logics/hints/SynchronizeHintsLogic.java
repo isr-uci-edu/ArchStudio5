@@ -18,8 +18,6 @@ import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.hints.synchronizers.PropertyHintSynchronizer;
 
-import com.google.common.collect.Iterables;
-
 public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNASynchronousModelListener,
 		IHintRepositoryChangeListener {
 
@@ -73,8 +71,7 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNASyn
 
 	@Override
 	public void init() {
-		checkState(Iterables.isEmpty(getBNAModel().getAllThings()),
-				"SynchronizeHintsLogic must be added before things.");
+		checkState(getBNAModel().getAllThings().isEmpty(), "SynchronizeHintsLogic must be added before things.");
 
 		super.init();
 		for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {

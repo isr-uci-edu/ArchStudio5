@@ -1,6 +1,7 @@
 package org.archstudio.archipelago.core.structure;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -48,7 +49,7 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager m) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
 		if (selectedThings.size() > 1)
 			return;

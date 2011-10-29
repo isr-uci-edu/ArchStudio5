@@ -1,5 +1,7 @@
 package org.archstudio.bna.logics.editing;
 
+import java.util.List;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -17,18 +19,18 @@ public class StandardCursorLogic extends AbstractThingLogic implements IBNAMouse
 	boolean downOnCursor = false;
 
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		isDown = true;
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		isDown = false;
 		updateCursor(view, evt, things, location);
 	}
 
 	@Override
-	public void mouseMove(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (!isDown) {
 			updateCursor(view, evt, things, location);
 		}

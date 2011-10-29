@@ -1,5 +1,6 @@
 package org.archstudio.xadlbna.logics.editing;
 
+import java.util.List;
 import java.util.Set;
 
 import org.archstudio.bna.IBNAView;
@@ -26,7 +27,7 @@ public class RemoveElementLogic extends AbstractThingLogic implements IBNAMenuLi
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager m) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		final Set<ObjRef> objRefs = Sets.newHashSet();
 		for (IThing thing : BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) {
 			ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);

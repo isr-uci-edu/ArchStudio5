@@ -1,5 +1,7 @@
 package org.archstudio.bna.logics;
 
+import java.util.List;
+
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.CoordinateMapperEvent;
 import org.archstudio.bna.IBNASynchronousModelListener;
@@ -49,7 +51,7 @@ public class DebugLogic extends AbstractThingLogic implements IBNASynchronousMod
 	int mouseEventCount = 0;
 
 	@Override
-	public void mouseClick(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseClick(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		mouseEventCount++;
 		System.err.println("DL: mouseClick " + mouseEventCount + " " + evt);
 		ICoordinateMapper cm = view.getCoordinateMapper();
@@ -60,19 +62,19 @@ public class DebugLogic extends AbstractThingLogic implements IBNASynchronousMod
 	}
 
 	@Override
-	public void mouseDoubleClick(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseDoubleClick(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		mouseEventCount++;
 		System.err.println("DL: mouseDoubleClick " + mouseEventCount + " " + evt);
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		mouseEventCount++;
 		System.err.println("DL: mouseUp " + mouseEventCount + " " + evt);
 	}
 
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		mouseEventCount++;
 		System.err.println("DL: mouseDown " + mouseEventCount + " " + evt);
 	}

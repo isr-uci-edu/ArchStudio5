@@ -1,5 +1,7 @@
 package org.archstudio.bna.logics.editing;
 
+import java.util.List;
+
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -49,11 +51,11 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 	}
 
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (evt.button == 1) {
 			IHasMutableSelected mst = SystemUtils.firstOrNull(t, IHasMutableSelected.class);
 			if (mst != null && UserEditableUtils.isEditableForAllQualities(mst, IHasMutableSelected.USER_MAY_SELECT)) {
@@ -81,7 +83,7 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 				}
 				return;
 			}
-			if (Iterables.isEmpty(t)) {
+			if (t.isEmpty()) {
 				boolean controlPressed = BNAUtils.wasControlPressed(evt);
 				boolean shiftPressed = BNAUtils.wasShiftPressed(evt);
 
@@ -93,7 +95,7 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager m) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		/*
 		 * We don't actually want to fill the menu here, but we want to change
 		 * the selection before the menu really gets filled to reflect the
@@ -102,7 +104,7 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 		 * selectable, we change the selection to be that thing. If we click on
 		 * something not selectable, then we clear the selection.
 		 */
-		if (Iterables.isEmpty(things)) {
+		if (things.isEmpty()) {
 			removeAllSelections();
 		}
 		else {

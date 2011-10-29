@@ -2,6 +2,8 @@ package org.archstudio.bna.logics.navigating;
 
 import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
+import java.util.List;
+
 import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.IBNAMouseWheelListener;
 import org.archstudio.bna.IBNAView;
@@ -41,7 +43,7 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 	}
 
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent e, Iterable<IThing> t, ICoordinate location) {
+	public void mouseDown(IBNAView view, MouseEvent e, List<IThing> t, ICoordinate location) {
 		//Only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -58,7 +60,7 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseEvent e, Iterable<IThing> t, ICoordinate location) {
+	public void mouseUp(IBNAView view, MouseEvent e, List<IThing> t, ICoordinate location) {
 		//Only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -74,7 +76,7 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 	}
 
 	@Override
-	public void mouseMove(IBNAView view, MouseEvent e, Iterable<IThing> t, ICoordinate location) {
+	public void mouseMove(IBNAView view, MouseEvent e, List<IThing> t, ICoordinate location) {
 		if (startMouseCoordinate != null) {
 			IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
 			if (mcm != null) {
@@ -114,11 +116,11 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 	}
 
 	@Override
-	public void mouseClick(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseClick(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 	}
 
 	@Override
-	public void mouseDoubleClick(IBNAView view, MouseEvent evt, Iterable<IThing> t, ICoordinate location) {
+	public void mouseDoubleClick(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (evt.button == panButton) {
 			final IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
 			if (mcm != null) {

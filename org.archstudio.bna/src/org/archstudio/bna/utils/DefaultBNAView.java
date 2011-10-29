@@ -75,7 +75,7 @@ public class DefaultBNAView implements IBNAView {
 	}
 
 	@Override
-	public Iterable<IThing> getThingsAt(ICoordinate location) {
+	public List<IThing> getThingsAt(ICoordinate location) {
 		location = DefaultCoordinate.forWorld(location.getWorldPoint(new Point()), cm);
 		List<IThing> things = Lists.newArrayList();
 		for (IThing t : getBNAWorld().getBNAModel().getReverseThings()) {

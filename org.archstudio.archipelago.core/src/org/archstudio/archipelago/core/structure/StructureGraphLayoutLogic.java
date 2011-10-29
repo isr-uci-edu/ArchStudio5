@@ -47,8 +47,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
-import com.google.common.collect.Iterables;
-
 public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBNAMenuListener {
 	protected final IXArchADT xarch;
 	protected final IResources resources;
@@ -64,8 +62,8 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
-		if (!Iterables.isEmpty(things)) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+		if (!things.isEmpty()) {
 			return;
 		}
 

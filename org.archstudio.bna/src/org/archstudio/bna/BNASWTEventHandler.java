@@ -115,7 +115,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 	private void fillContextMenu(IMenuManager m) {
 		try {
 			ICoordinate location = DefaultCoordinate.forLocal(lastMouseActionPoint, cm);
-			Iterable<IThing> t = view.getThingsAt(location);
+			List<IThing> t = view.getThingsAt(location);
 			for (IBNAMenuListener logic : thingLogicManager.getThingLogics(IBNAMenuListener.class)) {
 				logic.fillMenu(view, t, location, m);
 			}
@@ -135,7 +135,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 			}
 
 			ICoordinate location = DefaultCoordinate.forLocal(lastMouseActionPoint, cm);
-			Iterable<IThing> t = view.getThingsAt(location);
+			List<IThing> t = view.getThingsAt(location);
 
 			switch (type) {
 			case MOUSE_UP:
@@ -319,7 +319,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 		org.eclipse.swt.graphics.Point pointFromControlPerspective = control.toControl(e.x, e.y);
 		ICoordinate location = DefaultCoordinate.forLocal(new Point(pointFromControlPerspective.x,
 				pointFromControlPerspective.y), cm);
-		Iterable<IThing> t = view.getThingsAt(location);
+		List<IThing> t = view.getThingsAt(location);
 
 		try {
 			switch (evtType) {

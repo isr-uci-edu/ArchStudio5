@@ -1,5 +1,7 @@
 package org.archstudio.bna.logics.util;
 
+import java.util.List;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -12,7 +14,7 @@ public class ExportPPTLogic extends AbstractThingLogic implements IBNAMenuListen
 	// TODO: Restore functionality
 
 	@Override
-	public void fillMenu(IBNAView view, Iterable<IThing> things, ICoordinate location, IMenuManager menu) {
+	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		// TODO Auto-generated method stub
 	}
 
