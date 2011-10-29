@@ -86,7 +86,6 @@ public class EListProxy extends AbstractProxy {
 					if (current == null) {
 						throw new IllegalStateException();
 					}
-					i.remove();
 					xarch.remove(objRef, name, current);
 					current = null;
 				}
