@@ -1,6 +1,7 @@
 package org.archstudio.myxgen.eclipse.extension;
 
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
 
 import org.archstudio.myxgen.MyxGenBrick;
 import org.eclipse.core.resources.IProject;
@@ -11,12 +12,10 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IRegistryEventListener;
 import org.eclipse.core.runtime.RegistryFactory;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.collect.Iterables;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
 
 public class MyxGenExtensions {
 
@@ -26,125 +25,139 @@ public class MyxGenExtensions {
 	public static final String EXTENSION_POINT_NAME = EXTENSION_POINT_ID
 			.substring(EXTENSION_POINT_ID.lastIndexOf('.') + 1);
 
-	final static private IExtensionRegistry pluginRegistry = RegistryFactory.getRegistry();
-	final static private Cache<String, MyxGenBrick> pluginMyxGenBricksCache = CacheBuilder.newBuilder().build(
-			new CacheLoader<String, MyxGenBrick>() {
-				@Override
-				public MyxGenBrick load(String myxGenBrickID) {
-					for (IConfigurationElement c : workspaceRegistry.getConfigurationElementsFor(
-							EXTENSION_POINT_NAMESPACE, EXTENSION_POINT_NAME)) {
-						if (myxGenBrickID.equals(c.getAttribute("id"))) {
-							return new MyxGenBrick(c);
-						}
-					}
-					return null;
-				}
-			});
-
+	private static boolean pluginCacheNeedsRefresh = true;
+	private final static Map<String, MyxGenBrick> pluginCache = Maps.newHashMap();
+	private final static IExtensionRegistry pluginRegistry = RegistryFactory.getRegistry();
 	static {
 		pluginRegistry.addListener(new IRegistryEventListener() {
 
 			@Override
 			public void removed(IExtensionPoint[] extensionPoints) {
-				pluginMyxGenBricksCache.invalidateAll();
+				clear();
 			}
 
 			@Override
 			public void removed(IExtension[] extensions) {
-				pluginMyxGenBricksCache.invalidateAll();
+				clear();
 			}
 
 			@Override
 			public void added(IExtensionPoint[] extensionPoints) {
-				pluginMyxGenBricksCache.invalidateAll();
+				clear();
 			}
 
 			@Override
 			public void added(IExtension[] extensions) {
-				pluginMyxGenBricksCache.invalidateAll();
+				clear();
 			}
+
+			public void clear() {
+				synchronized (pluginCache) {
+					pluginCache.clear();
+					pluginCacheNeedsRefresh = true;
+				}
+			}
+
 		}, EXTENSION_POINT_ID);
 	}
 
+	private static void checkPluginCache() {
+		if (pluginCacheNeedsRefresh) {
+			for (IConfigurationElement c : pluginRegistry.getConfigurationElementsFor(EXTENSION_POINT_NAMESPACE,
+					EXTENSION_POINT_NAME)) {
+				MyxGenBrick b = new MyxGenBrick(c);
+				pluginCache.put(b.getId(), b);
+			}
+			pluginCacheNeedsRefresh = false;
+		}
+	}
+
+	private static boolean workspaceCacheNeedsRefresh = true;
+	private static final Map<String, MyxGenBrick> workspaceCache = Maps.newHashMap();
+	private static final Multimap<String, MyxGenBrick> projectCache = ArrayListMultimap.create();
 	private static final IExtensionRegistry workspaceRegistry = new WorkspaceExtensionRegistry();
-	private static final Cache<String, MyxGenBrick> workspaceMyxGenBricksCache = CacheBuilder.newBuilder().build(
-			new CacheLoader<String, MyxGenBrick>() {
-
-				@Override
-				public MyxGenBrick load(String myxGenBrickID) throws Exception {
-					for (IConfigurationElement c : workspaceRegistry.getConfigurationElementsFor(
-							EXTENSION_POINT_NAMESPACE, EXTENSION_POINT_NAME)) {
-						if (myxGenBrickID.equals(c.getAttribute("id"))) {
-							return new MyxGenBrick(c);
-						}
-					}
-					return null;
-				}
-			});
-
 	static {
 		workspaceRegistry.addListener(new IRegistryEventListener() {
 
 			@Override
 			public void removed(IExtensionPoint[] extensionPoints) {
-				workspaceMyxGenBricksCache.invalidateAll();
+				clear();
 			}
 
 			@Override
 			public void removed(IExtension[] extensions) {
-				workspaceMyxGenBricksCache.invalidateAll();
+				clear();
 			}
 
 			@Override
 			public void added(IExtensionPoint[] extensionPoints) {
-				workspaceMyxGenBricksCache.invalidateAll();
+				clear();
 			}
 
 			@Override
 			public void added(IExtension[] extensions) {
-				workspaceMyxGenBricksCache.invalidateAll();
+				clear();
+			}
+
+			public void clear() {
+				synchronized (pluginCache) {
+					workspaceCache.clear();
+					projectCache.clear();
+					workspaceCacheNeedsRefresh = true;
+				}
 			}
 
 		}, EXTENSION_POINT_ID);
 	}
 
+	private static void checkWorkspaceCache() {
+		if (workspaceCacheNeedsRefresh) {
+			for (IConfigurationElement c : workspaceRegistry.getConfigurationElementsFor(EXTENSION_POINT_NAMESPACE,
+					EXTENSION_POINT_NAME)) {
+				MyxGenBrick b = new MyxGenBrick(c);
+				workspaceCache.put(b.getId(), b);
+				projectCache.put(c.getContributor().getName(), b);
+			}
+			workspaceCacheNeedsRefresh = false;
+		}
+	}
+
 	public static MyxGenBrick getExtenalMyxGenBrick(String myxGenBrickId) {
-		return pluginMyxGenBricksCache.getUnchecked(myxGenBrickId);
+		synchronized (pluginCache) {
+			checkPluginCache();
+			return pluginCache.get(myxGenBrickId);
+		}
 	}
 
 	public static MyxGenBrick getWorkspaceMyxGenBrick(String myxGenBrickId) {
-		return workspaceMyxGenBricksCache.getUnchecked(myxGenBrickId);
+		synchronized (workspaceCache) {
+			checkWorkspaceCache();
+			return workspaceCache.get(myxGenBrickId);
+		}
 	}
 
 	public static MyxGenBrick getActiveMyxGenBrick(String myxGenBrickId) {
-		MyxGenBrick myxGenBrick = null;
-		try {
-			myxGenBrick = getWorkspaceMyxGenBrick(myxGenBrickId);
+		synchronized (workspaceCache) {
+			checkWorkspaceCache();
+			MyxGenBrick myxGenBrick = workspaceCache.get(myxGenBrickId);
+			if (myxGenBrick != null) {
+				return myxGenBrick;
+			}
 		}
-		catch (NullPointerException e) {
-			// ignore: thrown if non-existent in the workspace
+		synchronized (pluginCache) {
+			checkPluginCache();
+			MyxGenBrick myxGenBrick = pluginCache.get(myxGenBrickId);
+			if (myxGenBrick != null) {
+				return myxGenBrick;
+			}
 		}
-		if (myxGenBrick == null) {
-			myxGenBrick = getExtenalMyxGenBrick(myxGenBrickId);
-		}
-		return myxGenBrick;
+		return null;
 	}
 
-	public static Iterable<MyxGenBrick> getWorkspaceMyxGenBricks(final IProject project) {
-		Iterable<IConfigurationElement> allConfigurationElements = Arrays.asList(workspaceRegistry
-				.getConfigurationElementsFor(EXTENSION_POINT_NAMESPACE, EXTENSION_POINT_NAME));
-		Iterable<IConfigurationElement> configurationElementsInProject = Iterables.filter(allConfigurationElements,
-				new Predicate<IConfigurationElement>() {
-					@Override
-					public boolean apply(IConfigurationElement input) {
-						return input.getContributor().getName().equals(project.getName());
-					}
-				});
-		return Iterables.transform(configurationElementsInProject, new Function<IConfigurationElement, MyxGenBrick>() {
-			@Override
-			public MyxGenBrick apply(IConfigurationElement input) {
-				return workspaceMyxGenBricksCache.getUnchecked(input.getAttribute("id"));
-			}
-		});
+	public static Collection<MyxGenBrick> getWorkspaceMyxGenBricks(final IProject project) {
+		synchronized (workspaceCache) {
+			checkWorkspaceCache();
+			return Lists.newArrayList(projectCache.get(project.getName()));
+		}
 	}
 }
