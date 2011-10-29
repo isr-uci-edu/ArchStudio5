@@ -42,6 +42,11 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
+
 public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IBNAMenuListener {
 
 	protected final IXArchADT xarch;
@@ -116,12 +121,34 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 			impl.getImplementation().add(myxGen);
 		}
 
-		brick.getInterface().clear();
 		{
+			Multimap<String, Interface> oldIfaces = Multimaps.index(brick.getInterface().iterator(),
+					new Function<Interface, String>() {
+						@Override
+						public String apply(Interface iface) {
+							LookupImplementation limpl = XArchADTProxy.proxy(xarch, XadlUtils.getImplementation(xarch,
+									XArchADTProxy.unproxy(iface),
+									Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION));
+							if (limpl != null) {
+								String lookup = limpl.getLookup();
+								return lookup != null ? lookup : "";
+							}
+
+							return "";
+						}
+					});
+			List<Interface> newIfaces = Lists.newArrayList();
+
 			for (MyxGenInterface mif : myxGenBrick.getInterfaces()) {
 
-				Interface bif = structureFactory.createInterface();
-				bif.setId(UIDGenerator.generateUID());
+				Interface bif = SystemUtils.firstOrNull(oldIfaces.get(mif.getName()));
+				if (bif == null) {
+					bif = structureFactory.createInterface();
+					bif.setId(UIDGenerator.generateUID());
+					brick.getInterface().add(bif);
+				}
+				newIfaces.add(bif);
+
 				bif.setName(mif.getName());
 				bif.setDirection(Direction.getByName(mif.getDirection().name().toLowerCase()));
 
@@ -132,6 +159,7 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 				lookup.setId(UIDGenerator.generateUID());
 				lookup.setLookup(mif.getId());
 
+				impl.getImplementation().clear();
 				impl.getImplementation().add(lookup);
 
 				DomainExtension domainExt = XadlUtils
@@ -139,10 +167,11 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 				Domain domain = domainFactory.createDomain();
 				domain.setType(DomainType.getByName(mif.getDomain()));
 				domainExt.setDomain(domain);
-
-				brick.getInterface().add(bif);
 			}
-		}
 
+			List<Interface> doomedIfaces = Lists.newArrayList(oldIfaces.values());
+			doomedIfaces.removeAll(newIfaces);
+			brick.getInterface().removeAll(doomedIfaces);
+		}
 	}
 }
