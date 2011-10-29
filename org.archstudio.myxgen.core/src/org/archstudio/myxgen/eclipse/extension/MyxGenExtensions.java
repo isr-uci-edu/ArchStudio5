@@ -11,6 +11,7 @@ import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IRegistryEventListener;
 import org.eclipse.core.runtime.RegistryFactory;
+import org.osgi.framework.Bundle;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
@@ -27,6 +28,7 @@ public class MyxGenExtensions {
 
 	private static boolean pluginCacheNeedsRefresh = true;
 	private final static Map<String, MyxGenBrick> pluginCache = Maps.newHashMap();
+	private final static Multimap<String, MyxGenBrick> bundleCache = ArrayListMultimap.create();
 	private final static IExtensionRegistry pluginRegistry = RegistryFactory.getRegistry();
 	static {
 		pluginRegistry.addListener(new IRegistryEventListener() {
@@ -54,6 +56,7 @@ public class MyxGenExtensions {
 			public void clear() {
 				synchronized (pluginCache) {
 					pluginCache.clear();
+					bundleCache.clear();
 					pluginCacheNeedsRefresh = true;
 				}
 			}
@@ -67,6 +70,7 @@ public class MyxGenExtensions {
 					EXTENSION_POINT_NAME)) {
 				MyxGenBrick b = new MyxGenBrick(c);
 				pluginCache.put(b.getId(), b);
+				bundleCache.put(c.getContributor().getName(), b);
 			}
 			pluginCacheNeedsRefresh = false;
 		}
@@ -154,10 +158,30 @@ public class MyxGenExtensions {
 		return null;
 	}
 
-	public static Collection<MyxGenBrick> getWorkspaceMyxGenBricks(final IProject project) {
+	public static Collection<MyxGenBrick> getExternalMyxGenBricks(Bundle bundle) {
+		synchronized (pluginCache) {
+			checkPluginCache();
+			return Lists.newArrayList(bundleCache.get(bundle.getSymbolicName()));
+		}
+	}
+
+	public static Collection<MyxGenBrick> getWorkspaceMyxGenBricks(IProject project) {
 		synchronized (workspaceCache) {
 			checkWorkspaceCache();
 			return Lists.newArrayList(projectCache.get(project.getName()));
 		}
+	}
+
+	public static Multimap<String, MyxGenBrick> getActiveMyxGenBricks() {
+		Multimap<String, MyxGenBrick> myxGenBricks = ArrayListMultimap.create();
+		synchronized (workspaceCache) {
+			checkWorkspaceCache();
+			myxGenBricks.putAll(projectCache);
+		}
+		synchronized (pluginCache) {
+			checkPluginCache();
+			//myxGenBricks.putAll(bundleCache);
+		}
+		return myxGenBricks;
 	}
 }

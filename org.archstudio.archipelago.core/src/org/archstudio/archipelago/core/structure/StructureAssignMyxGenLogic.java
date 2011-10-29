@@ -1,6 +1,10 @@
 package org.archstudio.archipelago.core.structure;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -35,8 +39,6 @@ import org.archstudio.xadlbna.things.IHasObjRef;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.core.XArchADTProxy;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -82,13 +84,19 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 
 	protected void populateMenuWithMyxGenBricks(final ObjRef objRef, IMenuManager manager) {
 		manager.removeAll();
-		for (final IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
-			IMenuManager projectMenu = null;
-			for (final MyxGenBrick myxGenBrick : MyxGenExtensions.getWorkspaceMyxGenBricks(project)) {
-				if (projectMenu == null) {
-					projectMenu = new MenuManager(project.getName());
-					manager.add(projectMenu);
+		Multimap<String, MyxGenBrick> allMyxGenBricks = MyxGenExtensions.getActiveMyxGenBricks();
+		for (final Entry<String, Collection<MyxGenBrick>> e : SystemUtils.sortedByKey(allMyxGenBricks.asMap()
+				.entrySet())) {
+			IMenuManager projectMenu = new MenuManager(e.getKey());
+			manager.add(projectMenu);
+			List<MyxGenBrick> myxGenBricks = Lists.newArrayList(e.getValue());
+			Collections.sort(myxGenBricks, new Comparator<MyxGenBrick>() {
+				@Override
+				public int compare(MyxGenBrick o1, MyxGenBrick o2) {
+					return o1.getName().compareTo(o2.getName());
 				}
+			});
+			for (final MyxGenBrick myxGenBrick : myxGenBricks) {
 				projectMenu.add(new Action(myxGenBrick.getName()) {
 					@Override
 					public void run() {
