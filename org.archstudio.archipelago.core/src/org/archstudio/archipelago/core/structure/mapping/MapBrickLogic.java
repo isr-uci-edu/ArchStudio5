@@ -10,6 +10,7 @@ import org.archstudio.archipelago.core.structure.StructureEditorSupport;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasCount;
+import org.archstudio.bna.facets.IHasFontData;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasMutableText;
@@ -24,6 +25,7 @@ import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.xadlbna.logics.mapping.AbstractXADLToBNAPathLogic;
 import org.archstudio.xadlbna.things.IHasObjRef;
 import org.archstudio.xadlbna.things.IHasXArchID;
@@ -45,14 +47,16 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 	protected final Dimension defaultSize;
 	protected final RGB defaultColor;
 	protected final int defaultCount;
+	protected final FontStyle defaultFontStyle;
 
 	public MapBrickLogic(ArchipelagoServices AS, IXArchADT xarch, ObjRef rootObjRef, String objRefPath,
-			Dimension defaultSize, RGB defaultColor, int defaultCount) {
+			Dimension defaultSize, RGB defaultColor, int defaultCount, FontStyle defaultFontStyle) {
 		super(xarch, rootObjRef, objRefPath);
 		this.AS = AS;
 		this.defaultSize = defaultSize;
 		this.defaultColor = defaultColor;
 		this.defaultCount = defaultCount;
+		this.defaultFontStyle = defaultFontStyle;
 	}
 
 	@Override
@@ -83,6 +87,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasSecondaryColor.SECONDARY_COLOR_KEY,
 				BNAUtils.adjustBrightness(defaultColor, 1.5f));
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasCount.COUNT_KEY, defaultCount);
+		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_STYLE_KEY, defaultFontStyle);
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
 				IHasMutableSize.USER_MAY_RESIZE, IRelativeMovable.USER_MAY_MOVE);
