@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.archstudio.myx.fw.equinox.brickLoader">
+      <BrickLoader
+            class="org.archstudio.myxgen.eclipse.MyxGenBrickLoader"
+            id="org.archstudio.myxgen.eclipse.MyxGenBrickLoader">
+         <Override
+               brickLoader="org.archstudio.myx.osgi.MyxOSGiBrickLoader">
+         </Override>
+      </BrickLoader>
+   </extension>
+
+</plugin>

@@ -15,5 +15,15 @@
             name="OSGi Synch Event Pump Connector">
       </brick>
    </extension>
+   <extension
+         point="org.archstudio.myx.fw.equinox.brickLoader">
+      <BrickLoader
+            class="org.archstudio.myx.osgi.MyxOSGiBrickLoader"
+            id="org.archstudio.myx.osgi.MyxOSGiBrickLoader">
+         <Override
+               brickLoader="org.archstudio.myx.java.MyxJavaClassBrickLoader">
+         </Override>
+      </BrickLoader>
+   </extension>
 
 </plugin>

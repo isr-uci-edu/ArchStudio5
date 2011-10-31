@@ -9,15 +9,10 @@ import java.util.List;
 import org.archstudio.aim.ArchitectureInstantiationException;
 import org.archstudio.aim.IAIM;
 import org.archstudio.aim.core.AIMImpl;
-import org.archstudio.myx.fw.IMyxBrickLoader;
 import org.archstudio.myx.fw.IMyxProgressMonitor;
 import org.archstudio.myx.fw.IMyxRuntime;
-import org.archstudio.myx.fw.MyxBrickLoaderException;
-import org.archstudio.myx.fw.MyxUtils;
 import org.archstudio.myx.fw.eclipse.MyxProgessMonitor;
-import org.archstudio.myx.java.MyxJavaClassBrickLoader;
-import org.archstudio.myx.osgi.MyxOSGiBrickLoader;
-import org.archstudio.myxgen.eclipse.MyxGenBrickLoader;
+import org.archstudio.myx.fw.equinox.MyxEquinoxRuntime;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
@@ -100,13 +95,8 @@ public class InstantiateArchStudio implements IStartup {
 		URI docRootURI = URI.createURI(System.getProperty("org.archstudio.startup.uri", ARCHSTUDIO_URI));
 		try {
 			final IXArchADT xarch = new XArchADTImpl();
-			final IMyxRuntime myxRuntime = MyxUtils.getDefaultImplementation().createRuntime();
+			final IMyxRuntime myxRuntime = new MyxEquinoxRuntime();
 			final IAIM aim = new AIMImpl(xarch, myxRuntime);
-
-			// TODO: use an extension mechanism for this
-			registerBrickLoader(myxRuntime, MyxGenBrickLoader.class);
-			registerBrickLoader(myxRuntime, MyxOSGiBrickLoader.class);
-			registerBrickLoader(myxRuntime, MyxJavaClassBrickLoader.class);
 
 			InputStream docRootIS = new URL(docRootURI.toString()).openStream();
 			ObjRef docRootRef = xarch.load(docRootURI, SystemUtils.blt(docRootIS));
@@ -138,8 +128,4 @@ public class InstantiateArchStudio implements IStartup {
 		}
 	}
 
-	private void registerBrickLoader(IMyxRuntime myxRuntime, Class<? extends IMyxBrickLoader> brickLoaderClass)
-			throws MyxBrickLoaderException {
-		myxRuntime.addBrickLoader(MyxUtils.createName(brickLoaderClass.getName()), brickLoaderClass, null);
-	}
 }
