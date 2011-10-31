@@ -13,7 +13,7 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.myxgen.MyxGenBrick;
 import org.archstudio.myxgen.MyxGenInterface;
-import org.archstudio.myxgen.eclipse.extension.MyxGenExtensions;
+import org.archstudio.myxgen.eclipse.extension.MyxGenWorkspaceExtensions;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
@@ -84,7 +84,7 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 
 	protected void populateMenuWithMyxGenBricks(final ObjRef objRef, IMenuManager manager) {
 		manager.removeAll();
-		Multimap<String, MyxGenBrick> allMyxGenBricks = MyxGenExtensions.getActiveMyxGenBricks();
+		Multimap<String, MyxGenBrick> allMyxGenBricks = MyxGenWorkspaceExtensions.getActiveMyxGenBricks();
 		for (final Entry<String, Collection<MyxGenBrick>> e : SystemUtils.sortedByKey(allMyxGenBricks.asMap()
 				.entrySet())) {
 			IMenuManager projectMenu = new MenuManager(e.getKey());
