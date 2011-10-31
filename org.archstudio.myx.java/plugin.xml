@@ -105,5 +105,12 @@
          </interface>
       </brick>
    </extension>
+   <extension
+         point="org.archstudio.myx.fw.equinox.brickLoader">
+      <BrickLoader
+            class="org.archstudio.myx.java.MyxJavaClassBrickLoader"
+            id="org.archstudio.myx.java.MyxJavaClassBrickLoader">
+      </BrickLoader>
+   </extension>
 
 </plugin>

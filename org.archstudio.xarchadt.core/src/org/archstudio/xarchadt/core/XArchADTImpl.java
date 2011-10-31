@@ -149,8 +149,8 @@ public class XArchADTImpl implements IXArchADT {
 
 	// Map ObjRef <-> EObjects
 	private final Object objRefToEObjectLock = new Object();
-	private final Map<ObjRef, EObject> objRefToEObject = new MapMaker().softKeys().makeMap();
-	private final Map<EObject, ObjRef> eObjectToObjRef = new MapMaker().weakValues().makeMap();
+	private final Map<ObjRef, EObject> objRefToEObject = new MapMaker().weakKeys().makeMap();
+	private final Map<EObject, ObjRef> eObjectToObjRef = new MapMaker().softValues().makeMap();
 
 	private ObjRef put(EObject eObject) {
 		synchronized (objRefToEObjectLock) {
