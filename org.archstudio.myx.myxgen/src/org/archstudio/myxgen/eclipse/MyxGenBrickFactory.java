@@ -20,7 +20,7 @@ public class MyxGenBrickFactory extends MyxOSGiBrickFactory implements IMyxBrick
 			IMyxBrickInitializationData initializationData) throws MyxBrickCreationException {
 		MyxGenBrickDescription desc = (MyxGenBrickDescription) brickDescription;
 		String brickID = desc.getMyxGenBrickID();
-		MyxGenBrick brickExtension = MyxGenExtensions.getActiveMyxGenBrick(brickID);
+		MyxGenBrick brickExtension = MyxGenExtensions.getExtenalMyxGenBrick(brickID);
 		if (brickExtension == null) {
 			throw new MyxBrickCreationException("Can't find myxgen brick");
 		}

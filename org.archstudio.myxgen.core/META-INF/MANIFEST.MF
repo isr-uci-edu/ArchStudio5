@@ -18,11 +18,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.myx.osgi,
  org.archstudio.myx.java,
  org.eclipse.emf.ecore,
- org.eclipse.emf.ecore.xmi
+ org.eclipse.emf.ecore.xmi,
+ org.archstudio.myx.myxgen;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.archstudio.myxgen,
  org.archstudio.myxgen.core,
- org.archstudio.myxgen.eclipse,
  org.archstudio.myxgen.eclipse.extension
 Bundle-Vendor: archstudio.org

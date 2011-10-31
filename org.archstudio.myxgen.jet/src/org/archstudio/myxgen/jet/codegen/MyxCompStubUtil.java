@@ -13,7 +13,7 @@ import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 import org.archstudio.myxgen.EServiceObjectDelegate;
 import org.archstudio.myxgen.MyxGenBrick;
 import org.archstudio.myxgen.MyxGenInterface;
-import org.archstudio.myxgen.eclipse.extension.MyxGenExtensions;
+import org.archstudio.myxgen.eclipse.extension.MyxGenWorkspaceExtensions;
 import org.archstudio.sysutils.SystemUtils;
 
 public class MyxCompStubUtil {
@@ -54,7 +54,8 @@ public class MyxCompStubUtil {
 		checkNotNull(brick);
 
 		if (brick.getParentBrickId() != null) {
-			return " extends " + MyxGenExtensions.getActiveMyxGenBrick(brick.getParentBrickId()).getClassName();
+			return " extends "
+					+ MyxGenWorkspaceExtensions.getActiveMyxGenBrick(brick.getParentBrickId()).getClassName();
 		}
 		return " extends " + AbstractMyxSimpleBrick.class.getName();
 	}
