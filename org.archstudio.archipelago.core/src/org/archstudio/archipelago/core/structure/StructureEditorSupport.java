@@ -47,6 +47,7 @@ import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.myx.fw.IMyxBrick;
 import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xadlbna.logics.editing.RemoveElementLogic;
@@ -199,13 +200,13 @@ public class StructureEditorSupport {
 		// xADL mapping logics
 
 		logicManager.addThingLogic(new MapBrickLogic(AS, AS.xarch, structureRef, "component", //
-				new Dimension(120, 80), ArchipelagoStructureConstants.DEFAULT_COMPONENT_RGB, 2));
+				new Dimension(120, 80), ArchipelagoStructureConstants.DEFAULT_COMPONENT_RGB, 2, FontStyle.BOLD));
 		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "component/interface"));
 		logicManager.addThingLogic(new MapMappingsLogic(AS.xarch, structureRef,
 				"component/subStructure/interfaceMapping"));
 
 		logicManager.addThingLogic(new MapBrickLogic(AS, AS.xarch, structureRef, "connector", //
-				new Dimension(240, 36), ArchipelagoStructureConstants.DEFAULT_CONNECTOR_RGB, 1));
+				new Dimension(240, 36), ArchipelagoStructureConstants.DEFAULT_CONNECTOR_RGB, 1, FontStyle.NORMAL));
 		logicManager.addThingLogic(new MapInterfaceLogic(AS.xarch, structureRef, "connector/interface"));
 		logicManager.addThingLogic(new MapMappingsLogic(AS.xarch, structureRef,
 				"connector/subStructure/interfaceMapping"));

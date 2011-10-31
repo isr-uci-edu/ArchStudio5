@@ -119,9 +119,8 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 					break;
 				}
 
+				g.setFont(textLayout.getFont());
 				g.drawTextLayout(textLayout, x, y);
-				//g.setFont(textLayout.getFont());
-				//g.drawText(textLayout.getText(), x, y);
 			}
 			else {
 				g.setLineStyle(SWT.LINE_SOLID);
