@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.0"?>
-
-<!--
- <copyright>
- </copyright>
-
- $Id$
--->
-
 <plugin>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
-            class="org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.extension_parser">
-      <parser
-            type="xadlcore_3_0"
-            class="org.archstudio.xadl3.xadlcore_3_0.util.Xadlcore_3_0ResourceFactoryImpl"/>
+            class="org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package">
+      </package>
    </extension>
 
 </plugin>

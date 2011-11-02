@@ -12,5 +12,10 @@ Export-Package: org.archstudio.xadl3.archlight_3_0,
 Require-Bundle: org.archstudio.xadl3.xadlcore;visibility:=reexport,
  org.archstudio.xadl3.xadlcore;visibility:=reexport,
  org.eclipse.emf.ecore,
- org.eclipse.emf.ecore.xmi
+ org.eclipse.emf.ecore.xmi,
+ org.archstudio.xadl3.xadlcore;visibility:=reexport,
+ org.archstudio.xadl3.xadlcore;visibility:=reexport,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ org.archstudio.dblgen
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

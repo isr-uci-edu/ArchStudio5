@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.0"?>
-
-<!--
- <copyright>
- </copyright>
-
- $Id$
--->
-
 <plugin>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd"
-            class="org.archstudio.xadl3.domain_3_0.Domain_3_0Package"/>
+            class="org.archstudio.xadl3.domain_3_0.Domain_3_0Package">
+      </package>
    </extension>
-
-   <extension point="org.eclipse.emf.ecore.extension_parser">
-      <parser
-            type="domain_3_0"
-            class="org.archstudio.xadl3.domain_3_0.util.Domain_3_0ResourceFactoryImpl"/>
+   <extension
+         point="org.archstudio.dblgen.processedSchema">
+      <Schema
+            file="model/domain-3.0.xsd"
+            nsURI="http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd">
+      </Schema>
    </extension>
 
 </plugin>
