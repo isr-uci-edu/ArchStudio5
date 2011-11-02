@@ -30,7 +30,10 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.emf.codegen.ecore.generator.Generator;
 import org.eclipse.emf.codegen.ecore.generator.GeneratorAdapterFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenJDKLevel;
@@ -40,7 +43,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.codegen.ecore.genmodel.generator.GenModelGeneratorAdapterFactory;
 import org.eclipse.emf.common.util.BasicMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.converter.ModelConverter.EPackageConvertInfo;
@@ -52,12 +54,14 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.importer.ModelImporter;
+import org.eclipse.pde.core.plugin.IExtensions;
 import org.eclipse.pde.core.plugin.IExtensionsModelFactory;
+import org.eclipse.pde.core.plugin.IPluginAttribute;
 import org.eclipse.pde.core.plugin.IPluginElement;
 import org.eclipse.pde.core.plugin.IPluginExtension;
-import org.eclipse.pde.core.plugin.IPluginExtensionPoint;
 import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.eclipse.pde.core.plugin.IPluginObject;
+import org.eclipse.pde.core.plugin.ISharedExtensionsModel;
 import org.eclipse.pde.core.plugin.PluginRegistry;
 import org.eclipse.pde.core.project.IBundleProjectDescription;
 import org.eclipse.pde.core.project.IBundleProjectService;
@@ -66,6 +70,7 @@ import org.eclipse.pde.core.project.IRequiredBundleDescription;
 import org.eclipse.pde.internal.core.bundle.WorkspaceBundlePluginModel;
 import org.eclipse.xsd.ecore.importer.XSDImporter;
 import org.eclipse.xsd.util.XSDResourceFactoryImpl;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -538,6 +543,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		}
 		catch (CoreException ce) {
 		}
+
 		return schemaRecordList;
 	}
 
@@ -719,7 +725,30 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			return statusList;
 		}
 
-		// Map the schemaLocations to the local files to support offline use as well as locally modified schema
+		// Gather the list of previously processed schema
+		Map<URI, URI> processedSchema = Maps.newHashMap();
+		for (IConfigurationElement c : RegistryFactory.getRegistry().getConfigurationElementsFor(
+				"org.archstudio.dblgen", "processedSchema")) {
+			URI nsURI = URI.createURI(c.getAttribute("nsURI"));
+			String localFile = c.getAttribute("file");
+			Bundle bundle = Platform.getBundle(c.getContributor().getName());
+			URI xsdURI = URI.createURI(bundle.getResource(localFile).toString());
+			processedSchema.put(nsURI, xsdURI);
+		}
+
+		// Map imports from schema, for offline use
+		for (SchemaRecord schemaRecord : schemaRecords) {
+			for (Entry<String, String> anImport : schemaRecord.getImports().entrySet()) {
+				URI importedNsURI = URI.createURI(anImport.getKey());
+				if (processedSchema.containsKey(importedNsURI)) {
+					// we have to use the global map as the importer doesn't expose a local one
+					URIConverter.URI_MAP.put(URI.createURI(anImport.getValue()), processedSchema.get(importedNsURI));
+				}
+			}
+		}
+
+		// Map the schemaRecords to the local files to support offline use as well as locally modified schema
+		// Note: this should be done after previously processed schema so that workspace schema take precedence
 		Multimap<String, SchemaRecord> nsuriToSchemaRecord = Multimaps.index(schemaRecords,
 				new Function<SchemaRecord, String>() {
 					@Override
@@ -755,7 +784,6 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 							DataBindingGeneratorImpl.getNSURIForSchema(schemaURIString, resourceSet));
 				}
 				catch (UnknownHostException e) {
-					// TODO: handle external schema better when offline
 					e.printStackTrace();
 				}
 			}
@@ -838,15 +866,13 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 						ePackageConvertInfo.setConvert(true);
 					}
 					else {
-						ePackageConvertInfo.setConvert(false);
+						ePackageConvertInfo.setConvert(true);
 						referencedEPackageList.add(ePackage);
 					}
 				}
 			}
 
 			GenModel genModel = importer.getGenModel();
-			// Resource genModelResource = genModel.eResource();
-			EList<GenPackage> usedGenPackages = genModel.getUsedGenPackages();
 
 			// This causes the code to be generated with generics and such
 			genModel.setComplianceLevel(GenJDKLevel.JDK60_LITERAL);
@@ -857,49 +883,6 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			// adding packages to the ResourceSet
 			importer.adjustEPackages(emfMonitor);
 			importer.prepareGenModelAndEPackages(emfMonitor);
-
-			// Iterate through the referenced packages and add the corresponding gen model to the used list.
-			for (EPackage ePackage : referencedEPackageList) {
-				String referencedPackageNSURI = ePackage.getNsURI();
-				// If the referenced package is Ecore, don't process that the same way
-				if (!referencedPackageNSURI.equals(EcorePackage.eNS_URI)) {
-					boolean foundSchema = false;
-					boolean foundGenPackage = false;
-					for (SchemaRecord schemaRecord : schemaRecords) {
-						if (schemaRecord.getNsuri() != null && schemaRecord.getNsuri().equals(referencedPackageNSURI)) {
-							foundSchema = true;
-							if (schemaRecord.getGenPackage() != null) {
-								usedGenPackages.add(schemaRecord.getGenPackage());
-								foundGenPackage = true;
-							}
-						}
-					}
-
-					if (!foundSchema) {
-						statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE,
-								"Missing project containing schema file with namespace URI " + referencedPackageNSURI,
-								null));
-					}
-					else if (!foundGenPackage) {
-						statusList.add(new DataBindingGenerationStatus(null, Status.WARNING,
-								"Missing GenModel/GenPackage for schema with namespace URI " + referencedPackageNSURI,
-								null));
-					}
-				}
-				else {
-					// If the referenced ePackage is the ecore ePackage, then we add
-					// a reference to its GenPackage as stored in the platform plugin.
-					GenPackage ecoreGenPackage = getEcoreGenPackage(resourceSet);
-					usedGenPackages.add(ecoreGenPackage);
-				}
-
-				// This is primarily for the Ecore ePackage, which (when we go to save the files
-				// all below) if it doesn't get added to the resource, will cause a DanglingHrefException.
-				// More inscrutable EMF magic.
-				if (ePackage.eResource() == null) {
-					importer.addToResource(ePackage, importer.getGenModelResourceSet());
-				}
-			}
 
 			boolean modelSaveSucceeded = false;
 			try {
@@ -919,7 +902,14 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 
 					Generator codeGenerator = new Generator();
 					codeGenerator.setInput(genModel);
-					codeGenerator.generate(genModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, emfMonitor);
+
+					// find the gen package for the targeted schema
+					for (GenPackage genPackage : genModel.getGenPackages()) {
+						// only generate code for the schema in this project
+						if (primaryNSURIs.containsValue(genPackage.getNSURI())) {
+							codeGenerator.generate(genPackage, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, emfMonitor);
+						}
+					}
 				}
 				catch (Exception e) {
 					e.printStackTrace();
@@ -931,8 +921,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					IBundleProjectService service = OSGiUtils.getServiceReference(context, IBundleProjectService.class);
 					IBundleProjectDescription description = service.getDescription(project);
 
-					// Update plugin's dependencies to include org.eclipse.emf.ecore & org.eclipse.emf.ecore.xmi
-
+					// Update plugin's dependencies to include those needed
 					List<IRequiredBundleDescription> requiredBundles = notNull(description.getRequiredBundles());
 					Multimap<String, IRequiredBundleDescription> requiredBundlesMap = Multimaps.index(requiredBundles,
 							new Function<IRequiredBundleDescription, String>() {
@@ -947,11 +936,13 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					if (!requiredBundlesMap.containsKey("org.eclipse.emf.ecore.xmi")) {
 						requiredBundles.add(service.newRequiredBundle("org.eclipse.emf.ecore.xmi", null, false, false));
 					}
+					if (!requiredBundlesMap.containsKey("org.archstudio.dblgen")) {
+						requiredBundles.add(service.newRequiredBundle("org.archstudio.dblgen", null, false, false));
+					}
 					description.setRequiredBundles(requiredBundles
 							.toArray(new IRequiredBundleDescription[requiredBundles.size()]));
 
 					// updated plugin's exported packages to include the java packages created
-
 					List<IPackageExportDescription> packageExports = notNull(description.getPackageExports());
 					packageExports.clear(); // actually, only export created packages
 					Multimap<String, IPackageExportDescription> packageExportsMap = Multimaps.index(packageExports,
@@ -975,81 +966,92 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 							.size()]));
 
 					// make sure that extensions are allowed
-
 					description.setExtensionRegistry(true);
 
 					// store the changes
-
 					description.apply(null);
 					project.refreshLocal(IResource.DEPTH_INFINITE, null);
 
 					// add the package and parser extensions to the plugin
-
 					IPluginModelBase plugin = PluginRegistry.findModel(project);
+					ISharedExtensionsModel extensions = plugin;
+					IExtensionsModelFactory factory;
 					{
 						// hack: get an editable IPluginModelBase
 						IFile manifestFile = project.getFile("META-INF/MANIFEST.MF");
 						manifestFile.refreshLocal(IResource.DEPTH_ONE, null);
 						IFile pluginFile = project.getFile("plugin.xml");
 						pluginFile.refreshLocal(IResource.DEPTH_ONE, null);
+
 						WorkspaceBundlePluginModel model = new WorkspaceBundlePluginModel(manifestFile, pluginFile);
+						//model.setExtensionsModel(new WorkspaceExtensionsModel(pluginFile));
 						plugin = model;
-					}
-
-					IExtensionsModelFactory factory = plugin.getFactory();
-					SCHEMA: for (EPackage ePackage : importer.getEPackages()) {
-						EPackageConvertInfo ePackageConvertInfo = importer.getEPackageConvertInfo(ePackage);
-						if (!ePackageConvertInfo.isConvert()) {
-							continue;
-						}
-
-						String nsURI = ePackage.getNsURI();
-						String packageClassName = null;
-						for (SchemaRecord schemaRecord : schemaRecords) {
-							if (schemaRecord.getNsuri() != null && schemaRecord.getNsuri().equals(nsURI)) {
-								if (schemaRecord.getGenPackage() != null) {
-									packageClassName = "" //
-											+ schemaRecord.getGenPackage().getBasePackage()
-											+ "."
-											+ schemaRecord.getGenPackage().getPackageName()
-											+ "."
-											+ schemaRecord.getGenPackage().getPackageInterfaceName();
-									break;
-								}
-							}
-						}
-						if (packageClassName == null) {
-							continue;
-						}
-
-						// update if it already exists
-						for (IPluginExtensionPoint extension : plugin.getExtensions(true).getExtensionPoints()) {
-							if (extension instanceof IPluginExtension) {
-								IPluginExtension pluginExtension = (IPluginExtension) extension;
-								if ("org.eclipse.emf.ecore.generated_package".equals(pluginExtension.getPoint())) {
-									for (IPluginObject element : pluginExtension.getChildren()) {
-										if ("package".equals(element.getName())) {
-											if (element instanceof IPluginElement) {
-												IPluginElement pElement = (IPluginElement) element;
-												if (nsURI.equals(pElement.getAttribute("uri"))) {
-													pElement.setAttribute("class", packageClassName);
-													continue SCHEMA;
-												}
-											}
-										}
+						extensions = model;
+						factory = model.getFactory();
+						// FIXME: the current set of extensions is not being loaded, manually copying for now
+						{
+							IPluginModelBase workspacePluginModelBase = PluginRegistry.findModel(project);
+							if (workspacePluginModelBase != null) {
+								IExtensions wextensions = workspacePluginModelBase.getExtensions();
+								if (wextensions != null) {
+									for (IPluginExtension pluginExtension : wextensions.getExtensions()) {
+										extensions.getExtensions().add(copy(factory, pluginExtension));
 									}
 								}
 							}
 						}
+					}
 
-						IPluginExtension extension = factory.createExtension();
-						extension.setPoint("org.eclipse.emf.ecore.generated_package");
-						IPluginElement element = factory.createElement(extension);
-						element.setName("package");
-						element.setAttribute("uri", nsURI);
-						element.setAttribute("class", packageClassName);
-						extension.add(element);
-						plugin.getExtensions(true).add(extension);
+					// remove existing generated package extension entries
+					for (IPluginExtension extension : extensions.getExtensions().getExtensions()) {
+						if ("org.eclipse.emf.ecore.generated_package".equals(extension.getPoint())) {
+							extensions.getExtensions().remove(extension);
+						}
+					}
+
+					// add the generated package extension
+					for (GenPackage genPackage : genModel.getGenPackages()) {
+						// only generate code for the schema in this project
+						if (primaryNSURIs.containsValue(genPackage.getNSURI())) {
+							String nsURI = genPackage.getNSURI();
+							String packageClassName = "" + genPackage.getBasePackage() + "."
+									+ genPackage.getPackageName() + "." + genPackage.getPackageInterfaceName();
+
+							IPluginExtension extension = factory.createExtension();
+							extension.setPoint("org.eclipse.emf.ecore.generated_package");
+							IPluginElement element = factory.createElement(extension);
+							element.setName("package");
+							element.setAttribute("uri", nsURI);
+							element.setAttribute("class", packageClassName);
+							extension.add(element);
+							extensions.getExtensions().add(extension);
+						}
+					}
+
+					// remove existing processed schema entries
+					for (IPluginExtension extension : extensions.getExtensions().getExtensions()) {
+						if ("org.archstudio.dblgen.processedSchema".equals(extension.getPoint())) {
+							extensions.getExtensions().remove(extension);
+						}
+					}
+
+					// add an entry for each processed schema
+					for (Entry<String, String> entry : primaryNSURIs.entrySet()) {
+						String nsURI = entry.getValue();
+						if (nsuriToSchemaRecord.get(nsURI).size() > 0) {
+							SchemaRecord schemaRecord = nsuriToSchemaRecord.get(nsURI).iterator().next();
+							IFile schemaFile = schemaRecord.getSchemaFile();
+							String localFile = schemaFile.getProjectRelativePath().toString();
+
+							IPluginExtension extension = factory.createExtension();
+							extension.setPoint("org.archstudio.dblgen.processedSchema");
+							IPluginElement element = factory.createElement(extension);
+							element.setName("Schema");
+							element.setAttribute("nsURI", nsURI);
+							element.setAttribute("file", localFile);
+							extension.add(element);
+							extensions.getExtensions().add(extension);
+						}
 					}
 
 					{
@@ -1066,6 +1068,36 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		}
 
 		return statusList;
+	}
+
+	private IPluginExtension copy(IExtensionsModelFactory factory, IPluginExtension pluginExtension)
+			throws CoreException {
+		IPluginExtension extension = factory.createExtension();
+		if (pluginExtension.getId() != null && pluginExtension.getId().length() > 0) {
+			extension.setId(pluginExtension.getId());
+		}
+		if (pluginExtension.getName() != null && pluginExtension.getName().length() > 0) {
+			extension.setName(pluginExtension.getName());
+		}
+		if (pluginExtension.getPoint() != null && pluginExtension.getPoint().length() > 0) {
+			extension.setPoint(pluginExtension.getPoint());
+		}
+		for (IPluginObject child : pluginExtension.getChildren()) {
+			extension.add(copy(factory, extension, child));
+		}
+		return extension;
+	}
+
+	private IPluginObject copy(IExtensionsModelFactory factory, IPluginObject parent, IPluginObject child)
+			throws CoreException {
+		IPluginElement newChild = factory.createElement(parent);
+		if (child.getName() != null && child.getName().length() > 0) {
+			newChild.setName(child.getName());
+		}
+		for (IPluginAttribute attribute : ((IPluginElement) child).getAttributes()) {
+			newChild.setAttribute(attribute.getName(), attribute.getValue());
+		}
+		return newChild;
 	}
 
 	private <T> List<T> notNull(T[] e) {

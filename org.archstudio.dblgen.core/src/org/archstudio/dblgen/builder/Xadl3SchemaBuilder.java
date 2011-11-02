@@ -297,6 +297,9 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 						addMarker(schemaFile, message, 1, IMarker.SEVERITY_ERROR);
 					}
 				}
+				else {
+					System.err.println(status.getMessage());
+				}
 			}
 		}
 

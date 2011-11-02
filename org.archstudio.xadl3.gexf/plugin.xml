@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.4"?>
 <plugin>
+
    <extension
          point="org.eclipse.emf.ecore.uri_mapping">
       <mapping
@@ -11,16 +11,31 @@
    <extension
          point="org.archstudio.dblgen.schemalocation">
       <schema
-            autoUpdateFrequency="never"
-            copyLocally="false"
             name="net.gexf_1_2.gexf"
-            url="http://gexf.net/1.2draft/gexf.xsd">
+            url="http://gexf.net/1.2draft/gexf.xsd"
+            autoUpdateFrequency="never"
+            copyLocally="false">
       </schema>
       <schema
-            autoUpdateFrequency="never"
-            copyLocally="false"
             name="net.gexf_1_2.viz"
-            url="http://gexf.net/1.2draft/viz.xsd">
+            url="http://gexf.net/1.2draft/viz.xsd"
+            autoUpdateFrequency="never"
+            copyLocally="false">
       </schema>
    </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.gexf.net/1.2draft"
+            class="net.gexf_1_2.gexf.GexfPackage">
+      </package>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.gexf.net/1.2draft/viz"
+            class="net.gexf_1_2.viz.VizPackage">
+      </package>
+   </extension>
+
 </plugin>
