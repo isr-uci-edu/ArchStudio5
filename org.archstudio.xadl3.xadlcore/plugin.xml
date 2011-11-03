@@ -8,5 +8,12 @@
             class="org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package">
       </package>
    </extension>
+   <extension
+         point="org.archstudio.dblgen.processedSchema">
+      <Schema
+            file="model/xadlcore-3.0.xsd"
+            nsURI="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd">
+      </Schema>
+   </extension>
 
 </plugin>
