@@ -8,5 +8,12 @@
             class="org.w3.xlink.XlinkPackage">
       </package>
    </extension>
+   <extension
+         point="org.archstudio.dblgen.processedSchema">
+      <Schema
+            file="model/xlink.xsd"
+            nsURI="http://www.w3.org/1999/xlink">
+      </Schema>
+   </extension>
 
 </plugin>
