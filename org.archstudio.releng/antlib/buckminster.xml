@@ -40,7 +40,7 @@
 		<!-- todir must end in /buckminster -->
 		<attribute name="todir" />
 		<attribute name="director.home" />
-		<attribute name="eclipse.version" default="3.6" />
+		<attribute name="eclipse.version" default="${eclipse.version}" />
 		<sequential>
 			<install-director todir="@{director.home}" />
 			<mkdir dir="@{todir}" />
