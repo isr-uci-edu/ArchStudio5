@@ -22,5 +22,5 @@ Require-Bundle: org.archstudio.aim,
  org.archstudio.xadl3.implementation.osgi,
  org.archstudio.xadl.myx,
  org.archstudio.xadl3.implementation.lookup,
- com.google.guava;bundle-version="10.0.1"
+ com.google.guava
 Bundle-Vendor: archstudio.org

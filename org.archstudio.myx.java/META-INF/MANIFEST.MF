@@ -6,7 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.archstudio.myx.fw,
  com.google.guava,
- org.archstudio.myx.fw.equinox;bundle-version="1.0.0"
+ org.archstudio.myx.fw.equinox
 Export-Package: org.archstudio.myx.java,
  org.archstudio.myx.java.comp,
  org.archstudio.myx.java.conn

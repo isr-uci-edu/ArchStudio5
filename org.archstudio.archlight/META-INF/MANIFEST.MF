@@ -7,4 +7,4 @@ Bundle-Version: 5.0.0.qualifier
 Export-Package: org.archstudio.archlight
 Manifest-Version: 1.0
 Require-Bundle: org.archstudio.xarchadt,
- com.google.guava;bundle-version="0.0.9"
+ com.google.guava

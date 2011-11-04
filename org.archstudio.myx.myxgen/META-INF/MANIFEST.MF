@@ -6,11 +6,11 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.myx.myxgen.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.archstudio.myx.osgi;bundle-version="1.0.0",
- org.archstudio.myx.fw;bundle-version="5.0.0",
- org.archstudio.myx.java;bundle-version="1.0.0",
- com.google.guava;bundle-version="10.0.1",
- org.archstudio.utils.system;bundle-version="5.0.0",
+ org.archstudio.myx.osgi,
+ org.archstudio.myx.fw,
+ org.archstudio.myx.java,
+ com.google.guava,
+ org.archstudio.utils.system,
  org.archstudio.myx.fw.equinox
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
