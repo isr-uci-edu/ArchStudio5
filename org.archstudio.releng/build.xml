@@ -69,6 +69,15 @@
 				<propertyref prefix="buckminster." />
 			</syspropertyset>
 		</buckminster>
+		<!-- A workaround for http://www.eclipse.org/forums/index.php/t/261503/ -->
+		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
+			<arg value="resolve" />
+			<arg value="${resolve.url}" />
+			<syspropertyset>
+				<propertyref builtin="commandline" />
+				<propertyref prefix="buckminster." />
+			</syspropertyset>
+		</buckminster>
 
 	</target>
 
