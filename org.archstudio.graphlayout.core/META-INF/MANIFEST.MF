@@ -17,4 +17,4 @@ Require-Bundle: org.archstudio.graphlayout,
  org.archstudio.xarchadt,
  org.eclipse.ui,
  org.eclipse.draw2d,
- com.google.guava;bundle-version="10.0.1"
+ com.google.guava

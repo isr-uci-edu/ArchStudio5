@@ -24,7 +24,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.archstudio.utils.osgi,
  org.eclipse.ui,
- org.archstudio.myx.fw.equinox;bundle-version="1.0.0"
+ org.archstudio.myx.fw.equinox
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: archstudio.org

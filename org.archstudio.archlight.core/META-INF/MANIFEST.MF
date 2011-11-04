@@ -24,4 +24,4 @@ Require-Bundle: org.archstudio.archlight,
  org.eclipse.ui.views,
  org.archstudio.editormanager,
  org.archstudio.myx.java,
- com.google.guava;bundle-version="10.0.1"
+ com.google.guava
