@@ -23,22 +23,11 @@
 
    <requires>
       <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.emf.common"/>
-      <import plugin="org.eclipse.ui.ide"/>
-      <import plugin="org.eclipse.ui.views"/>
-      <import plugin="org.eclipse.osgi"/>
-      <import plugin="org.eclipse.swt"/>
-      <import plugin="org.eclipse.emf"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="org.eclipse.emf.codegen"/>
-      <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.jet"/>
-      <import plugin="org.eclipse.pde.core"/>
       <import plugin="org.eclipse.pde"/>
-      <import plugin="org.eclipse.osgi.services"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.pde.core"/>
+      <import plugin="org.eclipse.osgi"/>
    </requires>
 
    <plugin
@@ -50,6 +39,33 @@
 
    <plugin
          id="org.archstudio.utils.eclipse.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.google.guava"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.archstudio.releng.pde"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.osgi"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.system"
          download-size="0"
          install-size="0"
          version="0.0.0"
