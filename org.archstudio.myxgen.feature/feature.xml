@@ -18,7 +18,7 @@
    </license>
 
    <includes
-         id="org.archstudio.dblgen.headless.feature"
+         id="org.archstudio.myxgen.headless.feature"
          version="0.0.0"/>
 
    <requires>
