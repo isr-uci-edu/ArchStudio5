@@ -21,8 +21,9 @@
 
 	<target name="install-buckminster">
 
-		<assert-nonempty property="eclipse.home" message="Missing eclipse.home" />
-		<property name="director.home" location="${eclipse.home}/../director" />
+		<property name="workspace.root" location="${env.WORKSPACE}" />
+		<property name="eclipse.home" location="${workspace.root}/buckminster" />
+		<property name="director.home" location="${workspace.root}/director" />
 
 		<install-director todir="${director.home}" />
 		<install-buckminster todir="${eclipse.home}" director.home="${director.home}" />
@@ -32,7 +33,7 @@
 	<target name="import-target">
 
 		<property name="workspace.root" location="${env.WORKSPACE}" />
-		<assert-nonempty property="eclipse.home" message="Missing eclipse.home" />
+		<property name="eclipse.home" location="${workspace.root}/buckminster" />
 		<property name="buckminster.temp" location="${workspace.root}/buckminster.temp" />
 		<property name="buckminster.temp.root" location="${buckminster.temp}" />
 		<property name="buckminster.output.root" location="${workspace.root}/buckminster.output" />
@@ -54,7 +55,7 @@
 	<target name="resolve-cquery">
 
 		<property name="workspace.root" location="${env.WORKSPACE}" />
-		<assert-nonempty property="eclipse.home" message="Missing eclipse.home" />
+		<property name="eclipse.home" location="${workspace.root}/buckminster" />
 		<property name="buckminster.temp" location="${workspace.root}/buckminster.temp" />
 		<property name="buckminster.temp.root" location="${buckminster.temp}" />
 		<property name="buckminster.output.root" location="${workspace.root}/buckminster.output" />
@@ -84,7 +85,7 @@
 	<target name="build-update-site">
 
 		<property name="workspace.root" location="${env.WORKSPACE}" />
-		<assert-nonempty property="eclipse.home" message="Missing eclipse.home" />
+		<property name="eclipse.home" location="${workspace.root}/buckminster" />
 		<property name="buckminster.temp" location="${workspace.root}/buckminster.temp" />
 		<property name="buckminster.temp.root" location="${buckminster.temp}" />
 		<property name="buckminster.output.root" location="${workspace.root}/buckminster.output" />
@@ -93,7 +94,7 @@
 		<echo>Building the update site...: ${buckminster.component}</echo>
 		<mkdir dir="${buckminster.output.root}" />
 		<mkdir dir="${buckminster.temp}" />
-		<buckminster location="${eclipse.home}" workspace="${workspace.root}" loglevel="DEBUG">
+		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
 			<!-- <arg value="-P" />
 			<arg value="${basedir}/defaults/buckminster.properties" /> -->
 			<arg value="perform" />
@@ -117,8 +118,9 @@
 
 	<target name="update-buckminster">
 
-		<assert-nonempty property="eclipse.home" message="Missing eclipse.home" />
-		<property name="director.home" location="${eclipse.home}/../director" />
+		<property name="workspace.root" location="${env.WORKSPACE}" />
+		<property name="eclipse.home" location="${workspace.root}/buckminster" />
+		<property name="director.home" location="${workspace.root}/director" />
 		<assert-nonempty property="buckminster.component" message="Missing buckminster.component" />
 		<assert-nonempty property="update.site.feature" message="Missing update.site.feature" />
 
