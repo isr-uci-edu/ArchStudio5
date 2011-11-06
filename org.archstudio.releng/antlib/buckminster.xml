@@ -96,7 +96,7 @@
 		<attribute name="todir" />
 		<sequential>
 			<mkdir dir="@{todir}" />
-			<get-unless-ok src="http://www.eclipse.org/downloads/download.php?file=/tools/buckminster/products/director_latest.zip&amp;r=1" tofile="@{todir}/../director_latest.zip" />
+			<get-unless-ok src="http://download.eclipse.org/tools/buckminster/products/director_latest.zip" tofile="@{todir}/../director_latest.zip" />
 			<extract-unless-ok src="@{todir}/../director_latest.zip" todir="@{todir}/../" subdir="@{todir}" />
 		</sequential>
 	</macrodef>
