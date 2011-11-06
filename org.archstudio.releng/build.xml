@@ -95,6 +95,15 @@
 		<mkdir dir="${buckminster.output.root}" />
 		<mkdir dir="${buckminster.temp}" />
 		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
+			<arg value="build" />
+			<arg value="-t" />
+			<syspropertyset>
+				<propertyref builtin="commandline" />
+				<propertyref prefix="buckminster.output" />
+				<propertyref prefix="buckminster.temp" />
+			</syspropertyset>
+		</buckminster>
+		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
 			<!-- <arg value="-P" />
 			<arg value="${basedir}/defaults/buckminster.properties" /> -->
 			<arg value="perform" />
