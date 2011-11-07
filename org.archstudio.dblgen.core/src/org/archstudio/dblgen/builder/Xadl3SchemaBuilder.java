@@ -304,26 +304,28 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		}
 
 		final IProject project = getProject();
+		project.getFolder("src").refreshLocal(IResource.DEPTH_INFINITE, monitor);
+		needRebuild();
 
-		Job job = new Job("Refreshing Project") {
-			@Override
-			protected IStatus run(IProgressMonitor monitor) {
-				try {
-					// Wait until all builds are done
-					// Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
-
-					// Then refresh the project to make sure that everything is synced
-					project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-				}
-				catch (CoreException ce) {
-				}
-				// catch (InterruptedException ie) {
-				// }
-				return Status.OK_STATUS;
-			}
-		};
-		job.setPriority(Job.SHORT);
-		job.schedule(); // start as soon as possible
+//		Job job = new Job("Refreshing Project") {
+//			@Override
+//			protected IStatus run(IProgressMonitor monitor) {
+//				try {
+//					// Wait until all builds are done
+//					// Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
+//
+//					// Then refresh the project to make sure that everything is synced
+//					project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+//				}
+//				catch (CoreException ce) {
+//				}
+//				// catch (InterruptedException ie) {
+//				// }
+//				return Status.OK_STATUS;
+//			}
+//		};
+//		job.setPriority(Job.SHORT);
+//		job.schedule(); // start as soon as possible
 	}
 
 	private void addURIMappings(IProject project) {

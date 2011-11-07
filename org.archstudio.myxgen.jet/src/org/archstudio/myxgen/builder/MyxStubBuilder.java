@@ -74,6 +74,7 @@ public class MyxStubBuilder extends IncrementalProjectBuilder {
 		IJavaProject javaProject = JavaCore.create(getProject());
 		if (javaProject != null) {
 			new MyxCodeGenerator(javaProject).generateCode();
+			needRebuild();
 		}
 	}
 }
