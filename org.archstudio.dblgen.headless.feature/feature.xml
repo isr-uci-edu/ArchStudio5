@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.archstudio.dblgen.headless.feature"
-      label="ArchStudio xADL Data Binding Library (DBL) Generator Feature for Buckminster Build"
+      label="ArchStudio xADL Data Binding Library (DBL) Generator Headless Feature"
       version="1.0.0.qualifier"
-      provider-name="archstudio.org">
+      provider-name="archstudio.org"
+      license-feature="org.archstudio.feature"
+      license-feature-version="5.0.0.qualifier">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description>
+      ArchStudio headless xADL data binding library (DBL) generator.
    </description>
 
    <copyright url="http://www.example.com/copyright">
