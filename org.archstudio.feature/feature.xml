@@ -10,8 +10,8 @@
       An environment for modeling, visualizing, analyzing and implementing software and systems architectures.
    </description>
 
-   <license url="">
-      
+   <license>
+      %readme
    </license>
 
    <requires>
@@ -557,11 +557,5 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <plugin
-         id="org.archstudio.branding"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
 
 </feature>
