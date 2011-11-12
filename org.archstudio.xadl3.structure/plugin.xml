@@ -8,5 +8,12 @@
             class="org.archstudio.xadl3.structure_3_0.Structure_3_0Package">
       </package>
    </extension>
+   <extension
+         point="org.archstudio.dblgen.processedSchema">
+      <Schema
+            file="model/structure-3.0.xsd"
+            nsURI="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd">
+      </Schema>
+   </extension>
 
 </plugin>

@@ -27,10 +27,13 @@
     </rm:provider>
   </rm:searchPath>
   <rm:searchPath name="org.archstudio">
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="svn">
-      <rm:uri format="http://www.archstudio.org/svn/main/5/trunk/{0}?moduleAfterBranch&amp;moduleAfterTag">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="git" resolutionFilter="">
+      <rm:uri format="{0}/repos,{1}">
+        <bc:propertyRef key="workspace.root"/>
         <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
+      <rm:property key="git.remote.uri" value="git://github.com/sahendrickson/ArchStudio.git"/>
+      <rm:property key="git.auto.fetch" value="true"/>
     </rm:provider>
   </rm:searchPath>
   <rm:searchPath name="org.tigris.subversion">
