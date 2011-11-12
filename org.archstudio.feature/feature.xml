@@ -1,64 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.archstudio.feature"
-      label="ArchStudio Architecting Environment Feature"
+      label="ArchStudio (Required)"
       version="5.0.0.qualifier"
       provider-name="archstudio.org"
-      plugin="org.archstudio.core">
+      plugin="org.archstudio.core"
+      license-feature="org.archstudio.licenses.feature"
+      license-feature-version="5.0.0.qualifier">
 
    <description>
-      An environment for modeling, visualizing, analyzing and implementing software and systems architectures.
+      The ArchStudio environment for modeling, visualizing, analyzing
+and implementing software and systems architectures
    </description>
 
-   <license>
+   <license url="">
       %readme
    </license>
 
    <requires>
-      <import plugin="org.archstudio.xadl.myx" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.xadl3.implementation.lookup" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.debug.core"/>
       <import plugin="org.eclipse.emf.common"/>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.ui.views"/>
       <import plugin="org.eclipse.jface" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.xarchadt.core" version="5.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.xadl3.xadlcore" version="5.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.draw2d"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.emf.importer"/>
-      <import plugin="org.eclipse.pde"/>
       <import plugin="org.eclipse.pde.core"/>
       <import plugin="org.eclipse.xsd"/>
       <import plugin="org.eclipse.xsd.ecore.importer"/>
-      <import plugin="org.archstudio.myx.fw" version="5.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.osgi"/>
       <import plugin="org.eclipse.swt"/>
       <import plugin="org.eclipse.emf"/>
       <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eclipse.ui.ide"/>
-      <import plugin="org.archstudio.editormanager" version="5.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.filemanager" version="5.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.eclipse.core" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.launcher" version="5.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui" version="3.7.0" match="compatible"/>
-      <import plugin="org.eclipse.core.resources" version="3.7.0" match="compatible"/>
-      <import plugin="org.eclipse.core.runtime" version="3.7.0" match="compatible"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.jet"/>
-      <import plugin="org.eclipse.osgi" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.buckminster.cmdline"/>
-      <import plugin="org.eclipse.buckminster.core"/>
-      <import plugin="org.eclipse.buckminster.installer"/>
-      <import plugin="org.eclipse.buckminster.runtime"/>
-      <import plugin="org.eclipse.buckminster.sax"/>
+      <import plugin="org.eclipse.pde"/>
       <import plugin="org.eclipse.emf.codegen.ecore"/>
-      <import plugin="org.archstudio.myx.java" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.xadl3.implementation.myxgen" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.archstudio.myxgen.core" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.registry"/>
    </requires>
 
    <plugin
@@ -253,12 +235,6 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <plugin
-         id="org.archstudio.licenses"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
 
    <plugin
          id="org.archstudio.myx.fw"
@@ -553,6 +529,13 @@
 
    <plugin
          id="org.archstudio.archipelago"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.myx.fw.equinox"
          download-size="0"
          install-size="0"
          version="0.0.0"

@@ -25,7 +25,6 @@
 		<property name="eclipse.home" location="${workspace.root}/buckminster" />
 		<property name="director.home" location="${workspace.root}/director" />
 
-		<install-director todir="${director.home}" />
 		<install-buckminster todir="${eclipse.home}" director.home="${director.home}" />
 
 	</target>

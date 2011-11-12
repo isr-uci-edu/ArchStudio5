@@ -1,8 +1,0 @@
-#!/bin/bash
-
-#see: http://blog.tfnico.com/2011/09/git-svn-mirror-without-annoying-update.html
-git clone -o mirror git://www.archstudio.org/as5.git as5
-cd as5
-git svn init --prefix=mirror/ -s http://www.archstudio.org/svn/main/5
-git checkout trunk
-

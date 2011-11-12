@@ -4,7 +4,7 @@
       label="ArchStudio Myx Component Generator Headless Feature"
       version="5.0.0.qualifier"
       provider-name="archstudio.org"
-      license-feature="org.archstudio.feature"
+      license-feature="org.archstudio.licenses.feature"
       license-feature-version="5.0.0.qualifier">
 
    <description>
