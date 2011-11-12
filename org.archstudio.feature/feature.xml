@@ -3,18 +3,15 @@
       id="org.archstudio.feature"
       label="ArchStudio Architecting Environment Feature"
       version="5.0.0.qualifier"
-      provider-name="archstudio.org">
+      provider-name="archstudio.org"
+      plugin="org.archstudio.core">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description>
+      An environment for modeling, visualizing, analyzing and implementing software and systems architectures.
    </description>
 
-   <copyright url="http://www.example.com/copyright">
-      [Enter Copyright Description here.]
-   </copyright>
-
-   <license url="http://www.example.com/license">
-      [Enter License Description here.]
+   <license url="">
+      
    </license>
 
    <requires>
@@ -560,5 +557,11 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="org.archstudio.branding"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>
