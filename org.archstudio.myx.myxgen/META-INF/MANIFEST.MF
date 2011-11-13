@@ -3,19 +3,15 @@ Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Myx Component Stub Generator Myx Extensions
 Bundle-SymbolicName: org.archstudio.myx.myxgen;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.archstudio.myx.myxgen.Activator
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.myx.osgi,
  org.archstudio.myx.fw,
  org.archstudio.myx.java,
  com.google.guava,
  org.archstudio.utils.system,
  org.archstudio.myx.fw.equinox
-Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: archstudio.org
-Export-Package: org.archstudio.myx.myxgen,
- org.archstudio.myxgen,
+Export-Package: org.archstudio.myxgen,
  org.archstudio.myxgen.eclipse,
  org.archstudio.myxgen.eclipse.extension
