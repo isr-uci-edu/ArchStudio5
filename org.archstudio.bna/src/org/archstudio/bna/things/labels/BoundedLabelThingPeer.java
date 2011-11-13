@@ -1,7 +1,5 @@
 package org.archstudio.bna.things.labels;
 
-import java.util.Set;
-
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
@@ -20,9 +18,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.TextLayout;
 
-import com.google.common.collect.Sets;
-
-public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends AbstractRectangleThingPeer<T> {
+public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends
+		AbstractRectangleThingPeer<T> {
 
 	protected boolean needsTextLayout = true;
 	protected TextLayout textLayout = null;
@@ -35,7 +32,8 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 		super(thing);
 		thing.addThingListener(new IThingListener() {
 			@Override
-			public <ET extends IThing, EK extends IThingKey<EV>, EV> void thingChanged(ThingEvent<ET, EK, EV> thingEvent) {
+			public <ET extends IThing, EK extends IThingKey<EV>, EV> void thingChanged(
+					ThingEvent<ET, EK, EV> thingEvent) {
 				needsTextLayout = true;
 			}
 		});
@@ -46,30 +44,28 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 		if (textLayout != null) {
 			try {
 				textLayout.dispose();
-			}
-			catch (Throwable t) {
+			} catch (Throwable t) {
 				t.printStackTrace();
-			}
-			finally {
+			} finally {
 				textLayout = null;
 			}
 		}
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
+	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g,
+			IResources r) {
 		if (r.setForegroundColor(g, t, IHasColor.COLOR_KEY)) {
 
-			Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t, new Rectangle());
+			Rectangle lbb = BNAUtils
+					.getLocalBoundingBox(cm, t, new Rectangle());
 
 			if (textLayout == null || textLayout.getDevice() != r.getDevice()) {
 				if (textLayout != null) {
 					try {
 						textLayout.dispose();
-					}
-					catch (Exception e) {
-					}
-					finally {
+					} catch (Exception e) {
+					} finally {
 						textLayout = null;
 					}
 				}
@@ -86,16 +82,19 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 
 				textLayout.setText(t.getText());
 				textLayout.setWidth(lbb.width);
-				textFontSize = LabelUtils.resizeTextLayoutToFit(r, textLayout, lbb.height, t.getFontName(),
-						t.getFontSize(), t.getFontStyle());
-				textLayoutSize = BNAUtils.toRectangle(textLayout.getBounds()).getSize();
+				textFontSize = LabelUtils.resizeTextLayoutToFit(r, textLayout,
+						lbb.height, t.getFontName(), t.getFontSize(),
+						t.getFontStyle());
+				textLayoutSize = BNAUtils.toRectangle(textLayout.getBounds())
+						.getSize();
 			}
 
 			if (textLayoutSize != null && textFontSize > 0) {
 				int x = lbb.x;
 				int y = lbb.y;
 
-				HorizontalAlignment horizontalAlignment = t.getHorizontalAlignment();
+				HorizontalAlignment horizontalAlignment = t
+						.getHorizontalAlignment();
 				switch (horizontalAlignment) {
 				case LEFT:
 					break;
@@ -121,8 +120,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 
 				g.setFont(textLayout.getFont());
 				g.drawTextLayout(textLayout, x, y);
-			}
-			else {
+			} else {
 				g.setLineStyle(SWT.LINE_SOLID);
 				g.setAlpha(128);
 				if (lbb.width >= 3) {
@@ -142,21 +140,22 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
+	public void getLocalBounds(IBNAView view, ICoordinateMapper cm,
+			IResources r, Rectangle boundsResult) {
 		super.getLocalBounds(view, cm, r, boundsResult);
 		boundsResult.shrink(t.getLocalInsets());
 	}
 
-	private static Set<Integer> getAllowableLinebreaks(String text) {
-		Set<Integer> breaks = Sets.newHashSet(0, text.length());
-		int index = 0;
-		for (String s : text.split("\\s")) {
-			index += s.length();
-			breaks.add(index);
-			index++;
-			breaks.add(index);
-		}
-		breaks.remove(text.length() + 1);
-		return breaks;
-	}
+	// private static Set<Integer> getAllowableLinebreaks(String text) {
+	// Set<Integer> breaks = Sets.newHashSet(0, text.length());
+	// int index = 0;
+	// for (String s : text.split("\\s")) {
+	// index += s.length();
+	// breaks.add(index);
+	// index++;
+	// breaks.add(index);
+	// }
+	// breaks.remove(text.length() + 1);
+	// return breaks;
+	// }
 }

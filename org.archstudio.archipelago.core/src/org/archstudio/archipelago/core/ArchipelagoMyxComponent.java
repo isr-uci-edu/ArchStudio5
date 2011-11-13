@@ -13,7 +13,8 @@ import org.eclipse.swt.graphics.Image;
  * @see org.archstudio.archipelago.core.ArchipelagoMyxComponentStub
  * @generated
  */
-public class ArchipelagoMyxComponent extends org.archstudio.archipelago.core.ArchipelagoMyxComponentStub {
+public class ArchipelagoMyxComponent extends
+		org.archstudio.archipelago.core.ArchipelagoMyxComponentStub {
 
 	public static final String EDITOR_NAME = "Archipelago";
 	public static final String ECLIPSE_EDITOR_ID = "org.archstudio.archipelago.core.ArchipelagoEditor";
@@ -29,10 +30,12 @@ public class ArchipelagoMyxComponent extends org.archstudio.archipelago.core.Arc
 	private synchronized void createResources() {
 		if (!resourcesCreated) {
 			try {
-				resources.createImage(IMAGE_ARCHIPELAGO_ICON, SystemUtils.blt(ArchipelagoMyxComponent.class
-						.getResourceAsStream("res/archipelago-icon-32.gif")));
-			}
-			catch (IOException ioe) {
+				resources
+						.createImage(
+								IMAGE_ARCHIPELAGO_ICON,
+								SystemUtils.blt(ArchipelagoMyxComponent.class
+										.getResourceAsStream("res/archipelago-icon-32.gif")));
+			} catch (IOException ioe) {
 				ioe.printStackTrace();
 				throw new RuntimeException("This shouldn't happen.");
 			}
@@ -47,7 +50,8 @@ public class ArchipelagoMyxComponent extends org.archstudio.archipelago.core.Arc
 
 	@Override
 	public ILaunchData getLaunchData() {
-		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME, "A graphical architecture editor", getIcon(),
+		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME,
+				"A graphical architecture editor", getIcon(),
 				ILaunchData.LaunchType.EDITOR);
 	}
 }

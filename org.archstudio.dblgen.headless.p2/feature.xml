@@ -17,10 +17,6 @@
       [Enter License Description here.]
    </license>
 
-   <url>
-      <discovery label="http://download.eclipse.org/releases/helios/" url="http://download.eclipse.org/releases/helios/"/>
-   </url>
-
    <includes
          id="org.archstudio.dblgen.headless.feature"
          version="0.0.0"/>

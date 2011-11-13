@@ -19,9 +19,12 @@ import org.archstudio.myx.fw.MyxUtils;
  * @generated
  */
 @SuppressWarnings("unused")
-abstract class ResourcesMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
-		org.archstudio.resources.IResources, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
+abstract class ResourcesMyxComponentStub extends
+		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+		org.archstudio.resources.IResources,
+		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
 	 * @generated
@@ -51,7 +54,8 @@ abstract class ResourcesMyxComponentStub extends org.archstudio.myx.fw.AbstractM
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName IN_RESOURCES = MyxUtils.createName("resources");
+	public static final IMyxName IN_RESOURCES = MyxUtils
+			.createName("resources");
 
 	/**
 	 * Returns the service object(s) for <code>resources</code>
@@ -71,25 +75,29 @@ abstract class ResourcesMyxComponentStub extends org.archstudio.myx.fw.AbstractM
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: "
+				+ interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
-		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName,
+			Object serviceObject) {
 	}
 
 	/**
@@ -100,6 +108,7 @@ abstract class ResourcesMyxComponentStub extends org.archstudio.myx.fw.AbstractM
 		if (interfaceName.equals(IN_RESOURCES)) {
 			return this;
 		}
-		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface service object: " + interfaceName);
 	}
 }

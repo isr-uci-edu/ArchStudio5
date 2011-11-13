@@ -26,8 +26,10 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 @SuppressWarnings("unused")
 /* package */abstract class ArchlightToolAggregatorMyxComponentStub extends
-		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor, org.archstudio.archlight.IArchlightTool,
+		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+		org.archstudio.archlight.IArchlightTool,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -122,17 +124,19 @@ import org.archstudio.myx.fw.MyxUtils;
 	 * @generated
 	 */
 	protected final org.archstudio.myx.java.conn.IMultiwayProgressListener progressProxy = (org.archstudio.myx.java.conn.IMultiwayProgressListener) Proxy
-			.newProxyInstance(org.archstudio.myx.java.conn.IMultiwayProgressListener.class.getClassLoader(),
+			.newProxyInstance(
+					org.archstudio.myx.java.conn.IMultiwayProgressListener.class
+							.getClassLoader(),
 					new Class[] { org.archstudio.myx.java.conn.IMultiwayProgressListener.class },
 					new InvocationHandler() {
 						@Override
-						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+						public Object invoke(Object proxy, Method method,
+								Object[] args) throws Throwable {
 							org.archstudio.myx.java.conn.IMultiwayProgressListener o = progress;
 							if (o != null) {
 								try {
 									method.invoke(o, args);
-								}
-								catch (Exception e) {
+								} catch (Exception e) {
 									e.printStackTrace();
 								}
 							}
@@ -190,26 +194,32 @@ import org.archstudio.myx.fw.MyxUtils;
 		}
 		if (interfaceName.equals(OUT_RESULTS)) {
 			if (results != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			results = (org.archstudio.myx.java.conn.IMultiwayResults) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_TOOLS)) {
 			if (tools != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			tools = (org.archstudio.archlight.IArchlightTool) serviceObject;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: "
+				+ interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -221,14 +231,16 @@ import org.archstudio.myx.fw.MyxUtils;
 			tools = null;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName,
+			Object serviceObject) {
 	}
 
 	/**
@@ -242,6 +254,7 @@ import org.archstudio.myx.fw.MyxUtils;
 		if (interfaceName.equals(IN_PROGRESS)) {
 			return progressProxy;
 		}
-		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface service object: " + interfaceName);
 	}
 }

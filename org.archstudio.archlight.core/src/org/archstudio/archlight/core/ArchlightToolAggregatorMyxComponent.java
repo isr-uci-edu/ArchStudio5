@@ -51,8 +51,7 @@ public class ArchlightToolAggregatorMyxComponent extends
 						progressMonitor = monitor;
 						tools.runTests(fdocumentRef, ftestUIDs);
 						return Status.OK_STATUS;
-					}
-					finally {
+					} finally {
 						runningTests = false;
 					}
 				}
@@ -63,13 +62,14 @@ public class ArchlightToolAggregatorMyxComponent extends
 		}
 	}
 
-	public void callProgress(int calleeNum, int totalCallees, Object returnValue, Throwable exception) {
+	public void callProgress(int calleeNum, int totalCallees,
+			Object returnValue, Throwable exception) {
 		IProgressMonitor lprogressMonitor = progressMonitor;
 		if (lprogressMonitor != null) {
 			if (calleeNum == 0) {
-				lprogressMonitor.beginTask("Running Archlight Tests", totalCallees);
-			}
-			else {
+				lprogressMonitor.beginTask("Running Archlight Tests",
+						totalCallees);
+			} else {
 				lprogressMonitor.worked(calleeNum);
 			}
 			if (calleeNum == totalCallees) {

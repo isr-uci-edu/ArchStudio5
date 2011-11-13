@@ -21,8 +21,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkingSet;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ResourceWorkingSetFilter;
-import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
@@ -276,7 +276,7 @@ public class WSFileDialog extends Dialog {
 
 		new WorkbenchLabelProvider(),
 
-		IDEWorkbenchPlugin.getDefault().getWorkbench().getDecoratorManager().getLabelDecorator()));
+		PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator()));
 
 	}
 

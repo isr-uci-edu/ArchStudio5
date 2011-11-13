@@ -8,7 +8,8 @@ import org.archstudio.myx.fw.IMyxName;
  * @see org.archstudio.aim.core.AIMMyxComponentStub
  * @generated
  */
-public class AIMMyxComponent extends org.archstudio.aim.core.AIMMyxComponentStub {
+public class AIMMyxComponent extends
+		org.archstudio.aim.core.AIMMyxComponentStub {
 
 	public AIMMyxComponent() {
 		aim = new AIMImpl();
@@ -26,7 +27,8 @@ public class AIMMyxComponent extends org.archstudio.aim.core.AIMMyxComponentStub
 	}
 
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
 		super.interfaceDisconnected(interfaceName, serviceObject);
 		setupImpl();
 	}

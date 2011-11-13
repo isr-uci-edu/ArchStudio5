@@ -27,8 +27,10 @@ import org.archstudio.myx.fw.MyxUtils;
  * @generated
  */
 @SuppressWarnings("unused")
-abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
+abstract class XArchADTMyxComponentStub extends
+		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -57,13 +59,15 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName OUT_FILE_EVENTS = MyxUtils.createName("fileEvents");
+	public static final IMyxName OUT_FILE_EVENTS = MyxUtils
+			.createName("fileEvents");
 	/**
 	 * Myx interface modelEvents: <code>OUT_MODEL_EVENTS</code>
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName OUT_MODEL_EVENTS = MyxUtils.createName("modelEvents");
+	public static final IMyxName OUT_MODEL_EVENTS = MyxUtils
+			.createName("modelEvents");
 	/**
 	 * Myx interface xarch: <code>IN_XARCH</code>
 	 * 
@@ -85,15 +89,18 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 	 * @generated
 	 */
 	protected final org.archstudio.xarchadt.IXArchADTFileListener fileEventsProxy = (org.archstudio.xarchadt.IXArchADTFileListener) Proxy
-			.newProxyInstance(org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),
-					new Class[] { org.archstudio.xarchadt.IXArchADTFileListener.class }, new InvocationHandler() {
+			.newProxyInstance(
+					org.archstudio.xarchadt.IXArchADTFileListener.class
+							.getClassLoader(),
+					new Class[] { org.archstudio.xarchadt.IXArchADTFileListener.class },
+					new InvocationHandler() {
 						@Override
-						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+						public Object invoke(Object proxy, Method method,
+								Object[] args) throws Throwable {
 							for (org.archstudio.xarchadt.IXArchADTFileListener o : fileEvents) {
 								try {
 									method.invoke(o, args);
-								}
-								catch (Exception e) {
+								} catch (Exception e) {
 									e.printStackTrace();
 								}
 							}
@@ -114,15 +121,18 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 	 * @generated
 	 */
 	protected final org.archstudio.xarchadt.IXArchADTModelListener modelEventsProxy = (org.archstudio.xarchadt.IXArchADTModelListener) Proxy
-			.newProxyInstance(org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),
-					new Class[] { org.archstudio.xarchadt.IXArchADTModelListener.class }, new InvocationHandler() {
+			.newProxyInstance(
+					org.archstudio.xarchadt.IXArchADTModelListener.class
+							.getClassLoader(),
+					new Class[] { org.archstudio.xarchadt.IXArchADTModelListener.class },
+					new InvocationHandler() {
 						@Override
-						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+						public Object invoke(Object proxy, Method method,
+								Object[] args) throws Throwable {
 							for (org.archstudio.xarchadt.IXArchADTModelListener o : modelEvents) {
 								try {
 									method.invoke(o, args);
-								}
-								catch (Exception e) {
+								} catch (Exception e) {
 									e.printStackTrace();
 								}
 							}
@@ -200,21 +210,25 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 			throw new NullPointerException(interfaceName.getName());
 		}
 		if (interfaceName.equals(OUT_FILE_EVENTS)) {
-			fileEvents.add((org.archstudio.xarchadt.IXArchADTFileListener) serviceObject);
+			fileEvents
+					.add((org.archstudio.xarchadt.IXArchADTFileListener) serviceObject);
 			return;
 		}
 		if (interfaceName.equals(OUT_MODEL_EVENTS)) {
-			modelEvents.add((org.archstudio.xarchadt.IXArchADTModelListener) serviceObject);
+			modelEvents
+					.add((org.archstudio.xarchadt.IXArchADTModelListener) serviceObject);
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: "
+				+ interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -226,14 +240,16 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 			modelEvents.remove(serviceObject);
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName,
+			Object serviceObject) {
 	}
 
 	/**
@@ -247,6 +263,7 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 			}
 			return xarch;
 		}
-		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface service object: " + interfaceName);
 	}
 }

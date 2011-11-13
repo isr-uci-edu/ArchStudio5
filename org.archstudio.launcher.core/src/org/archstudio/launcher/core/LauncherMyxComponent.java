@@ -13,7 +13,8 @@ import org.archstudio.launcher.ILaunchData;
  * @see org.archstudio.launcher.core.LauncherMyxComponentStub
  * @generated
  */
-public class LauncherMyxComponent extends org.archstudio.launcher.core.LauncherMyxComponentStub {
+public class LauncherMyxComponent extends
+		org.archstudio.launcher.core.LauncherMyxComponentStub {
 
 	public List<ILaunchData> getLaunchData() {
 		launcher.getLaunchData();

@@ -22,8 +22,10 @@ import org.archstudio.myx.fw.MyxUtils;
  * @generated
  */
 @SuppressWarnings("unused")
-/* package */abstract class EventPumpConnectorStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
+/* package */abstract class EventPumpConnectorStub extends
+		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -109,14 +111,16 @@ import org.archstudio.myx.fw.MyxUtils;
 			out.add((java.lang.Object) serviceObject);
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: "
+				+ interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -124,14 +128,16 @@ import org.archstudio.myx.fw.MyxUtils;
 			out.remove(serviceObject);
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName,
+			Object serviceObject) {
 	}
 
 	/**
@@ -145,6 +151,7 @@ import org.archstudio.myx.fw.MyxUtils;
 			}
 			return in;
 		}
-		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface service object: " + interfaceName);
 	}
 }

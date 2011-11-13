@@ -4,17 +4,18 @@
       label="ArchStudio (Required)"
       version="5.0.0.qualifier"
       provider-name="archstudio.org"
-      plugin="org.archstudio.core"
-      license-feature="org.archstudio.licenses.feature"
-      license-feature-version="5.0.0.qualifier">
+      plugin="org.archstudio.core">
 
    <description>
-      The ArchStudio environment for modeling, visualizing, analyzing
-and implementing software and systems architectures
+      An environment for modeling, visualizing, analyzing and implementing software and systems architectures
    </description>
 
-   <license url="">
-      %readme
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license>
+      %license
    </license>
 
    <requires>
