@@ -6,6 +6,7 @@ package org.archstudio.myx.osgi.conn;
  * @see org.archstudio.myx.osgi.conn.OSGiSynchEventPumpConnectorStub
  * @generated
  */
-public class OSGiSynchEventPumpConnector extends org.archstudio.myx.osgi.conn.OSGiSynchEventPumpConnectorStub {
+public class OSGiSynchEventPumpConnector extends
+		org.archstudio.myx.osgi.conn.OSGiSynchEventPumpConnectorStub {
 
 }

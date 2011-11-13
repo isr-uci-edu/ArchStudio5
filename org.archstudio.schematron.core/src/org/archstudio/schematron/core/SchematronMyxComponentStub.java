@@ -24,9 +24,12 @@ import org.archstudio.myx.fw.MyxUtils;
  * @generated
  */
 @SuppressWarnings("unused")
-abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
-		org.archstudio.archlight.IArchlightTool, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
+abstract class SchematronMyxComponentStub extends
+		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+		org.archstudio.archlight.IArchlightTool,
+		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
 	 * @generated
@@ -84,7 +87,8 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
+	public static final IMyxName OUT_PREFERENCES = MyxUtils
+			.createName("preferences");
 
 	/**
 	 * Service object(s) for notices: <code>notices</code>
@@ -192,47 +196,59 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 		}
 		if (interfaceName.equals(OUT_NOTICES)) {
 			if (notices != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			notices = (org.archstudio.noticeadt.IArchlightNoticeADT) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_TESTS)) {
 			if (tests != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			tests = (org.archstudio.testadt.IArchlightTestADT) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_ISSUES)) {
 			if (issues != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			issues = (org.archstudio.issueadt.IArchlightIssueADT) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_XARCH)) {
 			if (xarch != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			xarch = (org.archstudio.xarchadt.IXArchADT) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_PREFERENCES)) {
 			if (preferences != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			preferences = (org.eclipse.jface.preference.IPreferenceStore) serviceObject;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: "
+				+ interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -256,14 +272,16 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 			preferences = null;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName,
+			Object serviceObject) {
 	}
 
 	/**
@@ -274,6 +292,7 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 		if (interfaceName.equals(IN_TOOLS)) {
 			return this;
 		}
-		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface service object: " + interfaceName);
 	}
 }

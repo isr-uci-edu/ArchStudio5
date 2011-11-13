@@ -6,6 +6,7 @@ package org.archstudio.editormanager.core;
  * @see org.archstudio.editormanager.core.EditorPrefsMyxComponentStub
  * @generated
  */
-public class EditorPrefsMyxComponent extends org.archstudio.editormanager.core.EditorPrefsMyxComponentStub {
+public class EditorPrefsMyxComponent extends
+		org.archstudio.editormanager.core.EditorPrefsMyxComponentStub {
 
 }

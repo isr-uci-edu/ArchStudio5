@@ -6,6 +6,7 @@ package org.archstudio.schematron.core.prefs;
  * @see org.archstudio.schematron.core.prefs.SchematronPrefsMyxComponentStub
  * @generated
  */
-public class SchematronPrefsMyxComponent extends org.archstudio.schematron.core.prefs.SchematronPrefsMyxComponentStub {
+public class SchematronPrefsMyxComponent extends
+		org.archstudio.schematron.core.prefs.SchematronPrefsMyxComponentStub {
 
 }

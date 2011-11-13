@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.archstudio.myxgen.feature"
-      label="Myx Component Stub Generator"
+      label="ArchStudio - Myx Component Stub Generator"
       version="5.0.0.qualifier"
-      provider-name="archstudio.org"
-      license-feature="org.archstudio.licenses.feature"
-      license-feature-version="5.0.0.qualifier">
+      provider-name="archstudio.org">
 
-   <description url="http://www.example.com/description">
-      Generates Myx component stubs from plugin descriptions
+   <description>
+      Myx component stub generator
    </description>
 
-   <copyright url="http://www.example.com/copyright">
-      [Enter Copyright Description here.]
+   <copyright>
+      %copyright
    </copyright>
 
-   <license url="http://www.example.com/license">
-      [Enter License Description here.]
+   <license>
+      %license
    </license>
 
    <includes
