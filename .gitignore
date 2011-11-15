@@ -6,5 +6,6 @@
 /*.xadl3.*/*.genmodel
 /*.xadl3.*/*.xsd2ecore
 /*.xadl3.*/*.ecore
-/*.xadl3.*/src
+/*.xadl3.*/src/*
 /repos/
+/*/jet2java/*
