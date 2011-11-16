@@ -1316,4 +1316,20 @@ public class SystemUtils {
 	public static final <T> Iterable<T> emptyIfNull(T... elements) {
 		return elements != null ? Arrays.asList(elements) : Collections.<T> emptyList();
 	}
+
+	public static final boolean containsValue(Iterable<?> values, Pattern valuePattern) {
+		for (Object value : values) {
+			if (valuePattern.matcher("" + value).matches())
+				return true;
+		}
+		return false;
+	}
+
+	public static final <V> V getValue(Map<?, V> map, Pattern keyPattern) {
+		for (Map.Entry<?, V> e : map.entrySet()) {
+			if (keyPattern.matcher("" + e.getKey()).matches())
+				return e.getValue();
+		}
+		return null;
+	}
 }
