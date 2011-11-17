@@ -60,7 +60,8 @@
          id="org.archstudio.dblgen"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.archstudio.dblgen.core"
@@ -73,7 +74,8 @@
          id="com.google.guava"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.archstudio.utils.system"
@@ -93,7 +95,8 @@
          id="org.archstudio.myxgen"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.archstudio.utils.eclipse"
@@ -106,6 +109,7 @@
          id="org.archstudio.myx.fw"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
