@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.archstudio.feature"
+      label="ArchStudio - GEXF Schema (Optional)"
+      version="5.0.0.qualifier"
+      provider-name="archstudio.org"
+      plugin="org.archstudio.core">
+
+   <description>
+      GEXF Schema from http://gexf.net/format/
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license>
+      %license
+   </license>
+
+   <includes
+         id="org.archstudio.feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.debug.core"/>
+      <import plugin="org.eclipse.emf.common"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.jface" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.draw2d"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.emf.importer"/>
+      <import plugin="org.eclipse.pde.core"/>
+      <import plugin="org.eclipse.xsd"/>
+      <import plugin="org.eclipse.xsd.ecore.importer"/>
+      <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.swt"/>
+      <import plugin="org.eclipse.emf"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jet"/>
+      <import plugin="org.eclipse.pde"/>
+      <import plugin="org.eclipse.emf.codegen.ecore"/>
+      <import plugin="org.eclipse.equinox.registry"/>
+   </requires>
+
+   <plugin
+         id="org.archstudio.xadl3.gexf"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
