@@ -33,4 +33,8 @@
          id="org.archstudio.feature"
          version="0.0.0"/>
 
+   <includes
+         id="org.archstudio.xadl3.gexf.feature"
+         version="0.0.0"/>
+
 </feature>

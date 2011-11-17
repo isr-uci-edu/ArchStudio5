@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.archstudio.feature"
+      id="org.archstudio.xadl3.gexf.feature"
       label="ArchStudio - GEXF Schema (Optional)"
       version="5.0.0.qualifier"
       provider-name="archstudio.org"

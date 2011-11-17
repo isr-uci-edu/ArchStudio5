@@ -7,7 +7,7 @@
             adaptable="false"
             id="org.archstudio.relengtools.core.objectContribution1"
             nameFilter="*"
-            objectClass="org.eclipse.core.resources.IProject">
+            objectClass="java.lang.Object">
          <menu
                id="org.archstudio.relengtools.core.popupMenuMain"
                label="Release Tools"
