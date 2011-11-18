@@ -26,10 +26,8 @@ import org.archstudio.myx.fw.MyxUtils;
  * @generated
  */
 @SuppressWarnings("unused")
-abstract class PreferencesADTMyxComponentStub extends
-		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+abstract class PreferencesADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -60,15 +58,13 @@ abstract class PreferencesADTMyxComponentStub extends
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName IN_PREFERENCES = MyxUtils
-			.createName("preferences");
+	public static final IMyxName IN_PREFERENCES = MyxUtils.createName("preferences");
 	/**
 	 * Myx interface propertyEvents: <code>OUT_PROPERTY_EVENTS</code>
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName OUT_PROPERTY_EVENTS = MyxUtils
-			.createName("propertyEvents");
+	public static final IMyxName OUT_PROPERTY_EVENTS = MyxUtils.createName("propertyEvents");
 
 	/**
 	 * Service object(s) for preferences: <code>preferences</code>
@@ -92,18 +88,15 @@ abstract class PreferencesADTMyxComponentStub extends
 	 * @generated
 	 */
 	protected final org.eclipse.jface.util.IPropertyChangeListener propertyEventsProxy = (org.eclipse.jface.util.IPropertyChangeListener) Proxy
-			.newProxyInstance(
-					org.eclipse.jface.util.IPropertyChangeListener.class
-							.getClassLoader(),
-					new Class[] { org.eclipse.jface.util.IPropertyChangeListener.class },
-					new InvocationHandler() {
+			.newProxyInstance(org.eclipse.jface.util.IPropertyChangeListener.class.getClassLoader(),
+					new Class[] { org.eclipse.jface.util.IPropertyChangeListener.class }, new InvocationHandler() {
 						@Override
-						public Object invoke(Object proxy, Method method,
-								Object[] args) throws Throwable {
+						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.eclipse.jface.util.IPropertyChangeListener o : propertyEvents) {
 								try {
 									method.invoke(o, args);
-								} catch (Exception e) {
+								}
+								catch (Exception e) {
 									e.printStackTrace();
 								}
 							}
@@ -160,20 +153,17 @@ abstract class PreferencesADTMyxComponentStub extends
 			throw new NullPointerException(interfaceName.getName());
 		}
 		if (interfaceName.equals(OUT_PROPERTY_EVENTS)) {
-			propertyEvents
-					.add((org.eclipse.jface.util.IPropertyChangeListener) serviceObject);
+			propertyEvents.add((org.eclipse.jface.util.IPropertyChangeListener) serviceObject);
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: "
-				+ interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -181,16 +171,14 @@ abstract class PreferencesADTMyxComponentStub extends
 			propertyEvents.remove(serviceObject);
 			return;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
@@ -204,7 +192,6 @@ abstract class PreferencesADTMyxComponentStub extends
 			}
 			return preferences;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}
 }

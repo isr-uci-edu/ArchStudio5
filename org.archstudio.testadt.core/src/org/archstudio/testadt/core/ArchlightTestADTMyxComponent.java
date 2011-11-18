@@ -6,8 +6,7 @@ package org.archstudio.testadt.core;
  * @see org.archstudio.testadt.core.ArchlightTestADTMyxComponentStub
  * @generated
  */
-public class ArchlightTestADTMyxComponent extends
-		org.archstudio.testadt.core.ArchlightTestADTMyxComponentStub {
+public class ArchlightTestADTMyxComponent extends org.archstudio.testadt.core.ArchlightTestADTMyxComponentStub {
 
 	@Override
 	public void init() {

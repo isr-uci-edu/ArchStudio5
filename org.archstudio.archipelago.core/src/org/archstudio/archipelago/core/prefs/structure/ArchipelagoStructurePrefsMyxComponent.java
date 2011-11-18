@@ -6,8 +6,7 @@ package org.archstudio.archipelago.core.prefs.structure;
  * @see org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePrefsMyxComponentStub
  * @generated
  */
-public class ArchipelagoStructurePrefsMyxComponent
-		extends
+public class ArchipelagoStructurePrefsMyxComponent extends
 		org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePrefsMyxComponentStub {
 
 }

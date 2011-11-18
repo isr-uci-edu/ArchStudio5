@@ -19,8 +19,7 @@ import org.archstudio.xarchadt.ObjRef;
  * @see org.archstudio.schematron.core.SchematronMyxComponentStub
  * @generated
  */
-public class SchematronMyxComponent extends
-		org.archstudio.schematron.core.SchematronMyxComponentStub {
+public class SchematronMyxComponent extends org.archstudio.schematron.core.SchematronMyxComponentStub {
 
 	public static final String TOOL_ID = "Schematron";
 
@@ -39,14 +38,13 @@ public class SchematronMyxComponent extends
 	@Override
 	public void begin() {
 		testManager = new SchematronTestManager(TOOL_ID, preferences);
-		notices.addNotice(TOOL_ID, "Schematron Archlight Tool Initialized at ["
-				+ SystemUtils.getDateAndTime() + "]");
+		notices.addNotice(TOOL_ID, "Schematron Archlight Tool Initialized at [" + SystemUtils.getDateAndTime() + "]");
 		String xalanVersion = SchematronUtils.getXalanVersion();
 		if (xalanVersion == null) {
 			xalanVersionOK = false;
-			notices.addNotice(TOOL_ID,
-					"Error: No Xalan version found.  Tests cannot run.");
-		} else {
+			notices.addNotice(TOOL_ID, "Error: No Xalan version found.  Tests cannot run.");
+		}
+		else {
 			xalanVersionOK = true;
 			notices.addNotice(TOOL_ID, "Xalan version " + xalanVersion);
 		}
@@ -55,12 +53,10 @@ public class SchematronMyxComponent extends
 
 	@Override
 	public void reloadTests() {
-		notices.addNotice(TOOL_ID,
-				"Reloading tests at [" + SystemUtils.getDateAndTime() + "]");
+		notices.addNotice(TOOL_ID, "Reloading tests at [" + SystemUtils.getDateAndTime() + "]");
 		List<? extends ArchlightTest> oldTests = tests.getAllTests(TOOL_ID);
 		testManager.reload();
-		List<? extends ArchlightTest> newTests = testManager
-				.getAllArchlightTests();
+		List<? extends ArchlightTest> newTests = testManager.getAllArchlightTests();
 		tests.removeTests(oldTests);
 		tests.addTests(newTests);
 
@@ -69,7 +65,8 @@ public class SchematronMyxComponent extends
 			for (Object warning : warnings) {
 				if (warning instanceof String) {
 					notices.addNotice(TOOL_ID, "Warning:" + warning);
-				} else if (warning instanceof Throwable) {
+				}
+				else if (warning instanceof Throwable) {
 					Throwable t = (Throwable) warning;
 					notices.addNotice(TOOL_ID, "Error: " + t.getMessage(), t);
 				}
@@ -86,16 +83,15 @@ public class SchematronMyxComponent extends
 			SchematronTestException ste = new SchematronTestException(
 					"Schematron requires Xalan; but the version of Xalan available was not sufficient to run Schematron tests.");
 			schematronTestErrorList.add(ste);
-		} else {
-			List<? extends SchematronTestFile> testFiles = testManager
-					.getAllTestFiles();
+		}
+		else {
+			List<? extends SchematronTestFile> testFiles = testManager.getAllTestFiles();
 			Set<SchematronTestFile> filesToRun = new HashSet<SchematronTestFile>();
 			List<String> testUIDsToRun = new ArrayList<String>(testUIDs);
 
 			for (String testUIDToRun : testUIDsToRun) {
 				for (SchematronTestFile testFile : testFiles) {
-					for (ArchlightTest testInFile : testFile
-							.getArchlightTests()) {
+					for (ArchlightTest testInFile : testFile.getArchlightTests()) {
 						if (testUIDToRun.equals(testInFile.getUID())) {
 							filesToRun.add(testFile);
 							break;
@@ -104,25 +100,22 @@ public class SchematronMyxComponent extends
 				}
 			}
 			ObjRef docRef = documentRef;
-			String xmlDocument = new String(xarch.serialize(xarch
-					.getURI(docRef)));
+			String xmlDocument = new String(xarch.serialize(xarch.getURI(docRef)));
 			int filesToRunSize = filesToRun.size();
 
 			int f = 0;
 			for (SchematronTestFile fileToRun : filesToRun) {
 				try {
-					fileToRun = SchematronTestFile.create(fileToRun,
-							testUIDsToRun);
-				} catch (SchematronTestFileParseException stfpe) {
-					SchematronTestException ste = new SchematronTestException(
-							"Error parsing Schematron test file.", stfpe);
+					fileToRun = SchematronTestFile.create(fileToRun, testUIDsToRun);
+				}
+				catch (SchematronTestFileParseException stfpe) {
+					SchematronTestException ste = new SchematronTestException("Error parsing Schematron test file.",
+							stfpe);
 					schematronTestErrorList.add(ste);
 				}
 				if (fileToRun != null) {
-					SchematronTester tester = new SchematronTester(xmlDocument,
-							fileToRun);
-					notices.addNotice(TOOL_ID,
-							"Processing: " + fileToRun.getSourceURL());
+					SchematronTester tester = new SchematronTester(xmlDocument, fileToRun);
+					notices.addNotice(TOOL_ID, "Processing: " + fileToRun.getSourceURL());
 					float pct = (float) f / (float) filesToRunSize;
 					pct *= 100;
 					if (pct == 0) {
@@ -131,23 +124,22 @@ public class SchematronMyxComponent extends
 					//sendToolStatus("Running Tests", (int)pct);
 					try {
 						tester.runTest();
-						for (Object result : SchematronTestResultParser
-								.parseTestResults(xarch, docRef, TOOL_ID,
-										tester.getResult())) {
+						for (Object result : SchematronTestResultParser.parseTestResults(xarch, docRef, TOOL_ID,
+								tester.getResult())) {
 							if (result instanceof SchematronTestException) {
-								schematronTestErrorList
-										.add((SchematronTestException) result);
-							} else if (result instanceof ArchlightTestResult) {
+								schematronTestErrorList.add((SchematronTestException) result);
+							}
+							else if (result instanceof ArchlightTestResult) {
 								//System.out.println("result: " + results[i]);
-								archlightTestResultList
-										.add((ArchlightTestResult) result);
+								archlightTestResultList.add((ArchlightTestResult) result);
 							}
 						}
-					} catch (SchematronInitializationException sie) {
-						SchematronTestException ste = new SchematronTestException(
-								"Error initializing Schematron", sie);
+					}
+					catch (SchematronInitializationException sie) {
+						SchematronTestException ste = new SchematronTestException("Error initializing Schematron", sie);
 						schematronTestErrorList.add(ste);
-					} catch (SchematronTestException ste) {
+					}
+					catch (SchematronTestException ste) {
 						schematronTestErrorList.add(ste);
 					}
 				}
@@ -158,18 +150,15 @@ public class SchematronMyxComponent extends
 		//Now we have two lists: a list of TronTestResults and a list of
 		//SchematronTestExceptions if anything went wrong during testing.
 
-		ArchlightTestResult[] testResults = archlightTestResultList
-				.toArray(new ArchlightTestResult[0]);
+		ArchlightTestResult[] testResults = archlightTestResultList.toArray(new ArchlightTestResult[0]);
 
 		//Remove old issues
-		List<? extends ArchlightIssue> oldIssues = issues.getAllIssues(
-				documentRef, TOOL_ID);
+		List<? extends ArchlightIssue> oldIssues = issues.getAllIssues(documentRef, TOOL_ID);
 		issues.removeIssues(oldIssues);
 
 		//Store the new issues
 		if (testResults.length > 0) {
-			List<ArchlightIssue> issueList = new ArrayList<ArchlightIssue>(
-					testResults.length);
+			List<ArchlightIssue> issueList = new ArrayList<ArchlightIssue>(testResults.length);
 			for (ArchlightTestResult testResult : testResults) {
 				for (ArchlightIssue issue : testResult.getIssues()) {
 					issueList.add(issue);
@@ -181,8 +170,8 @@ public class SchematronMyxComponent extends
 		//Store the errors
 		for (SchematronTestException exception : schematronTestErrorList) {
 			exception.printStackTrace();
-			notices.addNotice(new ArchlightTestError(exception.getTestUID(),
-					TOOL_ID, exception.getMessage(), null, exception));
+			notices.addNotice(new ArchlightTestError(exception.getTestUID(), TOOL_ID, exception.getMessage(), null,
+					exception));
 		}
 	}
 }
