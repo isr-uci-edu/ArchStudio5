@@ -19,13 +19,11 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 @SuppressWarnings("unused")
 abstract class AIMLauncherMyxComponentStub extends
-		org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent
-		implements org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+		org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
-	protected AIMLauncherMyxComponentStub(String editorName,
-			String eclipseEditorID, boolean registerWithEditorManager) {
+	protected AIMLauncherMyxComponentStub(String editorName, String eclipseEditorID, boolean registerWithEditorManager) {
 		super(editorName, eclipseEditorID, registerWithEditorManager);
 	}
 
@@ -63,9 +61,7 @@ abstract class AIMLauncherMyxComponentStub extends
 		}
 		if (interfaceName.equals(OUT_AIM)) {
 			if (aim != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			aim = (org.archstudio.aim.IAIM) serviceObject;
 			return;
@@ -77,8 +73,7 @@ abstract class AIMLauncherMyxComponentStub extends
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -93,8 +88,7 @@ abstract class AIMLauncherMyxComponentStub extends
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 		super.interfaceDisconnected(interfaceName, serviceObject);
 	}
 

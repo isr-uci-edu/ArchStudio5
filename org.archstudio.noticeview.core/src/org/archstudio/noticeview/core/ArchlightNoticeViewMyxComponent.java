@@ -6,7 +6,6 @@ package org.archstudio.noticeview.core;
  * @see org.archstudio.noticeview.core.ArchlightNoticeViewMyxComponentStub
  * @generated
  */
-public class ArchlightNoticeViewMyxComponent extends
-		org.archstudio.noticeview.core.ArchlightNoticeViewMyxComponentStub {
+public class ArchlightNoticeViewMyxComponent extends org.archstudio.noticeview.core.ArchlightNoticeViewMyxComponentStub {
 
 }
