@@ -69,7 +69,7 @@ public class SortManifests extends AbstractObjectActionDelegate {
 			manifest = manifest.replaceAll(",\r?\n ", ",");
 			String[] lines = manifest.split("\r?\n");
 			Arrays.sort(lines);
-			manifest = SystemUtils.join("", "\n", "", (Object[]) lines);
+			manifest = SystemUtils.join("", "\n", "", Arrays.asList((Object[]) lines));
 			manifest = manifest.replaceAll(",", ",\n ");
 			if (!manifest.endsWith("\n")) {
 				manifest += "\n";

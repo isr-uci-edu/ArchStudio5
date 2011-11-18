@@ -31,7 +31,6 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -708,12 +707,11 @@ public class SystemUtils {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <K, V> V getOrCreateValue(Map<K, V> m, K key, Class<?> valueClass) {
+	public static <K, V> V getOrCreateValue(Map<K, V> m, K key, Class<? extends V> valueClass) {
 		V value = m.get(key);
 		if (value == null) {
 			try {
-				value = (V) valueClass.newInstance();
+				value = valueClass.newInstance();
 				m.put(key, value);
 			}
 			catch (InstantiationException e) {
@@ -1037,13 +1035,6 @@ public class SystemUtils {
 		return o1.equals(o2);
 	}
 
-	public static String join(String front, String seperator, String end, Object... objects) {
-		if (objects == null) {
-			return "";
-		}
-		return join(front, seperator, end, Arrays.asList(objects));
-	}
-
 	public static String join(String front, String seperator, String end, Iterable<?> objects) {
 		if (objects == null || Iterables.isEmpty(objects)) {
 			return "";
@@ -1194,24 +1185,6 @@ public class SystemUtils {
 	//		return (T) o;
 	//	}
 
-	@SuppressWarnings("unchecked")
-	public static final <T, C extends Collection<? extends T>> Iterable<T> cast(C c) {
-		return (Iterable<T>) c;
-	}
-
-	public static final <T> Iterable<T> copyIterable(Iterable<T> iterable) {
-		if (iterable instanceof CopyOnWriteArrayList || iterable instanceof CopyOnWriteArraySet) {
-			return iterable;
-		}
-		synchronized (iterable) {
-			return new CopyOnWriteArrayList<T>(Lists.newArrayList(iterable));
-		}
-	}
-
-	public static final <T, K> Iterable<T> copyIterable(Map<K, ? extends Iterable<T>> map, K key) {
-		return map != null && map.containsKey(key) ? copyIterable(map.get(key)) : Collections.<T> emptyList();
-	}
-
 	public static <T extends InputStream> T closeQuietly(T is) {
 		try {
 			if (is != null) {
@@ -1294,10 +1267,6 @@ public class SystemUtils {
 		return value;
 	}
 
-	public static final boolean isInBound(int lower, int value, int upper) {
-		return value == bound(lower, value, upper);
-	}
-
 	public static final <T> T firstOrNull(Iterable<?> elements, Class<T> andOfType) {
 		return castOrNull(firstOrNull(elements), andOfType);
 	}
@@ -1317,19 +1286,48 @@ public class SystemUtils {
 		return elements != null ? Arrays.asList(elements) : Collections.<T> emptyList();
 	}
 
-	public static final boolean containsValue(Iterable<?> values, Pattern valuePattern) {
-		for (Object value : values) {
-			if (valuePattern.matcher("" + value).matches())
-				return true;
+	public static final <V> V getValue(Iterable<V> values, Pattern pattern) {
+		for (V value : values) {
+			if (pattern.matcher("" + value).matches()) {
+				return value;
+			}
 		}
-		return false;
+		return null;
 	}
 
 	public static final <V> V getValue(Map<?, V> map, Pattern keyPattern) {
 		for (Map.Entry<?, V> e : map.entrySet()) {
-			if (keyPattern.matcher("" + e.getKey()).matches())
+			if (keyPattern.matcher("" + e.getKey()).matches()) {
 				return e.getValue();
+			}
 		}
 		return null;
 	}
+
+	public static final <V extends Comparable<V>> V max(Iterable<V> values) {
+		V maxValue = null;
+		for (V value : values) {
+			if (maxValue == null) {
+				maxValue = value;
+			}
+			else if (maxValue.compareTo(value) < 0) {
+				maxValue = value;
+			}
+		}
+		return maxValue;
+	}
+
+	public static final <V extends Comparable<V>> V min(Iterable<V> values) {
+		V minValue = null;
+		for (V value : values) {
+			if (minValue == null) {
+				minValue = value;
+			}
+			else if (minValue.compareTo(value) > 0) {
+				minValue = value;
+			}
+		}
+		return minValue;
+	}
+
 }
