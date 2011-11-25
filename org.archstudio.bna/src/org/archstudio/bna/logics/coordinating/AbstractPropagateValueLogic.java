@@ -3,6 +3,7 @@ package org.archstudio.bna.logics.coordinating;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -214,7 +215,7 @@ public abstract class AbstractPropagateValueLogic<FROM_THING extends IThing, TO_
 		}
 	}
 
-	private final Set<Object> updatingThingIDs = Sets.newHashSet();
+	private final Set<Object> updatingThingIDs = Collections.synchronizedSet(Sets.newHashSet());
 
 	private void doPropagationUnlessInCycle(final IBNAModel fromModel, final FROM_THING fromThing,
 			@Nullable final ThingEvent<FROM_THING, ?, ?> fromThingEvent, final TO_THING toThing,
