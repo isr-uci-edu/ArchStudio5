@@ -5,7 +5,7 @@ import java.util.List;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.keys.AbstractCollectionThingKey;
 import org.archstudio.bna.keys.CollectionThingKey;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 public interface IHasPoints extends IThing {
 

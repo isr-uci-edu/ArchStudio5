@@ -1,25 +1,31 @@
 package org.archstudio.bna.things.labels;
 
+import java.awt.Font;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
+import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.swtutils.constants.FontStyle;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.graphics.TextLayout;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
-public class TagThingPeer<T extends TagThing> extends AbstractThingPeer<T> {
+import com.jogamp.opengl.util.awt.TextRenderer;
+
+public class TagThingPeer<T extends TagThing> extends AbstractThingPeer<T> implements IThingPeer<T> {
+
+	private static final int SPACING = 4;
 
 	public TagThingPeer(T thing) {
 		super(thing);
@@ -42,105 +48,88 @@ public class TagThingPeer<T extends TagThing> extends AbstractThingPeer<T> {
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
-		String text = t.getText();
-		if (text == null || text.trim().length() == 0) {
-			return;
-		}
-		text = ' ' + text + ' ';
-
-		Point lap = cm.worldToLocal(t.getAnchorPoint());
-		Point ip = t.getIndicatorPoint();
-		Point lip = ip != null ? cm.worldToLocal(ip) : null;
+	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		lastTextLocalShape = null;
+		if (r.setColor(t, IHasColor.COLOR_KEY)) {
+			String text = t.getText();
+			Point lap = cm.worldToLocal(t.getAnchorPoint());
+			Point ip = t.getIndicatorPoint();
+			Point lip = ip != null ? cm.worldToLocal(ip) : null;
+			int fontSize = calculateFontSize(view.getCoordinateMapper(), t.getFontSize(), t.getDontIncreaseFontSize());
+			Font font = r.getFont(t, fontSize);
+			int angle = t.getAngle();
 
-		boolean dontIncreaseFontSize = t.getDontIncreaseFontSize();
-		int fontSize = calculateFontSize(view.getCoordinateMapper(), t.getFontSize(), dontIncreaseFontSize);
-		String fontName = t.getFontName();
-		FontStyle fontStyle = t.getFontStyle();
-		int angle = t.getAngle();
+			TextRenderer tr = r.getTextRenderer(font);
+			Point canvasSize = view.getComposite().getSize();
+			int textX = lap.x;
+			int textY = lap.y;
+			Rectangle textBounds = BNAUtils.toRectangle(tr.getBounds(text));
+			lastTextLocalShape = new Rectangle2D.Float(textBounds.x, textBounds.y, textBounds.width, textBounds.height);
 
-		if (r.setForegroundColor(g, t, IHasColor.COLOR_KEY)) {
+			AffineTransform transform = new AffineTransform();
+			transform.translate(textX, textY);
+			transform.rotate(Math.PI * angle / 180);
+			GeneralPath path = new GeneralPath(lastTextLocalShape);
+			path.transform(transform);
+			lastTextLocalShape = path;
 
-			TextLayout tl = null;
-
-			try {
-				g.setFont(r.getFont(fontName, fontSize, fontStyle));
-
-				tl = new TextLayout(r.getDevice());
-				tl.setFont(g.getFont());
-				tl.setText(text);
-				Rectangle textBounds = BNAUtils.toRectangle(tl.getBounds());
-
-				int textX = lap.x;
-				int textY = lap.y;
-
-				if (angle == 0) {
-					lastTextLocalShape = new Rectangle2D.Float(textX, textY, textBounds.width, textBounds.height);
-
-					if (lip != null) {
-						double dist1 = Point2D.distance(lap.x, lap.y, lip.x, lip.y);
-						double dist2 = Point2D.distance(lap.x + textBounds.width, lap.y, lip.x, lip.y);
-						if (dist1 < dist2) {
-							g.drawLine(lap.x, lap.y, lip.x, lip.y);
-						}
-						else {
-							g.drawLine(lap.x + textBounds.width, lap.y, lip.x, lip.y);
-						}
-					}
-
-					g.drawString(text, textX, textY - textBounds.height / 2);
+			if (lip != null) {
+				Point2D lap2d = new Point2D.Float(0, 0);
+				Point2D lap2d2 = new Point2D.Float(textBounds.width + SPACING, 0);
+				transform.transform(lap2d, lap2d);
+				transform.transform(lap2d2, lap2d2);
+				double dist1 = Point2D.distance(lap2d.getX(), lap2d.getY(), lip.x, lip.y);
+				double dist2 = Point2D.distance(lap2d2.getX(), lap2d2.getY(), lip.x, lip.y);
+				gl.glBegin(GL.GL_LINE_STRIP);
+				if (dist1 < dist2) {
+					gl.glVertex2d(lap2d.getX() + 0.5d, lap2d.getY() + 0.5d);
 				}
 				else {
-					AffineTransform transform = new AffineTransform();
-					transform.translate(textX, textY);
-					transform.rotate(Math.PI * angle / 180);
-					GeneralPath path = new GeneralPath(new Rectangle2D.Float(textX, textY, textBounds.width,
-							textBounds.height));
-					path.transform(transform);
-					lastTextLocalShape = path;
-
-					if (lip != null) {
-						Point2D lap2d = new Point2D.Float(lap.x, lap.y);
-						Point2D lap2d2 = new Point2D.Float(lap.x + textBounds.width, lap.y);
-						transform.transform(lap2d, lap2d);
-						transform.transform(lap2d2, lap2d2);
-						double dist1 = Point2D.distance(lap2d.getX(), lap2d.getY(), lip.x, lip.y);
-						double dist2 = Point2D.distance(lap2d2.getX(), lap2d2.getY(), lip.x, lip.y);
-						if (dist1 < dist2) {
-							g.drawLine(BNAUtils.round(lap2d.getX()), BNAUtils.round(lap2d.getY()), lip.x, lip.y);
-						}
-						else {
-							g.drawLine(BNAUtils.round(lap2d2.getX()), BNAUtils.round(lap2d2.getY()), lip.x, lip.y);
-						}
-					}
-
-					g.translate(textX, textY);
-					g.rotate(angle);
-					g.drawString(text, 0, -textBounds.height / 2);
+					gl.glVertex2d(lap2d2.getX() + 0.5d, lap2d2.getY() + 0.5d);
 				}
+				gl.glVertex2i(lip.x, lip.y);
+				gl.glEnd();
 			}
-			finally {
-				if (tl != null) {
-					tl.dispose();
-					tl = null;
-				}
-			}
+
+			tr.beginRendering(canvasSize.x, canvasSize.y);
+			gl.glMatrixMode(GL2.GL_MODELVIEW);
+			gl.glTranslated(textX, canvasSize.y - textY, 0);
+			gl.glRotated(-angle, 0, 0, 1);
+			r.setColor(t, IHasColor.COLOR_KEY);
+			tr.draw3D(text, 4, 0, 0, 1);
+			tr.endRendering();
 		}
 	}
 
 	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		if (lastTextLocalShape != null) {
-			Point lPoint = location.getLocalPoint(new Point());
+			Point lPoint = location.getLocalPoint();
 			return lastTextLocalShape.contains(lPoint.x, lPoint.y);
 		}
 		return false;
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
-		// FIXME: calculate this
-		boundsResult.setBounds(-40000, -40000, 80000, 80000);
+	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm) {
+		Rectangle bounds;
+		if (lastTextLocalShape == null) {
+			bounds = new Rectangle(0, 0, 0, 0);
+			bounds.x = bounds.y = Integer.MIN_VALUE / 2;
+			bounds.width = bounds.height = Integer.MAX_VALUE;
+		}
+		else {
+			bounds = BNAUtils.toRectangle(lastTextLocalShape.getBounds());
+		}
+
+		Point lap = cm.worldToLocal(t.getAnchorPoint());
+		bounds.add(new Rectangle(lap.x, lap.y, 1, 1));
+
+		Point ip = t.getIndicatorPoint();
+		Point lip = ip != null ? cm.worldToLocal(ip) : null;
+		if (lip != null) {
+			bounds.add(new Rectangle(lip.x, lip.y, 1, 1));
+		}
+		return bounds;
 	}
 }

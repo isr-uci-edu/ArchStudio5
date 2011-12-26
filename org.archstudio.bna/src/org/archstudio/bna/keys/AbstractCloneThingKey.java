@@ -1,14 +1,17 @@
 package org.archstudio.bna.keys;
 
+import java.awt.Dimension;
+import java.awt.Insets;
+
 import javax.annotation.Nullable;
 
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.archstudio.bna.IThing.IThingKey;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.base.Function;
+import com.google.common.base.Functions;
 
 public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKey<D, V> {
 
@@ -16,7 +19,7 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 		return new Function<Dimension, Dimension>() {
 			@Override
 			public Dimension apply(Dimension input) {
-				return input != null ? input.getCopy() : null;
+				return input != null ? new Dimension(input.width, input.height) : null;
 			}
 		};
 	}
@@ -25,7 +28,7 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 		return new Function<Insets, Insets>() {
 			@Override
 			public Insets apply(Insets input) {
-				return input != null ? new Insets(input) : null;
+				return input != null ? new Insets(input.top, input.left, input.bottom, input.right) : null;
 			}
 		};
 	}
@@ -34,7 +37,7 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 		return new Function<Point, Point>() {
 			@Override
 			public Point apply(Point input) {
-				return input != null ? input.getCopy() : null;
+				return input != null ? new Point(input.x, input.y) : null;
 			}
 		};
 	}
@@ -43,7 +46,7 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 		return new Function<Rectangle, Rectangle>() {
 			@Override
 			public Rectangle apply(Rectangle input) {
-				return input != null ? input.getCopy() : null;
+				return input != null ? new Rectangle(input.x, input.y, input.width, input.height) : null;
 			}
 		};
 	}
@@ -55,6 +58,10 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 				return input != null ? new RGB(input.red, input.green, input.blue) : null;
 			}
 		};
+	}
+
+	public static final Function<IThingKey<?>, IThingKey<?>> iThingKey() {
+		return Functions.identity();
 	}
 
 	protected final Function<? super V, V> cloneFunction;

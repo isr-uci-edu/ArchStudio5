@@ -1,13 +1,14 @@
 package org.archstudio.bna.things.utility;
 
+import javax.media.opengl.GL2;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.things.AbstractThingPeer;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Rectangle;
 
 public final class NoThingPeer<T extends IThing> extends AbstractThingPeer<IThing> {
 
@@ -16,7 +17,7 @@ public final class NoThingPeer<T extends IThing> extends AbstractThingPeer<IThin
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
+	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 	}
 
 	@Override
@@ -25,7 +26,7 @@ public final class NoThingPeer<T extends IThing> extends AbstractThingPeer<IThin
 	}
 
 	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
-		boundsResult.width = boundsResult.height = 0;
+	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm) {
+		return new Rectangle(0, 0, 0, 0);
 	}
 }

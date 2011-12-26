@@ -4,7 +4,7 @@ public interface IBNAWorld {
 
 	public Object getID();
 
-	public void destroy();
+	public void dispose();
 
 	public boolean isDestroyed();
 

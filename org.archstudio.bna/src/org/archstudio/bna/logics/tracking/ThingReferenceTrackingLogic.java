@@ -1,0 +1,143 @@
+package org.archstudio.bna.logics.tracking;
+
+import static com.google.common.base.Preconditions.checkArgument;
+
+import java.util.Collection;
+
+import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IThingKey;
+import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.keys.IThingRefKey;
+import org.archstudio.bna.logics.AbstractThingLogic;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
+
+public class ThingReferenceTrackingLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
+
+	public static final class Reference {
+		private final Object fromThingID;
+		private final IThingRefKey<?> fromKey;
+
+		public Reference(Object fromThingID, IThingRefKey<?> fromKey) {
+			this.fromThingID = fromThingID;
+			this.fromKey = fromKey;
+		}
+
+		public Object getFromThingID() {
+			return fromThingID;
+		}
+
+		public IThingRefKey<?> getFromKey() {
+			return fromKey;
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + (fromKey == null ? 0 : fromKey.hashCode());
+			result = prime * result + (fromThingID == null ? 0 : fromThingID.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+			if (obj == null) {
+				return false;
+			}
+			if (getClass() != obj.getClass()) {
+				return false;
+			}
+			Reference other = (Reference) obj;
+			if (fromKey == null) {
+				if (other.fromKey != null) {
+					return false;
+				}
+			}
+			else if (!fromKey.equals(other.fromKey)) {
+				return false;
+			}
+			if (fromThingID == null) {
+				if (other.fromThingID != null) {
+					return false;
+				}
+			}
+			else if (!fromThingID.equals(other.fromThingID)) {
+				return false;
+			}
+			return true;
+		}
+	}
+
+	Multimap<Object, Reference> idToReferences = ArrayListMultimap.create();
+
+	public ThingReferenceTrackingLogic() {
+	}
+
+	@Override
+	protected void init() {
+		super.init();
+		for (IThing t : getBNAModel().getAllThings()) {
+			scanForReferences(t);
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	private void scanForReferences(IThing fromThing) {
+		for (IThingKey<?> key : fromThing.keySet()) {
+			if (key instanceof IThingRefKey) {
+				addReference(fromThing, (IThingRefKey) key, fromThing.get(key));
+			}
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	private void removeReferences(IThing fromThing) {
+		for (IThingKey<?> key : fromThing.keySet()) {
+			if (key instanceof IThingRefKey) {
+				removeReference(fromThing, (IThingRefKey) key, fromThing.get(key));
+			}
+		}
+	}
+
+	private synchronized void addReference(IThing fromThing, IThingRefKey<?> fromKey, Object toThingID) {
+		idToReferences.put(toThingID, new Reference(fromThing.getID(), fromKey));
+	}
+
+	private synchronized void removeReference(IThing fromThing, IThingRefKey<?> fromKey, Object toThingID) {
+		idToReferences.remove(toThingID, new Reference(fromThing.getID(), fromKey));
+	}
+
+	public synchronized Collection<Reference> getReferences(Object toThingID) {
+		checkArgument(!(toThingID instanceof IThing), "Expected a thing's ID, not the thing itself: %s", toThingID);
+
+		return Lists.newArrayList(idToReferences.get(toThingID));
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+		switch (evt.getEventType()) {
+		case THING_ADDED:
+			scanForReferences(evt.getTargetThing());
+			break;
+		case THING_REMOVED:
+			removeReferences(evt.getTargetThing());
+			break;
+		case THING_CHANGED:
+			ThingEvent<ET, EK, EV> thingEvent = evt.getThingEvent();
+			IThingKey key = thingEvent.getPropertyName();
+			if (key instanceof IThingRefKey) {
+				removeReference(evt.getTargetThing(), (IThingRefKey) key, thingEvent.getOldPropertyValue());
+				addReference(evt.getTargetThing(), (IThingRefKey) key, thingEvent.getNewPropertyValue());
+			}
+		}
+	}
+}

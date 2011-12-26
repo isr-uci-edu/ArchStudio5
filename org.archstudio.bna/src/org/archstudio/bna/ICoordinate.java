@@ -1,11 +1,11 @@
 package org.archstudio.bna;
 
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 public interface ICoordinate {
 
-	public Point getLocalPoint(Point result);
+	public Point getLocalPoint();
 
-	public Point getWorldPoint(Point result);
+	public Point getWorldPoint();
 
 }

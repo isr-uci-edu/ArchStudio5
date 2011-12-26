@@ -15,8 +15,8 @@ import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xadlbna.things.IHasObjRef;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.dnd.DropTargetEvent;
+import org.eclipse.swt.graphics.Point;
 
 public class StructureDropLogic extends AbstractTreeDropLogic {
 
@@ -67,7 +67,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 		}
 
 		ObjRef outerRef = null;
-		if ((t != null) && (t instanceof RectangleGlassThing)) {
+		if (t != null && t instanceof RectangleGlassThing) {
 			String xArchID = t.get(ArchipelagoUtils.XARCH_ID_KEY);
 			if (xArchID != null) {
 				outerRef = AS.xarch.getByID(documentRootRef, xArchID);
@@ -79,7 +79,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 			if (transfer.isSupportedType(event.currentDataType)) {
 				Object selection = transfer.nativeToJava(event.currentDataType);
 				Object data = getDataFromSelection(selection);
-				if ((data != null) && (data instanceof ObjRef)) {
+				if (data != null && data instanceof ObjRef) {
 					ObjRef structureRef = (ObjRef) data;
 
 					// Set up a substructure if one doesn't already exist.
@@ -91,7 +91,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 					}
 					AS.xarch.set(subStructureRef, "innerStructureLink", structureRef);
 
-					Point worldPoint = location.getWorldPoint(new Point());
+					Point worldPoint = location.getWorldPoint();
 					ArchipelagoUtils.showUserNotification(view.getBNAWorld().getBNAModel(), "Substructure Assigned",
 							worldPoint.x, worldPoint.y);
 				}

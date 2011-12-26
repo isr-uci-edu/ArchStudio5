@@ -1,37 +1,45 @@
 package org.archstudio.bna.things.glass;
 
+import java.util.List;
+
+import javax.media.opengl.GL2;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
+import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractSplineThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
-import org.eclipse.draw2d.Graphics;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
-public class SplineGlassThingPeer<T extends SplineGlassThing> extends AbstractSplineThingPeer<T> {
+public class SplineGlassThingPeer<T extends SplineGlassThing> extends AbstractSplineThingPeer<T> implements
+		IThingPeer<T> {
 
 	public SplineGlassThingPeer(T thing) {
 		super(thing);
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, final Graphics g, IResources r) {
+	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
-			final int[] localXYArray = BNAUtils.toXYArray(BNAUtils.getWorldToLocal(cm, t.getPoints()));
-			BNAUtils.drawMarquee(g, r, t.getRotatingOffset(), new Runnable() {
-				@Override
-				public void run() {
-					g.drawPolyline(localXYArray);
-				}
-			});
-		}
-	}
+			List<Point> localPoints = BNAUtils.worldToLocal(cm, t.getPoints());
 
-	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r,
-			org.eclipse.draw2d.geometry.Rectangle boundsResult) {
-		super.getLocalBounds(view, cm, r, boundsResult);
-		// width of marquee line
-		boundsResult.expand(3, 3);
+			gl.glColor3f(1f, 1f, 1f);
+			gl.glBegin(GL2.GL_LINE_STRIP);
+			for (Point p : localPoints) {
+				gl.glVertex2f(p.x + 0.5f, p.y + 0.5f);
+			}
+			gl.glEnd();
+
+			gl.glColor3f(0f, 0f, 0f);
+			gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
+			gl.glBegin(GL2.GL_LINE_STRIP);
+			for (Point p : localPoints) {
+				gl.glVertex2f(p.x + 0.5f, p.y + 0.5f);
+			}
+			gl.glEnd();
+		}
 	}
 }

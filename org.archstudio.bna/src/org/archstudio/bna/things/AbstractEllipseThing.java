@@ -1,14 +1,15 @@
 package org.archstudio.bna.things;
 
+import java.awt.Dimension;
+import java.awt.Insets;
+
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.facets.IHasMutableLocalInsets;
 import org.archstudio.bna.facets.IHasMutableMinimumSize;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.utils.BNAUtils;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractEllipseThing extends AbstractRelativeMovableReferencePointThing implements
 		IHasMutableBoundingBox, IHasMutableMinimumSize, IRelativeMovable, IHasMutableLocalInsets {
@@ -71,7 +72,8 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 
 	@Override
 	public Point getReferencePoint() {
-		return getBoundingBox().getCenter();
+		Rectangle r = getBoundingBox();
+		return new Point(r.x + r.width / 2, r.y + r.height / 2);
 	}
 
 	@Override
@@ -80,7 +82,8 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 			@Override
 			public void run() {
 				Rectangle bounds = getBoundingBox();
-				bounds.translate(worldDelta);
+				bounds.x += worldDelta.x;
+				bounds.y += worldDelta.y;
 				setBoundingBox(bounds);
 			}
 		});

@@ -2,6 +2,7 @@ package org.archstudio.bna.utils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.awt.Insets;
 import java.util.Collection;
 
 import javax.annotation.Nullable;
@@ -19,6 +20,7 @@ import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasMutableWorld;
 import org.archstudio.bna.facets.IHasPoints;
+import org.archstudio.bna.facets.IHasSize;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.keys.AbstractThingRefKey;
 import org.archstudio.bna.keys.IThingRefKey;
@@ -32,7 +34,6 @@ import org.archstudio.bna.logics.coordinating.WorldThingExternalEventsLogic;
 import org.archstudio.bna.logics.coordinating.WorldThingInternalEventsLogic;
 import org.archstudio.bna.things.glass.EllipseGlassThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
-import org.archstudio.bna.things.glass.MappingGlassThing;
 import org.archstudio.bna.things.glass.PolygonGlassThing;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
@@ -40,14 +41,13 @@ import org.archstudio.bna.things.glass.SplineGlassThing;
 import org.archstudio.bna.things.labels.BoundedLabelThing;
 import org.archstudio.bna.things.labels.DirectionalLabelThing;
 import org.archstudio.bna.things.shapes.EllipseThing;
-import org.archstudio.bna.things.shapes.EndpointThing;
 import org.archstudio.bna.things.shapes.PolygonThing;
 import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.ReshapeHandleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.NoThing;
 import org.archstudio.bna.things.utility.WorldThing;
-import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.swt.graphics.RGB;
 
 import com.google.common.collect.Sets;
 
@@ -76,6 +76,7 @@ public class Assemblies {
 	public static final Object BASE_LAYER_THING_ID = new Object();
 	public static final Object SPLINE_LAYER_THING_ID = new Object();
 	public static final Object MIDDLE_LAYER_THING_ID = new Object();
+	public static final Object TOP_LAYER_THING_ID = new Object();
 
 	protected static IThing initLayer(IBNAModel model, Object layerThingID, IThing parentThing) {
 		IThing noThing = model.getThing(layerThingID);
@@ -90,6 +91,7 @@ public class Assemblies {
 		IThing baseLayerThing = initLayer(model, BASE_LAYER_THING_ID, null);
 		IThing splineLayerThing = initLayer(model, SPLINE_LAYER_THING_ID, baseLayerThing);
 		IThing middleLayerThing = initLayer(model, MIDDLE_LAYER_THING_ID, baseLayerThing);
+		IThing topLayerThing = initLayer(model, TOP_LAYER_THING_ID, baseLayerThing);
 	}
 
 	public static IThing getLayer(IBNAModel model, Object layerThingID) {
@@ -188,9 +190,9 @@ public class Assemblies {
 
 		IBNAModel model = world.getBNAModel();
 
-		EllipseThing bkg = model.addThing(new EllipseThing(id),
+		EllipseThing bkg = model.addThing(new EllipseThing(null),
 				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
-		EllipseGlassThing glass = model.addThing(new EllipseGlassThing(null), bkg);
+		EllipseGlassThing glass = model.addThing(new EllipseGlassThing(id), bkg);
 
 		markPart(glass, BACKGROUND_KEY, bkg);
 
@@ -206,10 +208,10 @@ public class Assemblies {
 		checkNotNull(world);
 		IBNAModel model = world.getBNAModel();
 
-		RectangleThing bkg = model.addThing(new RectangleThing(id),
+		RectangleThing bkg = model.addThing(new RectangleThing(null),
 				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
 		BoundedLabelThing label = model.addThing(new BoundedLabelThing(null), bkg);
-		RectangleGlassThing glass = model.addThing(new RectangleGlassThing(null), bkg);
+		RectangleGlassThing glass = model.addThing(new RectangleGlassThing(id), bkg);
 
 		markPart(glass, BACKGROUND_KEY, bkg);
 		markPart(glass, TEXT_KEY, label);
@@ -250,9 +252,9 @@ public class Assemblies {
 		IBNAModel model = world.getBNAModel();
 		IThingLogicManager tlm = world.getThingLogicManager();
 
-		PolygonThing bkg = model.addThing(new PolygonThing(id),
+		PolygonThing bkg = model.addThing(new PolygonThing(null),
 				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
-		PolygonGlassThing glass = model.addThing(new PolygonGlassThing(null), bkg);
+		PolygonGlassThing glass = model.addThing(new PolygonGlassThing(id), bkg);
 
 		markPart(glass, BACKGROUND_KEY, bkg);
 
@@ -327,12 +329,14 @@ public class Assemblies {
 
 		IBNAModel model = world.getBNAModel();
 
-		EndpointThing bkg = model.addThing(new EndpointThing(id),
-				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
+		RectangleThing bkg = model.addThing(new RectangleThing(null),
+				parent != null ? parent : getLayer(model, TOP_LAYER_THING_ID));
+		bkg.setColor(new RGB(255, 255, 255));
+		bkg.setSecondaryColor(null);
 		DirectionalLabelThing label = model.addThing(new DirectionalLabelThing(null), bkg);
 		label.setLocalInsets(new Insets(2, 2, 2, 2));
 		//AnchoredLabelThing text = model.addThing(new AnchoredLabelThing(null), bkg);
-		EndpointGlassThing glass = model.addThing(new EndpointGlassThing(null), bkg);
+		EndpointGlassThing glass = model.addThing(new EndpointGlassThing(id), bkg);
 
 		markPart(glass, BACKGROUND_KEY, bkg);
 		markPart(glass, LABEL_KEY, label);
@@ -341,7 +345,7 @@ public class Assemblies {
 		IThingLogicManager tlm = world.getThingLogicManager();
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 
-		mvl.mirrorValue(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, bkg);
+		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, bkg);
 		//mvl.mirrorValue(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, text);
 		//mvl.mirrorValue(label, IHasOrientation.ORIENTATION_KEY, text, IHasAngle.ANGLE_KEY, orientationToAngleFn);
 		//mvl.mirrorValue(label, IHasOrientation.ORIENTATION_KEY, text, IHasHorizontalAlignment.HORIZONTAL_ALIGNMENT_KEY, orientationToHorizontalAlignmentFn);
@@ -351,8 +355,7 @@ public class Assemblies {
 
 		if (parent != null) {
 			StickPointLogic stickLogic = tlm.addThingLogic(StickPointLogic.class);
-			stickLogic.setStickyMode(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, StickyMode.EDGE);
-			stickLogic.setThingRef(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, parent.getID());
+			stickLogic.stick(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, StickyMode.EDGE, parent);
 			if (parent instanceof IHasBoundingBox) {
 				OrientDirectionalLabelLogic orientLogic = tlm.addThingLogic(OrientDirectionalLabelLogic.class);
 				orientLogic.orient((IHasBoundingBox) parent, label);
@@ -367,30 +370,9 @@ public class Assemblies {
 
 		IBNAModel model = world.getBNAModel();
 
-		SplineThing bkg = model.addThing(new SplineThing(id),
+		SplineThing bkg = model.addThing(new SplineThing(null),
 				parent != null ? parent : getLayer(model, SPLINE_LAYER_THING_ID));
-		SplineGlassThing glass = model.addThing(new SplineGlassThing(null), bkg);
-
-		markPart(glass, BACKGROUND_KEY, bkg);
-
-		IThingLogicManager tlm = world.getThingLogicManager();
-		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
-
-		mvl.mirrorValue(glass, IHasEndpoints.ENDPOINT_1_KEY, bkg);
-		mvl.mirrorValue(glass, IHasMidpoints.MIDPOINTS_KEY, bkg);
-		mvl.mirrorValue(glass, IHasEndpoints.ENDPOINT_2_KEY, bkg);
-
-		return glass;
-	}
-
-	public static MappingGlassThing createMapping(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
-		checkNotNull(world);
-
-		IBNAModel model = world.getBNAModel();
-
-		SplineThing bkg = model.addThing(new SplineThing(id),
-				parent != null ? parent : getLayer(model, SPLINE_LAYER_THING_ID));
-		MappingGlassThing glass = model.addThing(new MappingGlassThing(null), bkg);
+		SplineGlassThing glass = model.addThing(new SplineGlassThing(id), bkg);
 
 		markPart(glass, BACKGROUND_KEY, bkg);
 
@@ -410,7 +392,7 @@ public class Assemblies {
 		IBNAModel model = world.getBNAModel();
 
 		ReshapeHandleThing bkg = model.addThing(new ReshapeHandleThing(null), parent);
-		ReshapeHandleGlassThing glass = model.addThing(new ReshapeHandleGlassThing(null), bkg);
+		ReshapeHandleGlassThing glass = model.addThing(new ReshapeHandleGlassThing(id), bkg);
 
 		markPart(glass, BACKGROUND_KEY, bkg);
 
@@ -418,6 +400,7 @@ public class Assemblies {
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 
 		mvl.mirrorValue(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, bkg);
+		mvl.mirrorValue(glass, IHasSize.SIZE_KEY, bkg);
 
 		return glass;
 	}

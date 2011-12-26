@@ -1,17 +1,17 @@
 package org.archstudio.bna;
 
+import java.awt.Font;
+
+import javax.media.opengl.GL2;
+
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasFontData;
 import org.archstudio.bna.facets.IHasLineData;
-import org.archstudio.swtutils.constants.FontStyle;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
+
+import com.jogamp.opengl.util.awt.TextRenderer;
 
 public interface IResources {
 
@@ -19,22 +19,19 @@ public interface IResources {
 
 	public Composite getComposite();
 
-	public void dispose();
+	public GL2 getGL();
 
-	public Color getColor(RGB color);
+	public boolean setColor(IThing thing, IThingKey<RGB> colorKey);
 
-	public Color getColor(int systemColor);
+	public void setColor(RGB color, float alpha);
 
-	public boolean setForegroundColor(Graphics g, IThing thing, IThingKey<RGB> colorKey);
+	public boolean setLineStyle(IHasLineData thing);
 
-	public boolean setBackgroundColor(Graphics g, IThing thing, IThingKey<RGB> colorKey);
+	public Font getFont(IHasFontData thing);
 
-	public Font getFont(String fontName, int size, FontStyle style);
+	public Font getFont(IHasFontData thing, int size);
 
-	public Image getImage(ImageData imageData);
+	public void destroy();
 
-	public boolean setFont(Graphics g, IHasFontData thing);
-
-	public boolean setLineStyle(Graphics g, IHasLineData thing);
-
+	public TextRenderer getTextRenderer(Font f);
 }

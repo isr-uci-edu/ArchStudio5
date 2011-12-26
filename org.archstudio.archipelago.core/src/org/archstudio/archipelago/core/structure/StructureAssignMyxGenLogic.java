@@ -147,34 +147,39 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 					});
 			List<Interface> newIfaces = Lists.newArrayList();
 
-			for (MyxGenInterface mif : myxGenBrick.getInterfaces()) {
+			MyxGenBrick currentMyxGenBrick = myxGenBrick;
+			while (currentMyxGenBrick != null) {
+				for (MyxGenInterface mif : currentMyxGenBrick.getInterfaces()) {
 
-				Interface bif = SystemUtils.firstOrNull(oldIfaces.get(mif.getName()));
-				if (bif == null) {
-					bif = structureFactory.createInterface();
-					bif.setId(UIDGenerator.generateUID());
-					brick.getInterface().add(bif);
+					Interface bif = SystemUtils.firstOrNull(oldIfaces.get(mif.getName()));
+					if (bif == null) {
+						bif = structureFactory.createInterface();
+						bif.setId(UIDGenerator.generateUID());
+						brick.getInterface().add(bif);
+					}
+					newIfaces.add(bif);
+
+					bif.setName(mif.getName());
+					bif.setDirection(Direction.getByName(mif.getDirection().name().toLowerCase()));
+
+					ImplementationExtension impl = XadlUtils.createExt(xarch, bif,
+							Implementation_3_0Package.Literals.IMPLEMENTATION_EXTENSION);
+
+					LookupImplementation lookup = lookupFactory.createLookupImplementation();
+					lookup.setId(UIDGenerator.generateUID());
+					lookup.setLookup(mif.getId());
+
+					impl.getImplementation().clear();
+					impl.getImplementation().add(lookup);
+
+					DomainExtension domainExt = XadlUtils.createExt(xarch, bif,
+							Domain_3_0Package.Literals.DOMAIN_EXTENSION);
+					Domain domain = domainFactory.createDomain();
+					domain.setType(DomainType.getByName(mif.getDomain()));
+					domainExt.setDomain(domain);
 				}
-				newIfaces.add(bif);
-
-				bif.setName(mif.getName());
-				bif.setDirection(Direction.getByName(mif.getDirection().name().toLowerCase()));
-
-				ImplementationExtension impl = XadlUtils.createExt(xarch, bif,
-						Implementation_3_0Package.Literals.IMPLEMENTATION_EXTENSION);
-
-				LookupImplementation lookup = lookupFactory.createLookupImplementation();
-				lookup.setId(UIDGenerator.generateUID());
-				lookup.setLookup(mif.getId());
-
-				impl.getImplementation().clear();
-				impl.getImplementation().add(lookup);
-
-				DomainExtension domainExt = XadlUtils
-						.createExt(xarch, bif, Domain_3_0Package.Literals.DOMAIN_EXTENSION);
-				Domain domain = domainFactory.createDomain();
-				domain.setType(DomainType.getByName(mif.getDomain()));
-				domainExt.setDomain(domain);
+				String parentBrickID = currentMyxGenBrick.getParentBrickId();
+				currentMyxGenBrick = MyxGenWorkspaceExtensions.getActiveMyxGenBrick(parentBrickID);
 			}
 
 			List<Interface> doomedIfaces = Lists.newArrayList(oldIfaces.values());

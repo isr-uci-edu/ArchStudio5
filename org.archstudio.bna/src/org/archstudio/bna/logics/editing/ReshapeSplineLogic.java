@@ -1,7 +1,5 @@
 package org.archstudio.bna.logics.editing;
 
-import static org.archstudio.sysutils.SystemUtils.castOrNull;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,13 +12,14 @@ import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasMutablePoints;
 import org.archstudio.bna.facets.IHasStandardCursor;
 import org.archstudio.bna.facets.IIsSticky;
-import org.archstudio.bna.logics.coordinating.StickPointLogic;
+import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 
 import com.google.common.collect.Iterables;
@@ -38,7 +37,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 
 	private final List<IReshapeSplineGuide> reshapeSplineGuides = Lists.newArrayList();
 
-	protected StickPointLogic stickLogic = null;
+	protected DynamicStickPointLogic stickLogic = null;
 
 	public ReshapeSplineLogic() {
 		super(IHasMutablePoints.class);
@@ -47,7 +46,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 	@Override
 	protected void init() {
 		super.init();
-		stickLogic = addThingLogic(StickPointLogic.class);
+		stickLogic = addThingLogic(DynamicStickPointLogic.class);
 	}
 
 	public void addReshapeSplineGuides(IReshapeSplineGuide... guides) {
@@ -101,10 +100,9 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		Point point = reshapingThing.getPoint(data);
 		IThingKey<Point> endpointKey = getEndpointKey(data);
 		if (endpointKey != null) {
-			StickyMode stickyMode = stickLogic.getStickyMode(reshapingThing, endpointKey);
+			StickyMode stickyMode = reshapingThing.get(stickLogic.getStickyModeKey(endpointKey));
 			if (stickyMode != null && stickyMode.isStuckToCenterPoint()) {
-				IIsSticky stickyThing = castOrNull(
-						getBNAModel().getThing(stickLogic.getThingRef(reshapingThing, endpointKey)), IIsSticky.class);
+				IIsSticky stickyThing = stickLogic.getStickyThingKey(endpointKey).get(reshapingThing, getBNAModel());
 				if (stickyThing != null) {
 					point = stickyThing.getStickyPointNear(StickyMode.CENTER, reshapingThing.getPoint(data));
 				}
@@ -119,18 +117,18 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 	@Override
 	protected void handleMoved(ReshapeHandleGlassThing handle, Integer data, DragMoveEvent evt) {
 
-		Point p = evt.getMouseLocation().getWorldPoint(new Point());
-		Point ap = evt.getAdjustedMouseLocation().getWorldPoint(new Point());
+		Point p = evt.getMouseLocation().getWorldPoint();
+		Point ap = evt.getAdjustedMouseLocation().getWorldPoint();
 
 		IThingKey<Point> endpointKey = getEndpointKey(data);
 		if (endpointKey != null) {
 
 			// one of the endpoints is being moved
-			StickyMode stickToThingMode = stickLogic.getStickyMode(reshapingThing, endpointKey);
-			Object stickToThingID = stickLogic.getThingRef(reshapingThing, endpointKey);
+			StickyMode stickToThingMode = reshapingThing.get(stickLogic.getStickyModeKey(endpointKey));
+			Object stickToThingID = reshapingThing.get(stickLogic.getStickyThingKey(endpointKey));
 
 			// if pulled far away from a stuck point, unstick it
-			if (reshapingThing.getPoint(data).getDistance(ap) >= UNSTICK_DIST) {
+			if (BNAUtils.getDistance(reshapingThing.getPoint(data), ap) >= UNSTICK_DIST) {
 				stickToThingID = null;
 			}
 
@@ -140,7 +138,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 					StickyMode stickyMode = guide.getStickyMode(reshapingThing, stickyThing, data);
 					if (stickyMode != null) {
 						Point stuckPoint = stickyThing.getStickyPointNear(stickyMode, p);
-						if (stuckPoint != null && stuckPoint.getDistance(p) <= STICK_DIST) {
+						if (stuckPoint != null && BNAUtils.getDistance(stuckPoint, p) <= STICK_DIST) {
 							stickToThingID = stickyThing.getID();
 							stickToThingMode = stickyMode;
 						}
@@ -150,7 +148,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 
 			// update the stuck thing
 			reshapingThing.set(stickLogic.getStickyModeKey(endpointKey), stickToThingMode);
-			reshapingThing.set(stickLogic.getThingRefKey(endpointKey), stickToThingID);
+			reshapingThing.set(stickLogic.getStickyThingKey(endpointKey), stickToThingID);
 
 		}
 
@@ -177,8 +175,8 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 			// determine if the point is close to its neighbor
 			boolean remove = false;
 			Point dp = points.get(data);
-			remove |= dp.getDistance(points.get(data - 1)) <= MERGE_DIST;
-			remove |= dp.getDistance(points.get(data + 1)) <= MERGE_DIST;
+			remove |= BNAUtils.getDistance(dp, points.get(data - 1)) <= MERGE_DIST;
+			remove |= BNAUtils.getDistance(dp, points.get(data + 1)) <= MERGE_DIST;
 
 			// if so, remove the point
 			if (remove) {
@@ -198,7 +196,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		boolean isStuck = false;
 		IThingKey<Point> endpointKey = getEndpointKey(data);
 		if (endpointKey != null) {
-			isStuck |= stickLogic.getThingRef(reshapingThing, endpointKey) != null;
+			isStuck |= reshapingThing.get(stickLogic.getStickyThingKey(endpointKey)) != null;
 		}
 		RGB color = shouldBeStuck ? isStuck ? STUCK_COLOR : UNSTUCK_COLOR : NORMAL_COLOR;
 		((IHasMutableColor) Assemblies.BACKGROUND_KEY.get(handle, getBNAModel())).setColor(color);

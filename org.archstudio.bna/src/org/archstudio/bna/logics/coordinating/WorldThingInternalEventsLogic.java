@@ -22,7 +22,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 	protected ThingTypeTrackingLogic typeLogic = null;
 	protected Map<IHasWorld, InternalModelListener> thingToListenerMap = new HashMap<IHasWorld, InternalModelListener>();
 
-	private static IThingKey<Integer> INTERNAL_CHANGE_TICKER = ThingKey.create("Internal Change Ticker");
+	public static final IThingKey<Integer> INTERNAL_MODEL_CHANGE_TICKER = ThingKey.create("InternalChangeTicker");
 
 	public WorldThingInternalEventsLogic() {
 	}
@@ -33,7 +33,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 
 		public InternalModelListener(IHasWorld viewThing) {
 			this.viewThing = viewThing;
-			viewThing.set(INTERNAL_CHANGE_TICKER, 0);
+			viewThing.set(INTERNAL_MODEL_CHANGE_TICKER, 0);
 		}
 
 		@Override
@@ -41,18 +41,31 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 			fireInternalBNAModelEvent(viewThing, evt);
 		}
 
+		boolean needsTick = false;
+
 		@Override
 		public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
 			fireInternalBNAModelEventSync(viewThing, evt);
-			viewThing.synchronizedUpdate(new Runnable() {
-				@Override
-				public void run() {
-					viewThing.set(INTERNAL_CHANGE_TICKER, viewThing.get(INTERNAL_CHANGE_TICKER) + 1);
-				}
-			});
+			switch (evt.getEventType()) {
+			case BULK_CHANGE_BEGIN:
+			case BULK_CHANGE_END:
+				break;
+			default:
+				needsTick = true;
+			}
+			if (!evt.isInBulkChange() && needsTick) {
+				needsTick = false;
+				viewThing.synchronizedUpdate(new Runnable() {
+					@Override
+					public void run() {
+						viewThing.set(INTERNAL_MODEL_CHANGE_TICKER, viewThing.get(INTERNAL_MODEL_CHANGE_TICKER) + 1);
+					}
+				});
+			}
 		}
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 		typeLogic = addThingLogic(ThingTypeTrackingLogic.class);
@@ -61,6 +74,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
+	@Override
 	protected void destroy() {
 		for (IHasWorld vt : Lists.newArrayList(thingToListenerMap.keySet())) {
 			removeListener(vt);
@@ -69,7 +83,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 
 	@Override
 	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
-		if ((evt.getTargetThing() != null) && (evt.getTargetThing() instanceof IHasWorld)) {
+		if (evt.getTargetThing() != null && evt.getTargetThing() instanceof IHasWorld) {
 			IHasWorld vt = (IHasWorld) evt.getTargetThing();
 			switch (evt.getEventType()) {
 			case THING_ADDED:
@@ -80,7 +94,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 				break;
 			case THING_CHANGED:
 				ThingEvent<ET, EK, EV> te = evt.getThingEvent();
-				if ((te != null) && (te.getPropertyName().equals(IHasWorld.WORLD_KEY))) {
+				if (te != null && te.getPropertyName().equals(IHasWorld.WORLD_KEY)) {
 					removeListener(vt);
 					addListener(vt);
 				}

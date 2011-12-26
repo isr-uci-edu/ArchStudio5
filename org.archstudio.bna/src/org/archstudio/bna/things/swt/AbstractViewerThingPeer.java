@@ -1,10 +1,14 @@
 package org.archstudio.bna.things.swt;
 
+import java.awt.Graphics;
+
+import javax.media.opengl.GL2;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 
 public abstract class AbstractViewerThingPeer<T extends AbstractViewerThing, C extends Control, V extends Viewer>
@@ -21,16 +25,16 @@ public abstract class AbstractViewerThingPeer<T extends AbstractViewerThing, C e
 		return (C) viewer.getControl();
 	}
 
-	protected abstract V createViewer(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r);
+	protected abstract V createViewer(IBNAView view, ICoordinateMapper cm);
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
+	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 
 		if (viewer == null) {
-			viewer = createViewer(view, cm, g, r);
+			viewer = createViewer(view, cm);
 		}
 
-		super.draw(view, cm, g, r);
+		super.draw(view, cm, gl, clip, r);
 	}
 
 }

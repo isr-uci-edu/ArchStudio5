@@ -35,9 +35,9 @@ import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.bna.utils.UserEditableUtils;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -98,40 +98,41 @@ public class StickySplineDemo {
 		MirrorValueLogic mvl = world.getThingLogicManager().addThingLogic(MirrorValueLogic.class);
 
 		ICoordinateMapper cm = view.getCoordinateMapper();
-		Point offset = cm.getWorldBounds(new Rectangle()).getCenter();
+		Rectangle cmwb = cm.getWorldBounds();
+		Point offset = new Point(cmwb.x + cmwb.width / 2, cmwb.y + cmwb.height / 2);
 		List<IIsSticky> shapeThings = Lists.newArrayList();
 		IThingKey<StickyMode> shapeStickyMode = ThingKey.create("stickyMode");
 
+		System.err.println(cm);
+
 		Random r = new Random();
-		for (int j = 0; j < 2; j++) {
-			for (StickyMode stickyMode : StickyMode.values()) {
-				PolygonGlassThing p = Assemblies.createPolygon(world, null, null);
-				((IHasMutableColor) Assemblies.BACKGROUND_KEY.get(p, model)).setColor(null);
-				p.setAnchorPoint(offset.getTranslated(r.nextInt(200) + 50, r.nextInt(200) + 50));
-				List<Point> points = Lists.newArrayList();
-				points.add(new Point(-50, -50));
-				points.add(new Point(-50, 50));
-				for (int i = 0; i < 5; i++) {
-					points.add(new Point(r.nextInt(100) - 50, r.nextInt(100) - 50));
-				}
-				p.setPoints(points);
-				//int w = r.nextInt(100);
-				//int h = r.nextInt(100);
-				//p.setPoints(Lists.newArrayList(new Point(w / 2, 0), new Point(w, h / 2), new Point(w / 2, h), new Point(0,
-				//		h / 2), new Point(w / 2, 0)));
-				//p.getPolygonGlassThing().setBoundingBox(10 + .nextInt(430), 10 + r.nextInt(430), 10 + r.nextInt(40),
-				//		10 + r.nextInt(40));
-				//ToolTipLogic.setToolTip(p, stickyMode.name().replace("_", " "));
-				UserEditableUtils.addEditableQualities(p, IHasMutableSelected.USER_MAY_SELECT,
-						IRelativeMovable.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE);
-
-				p.set(shapeStickyMode, stickyMode);
-
-				AnchoredLabelThing label = model.addThing(new AnchoredLabelThing(null));
-				label.setText(stickyMode.name());
-				mvl.mirrorValue(p, IHasAnchorPoint.ANCHOR_POINT_KEY, label);
-				shapeThings.add(p);
+		for (StickyMode stickyMode : StickyMode.values()) {
+			PolygonGlassThing p = Assemblies.createPolygon(world, null, null);
+			((IHasMutableColor) Assemblies.BACKGROUND_KEY.get(p, model)).setColor(null);
+			p.setAnchorPoint(new Point(offset.x + r.nextInt(200) + 50, offset.y + r.nextInt(200) + 50));
+			List<Point> points = Lists.newArrayList();
+			points.add(new Point(-50, -50));
+			points.add(new Point(-50, 50));
+			for (int i = 0; i < 5; i++) {
+				points.add(new Point(r.nextInt(100) - 50, r.nextInt(100) - 50));
 			}
+			p.setPoints(points);
+			//int w = r.nextInt(100);
+			//int h = r.nextInt(100);
+			//p.setPoints(Lists.newArrayList(new Point(w / 2, 0), new Point(w, h / 2), new Point(w / 2, h), new Point(0,
+			//		h / 2), new Point(w / 2, 0)));
+			//p.getPolygonGlassThing().setBoundingBox(10 + .nextInt(430), 10 + r.nextInt(430), 10 + r.nextInt(40),
+			//		10 + r.nextInt(40));
+			//ToolTipLogic.setToolTip(p, stickyMode.name().replace("_", " "));
+			UserEditableUtils.addEditableQualities(p, IHasMutableSelected.USER_MAY_SELECT,
+					IRelativeMovable.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE);
+
+			p.set(shapeStickyMode, stickyMode);
+
+			AnchoredLabelThing label = model.addThing(new AnchoredLabelThing(null));
+			label.setText(stickyMode.name());
+			mvl.mirrorValue(p, IHasAnchorPoint.ANCHOR_POINT_KEY, label);
+			shapeThings.add(p);
 		}
 
 		for (int f = 0; f < shapeThings.size(); f++) {

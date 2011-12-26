@@ -63,7 +63,7 @@
          point="org.eclipse.ui.newWizards">
       <category
             id="org.archstudio.wizards"
-            name="ArchStudio 5">
+            name="ArchStudio">
       </category>
       <wizard
             category="org.archstudio.wizards"

@@ -1,9 +1,10 @@
 package org.archstudio.bna.things.borders;
 
+import java.awt.Dimension;
+
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasRotatingOffset;
 import org.archstudio.bna.things.AbstractRectangleThing;
-import org.eclipse.draw2d.geometry.Dimension;
 
 public class MarqueeBoxBorderThing extends AbstractRectangleThing implements IHasMutableRotatingOffset {
 

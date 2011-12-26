@@ -30,8 +30,8 @@ public abstract class AbstractThingLogic implements IThingLogic {
 	}
 
 	protected IBNAModel getBNAModel() {
-		IBNAWorld bnaWorld = checkNotNull(getBNAWorld());
-		return bnaWorld.getBNAModel();
+		IBNAWorld bnaWorld = getBNAWorld();
+		return bnaWorld != null ? bnaWorld.getBNAModel() : null;
 	}
 
 	protected <L extends IThingLogic> L addThingLogic(Class<L> logicClass) {

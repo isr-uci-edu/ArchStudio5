@@ -1,15 +1,11 @@
 package org.archstudio.bna.things.utility;
 
-import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableRadius;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.AbstractAnchorPointThing;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 
-public class RotaterThing extends AbstractAnchorPointThing implements IHasBoundingBox, IHasMutableAngle,
-		IHasMutableRadius {
+public class RotaterThing extends AbstractAnchorPointThing implements IHasMutableAngle, IHasMutableRadius {
 
 	public static final IThingKey<Integer> ROTATED_THING_IDS_KEY = ThingKey.create("rotatedThingIDs");
 	public static final IThingKey<Integer> ADJUSTMENT_INCREMENT_KEY = ThingKey.create("adjustmentIncrement");
@@ -34,13 +30,6 @@ public class RotaterThing extends AbstractAnchorPointThing implements IHasBoundi
 	@Override
 	public void setRadius(int radius) {
 		set(RADIUS_KEY, radius);
-	}
-
-	@Override
-	public Rectangle getBoundingBox() {
-		Point anchorPoint = getAnchorPoint();
-		int radius = getRadius();
-		return new Rectangle(anchorPoint.x - radius, anchorPoint.y - radius, radius * 2, radius * 2);
 	}
 
 	@Override

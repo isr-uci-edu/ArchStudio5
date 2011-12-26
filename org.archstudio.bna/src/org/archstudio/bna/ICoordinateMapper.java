@@ -1,7 +1,8 @@
 package org.archstudio.bna;
 
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.archstudio.bna.utils.BNAUtils;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public interface ICoordinateMapper {
 
@@ -17,17 +18,17 @@ public interface ICoordinateMapper {
 		}
 
 		@Override
-		public Rectangle getWorldBounds(Rectangle result) {
+		public Rectangle getWorldBounds() {
 			return new Rectangle(Integer.MIN_VALUE / 2, Integer.MIN_VALUE / 2, Integer.MAX_VALUE, Integer.MAX_VALUE);
 		}
 
 		@Override
-		public Rectangle getLocalBounds(Rectangle result) {
+		public Rectangle getLocalBounds() {
 			return new Rectangle(Integer.MIN_VALUE / 2, Integer.MIN_VALUE / 2, Integer.MAX_VALUE, Integer.MAX_VALUE);
 		}
 
 		@Override
-		public Point getLocalOrigin(Point result) {
+		public Point getLocalOrigin() {
 			return new Point(0, 0);
 		}
 
@@ -37,23 +38,23 @@ public interface ICoordinateMapper {
 		}
 
 		@Override
-		public Point worldToLocal(Point worldPointResult) {
-			return worldPointResult;
+		public Point worldToLocal(Point worldPoint) {
+			return BNAUtils.clone(worldPoint);
 		}
 
 		@Override
-		public Rectangle worldToLocal(Rectangle worldRectangleResult) {
-			return worldRectangleResult;
+		public Rectangle worldToLocal(Rectangle worldRectangle) {
+			return BNAUtils.clone(worldRectangle);
 		}
 
 		@Override
-		public Point localToWorld(Point localPointResult) {
-			return localPointResult;
+		public Point localToWorld(Point localPoint) {
+			return BNAUtils.clone(localPoint);
 		}
 
 		@Override
-		public Rectangle localToWorld(Rectangle localRectangleResult) {
-			return localRectangleResult;
+		public Rectangle localToWorld(Rectangle localRectangle) {
+			return BNAUtils.clone(localRectangle);
 		}
 
 		@Override
@@ -66,21 +67,21 @@ public interface ICoordinateMapper {
 
 	public abstract void removeCoordinateMapperListener(ICoordinateMapperListener l);
 
-	public abstract Rectangle getWorldBounds(Rectangle result);
+	public abstract Rectangle getWorldBounds();
 
-	public abstract Rectangle getLocalBounds(Rectangle result);
+	public abstract Rectangle getLocalBounds();
 
-	public abstract Point getLocalOrigin(Point result);
+	public abstract Point getLocalOrigin();
 
 	public abstract double getLocalScale();
 
-	public abstract Point worldToLocal(Point worldPointResult);
+	public abstract Point worldToLocal(Point worldPoint);
 
-	public abstract Rectangle worldToLocal(Rectangle worldRectangleResult);
+	public abstract Rectangle worldToLocal(Rectangle worldRectangle);
 
-	public abstract Point localToWorld(Point localPointResult);
+	public abstract Point localToWorld(Point localPoint);
 
-	public abstract Rectangle localToWorld(Rectangle localRectangleResult);
+	public abstract Rectangle localToWorld(Rectangle localRectangle);
 
 	public ICoordinateMapper copy();
 }

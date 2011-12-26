@@ -17,9 +17,9 @@ import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Iterables;
 

@@ -2,6 +2,8 @@ package org.archstudio.bna.logics.coordinating;
 
 import static org.junit.Assert.assertEquals;
 
+import java.awt.Dimension;
+
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
@@ -11,9 +13,8 @@ import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAWorld;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.junit.Before;
 import org.junit.Test;
 

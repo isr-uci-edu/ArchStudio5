@@ -26,8 +26,8 @@ import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xadlbna.things.IHasObjRef;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Point;
 
 public class ArchipelagoFinder implements IFinder<IBNAView> {
 
@@ -50,7 +50,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 		Object o = selectedResult.getData();
 		if (o != null && o instanceof FindResultData) {
 			final FindResultData frd = (FindResultData) o;
-			FlyToUtils.flyTo(frd.view, frd.p.getCopy());
+			FlyToUtils.flyTo(frd.view, frd.p);
 
 			IThing t = frd.t;
 			ArchipelagoUtils.pulseNotify(frd.view.getBNAWorld().getBNAModel(), t);

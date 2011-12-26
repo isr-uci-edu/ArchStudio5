@@ -4,7 +4,6 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
 import java.util.List;
 
-import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.IBNAMouseWheelListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -18,11 +17,12 @@ import org.archstudio.bna.utils.IBNAMouseClickListener;
 import org.archstudio.bna.utils.IBNAMouseListener;
 import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.archstudio.sysutils.SystemUtils;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Cursor;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Composite;
 
 public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWheelListener, IBNAMouseListener,
 		IBNAMouseMoveListener, IBNAMouseClickListener {
@@ -51,11 +51,9 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 
 		if (e.button == panButton) {
 			startMouseCoordinate = location;
-			BNACanvas canvas = castOrNull(e.getSource(), BNACanvas.class);
-			if (canvas != null) {
-				Cursor handCursor = e.display.getSystemCursor(SWT.CURSOR_HAND);
-				canvas.setCursor(handCursor);
-			}
+			Composite composite = view.getComposite();
+			Cursor handCursor = e.display.getSystemCursor(SWT.CURSOR_HAND);
+			composite.setCursor(handCursor);
 		}
 	}
 
@@ -68,10 +66,8 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 
 		if (startMouseCoordinate != null) {
 			startMouseCoordinate = null;
-			BNACanvas canvas = castOrNull(e.getSource(), BNACanvas.class);
-			if (canvas != null) {
-				canvas.setCursor(null);
-			}
+			Composite composite = view.getComposite();
+			composite.setCursor(null);
 		}
 	}
 
@@ -80,7 +76,7 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 		if (startMouseCoordinate != null) {
 			IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
 			if (mcm != null) {
-				mcm.align(location.getLocalPoint(new Point()), startMouseCoordinate.getWorldPoint(new Point()));
+				mcm.align(location.getLocalPoint(), startMouseCoordinate.getWorldPoint());
 			}
 		}
 	}
@@ -105,8 +101,7 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 						mcm.synchronizedUpdate(new Runnable() {
 							@Override
 							public void run() {
-								mcm.setLocalScale(newScale);
-								mcm.align(location.getLocalPoint(new Point()), location.getWorldPoint(new Point()));
+								mcm.setLocalScaleAndAlign(newScale, location.getLocalPoint(), location.getWorldPoint());
 							}
 						});
 					}
@@ -124,15 +119,15 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 		if (evt.button == panButton) {
 			final IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
 			if (mcm != null) {
-				Rectangle r = new Rectangle();
+				Rectangle r = new Rectangle(0, 0, 0, 0);
 				for (IThing thing : getBNAModel().getAllThings()) {
 					if (thing instanceof IHasBoundingBox) {
 						union(r, ((IHasBoundingBox) thing).getBoundingBox());
 					}
 				}
 				if (!r.isEmpty()) {
-					mcm.setLocalScale(1);
-					mcm.align(location.getLocalPoint(new Point()), r.getCenter());
+					mcm.setLocalScaleAndAlign(1, location.getLocalPoint(), new Point(r.x + r.width / 2, r.y + r.height
+							/ 2));
 				}
 			}
 		}
@@ -140,7 +135,10 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 
 	public static final void union(Rectangle bounds, Rectangle lastBounds) {
 		if (bounds.isEmpty()) {
-			bounds.setBounds(lastBounds);
+			bounds.x = lastBounds.x;
+			bounds.y = lastBounds.y;
+			bounds.width = lastBounds.width;
+			bounds.height = lastBounds.height;
 		}
 		else if (!lastBounds.isEmpty()) {
 			bounds.union(lastBounds);

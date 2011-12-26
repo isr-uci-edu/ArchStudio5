@@ -2,38 +2,83 @@ package org.archstudio.bna.logics.editing;
 
 import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
+import java.awt.geom.Point2D;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.facets.IHasAnchorPoint;
+import org.archstudio.bna.facets.IHasAngle;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
+import org.archstudio.bna.things.labels.TagThing;
 import org.archstudio.bna.things.utility.RotaterThing;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.IBNAMouseClickListener;
+import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.IBNAMouseListener;
 import org.archstudio.bna.utils.IBNAMouseMoveListener;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.ui.IWorkbenchActionConstants;
 
-public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMouseClickListener,
-		IBNAMouseMoveListener {
+public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMouseMoveListener,
+		IBNAMenuListener {
 
-	protected RotaterThing rt;
+	MirrorValueLogic mirrorLogic;
+
+	protected RotaterThing rt = null;
 	protected boolean pressed = false;
+
+	@Override
+	protected void init() {
+		super.init();
+		mirrorLogic = addThingLogic(MirrorValueLogic.class);
+	}
+
+	@Override
+	public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+		final TagThing tt = firstOrNull(things, TagThing.class);
+		if (tt != null) {
+			IAction rotateAction = new Action("Rotate") {
+
+				@Override
+				public void run() {
+					rt = view.getBNAWorld().getBNAModel().addThing(new RotaterThing(null), tt);
+					rt.setAngle(tt.getAngle());
+					mirrorLogic.mirrorValue(tt, IHasAnchorPoint.ANCHOR_POINT_KEY, rt);
+					mirrorLogic.mirrorValue(rt, IHasAngle.ANGLE_KEY, tt);
+				}
+			};
+			menu.add(rotateAction);
+			menu.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+		}
+	}
 
 	@Override
 	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (evt.button == 1) {
-			rt = firstOrNull(things, RotaterThing.class);
-			pressed = rt != null;
+			if (rt != null) {
+				Point lap = view.getCoordinateMapper().worldToLocal(rt.getAnchorPoint());
+				Point lm = location.getLocalPoint();
+				if (Point2D.distance(lap.x, lap.y, lm.x, lm.y) > rt.getRadius()) {
+					view.getBNAWorld().getBNAModel().removeThing(rt);
+					rt = null;
+				}
+				else if (view.getThingPeer(rt).isInThing(view, view.getCoordinateMapper(), location)) {
+					pressed = true;
+				}
+			}
 		}
 	}
 
 	@Override
 	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		pressed = false;
-		rt = null;
 	}
 
 	@Override
@@ -44,7 +89,7 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 			int rwx = anchorPointWorld.x;
 			int rwy = anchorPointWorld.y;
 
-			Point wPoint = location.getWorldPoint(new Point());
+			Point wPoint = location.getWorldPoint();
 			int dx = wPoint.x - rwx;
 			int dy = wPoint.y - rwy;
 
@@ -62,20 +107,6 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 				}
 			}
 			rt.setAngle(intAngle);
-		}
-	}
-
-	@Override
-	public void mouseClick(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
-	}
-
-	@Override
-	public void mouseDoubleClick(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
-		if (evt.button == 1) {
-			IThing t = firstOrNull(things);
-			if (t instanceof RotaterThing) {
-				view.getBNAWorld().getBNAModel().removeThing(t);
-			}
 		}
 	}
 }

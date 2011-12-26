@@ -23,12 +23,12 @@ import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAKeyListener;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.UserEditableUtils;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Iterables;
 
@@ -93,8 +93,9 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 					}
 				}
 			}
-			if (editThing != null)
+			if (editThing != null) {
 				initEdit(editThing);
+			}
 		}
 	}
 

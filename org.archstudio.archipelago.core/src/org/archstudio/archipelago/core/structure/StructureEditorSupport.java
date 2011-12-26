@@ -1,5 +1,7 @@
 package org.archstudio.archipelago.core.structure;
 
+import java.awt.Dimension;
+
 import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.archipelago.core.ArchipelagoMyxComponent;
 import org.archstudio.archipelago.core.ArchipelagoServices;
@@ -27,7 +29,6 @@ import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.editing.RectifyToGridLogic;
 import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
 import org.archstudio.bna.logics.editing.ReshapeSplineLogic;
-import org.archstudio.bna.logics.editing.RotateTagsLogic;
 import org.archstudio.bna.logics.editing.RotaterLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.editing.SnapToGridLogic;
@@ -38,6 +39,7 @@ import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
 import org.archstudio.bna.logics.information.FindDialogLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
+import org.archstudio.bna.logics.navigating.ViewAllLogic;
 import org.archstudio.bna.things.ShadowThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.GridThing;
@@ -58,7 +60,6 @@ import org.archstudio.xadlbna.things.IHasXArchID;
 import org.archstudio.xarchadt.IXArchADTFileListener;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -173,7 +174,6 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new ReshapeSplineLogic()).addReshapeSplineGuides(
 				new XadlReshapeSplineGuide(AS.xarch, Structure_3_0Package.Literals.LINK,
 						Structure_3_0Package.Literals.INTERFACE, -1, 0));
-		logicManager.addThingLogic(new RotaterLogic());
 		logicManager.addThingLogic(new RotatingOffsetLogic());
 		logicManager.addThingLogic(new SplineBreakLogic());
 		logicManager.addThingLogic(new StandardCursorLogic());
@@ -191,11 +191,12 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new ShowHideTagsLogic());
 		logicManager.addThingLogic(new FindDialogLogic(new ArchipelagoFinder(AS)));
 		logicManager.addThingLogic(new RemoveElementLogic(AS.xarch));
-		logicManager.addThingLogic(new RotateTagsLogic());
+		logicManager.addThingLogic(new RotaterLogic());
 		logicManager.addThingLogic(new AlignAndDistributeLogic());
 		logicManager.addThingLogic(new RectifyToGridLogic());
 		logicManager.addThingLogic(new StructureGraphLayoutLogic(AS.xarch, AS.resources, AS.graphLayout, structureRef));
 		//logicManager.addThingLogic(new ExportBitmapLogic(mbtl));
+		logicManager.addThingLogic(new ViewAllLogic());
 
 		// xADL mapping logics
 

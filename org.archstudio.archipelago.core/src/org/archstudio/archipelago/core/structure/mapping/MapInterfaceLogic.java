@@ -12,9 +12,9 @@ import org.archstudio.bna.facets.IHasMutableFlow;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IRelativeMovable;
+import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.ReorientToThingIDLogic;
 import org.archstudio.bna.logics.coordinating.ReparentToThingIDLogic;
-import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.utils.Assemblies;
@@ -29,7 +29,7 @@ import org.archstudio.xadlbna.logics.mapping.SynchronizeThingIDAndObjRefLogic;
 import org.archstudio.xadlbna.things.IHasXArchID;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassThing> {
 
@@ -50,8 +50,9 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 
 		@Override
 		public StickyMode toBNAValue(String xadlValue) {
-			if (xadlValue == null)
+			if (xadlValue == null) {
 				return EDGE;
+			}
 			// TODO: add necessary sticky modes
 			return DomainType.TOP.equals(xadlValue) ? StickyMode.EDGE : StickyMode.EDGE;
 		};
@@ -65,7 +66,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 	SynchronizeThingIDAndObjRefLogic syncLogic = null;
 	ReparentToThingIDLogic reparentLogic = null;
 	ReorientToThingIDLogic reorientLogic = null;
-	StickPointLogic stickLogic = null;
+	DynamicStickPointLogic stickLogic = null;
 
 	public MapInterfaceLogic(IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
 		super(xarch, rootObjRef, objRefPath);
@@ -78,14 +79,14 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		syncLogic = addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
 		reparentLogic = addThingLogic(ReparentToThingIDLogic.class);
 		reorientLogic = addThingLogic(ReorientToThingIDLogic.class);
-		stickLogic = addThingLogic(StickPointLogic.class);
+		stickLogic = addThingLogic(DynamicStickPointLogic.class);
 
-		syncAttribute("direction", DIRECTION_TO_FLOW, Flow.NONE, BNAPath.create(Assemblies.LABEL_KEY),
-				IHasFlow.FLOW_KEY, true);
-		syncAttribute("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
-		syncAttribute("name", null, "[no name]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY, true);
-		syncAttribute("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
-		syncXAttribute("ext[*[namespace-uri()='" + Domain_3_0Package.eNS_URI + "']]/domain/@type",
+		syncValue("direction", DIRECTION_TO_FLOW, Flow.NONE, BNAPath.create(Assemblies.LABEL_KEY), IHasFlow.FLOW_KEY,
+				true);
+		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
+		syncValue("name", null, "[no name]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY, true);
+		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
+		syncXAttribute("ext[*[namespace-uri()='" + Domain_3_0Package.eNS_URI + "']]/domain/type",
 				DOMAIN_TO_STICKY_MODE, null, BNAPath.create(Assemblies.BACKGROUND_KEY),
 				stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), false);
 	}
@@ -114,8 +115,8 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		Assemblies.LABEL_KEY.get(thing, getBNAModel()).set(
 				syncLogic.syncObjRefKeyToThingIDKey(reorientLogic.getReorientToThingKey()), relLineageRefs.get(1));
 
-		stickLogic.setStickyMode(thing, IHasAnchorPoint.ANCHOR_POINT_KEY, StickyMode.EDGE);
-		thing.set(syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getThingRefKey(IHasAnchorPoint.ANCHOR_POINT_KEY)),
+		thing.set(stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), StickyMode.EDGE);
+		thing.set(syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasAnchorPoint.ANCHOR_POINT_KEY)),
 				relLineageRefs.get(1));
 
 		return thing;

@@ -1,52 +1,34 @@
 package org.archstudio.bna.things.shapes;
 
+import javax.media.opengl.GL2;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
-import org.archstudio.bna.facets.IHasColor;
+import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IHasEdgeColor;
-import org.archstudio.bna.facets.IHasSecondaryColor;
-import org.archstudio.bna.facets.peers.IHasShadowPeer;
 import org.archstudio.bna.things.AbstractPolygonThingPeer;
-import org.eclipse.draw2d.Graphics;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
-public class PolygonThingPeer<T extends PolygonThing> extends AbstractPolygonThingPeer<T> implements IHasShadowPeer<T> {
+public class PolygonThingPeer<T extends PolygonThing> extends AbstractPolygonThingPeer<T> implements IThingPeer<T> {
 
 	public PolygonThingPeer(T thing) {
 		super(thing);
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
-		if (localXYPoints.length == 4) {
-			if (r.setForegroundColor(g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
-				g.drawLine(localXYPoints[0], localXYPoints[1], localXYPoints[2], localXYPoints[3]);
+	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+		Point a = t.getAnchorPoint();
+		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
+			gl.glBegin(GL2.GL_LINE_LOOP);
+			for (Point p : t.getPoints()) {
+				p.x += a.x;
+				p.y += a.y;
+				cm.worldToLocal(p);
+				gl.glVertex2f(p.x + 0.5f, p.y + 0.5f);
 			}
-		}
-		else if (localXYPoints.length > 4) {
-			if (t.isGradientFilled() && r.setForegroundColor(g, t, IHasSecondaryColor.SECONDARY_COLOR_KEY)) {
-				if (r.setBackgroundColor(g, t, IHasColor.COLOR_KEY)) {
-					g.fillPolygon(localXYPoints);
-				}
-			}
-			else {
-				if (r.setBackgroundColor(g, t, IHasColor.COLOR_KEY)) {
-					g.fillPolygon(localXYPoints);
-				}
-			}
-			if (r.setForegroundColor(g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
-				g.drawPolygon(localXYPoints);
-			}
-		}
-	}
-
-	@Override
-	public void drawShadow(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, boolean fill) {
-		if (fill) {
-			g.fillPolygon(localXYPoints);
-		}
-		else {
-			g.drawPolygon(localXYPoints);
+			gl.glEnd();
 		}
 	}
 }

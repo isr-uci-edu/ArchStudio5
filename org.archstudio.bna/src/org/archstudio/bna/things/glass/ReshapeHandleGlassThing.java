@@ -1,15 +1,16 @@
 package org.archstudio.bna.things.glass;
 
+import java.awt.Dimension;
+
 import org.archstudio.bna.facets.IHasMutableOrientation;
-import org.archstudio.bna.facets.IHasMutableTargetThingID;
+import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasStandardCursor;
-import org.archstudio.bna.facets.IHasTargetThingID;
-import org.archstudio.bna.things.AbstractBoundedAnchorPointThing;
+import org.archstudio.bna.things.AbstractAnchorPointThing;
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.swt.SWT;
 
-public class ReshapeHandleGlassThing extends AbstractBoundedAnchorPointThing implements IHasMutableOrientation,
-		IHasStandardCursor, IHasMutableTargetThingID {
+public class ReshapeHandleGlassThing extends AbstractAnchorPointThing implements IHasMutableOrientation,
+		IHasStandardCursor, IHasMutableSize {
 
 	public ReshapeHandleGlassThing(Object id) {
 		super(id);
@@ -19,7 +20,7 @@ public class ReshapeHandleGlassThing extends AbstractBoundedAnchorPointThing imp
 	protected void initProperties() {
 		super.initProperties();
 		setOrientation(Orientation.NONE);
-		setTargetThingID(null);
+		setSize(new Dimension(8, 8));
 	}
 
 	@Override
@@ -57,13 +58,12 @@ public class ReshapeHandleGlassThing extends AbstractBoundedAnchorPointThing imp
 	}
 
 	@Override
-	public Object getThingID() {
-		return get(IHasTargetThingID.THING_ID_KEY);
+	public Dimension getSize() {
+		return get(SIZE_KEY);
 	}
 
 	@Override
-	public void setTargetThingID(Object thingID) {
-		set(IHasTargetThingID.THING_ID_KEY, thingID);
+	public void setSize(Dimension size) {
+		set(SIZE_KEY, size);
 	}
-
 }

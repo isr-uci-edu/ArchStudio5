@@ -7,8 +7,8 @@ import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutablePoints;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Lists;
 
@@ -41,7 +41,7 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 	public Point getPoint(int index) {
 		List<Point> points = getPoints();
 		Point p = points.get(index < 0 ? points.size() + index : index);
-		return new Point(p);
+		return new Point(p.x, p.y);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 			@Override
 			public void run() {
 				List<Point> newPoints = getPoints();
-				newPoints.set(index < 0 ? newPoints.size() + index : index, new Point(point));
+				newPoints.set(index < 0 ? newPoints.size() + index : index, new Point(point.x, point.y));
 				setPoints(newPoints);
 			}
 		});
@@ -85,11 +85,25 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 
 	protected Rectangle calculateBoundingBox() {
 		List<Point> points = getPoints();
-		Rectangle allPoints = new Rectangle(points.get(0), points.get(1));
-		for (int i = 2; i < points.size(); i++) {
-			allPoints.union(points.get(i));
+		int minX1 = Integer.MAX_VALUE;
+		int maxX1 = Integer.MIN_VALUE;
+		int minY1 = Integer.MAX_VALUE;
+		int maxY1 = Integer.MIN_VALUE;
+		for (Point p : points) {
+			if (minX1 > p.x) {
+				minX1 = p.x;
+			}
+			if (maxX1 < p.x) {
+				maxX1 = p.x;
+			}
+			if (minY1 > p.y) {
+				minY1 = p.y;
+			}
+			if (maxY1 < p.y) {
+				maxY1 = p.y;
+			}
 		}
-		return allPoints;
+		return new Rectangle(minX1, minY1, maxX1 - minX1, maxY1 - minY1);
 	}
 
 	@Override

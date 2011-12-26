@@ -13,7 +13,7 @@ import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasPoints;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Lists;
 
@@ -29,6 +29,13 @@ public class AbstractSplineThing extends AbstractPointsThing implements IHasMuta
 				}
 			}
 		});
+	}
+
+	@Override
+	protected void initProperties() {
+		super.initProperties();
+		setEndpoint1(new Point(0, 0));
+		setEndpoint2(new Point(0, 0));
 	}
 
 	@Override
@@ -70,9 +77,9 @@ public class AbstractSplineThing extends AbstractPointsThing implements IHasMuta
 	@Override
 	public List<Point> getPoints() {
 		List<Point> points = Lists.newArrayList();
-		points.add(getEndpoint1());
+		points.add(checkNotNull(getEndpoint1()));
 		points.addAll(getMidpoints());
-		points.add(getEndpoint2());
+		points.add(checkNotNull(getEndpoint2()));
 		return points;
 	}
 

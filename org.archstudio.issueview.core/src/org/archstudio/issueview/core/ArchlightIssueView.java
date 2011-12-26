@@ -61,21 +61,23 @@ public class ArchlightIssueView extends AbstractArchStudioView<ArchlightIssueVie
 	private TableViewer viewer;
 
 	protected IXArchADT xarch = null;
-	protected IArchlightIssueADT issueadt = null;
+	protected IArchlightIssueADT issues = null;
 	protected IResources resources = null;
 	protected IEditorManager editorManager = null;
-	protected IPreferenceStore prefs = null;
+	protected IPreferenceStore preferences = null;
 
 	public ArchlightIssueView() {
 		super(ArchlightIssueViewMyxComponent.class);
+		initializeMyxBrick();
 	}
 
 	public void initializeMyxBrick() {
 		xarch = brick.getXarch();
-		issueadt = brick.getIssues();
+		issues = brick.getIssues();
 		resources = brick.getResources();
 		editorManager = brick.getEditorManager();
-		prefs = brick.getPreferences();
+		preferences = brick.getPreferences();
+		brick.getIssueEvents().add(this);
 	}
 
 	@Override
@@ -130,7 +132,7 @@ public class ArchlightIssueView extends AbstractArchStudioView<ArchlightIssueVie
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
-				String doubleClickActionString = prefs.getString(ArchlightConstants.PREF_DOUBLE_CLICK_ACTION);
+				String doubleClickActionString = preferences.getString(ArchlightConstants.PREF_DOUBLE_CLICK_ACTION);
 				if (doubleClickActionString == null || doubleClickActionString.length() == 0) {
 					doubleClickActionString = DoubleClickAction.OPEN_DETAIL_WINDOW.name();
 				}
@@ -182,7 +184,7 @@ public class ArchlightIssueView extends AbstractArchStudioView<ArchlightIssueVie
 
 		@Override
 		public Object[] getElements(Object inputElement) {
-			return issueadt.getAllIssues().toArray();
+			return issues.getAllIssues().toArray();
 		}
 
 		@Override

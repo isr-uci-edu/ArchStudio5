@@ -1,6 +1,6 @@
 package org.archstudio.swtutils;
 
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 /**
  * A B-Spline calculator.
@@ -44,7 +44,7 @@ public class BSpline {
 		int n = controlPoints.length - 1;
 
 		int t = DEFAULT_DEGREE;
-		if ((n + 2) <= t) {
+		if (n + 2 <= t) {
 			t = n + 1;
 		}
 
@@ -61,7 +61,7 @@ public class BSpline {
 
 		int numMidPoints = controlPoints.length - 2;
 		if (numMidPoints > 0) {
-			numPoints += (numMidPoints * splinePointsPerMidpoint); //Add four additional control points for each midpoint.
+			numPoints += numMidPoints * splinePointsPerMidpoint; //Add four additional control points for each midpoint.
 		}
 		//numPoints += 4; //Two additional for each endpoint
 
@@ -152,22 +152,28 @@ public class BSpline {
 
 		if (t == 1) // base case for the recursion
 		{
-			if ((u[k] <= v) && (v < u[k + 1]))
+			if (u[k] <= v && v < u[k + 1]) {
 				value = 1;
-			else
+			}
+			else {
 				value = 0;
+			}
 		}
 		else {
-			if ((u[k + t - 1] == u[k]) && (u[k + t] == u[k + 1])) // check for divide by zero
+			if (u[k + t - 1] == u[k] && u[k + t] == u[k + 1]) {
 				value = 0;
-			else if (u[k + t - 1] == u[k])
+			}
+			else if (u[k + t - 1] == u[k]) {
 				// if a term's denominator is zero,use just the other
 				value = (u[k + t] - v) / (u[k + t] - u[k + 1]) * blend(k + 1, t - 1, u, v);
-			else if (u[k + t] == u[k + 1])
+			}
+			else if (u[k + t] == u[k + 1]) {
 				value = (v - u[k]) / (u[k + t - 1] - u[k]) * blend(k, t - 1, u, v);
-			else
+			}
+			else {
 				value = (v - u[k]) / (u[k + t - 1] - u[k]) * blend(k, t - 1, u, v) + (u[k + t] - v)
 						/ (u[k + t] - u[k + 1]) * blend(k + 1, t - 1, u, v);
+			}
 		}
 		return value;
 	}
@@ -177,12 +183,15 @@ public class BSpline {
 		int j;
 
 		for (j = 0; j <= n + t; j++) {
-			if (j < t)
+			if (j < t) {
 				u[j] = 0;
-			else if ((t <= j) && (j <= n))
+			}
+			else if (t <= j && j <= n) {
 				u[j] = j - t + 1;
-			else if (j > n)
+			}
+			else if (j > n) {
 				u[j] = n - t + 2; // if n-t=-2 then we're screwed, everything goes to 0
+			}
 		}
 	}
 
@@ -197,9 +206,9 @@ public class BSpline {
 
 		for (k = 0; k <= n; k++) {
 			temp = blend(k, t, u, v); // same blend is used for each dimension coordinate
-			output.x = output.x + (control[k]).x * temp;
-			output.y = output.y + (control[k]).y * temp;
-			output.z = output.z + (control[k]).z * temp;
+			output.x = output.x + control[k].x * temp;
+			output.y = output.y + control[k].y * temp;
+			output.z = output.z + control[k].z * temp;
 		}
 	}
 

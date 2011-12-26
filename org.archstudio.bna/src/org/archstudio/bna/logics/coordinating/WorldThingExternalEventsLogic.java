@@ -25,7 +25,6 @@ import org.archstudio.bna.utils.IBNAMouseListener;
 import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.IBNAMouseTrackListener;
 import org.archstudio.bna.utils.IBNAUntypedListener;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.events.FocusEvent;
@@ -72,7 +71,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 
 		IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
-		ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(new Point()),
+		ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(),
 				innerView.getCoordinateMapper());
 		List<IThing> innerThings = innerView.getThingsAt(innerLocation);
 
@@ -277,7 +276,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 			}
 
 			IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
-			ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(new Point()),
+			ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(),
 					innerView.getCoordinateMapper());
 			List<IThing> innerThings = view.getThingsAt(innerLocation);
 
@@ -302,7 +301,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 				}
 
 				IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
-				ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(new Point()),
+				ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(),
 						innerView.getCoordinateMapper());
 				List<IThing> innerThings = view.getThingsAt(innerLocation);
 

@@ -1,15 +1,15 @@
 package org.archstudio.bna;
 
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 public class DefaultCoordinate implements ICoordinate {
 
 	public static final DefaultCoordinate forLocal(Point localPoint, ICoordinateMapper cm) {
-		return new DefaultCoordinate(localPoint, cm.localToWorld(localPoint.getCopy()));
+		return new DefaultCoordinate(localPoint, cm.localToWorld(new Point(localPoint.x, localPoint.y)));
 	}
 
 	public static final DefaultCoordinate forWorld(Point worldPoint, ICoordinateMapper cm) {
-		return new DefaultCoordinate(cm.worldToLocal(worldPoint.getCopy()), worldPoint);
+		return new DefaultCoordinate(cm.worldToLocal(new Point(worldPoint.x, worldPoint.y)), worldPoint);
 	}
 
 	Point localPoint;
@@ -22,13 +22,13 @@ public class DefaultCoordinate implements ICoordinate {
 	}
 
 	@Override
-	public Point getLocalPoint(Point result) {
-		return result.setLocation(localPoint);
+	public Point getLocalPoint() {
+		return new Point(localPoint.x, localPoint.y);
 	}
 
 	@Override
-	public Point getWorldPoint(Point result) {
-		return result.setLocation(worldPoint);
+	public Point getWorldPoint() {
+		return new Point(worldPoint.x, worldPoint.y);
 	}
 
 	@Override

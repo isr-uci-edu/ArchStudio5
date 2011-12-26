@@ -27,7 +27,7 @@ public class PeerCache {
 				}
 			});
 
-	protected static Cache<IThing, IThingPeer<?>> peersCache = CacheBuilder.newBuilder().weakKeys()
+	protected Cache<IThing, IThingPeer<?>> peersCache = CacheBuilder.newBuilder().weakKeys()
 			.build(new CacheLoader<IThing, IThingPeer<?>>() {
 
 				@Override

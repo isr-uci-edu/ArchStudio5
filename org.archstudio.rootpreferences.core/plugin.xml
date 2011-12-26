@@ -6,7 +6,7 @@
       <page
             class="org.archstudio.rootpreferences.core.ArchStudioPreferencePanel"
             id="org.archstudio.rootpreferences.core.ArchStudioPreferencePanel"
-            name="ArchStudio Preferences">
+            name="ArchStudio">
       </page>
    </extension>
    <extension

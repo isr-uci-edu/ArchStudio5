@@ -32,23 +32,9 @@ public interface IThing {
 	 */
 	public Object getID();
 
-	/**
-	 * Adds a listener to this Thing that will be notified when the Thing
-	 * changes.
-	 * 
-	 * @param tl
-	 *            Thing listener to add.
-	 */
-	public void addThingListener(IThingListener tl);
+	public void addThingListener(IThingListener thingListener);
 
-	/**
-	 * Removes a listener to this Thing that will no longer be notified when the
-	 * Thing changes.
-	 * 
-	 * @param tl
-	 *            Thing listener to remove.
-	 */
-	public void removeThingListener(IThingListener tl);
+	public void removeThingListener(IThingListener thingListener);
 
 	public <V> V get(IThingKey<V> key);
 

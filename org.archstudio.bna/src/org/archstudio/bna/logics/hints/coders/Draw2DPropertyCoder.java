@@ -3,11 +3,12 @@ package org.archstudio.bna.logics.hints.coders;
 import org.archstudio.bna.logics.hints.IEncodedValue;
 import org.archstudio.bna.logics.hints.IPropertyCoder;
 import org.archstudio.bna.logics.hints.PropertyDecodeException;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public class Draw2DPropertyCoder implements IPropertyCoder {
 
+	@Override
 	public boolean encode(IPropertyCoder masterCoder, IEncodedValue encodedValue, Object value) {
 		if (value instanceof Point) {
 			Point v = (Point) value;
@@ -24,6 +25,7 @@ public class Draw2DPropertyCoder implements IPropertyCoder {
 		return false;
 	}
 
+	@Override
 	public Object decode(IPropertyCoder masterCoder, IEncodedValue encodedValue) throws PropertyDecodeException {
 		try {
 			String type = encodedValue.getType();

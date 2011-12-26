@@ -1,5 +1,7 @@
 package org.archstudio.bna.things.swt;
 
+import javax.media.opengl.GL2;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
@@ -7,15 +9,16 @@ import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingListener;
+import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.swtutils.SWTWidgetUtils;
-import org.eclipse.draw2d.Graphics;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C extends Control> extends
-		AbstractRectangleThingPeer<T> {
+		AbstractRectangleThingPeer<T> implements IThingPeer<T> {
 
 	private C control;
 
@@ -33,9 +36,9 @@ public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C 
 		});
 	}
 
-	abstract protected C createControl(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r);
+	abstract protected C createControl(IBNAView view, ICoordinateMapper cm);
 
-	abstract protected void updateControl(C control, IBNAView view, ICoordinateMapper cm, Graphics g, IResources r);
+	abstract protected void updateControl(C control, IBNAView view, ICoordinateMapper cm);
 
 	protected void disposeControl(final C control) {
 		SWTWidgetUtils.async(control, new Runnable() {
@@ -54,7 +57,7 @@ public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C 
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
+	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Composite composite = r.getComposite();
 		if (composite == null) {
 			return;
@@ -62,7 +65,7 @@ public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C 
 
 		if (t.isEditing() && control == null) {
 			//It has been made visible but we have no corresponding control
-			control = createControl(view, cm, g, r);
+			control = createControl(view, cm);
 			if (composite.isFocusControl()) {
 				control.forceFocus();
 			}
@@ -74,7 +77,7 @@ public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C 
 		}
 		else if (control != null && !control.isDisposed()) {
 			//Update the control
-			updateControl(control, view, cm, g, r);
+			updateControl(control, view, cm);
 		}
 	}
 

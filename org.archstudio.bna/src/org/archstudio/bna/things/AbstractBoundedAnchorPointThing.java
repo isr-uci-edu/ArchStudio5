@@ -1,5 +1,7 @@
 package org.archstudio.bna.things;
 
+import java.awt.Dimension;
+
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
@@ -7,10 +9,8 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.utils.BNAUtils;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PrecisionPoint;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractBoundedAnchorPointThing extends AbstractAnchorPointThing implements IHasBoundingBox,
 		IHasMutableSize {
@@ -58,15 +58,16 @@ public abstract class AbstractBoundedAnchorPointThing extends AbstractAnchorPoin
 	}
 
 	@Override
-	public PrecisionPoint getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
+	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Rectangle bb = getBoundingBox();
 		switch (stickyMode) {
 		case CENTER:
-			return new PrecisionPoint(bb.getCenter());
+			return new Point(bb.x + bb.width / 2, bb.y + bb.height / 2);
 		case EDGE:
 			return BNAUtils.getClosestPointOnRectangle(bb, new Dimension(0, 0), nearPoint);
 		case EDGE_FROM_CENTER:
-			return BNAUtils.getClosestPointOnRectangle(bb, new Dimension(0, 0), nearPoint, bb.getCenter());
+			return BNAUtils.getClosestPointOnRectangle(bb, new Dimension(0, 0), nearPoint, new Point(bb.x + bb.width
+					/ 2, bb.y + bb.height / 2));
 		}
 		throw new IllegalArgumentException(stickyMode.name());
 	}

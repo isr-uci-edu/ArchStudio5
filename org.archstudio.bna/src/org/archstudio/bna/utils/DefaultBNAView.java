@@ -15,7 +15,6 @@ import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.widgets.Composite;
 
 import com.google.common.collect.Lists;
@@ -76,7 +75,7 @@ public class DefaultBNAView implements IBNAView {
 
 	@Override
 	public List<IThing> getThingsAt(ICoordinate location) {
-		location = DefaultCoordinate.forWorld(location.getWorldPoint(new Point()), cm);
+		location = DefaultCoordinate.forWorld(location.getWorldPoint(), cm);
 		List<IThing> things = Lists.newArrayList();
 		for (IThing t : getBNAWorld().getBNAModel().getReverseThings()) {
 			if (peerCache.getPeer(t).isInThing(this, cm, location)) {

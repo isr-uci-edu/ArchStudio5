@@ -64,7 +64,6 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 
 	protected ReshapeHandleGlassThing addHandle(ReshapeHandleGlassThing handle, D data) {
 		reshapeHandles.put(handle, data);
-		handle.setTargetThingID(reshapingThing.getID());
 		UserEditableUtils.addEditableQualities(handle, IRelativeMovable.USER_MAY_MOVE);
 		return handle;
 	}

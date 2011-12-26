@@ -6,9 +6,9 @@ import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.swtutils.constants.Orientation;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBoundingBox, Orientation> {
 
@@ -28,39 +28,43 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 	@Override
 	protected void updateHandle(ReshapeHandleGlassThing handle, Orientation data) {
 		Rectangle boundingBox = reshapingThing.getBoundingBox();
-		Point location = boundingBox.getCenter();
 		int cursor = SWT.CURSOR_SIZEALL;
+		int x1 = boundingBox.x;
+		int y1 = boundingBox.y;
+		int x2 = boundingBox.x + boundingBox.width;
+		int y2 = boundingBox.y + boundingBox.height;
+		Point location = new Point((x1 + x2) / 2, (y1 + y2) / 2);
 		switch (data) {
 		case NORTHEAST:
-			location = boundingBox.getTopRight();
+			location = new Point(x2, y1);
 			cursor = SWT.CURSOR_SIZENE;
 			break;
 		case NORTH:
-			location = boundingBox.getTop();
+			location = new Point((x1 + x2) / 2, y1);
 			cursor = SWT.CURSOR_SIZEN;
 			break;
 		case NORTHWEST:
-			location = boundingBox.getTopLeft();
+			location = new Point(x1, y1);
 			cursor = SWT.CURSOR_SIZENW;
 			break;
 		case EAST:
-			location = boundingBox.getRight();
+			location = new Point(x2, (y1 + y2) / 2);
 			cursor = SWT.CURSOR_SIZEE;
 			break;
 		case WEST:
-			location = boundingBox.getLeft();
+			location = new Point(x1, (y1 + y2) / 2);
 			cursor = SWT.CURSOR_SIZEW;
 			break;
 		case SOUTHEAST:
-			location = boundingBox.getBottomRight();
+			location = new Point(x2, y2);
 			cursor = SWT.CURSOR_SIZESE;
 			break;
 		case SOUTH:
-			location = boundingBox.getBottom();
+			location = new Point((x1 + x2) / 2, y2);
 			cursor = SWT.CURSOR_SIZES;
 			break;
 		case SOUTHWEST:
-			location = boundingBox.getBottomLeft();
+			location = new Point(x1, y2);
 			cursor = SWT.CURSOR_SIZESW;
 			break;
 		}
@@ -77,7 +81,7 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 		int nx2 = bb.x + bb.width;
 		int ny2 = bb.y + bb.height;
 
-		Point ap = evt.getAdjustedMouseLocation().getWorldPoint(new Point());
+		Point ap = evt.getAdjustedMouseLocation().getWorldPoint();
 
 		switch (data) {
 		case NORTHWEST:

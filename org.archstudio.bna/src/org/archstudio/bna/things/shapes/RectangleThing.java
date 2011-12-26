@@ -19,8 +19,8 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setColor(new RGB(192, 192, 128));
-		setSecondaryColor(new RGB(255, 255, 192));
+		setColor(new RGB(255, 255, 192));
+		setSecondaryColor(new RGB(192, 192, 128));
 		setGradientFilled(true);
 		setEdgeColor(new RGB(0, 0, 0));
 		setLineStyle(LINE_STYLE_SOLID);
