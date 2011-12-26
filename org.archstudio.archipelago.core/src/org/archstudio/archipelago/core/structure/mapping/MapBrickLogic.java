@@ -2,6 +2,7 @@ package org.archstudio.archipelago.core.structure.mapping;
 
 import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
+import java.awt.Dimension;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoServices;
@@ -33,10 +34,9 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.archstudio.xarchadt.XArchADTPath;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.Rectangle;
 
 /**
  * Maps xADL Bricks (i.e., Components or Connectors) to BNA Rectangle
@@ -62,9 +62,9 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 	@Override
 	public void init() {
 		super.init();
-		syncAttribute("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
-		syncAttribute("name", null, "[no name]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY, true);
-		syncAttribute("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
+		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
+		syncValue("name", null, "[no name]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY, true);
+		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
 		addBNAUpdater(new IBNAUpdater() {
 
 			@Override
@@ -82,7 +82,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
 
 		RectangleGlassThing thing = Assemblies.createRectangleWithWorld(getBNAWorld(), null, null);
-		thing.setBoundingBox(new Rectangle(newPointSpot, defaultSize));
+		thing.setBoundingBox(new Rectangle(newPointSpot.x, newPointSpot.y, defaultSize.width, defaultSize.height));
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasColor.COLOR_KEY, defaultColor);
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasSecondaryColor.SECONDARY_COLOR_KEY,
 				BNAUtils.adjustBrightness(defaultColor, 1.5f));

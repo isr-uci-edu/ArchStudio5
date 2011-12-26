@@ -20,7 +20,7 @@ import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.sysutils.SystemUtils;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -32,7 +32,7 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 	protected ThingValueTrackingLogic valuesLogic;
 
 	protected final Map<IRelativeMovable, Point> movingThings = Maps.newHashMap();
-	protected final Point lastAdjustedMousePoint = new Point();
+	protected Point lastAdjustedMousePoint = new Point(0, 0);
 
 	public DragMovableLogic() {
 		super();
@@ -55,7 +55,7 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 	@Override
 	public void dragStarted(DragMoveEvent evt) {
 		movingThings.clear();
-		evt.getAdjustedThingLocation().getWorldPoint(lastAdjustedMousePoint);
+		lastAdjustedMousePoint = evt.getAdjustedThingLocation().getWorldPoint();
 		IBNAModel model = getBNAModel();
 		if (model != null) {
 			model.beginBulkChange();
@@ -105,15 +105,21 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 		if (model != null) {
 			model.beginBulkChange();
 			try {
-				Point referencePointDelta = evt.getAdjustedThingLocation().getWorldPoint(new Point());
-				referencePointDelta.translate(evt.getInitialLocation().getWorldPoint(new Point()).getNegated());
-				Point relativePointDelta = evt.getAdjustedThingLocation().getWorldPoint(new Point());
-				relativePointDelta.translate(lastAdjustedMousePoint.getNegated());
+				Point referencePointDelta = evt.getAdjustedThingLocation().getWorldPoint();
+				Point initialLocation = evt.getInitialLocation().getWorldPoint();
+				referencePointDelta.x -= initialLocation.x;
+				referencePointDelta.y -= initialLocation.y;
+				Point relativePointDelta = evt.getAdjustedThingLocation().getWorldPoint();
+				relativePointDelta.x -= lastAdjustedMousePoint.x;
+				relativePointDelta.y -= lastAdjustedMousePoint.y;
 
 				for (Entry<IRelativeMovable, Point> e : movingThings.entrySet()) {
 					if (e.getKey() instanceof IHasMutableReferencePoint) {
-						((IHasMutableReferencePoint) e.getKey()).setReferencePoint(e.getValue().getTranslated(
-								referencePointDelta));
+						Point referencePoint = e.getValue();
+						referencePoint = new Point(referencePoint.x, referencePoint.y);
+						referencePoint.x += referencePointDelta.x;
+						referencePoint.y += referencePointDelta.y;
+						((IHasMutableReferencePoint) e.getKey()).setReferencePoint(referencePoint);
 					}
 					else {
 						e.getKey().moveRelative(relativePointDelta);
@@ -121,7 +127,7 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 				}
 			}
 			finally {
-				evt.getAdjustedThingLocation().getWorldPoint(lastAdjustedMousePoint);
+				lastAdjustedMousePoint = evt.getAdjustedThingLocation().getWorldPoint();
 				model.endBulkChange();
 			}
 		}

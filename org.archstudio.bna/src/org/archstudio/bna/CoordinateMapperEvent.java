@@ -2,8 +2,8 @@ package org.archstudio.bna;
 
 import static org.archstudio.sysutils.SystemUtils.simpleName;
 
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public class CoordinateMapperEvent {
 
@@ -21,8 +21,9 @@ public class CoordinateMapperEvent {
 			Point newLocalOrigin, double newLocalScale) {
 		this.source = source;
 		this.eventType = eventType;
-		this.newWorldBounds = newWorldBounds.getCopy();
-		this.newLocalOrigin = newLocalOrigin.getCopy();
+		this.newWorldBounds = new Rectangle(newWorldBounds.x, newWorldBounds.y, newWorldBounds.width,
+				newWorldBounds.height);
+		this.newLocalOrigin = new Point(newLocalOrigin.x, newLocalOrigin.y);
 		this.newLocalScale = newLocalScale;
 	}
 

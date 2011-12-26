@@ -2,6 +2,7 @@ package org.archstudio.xadlbna.logics.mapping;
 
 import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
+import java.util.Collections;
 import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
@@ -22,8 +23,11 @@ import com.google.common.collect.Sets;
 public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
 
 	ThingValueTrackingLogic valuesLogic = null;
-	Set<IThingKeyKey<?, IThingKey<Object>, ObjRef>> objRefKeys = Sets.newHashSet();
-	Set<IThingKey<Object>> thingIDKeys = Sets.newHashSet();
+	Set<IThingKeyKey<?, IThingKey<Object>, ObjRef>> objRefKeys = Collections
+			.<IThingKeyKey<?, IThingKey<Object>, ObjRef>> synchronizedSet(Sets
+					.<IThingKeyKey<?, IThingKey<Object>, ObjRef>> newHashSet());
+	Set<IThingKey<Object>> thingIDKeys = Collections.<IThingKey<Object>> synchronizedSet(Sets
+			.<IThingKey<Object>> newHashSet());
 
 	public IThingKey<ObjRef> syncObjRefKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
 		return getObjRefKey(thingRefKey);
@@ -31,7 +35,7 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 
 	private IThingKey<ObjRef> getObjRefKey(IThingKey<Object> thingIDKey) {
 		thingIDKeys.add(thingIDKey);
-		IThingKeyKey<?, IThingKey<Object>, ObjRef> objRefKey = ThingKeyKey.create("objRef", thingIDKey);
+		IThingKeyKey<?, IThingKey<Object>, ObjRef> objRefKey = ThingKeyKey.create(".objRef", thingIDKey);
 		objRefKeys.add(objRefKey);
 		return objRefKey;
 	}

@@ -128,9 +128,10 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	}
 
 	/**
-	 * Adds the appropriate updaters to synchronize a single xADL attribute with
-	 * a BNA Thing property, possibly translating the value in the process.
-	 * Cycles are prevented as described in {@link AbstractXADLToBNAThingLogic}
+	 * Adds the appropriate updaters to synchronize a single xADL attribute or
+	 * ObjRef with a BNA Thing property, possibly translating the value in the
+	 * process. Cycles are prevented as described in
+	 * {@link AbstractXADLToBNAThingLogic}
 	 * 
 	 * @param xADLAttributeName
 	 *            The name of the xADL attribute to synchronize with the BNA
@@ -152,7 +153,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 *            also performed--i.e., the xADL value is updated when the Thing
 	 *            property is modified.
 	 */
-	protected <X extends Serializable, B> void syncAttribute(final String xADLAttributeName,
+	protected <X extends Serializable, B> void syncValue(final String xADLAttributeName,
 			@Nullable final IXADLToBNATranslator<X, B> translator, @Nullable final B defaultBNAValue,
 			final BNAPath targetThingPath, final IThing.IThingKey<B> thingValueKey, final boolean reverse) {
 		bnaUpdaters.add(new IBNAUpdater() {
@@ -208,6 +209,61 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 				}
 			});
 		}
+	}
+
+	/**
+	 * Specifies a specific value to set on all mapped things.
+	 * 
+	 * @param targetThingPath
+	 *            The path from the root BNA Assembly to the specific thing part
+	 *            that is to store the translated property
+	 * @param thingValueKey
+	 *            The key on which to set the value
+	 * @param value
+	 *            The value to set
+	 */
+	protected <V> void setValue(final BNAPath targetThingPath, final IThing.IThingKey<V> thingValueKey, final V value) {
+		bnaUpdaters.add(new IBNAUpdater() {
+			@Override
+			public void updateBNA(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt, T rootThing) {
+				IThing targetThing = BNAPath.resolve(getBNAModel(), rootThing, targetThingPath);
+				if (targetThing != null) {
+					targetThing.set(thingValueKey, value);
+				}
+			}
+		});
+	}
+
+	/**
+	 * Sets the objRefKey property to the specified ancestor of the mapped
+	 * thing.
+	 * 
+	 * @param targetThingPath
+	 *            The path from the root BNA Assembly to the specific thing part
+	 *            that is to store the translated property
+	 * @param objRefKey
+	 *            The key on which to set the ObjRef
+	 * @param index
+	 *            The ancestor index starting from the mapped objRef (&gt>=0) or
+	 *            from the root ObjRef (&lt;0)
+	 */
+	protected void setAncestorObjRef(final BNAPath targetThingPath, final IThing.IThingKey<ObjRef> objRefKey,
+			final int index) {
+		bnaUpdaters.add(new IBNAUpdater() {
+			@Override
+			public void updateBNA(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt, T rootThing) {
+				IThing targetThing = BNAPath.resolve(getBNAModel(), rootThing, targetThingPath);
+				if (targetThing != null) {
+					List<ObjRef> ancestors = xarch.getAllAncestors(objRef);
+					int actualIndex = index;
+					if (actualIndex < 0) {
+						ancestors = Lists.reverse(ancestors);
+						actualIndex = -actualIndex - 1;
+					}
+					targetThing.set(objRefKey, ancestors.get(actualIndex));
+				}
+			}
+		});
 	}
 
 	protected <X extends Serializable, B> void syncXAttribute(final String xADLAttributeXPath,

@@ -1,10 +1,12 @@
 package org.archstudio.bna.utils;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.archstudio.sysutils.SystemUtils.newCopyOnWriteArrayList;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
@@ -22,6 +24,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
+import org.archstudio.sysutils.SystemUtils;
 
 import com.google.common.base.Function;
 import com.google.common.cache.Cache;
@@ -34,8 +37,8 @@ import com.google.common.collect.MapMaker;
 public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	protected static final boolean DEBUG = false;
-	protected final Cache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().weakKeys()
-			.build(new CacheLoader<Object, AtomicLong>() {
+	protected final Cache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().build(
+			new CacheLoader<Object, AtomicLong>() {
 				@Override
 				public AtomicLong load(Object input) {
 					return new AtomicLong();
@@ -89,11 +92,18 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		asyncExecutor = Executors.newSingleThreadExecutor();
 	}
 
-	public void terminate(boolean t) {
+	@Override
+	public void dispose() {
 		try {
 			asyncExecutor.awaitTermination(5, TimeUnit.SECONDS);
 		}
 		catch (InterruptedException ie) {
+		}
+
+		if (DEBUG) {
+			for (Entry<Object, AtomicLong> e : SystemUtils.sortedByValue(debugStats.asMap().entrySet())) {
+				System.err.println(e.getValue() + " " + e.getKey());
+			}
 		}
 	}
 
@@ -247,6 +257,8 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public void removeThing(final IThing t) {
+		checkNotNull(t);
+
 		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_REMOVING, bulkChangeCount.get() > 0, t));
 		try {
 			t.synchronizedUpdate(new Runnable() {

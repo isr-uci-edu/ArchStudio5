@@ -15,9 +15,9 @@ import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMouseListener;
 import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.UserEditableUtils;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Iterables;
 
@@ -26,7 +26,7 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	protected ThingTypeTrackingLogic typesLogic;
 
 	protected MarqueeBoxBorderThing marqueeSelection = null;
-	protected Point initDownWorldPoint = new Point();
+	protected Point initDownWorldPoint = new Point(0, 0);
 
 	public MarqueeSelectionLogic() {
 	}
@@ -57,7 +57,7 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 		}
 		if (evt.button == 1) {
 			if (t.isEmpty()) {
-				location.getWorldPoint(initDownWorldPoint);
+				initDownWorldPoint = location.getWorldPoint();
 				marqueeSelection = getBNAModel().addThing(new MarqueeBoxBorderThing(null));
 				marqueeSelection.setBoundingBox(new Rectangle(initDownWorldPoint.x, initDownWorldPoint.y, 1, 1));
 			}
@@ -67,7 +67,7 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	@Override
 	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (marqueeSelection != null) {
-			Point worldPoint = location.getWorldPoint(new Point());
+			Point worldPoint = location.getWorldPoint();
 			int x1 = Math.min(initDownWorldPoint.x, worldPoint.x);
 			int x2 = Math.max(initDownWorldPoint.x, worldPoint.x);
 			int y1 = Math.min(initDownWorldPoint.y, worldPoint.y);

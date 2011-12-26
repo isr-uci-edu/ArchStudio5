@@ -1,8 +1,6 @@
 package org.archstudio.bna.utils;
 
-import static org.archstudio.sysutils.SystemUtils.sortedByValue;
-
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.archstudio.bna.BNAModelEvent;
@@ -13,6 +11,7 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.sysutils.SystemUtils;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -62,13 +61,6 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener, IBNASynchr
 				t.printStackTrace();
 			}
 		}
-
-		if (DEBUG) {
-			System.err.println("----");
-			for (Map.Entry<Object, AtomicLong> e : sortedByValue(debugStats.asMap().entrySet())) {
-				System.err.println(e.getValue() + " " + e.getKey());
-			}
-		}
 	}
 
 	@Override
@@ -97,13 +89,19 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener, IBNASynchr
 	}
 
 	@Override
-	public void destroy() {
+	public void dispose() {
 		logicManager.destroy();
 
 		model.removeBNAModelListener(this);
 		model.removeSynchronousBNAModelListener(this);
 
 		isDestroyed = true;
+
+		if (DEBUG) {
+			for (Entry<Object, AtomicLong> e : SystemUtils.sortedByValue(debugStats.asMap().entrySet())) {
+				System.err.println(e.getValue() + " " + e.getKey());
+			}
+		}
 	}
 
 	@Override

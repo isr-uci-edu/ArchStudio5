@@ -2,16 +2,14 @@ package org.archstudio.bna.things.swt;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
 import org.archstudio.swtutils.SWTWidgetUtils;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Text;
 
 public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThingPeer<T, Text> {
@@ -21,8 +19,8 @@ public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThi
 	}
 
 	@Override
-	protected Text createControl(final IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
-		final Text control = new Text(r.getComposite(), SWT.BORDER | SWT.FLAT | SWT.SINGLE);
+	protected Text createControl(final IBNAView view, ICoordinateMapper cm) {
+		final Text control = new Text(view.getComposite(), SWT.BORDER | SWT.FLAT | SWT.SINGLE);
 		control.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -48,8 +46,8 @@ public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThi
 	}
 
 	@Override
-	protected Rectangle getBounds(Text control, IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
-		Rectangle bounds = super.getBounds(control, view, cm, g, r);
+	protected Rectangle getBounds(Text control, IBNAView view, ICoordinateMapper cm) {
+		Rectangle bounds = super.getBounds(control, view, cm);
 
 		GC gc = null;
 		try {

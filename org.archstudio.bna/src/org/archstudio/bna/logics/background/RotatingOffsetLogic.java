@@ -18,7 +18,7 @@ public class RotatingOffsetLogic extends AbstractThingLogic {
 	protected void init() {
 		super.init();
 		timer = new RotatingOffsetIncrementer();
-		timer.setName("RotatingOffsetIncrementer");
+		timer.setName(this.getClass().getName());
 		timer.setDaemon(true);
 		timer.start();
 	}

@@ -10,13 +10,13 @@ import org.archstudio.bna.utils.IBNAKeyListener;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.swtutils.FindDialog;
 import org.archstudio.swtutils.IFinder;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
@@ -29,6 +29,7 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 		this.finder = finder;
 	}
 
+	@Override
 	public void keyPressed(IBNAView view, KeyEvent e) {
 		//Only respond if we are the top-level view.
 		if (view.getParentView() == null) {
@@ -39,6 +40,7 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 		}
 	}
 
+	@Override
 	public void keyReleased(IBNAView view, KeyEvent e) {
 	}
 
@@ -48,7 +50,7 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 			IAction findAction = new Action("Find...") {
 				@Override
 				public void run() {
-					Point localPoint = location.getLocalPoint(new Point());
+					Point localPoint = location.getLocalPoint();
 					showFindDialog(view, localPoint.x, localPoint.y);
 				}
 			};

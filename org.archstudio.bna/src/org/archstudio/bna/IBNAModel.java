@@ -84,4 +84,6 @@ public interface IBNAModel {
 
 	public void reparent(IThing newParent, IThing thing);
 
+	public void dispose();
+
 }

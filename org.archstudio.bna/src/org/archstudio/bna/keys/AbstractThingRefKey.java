@@ -24,4 +24,9 @@ public abstract class AbstractThingRefKey<D, T extends IThing> extends AbstractG
 	public T get(IThing fromThing, IBNAModel inModel) {
 		return (T) inModel.getThing(fromThing.get(this));
 	}
+
+	@Override
+	public void set(IThing fromThing, T thing) {
+		fromThing.set(this, thing.getID());
+	}
 }

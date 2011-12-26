@@ -20,17 +20,17 @@ import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
-import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.things.labels.TagThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.UserEditableUtils;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Iterables;
 
@@ -43,14 +43,14 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	public static final IThingKey<Boolean> SHOW_TAG_KEY = ThingKey.create("showTag");
 
 	protected ThingValueTrackingLogic valueLogic;
-	protected StickPointLogic stickLogic;
+	protected DynamicStickPointLogic stickLogic;
 	protected MirrorValueLogic mirrorLogic;
 
 	@Override
 	protected void init() {
 		super.init();
 		valueLogic = addThingLogic(ThingValueTrackingLogic.class);
-		stickLogic = addThingLogic(StickPointLogic.class);
+		stickLogic = addThingLogic(DynamicStickPointLogic.class);
 		mirrorLogic = addThingLogic(MirrorValueLogic.class);
 		for (IIsSticky forThing : Iterables.filter(
 				getBNAModel().getThingsByID(valueLogic.getThingIDs(SHOW_TAG_KEY, true)), IIsSticky.class)) {
@@ -88,7 +88,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	protected TagThing getTag(IIsSticky forThing) {
 		return firstOrNull(Iterables.filter(
 				getBNAModel().getThingsByID(
-						valueLogic.getThingIDs(stickLogic.getThingRefKey(IHasIndicatorPoint.INDICATOR_POINT_KEY),
+						valueLogic.getThingIDs(stickLogic.getStickyThingKey(IHasIndicatorPoint.INDICATOR_POINT_KEY),
 								forThing.getID())), TagThing.class));
 	}
 
@@ -98,7 +98,8 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 			t = getBNAModel().addThing(new TagThing(null));
 			t.setAnchorPoint(forThing.getStickyPointNear(StickyMode.CENTER, new Point(0, 0)));
 			UserEditableUtils.addEditableQualities(t, IRelativeMovable.USER_MAY_MOVE);
-			stickLogic.stick(t, IHasIndicatorPoint.INDICATOR_POINT_KEY, StickyMode.EDGE_FROM_CENTER, forThing);
+			t.set(stickLogic.getStickyModeKey(IHasIndicatorPoint.INDICATOR_POINT_KEY), StickyMode.EDGE_FROM_CENTER);
+			stickLogic.getStickyThingKey(IHasIndicatorPoint.INDICATOR_POINT_KEY).set(t, forThing);
 			if (forThing instanceof IHasText) {
 				mirrorLogic.mirrorValue(forThing, IHasText.TEXT_KEY, t);
 			}
@@ -114,8 +115,8 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	protected void hideTag(IIsSticky forThing) {
 		TagThing t = getTag(forThing);
 		if (t != null) {
-			stickLogic.unstick(t, IHasIndicatorPoint.INDICATOR_POINT_KEY);
-			mirrorLogic.unmirrorValue(t, IHasText.TEXT_KEY);
+			t.remove(stickLogic.getStickyThingKey(IHasIndicatorPoint.INDICATOR_POINT_KEY));
+			mirrorLogic.unmirror(t, IHasText.TEXT_KEY);
 			getBNAModel().removeThing(t);
 		}
 		forThing.set(SHOW_TAG_KEY, false);

@@ -130,7 +130,7 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 								schematronTestErrorList.add((SchematronTestException) result);
 							}
 							else if (result instanceof ArchlightTestResult) {
-								//System.out.println("result: " + results[i]);
+								//System.out.println("result: " + result);
 								archlightTestResultList.add((ArchlightTestResult) result);
 							}
 						}

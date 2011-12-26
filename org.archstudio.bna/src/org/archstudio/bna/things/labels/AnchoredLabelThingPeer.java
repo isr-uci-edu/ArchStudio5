@@ -1,152 +1,82 @@
 package org.archstudio.bna.things.labels;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.geom.Rectangle2D;
+
+import javax.media.opengl.GL2;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
-import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
-import org.archstudio.bna.IThingListener;
-import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractAnchorPointThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.graphics.TextLayout;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
-public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends AbstractAnchorPointThingPeer<T> {
+import com.jogamp.opengl.util.awt.TextRenderer;
 
-	protected boolean needsTextLayout = true;
-	protected TextLayout textLayout = null;
-	protected Dimension textLayoutSize = null;
-	protected double textLayoutScale = 1d;
+public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends AbstractAnchorPointThingPeer<T> implements
+		IThingPeer<T> {
 
 	public AnchoredLabelThingPeer(T thing) {
 		super(thing);
-		thing.addThingListener(new IThingListener() {
-			@Override
-			public <ET extends IThing, EK extends IThingKey<EV>, EV> void thingChanged(ThingEvent<ET, EK, EV> thingEvent) {
-				needsTextLayout = true;
-			}
-		});
 	}
 
 	@Override
-	public void dispose() {
-		if (textLayout != null) {
-			try {
-				textLayout.dispose();
-			}
-			catch (Exception e) {
-			}
-			finally {
-				textLayout = null;
-			}
-		}
-	}
-
-	protected void doLayout(IBNAView view, ICoordinateMapper cm, IResources r) {
-		if (textLayout == null || textLayout.getDevice() != r.getDevice()) {
-			if (textLayout != null) {
-				try {
-					textLayout.dispose();
-				}
-				catch (Exception e) {
-				}
-				finally {
-					textLayout = null;
-				}
-			}
-			textLayout = new TextLayout(r.getDevice());
-			needsTextLayout = true;
-		}
-
-		needsTextLayout |= cm.getLocalScale() != textLayoutScale;
-
-		if (needsTextLayout) {
-			needsTextLayout = false;
-			textLayoutScale = cm.getLocalScale();
-			textLayoutSize = null;
-
-			textLayout.setText(t.getText());
-			int size = t.getFontSize();
-			if (cm.getLocalScale() < 1) {
-				size *= cm.getLocalScale();
-			}
-			if (size > 0) {
-				textLayout.setFont(r.getFont(t.getFontName(), size, t.getFontStyle()));
-				Rectangle textBounds = BNAUtils.toRectangle(textLayout.getBounds());
-				textLayoutSize = textBounds.getSize();
-			}
-			else {
-				textLayoutSize = new Dimension(0, 0);
-			}
-		}
-	}
-
-	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
-		if (r.setForegroundColor(g, t, IHasColor.COLOR_KEY)) {
-			doLayout(view, cm, r);
-			if (textLayoutSize != null) {
-				Point worldAnchor = t.getAnchorPoint();
-				Point localOffset = new Point(0, 0);
-				int offset = t.getOffset();
-
-				HorizontalAlignment horizontalAlignment = t.getHorizontalAlignment();
-				switch (horizontalAlignment) {
-				case LEFT:
-					localOffset.x += offset * cm.getLocalScale();
-					break;
-				case CENTER:
-					localOffset.x -= textLayoutSize.width / 2;
-					break;
-				case RIGHT:
-					localOffset.x -= textLayoutSize.width;
-					localOffset.x -= offset * cm.getLocalScale();
-					break;
-				}
-				textLayout.setAlignment(horizontalAlignment.toSWT());
-
-				switch (t.getVerticalAlignment()) {
-				case TOP:
-					break;
-				case MIDDLE:
-					localOffset.y -= textLayoutSize.height / 2;
-					break;
-				case BOTTOM:
-					localOffset.y -= textLayoutSize.height;
-					break;
-				}
-
-				g.translate(cm.worldToLocal(worldAnchor));
-				int angle = t.getAngle();
-				if (angle != 0) {
-					g.rotate(angle);
-				}
-				g.setFont(textLayout.getFont());
-				g.drawText(textLayout.getText(), localOffset.x, localOffset.y);
-			}
-		}
-	}
-
-	@Override
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult) {
-		doLayout(view, cm, r);
-		if (textLayoutSize != null) {
-			Point anchor = cm.worldToLocal(t.getAnchorPoint());
+	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+		org.eclipse.swt.graphics.Point canvasSize = view.getComposite().getSize();
+		if (r.setColor(t, IHasColor.COLOR_KEY)) {
+			String text = t.getText();
+			Font font = r.getFont(t);
+			TextRenderer tr = r.getTextRenderer(font);
+			Rectangle2D rectangleSize = tr.getBounds(text);
+			Dimension size = new Dimension(BNAUtils.round(rectangleSize.getWidth()), BNAUtils.round(rectangleSize
+					.getHeight()));
+			Point localAnchor = cm.worldToLocal(t.getAnchorPoint());
+			Point localOffset = new Point(0, 0);
 			int offset = t.getOffset();
-			int extent = (int) Math.ceil(Math.max(offset * cm.getLocalScale() + textLayoutSize.width,
-					textLayoutSize.height));
-			boundsResult.setLocation(anchor);
-			boundsResult.translate(-extent, -extent);
-			boundsResult.setSize(extent * 2, extent * 2);
-			return;
+
+			HorizontalAlignment horizontalAlignment = t.getHorizontalAlignment();
+			switch (horizontalAlignment) {
+			case LEFT:
+				localOffset.x += offset * cm.getLocalScale();
+				break;
+			case CENTER:
+				localOffset.x -= size.width / 2;
+				break;
+			case RIGHT:
+				localOffset.x -= size.width;
+				localOffset.x -= offset * cm.getLocalScale();
+				break;
+			}
+			switch (t.getVerticalAlignment()) {
+			case TOP:
+				break;
+			case MIDDLE:
+				localOffset.y -= size.height / 2;
+				break;
+			case BOTTOM:
+				localOffset.y -= size.height;
+				break;
+			}
+
+			gl.glTranslatef(localAnchor.x, canvasSize.y - localOffset.y, 0);
+			gl.glRotatef(t.getAngle(), 1, 1, 0);
+			tr.draw3D(text, 0, 0, 0, 1);
 		}
+	}
+
+	@Override
+	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm) {
+		Rectangle bounds = new Rectangle(0, 0, 0, 0);
+		bounds.x = bounds.y = Integer.MIN_VALUE / 2;
+		bounds.width = bounds.height = Integer.MAX_VALUE;
+		return bounds;
 	}
 
 	@Override

@@ -31,9 +31,9 @@ import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.swtutils.constants.Orientation;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -61,7 +61,7 @@ public class BNAStressTest {
 		shell.setSize(400, 400);
 		shell.open();
 
-		populateModel(canvas.getBNAView(), 16, 12, 4, 2);
+		populateModel(canvas.getBNAView(), 16, 16, 3, 2);
 		addUILogics(canvas.getBNAView());
 
 		while (!shell.isDisposed()) {
@@ -70,6 +70,8 @@ public class BNAStressTest {
 			}
 		}
 
+		model.dispose();
+		world.dispose();
 		display.dispose();
 		System.exit(0);
 	}
@@ -93,7 +95,8 @@ public class BNAStressTest {
 		model.addThing(new GridThing(null));
 
 		ICoordinateMapper cm = view.getCoordinateMapper();
-		Point offset = cm.getLocalBounds(new Rectangle()).getCenter();
+		Rectangle bounds = cm.getLocalBounds();
+		Point offset = new Point(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
 
 		int x0 = offset.x;
 		int y0 = offset.y;
@@ -212,9 +215,7 @@ public class BNAStressTest {
 		IHasAnchorPoint a1 = (IHasAnchorPoint) model.getThing(id1);
 
 		StickPointLogic spl = tlm.addThingLogic(StickPointLogic.class);
-		spl.setStickyMode(s, IHasEndpoints.ENDPOINT_1_KEY, StickyMode.CENTER);
-		spl.setThingRef(s, IHasEndpoints.ENDPOINT_1_KEY, a0.getID());
-		spl.setStickyMode(s, IHasEndpoints.ENDPOINT_2_KEY, StickyMode.CENTER);
-		spl.setThingRef(s, IHasEndpoints.ENDPOINT_2_KEY, a1.getID());
+		spl.stick(s, IHasEndpoints.ENDPOINT_1_KEY, StickyMode.CENTER, a0);
+		spl.stick(s, IHasEndpoints.ENDPOINT_2_KEY, StickyMode.CENTER, a1);
 	}
 }

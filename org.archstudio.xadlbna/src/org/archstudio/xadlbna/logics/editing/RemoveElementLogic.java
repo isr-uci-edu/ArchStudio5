@@ -35,6 +35,12 @@ public class RemoveElementLogic extends AbstractThingLogic implements IBNAMenuLi
 				objRefs.add(objRef);
 			}
 		}
+		if (things.size() > 0) {
+			ObjRef objRef = things.get(0).get(IHasObjRef.OBJREF_KEY);
+			if (objRef != null) {
+				objRefs.add(objRef);
+			}
+		}
 		if (objRefs.size() > 0) {
 			m.add(new Action(objRefs.size() == 1 ? "Remove" : "Remove " + objRefs.size() + " Elements") {
 				@Override

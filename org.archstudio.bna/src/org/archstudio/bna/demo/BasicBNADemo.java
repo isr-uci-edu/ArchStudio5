@@ -32,21 +32,26 @@ import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.things.glass.SplineGlassThing;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.swtutils.constants.Orientation;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 public class BasicBNADemo {
+
+	static Rectangle originRectangle = CoordinateMapperAdapter.getDefaultBounds();
+	static Point origin = new Point(originRectangle.x + originRectangle.width / 2, originRectangle.y
+			+ originRectangle.height / 2);
 
 	public static void main(String args[]) {
 		Display display = new Display();
@@ -68,7 +73,10 @@ public class BasicBNADemo {
 
 		populateWithViews(bnaWorld1, bnaView1, bnaWorld2);
 
-		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL | SWT.DOUBLE_BUFFERED, bnaView1);
+		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, bnaView1);
+		BNARenderingSettings.setAntialiasGraphics(bnaComposite, true);
+		BNARenderingSettings.setAntialiasText(bnaComposite, true);
+		BNARenderingSettings.setDecorativeGraphics(bnaComposite, true);
 
 		bnaComposite.setSize(500, 500);
 		bnaComposite.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
@@ -117,12 +125,10 @@ public class BasicBNADemo {
 		for (int i = 0; i < boxes.length; i++) {
 			RectangleGlassThing box = Assemblies.createRectangle(world, null, null);
 			((IHasMutableGradientFill) Assemblies.BACKGROUND_KEY.get(box, model)).setGradientFilled(true);
-			((IHasMutableColor) Assemblies.BACKGROUND_KEY.get(box, model)).setColor(new RGB(0, 0, 0));
 			Assemblies.TEXT_KEY.get(box, model).setText(
 					"Now is the time for all good men to come to the aid of their country");
 			((IHasMutableColor) Assemblies.TEXT_KEY.get(box, model)).setColor(new RGB(255, 0, 0));
-			box.setBoundingBox(new Rectangle(CoordinateMapperAdapter.getDefaultBounds().getSize().width / 2 + 20 + i
-					* 10, CoordinateMapperAdapter.getDefaultBounds().getSize().height / 2 + 20 + i * 10, 100, 100));
+			box.setBoundingBox(new Rectangle(origin.x + 20 + i * 10, origin.y + 20 + i * 10, 100, 100));
 			box.setSelected(i % 2 == 0);
 
 			UserEditableUtils.addEditableQualities(box, IHasMutableSelected.USER_MAY_SELECT,
@@ -134,23 +140,18 @@ public class BasicBNADemo {
 		}
 
 		EndpointGlassThing endpoint = Assemblies.createEndpoint(world, null, boxes[0]);
-		((IHasMutableColor) Assemblies.BACKGROUND_KEY.get(endpoint, model)).setColor(new RGB(0, 0, 0));
 		Assemblies.LABEL_KEY.get(endpoint, model).setColor(new RGB(0, 0, 0));
 		Assemblies.LABEL_KEY.get(endpoint, model).setOrientation(Orientation.NORTHWEST);
 		Assemblies.LABEL_KEY.get(endpoint, model).setFlow(Flow.INOUT);
-		endpoint.setAnchorPoint(new Point(CoordinateMapperAdapter.getDefaultBounds().getSize().width / 2 + 20,
-				CoordinateMapperAdapter.getDefaultBounds().getSize().height / 2 + 20));
+		endpoint.setAnchorPoint(new Point(origin.x + 20, origin.y + 20));
 
 		SplineGlassThing spline = Assemblies.createSpline(world, null, null);
-		spline.setPoints(Arrays.asList(//
-				new Point(CoordinateMapperAdapter.getDefaultBounds().getSize().width / 2 + 20, CoordinateMapperAdapter
-						.getDefaultBounds().getSize().height / 2 + 20), //
-				new Point(CoordinateMapperAdapter.getDefaultBounds().getSize().width / 2 + 30, CoordinateMapperAdapter
-						.getDefaultBounds().getSize().height / 2 + 30), //
-				new Point(CoordinateMapperAdapter.getDefaultBounds().getSize().width / 2 + 50, CoordinateMapperAdapter
-						.getDefaultBounds().getSize().height / 2 + 50), //
-				new Point(CoordinateMapperAdapter.getDefaultBounds().getSize().width / 2 + 200, CoordinateMapperAdapter
-						.getDefaultBounds().getSize().height / 2 + 200)));
+		spline.setPoints(Arrays.asList(
+		//
+				new Point(origin.x + 20, origin.y + 20), //
+				new Point(origin.x + 30, origin.y + 30), //
+				new Point(origin.x + 50, origin.y + 50), //
+				new Point(origin.x + 200, origin.y + 200)));
 
 		// TODO: reimplement Arrowheads
 
@@ -171,11 +172,9 @@ public class BasicBNADemo {
 
 		RectangleGlassThing vbox1 = Assemblies.createRectangleWithWorld(world, null, null);
 		((IHasMutableGradientFill) Assemblies.BACKGROUND_KEY.get(vbox1, model)).setGradientFilled(true);
-		((IHasMutableColor) Assemblies.BACKGROUND_KEY.get(vbox1, model)).setColor(new RGB(0, 0, 0));
 		Assemblies.TEXT_KEY.get(vbox1, model).setText("Viewsion 1");
 		((IHasMutableColor) Assemblies.TEXT_KEY.get(vbox1, model)).setColor(new RGB(255, 0, 0));
-		vbox1.setBoundingBox(new Rectangle(CoordinateMapperAdapter.getDefaultBounds().getSize().width / 2 + 20 + 200,
-				CoordinateMapperAdapter.getDefaultBounds().getSize().height / 2 + 20 + 100, 200, 200));
+		vbox1.setBoundingBox(new Rectangle(origin.x + 20 + 200, origin.y + 20 + 100, 200, 200));
 		Assemblies.WORLD_KEY.get(vbox1, model).setWorld(internalWorld);
 
 		UserEditableUtils.addEditableQualities(vbox1, IHasMutableSelected.USER_MAY_SELECT,
@@ -185,11 +184,9 @@ public class BasicBNADemo {
 
 		RectangleGlassThing vbox2 = Assemblies.createRectangleWithWorld(world, null, null);
 		((IHasMutableGradientFill) Assemblies.BACKGROUND_KEY.get(vbox2, model)).setGradientFilled(true);
-		((IHasMutableColor) Assemblies.BACKGROUND_KEY.get(vbox2, model)).setColor(new RGB(0, 0, 0));
 		Assemblies.TEXT_KEY.get(vbox2, model).setText("Viewsion 2");
 		((IHasMutableColor) Assemblies.TEXT_KEY.get(vbox2, model)).setColor(new RGB(255, 0, 0));
-		vbox2.setBoundingBox(new Rectangle(CoordinateMapperAdapter.getDefaultBounds().getSize().width / 2 + 20 + 400,
-				CoordinateMapperAdapter.getDefaultBounds().getSize().height / 2 + 20 + 100, 200, 200));
+		vbox2.setBoundingBox(new Rectangle(origin.x + 20 + 400, origin.y + 20 + 100, 200, 200));
 		Assemblies.WORLD_KEY.get(vbox2, model).setWorld(internalWorld);
 
 		UserEditableUtils.addEditableQualities(vbox2, IHasMutableSelected.USER_MAY_SELECT,

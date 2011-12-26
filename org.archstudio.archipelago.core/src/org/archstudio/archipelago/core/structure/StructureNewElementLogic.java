@@ -16,12 +16,12 @@ import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
 public class StructureNewElementLogic extends AbstractThingLogic implements IBNAMenuListener {
@@ -43,7 +43,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		if (matches(view, SystemUtils.firstOrNull(things))) {
-			Point world = location.getWorldPoint(new Point());
+			Point world = location.getWorldPoint();
 			for (IAction action : getActions(view, SystemUtils.firstOrNull(things), world.x, world.y)) {
 				m.add(action);
 			}

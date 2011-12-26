@@ -18,12 +18,12 @@ public class EditorPreferencePanel extends FieldEditorPreferencePage implements 
 
 	public EditorPreferencePanel() {
 		super("Editor Preferences", GRID);
-		comp = (EditorPrefsMyxComponent) er.waitForBrick(EditorPrefsMyxComponent.class);
+		comp = er.waitForBrick(EditorPrefsMyxComponent.class);
 		er.map(comp, this);
 
 		setPreferenceStore(comp.getPreferences());
 		editorManager = comp.editorManager;
-		setDescription("This panel lets you select ArchStudio 5 Editor preferences, particularly the default editor.");
+		setDescription("This panel lets you select ArchStudio Editor preferences, particularly the default editor.");
 	}
 
 	@Override

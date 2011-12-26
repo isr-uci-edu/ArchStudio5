@@ -8,4 +8,6 @@ public interface IThingRefKey<T extends IThing> extends IThingKey<Object> {
 
 	public T get(IThing fromThing, IBNAModel inModel);
 
+	public void set(IThing fromThing, T thing);
+
 }

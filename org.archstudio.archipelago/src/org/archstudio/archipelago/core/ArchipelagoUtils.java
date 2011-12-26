@@ -16,15 +16,10 @@ import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.borders.PulsingBorderThing;
-import org.archstudio.bna.things.labels.UserNotificationThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.NoThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.ZoomUtils;
-import org.archstudio.swtutils.constants.HorizontalAlignment;
-import org.archstudio.swtutils.constants.VerticalAlignment;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -32,7 +27,9 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
-import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -140,7 +137,8 @@ public class ArchipelagoUtils {
 			p.y += 10;
 		}
 		else {
-			p = new Point(CoordinateMapperAdapter.getDefaultBounds().getCenter().translate(30, 30));
+			Rectangle bounds = CoordinateMapperAdapter.getDefaultBounds();
+			p = new Point(bounds.x + bounds.width / 2 + 30, bounds.y + bounds.height / 2 + 30);
 			// first find all things along the points of interest
 			int dyx = p.y - p.x;
 			Set<Integer> xValues = new HashSet<Integer>();
@@ -171,7 +169,7 @@ public class ArchipelagoUtils {
 
 	public static final String EDITOR_PANE_PROPERTY_BNA_COMPOSITE = "bnaCanvas";
 
-	public static void setBNACanvas(IArchipelagoEditorPane editorPane, BNACanvas bnaCanvas) {
+	public static void setBNACanvas(IArchipelagoEditorPane editorPane, Canvas bnaCanvas) {
 		editorPane.setProperty(EDITOR_PANE_PROPERTY_BNA_COMPOSITE, bnaCanvas);
 	}
 
@@ -201,14 +199,15 @@ public class ArchipelagoUtils {
 	//}
 
 	public static void showUserNotification(IBNAModel m, String text, int worldX, int worldY) {
-		UserNotificationThing unt = new UserNotificationThing();
-		unt.setText(text);
-		unt.setAnchorPoint(new Point(worldX, worldY));
-		unt.setVerticalAlignment(VerticalAlignment.MIDDLE);
-		unt.setHorizontalAlignment(HorizontalAlignment.CENTER);
-		unt.setColor(new RGB(0, 0, 0));
-		unt.setSecondaryColor(new RGB(192, 192, 192));
-		m.addThing(unt);
+		//FIXME
+		//		UserNotificationThing unt = new UserNotificationThing(null);
+		//		unt.setText(text);
+		//		unt.setAnchorPoint(new Point(worldX, worldY));
+		//		unt.setVerticalAlignment(VerticalAlignment.MIDDLE);
+		//		unt.setHorizontalAlignment(HorizontalAlignment.CENTER);
+		//		unt.setColor(new RGB(0, 0, 0));
+		//		unt.setSecondaryColor(new RGB(192, 192, 192));
+		//		m.addThing(unt);
 	}
 
 	public static void beginTreeCellEditing(TreeViewer viewer, Object allowEditing) {

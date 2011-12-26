@@ -1,5 +1,7 @@
 package org.archstudio.bna.utils;
 
+import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.Polygon;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
@@ -16,7 +18,6 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IMutableCoordinateMapper;
-import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -33,18 +34,13 @@ import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.swtutils.constants.Orientation;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.SWTGraphics;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PrecisionPoint;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Widget;
 
@@ -162,22 +158,23 @@ public class BNAUtils {
 	 * @deprecated Use {@link SystemUtils#nullEquals(Object, Object)} instead.
 	 */
 	@Deprecated
-	public static boolean nulleq(Object o1, Object o2) {
+	public static final boolean nulleq(Object o1, Object o2) {
 		return SystemUtils.nullEquals(o1, o2);
 	}
 
-	public static final List<Point> worldToLocal(ICoordinateMapper cm, List<Point> worldPointsResult) {
-		for (Point p : worldPointsResult) {
-			cm.worldToLocal(p);
-		}
-		return worldPointsResult;
+	public static final Point clone(Point p) {
+		return new Point(p.x, p.y);
 	}
 
-	public static final List<Point> getWorldToLocal(final ICoordinateMapper cm, List<Point> worldPoints) {
+	public static final Rectangle clone(Rectangle r) {
+		return new Rectangle(r.x, r.y, r.width, r.height);
+	}
+
+	public static final List<Point> worldToLocal(final ICoordinateMapper cm, List<Point> worldPoints) {
 		return Lists.transform(worldPoints, new Function<Point, Point>() {
 			@Override
 			public Point apply(Point input) {
-				return cm.worldToLocal(input.getCopy());
+				return cm.worldToLocal(new Point(input.x, input.y));
 			}
 		});
 	}
@@ -186,7 +183,8 @@ public class BNAUtils {
 			int worldCornerWidth, int worldCornerHeight) {
 		Rectangle cornerWorldRect = new Rectangle(worldRectangle.x, worldRectangle.y, Math.min(worldCornerWidth,
 				worldRectangle.width), Math.min(worldCornerHeight, worldRectangle.height));
-		return cm.worldToLocal(cornerWorldRect).getSize();
+		Rectangle localCornerWorldRect = cm.worldToLocal(cornerWorldRect);
+		return new Dimension(localCornerWorldRect.width, localCornerWorldRect.height);
 	}
 
 	public static final List<Point> localToWorld(ICoordinateMapper cm, List<Point> localPointsResult) {
@@ -813,7 +811,9 @@ public class BNAUtils {
 			}
 			Point p = new Point((x1 + x2) / 2, (y1 + y2) / 2);
 			if (t instanceof IHasAnchorPoint) {
-				p.translate(((IHasAnchorPoint) t).getAnchorPoint());
+				Point a = ((IHasAnchorPoint) t).getAnchorPoint();
+				p.x += a.x;
+				p.y += a.y;
 			}
 			return p;
 		}
@@ -821,7 +821,8 @@ public class BNAUtils {
 			return ((IHasAnchorPoint) t).getAnchorPoint();
 		}
 		if (t instanceof IHasBoundingBox) {
-			return ((IHasBoundingBox) t).getBoundingBox().getCenter();
+			Rectangle r = ((IHasBoundingBox) t).getBoundingBox();
+			return new Point(r.x + r.width / 2, r.y + r.height / 2);
 		}
 		return null;
 	}
@@ -860,8 +861,8 @@ public class BNAUtils {
 
 	public static void saveCoordinateMapperData(ICoordinateMapper cm, EnvironmentPropertiesThing ept) {
 		ept.set(SCALE_KEY, cm.getLocalScale());
-		ept.set(LOCAL_KEY, cm.getLocalOrigin(new Point()));
-		ept.set(WORLD_KEY, cm.localToWorld(cm.getLocalOrigin(new Point())));
+		ept.set(LOCAL_KEY, cm.getLocalOrigin());
+		ept.set(WORLD_KEY, cm.localToWorld(cm.getLocalOrigin()));
 	}
 
 	public static void restoreCoordinateMapperData(IMutableCoordinateMapper cm, EnvironmentPropertiesThing ept) {
@@ -939,11 +940,11 @@ public class BNAUtils {
 		return Float.POSITIVE_INFINITY;
 	}
 
-	public static PrecisionPoint getClosestPointOnPolygon(int[] xyCoords, final int nearX, final int nearY,
-			final int refX, final int refY) {
+	public static Point getClosestPointOnPolygon(int[] xyCoords, final int nearX, final int nearY, final int refX,
+			final int refY) {
 
 		if (nearX == refX && nearY == refY) {
-			return new PrecisionPoint(refX, refY);
+			return new Point(refX, refY);
 		}
 
 		// convert to a polygon
@@ -956,7 +957,7 @@ public class BNAUtils {
 		Line2D referenceLine = new Line2D.Double(refX, refY, nearX, nearY);
 		double[] pathCoords = new double[6];
 		double closestDistanceSq = Double.POSITIVE_INFINITY;
-		PrecisionPoint closestIntersection = new PrecisionPoint(refX, refY);
+		Point closestIntersection = new Point(refX, refY);
 		{
 			Point2D lastMoveTo = null;
 			Point2D lastPoint = null;
@@ -984,7 +985,8 @@ public class BNAUtils {
 					double distanceSq = intersection.distanceSq(nearX, nearY);
 					if (distanceSq < closestDistanceSq) {
 						closestDistanceSq = distanceSq;
-						closestIntersection = new PrecisionPoint(intersection.getX(), intersection.getY());
+						closestIntersection = new Point(BNAUtils.round(intersection.getX()),
+								BNAUtils.round(intersection.getY()));
 					}
 				}
 			}
@@ -1013,7 +1015,7 @@ public class BNAUtils {
 		return new Point2D.Double(xNumerator / denominator, yNumerator / denominator);
 	}
 
-	private static PrecisionPoint getClosestPointOnLineSegment(Line2D l, final int x3, final int y3) {
+	private static Point getClosestPointOnLineSegment(Line2D l, final int x3, final int y3) {
 		// see: http://paulbourke.net/geometry/pointline/
 		double x1 = l.getX1();
 		double y1 = l.getY1();
@@ -1027,16 +1029,16 @@ public class BNAUtils {
 
 		// determine if the calculated intersection is between the segment points
 		if (l.ptSegDistSq(x, y) < 0.0000001d) {
-			return new PrecisionPoint(x, y);
+			return new Point(BNAUtils.round(x), BNAUtils.round(y));
 		}
 		// its not, so use the closest end point
 		double dp1 = p1.distanceSq(x3, y3);
 		double dp2 = p2.distanceSq(x3, y3);
 		Point2D p = dp1 < dp2 ? p1 : p2;
-		return new PrecisionPoint(p.getX(), p.getY());
+		return new Point(BNAUtils.round(p.getX()), BNAUtils.round(p.getY()));
 	}
 
-	public static PrecisionPoint getClosestPointOnPolygon(int[] xyCoords, final int nearX, final int nearY) {
+	public static Point getClosestPointOnPolygon(int[] xyCoords, final int nearX, final int nearY) {
 
 		// convert to a polygon
 		Polygon polygon = new Polygon();
@@ -1081,7 +1083,7 @@ public class BNAUtils {
 		return getClosestPointOnLineSegment(closestLineSeg, nearX, nearY);
 	}
 
-	public static final PrecisionPoint getClosestPointOnEllipse(Rectangle r, int nearX, int nearY) {
+	public static final Point getClosestPointOnEllipse(Rectangle r, int nearX, int nearY) {
 		// normalize to a circle at (0,0) with a radius of 0.5
 		double npx = (double) (nearX - r.x) / r.width - 0.5d;
 		double npy = (double) (nearY - r.y) / r.height - 0.5d;
@@ -1098,11 +1100,10 @@ public class BNAUtils {
 		double x1 = ((npx < 0 ? -nx : nx) + 0.5d) * r.width + r.x;
 		double y1 = ((npy < 0 ? -ny : ny) + 0.5d) * r.height + r.y;
 
-		return new PrecisionPoint(x1, y1);
+		return new Point(BNAUtils.round(x1), BNAUtils.round(y1));
 	}
 
-	public static final PrecisionPoint getClosestPointOnEllipse(Rectangle r, int nearX, int nearY, int referenceX,
-			int referenceY) {
+	public static final Point getClosestPointOnEllipse(Rectangle r, int nearX, int nearY, int referenceX, int referenceY) {
 		if (nearX != referenceX) {
 			// normalize to a circle at (0,0) with a radius of 0.5
 			double npx = (double) (nearX - r.x) / r.width - 0.5d;
@@ -1134,7 +1135,7 @@ public class BNAUtils {
 				double x1 = (nx + 0.5d) * r.width + r.x;
 				double y1 = ((npy < 0 ? -ny : ny) + 0.5d) * r.height + r.y;
 
-				return new PrecisionPoint(round(x1), round(y1));
+				return new Point(round(x1), round(y1));
 			}
 		}
 		else {
@@ -1144,24 +1145,24 @@ public class BNAUtils {
 		throw new IllegalArgumentException("This shouldn't happen");
 	}
 
-	public static PrecisionPoint getClosestPointOnRectangle(Rectangle rectangle, Dimension cornerSize, Point nearPoint) {
+	public static Point getClosestPointOnRectangle(Rectangle rectangle, Dimension cornerSize, Point nearPoint) {
 		int x1 = rectangle.x;
 		int y1 = rectangle.y;
 		int x2 = x1 + rectangle.width;
 		int y2 = y1 + rectangle.height;
-		PrecisionPoint closestPoint = BNAUtils.getClosestPointOnPolygon(new int[] { x1, y1, x2, y1, x2, y2, x1, y2, x1,
-				y1 }, nearPoint.x, nearPoint.y);
-		if (!cornerSize.isEmpty()) {
+		Point closestPoint = BNAUtils.getClosestPointOnPolygon(new int[] { x1, y1, x2, y1, x2, y2, x1, y2, x1, y1 },
+				nearPoint.x, nearPoint.y);
+		if (cornerSize.width != 0 || cornerSize.height != 0) {
 			int cornerWidth = cornerSize.width;
 			int cornerHeight = cornerSize.height;
 			if (closestPoint.x < rectangle.x + cornerWidth / 2
 					|| closestPoint.x > rectangle.x + rectangle.width - cornerWidth / 2) {
 				if (closestPoint.y < rectangle.y + cornerHeight / 2
 						|| closestPoint.y > rectangle.y + rectangle.height - cornerHeight / 2) {
-					int cornerX = nearPoint.x < rectangle.getCenter().x ? rectangle.x : rectangle.x + rectangle.width
-							- cornerWidth;
-					int cornerY = nearPoint.y < rectangle.getCenter().y ? rectangle.y : rectangle.y + rectangle.height
-							- cornerHeight;
+					int cornerX = nearPoint.x < rectangle.x + rectangle.width / 2 ? rectangle.x : rectangle.x
+							+ rectangle.width - cornerWidth;
+					int cornerY = nearPoint.y < rectangle.y + rectangle.height / 2 ? rectangle.y : rectangle.y
+							+ rectangle.height - cornerHeight;
 					Rectangle cornerR = new Rectangle(cornerX, cornerY, cornerWidth, cornerHeight);
 					closestPoint = BNAUtils.getClosestPointOnEllipse(cornerR, nearPoint.x, nearPoint.y);
 				}
@@ -1170,15 +1171,15 @@ public class BNAUtils {
 		return closestPoint;
 	}
 
-	public static PrecisionPoint getClosestPointOnRectangle(Rectangle rectangle, Dimension cornerSize, Point nearPoint,
+	public static Point getClosestPointOnRectangle(Rectangle rectangle, Dimension cornerSize, Point nearPoint,
 			Point referencePoint) {
 		int x1 = rectangle.x;
 		int y1 = rectangle.y;
 		int x2 = x1 + rectangle.width;
 		int y2 = y1 + rectangle.height;
-		PrecisionPoint closestPoint = BNAUtils.getClosestPointOnPolygon(new int[] { x1, y1, x2, y1, x2, y2, x1, y2, x1,
-				y1 }, nearPoint.x, nearPoint.y, referencePoint.x, referencePoint.y);
-		if (!cornerSize.isEmpty()) {
+		Point closestPoint = BNAUtils.getClosestPointOnPolygon(new int[] { x1, y1, x2, y1, x2, y2, x1, y2, x1, y1 },
+				nearPoint.x, nearPoint.y, referencePoint.x, referencePoint.y);
+		if (cornerSize.width != 0 || cornerSize.height != 0) {
 			int cornerWidth = cornerSize.width;
 			int cornerHeight = cornerSize.height;
 			if (closestPoint.x < rectangle.x + cornerWidth / 2
@@ -1196,79 +1197,6 @@ public class BNAUtils {
 			}
 		}
 		return closestPoint;
-	}
-
-	// Convenience method for drawMarquee(..., Runnable).
-	public static void drawMarquee(final Graphics g, IResources r, int offset, final Rectangle rect) {
-		Runnable runnable = new Runnable() {
-			@Override
-			public void run() {
-				g.drawRectangle(rect);
-			}
-		};
-		drawMarquee(g, r, offset, runnable);
-	}
-
-	public static void drawMarquee(Graphics g, IResources r, int offset, Runnable drawMarquee) {
-		float oldLineDashOffset = 0;
-		if (g instanceof SWTGraphics) {
-			oldLineDashOffset = ((SWTGraphics) g).getLineDashOffset();
-		}
-		g.pushState();
-		try {
-			g.setLineWidth(1);
-
-			g.setLineStyle(SWT.LINE_SOLID);
-			g.setForegroundColor(r.getColor(SWT.COLOR_WHITE));
-			drawMarquee.run();
-
-			g.setLineStyle(SWT.LINE_CUSTOM);
-			g.setForegroundColor(r.getColor(SWT.COLOR_BLACK));
-			g.setLineCap(SWT.CAP_FLAT);
-			g.setLineDash(new int[] { 4, 4 });
-			if (g instanceof SWTGraphics) {
-				((SWTGraphics) g).setLineDashOffset(offset % 8);
-			}
-			drawMarquee.run();
-		}
-		finally {
-			g.popState();
-			if (g instanceof SWTGraphics) {
-				((SWTGraphics) g).setLineDashOffset(oldLineDashOffset);
-			}
-		}
-	}
-
-	public static interface DrawShadow {
-		public void drawShadow(boolean fill);
-	}
-
-	public static void drawShadow(Graphics g, IResources r, int dx, int dy, int size, int granularity,
-			DrawShadow drawShadow) {
-
-		final float minBrightness = 0.75f;
-		final float maxBrightness = 0.95f;
-		final int width = granularity = Math.max(1, granularity);
-
-		g.setLineMiterLimit(1);
-		g.setLineStyle(SWT.LINE_SOLID);
-		g.setLineCap(SWT.CAP_ROUND);
-		g.pushState();
-		try {
-			g.translate(dx, dy);
-			for (int step = size * 2 + 1; step > 1; step -= width) {
-				float brightness = (float) SystemUtils.bound(0d, minBrightness + (maxBrightness - minBrightness) * step
-						/ (size * 2 + 1), 1d);
-				g.setForegroundColor(r.getColor(new RGB(0.0f, 0.0f, brightness)));
-				g.setLineWidth(step);
-				drawShadow.drawShadow(false);
-			}
-			g.setBackgroundColor(r.getColor(new RGB(0f, 0f, minBrightness)));
-			drawShadow.drawShadow(true);
-		}
-		finally {
-			g.popState();
-		}
 	}
 
 	public static final IBNAView getInternalView(IBNAView outerView, IThing worldThing) {
@@ -1329,50 +1257,6 @@ public class BNAUtils {
 		return things;
 	}
 
-	public static Point toPoint(org.eclipse.swt.graphics.Point p) {
-		if (p != null) {
-			return new Point(p.x, p.y);
-		}
-		return null;
-	}
-
-	public static org.eclipse.swt.graphics.Point toPoint(Point p) {
-		if (p != null) {
-			return new org.eclipse.swt.graphics.Point(p.x, p.y);
-		}
-		return null;
-	}
-
-	public static Point[] toPoints(org.eclipse.swt.graphics.Point[] points) {
-		if (points != null) {
-			Point[] dPoints = new Point[points.length];
-			for (int i = 0, length = points.length; i < length; i++) {
-				dPoints[i] = toPoint(points[i]);
-			}
-			return dPoints;
-		}
-		return null;
-	}
-
-	public static org.eclipse.swt.graphics.Point[] toPoints(Point[] points) {
-		if (points != null) {
-			org.eclipse.swt.graphics.Point[] dPoints = new org.eclipse.swt.graphics.Point[points.length];
-			for (int i = 0, length = points.length; i < length; i++) {
-				dPoints[i] = toPoint(points[i]);
-			}
-			return dPoints;
-		}
-		return null;
-	}
-
-	public static Rectangle toRectangle(org.eclipse.swt.graphics.Rectangle r) {
-		return new Rectangle(r.x, r.y, r.width, r.height);
-	}
-
-	public static org.eclipse.swt.graphics.Rectangle toRectangle(Rectangle r) {
-		return new org.eclipse.swt.graphics.Rectangle(r.x, r.y, r.width, r.height);
-	}
-
 	public static int[] toXYArray(List<Point> points) {
 		int[] xyArray = new int[2 * points.size()];
 		for (int i = 0, length = points.size(), xy = 0; i < length; i++) {
@@ -1387,7 +1271,8 @@ public class BNAUtils {
 		int[] xyArray = new int[2 * points.size()];
 		for (int i = 0, length = points.size(), xy = 0; i < length; i++) {
 			Point p = points.get(i);
-			p.translate(anchorPoint);
+			p.x += anchorPoint.x;
+			p.y += anchorPoint.y;
 			cm.worldToLocal(p);
 			xyArray[xy++] = p.x;
 			xyArray[xy++] = p.y;
@@ -1395,14 +1280,16 @@ public class BNAUtils {
 		return xyArray;
 	}
 
-	public static final Rectangle getLocalBoundingBox(ICoordinateMapper cm, IHasBoundingBox t, Rectangle localResult) {
+	public static final Rectangle getLocalBoundingBox(ICoordinateMapper cm, IHasBoundingBox t) {
 		Rectangle localBoundingBox = cm.worldToLocal(t.getBoundingBox());
 		Insets insets = t.get(IHasLocalInsets.LOCAL_INSETS_KEY);
 		if (insets != null) {
-			localBoundingBox.shrink(insets);
+			localBoundingBox.x += insets.left;
+			localBoundingBox.y += insets.top;
+			localBoundingBox.width -= insets.left + insets.right;
+			localBoundingBox.height -= insets.top + insets.bottom;
 		}
-		localResult.setBounds(localBoundingBox);
-		return localResult;
+		return localBoundingBox;
 	}
 
 	private static final Function<IThing, Object> thingToIDFunction = new Function<IThing, Object>() {
@@ -1427,7 +1314,10 @@ public class BNAUtils {
 
 	public static final void union(Rectangle result, Rectangle other) {
 		if (result.isEmpty()) {
-			result.setBounds(other);
+			result.x = other.x;
+			result.y = other.y;
+			result.width = other.width;
+			result.height = other.height;
 		}
 		else if (!other.isEmpty()) {
 			result.union(other);
@@ -1437,5 +1327,17 @@ public class BNAUtils {
 	public static RGB adjustBrightness(RGB rgb, float factor) {
 		float[] hsb = rgb.getHSB();
 		return new RGB(hsb[0], hsb[1], SystemUtils.bound(0f, hsb[2] * factor, 1f));
+	}
+
+	public static final Rectangle toRectangle(java.awt.Rectangle bounds) {
+		return new Rectangle(bounds.x, bounds.y, bounds.width, bounds.height);
+	}
+
+	public static final Rectangle toRectangle(java.awt.geom.Rectangle2D bounds) {
+		int x1 = round(bounds.getMinX());
+		int y1 = round(bounds.getMinY());
+		int x2 = round(bounds.getMaxX());
+		int y2 = round(bounds.getMaxY());
+		return new Rectangle(x1, y1, x2 - x1, y2 - y1);
 	}
 }

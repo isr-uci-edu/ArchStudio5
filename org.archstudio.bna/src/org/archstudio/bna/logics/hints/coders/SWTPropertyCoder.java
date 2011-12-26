@@ -9,6 +9,7 @@ import org.eclipse.swt.graphics.Rectangle;
 
 public class SWTPropertyCoder implements IPropertyCoder {
 
+	@Override
 	public boolean encode(IPropertyCoder masterCoder, IEncodedValue encodedValue, Object value) {
 		if (value instanceof Point) {
 			Point v = (Point) value;
@@ -31,11 +32,12 @@ public class SWTPropertyCoder implements IPropertyCoder {
 		return false;
 	}
 
+	@Override
 	public Object decode(IPropertyCoder masterCoder, IEncodedValue encodedValue) throws PropertyDecodeException {
 		try {
 			String type = encodedValue.getType();
 			String data = encodedValue.getData();
-			if (Rectangle.class.getName().equals(type)) {
+			if (Rectangle.class.getName().equals(type) || "org.eclipse.draw2d.geometry.Rectangle".equals(type)) {
 				String[] d = data.split(",");
 				Rectangle v = new Rectangle(0, 0, 0, 0);
 				v.x = Integer.parseInt(d[0]);
@@ -44,7 +46,7 @@ public class SWTPropertyCoder implements IPropertyCoder {
 				v.height = Integer.parseInt(d[3]);
 				return v;
 			}
-			else if (Point.class.getName().equals(type)) {
+			else if (Point.class.getName().equals(type) || "org.eclipse.draw2d.geometry.Point".equals(type)) {
 				String[] d = data.split(",");
 				Point v = new Point(0, 0);
 				v.x = Integer.parseInt(d[0]);

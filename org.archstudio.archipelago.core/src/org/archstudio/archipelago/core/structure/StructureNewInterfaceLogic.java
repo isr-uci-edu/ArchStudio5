@@ -20,15 +20,14 @@ import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xadlbna.things.IHasObjRef;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
 public class StructureNewInterfaceLogic extends AbstractThingLogic implements IBNAMenuListener {
-	protected static final String STRUCTURE_FACTORY = "org.archstudio.xadl3.structure_3_0";
 
 	protected final IXArchADT xarch;
 	protected final IResources resources;
@@ -51,11 +50,12 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
-		if (selectedThings.size() > 1)
+		if (selectedThings.size() > 1) {
 			return;
+		}
 
 		if (matches(view, SystemUtils.firstOrNull(things))) {
-			Point world = location.getWorldPoint(new Point());
+			Point world = location.getWorldPoint();
 			for (IAction action : getActions(view, SystemUtils.firstOrNull(things), world.x, world.y)) {
 				m.add(action);
 			}
@@ -73,6 +73,7 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 
 		Action newInterfaceAction = new Action("New Interface",
 				resources.getImageDescriptor(ArchStudioCommonResources.ICON_INTERFACE)) {
+			@Override
 			public void run() {
 				ObjRef interfaceRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.INTERFACE);
 				xarch.set(interfaceRef, "id", UIDGenerator.generateUID("interface"));

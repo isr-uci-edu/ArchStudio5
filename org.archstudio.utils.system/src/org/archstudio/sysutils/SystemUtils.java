@@ -1330,4 +1330,8 @@ public class SystemUtils {
 		return minValue;
 	}
 
+	public static final <T> T nonNullOr(T value, T valueIfNull) {
+		return value != null ? value : valueIfNull;
+	}
+
 }

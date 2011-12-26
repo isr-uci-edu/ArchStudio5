@@ -2,10 +2,9 @@ package org.archstudio.bna.things;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractThingPeer<T extends IThing> implements IThingPeer<T> {
 
@@ -24,5 +23,5 @@ public abstract class AbstractThingPeer<T extends IThing> implements IThingPeer<
 	}
 
 	@Override
-	abstract public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult);
+	abstract public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm);
 }

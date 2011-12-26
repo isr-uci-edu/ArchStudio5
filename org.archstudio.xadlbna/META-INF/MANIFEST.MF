@@ -10,8 +10,10 @@ Require-Bundle: org.archstudio.bna,
  org.archstudio.xadl,
  com.google.guava,
  org.eclipse.jface,
- org.archstudio.xadl3.hints
-Export-Package: org.archstudio.xadlbna.logics.editing,
+ org.archstudio.xadl3.hints,
+ org.jogamp.jogl;bundle-version="2.0.0"
+Export-Package: org.archstudio.xadlbna,
+ org.archstudio.xadlbna.logics.editing,
  org.archstudio.xadlbna.logics.hints,
  org.archstudio.xadlbna.logics.mapping,
  org.archstudio.xadlbna.things

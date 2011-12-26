@@ -1,61 +1,69 @@
 package org.archstudio.bna.things.shapes;
 
+import javax.media.opengl.GL2;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
+import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.facets.peers.IHasShadowPeer;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectangleThingPeer<T> implements
-		IHasShadowPeer<T> {
+		IThingPeer<T>, IHasShadowPeer<T> {
 
 	public RectangleThingPeer(T thing) {
 		super(thing);
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r) {
+	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
-
-		if (t.isGradientFilled() && g.getAdvanced()
-				&& r.setForegroundColor(g, t, IHasSecondaryColor.SECONDARY_COLOR_KEY)) {
-			if (r.setBackgroundColor(g, t, IHasColor.COLOR_KEY)) {
-				g.fillGradient(lbb, true);
+		Point p1 = new Point(lbb.x, lbb.y);
+		Point p2 = new Point(lbb.x + lbb.width, lbb.y + lbb.height);
+		if (r.setColor(t, IHasColor.COLOR_KEY)) {
+			gl.glBegin(GL2.GL_QUADS);
+			gl.glVertex2i(p1.x, p1.y);
+			gl.glVertex2i(p2.x, p1.y);
+			if (t.isGradientFilled()) {
+				r.setColor(t, IHasSecondaryColor.SECONDARY_COLOR_KEY);
 			}
+			gl.glVertex2i(p2.x, p2.y);
+			gl.glVertex2i(p1.x, p2.y);
+			gl.glEnd();
 		}
-		else {
-			if (r.setBackgroundColor(g, t, IHasColor.COLOR_KEY)) {
-				g.fillRectangle(lbb);
-			}
-		}
-		if (r.setForegroundColor(g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
-			r.setLineStyle(g, t);
+		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY)) {
+			int count = t.getCount();
 			int width = t.getLineWidth();
-			g.setLineWidth(width);
-			// shrink the lbb so that the edge lies just within the background
-			lbb.shrink(new Insets(width / 2, width / 2, (width - 1) / 2, (width - 1) / 2));
-			for (int i = t.getCount(); i >= 1; i--) {
-				g.drawRectangle(lbb.x, lbb.y, lbb.width - 1, lbb.height - 1);
-				lbb.shrink(width * 2, width * 2);
+			while (count > 0) {
+				int inset = (count - 1) * width * 2;
+				gl.glBegin(GL2.GL_LINE_LOOP);
+				gl.glVertex2f(p1.x + inset + 0.5f, p1.y + inset + 0.5f);
+				gl.glVertex2f(p2.x - inset - 0.5f, p1.y + inset + 0.5f);
+				gl.glVertex2f(p2.x - inset - 0.5f, p2.y - inset - 0.5f);
+				gl.glVertex2f(p1.x + inset + 0.5f, p2.y - inset - 0.5f);
+				gl.glEnd();
+				count--;
 			}
 		}
 	}
 
 	@Override
-	public void drawShadow(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r, boolean fill) {
+	public void drawShadow(IBNAView view, ICoordinateMapper cm, GL2 gl, IResources r) {
 		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
-		if (fill) {
-			g.fillRectangle(lbb);
-		}
-		else {
-			g.drawRectangle(lbb.x, lbb.y, lbb.width - 1, lbb.height - 1);
-		}
+		Point p1 = new Point(lbb.x, lbb.y);
+		Point p2 = new Point(lbb.x + lbb.width, lbb.y + lbb.height);
+		gl.glBegin(GL2.GL_QUADS);
+		gl.glVertex2i(p1.x, p1.y);
+		gl.glVertex2i(p2.x, p1.y);
+		gl.glVertex2i(p2.x, p2.y);
+		gl.glVertex2i(p1.x, p2.y);
+		gl.glEnd();
 	}
 
 }

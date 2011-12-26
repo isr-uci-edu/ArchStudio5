@@ -11,7 +11,7 @@ import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.IIsHidden;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Rectangle;
 
 public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
 
@@ -71,34 +71,42 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 		assert Thread.holdsLock(this);
 
 		if (modelBounds != null) {
-			if (obb != null) {
+			int modelBoundsX1 = modelBounds.x;
+			int modelBoundsY1 = modelBounds.y;
+			int modelBoundsX2 = modelBounds.x + modelBounds.width;
+			int modelBoundsY2 = modelBounds.y + modelBounds.height;
+			if (obb != null && obb.width > 0 && obb.height > 0) {
+				int obbX1 = obb.x;
+				int obbY1 = obb.y;
+				int obbX2 = obb.x + obb.width;
+				int obbY2 = obb.y + obb.height;
 				//See if it was on the edge of the old model
-				if (obb.x == modelBounds.x || obb.y == modelBounds.y
-						|| obb.x + obb.width == modelBounds.x + modelBounds.width
-						|| obb.y + obb.height == modelBounds.y + modelBounds.height) {
+				if (obbX1 == modelBoundsX1 || obbY1 == modelBoundsY1 || obbX2 == modelBoundsX2
+						|| obbY2 == modelBoundsY2) {
 					//It was, let's recalc the whole thing since it may have moved inward by some dimension
 					modelBounds = null;
 					return;
 				}
 			}
-			if (nbb != null) {
-				Rectangle newModelBounds = modelBounds.getCopy();
-				if (nbb.width <= 0 || nbb.height <= 0) {
-					return;
+			if (nbb != null && nbb.width > 0 && nbb.height > 0) {
+				int nbbX1 = nbb.x;
+				int nbbY1 = nbb.y;
+				int nbbX2 = nbb.x + nbb.width;
+				int nbbY2 = nbb.y + nbb.height;
+				if (nbbX1 < modelBoundsX1) {
+					modelBoundsX1 = nbbX1;
 				}
-				if (nbb.x < modelBounds.x) {
-					newModelBounds.x = nbb.x;
+				if (nbbY1 < modelBoundsY1) {
+					modelBoundsY1 = nbbY1;
 				}
-				if (nbb.y < modelBounds.y) {
-					newModelBounds.y = nbb.y;
+				if (nbbX2 > modelBoundsX2) {
+					modelBoundsX2 = nbbX2;
 				}
-				if (nbb.x + nbb.width > modelBounds.x + modelBounds.width) {
-					newModelBounds.width = nbb.x + nbb.width - newModelBounds.x;
+				if (nbbY2 > modelBoundsY2) {
+					modelBoundsY2 = nbbY2;
 				}
-				if (nbb.y + nbb.height > modelBounds.y + modelBounds.height) {
-					newModelBounds.height = nbb.y + nbb.height - newModelBounds.y;
-				}
-				modelBounds = newModelBounds;
+				modelBounds = new Rectangle(modelBoundsX1, modelBoundsY1, modelBoundsX2 - modelBoundsX1, modelBoundsY2
+						- modelBoundsY1);
 			}
 		}
 	}
@@ -145,7 +153,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 		synchronized (this) {
 			updateModelBounds();
 			if (modelBounds != null) {
-				return modelBounds.getCopy();
+				return new Rectangle(modelBounds.x, modelBounds.y, modelBounds.width, modelBounds.height);
 			}
 			return new Rectangle(Integer.MIN_VALUE, Integer.MIN_VALUE, 0, 0);
 		}

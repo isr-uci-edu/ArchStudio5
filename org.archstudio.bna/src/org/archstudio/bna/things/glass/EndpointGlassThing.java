@@ -1,5 +1,7 @@
 package org.archstudio.bna.things.glass;
 
+import java.awt.Dimension;
+
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasRotatingOffset;
@@ -17,6 +19,7 @@ public class EndpointGlassThing extends AbstractBoundedAnchorPointThing implemen
 	protected void initProperties() {
 		super.initProperties();
 		setSelected(false);
+		setSize(new Dimension(10, 10));
 		incrementRotatingOffset();
 	}
 

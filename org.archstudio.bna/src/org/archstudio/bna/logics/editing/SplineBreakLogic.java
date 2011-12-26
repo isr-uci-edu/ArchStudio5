@@ -14,8 +14,8 @@ import org.archstudio.bna.facets.IHasMutablePoints;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.IBNAMouseClickListener;
 import org.archstudio.bna.utils.UserEditableUtils;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Point;
 
 public class SplineBreakLogic extends AbstractThingLogic implements IBNAMouseClickListener {
 
@@ -37,7 +37,7 @@ public class SplineBreakLogic extends AbstractThingLogic implements IBNAMouseCli
 
 					// insert the new point
 					boolean pointAdded = false;
-					Point worldPoint = location.getWorldPoint(new Point());
+					Point worldPoint = location.getWorldPoint();
 					List<Point> points = t.getPoints();
 					for (int i = 1; i < points.size(); i++) {
 						Point p1 = points.get(i - 1);

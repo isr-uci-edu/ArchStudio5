@@ -1,5 +1,8 @@
 package org.archstudio.bna.things;
 
+import java.awt.Dimension;
+import java.awt.Insets;
+
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.facets.IHasMutableLocalInsets;
@@ -7,11 +10,8 @@ import org.archstudio.bna.facets.IHasMutableMinimumSize;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.utils.BNAUtils;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PrecisionPoint;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractRectangleThing extends AbstractRelativeMovableReferencePointThing implements
 		IHasMutableBoundingBox, IHasMutableMinimumSize, IRelativeMovable, IHasMutableLocalInsets, IIsSticky {
@@ -74,7 +74,8 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 
 	@Override
 	public Point getReferencePoint() {
-		return getBoundingBox().getCenter();
+		Rectangle bounds = getBoundingBox();
+		return new Point(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
 	}
 
 	@Override
@@ -83,7 +84,8 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 			@Override
 			public void run() {
 				Rectangle bounds = getBoundingBox();
-				bounds.translate(worldDelta);
+				bounds.x += worldDelta.x;
+				bounds.y += worldDelta.y;
 				setBoundingBox(bounds);
 			}
 		});
@@ -100,15 +102,16 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 	}
 
 	@Override
-	public PrecisionPoint getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
+	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Rectangle bb = getBoundingBox();
 		switch (stickyMode) {
 		case CENTER:
-			return new PrecisionPoint(bb.getCenter());
+			return new Point(bb.x + bb.width / 2, bb.y + bb.height / 2);
 		case EDGE:
 			return BNAUtils.getClosestPointOnRectangle(bb, new Dimension(0, 0), nearPoint);
 		case EDGE_FROM_CENTER:
-			return BNAUtils.getClosestPointOnRectangle(bb, new Dimension(0, 0), nearPoint, bb.getCenter());
+			return BNAUtils.getClosestPointOnRectangle(bb, new Dimension(0, 0), nearPoint, new Point(bb.x + bb.width
+					/ 2, bb.y + bb.height / 2));
 		}
 		throw new IllegalArgumentException(stickyMode.name());
 	}

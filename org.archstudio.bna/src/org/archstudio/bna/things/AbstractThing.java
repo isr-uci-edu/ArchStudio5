@@ -67,7 +67,7 @@ public class AbstractThing implements IThing {
 
 	@Override
 	public int hashCode() {
-		return id == null ? 0 : id.hashCode();
+		return id.hashCode();
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class AbstractThing implements IThing {
 		return defaultPeerClassCache.getUnchecked(this.getClass());
 	}
 
-	private final CopyOnWriteArrayList<IThingListener> thingListeners = new CopyOnWriteArrayList<IThingListener>();
+	private final CopyOnWriteArrayList<IThingListener> thingListeners = SystemUtils.newCopyOnWriteArrayList();
 
 	@Override
 	public void addThingListener(IThingListener thingListener) {
@@ -112,7 +112,7 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
-	public void removeThingListener(IThingListener thingListener) {
+	public synchronized void removeThingListener(IThingListener thingListener) {
 		thingListeners.remove(thingListener);
 	}
 
@@ -121,8 +121,8 @@ public class AbstractThing implements IThing {
 			try {
 				l.thingChanged(evt);
 			}
-			catch (Throwable t) {
-				t.printStackTrace();
+			catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}

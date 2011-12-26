@@ -1,27 +1,10 @@
 package org.archstudio.bna;
 
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Rectangle;
+import javax.media.opengl.GL2;
+
+import org.eclipse.swt.graphics.Rectangle;
 
 public interface IThingPeer<T extends IThing> {
-
-	/**
-	 * Draws the peer's associated {@link IThing} on the given {@link Graphics},
-	 * using the given {@link IBNAView} to map all world coordinates to local
-	 * coordinates if necessary.
-	 * 
-	 * @param view
-	 *            The {@link IBNAView} that sets the context for drawing the
-	 *            {@link IThing}.
-	 * @param cm
-	 *            The {@link ICoordinateMapper} to use for rendering. Note, this
-	 *            may differ from that of the view.
-	 * @param g
-	 *            The {@link Graphics} on which to draw the Thing.
-	 * @param res
-	 *            The {@link IResources} to use for creating resources.
-	 */
-	public void draw(IBNAView view, ICoordinateMapper cm, Graphics g, IResources r);
 
 	/**
 	 * Determine if the given point (in {@link ICoordinateMapper world
@@ -39,9 +22,11 @@ public interface IThingPeer<T extends IThing> {
 	 */
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location);
 
-	public void getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r, Rectangle boundsResult);
+	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm);
 
 	public void updateCache(IBNAView view, ICoordinateMapper cm);
 
 	public void dispose();
+
+	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r);
 }

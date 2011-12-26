@@ -1,13 +1,13 @@
 package org.archstudio.bna.things.shapes;
 
+import java.awt.Dimension;
+
 import org.archstudio.bna.facets.IHasMutableColor;
-import org.archstudio.bna.facets.IHasMutableOrientation;
-import org.archstudio.bna.things.AbstractBoundedAnchorPointThing;
-import org.archstudio.swtutils.constants.Orientation;
+import org.archstudio.bna.facets.IHasMutableSize;
+import org.archstudio.bna.things.AbstractAnchorPointThing;
 import org.eclipse.swt.graphics.RGB;
 
-public class ReshapeHandleThing extends AbstractBoundedAnchorPointThing implements IHasMutableColor,
-		IHasMutableOrientation {
+public class ReshapeHandleThing extends AbstractAnchorPointThing implements IHasMutableSize, IHasMutableColor {
 
 	public ReshapeHandleThing(Object id) {
 		super(id);
@@ -16,8 +16,18 @@ public class ReshapeHandleThing extends AbstractBoundedAnchorPointThing implemen
 	@Override
 	protected void initProperties() {
 		super.initProperties();
+		setSize(new Dimension(8, 8));
 		setColor(new RGB(0, 0, 255));
-		setOrientation(Orientation.NONE);
+	}
+
+	@Override
+	public Dimension getSize() {
+		return get(SIZE_KEY);
+	}
+
+	@Override
+	public void setSize(Dimension size) {
+		set(SIZE_KEY, size);
 	}
 
 	@Override
@@ -30,13 +40,4 @@ public class ReshapeHandleThing extends AbstractBoundedAnchorPointThing implemen
 		return get(COLOR_KEY);
 	}
 
-	@Override
-	public Orientation getOrientation() {
-		return get(ORIENTATION_KEY);
-	}
-
-	@Override
-	public void setOrientation(Orientation orientation) {
-		set(ORIENTATION_KEY, orientation);
-	}
 }

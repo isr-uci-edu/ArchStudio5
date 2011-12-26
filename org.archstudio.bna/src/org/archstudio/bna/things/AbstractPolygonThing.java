@@ -10,9 +10,8 @@ import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.utils.BNAUtils;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PrecisionPoint;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractPolygonThing extends AbstractPointsThing implements IHasMutableAnchorPoint,
 		IHasMutablePoints, IHasMutableReferencePoint, IIsSticky {
@@ -31,7 +30,11 @@ public abstract class AbstractPolygonThing extends AbstractPointsThing implement
 
 	@Override
 	protected Rectangle calculateBoundingBox() {
-		return super.calculateBoundingBox().translate(getAnchorPoint());
+		Rectangle r = super.calculateBoundingBox();
+		Point a = getAnchorPoint();
+		r.x += a.x;
+		r.y += a.y;
+		return r;
 	}
 
 	@Override
@@ -70,19 +73,22 @@ public abstract class AbstractPolygonThing extends AbstractPointsThing implement
 			synchronizedUpdate(new Runnable() {
 				@Override
 				public void run() {
-					setAnchorPoint(getAnchorPoint().translate(moveDelta));
+					Point a = getAnchorPoint();
+					a.x += moveDelta.x;
+					a.y += moveDelta.y;
+					setAnchorPoint(a);
 				}
 			});
 		}
 	}
 
 	@Override
-	public PrecisionPoint getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
+	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Rectangle bb = getBoundingBox();
-		Point center = bb.getCenter();
+		Point center = new Point(bb.x + bb.width / 2, bb.y + bb.height / 2);
 		switch (stickyMode) {
 		case CENTER:
-			return new PrecisionPoint(center);
+			return new Point(center.x, center.y);
 		case EDGE:
 			return BNAUtils.getClosestPointOnPolygon(
 					BNAUtils.toXYArray(ICoordinateMapper.IDENTITY, getPoints(), getAnchorPoint()), nearPoint.x,

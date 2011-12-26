@@ -8,8 +8,8 @@ import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.logics.events.DragMoveEventsLogic;
 import org.archstudio.bna.logics.events.IDragMoveListener;
 import org.archstudio.bna.utils.GridUtils;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 
 public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveListener {
 
@@ -23,11 +23,11 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 		addThingLogic(DragMoveEventsLogic.class);
 	};
 
-	Point referencePointToInitialMousePointDelta = new Point();
+	Point referencePointToInitialMousePointDelta = new Point(0, 0);
 
 	@Override
 	public void dragStarted(DragMoveEvent evt) {
-		referencePointToInitialMousePointDelta.setLocation(0, 0);
+		referencePointToInitialMousePointDelta.x = referencePointToInitialMousePointDelta.y = 0;
 		if (evt.getInitialThing() instanceof IHasReferencePoint) {
 			IBNAModel model = getBNAModel();
 			if (model != null) {
@@ -36,15 +36,17 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 					// calculate relative movable and mouse point delta, used to translate between them when snapping 
 					Point initialRelativeMovablePoint = ((IHasReferencePoint) evt.getInitialThing())
 							.getReferencePoint();
-					Point initialMousePoint = evt.getInitialLocation().getWorldPoint(new Point());
-					Point delta = initialMousePoint.getTranslated(initialRelativeMovablePoint.getNegated());
-					referencePointToInitialMousePointDelta.setLocation(delta);
+					Point initialMousePoint = evt.getInitialLocation().getWorldPoint();
+					Point delta = new Point(initialMousePoint.x - initialRelativeMovablePoint.x, initialMousePoint.y
+							- initialRelativeMovablePoint.y);
+					referencePointToInitialMousePointDelta.x = delta.x;
+					referencePointToInitialMousePointDelta.y = delta.y;
 				}
 			}
 		}
 
-		Point adjustedThingWorldPoint = evt.getAdjustedThingLocation().getWorldPoint(new Point());
-		Point adjustedMouseWorldPoint = evt.getAdjustedMouseLocation().getWorldPoint(new Point());
+		Point adjustedThingWorldPoint = evt.getAdjustedThingLocation().getWorldPoint();
+		Point adjustedMouseWorldPoint = evt.getAdjustedMouseLocation().getWorldPoint();
 
 		if ((evt.getEvt().stateMask & SWT.MOD3) == 0) {
 			IBNAModel model = getBNAModel();
@@ -52,27 +54,29 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 				int gridSpacing = GridUtils.getGridSpacing(model);
 				if (gridSpacing != 0) {
 					// adjust the mouse point to the relative movable point 
-					adjustedThingWorldPoint.translate(referencePointToInitialMousePointDelta.getNegated());
+					adjustedThingWorldPoint.x -= referencePointToInitialMousePointDelta.x;
+					adjustedThingWorldPoint.y -= referencePointToInitialMousePointDelta.y;
 					// snap it to the grid
-					adjustedThingWorldPoint = GridUtils.snapToGrid(gridSpacing, adjustedThingWorldPoint.getCopy());
+					adjustedThingWorldPoint = GridUtils.snapToGrid(gridSpacing, adjustedThingWorldPoint);
 					// adjust it back to the mouse point
-					adjustedThingWorldPoint.translate(referencePointToInitialMousePointDelta);
+					adjustedThingWorldPoint.x += referencePointToInitialMousePointDelta.x;
+					adjustedThingWorldPoint.y += referencePointToInitialMousePointDelta.y;
 					// adjust the absolute mouse point
-					adjustedMouseWorldPoint = GridUtils.snapToGrid(gridSpacing, adjustedMouseWorldPoint.getCopy());
+					adjustedMouseWorldPoint = GridUtils.snapToGrid(gridSpacing, adjustedMouseWorldPoint);
 				}
 			}
 		}
 
 		evt.setAdjustedThingLocation(new DefaultCoordinate(evt.getView().getCoordinateMapper()
-				.worldToLocal(adjustedThingWorldPoint.getCopy()), adjustedThingWorldPoint.getCopy()));
+				.worldToLocal(adjustedThingWorldPoint), adjustedThingWorldPoint));
 		evt.setAdjustedMouseLocation(new DefaultCoordinate(evt.getView().getCoordinateMapper()
-				.worldToLocal(adjustedMouseWorldPoint.getCopy()), adjustedMouseWorldPoint.getCopy()));
+				.worldToLocal(adjustedMouseWorldPoint), adjustedMouseWorldPoint));
 	}
 
 	@Override
 	public void dragMoved(DragMoveEvent evt) {
-		Point adjustedThingWorldPoint = evt.getAdjustedThingLocation().getWorldPoint(new Point());
-		Point adjustedMouseWorldPoint = evt.getAdjustedMouseLocation().getWorldPoint(new Point());
+		Point adjustedThingWorldPoint = evt.getAdjustedThingLocation().getWorldPoint();
+		Point adjustedMouseWorldPoint = evt.getAdjustedMouseLocation().getWorldPoint();
 
 		if ((evt.getEvt().stateMask & SWT.MOD3) == 0) {
 			IBNAModel model = getBNAModel();
@@ -80,21 +84,23 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 				int gridSpacing = GridUtils.getGridSpacing(model);
 				if (gridSpacing != 0) {
 					// adjust the mouse point to the relative movable point 
-					adjustedThingWorldPoint.translate(referencePointToInitialMousePointDelta.getNegated());
+					adjustedThingWorldPoint.x -= referencePointToInitialMousePointDelta.x;
+					adjustedThingWorldPoint.y -= referencePointToInitialMousePointDelta.y;
 					// snap it to the grid
-					adjustedThingWorldPoint = GridUtils.snapToGrid(gridSpacing, adjustedThingWorldPoint.getCopy());
+					adjustedThingWorldPoint = GridUtils.snapToGrid(gridSpacing, adjustedThingWorldPoint);
 					// adjust it back to the mouse point
-					adjustedThingWorldPoint.translate(referencePointToInitialMousePointDelta);
+					adjustedThingWorldPoint.x += referencePointToInitialMousePointDelta.x;
+					adjustedThingWorldPoint.y += referencePointToInitialMousePointDelta.y;
 					// adjust the absolute mouse point
-					adjustedMouseWorldPoint = GridUtils.snapToGrid(gridSpacing, adjustedMouseWorldPoint.getCopy());
+					adjustedMouseWorldPoint = GridUtils.snapToGrid(gridSpacing, adjustedMouseWorldPoint);
 				}
 			}
 		}
 
 		evt.setAdjustedThingLocation(new DefaultCoordinate(evt.getView().getCoordinateMapper()
-				.worldToLocal(adjustedThingWorldPoint.getCopy()), adjustedThingWorldPoint.getCopy()));
+				.worldToLocal(adjustedThingWorldPoint), adjustedThingWorldPoint));
 		evt.setAdjustedMouseLocation(new DefaultCoordinate(evt.getView().getCoordinateMapper()
-				.worldToLocal(adjustedMouseWorldPoint.getCopy()), adjustedMouseWorldPoint.getCopy()));
+				.worldToLocal(adjustedMouseWorldPoint), adjustedMouseWorldPoint));
 	}
 
 	@Override

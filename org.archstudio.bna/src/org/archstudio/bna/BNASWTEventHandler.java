@@ -17,7 +17,6 @@ import org.archstudio.bna.utils.IBNAUntypedListener;
 import org.archstudio.swtutils.IMenuFiller;
 import org.archstudio.swtutils.LocalSelectionTransfer;
 import org.archstudio.swtutils.SWTWidgetUtils;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -35,6 +34,7 @@ import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.events.MouseWheelListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -127,11 +127,13 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 
 	private void mouseEvt(MouseEvent e, MouseEventType type) {
 		try {
-			lastMouseActionPoint.setLocation(e.x, e.y);
+			lastMouseActionPoint.x = e.x;
+			lastMouseActionPoint.y = e.y;
 
 			if (DEBUG) {
 				System.err.println("ME: mouseEvt" + e);
-				System.err.println("ME:  - " + cm.localToWorld(lastMouseActionPoint.getCopy()));
+				System.err.println("ME:  - "
+						+ cm.localToWorld(new Point(lastMouseActionPoint.x, lastMouseActionPoint.y)));
 			}
 
 			ICoordinate location = DefaultCoordinate.forLocal(lastMouseActionPoint, cm);
