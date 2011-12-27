@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.jogamp.jogl.feature"
-      label="JOGL Feature"
+      label="ArchStudio - JOGL (Java bindings for OpenGL)"
       version="2.0.0.qualifier"
       provider-name="archstudio.org">
 
@@ -26,8 +26,6 @@
 
    <plugin
          id="org.jogamp.jogl-windows-amd64"
-         os="win32"
-         arch="x86_64"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -35,8 +33,6 @@
 
    <plugin
          id="org.jogamp.jogl-windows-i586"
-         os="win32"
-         arch="x86"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -44,11 +40,9 @@
 
    <plugin
          id="org.jogamp.jogl-macosx-universal"
-         os="macosx"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         fragment="true"
-         unpack="false"/>
+         fragment="true"/>
 
 </feature>
