@@ -103,8 +103,8 @@
 			</syspropertyset>
 		</buckminster>
 		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-			<!-- <arg value="-P" />
-			<arg value="${basedir}/defaults/buckminster.properties" /> -->
+			<arg value="-P" />
+			<arg value="${basedir}/defaults/buckminster.properties" />
 			<arg value="perform" />
 			<arg value="${buckminster.component}#site.p2" />
 			<syspropertyset>
