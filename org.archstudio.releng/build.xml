@@ -96,6 +96,9 @@
 		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
 			<arg value="build" />
 			<arg value="-t" />
+			<arg line="-Dtarget.os=*" />
+			<arg line="-Dtarget.ws=*" />
+			<arg line="-Dtarget.arch=*" />
 			<syspropertyset>
 				<propertyref builtin="commandline" />
 				<propertyref prefix="buckminster.output" />
