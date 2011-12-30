@@ -96,9 +96,9 @@
 		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
 			<arg value="build" />
 			<arg value="-t" />
-			<arg line="-Dtarget.os=*" />
-			<arg line="-Dtarget.ws=*" />
-			<arg line="-Dtarget.arch=*" />
+			<arg value="-Dtarget.os=*" />
+			<arg value="-Dtarget.ws=*" />
+			<arg value="-Dtarget.arch=*" />
 			<syspropertyset>
 				<propertyref builtin="commandline" />
 				<propertyref prefix="buckminster.output" />
@@ -106,11 +106,12 @@
 			</syspropertyset>
 		</buckminster>
 		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
+			<arg value="perform" />
 			<arg value="-P" />
 			<arg value="${basedir}/defaults/buckminster.properties" />
-			<arg value="perform" />
+			<arg value="-D" />
+			<arg value="buckminster.output.root=${buckminster.output.root}" />
 			<arg value="${buckminster.component}#site.p2" />
-			<arg value="-Dbuckminster.output.root=${buckminster.output.root}" />
 			<syspropertyset>
 				<propertyref builtin="commandline" />
 				<propertyref prefix="buckminster.output" />
