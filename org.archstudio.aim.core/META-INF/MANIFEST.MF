@@ -1,5 +1,5 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: Core
+Bundle-Name: ArchStudio AIM Core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.aim.core;singleton:=true
 Bundle-Version: 5.0.0.qualifier

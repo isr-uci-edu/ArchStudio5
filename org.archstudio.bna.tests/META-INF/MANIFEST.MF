@@ -1,5 +1,5 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: Tests
+Bundle-Name: ArchStudio BNA Tests
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.bna.tests
 Bundle-Version: 1.0.0.qualifier

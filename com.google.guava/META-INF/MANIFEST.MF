@@ -2,7 +2,7 @@ Bundle-ClassPath: .,
  lib/jsr305.jar,
  lib/guava-10.0.1.jar
 Bundle-ManifestVersion: 2
-Bundle-Name: Guava (Google Common Libraries)
+Bundle-Name: ArchStudio Guava (Google Common Libraries)
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: com.google.guava;singleton:=true
 Bundle-Vendor: archstudio.org

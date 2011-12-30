@@ -110,6 +110,7 @@
 			<arg value="${basedir}/defaults/buckminster.properties" />
 			<arg value="perform" />
 			<arg value="${buckminster.component}#site.p2" />
+			<arg value="-Dbuckminster.output.root=${buckminster.output.root}" />
 			<syspropertyset>
 				<propertyref builtin="commandline" />
 				<propertyref prefix="buckminster.output" />
