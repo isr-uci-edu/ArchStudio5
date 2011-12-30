@@ -1,5 +1,5 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: Bootstrap Core
+Bundle-Name: ArchStudio Bootstrap Core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.bootstrap.core;singleton:=true
 Bundle-Version: 5.0.0.qualifier

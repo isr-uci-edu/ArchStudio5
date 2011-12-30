@@ -25,7 +25,6 @@
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.ui.views"/>
       <import plugin="org.eclipse.jface" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.draw2d"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.emf.importer"/>

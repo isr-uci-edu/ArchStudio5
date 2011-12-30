@@ -1,5 +1,5 @@
 Bundle-ManifestVersion: 2
-Bundle-Name: BNA
+Bundle-Name: ArchStudio BNA
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.bna
 Bundle-Vendor: archstudio.org

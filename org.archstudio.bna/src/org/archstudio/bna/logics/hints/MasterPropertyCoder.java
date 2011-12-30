@@ -3,7 +3,6 @@ package org.archstudio.bna.logics.hints;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.archstudio.bna.logics.hints.coders.Draw2DPropertyCoder;
 import org.archstudio.bna.logics.hints.coders.EnumPropertyCoder;
 import org.archstudio.bna.logics.hints.coders.NativePropertyCoder;
 import org.archstudio.bna.logics.hints.coders.SWTPropertyCoder;
@@ -17,10 +16,10 @@ public class MasterPropertyCoder implements IPropertyCoder {
 	public MasterPropertyCoder() {
 		propertyCoders.add(new NativePropertyCoder());
 		propertyCoders.add(new EnumPropertyCoder());
-		propertyCoders.add(new Draw2DPropertyCoder());
 		propertyCoders.add(new SWTPropertyCoder());
 	}
 
+	@Override
 	public boolean encode(IPropertyCoder masterCoder, IEncodedValue encodedValue, Object value) {
 		if (encodedValue != null) {
 			if (value == null) {
@@ -40,6 +39,7 @@ public class MasterPropertyCoder implements IPropertyCoder {
 		return false;
 	}
 
+	@Override
 	public Object decode(IPropertyCoder masterCoder, IEncodedValue encodedValue) throws PropertyDecodeException {
 		if (encodedValue == null || "null".equals(encodedValue.getType()) || null == encodedValue.getType()
 				|| null == encodedValue.getData()) {
