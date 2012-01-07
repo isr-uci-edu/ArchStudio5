@@ -289,7 +289,7 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public void clear(ObjRef baseObjRef, String typeOfThing) {
 		EObject baseEObject = get(baseObjRef);
-		baseEObject.eSet(getEFeature(baseEObject, typeOfThing), null);
+		baseEObject.eUnset(getEFeature(baseEObject, typeOfThing));
 	}
 
 	@Override
@@ -556,7 +556,8 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public boolean isInstanceOf(ObjRef baseObjRef, String sourceNsURI, String sourceTypeName) {
 		EObject baseEObject = get(baseObjRef);
-		return getEClass(ePackageCache.getUnchecked(sourceNsURI), sourceTypeName).isSuperTypeOf(baseEObject.eClass());
+		return baseEObject == null ? false : getEClass(ePackageCache.getUnchecked(sourceNsURI), sourceTypeName)
+				.isSuperTypeOf(baseEObject.eClass());
 	}
 
 	//
@@ -967,8 +968,10 @@ public class XArchADTImpl implements IXArchADT {
 				evtType = XArchADTModelEvent.EventType.REMOVE;
 				break;
 			case Notification.SET:
-				evtType = XArchADTModelEvent.EventType.SET;
-				break;
+				if (notification.getNewValue() != null) {
+					evtType = XArchADTModelEvent.EventType.SET;
+					break;
+				}
 			case Notification.UNSET:
 				evtType = XArchADTModelEvent.EventType.CLEAR;
 				break;

@@ -390,7 +390,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 			switch (evt.getEventType()) {
 			case SET: {
 				final Object target = evt.getNewValue();
-				if (!(target instanceof ObjRef)) {
+				if (!(target instanceof ObjRef) || treatAsAttribute(evt)) {
 					List<ObjRef> lineageRefs = Lists.reverse(evt.getSourceAncestors());
 					final int rootObjRefIndex = lineageRefs.indexOf(rootObjRef);
 					if (rootObjRefIndex >= 0) {
@@ -428,7 +428,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 
 			case CLEAR: {
 				final Object target = evt.getOldValue();
-				if (!(target instanceof ObjRef)) {
+				if (!(target instanceof ObjRef) || treatAsAttribute(evt)) {
 					List<ObjRef> lineageRefs = Lists.reverse(evt.getOldValueAncestors());
 					final int rootObjRefIndex = lineageRefs.indexOf(rootObjRef);
 					if (rootObjRefIndex >= 0) {
@@ -478,6 +478,19 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 			}
 			}
 		}
+	}
+
+	private boolean treatAsAttribute(XArchADTModelEvent evt) {
+		List<ObjRef> sourceAncestors = evt.getSourceAncestors();
+		List<ObjRef> oldValueAncestors = evt.getOldValueAncestors();
+		if (oldValueAncestors != null && oldValueAncestors.subList(1, oldValueAncestors.size()).equals(sourceAncestors)) {
+			return true;
+		}
+		List<ObjRef> newValueAncestors = evt.getNewValueAncestors();
+		if (newValueAncestors != null && newValueAncestors.subList(1, newValueAncestors.size()).equals(sourceAncestors)) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
