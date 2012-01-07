@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
-import org.archstudio.xadlswt.XadlTreeContentProvider;
-import org.archstudio.xadlswt.XadlTreeLabelProvider;
-import org.archstudio.xadlswt.XadlTreeUtils;
+import org.archstudio.xadl.swt.XadlTreeContentProvider;
+import org.archstudio.xadl.swt.XadlTreeLabelProvider;
+import org.archstudio.xadl.swt.XadlTreeUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.viewers.ILabelProvider;

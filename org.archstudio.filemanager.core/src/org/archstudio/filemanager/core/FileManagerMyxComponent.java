@@ -25,13 +25,16 @@ import org.eclipse.emf.common.util.URI;
  * @see org.archstudio.filemanager.core.FileManagerMyxComponentStub
  * @generated
  */
-public class FileManagerMyxComponent extends org.archstudio.filemanager.core.FileManagerMyxComponentStub {
+public class FileManagerMyxComponent extends
+		org.archstudio.filemanager.core.FileManagerMyxComponentStub {
 
-	protected Set<ObjRef> dirtySet = Collections.synchronizedSet(new HashSet<ObjRef>());
+	protected Set<ObjRef> dirtySet = Collections
+			.synchronizedSet(new HashSet<ObjRef>());
 
 	//Keeps track of which tools have which documents open. When no tools have
 	//a document open, it is closed in xArchADT.
-	protected Map<ObjRef, List<String>> openerMap = Collections.synchronizedMap(new HashMap<ObjRef, List<String>>());
+	protected Map<ObjRef, List<String>> openerMap = Collections
+			.synchronizedMap(new HashMap<ObjRef, List<String>>());
 
 	public FileManagerMyxComponent() {
 	}
@@ -84,35 +87,33 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 
 			List<String> toolList = openerMap.get(documentRootRef);
 			if (toolList == null) {
-				openerMap.put(documentRootRef, toolList = new ArrayList<String>());
+				openerMap.put(documentRootRef,
+						toolList = new ArrayList<String>());
 			}
 			toolList.add(toolID);
 
 			return documentRootRef;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new CantOpenFileException("Can't open file: " + uri, e);
-		}
-		finally {
+		} finally {
 			try {
 				if (is != null) {
 					is.close();
 				}
-			}
-			catch (IOException e) {
+			} catch (IOException e) {
 			}
 			try {
 				if (os != null) {
 					os.close();
 				}
-			}
-			catch (IOException e2) {
+			} catch (IOException e2) {
 			}
 		}
 	}
 
 	@Override
-	public ObjRef open(String toolID, java.io.File f) throws CantOpenFileException {
+	public ObjRef open(String toolID, java.io.File f)
+			throws CantOpenFileException {
 		InputStream is = null;
 		OutputStream os = null;
 		URI uri = null;
@@ -128,24 +129,20 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 			openerMap.put(documentRootRef, toolList);
 
 			return documentRootRef;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new CantOpenFileException("Can't open file: " + uri, e);
-		}
-		finally {
+		} finally {
 			try {
 				if (is != null) {
 					is.close();
 				}
-			}
-			catch (IOException e) {
+			} catch (IOException e) {
 			}
 			try {
 				if (os != null) {
 					os.close();
 				}
-			}
-			catch (IOException e2) {
+			} catch (IOException e2) {
 			}
 		}
 	}
@@ -200,8 +197,7 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 			monitor.worked(2);
 			try {
 				fileManagerEventsProxy.fileSaving(xArchRef, monitor);
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -213,8 +209,7 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 		try {
 			xarch.save(uri);
 			makeClean(xArchRef);
-		}
-		catch (IOException ioe) {
+		} catch (IOException ioe) {
 			//TODO: Handle
 			ioe.printStackTrace();
 		}

@@ -16,7 +16,8 @@ import org.archstudio.xarchadt.ObjRef;
  * @see org.archstudio.graphlayout.core.GraphLayoutMyxComponentStub
  * @generated
  */
-public class GraphLayoutMyxComponent extends org.archstudio.graphlayout.core.GraphLayoutMyxComponentStub {
+public class GraphLayoutMyxComponent extends
+		org.archstudio.graphlayout.core.GraphLayoutMyxComponentStub {
 
 	public GraphLayoutMyxComponent() {
 	}
@@ -72,11 +73,13 @@ public class GraphLayoutMyxComponent extends org.archstudio.graphlayout.core.Gra
 		}
 
 		@Override
-		public GraphLayout layoutGraph(String engineID, ObjRef rootRef, GraphLayoutParameters params)
-				throws GraphLayoutException {
+		public GraphLayout layoutGraph(String engineID, ObjRef rootRef,
+				GraphLayoutParameters params) throws GraphLayoutException {
 			ILayoutEngine engine = getLayoutEngine(engineID);
 			if (engine == null) {
-				throw new GraphLayoutException("No graph layout engine with ID: " + engineID + " exists.");
+				throw new GraphLayoutException(
+						"No graph layout engine with ID: " + engineID
+								+ " exists.");
 			}
 			return engine.layoutGraph(xarch, preferences, rootRef, params);
 		}

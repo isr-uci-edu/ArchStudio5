@@ -30,8 +30,10 @@ import org.archstudio.myx.fw.MyxUtils;
  * @generated
  */
 @SuppressWarnings("unused")
-abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
+abstract class ArchlightIssueViewMyxComponentStub extends
+		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -76,7 +78,8 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName OUT_RESOURCES = MyxUtils.createName("resources");
+	public static final IMyxName OUT_RESOURCES = MyxUtils
+			.createName("resources");
 	/**
 	 * Myx name for the <code>preferences</code> interface.
 	 * 
@@ -87,7 +90,8 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
+	public static final IMyxName OUT_PREFERENCES = MyxUtils
+			.createName("preferences");
 	/**
 	 * Myx name for the <code>editorManager</code> interface.
 	 * 
@@ -98,7 +102,8 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName OUT_EDITOR_MANAGER = MyxUtils.createName("editorManager");
+	public static final IMyxName OUT_EDITOR_MANAGER = MyxUtils
+			.createName("editorManager");
 	/**
 	 * Myx name for the <code>issueEvents</code> interface.
 	 * 
@@ -109,7 +114,8 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName IN_ISSUE_EVENTS = MyxUtils.createName("issueEvents");
+	public static final IMyxName IN_ISSUE_EVENTS = MyxUtils
+			.createName("issueEvents");
 	/**
 	 * Myx name for the <code>issues</code> interface.
 	 * 
@@ -166,15 +172,18 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 	 * @generated
 	 */
 	protected final org.archstudio.issueadt.ArchlightIssueADTListener issueEventsProxy = (org.archstudio.issueadt.ArchlightIssueADTListener) Proxy
-			.newProxyInstance(org.archstudio.issueadt.ArchlightIssueADTListener.class.getClassLoader(),
-					new Class[] { org.archstudio.issueadt.ArchlightIssueADTListener.class }, new InvocationHandler() {
+			.newProxyInstance(
+					org.archstudio.issueadt.ArchlightIssueADTListener.class
+							.getClassLoader(),
+					new Class[] { org.archstudio.issueadt.ArchlightIssueADTListener.class },
+					new InvocationHandler() {
 						@Override
-						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+						public Object invoke(Object proxy, Method method,
+								Object[] args) throws Throwable {
 							for (org.archstudio.issueadt.ArchlightIssueADTListener o : issueEvents) {
 								try {
 									method.invoke(o, args);
-								}
-								catch (Exception e) {
+								} catch (Exception e) {
 									e.printStackTrace();
 								}
 							}
@@ -272,47 +281,59 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 		}
 		if (interfaceName.equals(OUT_XARCH)) {
 			if (xarch != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			xarch = (org.archstudio.xarchadt.IXArchADT) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_RESOURCES)) {
 			if (resources != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			resources = (org.archstudio.resources.IResources) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_PREFERENCES)) {
 			if (preferences != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			preferences = (org.eclipse.jface.preference.IPreferenceStore) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_EDITOR_MANAGER)) {
 			if (editorManager != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			editorManager = (org.archstudio.editormanager.IEditorManager) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_ISSUES)) {
 			if (issues != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			issues = (org.archstudio.issueadt.IArchlightIssueADT) serviceObject;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: "
+				+ interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -336,14 +357,16 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 			issues = null;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName,
+			Object serviceObject) {
 	}
 
 	/**
@@ -354,6 +377,7 @@ abstract class ArchlightIssueViewMyxComponentStub extends org.archstudio.myx.fw.
 		if (interfaceName.equals(IN_ISSUE_EVENTS)) {
 			return issueEventsProxy;
 		}
-		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface service object: " + interfaceName);
 	}
 }

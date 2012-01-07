@@ -16,27 +16,32 @@ import org.osgi.framework.Bundle;
  * @see org.archstudio.myx.osgi.conn.OSGiEventPumpConnectorStub
  * @generated
  */
-public class OSGiEventPumpConnector extends org.archstudio.myx.osgi.conn.OSGiEventPumpConnectorStub {
+public class OSGiEventPumpConnector extends
+		org.archstudio.myx.osgi.conn.OSGiEventPumpConnectorStub {
 
 	@Override
 	protected ClassLoader getClassLoader(IMyxBrickItems brickItems) {
 		if (brickItems.getBrickDescription() instanceof MyxOSGiBrickDescription) {
-			String bundleName = ((MyxOSGiBrickDescription) brickItems.getBrickDescription()).getOsgiBundleName();
+			String bundleName = ((MyxOSGiBrickDescription) brickItems
+					.getBrickDescription()).getOsgiBundleName();
 			final Bundle bundle = Platform.getBundle(bundleName);
 			return new ClassLoader() {
 
 				@Override
-				public Class<?> loadClass(String name) throws ClassNotFoundException {
+				public Class<?> loadClass(String name)
+						throws ClassNotFoundException {
 					return bundle.loadClass(name);
 				}
 
 				@Override
-				protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
+				protected synchronized Class<?> loadClass(String name,
+						boolean resolve) throws ClassNotFoundException {
 					return bundle.loadClass(name);
 				}
 
 				@Override
-				protected Class<?> findClass(String name) throws ClassNotFoundException {
+				protected Class<?> findClass(String name)
+						throws ClassNotFoundException {
 					throw new UnsupportedOperationException();
 				}
 
@@ -46,7 +51,8 @@ public class OSGiEventPumpConnector extends org.archstudio.myx.osgi.conn.OSGiEve
 				}
 
 				@Override
-				public Enumeration<URL> getResources(String name) throws IOException {
+				public Enumeration<URL> getResources(String name)
+						throws IOException {
 					throw new UnsupportedOperationException();
 				}
 
@@ -56,7 +62,8 @@ public class OSGiEventPumpConnector extends org.archstudio.myx.osgi.conn.OSGiEve
 				}
 
 				@Override
-				protected Enumeration<URL> findResources(String name) throws IOException {
+				protected Enumeration<URL> findResources(String name)
+						throws IOException {
 					throw new UnsupportedOperationException();
 				}
 
@@ -66,8 +73,10 @@ public class OSGiEventPumpConnector extends org.archstudio.myx.osgi.conn.OSGiEve
 				}
 
 				@Override
-				protected Package definePackage(String name, String specTitle, String specVersion, String specVendor,
-						String implTitle, String implVersion, String implVendor, URL sealBase)
+				protected Package definePackage(String name, String specTitle,
+						String specVersion, String specVendor,
+						String implTitle, String implVersion,
+						String implVendor, URL sealBase)
 						throws IllegalArgumentException {
 					throw new UnsupportedOperationException();
 				}
@@ -88,17 +97,20 @@ public class OSGiEventPumpConnector extends org.archstudio.myx.osgi.conn.OSGiEve
 				}
 
 				@Override
-				public synchronized void setDefaultAssertionStatus(boolean enabled) {
+				public synchronized void setDefaultAssertionStatus(
+						boolean enabled) {
 					throw new UnsupportedOperationException();
 				}
 
 				@Override
-				public synchronized void setPackageAssertionStatus(String packageName, boolean enabled) {
+				public synchronized void setPackageAssertionStatus(
+						String packageName, boolean enabled) {
 					throw new UnsupportedOperationException();
 				}
 
 				@Override
-				public synchronized void setClassAssertionStatus(String className, boolean enabled) {
+				public synchronized void setClassAssertionStatus(
+						String className, boolean enabled) {
 					throw new UnsupportedOperationException();
 				}
 

@@ -25,8 +25,10 @@ import org.archstudio.myx.fw.MyxUtils;
  * @generated
  */
 @SuppressWarnings("unused")
-abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
+abstract class EditorManagerMyxComponentStub extends
+		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -60,7 +62,8 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName IN_EDITOR_MANAGER = MyxUtils.createName("editorManager");
+	public static final IMyxName IN_EDITOR_MANAGER = MyxUtils
+			.createName("editorManager");
 	/**
 	 * Myx name for the <code>focusEditorEvents</code> interface.
 	 * 
@@ -71,7 +74,8 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName OUT_FOCUS_EDITOR_EVENTS = MyxUtils.createName("focusEditorEvents");
+	public static final IMyxName OUT_FOCUS_EDITOR_EVENTS = MyxUtils
+			.createName("focusEditorEvents");
 	/**
 	 * Myx name for the <code>preferences</code> interface.
 	 * 
@@ -82,7 +86,8 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
+	public static final IMyxName OUT_PREFERENCES = MyxUtils
+			.createName("preferences");
 
 	/**
 	 * Service object(s) for the editorManager interface.
@@ -107,16 +112,19 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 	 * @generated
 	 */
 	protected final org.archstudio.eclipse.ui.IFocusEditorListener focusEditorEventsProxy = (org.archstudio.eclipse.ui.IFocusEditorListener) Proxy
-			.newProxyInstance(org.archstudio.eclipse.ui.IFocusEditorListener.class.getClassLoader(),
-					new Class[] { org.archstudio.eclipse.ui.IFocusEditorListener.class }, new InvocationHandler() {
+			.newProxyInstance(
+					org.archstudio.eclipse.ui.IFocusEditorListener.class
+							.getClassLoader(),
+					new Class[] { org.archstudio.eclipse.ui.IFocusEditorListener.class },
+					new InvocationHandler() {
 						@Override
-						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+						public Object invoke(Object proxy, Method method,
+								Object[] args) throws Throwable {
 							org.archstudio.eclipse.ui.IFocusEditorListener o = focusEditorEvents;
 							if (o != null) {
 								try {
 									method.invoke(o, args);
-								}
-								catch (Exception e) {
+								} catch (Exception e) {
 									e.printStackTrace();
 								}
 							}
@@ -173,26 +181,32 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 		}
 		if (interfaceName.equals(OUT_FOCUS_EDITOR_EVENTS)) {
 			if (focusEditorEvents != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			focusEditorEvents = (org.archstudio.eclipse.ui.IFocusEditorListener) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_PREFERENCES)) {
 			if (preferences != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+				throw new IllegalStateException(
+						"Only a single connection is supported on "
+								+ interfaceName);
 			}
 			preferences = (org.eclipse.jface.preference.IPreferenceStore) serviceObject;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: "
+				+ interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -204,14 +218,16 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 			preferences = null;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName,
+			Object serviceObject) {
 	}
 
 	/**
@@ -225,6 +241,7 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 			}
 			return editorManager;
 		}
-		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface service object: " + interfaceName);
 	}
 }

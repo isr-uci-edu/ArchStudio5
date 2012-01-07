@@ -3,8 +3,8 @@ package org.archstudio.archipelago.core.structure;
 import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.IArchipelagoLabelProvider;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl.swt.XadlTreeUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
-import org.archstudio.xadlswt.XadlTreeUtils;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.swt.graphics.Image;
 

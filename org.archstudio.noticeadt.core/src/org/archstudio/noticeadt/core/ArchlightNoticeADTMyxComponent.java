@@ -6,11 +6,13 @@ package org.archstudio.noticeadt.core;
  * @see org.archstudio.noticeadt.core.ArchlightNoticeADTMyxComponentStub
  * @generated
  */
-public class ArchlightNoticeADTMyxComponent extends org.archstudio.noticeadt.core.ArchlightNoticeADTMyxComponentStub {
+public class ArchlightNoticeADTMyxComponent extends
+		org.archstudio.noticeadt.core.ArchlightNoticeADTMyxComponentStub {
 
 	@Override
 	public void init() {
 		notices = new ArchlightNoticeADT();
-		((ArchlightNoticeADT) notices).addArchlightNoticeADTListener(noticeEventsProxy);
+		((ArchlightNoticeADT) notices)
+				.addArchlightNoticeADTListener(noticeEventsProxy);
 	}
 }

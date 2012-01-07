@@ -26,8 +26,10 @@ import org.archstudio.myx.fw.MyxUtils;
  * @generated
  */
 @SuppressWarnings("unused")
-abstract class ArchlightNoticeADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
+abstract class ArchlightNoticeADTMyxComponentStub extends
+		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -62,7 +64,8 @@ abstract class ArchlightNoticeADTMyxComponentStub extends org.archstudio.myx.fw.
 	 * 
 	 * @generated
 	 */
-	public static final IMyxName OUT_NOTICE_EVENTS = MyxUtils.createName("noticeEvents");
+	public static final IMyxName OUT_NOTICE_EVENTS = MyxUtils
+			.createName("noticeEvents");
 
 	/**
 	 * Service object(s) for notices: <code>notices</code>
@@ -86,15 +89,18 @@ abstract class ArchlightNoticeADTMyxComponentStub extends org.archstudio.myx.fw.
 	 * @generated
 	 */
 	protected final org.archstudio.noticeadt.ArchlightNoticeADTListener noticeEventsProxy = (org.archstudio.noticeadt.ArchlightNoticeADTListener) Proxy
-			.newProxyInstance(org.archstudio.noticeadt.ArchlightNoticeADTListener.class.getClassLoader(),
-					new Class[] { org.archstudio.noticeadt.ArchlightNoticeADTListener.class }, new InvocationHandler() {
+			.newProxyInstance(
+					org.archstudio.noticeadt.ArchlightNoticeADTListener.class
+							.getClassLoader(),
+					new Class[] { org.archstudio.noticeadt.ArchlightNoticeADTListener.class },
+					new InvocationHandler() {
 						@Override
-						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+						public Object invoke(Object proxy, Method method,
+								Object[] args) throws Throwable {
 							for (org.archstudio.noticeadt.ArchlightNoticeADTListener o : noticeEvents) {
 								try {
 									method.invoke(o, args);
-								}
-								catch (Exception e) {
+								} catch (Exception e) {
 									e.printStackTrace();
 								}
 							}
@@ -151,17 +157,20 @@ abstract class ArchlightNoticeADTMyxComponentStub extends org.archstudio.myx.fw.
 			throw new NullPointerException(interfaceName.getName());
 		}
 		if (interfaceName.equals(OUT_NOTICE_EVENTS)) {
-			noticeEvents.add((org.archstudio.noticeadt.ArchlightNoticeADTListener) serviceObject);
+			noticeEvents
+					.add((org.archstudio.noticeadt.ArchlightNoticeADTListener) serviceObject);
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: "
+				+ interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -169,14 +178,16 @@ abstract class ArchlightNoticeADTMyxComponentStub extends org.archstudio.myx.fw.
 			noticeEvents.remove(serviceObject);
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName,
+			Object serviceObject) {
 	}
 
 	/**
@@ -190,6 +201,7 @@ abstract class ArchlightNoticeADTMyxComponentStub extends org.archstudio.myx.fw.
 			}
 			return notices;
 		}
-		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException(
+				"Unhandled interface service object: " + interfaceName);
 	}
 }

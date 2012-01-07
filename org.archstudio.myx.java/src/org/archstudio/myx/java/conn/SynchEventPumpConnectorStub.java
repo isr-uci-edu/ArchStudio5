@@ -21,8 +21,10 @@ import org.archstudio.myx.fw.MyxUtils;
  * @generated
  */
 @SuppressWarnings("unused")
-/* package */abstract class SynchEventPumpConnectorStub extends org.archstudio.myx.java.conn.EventPumpConnector
-		implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
+/* package */abstract class SynchEventPumpConnectorStub extends
+		org.archstudio.myx.java.conn.EventPumpConnector implements
+		org.archstudio.myx.fw.IMyxDynamicBrick,
+		org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -70,7 +72,8 @@ import org.archstudio.myx.fw.MyxUtils;
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName,
+			Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -85,7 +88,8 @@ import org.archstudio.myx.fw.MyxUtils;
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName,
+			Object serviceObject) {
 		super.interfaceDisconnected(interfaceName, serviceObject);
 	}
 

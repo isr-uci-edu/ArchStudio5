@@ -19,7 +19,8 @@ import org.xml.sax.SAXException;
  * @see org.archstudio.bootstrap.core.BootstrapMyxComponentStub
  * @generated
  */
-public class BootstrapMyxComponent extends org.archstudio.bootstrap.core.BootstrapMyxComponentStub {
+public class BootstrapMyxComponent extends
+		org.archstudio.bootstrap.core.BootstrapMyxComponentStub {
 
 	protected String uriString = null;
 
@@ -38,34 +39,42 @@ public class BootstrapMyxComponent extends org.archstudio.bootstrap.core.Bootstr
 		Map<String, String> initProperties = MyxUtils.getInitProperties(this);
 		String uriString = initProperties.get("uri");
 		if (uriString == null) {
-			throw new RuntimeException("No 'uri' property in initialization properties for bootstrapper.");
+			throw new RuntimeException(
+					"No 'uri' property in initialization properties for bootstrapper.");
 		}
 		try {
 			ObjRef docRootRef = xarch.load(URI.createURI(uriString));
 			ObjRef xADLRef = (ObjRef) xarch.get(docRootRef, "xADL");
 			if (xADLRef == null) {
-				throw new RuntimeException("Can't find top-level xADL element in document: " + uriString);
+				throw new RuntimeException(
+						"Can't find top-level xADL element in document: "
+								+ uriString);
 			}
-			List<ObjRef> structureRefs = XadlUtils.getAllSubstitutionGroupElementsByType(xarch, xADLRef,
-					"topLevelElement", Structure_3_0Package.eNS_URI, "Structure");
+			List<ObjRef> structureRefs = XadlUtils
+					.getAllSubstitutionGroupElementsByType(xarch, xADLRef,
+							"topLevelElement", Structure_3_0Package.eNS_URI,
+							"Structure");
 			if (structureRefs.size() == 0) {
-				throw new RuntimeException("Can't find structure element in document: " + uriString);
+				throw new RuntimeException(
+						"Can't find structure element in document: "
+								+ uriString);
 			}
 
-			aim.instantiate("system", docRootRef, structureRefs.get(0), new MyxNullProgressMonitor());
+			aim.instantiate("system", docRootRef, structureRefs.get(0),
+					new MyxNullProgressMonitor());
 			aim.begin("system", new MyxNullProgressMonitor());
-		}
-		catch (ArchitectureInstantiationException aie) {
+		} catch (ArchitectureInstantiationException aie) {
 			aie.printStackTrace();
-			throw new RuntimeException("Can't instantiate architecture with URI " + uriString, aie);
-		}
-		catch (SAXException saxe) {
+			throw new RuntimeException(
+					"Can't instantiate architecture with URI " + uriString, aie);
+		} catch (SAXException saxe) {
 			saxe.printStackTrace();
-			throw new RuntimeException("Can't load file with URI " + uriString, saxe);
-		}
-		catch (IOException ioe) {
+			throw new RuntimeException("Can't load file with URI " + uriString,
+					saxe);
+		} catch (IOException ioe) {
 			ioe.printStackTrace();
-			throw new RuntimeException("Can't load file with URI " + uriString, ioe);
+			throw new RuntimeException("Can't load file with URI " + uriString,
+					ioe);
 		}
 	}
 }

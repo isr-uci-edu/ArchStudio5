@@ -6,5 +6,6 @@ package org.archstudio.myx.java.conn;
  * @see org.archstudio.myx.java.conn.SynchEventPumpConnectorStub
  * @generated
  */
-public class SynchEventPumpConnector extends org.archstudio.myx.java.conn.SynchEventPumpConnectorStub {
+public class SynchEventPumpConnector extends
+		org.archstudio.myx.java.conn.SynchEventPumpConnectorStub {
 }
