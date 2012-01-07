@@ -6,6 +6,7 @@ package org.archstudio.rootpreferences.core;
  * @see org.archstudio.rootpreferences.core.RootPreferencesMyxComponentStub
  * @generated
  */
-public class RootPreferencesMyxComponent extends org.archstudio.rootpreferences.core.RootPreferencesMyxComponentStub {
+public class RootPreferencesMyxComponent extends
+		org.archstudio.rootpreferences.core.RootPreferencesMyxComponentStub {
 
 }

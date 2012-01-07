@@ -6,6 +6,7 @@ package org.archstudio.archlight.core.prefs;
  * @see org.archstudio.archlight.core.prefs.ArchlightPrefsMyxComponentStub
  * @generated
  */
-public class ArchlightPrefsMyxComponent extends org.archstudio.archlight.core.prefs.ArchlightPrefsMyxComponentStub {
+public class ArchlightPrefsMyxComponent extends
+		org.archstudio.archlight.core.prefs.ArchlightPrefsMyxComponentStub {
 
 }

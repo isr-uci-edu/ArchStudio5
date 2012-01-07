@@ -30,7 +30,8 @@ import org.eclipse.ui.PlatformUI;
  * @see org.archstudio.resources.core.ResourcesMyxComponentStub
  * @generated
  */
-public class ResourcesMyxComponent extends org.archstudio.resources.core.ResourcesMyxComponentStub {
+public class ResourcesMyxComponent extends
+		org.archstudio.resources.core.ResourcesMyxComponentStub {
 	private final Object lock = new Object();
 
 	class ResourcesProxy implements InvocationHandler {
@@ -40,7 +41,8 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 		List<Runnable> toExec = new ArrayList<Runnable>();
 
 		@Override
-		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		public Object invoke(Object proxy, Method method, Object[] args)
+				throws Throwable {
 			synchronized (lock) {
 				final Method fMethod = method;
 				final Object[] fArgs = args;
@@ -51,22 +53,19 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 							public void run() {
 								try {
 									fMethod.invoke(resources, fArgs);
-								}
-								catch (Throwable t) {
+								} catch (Throwable t) {
 									t.printStackTrace();
 								}
 							}
 						});
 						return null;
-					}
-					else if (Display.getCurrent() == null) {
+					} else if (Display.getCurrent() == null) {
 						display.asyncExec(new Runnable() {
 							@Override
 							public void run() {
 								try {
 									fMethod.invoke(resources, fArgs);
-								}
-								catch (Throwable t) {
+								} catch (Throwable t) {
 									t.printStackTrace();
 								}
 							}
@@ -144,13 +143,15 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 	@Override
 	public Image getPlatformImage(String symbolicName) {
 		checkDevice();
-		return PlatformUI.getWorkbench().getSharedImages().getImage(symbolicName);
+		return PlatformUI.getWorkbench().getSharedImages()
+				.getImage(symbolicName);
 	}
 
 	@Override
 	public ImageDescriptor getPlatformImageDescriptor(String symbolicName) {
 		checkDevice();
-		return PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(symbolicName);
+		return PlatformUI.getWorkbench().getSharedImages()
+				.getImageDescriptor(symbolicName);
 	}
 
 	@Override
@@ -186,7 +187,8 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 	}
 
 	@Override
-	public void createDerivedFont(String newSymbolicName, FontData[] existingFontData, int newHeight, int newStyle) {
+	public void createDerivedFont(String newSymbolicName,
+			FontData[] existingFontData, int newHeight, int newStyle) {
 		checkDevice();
 		FontData[] fds = existingFontData;
 		FontData[] nfds = new FontData[fds.length];
@@ -241,8 +243,7 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 			Image img = desc.createImage();
 			createImage(symbolicName, img);
 			is.close();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -255,8 +256,7 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 		}
 		try {
 			imageRegistry.put(symbolicName, img);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -267,12 +267,14 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 	}
 
 	@Override
-	public void createOverlayImage(String symbolicName, Image base, Image[] overlays, int[] overlayPositions) {
+	public void createOverlayImage(String symbolicName, Image base,
+			Image[] overlays, int[] overlayPositions) {
 		checkDevice();
 		if (imageRegistry.get(symbolicName) != null) {
 			return;
 		}
-		OverlayImageIcon oii = new OverlayImageIcon(base, overlays, overlayPositions);
+		OverlayImageIcon oii = new OverlayImageIcon(base, overlays,
+				overlayPositions);
 		imageRegistry.put(symbolicName, oii);
 	}
 

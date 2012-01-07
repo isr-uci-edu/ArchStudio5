@@ -1,8 +1,8 @@
 package org.archstudio.archipelago.core;
 
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl.swt.XadlTreeUtils;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
-import org.archstudio.xadlswt.XadlTreeUtils;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.swt.graphics.Image;
 

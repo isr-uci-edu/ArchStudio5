@@ -13,7 +13,8 @@ import org.eclipse.swt.graphics.Image;
  * @see org.archstudio.archedit.core.ArchEditMyxComponentStub
  * @generated
  */
-public class ArchEditMyxComponent extends org.archstudio.archedit.core.ArchEditMyxComponentStub {
+public class ArchEditMyxComponent extends
+		org.archstudio.archedit.core.ArchEditMyxComponentStub {
 	public static final String EDITOR_NAME = "ArchEdit";
 	public static final String ECLIPSE_EDITOR_ID = "org.archstudio.archedit.core.ArchEditEditor";
 
@@ -28,10 +29,12 @@ public class ArchEditMyxComponent extends org.archstudio.archedit.core.ArchEditM
 	private synchronized void createResources() {
 		if (!resourcesCreated) {
 			try {
-				resources.createImage(IMAGE_ARCHEDIT_ICON,
-						SystemUtils.blt(ArchEditMyxComponent.class.getResourceAsStream("res/archedit-icon-32.gif")));
-			}
-			catch (IOException ioe) {
+				resources
+						.createImage(
+								IMAGE_ARCHEDIT_ICON,
+								SystemUtils.blt(ArchEditMyxComponent.class
+										.getResourceAsStream("res/archedit-icon-32.gif")));
+			} catch (IOException ioe) {
 				ioe.printStackTrace();
 				throw new RuntimeException("This shouldn't happen.");
 			}
@@ -40,7 +43,8 @@ public class ArchEditMyxComponent extends org.archstudio.archedit.core.ArchEditM
 	}
 
 	public ILaunchData getLaunchData() {
-		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME, "A syntax-directed editor for architecture descriptions",
+		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME,
+				"A syntax-directed editor for architecture descriptions",
 				getIcon(), ILaunchData.LaunchType.EDITOR);
 	}
 

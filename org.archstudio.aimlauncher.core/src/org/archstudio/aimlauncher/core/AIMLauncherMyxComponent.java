@@ -13,10 +13,12 @@ import org.eclipse.swt.graphics.Image;
  * @see org.archstudio.aimlauncher.core.AIMLauncherMyxComponentStub
  * @generated
  */
-public class AIMLauncherMyxComponent extends org.archstudio.aimlauncher.core.AIMLauncherMyxComponentStub {
+public class AIMLauncherMyxComponent extends
+		org.archstudio.aimlauncher.core.AIMLauncherMyxComponentStub {
 
 	public static final String EDITOR_NAME = "AIM Launcher";
-	public static final String ECLIPSE_EDITOR_ID = AIMLauncherEditor.class.getName();
+	public static final String ECLIPSE_EDITOR_ID = AIMLauncherEditor.class
+			.getName();
 
 	public static final String IMAGE_AIMLAUNCHER_ICON = "aimlauncher:icon";
 	public static final String IMAGE_AIMLAUNCHER_GO_ICON = "aimlauncher:go";
@@ -31,15 +33,19 @@ public class AIMLauncherMyxComponent extends org.archstudio.aimlauncher.core.AIM
 	private synchronized void createResources() {
 		if (!resourcesCreated) {
 			try {
-				resources.createImage(IMAGE_AIMLAUNCHER_ICON, SystemUtils.blt(AIMLauncherMyxComponent.class
-						.getResourceAsStream("res/aimlauncher-icon-32.gif")));
-				resources.createImage(IMAGE_AIMLAUNCHER_GO_ICON,
-						SystemUtils.blt(AIMLauncherMyxComponent.class.getResourceAsStream("res/icon-go.gif")));
-				resources.createImage(IMAGE_AIMLAUNCHER_STOP_ICON,
-						SystemUtils.blt(AIMLauncherMyxComponent.class.getResourceAsStream("res/icon-stop.gif")));
+				resources
+						.createImage(
+								IMAGE_AIMLAUNCHER_ICON,
+								SystemUtils.blt(AIMLauncherMyxComponent.class
+										.getResourceAsStream("res/aimlauncher-icon-32.gif")));
+				resources.createImage(IMAGE_AIMLAUNCHER_GO_ICON, SystemUtils
+						.blt(AIMLauncherMyxComponent.class
+								.getResourceAsStream("res/icon-go.gif")));
+				resources.createImage(IMAGE_AIMLAUNCHER_STOP_ICON, SystemUtils
+						.blt(AIMLauncherMyxComponent.class
+								.getResourceAsStream("res/icon-stop.gif")));
 
-			}
-			catch (IOException ioe) {
+			} catch (IOException ioe) {
 				ioe.printStackTrace();
 				throw new RuntimeException("This shouldn't happen.");
 			}
@@ -49,7 +55,8 @@ public class AIMLauncherMyxComponent extends org.archstudio.aimlauncher.core.AIM
 
 	@Override
 	public ILaunchData getLaunchData() {
-		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME, "Architecture Instantiation Manager", getIcon(),
+		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME,
+				"Architecture Instantiation Manager", getIcon(),
 				ILaunchData.LaunchType.EDITOR);
 	}
 

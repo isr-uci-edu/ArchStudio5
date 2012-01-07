@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio xADL BNA Functions
+Bundle-SymbolicName: org.archstudio.xadl.bna;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.archstudio.bna,
+ org.archstudio.xarchadt,
+ org.archstudio.utils.system,
+ org.archstudio.xadl,
+ com.google.guava,
+ org.eclipse.jface,
+ org.archstudio.xadl3.hints,
+ org.jogamp.jogl;bundle-version="2.0.0"
+Export-Package: org.archstudio.xadl.bna,
+ org.archstudio.xadl.bna.logics.editing,
+ org.archstudio.xadl.bna.logics.hints,
+ org.archstudio.xadl.bna.logics.mapping,
+ org.archstudio.xadl.bna.things
+Bundle-Vendor: archstudio.org
