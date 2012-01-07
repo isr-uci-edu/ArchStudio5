@@ -54,12 +54,10 @@ public class EventPumpConnector extends
 					@Override
 					public Object invoke(Object proxy, Method method,
 							Object[] args) throws Throwable {
-						synchronized (this) {
-							for (Object o : out) {
-								method.invoke(o, args);
-							}
-							return null;
+						for (Object o : out) {
+							method.invoke(o, args);
 						}
+						return null;
 					}
 				});
 	}
