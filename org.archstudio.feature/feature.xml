@@ -513,14 +513,14 @@
          unpack="false"/>
 
    <plugin
-         id="org.archstudio.xadlbna"
+         id="org.archstudio.xadl.bna"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.archstudio.xadlswt"
+         id="org.archstudio.xadl.swt"
          download-size="0"
          install-size="0"
          version="0.0.0"
