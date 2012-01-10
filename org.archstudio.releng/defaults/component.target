@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.6"?>
+
+<target name="component target" sequenceNumber="3">
+<locations>
+<location path="${target.location}" type="Directory"/>
+</locations>
+</target>
