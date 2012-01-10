@@ -31,24 +31,37 @@
 
 	<target name="import-target">
 
+		<assert-nonempty property="target.feature" message="The feature containing the target definition" />
+		
 		<property name="workspace.root" location="${env.WORKSPACE}" />
 		<property name="eclipse.home" location="${workspace.root}/buckminster" />
 		<property name="buckminster.temp" location="${workspace.root}/buckminster.temp" />
 		<property name="buckminster.temp.root" location="${buckminster.temp}" />
 		<property name="buckminster.output.root" location="${workspace.root}/buckminster.output" />
-		<makeurl property="target.url" file="${basedir}/defaults/eclipse-${eclipse.version}.target" />
+		<property name="target.location" location="${workspace.root}/tp" />
 
 		<echo>Importing target...</echo>
 		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-			<arg value="importtargetdefinition" />
+			<arg value="resolve" />
+			<arg value="-Dinstall.location=${target.location}" />
+			<arg value="-Dbuckminster.component=${target.feature}" />
 			<arg value="-A" />
-			<arg value="${target.url}" />
+			<arg value="${basedir}/defaults/component.mspec" />
 			<syspropertyset>
 				<propertyref builtin="commandline" />
 				<propertyref prefix="buckminster." />
 			</syspropertyset>
 		</buckminster>
-
+		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
+			<arg value="-Dtarget.location=${target.location}" />
+			<arg value="importtargetdefinition" />
+			<arg value="-A" />
+			<arg value="${basedir}/defaults/component.target" />
+			<syspropertyset>
+				<propertyref builtin="commandline" />
+				<propertyref prefix="buckminster." />
+			</syspropertyset>
+		</buckminster>
 	</target>
 
 	<target name="resolve-cquery">
