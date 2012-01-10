@@ -45,7 +45,6 @@
 			<arg value="resolve" />
 			<arg value="-Dinstall.location=${target.location}" />
 			<arg value="-Dbuckminster.component=${target.feature}" />
-			<arg value="-A" />
 			<arg value="${basedir}/defaults/component.mspec" />
 			<syspropertyset>
 				<propertyref builtin="commandline" />

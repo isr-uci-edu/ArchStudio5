@@ -3,9 +3,9 @@
   <rm:property key="eclipse.version" value="3.7"/>
   <rm:property key="local.repos" value=""/>
   <rm:locator pattern=".*" searchPathRef="local.repos" failOnError="false"/>
+  <rm:locator pattern="^org\.tigris\.subversion(\..*)?$" searchPathRef="org.tigris.subversion" failOnError="false"/>
+  <rm:locator pattern=".*" searchPathRef="org.eclipse" failOnError="false"/>
   <rm:locator pattern=".*" searchPathRef="org.archstudio" failOnError="false"/>
-  <rm:locator pattern="^org\.tigris\.subversion(\..*)?$" searchPathRef="org.tigris.subversion"/>
-  <rm:locator pattern=".*" searchPathRef="org.eclipse"/>
   <rm:searchPath name="local.repos">
     <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="url.catalog">
       <rm:uri format="{1}/{0}">
