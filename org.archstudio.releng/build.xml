@@ -52,10 +52,8 @@
 			</syspropertyset>
 		</buckminster>
 		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-			<arg value="-Dtarget.location=${target.location}" />
-			<arg value="importtargetdefinition" />
-			<arg value="-A" />
-			<arg value="${basedir}/defaults/component.target" />
+			<arg value="setpref" />
+			<arg value="org.eclipse.buckminster.pde.targetPlatformPath=${target.location}" />
 			<syspropertyset>
 				<propertyref builtin="commandline" />
 				<propertyref prefix="buckminster." />
