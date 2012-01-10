@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.jogamp.jogl;singleton:=true
 Bundle-Version: 2.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: org.jogamp.Activator
-Require-Bundle: org.eclipse.osgi;bundle-version="3.7.1"
+Require-Bundle: org.eclipse.osgi
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: archstudio.org
 Export-Package: com.jogamp.common,

@@ -11,7 +11,7 @@ Require-Bundle: org.archstudio.bna,
  com.google.guava,
  org.eclipse.jface,
  org.archstudio.xadl3.hints,
- org.jogamp.jogl;bundle-version="2.0.0"
+ org.jogamp.jogl
 Export-Package: org.archstudio.xadl.bna,
  org.archstudio.xadl.bna.logics.editing,
  org.archstudio.xadl.bna.logics.hints,
