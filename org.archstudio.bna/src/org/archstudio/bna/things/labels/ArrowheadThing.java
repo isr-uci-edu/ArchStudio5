@@ -6,7 +6,7 @@ import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableSecondaryAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.things.AbstractAnchorPointThing;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.graphics.RGB;
 
 public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMutableColor, IHasMutableSecondaryColor,

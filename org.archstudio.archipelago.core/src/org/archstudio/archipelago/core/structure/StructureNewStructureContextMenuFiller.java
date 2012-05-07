@@ -1,11 +1,12 @@
 package org.archstudio.archipelago.core.structure;
 
-import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.FolderNode;
 import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
+import org.archstudio.myx.fw.Services;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
+import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -13,13 +14,13 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.TreeViewer;
 
 public class StructureNewStructureContextMenuFiller implements IArchipelagoTreeContextMenuFiller {
-	protected TreeViewer viewer = null;
-	protected ArchipelagoServices AS = null;
-	protected ObjRef documentRootRef = null;
+	protected final TreeViewer viewer;
+	protected final IXArchADT xarch;
+	protected final ObjRef documentRootRef;
 
-	public StructureNewStructureContextMenuFiller(TreeViewer viewer, ArchipelagoServices AS, ObjRef documentRootRef) {
+	public StructureNewStructureContextMenuFiller(TreeViewer viewer, Services AS, ObjRef documentRootRef) {
 		this.viewer = viewer;
-		this.AS = AS;
+		this.xarch = AS.get(IXArchADT.class);
 		this.documentRootRef = documentRootRef;
 	}
 
@@ -44,15 +45,15 @@ public class StructureNewStructureContextMenuFiller implements IArchipelagoTreeC
 	}
 
 	protected void createNewStructure() {
-		ObjRef newStructureRef = XadlUtils.create(AS.xarch, Structure_3_0Package.Literals.STRUCTURE);
+		ObjRef newStructureRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.STRUCTURE);
 		String newID = UIDGenerator.generateUID("structure");
 
-		AS.xarch.set(newStructureRef, "id", newID);
-		XadlUtils.setName(AS.xarch, newStructureRef, "[New Structure]");
+		xarch.set(newStructureRef, "id", newID);
+		XadlUtils.setName(xarch, newStructureRef, "[New Structure]");
 
-		ObjRef xADLRef = (ObjRef) AS.xarch.get(documentRootRef, "xADL");
+		ObjRef xADLRef = (ObjRef) xarch.get(documentRootRef, "xADL");
 		if (xADLRef != null) {
-			AS.xarch.add(xADLRef, "topLevelElement", newStructureRef);
+			xarch.add(xADLRef, "topLevelElement", newStructureRef);
 		}
 	}
 

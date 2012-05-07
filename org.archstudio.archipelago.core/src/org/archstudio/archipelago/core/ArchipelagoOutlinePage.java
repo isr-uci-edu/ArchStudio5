@@ -14,6 +14,7 @@ import org.archstudio.editormanager.IEditorManager;
 import org.archstudio.filemanager.IFileManager;
 import org.archstudio.filemanager.IFileManagerListener;
 import org.archstudio.graphlayout.IGraphLayout;
+import org.archstudio.myx.fw.Services;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.LocalSelectionTransfer;
 import org.archstudio.swtutils.SWTWidgetUtils;
@@ -59,21 +60,21 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 	protected List<IArchipelagoTreePlugin> treePluginList = new ArrayList<IArchipelagoTreePlugin>();
 	protected IArchipelagoTreePlugin[] treePlugins = new IArchipelagoTreePlugin[0];
 
-	protected ArchipelagoServices AS = null;
+	protected Services AS = null;
 
 	public ArchipelagoOutlinePage(ArchipelagoEditor editor, IXArchADT xarch, ObjRef documentRootRef,
 			IResources resources, IFileManager fileman, IEditorManager editorManager, IPreferenceStore prefs,
 			IGraphLayout graphLayout) {
 		super(xarch, documentRootRef, resources, false, true);
 
-		IArchipelagoEventBus eventBus = new DefaultArchipelagoEventBus();
 		//This stuff lets us open multiple editors on the same document.
 		ArchipelagoDataCache servicesCache = ArchipelagoDataCache.getInstance();
 		TreeNodeDataCache data = servicesCache.getData(documentRootRef);
 		if (data == null) {
 			data = new TreeNodeDataCache();
 		}
-		AS = new ArchipelagoServices(eventBus, new DefaultArchipelagoEditorPane(editor), data, xarch, resources,
+		AS = new Services();
+		AS.addAll(new DefaultArchipelagoEditorPane(editor), data, xarch, resources,
 				fileman, editorManager, prefs, graphLayout);
 		servicesCache.addCacheEntry(this, documentRootRef, data);
 	}
@@ -106,7 +107,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 				Class<?> clazz = Platform.getBundle(pluginName).loadClass(className);
 				Constructor<?> classConstructor = clazz.getConstructor(new Class<?>[0]);
 				Object obj = classConstructor.newInstance(new Object[0]);
-				((IArchipelagoTreePlugin) obj).setEditor(AS.editor);
+				((IArchipelagoTreePlugin) obj).setEditor(AS.get(IArchipelagoEditorPane.class));
 				addTreePlugin((IArchipelagoTreePlugin) obj);
 			}
 			catch (Exception e) {

@@ -36,4 +36,4 @@ Require-Bundle: com.google.guava,
  org.eclipse.core.runtime,
  org.eclipse.jface,
  org.eclipse.ui,
- org.jogamp.jogl
+ org.eclipse.draw2d

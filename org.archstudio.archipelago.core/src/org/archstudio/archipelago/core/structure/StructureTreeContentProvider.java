@@ -3,31 +3,34 @@ package org.archstudio.archipelago.core.structure;
 import java.util.Collections;
 import java.util.List;
 
-import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.FolderNode;
 import org.archstudio.archipelago.core.IArchipelagoTreeContentProvider;
+import org.archstudio.myx.fw.Services;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTQuery;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.viewers.Viewer;
 
 public class StructureTreeContentProvider implements IArchipelagoTreeContentProvider {
+	
 	protected static final String FOLDER_NODE_TYPE = "STRUCTURES";
 	protected FolderNode structureFolderNode = null;
 
-	protected ArchipelagoServices AS = null;
-
+	protected Services AS = null;
 	protected final ObjRef documentRootRef;
+	protected final IXArchADT xarch;
 
-	public StructureTreeContentProvider(ArchipelagoServices services, ObjRef documentRootRef) {
-		this.AS = services;
+	public StructureTreeContentProvider(Services AS, ObjRef documentRootRef) {
+		this.AS = AS;
 		this.documentRootRef = documentRootRef;
+		this.xarch = AS.get(IXArchADT.class);
 	}
 
 	protected boolean isRootElement(Object ref) {
 		if (ref instanceof ObjRef) {
-			String tagsPath = AS.xarch.getTagsOnlyPathString((ObjRef) ref);
+			String tagsPath = xarch.getTagsOnlyPathString((ObjRef) ref);
 			if (tagsPath.equals("")) {
 				return true;
 			}
@@ -37,7 +40,7 @@ public class StructureTreeContentProvider implements IArchipelagoTreeContentProv
 
 	protected boolean isXADLElement(Object ref) {
 		if (ref instanceof ObjRef) {
-			String tagsPath = AS.xarch.getTagsOnlyPathString((ObjRef) ref);
+			String tagsPath = xarch.getTagsOnlyPathString((ObjRef) ref);
 			if (tagsPath.equals("xADL")) {
 				return true;
 			}
@@ -54,7 +57,7 @@ public class StructureTreeContentProvider implements IArchipelagoTreeContentProv
 
 	protected boolean isTargetNode(Object ref) {
 		if (ref instanceof ObjRef) {
-			String refPath = AS.xarch.getTagsOnlyPathString((ObjRef) ref);
+			String refPath = xarch.getTagsOnlyPathString((ObjRef) ref);
 			if (refPath.equals("xADL/structure")) {
 				return true;
 			}
@@ -78,7 +81,7 @@ public class StructureTreeContentProvider implements IArchipelagoTreeContentProv
 			return ArchipelagoUtils.combine(childrenFromPreviousProvider, structureFolderNode);
 		}
 		else if (isStructureFolderNode(parentElement)) {
-			List<ObjRef> structureRefs = getStructureRefs(AS.xarch, documentRootRef);
+			List<ObjRef> structureRefs = getStructureRefs(xarch, documentRootRef);
 			return ArchipelagoUtils.combine(childrenFromPreviousProvider, structureRefs);
 		}
 		return childrenFromPreviousProvider;

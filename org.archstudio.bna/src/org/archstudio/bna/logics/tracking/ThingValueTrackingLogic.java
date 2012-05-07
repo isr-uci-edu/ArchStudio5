@@ -20,8 +20,8 @@ import com.google.common.collect.Sets;
 
 public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
 
-	private final Cache<IThingKey<?>, SetMultimap<Object, Object>> keyToValueToThingIDsCache = CacheBuilder.newBuilder()
-			.build(new CacheLoader<IThingKey<?>, SetMultimap<Object, Object>>() {
+	private final Cache<IThingKey<?>, SetMultimap<Object, Object>> keyToValueToThingIDsCache = CacheBuilder
+			.newBuilder().build(new CacheLoader<IThingKey<?>, SetMultimap<Object, Object>>() {
 				@Override
 				public SetMultimap<Object, Object> load(IThingKey<?> input) {
 					SetMultimap<Object, Object> m = HashMultimap.create();

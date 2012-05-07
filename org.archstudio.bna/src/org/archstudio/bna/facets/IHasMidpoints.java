@@ -6,7 +6,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.keys.AbstractCloneThingKey;
 import org.archstudio.bna.keys.AbstractCollectionThingKey;
 import org.archstudio.bna.keys.CollectionThingKey;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
 
 public interface IHasMidpoints extends IThing {
 

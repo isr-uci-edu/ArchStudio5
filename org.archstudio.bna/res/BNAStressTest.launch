@@ -6,8 +6,6 @@
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_27"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.archstudio.bna.demo.BNAStressTest"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.archstudio.bna"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dsun.java2d.opengl=true"/>
 </launchConfiguration>

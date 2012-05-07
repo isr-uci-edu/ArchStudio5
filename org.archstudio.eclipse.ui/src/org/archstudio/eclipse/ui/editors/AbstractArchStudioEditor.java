@@ -9,6 +9,7 @@ import org.archstudio.filemanager.CantOpenFileException;
 import org.archstudio.filemanager.IFileManager;
 import org.archstudio.filemanager.IFileManagerListener;
 import org.archstudio.myx.fw.MyxRegistry;
+import org.archstudio.myx.fw.Services;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.Banner;
 import org.archstudio.swtutils.SWTWidgetUtils;
@@ -49,6 +50,7 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 
 	protected final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
 	protected final B brick;
+	protected final Services services = new Services();
 
 	protected boolean hasBanner = false;
 	protected boolean updateOnSelectionChange = true;
@@ -96,10 +98,11 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		this.uniqueEditorID = UIDGenerator.generateUID(editorName);
 		this.editorName = editorName;
 		myxRegistry.map(brick, this);
-		xarch = brick.getXarch();
-		fileman = brick.getFileManager();
-		editorManager = brick.getEditorManager();
-		resources = brick.getResources();
+		services.add(this);
+		xarch = services.add(brick.getXarch());
+		fileman = services.add(brick.getFileManager());
+		editorManager = services.add(brick.getEditorManager());
+		resources = services.add(brick.getResources());
 
 		updateThread.start();
 	}

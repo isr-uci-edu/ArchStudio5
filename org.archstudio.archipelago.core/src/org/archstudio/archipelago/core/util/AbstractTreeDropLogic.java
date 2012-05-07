@@ -3,7 +3,6 @@ package org.archstudio.archipelago.core.util;
 import java.util.Iterator;
 import java.util.List;
 
-import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -11,6 +10,7 @@ import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.borders.PulsingBorderThing;
 import org.archstudio.bna.utils.IBNADragAndDropListener;
+import org.archstudio.myx.fw.Services;
 import org.archstudio.swtutils.LocalSelectionTransfer;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -19,11 +19,11 @@ import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.TransferData;
 
 public abstract class AbstractTreeDropLogic extends AbstractThingLogic implements IBNADragAndDropListener {
-	protected ArchipelagoServices AS = null;
+	protected Services AS = null;
 	protected ObjRef documentRootRef = null;
 	protected PulsingBorderThing pulser = null;
 
-	public AbstractTreeDropLogic(ArchipelagoServices services, ObjRef documentRootRef) {
+	public AbstractTreeDropLogic(Services services, ObjRef documentRootRef) {
 		this.AS = services;
 		this.documentRootRef = documentRootRef;
 	}

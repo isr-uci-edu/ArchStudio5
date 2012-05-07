@@ -40,4 +40,5 @@ Require-Bundle: com.google.guava,
  org.archstudio.xarchadt.core,
  org.archstudio.xadl3.implementation,
  org.archstudio.xadl3.implementation.lookup,
- org.archstudio.xadl3.implementation.myxgen
+ org.archstudio.xadl3.implementation.myxgen,
+ org.eclipse.draw2d

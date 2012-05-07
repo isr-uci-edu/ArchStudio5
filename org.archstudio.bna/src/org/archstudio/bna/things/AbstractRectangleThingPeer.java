@@ -3,7 +3,8 @@ package org.archstudio.bna.things;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.eclipse.swt.graphics.Rectangle;
+import org.archstudio.bna.IResources;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public abstract class AbstractRectangleThingPeer<T extends AbstractRectangleThing> extends AbstractThingPeer<T> {
 
@@ -17,7 +18,7 @@ public abstract class AbstractRectangleThingPeer<T extends AbstractRectangleThin
 	}
 
 	@Override
-	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm) {
+	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r) {
 		return cm.worldToLocal(t.getBoundingBox());
 	}
 }

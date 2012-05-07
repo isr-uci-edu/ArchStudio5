@@ -1,7 +1,7 @@
 package org.archstudio.bna.things;
 
 import org.archstudio.bna.facets.IHasMutableReferencePoint;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
 
 public abstract class AbstractRelativeMovableReferencePointThing extends AbstractRelativeMovableThing implements
 		IHasMutableReferencePoint {

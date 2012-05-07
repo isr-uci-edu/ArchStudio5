@@ -12,8 +12,8 @@ import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.things.utility.GridThing;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public class GridUtils {
 

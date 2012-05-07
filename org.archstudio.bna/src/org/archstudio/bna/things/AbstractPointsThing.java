@@ -7,8 +7,8 @@ import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutablePoints;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import com.google.common.collect.Lists;
 
@@ -103,7 +103,7 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 				maxY1 = p.y;
 			}
 		}
-		return new Rectangle(minX1, minY1, maxX1 - minX1, maxY1 - minY1);
+		return new Rectangle(minX1, minY1, maxX1 - minX1 + 1, maxY1 - minY1 + 1);
 	}
 
 	@Override

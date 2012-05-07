@@ -17,11 +17,11 @@ import org.archstudio.bna.utils.IBNAMouseClickListener;
 import org.archstudio.bna.utils.IBNAMouseListener;
 import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.archstudio.sysutils.SystemUtils;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 
 public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWheelListener, IBNAMouseListener,

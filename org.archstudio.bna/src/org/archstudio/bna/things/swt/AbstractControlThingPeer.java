@@ -1,7 +1,5 @@
 package org.archstudio.bna.things.swt;
 
-import javax.media.opengl.GL2;
-
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
@@ -10,8 +8,9 @@ import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.SWTWidgetUtils;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
@@ -35,7 +34,7 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+	public void draw(IBNAView view, ICoordinateMapper cm, IResources r, Graphics g) {
 
 		if (control == null) {
 			control = createControl(view, cm);
@@ -43,7 +42,7 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 
 		// update bounds
 		final Rectangle newBounds = getBounds(control, view, cm);
-		final Rectangle oldBounds = control.getBounds();
+		final org.eclipse.swt.graphics.Rectangle oldBounds = control.getBounds();
 		if (!oldBounds.equals(newBounds)) {
 			SWTWidgetUtils.async(control, new Runnable() {
 				@Override
@@ -79,13 +78,13 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 	}
 
 	@Override
-	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm) {
+	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r) {
 		Rectangle boundsResult = cm.worldToLocal(t.getBoundingBox());
 		if (control != null) {
-			Rectangle bounds = control.getBounds();
+			org.eclipse.swt.graphics.Rectangle bounds = control.getBounds();
 			bounds.x += cm.getLocalOrigin().x;
 			bounds.y += cm.getLocalOrigin().y;
-			BNAUtils.union(boundsResult, bounds);
+			BNAUtils.union(boundsResult, BNAUtils.toRectangle(bounds));
 		}
 		return boundsResult;
 	}

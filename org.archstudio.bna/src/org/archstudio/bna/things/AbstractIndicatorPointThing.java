@@ -1,7 +1,7 @@
 package org.archstudio.bna.things;
 
 import org.archstudio.bna.facets.IHasMutableIndicatorPoint;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
 
 public abstract class AbstractIndicatorPointThing extends AbstractAnchorPointThing implements IHasMutableIndicatorPoint {
 

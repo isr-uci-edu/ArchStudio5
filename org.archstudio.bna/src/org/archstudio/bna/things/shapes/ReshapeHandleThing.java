@@ -1,10 +1,9 @@
 package org.archstudio.bna.things.shapes;
 
-import java.awt.Dimension;
-
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.things.AbstractAnchorPointThing;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.RGB;
 
 public class ReshapeHandleThing extends AbstractAnchorPointThing implements IHasMutableSize, IHasMutableColor {

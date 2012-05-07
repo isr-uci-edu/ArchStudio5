@@ -1,6 +1,6 @@
 package org.archstudio.bna.facets;
 
-import java.awt.Dimension;
+import org.eclipse.draw2d.geometry.Dimension;
 
 public interface IHasMutableSize extends IHasSize {
 

@@ -6,9 +6,10 @@ import java.util.List;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.IResources;
 import org.archstudio.bna.utils.BNAUtils;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public abstract class AbstractSplineThingPeer<T extends AbstractSplineThing> extends AbstractThingPeer<T> {
 
@@ -32,7 +33,7 @@ public abstract class AbstractSplineThingPeer<T extends AbstractSplineThing> ext
 	}
 
 	@Override
-	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm) {
-		return cm.worldToLocal(t.getBoundingBox());
+	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r) {
+		return cm.worldToLocal(t.getBoundingBox()).expand(1, 1);
 	}
 }

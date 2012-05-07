@@ -1,23 +1,26 @@
 package org.archstudio.archipelago.core.util;
 
-import org.archstudio.archipelago.core.ArchipelagoServices;
+import org.archstudio.myx.fw.Services;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.viewers.ICellModifier;
 
 public abstract class AbstractEditNameCellModifier implements ICellModifier {
-	protected ArchipelagoServices AS = null;
+	protected Services AS = null;
 	protected ObjRef xArchRef = null;
+	protected IXArchADT xarch = null;
 
-	public AbstractEditNameCellModifier(ArchipelagoServices services, ObjRef xArchRef) {
-		this.AS = services;
+	public AbstractEditNameCellModifier(Services AS, ObjRef xArchRef) {
+		this.AS = AS;
 		this.xArchRef = xArchRef;
+		this.xarch = AS.get(IXArchADT.class);
 	}
 
 	public Object getValue(Object element, String property) {
 		if (element instanceof ObjRef) {
 			ObjRef targetRef = (ObjRef) element;
-			String name = XadlUtils.getName(AS.xarch, targetRef);
+			String name = XadlUtils.getName(xarch, targetRef);
 			return name;
 		}
 		return null;
@@ -28,7 +31,7 @@ public abstract class AbstractEditNameCellModifier implements ICellModifier {
 			ObjRef targetRef = (ObjRef) element;
 			if (value != null) {
 				String newName = value.toString();
-				XadlUtils.setName(AS.xarch, targetRef, newName);
+				XadlUtils.setName(xarch, targetRef, newName);
 			}
 		}
 	}

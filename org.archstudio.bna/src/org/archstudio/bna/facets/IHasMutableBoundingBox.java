@@ -1,6 +1,6 @@
 package org.archstudio.bna.facets;
 
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * For mutable properties, see {@link IRelativeMovable} and
