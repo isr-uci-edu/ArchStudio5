@@ -10,13 +10,13 @@ import org.archstudio.bna.utils.IBNAKeyListener;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.swtutils.FindDialog;
 import org.archstudio.swtutils.IFinder;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchActionConstants;
 

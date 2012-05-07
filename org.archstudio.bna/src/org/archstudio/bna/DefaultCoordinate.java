@@ -1,6 +1,6 @@
 package org.archstudio.bna;
 
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
 
 public class DefaultCoordinate implements ICoordinate {
 

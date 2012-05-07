@@ -20,6 +20,9 @@ import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.NoThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.ZoomUtils;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -27,8 +30,6 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
@@ -225,11 +226,11 @@ public class ArchipelagoUtils {
 		return c.getName();
 	}
 
-	public static void applyGridPreferences(ArchipelagoServices AS, IBNAModel bnaModel) {
-		int gridSpacing = AS.prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING);
+	public static void applyGridPreferences(IPreferenceStore prefs, IBNAModel bnaModel) {
+		int gridSpacing = prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING);
 		BNAUtils.setGridSpacing(bnaModel, gridSpacing);
 
-		String gridDisplayTypeString = AS.prefs.getString(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE);
+		String gridDisplayTypeString = prefs.getString(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE);
 		if (gridDisplayTypeString == null || gridDisplayTypeString.length() == 0) {
 			gridDisplayTypeString = GridDisplayType.NONE.name();
 		}

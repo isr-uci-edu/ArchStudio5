@@ -9,10 +9,10 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
 import org.archstudio.bna.utils.IBNAMenuListener;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 
 public class ViewAllLogic extends AbstractThingLogic implements IBNAMenuListener {
 
@@ -36,7 +36,7 @@ public class ViewAllLogic extends AbstractThingLogic implements IBNAMenuListener
 				.addThingLogic(ModelBoundsTrackingLogic.class);
 		IMutableCoordinateMapper cm = (IMutableCoordinateMapper) view.getCoordinateMapper();
 		Rectangle m = mbtl.getModelBounds();
-		Rectangle v = view.getComposite().getBounds();
+		org.eclipse.swt.graphics.Rectangle v = view.getComposite().getClientArea();
 		v.x = v.y = 0;
 		Point mc = new Point(m.x + m.width / 2, m.y + m.height / 2);
 		Point vc = new Point(v.x + v.width / 2, v.y + v.height / 2);

@@ -8,12 +8,13 @@ import java.util.List;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasPoints;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
 
 import com.google.common.collect.Lists;
 
@@ -24,7 +25,8 @@ public class AbstractSplineThing extends AbstractPointsThing implements IHasMuta
 		addThingListener(new IThingListener() {
 			@Override
 			public <ET extends IThing, EK extends IThingKey<EV>, EV> void thingChanged(ThingEvent<ET, EK, EV> thingEvent) {
-				if (!IHasPoints.POINTS_KEY.equals(thingEvent.getPropertyName())) {
+				if (!IHasPoints.POINTS_KEY.equals(thingEvent.getPropertyName())
+						&& !IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
 					set(IHasPoints.POINTS_KEY, getPoints());
 				}
 			}

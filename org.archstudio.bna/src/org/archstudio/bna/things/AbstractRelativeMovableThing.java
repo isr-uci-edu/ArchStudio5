@@ -1,12 +1,12 @@
 package org.archstudio.bna.things;
 
-import java.awt.Dimension;
 import java.util.Collection;
 import java.util.Set;
 
 import org.archstudio.bna.facets.IHasShape;
 import org.archstudio.bna.facets.IRelativeMovable;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 
 import com.google.common.collect.Sets;
 

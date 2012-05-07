@@ -1,44 +1,105 @@
 package org.archstudio.bna;
 
-import java.awt.Font;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
-import javax.media.opengl.GL2;
-
-import org.archstudio.bna.IThing.IThingKey;
-import org.archstudio.bna.facets.IHasFontData;
-import org.archstudio.bna.facets.IHasLineData;
-import org.archstudio.bna.facets.IHasLineStyle;
 import org.archstudio.swtutils.constants.FontStyle;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
-import com.google.common.collect.Lists;
-import com.jogamp.opengl.util.awt.TextRenderer;
+import com.google.common.cache.RemovalListener;
+import com.google.common.cache.RemovalNotification;
 
 public class Resources implements IResources {
 
+	// Note: this needs to be a composite (not a control) to support adding controls as part of thing peers
 	final Composite composite;
-	final GL2 gl;
+	final Device device;
 
-	public Resources(Composite composite, GL2 gl) {
+	final Cache<RGB, Color> colorCache = CacheBuilder.newBuilder().expireAfterAccess(10, TimeUnit.MINUTES)
+			.removalListener(new RemovalListener<RGB, Color>() {
+				@Override
+				public void onRemoval(RemovalNotification<RGB, Color> notification) {
+					notification.getValue().dispose();
+				}
+			}).build(new CacheLoader<RGB, Color>() {
+				@Override
+				public Color load(RGB input) {
+					return new Color(device, input);
+				}
+			});
+
+	final Cache<FontData, Font> fontCache = CacheBuilder.newBuilder().expireAfterAccess(10, TimeUnit.MINUTES)
+			.removalListener(new RemovalListener<FontData, Font>() {
+				@Override
+				public void onRemoval(RemovalNotification<FontData, Font> notification) {
+					notification.getValue().dispose();
+				}
+			}).build(new CacheLoader<FontData, Font>() {
+				@Override
+				public Font load(FontData input) {
+					return new Font(device, input);
+				}
+			});
+
+	final Cache<ImageData, Image> imageCache = CacheBuilder.newBuilder().expireAfterAccess(10, TimeUnit.MINUTES)
+			.removalListener(new RemovalListener<ImageData, Image>() {
+				@Override
+				public void onRemoval(RemovalNotification<ImageData, Image> notification) {
+					notification.getValue().dispose();
+				}
+			}).build(new CacheLoader<ImageData, Image>() {
+				@Override
+				public Image load(ImageData input) {
+					return new Image(device, input);
+				}
+			});
+
+	public Resources(Composite c) {
+		this(c, c.getDisplay());
+	}
+
+	public Resources(Composite c, Device d) {
 		super();
-		this.composite = composite;
-		this.gl = gl;
+		this.composite = c;
+		this.device = d;
+	}
+
+	public void dispose() {
+		colorCache.invalidateAll();
+		colorCache.cleanUp();
+		fontCache.invalidateAll();
+		fontCache.cleanUp();
+		imageCache.invalidateAll();
+		imageCache.cleanUp();
 	}
 
 	@Override
-	public void destroy() {
+	public Color getColor(int systemColor) {
+		return device.getSystemColor(systemColor);
+	}
+
+	@Override
+	public Color getColor(RGB color) {
+		return colorCache.getUnchecked(color);
+	}
+
+	@Override
+	public Font getFont(String fontName, int size, FontStyle style) {
+		return fontCache.getUnchecked(new FontData(fontName, size, style.toSWT()));
 	}
 
 	@Override
 	public Device getDevice() {
-		return composite.getDisplay();
+		return device;
 	}
 
 	@Override
@@ -47,115 +108,7 @@ public class Resources implements IResources {
 	}
 
 	@Override
-	public GL2 getGL() {
-		return gl;
-	}
-
-	@Override
-	public boolean setColor(IThing thing, IThingKey<RGB> colorKey) {
-		RGB color = thing.get(colorKey);
-		if (color != null) {
-			setColor(color, 1f);
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public void setColor(RGB color, float alpha) {
-		gl.glColor4f(color.red / 255f, color.green / 255f, color.blue / 255f, alpha);
-	}
-
-	@Override
-	public boolean setLineStyle(IHasLineData thing) {
-		Integer width = thing.getLineWidth();
-		Integer style = thing.getLineStyle();
-		if (width != null && style != null) {
-			gl.glLineWidth(width - 0.275f);
-			int pattern = 0xffff;
-			switch (style) {
-			case IHasLineStyle.LINE_STYLE_DASH:
-				pattern = 0x0f0f;
-				break;
-			case IHasLineStyle.LINE_STYLE_DOT:
-				pattern = 0x5555;
-				break;
-			case IHasLineStyle.LINE_STYLE_DASHDOT:
-				pattern = 0x2727;
-				break;
-			case IHasLineStyle.LINE_STYLE_DASHDOTDOT:
-				pattern = 0x111f;
-				break;
-			case IHasLineStyle.LINE_STYLE_SOLID:
-			default:
-				break;
-			}
-			gl.glLineStipple(1, (short) pattern);
-			return true;
-		}
-		return false;
-	}
-
-	Cache<List<Object>, Font> fontCache = CacheBuilder.newBuilder().build(new CacheLoader<List<Object>, Font>() {
-		@Override
-		public Font load(List<Object> key) throws Exception {
-			return new Font((String) key.get(0), (Integer) key.get(1), (Integer) key.get(2));
-		}
-	});
-
-	@Override
-	public Font getFont(IHasFontData thing, int size) {
-		FontStyle fontStyle = thing.getFontStyle();
-		int awtFontStyle = Font.PLAIN;
-		switch (fontStyle) {
-		case BOLD:
-			awtFontStyle = Font.BOLD;
-			break;
-		case ITALIC:
-			awtFontStyle = Font.ITALIC;
-			break;
-		case NORMAL:
-		default:
-			break;
-		}
-		try {
-			return fontCache.get(Lists.<Object> newArrayList(thing.getFontName(), awtFontStyle, size));
-		}
-		catch (ExecutionException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
-	public Font getFont(IHasFontData thing) {
-		return getFont(thing, thing.getFontSize());
-	}
-
-	boolean antialiasText = true;
-	Cache<Font, TextRenderer> textRendererCache = CacheBuilder.newBuilder().build(
-			new CacheLoader<Font, TextRenderer>() {
-				@Override
-				public TextRenderer load(Font key) throws Exception {
-					return new TextRenderer(key, antialiasText, false, null, false);
-				}
-			});
-
-	public void setAntialiasText(boolean antialiasText) {
-		if (this.antialiasText != antialiasText) {
-			textRendererCache.invalidateAll();
-			this.antialiasText = antialiasText;
-		}
-	}
-
-	@Override
-	public TextRenderer getTextRenderer(Font f) {
-		try {
-			return textRendererCache.get(f);
-		}
-		catch (ExecutionException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+	public Image getImage(ImageData imageData) {
+		return imageCache.getUnchecked(imageData);
 	}
 }

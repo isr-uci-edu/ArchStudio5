@@ -1,6 +1,6 @@
 package org.archstudio.bna.facets;
 
-import java.awt.Insets;
+import org.eclipse.draw2d.geometry.Insets;
 
 public interface IHasMutableLocalInsets extends IHasLocalInsets {
 

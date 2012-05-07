@@ -14,8 +14,8 @@ import org.archstudio.bna.facets.IHasMutablePoints;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.IBNAMouseClickListener;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.graphics.Point;
 
 public class SplineBreakLogic extends AbstractThingLogic implements IBNAMouseClickListener {
 

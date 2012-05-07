@@ -9,8 +9,8 @@ import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMinimumSize;
 import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public class BNADistributeUtils {
 	private BNADistributeUtils() {

@@ -1,7 +1,8 @@
 package org.archstudio.archipelago.core.util;
 
-import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
+import org.archstudio.myx.fw.Services;
+import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -10,13 +11,15 @@ import org.eclipse.jface.viewers.TreeViewer;
 
 public abstract class AbstractRemoveContextMenuFiller implements IArchipelagoTreeContextMenuFiller {
 	protected TreeViewer viewer = null;
-	protected ArchipelagoServices AS = null;
+	protected Services AS = null;
 	protected ObjRef xArchRef = null;
+	protected IXArchADT xarch = null;
 
-	public AbstractRemoveContextMenuFiller(TreeViewer viewer, ArchipelagoServices AS, ObjRef xArchRef) {
+	public AbstractRemoveContextMenuFiller(TreeViewer viewer, Services AS, ObjRef xArchRef) {
 		this.viewer = viewer;
 		this.AS = AS;
 		this.xArchRef = xArchRef;
+		this.xarch = AS.get(IXArchADT.class);
 	}
 
 	protected abstract boolean matches(Object node);
@@ -37,11 +40,11 @@ public abstract class AbstractRemoveContextMenuFiller implements IArchipelagoTre
 	}
 
 	protected void remove(ObjRef targetRef) {
-		String tagName = AS.xarch.getContainingFeatureName(targetRef);
+		String tagName = xarch.getContainingFeatureName(targetRef);
 		if (tagName != null) {
-			ObjRef parentRef = AS.xarch.getParent(targetRef);
+			ObjRef parentRef = xarch.getParent(targetRef);
 			if (parentRef != null) {
-				AS.xarch.remove(parentRef, tagName, targetRef);
+				xarch.remove(parentRef, tagName, targetRef);
 			}
 		}
 	}

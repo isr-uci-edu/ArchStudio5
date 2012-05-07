@@ -20,11 +20,11 @@ import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
 public class StructureNewInterfaceLogic extends AbstractThingLogic implements IBNAMenuListener {

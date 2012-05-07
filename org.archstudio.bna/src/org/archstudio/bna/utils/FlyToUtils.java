@@ -5,7 +5,7 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.swtutils.SWTWidgetUtils;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.widgets.Control;
 
 public class FlyToUtils {
@@ -34,7 +34,7 @@ public class FlyToUtils {
 			return;
 		}
 		final double originalScale = cm.getLocalScale();
-		final Point localSize = control.getSize();
+		final Point localSize = BNAUtils.toPoint(control.getSize());
 		final Point localCenter = new Point(localSize.x / 2, localSize.y / 2);
 
 		Thread flyThread = new Thread(FlyToUtils.class.getName()) {

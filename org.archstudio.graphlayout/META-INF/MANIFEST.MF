@@ -9,4 +9,5 @@ Export-Package: org.archstudio.graphlayout,
 Manifest-Version: 1.0
 Require-Bundle: org.archstudio.utils.swt,
  org.archstudio.xarchadt,
- org.eclipse.jface
+ org.eclipse.jface,
+ org.eclipse.draw2d

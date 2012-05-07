@@ -1,12 +1,11 @@
 package org.archstudio.bna.things.glass;
 
-import java.awt.Dimension;
-
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasRotatingOffset;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractBoundedAnchorPointThing;
+import org.eclipse.draw2d.geometry.Dimension;
 
 public class EndpointGlassThing extends AbstractBoundedAnchorPointThing implements IHasMutableSelected,
 		IHasMutableRotatingOffset {

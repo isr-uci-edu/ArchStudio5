@@ -1,16 +1,16 @@
 package org.archstudio.archipelago.core.structure;
 
-import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.filemanager.IFileManagerListener;
+import org.archstudio.myx.fw.Services;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 public class StructureFileManagerListener implements IFileManagerListener {
-	protected ArchipelagoServices AS = null;
+	protected Services AS = null;
 	protected ObjRef documentRootRef = null;
 
-	public StructureFileManagerListener(ArchipelagoServices services, ObjRef documentRootRef) {
-		this.AS = services;
+	public StructureFileManagerListener(Services AS, ObjRef documentRootRef) {
+		this.AS = AS;
 		this.documentRootRef = documentRootRef;
 	}
 

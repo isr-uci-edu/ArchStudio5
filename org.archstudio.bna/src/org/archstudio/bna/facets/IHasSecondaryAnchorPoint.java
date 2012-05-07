@@ -1,7 +1,7 @@
 package org.archstudio.bna.facets;
 
 import org.archstudio.bna.keys.ThingKey;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
 
 public interface IHasSecondaryAnchorPoint extends IHasAnchorPoint {
 

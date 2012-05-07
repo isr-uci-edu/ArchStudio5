@@ -8,8 +8,8 @@ import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.logics.events.DragMoveEventsLogic;
 import org.archstudio.bna.logics.events.IDragMoveListener;
 import org.archstudio.bna.utils.GridUtils;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
 
 public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveListener {
 

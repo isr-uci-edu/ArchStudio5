@@ -3,13 +3,13 @@ package org.archstudio.bna.things.swt;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.swtutils.SWTWidgetUtils;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Text;
 
 public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThingPeer<T, Text> {

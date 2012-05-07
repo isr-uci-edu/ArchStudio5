@@ -7,6 +7,7 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.IIsSticky;
@@ -15,7 +16,8 @@ import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.things.glass.SplineGlassThingPeer;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.bna.logics.mapping.MappingSplineGlassThingLogic;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Point;
 
 public class MappingSplineGlassThingPeer<T extends MappingSplineGlassThing> extends SplineGlassThingPeer<T> {
 
@@ -24,9 +26,7 @@ public class MappingSplineGlassThingPeer<T extends MappingSplineGlassThing> exte
 	}
 
 	@Override
-	public void updateCache(IBNAView view, ICoordinateMapper cm) {
-		super.updateCache(view, cm);
-
+	public void draw(IBNAView view, ICoordinateMapper cm, IResources r, Graphics g) {
 		if (t.isNeedsUpdate()) {
 			IBNAWorld outerWorld = view.getBNAWorld();
 			IBNAModel outerModel = outerWorld.getBNAModel();
@@ -60,6 +60,8 @@ public class MappingSplineGlassThingPeer<T extends MappingSplineGlassThing> exte
 			}
 			t.setNeedsUpdate(false);
 		}
+
+		super.draw(view, cm, r, g);
 	}
 
 	@Override

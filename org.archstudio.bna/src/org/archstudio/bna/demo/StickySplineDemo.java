@@ -19,14 +19,13 @@ import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.ThingKey;
-import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
-import org.archstudio.bna.things.glass.EllipseGlassThing;
+import org.archstudio.bna.things.ShadowThing;
 import org.archstudio.bna.things.glass.PolygonGlassThing;
 import org.archstudio.bna.things.glass.SplineGlassThing;
 import org.archstudio.bna.things.labels.AnchoredLabelThing;
@@ -35,9 +34,9 @@ import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -65,7 +64,7 @@ public class StickySplineDemo {
 		shell.setSize(400, 400);
 		shell.open();
 
-		// model.addThing(new ShadowThing(null));
+		model.addThing(new ShadowThing(null));
 
 		populateModel(canvas.getBNAView());
 		addLogics(canvas.getBNAView());
@@ -82,7 +81,7 @@ public class StickySplineDemo {
 	private static void addLogics(IBNAView view) {
 		IThingLogicManager tlm = view.getBNAWorld().getThingLogicManager();
 
-		tlm.addThingLogic(RotatingOffsetLogic.class);
+		//tlm.addThingLogic(RotatingOffsetLogic.class);
 		tlm.addThingLogic(MousePanAndZoomLogic.class);
 		tlm.addThingLogic(MarqueeSelectionLogic.class);
 		tlm.addThingLogic(ClickSelectionLogic.class);
@@ -113,6 +112,7 @@ public class StickySplineDemo {
 			List<Point> points = Lists.newArrayList();
 			points.add(new Point(-50, -50));
 			points.add(new Point(-50, 50));
+			points.add(new Point(50, 50));
 			for (int i = 0; i < 5; i++) {
 				points.add(new Point(r.nextInt(100) - 50, r.nextInt(100) - 50));
 			}
@@ -132,6 +132,7 @@ public class StickySplineDemo {
 			AnchoredLabelThing label = model.addThing(new AnchoredLabelThing(null));
 			label.setText(stickyMode.name());
 			mvl.mirrorValue(p, IHasAnchorPoint.ANCHOR_POINT_KEY, label);
+
 			shapeThings.add(p);
 		}
 
@@ -145,16 +146,8 @@ public class StickySplineDemo {
 				StickyMode tsm = tt.get(shapeStickyMode);
 
 				SplineGlassThing s = Assemblies.createSpline(world, null, null);
-
 				spl.stick(s, IHasEndpoints.ENDPOINT_1_KEY, fsm, ft);
-				EllipseGlassThing e0 = Assemblies.createEllipse(world, null, ft);
-				e0.setBoundingBox(new Rectangle(0, 0, 7, 7));
-				mvl.mirrorValue(s, IHasEndpoints.ENDPOINT_1_KEY, e0);
-
 				spl.stick(s, IHasEndpoints.ENDPOINT_2_KEY, tsm, tt);
-				EllipseGlassThing e1 = Assemblies.createEllipse(world, null, tt);
-				e1.setBoundingBox(new Rectangle(0, 0, 7, 7));
-				mvl.mirrorValue(s, IHasEndpoints.ENDPOINT_2_KEY, e1);
 
 				//StickRelativeMovablesLogic.stickPoint(fa.getPart("glass"), IHasEndpoints.ENDPOINT_1_KEY,
 				//		fromStickyMode, s.getSplineGlassThing());

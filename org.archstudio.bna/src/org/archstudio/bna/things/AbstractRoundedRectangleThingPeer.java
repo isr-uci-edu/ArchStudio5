@@ -1,13 +1,13 @@
 package org.archstudio.bna.things;
 
-import java.awt.Dimension;
 import java.awt.geom.RoundRectangle2D;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.things.shapes.RectangleThing;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public abstract class AbstractRoundedRectangleThingPeer<T extends RectangleThing> extends AbstractRectangleThingPeer<T> {
 

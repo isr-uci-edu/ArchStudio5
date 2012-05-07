@@ -21,7 +21,7 @@ import org.archstudio.xadl.bna.logics.mapping.SynchronizeThingIDAndObjRefLogic;
 import org.archstudio.xadl.bna.things.IHasXArchID;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
 
 public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> {
 

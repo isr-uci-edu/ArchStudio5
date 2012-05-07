@@ -1,11 +1,10 @@
 package org.archstudio.bna.logics.coordinating;
 
-import java.awt.Insets;
-
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import com.google.common.base.Function;
 

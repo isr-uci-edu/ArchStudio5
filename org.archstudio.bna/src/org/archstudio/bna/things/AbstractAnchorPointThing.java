@@ -3,7 +3,8 @@ package org.archstudio.bna.things;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.facets.IIsSticky;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.PrecisionPoint;
 
 public abstract class AbstractAnchorPointThing extends AbstractRelativeMovableReferencePointThing implements
 		IHasMutableAnchorPoint, IIsSticky {
@@ -48,7 +49,7 @@ public abstract class AbstractAnchorPointThing extends AbstractRelativeMovableRe
 	}
 
 	@Override
-	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
-		return getAnchorPoint();
+	public PrecisionPoint getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
+		return new PrecisionPoint(getAnchorPoint());
 	}
 }

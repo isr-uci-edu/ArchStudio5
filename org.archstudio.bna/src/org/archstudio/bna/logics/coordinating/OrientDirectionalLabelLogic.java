@@ -18,8 +18,8 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.labels.DirectionalLabelThing;
 import org.archstudio.swtutils.constants.Orientation;
 import org.archstudio.sysutils.SystemUtils;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;

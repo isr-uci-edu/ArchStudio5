@@ -71,11 +71,6 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 							populateMenuWithMyxGenBricks(objRef, manager);
 						}
 					});
-					myxGenMenu.add(new Action("[TBD]") {
-						@Override
-						public void run() {
-						}
-					});
 					menu.add(myxGenMenu);
 				}
 			}

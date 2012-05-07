@@ -1,8 +1,8 @@
 package org.archstudio.archipelago.core.structure;
 
 import org.archstudio.archipelago.core.AbstractArchipelagoTreePlugin;
-import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
+import org.archstudio.myx.fw.Services;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
@@ -12,7 +12,7 @@ import org.eclipse.swt.graphics.FontData;
 
 public class StructureTreePlugin extends AbstractArchipelagoTreePlugin {
 
-	public StructureTreePlugin(TreeViewer viewer, ArchipelagoServices AS, ObjRef documentRootRef) {
+	public StructureTreePlugin(TreeViewer viewer, Services AS, ObjRef documentRootRef) {
 		this.contentProvider = new StructureTreeContentProvider(AS, documentRootRef);
 		this.labelProvider = new StructureTreeLabelProvider(AS);
 		this.doubleClickHandler = new StructureDoubleClickHandler(AS);
@@ -28,7 +28,7 @@ public class StructureTreePlugin extends AbstractArchipelagoTreePlugin {
 
 		this.dragSourceListener = new StructureTreeDragSourceListener(AS, documentRootRef);
 
-		initDefaultPreferences(viewer, AS.prefs);
+		initDefaultPreferences(viewer, AS.get(IPreferenceStore.class));
 	}
 
 	protected void initDefaultPreferences(TreeViewer viewer, IPreferenceStore prefs) {

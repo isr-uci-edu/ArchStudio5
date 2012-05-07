@@ -1,10 +1,9 @@
 package org.archstudio.bna.things;
 
-import java.awt.Dimension;
-
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableRoundedCorners;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public abstract class AbstractRoundedRectangleThing extends AbstractRectangleThing implements IHasMutableRoundedCorners {
 

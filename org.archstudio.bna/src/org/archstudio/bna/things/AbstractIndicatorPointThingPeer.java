@@ -5,8 +5,9 @@ import java.awt.geom.Line2D;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
+import org.archstudio.bna.IResources;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public abstract class AbstractIndicatorPointThingPeer<T extends AbstractIndicatorPointThing> extends
 		AbstractAnchorPointThingPeer<T> {
@@ -24,7 +25,7 @@ public abstract class AbstractIndicatorPointThingPeer<T extends AbstractIndicato
 	}
 
 	@Override
-	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm) {
+	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r) {
 		Point lap = cm.worldToLocal(t.getAnchorPoint());
 		Point lip = cm.worldToLocal(t.getIndicatorPoint());
 		int x1 = Math.min(lap.x, lip.x);

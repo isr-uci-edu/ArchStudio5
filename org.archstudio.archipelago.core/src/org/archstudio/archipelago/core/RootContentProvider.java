@@ -3,23 +3,27 @@ package org.archstudio.archipelago.core;
 import java.util.Collections;
 import java.util.List;
 
+import org.archstudio.myx.fw.Services;
+import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.IWorkbenchSite;
 
 public class RootContentProvider implements IArchipelagoTreeContentProvider {
 
-	protected ArchipelagoServices AS = null;
+	protected Services AS = null;
 	protected ObjRef documentRootRef = null;
+	protected final IXArchADT xarch;
 
-	public RootContentProvider(ArchipelagoServices services, ObjRef documentRootRef) {
-		this.AS = services;
+	public RootContentProvider(Services AS, ObjRef documentRootRef) {
+		this.AS = AS;
 		this.documentRootRef = documentRootRef;
+		this.xarch = AS.get(IXArchADT.class);
 	}
 
 	public List<? extends Object> getChildren(Object parentElement, List<? extends Object> childrenFromPreviousProvider) {
 		if (parentElement instanceof IWorkbenchSite) {
-			ObjRef xADLRef = (ObjRef) AS.xarch.get(documentRootRef, "xADL");
+			ObjRef xADLRef = (ObjRef) xarch.get(documentRootRef, "xADL");
 			if (xADLRef != null) {
 				return Collections.singletonList(xADLRef);
 			}

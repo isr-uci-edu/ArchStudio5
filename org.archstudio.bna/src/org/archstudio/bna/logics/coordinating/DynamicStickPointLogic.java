@@ -16,7 +16,7 @@ import org.archstudio.bna.keys.ThingKeyKey;
 import org.archstudio.bna.keys.ThingRefKeyKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingReferenceTrackingLogic;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
 
 public class DynamicStickPointLogic extends AbstractThingLogic implements IBNAModelListener {
 

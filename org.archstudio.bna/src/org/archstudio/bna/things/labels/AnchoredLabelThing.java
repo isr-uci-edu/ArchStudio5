@@ -1,11 +1,13 @@
 package org.archstudio.bna.things.labels;
 
 import org.archstudio.bna.constants.IFontConstants;
+import org.archstudio.bna.facets.IHasAngle;
+import org.archstudio.bna.facets.IHasIndicatorPoint;
 import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableFontData;
 import org.archstudio.bna.facets.IHasMutableHorizontalAlignment;
-import org.archstudio.bna.facets.IHasMutableOffset;
+import org.archstudio.bna.facets.IHasMutableIndicatorPoint;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasMutableVerticalAlignment;
 import org.archstudio.bna.facets.IRelativeMovable;
@@ -13,11 +15,12 @@ import org.archstudio.bna.things.AbstractAnchorPointThing;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.graphics.RGB;
 
 public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHasMutableText, IHasMutableColor,
 		IHasMutableHorizontalAlignment, IHasMutableVerticalAlignment, IHasMutableFontData, IRelativeMovable,
-		IHasMutableAngle, IHasMutableOffset {
+		IHasMutableAngle, IHasMutableIndicatorPoint {
 
 	public AnchoredLabelThing(Object id) {
 		super(id);
@@ -33,7 +36,6 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 		setHorizontalAlignment(HorizontalAlignment.CENTER);
 		setVerticalAlignment(VerticalAlignment.MIDDLE);
 		setAngle(0);
-		setOffset(0);
 		super.initProperties();
 	}
 
@@ -119,21 +121,21 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 
 	@Override
 	public int getAngle() {
-		return get(ANGLE_KEY);
+		return get(IHasAngle.ANGLE_KEY);
 	}
 
 	@Override
-	public void setAngle(int degrees) {
-		set(ANGLE_KEY, degrees);
+	public void setAngle(int angle) {
+		set(IHasAngle.ANGLE_KEY, angle);
 	}
 
 	@Override
-	public int getOffset() {
-		return get(OFFSET_KEY);
+	public Point getIndicatorPoint() {
+		return get(IHasIndicatorPoint.INDICATOR_POINT_KEY);
 	}
-
+	
 	@Override
-	public void setOffset(int offset) {
-		set(OFFSET_KEY, offset);
+	public void setIndicatorPoint(Point indicatorPoint) {
+		set(IHasIndicatorPoint.INDICATOR_POINT_KEY, indicatorPoint);
 	}
 }

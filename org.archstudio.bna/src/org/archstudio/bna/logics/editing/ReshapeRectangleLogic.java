@@ -6,9 +6,9 @@ import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.swtutils.constants.Orientation;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 
 public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBoundingBox, Orientation> {
 

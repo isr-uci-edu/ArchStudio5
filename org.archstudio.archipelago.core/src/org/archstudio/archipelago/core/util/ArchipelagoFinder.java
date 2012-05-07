@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
@@ -19,22 +18,26 @@ import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.FlyToUtils;
 import org.archstudio.resources.ArchStudioCommonResources;
+import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.DefaultFindResult;
 import org.archstudio.swtutils.IFindResult;
 import org.archstudio.swtutils.IFinder;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.things.IHasObjRef;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
+import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Point;
 
 public class ArchipelagoFinder implements IFinder<IBNAView> {
 
-	protected ArchipelagoServices AS = null;
-
-	public ArchipelagoFinder(ArchipelagoServices AS) {
-		this.AS = AS;
+	protected IXArchADT xarch;
+	protected IResources resources;
+	
+	public ArchipelagoFinder(IXArchADT xarch, IResources resources) {
+		this.xarch = xarch;
+		this.resources = resources;
 	}
 
 	@Override
@@ -63,45 +66,45 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 			IThing assembly = Assemblies.isAssembly(t) ? t : null;
 			ObjRef objRef = assembly != null ? assembly.get(IHasObjRef.OBJREF_KEY) : null;
 			if (assembly != null && objRef != null
-					&& XadlUtils.isInstanceOf(AS.xarch, objRef, Structure_3_0Package.Literals.COMPONENT)) {
+					&& XadlUtils.isInstanceOf(xarch, objRef, Structure_3_0Package.Literals.COMPONENT)) {
 				String text = Assemblies.TEXT_KEY.get(assembly, m).getText();
 				if (matches(search, text)) {
 					r = createFindResult(context, assembly, prefix, text,
-							AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_COMPONENT));
+							resources.getImageDescriptor(ArchStudioCommonResources.ICON_COMPONENT));
 				}
 				find(context, assembly, search, text, resultList);
 			}
 			if (assembly != null && objRef != null
-					&& XadlUtils.isInstanceOf(AS.xarch, objRef, Structure_3_0Package.Literals.CONNECTOR)) {
+					&& XadlUtils.isInstanceOf(xarch, objRef, Structure_3_0Package.Literals.CONNECTOR)) {
 				String text = Assemblies.TEXT_KEY.get(assembly, m).getText();
 				if (matches(search, text)) {
 					r = createFindResult(context, assembly, prefix, text,
-							AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_CONNECTOR));
+							resources.getImageDescriptor(ArchStudioCommonResources.ICON_CONNECTOR));
 				}
 				find(context, assembly, search, text, resultList);
 			}
 			if (assembly != null && objRef != null
-					&& XadlUtils.isInstanceOf(AS.xarch, objRef, Structure_3_0Package.Literals.INTERFACE)) {
+					&& XadlUtils.isInstanceOf(xarch, objRef, Structure_3_0Package.Literals.INTERFACE)) {
 				String text = ToolTipLogic.getToolTip(assembly);
 				if (matches(search, text)) {
 					r = createFindResult(context, assembly, prefix, text,
-							AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_INTERFACE));
+							resources.getImageDescriptor(ArchStudioCommonResources.ICON_INTERFACE));
 				}
 			}
 			if (assembly != null && objRef != null
-					&& XadlUtils.isInstanceOf(AS.xarch, objRef, Structure_3_0Package.Literals.LINK)) {
+					&& XadlUtils.isInstanceOf(xarch, objRef, Structure_3_0Package.Literals.LINK)) {
 				String text = ToolTipLogic.getToolTip(assembly);
 				if (matches(search, text)) {
 					r = createFindResult(context, assembly, prefix, text,
-							AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_LINK));
+							resources.getImageDescriptor(ArchStudioCommonResources.ICON_LINK));
 				}
 			}
 			if (assembly != null && objRef != null
-					&& XadlUtils.isInstanceOf(AS.xarch, objRef, Structure_3_0Package.Literals.INTERFACE_MAPPING)) {
+					&& XadlUtils.isInstanceOf(xarch, objRef, Structure_3_0Package.Literals.INTERFACE_MAPPING)) {
 				String text = ToolTipLogic.getToolTip(assembly);
 				if (matches(search, text)) {
 					r = createFindResult(context, assembly, prefix, text,
-							AS.resources.getImageDescriptor(ArchStudioCommonResources.ICON_LINK));
+							resources.getImageDescriptor(ArchStudioCommonResources.ICON_LINK));
 				}
 			}
 			if (r != null) {

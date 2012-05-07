@@ -1,8 +1,7 @@
 package org.archstudio.bna;
 
-import javax.media.opengl.GL2;
-
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public interface IThingPeer<T extends IThing> {
 
@@ -16,17 +15,15 @@ public interface IThingPeer<T extends IThing> {
 	 *            The {@link IBNAView} that sets the context for making the
 	 *            determination.
 	 * @param location
-	 *            TODO
+	 *            The {@link ICoordinate location} of the point.
 	 * @return <code>true</code> if the point is "in" the {@link IThing},
 	 *         <code>false</code> otherwise.
 	 */
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location);
 
-	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm);
+	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r);
 
-	public void updateCache(IBNAView view, ICoordinateMapper cm);
+	public void draw(IBNAView view, ICoordinateMapper cm, IResources r, Graphics g);
 
 	public void dispose();
-
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r);
 }

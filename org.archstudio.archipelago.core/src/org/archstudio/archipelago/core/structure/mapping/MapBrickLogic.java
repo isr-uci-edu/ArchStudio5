@@ -5,7 +5,6 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import java.awt.Dimension;
 import java.util.List;
 
-import org.archstudio.archipelago.core.ArchipelagoServices;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.structure.StructureEditorSupport;
 import org.archstudio.bna.IBNAWorld;
@@ -26,6 +25,7 @@ import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.archstudio.myx.fw.Services;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.xadl.bna.logics.mapping.AbstractXADLToBNAPathLogic;
 import org.archstudio.xadl.bna.things.IHasObjRef;
@@ -34,25 +34,25 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.archstudio.xarchadt.XArchADTPath;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.graphics.Rectangle;
 
 /**
  * Maps xADL Bricks (i.e., Components or Connectors) to BNA Rectangle
  * Assemblies.
  */
 public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThing> {
-	protected final ArchipelagoServices AS;
+	protected final Services services;
 	protected final Dimension defaultSize;
 	protected final RGB defaultColor;
 	protected final int defaultCount;
 	protected final FontStyle defaultFontStyle;
 
-	public MapBrickLogic(ArchipelagoServices AS, IXArchADT xarch, ObjRef rootObjRef, String objRefPath,
+	public MapBrickLogic(Services services, IXArchADT xarch, ObjRef rootObjRef, String objRefPath,
 			Dimension defaultSize, RGB defaultColor, int defaultCount, FontStyle defaultFontStyle) {
 		super(xarch, rootObjRef, objRefPath);
-		this.AS = AS;
+		this.services = services;
 		this.defaultSize = defaultSize;
 		this.defaultColor = defaultColor;
 		this.defaultCount = defaultCount;
@@ -116,8 +116,8 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 				worldThing.set(IHasObjRef.OBJREF_KEY, null);
 			}
 			else {
-				ObjRef documentRootRef = AS.xarch.getDocumentRootRef(objRef);
-				IBNAWorld internalWorld = StructureEditorSupport.setupWorld(AS, documentRootRef, innerStructureRef);
+				ObjRef documentRootRef = xarch.getDocumentRootRef(objRef);
+				IBNAWorld internalWorld = StructureEditorSupport.setupWorld(services, xarch, documentRootRef, innerStructureRef);
 				if (internalWorld != null) {
 					worldThing.setWorld(internalWorld);
 					worldThing.set(IHasObjRef.OBJREF_KEY, subStructureRef);

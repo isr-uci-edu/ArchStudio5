@@ -1,7 +1,5 @@
 package org.archstudio.bna.things.utility;
 
-import javax.media.opengl.GL2;
-
 import org.archstudio.bna.CoordinateMapperEvent;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
@@ -20,8 +18,9 @@ import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAView;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThingPeer<T> implements IThingPeer<T>,
 		IHasInnerViewPeer, ICoordinateMapperListener {
@@ -44,8 +43,21 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 	private Rectangle lastLocalBounds = new Rectangle(0, 0, 0, 0);
 
 	@Override
-	public void updateCache(IBNAView view, ICoordinateMapper cm) {
-		super.updateCache(view, cm);
+	public void coordinateMappingsChanged(CoordinateMapperEvent evt) {
+		t.synchronizedUpdate(new Runnable() {
+			@Override
+			public void run() {
+				Integer ticker = t.get(COORDINATE_MAPPER_CHANGE_TICKER);
+				if (ticker == null) {
+					ticker = Integer.valueOf(0);
+				}
+				t.set(COORDINATE_MAPPER_CHANGE_TICKER, ticker + 1);
+			}
+		});
+	}
+
+	@Override
+	public void draw(IBNAView view, ICoordinateMapper cm, IResources r, Graphics g) {
 
 		IBNAWorld innerWorld = t.getWorld();
 		if (innerWorld == null) {
@@ -98,34 +110,14 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 						modelBounds.y));
 			}
 		}
-	}
 
-	@Override
-	public void coordinateMappingsChanged(CoordinateMapperEvent evt) {
-		t.synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				Integer ticker = t.get(COORDINATE_MAPPER_CHANGE_TICKER);
-				if (ticker == null) {
-					ticker = Integer.valueOf(0);
-				}
-				t.set(COORDINATE_MAPPER_CHANGE_TICKER, ticker + 1);
-			}
-		});
-	}
-
-	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
-		IBNAWorld innerWorld = t.getWorld();
-		if (innerWorld == null) {
-			return;
-		}
-
+		
+		
 		for (IThing thing : innerWorld.getBNAModel().getAllThings()) {
 			IThingPeer<?> peer = innerView.getThingPeer(thing);
-			if (clip.intersects(peer.getLocalBounds(innerView, innerView.getCoordinateMapper()))) {
-				peer.draw(innerView, innerView.getCoordinateMapper(), gl, clip, r);
-			}
+			//if (clip.intersects(peer.getLocalBounds(innerView, innerView.getCoordinateMapper()))) {
+				peer.draw(innerView, innerView.getCoordinateMapper(), r, g);
+			//}
 		}
 	}
 

@@ -1,8 +1,11 @@
 package org.archstudio.bna;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import org.archstudio.bna.utils.BNAUtils;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.PrecisionPoint;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public class LinearCoordinateMapper extends CoordinateMapperAdapter implements IMutableCoordinateMapper,
 		IScrollableCoordinateMapper {
@@ -21,6 +24,13 @@ public class LinearCoordinateMapper extends CoordinateMapperAdapter implements I
 
 	@Override
 	public Point worldToLocal(Point worldPoint) {
+		checkNotNull(worldPoint);
+		
+		if(worldPoint instanceof PrecisionPoint){
+			return new PrecisionPoint(
+					worldPoint.preciseX() * localScale - localOrigin.x, //
+					worldPoint.preciseY() * localScale - localOrigin.y);
+		}
 		return new Point(//
 				BNAUtils.round(worldPoint.x * localScale - localOrigin.x), //
 				BNAUtils.round(worldPoint.y * localScale - localOrigin.y));

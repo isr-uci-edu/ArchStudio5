@@ -15,9 +15,9 @@ import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMouseListener;
 import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Iterables;
 
