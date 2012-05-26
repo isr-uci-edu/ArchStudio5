@@ -15,7 +15,7 @@
          point="org.eclipse.ui.views">
       <category
             id="org.archstudio.main.ArchStudio5Views"
-            name="ArchStudio 5">
+            name="ArchStudio">
       </category>
    </extension>
 

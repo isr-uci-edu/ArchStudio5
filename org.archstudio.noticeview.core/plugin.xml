@@ -43,6 +43,7 @@
          point="org.eclipse.ui.views">
       <view
             allowMultiple="false"
+            category="org.archstudio.main.ArchStudio5Views"
             class="org.archstudio.noticeview.core.ArchlightNoticeView"
             icon="res/archstudio-icon-16x16.png"
             id="org.archstudio.noticeview.core.ArchlightNoticeView"
