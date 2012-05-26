@@ -8,7 +8,6 @@ import org.archstudio.bna.things.AbstractPolygonThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.SWTGraphics;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 
 public class PolygonGlassThingPeer<T extends PolygonGlassThing> extends AbstractPolygonThingPeer<T> implements

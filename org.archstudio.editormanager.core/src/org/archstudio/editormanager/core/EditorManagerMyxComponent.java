@@ -15,8 +15,7 @@ import org.eclipse.swt.graphics.Image;
  * @see org.archstudio.editormanager.core.EditorManagerMyxComponentStub
  * @generated
  */
-public class EditorManagerMyxComponent extends
-		org.archstudio.editormanager.core.EditorManagerMyxComponentStub {
+public class EditorManagerMyxComponent extends org.archstudio.editormanager.core.EditorManagerMyxComponentStub {
 	public EditorManagerMyxComponent() {
 	}
 
@@ -45,8 +44,7 @@ public class EditorManagerMyxComponent extends
 
 		@Override
 		public String getDefaultEditor() {
-			String defaultEditor = preferences
-					.getString(EditorConstants.PREF_DEFAULT_EDITOR);
+			String defaultEditor = preferences.getString(EditorConstants.PREF_DEFAULT_EDITOR);
 			if (defaultEditor == null) {
 				return null;
 			}
@@ -77,8 +75,7 @@ public class EditorManagerMyxComponent extends
 
 		@Override
 		public String[] getEditors() {
-			return registeredEditors.keySet().toArray(
-					new String[registeredEditors.keySet().size()]);
+			return registeredEditors.keySet().toArray(new String[registeredEditors.keySet().size()]);
 		}
 
 		@Override

@@ -13,8 +13,7 @@ import org.eclipse.swt.graphics.Image;
  * @see org.archstudio.archlight.core.ArchlightMyxComponentStub
  * @generated
  */
-public class ArchlightMyxComponent extends
-		org.archstudio.archlight.core.ArchlightMyxComponentStub {
+public class ArchlightMyxComponent extends org.archstudio.archlight.core.ArchlightMyxComponentStub {
 
 	public static final String EDITOR_NAME = "Archlight";
 	public static final String ECLIPSE_EDITOR_ID = "org.archstudio.archlight.core.ArchlightEditor";
@@ -30,12 +29,10 @@ public class ArchlightMyxComponent extends
 	private synchronized void createResources() {
 		if (!resourcesCreated) {
 			try {
-				resources
-						.createImage(
-								IMAGE_ARCHLIGHT_ICON,
-								SystemUtils.blt(ArchlightMyxComponent.class
-										.getResourceAsStream("res/archlight-icon-32.gif")));
-			} catch (IOException ioe) {
+				resources.createImage(IMAGE_ARCHLIGHT_ICON,
+						SystemUtils.blt(ArchlightMyxComponent.class.getResourceAsStream("res/archlight-icon-32.gif")));
+			}
+			catch (IOException ioe) {
 				ioe.printStackTrace();
 				throw new RuntimeException("This shouldn't happen.");
 			}
@@ -50,8 +47,7 @@ public class ArchlightMyxComponent extends
 
 	@Override
 	public ILaunchData getLaunchData() {
-		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME,
-				"An Architecture Analysis Framework", getIcon(),
+		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME, "An Architecture Analysis Framework", getIcon(),
 				ILaunchData.LaunchType.EDITOR);
 	}
 }

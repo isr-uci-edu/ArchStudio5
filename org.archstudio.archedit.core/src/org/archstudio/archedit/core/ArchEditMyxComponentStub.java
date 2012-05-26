@@ -16,14 +16,11 @@ import org.archstudio.myx.fw.IMyxName;
  * @generated
  */
 @SuppressWarnings("unused")
-abstract class ArchEditMyxComponentStub extends
-		org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent
-		implements org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+abstract class ArchEditMyxComponentStub extends org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent
+		implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
-	public ArchEditMyxComponentStub(String editorName, String eclipseEditorID,
-			boolean registerWithEditorManager) {
+	public ArchEditMyxComponentStub(String editorName, String eclipseEditorID, boolean registerWithEditorManager) {
 		super(editorName, eclipseEditorID, registerWithEditorManager);
 	}
 
@@ -42,8 +39,7 @@ abstract class ArchEditMyxComponentStub extends
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -54,8 +50,7 @@ abstract class ArchEditMyxComponentStub extends
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 		super.interfaceDisconnected(interfaceName, serviceObject);
 	}
 
