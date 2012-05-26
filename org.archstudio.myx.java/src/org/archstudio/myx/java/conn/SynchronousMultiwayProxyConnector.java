@@ -19,8 +19,8 @@ import com.google.common.collect.Sets;
  * @see org.archstudio.myx.java.conn.SynchronousMultiwayProxyConnectorStub
  */
 public class SynchronousMultiwayProxyConnector extends
-		org.archstudio.myx.java.conn.SynchronousMultiwayProxyConnectorStub
-		implements InvocationHandler, IMultiwayResults {
+		org.archstudio.myx.java.conn.SynchronousMultiwayProxyConnectorStub implements InvocationHandler,
+		IMultiwayResults {
 
 	protected Object[] returnValues = new Object[0];
 	protected Throwable[] exceptions = new Throwable[0];
@@ -42,7 +42,8 @@ public class SynchronousMultiwayProxyConnector extends
 			asyncExecutor.shutdown();
 			try {
 				asyncExecutor.awaitTermination(5L, TimeUnit.SECONDS);
-			} catch (InterruptedException ie) {
+			}
+			catch (InterruptedException ie) {
 			}
 		}
 	}
@@ -57,18 +58,15 @@ public class SynchronousMultiwayProxyConnector extends
 			ClassLoader outClassLoader = out1Class.getClassLoader();
 			Set<Class<?>> outInterfaceClasses = Sets.newHashSet();
 			while (out1Class != null) {
-				outInterfaceClasses.addAll(Arrays.asList(out1Class
-						.getInterfaces()));
+				outInterfaceClasses.addAll(Arrays.asList(out1Class.getInterfaces()));
 				out1Class = out1Class.getSuperclass();
 			}
-			in = Proxy.newProxyInstance(outClassLoader,
-					outInterfaceClasses.toArray(new Class<?>[0]), this);
+			in = Proxy.newProxyInstance(outClassLoader, outInterfaceClasses.toArray(new Class<?>[0]), this);
 		}
 	}
 
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (OUT_OUT.equals(interfaceName)) {
 			in = null;
 		}
@@ -86,8 +84,7 @@ public class SynchronousMultiwayProxyConnector extends
 		return exceptions;
 	}
 
-	protected void reportCallProgress(int callee, int numCallees,
-			Object returnValue, Throwable exception) {
+	protected void reportCallProgress(int callee, int numCallees, Object returnValue, Throwable exception) {
 		if (progress.size() == 0) {
 			return;
 		}
@@ -95,22 +92,19 @@ public class SynchronousMultiwayProxyConnector extends
 		final int fnumCallees = numCallees;
 		final Object freturnValue = returnValue;
 		final Throwable fexception = exception;
-		final IMultiwayProgressListener[] pls = progress
-				.toArray(new IMultiwayProgressListener[progress.size()]);
+		final IMultiwayProgressListener[] pls = progress.toArray(new IMultiwayProgressListener[progress.size()]);
 		asyncExecutor.execute(new Runnable() {
 			@Override
 			public void run() {
 				for (IMultiwayProgressListener pl : pls) {
-					pl.callProgress(fcallee, fnumCallees, freturnValue,
-							fexception);
+					pl.callProgress(fcallee, fnumCallees, freturnValue, fexception);
 				}
 			}
 		});
 	}
 
 	@Override
-	public Object invoke(Object proxy, Method method, Object[] args)
-			throws Throwable {
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		if (in == null) {
 			throw new RuntimeException("Disconnected proxy.");
 		}
@@ -123,7 +117,8 @@ public class SynchronousMultiwayProxyConnector extends
 				try {
 					rvs[i] = method.invoke(trueServiceObject, args);
 					reportCallProgress(i + 1, out.size(), rvs[i], null);
-				} catch (Throwable t) {
+				}
+				catch (Throwable t) {
 					exs[i] = t;
 					reportCallProgress(i + 1, out.size(), null, exs[i]);
 				}

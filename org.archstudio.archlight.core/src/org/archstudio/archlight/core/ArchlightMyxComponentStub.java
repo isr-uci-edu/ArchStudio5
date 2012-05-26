@@ -20,13 +20,11 @@ import org.archstudio.myx.fw.MyxUtils;
  */
 @SuppressWarnings("unused")
 /* package */abstract class ArchlightMyxComponentStub extends
-		org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent
-		implements org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+		org.archstudio.eclipse.ui.editors.AbstractArchStudioEditorMyxComponent implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
-	public ArchlightMyxComponentStub(String editorName, String eclipseEditorID,
-			boolean registerWithEditorManager) {
+	public ArchlightMyxComponentStub(String editorName, String eclipseEditorID, boolean registerWithEditorManager) {
 		super(editorName, eclipseEditorID, registerWithEditorManager);
 	}
 
@@ -98,18 +96,14 @@ import org.archstudio.myx.fw.MyxUtils;
 		}
 		if (interfaceName.equals(OUT_TOOLS)) {
 			if (tools != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			tools = (org.archstudio.archlight.IArchlightTool) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_TESTS)) {
 			if (tests != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			tests = (org.archstudio.testadt.IArchlightTestADT) serviceObject;
 			return;
@@ -121,8 +115,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -141,8 +134,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 		super.interfaceDisconnected(interfaceName, serviceObject);
 	}
 

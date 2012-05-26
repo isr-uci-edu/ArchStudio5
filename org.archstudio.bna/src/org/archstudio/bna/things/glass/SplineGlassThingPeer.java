@@ -8,7 +8,6 @@ import org.archstudio.bna.things.AbstractSplineThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.SWTGraphics;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 
 public class SplineGlassThingPeer<T extends SplineGlassThing> extends AbstractSplineThingPeer<T> implements

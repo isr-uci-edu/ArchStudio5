@@ -20,10 +20,8 @@ import org.archstudio.myx.fw.MyxUtils;
  * @generated
  */
 @SuppressWarnings("unused")
-abstract class BootstrapMyxComponentStub extends
-		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick,
-		org.archstudio.myx.fw.IMyxLifecycleProcessor,
+abstract class BootstrapMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
@@ -105,32 +103,26 @@ abstract class BootstrapMyxComponentStub extends
 		}
 		if (interfaceName.equals(OUT_XARCH)) {
 			if (xarch != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			xarch = (org.archstudio.xarchadt.IXArchADT) serviceObject;
 			return;
 		}
 		if (interfaceName.equals(OUT_AIM)) {
 			if (aim != null) {
-				throw new IllegalStateException(
-						"Only a single connection is supported on "
-								+ interfaceName);
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
 			}
 			aim = (org.archstudio.aim.IAIM) serviceObject;
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: "
-				+ interfaceName);
+		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
@@ -142,16 +134,14 @@ abstract class BootstrapMyxComponentStub extends
 			aim = null;
 			return;
 		}
-		throw new IllegalArgumentException(
-				"Unhandled interface disconnection: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
 	}
 
 	/**
 	 * @generated
 	 */
 	@Override
-	public void interfaceDisconnected(IMyxName interfaceName,
-			Object serviceObject) {
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
@@ -159,7 +149,6 @@ abstract class BootstrapMyxComponentStub extends
 	 */
 	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
-		throw new IllegalArgumentException(
-				"Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}
 }
