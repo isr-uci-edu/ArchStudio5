@@ -73,6 +73,7 @@
          point="org.eclipse.ui.views">
       <view
             allowMultiple="false"
+            category="org.archstudio.main.ArchStudio5Views"
             class="org.archstudio.issueview.core.ArchlightIssueView"
             icon="res/archstudio-icon-16x16.png"
             id="org.archstudio.issueview.core.ArchlightIssueView"
