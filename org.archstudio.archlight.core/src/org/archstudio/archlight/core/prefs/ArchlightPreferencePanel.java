@@ -2,6 +2,7 @@ package org.archstudio.archlight.core.prefs;
 
 import org.archstudio.archlight.ArchlightConstants;
 import org.archstudio.archlight.DoubleClickAction;
+import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.eclipse.ui.EclipseUtils;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -17,6 +18,7 @@ public class ArchlightPreferencePanel extends FieldEditorPreferencePage implemen
 
 	public ArchlightPreferencePanel() {
 		super("Archlight General Preferences", GRID);
+		InstantiateArchStudio.instantiate();
 		comp = (ArchlightPrefsMyxComponent) er.waitForBrick(ArchlightPrefsMyxComponent.class);
 		er.map(comp, this);
 

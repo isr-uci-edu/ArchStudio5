@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.archstudio.archipelago.core.structure.StructureTreePlugin;
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.editormanager.IEditorManager;
 import org.archstudio.filemanager.IFileManager;
@@ -43,6 +42,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.dnd.DND;
@@ -74,8 +74,8 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			data = new TreeNodeDataCache();
 		}
 		AS = new Services();
-		AS.addAll(new DefaultArchipelagoEditorPane(editor), data, xarch, resources,
-				fileman, editorManager, prefs, graphLayout);
+		AS.addAll(new DefaultArchipelagoEditorPane(editor), data, xarch, resources, fileman, editorManager, prefs,
+				graphLayout);
 		servicesCache.addCacheEntry(this, documentRootRef, data);
 	}
 
@@ -87,15 +87,6 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 
 		addTreePlugin(new RootTreePlugin(getTreeViewer(), AS, documentRootRef));
 		addTreePlugin(new FolderNodeTreePlugin(getTreeViewer(), AS, documentRootRef));
-		addTreePlugin(new StructureTreePlugin(getTreeViewer(), AS, documentRootRef));
-		//addTreePlugin(new FlowTreePlugin(getTreeViewer(), AS, documentRootRef));
-		//addTreePlugin(new MemoryTreePlugin(getTreeViewer(), AS, documentRootRef));
-		//addTreePlugin(new TypesTreePlugin(getTreeViewer(), AS, xArchRef));
-		//addTreePlugin(new OptionsTreePlugin(getTreeViewer(), AS, xArchRef));
-		//addTreePlugin(new VariantsTreePlugin(getTreeViewer(), AS, xArchRef));
-		//addTreePlugin(new StatechartsTreePlugin(getTreeViewer(), AS, xArchRef));
-		//addTreePlugin(new StatelineTreePlugin(getTreeViewer(), AS, xArchRef));
-		//addTreePlugin(new HPCTreePlugin(getTreeViewer(), AS, documentRootRef));
 
 		// scan eclipse plugins and create additional tree plugins
 		// TODO: sort these using some scheme?
@@ -105,8 +96,9 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 				String className = element.getAttribute("class");
 				String pluginName = element.getContributor().getName();
 				Class<?> clazz = Platform.getBundle(pluginName).loadClass(className);
-				Constructor<?> classConstructor = clazz.getConstructor(new Class<?>[0]);
-				Object obj = classConstructor.newInstance(new Object[0]);
+				Constructor<?> classConstructor = clazz.getConstructor(new Class<?>[] { TreeViewer.class,
+						Services.class, ObjRef.class });
+				Object obj = classConstructor.newInstance(new Object[] { getTreeViewer(), AS, documentRootRef });
 				((IArchipelagoTreePlugin) obj).setEditor(AS.get(IArchipelagoEditorPane.class));
 				addTreePlugin((IArchipelagoTreePlugin) obj);
 			}

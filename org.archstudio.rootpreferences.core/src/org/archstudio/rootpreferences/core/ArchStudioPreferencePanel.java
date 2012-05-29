@@ -2,6 +2,7 @@ package org.archstudio.rootpreferences.core;
 
 import java.io.IOException;
 
+import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.resources.IResources;
 import org.archstudio.sysutils.SystemUtils;
@@ -27,6 +28,7 @@ public class ArchStudioPreferencePanel extends PreferencePage implements IWorkbe
 
 	public ArchStudioPreferencePanel() {
 		super("ArchStudio Preferences");
+		InstantiateArchStudio.instantiate();
 		comp = (RootPreferencesMyxComponent) er.waitForBrick(RootPreferencesMyxComponent.class);
 		er.map(comp, this);
 		resources = comp.resources;

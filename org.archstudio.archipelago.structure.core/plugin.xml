@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.archstudio.archipelago.core.prefs.ArchipelagoPreferencePanel"
+            class="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePreferencePanel"
+            id="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePreferencePanel"
+            name="Structure">
+      </page>
+   </extension>
+   <extension
+         point="org.archstudio.myxgen.brick">
+      <brick
+            class="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePrefsMyxComponent"
+            id="org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePrefsMyxComponent"
+            name="Archipelago Structure Prefs Impl">
+         <interface
+               class="org.eclipse.jface.preference.IPreferenceStore"
+               delegate="variable"
+               direction="out"
+               domain="top"
+               getter="true"
+               id="preferences"
+               name="preferences"
+               single="true">
+         </interface>
+      </brick>
+   </extension>
+   <extension
+         point="org.archstudio.archipelago">
+      <ArchipelagoTreePlugin
+            class="org.archstudio.archipelago.core.structure.StructureTreePlugin">
+      </ArchipelagoTreePlugin>
+   </extension>
+
+</plugin>

@@ -1,5 +1,6 @@
 package org.archstudio.editormanager.core;
 
+import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.editormanager.EditorConstants;
 import org.archstudio.editormanager.IEditorManager;
 import org.archstudio.myx.fw.MyxRegistry;
@@ -18,6 +19,7 @@ public class EditorPreferencePanel extends FieldEditorPreferencePage implements 
 
 	public EditorPreferencePanel() {
 		super("Editor Preferences", GRID);
+		InstantiateArchStudio.instantiate();
 		comp = er.waitForBrick(EditorPrefsMyxComponent.class);
 		er.map(comp, this);
 

@@ -67,4 +67,5 @@ Require-Bundle: org.archstudio.archlight,
  org.archstudio.testadt,
  org.archstudio.xarchadt,
  org.eclipse.emf.codegen.ecore,
- org.eclipse.ui
+ org.eclipse.ui,
+ org.archstudio.eclipse.core;bundle-version="1.0.0"
