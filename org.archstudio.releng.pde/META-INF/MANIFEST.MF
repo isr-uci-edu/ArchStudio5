@@ -1,15 +1,15 @@
-Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.archstudio.releng.pde.Activator
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Release Engineering Tools
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.releng.pde;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
-Manifest-Version: 1.0
+Bundle-Activator: org.archstudio.releng.pde.Activator
+Bundle-Vendor: archstudio.org
 Require-Bundle: org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.eclipse.pde.core,
  org.archstudio.utils.osgi,
  com.google.guava,
  org.archstudio.utils.system
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

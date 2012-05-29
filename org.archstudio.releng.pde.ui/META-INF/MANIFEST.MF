@@ -4,6 +4,7 @@ Bundle-Name: ArchStudio Release Engineering UI Tools
 Bundle-SymbolicName: org.archstudio.releng.pde.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.releng.pde.ui.Activator
+Bundle-Vendor: archstudio.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.archstudio.releng.pde,
@@ -14,6 +15,5 @@ Require-Bundle: org.eclipse.ui,
  com.google.guava,
  org.archstudio.utils.osgi,
  org.archstudio.utils.system
-Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-Vendor: archstudio.org
+Bundle-ActivationPolicy: lazy

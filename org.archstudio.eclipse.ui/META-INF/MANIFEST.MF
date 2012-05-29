@@ -1,10 +1,13 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Eclipse Editors UI Common
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.eclipse.ui;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
-Manifest-Version: 1.0
+Bundle-Activator: org.archstudio.eclipse.ui.Activator
+Bundle-Vendor: archstudio.org
+Export-Package: org.archstudio.eclipse.ui,
+ org.archstudio.eclipse.ui.editors,
+ org.archstudio.eclipse.ui.views
 Require-Bundle: org.archstudio.myx.fw,
  org.archstudio.myxgen,
  org.archstudio.resources,
@@ -25,8 +28,5 @@ Require-Bundle: org.archstudio.myx.fw,
  org.archstudio.filemanager,
  org.archstudio.eclipse.core,
  org.archstudio.launcher
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.archstudio.eclipse.ui.Activator
-Export-Package: org.archstudio.eclipse.ui,
- org.archstudio.eclipse.ui.editors,
- org.archstudio.eclipse.ui.views

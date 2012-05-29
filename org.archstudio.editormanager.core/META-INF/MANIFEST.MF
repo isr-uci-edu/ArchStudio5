@@ -1,11 +1,10 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Editor Manager Core
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.editormanager.core;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.editormanager.core
-Manifest-Version: 1.0
 Require-Bundle: org.archstudio.editormanager,
  org.archstudio.eclipse.ui,
  org.archstudio.myx.fw,
@@ -13,4 +12,5 @@ Require-Bundle: org.archstudio.editormanager,
  org.archstudio.xarchadt,
  org.eclipse.core.runtime,
  org.eclipse.ui,
- org.archstudio.eclipse.core;bundle-version="1.0.0"
+ org.archstudio.eclipse.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

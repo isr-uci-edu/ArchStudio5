@@ -1,9 +1,9 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio BNA
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.bna;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.bna,
  org.archstudio.bna.constants,
  org.archstudio.bna.demo,
@@ -29,7 +29,6 @@ Export-Package: org.archstudio.bna,
  org.archstudio.bna.things.swt,
  org.archstudio.bna.things.utility,
  org.archstudio.bna.utils
-Manifest-Version: 1.0
 Require-Bundle: com.google.guava,
  org.archstudio.utils.swt,
  org.archstudio.utils.system,
@@ -37,4 +36,5 @@ Require-Bundle: com.google.guava,
  org.eclipse.jface,
  org.eclipse.ui,
  org.eclipse.draw2d
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

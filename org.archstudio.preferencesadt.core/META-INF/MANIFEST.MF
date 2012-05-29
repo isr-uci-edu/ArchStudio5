@@ -1,13 +1,13 @@
-Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.archstudio.preferencesadt.core.PreferencesADTActivator
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Preferences ADT Core
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.preferencesadt.core;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-Activator: org.archstudio.preferencesadt.core.PreferencesADTActivator
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.preferencesadt.core
-Manifest-Version: 1.0
 Require-Bundle: org.archstudio.myx.fw,
  org.eclipse.core.runtime,
  org.eclipse.ui
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

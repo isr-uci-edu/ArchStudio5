@@ -3,10 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Eclipse UI Utilities
 Bundle-SymbolicName: org.archstudio.utils.eclipse.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.eclipse.ui.actions
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
  com.google.guava
-Bundle-Vendor: archstudio.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

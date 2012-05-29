@@ -4,6 +4,9 @@ Bundle-Name: ArchStudio Eclipse Core
 Bundle-SymbolicName: org.archstudio.eclipse.core;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.eclipse.core.Activator
+Bundle-Vendor: archstudio.org
+Export-Package: org.archstudio.eclipse.core,
+ org.archstudio.eclipse.core.startup
 Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.eclipse,
  org.archstudio.xarchadt,
@@ -25,8 +28,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.utils.osgi,
  org.eclipse.ui,
  org.archstudio.myx.fw.equinox
-Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-Vendor: archstudio.org
-Export-Package: org.archstudio.eclipse.core,
- org.archstudio.eclipse.core.startup
+Bundle-ActivationPolicy: lazy

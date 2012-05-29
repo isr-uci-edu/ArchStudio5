@@ -4,7 +4,7 @@ Bundle-Name: ArchStudio Archipelago
 Bundle-SymbolicName: org.archstudio.archipelago;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: archstudio.org
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.archstudio.archipelago.core
 Require-Bundle: org.eclipse.jface,
  org.archstudio.xarchadt,
  org.archstudio.filemanager,
@@ -16,4 +16,4 @@ Require-Bundle: org.eclipse.jface,
  org.archstudio.editormanager,
  org.archstudio.graphlayout,
  org.eclipse.draw2d
-Export-Package: org.archstudio.archipelago.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

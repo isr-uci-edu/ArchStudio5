@@ -1,9 +1,9 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio TestADT Common
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.testadt;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.testadt
-Manifest-Version: 1.0
 Require-Bundle: org.archstudio.archlight
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

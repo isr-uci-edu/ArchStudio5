@@ -1,11 +1,10 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Notice View Core
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.noticeview.core;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.noticeview.core
-Manifest-Version: 1.0
 Require-Bundle: org.archstudio.archlight,
  org.archstudio.myx.fw,
  org.archstudio.noticeadt,
@@ -13,4 +12,5 @@ Require-Bundle: org.archstudio.archlight,
  org.archstudio.utils.swt,
  org.eclipse.core.runtime,
  org.eclipse.ui,
- org.archstudio.eclipse.core;bundle-version="1.0.0"
+ org.archstudio.eclipse.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

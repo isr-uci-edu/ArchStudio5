@@ -1,13 +1,12 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Archipelago Core
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.archipelago.core;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.archipelago.core,
  org.archstudio.archipelago.core.prefs,
  org.archstudio.archipelago.core.util
-Manifest-Version: 1.0
 Require-Bundle: com.google.guava,
  org.archstudio.bna,
  org.archstudio.editormanager,
@@ -39,3 +38,4 @@ Require-Bundle: com.google.guava,
  org.archstudio.xadl3.implementation.lookup,
  org.archstudio.xadl3.implementation.myxgen,
  org.eclipse.draw2d
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

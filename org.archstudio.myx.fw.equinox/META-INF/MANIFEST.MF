@@ -3,10 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Myx extensions for use in equinox
 Bundle-SymbolicName: org.archstudio.myx.fw.equinox;singleton:=true
 Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: archstudio.org
+Export-Package: org.archstudio.myx.fw.equinox
 Require-Bundle: org.archstudio.myx.fw,
  org.eclipse.equinox.registry,
  com.google.guava,
  org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.archstudio.myx.fw.equinox
-Bundle-Vendor: archstudio.org

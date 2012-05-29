@@ -4,6 +4,7 @@ Bundle-Name: ArchStudio MyxGen UI
 Bundle-SymbolicName: org.archstudio.myxgen.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.myxgen.ui.Activator
+Bundle-Vendor: archstudio.org
 Require-Bundle: org.archstudio.eclipse,
  org.archstudio.utils.osgi,
  org.archstudio.myxgen.core,
@@ -11,6 +12,5 @@ Require-Bundle: org.archstudio.eclipse,
  org.eclipse.core.resources,
  org.eclipse.ui,
  org.archstudio.myxgen.jet
-Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-Vendor: archstudio.org
+Bundle-ActivationPolicy: lazy

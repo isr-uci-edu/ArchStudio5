@@ -1,10 +1,10 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio xADL Utilities
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.xadl;singleton:=true
 Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.xadl
-Manifest-Version: 1.0
 Require-Bundle: org.archstudio.utils.system,
  org.archstudio.xadl3.structure,
  org.archstudio.xadl3.implementation.java,
@@ -12,4 +12,4 @@ Require-Bundle: org.archstudio.utils.system,
  org.archstudio.xarchadt,
  org.archstudio.xarchadt.core,
  com.google.guava
-Bundle-Vendor: archstudio.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

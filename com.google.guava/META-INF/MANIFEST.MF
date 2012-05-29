@@ -1,12 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio Guava (Google Common Libraries)
+Bundle-SymbolicName: com.google.guava;singleton:=true
+Bundle-Version: 10.0.1.qualifier
 Bundle-ClassPath: .,
  lib/jsr305.jar,
  lib/guava-10.0.1.jar
-Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Guava (Google Common Libraries)
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-SymbolicName: com.google.guava;singleton:=true
 Bundle-Vendor: archstudio.org
-Bundle-Version: 10.0.1.qualifier
 Export-Package: com.google.common.annotations,
  com.google.common.base,
  com.google.common.base.internal,
@@ -20,4 +20,4 @@ Export-Package: com.google.common.annotations,
  javax.annotation,
  javax.annotation.concurrent,
  javax.annotation.meta
-Manifest-Version: 1.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
