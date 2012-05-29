@@ -12,4 +12,5 @@ Require-Bundle: org.archstudio.editormanager,
  org.archstudio.myxgen,
  org.archstudio.xarchadt,
  org.eclipse.core.runtime,
- org.eclipse.ui
+ org.eclipse.ui,
+ org.archstudio.eclipse.core;bundle-version="1.0.0"

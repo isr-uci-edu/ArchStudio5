@@ -2,6 +2,7 @@ package org.archstudio.archipelago.core.prefs;
 
 import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.bna.constants.GridDisplayType;
+import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.eclipse.ui.EclipseUtils;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.eclipse.jface.preference.BooleanFieldEditor;
@@ -24,6 +25,7 @@ public class ArchipelagoPreferencePanel extends FieldEditorPreferencePage implem
 
 	public ArchipelagoPreferencePanel() {
 		super("Archipelago General Preferences", GRID);
+		InstantiateArchStudio.instantiate();
 		comp = (ArchipelagoPrefsMyxComponent) er.waitForBrick(ArchipelagoPrefsMyxComponent.class);
 		er.map(comp, this);
 

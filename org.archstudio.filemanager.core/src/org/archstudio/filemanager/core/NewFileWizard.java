@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
@@ -43,6 +44,7 @@ public class NewFileWizard extends Wizard implements INewWizard {
 
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		InstantiateArchStudio.instantiate();
 		comp = er.waitForBrick(FileManagerMyxComponent.class);
 		er.map(comp, this);
 		xarch = comp.xarch;

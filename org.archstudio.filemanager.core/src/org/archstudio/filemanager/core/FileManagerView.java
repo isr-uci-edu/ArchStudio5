@@ -1,5 +1,6 @@
 package org.archstudio.filemanager.core;
 
+import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFileListener;
@@ -72,6 +73,7 @@ public class FileManagerView extends ViewPart implements IXArchADTFileListener, 
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
+		InstantiateArchStudio.instantiate();
 		comp = (FileManagerMyxComponent) er.waitForBrick(FileManagerMyxComponent.class);
 		er.map(comp, this);
 		xarch = comp.getXarch();

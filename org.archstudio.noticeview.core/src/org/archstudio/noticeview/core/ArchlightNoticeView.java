@@ -1,6 +1,7 @@
 package org.archstudio.noticeview.core;
 
 import org.archstudio.archlight.ArchlightNotice;
+import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.noticeadt.ArchlightNoticeADTEvent;
 import org.archstudio.noticeadt.ArchlightNoticeADTListener;
@@ -39,6 +40,7 @@ public class ArchlightNoticeView extends ViewPart implements ArchlightNoticeADTL
 	protected IResources resources = null;
 
 	public ArchlightNoticeView() {
+		InstantiateArchStudio.instantiate();
 		comp = (ArchlightNoticeViewMyxComponent) er.waitForBrick(ArchlightNoticeViewMyxComponent.class);
 		er.map(comp, this);
 		noticeadt = comp.notices;

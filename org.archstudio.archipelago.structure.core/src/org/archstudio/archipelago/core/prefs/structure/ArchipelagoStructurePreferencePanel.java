@@ -1,6 +1,7 @@
 package org.archstudio.archipelago.core.prefs.structure;
 
 import org.archstudio.archipelago.core.structure.ArchipelagoStructureConstants;
+import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.eclipse.jface.preference.ColorFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -20,6 +21,7 @@ public class ArchipelagoStructurePreferencePanel extends FieldEditorPreferencePa
 
 	public ArchipelagoStructurePreferencePanel() {
 		super("Archipelago Structure Preferences", FLAT);
+		InstantiateArchStudio.instantiate();
 		comp = (ArchipelagoStructurePrefsMyxComponent) er.waitForBrick(ArchipelagoStructurePrefsMyxComponent.class);
 		er.map(comp, this);
 

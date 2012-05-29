@@ -1,5 +1,6 @@
 package org.archstudio.schematron.core.prefs;
 
+import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.schematron.core.SchematronConstants;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -15,6 +16,7 @@ public class SchematronPreferencePanel extends FieldEditorPreferencePage impleme
 
 	public SchematronPreferencePanel() {
 		super("Schematron Preferences", GRID);
+		InstantiateArchStudio.instantiate();
 		comp = (SchematronPrefsMyxComponent) er.waitForBrick(SchematronPrefsMyxComponent.class);
 		er.map(comp, this);
 

@@ -50,4 +50,5 @@ Require-Bundle: org.archstudio.aim,
  org.archstudio.xadl3.implementation.osgi,
  org.archstudio.myx.java,
  com.google.guava,
- org.archstudio.myx.osgi
+ org.archstudio.myx.osgi,
+ org.archstudio.archipelago.structure.core;bundle-version="1.0.0"

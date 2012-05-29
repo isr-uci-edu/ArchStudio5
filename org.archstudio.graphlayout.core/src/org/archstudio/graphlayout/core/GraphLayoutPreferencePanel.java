@@ -1,5 +1,6 @@
 package org.archstudio.graphlayout.core;
 
+import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.graphlayout.GraphLayoutConstants;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
@@ -15,6 +16,7 @@ public class GraphLayoutPreferencePanel extends FieldEditorPreferencePage implem
 
 	public GraphLayoutPreferencePanel() {
 		super("Graph Layout Preferences", GRID);
+		InstantiateArchStudio.instantiate();
 		comp = (GraphLayoutPrefsMyxComponent) er.waitForBrick(GraphLayoutPrefsMyxComponent.class);
 		er.map(comp, this);
 
