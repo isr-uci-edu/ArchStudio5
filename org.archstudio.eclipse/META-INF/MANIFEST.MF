@@ -1,14 +1,14 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Eclipse
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.eclipse;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-Activator: org.archstudio.eclipse.Activator
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.eclipse
-Manifest-Version: 1.0
 Require-Bundle: com.google.guava,
  org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.core.resources,
  org.archstudio.utils.osgi
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.archstudio.eclipse.Activator

@@ -1,11 +1,11 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Example: Chat System
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.demo.chatsys;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.demo.chatsys,
  org.archstudio.demo.chatsys.client,
  org.archstudio.demo.chatsys.server
-Manifest-Version: 1.0
 Require-Bundle: org.archstudio.myx.fw
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

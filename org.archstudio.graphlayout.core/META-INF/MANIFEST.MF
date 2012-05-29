@@ -1,12 +1,11 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Graph Layout Core
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.graphlayout.core;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.graphlayout.core,
  org.archstudio.graphlayout.core.graphviz
-Manifest-Version: 1.0
 Require-Bundle: org.archstudio.graphlayout,
  org.archstudio.myx.fw,
  org.archstudio.utils.swt,
@@ -18,4 +17,5 @@ Require-Bundle: org.archstudio.graphlayout,
  org.eclipse.ui,
  com.google.guava,
  org.eclipse.draw2d,
- org.archstudio.eclipse.core;bundle-version="1.0.0"
+ org.archstudio.eclipse.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -1,13 +1,13 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio BNA Tests
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.bna.tests
 Bundle-Version: 1.0.0.qualifier
-Manifest-Version: 1.0
+Bundle-Vendor: archstudio.org
 Require-Bundle: com.google.guava,
  org.archstudio.bna,
  org.archstudio.utils.system,
  org.junit,
  org.eclipse.swt,
  org.eclipse.draw2d
-Bundle-Vendor: archstudio.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

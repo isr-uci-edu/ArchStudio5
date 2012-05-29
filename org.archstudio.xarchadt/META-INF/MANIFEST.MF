@@ -1,11 +1,11 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio xArchADT Common
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.xarchadt;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.xarchadt
-Manifest-Version: 1.0
 Require-Bundle: com.google.guava,
  org.archstudio.utils.system,
  org.eclipse.emf.common
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

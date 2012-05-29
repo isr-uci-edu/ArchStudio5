@@ -1,11 +1,10 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Launcher Core
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.launcher.core;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.launcher.core
-Manifest-Version: 1.0
 Require-Bundle: org.archstudio.eclipse.ui,
  org.archstudio.filemanager.core,
  org.archstudio.launcher,
@@ -17,3 +16,4 @@ Require-Bundle: org.archstudio.eclipse.ui,
  org.eclipse.ui.ide,
  org.archstudio.utils.system,
  org.archstudio.myx.java
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -4,6 +4,8 @@ Bundle-Name: ArchStudio Myx Common
 Bundle-SymbolicName: org.archstudio.xadl.myx;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.xadl.myx.Activator
+Bundle-Vendor: archstudio.org
+Export-Package: org.archstudio.xadl.myx
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.archstudio.myx.osgi,
@@ -17,7 +19,5 @@ Require-Bundle: org.eclipse.ui,
  org.archstudio.xarchadt.core,
  org.archstudio.myxgen.core,
  org.archstudio.myx.myxgen
-Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.archstudio.xadl.myx
-Bundle-Vendor: archstudio.org
+Bundle-ActivationPolicy: lazy

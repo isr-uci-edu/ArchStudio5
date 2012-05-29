@@ -1,12 +1,12 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Resources Core
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.resources.core;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.resources.core
-Manifest-Version: 1.0
 Require-Bundle: org.archstudio.myx.fw,
  org.archstudio.resources,
  org.archstudio.utils.swt,
  org.eclipse.ui
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

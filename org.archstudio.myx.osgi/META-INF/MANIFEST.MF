@@ -3,11 +3,11 @@ Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio OSGi Myx Functionality
 Bundle-SymbolicName: org.archstudio.myx.osgi;singleton:=true
 Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: archstudio.org
+Export-Package: org.archstudio.myx.osgi,
+ org.archstudio.myx.osgi.conn
 Require-Bundle: org.archstudio.myx.fw,
  org.archstudio.myx.java,
  org.eclipse.core.runtime,
  org.archstudio.myx.fw.equinox
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.archstudio.myx.osgi,
- org.archstudio.myx.osgi.conn
-Bundle-Vendor: archstudio.org

@@ -1,13 +1,13 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Root Preferences Core
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: org.archstudio.rootpreferences.core;singleton:=true
-Bundle-Vendor: archstudio.org
 Bundle-Version: 5.0.0.qualifier
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.rootpreferences.core
-Manifest-Version: 1.0
 Require-Bundle: org.archstudio.myx.fw,
  org.archstudio.resources,
  org.eclipse.ui,
  org.archstudio.utils.system,
- org.archstudio.eclipse.core;bundle-version="1.0.0"
+ org.archstudio.eclipse.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -24,7 +24,8 @@ public class RemoveDependencyVersionNumbers extends AbstractObjectActionDelegate
 	@Override
 	public void run(IAction action) {
 		for (IProject project : getProjects(selection)) {
-			run(action, project);
+			if(project.getFolder("META-INF").exists())
+				run(action, project);
 		}
 	}
 

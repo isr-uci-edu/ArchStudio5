@@ -4,6 +4,10 @@ Bundle-Name: ArchStudio Myx Component Stub Generator Core
 Bundle-SymbolicName: org.archstudio.myxgen.core;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.myxgen.core.Activator
+Bundle-Vendor: archstudio.org
+Export-Package: org.archstudio.myxgen,
+ org.archstudio.myxgen.core,
+ org.archstudio.myxgen.eclipse.extension
 Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.myxgen,
  org.archstudio.myx.fw,
@@ -20,9 +24,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.archstudio.myx.myxgen
-Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.archstudio.myxgen,
- org.archstudio.myxgen.core,
- org.archstudio.myxgen.eclipse.extension
-Bundle-Vendor: archstudio.org
+Bundle-ActivationPolicy: lazy

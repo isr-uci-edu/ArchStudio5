@@ -1,9 +1,10 @@
+Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio xADL Tests
 Bundle-SymbolicName: org.archstudio.xadl.tests;singleton:=true
 Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.xadl
-Manifest-Version: 1.0
 Require-Bundle: org.archstudio.xadl3.structure,
  org.archstudio.xarchadt,
  org.archstudio.xarchadt.core,
@@ -13,4 +14,3 @@ Require-Bundle: org.archstudio.xadl3.structure,
  org.archstudio.xadl3.hints,
  org.archstudio.xadl3.domain
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-Vendor: archstudio.org
