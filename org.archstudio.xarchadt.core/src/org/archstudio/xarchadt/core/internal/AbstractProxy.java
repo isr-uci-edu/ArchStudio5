@@ -8,9 +8,9 @@ import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.core.XArchADTProxy;
 import org.eclipse.emf.ecore.EObject;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 
 public class AbstractProxy {
 
@@ -93,10 +93,10 @@ public class AbstractProxy {
 		}
 	}
 
-	private static final Cache<Class<? extends Handler<?, ?>>, Cache<Object, Handler<?, ?>>> handlerCache = CacheBuilder
-			.newBuilder().build(new CacheLoader<Class<? extends Handler<?, ?>>, Cache<Object, Handler<?, ?>>>() {
+	private static final LoadingCache<Class<? extends Handler<?, ?>>, LoadingCache<Object, Handler<?, ?>>> handlerCache = CacheBuilder
+			.newBuilder().build(new CacheLoader<Class<? extends Handler<?, ?>>, LoadingCache<Object, Handler<?, ?>>>() {
 				@Override
-				public Cache<Object, Handler<?, ?>> load(final Class<? extends Handler<?, ?>> handlerClass)
+				public LoadingCache<Object, Handler<?, ?>> load(final Class<? extends Handler<?, ?>> handlerClass)
 						throws Exception {
 					return CacheBuilder.newBuilder().build(new CacheLoader<Object, Handler<?, ?>>() {
 						@Override

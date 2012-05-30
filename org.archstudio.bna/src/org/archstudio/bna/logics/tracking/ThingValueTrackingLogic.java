@@ -9,9 +9,9 @@ import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.logics.AbstractThingLogic;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
@@ -20,7 +20,7 @@ import com.google.common.collect.Sets;
 
 public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
 
-	private final Cache<IThingKey<?>, SetMultimap<Object, Object>> keyToValueToThingIDsCache = CacheBuilder
+	private final LoadingCache<IThingKey<?>, SetMultimap<Object, Object>> keyToValueToThingIDsCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<IThingKey<?>, SetMultimap<Object, Object>>() {
 				@Override
 				public SetMultimap<Object, Object> load(IThingKey<?> input) {

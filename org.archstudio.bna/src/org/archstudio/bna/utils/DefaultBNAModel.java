@@ -27,9 +27,9 @@ import org.archstudio.bna.ThingEvent;
 import org.archstudio.sysutils.SystemUtils;
 
 import com.google.common.base.Function;
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
@@ -37,7 +37,7 @@ import com.google.common.collect.MapMaker;
 public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	protected static final boolean DEBUG = false;
-	protected final Cache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().build(
+	protected final LoadingCache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().build(
 			new CacheLoader<Object, AtomicLong>() {
 				@Override
 				public AtomicLong load(Object input) {

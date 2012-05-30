@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
@@ -20,7 +20,7 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 
 	CopyOnWriteArrayList<E> list = new CopyOnWriteArrayList<E>();
 	int listModCount = 0;
-	Cache<Class<?>, List<?>> filteredListsCache = CacheBuilder.newBuilder().build(new CacheLoader<Class<?>, List<?>>() {
+	LoadingCache<Class<?>, List<?>> filteredListsCache = CacheBuilder.newBuilder().build(new CacheLoader<Class<?>, List<?>>() {
 		@Override
 		public List<?> load(Class<?> ofType) throws Exception {
 			return new CopyOnWriteArrayList<Object>(Lists.newArrayList(Iterables.filter(list, ofType)));

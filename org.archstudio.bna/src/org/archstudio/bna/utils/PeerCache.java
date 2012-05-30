@@ -5,13 +5,13 @@ import java.lang.reflect.Constructor;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 
 public class PeerCache {
 
-	protected static Cache<Class<? extends IThingPeer<?>>, Constructor<?>> constructorsCache = CacheBuilder
+	protected static LoadingCache<Class<? extends IThingPeer<?>>, Constructor<?>> constructorsCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<Class<? extends IThingPeer<?>>, Constructor<?>>() {
 
 				@Override
@@ -27,7 +27,7 @@ public class PeerCache {
 				}
 			});
 
-	protected Cache<IThing, IThingPeer<?>> peersCache = CacheBuilder.newBuilder().weakKeys()
+	protected LoadingCache<IThing, IThingPeer<?>> peersCache = CacheBuilder.newBuilder().weakKeys()
 			.build(new CacheLoader<IThing, IThingPeer<?>>() {
 
 				@Override

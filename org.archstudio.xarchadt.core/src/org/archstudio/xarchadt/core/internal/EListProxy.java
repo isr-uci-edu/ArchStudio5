@@ -17,9 +17,9 @@ import org.archstudio.xarchadt.core.XArchADTProxy;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.MapMaker;
 
@@ -162,7 +162,7 @@ public class EListProxy extends AbstractProxy {
 		}
 	}
 
-	static final Cache<IXArchADT, ConcurrentMap<List<Object>, EList<Object>>> xArchProxiesCache = CacheBuilder
+	static final LoadingCache<IXArchADT, ConcurrentMap<List<Object>, EList<Object>>> xArchProxiesCache = CacheBuilder
 			.newBuilder().weakKeys().build(new CacheLoader<IXArchADT, ConcurrentMap<List<Object>, EList<Object>>>() {
 				@Override
 				public ConcurrentMap<List<Object>, EList<Object>> load(IXArchADT input) {

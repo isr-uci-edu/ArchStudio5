@@ -20,9 +20,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import com.google.common.base.Function;
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.MapMaker;
 
@@ -184,7 +184,7 @@ public class EObjectProxy extends AbstractProxy {
 		}
 	}
 
-	static final Cache<Method, Handler<NameContext, ProxyImpl>> methodsCache = CacheBuilder.newBuilder().build(
+	static final LoadingCache<Method, Handler<NameContext, ProxyImpl>> methodsCache = CacheBuilder.newBuilder().build(
 			new CacheLoader<Method, Handler<NameContext, ProxyImpl>>() {
 				@Override
 				public Handler<NameContext, ProxyImpl> load(Method method) throws Exception {
@@ -219,7 +219,7 @@ public class EObjectProxy extends AbstractProxy {
 				}
 			});
 
-	static final Cache<IXArchADT, ConcurrentMap<ObjRef, EObject>> xArchProxiesCache = CacheBuilder.newBuilder()
+	static final LoadingCache<IXArchADT, ConcurrentMap<ObjRef, EObject>> xArchProxiesCache = CacheBuilder.newBuilder()
 			.weakKeys().build(new CacheLoader<IXArchADT, ConcurrentMap<ObjRef, EObject>>() {
 				@Override
 				public ConcurrentMap<ObjRef, EObject> load(IXArchADT xarch) throws Exception {
