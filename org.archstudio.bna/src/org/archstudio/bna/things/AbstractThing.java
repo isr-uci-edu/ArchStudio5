@@ -18,9 +18,9 @@ import org.archstudio.sysutils.TypedHashMap;
 import org.archstudio.sysutils.TypedMap;
 import org.archstudio.sysutils.TypedMap.Key;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
@@ -28,7 +28,7 @@ public class AbstractThing implements IThing {
 
 	private static final AtomicLong atomicLong = new AtomicLong(0);
 
-	private static final Cache<Class<? extends IThing>, Class<IThingPeer<?>>> defaultPeerClassCache = CacheBuilder
+	private static final LoadingCache<Class<? extends IThing>, Class<IThingPeer<?>>> defaultPeerClassCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<Class<? extends IThing>, Class<IThingPeer<?>>>() {
 				@SuppressWarnings("unchecked")
 				@Override

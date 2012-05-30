@@ -12,9 +12,9 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalNotification;
 
@@ -24,7 +24,7 @@ public class Resources implements IResources {
 	final Composite composite;
 	final Device device;
 
-	final Cache<RGB, Color> colorCache = CacheBuilder.newBuilder().expireAfterAccess(10, TimeUnit.MINUTES)
+	final LoadingCache<RGB, Color> colorCache = CacheBuilder.newBuilder().expireAfterAccess(10, TimeUnit.MINUTES)
 			.removalListener(new RemovalListener<RGB, Color>() {
 				@Override
 				public void onRemoval(RemovalNotification<RGB, Color> notification) {
@@ -37,7 +37,7 @@ public class Resources implements IResources {
 				}
 			});
 
-	final Cache<FontData, Font> fontCache = CacheBuilder.newBuilder().expireAfterAccess(10, TimeUnit.MINUTES)
+	final LoadingCache<FontData, Font> fontCache = CacheBuilder.newBuilder().expireAfterAccess(10, TimeUnit.MINUTES)
 			.removalListener(new RemovalListener<FontData, Font>() {
 				@Override
 				public void onRemoval(RemovalNotification<FontData, Font> notification) {
@@ -50,7 +50,7 @@ public class Resources implements IResources {
 				}
 			});
 
-	final Cache<ImageData, Image> imageCache = CacheBuilder.newBuilder().expireAfterAccess(10, TimeUnit.MINUTES)
+	final LoadingCache<ImageData, Image> imageCache = CacheBuilder.newBuilder().expireAfterAccess(10, TimeUnit.MINUTES)
 			.removalListener(new RemovalListener<ImageData, Image>() {
 				@Override
 				public void onRemoval(RemovalNotification<ImageData, Image> notification) {

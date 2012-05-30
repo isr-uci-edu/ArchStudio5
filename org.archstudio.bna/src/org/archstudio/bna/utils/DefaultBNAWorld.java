@@ -13,14 +13,14 @@ import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.sysutils.SystemUtils;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 
 public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener, IBNASynchronousModelListener {
 
 	protected static final boolean DEBUG = false;
-	protected final Cache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().weakKeys()
+	protected final LoadingCache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().weakKeys()
 			.build(new CacheLoader<Object, AtomicLong>() {
 				@Override
 				public AtomicLong load(Object input) {

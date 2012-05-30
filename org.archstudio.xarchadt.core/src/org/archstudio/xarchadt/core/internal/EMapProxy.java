@@ -16,9 +16,9 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.emf.common.util.EMap;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.MapMaker;
 
 public class EMapProxy extends AbstractProxy {
@@ -135,7 +135,7 @@ public class EMapProxy extends AbstractProxy {
 		}
 	}
 
-	static final Cache<IXArchADT, ConcurrentMap<List<Object>, EMap<Object, Object>>> xArchProxiesCache = CacheBuilder
+	static final LoadingCache<IXArchADT, ConcurrentMap<List<Object>, EMap<Object, Object>>> xArchProxiesCache = CacheBuilder
 			.newBuilder().weakKeys()
 			.build(new CacheLoader<IXArchADT, ConcurrentMap<List<Object>, EMap<Object, Object>>>() {
 				@Override

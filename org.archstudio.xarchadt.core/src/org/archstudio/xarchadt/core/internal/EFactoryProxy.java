@@ -10,9 +10,9 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EPackage;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.MapMaker;
 
 public class EFactoryProxy extends AbstractProxy {
@@ -81,7 +81,7 @@ public class EFactoryProxy extends AbstractProxy {
 		}
 	}
 
-	static final Cache<Method, Handler<NameContext, ProxyImpl>> methodsCache = CacheBuilder.newBuilder().build(
+	static final LoadingCache<Method, Handler<NameContext, ProxyImpl>> methodsCache = CacheBuilder.newBuilder().build(
 			new CacheLoader<Method, Handler<NameContext, ProxyImpl>>() {
 				@Override
 				public Handler<NameContext, ProxyImpl> load(Method method) throws Exception {
@@ -94,7 +94,7 @@ public class EFactoryProxy extends AbstractProxy {
 				};
 			});
 
-	static final Cache<IXArchADT, ConcurrentMap<String, EFactory>> xArchProxiesCache = CacheBuilder.newBuilder()
+	static final LoadingCache<IXArchADT, ConcurrentMap<String, EFactory>> xArchProxiesCache = CacheBuilder.newBuilder()
 			.weakKeys().build(new CacheLoader<IXArchADT, ConcurrentMap<String, EFactory>>() {
 				@Override
 				public ConcurrentMap<String, EFactory> load(IXArchADT key) throws Exception {

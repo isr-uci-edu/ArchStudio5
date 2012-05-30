@@ -64,9 +64,9 @@ import org.eclipse.emf.ecore.xmi.impl.GenericXMLResourceFactoryImpl;
 import org.xml.sax.SAXException;
 
 import com.google.common.base.Function;
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -189,7 +189,7 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	// Dynamically maps feature names (either uppercase or lowercase) of an EClass to EStructuralFeatures.
-	private static final Cache<EClass, Map<String, EStructuralFeature>> caselessFeatureCache = CacheBuilder
+	private static final LoadingCache<EClass, Map<String, EStructuralFeature>> caselessFeatureCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<EClass, Map<String, EStructuralFeature>>() {
 
 				Map<String, EStructuralFeature> structuralFeatures = Maps.newHashMap();
@@ -418,7 +418,7 @@ public class XArchADTImpl implements IXArchADT {
 		}
 	}
 
-	private static final Cache<String, EPackage> ePackageCache = CacheBuilder.newBuilder().build(
+	private static final LoadingCache<String, EPackage> ePackageCache = CacheBuilder.newBuilder().build(
 			new CacheLoader<String, EPackage>() {
 
 				@Override
@@ -431,7 +431,7 @@ public class XArchADTImpl implements IXArchADT {
 				}
 			});
 
-	private static final Cache<EClass, Map<String, IXArchADTFeature>> featureMetadataCache = CacheBuilder.newBuilder()
+	private static final LoadingCache<EClass, Map<String, IXArchADTFeature>> featureMetadataCache = CacheBuilder.newBuilder()
 			.build(new CacheLoader<EClass, Map<String, IXArchADTFeature>>() {
 
 				@Override
@@ -470,7 +470,7 @@ public class XArchADTImpl implements IXArchADT {
 	 * This is a map that generates type metadata for an EClass on demand,
 	 * caching it after it's generated.
 	 */
-	private static final Cache<EClass, IXArchADTTypeMetadata> typeMetadataCache = CacheBuilder.newBuilder().build(
+	private static final LoadingCache<EClass, IXArchADTTypeMetadata> typeMetadataCache = CacheBuilder.newBuilder().build(
 			new CacheLoader<EClass, IXArchADTTypeMetadata>() {
 
 				@Override
@@ -484,7 +484,7 @@ public class XArchADTImpl implements IXArchADT {
 	 * This is a map that generates package metadata for an EPackage on demand,
 	 * caching it after it's generated.
 	 */
-	private static final Cache<EPackage, IXArchADTPackageMetadata> packageMetatadataCache = CacheBuilder.newBuilder()
+	private static final LoadingCache<EPackage, IXArchADTPackageMetadata> packageMetatadataCache = CacheBuilder.newBuilder()
 			.build(new CacheLoader<EPackage, IXArchADTPackageMetadata>() {
 
 				@Override

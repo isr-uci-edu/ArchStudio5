@@ -34,9 +34,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
@@ -406,7 +406,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		protected boolean needsRenderUpdate = true;
 	}
 
-	private final Cache<IThing, RenderData> renderDataCache = CacheBuilder.newBuilder().build(
+	private final LoadingCache<IThing, RenderData> renderDataCache = CacheBuilder.newBuilder().build(
 			new CacheLoader<IThing, RenderData>() {
 				@Override
 				public RenderData load(IThing input) {

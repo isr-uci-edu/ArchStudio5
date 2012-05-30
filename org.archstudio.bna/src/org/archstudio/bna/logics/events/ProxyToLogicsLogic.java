@@ -10,13 +10,13 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.logics.AbstractThingLogic;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 
 public class ProxyToLogicsLogic extends AbstractThingLogic {
 
-	private final Cache<Class<?>, Object> proxiesCache = CacheBuilder.newBuilder().build(
+	private final LoadingCache<Class<?>, Object> proxiesCache = CacheBuilder.newBuilder().build(
 			new CacheLoader<Class<?>, Object>() {
 
 				@Override
