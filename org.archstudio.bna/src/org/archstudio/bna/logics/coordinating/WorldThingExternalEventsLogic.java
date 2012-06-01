@@ -264,7 +264,10 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 
 	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
-		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
+		IThing thing = firstOrNull(things);
+		if (thing instanceof IHasWorld) {
+			IHasWorld worldThing = (IHasWorld) thing;
+
 			IBNAWorld innerWorld = worldThing.getWorld();
 			if (innerWorld == null) {
 				return;
@@ -286,66 +289,67 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	public void dropEvt(IBNAView view, DropTargetEvent event, Iterable<IThing> t, ICoordinate location,
+	public void dropEvt(IBNAView view, DropTargetEvent event, Iterable<IThing> things, ICoordinate location,
 			DropEventType eventType) {
-		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
-			if (t == worldThing) {
-				IBNAWorld innerWorld = worldThing.getWorld();
-				if (innerWorld == null) {
-					return;
-				}
-				WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
-				IBNAView innerView = worldThingPeer.getInnerView();
-				if (innerView == null) {
-					return;
-				}
+		IThing thing = firstOrNull(things);
+		if (thing instanceof IHasWorld) {
+			IHasWorld worldThing = (IHasWorld) thing;
 
-				IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
-				ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(),
-						innerView.getCoordinateMapper());
-				List<IThing> innerThings = view.getThingsAt(innerLocation);
+			IBNAWorld innerWorld = worldThing.getWorld();
+			if (innerWorld == null) {
+				return;
+			}
+			WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(worldThing);
+			IBNAView innerView = worldThingPeer.getInnerView();
+			if (innerView == null) {
+				return;
+			}
 
-				//Composite parentComposite = BNAUtils.getParentComposite(view);
-				//Point p = null;
-				//if (parentComposite != null) {
-				//	p = parentComposite.toControl(event.x, event.y);
-				//}
-				//else {
-				//	p = new Point(event.x, event.y);
-				//}
+			IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
+			ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(),
+					innerView.getCoordinateMapper());
+			List<IThing> innerThings = view.getThingsAt(innerLocation);
 
-				switch (eventType) {
-				case DRAG_ENTER:
-					for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
-						l.dragEnter(innerView, event, innerThings, innerLocation);
-					}
-					break;
-				case DRAG_OVER:
-					for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
-						l.dragOver(innerView, event, innerThings, innerLocation);
-					}
-					break;
-				case DRAG_LEAVE:
-					for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
-						l.dragLeave(innerView, event, innerThings, innerLocation);
-					}
-					break;
-				case DRAG_OPERATION_CHANGED:
-					for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
-						l.dragOperationChanged(innerView, event, innerThings, innerLocation);
-					}
-					break;
-				case DROP_ACCEPT:
-					for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
-						l.dropAccept(innerView, event, innerThings, innerLocation);
-					}
-					break;
-				case DROP:
-					for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
-						l.drop(innerView, event, innerThings, innerLocation);
-					}
-					break;
+			//Composite parentComposite = BNAUtils.getParentComposite(view);
+			//Point p = null;
+			//if (parentComposite != null) {
+			//	p = parentComposite.toControl(event.x, event.y);
+			//}
+			//else {
+			//	p = new Point(event.x, event.y);
+			//}
+
+			switch (eventType) {
+			case DRAG_ENTER:
+				for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
+					l.dragEnter(innerView, event, innerThings, innerLocation);
 				}
+				break;
+			case DRAG_OVER:
+				for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
+					l.dragOver(innerView, event, innerThings, innerLocation);
+				}
+				break;
+			case DRAG_LEAVE:
+				for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
+					l.dragLeave(innerView, event, innerThings, innerLocation);
+				}
+				break;
+			case DRAG_OPERATION_CHANGED:
+				for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
+					l.dragOperationChanged(innerView, event, innerThings, innerLocation);
+				}
+				break;
+			case DROP_ACCEPT:
+				for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
+					l.dropAccept(innerView, event, innerThings, innerLocation);
+				}
+				break;
+			case DROP:
+				for (IBNADragAndDropListener l : innerTlm.getThingLogics(IBNADragAndDropListener.class)) {
+					l.drop(innerView, event, innerThings, innerLocation);
+				}
+				break;
 			}
 		}
 	}
