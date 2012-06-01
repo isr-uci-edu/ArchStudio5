@@ -22,5 +22,6 @@ Require-Bundle: org.archstudio.aim,
  org.archstudio.xadl3.implementation.osgi,
  org.archstudio.xadl.myx,
  org.archstudio.xadl3.implementation.lookup,
- com.google.guava
+ com.google.guava,
+ org.archstudio.xarchadt.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

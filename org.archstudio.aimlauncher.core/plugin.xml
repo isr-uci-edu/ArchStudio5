@@ -31,5 +31,17 @@
          </interface>
       </brick>
    </extension>
+   <extension
+         id="org.archstudio.aimlauncher.core.AIMLauncherApp"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="org.archstudio.aimlauncher.core.AIMLauncherApp">
+         </run>
+      </application>
+   </extension>
 
 </plugin>

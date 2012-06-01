@@ -9,9 +9,8 @@ package org.archstudio.demo.chatsys.server;
 public class ChatServerMyxComponent extends org.archstudio.demo.chatsys.server.ChatServerMyxComponentStub {
 
 	@Override
-	public void messageSent(String sender, String message) {
-		// TODO Auto-generated method stub
-
+	public void sendMessage(String sender, String text) {
+		chatEvents.messageSent(sender, text);
 	}
 
 }

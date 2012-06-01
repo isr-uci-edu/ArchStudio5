@@ -22,7 +22,7 @@ import org.archstudio.myx.fw.MyxUtils;
 @SuppressWarnings("unused")
 abstract class ChatServerMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
 		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
-		org.archstudio.demo.chatsys.IChatListener, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
+		org.archstudio.demo.chatsys.IChat, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**
 	 * @generated
@@ -58,13 +58,14 @@ abstract class ChatServerMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 */
 	// MyxGenInterface[name=chatEvents,direction=out,single=true,serviceObjectDelegate=brick,generateGetter=true,className=org.archstudio.demo.chatsys.IChatListener,description=null]
 	public static final IMyxName OUT_CHAT_EVENTS = MyxUtils.createName("chatEvents");
+
 	/**
-	 * Service object(s) for chat: <code>chat</code>
-	 * 
-	 * @see #IN_CHAT
+	 * Service object(s) for the chatEvents interface.
+	 *
+	 * @see #OUT_CHAT_EVENTS
 	 * @generated
 	 */
-	protected org.archstudio.demo.chatsys.IChat chat = null;
+	protected org.archstudio.demo.chatsys.IChatListener chatEvents = null;
 
 	/**
 	 * Returns the service object(s) for <code>chat</code>
@@ -73,7 +74,7 @@ abstract class ChatServerMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 * @generated
 	 */
 	public org.archstudio.demo.chatsys.IChat getChat() {
-		return chat;
+		return this;
 	}
 
 	/**
@@ -83,7 +84,7 @@ abstract class ChatServerMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 * @generated
 	 */
 	public org.archstudio.demo.chatsys.IChatListener getChatEvents() {
-		return this;
+		return chatEvents;
 	}
 
 	/**
@@ -95,6 +96,11 @@ abstract class ChatServerMyxComponentStub extends org.archstudio.myx.fw.Abstract
 			throw new NullPointerException(interfaceName.getName());
 		}
 		if (interfaceName.equals(OUT_CHAT_EVENTS)) {
+			if (chatEvents != null) {
+				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
+			}
+			chatEvents = (org.archstudio.demo.chatsys.IChatListener) serviceObject;
+			return;
 		}
 		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
@@ -108,6 +114,8 @@ abstract class ChatServerMyxComponentStub extends org.archstudio.myx.fw.Abstract
 			throw new NullPointerException(interfaceName.getName());
 		}
 		if (interfaceName.equals(OUT_CHAT_EVENTS)) {
+			chatEvents = null;
+			return;
 		}
 		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
 	}
@@ -125,10 +133,7 @@ abstract class ChatServerMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_CHAT)) {
-			if (chat == null) {
-				throw new NullPointerException("chat");
-			}
-			return chat;
+			return this;
 		}
 		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}

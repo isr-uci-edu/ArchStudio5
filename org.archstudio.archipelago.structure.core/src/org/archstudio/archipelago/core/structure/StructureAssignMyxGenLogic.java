@@ -72,6 +72,10 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 						}
 					});
 					menu.add(myxGenMenu);
+					myxGenMenu.add(new Action("Place holder needed to show menu") {
+						public void run() {
+						}
+					});
 				}
 			}
 		}
