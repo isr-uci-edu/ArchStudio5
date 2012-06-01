@@ -122,6 +122,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 				int x2 = Integer.MIN_VALUE;
 				int y2 = Integer.MIN_VALUE;
 
+				boolean foundSomething = false;
 				for (IHasBoundingBox t : typeLogic.getThings(m, IHasBoundingBox.class)) {
 					if (!Boolean.TRUE.equals(t.get(IIsHidden.HIDDEN_KEY))) {
 						Rectangle bb = t.getBoundingBox();
@@ -129,6 +130,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 							if (bb.width <= 0 || bb.height <= 0) {
 								continue;
 							}
+							foundSomething = true;
 							if (bb.x < x1) {
 								x1 = bb.x;
 							}
@@ -144,7 +146,8 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 						}
 					}
 				}
-				modelBounds = new Rectangle(x1, y1, x2 - x1, y2 - y1);
+				if (foundSomething)
+					modelBounds = new Rectangle(x1, y1, x2 - x1, y2 - y1);
 			}
 		}
 	}
@@ -155,7 +158,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 			if (modelBounds != null) {
 				return new Rectangle(modelBounds.x, modelBounds.y, modelBounds.width, modelBounds.height);
 			}
-			return new Rectangle(Integer.MIN_VALUE, Integer.MIN_VALUE, 0, 0);
+			return new Rectangle(0, 0, 0, 0);
 		}
 	}
 }
