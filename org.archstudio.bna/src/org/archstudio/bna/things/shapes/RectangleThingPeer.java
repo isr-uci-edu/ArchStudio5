@@ -26,7 +26,12 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 			g.fillRectangle(lbb);
 		}
 		if (BNAUtils.setForegroundColor(r, g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
-			g.drawRectangle(lbb.x, lbb.y, lbb.width - 1, lbb.height - 1);
+			int count = t.getCount();
+			int width = t.getLineWidth();
+			while (count-- > 0) {
+				g.drawRectangle(lbb.x, lbb.y, lbb.width - 1, lbb.height - 1);
+				lbb.shrink(width * 2, width * 2);
+			}
 		}
 	}
 
