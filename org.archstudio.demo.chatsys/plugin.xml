@@ -9,7 +9,7 @@
             name="Server Impl">
          <interface
                class="org.archstudio.demo.chatsys.IChat"
-               delegate="variable"
+               delegate="brick"
                direction="in"
                domain="bottom"
                getter="true"
@@ -19,7 +19,7 @@
          </interface>
          <interface
                class="org.archstudio.demo.chatsys.IChatListener"
-               delegate="brick"
+               delegate="variable"
                direction="out"
                domain="bottom"
                getter="true"

@@ -22,5 +22,11 @@ Require-Bundle: org.archstudio.aim,
  org.eclipse.ui,
  org.eclipse.ui.views,
  org.archstudio.utils.system,
- org.archstudio.editormanager
+ org.archstudio.editormanager,
+ org.eclipse.jdt.launching,
+ com.google.guava,
+ org.archstudio.xarchadt.core,
+ org.archstudio.myx.fw.equinox,
+ org.archstudio.aim.core,
+ org.archstudio.xadl3.structure
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

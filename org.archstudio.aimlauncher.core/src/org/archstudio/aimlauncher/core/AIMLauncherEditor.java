@@ -1,20 +1,18 @@
 package org.archstudio.aimlauncher.core;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
-import org.archstudio.aim.ArchitectureInstantiationException;
-import org.archstudio.aim.IAIM;
 import org.archstudio.eclipse.ui.editors.AbstractArchStudioEditor;
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
-import org.archstudio.ljm.LJMServer;
-import org.archstudio.myx.fw.MyxNullProgressMonitor;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.ILaunchConfigurationType;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -31,6 +29,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
+
+import com.google.common.collect.Maps;
 
 public class AIMLauncherEditor extends AbstractArchStudioEditor<AIMLauncherMyxComponent> // implements IMyxRuntimeRegistry
 {
@@ -118,21 +118,6 @@ public class AIMLauncherEditor extends AbstractArchStudioEditor<AIMLauncherMyxCo
 		}
 	}
 
-	long launchCount = 0;
-
-	IAIM aim = null;
-
-	LJMServer server;
-
-	Map<String, LaunchData> launchDatas = Collections.synchronizedMap(new HashMap<String, LaunchData>());
-
-	private class LaunchData {
-		//String name;
-		//ObjRef documentRootRef = null;
-		//ObjRef structureRef = null;
-		//ILaunch launch = null;
-	}
-
 	public AIMLauncherEditor() {
 		super(AIMLauncherMyxComponent.class, AIMLauncherMyxComponent.EDITOR_NAME);
 	}
@@ -143,22 +128,6 @@ public class AIMLauncherEditor extends AbstractArchStudioEditor<AIMLauncherMyxCo
 
 		setBannerInfo(brick.getIcon(), "Architecture Instantiation Manager");
 		setHasBanner(true);
-
-		aim = brick.getAim();
-
-		try {
-			server = new LJMServer();
-			server.deploy("AIMLauncher", this);
-		}
-		catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
-	public void dispose() {
-		server.destroy();
-		super.dispose();
 	}
 
 	@Override
@@ -237,102 +206,28 @@ public class AIMLauncherEditor extends AbstractArchStudioEditor<AIMLauncherMyxCo
 	}
 
 	protected void launchArchitecture(final ObjRef structureRef) {
-		String name = XadlUtils.getName(xarch, structureRef);
+
 		try {
-			aim.instantiate(name, xarch.getDocumentRootRef(structureRef), structureRef, new MyxNullProgressMonitor());
-		}
-		catch (ArchitectureInstantiationException aie) {
-			aie.printStackTrace();
-		}
-		aim.begin(name, new MyxNullProgressMonitor());
+			// create a launch configuration and run it in order to support debugging
+			// for an example for creating java launch configurations, see:
+			// http://www.eclipse.org/articles/Article-Java-launch/launching-java.html
 
-		// for an example for creating java launch configurations, see:
-		// http://www.eclipse.org/articles/Article-Java-launch/launching-java.html
+			ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
+			ILaunchConfigurationType jType = manager.getLaunchConfigurationType("org.eclipse.pde.ui.RuntimeWorkbench");
+			ILaunchConfigurationWorkingCopy workingConfig = jType.newInstance(null, "AIM Launcher");
+			workingConfig.setAttribute("application", AIMLauncherApp.class.getName());
+			workingConfig.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS, "-consoleLog -debug");
 
-		//try {
-		//	final LaunchData launchData = new LaunchData();
-		//	launchData.name = "Launch:" + (++launchCount);
-		//	launchData.documentRootRef = xarch.getDocumentRootRef(structureRef);
-		//	launchData.structureRef = structureRef;
-		//	launchDatas.put(launchData.name, launchData);
-		//	URI xArchURI = URI.create(xarch.getXArchURI(launchData.documentRootRef));
-		//	URI xArchLocalURI = ResourcesPlugin.getWorkspace().getRoot().findMember(xArchURI.getPath())
-		//			.getLocationURI();
-		//	IProject xArchProject = ResourcesPlugin.getWorkspace().getRoot().findMember(xArchURI.getPath())
-		//			.getProject();
-		//	ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
-		//	ILaunchConfigurationType jType = manager
-		//			.getLaunchConfigurationType(IJavaLaunchConfigurationConstants.ID_JAVA_APPLICATION);
-		//	ILaunchConfigurationWorkingCopy workingConfig = jType.newInstance(null, "AIM Launcher");
-		//	workingConfig.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, xArchProject.getName());
-		//	workingConfig.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME,
-		//			"edu.uci.isr.myx.fw.MyxRemoteRuntime");
-		//	workingConfig.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS,
-		//			"-registryHost localhost -registryPort " + server.getPort()
-		//					+ " -registryName AIMLauncher -runtimeHost localhost -runtimeName \"" + launchData.name
-		//					+ "\"");
-		//	launchData.launch = workingConfig.launch(ILaunchManager.DEBUG_MODE, null, true, true);
-		//	Thread t = new Thread(new Runnable() {
-		//		public void run() {
-		//			while (true) {
-		//				try {
-		//					if (launchData.launch.isTerminated())
-		//						break;
-		//					Thread.sleep(1000);
-		//				}
-		//				catch (InterruptedException e) {
-		//				}
-		//			}
-		//			launchDatas.remove(launchData.name);
-		//		}
-		//	});
-		//	t.setDaemon(true);
-		//	t.start();
-		//}
-		//catch (Exception e) {
-		//	e.printStackTrace();
-		//}
+			// we pass the architecture and top level element as an environment variables
+			Map<String, String> env = Maps.newHashMap();
+			env.put("architecture", new String(xarch.serialize(xarch.getURI(structureRef))));
+			env.put("topLevelElement", (String) xarch.get(structureRef, "name"));
+			workingConfig.setAttribute(ILaunchManager.ATTR_ENVIRONMENT_VARIABLES, env);
+
+			workingConfig.launch(ILaunchManager.DEBUG_MODE, null, true, true);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
-	//public void addLJMRuntime(String name, String host, int port) {
-	//	addRuntime(name, (IMyxRuntime) LJMProxyFactory.createProxy(host, port, name, new Class[] { IMyxRuntime.class }));
-	//}
-	//
-	//public void addRuntime(String name, IMyxRuntime runtime) {
-	//	final LaunchData launchData = launchDatas.get(name);
-	//	if (launchData != null) {
-	//		try {
-	//			aim.instantiate(name, xarch.getDocumentRootRef(launchData.structureRef), launchData.structureRef);
-	//			aim.begin(name);
-	//		}
-	//		catch (Exception e) {
-	//			e.printStackTrace();
-	//			try {
-	//				launchData.launch.terminate();
-	//			}
-	//			catch (Exception e2) {
-	//				e2.printStackTrace();
-	//			}
-	//		}
-	//	}
-	//}
-	//
-	//public void removeRuntime(String name) {
-	//	final LaunchData launchData = launchDatas.get(name);
-	//	if (launchData != null && launchData.runtime != null) {
-	//		try {
-	//			aim.end(name);
-	//			aim.destroy(name);
-	//		}
-	//		catch (Exception e) {
-	//			e.printStackTrace();
-	//			try {
-	//				launchData.launch.terminate();
-	//			}
-	//			catch (Exception e2) {
-	//				e2.printStackTrace();
-	//			}
-	//		}
-	//	}
-	//}
 }
