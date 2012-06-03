@@ -9,6 +9,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.borders.MarqueeBoxBorderThing;
 import org.archstudio.bna.utils.BNAUtils;
@@ -34,6 +35,7 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	@Override
 	protected void init() {
 		super.init();
+		addThingLogic(RotatingOffsetLogic.class);
 		this.typesLogic = addThingLogic(ThingTypeTrackingLogic.class);
 	}
 
