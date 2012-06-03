@@ -2,7 +2,6 @@ package org.archstudio.bna.things;
 
 import static com.google.common.base.Preconditions.checkState;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
@@ -17,11 +16,12 @@ import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.TypedHashMap;
 import org.archstudio.sysutils.TypedMap;
 import org.archstudio.sysutils.TypedMap.Key;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 public class AbstractThing implements IThing {
@@ -50,9 +50,6 @@ public class AbstractThing implements IThing {
 	private final Object id;
 	private final TypedMap properties = TypedHashMap.create();
 	private boolean initedProperties = false;
-
-	private int synchronizedUpdateCount = 0;
-	private List<ThingEvent<?, ?, ?>> synchronizedUpdateEvents = null;
 
 	public AbstractThing(Object id) {
 		this.id = id == null ? Long.valueOf(atomicLong.getAndIncrement()) : id;
@@ -132,16 +129,11 @@ public class AbstractThing implements IThing {
 		return key.postRead(getRaw(key));
 	}
 
-	@Override
-	@Deprecated
-	public <V> V getProperty(IThingKey<V> key) {
-		return get(key);
-	}
-
 	private <V> V getRaw(IThingKey<V> key) {
-		synchronized (properties) {
-			return properties.get(key);
-		}
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
+		return properties.get(key);
 	}
 
 	@Override
@@ -149,107 +141,55 @@ public class AbstractThing implements IThing {
 		return setRaw(key, key.preWrite(value));
 	}
 
-	@Override
-	@Deprecated
-	public <V> V setProperty(IThingKey<V> key, V value) {
-		return set(key, value);
-	}
-
 	private <V> V setRaw(IThingKey<V> key, V value) {
-		V oldValue;
-		ThingEvent<IThing, IThingKey<V>, V> evt = null;
-		synchronized (properties) {
-			modCount++;
-			oldValue = properties.put(key, value);
-			if (key.isFireEventOnChange() && !SystemUtils.nullEquals(oldValue, value)) {
-				evt = ThingEvent.<IThing, IThingKey<V>, V> create(ThingEvent.EventType.PROPERTY_SET, this, key,
-						key.postRead(oldValue), key.postRead(value));
-				if (synchronizedUpdateEvents != null) {
-					synchronizedUpdateEvents.add(evt);
-					return oldValue;
-				}
-			}
-		}
-		// note: avoid deadlock by not being 'synchronized' when actually firing the event
-		if (evt != null) {
-			fireThingEvent(evt);
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
+		V oldValue = properties.put(key, value);
+		if (key.isFireEventOnChange() && !SystemUtils.nullEquals(oldValue, value)) {
+			fireThingEvent(ThingEvent.<IThing, IThingKey<V>, V> create(ThingEvent.EventType.PROPERTY_SET, this, key,
+					key.postRead(oldValue), key.postRead(value)));
 		}
 		return oldValue;
 	}
 
 	@Override
 	public boolean has(IThingKey<?> key) {
-		synchronized (properties) {
-			return properties.containsKey(key);
-		}
-	}
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 
-	public boolean hasProperty(IThingKey<?> key) {
-		return has(key);
+		return properties.containsKey(key);
 	}
 
 	@Override
 	public <V> boolean has(IThing.IThingKey<V> key, V value) {
-		synchronized (properties) {
-			return SystemUtils.nullEquals(properties.get(key), value);
-		}
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
+		return SystemUtils.nullEquals(properties.get(key), value);
 	};
 
 	@Override
 	public <V> V remove(IThingKey<V> key) {
-		V oldValue;
-		ThingEvent<IThing, IThingKey<V>, V> evt = null;
-		synchronized (properties) {
-			modCount++;
-			boolean containedValue = properties.containsKey(key);
-			oldValue = properties.remove(key);
-			if (containedValue && key.isFireEventOnChange()) {
-				evt = ThingEvent.<IThing, IThingKey<V>, V> create(ThingEvent.EventType.PROPERTY_REMOVED, this, key,
-						oldValue, null);
-				if (synchronizedUpdateEvents != null) {
-					synchronizedUpdateEvents.add(evt);
-					return oldValue;
-				}
-			}
-		}
-		// note: avoid deadlock by not being 'synchronized' when actually firing the event
-		if (evt != null) {
-			fireThingEvent(evt);
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
+		boolean containedValue = properties.containsKey(key);
+		V oldValue = properties.remove(key);
+		if (containedValue && key.isFireEventOnChange()) {
+			fireThingEvent(ThingEvent.<IThing, IThingKey<V>, V> create(ThingEvent.EventType.PROPERTY_REMOVED, this,
+					key, oldValue, null));
 		}
 		return oldValue;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void synchronizedUpdate(Runnable r) {
-		List<ThingEvent<?, ?, ?>> updateEvents = null;
-		synchronized (properties) {
-			try {
-				if (synchronizedUpdateCount++ == 0) {
-					updateEvents = Lists.newArrayList();
-					synchronizedUpdateEvents = updateEvents;
-				}
-				r.run();
-			}
-			finally {
-				if (--synchronizedUpdateCount != 0) {
-					return;
-				}
-				synchronizedUpdateEvents = null;
-			}
-		}
-		// note: avoid deadlock by not being 'synchronized' when actually firing the event
-		for (ThingEvent<?, ?, ?> evt : updateEvents) {
-			fireThingEvent((ThingEvent<IThing, IThingKey<Object>, Object>) evt);
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
 	public Set<IThingKey<?>> keySet() {
-		synchronized (properties) {
-			return Sets.newHashSet((Set<IThingKey<?>>) properties.keySet());
-		}
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
+		return Sets.newHashSet((Set<IThingKey<?>>) properties.keySet());
 	}
 
 	@Override
@@ -261,12 +201,5 @@ public class AbstractThing implements IThing {
 		}
 		sb.append("]");
 		return sb.toString();
-	}
-
-	int modCount = 0;
-
-	@Override
-	public int getModCount() {
-		return modCount;
 	}
 }

@@ -102,20 +102,21 @@ public class BasicBNADemo {
 	static void setupWorld(IBNAWorld bnaWorld) {
 		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
 
-		logicManager.addThingLogic(new ClickSelectionLogic());
-		logicManager.addThingLogic(new DragMovableLogic());
-		logicManager.addThingLogic(new EditTextLogic());
-		logicManager.addThingLogic(new KeyNudgerLogic());
-		logicManager.addThingLogic(new MarqueeSelectionLogic());
-		logicManager.addThingLogic(new MousePanAndZoomLogic());
-		logicManager.addThingLogic(new ReshapeRectangleLogic());
-		logicManager.addThingLogic(new ReshapeSplineLogic());
-		logicManager.addThingLogic(new RotatingOffsetLogic());
-		logicManager.addThingLogic(new SplineBreakLogic());
-		logicManager.addThingLogic(new StandardCursorLogic());
-		logicManager.addThingLogic(new ToolTipLogic());
+		logicManager.addThingLogic(ClickSelectionLogic.class);
+		logicManager.addThingLogic(DragMovableLogic.class);
+		logicManager.addThingLogic(EditTextLogic.class);
+		logicManager.addThingLogic(KeyNudgerLogic.class);
+		logicManager.addThingLogic(MarqueeSelectionLogic.class);
+		logicManager.addThingLogic(MousePanAndZoomLogic.class);
+		logicManager.addThingLogic(ReshapeRectangleLogic.class);
+		logicManager.addThingLogic(ReshapeSplineLogic.class);
+		logicManager.addThingLogic(RotatingOffsetLogic.class);
+		logicManager.addThingLogic(SplineBreakLogic.class);
+		logicManager.addThingLogic(StandardCursorLogic.class);
+		logicManager.addThingLogic(ToolTipLogic.class);
+		//logicManager.addThingLogic(DebugLogic.class);
 
-		logicManager.addThingLogic(new WorldThingExternalEventsLogic());
+		logicManager.addThingLogic(WorldThingExternalEventsLogic.class);
 	}
 
 	static void populateModel(IBNAWorld world) {

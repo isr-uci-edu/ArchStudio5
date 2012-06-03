@@ -54,32 +54,22 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 
 	@Override
 	public void setPoint(final int index, final Point point) {
-		synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				List<Point> newPoints = getPoints();
-				newPoints.set(index < 0 ? newPoints.size() + index : index, new Point(point.x, point.y));
-				setPoints(newPoints);
-			}
-		});
+		List<Point> newPoints = getPoints();
+		newPoints.set(index < 0 ? newPoints.size() + index : index, new Point(point.x, point.y));
+		setPoints(newPoints);
 	}
 
 	@Override
 	public void moveRelative(final Point worldDelta) {
 		if (worldDelta.x != 0 || worldDelta.y != 0) {
-			synchronizedUpdate(new Runnable() {
-				@Override
-				public void run() {
-					List<Point> newPoints = getPoints();
-					for (int i = 0; i < newPoints.size(); i++) {
-						//TODO: optimize by only updating unstuck points
-						Point p = newPoints.get(i);
-						p.x += worldDelta.x;
-						p.y += worldDelta.y;
-					}
-					setPoints(newPoints);
-				}
-			});
+			List<Point> newPoints = getPoints();
+			for (int i = 0; i < newPoints.size(); i++) {
+				//TODO: optimize by only updating unstuck points
+				Point p = newPoints.get(i);
+				p.x += worldDelta.x;
+				p.y += worldDelta.y;
+			}
+			setPoints(newPoints);
 		}
 	}
 

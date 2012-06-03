@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -20,7 +20,7 @@ import org.archstudio.xarchadt.ObjRef;
 
 import com.google.common.collect.Sets;
 
-public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
+public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	ThingValueTrackingLogic valuesLogic = null;
 	Set<IThingKeyKey<?, IThingKey<Object>, ObjRef>> objRefKeys = Collections
@@ -49,7 +49,7 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 	int inUpdateCount = 0;
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 		if (inUpdateCount > 0) {
 			return;
 		}

@@ -41,11 +41,6 @@ public class PulsingBorderThing extends AbstractRectangleThing implements IHasMu
 
 	@Override
 	public void incrementRotatingOffset() {
-		synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				set(IHasRotatingOffset.ROTATING_OFFSET_KEY, get(IHasRotatingOffset.ROTATING_OFFSET_KEY) + 1);
-			}
-		});
+		set(IHasRotatingOffset.ROTATING_OFFSET_KEY, get(IHasRotatingOffset.ROTATING_OFFSET_KEY) + 1);
 	}
 }

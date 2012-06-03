@@ -5,6 +5,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasMutableLife;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
+import org.eclipse.swt.widgets.Display;
 
 public class LifeSapperLogic extends AbstractThingLogic {
 
@@ -52,30 +53,30 @@ public class LifeSapperLogic extends AbstractThingLogic {
 				}
 				catch (InterruptedException e) {
 				}
-				final IBNAModel model = getBNAModel();
-				if (model != null) {
-					model.beginBulkChange();
-					try {
-						for (final IThing t : model.getThingsByID(typeLogic.getThingIDs(IHasMutableLife.class))) {
-							if (t instanceof IHasMutableLife) {
-								final IHasMutableLife tl = (IHasMutableLife) t;
-								tl.synchronizedUpdate(new Runnable() {
-									@Override
-									public void run() {
+
+				Display.getDefault().syncExec(new Runnable() {
+					public void run() {
+						final IBNAModel model = getBNAModel();
+						if (model != null) {
+							model.beginBulkChange();
+							try {
+								for (final IThing t : model.getThingsByID(typeLogic.getThingIDs(IHasMutableLife.class))) {
+									if (t instanceof IHasMutableLife) {
+										final IHasMutableLife tl = (IHasMutableLife) t;
 										int life;
 										tl.setLife(life = tl.getLife() - 1);
 										if (life < 0) {
 											model.removeThing(tl);
 										}
 									}
-								});
+								}
+							}
+							finally {
+								model.endBulkChange();
 							}
 						}
 					}
-					finally {
-						model.endBulkChange();
-					}
-				}
+				});
 			}
 		}
 	}

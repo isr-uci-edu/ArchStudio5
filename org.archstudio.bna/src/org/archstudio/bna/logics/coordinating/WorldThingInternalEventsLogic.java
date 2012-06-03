@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
-import org.archstudio.bna.IBNASynchronousModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
@@ -17,7 +16,7 @@ import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 
 import com.google.common.collect.Lists;
 
-public class WorldThingInternalEventsLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
+public class WorldThingInternalEventsLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	protected ThingTypeTrackingLogic typeLogic = null;
 	protected Map<IHasWorld, InternalModelListener> thingToListenerMap = new HashMap<IHasWorld, InternalModelListener>();
@@ -27,7 +26,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 	public WorldThingInternalEventsLogic() {
 	}
 
-	class InternalModelListener implements IBNAModelListener, IBNASynchronousModelListener {
+	class InternalModelListener implements IBNAModelListener {
 
 		private final IHasWorld viewThing;
 
@@ -36,16 +35,11 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 			viewThing.set(INTERNAL_MODEL_CHANGE_TICKER, 0);
 		}
 
-		@Override
-		public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
-			fireInternalBNAModelEvent(viewThing, evt);
-		}
-
 		boolean needsTick = false;
 
 		@Override
-		public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
-			fireInternalBNAModelEventSync(viewThing, evt);
+		public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+			fireInternalBNAModelEvent(viewThing, evt);
 			switch (evt.getEventType()) {
 			case BULK_CHANGE_BEGIN:
 			case BULK_CHANGE_END:
@@ -55,12 +49,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 			}
 			if (!evt.isInBulkChange() && needsTick) {
 				needsTick = false;
-				viewThing.synchronizedUpdate(new Runnable() {
-					@Override
-					public void run() {
-						viewThing.set(INTERNAL_MODEL_CHANGE_TICKER, viewThing.get(INTERNAL_MODEL_CHANGE_TICKER) + 1);
-					}
-				});
+				viewThing.set(INTERNAL_MODEL_CHANGE_TICKER, viewThing.get(INTERNAL_MODEL_CHANGE_TICKER) + 1);
 			}
 		}
 	}
@@ -82,7 +71,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 		if (evt.getTargetThing() != null && evt.getTargetThing() instanceof IHasWorld) {
 			IHasWorld vt = (IHasWorld) evt.getTargetThing();
 			switch (evt.getEventType()) {
@@ -109,7 +98,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 			InternalModelListener l = new InternalModelListener(vt);
 			thingToListenerMap.put(vt, l);
 			world.getBNAModel().addBNAModelListener(l);
-			world.getBNAModel().addSynchronousBNAModelListener(l);
+			world.getBNAModel().addBNAModelListener(l);
 		}
 	}
 
@@ -117,7 +106,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 		InternalModelListener l = thingToListenerMap.remove(vt);
 		IBNAWorld world = vt.getWorld();
 		if (world != null) {
-			world.getBNAModel().removeSynchronousBNAModelListener(l);
+			world.getBNAModel().removeBNAModelListener(l);
 			world.getBNAModel().removeBNAModelListener(l);
 		}
 	}
@@ -127,14 +116,6 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 		for (IInternalBNAModelListener l : getBNAWorld().getThingLogicManager().getThingLogics(
 				IInternalBNAModelListener.class)) {
 			l.internalBNAModelChanged(src, evt);
-		}
-	}
-
-	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void fireInternalBNAModelEventSync(IHasWorld src,
-			BNAModelEvent<ET, EK, EV> evt) {
-		for (IInternalBNAModelListener l : getBNAWorld().getThingLogicManager().getThingLogics(
-				IInternalBNAModelListener.class)) {
-			l.internalBNAModelChangedSync(src, evt);
 		}
 	}
 }

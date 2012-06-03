@@ -3,6 +3,7 @@ package org.archstudio.bna.logics.background;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.eclipse.swt.widgets.Display;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -52,21 +53,25 @@ public class RotatingOffsetLogic extends AbstractThingLogic {
 				catch (InterruptedException e) {
 				}
 
-				final IBNAModel model = getBNAModel();
-				if (model != null) {
-					model.beginBulkChange();
-					try {
-						for (IHasMutableRotatingOffset t : Lists.newArrayList(Iterables.filter(model.getAllThings(),
-								IHasMutableRotatingOffset.class))) {
-							if (t.shouldIncrementRotatingOffset()) {
-								t.incrementRotatingOffset();
+				Display.getDefault().syncExec(new Runnable() {
+					public void run() {
+						final IBNAModel model = getBNAModel();
+						if (model != null) {
+							model.beginBulkChange();
+							try {
+								for (IHasMutableRotatingOffset t : Lists.newArrayList(Iterables.filter(model.getAllThings(),
+										IHasMutableRotatingOffset.class))) {
+									if (t.shouldIncrementRotatingOffset()) {
+										t.incrementRotatingOffset();
+									}
+								}
+							}
+							finally {
+								model.endBulkChange();
 							}
 						}
 					}
-					finally {
-						model.endBulkChange();
-					}
-				}
+				});
 			}
 		}
 	}

@@ -31,33 +31,27 @@ public class SplineBreakLogic extends AbstractThingLogic implements IBNAMouseCli
 		final IHasMutablePoints t = castOrNull(firstOrNull(things), IHasMutablePoints.class);
 		if (t != null && UserEditableUtils.isEditableForAllQualities(t, IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS)) {
 
-			t.synchronizedUpdate(new Runnable() {
-				@Override
-				public void run() {
-
-					// insert the new point
-					boolean pointAdded = false;
-					Point worldPoint = location.getWorldPoint();
-					List<Point> points = t.getPoints();
-					for (int i = 1; i < points.size(); i++) {
-						Point p1 = points.get(i - 1);
-						Point p2 = points.get(i);
-						double dist = Line2D.ptSegDist(p2.x, p2.y, p1.x, p1.y, worldPoint.x, worldPoint.y);
-						if (dist <= 5) {
-							pointAdded = true;
-							points.add(i, new Point(worldPoint.x, worldPoint.y));
-							break;
-						}
-					}
-
-					// if a point wasn't added, do so now
-					if (!pointAdded) {
-						points.add(new Point(worldPoint.x, worldPoint.y));
-					}
-
-					t.setPoints(points);
+			// insert the new point
+			boolean pointAdded = false;
+			Point worldPoint = location.getWorldPoint();
+			List<Point> points = t.getPoints();
+			for (int i = 1; i < points.size(); i++) {
+				Point p1 = points.get(i - 1);
+				Point p2 = points.get(i);
+				double dist = Line2D.ptSegDist(p2.x, p2.y, p1.x, p1.y, worldPoint.x, worldPoint.y);
+				if (dist <= 5) {
+					pointAdded = true;
+					points.add(i, new Point(worldPoint.x, worldPoint.y));
+					break;
 				}
-			});
+			}
+
+			// if a point wasn't added, do so now
+			if (!pointAdded) {
+				points.add(new Point(worldPoint.x, worldPoint.y));
+			}
+
+			t.setPoints(points);
 		}
 	}
 }

@@ -71,15 +71,10 @@ public abstract class AbstractPolygonThing extends AbstractPointsThing implement
 	@Override
 	public void moveRelative(final Point moveDelta) {
 		if (moveDelta.x != 0 || moveDelta.y != 0) {
-			synchronizedUpdate(new Runnable() {
-				@Override
-				public void run() {
-					Point a = getAnchorPoint();
-					a.x += moveDelta.x;
-					a.y += moveDelta.y;
-					setAnchorPoint(a);
-				}
-			});
+			Point a = getAnchorPoint();
+			a.x += moveDelta.x;
+			a.y += moveDelta.y;
+			setAnchorPoint(a);
 		}
 	}
 

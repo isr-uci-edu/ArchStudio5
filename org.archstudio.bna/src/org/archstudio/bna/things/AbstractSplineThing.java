@@ -89,13 +89,8 @@ public class AbstractSplineThing extends AbstractPointsThing implements IHasMuta
 	public void setPoints(final List<Point> points) {
 		checkArgument(points.size() >= 2, "%s requires at least two points", this.getClass());
 
-		synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				setEndpoint1(points.get(0));
-				setMidpoints(points.subList(1, points.size() - 1));
-				setEndpoint2(points.get(points.size() - 1));
-			}
-		});
+		setEndpoint1(points.get(0));
+		setMidpoints(points.subList(1, points.size() - 1));
+		setEndpoint2(points.get(points.size() - 1));
 	}
 }

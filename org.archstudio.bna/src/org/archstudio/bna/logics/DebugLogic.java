@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.CoordinateMapperEvent;
-import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
@@ -16,7 +16,7 @@ import org.archstudio.bna.utils.IBNAMouseListener;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.events.MouseEvent;
 
-public class DebugLogic extends AbstractThingLogic implements IBNASynchronousModelListener, IBNAMouseListener,
+public class DebugLogic extends AbstractThingLogic implements IBNAModelListener, IBNAMouseListener,
 		IBNAMouseClickListener, ICoordinateMapperListener {
 
 	public DebugLogic() {
@@ -37,7 +37,7 @@ public class DebugLogic extends AbstractThingLogic implements IBNASynchronousMod
 	int modelEventCount = 0;
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 		modelEventCount++;
 		System.err.println("DL: bnaModelChangedSync " + modelEventCount + " " + evt);
 	}

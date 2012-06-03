@@ -44,16 +44,11 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 
 	@Override
 	public void coordinateMappingsChanged(CoordinateMapperEvent evt) {
-		t.synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				Integer ticker = t.get(COORDINATE_MAPPER_CHANGE_TICKER);
-				if (ticker == null) {
-					ticker = Integer.valueOf(0);
-				}
-				t.set(COORDINATE_MAPPER_CHANGE_TICKER, ticker + 1);
-			}
-		});
+		Integer ticker = t.get(COORDINATE_MAPPER_CHANGE_TICKER);
+		if (ticker == null) {
+			ticker = Integer.valueOf(0);
+		}
+		t.set(COORDINATE_MAPPER_CHANGE_TICKER, ticker + 1);
 	}
 
 	@Override
@@ -111,13 +106,16 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 			}
 		}
 
-		
-		
-		for (IThing thing : innerWorld.getBNAModel().getAllThings()) {
-			IThingPeer<?> peer = innerView.getThingPeer(thing);
-			//if (clip.intersects(peer.getLocalBounds(innerView, innerView.getCoordinateMapper()))) {
+		g.pushState();
+		try {
+			for (IThing thing : innerWorld.getBNAModel().getAllThings()) {
+				g.restoreState();
+				IThingPeer<?> peer = innerView.getThingPeer(thing);
 				peer.draw(innerView, innerView.getCoordinateMapper(), r, g);
-			//}
+			}
+		}
+		finally {
+			g.popState();
 		}
 	}
 

@@ -5,7 +5,7 @@ import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -18,7 +18,7 @@ import org.archstudio.xadl.bna.things.IHasXArchID;
 
 import com.google.common.collect.Sets;
 
-public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
+public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	ThingValueTrackingLogic valuesLogic = null;
 	Set<IThingKeyKey<?, IThingKey<Object>, String>> xArchIDKeys = Sets.newHashSet();
@@ -44,7 +44,7 @@ public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implem
 	int inUpdateCount = 0;
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 		if (inUpdateCount > 0) {
 			return;
 		}

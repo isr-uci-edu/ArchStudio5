@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
-import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
@@ -24,6 +24,7 @@ import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.archstudio.xarchadt.XArchADTPath;
+import org.eclipse.swt.widgets.Display;
 
 import com.google.common.collect.Lists;
 
@@ -39,7 +40,7 @@ import com.google.common.collect.Lists;
  *            to represent targeted ObjRefs, see {@link #addThing(List, ObjRef)}
  */
 public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends AbstractThingLogic implements
-		IBNASynchronousModelListener, IXArchADTModelListener, IXArchRelativePathTrackerListener {
+		IBNAModelListener, IXArchADTModelListener, IXArchRelativePathTrackerListener {
 
 	protected final static IThingKey<Object> MAPPING_KEY = ThingKey.create(AbstractXADLToBNAThingLogic.class);
 
@@ -101,27 +102,31 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * {@link #updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)}
 	 */
 	@Override
-	public void processAdd(List<ObjRef> relLineageRefs, ObjRef objRef) {
-		IBNAModel model = getBNAModel();
-		if (model != null) {
-			model.beginBulkChange();
-			updatingThings++;
-			try {
-				// start by creating and updating the thing
-				T thing = addThing(relLineageRefs, objRef);
-				if (thing != null) {
-					updateThing(relLineageRefs, null, objRef, null, thing);
-					// note which ObjRef the thing represents
-					thing.set(IHasObjRef.OBJREF_KEY, objRef);
-					// mark the thing as originating from, and being synchronized by this logic
-					thing.set(MAPPING_KEY, this);
+	public void processAdd(final List<ObjRef> relLineageRefs, final ObjRef objRef) {
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				IBNAModel model = getBNAModel();
+				if (model != null) {
+					model.beginBulkChange();
+					updatingThings++;
+					try {
+						// start by creating and updating the thing
+						T thing = addThing(relLineageRefs, objRef);
+						if (thing != null) {
+							updateThing(relLineageRefs, null, objRef, null, thing);
+							// note which ObjRef the thing represents
+							thing.set(IHasObjRef.OBJREF_KEY, objRef);
+							// mark the thing as originating from, and being synchronized by this logic
+							thing.set(MAPPING_KEY, this);
+						}
+					}
+					finally {
+						updatingThings--;
+						model.endBulkChange();
+					}
 				}
 			}
-			finally {
-				updatingThings--;
-				model.endBulkChange();
-			}
-		}
+		});
 	}
 
 	/**
@@ -131,22 +136,27 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public void processUpdate(List<ObjRef> relLineageRefs, XArchADTPath relPath, ObjRef objRef, XArchADTModelEvent evt) {
-		IBNAModel model = getBNAModel();
-		if (model != null) {
-			model.beginBulkChange();
-			updatingThings++;
-			try {
-				for (IThing t : model.getThingsByID(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
-						this))) {
-					updateThing(relLineageRefs, relPath, objRef, evt, (T) t);
+	public void processUpdate(final List<ObjRef> relLineageRefs, final XArchADTPath relPath, final ObjRef objRef,
+			final XArchADTModelEvent evt) {
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				IBNAModel model = getBNAModel();
+				if (model != null) {
+					model.beginBulkChange();
+					updatingThings++;
+					try {
+						for (IThing t : model.getThingsByID(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef,
+								MAPPING_KEY, this))) {
+							updateThing(relLineageRefs, relPath, objRef, evt, (T) t);
+						}
+					}
+					finally {
+						updatingThings--;
+						model.endBulkChange();
+					}
 				}
 			}
-			finally {
-				updatingThings--;
-				model.endBulkChange();
-			}
-		}
+		});
 	}
 
 	/**
@@ -154,22 +164,26 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * to the removed ObjRef
 	 */
 	@Override
-	public void processRemove(List<ObjRef> relLineageRefs, ObjRef objRef) {
-		IBNAModel model = getBNAModel();
-		if (model != null) {
-			model.beginBulkChange();
-			updatingThings++;
-			try {
-				for (IThing t : model.getThingsByID(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef, MAPPING_KEY,
-						this))) {
-					Assemblies.removeRootAndParts(model, t);
+	public void processRemove(final List<ObjRef> relLineageRefs, final ObjRef objRef) {
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				IBNAModel model = getBNAModel();
+				if (model != null) {
+					model.beginBulkChange();
+					updatingThings++;
+					try {
+						for (IThing t : model.getThingsByID(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef,
+								MAPPING_KEY, this))) {
+							Assemblies.removeRootAndParts(model, t);
+						}
+					}
+					finally {
+						updatingThings--;
+						model.endBulkChange();
+					}
 				}
 			}
-			finally {
-				updatingThings--;
-				model.endBulkChange();
-			}
-		}
+		});
 	}
 
 	/**
@@ -179,29 +193,35 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(final BNAModelEvent<ET, EK, EV> evt) {
 		if (updatingThings == 0) {
-			switch (evt.getEventType()) {
-			case THING_CHANGED:
-				IBNAModel model = getBNAModel();
-				if (model != null) {
-					IThing thing = evt.getTargetThing();
-					List<IThingRefKey<?>> bnaPathSegments = Lists.newArrayList();
-					while (thing != null) {
-						// look for a BNA Assembly that we've mapped from an ObjRef
-						if (thing.has(MAPPING_KEY, this)) {
-							ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);
-							if (objRef != null) {
-								storeThingData(objRef, (T) thing, BNAPath.create(Lists.reverse(bnaPathSegments)), evt);
-								break;
+			Display.getDefault().asyncExec(new Runnable() {
+				public void run() {
+
+					switch (evt.getEventType()) {
+					case THING_CHANGED:
+						IBNAModel model = getBNAModel();
+						if (model != null) {
+							IThing thing = evt.getTargetThing();
+							List<IThingRefKey<?>> bnaPathSegments = Lists.newArrayList();
+							while (thing != null) {
+								// look for a BNA Assembly that we've mapped from an ObjRef
+								if (thing.has(MAPPING_KEY, this)) {
+									ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);
+									if (objRef != null) {
+										storeThingData(objRef, (T) thing,
+												BNAPath.create(Lists.reverse(bnaPathSegments)), evt);
+										break;
+									}
+								}
+								// now check to see if this thing is part of an assembly
+								bnaPathSegments.add(Assemblies.getPartKey(thing));
+								thing = Assemblies.getAssemblyWithPart(model, thing);
 							}
 						}
-						// now check to see if this thing is part of an assembly
-						bnaPathSegments.add(Assemblies.getPartKey(thing));
-						thing = Assemblies.getAssemblyWithPart(model, thing);
 					}
 				}
-			}
+			});
 		}
 	}
 

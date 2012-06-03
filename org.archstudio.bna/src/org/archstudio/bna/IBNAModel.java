@@ -10,10 +10,6 @@ public interface IBNAModel {
 
 	public void removeBNAModelListener(IBNAModelListener l);
 
-	public void addSynchronousBNAModelListener(IBNASynchronousModelListener l);
-
-	public void removeSynchronousBNAModelListener(IBNASynchronousModelListener l);
-
 	public void fireStreamNotificationEvent(String streamNotification);
 
 	/**
@@ -50,19 +46,7 @@ public interface IBNAModel {
 
 	public List<IThing> getAllThings();
 
-	/**
-	 * @deprecated Use {@link #getAllThings()} instead.
-	 */
-	@Deprecated
-	public List<IThing> getThings();
-
 	public List<IThing> getThingsByID(Iterable<Object> thingIDs);
-
-	/**
-	 * @deprecated Use {@link #getThingsByID()} instead.
-	 */
-	@Deprecated
-	public List<IThing> getThings(Iterable<Object> thingIDs);
 
 	public List<IThing> getReverseThings();
 
@@ -75,8 +59,6 @@ public interface IBNAModel {
 	public Collection<IThing> getAncestorThings(IThing thing);
 
 	public Collection<IThing> getDescendantThings(IThing thing);
-
-	//public void stackAbove(IThing lowerThing, Iterable<? extends IThing> upperThings);
 
 	public void bringToFront(Set<? extends IThing> things);
 

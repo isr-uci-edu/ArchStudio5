@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
-import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -19,7 +19,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
-public class MirrorValueLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
+public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	private static class Mirror<FV, TV> {
 
@@ -101,7 +101,7 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNASynchron
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 		ThingEvent<ET, EK, EV> thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
 			for (Mirror<?, ?> mirror : mirrors.get(Lists.newArrayList(thingEvent.getTargetThing().getID(),

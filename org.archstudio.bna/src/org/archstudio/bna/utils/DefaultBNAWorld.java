@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
-import org.archstudio.bna.IBNASynchronousModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
@@ -17,7 +16,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
-public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener, IBNASynchronousModelListener {
+public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener {
 
 	protected static final boolean DEBUG = false;
 	protected final LoadingCache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().weakKeys()
@@ -39,7 +38,6 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener, IBNASynchr
 		this.model = model;
 		this.logicManager = new DefaultThingLogicManager(this);
 
-		getBNAModel().addSynchronousBNAModelListener(this);
 		getBNAModel().addBNAModelListener(this);
 	}
 
@@ -64,26 +62,6 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener, IBNASynchr
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
-		for (IBNASynchronousModelListener logic : logicManager.getThingLogics(IBNASynchronousModelListener.class)) {
-			try {
-				long lTime;
-				if (DEBUG) {
-					lTime = System.nanoTime();
-				}
-				logic.bnaModelChangedSync(evt);
-				if (DEBUG) {
-					lTime = System.nanoTime() - lTime;
-					debugStats.get(logic).addAndGet(lTime);
-				}
-			}
-			catch (Throwable t) {
-				t.printStackTrace();
-			}
-		}
-	}
-
-	@Override
 	public IThingLogicManager getThingLogicManager() {
 		return logicManager;
 	}
@@ -93,7 +71,7 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener, IBNASynchr
 		logicManager.destroy();
 
 		model.removeBNAModelListener(this);
-		model.removeSynchronousBNAModelListener(this);
+		model.removeBNAModelListener(this);
 
 		isDestroyed = true;
 

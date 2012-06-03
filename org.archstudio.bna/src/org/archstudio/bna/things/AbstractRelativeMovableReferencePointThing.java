@@ -12,13 +12,8 @@ public abstract class AbstractRelativeMovableReferencePointThing extends Abstrac
 
 	@Override
 	public void setReferencePoint(final Point worldPoint) {
-		synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				Point referencePoint = getReferencePoint();
-				moveRelative(new Point(worldPoint.x - referencePoint.x, worldPoint.y - referencePoint.y));
-			}
-		});
+		Point referencePoint = getReferencePoint();
+		moveRelative(new Point(worldPoint.x - referencePoint.x, worldPoint.y - referencePoint.y));
 	}
 
 }
