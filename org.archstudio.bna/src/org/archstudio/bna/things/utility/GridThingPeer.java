@@ -104,7 +104,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 
 	@Override
 	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r) {
-		return new Rectangle(-Integer.MAX_VALUE / 2, -Integer.MAX_VALUE / 2, Integer.MAX_VALUE, Integer.MAX_VALUE);
+		return null;
 	}
 
 	@Override
