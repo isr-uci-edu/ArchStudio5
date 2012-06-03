@@ -83,12 +83,7 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 
 	protected void nudge(final Orientation o, final int distance, final IRelativeMovable t) {
 		if (UserEditableUtils.isEditableForAllQualities(t, IRelativeMovable.USER_MAY_MOVE)) {
-			t.synchronizedUpdate(new Runnable() {
-				@Override
-				public void run() {
-					t.moveRelative(nudge(o, distance, new Point(0, 0)));
-				}
-			});
+			t.moveRelative(nudge(o, distance, new Point(0, 0)));
 		}
 	}
 }

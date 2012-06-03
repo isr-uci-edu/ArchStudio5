@@ -38,13 +38,7 @@ public interface IThing {
 
 	public <V> V get(IThingKey<V> key);
 
-	@Deprecated
-	public <V> V getProperty(IThingKey<V> key);
-
 	public <V> V set(IThingKey<V> key, V value);
-
-	@Deprecated
-	public <V> V setProperty(IThingKey<V> key, V value);
 
 	public boolean has(IThingKey<?> key);
 
@@ -52,9 +46,5 @@ public interface IThing {
 
 	public <V> V remove(IThingKey<V> key);
 
-	public void synchronizedUpdate(Runnable r);
-
 	public Set<IThingKey<?>> keySet();
-
-	public int getModCount();
 }

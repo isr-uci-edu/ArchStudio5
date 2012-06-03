@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
-import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -32,7 +32,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 
-public class StickPointLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
+public class StickPointLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	static Point getNearPoint(IThing pointThing, IThingKey<Point> pointKey, StickyMode stickyMode) {
 		if (stickyMode.isDependsOnSecondaryPoint()) {
@@ -150,7 +150,7 @@ public class StickPointLogic extends AbstractThingLogic implements IBNASynchrono
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 		ThingEvent<ET, EK, EV> thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
 			updatePoints(null, evt.getSource(), thingEvent.getTargetThing(), thingEvent.getPropertyName(), thingEvent);

@@ -38,13 +38,8 @@ public abstract class AbstractAnchorPointThing extends AbstractRelativeMovableRe
 	@Override
 	public void moveRelative(final Point moveDelta) {
 		if (moveDelta.x != 0 || moveDelta.y != 0) {
-			synchronizedUpdate(new Runnable() {
-				@Override
-				public void run() {
-					Point p = getAnchorPoint();
-					setAnchorPoint(new Point(p.x + moveDelta.x, p.y + moveDelta.y));
-				}
-			});
+			Point p = getAnchorPoint();
+			setAnchorPoint(new Point(p.x + moveDelta.x, p.y + moveDelta.y));
 		}
 	}
 

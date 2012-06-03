@@ -2,7 +2,7 @@ package org.archstudio.bna.logics.coordinating;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
-import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -12,7 +12,7 @@ import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.labels.DirectionalLabelThing;
 
-public class ReorientToThingIDLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
+public class ReorientToThingIDLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	public static final IThingRefKey<IHasBoundingBox> REORIENT_TO_THING_KEY = ThingRefKey
 			.create(ReorientToThingIDLogic.class);
@@ -31,7 +31,7 @@ public class ReorientToThingIDLogic extends AbstractThingLogic implements IBNASy
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			reorientThing(evt.getSource(), evt.getTargetThing());

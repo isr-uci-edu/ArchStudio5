@@ -18,25 +18,15 @@ public class UserEditableUtils {
 			"userEditableQualities", AbstractCollectionThingKey.<String> set(null));
 
 	public static void addEditableQualities(final IThing thing, final String... qualities) {
-		thing.synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				Set<String> newEditableQualities = Sets.newHashSet(thing.get(USER_EDITABLE_QUALITIES_KEY));
-				newEditableQualities.addAll(Arrays.asList(qualities));
-				thing.set(USER_EDITABLE_QUALITIES_KEY, newEditableQualities);
-			}
-		});
+		Set<String> newEditableQualities = Sets.newHashSet(thing.get(USER_EDITABLE_QUALITIES_KEY));
+		newEditableQualities.addAll(Arrays.asList(qualities));
+		thing.set(USER_EDITABLE_QUALITIES_KEY, newEditableQualities);
 	}
 
 	public static void removeEditableQualities(final IThing thing, final String... qualities) {
-		thing.synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				Set<String> newEditableQualities = Sets.newHashSet(thing.get(USER_EDITABLE_QUALITIES_KEY));
-				newEditableQualities.removeAll(Arrays.asList(qualities));
-				thing.set(USER_EDITABLE_QUALITIES_KEY, newEditableQualities);
-			}
-		});
+		Set<String> newEditableQualities = Sets.newHashSet(thing.get(USER_EDITABLE_QUALITIES_KEY));
+		newEditableQualities.removeAll(Arrays.asList(qualities));
+		thing.set(USER_EDITABLE_QUALITIES_KEY, newEditableQualities);
 	}
 
 	public static boolean isEditable(IThing thing) {

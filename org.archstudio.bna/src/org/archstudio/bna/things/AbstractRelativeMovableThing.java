@@ -26,14 +26,9 @@ public abstract class AbstractRelativeMovableThing extends AbstractThing impleme
 
 	@Override
 	public void addShapeModifyingKey(final IThingKey<?> key) {
-		synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				Set<IThingKey<?>> keys = Sets.newHashSet(get(SHAPE_MODIFYING_KEYS_KEY));
-				keys.add(key);
-				set(SHAPE_MODIFYING_KEYS_KEY, keys);
-			}
-		});
+		Set<IThingKey<?>> keys = Sets.newHashSet(get(SHAPE_MODIFYING_KEYS_KEY));
+		keys.add(key);
+		set(SHAPE_MODIFYING_KEYS_KEY, keys);
 	}
 
 	@Override

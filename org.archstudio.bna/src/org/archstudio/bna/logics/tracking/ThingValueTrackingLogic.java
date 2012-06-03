@@ -3,7 +3,7 @@ package org.archstudio.bna.logics.tracking;
 import java.util.Collection;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -18,7 +18,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 
-public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
+public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	private final LoadingCache<IThingKey<?>, SetMultimap<Object, Object>> keyToValueToThingIDsCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<IThingKey<?>, SetMultimap<Object, Object>>() {
@@ -45,7 +45,7 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAS
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThing.IThingKey<EV>, EV> void bnaModelChangedSync(
+	public <ET extends IThing, EK extends IThing.IThingKey<EV>, EV> void bnaModelChanged(
 			BNAModelEvent<ET, EK, EV> evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {

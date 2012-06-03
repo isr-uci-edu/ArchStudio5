@@ -2,7 +2,7 @@ package org.archstudio.bna.logics.tracking;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
-import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
@@ -13,7 +13,7 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.IIsHidden;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
+public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	public static Rectangle getModelBounds(IBNAWorld world) {
 		IThingLogicManager tlm = world.getThingLogicManager();
@@ -35,7 +35,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();

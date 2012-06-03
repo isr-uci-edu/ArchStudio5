@@ -2,13 +2,6 @@ package org.archstudio.bna;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Random;
-import java.util.Set;
-
-import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
@@ -37,19 +30,65 @@ import org.eclipse.swt.widgets.ScrollBar;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 public class BNACanvas extends Canvas implements IBNAModelListener, PaintListener {
 
-	protected static int DEBUG = 0;
-	private static final String STARTED_RENDERING_EVENT = "Started rendering " + BNACanvas.class;
+	private static boolean requestedRedraw = false;
+	private static Rectangle redrawRect = new Rectangle();
+
+	private final class ThingPeerCache {
+		private Rectangle lastLocalBounds = new Rectangle();
+		private int lastBoundsRelevantCount = -1;
+
+		public void updateCacheData(IThingPeer<?> peer) {
+			this.lastLocalBounds = peer.getLocalBounds(bnaView, bnaView.getCoordinateMapper(), resources);
+			this.lastBoundsRelevantCount = BNACanvas.this.lastBoundsRelevantCount;
+		}
+
+		public void redraw() {
+			if (!requestedRedraw) {
+				requestedRedraw = true;
+				Display.getCurrent().asyncExec(new Runnable() {
+					public void run() {
+						if (BNACanvas.this.isDisposed())
+							return;
+						if (redrawRect == null)
+							BNACanvas.this.redraw();
+						else
+							BNACanvas.this.redraw(redrawRect.x, redrawRect.y, redrawRect.width, redrawRect.height,
+									false);
+						redrawRect = new Rectangle();
+						requestedRedraw = false;
+					}
+				});
+			}
+
+			if (redrawRect == null)
+				return;
+			if (lastLocalBounds == null) {
+				redrawRect = null;
+			}
+			else {
+				if (redrawRect.isEmpty())
+					redrawRect = new Rectangle(lastLocalBounds);
+				else
+					redrawRect.union(lastLocalBounds);
+			}
+		}
+	}
 
 	protected final IBNAView bnaView;
 	protected final ScrollBar hBar = getHorizontalBar();
 	protected final ScrollBar vBar = getVerticalBar();
 	protected final BNASWTEventHandler eventHandler;
 	protected final Resources resources;
+	private final LoadingCache<IThing, ThingPeerCache> renderDataCache = CacheBuilder.newBuilder().build(
+			new CacheLoader<IThing, ThingPeerCache>() {
+				@Override
+				public ThingPeerCache load(IThing input) {
+					return new ThingPeerCache();
+				}
+			});
 
 	public BNACanvas(Composite parent, int style, IBNAWorld bnaWorld) {
 		this(parent, style, new DefaultBNAView(null, bnaWorld, new LinearCoordinateMapper()));
@@ -72,7 +111,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 				updateScrollBars();
 			}
 		});
-		getCoordinateMapper().addCoordinateMapperListener(new ICoordinateMapperListener() {
+		bnaView.getCoordinateMapper().addCoordinateMapperListener(new ICoordinateMapperListener() {
 			@Override
 			public void coordinateMappingsChanged(final CoordinateMapperEvent evt) {
 				if (Display.getCurrent() == null) {
@@ -100,7 +139,6 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		addListener(SWT.MouseWheel, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				// prevent the mouse wheel from scrolling the canvas
 				event.doit = false;
 			}
 		});
@@ -135,7 +173,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		}
 		isUpdatingScrollBars = true;
 		try {
-			IMutableCoordinateMapper mcm = getCoordinateMapper();
+			ICoordinateMapper mcm = bnaView.getCoordinateMapper();
 			updateCanvas(mcm.getLocalScale(), mcm.getLocalOrigin());
 			org.eclipse.swt.graphics.Rectangle client = getClientArea();
 			Rectangle localBounds = mcm.getLocalBounds();
@@ -161,7 +199,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		if (!isUpdatingScrollBars) {
 			isUpdatingCM = true;
 			try {
-				IMutableCoordinateMapper mcm = getCoordinateMapper();
+				IMutableCoordinateMapper mcm = (IMutableCoordinateMapper) bnaView.getCoordinateMapper();
 				Rectangle localBounds = mcm.getLocalBounds();
 				Point newLocalOrigin = new Point(hBar.getSelection() + localBounds.x, vBar.getSelection()
 						+ localBounds.y);
@@ -191,11 +229,12 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 
 			org.eclipse.swt.graphics.Rectangle client = getClientArea();
 			scroll(-dx, -dy, 0, 0, client.width, client.height, true);
-			//// scroll automatically causes a redraw of the newly revealed area
+			// scroll automatically causes a redraw of the newly revealed area
 
 			// update the cached local bounds as well
-			for (RenderData renderData : renderDataCache.asMap().values()) {
-				renderData.lastLocalBounds.translate(-dx, -dy);
+			for (ThingPeerCache renderData : renderDataCache.asMap().values()) {
+				if (renderData.lastLocalBounds != null)
+					renderData.lastLocalBounds.translate(-dx, -dy);
 			}
 		}
 		lastLocalScale = newLocalScale;
@@ -204,21 +243,19 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 
 	// ignore the flurry of events that occur before rendering the BNA World for the first time
 	boolean startedRendering = false;
-	boolean ignoreModelEvents = true;
 
 	@Override
 	public void paintControl(PaintEvent e) {
 		IBNAModel bnaModel = getBNAView().getBNAWorld().getBNAModel();
 
+		// the first time we paint, take note so that we start paying attention to model updates
 		if (!startedRendering) {
 			startedRendering = true;
-			bnaModel.fireStreamNotificationEvent(STARTED_RENDERING_EVENT);
-			redraw();
-			return;
 		}
 
 		SWTGraphics g = null;
 		Region localClipRegion = null;
+		Rectangle localClipRectangle = null;
 
 		try {
 			g = new SWTGraphics(e.gc);
@@ -228,63 +265,46 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 
 			localClipRegion = new Region(e.display);
 			e.gc.getClipping(localClipRegion);
+			localClipRectangle = BNAUtils.toRectangle(localClipRegion.getBounds());
 
-			if (DEBUG >= 2) {
-				int debugColor = new Random().nextInt(256);
-				e.gc.setBackground(e.display.getSystemColor(debugColor & 0x0F));
-				e.gc.fillRectangle(e.x, e.y, e.width, e.height);
-				e.gc.setForeground(e.display.getSystemColor(SWT.COLOR_BLACK));
-				e.gc.drawRectangle(e.x, e.y, e.width - 1, e.height - 1);
-			}
-
-			// update thing caches
-			List<IThing> thingsToRender = Lists.newArrayListWithExpectedSize(bnaModel.getNumThings());
-			for (IThing thing : bnaModel.getAllThings()) {
-				IThingPeer<?> peer = getBNAView().getThingPeer(thing);
-				RenderData renderData = getRenderData(thing);
-
-				if (renderData.lastBoundsRelevantCount != lastBoundsRelevantCount) {
-					renderData.lastLocalBounds = peer.getLocalBounds(getBNAView(), getBNAView().getCoordinateMapper(), resources);
-					renderData.lastBoundsRelevantCount = lastBoundsRelevantCount;
-				}
-
-				if (!renderData.lastLocalBounds.isEmpty()) {
-					Rectangle r = renderData.lastLocalBounds;
-					if (localClipRegion.intersects(r.x, r.y, r.width, r.height)) {
-						thingsToRender.add(thing);
-					}
-				}
-			}
-
-			// render things
+			// render all things
 			g.pushState();
 			try {
-				IThingPeer<?> lastThingPeer = null;
-				for (IThing thingToRender : thingsToRender) {
-					IThingPeer<?> peer = getBNAView().getThingPeer(thingToRender);
-					RenderData renderData = getRenderData(thingToRender);
+				for (IThing thingToRender : bnaModel.getAllThings()) {
+					IThingPeer<?> peer = bnaView.getThingPeer(thingToRender);
+					ThingPeerCache peerCache = renderDataCache.getUnchecked(thingToRender);
 
-					try {
-						if (DEBUG >= 1) {
-							g.setBackgroundColor(resources.getColor(SWT.COLOR_RED));
-							g.setAlpha(10);
-							g.fillRectangle(renderData.lastLocalBounds);
-							g.setForegroundColor(resources.getColor(SWT.COLOR_RED));
-							g.setAlpha(255);
-							g.drawRectangle(renderData.lastLocalBounds.x, renderData.lastLocalBounds.y,
-									renderData.lastLocalBounds.width - 1, renderData.lastLocalBounds.height - 1);
-							g.restoreState();
+					// update cached local bounds, if necessary
+					if (peerCache.lastBoundsRelevantCount != lastBoundsRelevantCount) {
+						peerCache.updateCacheData(peer);
+					}
+
+					// draw the thing
+					if (peerCache.lastLocalBounds != null) {
+						if (localClipRectangle.intersects(peerCache.lastLocalBounds)
+								&& localClipRegion.intersects(peerCache.lastLocalBounds.x, peerCache.lastLocalBounds.y,
+										peerCache.lastLocalBounds.width, peerCache.lastLocalBounds.height)) {
+							try {
+								g.restoreState();
+								g.clipRect(peerCache.lastLocalBounds);
+								peer.draw(bnaView, bnaView.getCoordinateMapper(), resources, g);
+							}
+							catch (Exception e2) {
+								System.err.println(peer.getClass());
+								e2.printStackTrace();
+							}
 						}
-						g.clipRect(renderData.lastLocalBounds);
-						peer.draw(getBNAView(), getBNAView().getCoordinateMapper(), resources, g);
-						g.restoreState();
 					}
-					catch (Exception e2) {
-						System.err.println(lastThingPeer != null ? lastThingPeer.getClass() : "null");
-						System.err.println(peer.getClass());
-						e2.printStackTrace();
+					else {
+						try {
+							g.restoreState();
+							peer.draw(bnaView, bnaView.getCoordinateMapper(), resources, g);
+						}
+						catch (Exception e2) {
+							System.err.println(peer.getClass());
+							e2.printStackTrace();
+						}
 					}
-					lastThingPeer = peer;
 				}
 			}
 			catch (Throwable t) {
@@ -302,120 +322,46 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		}
 	}
 
-	// collect events into a queue and process them in bulk within the paint thread
-	@SuppressWarnings("rawtypes")
-	private final Queue<BNAModelEvent> eventQueue = new LinkedList<BNAModelEvent>();
-	private boolean eventQueueBeingProcessed = false;
-
 	@Override
 	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(final BNAModelEvent<ET, EK, EV> evt) {
-		if (ignoreModelEvents) {
-			if (evt.getEventType() == EventType.STREAM_NOTIFICATION_EVENT
-					&& STARTED_RENDERING_EVENT.equals(evt.getStreamNotification())) {
-				ignoreModelEvents = false;
-			}
+
+		if (isDisposed())
 			return;
-		}
-		synchronized (eventQueue) {
-			eventQueue.add(evt);
-			if (!eventQueueBeingProcessed && !evt.inBulkChange) {
-				eventQueueBeingProcessed = true;
-				SWTWidgetUtils.async(this, new Runnable() {
+		
+		// ignore model events until we start painting
+		if (!startedRendering)
+			return;
 
-					Rectangle allRedrawRect = new Rectangle();
-					
-					@Override
-					public void run() {
-						List<IThing> removedThingsToDestroy = Lists.newArrayListWithExpectedSize(eventQueue.size());
-						Set<IThing> thingsToProcess = Sets.newHashSetWithExpectedSize(eventQueue.size());
-						while (true) {
-							BNAModelEvent<?, ?, ?> evt;
-							synchronized (eventQueue) {
-								evt = eventQueue.poll();
-								if (evt == null) {
-									eventQueueBeingProcessed = false;
-									break;
-								}
-							}
-							final IThing t = evt.getTargetThing();
-							if (t != null) {
-								RenderData cacheData = getRenderData(t);
-								switch (evt.getEventType()) {
-								case THING_REMOVED:
-									removedThingsToDestroy.add(t);
-									cacheData.needsLastRenderCleanup = true;
-									break;
-								case THING_ADDED:
-									cacheData.needsRenderUpdate = true;
-									break;
-								case THING_CHANGED:
-								case THING_RESTACKED:
-									cacheData.needsLastRenderCleanup = true;
-									cacheData.needsRenderUpdate = true;
-									break;
-								}
-								thingsToProcess.add(t);
-							}
-						}
-						for (IThing thingToProcess : thingsToProcess) {
-							processRedrawRect(thingToProcess);
-						}
-						for (IThing removedThingToDestroy : removedThingsToDestroy) {
-							getBNAView().disposePeer(removedThingToDestroy);
-						}
-						if (!allRedrawRect.isEmpty()) {
-							//Point renderLocalOrigin = getBNAView().getCoordinateMapper().getLocalOrigin(new Point());
-							//allRedrawRect.translate(-renderLocalOrigin.x, -renderLocalOrigin.y);
-							redraw(allRedrawRect.x, allRedrawRect.y, allRedrawRect.width, allRedrawRect.height, false);
-						}
-					}
-
-					private void processRedrawRect(IThing t) {
-						IThingPeer<?> peer = getBNAView().getThingPeer(t);
-						RenderData cacheData = getRenderData(t);
-						if (cacheData.needsLastRenderCleanup) {
-							if (cacheData.lastBoundsRelevantCount == lastBoundsRelevantCount) {
-								BNAUtils.union(allRedrawRect, cacheData.lastLocalBounds);
-							}
-							cacheData.needsLastRenderCleanup = false;
-						}
-						if (cacheData.needsRenderUpdate) {
-							cacheData.lastLocalBounds = peer.getLocalBounds(getBNAView(), getBNAView()
-									.getCoordinateMapper(), resources);
-							BNAUtils.union(allRedrawRect, cacheData.lastLocalBounds);
-							cacheData.needsRenderUpdate = false;
-						}
-					}
-				});
+		// update rendering of thing
+		final IThing t = evt.getTargetThing();
+		if (t != null) {
+			IThingPeer<?> peer = getBNAView().getThingPeer(t);
+			ThingPeerCache peerCache = renderDataCache.getUnchecked(t);
+			switch (evt.getEventType()) {
+			case THING_REMOVED:
+				// redraw the old area where it was to erase it
+				peerCache.redraw();
+				getBNAView().disposePeer(t);
+				break;
+			case THING_CHANGED:
+			case THING_RESTACKED:
+				// redraw the old area where it was to erase it
+				peerCache.redraw();
+				// redraw the new area to update it
+				peerCache.updateCacheData(peer);
+				peerCache.redraw();
+				break;
+			case THING_ADDED:
+				// redraw the new area to update it
+				peerCache.updateCacheData(peer);
+				peerCache.redraw();
+				break;
 			}
 		}
 	}
 
 	public IBNAView getBNAView() {
 		return bnaView;
-	}
-
-	private IMutableCoordinateMapper getCoordinateMapper() {
-		return (IMutableCoordinateMapper) getBNAView().getCoordinateMapper();
-	}
-
-	private static class RenderData implements IThingPeerData {
-		protected Rectangle lastLocalBounds = new Rectangle(Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 0);
-		protected int lastBoundsRelevantCount = -1;
-		protected boolean needsLastRenderCleanup = false;
-		protected boolean needsRenderUpdate = true;
-	}
-
-	private final LoadingCache<IThing, RenderData> renderDataCache = CacheBuilder.newBuilder().build(
-			new CacheLoader<IThing, RenderData>() {
-				@Override
-				public RenderData load(IThing input) {
-					return new RenderData();
-				}
-			});
-
-	private <T extends IThing> RenderData getRenderData(T thing) {
-		return renderDataCache.getUnchecked(thing);
 	}
 
 }

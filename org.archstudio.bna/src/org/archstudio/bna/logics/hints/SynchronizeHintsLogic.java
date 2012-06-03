@@ -6,7 +6,7 @@ import static com.google.common.base.Preconditions.checkState;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -18,7 +18,7 @@ import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.hints.synchronizers.PropertyHintSynchronizer;
 
-public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNASynchronousModelListener,
+public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAModelListener,
 		IHintRepositoryChangeListener {
 
 	private static class HintInformation {
@@ -90,7 +90,7 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNASyn
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED:
 		case THING_CHANGED:

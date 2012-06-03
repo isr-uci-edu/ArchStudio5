@@ -124,7 +124,7 @@ public class ArchipelagoUtils {
 	public static Point findOpenSpotForNewThing(IBNAModel m) {
 		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
 		try {
-			if (ept.hasProperty(EnvironmentPropertiesThing.NEW_THING_SPOT_KEY)) {
+			if (ept.has(EnvironmentPropertiesThing.NEW_THING_SPOT_KEY)) {
 				return ept.getNewThingSpot();
 			}
 		}
@@ -132,7 +132,7 @@ public class ArchipelagoUtils {
 		}
 
 		Point p;
-		if (ept.hasProperty(EnvironmentPropertiesThing.LAST_OPEN_SPOT_KEY)) {
+		if (ept.has(EnvironmentPropertiesThing.LAST_OPEN_SPOT_KEY)) {
 			p = ept.getLastOpenSpot();
 			p.x += 10;
 			p.y += 10;

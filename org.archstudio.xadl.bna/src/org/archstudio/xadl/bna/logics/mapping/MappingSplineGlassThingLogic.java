@@ -1,7 +1,7 @@
 package org.archstudio.xadl.bna.logics.mapping;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -16,7 +16,7 @@ import org.archstudio.xadl.bna.things.IHasObjRef;
 import org.archstudio.xadl.bna.things.MappingSplineGlassThing;
 import org.archstudio.xarchadt.ObjRef;
 
-public class MappingSplineGlassThingLogic extends AbstractThingLogic implements IBNASynchronousModelListener,
+public class MappingSplineGlassThingLogic extends AbstractThingLogic implements IBNAModelListener,
 		IInternalBNAModelListener {
 
 	ThingValueTrackingLogic trackingLogic = null;
@@ -31,7 +31,7 @@ public class MappingSplineGlassThingLogic extends AbstractThingLogic implements 
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 		ThingEvent<ET, EK, EV> thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
 			IThing thing = evt.getTargetThing();
@@ -65,11 +65,6 @@ public class MappingSplineGlassThingLogic extends AbstractThingLogic implements 
 
 	@Override
 	public <ET extends IThing, EK extends IThingKey<EV>, EV> void internalBNAModelChanged(IHasWorld src,
-			BNAModelEvent<ET, EK, EV> evt) {
-	}
-
-	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void internalBNAModelChangedSync(IHasWorld src,
 			BNAModelEvent<ET, EK, EV> evt) {
 
 		// if a thing in the world changed, update each corresponding MappingSplineGlassThing

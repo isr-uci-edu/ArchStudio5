@@ -1,6 +1,5 @@
 package org.archstudio.bna.utils;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static org.archstudio.sysutils.SystemUtils.newCopyOnWriteArrayList;
 
 import java.util.Collection;
@@ -9,9 +8,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -19,12 +15,13 @@ import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
-import org.archstudio.bna.IBNASynchronousModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.sysutils.SystemUtils;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
 
 import com.google.common.base.Function;
 import com.google.common.cache.CacheBuilder;
@@ -37,6 +34,7 @@ import com.google.common.collect.MapMaker;
 public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	protected static final boolean DEBUG = false;
+	
 	protected final LoadingCache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().build(
 			new CacheLoader<Object, AtomicLong>() {
 				@Override
@@ -45,32 +43,29 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 				}
 			});
 
-	private static final class ThingIndex implements IBNASynchronousModelListener {
+	private static final class ThingIndex implements IBNAModelListener {
 
 		private final Map<Object, IThing> indexMap = new MapMaker().weakValues().makeMap();
 
 		@Override
-		public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+		public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 			switch (evt.getEventType()) {
 			case THING_ADDED:
 				IThing targetThing = evt.getTargetThing();
-				synchronized (indexMap) {
-					indexMap.put(targetThing.getID(), targetThing);
-				}
+				indexMap.put(targetThing.getID(), targetThing);
 				break;
 			case THING_REMOVED:
-				synchronized (indexMap) {
-					indexMap.remove(evt.getTargetThing().getID());
-				}
+				indexMap.remove(evt.getTargetThing().getID());
 				break;
 			}
 		}
 
 		public IThing getThing(Object id) {
+			if (Display.getCurrent() == null)
+				SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
 			if (id != null) {
-				synchronized (indexMap) {
-					return indexMap.get(id);
-				}
+				return indexMap.get(id);
 			}
 			return null;
 		}
@@ -81,25 +76,16 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	protected int thingTreeListAtModCount = thingTreeModCount - 1;
 	protected List<IThing> thingTreeList = Lists.newArrayList();
 	protected final ThingIndex thingIndex = new ThingIndex();
-	protected final CopyOnWriteArrayList<IBNASynchronousModelListener> synchListeners = newCopyOnWriteArrayList();
-	protected final CopyOnWriteArrayList<IBNAModelListener> asyncListeners = newCopyOnWriteArrayList();
-	protected final ExecutorService asyncExecutor;
+	protected final CopyOnWriteArrayList<IBNAModelListener> synchListeners = newCopyOnWriteArrayList();
 	protected AtomicInteger bulkChangeCount = new AtomicInteger();
 	protected boolean firedBulkChangeEvent = false;
 
 	public DefaultBNAModel() {
 		synchListeners.add(thingIndex);
-		asyncExecutor = Executors.newSingleThreadExecutor();
 	}
 
 	@Override
 	public void dispose() {
-		try {
-			asyncExecutor.awaitTermination(5, TimeUnit.SECONDS);
-		}
-		catch (InterruptedException ie) {
-		}
-
 		if (DEBUG) {
 			for (Entry<Object, AtomicLong> e : SystemUtils.sortedByValue(debugStats.asMap().entrySet())) {
 				System.err.println(e.getValue() + " " + e.getKey());
@@ -108,24 +94,24 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
-	public void addSynchronousBNAModelListener(IBNASynchronousModelListener l) {
+	public void addBNAModelListener(IBNAModelListener l) {
 		synchListeners.add(l);
 	}
 
 	@Override
-	public void removeSynchronousBNAModelListener(IBNASynchronousModelListener l) {
+	public void removeBNAModelListener(IBNAModelListener l) {
 		synchListeners.remove(l);
 	}
 
-	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void fireBnaModelChangedSync(
+	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void fireBnaModelChanged(
 			BNAModelEvent<ET, EK, EV> evt) {
-		for (IBNASynchronousModelListener l : synchListeners) {
+		for (IBNAModelListener l : synchListeners) {
 			try {
 				long lTime;
 				if (DEBUG) {
 					lTime = System.nanoTime();
 				}
-				l.bnaModelChangedSync(evt);
+				l.bnaModelChanged(evt);
 				if (DEBUG) {
 					lTime = System.nanoTime() - lTime;
 					debugStats.getUnchecked(l).addAndGet(lTime);
@@ -137,54 +123,12 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		}
 	}
 
-	@Override
-	public void addBNAModelListener(IBNAModelListener l) {
-		asyncListeners.add(l);
-	}
-
-	@Override
-	public void removeBNAModelListener(IBNAModelListener l) {
-		asyncListeners.remove(l);
-	}
-
-	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void fireBnaModelChangedAsync(
-			final BNAModelEvent<ET, EK, EV> evt) {
-
-		asyncExecutor.submit(new Runnable() {
-
-			@Override
-			public void run() {
-				for (IBNAModelListener l : asyncListeners) {
-					try {
-						long lTime;
-						if (DEBUG) {
-							lTime = System.nanoTime();
-						}
-						l.bnaModelChanged(evt);
-						if (DEBUG) {
-							lTime = System.nanoTime() - lTime;
-							debugStats.getUnchecked(l).addAndGet(lTime);
-						}
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
-				}
-			}
-		});
-	}
-
 	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void fireBnaModelEvent(BNAModelEvent<ET, EK, EV> evt) {
 		if (bulkChangeCount.get() > 0 && !firedBulkChangeEvent) {
 			firedBulkChangeEvent = true;
-			_fireBnaModelEvent(BNAModelEvent.create(this, EventType.BULK_CHANGE_BEGIN, bulkChangeCount.get() > 0));
+			fireBnaModelChanged(BNAModelEvent.create(this, EventType.BULK_CHANGE_BEGIN, bulkChangeCount.get() > 0));
 		}
-		_fireBnaModelEvent(evt);
-	}
-
-	private <ET extends IThing, EK extends IThingKey<EV>, EV> void _fireBnaModelEvent(BNAModelEvent<ET, EK, EV> evt) {
-		fireBnaModelChangedSync(evt);
-		fireBnaModelChangedAsync(evt);
+		fireBnaModelChanged(evt);
 	}
 
 	@Override
@@ -201,6 +145,9 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public void beginBulkChange() {
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
 		if (bulkChangeCount.getAndIncrement() == 0) {
 			firedBulkChangeEvent = false;
 		}
@@ -208,6 +155,9 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public void endBulkChange() {
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
 		if (bulkChangeCount.decrementAndGet() <= 0) {
 			if (bulkChangeCount.get() < 0) {
 				System.err.println("Bulk change count < 0");
@@ -221,56 +171,45 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public <T extends IThing> T addThing(final T t) {
-		t.synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				t.addThingListener(DefaultBNAModel.this);
-				synchronized (thingTree) {
-					thingTree.add(t);
-					thingTreeModCount++;
-				}
-			}
-		});
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
+		t.addThingListener(this);
+		thingTree.add(t);
+		thingTreeModCount++;
 		fireBnaModelEvent(BNAModelEvent.create(this, BNAModelEvent.EventType.THING_ADDED, bulkChangeCount.get() > 0, t));
 		return t;
 	}
 
 	@Override
 	public <T extends IThing> T addThing(final T t, final IThing parentThing) {
-		t.synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				t.addThingListener(DefaultBNAModel.this);
-				synchronized (thingTree) {
-					thingTree.add(t, parentThing);
-					thingTreeModCount++;
-				}
-			}
-		});
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
+		t.addThingListener(this);
+		thingTree.add(t, parentThing);
+		thingTreeModCount++;
 		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_ADDED, bulkChangeCount.get() > 0, t));
 		return t;
 	}
 
 	public void removeThing(Object id) {
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
 		removeThing(getThing(id));
 	}
 
 	@Override
 	public void removeThing(final IThing t) {
-		checkNotNull(t);
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 
 		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_REMOVING, bulkChangeCount.get() > 0, t));
 		try {
-			t.synchronizedUpdate(new Runnable() {
-				@Override
-				public void run() {
-					t.removeThingListener(DefaultBNAModel.this);
-					synchronized (thingTree) {
-						thingTree.remove(t);
-						thingTreeModCount++;
-					}
-				}
-			});
+			t.removeThingListener(this);
+			thingTree.remove(t);
+			thingTreeModCount++;
 		}
 		finally {
 			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_REMOVED, bulkChangeCount.get() > 0, t));
@@ -279,6 +218,9 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public void removeThingAndChildren(IThing t) {
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
 		for (IThing thing : getChildThings(t)) {
 			removeThingAndChildren(thing);
 		}
@@ -287,11 +229,17 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public IThing getThing(Object id) {
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
 		return thingIndex.getThing(id);
 	}
 
 	@Override
 	public List<IThing> getThingsByID(Iterable<Object> thingIDs) {
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
 		return Lists.newArrayList(Iterables.transform(thingIDs, new Function<Object, IThing>() {
 			@Override
 			public IThing apply(Object input) {
@@ -300,97 +248,81 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		}));
 	}
 
-	@Deprecated
-	@Override
-	public List<IThing> getThings(Iterable<Object> thingIDs) {
-		return getThingsByID(thingIDs);
-	}
-
 	@Override
 	public List<IThing> getAllThings() {
-		synchronized (thingTree) {
-			if (thingTreeListAtModCount != thingTreeModCount) {
-				thingTreeList = thingTree.getAllThings();
-				thingTreeListAtModCount = thingTreeModCount;
-			}
-			return thingTreeList;
-		}
-	}
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 
-	@Deprecated
-	@Override
-	public List<IThing> getThings() {
-		return getAllThings();
+		if (thingTreeListAtModCount != thingTreeModCount) {
+			thingTreeList = thingTree.getAllThings();
+			thingTreeListAtModCount = thingTreeModCount;
+		}
+		return thingTreeList;
 	}
 
 	@Override
 	public List<IThing> getReverseThings() {
-		synchronized (thingTree) {
-			if (thingTreeListAtModCount != thingTreeModCount) {
-				thingTreeList = thingTree.getAllThings();
-				thingTreeListAtModCount = thingTreeModCount;
-			}
-			return Lists.reverse(thingTreeList);
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
+		if (thingTreeListAtModCount != thingTreeModCount) {
+			thingTreeList = thingTree.getAllThings();
+			thingTreeListAtModCount = thingTreeModCount;
 		}
+		return Lists.reverse(thingTreeList);
 	}
 
 	@Override
 	public int getNumThings() {
-		synchronized (thingTree) {
-			return thingTree.size();
-		}
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
+		return thingTree.size();
 	}
 
 	@Override
 	public IThing getParentThing(IThing thing) {
-		synchronized (thingTree) {
-			return thingTree.getParent(thing);
-		}
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
+		return thingTree.getParent(thing);
 	}
 
 	@Override
 	public Collection<IThing> getChildThings(IThing thing) {
-		synchronized (thingTree) {
-			return thingTree.getChildThings(thing);
-		}
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
+		return thingTree.getChildThings(thing);
 	}
 
 	@Override
 	public List<IThing> getAncestorThings(IThing thing) {
-		synchronized (thingTree) {
-			return thingTree.getAncestorThings(thing);
-		}
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
+		return thingTree.getAncestorThings(thing);
 	}
 
 	@Override
 	public List<IThing> getDescendantThings(IThing thing) {
-		synchronized (thingTree) {
-			return thingTree.getAllDescendantThings(thing);
-		}
-	}
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 
-	//@Override
-	//public void stackAbove(IThing lowerThing, Iterable<? extends IThing> toStackAboveThings) {
-	//	synchronized (thingTree) {
-	//		for (IThing toStackAboveThing : toStackAboveThings) {
-	//			thingTree.moveAfter(toStackAboveThing, lowerThing);
-	//		}
-	//	}
-	//	for (IThing mt : toStackAboveThings) {
-	//		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, mt));
-	//	}
-	//}
+		return thingTree.getAllDescendantThings(thing);
+	}
 
 	@Override
 	public void bringToFront(Set<? extends IThing> things) {
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
 		List<IThing> movedThings = Lists.newArrayListWithExpectedSize(things.size());
-		synchronized (thingTree) {
-			for (IThing thing : getThings()) {
-				if (things.contains(thing)) {
-					thingTree.bringToFront(thing);
-					thingTreeModCount++;
-					movedThings.addAll(thingTree.getChildThings(thing));
-				}
+		for (IThing thing : getAllThings()) {
+			if (things.contains(thing)) {
+				thingTree.bringToFront(thing);
+				thingTreeModCount++;
+				movedThings.addAll(thingTree.getChildThings(thing));
 			}
 		}
 		for (IThing mt : movedThings) {
@@ -400,14 +332,15 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public void sendToBack(Set<? extends IThing> things) {
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
 		List<IThing> movedThings = Lists.newArrayListWithExpectedSize(things.size());
-		synchronized (thingTree) {
-			for (IThing thing : getThings()) {
-				if (things.contains(thing)) {
-					thingTree.sendToBack(thing);
-					thingTreeModCount++;
-					movedThings.addAll(thingTree.getChildThings(thing));
-				}
+		for (IThing thing : getAllThings()) {
+			if (things.contains(thing)) {
+				thingTree.sendToBack(thing);
+				thingTreeModCount++;
+				movedThings.addAll(thingTree.getChildThings(thing));
 			}
 		}
 		for (IThing mt : movedThings) {
@@ -417,12 +350,13 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public void reparent(IThing newParentThing, IThing thing) {
+		if (Display.getCurrent() == null)
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+
 		List<IThing> movedThings = Lists.newArrayList(thing);
-		synchronized (thingTree) {
-			thingTree.reparent(newParentThing, thing);
-			thingTreeModCount++;
-			movedThings.addAll(thingTree.getChildThings(thing));
-		}
+		thingTree.reparent(newParentThing, thing);
+		thingTreeModCount++;
+		movedThings.addAll(thingTree.getChildThings(thing));
 		for (IThing mt : movedThings) {
 			fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_RESTACKED, bulkChangeCount.get() > 0, mt));
 		}

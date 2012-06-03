@@ -34,14 +34,9 @@ public class PolygonGlassThing extends AbstractPolygonThing implements IHasMutab
 
 	@Override
 	public void incrementRotatingOffset() {
-		synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				Integer io = get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
-				int i = io == null ? 0 : io + 1;
-				set(IHasRotatingOffset.ROTATING_OFFSET_KEY, i);
-			}
-		});
+		Integer io = get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
+		int i = io == null ? 0 : io + 1;
+		set(IHasRotatingOffset.ROTATING_OFFSET_KEY, i);
 	}
 
 	@Override

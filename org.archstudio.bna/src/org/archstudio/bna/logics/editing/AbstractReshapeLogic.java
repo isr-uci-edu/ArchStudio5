@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
-import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasSelected;
@@ -25,7 +25,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 
 public abstract class AbstractReshapeLogic<R extends IThing, D> extends AbstractThingLogic implements
-		IBNASynchronousModelListener, IDragMoveListener {
+		IBNAModelListener, IDragMoveListener {
 
 	protected R reshapingThing = null;
 	protected final Class<R> reshapingThingClass;
@@ -91,7 +91,7 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 		switch (evt.getEventType()) {
 		case THING_REMOVING:
 			if (evt.getTargetThing().equals(reshapingThing)) {

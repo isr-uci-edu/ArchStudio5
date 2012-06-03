@@ -32,16 +32,11 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 
 	@Override
 	public void setMinimumSize(final Dimension minimumDimension) {
-		synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				set(MINIMUM_SIZE_KEY, minimumDimension);
-				Rectangle r = getBoundingBox();
-				if (r != null) {
-					setBoundingBox(r);
-				}
-			}
-		});
+		set(MINIMUM_SIZE_KEY, minimumDimension);
+		Rectangle r = getBoundingBox();
+		if (r != null) {
+			setBoundingBox(r);
+		}
 	}
 
 	@Override
@@ -51,22 +46,17 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 
 	@Override
 	public void setBoundingBox(final Rectangle r) {
-		synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				BNAUtils.normalizeRectangle(r);
-				Dimension minDimension = getMinimumSize();
-				if (minDimension != null) {
-					if (r.width < minDimension.width) {
-						r.width = minDimension.width;
-					}
-					if (r.height < minDimension.height) {
-						r.height = minDimension.height;
-					}
-				}
-				set(BOUNDING_BOX_KEY, r);
+		BNAUtils.normalizeRectangle(r);
+		Dimension minDimension = getMinimumSize();
+		if (minDimension != null) {
+			if (r.width < minDimension.width) {
+				r.width = minDimension.width;
 			}
-		});
+			if (r.height < minDimension.height) {
+				r.height = minDimension.height;
+			}
+		}
+		set(BOUNDING_BOX_KEY, r);
 	}
 
 	@Override
@@ -77,15 +67,10 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 
 	@Override
 	public void moveRelative(final Point worldDelta) {
-		synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				Rectangle bounds = getBoundingBox();
-				bounds.x += worldDelta.x;
-				bounds.y += worldDelta.y;
-				setBoundingBox(bounds);
-			}
-		});
+		Rectangle bounds = getBoundingBox();
+		bounds.x += worldDelta.x;
+		bounds.y += worldDelta.y;
+		setBoundingBox(bounds);
 	}
 
 	@Override

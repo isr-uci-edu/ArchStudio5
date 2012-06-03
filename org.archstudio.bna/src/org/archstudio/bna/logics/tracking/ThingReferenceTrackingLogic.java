@@ -5,7 +5,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import java.util.Collection;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNASynchronousModelListener;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -16,7 +16,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
-public class ThingReferenceTrackingLogic extends AbstractThingLogic implements IBNASynchronousModelListener {
+public class ThingReferenceTrackingLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	public static final class Reference {
 		private final Object fromThingID;
@@ -123,7 +123,7 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChangedSync(BNAModelEvent<ET, EK, EV> evt) {
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED:
 			scanForReferences(evt.getTargetThing());
