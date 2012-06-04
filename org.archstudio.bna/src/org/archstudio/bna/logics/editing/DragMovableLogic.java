@@ -86,11 +86,6 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 							movingThings.put(movingThing, null);
 						}
 					}
-					Set<IThing> moveToFrontThings = Sets.newHashSet();
-					for (IThing thing : movingThings.keySet()) {
-						moveToFrontThings.addAll(Assemblies.getRelatedParts(model, thing));
-					}
-					model.bringToFront(moveToFrontThings);
 				}
 			}
 			finally {
