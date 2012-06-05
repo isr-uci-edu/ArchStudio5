@@ -17,6 +17,12 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 	}
 
 	@Override
+	protected void init() {
+		super.init();
+		addThingLogic(StandardCursorLogic.class);
+	}
+	
+	@Override
 	protected void addHandles() {
 		for (Orientation o : Orientation.values()) {
 			if (o != Orientation.NONE) {

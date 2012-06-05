@@ -3,10 +3,8 @@ package org.archstudio.bna.logics.editing;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.archstudio.bna.IBNAModel;
-import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasReferencePoint;
 import org.archstudio.bna.facets.IHasSelected;
@@ -16,7 +14,6 @@ import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.logics.events.DragMoveEventsLogic;
 import org.archstudio.bna.logics.events.IDragMoveListener;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
-import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.sysutils.SystemUtils;
@@ -25,7 +22,6 @@ import org.eclipse.draw2d.geometry.Point;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 public class DragMovableLogic extends AbstractThingLogic implements IDragMoveListener {
 

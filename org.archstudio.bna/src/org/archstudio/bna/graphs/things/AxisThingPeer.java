@@ -46,6 +46,9 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						tl.setText("" + wX);
 						g.drawString("" + wX, lPoint.x - tl.getBounds().width / 2, lPoint.y + localTickSize);
 					}
+					tl.setText(t.getText());
+					g.drawString(t.getText(), lbb.x + lbb.width / 2 - tl.getBounds().width / 2, lbb.y + localTickSize
+							+ tl.getBounds().height);
 					break;
 				}
 				case TOP: {
@@ -61,35 +64,51 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						g.drawString("" + wX, lPoint.x - tl.getBounds().width / 2, lPoint.y + lbb.height
 								- localTickSize - tl.getBounds().height);
 					}
+					tl.setText(t.getText());
+					g.drawString(t.getText(), lbb.x + lbb.width / 2 - tl.getBounds().width / 2, lbb.y + lbb.height
+							- localTickSize - tl.getBounds().height * 2);
 					break;
 				}
 				case LEFT: {
 					g.drawLine(lbb.x + lbb.width, lbb.y, lbb.x + lbb.width, lbb.y + lbb.height);
 					int wMin = wbb.y / wUnit * wUnit;
 					int wMax = ((wbb.y + wbb.height) / wUnit + 1) * wUnit;
+					int maxWidth = 0;
 					for (int wY = wMin; wY <= wMax; wY += wUnit) {
 						if (wY < wbb.y || wY > wbb.y + wbb.height)
 							continue;
 						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
 						g.drawLine(lbb.x + lbb.width, lPoint.y, lbb.x + lbb.width - localTickSize, lPoint.y);
-						tl.setText("" + -wY);
-						g.drawString("" + -wY, lPoint.x + lbb.width - tl.getBounds().width - localTickSize, lPoint.y
+						tl.setText(-wY + " ");
+						g.drawString(-wY + " ", lPoint.x + lbb.width - tl.getBounds().width - localTickSize, lPoint.y
 								- tl.getBounds().height / 2);
+						maxWidth = Math.max(maxWidth, tl.getBounds().width);
 					}
+					tl.setText(t.getText());
+					g.translate(lbb.x + lbb.width - localTickSize - tl.getBounds().height - maxWidth, lbb.y
+							+ lbb.height / 2 + tl.getBounds().width / 2);
+					g.rotate(-90);
+					g.drawString(t.getText(), 0, 0);
 					break;
 				}
 				case RIGHT: {
 					g.drawLine(lbb.x, lbb.y, lbb.x, lbb.y + lbb.height);
 					int wMin = wbb.y / wUnit * wUnit;
 					int wMax = ((wbb.y + wbb.height) / wUnit + 1) * wUnit;
+					int maxWidth = 0;
 					for (int wY = wMin; wY <= wMax; wY += wUnit) {
 						if (wY < wbb.y || wY > wbb.y + wbb.height)
 							continue;
 						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
 						g.drawLine(lbb.x, lPoint.y, lbb.x + localTickSize, lPoint.y);
-						tl.setText("" + -wY);
-						g.drawString("" + -wY, lPoint.x + localTickSize, lPoint.y - tl.getBounds().height / 2);
+						tl.setText(" " + -wY);
+						g.drawString(" " + -wY, lPoint.x + localTickSize, lPoint.y - tl.getBounds().height / 2);
+						maxWidth = Math.max(maxWidth, tl.getBounds().width);
 					}
+					tl.setText(t.getText());
+					g.translate(lbb.x + localTickSize + maxWidth, lbb.y + lbb.height / 2 + tl.getBounds().width / 2);
+					g.rotate(-90);
+					g.drawString(t.getText(), 0, 0);
 					break;
 				}
 				}
