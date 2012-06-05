@@ -47,6 +47,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 	protected void init() {
 		super.init();
 		stickLogic = addThingLogic(DynamicStickPointLogic.class);
+		addThingLogic(StandardCursorLogic.class);
 	}
 
 	public void addReshapeSplineGuides(IReshapeSplineGuide... guides) {

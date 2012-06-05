@@ -4,6 +4,7 @@ import org.archstudio.bna.constants.IFontConstants;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableFontData;
 import org.archstudio.bna.facets.IHasMutableLineData;
+import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasMutableUnit;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.AbstractRectangleThing;
@@ -12,7 +13,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 
 public class AxisThing extends AbstractRectangleThing implements IHasMutableUnit, IHasMutableLineData,
-		IHasMutableEdgeColor, IHasMutableFontData {
+		IHasMutableEdgeColor, IHasMutableFontData, IHasMutableText {
 
 	public static enum Orientation {
 		TOP, BOTTOM, LEFT, RIGHT
@@ -38,6 +39,7 @@ public class AxisThing extends AbstractRectangleThing implements IHasMutableUnit
 		setFontSize(12);
 		setFontStyle(FontStyle.NORMAL);
 		setDontIncreaseFontSize(true);
+		setText("Axis Label");
 	}
 
 	public int getUnit() {
@@ -132,5 +134,13 @@ public class AxisThing extends AbstractRectangleThing implements IHasMutableUnit
 	@Override
 	public void setDontIncreaseFontSize(boolean dontIncreaseFontSize) {
 		set(DONT_INCREASE_FONT_SIZE_KEY, dontIncreaseFontSize);
+	}
+	
+	public String getText(){
+		return get(TEXT_KEY);
+	}
+	
+	public void setText(String text){
+		set(TEXT_KEY, text);
 	}
 }

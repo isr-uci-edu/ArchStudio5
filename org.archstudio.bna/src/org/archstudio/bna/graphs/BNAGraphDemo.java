@@ -10,7 +10,10 @@ import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.LinearCoordinateMapper;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
+import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.graphs.things.DataPointThing;
+import org.archstudio.bna.logics.editing.ClickSelectionLogic;
+import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
@@ -41,10 +44,10 @@ public class BNAGraphDemo {
 		final IBNAView bnaView = new DefaultBNAView(null, bnaWorld, new LinearCoordinateMapper());
 
 		// setup graph
-		RectangleGlassThing graphGlassThing = GraphAssemblies.createGraph(bnaWorld, null);
+		RectangleGlassThing graphGlassThing = GraphAssemblies.createGraph(bnaWorld, null, true, true, true, true);
 		graphGlassThing.setBoundingBox(new Rectangle(0, -100, 150, 100));
-		UserEditableUtils.addEditableQualities(graphGlassThing, IHasMutableSize.USER_MAY_RESIZE,
-				IHasMutableSelected.USER_MAY_SELECT);
+		UserEditableUtils.addEditableQualities(graphGlassThing, IRelativeMovable.USER_MAY_MOVE,
+				IHasMutableSize.USER_MAY_RESIZE, IHasMutableSelected.USER_MAY_SELECT);
 
 		// add some points to the plot
 		for (int i = 0; i < 100; i++) {
@@ -55,6 +58,8 @@ public class BNAGraphDemo {
 		}
 
 		IThingLogicManager tlm = bnaWorld.getThingLogicManager();
+		tlm.addThingLogic(ClickSelectionLogic.class);
+		tlm.addThingLogic(DragMovableLogic.class);
 		tlm.addThingLogic(ReshapeRectangleLogic.class);
 		tlm.addThingLogic(MarqueeSelectionLogic.class);
 		tlm.addThingLogic(MousePanAndZoomLogic.class);
