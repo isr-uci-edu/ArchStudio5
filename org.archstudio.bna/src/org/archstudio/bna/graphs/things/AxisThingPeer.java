@@ -6,6 +6,7 @@ import org.archstudio.bna.IResources;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.swtutils.constants.FontStyle;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -46,6 +47,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						tl.setText("" + wX);
 						g.drawString("" + wX, lPoint.x - tl.getBounds().width / 2, lPoint.y + localTickSize);
 					}
+					g.setFont(r.getFont(t.getFontName(), t.getFontSize(), FontStyle.BOLD));
+					tl.setFont(g.getFont());
 					tl.setText(t.getText());
 					g.drawString(t.getText(), lbb.x + lbb.width / 2 - tl.getBounds().width / 2, lbb.y + localTickSize
 							+ tl.getBounds().height);
@@ -64,6 +67,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						g.drawString("" + wX, lPoint.x - tl.getBounds().width / 2, lPoint.y + lbb.height
 								- localTickSize - tl.getBounds().height);
 					}
+					g.setFont(r.getFont(t.getFontName(), t.getFontSize(), FontStyle.BOLD));
+					tl.setFont(g.getFont());
 					tl.setText(t.getText());
 					g.drawString(t.getText(), lbb.x + lbb.width / 2 - tl.getBounds().width / 2, lbb.y + lbb.height
 							- localTickSize - tl.getBounds().height * 2);
@@ -84,6 +89,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 								- tl.getBounds().height / 2);
 						maxWidth = Math.max(maxWidth, tl.getBounds().width);
 					}
+					g.setFont(r.getFont(t.getFontName(), t.getFontSize(), FontStyle.BOLD));
+					tl.setFont(g.getFont());
 					tl.setText(t.getText());
 					g.translate(lbb.x + lbb.width - localTickSize - tl.getBounds().height - maxWidth, lbb.y
 							+ lbb.height / 2 + tl.getBounds().width / 2);
@@ -105,6 +112,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						g.drawString(" " + -wY, lPoint.x + localTickSize, lPoint.y - tl.getBounds().height / 2);
 						maxWidth = Math.max(maxWidth, tl.getBounds().width);
 					}
+					g.setFont(r.getFont(t.getFontName(), t.getFontSize(), FontStyle.BOLD));
+					tl.setFont(g.getFont());
 					tl.setText(t.getText());
 					g.translate(lbb.x + localTickSize + maxWidth, lbb.y + lbb.height / 2 + tl.getBounds().width / 2);
 					g.rotate(-90);
