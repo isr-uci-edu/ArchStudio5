@@ -7,10 +7,10 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
-import org.archstudio.bna.LinearCoordinateMapper;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IRelativeMovable;
+import org.archstudio.bna.graphs.GraphCoordinateMapper.Type;
 import org.archstudio.bna.graphs.things.DataPointThing;
 import org.archstudio.bna.logics.DebugLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
@@ -42,7 +42,7 @@ public class BNAGraphDemo {
 
 		final IBNAModel bnaModel = new DefaultBNAModel();
 		final IBNAWorld bnaWorld = new DefaultBNAWorld("bna", bnaModel);
-		final IBNAView bnaView = new DefaultBNAView(null, bnaWorld, new LinearCoordinateMapper());
+		final IBNAView bnaView = new DefaultBNAView(null, bnaWorld, new GraphCoordinateMapper(Type.LOGARITHMIC, Type.LINEAR));
 
 		// setup graph
 		RectangleGlassThing graphGlassThing = GraphAssemblies.createGraph(bnaWorld, null, "Top", "Bottom", "Left", "Right");
@@ -64,7 +64,7 @@ public class BNAGraphDemo {
 		tlm.addThingLogic(ReshapeRectangleLogic.class);
 		tlm.addThingLogic(MarqueeSelectionLogic.class);
 		tlm.addThingLogic(MousePanAndZoomLogic.class);
-		tlm.addThingLogic(DebugLogic.class);
+		//tlm.addThingLogic(DebugLogic.class);
 
 		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, bnaView);
 		BNARenderingSettings.setAntialiasGraphics(bnaComposite, true);
