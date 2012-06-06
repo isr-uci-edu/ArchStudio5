@@ -12,7 +12,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import com.google.common.collect.Lists;
 
-public abstract class CoordinateMapperAdapter implements IMutableCoordinateMapper, Cloneable {
+public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapper, Cloneable {
 
 	public static final Rectangle getDefaultBounds() {
 		return new Rectangle(-100000, -100000, 200000, 200000);
@@ -27,12 +27,12 @@ public abstract class CoordinateMapperAdapter implements IMutableCoordinateMappe
 	protected int synchronizedUpdateCount = 0;
 	protected List<CoordinateMapperEvent> synchronizedUpdateEvents = null;
 
-	public CoordinateMapperAdapter() {
+	public AbstractCoordinateMapper() {
 	}
 
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
-		CoordinateMapperAdapter t = (CoordinateMapperAdapter) super.clone();
+		AbstractCoordinateMapper t = (AbstractCoordinateMapper) super.clone();
 		t.worldBounds = new Rectangle(t.worldBounds.x, t.worldBounds.y, t.worldBounds.width, t.worldBounds.height);
 		t.localOrigin = new Point(t.localOrigin.x, t.localOrigin.y);
 		t.listeners = new CopyOnWriteArrayList<ICoordinateMapperListener>();
@@ -111,7 +111,7 @@ public abstract class CoordinateMapperAdapter implements IMutableCoordinateMappe
 		synchronizedUpdate(new Runnable() {
 			@Override
 			public void run() {
-				CoordinateMapperAdapter.this.localScale = localScale;
+				AbstractCoordinateMapper.this.localScale = localScale;
 				align(localPoint, worldPoint);
 			}
 		});
@@ -147,12 +147,16 @@ public abstract class CoordinateMapperAdapter implements IMutableCoordinateMappe
 	}
 
 	@Override
-	public ICoordinateMapper copy() {
-		try {
-			return (ICoordinateMapper) clone();
-		}
-		catch (Throwable t) {
-			throw new RuntimeException(t);
-		}
+	public Rectangle localToWorld(Rectangle localRectangle) {
+		return new Rectangle(//
+				localToWorld(localRectangle.getTopLeft()),//
+				localToWorld(localRectangle.getBottomRight()));
+	}
+
+	@Override
+	public Rectangle worldToLocal(Rectangle worldRectangle) {
+		return new Rectangle(//
+				worldToLocal(worldRectangle.getTopLeft()),//
+				worldToLocal(worldRectangle.getBottomRight()));
 	}
 }

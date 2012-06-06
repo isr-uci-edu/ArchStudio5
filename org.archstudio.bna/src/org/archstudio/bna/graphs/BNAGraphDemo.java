@@ -12,6 +12,7 @@ import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.graphs.things.DataPointThing;
+import org.archstudio.bna.logics.DebugLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
@@ -63,6 +64,7 @@ public class BNAGraphDemo {
 		tlm.addThingLogic(ReshapeRectangleLogic.class);
 		tlm.addThingLogic(MarqueeSelectionLogic.class);
 		tlm.addThingLogic(MousePanAndZoomLogic.class);
+		tlm.addThingLogic(DebugLogic.class);
 
 		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, bnaView);
 		BNARenderingSettings.setAntialiasGraphics(bnaComposite, true);

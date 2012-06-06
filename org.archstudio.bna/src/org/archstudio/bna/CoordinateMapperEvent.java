@@ -8,7 +8,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 public class CoordinateMapperEvent {
 
 	public enum EventType {
-		WORLD_BOUNDS, LOCAL_ORIGIN, LOCAL_SCALE, LOCAL_SCALE_AND_ORIGIN
+		WORLD_BOUNDS, LOCAL_ORIGIN, LOCAL_SCALE, LOCAL_SCALE_AND_ORIGIN, OTHER
 	}
 
 	private final ICoordinateMapper source;

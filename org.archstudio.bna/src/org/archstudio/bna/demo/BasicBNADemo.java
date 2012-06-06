@@ -3,7 +3,7 @@ package org.archstudio.bna.demo;
 import java.util.Arrays;
 
 import org.archstudio.bna.BNACanvas;
-import org.archstudio.bna.CoordinateMapperAdapter;
+import org.archstudio.bna.AbstractCoordinateMapper;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
@@ -49,7 +49,7 @@ import org.eclipse.swt.widgets.Shell;
 
 public class BasicBNADemo {
 
-	static Rectangle originRectangle = CoordinateMapperAdapter.getDefaultBounds();
+	static Rectangle originRectangle = AbstractCoordinateMapper.getDefaultBounds();
 	static Point origin = new Point(originRectangle.x + originRectangle.width / 2, originRectangle.y
 			+ originRectangle.height / 2);
 
