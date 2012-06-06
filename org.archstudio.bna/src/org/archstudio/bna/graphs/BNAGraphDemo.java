@@ -44,7 +44,7 @@ public class BNAGraphDemo {
 		final IBNAView bnaView = new DefaultBNAView(null, bnaWorld, new LinearCoordinateMapper());
 
 		// setup graph
-		RectangleGlassThing graphGlassThing = GraphAssemblies.createGraph(bnaWorld, null, true, true, true, true);
+		RectangleGlassThing graphGlassThing = GraphAssemblies.createGraph(bnaWorld, null, "Top", "Bottom", "Left", "Right");
 		graphGlassThing.setBoundingBox(new Rectangle(0, -100, 150, 100));
 		UserEditableUtils.addEditableQualities(graphGlassThing, IRelativeMovable.USER_MAY_MOVE,
 				IHasMutableSize.USER_MAY_RESIZE, IHasMutableSelected.USER_MAY_SELECT);
