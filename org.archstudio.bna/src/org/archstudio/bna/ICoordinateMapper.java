@@ -56,11 +56,6 @@ public interface ICoordinateMapper {
 		public Rectangle localToWorld(Rectangle localRectangle) {
 			return BNAUtils.clone(localRectangle);
 		}
-
-		@Override
-		public ICoordinateMapper copy() {
-			return this;
-		};
 	};
 
 	public abstract void addCoordinateMapperListener(ICoordinateMapperListener l);
@@ -82,6 +77,4 @@ public interface ICoordinateMapper {
 	public abstract Point localToWorld(Point localPoint);
 
 	public abstract Rectangle localToWorld(Rectangle localRectangle);
-
-	public ICoordinateMapper copy();
 }

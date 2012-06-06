@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.archstudio.bna.BNACanvas;
-import org.archstudio.bna.CoordinateMapperAdapter;
+import org.archstudio.bna.AbstractCoordinateMapper;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
@@ -138,7 +138,7 @@ public class ArchipelagoUtils {
 			p.y += 10;
 		}
 		else {
-			Rectangle bounds = CoordinateMapperAdapter.getDefaultBounds();
+			Rectangle bounds = AbstractCoordinateMapper.getDefaultBounds();
 			p = new Point(bounds.x + bounds.width / 2 + 30, bounds.y + bounds.height / 2 + 30);
 			// first find all things along the points of interest
 			int dyx = p.y - p.x;
