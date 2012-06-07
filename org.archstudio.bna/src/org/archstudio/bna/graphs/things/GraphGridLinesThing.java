@@ -24,7 +24,7 @@ public class GraphGridLinesThing extends AbstractRectangleThing implements IHasM
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setUnit(5);
+		setUnit(10);
 		setOrientation(Orientation.HORIZONTAL_LINES);
 		setLineStyle(SWT.LINE_DOT);
 		setEdgeColor(new RGB(128, 128, 128));

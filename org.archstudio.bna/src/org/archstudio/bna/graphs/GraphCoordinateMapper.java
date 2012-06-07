@@ -34,20 +34,20 @@ public class GraphCoordinateMapper extends AbstractCoordinateMapper implements I
 				BNAUtils.round(worldBounds.height * localScale));
 	}
 
-	public Type getxAxisType() {
+	public Type getXAxisType() {
 		return xAxisType;
 	}
 
-	public void setxAxisType(Type xAxisType) {
+	public void setXAxisType(Type xAxisType) {
 		this.xAxisType = xAxisType;
 		fireCoordinateMapperEvent(EventType.OTHER);
 	}
 
-	public Type getyAxisType() {
+	public Type getYAxisType() {
 		return yAxisType;
 	}
 
-	public void setyAxisType(Type yAxisType) {
+	public void setYAxisType(Type yAxisType) {
 		this.yAxisType = yAxisType;
 		fireCoordinateMapperEvent(EventType.OTHER);
 	}
@@ -60,7 +60,7 @@ public class GraphCoordinateMapper extends AbstractCoordinateMapper implements I
 
 		switch (xAxisType) {
 		case LINEAR:
-			x = x * localScale * -localOrigin.x;
+			x = x * localScale - localOrigin.x;
 			break;
 		case LOGARITHMIC:
 			x = log(x) * localXAxisLogarithmicScale * localScale - localOrigin.x;
