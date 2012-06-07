@@ -11,12 +11,13 @@ import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.graphs.GraphCoordinateMapper.Type;
-import org.archstudio.bna.graphs.things.DataPointThing;
-import org.archstudio.bna.logics.DebugLogic;
+import org.archstudio.bna.graphs.things.DataPointGlassThing;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
+import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
+import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.utils.BNARenderingSettings;
@@ -53,9 +54,11 @@ public class BNAGraphDemo {
 		// add some points to the plot
 		for (int i = 0; i < 100; i++) {
 			int x = random.nextInt(graphGlassThing.getBoundingBox().width);
-			int y = random.nextInt(graphGlassThing.getBoundingBox().height);
-			DataPointThing point = bnaModel.addThing(new DataPointThing(null));
-			point.setAnchorPoint(new Point(x, -y));
+			int y = -random.nextInt(graphGlassThing.getBoundingBox().height);
+			DataPointGlassThing point = GraphAssemblies.createDataPoint(bnaWorld, null);
+			point.setAnchorPoint(new Point(x, y));
+			ToolTipLogic.setToolTip(point, "Point #"+(i+1));
+			UserEditableUtils.addEditableQualities(point, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG);
 		}
 
 		IThingLogicManager tlm = bnaWorld.getThingLogicManager();
@@ -64,6 +67,8 @@ public class BNAGraphDemo {
 		tlm.addThingLogic(ReshapeRectangleLogic.class);
 		tlm.addThingLogic(MarqueeSelectionLogic.class);
 		tlm.addThingLogic(MousePanAndZoomLogic.class);
+		tlm.addThingLogic(ShowHideTagsLogic.class);
+		tlm.addThingLogic(ToolTipLogic.class);
 		//tlm.addThingLogic(DebugLogic.class);
 
 		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, bnaView);

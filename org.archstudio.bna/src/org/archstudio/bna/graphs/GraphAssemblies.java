@@ -7,8 +7,13 @@ import javax.annotation.Nullable;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasSize;
+import org.archstudio.bna.graphs.facets.IHasShape;
 import org.archstudio.bna.graphs.things.AxisThing;
+import org.archstudio.bna.graphs.things.DataPointGlassThing;
+import org.archstudio.bna.graphs.things.DataPointThing;
 import org.archstudio.bna.graphs.things.GraphGridLinesThing;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
@@ -29,6 +34,8 @@ public class GraphAssemblies {
 			.create("assembly-horizontal-grid-lines");
 	public static final IThingRefKey<GraphGridLinesThing> VERTICAL_GRID_LINES_KEY = ThingAssemblyKey
 			.create("assembly-vertical-grid-lines");
+	
+	public static final IThingRefKey<DataPointThing> DATA_POINT_KEY = ThingAssemblyKey.create("assembly-data-point");
 
 	public static RectangleGlassThing createGraph(IBNAWorld world, @Nullable Object id, String topLabel,
 			String bottomLabel, String leftLabel, String rightLabel) {
@@ -109,5 +116,25 @@ public class GraphAssemblies {
 		}
 
 		return graphThing;
+	}
+
+	public static DataPointGlassThing createDataPoint(IBNAWorld world, @Nullable Object id) {
+		
+		checkNotNull(world);
+
+		IBNAModel model = world.getBNAModel();
+
+		DataPointThing dataPointThing = model.addThing(new DataPointThing(null));
+		DataPointGlassThing dataPointGlassThing = model.addThing(new DataPointGlassThing(id), dataPointThing);
+
+		Assemblies.markPart(dataPointGlassThing, DATA_POINT_KEY, dataPointThing);
+		
+		IThingLogicManager tlm = world.getThingLogicManager();
+		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
+		mvl.mirrorValue(dataPointGlassThing, IHasAnchorPoint.ANCHOR_POINT_KEY, dataPointThing);
+		mvl.mirrorValue(dataPointGlassThing, IHasSize.SIZE_KEY, dataPointThing);
+		mvl.mirrorValue(dataPointGlassThing, IHasShape.SHAPE_KEY, dataPointThing);
+		
+		return dataPointGlassThing;
 	}
 }
