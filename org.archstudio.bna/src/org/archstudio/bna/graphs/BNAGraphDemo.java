@@ -43,7 +43,7 @@ public class BNAGraphDemo {
 
 		final IBNAModel bnaModel = new DefaultBNAModel();
 		final IBNAWorld bnaWorld = new DefaultBNAWorld("bna", bnaModel);
-		final IBNAView bnaView = new DefaultBNAView(null, bnaWorld, new GraphCoordinateMapper(Type.LOGARITHMIC, Type.LINEAR));
+		final IBNAView bnaView = new DefaultBNAView(null, bnaWorld, new GraphCoordinateMapper(Type.LOGARITHMIC, Type.LOGARITHMIC));
 
 		// setup graph
 		RectangleGlassThing graphGlassThing = GraphAssemblies.createGraph(bnaWorld, null, "Top", "Bottom", "Left", "Right");

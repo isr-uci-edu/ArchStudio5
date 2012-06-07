@@ -4,6 +4,7 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.facets.IHasEdgeColor;
+import org.archstudio.bna.graphs.GraphCoordinateMapper;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.FontStyle;
@@ -33,19 +34,39 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 				int wUnit = t.getUnit();
 				int localTickSize = t.getLocalTickSize();
 
-				// draw baseline
 				switch (t.getOrientation()) {
 				case BOTTOM: {
 					g.drawLine(lbb.x, lbb.y, lbb.x + lbb.width, lbb.y);
-					int wMin = wbb.x / wUnit * wUnit;
-					int wMax = ((wbb.x + wbb.width) / wUnit + 1) * wUnit;
-					for (int wX = wMin; wX <= wMax; wX += wUnit) {
-						if (wX < wbb.x || wX > wbb.x + wbb.width)
-							continue;
-						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
-						g.drawLine(lPoint.x, lbb.y, lPoint.x, lbb.y + localTickSize);
-						tl.setText("" + wX);
-						g.drawString("" + wX, lPoint.x - tl.getBounds().width / 2, lPoint.y + localTickSize);
+					switch (cm instanceof GraphCoordinateMapper ? ((GraphCoordinateMapper) cm).getXAxisType()
+							: GraphCoordinateMapper.Type.LINEAR) {
+					case LINEAR: {
+						int wMin = wbb.x / wUnit * wUnit;
+						int wMax = ((wbb.x + wbb.width) / wUnit + 1) * wUnit;
+						for (int wX = wMin; wX <= wMax; wX += wUnit) {
+							if (wX < wbb.x || wX > wbb.x + wbb.width)
+								continue;
+							Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
+							g.drawLine(lPoint.x, lbb.y, lPoint.x, lbb.y + localTickSize);
+							tl.setText("" + wX);
+							g.drawString("" + wX, lPoint.x - tl.getBounds().width / 2, lPoint.y + localTickSize);
+						}
+						break;
+					}
+					case LOGARITHMIC: {
+						int wMin = 1; // wbb.x / wUnit * wUnit;
+						if (wMin < 1)
+							wMin = 1;
+						int wMax = ((wbb.x + wbb.width) / wUnit + 1) * wUnit;
+						for (int wX = wMin; wX <= wMax; wX *= wUnit) {
+							if (wX < wbb.x || wX > wbb.x + wbb.width)
+								continue;
+							Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
+							g.drawLine(lPoint.x, lbb.y, lPoint.x, lbb.y + localTickSize);
+							tl.setText("" + wX);
+							g.drawString("" + wX, lPoint.x - tl.getBounds().width / 2, lPoint.y + localTickSize);
+						}
+						break;
+					}
 					}
 					g.setFont(r.getFont(t.getFontName(), t.getFontSize(), FontStyle.BOLD));
 					tl.setFont(g.getFont());
@@ -56,16 +77,38 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 				}
 				case TOP: {
 					g.drawLine(lbb.x, lbb.y + lbb.height, lbb.x + lbb.width, lbb.y + lbb.height);
-					int wMin = wbb.x / wUnit * wUnit;
-					int wMax = ((wbb.x + wbb.width) / wUnit + 1) * wUnit;
-					for (int wX = wMin; wX <= wMax; wX += wUnit) {
-						if (wX < wbb.x || wX > wbb.x + wbb.width)
-							continue;
-						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
-						g.drawLine(lPoint.x, lbb.y + lbb.height, lPoint.x, lbb.y + lbb.height - localTickSize);
-						tl.setText("" + wX);
-						g.drawString("" + wX, lPoint.x - tl.getBounds().width / 2, lPoint.y + lbb.height
-								- localTickSize - tl.getBounds().height);
+					switch (cm instanceof GraphCoordinateMapper ? ((GraphCoordinateMapper) cm).getXAxisType()
+							: GraphCoordinateMapper.Type.LINEAR) {
+					case LINEAR: {
+						int wMin = wbb.x / wUnit * wUnit;
+						int wMax = ((wbb.x + wbb.width) / wUnit + 1) * wUnit;
+						for (int wX = wMin; wX <= wMax; wX += wUnit) {
+							if (wX < wbb.x || wX > wbb.x + wbb.width)
+								continue;
+							Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
+							g.drawLine(lPoint.x, lbb.y + lbb.height, lPoint.x, lbb.y + lbb.height - localTickSize);
+							tl.setText("" + wX);
+							g.drawString("" + wX, lPoint.x - tl.getBounds().width / 2, lPoint.y + lbb.height
+									- localTickSize - tl.getBounds().height);
+						}
+						break;
+					}
+					case LOGARITHMIC: {
+						int wMin = 1; // wbb.x / wUnit * wUnit;
+						if (wMin < 1)
+							wMin = 1;
+						int wMax = ((wbb.x + wbb.width) / wUnit + 1) * wUnit;
+						for (int wX = wMin; wX <= wMax; wX *= wUnit) {
+							if (wX < wbb.x || wX > wbb.x + wbb.width)
+								continue;
+							Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
+							g.drawLine(lPoint.x, lbb.y + lbb.height, lPoint.x, lbb.y + lbb.height - localTickSize);
+							tl.setText("" + wX);
+							g.drawString("" + wX, lPoint.x - tl.getBounds().width / 2, lPoint.y + lbb.height
+									- localTickSize - tl.getBounds().height);
+						}
+						break;
+					}
 					}
 					g.setFont(r.getFont(t.getFontName(), t.getFontSize(), FontStyle.BOLD));
 					tl.setFont(g.getFont());
@@ -76,18 +119,39 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 				}
 				case LEFT: {
 					g.drawLine(lbb.x + lbb.width, lbb.y, lbb.x + lbb.width, lbb.y + lbb.height);
-					int wMin = wbb.y / wUnit * wUnit;
-					int wMax = ((wbb.y + wbb.height) / wUnit + 1) * wUnit;
 					int maxWidth = 0;
-					for (int wY = wMin; wY <= wMax; wY += wUnit) {
-						if (wY < wbb.y || wY > wbb.y + wbb.height)
-							continue;
-						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
-						g.drawLine(lbb.x + lbb.width, lPoint.y, lbb.x + lbb.width - localTickSize, lPoint.y);
-						tl.setText(-wY + " ");
-						g.drawString(-wY + " ", lPoint.x + lbb.width - tl.getBounds().width - localTickSize, lPoint.y
-								- tl.getBounds().height / 2);
-						maxWidth = Math.max(maxWidth, tl.getBounds().width);
+					switch (cm instanceof GraphCoordinateMapper ? ((GraphCoordinateMapper) cm).getYAxisType()
+							: GraphCoordinateMapper.Type.LINEAR) {
+					case LINEAR: {
+						int wMin = wbb.y / wUnit * wUnit;
+						int wMax = ((wbb.y + wbb.height) / wUnit + 1) * wUnit;
+						for (int wY = wMin; wY <= wMax; wY += wUnit) {
+							if (wY < wbb.y || wY > wbb.y + wbb.height)
+								continue;
+							Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
+							g.drawLine(lbb.x + lbb.width, lPoint.y, lbb.x + lbb.width - localTickSize, lPoint.y);
+							tl.setText(-wY + " ");
+							g.drawString(-wY + " ", lPoint.x + lbb.width - tl.getBounds().width - localTickSize,
+									lPoint.y - tl.getBounds().height / 2);
+							maxWidth = Math.max(maxWidth, tl.getBounds().width);
+						}
+						break;
+					}
+					case LOGARITHMIC: {
+						int wMin = -1;
+						int wMax = -wbb.y;
+						for (int wY = wMin; wY <= wMax; wY *= wUnit) {
+							if (wY < wbb.y || wY > wbb.y + wbb.height)
+								continue;
+							Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
+							g.drawLine(lbb.x + lbb.width, lPoint.y, lbb.x + lbb.width - localTickSize, lPoint.y);
+							tl.setText(-wY + " ");
+							g.drawString(-wY + " ", lPoint.x + lbb.width - tl.getBounds().width - localTickSize,
+									lPoint.y - tl.getBounds().height / 2);
+							maxWidth = Math.max(maxWidth, tl.getBounds().width);
+						}
+						break;
+					}
 					}
 					g.setFont(r.getFont(t.getFontName(), t.getFontSize(), FontStyle.BOLD));
 					tl.setFont(g.getFont());
@@ -100,17 +164,37 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 				}
 				case RIGHT: {
 					g.drawLine(lbb.x, lbb.y, lbb.x, lbb.y + lbb.height);
-					int wMin = wbb.y / wUnit * wUnit;
-					int wMax = ((wbb.y + wbb.height) / wUnit + 1) * wUnit;
 					int maxWidth = 0;
-					for (int wY = wMin; wY <= wMax; wY += wUnit) {
-						if (wY < wbb.y || wY > wbb.y + wbb.height)
-							continue;
-						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
-						g.drawLine(lbb.x, lPoint.y, lbb.x + localTickSize, lPoint.y);
-						tl.setText(" " + -wY);
-						g.drawString(" " + -wY, lPoint.x + localTickSize, lPoint.y - tl.getBounds().height / 2);
-						maxWidth = Math.max(maxWidth, tl.getBounds().width);
+					switch (cm instanceof GraphCoordinateMapper ? ((GraphCoordinateMapper) cm).getYAxisType()
+							: GraphCoordinateMapper.Type.LINEAR) {
+					case LINEAR: {
+						int wMin = wbb.y / wUnit * wUnit;
+						int wMax = ((wbb.y + wbb.height) / wUnit + 1) * wUnit;
+						for (int wY = wMin; wY <= wMax; wY += wUnit) {
+							if (wY < wbb.y || wY > wbb.y + wbb.height)
+								continue;
+							Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
+							g.drawLine(lbb.x, lPoint.y, lbb.x + localTickSize, lPoint.y);
+							tl.setText(" " + -wY);
+							g.drawString(" " + -wY, lPoint.x + localTickSize, lPoint.y - tl.getBounds().height / 2);
+							maxWidth = Math.max(maxWidth, tl.getBounds().width);
+						}
+						break;
+					}
+					case LOGARITHMIC: {
+						int wMin = -1;
+						int wMax = -wbb.y;
+						for (int wY = wMin; wY <= wMax; wY *= wUnit) {
+							if (wY < wbb.y || wY > wbb.y + wbb.height)
+								continue;
+							Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
+							g.drawLine(lbb.x, lPoint.y, lbb.x + localTickSize, lPoint.y);
+							tl.setText(" " + -wY);
+							g.drawString(" " + -wY, lPoint.x + localTickSize, lPoint.y - tl.getBounds().height / 2);
+							maxWidth = Math.max(maxWidth, tl.getBounds().width);
+						}
+						break;
+					}
 					}
 					g.setFont(r.getFont(t.getFontName(), t.getFontSize(), FontStyle.BOLD));
 					tl.setFont(g.getFont());
