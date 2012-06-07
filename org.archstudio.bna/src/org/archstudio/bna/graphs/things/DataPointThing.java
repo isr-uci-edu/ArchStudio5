@@ -3,6 +3,7 @@ package org.archstudio.bna.graphs.things;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableSize;
+import org.archstudio.bna.graphs.facets.IHasShape.Shape;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.AbstractAnchorPointThing;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -10,10 +11,6 @@ import org.eclipse.swt.graphics.RGB;
 
 public class DataPointThing extends AbstractAnchorPointThing implements IHasMutableColor, IHasMutableEdgeColor,
 		IHasMutableSize {
-
-	public static enum Shape {
-		CIRCLE, SQUARE
-	}
 
 	public static final IThingKey<Shape> SHAPE_KEY = ThingKey.create("shape");
 
@@ -26,7 +23,7 @@ public class DataPointThing extends AbstractAnchorPointThing implements IHasMuta
 		super.initProperties();
 		setColor(new RGB(128, 128, 128));
 		setEdgeColor(new RGB(0, 0, 0));
-		setSize(new Dimension(4, 4));
+		setSize(new Dimension(8, 8));
 		setShape(Shape.CIRCLE);
 	}
 
