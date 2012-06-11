@@ -1,203 +1,157 @@
 package org.archstudio.bna.things.labels;
 
+import java.awt.Font;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
+
+import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
-import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
-import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.IThingPeer;
-import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractAnchorPointThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.swtutils.constants.HorizontalAlignment;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.graphics.TextLayout;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
+
+import com.jogamp.opengl.util.awt.TextRenderer;
 
 public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends AbstractAnchorPointThingPeer<T> implements
-		IThingPeer<T>, IThingListener {
+		IThingPeer<T> {
 
-	protected boolean needsTextLayout = true;
-	protected TextLayout textLayout = null;
-	protected double textLayoutScale = 1d;
-	protected Point2D localTextPoint = null;
-	protected Point2D localIndicatorPoint = null;
-	protected Shape localTextShape = null;
+	Shape lastTextLocalShape = null;
+	int SPACING = 2;
 
 	public AnchoredLabelThingPeer(T thing) {
 		super(thing);
-		thing.addThingListener(this);
+	}
+
+	protected static int calculateFontSize(ICoordinateMapper cm, int origFontSize, boolean dontIncreaseFontSize) {
+		double scale = cm.getLocalScale();
+		double nfs = origFontSize;
+		if (dontIncreaseFontSize) {
+			if (scale < 1.0d) {
+				nfs = origFontSize * scale;
+			}
+		}
+		else {
+			nfs = origFontSize * scale;
+		}
+		return (int) nfs;
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void thingChanged(ThingEvent<ET, EK, EV> thingEvent) {
-		needsTextLayout = true;
-	}
-
-	@Override
-	public void dispose() {
-		t.removeThingListener(this);
-		if (textLayout != null) {
-			try {
-				textLayout.dispose();
-			}
-			catch (Exception e) {
-			}
-			finally {
-				textLayout = null;
-			}
-		}
-		super.dispose();
-	}
-
-	protected void doLayout(IBNAView view, ICoordinateMapper cm, IResources r) {
-		if (textLayout == null || textLayout.getDevice() != r.getDevice()) {
-			if (textLayout != null) {
-				try {
-					textLayout.dispose();
-				}
-				catch (Exception e) {
-				}
-				finally {
-					textLayout = null;
-				}
-			}
-			textLayout = new TextLayout(r.getDevice());
-			needsTextLayout = true;
-		}
-
-		needsTextLayout |= cm.getLocalScale() != textLayoutScale;
-
-		if (needsTextLayout) {
-			needsTextLayout = false;
-			textLayoutScale = cm.getLocalScale();
-			localTextShape = null;
-
-			textLayout.setText(t.getText());
-			int textLayoutAngle = t.getAngle();
-			int size = t.getFontSize();
+	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+		lastTextLocalShape = null;
+		if (r.setColor(t, IHasColor.COLOR_KEY)) {
+			String text = t.getText();
 			Point lap = cm.worldToLocal(t.getAnchorPoint());
 			Point ip = t.getIndicatorPoint();
-			Point lip = ip != null ? cm.worldToLocal(ip) : lap;
-			if (textLayoutScale < 1d) {
-				size *= textLayoutScale;
-			}
-			if (size > 0) {
-				textLayout.setFont(r.getFont(t.getFontName(), size, t.getFontStyle()));
-				Rectangle localTextBounds = BNAUtils.toRectangle(textLayout.getBounds());
-				Point localAlignment = new Point();
+			Point lip = ip != null ? cm.worldToLocal(ip) : null;
+			int fontSize = calculateFontSize(view.getCoordinateMapper(), t.getFontSize(), t.getDontIncreaseFontSize());
+			Font font = r.getFont(t, fontSize);
+			int angle = t.getAngle();
 
-				HorizontalAlignment horizontalAlignment = t.getHorizontalAlignment();
-				switch (horizontalAlignment) {
-				case LEFT:
-					break;
-				case CENTER:
-					localAlignment.x -= localTextBounds.width / 2;
-					break;
-				case RIGHT:
-					localAlignment.x -= localTextBounds.width;
-					break;
-				}
-				textLayout.setAlignment(horizontalAlignment.toSWT());
+			TextRenderer tr = r.getTextRenderer(font);
+			Point canvasSize = view.getComposite().getSize();
+			int textX = lap.x;
+			int textY = lap.y;
+			lastTextLocalShape = tr.getBounds(text);
+			Rectangle textBounds = BNAUtils.toRectangle(tr.getBounds(text));
 
-				switch (t.getVerticalAlignment()) {
-				case TOP:
-					break;
-				case MIDDLE:
-					localAlignment.y -= localTextBounds.height / 2;
-					break;
-				case BOTTOM:
-					localAlignment.y -= localTextBounds.height;
-					break;
-				}
+			AffineTransform transform = new AffineTransform();
+			transform.translate(textX, textY);
+			transform.rotate(Math.PI * angle / 180);
+			GeneralPath path = new GeneralPath(lastTextLocalShape);
+			path.transform(transform);
+			lastTextLocalShape = path;
 
-				AffineTransform transform;
-				GeneralPath path = new GeneralPath(new Rectangle2D.Float(localAlignment.x, localAlignment.y,
-						localTextBounds.width, localTextBounds.height));
-				localTextPoint = new Point2D.Float(localAlignment.x, localAlignment.y);
-				Point2D ip0 = new Point2D.Float(lip.x, lip.y);
-				Point2D ip1 = new Point2D.Float(localAlignment.x, localAlignment.y + localTextBounds.height / 2);
-				Point2D ip2 = new Point2D.Float(localAlignment.x + localTextBounds.width, localAlignment.y
-						+ localTextBounds.height / 2);
-
-				transform = new AffineTransform();
-				transform.rotate(Math.PI * textLayoutAngle / 180);
-				path.transform(transform);
-				transform.transform(localTextPoint, localTextPoint);
-				transform.transform(ip1, ip1);
-				transform.transform(ip2, ip2);
-
-				transform = new AffineTransform();
-				transform.translate(lap.x, lap.y);
-				path.transform(transform);
-				transform.transform(localTextPoint, localTextPoint);
-				transform.transform(ip1, ip1);
-				transform.transform(ip2, ip2);
-
-				localTextShape = path;
-				localIndicatorPoint = ip1;
-				if (ip1.distance(ip0) > ip2.distance(ip0)) {
-					localIndicatorPoint = ip2;
-				}
-			}
-		}
-	}
-
-	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, IResources r, Graphics g) {
-		if (BNAUtils.setForegroundColor(r, g, t, IHasColor.COLOR_KEY)) {
-			doLayout(view, cm, r);
-			if (localTextShape != null) {
-				
-				Point ip = t.getIndicatorPoint();
-				if (ip != null) {
-					g.drawLine(cm.worldToLocal(ip), BNAUtils.toPoint(localIndicatorPoint));
-				}
-
-				g.setFont(textLayout.getFont());
-				int angle = t.getAngle();
-				if (angle == 0) {
-					g.drawString(t.getText(), BNAUtils.round(localTextPoint.getX()),
-							BNAUtils.round(localTextPoint.getY()));
+			if (lip != null) {
+				Point2D lap2d = new Point2D.Float(-SPACING, 0);
+				Point2D lap2d2 = new Point2D.Float(textBounds.width + SPACING, 0);
+				transform.transform(lap2d, lap2d);
+				transform.transform(lap2d2, lap2d2);
+				double dist1 = Point2D.distance(lap2d.getX(), lap2d.getY(), lip.x, lip.y);
+				double dist2 = Point2D.distance(lap2d2.getX(), lap2d2.getY(), lip.x, lip.y);
+				gl.glBegin(GL.GL_LINE_STRIP);
+				if (dist1 < dist2) {
+					gl.glVertex2d(lap2d.getX() + 0.5d, lap2d.getY() + 0.5d);
 				}
 				else {
-					g.translate(BNAUtils.round(localTextPoint.getX()), BNAUtils.round(localTextPoint.getY()));
-					g.rotate(angle);
-					g.drawString(t.getText(), 0, 0);
+					gl.glVertex2d(lap2d2.getX() + 0.5d, lap2d2.getY() + 0.5d);
 				}
+				gl.glVertex2i(lip.x, lip.y);
+				gl.glEnd();
 			}
+
+			gl.glPushMatrix();
+			tr.beginRendering(canvasSize.x, canvasSize.y);
+			gl.glMatrixMode(GL2.GL_MODELVIEW);
+			gl.glTranslated(textX, canvasSize.y - textY, 0);
+			gl.glRotated(-angle, 0, 0, 1);
+			r.setColor(t, IHasColor.COLOR_KEY);
+			tr.draw(text, 0, 0);
+			tr.endRendering();
+			gl.glPopMatrix();
 		}
+
+		//		Point canvasSize = view.getComposite().getSize();
+		//		String text = t.getText();
+		//		TextRenderer tr = r.getTextRenderer(r.getFont(t));
+		//		Rectangle2D rectangleSize = tr.getBounds(text);
+		//		Dimension size = new Dimension(BNAUtils.round(rectangleSize.getWidth()), BNAUtils.round(rectangleSize
+		//				.getHeight()));
+		//		Point localAnchor = cm.worldToLocal(t.getAnchorPoint());
+		//		Point ip = t.getIndicatorPoint();
+		//		Point lip = ip != null ? cm.worldToLocal(ip) : null;
+		//		Point localOffset = new Point(0, 0);
+		//		int offset = 0;
+		//
+		//		HorizontalAlignment horizontalAlignment = t.getHorizontalAlignment();
+		//		switch (horizontalAlignment) {
+		//		case LEFT:
+		//			localOffset.x += offset * cm.getLocalScale();
+		//			break;
+		//		case CENTER:
+		//			localOffset.x -= size.width / 2;
+		//			break;
+		//		case RIGHT:
+		//			localOffset.x -= size.width;
+		//			localOffset.x -= offset * cm.getLocalScale();
+		//			break;
+		//		}
+		//		switch (t.getVerticalAlignment()) {
+		//		case TOP:
+		//			break;
+		//		case MIDDLE:
+		//			localOffset.y -= size.height / 2;
+		//			break;
+		//		case BOTTOM:
+		//			localOffset.y -= size.height;
+		//			break;
+		//		}
+		//
+		//		tr.beginRendering(canvasSize.x, canvasSize.y);
+		//		if (r.setColor(t, IHasColor.COLOR_KEY)) {
+		//			gl.glMatrixMode(GL2.GL_MODELVIEW);
+		//			gl.glTranslatef(localAnchor.x, canvasSize.y - localAnchor.y, 0);
+		//			gl.glRotatef(t.getAngle(), 0, 0, 1);
+		//			tr.draw(text, 0, 0);
+		//		}
+		//		tr.endRendering();
 	}
 
 	@Override
-	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r) {
-		doLayout(view, cm, r);
-		if (localTextShape != null) {
-			Rectangle bounds = BNAUtils.toRectangle(localTextShape.getBounds());
-			Point ip = t.getIndicatorPoint();
-			if (ip != null) {
-				bounds.union(cm.worldToLocal(ip));
-				bounds.union(BNAUtils.toPoint(localIndicatorPoint));
-			}
-			return bounds;
-		}
-		return new Rectangle();
-	}
-
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
-		if (localTextShape != null) {
+		if (lastTextLocalShape != null) {
 			Point lPoint = location.getLocalPoint();
-			return localTextShape.contains(lPoint.x, lPoint.y);
+			return lastTextLocalShape.contains(lPoint.x, lPoint.y);
 		}
 		return false;
 	}

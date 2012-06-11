@@ -31,7 +31,7 @@ public class MyxOSGiBrickFactory extends MyxJavaClassBrickFactory implements IMy
 		try {
 			mainBrickClass = bundle.loadClass(mainBrickClassName);
 		}
-		catch (ClassNotFoundException e) {
+		catch (Throwable e) {
 			throw new MyxBrickCreationException("Can't find brick class " + mainBrickClassName + " in bundle "
 					+ bundleName, e);
 		}

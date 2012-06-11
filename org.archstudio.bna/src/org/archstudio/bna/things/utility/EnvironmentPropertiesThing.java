@@ -1,8 +1,8 @@
 package org.archstudio.bna.things.utility;
 
 import org.archstudio.bna.keys.CloneThingKey;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public class EnvironmentPropertiesThing extends NoThing {
 	public static final String ENVIRONMENT_PROPERTIES_THING_ID = EnvironmentPropertiesThing.class.getName();

@@ -10,8 +10,8 @@ import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IRelativeMovable;
+import org.archstudio.bna.facets.IHasShape.Shape;
 import org.archstudio.bna.graphs.GraphCoordinateMapper.Type;
-import org.archstudio.bna.graphs.things.DataPointGlassThing;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
@@ -19,15 +19,16 @@ import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
+import org.archstudio.bna.things.glass.AnchoredShapeGlassThing;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.bna.utils.UserEditableUtils;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -43,7 +44,7 @@ public class BNAGraphDemo {
 
 		final IBNAModel bnaModel = new DefaultBNAModel();
 		final IBNAWorld bnaWorld = new DefaultBNAWorld("bna", bnaModel);
-		final IBNAView bnaView = new DefaultBNAView(null, bnaWorld, new GraphCoordinateMapper(Type.LOGARITHMIC, Type.LOGARITHMIC));
+		final IBNAView bnaView = new DefaultBNAView(null, bnaWorld, new GraphCoordinateMapper(Type.LINEAR, Type.LOGARITHMIC));
 
 		// setup graph
 		RectangleGlassThing graphGlassThing = GraphAssemblies.createGraph(bnaWorld, null, "Top", "Bottom", "Left", "Right");
@@ -55,10 +56,12 @@ public class BNAGraphDemo {
 		for (int i = 0; i < 100; i++) {
 			int x = random.nextInt(graphGlassThing.getBoundingBox().width);
 			int y = -random.nextInt(graphGlassThing.getBoundingBox().height);
-			DataPointGlassThing point = GraphAssemblies.createDataPoint(bnaWorld, null);
+			AnchoredShapeGlassThing point = GraphAssemblies.createDataPoint(bnaWorld, null);
+			point.setShape(Shape.SQUARE);
 			point.setAnchorPoint(new Point(x, y));
 			ToolTipLogic.setToolTip(point, "Point #"+(i+1));
-			UserEditableUtils.addEditableQualities(point, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG);
+			UserEditableUtils.addEditableQualities(point, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG,
+					IHasMutableSelected.USER_MAY_SELECT);
 		}
 
 		IThingLogicManager tlm = bnaWorld.getThingLogicManager();
@@ -69,7 +72,6 @@ public class BNAGraphDemo {
 		tlm.addThingLogic(MousePanAndZoomLogic.class);
 		tlm.addThingLogic(ShowHideTagsLogic.class);
 		tlm.addThingLogic(ToolTipLogic.class);
-		//tlm.addThingLogic(DebugLogic.class);
 
 		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, bnaView);
 		BNARenderingSettings.setAntialiasGraphics(bnaComposite, true);

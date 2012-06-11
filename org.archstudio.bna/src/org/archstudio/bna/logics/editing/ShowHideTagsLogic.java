@@ -27,10 +27,10 @@ import org.archstudio.bna.things.labels.AnchoredLabelThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.UserEditableUtils;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Iterables;
 

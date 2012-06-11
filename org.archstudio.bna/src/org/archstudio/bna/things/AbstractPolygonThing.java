@@ -10,9 +10,8 @@ import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.utils.BNAUtils;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PrecisionPoint;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractPolygonThing extends AbstractPointsThing implements IHasMutableAnchorPoint,
 		IHasMutablePoints, IHasMutableReferencePoint, IIsSticky {
@@ -79,12 +78,12 @@ public abstract class AbstractPolygonThing extends AbstractPointsThing implement
 	}
 
 	@Override
-	public PrecisionPoint getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
+	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Rectangle bb = getBoundingBox();
 		Point center = new Point(bb.x + bb.width / 2, bb.y + bb.height / 2);
 		switch (stickyMode) {
 		case CENTER:
-			return new PrecisionPoint(center.x, center.y);
+			return new Point(center.x, center.y);
 		case EDGE:
 			return BNAUtils.getClosestPointOnPolygon(
 					BNAUtils.toXYArray(ICoordinateMapper.IDENTITY, getPoints(), getAnchorPoint()), nearPoint.x,

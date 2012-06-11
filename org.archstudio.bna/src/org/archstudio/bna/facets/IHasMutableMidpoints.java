@@ -2,7 +2,7 @@ package org.archstudio.bna.facets;
 
 import java.util.List;
 
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 public interface IHasMutableMidpoints extends IHasMidpoints {
 

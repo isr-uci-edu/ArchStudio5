@@ -1,12 +1,13 @@
 package org.archstudio.bna.things.glass;
 
+import java.awt.Dimension;
+
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasMutableOrientation;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasStandardCursor;
 import org.archstudio.bna.things.AbstractAnchorPointThing;
 import org.archstudio.swtutils.constants.Orientation;
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 

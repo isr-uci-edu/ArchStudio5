@@ -7,10 +7,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.archstudio.bna.CoordinateMapperEvent.EventType;
 import org.archstudio.bna.utils.BNAUtils;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
-
-import com.google.common.collect.Lists;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapper, Cloneable {
 
@@ -24,8 +22,6 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 			/ 2);
 
 	protected List<ICoordinateMapperListener> listeners = new CopyOnWriteArrayList<ICoordinateMapperListener>();
-	protected int synchronizedUpdateCount = 0;
-	protected List<CoordinateMapperEvent> synchronizedUpdateEvents = null;
 
 	public AbstractCoordinateMapper() {
 	}
@@ -55,10 +51,6 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 	}
 
 	protected synchronized void fireCoordinateMapperEvent(CoordinateMapperEvent evt) {
-		if (synchronizedUpdateEvents != null) {
-			synchronizedUpdateEvents.add(evt);
-			return;
-		}
 		for (ICoordinateMapperListener l : listeners) {
 			l.coordinateMappingsChanged(evt);
 		}
@@ -108,34 +100,8 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 
 	@Override
 	public void setLocalScaleAndAlign(final double localScale, final Point localPoint, final Point worldPoint) {
-		synchronizedUpdate(new Runnable() {
-			@Override
-			public void run() {
-				AbstractCoordinateMapper.this.localScale = localScale;
-				align(localPoint, worldPoint);
-			}
-		});
-	}
-
-	@Override
-	public synchronized void synchronizedUpdate(Runnable r) {
-		List<CoordinateMapperEvent> updateEvents = null;
-		try {
-			if (synchronizedUpdateCount++ == 0) {
-				updateEvents = Lists.newArrayList();
-				synchronizedUpdateEvents = updateEvents;
-			}
-			r.run();
-		}
-		finally {
-			if (--synchronizedUpdateCount != 0) {
-				return;
-			}
-			synchronizedUpdateEvents = null;
-		}
-		for (CoordinateMapperEvent evt : updateEvents) {
-			fireCoordinateMapperEvent(evt);
-		}
+		setLocalScale(localScale);
+		align(localPoint, worldPoint);
 	}
 
 	@Override
@@ -148,15 +114,19 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 
 	@Override
 	public Rectangle localToWorld(Rectangle localRectangle) {
-		return new Rectangle(//
-				localToWorld(localRectangle.getTopLeft()),//
-				localToWorld(localRectangle.getBottomRight()));
+		Point topLeft = localToWorld(new Point(localRectangle.x, localRectangle.y));
+		Point bottomRight = localToWorld(new Point(//
+				localRectangle.x + localRectangle.width, //
+				localRectangle.y + localRectangle.height));
+		return new Rectangle(topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y);
 	}
 
 	@Override
 	public Rectangle worldToLocal(Rectangle worldRectangle) {
-		return new Rectangle(//
-				worldToLocal(worldRectangle.getTopLeft()),//
-				worldToLocal(worldRectangle.getBottomRight()));
+		Point topLeft = worldToLocal(new Point(worldRectangle.x, worldRectangle.y));
+		Point bottomRight = worldToLocal(new Point(//
+				worldRectangle.x + worldRectangle.width, //
+				worldRectangle.y + worldRectangle.height));
+		return new Rectangle(topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y);
 	}
 }

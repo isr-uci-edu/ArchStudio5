@@ -1,21 +1,16 @@
 package org.archstudio.bna.facets;
 
-import java.util.Collection;
-import java.util.Set;
-
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.keys.AbstractCollectionThingKey;
-import org.archstudio.bna.keys.CollectionThingKey;
+import org.archstudio.bna.keys.ThingKey;
 
 public interface IHasShape extends IThing {
 
-	public static final IThingKey<Set<IThingKey<?>>> SHAPE_MODIFYING_KEYS_KEY = CollectionThingKey.create(
-			"shapeModifyingKeys", AbstractCollectionThingKey.set(CollectionThingKey.iThingKey()));
+	public static enum Shape {
+		CIRCLE, SQUARE
+	}
 
-	public void addShapeModifyingKey(IThingKey<?> key);
+	public static final IThingKey<Shape> SHAPE_KEY = ThingKey.create("shape");
 
-	public Collection<IThingKey<?>> getShapeModifyingKeys();
-
-	public boolean isShapeModifyingKey(IThingKey<?> key);
-
+	public Shape getShape();
+	
 }

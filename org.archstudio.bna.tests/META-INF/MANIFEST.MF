@@ -8,6 +8,5 @@ Require-Bundle: com.google.guava,
  org.archstudio.bna,
  org.archstudio.utils.system,
  org.junit,
- org.eclipse.swt,
- org.eclipse.draw2d
+ org.eclipse.swt
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

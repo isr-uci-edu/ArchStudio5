@@ -13,7 +13,6 @@ Require-Bundle: org.eclipse.ui,
  org.archstudio.archipelago,
  org.archstudio.xadl.bna,
  org.archstudio.bna,
- org.eclipse.draw2d,
  org.archstudio.xarchadt,
  com.google.guava,
  org.archstudio.xadl,
@@ -38,4 +37,3 @@ Require-Bundle: org.eclipse.ui,
  org.archstudio.xadl.swt,
  org.archstudio.eclipse.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ActivationPolicy: lazy

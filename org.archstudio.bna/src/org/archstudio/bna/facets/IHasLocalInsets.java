@@ -1,8 +1,9 @@
 package org.archstudio.bna.facets;
 
+import java.awt.Insets;
+
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
-import org.eclipse.draw2d.geometry.Insets;
 
 public interface IHasLocalInsets {
 

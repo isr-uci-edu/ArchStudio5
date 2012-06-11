@@ -3,9 +3,9 @@ package org.archstudio.bna.logics.hints.coders;
 import org.archstudio.bna.logics.hints.IEncodedValue;
 import org.archstudio.bna.logics.hints.IPropertyCoder;
 import org.archstudio.bna.logics.hints.PropertyDecodeException;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.Rectangle;
 
 public class Draw2DPropertyCoder implements IPropertyCoder {
 

@@ -20,7 +20,7 @@ import org.archstudio.xadl.bna.things.IHasXArchID;
 import org.archstudio.xadl.bna.things.MappingSplineGlassThing;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Lists;
 

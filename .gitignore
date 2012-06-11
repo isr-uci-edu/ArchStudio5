@@ -8,3 +8,4 @@
 /*.xadl3.*/*.ecore
 /*.xadl3.*/src/*
 /repos/
+hs_err_pid*.log

@@ -1,15 +1,15 @@
 package org.archstudio.bna.graphs.things;
 
+import javax.media.opengl.GL2;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.graphs.GraphCoordinateMapper;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
-import org.archstudio.bna.utils.BNAUtils;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends AbstractRectangleThingPeer<T> {
 
@@ -18,25 +18,28 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, IResources r, Graphics g) {
-		if (BNAUtils.setForegroundColor(r, g, t, IHasEdgeColor.EDGE_COLOR_KEY)) {
-			BNAUtils.setLineStyle(r, g, t);
+	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+		if (r.setLineStyle(t) && r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY)) {
 
 			Rectangle wbb = t.getBoundingBox();
 			Rectangle lbb = cm.worldToLocal(wbb);
 			int wUnit = t.getUnit();
 
 			// draw units
+			gl.glBegin(GL2.GL_LINES);
 			switch (t.getOrientation()) {
 			case VERTICAL_LINES: {
 				switch (cm instanceof GraphCoordinateMapper ? ((GraphCoordinateMapper) cm).getXAxisType()
 						: GraphCoordinateMapper.Type.LINEAR) {
 				case LINEAR: {
 					int wMin = wbb.x / wUnit * wUnit;
-					int wMax = ((wbb.x + wbb.width) / wUnit + 1) * wUnit;
+					int wMax = wbb.x + wbb.width;
 					for (int wX = wMin; wX <= wMax; wX += wUnit) {
+						if (wX < wbb.x)
+							continue;
 						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
-						g.drawLine(lPoint.x, lbb.y, lPoint.x, lbb.y + lbb.height);
+						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + 0.5f);
+						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + lbb.height + 0.5f);
 					}
 					break;
 				}
@@ -44,8 +47,11 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 					int wMin = 1;
 					int wMax = wbb.x + wbb.width;
 					for (int wX = wMin; wX <= wMax; wX *= wUnit) {
+						if (wX < wbb.x)
+							continue;
 						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
-						g.drawLine(lPoint.x, lbb.y, lPoint.x, lbb.y + lbb.height);
+						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + 0.5f);
+						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + lbb.height + 0.5f);
 					}
 					break;
 				}
@@ -56,10 +62,13 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 						: GraphCoordinateMapper.Type.LINEAR) {
 				case LINEAR: {
 					int wMin = wbb.y / wUnit * wUnit;
-					int wMax = ((wbb.y + wbb.height) / wUnit + 1) * wUnit;
+					int wMax = wbb.y + wbb.height;
 					for (int wY = wMin; wY <= wMax; wY += wUnit) {
+						if (wY < wbb.y)
+							continue;
 						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
-						g.drawLine(lbb.x, lPoint.y, lbb.x + lbb.width, lPoint.y);
+						gl.glVertex2f(lbb.x + 0.5f, lPoint.y + 0.5f);
+						gl.glVertex2f(lbb.x + lbb.width + 0.5f, lPoint.y + 0.5f);
 					}
 					break;
 				}
@@ -67,19 +76,18 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 					int wMin = -1;
 					int wMax = wbb.y;
 					for (int wY = wMin; wY >= wMax; wY *= wUnit) {
+						if (wY > wbb.y + wbb.height)
+							continue;
 						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
-						g.drawLine(lbb.x, lPoint.y, lbb.x + lbb.width, lPoint.y);
+						gl.glVertex2f(lbb.x + 0.5f, lPoint.y + 0.5f);
+						gl.glVertex2f(lbb.x + lbb.width + 0.5f, lPoint.y + 0.5f);
 					}
 					break;
 				}
 				}
+				gl.glEnd();
 			}
 			}
 		}
-	}
-
-	@Override
-	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r) {
-		return super.getLocalBounds(view, cm, r).expand(1, 1);
 	}
 }

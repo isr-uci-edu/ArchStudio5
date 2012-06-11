@@ -9,18 +9,18 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasShape;
 import org.archstudio.bna.facets.IHasSize;
-import org.archstudio.bna.graphs.facets.IHasShape;
 import org.archstudio.bna.graphs.things.AxisThing;
-import org.archstudio.bna.graphs.things.DataPointGlassThing;
-import org.archstudio.bna.graphs.things.DataPointThing;
 import org.archstudio.bna.graphs.things.GraphGridLinesThing;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
+import org.archstudio.bna.things.glass.AnchoredShapeGlassThing;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
+import org.archstudio.bna.things.shapes.AnchoredShapeThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.Assemblies.ThingAssemblyKey;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.base.Function;
 
@@ -35,7 +35,7 @@ public class GraphAssemblies {
 	public static final IThingRefKey<GraphGridLinesThing> VERTICAL_GRID_LINES_KEY = ThingAssemblyKey
 			.create("assembly-vertical-grid-lines");
 	
-	public static final IThingRefKey<DataPointThing> DATA_POINT_KEY = ThingAssemblyKey.create("assembly-data-point");
+	public static final IThingRefKey<AnchoredShapeThing> DATA_POINT_KEY = ThingAssemblyKey.create("assembly-data-point");
 
 	public static RectangleGlassThing createGraph(IBNAWorld world, @Nullable Object id, String topLabel,
 			String bottomLabel, String leftLabel, String rightLabel) {
@@ -118,14 +118,14 @@ public class GraphAssemblies {
 		return graphThing;
 	}
 
-	public static DataPointGlassThing createDataPoint(IBNAWorld world, @Nullable Object id) {
+	public static AnchoredShapeGlassThing createDataPoint(IBNAWorld world, @Nullable Object id) {
 		
 		checkNotNull(world);
 
 		IBNAModel model = world.getBNAModel();
 
-		DataPointThing dataPointThing = model.addThing(new DataPointThing(null));
-		DataPointGlassThing dataPointGlassThing = model.addThing(new DataPointGlassThing(id), dataPointThing);
+		AnchoredShapeThing dataPointThing = model.addThing(new AnchoredShapeThing(null));
+		AnchoredShapeGlassThing dataPointGlassThing = model.addThing(new AnchoredShapeGlassThing(id), dataPointThing);
 
 		Assemblies.markPart(dataPointGlassThing, DATA_POINT_KEY, dataPointThing);
 		

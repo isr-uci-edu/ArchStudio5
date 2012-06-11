@@ -1,8 +1,8 @@
 package org.archstudio.bna;
 
 import org.archstudio.bna.utils.BNAUtils;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public interface ICoordinateMapper {
 

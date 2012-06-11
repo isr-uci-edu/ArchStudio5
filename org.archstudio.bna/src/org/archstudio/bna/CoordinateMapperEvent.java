@@ -2,8 +2,8 @@ package org.archstudio.bna;
 
 import static org.archstudio.sysutils.SystemUtils.simpleName;
 
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public class CoordinateMapperEvent {
 

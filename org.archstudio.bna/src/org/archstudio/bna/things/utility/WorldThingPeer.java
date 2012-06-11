@@ -1,5 +1,7 @@
 package org.archstudio.bna.things.utility;
 
+import javax.media.opengl.GL2;
+
 import org.archstudio.bna.CoordinateMapperEvent;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
@@ -18,9 +20,8 @@ import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAView;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThingPeer<T> implements IThingPeer<T>,
 		IHasInnerViewPeer, ICoordinateMapperListener {
@@ -48,12 +49,11 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		if (ticker == null) {
 			ticker = Integer.valueOf(0);
 		}
-		t.set(COORDINATE_MAPPER_CHANGE_TICKER, ticker + 1);
+		//t.set(COORDINATE_MAPPER_CHANGE_TICKER, ticker + 1);
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, IResources r, Graphics g) {
-
+	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		IBNAWorld innerWorld = t.getWorld();
 		if (innerWorld == null) {
 			return;
@@ -106,16 +106,20 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 			}
 		}
 
-		g.pushState();
-		try {
-			for (IThing thing : innerWorld.getBNAModel().getAllThings()) {
-				g.restoreState();
+		for (IThing thing : innerWorld.getBNAModel().getAllThings()) {
+			gl.glPushMatrix();
+			gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT);
+			try {
 				IThingPeer<?> peer = innerView.getThingPeer(thing);
-				peer.draw(innerView, innerView.getCoordinateMapper(), r, g);
+				peer.draw(innerView, innerView.getCoordinateMapper(), gl, clip, r);
 			}
-		}
-		finally {
-			g.popState();
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				gl.glPopAttrib();
+				gl.glPopMatrix();
+			}
 		}
 	}
 

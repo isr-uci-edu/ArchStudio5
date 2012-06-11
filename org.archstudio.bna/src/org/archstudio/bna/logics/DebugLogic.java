@@ -13,8 +13,8 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.utils.IBNAMouseClickListener;
 import org.archstudio.bna.utils.IBNAMouseListener;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Point;
 
 public class DebugLogic extends AbstractThingLogic implements IBNAModelListener, IBNAMouseListener,
 		IBNAMouseClickListener, ICoordinateMapperListener {
