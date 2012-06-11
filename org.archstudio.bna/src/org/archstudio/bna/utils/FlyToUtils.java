@@ -5,7 +5,7 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.swtutils.SWTWidgetUtils;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 
 public class FlyToUtils {

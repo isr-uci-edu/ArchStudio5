@@ -16,6 +16,5 @@ Require-Bundle: org.archstudio.graphlayout,
  org.archstudio.xarchadt,
  org.eclipse.ui,
  com.google.guava,
- org.eclipse.draw2d,
  org.archstudio.eclipse.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

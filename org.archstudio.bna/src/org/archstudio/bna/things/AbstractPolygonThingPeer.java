@@ -6,9 +6,7 @@ import java.util.List;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
 
 public abstract class AbstractPolygonThingPeer<T extends AbstractPolygonThing> extends AbstractThingPeer<T> {
 
@@ -38,8 +36,4 @@ public abstract class AbstractPolygonThingPeer<T extends AbstractPolygonThing> e
 		return false;
 	}
 
-	@Override
-	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm, IResources r) {
-		return cm.worldToLocal(t.getBoundingBox());
-	}
 }

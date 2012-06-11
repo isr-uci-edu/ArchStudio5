@@ -1,5 +1,7 @@
 package org.archstudio.bna.things.swt;
 
+import javax.media.opengl.GL2;
+
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
@@ -11,7 +13,7 @@ import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.swtutils.SWTWidgetUtils;
-import org.eclipse.draw2d.Graphics;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
@@ -55,7 +57,7 @@ public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C 
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, IResources r, Graphics g) {
+	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Composite composite = r.getComposite();
 		if (composite == null) {
 			return;

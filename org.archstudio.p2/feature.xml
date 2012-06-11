@@ -37,4 +37,8 @@
          id="org.archstudio.xadl3.gexf.feature"
          version="0.0.0"/>
 
+   <includes
+         id="org.jogamp.jogl.feature"
+         version="0.0.0"/>
+
 </feature>

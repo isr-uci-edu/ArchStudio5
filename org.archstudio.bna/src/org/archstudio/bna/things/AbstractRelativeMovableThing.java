@@ -1,16 +1,16 @@
 package org.archstudio.bna.things;
 
+import java.awt.Dimension;
 import java.util.Collection;
 import java.util.Set;
 
-import org.archstudio.bna.facets.IHasShape;
+import org.archstudio.bna.facets.IHasShapeKeys;
 import org.archstudio.bna.facets.IRelativeMovable;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Sets;
 
-public abstract class AbstractRelativeMovableThing extends AbstractThing implements IRelativeMovable, IHasShape {
+public abstract class AbstractRelativeMovableThing extends AbstractThing implements IRelativeMovable, IHasShapeKeys {
 
 	public AbstractRelativeMovableThing(Object id) {
 		super(id);

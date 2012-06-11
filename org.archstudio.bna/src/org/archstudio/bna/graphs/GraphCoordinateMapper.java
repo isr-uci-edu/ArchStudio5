@@ -5,8 +5,8 @@ import org.archstudio.bna.CoordinateMapperEvent.EventType;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IScrollableCoordinateMapper;
 import org.archstudio.bna.utils.BNAUtils;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public class GraphCoordinateMapper extends AbstractCoordinateMapper implements IMutableCoordinateMapper,
 		IScrollableCoordinateMapper {

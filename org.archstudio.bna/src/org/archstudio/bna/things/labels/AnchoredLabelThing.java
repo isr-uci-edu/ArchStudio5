@@ -15,7 +15,7 @@ import org.archstudio.bna.things.AbstractAnchorPointThing;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 
 public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHasMutableText, IHasMutableColor,
@@ -32,6 +32,7 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 		setColor(new RGB(0, 0, 0));
 		setFontName(IFontConstants.DEFAULT_FONT_NAME);
 		setFontSize(10);
+		setDontIncreaseFontSize(Boolean.TRUE);
 		setFontStyle(FontStyle.NORMAL);
 		setHorizontalAlignment(HorizontalAlignment.CENTER);
 		setVerticalAlignment(VerticalAlignment.MIDDLE);
@@ -138,4 +139,5 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 	public void setIndicatorPoint(Point indicatorPoint) {
 		set(IHasIndicatorPoint.INDICATOR_POINT_KEY, indicatorPoint);
 	}
+
 }

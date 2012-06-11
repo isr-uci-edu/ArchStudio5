@@ -8,6 +8,5 @@ Export-Package: org.archstudio.graphlayout,
  org.archstudio.graphlayout.gui
 Require-Bundle: org.archstudio.utils.swt,
  org.archstudio.xarchadt,
- org.eclipse.jface,
- org.eclipse.draw2d
+ org.eclipse.jface
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

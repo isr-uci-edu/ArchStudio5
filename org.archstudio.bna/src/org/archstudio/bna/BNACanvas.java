@@ -2,14 +2,18 @@ package org.archstudio.bna;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
+import javax.media.opengl.GLContext;
+import javax.media.opengl.GLDrawableFactory;
+import javax.media.opengl.GLProfile;
+import javax.media.opengl.glu.GLU;
+
+import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.utils.BNARenderingSettings;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.swtutils.SWTWidgetUtils;
-import org.eclipse.draw2d.SWTGraphics;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
@@ -19,99 +23,77 @@ import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Region;
-import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.opengl.GLCanvas;
+import org.eclipse.swt.opengl.GLData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListener {
 
-public class BNACanvas extends Canvas implements IBNAModelListener, PaintListener {
-
-	private static boolean requestedRedraw = false;
-	private static Rectangle redrawRect = new Rectangle();
-
-	private final class ThingPeerCache {
-		private Rectangle lastLocalBounds = new Rectangle();
-		private int lastBoundsRelevantCount = -1;
-
-		public void updateCacheData(IThingPeer<?> peer) {
-			this.lastLocalBounds = peer.getLocalBounds(bnaView, bnaView.getCoordinateMapper(), resources);
-			this.lastBoundsRelevantCount = BNACanvas.this.lastBoundsRelevantCount;
-		}
-
-		public void redraw() {
-			if (!requestedRedraw) {
-				requestedRedraw = true;
-				Display.getCurrent().asyncExec(new Runnable() {
-					public void run() {
-						if (BNACanvas.this.isDisposed())
-							return;
-						if (redrawRect == null)
-							BNACanvas.this.redraw();
-						else
-							BNACanvas.this.redraw(redrawRect.x, redrawRect.y, redrawRect.width, redrawRect.height,
-									false);
-						redrawRect = new Rectangle();
-						requestedRedraw = false;
-					}
-				});
-			}
-
-			if (redrawRect == null)
-				return;
-			if (lastLocalBounds == null) {
-				redrawRect = null;
-			}
-			else {
-				if (redrawRect.isEmpty())
-					redrawRect = new Rectangle(lastLocalBounds);
-				else
-					redrawRect.union(lastLocalBounds);
-			}
-		}
-	}
+	protected static int DEBUG = 0;
 
 	protected final IBNAView bnaView;
 	protected final ScrollBar hBar = getHorizontalBar();
 	protected final ScrollBar vBar = getVerticalBar();
 	protected final BNASWTEventHandler eventHandler;
+	protected final GLContext context;
 	protected final Resources resources;
-	private final LoadingCache<IThing, ThingPeerCache> renderDataCache = CacheBuilder.newBuilder().build(
-			new CacheLoader<IThing, ThingPeerCache>() {
-				@Override
-				public ThingPeerCache load(IThing input) {
-					return new ThingPeerCache();
-				}
-			});
 
 	public BNACanvas(Composite parent, int style, IBNAWorld bnaWorld) {
 		this(parent, style, new DefaultBNAView(null, bnaWorld, new LinearCoordinateMapper()));
 	}
 
+	private static final GLData getInitialGLData() {
+		GLData glData = new GLData();
+		glData.doubleBuffer = true;
+		return glData;
+	}
+
 	public BNACanvas(Composite parent, int style, IBNAView bnaView) {
-		super(parent, style | SWT.NO_REDRAW_RESIZE | SWT.DOUBLE_BUFFERED);
+		super(parent, style | SWT.NO_BACKGROUND, getInitialGLData());
 		checkNotNull(bnaView);
 		checkNotNull(bnaView.getBNAWorld());
 		checkNotNull(bnaView.getBNAWorld().getBNAModel());
-
 		this.bnaView = bnaView;
-		this.eventHandler = new BNASWTEventHandler(this, bnaView);
-		this.resources = new Resources(this);
-
 		bnaView.setComposite(this);
+		this.eventHandler = new BNASWTEventHandler(this, bnaView);
+
+		setCurrent();
+		GLProfile glprofile = GLProfile.get(GLProfile.GL2);
+		this.context = GLDrawableFactory.getFactory(glprofile).createExternalGLContext();
+		this.resources = new Resources(this, (GL2) context.getGL());
+
+		this.addListener(SWT.Resize, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				org.eclipse.swt.graphics.Rectangle bounds = BNACanvas.this.getBounds();
+				float fAspect = (float) bounds.width / (float) bounds.height;
+				BNACanvas.this.setCurrent();
+				context.makeCurrent();
+				GL2 gl = (GL2) context.getGL();
+				gl.glViewport(0, -getHorizontalBar().getSize().y, bounds.width, bounds.height);
+				gl.glMatrixMode(GL2.GL_PROJECTION);
+				gl.glLoadIdentity();
+				GLU glu = new GLU();
+				glu.gluPerspective(45.0f, fAspect, 0.5f, 1f);
+				gl.glMatrixMode(GL2.GL_MODELVIEW);
+				gl.glLoadIdentity();
+				context.release();
+			}
+		});
+
 		this.addControlListener(new ControlAdapter() {
 			@Override
 			public void controlResized(ControlEvent e) {
 				updateScrollBars();
 			}
 		});
-		bnaView.getCoordinateMapper().addCoordinateMapperListener(new ICoordinateMapperListener() {
+		getCoordinateMapper().addCoordinateMapperListener(new ICoordinateMapperListener() {
 			@Override
 			public void coordinateMappingsChanged(final CoordinateMapperEvent evt) {
 				if (Display.getCurrent() == null) {
@@ -139,6 +121,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		addListener(SWT.MouseWheel, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
+				// prevent the mouse wheel from scrolling the canvas
 				event.doit = false;
 			}
 		});
@@ -160,7 +143,8 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 	public void dispose() {
 		getBNAView().getBNAWorld().getBNAModel().removeBNAModelListener(this);
 		eventHandler.dispose();
-		resources.dispose();
+		resources.destroy();
+		context.destroy();
 		super.dispose();
 	}
 
@@ -173,7 +157,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		}
 		isUpdatingScrollBars = true;
 		try {
-			ICoordinateMapper mcm = bnaView.getCoordinateMapper();
+			IMutableCoordinateMapper mcm = getCoordinateMapper();
 			updateCanvas(mcm.getLocalScale(), mcm.getLocalOrigin());
 			org.eclipse.swt.graphics.Rectangle client = getClientArea();
 			Rectangle localBounds = mcm.getLocalBounds();
@@ -199,7 +183,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		if (!isUpdatingScrollBars) {
 			isUpdatingCM = true;
 			try {
-				IMutableCoordinateMapper mcm = (IMutableCoordinateMapper) bnaView.getCoordinateMapper();
+				IMutableCoordinateMapper mcm = getCoordinateMapper();
 				Rectangle localBounds = mcm.getLocalBounds();
 				Point newLocalOrigin = new Point(hBar.getSelection() + localBounds.x, vBar.getSelection()
 						+ localBounds.y);
@@ -223,140 +207,104 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 			redraw();
 		}
 		else if (!lastLocalOrigin.equals(newLocalOrigin)) {
-			// scroll the screen to align with the desired origin
-			int dx = newLocalOrigin.x - lastLocalOrigin.x;
-			int dy = newLocalOrigin.y - lastLocalOrigin.y;
-
-			org.eclipse.swt.graphics.Rectangle client = getClientArea();
-			scroll(-dx, -dy, 0, 0, client.width, client.height, true);
-			// scroll automatically causes a redraw of the newly revealed area
-
-			// update the cached local bounds as well
-			for (ThingPeerCache renderData : renderDataCache.asMap().values()) {
-				if (renderData.lastLocalBounds != null)
-					renderData.lastLocalBounds.translate(-dx, -dy);
-			}
+			redraw();
 		}
 		lastLocalScale = newLocalScale;
 		lastLocalOrigin = newLocalOrigin;
 	}
 
-	// ignore the flurry of events that occur before rendering the BNA World for the first time
-	boolean startedRendering = false;
+	private boolean needsRedraw = false;
+	private boolean redrawPending = false;
 
 	@Override
-	public void paintControl(PaintEvent e) {
-		IBNAModel bnaModel = getBNAView().getBNAWorld().getBNAModel();
-
-		// the first time we paint, take note so that we start paying attention to model updates
-		if (!startedRendering) {
-			startedRendering = true;
-		}
-
-		SWTGraphics g = null;
-		Region localClipRegion = null;
-		Rectangle localClipRectangle = null;
-
-		try {
-			g = new SWTGraphics(e.gc);
-			g.setAdvanced(true);
-			g.setAntialias(BNARenderingSettings.getAntialiasGraphics(this) ? SWT.ON : SWT.OFF);
-			g.setTextAntialias(BNARenderingSettings.getAntialiasText(this) ? SWT.ON : SWT.OFF);
-
-			localClipRegion = new Region(e.display);
-			e.gc.getClipping(localClipRegion);
-			localClipRectangle = BNAUtils.toRectangle(localClipRegion.getBounds());
-
-			// render all things
-			g.pushState();
-			try {
-				for (IThing thingToRender : bnaModel.getAllThings()) {
-					IThingPeer<?> peer = bnaView.getThingPeer(thingToRender);
-					ThingPeerCache peerCache = renderDataCache.getUnchecked(thingToRender);
-
-					// update cached local bounds, if necessary
-					if (peerCache.lastBoundsRelevantCount != lastBoundsRelevantCount) {
-						peerCache.updateCacheData(peer);
-					}
-
-					// draw the thing
-					if (peerCache.lastLocalBounds != null) {
-						if (localClipRectangle.intersects(peerCache.lastLocalBounds)
-								&& localClipRegion.intersects(peerCache.lastLocalBounds.x, peerCache.lastLocalBounds.y,
-										peerCache.lastLocalBounds.width, peerCache.lastLocalBounds.height)) {
-							try {
-								g.restoreState();
-								g.clipRect(peerCache.lastLocalBounds);
-								peer.draw(bnaView, bnaView.getCoordinateMapper(), resources, g);
-							}
-							catch (Exception e2) {
-								System.err.println(peer.getClass());
-								e2.printStackTrace();
-							}
-						}
-					}
-					else {
-						try {
-							g.restoreState();
-							peer.draw(bnaView, bnaView.getCoordinateMapper(), resources, g);
-						}
-						catch (Exception e2) {
-							System.err.println(peer.getClass());
-							e2.printStackTrace();
-						}
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(final BNAModelEvent<ET, EK, EV> evt) {
+		if (!evt.isInBulkChange() && !needsRedraw && !redrawPending) {
+			needsRedraw = true;
+			SWTWidgetUtils.async(this, new Runnable() {
+				@Override
+				public void run() {
+					if (needsRedraw && !redrawPending) {
+						redrawPending = true;
+						needsRedraw = false;
+						redraw();
 					}
 				}
-			}
-			catch (Throwable t) {
-				t.printStackTrace();
-			}
-			finally {
-				g.popState();
-			}
+			});
 		}
-		finally {
-			localClipRegion = SWTWidgetUtils.quietlyDispose(localClipRegion);
-			if (g != null) {
-				g.dispose();
-			}
+		if (evt.getEventType() == EventType.THING_REMOVED) {
+			SWTWidgetUtils.async(this, new Runnable() {
+				@Override
+				public void run() {
+					getBNAView().disposePeer(evt.getTargetThing());
+				}
+			});
 		}
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(final BNAModelEvent<ET, EK, EV> evt) {
+	public void paintControl(PaintEvent evt) {
+		IBNAModel bnaModel = getBNAView().getBNAWorld().getBNAModel();
 
-		if (isDisposed())
-			return;
-		
-		// ignore model events until we start painting
-		if (!startedRendering)
-			return;
+		setCurrent();
+		context.makeCurrent();
+		try {
+			org.eclipse.swt.graphics.Rectangle bounds = getBounds();
+			GL2 gl = (GL2) context.getGL();
 
-		// update rendering of thing
-		final IThing t = evt.getTargetThing();
-		if (t != null) {
-			IThingPeer<?> peer = getBNAView().getThingPeer(t);
-			ThingPeerCache peerCache = renderDataCache.getUnchecked(t);
-			switch (evt.getEventType()) {
-			case THING_REMOVED:
-				// redraw the old area where it was to erase it
-				peerCache.redraw();
-				getBNAView().disposePeer(t);
-				break;
-			case THING_CHANGED:
-			case THING_RESTACKED:
-				// redraw the old area where it was to erase it
-				peerCache.redraw();
-				// redraw the new area to update it
-				peerCache.updateCacheData(peer);
-				peerCache.redraw();
-				break;
-			case THING_ADDED:
-				// redraw the new area to update it
-				peerCache.updateCacheData(peer);
-				peerCache.redraw();
-				break;
+			gl.glMatrixMode(GL2.GL_PROJECTION);
+			gl.glLoadIdentity();
+			gl.glOrtho(0, bounds.width, bounds.height, 0, 0, 1);
+			gl.glMatrixMode(GL2.GL_MODELVIEW);
+			gl.glDisable(GL2.GL_DEPTH_TEST);
+			gl.glEnable(GL2.GL_LINE_STIPPLE);
+			gl.glEnable(GL2.GL_BLEND);
+			gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
+
+			if (BNARenderingSettings.getAntialiasGraphics(this)) {
+				gl.glEnable(GL2.GL_LINE_SMOOTH);
+				gl.glEnable(GL2.GL_POINT_SMOOTH);
+				gl.glHint(GL2.GL_POINT_SMOOTH_HINT, GL2.GL_NICEST);
+				gl.glEnable(GL2.GL_LINE_SMOOTH);
+				gl.glHint(GL2.GL_LINE_SMOOTH_HINT, GL2.GL_NICEST);
+				gl.glEnable(GL2.GL_POLYGON_SMOOTH);
+				gl.glHint(GL2.GL_POLYGON_SMOOTH_HINT, GL2.GL_NICEST);
+				gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
 			}
+			else {
+				gl.glDisable(GL2.GL_POINT_SMOOTH);
+				gl.glDisable(GL2.GL_LINE_SMOOTH);
+				gl.glDisable(GL2.GL_POLYGON_SMOOTH);
+				gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_FASTEST);
+			}
+			resources.setAntialiasText(BNARenderingSettings.getAntialiasText(this));
+
+			gl.glClearColor(1f, 1f, 1f, 1f);
+			gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+
+			redrawPending = false;
+			Rectangle clip = new Rectangle(evt.x, evt.y, evt.width, evt.height);
+			IBNAView bnaView = getBNAView();
+			ICoordinateMapper cm = bnaView.getCoordinateMapper();
+			for (IThing thingToRender : bnaModel.getAllThings()) {
+				//gl.glPushMatrix();
+				//gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT);
+				try {
+					IThingPeer<?> peer = bnaView.getThingPeer(thingToRender);
+					peer.draw(bnaView, cm, gl, clip, resources);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+				finally {
+					//gl.glPopAttrib();
+					//gl.glPopMatrix();
+				}
+			}
+			gl.glFlush();
+			swapBuffers();
+		}
+		finally {
+			context.release();
 		}
 	}
 
@@ -364,4 +312,7 @@ public class BNACanvas extends Canvas implements IBNAModelListener, PaintListene
 		return bnaView;
 	}
 
+	private IMutableCoordinateMapper getCoordinateMapper() {
+		return (IMutableCoordinateMapper) getBNAView().getCoordinateMapper();
+	}
 }

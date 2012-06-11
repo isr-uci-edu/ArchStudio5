@@ -3,9 +3,9 @@ package org.archstudio.bna.logics.hints;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.archstudio.bna.logics.hints.coders.Draw2DPropertyCoder;
 import org.archstudio.bna.logics.hints.coders.EnumPropertyCoder;
 import org.archstudio.bna.logics.hints.coders.NativePropertyCoder;
-import org.archstudio.bna.logics.hints.coders.Draw2DPropertyCoder;
 
 public class MasterPropertyCoder implements IPropertyCoder {
 

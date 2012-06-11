@@ -1,7 +1,7 @@
 package org.archstudio.bna;
 
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 public interface IMutableCoordinateMapper extends ICoordinateMapper {
 
@@ -14,7 +14,5 @@ public interface IMutableCoordinateMapper extends ICoordinateMapper {
 	public abstract void align(Point localPoint, Point worldPoint);
 
 	public abstract void setLocalScaleAndAlign(double localScale, Point localPoint, Point worldPoint);
-
-	public abstract void synchronizedUpdate(Runnable r);
 
 }

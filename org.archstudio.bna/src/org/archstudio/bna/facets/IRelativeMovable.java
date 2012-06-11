@@ -1,8 +1,9 @@
 package org.archstudio.bna.facets;
 
+import java.awt.Dimension;
+
 import org.archstudio.bna.IThing;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 public interface IRelativeMovable extends IThing {
 

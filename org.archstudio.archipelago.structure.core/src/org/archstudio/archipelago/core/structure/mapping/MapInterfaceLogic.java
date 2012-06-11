@@ -29,7 +29,7 @@ import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
 import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassThing> {
 

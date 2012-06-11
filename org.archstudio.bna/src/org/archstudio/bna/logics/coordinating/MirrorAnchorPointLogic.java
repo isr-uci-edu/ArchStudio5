@@ -3,7 +3,7 @@ package org.archstudio.bna.logics.coordinating;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 import com.google.common.base.Function;
 

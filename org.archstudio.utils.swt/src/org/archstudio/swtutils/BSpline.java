@@ -1,6 +1,6 @@
 package org.archstudio.swtutils;
 
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 
 /**
  * A B-Spline calculator.

@@ -20,8 +20,8 @@ import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.NoThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.ZoomUtils;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -32,6 +32,7 @@ import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
@@ -249,18 +250,22 @@ public class ArchipelagoUtils {
 		if (t != null && t instanceof IHasBoundingBox) {
 			final Rectangle bb = ((IHasBoundingBox) t).getBoundingBox();
 			if (bb != null) {
+				final PulsingBorderThing pbt = new PulsingBorderThing(null);
+				pbt.setBoundingBox(bb);
+				m.addThing(pbt);
 				Thread pulserThread = new Thread() {
 					@Override
 					public void run() {
-						PulsingBorderThing pbt = new PulsingBorderThing(null);
-						pbt.setBoundingBox(bb);
-						m.addThing(pbt);
 						try {
 							Thread.sleep(6000);
 						}
 						catch (InterruptedException ie) {
 						}
-						m.removeThing(pbt);
+						Display.getDefault().asyncExec(new Runnable(){
+							public void run(){
+								m.removeThing(pbt);
+							}
+						});
 					}
 				};
 				pulserThread.start();

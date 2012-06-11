@@ -1,11 +1,10 @@
 package org.archstudio.bna.facets;
 
 import org.archstudio.bna.constants.StickyMode;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PrecisionPoint;
+import org.eclipse.swt.graphics.Point;
 
-public interface IIsSticky extends IHasShape {
+public interface IIsSticky extends IHasShapeKeys {
 
-	public PrecisionPoint getStickyPointNear(StickyMode stickyMode, Point nearPoint);
+	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint);
 
 }

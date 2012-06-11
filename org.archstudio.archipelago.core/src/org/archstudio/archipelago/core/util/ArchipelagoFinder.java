@@ -27,7 +27,7 @@ import org.archstudio.xadl.bna.things.IHasObjRef;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 public class ArchipelagoFinder implements IFinder<IBNAView> {

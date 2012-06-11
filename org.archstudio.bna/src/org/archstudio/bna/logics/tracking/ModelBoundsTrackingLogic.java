@@ -11,7 +11,7 @@ import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.IIsHidden;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Rectangle;
 
 public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNAModelListener {
 
@@ -59,7 +59,8 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 			ThingEvent<ET, EK, EV> te = evt.getThingEvent();
 			if (IHasBoundingBox.BOUNDING_BOX_KEY.equals(te.getPropertyName())) {
 				synchronized (this) {
-					updateModelBounds((Rectangle) te.getOldPropertyValue(), (Rectangle) te.getNewPropertyValue());
+					modelBounds = null;
+					//updateModelBounds((Rectangle) te.getOldPropertyValue(), (Rectangle) te.getNewPropertyValue());
 				}
 			}
 		}
@@ -154,6 +155,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 
 	public synchronized Rectangle getModelBounds() {
 		synchronized (this) {
+			modelBounds = null;
 			updateModelBounds();
 			if (modelBounds != null) {
 				return new Rectangle(modelBounds.x, modelBounds.y, modelBounds.width, modelBounds.height);

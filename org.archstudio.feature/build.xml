@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="org.archstudio.feature" default="build.update.jar" basedir=".">
+
+	<target name="init">
+		<property name="feature.temp.folder" value="${basedir}/feature.temp.folder"/>
+		<property name="feature.destination" value="${basedir}"/>
+		<property name="p2.build.repo" value="file:${buildDirectory}/buildRepo"/>
+		<condition property="p2.publish.parts" value="true"		>
+			<istrue value="${p2.gathering}"/>
+		</condition>
+	</target>
+
+	<target name="all.plugins" depends="init">
+		<ant antfile="build.xml" dir="../com.google.guava" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.utils.system" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.dblgen" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.myx.fw" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.launcher" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.utils.osgi" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.myx.fw.equinox" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.myx.java" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.myx.osgi" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.myx.myxgen" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.myxgen" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xarchadt" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.editormanager" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.aim" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.archlight" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.testadt" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.issueadt" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.noticeadt" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.issueadt.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.testadt.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.noticeadt.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.utils.eclipse" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.filemanager" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.eclipse" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.myx.fw.eclipse" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl3.xlink" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl3.xadlcore" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xarchadt.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl3.hints" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl3.implementation" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl3.implementation.java" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl3.implementation.lookup" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl3.structure" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.bootstrap.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl3.implementation.myxgen" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl3.archlight" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl3.implementation.osgi" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl3.domain" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.releng.pde" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.utils.eclipse.ui" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.releng.pde.ui" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.preferencesadt.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.utils.swt" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.bna" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl.bna" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.graphlayout" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.resources" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.resources.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl.swt" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.archipelago" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.myxgen.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.myxgen.jet" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.myxgen.ui" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.xadl.myx" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.aim.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.eclipse.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.eclipse.ui" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.archlight.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.aimlauncher.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.archipelago.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.issueview.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.graphlayout.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.noticeview.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.filemanager.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.launcher.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.editormanager.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.archipelago.structure.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.rootpreferences.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.archedit.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.schematron.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.description" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.dblgen.core" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+		<ant antfile="build.xml" dir="../org.archstudio.dblgen.ui" target="${target}">
+			<property name="arch" value="x86_64"/>
+			<property name="ws" value="win32"/>
+			<property name="os" value="win32"/>
+		</ant>
+	</target>
+	<target name="all.features" depends="init">
+	</target>
+	<target name="update.feature" depends="init">
+	</target>
+
+	<target name="all.children" depends="init,all.features,all.plugins,update.feature">
+	</target>
+
+	<target name="children" if="include.children">
+		<antcall target="all.children"/>
+	</target>
+
+	<target name="build.jars" depends="init" description="Build all the jars for the feature: org.archstudio.feature.">
+		<antcall target="all.children">
+			<param name="target" value="build.jars"/>
+		</antcall>
+	</target>
+
+	<target name="build.sources" depends="init">
+		<antcall target="all.children">
+			<param name="target" value="build.sources"/>
+		</antcall>
+	</target>
+
+	<target name="build.zips" depends="init">
+		<antcall target="all.children">
+			<param name="target" value="build.zips"/>
+		</antcall>
+	</target>
+
+	<target name="build.update.jar" depends="init" description="Build the feature jar of: org.archstudio.feature for an update site.">
+		<antcall target="all.children">
+			<param name="target" value="build.update.jar"/>
+		</antcall>
+		<property name="feature.base" value="${feature.temp.folder}"/>
+		<delete dir="${feature.temp.folder}"/>
+		<mkdir dir="${feature.temp.folder}"/>
+		<mkdir dir="${feature.temp.folder}/features/org.archstudio.feature_5.0.0.201206091126"/>
+		<antcall target="gather.bin.parts" inheritAll="false">
+			<param name="os" value="*"/>
+			<param name="feature.base" value="${feature.temp.folder}"/>
+			<param name="updateJar.omitRootfiles" value="true"/>
+			<param name="ws" value="*"/>
+			<param name="arch" value="*"/>
+			<param name="nl" value="*"/>
+		</antcall>
+		<jar destfile="${feature.destination}/org.archstudio.feature_5.0.0.201206091126.jar" basedir="${feature.temp.folder}/features/org.archstudio.feature_5.0.0.201206091126"/>
+		<delete dir="${feature.temp.folder}"/>
+	</target>
+
+	<target name="publish.bin.parts" depends="init" if="p2.publish.parts">
+		<mkdir dir="${feature.temp.folder}/features/org.archstudio.feature_5.0.0.201206091126"/>
+		<copy todir="${feature.temp.folder}/features/org.archstudio.feature_5.0.0.201206091126" failonerror="true" overwrite="true">
+			<fileset dir="${basedir}">
+				<include name="feature.xml"/>
+				<include name="COPYRIGHT"/>
+				<include name="LICENSE"/>
+				<include name="feature.properties"/>
+			</fileset>
+		</copy>
+		<eclipse.idReplacer featureFilePath="${feature.temp.folder}/features/org.archstudio.feature_5.0.0.201206091126/feature.xml"  selfVersion="5.0.0.201206091126" featureIds="" pluginIds="org.archstudio.aim:0.0.0,5.0.0.201206091126,org.archstudio.aim.core:0.0.0,5.0.0.201206091126,org.archstudio.aimlauncher.core:0.0.0,5.0.0.201206091126,org.archstudio.archedit.core:0.0.0,5.0.0.201206091126,org.archstudio.archipelago.core:0.0.0,5.0.0.201206091126,org.archstudio.archlight:0.0.0,5.0.0.201206091126,org.archstudio.archlight.core:0.0.0,5.0.0.201206091126,org.archstudio.bna:0.0.0,5.0.0.201206091126,org.archstudio.bootstrap.core:0.0.0,5.0.0.201206091126,org.archstudio.core:0.0.0,5.0.0.201206091126,org.archstudio.dblgen:0.0.0,5.0.0.201206091126,org.archstudio.dblgen.core:0.0.0,5.0.0.201206091126,org.archstudio.dblgen.ui:0.0.0,1.0.0.201206091126,org.archstudio.description:0.0.0,5.0.0.201206091126,org.archstudio.eclipse:0.0.0,5.0.0.201206091126,org.archstudio.eclipse.core:0.0.0,1.0.0.201206091126,org.archstudio.eclipse.ui:0.0.0,5.0.0.201206091126,org.archstudio.editormanager:0.0.0,5.0.0.201206091126,org.archstudio.editormanager.core:0.0.0,5.0.0.201206091126,org.archstudio.filemanager:0.0.0,5.0.0.201206091126,org.archstudio.filemanager.core:0.0.0,5.0.0.201206091126,org.archstudio.graphlayout:0.0.0,5.0.0.201206091126,org.archstudio.graphlayout.core:0.0.0,5.0.0.201206091126,org.archstudio.issueadt:0.0.0,5.0.0.201206091126,org.archstudio.issueadt.core:0.0.0,5.0.0.201206091126,org.archstudio.issueview.core:0.0.0,5.0.0.201206091126,org.archstudio.launcher:0.0.0,5.0.0.201206091126,org.archstudio.launcher.core:0.0.0,5.0.0.201206091126,org.archstudio.myx.fw:0.0.0,5.0.0.201206091126,org.archstudio.myx.fw.eclipse:0.0.0,1.0.0.201206091126,org.archstudio.myx.java:0.0.0,1.0.0.201206091126,org.archstudio.myx.myxgen:0.0.0,1.0.0.201206091126,org.archstudio.myx.osgi:0.0.0,1.0.0.201206091126,org.archstudio.myxgen:0.0.0,5.0.0.201206091126,org.archstudio.myxgen.core:0.0.0,1.0.0.201206091126,org.archstudio.myxgen.jet:0.0.0,5.0.0.201206091126,org.archstudio.myxgen.ui:0.0.0,1.0.0.201206091126,org.archstudio.noticeadt:0.0.0,5.0.0.201206091126,org.archstudio.noticeadt.core:0.0.0,5.0.0.201206091126,org.archstudio.noticeview.core:0.0.0,5.0.0.201206091126,org.archstudio.preferencesadt.core:0.0.0,5.0.0.201206091126,org.archstudio.releng.pde:0.0.0,5.0.0.201206091126,org.archstudio.releng.pde.ui:0.0.0,1.0.0.201206091126,org.archstudio.resources:0.0.0,5.0.0.201206091126,org.archstudio.resources.core:0.0.0,5.0.0.201206091126,org.archstudio.rootpreferences.core:0.0.0,5.0.0.201206091126,org.archstudio.schematron.core:0.0.0,5.0.0.201206091126,org.archstudio.testadt:0.0.0,5.0.0.201206091126,org.archstudio.testadt.core:0.0.0,5.0.0.201206091126,org.archstudio.utils.eclipse:0.0.0,1.0.0.201206091126,org.archstudio.utils.eclipse.ui:0.0.0,1.0.0.201206091126,org.archstudio.utils.osgi:0.0.0,1.0.0.201206091126,org.archstudio.utils.swt:0.0.0,5.0.0.201206091126,org.archstudio.utils.system:0.0.0,5.0.0.201206091126,org.archstudio.xadl:0.0.0,5.0.0.201206091126,org.archstudio.xadl.myx:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.archlight:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.domain:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.hints:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.implementation:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.implementation.java:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.implementation.lookup:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.implementation.myxgen:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.implementation.osgi:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.structure:0.0.0,5.0.0.201206091126,org.archstudio.xadl3.xadlcore:0.0.0,5.0.0.201206091126,org.archstudio.xadl3.xlink:0.0.0,5.0.0.201206091126,org.archstudio.xadl.bna:0.0.0,1.0.0.201206091126,org.archstudio.xadl.swt:0.0.0,5.0.0.201206091126,org.archstudio.xarchadt:0.0.0,5.0.0.201206091126,org.archstudio.xarchadt.core:0.0.0,5.0.0.201206091126,com.google.guava:0.0.0,12.0.0.201206091126,org.archstudio.archipelago:0.0.0,1.0.0.201206091126,org.archstudio.myx.fw.equinox:0.0.0,1.0.0.201206091126,org.archstudio.archipelago.structure.core:0.0.0,1.0.0.201206091126,"/>
+		<eclipse.gatherFeature 
+		   metadataRepository="${p2.build.repo}"
+		   artifactRepository="${p2.build.repo}"
+		   buildResultFolder="${feature.temp.folder}/features/org.archstudio.feature_5.0.0.201206091126"
+		   baseDirectory="${basedir}"
+		/>
+	</target>
+
+	<target name="gather.bin.parts" depends="init" if="feature.base">
+		<mkdir dir="${feature.base}/features/org.archstudio.feature_5.0.0.201206091126"/>
+		<antcall target="children">
+			<param name="target" value="gather.bin.parts"/>
+			<param name="destination.temp.folder" value="${feature.base}/plugins"/>
+		</antcall>
+		<copy todir="${feature.base}/features/org.archstudio.feature_5.0.0.201206091126" failonerror="true" overwrite="false">
+			<fileset dir="${basedir}">
+				<include name="feature.xml"/>
+				<include name="COPYRIGHT"/>
+				<include name="LICENSE"/>
+				<include name="feature.properties"/>
+			</fileset>
+		</copy>
+		<eclipse.idReplacer featureFilePath="${feature.base}/features/org.archstudio.feature_5.0.0.201206091126/feature.xml"  selfVersion="5.0.0.201206091126" featureIds="" pluginIds="org.archstudio.aim:0.0.0,5.0.0.201206091126,org.archstudio.aim.core:0.0.0,5.0.0.201206091126,org.archstudio.aimlauncher.core:0.0.0,5.0.0.201206091126,org.archstudio.archedit.core:0.0.0,5.0.0.201206091126,org.archstudio.archipelago.core:0.0.0,5.0.0.201206091126,org.archstudio.archlight:0.0.0,5.0.0.201206091126,org.archstudio.archlight.core:0.0.0,5.0.0.201206091126,org.archstudio.bna:0.0.0,5.0.0.201206091126,org.archstudio.bootstrap.core:0.0.0,5.0.0.201206091126,org.archstudio.core:0.0.0,5.0.0.201206091126,org.archstudio.dblgen:0.0.0,5.0.0.201206091126,org.archstudio.dblgen.core:0.0.0,5.0.0.201206091126,org.archstudio.dblgen.ui:0.0.0,1.0.0.201206091126,org.archstudio.description:0.0.0,5.0.0.201206091126,org.archstudio.eclipse:0.0.0,5.0.0.201206091126,org.archstudio.eclipse.core:0.0.0,1.0.0.201206091126,org.archstudio.eclipse.ui:0.0.0,5.0.0.201206091126,org.archstudio.editormanager:0.0.0,5.0.0.201206091126,org.archstudio.editormanager.core:0.0.0,5.0.0.201206091126,org.archstudio.filemanager:0.0.0,5.0.0.201206091126,org.archstudio.filemanager.core:0.0.0,5.0.0.201206091126,org.archstudio.graphlayout:0.0.0,5.0.0.201206091126,org.archstudio.graphlayout.core:0.0.0,5.0.0.201206091126,org.archstudio.issueadt:0.0.0,5.0.0.201206091126,org.archstudio.issueadt.core:0.0.0,5.0.0.201206091126,org.archstudio.issueview.core:0.0.0,5.0.0.201206091126,org.archstudio.launcher:0.0.0,5.0.0.201206091126,org.archstudio.launcher.core:0.0.0,5.0.0.201206091126,org.archstudio.myx.fw:0.0.0,5.0.0.201206091126,org.archstudio.myx.fw.eclipse:0.0.0,1.0.0.201206091126,org.archstudio.myx.java:0.0.0,1.0.0.201206091126,org.archstudio.myx.myxgen:0.0.0,1.0.0.201206091126,org.archstudio.myx.osgi:0.0.0,1.0.0.201206091126,org.archstudio.myxgen:0.0.0,5.0.0.201206091126,org.archstudio.myxgen.core:0.0.0,1.0.0.201206091126,org.archstudio.myxgen.jet:0.0.0,5.0.0.201206091126,org.archstudio.myxgen.ui:0.0.0,1.0.0.201206091126,org.archstudio.noticeadt:0.0.0,5.0.0.201206091126,org.archstudio.noticeadt.core:0.0.0,5.0.0.201206091126,org.archstudio.noticeview.core:0.0.0,5.0.0.201206091126,org.archstudio.preferencesadt.core:0.0.0,5.0.0.201206091126,org.archstudio.releng.pde:0.0.0,5.0.0.201206091126,org.archstudio.releng.pde.ui:0.0.0,1.0.0.201206091126,org.archstudio.resources:0.0.0,5.0.0.201206091126,org.archstudio.resources.core:0.0.0,5.0.0.201206091126,org.archstudio.rootpreferences.core:0.0.0,5.0.0.201206091126,org.archstudio.schematron.core:0.0.0,5.0.0.201206091126,org.archstudio.testadt:0.0.0,5.0.0.201206091126,org.archstudio.testadt.core:0.0.0,5.0.0.201206091126,org.archstudio.utils.eclipse:0.0.0,1.0.0.201206091126,org.archstudio.utils.eclipse.ui:0.0.0,1.0.0.201206091126,org.archstudio.utils.osgi:0.0.0,1.0.0.201206091126,org.archstudio.utils.swt:0.0.0,5.0.0.201206091126,org.archstudio.utils.system:0.0.0,5.0.0.201206091126,org.archstudio.xadl:0.0.0,5.0.0.201206091126,org.archstudio.xadl.myx:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.archlight:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.domain:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.hints:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.implementation:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.implementation.java:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.implementation.lookup:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.implementation.myxgen:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.implementation.osgi:0.0.0,1.0.0.201206091126,org.archstudio.xadl3.structure:0.0.0,5.0.0.201206091126,org.archstudio.xadl3.xadlcore:0.0.0,5.0.0.201206091126,org.archstudio.xadl3.xlink:0.0.0,5.0.0.201206091126,org.archstudio.xadl.bna:0.0.0,1.0.0.201206091126,org.archstudio.xadl.swt:0.0.0,5.0.0.201206091126,org.archstudio.xarchadt:0.0.0,5.0.0.201206091126,org.archstudio.xarchadt.core:0.0.0,5.0.0.201206091126,com.google.guava:0.0.0,12.0.0.201206091126,org.archstudio.archipelago:0.0.0,1.0.0.201206091126,org.archstudio.myx.fw.equinox:0.0.0,1.0.0.201206091126,org.archstudio.archipelago.structure.core:0.0.0,1.0.0.201206091126,"/>
+		<antcall target="rootFiles">
+			<param name="rootTarget" value="rootFiles${os}_${ws}_${arch}"/>
+		</antcall>
+	</target>
+	<target name="rootFiles" unless="updateJar.omitRootfiles">
+		<antcall target="${rootTarget}"/>
+	</target>
+
+	<target name="rootFileswin32_win32_x86_64">
+	</target>
+	<target name="rootFilesgroup_group_group">
+		<antcall target="rootFileswin32_win32_x86_64"/>
+	</target>
+
+	<target name="zip.distribution" depends="init" description="Create a zip containing all the plug-ins and features for the feature: org.archstudio.feature.">
+		<delete dir="${feature.temp.folder}"/>
+		<mkdir dir="${feature.temp.folder}"/>
+		<antcall target="gather.bin.parts">
+			<param name="feature.base" value="${feature.temp.folder}"/>
+			<param name="os" value="*"/>
+			<param name="arch" value="*"/>
+			<param name="ws" value="*"/>
+			<param name="nl" value="*"/>
+			<param name="include.children" value="true"/>
+		</antcall>
+		<zip destfile="${feature.destination}/org.archstudio.feature_5.0.0.201206091126.bin.dist.zip" basedir="${feature.temp.folder}" filesonly="false" whenempty="skip" update="false"/>
+		<delete dir="${feature.temp.folder}"/>
+	</target>
+
+	<target name="zip.sources" depends="init">
+		<delete dir="${feature.temp.folder}"/>
+		<mkdir dir="${feature.temp.folder}"/>
+		<antcall target="all.children">
+			<param name="target" value="gather.sources"/>
+			<param name="destination.temp.folder" value="${feature.temp.folder}/plugins/org.archstudio.feature.source_5.0.0.201206091126/src"/>
+			<param name="include.children" value="true"/>
+		</antcall>
+		<zip destfile="${feature.destination}/org.archstudio.feature_5.0.0.201206091126.src.zip" basedir="${feature.temp.folder}" filesonly="true" whenempty="skip" update="false"/>
+		<delete dir="${feature.temp.folder}"/>
+	</target>
+
+	<target name="zip.logs" depends="init">
+		<delete dir="${feature.temp.folder}"/>
+		<mkdir dir="${feature.temp.folder}"/>
+		<condition property="logExtension.param" value="logExtension" else="logExtension.param"		>
+			<isset property="logExtension"/>
+		</condition>
+		<antcall target="all.children" inheritAll="false">
+			<param name="target" value="gather.logs"/>
+			<param name="destination.temp.folder" value="${feature.temp.folder}/plugins"/>
+			<param name="include.children" value="true"/>
+			<param name="${logExtension.param}" value="${logExtension}"/>
+		</antcall>
+		<zip destfile="${feature.destination}/org.archstudio.feature_5.0.0.201206091126.log.zip" basedir="${feature.temp.folder}" filesonly="true" whenempty="skip" update="false"/>
+		<delete dir="${feature.temp.folder}"/>
+	</target>
+
+	<target name="clean" depends="init" description="Clean the feature: org.archstudio.feature of all the zips, jars and logs created.">
+		<delete file="${feature.destination}/org.archstudio.feature_5.0.0.201206091126.jar"/>
+		<delete file="${feature.destination}/org.archstudio.feature_5.0.0.201206091126.bin.dist.zip"/>
+		<delete file="${feature.destination}/org.archstudio.feature_5.0.0.201206091126.log.zip"/>
+		<delete file="${feature.destination}/org.archstudio.feature_5.0.0.201206091126.src.zip"/>
+		<delete dir="${feature.temp.folder}"/>
+		<antcall target="all.children">
+			<param name="target" value="clean"/>
+		</antcall>
+	</target>
+
+	<target name="refresh" depends="init" if="eclipse.running" description="Refresh this folder.">
+		<eclipse.convertPath fileSystemPath="C:/Users/Scott/dev/as5/org.archstudio.feature/" property="resourcePath"/>
+		<eclipse.refreshLocal resource="${resourcePath}" depth="infinite"/>
+		<antcall target="all.children">
+			<param name="target" value="refresh"/>
+		</antcall>
+	</target>
+	<target name="gather.sources">
+		<antcall target="children">
+			<param name="target" value="gather.sources"/>
+			<param name="destination.temp.folder" value="${feature.temp.folder}/plugins/org.archstudio.feature.source_5.0.0.201206091126/src"/>
+		</antcall>
+	</target>
+
+	<target name="gather.logs" depends="init">
+		<mkdir dir="${feature.temp.folder}/plugins"/>
+		<property name="destination.temp.folder" value="${feature.temp.folder}/plugins"/>
+		<condition property="logExtension.param" value="logExtension" else="logExtension.param"		>
+			<isset property="logExtension"/>
+		</condition>
+		<antcall target="all.children" inheritAll="false">
+			<param name="target" value="gather.logs"/>
+			<param name="${logExtension.param}" value="${logExtension}"/>
+			<param name="destination.temp.folder" value="${feature.temp.folder}/plugins"/>
+		</antcall>
+	</target>
+
+</project>

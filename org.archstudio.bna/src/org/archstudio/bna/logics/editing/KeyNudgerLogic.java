@@ -10,9 +10,9 @@ import org.archstudio.bna.utils.GridUtils;
 import org.archstudio.bna.utils.IBNAKeyListener;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Orientation;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.graphics.Point;
 
 public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListener {
 

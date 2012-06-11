@@ -2,8 +2,8 @@ package org.archstudio.bna.demo;
 
 import java.util.Arrays;
 
-import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.AbstractCoordinateMapper;
+import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
@@ -39,10 +39,10 @@ import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.swtutils.constants.Orientation;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
