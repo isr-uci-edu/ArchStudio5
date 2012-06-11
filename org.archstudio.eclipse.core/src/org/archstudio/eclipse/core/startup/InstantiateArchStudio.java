@@ -1,5 +1,6 @@
 package org.archstudio.eclipse.core.startup;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -91,6 +92,13 @@ public class InstantiateArchStudio implements IStartup {
 
 	public void instantiate(IMyxProgressMonitor monitor) {
 		// allow override of archstudio.xml file using org.archstudio.startup.uri
+		try {
+			File f = new File(System.getProperty("org.archstudio.startup.uri", null));
+			if (f.exists())
+				System.setProperty("org.archstudio.startup.uri", f.toURI().toString());
+		}
+		catch (Throwable t) {
+		}
 		URI docRootURI = URI.createURI(System.getProperty("org.archstudio.startup.uri", ARCHSTUDIO_URI));
 		try {
 			final IXArchADT xarch = new XArchADTImpl();
