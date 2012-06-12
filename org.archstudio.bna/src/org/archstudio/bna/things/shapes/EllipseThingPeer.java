@@ -9,6 +9,7 @@ import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.things.AbstractEllipseThingPeer;
+import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Rectangle;
 
 public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThingPeer<T> implements IThingPeer<T> {
@@ -21,30 +22,24 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 
 		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
-		float error = 0.25f;
-		float radius = Math.max(lbb.width, lbb.height) / 2;
-		float radianDelta = (float) Math.acos(2 * (1 - error / radius) * (1 - error / radius) - 1);
-		float cx = lbb.x + (float) lbb.width / 2;
-		float cy = lbb.y + (float) lbb.height / 2;
 
 		if (r.setColor(t, IHasColor.COLOR_KEY) && r.setLineStyle(t)) {
+			float[] points = BNAUtils.getEllipsePoints(lbb);
 			gl.glBegin(GL2.GL_TRIANGLE_FAN);
-			for (float radians = 0; radians < 2 * Math.PI; radians += radianDelta) {
-				float x = cx + (float) Math.cos(radians) * lbb.width / 2f;
-				float y = cy + (float) Math.sin(radians) * lbb.height / 2f;
-				gl.glVertex2f(x, y);
+			for (int i = 0; i < points.length; i += 2) {
+				gl.glVertex2f(points[i], points[i + 1]);
 			}
-			gl.glVertex2f(cx + lbb.width / 2, cy);
 			gl.glEnd();
 		}
+		
 		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
+			lbb.width -= 1;
+			lbb.height -= 1;
+			float[] points = BNAUtils.getEllipsePoints(lbb);
 			gl.glBegin(GL2.GL_LINE_LOOP);
-			for (float radians = 0; radians < 2 * Math.PI; radians += radianDelta) {
-				float x = cx + (float) Math.cos(radians) * lbb.width / 2f;
-				float y = cy + (float) Math.sin(radians) * lbb.height / 2f;
-				gl.glVertex2f(x, y);
+			for (int i = 0; i < points.length; i += 2) {
+				gl.glVertex2f(points[i] + 0.5f, points[i + 1] + 0.5f);
 			}
-			gl.glVertex2f(cx + lbb.width / 2, cy);
 			gl.glEnd();
 		}
 	}

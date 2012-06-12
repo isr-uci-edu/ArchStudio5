@@ -46,4 +46,5 @@ public class EllipseGlassThing extends AbstractEllipseThing implements IHasMutab
 		set(IHasSelected.SELECTED_KEY, selected);
 	}
 
+	
 }

@@ -26,6 +26,8 @@ public class SplineGlassThingPeer<T extends SplineGlassThing> extends AbstractSp
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			List<Point> localPoints = BNAUtils.worldToLocal(cm, t.getPoints());
 
+			gl.glLineWidth(1f);
+
 			gl.glColor3f(1f, 1f, 1f);
 			gl.glBegin(GL2.GL_LINE_STRIP);
 			for (Point p : localPoints) {

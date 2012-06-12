@@ -25,7 +25,7 @@ public class PolygonThingPeer<T extends PolygonThing> extends AbstractPolygonThi
 			for (Point p : t.getPoints()) {
 				p.x += a.x;
 				p.y += a.y;
-				cm.worldToLocal(p);
+				p = cm.worldToLocal(p);
 				gl.glVertex2f(p.x + 0.5f, p.y + 0.5f);
 			}
 			gl.glEnd();

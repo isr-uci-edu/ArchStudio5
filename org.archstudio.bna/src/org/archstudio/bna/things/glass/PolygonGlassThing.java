@@ -1,12 +1,10 @@
 package org.archstudio.bna.things.glass;
 
-import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasRotatingOffset;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractPolygonThing;
-import org.eclipse.swt.graphics.RGB;
 
 public class PolygonGlassThing extends AbstractPolygonThing implements IHasMutableSelected, IHasMutableRotatingOffset {
 
@@ -19,7 +17,6 @@ public class PolygonGlassThing extends AbstractPolygonThing implements IHasMutab
 		super.initProperties();
 		setSelected(false);
 		incrementRotatingOffset();
-		set(IHasEdgeColor.EDGE_COLOR_KEY, new RGB(0, 0, 0));
 	}
 
 	@Override
