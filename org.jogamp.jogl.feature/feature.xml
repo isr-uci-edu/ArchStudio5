@@ -3,7 +3,9 @@
       id="org.jogamp.jogl.feature"
       label="ArchStudio - JOGL (Java bindings for OpenGL)"
       version="2.0.0.qualifier"
-      provider-name="archstudio.org">
+      provider-name="archstudio.org"
+      license-feature="org.archstudio.license.feature"
+      license-feature-version="1.0.0.qualifier">
 
    <description>
       Java bindings for OpenGL
@@ -13,7 +15,7 @@
       %copyright
    </copyright>
 
-   <license>
+   <license url="">
       %license
    </license>
 

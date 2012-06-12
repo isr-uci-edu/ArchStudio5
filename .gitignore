@@ -9,3 +9,6 @@
 /*.xadl3.*/src/*
 /repos/
 hs_err_pid*.log
+/*.feature/build.xml
+/*.p2/build.xml
+/*/javaCompilere...args
