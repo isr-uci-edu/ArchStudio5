@@ -53,6 +53,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -61,6 +62,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.ElementHandlerImpl;
 import org.eclipse.emf.ecore.xmi.impl.GenericXMLResourceFactoryImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
 import org.xml.sax.SAXException;
 
 import com.google.common.base.Function;
@@ -90,6 +92,8 @@ public class XArchADTImpl implements IXArchADT {
 		// optimizations from http://www.eclipse.org/modeling/emf/docs/performance/EMFPerformanceTips.html
 		LOAD_OPTIONS_MAP.put(XMLResource.OPTION_DEFER_ATTACHMENT, true);
 		LOAD_OPTIONS_MAP.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, true);
+		LOAD_OPTIONS_MAP.put(XMLResource.OPTION_USE_PARSER_POOL, new XMLParserPoolImpl());
+		LOAD_OPTIONS_MAP.put(XMLResource.OPTION_USE_XML_NAME_TO_FEATURE_MAP, new HashMap<Object, Object>());
 	}
 
 	private static final ElementHandlerImpl elementHandlerImpl = new ElementHandlerImpl(false);
@@ -671,6 +675,9 @@ public class XArchADTImpl implements IXArchADT {
 			return put(r.getContents().get(0));
 		}
 		r = resourceSet.createResource(uri, "xml");
+		if (r instanceof ResourceImpl) {
+			((ResourceImpl) r).setIntrinsicIDToEObjectMap(new HashMap<String, EObject>());
+		}
 
 		ObjRef documentRootRef = create(nsURI, "DocumentRoot");
 		ObjRef xADLRef = create(nsURI, typeOfThing);
@@ -702,6 +709,9 @@ public class XArchADTImpl implements IXArchADT {
 			newResource = resourceSet.getResource(uri, false);
 			if (newResource == null) {
 				newResource = resourceSet.createResource(uri);
+				if (newResource instanceof ResourceImpl) {
+					((ResourceImpl) newResource).setIntrinsicIDToEObjectMap(new HashMap<String, EObject>());
+				}
 			}
 			if (!newResource.isLoaded()) {
 				newResource.load(LOAD_OPTIONS_MAP);
@@ -723,6 +733,9 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public synchronized ObjRef load(URI uri, byte[] content) throws SAXException, IOException {
 		Resource r = resourceSet.createResource(uri);
+		if (r instanceof ResourceImpl) {
+			((ResourceImpl) r).setIntrinsicIDToEObjectMap(new HashMap<String, EObject>());
+		}
 		r.load(new ByteArrayInputStream(content), LOAD_OPTIONS_MAP);
 		setResourceFinishedLoading(r, true);
 
