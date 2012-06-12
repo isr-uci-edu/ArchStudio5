@@ -87,6 +87,9 @@ public class XArchADTImpl implements IXArchADT {
 	static {
 		// This allows root elements in other schema
 		LOAD_OPTIONS_MAP.put(XMLResource.OPTION_EXTENDED_META_DATA, true);
+		// optimizations from http://www.eclipse.org/modeling/emf/docs/performance/EMFPerformanceTips.html
+		LOAD_OPTIONS_MAP.put(XMLResource.OPTION_DEFER_ATTACHMENT, true);
+		LOAD_OPTIONS_MAP.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, true);
 	}
 
 	private static final ElementHandlerImpl elementHandlerImpl = new ElementHandlerImpl(false);
@@ -320,7 +323,8 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@Override
-	public synchronized void remove(ObjRef baseObjRef, String typeOfThing, Collection<? extends Serializable> thingsToRemove) {
+	public synchronized void remove(ObjRef baseObjRef, String typeOfThing,
+			Collection<? extends Serializable> thingsToRemove) {
 		for (Serializable thingToRemove : thingsToRemove) {
 			getEList(get(baseObjRef), typeOfThing).remove(uncheck(thingToRemove));
 		}
@@ -431,8 +435,8 @@ public class XArchADTImpl implements IXArchADT {
 				}
 			});
 
-	private static final LoadingCache<EClass, Map<String, IXArchADTFeature>> featureMetadataCache = CacheBuilder.newBuilder()
-			.build(new CacheLoader<EClass, Map<String, IXArchADTFeature>>() {
+	private static final LoadingCache<EClass, Map<String, IXArchADTFeature>> featureMetadataCache = CacheBuilder
+			.newBuilder().build(new CacheLoader<EClass, Map<String, IXArchADTFeature>>() {
 
 				@Override
 				public synchronized Map<String, IXArchADTFeature> load(EClass eClass) throws Exception {
@@ -470,8 +474,8 @@ public class XArchADTImpl implements IXArchADT {
 	 * This is a map that generates type metadata for an EClass on demand,
 	 * caching it after it's generated.
 	 */
-	private static final LoadingCache<EClass, IXArchADTTypeMetadata> typeMetadataCache = CacheBuilder.newBuilder().build(
-			new CacheLoader<EClass, IXArchADTTypeMetadata>() {
+	private static final LoadingCache<EClass, IXArchADTTypeMetadata> typeMetadataCache = CacheBuilder.newBuilder()
+			.build(new CacheLoader<EClass, IXArchADTTypeMetadata>() {
 
 				@Override
 				public synchronized IXArchADTTypeMetadata load(EClass eClass) throws Exception {
@@ -484,8 +488,8 @@ public class XArchADTImpl implements IXArchADT {
 	 * This is a map that generates package metadata for an EPackage on demand,
 	 * caching it after it's generated.
 	 */
-	private static final LoadingCache<EPackage, IXArchADTPackageMetadata> packageMetatadataCache = CacheBuilder.newBuilder()
-			.build(new CacheLoader<EPackage, IXArchADTPackageMetadata>() {
+	private static final LoadingCache<EPackage, IXArchADTPackageMetadata> packageMetatadataCache = CacheBuilder
+			.newBuilder().build(new CacheLoader<EPackage, IXArchADTPackageMetadata>() {
 
 				@Override
 				public synchronized IXArchADTPackageMetadata load(EPackage ePackage) throws Exception {
@@ -542,7 +546,8 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@Override
-	public synchronized boolean isAssignable(String sourceNsURI, String sourceTypeName, String targetNsURI, String targetTypeName) {
+	public synchronized boolean isAssignable(String sourceNsURI, String sourceTypeName, String targetNsURI,
+			String targetTypeName) {
 		EClass eSourceClass = getEClass(ePackageCache.getUnchecked(sourceNsURI), sourceTypeName);
 		EClass eTargetClass = getEClass(ePackageCache.getUnchecked(targetNsURI), targetTypeName);
 		if (eSourceClass.equals(EcorePackage.Literals.EOBJECT)) {
@@ -1002,7 +1007,8 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@Override
-	public synchronized List<IXArchADTSubstitutionHint> getSubstitutionHintsForSource(String sourceNsURI, String sourceTypeName) {
+	public synchronized List<IXArchADTSubstitutionHint> getSubstitutionHintsForSource(String sourceNsURI,
+			String sourceTypeName) {
 		List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
 		for (IXArchADTSubstitutionHint hint : getAllSubstitutionHints()) {
 			if (sourceNsURI.equals(hint.getSourceNsURI()) && sourceTypeName.equals(hint.getSourceTypeName())) {
@@ -1013,7 +1019,8 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@Override
-	public synchronized List<IXArchADTSubstitutionHint> getSubstitutionHintsForTarget(String targetNsURI, String targetTypeName) {
+	public synchronized List<IXArchADTSubstitutionHint> getSubstitutionHintsForTarget(String targetNsURI,
+			String targetTypeName) {
 		List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
 		for (IXArchADTSubstitutionHint hint : getAllSubstitutionHints()) {
 			if (targetNsURI.equals(hint.getTargetNsURI()) && targetTypeName.equals(hint.getTargetTypeName())) {
