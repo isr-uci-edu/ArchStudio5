@@ -105,6 +105,7 @@
 		<mkdir dir="${buckminster.temp}" />
 		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
 			<arg value="build" />
+			<arg value="-c" />
 			<arg value="-t" />
 			<arg value="-Dtarget.os=*" />
 			<arg value="-Dtarget.ws=*" />
