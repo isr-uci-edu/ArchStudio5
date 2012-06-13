@@ -101,7 +101,9 @@
 		<assert-nonempty property="buckminster.component" message="Missing buckminster.component" />
 
 		<echo>Building the update site...: ${buckminster.component}</echo>
+		<delete dir="${buckminster.output.root}" />
 		<mkdir dir="${buckminster.output.root}" />
+		<delete dir="${buckminster.temp}" />
 		<mkdir dir="${buckminster.temp}" />
 		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
 			<arg value="build" />
