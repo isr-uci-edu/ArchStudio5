@@ -1,5 +1,6 @@
 package org.archstudio.bna.graphs;
 
+import java.awt.geom.Point2D;
 import java.util.Random;
 
 import org.archstudio.bna.BNACanvas;
@@ -9,8 +10,8 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.facets.IHasShape.Shape;
+import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.graphs.GraphCoordinateMapper.Type;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
@@ -19,7 +20,7 @@ import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
-import org.archstudio.bna.things.glass.AnchoredShapeGlassThing;
+import org.archstudio.bna.things.glass.PreciselyAnchoredShapeGlassThing;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAModel;
@@ -27,7 +28,6 @@ import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
@@ -54,11 +54,11 @@ public class BNAGraphDemo {
 
 		// add some points to the plot
 		for (int i = 0; i < 100; i++) {
-			int x = random.nextInt(graphGlassThing.getBoundingBox().width);
-			int y = -random.nextInt(graphGlassThing.getBoundingBox().height);
-			AnchoredShapeGlassThing point = GraphAssemblies.createDataPoint(bnaWorld, null);
+			double x = random.nextDouble() * graphGlassThing.getBoundingBox().width;
+			double y = -random.nextDouble() * graphGlassThing.getBoundingBox().height;
+			PreciselyAnchoredShapeGlassThing point = GraphAssemblies.createDataPoint(bnaWorld, null);
 			point.setShape(Shape.SQUARE);
-			point.setAnchorPoint(new Point(x, y));
+			point.setPreciseAnchorPoint(new Point2D.Double(x, y));
 			ToolTipLogic.setToolTip(point, "Point #"+(i+1));
 			UserEditableUtils.addEditableQualities(point, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG,
 					IHasMutableSelected.USER_MAY_SELECT);

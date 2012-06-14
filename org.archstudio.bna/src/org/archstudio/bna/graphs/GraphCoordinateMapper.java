@@ -1,5 +1,7 @@
 package org.archstudio.bna.graphs;
 
+import java.awt.geom.Point2D;
+
 import org.archstudio.bna.AbstractCoordinateMapper;
 import org.archstudio.bna.CoordinateMapperEvent.EventType;
 import org.archstudio.bna.IMutableCoordinateMapper;
@@ -57,6 +59,33 @@ public class GraphCoordinateMapper extends AbstractCoordinateMapper implements I
 
 		double x = worldPoint.x;
 		double y = worldPoint.y;
+
+		switch (xAxisType) {
+		case LINEAR:
+			x = x * localScale - localOrigin.x;
+			break;
+		case LOGARITHMIC:
+			x = log(x) * localXAxisLogarithmicScale * localScale - localOrigin.x;
+			break;
+		}
+
+		switch (yAxisType) {
+		case LINEAR:
+			y = y * localScale - localOrigin.y;
+			break;
+		case LOGARITHMIC:
+			y = log(y) * localYAxisLogarithmicScale * localScale - localOrigin.y;
+			break;
+		}
+
+		return new Point(BNAUtils.round(x), BNAUtils.round(y));
+	}
+
+	@Override
+	public Point worldToLocal(Point2D worldPoint) {
+
+		double x = worldPoint.getX();
+		double y = worldPoint.getY();
 
 		switch (xAxisType) {
 		case LINEAR:
