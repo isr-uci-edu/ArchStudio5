@@ -10,19 +10,19 @@ import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
-import org.archstudio.bna.things.AbstractAnchorPointThingPeer;
+import org.archstudio.bna.things.AbstractPreciseAnchorPointThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class AnchoredShapeThingPeer<T extends AnchoredShapeThing> extends AbstractAnchorPointThingPeer<T> {
+public class PreciselyAnchoredShapeThingPeer<T extends PreciselyAnchoredShapeThing> extends AbstractPreciseAnchorPointThingPeer<T> {
 
-	public AnchoredShapeThingPeer(T thing) {
+	public PreciselyAnchoredShapeThingPeer(T thing) {
 		super(thing);
 	}
 
 	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm) {
-		Point lp = cm.worldToLocal(t.getAnchorPoint());
+		Point lp = cm.worldToLocal(t.getPreciseAnchorPoint());
 		Dimension size = t.getSize();
 		return new Rectangle(lp.x - size.width / 2, lp.y - size.height / 2, size.width, size.height);
 	}

@@ -1,5 +1,7 @@
 package org.archstudio.bna;
 
+import java.awt.geom.Point2D;
+
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -24,6 +26,13 @@ public class LinearCoordinateMapper extends AbstractCoordinateMapper implements 
 		return new Point(//
 				BNAUtils.round(worldPoint.x * localScale - localOrigin.x), //
 				BNAUtils.round(worldPoint.y * localScale - localOrigin.y));
+	}
+
+	@Override
+	public Point worldToLocal(Point2D worldPoint) {
+		return new Point(//
+				BNAUtils.round(worldPoint.getX() * localScale - localOrigin.x), //
+				BNAUtils.round(worldPoint.getY() * localScale - localOrigin.y));
 	}
 
 	@Override

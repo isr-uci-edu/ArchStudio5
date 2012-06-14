@@ -2,7 +2,6 @@ package org.archstudio.bna.things.glass;
 
 import java.awt.Dimension;
 
-import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableShape;
@@ -10,13 +9,12 @@ import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasRotatingOffset;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.facets.IIsSticky;
-import org.archstudio.bna.things.AbstractAnchorPointThing;
-import org.eclipse.swt.graphics.Point;
+import org.archstudio.bna.things.AbstractPreciseAnchorPointThing;
 
-public class AnchoredShapeGlassThing extends AbstractAnchorPointThing implements IIsSticky, IHasMutableSelected,
+public class PreciselyAnchoredShapeGlassThing extends AbstractPreciseAnchorPointThing implements IIsSticky, IHasMutableSelected,
 		IHasMutableRotatingOffset, IHasMutableSize, IHasMutableShape {
 
-	public AnchoredShapeGlassThing(Object id) {
+	public PreciselyAnchoredShapeGlassThing(Object id) {
 		super(id);
 	}
 
@@ -72,10 +70,5 @@ public class AnchoredShapeGlassThing extends AbstractAnchorPointThing implements
 
 	public void setShape(Shape shape) {
 		set(SHAPE_KEY, shape);
-	}
-	
-	@Override
-	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
-		return getAnchorPoint();
 	}
 }

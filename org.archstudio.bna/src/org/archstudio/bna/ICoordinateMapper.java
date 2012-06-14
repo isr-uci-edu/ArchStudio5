@@ -1,5 +1,7 @@
 package org.archstudio.bna;
 
+import java.awt.geom.Point2D;
+
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -43,6 +45,11 @@ public interface ICoordinateMapper {
 		}
 
 		@Override
+		public Point worldToLocal(Point2D worldPoint) {
+			return new Point(BNAUtils.round(worldPoint.getX()), BNAUtils.round(worldPoint.getY()));
+		}
+
+		@Override
 		public Rectangle worldToLocal(Rectangle worldRectangle) {
 			return BNAUtils.clone(worldRectangle);
 		}
@@ -71,6 +78,8 @@ public interface ICoordinateMapper {
 	public abstract double getLocalScale();
 
 	public abstract Point worldToLocal(Point worldPoint);
+
+	public abstract Point worldToLocal(Point2D worldPoint);
 
 	public abstract Rectangle worldToLocal(Rectangle worldRectangle);
 

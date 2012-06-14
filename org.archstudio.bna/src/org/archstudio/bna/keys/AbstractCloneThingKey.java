@@ -2,6 +2,7 @@ package org.archstudio.bna.keys;
 
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.awt.geom.Point2D;
 
 import javax.annotation.Nullable;
 
@@ -38,6 +39,15 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 			@Override
 			public Point apply(Point input) {
 				return input != null ? new Point(input.x, input.y) : null;
+			}
+		};
+	}
+
+	public static final Function<Point2D, Point2D> point2D() {
+		return new Function<Point2D, Point2D>() {
+			@Override
+			public Point2D apply(Point2D input) {
+				return input != null ? (Point2D) input.clone() : null;
 			}
 		};
 	}

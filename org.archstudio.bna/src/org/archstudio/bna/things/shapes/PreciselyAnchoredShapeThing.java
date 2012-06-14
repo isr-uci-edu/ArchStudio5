@@ -7,13 +7,13 @@ import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableLineData;
 import org.archstudio.bna.facets.IHasMutableShape;
 import org.archstudio.bna.facets.IHasMutableSize;
-import org.archstudio.bna.things.AbstractAnchorPointThing;
+import org.archstudio.bna.things.AbstractPreciseAnchorPointThing;
 import org.eclipse.swt.graphics.RGB;
 
-public class AnchoredShapeThing extends AbstractAnchorPointThing implements IHasMutableColor, IHasMutableEdgeColor,
+public class PreciselyAnchoredShapeThing extends AbstractPreciseAnchorPointThing implements IHasMutableColor, IHasMutableEdgeColor,
 		IHasMutableSize, IHasMutableLineData, IHasMutableShape {
 
-	public AnchoredShapeThing(Object id) {
+	public PreciselyAnchoredShapeThing(Object id) {
 		super(id);
 	}
 
