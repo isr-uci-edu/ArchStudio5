@@ -15,6 +15,7 @@ import org.archstudio.xadl3.structure_3_0.Interface;
 import org.archstudio.xadl3.structure_3_0.Structure;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Factory;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
+import org.archstudio.xadl3.structure_3_0.SubStructure;
 import org.archstudio.xadl3.xadlcore_3_0.DocumentRoot;
 import org.archstudio.xadl3.xadlcore_3_0.XADLType;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Factory;
@@ -55,6 +56,9 @@ public class XArchRelativePathTrackerTest extends TestCase {
 	Structure structure;
 	Component comp;
 	Interface iface;
+	SubStructure compSubStructure;
+	Structure subStructure;
+	Component subComp;
 
 	XArchRelativePathTracker tracker;
 	List<String> results;
@@ -73,12 +77,18 @@ public class XArchRelativePathTrackerTest extends TestCase {
 		structure = structureF.createStructure();
 		comp = structureF.createComponent();
 		iface = structureF.createInterface();
+		compSubStructure = structureF.createSubStructure();
+		subStructure = structureF.createStructure();
+		subComp = structureF.createComponent();
 
 		documentRoot.setXADL(xadl);
 		xadl.getTopLevelElement().add(structure);
 		structure.getComponent().add(comp);
 		comp.getInterface().add(iface);
-
+		comp.setSubStructure(compSubStructure);
+		compSubStructure.setInnerStructureLink(subStructure);
+		subStructure.getComponent().add(subComp);
+		
 		results = Lists.newArrayList();
 		tracker = new XArchRelativePathTracker(xarch);
 		tracker.addTrackerListener(new IXArchRelativePathTrackerListener() {
@@ -132,13 +142,11 @@ public class XArchRelativePathTrackerTest extends TestCase {
 		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
 		tracker.startScanning();
 
-		String e1; // event with null
-		String e2; // event with null
-		assertEquals(a(e1 = e("A", comp)));
+		assertEquals(a(e("A", comp)));
 		comp.setId("SomeID");
-		assertEquals(a(e1, e2 = e("U", comp)));
+		assertEquals(a(e("A", comp), e("U", comp)));
 		comp.setId(null);
-		assertEquals(a(e1, e2, e("U", comp)));
+		assertEquals(a(e("A", comp), e("U", comp), e("U", comp)));
 	}
 
 	public void testTrack1Attribute2() {
@@ -146,9 +154,31 @@ public class XArchRelativePathTrackerTest extends TestCase {
 		tracker.startScanning();
 		assertEquals(a(e("A", comp)));
 
+		iface.setId(null);
+		assertEquals(a(e("A", comp)));
 		iface.setId("SomeID");
 		assertEquals(a(e("A", comp), e("U", comp)));
-		iface.setId(null);
+	}
+
+	public void testTrack1Attribute3() {
+		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
+		tracker.startScanning();
+		assertEquals(a(e("A", comp)));
+
+		iface.setId("SomeID");
+		assertEquals(a(e("A", comp), e("U", comp)));
+		iface.setId("SomeOtherId");
+		assertEquals(a(e("A", comp), e("U", comp), e("U", comp)));
+	}
+
+	public void testTrack1Substructure1() {
+		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
+		tracker.startScanning();
+
+		assertEquals(a(e("A", comp)));
+		comp.setSubStructure(null);
+		assertEquals(a(e("A", comp), e("U", comp)));
+		comp.setSubStructure(compSubStructure);
 		assertEquals(a(e("A", comp), e("U", comp), e("U", comp)));
 	}
 
