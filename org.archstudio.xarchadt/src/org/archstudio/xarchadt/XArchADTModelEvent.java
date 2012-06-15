@@ -140,7 +140,11 @@ public class XArchADTModelEvent implements java.io.Serializable {
 				"eventType=" + eventType + ", " + //
 				"featureName=" + featureName + ", " + //
 				"oldValue=" + oldValue + ", " + //
+				"oldValueAncestors=" + oldValueAncestors + ", " + //
+				"oldValuePath=" + oldValuePath + ", " + //
 				"newValue=" + newValue + ", " + //
+				"newValueAncestors=" + newValueAncestors + ", " + //
+				"newValuePath=" + newValuePath + ", " + //
 				"src=" + src + ", " + //
 				"srcAncestors=" + srcAncestors + ", " + //
 				"srcPath=" + srcPath + "]";

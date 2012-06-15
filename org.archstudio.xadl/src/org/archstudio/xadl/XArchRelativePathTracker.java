@@ -429,11 +429,11 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 			case CLEAR: {
 				final Object target = evt.getOldValue();
 				if (!(target instanceof ObjRef) || treatAsAttribute(evt)) {
-					List<ObjRef> lineageRefs = Lists.reverse(evt.getOldValueAncestors());
+					List<ObjRef> lineageRefs = Lists.reverse(evt.getSourceAncestors());
 					final int rootObjRefIndex = lineageRefs.indexOf(rootObjRef);
 					if (rootObjRefIndex >= 0) {
 						List<ObjRef> relLineageRefs = lineageRefs.subList(rootObjRefIndex, lineageRefs.size());
-						XArchADTPath relPath = evt.getOldValuePath().subpath(rootObjRefIndex);
+						XArchADTPath relPath = evt.getSourcePath().subpath(rootObjRefIndex);
 						int matchLength = getMatchLength(relPath, relLineageRefs);
 						if (matchLength == xPathSegments.size()) {
 							changedObjRef(relLineageRefs, relPath, relLineageRefs.get(relLineageRefs.size() - 1), evt);
