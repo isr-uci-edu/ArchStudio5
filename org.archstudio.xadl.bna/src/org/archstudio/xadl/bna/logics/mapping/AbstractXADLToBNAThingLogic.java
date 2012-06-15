@@ -117,7 +117,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 							// note which ObjRef the thing represents
 							thing.set(IHasObjRef.OBJREF_KEY, objRef);
 							// mark the thing as originating from, and being synchronized by this logic
-							thing.set(MAPPING_KEY, this);
+							thing.set(MAPPING_KEY, AbstractXADLToBNAThingLogic.this);
 						}
 					}
 					finally {
@@ -146,7 +146,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 					updatingThings++;
 					try {
 						for (IThing t : model.getThingsByID(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef,
-								MAPPING_KEY, this))) {
+								MAPPING_KEY, AbstractXADLToBNAThingLogic.this))) {
 							updateThing(relLineageRefs, relPath, objRef, evt, (T) t);
 						}
 					}
@@ -173,7 +173,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 					updatingThings++;
 					try {
 						for (IThing t : model.getThingsByID(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef,
-								MAPPING_KEY, this))) {
+								MAPPING_KEY, AbstractXADLToBNAThingLogic.this))) {
 							Assemblies.removeRootAndParts(model, t);
 						}
 					}
@@ -206,7 +206,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 							List<IThingRefKey<?>> bnaPathSegments = Lists.newArrayList();
 							while (thing != null) {
 								// look for a BNA Assembly that we've mapped from an ObjRef
-								if (thing.has(MAPPING_KEY, this)) {
+								if (thing.has(MAPPING_KEY, AbstractXADLToBNAThingLogic.this)) {
 									ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);
 									if (objRef != null) {
 										storeThingData(objRef, (T) thing,
