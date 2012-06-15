@@ -281,7 +281,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 			IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
 			ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(),
 					innerView.getCoordinateMapper());
-			List<IThing> innerThings = view.getThingsAt(innerLocation);
+			List<IThing> innerThings = innerView.getThingsAt(innerLocation);
 
 			for (IBNAMenuListener l : innerTlm.getThingLogics(IBNAMenuListener.class)) {
 				l.fillMenu(innerView, innerThings, innerLocation, menu);
@@ -308,7 +308,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 			IThingLogicManager innerTlm = innerWorld.getThingLogicManager();
 			ICoordinate innerLocation = DefaultCoordinate.forLocal(location.getLocalPoint(),
 					innerView.getCoordinateMapper());
-			List<IThing> innerThings = view.getThingsAt(innerLocation);
+			List<IThing> innerThings = innerView.getThingsAt(innerLocation);
 
 			//Composite parentComposite = BNAUtils.getParentComposite(view);
 			//Point p = null;
