@@ -8,6 +8,7 @@ import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableFontData;
 import org.archstudio.bna.facets.IHasMutableHorizontalAlignment;
 import org.archstudio.bna.facets.IHasMutableIndicatorPoint;
+import org.archstudio.bna.facets.IHasMutableLineData;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasMutableVerticalAlignment;
 import org.archstudio.bna.facets.IRelativeMovable;
@@ -20,7 +21,7 @@ import org.eclipse.swt.graphics.RGB;
 
 public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHasMutableText, IHasMutableColor,
 		IHasMutableHorizontalAlignment, IHasMutableVerticalAlignment, IHasMutableFontData, IRelativeMovable,
-		IHasMutableAngle, IHasMutableIndicatorPoint {
+		IHasMutableAngle, IHasMutableIndicatorPoint, IHasMutableLineData {
 
 	public AnchoredLabelThing(Object id) {
 		super(id);
@@ -37,6 +38,8 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 		setHorizontalAlignment(HorizontalAlignment.CENTER);
 		setVerticalAlignment(VerticalAlignment.MIDDLE);
 		setAngle(0);
+		setLineStyle(LINE_STYLE_SOLID);
+		setLineWidth(1);
 		super.initProperties();
 	}
 
@@ -140,4 +143,23 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 		set(IHasIndicatorPoint.INDICATOR_POINT_KEY, indicatorPoint);
 	}
 
+	@Override
+	public int getLineStyle() {
+		return get(LINE_STYLE_KEY);
+	}
+
+	@Override
+	public void setLineStyle(int lineStyle) {
+		set(LINE_STYLE_KEY, lineStyle);
+	}
+
+	@Override
+	public int getLineWidth() {
+		return get(LINE_WIDTH_KEY);
+	}
+
+	@Override
+	public void setLineWidth(int lineWidth) {
+		set(LINE_WIDTH_KEY, lineWidth);
+	}
 }
