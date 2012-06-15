@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
-import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasPreciseAnchorPoint;
 import org.archstudio.bna.facets.IHasShape;

@@ -1,5 +1,7 @@
 package org.archstudio.bna.graphs.things;
 
+import java.awt.Font;
+
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -29,6 +31,7 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 			int wUnit = t.getUnit();
 			int localTickSize = t.getLocalTickSize();
 			int maxWidth = 0;
+			Font f;
 			switch (t.getOrientation()) {
 			case BOTTOM:
 				gl.glBegin(GL2.GL_LINES);
@@ -82,6 +85,10 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 					break;
 				}
 				}
+				f = tr.getFont();
+				f = f.deriveFont(Font.BOLD);
+				f = f.deriveFont(f.getSize2D() * 1.2f);
+				tr = r.getTextRenderer(f);
 				tr.beginRendering(canvasSize.x, canvasSize.y);
 				tr.setColor(0, 0, 0, 1);
 				tr.draw(t.getText(), lbb.x + lbb.width / 2 - (int) tr.getBounds(t.getText()).getWidth() / 2,
@@ -140,10 +147,14 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 					break;
 				}
 				}
+				f = tr.getFont();
+				f = f.deriveFont(Font.BOLD);
+				f = f.deriveFont(f.getSize2D() * 1.2f);
+				tr = r.getTextRenderer(f);
 				tr.beginRendering(canvasSize.x, canvasSize.y);
 				tr.setColor(0, 0, 0, 1);
 				tr.draw(t.getText(), lbb.x + lbb.width / 2 - (int) tr.getBounds(t.getText()).getWidth() / 2,
-						canvasSize.y - lbb.y + localTickSize + t.getFontSize());
+						canvasSize.y - (lbb.y + lbb.height - localTickSize - t.getFontSize()));
 				tr.endRendering();
 				break;
 			case LEFT:
@@ -198,6 +209,10 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 					break;
 				}
 				}
+				f = tr.getFont();
+				f = f.deriveFont(Font.BOLD);
+				f = f.deriveFont(f.getSize2D() * 1.2f);
+				tr = r.getTextRenderer(f);
 				tr.beginRendering(canvasSize.x, canvasSize.y);
 				gl.glMatrixMode(GL2.GL_MODELVIEW);
 				gl.glTranslated(lbb.x + lbb.width - localTickSize - maxWidth, canvasSize.y - lbb.y
@@ -257,6 +272,10 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 					break;
 				}
 				}
+				f = tr.getFont();
+				f = f.deriveFont(Font.BOLD);
+				f = f.deriveFont(f.getSize2D() * 1.2f);
+				tr = r.getTextRenderer(f);
 				tr.beginRendering(canvasSize.x, canvasSize.y);
 				gl.glMatrixMode(GL2.GL_MODELVIEW);
 				gl.glTranslated(lbb.x + localTickSize + maxWidth + t.getFontSize(), canvasSize.y - lbb.y
@@ -269,93 +288,4 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 			}
 		}
 	}
-	//		switch (t.getOrientation()) {
-	//		case LEFT: {
-	//			g.drawLine(lbb.x + lbb.width, lbb.y, lbb.x + lbb.width, lbb.y + lbb.height);
-	//			int maxWidth = 0;
-	//			switch (cm instanceof GraphCoordinateMapper ? ((GraphCoordinateMapper) cm).getYAxisType()
-	//					: GraphCoordinateMapper.Type.LINEAR) {
-	//			case LINEAR: {
-	//				int wMin = wbb.y / wUnit * wUnit;
-	//				int wMax = ((wbb.y + wbb.height) / wUnit + 1) * wUnit;
-	//				for (int wY = wMin; wY <= wMax; wY += wUnit) {
-	//					if (wY < wbb.y || wY > wbb.y + wbb.height)
-	//						continue;
-	//					Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
-	//					g.drawLine(lbb.x + lbb.width, lPoint.y, lbb.x + lbb.width - localTickSize, lPoint.y);
-	//					tl.setText(-wY + " ");
-	//					g.drawString(-wY + " ", lPoint.x + lbb.width - tl.getBounds().width - localTickSize,
-	//							lPoint.y - tl.getBounds().height / 2);
-	//					maxWidth = Math.max(maxWidth, tl.getBounds().width);
-	//				}
-	//				break;
-	//			}
-	//			case LOGARITHMIC: {
-	//				int wMin = -1;
-	//				int wMax = -wbb.y;
-	//				for (int wY = wMin; wY <= wMax; wY *= wUnit) {
-	//					if (wY < wbb.y || wY > wbb.y + wbb.height)
-	//						continue;
-	//					Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
-	//					g.drawLine(lbb.x + lbb.width, lPoint.y, lbb.x + lbb.width - localTickSize, lPoint.y);
-	//					tl.setText(-wY + " ");
-	//					g.drawString(-wY + " ", lPoint.x + lbb.width - tl.getBounds().width - localTickSize,
-	//							lPoint.y - tl.getBounds().height / 2);
-	//					maxWidth = Math.max(maxWidth, tl.getBounds().width);
-	//				}
-	//				break;
-	//			}
-	//			}
-	//			g.setFont(r.getFont(t.getFontName(), t.getFontSize(), FontStyle.BOLD));
-	//			tl.setFont(g.getFont());
-	//			tl.setText(t.getText());
-	//			g.translate(lbb.x + lbb.width - localTickSize - tl.getBounds().height - maxWidth, lbb.y + lbb.height / 2
-	//					+ tl.getBounds().width / 2);
-	//			g.rotate(-90);
-	//			g.drawString(t.getText(), 0, 0);
-	//			break;
-	//		}
-	//		case RIGHT: {
-	//			g.drawLine(lbb.x, lbb.y, lbb.x, lbb.y + lbb.height);
-	//			int maxWidth = 0;
-	//			switch (cm instanceof GraphCoordinateMapper ? ((GraphCoordinateMapper) cm).getYAxisType()
-	//					: GraphCoordinateMapper.Type.LINEAR) {
-	//			case LINEAR: {
-	//				int wMin = wbb.y / wUnit * wUnit;
-	//				int wMax = ((wbb.y + wbb.height) / wUnit + 1) * wUnit;
-	//				for (int wY = wMin; wY <= wMax; wY += wUnit) {
-	//					if (wY < wbb.y || wY > wbb.y + wbb.height)
-	//						continue;
-	//					Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
-	//					g.drawLine(lbb.x, lPoint.y, lbb.x + localTickSize, lPoint.y);
-	//					tl.setText(" " + -wY);
-	//					g.drawString(" " + -wY, lPoint.x + localTickSize, lPoint.y - tl.getBounds().height / 2);
-	//					maxWidth = Math.max(maxWidth, tl.getBounds().width);
-	//				}
-	//				break;
-	//			}
-	//			case LOGARITHMIC: {
-	//				int wMin = -1;
-	//				int wMax = -wbb.y;
-	//				for (int wY = wMin; wY <= wMax; wY *= wUnit) {
-	//					if (wY < wbb.y || wY > wbb.y + wbb.height)
-	//						continue;
-	//					Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
-	//					g.drawLine(lbb.x, lPoint.y, lbb.x + localTickSize, lPoint.y);
-	//					tl.setText(" " + -wY);
-	//					g.drawString(" " + -wY, lPoint.x + localTickSize, lPoint.y - tl.getBounds().height / 2);
-	//					maxWidth = Math.max(maxWidth, tl.getBounds().width);
-	//				}
-	//				break;
-	//			}
-	//			}
-	//			g.setFont(r.getFont(t.getFontName(), t.getFontSize(), FontStyle.BOLD));
-	//			tl.setFont(g.getFont());
-	//			tl.setText(t.getText());
-	//			g.translate(lbb.x + localTickSize + maxWidth, lbb.y + lbb.height / 2 + tl.getBounds().width / 2);
-	//			g.rotate(-90);
-	//			g.drawString(t.getText(), 0, 0);
-	//			break;
-	//		}
-	//		}
 }
