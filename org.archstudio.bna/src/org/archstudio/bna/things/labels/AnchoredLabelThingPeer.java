@@ -72,7 +72,7 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 			path.transform(transform);
 			lastTextLocalShape = path;
 
-			if (lip != null) {
+			if (lip != null && r.setLineStyle(t)) {
 				Point2D lap2d = new Point2D.Float(-SPACING, 0);
 				Point2D lap2d2 = new Point2D.Float(textBounds.width + SPACING, 0);
 				transform.transform(lap2d, lap2d);
