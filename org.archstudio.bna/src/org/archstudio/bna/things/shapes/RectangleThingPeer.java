@@ -36,7 +36,7 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 			gl.glVertex2i(p1.x, p2.y);
 			gl.glEnd();
 		}
-		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY)) {
+		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
 			int count = t.getCount();
 			int width = t.getLineWidth();
 			while (count > 0) {
