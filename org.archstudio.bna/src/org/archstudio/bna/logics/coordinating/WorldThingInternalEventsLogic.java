@@ -2,9 +2,11 @@ package org.archstudio.bna.logics.coordinating;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
@@ -15,8 +17,11 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class WorldThingInternalEventsLogic extends AbstractThingLogic implements IBNAModelListener {
+
+	static protected Set<IHasWorld> worldsBeingNotified = Sets.newHashSet();
 
 	protected ThingTypeTrackingLogic typeLogic = null;
 	protected Map<IHasWorld, InternalModelListener> thingToListenerMap = new HashMap<IHasWorld, InternalModelListener>();
@@ -39,17 +44,26 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 
 		@Override
 		public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
-			fireInternalBNAModelEvent(viewThing, evt);
-			switch (evt.getEventType()) {
-			case BULK_CHANGE_BEGIN:
-			case BULK_CHANGE_END:
-				break;
-			default:
-				needsTick = true;
+			// prevent infinite loops
+			if (!worldsBeingNotified.add(viewThing))
+				return;
+
+			try {
+				fireInternalBNAModelEvent(viewThing, evt);
+				switch (evt.getEventType()) {
+				case BULK_CHANGE_BEGIN:
+				case BULK_CHANGE_END:
+					break;
+				default:
+					needsTick = true;
+				}
+				if (!evt.isInBulkChange() && needsTick) {
+					needsTick = false;
+					viewThing.set(INTERNAL_MODEL_CHANGE_TICKER, viewThing.get(INTERNAL_MODEL_CHANGE_TICKER) + 1);
+				}
 			}
-			if (!evt.isInBulkChange() && needsTick) {
-				needsTick = false;
-				viewThing.set(INTERNAL_MODEL_CHANGE_TICKER, viewThing.get(INTERNAL_MODEL_CHANGE_TICKER) + 1);
+			finally {
+				worldsBeingNotified.remove(viewThing);
 			}
 		}
 	}
