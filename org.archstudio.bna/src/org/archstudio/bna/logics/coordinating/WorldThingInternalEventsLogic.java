@@ -1,12 +1,14 @@
 package org.archstudio.bna.logics.coordinating;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
-import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
@@ -33,10 +35,12 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 
 	class InternalModelListener implements IBNAModelListener {
 
-		private final IHasWorld viewThing;
+		final IHasWorld viewThing;
+		final IBNAModel viewThingModel;
 
-		public InternalModelListener(IHasWorld viewThing) {
-			this.viewThing = viewThing;
+		public InternalModelListener(IHasWorld viewThing, IBNAModel viewThingModel) {
+			this.viewThing = checkNotNull(viewThing);
+			this.viewThingModel = checkNotNull(viewThingModel);
 			viewThing.set(INTERNAL_MODEL_CHANGE_TICKER, 0);
 		}
 
@@ -109,19 +113,17 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 	protected void addListener(IHasWorld vt) {
 		IBNAWorld world = vt.getWorld();
 		if (world != null) {
-			InternalModelListener l = new InternalModelListener(vt);
+			IBNAModel model = world.getBNAModel();
+			InternalModelListener l = new InternalModelListener(vt, model);
 			thingToListenerMap.put(vt, l);
-			world.getBNAModel().addBNAModelListener(l);
-			world.getBNAModel().addBNAModelListener(l);
+			model.addBNAModelListener(l);
 		}
 	}
 
 	protected void removeListener(IHasWorld vt) {
 		InternalModelListener l = thingToListenerMap.remove(vt);
-		IBNAWorld world = vt.getWorld();
-		if (world != null) {
-			world.getBNAModel().removeBNAModelListener(l);
-			world.getBNAModel().removeBNAModelListener(l);
+		if (l != null) {
+			l.viewThingModel.removeBNAModelListener(l);
 		}
 	}
 
