@@ -231,7 +231,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 				}
 			});
 		}
-		if (evt.getEventType() == EventType.THING_REMOVED) {
+		if (evt.getEventType() == EventType.THING_REMOVING) {
 			SWTWidgetUtils.async(this, new Runnable() {
 				@Override
 				public void run() {
