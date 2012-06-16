@@ -2,8 +2,10 @@ package org.archstudio.bna.things.utility;
 
 import javax.media.opengl.GL2;
 
+import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.CoordinateMapperEvent;
 import org.archstudio.bna.IBNAModel;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
@@ -12,6 +14,7 @@ import org.archstudio.bna.ICoordinateMapperListener;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.LinearCoordinateMapper;
@@ -28,7 +31,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThingPeer<T> implements IThingPeer<T>,
-		IHasInnerViewPeer, ICoordinateMapperListener {
+		IHasInnerViewPeer, ICoordinateMapperListener, IBNAModelListener {
 
 	public static final IThingKey<Integer> COORDINATE_MAPPER_CHANGE_TICKER = ThingKey
 			.create("CoordinateMapperChangeTicker");
@@ -65,6 +68,15 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 	}
 
 	@Override
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+		if(evt.getEventType() == EventType.THING_REMOVING){
+			if(innerView != null){
+				innerView.disposePeer(evt.getTargetThing());
+			}
+		}
+	}
+	
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		IBNAWorld innerWorld = t.getWorld();
 		if (innerWorld == null) {
@@ -73,10 +85,12 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 
 		if (innerView != null && !innerWorld.equals(innerView.getBNAWorld())) {
 			innerView.getCoordinateMapper().removeCoordinateMapperListener(this);
+			innerView.getBNAWorld().getBNAModel().removeBNAModelListener(this);
 			innerView = null;
 		}
 		if (innerView == null) {
 			innerView = new DefaultBNAView(view, t.getWorld(), new LinearCoordinateMapper());
+			innerView.getBNAWorld().getBNAModel().addBNAModelListener(this);
 			innerView.getCoordinateMapper().addCoordinateMapperListener(this);
 		}
 
