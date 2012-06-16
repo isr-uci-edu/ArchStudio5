@@ -3,6 +3,7 @@ package org.archstudio.bna.things.utility;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.CoordinateMapperEvent;
+import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
@@ -23,11 +24,22 @@ import org.archstudio.bna.utils.DefaultBNAView;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThingPeer<T> implements IThingPeer<T>,
 		IHasInnerViewPeer, ICoordinateMapperListener {
 
 	public static final IThingKey<Integer> COORDINATE_MAPPER_CHANGE_TICKER = ThingKey
 			.create("CoordinateMapperChangeTicker");
+
+	/*
+	 * Records where each model is being rendered. If we discover that we are
+	 * trying to render a model in the same size and location, then we would
+	 * recurse rendering that model forever. So, instead we cut is off when we
+	 * hit that situation.
+	 */
+	static Multimap<IBNAModel, Rectangle> modelsBeingRendered = HashMultimap.create();
 
 	protected IBNAView innerView = null;
 
@@ -72,54 +84,54 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		if (lbb.height < 5 || lbb.width < 5) {
 			return;
 		}
+		IBNAModel model = innerWorld.getBNAModel();
+		try {
+			if (!modelsBeingRendered.put(model, lbb))
+				return;
 
-		ModelBoundsTrackingLogic mbtl = innerWorld.getThingLogicManager().addThingLogic(ModelBoundsTrackingLogic.class);
-		Rectangle modelBounds = mbtl.getModelBounds();
+			ModelBoundsTrackingLogic mbtl = innerWorld.getThingLogicManager().addThingLogic(
+					ModelBoundsTrackingLogic.class);
+			Rectangle modelBounds = mbtl.getModelBounds();
+			if (modelBounds.width == 0 || modelBounds.height == 0) {
+				modelBounds = innerView.getCoordinateMapper().getWorldBounds();
+			}
 
-		if (modelBounds.x == Integer.MIN_VALUE || modelBounds.width == 0 || modelBounds.height == 0) {
-			Rectangle worldBounds = innerView.getCoordinateMapper().getWorldBounds();
-			modelBounds.x = worldBounds.x + worldBounds.width / 2;
-			modelBounds.y = worldBounds.y + worldBounds.height / 2;
-			modelBounds.width = 100;
-			modelBounds.height = 100;
-		}
-		modelBounds.x -= 1;
-		modelBounds.y -= 1;
-		modelBounds.width += 2;
-		modelBounds.height += 2;
+			ICoordinateMapper icm = innerView.getCoordinateMapper();
 
-		ICoordinateMapper icm = innerView.getCoordinateMapper();
+			if (icm instanceof IMutableCoordinateMapper) {
+				if (!lastModelBounds.equals(modelBounds) || !lastLocalBounds.equals(lbb)) {
+					IMutableCoordinateMapper imcm = (IMutableCoordinateMapper) icm;
+					double xScale = (double) lbb.width / modelBounds.width;
+					double yScale = (double) lbb.height / modelBounds.height;
+					double parentScale = view.getCoordinateMapper().getLocalScale();
+					double scale = Math.min(parentScale, Math.min(xScale, yScale));
+					int dx = BNAUtils.round((lbb.width - modelBounds.width * scale) / 2);
+					int dy = BNAUtils.round((lbb.height - modelBounds.height * scale) / 2);
+					lastModelBounds = modelBounds;
+					lastLocalBounds = lbb;
+					imcm.setLocalScaleAndAlign(scale, new Point(lbb.x + dx, lbb.y + dy), new Point(modelBounds.x,
+							modelBounds.y));
+				}
+			}
 
-		if (icm instanceof IMutableCoordinateMapper) {
-			if (!lastModelBounds.equals(modelBounds) || !lastLocalBounds.equals(lbb)) {
-				IMutableCoordinateMapper imcm = (IMutableCoordinateMapper) icm;
-				double sx = (double) lbb.width / modelBounds.width;
-				double sy = (double) lbb.height / modelBounds.height;
-				double parentScale = view.getCoordinateMapper().getLocalScale();
-				double scale = Math.min(parentScale, Math.min(sx, sy));
-				int dx = BNAUtils.round((lbb.width - modelBounds.width * scale) / 2);
-				int dy = BNAUtils.round((lbb.height - modelBounds.height * scale) / 2);
-				lastModelBounds = modelBounds;
-				lastLocalBounds = lbb;
-				imcm.setLocalScaleAndAlign(scale, new Point(lbb.x + dx, lbb.y + dy), new Point(modelBounds.x,
-						modelBounds.y));
+			for (IThing thing : model.getAllThings()) {
+				//gl.glPushMatrix();
+				//gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT);
+				try {
+					IThingPeer<?> peer = innerView.getThingPeer(thing);
+					peer.draw(innerView, innerView.getCoordinateMapper(), gl, clip, r);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+				finally {
+					//gl.glPopAttrib();
+					//gl.glPopMatrix();
+				}
 			}
 		}
-
-		for (IThing thing : innerWorld.getBNAModel().getAllThings()) {
-			gl.glPushMatrix();
-			gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT);
-			try {
-				IThingPeer<?> peer = innerView.getThingPeer(thing);
-				peer.draw(innerView, innerView.getCoordinateMapper(), gl, clip, r);
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-			finally {
-				gl.glPopAttrib();
-				gl.glPopMatrix();
-			}
+		finally {
+			modelsBeingRendered.remove(model, lbb);
 		}
 	}
 
