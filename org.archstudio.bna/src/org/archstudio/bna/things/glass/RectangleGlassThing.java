@@ -1,13 +1,16 @@
 package org.archstudio.bna.things.glass;
 
+import java.awt.Dimension;
+
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
+import org.archstudio.bna.facets.IHasMutableRoundedCorners;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasRotatingOffset;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractRectangleThing;
 
 public class RectangleGlassThing extends AbstractRectangleThing implements IHasMutableSelected,
-		IHasMutableRotatingOffset {
+		IHasMutableRotatingOffset, IHasMutableRoundedCorners {
 
 	public RectangleGlassThing(Object id) {
 		super(id);
@@ -18,6 +21,7 @@ public class RectangleGlassThing extends AbstractRectangleThing implements IHasM
 		super.initProperties();
 		setSelected(false);
 		incrementRotatingOffset();
+		setCornerSize(new Dimension(0, 0));
 	}
 
 	@Override
@@ -45,6 +49,16 @@ public class RectangleGlassThing extends AbstractRectangleThing implements IHasM
 	@Override
 	public void setSelected(boolean selected) {
 		set(IHasSelected.SELECTED_KEY, selected);
+	}
+
+	@Override
+	public Dimension getCornerSize() {
+		return get(CORNER_SIZE_KEY);
+	}
+
+	@Override
+	public void setCornerSize(Dimension dimension) {
+		set(CORNER_SIZE_KEY, dimension);
 	}
 
 }

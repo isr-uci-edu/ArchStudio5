@@ -1,5 +1,10 @@
 package org.archstudio.bna.things.glass;
 
+import java.awt.Dimension;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.PathIterator;
+import java.awt.geom.RoundRectangle2D;
+
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -24,27 +29,76 @@ public class RectangleGlassThingPeer<T extends RectangleGlassThing> extends Abst
 			Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 			Point p1 = new Point(lbb.x, lbb.y);
 			Point p2 = new Point(lbb.x + lbb.width, lbb.y + lbb.height);
+			Dimension corner = t.getCornerSize();
 
-			gl.glLineWidth(1f);
+			if (corner.width == 0 || corner.height == 0) {
+				gl.glLineWidth(1f);
 
-			gl.glColor3f(1f, 1f, 1f);
-			gl.glBegin(GL2.GL_LINE_LOOP);
-			gl.glVertex2f(p1.x + 0.5f, p1.y + 0.5f);
-			gl.glVertex2f(p2.x - 0.5f, p1.y + 0.5f);
-			gl.glVertex2f(p2.x - 0.5f, p2.y - 0.5f);
-			gl.glVertex2f(p1.x + 0.5f, p2.y - 0.5f);
-			gl.glEnd();
+				gl.glColor3f(1f, 1f, 1f);
+				gl.glBegin(GL2.GL_LINE_LOOP);
+				gl.glVertex2f(p1.x + 0.5f, p1.y + 0.5f);
+				gl.glVertex2f(p2.x - 0.5f, p1.y + 0.5f);
+				gl.glVertex2f(p2.x - 0.5f, p2.y - 0.5f);
+				gl.glVertex2f(p1.x + 0.5f, p2.y - 0.5f);
+				gl.glEnd();
 
-			gl.glColor3f(0f, 0f, 0f);
-			gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
-			gl.glBegin(GL2.GL_LINE_LOOP);
-			gl.glVertex2f(p1.x + 0.5f, p1.y + 0.5f);
-			gl.glVertex2f(p2.x - 0.5f, p1.y + 0.5f);
-			gl.glVertex2f(p2.x - 0.5f, p2.y - 0.5f);
-			gl.glVertex2f(p1.x + 0.5f, p2.y - 0.5f);
-			gl.glEnd();
+				gl.glColor3f(0f, 0f, 0f);
+				gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
+				gl.glBegin(GL2.GL_LINE_LOOP);
+				gl.glVertex2f(p1.x + 0.5f, p1.y + 0.5f);
+				gl.glVertex2f(p2.x - 0.5f, p1.y + 0.5f);
+				gl.glVertex2f(p2.x - 0.5f, p2.y - 0.5f);
+				gl.glVertex2f(p1.x + 0.5f, p2.y - 0.5f);
+				gl.glEnd();
 
-			gl.glLineStipple(1, (short) 0xffff);
+				gl.glLineStipple(1, (short) 0xffff);
+			}
+			else{
+				RoundRectangle2D s = new RoundRectangle2D.Double(lbb.x + 0.5f, lbb.y + 0.5f, lbb.width, lbb.height,//
+						Math.min(lbb.width, corner.width), Math.min(lbb.height, corner.height));
+				double[] coords = new double[6];
+
+				gl.glLineWidth(1f);
+
+				gl.glColor3f(1f, 1f, 1f);
+				PathIterator p = s.getPathIterator(new AffineTransform(), 0.25d);
+				gl.glBegin(GL2.GL_LINE_LOOP);
+				while (!p.isDone()) {
+					switch (p.currentSegment(coords)) {
+					case PathIterator.SEG_MOVETO:
+					case PathIterator.SEG_LINETO:
+						gl.glVertex2d(coords[0], coords[1]);
+						break;
+					case PathIterator.SEG_CLOSE:
+						break;
+					default:
+						throw new IllegalArgumentException();
+					}
+					p.next();
+				}
+				gl.glEnd();
+
+				gl.glColor3f(0f, 0f, 0f);
+				gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
+				p = s.getPathIterator(new AffineTransform(), 0.25d);
+				gl.glBegin(GL2.GL_LINE_LOOP);
+				while (!p.isDone()) {
+					switch (p.currentSegment(coords)) {
+					case PathIterator.SEG_MOVETO:
+					case PathIterator.SEG_LINETO:
+						gl.glVertex2d(coords[0], coords[1]);
+						break;
+					case PathIterator.SEG_CLOSE:
+						break;
+					default:
+						throw new IllegalArgumentException();
+					}
+					p.next();
+				}
+				gl.glEnd();
+
+				gl.glLineStipple(1, (short) 0xffff);
+			}
 		}
 	}
 }

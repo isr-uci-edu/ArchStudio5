@@ -1,16 +1,20 @@
 package org.archstudio.bna.things.shapes;
 
+import java.awt.Dimension;
+
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableCount;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableGradientFill;
 import org.archstudio.bna.facets.IHasMutableLineData;
+import org.archstudio.bna.facets.IHasMutableRoundedCorners;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.things.AbstractRoundedRectangleThing;
 import org.eclipse.swt.graphics.RGB;
 
 public class RectangleThing extends AbstractRoundedRectangleThing implements IHasMutableColor,
-		IHasMutableSecondaryColor, IHasMutableGradientFill, IHasMutableEdgeColor, IHasMutableCount, IHasMutableLineData {
+		IHasMutableSecondaryColor, IHasMutableGradientFill, IHasMutableEdgeColor, IHasMutableCount,
+		IHasMutableLineData, IHasMutableRoundedCorners {
 
 	public RectangleThing(Object id) {
 		super(id);
@@ -26,6 +30,7 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 		setLineStyle(LINE_STYLE_SOLID);
 		setLineWidth(1);
 		setCount(1);
+		setCornerSize(new Dimension(0, 0));
 	}
 
 	@Override
@@ -96,5 +101,15 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 	@Override
 	public void setLineWidth(int lineWidth) {
 		set(LINE_WIDTH_KEY, lineWidth);
+	}
+
+	@Override
+	public Dimension getCornerSize() {
+		return get(CORNER_SIZE_KEY);
+	}
+
+	@Override
+	public void setCornerSize(Dimension dimension) {
+		set(CORNER_SIZE_KEY, dimension);
 	}
 }
