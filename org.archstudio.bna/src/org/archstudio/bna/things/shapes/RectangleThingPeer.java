@@ -1,5 +1,10 @@
 package org.archstudio.bna.things.shapes;
 
+import java.awt.Dimension;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.PathIterator;
+import java.awt.geom.RoundRectangle2D;
+
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -25,44 +30,76 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		Point p1 = new Point(lbb.x, lbb.y);
 		Point p2 = new Point(lbb.x + lbb.width, lbb.y + lbb.height);
-		if (r.setColor(t, IHasColor.COLOR_KEY)) {
-			gl.glBegin(GL2.GL_QUADS);
-			gl.glVertex2i(p1.x, p1.y);
-			gl.glVertex2i(p2.x, p1.y);
-			if (t.isGradientFilled()) {
-				r.setColor(t, IHasSecondaryColor.SECONDARY_COLOR_KEY);
-			}
-			gl.glVertex2i(p2.x, p2.y);
-			gl.glVertex2i(p1.x, p2.y);
-			gl.glEnd();
-		}
-		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
-			int count = t.getCount();
-			int width = t.getLineWidth();
-			while (count > 0) {
-				int inset = (count - 1) * width * 2;
-				gl.glBegin(GL2.GL_LINE_LOOP);
-				gl.glVertex2f(p1.x + inset + 0.5f, p1.y + inset + 0.5f);
-				gl.glVertex2f(p2.x - inset - 0.5f, p1.y + inset + 0.5f);
-				gl.glVertex2f(p2.x - inset - 0.5f, p2.y - inset - 0.5f);
-				gl.glVertex2f(p1.x + inset + 0.5f, p2.y - inset - 0.5f);
+		Dimension corner = t.getCornerSize();
+
+		if (corner.width == 0 || corner.height == 0) {
+			if (r.setColor(t, IHasColor.COLOR_KEY)) {
+				gl.glBegin(GL2.GL_QUADS);
+				gl.glVertex2i(p1.x, p1.y);
+				gl.glVertex2i(p2.x, p1.y);
+				if (t.isGradientFilled()) {
+					r.setColor(t, IHasSecondaryColor.SECONDARY_COLOR_KEY);
+				}
+				gl.glVertex2i(p2.x, p2.y);
+				gl.glVertex2i(p1.x, p2.y);
 				gl.glEnd();
-				count--;
+			}
+			if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
+				int count = t.getCount();
+				int width = t.getLineWidth();
+				while (count > 0) {
+					int inset = (count - 1) * width * 2;
+					gl.glBegin(GL2.GL_LINE_LOOP);
+					gl.glVertex2f(p1.x + inset + 0.5f, p1.y + inset + 0.5f);
+					gl.glVertex2f(p2.x - inset - 0.5f, p1.y + inset + 0.5f);
+					gl.glVertex2f(p2.x - inset - 0.5f, p2.y - inset - 0.5f);
+					gl.glVertex2f(p1.x + inset + 0.5f, p2.y - inset - 0.5f);
+					gl.glEnd();
+					count--;
+				}
+			}
+		}
+		else {
+			RoundRectangle2D s = new RoundRectangle2D.Double(lbb.x + 0.5f, lbb.y + 0.5f, lbb.width, lbb.height,//
+					Math.min(lbb.width, corner.width), Math.min(lbb.height, corner.height));
+			double[] coords = new double[6];
+			if (r.setColor(t, IHasColor.COLOR_KEY)) {
+				PathIterator p = s.getPathIterator(new AffineTransform(), 0.25d);
+				gl.glBegin(GL2.GL_TRIANGLE_FAN);
+				while (!p.isDone()) {
+					switch (p.currentSegment(coords)) {
+					case PathIterator.SEG_MOVETO:
+					case PathIterator.SEG_LINETO:
+						gl.glVertex2d(coords[0], coords[1]);
+						break;
+					case PathIterator.SEG_CLOSE:
+						break;
+					default:
+						throw new IllegalArgumentException();
+					}
+					p.next();
+				}
+				gl.glEnd();
+			}
+			if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
+				PathIterator p = s.getPathIterator(new AffineTransform(), 0.25d);
+				gl.glBegin(GL2.GL_LINE_LOOP);
+				while (!p.isDone()) {
+					switch (p.currentSegment(coords)) {
+					case PathIterator.SEG_MOVETO:
+					case PathIterator.SEG_LINETO:
+						gl.glVertex2d(coords[0], coords[1]);
+						break;
+					case PathIterator.SEG_CLOSE:
+						break;
+					default:
+						throw new IllegalArgumentException();
+					}
+					p.next();
+				}
+				gl.glEnd();
 			}
 		}
 	}
-
-//	@Override
-//	public void drawShadow(IBNAView view, ICoordinateMapper cm, GL2 gl, IResources r) {
-//		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
-//		Point p1 = new Point(lbb.x, lbb.y);
-//		Point p2 = new Point(lbb.x + lbb.width, lbb.y + lbb.height);
-//		gl.glBegin(GL2.GL_QUADS);
-//		gl.glVertex2i(p1.x, p1.y);
-//		gl.glVertex2i(p2.x, p1.y);
-//		gl.glVertex2i(p2.x, p2.y);
-//		gl.glVertex2i(p1.x, p2.y);
-//		gl.glEnd();
-//	}
 
 }

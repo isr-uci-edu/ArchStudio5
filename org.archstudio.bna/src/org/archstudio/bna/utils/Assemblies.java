@@ -20,6 +20,7 @@ import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasMutableWorld;
 import org.archstudio.bna.facets.IHasPoints;
+import org.archstudio.bna.facets.IHasRoundedCorners;
 import org.archstudio.bna.facets.IHasSize;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.keys.AbstractThingRefKey;
@@ -221,6 +222,7 @@ public class Assemblies {
 		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
 
 		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, bkg);
+		mvl.mirrorValue(glass, IHasRoundedCorners.CORNER_SIZE_KEY, bkg);
 		mbbl.mirrorBoundingBox(glass, label, new Insets(3, 3, 3, 3));
 
 		return glass;
