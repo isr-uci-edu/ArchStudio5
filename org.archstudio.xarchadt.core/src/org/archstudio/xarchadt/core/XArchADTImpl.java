@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
+
+import javax.xml.xpath.XPathException;
 
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
@@ -37,6 +40,7 @@ import org.archstudio.xarchadt.XArchADTPath;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.e4.emf.xpath.EcoreXPathContextFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
@@ -1041,5 +1045,25 @@ public class XArchADTImpl implements IXArchADT {
 			}
 		}
 		return matchingHints;
+	}
+
+	@Override
+	public synchronized List<ObjRef> resolveObjRefs(ObjRef contextObjRef, String xPath) throws XPathException {
+		Iterator<EObject> it = EcoreXPathContextFactory.newInstance().newContext(get(contextObjRef)).iterate(xPath);
+		List<ObjRef> result = Lists.newArrayList();
+		while (it.hasNext()) {
+			result.add(put(it.next()));
+		}
+		return result;
+	}
+	
+	@Override
+	public synchronized List<Serializable> resolveSerializables(ObjRef contextObjRef, String xPath) throws XPathException {
+		Iterator<EObject> it = EcoreXPathContextFactory.newInstance().newContext(get(contextObjRef)).iterate(xPath);
+		List<Serializable> result = Lists.newArrayList();
+		while (it.hasNext()) {
+			result.add(check(it.next()));
+		}
+		return result;
 	}
 }
