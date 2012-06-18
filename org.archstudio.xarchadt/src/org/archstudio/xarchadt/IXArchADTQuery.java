@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import javax.xml.xpath.XPathException;
+
 import org.eclipse.emf.common.util.URI;
 
 public interface IXArchADTQuery {
@@ -290,4 +292,7 @@ public interface IXArchADTQuery {
 
 	Serializable getByKey(ObjRef baseObjRef, String typeOfThing, Serializable key);
 
+	List<ObjRef> resolveObjRefs(ObjRef contextObjRef, String xPath) throws XPathException;
+
+	List<Serializable> resolveSerializables(ObjRef contextObjRef, String xPath) throws XPathException;
 }

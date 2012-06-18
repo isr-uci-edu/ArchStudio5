@@ -7,6 +7,10 @@ import org.archstudio.xarchadt.core.internal.EObjectProxy;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+
 public final class XArchADTProxy {
 
 	public static final <T extends EObject> T proxy(IXArchADT xarch, ObjRef objRef) {
@@ -21,8 +25,13 @@ public final class XArchADTProxy {
 		return EObjectProxy.unproxy(eObject);
 	}
 
-	public static final Iterable<ObjRef> unproxy(Iterable<EObject> eObjects) {
-		return EObjectProxy.unproxy(eObjects);
+	public static final Iterable<ObjRef> unproxy(Iterable<? extends EObject> eObjects) {
+		return Lists.newArrayList(Iterables.transform(eObjects, new Function<EObject, ObjRef>() {
+			@Override
+			public ObjRef apply(EObject input) {
+				return EObjectProxy.unproxy(input);
+			}
+		}));
 	}
 
 	public static final <T extends EFactory> T proxy(IXArchADT xarch, String nsURI) {
