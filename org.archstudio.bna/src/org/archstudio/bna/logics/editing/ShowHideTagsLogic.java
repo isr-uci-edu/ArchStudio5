@@ -5,7 +5,9 @@ import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
 import java.util.List;
 
+import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -34,7 +36,7 @@ import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Iterables;
 
-public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuListener {
+public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuListener, IBNAModelListener {
 
 	public static final String USER_MAY_SHOW_HIDE_TAG = "userMayShowHideTag";
 
@@ -72,16 +74,41 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 					@Override
 					public void run() {
 						if (tt == null) {
-							showTag(st);
+							st.set(SHOW_TAG_KEY, true);
 						}
 						else {
-							hideTag(st);
+							st.set(SHOW_TAG_KEY, false);
 						}
 					}
 				};
 				tagAction.setChecked(tt != null);
 				menu.add(tagAction);
 			}
+		}
+	}
+
+	@Override
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+		switch (evt.getEventType()) {
+		case THING_CHANGED:
+			if (!evt.getThingEvent().getPropertyName().equals(SHOW_TAG_KEY))
+				break;
+			// fall through
+		case THING_ADDED:
+			if (evt.getTargetThing() instanceof IIsSticky) {
+				if (evt.getTargetThing().has(SHOW_TAG_KEY, true)) {
+					showTag((IIsSticky) evt.getTargetThing());
+				}
+				else {
+					hideTag((IIsSticky) evt.getTargetThing());
+				}
+			}
+			break;
+		case THING_REMOVED:
+			if (evt.getTargetThing() instanceof IIsSticky) {
+				hideTag((IIsSticky) evt.getTargetThing());
+			}
+			break;
 		}
 	}
 
@@ -108,7 +135,6 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 			}
 			Assemblies.markPart(forThing, TAG_KEY, t);
 		}
-		forThing.set(SHOW_TAG_KEY, true);
 		return t;
 	}
 
@@ -119,7 +145,6 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 			mirrorLogic.unmirror(t, IHasText.TEXT_KEY);
 			getBNAModel().removeThing(t);
 		}
-		forThing.set(SHOW_TAG_KEY, false);
 	}
 
 }

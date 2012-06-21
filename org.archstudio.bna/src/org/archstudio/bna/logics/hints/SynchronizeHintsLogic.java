@@ -16,6 +16,7 @@ import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.hints.synchronizers.PropertyHintSynchronizer;
 
 public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAModelListener,
@@ -46,13 +47,13 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 				IRelativeMovable.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE));
 		addHintSynchronizer(new PropertyHintSynchronizer("location", IHasAnchorPoint.ANCHOR_POINT_KEY,
 				IRelativeMovable.USER_MAY_MOVE));
+		addHintSynchronizer(new PropertyHintSynchronizer("tagged", ShowHideTagsLogic.SHOW_TAG_KEY,
+				ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG));
 		//addHintSynchronizer(new PropertyHintSynchronizer("color", IHasColor.COLOR_KEY,
 		//		IHasMutableColor.USER_MAY_EDIT_COLOR));
 		//addHintSynchronizer(new PropertyHintSynchronizer(IHasAngle.ANGLE_KEY, IHasMutableAngle.USER_MAY_CHANGE_ANGLE));
 		//addHintSynchronizer(new PropertyHintSynchronizer(IHasMidpoints.MIDPOINTS_KEY,
 		//		IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS));
-		//addHintSynchronizer(new BooleanHintSynchronizer(MaintainTagsLogic.SHOW_TAG_KEY,
-		//		MaintainTagsLogic.USER_MAY_SHOW_TAG));
 	}
 
 	final protected CopyOnWriteArrayList<IHintSynchronizer> hintSynchronizers = new CopyOnWriteArrayList<IHintSynchronizer>();
