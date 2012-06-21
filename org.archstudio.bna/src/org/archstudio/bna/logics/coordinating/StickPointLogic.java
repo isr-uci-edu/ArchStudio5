@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 
@@ -31,6 +32,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
+import com.google.common.collect.Sets;
 
 public class StickPointLogic extends AbstractThingLogic implements IBNAModelListener {
 
@@ -157,19 +159,20 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 		}
 	}
 
-	boolean isUpdating = false;
+	Set<List<Object>> isUpdating = Sets.newHashSet();
 
 	private <ET extends IThing, EK extends IThingKey<EV>, EV> void updatePoints(IHasWorld worldThing, IBNAModel model,
 			IThing pointThing, IThingKey<?> key, @Nullable ThingEvent<ET, EK, EV> thingEvent) {
-		if (isUpdating) {
+
+		// prevent update cycles
+		List<Object> updatingKey = Lists.newArrayList(pointThing, key);
+		if (!isUpdating.add(updatingKey))
 			return;
-		}
-
-		updatePoint(model, pointThing, key, thingEvent);
-
-		// update related points, if necessary
-		isUpdating = true;
 		try {
+
+			updatePoint(model, pointThing, key, thingEvent);
+
+			// update related points, if necessary
 			if (IHasEndpoints.ENDPOINT_1_KEY.equals(key)) {
 				updatePoint(model, pointThing, IHasEndpoints.ENDPOINT_2_KEY, null);
 			}
@@ -188,7 +191,7 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 			}
 		}
 		finally {
-			isUpdating = false;
+			isUpdating.remove(updatingKey);
 		}
 	}
 
