@@ -7,9 +7,9 @@ import org.archstudio.bna.facets.IHasMutableRoundedCorners;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasRotatingOffset;
 import org.archstudio.bna.facets.IHasSelected;
-import org.archstudio.bna.things.AbstractRectangleThing;
+import org.archstudio.bna.things.AbstractRoundedRectangleThing;
 
-public class RectangleGlassThing extends AbstractRectangleThing implements IHasMutableSelected,
+public class RectangleGlassThing extends AbstractRoundedRectangleThing implements IHasMutableSelected,
 		IHasMutableRotatingOffset, IHasMutableRoundedCorners {
 
 	public RectangleGlassThing(Object id) {

@@ -3,7 +3,11 @@ package org.archstudio.bna.logics.editing;
 import java.util.Arrays;
 import java.util.List;
 
+import org.archstudio.bna.DefaultCoordinate;
+import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing.IThingKey;
+import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMutableColor;
@@ -15,6 +19,7 @@ import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
+import org.archstudio.bna.things.shapes.ReshapeHandleThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -135,11 +140,18 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 
 			// if moved close to a sticky thing, stick to it
 			for (IIsSticky stickyThing : Iterables.filter(Lists.reverse(getBNAModel().getAllThings()), IIsSticky.class)) {
+				if(stickyThing instanceof ReshapeHandleGlassThing || stickyThing instanceof ReshapeHandleThing)
+					continue;
 				for (IReshapeSplineGuide guide : reshapeSplineGuides) {
 					StickyMode stickyMode = guide.getStickyMode(reshapingThing, stickyThing, data);
 					if (stickyMode != null) {
 						Point stuckPoint = stickyThing.getStickyPointNear(stickyMode, p);
-						if (stuckPoint != null && BNAUtils.getDistance(stuckPoint, p) <= STICK_DIST) {
+						IBNAView view = evt.getView();
+						ICoordinateMapper cm = view.getCoordinateMapper();
+						IThingPeer<?> peer = view.getThingPeer(stickyThing);
+						if (stuckPoint != null
+								&& (BNAUtils.getDistance(stuckPoint, p) <= STICK_DIST || peer.isInThing(view, cm,
+										DefaultCoordinate.forWorld(p, cm)))) {
 							stickToThingID = stickyThing.getID();
 							stickToThingMode = stickyMode;
 						}
