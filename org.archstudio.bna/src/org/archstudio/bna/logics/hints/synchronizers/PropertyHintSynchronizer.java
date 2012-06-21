@@ -25,7 +25,7 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 
 	@Override
 	public void restoreHints(IHintRepository repository, Object context, IThing thing) {
-		if (UserEditableUtils.isEditableForAllQualities(thing, editableQualities)) {
+		if (UserEditableUtils.isEditableForAnyQualities(thing, editableQualities)) {
 			try {
 				Object value = repository.getHint(context, hintName);
 				if (value != null) {
@@ -50,7 +50,7 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 				}
 			}
 		}
-		if (UserEditableUtils.isEditableForAllQualities(thing, editableQualities)) {
+		if (UserEditableUtils.isEditableForAnyQualities(thing, editableQualities)) {
 			Object value = thing.get(propertyName);
 			if (value != null && value instanceof Serializable) {
 				repository.storeHint(context, hintName, (Serializable) value);
