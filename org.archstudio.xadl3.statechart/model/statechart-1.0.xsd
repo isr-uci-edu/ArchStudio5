@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema 
+	xmlns="http://www.archstudio.org/xadl3/schemas/statechart-1.0.xsd" 
+	xmlns:core="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd" 
+	xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	attributeFormDefault="qualified" 
+	ecore:nsPrefix="statechart_1_0" 
+	ecore:package="org.archstudio.xadl3.statechart_1_0" 
+	elementFormDefault="qualified" 
+	targetNamespace="http://www.archstudio.org/xadl3/schemas/statechart-1.0.xsd" 
+	version="1.0.0">
+
+	<xs:import namespace="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd" 
+		schemaLocation="https://raw.github.com/sahendrickson/ArchStudio/master/org.archstudio.xadl3.xadlcore/model/xadlcore-3.0.xsd"/>
+	<xs:import namespace="http://www.eclipse.org/emf/2002/Ecore"/>
+
+	<xs:element name="statechart" substitutionGroup="core:topLevelElement" type="Statechart" />
+
+	<xs:complexType name="Statechart">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="state" type="PseudoState"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="transition" type="Transition"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ext" type="core:Extension"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+
+	<xs:simpleType name="StateType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="initial"/>
+			<xs:enumeration value="state"/>
+			<xs:enumeration value="final"/>
+		</xs:restriction>
+	</xs:simpleType>	
+
+	<xs:complexType name="PseudoState">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ext" type="core:Extension"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+		
+	<xs:complexType name="InitialState">
+		<xs:complexContent>
+			<xs:extension base="PseudoState">
+				<xs:sequence>
+				</xs:sequence>
+				<xs:attribute name="type" type="StateType" fixed="initial" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+		
+	<xs:complexType name="FinalState">
+		<xs:complexContent>
+			<xs:extension base="PseudoState">
+				<xs:sequence>
+				</xs:sequence>
+				<xs:attribute name="type" type="StateType" fixed="final" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+		
+	<xs:complexType name="State">
+		<xs:complexContent>
+			<xs:extension base="PseudoState">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="entry" type="Behavior"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="exit" type="Behavior"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="StateType" fixed="state" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+		
+	<xs:complexType name="Transition">
+		<xs:sequence>
+			<xs:element ecore:reference="PseudoState" name="from" type="xs:IDREF"/>
+			<xs:element ecore:reference="PseudoState" name="to" type="xs:IDREF"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="constraint" type="Constraint"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ext" type="core:Extension"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID" use="required"/>
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+
+	<xs:complexType name="Constraint">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ext" type="core:Extension"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="Behavior">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ext" type="core:Extension"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID" use="required"/>
+	</xs:complexType>
+	
+</xs:schema>
