@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.archstudio.org/xadl3/schemas/statechart-1.0.xsd"
+            class="org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package">
+      </package>
+   </extension>
+   <extension
+         point="org.archstudio.dblgen.processedSchema">
+      <Schema
+            file="model/statechart-1.0.xsd"
+            nsURI="http://www.archstudio.org/xadl3/schemas/statechart-1.0.xsd">
+      </Schema>
+   </extension>
+
+</plugin>

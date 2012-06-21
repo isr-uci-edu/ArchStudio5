@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio - Statechart
+Bundle-SymbolicName: org.archstudio.archipelago.statechart.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: archstudio.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.archstudio.archipelago;bundle-version="1.0.0",
+ org.archstudio.archipelago.core;bundle-version="5.0.0",
+ org.archstudio.myx.fw;bundle-version="5.0.0",
+ org.archstudio.eclipse.core;bundle-version="1.0.0",
+ org.eclipse.jface;bundle-version="3.7.0",
+ org.archstudio.xarchadt;bundle-version="5.0.0",
+ org.archstudio.filemanager;bundle-version="5.0.0",
+ com.google.guava;bundle-version="12.0.0",
+ org.archstudio.xadl;bundle-version="5.0.0",
+ org.archstudio.bna;bundle-version="5.0.0",
+ org.archstudio.utils.system;bundle-version="5.0.0",
+ org.archstudio.xadl3.statechart;bundle-version="1.0.0",
+ org.archstudio.xadl.bna;bundle-version="1.0.0",
+ org.archstudio.utils.swt;bundle-version="5.0.0",
+ org.eclipse.ui;bundle-version="3.7.0",
+ org.archstudio.eclipse.ui;bundle-version="5.0.0",
+ org.archstudio.launcher;bundle-version="5.0.0",
+ org.archstudio.resources;bundle-version="5.0.0",
+ org.jogamp.jogl;bundle-version="2.0.0"
