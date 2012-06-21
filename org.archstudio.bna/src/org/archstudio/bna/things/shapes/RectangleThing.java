@@ -102,14 +102,4 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 	public void setLineWidth(int lineWidth) {
 		set(LINE_WIDTH_KEY, lineWidth);
 	}
-
-	@Override
-	public Dimension getCornerSize() {
-		return get(CORNER_SIZE_KEY);
-	}
-
-	@Override
-	public void setCornerSize(Dimension dimension) {
-		set(CORNER_SIZE_KEY, dimension);
-	}
 }
