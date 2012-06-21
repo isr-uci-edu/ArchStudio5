@@ -15,6 +15,7 @@ import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
@@ -29,7 +30,7 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
-		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
+		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		Point p1 = new Point(lbb.x, lbb.y);
 		Point p2 = new Point(lbb.x + lbb.width, lbb.y + lbb.height);
 		Dimension corner = t.getCornerSize();

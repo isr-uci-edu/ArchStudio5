@@ -1,9 +1,11 @@
 package org.archstudio.bna.things;
 
 import java.awt.Dimension;
+import java.awt.Insets;
 
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
+import org.archstudio.bna.facets.IHasMutableLocalInsets;
 import org.archstudio.bna.facets.IHasMutableMinimumSize;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
@@ -12,7 +14,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractEllipseThing extends AbstractRelativeMovableReferencePointThing implements
-		IHasMutableBoundingBox, IHasMutableMinimumSize, IRelativeMovable, IIsSticky {
+		IHasMutableBoundingBox, IHasMutableMinimumSize, IRelativeMovable, IIsSticky, IHasMutableLocalInsets {
 
 	public AbstractEllipseThing(Object id) {
 		super(id);
@@ -80,4 +82,15 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 		// TODO: fix this
 		return new Point(r.x + r.width / 2, r.y + r.height / 2);
 	}
+	
+	@Override
+	public Insets getLocalInsets() {
+		return get(LOCAL_INSETS_KEY);
+	}
+
+	@Override
+	public void setLocalInsets(Insets insets) {
+		set(LOCAL_INSETS_KEY, insets);
+	}
+	
 }
