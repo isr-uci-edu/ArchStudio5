@@ -10,7 +10,6 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
-import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -116,9 +115,9 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 			Iterable<Object> selectedThingIDs = valuesLogic.getThingIDs(IHasSelected.SELECTED_KEY, Boolean.TRUE);
 			if (Iterables.size(selectedThingIDs) == 1) {
 				selectedThing = firstOrNull(model.getThingsByID(selectedThingIDs), reshapingThingClass);
-				if(selectedThing != null && !UserEditableUtils.isEditableForAllQualities(selectedThing, IHasMutableSize.USER_MAY_RESIZE)){
-					selectedThing = null;
-				}
+				//if(selectedThing != null && !UserEditableUtils.isEditableForAllQualities(selectedThing, IHasMutableSize.USER_MAY_RESIZE)){
+				//	selectedThing = null;
+				//}
 			}
 			if (selectedThing == null || selectedThing != reshapingThing) {
 				untrack();

@@ -2,8 +2,11 @@ package org.archstudio.bna.things;
 
 import java.awt.Dimension;
 
+import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableRoundedCorners;
+import org.archstudio.bna.utils.BNAUtils;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractRoundedRectangleThing extends AbstractRectangleThing implements IHasMutableRoundedCorners {
@@ -33,6 +36,21 @@ public abstract class AbstractRoundedRectangleThing extends AbstractRectangleThi
 	@Override
 	public void setCornerSize(Dimension dimension) {
 		set(CORNER_SIZE_KEY, dimension);
+	}
+
+	@Override
+	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
+		Rectangle bb = getBoundingBox();
+		switch (stickyMode) {
+		case CENTER:
+			return new Point(bb.x + bb.width / 2, bb.y + bb.height / 2);
+		case EDGE:
+			return BNAUtils.getClosestPointOnRectangle(bb, getCornerSize(), nearPoint);
+		case EDGE_FROM_CENTER:
+			return BNAUtils.getClosestPointOnRectangle(bb, getCornerSize(), nearPoint, new Point(bb.x + bb.width
+					/ 2, bb.y + bb.height / 2));
+		}
+		throw new IllegalArgumentException(stickyMode.name());
 	}
 
 }

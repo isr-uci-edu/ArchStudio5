@@ -33,6 +33,7 @@ import org.archstudio.bna.logics.coordinating.OrientDirectionalLabelLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.coordinating.WorldThingExternalEventsLogic;
 import org.archstudio.bna.logics.coordinating.WorldThingInternalEventsLogic;
+import org.archstudio.bna.things.glass.CurvedSplineGlassThing;
 import org.archstudio.bna.things.glass.EllipseGlassThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.glass.PolygonGlassThing;
@@ -41,6 +42,7 @@ import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.things.glass.SplineGlassThing;
 import org.archstudio.bna.things.labels.BoundedLabelThing;
 import org.archstudio.bna.things.labels.DirectionalLabelThing;
+import org.archstudio.bna.things.shapes.CurvedSplineThing;
 import org.archstudio.bna.things.shapes.EllipseThing;
 import org.archstudio.bna.things.shapes.PolygonThing;
 import org.archstudio.bna.things.shapes.RectangleThing;
@@ -184,6 +186,26 @@ public class Assemblies {
 			removeRootAndParts(model, part);
 		}
 		model.removeThing(root);
+	}
+
+	public static CurvedSplineGlassThing createCurvedSpline(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
+		checkNotNull(world);
+
+		IBNAModel model = world.getBNAModel();
+
+		CurvedSplineThing bkg = model.addThing(new CurvedSplineThing(null),
+				parent != null ? parent : getLayer(model, SPLINE_LAYER_THING_ID));
+		CurvedSplineGlassThing glass = model.addThing(new CurvedSplineGlassThing(id), bkg);
+
+		markPart(glass, BACKGROUND_KEY, bkg);
+
+		IThingLogicManager tlm = world.getThingLogicManager();
+		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
+
+		mvl.mirrorValue(glass, IHasEndpoints.ENDPOINT_1_KEY, bkg);
+		mvl.mirrorValue(glass, IHasEndpoints.ENDPOINT_2_KEY, bkg);
+
+		return glass;
 	}
 
 	public static EllipseGlassThing createEllipse(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
