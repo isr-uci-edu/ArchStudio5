@@ -287,7 +287,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 			ICoordinateMapper cm = bnaView.getCoordinateMapper();
 			for (IThing thingToRender : bnaModel.getAllThings()) {
 				//gl.glPushMatrix();
-				//gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT);
+				gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT);
 				try {
 					IThingPeer<?> peer = bnaView.getThingPeer(thingToRender);
 					peer.draw(bnaView, cm, gl, clip, resources);
@@ -296,7 +296,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 					e.printStackTrace();
 				}
 				finally {
-					//gl.glPopAttrib();
+					gl.glPopAttrib();
 					//gl.glPopMatrix();
 				}
 			}
