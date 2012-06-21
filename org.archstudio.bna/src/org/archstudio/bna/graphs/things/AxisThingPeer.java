@@ -26,6 +26,7 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 		Point canvasSize = r.getComposite().getSize();
 		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) & r.setLineStyle(t)) {
 			TextRenderer tr = r.getTextRenderer(r.getFont(t));
+			r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY, tr);
 			Rectangle wbb = t.getBoundingBox();
 			Rectangle lbb = cm.worldToLocal(wbb);
 			int wUnit = t.getUnit();

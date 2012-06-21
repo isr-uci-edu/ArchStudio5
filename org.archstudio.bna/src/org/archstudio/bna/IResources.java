@@ -23,7 +23,11 @@ public interface IResources {
 
 	public boolean setColor(IThing thing, IThingKey<RGB> colorKey);
 
+	public boolean setColor(IThing thing, IThingKey<RGB> colorKey, TextRenderer tr);
+
 	public void setColor(RGB color, float alpha);
+
+	public void setColor(RGB color, float alpha, TextRenderer tr);
 
 	public boolean setLineStyle(IHasLineData thing);
 
@@ -34,4 +38,5 @@ public interface IResources {
 	public void destroy();
 
 	public TextRenderer getTextRenderer(Font f);
+
 }
