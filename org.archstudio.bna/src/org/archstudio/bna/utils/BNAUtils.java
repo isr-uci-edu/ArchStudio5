@@ -277,8 +277,8 @@ public class BNAUtils {
 
 	public static Point[] toPointArray(int[] points) {
 		Point[] pa = new Point[points.length / 2];
-		for (int i = 0; i < points.length; i++) {
-			pa[i] = new Point(points[i / 2], points[i / 2 + 1]);
+		for (int i = 0; i < points.length; i += 2) {
+			pa[i / 2] = new Point(points[i], points[i + 1]);
 		}
 		return pa;
 	}

@@ -3,13 +3,14 @@ package org.archstudio.bna.things.labels;
 import org.archstudio.bna.constants.ArrowheadShape;
 import org.archstudio.bna.facets.IHasMutableArrowhead;
 import org.archstudio.bna.facets.IHasMutableColor;
+import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableSecondaryAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.things.AbstractAnchorPointThing;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 
-public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMutableColor, IHasMutableSecondaryColor,
+public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMutableColor, IHasMutableSecondaryColor, IHasMutableEdgeColor,
 		IHasMutableArrowhead, IHasMutableSecondaryAnchorPoint {
 
 	public ArrowheadThing(Object id) {
@@ -19,10 +20,11 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setArrowheadShape(ArrowheadShape.NONE);
+		setArrowheadShape(ArrowheadShape.TRIANGLE);
 		setArrowheadSize(5);
-		setColor(new RGB(0, 0, 0));
+		setColor(new RGB(128, 128, 128));
 		setSecondaryColor(new RGB(0, 0, 0));
+		setEdgeColor(new RGB(0, 0, 0));
 		setSecondaryAnchorPoint(new Point(0, 0));
 	}
 
@@ -54,6 +56,16 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 	@Override
 	public RGB getSecondaryColor() {
 		return get(SECONDARY_COLOR_KEY);
+	}
+
+	@Override
+	public void setEdgeColor(RGB c) {
+		set(EDGE_COLOR_KEY, c);
+	}
+
+	@Override
+	public RGB getEdgeColor() {
+		return get(EDGE_COLOR_KEY);
 	}
 
 	@Override
