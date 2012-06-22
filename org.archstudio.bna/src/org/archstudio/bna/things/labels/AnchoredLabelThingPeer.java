@@ -5,6 +5,7 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
@@ -60,8 +61,32 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 
 			TextRenderer tr = r.getTextRenderer(font);
 			Point canvasSize = view.getComposite().getSize();
+			Rectangle2D size = tr.getBounds(t.getText());
+
 			int textX = lap.x;
+			switch (t.getHorizontalAlignment()) {
+			case LEFT:
+				//textX += offset * cm.getLocalScale();
+				break;
+			case CENTER:
+				textX -= size.getWidth() / 2;
+				break;
+			case RIGHT:
+				textX -= size.getWidth();
+				//textX -= offset * cm.getLocalScale();
+				break;
+			}
 			int textY = lap.y;
+			switch (t.getVerticalAlignment()) {
+			case TOP:
+				break;
+			case MIDDLE:
+				textY -= size.getHeight() / 2;
+				break;
+			case BOTTOM:
+				textY -= size.getHeight();
+				break;
+			}
 			lastTextLocalShape = tr.getBounds(text);
 			Rectangle textBounds = BNAUtils.toRectangle(tr.getBounds(text));
 
@@ -95,7 +120,7 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 			gl.glMatrixMode(GL2.GL_MODELVIEW);
 			gl.glTranslated(textX, canvasSize.y - textY, 0);
 			gl.glRotated(-angle, 0, 0, 1);
-			r.setColor(t, IHasColor.COLOR_KEY);
+			r.setColor(t, IHasColor.COLOR_KEY, tr);
 			tr.draw(text, 0, 0);
 			tr.endRendering();
 			gl.glPopMatrix();
