@@ -574,4 +574,18 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="org.archstudio.archipelago.statechart.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.xadl3.statechart"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
