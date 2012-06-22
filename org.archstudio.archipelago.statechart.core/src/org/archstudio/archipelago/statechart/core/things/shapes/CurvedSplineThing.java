@@ -1,10 +1,10 @@
-package org.archstudio.bna.things.shapes;
+package org.archstudio.archipelago.statechart.core.things.shapes;
 
+import org.archstudio.archipelago.statechart.core.things.AbstractCurvedSplineThing;
 import org.archstudio.bna.facets.IHasLineData;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableLineStyle;
 import org.archstudio.bna.facets.IHasMutableLineWidth;
-import org.archstudio.bna.things.AbstractCurvedSplineThing;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 

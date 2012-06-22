@@ -1,10 +1,11 @@
-package org.archstudio.bna.things;
+package org.archstudio.archipelago.statechart.core.things;
 
 import java.awt.geom.QuadCurve2D;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 
