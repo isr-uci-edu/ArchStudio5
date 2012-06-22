@@ -79,16 +79,24 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 	@Override
 	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Rectangle r = getBoundingBox();
-		double cx = r.x + r.width / 2d;
-		double cy = r.y + r.height / 2d;
-		double dx = cx - nearPoint.x;
-		double dy = cy - nearPoint.y;
-		double h = Math.sqrt(dx * dx + dy * dy);
-		double angle = Math.asin(dx / h);
-		if (dy < 0)
-			angle = Math.PI - angle;
-		return new Point(BNAUtils.round(cx + -Math.sin(angle) * r.width / 2d),
-				BNAUtils.round(cy + -Math.cos(angle) * r.height / 2d));
+		switch(stickyMode){
+		case EDGE:
+		case EDGE_FROM_CENTER:{
+			double cx = r.x + r.width / 2d;
+			double cy = r.y + r.height / 2d;
+			double dx = cx - nearPoint.x;
+			double dy = cy - nearPoint.y;
+			double h = Math.sqrt(dx * dx + dy * dy);
+			double angle = Math.asin(dx / h);
+			if (dy < 0)
+				angle = Math.PI - angle;
+			return new Point(BNAUtils.round(cx + -Math.sin(angle) * r.width / 2d),
+					BNAUtils.round(cy + -Math.cos(angle) * r.height / 2d));
+		}
+		case CENTER:
+			return new Point(r.x + r.width / 2, r.y + r.height / 2);
+		}
+		throw new IllegalArgumentException();
 	}
 
 	@Override

@@ -14,8 +14,15 @@ import org.archstudio.archipelago.core.IArchipelagoTreeContentProvider;
 import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
 import org.archstudio.archipelago.core.IArchipelagoTreeDoubleClickHandler;
 import org.archstudio.archipelago.core.IArchipelagoTreeNodeDataCache;
+import org.archstudio.archipelago.statechart.core.logics.MapFinalStateLogic;
+import org.archstudio.archipelago.statechart.core.logics.MapInitialStateLogic;
+import org.archstudio.archipelago.statechart.core.logics.MapStateLogic;
+import org.archstudio.archipelago.statechart.core.logics.MapTransitionLogic;
+import org.archstudio.archipelago.statechart.core.logics.NewElementLogic;
+import org.archstudio.archipelago.statechart.core.logics.StatechartDropLogic;
 import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.IBNAModel;
+import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IMutableCoordinateMapper;
@@ -75,6 +82,9 @@ import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DragSourceAdapter;
+import org.eclipse.swt.dnd.DragSourceEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Image;
@@ -92,8 +102,10 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 	private final EClass ELEMENT_TYPE = Statechart_1_0Package.Literals.STATECHART;
 	private final String FOLDER_NODE_TYPE = this.getClass().getName();
 	private final String XADL_FEATURE_NAME = "topLevelElement";
+	private final EClass DND_SOURCE = Statechart_1_0Package.Literals.STATECHART;
+	private final EClass DND_TARGET = Statechart_1_0Package.Literals.STATECHART;
 
-	public StatechartTreePlugin(final TreeViewer viewer, final Services AS, ObjRef documentRootRef) {
+	public StatechartTreePlugin(final TreeViewer viewer, final Services AS, final ObjRef documentRootRef) {
 		final IXArchADT xarch = AS.get(IXArchADT.class);
 
 		this.contentProvider = new IArchipelagoTreeContentProvider() {
@@ -285,6 +297,35 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				}
 			}
 		};
+
+		this.dragSourceListener = new DragSourceAdapter() {
+			@Override
+			public void dragStart(DragSourceEvent event) {
+				if (event.data != null && event.data instanceof ObjRef) {
+					if (XadlUtils.isInstanceOf(xarch, (ObjRef) event.data, DND_SOURCE)) {
+						//For dropping statecharts on states; only allow if we're editing a statechart.
+						BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(editor);
+						IBNAView view = bnaCanvas.getBNAView();
+						if (bnaCanvas != null) {
+							IBNAModel m = view.getBNAWorld().getBNAModel();
+							if (m != null) {
+								EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
+								String editingXArchID = ept.get(ArchipelagoUtils.XARCH_ID_KEY);
+								if (editingXArchID != null) {
+									ObjRef editingRef = xarch.getByID(documentRootRef, editingXArchID);
+									if (editingRef != null) {
+										if (XadlUtils.isInstanceOf(xarch, editingRef, DND_TARGET)) {
+											event.doit = true;
+											event.detail = DND.DROP_LINK;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		};
 	}
 
 	protected void setupEditor(Services services, IXArchADT xarch, ObjRef structureRef) {
@@ -350,9 +391,24 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 	}
 
-	private IBNAWorld setupEditor(Services services, IXArchADT xarch, ObjRef documentRootRef, ObjRef structureRef) {
+	public static IBNAWorld setupEditor(Services services, IXArchADT xarch, ObjRef documentRootRef, ObjRef structureRef) {
+
+		// this cache is important for handling recursive worlds
+		if (services.has(IArchipelagoTreeNodeDataCache.class)) {
+			IBNAWorld bnaWorld = (IBNAWorld) services.get(IArchipelagoTreeNodeDataCache.class).getData(documentRootRef,
+					structureRef, "statecharts");
+			if (bnaWorld != null)
+				return bnaWorld;
+		}
+
 		IBNAModel bnaModel = new DefaultBNAModel();
 		IBNAWorld bnaWorld = new DefaultBNAWorld("", bnaModel);
+
+		if (services.has(IArchipelagoTreeNodeDataCache.class)) {
+			services.get(IArchipelagoTreeNodeDataCache.class).setData(documentRootRef, structureRef, "statecharts",
+					bnaWorld);
+		}
+		
 		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
 
 		logicManager.addThingLogic(new SynchronizeHintsLogic(new XadlHintRepository(xarch)));
@@ -379,7 +435,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		logicManager.addThingLogic(RotatingOffsetLogic.class);
 		logicManager.addThingLogic(SplineBreakLogic.class);
 		logicManager.addThingLogic(StandardCursorLogic.class);
-		//logicManager.addThingLogic(StructureDropLogic(services, documentRootRef));
+		logicManager.addThingLogic(new StatechartDropLogic(services, documentRootRef));
 		logicManager.addThingLogic(ToolTipLogic.class);
 
 		// menu logics -- order dictates menu order

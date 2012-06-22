@@ -282,7 +282,9 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 			gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 
 			redrawPending = false;
-			Rectangle clip = new Rectangle(evt.x, evt.y, evt.width, evt.height);
+			// clip from evt doesn't seem to work consistently
+			// instead always using entire bounds
+			Rectangle clip = new Rectangle(0, 0, bounds.width, bounds.height);
 			IBNAView bnaView = getBNAView();
 			ICoordinateMapper cm = bnaView.getCoordinateMapper();
 			for (IThing thingToRender : bnaModel.getAllThings()) {

@@ -1,4 +1,4 @@
-package org.archstudio.archipelago.statechart.core;
+package org.archstudio.archipelago.statechart.core.logics;
 
 import java.util.List;
 

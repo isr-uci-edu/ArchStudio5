@@ -69,12 +69,20 @@
 				<xs:sequence>
 					<xs:element maxOccurs="unbounded" minOccurs="0" name="entry" type="Behavior"/>
 					<xs:element maxOccurs="unbounded" minOccurs="0" name="exit" type="Behavior"/>
+					<xs:element maxOccurs="1" minOccurs="0" name="subStatechart" type="SubStatechart"/>
 				</xs:sequence>
 				<xs:attribute name="type" type="StateType" fixed="state" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-		
+	
+	<xs:complexType name="SubStatechart">
+		<xs:sequence>
+			<xs:element name="innerStatechart" type="xs:IDREF" ecore:reference="Statechart" />
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID" use="required"/>
+	</xs:complexType>
+	
 	<xs:complexType name="Transition">
 		<xs:sequence>
 			<xs:element ecore:reference="PseudoState" name="from" type="xs:IDREF"/>

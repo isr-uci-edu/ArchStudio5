@@ -39,7 +39,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 	/*
 	 * Records where each model is being rendered. If we discover that we are
 	 * trying to render a model in the same size and location, then we would
-	 * recurse rendering that model forever. So, instead we cut is off when we
+	 * recurse rendering that model forever. So, instead we cut it off when we
 	 * hit that situation.
 	 */
 	static Multimap<IBNAModel, Rectangle> modelsBeingRendered = HashMultimap.create();
@@ -64,7 +64,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		if (ticker == null) {
 			ticker = Integer.valueOf(0);
 		}
-		//t.set(COORDINATE_MAPPER_CHANGE_TICKER, ticker + 1);
+		t.set(COORDINATE_MAPPER_CHANGE_TICKER, ticker + 1);
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		}
 		IBNAModel model = innerWorld.getBNAModel();
 		try {
-			if (!modelsBeingRendered.put(model, lbb))
+			if (!modelsBeingRendered.put(model, lbb) || modelsBeingRendered.size() > 50)
 				return;
 
 			ModelBoundsTrackingLogic mbtl = innerWorld.getThingLogicManager().addThingLogic(

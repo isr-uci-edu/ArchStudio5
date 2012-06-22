@@ -21,7 +21,7 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 	protected void initProperties() {
 		super.initProperties();
 		setArrowheadShape(ArrowheadShape.TRIANGLE);
-		setArrowheadSize(5);
+		setArrowheadSize(20);
 		setColor(new RGB(128, 128, 128));
 		setSecondaryColor(new RGB(0, 0, 0));
 		setEdgeColor(new RGB(0, 0, 0));

@@ -32,8 +32,8 @@ public abstract class AbstractCurvedSplineThingPeer<T extends AbstractCurvedSpli
 			angle = Math.PI - angle;
 		Point m = new Point((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
 		double l = t.getValue();
-		double cx = m.x + Math.cos(-angle) * l;
-		double cy = m.y + Math.sin(-angle) * l;
+		double cx = m.x + Math.cos(angle) * l;
+		double cy = m.y + Math.sin(angle) * l;
 		return new Point(BNAUtils.round(cx), BNAUtils.round(cy));
 	}
 
