@@ -17,7 +17,7 @@ public abstract class AbstractCurvedSplineThingPeer<T extends AbstractCurvedSpli
 	protected static QuadCurve2D getShape(IBNAView view, ICoordinateMapper cm, AbstractCurvedSplineThing t) {
 		Point p1 = cm.worldToLocal(t.getEndpoint1());
 		Point p2 = cm.worldToLocal(t.getEndpoint2());
-		Point c = getCurvedPoint(t);
+		Point c = cm.worldToLocal(getCurvedPoint(t));
 		return new QuadCurve2D.Double(p1.x, p1.y, c.x, c.y, p2.x, p2.y);
 	}
 
@@ -28,7 +28,7 @@ public abstract class AbstractCurvedSplineThingPeer<T extends AbstractCurvedSpli
 		double dy = p2.y - p1.y;
 		double h = Math.sqrt(dx * dx + dy * dy);
 		double angle = Math.asin(dx / h);
-		if(dy < 0)
+		if (dy < 0)
 			angle = Math.PI - angle;
 		Point m = new Point((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
 		double l = t.getValue();
