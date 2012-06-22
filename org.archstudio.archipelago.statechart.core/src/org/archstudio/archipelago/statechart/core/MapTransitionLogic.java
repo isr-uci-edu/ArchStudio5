@@ -10,8 +10,10 @@ import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IRelativeMovable;
+import org.archstudio.bna.logics.coordinating.ArrowheadLogic;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.things.glass.CurvedSplineGlassThing;
+import org.archstudio.bna.things.labels.ArrowheadThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -26,6 +28,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 
 	SynchronizeThingIDAndObjRefLogic syncLogic = null;
 	DynamicStickPointLogic stickLogic = null;
+	ArrowheadLogic arrowheadLogic = null;
 
 	public MapTransitionLogic(IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
 		super(xarch, rootObjRef, objRefPath);
@@ -37,6 +40,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 
 		syncLogic = addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
 		stickLogic = addThingLogic(DynamicStickPointLogic.class);
+		arrowheadLogic = addThingLogic(ArrowheadLogic.class);
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), Assemblies.TEXT_KEY, true);
@@ -64,6 +68,9 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 		thing.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), StickyMode.EDGE_FROM_CENTER);
 		thing.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY), StickyMode.EDGE_FROM_CENTER);
 
+		ArrowheadThing arrowheadThing = getBNAWorld().getBNAModel().addThing(new ArrowheadThing(null), thing);
+		arrowheadLogic.point(arrowheadThing, thing, IHasEndpoints.ENDPOINT_1_KEY);
+		
 		return thing;
 	}
 }

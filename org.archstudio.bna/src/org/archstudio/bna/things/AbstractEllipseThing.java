@@ -79,10 +79,18 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 	@Override
 	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Rectangle r = getBoundingBox();
-		// TODO: fix this
-		return new Point(r.x + r.width / 2, r.y + r.height / 2);
+		double cx = r.x + r.width / 2d;
+		double cy = r.y + r.height / 2d;
+		double dx = cx - nearPoint.x;
+		double dy = cy - nearPoint.y;
+		double h = Math.sqrt(dx * dx + dy * dy);
+		double angle = Math.asin(dx / h);
+		if (dy < 0)
+			angle = Math.PI - angle;
+		return new Point(BNAUtils.round(cx + -Math.sin(angle) * r.width / 2d),
+				BNAUtils.round(cy + -Math.cos(angle) * r.height / 2d));
 	}
-	
+
 	@Override
 	public Insets getLocalInsets() {
 		return get(LOCAL_INSETS_KEY);
@@ -92,5 +100,5 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 	public void setLocalInsets(Insets insets) {
 		set(LOCAL_INSETS_KEY, insets);
 	}
-	
+
 }
