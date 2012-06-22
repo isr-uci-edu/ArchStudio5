@@ -73,6 +73,8 @@
 		<echo>Resolving the cquery...</echo>
 		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
 			<arg value="resolve" />
+			<arg value="-P" />
+			<arg value="${basedir}/defaults/buckminster.properties" />
 			<arg value="${resolve.url}" />
 			<syspropertyset>
 				<propertyref builtin="commandline" />
@@ -82,6 +84,8 @@
 		<!-- A workaround for http://www.eclipse.org/forums/index.php/t/261503/ -->
 		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
 			<arg value="resolve" />
+			<arg value="-P" />
+			<arg value="${basedir}/defaults/buckminster.properties" />
 			<arg value="${resolve.url}" />
 			<syspropertyset>
 				<propertyref builtin="commandline" />
@@ -109,9 +113,8 @@
 			<arg value="build" />
 			<arg value="-c" />
 			<arg value="-t" />
-			<arg value="-Dtarget.os=*" />
-			<arg value="-Dtarget.ws=*" />
-			<arg value="-Dtarget.arch=*" />
+			<arg value="-P" />
+			<arg value="${basedir}/defaults/buckminster.properties" />
 			<syspropertyset>
 				<propertyref builtin="commandline" />
 				<propertyref prefix="buckminster.output" />
