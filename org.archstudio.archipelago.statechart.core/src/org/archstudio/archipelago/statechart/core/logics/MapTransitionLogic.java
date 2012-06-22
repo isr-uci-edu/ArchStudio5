@@ -3,6 +3,8 @@ package org.archstudio.archipelago.statechart.core.logics;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.archipelago.statechart.core.things.glass.CurvedSplineGlassThing;
+import org.archstudio.archipelago.statechart.core.utils.StatechartAssemblies;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasEndpoints;
@@ -16,13 +18,12 @@ import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.logics.coordinating.ArrowheadLogic;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
-import org.archstudio.bna.things.glass.CurvedSplineGlassThing;
 import org.archstudio.bna.things.labels.AnchoredLabelThing;
 import org.archstudio.bna.things.labels.ArrowheadThing;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.Assemblies.ThingAssemblyKey;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.bna.utils.UserEditableUtils;
-import org.archstudio.bna.utils.Assemblies.ThingAssemblyKey;
 import org.archstudio.xadl.bna.logics.mapping.AbstractXADLToBNAPathLogic;
 import org.archstudio.xadl.bna.logics.mapping.SynchronizeThingIDAndObjRefLogic;
 import org.archstudio.xadl.bna.things.IHasXArchID;
@@ -65,7 +66,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 	@Override
 	protected CurvedSplineGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
-		CurvedSplineGlassThing thing = Assemblies.createCurvedSpline(getBNAWorld(), null, null);
+		CurvedSplineGlassThing thing = StatechartAssemblies.createCurvedSpline(getBNAWorld(), null, null);
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
 		thing.setPoint(0, new Point(newPointSpot.x - 50, newPointSpot.y + 50));
 		thing.setPoint(-1, new Point(newPointSpot.x + 50, newPointSpot.y - 50));

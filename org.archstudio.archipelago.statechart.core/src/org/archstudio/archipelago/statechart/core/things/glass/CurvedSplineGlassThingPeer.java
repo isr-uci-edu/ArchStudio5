@@ -1,4 +1,4 @@
-package org.archstudio.bna.things.glass;
+package org.archstudio.archipelago.statechart.core.things.glass;
 
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -6,11 +6,11 @@ import java.awt.geom.PathIterator;
 
 import javax.media.opengl.GL2;
 
+import org.archstudio.archipelago.statechart.core.things.AbstractCurvedSplineThingPeer;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.facets.IHasSelected;
-import org.archstudio.bna.things.AbstractCurvedSplineThingPeer;
 import org.eclipse.swt.graphics.Rectangle;
 
 public class CurvedSplineGlassThingPeer<T extends CurvedSplineGlassThing> extends AbstractCurvedSplineThingPeer<T> {
