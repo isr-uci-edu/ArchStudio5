@@ -16,6 +16,7 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasEndpoints;
+import org.archstudio.bna.facets.IHasInternalWorldEndpoint;
 import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasMutableWorld;
@@ -35,6 +36,7 @@ import org.archstudio.bna.logics.coordinating.WorldThingExternalEventsLogic;
 import org.archstudio.bna.logics.coordinating.WorldThingInternalEventsLogic;
 import org.archstudio.bna.things.glass.EllipseGlassThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
+import org.archstudio.bna.things.glass.MappingGlassThing;
 import org.archstudio.bna.things.glass.PolygonGlassThing;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
@@ -42,6 +44,7 @@ import org.archstudio.bna.things.glass.SplineGlassThing;
 import org.archstudio.bna.things.labels.BoundedLabelThing;
 import org.archstudio.bna.things.labels.DirectionalLabelThing;
 import org.archstudio.bna.things.shapes.EllipseThing;
+import org.archstudio.bna.things.shapes.MappingThing;
 import org.archstudio.bna.things.shapes.PolygonThing;
 import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.ReshapeHandleThing;
@@ -228,6 +231,7 @@ public class Assemblies {
 		return glass;
 	}
 
+	//TODO: change this to addWorldThing(...)
 	public static RectangleGlassThing createRectangleWithWorld(IBNAWorld world, @Nullable Object id,
 			@Nullable IThing parent) {
 		RectangleGlassThing glass = createRectangle(world, id, parent);
@@ -267,64 +271,6 @@ public class Assemblies {
 
 		return glass;
 	}
-
-	//private static final Function<Orientation, Integer> orientationToAngleFn = new Function<Orientation, Integer>() {
-	//	@Override
-	//	public Integer apply(Orientation input) {
-	//		switch (input) {
-	//
-	//		case NORTHWEST:
-	//		case SOUTHEAST:
-	//			return 45;
-	//
-	//		case EAST:
-	//		case WEST:
-	//			return 0;
-	//
-	//		case NORTHEAST:
-	//		case SOUTHWEST:
-	//			return -45;
-	//
-	//		case NORTH:
-	//		case SOUTH:
-	//			return -90;
-	//
-	//		default:
-	//			return 0;
-	//		}
-	//	}
-	//};
-	//
-	//private static final Function<Orientation, HorizontalAlignment> orientationToHorizontalAlignmentFn = new Function<Orientation, HorizontalAlignment>() {
-	//	@Override
-	//	public HorizontalAlignment apply(Orientation input) {
-	//		switch (input) {
-	//
-	//		case SOUTHEAST:
-	//		case EAST:
-	//		case NORTHEAST:
-	//		case NORTH:
-	//			return HorizontalAlignment.RIGHT;
-	//
-	//		case NORTHWEST:
-	//		case WEST:
-	//		case SOUTHWEST:
-	//		case SOUTH:
-	//			return HorizontalAlignment.LEFT;
-	//
-	//		default:
-	//			return HorizontalAlignment.CENTER;
-	//		}
-	//	}
-	//};
-	//
-	//private static final Function<Dimension, Integer> sizeToOffsetFn = new Function<Dimension, Integer>() {
-	//	@Override
-	//	public Integer apply(Dimension input) {
-	//		//return (int) Math.ceil(Math.sqrt(input.width * input.width / 4 + input.height * input.height / 4));
-	//		return Math.max(input.width, input.height);
-	//	}
-	//};
 
 	public static EndpointGlassThing createEndpoint(IBNAWorld world, @Nullable Object id, @Nullable IIsSticky parent) {
 		checkNotNull(world);
@@ -384,6 +330,27 @@ public class Assemblies {
 		mvl.mirrorValue(glass, IHasEndpoints.ENDPOINT_1_KEY, bkg);
 		mvl.mirrorValue(glass, IHasMidpoints.MIDPOINTS_KEY, bkg);
 		mvl.mirrorValue(glass, IHasEndpoints.ENDPOINT_2_KEY, bkg);
+
+		return glass;
+	}
+
+	public static MappingGlassThing createMapping(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
+		checkNotNull(world);
+
+		IBNAModel model = world.getBNAModel();
+
+		MappingThing bkg = model.addThing(new MappingThing(null),
+				parent != null ? parent : getLayer(model, SPLINE_LAYER_THING_ID));
+		MappingGlassThing glass = model.addThing(new MappingGlassThing(id), bkg);
+
+		markPart(glass, BACKGROUND_KEY, bkg);
+
+		IThingLogicManager tlm = world.getThingLogicManager();
+		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
+
+		mvl.mirrorValue(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, bkg);
+		mvl.mirrorValue(glass, IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_KEY, bkg);
+		mvl.mirrorValue(glass, IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY, bkg);
 
 		return glass;
 	}

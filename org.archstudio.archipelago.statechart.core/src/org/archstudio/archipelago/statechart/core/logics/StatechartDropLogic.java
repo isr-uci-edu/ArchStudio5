@@ -12,7 +12,7 @@ import org.archstudio.myx.fw.Services;
 import org.archstudio.swtutils.LocalSelectionTransfer;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
-import org.archstudio.xadl.bna.things.IHasObjRef;
+import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;

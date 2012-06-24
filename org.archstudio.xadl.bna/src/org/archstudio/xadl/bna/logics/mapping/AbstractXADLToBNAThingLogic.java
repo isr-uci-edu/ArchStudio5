@@ -18,7 +18,7 @@ import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.xadl.IXArchRelativePathTrackerListener;
 import org.archstudio.xadl.XArchRelativePathTracker;
-import org.archstudio.xadl.bna.things.IHasObjRef;
+import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;

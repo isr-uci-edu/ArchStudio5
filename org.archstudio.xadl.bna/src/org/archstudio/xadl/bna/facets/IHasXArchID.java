@@ -1,4 +1,4 @@
-package org.archstudio.xadl.bna.things;
+package org.archstudio.xadl.bna.facets;
 
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.keys.ThingKey;

@@ -3,7 +3,7 @@ package org.archstudio.xadl.bna.logics.editing;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.logics.editing.AbstractReshapeSplineGuide;
-import org.archstudio.xadl.bna.things.IHasObjRef;
+import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.emf.ecore.EClass;

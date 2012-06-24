@@ -23,7 +23,7 @@ import org.archstudio.swtutils.DefaultFindResult;
 import org.archstudio.swtutils.IFindResult;
 import org.archstudio.swtutils.IFinder;
 import org.archstudio.xadl.XadlUtils;
-import org.archstudio.xadl.bna.things.IHasObjRef;
+import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;

@@ -55,11 +55,11 @@ import org.archstudio.myx.fw.Services;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl.bna.facets.IHasObjRef;
+import org.archstudio.xadl.bna.facets.IHasXArchID;
 import org.archstudio.xadl.bna.logics.editing.RemoveElementLogic;
 import org.archstudio.xadl.bna.logics.editing.XadlReshapeSplineGuide;
 import org.archstudio.xadl.bna.logics.hints.XadlHintRepository;
-import org.archstudio.xadl.bna.things.IHasObjRef;
-import org.archstudio.xadl.bna.things.IHasXArchID;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFileListener;
@@ -195,6 +195,7 @@ public class StructureEditorSupport {
 
 		logicManager.addThingLogic(new StructureNewElementLogic(xarch, services.get(IResources.class), structureRef));
 		logicManager.addThingLogic(new StructureNewInterfaceLogic(xarch, services.get(IResources.class)));
+		logicManager.addThingLogic(new StructureNewInterfaceMappingLogic(xarch, services.get(IResources.class)));
 		logicManager.addThingLogic(new EditTextLogic());
 		logicManager.addThingLogic(new EditFlowLogic());
 		logicManager.addThingLogic(new StructureAssignMyxGenLogic(xarch));
