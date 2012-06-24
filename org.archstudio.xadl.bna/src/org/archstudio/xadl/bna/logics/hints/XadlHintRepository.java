@@ -15,7 +15,7 @@ import org.archstudio.bna.logics.hints.MasterPropertyCoder;
 import org.archstudio.bna.logics.hints.PropertyDecodeException;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.xadl.XadlUtils;
-import org.archstudio.xadl.bna.things.IHasObjRef;
+import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl3.hints_3_0.Hints_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTModelListener;

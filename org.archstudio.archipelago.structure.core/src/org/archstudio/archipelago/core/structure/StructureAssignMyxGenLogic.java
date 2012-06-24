@@ -17,7 +17,7 @@ import org.archstudio.myxgen.eclipse.extension.MyxGenWorkspaceExtensions;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
-import org.archstudio.xadl.bna.things.IHasObjRef;
+import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl3.domain_3_0.Domain;
 import org.archstudio.xadl3.domain_3_0.DomainExtension;
 import org.archstudio.xadl3.domain_3_0.DomainType;

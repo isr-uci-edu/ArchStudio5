@@ -20,6 +20,7 @@ import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
+import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.facets.IHasAnchorPoint;
@@ -27,6 +28,8 @@ import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasLocalInsets;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IHasSelected;
+import org.archstudio.bna.facets.IHasWorld;
+import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.GridThing;
@@ -1200,20 +1203,16 @@ public class BNAUtils {
 	}
 
 	public static final IBNAView getInternalView(IBNAView outerView, IThing worldThing) {
-		// TODO: internal views
-		throw new UnsupportedOperationException("TODO");
-		//		if (worldThing instanceof IHasWorld) {
-		//			Cache<IThing, ?> worldThingPeer = outerView.getPeerCache(worldThing);
-		//			
-		//			//if (worldThingPeer instanceof WorldThingPeer) {
-		//			//	IBNAView internalView = ((WorldThingPeer) worldThingPeer).getInnerView();
-		//			//	return internalView;
-		//			//}
-		//		}
-		//return null;
+		if (worldThing instanceof IHasWorld) {
+			IThingPeer<?> worldThingPeer = outerView.getThingPeer(worldThing);
+			if (worldThingPeer instanceof IHasInnerViewPeer) {
+				return ((IHasInnerViewPeer) worldThingPeer).getInnerView();
+			}
+		}
+		return null;
 	}
 
-	public static final IBNAView getInternalView(IBNAView outerView, String worldThingID) {
+	public static final IBNAView getInternalView(IBNAView outerView, Object worldThingID) {
 		return getInternalView(outerView, outerView.getBNAWorld().getBNAModel().getThing(worldThingID));
 	}
 

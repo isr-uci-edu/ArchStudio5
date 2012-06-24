@@ -14,7 +14,7 @@ import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKeyKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
-import org.archstudio.xadl.bna.things.IHasXArchID;
+import org.archstudio.xadl.bna.facets.IHasXArchID;
 
 import com.google.common.collect.Sets;
 

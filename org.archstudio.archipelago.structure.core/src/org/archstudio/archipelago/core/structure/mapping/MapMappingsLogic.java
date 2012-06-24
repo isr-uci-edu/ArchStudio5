@@ -4,27 +4,27 @@ import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.bna.constants.StickyMode;
-import org.archstudio.bna.facets.IHasEndpoints;
+import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.ReparentToThingIDLogic;
+import org.archstudio.bna.things.glass.MappingGlassThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.bna.utils.UserEditableUtils;
-import org.archstudio.xadl.bna.XADLAssemblies;
+import org.archstudio.xadl.bna.facets.IHasXArchID;
 import org.archstudio.xadl.bna.logics.mapping.AbstractXADLToBNAPathLogic;
+import org.archstudio.xadl.bna.logics.mapping.MaintainMappingLogic;
 import org.archstudio.xadl.bna.logics.mapping.SynchronizeThingIDAndObjRefLogic;
-import org.archstudio.xadl.bna.things.IHasXArchID;
-import org.archstudio.xadl.bna.things.MappingSplineGlassThing;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Lists;
 
-public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingSplineGlassThing> {
+public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThing> {
 
 	DynamicStickPointLogic stickLogic = null;
 	SynchronizeThingIDAndObjRefLogic syncLogic = null;
@@ -41,33 +41,33 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingSplineGl
 		stickLogic = addThingLogic(DynamicStickPointLogic.class);
 		syncLogic = addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
 		reparentLogic = addThingLogic(ReparentToThingIDLogic.class);
+		// we use this logic to maintain mappings
+		addThingLogic(MaintainMappingLogic.class);
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), Assemblies.TEXT_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, false);
 
 		// take the inner world objRef and interface objRef, set them on the MappingSplineThing
-		setValue(BNAPath.create(), stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY),
-				StickyMode.EDGE_FROM_CENTER);
-		syncValue("innerInterfaceLink", null, null, BNAPath.create(), MappingSplineGlassThing.INTERNAL_THING_OBJREF,
-				true);
-		setAncestorObjRef(BNAPath.create(), MappingSplineGlassThing.WORLD_THING_OBJREF, 1);
+		syncValue("innerInterfaceLink", null, null, BNAPath.create(), MaintainMappingLogic.INTERNAL_OBJREF_KEY, false);
+		setAncestorObjRef(BNAPath.create(),
+				syncLogic.syncObjRefKeyToThingIDKey(MappingGlassThing.INTERNAL_ENDPOINT_WORLD_THING_KEY), 1);
 
 		// take the outer interface objRef, find the thing with that objRef, and stick the anchor point to it
-		setValue(BNAPath.create(), stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY),
-				StickyMode.EDGE_FROM_CENTER);
+		setValue(BNAPath.create(), stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY),
+				StickyMode.CENTER);
 		syncValue("outerInterfaceLink", null, null, BNAPath.create(),
-				syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY)), true);
+				syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasAnchorPoint.ANCHOR_POINT_KEY)),
+				true);
 	}
 
 	@Override
-	protected MappingSplineGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
+	protected MappingGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
-		MappingSplineGlassThing thing = XADLAssemblies.createMapping(getBNAWorld(), null, null);
+		MappingGlassThing thing = Assemblies.createMapping(getBNAWorld(), null, null);
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
-		thing.setEndpoint1(new Point(newPointSpot.x - 50, newPointSpot.y + 50));
-		thing.setEndpoint2(new Point(newPointSpot.x + 50, newPointSpot.y - 50));
-		//Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, 2);
+		thing.setAnchorPoint(new Point(newPointSpot.x - 50, newPointSpot.y + 50));
+		thing.setInternalEndpoint(new Point(newPointSpot.x + 50, newPointSpot.y - 50));
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableText.USER_MAY_EDIT_TEXT,
 				IHasMutableSelected.USER_MAY_SELECT);
