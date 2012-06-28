@@ -82,7 +82,7 @@ public class GraphCoordinateMapper extends AbstractCoordinateMapper implements I
 	}
 
 	@Override
-	public Point worldToLocal(Point2D worldPoint) {
+	public Point2D worldToLocal(Point2D worldPoint) {
 
 		double x = worldPoint.getX();
 		double y = worldPoint.getY();
@@ -105,7 +105,7 @@ public class GraphCoordinateMapper extends AbstractCoordinateMapper implements I
 			break;
 		}
 
-		return new Point(BNAUtils.round(x), BNAUtils.round(y));
+		return new Point2D.Double(x, y);
 	}
 
 	@Override
@@ -133,6 +133,33 @@ public class GraphCoordinateMapper extends AbstractCoordinateMapper implements I
 		}
 
 		return new Point(BNAUtils.round(x), BNAUtils.round(y));
+	}
+
+	@Override
+	public Point2D localToWorld(Point2D localPoint) {
+
+		double x = localPoint.getX();
+		double y = localPoint.getY();
+
+		switch (xAxisType) {
+		case LINEAR:
+			x = (x + localOrigin.x) / localScale;
+			break;
+		case LOGARITHMIC:
+			x = pow((x + localOrigin.x) / localScale / localXAxisLogarithmicScale);
+			break;
+		}
+
+		switch (yAxisType) {
+		case LINEAR:
+			y = (y + localOrigin.y) / localScale;
+			break;
+		case LOGARITHMIC:
+			y = pow((y + localOrigin.y) / localScale / localYAxisLogarithmicScale);
+			break;
+		}
+
+		return new Point2D.Double(x, y);
 	}
 
 	protected double log(double n) {

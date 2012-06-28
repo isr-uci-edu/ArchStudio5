@@ -29,10 +29,10 @@ public class LinearCoordinateMapper extends AbstractCoordinateMapper implements 
 	}
 
 	@Override
-	public Point worldToLocal(Point2D worldPoint) {
-		return new Point(//
-				BNAUtils.round(worldPoint.getX() * localScale - localOrigin.x), //
-				BNAUtils.round(worldPoint.getY() * localScale - localOrigin.y));
+	public Point2D worldToLocal(Point2D worldPoint) {
+		return new Point2D.Double(//
+				worldPoint.getX() * localScale - localOrigin.x, //
+				worldPoint.getY() * localScale - localOrigin.y);
 	}
 
 	@Override
@@ -40,5 +40,12 @@ public class LinearCoordinateMapper extends AbstractCoordinateMapper implements 
 		return new Point(//
 				BNAUtils.round((localPoint.x + localOrigin.x) / localScale), //
 				BNAUtils.round((localPoint.y + localOrigin.y) / localScale));
+	}
+
+	@Override
+	public Point2D localToWorld(Point2D localPoint) {
+		return new Point2D.Double(//
+				(localPoint.getX() + localOrigin.x) / localScale, //
+				(localPoint.getY() + localOrigin.y) / localScale);
 	}
 }
