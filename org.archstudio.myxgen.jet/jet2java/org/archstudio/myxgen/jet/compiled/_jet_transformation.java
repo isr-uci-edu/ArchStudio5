@@ -12,14 +12,14 @@ public class _jet_transformation implements JET2TemplateLoader,
 
     private JET2TemplateLoader delegate = null;
 
-    private final static Map pathToTemplateOrdinalMap = new HashMap(3);
+    private final static Map<String, Integer> pathToTemplateOrdinalMap = new HashMap<String,Integer>(3);
     static {
         pathToTemplateOrdinalMap.put("templates/MyxComp.java.jet", //$NON-NLS-1$
-                new Integer(0));
+                Integer.valueOf(0));
         pathToTemplateOrdinalMap.put("templates/MyxCompStub.java.jet", //$NON-NLS-1$
-                new Integer(1));
+                Integer.valueOf(1));
         pathToTemplateOrdinalMap.put("templates/main.jet", //$NON-NLS-1$
-                new Integer(2));
+                Integer.valueOf(2));
     }
 
     /*
@@ -28,7 +28,7 @@ public class _jet_transformation implements JET2TemplateLoader,
      * @see org.eclipse.jet.JET2TemplateLoader#getTemplate(java.lang.String)
      */
     public JET2Template getTemplate(final String templatePath) {
-        final Integer ordinal = (Integer)pathToTemplateOrdinalMap.get(templatePath);
+        final Integer ordinal = pathToTemplateOrdinalMap.get(templatePath);
         if(ordinal != null) {
            switch (ordinal.intValue()) {
             case 0: // templates/MyxComp.java.jet
