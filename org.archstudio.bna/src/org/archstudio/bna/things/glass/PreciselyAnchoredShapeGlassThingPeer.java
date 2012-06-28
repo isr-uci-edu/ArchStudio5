@@ -20,7 +20,7 @@ public class PreciselyAnchoredShapeGlassThingPeer<T extends PreciselyAnchoredSha
 	}
 
 	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm) {
-		Point lp = cm.worldToLocal(t.getPreciseAnchorPoint());
+		Point lp = BNAUtils.toPoint(cm.worldToLocal(t.getPreciseAnchorPoint()));
 		Dimension size = t.getSize();
 		return new Rectangle(lp.x - size.width / 2, lp.y - size.height / 2, size.width, size.height);
 	}

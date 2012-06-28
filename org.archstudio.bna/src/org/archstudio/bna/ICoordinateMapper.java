@@ -45,8 +45,8 @@ public interface ICoordinateMapper {
 		}
 
 		@Override
-		public Point worldToLocal(Point2D worldPoint) {
-			return new Point(BNAUtils.round(worldPoint.getX()), BNAUtils.round(worldPoint.getY()));
+		public Point2D worldToLocal(Point2D worldPoint) {
+			return new Point2D.Double(worldPoint.getX(), worldPoint.getY());
 		}
 
 		@Override
@@ -57,6 +57,11 @@ public interface ICoordinateMapper {
 		@Override
 		public Point localToWorld(Point localPoint) {
 			return BNAUtils.clone(localPoint);
+		}
+
+		@Override
+		public Point2D localToWorld(Point2D localPoint) {
+			return new Point2D.Double(localPoint.getX(), localPoint.getY());
 		}
 
 		@Override
@@ -79,11 +84,13 @@ public interface ICoordinateMapper {
 
 	public abstract Point worldToLocal(Point worldPoint);
 
-	public abstract Point worldToLocal(Point2D worldPoint);
+	public abstract Point2D worldToLocal(Point2D worldPoint);
 
 	public abstract Rectangle worldToLocal(Rectangle worldRectangle);
 
 	public abstract Point localToWorld(Point localPoint);
+
+	public abstract Point2D localToWorld(Point2D localPoint);
 
 	public abstract Rectangle localToWorld(Rectangle localRectangle);
 }
