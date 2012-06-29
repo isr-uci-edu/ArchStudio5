@@ -11,6 +11,13 @@
       </boolean-property>
     </entry>
     <entry>
+      <string>hudson-plugins-performance-PerformancePublisher</string>
+      <external-property>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>false</modified>
+      </external-property>
+    </entry>
+    <entry>
       <string>org-hudsonci-plugins-snapshotmonitor-SnapshotTrigger</string>
       <trigger-property>
         <propertyOverridden>false</propertyOverridden>
@@ -21,6 +28,13 @@
       <base-property>
         <propertyOverridden>false</propertyOverridden>
       </base-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-logparser-LogParserPublisher</string>
+      <external-property>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>false</modified>
+      </external-property>
     </entry>
     <entry>
       <string>logRotator</string>
@@ -35,11 +49,10 @@
       </log-rotator-property>
     </entry>
     <entry>
-      <string>hudson-plugins-logparser-LogParserPublisher</string>
-      <external-property>
+      <string>scmCheckoutRetryCount</string>
+      <integer-property>
         <propertyOverridden>false</propertyOverridden>
-        <modified>false</modified>
-      </external-property>
+      </integer-property>
     </entry>
     <entry>
       <string>blockBuildWhenUpstreamBuilding</string>
@@ -49,10 +62,11 @@
       </boolean-property>
     </entry>
     <entry>
-      <string>scmCheckoutRetryCount</string>
-      <integer-property>
+      <string>org-hudsonci-maven-plugin-dependencymonitor-DependencyNotifier</string>
+      <external-property>
         <propertyOverridden>false</propertyOverridden>
-      </integer-property>
+        <modified>false</modified>
+      </external-property>
     </entry>
     <entry>
       <string>hudson-plugins-git-GitPublisher</string>
@@ -62,7 +76,7 @@
       </external-property>
     </entry>
     <entry>
-      <string>org-hudsonci-maven-plugin-dependencymonitor-DependencyNotifier</string>
+      <string>org-hudsonci-maven-plugin-artifactrecorder-ArtifactArchiver</string>
       <external-property>
         <propertyOverridden>false</propertyOverridden>
         <modified>false</modified>
@@ -76,18 +90,13 @@
             <name>eclipse_version</name>
             <values>
               <string>3.7</string>
+              <string>4.2</string>
+              <string>4.3</string>
             </values>
           </hudson.matrix.TextAxis>
         </originalValue>
         <propertyOverridden>false</propertyOverridden>
       </axis-list-property>
-    </entry>
-    <entry>
-      <string>org-hudsonci-maven-plugin-artifactrecorder-ArtifactArchiver</string>
-      <external-property>
-        <propertyOverridden>false</propertyOverridden>
-        <modified>false</modified>
-      </external-property>
     </entry>
     <entry>
       <string>hudson-plugins-setenv-SetEnvBuildWrapper</string>
@@ -104,18 +113,18 @@
       </external-property>
     </entry>
     <entry>
-      <string>cleanWorkspaceRequired</string>
-      <boolean-property>
-        <originalValue class="boolean">false</originalValue>
-        <propertyOverridden>false</propertyOverridden>
-      </boolean-property>
-    </entry>
-    <entry>
       <string>hudson-tasks-test-AggregatedTestResultPublisher</string>
       <external-property>
         <propertyOverridden>false</propertyOverridden>
         <modified>false</modified>
       </external-property>
+    </entry>
+    <entry>
+      <string>cleanWorkspaceRequired</string>
+      <boolean-property>
+        <originalValue class="boolean">false</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </boolean-property>
     </entry>
     <entry>
       <string>combinationFilter</string>
@@ -138,11 +147,11 @@
       </external-property>
     </entry>
     <entry>
-      <string>parametersDefinitionProperties</string>
-      <copy-write-list-property>
-        <originalValue class="hudson.util.CopyOnWriteList"/>
+      <string>com-progress-hudson-ScheduleFailedBuildsPublisher</string>
+      <external-property>
         <propertyOverridden>false</propertyOverridden>
-      </copy-write-list-property>
+        <modified>false</modified>
+      </external-property>
     </entry>
     <entry>
       <string>hudson-tasks-JavadocArchiver</string>
@@ -152,11 +161,11 @@
       </external-property>
     </entry>
     <entry>
-      <string>com-progress-hudson-ScheduleFailedBuildsPublisher</string>
-      <external-property>
+      <string>parametersDefinitionProperties</string>
+      <copy-write-list-property>
+        <originalValue class="hudson.util.CopyOnWriteList"/>
         <propertyOverridden>false</propertyOverridden>
-        <modified>false</modified>
-      </external-property>
+      </copy-write-list-property>
     </entry>
     <entry>
       <string>hudson-plugins-warnings-WarningsPublisher</string>
@@ -200,12 +209,12 @@
           <hudson.tasks.Ant>
             <targets> -Ddir=&quot;${WORKSPACE}&quot;&#xd;
  -Ddelete=**/*&#xd;
- -Dretain=repos/**/*,director*,director*/**/*,buckminster/**/*,.metadata/.plugins/org.eclipse.pde.core/.bundle_pool/**/*,.buckminster/tp/**/*,tp/**/*&#xd;
+ -Dretain=repos/**/*,director*,director*/**/*,.metadata/.plugins/org.eclipse.pde.core/.bundle_pool/**/*&#xd;
 clean&#xd;
 install-buckminster</targets>
             <antName>Ant 1.8</antName>
             <buildFile>repos/org.archstudio.releng/build.xml</buildFile>
-            <properties>eclipse.version=${eclipse_version}&#xd;
+            <properties>eclipse.version=4.2&#xd;
 local.repos=${WORKSPACE}/repos</properties>
           </hudson.tasks.Ant>
           <hudson.tasks.Ant>
@@ -214,11 +223,22 @@ local.repos=${WORKSPACE}/repos</properties>
 resolvebuildupdate</targets>
             <antName>Ant 1.8</antName>
             <buildFile>repos/org.archstudio.releng/build.xml</buildFile>
+            <properties>eclipse.version=4.2&#xd;
+local.repos=${WORKSPACE}/repos</properties>
+          </hudson.tasks.Ant>
+          <hudson.tasks.Ant>
+            <targets> -Ddir=&quot;${WORKSPACE}&quot;&#xd;
+ -Ddelete=**/*&#xd;
+ -Dretain=repos/**/*,director*,director*/**/*,.metadata/.plugins/org.eclipse.pde.core/.bundle_pool/**/*,buckminster/**/*&#xd;
+clean</targets>
+            <antName>Ant 1.8</antName>
+            <buildFile>repos/org.archstudio.releng/build.xml</buildFile>
             <properties>eclipse.version=${eclipse_version}&#xd;
 local.repos=${WORKSPACE}/repos</properties>
           </hudson.tasks.Ant>
           <hudson.tasks.Ant>
             <targets> -Dbuckminster.component=org.archstudio.p2&#xd;
+ -Dsite.pack200=true&#xd;
  -propertyfile /var/lib/hudson/signing.properties&#xd;
 resolve-cquery&#xd;
 build-update-site</targets>
@@ -228,7 +248,7 @@ build-update-site</targets>
 local.repos=${WORKSPACE}/repos</properties>
           </hudson.tasks.Ant>
           <hudson.tasks.Shell>
-            <command>rsync -rv --delete-after --delay-updates ${WORKSPACE}/org.archstudio.p2/ sahendrickson@www.archstudio.org:/var/www/p2</command>
+            <command>rsync -rv --delete-after --delay-updates ${WORKSPACE}/org.archstudio.p2/ sahendrickson@www.archstudio.org:/var/www/p2/${eclipse_version}</command>
           </hudson.tasks.Shell>
         </originalValue>
         <propertyOverridden>false</propertyOverridden>
@@ -241,23 +261,16 @@ local.repos=${WORKSPACE}/repos</properties>
       </string-property>
     </entry>
     <entry>
-      <string>appointedNode</string>
-      <base-property>
-        <propertyOverridden>false</propertyOverridden>
-      </base-property>
-    </entry>
-    <entry>
       <string>touchStoneResultCondition</string>
       <result-property>
         <propertyOverridden>false</propertyOverridden>
       </result-property>
     </entry>
     <entry>
-      <string>concurrentBuild</string>
-      <boolean-property>
-        <originalValue class="boolean">false</originalValue>
+      <string>appointedNode</string>
+      <base-property>
         <propertyOverridden>false</propertyOverridden>
-      </boolean-property>
+      </base-property>
     </entry>
     <entry>
       <string>hudson-tasks-ArtifactArchiver</string>
@@ -267,10 +280,24 @@ local.repos=${WORKSPACE}/repos</properties>
       </external-property>
     </entry>
     <entry>
+      <string>concurrentBuild</string>
+      <boolean-property>
+        <originalValue class="boolean">false</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </boolean-property>
+    </entry>
+    <entry>
       <string>org-hudsonci-maven-plugin-dependencymonitor-DependencyTrigger</string>
       <trigger-property>
         <propertyOverridden>false</propertyOverridden>
       </trigger-property>
+    </entry>
+    <entry>
+      <string>runSequentially</string>
+      <boolean-property>
+        <originalValue class="boolean">false</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </boolean-property>
     </entry>
     <entry>
       <string>scm</string>
@@ -334,17 +361,16 @@ local.repos=${WORKSPACE}/repos</properties>
       </scm-property>
     </entry>
     <entry>
-      <string>runSequentially</string>
-      <boolean-property>
-        <originalValue class="boolean">true</originalValue>
-        <propertyOverridden>false</propertyOverridden>
-      </boolean-property>
-    </entry>
-    <entry>
       <string>touchStoneCombinationFilter</string>
       <string-property>
         <propertyOverridden>false</propertyOverridden>
       </string-property>
+    </entry>
+    <entry>
+      <string>com-progress-hudson-ScheduleFailedBuildsTrigger</string>
+      <trigger-property>
+        <propertyOverridden>false</propertyOverridden>
+      </trigger-property>
     </entry>
     <entry>
       <string>org-hudsonci-maven-plugin-artifactrecorder-ArtifactFingerprinter</string>
@@ -352,12 +378,6 @@ local.repos=${WORKSPACE}/repos</properties>
         <propertyOverridden>false</propertyOverridden>
         <modified>false</modified>
       </external-property>
-    </entry>
-    <entry>
-      <string>com-progress-hudson-ScheduleFailedBuildsTrigger</string>
-      <trigger-property>
-        <propertyOverridden>false</propertyOverridden>
-      </trigger-property>
     </entry>
     <entry>
       <string>hudson-triggers-TimerTrigger</string>

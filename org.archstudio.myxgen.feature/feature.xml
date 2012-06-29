@@ -20,14 +20,6 @@
    </license>
 
    <includes
-         id="org.eclipse.platform"
-         version="0.0.0"/>
-
-   <includes
-         id="org.eclipse.jet"
-         version="0.0.0"/>
-
-   <includes
          id="org.eclipse.pde"
          version="0.0.0"/>
 
@@ -152,6 +144,20 @@
 
    <plugin
          id="org.archstudio.myx.fw.equinox"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jet"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jet.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
