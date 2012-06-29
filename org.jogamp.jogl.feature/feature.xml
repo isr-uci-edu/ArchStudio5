@@ -36,4 +36,23 @@
          fragment="true"
          unpack="false"/>
 
+   <plugin
+         id="org.jogamp.jogl-linux-x86_64"
+         os="linux"
+         arch="x86_64"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.jogamp.jogl-macosx"
+         os="macosx"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
 </feature>

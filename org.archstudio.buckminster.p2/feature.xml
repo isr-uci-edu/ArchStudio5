@@ -21,4 +21,20 @@
          id="org.archstudio.buckminster.feature"
          version="0.0.0"/>
 
+   <includes
+         id="org.eclipse.emf.sdk"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.platform"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.sdk"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.xsd.sdk"
+         version="0.0.0"/>
+
 </feature>
