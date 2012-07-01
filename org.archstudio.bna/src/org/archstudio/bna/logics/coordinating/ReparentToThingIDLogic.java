@@ -32,6 +32,8 @@ public class ReparentToThingIDLogic extends AbstractThingLogic implements IBNAMo
 			}
 			break;
 		}
+		default:
+			// do nothing
 		}
 	}
 

@@ -162,6 +162,8 @@ public class AIMInstantiationOrderCalculator {
 							case OUT:
 								bottomBrickNode.topLinksOut.add(linkRef);
 								continue;
+							default:
+								throw new IllegalArgumentException();
 							}
 						}
 						bottomBrickNode.topLinksOther.add(linkRef);

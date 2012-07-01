@@ -109,6 +109,8 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 				hideTag((IIsSticky) evt.getTargetThing());
 			}
 			break;
+		default:
+			// do nothing
 		}
 	}
 

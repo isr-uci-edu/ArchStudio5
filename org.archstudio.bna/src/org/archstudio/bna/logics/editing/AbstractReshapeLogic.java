@@ -105,6 +105,8 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 			else if (reshapingThing != null && evt.getThingEvent().getTargetThing().equals(reshapingThing)) {
 				checkHandles();
 			}
+		default:
+			// do nothing
 		}
 	}
 

@@ -136,6 +136,9 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 					gl.glEnd();
 
 					break;
+					
+				default:
+					// draw nothing
 				}
 			}
 		}

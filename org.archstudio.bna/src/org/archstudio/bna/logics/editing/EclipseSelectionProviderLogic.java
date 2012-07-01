@@ -145,6 +145,8 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 					ignoreSelection = 0;
 				}
 			}
+		default:
+			// do nothing
 		}
 	}
 

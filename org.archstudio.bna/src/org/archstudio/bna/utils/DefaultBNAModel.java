@@ -57,6 +57,8 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 			case THING_REMOVED:
 				indexMap.remove(evt.getTargetThing().getID());
 				break;
+			default:
+				// do nothing
 			}
 		}
 

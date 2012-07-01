@@ -468,6 +468,8 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 							l.add(new ArchEditReferenceNode(ref, eltName, true, i++));
 						}
 						break;
+					case ATTRIBUTE:
+						throw new IllegalArgumentException();
 					}
 				}
 				else {
@@ -482,6 +484,8 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 						for (ObjRef childRef2 : Iterables.filter(xarch.getAll(ref, eltName), ObjRef.class)) {
 							l.add(new ArchEditElementNode(childRef2));
 						}
+					case ATTRIBUTE:
+						throw new IllegalArgumentException();
 					}
 				}
 			}
@@ -496,6 +500,8 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 					return true;
 				case ELEMENT_SINGLE:
 					return true;
+				case ATTRIBUTE:
+					// do nothing, keep searching
 				}
 			}
 			return false;
@@ -629,6 +635,8 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 				case ELEMENT_SINGLE:
 					xarch.clear(parentRef, featureName);
 					break;
+				case ATTRIBUTE:
+					throw new IllegalArgumentException();
 				}
 
 				Object[] expandedElements = getTreeViewer().getExpandedElements();
@@ -758,6 +766,8 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 				break;
 			case ELEMENT_MULTIPLE:
 				xarch.add(ref, feature.getName(), newRef);
+			case ATTRIBUTE:
+				throw new IllegalArgumentException();
 			}
 
 			Object[] expandedElements = getTreeViewer().getExpandedElements();

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
@@ -198,8 +199,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 			Display.getDefault().asyncExec(new Runnable() {
 				public void run() {
 
-					switch (evt.getEventType()) {
-					case THING_CHANGED:
+					if (evt.getEventType() == EventType.THING_CHANGED) {
 						IBNAModel model = getBNAModel();
 						if (model != null) {
 							IThing thing = evt.getTargetThing();

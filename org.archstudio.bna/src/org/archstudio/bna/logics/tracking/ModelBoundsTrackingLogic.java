@@ -65,6 +65,8 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 			}
 		}
 			break;
+		default:
+			// do nothing
 		}
 	}
 

@@ -44,6 +44,8 @@ public class ReorientToThingIDLogic extends AbstractThingLogic implements IBNAMo
 			}
 			break;
 		}
+		default:
+			// do nothing
 		}
 	}
 

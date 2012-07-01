@@ -1,6 +1,7 @@
 package org.archstudio.issueadt.core;
 
 import org.archstudio.xarchadt.XArchADTFileEvent;
+import org.archstudio.xarchadt.XArchADTFileEvent.EventType;
 
 /**
  * Myx brick: "Archlight Issue Impl"
@@ -18,8 +19,7 @@ public class ArchlightIssueADTMyxComponent extends org.archstudio.issueadt.core.
 
 	@Override
 	public void handleXArchADTFileEvent(XArchADTFileEvent evt) {
-		switch (evt.getEventType()) {
-		case XARCH_CLOSED_EVENT:
+		if (evt.getEventType() == EventType.XARCH_CLOSED_EVENT) {
 			issues.removeIssues(issues.getAllIssues(evt.getRootElementRef()));
 		}
 	}

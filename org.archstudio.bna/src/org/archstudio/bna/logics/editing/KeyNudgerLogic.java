@@ -77,6 +77,8 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 		case WEST:
 			p2.x -= distance;
 			break;
+		default:
+			throw new IllegalArgumentException();
 		}
 		return p2;
 	}

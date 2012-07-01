@@ -73,6 +73,10 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 			location = new Point(x1, y2);
 			cursor = SWT.CURSOR_SIZESW;
 			break;
+		case NONE:
+			location = new Point((x1 + x2) / 2, (y1 + y2) / 2);
+			cursor = SWT.CURSOR_SIZESW;
+			break;
 		}
 		handle.setAnchorPoint(location);
 		handle.set(IHasStandardCursor.STANDARD_CURSOR_KEY, cursor);
@@ -117,6 +121,9 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 			break;
 		case WEST:
 			nx1 = ap.x;
+			break;
+		case NONE:
+			// do nothing
 			break;
 		}
 

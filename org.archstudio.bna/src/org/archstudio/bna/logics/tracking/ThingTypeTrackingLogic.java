@@ -71,6 +71,8 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNAMo
 			}
 		}
 			break;
+		default:
+			// do nothing
 		}
 	}
 

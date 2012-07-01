@@ -106,6 +106,8 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 					addListener(vt);
 				}
 				break;
+			default:
+				// do nothing
 			}
 		}
 	}

@@ -104,6 +104,8 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 				}
 				break;
 			}
+			default:
+				// do nothing
 			}
 		}
 		finally {

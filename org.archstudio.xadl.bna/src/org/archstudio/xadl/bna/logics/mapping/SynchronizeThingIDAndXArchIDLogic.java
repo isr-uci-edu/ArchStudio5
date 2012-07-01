@@ -100,6 +100,8 @@ public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implem
 				}
 				break;
 			}
+			default:
+				// do nothing
 			}
 		}
 		finally {

@@ -647,49 +647,6 @@ public class BNAUtils {
 		return false;
 	}
 
-	public static Point snapToNormal(Point p, Rectangle r, Orientation side) {
-		Point np = new Point(p.x, p.y);
-		switch (side) {
-		case NORTH:
-			np.y = r.y;
-			if (p.x < r.x) {
-				np.x = r.x;
-			}
-			if (p.x > r.x + r.width) {
-				np.x = r.x + r.width;
-			}
-			break;
-		case SOUTH:
-			np.y = r.y + r.height;
-			if (p.x < r.x) {
-				np.x = r.x;
-			}
-			if (p.x > r.x + r.width) {
-				np.x = r.x + r.width;
-			}
-			break;
-		case WEST:
-			np.x = r.x;
-			if (p.y < r.y) {
-				np.y = r.y;
-			}
-			if (p.y > r.y + r.height) {
-				np.y = r.y + r.height;
-			}
-			break;
-		case EAST:
-			np.x = r.x + r.width;
-			if (p.y < r.y) {
-				np.y = r.y;
-			}
-			if (p.y > r.y + r.height) {
-				np.y = r.y + r.height;
-			}
-			break;
-		}
-		return np;
-	}
-
 	public static class PointToRectangleDistanceData {
 
 		public Orientation closestSide;
