@@ -123,6 +123,8 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 				case MIDDLE:
 					y += Math.floor((lbb.height - totalHeight) / 2);
 					break;
+				case TOP:
+					break;
 				}
 
 				for (int i = 0; i < lines.size(); i++) {
@@ -135,6 +137,8 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 						break;
 					case CENTER:
 						x += Math.floor((lbb.width - tl.getBounds().getWidth()) / 2);
+						break;
+					case LEFT:
 						break;
 					}
 					tr.draw(line, BNAUtils.round(x), BNAUtils.round(canvasSize.y - (y + tl.getAscent())));

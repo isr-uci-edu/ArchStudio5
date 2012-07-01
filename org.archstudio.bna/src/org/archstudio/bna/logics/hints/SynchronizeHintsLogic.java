@@ -103,6 +103,8 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 					storeHints(thing, hintInformation, evt);
 				}
 			}
+		default:
+			// do nothing
 		}
 	}
 

@@ -68,6 +68,8 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 			}
 			break;
 		}
+		default:
+			// do nothing
 		}
 	}
 
@@ -96,6 +98,8 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 			updateObjRef(src, t.getID(), t.get(IHasObjRef.OBJREF_KEY), null);
 		}
 			break;
+		default:
+			// do nothing
 		}
 
 	}

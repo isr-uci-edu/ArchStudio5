@@ -118,6 +118,8 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 				l.mouseHover(innerView, e, innerThings, innerLocation);
 			}
 			break;
+		default:
+			// do nothing
 		}
 	}
 

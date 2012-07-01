@@ -138,6 +138,8 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 				removeReference(evt.getTargetThing(), (IThingRefKey) key, thingEvent.getOldPropertyValue());
 				addReference(evt.getTargetThing(), (IThingRefKey) key, thingEvent.getNewPropertyValue());
 			}
+		default:
+			// do nothing
 		}
 	}
 }

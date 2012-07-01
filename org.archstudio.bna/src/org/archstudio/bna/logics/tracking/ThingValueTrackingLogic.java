@@ -70,6 +70,8 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 			}
 			break;
 		}
+		default:
+			// do nothing
 		}
 	}
 
