@@ -8,13 +8,15 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasBoundingBox;
-import org.archstudio.bna.facets.IHasPoints;
+import org.archstudio.bna.facets.IHasEndpoints;
+import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Display;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,6 +30,9 @@ public class MirrorValueLogicTest {
 
 	@Before
 	public void setUp() throws Exception {
+		// put the display on the current thread
+		Display.getDefault();
+		
 		model = new DefaultBNAModel();
 		world = new DefaultBNAWorld(null, model);
 		tlm = world.getThingLogicManager();
@@ -73,8 +78,12 @@ public class MirrorValueLogicTest {
 		SplineThing s3 = model.addThing(new SplineThing(null));
 
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
-		mvl.mirrorValue(s1, IHasPoints.POINTS_KEY, s2);
-		mvl.mirrorValue(s2, IHasPoints.POINTS_KEY, s3);
+		mvl.mirrorValue(s1, IHasEndpoints.ENDPOINT_1_KEY, s2);
+		mvl.mirrorValue(s1, IHasEndpoints.ENDPOINT_1_KEY, s3);
+		mvl.mirrorValue(s1, IHasEndpoints.ENDPOINT_2_KEY, s2);
+		mvl.mirrorValue(s1, IHasEndpoints.ENDPOINT_2_KEY, s3);
+		mvl.mirrorValue(s1, IHasMidpoints.MIDPOINTS_KEY, s2);
+		mvl.mirrorValue(s1, IHasMidpoints.MIDPOINTS_KEY, s3);
 
 		s1.setPoints(Lists.newArrayList(new Point(5, 6), new Point(7, 9)));
 		assertEquals(new Rectangle(5, 6, 3, 4), s1.getBoundingBox());
