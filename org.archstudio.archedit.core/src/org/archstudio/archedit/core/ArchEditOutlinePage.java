@@ -469,7 +469,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 						}
 						break;
 					case ATTRIBUTE:
-						throw new IllegalArgumentException();
+						// do nothing
 					}
 				}
 				else {
@@ -485,7 +485,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 							l.add(new ArchEditElementNode(childRef2));
 						}
 					case ATTRIBUTE:
-						throw new IllegalArgumentException();
+						// do nothing
 					}
 				}
 			}
