@@ -19,21 +19,6 @@
 		<attribute name="maxperm" default="${default.eclipse.maxperm}" />
 		<element name="args" optional="true" implicit="true" />
 		<sequential>
-
-			<mkdir dir="@{location}/configuration/.settings" />
-			<set-if-nonempty property="http.proxySet" value="1" else="0" test="http.proxyHost" />
-			<propertyfile file="@{location}/configuration/.settings/org.eclipse.core.net.prefs">
-				<entry key="proxyData/HTTPS/host" value="${http.proxyHost}" />
-				<entry key="proxyData/HTTPS/port" value="${http.proxyPort}" />
-				<entry key="proxyData/HTTPS/hasAuth" value="false" />
-				<entry key="proxyData/HTTP/host" value="${http.proxyHost}" />
-				<entry key="proxyData/HTTP/port" value="${http.proxyPort}" />
-				<entry key="proxyData/HTTP/hasAuth" value="false" />
-				<entry key="nonProxiedHosts" value="${http.nonProxyHosts}" />
-				<entry key="proxiesEnabled" value="${http.proxySet}" />
-				<entry key="eclipse.preferences.version" value="1" />
-			</propertyfile>
-
 			<mkdir dir="@{workspace}" />
 			<equinox location="@{location}" temp="@{temp}" failonerror="@{failonerror}" maxmem="@{maxmem}" maxperm="@{maxperm}" dir="@{dir}">
 				<arg value="-data" />
