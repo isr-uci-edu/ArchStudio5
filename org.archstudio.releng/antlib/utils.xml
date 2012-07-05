@@ -34,39 +34,38 @@
 
 	<macrodef name="configure-proxy-and-variables">
 		<sequential>
-			<set-if-nonempty property="setproxy.password" value="${http.proxyPassword}" else="" test="http.proxyPassword" />
-			<set-if-nonempty property="setproxy.user" value="${http.proxyUser}" else="" test="http.proxyUser" />
-			<set-if-nonempty property="setproxy.port" value="${http.proxyPort}" else="80" test="http.proxyPort" />
-			<set-if-nonempty property="setproxy.host" value="${http.proxyHost}" else="" test="http.proxyHost" />
-			<set-if-nonempty property="setproxy.nonproxyhosts" value="${http.nonProxyHosts}" else="" test="http.nonProxyHosts" />
-			<set-if-nonempty property="setproxy.socksproxyhost" value="${socksProxyHost}" else="" test="socksProxyHost" />
-			<set-if-nonempty property="setproxy.socksproxyport" value="${socksProxyPort}" else="1080" test="socksProxyPort" />
-			<setproxy proxyhost="${setproxy.host}" proxyport="${setproxy.port}" proxyuser="${setproxy.user}" proxypassword="${setproxy.password}" nonproxyhosts="${setproxy.nonproxyhosts}" socksproxyhost="${setproxy.socksproxyhost}" socksproxyport="${setproxy.socksproxyport}" />
+			<property environment="env" />
 
-			<set-if-nonempty property="http_proxy.password" value=":${http.proxyPassword}" else="" test="http.proxyPassword" />
-			<set-if-nonempty property="http_proxy.auth" value="${http.proxyUser}${http_proxy.password}@" else="" test="http.proxyUser" />
-			<set-if-nonempty property="http_proxy.port" value=":${http.proxyPort}" else=":80" test="http.proxyPort" />
-			<set-if-nonempty property="no_proxy.pipe" value="${http.nonProxyHosts}" else="" test="http.nonProxyHosts" />
-			<loadresource property="no_proxy.comma" quiet="true">
-				<string>${no_proxy.pipe}|127.0.0.1</string>
+			<set-if-nonempty property="http.proxyHost" value="${env.http.proxyHost}" test="env.http.proxyHost" />
+			<property name="env.http.proxyPort" value="80" />
+			<property name="http.proxyPort" value="${env.http.proxyPort}" />
+
+			<set-if-nonempty property="https.proxyHost" value="${env.https.proxyHost}" test="env.https.proxyHost" />
+			<property name="env.https.proxyPort" value="80" />
+			<property name="https.proxyPort" value="${env.https.proxyPort}" />
+
+			<set-if-nonempty property="ftp.proxyHost" value="${env.ftp.proxyHost}" test="env.ftp.proxyHost" />
+			<property name="env.ftp.proxyPort" value="80" />
+			<property name="ftp.proxyPort" value="${env.ftp.proxyPort}" />
+
+			<property name="env.http.nonProxyHosts" value="localhost|127.0.0.1" />
+			<property name="http.nonProxyHosts" value="${env.http.nonProxyHosts}" />
+
+			<set-if-nonempty property="socksProxyHost" value="${env.socksProxyHost}" test="env.socksProxyHost" />
+			<property name="env.socksProxyPort" value="1080" />
+			<property name="socksProxyPort" value="${env.socksProxyPort}" />
+
+			<setproxy proxyhost="${http.proxyHost}" proxyport="${http.proxyPort}" proxyuser="" proxypassword="" nonproxyhosts="${http.nonProxyHosts}" socksproxyhost="${socksProxyHost}" socksproxyport="${socksProxyPort}" />
+
+			<set-if-nonempty property="http_proxy" value="http://${http.proxyHost}:${http.proxyPort}" test="http.proxyHost" />
+			<set-if-nonempty property="https_proxy" value="http://${https.proxyHost}:${https.proxyPort}" test="https.proxyHost" />
+			<set-if-nonempty property="ftp_proxy" value="http://${ftp.proxyHost}:${ftp.proxyPort}" test="ftp.proxyHost" />
+			<loadresource property="no_proxy" quiet="true">
+				<string>${http.nonProxyHosts}|127.0.0.1</string>
 				<filterchain>
 					<replaceregex pattern="\|" replace="," flags="g" />
 				</filterchain>
 			</loadresource>
-
-			<set-if-nonempty property="http_proxy" value="http://${http_proxy.auth}${http.proxyHost}${http_proxy.port}" test="http.proxyHost" />
-			<set-if-nonempty property="https_proxy" value="http://${http_proxy.auth}${http.proxyHost}${http_proxy.port}" test="https.proxyHost" />
-			<set-if-nonempty property="ftp_proxy" value="http://${http_proxy.auth}${http.proxyHost}${http_proxy.port}" test="ftp.proxyHost" />
-			<set-if-nonempty property="no_proxy" value="${no_proxy.comma}" test="http.nonProxyHosts" />
-
-			<!-- Unlike propertysets, unset variables still get a
-				value when passed as an <env/> paramater. The solution
-				is to use a bogus name so that the actual environment
-				variable remains undefined. -->
-			<set-if-nonempty property="http_proxy_env_name" value="http_proxy" else="ignore_http_proxy" test="http_proxy" />
-			<set-if-nonempty property="https_proxy_env_name" value="https_proxy" else="ignore_https_proxy" test="https_proxy" />
-			<set-if-nonempty property="ftp_proxy_env_name" value="ftp_proxy" else="ignore_ftp_proxy" test="ftp_proxy" />
-			<set-if-nonempty property="no_proxy_env_name" value="no_proxy" else="ignore_no_proxy" test="no_proxy" />
 
 			<propertyset id="proxy.properties">
 				<propertyref name="http_proxy" />
@@ -74,7 +73,7 @@
 				<propertyref name="ftp_proxy" />
 				<propertyref name="no_proxy" />
 				<!-- ## see: http://wiki.eclipse.org/ECF_Filetransfer_Support_for_NTLMv2_Proxies -->
-				<propertyref name="org.eclipse.ecf.provider.filetransfer.excludeContributors" />
+				<!-- <propertyref name="org.eclipse.ecf.provider.filetransfer.excludeContributors" /> -->
 				<!-- ## see: http://ant.apache.org/manual/proxy.html -->
 				<propertyref prefix="java.net.useSystemProxies" />
 				<propertyref prefix="http." />
@@ -83,8 +82,6 @@
 				<propertyref prefix="socksProxy" />
 				<!-- Include java net client default settings (including timeouts, which default to low thresholds) -->
 				<propertyref prefix="sun.net.client.default" />
-				<!-- TODO: Remove this property. Currently, it is used in an eclipse proxy patch -->
-				<propertyref name="commandLineProxySet" />
 			</propertyset>
 
 		</sequential>
@@ -320,5 +317,5 @@
 			</taskdef>
 		</sequential>
 	</macrodef>
-	
+
 </project>
