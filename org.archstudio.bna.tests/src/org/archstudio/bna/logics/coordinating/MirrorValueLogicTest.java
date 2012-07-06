@@ -17,6 +17,7 @@ import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,9 +31,14 @@ public class MirrorValueLogicTest {
 
 	@Before
 	public void setUp() throws Exception {
-		// put the display on the current thread
-		Display.getDefault();
-		
+		try {
+			// put the display on the current thread
+			Display.getDefault();
+		}
+		catch (Throwable t) {
+			Assume.assumeNoException(t);
+		}
+
 		model = new DefaultBNAModel();
 		world = new DefaultBNAWorld(null, model);
 		tlm = world.getThingLogicManager();
