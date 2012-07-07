@@ -55,7 +55,9 @@
 			<property name="env.socksProxyPort" value="1080" />
 			<property name="socksProxyPort" value="${env.socksProxyPort}" />
 
-			<setproxy proxyhost="${http.proxyHost}" proxyport="${http.proxyPort}" proxyuser="" proxypassword="" nonproxyhosts="${http.nonProxyHosts}" socksproxyhost="${socksProxyHost}" socksproxyport="${socksProxyPort}" />
+			<set-if-nonempty property="setproxy_http.proxyHost" value="${http.proxyHost}" else="" test="http.proxyHost" />
+			<set-if-nonempty property="setproxy_socksProxyHost" value="${socksProxyHost}" else="" test="socksProxyHost" />
+			<setproxy proxyhost="${setproxy_http.proxyHost}" proxyport="${http.proxyPort}" proxyuser="" proxypassword="" nonproxyhosts="${http.nonProxyHosts}" socksproxyhost="${setproxy_socksProxyHost}" socksproxyport="${socksProxyPort}" />
 
 			<set-if-nonempty property="http_proxy" value="http://${http.proxyHost}:${http.proxyPort}" test="http.proxyHost" />
 			<set-if-nonempty property="https_proxy" value="http://${https.proxyHost}:${https.proxyPort}" test="https.proxyHost" />
