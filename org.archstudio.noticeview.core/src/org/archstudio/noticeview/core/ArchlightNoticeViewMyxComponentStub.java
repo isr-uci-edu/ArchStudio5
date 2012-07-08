@@ -148,13 +148,6 @@ abstract class ArchlightNoticeViewMyxComponentStub extends org.archstudio.myx.fw
 	}
 
 	/**
-	 * Returns the service object(s) for <code>noticeEvents</code>
-	 * 
-	 * @see #IN_NOTICE_EVENTS
-	 * @generated
-	 */
-	// TODO: Not sure what to do here
-	/**
 	 * Returns the service object(s) for <code>notices</code>
 	 * 
 	 * @see #OUT_NOTICES
