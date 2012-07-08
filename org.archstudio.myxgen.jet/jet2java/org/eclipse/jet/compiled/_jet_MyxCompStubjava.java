@@ -389,6 +389,7 @@ case brick:
         out.write("\t}");  //$NON-NLS-1$        
         out.write(NL);         
 break;
+default: // do nothing
 }
 }
 }
@@ -449,6 +450,7 @@ if(iface.isSingle()){
         out.write(NL);         
 }
 break;
+default: // do nothing
 }
         out.write("\t\t}");  //$NON-NLS-1$        
         out.write(NL);         
@@ -506,8 +508,7 @@ if(iface.isSingle()){
         out.write(NL);         
 }
 break;
-case brick:
-break;
+default: // do nothing
 }
         out.write("\t\t}");  //$NON-NLS-1$        
         out.write(NL);         
@@ -586,6 +587,7 @@ case brick:
         out.write("\t\t\treturn this;");  //$NON-NLS-1$        
         out.write(NL);         
 break;
+default: // do nothing
 }
         out.write("\t\t}");  //$NON-NLS-1$        
         out.write(NL);         

@@ -163,7 +163,8 @@ import <%=javaImport%>;
 	public <%=iface.getClassName()%> get<%=SystemUtils.capFirst(MyxCompStubUtil.getServiceObjectName(iface))%>(){
 		return this;
 	}
-		<%break;%> 
+		<%break;%>
+		<%default: // do nothing%> 
 		<%}%>
 	<%}%>
 <%}%>
@@ -196,6 +197,7 @@ import <%=javaImport%>;
 				return;
 			<%}%>
 		<%break;%> 
+		<%default: // do nothing%>
 		<%}%>
 		}
 	<%}%>
@@ -230,8 +232,7 @@ import <%=javaImport%>;
 				return;
 			<%}%>
 		<%break;%> 
-		<%case brick:%>
-		<%break;%>
+		<%default: // do nothing%>
 		<%}%>
 		}
 	<%}%>
@@ -277,6 +278,7 @@ import <%=javaImport%>;
 		<%case brick:%>
 			return this;
 		<%break;%>
+		<%default: // do nothing%>
 		<%}%>
 		}
 	<%}%>
