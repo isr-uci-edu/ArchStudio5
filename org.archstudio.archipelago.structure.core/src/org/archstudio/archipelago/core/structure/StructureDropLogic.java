@@ -96,7 +96,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 					xarch.set(subStructureRef, "innerStructureLink", structureRef);
 
 					Point worldPoint = location.getWorldPoint();
-					ArchipelagoUtils.showUserNotification(view.getBNAWorld().getBNAModel(), "Substructure Assigned",
+					ArchipelagoUtils.showUserNotification(view.getBNAWorld(), "Substructure Assigned",
 							worldPoint.x, worldPoint.y);
 				}
 			}

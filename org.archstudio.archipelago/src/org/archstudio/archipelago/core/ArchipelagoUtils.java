@@ -5,23 +5,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.AbstractCoordinateMapper;
+import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.keys.ThingKey;
+import org.archstudio.bna.logics.background.LifeSapperLogic;
 import org.archstudio.bna.things.borders.PulsingBorderThing;
+import org.archstudio.bna.things.labels.UserNotificationThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.NoThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.ZoomUtils;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -30,6 +31,8 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -200,16 +203,12 @@ public class ArchipelagoUtils {
 	//	}
 	//}
 
-	public static void showUserNotification(IBNAModel m, String text, int worldX, int worldY) {
-		//FIXME
-		//		UserNotificationThing unt = new UserNotificationThing(null);
-		//		unt.setText(text);
-		//		unt.setAnchorPoint(new Point(worldX, worldY));
-		//		unt.setVerticalAlignment(VerticalAlignment.MIDDLE);
-		//		unt.setHorizontalAlignment(HorizontalAlignment.CENTER);
-		//		unt.setColor(new RGB(0, 0, 0));
-		//		unt.setSecondaryColor(new RGB(192, 192, 192));
-		//		m.addThing(unt);
+	public static void showUserNotification(IBNAWorld w, String text, int worldX, int worldY) {
+		w.getThingLogicManager().addThingLogic(LifeSapperLogic.class);
+		
+		UserNotificationThing unt = w.getBNAModel().addThing(new UserNotificationThing(null));
+		unt.setText(text);
+		unt.setAnchorPoint(new Point(worldX, worldY));
 	}
 
 	public static void beginTreeCellEditing(TreeViewer viewer, Object allowEditing) {
@@ -261,8 +260,8 @@ public class ArchipelagoUtils {
 						}
 						catch (InterruptedException ie) {
 						}
-						Display.getDefault().asyncExec(new Runnable(){
-							public void run(){
+						Display.getDefault().asyncExec(new Runnable() {
+							public void run() {
 								m.removeThing(pbt);
 							}
 						});
