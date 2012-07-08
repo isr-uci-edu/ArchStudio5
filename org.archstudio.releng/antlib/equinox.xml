@@ -40,21 +40,24 @@
 			<!-- configure proxy -->
 			<configure-proxy-and-variables />
 			<set-if-nonempty property="equinox_http.proxyHost" value="${http.proxyHost}" else="" test="http.proxyHost" />
+			<set-if-nonempty property="equinox_http.proxyPort" value="${http.proxyPort}" else="" test="http.proxyPort" />
 			<set-if-nonempty property="equinox_https.proxyHost" value="${https.proxyHost}" else="" test="https.proxyHost" />
+			<set-if-nonempty property="equinox_https.proxyPort" value="${https.proxyPort}" else="" test="https.proxyPort" />
 			<set-if-nonempty property="equinox_socksProxyHost" value="${socksProxyHost}" else="" test="socksProxyHost" />
+			<set-if-nonempty property="equinox_socksProxyPort" value="${socksProxyPort}" else="" test="socksProxyPort" />
 			<mkdir dir="@{location}/configuration/.settings" />
 			<propertyfile file="@{location}/configuration/.settings/org.eclipse.core.net.prefs">
 				<entry key="eclipse.preferences.version" value="1" />
 				<entry key="org.eclipse.core.net.hasMigrated" value="true" />
 				<entry key="proxyData/HTTP/hasAuth" value="false" />
 				<entry key="proxyData/HTTP/host" value="${equinox_http.proxyHost}" />
-				<entry key="proxyData/HTTP/port" value="${http.proxyPort}" />
+				<entry key="proxyData/HTTP/port" value="${equinox_http.proxyPort}" />
 				<entry key="proxyData/HTTPS/hasAuth" value="false" />
-				<entry key="proxyData/HTTPS/host" value="${equinox_http.proxyHost}" />
-				<entry key="proxyData/HTTPS/port" value="${http.proxyPort}" />
+				<entry key="proxyData/HTTPS/host" value="${equinox_https.proxyHost}" />
+				<entry key="proxyData/HTTPS/port" value="${equinox_https.proxyPort}" />
 				<entry key="proxyData/SOCKS/hasAuth" value="false" />
 				<entry key="proxyData/SOCKS/host" value="${equinox_socksProxyHost}" />
-				<entry key="proxyData/SOCKS/port" value="${socksProxyPort}" />
+				<entry key="proxyData/SOCKS/port" value="${equinox_socksProxyPort}" />
 				<entry key="systemProxiesEnabled" value="false" />
 				<entry key="nonProxiedHosts" value="${http.nonProxyHosts}" />
 			</propertyfile>
