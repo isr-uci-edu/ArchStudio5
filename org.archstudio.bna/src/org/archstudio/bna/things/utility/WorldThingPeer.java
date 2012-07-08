@@ -130,7 +130,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 
 			for (IThing thing : model.getAllThings()) {
 				//gl.glPushMatrix();
-				gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT);
+				gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT | GL2.GL_COLOR_BUFFER_BIT);
 				try {
 					IThingPeer<?> peer = innerView.getThingPeer(thing);
 					peer.draw(innerView, innerView.getCoordinateMapper(), gl, clip, r);

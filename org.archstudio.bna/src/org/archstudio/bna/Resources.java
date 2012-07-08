@@ -72,6 +72,26 @@ public class Resources implements IResources {
 	}
 
 	@Override
+	public boolean setColor(IThing thing, IThingKey<RGB> colorKey, float alpha) {
+		RGB color = thing.get(colorKey);
+		if (color != null) {
+			setColor(color, alpha);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean setColor(IThing thing, IThingKey<RGB> colorKey, float alpha, TextRenderer tr) {
+		RGB color = thing.get(colorKey);
+		if (color != null) {
+			setColor(color, alpha, tr);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
 	public void setColor(RGB color, float alpha) {
 		gl.glColor4f(color.red / 255f, color.green / 255f, color.blue / 255f, alpha);
 	}

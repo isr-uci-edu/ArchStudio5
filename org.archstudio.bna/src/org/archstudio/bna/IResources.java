@@ -25,6 +25,10 @@ public interface IResources {
 
 	public boolean setColor(IThing thing, IThingKey<RGB> colorKey, TextRenderer tr);
 
+	public boolean setColor(IThing thing, IThingKey<RGB> colorKey, float alpha);
+
+	public boolean setColor(IThing thing, IThingKey<RGB> colorKey, float alpha, TextRenderer tr);
+
 	public void setColor(RGB color, float alpha);
 
 	public void setColor(RGB color, float alpha, TextRenderer tr);

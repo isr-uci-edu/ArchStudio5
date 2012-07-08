@@ -96,7 +96,7 @@ public class StatechartDropLogic extends AbstractTreeDropLogic {
 					xarch.set(subStatechartRef, "innerStatechart", statechartRef);
 
 					Point worldPoint = location.getWorldPoint();
-					ArchipelagoUtils.showUserNotification(view.getBNAWorld().getBNAModel(), "Substatechart Assigned",
+					ArchipelagoUtils.showUserNotification(view.getBNAWorld(), "Substatechart Assigned",
 							worldPoint.x, worldPoint.y);
 				}
 			}
