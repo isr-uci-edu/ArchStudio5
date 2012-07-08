@@ -27,6 +27,7 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.editing.AlignAndDistributeLogic;
@@ -78,6 +79,8 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -352,9 +355,10 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 						FOLDER_NODE_TYPE, bnaWorld);
 			}
 		}
+		final IBNAWorld fbnaWorld = bnaWorld;
 
 		// create main canvas
-		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, bnaWorld);
+		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, fbnaWorld);
 		bnaCanvas.setBackground(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
 		final EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAView()
@@ -372,16 +376,34 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 			}
 		});
 
-		// restore preferences
-		if (services.has(IPreferenceStore.class)) {
-			IPreferenceStore prefs = services.get(IPreferenceStore.class);
-			BNARenderingSettings.setAntialiasGraphics(bnaCanvas,
-					prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_GRAPHICS));
-			BNARenderingSettings
-					.setAntialiasText(bnaCanvas, prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_TEXT));
-			BNARenderingSettings.setDecorativeGraphics(bnaCanvas,
-					prefs.getBoolean(ArchipelagoConstants.PREF_DECORATIVE_GRAPHICS));
-		}
+		// coordinate preferences
+		final IPreferenceStore prefs = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore();
+		final IPropertyChangeListener pcl = new IPropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent event) {
+				BNARenderingSettings.setAntialiasGraphics(bnaCanvas,
+						prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_GRAPHICS));
+				BNARenderingSettings.setAntialiasText(bnaCanvas,
+						prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_TEXT));
+				BNARenderingSettings.setDecorativeGraphics(bnaCanvas,
+						prefs.getBoolean(ArchipelagoConstants.PREF_DECORATIVE_GRAPHICS));
+				GridThing gridThing = ((GridThing) fbnaWorld.getBNAModel().getThing(GridThing.class));
+				if (gridThing != null) {
+					gridThing.setGridSpacing(prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING));
+					gridThing.setGridDisplayType(GridDisplayType.valueOf(prefs
+							.getString(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE)));
+				}
+				bnaCanvas.redraw();
+			}
+		};
+		prefs.addPropertyChangeListener(pcl);
+		bnaCanvas.addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+				prefs.removePropertyChangeListener(pcl);
+			}
+		});
+		pcl.propertyChange(null);
 
 		// display canbas
 		bnaCanvas.pack();
@@ -414,7 +436,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		logicManager.addThingLogic(new SynchronizeHintsLogic(new XadlHintRepository(xarch)));
 
 		bnaWorld.getBNAModel().addThing(new ShadowThing(null));
-		bnaWorld.getBNAModel().addThing(new GridThing(null));
+		bnaWorld.getBNAModel().addThing(new GridThing(GridThing.class));
 
 		// these logics need to be first
 

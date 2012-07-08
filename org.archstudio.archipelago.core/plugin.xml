@@ -29,21 +29,6 @@
                single="true">
          </interface>
       </brick>
-      <brick
-            class="org.archstudio.archipelago.core.prefs.ArchipelagoPrefsMyxComponent"
-            id="org.archstudio.archipelago.core.prefs.ArchipelagoPrefsMyxComponent"
-            name="Archipelago Prefs Impl">
-         <interface
-               class="org.eclipse.jface.preference.IPreferenceStore"
-               delegate="variable"
-               direction="out"
-               domain="top"
-               getter="true"
-               id="preferences"
-               name="preferences"
-               single="true">
-         </interface>
-      </brick>
    </extension>
    <extension
          point="org.eclipse.ui.editors">

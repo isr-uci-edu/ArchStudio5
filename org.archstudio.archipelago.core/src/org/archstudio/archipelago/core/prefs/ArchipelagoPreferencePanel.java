@@ -1,10 +1,10 @@
 package org.archstudio.archipelago.core.prefs;
 
+import org.archstudio.archipelago.core.Activator;
 import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.eclipse.ui.EclipseUtils;
-import org.archstudio.myx.fw.MyxRegistry;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IntegerFieldEditor;
@@ -13,8 +13,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 public class ArchipelagoPreferencePanel extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
-	private ArchipelagoPrefsMyxComponent comp = null;
-	private MyxRegistry er = MyxRegistry.getSharedInstance();
 
 	protected BooleanFieldEditor antialiasGraphicsEditor;
 	protected BooleanFieldEditor antialiasTextEditor;
@@ -26,10 +24,7 @@ public class ArchipelagoPreferencePanel extends FieldEditorPreferencePage implem
 	public ArchipelagoPreferencePanel() {
 		super("Archipelago General Preferences", GRID);
 		InstantiateArchStudio.instantiate();
-		comp = (ArchipelagoPrefsMyxComponent) er.waitForBrick(ArchipelagoPrefsMyxComponent.class);
-		er.map(comp, this);
-
-		setPreferenceStore(comp.preferences);
+		setPreferenceStore(Activator.getDefault().getPreferenceStore());
 		setDescription("This panel lets you set general preferences for Archipelago; feature-specific preferences are in subpanels.");
 	}
 
@@ -58,7 +53,5 @@ public class ArchipelagoPreferencePanel extends FieldEditorPreferencePage implem
 		gridDisplayTypeEditor = new RadioGroupFieldEditor(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE, "Grid Display",
 				1, EclipseUtils.getFieldEditorPreferenceData(GridDisplayType.class), getFieldEditorParent(), true);
 		addField(gridDisplayTypeEditor);
-
 	}
-
 }
