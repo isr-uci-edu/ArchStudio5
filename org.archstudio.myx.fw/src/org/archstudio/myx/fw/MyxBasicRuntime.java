@@ -171,10 +171,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		}
 		IMyxBrick b = createBrick(brickName, brickDescription, initializationData);
 
-		//Add the classloaders of all bricks to the app.
-		//I think this is a dirty hack -- removing for now EMD 8/2010
-		//addAppClassLoader(b.getClass().getClassLoader());
-
 		//Let's set up the brick items
 		//First, the required service provider
 		IMyxRequiredServiceProvider requiredServiceProvider = new MyxBasicRequiredServiceProvider();

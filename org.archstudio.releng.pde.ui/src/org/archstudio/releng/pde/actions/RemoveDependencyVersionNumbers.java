@@ -47,7 +47,7 @@ public class RemoveDependencyVersionNumbers extends AbstractObjectActionDelegate
 			description.setRequiredBundles(null);
 			description.apply(null);
 
-			// the hack above requires that we start with a fresh bundle, because we cannot unclear the header name
+			// we start with a fresh bundle because we cannot unclear the header name
 			description = service.getDescription(project);
 			description.setRequiredBundles(newRequiredBundles.toArray(new IRequiredBundleDescription[0]));
 			description.apply(null);

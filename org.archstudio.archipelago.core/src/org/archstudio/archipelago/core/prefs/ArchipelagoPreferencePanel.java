@@ -29,7 +29,6 @@ public class ArchipelagoPreferencePanel extends FieldEditorPreferencePage implem
 		comp = (ArchipelagoPrefsMyxComponent) er.waitForBrick(ArchipelagoPrefsMyxComponent.class);
 		er.map(comp, this);
 
-		// TODO: How is it that preferences is public? This should cause an error and require getPreferences()
 		setPreferenceStore(comp.preferences);
 		setDescription("This panel lets you set general preferences for Archipelago; feature-specific preferences are in subpanels.");
 	}

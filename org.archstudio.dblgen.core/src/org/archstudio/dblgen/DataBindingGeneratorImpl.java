@@ -977,7 +977,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					ISharedExtensionsModel extensions = plugin;
 					IExtensionsModelFactory factory;
 					{
-						// hack: get an editable IPluginModelBase
+						// get an editable IPluginModelBase
 						IFile manifestFile = project.getFile("META-INF/MANIFEST.MF");
 						manifestFile.refreshLocal(IResource.DEPTH_ONE, null);
 						IFile pluginFile = project.getFile("plugin.xml");
@@ -988,7 +988,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 						plugin = model;
 						extensions = model;
 						factory = model.getFactory();
-						// FIXME: the current set of extensions is not being loaded, manually copying for now
+						// the workspace extensions are not loaded, manually copy
 						{
 							IPluginModelBase workspacePluginModelBase = PluginRegistry.findModel(project);
 							if (workspacePluginModelBase != null) {
@@ -1055,7 +1055,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					}
 
 					{
-						// hack: save the editable IPluginModelBase
+						// save the editable IPluginModelBase
 						WorkspaceBundlePluginModel model = (WorkspaceBundlePluginModel) plugin;
 						model.save();
 					}

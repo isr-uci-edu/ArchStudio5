@@ -90,9 +90,6 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 	protected IProject[] build(int kind, @SuppressWarnings("rawtypes") Map args, IProgressMonitor monitor)
 			throws CoreException {
 
-		// FIXME: this is building schema from plugins that are installed as well as those in the workspace
-		// the result is a whole bunch of projects in the workspace that only have the generated code
-
 		try {
 			if (kind == FULL_BUILD) {
 				fullBuild(monitor);
