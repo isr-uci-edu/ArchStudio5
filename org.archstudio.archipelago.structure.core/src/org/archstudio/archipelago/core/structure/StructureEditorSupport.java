@@ -18,6 +18,7 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.editing.AlignAndDistributeLogic;
@@ -66,6 +67,8 @@ import org.archstudio.xarchadt.IXArchADTFileListener;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -83,7 +86,7 @@ public class StructureEditorSupport {
 	public static void setupEditor(Services services, IXArchADT xarch, ObjRef structureRef) {
 		ObjRef documentRootRef = xarch.getDocumentRootRef(structureRef);
 
-		IBNAWorld bnaWorld = setupWorld(services, xarch, documentRootRef, structureRef);
+		final IBNAWorld bnaWorld = setupWorld(services, xarch, documentRootRef, structureRef);
 		if (bnaWorld == null) {
 			return;
 		}
@@ -115,15 +118,34 @@ public class StructureEditorSupport {
 			}
 		});
 
-		if (services.has(IPreferenceStore.class)) {
-			IPreferenceStore prefs = services.get(IPreferenceStore.class);
-			BNARenderingSettings.setAntialiasGraphics(bnaCanvas,
-					prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_GRAPHICS));
-			BNARenderingSettings
-					.setAntialiasText(bnaCanvas, prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_TEXT));
-			BNARenderingSettings.setDecorativeGraphics(bnaCanvas,
-					prefs.getBoolean(ArchipelagoConstants.PREF_DECORATIVE_GRAPHICS));
-		}
+		// coordinate preferences
+		final IPreferenceStore prefs = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore();
+		final IPropertyChangeListener pcl = new IPropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent event) {
+				BNARenderingSettings.setAntialiasGraphics(bnaCanvas,
+						prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_GRAPHICS));
+				BNARenderingSettings.setAntialiasText(bnaCanvas,
+						prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_TEXT));
+				BNARenderingSettings.setDecorativeGraphics(bnaCanvas,
+						prefs.getBoolean(ArchipelagoConstants.PREF_DECORATIVE_GRAPHICS));
+				GridThing gridThing = ((GridThing) bnaWorld.getBNAModel().getThing(GridThing.class));
+				if (gridThing != null) {
+					gridThing.setGridSpacing(prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING));
+					gridThing.setGridDisplayType(GridDisplayType.valueOf(prefs
+							.getString(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE)));
+				}
+				bnaCanvas.redraw();
+			}
+		};
+		prefs.addPropertyChangeListener(pcl);
+		bnaCanvas.addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+				prefs.removePropertyChangeListener(pcl);
+			}
+		});
+		pcl.propertyChange(null);
 
 		bnaCanvas.pack();
 		parentComposite.layout(true);
@@ -167,7 +189,7 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new SynchronizeHintsLogic(new XadlHintRepository(xarch)));
 
 		bnaWorld.getBNAModel().addThing(new ShadowThing(null));
-		bnaWorld.getBNAModel().addThing(new GridThing(null));
+		bnaWorld.getBNAModel().addThing(new GridThing(GridThing.class));
 
 		// these logics need to be first
 

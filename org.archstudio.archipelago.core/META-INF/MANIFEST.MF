@@ -36,5 +36,8 @@ Require-Bundle: com.google.guava,
  org.archstudio.xarchadt.core,
  org.archstudio.xadl3.implementation,
  org.archstudio.xadl3.implementation.lookup,
- org.archstudio.xadl3.implementation.myxgen
+ org.archstudio.xadl3.implementation.myxgen,
+ org.archstudio.eclipse;bundle-version="5.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Activator: org.archstudio.archipelago.core.Activator
+Bundle-ActivationPolicy: lazy
