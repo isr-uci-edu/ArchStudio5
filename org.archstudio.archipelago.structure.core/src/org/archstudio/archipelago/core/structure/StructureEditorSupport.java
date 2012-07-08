@@ -54,7 +54,6 @@ import org.archstudio.myx.fw.IMyxBrick;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.resources.IResources;
-import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
@@ -219,6 +218,7 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new StructureNewInterfaceLogic(xarch, services.get(IResources.class)));
 		logicManager.addThingLogic(new StructureNewInterfaceMappingLogic(xarch, services.get(IResources.class)));
 		logicManager.addThingLogic(new EditTextLogic());
+		logicManager.addThingLogic(new StructureEditColorLogic(xarch));
 		logicManager.addThingLogic(new EditFlowLogic());
 		logicManager.addThingLogic(new StructureAssignMyxGenLogic(xarch));
 		//logicManager.addThingLogic(new StructureEditColorLogic(AS));
@@ -236,13 +236,13 @@ public class StructureEditorSupport {
 		// xADL mapping logics
 
 		logicManager.addThingLogic(new MapBrickLogic(services, xarch, structureRef, "component", //
-				new Dimension(120, 80), ArchipelagoStructureConstants.DEFAULT_COMPONENT_RGB, 2, FontStyle.BOLD));
+				new Dimension(120, 80), ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_COLOR, 2, ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_FONT));
 		logicManager.addThingLogic(new MapInterfaceLogic(xarch, structureRef, "component/interface"));
 		logicManager
 				.addThingLogic(new MapMappingsLogic(xarch, structureRef, "component/subStructure/interfaceMapping"));
 
 		logicManager.addThingLogic(new MapBrickLogic(services, xarch, structureRef, "connector", //
-				new Dimension(240, 36), ArchipelagoStructureConstants.DEFAULT_CONNECTOR_RGB, 1, FontStyle.NORMAL));
+				new Dimension(240, 36), ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_COLOR, 1, ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_FONT));
 		logicManager.addThingLogic(new MapInterfaceLogic(xarch, structureRef, "connector/interface"));
 		logicManager
 				.addThingLogic(new MapMappingsLogic(xarch, structureRef, "connector/subStructure/interfaceMapping"));

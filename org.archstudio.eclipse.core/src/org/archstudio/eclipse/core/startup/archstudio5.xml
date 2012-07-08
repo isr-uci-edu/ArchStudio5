@@ -1405,39 +1405,6 @@
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
-    <structure_3_0:component structure_3_0:id="ArchipelagoStructurePrefs" structure_3_0:name="Archipelago Structure Prefs">
-      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="ArchipelagoStructurePrefs_preferences"
-          structure_3_0:name="preferences">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="top"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="preferences"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="2712,384" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="2707,379,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
-      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
-          <myxgen_3_0:brickID>org.archstudio.archipelago.core.prefs.structure.ArchipelagoStructurePrefsMyxComponent</myxgen_3_0:brickID>
-        </implementation_3_0:implementation>
-      </structure_3_0:ext>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="2640,384,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="IssueADT" structure_3_0:name="Issue ADT">
       <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="IssueADT_issues"
           structure_3_0:name="issues">
@@ -3141,16 +3108,6 @@
         structure_3_0:name="Graph Layout.graphLayout-to-Archipelago.graphLayout">
       <structure_3_0:point1>GraphLayout_graphLayout</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_graphLayout</structure_3_0:point2>
-    </structure_3_0:link>
-    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_ArchipelagoStructurePrefs_preferences"
-        structure_3_0:name="Preferences ADT.preferences-to-Archipelago Structure Prefs.preferences">
-      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
-      <structure_3_0:point2>ArchipelagoStructurePrefs_preferences</structure_3_0:point2>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="1853,169,855,215" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_IssueADT_fileEvents"
         structure_3_0:name="XArch ADT File Event Pump.out-to-Issue ADT.fileEvents">
