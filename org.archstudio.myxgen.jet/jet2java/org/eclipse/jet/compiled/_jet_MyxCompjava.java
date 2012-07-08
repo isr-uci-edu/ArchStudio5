@@ -119,6 +119,7 @@ if(!iface.isSingle()){
         out.write(NL);         
 }
 break;
+default: // do nothing
 }
 }
         out.write("\t");  //$NON-NLS-1$        

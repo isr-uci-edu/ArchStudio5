@@ -44,6 +44,7 @@ public <%=brick.isAbstract() ? "abstract" : ""%> class <%=className%> extends <%
 	}
 		<%}%>
 	<%break;%>
+	<%default: // do nothing%>
 	<%}%>
 <%}%>
 	
