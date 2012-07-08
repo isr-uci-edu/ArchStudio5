@@ -1281,8 +1281,16 @@ public class BNAUtils {
 	}
 
 	public static RGB adjustBrightness(RGB rgb, float factor) {
-		float[] hsb = rgb.getHSB();
-		return new RGB(hsb[0], hsb[1], SystemUtils.bound(0f, hsb[2] * factor, 1f));
+		float r = rgb.red * factor;
+		float g = rgb.green * factor;
+		float b = rgb.blue * factor;
+		float w = ((r > 255 ? r - 255 : 0) + (g > 255 ? g - 255 : 0) + (b > 255 ? b - 255 : 0))
+				/ ((r > 255 ? 1 : 0) + (g > 255 ? 1 : 0) + (b > 255 ? 1 : 0));
+
+		return new RGB(//
+				SystemUtils.bound(0, BNAUtils.round(r + w), 255),// 
+				SystemUtils.bound(0, BNAUtils.round(g + w), 255),// 
+				SystemUtils.bound(0, BNAUtils.round(b + w), 255));
 	}
 
 	public static final Rectangle toRectangle(java.awt.Rectangle bounds) {

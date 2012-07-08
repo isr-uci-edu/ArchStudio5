@@ -97,6 +97,14 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	}
 
 	/**
+	 * Gets the things that have been added by this logic.
+	 */
+	@SuppressWarnings("unchecked")
+	protected Iterable<T> getAddedThings() {
+		return (Iterable<T>) getBNAModel().getThingsByID(valuesLogic.getThingIDs(MAPPING_KEY, this));
+	}
+
+	/**
 	 * Takes the newly added ObjRef, translates it into a BNA Assembly through a
 	 * call to {@link #addThing(List, ObjRef)} and updates the BNA Assembly
 	 * through a call to
