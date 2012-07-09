@@ -15,6 +15,7 @@ import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
+import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
@@ -40,7 +41,7 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 				gl.glBegin(GL2.GL_QUADS);
 				gl.glVertex2i(p1.x, p1.y);
 				gl.glVertex2i(p2.x, p1.y);
-				if (t.isGradientFilled()) {
+				if (t.isGradientFilled() && BNARenderingSettings.getDecorativeGraphics(view.getComposite())) {
 					r.setColor(t, IHasSecondaryColor.SECONDARY_COLOR_KEY);
 				}
 				gl.glVertex2i(p2.x, p2.y);
