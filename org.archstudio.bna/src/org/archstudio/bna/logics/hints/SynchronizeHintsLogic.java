@@ -26,6 +26,7 @@ import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.hints.synchronizers.PropertyHintSynchronizer;
+import org.archstudio.bna.utils.Assemblies;
 
 public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAModelListener,
 		IHintRepositoryChangeListener {
@@ -130,7 +131,11 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 			if (context != null) {
 				hintInformation = new HintInformation(context);
 				restoreHints(thing, hintInformation);
+				storeHints(thing, hintInformation, null);
 				thing.set(HINT_INFORMATION_KEY, hintInformation);
+				for (IThing t : Assemblies.getParts(getBNAModel(), thing)) {
+					createHintInformation(t);
+				}
 			}
 		}
 
