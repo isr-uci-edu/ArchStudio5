@@ -61,7 +61,6 @@ import org.archstudio.myx.fw.IMyxBrick;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.resources.IResources;
-import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
@@ -91,7 +90,6 @@ import org.eclipse.swt.dnd.DragSourceEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
@@ -430,7 +428,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 			services.get(IArchipelagoTreeNodeDataCache.class).setData(documentRootRef, structureRef, "statecharts",
 					bnaWorld);
 		}
-		
+
 		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
 
 		logicManager.addThingLogic(new SynchronizeHintsLogic(new XadlHintRepository(xarch)));
@@ -481,11 +479,11 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		// xADL mapping logics
 
 		logicManager.addThingLogic(new MapStateLogic(services, xarch, structureRef, "state[@type='state']", //
-				new Dimension(6 * 24, 4 * 24), new RGB(224, 224, 224), 1, FontStyle.BOLD));
+				new Dimension(6 * 24, 4 * 24), 1));
 		logicManager.addThingLogic(new MapInitialStateLogic(services, xarch, structureRef, "state[@type='initial']", //
-				new Dimension(4 * 24 / 3, 4 * 24 / 3), new RGB(32, 32, 32), 1, FontStyle.NORMAL));
+				new Dimension(4 * 24 / 3, 4 * 24 / 3), 1));
 		logicManager.addThingLogic(new MapFinalStateLogic(services, xarch, structureRef, "state[@type='final']", //
-				new Dimension(4 * 24 / 3, 4 * 24 / 3), new RGB(32, 32, 32), 1, FontStyle.NORMAL));
+				new Dimension(4 * 24 / 3, 4 * 24 / 3), 1));
 		logicManager.addThingLogic(new MapTransitionLogic(xarch, structureRef, "transition"));
 
 		// propagate external events logics
