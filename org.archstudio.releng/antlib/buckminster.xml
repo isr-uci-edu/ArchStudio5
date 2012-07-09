@@ -29,9 +29,6 @@
 				<arg value="@{loglevel}" />
 				<arg value="--displaystacktrace" />
 				<args />
-				<syspropertyset>
-					<propertyset refid="proxy.properties" />
-				</syspropertyset>
 			</eclipse>
 		</sequential>
 	</macrodef>
@@ -84,9 +81,6 @@
 		<sequential>
 			<equinox location="@{location}">
 				<args />
-				<syspropertyset>
-					<propertyset refid="proxy.properties" />
-				</syspropertyset>
 			</equinox>
 		</sequential>
 	</macrodef>

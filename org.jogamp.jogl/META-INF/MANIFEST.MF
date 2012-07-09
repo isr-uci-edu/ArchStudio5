@@ -7,6 +7,7 @@ Bundle-ClassPath: .,
  lib/gluegen-rt.jar,
  lib/gluegen.jar,
  lib/jogl.all.jar
+Bundle-Activator: org.jogamp.jogl.Activator
 Bundle-Vendor: archstudio.org
 Export-Package: com.jogamp.common,
  com.jogamp.common.jvm,
@@ -140,4 +141,3 @@ Export-Package: com.jogamp.common,
 Require-Bundle: org.eclipse.osgi
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.jogamp.jogl.Activator
