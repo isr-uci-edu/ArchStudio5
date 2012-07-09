@@ -11,7 +11,15 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasAnchorPoint;
+import org.archstudio.bna.facets.IHasAngle;
 import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasColor;
+import org.archstudio.bna.facets.IHasEndpoints;
+import org.archstudio.bna.facets.IHasMidpoints;
+import org.archstudio.bna.facets.IHasMutableAngle;
+import org.archstudio.bna.facets.IHasMutableColor;
+import org.archstudio.bna.facets.IHasMutableEndpoints;
+import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.ThingKey;
@@ -49,11 +57,16 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 				IRelativeMovable.USER_MAY_MOVE));
 		addHintSynchronizer(new PropertyHintSynchronizer("tagged", ShowHideTagsLogic.SHOW_TAG_KEY,
 				ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG));
-		//addHintSynchronizer(new PropertyHintSynchronizer("color", IHasColor.COLOR_KEY,
-		//		IHasMutableColor.USER_MAY_EDIT_COLOR));
-		//addHintSynchronizer(new PropertyHintSynchronizer(IHasAngle.ANGLE_KEY, IHasMutableAngle.USER_MAY_CHANGE_ANGLE));
-		//addHintSynchronizer(new PropertyHintSynchronizer(IHasMidpoints.MIDPOINTS_KEY,
-		//		IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS));
+		addHintSynchronizer(new PropertyHintSynchronizer("angle", IHasAngle.ANGLE_KEY,
+				IHasMutableAngle.USER_MAY_CHANGE_ANGLE));
+		addHintSynchronizer(new PropertyHintSynchronizer("endpoint1", IHasEndpoints.ENDPOINT_1_KEY,
+				IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1));
+		addHintSynchronizer(new PropertyHintSynchronizer("endpoint2", IHasEndpoints.ENDPOINT_2_KEY,
+				IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2));
+		addHintSynchronizer(new PropertyHintSynchronizer("midpoints", IHasMidpoints.MIDPOINTS_KEY,
+				IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS));
+		addHintSynchronizer(new PropertyHintSynchronizer("color", IHasColor.COLOR_KEY,
+				IHasMutableColor.USER_MAY_EDIT_COLOR));
 	}
 
 	final protected CopyOnWriteArrayList<IHintSynchronizer> hintSynchronizers = new CopyOnWriteArrayList<IHintSynchronizer>();
