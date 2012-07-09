@@ -3,6 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Archipelago Core
 Bundle-SymbolicName: org.archstudio.archipelago.core;singleton:=true
 Bundle-Version: 5.0.0.qualifier
+Bundle-Activator: org.archstudio.archipelago.core.Activator
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.archipelago.core,
  org.archstudio.archipelago.core.prefs,
@@ -37,7 +38,6 @@ Require-Bundle: com.google.guava,
  org.archstudio.xadl3.implementation,
  org.archstudio.xadl3.implementation.lookup,
  org.archstudio.xadl3.implementation.myxgen,
- org.archstudio.eclipse;bundle-version="5.0.0"
+ org.archstudio.eclipse
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-Activator: org.archstudio.archipelago.core.Activator
 Bundle-ActivationPolicy: lazy

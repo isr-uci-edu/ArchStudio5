@@ -4,8 +4,8 @@ Bundle-Name: ArchStudio Tests
 Bundle-SymbolicName: org.archstudio.tests
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: archstudio.org
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.junit,
- org.archstudio.bna.tests;bundle-version="1.0.0",
- org.archstudio.xadl.tests;bundle-version="1.0.0",
- org.archstudio.xarchadt.tests;bundle-version="1.0.0"
+ org.archstudio.bna.tests,
+ org.archstudio.xadl.tests,
+ org.archstudio.xarchadt.tests
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
