@@ -3,11 +3,14 @@ package org.archstudio.archipelago.statechart.core.logics;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.archipelago.statechart.core.Activator;
+import org.archstudio.archipelago.statechart.core.StatechartConstants;
 import org.archstudio.archipelago.statechart.core.things.glass.CurvedSplineGlassThing;
 import org.archstudio.archipelago.statechart.core.utils.StatechartAssemblies;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasEndpoints;
+import org.archstudio.bna.facets.IHasFontData;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableText;
@@ -24,14 +27,19 @@ import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.Assemblies.ThingAssemblyKey;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
 import org.archstudio.xadl.bna.logics.mapping.AbstractXADLToBNAPathLogic;
 import org.archstudio.xadl.bna.logics.mapping.SynchronizeThingIDAndObjRefLogic;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.jface.preference.PreferenceConverter;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Point;
 
-public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineGlassThing> {
+public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineGlassThing> implements IPropertyChangeListener {
 
 	public static final IThingRefKey<ArrowheadThing> ARROWHEAD_KEY = ThingAssemblyKey.create("assembly-arrowhead");
 
@@ -61,10 +69,33 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 				syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_1_KEY)), true);
 		syncValue("to", null, null, BNAPath.create(),
 				syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY)), true);
+
+		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
 
 	@Override
+	public void destroy() {
+		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+		super.destroy();
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
+				StatechartConstants.PREF_TRANSITION_FONT);
+
+		for (CurvedSplineGlassThing thing : getAddedThings()) {
+			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
+			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
+			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_STYLE_KEY,
+					FontStyle.fromSWT(defaultFont.getStyle()));
+		}
+	}
+	
+	@Override
 	protected CurvedSplineGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
+		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
+				StatechartConstants.PREF_TRANSITION_FONT);
 
 		CurvedSplineGlassThing thing = StatechartAssemblies.createCurvedSpline(getBNAWorld(), null, null);
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
@@ -87,6 +118,12 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 				arrowheadThing);
 		mvl.mirrorValue(thing, IHasAnchorPoint.ANCHOR_POINT_KEY, labelThing);
 		Assemblies.markPart(thing, Assemblies.TEXT_KEY, labelThing);
+		
+		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
+		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
+		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_STYLE_KEY,
+				FontStyle.fromSWT(defaultFont.getStyle()));
+		
 		UserEditableUtils.addEditableQualities(labelThing, IHasMutableText.USER_MAY_EDIT_TEXT);
 
 		return thing;

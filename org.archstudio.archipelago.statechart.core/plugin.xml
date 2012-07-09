@@ -7,5 +7,14 @@
             class="org.archstudio.archipelago.statechart.core.StatechartTreePlugin">
       </ArchipelagoTreePlugin>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.archstudio.archipelago.core.prefs.ArchipelagoPreferencePanel"
+            class="org.archstudio.archipelago.statechart.core.StatechartPreferences"
+            id="org.archstudio.archipelago.statechart.core.page1"
+            name="Statechart">
+      </page>
+   </extension>
 
 </plugin>
