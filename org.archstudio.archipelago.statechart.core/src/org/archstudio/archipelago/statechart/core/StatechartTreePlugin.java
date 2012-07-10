@@ -20,6 +20,7 @@ import org.archstudio.archipelago.statechart.core.logics.MapStateLogic;
 import org.archstudio.archipelago.statechart.core.logics.MapTransitionLogic;
 import org.archstudio.archipelago.statechart.core.logics.NewElementLogic;
 import org.archstudio.archipelago.statechart.core.logics.StatechartDropLogic;
+import org.archstudio.archipelago.statechart.core.logics.StatechartEditColorLogic;
 import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
@@ -464,7 +465,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		logicManager.addThingLogic(EditTextLogic.class);
 		logicManager.addThingLogic(EditFlowLogic.class);
 		//logicManager.addThingLogic(StructureAssignMyxGenLogic(xarch));
-		//logicManager.addThingLogic(StructureEditColorLogic(AS));
+		logicManager.addThingLogic(new StatechartEditColorLogic(xarch));
 		logicManager.addThingLogic(ShowHideTagsLogic.class);
 		//logicManager.addThingLogic(FindDialogLogic(ArchipelagoFinder(xarch, services.get(IResources.class))));
 		logicManager.addThingLogic(new RemoveElementLogic(xarch));

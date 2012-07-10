@@ -15,6 +15,7 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasCount;
 import org.archstudio.bna.facets.IHasFontData;
+import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasMutableText;
@@ -153,6 +154,8 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 				IHasMutableSize.USER_MAY_RESIZE, IRelativeMovable.USER_MAY_MOVE);
 		UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, getBNAModel()),
 				IHasMutableText.USER_MAY_EDIT_TEXT);
+		UserEditableUtils.addEditableQualities(Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()),
+				IHasMutableColor.USER_MAY_EDIT_COLOR);
 
 		return thing;
 	}
