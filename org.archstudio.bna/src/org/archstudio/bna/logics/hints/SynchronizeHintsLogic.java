@@ -16,7 +16,9 @@ import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMidpoints;
+import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableAngle;
+import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
@@ -53,20 +55,20 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 	public SynchronizeHintsLogic(IHintRepository hintRepository) {
 		this.hintRepository = hintRepository;
 		addHintSynchronizer(new PropertyHintSynchronizer("bounds", IHasBoundingBox.BOUNDING_BOX_KEY,
-				IRelativeMovable.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE));
+				IHasMutableBoundingBox.class, IRelativeMovable.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE));
 		addHintSynchronizer(new PropertyHintSynchronizer("location", IHasAnchorPoint.ANCHOR_POINT_KEY,
-				IRelativeMovable.USER_MAY_MOVE));
-		addHintSynchronizer(new PropertyHintSynchronizer("tagged", ShowHideTagsLogic.SHOW_TAG_KEY,
+				IHasMutableAnchorPoint.class, IRelativeMovable.USER_MAY_MOVE));
+		addHintSynchronizer(new PropertyHintSynchronizer("tagged", ShowHideTagsLogic.SHOW_TAG_KEY, IThing.class,
 				ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG));
-		addHintSynchronizer(new PropertyHintSynchronizer("angle", IHasAngle.ANGLE_KEY,
+		addHintSynchronizer(new PropertyHintSynchronizer("angle", IHasAngle.ANGLE_KEY, IHasMutableAngle.class,
 				IHasMutableAngle.USER_MAY_CHANGE_ANGLE));
 		addHintSynchronizer(new PropertyHintSynchronizer("endpoint1", IHasEndpoints.ENDPOINT_1_KEY,
-				IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1));
+				IHasMutableEndpoints.class, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1));
 		addHintSynchronizer(new PropertyHintSynchronizer("endpoint2", IHasEndpoints.ENDPOINT_2_KEY,
-				IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2));
+				IHasMutableEndpoints.class, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2));
 		addHintSynchronizer(new PropertyHintSynchronizer("midpoints", IHasMidpoints.MIDPOINTS_KEY,
-				IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS));
-		addHintSynchronizer(new PropertyHintSynchronizer("color", IHasColor.COLOR_KEY,
+				IHasMutableMidpoints.class, IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS));
+		addHintSynchronizer(new PropertyHintSynchronizer("color", IHasColor.COLOR_KEY, IHasMutableColor.class,
 				IHasMutableColor.USER_MAY_EDIT_COLOR));
 	}
 

@@ -14,12 +14,14 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 
 	protected final String hintName;
 	protected final IThingKey<Object> propertyName;
+	protected final Class<?> requiredClass;
 	protected final String[] editableQualities;
 
 	@SuppressWarnings("unchecked")
-	public PropertyHintSynchronizer(String hintName, IThingKey<?> propertyName, String... editableQualities) {
+	public PropertyHintSynchronizer(String hintName, IThingKey<?> propertyName, Class<?> requiredClass, String... editableQualities) {
 		this.hintName = hintName;
 		this.propertyName = (IThingKey<Object>) propertyName;
+		this.requiredClass = requiredClass;
 		this.editableQualities = editableQualities;
 	}
 
@@ -50,7 +52,7 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 				}
 			}
 		}
-		if (UserEditableUtils.isEditableForAnyQualities(thing, editableQualities)) {
+		if (requiredClass.isInstance(thing) && UserEditableUtils.isEditableForAnyQualities(thing, editableQualities)) {
 			Object value = thing.get(propertyName);
 			if (value != null && value instanceof Serializable) {
 				repository.storeHint(context, hintName, (Serializable) value);
