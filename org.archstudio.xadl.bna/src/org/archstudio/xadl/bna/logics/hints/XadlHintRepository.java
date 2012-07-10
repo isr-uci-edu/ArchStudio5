@@ -120,7 +120,7 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 	@Override
 	public void storeHint(Object context, String hintName, Serializable hintValue) {
 		ObjRef hintsExtRef = XadlUtils.createExt(xarch, toObjRef(context), Hints_3_0Package.Literals.HINTS_EXTENSION);
-		ObjRef hintRef = (ObjRef) xarch.getByKey(hintsExtRef, "hint", hintName);
+		ObjRef hintRef = (ObjRef) xarch.getByKey(hintsExtRef, "hint", toPathString(context) + hintName);
 		if (hintRef == null) {
 			hintRef = XadlUtils.create(xarch, Hints_3_0Package.Literals.VALUE);
 			encode(hintRef, hintValue);
