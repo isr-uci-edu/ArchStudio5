@@ -20,7 +20,6 @@ import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
-import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
@@ -40,7 +39,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 
 	public static final String USER_MAY_SHOW_HIDE_TAG = "userMayShowHideTag";
 
-	public static final IThingRefKey<AnchoredLabelThing> TAG_KEY = ThingRefKey.create("assembly-tag");
+	public static final IThingRefKey<AnchoredLabelThing> TAG_KEY = Assemblies.ThingAssemblyKey.create("assembly-tag");
 
 	public static final IThingKey<Boolean> SHOW_TAG_KEY = ThingKey.create("showTag");
 
