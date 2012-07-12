@@ -1,9 +1,14 @@
 package org.archstudio.archedit.core;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.annotation.Nullable;
 
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
@@ -48,8 +53,11 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchSite;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 
 public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 	protected boolean showIDs = false;
@@ -722,16 +730,43 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 						submenuManager.add(new Separator());
 					}
 
+					List<AddElementAction> addElementActions = Lists.newArrayList();
 					for (final IXArchADTPackageMetadata packageMetadata : xarch.getAvailablePackageMetadata()) {
 						for (Map.Entry<String, IXArchADTTypeMetadata> e : packageMetadata.getTypeMetadata().entrySet()) {
 							final String elementName = e.getKey();
 							if (XadlUtils.isAssignableTo(xarch, feature, e.getValue()) && !e.getValue().isAbstract()) {
 								foundOne = true;
-								Action addEltAction = new AddElementAction(ref, feature, packageMetadata.getNsURI(),
-										elementName);
-								submenuManager.add(addEltAction);
+								addElementActions.add(new AddElementAction(ref, feature, packageMetadata.getNsURI(),
+										elementName));
 							}
 						}
+					}
+					Collections.sort(addElementActions, new Comparator<AddElementAction>() {
+						@Override
+						public int compare(AddElementAction o1, AddElementAction o2) {
+							return o1.getText().compareTo(o2.getText());
+						}
+					});
+					if (addElementActions.size() > 15) {
+						Multimap<String, AddElementAction> addElementActionsByPackage = Multimaps.index(
+								addElementActions, new Function<AddElementAction, String>() {
+									@Override
+									@Nullable
+									public String apply(@Nullable AddElementAction input) {
+										return input.getPackageNsURI();
+									}
+								});
+						for (Entry<String, Collection<AddElementAction>> entry : SystemUtils
+								.sortedByKey(addElementActionsByPackage.asMap().entrySet())) {
+							MenuManager p = new MenuManager("Package " + entry.getKey());
+							submenuManager.add(p);
+							for (AddElementAction addElementAction : entry.getValue())
+								p.add(addElementAction);
+						}
+					}
+					else if (addElementActions.size() > 0) {
+						for (AddElementAction addElementAction : addElementActions)
+							submenuManager.add(addElementAction);
 					}
 					if (!foundOne) {
 						submenuManager.add(SWTWidgetUtils.createNoAction("[No Candidates]"));
@@ -755,6 +790,8 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			this.feature = feature;
 			this.packageNsURI = packageNsURI;
 			this.elementName = elementName;
+			setToolTipText(packageNsURI);
+			setDescription(packageNsURI);
 		}
 
 		@Override
@@ -773,6 +810,10 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			Object[] expandedElements = getTreeViewer().getExpandedElements();
 			getTreeViewer().refresh(true);
 			getTreeViewer().setExpandedElements(expandedElements);
+		}
+
+		public String getPackageNsURI() {
+			return packageNsURI;
 		}
 	}
 
