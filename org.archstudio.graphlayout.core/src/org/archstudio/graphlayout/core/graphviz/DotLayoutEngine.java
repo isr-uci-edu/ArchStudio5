@@ -49,7 +49,7 @@ public class DotLayoutEngine extends AbstractGraphvizLayoutEngine {
 
 		File dotExecutable = new File(dotPath);
 		if (!dotExecutable.exists()) {
-			throw new GraphLayoutException("Can't find GraphViz dot.  Check Graph Layout Preferences.");
+			throw new GraphLayoutException("Can't find GraphViz dot. Check Graph Layout Preferences.");
 		}
 		if (!dotExecutable.canRead()) {
 			throw new GraphLayoutException("No read permission on GraphViz dot.");

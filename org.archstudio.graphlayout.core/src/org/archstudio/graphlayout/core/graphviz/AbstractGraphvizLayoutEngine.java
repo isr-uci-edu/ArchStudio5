@@ -34,7 +34,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 		AliasTable at = new AliasTable();
 		createGraph(sb, at, xarch, rootRef, params);
 		String output = runLayoutTool(xarch, prefs, sb.toString());
-		System.err.println(sb.toString());
+		//System.err.println(sb.toString());
 		GraphLayout gl = processOutput(at, xarch, rootRef, params, output);
 		return gl;
 	}
