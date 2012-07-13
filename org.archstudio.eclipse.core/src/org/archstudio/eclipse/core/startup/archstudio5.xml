@@ -80,6 +80,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="456,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="Resources" structure_3_0:name="Resources">
@@ -113,6 +116,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="1896,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="PreferencesADT" structure_3_0:name="Preferences ADT">
@@ -130,7 +136,7 @@
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
           <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1848,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+            <hints_3_0:value hints_3_0:data="1776,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
           </hints_3_0:hint>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1843,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
@@ -144,7 +150,10 @@
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="1728,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+          <hints_3_0:value hints_3_0:data="1656,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
@@ -200,6 +209,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="2304,384,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="MyxRuntime" structure_3_0:name="Myx Runtime">
@@ -232,6 +244,9 @@
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="-72,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
@@ -308,6 +323,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="24,600,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="EditorManager" structure_3_0:name="Editor Manager">
@@ -383,6 +401,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="1824,384,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="EditorPrefs" structure_3_0:name="Editor Prefs">
@@ -400,7 +421,7 @@
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
           <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="2184,384" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+            <hints_3_0:value hints_3_0:data="2136,384" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
           </hints_3_0:hint>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="2179,379,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
@@ -421,7 +442,7 @@
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
           <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="2160,384" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+            <hints_3_0:value hints_3_0:data="2112,384" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
           </hints_3_0:hint>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="2155,379,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
@@ -435,7 +456,10 @@
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="2136,384,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+          <hints_3_0:value hints_3_0:data="2088,384,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
@@ -659,6 +683,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="-72,1248,384,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="ArchEdit" structure_3_0:name="ArchEdit">
@@ -860,6 +887,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="744,1248,384,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="Launcher" structure_3_0:name="Launcher">
@@ -934,6 +964,9 @@
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="2352,864,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
@@ -1052,6 +1085,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="336,600,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="GraphLayout" structure_3_0:name="Graph Layout">
@@ -1073,27 +1109,6 @@
           </hints_3_0:hint>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="523,595,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
-      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="GraphLayout_preferences"
-          structure_3_0:name="preferences">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="top"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="preferences"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="552,600" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="547,595,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
         </structure_3_0:ext>
       </structure_3_0:interface>
@@ -1127,38 +1142,8 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="504,600,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:component>
-    <structure_3_0:component structure_3_0:id="GraphLayoutPrefs" structure_3_0:name="Graph Layout Prefs">
-      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="GraphLayoutPrefs_preferences"
-          structure_3_0:name="preferences">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="top"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="preferences"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="3216,384" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="3211,379,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
-      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
-          <myxgen_3_0:brickID>org.archstudio.graphlayout.core.GraphLayoutPrefsMyxComponent</myxgen_3_0:brickID>
-        </implementation_3_0:implementation>
-      </structure_3_0:ext>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="3144,384,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
@@ -1403,6 +1388,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="336,1248,384,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="IssueADT" structure_3_0:name="Issue ADT">
@@ -1478,6 +1466,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="1104,384,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="NoticeADT" structure_3_0:name="Notice ADT">
@@ -1532,6 +1523,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="4032,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="TestADT" structure_3_0:name="Test ADT">
@@ -1585,6 +1579,9 @@
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="3096,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
@@ -1724,6 +1721,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="1560,1248,288,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="NoticeView" structure_3_0:name="Notice View">
@@ -1798,6 +1798,9 @@
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="1872,1248,240,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
@@ -1937,6 +1940,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="3216,1248,192,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="SchematronPrefs" structure_3_0:name="Schematron Prefs">
@@ -1969,6 +1975,9 @@
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="2808,384,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
@@ -2065,6 +2074,9 @@
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="3768,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
@@ -2309,6 +2321,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="1152,1248,384,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="ArchlightPrefs" structure_3_0:name="Archlight Prefs">
@@ -2341,6 +2356,9 @@
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="2976,384,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
@@ -2402,6 +2420,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="528,240,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:connector>
     <structure_3_0:connector structure_3_0:id="XArchADTFileEventPump" structure_3_0:name="XArch ADT File Event Pump">
@@ -2461,6 +2482,9 @@
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="792,240,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:connector>
@@ -2522,6 +2546,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="384,768,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:connector>
     <structure_3_0:connector structure_3_0:id="FocusEditorEventPump" structure_3_0:name="Focus Editor Event Pump">
@@ -2581,6 +2608,9 @@
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="1920,528,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:connector>
@@ -2662,7 +2692,7 @@
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
           <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="2352,1056" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+            <hints_3_0:value hints_3_0:data="2376,1056" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
           </hints_3_0:hint>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="2347,1051,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
@@ -2683,6 +2713,9 @@
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="2304,1008,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:connector>
@@ -2744,6 +2777,9 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="1200,528,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:connector>
     <structure_3_0:connector structure_3_0:id="NoticeADTEventPump" structure_3_0:name="Notice ADT Event Pump">
@@ -2803,6 +2839,9 @@
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="4152,264,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:connector>
@@ -2864,403 +2903,1276 @@
         <hints_3_0:hint hints_3_0:name="bounds">
           <hints_3_0:value hints_3_0:data="3024,264,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="assembly-background/color">
+          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
+        </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:connector>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_AIM_xarch" structure_3_0:name="xArch ADT.xarch-to-AIM.xarch">
       <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
       <structure_3_0:point2>AIM_xarch</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="523,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="77,595" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_fileEvents_to_XArchADTFileEventPump_in"
         structure_3_0:name="xArch ADT.fileEvents-to-XArch ADT File Event Pump.in">
       <structure_3_0:point1>xArchADT_fileEvents</structure_3_0:point1>
       <structure_3_0:point2>XArchADTFileEventPump_in</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="581,170" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="811,239" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_modelEvents_to_XArchADTModelEventPump_in"
         structure_3_0:name="xArch ADT.modelEvents-to-XArch ADT Model Event Pump.in">
       <structure_3_0:point1>xArchADT_modelEvents</structure_3_0:point1>
       <structure_3_0:point2>XArchADTModelEventPump_in</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="552,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="552,235" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="AIM_myxRuntime_to_MyxRuntime_myxRuntime"
         structure_3_0:name="AIM.myxRuntime-to-Myx Runtime.myxRuntime">
       <structure_3_0:point1>AIM_myxRuntime</structure_3_0:point1>
       <structure_3_0:point2>MyxRuntime_myxRuntime</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="48,595" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="48,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Resources_resources_to_Launcher_resources"
         structure_3_0:name="Resources.resources-to-Launcher.resources">
       <structure_3_0:point1>Resources_resources</structure_3_0:point1>
       <structure_3_0:point2>Launcher_resources</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2019,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="2421,859" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="LauncherMultiway_in_to_Launcher_launcher"
         structure_3_0:name="Launcher Multiway.in-to-Launcher.launcher">
       <structure_3_0:point1>LauncherMultiway_in</structure_3_0:point1>
       <structure_3_0:point2>Launcher_launcher</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2333,1003" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="2371,965" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="LauncherMultiway_results_to_Launcher_results"
         structure_3_0:name="Launcher Multiway.results-to-Launcher.results">
       <structure_3_0:point1>LauncherMultiway_results</structure_3_0:point1>
       <structure_3_0:point2>Launcher_results</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2381,1003" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="2419,965" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_FileManager_xarch" structure_3_0:name="xArch ADT.xarch-to-File Manager.xarch">
       <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
       <structure_3_0:point2>FileManager_xarch</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="526,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="362,595" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_FileManager_fileEvents"
         structure_3_0:name="XArch ADT File Event Pump.out-to-File Manager.fileEvents">
       <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>FileManager_fileEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1003,291" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="413,597" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_FileManager_modelEvents"
         structure_3_0:name="XArch ADT Model Event Pump.out-to-File Manager.modelEvents">
       <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>FileManager_modelEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="739,292" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="389,596" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManager_fileManagerEvents_to_FileManagerEventPump_in"
         structure_3_0:name="File Manager.fileManagerEvents-to-File Manager Event Pump.in">
       <structure_3_0:point1>FileManager_fileManagerEvents</structure_3_0:point1>
       <structure_3_0:point2>FileManagerEventPump_in</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="459,701" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="501,763" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_EditorManager_preferences"
         structure_3_0:name="Preferences ADT.preferences-to-Editor Manager.preferences">
       <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
       <structure_3_0:point2>EditorManager_preferences</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1778,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1846,379" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_EditorPrefs_editorManager"
         structure_3_0:name="Editor Manager.editorManager-to-Editor Prefs.editorManager">
       <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
       <structure_3_0:point2>EditorPrefs_editorManager</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1925,478" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="2131,386" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_EditorPrefs_preferences"
         structure_3_0:name="Preferences ADT.preferences-to-Editor Prefs.preferences">
       <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
       <structure_3_0:point2>EditorPrefs_preferences</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1781,171" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="2107,381" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="EditorManager_focusEditorEvents_to_FocusEditorEventPump_in"
         structure_3_0:name="Editor Manager.focusEditorEvents-to-Focus Editor Event Pump.in">
       <structure_3_0:point1>EditorManager_focusEditorEvents</structure_3_0:point1>
       <structure_3_0:point2>FocusEditorEventPump_in</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1944,485" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1944,523" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_RootPreferences_preferences"
         structure_3_0:name="Preferences ADT.preferences-to-Root Preferences.preferences">
       <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
       <structure_3_0:point2>RootPreferences_preferences</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1781,170" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="2419,382" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Resources_resources_to_RootPreferences_resources"
         structure_3_0:name="Resources.resources-to-Root Preferences.resources">
       <structure_3_0:point1>Resources_resources</structure_3_0:point1>
       <structure_3_0:point2>RootPreferences_resources</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2021,171" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="2395,381" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_GraphLayout_xarch" structure_3_0:name="xArch ADT.xarch-to-Graph Layout.xarch">
       <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
       <structure_3_0:point2>GraphLayout_xarch</structure_3_0:point2>
-    </structure_3_0:link>
-    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_GraphLayout_preferences"
-        structure_3_0:name="Preferences ADT.preferences-to-Graph Layout.preferences">
-      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
-      <structure_3_0:point2>GraphLayout_preferences</structure_3_0:point2>
-    </structure_3_0:link>
-    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_GraphLayoutPrefs_preferences"
-        structure_3_0:name="Preferences ADT.preferences-to-Graph Layout Prefs.preferences">
-      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
-      <structure_3_0:point2>GraphLayoutPrefs_preferences</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="528,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="528,595" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_AIMLauncher_xarch" structure_3_0:name="xArch ADT.xarch-to-AIM Launcher.xarch">
       <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_xarch</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="525,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="-45,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_AIMLauncher_editorManager"
         structure_3_0:name="Editor Manager.editorManager-to-AIM Launcher.editorManager">
       <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_editorManager</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1915,482" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="77,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_AIMLauncher_modelEvents"
         structure_3_0:name="XArch ADT Model Event Pump.out-to-AIM Launcher.modelEvents">
       <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_modelEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="740,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="-20,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_AIMLauncher_fileEvents"
         structure_3_0:name="XArch ADT File Event Pump.out-to-AIM Launcher.fileEvents">
       <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_fileEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1003,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="5,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FocusEditorEventPump_out_to_AIMLauncher_focusEditorEvents"
         structure_3_0:name="Focus Editor Event Pump.out-to-AIM Launcher.focusEditorEvents">
       <structure_3_0:point1>FocusEditorEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_focusEditorEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2131,578" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="125,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManagerEventPump_out_to_AIMLauncher_fileManagerEvents"
         structure_3_0:name="File Manager Event Pump.out-to-AIM Launcher.fileManagerEvents">
       <structure_3_0:point1>FileManagerEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_fileManagerEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="499,821" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="53,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Resources_resources_to_AIMLauncher_resources"
         structure_3_0:name="Resources.resources-to-AIM Launcher.resources">
       <structure_3_0:point1>Resources_resources</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_resources</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2011,171" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="197,1245" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManager_fileManager_to_AIMLauncher_fileManager"
         structure_3_0:name="File Manager.fileManager-to-AIM Launcher.fileManager">
       <structure_3_0:point1>FileManager_fileManager</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_fileManager</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="428,701" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="28,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="AIMLauncher_launcher_to_LauncherMultiway_out"
         structure_3_0:name="AIM Launcher.launcher-to-Launcher Multiway.out">
       <structure_3_0:point1>AIMLauncher_launcher</structure_3_0:point1>
       <structure_3_0:point2>LauncherMultiway_out</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="173,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="2323,1056" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="AIM_aim_to_AIMLauncher_aim" structure_3_0:name="AIM.aim-to-AIM Launcher.aim">
       <structure_3_0:point1>AIM_aim</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_aim</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="144,701" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="144,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_ArchEdit_xarch" structure_3_0:name="xArch ADT.xarch-to-ArchEdit.xarch">
       <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_xarch</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="529,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="767,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_ArchEdit_editorManager"
         structure_3_0:name="Editor Manager.editorManager-to-ArchEdit.editorManager">
       <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_editorManager</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1915,484" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="893,1244" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_ArchEdit_modelEvents"
         structure_3_0:name="XArch ADT Model Event Pump.out-to-ArchEdit.modelEvents">
       <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_modelEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="744,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="792,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_ArchEdit_fileEvents"
         structure_3_0:name="XArch ADT File Event Pump.out-to-ArchEdit.fileEvents">
       <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_fileEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1007,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="817,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FocusEditorEventPump_out_to_ArchEdit_focusEditorEvents"
         structure_3_0:name="Focus Editor Event Pump.out-to-ArchEdit.focusEditorEvents">
       <structure_3_0:point1>FocusEditorEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_focusEditorEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2131,579" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="917,1245" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManagerEventPump_out_to_ArchEdit_fileManagerEvents"
         structure_3_0:name="File Manager Event Pump.out-to-ArchEdit.fileManagerEvents">
       <structure_3_0:point1>FileManagerEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_fileManagerEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="508,821" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="860,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Resources_resources_to_ArchEdit_resources"
         structure_3_0:name="Resources.resources-to-ArchEdit.resources">
       <structure_3_0:point1>Resources_resources</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_resources</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2011,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="941,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManager_fileManager_to_ArchEdit_fileManager"
         structure_3_0:name="File Manager.fileManager-to-ArchEdit.fileManager">
       <structure_3_0:point1>FileManager_fileManager</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_fileManager</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="436,701" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="836,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="ArchEdit_launcher_to_LauncherMultiway_out"
         structure_3_0:name="ArchEdit.launcher-to-Launcher Multiway.out">
       <structure_3_0:point1>ArchEdit_launcher</structure_3_0:point1>
       <structure_3_0:point2>LauncherMultiway_out</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="965,1247" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="2323,1057" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_Archipelago_xarch" structure_3_0:name="xArch ADT.xarch-to-Archipelago.xarch">
       <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_xarch</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="527,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="361,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_Archipelago_editorManager"
         structure_3_0:name="Editor Manager.editorManager-to-Archipelago.editorManager">
       <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_editorManager</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1915,483" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="485,1245" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_Archipelago_modelEvents"
         structure_3_0:name="XArch ADT Model Event Pump.out-to-Archipelago.modelEvents">
       <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_modelEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="742,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="386,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_Archipelago_fileEvents"
         structure_3_0:name="XArch ADT File Event Pump.out-to-Archipelago.fileEvents">
       <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_fileEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1005,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="411,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FocusEditorEventPump_out_to_Archipelago_focusEditorEvents"
         structure_3_0:name="Focus Editor Event Pump.out-to-Archipelago.focusEditorEvents">
       <structure_3_0:point1>FocusEditorEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_focusEditorEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2131,578" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="509,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManagerEventPump_out_to_Archipelago_fileManagerEvents"
         structure_3_0:name="File Manager Event Pump.out-to-Archipelago.fileManagerEvents">
       <structure_3_0:point1>FileManagerEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_fileManagerEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="503,821" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="457,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Resources_resources_to_Archipelago_resources"
         structure_3_0:name="Resources.resources-to-Archipelago.resources">
       <structure_3_0:point1>Resources_resources</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_resources</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2011,172" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="701,1244" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManager_fileManager_to_Archipelago_fileManager"
         structure_3_0:name="File Manager.fileManager-to-Archipelago.fileManager">
       <structure_3_0:point1>FileManager_fileManager</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_fileManager</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="432,701" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="432,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Archipelago_launcher_to_LauncherMultiway_out"
         structure_3_0:name="Archipelago.launcher-to-Launcher Multiway.out">
       <structure_3_0:point1>Archipelago_launcher</structure_3_0:point1>
       <structure_3_0:point2>LauncherMultiway_out</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="653,1247" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="2323,1057" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_Archipelago_preferences"
         structure_3_0:name="Preferences ADT.preferences-to-Archipelago.preferences">
       <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_preferences</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1771,172" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="557,1244" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="GraphLayout_graphLayout_to_Archipelago_graphLayout"
         structure_3_0:name="Graph Layout.graphLayout-to-Archipelago.graphLayout">
       <structure_3_0:point1>GraphLayout_graphLayout</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_graphLayout</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="623,701" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="529,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_IssueADT_fileEvents"
         structure_3_0:name="XArch ADT File Event Pump.out-to-Issue ADT.fileEvents">
       <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>IssueADT_fileEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1013,292" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1123,380" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="IssueADT_issueEvents_to_IssueADTEventPump_in"
         structure_3_0:name="Issue ADT.issueEvents-to-Issue ADT Event Pump.in">
       <structure_3_0:point1>IssueADT_issueEvents</structure_3_0:point1>
       <structure_3_0:point2>IssueADTEventPump_in</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1224,485" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1224,523" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="NoticeADT_noticeEvents_to_NoticeADTEventPump_in"
         structure_3_0:name="Notice ADT.noticeEvents-to-Notice ADT Event Pump.in">
       <structure_3_0:point1>NoticeADT_noticeEvents</structure_3_0:point1>
       <structure_3_0:point2>NoticeADTEventPump_in</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="4157,172" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="4267,260" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="TestADT_testEvents_to_TestADTEventPump_in"
         structure_3_0:name="Test ADT.testEvents-to-Test ADT Event Pump.in">
       <structure_3_0:point1>TestADT_testEvents</structure_3_0:point1>
       <structure_3_0:point2>TestADTEventPump_in</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="3144,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="3144,259" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="IssueADT_issues_to_IssueView_issues" structure_3_0:name="Issue ADT.issues-to-Issue View.issues">
       <structure_3_0:point1>IssueADT_issues</structure_3_0:point1>
       <structure_3_0:point2>IssueView_issues</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1204,485" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1772,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_IssueView_xarch" structure_3_0:name="xArch ADT.xarch-to-Issue View.xarch">
       <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
       <structure_3_0:point2>IssueView_xarch</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="533,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1579,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Resources_resources_to_IssueView_resources"
         structure_3_0:name="Resources.resources-to-Issue View.resources">
       <structure_3_0:point1>Resources_resources</structure_3_0:point1>
       <structure_3_0:point2>IssueView_resources</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2015,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1825,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_IssueView_preferences"
         structure_3_0:name="Preferences ADT.preferences-to-Issue View.preferences">
       <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
       <structure_3_0:point2>IssueView_preferences</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1775,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1633,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_IssueView_editorManager"
         structure_3_0:name="Editor Manager.editorManager-to-Issue View.editorManager">
       <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
       <structure_3_0:point2>IssueView_editorManager</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1918,485" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1610,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="IssueADTEventPump_out_to_IssueView_issueEvents"
         structure_3_0:name="Issue ADT Event Pump.out-to-Issue View.issueEvents">
       <structure_3_0:point1>IssueADTEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>IssueView_issueEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1419,581" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1797,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="NoticeADT_notices_to_NoticeView_notices"
         structure_3_0:name="Notice ADT.notices-to-Notice View.notices">
       <structure_3_0:point1>NoticeADT_notices</structure_3_0:point1>
       <structure_3_0:point2>NoticeView_notices</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="4123,170" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1925,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Resources_resources_to_NoticeView_resources"
         structure_3_0:name="Resources.resources-to-Notice View.resources">
       <structure_3_0:point1>Resources_resources</structure_3_0:point1>
       <structure_3_0:point2>NoticeView_resources</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2015,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1897,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="NoticeADTEventPump_out_to_NoticeView_noticeEvents"
         structure_3_0:name="Notice ADT Event Pump.out-to-Notice View.noticeEvents">
       <structure_3_0:point1>NoticeADTEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>NoticeView_noticeEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="4267,314" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1949,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_Schematron_xarch" structure_3_0:name="xArch ADT.xarch-to-Schematron.xarch">
       <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
       <structure_3_0:point2>Schematron_xarch</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="533,170" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="3235,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="IssueADT_issues_to_Schematron_issues" structure_3_0:name="Issue ADT.issues-to-Schematron.issues">
       <structure_3_0:point1>IssueADT_issues</structure_3_0:point1>
       <structure_3_0:point2>Schematron_issues</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1205,482" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="3355,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="TestADT_tests_to_Schematron_tests" structure_3_0:name="Test ADT.tests-to-Schematron.tests">
       <structure_3_0:point1>TestADT_tests</structure_3_0:point1>
       <structure_3_0:point2>Schematron_tests</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="3121,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="3311,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="NoticeADT_notices_to_Schematron_notices"
         structure_3_0:name="Notice ADT.notices-to-Schematron.notices">
       <structure_3_0:point1>NoticeADT_notices</structure_3_0:point1>
       <structure_3_0:point2>Schematron_notices</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="4124,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="3340,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_Schematron_preferences"
         structure_3_0:name="Preferences ADT.preferences-to-Schematron.preferences">
       <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
       <structure_3_0:point2>Schematron_preferences</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1781,172" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="3259,1244" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Schematron_tools_to_ArchlightToolAggregator_tools"
         structure_3_0:name="Schematron.tools-to-Archlight Tool Aggregator.tools">
       <structure_3_0:point1>Schematron_tools</structure_3_0:point1>
       <structure_3_0:point2>ArchlightToolAggregator_tools</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="3290,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="3814,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_Archlight_xarch" structure_3_0:name="xArch ADT.xarch-to-Archlight.xarch">
       <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
       <structure_3_0:point2>Archlight_xarch</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="531,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1173,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_Archlight_editorManager"
         structure_3_0:name="Editor Manager.editorManager-to-Archlight.editorManager">
       <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
       <structure_3_0:point2>Archlight_editorManager</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1917,485" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1467,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_Archlight_modelEvents"
         structure_3_0:name="XArch ADT Model Event Pump.out-to-Archlight.modelEvents">
       <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archlight_modelEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="746,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1198,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_Archlight_fileEvents"
         structure_3_0:name="XArch ADT File Event Pump.out-to-Archlight.fileEvents">
       <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archlight_fileEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1009,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1223,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FocusEditorEventPump_out_to_Archlight_focusEditorEvents"
         structure_3_0:name="Focus Editor Event Pump.out-to-Archlight.focusEditorEvents">
       <structure_3_0:point1>FocusEditorEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archlight_focusEditorEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2131,580" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1277,1244" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManagerEventPump_out_to_Archlight_fileManagerEvents"
         structure_3_0:name="File Manager Event Pump.out-to-Archlight.fileManagerEvents">
       <structure_3_0:point1>FileManagerEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archlight_fileManagerEvents</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="509,819" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1291,1245" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Resources_resources_to_Archlight_resources"
         structure_3_0:name="Resources.resources-to-Archlight.resources">
       <structure_3_0:point1>Resources_resources</structure_3_0:point1>
       <structure_3_0:point2>Archlight_resources</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="2013,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1323,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManager_fileManager_to_Archlight_fileManager"
         structure_3_0:name="File Manager.fileManager-to-Archlight.fileManager">
       <structure_3_0:point1>FileManager_fileManager</structure_3_0:point1>
       <structure_3_0:point2>Archlight_fileManager</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="437,699" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1243,1245" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Archlight_launcher_to_LauncherMultiway_out"
         structure_3_0:name="Archlight.launcher-to-Launcher Multiway.out">
       <structure_3_0:point1>Archlight_launcher</structure_3_0:point1>
       <structure_3_0:point2>LauncherMultiway_out</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1373,1247" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="2323,1057" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_SchematronPrefs_preferences"
         structure_3_0:name="Preferences ADT.preferences-to-Schematron Prefs.preferences">
       <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
       <structure_3_0:point2>SchematronPrefs_preferences</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1781,169" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="2875,383" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_ArchlightPrefs_preferences"
         structure_3_0:name="Preferences ADT.preferences-to-Archlight Prefs.preferences">
       <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
       <structure_3_0:point2>ArchlightPrefs_preferences</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="1781,169" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="3043,383" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="TestADT_tests_to_Archlight_tests" structure_3_0:name="Test ADT.tests-to-Archlight.tests">
       <structure_3_0:point1>TestADT_tests</structure_3_0:point1>
       <structure_3_0:point2>Archlight_tests</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="3115,171" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1517,1245" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="ArchlightToolAggregator_tool_to_Archlight_tools"
         structure_3_0:name="Archlight Tool Aggregator.tool-to-Archlight.tools">
       <structure_3_0:point1>ArchlightToolAggregator_tool</structure_3_0:point1>
       <structure_3_0:point2>Archlight_tools</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:name="endpoint1">
+          <hints_3_0:value hints_3_0:data="3787,170" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="endpoint2">
+          <hints_3_0:value hints_3_0:data="1493,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:name="midpoints">
+          <hints_3_0:value/>
+        </hints_3_0:hint>
+      </structure_3_0:ext>
     </structure_3_0:link>
   </structure_3_0:structure>
 </xadlcore_3_0:xADL>

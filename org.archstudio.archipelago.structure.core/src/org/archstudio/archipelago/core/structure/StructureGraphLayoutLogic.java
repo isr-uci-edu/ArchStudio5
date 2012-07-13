@@ -123,24 +123,24 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 		view.getComposite().forceFocus();
 	}
 
-	protected void doLayout(final IBNAView view, ObjRef structureRef, int worldX, int worldY, String engineID,
-			GraphLayoutParameters glp) {
-		try {
-			GraphLayout gl = graphLayout.layoutGraph(engineID, structureRef, glp);
-			view.getBNAWorld().getBNAModel().beginBulkChange();
-			applyGraphLayout(view, structureRef, gl, glp, worldX, worldY);
-		}
-		catch (final GraphLayoutException gle) {
-			SWTWidgetUtils.async(view.getComposite(), new Runnable() {
-				@Override
-				public void run() {
+	protected void doLayout(final IBNAView view, final ObjRef structureRef, final int worldX, final int worldY, final String engineID,
+			final GraphLayoutParameters glp) {
+		SWTWidgetUtils.sync(view.getComposite(), new Runnable() {
+			@Override
+			public void run() {
+				try {
+					view.getBNAWorld().getBNAModel().beginBulkChange();
+					GraphLayout gl = graphLayout.layoutGraph(engineID, structureRef, glp);
+					applyGraphLayout(view, structureRef, gl, glp, worldX, worldY);
+				}
+				catch (final GraphLayoutException gle) {
 					MessageDialog.openError(view.getComposite().getShell(), "Error", gle.getMessage());
 				}
-			});
-		}
-		finally {
-			view.getBNAWorld().getBNAModel().endBulkChange();
-		}
+				finally {
+					view.getBNAWorld().getBNAModel().endBulkChange();
+				}
+			}
+		});
 	}
 
 	protected void applyGraphLayout(IBNAView view, ObjRef structureRef, GraphLayout gl, GraphLayoutParameters glp,

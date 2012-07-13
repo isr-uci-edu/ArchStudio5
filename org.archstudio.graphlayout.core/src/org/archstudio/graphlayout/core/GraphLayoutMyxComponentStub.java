@@ -47,12 +47,6 @@ abstract class GraphLayoutMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 	}
 
 	/**
-	 * Myx interface preferences: <code>OUT_PREFERENCES</code>
-	 * 
-	 * @generated
-	 */
-	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
-	/**
 	 * Myx interface graphLayout: <code>IN_GRAPH_LAYOUT</code>
 	 * 
 	 * @generated
@@ -65,13 +59,6 @@ abstract class GraphLayoutMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 	 */
 	public static final IMyxName OUT_XARCH = MyxUtils.createName("xarch");
 
-	/**
-	 * Service object(s) for preferences: <code>preferences</code>
-	 * 
-	 * @see #OUT_PREFERENCES
-	 * @generated
-	 */
-	protected org.eclipse.jface.preference.IPreferenceStore preferences = null;
 	/**
 	 * Service object(s) for graphLayout: <code>graphLayout</code>
 	 * 
@@ -86,16 +73,6 @@ abstract class GraphLayoutMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 	 * @generated
 	 */
 	protected org.archstudio.xarchadt.IXArchADT xarch = null;
-
-	/**
-	 * Returns the service object(s) for <code>preferences</code>
-	 * 
-	 * @see #OUT_PREFERENCES
-	 * @generated
-	 */
-	public org.eclipse.jface.preference.IPreferenceStore getPreferences() {
-		return preferences;
-	}
 
 	/**
 	 * Returns the service object(s) for <code>graphLayout</code>
@@ -125,13 +102,6 @@ abstract class GraphLayoutMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
-		if (interfaceName.equals(OUT_PREFERENCES)) {
-			if (preferences != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
-			}
-			preferences = (org.eclipse.jface.preference.IPreferenceStore) serviceObject;
-			return;
-		}
 		if (interfaceName.equals(OUT_XARCH)) {
 			if (xarch != null) {
 				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
@@ -149,10 +119,6 @@ abstract class GraphLayoutMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
-		}
-		if (interfaceName.equals(OUT_PREFERENCES)) {
-			preferences = null;
-			return;
 		}
 		if (interfaceName.equals(OUT_XARCH)) {
 			xarch = null;

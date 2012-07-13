@@ -78,7 +78,7 @@ public class GraphLayoutMyxComponent extends org.archstudio.graphlayout.core.Gra
 			if (engine == null) {
 				throw new GraphLayoutException("No graph layout engine with ID: " + engineID + " exists.");
 			}
-			return engine.layoutGraph(xarch, preferences, rootRef, params);
+			return engine.layoutGraph(xarch, Activator.getDefault().getPreferenceStore(), rootRef, params);
 		}
 	}
 
