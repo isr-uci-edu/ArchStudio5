@@ -1,6 +1,7 @@
 package org.archstudio.releng.pde.actions;
 
 import java.util.List;
+import java.util.Set;
 
 import org.archstudio.eclipse.ui.actions.AbstractObjectActionDelegate;
 import org.archstudio.releng.pde.ui.Activator;
@@ -15,9 +16,11 @@ import org.eclipse.pde.core.project.IRequiredBundleDescription;
 import org.eclipse.pde.internal.core.feature.WorkspaceFeatureModel;
 import org.eclipse.pde.internal.core.ifeature.IFeature;
 import org.eclipse.pde.internal.core.ifeature.IFeatureImport;
+import org.eclipse.pde.internal.core.ifeature.IFeaturePlugin;
 import org.osgi.framework.BundleContext;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 @SuppressWarnings("restriction")
 public class RemoveDependencyVersionNumbers extends AbstractObjectActionDelegate {
@@ -65,10 +68,21 @@ public class RemoveDependencyVersionNumbers extends AbstractObjectActionDelegate
 				featureModel.load();
 				IFeature feature = featureModel.getFeature();
 
+				Set<String> pluginIDs = Sets.newHashSet();
+				for (IFeaturePlugin featurePlugin : feature.getPlugins()){
+					pluginIDs.add(featurePlugin.getId());
+				}
+				Set<String> featureIDs = Sets.newHashSet();
+				List<IFeatureImport> duplicates = Lists.newArrayList();
 				for (IFeatureImport featureImport : feature.getImports()) {
 					featureImport.setVersion(null);
 					featureImport.setMatch(0);
+					if(!featureIDs.add(featureImport.getId()) || pluginIDs.contains(featureImport.getId())){
+						duplicates.add(featureImport);
+					}
 				}
+				feature.removeImports((IFeatureImport[]) duplicates.toArray(new IFeatureImport[0]));
+
 				featureModel.save();
 			}
 		}

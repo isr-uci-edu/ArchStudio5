@@ -32,19 +32,13 @@
       <import plugin="org.eclipse.xsd"/>
       <import plugin="org.eclipse.xsd.ecore.importer"/>
       <import plugin="org.eclipse.ant.core"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.debug.core"/>
       <import plugin="org.eclipse.emf.common"/>
       <import plugin="org.eclipse.emf.codegen"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.text"/>
       <import plugin="org.eclipse.core.expressions"/>
       <import plugin="org.eclipse.core.filebuffers"/>
-      <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.apache.ant"/>
-      <import plugin="org.eclipse.jet.core"/>
    </requires>
 
    <plugin
