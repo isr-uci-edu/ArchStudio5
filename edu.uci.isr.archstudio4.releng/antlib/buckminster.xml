@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="edu.uci.isr.infrastructure.bad.buckminster.antlib.buckminster">
+
+	<import file="eclipse.xml" />
+	<import file="utils.xml" />
+
+	<property name="default.buckminster.args" value="" />
+	<property name="default.buckminster.loglevel" value="INFO" />
+	<property name="default.buckminster.workspace" value="${default.eclipse.workspace}" />
+	<property name="default.buckminster.failonerror" value="${default.eclipse.failonerror}" />
+	<set-if-nonempty property="default.buckminster.temp" test="buckminster.temp" value="${buckminster.temp}" else="@{location}/temp" />
+	<property name="default.buckminster.maxmem" value="${default.eclipse.maxmem}" />
+	<property name="default.buckminster.maxperm" value="${default.eclipse.maxperm}" />
+
+	<macrodef name="buckminster">
+		<attribute name="command" default="--help" />
+		<attribute name="loglevel" default="${default.buckminster.loglevel}" />
+		<attribute name="location" default="${default.buckminster.location}" />
+		<attribute name="workspace" default="${default.buckminster.workspace}" />
+		<attribute name="temp" default="${default.buckminster.temp}" />
+		<attribute name="failonerror" default="${default.buckminster.failonerror}" />
+		<attribute name="maxmem" default="${default.buckminster.maxmem}" />
+		<attribute name="maxperm" default="${default.buckminster.maxperm}" />
+		<element name="args" optional="true" implicit="true" />
+		<sequential>
+			<eclipse location="@{location}" workspace="@{workspace}" temp="@{temp}" failonerror="@{failonerror}" maxmem="@{maxmem}" maxperm="@{maxperm}">
+				<arg line="${default.buckminster.args}" />
+				<arg value="--loglevel" />
+				<arg value="@{loglevel}" />
+				<arg value="--displaystacktrace" />
+				<args />
+			</eclipse>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="install-buckminster">
+		<!-- todir must end in /buckminster -->
+		<attribute name="todir" />
+		<attribute name="director.home" />
+		<attribute name="eclipse.version" default="${eclipse.version}" />
+		<sequential>
+			<install-director todir="@{director.home}" />
+			<mkdir dir="@{todir}" />
+			<delete includeemptydirs="true" defaultexcludes="false">
+				<fileset dir="@{todir}" excludes="artifacts.xml,plugins/**/*" />
+			</delete>
+			<director location="${director.home}">
+				<arg value="-d" />
+				<arg value="@{todir}" />
+				<arg value="-p" />
+				<arg value="Buckminster" />
+				<arg value="-r" />
+				<arg value="http://download.eclipse.org/tools/buckminster/headless-@{eclipse.version}" />
+				<arg value="-r" />
+				<arg value="http://download.cloudsmith.com/buckminster/external-@{eclipse.version}" />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.equinox.p2.director.feature.feature.group," />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.emma.headless.feature.feature.group," />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.pde.headless.feature.feature.group," />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.subversive.headless.feature.feature.group," />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.maven.headless.feature.feature.group," />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.cmdline.product," />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.core.headless.feature.feature.group," />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.git.headless.feature.feature.group," />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.cvs.headless.feature.feature.group" />
+			</director>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="director">
+		<attribute name="location" default="${default.director.location}" />
+		<element name="args" optional="true" implicit="true" />
+		<sequential>
+			<equinox location="@{location}">
+				<args />
+			</equinox>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="install-director">
+		<!-- todir must end in /director -->
+		<attribute name="todir" />
+		<sequential>
+			<mkdir dir="@{todir}" />
+			<get-unless-ok src="http://download.eclipse.org/tools/buckminster/products/director_latest.zip" tofile="@{todir}/../director_latest.zip" />
+			<extract-unless-ok src="@{todir}/../director_latest.zip" todir="@{todir}/../" subdir="@{todir}" />
+		</sequential>
+	</macrodef>
+
+</project>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
+  <rm:property key="eclipse.version" value="3.7"/>
+  <rm:property key="local.repos" value=""/>
+  <rm:locator pattern=".*" searchPathRef="local.repos" failOnError="false"/>
+  <rm:locator pattern="^org\.tigris\.subversion(\..*)?$" searchPathRef="org.tigris.subversion" failOnError="false"/>
+  <rm:locator pattern=".*" searchPathRef="org.eclipse" failOnError="false"/>
+  <rm:locator pattern=".*" searchPathRef="org.archstudio" failOnError="false"/>
+  <rm:searchPath name="local.repos">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="url.catalog">
+      <rm:uri format="{1}/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+        <bc:propertyRef key="local.repos"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,buckminster" readerType="url.catalog">
+      <rm:uri format="{1}/plugins/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+        <bc:propertyRef key="local.repos"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="eclipse.feature,buckminster" readerType="url.catalog">
+      <rm:uri format="{1}/features/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+        <bc:propertyRef key="local.repos"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="org.archstudio">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="https://svn.ics.uci.edu/isr-projects/archstudio4/trunk/{0}?moduleAfterBranch&amp;moduleAfterTag">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>	  
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="https://svn.ics.uci.edu/isr-projects/bna4/trunk/{0}?moduleAfterBranch&amp;moduleAfterTag">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>	  
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="https://svn.ics.uci.edu/isr-projects/myxfw/trunk/{0}?moduleAfterBranch&amp;moduleAfterTag">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>	  
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="https://svn.ics.uci.edu/isr-projects/utils/trunk/{0}?moduleAfterBranch&amp;moduleAfterTag">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>	  
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="https://svn.ics.uci.edu/isr-projects/xarchlibs4/trunk/{0}?moduleAfterBranch&amp;moduleAfterTag">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>	  
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="https://svn.ics.uci.edu/isr-projects/infrastructure/trunk/{0}?moduleAfterBranch&amp;moduleAfterTag">
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>	  
+  </rm:searchPath>
+  <rm:searchPath name="org.tigris.subversion">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://subclipse.tigris.org/update_1.6.x?importType=binary"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="org.eclipse">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://download.eclipse.org/tools/buckminster/updates-{0}?importType=binary">
+        <bc:replace>
+          <bc:propertyRef key="eclipse.version"/>
+        </bc:replace>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://download.cloudsmith.com/buckminster/external-{0}?importType=binary">
+        <bc:replace>
+          <bc:propertyRef key="eclipse.version"/>
+        </bc:replace>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://download.eclipse.org/eclipse/updates/{0}?importType=binary">
+        <bc:propertyRef key="eclipse.version"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="{0}?importType=binary">
+        <bc:replace>
+          <!-- http://wiki.eclipse.org/Simultaneous_Release -->
+          <bc:propertyRef key="eclipse.version"/>
+          <bc:match pattern="^3\.2$" replacement="http://download.eclipse.org/releases/callisto/"/>
+          <bc:match pattern="^3\.3$" replacement="http://download.eclipse.org/releases/europa/"/>
+          <bc:match pattern="^3\.4$" replacement="http://download.eclipse.org/releases/ganymede/"/>
+          <bc:match pattern="^3\.5$" replacement="http://download.eclipse.org/releases/galileo/"/>
+          <bc:match pattern="^3\.6$" replacement="http://download.eclipse.org/releases/helios/"/>
+          <bc:match pattern="^3\.7$" replacement="http://download.eclipse.org/releases/indigo/"/>
+          <bc:match pattern="^4\.2$" replacement="http://download.eclipse.org/releases/juno/"/>
+          <bc:match pattern="^4\.3$" replacement="http://download.eclipse.org/releases/juno/"/><!-- kepler, when available --> 
+        </bc:replace>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://download.eclipse.org/modeling/m2t/updates/releases/?importType=binary" />
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://download.eclipse.org/modeling/mdt/updates/releases/?importType=binary" />
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://download.eclipse.org/modeling/emf/updates/releases/?importType=binary" />
+    </rm:provider>
+  </rm:searchPath>
+</rm:rmap>

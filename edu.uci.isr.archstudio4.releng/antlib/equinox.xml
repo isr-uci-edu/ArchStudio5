@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="edu.uci.isr.infrastructure.bad.buckminster.antlib.equinox">
+
+	<import file="utils.xml" />
+
+	<property name="default.equinox.temp" value="@{location}/temp" />
+	<property name="default.equinox.failonerror" value="true" />
+	<property name="default.equinox.maxmem" value="768m" />
+	<property name="default.equinox.maxperm" value="256m" />
+
+	<macrodef name="equinox">
+		<attribute name="location" />
+		<attribute name="dir" default="@{location}" />
+		<attribute name="temp" default="${default.equinox.temp}" />
+		<attribute name="failonerror" default="${default.equinox.failonerror}" />
+		<attribute name="maxmem" default="${default.equinox.maxmem}" />
+		<attribute name="maxperm" default="${default.equinox.maxperm}" />
+		<element name="args" optional="true" implicit="true" />
+		<sequential>
+			<!-- check the ini file for the specific jar to use -->
+			<loadresource property="_equinox_jar_@{location}" failonerror="false">
+				<fileset dir="@{location}" includes="*.ini" />
+				<filterchain>
+					<linecontainsregexp>
+						<regexp pattern="org\.eclipse\.equinox\.launcher_.*\.jar" />
+					</linecontainsregexp>
+					<striplinebreaks />
+					<prefixlines prefix="@{location}/" />
+				</filterchain>
+			</loadresource>
+			<!-- if that fails (the property remains unset), check the plugins folder for the specific plugin -->
+			<path id="_equinox_jar_refid_@{location}">
+				<last>
+					<sort>
+						<fileset dir="@{location}" includes="plugins/org.eclipse.equinox.launcher_*.jar" />
+					</sort>
+				</last>
+			</path>
+			<property name="_equinox_jar_@{location}" refid="_equinox_jar_refid_@{location}" />
+			<!-- configure proxy -->
+			<configure-proxy-and-variables />
+			<set-if-nonempty property="equinox_http.proxyHost" value="${http.proxyHost}" else="" test="http.proxyHost" />
+			<set-if-nonempty property="equinox_http.proxyPort" value="${http.proxyPort}" else="" test="http.proxyHost" />
+			<set-if-nonempty property="equinox_https.proxyHost" value="${https.proxyHost}" else="" test="https.proxyHost" />
+			<set-if-nonempty property="equinox_https.proxyPort" value="${https.proxyPort}" else="" test="https.proxyHost" />
+			<set-if-nonempty property="equinox_socksProxyHost" value="${socksProxyHost}" else="" test="socksProxyHost" />
+			<set-if-nonempty property="equinox_socksProxyPort" value="${socksProxyPort}" else="" test="socksProxyHost" />
+			<mkdir dir="@{location}/configuration/.settings" />
+			<propertyfile file="@{location}/configuration/.settings/org.eclipse.core.net.prefs">
+				<entry key="eclipse.preferences.version" value="1" />
+				<entry key="org.eclipse.core.net.hasMigrated" value="true" />
+				<entry key="proxyData/HTTP/hasAuth" value="false" />
+				<entry key="proxyData/HTTP/host" value="${equinox_http.proxyHost}" />
+				<entry key="proxyData/HTTP/port" value="${equinox_http.proxyPort}" />
+				<entry key="proxyData/HTTPS/hasAuth" value="false" />
+				<entry key="proxyData/HTTPS/host" value="${equinox_https.proxyHost}" />
+				<entry key="proxyData/HTTPS/port" value="${equinox_https.proxyPort}" />
+				<entry key="proxyData/SOCKS/hasAuth" value="false" />
+				<entry key="proxyData/SOCKS/host" value="${equinox_socksProxyHost}" />
+				<entry key="proxyData/SOCKS/port" value="${equinox_socksProxyPort}" />
+				<entry key="systemProxiesEnabled" value="false" />
+				<entry key="nonProxiedHosts" value="${http.nonProxyHosts}" />
+			</propertyfile>
+			<!-- execute -->
+			<mkdir dir="@{temp}" />
+			<java jar="${_equinox_jar_@{location}}" fork="true" failonerror="@{failonerror}" dir="@{dir}" newenvironment="true">
+				<args />
+				<jvmarg value="-Djava.io.tmpdir=@{temp}" />
+				<jvmarg value="-Dsun.net.client.defaultConnectTimeout=30000" />
+				<jvmarg value="-Dsun.net.client.defaultReadTimeout=30000" />
+				<!--
+				<jvmarg value="-Dorg.eclipse.ecf.provider.filetransfer.excludeContributors=org.eclipse.ecf.provider.filetransfer.httpclient" />
+				<jvmarg value="-Dorg.eclipse.ecf.provider.filetransfer.browse.connectTimeout=30000" />
+				<jvmarg value="-Dorg.eclipse.ecf.provider.filetransfer.browse.readTimeout=30000" />
+				<jvmarg value="-Dorg.eclipse.ecf.provider.filetransfer.retrieve.connectTimeout=30000" />
+				<jvmarg value="-Dorg.eclipse.ecf.provider.filetransfer.retrieve.readTimeout=30000" />
+				<jvmarg value="-Dorg.eclipse.ecf.provider.filetransfer.retrieve.retryAttempts=1" />
+				<jvmarg value="-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog" />
+				<jvmarg value="-Dorg.apache.commons.logging.simplelog.showdatetime=true" />
+				<jvmarg value="-Dorg.apache.commons.logging.simplelog.log.httpclient.wire.header=debug" />
+				<jvmarg value="-Dorg.apache.commons.logging.simplelog.log.org.apache.commons.httpclient=debug" />
+				<jvmarg value="-Dorg.apache.commons.logging.simplelog.log.httpclient.wire=debug" />
+-->
+				<jvmarg value="-Xmx@{maxmem}" />
+				<jvmarg value="-XX:MaxPermSize=@{maxperm}" />
+			</java>
+		</sequential>
+	</macrodef>
+
+</project>
