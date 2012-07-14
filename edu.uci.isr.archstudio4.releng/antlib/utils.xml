@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="edu.uci.isr.infrastructure.bad.buckminster.antlib.utils">
+
+	<property name="default.xslt.processor" value="trax" />
+
+	<macrodef name="set-if-nonempty">
+		<attribute name="property" />
+		<attribute name="value" default="true" />
+		<attribute name="else" default="@{leave_property_unset}" />
+		<attribute name="test" />
+		<sequential>
+			<condition property="@{property}" value="@{value}">
+				<and>
+					<isset property="@{test}" />
+					<length string="${@{test}}" when="greater" length="0" />
+				</and>
+			</condition>
+			<condition property="@{property}" value="@{else}">
+				<not>
+					<matches string="@{else}" pattern="@@\{leave_property_unset\}" />
+				</not>
+			</condition>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="assert-nonempty">
+		<attribute name="property" />
+		<attribute name="message" default="" />
+		<sequential>
+			<set-if-nonempty property="_is_nonempty_${@{property}}" test="@{property}" />
+			<fail unless="_is_nonempty_${@{property}}" message="Missing required property $${@{property}}: @{message}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="configure-proxy-and-variables">
+		<sequential>
+			<property environment="env" />
+
+			<set-if-nonempty property="http.proxyHost" value="${env.http.proxyHost}" test="env.http.proxyHost" />
+			<property name="env.http.proxyPort" value="80" />
+			<property name="http.proxyPort" value="${env.http.proxyPort}" />
+
+			<set-if-nonempty property="https.proxyHost" value="${env.https.proxyHost}" test="env.https.proxyHost" />
+			<property name="env.https.proxyPort" value="80" />
+			<property name="https.proxyPort" value="${env.https.proxyPort}" />
+
+			<set-if-nonempty property="ftp.proxyHost" value="${env.ftp.proxyHost}" test="env.ftp.proxyHost" />
+			<property name="env.ftp.proxyPort" value="80" />
+			<property name="ftp.proxyPort" value="${env.ftp.proxyPort}" />
+
+			<property name="env.http.nonProxyHosts" value="localhost|127.0.0.1" />
+			<property name="http.nonProxyHosts" value="${env.http.nonProxyHosts}" />
+
+			<set-if-nonempty property="socksProxyHost" value="${env.socksProxyHost}" test="env.socksProxyHost" />
+			<property name="env.socksProxyPort" value="1080" />
+			<property name="socksProxyPort" value="${env.socksProxyPort}" />
+
+			<set-if-nonempty property="setproxy_http.proxyHost" value="${http.proxyHost}" else="" test="http.proxyHost" />
+			<set-if-nonempty property="setproxy_socksProxyHost" value="${socksProxyHost}" else="" test="socksProxyHost" />
+			<setproxy proxyhost="${setproxy_http.proxyHost}" proxyport="${http.proxyPort}" proxyuser="" proxypassword="" nonproxyhosts="${http.nonProxyHosts}" socksproxyhost="${setproxy_socksProxyHost}" socksproxyport="${socksProxyPort}" />
+
+			<set-if-nonempty property="http_proxy" value="http://${http.proxyHost}:${http.proxyPort}" test="http.proxyHost" />
+			<set-if-nonempty property="https_proxy" value="http://${https.proxyHost}:${https.proxyPort}" test="https.proxyHost" />
+			<set-if-nonempty property="ftp_proxy" value="http://${ftp.proxyHost}:${ftp.proxyPort}" test="ftp.proxyHost" />
+			<loadresource property="no_proxy" quiet="true">
+				<string>${http.nonProxyHosts}|127.0.0.1</string>
+				<filterchain>
+					<replaceregex pattern="\|" replace="," flags="g" />
+				</filterchain>
+			</loadresource>
+
+			<propertyset id="proxy.properties">
+				<propertyref name="http_proxy" />
+				<propertyref name="https_proxy" />
+				<propertyref name="ftp_proxy" />
+				<propertyref name="no_proxy" />
+				<!-- ## see: http://wiki.eclipse.org/ECF_Filetransfer_Support_for_NTLMv2_Proxies -->
+				<!-- <propertyref name="org.eclipse.ecf.provider.filetransfer.excludeContributors" /> -->
+				<!-- ## see: http://ant.apache.org/manual/proxy.html -->
+				<propertyref prefix="java.net.useSystemProxies" />
+				<propertyref prefix="http." />
+				<propertyref prefix="https." />
+				<propertyref prefix="ftp." />
+				<propertyref prefix="socksProxy" />
+				<!-- Include java net client default settings (including timeouts, which default to low thresholds) -->
+				<propertyref prefix="sun.net.client.default" />
+			</propertyset>
+
+		</sequential>
+	</macrodef>
+
+	<macrodef name="xslt-update">
+		<attribute name="inout" />
+		<attribute name="style" />
+		<attribute name="processor" default="${default.xslt.processor}" />
+		<element name="args" optional="true" implicit="true" />
+		<sequential>
+			<delete file="@{inout}.revised" failonerror="false" quiet="true" />
+			<xslt processor="@{processor}" in="@{inout}" out="@{inout}.revised" style="@{style}">
+				<args />
+			</xslt>
+			<move file="@{inout}.revised" tofile="@{inout}" overwrite="true" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="xslt-set">
+		<attribute name="inout" />
+		<attribute name="value" />
+		<attribute name="style" />
+		<attribute name="processor" default="${default.xslt.processor}" />
+		<sequential>
+			<xslt-update inout="@{inout}" style="@{style}">
+				<param name="value" expression="@{value}" />
+			</xslt-update>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="xslt-get">
+		<attribute name="in" />
+		<attribute name="property" />
+		<attribute name="style" />
+		<attribute name="processor" default="${default.xslt.processor}" />
+		<element name="args" optional="true" implicit="true" />
+		<sequential>
+			<delete file="@{style}.value" failonerror="false" quiet="true" />
+			<xslt processor="@{processor}" in="@{in}" out="@{style}.value" style="@{style}" />
+			<loadfile property="@{property}" srcfile="@{style}.value">
+				<args />
+			</loadfile>
+			<delete file="@{style}.value" failonerror="false" quiet="true" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="xslt-get-expand">
+		<attribute name="in" />
+		<attribute name="property" />
+		<attribute name="style" />
+		<attribute name="processor" default="${default.xslt.processor}" />
+		<sequential>
+			<xslt-get in="@{in}" processor="@{processor}" property="@{property}" style="@{style}">
+				<filterchain>
+					<expandproperties />
+				</filterchain>
+			</xslt-get>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="update-file">
+		<attribute name="inout" />
+		<element name="args" optional="true" implicit="true" />
+		<sequential>
+			<delete file="@{inout}.revised" failonerror="false" quiet="true" />
+			<copy file="@{inout}" tofile="@{inout}.revised">
+				<args />
+			</copy>
+			<move file="@{inout}.revised" tofile="@{inout}" overwrite="true" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="expand-file">
+		<attribute name="inout" />
+		<sequential>
+			<update-file inout="@{inout}">
+				<filterchain>
+					<expandproperties />
+				</filterchain>
+			</update-file>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="restore-then-backup">
+		<attribute name="location" />
+		<attribute name="backup" />
+		<attribute name="folder" />
+		<element name="args" optional="true" implicit="true" />
+		<sequential>
+			<mkdir dir="@{location}/@{folder}" />
+			<mkdir dir="@{backup}/@{folder}" />
+			<sync todir="@{location}/@{folder}" includeEmptyDirs="true" failonerror="false" overwrite="yes">
+				<fileset dir="@{backup}/@{folder}" defaultexcludes="false" />
+			</sync>
+			<args />
+			<sync todir="@{backup}/@{folder}" includeEmptyDirs="true" failonerror="false" overwrite="yes">
+				<fileset dir="@{location}/@{folder}" defaultexcludes="false" />
+			</sync>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="is-ok">
+		<attribute name="location" />
+		<sequential>
+			<property name="@{name}" location="@{location}" />
+			<condition property="_ok_@{location}" value="true">
+				<and>
+					<available file="@{location}" />
+					<available file="@{location}.ok" />
+					<!-- <uptodate srcfile="@{location}" targetfile="@{location}.ok" /> -->
+				</and>
+			</condition>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="set-ok">
+		<attribute name="location" />
+		<sequential>
+			<!-- <touch file="@{location}" /> -->
+			<touch file="@{location}.ok" />
+		</sequential>
+	</macrodef>
+
+	<target name="--is-ok_tofile">
+		<is-ok location="${tofile}" />
+	</target>
+
+	<target name="--get-unless-ok" depends="--is-ok_tofile" unless="_ok_${tofile}">
+		<delete file="${tofile}" failonerror="false" quiet="true" />
+		<delete file="${tofile}.ok" failonerror="false" quiet="true" />
+		<get dest="${tofile}" src="${src}" />
+		<set-ok location="${tofile}" />
+	</target>
+
+	<macrodef name="get-unless-ok">
+		<attribute name="src" />
+		<attribute name="tofile" />
+		<sequential>
+			<ant target="--get-unless-ok">
+				<property name="src" value="@{src}" />
+				<property name="tofile" location="@{tofile}" />
+			</ant>
+		</sequential>
+	</macrodef>
+
+	<target name="--is-ok_subdir">
+		<is-ok location="${subdir}" />
+	</target>
+
+	<target name="--extract-unless-ok" depends="--is-ok_subdir" unless="_ok_${subdir}">
+		<delete dir="${subdir}" failonerror="false" quiet="true" />
+		<delete file="${subdir}.ok" failonerror="false" quiet="true" />
+		<!-- maybe support something other than .zip, one day -->
+		<unzip dest="${todir}" src="${src}" />
+		<set-ok location="${subdir}" />
+	</target>
+
+	<macrodef name="extract-unless-ok">
+		<attribute name="src" />
+		<attribute name="todir" />
+		<attribute name="subdir" default="@{todir}" />
+		<sequential>
+			<ant target="--extract-unless-ok">
+				<property name="src" location="@{src}" />
+				<property name="todir" location="@{todir}" />
+				<property name="subdir" location="@{subdir}" />
+			</ant>
+		</sequential>
+	</macrodef>
+
+	<!--
+	<macrodef name="get-and-extract-unless-ok">
+		<attribute name="src" />
+		<attribute name="tofile" default="_throw_away_property" />
+		<attribute name="todir" />
+		<sequential>
+			<loadresource property="_filename_@{src}">
+				<string>@{src}</string>
+				<filterchain>
+					<replaceregex pattern="^.*[/=]([^/=]+\.zip).*$" replace="\1" />
+				</filterchain>
+			</loadresource>
+			<condition property="_tofile_@{src}" value="@{tofile}" else="@{todir}/../${_filename_@{src}}">
+				<and>
+					<isset property="@{tofile}" />
+					<length string="@{tofile}" when="greater" length="0" />
+					<not>
+						<equals arg1="@{tofile}" arg2="_throw_away_property" />
+					</not>
+				</and>
+			</condition>
+			<mkdir dir="@{todir}" />
+			<get-unless-ok src="@{src}" tofile="${_tofile_@{src}}" />
+			<extract-unless-ok src="${_tofile_@{src}}" todir="@{todir}" />
+		</sequential>
+	</macrodef>
+	-->
+
+	<macrodef name="path-union">
+		<attribute name="base" />
+		<attribute name="path" />
+		<attribute name="property" />
+		<sequential>
+			<loadresource property="_parent_@{base}">
+				<string>@{base}</string>
+				<filterchain>
+					<replaceregex pattern="^([^\?]+)/.*?$" replace="\1" />
+				</filterchain>
+			</loadresource>
+			<loadresource property="_nonrel_@{path}">
+				<string>@{path}</string>
+				<filterchain>
+					<replaceregex pattern="^\./(.*)$" replace="\1" />
+				</filterchain>
+			</loadresource>
+			<condition property="@{property}" value="${_parent_@{base}}/${_nonrel_@{path}}" else="@{path}">
+				<and>
+					<isset property="_parent_@{base}" />
+					<isset property="_nonrel_@{path}" />
+					<matches string="@{path}" pattern="^\." />
+				</and>
+			</condition>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="taskdef-ant-contrib">
+		<sequential>
+			<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+				<classpath>
+					<pathelement location="${ant.file.edu.uci.isr.infrastructure.bad.buckminster.antlib.utils}/ant-contrib-0.3.jar" />
+				</classpath>
+			</taskdef>
+		</sequential>
+	</macrodef>
+
+</project>

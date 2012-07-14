@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project>
+  <actions/>
+  <description>Publish ArchStudio update site to archstudio.org</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <axes/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>rsync -rv --delete-after --delay-updates /var/www/p2/as5/ sahendrickson@www.archstudio.org:/var/www/p2/</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+  </executionStrategy>
+</matrix-project>
