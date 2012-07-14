@@ -18,16 +18,6 @@
                single="true">
          </interface>
          <interface
-               class="org.archstudio.noticeadt.IArchlightNoticeADT"
-               delegate="variable"
-               direction="out"
-               domain="top"
-               getter="true"
-               id="notices"
-               name="notices"
-               single="true">
-         </interface>
-         <interface
                class="org.archstudio.testadt.IArchlightTestADT"
                delegate="variable"
                direction="out"
