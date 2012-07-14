@@ -303,27 +303,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.archstudio.noticeadt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.archstudio.noticeadt.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.archstudio.noticeview.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.archstudio.preferencesadt.core"
          download-size="0"
          install-size="0"

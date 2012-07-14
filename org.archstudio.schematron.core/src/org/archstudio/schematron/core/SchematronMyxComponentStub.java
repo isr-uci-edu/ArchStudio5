@@ -5,7 +5,6 @@ import java.util.*;
 import java.util.concurrent.*;
 import org.archstudio.myx.fw.*;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.archstudio.noticeadt.IArchlightNoticeADT;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.issueadt.IArchlightIssueADT;
@@ -56,12 +55,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 */
 	public static final IMyxName IN_TOOLS = MyxUtils.createName("tools");
 	/**
-	 * Myx interface notices: <code>OUT_NOTICES</code>
-	 * 
-	 * @generated
-	 */
-	public static final IMyxName OUT_NOTICES = MyxUtils.createName("notices");
-	/**
 	 * Myx interface tests: <code>OUT_TESTS</code>
 	 * 
 	 * @generated
@@ -86,13 +79,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 */
 	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
 
-	/**
-	 * Service object(s) for notices: <code>notices</code>
-	 * 
-	 * @see #OUT_NOTICES
-	 * @generated
-	 */
-	protected org.archstudio.noticeadt.IArchlightNoticeADT notices = null;
 	/**
 	 * Service object(s) for tests: <code>tests</code>
 	 * 
@@ -130,16 +116,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 */
 	public org.archstudio.archlight.IArchlightTool getTools() {
 		return this;
-	}
-
-	/**
-	 * Returns the service object(s) for <code>notices</code>
-	 * 
-	 * @see #OUT_NOTICES
-	 * @generated
-	 */
-	public org.archstudio.noticeadt.IArchlightNoticeADT getNotices() {
-		return notices;
 	}
 
 	/**
@@ -190,13 +166,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
-		if (interfaceName.equals(OUT_NOTICES)) {
-			if (notices != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
-			}
-			notices = (org.archstudio.noticeadt.IArchlightNoticeADT) serviceObject;
-			return;
-		}
 		if (interfaceName.equals(OUT_TESTS)) {
 			if (tests != null) {
 				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
@@ -235,10 +204,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
-		}
-		if (interfaceName.equals(OUT_NOTICES)) {
-			notices = null;
-			return;
 		}
 		if (interfaceName.equals(OUT_TESTS)) {
 			tests = null;

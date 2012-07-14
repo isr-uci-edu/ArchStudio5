@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xadlcore_3_0:xADL xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:domain_3_0="http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd"
-    xmlns:hints_3_0="http://www.archstudio.org/xadl3/schemas/hints-3.0.xsd" xmlns:implementation_3_0="http://www.archstudio.org/xadl3/schemas/implementation-3.0.xsd"
+<xadlcore_3_0:xADL xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:archlight_3_0="http://www.archstudio.org/xadl3/schemas/archlight-3.0.xsd"
+    xmlns:domain_3_0="http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd" xmlns:hints_3_0="http://www.archstudio.org/xadl3/schemas/hints-3.0.xsd"
+    xmlns:implementation_3_0="http://www.archstudio.org/xadl3/schemas/implementation-3.0.xsd"
     xmlns:javaimplementation_3_0="http://www.archstudio.org/xadl3/schemas/javaimplementation-3.0.xsd"
     xmlns:lookupimplementation_3_0="http://www.archstudio.org/xadl3/schemas/lookupimplementation-3.0.xsd"
     xmlns:myxgen_3_0="http://www.archstudio.org/xadl3/schemas/myxgen-3.0.xsd" xmlns:osgiimplementation_3_0="http://www.archstudio.org/xadl3/schemas/osgiimplementation-3.0.xsd"
@@ -1471,63 +1472,6 @@
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
-    <structure_3_0:component structure_3_0:id="NoticeADT" structure_3_0:name="Notice ADT">
-      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="NoticeADT_notices"
-          structure_3_0:name="notices">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="bottom"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.noticeadt.IArchlightNoticeADT"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="notices"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="4128,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="4123,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
-      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="NoticeADT_noticeEvents"
-          structure_3_0:name="noticeEvents">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="bottom"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.noticeadt.ArchlightNoticeADTListener"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="noticeEvents"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="4152,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="4147,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
-      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
-          <myxgen_3_0:brickID>org.archstudio.noticeadt.core.ArchlightNoticeADTMyxComponent</myxgen_3_0:brickID>
-        </implementation_3_0:implementation>
-      </structure_3_0:ext>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="4032,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="TestADT" structure_3_0:name="Test ADT">
       <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="TestADT_tests"
           structure_3_0:name="tests">
@@ -1726,84 +1670,6 @@
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
-    <structure_3_0:component structure_3_0:id="NoticeView" structure_3_0:name="Notice View">
-      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="NoticeView_notices"
-          structure_3_0:name="notices">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="top"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.noticeadt.IArchlightNoticeADT"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="notices"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1920,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="1915,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
-      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="NoticeView_resources"
-          structure_3_0:name="resources">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="top"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.resources.IResources"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="resources"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1896,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="1891,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
-      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="NoticeView_noticeEvents"
-          structure_3_0:name="noticeEvents">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="top"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.noticeadt.ArchlightNoticeADTListener"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="noticeEvents"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1944,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="1939,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
-      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
-          <myxgen_3_0:brickID>org.archstudio.noticeview.core.ArchlightNoticeViewMyxComponent</myxgen_3_0:brickID>
-        </implementation_3_0:implementation>
-      </structure_3_0:ext>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="1872,1248,240,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="Schematron" structure_3_0:name="Schematron">
       <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Schematron_tools"
           structure_3_0:name="tools">
@@ -1886,27 +1752,6 @@
           </hints_3_0:hint>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="3307,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
-      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Schematron_notices"
-          structure_3_0:name="notices">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="top"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.noticeadt.IArchlightNoticeADT"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="notices"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="3336,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="3331,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
         </structure_3_0:ext>
       </structure_3_0:interface>
@@ -2782,69 +2627,6 @@
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:connector>
-    <structure_3_0:connector structure_3_0:id="NoticeADTEventPump" structure_3_0:name="Notice ADT Event Pump">
-      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="NoticeADTEventPump_in"
-          structure_3_0:name="in">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="top"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="java.lang.Object"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="in"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="4272,264" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="4267,259,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
-      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="NoticeADTEventPump_out"
-          structure_3_0:name="out">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="bottom"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="java.lang.Object"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="out"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="4272,312" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="4267,307,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
-      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
-          <myxgen_3_0:brickID>org.archstudio.myx.osgi.conn.OSGiEventPumpConnector</myxgen_3_0:brickID>
-        </implementation_3_0:implementation>
-        <implementation_3_0:implementation xsi:type="osgiimplementation_3_0:OSGiImplementation"
-            osgiimplementation_3_0:bundle="org.archstudio.noticeadt"/>
-        <implementation_3_0:implementation xsi:type="implementation_3_0:InitializationParametersImplementation">
-          <implementation_3_0:initializationParameter implementation_3_0:name="interfaceClassName0"
-              implementation_3_0:value="org.archstudio.noticeadt.ArchlightNoticeADTListener"/>
-        </implementation_3_0:implementation>
-      </structure_3_0:ext>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="4152,264,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:connector>
     <structure_3_0:connector structure_3_0:id="TestADTEventPump" structure_3_0:name="Test ADT Event Pump">
       <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="TestADTEventPump_in"
           structure_3_0:name="in">
@@ -3701,22 +3483,6 @@
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
-    <structure_3_0:link structure_3_0:id="NoticeADT_noticeEvents_to_NoticeADTEventPump_in"
-        structure_3_0:name="Notice ADT.noticeEvents-to-Notice ADT Event Pump.in">
-      <structure_3_0:point1>NoticeADT_noticeEvents</structure_3_0:point1>
-      <structure_3_0:point2>NoticeADTEventPump_in</structure_3_0:point2>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="4157,172" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="4267,260" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="TestADT_testEvents_to_TestADTEventPump_in"
         structure_3_0:name="Test ADT.testEvents-to-Test ADT Event Pump.in">
       <structure_3_0:point1>TestADT_testEvents</structure_3_0:point1>
@@ -3827,54 +3593,6 @@
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
-    <structure_3_0:link structure_3_0:id="NoticeADT_notices_to_NoticeView_notices"
-        structure_3_0:name="Notice ADT.notices-to-Notice View.notices">
-      <structure_3_0:point1>NoticeADT_notices</structure_3_0:point1>
-      <structure_3_0:point2>NoticeView_notices</structure_3_0:point2>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="4123,170" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1925,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:link>
-    <structure_3_0:link structure_3_0:id="Resources_resources_to_NoticeView_resources"
-        structure_3_0:name="Resources.resources-to-Notice View.resources">
-      <structure_3_0:point1>Resources_resources</structure_3_0:point1>
-      <structure_3_0:point2>NoticeView_resources</structure_3_0:point2>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="2015,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1897,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:link>
-    <structure_3_0:link structure_3_0:id="NoticeADTEventPump_out_to_NoticeView_noticeEvents"
-        structure_3_0:name="Notice ADT Event Pump.out-to-Notice View.noticeEvents">
-      <structure_3_0:point1>NoticeADTEventPump_out</structure_3_0:point1>
-      <structure_3_0:point2>NoticeView_noticeEvents</structure_3_0:point2>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="4267,314" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1949,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_Schematron_xarch" structure_3_0:name="xArch ADT.xarch-to-Schematron.xarch">
       <structure_3_0:point1>xArchADT_xarch</structure_3_0:point1>
       <structure_3_0:point2>Schematron_xarch</structure_3_0:point2>
@@ -3914,22 +3632,6 @@
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="endpoint2">
           <hints_3_0:value hints_3_0:data="3311,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:link>
-    <structure_3_0:link structure_3_0:id="NoticeADT_notices_to_Schematron_notices"
-        structure_3_0:name="Notice ADT.notices-to-Schematron.notices">
-      <structure_3_0:point1>NoticeADT_notices</structure_3_0:point1>
-      <structure_3_0:point2>Schematron_notices</structure_3_0:point2>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="4124,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="3340,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
           <hints_3_0:value/>
@@ -4175,4 +3877,48 @@
       </structure_3_0:ext>
     </structure_3_0:link>
   </structure_3_0:structure>
+  <archlight_3_0:archlight>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="E654111F-9B2A-407f-B017-C48E0FA51A4A"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Core/No Duplicate IDs"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="D39A21F9-8760-4d9f-8BEF-B8092A6EAC62"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Structure ID Present"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="628967A1-8895-4563-B5BB-311E47EC9A6F"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Structure ID Non-Empty"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="7E3CA58D-BB94-4007-B7DF-990A7949CF9C"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Structure Name Present"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="2551A15C-5CD0-4a96-A30D-6E13B86C645B"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Structure Name Non-Empty"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="043E2E44-3EA6-4f62-A8A6-587B55D3D49E"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Components/Component ID Present"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="F7F759A4-196A-4fca-A3C2-135B59EDA46D"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Components/Component ID Non-Empty"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="609D7041-06BB-4277-BB6B-F89E8E1F3DBB"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Components/Component Name Present"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="3F2626D5-F342-426e-B7BA-4B54ABAFA258"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Components/Component Name Non-Empty"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="62A63D7D-C706-4438-A9E1-C4F0A1AC504B"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Components/Interfaces/Component Interface ID Present"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="79D8B865-41DE-42ad-9B73-51F61A1F02C0"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Components/Interfaces/Component Interface ID Non-Empty"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="DD771025-653D-4999-A5CB-BE266EA4D7DC"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Components/Interfaces/Component Interface Name Present"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="84FF7E3D-8DF7-40e4-9268-99F270326C21"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Components/Interfaces/Component Interface Name Non-Empty"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="043E2E44-3EA6-4f62-A8A6-587B55D3D49F"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Connectors/Connector ID Present"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="F7F759A4-196A-4fca-A3C2-135B59EDA46E"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Connectors/Connector ID Non-Empty"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="609D7041-06BB-4277-BB6B-F89E8E1F3DBC"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Connectors/Connector Name Present"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="3F2626D5-F342-426e-B7BA-4B54ABAFA259"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Connectors/Connector Name Non-Empty"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="62A63D7D-C706-4438-A9E1-C4F0A1AC504C"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Connectors/Interfaces/Connector Interface ID Present"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="79D8B865-41DE-42ad-9B73-51F61A1F02C1"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Connectors/Interfaces/Connector Interface ID Non-Empty"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="DD771025-653D-4999-A5CB-BE266EA4D7DD"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Connectors/Interfaces/Connector Interface Name Present"/>
+    <archlight_3_0:test archlight_3_0:enabled="true" archlight_3_0:id="84FF7E3D-8DF7-40e4-9268-99F270326C22"
+        archlight_3_0:name="Tool: Schematron; Category: xADL 3/Structures/Connectors/Interfaces/Connector Interface Name Non-Empty"/>
+  </archlight_3_0:archlight>
 </xadlcore_3_0:xADL>

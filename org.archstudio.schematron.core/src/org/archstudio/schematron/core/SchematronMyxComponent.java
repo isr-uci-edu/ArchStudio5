@@ -8,10 +8,12 @@ import java.util.Set;
 
 import org.archstudio.archlight.ArchlightIssue;
 import org.archstudio.archlight.ArchlightTest;
-import org.archstudio.archlight.ArchlightTestError;
 import org.archstudio.archlight.ArchlightTestResult;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 
 /**
  * Myx brick: "Schematron Impl"
@@ -35,25 +37,37 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 		return TOOL_ID;
 	}
 
+	protected void addNotice(String text) {
+		ILog log = Activator.getDefault().getLog();
+		log.log(new Status(IStatus.INFO, Activator.getDefault().getBundle().getSymbolicName(), TOOL_ID
+				+ " Archlight Tool: " + text));
+	}
+
+	protected void addError(String text, Throwable t) {
+		ILog log = Activator.getDefault().getLog();
+		log.log(new Status(IStatus.ERROR, Activator.getDefault().getBundle().getSymbolicName(), TOOL_ID
+				+ " Archlight Tool: " + text, t));
+	}
+
 	@Override
 	public void begin() {
 		testManager = new SchematronTestManager(TOOL_ID, preferences);
-		notices.addNotice(TOOL_ID, "Schematron Archlight Tool Initialized at [" + SystemUtils.getDateAndTime() + "]");
+		addNotice("Initialized at [" + SystemUtils.getDateAndTime() + "]");
 		String xalanVersion = SchematronUtils.getXalanVersion();
 		if (xalanVersion == null) {
 			xalanVersionOK = false;
-			notices.addNotice(TOOL_ID, "Error: No Xalan version found.  Tests cannot run.");
+			addError("No Xalan version found. Tests cannot run.", null);
 		}
 		else {
 			xalanVersionOK = true;
-			notices.addNotice(TOOL_ID, "Xalan version " + xalanVersion);
+			addNotice("Xalan version " + xalanVersion);
 		}
 		reloadTests();
 	}
 
 	@Override
 	public void reloadTests() {
-		notices.addNotice(TOOL_ID, "Reloading tests at [" + SystemUtils.getDateAndTime() + "]");
+		addNotice("Reloading tests at [" + SystemUtils.getDateAndTime() + "]");
 		List<? extends ArchlightTest> oldTests = tests.getAllTests(TOOL_ID);
 		testManager.reload();
 		List<? extends ArchlightTest> newTests = testManager.getAllArchlightTests();
@@ -64,11 +78,11 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 		if (!warnings.isEmpty()) {
 			for (Object warning : warnings) {
 				if (warning instanceof String) {
-					notices.addNotice(TOOL_ID, "Warning:" + warning);
+					addNotice("Warning:" + warning);
 				}
 				else if (warning instanceof Throwable) {
 					Throwable t = (Throwable) warning;
-					notices.addNotice(TOOL_ID, "Error: " + t.getMessage(), t);
+					addError("Error: " + t.getMessage(), t);
 				}
 			}
 		}
@@ -115,7 +129,7 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 				}
 				if (fileToRun != null) {
 					SchematronTester tester = new SchematronTester(xmlDocument, fileToRun);
-					notices.addNotice(TOOL_ID, "Processing: " + fileToRun.getSourceURL());
+					addNotice("Processing: " + fileToRun.getSourceURL());
 					float pct = (float) f / (float) filesToRunSize;
 					pct *= 100;
 					if (pct == 0) {
@@ -169,9 +183,7 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 
 		//Store the errors
 		for (SchematronTestException exception : schematronTestErrorList) {
-			exception.printStackTrace();
-			notices.addNotice(new ArchlightTestError(exception.getTestUID(), TOOL_ID, exception.getMessage(), null,
-					exception));
+			addError("Error: " + exception.getMessage(), exception);
 		}
 	}
 }

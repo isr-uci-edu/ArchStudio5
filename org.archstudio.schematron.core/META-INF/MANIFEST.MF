@@ -5,6 +5,7 @@ Bundle-SymbolicName: org.archstudio.schematron.core;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-ClassPath: lib/xalan.jar,
  .
+Bundle-Activator: org.archstudio.schematron.core.Activator
 Bundle-Vendor: archstudio.org
 Export-Package: java_cup.runtime,
  org.apache.bcel,
@@ -61,11 +62,12 @@ Export-Package: java_cup.runtime,
 Require-Bundle: org.archstudio.archlight,
  org.archstudio.issueadt,
  org.archstudio.myx.fw,
- org.archstudio.noticeadt,
  org.archstudio.utils.system,
  org.archstudio.testadt,
  org.archstudio.xarchadt,
  org.eclipse.emf.codegen.ecore,
  org.eclipse.ui,
- org.archstudio.eclipse.core
+ org.archstudio.eclipse.core,
+ org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
