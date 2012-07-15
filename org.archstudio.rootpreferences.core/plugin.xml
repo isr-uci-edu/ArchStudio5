@@ -9,33 +9,5 @@
             name="ArchStudio">
       </page>
    </extension>
-   <extension
-         point="org.archstudio.myxgen.brick">
-      <brick
-            class="org.archstudio.rootpreferences.core.RootPreferencesMyxComponent"
-            id="org.archstudio.rootpreferences.core.RootPreferencesMyxComponent"
-            name="Root Preferences Impl">
-         <interface
-               class="org.archstudio.resources.IResources"
-               delegate="variable"
-               direction="out"
-               domain="top"
-               getter="true"
-               id="resources"
-               name="resources"
-               single="true">
-         </interface>
-         <interface
-               class="org.eclipse.jface.preference.IPreferenceStore"
-               delegate="variable"
-               direction="out"
-               domain="top"
-               getter="true"
-               id="preferences"
-               name="preferences"
-               single="true">
-         </interface>
-      </brick>
-   </extension>
 
 </plugin>

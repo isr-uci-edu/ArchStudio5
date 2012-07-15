@@ -158,63 +158,6 @@
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:component>
-    <structure_3_0:component structure_3_0:id="RootPreferences" structure_3_0:name="Root Preferences">
-      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="RootPreferences_preferences"
-          structure_3_0:name="preferences">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="top"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="preferences"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="2424,384" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="2419,379,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
-      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="RootPreferences_resources"
-          structure_3_0:name="resources">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="top"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.resources.IResources"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="resources"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="2400,384" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="2395,379,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
-      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
-          <myxgen_3_0:brickID>org.archstudio.rootpreferences.core.RootPreferencesMyxComponent</myxgen_3_0:brickID>
-        </implementation_3_0:implementation>
-      </structure_3_0:ext>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="2304,384,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="MyxRuntime" structure_3_0:name="Myx Runtime">
       <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="MyxRuntime_myxRuntime"
           structure_3_0:name="myxRuntime">
@@ -2505,38 +2448,6 @@
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="endpoint2">
           <hints_3_0:value hints_3_0:data="1944,523" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:link>
-    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_RootPreferences_preferences"
-        structure_3_0:name="Preferences ADT.preferences-to-Root Preferences.preferences">
-      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
-      <structure_3_0:point2>RootPreferences_preferences</structure_3_0:point2>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1685,146" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="2419,382" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:link>
-    <structure_3_0:link structure_3_0:id="Resources_resources_to_RootPreferences_resources"
-        structure_3_0:name="Resources.resources-to-Root Preferences.resources">
-      <structure_3_0:point1>Resources_resources</structure_3_0:point1>
-      <structure_3_0:point2>RootPreferences_resources</structure_3_0:point2>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="2021,171" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="2395,381" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
           <hints_3_0:value/>
