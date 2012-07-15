@@ -18,16 +18,6 @@
                name="graphLayout"
                single="true">
          </interface>
-         <interface
-               class="org.eclipse.jface.preference.IPreferenceStore"
-               delegate="variable"
-               direction="out"
-               domain="top"
-               getter="true"
-               id="preferences"
-               name="preferences"
-               single="true">
-         </interface>
       </brick>
    </extension>
    <extension

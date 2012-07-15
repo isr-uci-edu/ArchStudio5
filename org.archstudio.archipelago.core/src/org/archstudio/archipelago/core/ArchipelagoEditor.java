@@ -9,7 +9,6 @@ import org.archstudio.xarchadt.XArchADTFileEvent;
 import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -19,12 +18,10 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IGotoMarker;
 
 public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxComponent> implements IGotoMarker {
-	protected IPreferenceStore prefs = null;
 	protected IGraphLayout graphLayout = null;
 
 	public ArchipelagoEditor() {
 		super(ArchipelagoMyxComponent.class, ArchipelagoMyxComponent.EDITOR_NAME);
-		prefs = brick.getPreferences();
 		graphLayout = brick.getGraphLayout();
 
 		//ArchlightUtils.initResources(resources);
@@ -44,8 +41,7 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 	}
 
 	protected AbstractArchStudioOutlinePage createOutlinePage() {
-		return new ArchipelagoOutlinePage(this, xarch, getDocumentRootRef(), resources, fileman, editorManager, prefs,
-				graphLayout);
+		return new ArchipelagoOutlinePage(this, xarch, getDocumentRootRef(), resources, fileman, editorManager, graphLayout);
 	}
 
 	/*

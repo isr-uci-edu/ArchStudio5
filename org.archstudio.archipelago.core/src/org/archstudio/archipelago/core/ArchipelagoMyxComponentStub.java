@@ -35,26 +35,12 @@ abstract class ArchipelagoMyxComponentStub extends
 	 */
 	public static final IMyxName OUT_GRAPH_LAYOUT = MyxUtils.createName("graphLayout");
 	/**
-	 * Myx interface preferences: <code>OUT_PREFERENCES</code>
-	 * 
-	 * @generated
-	 */
-	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
-
-	/**
 	 * Service object(s) for graphLayout: <code>graphLayout</code>
 	 * 
 	 * @see #OUT_GRAPH_LAYOUT
 	 * @generated
 	 */
 	protected org.archstudio.graphlayout.IGraphLayout graphLayout = null;
-	/**
-	 * Service object(s) for preferences: <code>preferences</code>
-	 * 
-	 * @see #OUT_PREFERENCES
-	 * @generated
-	 */
-	protected org.eclipse.jface.preference.IPreferenceStore preferences = null;
 
 	/**
 	 * Returns the service object(s) for <code>graphLayout</code>
@@ -64,16 +50,6 @@ abstract class ArchipelagoMyxComponentStub extends
 	 */
 	public org.archstudio.graphlayout.IGraphLayout getGraphLayout() {
 		return graphLayout;
-	}
-
-	/**
-	 * Returns the service object(s) for <code>preferences</code>
-	 * 
-	 * @see #OUT_PREFERENCES
-	 * @generated
-	 */
-	public org.eclipse.jface.preference.IPreferenceStore getPreferences() {
-		return preferences;
 	}
 
 	/**
@@ -91,13 +67,6 @@ abstract class ArchipelagoMyxComponentStub extends
 			graphLayout = (org.archstudio.graphlayout.IGraphLayout) serviceObject;
 			return;
 		}
-		if (interfaceName.equals(OUT_PREFERENCES)) {
-			if (preferences != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
-			}
-			preferences = (org.eclipse.jface.preference.IPreferenceStore) serviceObject;
-			return;
-		}
 		super.interfaceConnected(interfaceName, serviceObject);
 	}
 
@@ -111,10 +80,6 @@ abstract class ArchipelagoMyxComponentStub extends
 		}
 		if (interfaceName.equals(OUT_GRAPH_LAYOUT)) {
 			graphLayout = null;
-			return;
-		}
-		if (interfaceName.equals(OUT_PREFERENCES)) {
-			preferences = null;
 			return;
 		}
 		super.interfaceDisconnecting(interfaceName, serviceObject);
