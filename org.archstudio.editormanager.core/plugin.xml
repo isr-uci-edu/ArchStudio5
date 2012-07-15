@@ -38,31 +38,6 @@
                single="true">
          </interface>
       </brick>
-      <brick
-            class="org.archstudio.editormanager.core.EditorPrefsMyxComponent"
-            id="org.archstudio.editormanager.core.EditorPrefsMyxComponent"
-            name="Editor Prefs Myx Component">
-         <interface
-               class="org.archstudio.editormanager.IEditorManager"
-               delegate="variable"
-               direction="out"
-               domain="top"
-               getter="true"
-               id="editorManager"
-               name="editorManager"
-               single="true">
-         </interface>
-         <interface
-               class="org.eclipse.jface.preference.IPreferenceStore"
-               delegate="variable"
-               direction="out"
-               domain="top"
-               getter="true"
-               id="preferences"
-               name="preferences"
-               single="true">
-         </interface>
-      </brick>
    </extension>
 
 </plugin>
