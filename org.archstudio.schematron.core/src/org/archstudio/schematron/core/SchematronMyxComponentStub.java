@@ -1,5 +1,17 @@
 package org.archstudio.schematron.core;
 
+import java.lang.reflect.*;
+import java.util.*;
+import java.util.concurrent.*;
+import org.archstudio.myx.fw.*;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.archstudio.myx.fw.IMyxDynamicBrick;
+import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.myx.fw.IMyxLifecycleProcessor;
+import org.archstudio.testadt.IArchlightTestADT;
+import org.archstudio.archlight.IArchlightTool;
+import org.archstudio.myx.fw.IMyxBrickItems;
+import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
@@ -53,13 +65,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 */
 	public static final IMyxName OUT_XARCH = MyxUtils.createName("xarch");
 	/**
-	 * Myx interface preferences: <code>OUT_PREFERENCES</code>
-	 * 
-	 * @generated
-	 */
-	public static final IMyxName OUT_PREFERENCES = MyxUtils.createName("preferences");
-
-	/**
 	 * Service object(s) for tests: <code>tests</code>
 	 * 
 	 * @see #OUT_TESTS
@@ -73,13 +78,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 * @generated
 	 */
 	protected org.archstudio.xarchadt.IXArchADT xarch = null;
-	/**
-	 * Service object(s) for preferences: <code>preferences</code>
-	 * 
-	 * @see #OUT_PREFERENCES
-	 * @generated
-	 */
-	protected org.eclipse.jface.preference.IPreferenceStore preferences = null;
 
 	/**
 	 * Returns the service object(s) for <code>tools</code>
@@ -112,16 +110,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	}
 
 	/**
-	 * Returns the service object(s) for <code>preferences</code>
-	 * 
-	 * @see #OUT_PREFERENCES
-	 * @generated
-	 */
-	public org.eclipse.jface.preference.IPreferenceStore getPreferences() {
-		return preferences;
-	}
-
-	/**
 	 * @generated
 	 */
 	@Override
@@ -143,13 +131,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 			xarch = (org.archstudio.xarchadt.IXArchADT) serviceObject;
 			return;
 		}
-		if (interfaceName.equals(OUT_PREFERENCES)) {
-			if (preferences != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
-			}
-			preferences = (org.eclipse.jface.preference.IPreferenceStore) serviceObject;
-			return;
-		}
 		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
 	}
 
@@ -167,10 +148,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 		}
 		if (interfaceName.equals(OUT_XARCH)) {
 			xarch = null;
-			return;
-		}
-		if (interfaceName.equals(OUT_PREFERENCES)) {
-			preferences = null;
 			return;
 		}
 		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);

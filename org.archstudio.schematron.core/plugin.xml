@@ -37,41 +37,7 @@
                name="xarch"
                single="true">
          </interface>
-         <interface
-               class="org.eclipse.jface.preference.IPreferenceStore"
-               delegate="variable"
-               direction="out"
-               domain="top"
-               getter="true"
-               id="preferences"
-               name="preferences"
-               single="true">
-         </interface>
       </brick>
-      <brick
-            class="org.archstudio.schematron.core.prefs.SchematronPrefsMyxComponent"
-            id="org.archstudio.schematron.core.prefs.SchematronPrefsMyxComponent"
-            name="Schematron Prefs Impl">
-         <interface
-               class="org.eclipse.jface.preference.IPreferenceStore"
-               delegate="variable"
-               direction="out"
-               domain="top"
-               getter="true"
-               id="preferences"
-               name="preferences"
-               single="true">
-         </interface>
-      </brick>
-   </extension>
-   <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            category="org.archstudio.archlight.core.prefs.ArchlightPreferencePanel"
-            class="org.archstudio.schematron.core.prefs.SchematronPreferencePanel"
-            id="org.archstudio.schematron.core.prefs.SchematronPreferencePanel"
-            name="Schematron">
-      </page>
    </extension>
 
 </plugin>
