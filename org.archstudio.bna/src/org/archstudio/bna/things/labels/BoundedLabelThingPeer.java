@@ -59,7 +59,10 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		Point canvasSize = r.getComposite().getSize();
-		if (!t.getText().equals(text) //
+		if (t.getText().length() == 0) {
+			font = null;
+		}
+		else if (!t.getText().equals(text) //
 				|| font != null && !r.getFont(t, font.getSize()).equals(font)
 				// leave a little tolerance for rounding of coordinates
 				|| Math.abs(lbb.height - size.height) > 2 //
