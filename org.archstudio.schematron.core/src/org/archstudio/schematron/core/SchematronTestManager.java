@@ -15,7 +15,6 @@ import java.util.Set;
 import org.archstudio.archlight.ArchlightTest;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
-import org.eclipse.jface.preference.IPreferenceStore;
 
 public class SchematronTestManager {
 	public static final String DEFAULT_TEST_FILE_URL = "platform:/plugin/org.archstudio.schematron.core/res/";
@@ -23,8 +22,6 @@ public class SchematronTestManager {
 	public static final String RULE_FILE_INDEX_NAME = "rulefileindex.txt";
 
 	protected String toolID;
-
-	protected IPreferenceStore preferences;
 
 	protected List<String> testFileBaseURLs = null;
 
@@ -37,9 +34,8 @@ public class SchematronTestManager {
 	// Either strings or Throwables
 	protected List<Object> warnings = new ArrayList<Object>();
 
-	public SchematronTestManager(String toolID, IPreferenceStore preferences) {
+	public SchematronTestManager(String toolID) {
 		this.toolID = toolID;
-		this.preferences = preferences;
 	}
 
 	public List<? extends SchematronTestFile> getAllTestFiles() {
@@ -78,15 +74,6 @@ public class SchematronTestManager {
 	private void reloadBaseURLs() {
 		List<String> testFileBaseURLList = new ArrayList<String>();
 		testFileBaseURLList.add(DEFAULT_TEST_FILE_URL);
-
-		String s = preferences.getString(SchematronConstants.PREF_TEST_FILE_PATHS);
-		System.out.println(s);
-		while (true) {
-			// Process s;
-			break;
-		}
-		//TODO: Finish this
-
 		testFileBaseURLs = testFileBaseURLList;
 	}
 

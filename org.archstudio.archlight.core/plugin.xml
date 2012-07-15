@@ -74,30 +74,6 @@
                single="true">
          </interface>
       </brick>
-      <brick
-            class="org.archstudio.archlight.core.prefs.ArchlightPrefsMyxComponent"
-            id="org.archstudio.archlight.core.prefs.ArchlightPrefsMyxComponent"
-            name="Archlight Prefs Impl">
-         <interface
-               class="org.eclipse.jface.preference.IPreferenceStore"
-               delegate="variable"
-               direction="out"
-               domain="top"
-               getter="true"
-               id="preferences"
-               name="preferences"
-               single="true">
-         </interface>
-      </brick>
-   </extension>
-   <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            category="org.archstudio.rootpreferences.core.ArchStudioPreferencePanel"
-            class="org.archstudio.archlight.core.prefs.ArchlightPreferencePanel"
-            id="org.archstudio.archlight.core.prefs.ArchlightPreferencePanel"
-            name="Archlight">
-      </page>
    </extension>
    <extension
          point="org.eclipse.ui.editors">

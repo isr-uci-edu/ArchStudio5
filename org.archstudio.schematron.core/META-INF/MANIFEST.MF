@@ -57,7 +57,6 @@ Export-Package: java_cup.runtime,
  org.apache.xpath.patterns,
  org.apache.xpath.res,
  org.archstudio.schematron.core,
- org.archstudio.schematron.core.prefs,
  org.w3c.dom.xpath
 Require-Bundle: org.archstudio.archlight,
  org.archstudio.myx.fw,

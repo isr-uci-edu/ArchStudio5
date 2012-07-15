@@ -62,7 +62,7 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 
 	@Override
 	public void begin() {
-		testManager = new SchematronTestManager(TOOL_ID, preferences);
+		testManager = new SchematronTestManager(TOOL_ID);
 		addNotice("Initialized at [" + SystemUtils.getDateAndTime() + "]");
 		String xalanVersion = SchematronUtils.getXalanVersion();
 		if (xalanVersion == null) {
