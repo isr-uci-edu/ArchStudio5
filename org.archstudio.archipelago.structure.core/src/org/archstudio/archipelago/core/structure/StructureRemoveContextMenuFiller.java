@@ -34,7 +34,7 @@ public class StructureRemoveContextMenuFiller extends AbstractRemoveContextMenuF
 	protected void remove(ObjRef targetRef) {
 		if (targetRef != null) {
 			if (XadlUtils.isInstanceOf(xarch, targetRef, Structure_3_0Package.Literals.STRUCTURE)) {
-				xarch.remove(xArchRef, "Object", targetRef);
+				XadlUtils.remove(xarch, targetRef);
 				return;
 			}
 		}
