@@ -34,50 +34,57 @@ public class FlyToUtils {
 			return;
 		}
 		final double originalScale = cm.getLocalScale();
-		final Point localSize = BNAUtils.toPoint(control.getSize());
-		final Point localCenter = new Point(localSize.x / 2, localSize.y / 2);
 
-		Thread flyThread = new Thread(FlyToUtils.class.getName()) {
+		SWTWidgetUtils.async(control, new Runnable() {
 			@Override
 			public void run() {
+				
+				final Point localSize = BNAUtils.toPoint(control.getSize());
+				final Point localCenter = new Point(localSize.x / 2, localSize.y / 2);
 
-				try {
-					Point worldStart = cm.localToWorld(localCenter);
-					Point worldEnd = BNAUtils.clone(toWorldPoint);
-					Point worldDiff = new Point(worldEnd.x - worldStart.x, worldEnd.y - worldStart.y);
+				Thread flyThread = new Thread(FlyToUtils.class.getName()) {
+					@Override
+					public void run() {
 
-					long duration = 1000;
-					long startTime = System.currentTimeMillis();
-					long currentTime;
-					long endTime = startTime + duration;
-					while ((currentTime = System.currentTimeMillis()) < endTime) {
-						double d = Math.PI / 2 * (currentTime - startTime) / duration;
-						double transposeFactor = Math.sin(d);
-						final Point worldIntermediate = new Point(//
-								worldStart.x + BNAUtils.round(worldDiff.x * transposeFactor),//
-								worldStart.y + BNAUtils.round(worldDiff.y * transposeFactor));
-						final double intermediateScale = Math.max(0.0001,
-								originalScale - originalScale * 0.7 * Math.sin(d * 2));
-						SWTWidgetUtils.sync(control, new Runnable() {
-							@Override
-							public void run() {
-								cm.setLocalScaleAndAlign(intermediateScale, localCenter, worldIntermediate);
+						try {
+							Point worldStart = cm.localToWorld(localCenter);
+							Point worldEnd = BNAUtils.clone(toWorldPoint);
+							Point worldDiff = new Point(worldEnd.x - worldStart.x, worldEnd.y - worldStart.y);
+
+							long duration = 1000;
+							long startTime = System.currentTimeMillis();
+							long currentTime;
+							long endTime = startTime + duration;
+							while ((currentTime = System.currentTimeMillis()) < endTime) {
+								double d = Math.PI / 2 * (currentTime - startTime) / duration;
+								double transposeFactor = Math.sin(d);
+								final Point worldIntermediate = new Point(//
+										worldStart.x + BNAUtils.round(worldDiff.x * transposeFactor),//
+										worldStart.y + BNAUtils.round(worldDiff.y * transposeFactor));
+								final double intermediateScale = Math.max(0.0001, originalScale - originalScale * 0.7
+										* Math.sin(d * 2));
+								SWTWidgetUtils.sync(control, new Runnable() {
+									@Override
+									public void run() {
+										cm.setLocalScaleAndAlign(intermediateScale, localCenter, worldIntermediate);
+									}
+								});
 							}
-						});
-					}
-				}
-				finally {
-					// finally, set the cm to the correct scale and position
-					SWTWidgetUtils.async(control, new Runnable() {
-						@Override
-						public void run() {
-							cm.setLocalScaleAndAlign(originalScale, localCenter, toWorldPoint);
 						}
-					});
-				}
+						finally {
+							// finally, set the cm to the correct scale and position
+							SWTWidgetUtils.async(control, new Runnable() {
+								@Override
+								public void run() {
+									cm.setLocalScaleAndAlign(originalScale, localCenter, toWorldPoint);
+								}
+							});
+						}
+					}
+				};
+				flyThread.start();
 			}
-		};
-		flyThread.start();
+		});
 	}
 
 }

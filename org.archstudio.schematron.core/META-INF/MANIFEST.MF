@@ -60,7 +60,6 @@ Export-Package: java_cup.runtime,
  org.archstudio.schematron.core.prefs,
  org.w3c.dom.xpath
 Require-Bundle: org.archstudio.archlight,
- org.archstudio.issueadt,
  org.archstudio.myx.fw,
  org.archstudio.utils.system,
  org.archstudio.testadt,
@@ -68,6 +67,8 @@ Require-Bundle: org.archstudio.archlight,
  org.eclipse.emf.codegen.ecore,
  org.eclipse.ui,
  org.archstudio.eclipse.core,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ com.google.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

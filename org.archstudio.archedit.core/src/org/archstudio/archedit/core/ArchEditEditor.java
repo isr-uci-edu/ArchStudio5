@@ -11,6 +11,7 @@ import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.IXArchADTFeature;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ICellModifier;
@@ -39,8 +40,9 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.ide.IGotoMarker;
 
-public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponent> {
+public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponent> implements IGotoMarker {
 	public static final String[] COLUMN_NAMES = new String[] { "Name", "Value" };
 
 	public ArchEditEditor() {
@@ -325,5 +327,22 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 
 	public void focusEditor(String editorName, ObjRef[] refs) {
 		super.focusEditor(editorName, refs);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object getAdapter(Class key) {
+		if (key.equals(IGotoMarker.class)) {
+			return this;
+		}
+		return super.getAdapter(key);
+	}
+
+	public void gotoMarker(IMarker marker) {
+		ObjRef objRef = xarch.getByID(documentRootRef, marker.getAttribute(IMarker.LOCATION, null));
+		if (objRef != null) {
+			focusEditor(editorName, new ObjRef[] { objRef });
+		}
+
 	}
 }

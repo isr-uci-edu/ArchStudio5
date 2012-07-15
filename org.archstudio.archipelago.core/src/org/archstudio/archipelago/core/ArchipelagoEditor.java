@@ -7,6 +7,7 @@ import org.archstudio.resources.IResources;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTFileEvent;
 import org.archstudio.xarchadt.XArchADTModelEvent;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
@@ -15,8 +16,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.ide.IGotoMarker;
 
-public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxComponent> {
+public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxComponent> implements IGotoMarker {
 	protected IPreferenceStore prefs = null;
 	protected IGraphLayout graphLayout = null;
 
@@ -89,5 +91,22 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 		if (outlinePage != null) {
 			((ArchipelagoOutlinePage) outlinePage).fileSaving(xArchRef, monitor);
 		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object getAdapter(Class key) {
+		if (key.equals(IGotoMarker.class)) {
+			return this;
+		}
+		return super.getAdapter(key);
+	}
+
+	public void gotoMarker(IMarker marker) {
+		ObjRef objRef = xarch.getByID(documentRootRef, marker.getAttribute(IMarker.LOCATION, null));
+		if (objRef != null) {
+			focusEditor(editorName, new ObjRef[] { objRef });
+		}
+
 	}
 }

@@ -24,7 +24,6 @@ import com.google.common.collect.Iterables;
 
 public class ArchlightUtils {
 
-	public static final String ARCHLIGHT_ISSUE_VIEW_ECLIPSE_ID = "org.archstudio.issueview.core.ArchlightIssueView";
 	public static final int APPLIED = 1;
 	public static final int DISABLED = 2;
 	public static final int NOT_APPLIED = 3;

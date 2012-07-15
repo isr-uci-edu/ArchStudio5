@@ -281,7 +281,7 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		tools.runTests(documentRootRef, testUIDlist);
 
 		try {
-			getEditorSite().getPage().showView(ArchlightUtils.ARCHLIGHT_ISSUE_VIEW_ECLIPSE_ID);
+			getEditorSite().getPage().showView("org.eclipse.ui.views.ProblemView");
 		}
 		catch (PartInitException pe) {
 		}

@@ -1,18 +1,5 @@
 package org.archstudio.schematron.core;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.concurrent.*;
-import org.archstudio.myx.fw.*;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.archstudio.myx.fw.IMyxDynamicBrick;
-import org.archstudio.xarchadt.IXArchADT;
-import org.archstudio.issueadt.IArchlightIssueADT;
-import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.testadt.IArchlightTestADT;
-import org.archstudio.archlight.IArchlightTool;
-import org.archstudio.myx.fw.IMyxBrickItems;
-import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
@@ -22,7 +9,6 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-@SuppressWarnings("unused")
 abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
 		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.archlight.IArchlightTool, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
@@ -61,12 +47,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 */
 	public static final IMyxName OUT_TESTS = MyxUtils.createName("tests");
 	/**
-	 * Myx interface issues: <code>OUT_ISSUES</code>
-	 * 
-	 * @generated
-	 */
-	public static final IMyxName OUT_ISSUES = MyxUtils.createName("issues");
-	/**
 	 * Myx interface xarch: <code>OUT_XARCH</code>
 	 * 
 	 * @generated
@@ -86,13 +66,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 * @generated
 	 */
 	protected org.archstudio.testadt.IArchlightTestADT tests = null;
-	/**
-	 * Service object(s) for issues: <code>issues</code>
-	 * 
-	 * @see #OUT_ISSUES
-	 * @generated
-	 */
-	protected org.archstudio.issueadt.IArchlightIssueADT issues = null;
 	/**
 	 * Service object(s) for xarch: <code>xarch</code>
 	 * 
@@ -126,16 +99,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 */
 	public org.archstudio.testadt.IArchlightTestADT getTests() {
 		return tests;
-	}
-
-	/**
-	 * Returns the service object(s) for <code>issues</code>
-	 * 
-	 * @see #OUT_ISSUES
-	 * @generated
-	 */
-	public org.archstudio.issueadt.IArchlightIssueADT getIssues() {
-		return issues;
 	}
 
 	/**
@@ -173,13 +136,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 			tests = (org.archstudio.testadt.IArchlightTestADT) serviceObject;
 			return;
 		}
-		if (interfaceName.equals(OUT_ISSUES)) {
-			if (issues != null) {
-				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
-			}
-			issues = (org.archstudio.issueadt.IArchlightIssueADT) serviceObject;
-			return;
-		}
 		if (interfaceName.equals(OUT_XARCH)) {
 			if (xarch != null) {
 				throw new IllegalStateException("Only a single connection is supported on " + interfaceName);
@@ -207,10 +163,6 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 		}
 		if (interfaceName.equals(OUT_TESTS)) {
 			tests = null;
-			return;
-		}
-		if (interfaceName.equals(OUT_ISSUES)) {
-			issues = null;
 			return;
 		}
 		if (interfaceName.equals(OUT_XARCH)) {
