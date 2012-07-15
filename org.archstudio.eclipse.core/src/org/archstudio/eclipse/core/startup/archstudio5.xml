@@ -137,7 +137,7 @@
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
           <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1776,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+            <hints_3_0:value hints_3_0:data="1680,144" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
           </hints_3_0:hint>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1843,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
@@ -151,7 +151,7 @@
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="1656,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+          <hints_3_0:value hints_3_0:data="1560,48,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="assembly-background/color">
           <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
@@ -1149,27 +1149,6 @@
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="Archipelago" structure_3_0:name="Archipelago">
-      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archipelago_preferences"
-          structure_3_0:name="preferences">
-        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="top"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.eclipse.jface.preference.IPreferenceStore"/>
-          </implementation_3_0:implementation>
-          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="preferences"/>
-        </structure_3_0:ext>
-        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="552,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
-          <hints_3_0:hint hints_3_0:name="bounds">
-            <hints_3_0:value hints_3_0:data="547,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-          </hints_3_0:hint>
-        </structure_3_0:ext>
-      </structure_3_0:interface>
       <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="Archipelago_graphLayout"
           structure_3_0:name="graphLayout">
         <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
@@ -2474,10 +2453,10 @@
       <structure_3_0:point2>EditorManager_preferences</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1778,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+          <hints_3_0:value hints_3_0:data="1683,149" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1846,379" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+          <hints_3_0:value hints_3_0:data="1844,379" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
           <hints_3_0:value/>
@@ -2506,7 +2485,7 @@
       <structure_3_0:point2>EditorPrefs_preferences</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1781,171" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+          <hints_3_0:value hints_3_0:data="1685,147" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="endpoint2">
           <hints_3_0:value hints_3_0:data="2107,381" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
@@ -2538,7 +2517,7 @@
       <structure_3_0:point2>RootPreferences_preferences</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
         <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1781,170" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
+          <hints_3_0:value hints_3_0:data="1685,146" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="endpoint2">
           <hints_3_0:value hints_3_0:data="2419,382" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
@@ -3017,22 +2996,6 @@
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="endpoint2">
           <hints_3_0:value hints_3_0:data="1197,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
-        </hints_3_0:hint>
-      </structure_3_0:ext>
-    </structure_3_0:link>
-    <structure_3_0:link structure_3_0:id="PreferencesADT_preferences_to_Archipelago_preferences"
-        structure_3_0:name="Preferences ADT.preferences-to-Archipelago.preferences">
-      <structure_3_0:point1>PreferencesADT_preferences</structure_3_0:point1>
-      <structure_3_0:point2>Archipelago_preferences</structure_3_0:point2>
-      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1771,172" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="557,1244" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
           <hints_3_0:value/>

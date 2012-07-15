@@ -31,7 +31,6 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.ICellModifier;
@@ -63,8 +62,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 	protected Services AS = null;
 
 	public ArchipelagoOutlinePage(ArchipelagoEditor editor, IXArchADT xarch, ObjRef documentRootRef,
-			IResources resources, IFileManager fileman, IEditorManager editorManager, IPreferenceStore prefs,
-			IGraphLayout graphLayout) {
+			IResources resources, IFileManager fileman, IEditorManager editorManager, IGraphLayout graphLayout) {
 		super(xarch, documentRootRef, resources, false, true);
 
 		//This stuff lets us open multiple editors on the same document.
@@ -74,8 +72,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			data = new TreeNodeDataCache();
 		}
 		AS = new Services();
-		AS.addAll(new DefaultArchipelagoEditorPane(editor), data, xarch, resources, fileman, editorManager, prefs,
-				graphLayout);
+		AS.addAll(new DefaultArchipelagoEditorPane(editor), data, xarch, resources, fileman, editorManager, graphLayout);
 		servicesCache.addCacheEntry(this, documentRootRef, data);
 	}
 
