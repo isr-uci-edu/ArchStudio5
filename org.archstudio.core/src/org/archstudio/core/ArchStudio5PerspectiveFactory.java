@@ -25,7 +25,6 @@ public class ArchStudio5PerspectiveFactory implements IPerspectiveFactory {
 		//bottom.addView("edu.uci.isr.archstudio4.comp.fileman.FileManagerView");
 		bottom.addView(LauncherView.class.getName());
 		//bottom.addView("org.archstudio.comp.filetracker.FileTrackerView");
-		//bottom.addView("org.archstudio.issueview.core.ArchlightIssueView");
 		bottom.addView(IPageLayout.ID_TASK_LIST);
 	}
 }

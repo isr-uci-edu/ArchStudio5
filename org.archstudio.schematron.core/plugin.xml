@@ -28,16 +28,6 @@
                single="true">
          </interface>
          <interface
-               class="org.archstudio.issueadt.IArchlightIssueADT"
-               delegate="variable"
-               direction="out"
-               domain="top"
-               getter="true"
-               id="issues"
-               name="issues"
-               single="true">
-         </interface>
-         <interface
                class="org.archstudio.xarchadt.IXArchADT"
                delegate="variable"
                direction="out"

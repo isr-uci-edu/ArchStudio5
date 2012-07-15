@@ -206,27 +206,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.archstudio.issueadt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.archstudio.issueadt.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.archstudio.issueview.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.archstudio.launcher"
          download-size="0"
          install-size="0"

@@ -6,14 +6,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.archstudio.archlight.ArchlightElementIdentifier;
 import org.archstudio.archlight.ArchlightIssue;
 import org.archstudio.archlight.ArchlightTest;
 import org.archstudio.archlight.ArchlightTestResult;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.URI;
+
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 
 /**
  * Myx brick: "Schematron Impl"
@@ -166,24 +177,69 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 
 		ArchlightTestResult[] testResults = archlightTestResultList.toArray(new ArchlightTestResult[0]);
 
-		//Remove old issues
-		List<? extends ArchlightIssue> oldIssues = issues.getAllIssues(documentRef, TOOL_ID);
-		issues.removeIssues(oldIssues);
-
-		//Store the new issues
-		if (testResults.length > 0) {
-			List<ArchlightIssue> issueList = new ArrayList<ArchlightIssue>(testResults.length);
-			for (ArchlightTestResult testResult : testResults) {
-				for (ArchlightIssue issue : testResult.getIssues()) {
-					issueList.add(issue);
+		try {
+			// get resource for xarch document ref
+			URI uri = xarch.getURI(documentRef);
+			IResource resource = null;
+			if ("platform".equalsIgnoreCase(uri.scheme())) {
+				if (uri.segmentCount() > 1 && uri.segment(0).equals("resource")) {
+					List<String> pathSegs = Lists.newArrayList(uri.segmentsList());
+					IPath path = new Path(Joiner.on("/").join(pathSegs));
+					resource = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 				}
 			}
-			issues.addIssues(issueList);
+			if ("file".equalsIgnoreCase(uri.scheme())) {
+				for (IFile file : ResourcesPlugin.getWorkspace().getRoot()
+						.findFilesForLocationURI(new java.net.URI(uri.toString()))) {
+					resource = file;
+					break;
+				}
+			}
+
+			if (resource != null) {
+
+				//Remove old issues
+				for (IMarker marker : resource.findMarkers(IMarker.PROBLEM, false, IResource.DEPTH_INFINITE)) {
+					marker.delete();
+				}
+
+				//Store the new issues
+				if (testResults.length > 0) {
+					for (ArchlightTestResult testResult : testResults) {
+						for (ArchlightIssue issue : testResult.getIssues()) {
+							for (ArchlightElementIdentifier id : issue.getElementIdentifiers()) {
+								IMarker marker = resource.createMarker(IMarker.PROBLEM);
+								int severity;
+								switch (issue.getSeverity()) {
+								case ArchlightIssue.SEVERITY_INFO:
+									severity = IMarker.SEVERITY_INFO;
+									break;
+								case ArchlightIssue.SEVERITY_WARNING:
+									severity = IMarker.SEVERITY_WARNING;
+									break;
+								default:
+									severity = IMarker.SEVERITY_ERROR;
+								}
+								marker.setAttribute(IMarker.SEVERITY, severity);
+								marker.setAttribute(IMarker.MESSAGE, issue.getDetailedDescription());
+								marker.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
+								marker.setAttribute(IMarker.LOCATION, id.getElementID());
+
+								//FIXME: Make these markers open in an appropriate editor
+							}
+						}
+					}
+				}
+			}
+
+			//Store the errors
+			for (SchematronTestException exception : schematronTestErrorList) {
+				addError("Error: " + exception.getMessage(), exception);
+			}
+		}
+		catch (Exception e) {
+			addError("Error: " + e.getMessage(), e);
 		}
 
-		//Store the errors
-		for (SchematronTestException exception : schematronTestErrorList) {
-			addError("Error: " + exception.getMessage(), exception);
-		}
 	}
 }
