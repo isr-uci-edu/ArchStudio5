@@ -4,7 +4,6 @@
       label="ArchStudio - GEXF Schema (Optional)"
       version="5.0.0.qualifier"
       provider-name="archstudio.org"
-      plugin="org.archstudio.core"
       license-feature="org.archstudio.license.feature"
       license-feature-version="1.0.0.qualifier">
 
