@@ -4,7 +4,6 @@ import java.lang.reflect.*;
 import java.util.*;
 import java.util.concurrent.*;
 import org.archstudio.myx.fw.*;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.myx.fw.IMyxLifecycleProcessor;
@@ -21,6 +20,7 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
+@SuppressWarnings("unused")
 abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
 		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.archlight.IArchlightTool, org.archstudio.myx.fw.IMyxProvidedServiceProvider {
