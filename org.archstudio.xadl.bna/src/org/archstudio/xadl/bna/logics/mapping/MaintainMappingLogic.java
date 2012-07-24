@@ -14,8 +14,8 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasInternalWorldEndpoint;
 import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.IIsSticky;
-import org.archstudio.bna.keys.IThingKeyKey;
-import org.archstudio.bna.keys.ThingKeyKey;
+import org.archstudio.bna.keys.IThingMetakey;
+import org.archstudio.bna.keys.ThingMetakey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.IInternalBNAModelListener;
 import org.archstudio.bna.logics.coordinating.WorldThingInternalEventsLogic;
@@ -27,9 +27,9 @@ import org.eclipse.swt.graphics.Point;
 
 public class MaintainMappingLogic extends AbstractThingLogic implements IBNAModelListener, IInternalBNAModelListener {
 
-	public static final IThingKeyKey<String, IThingKey<Point>, Object> INTERNAL_THING_KEY = ThingKeyKey.create(
+	public static final IThingMetakey<String, IThingKey<Point>, Object> INTERNAL_THING_KEY = ThingMetakey.create(
 			".&internalThingID", IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_KEY);
-	public static final IThingKeyKey<String, IThingKey<Point>, ObjRef> INTERNAL_OBJREF_KEY = ThingKeyKey.create(
+	public static final IThingMetakey<String, IThingKey<Point>, ObjRef> INTERNAL_OBJREF_KEY = ThingMetakey.create(
 			".internalObjRef", IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_KEY);
 
 	ThingValueTrackingLogic thingValueTrackingLogic = null;

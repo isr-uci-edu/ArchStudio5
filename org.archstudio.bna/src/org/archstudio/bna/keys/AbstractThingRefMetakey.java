@@ -7,13 +7,13 @@ import org.archstudio.bna.IThing.IThingKey;
 
 import com.google.common.collect.Lists;
 
-public abstract class AbstractThingRefKeyKey<T extends IThing, N, K extends IThingKey<?>> extends
-		AbstractThingRefKey<List<?>, T> implements IThingRefKeyKey<T, N, K> {
+public abstract class AbstractThingRefMetakey<T extends IThing, N, K extends IThingKey<?>> extends
+		AbstractThingRefKey<List<?>, T> implements IThingRefMetakey<T, N, K> {
 
 	protected final N name;
 	protected final K key;
 
-	protected AbstractThingRefKeyKey(boolean isFireEventOnChange, N name, K key) {
+	protected AbstractThingRefMetakey(boolean isFireEventOnChange, N name, K key) {
 		super(Lists.newArrayList(name, key), isFireEventOnChange);
 		this.name = name;
 		this.key = key;
