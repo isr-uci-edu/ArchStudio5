@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Features" -->
+<!--#set var="subsubtitle" value="Selector String Representation" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>String Representations of Objects</h1>
+<p>Currently, the selector supports only 3 types of objects (data types): real number, date/time,
+   and strings.</p>
+
+<p>Real numbers are simply integers or doubles.  They are represented as by numbers and they
+   are parsed by the the java Double's parseDouble function. Some examples:</p>
+
+<pre style="codeblock">
+4.23
+10
+0.001
+</pre>
+
+<p>Dates represents moments in time.  They are enclosed in pound-signs (&quot;#&quot;).
+The selector can process most common forms of dates.  It accepts the FULL, LONG,
+MEDIUM, and SHORT formats under the U.S. locale as listed on the Javadoc
+documentation for DateFormat.</p>
+
+<p>Note: the program will strip away the #'s. Some examples:</p>
+
+<pre style="codeblock">
+#1/12/02#   =&gt; Jan. 12th, 2002
+#2/12/2002# =&gt; Feb. 12th, 2002
+</pre>
+
+<p>Strings are strings of characters.  They are always enclosed in double quotes.
+   Note: the program will strip away the double quotes. Some examples:</p>
+
+<pre style="codeblock">
+&quot;hello world&quot;
+&quot;false&quot;
+&quot;fast&quot;
+</pre>
+
+<hr/>
+
+<p>Additional questions about the String formats should be sent to
+   <a href="mailto:pingc@hotmail.com">Ping H. Chen</a>.</p>
+
+<hr/>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

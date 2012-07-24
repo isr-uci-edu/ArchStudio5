@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Features" -->
+<!--#set var="subsubtitle" value="Selector Symbol Table" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>Symbol Table</h1>
+
+<p>The SymbolTable included as part of the BooleanEval package provides a very basic mapping from
+   variable to their values.  It is implemented with a java hashtable.  For complete information,
+   please see the java documentation for SymbolTable.  The 2 main functions that will be needed is
+   put and get.</p>
+
+<h2>Put</h2>
+
+<p>Put simply takes in 2 strings. The first string is the name of the
+   variable. The second string is the string representation of the
+   variable's value. For more information about the string representation,
+   <a href="stringformat.html">go here</a>. Note that there is a type
+   associated with the value.&nbsp; The function does not return anything and will
+   throw an exception of the string passed in for value could not be parsed.</p>
+
+<p>Example call:</p>
+
+<pre class="codeblock">
+// this will store the variable a with the string containing hello
+symTable.put( "a", "\"hello\"" );
+</pre>
+
+<h2>Get</h2>
+
+<p>Get simply returns the value associated with the variable.  It takes in a
+   single string representing the name of the variable and it returns the
+   value associated with the variable.  It does not throw any exceptions; it
+   however will return null if the variable could not be found.</p>
+
+<p>Example call:</p>
+
+<pre class="codeblock">
+// this will retrieve the value associated with the variable a.
+// note that the value is an Object and it could be one of 3 classes:
+// Date, Double, or String.
+
+// A simple check with instanceof will determine the actual type.
+Object value = symTable.get( "a" );
+</pre>
+
+<hr/>
+
+<p>Additional questions about the Symbol Table should be sent to <a href="mailto:pingc@hotmail.com">Ping H. Chen</a>.</p>
+
+<hr/>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Features" -->
+<!--#set var="subsubtitle" value="Product-Line Selection" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>Product-Line Selection</h1>
+
+<p>This section describes the process and concepts behind product-line
+   selection in ArchStudio. Actual product-line selections are done
+   by the <a href="selector.html">product-line selector</a> tool.</p>
+
+<p>Product line architectures (PLAs) are used to describe a family
+   of closely related products.  A PLA describes a set of common
+   core components as well as the variation points
+   across the specific product architectures.  The variation points
+   modeled by
+   <a href="http://www.isr.uci.edu/projects/xarchuci/">xADL 2.0</a>
+   are optional elements and variant types (in the Options and
+   Variants schemas).</p>
+
+<p>Optional elements may or may not be included in the selected product
+   architecture.  An element whose type is a variant type will always be included,
+   but may take on alternative forms for different product architectures.
+   Optionality is specified with a boolean guard (if the guard condition is
+   met&mdash;that is, the boolean expression evaluates to <i>true</i>, the
+   element is included) and variants are specified by mutually exclusive boolean
+   guards (the variant whose guard condition evaluates to <i>true</i> is the
+   selected variant).</p>
+
+<p>ArchStudio's <a href="selector.html">Product-Line Selector</a> is used to
+    automatically select a product architecture (or a smaller PLA) from a PLA based on user-specified
+   variable-value bindings.  These bindings are simply name-value pairs in a
+   <a href="./symboltable.html">symbol table</a>.</p>
+
+<p>The selection process works as follows:</p>
+
+<ul>
+  <li>Each optional element in the PLA is identified.  Variables
+      in the element's boolean guard are replaced by their values
+      from the symbol table, and the guard condition is evaluated.
+      If the condition evaluates to <i>true</i> the element is made
+      non-optional (i.e., mandatory) in the architecture.  If the
+      condition evaluates to <i>false</i> the element is removed
+      from the architecture.  If, after evaluation, there are still
+      unbound variables in the expression, the expression is
+      minimized (removing parts of the expression that can be
+      fully evaluated based on bindings in the symbol table),
+      and the element remains optional in the architecture.</li>
+  <li>Each element of variant type in the PLA is identified.
+      For each variant in the variant type, variables in the variant's
+      boolean guard are replaced by their values from the symbol
+      table, and the guard condition is evalauted.  If the condition
+      evaluates to <i>true</i>, then the element's type is changed
+      to be the associated variant.  If conditions cannot be fully
+      evaluated, the guards are reduced (as with optional elements)
+      and the elements remain of variant type.</li>
+</ul>
+
+<p>For example, an optional component before selection might look like this.
+   Here is Comp2 shown with its optional field which contains the boolean guard:</p>
+
+<pre>x @[0, 50] || y &gt; 0</pre>
+
+<p>(Note: <code>x@[0, 50]</code> is the notation for 'in range,' i.e.
+   <code>0 &lt;= x &lt;= 50</code>).</p>
+
+<p><a href="images/pla/01-opt-before.png"><img style="border: 0" src="images/pla/thumbnails/01-opt-before.png" alt="PLA Screenshot"/></a></p>
+
+<p>The xADL description of this component in
+   <a href="http://www.isr.uci.edu/projects/xarchuci/guide.html">abbreviated non-XML notation</a>
+   looks like this:</p>
+
+<pre class="codeblock">
+component{
+  (attr) id = "comp1"
+
+  //Description and other properties elided for
+  //simplicity
+
+  optional{
+    guard{
+      booleanExp{
+        or{
+
+          booleanExp1{
+            inRange{
+              symbol = x
+              value = 0
+              value = 50
+            }
+          }
+
+          booleanExp2{
+            greaterThan{
+              symbol = y
+              value = 0
+            }
+          }
+        }
+      }
+    }
+  }
+
+  (xlink) type = "#Type_1"
+}
+</pre>
+
+<p>If the guard condition is met, its optional field is removed.  So for our example
+   if in the symbol table we define <code>x = 10</code> (regardless of y's value),
+   after selection the optional component will look like this:</p>
+
+<p><a href="images/pla/02-opt-after.png"><img style="border: 0" src="images/pla/thumbnails/02-opt-after.png" alt="PLA Screenshot"/></a></p>
+
+<p>(Note that the dotted 'optional' border is replaced by a solid 'mandatory' border.
+   That same component's xADL description (in abbreviated non-XML notation) will look like this:</p>
+
+<pre class="codeblock">
+component{
+  (attr) id = "Comp2"
+  (xlink) type = "#Type_1"
+}
+</pre>
+
+<p>The optional field has been removed; this component is now a mandatory part
+   of the architecture.  However, if the guard were evaluated to false, the
+   component would be removed from the architecture entirely.  If parts of the
+   guard could not be evaluated, the boolean expression will be simplified as
+   much as possible.</p>
+
+<p>The selector also selects variant types. Here is a variant component type
+   (Variant Type) with two variants (Component Type 1 and Component Type 2):</p>
+
+<p><a href="images/pla/03-variant-type.png"><img style="border: 0" src="images/pla/thumbnails/03-variant-type.png" alt="PLA Screenshot"/></a></p>
+
+<p>In xADL, this would look like this:</p>
+
+<pre class="codeblock">
+componentType{
+  (attr) id = "variantType"
+
+  variant{
+    guard{
+      booleanExp{
+        equals{
+          symbol = language
+          value = "English"
+        }
+      }
+    }
+    (xlink) variantType = "#ComponentType1"
+  }
+
+  variant{
+    guard{
+      booleanExp{
+        equals{
+          symbol = language
+          value = "Spanish"
+        }
+      }
+    }
+    (xlink) variantType = "#ComponentType2"
+  }
+}</pre>
+
+<p>The first variant has the guard <code>language == "English"</code>
+   and the second variant has the guard <code>language == "Spanish"</code>.
+   If we perform selection based on a symbol table with
+   the entry <code>language = "English"</code>, all references
+   to type 'variantType' will be replaced with references
+   to 'ComponentType1.'</p>
+
+<p>Note that the algorithm will report an error if all of the guards for
+   the variants (of a single variant component type) evaluate to false or
+   if more than one guard evaluates to true.</p>
+
+<p>The selector requires the <a href="./booleaneval.html">Boolean Eval</a>
+   component to evaluate the boolean guards used in optional and variant elements.
+   Please see the options and variants schema in
+   <a href="http://www.isr.uci.edu/projects/xarchuci/">xADL 2.0</a>
+   for a list of optional and variant elements that are supported by the selector.</p>
+
+<hr/>
+
+<h2>Symbol Table Files</h2>
+
+<p>The Selector component can load and store symbol tables (e.g.,
+   sets of variable-value bindings) in an ASCII text file.
+   This section describes the formatting of that file.</p>
+
+<p>Comments can be represented by <code>//</code> just as in C++ or Java.
+   Otherwise, the basic layout of the file is as follows:</p>
+
+<pre>Variable = value
+Variable = value
+etc.</pre>
+
+<p>There can be leading and trailing spaces that will be stripped away.  The value of
+the variable is represented by strings as specified <a href="./stringformat.html">here.</a> Some examples:</p>
+
+<pre class="codeblock">
+/* Set the value of alarm variable to the date Jan 1st 2003 */
+alarm    = #1/1/03#
+/* Set the value of speed variable to the number 23.1 */
+speed    = 23.1
+/* Sets the value of language variable to the string 'English' */
+language = &quot;English&quot;
+</pre>
+
+<hr/>
+
+<p>Additional questions about the Selector should be sent to <a href="mailto:pingc@hotmail.com">Ping H. Chen</a>.</p>
+
+<hr/>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

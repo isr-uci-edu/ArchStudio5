@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Features" -->
+<!--#set var="subsubtitle" value="BooleanEval" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>The BooleanEval Component</h1>
+<p>The BooleanEval component provides a convenience API for evaluating boolean
+expressions in xADL documents. The BooleanEval component provides 2
+functions specified by IBooleanEval:</p>
+
+<hr/>
+
+<p>The <code>eval</code> method is responsible for evaluating a boolean
+   expression based on the symbol table passed in.  For more information on
+   the symbol table, <a href="symboltable.html">go here</a>. If a variable in
+   the expression is not defined (no value in the symbol table), it will evaluate the
+   expression as much as possible (taking advantage of short-circuiting). Its Javadoc
+   is shown here:</p>
+
+<div style="padding: 10px; background: #ffffff">
+
+<h3>eval</h3>
+
+<pre>public ObjRef <b>eval</b>( ObjRef exp, SymbolTable symTable)
+	throws MissingElementException, NoSuchTypeException,
+	TypeMismatchException;
+</pre>
+
+<p>This function will evaluate the boolean expression passed in and will attempt to evaluate based on
+   the symbol table passed in. The expression is also cloned so the original expression passed in is
+   left unchanged.  The boolean expression must be part of an xArch document and must have a parent
+   with the expression as "BooleanExp"</p>
+
+<p>Note: It will ignore case when evaluating strings.</p>
+
+<p><b>Parameters:</b></p>
+
+<ul>
+  <li><code>exp</code>  -  The ObjRef pointing to the boolean expression that
+      needs to be evaluated.</li>
+  <li><code>symTable</code>  -  This is the table that contains all the variables
+      and their values.</li>
+</ul>
+
+<p><b>Returns:</b> ObjRef pointing to a modified version of the cloned expression.
+    This boolean expression can only be TRUE, FALSE, or a pruned version of the
+    cloned expression if the not all variables can be resolved.</p>
+
+<p><b>Exceptions:</b></p>
+<ul>
+  <li><code>MissingElementException</code>  -  This exception is thrown when the evaluator
+      cannot find a required element in the expression.</li>
+  <li><code>NoSuchTypeException</code>  -  This exception is thrown when it encounters
+      an unknown/invalid type when evaluating.</li>
+  <li><code>TypeMismatchException</code>  -  This exception is thrown when the type of the
+       operands do not match during an evaluation.</li>
+</ul>
+
+</div>
+
+<p>A call to this function looks like this:</p>
+
+<pre>
+/* Obtain a reference to the boolean eval component...  */
+IBooleanEval boolEval = /* get reference here */ ;
+ObjRef result = boolEval.eval( boolExp, symTab );
+</pre>
+
+<p>For example, if the symbol table contained:</p>
+
+<p>a = 1 <br/>
+   b = 2</p>
+
+<p>The the following expressions would return expressions containing:</p>
+
+<p>b &gt;= a --&gt; TRUE <br/>
+   a == 1 &amp;&amp; z &gt; 0 --&gt; z &gt; 0<br/>
+   a != 1 &amp;&amp; z &gt; 0 --&gt; FALSE<br/>
+   a == 1 || z &gt; 0 --&gt; TRUE <br/>
+   a != 1 || z &gt; 0 --&gt; z &gt; 0</p>
+
+<hr/>
+
+<p>The <code>boolValue</code> method provides a simple way to extract the
+   boolean value of a boolean value represented by an ObjRef (ie. ObjRef to an
+   IBool). Its Javadoc is shown here:</p>
+
+<div style="padding: 10px; background: #ffffff">
+
+<h3>boolValue</h3>
+
+<pre>public boolean <b>boolValue</b>( ObjRef bool )
+            throws MissingElementException, TypeMismatchException;
+</pre>
+
+<p>This function takes in a bool reference and returns true or false.</p>
+
+<p><b>Parameters:</b></p>
+
+<ul>
+  <li><code>bool</code> - The Bool INSIDE a boolean expression</li>
+</ul>
+
+<p><b>Returns:</b> Boolean containing the value of the bool
+   (true/false)</p>
+
+<p><b>Exceptions:</b></p>
+
+<ul>
+  <li><code>MissingElementException</code>  -  This exception is
+      thrown if the element pointed by the bool does not have a
+      &quot;value&quot; field or is null</li>
+  <li><code>TypeMismatchException</code> - This
+      exception is thrown if the element pointed by the bool is not
+      a boolean expression</li>
+</ul>
+</div>
+
+<p>This function is can be used to determine the results of the evaluation:</p>
+
+<pre>
+IBooleanEval boolEval = /* get reference here */ ;
+ObjRef result = boolEval.eval( boolExp, symTab );
+
+ObjRef bool = ( ObjRef )xArch.get( result, "Bool" );
+
+// check to see if it could be evaluated
+if (bool != null) {
+    if (boolEval.boolValue(bool) {
+        ...
+    }
+    else {
+        ...
+    }
+}
+// partial eval
+else {
+    ...
+}
+</pre>
+
+<hr/>
+
+<p>Additional questions about the BooleanEval should be sent to
+<a href="mailto:pingc@hotmail.com">Ping H. Chen</a>.</p>
+
+<hr/>
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

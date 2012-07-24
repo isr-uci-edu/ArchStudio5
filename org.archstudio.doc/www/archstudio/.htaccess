@@ -1,0 +1,6 @@
+Options +Includes
+AddType text/html .html
+AddHandler server-parsed .html
+AddHandler server-parsed .htm
+Redirect /projects/archstudio/CHANGES.html http://tps.ics.uci.edu/svn4www/projects/archstudio4/trunk/edu.uci.isr.archstudio4/CHANGES.html
+Redirect /projects/archstudio/license.txt http://tps.ics.uci.edu/svn4www/projects/archstudio4/trunk/edu.uci.isr.archstudio4/license.txt

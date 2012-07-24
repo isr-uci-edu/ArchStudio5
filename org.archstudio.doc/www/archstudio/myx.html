@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Foundations" -->
+<!--#set var="subsubtitle" value="Myx and myx.fw" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>ArchStudio and Myx</h1>
+
+<p>ArchStudio 4 is built in an architectural style called Myx.
+   The Myx style, and how it is used to build plug-ins like ArchStudio,
+   is described here.  This document supersedes earlier versions of
+   the style description, such as the Myx whitepaper</p>
+
+<hr/>
+
+<h1>The Myx Architectural Style</h1>
+
+<p>We define an architectural style as follows:</p>
+
+<p style="padding: 10px">An <b>architectural style</b> is a set of
+   constraints put on development to elicit beneficial properties.</p>
+
+<p>That is, an architectural style provides a set of rules, or
+   constraints, that limit how the application may be built, how its
+   components and connectors may communicate, and so on.  While these
+   constraints reduce the freedom of system implementers, they also
+   help implementers to build systems with well-known properties. To
+   use an analogy from building architecture, buildings constructed
+   in the Swiss Chalet style are constrained to have steep roofs.
+   This constraint elicits a particular beneficial property: snow
+   will slide off the roof, rather than building up crushing the structure.</p>
+
+<p>Similarly, the Myx style is a set of rules for composing the
+   components and connectors of an application like ArchStudio.
+   It provides patterns of composition for synchronous and asynchronous
+   interactions among components.  It also provides rules for what kinds
+   of assumptions components may make about each other, ensuring
+   a directed/layered ordering of dependencies among components.</p>
+
+<p>By adhering to these constraints, Myx applications (including
+   ArchStudio) recieve certain benefits.  Components remain relatively
+   independent from one another, and it is easy to reuse components.
+   Components only communicate through explicit interfaces, so it is
+   easy to rewire components in different configurations
+   without recoding the components themselves. Explicit mechanisms
+   are present to permit architectural dynamism&mdash;the ability to change
+   the architectural structure at runtime&mdash;in specific places where
+   the architect chooses.</p>
+
+<hr/>
+
+<h1>The Constraints of the Myx Style</h1>
+
+<p>There are five key architectural elements in a Myx architecture:</p>
+
+<ul>
+  <li><b>Components</b> are the loci of computation. They can add new
+      capabilities or functions to an application.  They can transform
+      data in semantically-meaningful ways. They provide services to
+      other components.</li>
+  <li><b>Connectors</b> are the loci of communication. Connectors
+      generally support the movement of data and control between
+      bricks. They may change the form of data, but do not generally
+      change its meaning. In Myx, connectors also drive much of the
+      architectural concurrency, as detailed below.</li>
+  <li><i>NB: Collectively, components and connectors are called
+      &quot;bricks&quot;.</i></li>
+  <li><b>Interfaces</b> are the &quot;portals&quot; through which
+      bricks interact with the outside world. In Myx, all interfaces
+      are defined as either <i>provided</i> or <i>required</i>. These
+      terms are explained below. An interface is associated with a
+      single brick, and may be considered part of that brick.</li>
+  <li><b>Links</b> are the associations between provided and required
+      interfaces.  Links do not add new services to the
+      architecture: if new semantics are needed between two interfaces,
+      a connector or component should be interposed. Links are inherently
+      non-directional; the direction of control and data flow along the
+      link is established by the interface endpoints.</li>
+  <li><b>Interface Mappings</b> are similar to links, but are used
+      differently. Interface mappings are used in hierarchical architectures
+      (where bricks contain inner architectures) to associate an interface
+      on an outer brick with an interface on an inner brick.  Like links,
+      they do not add new services to the architecture; they merely indicate
+      that the outer and inner interfaces should be treated as the same
+      interface.</li>
+</ul>
+
+<p>The default form for an interface in Myx is a set of one or more
+   functions (also known as methods or procedures) that can be called.
+   However, different implementations of Myx systems may use different
+   forms of interfaces.</p>
+
+<p>Every interface is designated as either a provided or a required interface.
+   A provided interface is used as the interface to a service provided by
+   its brick. Provided interfaces are the interfaces that are invoked by
+   other bricks.  Required interfaces are used to invoke services provided
+   by other bricks.</p>
+
+<p>All communication among Myx bricks must occur through interfaces. Other
+   forms of communication (direct manipulation through pointers or references,
+   communication through the filesystem, and so on) are prohibited.</p>
+
+<p>To satisfy this constraint and to promote loose coupling, all interfaces
+   on Myx bricks must be <i>remotable</i>. This means that all data passed
+   across the interface&mdash;parameter values, return values, and
+   exceptions&mdash;must be serializable. Once data has passed across a brick
+   boundary, it may not be manipulated by other bricks through the use of
+   latent pointers or references.  If objects are passed across brick
+   boundaries, only the brick that last received the object may invoke its
+   methods.  Effectively, this constraint means that components must operate
+   as if they occupy separate memory spaces.</p>
+
+<p>Links have exactly two endpoints. Each link connects exactly one required
+   interface to one provided interface.</p>
+
+<p>A provided interface may have zero or more links to required interfaces.
+   A required interface may have zero or more links to provided interfaces.</p>
+
+<p>All bricks have two &quot;domains&quot; called <b>top</b> and <b>bottom</b>.
+   All interfaces on a brick must be assigned to one of these domains. Both
+   provided and required interfaces can be on the brick's top or bottom
+   domain.  Links are used to connect an interface on one brick's top domain
+   to an interface on another brick's bottom domain. This is intended to induce
+   layering in Myx architectures.</p>
+
+<p>If a brick <i>B2</i> is connected to an interface on the bottom domain of a
+   brick <i>B1</i>, then <i>B2</i> is <b>below</b> <i>B1</i>.  Conversely, if a brick
+   <i>B2</i> is connected to an interface on the top domain of <i>B1</i>,
+   then <i>B2</i> is <b>above</b> <i>B1</i>. 'Above' and 'below' relationships
+   are transitive: if <i>B1</i> is above <i>B2</i>, and <i>B2</i> is above
+   <i>B3</i>, then <i>B1</i> is above <i>B3</i>, and vice-versa.</p>
+
+<p>Cycles are not permitted.  That is, a brick may never be above or below
+   itself. A link may not connect a brick to itself.</p>
+
+<p>A brick may make assumptions about services provided by other bricks
+   above it, but may not make assumptions about services provided by other
+   bricks below it. That is, a brick may fail if adequate services
+   are not provided above it, but a brick must not fail if no services
+   are provided below it. If a brick requires a service provided above it,
+   but that service is not available or not connected, bricks should make
+   an effort to degrade gracefully.  This is known as the
+   <i>substrate independence</i> constraint.</p>
+
+<p>Synchronous invocations between components are permitted upward only.
+   In a synchronous invocation, the invoking brick waits for the invocation
+   to complete before continuing. In general, this is achieved through the
+   use of an ordinary function call.</p>
+
+<p>Asynchronous invocations are permitted both upward and downward.  In an
+   asynchronous invocation, the invoking brick continues processing after
+   initiating the invocation, which proceeds concurrently in a separate thread
+   of control. In general, this is implemented through the use of an intermediate
+   event-pump connector or equivalent.  The restriction that all downward
+   component-to-component invocations be asynchronous promotes
+   loose coupling between layers, such that the substrate independence
+   constraint is honored.  Additionally, it helps to prevent deadlocks.</p>
+
+<p>Applications have at least one main thread of control. Individual bricks can
+   create and maintain new threads as necessary.  In general, asynchronous
+   connectors such as event pumps create at least one new thread of control.</p>
+
+<p>The Myx style is designed to support selective dynamism. That is, the architect
+   is permitted to determine when and whether a component may be dynamically added to
+   or removed from the architecture, and when and whether a link may be dynamically
+   added or removed from the architecture. In general, a brick may be implemented
+   so it supports dynamic addition and removal and/or dynamic linking and unlinking on
+   its interfaces.  If two connected bricks are implemented as non-dynamic, but dynamism
+   is needed between them, dynamic proxy connectors can be constructed to add
+   some dynamism support.</p>
+
+<hr/>
+
+<h1>Benefits of the Myx Style</h1>
+
+<p>As noted above, architectural styles are constructed to elicit particular
+   benefits in systems constructed according to the style.  Some of the benefits
+   of using Myx are:</p>
+
+<ul>
+  <li><b>Performance:</b> In many implementations, Myx invocations can be implemented
+      as unmediated synchronous procedure calls. Architectural frameworks and
+      infrastructure, then, generally do not participate in the ordinary operation
+      of a Myx system, and thus building a system in the Myx style adds no runtime
+      computational overhead to the system execution.</li>
+  <li><b>Reusability:</b> Because components and connectors are constrained
+      to communicate only through well-defined interfaces, they can be easily
+      separated.  All dependencies are explicit, and in general code for any given
+      component or connector should compile independently. This means that components
+      and connectors can be reused in different contexts, and composed in ways
+      that were not originally anticipated.</li>
+  <li><b>Flexibility:</b> The Myx constraints, particularly the substrate
+      independence constraint, induce strict layering among the components and
+      connectors in a system.  A Myx architecture can be horizontally &quot;sliced&quot;
+      at any point, throwing away the layers at the bottom of the architecture.  All
+      dependencies in the remaining components should be satisfied, and that
+      architectural "core" will remain functional.</li>
+  <li><b>Dynamism:</b> The use of selective dynamism techniques and dynamism-aware
+      connectors gives the architect fine-grained control over runtime dynamism.</li>
+  <li><b>Concurrency:</b> The Myx requirement to use true asynchronous notifications
+      for downward communication, and its explicit support for true asynchronous
+      requests promotes better use of multiprocessor and multicore systems.</li>
+  <li><b>Reduced Deadlock Risk:</b> Because bricks operate as if they are in separate
+      memory spaces and do not directly share resources, and because all synchronous
+      invocations go in one direction (upward) in the architecture, it is harder for two
+      threads to inadvertently lock the same set of resources in different orders, causing
+      potential deadlocks.</li>
+  <li><b>Distributability:</b> Because bricks act as if they are effectively running in
+      separate memory spaces, it is generally very easy to split an application across
+      process or machine boundaries, where bricks are actually physically separated into
+      separate memory spaces.</li>
+</ul>
+
+<hr/>
+
+<h1>Common Patterns in the Myx Style</h1>
+
+<p>The constraints above induce several common patterns in Myx architectures.
+   We attempt to document some of them here to assist architects in composing
+   applications.</p>
+
+<p><img style="border: 0" src="images/myx/concepts.png" alt="Concepts"/></p>
+
+<p>Here, we will use a graphical notation to depict the composition patterns.
+   The above shows the elements used.  Both a component (double-bordered box)
+   and connector (single-bordered box) are shown; these are also displayed
+   in different colors for more distinction.  Both top and bottom provided
+   and required interfaces are labeled. The domain of an interface is indicated
+   by its placement on the box (top or bottom edge).  Provided interfaces are
+   depicted with a triangle pointing inward toward the brick, and required
+   interfaces are depicted with a triangle pointing outward.</p>
+
+<h2>The Synchronous Call Pattern</h2>
+
+<p><img style="border: 0" src="images/myx/synccall.png" alt="Synchronous Call Pattern"/></p>
+
+<p>This is a basic upward synchronous procedure call. Here, a required interface
+   on the calling component is connected directly to a provided interface on the
+   called component. In general, these calls are implemented as ordinary procedure
+   calls: the calling component passes its thread of control to the called
+   component during invocation, the called component completes its invocation and
+   returns control to the calling component. Data is passed from the calling to the
+   called component (in the form of call parameters) and returned from the called
+   to the calling component (in the form of return values or exceptions).</p>
+
+<h2>The Synchronous Call with Proxy Pattern</h2>
+
+<p><img style="border: 0" src="images/myx/synccallproxy.png" alt="Synchronous Call With Proxy Pattern"/></p>
+
+<p>This is also a synchronous upward call, but with a proxy interposed. In general,
+   proxies add some semantics to the interconnection or the invocations between
+   bricks.  For example, perhaps the calling and called components are implemented
+   such that dynamic linking to their interfaces is not permitted. If the proxy connector
+   is implemented in such a way that dynamic linking to its interfaces IS permitted,
+   then the link between the calling and called components can be made dyamic through
+   the use of this pattern.  The intermediate proxy may also perform services such as
+   data format transformation, logging, debugging, and so on.</p>
+
+<h2>The Asynchronous Notification Pattern</h2>
+
+<p><img style="border: 0" src="images/myx/asyncnotification.png" alt="Asynchronous Notification Pattern"/></p>
+
+<p>This is the most common downward notification pattern seen in Myx architectures.
+   Here, the notifying component emits notifications to the notified components,
+   perhaps of an internal state change or externally sensed event.  As per the Myx
+   rules, because these notifications are in the downward direction between components,
+   they must be asynchronous.  This is achieved through the interposition of an event
+   pump connector.  An event pump connector has simple semantics: it receives a message
+   on its provided interface and, in a separate thread, forwards that message to all
+   bricks connected to its required interrface.</p>
+
+<p>Note that the downward calls between the components and connectors are likely
+   implemented as synchronous procedure calls: this does not violate the Myx style
+   rules because these are component-to-connector connections. The component-to-component
+   notification semantics are still asynchronous, with the asynchrony provided by the
+   interposed event pump.</p>
+
+<h2>The Asynchronous Request Pattern</h2>
+
+<p><img style="border: 0" src="images/myx/asyncrequest.png" alt="Asynchronous Request Pattern"/></p>
+
+<p>This pattern mirrors the asynchronous notification pattern. Here, the event pump
+   performs the same function, but the asynchronous notifications are traveling upward
+   rather than downward. After the event pump receives the request from either requester,
+   control is returned immediately to the requester.  Then, the request is forwarded to
+   the requested component in a separate thread of control by the event pump.</p>
+
+<h2>The Multiway Call Pattern</h2>
+
+<p><img style="border: 0" src="images/myx/multiway.png" alt="Multiway Call Pattern"/></p>
+
+<p>This is an example of a more advanced composition pattern in Myx.  Here, the three
+   called components (1, 2, and 3) all expose the same kind of provided interface.  The
+   calling component wants to invoke the same operation on all three components
+   simultaneously. This is accomplished through the use of a multiway call connector.
+   The calling component invokes the operation once, on the single multiway connector.
+   The connector then invokes the corresponding operation on all three called components.
+   This may happen serially, in a single thread, or in parallel, in multiple threads.
+   What happens next depends on the implementation of the multiway connector:</p>
+
+<ul>
+  <li><b>Synchronous Multiway Call:</b> Here, the calling component is blocked until
+      all the called components complete. The aggregate set of results, if any, is
+      then returned to the calling component. Note that this is easier in some programming
+      languages than others. For example, consider a strongly-typed language in which the
+      invoked function returns a single integer.  The multiway connector will have three
+      integers to return, one from each called component.  The multiway connector cannot
+      then return an array of integers.  If this is the case, it is useful to return a
+      default value (perhaps '0') and then provide an integer array of all reults from
+      a separate 'results' interface on the multiway connector, as shown in the diagram
+      above. In a dynamically typed language, the multiway connector could return
+      an array or collection of integers instead.</li>
+  <li><b>Asynchronous Multiway Call:</b> Here, control is returned to the calling
+      component immediately.  If the invoked function has a return value, a default
+      value (perhaps 0 or <code>null</code> is returned).  Later, the calling component
+      can call the separate 'results' interface to receive results.  The results interface
+      may expose functions that query whether results are ready yet, return partial results,
+      etc.</li>
+  <li><b>Asynchronous Multiway Call with Asynchronous Notification:</b> Here, control is
+      returned to the calling component immediately, just as in the above scenario.  However,
+      an (additional) asynchronous downward link is created from the mulitway connector to
+      the calling component. This is used for one of two purposes: 1) to notify the calling
+      component that results are now available, or 2) to asynchronously provide the calling
+      component with the results, either all at once or as they arrive.  In this case, the
+      upward 'results' link in the above diagram would either be replaced by or augmented
+      with a downward link.</li>
+</ul>
+
+<hr/>
+
+<h2>The myx.fw Framework</h2>
+
+<p>Building applications in the Myx style requires adhering to the constraints
+   of the style.  This can be difficult in a language like Java
+   that does not necessarily have implementation support for all
+   Myx concepts.  To bridge this gap, we have implemented an
+   architecture framework called myx.fw that can be used to implement
+   Myx applications in Java.  It is currently distributed as an
+   integrated part of ArchStudio, but is also available as a separate
+   package.</p>
+
+<p>TBD</p>
+
+<hr/>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

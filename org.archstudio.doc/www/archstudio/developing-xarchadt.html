@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Developing Components" -->
+<!--#set var="subsubtitle" value="Using xArchADT" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>Using xArchADT</h1>
+
+<p>One of the most important components that you will call as an ArchStudio
+   component developer is <a href="xarchadt.html">xArchADT</a>,
+   the main data store for all architecture descriptions.</p>
+
+<p>This component exposes one interface, called the <code>XArchFlatInterface</code>.
+   The XArchFlatInterface is Javadoc-documented in the ArchStudio distribution.</p>
+
+<p>XArchFlatInterface is a distributable (that is, it doesn't pass pointers)
+   version of the interface provided by the
+   <a href="dbl.html">Data Binding Library</a>.  Additionally, it exposes some
+   low-level convenience functions that are not available in the Data Binding
+   Library, like "find by ID" and "jump to parent."  In order to use XArchFlatInterface,
+   you need to become familiar with the Data Binding Library.  Please read through:</p>
+
+<ul>
+  <li>The <a href="http://www.isr.uci.edu/projects/xarchuci/test.java">Data Binding Library Example</a>
+      that shows how to write a program that manipulates an architecture description
+      directly using the Data Binding Library, and</li>
+  <li>The <a href="http://www.isr.uci.edu/projects/xarchuci/apidocs/index.html">Data Binding Library
+      Javadoc documentation</a>.</li>
+</ul>
+
+<p>Now, let's look at how to translate traditional calls to the Data Binding
+   Library into calls that go through XArchFlatInterface.  The first major
+   difference to note is that objects like IComponents and IConnectors
+   never get passed across XArchFlatInterface.  Instead, serializable object
+   references, called ObjRefs, are sent instead.  The next major
+   difference is that, since ObjRefs are opaque, no calls are ever made on them
+   directly.  Instead, XArchFlatInterface does all the work for you.</p>
+
+<p>Translating a call from a Data Binding Library call to an XArchFlatInterface
+   call is easy, since it's merely a matter of rearranging some parameters.
+   Here's a typical program snippet that calls the Data Binding Library from
+   the Data Binding Library example program:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  IXArch xArch = XArchUtils.createXArch();
+  <span style="color: #ff0000">//Create an instance context in which we can create objects in
+  //the instances namespace.</span>
+  InstanceContext instances = new InstanceContext(xArch);
+  <span style="color: #ff0000">//Create an ArchInstance element, suitable for adding as a child
+  //to the IXArch object.</span>
+  IArchInstance archInstance = instances.createArchInstanceElement();
+  <span style="color: #ff0000">//Add the ArchInstance element as a child of the IXArch
+  //element.</span>
+  xArch.addObject(archInstance);
+</pre>
+
+<p>Now, let's look at how to translate each of these calls into an
+   XArchFlatInterface call to achieve the desired effect.</p>
+
+<p>First, let's look at this call:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  IXArch xArch = XArchUtils.createXArch();
+</pre>
+
+<p>In the XArchFlatInterface, the equivalent function is:</p>
+
+<p><code>public ObjRef createXArch(String url);</code></p>
+
+<p>This creates a new XArch element in xArchADT with the given URL.  Whereas
+   the Data Binding Library doesn't require URLs to be associated with each
+   xADL 2.0 document, xArchADT does.  This URL can be a real URL, like an
+   <code>http://</code> URL or a local URL, like a <code>urn:MyURL</code> URL.
+   Instead of returning an object that implements the interface IXArch, this
+   function returns an ObjRef to the object.  The object remains inside xArchADT.
+   Any references we make to it from this point on must be through the ObjRef.</p>
+
+<p>So, assuming our local proxy for the XArchFlatInterface is called "flat,"
+   our equivalent call will be:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  ObjRef xArchRef = flat.createXArch("urn:MyArchitecture");
+</pre>
+
+<p>Now, we want to create an instance context.  Again, this context object will
+   remain inside xArchADT and will be accessible only through an ObjRef.  The
+   old call was:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  <span style="color: #ff0000">//Create an instance context in which we can create
+  //objects in the instances namespace.</span>
+  InstanceContext instances = new InstanceContext(xArch);
+</pre>
+
+<p>The equivalent call in XArchFlatInterface is:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  public ObjRef createContext(ObjRef xArchObject,
+                              String contextType);
+</pre>
+
+<p>The first parameter is an ObjRef to the XArch object, which we got from
+   the previous call. The second parameter is a string indicating what "kind"
+   of context we want to create--in this case, an Instance context.
+   The call to create a context is the same, no matter which context we're
+   creating.  So, if we look at the old call,</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  InstanceContext instances = new <b>Instance</b>Context(xArch);
+</pre>
+
+<p>The text in <b>bold</b> is the contextType in our new call.  Therefore,
+   our new call becomes:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  ObjRef instanceContextRef = flat.createContext(xArchRef, "Instance");
+</pre>
+
+<p>Now let's look at the third call:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  <span style="color: #ff0000">//Create an ArchInstance element, suitable for adding
+  //as a child to the IXArch object.</span>
+  IArchInstance archInstance = instances.createArchInstanceElement();
+</pre>
+
+<p>The equivalent function we're looking for in XArchFlatInterface is:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  public ObjRef createElement(ObjRef contextObjectRef,
+                              String typeOfThing);
+</pre>
+
+<p>This function's first parameter is an ObjRef to a context object.  We
+   got that from the previous call. The second parameter is the "kind" of
+   thing to create.  Again, we get this from the previous method
+   call's name:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  IArchInstance archInstance = instances.create<b>ArchInstance</b>Element();
+</pre>
+
+<p>So, our new call is:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  ObjRef archInstanceRef = flat.createElement(instanceContextRef, "ArchInstance");
+</pre>
+
+<p>Finally, let's take a look at the last call:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  <span style="color: #ff0000">//Add the ArchInstance element as a child of the IXArch element.</span>
+  xArch.addObject(archInstance);
+</pre>
+
+<p>The equivalent call in XArchFlatInterface is:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  public void add(ObjRef baseObjectRef,
+                  String typeOfThing,
+                  ObjRef thingToAddRef);
+</pre>
+
+<p>The first parameter to this call is the base object reference&mdash;the
+   parent of the new child we're adding. That's the xArchRef that we got
+   when we created it in the first call.  The second parameter is, again,
+   the type of thing we're adding.  We get this from the old method name, as
+   usual:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  xArch.add<b>Object</b>(archInstance);
+</pre>
+
+<p>The third parameter is an ObjRef to the child we're adding.  That's the
+   archInstanceRef we just got with our <code>createElement</code> call.
+   So, our new call is:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  flat.add(xArchRef, "Object", archInstanceRef);
+</pre>
+
+<p>So, we've translated this simple snippet:</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  IXArch xArch = XArchUtils.createXArch();
+  <span style="color: #ff0000">//Create an instance context in which we can create objects
+  //in the instances namespace.</span>
+  InstanceContext instances = new InstanceContext(xArch);
+  <span style="color: #ff0000">//Create an ArchInstance element, suitable for adding as a
+  //child to the IXArch object.</span>
+  IArchInstance archInstance = instances.createArchInstanceElement();
+  <span style="color: #ff0000">//Add the ArchInstance element as a child of the IXArch
+  //element.</span>
+  xArch.addObject(archInstance);
+</pre>
+
+<p>Into this equivalent one...</p>
+
+<pre class="codeblock" style="font-size: 8pt">
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  ObjRef xArchRef = flat.createXArch("urn:MyArchitecture");
+  <span style="color: #ff0000">//Create an instance context in which we can create
+  //objects in the instances namespace.</span>
+  ObjRef instanceContextRef = flat.createContext(xArchRef, "Instance");
+  <span style="color: #ff0000">//Create an ArchInstance element, suitable for adding
+  //as a child to the IXArch object.</span>
+  ObjRef archInstanceRef = flat.createElement(instanceContextRef, "ArchInstance");
+  <span style="color: #ff0000">//Add the ArchInstance element as a child of the IXArch element.</span>
+  flat.add(xArchRef, "Object", archInstanceRef);
+</pre>
+
+<hr/>
+
+<p>By now, you've probably noticed that there are a lot of ObjRefs
+   floating around.  Due to the generality of the XArchFlatInterface,
+   it's impossible for the Java compiler to type-check all the ObjRefs
+   being passed into it.  So, you could pass an ObjRef to a context
+   object where an ObjRef for an IXArch object should go.  If this
+   happens, it will cause a runtime exception, most likely an
+   <code>IllegalArgumentException</code> to be thrown.</p>
+
+<hr/>
+
+<p>Here, we present a table that shows which calls in the Data Binding
+   Libraries map to which calls in the XArchFlatInterface:</p>
+
+<table style="width: 80%; background: #ffffff; border: 2px" cellpadding="2">
+<tr><th>Old Call</th><th>Function</th><th>New Call</th></tr>
+
+<tr>
+<td><code>XArchUtils.createXArch()</code></td>
+<td>Create a new xADL 2.0 document</td>
+<td><code>public ObjRef createXArch(String url)</code></td>
+</tr>
+
+<tr>
+<td><code>XArchUtils.parseFromFile(...)</code></td>
+<td>Parse a xADL 2.0 document from a file</td>
+<td><code>public ObjRef parseFromFile(String fileName)
+                     throws FileNotFoundException,
+                            IOException,
+                            SAXException</code></td>
+</tr>
+
+<tr>
+<td><code>XArchUtils.parseFromURL(...)</code></td>
+<td>Parse a xADL 2.0 document from a URL</td>
+<td><code>public ObjRef parseFromURL(String urlString)
+                    throws MalformedURLException,
+                           IOException,
+                           SAXException</code></td>
+</tr>
+
+<tr>
+<td><code>(No Call)</code></td>
+<td>Close an open xADL 2.0 document</td>
+<td><code>public void close(String urlString)</code></td>
+</tr>
+
+<tr>
+<td><code>XArchUtils.getPrettyXMLRepresentation(...)</code></td>
+<td>Serialize a xADL 2.0 document into XML</td>
+<td><code>public String serialize(ObjRef xArchRef);</code></td>
+</tr>
+
+<tr>
+<td><code><i>Package</i>Context foo = new <i>Package</i>Context(IXArch xArch)</code></td>
+<td>Create a new context object.</td>
+<td><code>public ObjRef createContext(ObjRef xArchObject,
+                            String contextType)</code></td>
+</tr>
+
+<tr>
+<td><code>I<i>Type</i> <i>Package</i>Context.create<i>Type</i>()</code></td>
+<td>Create a new element.</td>
+<td><code>public ObjRef create(ObjRef contextObjectRef,
+                     String typeOfThing)</code></td>
+</tr>
+
+<tr>
+<td><code>I<i>Type</i> <i>Package</i>Context.create<i>Type</i>Element()</code></td>
+<td>Create a new top-level element (i.e. one that will be a child of the &lt;xArch&gt; tag).</td>
+<td><code>public ObjRef createElement(ObjRef contextObjectRef,
+                     String typeOfThing)</code></td>
+</tr>
+
+<tr>
+<td><code>I<i>PromotedType</i> <i>Package</i>Context.promoteTo<i>BaseType</i>(I<i>BaseType</i>)</code></td>
+<td>Promote a base type to one of its subtypes.</td>
+<td><code>public ObjRef promoteTo(ObjRef contextObjectRef,
+                        String promotionTarget,
+                        ObjRef targetObjectRef)</code></td>
+</tr>
+
+<tr>
+<td><code>I<i>Type</i> <i>Package</i>Context.recontextualize<i>Type</i>(I<i>Type</i>)</code></td>
+<td>Change an element's context so it can be used in a different setting.</td>
+<td><code>public ObjRef recontextualize(ObjRef contextObjectRef,
+                              String typeOfThing,
+                              ObjRef targetObjectRef)</code></td>
+</tr>
+
+<tr>
+<td><code>IXArch I<i>Type</i>.getXArch()</code></td>
+<td>Gets the xArch element that is the top-level element of the document containing the given element.</td>
+<td><code>public ObjRef getXArch(ObjRef baseObjectRef)</code></td>
+</tr>
+
+<tr>
+<td><code>I<i>Type</i> <i>Package</i>Context.get<i>Type</i>Element(IXArch)</code></td>
+<td>Gets a child of the &lt;xArch&gt; tag.</td>
+<td><code>public ObjRef getElement(ObjRef contextObjectRef,
+                         String typeOfThing,
+                         ObjRef xArchObjectRef)</code></td>
+</tr>
+
+<tr>
+<td><code>String I<i>Type</i>.getClass().getName()</code></td>
+<td>Gets the true class name of a given element.</td>
+<td><code>public String getType(ObjRef baseObjectRef)</code></td>
+</tr>
+
+<tr>
+<td><code>I<i>Type</i> instanceof <i>someClass</i></code></td>
+<td>Determines if a given element is an instance of a given class or interface.</td>
+<td><code>public boolean isInstanceOf(ObjRef baseObjectRef,
+                            String className)</code></td>
+</tr>
+
+<tr>
+<td><code>void I<i>Type</i>.add<i>ChildType</i>(I<i>ChildType</i> child);</code></td>
+<td>Add a child of <i>ChildType</i> to the object of type I<i>Type</i></td>
+<td><code>public void add(ObjRef baseObjectRef,
+                String typeOfThing,
+                ObjRef thingToAddRef)</code></td>
+</tr>
+
+<tr>
+<td><code>void I<i>Type</i>.add<i>ChildType</i>s(Collection children);</code></td>
+<td>Add several children of <i>ChildType</i> to the object of type I<i>Type</i></td>
+<td><code>public void add(ObjRef baseObjectRef,
+                String typeOfThing,
+                ObjRef[] thingsToAddRefs)</code></td>
+</tr>
+
+<tr>
+<td><code>void I<i>Type</i>.clear<i>ChildType</i>s();</code></td>
+<td>Clear all children of <i>ChildType</i> from the object of type I<i>Type</i></td>
+<td><code>public void clear(ObjRef baseObjectRef,
+                  String typeOfThing)</code></td>
+</tr>
+
+<tr>
+<td><code>I<i>ChildType</i> I<i>Type</i>.get<i>ChildType</i>();</code></td>
+<td>Gets a single child of <i>ChildType</i> from the object of type I<i>Type</i></td>
+<td><code>public Object get(ObjRef baseObjectRef,
+                  String typeOfThing)</code></td>
+</tr>
+
+<tr>
+<td><code>I<i>ChildType</i> I<i>Type</i>.get<i>ChildType</i>(String id);</code></td>
+<td>Gets a single child of <i>ChildType</i> from the object of type I<i>Type</i>, using
+the child's ID as a selector.</td>
+<td><code>public ObjRef get(ObjRef baseObjectRef,
+                  String typeOfThing,
+                  String id)</code></td>
+</tr>
+
+<tr>
+<td><code>Collection I<i>Type</i>.get<i>ChildType</i>(Collection ids);</code></td>
+<td>Gets a set of children of <i>ChildType</i> from the object of type I<i>Type</i>, using
+the childrens' IDs as selectors.</td>
+<td><code>public ObjRef[] get(ObjRef baseObjectRef,
+                    String typeOfThing,
+                    String[] ids)</code></td>
+</tr>
+
+<tr>
+<td><code>Collection I<i>Type</i>.getAll<i>ChildType</i>s();</code></td>
+<td>Gets all children of <i>ChildType</i> from the object of type I<i>Type</i></td>
+<td><code>public ObjRef[] getAll(ObjRef baseObjectRef,
+                       String typeOfThing)</code></td>
+</tr>
+
+<tr>
+<td><code>boolean I<i>Type</i>.has<i>ChildType</i>(String valueToCheck);</code></td>
+<td>Determines if the child of I<i>Type</i>, of type <i>ChildType</i>, has the given
+value.</td>
+<td><code>public boolean has(ObjRef baseObjectRef,
+                   String typeOfThing,
+                   String valueToCheck)</code></td>
+</tr>
+
+<tr>
+<td><code>boolean I<i>Type</i>.has<i>ChildType</i>(I<i>ChildType</i> valueToCheck);</code></td>
+<td>Determines if the child of I<i>Type</i>, of type <i>ChildType</i>, is equivalent to the given
+value.</td>
+<td><code>public boolean has(ObjRef baseObjectRef,
+                   String typeOfThing,
+                   ObjRef valueToCheck)</code></td>
+</tr>
+
+<tr>
+<td><code>boolean I<i>Type</i>.hasAll<i>ChildType</i>s(Collection valuesToCheck);</code></td>
+<td>Determines if the child of I<i>Type</i>, of type <i>ChildType</i>, has children
+equivalent to all the given values.</td>
+<td><code>public boolean hasAll(ObjRef baseObjectRef,
+                      String typeOfThing,
+                      ObjRef[] valuesToCheck)</code></td>
+</tr>
+
+<tr>
+<td><code>Collection I<i>Type</i>.has<i>ChildType</i>s(Collection valuesToCheck);</code></td>
+<td>Determines if the child of I<i>Type</i>, of type <i>ChildType</i>, has children
+equivalent to all the given values.</td>
+<td><code>public boolean[] has(ObjRef baseObjectRef,
+                     String typeOfThing,
+                     ObjRef[] thingsToCheck)</code></td>
+</tr>
+
+<tr>
+<td><code>void I<i>Type</i>.remove<i>ChildType</i>(I<i>ChildType</i> childToRemove);</code></td>
+<td>Removes a single child of <i>ChildType</i> from the object of type I<i>Type</i>.</td>
+<td><code>public void remove(ObjRef baseObjectRef,
+                   String typeOfThing,
+                   ObjRef thingToRemove)</code></td>
+</tr>
+
+
+<tr>
+<td><code>void I<i>Type</i>.remove<i>ChildType</i>(Collection childrenToRemove);</code></td>
+<td>Removes a set of children of <i>ChildType</i> from the object of type I<i>Type</i>.</td>
+<td><code>public void remove(ObjRef baseObjectRef,
+                   String typeOfThing,
+                   ObjRef[] thingsToRemove)</code></td>
+</tr>
+
+<tr>
+<td><code>void I<i>Type</i>.set<i>ChildType</i>(String valueToSet);</code></td>
+<td>Sets a single string-value child of <i>ChildType</i> on the object of type I<i>Type</i>.</td>
+<td><code>public void set(ObjRef baseObjectRef,
+                String typeOfThing,
+                String value)</code></td>
+</tr>
+
+<tr>
+<td><code>void I<i>Type</i>.set<i>ChildType</i>(I<i>ChildType</i> childToSet);</code></td>
+<td>Sets a single object-value child of <i>ChildType</i> on the object of type I<i>Type</i>.</td>
+<td><code>public void set(ObjRef baseObjectRef,
+                String typeOfThing,
+                ObjRef value)</code></td>
+</tr>
+
+<tr>
+<td><code>boolean I<i>Type</i>.isEqual(I<i>Type</i> objectToCompare);</code></td>
+<td>Determines if two objects are equal by comparing their IDs.</td>
+<td><code>public boolean isEqual(ObjRef baseObjectRef,
+                       ObjRef thingToCheck)</code></td>
+</tr>
+
+<tr>
+<td><code>boolean I<i>Type</i>.isEquivalent(I<i>Type</i> objectToCompare);</code></td>
+<td>Determines if two objects are equivalent by comparing their content, but ignoring their IDs.</td>
+<td><code>public boolean isEquivalent(ObjRef baseObjectRef,
+                       ObjRef thingToCheck)</code></td>
+</tr>
+
+<tr>
+<td><code>(No Call)</code></td>
+<td>Get the parent of a given element.</td>
+<td><code>public ObjRef getParent(ObjRef targetObjectRef)</code></td>
+</tr>
+
+<tr>
+<td><code>(No Call)</code></td>
+<td>Get all the ancestors of a given element.</td>
+<td><code>public ObjRef[] getAllAncestors(ObjRef targetObjectRef)</code></td>
+</tr>
+
+<tr>
+<td><code>(No Call)</code></td>
+<td>Resolve an href, as might be found in an XLink.</td>
+<td><code>public ObjRef resolveHref(ObjRef xArchRef,
+                          String href)</code></td>
+</tr>
+
+<tr>
+<td><code>(No Call)</code></td>
+<td>Get a list of open xADL 2.0 documents' URLs.</td>
+<td><code>public String[] getOpenXArchURLs()</code></td>
+</tr>
+
+<tr>
+<td><code>(No Call)</code></td>
+<td>Get an ObjRef to the IXArch element of an open xADL 2.0 document.</td>
+<td><code>public ObjRef getOpenXArch(String url)</code></td>
+</tr>
+
+<tr>
+<td><code>(No Call)</code></td>
+<td>Get an element by its ID, no matter where it is in a document.</td>
+<td><code>public ObjRef getByID(ObjRef xArchRef,
+                      String id)</code></td>
+</tr>
+
+</table>
+
+<hr/>
+
+<h1>xArchADT Events</h1>
+
+<p>As an event-based component, any change to the internal state of
+   xArchADT is reported through an event.  One type of event, an
+   <code>XArchFileEvent</code>, is handled by the Hello World
+   Component.  However, a second type of event, the
+   <code>XArchFlatEvent</code> is similarly emitted whenever the
+   internal structure of one of the open xADL 2.0 documents
+   is changed.</p>
+
+<p>It is your responsibility as a component developer to ensure that
+   your component acts correctly when it receives an
+   <code>XArchFlatEvent</code> or any similar event.
+   Assumptions to the contrary need to be well documented.</p>
+
+<hr/>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

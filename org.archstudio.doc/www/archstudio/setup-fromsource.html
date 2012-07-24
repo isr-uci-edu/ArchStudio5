@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Getting Started" -->
+<!--#set var="subsubtitle" value="Checkout and Build From Source" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>Overview</h1>
+
+<p>This document describes how to check out the ArchStudio 4 (and constituent)
+   code from the ISR Subversion repository and build ArchStudio from source.</p>
+
+<p>Casual ArchStudio users or those evaluating the technology should probably
+   just <a href="setup-easy.html">download and install the latest pre-built release</a>.
+   However, ArchStudio developers - those who are interested in developing
+   new ArchStudio components, making changes to ArchStudio itself, or those
+   interested in having bleeding-edge updates to ArchStudio before they go into
+   official release - should check out the ArchStudio source code and build
+   the environment from source.</p>
+
+<hr/>
+
+<h1>The Source Code Environment</h1>
+
+<p>ArchStudio and related projects are stored and managed in a
+   <a href="http://subversion.tigris.org/">Subversion</a> repository.  Subversion
+   is an open-source configuration management system that is a superior replacement
+   for the popular but aging CVS system.  Subversion is increasingly supported
+   by tools on many popular platforms that make it easy to work with and contribute to
+   our source code in your favorite development environment.</p>
+
+<p>ArchStudio is built in and for the <a href="http://www.eclipse.org/">Eclipse</a>
+   development environment.  Although you can check out ArchStudio source code
+   without using Eclipse, we recommend doing it in Eclipse so you can actually
+   build the source.</p>
+
+<p>If you are just interested in browsing the source without checking it out,
+   you can <a href="http://svn.ics.uci.edu/isr/projects/">browse the raw source
+   archive</a>.</p>
+
+<hr/>
+
+<h1>What You'll Need</h1>
+
+<p>You will need the following installed on your machine:</p>
+
+<ul>
+  <li><b>(Required)</b> A Java 2 SE, version 5.0 Software Development Kit;</li>
+  <li><b>(Required)</b> Eclipse 4.2 or better <b>(Classic version)</b>;</li>
+  <li><b>(Required)</b> ArchStudio itself; and</li>
+  <li><b>(Highly Recommended)</b> The Subclipse Subversion client plug-in for Eclipse.</li>
+  <li><b>(Optional)</b> Other Subversion clients.</li>
+</ul>
+
+<h2>A Java 2 Software Development Kit</h2>
+
+<p>At the current time, ArchStudio is developed on Java 2 Standard
+   Edition, version 5.0 (J2SE 5.0).  You can download the runtime environment
+   or development toolkit from:</p>
+
+<p><a href="http://java.sun.com/javase/downloads/index.jsp">http://java.sun.com/javase/downloads/index.jsp</a></p>
+
+<h2>Eclipse 4.2 or Better</h2>
+
+<p>You will also need to download Eclipse 4.2 or better, and install it
+   on your machine. Downloads and installation instructions
+   are available at <a href="http://www.eclipse.org/">http://www.eclipse.org/</a>.
+   If you already have Eclipse, you can also download and extract a second
+   copy in a separate directory solely for ArchStudio if you so desire.</p>
+
+<h2>ArchStudio Itself</h2>
+
+<p>You will also need to install ArchStudio itself in order to build ArchStudio. Follow the <a href="setup-easy.html"/>instructions to install ArchStudio</a> and install it
+   into your Eclipse environment.
+
+<h2>A Subversion Client</h2>
+
+<p>A Subversion client is required to check out the source code.  Multiple
+   Subversion clients can be installed concurrently and (in general) used
+   interchangeably.</p>
+
+<p>After you have downloaded Eclipse, we
+   strongly recommend that you download and install the Subclipse plugin from:</p>
+
+<p><a href="http://subclipse.tigris.org/">http://subclipse.tigris.org/</a></p>
+
+<p>Subclipse will allow you to check out the ArchStudio source code directly
+   into your Eclipse workspace as a set of projects.</p>
+
+<p>You can also download additional Subversion clients for your machine,
+   but only one (preferably Subclipse) is required to check out and build
+   ArchStudio.</p>
+
+<p>The primary non-Eclipse Subversion client is a command-line client,
+   available as a binary download for a large number of platforms from:</p>
+
+<p><a href="http://subversion.tigris.org/project_packages.html">http://subversion.tigris.org/project_packages.html</a></p>
+
+<p>GUI clients provide Subversion client functionality with a friendlier
+   interface.  Some GUI clients require the Subversion command-line client to be installed
+   while others do not.  You can obtain some GUI clients from:</p>
+
+<p>TortoiseSVN: <a href="http://tortoisesvn.tigris.org/">http://tortoisesvn.tigris.org/</a>
+<br/>RapidSVN: <a href="http://rapidsvn.tigris.org/">http://rapidsvn.tigris.org/</a></p>
+
+<p>Instructions as to how to check out ArchStudio and related projects
+   with these various clients are provided below.</p>
+
+<hr/>
+
+<h1>Subversion Repository Organization</h1>
+
+<p>All ISR projects use the de-facto standard
+trunk/tags/branches Subversion repository configuration described
+<a href="http://svnbook.red-bean.com/en/1.0/ch05s04.html">here</a>.
+Our repository is located at:</p>
+
+<pre>http://svn.ics.uci.edu/isr-projects/</pre> for read-only access, and
+<pre>http://svn.ics.uci.edu/isr/projects/</pre> for commit access
+
+<p>Current development is committed to individual project trunks.</p>
+
+<hr/>
+
+<h1>Checking Out for the First Time</h1>
+
+<p>Once you have the tools above installed and running, you can check out
+   the ArchStudio source code.  ArchStudio is composed of a number of
+   different sub-projects, each of which contributes a part to the environment.</p>
+
+<p>Enumerating and checking out the projects one-by-one would be somewhat
+   difficult, and the set of projects does change from time to time.
+   To ease the process, we have created Eclipse
+   <a href="http://help.eclipse.org/help32/index.jsp?topic=/org.eclipse.platform.doc.user/tasks/tasks-cvs-project-set.htm">team project set</a>
+   files for ArchStudio 4.  This lets you checkout all ArchStudio 4-related
+   projects into your workspace at once.  Note that you must have
+   Subclipse installed for this to work.</p>
+
+<p>First, download one or both of our Team Project Set files (only the
+   first is required; the other contains feature and update-site projects
+   that are used to create deployment builds of ArchStudio).  Save to
+   some directory, such as your desktop.</p>
+
+   <ul>
+     <li><a href="http://svn.ics.uci.edu/isr-projects/archstudio4/trunk/edu.uci.isr.archstudio4/res/eclipse/archstudio-project-set.psf">ArchStudio 4 Project Set File</a></li>
+   </ul>
+
+<p>The remaining steps are shown here, annotated with screenshots:</p>
+
+<table>
+  <tr>
+    <td><a href="images/checkout/01-file-import.png"><img style="border: 0" src="images/checkout/thumbnails/01-file-import.png" alt="Checkout Screenshot"/></a></td>
+    <td>
+      From Eclipse, select File &gt; Import.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="images/checkout/02-import-dialog.png"><img style="border: 0" src="images/checkout/thumbnails/02-import-dialog.png" alt="Checkout Screenshot"/></a></td>
+    <td>
+      This brings up the File Import dialog.  Select 'Team Project Set' from the 'Team' folder.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="images/checkout/03-project-set-selection.png"><img style="border: 0" src="images/checkout/thumbnails/03-project-set-selection.png" alt="Checkout Screenshot"/></a></td>
+    <td>
+      Select the team project set file you downloaded.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="images/checkout/04-with-working-set.png"><img style="border: 0" src="images/checkout/thumbnails/04-with-working-set.png" alt="Checkout Screenshot"/></a></td>
+    <td>
+      Optionally, assign an Eclipse Working Set name to the set, such as 'ArchStudio 4,' to help group the projects in your Eclipse workspace.
+    </td>
+  </tr>
+</table>
+
+<p>Once this is done, click 'Finish' and Eclipse will check out all the
+   ArchStudio-related projects from the Subversion repository.  It should
+   build them automatically.</p>
+
+<hr/>
+
+<h1>Running ArchStudio after a Build from Source</h1>
+
+<p>Once the build is done in Eclipse, you can run the built version of
+   ArchStudio by launching it as an Eclipse application.  This will start
+   a second copy of Eclipse, which will include the ArchStudio plugins.
+   We have also included an Eclipse launch script in the ArchStudio
+   directory, under <code>res/eclipse</code>.</p>
+
+<hr/>
+
+<h1>Common Problem</h1>
+
+<p>Some people have reported some errors/problems in the Package Explorer
+   when setting up the archstudio4 project. Often this is because not all
+   the dependent Packages are in the Workspace. Sometimes the problem
+   persists even though all packages are in place.</p>
+
+<p>Occasionally, Package Explorer shows errors to archstudio4,
+   even though all the supporting packages are in the Workspace.
+   One of the most common reasons that the project is marked with errors is due to
+   the a mismatch in what the project needs from Java and what Eclipse is providing
+   to the project. Often this occurs because:</p>
+
+<ol>
+   <li>The project's Java compile settings are to an older version not supported in
+       the current project's release.</li>
+   <li>The project's Java classpaths have not been updated.</li>
+</ol>
+
+<p>Solution 1: Verify/Adjust Java Compile Settings</p>
+
+<ol>
+  <li>Select the archstudio4 project in the Package Explorer Pane. Right-click and select 'Properties'
+      to view the Properties Pane.</li>
+  <li>In the Properties Pane, click on the 'Java Compile' to view the version of Java being used.</li>
+  <li>Currently Java 1.5 is being supported by ArchStudio4, so be sure the Java Compiler is set to 5.0.</li>
+</ol>
+
+
+<p>Solution 2: Rebuild the Classpath for the Project</p>
+
+<ol>
+  <li>Select the archstudio4 project in the Package Explorer Pane.
+      Right-click and select 'PDE Tools'. Select 'Update Classpath ...'</li>
+  <li>In the Java Classpath Pane, click on the 'Select All' to update all classpaths
+      for all plugins. Click 'Finish' to apply your update.</li>
+</ol>
+
+<hr/>
+
+<h1>Comments? Questions?</h1>
+
+<p>Comments or questions on this page should go to <a href="mailto:edashofy@ics.uci.edu">Eric M. Dashofy</a>.</p>
+
+<hr/>
+
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

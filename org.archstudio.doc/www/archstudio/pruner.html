@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Features" -->
+<!--#set var="subsubtitle" value="Pruner" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>Pruning</h1>
+
+<p>The ArchStudio Pruner component can be used to remove all structures
+   (architecture structures), types, and version graphs that are not part of a
+   selected architecture found in a xADL document.
+   The algorithm used in the Pruner component traverses
+   through the architectural elements hierarchicaly and
+   discovers which elements are not linked up to architecture and need to be
+   &quot;pruned.&quot; The algorithm achieves this by taking a starting
+   element, either a type or structure, and then  hierarchically visiting
+   each of the structures' architectural elements (components, connectors, and
+   interfaces) and inspecting those elements' corresponding types as well as
+   visiting the substructure (if any) of all component types and connector types. Any elements not
+   visited in this fashion are removed from the document. Ultimately, this
+   results in an architecture that consists only of architectural elements that can
+   be reached by traveling hierarchically down the architecture from the specified starting
+   element.</p>
+
+<p>Additionally, the pruner removes any version graph whose
+   internal nodes are not referenced by any type included in the selected
+   architecture. The entire document is cloned before pruning so that the pruning
+   is performed on a copy of the document. For more information on xADL documents,
+   visit the <a href="http://www.isr.uci.edu/projects/xarchuci/">xADL 2.0 website</a>.</p>
+
+<p>The diagram below gives a simple illustration on what the Pruner
+   component does to an architecture. The architecture on the left hand side
+   includes a structure containing components A, B, and C. The architecture
+   also contains the components' respective types (links to these types are shown
+   with dotted arrows) as well as two extraneous types, component types D, and E.
+   The resulting architecture after the pruning operation was performed (seen on
+   the right) looks just like the original architecture; however, the extraneous
+   types are removed. Also, supposing component type E had internal
+   substructure its substructure would be removed too (not shown in diagram).
+   Please click on the image to enlarge in a separate window.</p>
+
+<p><a href="images/pruneaction.gif"><img style="border: 0" src="images/pruneactionthumbnail.gif" alt="Prune Action Description"/></a></p>
+
+<p>This component could be used, for example, after an architecture has been processed
+   through the <a href="selector.html">Selector</a>. The larger architecture will only have a subset selected
+   from it and the unselected types and structures will then be removed after being run through the
+   Pruner.  Please refer to the <a href="selector.html">Selector</a> documentation for instructions on how to
+   use the Selector and Pruner components through a convenient GUI.</p>
+
+<hr/>
+
+<p>Questions about the Pruner should be sent to <a href="mailto:edashofy@ics.uci.edu">Eric M. Dashofy</a>.</p>
+
+<hr/>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

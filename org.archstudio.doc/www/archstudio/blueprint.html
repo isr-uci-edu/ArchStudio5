@@ -1,0 +1,244 @@
+<html>
+<head>
+  <title>ArchStudio 3 - A Software Architecture-Based Development Environment</title>
+  <style type="text/css">
+    <!--
+     @import url(archstudio.css);
+    -->
+  </style>
+</head>
+<body>
+  <div class="pagehead">
+    <span class="subtitle">Components:</span><br/>
+    <span class="subsubtitle">ArchEdit</span>
+  </div>
+  <div class="corner">
+    <img src="images/corner.gif">
+  </div>
+
+  <div class="navbar">
+    <div class="navbartext">
+      <div class="navbarhead">Links</div>
+      <div class="navbarlinks">
+        &bull; <a href="./index.html">Home</a>
+      </div>
+      <hr/>
+
+      <div class="navbarhead">Overview</div>
+      <div class="navbarlinks">
+        &bull; <a href="./whatis.html">What is ArchStudio?</a>
+        <br/>&bull; <a href="./architecture.html">Architecture</a>
+      </div>
+      <hr/>
+
+      <div class="navbarhead">Download/Setup</div>
+      <div class="navbarlinks">
+        &bull; <a href="./download.html">Download Page</a>
+        <br/>&bull; <a href="./setup-easy.html"><b>Easy Setup</b></a>
+        <br/>&bull; <a href="./setup-java.html">Setting up Java</a>
+        <br/>&bull; <a href="./setup-rundevelop.html">Running/Developing</a>
+      </div>
+      <hr/>
+
+      <div class="navbarhead">Foundations</div>
+      <div class="navbarlinks">
+        &bull; <a href="./xadl2.html">xADL 2.0</a>
+        <br/>&bull; <a href="./dbl.html">xADL Data Bindings</a>
+        <br/>&bull; <a href="./c2fw.html">c2.fw</a>
+      </div>
+      <hr/>
+
+      <div class="navbarhead">Components</div>
+      <div class="navbarlinks">
+        &bull; <a href="./xadl2.html">xADL 2.0</a>
+        <br/>&bull; <a href="./xarchadt.html">xArchADT</a>
+        <br/>&bull; <a href="./archedit.html">ArchEdit</a>
+        <br/>&bull; <a href="./archwizard.html">ArchWizard</a>
+        <br/>&bull; <a href="./fileman.html">File Manager / Invoker</a>
+
+      <br/>&nbsp;<br/><i>Product Line Management</i>
+        <br/>&bull; <a href="./boolean-language.html">Boolean Guard Language</a>
+        <br/>&bull; <a href="./booleaneval.html">Boolean Eval</a>
+        <br/>&nbsp;&nbsp;&bull; <a href="./stringformat.html">(String Format)</a>
+        <br/>&nbsp;&nbsp;&bull; <a href="./symboltable.html">(Symbol Table)</a>
+        <br/>&bull; <a href="./selector.html">Selector</a>
+        <br/>&bull; <a href="./pruner.html">Pruner</a>
+        <br/>&bull; <a href="./versionpruner.html">Prune Versions</a>
+        <br/>&bull; <a href="./selectordriver.html">Selector Driver</a>
+
+      <br/>&nbsp;<br/><i>Product Line Diff + Merge</i>
+        <br/>&bull; <a href="./pladiffdocument.html">PLA Diff Document</a>
+        <br/>&bull; <a href="./pladiff.html">PLA Diff</a>
+        <br/>&bull; <a href="./pladiffdriver.html">PLA Diff Driver</a>
+        <br/>&bull; <a href="./plamerge.html">PLA Merge</a>
+        <br/>&bull; <a href="./plamergedriver.html">PLA Merge Driver</a>
+
+      <br/>&nbsp;<br/><i>Critic Framework</i>
+        <br/>&bull; <a href="./critics-overview.html">Critics Overview</a>
+        <br/>&bull; <a href="./criticadt.html">Critic ADT</a>
+        <br/>&bull; <a href="./criticmanager.html">Critic Manager</a>
+        <br/>&bull; <a href="./criticsgeneral.html">Critics (General)</a>
+        <br/>&bull; <a href="./criticartistsgeneral.html">Critic Artists</a>
+        <br/>&bull; <a href="./criticgui.html">Critic GUI</a>
+        <br/>&bull; <a href="./criticgui.html">Critic Manager GUI</a>
+      </div>
+      <hr/>
+
+      <div class="navbarhead">For ArchStudio Users</div>
+      <div class="navbarlinks">
+        <i>Tutorials</i>
+        <br/>&bull; <a href="./arch2impl.html">From Architecture to Implementation</a>
+      </div>
+      <hr/>
+
+      <div class="navbarhead">For ArchStudio Developers</div>
+      <div class="navbarlinks">
+        &bull; <a href="./developing-overview.html">Getting Started</a>
+        <br/>&bull; <a href="./developing-xarchadt.html">Using xArchADT</a>
+        <br/>&bull; <a href="./developing-helloworld.html">Hello World C2 Component</a>
+        <br/>&bull; <a href="./developing-ebiwrapper.html">EBI Wrapper Mechanism</a>
+        <br/>&nbsp;
+        <br/>&bull; <a href="./javadoc/archstudio/">ArchStudio Javadoc</a>
+      </div>
+      <hr/>
+
+      <div class="navbarhead">Publications</div>
+      <div class="navbarlinks">
+        &bull; <a href="./publications.html">Publications</a>
+      </div>
+      <hr/>
+
+      <div class="navbarhead">External Links</div>
+      <div class="navbarlinks">
+        &bull; <a href="http://www.isr.uci.edu/architecture/" target="_blank">ISR Software Architecture Research</a>
+        <br/>&bull; <a href="http://www.isr.uci.edu/projects/xarchuci/" target="_blank">xADL 2.0 Site</a>
+        <br/>&bull; <a href="http://www.ics.uci.edu/pub/arch/xarch/" target="_blank">Official xArch Site</a>
+        <br/>&bull; <a href="http://www.isr.uci.edu/" target="_blank">UCI Institute for Software Research</a>
+      </div>
+      <hr/>
+
+      <!--a little spacer-->
+      <div style="height: 50px">&nbsp;</div>
+
+    </div>
+  </div>
+  <div class="content">
+
+<h1>ArchEdit: A Syntax-Directed Editor for xADL 2.0 Documents</h1>
+<p>ArchEdit is a graphical, syntax-directed editor for xADL 2.0 documents.  It uses
+a tree-based graphical user interface similar to many XML editors or Microsoft's
+Regedit.  Like Regedit, it is a low-level tool for editing architecture documents.
+It does not enforce semantic constraints on architecture descriptions, and is primarily
+useful for low-level inspection and editing of such descriptions.  The advantage
+of this tool is that it automatically adapts itself to new xADL 2.0 schemas when
+the language is extended.  So, new or enhanced builds of ArchStudio 3 do not require
+ArchEdit to be changed.
+
+<p>An ArchEdit screenshot is shown here:
+
+<br/><center><img src="images/archedit-screenshot.jpg" alt="ArchEdit Screenshot" border=1></center>
+
+<p>Architects can navigate the architecture description by expanding and collapsing nodes in the
+tree view in the left panel.  As nodes are selected, editable attributes and elements containing
+architecture data appear in the right panel.  If a node is an XLink (a link between two disconnected
+nodes in the XML document), drag and drop support is provided to edit the link efficiently.
+
+<hr/>
+
+<h1>Using ArchEdit</h1>
+
+<p>ArchEdit can be invoked from the Invoke menu of the
+<a href="fileman.html">File Manager/Invoker</a>.  If a
+xADL 2.0 document is selected in the file manager when
+the tool is invoked, then the selected document will
+be opened for editing in ArchEdit.
+
+<p>The distributed UI of the ArchStudio 3 environment
+causes some consternation for users who have never used
+such an environment.  When editing an architecture in
+ArchEdit, the architecture must already be open in the
+file manager.  All loading and saving operations are done
+through the file manager.  Any changes that are made to
+an architecture document through ArchEdit will persist
+throughout the session (i.e. while ArchStudio 3 is
+running), but they are not saved unless you save
+the document from the file manager.  When you open an
+architecture in ArchEdit, you're picking from the list
+on the File Manager, focusing the ArchEdit window on
+the contents of that document.
+
+<p>The ArchEdit interface is most analogous to the
+Windows Registry Editor interface.  The left pane
+shows the document in a tree-format.  Elements
+with children (or the potential for children)
+are depicted as folders with an "expand" control
+next to them.  Elements without the potential
+for children have document icons.  For convenience,
+if an element has an identifier (ID), the identifier
+will appear in parentheses after the element name.
+
+<p>When you click on an element, any attributes of
+the element will appear in the right pane, ready for
+editing.  If the element is an XLink, an additional
+section will appear in the right pane, with a link
+icon:
+
+<p><center><img src="images/archedit-linkicon.jpg" alt="Archedit Link Icon" border=1></center>
+
+<p>To quickly make a link from the selected element to
+another element, just click-and-drag any element with
+an ID from the left pane and drop it on the link icon
+(the thing with the two paper-clipped documents).
+Link targets must have an ID to be link targets.
+This drag-and-drop operation is just a shortcut
+for filling out the two fields (type and href) in
+the XLink panel, of course.
+
+<p>Creating new elements requires clicking an element
+with the secondary button on your mouse.  This is
+commonly referred to as right-clicking.  Macintosh
+users may have to Option-click the element to get
+the appropriate result.  Right clicking an element
+will bring up a menu like this:
+
+<p><center><img src="images/archedit-contextmenu.jpg" alt="archedit context menu" border=1></center>
+
+<p>The blue, italicized text at the top of the menu
+shows the current XML schema type of the selected
+element.  This is followed by the "Remove" option,
+which allows you to remove an element (and all its
+children) from its parent.
+
+<p>If the element's type has subtypes defined
+in the data binding library in use, then those will
+appear as options for "promotions," as shown in the
+second section of the menu.  Promoting an element
+from its current type to one of its subtypes usually
+allows it to have more sub-elements and attributes.
+The subtypes that are available are defined in the
+XML schemas used to create the data binding library.
+
+<p>The third section of the menu allows you to add
+sub-elements to the selected element.  For sub-elements
+with cardinality at-most-one, you will be prohibited from
+adding more than one sub-element, and the option will
+appear gray when one has been added, as is seen above.
+Available new sub-elements appear as selectable
+menu options.  Sub elements appear as children
+of the given element in the tree.
+
+<p>ArchEdit also responds to all events emitted by
+xArchADT.  Thus, changes to an architecture induced by
+any other tool in ArchStudio 3 will be reflected
+in xArchADT automatically.
+
+<hr/>
+
+<p>Additional questions about ArchEdit should be sent to
+<a href="mailto:edashofy@ics.uci.edu">Eric M. Dashofy</a>.
+
+
+    Content...
+  </div>
+</body>
+</html>

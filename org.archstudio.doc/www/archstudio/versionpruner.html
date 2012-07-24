@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Features" -->
+<!--#set var="subsubtitle" value="Version Pruning" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>Version Pruning</h1>
+
+<p>The Version Pruner component can
+   be used to remove all versioning information from a xADL document. The end
+   result of running a xADL document through this component is a document which has
+   all version graphs removed as well as any links from types to their respective
+   version nodes removed. The component achieves this by simply iterating over all types
+   and clearing the links to their version nodes; additionally, all version graphs
+   are removed from the document. For more information on xADL documents,
+   visit the <a href="http://www.isr.uci.edu/projects/xarchuci/">xADL 2.0 website</a>.</p>
+
+<p>This component could be used, for example, along with the
+   <a href="selector.html">Selector</a> and
+   <a href="pruner.html">Pruner</a> components. Please refer to the
+   <a href="selector.html">Selector Driver</a> component for instructions on
+   how to use the Selector, Pruner, and Prune Versions components through a
+   convenient GUI.</p>
+
+<hr/>
+
+<p>Questions about the Prune Versions component should be sent to
+   <a href="mailto:cvanderw@ics.uci.edu">Christopher Van der Westhuizen</a>.</p>
+
+<hr/>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

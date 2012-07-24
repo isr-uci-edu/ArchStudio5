@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Publications" -->
+<!--#set var="subsubtitle" value="Publications" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>Technical Papers</h1>
+
+<p>In addition to this website, we have published several technical papers
+   detailing the development of ArchStudio and associated technologies.
+   ArchStudio-related papers are listed here.</p>
+
+<p>Please note that a comprehensive list of software architecture-related publications,
+   including those listed below, is available at the
+   <a href="http://www.isr.uci.edu/architecture/publications.html">publications page</a>
+   of the
+   <a href="http://www.isr.uci.edu/architecture/">ISR Software Architecture Site</a>.</p>
+
+<hr/>
+
+<h2><a id="dissertation">Supporting Stakeholder-driven, Multi-view Software Architecture Modeling</a></h2>
+<p>Eric M. Dashofy<br/>
+   <i>Ph.D. Dissertation, University of California, Irvine. 2007.</i></p>
+
+<p><a href="http://www.antconcepts.com/~edashofy/publications/dashofy-dissertation-2007.pdf">Download PDF</a></p>
+
+<p><i>Abstract</i><br/>
+   A software system's architecture can be seen as the set of principal design
+   decisions about that system. These design decisions can be captured in architectural
+   models. Existing approaches to architecture modeling support general concerns
+   well, but are difficult or impossible to adapt to new concerns or domains. This
+   research examines how to support stakeholder-driven architecture modeling:
+   modeling in a world where the system's stakeholders materially participate in
+   deciding what kinds of design decisions will be modeled and at what level of detail,
+   as well as how they will be visualized, analyzed, and applied in other development
+   activities. Contributions include a highly-extensible language (xADL) and
+   environment (ArchStudio) for stakeholder-driven architecture modeling, a
+   demonstration that many architectural concerns can be modularized within this
+   environment, and a set of design principles that guide and inform the construction
+   of the environment. Application and use of the environment in a variety of domains
+   and projects demonstrates its effectiveness, and evidence indicates that the amount
+   of effort needed to develop extensions to the environment scales with the
+   conceptual complexity of those extensions.</p>
+
+<hr/>
+
+<h2><a id="tosem2005">A Comprehensive Approach for the Development of Modular Software Architecture Description Languages</a></h2>
+<p>Eric M. Dashofy, Andr&eacute; van der Hoek, and Richard N. Taylor<br/>
+   In <i>ACM Transactions on Software Engineering and Methodology (TOSEM), 14(2), April 2005, pp. 199-245</i></p>
+
+<p><a href="http://www.antconcepts.com/~edashofy/publications/dht-tosem-2005.pdf">Download PDF</a></p>
+
+<p><i>Abstract</i><br/>
+   Research over the past decade has revealed that modeling
+   software architecture at the level of components and connectors
+   is useful in a growing variety of contexts. This has led to
+   the development of a plethora of notations for representing software
+   architectures, each focusing on different aspects of the systems
+   being modeled. In general, these notations have been developed
+   without regard to reuse or extension. This makes the effort in
+   adapting an existing notation to a new purpose commensurate with
+   developing a new notation from scratch. To address this problem,
+   we have developed an approach that allows for the rapid construction
+   of new architecture description languages (ADLs). Our approach is
+   unique because it encapsulates ADL features in modules that are
+   composed to form ADLs. We achieve this by leveraging the extension
+   mechanisms provided by XML and XML schemas. We have defined a set
+   of generic, reusable ADL modules called xADL 2.0, useful as an
+   ADL by itself, but also extensible to support new applications
+   and domains. To support this extensibility, we have developed
+   a set of reflective syntax-based tools that adapt to language
+   changes automatically, as well as several semantically-aware
+   tools that provide support for advanced features of xADL 2.0.
+   We demonstrate the effectiveness, scalability, and flexibility of
+   our approach through a diverse set of experiences. First, our
+   approach has been applied in industrial contexts, modeling software
+   architectures for aircraft software and spacecraft systems. Second,
+   we show how xADL 2.0 can be extended to support the modeling
+   features found in two different representations for modeling
+   product-line architectures. Finally, we show how our infrastructure
+   has been used to support its own development. The technical
+   contribution of our infrastructure is augmented by several research
+   contributions: the first decomposition of an architecture description
+   language into modules, insights about how to develop new language
+   modules and a process for integrating them, and insights about the
+   roles of different kinds of tools in a modular ADL-based infrastructure.</p>
+
+<hr/>
+
+<h2><a id="ase2003">An Approach for Tracing and Understanding Asynchronous Architectures</a></h2>
+<p>Scott A. Hendrickson, Eric M. Dashofy, and Richard N. Taylor<br/>
+   In <i>Proceedingds of the 18th IEEE International Conference on Automated Software Engineering (ASE 2003). Oct. 6-10, 2003. p. 318-322</i></p>
+
+<p><a href="http://www.antconcepts.com/~edashofy/publications/hdt-ase-2003.pdf">Download PDF</a></p>
+
+<p>Applications built in a strongly decoupled, eventbased
+   interaction style have many commendable characteristics,
+   including ease of dynamic configuration, accommodation
+   of platform heterogeneity, and ease of distribution
+   over a network. It is not always easy to humanly
+   grasp the dynamic behavior of such applications, since
+   many threads are active and events are asynchronously
+   (and profusely) transmitted. We present a set of requirements
+   for an aid to assist in the human understanding and
+   exploration of the behavior of such applications through
+   the incremental refinement of rules for determining causality
+   relationships between messages sent among components.
+   A prototype tool is presented, indicating one
+   viable approach to meeting these requirements. Experience
+   with the tool reinforces some of the requirements
+   and indicates others.</p>
+
+<hr/>
+
+<h2><a id="woss2002">Towards Architecture-based Self-healing Systems</a></h2>
+<p>Eric M. Dashofy, Andr&eacute; van der Hoek, and Richard N. Taylor<br/>
+   In <i>Proceedings of the 2002 Workshop on Self-Healing Systems (WOSS'02), pp. 21-26</i></p>
+
+<p><a href="http://www.antconcepts.com/~edashofy/publications/dht-woss-2002.pdf">Download PDF</a></p>
+
+<p><i>Abstract</i><br/>
+   Our approach to creating self-healing systems is based on
+   software architecture, where repairs are done at the level of a
+   software system's components and connectors. In our
+   approach, event-based software architectures are targeted
+   because they offer significant benefits for run-time
+   adaptation. Before an automated planning agent can decide
+   how to repair a self-healing system, a significant
+   infrastructure must be in place to support making the planned
+   repair. Specifically, the self-healing system must be built using
+   a framework that allows for run-time adaptation, there must
+   be a language in which to express the repair plan, and there
+   must be a reconfiguration agent that can execute the repair
+   plan once it is created. In this paper, we present tools and
+   methods that implement these infrastructure elements in the
+   context of an overall architecture-based vision for building
+   self-healing systems. The paper concludes with a gap analysis
+   of our current infrastructure vs. the overall vision, and our
+   plans for fulfilling that vision.</p>
+
+<hr/>
+
+<h2><a id="icse2002">An Infrastructure for the Rapid Development of XML-based Architecture Description Languages</a></h2>
+
+<p>Eric M. Dashofy, Andr&eacute; van der Hoek, and Richard N. Taylor<br/>
+   In <i>Proceedings of the 24th International Conference on Software Engineering (ICSE2002)</i>, Orlando, Florida.</p>
+
+<p><a href="./publications/dht-icse-2002.pdf">Download PDF</a></p>
+
+<p><i>Abstract</i><br/>
+   Research and experimentation in software architectures over the
+   past decade have yielded a plethora of software architecture description
+   languages (ADLs). Continuing innovation indicates that
+   it is reasonable to expect more new ADLs, or at least ADL features.
+   This research process is impeded by the difficulty and cost
+   associated with developing new notations. An architect in need of
+   a unique set of modeling features must either develop a new architecture
+   description language from scratch or undertake the daunting
+   task of modifying an existing language. In either case, it is
+   unavoidable that a significant effort will be expended in building
+   or adapting tools to support the language. To remedy this situation,
+   we have developed an infrastructure for the rapid development
+   of new architecture description languages. Key aspects of
+   the infrastructure are its XML-based modular extension mechanism,
+   its base set of reusable and customizable architectural modeling
+   constructs, and its equally important set of flexible support
+   tools. This paper introduces the infrastructure and demonstrates
+   its value in the context of several real-world applications.</p>
+
+<hr/>
+
+<h2><a id="xse2001">Issues in Generating Data Bindings for an XML Schema-Based Language</a></h2>
+
+<p>Eric M. Dashofy<br/>
+   In <i>Proceedings of the Workshop on XML Technologies and Software Engineering (XSE2001)</i>, Toronto, ONT, Canada.</p>
+
+<p><a href="http://www.antconcepts.com/~edashofy/publications/dashofy-xse-2001.pdf">Download PDF</a></p>
+
+<p><i>Abstract</i><br/>
+   XML's meta-language aspect and extensive tool support make it an
+   attractive way to build modularly extensible modeling languages.
+   XML's original meta-language, the document type definition
+   (DTD), is being replaced by the more expressive XML schema.
+   Developing programmatic tools to manipulate models specified in
+   XML schemas is made easier though the use of data bindings. Data bindings
+   model elements and attributes in XML schemas as objects
+   in an object-oriented programming language. We have developed
+   an XML-schema aware generator for Java data bindings called <i>'apigen'</i>.
+   While developing apigen, we encountered and worked
+   through several issues, both essential and accidental, related to generating
+   XML schema data bindings. These issues, and the solutions
+   we developed, are described in this paper.</p>
+
+<hr/>
+
+<h2><a id="wicsa2001">A Highly-Extensible, XML-Based Architecture Description Language</a></h2>
+<p>Eric M. Dashofy, Andr&eacute; van der Hoek, and Richard N. Taylor<br/>
+   In <i>Proceedings of the Working IEEE/IFIP Conference on Software Architectures (WICSA 2001)</i>, Amsterdam, Netherlands.</p>
+
+<p><a href="./publications/dht-wicsa-2001.pdf">Download PDF</a></p>
+
+<p><i>Abstract</i><br/>
+   Software architecture research focuses on models of software
+   architectures as specified in architecture description
+   languages (ADLs). As research progresses in specific areas of
+   software architectures, more and more architectural
+   information is created. Ideally, this information can be stored
+   in the model. An extensible modeling language is crucial to
+   experimenting with and building tools for novel modeling
+   constructs that arise from evolving research. Traditional
+   ADLs typically support a small set of modeling constructs
+   very well, but adapt to others poorly. XML provides an ideal
+   platform upon which to develop an extensible modeling
+   language for software architectures. Previous XML-based
+   ADLs successfully leveraged XML's large base of off-the-shelf
+   tool support, but did not take advantage of its extensibility. To
+   give software architecture researchers more freedom to
+   explore new possibilities and modeling techniques while
+   maximizing reuse of tools and modeling constructs, we have
+   developed xADL 2.0, a highly extensible XML-based ADL.
+   xADL 2.0 supports run-time and design time modeling,
+   architecture configuration management, and model-based
+   system instantiation. Additionally, xADL 2.0 has a set of
+   extensible infrastructure tools that support the creation,
+   manipulation, and sharing of xADL 2.0 documents.</p>
+
+<hr/>
+
+<h2><a id="pfe2001">Representing Product Family Architectures in an Extensible Architecture Description Language</a></h2>
+
+<p>Eric M. Dashofy and Andr&eacute; van der Hoek<br/>
+   In <i>Proceedings of the International Workshop on Product Family Engineering (PFE-4)</i>, Bilbao, Spain, October 2001.</p>
+
+<p><a href="./publications/dh-pfe-2001.pdf">Download PDF</a></p>
+
+<p><i>Abstract</i><br/>
+   Product family architectures need to be captured much like "regular" software architectures.
+   Unfortunately, representations for product family architectures are scarce and a deep understanding
+   of all of the necessary features of such representations is still lacking. In this paper,
+   we introduce an extensible XML-based representation that is suitable as a basis for rapidly
+   defining new representations for product family architectures. We describe some of the details
+   of this representation and present how Koala and Mae, two early representations for product family
+   architectures, can be mapped onto our XML-based representation with relatively little effort.</p>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Features" -->
+<!--#set var="subsubtitle" value="Product-Line Selector" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>The Selector Component</h1>
+
+<p>The selector provides a user interface which allows a simple means of
+   graphically invoking the
+   <a href="selector.html">Selector</a>,
+   <a href="pruner.html">Pruner</a>, and
+   <a href="versionpruner.html">Version Pruner</a> components.
+   To begin using it, open a xADL document in the selector using the
+   <a href="launcher.html">ArchStudio Launcher</a>.</p>
+
+<p>The selector has a simple user interface:</p>
+
+<p><a href="images/selector/01-selector.png"><img style="border: 0" src="images/selector/thumbnails/01-selector.png" alt="Selector Screenshot"/></a></p>
+
+<p>To use it, follow the following sequence of steps.</p>
+
+<p>First, select a starting point for selection or pruning.  In a
+   hierarchical architecture, this will generally be the outermost
+   architectural structure or type (e.g., the one that is not contained
+   in any other structure or type).  This is done by clicking on one
+   of these elements in the outline view.</p>
+
+<p>Second, if you are performing selection, use the symbol table and
+   the buttons below it to add, edit, and remove variable-value bindings.
+   These will be used to evaluate the various boolean guards in a
+   product-line architecture.  If you are performing only pruning or
+   version pruning, the symbol table has no effect.  It is also possible
+   to store and load symbol sets to and from files using the
+   'Import Symbols' and 'Export Symbols' buttons.</p>
+
+<p>Third, check off the operations you want to perform (select, prune,
+   or version prune).</p>
+
+<p>Once you have completed these steps, click the "Run Selected Tasks"
+   button.  This will bring up a 'save resource' dialog in which you can
+   choose where to save the selected/pruned architecture in a separate
+   xADL file.  Because these operations are generally destructive, it
+   is not possible to apply them in-line to the open xADL file.</p>
+
+<hr/>
+
+<p>Additional questions about the Selector Driver should be sent to
+   <a href="mailto:critchlm@uci.edu">Matthew C. Critchlow</a>.</p>
+
+<hr/>
+
+<!--#include virtual="_pagebottom.html" -->
+</html>

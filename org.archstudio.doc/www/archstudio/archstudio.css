@@ -1,0 +1,234 @@
+
+body         {
+               background-color: #3a6699; 
+               background-image: url(images/navbar-background.png);
+             }
+
+
+a:link {color: #3a6699; text-decoration: none; }
+a:active {color: #3a6699; text-decoration: none; }
+a:visited {color: #3a6699; text-decoration: none; }
+a:hover {color: #3a6699; text-decoration: underline; }
+             
+div.corner   { 
+               background-image: url(images/navbar-background.png);
+               position: absolute; 
+               left: 0px; 
+               top: 0px; 
+               width: 150px;
+               height: 75px;
+             }
+
+.subtitle {
+               margin-top: 3px; 
+               margin-bottom: 3px; 
+               margin-left: 5px;
+               width: 400px;
+               color: #ffffff;
+               font-family: Tahoma, Arial, helvetica, sans-serif;
+               font-size: 23pt;
+               font-weight: normal;
+             }
+
+.subsubtitle {
+               margin-top: 1px; 
+               margin-bottom: 3px; 
+               margin-left: 20px;
+               width: 400px;
+               color: #ffffff;
+               font-family: Tahoma, Arial, helvetica, sans-serif;
+               font-size: 14pt;
+               font-weight: normal;
+             }
+
+div.navbar   { 
+               background-image: url(images/navbar-background.png);
+               position: absolute; 
+               left: 0px; 
+               top: 75px; 
+               width: 150px;
+             }
+
+.navbartext  {
+               padding-left: 5px;
+               padding-right: 5px;
+               color: #ffffff;
+               font-family: Arial, helvetica, sans-serif;
+               font-size: 8pt;
+               font-weight: normal;
+             }
+
+div.navbarhead {
+                font-weight: bold;
+               }
+
+div.navbarlinks {
+                margin-top: 5px;
+                }
+
+.navbartext hr {
+                 height: 1px;
+                 color: #ffffff;
+                 background-color: #ffffff;
+               }
+
+.navbartext a:link {color: #ffffff; text-decoration: none; }
+.navbartext a:active {color: #ffffff; text-decoration: none; }
+.navbartext a:visited {color: #ffffff; text-decoration: none; }
+.navbartext a:hover {color: #ffffff; text-decoration: underline; }
+
+div.mainhead {
+               position: absolute;
+               background-image: url(images/archstudio-big-logo-fill.png);
+               top: 0px;
+               left: 150px;
+               width: 600px;
+               height: 107px;
+             }
+
+div.pagehead {
+               position: absolute;
+               background-image: url(images/regular-page-top.png);
+               top: 0px;
+               left: 150px;
+               width: 600px;
+               height: 75px;
+             }
+             
+div.content  {
+               font-family: Arial, helvetica, sans-serif;
+               font-size: 10pt;
+
+               background-color: #eeeeee;
+
+               position: absolute;
+               left: 150px;
+               top: 75px;
+               width: 600px;
+
+               padding-top: 4px;
+               padding-left: 8px;
+               padding-right: 8px;
+               padding-bottom: 4px;
+             }
+             
+div.content h1 {
+                 font-size: 14pt;
+                 font-weight: bold;
+                 margin-top: 0px;
+                 margin-left: 0px;
+                 margin-right: 0px;
+                 margin-bottom: 10px;
+                 padding: 1px;
+               }
+
+div.content h2 {
+                 font-size: 12pt;
+                 font-weight: bold;
+
+                 margin-top: 10px;
+                 margin-left: 0px;
+                 margin-right: 0px;
+                 margin-bottom: 10px;
+
+                 padding-top: 2px;
+                 padding-left: 4px;
+                 padding-right: 4px;
+                 padding-bottom: 2px;
+               }
+
+div.content h3 {
+                 font-size: 11pt;
+                 font-weight: bold;
+
+                 margin-top: 10px;
+                 margin-left: 0px;
+                 margin-right: 0px;
+                 margin-bottom: 10px;
+
+                 padding-top: 2px;
+                 padding-left: 4px;
+                 padding-right: 4px;
+                 padding-bottom: 2px;
+               }
+
+div.content p  {
+                 margin-top: 10px;
+                 margin-left: 0px;
+                 margin-right: 0px;
+                 margin-bottom: 10px;
+
+                 padding-top: 2px;
+                 padding-left: 4px;
+                 padding-right: 4px;
+                 padding-bottom: 2px;
+               }
+
+div.content pre {
+               font-family: Courier New,Courier,Monospace;
+               font-size: 10pt;
+               font-weight: normal;
+
+               color: #222222;
+
+               margin-top: 10px;
+               margin-left: 10px;
+               margin-right: 10px;
+               margin-bottom: 10px;
+
+               padding-top: 4px;
+               padding-bottom: 4px;
+               padding-left: 8px;
+               padding-right: 8px;
+}
+
+div.content pre.codeblock {
+               background-color: #ffffff;
+
+               border-style: solid;
+               border-color: #888888;
+               border-width: 1px;
+             }
+
+div.content table.quicklink {
+               font-size: 12pt;
+               font-weight: normal;
+
+               background-color: #ffffff;
+
+               border-style: solid;
+               border-color: #888888;
+               border-width: 1px;
+             }
+
+div.content table.quicklink p {
+               font-size: 10pt;
+               font-weight: normal;
+               
+               margin-top: 2px;
+               margin-bottom: 2px;
+
+             }
+
+table {
+	border-width: thin thin thin thin;
+	border-spacing: 0px;
+	border-style: solid solid solid solid;
+	border-color: gray gray gray gray;
+	border-collapse: collapse;
+	background-color: white;
+}
+table th {
+	border-width: 1px 1px 1px 1px;
+	padding: 4px 4px 4px 4px;
+	border-style: inset inset inset inset;
+	border-color: gray gray gray gray;
+	background-color: white;
+}
+table td {
+	border-width: 1px 1px 1px 1px;
+	padding: 4px 4px 4px 4px;
+	border-style: inset inset inset inset;
+	border-color: gray gray gray gray;
+	background-color: white;
+}

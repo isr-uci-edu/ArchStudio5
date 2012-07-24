@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="General" -->
+<!--#set var="subsubtitle" value="What is ArchStudio?" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>Introduction to ArchStudio</h1>
+
+<p>ArchStudio is a software and systems architecture development environment.</p>
+
+<!--#set var="videoname" value="intro" -->
+<!--#set var="videodescription" value="an introduction to ArchStudio 4" -->
+<!--#include virtual="_vidlink.html" -->
+
+<p>While most development environments, like
+   <a href="http://msdn.microsoft.com/vstudio/">Microsoft Visual Studio</a>
+   and
+   <a href="http://www.borland.com/jbuilder/">Borland JBuilder</a>
+   are code-driven development environments, ArchStudio focuses on software
+   development from the perspective of
+   <a href="http://www.isr.uci.edu/architecture/">software and systems architecture</a>.</p>
+
+<p>We define architecture as <i>the set of principal design decisions
+   about a system.</i>  This is an intentionally broad definition.
+   Every project in every domain will have different needs and quality
+   goals.  This means that every project will have a somewhat different
+   set of design decisions that are considered <i>principal</i> by its
+   stakeholders.</p>
+
+<p>The ArchStudio environment plays two roles in the development of
+   architectures:</p>
+
+<p>First, ArchStudio is an <b>architecture development environment</b>.
+   That is, the ArchStudio developers have identified recurring
+   principal design concerns that occur in many domains and projects,
+   and attempted to support these. ArchStudio
+   has built-in support for modeling the hierarchical structure of complex
+   systems, the types of various components, connectors, and interfaces,
+   product-lines of systems that are related by a common base,
+   and so on.</p>
+
+<p>Second, ArchStudio is an <b>architecture meta-modeling environment</b>.
+   ArchStudio is based on the highly-extensible
+   <a href="http://www.isr.uci.edu/projects/xarchuci/">xADL 2.0</a>
+   architecture description language.  xADL allows stakeholders
+   to define and re-define the language's syntax and semantics to suit
+   their own needs, and ArchStudio provides the tool support for
+   this extensibility. If current modeling tools and notations are not
+   sufficient to capture a particular concern for a particular project,
+   ArchStudio and xADL can be extended to effectively provide support
+   for that concern without having to "re-invent the wheel."  As such,
+   ArchStudio provides an ideal platform for domain experts and
+   architecture researchers who want to investigate new ways
+   of modeling architectural concepts without investing an
+   inordinate amount of time in infrastructure development.</p>
+
+<h1>ArchStudio Capabilities</h1>
+
+<p><b>Architecture Modeling:</b> ArchStudio creates and manipulates
+   architecture descriptions expressed in the
+   <a href="http://www.isr.uci.edu/projects/xarchuci/">xADL 2.0</a>
+   architecture description language (ADL).  xADL is the first
+   <i>modularly-extensible</i> architecture description language.
+   Rather than having its syntax and semantics defined monolithically,
+   in one huge chunk, xADL breaks up modeling features into modules
+   using standard <a href="http://www.w3.org/XML/Schema">XML schemas</a>.
+   ArchStudio's integrated set of tools operates on xADL documents
+   much the same way as a word processor operates on text documents.
+   One major difference, however, is that ArchStudio tools integrate
+   "live"&mdash;meaning that a change in any tool is reflected
+   in all others immediately.  As noted above, the xADL language
+   can be extended by end-users through the addition of new XML
+   schemas to support domain- or project-specific concerns and
+   modeling needs.  New modules are even added to the core xADL
+   language from time to time as they are developed and contributed.</p>
+
+<p><a href="images/archipelago/04-archipelago-endtoendmapping.png"><img style="margin: 5px; border: 0; float: right" src="images/archipelago/thumbnails/04-archipelago-endtoendmapping.png" alt="Archipelago Screenshot"/></a>
+   <b>Architecture Visualization:</b> The xADL language defines the
+   structure of architecture description data, but it can be depicted
+   and manipulated in many ways.  ArchStudio provides several different
+   visualizations for xADL 2.0 models. Archipelago, ArchStudio's
+   graphical editor, provides visualizations as symbol graphs -
+   the kind of box-and-arrow models common in tools
+   like Microsoft Visio and OmniGraffle.  However, unlike PowerPoint
+   or OmniGraffle models, the graphical depictions in Archipelago aren't
+   just pictures - they are a user-editable graphical projection of
+   the underlying architecture model.  ArchStudio includes other editors
+   as well, including ArchEdit, a syntax-directed editors that adapts
+   to new xADL schemas automatically with no recoding, and the Type
+   Wrangler, which provides a custom view of an architectural model
+   that makes it easier to achieve type consistency.</p>
+
+<p><a href="images/archlight/06-archlight-issues.png"><img style="margin: 5px; border: 0; float: left" src="images/archlight/thumbnails/06-archlight-issues.png" alt="Archipelago Screenshot"/></a>
+   <b>Architecture Analysis:</b> ArchStudio supports exploratory design
+   in all its editors - architectures are rarely perfect until the latest
+   stages of development. However, it is useful to be able to assess the
+   correctness and consistency of an architecture description.  The Archlight
+   framework provides a way to automatically test architecture descriptions
+   against many different criteria.  Errors can be displayed and inspected,
+   and users can navigate to the site of a problem in any editor with a few
+   mouse clicks.  In keeping with ArchStudio's extensible nature, all tests
+   are provided by Archlight plug-ins, and users can add their own tests
+   (and even entirely new analysis engines) through Archlight's plug-in API.
+   Archlight ships with the powerful
+   <a href="http://www.schematron.com/">Schematron</a> XML constraint
+   engine, adapted to integrate seamlessly into the Archlight user interface.
+   Schematron allows complex architectural tests to be specified in
+   about a dozen lines of code.</p>
+
+
+<h1>ArchStudio Development Philosophy</h1>
+
+<p>A critical aspect of ArchStudio's ongoing development is that we
+   <i>use ArchStudio to develop ArchStudio</i> - we adopt our own
+   architecture-centric development approach in its development.
+   ArchStudio's architecture is specified in a xADL 2.0 file,
+   and this xADL file is part of the ArchStudio implementation.
+   Whenever ArchStudio starts up on a machine, its architecture
+   description is being parsed, and the information in that
+   description is used to instantiate and connect the components
+   and connectors in the architecture.</p>
+
+<h1>ArchStudio Development</h1>
+
+<p>ArchStudio is implemented in Java 2&trade; Standard Edition
+   (J2SE) version 5.0, also known as Java 1.5.  It is implemented
+   as a set of <a href="http://www.eclipse.org/">Eclipse</a> plug-ins.
+   It should run on any platform that supports Eclipse, including
+   Windows 2000 or better, MacOS X, and Linux/UNIX.</p>
+
+<p>Although ArchStudio is a research project, its developers have
+   undertaken extensive efforts to mature and productize it.  Its
+   previous release, ArchStudio 3, was a standalone Java application,
+   and sustained more than 70 releases over five years.  The mature
+   ArchStudio 3 codebase is at the core of ArchStudio 4, but
+   ArchStudio 4 includes a number of exciting new features, including
+   significant user-interface and performance enhancements.</p>
+
+<h1>Where to Now?</h1>
+
+<p>ArchStudio is an open-source project and is free to download and
+   use.  We encourage you to <a href="setup-easy.html">download and install</a>
+   ArchStudio and experiment with it.  Queries and support requests
+   are always appreciated on our <a href="mailinglists.html">mailing lists</a>.</p>
+
+<hr/>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

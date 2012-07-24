@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Features" -->
+<!--#set var="subsubtitle" value="Boolean Guard Language" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>The Boolean Guard Language</h1>
+
+<p>Boolean guards are a supported product-line guard language
+   in the ArchStudio toolset.  (Currently Boolean guards are the
+   only such language, although other guard languages could be
+   used by extending xADL 2.0 and providing appropriate tools).  Boolean guards
+   are used in modeling product-line architectures.  Boolean guards are boolean
+   expressions that serve two purposes:</p>
+
+<ol>
+  <li><b>Optional Elements:</b> Optional elements are accompanied by
+         Boolean guards; if the guard expression evaluates to <code>true</code>,
+         the element is included in the architecture.  If the guards expression
+         evaluates to <code>false</code>, the element is removed.</li>
+  <li><b>Variant Elements:</b> Each possible variant of an element is
+         assigned an exclusive Boolean guard (that is, no two variants' guards
+         should simultaneously evaluate to <code>true</code> under any circumstance).
+         The variant whose guard expression does evaluate to <code>true</code> is
+         included in the architecture, the rest are excluded.</li>
+</ol>
+
+<p>Boolean expressions in the Boolean guard language are syntactically
+   similar to traditional Boolean expressions in programming languages
+   such as C, C++, and Java. Variables in the equation are bound to values
+   at evaluation-time.  So, an expression such as:</p>
+
+<p><code>platform == "Macintosh"</code></p>
+
+<p>is valid without any previous or external declaration of the variable
+   <code>platform</code>.  The variable will be bound to a value in the tool
+   that evaluates the expression; in ArchStudio 3 this tool is traditionally
+   the <a href="selector.html">Selector</a> (driven graphically by the
+   <a href="selectordriver.html">SelectorDriver</a>).</p>
+
+<p>There are 3 valid types for the values of each variable: string, date,
+   and double.  Variables are indicated by standard C/C++/Java style names, such
+   as <code>num_of_processors</code> or <code>hasDisk</code>.
+   Constants of each type are denoted as follows:</p>
+
+<ul>
+  <li>Strings are enclosed in double-quotes (<code>&quot;</code>): <code>"true"</code></li>
+  <li>Dates are enclosed in pound-signs (<code>#</code>): <code>#3/25/03#</code></li>
+  <li>Doubles are IEEE double-precision values: <code>2.34</code></li>
+</ul>
+
+<p>The following comparison operators are available:</p>
+
+<table cellpadding="3" border="1">
+<tr><td><code>==</code></td><td>equal to</td></tr>
+<tr><td><code>!=</code></td><td>not equal to</td></tr>
+<tr><td><code>&gt;</code></td><td>greater than</td></tr>
+<tr><td><code>&gt;=</code></td><td>greater than or equal to</td></tr>
+<tr><td><code>&lt;</code></td><td>less than</td></tr>
+<tr><td><code>&lt;=</code></td><td>less than or equal to</td></tr>
+</table>
+
+<p>In comparisons, the left hand operator must be a variable
+and the right hand operator may be either a variable or a constant
+(string, date, or double). For example:</p>
+
+<pre>
+/* Is the speed over the number 65? */
+speed >= 65
+
+/* Is the alarm equal to the value stored in the
+   variable timerDate? */
+alarm == timerDate
+</pre>
+
+<p>For convenience, the language also offers in-set and in-range operators:</p>
+
+<table cellpadding="3" border="1">
+<tr><td><code>@{ ... }</code></td><td>in-set</td></tr>
+<tr><td><code>@[a, b]</code></td><td>in-range</td></tr>
+</table>
+
+<p>The left hand side of these operators must be a variable. For in-set,
+   any number of variables or constant values are allowed between the
+   braces ({ }), each separated by a comma.</p>
+
+<p>For in-range, a single lower and upper bound are specified in the
+   brackets ([ ]), separated by a comma.</p>
+
+<p>Examples:</p>
+
+<pre>
+/* Is the temperature between 10 and 40? */
+temperature @[10, 40]
+
+/* Is the ticket either a child, adult,
+   or senior? */
+ticket @{&quot;child&quot;, &quot;adult&quot;, &quot;senior&quot;}
+</pre>
+
+<p>Finally, expressions can be joined by conjunction operators
+   <code>and</code> and <code>or</code>:</p>
+
+<table cellpadding="3" border="1">
+<tr><td><code>&amp;&amp;</code></td><td>and</td></tr>
+<tr><td><code>||</code></td><td>or</td></tr>
+</table>
+
+<p>These two operators connect boolean expressions together.   For example:</p>
+
+<pre>
+(speed >= 65) &amp;&amp; (temperature @[10, 40])
+(ticket @{"child", "adult", "senior"}) || (age &lt;= 5)
+</pre>
+
+<hr/>
+
+<h1>The Boolean Guard Language in BNF</h1>
+
+<p>That summarizes the language.  For the technically inclined,
+   or those who want to build their own parser, the BNF for the language
+   follows:</p>
+
+<pre>&lt;BooleanGuard&gt; ::= &lt;BooleanExp&gt;
+&lt;BooleanExp&gt; ::= &lt;And&gt; | &lt;Or&gt; | &lt;Not&gt; |
+    &lt;GreaterThan&gt;
+&lt;GreaterThanOrEquals&gt; |
+    &lt;LessThan&gt; | &lt;LessThanOrEquals&gt; | &lt;Equals&gt; |
+    &lt;NotEquals&gt; | &lt;InSet&gt; | &lt;InRange&gt; |
+    &lt;Bool&gt; | &lt;Paren&gt;
+&lt;And&gt; ::= &lt;BooleanExp&gt; &amp;&amp; &lt;BooleanExp&gt;
+&lt;Or&gt; ::= &lt;BooleanExp&gt; || &lt;BooleanExp&gt;
+&lt;Not&gt; ::= !&lt;BooleanExp&gt;
+&lt;GreaterThan&gt; ::= &lt;LeftOperand&gt; &gt; &lt;RightOperand&gt;
+&lt;GreaterThanOrEquals&gt; ::= &lt;LeftOperand&gt; &gt;= &lt;RightOperand&gt;
+&lt;LessThan&gt; ::= &lt;LeftOperand&gt; &lt; &lt;RightOperand&gt;
+&lt;LessThanOrEquals&gt; ::= &lt;LeftOperand&gt; &lt;= &lt;RightOperand&gt;
+&lt;Equals&gt; ::= &lt;LeftOperand&gt; == &lt;RightOperand&gt;
+&lt;NotEquals&gt; ::= &lt;LeftOperand&gt; != &lt;RightOperand&gt;
+&lt;InSet&gt; ::= &lt;LeftOperand&gt; @{ &lt;Set&gt; }
+&lt;InRange&gt; ::= &lt;LeftOperand&gt; @[ &lt;RightOperand&gt;, &lt;RightOperand&gt; ]
+&lt;Paren&gt; ::= ( &lt;BooleanExp&gt; )
+&lt;Set&gt; ::= &lt;RightOperand&gt; | &lt;RightOperand&gt;, &lt;Set&gt;
+
+&lt;LeftOperand&gt; ::= Variable
+&lt;RightOperand&gt; ::= Variable | Value
+&lt;Bool&gt; ::= true | false</pre>
+
+<hr/>
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

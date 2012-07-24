@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Developing Components" -->
+<!--#set var="subsubtitle" value="Using xArchFlatProxy" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>xArchFlatProxy Overview</h1>
+
+<p>The <a href="developing-xarchadt.html"><code>XArchFlatInterface</code></a> is a
+   distributable interface that provides additional low-level functionality that is
+   not available when using the xArch/xADL 2.0 <a href="dbl.html">Data Binding
+   Library</a> directly. However, it uses strings to specify (indirectly) method
+   calls.  Thus, errors that are normally detected by the compiler when type-
+   checking (when using the native Data Binding Libray interface) will show up only
+   at run-time as exceptions (when using the XArchFlatInterface).</p>
+
+<p>This can make it difficult to manage source code that takes advantage of the
+   <code>XArchFlatInterface</code>. It can be especially difficult to maintain
+   source code so that it adheres to changes in one of the Data Binding Library's
+   underlying XML schemas. Recompiling will not indicate that a removed method no
+   longer exists, or that method signatures have changed. In addition, using the
+   <code>XArchFlatInterface</code> prevents one from using the code assist features
+   (e.g., AutoComplete) that are available in many modern integrated development
+   environments.</p>
+
+<p><code>XArchFlatProxy</code> addresses these problems by providing a layer on top
+   of the XArchFlatInterface that exposes interfaces nearly identical to those
+   exposed by the xArch/xADL 2.0 Data Binding Library (e.g.,
+   <code>IComponent</code>). Thus, calls using the XArchFlatProxy mechanism will
+   appear (and compile) like calls made to the data binding library directly.  In
+   reality, however, these calls will be dynamically translated to
+   XArchFlatInterface calls "under the covers."  As such, this allows you to combine
+   the ease of use of the data binding library's interface with the distributability
+   and loose coupling provided by the XArchFlatInterface.</p>
+
+<hr/>
+
+<h1>Limitations</h1>
+
+<p><code>XArchFlatProxy</code> is somewhat more limited than using the data binding
+   library or the <code>XArchFlatInterface</code> directly, namely:</p>
+
+<ul>
+  <li><code>XArchFlatProxy</code> users cannot directly add themselves as
+      <code>XArchListener</code>s and receive <code>XArchEvents</code>.</li>
+  <li><code>XArchFlatProxy</code> users cannot take advantage of the
+      transaction mechanism provided by the <code>XArchFlatTransactionsInterface</code>.</li>
+  <li><code>XArchFlatProxy</code> users cannot take advantage of the
+      bulk query mechanism provided by the <code>XArchFlatInterface</code>.</li>
+</ul>
+
+<p>Let's look at how to use <code>XArchFlatProxy</code>. Using this mechanism
+   imposes certain minor constraints on your code:</p>
+
+<ol>
+  <li>You must access documents <i>using data binding interfaces</i>
+      (e.g., <code>IDescription</code>), not implementation types
+      (e.g., <code>DescriptionImpl</code>).
+      (<i>NB: You shouldn't be using <code>Impl</code> classes in any case</i>)</li>
+  <li><i>Create documents and contexts through the
+      <code>XArchFlatProxyImplementation</code></i> object rather than the
+      now-deprecated <code>XArchUtils</code> mechanism, or the DOM-based
+      <code>DOMBasedXArchImplementation</code>, or direct context constructors
+      (<code>new TypesContext(...)</code>).</li>
+</ol>
+
+<p><i>Note:</i> even if you used interfaces before, the latest version
+   of Apigen creates additional interfaces to address objects (e.g., contexts) that
+   previously had none.</p>
+
+<hr/>
+
+<h1>Working with xArchFlatProxy</h1>
+
+<p>A program that was previously written to use the DOM-based Data Binding Library
+   should be modified to:</p>
+
+<ol>
+  <li>Use the proxied version of the <code>IXArchImplementation</code>;</li>
+  <li>Use interfaces (if it did not already do so); and</li>
+  <li>Create contexts and manipulate documents using the IXArchImplementation.</li>
+</ol>
+
+
+<p>Below is an example piece of code <i>before</i> modification.</p>
+
+<pre class="codeblock">
+  <span style="color: #ff0000">//Create a DOM-based IXArchImplementation</span>
+  IXArchImplementation xArchImplementation =
+    XArchUtils.getDefaultXArchImplementation();
+
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  IXArch xArch = xArchImplementation.createXArch();
+
+  <span style="color: #ff0000">//Create types and instance contexts</span>
+  InstanceContext instance = new InstanceContext(xArch);
+  TypesContext types = new TypesContext(xArch);
+
+  <span style="color: #ff0000">//Create a component and description</span>
+  ComponentImpl component = types.createComponent();
+  component.setId("example_component_id");
+
+  DescriptionImpl description = types.createDescription();
+  description.setValue("Example Component Description");
+  component.setDescription(description);
+</pre>
+
+
+<p>Modifiying the code to use interfaces and create contexts using the
+   <code>IXArchImplementation</code> produces the following code
+   <i>(changes are in <b>bold</b>, note the additional &quot;<code>I</code>&quot;
+   in front of the context types to indicate access of contexts through their
+   interface)</i>.</p>
+
+<pre class="codeblock">
+  <span style="color: #ff0000">//Create a DOM-based IXArchImplementation</span>
+  IXArchImplementation xArchImplementation =
+    XArchUtils.getDefaultXArchImplementation();
+
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  IXArch xArch = xArchImplementation.createXArch();
+
+  <span style="color: #ff0000">//Create types and instance contexts</span>
+  <b>I</b>InstanceContext instance =
+    <b>(IInstanceContext) xArchImplementation.createContext("instance")</b>;
+  <b>I</b>TypesContext types =
+    <b>(ITypesContext)xArchImplementation.createContext("types")</b>;
+
+  <span style="color: #ff0000">//Create a component and description</span>
+  <b>IComponent</b> component = types.createComponent();
+  component.setId("example_component_id");
+
+  <b>IDescription</b> description = types.createDescription();
+  description.setValue("Example Component Description");
+  component.setDescription(description);
+</pre>
+
+<p>Now, in order to use the Data Binding Library interfaces by proxy across
+   an instance of <code>XArchFlatInterface</code>, simply call
+   <code>XArchFlatProxyUtils.getXArchImplementation(XArchFlatInterface xArch)</code></p>
+
+<p>After you have proxied one <code>XArchFlatInterface</code>, all
+   elements returned by the proxied object will automatically be proxied
+   on your behalf. To modify the code above so that it works on an
+   instance of <code>XArchFlatInterface</code> would require the following
+   changes <i>(in <strong>bold</strong>)</i>:</p>
+
+<pre class="codeblock">
+  <b><span style="color: #ff0000">//Create (or acquire) an instance of XArchFlatInterface</span></b>
+  <b>XArchFlatInterface xArchFlat = new XArchFlatImpl();</b>
+
+  <span style="color: #ff0000">//Create an XArchFlatProxy-based IXArchImplementation</span>
+  <b>IXArchImplementation xArchImplementation =
+    XArchFlatProxyUtils.getXArchFlatProxyImplementation(xArchFlat);</b>
+
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  IXArch xArch = xArchImplementation.createXArch();
+
+  <span style="color: #ff0000">//Create types and instance contexts</span>
+  IInstanceContext instance =
+    (IInstanceContext) xArchImplementation.createContext("instance");
+  ITypesContext types =
+    (ITypesContext)xArchImplementation.createContext("types");
+
+  <span style="color: #ff0000">//Create a component and description</span>
+  IComponent component = types.createComponent();
+  component.setId("example_component_id");
+
+  IDescription description = types.createDescription();
+  description.setValue("Example Component Description");
+  component.setDescription(description);
+</pre>
+
+<p><i>Note</i>: Only one line had to be changed, the others
+   were added to clarify where the xArch instance came from. The rest of the
+   code, unmodified, is operating over the <code>XArchFlatInterface</code>
+   specified at the top of the code snippet.</p>
+
+<hr/>
+
+<h1>Additional Capabilities</h1>
+
+<p>It's possible to proxy any <code>XArchFlatInterface</code>-style
+   <code>ObjRef</code> into a Data Binding Library-style proxy
+   as the following code example demonstrates:</p>
+
+<pre class="codeblock">
+  <span style="color: #ff0000">//Modify the description of the component in the examples above</span>
+  XArchFlatInterface xArchFlat = ...;
+  ObjRef xArchRef = ...;
+  ObjRef componentRef = xArchFlat.getByID(xArchRef,
+    "example_component_id");
+  ObjRef descriptionRef = xArchFlat.get(componentRef, "Description");
+
+  <span style="color: #ff0000">//Proxy just the description and change it through XArchFlatProxy</span>
+  IDescription desc = (IDescription) XArchFlatProxyFactory.proxy(
+    xArchFlat, descriptionRef);
+  desc.setValue("Changed Component Description");
+
+  <span style="color: #ff0000">//Print the description through XArchFlatInterface</span>
+  System.err.println(xArchFlat.get(descriptionRef, "Value"));
+  <span style="color: #ff0000">// prints "Changed Component Description"</span>
+</pre>
+
+<hr/>
+
+<h1>That's it!</h1>
+
+<p>Additional questions about the XArchFlatProxy mechanism should be sent
+   to <a href="mailto:shendric@uci.edu">Scott A. Hendrickson</a>.</p>
+
+<hr/>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

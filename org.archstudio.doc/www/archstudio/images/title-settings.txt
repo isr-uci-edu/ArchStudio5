@@ -1,0 +1,3 @@
+Font: Garamond
+Size: Whatever
+Effect: Inner Bevel 120 deg. 10 pixel depth, 5 pixel blur, Screen White (255,255,255)

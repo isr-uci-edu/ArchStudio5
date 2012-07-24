@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Components" -->
+<!--#set var="subsubtitle" value="ArchEdit" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>ArchEdit: A Syntax-Directed Editor for xADL Documents</h1>
+
+<p>ArchEdit is a graphical, syntax-directed editor for xADL
+   2.0 documents.  It uses a tree-based graphical user interface
+   similar to many XML editors or Microsoft's Regedit.  Like
+   Regedit, it is a low-level tool for editing architecture documents.
+   It does not enforce semantic constraints on architecture
+   descriptions, and is primarily useful for low-level inspection
+   and editing of such descriptions.  The advantage
+   of this tool is that it automatically adapts itself to new xADL
+   schemas when the language is extended.  So, new or enhanced builds
+   of ArchStudio do not require ArchEdit to be changed.</p>
+
+<p>An ArchEdit screenshot is shown here:</p>
+
+<p><a href="images/archedit/01-archedit.png"><img style="border: 0" src="images/archedit/thumbnails/01-archedit.png" alt="ArchEdit Screenshot"/></a></p>
+
+<p>Architects can navigate the architecture description by expanding
+   and collapsing nodes in the tree view in the left panel.  As nodes
+   are selected, editable attributes and elements containing
+   architecture data appear in the right panel.  If a node is an XLink
+   (a link between two disconnected nodes in the XML document), drag and
+   drop support is provided to edit the link efficiently.</p>
+
+<hr/>
+
+<h1>Using ArchEdit</h1>
+
+<p>ArchEdit can be invoked from the ArchStudio launcher
+   view, or by right-clicking on any xADL document in the
+   Eclipse Navigator and selecting Open With &gt; ArchEdit.</p>
+
+<p>The ArchEdit interface is most analogous to the
+   Windows Registry Editor interface.  The left pane
+   shows the document in a tree-format.  Elements
+   with children (or the potential for children)
+   are depicted as folders with an "expand" control
+   next to them.  Elements without the potential
+   for children have document icons.  For convenience,
+   if an element has an identifier (ID), the identifier
+   will appear in parentheses after the element name.</p>
+
+<p>When you click on an element, any attributes of
+   the element will appear in the right pane, ready for
+   editing.  If the element is an XLink, an additional
+   section will appear in the right pane, with a link
+   area:</p>
+
+<p><a href="images/archedit/03-archedit-link.png"><img style="border: 0" src="images/archedit/thumbnails/03-archedit-link.png" alt="ArchEdit Screenshot"/></a></p>
+
+<p>To quickly make a link from the selected element to
+   another element, click-and-drag the link area in the
+   right pane and drop it on the target element in the
+   tree on the left.  Note that for this to succeed,
+   the link target must be an element that has an ID.
+   This drag-and-drop operation is just a shortcut
+   for filling out the two fields (type and href) in
+   the XLink panel, of course.</p>
+
+<p>Creating new elements requires clicking an element
+   with the secondary button on your mouse.  This is
+   commonly referred to as right-clicking.  Macintosh
+   users may have to Option-click the element to get
+   the appropriate result.  Right clicking an element
+   will bring up a context menu.</p>
+
+<p><a href="images/archedit/02-archedit-contextmenu.png"><img style="border: 0" src="images/archedit/thumbnails/02-archedit-contextmenu.png" alt="ArchEdit Context Menu"/></a></p>
+
+<p>The first menu is the "Remove" option,
+   which allows you to remove an element (and all its
+   children) from its parent.</p>
+
+<p>If the element's type has subtypes defined
+   in the data binding library in use, then those will
+   appear as options for "promotions," as shown in the
+   second section of the menu.  Promoting an element
+   from its current type to one of its subtypes usually
+   allows it to have more sub-elements and attributes.
+   The subtypes that are available are defined in the
+   XML schemas used to create the data binding library.</p>
+
+<p>The third section of the menu allows you to add
+   sub-elements to the selected element.  For sub-elements
+   with cardinality at-most-one, you will be prohibited from
+   adding more than one sub-element, and the option will
+   appear gray when one has been added, as is seen above.
+   Available new sub-elements appear as selectable
+   menu options.  Sub elements appear as children
+   of the given element in the tree.</p>
+
+<p>ArchEdit also responds to all events emitted by
+   xArchADT.  Thus, changes to an architecture induced by
+   any other tool in ArchStudio will be reflected
+   in xArchADT automatically.</p>
+
+<hr/>
+
+<p>Additional questions about ArchEdit should be sent to
+   <a href="mailto:edashofy@ics.uci.edu">Eric M. Dashofy</a>.</p>
+
+<hr/>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>
