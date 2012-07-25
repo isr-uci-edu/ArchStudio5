@@ -1,57 +1,47 @@
 <html>
-<!--#set var="subtitle" value="xADL 2.0 Tools" -->
-<!--#set var="subsubtitle" value="xArch/xADL 2.0 Data Binding Library" -->
+<!--#set var="subtitle" value="xADL Tools" -->
+<!--#set var="subsubtitle" value="xArch/xADL Data Binding Library" -->
 
 <!--#include virtual="_pagetop.html" -->
 
-<h1>xArch/xADL 2.0 Data Binding Library</h1>
-
-<p>We are extremely proud to release initial versions of the xArch/xADL 2.0
-Data Binding Library for creating, parsing, manipulating, and writing xArch and
-xADL 2.0 documents.
-These libraries provide a convenient, xArch/xADL 2.0-oriented Java interface to
-xArch documents.  Libraries currently available support the instance (core)
-xArch specification, as well as all the extensions on our
-<a href="ext-overview.html">extensions page</a>.  These libraries
-are available for immediate download.
-
-<p>For an example of how to use these libraries, click
-<a target="_blank" href="Test.java">here</a>.
-
-<p><font color="#ff0000"><b>Note!</b></font> Previous versions of this library
-used Apache Xerces as the underlying XML parser.  The latest version of the
-library has been converted to use the Sun Crimson parser included with
-J2SDK 1.4.  As such, the library must be executed and run with J2SDK1.4.
-
-<p>You can download J2SDK1.4
-<a target="_blank" href="http://java.sun.com/j2se/1.4/">here</a>
-if you do not already have it.
-
-<p><a target="_blank" href="apiDocs/index.html">Click here</a> to view Javadoc
-documentation for the DOM-Based Java Libraries.
-
-<p><img src="images/updated.gif" alt="Updated!"> <i>[September 27, 2001]</i> -
-We now have a small example file available, in Java, that demonstrates how to use
-the DOM-based xArch libraries.  It's available
-<a target="_blank" href="Test.java">here</a>.
-
-<hr>
-<h1>Download</h1>
-
-<p>ISR has unified all of its Java downloads under a single deployment and management
-system called ISR Deployment.  This system allows you to download, install, and
-update your software from the Web!
+<h1>xArch/xADL Data Binding Library</h1>
 
 <p>
-<div align="center">
-<table rows=1 cols=1 border=1 cellpadding=4><tr><td>
-<big><b><a target="_top" href="http://www.isr.uci.edu/projects/softwareupdate/">Click
-Here for ISR Software Downloads</a></b></big>
-</td></tr></table>
-</div>
+	xADL data binding libraries are stored within the plug-ins that contain
+	their respective xADL schema. (To see how this is done, see the <a
+		href="./tools-apigen.html">Apigen</a> tool.) The advantage to this
+	approach is that new schema can be automatically incorporated into
+	ArchStudio's <a
+		href="http://www.isr.uci.edu/projects/archstudio/archedit.html">ArchEdit</a>
+	tool when it is compiled with those plugins.
+</p>
 
-<hr>
+<h1>Using the Data Binding Library</h1>
+
+<p>
+	The data binding library is built upon the <a
+		href="http://www.eclipse.org/modeling/emf/">Eclipse Modeling
+		Framework (EMF)</a>. There are three ways that the data binding library
+	can be used:
+</p>
+<ul>
+	<li>Automatically (in ArchEdit), by ArchStudio</li>
+	<li>Through an ArchStudio extension</li>
+	<li>Directly, by an application</li>
+</ul>
+
+<p>
+	ArchStudio automatically initializes all data binding libraries.
+	However, in the latter case when using a library outside of ArchStudio,
+	you must initialize the data binding libraries manually. This is done
+	by simply referring to the
+	<code>eINSTANCE</code>
+	variable of the generated
+	<code>EPackage</code>
+	. For instance, the following line of code initializes the structure
+	data binding library.
+<pre>org.archstudio.xadl3.structure_3_0.Structure_3_0Package.eINSTANCE;</pre>
+</p>
 
 <!--#include virtual="_pagebottom.html" -->
-
 </html>

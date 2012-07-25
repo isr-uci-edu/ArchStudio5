@@ -1,34 +1,56 @@
 <html>
-<!--#set var="subtitle" value="xADL 2.0 Tools" -->
+<!--#set var="subtitle" value="xADL Tools" -->
 <!--#set var="subsubtitle" value="Overview" -->
 
 <!--#include virtual="_pagetop.html" -->
 
 <a name="overview">
-<h1>xArch/xADL 2.0 Tools Overview</h1>
-<p>UCI has developed several tools to the help developers create, manage, and
-manipulate xArch documents and schemas.  Our current set of
-tools include Java DOM-Based Libraries for creating, parsing,
-manipulating, and writing xArch documents using the instance (core) schema and
-any of the extensions we have listed on the
-<a href="ext-overview.html">extensions page</a>.  Furthermore, if you have created
-an extension of your own for xArch, we can help you in rapidly generating similar
-and compatible DOM-based Java Libraries for your extension.
 
-<hr>
+	<h1>xArch/xADL Tools Overview</h1>
 
-<h1>Available Tools</h1>
+	<p>UCI has developed several tools to the help developers create,
+		manage, and manipulate xArch documents and schemas. These include:</p>
 
-<ul>
-<li><b><a href="./tools-dbl.html">xArch/xADL 2.0 Data Binding Library</a></b> -
-Java libraries for creating and manipulating xArch and xADL 2.0 documents.
-<li><b><a href="./tools-apigen.html">Apigen</a></b> -
-Java tool to generate the Data Binding Library, above, using the xArch
-and xADL 2.0 schemas.
-</ul>
+	<ul>
+		<li><b><a href="./tools-apigen.html">Apigen</a></b> - Java tool
+			to generate the Data Binding Library, below, for current and new
+			schemas.</li>
+		<li><b><a href="./tools-dbl.html">Data Binding Library</a></b> -
+			Java libraries for creating and manipulating xArch and xADL
+			documents.</li>
+	</ul>
 
-<hr>
+	<h1>xADL Schema</h1>
 
-<!--#include virtual="_pagebottom.html" -->
+	<p>
+		The current list of all ArchStudio schema can be obtained after <a
+			href="http://www.isr.uci.edu/projects/archstudio/setup-fromsource.html">checking
+			out the ArchStudio source code</a> by going to Navigate | Open Resource
+		... and typing in "*.xsd". This will identify all xsd schema in the
+		ArchStudio code base. Below are some of the more predominant schema:
+	</p>
 
+	<ul>
+		<li><a
+			href="https://github.com/isr-uci-edu/ArchStudio/blob/master/org.archstudio.xadl3.archlight/model/archlight-3.0.xsd">archlight-3.0.xsd</a></li>
+		<li><a
+			href="https://github.com/isr-uci-edu/ArchStudio/blob/master/org.archstudio.xadl3.domain/model/domain-3.0.xsd">domain-3.0.xsd</a></li>
+		<li><a
+			href="https://github.com/isr-uci-edu/ArchStudio/blob/master/org.archstudio.xadl3.hints/model/hints-3.0.xsd">hints-3.0.xsd</a></li>
+		<li><a
+			href="https://github.com/isr-uci-edu/ArchStudio/blob/master/org.archstudio.xadl3.implementation/model/implementation-3.0.xsd">implementation-3.0.xsd</a></li>
+		<li><a
+			href="https://github.com/isr-uci-edu/ArchStudio/blob/master/org.archstudio.xadl3.statechart/model/statechart-1.0.xsd">statechart-1.0.xsd</a></li>
+		<li><a
+			href="https://github.com/isr-uci-edu/ArchStudio/blob/master/org.archstudio.xadl3.structure/model/structure-3.0.xsd">structure-3.0.xsd</a></li>
+		<li><a
+			href="https://github.com/isr-uci-edu/ArchStudio/blob/master/org.archstudio.xadl3.xadlcore/model/xadlcore-3.0.xsd">xadlcore-3.0.xsd</a></li>
+		<li><a
+			href="https://github.com/isr-uci-edu/ArchStudio/blob/master/org.archstudio.xadl3.xlink/model/xlink.xsd">xlink.xsd</a></li>
+	</ul>
+
+	<p>
+		To create a new xADL schema, take a look at the <a
+			href="./tools-apigen.html">Apigen</a> tool.
+	</p> <!--#include virtual="_pagebottom.html" -->
 </html>

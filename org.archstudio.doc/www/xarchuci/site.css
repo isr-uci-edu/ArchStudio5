@@ -19,6 +19,7 @@
 body         {
                background-color: #663399; 
                background-image: url(images/navbar-background.png);
+               background-repeat: repeat-y;
              }
 
 
@@ -59,11 +60,6 @@ div.corner   {
              }
 
 div.navbar   { 
-               background-image: url(images/navbar-background.png);
-               position: absolute; 
-               left: 0px; 
-               top: 75px; 
-               width: 150px;
              }
 
 .navbartext  {
@@ -84,7 +80,7 @@ div.navbarlinks {
                 }
 
 .navbartext hr {
-                 height: 1;
+                 height: 1px;
                  color: #ffffff;
                  background-color: #ffffff;
                }
@@ -95,21 +91,9 @@ div.navbarlinks {
 .navbartext a:hover {color: #ffffff; text-decoration: underline; }
 
 div.mainhead {
-               position: absolute;
-               background-image: url(images/main-page-logo.png);
-               top: 0px;
-               left: 150px;
-               width: 600px;
-               height: 107px;
              }
 
 div.pagehead {
-               position: absolute;
-               background-image: url(images/regular-page-top.png);
-               top: 0px;
-               left: 150px;
-               width: 600px;
-               height: 75px;
              }
              
 div.content  {
@@ -118,11 +102,6 @@ div.content  {
 
                background-color: #eeeeee;
 
-               position: absolute;
-               left: 150px;
-               top: 75px;
-               width: 600px;
-
                padding-top: 4px;
                padding-left: 8px;
                padding-right: 8px;
@@ -130,13 +109,15 @@ div.content  {
              }
              
 div.content h1 {
-                 font-size: 14pt;
+                 font-size: 16pt;
                  font-weight: bold;
                  margin-top: 0px;
                  margin-left: 0px;
                  margin-right: 0px;
                  margin-bottom: 10px;
                  padding: 1px;
+                 border-bottom-style: solid;
+                 border-width: 1px;
                }
 
 div.content h2 {
@@ -169,6 +150,30 @@ div.content h3 {
                  padding-bottom: 2px;
                }
 
+div.content ul  {
+                 margin-top: 10px;
+                 margin-left: 0px;
+                 margin-right: 0px;
+                 margin-bottom: 10px;
+
+                 padding-top: 2px;
+                 padding-left: 56px;
+                 padding-right: 4px;
+                 padding-bottom: 2px;
+               }
+
+div.content ol  {
+                 margin-top: 10px;
+                 margin-left: 0px;
+                 margin-right: 0px;
+                 margin-bottom: 10px;
+
+                 padding-top: 2px;
+                 padding-left: 56px;
+                 padding-right: 4px;
+                 padding-bottom: 2px;
+               }
+
 div.content p  {
                  margin-top: 10px;
                  margin-left: 0px;
@@ -176,7 +181,7 @@ div.content p  {
                  margin-bottom: 10px;
 
                  padding-top: 2px;
-                 padding-left: 4px;
+                 padding-left: 24px;
                  padding-right: 4px;
                  padding-bottom: 2px;
                }
@@ -226,4 +231,26 @@ div.content table.quicklink p {
                margin-bottom: 2px;
 
              }
-             
+
+div.content table {
+	border-width: thin thin thin thin;
+	border-spacing: 0px;
+	border-style: solid solid solid solid;
+	border-color: gray gray gray gray;
+	border-collapse: collapse;
+	background-color: white;
+}
+div.content table th {
+	border-width: 1px 1px 1px 1px;
+	padding: 4px 4px 4px 4px;
+	border-style: inset inset inset inset;
+	border-color: gray gray gray gray;
+	background-color: white;
+}
+div.content table td {
+	border-width: 1px 1px 1px 1px;
+	padding: 4px 4px 4px 4px;
+	border-style: inset inset inset inset;
+	border-color: gray gray gray gray;
+	background-color: white;
+}

@@ -1,51 +1,135 @@
 <html>
-<!--#set var="subtitle" value="xArch/xADL 2.0 Tools" -->
+<!--#set var="subtitle" value="xArch/xADL Tools" -->
 <!--#set var="subsubtitle" value="Apigen" -->
 
 <!--#include virtual="_pagetop.html" -->
 
 <h1>Apigen</h1>
 
-<p>If you've used the <a href="./tools-dbl.html">xArch/xADL 2.0 Data Binding Library</a>,
-you'll notice that many of the files are authored by "Apigen."  Apigen
-is an XML schema-to-Java data binding generator
-<i>for xArch schemas</i> that automatically
-generates those libraries based only on the XML schemas.  It supports
-a large subset of the XML schema language.
+<p>
+	Apigen is an XML schema-to-Java data binding generator <i>for xArch
+		schemas</i> that automatically generates data binding libraries for XML
+	schema. It supports a large subset of the XML schema language.
+</p>
+<p>
+	Apigen has been incorporated into <a
+		href="http://www.isr.uci.edu/projects/archstudio/">ArchStudio</a> and
+	is used to generate the data binding libraries (DBLs) for the core xADL
+	schema. Below are instructions for using Apigen on your own xADL
+	schema.
+</p>
 
-<p>Apigen is still in an Alpha state, and full documentation on using the
-tool is not yet available.  However, we have evolved it to the point
-of release.  If you are involved in developing your own
-xArch/xADL 2.0 extension schemas, feel free to try them with apigen.
-However, please also contact <a href="mailto:edashofy@ics.uci.edu">Eric
-Dashofy</a> for assistance.
-
-<p><font color="#FF0000"><b>Note!</b></font> Previous versions of this product
-used Apache Xerces as the underlying XML parser.  The latest version of the
-library has been converted to use the Sun Crimson parser included with
-J2SDK 1.4.  As such, the product must be executed and run with J2SDK1.4.
-
-<p>You can download J2SDK1.4
-<a target="_blank" href="http://java.sun.com/j2se/1.4/">here</a>
-if you do not already have it.
-
-<hr>
-<h1>Download</h1>
-
-<p>ISR has unified all of its Java downloads under a single deployment and management
-system called ISR Deployment.  This system allows you to download, install, and
-update your software from the Web!
+<h2>1. Install ArchStudio</h2>
 
 <p>
-<div align="CENTER">
-<table rows=1 cols=1 border=1 cellpadding=4><tr><td>
-<big><b><a target="_top" href="http://www.isr.uci.edu/projects/softwareupdate/">Click
-Here for ISR Software Downloads</a></b></big>
-</td></tr></table>
-</div>
+	Apigen is a part of the default ArchStudio installation. Thus, the
+	first step is to <a
+		href="http://www.isr.uci.edu/projects/archstudio/setup-easy.html">install
+		ArchStudio using the instructions on the ArchStudio site</a>.
+</p>
 
-<hr>
+<h2>2. Create an Eclipse Plug-in</h2>
+
+<p>In ArchStudio, schema are housed in individual Eclipse plug-ins.
+	Apigen automatically generates data binding libraries for the schema
+	housed in these plugins. The following steps create an Eclipse plug-in:</p>
+
+<ol>
+	<li>Go to File | New | Other ...</li>
+	<li>Select "Plug-in Project"</li>
+	<li>Click Next</li>
+	<li>Enter a name for your project</li>
+	<li>Click Next</li>
+	<li>Under Options, unselect "Generate an activator, ..."</li>
+	<li>Under Options, unselect "This plug-in will make contributions
+		to the UI"</li>
+	<li>Click Finish</li>
+	<li>If an "Open Associated Perspective" dialog box appears, click
+		Yes</li>
+</ol>
+
+<p>The result will be a new plug-in of the specified name in your
+	Eclipse workspace.</p>
+
+<h2>3. Enable the Generation of xADL Data Binding Libraries</h2>
+
+<p>We now need to inform ArchStudio that it should generate xADL
+	data binding libraries for the schema in your project. To do so:</p>
+<ol>
+	<li>Right click on the project you just created, select
+		ArchStudio, and check "Generate xADL 3 Schema DBLs".</li>
+	<li>When the warning message appears, click OK</li>
+</ol>
+
+<p>After doing this, a "model" folder will appear in your project.
+	Place your xADL schema in this folder. This folder will be scanned for
+	XML schema files and those files will be automatically converted to a
+	data binding library in the project's src folder.</p>
+
+<h2>4. Create your Schema</h2>
+
+<p>
+	A tutorial on creating individual schema is beyond the scope of this
+	document, but there are many resources available to help you. In
+	particular, you may wish to browse the core xADL projects for schema
+	examples. All ArchStudio projects with "xadl3" in their name have
+	schema in their "model" folder that can serve as an example. For
+	instance, take a look at <a
+		href="https://github.com/isr-uci-edu/ArchStudio/tree/master/org.archstudio.xadl3.structure">the
+		core structure schema project in the source repository</a>.
+</p>
+
+<p>If ArchStudio is unable to convert the schema to a data binding
+	library due to an error in the schema, it will create an entry in the
+	Eclipse Problems view with details of th error. This view can be
+	accessed through the Window | Show View... menu.</p>
+
+<p>When the schema are successfully transformed, the resulting data
+	binding library will be in the src folder of your plug-in.</p>
+
+<h3>4a. Schema Tips</h3>
+
+Official xADL schema adhere to the following guidelines (with examples
+shown from the
+<a
+	href="https://github.com/isr-uci-edu/ArchStudio/blob/master/org.archstudio.xadl3.structure/model/structure-3.0.xsd">structure-3.0.xsd</a>
+schema):
+<ul>
+	<li>They import the ECore schema:<br /> <code>&nbsp;xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"</code></li>
+	<li>The major and minor version numbers are included in the name:<br />
+		<code>&nbsp;xmlns="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd"</code>
+	</li>
+	<li>... and in the package declaration:<br /> <code>&nbsp;ecore:package="org.archstudio.xadl3.structure_3_0"</code></li>
+	<li>... and in the namespace prefix:<br /> <code>&nbsp;ecore:nsPrefix="structure_3_0"</code></li>
+	<li>Elements include the core extension point:<br /> <code>&nbsp;&lt;xs:element
+			name="ext" type="core:Extension" minOccurs="0"
+			maxOccurs="unbounded"/&gt;</code>
+	</li>
+	<li>Links indicate the expected destination type:<br /> <code>&nbsp;&lt;xs:element
+			name="innerStructureLink" type="xs:IDREF"
+			ecore:reference="Structure"/&gt;</code></li>
+</ul>
+
+<p>
+	For an example of a schema that includes all of these features, see the
+	<a
+		href="https://github.com/isr-uci-edu/ArchStudio/blob/master/org.archstudio.xadl3.structure/model/structure-3.0.xsd">structure-3.0</a>
+	schema.
+</p>
+
+<h1>Common Problems</h1>
+
+<p>If the schema translates into a data binding library, but the
+	data binding library does not compile correctly, make sure that:</p>
+<ul>
+	<li>any dependent schema are imported into your schema using a
+		standard &lt;xs:import ...&gt; tag, and</li>
+	<li>your plug-in must depend on the plug-ins that hold the
+		dependent schema</li>
+</ul>
+<p>For example, the structure-3.0 schema imports the xadlcore-3.0
+	schema and its plug-in depends on the org.archstudio.xadl3.xadlcore
+	plug-in, which contains the xadlcore-3.0 schema.</p>
 
 <!--#include virtual="_pagebottom.html" -->
-
 </html>

@@ -5,35 +5,33 @@
 <!--#include virtual="_pagetop.html" -->
 
 <a name="top">
-<h1>xADL 2.0 Distilled</h1>
-<p><big>A Guide for Users of the xADL 2.0 Language</big>
+<h1>xADL Distilled</h1>
+<p><big>A Guide for Users of the xADL Language</big>
 <br><big>by Eric M. Dashofy</big>
 <br><i>First Revision, April 2002.  Last updated January 2003.</i>
 
-<hr>
 <font size=+2><b>Table of Contents</b></font>
-<p><a href="#section1">Section 1: Introduction to xADL 2.0</a>
+<p><a href="#section1">Section 1: Introduction to xADL</a>
 <br><a href="#section2">Section 2: Background</a>
 <br><a href="#section3">Section 3: The Instances Core (xArch)</a>
 <br><a href="#section4">Section 4: Modeling Architectural Structure</a>
-<br><a href="#section5">Section 5: The xADL 2.0 Type System</a>
+<br><a href="#section5">Section 5: The xADL Type System</a>
 <br>Section 6: Implementation Mappings
 <br>Section 7: Options and Variants
 <br>Section 8: Boolean Guards
 <br>Section 9: Versions
-<br>Section 10: Extending xADL 2.0
-<br>Section 11: xADL 2.0 Tools
+<br>Section 10: Extending xADL
+<br>Section 11: xADL Tools
 <br>Section 12: Conclusion and Wrap-Up
 
-<hr>
 <a name="section1">
-<h1>Section 1: Introduction to xADL 2.0</h1>
+<h1>Section 1: Introduction to xADL</h1>
 
-<p>Welcome to xADL 2.0!  xADL 2.0 (<i>pronounced "zay-dul"</i>) is a highly-extensible software
+<p>Welcome to xADL!  xADL (<i>pronounced "zay-dul"</i>) is a highly-extensible software
 architecture description language (ADL).  It is used to describe various aspects of the architecture
 of a software system.  The architecture of a software system is its high-level
 design; design at the level of components, connectors, and their configurations.
-Like other ADLs such as Rapide, Darwin, and Wright, xADL 2.0's core models the four
+Like other ADLs such as Rapide, Darwin, and Wright, xADL's core models the four
 most common architectural constructs, namely:
 
 <ul>
@@ -44,13 +42,13 @@ most common architectural constructs, namely:
  <b>links</b>).
 </ul>
 
-<p>xADL 2.0 is fairly unique among ADLs for several reasons.  First, it was constructed
-from the outset to be highly extensible.  xADL 2.0 is built as a <i>modular language</i>.
+<p>xADL is fairly unique among ADLs for several reasons.  First, it was constructed
+from the outset to be highly extensible.  xADL is built as a <i>modular language</i>.
 That is, it is defined not as a monolithic language in a single description, but rather
 as a set of modules.  The core module, which is mostly dedicated to describing components,
-connectors, interfaces, and links, is the Instances Core, described later.  xADL 2.0
+connectors, interfaces, and links, is the Instances Core, described later.  xADL
 also consists of a growing set of modules that add new modeling constructs or extend existing
-ones.  To date, xADL 2.0 includes constructs that permit modeling of:
+ones.  To date, xADL includes constructs that permit modeling of:
 
 <ul>
 <li>Architecture structure and types,
@@ -60,25 +58,24 @@ ones.  To date, xADL 2.0 includes constructs that permit modeling of:
 
 <p>All these are covered in detail in later sections.
 
-<p>xADL 2.0's modules are defined as XML Schemas, making xADL 2.0 an XML-based language.
-All xADL 2.0 documents (i.e. architecture descriptions) are XML documents that are valid
-with respect to the xADL 2.0 schemas.
+<p>xADL's modules are defined as XML Schemas, making xADL an XML-based language.
+All xADL documents (i.e. architecture descriptions) are XML documents that are valid
+with respect to the xADL schemas.
 
-<p>In addition to the set of xADL 2.0 schemas provided by U.C. Irvine, xADL 2.0 can
+<p>In addition to the set of xADL schemas provided by U.C. Irvine, xADL can
 be extended by end-users to optimize the language for particular domains.  Tools are
 available that provide users with support for both using existing modules (schemas)
-and creating and manipulating their own extensions to xADL 2.0.
+and creating and manipulating their own extensions to xADL.
 
-<hr>
 <a name="section2">
 <h1>Section 2: Background</h1>
 
-<p>xADL 2.0 builds upon a host of technologies and research data that have emerged
+<p>xADL builds upon a host of technologies and research data that have emerged
 since the ostensible beginnings of software architecture research in the early 1990's.
 
-<h2>xADL 2.0 as an XML-based Language</h2>
+<h2>xADL as an XML-based Language</h2>
 
-<p>First and foremost, xADL 2.0 is an XML-based language.  XML, the eXtensible Markup
+<p>First and foremost, xADL is an XML-based language.  XML, the eXtensible Markup
 Language, was originally created to annotate, or "mark up" text documents with semantic
 information.  Elements of text are marked up using tags, or special strings, that delimit
 a section of text.  Tags begin with an open angle-bracket (<code>&lt;</code>) and end
@@ -116,17 +113,17 @@ they have an XML-like syntax (DTDs do not), and they allow type relationships am
 much like object-oriented inheritance.
 
 <p>The development of XML schemas made it much easier for developers to create and evolve XML-based
-languages, and fostered the development of modular languages like xADL 2.0.  A full treatment of
+languages, and fostered the development of modular languages like xADL.  A full treatment of
 XML is far out of scope for this guide.
 
-<p>xADL 2.0's XML basis means that data in xADL 2.0 is arranged hierarchically.  Connections
+<p>xADL's XML basis means that data in xADL is arranged hierarchically.  Connections
 between data elements that are not hierarchically arranged are managed using simple XML links;
-xADL 2.0's tool support facilitates navigating these links.
+xADL's tool support facilitates navigating these links.
 
-<p>As an XML-based language, xADL 2.0 documents are readable and writable by hand, as simple
-text documents.  However, because xADL 2.0 is defined in multiple schemas, each schema
+<p>As an XML-based language, xADL documents are readable and writable by hand, as simple
+text documents.  However, because xADL is defined in multiple schemas, each schema
 having its own XML namespace, the actual code can get quite complicated.  For example,
-this is a real component description in xADL 2.0:
+this is a real component description in xADL:
 
 <pre class="codeblock" style="font-size: 9">
 &lt;types:component xsi:type="types:Component" types:id="xArchADT"&gt;
@@ -145,11 +142,11 @@ this is a real component description in xADL 2.0:
 &lt;/types:component&gt;
 </pre>
 
-<p>While editing xADL 2.0 documents with a text editor is an option, doing so is really
+<p>While editing xADL documents with a text editor is an option, doing so is really
 only useful for point edits, rather than architecture description as a whole.  However, we
 do not view this as a disadvantage of the language.  A text editor is a poor way to describe
 an architecture, no matter how simple the language is.  Instead, we provide powerful tools
-with the xADL 2.0 language to visualize and manipulate xADL 2.0 documents, with both user
+with the xADL language to visualize and manipulate xADL documents, with both user
 and programmatic interfaces.  These tools are described in a later section.
 
 <p>Because of the complexity of the XML view of the language, actual language samples are not as
@@ -201,7 +198,7 @@ component{
 }
 </pre>
 
-<h2>xADL 2.0 as an Architecture Description Language</h2>
+<h2>xADL as an Architecture Description Language</h2>
 
 <p>Previous work on ADLs such as Rapide, Wright, Darwin, SADL, and other ADLs focused on
 creating languages that had a narrow, specialized semantic basis.  Each language focused
@@ -229,25 +226,24 @@ values would be (if any).  Put another way, there was no meta-language over prop
 was later addressed to some extent by an early XML translation of ACME, ADML (promoted as an
 Open Group standard).
 
-<p>From its inceptions, xADL 2.0 was built to be an modular, extensible ADL.  Instead of focusing
-specifically on one particular semantic basis, xADL 2.0 would allow semantic specialization through
+<p>From its inceptions, xADL was built to be an modular, extensible ADL.  Instead of focusing
+specifically on one particular semantic basis, xADL would allow semantic specialization through
 language modules.  Modules could be integrated together as necessary if their semantic
-bases were compatible.  xADL 2.0 itself would evolve via the addition of modules to the set
-of available xADL 2.0 modules, but these modules would be made as orthogonal as possible so that
+bases were compatible.  xADL itself would evolve via the addition of modules to the set
+of available xADL modules, but these modules would be made as orthogonal as possible so that
 users of the language could adopt constructs as they were needed, rather than having to accept
 the entire language in one "big bang" and subscribe to features or concepts that were unfamiliar
 or incompatible with the target domain.
 
-<p>As such, xADL 2.0 was not meant to address one specific semantic domain, but rather to serve
+<p>As such, xADL was not meant to address one specific semantic domain, but rather to serve
 as the basis for experimenting with creating new domains, combining existing domains, experimenting
 with different modeling constructs in existing domains, or modeling existing domains in a new,
 more open format.
 
-<hr>
 <a name="section3">
 <h1>Section 3: The Instances Core (xArch)</h1>
 
-<p>The core xADL 2.0 schema is the instances schema, defined in the <code>instances.xsd</code> file.
+<p>The core xADL schema is the instances schema, defined in the <code>instances.xsd</code> file.
 This schema was created jointly by researchers at UC Irvine and Carnegie Mellon University. It defines
 the "least common denominator" of architectural constructs and is semantically neutral.  That is, it
 does not take steps to define constraints or rules about these constructs or their behavior.
@@ -268,10 +264,10 @@ Constraints and the like are meant to be specified in extension schemas.
 <p>All these things are grouped under a single top-level element called an <i>ArchInstance</i> element.
 Each ArchInstance element corresponds to one conceptual architecture.
 
-<p>In xADL 2.0, the constructs in the instance schema are used to define <i>running instances</i> of
+<p>In xADL, the constructs in the instance schema are used to define <i>running instances</i> of
 these things; that is, to provide a way to describe these constructs as part of a running software
 system, rather than a system design.  The general groups are intended to serve as collections of
-xADL 2.0 constructs, without any particular semantics at this stage.  They could, for example,
+xADL constructs, without any particular semantics at this stage.  They could, for example,
 describe things developed by the same author, or things that are running on the same machine in a
 distributed system, or things that are written in the same programming language.  Specializations
 of this general group construct can be specified in extensions to the construct.
@@ -281,21 +277,21 @@ window):
 
 <p><center><a href="images/diagrams/archInstance.png" target="_blank"><img src="images/diagrams/archInstance.png" width=100 height=150 alt="Instances Diagram"></a></center>
 
-<p>A common theme throughout xADL 2.0, defined first in the instance schema, is that of IDs and
-Descriptions.  Many elements in xADL 2.0 have an ID and/or a Description.  Identifiers are assumed
+<p>A common theme throughout xADL, defined first in the instance schema, is that of IDs and
+Descriptions.  Many elements in xADL have an ID and/or a Description.  Identifiers are assumed
 to be unique to a particular document.  They do not necessarily have to be human-readable, although it
 helps if they are.  Descriptions are intended to be human-readable identifiers of the described
 constructs.
 
 <p>Furthermore, the instance schema defines an element type called an XMLLink that is used over
-and over again in other xADL 2.0 schemas.  XMLLinks are links to other XML elements.  xADL 2.0
+and over again in other xADL schemas.  XMLLinks are links to other XML elements.  xADL
 borrows the linking strategy from the XLink standard.  However, because of poor support for the
-XLink standard in terms of real tools, xADL 2.0 document authors are advised to follow the following
+XLink standard in terms of real tools, xADL document authors are advised to follow the following
 simplified convention for specifying XMLLinks.
 
-<p>In xADL 2.0, anything with an ID can be the target (i.e. the thing being pointed to) for an XMLLink.
+<p>In xADL, anything with an ID can be the target (i.e. the thing being pointed to) for an XMLLink.
 Every XMLLink has two parts (implemented as XML attributes), <code>type</code> and
-<code>href</code>; these are defined by the XLink standard.  For xADL 2.0 XMLLinks, the <code>type</code> field
+<code>href</code>; these are defined by the XLink standard.  For xADL XMLLinks, the <code>type</code> field
 should always be the string <code>simple</code>, indicating a simple XLink.  The <code>href</code>
 field should be filled out with a URL such as:
 
@@ -347,7 +343,7 @@ interfaces, and links can be seen in this diagram (example):
 <p>As you can see, the endpoints of the links are interfaces, and interfaces are the "gateway" to
 the outside world for both components and connectors.
 
-<p>The above example architecture instance in xADL 2.0 terms would be expressed as (in abbreviated,
+<p>The above example architecture instance in xADL terms would be expressed as (in abbreviated,
 non-XML notation):
 
 <pre class="codeblock">
@@ -463,11 +459,10 @@ are not hierarchically structured&mdash;that the outer components merely provide
 internal architectures.  In a sense, this is true, and implementors may choose to "flatten out" a
 hierarchical architecture when implementing it.
 
-<hr>
 <a name="section4">
 <h1>Section 4: Modeling Architectural Structure</h1>
 
-<p>The instances schema gives xADL 2.0 the ability to model running instances of architectural
+<p>The instances schema gives xADL the ability to model running instances of architectural
 constructs like components, connectors, interfaces, and links.  However, much work on software
 architecture is centered around the <i>design</i> of the architecture, rather than capturing
 properties of a running one.
@@ -480,13 +475,13 @@ which exist at run-time, and structural elements, which exist at design-time.
    <tr><td>Instances</td><td>Structure</td></tr>
    </table>
 
-<p>Structural constructs are defined in the xADL 2.0 <i>Structure and Types Schema</i>, whose
+<p>Structural constructs are defined in the xADL <i>Structure and Types Schema</i>, whose
 filename is <code>types.xsd</code>.  This section addresses only the structure part of
 the Structure & Types schema; types are addressed in a later section.
 
 <h2>Constructs Defined for Modeling Architectural Structure</h2>
 
-<p>The xADL 2.0 constructs available for modeling architectural structure mirror almost exactly
+<p>The xADL constructs available for modeling architectural structure mirror almost exactly
 those available for modeling architecture instances. The constructs defined in the instance
 schema are:
 
@@ -604,9 +599,8 @@ are interfaces, which are the gateways to components and connectors.  Additional
 for structural elements are implied by the underlying type system, which is discussed in the
 next section.
 
-<hr>
 <a name="section5">
-<h1>Section 5: The xADL 2.0 Type System</h1>
+<h1>Section 5: The xADL Type System</h1>
 
 <p>In the software architecture community, the precise meaning and usage of <i>types</i> is still
 a hotly contested issue.  Some approaches adopt a fairly traditional programming-language style
@@ -614,7 +608,7 @@ types-and-instances model.  Others adopt a types-as-constraints model, where a t
 a constraint over elements; any element meeting that constraint is "of that type" (this implies
 that a single element like a component or connector could potentially have many, many types).
 
-<p>xADL 2.0 adopts the more traditional types-and-instances model found in many programming languages.
+<p>xADL adopts the more traditional types-and-instances model found in many programming languages.
 In this model, components, connectors, and interfaces all have types (called <i>component types</i>,
 <i>connector types</i>, and <i>interface types</i>, respectively).  Links do not have types because
 links do not have any architectural semantics.  The relationships between types, structure, and
@@ -631,12 +625,12 @@ instances are shown in the following table:
 
 <p>Components, connectors, and interfaces are typed because, in real software architectures,
 there may be multiple elements that are highly similar&mdash;perhaps they share behavior or
-an implementation.  When designing xADL 2.0, we intended that types would be linked to
+an implementation.  When designing xADL, we intended that types would be linked to
 implementations; as such, two structural elements (e.g. components) that shared a single
 type (e.g. component type) would imply that the two components shared an implementation
 (instantiated from the same class, perhaps, or were instances of the same shared library).
 However, this particular implication is not carried through in the language unless you choose to
-adopt the xADL 2.0 implementation schemas, discussed later.  Cases where two components or connectors
+adopt the xADL implementation schemas, discussed later.  Cases where two components or connectors
 might be of the same type include:
 
 <ul>
@@ -653,7 +647,7 @@ command in a pipe and filter system).
 <p>The constructs available for modeling types are also defined in the <i>Structure & Types</i> schema,
 along with the constructs for modeling structure.  All the types-related constructs are grouped
 under a top-level XML element called <code>ArchTypes</code>.
-The xADL 2.0 constructs available for modeling  architectural types are:
+The xADL constructs available for modeling  architectural types are:
 
 <ul>
 <li>Component Types
@@ -676,13 +670,13 @@ window):
 
 <h2>Semantics of Modeling Architectural Types</h2>
 
-<p>In xADL 2.0, all types are independent.  Types are not composed of other types, nor is
-there (to date) a notion of subtyping or type inheritance in xADL 2.0.  With appropriately documented
+<p>In xADL, all types are independent.  Types are not composed of other types, nor is
+there (to date) a notion of subtyping or type inheritance in xADL.  With appropriately documented
 semantics, however, type inheritance could easily be added through a new schema.
 
 <p><b>Signatures</b>
 
-<p>One of the least intuitive constructs in xADL 2.0 is the <i>signature</i>.  Each component
+<p>One of the least intuitive constructs in xADL is the <i>signature</i>.  Each component
 or connector type has a set of signatures.  Each signature has a direction (like interfaces do)
 and a type XLink, which is intended to point at an interface type.  The rationale behind signatures
 is as follows: let's assume there is are two components C1 and C2, of type T.  Certainly, C1 and
@@ -708,13 +702,13 @@ the various "types" XML links such that only valid arrangements of these constru
 This has advantages and disadvantages.  The obvious disadvantage is that this additional validity
 constraint must be verified by external tools, and cannot be verified solely by XML tools or
 by the structure of the language itself.  The advantage is that the lack of a language-induced
-constraint here means that different xADL 2.0 users have the opportunity to redefine the semantics
+constraint here means that different xADL users have the opportunity to redefine the semantics
 of signatures (or ignore them entirely) if that makes sense in their target domain.
 
 <p>Signatures also play a role in design-time subarchitectures, described below.
 
 <p>At this point, it is possible to look at how the example in the above example would be specified in
-xADL 2.0 (using pseudo-XML notation):
+xADL (using pseudo-XML notation):
 
 <pre class="codeblock">
 archStructure{
@@ -792,14 +786,14 @@ archTypes{
 
 <p><b>Design-Time Subarchitectures</b>
 
-<p>Recall that, in xADL 2.0 run-time, or <i>instance</i> models, subarchitectures (internal architectures
+<p>Recall that, in xADL run-time, or <i>instance</i> models, subarchitectures (internal architectures
 of component or connector instances) are modeled <i>in-line</i>; that is, the specification of the
 internal component or connector architecture is part of the specification of the outer component or
 connector.
 
 <p>When a type system is introduced, however, things become more complicated.  It stands to reason
 that two components or connectors of the same type would have similar internal architectures.  In
-xADL 2.0, this is the case&mdash;internal architectures are associated with <i>types</i> rather than
+xADL, this is the case&mdash;internal architectures are associated with <i>types</i> rather than
 structural elements like components or connectors.  Thus, two components or connectors who share a
 type will also have the same internal architecture (if any).
 
@@ -835,7 +829,7 @@ described above for the instance schema.  We add signature-interface mappings to
 <p><center><a href="images/guide/subarch-sigintmaps.png" target="_blank"><img src="images/guide/subarch-sigintmaps.png" width=100 height=100 alt="Subarchitecture with Signature-Interface Mappings"></a></center>
 
 <p>Because of this mapping, it is assumed that the mapped signature and interface have the
-same interface type for reasons of consistency.  In xADL 2.0 terms, let's model the component
+same interface type for reasons of consistency.  In xADL terms, let's model the component
 type <code>client_type</code> in pseudo-XML notation, incluiding all interface types
 and signatures (but ignoring the rest of the outer architecture
 for simplicity).
@@ -991,7 +985,7 @@ by its subarchitecture).  Because types are seen as independent entities, not
 necessarily bound to a single architecture or level of the hierarchy,
 they are grouped up in this fashion.
 This is normal.  The exception would be if the architecture in which the client
-type is included and its internal architecture were modeled in different xADL 2.0
+type is included and its internal architecture were modeled in different xADL
 files; in this case there would likely be one archTypes section in each file,
 although this is for organizational, rather than semantic, purposes.
 
