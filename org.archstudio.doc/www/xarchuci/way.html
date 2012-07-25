@@ -1,0 +1,143 @@
+<html>
+<!--#set var="subtitle" value="Concepts and Info" -->
+<!--#set var="subsubtitle" value="The xADL 2.0 Way" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>The xADL 2.0 Way</h1>
+
+<p>The past ten to fifteen years of software and systems architecture
+research have created a huge number of (largely incompatible)
+architecture description languages - notations for writing
+down architectures.  It is easy to get entranced with the idea
+that the best concepts from all these languages could be combined
+into a single "super ADL" that was adequate for all domains and
+projects.
+
+<p>However, architecture is a broad concept, and each project/domain's
+notion of what an architecture is and what sorts of data it should
+contain is different (and rightly so!)  Furthermore, the purpose of an architecture
+description is largely driven by project stakeholders and their needs.
+Thus, <i>no one ADL will ever fit all projects or domains</i>.
+
+<p>xADL 2.0's strength is <b>not</b> that it includes modeling features
+suitable for every potential project.  In fact; where methodologies
+disagree or diverge, xADL 2.0 tends to take a neutral approach,
+not advocating or encoding one set of concepts over another.
+xADL 2.0's primary strength is its <i>extensibility</i>&mdash;it
+can <b>act as the basis for the rapid development of
+domain/project-specific ADLs</b>.
+
+<hr>
+
+<h2>Using xADL 2.0 in Your Project</h2>
+
+<p>Using xADL 2.0 in a project means integrating it into a development
+process.  Because of the diversity of projects and needs, it's
+unlikely that xADL 2.0 (or any other ADL or notation) will support
+all your needs right off the bat (although, as xADL 2.0 and its
+tool support grows, this may change).
+
+<p>Unlike other notations, xADL 2.0's syntax and tools were <i>meant</i>
+to be extended to support project-specific needs.  The process by
+which this is done is roughly as follows:
+
+<ol>
+<li>Identify discrepancies between what xADL 2.0 can model
+    in its set of provided schemas and what you want to model
+    for your project.
+<li>Decide which xADL 2.0 elements to extend to support your
+    new modeling needs&mdash;do you need to add new kinds
+    of data to structural elements like components and connectors?
+    Their types? Or do you need new kinds of elements altogether?
+<li>Decide how to syntactically encode these new extensions
+    or elements.
+<li>Write new XML schemas extending xADL 2.0 to add your new
+    modeling constructs.  Validate your new schemas with
+    a tool like
+    <a href="http://www.w3.org/2001/03/webdata/xsv">XSV</a>.
+<li>Run <a href="tools-apigen.html">Apigen</a> to generate a new data
+    binding library that includes your extensions.
+<li>Use syntax-based tools like
+    <a target="_blank" href="http://www.isr.uci.edu/projects/archstudio/">ArchStudio 3's</a>
+    <a target="_blank" href="http://www.isr.uci.edu/projects/archstudio/archedit.html">ArchEdit</a>
+    to extend existing architecture descriptions with
+    new kinds of data in the format you specified.
+<li>Extend semantics based tools like ArchStudio 3's Archipelago
+    and
+    <a target="_blank" href="http://www.isr.uci.edu/projects/archstudio/tron.html">Tron</a>
+    to provide friendlier editors and analysis tools for your new
+    notational extensions.
+</ol>
+
+<p>The xADL 2.0 language itself is built and evolved in precisely
+this way.  For example, the product-line schemas (<code>options.xsd</code>,
+<code>variants.xsd</code>, and <code>versions.xsd</code>)
+and the implementation schemas (<code>implementation.xsd</code> and
+<code>javaimplementation.xsd</code>) are simply extensions of the Structure & Types
+schema (<code>types.xsd</code>).  Over time, ArchStudio 3's tool
+sets have evolved to better support these extensions, and many
+ArchStudio 3 tools (like Archipelago and Tron) are built in very modular ways
+to make extending them to support new schemas as easy as possible.
+
+<hr>
+
+<h2>Why not arbitrary name-value pair properties?</h2>
+
+<p>We get this question often enough that it warrants having
+a section on this page.  Many xADL 2.0 users find the
+above extension process somewhat cumbersome and ask for
+extensions that decorate some (or all) xADL 2.0 elements
+with arbitrary name-value pair properties (or, alternatively,
+name-type-value tuples).
+
+<p>While this would indeed make it
+relatively easy to slip new data into an architecture description,
+we've repeatedly rejected this suggestion for a number of reasons.
+Allowing arbitrary properties means forfeiting
+the rigor provided by having a well-defined language syntax.
+xADL 2.0's syntax is designed to be rigorous but not formal.
+Losing this rigor means:
+
+<ul>
+<li><b>(Uncontrolled) Language Fragmentation:</b> Allowing
+    any user to insert arbitrary data into xADL 2.0
+    documents means that each user will potentially have their
+    own 'xADL 2.0 dialect' that is undocumented and will likely
+    be incompatible (in subtle ways) with others' xADL 2.0
+    dialects.
+<li><b>Inability to validate properties:</b> XML schema-based
+    validators can check xADL 2.0 documents for syntactic
+    correctness, but only if schemas are present.  Properties
+    allow users to subvert even simple syntax validators.
+<li><b>Loss of syntax-directed tools</b>: Apigen and ArchEdit
+    are powerful examples of how syntax-directed tools can
+    add value to an architecture-driven development environment.
+    However, these tools can provide little or no additional
+    value and guidance if all they know is that an element
+    has properties with charcter string names and values.
+<li><b>Encourages encodings-within-encodings and overloading</b>:
+    The presence of arbitrary properties makes it very tempting
+    to add structured data as character string property values;
+    a job that is much better handled by encoding that structured
+    data in XML elements and attributes.  Already we see this
+    problem occurring with xADL 2.0's descriptive elements like
+    Descriptions, which have been variously overloaded to have
+    additional semantics beyond their intended use.  This
+    invariably leads to fragility in tools and document
+    portability and maintenance problems.
+</ul>
+
+<p>Of course, in keeping with the xADL 2.0 notion that no one
+set of concepts fits all, it is still perfectly legal to extend
+xADL 2.0 with your own property-based extensions and tools if
+you like.  However, for the reasons outlined above, we strongly
+advocate a more careful examination of your modeling needs to
+decide (and codify) exactly what new data you're interested
+in adding to your architecture descriptions.
+
+<hr>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

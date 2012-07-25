@@ -1,0 +1,358 @@
+<html>
+
+
+
+
+
+<head>
+  <title>xADL 2.0 - xADL 2.0 Schemas - Extension Schemas</title>
+  <link rel="stylesheet" type="text/css" href="site.css">
+  <link rel="shortcut icon" HREF="images/favicon.ico">
+</head>
+<body>
+  <div class="pagehead">
+    <span class="subtitle">xADL 2.0 Schemas:</span><br>
+    <span class="subsubtitle">Extension Schemas</span>
+  </div>
+  <div class="corner">
+    <a href="index.html"><img border=0 src="images/corner.png"></a>
+  </div>
+
+    <div class="navbar">
+    <div class="navbartext">
+      <div class="navbarhead">Links</div>
+      <div class="navbarlinks">
+        &bull; <a href="./index.html">Home</a>
+      </div>
+      <hr>
+
+      <div class="navbarhead">Concepts &amp; Info</div>
+      <div class="navbarlinks">
+        &bull; <a href="./way.html">The xADL 2.0 Way</a>
+        <br>&bull; <a href="./guide.html">Guidebook (in progress)</a>
+      </div>
+      <hr>
+
+      <div class="navbarhead">xArch Core</div>
+      <div class="navbarlinks">
+        &bull; <a href="./core-overview.html">Instances</a>
+      </div>
+      <hr>
+
+      <div class="navbarhead">xADL 2.0 Schemas</div>
+      <div class="navbarlinks">
+        &bull; <a href="./ext-overview.html">Overview</a>
+        <br>&nbsp;
+        <br>&bull; <a href="./ext-overview.html#types">Structure &amp; Types</a>
+        <br>&bull; <a href="./ext-overview.html#options">Options</a>
+        <br>&bull; <a href="./ext-overview.html#variants">Variants</a>
+        <br>&bull; <a href="./ext-overview.html#versions">Versioning</a>
+        <br>&bull; <a href="./ext-overview.html#diff">Structural Diff</a>
+        <br>&bull; <a href="./ext-overview.html#pladiff">Product-Line Diff</a>
+        <br>&bull; <a href="./ext-overview.html#boolguard">Boolean Guards</a>
+        <br>&bull; <a href="./ext-overview.html#implementation">Implementation</a>
+        <br>&bull; <a href="./ext-overview.html#javaimplementation">Java Implementation</a>
+        <br>&bull; <a href="./ext-overview.html#lookupimplementation">Lookup Implementation</a>
+        <br>&bull; <a href="./ext-overview.html#javasourcecode">Java Source Code</a>
+        <br>&bull; <a href="./ext-overview.html#sourcecodeeclipse">Eclipse Source Code</a>
+        <br>&bull; <a href="./ext-overview.html#messages">Message Rules</a>
+        <br>&bull; <a href="./ext-overview.html#security">Access
+Control</a>
+      </div>
+      <hr>
+
+      <div class="navbarhead">xADL 2.0 Tools</div>
+      <div class="navbarlinks">
+        &bull; <a href="./tools-overview.html">Overview</a>
+        <br>&nbsp;
+        <br>&bull; <a href="./tools-dbl.html">xArch/xADL 2.0 Data Binding Library</a>
+        <br>&bull; <a href="./tools-apigen.html">Apigen</a>
+        <br>&nbsp;
+        <br>&bull; <a href="./javadoc/xarchlibs/">Data Binding Library Javadoc</a>
+        <br>&bull; <a href="./javadoc/apigen">Apigen Javadoc</a>
+      </div>
+      <hr>
+
+      <div class="navbarhead">Publications</div>
+      <div class="navbarlinks">
+        &bull; <a href="./publications.html">Publications</a>
+      </div>
+      <hr>
+
+      <div class="navbarhead">External Links</div>
+      <div class="navbarlinks">
+        &bull; <a href="http://www.isr.uci.edu/architecture/" target="_blank">ISR Software Architecture Research</a>
+        <br>&bull; <a href="http://www.isr.uci.edu/projects/xarchuci/" target="_blank">xADL 2.0 Site</a>
+        <br>&bull; <a href="http://www.ics.uci.edu/pub/arch/xarch/" target="_blank">Official xArch Site</a>
+        <br>&bull; <a href="http://www.isr.uci.edu/" target="_blank">UCI Institute for Software Research</a>
+      </div>
+      <hr>
+
+      <!--a little spacer-->
+      <div style="height: 50px">&nbsp;</div>
+
+    </div>
+  </div>
+
+
+  <div class="content">
+
+
+<a name="overview">
+<h1>xADL 2.0 Extensions Overview</h1>
+<p>UCI has developed many extensions to the xArch core schema.  This set of extensions
+is collectively known as xADL 2.0.  Our current set of
+extensions is hierarchical, with advanced extensions building on more fundamental
+ones.  Our currently available set of extensions is summarized below.
+
+<hr>
+<a name="types">
+<h2>Structure and Types Extension</h2>
+<p><a target="_blank" href="ext/types.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/types.xsd">View Schema (XML)</a>
+<br>Additional Documentation:
+<a target="_blank" href="xmlspy-docs/types/types.html">XML Spy Overview</a> |
+<a target="_blank" href="images/diagrams/archStructure.png">ArchStructure Diagram</a> |
+<a target="_blank" href="images/diagrams/archTypes.png">ArchTypes Diagram</a>
+<br>Depends on: Instances (Core)
+
+<p>The structure and types extension adds to xArch:
+<ul>
+<li><b>Architectural Prescription</b>: The ability to specify the design-time
+view of an architecture to complement the instances (run-time) view.
+<li><b>Types Model</b>: A programming-language style types model that allows
+architects to indicate that certain components, connectors, and
+interfaces share a common type.
+<li><b>Sub-architectures:</b>: The ability to specify the design-time composition
+of a single component or connector type.  Analogous to a compound-type, or
+struct-type in a programming language.
+</ul>
+
+<hr>
+<a name="options">
+<h2>Options Extension</h2>
+<p><a target="_blank" href="ext/options.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/options.xsd">View Schema (XML)</a>
+<br>Additional Documentation:
+<a target="_blank" href="xmlspy-docs/options/options.html">XML Spy Overview</a>
+<br>Depends on: Instances (Core); Structure and Types
+
+<p>The options extension adds to xADL 2.0:
+<ul>
+<li><b>Optional Elements</b>: The ability to specify that certain components,
+connectors, or links in the architectural prescription are optional,
+based on a set of system-wide guards.
+</ul>
+
+<hr>
+<a name="variants">
+<h2>Variants Extension</h2>
+<p><a target="_blank" href="ext/variants.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/variants.xsd">View Schema (XML)</a>
+<br>Additional Documentation:
+<a target="_blank" href="xmlspy-docs/variants/variants.html">XML Spy Overview</a>
+<br>Depends on: Instances (Core); Structure and Types
+
+<p>The variants extension adds to xADL 2.0:
+<ul>
+<li><b>Variant Elements</b>: The ability to specify that certain component or
+connector types in the architectural prescription are <i>variant</i>.
+A variant type is analogous to a <i>union</i> type in a programming language;
+elements of this type may actually be one of several types when instantiated,
+based on a set of system-wide guards.
+</ul>
+
+<hr>
+
+<a name="versions">
+<h2>Versions Extension</h2>
+<p><a target="_blank" href="ext/versions.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/versions.xsd">View Schema (XML)</a>
+<br>Additional Documentation:
+<a target="_blank" href="xmlspy-docs/versions/versions.html">XML Spy Overview</a> |
+<a target="_blank" href="images/diagrams/archVersions.png">ArchVersions Diagram</a>
+<br>Depends on: Instances (Core); Structure and Types; Variants, Implementation
+
+<p>The versions extension adds to xADL 2.0:
+<ul>
+<li><b>Version Trees</b>: A way to specify version trees for component,
+connector, and interface types.  Also extends the type specifications
+for these elements to have a pointer back to their version, so multiple
+versions of a single type can be included in the same architecture.
+
+</ul>
+
+
+<hr>
+<a name="diff">
+<h2>Structural Diffing Extension</h2>
+<p><a target="_blank" href="ext/diff.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/diff.xsd">View Schema (XML)</a>
+<br>Additional Documentation:
+<a target="_blank" href="xmlspy-docs/diff/diff.html">XML Spy Overview</a> |
+<br>Depends on: Structure and Types
+
+<p>The structural diff extension adds to xADL 2.0:
+<ul>
+<li><b>Architectural Diffing (initial support)</b>:
+The ability to specify the difference between two xADL 2.0 structures.
+</ul>
+
+<hr>
+<a name="pladiff">
+<h2>Product-Line Architecture Diffing Extension</h2>
+<p><a target="_blank" href="ext/pladiff.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/pladiff.xsd">View Schema (XML)</a>
+<br>Depends on: Structure and Types
+
+<p>The product-line architecture diff extension adds to xADL 2.0:
+<ul>
+<li><b>PLA Diffing (initial support)</b>:
+The ability to specify the difference between two variant architectures
+in a xADL 2.0 product-line.
+</ul>
+
+
+<hr>
+<a name="implementation">
+<h2>Implementation Extension</h2>
+<p><a target="_blank" href="ext/implementation.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/implementation.xsd">View Schema (XML)</a>
+<br>Additional Documentation:
+<a target="_blank" href="xmlspy-docs/implementation/implementation.html">XML Spy Overview</a>
+<br>Depends on: Instances (Core); Structure and Types; Variants
+
+<p>The implementation extension adds to xADL 2.0:
+<ul>
+<li><b>Abstract Implementation</b>: An abstract tag extending component, connector
+and interface type specifications.  Developers should subclass this tag with
+their own extension and provide implementation information specific to their
+development platform (Java, COM, Windows/C++, etc.)
+</ul>
+
+<hr>
+<a name="javaimplementation">
+<h2>Java Implementation Extension</h2>
+<p><a target="_blank" href="ext/javaimplementation.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/javaimplementation.xsd">View Schema (XML)</a>
+<br>Additional Documentation:
+<a target="_blank" href="xmlspy-docs/javaimplementation/javaimplementation.html">XML Spy Overview</a>
+<br>Depends on: Instances (Core); Structure and Types; Variants; Implementation
+
+<p>The Java implementation extension adds to xADL 2.0:
+<ul>
+<li><b>Java Concrete Implementation</b>: A concrete extension of the abstract
+implementation tag allowing developers to provide implementation information
+for Java language component, connnector, and interface types.
+</ul>
+
+<hr>
+<a name="lookupimplementation">
+<h2>Lookup Implementation Extension</h2>
+<p><a target="_blank" href="ext/lookupimplementation.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/lookupimplementation.xsd">View Schema (XML)</a>
+<br>Depends on: Instances (Core); Structure and Types; Variants; Implementation
+
+<p>The Lookup implementation extension adds to xADL 2.0:
+<ul>
+<li><b>Implementation-by-Lookup</b>: A concrete extension of the abstract
+implementation tag allowing developers to provide implementation information
+for elements that can be looked up in a registry, nameserver, or other
+repository that supports lookup-by-name.
+</ul>
+
+<hr>
+<a name="javasourcecode">
+<h2>Java Source Code Implementation Extension</h2>
+<p><a target="_blank" href="ext/javasourcecode.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/javasourcecode.xsd">View Schema (XML)</a>
+<br>Additional Documentation:
+<br>Depends on: Instances (Core); Structure and Types; Variants; Implementation
+
+<p>The Java source code extension adds to xADL 2.0:
+<ul>
+<li><b>Java Source Code Implementation</b>: A concrete extension of the abstract
+implementation tag allowing developers to provide implementation information
+for locating the source code of Java language component, connnector, and interface
+types.
+</ul>
+
+<hr>
+<a name="sourcecodeeclipse">
+<h2>Eclipse Java Source Code Implementation Extension</h2>
+<p><a target="_blank" href="ext/sourcecodeeclipse.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/sourcecodeeclipse.xsd">View Schema (XML)</a>
+<br>Additional Documentation:
+<br>Depends on: Java source code
+
+<p>The Eclipse Java source code extension adds to xADL 2.0:
+<ul>
+<li><b>Eclipse Source Code Manager</b>: An extension to the abstract
+Java source code manager tag to provide information for locating an Eclipse
+project that contains the Java source code for a component, connector, or
+interface type.
+</ul>
+
+<hr>
+<a name="boolguard">
+<h2>Boolean Guard Extension</h2>
+<p><a target="_blank" href="ext/boolguard.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/boolguard.xsd">View Schema (XML)</a>
+<br>Additional Documentation:
+<a target="_blank" href="xmlspy-docs/boolguard/boolguard.html">XML Spy Overview</a>
+<br>Depends on: Instances (Core); Structure and Types; Options; Variants
+
+<p>The Boolean Guard extension adds to xADL 2.0:
+<ul>
+<li><b>Boolean Condition Guards</b>: A concrete schema for guards that
+are boolean conditions.  Supports symbols, values, and traditional
+boolean-expression operators (AND, OR, NOT, ==, &lt;, &gt;, etc.)
+</ul>
+
+<hr>
+<a name="messages">
+<h2>Message Rules Extension</h2>
+<p><a target="_blank" href="ext/messages.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/messages.xsd">View Schema (XML)</a>
+<br>Additional Documentation:
+<a target="_blank" href="xmlspy-docs/messages/messages.html">XML Spy Overview</a>
+<br>Depends on: Instances (Core); Structure and Types
+
+<p>The Message Rules extension adds to xADL 2.0:
+<ul>
+<li><b>Message Rules</b>: The ability to specify rules about message causality
+in a xADL 2.0 description for component and connector types.
+</ul>
+
+<a name="security">
+<h2>Access Control Extension</h2>
+<p><a target="_blank" href="ext/security.txt">View Schema (TXT)</a> |
+<a target="_blank" href="ext/security.xsd">View Schema (XML)</a>
+<br>Additional Documentation:
+<!--
+<a target="_blank" href="xmlspy-docs/messages/messages.html">XML Spy Overview</a>
+-->
+<br>Depends on: Instances (Core); Structure and Types
+
+<p>The access control extension adds to xADL 2.0:
+<ul>
+<li><b>Access Control</b>: The ability to specify access control policies
+in a xADL 2.0 description for component and connector instances, types,
+subarchitectures, and global architecture.
+</ul>
+
+<hr>
+
+  </div>
+  <!-- Site Meter -->
+<script type="text/javascript" src="http://s23.sitemeter.com/js/counter.js?site=s23archstudio">
+</script>
+<noscript>
+<a href="http://s23.sitemeter.com/stats.asp?site=s23archstudio" target="_top">
+<img src="http://s23.sitemeter.com/meter.asp?site=s23archstudio" alt="Site Meter" border="0"/></a>
+</noscript>
+<!-- Copyright (c)2006 Site Meter -->
+</body>
+
+
+</html>

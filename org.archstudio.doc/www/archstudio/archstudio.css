@@ -11,15 +11,6 @@ a:active {color: #3a6699; text-decoration: none; }
 a:visited {color: #3a6699; text-decoration: none; }
 a:hover {color: #3a6699; text-decoration: underline; }
              
-div.corner   { 
-               background-image: url(images/navbar-background.png);
-               position: absolute; 
-               left: 0px; 
-               top: 0px; 
-               width: 150px;
-               height: 75px;
-             }
-
 .subtitle {
                margin-top: 3px; 
                margin-bottom: 3px; 
@@ -43,11 +34,6 @@ div.corner   {
              }
 
 div.navbar   { 
-               background-image: url(images/navbar-background.png);
-               position: absolute; 
-               left: 0px; 
-               top: 75px; 
-               width: 150px;
              }
 
 .navbartext  {
@@ -79,19 +65,9 @@ div.navbarlinks {
 .navbartext a:hover {color: #ffffff; text-decoration: underline; }
 
 div.mainhead {
-               position: absolute;
-               top: 0px;
-               left: 150px;
-               right: 150px;
-               height: 107px;
              }
 
 div.pagehead {
-               position: absolute; 
-               left: 150px; 
-               top: 0px; 
-               right: 150px;
-               height: 75px;
              }
              
 div.content  {
@@ -99,11 +75,6 @@ div.content  {
                font-size: 10pt;
 
                background-color: #eeeeee;
-
-               position: absolute;
-               left: 150px;
-               top: 75px;
-               right: 150px;
 
                padding-top: 4px;
                padding-left: 8px;
@@ -235,7 +206,7 @@ div.content table.quicklink p {
 
              }
 
-table {
+div.content table {
 	border-width: thin thin thin thin;
 	border-spacing: 0px;
 	border-style: solid solid solid solid;
@@ -243,14 +214,14 @@ table {
 	border-collapse: collapse;
 	background-color: white;
 }
-table th {
+div.content table th {
 	border-width: 1px 1px 1px 1px;
 	padding: 4px 4px 4px 4px;
 	border-style: inset inset inset inset;
 	border-color: gray gray gray gray;
 	background-color: white;
 }
-table td {
+div.content table td {
 	border-width: 1px 1px 1px 1px;
 	padding: 4px 4px 4px 4px;
 	border-style: inset inset inset inset;

@@ -1,0 +1,1001 @@
+<html>
+<!--#set var="subtitle" value="Concepts and Info" -->
+<!--#set var="subsubtitle" value="Guide" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<a name="top">
+<h1>xADL 2.0 Distilled</h1>
+<p><big>A Guide for Users of the xADL 2.0 Language</big>
+<br><big>by Eric M. Dashofy</big>
+<br><i>First Revision, April 2002.  Last updated January 2003.</i>
+
+<hr>
+<font size=+2><b>Table of Contents</b></font>
+<p><a href="#section1">Section 1: Introduction to xADL 2.0</a>
+<br><a href="#section2">Section 2: Background</a>
+<br><a href="#section3">Section 3: The Instances Core (xArch)</a>
+<br><a href="#section4">Section 4: Modeling Architectural Structure</a>
+<br><a href="#section5">Section 5: The xADL 2.0 Type System</a>
+<br>Section 6: Implementation Mappings
+<br>Section 7: Options and Variants
+<br>Section 8: Boolean Guards
+<br>Section 9: Versions
+<br>Section 10: Extending xADL 2.0
+<br>Section 11: xADL 2.0 Tools
+<br>Section 12: Conclusion and Wrap-Up
+
+<hr>
+<a name="section1">
+<h1>Section 1: Introduction to xADL 2.0</h1>
+
+<p>Welcome to xADL 2.0!  xADL 2.0 (<i>pronounced "zay-dul"</i>) is a highly-extensible software
+architecture description language (ADL).  It is used to describe various aspects of the architecture
+of a software system.  The architecture of a software system is its high-level
+design; design at the level of components, connectors, and their configurations.
+Like other ADLs such as Rapide, Darwin, and Wright, xADL 2.0's core models the four
+most common architectural constructs, namely:
+
+<ul>
+<li><b>Components</b> (the loci of computation),
+<li><b>Connectors</b> (the loci of communication),
+<li><b>Interfaces</b> (the exposed entry and exit points for components and connectors), and
+<li><b>Configurations</b> (topological arrangements of components and connectors as realized by
+ <b>links</b>).
+</ul>
+
+<p>xADL 2.0 is fairly unique among ADLs for several reasons.  First, it was constructed
+from the outset to be highly extensible.  xADL 2.0 is built as a <i>modular language</i>.
+That is, it is defined not as a monolithic language in a single description, but rather
+as a set of modules.  The core module, which is mostly dedicated to describing components,
+connectors, interfaces, and links, is the Instances Core, described later.  xADL 2.0
+also consists of a growing set of modules that add new modeling constructs or extend existing
+ones.  To date, xADL 2.0 includes constructs that permit modeling of:
+
+<ul>
+<li>Architecture structure and types,
+<li>Product families (architectural versions, options, and variants), and
+<li>Implementation mappings (mappings from architecture types to their implementations).
+</ul>
+
+<p>All these are covered in detail in later sections.
+
+<p>xADL 2.0's modules are defined as XML Schemas, making xADL 2.0 an XML-based language.
+All xADL 2.0 documents (i.e. architecture descriptions) are XML documents that are valid
+with respect to the xADL 2.0 schemas.
+
+<p>In addition to the set of xADL 2.0 schemas provided by U.C. Irvine, xADL 2.0 can
+be extended by end-users to optimize the language for particular domains.  Tools are
+available that provide users with support for both using existing modules (schemas)
+and creating and manipulating their own extensions to xADL 2.0.
+
+<hr>
+<a name="section2">
+<h1>Section 2: Background</h1>
+
+<p>xADL 2.0 builds upon a host of technologies and research data that have emerged
+since the ostensible beginnings of software architecture research in the early 1990's.
+
+<h2>xADL 2.0 as an XML-based Language</h2>
+
+<p>First and foremost, xADL 2.0 is an XML-based language.  XML, the eXtensible Markup
+Language, was originally created to annotate, or "mark up" text documents with semantic
+information.  Elements of text are marked up using tags, or special strings, that delimit
+a section of text.  Tags begin with an open angle-bracket (<code>&lt;</code>) and end
+with a closing angle-bracket (<code>&gt;</code>).  In XML documents, tags generally
+come in pairs, signifying the start and end of a text element.  Start tags contain
+a tag name immediately after the opening angle-bracket, and end-tags contain the
+same name, prefaced by a forward slash (<code>/</code>) immediately after the
+opening angle-bracket.  Elements may be nested as necessary, but may not overlap.
+An example of some marked up text in XML might be:
+
+<pre>&lt;name&gt;&lt;first&gt;Herb&lt;/first&gt; &lt;last&gt;Mahler&lt;/last&gt;&lt;/name&gt;</pre>
+
+<p>To HTML users, this format may look familiar.  This is because XML and HTML both share a common
+historical ancestor, SGML (the Standard Generalized Markup Language).  In HTML, however, there is
+a finite set of allowed tags, each of which has a specific meaning dedicated to screen layout.  So,
+tags like &lt;H1&gt; in HTML indicate that a text element is to be laid out in the Heading 1 style
+(usually large and bold, although this varies depending on the layout engine used), but do not
+indicate any other semantics about the element--is it a story headline?  Is it someone's name?
+This information is not present in HTML.
+
+<p>This lack of a static set of allowed tags introduces a new problem into XML applications.  What
+tags are allowed and what do they mean?  How do two parties sharing marked-up documents come
+to an agreement on what elements are allowed, and where?  How can they ensure that their information
+is marked up in a consistent way that is meaningful to both of them?
+
+<p>The answer to this problem is to introduce a <i>meta-language</i>, a language for defining
+languages.  In XML, meta-languages define what elements are allowed, where they are allowed to
+occur (and what their cardinality is), and what data may be part of each element.  The XML 1.0
+standard included such a meta-language, called the DTD (Document Type Definition) language.
+The DTD meta-language was sufficient for expressing XML-based languages as a set of production
+rules, much like a BNF (Backus-Naur Form) grammar, but proved insufficient for certain types
+of applications.  To remedy some issues that users had with DTDs, the W3C (World Wide Web Committee)
+drafted a new meta-language for XML called XML Schema.  XML schemas are more expressive than DTDs,
+they have an XML-like syntax (DTDs do not), and they allow type relationships among element types
+much like object-oriented inheritance.
+
+<p>The development of XML schemas made it much easier for developers to create and evolve XML-based
+languages, and fostered the development of modular languages like xADL 2.0.  A full treatment of
+XML is far out of scope for this guide.
+
+<p>xADL 2.0's XML basis means that data in xADL 2.0 is arranged hierarchically.  Connections
+between data elements that are not hierarchically arranged are managed using simple XML links;
+xADL 2.0's tool support facilitates navigating these links.
+
+<p>As an XML-based language, xADL 2.0 documents are readable and writable by hand, as simple
+text documents.  However, because xADL 2.0 is defined in multiple schemas, each schema
+having its own XML namespace, the actual code can get quite complicated.  For example,
+this is a real component description in xADL 2.0:
+
+<pre class="codeblock" style="font-size: 9">
+&lt;types:component xsi:type="types:Component" types:id="xArchADT"&gt;
+&nbsp;&nbsp;&lt;types:description xsi:type="instance:Description"&gt;xArchADT&lt;/types:description&gt;
+&nbsp;&nbsp;&lt;types:interface xsi:type="types:Interface" types:id="xArchADT.IFACE_TOP"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;types:description xsi:type="instance:Description"&gt;xArchADT Top Interface&lt;/types:description&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;types:direction xsi:type="instance:Direction"&gt;inout&lt;/types:direction&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;types:type xsi:type="instance:XMLLink" xlink:type="simple" xlink:href="#C2TopType" /&gt;
+&nbsp;&nbsp;&lt;/types:interface&gt;
+&nbsp;&nbsp;&lt;types:interface xsi:type="types:Interface" types:id="xArchADT.IFACE_BOTTOM"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;types:description xsi:type="instance:Description"&gt;xArchADT Bottom Interface&lt;/types:description&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;types:direction xsi:type="instance:Direction"&gt;inout&lt;/types:direction&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;types:type xsi:type="instance:XMLLink" xlink:type="simple" xlink:href="#C2BottomType" /&gt;
+&nbsp;&nbsp;&lt;/types:interface&gt;
+&nbsp;&nbsp;&lt;types:type xsi:type="instance:XMLLink" xlink:type="simple" xlink:href="#xArchADT_type" /&gt;
+&lt;/types:component&gt;
+</pre>
+
+<p>While editing xADL 2.0 documents with a text editor is an option, doing so is really
+only useful for point edits, rather than architecture description as a whole.  However, we
+do not view this as a disadvantage of the language.  A text editor is a poor way to describe
+an architecture, no matter how simple the language is.  Instead, we provide powerful tools
+with the xADL 2.0 language to visualize and manipulate xADL 2.0 documents, with both user
+and programmatic interfaces.  These tools are described in a later section.
+
+<p>Because of the complexity of the XML view of the language, actual language samples are not as
+useful as they might be in an ADL that was intended for editing with a text editor.  However,
+when a language sample in XML is needed, it will be provided stripped of namespace information and
+other extraneous tags for clarity's sake.  For instance, the above component will be depicted
+as:
+
+<pre class="codeblock" style="font-size: 10">
+&lt;component type="Component" id="xArchADT"&gt;
+  &lt;description type="Description"&gt;xArchADT&lt;/description&gt;
+  &lt;interface type="Interface" id="xArchADT.IFACE_TOP"&gt;
+    &lt;description type="Description"&gt;xArchADT Top Interface&lt;/description&gt;
+    &lt;direction type="Direction"&gt;inout&lt;/direction&gt;
+    &lt;type type="XMLLink" xlink:type="simple" xlink:href="#C2TopType" /&gt;
+  &lt;/interface&gt;
+  &lt;interface type="Interface" id="xArchADT.IFACE_BOTTOM"&gt;
+    &lt;description type="Description"&gt;xArchADT Bottom Interface&lt;/description&gt;
+    &lt;direction type="Direction"&gt;inout&lt;/direction&gt;
+    &lt;type type="XMLLink" xlink:type="simple" xlink:href="#C2BottomType" /&gt;
+  &lt;/interface&gt;
+  &lt;type type="XMLLink" xlink:type="simple" xlink:href="#xArchADT_type" /&gt;
+&lt;/component&gt;
+</pre>
+
+<p>When XML is not absolutely necessary, we will use a very abbreviated,
+non-XML notation that just shows the data, hierarchically structured:
+
+<pre class="codeblock">
+component{
+  (attr) id   = "xArchADT"
+  description = "xArchADT"
+
+  interface{
+    (attr) id = "xArchADT.IFACE_TOP"
+    description = "xArchADT Top Interface"
+    direction = "inout"
+    (xlink) type = "#C2TopType"
+  }
+
+  interface{
+    (attr) id = "xArchADT.IFACE_BOTTOM"
+    description = "xArchADT Bottom Interface"
+    direction = "inout"
+    (xlink) type = "#C2BottomType"
+  }
+
+  (xlink) type = "#xArchADT_type"
+}
+</pre>
+
+<h2>xADL 2.0 as an Architecture Description Language</h2>
+
+<p>Previous work on ADLs such as Rapide, Wright, Darwin, SADL, and other ADLs focused on
+creating languages that had a narrow, specialized semantic basis.  Each language focused
+on one or two particular features of architecture description and provided rich constructs
+dealing with that feature.  For instance, Rapide focuses strongly on event-based communication
+between components and simulatable specifications, to the exclusion of other aspects of
+software architecture.  Each of these languages provided insights into a small number of
+aspects of software architecture, but did not interoperate.  Therefore, to take advantage
+of each language's specialty, the architecture would have to be re-specified in each language
+and analyzed using that language's tools.
+
+<p>A later effort to resolve these interoperability issues at Carnegie Mellon University
+produced ACME, billed as an architecture interchange language.  Rather than focusing on one
+particular semantic basis, ACME focused on generality.  It included a minimum set of first-class
+constructs present in almost every ADL (boiling down to components, connectors, interfaces,
+links, and first-class constraints), decorating each of these elements with a set of name-value
+pair "properties."  The vision was that ADL developers would write translators from their ADL
+to ACME and back again.  In this way, architects would be able to apply their tools to architecture
+descriptions written in any language with an ACME translator.
+
+<p>Due to the large semantic differences among these architectures, this vision never became a
+reality.  Furthermore, the generic extensibility mechanism of property sets was not accompanied
+by a way of standardizing which properties would be used, and what the format of the property
+values would be (if any).  Put another way, there was no meta-language over property sets.  This
+was later addressed to some extent by an early XML translation of ACME, ADML (promoted as an
+Open Group standard).
+
+<p>From its inceptions, xADL 2.0 was built to be an modular, extensible ADL.  Instead of focusing
+specifically on one particular semantic basis, xADL 2.0 would allow semantic specialization through
+language modules.  Modules could be integrated together as necessary if their semantic
+bases were compatible.  xADL 2.0 itself would evolve via the addition of modules to the set
+of available xADL 2.0 modules, but these modules would be made as orthogonal as possible so that
+users of the language could adopt constructs as they were needed, rather than having to accept
+the entire language in one "big bang" and subscribe to features or concepts that were unfamiliar
+or incompatible with the target domain.
+
+<p>As such, xADL 2.0 was not meant to address one specific semantic domain, but rather to serve
+as the basis for experimenting with creating new domains, combining existing domains, experimenting
+with different modeling constructs in existing domains, or modeling existing domains in a new,
+more open format.
+
+<hr>
+<a name="section3">
+<h1>Section 3: The Instances Core (xArch)</h1>
+
+<p>The core xADL 2.0 schema is the instances schema, defined in the <code>instances.xsd</code> file.
+This schema was created jointly by researchers at UC Irvine and Carnegie Mellon University. It defines
+the "least common denominator" of architectural constructs and is semantically neutral.  That is, it
+does not take steps to define constraints or rules about these constructs or their behavior.
+Constraints and the like are meant to be specified in extension schemas.
+
+<h2>Constructs Defined in the Instances Schema</h2>
+
+<p>The constructs defined in the instance schema are:
+
+<ul>
+<li>Component Instances (including sub-architectures)
+<li>Connector Instances (including sub-architectures)
+<li>Interface Instances
+<li>Link Instances
+<li>General Groups
+</ul>
+
+<p>All these things are grouped under a single top-level element called an <i>ArchInstance</i> element.
+Each ArchInstance element corresponds to one conceptual architecture.
+
+<p>In xADL 2.0, the constructs in the instance schema are used to define <i>running instances</i> of
+these things; that is, to provide a way to describe these constructs as part of a running software
+system, rather than a system design.  The general groups are intended to serve as collections of
+xADL 2.0 constructs, without any particular semantics at this stage.  They could, for example,
+describe things developed by the same author, or things that are running on the same machine in a
+distributed system, or things that are written in the same programming language.  Specializations
+of this general group construct can be specified in extensions to the construct.
+
+<p>The XML relationships between these artifacts are shown in this diagram (click to enlarge in new
+window):
+
+<p><center><a href="images/diagrams/archInstance.png" target="_blank"><img src="images/diagrams/archInstance.png" width=100 height=150 alt="Instances Diagram"></a></center>
+
+<p>A common theme throughout xADL 2.0, defined first in the instance schema, is that of IDs and
+Descriptions.  Many elements in xADL 2.0 have an ID and/or a Description.  Identifiers are assumed
+to be unique to a particular document.  They do not necessarily have to be human-readable, although it
+helps if they are.  Descriptions are intended to be human-readable identifiers of the described
+constructs.
+
+<p>Furthermore, the instance schema defines an element type called an XMLLink that is used over
+and over again in other xADL 2.0 schemas.  XMLLinks are links to other XML elements.  xADL 2.0
+borrows the linking strategy from the XLink standard.  However, because of poor support for the
+XLink standard in terms of real tools, xADL 2.0 document authors are advised to follow the following
+simplified convention for specifying XMLLinks.
+
+<p>In xADL 2.0, anything with an ID can be the target (i.e. the thing being pointed to) for an XMLLink.
+Every XMLLink has two parts (implemented as XML attributes), <code>type</code> and
+<code>href</code>; these are defined by the XLink standard.  For xADL 2.0 XMLLinks, the <code>type</code> field
+should always be the string <code>simple</code>, indicating a simple XLink.  The <code>href</code>
+field should be filled out with a URL such as:
+
+<p><code>http://</code><i>server</i><code>/</code><i>directory</i><code>/</code><i>document</i><code>.xml#</code><i>id</i>
+
+<p>This is a fairly standard fully-specified URL, linking to a document, but using the <i>anchor</i>
+part of the URL (i.e. the part after the pound sign ('#')) to indicate the identifier of the specific
+target element.  Of course, if you are linking to an element in the same document, it is often
+preferable to link using a relative URL, such as:
+
+<p><code>#</code><i>id</i>
+
+<p>Which would be the element with ID <i>id</i> in the current document.  So, two examples of
+valid <code>href</code>s might be:
+
+<p><code>http://www.isr.uci.edu/foo/bar/archstudio.xml#ArchEdit</code>
+<br><code>#ArchEdit</code> <i>(from within the file <code>archstudio.xml</code>)</i>
+
+<p><font size=+1><b>Semantics of the Instance Schema</b></font>
+
+<p>An architecture instance is composed of sets of component, connector, and link instances, along with
+a set of groups.  Each component or connector instance has a set of interface instances (explained
+below).
+
+<p>In addition to the hierarchical relationships here, we make a few additional assumptions about
+how these elements can be arranged.  These assumptions are:
+
+<ul>
+<li>Component and connector instances each have a set of interface instances.  These interface
+instances serve as the only interfaces to the component or connector instance that they belong to.
+That is, all data that passes from one component or connector instance to another travels through
+some interface.  They are the "gateway" to the internals of the component or connector instance.
+This is not inconsistent with the object-oriented view of interfaces.
+<li>Link instance endpoints, while being generic XML links, are intended to link two interface instances.
+So, a link may link a particular "in" interface instance on component instance A to a particular
+"out" interface instance on connector instance B.
+<li>Link instances are not directional.  The order of the points is irrelevant.  Directional flow
+of data across a link is determined by the directions of interfaces linked ("in", "out", "inout",
+or "none").
+<li>Link instances should not be extended to add semantics on the links.  If links had semantics,
+they would be connectors.
+</ul>
+
+<p>Notionally, in a boxes-and-arrows sense, the relationships between components, connectors,
+interfaces, and links can be seen in this diagram (example):
+
+<p><center><img src="images/guide/xadl-instance-notional.png" border=2 alt="Box and arrow Diagram"></center>
+
+<p>As you can see, the endpoints of the links are interfaces, and interfaces are the "gateway" to
+the outside world for both components and connectors.
+
+<p>The above example architecture instance in xADL 2.0 terms would be expressed as (in abbreviated,
+non-XML notation):
+
+<pre class="codeblock">
+archInstance{
+  componentInstance{
+    (attr) id   = "comp1"
+    description = "Component 1"
+
+    interfaceInstance{
+      (attr) id = "comp1.IFACE_TOP"
+      description = "Component 1 Top Interface"
+      direction = "inout"
+    }
+
+    interfaceInstance{
+      (attr) id = "comp1.IFACE_BOTTOM"
+      description = "Component 1 Bottom Interface"
+      direction = "inout"
+    }
+  }
+
+  connectorInstance{
+    (attr) id   = "conn1"
+    description = "Connector 1"
+
+    interfaceInstance{
+      (attr) id = "conn1.IFACE_TOP"
+      description = "Connector 1 Top Interface"
+      direction = "inout"
+    }
+
+    interfaceInstance{
+      (attr) id = "conn1.IFACE_BOTTOM"
+      description = "Connector 1 Bottom Interface"
+      direction = "inout"
+    }
+  }
+
+  componentInstance{
+    (attr) id   = "comp2"
+    description = "Component 2"
+
+    interfaceInstance{
+      (attr) id = "comp2.IFACE_TOP"
+      description = "Component 2 Top Interface"
+      direction = "inout"
+    }
+
+    interfaceInstance{
+      (attr) id = "comp2.IFACE_BOTTOM"
+      description = "Component 2 Bottom Interface"
+      direction = "inout"
+    }
+  }
+
+  linkInstance{
+    (attr) id = "link1"
+    description = "Comp1 to Conn1 Link"
+    point{
+      (link) anchorOnInterface = "#comp1.IFACE_BOTTOM"
+    }
+    point{
+      (link) anchorOnInterface = "#conn1.IFACE_TOP"
+    }
+  }
+
+  linkInstance{
+    (attr) id = "link2"
+    description = "Conn1 to Comp2 Link"
+    point{
+      (link) anchorOnInterface = "#conn1.IFACE_BOTTOM"
+    }
+    point{
+      (link) anchorOnInterface = "#comp2.IFACE_TOP"
+    }
+  }
+}
+
+</pre>
+
+<p>An additional construct to address at this point is the instance schema's notion of
+<i>subarchitectures</i>.  Subarchitectures occur when a component or connector has an internal
+architecture that is also described using constructs from the instance schema.  When this occurs,
+the "subarchitecture" element of the component or connector will contain:
+
+<ol>
+<li>An "archInstance": a full architecture specification of the internal architecture.
+<li>A set of interface instance mappings:  Which map interfaces on the internal architecture
+to interfaces on the external architecture.
+</ol>
+
+<p>For the balance of this discussion, we will talk about the subarchitecture of a component, but
+what is detailed here can be equally applied to connectors with subarchitecture.
+
+<p>Interface instance mappings can be confusing at first, but are really quite simple.  The point
+is that there must be some way to associate interfaces on the outer component with interfaces on
+some of the inner components or connectors.  This creates a "bridge" between the higher-level (i.e.
+outer) architecture and the lower level (i.e. inner) architecture.  This is best illustrated with
+a diagram:
+
+<p><center><img src="images/guide/xadl-interface-instance-mapping.png" border=2 alt="Interface instance Mappings"></center>
+
+<p>In this diagram, we see a component with an internal architecture.  The outer component has two
+interfaces which are mapped to two interfaces on internal components.  In theory, the mapped interfaces
+are the "same" interface--that is, any data flowing in through the outer interface is passed to the
+inner interface, and vice-versa.  It is important to note that we assume that the outer component
+does not provide any additional semantics not provided by its internal architecture; in other words,
+the outer component is merely a shell.  It does not provide any functionality in addition to that
+of its internal architecture.
+
+<p>An obvious corrollary of this assumption is that hierarchically structured architectures really
+are not hierarchically structured&mdash;that the outer components merely provide a way of grouping similar
+internal architectures.  In a sense, this is true, and implementors may choose to "flatten out" a
+hierarchical architecture when implementing it.
+
+<hr>
+<a name="section4">
+<h1>Section 4: Modeling Architectural Structure</h1>
+
+<p>The instances schema gives xADL 2.0 the ability to model running instances of architectural
+constructs like components, connectors, interfaces, and links.  However, much work on software
+architecture is centered around the <i>design</i> of the architecture, rather than capturing
+properties of a running one.
+
+<p>For the purposes of this discussion, we make a distinction between architecture instances,
+which exist at run-time, and structural elements, which exist at design-time.
+
+<p><table cellpadding=3 cols=2 border=1>
+   <tr><th>Run-Time</th><th>Design-Time</th></tr>
+   <tr><td>Instances</td><td>Structure</td></tr>
+   </table>
+
+<p>Structural constructs are defined in the xADL 2.0 <i>Structure and Types Schema</i>, whose
+filename is <code>types.xsd</code>.  This section addresses only the structure part of
+the Structure & Types schema; types are addressed in a later section.
+
+<h2>Constructs Defined for Modeling Architectural Structure</h2>
+
+<p>The xADL 2.0 constructs available for modeling architectural structure mirror almost exactly
+those available for modeling architecture instances. The constructs defined in the instance
+schema are:
+
+<ul>
+<li>Components
+<li>Connectors
+<li>Interfaces
+<li>Links
+<li>General Groups
+</ul>
+
+<p>Note that "component" is used as a structural construct, as opposed to "component instance," which
+is used to describe a run-time instance.  Similarly, "connector," "interface," and "link" are used
+instead of "connector instance, "interface instance," and "link instance."
+
+<p>The XML relationships between these artifacts are shown in this diagram (click to enlarge in new
+window):
+
+<p><center><a href="images/diagrams/archStructure.png" target="_blank"><img src="images/diagrams/archStructure.png" width=200 height=300 alt="Structure Diagram"></a></center>
+
+<p>To elaborate, we will model the structure (design-time) of the same architecture
+we modeled above:
+
+<pre class="codeblock">
+archStructure{
+  (attr) id = "My Structure"
+
+  component{
+    (attr) id   = "comp1"
+    description = "Component 1"
+
+    interface{
+      (attr) id = "comp1.IFACE_TOP"
+      description = "Component 1 Top Interface"
+      direction = "inout"
+    }
+
+    interface{
+      (attr) id = "comp1.IFACE_BOTTOM"
+      description = "Component 1 Bottom Interface"
+      direction = "inout"
+    }
+  }
+
+  connector{
+    (attr) id   = "conn1"
+    description = "Connector 1"
+
+    interface{
+      (attr) id = "conn1.IFACE_TOP"
+      description = "Connector 1 Top Interface"
+      direction = "inout"
+    }
+
+    interface{
+      (attr) id = "conn1.IFACE_BOTTOM"
+      description = "Connector 1 Bottom Interface"
+      direction = "inout"
+    }
+  }
+
+  component{
+    (attr) id   = "comp2"
+    description = "Component 2"
+
+    interface{
+      (attr) id = "comp2.IFACE_TOP"
+      description = "Component 2 Top Interface"
+      direction = "inout"
+    }
+
+    interface{
+      (attr) id = "comp2.IFACE_BOTTOM"
+      description = "Component 2 Bottom Interface"
+      direction = "inout"
+    }
+  }
+
+  link{
+    (attr) id = "link1"
+    description = "Comp1 to Conn1 Link"
+    point{
+      (link) anchorOnInterface = "#comp1.IFACE_BOTTOM"
+    }
+    point{
+      (link) anchorOnInterface = "#conn1.IFACE_TOP"
+    }
+  }
+
+  link{
+    (attr) id = "link2"
+    description = "Conn1 to Comp2 Link"
+    point{
+      (link) anchorOnInterface = "#conn1.IFACE_BOTTOM"
+    }
+    point{
+      (link) anchorOnInterface = "#comp2.IFACE_TOP"
+    }
+  }
+}
+
+</pre>
+
+<h2>Semantics of Modeling Architectural Structure</h2>
+
+<p>The only significant difference between modeling architectural structure and architectural
+instances is the way that subarchitectures are handled.  In the instances case, subarchitectures
+are expressed <i>in-line</i>, that is, as a sub-element of the component instance or connector
+instance.  In the structural case, however, subarchitectures are handled through component
+and connector types, which are discussed in more detail later.
+
+<p>The rest of the semantics for modeling architectural structure are basically the same as those for
+modeling instances.  Namely, components and connectors are connected via links, whose endpoints
+are interfaces, which are the gateways to components and connectors.  Additional semantics
+for structural elements are implied by the underlying type system, which is discussed in the
+next section.
+
+<hr>
+<a name="section5">
+<h1>Section 5: The xADL 2.0 Type System</h1>
+
+<p>In the software architecture community, the precise meaning and usage of <i>types</i> is still
+a hotly contested issue.  Some approaches adopt a fairly traditional programming-language style
+types-and-instances model.  Others adopt a types-as-constraints model, where a type is simply
+a constraint over elements; any element meeting that constraint is "of that type" (this implies
+that a single element like a component or connector could potentially have many, many types).
+
+<p>xADL 2.0 adopts the more traditional types-and-instances model found in many programming languages.
+In this model, components, connectors, and interfaces all have types (called <i>component types</i>,
+<i>connector types</i>, and <i>interface types</i>, respectively).  Links do not have types because
+links do not have any architectural semantics.  The relationships between types, structure, and
+instances are shown in the following table:
+
+<p><table cellpadding=3 cols=3 border=1>
+   <tr><th>Instance<br>(Run-time)</th><th>Structure<br>(Design-time)</th><th>Type<br>(Design-time)</th></tr>
+   <tr><td>Component Instance</td><td>Component</td><td>Component Type</td></tr>
+   <tr><td>Connector Instance</td><td>Connector</td><td>Connector Type</td></tr>
+   <tr><td>Interface Instance</td><td>Interface</td><td>Interface Type</td></tr>
+   <tr><td>Link Instance</td><td>Link</td><td><i>(None)</i></td></tr>
+   <tr><td>Group</td><td>Group</td><td><i>(None)</i></td></tr>
+   </table>
+
+<p>Components, connectors, and interfaces are typed because, in real software architectures,
+there may be multiple elements that are highly similar&mdash;perhaps they share behavior or
+an implementation.  When designing xADL 2.0, we intended that types would be linked to
+implementations; as such, two structural elements (e.g. components) that shared a single
+type (e.g. component type) would imply that the two components shared an implementation
+(instantiated from the same class, perhaps, or were instances of the same shared library).
+However, this particular implication is not carried through in the language unless you choose to
+adopt the xADL 2.0 implementation schemas, discussed later.  Cases where two components or connectors
+might be of the same type include:
+
+<ul>
+<li>When there are multiple, generic connectors (e.g. message buses) with identical behavior
+<li>Multiple clients in a client-server system
+<li>Redundant servers in a client-server system
+<li>Two instances of the same component with different inputs (e.g. two instances of the "tee"
+command in a pipe and filter system).
+<li>etc.
+</ul>
+
+<h2>Constructs Defined for Architectural Types</h2>
+
+<p>The constructs available for modeling types are also defined in the <i>Structure & Types</i> schema,
+along with the constructs for modeling structure.  All the types-related constructs are grouped
+under a top-level XML element called <code>ArchTypes</code>.
+The xADL 2.0 constructs available for modeling  architectural types are:
+
+<ul>
+<li>Component Types
+  <ul>
+  <li>Subarchitectures for Component Types
+  <li>Signatures
+  </ul>
+<li>Connector Types<i>*</i>
+  <ul>
+  <li>Subarchitectures for Component Types
+  <li>Signatures
+  </ul>
+<li>Interface Types
+</ul>
+
+<p>The XML relationships between these constructs are shown in this diagram (click to enlarge in new
+window):
+
+<p><center><a href="images/diagrams/archTypes.png" target="_blank"><img src="images/diagrams/archTypes.png" width=200 height=300 alt="Types Diagram"></a></center>
+
+<h2>Semantics of Modeling Architectural Types</h2>
+
+<p>In xADL 2.0, all types are independent.  Types are not composed of other types, nor is
+there (to date) a notion of subtyping or type inheritance in xADL 2.0.  With appropriately documented
+semantics, however, type inheritance could easily be added through a new schema.
+
+<p><b>Signatures</b>
+
+<p>One of the least intuitive constructs in xADL 2.0 is the <i>signature</i>.  Each component
+or connector type has a set of signatures.  Each signature has a direction (like interfaces do)
+and a type XLink, which is intended to point at an interface type.  The rationale behind signatures
+is as follows: let's assume there is are two components C1 and C2, of type T.  Certainly, C1 and
+C2 share something in common, most likely a behavior or an implementation.  If this is true, then
+both C1 and C2 should expose the same types of interfaces (i.e. C1 and C2 should each have the
+same number of interfaces, and those interfaces should be of the same type.  If I find an interface
+C1-I1 on component C1, I should be able to find a corresponding interface of the same type C2-I1
+on component C2).  The signatures in the component type T prescribe what types of interfaces
+must exist on a component of type T for that component to properly be "of that type."  This
+is illustrated here in a diagram (click to expand in new window):
+
+<p><center><a href="images/guide/signatures.png" target="_blank"><img src="images/guide/signatures.png" width=100 height=100 alt="Signatures Diagram"></a></center>
+
+<p>Dotted lines represent the "type" XLink on the various elements.
+This diagram illustrates the relationship between structural constructs, interfaces, types
+(especially interface types), and signatures.  In the diagram, two components (C1 and C2) share
+a type, T1.  The type has two signatures, Sig1 and Sig2, of interface types TopType and BottomType,
+respectively.  Thus, the two components each have interfaces of types TopType and BottomType.  This
+is a valid arrangement of structural elements, types, and signatures.
+
+<p>However, it is important to note that there is nothing in XML that can guarantee or constrain
+the various "types" XML links such that only valid arrangements of these constructs can be created.
+This has advantages and disadvantages.  The obvious disadvantage is that this additional validity
+constraint must be verified by external tools, and cannot be verified solely by XML tools or
+by the structure of the language itself.  The advantage is that the lack of a language-induced
+constraint here means that different xADL 2.0 users have the opportunity to redefine the semantics
+of signatures (or ignore them entirely) if that makes sense in their target domain.
+
+<p>Signatures also play a role in design-time subarchitectures, described below.
+
+<p>At this point, it is possible to look at how the example in the above example would be specified in
+xADL 2.0 (using pseudo-XML notation):
+
+<pre class="codeblock">
+archStructure{
+  (attr) id = "My Structure with Types"
+
+  component{
+    (attr) id   = "C1"
+    description = "Component C1"
+
+    interface{
+      (attr) id = "comp1.IFACE_TOP"
+      description = "Interface C1-Top"
+      direction = "inout"
+      (link) type = "#TopType"
+    }
+
+    interface{
+      (attr) id = "comp1.IFACE_BOTTOM"
+      description = "Interface C1-Bottom"
+      direction = "inout"
+      (link) type = "#BottomType"
+    }
+
+    (link) type = "#T1"
+  }
+
+  component{
+    (attr) id   = "C2"
+    description = "Component C2"
+
+    interface{
+      (attr) id = "comp2.IFACE_TOP"
+      description = "Interface C2-Top"
+      direction = "inout"
+      (link) type = "#TopType"
+    }
+
+    interface{
+      (attr) id = "comp2.IFACE_BOTTOM"
+      description = "Interface C2-Bottom"
+      direction = "inout"
+      (link) type = "#BottomType"
+    }
+
+    (link) type = "#T1"
+  }
+}
+
+archTypes{
+  componentType{
+    (attr) id = "T1"
+    description = "Component Type T1"
+    signature{
+      direction = "inout"
+      (xlink) type = "#TopType"
+    }
+
+    signature{
+      direction = "inout"
+      (xlink) type = "#BottomType"
+    }
+  }
+
+  interfaceType{
+    (attr) id = "TopType"
+    description = "Type for Top interfaces on Components"
+  }
+
+  interfaceType{
+    (attr) id = "BottomType"
+    description = "Type for Bottom interfaces on Components"
+  }
+}
+</pre>
+
+<p><b>Design-Time Subarchitectures</b>
+
+<p>Recall that, in xADL 2.0 run-time, or <i>instance</i> models, subarchitectures (internal architectures
+of component or connector instances) are modeled <i>in-line</i>; that is, the specification of the
+internal component or connector architecture is part of the specification of the outer component or
+connector.
+
+<p>When a type system is introduced, however, things become more complicated.  It stands to reason
+that two components or connectors of the same type would have similar internal architectures.  In
+xADL 2.0, this is the case&mdash;internal architectures are associated with <i>types</i> rather than
+structural elements like components or connectors.  Thus, two components or connectors who share a
+type will also have the same internal architecture (if any).
+
+<p>As an example, consider this client-server architecture diagram (connectors, interfaces, and
+signatures removed for simplicity, click to enlarge in separate window):
+
+<p><center><a href="images/guide/subarch-noint.png" target="_blank"><img src="images/guide/subarch-noint.png" width=100 height=100 alt="Subarchitecture without Interfaces"></a></center>
+
+<p>In this diagram, the server has an atomic type&mdash;that is, the type is not broken down any
+further.  However, the two clients share a type, and they also share a subarchitecture (two linked
+components called UI and Logic).  Conceptually, this works well, but when interfaces, signatures,
+and interface types become involved, things become more complicated.
+
+<p>Just as an atomic component/connector type has signatures that prescribe what kinds of interfaces
+a component or connector of that type will have, a composite component/connector type (one with a
+subarchitecture) also has signatures.  So, we will add signatures to the composite type in the
+above diagram as such (note that many signatures/interfaces are still being omitted for clarity).
+Note also that the signature's types have been omitted:
+
+<p><center><a href="images/guide/subarch-sigs.png" target="_blank"><img src="images/guide/subarch-sigs.png" width=100 height=100 alt="Subarchitecture with a few Signatures"></a></center>
+
+<p>Like the outer architecture, the inner architecture will also have interfaces.  Interfaces
+for the inner architecture have been added in this diagram (other signatures, interfaces still
+omitted for clarity).  Also note that the types for these interfaces exist, but have been omitted
+as well:
+
+<p><center><a href="images/guide/subarch-sigsandints.png" target="_blank"><img src="images/guide/subarch-sigsandints.png" width=100 height=100 alt="Subarchitecture with a few signatures and Interfaces"></a></center>
+
+<p>Now we need to map the signatures on the component type to interfaces on the subarchitecture.
+These mappings are given with <i>Signature-Interface Mappings</i>, analogous to the <i>InterfaceInstanceMappings</i>
+described above for the instance schema.  We add signature-interface mappings to the diagram here:
+
+<p><center><a href="images/guide/subarch-sigintmaps.png" target="_blank"><img src="images/guide/subarch-sigintmaps.png" width=100 height=100 alt="Subarchitecture with Signature-Interface Mappings"></a></center>
+
+<p>Because of this mapping, it is assumed that the mapped signature and interface have the
+same interface type for reasons of consistency.  In xADL 2.0 terms, let's model the component
+type <code>client_type</code> in pseudo-XML notation, incluiding all interface types
+and signatures (but ignoring the rest of the outer architecture
+for simplicity).
+
+<pre class="codeblock">
+archTypes{
+  componentType{
+    (attr) id = "client_type"
+    description = "Client Type"
+
+    signature{
+      (attr) id = "logic_signature"
+      description = "Logic Signature"
+      direction = "inout"
+      (xlink) type = "#LogicInterfaceType"
+    }
+
+    signature{
+      (attr) id = "ui_signature"
+      description = "UI Signature"
+      direction = "inout"
+      (xlink) type = "#UIInterfaceType"
+    }
+
+    subarchitecture{
+      (xlink) archStructure = "#client_architecture"
+      signatureInterfaceMapping{
+        (xlink) outerSignature = "#logic_signature"
+        (xlink) innerInterface = "#logic_interface"
+      }
+
+      signatureInterfaceMapping{
+        (xlink) outerSignature = "#ui_signature"
+        (xlink) innerInterface = "#ui_interface"
+      }
+    }
+  }
+
+
+  interfaceType{
+    (attr) id = "LogicInterfaceType"
+    description = "Logic Interface Type"
+  }
+
+  interfaceType{
+    (attr) id = "UIInterfaceType"
+    description = "UI Interface Type"
+  }
+
+  interfaceType{
+    (attr) id = "LogicUIBridgeInterfaceType"
+    description "Logic UI Bridge Interface Type"
+  }
+
+  componentType{
+    (attr) id = "client_ui_type"
+    description = "Client UI Component Type"
+
+    signature{
+      (attr) id = "client_ui_signature"
+      description = "Client UI Signature"
+      direction = "inout"
+      (xlink) type = "#UIInterfaceType"
+    }
+
+    signature{
+      (attr) id = "client_logic_ui_bridge_out_signature"
+      description "Client Logic-UI Bridge Signature, UI Side"
+      direction = "out"
+      (xlink) type = "#LogicUIBridgeInterfaceType"
+    }
+  }
+
+  componentType{
+    (attr) id = "client_logic_type"
+    description = "Client Logic Component Type"
+
+    signature{
+      (attr) id = "client_logic_signature"
+      description = "Client Logic Signature"
+      direction = "inout"
+      (xlink) type = "#LogicInterfaceType"
+    }
+
+    signature{
+      (attr) id = "client_logic_ui_bridge_in_signature"
+      description "Client Logic-UI Bridge Signature, Logic Side"
+      direction = "in"
+      (xlink) type = "#LogicUIBridgeInterfaceType"
+    }
+  }
+}
+
+archStructure{
+  (attr) id = "client_architecture"
+  description = "Client Architecture"
+
+  component{
+    (attr) id = "client_ui_component"
+    description = "Client UI Component"
+
+    interface{
+      (attr) id = "client_ui_ui_interface"
+      description "UI Interface on Client UI"
+      direction = "inout"
+      (xlink) type = "#UIInterfaceType"
+    }
+
+    interface{
+      (attr) id = "client_logic_ui_bridge_out_interface"
+      description = "Client Logic-UI Bridge Interface, UI Side"
+      direction="out"
+      (xlink) type= "#LogicUIBridgeInterfaceType"
+    }
+  }
+
+  component{
+    (attr) id = "client_logic_component"
+    description = "Client Logic Component"
+
+    interface{
+      (attr) id = "client_logic_logic_interface"
+      description = "Logic Interface on Client Logic"
+      direction = "inout"
+      (xlink) type = "#LogicInterfaceType"
+    }
+
+    interface{
+      (attr) id = "client_logic_ui_bridge_in_interface"
+      description = "Client Logic-UI Bridge Interface, Logic Side"
+      direction = "in"
+      (xlink) type = "#LogicUIBridgeInterfaceType"
+    }
+  }
+
+  link{
+    (attr) id = "client_logic_to_ui_link"
+    description = "Client Logic to UI link"
+    point{
+      (xlink) anchorOnInterface = "#client_logic_ui_bridge_in_interface"
+    }
+    point{
+      (xlinK) anchorOnInterface = "#client_logic_ui_brige_out_interface"
+    }
+  }
+}
+</pre>
+
+<p>You will note in the above document that there is only one archTypes section,
+even though two levels of architectural hierarchy are being modeled here (the
+upper level represented by the client type and the lower level being represented
+by its subarchitecture).  Because types are seen as independent entities, not
+necessarily bound to a single architecture or level of the hierarchy,
+they are grouped up in this fashion.
+This is normal.  The exception would be if the architecture in which the client
+type is included and its internal architecture were modeled in different xADL 2.0
+files; in this case there would likely be one archTypes section in each file,
+although this is for organizational, rather than semantic, purposes.
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>
+

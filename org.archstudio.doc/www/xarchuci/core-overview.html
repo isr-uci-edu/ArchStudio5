@@ -1,0 +1,49 @@
+<html>
+<!--#set var="subtitle" value="xADL 2.0 Schemas" -->
+<!--#set var="subsubtitle" value="xArch Core" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<a name="overview">
+<h1>xArch Core Overview</h1>
+
+<p>The core of xArch is the instance schema, which was jointly developed by
+<a target="_blank" href="http://www.uci.edu/">the University of California, Irvine</a>
+and <a target="_blank" href="http://www.cmu.edu/">Carnegie Mellon University</a>.
+The core specification can be extended to add new features or increase its
+expressiveness.  For examples of extensions to the core, see our
+<a href="ext-overview.html">extensions page</a>.
+
+<p>The primary source of information about the core schema is available at the
+<a target="_blank" href="http://www.ics.uci.edu/pub/arch/xarch/">official xArch
+site</a>.  However, we are mirroring it below for convenience, and we are also
+providing some additional documentation/diagrams.
+
+<hr>
+<a name="instances">
+
+<h1>Instance (Core) Specification</h1>
+<p><a target="_blank" href="./core/instance.txt">View Schema (TXT)</a> |
+<a target="_blank" href="./core/instance.xsd">View Schema (XML)</a>
+<br>Additional Documentation:
+<a target="_blank" href="xmlspy-docs/instance/instance.html">XML Spy Overview</a> |
+<a target="_blank" href="images/diagrams/archInstance.png">ArchInstance Diagram</a>
+<br>Depends on: None
+
+<p>The instance specification provides xArch:
+<ul>
+<li><b>Architectural Instances</b>: The ability to model the run-time
+structure of a system in terms of its connector, component, interface,
+and link instances.  The core does not specify any semantic constraints
+on these entities.
+<li><b>General Groups</b>: A grouping mechanism to group instance elements
+in arbitrary ways; for instance: by author, by machine (in a distributed
+environment), by language, etc.
+<li><b>Sub-architectures</b>: The ability to specify a component or
+connector instance that has an internal architecture, also specified
+in xArch.
+</ul>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>
