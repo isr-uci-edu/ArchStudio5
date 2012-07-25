@@ -1,0 +1,145 @@
+<html>
+<!--#include virtual="_indexpagetop.html" -->
+<!--#include virtual="_quicklinkbox.html" -->
+
+<h1>Welcome to the xADL 2.0 Homepage!</h1>
+
+<p>Welcome to the xADL 2.0 homepage!  xADL 2.0 is an
+<a target="_blank" href="http://www.isr.uci.edu/architecture/">architecture</a>
+description language (ADL) for software and systems developed by the
+<a target="_blank" href="http://www.isr.uci.edu/">Institute for Software Research</a>
+at the <a target="_blank" href="http://www.uci.edu">University of California, Irvine</a>.
+
+<p>This is where you can find all of UCI's latest
+enhancements and tools for the xADL 2.0 software and systems
+architecture description language (see below for description).
+
+<p>If you're a software or systems engineer visiting this site
+for the first time, you've probably got your own ideas about
+architecture description notations.  We've added a page covering
+how xADL 2.0 is different from other ADLs and how to use it in your
+own projects called <a href="way.html">"The xADL 2.0 Way"</a>.
+
+<p><b>The xADL 2.0 language itself is not bound
+to any particular architectural style, tool set, or methodology</b>.
+xADL 2.0 and tools such as
+<a href="tools-apigen.html">Apigen</a> and the
+<a href="tools-dbl.html">xArch/xADL 2.0 Data Binding Library</a> can be
+used by themselves, independent of any particular development
+environment or domain.  However, we have integrated many
+more advanced xADL 2.0 tools in the
+<a target="_blank" href="http://www.isr.uci.edu/projects/archstudio/">ArchStudio 3
+Architecture-centric Development Environment</a>.  Most users
+interested in working with xADL 2.0 will want to download and use
+ArchStudio 3 as well as the basic xADL 2.0 tools.
+
+<hr>
+
+<h1>Latest Updates:</h1>
+
+<p><img src="images/updated.gif" alt="Updated!"> <i>[January 4, 2005]</i> -
+Apigen (and the data binding library) have been updated to better encapsulate
+the implementation of data bindings.  Document-level operations
+(create, clone, parse, serialize, create contexts) are now done through
+an object that implements the <code>IXArchImplementation</code> interface.
+The DOM-based (default) implementation of this object is accessible
+by calling <code>XArchUtils.getDefaultXArchImplementation()</code>.
+The corresponding functions in XArchUtils (for creating, cloning, parsing,
+etc.) have been deprecated.  The <a href="Test.java"><code>Test.java</code></a>
+example code has been updated to reflect these changes.
+
+<p><img src="images/new.gif" alt="New!"> <i>[November 12, 2002]</i> -
+<a target="_blank" href="./javadoc/xarchlibs/">xArch/xADL 2.0 Data Binding
+Library Javadoc</a> and
+<a target="_blank" href="./javadoc/apigen/">Apigen Javadoc</a> now
+online!
+
+<p><img src="images/updated.gif" alt="Updated!"> <i>[March 28, 2002]</i> -
+Made updates to the versions schema; see the schema changelog for details.
+Released new Data Binding Library to match.  Also, updated this site to
+eliminate the use of frames, so it's now easier to directly link to a page
+within the site.
+
+<p>Here, you will find xADL 2.0 schemas, developed by UCI,
+that extend the core (instance) xArch language, as well
+as tools UCI has developed for working with xADL 2.0 documents.
+Click on one of the links on the left navigation bar to
+navigate the site.
+
+<hr>
+
+<h1>What is xADL 2.0?</h1>
+<p>xADL 2.0 is a software architecture description language (ADL)
+developed by the University of California, Irvine for modeling
+the architecture of software systems.  Unlike many other ADLs,
+xADL 2.0 is defined as a set of
+<a target="_blank" "http://www.w3.org/XML/Schema">XML schemas</a>.
+This gives xADL 2.0 unprecedented extensibility and flexibility,
+as well as basic support from the many available commercial XML
+tools.
+
+<p>The current set of xADL 2.0 schemas includes modeling support for:
+
+<ul>
+<li>run-time and design-time elements of a system;
+<li>support for architectural types;
+<li>advanced configuration management concepts such as versions,
+options, and variants;
+<li>product family architectures; and
+<li>architecture "diff"ing (initial support).
+</ul>
+
+<p>We plan to extend this set as our research interests evolve.  Users
+of xADL are free to choose elements from this set or create their
+own extensions as needed.
+
+<p>xADL 2.0 is also an application of
+<a target="_blank" href="http://www.isr.uci.edu/projects/xarch/">xArch</a>,
+a core XML schema defined
+jointly by UCI and Carnegie Mellon University.  More information
+about xArch can be found in the next section.
+
+<hr>
+
+<h1>What is xArch?</h1>
+<p><i>From the <a target="_blank" href="http://www.isr.uci.edu/projects/xarch/">main xArch webpage</a>:</i>
+<p>xArch is a standard, extensible XML-based representation
+for software architectures. xArch provides a common core
+XML notation for architectures that can serve:
+<ul>
+<li>as a simple stand-alone representation for architectures. Specifically, xArch provides a common
+set of bare-bones features that can be used to model an architecture.
+<li>as a starting point for other, more advanced XML-based architectural notations.
+Specifically, the common core can be reused while support for other, more
+advanced ADLs (e.g., Acme, C2SADEL, Rapide) can be added through the
+creation of XML namespace extensions.
+<li>as an interchange mechanism for architectural descriptions. Specifically,
+translators can be built to and from the XML notation.
+</ul>
+
+<hr>
+
+<h1>Contact Us</h1>
+<p>If you have questions not answered by this website, please feel free to
+contact the software architectures group at UC Irvine at
+<a href="mailto:arch@ics.uci.edu">arch@ics.uci.edu</a>.
+
+<hr>
+
+<p>
+<font size=-1>
+<i>Portions of this site Copyright &copy;2000-2005 The
+Regents of the University of California. All
+Rights Reserved Worldwide. The development of
+xADL 2.0 was initially funded by the DARPA
+DASADA (Dynamic Assembly for Systems
+Adaptability, Dependability, and Assurance)
+program.   The site now includes results from
+projects supported in part by National Science
+Foundation grants IIS-0205724 and CCF-0430066.</i>
+</font>
+
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>

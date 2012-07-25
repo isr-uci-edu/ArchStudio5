@@ -1,0 +1,4 @@
+Options +Includes
+AddType text/html .html
+AddHandler server-parsed .html
+AddHandler server-parsed .htm
