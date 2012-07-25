@@ -12,7 +12,7 @@
 
 <p>The <a href="developing-xarchadt.html"><code>XArchFlatInterface</code></a> is a
    distributable interface that provides additional low-level functionality that is
-   not available when using the xArch/xADL 2.0 <a href="dbl.html">Data Binding
+   not available when using the xArch/xADL <a href="dbl.html">Data Binding
    Library</a> directly. However, it uses strings to specify (indirectly) method
    calls.  Thus, errors that are normally detected by the compiler when type-
    checking (when using the native Data Binding Libray interface) will show up only
@@ -29,15 +29,13 @@
 
 <p><code>XArchFlatProxy</code> addresses these problems by providing a layer on top
    of the XArchFlatInterface that exposes interfaces nearly identical to those
-   exposed by the xArch/xADL 2.0 Data Binding Library (e.g.,
+   exposed by the xArch/xADL Data Binding Library (e.g.,
    <code>IComponent</code>). Thus, calls using the XArchFlatProxy mechanism will
    appear (and compile) like calls made to the data binding library directly.  In
    reality, however, these calls will be dynamically translated to
    XArchFlatInterface calls "under the covers."  As such, this allows you to combine
    the ease of use of the data binding library's interface with the distributability
    and loose coupling provided by the XArchFlatInterface.</p>
-
-<hr/>
 
 <h1>Limitations</h1>
 
@@ -72,8 +70,6 @@
    of Apigen creates additional interfaces to address objects (e.g., contexts) that
    previously had none.</p>
 
-<hr/>
-
 <h1>Working with xArchFlatProxy</h1>
 
 <p>A program that was previously written to use the DOM-based Data Binding Library
@@ -93,7 +89,7 @@
   IXArchImplementation xArchImplementation =
     XArchUtils.getDefaultXArchImplementation();
 
-  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL document)</span>
   IXArch xArch = xArchImplementation.createXArch();
 
   <span style="color: #ff0000">//Create types and instance contexts</span>
@@ -121,7 +117,7 @@
   IXArchImplementation xArchImplementation =
     XArchUtils.getDefaultXArchImplementation();
 
-  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL document)</span>
   IXArch xArch = xArchImplementation.createXArch();
 
   <span style="color: #ff0000">//Create types and instance contexts</span>
@@ -157,7 +153,7 @@
   <b>IXArchImplementation xArchImplementation =
     XArchFlatProxyUtils.getXArchFlatProxyImplementation(xArchFlat);</b>
 
-  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL document)</span>
   IXArch xArch = xArchImplementation.createXArch();
 
   <span style="color: #ff0000">//Create types and instance contexts</span>
@@ -179,8 +175,6 @@
    were added to clarify where the xArch instance came from. The rest of the
    code, unmodified, is operating over the <code>XArchFlatInterface</code>
    specified at the top of the code snippet.</p>
-
-<hr/>
 
 <h1>Additional Capabilities</h1>
 
@@ -205,15 +199,6 @@
   System.err.println(xArchFlat.get(descriptionRef, "Value"));
   <span style="color: #ff0000">// prints "Changed Component Description"</span>
 </pre>
-
-<hr/>
-
-<h1>That's it!</h1>
-
-<p>Additional questions about the XArchFlatProxy mechanism should be sent
-   to <a href="mailto:shendric@uci.edu">Scott A. Hendrickson</a>.</p>
-
-<hr/>
 
 <!--#include virtual="_pagebottom.html" -->
 

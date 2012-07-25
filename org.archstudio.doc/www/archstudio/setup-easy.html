@@ -10,273 +10,150 @@
 
 <h1>Easy Setup Overview</h1>
 
-<p>This document explains the procedures necessary to download and install
-   ArchStudio 4.  ArchStudio 4 has three critical components:</p>
+<p>This document explains the procedures necessary to download and
+	install ArchStudio. ArchStudio has three critical components:</p>
 
 <ol>
-  <li>A Java 2&trade; Standard Edition (J2SE) version 5.0 virtual machine;</li>
-  <li>Eclipse version 4.2 or better (Classic version); and</li>
-  <li>ArchStudio itself.</li>
+	<li>A Java 2&trade; Standard Edition (J2SE) version 5.0 virtual
+		machine;</li>
+	<li>Eclipse version 4.2 or better; and</li>
+	<li>ArchStudio itself.</li>
 </ol>
 
-<p>If you already have Java 5 or Eclipse 4.2 (or better) installed, you
-   may safely skip those parts of these instructions as they require
-   no special configuration for ArchStudio.</p>
-
-<hr/>
+<p>If you already have Java 5 or Eclipse 4.2 (or better) installed,
+	you may safely skip those parts of these instructions as they require
+	no special configuration for ArchStudio.</p>
 
 <!--#set var="videoname" value="install" -->
-<!--#set var="videodescription" value="how to install ArchStudio 4" -->
+<!--#set var="videodescription" value="how to install ArchStudio" -->
 <!--#include virtual="_vidlink.html" -->
-
-<!--#set var="videoname" value="gettingstarted" -->
-<!--#set var="videodescription" value="how to get started with ArchStudio 4" -->
-<!--#include virtual="_vidlink.html" -->
-
-<!--#set var="videoname" value="newproject" -->
-<!--#set var="videodescription" value="how to create your first project and architecture description" -->
-<!--#include virtual="_vidlink.html" -->
-
-<hr/>
 
 <h2>Step 1: Setting up Java</h2>
 
-<p>ArchStudio 4 (and Eclipse) are Java applications.  ArchStudio 4 is
-   written specifically for Java 2 Standard Edition version 5.0
-   (aka JDK1.5) or better.  It will not run properly in any previous version of Java.</p>
+<p>ArchStudio (and Eclipse) are Java applications. ArchStudio is
+	written specifically for Java 2 Standard Edition version 5.0 (aka
+	JDK1.5) or better. It will not run properly in any previous version of
+	Java.</p>
 
-<p>It is possible that you already have Java 5 installed on your machine.
-   To check, start a command-prompt and run:</p>
+<p>It is possible that you already have Java 5 installed on your
+	machine. To check, start a command-prompt and run:</p>
 
-<p><code>java -version</code></p>
+<p>
+	<code>java -version</code>
+</p>
 
-<p>If the version reported is (1.)5.0 or better, skip to the next step.  If
-   not, you will need to obtain a version of Java for your target
-   environment.  In general, you can obtain such a release free of
-   charge from Sun Microsystems at the <a href="http://java.sun.com/javase/downloads/index.jsp">Java SE site</a>.
-   This is generally the path to pursue if you are running on Windows or Solaris.
-   Note that Sun offers many Java 5 packages - nearly any should work,
-   although we recommend the Java Development Kit (JDK) package.</p>
+<p>
+	If the version reported is (1.)5.0 or better, skip to the next step. If
+	not, you will need to obtain a version of Java for your target
+	environment. In general, you can obtain such a release free of charge
+	from Oracle at <a
+		href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java
+		SE site</a>. This is generally the path to pursue if you are running on
+	Windows or Solaris. Note that Oracle offers many Java 5 packages -
+	nearly any should work, although we recommend the Java Development Kit
+	(JDK) package.
+</p>
 
-<p>MacOS X users can download a Java 5 development kit from
-   <a href="http://developer.apple.com/java/">Apple's Developer Site</a>.</p>
+<p>
+	MacOS X users can download a Java 5 development kit from <a
+		href="http://developer.apple.com/java/">Apple's Developer Site</a>.
+</p>
 
-<p>Linux users will want to investigate how Java is deployed on their
-   particular distribution of Linux.  For many years, getting official
-   Sun Java implementations on Linux was difficult because Sun's
-   Java license was not compatible with those of the various Linux
-   distributions, and users had to download and install Java on their
-   own. Sun's licensing of Java has recently become much more favorable
-   and many distributions are now offering Sun Java through their
-   package repositories such as <code>apt</code>.  We
-   recommend the use of Sun Java, as other VMs such as kaffe
-   may not be compatible with Eclipse and ArchStudio.</p>
+<p>
+	Linux users will want to investigate how Java is deployed on their
+	particular distribution of Linux. For many years, getting official
+	Oracle implementations on Linux was difficult because Oracle's Java
+	license was not compatible with those of the various Linux
+	distributions, and users had to download and install Java on their own.
+	Oracle's licensing of Java has recently become much more favorable and
+	many distributions are now offering Oracle Java through their package
+	repositories such as
+	<code>apt</code>
+	. We recommend the use of Oracle Java, as other VMs such as kaffe may
+	not be compatible with Eclipse and ArchStudio.
+</p>
 
 <h2>Step 2: Setting up Eclipse</h2>
 
-<p>ArchStudio requires Eclipse 4.2 or better.  If you already have
-   Eclipse installed, you may install ArchStudio into your existing
-   environment and can skip to the next step.  Alternatively, you can
-   simply duplicate your Eclipse directory or download and extract
-   another copy to create a copy of Eclipse solely for running ArchStudio.</p>
+<p>ArchStudio requires Eclipse 4.2 or better. If you already have
+	Eclipse installed, you may install ArchStudio into your existing
+	environment and can skip to the next step. Alternatively, you can
+	simply duplicate your Eclipse directory or download and extract another
+	copy to create a copy of Eclipse solely for running ArchStudio.</p>
 
-<p>Download Eclipse 4.2 or better from the <a href="http://www.eclipse.org/downloads/">Eclipse downloads site</a>.
-   Eclipse's site should provide adequate documentation for expanding
-   the archive and starting the Eclipse environment.  Start Eclipse.
-   It may ask you for a workspace location.  This is the directory where
-   Eclipse will store projects, including ArchStudio projects that contain
-   xADL files.  You may accept the default or choose a different directory.
-   We recommend creating a new directory outside of Eclipse's install
-   directory, since this makes it easier to upgrade Eclipse later without
-   having to go through extra trouble to migrate your workspace to the new
-   version.</p>
+<p>
+	Download Eclipse 4.2 or better from the <a
+		href="http://www.eclipse.org/downloads/">Eclipse downloads site</a>.
+	Eclipse's site should provide adequate documentation for expanding the
+	archive and starting the Eclipse environment. Start Eclipse. It may ask
+	you for a workspace location. This is the directory where Eclipse will
+	store projects, including ArchStudio projects that contain xADL files.
+	You may accept the default or choose a different directory. We
+	recommend creating a new directory outside of Eclipse's install
+	directory, since this makes it easier to upgrade Eclipse later without
+	having to go through extra trouble to migrate your workspace to the new
+	version.
+</p>
 
-<p>Once Eclipse is running, it may show the Welcome view if this is the
-   first time it has been run.  Close the Welcome view and the Java
-   development perspective should be displayed.
-   Once Eclipse is running, you are ready to install ArchStudio.</p>
+<p>Once Eclipse is running, it may show the Welcome view if this is
+	the first time it has been run. Close the Welcome view and the Java
+	development perspective should be displayed. Once Eclipse is running,
+	you are ready to install ArchStudio.</p>
 
 <h2>Step 3: Installing ArchStudio</h2>
 
-<p>This section will walk you through the install of ArchStudio step-by-step,
-   with each step annotated by screenshots.  Note that you must be connected
-   to the Internet for this to work.</p>
+<p>This following steps walk you through the install of ArchStudio.
+	Note that you must be connected to the Internet for this to work.</p>
 
-<table cellpadding="3" cellspacing="2">
-  <tr>
-    <td><a href="images/install/archstudio4-install1.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install1.png" alt="Install Screenshot" /></a></td>
-    <td>
-      This shows a new install of Eclipse in the Java development perspective.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install2.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install2.png" alt="Install Screenshot" /></a></td>
-    <td>
-      Click on the 'Help' menu and select 'Software Updates &gt; Find and Install...'
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install3.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install3.png" alt="Install Screenshot" /></a></td>
-    <td>
-      Select 'Search for New Features to Install' and click 'Next'
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install4.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install4.png" alt="Install Screenshot" /></a></td>
-    <td>
-      The Install dialog should come up.  Click on 'New Remote Site' to add a new Eclipse update site.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install5.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install5.png" alt="Install Screenshot" /></a></td>
-    <td>
-      This brings up an information dialog.  Enter 'ArchStudio Update Site' (or anything you like)
-      in the first field, and the following URL in the second:
-
-      <br/><br/>http://www.isr.uci.edu/projects/archstudio-update/
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install6.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install6.png" alt="Install Screenshot" /></a></td>
-    <td>
-      The Install dialog should return.  Ensure that the ArchStudio update site is checked off and click 'Finish.'
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install7.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install7.png" alt="Install Screenshot" /></a></td>
-    <td>
-       Navigate to the Architecture group and check the box next to ArchStudio.
-       All necessary features are included with ArchStudio, there is no
-       need to install any other features.  The other features are provided
-       for developers that want to use ArchStudio components in their own
-       projects.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install8.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install8.png" alt="Install Screenshot" /></a></td>
-    <td>
-      The license agreement for ArchStudio will be displayed.  You must
-      agree to the license agreement to install ArchStudio.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install9.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install9.png" alt="Install Screenshot" /></a></td>
-    <td>
-      A summary dialog will be displayed.  Click 'Finish' to install ArchStudio.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install10.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install10.png" alt="Install Screenshot" /></a></td>
-    <td>
-      Eclipse will download ArchStudio and other required features.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install11.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install11.png" alt="Install Screenshot" /></a></td>
-    <td>
-      A final confirmation dialog will be displayed asking you to confirm
-      installation of the downloaded features.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install12.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install12.png" alt="Install Screenshot" /></a></td>
-    <td>
-      You will be asked if you want to restart Eclipse.  Click 'Yes' and
-      restart the workbench. (If you don't, you may not be able to start
-      the ArchStudio perspective properly the first time).
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install13.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install13.png" alt="Install Screenshot" /></a></td>
-    <td>
-      When the workbench restarts, click on the 'Open Perspective' button
-      in the upper-right corner.  Select 'Other...' from the menu.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install14.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install14.png" alt="Install Screenshot" /></a></td>
-    <td>
-      This brings up the Open Perspective dialog.  A perspective is simply
-      an arrangement of views (tabbed areas of the display and editors) in
-      Eclipse.  Select the ArchStudio 4 perspective to reconfigure Eclipse's
-      UI to look like ArchStudio.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install15.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install15.png" alt="Install Screenshot" /></a></td>
-    <td>
-      This is the opening view of ArchStudio 4.  The Outline View is on
-      the upper left, showing the structure of an open document in the target
-      editor.  Editors are displayed in the upper right.  The lower left
-      displays the file system navigator which manages projects and files.
-      The lower right displays the ArchStudio launcher on a tabbed panel
-      with a few other ArchStudio views.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install16.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install16.png" alt="Install Screenshot" /></a></td>
-    <td>
-      At this point ArchStudio is completely installed and working.  We will
-      walk through the creation of a new project and xADL file to get started,
-      though.  On the File Menu, select New &gt; Project.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install17.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install17.png" alt="Install Screenshot" /></a></td>
-    <td>
-      This brings up the New Project dialog.  Select a new generic project;
-      ArchStudio projects are not special.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install18.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install18.png" alt="Install Screenshot" /></a></td>
-    <td>
-      Name your new project whatever you like.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install19.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install19.png" alt="Install Screenshot" /></a></td>
-    <td>
-      Right-click on the project and select New &gt; File...
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install20.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install20.png" alt="Install Screenshot" /></a></td>
-    <td>
-      Select "ArchStudio Architecture Description" as the new file type.
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install21.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install21.png" alt="Install Screenshot" /></a></td>
-    <td>
-      Select your project as the parent and give your xADL file a filename.
-      xADL filenames end in <code>.xml</code>
-    </td>
-  </tr>
-  <tr>
-    <td><a href="images/install/archstudio4-install22.png"><img style="border: 0" src="images/install/thumbnails/archstudio4-install22.png" alt="Install Screenshot" /></a></td>
-    <td>
-      That's it.  You can now drag your file from the navigator and drop it
-      on one of the tool buttons on the ArchStudio Launcher to open it.
-      The easiest editor to get started with is Archipelago, the graphical editor.
-    </td>
-  </tr>
+<table>
+	<tr>
+		<td><a href="images/archstudio-install.png"><img
+				src="images/archstudio-install.png" alt="Available Software Dialog"
+				width="200px" /></a></td>
+		<td>
+			<p>To install ArchStudio perform the following steps:</p>
+			<ol>
+				<li>Go to Help | Install New Software...</li>
+				<li>In the "Work with:" text box (as highlighted on the left)
+					enter the following URL: <a
+					href="http://www.isr.uci.edu/projects/archstudio-update/">http://www.isr.uci.edu/projects/archstudio-update/</a>
+				</li>
+				<li>press Enter</li>
+				<li>Select "ArchStudio" (as highlighted on the left)</li>
+				<li>Click Next</li>
+				<li>Click Next again</li>
+				<li>Select "I accept the terms of the license agreements"</li>
+				<li>Click Finish</li>
+			</ol>
+			<p>Wait for Eclipse to download ArchStudio, this may take several
+				minutes.</p>
+		</td>
+	</tr>
+	<tr>
+		<td><a href="images/archstudio-install2.png"><img
+				src="images/archstudio-install2.png" alt="Security Warning"
+				width="200px" /></a></td>
+		<td><p>Eventually, a security warning will appear, as shown
+				on the left. Click on OK.</p>
+			<p>When prompted to restart Eclipse, click Yes.</p></td>
+	</tr>
 </table>
 
-<hr/>
+<h2>Step 4: Using ArchStudio</h2>
+
+<p>
+	Once ArchStudio is installed, proceed to the <a
+		href="using-archstudio.html">instructions on using ArchStudio</a>.
+</p>
 
 <h1>Updating ArchStudio</h1>
 
-<p>Updates to ArchStudio are also deployed through the ArchStudio update site
-   and are available through Eclipse's plug-in update mechanisms.</p>
-
-<hr/>
-
-<h1>Comments? Questions?</h1>
-
-<p>Comments or questions on this tutorial should go to <a href="mailto:edashofy@ics.uci.edu">Eric Dashofy</a>.</p>
-
-<hr/>
+<p>Updates to ArchStudio are also deployed through the ArchStudio
+	update site and are available through Eclipse's plug-in update
+	mechanisms. To perform an update, do the following:</p>
+<ul>
+	<li>Go to Help | Check for Updates</li>
+</ul>
 
 <!--#include virtual="_pagebottom.html" -->
 

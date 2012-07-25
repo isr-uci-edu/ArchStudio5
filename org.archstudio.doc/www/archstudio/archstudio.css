@@ -1,7 +1,8 @@
 
 body         {
-               background-color: #3a6699; 
+               background-color: #2f537b; 
                background-image: url(images/navbar-background.png);
+               background-repeat: repeat-y;
              }
 
 
@@ -79,19 +80,17 @@ div.navbarlinks {
 
 div.mainhead {
                position: absolute;
-               background-image: url(images/archstudio-big-logo-fill.png);
                top: 0px;
                left: 150px;
-               width: 600px;
+               right: 150px;
                height: 107px;
              }
 
 div.pagehead {
-               position: absolute;
-               background-image: url(images/regular-page-top.png);
-               top: 0px;
-               left: 150px;
-               width: 600px;
+               position: absolute; 
+               left: 150px; 
+               top: 0px; 
+               right: 150px;
                height: 75px;
              }
              
@@ -104,7 +103,7 @@ div.content  {
                position: absolute;
                left: 150px;
                top: 75px;
-               width: 600px;
+               right: 150px;
 
                padding-top: 4px;
                padding-left: 8px;
@@ -113,13 +112,15 @@ div.content  {
              }
              
 div.content h1 {
-                 font-size: 14pt;
+                 font-size: 16pt;
                  font-weight: bold;
                  margin-top: 0px;
                  margin-left: 0px;
                  margin-right: 0px;
                  margin-bottom: 10px;
                  padding: 1px;
+                 border-bottom-style: solid;
+                 border-width: 1px;
                }
 
 div.content h2 {
@@ -152,6 +153,30 @@ div.content h3 {
                  padding-bottom: 2px;
                }
 
+div.content ul  {
+                 margin-top: 10px;
+                 margin-left: 0px;
+                 margin-right: 0px;
+                 margin-bottom: 10px;
+
+                 padding-top: 2px;
+                 padding-left: 56px;
+                 padding-right: 4px;
+                 padding-bottom: 2px;
+               }
+
+div.content ol  {
+                 margin-top: 10px;
+                 margin-left: 0px;
+                 margin-right: 0px;
+                 margin-bottom: 10px;
+
+                 padding-top: 2px;
+                 padding-left: 56px;
+                 padding-right: 4px;
+                 padding-bottom: 2px;
+               }
+
 div.content p  {
                  margin-top: 10px;
                  margin-left: 0px;
@@ -159,7 +184,7 @@ div.content p  {
                  margin-bottom: 10px;
 
                  padding-top: 2px;
-                 padding-left: 4px;
+                 padding-left: 24px;
                  padding-right: 4px;
                  padding-bottom: 2px;
                }

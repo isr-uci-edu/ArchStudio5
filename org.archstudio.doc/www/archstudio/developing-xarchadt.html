@@ -46,7 +46,7 @@
    the Data Binding Library example program:</p>
 
 <pre class="codeblock" style="font-size: 8pt">
-  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL document)</span>
   IXArch xArch = XArchUtils.createXArch();
   <span style="color: #ff0000">//Create an instance context in which we can create objects in
   //the instances namespace.</span>
@@ -65,7 +65,7 @@
 <p>First, let's look at this call:</p>
 
 <pre class="codeblock" style="font-size: 8pt">
-  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL document)</span>
   IXArch xArch = XArchUtils.createXArch();
 </pre>
 
@@ -75,7 +75,7 @@
 
 <p>This creates a new XArch element in xArchADT with the given URL.  Whereas
    the Data Binding Library doesn't require URLs to be associated with each
-   xADL 2.0 document, xArchADT does.  This URL can be a real URL, like an
+   xADL document, xArchADT does.  This URL can be a real URL, like an
    <code>http://</code> URL or a local URL, like a <code>urn:MyURL</code> URL.
    Instead of returning an object that implements the interface IXArch, this
    function returns an ObjRef to the object.  The object remains inside xArchADT.
@@ -188,7 +188,7 @@
 <p>So, we've translated this simple snippet:</p>
 
 <pre class="codeblock" style="font-size: 8pt">
-  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL document)</span>
   IXArch xArch = XArchUtils.createXArch();
   <span style="color: #ff0000">//Create an instance context in which we can create objects
   //in the instances namespace.</span>
@@ -204,7 +204,7 @@
 <p>Into this equivalent one...</p>
 
 <pre class="codeblock" style="font-size: 8pt">
-  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL 2.0 document)</span>
+  <span style="color: #ff0000">//Create a new xArch element (i.e. a xADL document)</span>
   ObjRef xArchRef = flat.createXArch("urn:MyArchitecture");
   <span style="color: #ff0000">//Create an instance context in which we can create
   //objects in the instances namespace.</span>
@@ -216,8 +216,6 @@
   flat.add(xArchRef, "Object", archInstanceRef);
 </pre>
 
-<hr/>
-
 <p>By now, you've probably noticed that there are a lot of ObjRefs
    floating around.  Due to the generality of the XArchFlatInterface,
    it's impossible for the Java compiler to type-check all the ObjRefs
@@ -225,8 +223,6 @@
    object where an ObjRef for an IXArch object should go.  If this
    happens, it will cause a runtime exception, most likely an
    <code>IllegalArgumentException</code> to be thrown.</p>
-
-<hr/>
 
 <p>Here, we present a table that shows which calls in the Data Binding
    Libraries map to which calls in the XArchFlatInterface:</p>
@@ -236,13 +232,13 @@
 
 <tr>
 <td><code>XArchUtils.createXArch()</code></td>
-<td>Create a new xADL 2.0 document</td>
+<td>Create a new xADL document</td>
 <td><code>public ObjRef createXArch(String url)</code></td>
 </tr>
 
 <tr>
 <td><code>XArchUtils.parseFromFile(...)</code></td>
-<td>Parse a xADL 2.0 document from a file</td>
+<td>Parse a xADL document from a file</td>
 <td><code>public ObjRef parseFromFile(String fileName)
                      throws FileNotFoundException,
                             IOException,
@@ -251,7 +247,7 @@
 
 <tr>
 <td><code>XArchUtils.parseFromURL(...)</code></td>
-<td>Parse a xADL 2.0 document from a URL</td>
+<td>Parse a xADL document from a URL</td>
 <td><code>public ObjRef parseFromURL(String urlString)
                     throws MalformedURLException,
                            IOException,
@@ -260,13 +256,13 @@
 
 <tr>
 <td><code>(No Call)</code></td>
-<td>Close an open xADL 2.0 document</td>
+<td>Close an open xADL document</td>
 <td><code>public void close(String urlString)</code></td>
 </tr>
 
 <tr>
 <td><code>XArchUtils.getPrettyXMLRepresentation(...)</code></td>
-<td>Serialize a xADL 2.0 document into XML</td>
+<td>Serialize a xADL document into XML</td>
 <td><code>public String serialize(ObjRef xArchRef);</code></td>
 </tr>
 
@@ -493,13 +489,13 @@ equivalent to all the given values.</td>
 
 <tr>
 <td><code>(No Call)</code></td>
-<td>Get a list of open xADL 2.0 documents' URLs.</td>
+<td>Get a list of open xADL documents' URLs.</td>
 <td><code>public String[] getOpenXArchURLs()</code></td>
 </tr>
 
 <tr>
 <td><code>(No Call)</code></td>
-<td>Get an ObjRef to the IXArch element of an open xADL 2.0 document.</td>
+<td>Get an ObjRef to the IXArch element of an open xADL document.</td>
 <td><code>public ObjRef getOpenXArch(String url)</code></td>
 </tr>
 
@@ -512,8 +508,6 @@ equivalent to all the given values.</td>
 
 </table>
 
-<hr/>
-
 <h1>xArchADT Events</h1>
 
 <p>As an event-based component, any change to the internal state of
@@ -521,15 +515,13 @@ equivalent to all the given values.</td>
    <code>XArchFileEvent</code>, is handled by the Hello World
    Component.  However, a second type of event, the
    <code>XArchFlatEvent</code> is similarly emitted whenever the
-   internal structure of one of the open xADL 2.0 documents
+   internal structure of one of the open xADL documents
    is changed.</p>
 
 <p>It is your responsibility as a component developer to ensure that
    your component acts correctly when it receives an
    <code>XArchFlatEvent</code> or any similar event.
    Assumptions to the contrary need to be well documented.</p>
-
-<hr/>
 
 <!--#include virtual="_pagebottom.html" -->
 
