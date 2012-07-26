@@ -18,6 +18,7 @@ import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.core.XArchADTImpl;
+import org.archstudio.xarchadt.core.XArchADTProxy;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -47,6 +48,7 @@ public class Test {
 
 		System.err.println(test.createUsingEMF());
 		System.err.println(test.createUsingXArchADT());
+		System.err.println(test.createUsingXArchADTProxy());
 	}
 
 	/**
@@ -166,7 +168,10 @@ public class Test {
 	}
 
 	/**
-	 * Create the architecture using the IXArchADT flat interface.
+	 * Create the architecture using the IXArchADT flat interface. Note that the
+	 * main differences involve the creation and saving of the document. This is
+	 * because we have to ensure that the document is created in IXArchADT then
+	 * proxied rather than created in the local memory space.
 	 */
 	public String createUsingXArchADT() {
 
@@ -318,4 +323,129 @@ public class Test {
 		//resource.save(baos, SAVE_OPTIONS_MAP);
 		return new String(xarch.serialize(resourceURI));
 	}
+
+	public String createUsingXArchADTProxy() {
+
+		/*
+		 * Normally, this is provided through the XArchADT component, but we
+		 * have to manually create it here.
+		 */
+		IXArchADT xarch = new XArchADTImpl();
+
+		/*
+		 * Note: from this point on, we will comment out the EMF-based version
+		 * and include the equivalent IXArchADT version of the code.
+		 */
+
+		// Get references to the factories used to create objects
+		/*
+		 * XArchADTProxy proxies two types of things: 1) NS URIs that represent
+		 * factories 2) ObjRefs that represent EObjects. Below we proxy the
+		 * factories. Everything from that point on is actually occuring over
+		 * the IXArchADT "under the covers".
+		 */
+		// Xadlcore_3_0Factory coreFactory = Xadlcore_3_0Factory.eINSTANCE;
+		String coreNsUri = Xadlcore_3_0Package.eINSTANCE.getNsURI();
+		Xadlcore_3_0Factory coreFactory = XArchADTProxy.proxy(xarch, coreNsUri);
+		// Structure_3_0Factory structureFactory = Structure_3_0Factory.eINSTANCE;
+		String structureNsUri = Structure_3_0Package.eINSTANCE.getNsURI();
+		Structure_3_0Factory structureFactory = XArchADTProxy.proxy(xarch, structureNsUri);
+
+		// create a resource in which to store the document
+		/*
+		 * We still have to create the document remotely, in IXArchADT
+		 */
+
+		URI resourceURI = URI.createURI("urn://test/xarchadtproxy.xml");
+		//ResourceSet resourceSet = new ResourceSetImpl();
+		//Resource resource = resourceSet.createResource(resourceURI);
+		ObjRef resourceRef = xarch.createDocument(resourceURI);
+
+		// create component A and its interface
+
+		/*
+		 * Because the factory is already proxied, it creates proxied ObjRefs
+		 * already for us. However, if you received an ObjRef that was not
+		 * already proxied, you would proxy it using XArchADT.proxy(xarch,
+		 * objRef)
+		 */
+		Component componentA = structureFactory.createComponent();
+		componentA.setId("ComponentA");
+		componentA.setName("ComponentA");
+
+		Interface componentABottom = structureFactory.createInterface();
+		componentABottom.setId("ComponentABottom");
+		componentABottom.setName("ComponentABottom");
+
+		// create component B and its interface
+
+		Component componentB = structureFactory.createComponent();
+		componentB.setId("ComponentB");
+		componentB.setName("ComponentB");
+
+		Interface componentBTop = structureFactory.createInterface();
+		componentBTop.setId("ComponentBTop");
+		componentBTop.setName("ComponentBTop");
+
+		// create the connector and its interfaces
+
+		Connector connector = structureFactory.createConnector();
+		connector.setId("Connector");
+		connector.setName("Connector");
+
+		Interface connectorBottom = structureFactory.createInterface();
+		connectorBottom.setId("ConnectorBottom");
+		connectorBottom.setName("ConnectorBottom");
+
+		Interface connectorTop = structureFactory.createInterface();
+		connectorTop.setId("ConnectorTop");
+		connectorTop.setName("ConnectorTop");
+
+		// create links in the structure
+
+		Link topLink = structureFactory.createLink();
+		topLink.setId("topLink");
+		topLink.setName("topLink");
+		topLink.setPoint1(componentABottom);
+		topLink.setPoint2(connectorTop);
+
+		Link bottomLink = structureFactory.createLink();
+		bottomLink.setId("bottomLink");
+		bottomLink.setName("bottomLink");
+		bottomLink.setPoint1(connectorBottom);
+		bottomLink.setPoint2(componentBTop);
+
+		// create a structure to hold the architecture
+
+		Structure structure = structureFactory.createStructure();
+		structure.setId("Structure");
+
+		// add the components, connector, and links to the structure
+
+		structure.getComponent().add(componentA);
+		structure.getComponent().add(componentB);
+		structure.getConnector().add(connector);
+		structure.getLink().add(topLink);
+		structure.getLink().add(bottomLink);
+
+		// create a document in which to hold the architecture structure
+
+		XADLType xadlType = coreFactory.createXADLType();
+		xadlType.getTopLevelElement().add(structure);
+		//resource.getContents().add(xadlType);
+		/*
+		 * Convert the final xadlType back into an ObjRef
+		 */
+		ObjRef xadlTypeRef = XArchADTProxy.unproxy(xadlType);
+		xarch.set(resourceRef, "XADL", xadlTypeRef);
+
+		// serialize the result
+
+		//Map<Object, Object> SAVE_OPTIONS_MAP = new HashMap<Object, Object>();
+		//SAVE_OPTIONS_MAP.put(XMLResource.OPTION_ELEMENT_HANDLER, new ElementHandlerImpl(false));
+		//ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		//resource.save(baos, SAVE_OPTIONS_MAP);
+		return new String(xarch.serialize(resourceURI));
+	}
+
 }
