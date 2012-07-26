@@ -32,7 +32,7 @@
         <bc:propertyRef key="workspace.root"/>
         <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
-      <rm:property key="git.remote.uri" value="git://github.com/sahendrickson/ArchStudio.git"/>
+      <rm:property key="git.remote.uri" value="git://github.com/isr-uci-edu/ArchStudio.git"/>
       <rm:property key="git.auto.fetch" value="true"/>
     </rm:provider>
   </rm:searchPath>

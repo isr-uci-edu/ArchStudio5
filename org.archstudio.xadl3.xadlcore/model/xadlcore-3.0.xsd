@@ -11,7 +11,7 @@
            ecore:nsPrefix="xadlcore_3_0">
 
 	<xs:import namespace="http://www.w3.org/1999/xlink"
-	           schemaLocation="https://raw.github.com/sahendrickson/ArchStudio/master/org.archstudio.xadl3.xlink/model/xlink.xsd"/>
+	           schemaLocation="https://raw.github.com/isr-uci-edu/ArchStudio/master/org.archstudio.xadl3.xlink/model/xlink.xsd"/>
 	<xs:import namespace="http://www.eclipse.org/emf/2002/Ecore" />
 
 	<xs:annotation>

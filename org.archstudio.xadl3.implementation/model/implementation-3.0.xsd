@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xs:schema xmlns="http://www.archstudio.org/xadl3/schemas/implementation-3.0.xsd" xmlns:core="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" ecore:nsPrefix="implementation_3_0" ecore:package="org.archstudio.xadl3.implementation_3_0" elementFormDefault="qualified" targetNamespace="http://www.archstudio.org/xadl3/schemas/implementation-3.0.xsd" version="3.0.0">
 
-	<xs:import namespace="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd" schemaLocation="https://raw.github.com/sahendrickson/ArchStudio/master/org.archstudio.xadl3.xadlcore/model/xadlcore-3.0.xsd"/>
+	<xs:import namespace="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd" schemaLocation="https://raw.github.com/isr-uci-edu/ArchStudio/master/org.archstudio.xadl3.xadlcore/model/xadlcore-3.0.xsd"/>
 	<xs:import namespace="http://www.eclipse.org/emf/2002/Ecore"/>
 
 	<xs:annotation>
