@@ -1,58 +1,41 @@
 package org.archstudio.bna.logics.hints.coders;
 
+import org.archstudio.bna.logics.hints.EncodedValue;
 import org.archstudio.bna.logics.hints.IEncodedValue;
 import org.archstudio.bna.logics.hints.IPropertyCoder;
 import org.archstudio.bna.logics.hints.PropertyDecodeException;
 
 public class NativePropertyCoder implements IPropertyCoder {
 
-	public boolean encode(IPropertyCoder masterCoder, IEncodedValue encodedValue, Object value) {
+	public IEncodedValue encode(IPropertyCoder masterCoder, Object value) {
 		if (value instanceof java.lang.String) {
-			encodedValue.setType("java.lang.String");
-			encodedValue.setData((java.lang.String) value);
-			return true;
+			return new EncodedValue("java.lang.String", (java.lang.String) value);
 		}
 		else if (value instanceof java.lang.Boolean) {
-			encodedValue.setType("java.lang.Boolean");
-			encodedValue.setData(((java.lang.Boolean) value).toString());
-			return true;
+			return new EncodedValue("java.lang.Boolean", ((java.lang.Boolean) value).toString());
 		}
 		else if (value instanceof java.lang.Byte) {
-			encodedValue.setType("java.lang.Byte");
-			encodedValue.setData(((java.lang.Byte) value).toString());
-			return true;
+			return new EncodedValue("java.lang.Byte", ((java.lang.Byte) value).toString());
 		}
 		else if (value instanceof java.lang.Short) {
-			encodedValue.setType("java.lang.Short");
-			encodedValue.setData(((java.lang.Short) value).toString());
-			return true;
+			return new EncodedValue("java.lang.Short", ((java.lang.Short) value).toString());
 		}
 		else if (value instanceof java.lang.Character) {
-			encodedValue.setType("java.lang.Character");
-			encodedValue.setData(((java.lang.Character) value).toString());
-			return true;
+			return new EncodedValue("java.lang.Character", ((java.lang.Character) value).toString());
 		}
 		else if (value instanceof java.lang.Integer) {
-			encodedValue.setType("java.lang.Integer");
-			encodedValue.setData(((java.lang.Integer) value).toString());
-			return true;
+			return new EncodedValue("java.lang.Integer", ((java.lang.Integer) value).toString());
 		}
 		else if (value instanceof java.lang.Long) {
-			encodedValue.setType("java.lang.Long");
-			encodedValue.setData(((java.lang.Long) value).toString());
-			return true;
+			return new EncodedValue("java.lang.Long", ((java.lang.Long) value).toString());
 		}
 		else if (value instanceof java.lang.Float) {
-			encodedValue.setType("java.lang.Float");
-			encodedValue.setData(((java.lang.Float) value).toString());
-			return true;
+			return new EncodedValue("java.lang.Float", ((java.lang.Float) value).toString());
 		}
 		else if (value instanceof java.lang.Double) {
-			encodedValue.setType("java.lang.Double");
-			encodedValue.setData(((java.lang.Double) value).toString());
-			return true;
+			return new EncodedValue("java.lang.Double", ((java.lang.Double) value).toString());
 		}
-		return false;
+		return null;
 	}
 
 	public Object decode(IPropertyCoder masterCoder, IEncodedValue encodedValue) throws PropertyDecodeException {

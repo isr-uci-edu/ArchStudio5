@@ -7,6 +7,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.keys.IThingRefKey;
+import org.archstudio.bna.logics.hints.EncodedValue;
 import org.archstudio.bna.logics.hints.IEncodedValue;
 import org.archstudio.bna.logics.hints.IHintRepository;
 import org.archstudio.bna.logics.hints.IHintRepositoryChangeListener;
@@ -26,35 +27,6 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 public class XadlHintRepository implements IHintRepository, IXArchADTModelListener {
-
-	class XadlEncodedValue implements IEncodedValue {
-
-		ObjRef hintRef;
-
-		public XadlEncodedValue(ObjRef hintRef) {
-			this.hintRef = hintRef;
-		}
-
-		@Override
-		public void setType(String type) {
-			xarch.set(hintRef, "type", type);
-		}
-
-		@Override
-		public void setData(String data) {
-			xarch.set(hintRef, "data", data);
-		}
-
-		@Override
-		public String getType() {
-			return (String) xarch.get(hintRef, "type");
-		}
-
-		@Override
-		public String getData() {
-			return (String) xarch.get(hintRef, "data");
-		}
-	}
 
 	private final IXArchADT xarch;
 	private final IPropertyCoder coder;
@@ -143,11 +115,17 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 	}
 
 	private void encode(ObjRef hintRef, Serializable hintValue) {
-		coder.encode(coder, new XadlEncodedValue(hintRef), hintValue);
+		IEncodedValue encodedValue = coder.encode(coder, hintValue);
+		if (encodedValue != null) {
+			xarch.set(hintRef, "type", encodedValue.getType());
+			xarch.set(hintRef, "data", encodedValue.getData());
+		}
 	}
 
 	private Serializable decode(ObjRef hintRef) throws PropertyDecodeException {
-		return (Serializable) coder.decode(coder, new XadlEncodedValue(hintRef));
+		String type = (String) xarch.get(hintRef, "type");
+		String data = (String) xarch.get(hintRef, "data");
+		return (Serializable) coder.decode(coder, new EncodedValue(type, data));
 	}
 
 	CopyOnWriteArrayList<IHintRepositoryChangeListener> changeListeners = new CopyOnWriteArrayList<IHintRepositoryChangeListener>();

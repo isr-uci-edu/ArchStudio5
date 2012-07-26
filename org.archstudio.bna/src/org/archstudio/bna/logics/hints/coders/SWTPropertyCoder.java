@@ -1,5 +1,6 @@
 package org.archstudio.bna.logics.hints.coders;
 
+import org.archstudio.bna.logics.hints.EncodedValue;
 import org.archstudio.bna.logics.hints.IEncodedValue;
 import org.archstudio.bna.logics.hints.IPropertyCoder;
 import org.archstudio.bna.logics.hints.PropertyDecodeException;
@@ -7,29 +8,29 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class Draw2DPropertyCoder implements IPropertyCoder {
+public class SWTPropertyCoder implements IPropertyCoder {
 
 	@Override
-	public boolean encode(IPropertyCoder masterCoder, IEncodedValue encodedValue, Object value) {
+	public IEncodedValue encode(IPropertyCoder masterCoder, Object value) {
 		if (value instanceof Point) {
 			Point v = (Point) value;
-			encodedValue.setType(Point.class.getName());
-			encodedValue.setData(v.x + "," + v.y);
-			return true;
+			String type = Point.class.getName();
+			String data = v.x + "," + v.y;
+			return new EncodedValue(type, data);
 		}
 		else if (value instanceof Rectangle) {
 			Rectangle v = (Rectangle) value;
-			encodedValue.setType(Rectangle.class.getName());
-			encodedValue.setData(v.x + "," + v.y + "," + v.width + "," + v.height);
-			return true;
+			String type = Rectangle.class.getName();
+			String data = v.x + "," + v.y + "," + v.width + "," + v.height;
+			return new EncodedValue(type, data);
 		}
 		else if (value instanceof RGB) {
 			RGB v = (RGB) value;
-			encodedValue.setType(RGB.class.getName());
-			encodedValue.setData(v.red + "," + v.green + "," + v.blue);
-			return true;
+			String type = RGB.class.getName();
+			String data = v.red + "," + v.green + "," + v.blue;
+			return new EncodedValue(type, data);
 		}
-		return false;
+		return null;
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class Draw2DPropertyCoder implements IPropertyCoder {
 		try {
 			String type = encodedValue.getType();
 			String data = encodedValue.getData();
-			if (Rectangle.class.getName().equals(type) || org.eclipse.swt.graphics.Rectangle.class.getName().equals(type)) {
+			if (Rectangle.class.getName().equals(type)) {
 				String[] d = data.split(",");
 				Rectangle v = new Rectangle(0, 0, 0, 0);
 				v.x = Integer.parseInt(d[0]);
@@ -46,7 +47,7 @@ public class Draw2DPropertyCoder implements IPropertyCoder {
 				v.height = Integer.parseInt(d[3]);
 				return v;
 			}
-			else if (Point.class.getName().equals(type) || org.eclipse.swt.graphics.Point.class.getName().equals(type)) {
+			else if (Point.class.getName().equals(type)) {
 				String[] d = data.split(",");
 				Point v = new Point(0, 0);
 				v.x = Integer.parseInt(d[0]);

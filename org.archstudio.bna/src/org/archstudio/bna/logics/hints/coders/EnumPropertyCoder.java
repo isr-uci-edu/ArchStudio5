@@ -1,5 +1,6 @@
 package org.archstudio.bna.logics.hints.coders;
 
+import org.archstudio.bna.logics.hints.EncodedValue;
 import org.archstudio.bna.logics.hints.IEncodedValue;
 import org.archstudio.bna.logics.hints.IPropertyCoder;
 import org.archstudio.bna.logics.hints.PropertyDecodeException;
@@ -7,14 +8,12 @@ import org.archstudio.bna.logics.hints.PropertyDecodeException;
 public class EnumPropertyCoder implements IPropertyCoder {
 
 	@Override
-	public boolean encode(IPropertyCoder masterCoder, IEncodedValue encodedValue, Object value) {
+	public IEncodedValue encode(IPropertyCoder masterCoder, Object value) {
 		Class<?> c = value.getClass();
 		if (c.isEnum()) {
-			encodedValue.setType("enum:" + c.getName());
-			encodedValue.setData(((Enum<?>) value).name());
-			return true;
+			return new EncodedValue("enum:" + c.getName(), ((Enum<?>) value).name());
 		}
-		return false;
+		return null;
 	}
 
 	@Override

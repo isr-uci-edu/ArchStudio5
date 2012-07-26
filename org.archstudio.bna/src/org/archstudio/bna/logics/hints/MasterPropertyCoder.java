@@ -3,9 +3,10 @@ package org.archstudio.bna.logics.hints;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.archstudio.bna.logics.hints.coders.Draw2DPropertyCoder;
+import org.archstudio.bna.logics.hints.coders.CollectionPropertyCoder;
 import org.archstudio.bna.logics.hints.coders.EnumPropertyCoder;
 import org.archstudio.bna.logics.hints.coders.NativePropertyCoder;
+import org.archstudio.bna.logics.hints.coders.SWTPropertyCoder;
 
 public class MasterPropertyCoder implements IPropertyCoder {
 
@@ -15,28 +16,26 @@ public class MasterPropertyCoder implements IPropertyCoder {
 
 	public MasterPropertyCoder() {
 		propertyCoders.add(new NativePropertyCoder());
+		propertyCoders.add(new CollectionPropertyCoder());
 		propertyCoders.add(new EnumPropertyCoder());
-		propertyCoders.add(new Draw2DPropertyCoder());
+		propertyCoders.add(new SWTPropertyCoder());
 	}
 
 	@Override
-	public boolean encode(IPropertyCoder masterCoder, IEncodedValue encodedValue, Object value) {
-		if (encodedValue != null) {
-			if (value == null) {
-				encodedValue.setType("null");
-				encodedValue.setData("");
-				return true;
-			}
-			if (masterCoder == null) {
-				masterCoder = this;
-			}
-			for (IPropertyCoder pc : propertyCoders) {
-				if (pc.encode(masterCoder, encodedValue, value)) {
-					return true;
-				}
+	public IEncodedValue encode(IPropertyCoder masterCoder, Object value) {
+		if (value == null) {
+			return new EncodedValue("null", "");
+		}
+		if (masterCoder == null) {
+			masterCoder = this;
+		}
+		for (IPropertyCoder pc : propertyCoders) {
+			IEncodedValue encodedValue = pc.encode(masterCoder, value);
+			if (encodedValue != null) {
+				return encodedValue;
 			}
 		}
-		return false;
+		return null;
 	}
 
 	@Override

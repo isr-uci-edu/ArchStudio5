@@ -78,8 +78,12 @@ public class DefaultBNAView implements IBNAView {
 		location = DefaultCoordinate.forWorld(location.getWorldPoint(), cm);
 		List<IThing> things = Lists.newArrayList();
 		for (IThing t : getBNAWorld().getBNAModel().getReverseThings()) {
-			if (peerCache.getPeer(t).isInThing(this, cm, location)) {
-				things.add(t);
+			try {
+				if (peerCache.getPeer(t).isInThing(this, cm, location)) {
+					things.add(t);
+				}
+			}
+			catch (Throwable th) {
 			}
 		}
 		return things;

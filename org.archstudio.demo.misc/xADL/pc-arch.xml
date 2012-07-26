@@ -359,7 +359,7 @@
           <hints_3_0:value hints_3_0:data="288,125" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -375,7 +375,7 @@
           <hints_3_0:value hints_3_0:data="96,125" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -391,7 +391,7 @@
           <hints_3_0:value hints_3_0:data="504,125" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -407,7 +407,7 @@
           <hints_3_0:value hints_3_0:data="672,125" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="552,144;672,144" hints_3_0:type="List{org.eclipse.swt.graphics.Point;org.eclipse.swt.graphics.Point}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -423,7 +423,7 @@
           <hints_3_0:value hints_3_0:data="816,221" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -439,7 +439,7 @@
           <hints_3_0:value hints_3_0:data="192,221" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -455,7 +455,7 @@
           <hints_3_0:value hints_3_0:data="480,221" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -471,7 +471,7 @@
           <hints_3_0:value hints_3_0:data="672,221" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -487,7 +487,7 @@
           <hints_3_0:value hints_3_0:data="384,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -503,7 +503,7 @@
           <hints_3_0:value hints_3_0:data="672,365" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -519,7 +519,7 @@
           <hints_3_0:value hints_3_0:data="192,365" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -638,7 +638,7 @@
           <hints_3_0:value hints_3_0:data="144,77" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -654,7 +654,7 @@
           <hints_3_0:value hints_3_0:data="312,77" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -670,7 +670,7 @@
           <hints_3_0:value hints_3_0:data="478,77" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -816,7 +816,7 @@
           <hints_3_0:value hints_3_0:data="72,29" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -832,7 +832,7 @@
           <hints_3_0:value hints_3_0:data="240,29" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -848,7 +848,7 @@
           <hints_3_0:value hints_3_0:data="408,29" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
@@ -864,7 +864,7 @@
           <hints_3_0:value hints_3_0:data="576,29" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
         </hints_3_0:hint>
         <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value/>
+          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
         </hints_3_0:hint>
       </structure_3_0:ext>
     </structure_3_0:link>
