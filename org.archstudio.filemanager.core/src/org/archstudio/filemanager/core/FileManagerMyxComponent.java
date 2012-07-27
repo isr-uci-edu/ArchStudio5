@@ -79,6 +79,7 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 		OutputStream os = null;
 		URI uri = null;
 		try {
+			f.refreshLocal(IFile.DEPTH_INFINITE, null);
 			uri = URI.createURI(f.getLocationURI().toASCIIString());
 			ObjRef documentRootRef = xarch.load(uri);
 
