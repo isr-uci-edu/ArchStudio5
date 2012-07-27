@@ -132,7 +132,7 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 		bVisitWebPage.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				EclipseUtils.openExternalBrowser("http://www.archstudio.org/");
+				EclipseUtils.openExternalBrowser("http://www.isr.uci.edu/projects/archstudio/");
 			}
 		});
 
