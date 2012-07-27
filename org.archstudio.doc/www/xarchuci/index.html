@@ -4,80 +4,88 @@
 
 <h1>Welcome to the xADL Homepage!</h1>
 
-<p>Welcome to the xADL homepage!  xADL is an
-<a target="_blank" href="http://www.isr.uci.edu/architecture/">architecture</a>
-description language (ADL) for software and systems developed by the
-<a target="_blank" href="http://www.isr.uci.edu/">Institute for Software Research</a>
-at the <a target="_blank" href="http://www.uci.edu">University of California, Irvine</a>.
-
-<p>This is where you can find all of UCI's latest
-enhancements and tools for the xADL software and systems
-architecture description language (see below for description).
-
-<p>If you're a software or systems engineer visiting this site
-for the first time, you've probably got your own ideas about
-architecture description notations.  We've added a page covering
-how xADL is different from other ADLs and how to use it in your
-own projects called <a href="way.html">"The xADL Way"</a>.
-
-<p><b>The xADL language itself is not bound
-to any particular architectural style, tool set, or methodology</b>.
-xADL and tools such as
-<a href="tools-apigen.html">Apigen</a> and the
-<a href="tools-dbl.html">xArch/xADL Data Binding Library</a> can be
-used by themselves, independent of any particular development
-environment or domain.  However, we have integrated many
-more advanced xADL tools in the
-<a target="_blank" href="http://www.isr.uci.edu/projects/archstudio/">ArchStudio
-Architecture-centric Development Environment</a>.  Most users
-interested in working with xADL will want to download and use
-ArchStudio as well as the basic xADL tools.
-
+<p>
+	Welcome to the xADL homepage! xADL is an <a target="_blank"
+		href="http://www.isr.uci.edu/architecture/">architecture</a>
+	description language (ADL) for software and systems developed by the <a
+		target="_blank" href="http://www.isr.uci.edu/">Institute for
+		Software Research</a> at the <a target="_blank" href="http://www.uci.edu">University
+		of California, Irvine</a>.
+<p>This is where you can find all of UCI's latest enhancements and
+	tools for the xADL software and systems architecture description
+	language (see below for description).
+<p>
+	If you're a software or systems engineer visiting this site for the
+	first time, you've probably got your own ideas about architecture
+	description notations. We've added a page covering how xADL is
+	different from other ADLs and how to use it in your own projects called
+	<a href="way.html">"The xADL Way"</a>.
+<p>
+	<b>The xADL language itself is not bound to any particular
+		architectural style, tool set, or methodology</b>. xADL and tools such as
+	<a href="tools-apigen.html">Apigen</a> and the <a href="tools-dbl.html">xArch/xADL
+		Data Binding Library</a> can be used by themselves, independent of any
+	particular development environment or domain. However, we have
+	integrated many more advanced xADL tools in the <a target="_blank"
+		href="http://www.isr.uci.edu/projects/archstudio/">ArchStudio
+		Architecture-centric Development Environment</a>. Most users interested in
+	working with xADL will want to download and use ArchStudio as well as
+	the basic xADL tools.
 <h1>What is xADL?</h1>
-<p>xADL is a software architecture description language (ADL)
-developed by the University of California, Irvine for modeling
-the architecture of software systems.  Unlike many other ADLs,
-xADL is defined as a set of
-<a target="_blank" "http://www.w3.org/XML/Schema">XML schemas</a>.
-This gives xADL unprecedented extensibility and flexibility,
-as well as basic support from the many available commercial XML
-tools.
-
+<p>
+	xADL is a software architecture description language (ADL) developed by
+	the University of California, Irvine for modeling the architecture of
+	software systems. Unlike many other ADLs, xADL is defined as a set of <a
+		target="_blank""http://www.w3.org/XML/Schema">XML schemas</a>. This
+	gives xADL unprecedented extensibility and flexibility, as well as
+	basic support from the many available commercial XML tools.
 <p>The current set of xADL schemas includes modeling support for:
-
 <ul>
-<li>run-time and design-time elements of a system;
-<li>support for architectural types;
-<li>advanced configuration management concepts such as versions,
-options, and variants;
-<li>product family architectures; and
-<li>architecture "diff"ing (initial support).
+	<li>run-time and design-time elements of a system;
+	<li>support for architectural types;
+	<li>advanced configuration management concepts such as versions,
+		options, and variants;
+	<li>product family architectures; and
+	<li>architecture "diff"ing (initial support).
 </ul>
 
-<p>We plan to extend this set as our research interests evolve.  Users
-of xADL are free to choose elements from this set or create their
-own extensions as needed.
-
-<p>xADL is also an application of
-<a target="_blank" href="http://www.isr.uci.edu/projects/xarch/">xArch</a>,
-a core XML schema defined
-jointly by UCI and Carnegie Mellon University.  More information
-about xArch can be found in the next section.
-
+<p>We plan to extend this set as our research interests evolve.
+	Users of xADL are free to choose elements from this set or create their
+	own extensions as needed.
+<p>
+	xADL is also an application of <a target="_blank"
+		href="http://www.isr.uci.edu/projects/xarch/">xArch</a>, a core XML
+	schema defined jointly by UCI and Carnegie Mellon University. More
+	information about xArch can be found in the next section.
 <h1>What is xArch?</h1>
-<p><i>From the <a target="_blank" href="http://www.isr.uci.edu/projects/xarch/">main xArch webpage</a>:</i>
-<p>xArch is a standard, extensible XML-based representation
-for software architectures. xArch provides a common core
-XML notation for architectures that can serve:
+<p>
+	<i>From the <a target="_blank"
+		href="http://www.isr.uci.edu/projects/xarch/">main xArch webpage</a>:
+	</i>
+<p>xArch is a standard, extensible XML-based representation for
+	software architectures. xArch provides a common core XML notation for
+	architectures that can serve:
 <ul>
-<li>as a simple stand-alone representation for architectures. Specifically, xArch provides a common
-set of bare-bones features that can be used to model an architecture.
-<li>as a starting point for other, more advanced XML-based architectural notations.
-Specifically, the common core can be reused while support for other, more
-advanced ADLs (e.g., Acme, C2SADEL, Rapide) can be added through the
-creation of XML namespace extensions.
-<li>as an interchange mechanism for architectural descriptions. Specifically,
-translators can be built to and from the XML notation.
+	<li>as a simple stand-alone representation for architectures.
+		Specifically, xArch provides a common set of bare-bones features that
+		can be used to model an architecture.
+	<li>as a starting point for other, more advanced XML-based
+		architectural notations. Specifically, the common core can be reused
+		while support for other, more advanced ADLs (e.g., Acme, C2SADEL,
+		Rapide) can be added through the creation of XML namespace extensions.
+
+	
+	<li>as an interchange mechanism for architectural descriptions.
+		Specifically, translators can be built to and from the XML notation.
+</ul>
+
+<h1>Previous Versions of xADL</h1>
+
+<p>If you are looking for an older version of xADL, the following
+	are available:</p>
+<ul>
+	<li><a target="_blank"
+		href="http://www.isr.uci.edu/projects/archstudio-4/www/xarchuci/">xADL 2.0</a></li>
 </ul>
 
 <!--#include virtual="_pagebottom.html" -->
