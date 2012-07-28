@@ -11,6 +11,7 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasMutablePoints;
+import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.IBNAMouseClickListener;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -34,7 +35,7 @@ public class SplineBreakLogic extends AbstractThingLogic implements IBNAMouseCli
 			// insert the new point
 			boolean pointAdded = false;
 			Point worldPoint = location.getWorldPoint();
-			List<Point> points = t.getPoints();
+			final List<Point> points = t.getPoints();
 			for (int i = 1; i < points.size(); i++) {
 				Point p1 = points.get(i - 1);
 				Point p2 = points.get(i);
@@ -51,7 +52,11 @@ public class SplineBreakLogic extends AbstractThingLogic implements IBNAMouseCli
 				points.add(new Point(worldPoint.x, worldPoint.y));
 			}
 
+			final List<Point> oldPoints = t.getPoints();
 			t.setPoints(points);
+
+			BNAOperation
+					.<List<Point>> add("Reshape", getBNAModel(), t, IHasPoints.POINTS_KEY, oldPoints, points, false);
 		}
 	}
 }

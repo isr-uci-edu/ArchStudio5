@@ -20,6 +20,7 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
+import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,6 +36,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
@@ -42,6 +44,8 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPathEditorInput;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.operations.UndoRedoActionGroup;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
@@ -180,6 +184,13 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		if (outlinePage != null) {
 			outlinePage.addSelectionChangedListener(this);
 		}
+
+		// enable undo/redo
+		IActionBars actionBars = site.getActionBars();
+		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
+		UndoRedoActionGroup undoRedo = new UndoRedoActionGroup(this.getSite(), undoContext, true);
+		undoRedo.fillActionBars(actionBars);
+		actionBars.updateActionBars();
 	}
 
 	protected abstract AbstractArchStudioOutlinePage createOutlinePage();

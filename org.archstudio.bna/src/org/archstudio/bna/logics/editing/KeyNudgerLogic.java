@@ -25,15 +25,25 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 				model.beginBulkChange();
 				try {
 					Orientation o = orientationForKeyCode(e.keyCode);
-					int gridSpacing = GridUtils.getGridSpacing(view.getBNAWorld().getBNAModel());
+					int gridSpacing = GridUtils.getGridSpacing(getBNAModel());
 					int distance = gridSpacing == 0 ? 5 : gridSpacing;
-					for (IThing t : BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) {
+
+					boolean nudged = false;
+					Runnable undoRunnable = BNAOperation.takeSnapshotOfLocations(getBNAModel(),
+							BNAUtils.getSelectedThings(getBNAModel()));
+					for (IThing t : BNAUtils.getSelectedThings(getBNAModel())) {
 						if (t instanceof IRelativeMovable) {
+							nudged = true;
 							nudge(o, distance, (IRelativeMovable) t);
 							//if(gridSpacing != 0){
 							//	GridUtils.rectifyToGrid(gridSpacing, (IRelativeMovable)t);
 							//}
 						}
+					}
+					if (nudged) {
+						Runnable redoRunnable = BNAOperation.takeSnapshotOfLocations(getBNAModel(),
+								BNAUtils.getSelectedThings(getBNAModel()));
+						BNAOperation.add("Nudge", undoRunnable, redoRunnable, false);
 					}
 				}
 				finally {

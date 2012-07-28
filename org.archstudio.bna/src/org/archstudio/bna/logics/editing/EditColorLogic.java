@@ -1,6 +1,7 @@
 package org.archstudio.bna.logics.editing;
 
 import java.util.List;
+import java.util.Map;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -22,6 +23,7 @@ import org.eclipse.swt.widgets.ColorDialog;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListener {
 
@@ -62,7 +64,7 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 		}
 
 		m.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-		
+
 		if (coloredThings.size() == 1) {
 			m.add(new Action("Copy Color") {
 				@Override
@@ -87,20 +89,40 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 		}
 
 		m.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-	
+
 		appendMenu(view, things, location, m, editableColoredThings, coloredThings);
 	}
 
-	protected void appendMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu, List<IHasMutableColor> editableColoredThings, List<IHasColor> coloredThings) {
+	protected void appendMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu,
+			List<IHasMutableColor> editableColoredThings, List<IHasColor> coloredThings) {
 	}
 
 	protected void chooseAndAssignColor(IBNAView view, Iterable<IHasMutableColor> thingsToEdit, RGB initialRGB) {
+		Runnable undoRunnable = takeSnapshot(thingsToEdit);
 		ColorDialog colorDialog = new ColorDialog(view.getComposite().getShell());
 		colorDialog.setRGB(initialRGB);
 		RGB rgb = colorDialog.open();
 		if (rgb != null) {
 			assignColor(thingsToEdit, rgb);
+			Runnable redoRunnable = takeSnapshot(thingsToEdit);
+			BNAOperation.add("Color", undoRunnable, redoRunnable, false);
 		}
+	}
+
+	private Runnable takeSnapshot(Iterable<IHasMutableColor> thingsToEdit) {
+		final Map<Object, RGB> colors = Maps.newHashMap();
+		for (IHasMutableColor t : thingsToEdit) {
+			colors.put(t.getID(), t.getColor());
+		}
+		return new Runnable() {
+			public void run() {
+				for (Map.Entry<Object, RGB> e : colors.entrySet()) {
+					IThing t = getBNAModel().getThing(e.getKey());
+					if (t != null)
+						t.set(IHasColor.COLOR_KEY, e.getValue());
+				}
+			}
+		};
 	}
 
 	protected void assignColor(Iterable<IHasMutableColor> thingsToEdit, RGB rgb) {

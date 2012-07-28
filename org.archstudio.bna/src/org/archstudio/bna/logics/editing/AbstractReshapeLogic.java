@@ -20,6 +20,7 @@ import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
@@ -30,6 +31,8 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 	protected R reshapingThing = null;
 	protected final Class<R> reshapingThingClass;
 	protected final Map<ReshapeHandleGlassThing, D> reshapeHandles = Maps.newHashMap();
+	protected Runnable initialSnapshot = null;
+	protected Point initialPosition = null;
 
 	protected ThingValueTrackingLogic valuesLogic = null;
 
@@ -138,6 +141,9 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		IThing movedThing = evt.getInitialThing();
 		D data = reshapeHandles.get(movedThing);
 		if (data != null) {
+			initialSnapshot = takeSnapshot();
+			initialPosition = ((ReshapeHandleGlassThing) movedThing).getReferencePoint();
+
 			handleMoveStarted((ReshapeHandleGlassThing) movedThing, data, evt);
 			checkHandles();
 		}
@@ -160,6 +166,14 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		if (data != null) {
 			handleMoveFinished((ReshapeHandleGlassThing) movedThing, data, evt);
 			checkHandles();
+
+			if (!initialPosition.equals(((ReshapeHandleGlassThing) movedThing).getReferencePoint())) {
+				final Runnable undoSnapshot = initialSnapshot;
+				final Runnable redoSnapshot = takeSnapshot();
+				BNAOperation.add("Reshape", undoSnapshot, redoSnapshot, false);
+			}
+
+			initialSnapshot = null;
 		}
 	}
 
@@ -170,5 +184,11 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 
 	protected void handleMoveFinished(ReshapeHandleGlassThing handle, D data, DragMoveEvent evt) {
 	}
+
+	/*
+	 * Record an operation that will restore the thing to its current shape.
+	 * Used for undo/redo.
+	 */
+	abstract protected Runnable takeSnapshot();
 
 }

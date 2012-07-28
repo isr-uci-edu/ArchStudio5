@@ -1,5 +1,7 @@
 package org.archstudio.bna.logics.editing;
 
+import org.archstudio.bna.IThing;
+import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.facets.IHasStandardCursor;
 import org.archstudio.bna.logics.events.DragMoveEvent;
@@ -21,7 +23,7 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 		super.init();
 		addThingLogic(StandardCursorLogic.class);
 	}
-	
+
 	@Override
 	protected void addHandles() {
 		for (Orientation o : Orientation.values()) {
@@ -133,5 +135,18 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 		bb.height = Math.max(0, Math.max(ny1, ny2) - bb.y);
 
 		reshapingThing.setBoundingBox(bb);
+	}
+
+	@Override
+	protected Runnable takeSnapshot() {
+		final Object tID = this.reshapingThing.getID();
+		final Rectangle r = reshapingThing.getBoundingBox();
+		return new Runnable() {
+			public void run() {
+				IThing t = getBNAModel().getThing(tID);
+				if (t != null)
+					t.set(IHasBoundingBox.BOUNDING_BOX_KEY, r);
+			}
+		};
 	}
 }

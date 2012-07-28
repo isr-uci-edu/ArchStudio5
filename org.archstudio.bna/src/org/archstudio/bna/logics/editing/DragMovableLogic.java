@@ -14,6 +14,7 @@ import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.logics.events.DragMoveEventsLogic;
 import org.archstudio.bna.logics.events.IDragMoveListener;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
+import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.sysutils.SystemUtils;
@@ -28,6 +29,8 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 	protected ThingValueTrackingLogic valuesLogic;
 
 	protected final Map<IRelativeMovable, Point> movingThings = Maps.newHashMap();
+	protected Runnable initialSnapshot = null;
+	protected Point totalRelativePoint = new Point(0, 0);
 	protected Point lastAdjustedMousePoint = new Point(0, 0);
 
 	public DragMovableLogic() {
@@ -51,6 +54,8 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 	@Override
 	public void dragStarted(DragMoveEvent evt) {
 		movingThings.clear();
+		totalRelativePoint.x = 0;
+		totalRelativePoint.y = 0;
 		lastAdjustedMousePoint = evt.getAdjustedThingLocation().getWorldPoint();
 		IBNAModel model = getBNAModel();
 		if (model != null) {
@@ -63,7 +68,6 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 									BNAUtils.getThings(model,
 											valuesLogic.getThingIDs(IHasSelected.SELECTED_KEY, Boolean.TRUE)),
 									IRelativeMovable.class));
-
 					if (selectedThings.contains(movingThing)) {
 						for (IRelativeMovable rmt : selectedThings) {
 							if (rmt instanceof IHasMutableReferencePoint) {
@@ -82,6 +86,7 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 							movingThings.put(movingThing, null);
 						}
 					}
+					initialSnapshot = BNAOperation.takeSnapshotOfLocations(getBNAModel(), movingThings.keySet());
 				}
 			}
 			finally {
@@ -103,6 +108,8 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 				Point relativePointDelta = evt.getAdjustedThingLocation().getWorldPoint();
 				relativePointDelta.x -= lastAdjustedMousePoint.x;
 				relativePointDelta.y -= lastAdjustedMousePoint.y;
+				totalRelativePoint.x += relativePointDelta.x;
+				totalRelativePoint.y += relativePointDelta.y;
 
 				for (Entry<IRelativeMovable, Point> e : movingThings.entrySet()) {
 					if (e.getKey() instanceof IHasMutableReferencePoint) {
@@ -126,6 +133,14 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 
 	@Override
 	public void dragFinished(DragMoveEvent evt) {
+		// if we moved a handle, let the reshape logic handle the undo
+		if (!(movingThings.size() == 1 && movingThings.keySet().iterator().next() instanceof ReshapeHandleGlassThing)) {
+			if (totalRelativePoint.x != 0 || totalRelativePoint.y != 0) {
+				BNAOperation.add("Drag", initialSnapshot,
+						BNAOperation.takeSnapshotOfLocations(getBNAModel(), movingThings.keySet()), false);
+			}
+		}
+		initialSnapshot = null;
 		movingThings.clear();
 	}
 }

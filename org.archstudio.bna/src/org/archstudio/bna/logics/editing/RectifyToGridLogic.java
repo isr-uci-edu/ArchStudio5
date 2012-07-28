@@ -25,7 +25,10 @@ public class RectifyToGridLogic extends AbstractThingLogic implements IBNAMenuLi
 				IAction rectifyAction = new Action("Rectify Diagram to Grid") {
 					@Override
 					public void run() {
+						Runnable undoRunnable = BNAOperation.takeSnapshotOfLocations(model, model.getAllThings());
 						GridUtils.rectifyToGrid(model);
+						BNAOperation.add("Rectify", undoRunnable,
+								BNAOperation.takeSnapshotOfLocations(model, model.getAllThings()), false);
 					}
 				};
 				m.add(rectifyAction);
@@ -33,5 +36,4 @@ public class RectifyToGridLogic extends AbstractThingLogic implements IBNAMenuLi
 			}
 		}
 	}
-
 }

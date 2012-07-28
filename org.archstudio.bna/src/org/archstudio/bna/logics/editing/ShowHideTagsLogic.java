@@ -14,6 +14,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasIndicatorPoint;
+import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IIsSticky;
@@ -34,6 +35,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 
 public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuListener, IBNAModelListener {
 
@@ -73,10 +75,10 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 					@Override
 					public void run() {
 						if (tt == null) {
-							st.set(SHOW_TAG_KEY, true);
+							BNAOperation.execute("Tag", getBNAModel(), st, SHOW_TAG_KEY, true);
 						}
 						else {
-							st.set(SHOW_TAG_KEY, false);
+							BNAOperation.execute("Tag", getBNAModel(), st, SHOW_TAG_KEY, false);
 						}
 					}
 				};
@@ -123,9 +125,10 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	protected AnchoredLabelThing showTag(IIsSticky forThing) {
 		AnchoredLabelThing t = getTag(forThing);
 		if (t == null) {
-			t = getBNAModel().addThing(new AnchoredLabelThing(null));
+			t = getBNAModel().addThing(new AnchoredLabelThing(Lists.newArrayList(forThing.getID(), "tag")));
 			t.setAnchorPoint(forThing.getStickyPointNear(StickyMode.CENTER, new Point(0, 0)));
-			UserEditableUtils.addEditableQualities(t, IRelativeMovable.USER_MAY_MOVE);
+			UserEditableUtils.addEditableQualities(t, IRelativeMovable.USER_MAY_MOVE,
+					IHasMutableAngle.USER_MAY_CHANGE_ANGLE);
 			t.set(stickLogic.getStickyModeKey(IHasIndicatorPoint.INDICATOR_POINT_KEY), StickyMode.EDGE_FROM_CENTER);
 			stickLogic.getStickyThingKey(IHasIndicatorPoint.INDICATOR_POINT_KEY).set(t, forThing);
 			if (forThing instanceof IHasText) {
@@ -147,5 +150,4 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 			getBNAModel().removeThing(t);
 		}
 	}
-
 }

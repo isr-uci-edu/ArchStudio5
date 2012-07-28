@@ -23,6 +23,7 @@ import org.archstudio.bna.things.shapes.ReshapeHandleThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
@@ -140,7 +141,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 
 			// if moved close to a sticky thing, stick to it
 			for (IIsSticky stickyThing : Iterables.filter(Lists.reverse(getBNAModel().getAllThings()), IIsSticky.class)) {
-				if(stickyThing instanceof ReshapeHandleGlassThing || stickyThing instanceof ReshapeHandleThing)
+				if (stickyThing instanceof ReshapeHandleGlassThing || stickyThing instanceof ReshapeHandleThing)
 					continue;
 				for (IReshapeSplineGuide guide : reshapeSplineGuides) {
 					StickyMode stickyMode = guide.getStickyMode(reshapingThing, stickyThing, data);
@@ -225,4 +226,27 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		return null;
 	}
 
+	@Override
+	protected Runnable takeSnapshot() {
+		final Object tID = this.reshapingThing.getID();
+		final List<Point> points = reshapingThing.getPoints();
+		final StickyMode stickToThingMode1 = reshapingThing.get(stickLogic
+				.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY));
+		final Object stickToThingID1 = reshapingThing.get(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_1_KEY));
+		final StickyMode stickToThingMode2 = reshapingThing.get(stickLogic
+				.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY));
+		final Object stickToThingID2 = reshapingThing.get(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY));
+		return new Runnable() {
+			public void run() {
+				IHasMutablePoints t = SystemUtils.castOrNull(getBNAModel().getThing(tID), IHasMutablePoints.class);
+				{
+					t.setPoints(points);
+					t.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), stickToThingMode1);
+					t.set(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_1_KEY), stickToThingID1);
+					t.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY), stickToThingMode2);
+					t.set(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY), stickToThingID2);
+				}
+			}
+		};
+	}
 }

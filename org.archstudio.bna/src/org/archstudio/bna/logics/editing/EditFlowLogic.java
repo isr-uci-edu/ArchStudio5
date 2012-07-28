@@ -45,7 +45,8 @@ public class EditFlowLogic extends AbstractThingLogic implements IBNAMenuListene
 				editDirectionMenu.add(new Action(f.toString()) {
 					@Override
 					public void run() {
-						finalThing.set(IHasMutableFlow.FLOW_KEY, f);
+						BNAOperation
+								.<Flow> execute("Direction", getBNAModel(), finalThing, IHasMutableFlow.FLOW_KEY, f);
 					}
 				});
 			}
