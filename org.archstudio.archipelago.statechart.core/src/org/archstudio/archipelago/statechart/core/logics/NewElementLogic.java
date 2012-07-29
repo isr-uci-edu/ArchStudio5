@@ -3,6 +3,7 @@ package org.archstudio.archipelago.statechart.core.logics;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.archipelago.core.util.XArchOperation;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -59,7 +60,7 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 				xarch.set(newRef, "id", UIDGenerator.generateUID("state"));
 				xarch.set(newRef, "type", StateType.STATE);
 				XadlUtils.setName(xarch, newRef, "[New State]");
-				xarch.add(structureRef, "state", newRef);
+				XArchOperation.add("New State", xarch, structureRef, "state", newRef, true);
 			}
 
 			@Override
@@ -74,7 +75,7 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 				ObjRef newRef = XadlUtils.create(xarch, Statechart_1_0Package.Literals.TRANSITION);
 				xarch.set(newRef, "id", UIDGenerator.generateUID("transition"));
 				XadlUtils.setName(xarch, newRef, "[New Transition]");
-				xarch.add(structureRef, "transition", newRef);
+				XArchOperation.add("New Transition", xarch, structureRef, "transition", newRef, true);
 			}
 
 			@Override
@@ -90,7 +91,7 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 				xarch.set(newRef, "id", UIDGenerator.generateUID("initialState"));
 				xarch.set(newRef, "type", StateType.INITIAL);
 				XadlUtils.setName(xarch, newRef, "[New Initial State]");
-				xarch.add(structureRef, "state", newRef);
+				XArchOperation.add("New Initial State", xarch, structureRef, "state", newRef, true);
 			}
 
 			@Override
@@ -106,7 +107,7 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 				xarch.set(newRef, "id", UIDGenerator.generateUID("finalState"));
 				xarch.set(newRef, "type", StateType.FINAL);
 				XadlUtils.setName(xarch, newRef, "[New Final State]");
-				xarch.add(structureRef, "state", newRef);
+				XArchOperation.add("New Final State", xarch, structureRef, "state", newRef, true);
 			}
 
 			@Override
