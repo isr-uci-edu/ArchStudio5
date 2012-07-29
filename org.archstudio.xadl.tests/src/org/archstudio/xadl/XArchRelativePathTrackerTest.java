@@ -88,7 +88,7 @@ public class XArchRelativePathTrackerTest extends TestCase {
 		comp.setSubStructure(compSubStructure);
 		compSubStructure.setInnerStructureLink(subStructure);
 		subStructure.getComponent().add(subComp);
-		
+
 		results = Lists.newArrayList();
 		tracker = new XArchRelativePathTracker(xarch);
 		tracker.addTrackerListener(new IXArchRelativePathTrackerListener() {
@@ -160,6 +160,28 @@ public class XArchRelativePathTrackerTest extends TestCase {
 		assertEquals(a(e("A", comp), e("U", comp)));
 	}
 
+	public void testTrack1Attributec() {
+		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
+		tracker.startScanning();
+
+		assertEquals(a(e("A", comp)));
+		comp.setId("SomeID");
+		assertEquals(a(e("A", comp), e("U", comp)));
+		xarch.clear(XArchADTProxy.unproxy(comp), "id");
+		assertEquals(a(e("A", comp), e("U", comp), e("U", comp)));
+	}
+
+	public void testTrack1Attribute2c() {
+		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
+		tracker.startScanning();
+		assertEquals(a(e("A", comp)));
+
+		xarch.clear(XArchADTProxy.unproxy(iface), "id");
+		assertEquals(a(e("A", comp)));
+		iface.setId("SomeID");
+		assertEquals(a(e("A", comp), e("U", comp)));
+	}
+
 	public void testTrack1Attribute3() {
 		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
 		tracker.startScanning();
@@ -177,6 +199,17 @@ public class XArchRelativePathTrackerTest extends TestCase {
 
 		assertEquals(a(e("A", comp)));
 		comp.setSubStructure(null);
+		assertEquals(a(e("A", comp), e("U", comp)));
+		comp.setSubStructure(compSubStructure);
+		assertEquals(a(e("A", comp), e("U", comp), e("U", comp)));
+	}
+
+	public void testTrack1Substructure1c() {
+		tracker.setTrackInfo(XArchADTProxy.unproxy(structure), "component");
+		tracker.startScanning();
+
+		assertEquals(a(e("A", comp)));
+		xarch.clear(XArchADTProxy.unproxy(comp), "SubStructure");
 		assertEquals(a(e("A", comp), e("U", comp)));
 		comp.setSubStructure(compSubStructure);
 		assertEquals(a(e("A", comp), e("U", comp), e("U", comp)));
