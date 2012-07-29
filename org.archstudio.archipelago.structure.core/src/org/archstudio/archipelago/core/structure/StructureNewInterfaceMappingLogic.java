@@ -6,6 +6,7 @@ import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 import java.util.Collection;
 import java.util.List;
 
+import org.archstudio.archipelago.core.util.XArchOperation;
 import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -146,7 +147,8 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 									mapping.setOuterInterfaceLink(oiface);
 									mapping.setInnerInterfaceLink(iiface);
 									mapping.setName("" + iiface.getName() + " to " + oiface.getName());
-									xarch.add(subArchitectureRef, "interfaceMapping", XArchADTProxy.unproxy(mapping));
+									XArchOperation.add("Add Interface Mapping", xarch, subArchitectureRef,
+											"interfaceMapping", XArchADTProxy.unproxy(mapping), true);
 								}
 							}
 						}

@@ -3,6 +3,7 @@ package org.archstudio.archipelago.core.structure;
 import java.util.Collection;
 import java.util.List;
 
+import org.archstudio.archipelago.core.util.XArchOperation;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -79,7 +80,7 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 				xarch.set(interfaceRef, "id", UIDGenerator.generateUID("interface"));
 				XadlUtils.setName(xarch, interfaceRef, "[New Interface]");
 				xarch.set(interfaceRef, "direction", Direction.NONE);
-				xarch.add(eltRef, "interface", interfaceRef);
+				XArchOperation.add("Add Interface", xarch, eltRef, "interface", interfaceRef, true);
 			}
 		};
 

@@ -2,6 +2,7 @@ package org.archstudio.archipelago.core.structure;
 
 import org.archstudio.archipelago.core.FolderNode;
 import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
+import org.archstudio.archipelago.core.util.XArchOperation;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
@@ -53,7 +54,7 @@ public class StructureNewStructureContextMenuFiller implements IArchipelagoTreeC
 
 		ObjRef xADLRef = (ObjRef) xarch.get(documentRootRef, "xADL");
 		if (xADLRef != null) {
-			xarch.add(xADLRef, "topLevelElement", newStructureRef);
+			XArchOperation.add("Add Structure", xarch, xADLRef, "topLevelElement", newStructureRef, true);
 		}
 	}
 

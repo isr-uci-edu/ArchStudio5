@@ -3,6 +3,7 @@ package org.archstudio.archipelago.core.structure;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.archipelago.core.util.XArchOperation;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -16,12 +17,12 @@ import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
 public class StructureNewElementLogic extends AbstractThingLogic implements IBNAMenuListener {
@@ -61,7 +62,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 				ObjRef componentRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.COMPONENT);
 				xarch.set(componentRef, "id", UIDGenerator.generateUID("component"));
 				XadlUtils.setName(xarch, componentRef, "[New Component]");
-				xarch.add(structureRef, "component", componentRef);
+				XArchOperation.add("Add Component", xarch, structureRef, "component", componentRef, true);
 			}
 
 			@Override
@@ -76,7 +77,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 				ObjRef connectorRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.CONNECTOR);
 				xarch.set(connectorRef, "id", UIDGenerator.generateUID("connector"));
 				XadlUtils.setName(xarch, connectorRef, "[New Connector]");
-				xarch.add(structureRef, "connector", connectorRef);
+				XArchOperation.add("Add Connector", xarch, structureRef, "connector", connectorRef, true);
 			}
 
 			@Override
@@ -91,7 +92,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 				ObjRef linkRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.LINK);
 				xarch.set(linkRef, "id", UIDGenerator.generateUID("link"));
 				XadlUtils.setName(xarch, linkRef, "[New Link]");
-				xarch.add(structureRef, "link", linkRef);
+				XArchOperation.add("Add Link", xarch, structureRef, "link", linkRef, true);
 			}
 
 			@Override

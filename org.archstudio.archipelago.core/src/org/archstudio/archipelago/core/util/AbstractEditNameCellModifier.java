@@ -31,7 +31,7 @@ public abstract class AbstractEditNameCellModifier implements ICellModifier {
 			ObjRef targetRef = (ObjRef) element;
 			if (value != null) {
 				String newName = value.toString();
-				XadlUtils.setName(xarch, targetRef, newName);
+				XArchOperation.set("Rename", xarch, targetRef, "name", xarch.get(targetRef, "name"), newName, true);
 			}
 		}
 	}

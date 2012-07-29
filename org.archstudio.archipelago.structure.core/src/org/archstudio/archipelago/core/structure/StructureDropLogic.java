@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.util.AbstractTreeDropLogic;
+import org.archstudio.archipelago.core.util.XArchOperation;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -22,7 +23,7 @@ import org.eclipse.swt.dnd.DropTargetEvent;
 public class StructureDropLogic extends AbstractTreeDropLogic {
 
 	protected final IXArchADT xarch;
-	
+
 	public StructureDropLogic(Services services, ObjRef documentRootRef) {
 		super(services, documentRootRef);
 		this.xarch = services.get(IXArchADT.class);
@@ -93,11 +94,12 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 						xarch.set(subStructureRef, "id", UIDGenerator.generateUID("subStructure"));
 						xarch.set(outerRef, "subStructure", subStructureRef);
 					}
-					xarch.set(subStructureRef, "innerStructureLink", structureRef);
+					XArchOperation.set("Assign Substructure", xarch, subStructureRef, "innerStructureLink",
+							xarch.get(subStructureRef, "innerStructureLink"), structureRef, true);
 
 					Point worldPoint = location.getWorldPoint();
-					ArchipelagoUtils.showUserNotification(view.getBNAWorld(), "Substructure Assigned",
-							worldPoint.x, worldPoint.y);
+					ArchipelagoUtils.showUserNotification(view.getBNAWorld(), "Substructure Assigned", worldPoint.x,
+							worldPoint.y);
 				}
 			}
 		}

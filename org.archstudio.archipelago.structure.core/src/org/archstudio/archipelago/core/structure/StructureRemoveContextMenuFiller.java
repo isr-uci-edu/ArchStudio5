@@ -1,10 +1,12 @@
 package org.archstudio.archipelago.core.structure;
 
 import org.archstudio.archipelago.core.util.AbstractRemoveContextMenuFiller;
+import org.archstudio.archipelago.core.util.XArchOperation;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
+import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.viewers.TreeViewer;
 
@@ -34,7 +36,20 @@ public class StructureRemoveContextMenuFiller extends AbstractRemoveContextMenuF
 	protected void remove(ObjRef targetRef) {
 		if (targetRef != null) {
 			if (XadlUtils.isInstanceOf(xarch, targetRef, Structure_3_0Package.Literals.STRUCTURE)) {
-				XadlUtils.remove(xarch, targetRef);
+				ObjRef parentRef = xarch.getParent(targetRef);
+				if (parentRef != null) {
+					IXArchADTTypeMetadata type = xarch.getTypeMetadata(parentRef);
+					String elementName = xarch.getContainingFeatureName(targetRef);
+					switch (type.getFeatures().get(elementName).getType()) {
+					case ATTRIBUTE:
+					case ELEMENT_SINGLE:
+						XArchOperation.set("Remove Structure", xarch, parentRef, elementName, targetRef, null, true);
+						break;
+					case ELEMENT_MULTIPLE:
+						XArchOperation.remove("Remove Structure", xarch, parentRef, elementName, targetRef, true);
+						break;
+					}
+				}
 				return;
 			}
 		}

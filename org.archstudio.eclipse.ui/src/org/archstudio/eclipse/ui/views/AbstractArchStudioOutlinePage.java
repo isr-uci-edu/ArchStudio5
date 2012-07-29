@@ -6,17 +6,30 @@ import org.archstudio.swtutils.IMenuFiller;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IKeyBindingService;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartSite;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.operations.UndoRedoActionGroup;
 import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 
+@SuppressWarnings("deprecation")
 public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage implements IFocusEditorListener {
 	protected IXArchADT xarch;
 	protected IResources resources = null;
@@ -35,6 +48,97 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 		this.hasContextMenu = hasContextMenu;
 	}
 
+	@Override
+	public void setActionBars(IActionBars actionBars) {
+		super.setActionBars(actionBars);
+
+		// enable undo/redo
+		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
+		UndoRedoActionGroup undoRedo = new UndoRedoActionGroup(new IWorkbenchPartSite() {
+
+			@Override
+			public IWorkbenchPage getPage() {
+				return getSite().getPage();
+			}
+
+			@Override
+			public ISelectionProvider getSelectionProvider() {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public Shell getShell() {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public IWorkbenchWindow getWorkbenchWindow() {
+				return getSite().getWorkbenchWindow();
+			}
+
+			@Override
+			public void setSelectionProvider(ISelectionProvider provider) {
+				throw new UnsupportedOperationException();
+			}
+
+			@SuppressWarnings("rawtypes")
+			@Override
+			public Object getAdapter(Class adapter) {
+				throw new UnsupportedOperationException();
+			}
+
+			@SuppressWarnings("rawtypes")
+			@Override
+			public Object getService(Class api) {
+				throw new UnsupportedOperationException();
+			}
+
+			@SuppressWarnings("rawtypes")
+			@Override
+			public boolean hasService(Class api) {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public String getId() {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public String getPluginId() {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public String getRegisteredName() {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public void registerContextMenu(String menuId, MenuManager menuManager, ISelectionProvider selectionProvider) {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public void registerContextMenu(MenuManager menuManager, ISelectionProvider selectionProvider) {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public IKeyBindingService getKeyBindingService() {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public IWorkbenchPart getPart() {
+				return getSite().getPage().getActivePart();
+			}
+			
+		}, undoContext, true);
+		undoRedo.fillActionBars(actionBars);
+		actionBars.updateActionBars();
+	}
+	
 	public void init(IPageSite pageSite) {
 		super.init(pageSite);
 	}
