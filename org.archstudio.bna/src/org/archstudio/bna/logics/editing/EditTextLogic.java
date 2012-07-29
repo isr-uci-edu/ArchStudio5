@@ -129,11 +129,11 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 				IThing t = evt.getSource().getThing(data.thingID);
 				if (t instanceof IHasMutableText
 						&& UserEditableUtils.isEditableForAnyQualities(t, IHasMutableText.USER_MAY_EDIT_TEXT)) {
-					BNAOperation.<String> execute("Text", getBNAModel(), t, IHasText.TEXT_KEY, tt.getText());
+					BNAOperations.set("Text", getBNAModel(), t, IHasText.TEXT_KEY, tt.getText());
 				}
 				else if (t != null
 						&& UserEditableUtils.isEditableForAnyQualities(t, IHasToolTip.USER_MAY_EDIT_TOOL_TIP)) {
-					BNAOperation.<String> execute("Text", getBNAModel(), t, IHasToolTip.TOOL_TIP_KEY, tt.getText());
+					BNAOperations.set("Text", getBNAModel(), t, IHasToolTip.TOOL_TIP_KEY, tt.getText());
 				}
 			}
 		}

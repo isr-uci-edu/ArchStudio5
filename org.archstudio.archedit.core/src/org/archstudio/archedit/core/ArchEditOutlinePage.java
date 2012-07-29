@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
 
+import org.archstudio.archipelago.core.util.XArchADTOperations;
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.SWTWidgetUtils;
@@ -218,6 +219,8 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 										messageBox.open();
 									}
 									else {
+										XArchADTOperations xarch = new XArchADTOperations(
+												ArchEditOutlinePage.this.xarch);
 										if (index == -1) {
 											//It's not a multiple reference variable.
 											xarch.set(parentRef, featureName, targetRef);
@@ -235,6 +238,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 												xarch.add(parentRef, featureName, newRef);
 											}
 										}
+										xarch.done("Link");
 									}
 								}
 							}
@@ -638,10 +642,10 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 				IXArchADTFeature feature = XadlUtils.getFeatureByName(xarch, parentRef, featureName);
 				switch (feature.getType()) {
 				case ELEMENT_MULTIPLE:
-					xarch.remove(parentRef, featureName, fref);
+					XArchADTOperations.remove("Remove", xarch, parentRef, featureName, fref);
 					break;
 				case ELEMENT_SINGLE:
-					xarch.clear(parentRef, featureName);
+					XArchADTOperations.set("Remove", xarch, parentRef, featureName, null);
 					break;
 				case ATTRIBUTE:
 					throw new IllegalArgumentException();
@@ -673,7 +677,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 						break;
 					}
 				}
-				xarch.set(fref, "id", id);
+				XArchADTOperations.set("Generate ID", xarch, fref, "id", id);
 			}
 		};
 		String existingId = (String) xarch.get(ref, "id");
@@ -799,10 +803,11 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			ObjRef newRef = xarch.create(packageNsURI, elementName);
 			switch (feature.getType()) {
 			case ELEMENT_SINGLE:
-				xarch.set(ref, feature.getName(), newRef);
+				XArchADTOperations.set("Add", xarch, ref, feature.getName(), newRef);
 				break;
 			case ELEMENT_MULTIPLE:
-				xarch.add(ref, feature.getName(), newRef);
+				XArchADTOperations.add("Add", xarch, ref, feature.getName(), newRef);
+				break;
 			case ATTRIBUTE:
 				throw new IllegalArgumentException();
 			}

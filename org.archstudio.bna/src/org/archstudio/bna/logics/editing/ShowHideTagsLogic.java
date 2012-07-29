@@ -75,10 +75,10 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 					@Override
 					public void run() {
 						if (tt == null) {
-							BNAOperation.execute("Tag", getBNAModel(), st, SHOW_TAG_KEY, true);
+							BNAOperations.set("Tag", getBNAModel(), st, SHOW_TAG_KEY, true);
 						}
 						else {
-							BNAOperation.execute("Tag", getBNAModel(), st, SHOW_TAG_KEY, false);
+							BNAOperations.set("Tag", getBNAModel(), st, SHOW_TAG_KEY, false);
 						}
 					}
 				};

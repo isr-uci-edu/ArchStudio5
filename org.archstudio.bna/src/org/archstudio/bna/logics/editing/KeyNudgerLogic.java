@@ -29,7 +29,7 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 					int distance = gridSpacing == 0 ? 5 : gridSpacing;
 
 					boolean nudged = false;
-					Runnable undoRunnable = BNAOperation.takeSnapshotOfLocations(getBNAModel(),
+					Runnable undoRunnable = BNAOperations.takeSnapshotOfLocations(getBNAModel(),
 							BNAUtils.getSelectedThings(getBNAModel()));
 					for (IThing t : BNAUtils.getSelectedThings(getBNAModel())) {
 						if (t instanceof IRelativeMovable) {
@@ -41,9 +41,9 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 						}
 					}
 					if (nudged) {
-						Runnable redoRunnable = BNAOperation.takeSnapshotOfLocations(getBNAModel(),
+						Runnable redoRunnable = BNAOperations.takeSnapshotOfLocations(getBNAModel(),
 								BNAUtils.getSelectedThings(getBNAModel()));
-						BNAOperation.add("Nudge", undoRunnable, redoRunnable, false);
+						BNAOperations.runnable("Nudge", undoRunnable, redoRunnable, false);
 					}
 				}
 				finally {

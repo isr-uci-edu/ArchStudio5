@@ -22,9 +22,9 @@ import org.eclipse.ui.PlatformUI;
 
 import com.google.common.collect.Lists;
 
-public class BNAOperation<V> extends AbstractOperation {
+public class BNAOperations {
 
-	public static void add(String label, final Runnable undoRunnable, final Runnable redoRunnable, boolean execute) {
+	public static void runnable(String label, final Runnable undoRunnable, final Runnable redoRunnable, boolean execute) {
 		if (execute)
 			redoRunnable.run();
 
@@ -52,10 +52,11 @@ public class BNAOperation<V> extends AbstractOperation {
 		operationHistory.add(bnaOperation);
 	}
 
-	public static <V> void add(String label, final IBNAModel model, IThing t, final IThingKey<V> key, final V oldValue,
-			final V newValue, boolean execute) {
-		if (execute)
-			t.set(key, newValue);
+	public static <V> void set(String label, final IBNAModel model, IThing t, final IThingKey<V> key, final V newValue) {
+
+		final V oldValue = t.get(key);
+		t.set(key, newValue);
+
 		final Object tID = t.getID();
 
 		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
@@ -84,10 +85,6 @@ public class BNAOperation<V> extends AbstractOperation {
 		};
 		bnaOperation.addContext(undoContext);
 		operationHistory.add(bnaOperation);
-	}
-
-	public static <V> void execute(String label, IBNAModel model, IThing t, IThingKey<V> key, V newValue) {
-		add(label, model, t, key, t.get(key), newValue, true);
 	}
 
 	/**
@@ -139,35 +136,4 @@ public class BNAOperation<V> extends AbstractOperation {
 			}
 		};
 	}
-
-	protected final IThing t;
-	protected final IThingKey<V> key;
-	protected final V oldValue;
-	protected final V newValue;
-
-	public BNAOperation(String label, IThing t, IThingKey<V> key, V newValue) {
-		super(label);
-		this.t = t;
-		this.key = key;
-		this.oldValue = t.get(key);
-		this.newValue = newValue;
-	}
-
-	@Override
-	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		t.set(key, newValue);
-		return Status.OK_STATUS;
-	}
-
-	@Override
-	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		return execute(monitor, info);
-	}
-
-	@Override
-	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		t.set(key, oldValue);
-		return Status.OK_STATUS;
-	}
-
 }

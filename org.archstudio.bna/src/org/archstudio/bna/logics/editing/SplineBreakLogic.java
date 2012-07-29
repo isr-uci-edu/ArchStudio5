@@ -52,11 +52,7 @@ public class SplineBreakLogic extends AbstractThingLogic implements IBNAMouseCli
 				points.add(new Point(worldPoint.x, worldPoint.y));
 			}
 
-			final List<Point> oldPoints = t.getPoints();
-			t.setPoints(points);
-
-			BNAOperation
-					.<List<Point>> add("Reshape", getBNAModel(), t, IHasPoints.POINTS_KEY, oldPoints, points, false);
+			BNAOperations.set("Reshape", getBNAModel(), t, IHasPoints.POINTS_KEY, points);
 		}
 	}
 }

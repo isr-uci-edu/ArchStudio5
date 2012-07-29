@@ -3,7 +3,7 @@ package org.archstudio.archipelago.statechart.core.logics;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
-import org.archstudio.archipelago.core.util.XArchOperation;
+import org.archstudio.archipelago.core.util.XArchADTOperations;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -60,7 +60,7 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 				xarch.set(newRef, "id", UIDGenerator.generateUID("state"));
 				xarch.set(newRef, "type", StateType.STATE);
 				XadlUtils.setName(xarch, newRef, "[New State]");
-				XArchOperation.add("New State", xarch, structureRef, "state", newRef, true);
+				XArchADTOperations.add("New State", xarch, structureRef, "state", newRef);
 			}
 
 			@Override
@@ -75,7 +75,7 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 				ObjRef newRef = XadlUtils.create(xarch, Statechart_1_0Package.Literals.TRANSITION);
 				xarch.set(newRef, "id", UIDGenerator.generateUID("transition"));
 				XadlUtils.setName(xarch, newRef, "[New Transition]");
-				XArchOperation.add("New Transition", xarch, structureRef, "transition", newRef, true);
+				XArchADTOperations.add("New Transition", xarch, structureRef, "transition", newRef);
 			}
 
 			@Override
@@ -91,7 +91,7 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 				xarch.set(newRef, "id", UIDGenerator.generateUID("initialState"));
 				xarch.set(newRef, "type", StateType.INITIAL);
 				XadlUtils.setName(xarch, newRef, "[New Initial State]");
-				XArchOperation.add("New Initial State", xarch, structureRef, "state", newRef, true);
+				XArchADTOperations.add("New Initial State", xarch, structureRef, "state", newRef);
 			}
 
 			@Override
@@ -107,7 +107,7 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 				xarch.set(newRef, "id", UIDGenerator.generateUID("finalState"));
 				xarch.set(newRef, "type", StateType.FINAL);
 				XadlUtils.setName(xarch, newRef, "[New Final State]");
-				XArchOperation.add("New Final State", xarch, structureRef, "state", newRef, true);
+				XArchADTOperations.add("New Final State", xarch, structureRef, "state", newRef);
 			}
 
 			@Override

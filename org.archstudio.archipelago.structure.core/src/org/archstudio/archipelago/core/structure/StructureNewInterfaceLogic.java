@@ -3,7 +3,7 @@ package org.archstudio.archipelago.core.structure;
 import java.util.Collection;
 import java.util.List;
 
-import org.archstudio.archipelago.core.util.XArchOperation;
+import org.archstudio.archipelago.core.util.XArchADTOperations;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -21,11 +21,11 @@ import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
 public class StructureNewInterfaceLogic extends AbstractThingLogic implements IBNAMenuListener {
@@ -80,7 +80,7 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 				xarch.set(interfaceRef, "id", UIDGenerator.generateUID("interface"));
 				XadlUtils.setName(xarch, interfaceRef, "[New Interface]");
 				xarch.set(interfaceRef, "direction", Direction.NONE);
-				XArchOperation.add("Add Interface", xarch, eltRef, "interface", interfaceRef, true);
+				XArchADTOperations.add("Add Interface", xarch, eltRef, "interface", interfaceRef);
 			}
 		};
 

@@ -96,7 +96,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			return;
 		}
 		final IThing[] thingsToEdit = thingsToEditList.toArray(new IThing[thingsToEditList.size()]);
-		final Runnable undoRunnable = BNAOperation.takeSnapshotOfLocations(getBNAModel(), thingsToEditList);
+		final Runnable undoRunnable = BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList);
 
 		IMenuManager alignMenu = new MenuManager("Align");
 
@@ -104,8 +104,8 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			@Override
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, VerticalAlignment.TOP);
-				BNAOperation.add("Align", undoRunnable,
-						BNAOperation.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+				BNAOperations.runnable("Align", undoRunnable,
+						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
 			}
 		};
 		alignMenu.add(alignTop);
@@ -114,8 +114,8 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			@Override
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, VerticalAlignment.MIDDLE);
-				BNAOperation.add("Align", undoRunnable,
-						BNAOperation.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+				BNAOperations.runnable("Align", undoRunnable,
+						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
 			}
 		};
 		alignMenu.add(alignMiddle);
@@ -124,8 +124,8 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			@Override
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, VerticalAlignment.BOTTOM);
-				BNAOperation.add("Align", undoRunnable,
-						BNAOperation.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+				BNAOperations.runnable("Align", undoRunnable,
+						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
 			}
 		};
 		alignMenu.add(alignBottom);
@@ -134,8 +134,8 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			@Override
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.LEFT);
-				BNAOperation.add("Align", undoRunnable,
-						BNAOperation.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+				BNAOperations.runnable("Align", undoRunnable,
+						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
 			}
 		};
 		alignMenu.add(alignLeft);
@@ -144,8 +144,8 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			@Override
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.CENTER);
-				BNAOperation.add("Align", undoRunnable,
-						BNAOperation.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+				BNAOperations.runnable("Align", undoRunnable,
+						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
 			}
 		};
 		alignMenu.add(alignCenter);
@@ -154,8 +154,8 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			@Override
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.RIGHT);
-				BNAOperation.add("Align", undoRunnable,
-						BNAOperation.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+				BNAOperations.runnable("Align", undoRunnable,
+						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
 			}
 		};
 		alignMenu.add(alignRight);
@@ -167,8 +167,8 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			@Override
 			public void run() {
 				BNADistributeUtils.distributeHorizontalLoose(thingsToEdit);
-				BNAOperation.add("Distribute", undoRunnable,
-						BNAOperation.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+				BNAOperations.runnable("Distribute", undoRunnable,
+						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
 			}
 		};
 		distributeMenu.add(distributeHorizontalLoose);
@@ -178,8 +178,8 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			@Override
 			public void run() {
 				BNADistributeUtils.distributeHorizontalTight(thingsToEdit);
-				BNAOperation.add("Distribute", undoRunnable,
-						BNAOperation.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+				BNAOperations.runnable("Distribute", undoRunnable,
+						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
 			}
 		};
 		distributeMenu.add(distributeHorizontalTight);
@@ -189,8 +189,8 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			@Override
 			public void run() {
 				BNADistributeUtils.distributeVerticalLoose(thingsToEdit);
-				BNAOperation.add("Distribute", undoRunnable,
-						BNAOperation.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+				BNAOperations.runnable("Distribute", undoRunnable,
+						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
 			}
 		};
 		distributeMenu.add(distributeVerticalLoose);
@@ -200,8 +200,8 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			@Override
 			public void run() {
 				BNADistributeUtils.distributeVerticalTight(thingsToEdit);
-				BNAOperation.add("Distribute", undoRunnable,
-						BNAOperation.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+				BNAOperations.runnable("Distribute", undoRunnable,
+						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
 			}
 		};
 		distributeMenu.add(distributeVerticalTight);

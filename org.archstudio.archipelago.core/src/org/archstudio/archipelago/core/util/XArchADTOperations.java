@@ -27,13 +27,107 @@ import org.xml.sax.SAXException;
 
 import com.google.common.collect.Lists;
 
-public class XArchADTOperation implements IXArchADT {
+public class XArchADTOperations implements IXArchADT {
+
+	public static <V> void remove(String label, final IXArchADT xarch, final ObjRef objRef, final String name,
+			final Serializable value) {
+
+		xarch.remove(objRef, name, value);
+
+		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
+		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
+		AbstractOperation operation = new AbstractOperation(label) {
+			@Override
+			public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+				return Status.OK_STATUS;
+			}
+
+			@Override
+			public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+				xarch.add(objRef, name, value);
+				return Status.OK_STATUS;
+			}
+
+			@Override
+			public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+				xarch.remove(objRef, name, value);
+				return Status.OK_STATUS;
+			}
+		};
+		operation.addContext(undoContext);
+		operationHistory.add(operation);
+	}
+
+	public static <V> void add(String label, final IXArchADT xarch, final ObjRef objRef, final String name,
+			final Serializable value) {
+
+		xarch.add(objRef, name, value);
+
+		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
+		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
+		AbstractOperation operation = new AbstractOperation(label) {
+			@Override
+			public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+				return Status.OK_STATUS;
+			}
+
+			@Override
+			public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+				xarch.remove(objRef, name, value);
+				return Status.OK_STATUS;
+			}
+
+			@Override
+			public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+				xarch.add(objRef, name, value);
+				return Status.OK_STATUS;
+			}
+		};
+		operation.addContext(undoContext);
+		operationHistory.add(operation);
+	}
+
+	public static <V> void set(String label, final IXArchADT xarch, final ObjRef objRef, final String name,
+			final Serializable newValue) {
+
+		final Serializable oldValue = xarch.get(objRef, name);
+		xarch.set(objRef, name, newValue);
+
+		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
+		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
+		AbstractOperation operation = new AbstractOperation(label) {
+			@Override
+			public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+				return Status.OK_STATUS;
+			}
+
+			@Override
+			public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+				if (oldValue == null)
+					xarch.clear(objRef, name);
+				else
+					xarch.set(objRef, name, oldValue);
+				return Status.OK_STATUS;
+			}
+
+			@Override
+			public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+				if (newValue == null)
+					xarch.clear(objRef, name);
+				else
+					xarch.set(objRef, name, newValue);
+				return Status.OK_STATUS;
+			}
+		};
+		operation.addContext(undoContext);
+		operationHistory.add(operation);
+	}
 
 	IXArchADT xarch;
 	List<Runnable> undo = Lists.newArrayList();
 	List<Runnable> redo = Lists.newArrayList();
 
-	public XArchADTOperation(IXArchADT xarch) {
+	public XArchADTOperations(IXArchADT xarch) {
 		super();
 		this.xarch = xarch;
 	}

@@ -3,7 +3,7 @@ package org.archstudio.archipelago.core.structure;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
-import org.archstudio.archipelago.core.util.XArchOperation;
+import org.archstudio.archipelago.core.util.XArchADTOperations;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -62,7 +62,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 				ObjRef componentRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.COMPONENT);
 				xarch.set(componentRef, "id", UIDGenerator.generateUID("component"));
 				XadlUtils.setName(xarch, componentRef, "[New Component]");
-				XArchOperation.add("Add Component", xarch, structureRef, "component", componentRef, true);
+				XArchADTOperations.add("Add Component", xarch, structureRef, "component", componentRef);
 			}
 
 			@Override
@@ -77,7 +77,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 				ObjRef connectorRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.CONNECTOR);
 				xarch.set(connectorRef, "id", UIDGenerator.generateUID("connector"));
 				XadlUtils.setName(xarch, connectorRef, "[New Connector]");
-				XArchOperation.add("Add Connector", xarch, structureRef, "connector", connectorRef, true);
+				XArchADTOperations.add("Add Connector", xarch, structureRef, "connector", connectorRef);
 			}
 
 			@Override
@@ -92,7 +92,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 				ObjRef linkRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.LINK);
 				xarch.set(linkRef, "id", UIDGenerator.generateUID("link"));
 				XadlUtils.setName(xarch, linkRef, "[New Link]");
-				XArchOperation.add("Add Link", xarch, structureRef, "link", linkRef, true);
+				XArchADTOperations.add("Add Link", xarch, structureRef, "link", linkRef);
 			}
 
 			@Override

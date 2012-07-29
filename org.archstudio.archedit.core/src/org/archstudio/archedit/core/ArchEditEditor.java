@@ -3,6 +3,7 @@ package org.archstudio.archedit.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.archstudio.archipelago.core.util.XArchADTOperations;
 import org.archstudio.eclipse.ui.editors.AbstractArchStudioEditor;
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
@@ -228,7 +229,7 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 					//Do nothing
 				}
 				else if ((oldValue != null) && (newValue == null)) {
-					xarch.clear(ref, propertyName);
+					XArchADTOperations.set("Set", xarch, ref, propertyName, null);
 				}
 				else if ((oldValue == null) && (newValue != null)) {
 					set(propertyName, newValue);
@@ -250,7 +251,7 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 					// If the feature is an enumeration type, then xarch.set will
 					// automatically try to convert it to an enum and throw
 					// IllegalArgumentException if it's not a valid value.
-					xarch.set(ref, featureName, stringValue);
+					XArchADTOperations.set("Set", xarch, ref, featureName, stringValue);
 				}
 				catch (IllegalArgumentException iae) {
 					MessageBox messageBox = new MessageBox(parent.getShell(), SWT.OK | SWT.ICON_ERROR);

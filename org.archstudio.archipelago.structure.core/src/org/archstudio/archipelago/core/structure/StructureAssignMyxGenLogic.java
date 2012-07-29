@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.archstudio.archipelago.core.util.XArchADTOperation;
+import org.archstudio.archipelago.core.util.XArchADTOperations;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -108,7 +108,7 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 	}
 
 	protected void assignMyxGenBrick(ObjRef objRef, MyxGenBrick myxGenBrick) {
-		final XArchADTOperation xarch = new XArchADTOperation(this.xarch);
+		final XArchADTOperations xarch = new XArchADTOperations(this.xarch);
 
 		Domain_3_0Factory domainFactory = XArchADTProxy.proxy(xarch, Domain_3_0Package.eINSTANCE.getNsURI());
 		Lookupimplementation_3_0Factory lookupFactory = XArchADTProxy.proxy(xarch,

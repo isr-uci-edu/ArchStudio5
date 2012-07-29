@@ -105,7 +105,7 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 		if (rgb != null) {
 			assignColor(thingsToEdit, rgb);
 			Runnable redoRunnable = takeSnapshot(thingsToEdit);
-			BNAOperation.add("Color", undoRunnable, redoRunnable, false);
+			BNAOperations.runnable("Color", undoRunnable, redoRunnable, false);
 		}
 	}
 

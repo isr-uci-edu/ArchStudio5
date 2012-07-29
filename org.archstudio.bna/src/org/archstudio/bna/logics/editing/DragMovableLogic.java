@@ -86,7 +86,7 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 							movingThings.put(movingThing, null);
 						}
 					}
-					initialSnapshot = BNAOperation.takeSnapshotOfLocations(getBNAModel(), movingThings.keySet());
+					initialSnapshot = BNAOperations.takeSnapshotOfLocations(getBNAModel(), movingThings.keySet());
 				}
 			}
 			finally {
@@ -136,8 +136,8 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 		// if we moved a handle, let the reshape logic handle the undo
 		if (!(movingThings.size() == 1 && movingThings.keySet().iterator().next() instanceof ReshapeHandleGlassThing)) {
 			if (totalRelativePoint.x != 0 || totalRelativePoint.y != 0) {
-				BNAOperation.add("Drag", initialSnapshot,
-						BNAOperation.takeSnapshotOfLocations(getBNAModel(), movingThings.keySet()), false);
+				BNAOperations.runnable("Drag", initialSnapshot,
+						BNAOperations.takeSnapshotOfLocations(getBNAModel(), movingThings.keySet()), false);
 			}
 		}
 		initialSnapshot = null;

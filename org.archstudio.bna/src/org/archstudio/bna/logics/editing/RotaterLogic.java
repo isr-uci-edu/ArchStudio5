@@ -86,8 +86,8 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 	@Override
 	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (pressed) {
-			BNAOperation.<Integer> add("Rotate", getBNAModel(), originalThing, IHasAngle.ANGLE_KEY, originalValue,
-					rt.get(IHasAngle.ANGLE_KEY), false);
+			originalThing.set(IHasAngle.ANGLE_KEY, originalValue);
+			BNAOperations.set("Rotate", getBNAModel(), originalThing, IHasAngle.ANGLE_KEY, rt.get(IHasAngle.ANGLE_KEY));
 		}
 		pressed = false;
 	}

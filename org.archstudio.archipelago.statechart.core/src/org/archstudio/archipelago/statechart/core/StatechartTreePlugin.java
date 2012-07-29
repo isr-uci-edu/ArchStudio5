@@ -14,7 +14,7 @@ import org.archstudio.archipelago.core.IArchipelagoTreeContentProvider;
 import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
 import org.archstudio.archipelago.core.IArchipelagoTreeDoubleClickHandler;
 import org.archstudio.archipelago.core.IArchipelagoTreeNodeDataCache;
-import org.archstudio.archipelago.core.util.XArchOperation;
+import org.archstudio.archipelago.core.util.XArchADTOperations;
 import org.archstudio.archipelago.statechart.core.logics.MapFinalStateLogic;
 import org.archstudio.archipelago.statechart.core.logics.MapInitialStateLogic;
 import org.archstudio.archipelago.statechart.core.logics.MapStateLogic;
@@ -35,7 +35,6 @@ import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.editing.AlignAndDistributeLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
-import org.archstudio.bna.logics.editing.EditFlowLogic;
 import org.archstudio.bna.logics.editing.EditTextLogic;
 import org.archstudio.bna.logics.editing.KeyNudgerLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
@@ -202,8 +201,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 												xarch.set(newObjRef, "id", UIDGenerator.generateUID(ELEMENT_LABEL_NAME)
 														+ "-");
 												XadlUtils.setName(xarch, newObjRef, "[New " + ELEMENT_LABEL_NAME + "]");
-												XArchOperation.add("Add " + ELEMENT_LABEL_NAME, xarch,
-														(ObjRef) fn.getParent(), XADL_FEATURE_NAME, newObjRef, true);
+												XArchADTOperations.add("Add " + ELEMENT_LABEL_NAME, xarch,
+														(ObjRef) fn.getParent(), XADL_FEATURE_NAME, newObjRef);
 											}
 										};
 										m.add(newStructureAction);
@@ -225,9 +224,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 										ELEMENT_TYPE.getName())) {
 									IAction removeAction = new Action("Remove") {
 										public void run() {
-											XArchOperation.remove("Remove " + ELEMENT_LABEL_NAME, xarch,
-													xarch.getParent(targetRef),
-													xarch.getContainingFeatureName(targetRef), targetRef, true);
+											XArchADTOperations.remove("Remove " + ELEMENT_LABEL_NAME, xarch,
+													xarch.getParent(targetRef), XADL_FEATURE_NAME, targetRef);
 										}
 									};
 									m.add(removeAction);
@@ -284,8 +282,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 					ObjRef targetRef = (ObjRef) element;
 					if (value != null) {
 						String newName = value.toString();
-						XArchOperation.set("Rename " + ELEMENT_LABEL_NAME, xarch, targetRef, "name",
-								xarch.get(targetRef, "name"), newName, true);
+						XArchADTOperations.set("Rename " + ELEMENT_LABEL_NAME, xarch, targetRef, "name", newName);
 					}
 				}
 			}

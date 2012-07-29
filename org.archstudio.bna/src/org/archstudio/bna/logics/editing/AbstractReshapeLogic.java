@@ -170,7 +170,7 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 			if (!initialPosition.equals(((ReshapeHandleGlassThing) movedThing).getReferencePoint())) {
 				final Runnable undoSnapshot = initialSnapshot;
 				final Runnable redoSnapshot = takeSnapshot();
-				BNAOperation.add("Reshape", undoSnapshot, redoSnapshot, false);
+				BNAOperations.runnable("Reshape", undoSnapshot, redoSnapshot, false);
 			}
 
 			initialSnapshot = null;

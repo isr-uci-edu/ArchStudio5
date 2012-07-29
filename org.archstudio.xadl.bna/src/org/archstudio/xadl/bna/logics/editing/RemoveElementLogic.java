@@ -7,7 +7,7 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.logics.editing.BNAOperation;
+import org.archstudio.bna.logics.editing.BNAOperations;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
@@ -84,7 +84,7 @@ public class RemoveElementLogic extends AbstractThingLogic implements IBNAMenuLi
 						}
 					}
 
-					BNAOperation.add("Remove", new Runnable() {
+					BNAOperations.runnable("Remove", new Runnable() {
 						@Override
 						public void run() {
 							for (Runnable r : undo)
