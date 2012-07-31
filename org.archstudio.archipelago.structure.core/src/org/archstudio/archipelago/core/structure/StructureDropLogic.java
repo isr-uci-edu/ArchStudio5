@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.util.AbstractTreeDropLogic;
-import org.archstudio.archipelago.core.util.XArchADTOperations;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
+import org.archstudio.eclipse.ui.XArchADTOperations;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.swtutils.LocalSelectionTransfer;
 import org.archstudio.sysutils.UIDGenerator;

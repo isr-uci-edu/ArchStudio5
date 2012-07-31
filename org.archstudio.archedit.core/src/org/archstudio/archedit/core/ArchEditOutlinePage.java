@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
 
-import org.archstudio.archipelago.core.util.XArchADTOperations;
+import org.archstudio.eclipse.ui.XArchADTOperations;
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.SWTWidgetUtils;

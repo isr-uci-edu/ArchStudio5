@@ -3,12 +3,12 @@ package org.archstudio.archipelago.core.structure;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
-import org.archstudio.archipelago.core.util.XArchADTOperations;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.IBNAMenuListener;
+import org.archstudio.eclipse.ui.XArchADTOperations;
 import org.archstudio.resources.ArchStudioCommonResources;
 import org.archstudio.resources.IResources;
 import org.archstudio.sysutils.SystemUtils;

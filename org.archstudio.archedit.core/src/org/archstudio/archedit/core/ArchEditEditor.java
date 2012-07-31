@@ -3,7 +3,7 @@ package org.archstudio.archedit.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.archstudio.archipelago.core.util.XArchADTOperations;
+import org.archstudio.eclipse.ui.XArchADTOperations;
 import org.archstudio.eclipse.ui.editors.AbstractArchStudioEditor;
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;

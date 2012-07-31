@@ -2,7 +2,7 @@ package org.archstudio.archipelago.core.structure;
 
 import org.archstudio.archipelago.core.FolderNode;
 import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
-import org.archstudio.archipelago.core.util.XArchADTOperations;
+import org.archstudio.eclipse.ui.XArchADTOperations;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;

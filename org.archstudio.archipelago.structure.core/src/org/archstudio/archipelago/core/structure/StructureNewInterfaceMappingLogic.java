@@ -6,7 +6,6 @@ import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 import java.util.Collection;
 import java.util.List;
 
-import org.archstudio.archipelago.core.util.XArchADTOperations;
 import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -19,6 +18,7 @@ import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.IBNAMouseListener;
 import org.archstudio.bna.utils.IBNAMouseMoveListener;
+import org.archstudio.eclipse.ui.XArchADTOperations;
 import org.archstudio.resources.IResources;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;

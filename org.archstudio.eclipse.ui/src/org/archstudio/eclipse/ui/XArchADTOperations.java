@@ -1,4 +1,4 @@
-package org.archstudio.archipelago.core.util;
+package org.archstudio.eclipse.ui;
 
 import java.io.IOException;
 import java.io.Serializable;

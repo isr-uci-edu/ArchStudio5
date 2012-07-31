@@ -6,12 +6,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.archstudio.archipelago.core.util.XArchADTOperations;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.IBNAMenuListener;
+import org.archstudio.eclipse.ui.XArchADTOperations;
 import org.archstudio.myxgen.MyxGenBrick;
 import org.archstudio.myxgen.MyxGenInterface;
 import org.archstudio.myxgen.eclipse.extension.MyxGenWorkspaceExtensions;
