@@ -25,6 +25,6 @@ Require-Bundle: org.archstudio.launcher,
  com.google.guava,
  org.eclipse.ui.ide,
  org.eclipse.core.resources,
- org.archstudio.archipelago.core;bundle-version="5.0.0",
- org.archstudio.xadl.bna;bundle-version="1.0.0"
+ org.archstudio.archipelago.core,
+ org.archstudio.xadl.bna
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

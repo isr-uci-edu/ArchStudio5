@@ -4,8 +4,8 @@ Bundle-Name: XArchUCI Test Example
 Bundle-SymbolicName: org.archstudio.demo.xarchuci
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: archstudio.org
+Require-Bundle: org.archstudio.xadl3.xadlcore,
+ org.archstudio.xadl3.structure,
+ org.archstudio.xarchadt,
+ org.archstudio.xarchadt.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.archstudio.xadl3.xadlcore;bundle-version="5.0.0",
- org.archstudio.xadl3.structure;bundle-version="5.0.0",
- org.archstudio.xarchadt;bundle-version="5.0.0",
- org.archstudio.xarchadt.core;bundle-version="5.0.0"

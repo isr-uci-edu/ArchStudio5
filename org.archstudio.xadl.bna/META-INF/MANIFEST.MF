@@ -18,6 +18,6 @@ Require-Bundle: org.archstudio.bna,
  org.archstudio.xadl3.hints,
  org.jogamp.jogl,
  org.eclipse.core.commands,
- org.eclipse.ui;bundle-version="3.103.0",
- org.eclipse.core.runtime;bundle-version="3.8.0"
+ org.eclipse.ui,
+ org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
