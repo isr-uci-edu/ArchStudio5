@@ -10,12 +10,12 @@ import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
 
-import org.archstudio.eclipse.ui.XArchADTOperations;
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl.bna.utils.XArchADTOperations;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFeature;

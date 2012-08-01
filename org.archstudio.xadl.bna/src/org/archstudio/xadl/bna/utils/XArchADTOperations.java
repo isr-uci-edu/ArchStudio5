@@ -1,4 +1,4 @@
-package org.archstudio.eclipse.ui;
+package org.archstudio.xadl.bna.utils;
 
 import java.io.IOException;
 import java.io.Serializable;

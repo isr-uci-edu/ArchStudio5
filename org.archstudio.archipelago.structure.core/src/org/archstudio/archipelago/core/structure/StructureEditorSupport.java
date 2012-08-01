@@ -58,6 +58,7 @@ import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
 import org.archstudio.xadl.bna.logics.editing.RemoveElementLogic;
+import org.archstudio.xadl.bna.logics.editing.XadlCopyPasteLogic;
 import org.archstudio.xadl.bna.logics.editing.XadlReshapeSplineGuide;
 import org.archstudio.xadl.bna.logics.hints.XadlHintRepository;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
@@ -224,6 +225,8 @@ public class StructureEditorSupport {
 		//logicManager.addThingLogic(new StructureEditColorLogic(AS));
 		logicManager.addThingLogic(new ShowHideTagsLogic());
 		logicManager.addThingLogic(new FindDialogLogic(new ArchipelagoFinder(xarch, services.get(IResources.class))));
+		logicManager.addThingLogic(new XadlCopyPasteLogic(xarch, services.get(IArchipelagoEditorPane.class)
+				.getActionBars()));
 		logicManager.addThingLogic(new RemoveElementLogic(xarch));
 		logicManager.addThingLogic(new RotaterLogic());
 		logicManager.addThingLogic(new AlignAndDistributeLogic());
@@ -235,14 +238,18 @@ public class StructureEditorSupport {
 
 		// xADL mapping logics
 
-		logicManager.addThingLogic(new MapBrickLogic(services, xarch, structureRef, "component", //
-				new Dimension(120, 80), ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_COLOR, 2, ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_FONT));
+		logicManager.addThingLogic(new MapBrickLogic(services, xarch, structureRef,
+				"component", //
+				new Dimension(120, 80), ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_COLOR, 2,
+				ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_FONT));
 		logicManager.addThingLogic(new MapInterfaceLogic(xarch, structureRef, "component/interface"));
 		logicManager
 				.addThingLogic(new MapMappingsLogic(xarch, structureRef, "component/subStructure/interfaceMapping"));
 
-		logicManager.addThingLogic(new MapBrickLogic(services, xarch, structureRef, "connector", //
-				new Dimension(240, 36), ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_COLOR, 1, ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_FONT));
+		logicManager.addThingLogic(new MapBrickLogic(services, xarch, structureRef,
+				"connector", //
+				new Dimension(240, 36), ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_COLOR, 1,
+				ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_FONT));
 		logicManager.addThingLogic(new MapInterfaceLogic(xarch, structureRef, "connector/interface"));
 		logicManager
 				.addThingLogic(new MapMappingsLogic(xarch, structureRef, "connector/subStructure/interfaceMapping"));

@@ -1,8 +1,8 @@
 package org.archstudio.archipelago.core.util;
 
-import org.archstudio.eclipse.ui.XArchADTOperations;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl.bna.utils.XArchADTOperations;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.viewers.ICellModifier;

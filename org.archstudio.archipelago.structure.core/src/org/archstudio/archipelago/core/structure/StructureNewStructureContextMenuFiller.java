@@ -2,10 +2,10 @@ package org.archstudio.archipelago.core.structure;
 
 import org.archstudio.archipelago.core.FolderNode;
 import org.archstudio.archipelago.core.IArchipelagoTreeContextMenuFiller;
-import org.archstudio.eclipse.ui.XArchADTOperations;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl.bna.utils.XArchADTOperations;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;

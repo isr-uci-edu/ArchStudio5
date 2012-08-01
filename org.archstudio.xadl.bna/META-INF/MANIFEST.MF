@@ -7,7 +7,8 @@ Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.xadl.bna.facets,
  org.archstudio.xadl.bna.logics.editing,
  org.archstudio.xadl.bna.logics.hints,
- org.archstudio.xadl.bna.logics.mapping
+ org.archstudio.xadl.bna.logics.mapping,
+ org.archstudio.xadl.bna.utils
 Require-Bundle: org.archstudio.bna,
  org.archstudio.xarchadt,
  org.archstudio.utils.system,
@@ -15,5 +16,8 @@ Require-Bundle: org.archstudio.bna,
  com.google.guava,
  org.eclipse.jface,
  org.archstudio.xadl3.hints,
- org.jogamp.jogl
+ org.jogamp.jogl,
+ org.eclipse.core.commands,
+ org.eclipse.ui;bundle-version="3.103.0",
+ org.eclipse.core.runtime;bundle-version="3.8.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

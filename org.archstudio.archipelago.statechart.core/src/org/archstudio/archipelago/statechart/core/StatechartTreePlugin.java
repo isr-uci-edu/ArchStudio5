@@ -57,7 +57,6 @@ import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAWorld;
-import org.archstudio.eclipse.ui.XArchADTOperations;
 import org.archstudio.myx.fw.IMyxBrick;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.Services;
@@ -67,8 +66,10 @@ import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
 import org.archstudio.xadl.bna.logics.editing.RemoveElementLogic;
+import org.archstudio.xadl.bna.logics.editing.XadlCopyPasteLogic;
 import org.archstudio.xadl.bna.logics.editing.XadlReshapeSplineGuide;
 import org.archstudio.xadl.bna.logics.hints.XadlHintRepository;
+import org.archstudio.xadl.bna.utils.XArchADTOperations;
 import org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFileListener;
@@ -469,6 +470,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		logicManager.addThingLogic(new StatechartEditColorLogic(xarch));
 		logicManager.addThingLogic(ShowHideTagsLogic.class);
 		//logicManager.addThingLogic(FindDialogLogic(ArchipelagoFinder(xarch, services.get(IResources.class))));
+		logicManager.addThingLogic(new XadlCopyPasteLogic(xarch, services.get(IArchipelagoEditorPane.class)
+				.getActionBars()));
 		logicManager.addThingLogic(new RemoveElementLogic(xarch));
 		logicManager.addThingLogic(RotaterLogic.class);
 		logicManager.addThingLogic(AlignAndDistributeLogic.class);

@@ -3,12 +3,12 @@ package org.archstudio.archedit.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.archstudio.eclipse.ui.XArchADTOperations;
 import org.archstudio.eclipse.ui.editors.AbstractArchStudioEditor;
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.AutoResizeTableLayout;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl.bna.utils.XArchADTOperations;
 import org.archstudio.xarchadt.IXArchADTFeature;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;

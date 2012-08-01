@@ -1,6 +1,7 @@
-package org.archstudio.eclipse.ui;
+package org.archstudio.xadl.bna.utils;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.archstudio.sysutils.UIDGenerator;
@@ -10,6 +11,7 @@ import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 
 public class XArchADTCopyPaste {
@@ -20,9 +22,10 @@ public class XArchADTCopyPaste {
 	 * the cloned Link still points to the same interfaces, but does not clone
 	 * the interfaces themselves.
 	 */
-	protected ObjRef clone(IXArchADT xarch, ObjRef objRef) {
+	protected ObjRef clone(IXArchADT xarch, ObjRef objRef, Map<ObjRef, ObjRef> oldNewRefs) {
 		IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(objRef);
 		ObjRef cloneRef = xarch.create(typeMetadata.getNsURI(), typeMetadata.getTypeName());
+		oldNewRefs.put(objRef, cloneRef);
 		for (IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
 			switch (feature.getType()) {
 			case ATTRIBUTE:
@@ -31,13 +34,13 @@ public class XArchADTCopyPaste {
 			case ELEMENT_SINGLE:
 				Serializable s = xarch.get(objRef, feature.getName());
 				if (s instanceof ObjRef && !feature.isReference())
-					s = clone(xarch, (ObjRef) s);
+					s = clone(xarch, (ObjRef) s, oldNewRefs);
 				xarch.set(cloneRef, feature.getName(), s);
 				break;
 			case ELEMENT_MULTIPLE:
 				for (Serializable m : xarch.getAll(objRef, feature.getName())) {
 					if (m instanceof ObjRef && !feature.isReference())
-						m = clone(xarch, (ObjRef) m);
+						m = clone(xarch, (ObjRef) m, oldNewRefs);
 					xarch.add(cloneRef, feature.getName(), m);
 				}
 				break;
@@ -77,6 +80,37 @@ public class XArchADTCopyPaste {
 		}
 	}
 
+	/**
+	 * Goes through the Objref and replaces all references to old objRefs with
+	 * references to the new objRefs.
+	 */
+	protected void updateReferences(IXArchADT xarch, ObjRef objRef, Map<ObjRef, ObjRef> oldNewRefs) {
+		IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(objRef);
+		for (IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
+			switch (feature.getType()) {
+			case ATTRIBUTE:
+				if ("id".equals(feature.getName())) {
+					xarch.set(objRef, feature.getName(), UIDGenerator.generateUID());
+				}
+				break;
+			case ELEMENT_SINGLE:
+				Serializable s = xarch.get(objRef, feature.getName());
+				if (s instanceof ObjRef && feature.isReference() && oldNewRefs.containsKey(s)) {
+					xarch.set(objRef, feature.getName(), oldNewRefs.get(s));
+				}
+				break;
+			case ELEMENT_MULTIPLE:
+				for (Serializable m : xarch.getAll(objRef, feature.getName())) {
+					if (m instanceof ObjRef && feature.isReference() && oldNewRefs.containsKey(m)) {
+						xarch.remove(objRef, feature.getName(), m);
+						xarch.add(objRef, feature.getName(), oldNewRefs.get(m));
+					}
+				}
+				break;
+			}
+		}
+	}
+
 	Multimap<String, ObjRef> featureToCopiedObjRefs = ArrayListMultimap.create();
 
 	/**
@@ -85,8 +119,12 @@ public class XArchADTCopyPaste {
 	 */
 	public void copy(IXArchADT xarch, Iterable<ObjRef> objRefs) {
 		featureToCopiedObjRefs.clear();
+		Map<ObjRef, ObjRef> oldNewRefs = Maps.newHashMap();
 		for (ObjRef objRef : objRefs) {
-			featureToCopiedObjRefs.put(xarch.getContainingFeatureName(objRef), clone(xarch, objRef));
+			featureToCopiedObjRefs.put(xarch.getContainingFeatureName(objRef), clone(xarch, objRef, oldNewRefs));
+		}
+		for (ObjRef objRef : oldNewRefs.values()) {
+			updateReferences(xarch, objRef, oldNewRefs);
 		}
 	}
 
@@ -96,8 +134,9 @@ public class XArchADTCopyPaste {
 	 */
 	public void paste(IXArchADT xarch, ObjRef rootRef) {
 		IXArchADTTypeMetadata rootType = xarch.getTypeMetadata(rootRef);
+		Map<ObjRef, ObjRef> oldNewRefs = Maps.newHashMap();
 		for (Entry<String, ObjRef> e : featureToCopiedObjRefs.entries()) {
-			ObjRef objRef = clone(xarch, e.getValue());
+			ObjRef objRef = clone(xarch, e.getValue(), oldNewRefs);
 			randomizeIDs(xarch, objRef);
 
 			IXArchADTFeature feature = rootType.getFeatures().get(e.getKey());
@@ -116,6 +155,9 @@ public class XArchADTCopyPaste {
 			case ELEMENT_MULTIPLE:
 				xarch.add(rootRef, feature.getName(), objRef);
 			}
+		}
+		for (ObjRef objRef : oldNewRefs.values()) {
+			updateReferences(xarch, objRef, oldNewRefs);
 		}
 	}
 }
