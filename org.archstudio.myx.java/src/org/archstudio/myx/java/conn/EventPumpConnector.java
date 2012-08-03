@@ -4,6 +4,9 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.MyxUtils;
@@ -17,6 +20,27 @@ import com.google.common.collect.Sets;
  * @generated
  */
 public class EventPumpConnector extends org.archstudio.myx.java.conn.EventPumpConnectorStub {
+
+	protected ExecutorService asyncExecutor = null;
+
+	@Override
+	public void init() {
+		super.init();
+		asyncExecutor = Executors.newSingleThreadExecutor();
+	}
+
+	@Override
+	public void destroy() {
+		asyncExecutor.shutdown();
+		try {
+			asyncExecutor.awaitTermination(5, TimeUnit.SECONDS);
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		asyncExecutor = null;
+		super.destroy();
+	}
 
 	protected ClassLoader getClassLoader(IMyxBrickItems brickItems) {
 		return getClass().getClassLoader();
@@ -48,9 +72,23 @@ public class EventPumpConnector extends org.archstudio.myx.java.conn.EventPumpCo
 		ClassLoader classLoader = getClassLoader(brickItems);
 		in = Proxy.newProxyInstance(classLoader, getInterfaceClasses(brickItems, classLoader), new InvocationHandler() {
 			@Override
-			public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-				for (Object o : out) {
-					method.invoke(o, args);
+			public Object invoke(Object proxy, final Method method, final Object[] args) throws Throwable {
+				for (final Object o : out) {
+					try {
+						asyncExecutor.submit(new Runnable() {
+							public void run() {
+								try {
+									method.invoke(o, args);
+								}
+								catch (Throwable e) {
+									e.printStackTrace();
+								}
+							}
+						});
+					}
+					catch (Throwable t) {
+						t.printStackTrace();
+					}
 				}
 				return null;
 			}
