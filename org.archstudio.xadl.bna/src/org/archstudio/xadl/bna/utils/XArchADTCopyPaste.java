@@ -1,6 +1,7 @@
 package org.archstudio.xadl.bna.utils;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -132,7 +133,7 @@ public class XArchADTCopyPaste {
 	 * Pastes the copied ObjRefs into a document after cloning them and
 	 * randomizing their IDs so that there are no ID conflicts.
 	 */
-	public void paste(IXArchADT xarch, ObjRef rootRef) {
+	public Collection<ObjRef> paste(IXArchADT xarch, ObjRef rootRef) {
 		IXArchADTTypeMetadata rootType = xarch.getTypeMetadata(rootRef);
 		Map<ObjRef, ObjRef> oldNewRefs = Maps.newHashMap();
 		for (Entry<String, ObjRef> e : featureToCopiedObjRefs.entries()) {
@@ -159,5 +160,7 @@ public class XArchADTCopyPaste {
 		for (ObjRef objRef : oldNewRefs.values()) {
 			updateReferences(xarch, objRef, oldNewRefs);
 		}
+
+		return oldNewRefs.values();
 	}
 }

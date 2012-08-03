@@ -1,15 +1,21 @@
 package org.archstudio.xadl.bna.logics.editing;
 
 import java.util.List;
+import java.util.Map;
 
+import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasSelected;
+import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.GridUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
@@ -21,17 +27,21 @@ import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.actions.ActionFactory;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
-public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuListener {
+public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuListener, IBNAModelListener {
 
 	protected final IXArchADT xarch;
 	protected final IActionBars actionBars;
 	protected final XArchADTCopyPaste copyPaste = new XArchADTCopyPaste();
+	protected final Map<ObjRef, Integer> selectAndMoveObjRefs = Maps.newHashMap();
+	protected int pasteOffset = 0;
 
 	public XadlCopyPasteLogic(IXArchADT xarch, IActionBars actionBars) {
 		super();
@@ -106,6 +116,8 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 	}
 
 	public void copy() {
+		pasteOffset = 0;
+
 		copyPaste.copy(xarch, getSelectedObjRefs());
 	}
 
@@ -116,11 +128,37 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		if (rootRef != null) {
 			XArchADTOperations xarch = new XArchADTOperations(this.xarch);
 
-			copyPaste.paste(xarch, rootRef);
+			// unselect everything
+			for (IThing t : getBNAModel().getAllThings())
+				t.set(IHasSelected.SELECTED_KEY, false);
+			selectAndMoveObjRefs.clear();
+
+			// keep track of the new ObjRefs to select and move them
+			pasteOffset += GridUtils.getGridSpacing(getBNAModel());
+			for (ObjRef objRef : copyPaste.paste(xarch, rootRef))
+				selectAndMoveObjRefs.put(objRef, pasteOffset);
 
 			xarch.done("Paste");
 		}
+	}
 
+	@Override
+	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+		// select the new ObjRefs added by paste()
+		switch (evt.getEventType()) {
+		case THING_CHANGED:
+			IThing ct = evt.getTargetThing();
+			if (selectAndMoveObjRefs.containsKey(ct.get(IHasObjRef.OBJREF_KEY))) {
+				int move = selectAndMoveObjRefs.remove(ct.get(IHasObjRef.OBJREF_KEY));
+				ct.set(IHasSelected.SELECTED_KEY, true);
+				if (ct instanceof IRelativeMovable) {
+					((IRelativeMovable) ct).moveRelative(new Point(move, move));
+				}
+			}
+			break;
+		default:
+			// do nothing
+		}
 	}
 
 	public void delete() {
