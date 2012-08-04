@@ -14,6 +14,12 @@
             id="org.archstudio.myx.osgi.conn.OSGiSynchEventPumpConnector"
             name="OSGi Synch Event Pump Connector">
       </brick>
+      <brick
+            class="org.archstudio.myx.osgi.conn.OSGiSynchronousProxyConnector"
+            id="org.archstudio.myx.osgi.conn.OSGiSynchronousProxyConnector"
+            name="OSGi Synch Proxy Connector"
+            parentBrick="org.archstudio.myx.java.conn.SynchronousProxyConnector">
+      </brick>
    </extension>
    <extension
          point="org.archstudio.myx.fw.equinox.brickLoader">

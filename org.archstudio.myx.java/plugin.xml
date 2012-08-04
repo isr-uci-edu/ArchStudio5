@@ -104,6 +104,31 @@
                single="false">
          </interface>
       </brick>
+      <brick
+            class="org.archstudio.myx.java.conn.SynchronousProxyConnector"
+            id="org.archstudio.myx.java.conn.SynchronousProxyConnector"
+            name="Synch Proxy Impl">
+         <interface
+               class="java.lang.Object"
+               delegate="variable"
+               direction="in"
+               domain="bottom"
+               getter="true"
+               id="in"
+               name="in"
+               single="true">
+         </interface>
+         <interface
+               class="java.lang.Object"
+               delegate="variable"
+               direction="out"
+               domain="top"
+               getter="true"
+               id="out"
+               name="out"
+               single="true">
+         </interface>
+      </brick>
    </extension>
    <extension
          point="org.archstudio.myx.fw.equinox.brickLoader">
