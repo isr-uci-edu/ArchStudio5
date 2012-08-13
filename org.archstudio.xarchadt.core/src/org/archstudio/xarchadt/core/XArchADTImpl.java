@@ -701,7 +701,7 @@ public class XArchADTImpl implements IXArchADT {
 		for (Resource r : resourceSet.getResources()) {
 			if (r.getURI().equals(uri)) {
 				// Possibly already open
-				if (r.isLoaded()) {
+				if (r.isLoaded() && r.getContents().size() >= 1) {
 					// Already open
 					return put(r.getContents().get(0));
 				}
