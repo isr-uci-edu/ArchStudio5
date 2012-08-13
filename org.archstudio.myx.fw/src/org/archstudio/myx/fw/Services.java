@@ -27,7 +27,7 @@ public class Services {
 		
 		services.put(c, o);
 		for(Class<?> i : c.getInterfaces()){
-			services.put(i, o);
+			add(i, o);
 		}
 		add(c.getSuperclass(), o);
 	}
