@@ -1,4 +1,4 @@
-package org.archstudio.xarchadt.core.internal;
+package org.archstudio.xarchadt.internal;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;

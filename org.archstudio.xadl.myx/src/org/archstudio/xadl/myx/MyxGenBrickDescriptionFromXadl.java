@@ -9,7 +9,7 @@ import org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation;
 import org.archstudio.xadl3.osgiimplementation_3_0.Osgiimplementation_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.xarchadt.core.XArchADTProxy;
+import org.archstudio.xarchadt.XArchADTProxy;
 
 public class MyxGenBrickDescriptionFromXadl implements IMyxBrickDescriptionFromXadl {
 

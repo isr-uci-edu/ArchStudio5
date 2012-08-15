@@ -14,7 +14,7 @@ import org.archstudio.xarchadt.IXArchADTQuery;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
-import org.archstudio.xarchadt.core.XArchADTProxy;
+import org.archstudio.xarchadt.XArchADTProxy;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;

@@ -1,6 +1,7 @@
-package org.archstudio.xarchadt.core.internal;
+package org.archstudio.xarchadt.internal;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -11,7 +12,10 @@ import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.xarchadt.core.XArchADTProxy;
+import org.archstudio.xarchadt.XArchADTProxy;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
@@ -27,6 +31,60 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.MapMaker;
 
 public class EObjectProxy extends AbstractProxy {
+
+	private static final String EMF_EXTENSION_POINT_ID = "org.eclipse.emf.ecore.generated_package";
+
+	/**
+	 * This method causes the EPackage.eINSTANCE variable of each EMF-generated
+	 * bundle (plugin) in Eclipse to be touched. This causes the package to
+	 * spontaneously register itself with the EPackage Registry, which is how we
+	 * find out what EPackages are available on the system. This is an EMF-ism
+	 * that isn't easily avoided. If you are running outside of ArchStudio (like
+	 * in org.archstudio.description.Main), then these bundles will not be
+	 * available. What you have to do then is just read the eINSTANCE variable
+	 * for all the EPackages you want to have available to you.
+	 */
+	private static boolean registerAllSchemaPackagesDone = false;
+
+	private static void registerAllSchemaPackages() {
+		if (registerAllSchemaPackagesDone)
+			return;
+		registerAllSchemaPackagesDone = true;
+		IExtensionRegistry reg = Platform.getExtensionRegistry();
+		if (reg != null) {
+			// The Extension Registry can be null if we're running outside of Eclipse
+			for (IConfigurationElement configurationElement : reg.getConfigurationElementsFor(EMF_EXTENSION_POINT_ID)) {
+				String packageClassName = configurationElement.getAttribute("class");
+				if (packageClassName != null) {
+					String bundleName = configurationElement.getDeclaringExtension().getContributor().getName();
+					try {
+						Class<?> packageClass = Platform.getBundle(bundleName).loadClass(packageClassName);
+						Field instanceField = packageClass.getDeclaredField("eINSTANCE");
+						/* EPackage ePackage = (EPackage) */instanceField.get(packageClass);
+					}
+					catch (ClassNotFoundException cnfe) {
+					}
+					catch (NoSuchFieldException nsfe) {
+					}
+					catch (IllegalAccessException iae) {
+					}
+				}
+			}
+		}
+	}
+
+	private static final LoadingCache<String, EPackage> ePackageCache = CacheBuilder.newBuilder().build(
+			new CacheLoader<String, EPackage>() {
+
+				@Override
+				public synchronized EPackage load(String nsURI) throws Exception {
+					EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(nsURI);
+					if (ePackage != null) {
+						return ePackage;
+					}
+					throw new NullPointerException(SystemUtils.message("No EPackage with nsURI: $0", nsURI));
+				}
+			});
 
 	static final class Get_EObject extends Handler<NameContext, ProxyImpl> {
 
@@ -73,6 +131,20 @@ public class EObjectProxy extends AbstractProxy {
 		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			return proxy.xarch.get(proxy.objRef, context.name);
+		}
+	}
+
+	static final class Get_EClass extends Handler<NameContext, ProxyImpl> {
+
+		public Get_EClass(NameContext context) {
+			super(context);
+		}
+
+		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
+			registerAllSchemaPackages();
+			IXArchADTTypeMetadata typeMetadata = proxy.xarch.getTypeMetadata(proxy.objRef);
+			EPackage ePackage = ePackageCache.getUnchecked(typeMetadata.getNsURI());
+			return ePackage.getEClassifier(typeMetadata.getTypeName());
 		}
 	}
 
@@ -190,6 +262,9 @@ public class EObjectProxy extends AbstractProxy {
 				public Handler<NameContext, ProxyImpl> load(Method method) throws Exception {
 					String name = method.getName();
 					String prefix;
+					if (name.equals(prefix = "eClass")) {
+						return getHandler(Get_EClass.class, new NameContext(name));
+					}
 					if (name.startsWith(prefix = "get")) {
 						if (EObject.class.isAssignableFrom(method.getReturnType())) {
 							return getHandler(Get_EObject.class, new NameContext(name.substring(prefix.length())));

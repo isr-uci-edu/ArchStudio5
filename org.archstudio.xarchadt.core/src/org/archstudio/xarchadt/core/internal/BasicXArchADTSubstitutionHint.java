@@ -1,4 +1,6 @@
-package org.archstudio.xarchadt;
+package org.archstudio.xarchadt.core.internal;
+
+import org.archstudio.xarchadt.IXArchADTSubstitutionHint;
 
 public class BasicXArchADTSubstitutionHint implements IXArchADTSubstitutionHint {
 	protected HintType hintType;

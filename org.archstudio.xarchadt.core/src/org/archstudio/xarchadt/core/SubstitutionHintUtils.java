@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.archstudio.xarchadt.BasicXArchADTSubstitutionHint;
 import org.archstudio.xarchadt.IXArchADTSubstitutionHint;
 import org.archstudio.xarchadt.IXArchADTSubstitutionHint.HintType;
+import org.archstudio.xarchadt.core.internal.BasicXArchADTSubstitutionHint;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;

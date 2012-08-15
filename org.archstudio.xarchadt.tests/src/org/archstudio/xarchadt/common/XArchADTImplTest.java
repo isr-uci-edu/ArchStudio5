@@ -9,7 +9,7 @@ import org.archstudio.xadl3.structure_3_0.Structure_3_0Factory;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xadl3.xadlcore_3_0.DocumentRoot;
 import org.archstudio.xadl3.xadlcore_3_0.XADLType;
-import org.archstudio.xarchadt.core.XArchADTProxy;
+import org.archstudio.xarchadt.XArchADTProxy;
 import org.eclipse.emf.common.util.URI;
 
 import com.google.common.collect.Lists;

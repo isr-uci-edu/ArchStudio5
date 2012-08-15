@@ -13,5 +13,6 @@ Require-Bundle: com.google.guava,
  org.archstudio.utils.system,
  org.archstudio.xadl3.xadlcore,
  org.archstudio.xarchadt,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.archstudio.xadl3.hints;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

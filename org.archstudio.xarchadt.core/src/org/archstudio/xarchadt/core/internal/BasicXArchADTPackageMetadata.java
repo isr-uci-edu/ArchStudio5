@@ -1,7 +1,10 @@
-package org.archstudio.xarchadt;
+package org.archstudio.xarchadt.core.internal;
 
 import java.util.Collections;
 import java.util.Map;
+
+import org.archstudio.xarchadt.IXArchADTPackageMetadata;
+import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Maps;

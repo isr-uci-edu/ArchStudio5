@@ -20,9 +20,6 @@ import javax.xml.xpath.XPathException;
 
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
-import org.archstudio.xarchadt.BasicXArchADTFeature;
-import org.archstudio.xarchadt.BasicXArchADTPackageMetadata;
-import org.archstudio.xarchadt.BasicXArchADTTypeMetadata;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFeature;
 import org.archstudio.xarchadt.IXArchADTFeature.FeatureType;
@@ -35,6 +32,9 @@ import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTFileEvent;
 import org.archstudio.xarchadt.XArchADTFileEvent.EventType;
+import org.archstudio.xarchadt.core.internal.BasicXArchADTFeature;
+import org.archstudio.xarchadt.core.internal.BasicXArchADTPackageMetadata;
+import org.archstudio.xarchadt.core.internal.BasicXArchADTTypeMetadata;
 import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.archstudio.xarchadt.XArchADTPath;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -133,8 +133,7 @@ public class XArchADTImpl implements IXArchADT {
 	private void registerAllSchemaPackages() {
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
 		if (reg != null) {
-			// The Extension Registry can be null if we're running outside of Eclipse,
-			// as happens in, e.g., org.archstudio.description.Main
+			// The Extension Registry can be null if we're running outside of Eclipse
 			for (IConfigurationElement configurationElement : reg.getConfigurationElementsFor(EMF_EXTENSION_POINT_ID)) {
 				String packageClassName = configurationElement.getAttribute("class");
 				if (packageClassName != null) {
@@ -145,13 +144,10 @@ public class XArchADTImpl implements IXArchADT {
 						/* EPackage ePackage = (EPackage) */instanceField.get(packageClass);
 					}
 					catch (ClassNotFoundException cnfe) {
-						System.err.println(cnfe);
 					}
 					catch (NoSuchFieldException nsfe) {
-						System.err.println(nsfe);
 					}
 					catch (IllegalAccessException iae) {
-						System.err.println(iae);
 					}
 				}
 			}
@@ -1056,9 +1052,10 @@ public class XArchADTImpl implements IXArchADT {
 		}
 		return result;
 	}
-	
+
 	@Override
-	public synchronized List<Serializable> resolveSerializables(ObjRef contextObjRef, String xPath) throws XPathException {
+	public synchronized List<Serializable> resolveSerializables(ObjRef contextObjRef, String xPath)
+			throws XPathException {
 		Iterator<EObject> it = EcoreXPathContextFactory.newInstance().newContext(get(contextObjRef)).iterate(xPath);
 		List<Serializable> result = Lists.newArrayList();
 		while (it.hasNext()) {

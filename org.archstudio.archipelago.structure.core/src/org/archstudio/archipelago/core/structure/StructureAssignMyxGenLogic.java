@@ -39,7 +39,7 @@ import org.archstudio.xadl3.structure_3_0.Structure_3_0Factory;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.xarchadt.core.XArchADTProxy;
+import org.archstudio.xarchadt.XArchADTProxy;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;

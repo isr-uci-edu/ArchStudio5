@@ -1,4 +1,4 @@
-package org.archstudio.xarchadt.core.internal;
+package org.archstudio.xarchadt.internal;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentMap;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.xarchadt.core.XArchADTProxy;
+import org.archstudio.xarchadt.XArchADTProxy;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 

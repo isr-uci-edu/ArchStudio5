@@ -7,7 +7,8 @@ import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xadl3.structure_3_0.SubStructure;
 import org.archstudio.xadl3.xadlcore_3_0.DocumentRoot;
 import org.archstudio.xadl3.xadlcore_3_0.XADLType;
-import org.archstudio.xarchadt.core.XArchADTProxy;
+import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
+import org.archstudio.xarchadt.XArchADTProxy;
 import org.eclipse.emf.ecore.EObject;
 
 import com.google.common.collect.Sets;
@@ -86,5 +87,12 @@ public class XArchADTProxyTest extends AbstractXArchADTTest {
 
 		structure.getComponent().remove(component2);
 		assertEquals(Sets.newHashSet(), Sets.newHashSet(structure.getComponent()));
+	}
+
+	public void testEClass() {
+		assertEquals(((DocumentRoot) XArchADTProxy.proxy(xarch, documentRef)).eClass(),
+				Xadlcore_3_0Package.Literals.DOCUMENT_ROOT);
+		assertEquals(((DocumentRoot) XArchADTProxy.proxy(xarch, documentRef)).eClass().getEPackage(),
+				Xadlcore_3_0Package.Literals.DOCUMENT_ROOT.getEPackage());
 	}
 }

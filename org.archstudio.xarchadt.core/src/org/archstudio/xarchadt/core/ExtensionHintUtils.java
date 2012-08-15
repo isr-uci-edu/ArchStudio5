@@ -11,9 +11,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.archstudio.xarchadt.BasicXArchADTSubstitutionHint;
+import org.archstudio.xadl3.hints_3_0.Hints_3_0Package;
 import org.archstudio.xarchadt.IXArchADTSubstitutionHint;
 import org.archstudio.xarchadt.IXArchADTSubstitutionHint.HintType;
+import org.archstudio.xarchadt.core.internal.BasicXArchADTSubstitutionHint;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EPackage;
 import org.w3c.dom.Document;
@@ -24,7 +25,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 class ExtensionHintUtils {
-	public static final String EXTENSION_HINT_URI = "http://www.archstudio.org/xadl3/schemas/extensionHint";
+	public static final String EXTENSION_HINT_URI = Hints_3_0Package.eINSTANCE.getNsURI();
 
 	/**
 	 * Find all hints in all the packages.

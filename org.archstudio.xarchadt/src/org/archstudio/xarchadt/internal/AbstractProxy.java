@@ -1,11 +1,11 @@
-package org.archstudio.xarchadt.core.internal;
+package org.archstudio.xarchadt.internal;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.xarchadt.core.XArchADTProxy;
+import org.archstudio.xarchadt.XArchADTProxy;
 import org.eclipse.emf.ecore.EObject;
 
 import com.google.common.cache.CacheBuilder;
