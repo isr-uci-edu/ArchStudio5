@@ -1,7 +1,6 @@
 package org.archstudio.xarchadt.internal;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -13,15 +12,12 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTProxy;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 import com.google.common.base.Function;
 import com.google.common.cache.CacheBuilder;
@@ -30,48 +26,8 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.MapMaker;
 
+@SuppressWarnings("null")
 public class EObjectProxy extends AbstractProxy {
-
-	private static final String EMF_EXTENSION_POINT_ID = "org.eclipse.emf.ecore.generated_package";
-
-	/**
-	 * This method causes the EPackage.eINSTANCE variable of each EMF-generated
-	 * bundle (plugin) in Eclipse to be touched. This causes the package to
-	 * spontaneously register itself with the EPackage Registry, which is how we
-	 * find out what EPackages are available on the system. This is an EMF-ism
-	 * that isn't easily avoided. If you are running outside of ArchStudio (like
-	 * in org.archstudio.description.Main), then these bundles will not be
-	 * available. What you have to do then is just read the eINSTANCE variable
-	 * for all the EPackages you want to have available to you.
-	 */
-	private static boolean registerAllSchemaPackagesDone = false;
-
-	private static void registerAllSchemaPackages() {
-		if (registerAllSchemaPackagesDone)
-			return;
-		registerAllSchemaPackagesDone = true;
-		IExtensionRegistry reg = Platform.getExtensionRegistry();
-		if (reg != null) {
-			// The Extension Registry can be null if we're running outside of Eclipse
-			for (IConfigurationElement configurationElement : reg.getConfigurationElementsFor(EMF_EXTENSION_POINT_ID)) {
-				String packageClassName = configurationElement.getAttribute("class");
-				if (packageClassName != null) {
-					String bundleName = configurationElement.getDeclaringExtension().getContributor().getName();
-					try {
-						Class<?> packageClass = Platform.getBundle(bundleName).loadClass(packageClassName);
-						Field instanceField = packageClass.getDeclaredField("eINSTANCE");
-						/* EPackage ePackage = (EPackage) */instanceField.get(packageClass);
-					}
-					catch (ClassNotFoundException cnfe) {
-					}
-					catch (NoSuchFieldException nsfe) {
-					}
-					catch (IllegalAccessException iae) {
-					}
-				}
-			}
-		}
-	}
 
 	private static final LoadingCache<String, EPackage> ePackageCache = CacheBuilder.newBuilder().build(
 			new CacheLoader<String, EPackage>() {
@@ -95,18 +51,6 @@ public class EObjectProxy extends AbstractProxy {
 		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			return proxy(proxy.xarch, (ObjRef) proxy.xarch.get(proxy.objRef, context.name));
-		}
-	}
-
-	static final class Get_EMap extends Handler<NameContext, ProxyImpl> {
-
-		public Get_EMap(NameContext context) {
-			super(context);
-		}
-
-		@Override
-		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
-			return EMapProxy.proxy(proxy.xarch, proxy.objRef, context.name);
 		}
 	}
 
@@ -141,10 +85,32 @@ public class EObjectProxy extends AbstractProxy {
 		}
 
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
-			registerAllSchemaPackages();
 			IXArchADTTypeMetadata typeMetadata = proxy.xarch.getTypeMetadata(proxy.objRef);
 			EPackage ePackage = ePackageCache.getUnchecked(typeMetadata.getNsURI());
 			return ePackage.getEClassifier(typeMetadata.getTypeName());
+		}
+	}
+
+	static final class Get_EContainer extends Handler<NameContext, ProxyImpl> {
+
+		public Get_EContainer(NameContext context) {
+			super(context);
+		}
+
+		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
+			return XArchADTProxy.proxy(proxy.xarch, proxy.xarch.getParent(proxy.objRef));
+		}
+	}
+
+	static final class Get_EGet extends Handler<NameContext, ProxyImpl> {
+
+		public Get_EGet(NameContext context) {
+			super(context);
+		}
+
+		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
+			Serializable result = proxy.xarch.get(proxy.objRef, ((EStructuralFeature) args[0]).getName());
+			return result instanceof ObjRef ? XArchADTProxy.proxy(proxy.xarch, (ObjRef) result) : result;
 		}
 	}
 
@@ -158,18 +124,6 @@ public class EObjectProxy extends AbstractProxy {
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			proxy.xarch.set(proxy.objRef, context.name, XArchADTProxy.unproxy((EObject) args[0]));
 			return null;
-		}
-	}
-
-	static final class Set_EMap extends Handler<NameContext, ProxyImpl> {
-
-		public Set_EMap(NameContext context) {
-			super(context);
-		}
-
-		@Override
-		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
-			return EMapProxy.proxy(proxy.xarch, proxy.objRef, context.name);
 		}
 	}
 
@@ -262,27 +216,32 @@ public class EObjectProxy extends AbstractProxy {
 				public Handler<NameContext, ProxyImpl> load(Method method) throws Exception {
 					String name = method.getName();
 					String prefix;
-					if (name.equals(prefix = "eClass")) {
-						return getHandler(Get_EClass.class, new NameContext(name));
+					if (name.startsWith(prefix = "e")) {
+						if (name.equals("eClass")) {
+							return getHandler(Get_EClass.class, new NameContext(name));
+						}
+						if (name.equals("eContainer")) {
+							return getHandler(Get_EContainer.class, new NameContext(name));
+						}
+						if (name.equals("eGet")) {
+							return getHandler(Get_EGet.class, new NameContext(name));
+						}
 					}
 					if (name.startsWith(prefix = "get")) {
 						if (EObject.class.isAssignableFrom(method.getReturnType())) {
 							return getHandler(Get_EObject.class, new NameContext(name.substring(prefix.length())));
-						}
-						if (EMap.class.isAssignableFrom(method.getReturnType())) {
-							return getHandler(Get_EMap.class, new NameContext(name.substring(prefix.length())));
 						}
 						if (EList.class.isAssignableFrom(method.getReturnType())) {
 							return getHandler(Get_EList.class, new NameContext(name.substring(prefix.length())));
 						}
 						return getHandler(Get_Object.class, new NameContext(name.substring(prefix.length())));
 					}
+					if (name.startsWith(prefix = "is")) {
+						return getHandler(Get_Object.class, new NameContext(name.substring(prefix.length())));
+					}
 					if (name.startsWith(prefix = "set")) {
 						if (EObject.class.isAssignableFrom(method.getParameterTypes()[0])) {
 							return getHandler(Set_EObject.class, new NameContext(name.substring(prefix.length())));
-						}
-						if (EMap.class.isAssignableFrom(method.getParameterTypes()[0])) {
-							return getHandler(Set_EMap.class, new NameContext(name.substring(prefix.length())));
 						}
 						if (EList.class.isAssignableFrom(method.getParameterTypes()[0])) {
 							return getHandler(Set_EList.class, new NameContext(name.substring(prefix.length())));
