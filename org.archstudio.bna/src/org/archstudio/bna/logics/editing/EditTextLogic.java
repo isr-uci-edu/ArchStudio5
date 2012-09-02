@@ -121,7 +121,7 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		if (evt.getEventType() == BNAModelEvent.EventType.THING_REMOVED) {
 			EditTextLogicData data = evt.getTargetThing().get(DATA_KEY);
 			if (data != null) {

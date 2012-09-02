@@ -45,11 +45,10 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThing.IThingKey<EV>, EV> void bnaModelChanged(
-			BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
-			ET thing = evt.getTargetThing();
+			IThing thing = evt.getTargetThing();
 			Object thingID = thing.getID();
 			for (IThingKey<?> k : thing.keySet()) {
 				update(thingID, k, null, thing.get(k));
@@ -57,13 +56,13 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 			break;
 		}
 		case THING_CHANGED: {
-			ET thing = evt.getTargetThing();
-			ThingEvent<ET, EK, EV> te = evt.getThingEvent();
+			IThing thing = evt.getTargetThing();
+			ThingEvent te = evt.getThingEvent();
 			update(thing.getID(), te.getPropertyName(), te.getOldPropertyValue(), te.getNewPropertyValue());
 			break;
 		}
 		case THING_REMOVED: {
-			ET thing = evt.getTargetThing();
+			IThing thing = evt.getTargetThing();
 			Object thingID = thing.getID();
 			for (IThingKey<?> k : thing.keySet()) {
 				update(thingID, k, thing.get(k), null);

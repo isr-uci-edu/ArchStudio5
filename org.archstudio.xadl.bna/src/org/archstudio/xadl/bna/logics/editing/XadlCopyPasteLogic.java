@@ -8,7 +8,6 @@ import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.facets.IRelativeMovable;
@@ -143,7 +142,7 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		// select the new ObjRefs added by paste()
 		switch (evt.getEventType()) {
 		case THING_CHANGED:

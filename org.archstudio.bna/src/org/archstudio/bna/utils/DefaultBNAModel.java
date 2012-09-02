@@ -16,7 +16,6 @@ import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.sysutils.SystemUtils;
@@ -48,7 +47,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		private final Map<Object, IThing> indexMap = new MapMaker().weakValues().makeMap();
 
 		@Override
-		public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+		public void bnaModelChanged(BNAModelEvent evt) {
 			switch (evt.getEventType()) {
 			case THING_ADDED:
 				IThing targetThing = evt.getTargetThing();
@@ -105,8 +104,8 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		synchListeners.remove(l);
 	}
 
-	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void fireBnaModelChanged(
-			BNAModelEvent<ET, EK, EV> evt) {
+	protected void fireBnaModelChanged(
+			BNAModelEvent evt) {
 		for (IBNAModelListener l : synchListeners) {
 			try {
 				long lTime;
@@ -125,7 +124,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		}
 	}
 
-	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void fireBnaModelEvent(BNAModelEvent<ET, EK, EV> evt) {
+	protected void fireBnaModelEvent(BNAModelEvent evt) {
 		if (bulkChangeCount.get() > 0 && !firedBulkChangeEvent) {
 			firedBulkChangeEvent = true;
 			fireBnaModelChanged(BNAModelEvent.create(this, EventType.BULK_CHANGE_BEGIN, bulkChangeCount.get() > 0));
@@ -140,8 +139,8 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void thingChanged(ThingEvent<ET, EK, EV> thingEvent) {
-		fireBnaModelEvent(BNAModelEvent.<ET, EK, EV> create(this, EventType.THING_CHANGED, bulkChangeCount.get() > 0,
+	public void thingChanged(ThingEvent thingEvent) {
+		fireBnaModelEvent(BNAModelEvent. create(this, EventType.THING_CHANGED, bulkChangeCount.get() > 0,
 				thingEvent.getTargetThing(), thingEvent));
 	}
 

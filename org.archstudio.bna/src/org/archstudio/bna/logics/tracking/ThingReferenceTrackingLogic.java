@@ -123,7 +123,7 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED:
 			scanForReferences(evt.getTargetThing());
@@ -132,7 +132,7 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 			removeReferences(evt.getTargetThing());
 			break;
 		case THING_CHANGED:
-			ThingEvent<ET, EK, EV> thingEvent = evt.getThingEvent();
+			ThingEvent thingEvent = evt.getThingEvent();
 			IThingKey key = thingEvent.getPropertyName();
 			if (key instanceof IThingRefKey) {
 				removeReference(evt.getTargetThing(), (IThingRefKey) key, thingEvent.getOldPropertyValue());

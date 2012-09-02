@@ -10,7 +10,6 @@ import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
-import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasWorld;
@@ -47,7 +46,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 		boolean needsTick = false;
 
 		@Override
-		public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+		public void bnaModelChanged(BNAModelEvent evt) {
 			// prevent infinite loops
 			if (!worldsBeingNotified.add(viewThing))
 				return;
@@ -89,7 +88,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		if (evt.getTargetThing() != null && evt.getTargetThing() instanceof IHasWorld) {
 			IHasWorld vt = (IHasWorld) evt.getTargetThing();
 			switch (evt.getEventType()) {
@@ -100,7 +99,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 				removeListener(vt);
 				break;
 			case THING_CHANGED:
-				ThingEvent<ET, EK, EV> te = evt.getThingEvent();
+				ThingEvent te = evt.getThingEvent();
 				if (te != null && te.getPropertyName().equals(IHasWorld.WORLD_KEY)) {
 					removeListener(vt);
 					addListener(vt);
@@ -129,8 +128,8 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void fireInternalBNAModelEvent(IHasWorld src,
-			BNAModelEvent<ET, EK, EV> evt) {
+	protected void fireInternalBNAModelEvent(IHasWorld src,
+			BNAModelEvent evt) {
 		for (IInternalBNAModelListener l : getBNAWorld().getThingLogicManager().getThingLogics(
 				IInternalBNAModelListener.class)) {
 			l.internalBNAModelChanged(src, evt);

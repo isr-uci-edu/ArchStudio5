@@ -47,7 +47,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing t = evt.getTargetThing();
@@ -74,8 +74,8 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void internalBNAModelChanged(IHasWorld src,
-			BNAModelEvent<ET, EK, EV> evt) {
+	public void internalBNAModelChanged(IHasWorld src,
+			BNAModelEvent evt) {
 
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
@@ -85,7 +85,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 		}
 			break;
 		case THING_CHANGED: {
-			ThingEvent<ET, EK, EV> tevt = evt.getThingEvent();
+			ThingEvent tevt = evt.getThingEvent();
 			IThing t = evt.getTargetThing();
 			if (evt.getThingEvent().getPropertyName().equals(IHasObjRef.OBJREF_KEY)) {
 				updateObjRef(src, t.getID(), (ObjRef) tevt.getOldPropertyValue(), (ObjRef) tevt.getNewPropertyValue());

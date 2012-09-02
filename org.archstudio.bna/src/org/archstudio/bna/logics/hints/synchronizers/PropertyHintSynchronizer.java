@@ -18,7 +18,8 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 	protected final String[] editableQualities;
 
 	@SuppressWarnings("unchecked")
-	public PropertyHintSynchronizer(String hintName, IThingKey<?> propertyName, Class<?> requiredClass, String... editableQualities) {
+	public PropertyHintSynchronizer(String hintName, IThingKey<?> propertyName, Class<?> requiredClass,
+			String... editableQualities) {
 		this.hintName = hintName;
 		this.propertyName = (IThingKey<Object>) propertyName;
 		this.requiredClass = requiredClass;
@@ -40,12 +41,11 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThing.IThingKey<EV>, EV> void storeHints(IHintRepository repository,
-			Object context, ET thing, BNAModelEvent<ET, EK, EV> evt) {
+	public void storeHints(IHintRepository repository, Object context, IThing thing, BNAModelEvent evt) {
 
 		// ignore property changes other than those that we are interested in
 		if (evt != null) {
-			ThingEvent<ET, EK, EV> te = evt.getThingEvent();
+			ThingEvent te = evt.getThingEvent();
 			if (te != null) {
 				if (!propertyName.equals(te.getPropertyName())) {
 					return;

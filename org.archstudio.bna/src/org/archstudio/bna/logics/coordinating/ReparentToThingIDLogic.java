@@ -4,7 +4,6 @@ import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingRefKey;
@@ -19,14 +18,14 @@ public class ReparentToThingIDLogic extends AbstractThingLogic implements IBNAMo
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			reparentThing(evt.getSource(), evt.getTargetThing());
 			break;
 		}
 		case THING_CHANGED: {
-			ThingEvent<ET, EK, EV> te = evt.getThingEvent();
+			ThingEvent te = evt.getThingEvent();
 			if (REPARENT_TO_THING_KEY.equals(te.getPropertyName())) {
 				reparentThing(evt.getSource(), te.getTargetThing());
 			}

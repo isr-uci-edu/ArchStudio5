@@ -5,7 +5,6 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
@@ -35,7 +34,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
@@ -56,7 +55,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 		}
 			break;
 		case THING_CHANGED: {
-			ThingEvent<ET, EK, EV> te = evt.getThingEvent();
+			ThingEvent te = evt.getThingEvent();
 			if (IHasBoundingBox.BOUNDING_BOX_KEY.equals(te.getPropertyName())) {
 				synchronized (this) {
 					modelBounds = null;

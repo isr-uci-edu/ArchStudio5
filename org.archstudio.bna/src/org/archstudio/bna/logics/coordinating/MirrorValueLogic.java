@@ -101,8 +101,8 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelLis
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
-		ThingEvent<ET, EK, EV> thingEvent = evt.getThingEvent();
+	public void bnaModelChanged(BNAModelEvent evt) {
+		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
 			for (Mirror<?, ?> mirror : mirrors.get(Lists.newArrayList(thingEvent.getTargetThing().getID(),
 					thingEvent.getPropertyName()))) {

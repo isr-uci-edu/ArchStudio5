@@ -9,8 +9,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
-import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 
 class ThreadModelEventProcessor {
 	protected ExecutorService asyncExecutor = null;
@@ -51,8 +49,8 @@ class ThreadModelEventProcessor {
 		}
 	}
 
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void fireBNAModelEvent(BNAModelEvent<ET, EK, EV> evt) {
-		final BNAModelEvent<ET, EK, EV> fevt = evt;
+	public void fireBNAModelEvent(BNAModelEvent evt) {
+		final BNAModelEvent fevt = evt;
 		final List<IBNAModelListener> fmodelListeners = modelListeners;
 		Runnable r = new Runnable() {
 			@Override

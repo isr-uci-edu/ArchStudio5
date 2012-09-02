@@ -6,8 +6,6 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
-import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.ThingEvent;
@@ -27,7 +25,7 @@ public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C 
 		t.addThingListener(new IThingListener() {
 
 			@Override
-			public <ET extends IThing, EK extends IThingKey<EV>, EV> void thingChanged(ThingEvent<ET, EK, EV> thingEvent) {
+			public void thingChanged(ThingEvent thingEvent) {
 				if (!AbstractSWTControlThingPeer.this.t.isEditing() && control != null) {
 					disposeControl(control);
 					control = null;

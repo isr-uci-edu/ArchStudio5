@@ -46,11 +46,11 @@ public class DynamicStickPointLogic extends AbstractThingLogic implements IBNAMo
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
-		ThingEvent<ET, EK, EV> thingEvent = evt.getThingEvent();
+	public void bnaModelChanged(BNAModelEvent evt) {
+		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
-			ET thing = thingEvent.getTargetThing();
-			EK key = thingEvent.getPropertyName();
+			IThing thing = thingEvent.getTargetThing();
+			IThingKey<?> key = thingEvent.getPropertyName();
 
 			if (thingEvent != null) {
 				if (key instanceof IThingMetakey) {

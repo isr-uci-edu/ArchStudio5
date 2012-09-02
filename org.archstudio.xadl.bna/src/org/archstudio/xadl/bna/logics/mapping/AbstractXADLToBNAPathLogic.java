@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
@@ -76,8 +75,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 		 * @see AbstractXADLToBNAThingLogic#storeThingData(ObjRef, IThing,
 		 *      BNAPath, BNAModelEvent)
 		 */
-		public <ET extends IThing, EK extends IThingKey<EV>, EV> void updateXADL(T rootThing, BNAPath relativeBNAPath,
-				BNAModelEvent<ET, EK, EV> evt, ObjRef objRef) {
+		public void updateXADL(T rootThing, BNAPath relativeBNAPath, BNAModelEvent evt, ObjRef objRef) {
 		}
 
 	}
@@ -120,8 +118,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 *      BNAModelEvent)
 	 */
 	@Override
-	protected <ET extends IThing, EK extends IThing.IThingKey<EV>, EV> void storeThingData(ObjRef objRef, T rootThing,
-			BNAPath relativeBNAPath, BNAModelEvent<ET, EK, EV> evt) {
+	protected void storeThingData(ObjRef objRef, T rootThing, BNAPath relativeBNAPath, BNAModelEvent evt) {
 		for (IXADLUpdater xadlUpdater : bnaPathXADLUpdaters.get(relativeBNAPath)) {
 			xadlUpdater.updateXADL(rootThing, relativeBNAPath, evt, objRef);
 		}
@@ -189,8 +186,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 				@SuppressWarnings("unchecked")
 				@Override
-				public <ET extends IThing, EK extends IThingKey<EV>, EV> void updateXADL(T rootThing,
-						BNAPath relativeBNAPath, BNAModelEvent<ET, EK, EV> evt, ObjRef objRef) {
+				public void updateXADL(T rootThing, BNAPath relativeBNAPath, BNAModelEvent evt, ObjRef objRef) {
 
 					// this updates xADL attributes from the BNA Thing's property value
 
@@ -300,8 +296,8 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 		//
 		//		@SuppressWarnings("unchecked")
 		//		@Override
-		//		public <ET extends IThing, EK extends IThingKey<EV>, EV> void updateXADL(IThing rootThing,
-		//				BNAPath relativeBNAPath, BNAModelEvent<ET, EK, EV> evt, ObjRef objRef) {
+		//		public void updateXADL(IThing rootThing,
+		//				BNAPath relativeBNAPath, BNAModelEvent evt, ObjRef objRef) {
 		//			if (thingValueKey.equals(evt.getThingEvent().getPropertyName())) {
 		//				Object value = evt.getThingEvent().getNewPropertyValue();
 		//				if (translator != null) {

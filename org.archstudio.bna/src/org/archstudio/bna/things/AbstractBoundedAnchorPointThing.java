@@ -2,7 +2,6 @@ package org.archstudio.bna.things;
 
 import java.awt.Dimension;
 
-import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.constants.StickyMode;
@@ -19,7 +18,7 @@ public abstract class AbstractBoundedAnchorPointThing extends AbstractAnchorPoin
 		super(id);
 		addThingListener(new IThingListener() {
 			@Override
-			public <ET extends IThing, EK extends IThingKey<EV>, EV> void thingChanged(ThingEvent<ET, EK, EV> thingEvent) {
+			public void thingChanged(ThingEvent thingEvent) {
 				if (!IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
 					set(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
 				}

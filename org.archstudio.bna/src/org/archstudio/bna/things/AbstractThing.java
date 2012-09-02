@@ -113,7 +113,7 @@ public class AbstractThing implements IThing {
 		thingListeners.remove(thingListener);
 	}
 
-	protected <EK extends IThingKey<EV>, EV> void fireThingEvent(ThingEvent<IThing, EK, EV> evt) {
+	protected <EK extends IThingKey<EV>, EV> void fireThingEvent(ThingEvent evt) {
 		for (IThingListener l : thingListeners) {
 			try {
 				l.thingChanged(evt);
@@ -147,8 +147,8 @@ public class AbstractThing implements IThing {
 
 		V oldValue = properties.put(key, value);
 		if (key.isFireEventOnChange() && !SystemUtils.nullEquals(oldValue, value)) {
-			fireThingEvent(ThingEvent.<IThing, IThingKey<V>, V> create(ThingEvent.EventType.PROPERTY_SET, this, key,
-					key.postRead(oldValue), key.postRead(value)));
+			fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_SET, this, key, key.postRead(oldValue),
+					key.postRead(value)));
 		}
 		return oldValue;
 	}
@@ -177,8 +177,7 @@ public class AbstractThing implements IThing {
 		boolean containedValue = properties.containsKey(key);
 		V oldValue = properties.remove(key);
 		if (containedValue && key.isFireEventOnChange()) {
-			fireThingEvent(ThingEvent.<IThing, IThingKey<V>, V> create(ThingEvent.EventType.PROPERTY_REMOVED, this,
-					key, oldValue, null));
+			fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_REMOVED, this, key, oldValue, null));
 		}
 		return oldValue;
 	}

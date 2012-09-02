@@ -89,7 +89,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_CHANGED:
 			if (!evt.getThingEvent().getPropertyName().equals(SHOW_TAG_KEY))

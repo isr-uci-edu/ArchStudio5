@@ -68,7 +68,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		if(evt.getEventType() == EventType.THING_REMOVING){
 			if(innerView != null){
 				innerView.disposePeer(evt.getTargetThing());

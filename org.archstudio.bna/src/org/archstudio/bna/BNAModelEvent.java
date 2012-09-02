@@ -1,9 +1,8 @@
 package org.archstudio.bna;
 
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.utils.DefaultBNAModel;
 
-public class BNAModelEvent<T extends IThing, K extends IThingKey<V>, V> {
+public class BNAModelEvent {
 
 	public enum EventType {
 		THING_ADDED(true), //
@@ -26,36 +25,34 @@ public class BNAModelEvent<T extends IThing, K extends IThingKey<V>, V> {
 		}
 	};
 
-	public static final BNAModelEvent<IThing, IThingKey<Object>, Object> create(DefaultBNAModel source,
-			EventType eventType, boolean inBulkChange) {
-		return new BNAModelEvent<IThing, IThingKey<Object>, Object>(source, eventType, inBulkChange, null, null, null);
+	public static final BNAModelEvent create(DefaultBNAModel source, EventType eventType, boolean inBulkChange) {
+		return new BNAModelEvent(source, eventType, inBulkChange, null, null, null);
 	}
 
-	public static final BNAModelEvent<IThing, IThingKey<Object>, Object> create(IBNAModel source, EventType eventType,
-			boolean inBulkChange, String streamNotification) {
-		return new BNAModelEvent<IThing, IThingKey<Object>, Object>(source, eventType, inBulkChange, null, null,
-				streamNotification);
+	public static final BNAModelEvent create(IBNAModel source, EventType eventType, boolean inBulkChange,
+			String streamNotification) {
+		return new BNAModelEvent(source, eventType, inBulkChange, null, null, streamNotification);
 	}
 
-	public static final <T extends IThing> BNAModelEvent<T, IThingKey<Object>, Object> create(IBNAModel source,
-			EventType eventType, boolean inBulkChange, T targetThing) {
-		return new BNAModelEvent<T, IThingKey<Object>, Object>(source, eventType, inBulkChange, targetThing, null, null);
+	public static final BNAModelEvent create(IBNAModel source, EventType eventType, boolean inBulkChange,
+			IThing targetThing) {
+		return new BNAModelEvent(source, eventType, inBulkChange, targetThing, null, null);
 	}
 
-	public static final <T extends IThing, K extends IThingKey<V>, V> BNAModelEvent<T, K, V> create(IBNAModel source,
-			EventType eventType, boolean inBulkChange, T targetThing, ThingEvent<T, K, V> thingEvent) {
-		return new BNAModelEvent<T, K, V>(source, eventType, inBulkChange, targetThing, thingEvent, null);
+	public static final BNAModelEvent create(IBNAModel source, EventType eventType, boolean inBulkChange,
+			IThing targetThing, ThingEvent thingEvent) {
+		return new BNAModelEvent(source, eventType, inBulkChange, targetThing, thingEvent, null);
 	}
 
 	protected final IBNAModel source;
 	protected final EventType eventType;
 	protected final boolean inBulkChange;
-	protected final T targetThing;
-	protected final ThingEvent<T, K, V> thingEvent;
+	protected final IThing targetThing;
+	protected final ThingEvent thingEvent;
 	protected final String streamNotification;
 
-	protected BNAModelEvent(IBNAModel source, EventType eventType, boolean inBulkChange, T targetThing,
-			ThingEvent<T, K, V> thingEvent, String streamNotification) {
+	protected BNAModelEvent(IBNAModel source, EventType eventType, boolean inBulkChange, IThing targetThing,
+			ThingEvent thingEvent, String streamNotification) {
 		this.source = source;
 		this.eventType = eventType;
 		this.inBulkChange = inBulkChange;
@@ -76,11 +73,11 @@ public class BNAModelEvent<T extends IThing, K extends IThingKey<V>, V> {
 		return inBulkChange;
 	}
 
-	public T getTargetThing() {
+	public IThing getTargetThing() {
 		return targetThing;
 	}
 
-	public ThingEvent<T, K, V> getThingEvent() {
+	public ThingEvent getThingEvent() {
 		return thingEvent;
 	}
 

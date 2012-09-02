@@ -21,7 +21,6 @@ import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingPeer;
-import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
@@ -61,51 +60,6 @@ public class BNAUtils {
 	public static <T> T castOrNull(IThing thing, Class<T> thingClass) {
 		if (thingClass.isInstance(thing)) {
 			return (T) thing;
-		}
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static final <T extends IThing, K extends IThingKey<V>, V> ThingEvent<T, K, V> castOrNull(
-			ThingEvent<?, K, V> thingEvent, Class<T> thingClass) {
-		if (thingClass.isInstance(thingEvent.getTargetThing())) {
-			return (ThingEvent<T, K, V>) thingEvent;
-		}
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static final <T extends IThing, K extends IThingKey<V>, V> ThingEvent<T, K, V> castOrNull(
-			ThingEvent<T, ?, ?> thingEvent, K key) {
-		if (key.equals(thingEvent.getPropertyName())) {
-			return (ThingEvent<T, K, V>) thingEvent;
-		}
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static final <T extends IThing, K extends IThingKey<V>, V> ThingEvent<T, K, V> castOrNull(
-			ThingEvent<?, ?, ?> thingEvent, Class<T> thingClass, K key) {
-		if (thingClass.isInstance(thingEvent.getTargetThing()) && key.equals(thingEvent.getPropertyName())) {
-			return (ThingEvent<T, K, V>) thingEvent;
-		}
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static final <T extends IThing, K extends IThingKey<V>, V> ThingEvent<T, K, V> castOrNull(
-			ThingEvent<T, ?, ?> thingEvent, Class<K> keyClass, Class<V> valueClass) {
-		if (keyClass.isInstance(thingEvent.getPropertyName())) {
-			return (ThingEvent<T, K, V>) thingEvent;
-		}
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static final <T extends IThing, K extends IThingKey<V>, V extends Object> ThingEvent<T, K, V> castKeyOrNull(
-			ThingEvent<T, ?, ?> thingEvent, Class<K> keyClass) {
-		if (keyClass.isInstance(thingEvent.getPropertyName())) {
-			return (ThingEvent<T, K, V>) thingEvent;
 		}
 		return null;
 	}

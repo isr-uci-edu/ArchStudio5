@@ -152,8 +152,8 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
-		ThingEvent<ET, EK, EV> thingEvent = evt.getThingEvent();
+	public void bnaModelChanged(BNAModelEvent evt) {
+		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
 			updatePoints(null, evt.getSource(), thingEvent.getTargetThing(), thingEvent.getPropertyName(), thingEvent);
 		}
@@ -161,8 +161,8 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 
 	Set<List<Object>> isUpdating = Sets.newHashSet();
 
-	private <ET extends IThing, EK extends IThingKey<EV>, EV> void updatePoints(IHasWorld worldThing, IBNAModel model,
-			IThing pointThing, IThingKey<?> key, @Nullable ThingEvent<ET, EK, EV> thingEvent) {
+	private void updatePoints(IHasWorld worldThing, IBNAModel model,
+			IThing pointThing, IThingKey<?> key, @Nullable ThingEvent thingEvent) {
 
 		// prevent update cycles
 		List<Object> updatingKey = Lists.newArrayList(pointThing, key);
@@ -195,8 +195,8 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 		}
 	}
 
-	private <ET extends IThing, EK extends IThingKey<EV>, EV> void updatePoint(IBNAModel model, IThing thing,
-			IThingKey<?> key, @Nullable ThingEvent<ET, EK, EV> thingEvent) {
+	private void updatePoint(IBNAModel model, IThing thing,
+			IThingKey<?> key, @Nullable ThingEvent thingEvent) {
 
 		List<StuckPoint> stuckPointsList;
 		synchronized (stuckPoints) {

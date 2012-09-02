@@ -26,7 +26,6 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.MapMaker;
 
-@SuppressWarnings("null")
 public class EObjectProxy extends AbstractProxy {
 
 	private static final LoadingCache<String, EPackage> ePackageCache = CacheBuilder.newBuilder().build(

@@ -107,12 +107,12 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED:
 		case THING_CHANGED:
-			ET thing = evt.getTargetThing();
-			ThingEvent<ET, EK, EV> te = evt.getThingEvent();
+			IThing thing = evt.getTargetThing();
+			ThingEvent te = evt.getThingEvent();
 			if (te == null || !HINT_INFORMATION_KEY.equals(te.getPropertyName())) {
 				HintInformation hintInformation = createHintInformation(thing);
 				if (hintInformation != null) {
@@ -153,8 +153,7 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 		}
 	}
 
-	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void storeHints(ET thing,
-			HintInformation hintInformation, BNAModelEvent<ET, EK, EV> evt) {
+	protected void storeHints(IThing thing, HintInformation hintInformation, BNAModelEvent evt) {
 		if (DEBUG) {
 			System.out.println("Store hints  : " + hintInformation + " " + thing.getID() + " " + evt);
 		}

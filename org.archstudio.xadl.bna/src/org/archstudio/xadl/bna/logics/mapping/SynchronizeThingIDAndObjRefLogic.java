@@ -49,7 +49,7 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 	int inUpdateCount = 0;
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		if (inUpdateCount > 0) {
 			return;
 		}
@@ -71,8 +71,8 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 				break;
 			}
 			case THING_CHANGED: {
-				ThingEvent<ET, EK, EV> te = evt.getThingEvent();
-				EK p = te.getPropertyName();
+				ThingEvent te = evt.getThingEvent();
+				IThingKey<?> p = te.getPropertyName();
 				if (thingIDKeys.contains(p)) {
 					@SuppressWarnings("unchecked")
 					IThingKey<Object> idKey = (IThingKey<Object>) p;

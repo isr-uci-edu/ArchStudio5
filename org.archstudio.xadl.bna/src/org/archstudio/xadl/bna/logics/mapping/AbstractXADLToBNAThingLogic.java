@@ -216,7 +216,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(final BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(final BNAModelEvent evt) {
 		if (updatingThings == 0) {
 			if (evt.getEventType() == EventType.THING_CHANGED) {
 				IBNAModel model = getBNAModel();
@@ -302,7 +302,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 *            Note that this event may be for a part in the BNA Assembly and
 	 *            not for the BNA Assembly root thing.
 	 */
-	protected <ET extends IThing, EK extends IThingKey<EV>, EV> void storeThingData(ObjRef objRef, T thing,
-			BNAPath relativeBNAPath, BNAModelEvent<ET, EK, EV> evt) {
+	protected void storeThingData(ObjRef objRef, T thing,
+			BNAPath relativeBNAPath, BNAModelEvent evt) {
 	}
 }

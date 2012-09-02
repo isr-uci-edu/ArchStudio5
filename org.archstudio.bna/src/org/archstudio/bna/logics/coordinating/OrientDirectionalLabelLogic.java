@@ -8,8 +8,6 @@ import java.util.List;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
-import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
@@ -136,8 +134,8 @@ public class OrientDirectionalLabelLogic extends AbstractThingLogic implements I
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
-		ThingEvent<ET, EK, EV> thingEvent = evt.getThingEvent();
+	public void bnaModelChanged(BNAModelEvent evt) {
+		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
 			for (Orient orient : Lists.newArrayList(orients.get(Lists.newArrayList(thingEvent.getTargetThing().getID(),
 					thingEvent.getPropertyName())))) {

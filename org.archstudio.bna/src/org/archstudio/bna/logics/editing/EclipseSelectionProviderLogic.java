@@ -11,8 +11,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
-import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.jface.viewers.ISelection;
@@ -124,7 +122,7 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 	private int ignoreSelection = 0;
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case BULK_CHANGE_BEGIN:
 			inBulkChange++;

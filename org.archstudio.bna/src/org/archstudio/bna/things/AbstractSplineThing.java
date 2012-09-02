@@ -5,7 +5,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.List;
 
-import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
@@ -24,7 +23,7 @@ public class AbstractSplineThing extends AbstractPointsThing implements IHasMuta
 		super(id);
 		addThingListener(new IThingListener() {
 			@Override
-			public <ET extends IThing, EK extends IThingKey<EV>, EV> void thingChanged(ThingEvent<ET, EK, EV> thingEvent) {
+			public void thingChanged(ThingEvent thingEvent) {
 				if (!IHasPoints.POINTS_KEY.equals(thingEvent.getPropertyName())
 						&& !IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
 					set(IHasPoints.POINTS_KEY, getPoints());

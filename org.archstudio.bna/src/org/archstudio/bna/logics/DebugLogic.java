@@ -10,7 +10,6 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.ICoordinateMapperListener;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.utils.IBNAMouseClickListener;
 import org.archstudio.bna.utils.IBNAMouseListener;
 import org.eclipse.swt.events.MouseEvent;
@@ -37,7 +36,7 @@ public class DebugLogic extends AbstractThingLogic implements IBNAModelListener,
 	int modelEventCount = 0;
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		modelEventCount++;
 		System.err.println("DL: bnaModelChangedSync " + modelEventCount + " " + evt);
 	}

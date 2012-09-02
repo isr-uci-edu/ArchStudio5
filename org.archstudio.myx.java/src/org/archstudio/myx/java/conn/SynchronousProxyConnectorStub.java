@@ -18,8 +18,9 @@ import org.archstudio.myx.fw.MyxUtils;
  *
  * @generated
  */
-/* package */abstract class SynchronousProxyConnectorStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
-		implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
+/* package */@SuppressWarnings("unused")
+abstract class SynchronousProxyConnectorStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
 
 	/**

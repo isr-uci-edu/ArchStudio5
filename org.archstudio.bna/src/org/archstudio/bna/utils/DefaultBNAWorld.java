@@ -7,8 +7,6 @@ import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
-import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.sysutils.SystemUtils;
 
@@ -42,7 +40,7 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener {
 	}
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(BNAModelEvent evt) {
 		for (IBNAModelListener logic : logicManager.getThingLogics(IBNAModelListener.class)) {
 			try {
 				long lTime;

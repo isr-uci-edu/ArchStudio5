@@ -2,24 +2,25 @@ package org.archstudio.bna;
 
 import org.archstudio.bna.IThing.IThingKey;
 
-public class ThingEvent<T extends IThing, K extends IThingKey<? super V>, V> {
+public class ThingEvent {
 
 	public enum EventType {
 		PROPERTY_SET, PROPERTY_REMOVED
 	}
 
 	protected EventType eventType;
-	protected T targetThing;
-	protected K propertyName;
-	protected V oldPropertyValue;
-	protected V newPropertyValue;
+	protected IThing targetThing;
+	protected IThingKey<?> propertyName;
+	protected Object oldPropertyValue;
+	protected Object newPropertyValue;
 
-	public static <T extends IThing, K extends IThingKey<? super V>, V> ThingEvent<T, K, V> create(EventType eventType,
-			T targetThing, K propertyName, V oldPropertyValue, V newPropertyValue) {
-		return new ThingEvent<T, K, V>(eventType, targetThing, propertyName, oldPropertyValue, newPropertyValue);
+	public static ThingEvent create(EventType eventType, IThing targetThing, IThingKey<?> propertyName,
+			Object oldPropertyValue, Object newPropertyValue) {
+		return new ThingEvent(eventType, targetThing, propertyName, oldPropertyValue, newPropertyValue);
 	}
 
-	protected ThingEvent(EventType eventType, T targetThing, K propertyName, V oldPropertyValue, V newPropertyValue) {
+	protected ThingEvent(EventType eventType, IThing targetThing, IThingKey<?> propertyName, Object oldPropertyValue,
+			Object newPropertyValue) {
 		this.eventType = eventType;
 		this.targetThing = targetThing;
 		this.propertyName = propertyName;
@@ -31,19 +32,19 @@ public class ThingEvent<T extends IThing, K extends IThingKey<? super V>, V> {
 		return eventType;
 	}
 
-	public T getTargetThing() {
+	public IThing getTargetThing() {
 		return targetThing;
 	}
 
-	public K getPropertyName() {
+	public IThingKey<?> getPropertyName() {
 		return propertyName;
 	}
 
-	public V getOldPropertyValue() {
+	public Object getOldPropertyValue() {
 		return oldPropertyValue;
 	}
 
-	public V getNewPropertyValue() {
+	public Object getNewPropertyValue() {
 		return newPropertyValue;
 	}
 

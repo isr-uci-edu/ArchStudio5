@@ -10,7 +10,6 @@ import javax.media.opengl.GLProfile;
 import javax.media.opengl.glu.GLU;
 
 import org.archstudio.bna.BNAModelEvent.EventType;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.swtutils.SWTWidgetUtils;
@@ -217,7 +216,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 	private boolean redrawPending = false;
 
 	@Override
-	public <ET extends IThing, EK extends IThingKey<EV>, EV> void bnaModelChanged(final BNAModelEvent<ET, EK, EV> evt) {
+	public void bnaModelChanged(final BNAModelEvent evt) {
 		if (!evt.isInBulkChange() && !needsRedraw && !redrawPending) {
 			needsRedraw = true;
 			SWTWidgetUtils.async(this, new Runnable() {
