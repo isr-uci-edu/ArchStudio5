@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.xml.sax.SAXException;
 
 /**
@@ -12,11 +14,13 @@ import org.xml.sax.SAXException;
  * DOM-based xArch libraries. All parameters to this interface are serializable
  * and do not contain direct pointers into the structure of an xArch document.
  */
+
+@NonNullByDefault
 public interface IXArchADT extends IXArchADTQuery {
 
 	public ObjRef createDocument(URI uri);
 
-	public ObjRef createDocument(URI uri, String nsURI, String typeOfThing, String rootElementName);
+	public ObjRef createDocument(URI uri, String nsURI);
 
 	public ObjRef load(URI uri) throws SAXException, IOException;
 
@@ -163,7 +167,7 @@ public interface IXArchADT extends IXArchADTQuery {
 	 * @param value
 	 *            The value to set.
 	 */
-	public void set(ObjRef baseObjRef, String typeOfThing, Serializable value);
+	public void set(ObjRef baseObjRef, String typeOfThing, @Nullable Serializable value);
 
 	public ObjRef create(String nsURI, String typeOfThing);
 
@@ -188,11 +192,4 @@ public interface IXArchADT extends IXArchADTQuery {
 	 *            The new URI for the document.
 	 */
 	public void renameXArch(String oldURI, String newURI);
-
-	Serializable put(ObjRef baseObjRef, String typeOfThing, Serializable key, Serializable value);
-
-	Serializable removeByKey(ObjRef baseObjRef, String typeOfThing, Serializable key);
-
-	//	public XArchBulkQueryResults bulkQuery(XArchBulkQuery q);
-	//	public void cleanup(ObjRef documentRootRef);
 }

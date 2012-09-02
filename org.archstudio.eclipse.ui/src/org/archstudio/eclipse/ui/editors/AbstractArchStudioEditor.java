@@ -1,5 +1,7 @@
 package org.archstudio.eclipse.ui.editors;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.eclipse.ui.IFocusEditorListener;
 import org.archstudio.eclipse.ui.XadlEditorMatchingStrategy;
@@ -15,7 +17,6 @@ import org.archstudio.swtutils.Banner;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.DelayedExecuteOnceThread;
 import org.archstudio.sysutils.UIDGenerator;
-import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
@@ -314,6 +315,8 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 
 	@Override
 	public void fileDirtyStateChanged(ObjRef xArchRef, boolean dirty) {
+		checkNotNull(xArchRef);
+
 		if (xArchRef.equals(this.documentRootRef)) {
 			getSite().getShell().getDisplay().asyncExec(new Runnable() {
 				@Override
@@ -375,7 +378,7 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		if (documentRootRef == null) {
 			return;
 		}
-		if (XadlUtils.isTargetedToDocument(xarch, documentRootRef, evt)) {
+		if (documentRootRef.equals(xarch.getDocumentRootRef(evt.getSource()))) {
 			updateThread.execute();
 			doHandleXArchADTModelEvent(evt);
 		}

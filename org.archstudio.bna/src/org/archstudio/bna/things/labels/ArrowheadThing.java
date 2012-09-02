@@ -7,11 +7,12 @@ import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableSecondaryAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.things.AbstractAnchorPointThing;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 
-public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMutableColor, IHasMutableSecondaryColor, IHasMutableEdgeColor,
-		IHasMutableArrowhead, IHasMutableSecondaryAnchorPoint {
+public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMutableColor, IHasMutableSecondaryColor,
+		IHasMutableEdgeColor, IHasMutableArrowhead, IHasMutableSecondaryAnchorPoint {
 
 	public ArrowheadThing(Object id) {
 		super(id);
@@ -30,7 +31,7 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 
 	@Override
 	public int getArrowheadSize() {
-		return get(ARROWHEAD_SIZE_KEY);
+		return get(ARROWHEAD_SIZE_KEY, 20);
 	}
 
 	@Override
@@ -39,38 +40,41 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 	}
 
 	@Override
-	public void setColor(RGB c) {
+	public void setColor(@Nullable RGB c) {
 		set(COLOR_KEY, c);
 	}
 
 	@Override
-	public RGB getColor() {
+	public @Nullable
+	RGB getColor() {
 		return get(COLOR_KEY);
 	}
 
 	@Override
-	public void setSecondaryColor(RGB c) {
+	public void setSecondaryColor(@Nullable RGB c) {
 		set(SECONDARY_COLOR_KEY, c);
 	}
 
 	@Override
-	public RGB getSecondaryColor() {
+	public @Nullable
+	RGB getSecondaryColor() {
 		return get(SECONDARY_COLOR_KEY);
 	}
 
 	@Override
-	public void setEdgeColor(RGB c) {
+	public void setEdgeColor(@Nullable RGB c) {
 		set(EDGE_COLOR_KEY, c);
 	}
 
 	@Override
-	public RGB getEdgeColor() {
+	public @Nullable
+	RGB getEdgeColor() {
 		return get(EDGE_COLOR_KEY);
 	}
 
 	@Override
 	public ArrowheadShape getArrowheadShape() {
-		return get(ARROWHEAD_SHAPE_KEY);
+		return get(ARROWHEAD_SHAPE_KEY, ArrowheadShape.TRIANGLE);
 	}
 
 	@Override
@@ -80,7 +84,7 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 
 	@Override
 	public Point getSecondaryAnchorPoint() {
-		return get(SECONDARY_ANCHOR_POINT_KEY);
+		return get(SECONDARY_ANCHOR_POINT_KEY, new Point(0, 0));
 	}
 
 	@Override

@@ -12,7 +12,6 @@ import org.archstudio.xarchadt.IXArchADTPackageMetadata;
 import org.archstudio.xarchadt.IXArchADTSubstitutionHint;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.xarchadt.XArchADTPath;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.AbstractOperation;
 import org.eclipse.core.commands.operations.IOperationHistory;
@@ -22,10 +21,13 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.ui.PlatformUI;
 import org.xml.sax.SAXException;
 
 import com.google.common.collect.Lists;
+
+
 
 public class XArchADTOperations implements IXArchADT {
 
@@ -38,18 +40,21 @@ public class XArchADTOperations implements IXArchADT {
 		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 		AbstractOperation operation = new AbstractOperation(label) {
 			@Override
-			public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			public IStatus execute(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
+					throws ExecutionException {
 				return Status.OK_STATUS;
 			}
 
 			@Override
-			public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			public IStatus undo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
+					throws ExecutionException {
 				xarch.add(objRef, name, value);
 				return Status.OK_STATUS;
 			}
 
 			@Override
-			public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			public IStatus redo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
+					throws ExecutionException {
 				xarch.remove(objRef, name, value);
 				return Status.OK_STATUS;
 			}
@@ -67,18 +72,21 @@ public class XArchADTOperations implements IXArchADT {
 		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 		AbstractOperation operation = new AbstractOperation(label) {
 			@Override
-			public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			public IStatus execute(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
+					throws ExecutionException {
 				return Status.OK_STATUS;
 			}
 
 			@Override
-			public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			public IStatus undo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
+					throws ExecutionException {
 				xarch.remove(objRef, name, value);
 				return Status.OK_STATUS;
 			}
 
 			@Override
-			public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			public IStatus redo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
+					throws ExecutionException {
 				xarch.add(objRef, name, value);
 				return Status.OK_STATUS;
 			}
@@ -88,7 +96,7 @@ public class XArchADTOperations implements IXArchADT {
 	}
 
 	public static <V> void set(String label, final IXArchADT xarch, final ObjRef objRef, final String name,
-			final Serializable newValue) {
+			@Nullable final Serializable newValue) {
 
 		final Serializable oldValue = xarch.get(objRef, name);
 		xarch.set(objRef, name, newValue);
@@ -97,12 +105,14 @@ public class XArchADTOperations implements IXArchADT {
 		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 		AbstractOperation operation = new AbstractOperation(label) {
 			@Override
-			public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			public IStatus execute(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
+					throws ExecutionException {
 				return Status.OK_STATUS;
 			}
 
 			@Override
-			public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			public IStatus undo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
+					throws ExecutionException {
 				if (oldValue == null)
 					xarch.clear(objRef, name);
 				else
@@ -111,7 +121,8 @@ public class XArchADTOperations implements IXArchADT {
 			}
 
 			@Override
-			public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			public IStatus redo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
+					throws ExecutionException {
 				if (newValue == null)
 					xarch.clear(objRef, name);
 				else
@@ -140,10 +151,11 @@ public class XArchADTOperations implements IXArchADT {
 		return xarch.createDocument(uri);
 	}
 
-	public ObjRef createDocument(URI uri, String nsURI, String typeOfThing, String rootElementName) {
-		return xarch.createDocument(uri, nsURI, typeOfThing, rootElementName);
+	public ObjRef createDocument(URI uri, String nsURI) {
+		return xarch.createDocument(uri, nsURI);
 	}
 
+	@Nullable
 	public Serializable get(ObjRef baseObjRef, String typeOfThing) {
 		return xarch.get(baseObjRef, typeOfThing);
 	}
@@ -176,10 +188,6 @@ public class XArchADTOperations implements IXArchADT {
 				xarch.add(baseObjRef, typeOfThing, thingToAddRef);
 			}
 		});
-	}
-
-	public Serializable get(ObjRef baseObjRef, String typeOfThing, boolean resolve) {
-		return xarch.get(baseObjRef, typeOfThing, resolve);
 	}
 
 	public void add(final ObjRef baseObjRef, final String typeOfThing,
@@ -227,6 +235,7 @@ public class XArchADTOperations implements IXArchADT {
 		});
 	}
 
+	@Nullable
 	public Serializable resolve(ObjRef objRef) {
 		return xarch.resolve(objRef);
 	}
@@ -263,7 +272,7 @@ public class XArchADTOperations implements IXArchADT {
 		return xarch.getAllAncestors(targetObjRef);
 	}
 
-	public void set(final ObjRef baseObjRef, final String typeOfThing, final Serializable value) {
+	public void set(final ObjRef baseObjRef, final String typeOfThing, @Nullable final Serializable value) {
 		final Serializable oldValue = xarch.get(baseObjRef, typeOfThing);
 		xarch.set(baseObjRef, typeOfThing, value);
 		undo.add(new Runnable() {
@@ -282,10 +291,12 @@ public class XArchADTOperations implements IXArchADT {
 		return xarch.getLineage(targetObjRef);
 	}
 
+	@Nullable
 	public ObjRef getParent(ObjRef targetObjRef) {
 		return xarch.getParent(targetObjRef);
 	}
 
+	@Nullable
 	public ObjRef getByID(ObjRef documentRootRef, String id) {
 		return xarch.getByID(documentRootRef, id);
 	}
@@ -298,61 +309,27 @@ public class XArchADTOperations implements IXArchADT {
 		xarch.renameXArch(oldURI, newURI);
 	}
 
+	@Nullable
 	public ObjRef getByID(String id) {
 		return xarch.getByID(id);
 	}
 
-	public Serializable put(final ObjRef baseObjRef, final String typeOfThing, final Serializable key,
-			final Serializable value) {
-		final Serializable oldValue = xarch.put(baseObjRef, typeOfThing, key, value);
-		undo.add(new Runnable() {
-			public void run() {
-				xarch.put(baseObjRef, typeOfThing, key, oldValue);
-			}
-		});
-		redo.add(new Runnable() {
-			public void run() {
-				xarch.put(baseObjRef, typeOfThing, key, value);
-			}
-		});
-		return oldValue;
-	}
-
+	@Nullable
 	public ObjRef resolveHref(ObjRef documentRootRef, String href) {
 		return xarch.resolveHref(documentRootRef, href);
 	}
 
-	public Serializable removeByKey(final ObjRef baseObjRef, final String typeOfThing, final Serializable key) {
-		final Serializable oldValue = xarch.removeByKey(baseObjRef, typeOfThing, key);
-		undo.add(new Runnable() {
-			public void run() {
-				xarch.put(baseObjRef, typeOfThing, key, oldValue);
-			}
-		});
-		redo.add(new Runnable() {
-			public void run() {
-				xarch.remove(baseObjRef, typeOfThing, key);
-			}
-		});
-		return oldValue;
-	}
-
-	public boolean equals(ObjRef ref1, ObjRef ref2) {
-		return xarch.equals(ref1, ref2);
-	}
-
-	public XArchADTPath getPath(ObjRef ref) {
-		return xarch.getPath(ref);
-	}
-
+	@Nullable
 	public ObjRef getDocumentRootRef(ObjRef ref) {
 		return xarch.getDocumentRootRef(ref);
 	}
 
+	@Nullable
 	public String getTagName(ObjRef ref) {
 		return xarch.getTagName(ref);
 	}
 
+	@Nullable
 	public String getContainingFeatureName(ObjRef ref) {
 		return xarch.getContainingFeatureName(ref);
 	}
@@ -377,7 +354,7 @@ public class XArchADTOperations implements IXArchADT {
 		return xarch.getTypeMetadata(objRef);
 	}
 
-	public boolean isInstanceOf(ObjRef baseObjRef, String sourceNsURI, String sourceTypeName) {
+	public boolean isInstanceOf(@Nullable ObjRef baseObjRef, String sourceNsURI, String sourceTypeName) {
 		return xarch.isInstanceOf(baseObjRef, sourceNsURI, sourceTypeName);
 	}
 
@@ -397,6 +374,7 @@ public class XArchADTOperations implements IXArchADT {
 		return xarch.getSubstitutionHintsForTarget(targetNsURI, targetTypeName);
 	}
 
+	@Nullable
 	public ObjRef getDocumentRootRef(URI uri) {
 		return xarch.getDocumentRootRef(uri);
 	}
@@ -405,16 +383,13 @@ public class XArchADTOperations implements IXArchADT {
 		return xarch.getOpenURIs();
 	}
 
+	@Nullable
 	public URI getURI(ObjRef ref) {
 		return xarch.getURI(ref);
 	}
 
 	public byte[] serialize(URI uri) {
 		return xarch.serialize(uri);
-	}
-
-	public Serializable getByKey(ObjRef baseObjRef, String typeOfThing, Serializable key) {
-		return xarch.getByKey(baseObjRef, typeOfThing, key);
 	}
 
 	public List<ObjRef> resolveObjRefs(ObjRef contextObjRef, String xPath) throws XPathException {
@@ -425,24 +400,31 @@ public class XArchADTOperations implements IXArchADT {
 		return xarch.resolveSerializables(contextObjRef, xPath);
 	}
 
+	public String getXPath(ObjRef toObjRef) {
+		return xarch.getXPath(toObjRef);
+	} 
+	
 	public void done(String label) {
 		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
 		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 		AbstractOperation operation = new AbstractOperation(label) {
 			@Override
-			public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			public IStatus execute(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
+					throws ExecutionException {
 				return Status.OK_STATUS;
 			}
 
 			@Override
-			public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			public IStatus undo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
+					throws ExecutionException {
 				for (Runnable r : undo)
 					r.run();
 				return Status.OK_STATUS;
 			}
 
 			@Override
-			public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			public IStatus redo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
+					throws ExecutionException {
 				for (Runnable r : redo)
 					r.run();
 				return Status.OK_STATUS;

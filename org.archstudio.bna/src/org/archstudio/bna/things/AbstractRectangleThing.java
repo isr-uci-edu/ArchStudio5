@@ -10,13 +10,16 @@ import org.archstudio.bna.facets.IHasMutableMinimumSize;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.utils.BNAUtils;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
+@NonNullByDefault
 public abstract class AbstractRectangleThing extends AbstractRelativeMovableReferencePointThing implements
 		IHasMutableBoundingBox, IHasMutableMinimumSize, IRelativeMovable, IHasMutableLocalInsets, IIsSticky {
 
-	public AbstractRectangleThing(Object id) {
+	public AbstractRectangleThing(@Nullable Object id) {
 		super(id);
 	}
 
@@ -30,7 +33,7 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 
 	@Override
 	public Dimension getMinimumSize() {
-		return get(MINIMUM_SIZE_KEY);
+		return get(MINIMUM_SIZE_KEY, new Dimension(5, 5));
 	}
 
 	@Override
@@ -44,7 +47,7 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 
 	@Override
 	public Rectangle getBoundingBox() {
-		return get(BOUNDING_BOX_KEY);
+		return get(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
 	}
 
 	@Override
@@ -78,7 +81,7 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 
 	@Override
 	public Insets getLocalInsets() {
-		return get(LOCAL_INSETS_KEY);
+		return get(LOCAL_INSETS_KEY, new Insets(0, 0, 0, 0));
 	}
 
 	@Override

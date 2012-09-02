@@ -22,7 +22,7 @@
          version="0.0.0"/>
 
    <includes
-         id="org.eclipse.emf.sdk"
+         id="org.eclipse.emf"
          version="0.0.0"/>
 
    <includes

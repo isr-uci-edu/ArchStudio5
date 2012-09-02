@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
+import org.archstudio.bna.facets.IIsBackground;
+import org.archstudio.bna.facets.IIsHidden;
 import org.archstudio.bna.keys.AbstractCollectionThingKey;
 import org.archstudio.bna.keys.CollectionThingKey;
 
@@ -31,6 +33,9 @@ public class UserEditableUtils {
 
 	public static boolean isEditable(IThing thing) {
 		if (Boolean.TRUE.equals(thing.get(IIsHidden.HIDDEN_KEY))) {
+			return false;
+		}
+		if (Boolean.TRUE.equals(thing.get(IIsBackground.BACKGROUND_KEY))) {
 			return false;
 		}
 		return true;

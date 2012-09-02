@@ -14,6 +14,7 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.facets.IIsBackground;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.eclipse.swt.widgets.Composite;
 
@@ -78,6 +79,8 @@ public class DefaultBNAView implements IBNAView {
 		location = DefaultCoordinate.forWorld(location.getWorldPoint(), cm);
 		List<IThing> things = Lists.newArrayList();
 		for (IThing t : getBNAWorld().getBNAModel().getReverseThings()) {
+			if (Boolean.TRUE.equals(t.get(IIsBackground.BACKGROUND_KEY)))
+				continue;
 			try {
 				if (peerCache.getPeer(t).isInThing(this, cm, location)) {
 					things.add(t);

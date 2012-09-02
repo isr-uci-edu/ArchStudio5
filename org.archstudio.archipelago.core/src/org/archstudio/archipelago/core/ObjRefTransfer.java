@@ -1,8 +1,13 @@
 package org.archstudio.archipelago.core;
 
+import java.util.concurrent.TimeUnit;
+
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.swt.dnd.ByteArrayTransfer;
 import org.eclipse.swt.dnd.TransferData;
+
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 
 public class ObjRefTransfer extends ByteArrayTransfer {
 
@@ -10,6 +15,9 @@ public class ObjRefTransfer extends ByteArrayTransfer {
 	private static final int OBJREF_TYPE_ID = registerType(OBJREF_TYPE_NAME);
 
 	private static ObjRefTransfer _instance = new ObjRefTransfer();
+
+	private Cache<Long, ObjRef> transferredObjRefs = CacheBuilder.newBuilder().expireAfterWrite(12, TimeUnit.HOURS)
+			.build();
 
 	private ObjRefTransfer() {
 	}
@@ -28,9 +36,10 @@ public class ObjRefTransfer extends ByteArrayTransfer {
 
 			StringBuffer sb = new StringBuffer(refs.length * 10);
 			for (int i = 0; i < refs.length; i++) {
+				transferredObjRefs.put(refs[i].getUID(), refs[i]);
 				sb.append(refs[i].getUID());
 				if (i < (refs.length - 1)) {
-					sb.append("$");
+					sb.append(",");
 				}
 			}
 			super.javaToNative(sb.toString().getBytes(), transferData);
@@ -45,10 +54,10 @@ public class ObjRefTransfer extends ByteArrayTransfer {
 			}
 
 			String s = new String(buffer);
-			String[] uids = s.split("\\$");
+			String[] uids = s.split(",");
 			ObjRef[] refs = new ObjRef[uids.length];
 			for (int i = 0; i < uids.length; i++) {
-				refs[i] = new ObjRef(uids[i]);
+				refs[i] = transferredObjRefs.getIfPresent(Long.valueOf(uids[i]));
 			}
 			return refs;
 		}

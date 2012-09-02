@@ -168,8 +168,8 @@ public class AIMInstantiationOrderCalculator {
 						}
 						bottomBrickNode.topLinksOther.add(linkRef);
 					}
+					brick1Node.otherLinks.add(linkRef);
 				}
-				brick1Node.otherLinks.add(linkRef);
 			}
 		}
 

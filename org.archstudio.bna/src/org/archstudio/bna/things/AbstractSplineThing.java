@@ -3,6 +3,7 @@ package org.archstudio.bna.things;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.archstudio.bna.IThingListener;
@@ -13,10 +14,12 @@ import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasPoints;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Lists;
 
+@NonNullByDefault
 public class AbstractSplineThing extends AbstractPointsThing implements IHasMutableEndpoints, IHasMutableMidpoints {
 
 	public AbstractSplineThing(Object id) {
@@ -41,7 +44,7 @@ public class AbstractSplineThing extends AbstractPointsThing implements IHasMuta
 
 	@Override
 	public Point getEndpoint1() {
-		return get(IHasEndpoints.ENDPOINT_1_KEY);
+		return get(IHasEndpoints.ENDPOINT_1_KEY, new Point(0, 0));
 	}
 
 	@Override
@@ -53,7 +56,7 @@ public class AbstractSplineThing extends AbstractPointsThing implements IHasMuta
 
 	@Override
 	public Point getEndpoint2() {
-		return get(IHasEndpoints.ENDPOINT_2_KEY);
+		return get(IHasEndpoints.ENDPOINT_2_KEY, new Point(0, 0));
 	}
 
 	@Override
@@ -65,13 +68,11 @@ public class AbstractSplineThing extends AbstractPointsThing implements IHasMuta
 
 	@Override
 	public List<Point> getMidpoints() {
-		return get(IHasMidpoints.MIDPOINTS_KEY);
+		return get(IHasMidpoints.MIDPOINTS_KEY, Collections.<Point>emptyList());
 	}
 
 	@Override
 	public void setMidpoints(List<Point> midpoints) {
-		checkNotNull(midpoints);
-
 		set(IHasMidpoints.MIDPOINTS_KEY, midpoints);
 	}
 

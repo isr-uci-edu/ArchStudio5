@@ -12,5 +12,5 @@ public interface IHasShape extends IThing {
 	public static final IThingKey<Shape> SHAPE_KEY = ThingKey.create("shape");
 
 	public Shape getShape();
-	
+
 }

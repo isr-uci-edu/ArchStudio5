@@ -3,8 +3,12 @@ package org.archstudio.xarchadt;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
+
 import com.google.common.collect.Lists;
 
+@NonNullByDefault
 public class XArchADTModelEvent implements java.io.Serializable {
 
 	private static final long serialVersionUID = -3787246697456371402L;
@@ -18,39 +22,22 @@ public class XArchADTModelEvent implements java.io.Serializable {
 
 	protected final ObjRef src;
 	protected final List<ObjRef> srcAncestors;
-	protected final XArchADTPath srcPath;
+	protected final String srcPath;
 
 	protected final Object oldValue;
 	protected final List<ObjRef> oldValueAncestors;
-	protected final XArchADTPath oldValuePath;
+	protected final String oldValuePath;
 
 	protected final Object newValue;
 	protected final List<ObjRef> newValueAncestors;
-	protected final XArchADTPath newValuePath;
+	protected final String newValuePath;
 
 	/**
 	 * Create a new xArch event.
-	 * 
-	 * @param src
-	 *            xArch element that is the source of this event (i.e. that
-	 *            changed.)
-	 * @param eventType
-	 *            One of the event types (above) that indicates what happened.
-	 * @param srcType
-	 *            One of the event types (above) that indicates what changed.
-	 * @param targetName
-	 *            Name of the element or attribute that was
-	 *            set/added/cleared/removed.
-	 * @param target
-	 *            The attribute/element/value that was
-	 *            set/added/cleared/removed.
-	 * @param isAttached
-	 *            <code>true</code> if the element that was changed is actually
-	 *            connected to the xArch element emitting this event or not.
 	 */
-	public XArchADTModelEvent(EventType eventType, ObjRef src, List<ObjRef> srcAncestors, XArchADTPath srcPath,
-			String featureName, Object oldValue, XArchADTPath oldValuePath, Object newValue, XArchADTPath newValuePath) {
-		assert srcAncestors.size() == srcPath.getLength() + 1;
+	public XArchADTModelEvent(EventType eventType, ObjRef src, List<ObjRef> srcAncestors, String srcPath,
+			String featureName, @Nullable Object oldValue, @Nullable String oldValuePath, @Nullable Object newValue,
+			@Nullable String newValuePath) {
 
 		this.eventType = eventType;
 		this.featureName = featureName;
@@ -101,36 +88,37 @@ public class XArchADTModelEvent implements java.io.Serializable {
 		return srcAncestors;
 	}
 
-	/**
-	 * Get the <CODE>XArchADTPath</CODE> to the source element of this event.
-	 * 
-	 * @return <CODE>XArchADTPath</CODE> to source.
-	 */
-	public XArchADTPath getSourcePath() {
+	public String getSourcePath() {
 		return srcPath;
 	}
 
-	public Object getOldValue() {
+	public @Nullable
+	Object getOldValue() {
 		return oldValue;
 	}
 
-	public List<ObjRef> getOldValueAncestors() {
+	public @Nullable
+	List<ObjRef> getOldValueAncestors() {
 		return oldValueAncestors;
 	}
 
-	public XArchADTPath getOldValuePath() {
+	public @Nullable
+	String getOldValuePath() {
 		return oldValuePath;
 	}
 
-	public Object getNewValue() {
+	public @Nullable
+	Object getNewValue() {
 		return newValue;
 	}
 
-	public List<ObjRef> getNewValueAncestors() {
+	public @Nullable
+	List<ObjRef> getNewValueAncestors() {
 		return newValueAncestors;
 	}
 
-	public XArchADTPath getNewValuePath() {
+	public @Nullable
+	String getNewValuePath() {
 		return newValuePath;
 	}
 

@@ -54,7 +54,7 @@ public class RectangleGlassThingPeer<T extends RectangleGlassThing> extends Abst
 
 				gl.glLineStipple(1, (short) 0xffff);
 			}
-			else{
+			else {
 				RoundRectangle2D s = new RoundRectangle2D.Double(lbb.x + 0.5f, lbb.y + 0.5f, lbb.width, lbb.height,//
 						Math.min(lbb.width, corner.width), Math.min(lbb.height, corner.height));
 				double[] coords = new double[6];

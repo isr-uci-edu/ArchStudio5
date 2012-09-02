@@ -8,9 +8,11 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.utils.BNAUtils;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
+@NonNullByDefault
 public abstract class AbstractBoundedAnchorPointThing extends AbstractAnchorPointThing implements IHasBoundingBox,
 		IHasMutableSize {
 
@@ -43,7 +45,7 @@ public abstract class AbstractBoundedAnchorPointThing extends AbstractAnchorPoin
 
 	@Override
 	public Dimension getSize() {
-		return get(SIZE_KEY);
+		return get(SIZE_KEY, new Dimension(6, 6));
 	}
 
 	@Override
@@ -53,7 +55,7 @@ public abstract class AbstractBoundedAnchorPointThing extends AbstractAnchorPoin
 
 	@Override
 	public Rectangle getBoundingBox() {
-		return get(BOUNDING_BOX_KEY);
+		return get(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
 	}
 
 	@Override

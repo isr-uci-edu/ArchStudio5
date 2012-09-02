@@ -27,7 +27,7 @@ public class EllipseGlassThingPeer<T extends EllipseGlassThing> extends Abstract
 			float[] points = BNAUtils.getEllipsePoints(lbb);
 
 			gl.glLineWidth(1f);
-			
+
 			gl.glColor3f(1f, 1f, 1f);
 			gl.glBegin(GL2.GL_LINE_LOOP);
 			for (int i = 0; i < points.length; i += 2) {

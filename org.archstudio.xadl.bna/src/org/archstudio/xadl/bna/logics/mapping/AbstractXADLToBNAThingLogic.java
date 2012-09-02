@@ -24,7 +24,6 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
-import org.archstudio.xarchadt.XArchADTPath;
 import org.eclipse.swt.widgets.Display;
 
 import com.google.common.collect.Lists;
@@ -159,7 +158,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public void processUpdate(final List<ObjRef> relLineageRefs, final XArchADTPath relPath, final ObjRef objRef,
+	public void processUpdate(final List<ObjRef> relLineageRefs, final String relPath, final ObjRef objRef,
 			final XArchADTModelEvent evt) {
 		execInDisplayThread(new Runnable() {
 			public void run() {
@@ -216,7 +215,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public void bnaModelChanged(final BNAModelEvent evt) {
+	public  void bnaModelChanged(final BNAModelEvent evt) {
 		if (updatingThings == 0) {
 			if (evt.getEventType() == EventType.THING_CHANGED) {
 				IBNAModel model = getBNAModel();
@@ -279,7 +278,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * @param thing
 	 *            The BNA Thing that represents the ObjRef.
 	 */
-	protected void updateThing(List<ObjRef> relativeLineageRefs, @Nullable XArchADTPath relativePath, ObjRef objRef,
+	protected void updateThing(List<ObjRef> relativeLineageRefs, @Nullable String relativePath, ObjRef objRef,
 			@Nullable XArchADTModelEvent evt, T thing) {
 	}
 
@@ -302,7 +301,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 *            Note that this event may be for a part in the BNA Assembly and
 	 *            not for the BNA Assembly root thing.
 	 */
-	protected void storeThingData(ObjRef objRef, T thing,
+	protected  void storeThingData(ObjRef objRef, T thing,
 			BNAPath relativeBNAPath, BNAModelEvent evt) {
 	}
 }

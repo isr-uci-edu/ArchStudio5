@@ -1,7 +1,5 @@
 package org.archstudio.bna.utils;
 
-import static org.archstudio.sysutils.SystemUtils.newCopyOnWriteArrayList;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +17,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.sysutils.SystemUtils;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 
@@ -33,11 +32,11 @@ import com.google.common.collect.MapMaker;
 public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	protected static final boolean DEBUG = false;
-	
+
 	protected final LoadingCache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().build(
 			new CacheLoader<Object, AtomicLong>() {
 				@Override
-				public AtomicLong load(Object input) {
+				public AtomicLong load(@Nullable Object input) {
 					return new AtomicLong();
 				}
 			});
@@ -77,7 +76,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	protected int thingTreeListAtModCount = thingTreeModCount - 1;
 	protected List<IThing> thingTreeList = Lists.newArrayList();
 	protected final ThingIndex thingIndex = new ThingIndex();
-	protected final CopyOnWriteArrayList<IBNAModelListener> synchListeners = newCopyOnWriteArrayList();
+	protected final CopyOnWriteArrayList<IBNAModelListener> synchListeners = Lists.newCopyOnWriteArrayList();
 	protected AtomicInteger bulkChangeCount = new AtomicInteger();
 	protected boolean firedBulkChangeEvent = false;
 
@@ -104,8 +103,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		synchListeners.remove(l);
 	}
 
-	protected void fireBnaModelChanged(
-			BNAModelEvent evt) {
+	protected void fireBnaModelChanged(BNAModelEvent evt) {
 		for (IBNAModelListener l : synchListeners) {
 			try {
 				long lTime;
@@ -140,7 +138,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public void thingChanged(ThingEvent thingEvent) {
-		fireBnaModelEvent(BNAModelEvent. create(this, EventType.THING_CHANGED, bulkChangeCount.get() > 0,
+		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_CHANGED, bulkChangeCount.get() > 0,
 				thingEvent.getTargetThing(), thingEvent));
 	}
 
@@ -183,7 +181,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	@Override
-	public <T extends IThing> T addThing(final T t, final IThing parentThing) {
+	public <T extends IThing> T addThing(final T t, final @Nullable IThing parentThing) {
 		if (Display.getCurrent() == null)
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 

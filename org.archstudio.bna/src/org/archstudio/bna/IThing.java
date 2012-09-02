@@ -6,10 +6,13 @@ import org.archstudio.bna.keys.IThingMetakey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.IThingRefMetakey;
 import org.archstudio.sysutils.TypedMap;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * Describes a BNA Thing with zero or more properties.
  */
+@NonNullByDefault
 public interface IThing {
 
 	/**
@@ -43,9 +46,11 @@ public interface IThing {
 	public static interface IThingKey<V> extends TypedMap.Key<V> {
 		public boolean isFireEventOnChange();
 
-		public V preWrite(V value);
+		public @Nullable
+		V preWrite(@Nullable V value);
 
-		public V postRead(V value);
+		public @Nullable
+		V postRead(@Nullable V value);
 	}
 
 	/**
@@ -67,15 +72,20 @@ public interface IThing {
 
 	public void removeThingListener(IThingListener thingListener);
 
-	public <V> V get(IThingKey<V> key);
+	public @Nullable
+	<V> V get(IThingKey<V> key);
 
-	public <V> V set(IThingKey<V> key, V value);
+	public <V> V get(IThingKey<V> key, V valueIfNull);
+
+	public @Nullable
+	<V> V set(IThingKey<V> key, @Nullable V value);
 
 	public boolean has(IThingKey<?> key);
 
-	public <V> boolean has(IThingKey<V> key, V value);
+	public <V> boolean has(IThingKey<V> key, @Nullable V value);
 
-	public <V> V remove(IThingKey<V> key);
+	public @Nullable
+	<V> V remove(IThingKey<V> key);
 
 	public Set<IThingKey<?>> keySet();
 }

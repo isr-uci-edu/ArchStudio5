@@ -3,6 +3,7 @@ package org.archstudio.bna.things.utility;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.CoordinateMapperEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
@@ -14,7 +15,6 @@ import org.archstudio.bna.ICoordinateMapperListener;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.LinearCoordinateMapper;
@@ -69,13 +69,13 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 
 	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
-		if(evt.getEventType() == EventType.THING_REMOVING){
-			if(innerView != null){
+		if (evt.getEventType() == EventType.THING_REMOVING) {
+			if (innerView != null) {
 				innerView.disposePeer(evt.getTargetThing());
 			}
 		}
 	}
-	
+
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		IBNAWorld innerWorld = t.getWorld();

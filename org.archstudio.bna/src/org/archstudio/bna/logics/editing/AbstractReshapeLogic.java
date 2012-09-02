@@ -19,6 +19,7 @@ import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Iterables;
@@ -96,7 +97,7 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_REMOVING:
-			if (evt.getTargetThing().equals(reshapingThing)) {
+			if (SystemUtils.nullEquals(evt.getTargetThing(), reshapingThing)) {
 				untrack();
 			}
 			break;
@@ -104,7 +105,7 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 			if (evt.getThingEvent().getPropertyName().equals(IHasSelected.SELECTED_KEY)) {
 				checkHandles();
 			}
-			else if (reshapingThing != null && evt.getThingEvent().getTargetThing().equals(reshapingThing)) {
+			else if (reshapingThing != null && SystemUtils.nullEquals(evt.getTargetThing(), reshapingThing)) {
 				checkHandles();
 			}
 		default:

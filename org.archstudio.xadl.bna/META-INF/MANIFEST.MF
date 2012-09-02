@@ -19,5 +19,6 @@ Require-Bundle: org.archstudio.bna,
  org.jogamp.jogl,
  org.eclipse.core.commands,
  org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.jdt.annotation
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

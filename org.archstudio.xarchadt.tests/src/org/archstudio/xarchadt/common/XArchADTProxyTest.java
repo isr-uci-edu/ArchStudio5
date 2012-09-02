@@ -7,6 +7,7 @@ import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xadl3.structure_3_0.SubStructure;
 import org.archstudio.xadl3.xadlcore_3_0.DocumentRoot;
 import org.archstudio.xadl3.xadlcore_3_0.XADLType;
+import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Factory;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
 import org.archstudio.xarchadt.XArchADTProxy;
 import org.eclipse.emf.ecore.EObject;
@@ -15,6 +16,14 @@ import com.google.common.collect.Sets;
 
 public class XArchADTProxyTest extends AbstractXArchADTTest {
 
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		DocumentRoot documentRoot = XArchADTProxy.proxy(xarch, documentRootRef);
+		documentRoot.setXADL(((Xadlcore_3_0Factory) XArchADTProxy.proxy(xarch, Xadlcore_3_0Package.eNS_URI))
+				.createXADLType());
+	}
+
 	private void assertConsistent(EObject eObject) {
 		assertNotNull(eObject);
 		assertNotNull(XArchADTProxy.unproxy(eObject));
@@ -22,7 +31,7 @@ public class XArchADTProxyTest extends AbstractXArchADTTest {
 	}
 
 	public void testCreateDocument() {
-		DocumentRoot documentRoot = XArchADTProxy.proxy(xarch, documentRef);
+		DocumentRoot documentRoot = XArchADTProxy.proxy(xarch, documentRootRef);
 		assertConsistent(documentRoot);
 		XADLType xadlType = documentRoot.getXADL();
 		assertConsistent(xadlType);
@@ -35,8 +44,8 @@ public class XArchADTProxyTest extends AbstractXArchADTTest {
 	}
 
 	public void testCache() {
-		assertSame(XArchADTProxy.proxy(xarch, documentRef), XArchADTProxy.proxy(xarch, documentRef));
-		DocumentRoot documentRoot = XArchADTProxy.proxy(xarch, documentRef);
+		assertSame(XArchADTProxy.proxy(xarch, documentRootRef), XArchADTProxy.proxy(xarch, documentRootRef));
+		DocumentRoot documentRoot = XArchADTProxy.proxy(xarch, documentRootRef);
 		assertSame(documentRoot.getXADL(), documentRoot.getXADL());
 	}
 
@@ -61,7 +70,7 @@ public class XArchADTProxyTest extends AbstractXArchADTTest {
 	}
 
 	public void testAddRemove() {
-		DocumentRoot documentRoot = XArchADTProxy.proxy(xarch, documentRef);
+		DocumentRoot documentRoot = XArchADTProxy.proxy(xarch, documentRootRef);
 		assertConsistent(documentRoot);
 		XADLType xadlType = documentRoot.getXADL();
 		assertConsistent(xadlType);
@@ -90,9 +99,9 @@ public class XArchADTProxyTest extends AbstractXArchADTTest {
 	}
 
 	public void testEClass() {
-		assertEquals(((DocumentRoot) XArchADTProxy.proxy(xarch, documentRef)).eClass(),
+		assertEquals(((DocumentRoot) XArchADTProxy.proxy(xarch, documentRootRef)).eClass(),
 				Xadlcore_3_0Package.Literals.DOCUMENT_ROOT);
-		assertEquals(((DocumentRoot) XArchADTProxy.proxy(xarch, documentRef)).eClass().getEPackage(),
+		assertEquals(((DocumentRoot) XArchADTProxy.proxy(xarch, documentRootRef)).eClass().getEPackage(),
 				Xadlcore_3_0Package.Literals.DOCUMENT_ROOT.getEPackage());
 	}
 }

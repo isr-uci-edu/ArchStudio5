@@ -1,7 +1,9 @@
 package org.archstudio.xarchadt;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 
+@NonNullByDefault
 public class XArchADTFileEvent implements java.io.Serializable {
 
 	private static final long serialVersionUID = -1173916108861836949L;

@@ -44,10 +44,12 @@ public class BNAGraphDemo {
 
 		final IBNAModel bnaModel = new DefaultBNAModel();
 		final IBNAWorld bnaWorld = new DefaultBNAWorld("bna", bnaModel);
-		final IBNAView bnaView = new DefaultBNAView(null, bnaWorld, new GraphCoordinateMapper(Type.LINEAR, Type.LOGARITHMIC));
+		final IBNAView bnaView = new DefaultBNAView(null, bnaWorld, new GraphCoordinateMapper(Type.LINEAR,
+				Type.LOGARITHMIC));
 
 		// setup graph
-		RectangleGlassThing graphGlassThing = GraphAssemblies.createGraph(bnaWorld, null, "Top", "Bottom", "Left", "Right");
+		RectangleGlassThing graphGlassThing = GraphAssemblies.createGraph(bnaWorld, null, "Top", "Bottom", "Left",
+				"Right");
 		graphGlassThing.setBoundingBox(new Rectangle(0, -100, 150, 100));
 		UserEditableUtils.addEditableQualities(graphGlassThing, IRelativeMovable.USER_MAY_MOVE,
 				IHasMutableSize.USER_MAY_RESIZE, IHasMutableSelected.USER_MAY_SELECT);
@@ -59,7 +61,7 @@ public class BNAGraphDemo {
 			PreciselyAnchoredShapeGlassThing point = GraphAssemblies.createDataPoint(bnaWorld, null);
 			point.setShape(Shape.SQUARE);
 			point.setPreciseAnchorPoint(new Point2D.Double(x, y));
-			ToolTipLogic.setToolTip(point, "Point #"+(i+1));
+			ToolTipLogic.setToolTip(point, "Point #" + (i + 1));
 			UserEditableUtils.addEditableQualities(point, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG,
 					IHasMutableSelected.USER_MAY_SELECT);
 		}

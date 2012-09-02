@@ -31,7 +31,7 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 			}
 			gl.glEnd();
 		}
-		
+
 		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
 			lbb.width -= 1;
 			lbb.height -= 1;

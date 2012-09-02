@@ -6,7 +6,9 @@ import static com.google.common.base.Preconditions.checkState;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -28,29 +30,24 @@ import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.hints.synchronizers.PropertyHintSynchronizer;
+import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.swtutils.SWTWidgetUtils;
+import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.swt.widgets.Display;
+
+import com.google.common.collect.Lists;
 
 public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAModelListener,
 		IHintRepositoryChangeListener {
 
-	private static class HintInformation {
-		public final Object context;
-
-		public HintInformation(Object context) {
-			this.context = context;
-		}
-
-		@Override
-		public String toString() {
-			return "HintInformation [context=" + context + "]";
-		}
-	}
-
 	private static final boolean DEBUG = false;
 
-	private static final IThingKey<HintInformation> HINT_INFORMATION_KEY = ThingKey.create(SynchronizeHintsLogic.class);
+	private static final IThingKey<Object> HINT_CONTEXT_KEY = ThingKey.create(SynchronizeHintsLogic.class);
 
 	final protected IHintRepository hintRepository;
+
+	protected ThingValueTrackingLogic tvtl = null;
 
 	public SynchronizeHintsLogic(IHintRepository hintRepository) {
 		this.hintRepository = hintRepository;
@@ -72,7 +69,7 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 				IHasMutableColor.USER_MAY_EDIT_COLOR));
 	}
 
-	final protected CopyOnWriteArrayList<IHintSynchronizer> hintSynchronizers = new CopyOnWriteArrayList<IHintSynchronizer>();
+	final protected CopyOnWriteArrayList<IHintSynchronizer> hintSynchronizers = Lists.newCopyOnWriteArrayList();
 
 	public void addHintSynchronizer(IHintSynchronizer hintSynchronizer) {
 		checkState(getBNAWorld() == null, "Hint synchronizer updates must occur before logic initialization");
@@ -89,6 +86,7 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 	@Override
 	public void init() {
 		checkState(getBNAModel().getAllThings().isEmpty(), "SynchronizeHintsLogic must be added before things.");
+		tvtl = addThingLogic(ThingValueTrackingLogic.class);
 
 		super.init();
 		for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {
@@ -106,17 +104,16 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 		super.destroy();
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED:
 		case THING_CHANGED:
 			IThing thing = evt.getTargetThing();
 			ThingEvent te = evt.getThingEvent();
-			if (te == null || !HINT_INFORMATION_KEY.equals(te.getPropertyName())) {
-				HintInformation hintInformation = createHintInformation(thing);
-				if (hintInformation != null) {
-					storeHints(thing, hintInformation, evt);
+			if (thing != null && (te == null || !HINT_CONTEXT_KEY.equals(te.getPropertyName()))) {
+				Object context = createHintContext(thing);
+				if (context != null) {
+					storeHints(thing, context, evt);
 				}
 			}
 		default:
@@ -124,41 +121,43 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 		}
 	}
 
-	protected HintInformation createHintInformation(IThing thing) {
+	protected @Nullable
+	Object createHintContext(IThing thing) {
 		checkNotNull(thing);
-
-		HintInformation hintInformation = thing.get(HINT_INFORMATION_KEY);
-		if (hintInformation == null) {
-			Object context = hintRepository.getContextForThing(getBNAWorld(), thing);
-			if (context != null) {
-				hintInformation = new HintInformation(context);
-				restoreHints(thing, hintInformation);
-				storeHints(thing, hintInformation, null);
-				thing.set(HINT_INFORMATION_KEY, hintInformation);
-				for (IThing t : Assemblies.getParts(getBNAModel(), thing)) {
-					createHintInformation(t);
+		Object context = thing.get(HINT_CONTEXT_KEY);
+		if (context == null) {
+			IBNAWorld world = getBNAWorld();
+			if (world != null) {
+				context = hintRepository.getContextForThing(world, thing);
+				if (context != null) {
+					restoreHints(thing, context);
+					storeHints(thing, context, null);
+					thing.set(HINT_CONTEXT_KEY, context);
+					for (IThing t : Assemblies.getParts(world.getBNAModel(), thing)) {
+						if (t != null)
+							createHintContext(t);
+					}
 				}
 			}
 		}
-
-		return hintInformation;
+		return context;
 	}
 
-	protected void restoreHints(IThing thing, HintInformation hintInformation) {
+	protected void restoreHints(IThing thing, Object context) {
 		if (DEBUG) {
-			System.out.println("Restore hints: " + hintInformation + " " + thing.getID());
+			System.out.println("Restore hints: " + context + " " + thing.getID());
 		}
 		for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {
-			hintSynchronizer.restoreHints(hintRepository, hintInformation.context, thing);
+			hintSynchronizer.restoreHints(hintRepository, context, thing, null);
 		}
 	}
 
-	protected void storeHints(IThing thing, HintInformation hintInformation, BNAModelEvent evt) {
+	protected void storeHints(IThing thing, Object context, @Nullable BNAModelEvent evt) {
 		if (DEBUG) {
-			System.out.println("Store hints  : " + hintInformation + " " + thing.getID() + " " + evt);
+			System.out.println("Store hints  : " + context + " " + thing.getID() + " " + evt);
 		}
 		for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {
-			hintSynchronizer.storeHints(hintRepository, hintInformation.context, thing, evt);
+			hintSynchronizer.storeHints(hintRepository, context, thing, evt);
 		}
 	}
 
@@ -456,9 +455,21 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 	//
 
 	@Override
-	public void hintRepositoryChanged(IHintRepository repository, Object context, String hintName) {
+	public void hintRepositoryChanged(final IHintRepository repository, final Object context,
+			final @Nullable String name) {
+		SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
+			public void run() {
+				IBNAModel model = getBNAModel();
+				if (model != null) {
+					for (IThing t : model.getThingsByID(tvtl.getThingIDs(HINT_CONTEXT_KEY, context))) {
+						if (t != null) {
+							restoreHints(t, context);
+						}
+					}
+				}
+			}
+		});
 	}
-
 	//	public void hintRepositoryChanged(IHintRepository repository, final Object context, final String hintName) {
 	//		ignoreBNAChanges(new Runnable() {
 	//

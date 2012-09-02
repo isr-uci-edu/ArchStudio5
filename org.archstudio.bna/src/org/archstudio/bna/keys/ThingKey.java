@@ -1,6 +1,7 @@
 package org.archstudio.bna.keys;
 
 import org.archstudio.bna.IThing;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 
 /**
  * Captures a key that stores a value in an {@link IThing}.
@@ -12,6 +13,7 @@ import org.archstudio.bna.IThing;
  *            The type of value stored by the key, e.g., a Rectangle, RGB, an
  *            Integer, etc.
  */
+@NonNullByDefault
 public class ThingKey<D, V> extends AbstractGenericThingKey<D, V> {
 
 	public static final <D, V> IThing.IThingKey<V> create(D keyData) {

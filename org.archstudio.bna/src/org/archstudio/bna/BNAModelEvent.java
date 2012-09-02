@@ -1,6 +1,7 @@
 package org.archstudio.bna;
 
 import org.archstudio.bna.utils.DefaultBNAModel;
+import org.eclipse.jdt.annotation.Nullable;
 
 public class BNAModelEvent {
 
@@ -51,8 +52,8 @@ public class BNAModelEvent {
 	protected final ThingEvent thingEvent;
 	protected final String streamNotification;
 
-	protected BNAModelEvent(IBNAModel source, EventType eventType, boolean inBulkChange, IThing targetThing,
-			ThingEvent thingEvent, String streamNotification) {
+	protected BNAModelEvent(IBNAModel source, EventType eventType, boolean inBulkChange, @Nullable IThing targetThing,
+			@Nullable ThingEvent thingEvent, @Nullable String streamNotification) {
 		this.source = source;
 		this.eventType = eventType;
 		this.inBulkChange = inBulkChange;
@@ -73,15 +74,18 @@ public class BNAModelEvent {
 		return inBulkChange;
 	}
 
-	public IThing getTargetThing() {
+	public @Nullable
+	IThing getTargetThing() {
 		return targetThing;
 	}
 
-	public ThingEvent getThingEvent() {
+	public @Nullable
+	ThingEvent getThingEvent() {
 		return thingEvent;
 	}
 
-	public String getStreamNotification() {
+	public @Nullable
+	String getStreamNotification() {
 		return streamNotification;
 	}
 

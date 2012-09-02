@@ -1,7 +1,9 @@
 package org.archstudio.bna.facets;
 
 import org.archstudio.swtutils.constants.FontStyle;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 
+@NonNullByDefault
 public interface IHasMutableFontData extends IHasFontData {
 
 	public void setFontName(String fontName);

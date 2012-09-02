@@ -6,11 +6,13 @@ import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutablePoints;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Lists;
 
+@NonNullByDefault
 public abstract class AbstractPointsThing extends AbstractRelativeMovableThing implements IHasMutablePoints,
 		IHasBoundingBox {
 
@@ -97,6 +99,6 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 
 	@Override
 	public Rectangle getBoundingBox() {
-		return get(BOUNDING_BOX_KEY);
+		return get(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
 	}
 }

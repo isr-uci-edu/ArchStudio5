@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
+import javax.xml.xpath.XPathException;
 
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
@@ -24,7 +25,6 @@ import org.archstudio.xarchadt.IXArchADTPackageMetadata;
 import org.archstudio.xarchadt.IXArchADTSubstitutionHint;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.xarchadt.XArchADTPath;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
@@ -148,7 +148,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			public void dragOver(DropTargetEvent event) {
 				if (textTransfer.isSupportedType(event.currentDataType)) {
 					Object o = textTransfer.nativeToJava(event.currentDataType);
-					if (o != null) {
+					if (o instanceof String) {
 						String t = (String) o;
 						if (t.startsWith("$LINK$")) {
 							event.feedback = DND.FEEDBACK_SCROLL;
@@ -183,24 +183,18 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 				if (textTransfer.isSupportedType(event.currentDataType)) {
 					String text = (String) event.data;
 					if (text.startsWith("$LINK$")) {
-						text = text.substring("$LINK$".length());
-						int hashLocation = text.lastIndexOf('#');
-						if (hashLocation == -1) {
+						String[] parts = text.split("\\$", 4);
+
+						String xPath = parts[3];
+						String featureName = parts[2];
+						ObjRef parentRef;
+						try {
+							parentRef = SystemUtils.firstOrNull(xarch.resolveObjRefs(documentRootRef, xPath));
+						}
+						catch (XPathException e) {
+							e.printStackTrace();
 							return;
 						}
-
-						String pathString = text.substring(0, hashLocation);
-						String featureName = text.substring(hashLocation + 1);
-						int index = -1;
-
-						int colonLocation = featureName.lastIndexOf(':');
-						if (colonLocation != -1) {
-							String indexString = featureName.substring(colonLocation + 1);
-							featureName = featureName.substring(0, colonLocation);
-							index = Integer.parseInt(indexString);
-						}
-
-						ObjRef parentRef = XArchADTPath.resolve(xarch, documentRootRef, new XArchADTPath(pathString));
 						if (parentRef == null) {
 							return;
 						}
@@ -221,23 +215,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 									else {
 										XArchADTOperations xarch = new XArchADTOperations(
 												ArchEditOutlinePage.this.xarch);
-										if (index == -1) {
-											//It's not a multiple reference variable.
-											xarch.set(parentRef, featureName, targetRef);
-										}
-										else {
-											List<ObjRef> oldRefs = Lists.newArrayList(Iterables.filter(
-													xarch.getAll(parentRef, featureName), ObjRef.class));
-											List<ObjRef> newRefs = Lists.newArrayList(Iterables.filter(
-													xarch.getAll(parentRef, featureName), ObjRef.class));
-											//Remove all the old refs
-											//TODO: Fix this with better list manipulating operations
-											xarch.remove(parentRef, featureName, oldRefs);
-											newRefs.set(index, targetRef);
-											for (ObjRef newRef : newRefs) {
-												xarch.add(parentRef, featureName, newRef);
-											}
-										}
+										xarch.set(parentRef, featureName, targetRef);
 										xarch.done("Link");
 									}
 								}
@@ -636,21 +614,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		Action removeAction = new Action("Remove") {
 			@Override
 			public void run() {
-				ObjRef parentRef = xarch.getParent(fref);
-				String featureName = xarch.getContainingFeatureName(fref);
-
-				IXArchADTFeature feature = XadlUtils.getFeatureByName(xarch, parentRef, featureName);
-				switch (feature.getType()) {
-				case ELEMENT_MULTIPLE:
-					XArchADTOperations.remove("Remove", xarch, parentRef, featureName, fref);
-					break;
-				case ELEMENT_SINGLE:
-					XArchADTOperations.set("Remove", xarch, parentRef, featureName, null);
-					break;
-				case ATTRIBUTE:
-					throw new IllegalArgumentException();
-				}
-
+				XadlUtils.remove(xarch, fref);
 				Object[] expandedElements = getTreeViewer().getExpandedElements();
 				getTreeViewer().refresh(true);
 				getTreeViewer().setExpandedElements(expandedElements);

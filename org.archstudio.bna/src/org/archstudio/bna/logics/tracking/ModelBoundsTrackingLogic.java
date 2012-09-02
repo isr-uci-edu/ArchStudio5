@@ -8,8 +8,8 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IIsHidden;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.utils.IIsHidden;
 import org.eclipse.swt.graphics.Rectangle;
 
 public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNAModelListener {

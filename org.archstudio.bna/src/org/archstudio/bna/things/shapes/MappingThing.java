@@ -10,7 +10,7 @@ import org.eclipse.swt.graphics.RGB;
 
 public class MappingThing extends AbstractMappingThing implements IHasMutableEdgeColor, IHasMutableLineWidth,
 		IHasMutableLineStyle, IHasLineData {
-	
+
 	public MappingThing(Object id) {
 		super(id);
 	}

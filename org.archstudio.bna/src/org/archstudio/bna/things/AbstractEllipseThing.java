@@ -10,9 +10,11 @@ import org.archstudio.bna.facets.IHasMutableMinimumSize;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.utils.BNAUtils;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
+@NonNullByDefault
 public abstract class AbstractEllipseThing extends AbstractRelativeMovableReferencePointThing implements
 		IHasMutableBoundingBox, IHasMutableMinimumSize, IRelativeMovable, IIsSticky, IHasMutableLocalInsets {
 
@@ -30,11 +32,11 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 
 	@Override
 	public Dimension getMinimumSize() {
-		return get(MINIMUM_SIZE_KEY);
+		return get(MINIMUM_SIZE_KEY, new Dimension(5, 5));
 	}
 
 	@Override
-	public void setMinimumSize(final Dimension minimumDimension) {
+	public void setMinimumSize(Dimension minimumDimension) {
 		set(MINIMUM_SIZE_KEY, minimumDimension);
 		Rectangle r = getBoundingBox();
 		if (r != null) {
@@ -44,11 +46,11 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 
 	@Override
 	public Rectangle getBoundingBox() {
-		return get(BOUNDING_BOX_KEY);
+		return get(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
 	}
 
 	@Override
-	public void setBoundingBox(final Rectangle r) {
+	public void setBoundingBox(Rectangle r) {
 		BNAUtils.normalizeRectangle(r);
 		Dimension minDimension = getMinimumSize();
 		if (minDimension != null) {
@@ -79,9 +81,9 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 	@Override
 	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Rectangle r = getBoundingBox();
-		switch(stickyMode){
+		switch (stickyMode) {
 		case EDGE:
-		case EDGE_FROM_CENTER:{
+		case EDGE_FROM_CENTER: {
 			double cx = r.x + r.width / 2d;
 			double cy = r.y + r.height / 2d;
 			double dx = cx - nearPoint.x;
@@ -90,8 +92,8 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 			double angle = Math.asin(dx / h);
 			if (dy < 0)
 				angle = Math.PI - angle;
-			return new Point(BNAUtils.round(cx + -Math.sin(angle) * r.width / 2d),
-					BNAUtils.round(cy + -Math.cos(angle) * r.height / 2d));
+			return new Point(BNAUtils.round(cx + -Math.sin(angle) * r.width / 2d), BNAUtils.round(cy + -Math.cos(angle)
+					* r.height / 2d));
 		}
 		case CENTER:
 			return new Point(r.x + r.width / 2, r.y + r.height / 2);
@@ -101,7 +103,7 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 
 	@Override
 	public Insets getLocalInsets() {
-		return get(LOCAL_INSETS_KEY);
+		return get(LOCAL_INSETS_KEY, new Insets(0, 0, 0, 0));
 	}
 
 	@Override

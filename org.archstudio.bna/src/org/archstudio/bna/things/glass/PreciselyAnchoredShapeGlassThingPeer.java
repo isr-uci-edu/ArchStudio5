@@ -13,7 +13,8 @@ import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class PreciselyAnchoredShapeGlassThingPeer<T extends PreciselyAnchoredShapeGlassThing> extends AbstractPreciseAnchorPointThingPeer<T> {
+public class PreciselyAnchoredShapeGlassThingPeer<T extends PreciselyAnchoredShapeGlassThing> extends
+		AbstractPreciseAnchorPointThingPeer<T> {
 
 	public PreciselyAnchoredShapeGlassThingPeer(T thing) {
 		super(thing);

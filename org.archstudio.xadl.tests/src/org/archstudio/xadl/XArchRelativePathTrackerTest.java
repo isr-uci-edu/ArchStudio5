@@ -23,7 +23,6 @@ import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
-import org.archstudio.xarchadt.XArchADTPath;
 import org.archstudio.xarchadt.XArchADTProxy;
 import org.archstudio.xarchadt.core.XArchADTImpl;
 import org.eclipse.emf.common.util.URI;
@@ -99,8 +98,7 @@ public class XArchRelativePathTrackerTest extends TestCase {
 			}
 
 			@Override
-			public void processUpdate(List<ObjRef> relLineageRefs, XArchADTPath relPath, ObjRef objRef,
-					XArchADTModelEvent evt) {
+			public void processUpdate(List<ObjRef> relLineageRefs, String relPath, ObjRef objRef, XArchADTModelEvent evt) {
 				results.add("U:" + objRef);
 			}
 

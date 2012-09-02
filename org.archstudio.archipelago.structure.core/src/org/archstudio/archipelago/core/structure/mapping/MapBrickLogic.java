@@ -39,7 +39,6 @@ import org.archstudio.xadl.bna.logics.mapping.AbstractXADLToBNAPathLogic;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
-import org.archstudio.xarchadt.XArchADTPath;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -81,7 +80,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		addBNAUpdater(new IBNAUpdater() {
 
 			@Override
-			public void updateBNA(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt,
+			public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt,
 					RectangleGlassThing rootThing) {
 
 				updateSubstructure(objRef, xadlPath, evt, rootThing);
@@ -165,7 +164,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		return thing;
 	}
 
-	protected void updateSubstructure(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt,
+	protected void updateSubstructure(ObjRef objRef, String xadlPath, XArchADTModelEvent evt,
 			RectangleGlassThing rootThing) {
 
 		IHasMutableWorld worldThing = castOrNull(

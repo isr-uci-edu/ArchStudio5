@@ -8,5 +8,5 @@ public interface IHasUnit {
 	public static final IThingKey<Integer> UNIT_KEY = ThingKey.create("unit");
 
 	public int getUnit();
-	
+
 }

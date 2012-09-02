@@ -10,6 +10,9 @@ import javax.media.opengl.GLProfile;
 import javax.media.opengl.glu.GLU;
 
 import org.archstudio.bna.BNAModelEvent.EventType;
+import org.archstudio.bna.facets.IHasAlpha;
+import org.archstudio.bna.facets.IHasTint;
+import org.archstudio.bna.facets.IIsHidden;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.swtutils.SWTWidgetUtils;
@@ -23,6 +26,7 @@ import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.opengl.GLCanvas;
 import org.eclipse.swt.opengl.GLData;
@@ -41,6 +45,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 	protected final ScrollBar vBar = getVerticalBar();
 	protected final BNASWTEventHandler eventHandler;
 	protected final GLContext context;
+	protected final ObscuredGL2 gl;
 	protected final Resources resources;
 
 	public BNACanvas(Composite parent, int style, IBNAWorld bnaWorld) {
@@ -65,7 +70,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		setCurrent();
 		GLProfile glprofile = GLProfile.get(GLProfile.GL2);
 		this.context = GLDrawableFactory.getFactory(glprofile).createExternalGLContext();
-		this.resources = new Resources(this, (GL2) context.getGL());
+		this.resources = new Resources(this, gl = new ObscuredGL2((GL2) context.getGL(), 1));
 
 		this.addListener(SWT.Resize, new Listener() {
 			@Override
@@ -248,7 +253,6 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		context.makeCurrent();
 		try {
 			org.eclipse.swt.graphics.Rectangle bounds = getBounds();
-			GL2 gl = (GL2) context.getGL();
 
 			gl.glMatrixMode(GL2.GL_PROJECTION);
 			gl.glLoadIdentity();
@@ -287,9 +291,14 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 			IBNAView bnaView = getBNAView();
 			ICoordinateMapper cm = bnaView.getCoordinateMapper();
 			for (IThing thingToRender : bnaModel.getAllThings()) {
+				if (Boolean.TRUE.equals(thingToRender.get(IIsHidden.HIDDEN_KEY)))
+					continue;
+
 				//gl.glPushMatrix();
 				gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT | GL2.GL_COLOR_BUFFER_BIT);
 				try {
+					gl.setAlpha(thingToRender.get(IHasAlpha.ALPHA_KEY, 1f));
+					gl.setTint(thingToRender.get(IHasTint.TINT_KEY, new RGB(0, 0, 0)));
 					IThingPeer<?> peer = bnaView.getThingPeer(thingToRender);
 					peer.draw(bnaView, cm, gl, clip, resources);
 				}

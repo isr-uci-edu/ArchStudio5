@@ -1,7 +1,5 @@
 package org.archstudio.xadl;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 
 import org.archstudio.sysutils.SystemUtils;
@@ -13,42 +11,46 @@ import org.archstudio.xarchadt.IXArchADTFeature;
 import org.archstudio.xarchadt.IXArchADTQuery;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.archstudio.xarchadt.XArchADTProxy;
-import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jdt.annotation.Nullable;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+
+
 public class XadlUtils {
 
+	@Nullable
 	public static String getID(IXArchADTQuery xarch, ObjRef ref) {
 		try {
 			return (String) xarch.get(ref, "id");
 		}
 		catch (Exception e) {
-			return null;
 		}
+		return null;
 	}
 
+	@Nullable
 	public static String getName(IXArchADTQuery xarch, ObjRef ref) {
 		try {
 			String name = (String) xarch.get(ref, "name");
 			return name == null ? "[No Name]" : name;
 		}
 		catch (Exception e) {
-			return null;
 		}
+		return null;
 	}
 
 	public static void setName(IXArchADT xarch, ObjRef ref, String newName) {
 		xarch.set(ref, "name", newName);
 	}
 
+	@Nullable
 	public static ObjRef getExt(IXArchADTQuery xarch, ObjRef ref, String extensionNsURI, String extensionTypeName) {
 		for (ObjRef extRef : Iterables.filter(xarch.getAll(ref, "ext"), ObjRef.class)) {
 			if (xarch.isInstanceOf(extRef, extensionNsURI, extensionTypeName)) {
@@ -58,19 +60,17 @@ public class XadlUtils {
 		return null;
 	}
 
-	public static ObjRef getExt(IXArchADTQuery xarch, ObjRef ref, EClass extClass) {
-		return getExt(xarch, ref, extClass.getEPackage().getNsURI(), extClass.getName());
-	}
-
 	@SuppressWarnings("unchecked")
-	public static <T extends Extension> T getExt(IXArchADT xarch, EObject eObject, EClass extClass) {
-		return (T) XArchADTProxy.proxy(xarch, getExt(xarch, XArchADTProxy.unproxy(eObject), extClass));
+	public static @Nullable
+	<T extends Extension> T getExt(IXArchADT xarch, EObject eObject, EClass extClass) {
+		return (T) XArchADTProxy.proxy(xarch,
+				getExt(xarch, XArchADTProxy.unproxy(eObject), extClass.getEPackage().getNsURI(), extClass.getName()));
 	}
 
-	public static ObjRef createExt(IXArchADT xarch, ObjRef ref, EClass extClass) {
-		ObjRef extRef = getExt(xarch, ref, extClass);
+	public static ObjRef createExt(IXArchADT xarch, ObjRef ref, String extensionNsURI, String extensionTypeName) {
+		ObjRef extRef = getExt(xarch, ref, extensionNsURI, extensionTypeName);
 		if (extRef == null) {
-			extRef = create(xarch, extClass);
+			extRef = xarch.create(extensionNsURI, extensionTypeName);
 			xarch.add(ref, "ext", extRef);
 		}
 		return extRef;
@@ -78,7 +78,10 @@ public class XadlUtils {
 
 	@SuppressWarnings("unchecked")
 	public static <T extends Extension> T createExt(IXArchADT xarch, EObject eObject, EClass extClass) {
-		return (T) XArchADTProxy.proxy(xarch, createExt(xarch, XArchADTProxy.unproxy(eObject), extClass));
+		return (T) XArchADTProxy
+				.proxy(xarch,
+						createExt(xarch, XArchADTProxy.unproxy(eObject), extClass.getEPackage().getNsURI(),
+								extClass.getName()));
 	}
 
 	public static boolean isBrick(IXArchADTQuery xarch, ObjRef ref) {
@@ -93,9 +96,11 @@ public class XadlUtils {
 		return isInstanceOf(xarch, ref, Structure_3_0Package.Literals.CONNECTOR);
 	}
 
-	public static ObjRef getImplementation(IXArchADTQuery xarch, ObjRef ref, EClass type) {
-		ObjRef implementationExtRef = XadlUtils.getExt(xarch, ref,
-				Implementation_3_0Package.Literals.IMPLEMENTATION_EXTENSION);
+	public static @Nullable
+	ObjRef getImplementation(IXArchADTQuery xarch, ObjRef ref, EClass type) {
+		EClass extClass = Implementation_3_0Package.Literals.IMPLEMENTATION_EXTENSION;
+		ObjRef implementationExtRef = XadlUtils.getExt(xarch, ref, extClass.getEPackage().getNsURI(),
+				extClass.getName());
 		if (implementationExtRef != null) {
 			for (ObjRef implementationRef : Iterables.filter(xarch.getAll(implementationExtRef, "implementation"),
 					ObjRef.class)) {
@@ -130,13 +135,6 @@ public class XadlUtils {
 		return matchingRefs;
 	}
 
-	public static boolean isTargetedToDocument(IXArchADTQuery xarch, ObjRef documentRootRef, XArchADTModelEvent evt) {
-		if (evt.getSource() == null) {
-			return false;
-		}
-		return xarch.equals(documentRootRef, xarch.getDocumentRootRef(evt.getSource()));
-	}
-
 	public static String getDisplayName(IXArchADTQuery xarch, ObjRef ref) {
 		StringBuffer sb = new StringBuffer();
 
@@ -158,32 +156,8 @@ public class XadlUtils {
 		return sb.toString();
 	}
 
-	public static boolean isEnumeratorClass(Class<?> classToCheck) {
-		return Enumerator.class.isAssignableFrom(classToCheck);
-	}
-
-	public static Object getEnumeratorValue(Class<?> enumerationClass, String stringValue) {
-		if (!XadlUtils.isEnumeratorClass(enumerationClass)) {
-			throw new IllegalArgumentException("Class " + enumerationClass.getCanonicalName()
-					+ " is not an enumerator class.");
-		}
-		try {
-			Method m = enumerationClass.getMethod("get", java.lang.String.class);
-			Object value = m.invoke(enumerationClass, stringValue);
-			return value;
-		}
-		catch (NoSuchMethodException nsme) {
-			return null;
-		}
-		catch (InvocationTargetException ite) {
-			return null;
-		}
-		catch (IllegalAccessException iae) {
-			return null;
-		}
-	}
-
-	public static IXArchADTFeature getFeatureByName(IXArchADTQuery xarch, ObjRef ref, String name) {
+	public static @Nullable
+	IXArchADTFeature getFeatureByName(IXArchADTQuery xarch, ObjRef ref, String name) {
 		IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(ref);
 		for (IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
 			if (feature.getName().equals(name)) {
@@ -207,8 +181,7 @@ public class XadlUtils {
 
 		EClass eClass = documentRootReference.getEContainingClass();
 		String eClassURI = eClass.getEPackage().getNsURI();
-		ObjRef documentRootRef = xarch
-				.createDocument(uri, eClassURI, eClass.getName(), documentRootReference.getName());
+		ObjRef documentRootRef = xarch.createDocument(uri, eClassURI);
 
 		return XArchADTProxy.proxy(xarch, documentRootRef);
 	}
@@ -250,14 +223,16 @@ public class XadlUtils {
 		if (parentRef != null) {
 			IXArchADTTypeMetadata type = xarch.getTypeMetadata(parentRef);
 			String elementName = xarch.getContainingFeatureName(objRef);
-			switch (type.getFeatures().get(elementName).getType()) {
-			case ATTRIBUTE:
-			case ELEMENT_SINGLE:
-				xarch.clear(parentRef, elementName);
-				break;
-			case ELEMENT_MULTIPLE:
-				xarch.remove(parentRef, elementName, objRef);
-				break;
+			if (elementName != null) {
+				switch (type.getFeatures().get(elementName).getType()) {
+				case ATTRIBUTE:
+				case ELEMENT_SINGLE:
+					xarch.clear(parentRef, elementName);
+					break;
+				case ELEMENT_MULTIPLE:
+					xarch.remove(parentRef, elementName, objRef);
+					break;
+				}
 			}
 		}
 	}

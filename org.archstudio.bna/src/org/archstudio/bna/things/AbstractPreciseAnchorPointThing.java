@@ -6,8 +6,10 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasMutablePreciseAnchorPoint;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.utils.BNAUtils;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.swt.graphics.Point;
 
+@NonNullByDefault
 public abstract class AbstractPreciseAnchorPointThing extends AbstractRelativeMovableReferencePointThing implements
 		IHasMutablePreciseAnchorPoint, IIsSticky {
 
@@ -24,7 +26,7 @@ public abstract class AbstractPreciseAnchorPointThing extends AbstractRelativeMo
 
 	@Override
 	public Point2D getPreciseAnchorPoint() {
-		return get(PRECISION_ANCHOR_POINT_KEY);
+		return get(PRECISION_ANCHOR_POINT_KEY, new Point2D.Double(0, 0));
 	}
 
 	@Override

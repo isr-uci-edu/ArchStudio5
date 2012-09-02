@@ -8,11 +8,14 @@ import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasRotatingOffset;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractRoundedRectangleThing;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
+@NonNullByDefault
 public class RectangleGlassThing extends AbstractRoundedRectangleThing implements IHasMutableSelected,
 		IHasMutableRotatingOffset, IHasMutableRoundedCorners {
 
-	public RectangleGlassThing(Object id) {
+	public RectangleGlassThing(@Nullable Object id) {
 		super(id);
 	}
 
@@ -26,7 +29,7 @@ public class RectangleGlassThing extends AbstractRoundedRectangleThing implement
 
 	@Override
 	public int getRotatingOffset() {
-		return get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
+		return get(IHasRotatingOffset.ROTATING_OFFSET_KEY, 0);
 	}
 
 	@Override
@@ -53,7 +56,7 @@ public class RectangleGlassThing extends AbstractRoundedRectangleThing implement
 
 	@Override
 	public Dimension getCornerSize() {
-		return get(CORNER_SIZE_KEY);
+		return get(CORNER_SIZE_KEY, new Dimension(0, 0));
 	}
 
 	@Override

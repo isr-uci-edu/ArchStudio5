@@ -3,7 +3,9 @@ package org.archstudio.bna.facets;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.swtutils.constants.FontStyle;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 
+@NonNullByDefault
 public interface IHasFontData extends IThing {
 
 	public static final IThingKey<String> FONT_NAME_KEY = ThingKey.create("fontName");

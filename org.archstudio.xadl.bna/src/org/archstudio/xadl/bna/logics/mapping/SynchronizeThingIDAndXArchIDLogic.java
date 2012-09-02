@@ -15,8 +15,10 @@ import org.archstudio.bna.keys.ThingMetakey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
+import org.eclipse.jdt.annotation.Nullable;
 
 import com.google.common.collect.Sets;
+
 
 public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implements IBNAModelListener {
 
@@ -109,7 +111,7 @@ public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implem
 		}
 	}
 
-	private void setThingIdForXArchID(String xArchID, Object thingId) {
+	private void setThingIdForXArchID(String xArchID, @Nullable Object thingId) {
 		for (IThingMetakey<?, IThingKey<Object>, String> xArchIDKey : xArchIDKeys) {
 			for (IThing thingWithXArchID : getBNAModel().getThingsByID(valuesLogic.getThingIDs(xArchIDKey, xArchID))) {
 				thingWithXArchID.set(xArchIDKey.getKey(), thingId);

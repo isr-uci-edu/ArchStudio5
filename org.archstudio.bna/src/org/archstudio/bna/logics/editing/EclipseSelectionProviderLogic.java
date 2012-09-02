@@ -1,7 +1,5 @@
 package org.archstudio.bna.logics.editing;
 
-import static org.archstudio.sysutils.SystemUtils.newCopyOnWriteArrayList;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,6 +18,8 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IWorkbenchSite;
 
+import com.google.common.collect.Lists;
+
 public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	private static class WorkbenchSiteSelectionProvider implements ISelectionProvider {
@@ -30,7 +30,8 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 			this.workbenchSite = workbenchSite;
 		}
 
-		private final CopyOnWriteArrayList<EclipseSelectionProviderLogic> allEclipseSelectionProviderLogics = newCopyOnWriteArrayList();
+		private final CopyOnWriteArrayList<EclipseSelectionProviderLogic> allEclipseSelectionProviderLogics = Lists
+				.newCopyOnWriteArrayList();
 
 		public void addEclipseSelectionProvider(EclipseSelectionProviderLogic eclipseSelectionProviderLogic) {
 			allEclipseSelectionProviderLogics.add(eclipseSelectionProviderLogic);
@@ -40,7 +41,8 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 			allEclipseSelectionProviderLogics.remove(eclipseSelectionProviderLogic);
 		}
 
-		private final CopyOnWriteArrayList<ISelectionChangedListener> selectionChangedListeners = newCopyOnWriteArrayList();
+		private final CopyOnWriteArrayList<ISelectionChangedListener> selectionChangedListeners = Lists
+				.newCopyOnWriteArrayList();
 
 		public void addSelectionChangedListener(ISelectionChangedListener listener) {
 			selectionChangedListeners.add(listener);

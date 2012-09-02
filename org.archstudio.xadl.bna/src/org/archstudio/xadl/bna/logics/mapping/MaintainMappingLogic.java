@@ -47,7 +47,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 	}
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	public  void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing t = evt.getTargetThing();
@@ -74,7 +74,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 	}
 
 	@Override
-	public void internalBNAModelChanged(IHasWorld src,
+	public  void internalBNAModelChanged(IHasWorld src,
 			BNAModelEvent evt) {
 
 		switch (evt.getEventType()) {

@@ -34,8 +34,9 @@ public class GraphAssemblies {
 			.create("assembly-horizontal-grid-lines");
 	public static final IThingRefKey<GraphGridLinesThing> VERTICAL_GRID_LINES_KEY = ThingAssemblyKey
 			.create("assembly-vertical-grid-lines");
-	
-	public static final IThingRefKey<PreciselyAnchoredShapeThing> DATA_POINT_KEY = ThingAssemblyKey.create("assembly-data-point");
+
+	public static final IThingRefKey<PreciselyAnchoredShapeThing> DATA_POINT_KEY = ThingAssemblyKey
+			.create("assembly-data-point");
 
 	public static RectangleGlassThing createGraph(IBNAWorld world, @Nullable Object id, String topLabel,
 			String bottomLabel, String leftLabel, String rightLabel) {
@@ -119,22 +120,23 @@ public class GraphAssemblies {
 	}
 
 	public static PreciselyAnchoredShapeGlassThing createDataPoint(IBNAWorld world, @Nullable Object id) {
-		
+
 		checkNotNull(world);
 
 		IBNAModel model = world.getBNAModel();
 
 		PreciselyAnchoredShapeThing dataPointThing = model.addThing(new PreciselyAnchoredShapeThing(null));
-		PreciselyAnchoredShapeGlassThing dataPointGlassThing = model.addThing(new PreciselyAnchoredShapeGlassThing(id), dataPointThing);
+		PreciselyAnchoredShapeGlassThing dataPointGlassThing = model.addThing(new PreciselyAnchoredShapeGlassThing(id),
+				dataPointThing);
 
 		Assemblies.markPart(dataPointGlassThing, DATA_POINT_KEY, dataPointThing);
-		
+
 		IThingLogicManager tlm = world.getThingLogicManager();
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 		mvl.mirrorValue(dataPointGlassThing, IHasPreciseAnchorPoint.PRECISION_ANCHOR_POINT_KEY, dataPointThing);
 		mvl.mirrorValue(dataPointGlassThing, IHasSize.SIZE_KEY, dataPointThing);
 		mvl.mirrorValue(dataPointGlassThing, IHasShape.SHAPE_KEY, dataPointThing);
-		
+
 		return dataPointGlassThing;
 	}
 }

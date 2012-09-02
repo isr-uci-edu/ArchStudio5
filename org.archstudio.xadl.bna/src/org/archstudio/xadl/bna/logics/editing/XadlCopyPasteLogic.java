@@ -24,6 +24,7 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFeature;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.Point;
@@ -54,28 +55,28 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 
 		actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), new Action() {
 			@Override
-			public void runWithEvent(Event event) {
+			public void runWithEvent(@Nullable Event event) {
 				copy();
 				delete();
 			}
 		});
 		actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), new Action() {
-			public void runWithEvent(Event event) {
+			public void runWithEvent(@Nullable Event event) {
 				copy();
 			}
 		});
 		actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), new Action() {
-			public void runWithEvent(Event event) {
+			public void runWithEvent(@Nullable Event event) {
 				paste();
 			}
 		});
 		actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), new Action() {
-			public void runWithEvent(Event event) {
+			public void runWithEvent(@Nullable Event event) {
 				delete();
 			}
 		});
 		actionBars.setGlobalActionHandler(ActionFactory.SELECT_ALL.getId(), new Action() {
-			public void runWithEvent(Event event) {
+			public void runWithEvent(@Nullable Event event) {
 				selectAll();
 			}
 		});
@@ -147,11 +148,13 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		switch (evt.getEventType()) {
 		case THING_CHANGED:
 			IThing ct = evt.getTargetThing();
-			if (selectAndMoveObjRefs.containsKey(ct.get(IHasObjRef.OBJREF_KEY))) {
-				int move = selectAndMoveObjRefs.remove(ct.get(IHasObjRef.OBJREF_KEY));
-				ct.set(IHasSelected.SELECTED_KEY, true);
-				if (ct instanceof IRelativeMovable) {
-					((IRelativeMovable) ct).moveRelative(new Point(move, move));
+			if (ct != null) {
+				if (selectAndMoveObjRefs.containsKey(ct.get(IHasObjRef.OBJREF_KEY))) {
+					int move = selectAndMoveObjRefs.remove(ct.get(IHasObjRef.OBJREF_KEY));
+					ct.set(IHasSelected.SELECTED_KEY, true);
+					if (ct instanceof IRelativeMovable) {
+						((IRelativeMovable) ct).moveRelative(new Point(move, move));
+					}
 				}
 			}
 			break;

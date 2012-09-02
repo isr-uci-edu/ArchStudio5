@@ -1,7 +1,8 @@
 package org.archstudio.xarchadt;
 
-import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicLong;
+
+import com.google.common.primitives.Longs;
 
 public final class ObjRef implements java.io.Serializable {
 
@@ -9,28 +10,19 @@ public final class ObjRef implements java.io.Serializable {
 
 	private static final AtomicLong atomicLong = new AtomicLong(1000);
 
-	private final Object uid;
+	private final long uid;
 
 	public ObjRef() {
-		this(null);
+		this.uid = atomicLong.getAndIncrement();
 	}
 
-	public ObjRef(Object debugValue) {
-		if (debugValue == null) {
-			this.uid = atomicLong.getAndIncrement();
-		}
-		else {
-			this.uid = Arrays.asList(atomicLong.getAndIncrement(), debugValue);
-		}
-	}
-
-	public Object getUID() {
+	public long getUID() {
 		return uid;
 	}
 
 	@Override
 	public int hashCode() {
-		return uid.hashCode();
+		return Longs.hashCode(uid);
 	}
 
 	@Override
@@ -45,7 +37,7 @@ public final class ObjRef implements java.io.Serializable {
 			return false;
 		}
 		ObjRef other = (ObjRef) obj;
-		if (!uid.equals(other.uid)) {
+		if (uid != other.uid) {
 			return false;
 		}
 		return true;

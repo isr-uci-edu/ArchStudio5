@@ -1,7 +1,9 @@
 package org.archstudio.bna.facets;
 
+import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.swt.graphics.Point;
 
+@NonNullByDefault
 public interface IHasMutableEndpoints extends IHasEndpoints {
 
 	public static final String USER_MAY_MOVE_ENDPOINT1 = "userMayMoveEndpoint1";

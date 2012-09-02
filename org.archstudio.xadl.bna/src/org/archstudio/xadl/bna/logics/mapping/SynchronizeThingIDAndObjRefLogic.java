@@ -20,6 +20,7 @@ import org.archstudio.xarchadt.ObjRef;
 
 import com.google.common.collect.Sets;
 
+
 public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	ThingValueTrackingLogic valuesLogic = null;

@@ -38,7 +38,7 @@ public class FlyToUtils {
 		SWTWidgetUtils.async(control, new Runnable() {
 			@Override
 			public void run() {
-				
+
 				final Point localSize = BNAUtils.toPoint(control.getSize());
 				final Point localCenter = new Point(localSize.x / 2, localSize.y / 2);
 

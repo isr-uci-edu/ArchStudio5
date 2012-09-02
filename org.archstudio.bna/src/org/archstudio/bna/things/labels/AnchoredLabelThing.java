@@ -16,20 +16,24 @@ import org.archstudio.bna.things.AbstractAnchorPointThing;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
+import org.archstudio.sysutils.SystemUtils;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 
+@NonNullByDefault
 public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHasMutableText, IHasMutableColor,
 		IHasMutableHorizontalAlignment, IHasMutableVerticalAlignment, IHasMutableFontData, IRelativeMovable,
 		IHasMutableAngle, IHasMutableIndicatorPoint, IHasMutableLineData {
 
-	public AnchoredLabelThing(Object id) {
+	public AnchoredLabelThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
-		setText("[text]");
+		setText("");
 		setColor(new RGB(0, 0, 0));
 		setFontName(IFontConstants.DEFAULT_FONT_NAME);
 		setFontSize(10);
@@ -44,18 +48,19 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 	}
 
 	@Override
-	public RGB getColor() {
+	public @Nullable
+	RGB getColor() {
 		return get(COLOR_KEY);
 	}
 
 	@Override
-	public void setColor(RGB c) {
+	public void setColor(@Nullable RGB c) {
 		set(COLOR_KEY, c);
 	}
 
 	@Override
 	public String getText() {
-		return get(TEXT_KEY);
+		return get(TEXT_KEY, "");
 	}
 
 	@Override
@@ -65,7 +70,7 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 
 	@Override
 	public HorizontalAlignment getHorizontalAlignment() {
-		return get(HORIZONTAL_ALIGNMENT_KEY);
+		return get(HORIZONTAL_ALIGNMENT_KEY, HorizontalAlignment.CENTER);
 	}
 
 	@Override
@@ -75,7 +80,7 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 
 	@Override
 	public VerticalAlignment getVerticalAlignment() {
-		return get(VERTICAL_ALIGNMENT_KEY);
+		return get(VERTICAL_ALIGNMENT_KEY, VerticalAlignment.MIDDLE);
 	}
 
 	@Override
@@ -85,7 +90,7 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 
 	@Override
 	public String getFontName() {
-		return get(FONT_NAME_KEY);
+		return get(FONT_NAME_KEY, IFontConstants.DEFAULT_FONT_NAME);
 	}
 
 	@Override
@@ -95,7 +100,7 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 
 	@Override
 	public int getFontSize() {
-		return get(FONT_SIZE_KEY);
+		return get(FONT_SIZE_KEY, 10);
 	}
 
 	@Override
@@ -105,7 +110,7 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 
 	@Override
 	public FontStyle getFontStyle() {
-		return get(FONT_STYLE_KEY);
+		return get(FONT_STYLE_KEY, FontStyle.NORMAL);
 	}
 
 	@Override
@@ -115,7 +120,7 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 
 	@Override
 	public boolean getDontIncreaseFontSize() {
-		return get(DONT_INCREASE_FONT_SIZE_KEY);
+		return SystemUtils.nonNullOr(get(DONT_INCREASE_FONT_SIZE_KEY), true);
 	}
 
 	@Override
@@ -125,7 +130,7 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 
 	@Override
 	public int getAngle() {
-		return get(IHasAngle.ANGLE_KEY);
+		return get(IHasAngle.ANGLE_KEY, 0);
 	}
 
 	@Override
@@ -134,18 +139,19 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 	}
 
 	@Override
-	public Point getIndicatorPoint() {
+	public @Nullable
+	Point getIndicatorPoint() {
 		return get(IHasIndicatorPoint.INDICATOR_POINT_KEY);
 	}
-	
+
 	@Override
-	public void setIndicatorPoint(Point indicatorPoint) {
+	public void setIndicatorPoint(@Nullable Point indicatorPoint) {
 		set(IHasIndicatorPoint.INDICATOR_POINT_KEY, indicatorPoint);
 	}
 
 	@Override
 	public int getLineStyle() {
-		return get(LINE_STYLE_KEY);
+		return get(LINE_STYLE_KEY, LINE_STYLE_SOLID);
 	}
 
 	@Override
@@ -155,7 +161,7 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 
 	@Override
 	public int getLineWidth() {
-		return get(LINE_WIDTH_KEY);
+		return get(LINE_WIDTH_KEY, 1);
 	}
 
 	@Override

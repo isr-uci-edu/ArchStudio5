@@ -35,6 +35,6 @@ public class AbstractSWTThing extends AbstractRectangleThing implements IHasMuta
 
 	@Override
 	public boolean isEditing() {
-		return get(EDITING_KEY);
+		return get(EDITING_KEY, false);
 	}
 }

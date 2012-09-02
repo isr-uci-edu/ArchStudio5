@@ -45,7 +45,7 @@ import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.editing.SnapToGridLogic;
 import org.archstudio.bna.logics.editing.SplineBreakLogic;
 import org.archstudio.bna.logics.editing.StandardCursorLogic;
-import org.archstudio.bna.logics.events.ProxyToLogicsLogic;
+import org.archstudio.bna.logics.events.ProxyLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
@@ -433,8 +433,9 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		}
 
 		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
+		ProxyLogic logicProxy = logicManager.addThingLogic(new ProxyLogic());
 
-		logicManager.addThingLogic(new SynchronizeHintsLogic(new XadlHintRepository(xarch)));
+		logicManager.addThingLogic(new SynchronizeHintsLogic(logicProxy.addObject(new XadlHintRepository(xarch))));
 
 		bnaWorld.getBNAModel().addThing(new ShadowThing(null));
 		bnaWorld.getBNAModel().addThing(new GridThing(GridThing.class));
@@ -493,7 +494,6 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 		// propagate external events logics
 
-		ProxyToLogicsLogic logicProxy = logicManager.addThingLogic(new ProxyToLogicsLogic());
 		final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
 		final IMyxBrick brick = myxRegistry.waitForBrick(ArchipelagoMyxComponent.class);
 		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTModelListener.class));

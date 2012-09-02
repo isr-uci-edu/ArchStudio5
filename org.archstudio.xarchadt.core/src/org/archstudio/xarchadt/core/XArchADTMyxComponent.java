@@ -6,6 +6,7 @@ package org.archstudio.xarchadt.core;
  * @see org.archstudio.xarchadt.core.XArchADTMyxComponentStub
  * @generated
  */
+
 public class XArchADTMyxComponent extends org.archstudio.xarchadt.core.XArchADTMyxComponentStub {
 	public XArchADTMyxComponent() {
 		this.xarch = new XArchADTImpl();

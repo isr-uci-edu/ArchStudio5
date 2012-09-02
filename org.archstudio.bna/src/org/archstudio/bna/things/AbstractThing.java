@@ -16,14 +16,18 @@ import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.TypedHashMap;
 import org.archstudio.sysutils.TypedMap;
 import org.archstudio.sysutils.TypedMap.Key;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
+@NonNullByDefault
 public class AbstractThing implements IThing {
 
 	private static final AtomicLong atomicLong = new AtomicLong(0);
@@ -32,7 +36,7 @@ public class AbstractThing implements IThing {
 			.newBuilder().build(new CacheLoader<Class<? extends IThing>, Class<IThingPeer<?>>>() {
 				@SuppressWarnings("unchecked")
 				@Override
-				public Class<IThingPeer<?>> load(Class<? extends IThing> input) throws Exception {
+				public Class<IThingPeer<?>> load(@Nullable Class<? extends IThing> input) throws Exception {
 					Class<?> thingClass = input;
 					while (thingClass != null) {
 						try {
@@ -43,7 +47,8 @@ public class AbstractThing implements IThing {
 						}
 						thingClass = thingClass.getSuperclass();
 					}
-					throw new ClassNotFoundException("IThingPeer not found: " + input.getName());
+					throw new ClassNotFoundException("IThingPeer not found: "
+							+ (input != null ? input.getName() : null));
 				}
 			});
 
@@ -51,7 +56,7 @@ public class AbstractThing implements IThing {
 	private final TypedMap properties = TypedHashMap.create();
 	private boolean initedProperties = false;
 
-	public AbstractThing(Object id) {
+	public AbstractThing(@Nullable Object id) {
 		this.id = id == null ? Long.valueOf(atomicLong.getAndIncrement()) : id;
 		initProperties();
 		checkState(initedProperties, "Thing %s must call super.initPropeties().", this.getClass().getName());
@@ -68,7 +73,7 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(@Nullable Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -101,7 +106,7 @@ public class AbstractThing implements IThing {
 		return defaultPeerClassCache.getUnchecked(this.getClass());
 	}
 
-	private final CopyOnWriteArrayList<IThingListener> thingListeners = SystemUtils.newCopyOnWriteArrayList();
+	private final CopyOnWriteArrayList<IThingListener> thingListeners = Lists.newCopyOnWriteArrayList();
 
 	@Override
 	public void addThingListener(IThingListener thingListener) {
@@ -113,7 +118,7 @@ public class AbstractThing implements IThing {
 		thingListeners.remove(thingListener);
 	}
 
-	protected <EK extends IThingKey<EV>, EV> void fireThingEvent(ThingEvent evt) {
+	protected void fireThingEvent(ThingEvent evt) {
 		for (IThingListener l : thingListeners) {
 			try {
 				l.thingChanged(evt);
@@ -125,11 +130,19 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
-	public <V> V get(IThingKey<V> key) {
+	public @Nullable
+	<V> V get(IThingKey<V> key) {
 		return key.postRead(getRaw(key));
 	}
 
-	private <V> V getRaw(IThingKey<V> key) {
+	@Override
+	public final <V> V get(IThingKey<V> key, V valueIfNull) {
+		V value = get(key);
+		return value != null ? value : valueIfNull;
+	}
+
+	private @Nullable
+	<V> V getRaw(IThingKey<V> key) {
 		if (Display.getCurrent() == null)
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 
@@ -137,11 +150,13 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
-	public <V> V set(IThingKey<V> key, V value) {
+	public @Nullable
+	<V> V set(IThingKey<V> key, @Nullable V value) {
 		return setRaw(key, key.preWrite(value));
 	}
 
-	private <V> V setRaw(IThingKey<V> key, V value) {
+	private @Nullable
+	<V> V setRaw(IThingKey<V> key, @Nullable V value) {
 		if (Display.getCurrent() == null)
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 
@@ -162,7 +177,7 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
-	public <V> boolean has(IThing.IThingKey<V> key, V value) {
+	public <V> boolean has(IThing.IThingKey<V> key, @Nullable V value) {
 		if (Display.getCurrent() == null)
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 
@@ -170,7 +185,8 @@ public class AbstractThing implements IThing {
 	};
 
 	@Override
-	public <V> V remove(IThingKey<V> key) {
+	public @Nullable
+	<V> V remove(IThingKey<V> key) {
 		if (Display.getCurrent() == null)
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 

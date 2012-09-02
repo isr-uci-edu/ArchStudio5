@@ -296,25 +296,19 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 
 		final ObjRef fParentRef = referenceNodeInfo.getParentRef();
 		final String fFeatureName = referenceNodeInfo.getFeatureName();
-		final boolean fIsMultiple = referenceNodeInfo.isMultiple();
-		final int fIndex = referenceNodeInfo.getIndex();
 
 		for (int i = 0; i < sources.length; i++) {
 			DragSource source = sources[i];
 			Transfer[] types = new Transfer[] { TextTransfer.getInstance() };
 			source.setTransfer(types);
-
 			source.addDragListener(new DragSourceListener() {
 				public void dragStart(DragSourceEvent event) {
-					// Only start the drag if there is actually text in the
-					// label - this text will be what is dropped on the target.
 					event.doit = true;
 				}
 
 				public void dragSetData(DragSourceEvent event) {
 					if (TextTransfer.getInstance().isSupportedType(event.dataType)) {
-						event.data = "$LINK$" + xarch.getPath(fParentRef).toString() + "#" + fFeatureName
-								+ ((fIsMultiple ? (":" + fIndex) : ""));
+						event.data = "$LINK$" + fFeatureName + "$" + xarch.getXPath(fParentRef);
 					}
 				}
 

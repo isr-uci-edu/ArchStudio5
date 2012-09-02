@@ -5,8 +5,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.awt.Insets;
 import java.util.Collection;
 
-import javax.annotation.Nullable;
-
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
@@ -51,6 +49,7 @@ import org.archstudio.bna.things.shapes.ReshapeHandleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.NoThing;
 import org.archstudio.bna.things.utility.WorldThing;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
 import com.google.common.collect.Sets;

@@ -10,19 +10,22 @@ import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.things.AbstractAnchorPointThing;
 import org.archstudio.swtutils.constants.FontStyle;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
+@NonNullByDefault
 public class UserNotificationThing extends AbstractAnchorPointThing implements IHasMutableText, IHasMutableFontData,
 		IHasMutableColor, IHasMutableGradientFill, IHasMutableSecondaryColor, IHasMutableEdgeColor, IHasMutableLife {
 
-	public UserNotificationThing(Object id) {
+	public UserNotificationThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setText("[text]");
+		setText("");
 		setFontName(IFontConstants.DEFAULT_FONT_NAME);
 		setFontSize(10);
 		setDontIncreaseFontSize(Boolean.TRUE);
@@ -36,7 +39,7 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 
 	@Override
 	public String getText() {
-		return get(TEXT_KEY);
+		return get(TEXT_KEY, "");
 	}
 
 	@Override
@@ -46,7 +49,7 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 
 	@Override
 	public String getFontName() {
-		return get(FONT_NAME_KEY);
+		return get(FONT_NAME_KEY, IFontConstants.DEFAULT_FONT_NAME);
 	}
 
 	@Override
@@ -56,7 +59,7 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 
 	@Override
 	public int getFontSize() {
-		return get(FONT_SIZE_KEY);
+		return get(FONT_SIZE_KEY, 10);
 	}
 
 	@Override
@@ -66,7 +69,7 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 
 	@Override
 	public FontStyle getFontStyle() {
-		return get(FONT_STYLE_KEY);
+		return get(FONT_STYLE_KEY, FontStyle.NORMAL);
 	}
 
 	@Override
@@ -76,7 +79,7 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 
 	@Override
 	public boolean getDontIncreaseFontSize() {
-		return get(DONT_INCREASE_FONT_SIZE_KEY);
+		return get(DONT_INCREASE_FONT_SIZE_KEY, true);
 	}
 
 	@Override
@@ -85,28 +88,28 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 	}
 
 	@Override
-	public RGB getColor() {
+	public @Nullable RGB getColor() {
 		return get(COLOR_KEY);
 	}
 
 	@Override
-	public void setColor(RGB c) {
+	public void setColor(@Nullable RGB c) {
 		set(COLOR_KEY, c);
 	}
 
 	@Override
-	public void setSecondaryColor(RGB c) {
+	public void setSecondaryColor(@Nullable RGB c) {
 		set(SECONDARY_COLOR_KEY, c);
 	}
 
 	@Override
-	public RGB getSecondaryColor() {
+	public @Nullable RGB getSecondaryColor() {
 		return get(SECONDARY_COLOR_KEY);
 	}
 
 	@Override
 	public boolean isGradientFilled() {
-		return get(GRADIENT_FILLED_KEY);
+		return get(GRADIENT_FILLED_KEY, true);
 	}
 
 	@Override
@@ -115,23 +118,23 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 	}
 
 	@Override
-	public void setEdgeColor(RGB c) {
+	public void setEdgeColor(@Nullable RGB c) {
 		set(EDGE_COLOR_KEY, c);
 	}
 
 	@Override
-	public RGB getEdgeColor() {
+	public @Nullable RGB getEdgeColor() {
 		return get(EDGE_COLOR_KEY);
 	}
 
 	@Override
 	public int getLife() {
-		return get(LIFE_KEY);
+		return get(LIFE_KEY, 32);
 	}
 
 	@Override
 	public void setLife(int life) {
 		set(LIFE_KEY, life);
 	}
-	
+
 }

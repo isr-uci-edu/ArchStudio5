@@ -19,8 +19,8 @@ import com.google.common.collect.Sets;
 
 public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNAModelListener {
 
-	private final LoadingCache<Class<? extends IThing>, Collection<Object>> classToThingIDsCache = CacheBuilder.newBuilder()
-			.build(new CacheLoader<Class<? extends IThing>, Collection<Object>>() {
+	private final LoadingCache<Class<? extends IThing>, Collection<Object>> classToThingIDsCache = CacheBuilder
+			.newBuilder().build(new CacheLoader<Class<? extends IThing>, Collection<Object>>() {
 
 				@Override
 				public Collection<Object> load(Class<? extends IThing> key) throws Exception {

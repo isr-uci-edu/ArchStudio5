@@ -1,7 +1,6 @@
 package org.archstudio.bna.utils;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static org.archstudio.sysutils.SystemUtils.newCopyOnWriteArrayList;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
@@ -40,7 +39,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 		this.bnaWorld = bnaWorld;
 	}
 
-	CopyOnWriteArrayList<IThingLogicManagerListener> listeners = newCopyOnWriteArrayList();
+	CopyOnWriteArrayList<IThingLogicManagerListener> listeners = Lists.newCopyOnWriteArrayList();
 	FilterableCopyOnWriteArrayList<IThingLogic> logics = FilterableCopyOnWriteArrayList.create();
 	Map<Class<?>, IThingLogic> typedLogics = Maps.newHashMap();
 

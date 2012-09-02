@@ -30,14 +30,17 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+@NonNullByDefault
 public class SystemUtils {
 
 	public static final String fileSeparator = System.getProperty("file.separator");
@@ -55,7 +58,8 @@ public class SystemUtils {
 		}
 	}
 
-	public static File findFileOnSystemPath(String fileName) {
+	public static @Nullable
+	File findFileOnSystemPath(String fileName) {
 		String systemPath = System.getProperty("java.library.path");
 		StringTokenizer st = new StringTokenizer(systemPath, System.getProperty("path.separator"));
 
@@ -76,7 +80,8 @@ public class SystemUtils {
 		return null;
 	}
 
-	public static File getFileIfExists(String dir, String filename) {
+	public static @Nullable
+	File getFileIfExists(String dir, String filename) {
 		try {
 			File f = new File(dir, filename);
 			//System.out.println("Looking for: " + f);
@@ -84,11 +89,10 @@ public class SystemUtils {
 				//System.out.println("Found: " + f);
 				return f;
 			}
-			return null;
 		}
 		catch (Exception e) {
-			return null;
 		}
+		return null;
 	}
 
 	public static String[] guessJVMs() {
@@ -451,7 +455,7 @@ public class SystemUtils {
 		toString(value, buf, new HashSet<Object>());
 	}
 
-	private static void toString(Object value, StringBuffer buf, Set<Object> dejaVu) {
+	private static void toString(@Nullable Object value, StringBuffer buf, Set<Object> dejaVu) {
 		if (value == null) {
 			buf.append(value);
 			return;
@@ -549,7 +553,7 @@ public class SystemUtils {
 		copyContents(baseDirFile, targetDir, null);
 	}
 
-	public static void copyContents(File baseDirFile, File targetDir, FilenameFilter ff) throws IOException {
+	public static void copyContents(File baseDirFile, File targetDir, @Nullable FilenameFilter ff) throws IOException {
 		if (!baseDirFile.exists()) {
 			throw new IllegalArgumentException("Invalid recursion base: " + baseDirFile.getAbsolutePath());
 		}
@@ -578,7 +582,7 @@ public class SystemUtils {
 		copyDirectory(srcDir, targetDir, null);
 	}
 
-	public static void copyDirectory(File srcDir, File targetDir, FilenameFilter ff) throws IOException {
+	public static void copyDirectory(File srcDir, File targetDir, @Nullable FilenameFilter ff) throws IOException {
 		if (!targetDir.exists()) {
 			throw new IllegalArgumentException(targetDir.getAbsolutePath() + " does not exist.");
 		}
@@ -628,7 +632,7 @@ public class SystemUtils {
 			}
 		}
 		catch (IOException doesntHappen) {
-			return null;
+			throw new UnsupportedOperationException(doesntHappen);
 		}
 	}
 
@@ -765,17 +769,20 @@ public class SystemUtils {
 		}
 
 		@Override
-		public boolean accept(File dir, String name) {
-			for (String element : extensionsToExclude) {
-				if (name.toLowerCase().endsWith(element)) {
-					return false;
+		public boolean accept(@Nullable File dir, @Nullable String name) {
+			if (name != null) {
+				for (String element : extensionsToExclude) {
+					if (name.toLowerCase().endsWith(element)) {
+						return false;
+					}
 				}
 			}
 			return true;
 		}
 	}
 
-	public static String[] getLibraryPathEntries() {
+	public static @Nullable
+	String[] getLibraryPathEntries() {
 		String libraryPath = System.getProperty("java.library.path");
 		if (libraryPath == null) {
 			return null;
@@ -799,11 +806,11 @@ public class SystemUtils {
 	public static String[] getClassPathEntries(boolean includeCurrentDirectory) {
 		String libraryPath = System.getProperty("java.class.path");
 		if (libraryPath == null) {
-			return null;
+			return new String[0];
 		}
 		String pathSeparator = System.getProperty("path.separator");
 		if (pathSeparator == null) {
-			return null;
+			return new String[0];
 		}
 		StringTokenizer tok = new StringTokenizer(libraryPath, pathSeparator);
 		ArrayList<String> pathEntries = new ArrayList<String>();
@@ -822,7 +829,8 @@ public class SystemUtils {
 		return DATE_TIME_FORMAT.format(new java.util.Date());
 	}
 
-	public static Date parseDate(String s) {
+	public static @Nullable
+	Date parseDate(String s) {
 		java.util.Date d = null;
 
 		d = parseDate(s, DateFormat.FULL);
@@ -848,7 +856,8 @@ public class SystemUtils {
 		return null;
 	}
 
-	public static Date parseDate(String s, int format) {
+	public static @Nullable
+	Date parseDate(String s, int format) {
 		try {
 			DateFormat df = DateFormat.getDateInstance(format, Locale.US);
 
@@ -874,7 +883,7 @@ public class SystemUtils {
 		return openURL(urlString, null);
 	}
 
-	public static InputStream openURL(String urlString, Class<?> resourceClass) throws MalformedURLException,
+	public static InputStream openURL(String urlString, @Nullable Class<?> resourceClass) throws MalformedURLException,
 			FileNotFoundException, IOException {
 		if (urlString.startsWith("file:")) {
 			URL fileURL = new URL(urlString);
@@ -909,21 +918,8 @@ public class SystemUtils {
 		}
 	}
 
-	/*
-	 * public static InputStream openURL(String urlString) throws
-	 * MalformedURLException, FileNotFoundException, IOException { if
-	 * (urlString.startsWith("file:")) { URL fileURL = new URL(urlString);
-	 * String filePath = fileURL.getFile(); //Amazingly, this works (albeit for
-	 * file:// URLs only) File file = new File(filePath); if (!file.exists()) {
-	 * throw new FileNotFoundException(file.getPath()); } if (!file.canRead()) {
-	 * throw new IOException("Can't read file: " + file.getPath()); }
-	 * FileInputStream fis = new FileInputStream(file); return fis; } else if
-	 * (urlString.startsWith("http:")) { URL httpURL = new URL(urlString);
-	 * return httpURL.openStream(); } else { throw new
-	 * MalformedURLException("Invalid URL: " + urlString); } }
-	 */
-
-	public static String capFirst(String s) {
+	public static @Nullable
+	String capFirst(@Nullable String s) {
 		if (s != null && s.length() > 0) {
 			char ch = s.charAt(0);
 			char uch = Character.toUpperCase(ch);
@@ -936,7 +932,8 @@ public class SystemUtils {
 		return s;
 	}
 
-	public static String uncapFirst(String s) {
+	public static @Nullable
+	String uncapFirst(@Nullable String s) {
 		if (s != null && s.length() > 0) {
 			char ch = s.charAt(0);
 			char lch = Character.toLowerCase(ch);
@@ -949,7 +946,7 @@ public class SystemUtils {
 		return s;
 	}
 
-	public static <T> Set<T> diffSet(Collection<? extends T> a, Collection<? extends T> b) {
+	public static <T> Set<T> diffSet(@Nullable Collection<? extends T> a, @Nullable Collection<? extends T> b) {
 		Set<T> diff;
 		if (a != null) {
 			diff = new HashSet<T>(a);
@@ -973,11 +970,11 @@ public class SystemUtils {
 		return diff;
 	}
 
-	public static boolean nullEquals(Object o1, Object o2) {
+	public static boolean nullEquals(@Nullable Object o1, @Nullable Object o2) {
 		return o1 == null ? o2 == null : o1.equals(o2);
 	}
 
-	public static boolean deepEquals(Object o1, Object o2) {
+	public static boolean deepEquals(@Nullable Object o1, @Nullable Object o2) {
 		if (o1 == o2) {
 			return true;
 		}
@@ -1082,7 +1079,7 @@ public class SystemUtils {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private static final int compare(Object o1, Object o2) {
+	private static final int compare(@Nullable Object o1, @Nullable Object o2) {
 		if (o1 == null) {
 			return o2 != null ? -1 : 0;
 		}
@@ -1098,36 +1095,36 @@ public class SystemUtils {
 
 	private static final Comparator<Object> genericComparator = new Comparator<Object>() {
 		@Override
-		public int compare(Object o1, Object o2) {
+		public int compare(@Nullable Object o1, @Nullable Object o2) {
 			return SystemUtils.compare(o1, o2);
 		};
 	};
 
 	private static final Comparator<Map.Entry<?, ?>> mapEntryKeyComparator = new Comparator<Map.Entry<?, ?>>() {
 		@Override
-		public int compare(Map.Entry<?, ?> o1, Map.Entry<?, ?> o2) {
-			return SystemUtils.compare(o1.getKey(), o2.getKey());
+		public int compare(@Nullable Map.Entry<?, ?> o1, @Nullable Map.Entry<?, ?> o2) {
+			return SystemUtils.compare(o1 != null ? o1.getKey() : null, o2 != null ? o2.getKey() : null);
 		}
 	};
 
 	private static final Comparator<Map.Entry<?, ?>> mapEntryValueComparator = new Comparator<Map.Entry<?, ?>>() {
 		@Override
-		public int compare(Map.Entry<?, ?> o1, Map.Entry<?, ?> o2) {
-			return SystemUtils.compare(o1.getValue(), o2.getValue());
+		public int compare(@Nullable Map.Entry<?, ?> o1, @Nullable Map.Entry<?, ?> o2) {
+			return SystemUtils.compare(o1 != null ? o1.getValue() : null, o2 != null ? o2.getValue() : null);
 		}
 	};
 
 	private static final Predicate<Map.Entry<?, ?>> nonNullMapEntryKeyPredicate = new Predicate<Map.Entry<?, ?>>() {
 		@Override
-		public boolean apply(Map.Entry<?, ?> input) {
-			return input.getKey() != null;
+		public boolean apply(@Nullable Map.Entry<?, ?> input) {
+			return input != null ? input.getKey() != null : false;
 		}
 	};
 
 	private static final Predicate<Map.Entry<?, ?>> nonNullMapEntryValuePredicate = new Predicate<Map.Entry<?, ?>>() {
 		@Override
-		public boolean apply(Map.Entry<?, ?> input) {
-			return input.getValue() != null;
+		public boolean apply(@Nullable Map.Entry<?, ?> input) {
+			return input != null ? input.getValue() != null : false;
 		}
 	};
 
@@ -1158,34 +1155,23 @@ public class SystemUtils {
 			final Class<K> keyClass) {
 		return (Iterable<Map.Entry<K, V>>) (Object) Iterables.filter(entries, new Predicate<Entry<?, V>>() {
 			@Override
-			public boolean apply(Entry<?, V> input) {
-				return keyClass.isInstance(input.getKey());
+			public boolean apply(@Nullable Entry<?, V> input) {
+				return keyClass.isInstance(input != null ? input.getKey() : null);
 			}
 		});
 	}
 
-	public static <T> CopyOnWriteArrayList<T> newCopyOnWriteArrayList() {
-		return new CopyOnWriteArrayList<T>();
-	}
-
-	public static <T> CopyOnWriteArrayList<T> newCopyOnWriteArrayList(Iterable<T> elements) {
-		return new CopyOnWriteArrayList<T>(Lists.newArrayList(elements));
-	}
-
 	@SuppressWarnings("unchecked")
-	public static final <T> T castOrNull(Object o, Class<T> tClass) {
+	public static final @Nullable
+	<T> T castOrNull(@Nullable Object o, Class<T> tClass) {
 		if (tClass == null || tClass.isInstance(o)) {
 			return (T) o;
 		}
 		return null;
 	}
 
-	//	@SuppressWarnings("unchecked")
-	//	public static final <T> T cast(Object o) {
-	//		return (T) o;
-	//	}
-
-	public static <T extends InputStream> T closeQuietly(T is) {
+	public static @Nullable
+	<T extends InputStream> T closeQuietly(@Nullable T is) {
 		try {
 			if (is != null) {
 				is.close();
@@ -1196,7 +1182,8 @@ public class SystemUtils {
 		return null;
 	}
 
-	public static <T extends OutputStream> T closeQuietly(T is) {
+	public static @Nullable
+	<T extends OutputStream> T closeQuietly(@Nullable T is) {
 		try {
 			if (is != null) {
 				is.close();
@@ -1267,26 +1254,29 @@ public class SystemUtils {
 		return value;
 	}
 
-	public static final <T> T firstOrNull(Iterable<?> elements, Class<T> andOfType) {
+	public static final @Nullable
+	<T> T firstOrNull(Iterable<?> elements, Class<T> andOfType) {
 		return castOrNull(firstOrNull(elements), andOfType);
 	}
 
-	public static final <T> T firstOrNull(Iterable<T> elements) {
+	public static final @Nullable
+	<T> T firstOrNull(Iterable<T> elements) {
 		for (T o : elements) {
 			return o;
 		}
 		return null;
 	}
 
-	public static final <T> Iterable<T> emptyIfNull(Iterable<T> elements) {
+	public static final <T> Iterable<T> emptyIfNull(@Nullable Iterable<T> elements) {
 		return elements != null ? elements : Collections.<T> emptyList();
 	}
 
-	public static final <T> Iterable<T> emptyIfNull(T... elements) {
+	public static final <T> Iterable<T> emptyIfNull(@Nullable T... elements) {
 		return elements != null ? Arrays.asList(elements) : Collections.<T> emptyList();
 	}
 
-	public static final <V> V getValue(Iterable<V> values, Pattern pattern) {
+	public static final @Nullable
+	<V> V getValue(Iterable<V> values, Pattern pattern) {
 		for (V value : values) {
 			if (pattern.matcher("" + value).matches()) {
 				return value;
@@ -1295,7 +1285,8 @@ public class SystemUtils {
 		return null;
 	}
 
-	public static final <V> V getValue(Map<?, V> map, Pattern keyPattern) {
+	public static final @Nullable
+	<V> V getValue(Map<?, V> map, Pattern keyPattern) {
 		for (Map.Entry<?, V> e : map.entrySet()) {
 			if (keyPattern.matcher("" + e.getKey()).matches()) {
 				return e.getValue();
@@ -1304,7 +1295,8 @@ public class SystemUtils {
 		return null;
 	}
 
-	public static final <V extends Comparable<V>> V max(Iterable<V> values) {
+	public static final @Nullable
+	<V extends Comparable<V>> V max(Iterable<V> values) {
 		V maxValue = null;
 		for (V value : values) {
 			if (maxValue == null) {
@@ -1317,7 +1309,8 @@ public class SystemUtils {
 		return maxValue;
 	}
 
-	public static final <V extends Comparable<V>> V min(Iterable<V> values) {
+	public static final @Nullable
+	<V extends Comparable<V>> V min(Iterable<V> values) {
 		V minValue = null;
 		for (V value : values) {
 			if (minValue == null) {
@@ -1330,7 +1323,7 @@ public class SystemUtils {
 		return minValue;
 	}
 
-	public static final <T> T nonNullOr(T value, T valueIfNull) {
+	public static final <T> T nonNullOr(@Nullable T value, T valueIfNull) {
 		return value != null ? value : valueIfNull;
 	}
 

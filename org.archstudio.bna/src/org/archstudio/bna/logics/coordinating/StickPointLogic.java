@@ -161,8 +161,8 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 
 	Set<List<Object>> isUpdating = Sets.newHashSet();
 
-	private void updatePoints(IHasWorld worldThing, IBNAModel model,
-			IThing pointThing, IThingKey<?> key, @Nullable ThingEvent thingEvent) {
+	private void updatePoints(IHasWorld worldThing, IBNAModel model, IThing pointThing, IThingKey<?> key,
+			@Nullable ThingEvent thingEvent) {
 
 		// prevent update cycles
 		List<Object> updatingKey = Lists.newArrayList(pointThing, key);
@@ -195,8 +195,7 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 		}
 	}
 
-	private void updatePoint(IBNAModel model, IThing thing,
-			IThingKey<?> key, @Nullable ThingEvent thingEvent) {
+	private void updatePoint(IBNAModel model, IThing thing, IThingKey<?> key, @Nullable ThingEvent thingEvent) {
 
 		List<StuckPoint> stuckPointsList;
 		synchronized (stuckPoints) {
@@ -210,29 +209,29 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 			}
 
 			Point nearPoint = getNearPoint(pointThing, stuckPoint.pointKey, stuckPoint.stickyMode);
-			if (nearPoint == null) {
-				System.err.println("Warning: skipping null nearPoint for " + pointThing.getClass());
-				continue;
-			}
+			if (nearPoint != null) {
 
-			IIsSticky stickyThing = BNAUtils.castOrNull(model.getThing(stuckPoint.stickyThingID), IIsSticky.class);
-			if (stickyThing == null) {
-				continue;
-			}
+				IIsSticky stickyThing = BNAUtils.castOrNull(model.getThing(stuckPoint.stickyThingID), IIsSticky.class);
+				if (stickyThing == null) {
+					continue;
+				}
 
-			// adjust the point proportionally if the 'stickyThing' has a rectangle and was just resized/moved
-			if (thingEvent != null && stickyThing.equals(thingEvent.getTargetThing())) {
-				if (IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
-					nearPoint = BNAUtils.movePointWith((Rectangle) thingEvent.getOldPropertyValue(),
-							(Rectangle) thingEvent.getNewPropertyValue(), nearPoint);
+				// adjust the point proportionally if the 'stickyThing' has a rectangle and was just resized/moved
+				if (thingEvent != null && stickyThing.equals(thingEvent.getTargetThing())) {
+					if (IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
+						nearPoint = BNAUtils.movePointWith((Rectangle) thingEvent.getOldPropertyValue(),
+								(Rectangle) thingEvent.getNewPropertyValue(), nearPoint);
+					}
+				}
+
+				if (nearPoint != null) {
+					// calculate the closest sticky point on the sticky thing, given the current point as reference
+					Point stickyPoint = stickyThing.getStickyPointNear(stuckPoint.stickyMode, nearPoint);
+
+					// update the actual stuck point
+					pointThing.set(stuckPoint.pointKey, stickyPoint);
 				}
 			}
-
-			// calculate the closest sticky point on the sticky thing, given the current point as reference
-			Point stickyPoint = stickyThing.getStickyPointNear(stuckPoint.stickyMode, nearPoint);
-
-			// update the actual stuck point
-			pointThing.set(stuckPoint.pointKey, stickyPoint);
 		}
 	}
 }

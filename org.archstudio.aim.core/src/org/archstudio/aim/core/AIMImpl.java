@@ -497,7 +497,7 @@ public class AIMImpl implements IAIM {
 						+ XadlUtils.getName(xarch, brickRef));
 			}
 
-			if (xarch.equals(outerInterfaceRef, interfaceRef)) {
+			if (outerInterfaceRef.equals(interfaceRef)) {
 				//This is a mapping for our interface.
 				ObjRef innerBrickRef = xarch.getParent(innerInterfaceRef);
 				if (innerBrickRef == null) {

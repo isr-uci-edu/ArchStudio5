@@ -4,9 +4,9 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.geom.Point2D;
 
-import javax.annotation.Nullable;
-
 import org.archstudio.bna.IThing.IThingKey;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
@@ -14,12 +14,14 @@ import org.eclipse.swt.graphics.Rectangle;
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 
+@NonNullByDefault
 public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKey<D, V> {
 
 	public static final Function<Dimension, Dimension> dimension() {
 		return new Function<Dimension, Dimension>() {
 			@Override
-			public Dimension apply(Dimension input) {
+			public @Nullable
+			Dimension apply(@Nullable Dimension input) {
 				return input != null ? new Dimension(input.width, input.height) : null;
 			}
 		};
@@ -28,7 +30,8 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 	public static final Function<Insets, Insets> insets() {
 		return new Function<Insets, Insets>() {
 			@Override
-			public Insets apply(Insets input) {
+			public @Nullable
+			Insets apply(@Nullable Insets input) {
 				return input != null ? new Insets(input.top, input.left, input.bottom, input.right) : null;
 			}
 		};
@@ -37,7 +40,8 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 	public static final Function<Point, Point> point() {
 		return new Function<Point, Point>() {
 			@Override
-			public Point apply(Point input) {
+			public @Nullable
+			Point apply(@Nullable Point input) {
 				return input != null ? new Point(input.x, input.y) : null;
 			}
 		};
@@ -46,7 +50,8 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 	public static final Function<Point2D, Point2D> point2D() {
 		return new Function<Point2D, Point2D>() {
 			@Override
-			public Point2D apply(Point2D input) {
+			public @Nullable
+			Point2D apply(@Nullable Point2D input) {
 				return input != null ? (Point2D) input.clone() : null;
 			}
 		};
@@ -55,7 +60,8 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 	public static final Function<Rectangle, Rectangle> rectangle() {
 		return new Function<Rectangle, Rectangle>() {
 			@Override
-			public Rectangle apply(Rectangle input) {
+			public @Nullable
+			Rectangle apply(@Nullable Rectangle input) {
 				return input != null ? new Rectangle(input.x, input.y, input.width, input.height) : null;
 			}
 		};
@@ -64,7 +70,8 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 	public static final Function<RGB, RGB> rgb() {
 		return new Function<RGB, RGB>() {
 			@Override
-			public RGB apply(RGB input) {
+			public @Nullable
+			RGB apply(@Nullable RGB input) {
 				return input != null ? new RGB(input.red, input.green, input.blue) : null;
 			}
 		};

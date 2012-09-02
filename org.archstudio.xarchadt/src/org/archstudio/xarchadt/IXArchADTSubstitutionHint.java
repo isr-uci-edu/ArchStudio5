@@ -1,5 +1,8 @@
 package org.archstudio.xarchadt;
 
+import org.eclipse.jdt.annotation.NonNullByDefault;
+
+@NonNullByDefault
 public interface IXArchADTSubstitutionHint {
 	public enum HintType {
 		EXTENSION, SUBSTITUTION_GROUP

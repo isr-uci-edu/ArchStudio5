@@ -128,8 +128,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	protected void fireInternalBNAModelEvent(IHasWorld src,
-			BNAModelEvent evt) {
+	protected void fireInternalBNAModelEvent(IHasWorld src, BNAModelEvent evt) {
 		for (IInternalBNAModelListener l : getBNAWorld().getThingLogicManager().getThingLogics(
 				IInternalBNAModelListener.class)) {
 			l.internalBNAModelChanged(src, evt);

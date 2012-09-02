@@ -10,13 +10,16 @@ import org.archstudio.bna.facets.IHasMutableLineData;
 import org.archstudio.bna.facets.IHasMutableRoundedCorners;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.things.AbstractRoundedRectangleThing;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
+@NonNullByDefault
 public class RectangleThing extends AbstractRoundedRectangleThing implements IHasMutableColor,
 		IHasMutableSecondaryColor, IHasMutableGradientFill, IHasMutableEdgeColor, IHasMutableCount,
 		IHasMutableLineData, IHasMutableRoundedCorners {
 
-	public RectangleThing(Object id) {
+	public RectangleThing(@Nullable Object id) {
 		super(id);
 	}
 
@@ -34,28 +37,30 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 	}
 
 	@Override
-	public void setColor(RGB c) {
+	public void setColor(@Nullable RGB c) {
 		set(COLOR_KEY, c);
 	}
 
 	@Override
-	public RGB getColor() {
+	public @Nullable
+	RGB getColor() {
 		return get(COLOR_KEY);
 	}
 
 	@Override
-	public void setSecondaryColor(RGB c) {
+	public void setSecondaryColor(@Nullable RGB c) {
 		set(SECONDARY_COLOR_KEY, c);
 	}
 
 	@Override
-	public RGB getSecondaryColor() {
+	public @Nullable
+	RGB getSecondaryColor() {
 		return get(SECONDARY_COLOR_KEY);
 	}
 
 	@Override
 	public boolean isGradientFilled() {
-		return get(GRADIENT_FILLED_KEY);
+		return get(GRADIENT_FILLED_KEY, true);
 	}
 
 	@Override
@@ -64,12 +69,13 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 	}
 
 	@Override
-	public void setEdgeColor(RGB c) {
+	public void setEdgeColor(@Nullable RGB c) {
 		set(EDGE_COLOR_KEY, c);
 	}
 
 	@Override
-	public RGB getEdgeColor() {
+	public @Nullable
+	RGB getEdgeColor() {
 		return get(EDGE_COLOR_KEY);
 	}
 
@@ -80,12 +86,12 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 
 	@Override
 	public int getCount() {
-		return get(COUNT_KEY);
+		return get(COUNT_KEY, 1);
 	}
 
 	@Override
 	public int getLineStyle() {
-		return get(LINE_STYLE_KEY);
+		return get(LINE_STYLE_KEY, LINE_STYLE_SOLID);
 	}
 
 	@Override
@@ -95,7 +101,7 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 
 	@Override
 	public int getLineWidth() {
-		return get(LINE_WIDTH_KEY);
+		return get(LINE_WIDTH_KEY, 1);
 	}
 
 	@Override

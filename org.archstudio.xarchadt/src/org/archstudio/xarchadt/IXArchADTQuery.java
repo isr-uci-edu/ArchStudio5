@@ -7,7 +7,10 @@ import java.util.List;
 import javax.xml.xpath.XPathException;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
+@NonNullByDefault
 public interface IXArchADTQuery {
 	/**
 	 * Determines if a given ObjRef is valid, that is, if there is an object
@@ -45,6 +48,7 @@ public interface IXArchADTQuery {
 	 *         (when <CODE>baseObjRef</CODE> refers to a simple type) then this
 	 *         function will return a string.
 	 */
+	@Nullable
 	public Serializable get(ObjRef baseObjRef, String typeOfThing);
 
 	///**
@@ -83,8 +87,7 @@ public interface IXArchADTQuery {
 	// */
 	//public List<ObjRef> getAll(ObjRef baseObjRef, String typeOfThing, List<String> ids);
 
-	public Serializable get(ObjRef baseObjRef, String typeOfThing, boolean resolve);
-
+	@Nullable
 	public Serializable resolve(ObjRef objRef);
 
 	/**
@@ -159,6 +162,7 @@ public interface IXArchADTQuery {
 	 * @return A reference to its parent in the XML tree, or <CODE>null</CODE>
 	 *         if it has none.
 	 */
+	@Nullable
 	public ObjRef getParent(ObjRef targetObjRef);
 
 	///**
@@ -184,6 +188,7 @@ public interface IXArchADTQuery {
 	 * @exception IllegalArgumentException
 	 *                if <CODE>documentRootRef</CODE> is invalid.
 	 */
+	@Nullable
 	public ObjRef getByID(ObjRef documentRootRef, String id);
 
 	/**
@@ -195,6 +200,7 @@ public interface IXArchADTQuery {
 	 * @return reference to the object, or <CODE>null</CODE> if no such object
 	 *         exists.
 	 */
+	@Nullable
 	public ObjRef getByID(String id);
 
 	/**
@@ -210,6 +216,7 @@ public interface IXArchADTQuery {
 	 * @return Reference to the referenced (by the href) object, or
 	 *         <CODE>null</CODE>.
 	 */
+	@Nullable
 	public ObjRef resolveHref(ObjRef documentRootRef, String href);
 
 	//	/**
@@ -227,23 +234,13 @@ public interface IXArchADTQuery {
 	//	 */
 	//	public ObjRef resolveXArchADTPath(ObjRef documentRootRef, XArchADTPath XArchADTPath);
 
-	/**
-	 * Determines whether two ObjRefs refer to the same underlying object.
-	 * 
-	 * @param ref1
-	 *            First ObjRef.
-	 * @param ref2
-	 *            Second ObjRef
-	 * @return <code>true</code> if equal, false otherwise.
-	 */
-	public boolean equals(ObjRef ref1, ObjRef ref2);
-
-	public XArchADTPath getPath(ObjRef ref);
-
+	@Nullable
 	public ObjRef getDocumentRootRef(ObjRef ref);
 
+	@Nullable
 	public String getTagName(ObjRef ref);
 
+	@Nullable
 	public String getContainingFeatureName(ObjRef ref);
 
 	public String getTagsOnlyPathString(ObjRef ref);
@@ -256,7 +253,7 @@ public interface IXArchADTQuery {
 
 	public IXArchADTTypeMetadata getTypeMetadata(ObjRef objRef);
 
-	public boolean isInstanceOf(ObjRef baseObjRef, String sourceNsURI, String sourceTypeName);
+	public boolean isInstanceOf(@Nullable ObjRef baseObjRef, String sourceNsURI, String sourceTypeName);
 
 	/**
 	 * Determines if an object of the target type can be assigned to a variable
@@ -282,17 +279,19 @@ public interface IXArchADTQuery {
 
 	public List<IXArchADTSubstitutionHint> getSubstitutionHintsForTarget(String targetNsURI, String targetTypeName);
 
+	@Nullable
 	public ObjRef getDocumentRootRef(URI uri);
 
 	public Collection<URI> getOpenURIs();
 
+	@Nullable
 	public URI getURI(ObjRef ref);
 
 	public byte[] serialize(URI uri);
 
-	Serializable getByKey(ObjRef baseObjRef, String typeOfThing, Serializable key);
+	public String getXPath(ObjRef toObjRef);
+	
+	public List<ObjRef> resolveObjRefs(ObjRef contextObjRef, String xPath) throws XPathException;
 
-	List<ObjRef> resolveObjRefs(ObjRef contextObjRef, String xPath) throws XPathException;
-
-	List<Serializable> resolveSerializables(ObjRef contextObjRef, String xPath) throws XPathException;
+	public List<Serializable> resolveSerializables(ObjRef contextObjRef, String xPath) throws XPathException;
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
-import org.archstudio.xarchadt.XArchADTPath;
 
 /**
  * A listener for {@link XArchRelativePathTracker}. Note, it is guaranteed that
@@ -43,7 +42,7 @@ public interface IXArchRelativePathTrackerListener {
 	 * @param evt
 	 *            The modifying event.
 	 */
-	public void processUpdate(List<ObjRef> relLineageRefs, XArchADTPath relPath, ObjRef objRef, XArchADTModelEvent evt);
+	public void processUpdate(List<ObjRef> relLineageRefs, String relPath, ObjRef objRef, XArchADTModelEvent evt);
 
 	/**
 	 * Called for each removed ObjRef that was previously referenced by the

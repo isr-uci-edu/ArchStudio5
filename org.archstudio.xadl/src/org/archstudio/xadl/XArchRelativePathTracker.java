@@ -2,6 +2,8 @@ package org.archstudio.xadl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +19,8 @@ import org.archstudio.xarchadt.IXArchADTQuery;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
-import org.archstudio.xarchadt.XArchADTPath;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
@@ -57,7 +59,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 		}
 	}
 
-	protected void processUpdate(List<ObjRef> relLineage, XArchADTPath relPath, ObjRef objRef, XArchADTModelEvent evt) {
+	protected void processUpdate(List<ObjRef> relLineage, String relPath, ObjRef objRef, XArchADTModelEvent evt) {
 		for (IXArchRelativePathTrackerListener l : pathTrackerListeners) {
 			l.processUpdate(relLineage, relPath, objRef, evt);
 		}
@@ -102,7 +104,10 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 
 		@Override
 		public boolean apply(ObjRef input) {
-			return value.equals(xarch.get(input, attribute).toString());
+			Object attrValue = xarch.get(input, attribute);
+			if (attrValue != null)
+				return value.equals(attrValue.toString());
+			return false;
 		}
 	}
 
@@ -231,7 +236,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 		}
 	}
 
-	public Iterable<ObjRef> getAddedObjRefs() {
+	public Collection<ObjRef> getAddedObjRefs() {
 		List<ObjRef> addedObjRefs;
 		synchronized (addedObjRefToLineageRefs) {
 			addedObjRefs = Lists.newArrayList(addedObjRefToLineageRefs.keySet());
@@ -291,12 +296,13 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	 * @return the number of ObjRefs that match the xPath, or -1 if none.
 	 */
 
-	protected int getMatchLength(XArchADTPath xPath, List<ObjRef> relLineage) {
+	protected int getMatchLength(String xPath, List<ObjRef> relLineage) {
 		int matchesLength = 0;
-		while (matchesLength < xPathSegments.size() && matchesLength < xPath.getLength()
+		String[] xPaths = xPath.split("/");
+		while (matchesLength < xPathSegments.size() && matchesLength < xPaths.length
 				&& matchesLength + 1 < relLineage.size()) {
 			Segment segment = xPathSegments.get(matchesLength);
-			if (segment.name.equals(xPath.getTagName(matchesLength))
+			if (segment.name.equals(xPaths[matchesLength])
 					&& segment.predicate.apply(relLineage.get(matchesLength + 1))) {
 				matchesLength++;
 				continue;
@@ -327,7 +333,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 					break;
 
 				case ELEMENT_SINGLE: {
-					ObjRef childRef = (ObjRef) xarch.get(objRef, xPathSegment.name, false);
+					ObjRef childRef = (ObjRef) xarch.get(objRef, xPathSegment.name);
 					if (childRef != null) {
 						if (xPathSegment.predicate.apply(childRef)) {
 							relLineageRefs.add(childRef);
@@ -367,8 +373,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	 * Called when one of the ObjRefs at the given xPath is added or changed and
 	 * notifies the listeners of the added/modified ObjRef.
 	 */
-	protected void changedObjRef(List<ObjRef> relLineageRefs, XArchADTPath relPath, ObjRef objRef,
-			XArchADTModelEvent evt) {
+	protected void changedObjRef(List<ObjRef> relLineageRefs, String relPath, ObjRef objRef, XArchADTModelEvent evt) {
 		checkArgument(relLineageRefs.get(0).equals(rootObjRef));
 		checkArgument(relLineageRefs.get(relLineageRefs.size() - 1).equals(objRef));
 		checkArgument(relLineageRefs.size() == xPathSegments.size() + 1);
@@ -417,10 +422,10 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 					List<ObjRef> lineageRefs = Lists.reverse(evt.getSourceAncestors());
 					final int rootObjRefIndex = lineageRefs.indexOf(rootObjRef);
 					if (rootObjRefIndex >= 0) {
-						int length = Math.min(xPathSegments.size(), evt.getSourcePath().getLength() - rootObjRefIndex);
+						int length = Math.min(xPathSegments.size(), length(evt.getSourcePath()) - rootObjRefIndex);
 						List<ObjRef> relLineageRefs = lineageRefs
 								.subList(rootObjRefIndex, rootObjRefIndex + length + 1);
-						XArchADTPath relPath = evt.getSourcePath().subpath(rootObjRefIndex, rootObjRefIndex + length);
+						String relPath = subpath(evt.getSourcePath(), rootObjRefIndex, rootObjRefIndex + length);
 						int matchLength = getMatchLength(relPath, relLineageRefs);
 						if (matchLength == xPathSegments.size()) {
 							relLineageRefs = relLineageRefs.subList(0, matchLength + 1);
@@ -435,9 +440,9 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 				List<ObjRef> lineageRefs = Lists.reverse(evt.getNewValueAncestors());
 				final int rootObjRefIndex = lineageRefs.indexOf(rootObjRef);
 				if (rootObjRefIndex >= 0) {
-					int length = Math.min(xPathSegments.size(), evt.getNewValuePath().getLength() - rootObjRefIndex);
+					int length = Math.min(xPathSegments.size(), length(evt.getNewValuePath()) - rootObjRefIndex);
 					List<ObjRef> relLineageRefs = lineageRefs.subList(rootObjRefIndex, rootObjRefIndex + length + 1);
-					XArchADTPath relPath = evt.getNewValuePath().subpath(rootObjRefIndex, rootObjRefIndex + length);
+					String relPath = subpath(evt.getNewValuePath(), rootObjRefIndex, rootObjRefIndex + length);
 					int matchLength = getMatchLength(relPath, relLineageRefs);
 					if (matchLength == xPathSegments.size()) {
 						changedObjRef(relLineageRefs, relPath, relLineageRefs.get(relLineageRefs.size() - 1), evt);
@@ -457,7 +462,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 					final int rootObjRefIndex = lineageRefs.indexOf(rootObjRef);
 					if (rootObjRefIndex >= 0) {
 						List<ObjRef> relLineageRefs = lineageRefs.subList(rootObjRefIndex, lineageRefs.size());
-						XArchADTPath relPath = evt.getSourcePath().subpath(rootObjRefIndex);
+						String relPath = subpath(evt.getSourcePath(), rootObjRefIndex, length(evt.getSourcePath()));
 						int matchLength = getMatchLength(relPath, relLineageRefs);
 						if (matchLength == xPathSegments.size()) {
 							relLineageRefs = relLineageRefs.subList(0, matchLength + 1);
@@ -472,10 +477,10 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 				List<ObjRef> lineageRefs = Lists.reverse(evt.getOldValueAncestors());
 				final int rootObjRefIndex = lineageRefs.indexOf(rootObjRef);
 				if (rootObjRefIndex >= 0) {
-					int length = Math.min(xPathSegments.size(), evt.getOldValuePath().getLength() - rootObjRefIndex);
+					int length = Math.min(xPathSegments.size(), length(evt.getOldValuePath()) - rootObjRefIndex);
 					List<ObjRef> relLineageRefs = lineageRefs.subList(rootObjRefIndex, rootObjRefIndex + length + 1);
 					if (lineageRefs.size() - rootObjRefIndex > xPathSegments.size() + 1) {
-						XArchADTPath relPath = evt.getOldValuePath().subpath(rootObjRefIndex, rootObjRefIndex + length);
+						String relPath = subpath(evt.getOldValuePath(), rootObjRefIndex, rootObjRefIndex + length);
 						int matchLength = getMatchLength(relPath, relLineageRefs);
 						if (matchLength == xPathSegments.size()) {
 							changedObjRef(relLineageRefs, relPath, relLineageRefs.get(relLineageRefs.size() - 1), evt);
@@ -503,6 +508,14 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 			}
 			}
 		}
+	}
+
+	private int length(String path) {
+		return path.length() == 0 ? 0 : path.split("/").length;
+	}
+
+	private String subpath(String path, int start, int end) {
+		return Joiner.on("/").join(Arrays.asList(path.split("/")).subList(start, end));
 	}
 
 	private boolean treatAsAttribute(XArchADTModelEvent evt) {

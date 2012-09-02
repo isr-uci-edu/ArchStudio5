@@ -1,7 +1,10 @@
 package org.archstudio.bna;
 
 import org.archstudio.bna.IThing.IThingKey;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
+@NonNullByDefault
 public class ThingEvent {
 
 	public enum EventType {
@@ -15,12 +18,12 @@ public class ThingEvent {
 	protected Object newPropertyValue;
 
 	public static ThingEvent create(EventType eventType, IThing targetThing, IThingKey<?> propertyName,
-			Object oldPropertyValue, Object newPropertyValue) {
+			@Nullable Object oldPropertyValue, @Nullable Object newPropertyValue) {
 		return new ThingEvent(eventType, targetThing, propertyName, oldPropertyValue, newPropertyValue);
 	}
 
-	protected ThingEvent(EventType eventType, IThing targetThing, IThingKey<?> propertyName, Object oldPropertyValue,
-			Object newPropertyValue) {
+	protected ThingEvent(EventType eventType, IThing targetThing, IThingKey<?> propertyName,
+			@Nullable Object oldPropertyValue, @Nullable Object newPropertyValue) {
 		this.eventType = eventType;
 		this.targetThing = targetThing;
 		this.propertyName = propertyName;
@@ -40,11 +43,13 @@ public class ThingEvent {
 		return propertyName;
 	}
 
-	public Object getOldPropertyValue() {
+	public @Nullable
+	Object getOldPropertyValue() {
 		return oldPropertyValue;
 	}
 
-	public Object getNewPropertyValue() {
+	public @Nullable
+	Object getNewPropertyValue() {
 		return newPropertyValue;
 	}
 

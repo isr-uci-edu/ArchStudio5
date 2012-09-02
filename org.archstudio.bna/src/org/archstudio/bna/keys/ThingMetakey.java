@@ -9,7 +9,8 @@ public class ThingMetakey<N, K extends IThingKey<?>, V> extends AbstractThingMet
 		return new ThingMetakey<N, K, V>(true, name, key);
 	}
 
-	public static <N, K extends IThingKey<?>, V> IThingMetakey<N, K, V> create(boolean isFireEventOnChange, N name, K key) {
+	public static <N, K extends IThingKey<?>, V> IThingMetakey<N, K, V> create(boolean isFireEventOnChange, N name,
+			K key) {
 		return new ThingMetakey<N, K, V>(isFireEventOnChange, name, key);
 	}
 

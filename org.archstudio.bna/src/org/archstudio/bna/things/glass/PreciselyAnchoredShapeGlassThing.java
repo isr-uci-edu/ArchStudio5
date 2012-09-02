@@ -11,8 +11,8 @@ import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.things.AbstractPreciseAnchorPointThing;
 
-public class PreciselyAnchoredShapeGlassThing extends AbstractPreciseAnchorPointThing implements IIsSticky, IHasMutableSelected,
-		IHasMutableRotatingOffset, IHasMutableSize, IHasMutableShape {
+public class PreciselyAnchoredShapeGlassThing extends AbstractPreciseAnchorPointThing implements IIsSticky,
+		IHasMutableSelected, IHasMutableRotatingOffset, IHasMutableSize, IHasMutableShape {
 
 	public PreciselyAnchoredShapeGlassThing(Object id) {
 		super(id);

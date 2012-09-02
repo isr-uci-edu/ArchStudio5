@@ -1,10 +1,11 @@
 package org.archstudio.bna.keys;
 
-import javax.annotation.Nullable;
-
 import org.archstudio.bna.IThing;
 import org.archstudio.sysutils.AbstractGenericKey;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
+@NonNullByDefault
 public abstract class AbstractGenericThingKey<D, V> extends AbstractGenericKey<D, V> implements IThing.IThingKey<V> {
 
 	private final boolean isFireEventOnChange;
@@ -25,7 +26,6 @@ public abstract class AbstractGenericThingKey<D, V> extends AbstractGenericKey<D
 		return value;
 	}
 
-	@Override
 	public @Nullable
 	V postRead(@Nullable V value) {
 		return value;

@@ -26,7 +26,7 @@ public abstract class AbstractMappingThingPeer<T extends AbstractMappingThing> e
 		Point lp2 = iView.getCoordinateMapper().worldToLocal(t.getInternalEndpoint());
 		Point p = location.getLocalPoint();
 
-		if(Line2D.ptSegDistSq(lp1.x, lp1.y, lp2.x, lp2.y, p.x, p.y) <= 25){
+		if (Line2D.ptSegDistSq(lp1.x, lp1.y, lp2.x, lp2.y, p.x, p.y) <= 25) {
 			return Point2D.distanceSq(lp2.x, lp2.y, p.x, p.y) > 25;
 		}
 		return false;

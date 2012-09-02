@@ -1,5 +1,7 @@
 package org.archstudio.filemanager.core;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -45,7 +47,8 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 	@Override
 	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		ObjRef documentRootRef = xarch.getDocumentRootRef(evt.getSource());
-		makeDirty(documentRootRef);
+		if (documentRootRef != null)
+			makeDirty(documentRootRef);
 	}
 
 	@Override
@@ -169,6 +172,8 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 
 	@Override
 	public void makeDirty(ObjRef xArchRef) {
+		checkNotNull(xArchRef);
+
 		if (dirtySet.contains(xArchRef)) {
 			return;
 		}
@@ -178,6 +183,8 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 
 	@Override
 	public void makeClean(ObjRef xArchRef) {
+		checkNotNull(xArchRef);
+
 		if (!dirtySet.contains(xArchRef)) {
 			return;
 		}

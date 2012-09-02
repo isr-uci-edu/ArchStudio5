@@ -138,9 +138,9 @@ public class StickySplineDemo {
 		IIsSticky e = Assemblies.createEllipse(world, null, null);
 		e.set(shapeStickyMode, StickyMode.CENTER);
 		shapeThings.add(e);
-		UserEditableUtils.addEditableQualities(e, IHasMutableSelected.USER_MAY_SELECT,
-				IRelativeMovable.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE);
-		
+		UserEditableUtils.addEditableQualities(e, IHasMutableSelected.USER_MAY_SELECT, IRelativeMovable.USER_MAY_MOVE,
+				IHasMutableSize.USER_MAY_RESIZE);
+
 		for (int f = 0; f < shapeThings.size(); f++) {
 			for (int t = f + 1; t < shapeThings.size(); t++) {
 

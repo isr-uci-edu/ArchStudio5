@@ -4,10 +4,12 @@ Bundle-Name: ArchStudio xArchADT Common
 Bundle-SymbolicName: org.archstudio.xarchadt;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Vendor: archstudio.org
-Export-Package: org.archstudio.xarchadt
+Export-Package: org.archstudio.xarchadt,
+ org.archstudio.xarchadt.internal;x-internal:=true
 Require-Bundle: com.google.guava,
  org.archstudio.utils.system,
  org.eclipse.emf.common,
- org.eclipse.emf.ecore,
- org.eclipse.core.runtime
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.core.runtime,
+ org.eclipse.jdt.annotation
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

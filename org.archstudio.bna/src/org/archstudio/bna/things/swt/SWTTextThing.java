@@ -1,22 +1,25 @@
 package org.archstudio.bna.things.swt;
 
 import org.archstudio.bna.facets.IHasMutableText;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
+@NonNullByDefault
 public class SWTTextThing extends AbstractControlThing implements IHasMutableText {
 
-	public SWTTextThing(Object id) {
+	public SWTTextThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setText("[text]");
+		setText("");
 	}
 
 	@Override
 	public String getText() {
-		return get(TEXT_KEY);
+		return get(TEXT_KEY, "");
 	}
 
 	@Override

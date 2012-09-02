@@ -10,8 +10,8 @@ import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.things.AbstractPreciseAnchorPointThing;
 import org.eclipse.swt.graphics.RGB;
 
-public class PreciselyAnchoredShapeThing extends AbstractPreciseAnchorPointThing implements IHasMutableColor, IHasMutableEdgeColor,
-		IHasMutableSize, IHasMutableLineData, IHasMutableShape {
+public class PreciselyAnchoredShapeThing extends AbstractPreciseAnchorPointThing implements IHasMutableColor,
+		IHasMutableEdgeColor, IHasMutableSize, IHasMutableLineData, IHasMutableShape {
 
 	public PreciselyAnchoredShapeThing(Object id) {
 		super(id);

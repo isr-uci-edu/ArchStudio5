@@ -24,14 +24,14 @@
 			them to be hinted.
 
 			Changelog:
+			  - 3.0.1
+			    * Deprecated value, replaced by hint attribute
 			  - 3.0.0
 			    * Initial version
 			
 		</xs:documentation>
 	</xs:annotation>
 
-	<!-- COMPLEX TYPE: Value -->
-	
 	<xs:complexType name="Value">
 		<xs:sequence>
 			<xs:element name="value" type="Value"
@@ -40,11 +40,8 @@
 		<xs:attribute name="type" type="xs:string" />
 		<xs:attribute name="data" type="xs:string" />
 	</xs:complexType>
-	
-	<!-- COMPLEX TYPE: Hint -->
-	<!-- See: http://wiki.eclipse.org/index.php/EMF-FAQ#How_do_I_create_a_Map_in_EMF.3F -->
-	
-	<xs:complexType name="Hint" ecore:instanceClass="java.util.Map$Entry" >
+
+	<xs:complexType name="Hint">
 		<xs:annotation>
 			<xs:documentation>
 				This type defines a basic name-value pair hint.
@@ -52,14 +49,13 @@
 		</xs:annotation>
 		
 		<xs:sequence>
-			<xs:element ecore:name="value" name="value" type="Value"/>
+			<xs:element name="value" type="Value"/>
 		</xs:sequence>
 		
-		<xs:attribute ecore:name="key" name="name" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="hint" type="xs:string"/>
 	</xs:complexType>
 
-	<!-- COMPLEX TYPE: HintsExtension -->
-	
 	<xs:complexType name="HintsExtension">
 		<xs:annotation>
 			<xs:documentation>

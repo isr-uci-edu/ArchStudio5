@@ -5,7 +5,6 @@ import org.archstudio.bna.facets.IHasWorld;
 
 public interface IInternalBNAModelListener {
 
-	public void internalBNAModelChanged(IHasWorld src,
-			BNAModelEvent evt);
+	public void internalBNAModelChanged(IHasWorld src, BNAModelEvent evt);
 
 }
