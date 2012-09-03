@@ -1,5 +1,6 @@
 package org.archstudio.archedit.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -15,6 +16,7 @@ import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.SystemUtils;
+import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.utils.XArchADTOperations;
 import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
@@ -25,6 +27,8 @@ import org.archstudio.xarchadt.IXArchADTPackageMetadata;
 import org.archstudio.xarchadt.IXArchADTSubstitutionHint;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
+import org.archstudio.xarchadt.variability.IXArchADTVariability;
+import org.archstudio.xarchadt.variability.IXArchADTVariability.ChangeStatus;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
@@ -287,7 +291,17 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 
 		@Override
 		public String getText(Object element) {
-			return super.getText(element);
+			String text = super.getText(element);
+			if (element instanceof ArchEditElementNode) {
+				ObjRef objRef = ((ArchEditElementNode) element).ref;
+				if (xarch instanceof IXArchADTVariability) {
+					ChangeStatus changeStatus = ((IXArchADTVariability) xarch).getChangeStatus(objRef);
+					if (changeStatus != ChangeStatus.ATTACHED) {
+						text += " (" + changeStatus + ")";
+					}
+				}
+			}
+			return text;
 		}
 	}
 
@@ -589,6 +603,10 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 					menuMgr.add(generateIdAction);
 					menuMgr.add(new Separator());
 				}
+				else {
+					menuMgr.add(createContextMenuGenerateAllIDsAction(ref));
+					menuMgr.add(new Separator());
+				}
 
 				List<Object> items = createAddContextMenuItems(ref);
 				if (items.isEmpty()) {
@@ -633,19 +651,51 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		Action generateIdAction = new Action("Generate ID") {
 			@Override
 			public void run() {
-				String id = "";
-				while (true) {
-					id = typeMetadata.getTypeName() + nextId++;
-					// Ensure the ID is unique
-					if (xarch.getByID(id) == null) {
-						break;
-					}
-				}
-				XArchADTOperations.set("Generate ID", xarch, fref, "id", id);
+				XArchADTOperations.set("Generate ID", xarch, fref, "id", UIDGenerator.generateUID());
 			}
 		};
 		String existingId = (String) xarch.get(ref, "id");
 		generateIdAction.setEnabled(existingId == null || existingId.trim().length() == 0);
+		return generateIdAction;
+	}
+
+	protected IAction createContextMenuGenerateAllIDsAction(ObjRef ref) {
+		final ObjRef fref = ref;
+		Action generateIdAction = new Action("Generate All IDs") {
+			@Override
+			public void run() {
+				XArchADTOperations xarch = new XArchADTOperations(ArchEditOutlinePage.this.xarch);
+				List<Serializable> objRefs = Lists.<Serializable> newArrayList(fref);
+				while (objRefs.size() > 0) {
+					Serializable s = objRefs.remove(0);
+					if (s instanceof ObjRef) {
+						ObjRef ref = (ObjRef) s;
+						IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(ref);
+						IXArchADTFeature idFeature = typeMetadata.getFeatures().get("id");
+						if (idFeature != null) {
+							if (xarch.get(ref, idFeature.getName()) == null) {
+								xarch.set(ref, idFeature.getName(), UIDGenerator.generateUID());
+							}
+						}
+						for (IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
+							if (feature.isReference())
+								continue;
+							switch (feature.getType()) {
+							case ATTRIBUTE:
+								continue;
+							case ELEMENT_SINGLE:
+								objRefs.add((ObjRef) xarch.get(ref, feature.getName()));
+								continue;
+							case ELEMENT_MULTIPLE:
+								objRefs.addAll(xarch.getAll(ref, feature.getName()));
+								continue;
+							}
+						}
+					}
+				}
+				xarch.done("Generate All IDs");
+			}
+		};
 		return generateIdAction;
 	}
 

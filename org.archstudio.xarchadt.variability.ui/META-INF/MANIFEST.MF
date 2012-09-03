@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio XArchADT Variability UI
+Bundle-SymbolicName: org.archstudio.xarchadt.variability.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.archstudio.xarchadt.variability.ui.Activator
+Bundle-Vendor: archstudio.org
+Require-Bundle: org.eclipse.core.runtime,
+ org.archstudio.myxgen,
+ org.archstudio.xarchadt,
+ org.archstudio.xarchadt.variability,
+ org.archstudio.myx.fw,
+ org.eclipse.ui,
+ org.archstudio.eclipse.ui,
+ org.archstudio.xadl,
+ org.archstudio.utils.swt,
+ com.google.guava,
+ org.archstudio.utils.system,
+ org.archstudio.archipelago.core,
+ org.eclipse.core.resources,
+ org.eclipse.ui.ide,
+ org.archstudio.xadl3.variability,
+ org.eclipse.emf.ecore,
+ org.archstudio.xadl3.xadlcore,
+ org.eclipse.jdt.annotation
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

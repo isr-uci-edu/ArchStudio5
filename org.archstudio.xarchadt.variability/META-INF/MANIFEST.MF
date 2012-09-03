@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio Variability
+Bundle-SymbolicName: org.archstudio.xarchadt.variability
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: archstudio.org
+Export-Package: org.archstudio.xarchadt.variability
+Require-Bundle: org.archstudio.xarchadt;visibility:=reexport,
+ org.archstudio.xadl3.variability,
+ org.archstudio.xadl3.xadlcore,
+ com.google.guava,
+ org.archstudio.utils.system
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -1,0 +1,95 @@
+<xs:schema xmlns="http://www.archstudio.org/xadl3/schemas/variability-3.0.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:core="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
+           targetNamespace="http://www.archstudio.org/xadl3/schemas/variability-3.0.xsd"
+           xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+           elementFormDefault="qualified"
+           attributeFormDefault="qualified"
+           version="3.0.0"
+            
+           ecore:package="org.archstudio.xadl3.variability_3_0"
+           ecore:nsPrefix="variability_3_0">
+
+	<xs:import namespace="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
+	           schemaLocation="https://raw.github.com/isr-uci-edu/ArchStudio/master/org.archstudio.xadl3.xadlcore/model/xadlcore-3.0.xsd"/>
+	<xs:import namespace="http://www.eclipse.org/emf/2002/Ecore" />
+
+	<xs:element name="variability" type="Variability" substitutionGroup="core:topLevelElement" minOccurs="0" maxOccurs="1">
+	</xs:element>
+	
+	<xs:complexType name="Variability">
+		<xs:sequence>
+			<xs:element ecore:reference="ChangeSet" name="activeChangeSet" type="xs:IDREF" minOccurs="0"/>
+			<xs:element ecore:reference="ChangeSet" name="appliedChangeSets" type="xs:IDREF" maxOccurs="unbounded"/>
+			<xs:element name="changeSet" type="ChangeSet" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="relationship" type="Relationship" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="overview" type="xs:boolean"/>
+	</xs:complexType>
+
+	<xs:complexType name="ChangeSet" abstract="true">
+		<xs:sequence>
+			<xs:element name="ext" type="core:Extension"
+			            minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+
+	<xs:complexType name="Relationship" abstract="true">
+		<xs:sequence>
+			<xs:element name="ext" type="core:Extension"
+			            minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+
+	<xs:complexType name="ChangeSetOfChanges">
+		<xs:complexContent>
+			<xs:extension base="ChangeSet">
+				<xs:sequence>
+					<xs:element name="elementChange" type="ElementChange"
+					         minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+
+	<xs:complexType name="Change">
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+
+	<xs:complexType name="AttributeChange">
+		<xs:complexContent>
+			<xs:extension base="Change" />
+		</xs:complexContent>
+		<xs:attribute name="value" type="xs:string"/>
+	</xs:complexType>
+	
+	<xs:complexType name="ElementChange">
+		<xs:complexContent>
+			<xs:extension base="Change">
+				<xs:sequence>
+					<xs:element name="change" type="Change"
+					            minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+		<xs:attribute name="type" type="xs:string"/>
+	</xs:complexType>
+	
+	<xs:complexType name="ElementManyChange">
+		<xs:complexContent>
+			<xs:extension base="Change">
+				<xs:sequence>
+					<xs:element name="change" type="ElementChange"
+					            minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+</xs:schema>

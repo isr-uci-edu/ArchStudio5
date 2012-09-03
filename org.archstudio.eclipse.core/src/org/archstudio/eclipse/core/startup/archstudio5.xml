@@ -15,16 +15,12 @@
           <domain_3_0:domain domain_3_0:type="bottom"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="xarch"/>
+              implementation_3_0:id="0a534974-8a6287c6-288b9428-1f410044" lookupimplementation_3_0:lookup="xarch"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="528,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:360,168"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="523,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -36,16 +32,12 @@
           <domain_3_0:domain domain_3_0:type="bottom"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTFileListener"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="fileEvents"/>
+              implementation_3_0:id="0a534974-8a6287c4-8c74b567-1f410040" lookupimplementation_3_0:lookup="fileEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="576,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:408,168"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="571,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -57,33 +49,41 @@
           <domain_3_0:domain domain_3_0:type="bottom"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTModelListener"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="modelEvents"/>
+              implementation_3_0:id="0a534974-8a6287c5-bc18fe0c-1f410041" lookupimplementation_3_0:lookup="modelEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="552,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:384,168"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="547,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
         </structure_3_0:ext>
       </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="0a534974-8a6287c5-fa7770d9-1f410042"
+          structure_3_0:name="variabilityEvents">
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              implementation_3_0:id="0a534974-8a6287c6-80e80798-1f410043" lookupimplementation_3_0:lookup="variabilityEvents"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:432,168"
+              hints_3_0:name="location"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
       <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
-          <myxgen_3_0:brickID>org.archstudio.xarchadt.core.XArchADTMyxComponent</myxgen_3_0:brickID>
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen" implementation_3_0:id="0a534974-8a6287c4-430f59ae-1f41003f">
+          <myxgen_3_0:brickID>org.archstudio.xarchadt.variability.core.XArchADTVariabilityMyxComponent</myxgen_3_0:brickID>
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="456,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:312,72,144,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="Resources" structure_3_0:name="Resources">
@@ -100,9 +100,8 @@
               lookupimplementation_3_0:lookup="resources"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="2016,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:2016,168"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="2011,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -114,12 +113,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="1896,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:1896,72,144,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="MyxRuntime" structure_3_0:name="Myx Runtime">
@@ -136,9 +133,7 @@
               lookupimplementation_3_0:lookup="myxRuntime"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="48,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:48,168" hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="43,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -150,12 +145,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="-72,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:-72,72,144,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="AIM" structure_3_0:name="AIM">
@@ -172,9 +165,8 @@
               lookupimplementation_3_0:lookup="aim"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="144,696" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:144,696"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="139,691,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -193,9 +185,7 @@
               lookupimplementation_3_0:lookup="xarch"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="72,600" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:72,600" hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="67,595,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -214,9 +204,7 @@
               lookupimplementation_3_0:lookup="myxRuntime"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="48,600" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:48,600" hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="43,595,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -228,12 +216,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="24,600,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:24,600,144,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="EditorManager" structure_3_0:name="Editor Manager">
@@ -250,9 +236,8 @@
               lookupimplementation_3_0:lookup="editorManager"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1920,480" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1920,480"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1915,475,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -271,9 +256,8 @@
               lookupimplementation_3_0:lookup="focusEditorEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1944,480" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1944,480"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1939,475,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -285,12 +269,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="1824,384,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:1824,384,144,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="AIMLauncher" structure_3_0:name="AIM Launcher">
@@ -307,9 +289,8 @@
               lookupimplementation_3_0:lookup="aim"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="144,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:144,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="139,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -328,9 +309,8 @@
               lookupimplementation_3_0:lookup="xarch"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="-48,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:-48,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="-53,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -349,9 +329,8 @@
               lookupimplementation_3_0:lookup="editorManager"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="72,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:72,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="67,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -370,9 +349,7 @@
               lookupimplementation_3_0:lookup="fileEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="0,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:0,1248" hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="-5,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -391,9 +368,8 @@
               lookupimplementation_3_0:lookup="modelEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="-24,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:-24,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="-29,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -412,9 +388,8 @@
               lookupimplementation_3_0:lookup="fileManagerEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="48,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:48,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="43,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -433,9 +408,8 @@
               lookupimplementation_3_0:lookup="focusEditorEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="120,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:120,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="115,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -454,9 +428,8 @@
               lookupimplementation_3_0:lookup="resources"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="192,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:192,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="187,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -475,9 +448,8 @@
               lookupimplementation_3_0:lookup="fileManager"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="24,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:24,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="19,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -496,9 +468,8 @@
               lookupimplementation_3_0:lookup="launcher"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="168,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:168,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="163,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -510,12 +481,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="-72,1248,384,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:-72,1248,384,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="ArchEdit" structure_3_0:name="ArchEdit">
@@ -525,16 +494,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="xarch"/>
+              implementation_3_0:id="0a534974-8ca94276-fea045de-53400007" lookupimplementation_3_0:lookup="xarch"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="768,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:768,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="763,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -546,16 +511,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.editormanager.IEditorManager"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="editorManager"/>
+              implementation_3_0:id="0a534974-8ca94276-4d16e465-53400003" lookupimplementation_3_0:lookup="editorManager"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="888,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:888,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="883,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -567,16 +528,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTFileListener"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="fileEvents"/>
+              implementation_3_0:id="0a534974-8ca94276-8075e271-53400008" lookupimplementation_3_0:lookup="fileEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="816,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:816,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="811,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -588,16 +545,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTModelListener"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="modelEvents"/>
+              implementation_3_0:id="0a534974-8ca94276-c574042d-53400009" lookupimplementation_3_0:lookup="modelEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="792,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:792,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="787,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -609,16 +562,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManagerListener"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="fileManagerEvents"/>
+              implementation_3_0:id="0a534974-8ca94276-2270df4e-53400006" lookupimplementation_3_0:lookup="fileManagerEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="864,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:864,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="859,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -630,16 +579,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.eclipse.ui.IFocusEditorListener"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="focusEditorEvents"/>
+              implementation_3_0:id="0a534974-8ca94276-da7bbbb7-53400004" lookupimplementation_3_0:lookup="focusEditorEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="912,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:912,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="907,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -651,16 +596,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.resources.IResources"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="resources"/>
+              implementation_3_0:id="0a534974-8ca94276-3c09d13b-53400002" lookupimplementation_3_0:lookup="resources"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="936,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:936,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="931,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -672,16 +613,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManager"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="fileManager"/>
+              implementation_3_0:id="0a534974-8ca94276-3b4cd854-53400005" lookupimplementation_3_0:lookup="fileManager"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="840,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:840,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="835,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -690,36 +627,44 @@
       <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="ArchEdit_launcher"
           structure_3_0:name="launcher">
         <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="bottom"/>
+          <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.launcher.ILaunchable"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="launcher"/>
+              implementation_3_0:id="0a534974-8ca94285-69b0e751-5340000a" lookupimplementation_3_0:lookup="launcher"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="960,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:960,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="955,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
         </structure_3_0:ext>
       </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="0a534974-8ca94285-4ddabec5-5340000b"
+          structure_3_0:name="variabilityEvents">
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              implementation_3_0:id="0a534974-8ca94285-5326cb87-5340000c" lookupimplementation_3_0:lookup="variabilityEvents"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:984,1248"
+              hints_3_0:name="location"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
       <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen" implementation_3_0:id="0a534974-8ca9425d-77a8e5d1-53400001">
           <myxgen_3_0:brickID>org.archstudio.archedit.core.ArchEditMyxComponent</myxgen_3_0:brickID>
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="744,1248,384,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:744,1248,384,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="Launcher" structure_3_0:name="Launcher">
@@ -736,9 +681,8 @@
               lookupimplementation_3_0:lookup="resources"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1248,72" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1248,72"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="2419,859,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -757,9 +701,8 @@
               lookupimplementation_3_0:lookup="launcher"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1200,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1200,168"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="2371,955,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -778,9 +721,8 @@
               lookupimplementation_3_0:lookup="results"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1248,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1248,168"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="2419,955,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -792,12 +734,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="1176,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:1176,72,144,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="FileManager" structure_3_0:name="File Manager">
@@ -814,9 +754,8 @@
               lookupimplementation_3_0:lookup="xarch"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="360,600" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:360,600"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="355,595,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -835,9 +774,8 @@
               lookupimplementation_3_0:lookup="fileEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="408,600" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:408,600"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="403,595,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -856,9 +794,8 @@
               lookupimplementation_3_0:lookup="modelEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="384,600" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:384,600"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="379,595,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -877,9 +814,8 @@
               lookupimplementation_3_0:lookup="fileManager"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="432,696" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:432,696"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="427,691,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -898,9 +834,8 @@
               lookupimplementation_3_0:lookup="fileManagerEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="456,696" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:456,696"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="451,691,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -912,12 +847,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="336,600,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:336,600,144,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="GraphLayout" structure_3_0:name="Graph Layout">
@@ -934,9 +867,8 @@
               lookupimplementation_3_0:lookup="xarch"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="528,600" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:528,600"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="523,595,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -955,9 +887,8 @@
               lookupimplementation_3_0:lookup="graphLayout"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="624,696" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:624,696"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="619,691,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -969,12 +900,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="504,600,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:504,600,144,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="Archipelago" structure_3_0:name="Archipelago">
@@ -984,16 +913,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.graphlayout.IGraphLayout"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="graphLayout"/>
+              implementation_3_0:id="0a534974-8a5b74a0-8f53ebe1-1f410009" lookupimplementation_3_0:lookup="graphLayout"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="528,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:528,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="523,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1005,16 +930,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADT"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="xarch"/>
+              implementation_3_0:id="0a534974-8a5b74a4-80c632ef-1f41000f" lookupimplementation_3_0:lookup="xarch"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="360,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:360,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="355,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1026,16 +947,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.editormanager.IEditorManager"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="editorManager"/>
+              implementation_3_0:id="0a534974-8a5b74a1-34adb0de-1f41000b" lookupimplementation_3_0:lookup="editorManager"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="480,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:480,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="475,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1047,16 +964,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTFileListener"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="fileEvents"/>
+              implementation_3_0:id="0a534974-8a5b74a5-d2cad2e6-1f410010" lookupimplementation_3_0:lookup="fileEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="408,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:408,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="403,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1068,16 +981,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.xarchadt.IXArchADTModelListener"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="modelEvents"/>
+              implementation_3_0:id="0a534974-8a5b74a5-7cfcfc84-1f410011" lookupimplementation_3_0:lookup="modelEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="384,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:384,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="379,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1089,16 +998,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManagerListener"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="fileManagerEvents"/>
+              implementation_3_0:id="0a534974-8a5b74a3-1fc2e072-1f41000e" lookupimplementation_3_0:lookup="fileManagerEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="456,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:456,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="451,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1110,16 +1015,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.eclipse.ui.IFocusEditorListener"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="focusEditorEvents"/>
+              implementation_3_0:id="0a534974-8a5b74a2-77bb5fdd-1f41000c" lookupimplementation_3_0:lookup="focusEditorEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="504,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:504,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="499,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1131,16 +1032,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.resources.IResources"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="resources"/>
+              implementation_3_0:id="0a534974-8a5b74a1-c59174ea-1f41000a" lookupimplementation_3_0:lookup="resources"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="696,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:696,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="691,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1152,16 +1049,12 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.filemanager.IFileManager"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="fileManager"/>
+              implementation_3_0:id="0a534974-8a5b74a3-a0cfc94d-1f41000d" lookupimplementation_3_0:lookup="fileManager"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="432,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:432,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="427,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1170,36 +1063,44 @@
       <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="Archipelago_launcher"
           structure_3_0:name="launcher">
         <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
-          <domain_3_0:domain domain_3_0:type="bottom"/>
+          <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation">
-            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="org.archstudio.launcher.ILaunchable"/>
-          </implementation_3_0:implementation>
           <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
-              lookupimplementation_3_0:lookup="launcher"/>
+              implementation_3_0:id="0a534974-8a5b74a6-25d480d1-1f410012" lookupimplementation_3_0:lookup="launcher"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="648,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:648,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="643,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
         </structure_3_0:ext>
       </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="0a534974-8a5b74a7-30d6a23e-1f410013"
+          structure_3_0:name="variabilityEvents">
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              implementation_3_0:id="0a534974-8a5b74a8-2e194693-1f410014" lookupimplementation_3_0:lookup="variabilityEvents"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:552,1248"
+              hints_3_0:name="location"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
       <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
-        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen" implementation_3_0:id="0a534974-8a5b749d-d776aedd-1f410008">
           <myxgen_3_0:brickID>org.archstudio.archipelago.core.ArchipelagoMyxComponent</myxgen_3_0:brickID>
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="336,1248,384,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:336,1248,384,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="TestADT" structure_3_0:name="Test ADT">
@@ -1216,9 +1117,8 @@
               lookupimplementation_3_0:lookup="tests"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="3120,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3120,168"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="3115,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1237,9 +1137,8 @@
               lookupimplementation_3_0:lookup="testEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="3144,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3144,168"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="3139,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1251,12 +1150,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="3096,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:3096,72,144,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="Schematron" structure_3_0:name="Schematron">
@@ -1273,9 +1170,8 @@
               lookupimplementation_3_0:lookup="tools"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="3288,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3288,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="3283,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1294,9 +1190,8 @@
               lookupimplementation_3_0:lookup="xarch"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="3240,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3240,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="3235,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1315,9 +1210,8 @@
               lookupimplementation_3_0:lookup="tests"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="3312,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3312,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="3307,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1329,12 +1223,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="3216,1248,192,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:3216,1248,192,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="ArchlightToolAggregator" structure_3_0:name="Archlight Tool Aggregator">
@@ -1351,9 +1243,8 @@
               lookupimplementation_3_0:lookup="results"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="3864,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3864,168"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="3859,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1372,9 +1263,8 @@
               lookupimplementation_3_0:lookup="tools"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="3816,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3816,168"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="3811,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1393,9 +1283,8 @@
               lookupimplementation_3_0:lookup="tool"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="3792,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3792,168"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="3787,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1414,9 +1303,8 @@
               lookupimplementation_3_0:lookup="progress"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="3888,168" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3888,168"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="3883,163,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1428,12 +1316,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="3768,72,144,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:3768,72,144,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:component structure_3_0:id="Archlight" structure_3_0:name="Archlight">
@@ -1450,9 +1336,8 @@
               lookupimplementation_3_0:lookup="tests"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1512,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1512,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1507,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1471,9 +1356,8 @@
               lookupimplementation_3_0:lookup="tools"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1488,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1488,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1483,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1492,9 +1376,8 @@
               lookupimplementation_3_0:lookup="xarch"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1176,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1176,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1171,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1513,9 +1396,8 @@
               lookupimplementation_3_0:lookup="editorManager"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1464,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1464,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1459,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1534,9 +1416,8 @@
               lookupimplementation_3_0:lookup="fileEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1224,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1224,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1219,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1555,9 +1436,8 @@
               lookupimplementation_3_0:lookup="modelEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1200,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1200,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1195,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1576,9 +1456,8 @@
               lookupimplementation_3_0:lookup="fileManagerEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1296,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1296,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1291,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1597,9 +1476,8 @@
               lookupimplementation_3_0:lookup="focusEditorEvents"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1272,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1272,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1267,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1618,9 +1496,8 @@
               lookupimplementation_3_0:lookup="resources"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1320,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1320,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1315,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1639,9 +1516,8 @@
               lookupimplementation_3_0:lookup="fileManager"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1248,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1248,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1243,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1660,9 +1536,8 @@
               lookupimplementation_3_0:lookup="launcher"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1368,1248" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1368,1248"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1363,1243,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1674,12 +1549,80 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="1152,1248,384,96" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="197,203,245" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:1152,1248,384,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+    <structure_3_0:component structure_3_0:id="component0a534974-8a711450-d9537930-1f410048"
+        structure_3_0:name="Variability View">
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="0a534974-8a71a141-7007a1a4-1f41004a"
+          structure_3_0:name="xarch">
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              implementation_3_0:id="0a534974-8a71a142-bc610996-1f41004b" lookupimplementation_3_0:lookup="xarch"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1584,1248"
+              hints_3_0:name="location"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="0a534974-8a71a142-1e9fb2d2-1f41004c"
+          structure_3_0:name="modelEvents">
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              implementation_3_0:id="0a534974-8a71a142-27b0b025-1f41004d" lookupimplementation_3_0:lookup="modelEvents"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1632,1248"
+              hints_3_0:name="location"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="0a534974-8a71a143-d2adf1a3-1f41004e"
+          structure_3_0:name="fileEvents">
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              implementation_3_0:id="0a534974-8a71a143-b90767e9-1f41004f" lookupimplementation_3_0:lookup="fileEvents"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1608,1248"
+              hints_3_0:name="location"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="0a534974-8a71a143-25a0fd93-1f410050"
+          structure_3_0:name="variabilityEvents">
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              implementation_3_0:id="0a534974-8a71a143-ecf55519-1f410051" lookupimplementation_3_0:lookup="variabilityEvents"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1656,1248"
+              hints_3_0:name="location"/>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:1560,1248,384,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:197,203,245"
+            hints_3_0:name="assembly-background/color"/>
+      </structure_3_0:ext>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen" implementation_3_0:id="0a534974-8a71a141-37052488-1f410049">
+          <myxgen_3_0:brickID>org.archstudio.xarchadt.variability.ui.VariabilityMyxComponent</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
       </structure_3_0:ext>
     </structure_3_0:component>
     <structure_3_0:connector structure_3_0:id="XArchADTModelEventPump" structure_3_0:name="XArch ADT Model Event Pump">
@@ -1696,9 +1639,8 @@
               lookupimplementation_3_0:lookup="in"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="552,240" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:648,240"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="547,235,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1717,9 +1659,8 @@
               lookupimplementation_3_0:lookup="out"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="744,288" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:840,288"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="739,283,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1737,12 +1678,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="528,240,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:624,240,240,48"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:245,234,191"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:connector>
     <structure_3_0:connector structure_3_0:id="XArchADTFileEventPump" structure_3_0:name="XArch ADT File Event Pump">
@@ -1759,9 +1698,8 @@
               lookupimplementation_3_0:lookup="in"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="816,240" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:384,240"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="811,235,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1780,9 +1718,8 @@
               lookupimplementation_3_0:lookup="out"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1008,288" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:576,288"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1003,283,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1800,12 +1737,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="792,240,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:360,240,240,48"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:245,234,191"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:connector>
     <structure_3_0:connector structure_3_0:id="FileManagerEventPump" structure_3_0:name="File Manager Event Pump">
@@ -1822,9 +1757,8 @@
               lookupimplementation_3_0:lookup="in"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="456,768" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:456,768"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="499,763,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1843,9 +1777,8 @@
               lookupimplementation_3_0:lookup="out"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="648,816" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:648,816"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="499,811,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1863,12 +1796,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="432,768,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:432,768,240,48"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:245,234,191"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:connector>
     <structure_3_0:connector structure_3_0:id="FocusEditorEventPump" structure_3_0:name="Focus Editor Event Pump">
@@ -1885,9 +1816,8 @@
               lookupimplementation_3_0:lookup="in"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1944,528" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1944,528"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="1939,523,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1906,9 +1836,8 @@
               lookupimplementation_3_0:lookup="out"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="2136,576" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:2136,576"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="2131,571,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1926,12 +1855,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="1920,528,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:1920,528,240,48"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:245,234,191"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:connector>
     <structure_3_0:connector structure_3_0:id="LauncherMultiway" structure_3_0:name="Launcher Multiway">
@@ -1948,9 +1875,8 @@
               lookupimplementation_3_0:lookup="in"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1200,240" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1200,240"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="2323,1003,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1969,9 +1895,8 @@
               lookupimplementation_3_0:lookup="out"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1200,288" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1200,288"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="2323,1051,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -1990,9 +1915,8 @@
               lookupimplementation_3_0:lookup="results"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1248,240" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1248,240"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="2371,1003,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -2011,9 +1935,8 @@
               lookupimplementation_3_0:lookup="progress"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="1248,288" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1248,288"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="2347,1051,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -2031,12 +1954,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="1176,240,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:1176,240,240,48"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:245,234,191"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:connector>
     <structure_3_0:connector structure_3_0:id="TestADTEventPump" structure_3_0:name="Test ADT Event Pump">
@@ -2053,9 +1974,8 @@
               lookupimplementation_3_0:lookup="in"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="3144,264" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3144,264"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="3139,259,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -2074,9 +1994,8 @@
               lookupimplementation_3_0:lookup="out"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="3144,312" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3144,312"
+              hints_3_0:name="location"/>
           <hints_3_0:hint hints_3_0:name="bounds">
             <hints_3_0:value hints_3_0:data="3139,307,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
           </hints_3_0:hint>
@@ -2094,12 +2013,10 @@
         </implementation_3_0:implementation>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="3024,264,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:3024,264,240,48"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:245,234,191"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:connector>
     <structure_3_0:connector structure_3_0:id="connector0a534964-f32c3646-c46380a0-7f300006"
@@ -2114,9 +2031,8 @@
           <domain_3_0:domain domain_3_0:type="bottom"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="480,288" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:312,288"
+              hints_3_0:name="location"/>
         </structure_3_0:ext>
       </structure_3_0:interface>
       <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="0a534964-f32cad45-dce0f55c-7f30000a"
@@ -2129,45 +2045,101 @@
           <domain_3_0:domain domain_3_0:type="top"/>
         </structure_3_0:ext>
         <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-          <hints_3_0:hint hints_3_0:name="location">
-            <hints_3_0:value hints_3_0:data="288,240" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-          </hints_3_0:hint>
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:120,240"
+              hints_3_0:name="location"/>
         </structure_3_0:ext>
       </structure_3_0:interface>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="bounds">
-          <hints_3_0:value hints_3_0:data="264,240,240,48" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="assembly-background/color">
-          <hints_3_0:value hints_3_0:data="245,234,191" hints_3_0:type="org.eclipse.swt.graphics.RGB"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:96,240,240,48"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:245,234,191"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
       <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
         <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen" implementation_3_0:id="0a534964-f32cad19-3324bcdb-7f300007">
           <myxgen_3_0:brickID>org.archstudio.myx.osgi.conn.OSGiSynchronousProxyConnector</myxgen_3_0:brickID>
         </implementation_3_0:implementation>
         <implementation_3_0:implementation xsi:type="osgiimplementation_3_0:OSGiImplementation"
-            implementation_3_0:id="OSGiImplementation100" osgiimplementation_3_0:bundle="org.archstudio.xarchadt.core"/>
+            implementation_3_0:id="OSGiImplementation100" osgiimplementation_3_0:bundle="org.archstudio.xarchadt.variability.core"/>
         <implementation_3_0:implementation xsi:type="implementation_3_0:InitializationParametersImplementation"
             implementation_3_0:id="InitializationParametersImplementation101">
           <implementation_3_0:initializationParameter implementation_3_0:name="interfaceClassName0"
-              implementation_3_0:value="org.archstudio.xarchadt.IXArchADT"/>
+              implementation_3_0:value="org.archstudio.xarchadt.variability.IXArchADTVariability"/>
         </implementation_3_0:implementation>
+      </structure_3_0:ext>
+    </structure_3_0:connector>
+    <structure_3_0:connector structure_3_0:id="0a534974-8a5c62c0-bc613a15-1f410032"
+        structure_3_0:name="XArch ADT Variability Event Pump">
+      <structure_3_0:interface structure_3_0:direction="in" structure_3_0:id="0a534974-8a5c62c0-ff15ea4f-1f410031"
+          structure_3_0:name="in">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="top"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation"
+              implementation_3_0:id="0a534974-8a5c62bf-51995117-1f41002d">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="java.lang.Object"
+                javaimplementation_3_0:id="0a534974-8a5c62bf-b467e842-1f41002e"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              implementation_3_0:id="0a534974-8a5c62bf-79c0d10d-1f41002f" lookupimplementation_3_0:lookup="in"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:912,240"
+              hints_3_0:name="location"/>
+          <hints_3_0:hint hints_3_0:name="bounds">
+            <hints_3_0:value hints_3_0:data="811,235,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+          </hints_3_0:hint>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:interface structure_3_0:direction="out" structure_3_0:id="0a534974-8a5c62c0-3c4a3f5f-1f410030"
+          structure_3_0:name="out">
+        <structure_3_0:ext xsi:type="domain_3_0:DomainExtension">
+          <domain_3_0:domain domain_3_0:type="bottom"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+          <implementation_3_0:implementation xsi:type="javaimplementation_3_0:JavaImplementation"
+              implementation_3_0:id="0a534974-8a5c62c0-b8562f8f-1f410036">
+            <javaimplementation_3_0:mainClass javaimplementation_3_0:className="java.lang.Object"
+                javaimplementation_3_0:id="0a534974-8a5c62c0-26c6777b-1f410038"/>
+          </implementation_3_0:implementation>
+          <implementation_3_0:implementation xsi:type="lookupimplementation_3_0:LookupImplementation"
+              implementation_3_0:id="0a534974-8a5c62c0-07057c53-1f410037" lookupimplementation_3_0:lookup="out"/>
+        </structure_3_0:ext>
+        <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+          <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1104,288"
+              hints_3_0:name="location"/>
+          <hints_3_0:hint hints_3_0:name="bounds">
+            <hints_3_0:value hints_3_0:data="1003,283,10,10" hints_3_0:type="org.eclipse.swt.graphics.Rectangle"/>
+          </hints_3_0:hint>
+        </structure_3_0:ext>
+      </structure_3_0:interface>
+      <structure_3_0:ext xsi:type="implementation_3_0:ImplementationExtension">
+        <implementation_3_0:implementation xsi:type="myxgen_3_0:MyxGen" implementation_3_0:id="0a534974-8a5c62c0-de95de6a-1f410035">
+          <myxgen_3_0:brickID>org.archstudio.myx.osgi.conn.OSGiEventPumpConnector</myxgen_3_0:brickID>
+        </implementation_3_0:implementation>
+        <implementation_3_0:implementation xsi:type="osgiimplementation_3_0:OSGiImplementation"
+            implementation_3_0:id="0a534974-8a5c62c0-1e12ec90-1f410033" osgiimplementation_3_0:bundle="org.archstudio.xarchadt.variability"/>
+        <implementation_3_0:implementation xsi:type="implementation_3_0:InitializationParametersImplementation"
+            implementation_3_0:id="0a534974-8a5c62c0-1e04c896-1f410034">
+          <implementation_3_0:initializationParameter implementation_3_0:name="interfaceClassName0"
+              implementation_3_0:value="org.archstudio.xarchadt.variability.IXArchADTVariabilityListener"/>
+        </implementation_3_0:implementation>
+      </structure_3_0:ext>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:888,240,240,48"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:245,234,191"
+            hints_3_0:name="assembly-background/color"/>
       </structure_3_0:ext>
     </structure_3_0:connector>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_AIM_xarch" structure_3_0:name="xArch ADT.xarch-to-AIM.xarch">
       <structure_3_0:point1>0a534964-f32cad30-bf7aa3cb-7f300008</structure_3_0:point1>
       <structure_3_0:point2>AIM_xarch</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="475,292" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="77,596" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:308,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:76,595" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_fileEvents_to_XArchADTFileEventPump_in"
@@ -2175,15 +2147,9 @@
       <structure_3_0:point1>xArchADT_fileEvents</structure_3_0:point1>
       <structure_3_0:point2>XArchADTFileEventPump_in</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="581,170" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="811,239" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:406,173" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:386,235" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_modelEvents_to_XArchADTModelEventPump_in"
@@ -2191,15 +2157,9 @@
       <structure_3_0:point1>xArchADT_modelEvents</structure_3_0:point1>
       <structure_3_0:point2>XArchADTModelEventPump_in</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="552,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="552,235" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:389,169" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:643,239" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="AIM_myxRuntime_to_MyxRuntime_myxRuntime"
@@ -2207,15 +2167,9 @@
       <structure_3_0:point1>AIM_myxRuntime</structure_3_0:point1>
       <structure_3_0:point2>MyxRuntime_myxRuntime</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="48,595" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="48,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:48,595" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:48,173" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Resources_resources_to_Launcher_resources"
@@ -2223,15 +2177,9 @@
       <structure_3_0:point1>Resources_resources</structure_3_0:point1>
       <structure_3_0:point2>Launcher_resources</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="2011,167" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1253,73" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:2011,167" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1253,73" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="LauncherMultiway_in_to_Launcher_launcher"
@@ -2239,15 +2187,9 @@
       <structure_3_0:point1>LauncherMultiway_in</structure_3_0:point1>
       <structure_3_0:point2>Launcher_launcher</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1200,235" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1200,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1200,235" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1200,173" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="LauncherMultiway_results_to_Launcher_results"
@@ -2255,30 +2197,18 @@
       <structure_3_0:point1>LauncherMultiway_results</structure_3_0:point1>
       <structure_3_0:point2>Launcher_results</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1248,235" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1248,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1248,235" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1248,173" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_FileManager_xarch" structure_3_0:name="xArch ADT.xarch-to-File Manager.xarch">
       <structure_3_0:point1>0a534964-f32cad30-bf7aa3cb-7f300008</structure_3_0:point1>
       <structure_3_0:point2>FileManager_xarch</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="478,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="362,595" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:313,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:359,595" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_FileManager_fileEvents"
@@ -2286,15 +2216,9 @@
       <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>FileManager_fileEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1003,291" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="413,597" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:573,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:411,595" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_FileManager_modelEvents"
@@ -2302,15 +2226,9 @@
       <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>FileManager_modelEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="739,292" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="389,596" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:835,291" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:389,597" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManager_fileManagerEvents_to_FileManagerEventPump_in"
@@ -2318,15 +2236,9 @@
       <structure_3_0:point1>FileManager_fileManagerEvents</structure_3_0:point1>
       <structure_3_0:point2>FileManagerEventPump_in</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="456,701" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="456,763" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:456,701" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:456,763" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="EditorManager_focusEditorEvents_to_FocusEditorEventPump_in"
@@ -2334,45 +2246,27 @@
       <structure_3_0:point1>EditorManager_focusEditorEvents</structure_3_0:point1>
       <structure_3_0:point2>FocusEditorEventPump_in</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1944,485" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1944,523" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1944,485" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1944,523" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_GraphLayout_xarch" structure_3_0:name="xArch ADT.xarch-to-Graph Layout.xarch">
       <structure_3_0:point1>0a534964-f32cad30-bf7aa3cb-7f300008</structure_3_0:point1>
       <structure_3_0:point2>GraphLayout_xarch</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="481,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="527,595" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:315,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:525,595" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_AIMLauncher_xarch" structure_3_0:name="xArch ADT.xarch-to-AIM Launcher.xarch">
       <structure_3_0:point1>0a534964-f32cad30-bf7aa3cb-7f300008</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_xarch</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="477,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="-45,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:310,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:-46,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_AIMLauncher_editorManager"
@@ -2380,15 +2274,9 @@
       <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_editorManager</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1915,482" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="77,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1915,482" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:77,1246" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_AIMLauncher_modelEvents"
@@ -2396,15 +2284,9 @@
       <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_modelEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="740,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="-20,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:836,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:-19,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_AIMLauncher_fileEvents"
@@ -2412,15 +2294,9 @@
       <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_fileEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1003,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="5,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:573,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FocusEditorEventPump_out_to_AIMLauncher_focusEditorEvents"
@@ -2428,15 +2304,9 @@
       <structure_3_0:point1>FocusEditorEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_focusEditorEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="2131,578" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="125,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:2131,578" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:125,1246" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManagerEventPump_out_to_AIMLauncher_fileManagerEvents"
@@ -2444,15 +2314,9 @@
       <structure_3_0:point1>FileManagerEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_fileManagerEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="643,820" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="53,1244" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:643,820" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:53,1244" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Resources_resources_to_AIMLauncher_resources"
@@ -2460,15 +2324,9 @@
       <structure_3_0:point1>Resources_resources</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_resources</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="2011,171" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="197,1245" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:2011,171" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:197,1245" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManager_fileManager_to_AIMLauncher_fileManager"
@@ -2476,15 +2334,9 @@
       <structure_3_0:point1>FileManager_fileManager</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_fileManager</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="428,701" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="28,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:428,701" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:28,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="AIMLauncher_launcher_to_LauncherMultiway_out"
@@ -2492,45 +2344,27 @@
       <structure_3_0:point1>AIMLauncher_launcher</structure_3_0:point1>
       <structure_3_0:point2>LauncherMultiway_out</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="173,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1195,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:173,1243" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1195,293" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="AIM_aim_to_AIMLauncher_aim" structure_3_0:name="AIM.aim-to-AIM Launcher.aim">
       <structure_3_0:point1>AIM_aim</structure_3_0:point1>
       <structure_3_0:point2>AIMLauncher_aim</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="144,701" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="144,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:144,701" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:144,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_ArchEdit_xarch" structure_3_0:name="xArch ADT.xarch-to-ArchEdit.xarch">
       <structure_3_0:point1>0a534964-f32cad30-bf7aa3cb-7f300008</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_xarch</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="481,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="766,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:314,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:766,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_ArchEdit_editorManager"
@@ -2538,15 +2372,9 @@
       <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_editorManager</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1915,484" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="893,1244" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1915,484" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:893,1244" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_ArchEdit_modelEvents"
@@ -2554,15 +2382,9 @@
       <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_modelEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="744,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="792,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:840,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:792,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_ArchEdit_fileEvents"
@@ -2570,15 +2392,9 @@
       <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_fileEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1007,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="817,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:577,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:815,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FocusEditorEventPump_out_to_ArchEdit_focusEditorEvents"
@@ -2586,15 +2402,9 @@
       <structure_3_0:point1>FocusEditorEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_focusEditorEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="2131,579" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="917,1245" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:2131,579" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:917,1245" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManagerEventPump_out_to_ArchEdit_fileManagerEvents"
@@ -2602,15 +2412,9 @@
       <structure_3_0:point1>FileManagerEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_fileManagerEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="650,821" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="861,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:650,821" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:861,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Resources_resources_to_ArchEdit_resources"
@@ -2618,15 +2422,9 @@
       <structure_3_0:point1>Resources_resources</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_resources</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="2011,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="941,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:2011,173" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:941,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManager_fileManager_to_ArchEdit_fileManager"
@@ -2634,15 +2432,9 @@
       <structure_3_0:point1>FileManager_fileManager</structure_3_0:point1>
       <structure_3_0:point2>ArchEdit_fileManager</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="436,701" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="836,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:436,701" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:836,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="ArchEdit_launcher_to_LauncherMultiway_out"
@@ -2650,30 +2442,18 @@
       <structure_3_0:point1>ArchEdit_launcher</structure_3_0:point1>
       <structure_3_0:point2>LauncherMultiway_out</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="961,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1199,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:961,1243" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1199,293" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_Archipelago_xarch" structure_3_0:name="xArch ADT.xarch-to-Archipelago.xarch">
       <structure_3_0:point1>0a534964-f32cad30-bf7aa3cb-7f300008</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_xarch</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="479,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="361,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:312,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:360,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_Archipelago_editorManager"
@@ -2681,15 +2461,9 @@
       <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_editorManager</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1915,483" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="485,1245" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1915,483" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:485,1245" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_Archipelago_modelEvents"
@@ -2697,15 +2471,9 @@
       <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_modelEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="742,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="386,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:838,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:386,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_Archipelago_fileEvents"
@@ -2713,15 +2481,9 @@
       <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_fileEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1005,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="411,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:575,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:409,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FocusEditorEventPump_out_to_Archipelago_focusEditorEvents"
@@ -2729,15 +2491,9 @@
       <structure_3_0:point1>FocusEditorEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_focusEditorEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="2131,578" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="509,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:2131,578" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:509,1246" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManagerEventPump_out_to_Archipelago_fileManagerEvents"
@@ -2745,15 +2501,9 @@
       <structure_3_0:point1>FileManagerEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_fileManagerEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="646,821" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="458,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:646,821" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:458,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Resources_resources_to_Archipelago_resources"
@@ -2761,15 +2511,9 @@
       <structure_3_0:point1>Resources_resources</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_resources</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="2011,172" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="701,1244" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:2011,172" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:701,1244" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManager_fileManager_to_Archipelago_fileManager"
@@ -2777,15 +2521,9 @@
       <structure_3_0:point1>FileManager_fileManager</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_fileManager</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="432,701" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="432,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:432,701" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:432,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Archipelago_launcher_to_LauncherMultiway_out"
@@ -2793,15 +2531,9 @@
       <structure_3_0:point1>Archipelago_launcher</structure_3_0:point1>
       <structure_3_0:point2>LauncherMultiway_out</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="651,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1197,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:651,1243" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1197,293" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="GraphLayout_graphLayout_to_Archipelago_graphLayout"
@@ -2809,15 +2541,9 @@
       <structure_3_0:point1>GraphLayout_graphLayout</structure_3_0:point1>
       <structure_3_0:point2>Archipelago_graphLayout</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="623,701" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="529,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:623,701" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:529,1243" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="TestADT_testEvents_to_TestADTEventPump_in"
@@ -2825,45 +2551,29 @@
       <structure_3_0:point1>TestADT_testEvents</structure_3_0:point1>
       <structure_3_0:point2>TestADTEventPump_in</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="3144,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="3144,259" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3144,173" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3144,259" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_Schematron_xarch" structure_3_0:name="xArch ADT.xarch-to-Schematron.xarch">
       <structure_3_0:point1>0a534964-f32cad30-bf7aa3cb-7f300008</structure_3_0:point1>
       <structure_3_0:point2>Schematron_xarch</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="485,290" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="3235,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:317,290" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3235,1246"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="TestADT_tests_to_Schematron_tests" structure_3_0:name="Test ADT.tests-to-Schematron.tests">
       <structure_3_0:point1>TestADT_tests</structure_3_0:point1>
       <structure_3_0:point2>Schematron_tests</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="3121,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="3311,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3121,173" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3311,1243"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Schematron_tools_to_ArchlightToolAggregator_tools"
@@ -2871,30 +2581,20 @@
       <structure_3_0:point1>Schematron_tools</structure_3_0:point1>
       <structure_3_0:point2>ArchlightToolAggregator_tools</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="3290,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="3814,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3290,1243"
+            hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3814,173" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="xArchADT_xarch_to_Archlight_xarch" structure_3_0:name="xArch ADT.xarch-to-Archlight.xarch">
       <structure_3_0:point1>0a534964-f32cad30-bf7aa3cb-7f300008</structure_3_0:point1>
       <structure_3_0:point2>Archlight_xarch</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="484,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1172,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:317,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1172,1243"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="EditorManager_editorManager_to_Archlight_editorManager"
@@ -2902,15 +2602,10 @@
       <structure_3_0:point1>EditorManager_editorManager</structure_3_0:point1>
       <structure_3_0:point2>Archlight_editorManager</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1917,485" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1467,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1917,485" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1467,1243"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTModelEventPump_out_to_Archlight_modelEvents"
@@ -2918,15 +2613,10 @@
       <structure_3_0:point1>XArchADTModelEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archlight_modelEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="746,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1198,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:842,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1198,1243"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="XArchADTFileEventPump_out_to_Archlight_fileEvents"
@@ -2934,15 +2624,10 @@
       <structure_3_0:point1>XArchADTFileEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archlight_fileEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1009,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1223,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:579,293" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1221,1243"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FocusEditorEventPump_out_to_Archlight_focusEditorEvents"
@@ -2950,15 +2635,10 @@
       <structure_3_0:point1>FocusEditorEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archlight_focusEditorEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="2131,580" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1277,1244" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:2131,580" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1277,1244"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManagerEventPump_out_to_Archlight_fileManagerEvents"
@@ -2966,15 +2646,10 @@
       <structure_3_0:point1>FileManagerEventPump_out</structure_3_0:point1>
       <structure_3_0:point2>Archlight_fileManagerEvents</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="653,819" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1291,1245" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:653,819" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1291,1245"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Resources_resources_to_Archlight_resources"
@@ -2982,15 +2657,10 @@
       <structure_3_0:point1>Resources_resources</structure_3_0:point1>
       <structure_3_0:point2>Archlight_resources</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="2013,173" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1323,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:2013,173" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1323,1243"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="FileManager_fileManager_to_Archlight_fileManager"
@@ -2998,15 +2668,10 @@
       <structure_3_0:point1>FileManager_fileManager</structure_3_0:point1>
       <structure_3_0:point2>Archlight_fileManager</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="437,699" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1243,1245" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:437,699" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1243,1245"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="Archlight_launcher_to_LauncherMultiway_out"
@@ -3014,30 +2679,20 @@
       <structure_3_0:point1>Archlight_launcher</structure_3_0:point1>
       <structure_3_0:point2>LauncherMultiway_out</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="1367,1243" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1201,293" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1367,1243"
+            hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1201,293" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="TestADT_tests_to_Archlight_tests" structure_3_0:name="Test ADT.tests-to-Archlight.tests">
       <structure_3_0:point1>TestADT_tests</structure_3_0:point1>
       <structure_3_0:point2>Archlight_tests</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="3115,171" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1517,1245" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3115,171" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1517,1245"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="ArchlightToolAggregator_tool_to_Archlight_tools"
@@ -3045,15 +2700,10 @@
       <structure_3_0:point1>ArchlightToolAggregator_tool</structure_3_0:point1>
       <structure_3_0:point2>Archlight_tools</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="3787,170" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="1493,1246" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:3787,170" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1493,1246"
+            hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
     <structure_3_0:link structure_3_0:id="link0a534964-f32d450a-a8b17fe9-7f30000c"
@@ -3061,15 +2711,83 @@
       <structure_3_0:point1>0a534964-f32cad45-dce0f55c-7f30000a</structure_3_0:point1>
       <structure_3_0:point2>xArchADT_xarch</structure_3_0:point2>
       <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
-        <hints_3_0:hint hints_3_0:name="endpoint1">
-          <hints_3_0:value hints_3_0:data="293,239" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="endpoint2">
-          <hints_3_0:value hints_3_0:data="523,170" hints_3_0:type="org.eclipse.swt.graphics.Point"/>
-        </hints_3_0:hint>
-        <hints_3_0:hint hints_3_0:name="midpoints">
-          <hints_3_0:value hints_3_0:data="" hints_3_0:type="List{}"/>
-        </hints_3_0:hint>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:125,238" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:355,169" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="link0a534974-8a6198e8-0abd310a-1f41003e"
+        structure_3_0:name="[New Link]">
+      <structure_3_0:point1>0a534974-8a5b74a7-30d6a23e-1f410013</structure_3_0:point1>
+      <structure_3_0:point2>0a534974-8a5c62c0-3c4a3f5f-1f410030</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:555,1243" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1101,293" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="link0a534974-8a62a4cc-d2785d9b-1f410045"
+        structure_3_0:name="[New Link]">
+      <structure_3_0:point1>0a534974-8a6287c5-fa7770d9-1f410042</structure_3_0:point1>
+      <structure_3_0:point2>0a534974-8a5c62c0-ff15ea4f-1f410031</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:437,169" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:907,239" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="link0a534974-8a72590c-775dbaaf-1f410052"
+        structure_3_0:name="[New Link]">
+      <structure_3_0:point1>0a534974-8a71a141-7007a1a4-1f41004a</structure_3_0:point1>
+      <structure_3_0:point2>0a534964-f32cad30-bf7aa3cb-7f300008</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1579,1244"
+            hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:317,292" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="link0a534974-8a729714-28f06281-1f410053"
+        structure_3_0:name="[New Link]">
+      <structure_3_0:point1>0a534974-8a71a143-d2adf1a3-1f41004e</structure_3_0:point1>
+      <structure_3_0:point2>XArchADTFileEventPump_out</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1603,1243"
+            hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:581,293" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="link0a534974-8a733931-ce306c21-1f410054"
+        structure_3_0:name="[New Link]">
+      <structure_3_0:point1>0a534974-8a71a143-25a0fd93-1f410050</structure_3_0:point1>
+      <structure_3_0:point2>0a534974-8a5c62c0-3c4a3f5f-1f410030</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1653,1243"
+            hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1107,293" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="link0a534974-8a736843-d4105a3f-1f410055"
+        structure_3_0:name="[New Link]">
+      <structure_3_0:point1>0a534974-8a71a142-1e9fb2d2-1f41004c</structure_3_0:point1>
+      <structure_3_0:point2>XArchADTModelEventPump_out</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1628,1243"
+            hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:844,293" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
+      </structure_3_0:ext>
+    </structure_3_0:link>
+    <structure_3_0:link structure_3_0:id="link0a534974-8ca95b2d-6f781008-5340000d"
+        structure_3_0:name="[New Link]">
+      <structure_3_0:point1>0a534974-8ca94285-4ddabec5-5340000b</structure_3_0:point1>
+      <structure_3_0:point2>0a534974-8a5c62c0-3c4a3f5f-1f410030</structure_3_0:point2>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:985,1243" hints_3_0:name="endpoint1"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Point:1103,293" hints_3_0:name="endpoint2"/>
+        <hints_3_0:hint hints_3_0:hint="List{}:" hints_3_0:name="midpoints"/>
       </structure_3_0:ext>
     </structure_3_0:link>
   </structure_3_0:structure>

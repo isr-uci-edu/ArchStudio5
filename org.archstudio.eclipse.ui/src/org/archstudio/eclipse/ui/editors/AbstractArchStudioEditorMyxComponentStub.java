@@ -12,6 +12,7 @@ import org.archstudio.filemanager.IFileManagerListener;
 import org.archstudio.myx.fw.IMyxBrickItems;
 import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 import org.archstudio.resources.IResources;
+import org.archstudio.xarchadt.variability.IXArchADTVariabilityListener;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.myx.fw.IMyxDynamicBrick;
 import org.archstudio.xarchadt.IXArchADT;
@@ -158,6 +159,13 @@ import org.archstudio.myx.fw.MyxUtils;
 	public static final IMyxName IN_LAUNCHER = MyxUtils.createName("launcher");
 
 	/**
+	 * Myx name for the <code>variabilityEvents</code> interface.
+	 *
+	 * @generated
+	 */
+	// MyxGenInterface[name=variabilityEvents,direction=in,single=true,serviceObjectDelegate=myxRegistry,generateGetter=true,className=org.archstudio.xarchadt.variability.IXArchADTVariabilityListener,domain=top,description=null]
+	public static final IMyxName IN_VARIABILITY_EVENTS = MyxUtils.createName("variabilityEvents");
+	/**
 	 * Service object(s) for the resources interface.
 	 * 
 	 * @see #OUT_RESOURCES
@@ -279,6 +287,33 @@ import org.archstudio.myx.fw.MyxUtils;
 							for (org.archstudio.xarchadt.IXArchADTModelListener o : myxRegistry.getObjects(
 									AbstractArchStudioEditorMyxComponentStub.this,
 									org.archstudio.xarchadt.IXArchADTModelListener.class)) {
+								try {
+									method.invoke(o, args);
+								}
+								catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+							return null;
+						}
+					});
+
+	/**
+	 * Service object proxy for the variabilityEvents interface.
+	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
+	 *
+	 * @see #IN_VARIABILITY_EVENTS
+	 * @generated
+	 */
+	protected final org.archstudio.xarchadt.variability.IXArchADTVariabilityListener variabilityEventsProxy = (org.archstudio.xarchadt.variability.IXArchADTVariabilityListener) Proxy
+			.newProxyInstance(org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.class.getClassLoader(),
+					new Class[] { org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.class },
+					new InvocationHandler() {
+						@Override
+						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+							for (org.archstudio.xarchadt.variability.IXArchADTVariabilityListener o : myxRegistry
+									.getObjects(AbstractArchStudioEditorMyxComponentStub.this,
+											org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.class)) {
 								try {
 									method.invoke(o, args);
 								}
@@ -459,6 +494,9 @@ import org.archstudio.myx.fw.MyxUtils;
 		}
 		if (interfaceName.equals(IN_LAUNCHER)) {
 			return this;
+		}
+		if (interfaceName.equals(IN_VARIABILITY_EVENTS)) {
+			return variabilityEventsProxy;
 		}
 		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}

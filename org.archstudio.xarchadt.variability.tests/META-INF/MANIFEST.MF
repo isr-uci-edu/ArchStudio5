@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio XArchADTVariability Tests
+Bundle-SymbolicName: org.archstudio.xarchadt.variability.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: archstudio.org
+Export-Package: org.archstudio.xarchadt.variability
+Require-Bundle: org.junit,
+ org.archstudio.xarchadt.variability,
+ org.archstudio.xarchadt.variability.core,
+ org.archstudio.xarchadt.tests,
+ org.archstudio.xadl3.variability,
+ org.eclipse.emf.common,
+ org.eclipse.emf.ecore,
+ org.archstudio.xadl3.structure,
+ org.archstudio.xadl3.xadlcore,
+ com.google.guava,
+ org.archstudio.utils.system,
+ org.archstudio.xadl3.hints
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

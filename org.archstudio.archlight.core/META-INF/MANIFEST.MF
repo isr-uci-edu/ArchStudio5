@@ -23,5 +23,6 @@ Require-Bundle: org.archstudio.archlight,
  org.archstudio.editormanager,
  org.archstudio.myx.java,
  com.google.guava,
- org.archstudio.eclipse.core
+ org.archstudio.eclipse.core,
+ org.archstudio.xarchadt.variability
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

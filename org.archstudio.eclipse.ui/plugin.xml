@@ -98,6 +98,16 @@
                name="launcher"
                single="true">
          </interface>
+         <interface
+               class="org.archstudio.xarchadt.variability.IXArchADTVariabilityListener"
+               delegate="myxRegistry"
+               direction="in"
+               domain="top"
+               getter="true"
+               id="variabilityEvents"
+               name="variabilityEvents"
+               single="true">
+         </interface>
       </brick>
    </extension>
    <extension

@@ -7,5 +7,6 @@ Bundle-Vendor: archstudio.org
 Require-Bundle: org.junit,
  org.archstudio.bna.tests,
  org.archstudio.xadl.tests,
- org.archstudio.xarchadt.tests
+ org.archstudio.xarchadt.tests,
+ org.archstudio.xarchadt.variability.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

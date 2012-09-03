@@ -5,6 +5,7 @@ Bundle-SymbolicName: org.archstudio.xadl.bna;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.xadl.bna.facets,
+ org.archstudio.xadl.bna.logics,
  org.archstudio.xadl.bna.logics.editing,
  org.archstudio.xadl.bna.logics.hints,
  org.archstudio.xadl.bna.logics.mapping,
@@ -20,5 +21,7 @@ Require-Bundle: org.archstudio.bna,
  org.eclipse.core.commands,
  org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.jdt.annotation
+ org.eclipse.jdt.annotation,
+ org.archstudio.xarchadt.variability,
+ org.archstudio.utils.swt
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

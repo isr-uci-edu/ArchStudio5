@@ -8,7 +8,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ 
 	org.archstudio.bna.logics.coordinating.AllTests.class, 
 	org.archstudio.xadl.AllTests.class, 
-	org.archstudio.xarchadt.common.AllTests.class })
+	org.archstudio.xarchadt.common.AllTests.class,
+	org.archstudio.xarchadt.variability.AllTests.class })
 public class AllTests {
 
 }

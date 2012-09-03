@@ -35,6 +35,7 @@ Require-Bundle: org.eclipse.ui,
  org.archstudio.eclipse.ui,
  org.archstudio.launcher,
  org.archstudio.xadl.swt,
- org.archstudio.eclipse.core
+ org.archstudio.eclipse.core,
+ org.archstudio.xarchadt.variability
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

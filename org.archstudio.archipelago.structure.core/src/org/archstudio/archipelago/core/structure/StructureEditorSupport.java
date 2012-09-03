@@ -57,6 +57,7 @@ import org.archstudio.resources.IResources;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
+import org.archstudio.xadl.bna.logics.DecorateChangesLogic;
 import org.archstudio.xadl.bna.logics.editing.RemoveElementLogic;
 import org.archstudio.xadl.bna.logics.editing.XadlCopyPasteLogic;
 import org.archstudio.xadl.bna.logics.editing.XadlReshapeSplineGuide;
@@ -66,6 +67,8 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFileListener;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
+import org.archstudio.xarchadt.variability.IXArchADTVariability;
+import org.archstudio.xarchadt.variability.IXArchADTVariabilityListener;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -199,6 +202,7 @@ public class StructureEditorSupport {
 		// generic logics -- alphabetized
 
 		logicManager.addThingLogic(new ClickSelectionLogic());
+		logicManager.addThingLogic(new DecorateChangesLogic((IXArchADTVariability) xarch));
 		logicManager.addThingLogic(new DragMovableLogic());
 		logicManager.addThingLogic(new KeyNudgerLogic());
 		logicManager.addThingLogic(new LifeSapperLogic());
@@ -263,6 +267,7 @@ public class StructureEditorSupport {
 		final IMyxBrick brick = myxRegistry.waitForBrick(ArchipelagoMyxComponent.class);
 		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTModelListener.class));
 		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTFileListener.class));
+		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTVariabilityListener.class));
 
 		// these logics need to be last
 	}

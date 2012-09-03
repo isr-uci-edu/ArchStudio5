@@ -21,6 +21,8 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
+import org.archstudio.xarchadt.variability.IXArchADTVariabilityListener;
+import org.archstudio.xarchadt.variability.XArchADTVariabilityEvent;
 import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
@@ -51,7 +53,8 @@ import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEditorMyxComponent> extends EditorPart
-		implements ISelectionChangedListener, IXArchADTModelListener, IFocusEditorListener, IFileManagerListener {
+		implements ISelectionChangedListener, IXArchADTModelListener, IFocusEditorListener, IFileManagerListener,
+		IXArchADTVariabilityListener {
 
 	protected final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
 	protected final B brick;
@@ -79,7 +82,7 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 
 	protected String uniqueEditorID = null;
 
-	private final DelayedExecuteOnceThread updateThread = new DelayedExecuteOnceThread(500, new Runnable() {
+	private final DelayedExecuteOnceThread updateThread = new DelayedExecuteOnceThread(250, new Runnable() {
 		@Override
 		public void run() {
 			getSite().getShell().getDisplay().asyncExec(new Runnable() {
@@ -406,5 +409,20 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 
 	public Composite getParentComposite() {
 		return parent;
+	}
+
+	@Override
+	public void handleXArchADTVariabilityEvent(XArchADTVariabilityEvent evt) {
+		if (documentRootRef == null) {
+			return;
+		}
+		if (documentRootRef.equals(evt.getDocumentRootRef())) {
+			updateThread.execute();
+			doHandleXArchADTVariabilityEvent(evt);
+		}
+
+	}
+
+	public void doHandleXArchADTVariabilityEvent(XArchADTVariabilityEvent evt) {
 	}
 }

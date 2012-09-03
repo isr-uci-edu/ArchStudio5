@@ -39,6 +39,7 @@ Require-Bundle: com.google.guava,
  org.archstudio.xadl3.implementation.lookup,
  org.archstudio.xadl3.implementation.myxgen,
  org.archstudio.eclipse,
- org.eclipse.ui.ide
+ org.eclipse.ui.ide,
+ org.archstudio.xarchadt.variability
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

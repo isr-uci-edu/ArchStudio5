@@ -11,5 +11,6 @@ Require-Bundle: com.google.guava,
  org.eclipse.emf.common,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.core.runtime,
- org.eclipse.jdt.annotation
+ org.eclipse.jdt.annotation,
+ org.archstudio.xadl3.xadlcore
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

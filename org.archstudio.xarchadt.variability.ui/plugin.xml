@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.archstudio.myxgen.brick">
+      <brick
+            class="org.archstudio.xarchadt.variability.ui.VariabilityMyxComponent"
+            id="org.archstudio.xarchadt.variability.ui.VariabilityMyxComponent"
+            name="Variability Myx Component">
+         <interface
+               class="org.archstudio.xarchadt.variability.IXArchADTVariability"
+               delegate="variable"
+               direction="out"
+               domain="top"
+               getter="true"
+               id="xarch"
+               name="xarch"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.xarchadt.IXArchADTModelListener"
+               delegate="myxRegistry"
+               direction="in"
+               domain="top"
+               getter="true"
+               id="modelEvents"
+               name="modelEvents"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.xarchadt.IXArchADTFileListener"
+               delegate="myxRegistry"
+               direction="in"
+               domain="top"
+               getter="true"
+               id="fileEvents"
+               name="fileEvents"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.xarchadt.variability.IXArchADTVariabilityListener"
+               delegate="myxRegistry"
+               direction="in"
+               domain="top"
+               getter="true"
+               id="variabilityEvents"
+               name="variabilityEvents"
+               single="true">
+         </interface>
+      </brick>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            category="org.archstudio.main.ArchStudio5Views"
+            class="org.archstudio.xarchadt.variability.ui.VariabilityViewPart"
+            icon="res/icons/variability_view.gif"
+            id="org.archstudio.xarchadt.variability.ui.view2"
+            name="Variability"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>
