@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.archstudio.myx.fw;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: archstudio.org
-Export-Package: org.archstudio.ljm,
- org.archstudio.myx.fw
-Require-Bundle: com.google.guava
+Export-Package: org.archstudio.myx.fw
+Require-Bundle: com.google.guava,
+ org.archstudio.ljm
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
