@@ -18,6 +18,9 @@ public class AbstractProxy {
 		String name;
 
 		public NameContext(String name) {
+			String suffix;
+			if (name.endsWith(suffix = "_"))
+				name = name.substring(0, name.length() - suffix.length());
 			this.name = name;
 		}
 
@@ -87,7 +90,8 @@ public class AbstractProxy {
 			 * 
 			 * Note: an IllegalArgumentException with the message of 'object is
 			 * not an instance of declaring class' may occur if the methods map
-			 * does not create a specialized handler for the method being called.
+			 * does not create a specialized handler for the method being
+			 * called.
 			 */
 			return method.invoke(proxy, args);
 		}
