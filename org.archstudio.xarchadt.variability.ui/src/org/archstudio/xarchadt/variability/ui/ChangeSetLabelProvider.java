@@ -8,12 +8,12 @@ import java.util.Set;
 
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.SystemUtils;
-import org.archstudio.xadl3.variability_3_0.ChangeSet;
+import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl3.variability_3_0.Variability_3_0Package;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.archstudio.xarchadt.XArchADTModelEvent.EventType;
-import org.archstudio.xarchadt.XArchADTProxy;
 import org.archstudio.xarchadt.variability.IXArchADTVariability;
 import org.archstudio.xarchadt.variability.IXArchADTVariabilityListener;
 import org.archstudio.xarchadt.variability.XArchADTVariabilityEvent;
@@ -73,6 +73,7 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 		imageRegistry.put("unapplied", new Image(d, getClass().getResourceAsStream("unapplied.gif")));
 		imageRegistry.put("explicit", new Image(d, getClass().getResourceAsStream("explicit.gif")));
 		imageRegistry.put("implicit", new Image(d, getClass().getResourceAsStream("implicit.gif")));
+		imageRegistry.put("transform", new Image(d, getClass().getResourceAsStream("transform.gif")));
 
 		FontData[] fontDatas = d.getSystemFont().getFontData();
 		if (fontDatas != null && fontDatas.length > 0) {
@@ -141,6 +142,11 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 				return imageRegistry.get("implicit");
 		}
 		else if (CHANGE_SET_PROPERTY.equals(columnProperty)) {
+			ObjRef changeSetRef = (ObjRef) element;
+			if (XadlUtils.isInstanceOf(xarch, changeSetRef,
+					Variability_3_0Package.Literals.TRANSFORM_CHANGE_SET_OF_CHANGES)) {
+				return imageRegistry.get("transform");
+			}
 			return null;
 		}
 		return null;
@@ -156,8 +162,7 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 			return null;
 		}
 		else if (CHANGE_SET_PROPERTY.equals(columnProperty)) {
-			ChangeSet changeSet = XArchADTProxy.proxy(xarch, (ObjRef) element);
-			return changeSet.getName();
+			return XadlUtils.getName(xarch, (ObjRef) element);
 		}
 		return null;
 	}

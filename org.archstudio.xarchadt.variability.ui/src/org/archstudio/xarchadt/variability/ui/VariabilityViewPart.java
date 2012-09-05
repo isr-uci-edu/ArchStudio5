@@ -14,13 +14,17 @@ import org.archstudio.sysutils.DelayedExecuteOnceThread;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.variability_3_0.ChangeSet;
+import org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges;
 import org.archstudio.xadl3.variability_3_0.Variability;
 import org.archstudio.xadl3.variability_3_0.Variability_3_0Package;
+import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
 import org.archstudio.xarchadt.XArchADTProxy;
+import org.archstudio.xarchadt.variability.ChangeSetTransform;
 import org.archstudio.xarchadt.variability.IXArchADTVariability;
+import org.archstudio.xarchadt.variability.VariabilityUtils;
 import org.archstudio.xarchadt.variability.ui.actions.AddChangeSetAction;
 import org.archstudio.xarchadt.variability.ui.actions.IHasXArchRef;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -29,7 +33,9 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.CellEditor;
@@ -72,6 +78,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
@@ -80,6 +87,7 @@ import org.eclipse.ui.INullSelectionListener;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IURIEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
+import org.osgi.framework.Bundle;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -459,6 +467,36 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 		getViewSite().getActionBars().getToolBarManager().add(new AddChangeSetAction(xarch));
 		getViewSite().getActionBars().updateActionBars();
 
+		MenuManager contextMenuManager = new MenuManager();
+		contextMenuManager.setRemoveAllWhenShown(true);
+		contextMenuManager.addMenuListener(new IMenuListener() {
+			@Override
+			public void menuAboutToShow(IMenuManager manager) {
+				final ObjRef changeSetRef = (ObjRef) ((IStructuredSelection) changeSetViewer.getSelection())
+						.getFirstElement();
+				if (XadlUtils.isInstanceOf(xarch, changeSetRef,
+						Variability_3_0Package.Literals.TRANSFORM_CHANGE_SET_OF_CHANGES)) {
+					manager.add(new Action("Apply Transform") {
+						@Override
+						public void run() {
+							applyTransform(changeSetRef);
+						}
+					});
+				}
+				else {
+					Action a = new Action("Apply Transform") {
+						public void run() {
+						}
+					};
+					a.setEnabled(false);
+					manager.add(a);
+				}
+			}
+		});
+		Menu menu = contextMenuManager.createContextMenu(changeSetViewer.getControl());
+		changeSetViewer.getControl().setMenu(menu);
+		getSite().registerContextMenu(contextMenuManager, changeSetViewer);
+
 		/*
 		 * This needs to be here since we always want to update the change sets
 		 * viewer before the relationships viewer.
@@ -539,6 +577,49 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 		// }
 		// };
 		// menuManager.add(diffFromExternalFile);
+	}
+
+	private void applyTransform(ObjRef transformChangeSetRef) {
+
+		JavaTransformChangeSetOfChanges javaTransformChangeSet = XArchADTProxy.proxy(xarch, transformChangeSetRef);
+		ObjRef documentRootRef = xarch.getDocumentRootRef(transformChangeSetRef);
+
+		/*
+		 * There are three possibilities for how this is run: (1) as a plug-in
+		 * project in the current workspace, (2) as a java project in the
+		 * current workspace, and (3) as an installed plugin in the current
+		 * runtime environment.
+		 * 
+		 * TODO: We only support (3) right now...
+		 */
+
+		try {
+			Bundle b = null;
+			for(Bundle b2 : Activator.getContext().getBundles()){
+				if(b2.getSymbolicName().equals(javaTransformChangeSet.getBundle())){
+					b = b2;
+					break;
+				}
+			}
+			@SuppressWarnings("unchecked")
+			final Class<ChangeSetTransform> c = (Class<ChangeSetTransform>) b.loadClass(javaTransformChangeSet.getClass_());
+			VariabilityUtils.updateDynamicChangeSet(xarch, documentRootRef, transformChangeSetRef,
+					new ChangeSetTransform() {
+
+						@Override
+						public void transform(IXArchADT xarch, ObjRef documentRootRef) {
+							try {
+								c.newInstance().transform(xarch, documentRootRef);
+							}
+							catch (Throwable t) {
+								throw new RuntimeException(t);
+							}
+						}
+					});
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

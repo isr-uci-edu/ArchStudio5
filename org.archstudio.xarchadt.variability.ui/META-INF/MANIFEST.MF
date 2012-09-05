@@ -22,6 +22,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.xadl3.variability,
  org.eclipse.emf.ecore,
  org.archstudio.xadl3.xadlcore,
- org.eclipse.jdt.annotation
+ org.eclipse.jdt.annotation,
+ org.eclipse.debug.core,
+ org.eclipse.jdt.launching
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

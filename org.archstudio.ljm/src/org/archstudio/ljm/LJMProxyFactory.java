@@ -27,4 +27,12 @@ public class LJMProxyFactory {
 		return Proxy.newProxyInstance(LJMProxyFactory.class.getClassLoader(), interfaceClasses, proxyInvoker);
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <T> T createProxy(InetAddress host, int port, String objectName, Class<T> interfaceClass)
+			throws LJMException {
+		LJMProxyInvoker proxyInvoker = new LJMProxyInvoker(objectName, new Class[] { interfaceClass }, new LJMEndpoint(
+				host, port, objectName));
+		return (T) Proxy.newProxyInstance(LJMProxyFactory.class.getClassLoader(), new Class[] { interfaceClass },
+				proxyInvoker);
+	}
 }

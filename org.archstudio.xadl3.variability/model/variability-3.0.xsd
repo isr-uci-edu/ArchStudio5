@@ -54,8 +54,20 @@
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
-		<xs:attribute name="id" type="xs:ID"/>
-		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+
+	<xs:complexType name="TransformChangeSetOfChanges">
+		<xs:complexContent>
+			<xs:extension base="ChangeSetOfChanges" />
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="JavaTransformChangeSetOfChanges">
+		<xs:complexContent>
+			<xs:extension base="TransformChangeSetOfChanges" />
+		</xs:complexContent>
+		<xs:attribute name="bundle" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
 	</xs:complexType>
 
 	<xs:complexType name="Change">
