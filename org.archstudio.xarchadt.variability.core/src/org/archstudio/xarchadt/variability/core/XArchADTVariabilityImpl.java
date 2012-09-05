@@ -1514,31 +1514,32 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 			preElementChange.setType(null);
 			preElementChange.getChange().clear();
 		}
-
-		int diffIndex = 0;
-		while (diffIndex < preChangePath.size() && diffIndex < postChangePath.size()) {
-			if (!SystemUtils.nullEquals(preChangePath.get(diffIndex), postChangePath.get(diffIndex))) {
-				break;
+		if (!postChangePath.contains(null)) {
+			int diffIndex = 0;
+			while (diffIndex < preChangePath.size() && diffIndex < postChangePath.size()) {
+				if (!SystemUtils.nullEquals(preChangePath.get(diffIndex), postChangePath.get(diffIndex))) {
+					break;
+				}
+				diffIndex++;
 			}
-			diffIndex++;
+
+			while (getChangePath(eObject).size() > diffIndex)
+				eObject = eObject.eContainer();
+			final EObject eParentObject = eObject.eContainer();
+			final EStructuralFeature eFeature = eObject.eContainingFeature();
+
+			synchronizeElement(vs, synchronizeIndecies, eObject, resolveElementChanges(vs._changeSets, eObject),
+					new SynchElementHelper(!eFeature.isMany()) {
+						@SuppressWarnings("unchecked")
+						@Override
+						public void set(EObject newEObject) {
+							if (!eFeature.isMany())
+								eParentObject.eSet(eFeature, newEObject);
+							else
+								((EList<EObject>) eParentObject.eGet(eFeature)).add(newEObject);
+						}
+					}, endRunnables);
 		}
-
-		while (getChangePath(eObject).size() > diffIndex)
-			eObject = eObject.eContainer();
-		final EObject eParentObject = eObject.eContainer();
-		final EStructuralFeature eFeature = eObject.eContainingFeature();
-
-		synchronizeElement(vs, synchronizeIndecies, eObject, resolveElementChanges(vs._changeSets, eObject),
-				new SynchElementHelper(!eFeature.isMany()) {
-					@SuppressWarnings("unchecked")
-					@Override
-					public void set(EObject newEObject) {
-						if (!eFeature.isMany())
-							eParentObject.eSet(eFeature, newEObject);
-						else
-							((EList<EObject>) eParentObject.eGet(eFeature)).add(newEObject);
-					}
-				}, endRunnables);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -1619,30 +1620,32 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 				super.set(baseObjRef, typeOfThing, value);
 				synchronizeElement(vs, eObject, preChangePath, preElementChange, postChangePath);
 			}
-			else if (eFeature instanceof EAttribute || eFeature instanceof EReference
-					&& !((EReference) eFeature).isContainment()) {
-				synchronizeAttribute(vs, eObject, eFeature,
-						resolveAttributeChanges(vs.workingChangeSets, eObject, eFeature.getName()),
-						new SynchAttributeHelper());
-			}
-			else if (value != null) {
-				EObject childEObject = get((ObjRef) value);
-				synchronizeElement(vs, childEObject, resolveElementChanges(vs.workingChangeSets, childEObject),
-						new SynchElementHelper(true) {
-							@Override
-							public void set(EObject newEObject) {
-								eObject.eSet(eFeature, newEObject);
-							}
-						});
-			}
-			else {
-				synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
-						new SynchElementHelper(true) {
-							@Override
-							public void set(EObject newEObject) {
-								eObject.eSet(eFeature, newEObject);
-							}
-						});
+			else if (!postChangePath.contains(null)) {
+				if (eFeature instanceof EAttribute || eFeature instanceof EReference
+						&& !((EReference) eFeature).isContainment()) {
+					synchronizeAttribute(vs, eObject, eFeature,
+							resolveAttributeChanges(vs.workingChangeSets, eObject, eFeature.getName()),
+							new SynchAttributeHelper());
+				}
+				else if (value != null) {
+					EObject childEObject = get((ObjRef) value);
+					synchronizeElement(vs, childEObject, resolveElementChanges(vs.workingChangeSets, childEObject),
+							new SynchElementHelper(true) {
+								@Override
+								public void set(EObject newEObject) {
+									eObject.eSet(eFeature, newEObject);
+								}
+							});
+				}
+				else {
+					synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
+							new SynchElementHelper(true) {
+								@Override
+								public void set(EObject newEObject) {
+									eObject.eSet(eFeature, newEObject);
+								}
+							});
+				}
 			}
 		}
 	}
