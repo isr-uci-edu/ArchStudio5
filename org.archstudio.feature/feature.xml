@@ -25,6 +25,7 @@
          version="0.0.0"/>
 
    <requires>
+      <import plugin="org.eclipse.jdt.annotation"/>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.debug.core"/>
       <import plugin="org.eclipse.emf.common"/>
@@ -32,6 +33,7 @@
       <import plugin="org.eclipse.ui.views"/>
       <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.jface"/>
+      <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.emf.importer"/>
@@ -42,13 +44,12 @@
       <import plugin="org.eclipse.swt"/>
       <import plugin="org.eclipse.emf"/>
       <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.jet"/>
       <import plugin="org.eclipse.pde"/>
       <import plugin="org.eclipse.emf.codegen.ecore"/>
+      <import plugin="org.eclipse.core.commands"/>
       <import plugin="org.eclipse.equinox.registry"/>
-      <import plugin="org.junit"/>
    </requires>
 
    <plugin
@@ -539,5 +540,40 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+
+   <plugin
+         id="org.archstudio.ljm"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.xarchadt.variability"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.xadl3.variability"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.xarchadt.variability.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.xarchadt.variability.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
