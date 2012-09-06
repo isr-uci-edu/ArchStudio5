@@ -59,26 +59,28 @@ public class VariabilityUtils {
 
 		// clear active change set
 		ObjRef activeChangeSetRef = xarch.getActiveChangeSet(documentRootRef);
-		xarch.setActiveChangeSet(documentRootRef, transformChangeSetRef);
-
-		// clear change set that will be dynamically populated
-		changeSet.setElementChange(null);
+		xarch.setActiveChangeSet(documentRootRef, null);
 
 		// turn off explicit change sets
 		Set<ObjRef> explicitChangeSetRefs = xarch.getExplicitChangeSets(documentRootRef);
 		xarch.setExplicitChangeSets(documentRootRef, Sets.<ObjRef> newHashSet());
 
-		// apply only change sets up to and including the transform change set
+		// apply only change sets up to, but excluding the transform change set
 		List<ObjRef> appliedChangeSetRefs = Lists.newArrayList(xarch.getAppliedChangeSets(documentRootRef));
 		List<ObjRef> allChangeSetRefs = Lists.newArrayList(XArchADTProxy.unproxy(variability.getChangeSet()));
 		List<ObjRef> releventChangeSetRefs = allChangeSetRefs.subList(0,
 				allChangeSetRefs.indexOf(transformChangeSetRef));
 		List<ObjRef> newAppliedChangeSetRefs = Lists.newArrayList(appliedChangeSetRefs);
 		newAppliedChangeSetRefs.retainAll(releventChangeSetRefs);
-		newAppliedChangeSetRefs.add(transformChangeSetRef);
 		xarch.applyChangeSets(documentRootRef, newAppliedChangeSetRefs);
 
+		// clear change set that will be dynamically populated, apply it
+		changeSet.setElementChange(null);
+		newAppliedChangeSetRefs.add(transformChangeSetRef);
+		xarch.applyChangeSets(documentRootRef, newAppliedChangeSetRefs);
+		
 		// perform the transform
+		xarch.setActiveChangeSet(documentRootRef, transformChangeSetRef);
 		transform.transform(xarch, documentRootRef);
 
 		// restore the original applied, explicit and active change sets
