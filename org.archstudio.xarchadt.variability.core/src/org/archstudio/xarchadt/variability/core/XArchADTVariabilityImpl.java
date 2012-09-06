@@ -1606,7 +1606,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		}
 		else {
 			final EObject eObject = get(baseObjRef);
-			final EStructuralFeature eFeature = getEFeature(eObject, typeOfThing);
+			final EStructuralFeature eFeature = getEFeature(eObject, typeOfThing, false);
 
 			List<String> preChangePath = getChangePath(eObject);
 			Serializable oldValue = super.get(baseObjRef, typeOfThing);
@@ -1658,7 +1658,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		}
 		else {
 			final EObject eObject = get(baseObjRef);
-			final EStructuralFeature eFeature = getEFeature(eObject, typeOfThing);
+			final EStructuralFeature eFeature = getEFeature(eObject, typeOfThing, false);
 
 			List<String> preChangePath = getChangePath(eObject);
 			ElementChange preElementChange = preChangePath.contains(null) ? null : createElementChange(
@@ -1708,7 +1708,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		}
 		else {
 			final EObject eObject = get(baseObjRef);
-			final EStructuralFeature eFeature = getEFeature(eObject, typeOfThing);
+			final EStructuralFeature eFeature = getEFeature(eObject, typeOfThing, true);
 			super.add(baseObjRef, typeOfThing, thingToAdd);
 			if (!(thingToAdd instanceof ObjRef)) {
 				List<String> changePath = getChangePath(eObject);

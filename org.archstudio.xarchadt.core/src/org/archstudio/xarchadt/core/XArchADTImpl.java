@@ -253,24 +253,34 @@ public class XArchADTImpl implements IXArchADT {
 				}
 			});
 
-	private static final EStructuralFeature getEFeature(EClass eClass, String featureName) {
+	private static final EStructuralFeature getEFeature(EClass eClass, String featureName, boolean many) {
 		EStructuralFeature eFeature = caselessFeatureCache.getUnchecked(eClass).get(featureName);
 		if (eFeature == null) {
 			throw new IllegalArgumentException(SystemUtils.message(//
 					"EClass '$0' does not contain EFeature '$1' in EPackage '$2'.",//
 					eClass.getName(), featureName, eClass.getEPackage().getNsURI()));
 		}
+		if (eFeature.isMany() && !many){
+			throw new IllegalArgumentException(SystemUtils.message(//
+					"EFeature '$0' is many in EClass '$1:$2'.",//
+					featureName, eClass.getEPackage().getNsURI(), eClass.getName()));
+		}
+		if (!eFeature.isMany() && many){
+			throw new IllegalArgumentException(SystemUtils.message(//
+					"EFeature '$0' is single in EClass '$1:$2'.",//
+					featureName, eClass.getEPackage().getNsURI(), eClass.getName()));
+		}
 		return eFeature;
 	}
 
-	protected static final EStructuralFeature getEFeature(EObject eObject, String featureName) {
-		return getEFeature(eObject.eClass(), featureName);
+	protected static final EStructuralFeature getEFeature(EObject eObject, String featureName, boolean many) {
+		return getEFeature(eObject.eClass(), featureName, many);
 	}
 
 	@SuppressWarnings({ "unchecked" })
 	private static final EList<Object> getEList(EObject eObject, String featureName) {
 		try {
-			return (EList<Object>) eObject.eGet(getEFeature(eObject.eClass(), featureName));
+			return (EList<Object>) eObject.eGet(getEFeature(eObject.eClass(), featureName, true));
 		}
 		catch (ClassCastException e) {
 			throw new RuntimeException(SystemUtils.message(//
@@ -287,7 +297,7 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public synchronized void set(ObjRef baseObjRef, String typeOfThing, @Nullable Serializable value) {
 		EObject baseEObject = get(baseObjRef);
-		baseEObject.eSet(getEFeature(baseEObject, typeOfThing), uncheck(value));
+		baseEObject.eSet(getEFeature(baseEObject, typeOfThing, false), uncheck(value));
 	}
 
 	@Override
@@ -299,7 +309,7 @@ public class XArchADTImpl implements IXArchADT {
 	public synchronized @Nullable
 	Serializable get(ObjRef baseObjRef, String typeOfThing, boolean resolve) {
 		EObject baseEObject = get(baseObjRef);
-		return check(baseEObject.eGet(getEFeature(baseEObject, typeOfThing), resolve));
+		return check(baseEObject.eGet(getEFeature(baseEObject, typeOfThing, false), resolve));
 	}
 
 	@Override
@@ -312,7 +322,7 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public synchronized void clear(ObjRef baseObjRef, String typeOfThing) {
 		EObject baseEObject = get(baseObjRef);
-		baseEObject.eUnset(getEFeature(baseEObject, typeOfThing));
+		baseEObject.eUnset(getEFeature(baseEObject, typeOfThing, false));
 	}
 
 	@Override

@@ -108,7 +108,10 @@ public class EObjectProxy extends AbstractProxy {
 		}
 
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
-			Serializable result = proxy.xarch.get(proxy.objRef, ((EStructuralFeature) args[0]).getName());
+			EStructuralFeature feature = (EStructuralFeature) args[0];
+			if(feature.isMany())
+				return EListProxy.proxy(proxy.xarch, proxy.objRef, feature.getName());
+			Serializable result = proxy.xarch.get(proxy.objRef, feature.getName());
 			return result instanceof ObjRef ? XArchADTProxy.proxy(proxy.xarch, (ObjRef) result) : result;
 		}
 	}
