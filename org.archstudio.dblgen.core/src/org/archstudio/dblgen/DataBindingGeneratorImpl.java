@@ -732,6 +732,10 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			URI nsURI = URI.createURI(c.getAttribute("nsURI"));
 			String localFile = c.getAttribute("file");
 			Bundle bundle = Platform.getBundle(c.getContributor().getName());
+			if (bundle.getResource(localFile) == null) {
+				throw new NullPointerException("Cannot find schema for " + c.getContributor().getName() + "/"
+						+ localFile + ". Did you include it in the build?");
+			}
 			URI xsdURI = URI.createURI(bundle.getResource(localFile).toString());
 			processedSchema.put(nsURI, xsdURI);
 		}
@@ -783,8 +787,9 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 						.next();
 				schemaScannedForOfflineUse.add(schemaToScan);
 				for (Entry<String, String> e : getImportsForSchema(schemaToScan.toString(), resourceSet).entrySet()) {
-					if(processedSchema.containsKey(URI.createURI(e.getKey()))){
-						URIConverter.URI_MAP.put(URI.createURI(e.getValue()), processedSchema.get(URI.createURI(e.getKey())));
+					if (processedSchema.containsKey(URI.createURI(e.getKey()))) {
+						URIConverter.URI_MAP.put(URI.createURI(e.getValue()),
+								processedSchema.get(URI.createURI(e.getKey())));
 						schemaToScanForOfflineUse.add(URI.createURI(e.getValue()));
 					}
 				}
