@@ -736,6 +736,9 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			processedSchema.put(nsURI, xsdURI);
 		}
 
+		// keep a list of the schema that we should recursively scan for offline use
+		Set<URI> schemaToScanForOfflineUse = Sets.newHashSet();
+
 		// Map imports from schema, for offline use
 		for (SchemaRecord schemaRecord : schemaRecords) {
 			for (Entry<String, String> anImport : schemaRecord.getImports().entrySet()) {
@@ -743,6 +746,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 				if (processedSchema.containsKey(importedNsURI)) {
 					// we have to use the global map as the importer doesn't expose a local one
 					URIConverter.URI_MAP.put(URI.createURI(anImport.getValue()), processedSchema.get(importedNsURI));
+					schemaToScanForOfflineUse.add(URI.createURI(anImport.getValue()));
 				}
 			}
 		}
@@ -765,9 +769,30 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					if (fileURI != null) {
 						// we have to use the global map as the importer doesn't expose a local one
 						URIConverter.URI_MAP.put(schemaLocation, URI.createURI(fileURI.toASCIIString()));
+						schemaToScanForOfflineUse.add(URI.createURI(fileURI.toASCIIString()));
 					}
 				}
 			}
+		}
+
+		// recursively scan offline schema and find other imported offline schema
+		Set<URI> schemaScannedForOfflineUse = Sets.newHashSet();
+		try {
+			while (!schemaScannedForOfflineUse.equals(schemaToScanForOfflineUse)) {
+				URI schemaToScan = Sets.difference(schemaToScanForOfflineUse, schemaScannedForOfflineUse).iterator()
+						.next();
+				schemaScannedForOfflineUse.add(schemaToScan);
+				for (Entry<String, String> e : getImportsForSchema(schemaToScan.toString(), resourceSet).entrySet()) {
+					if(processedSchema.containsKey(URI.createURI(e.getKey()))){
+						URIConverter.URI_MAP.put(URI.createURI(e.getValue()), processedSchema.get(URI.createURI(e.getKey())));
+						schemaToScanForOfflineUse.add(URI.createURI(e.getValue()));
+					}
+				}
+			}
+		}
+		catch (Exception e) {
+			statusList.add(new DataBindingGenerationStatus(null, Status.FAILURE, "Exception parsing schemas", e));
+			return statusList;
 		}
 
 		// primaryNSURIs is a list of NSURIs from schemas in the project
