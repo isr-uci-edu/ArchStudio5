@@ -32,6 +32,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.emf.codegen.ecore.generator.Generator;
@@ -995,6 +996,13 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					description.setPackageExports(packageExports.toArray(new IPackageExportDescription[packageExports
 							.size()]));
 
+					// update plugin's bin includes to include the model folder
+					List<IPath> binIncludes = notNull(description.getBinIncludes());
+					if(!binIncludes.contains(new Path("model/"))){
+						binIncludes.add(new Path("model/"));
+					}
+					description.setBinIncludes(binIncludes.toArray(new Path[0]));
+					
 					// make sure that extensions are allowed
 					description.setExtensionRegistry(true);
 
