@@ -234,8 +234,9 @@ public class XArchADTImpl implements IXArchADT {
 				}
 
 				private void apply0(@Nullable EClass eClass) {
-					if (eClass == null)
+					if (eClass == null) {
 						throw new NullPointerException();
+					}
 
 					for (EStructuralFeature eStructuralFeature : eClass.getEStructuralFeatures()) {
 						EStructuralFeature conflictingEStructuralFeature = featureIDs.put(
@@ -260,12 +261,12 @@ public class XArchADTImpl implements IXArchADT {
 					"EClass '$0' does not contain EFeature '$1' in EPackage '$2'.",//
 					eClass.getName(), featureName, eClass.getEPackage().getNsURI()));
 		}
-		if (eFeature.isMany() && !many){
+		if (eFeature.isMany() && !many) {
 			throw new IllegalArgumentException(SystemUtils.message(//
 					"EFeature '$0' is many in EClass '$1:$2'.",//
 					featureName, eClass.getEPackage().getNsURI(), eClass.getName()));
 		}
-		if (!eFeature.isMany() && many){
+		if (!eFeature.isMany() && many) {
 			throw new IllegalArgumentException(SystemUtils.message(//
 					"EFeature '$0' is single in EClass '$1:$2'.",//
 					featureName, eClass.getEPackage().getNsURI(), eClass.getName()));
@@ -449,16 +450,18 @@ public class XArchADTImpl implements IXArchADT {
 
 				@Override
 				public synchronized Map<String, IXArchADTFeature> load(@Nullable EClass eClass) throws Exception {
-					if (eClass == null)
+					if (eClass == null) {
 						throw new NullPointerException();
+					}
 
 					List<IXArchADTFeature> features = Lists.newArrayList();
 					features.addAll(Collections2.transform(eClass.getEAllAttributes(),
 							new Function<EAttribute, IXArchADTFeature>() {
 								@Override
 								public synchronized IXArchADTFeature apply(@Nullable EAttribute eFeature) {
-									if (eFeature == null)
+									if (eFeature == null) {
 										throw new NullPointerException();
+									}
 									return new BasicXArchADTFeature(eFeature.getName(), eFeature.getEType()
 											.getEPackage().getNsURI(), eFeature.getEType().getName(),
 											FeatureType.ATTRIBUTE, getValueType(eFeature), false);
@@ -468,8 +471,9 @@ public class XArchADTImpl implements IXArchADT {
 							new Function<EReference, IXArchADTFeature>() {
 								@Override
 								public synchronized IXArchADTFeature apply(@Nullable EReference eFeature) {
-									if (eFeature == null)
+									if (eFeature == null) {
 										throw new NullPointerException();
+									}
 									return new BasicXArchADTFeature(eFeature.getName(), eFeature.getEType()
 											.getEPackage().getNsURI(), eFeature.getEType().getName(),
 											eFeature.isMany() ? FeatureType.ELEMENT_MULTIPLE
@@ -480,8 +484,9 @@ public class XArchADTImpl implements IXArchADT {
 					return Maps.uniqueIndex(features, new Function<IXArchADTFeature, String>() {
 						@Override
 						public synchronized String apply(@Nullable IXArchADTFeature feature) {
-							if (feature == null)
+							if (feature == null) {
 								throw new NullPointerException();
+							}
 
 							return feature.getName();
 						}
@@ -498,8 +503,9 @@ public class XArchADTImpl implements IXArchADT {
 
 				@Override
 				public synchronized IXArchADTTypeMetadata load(@Nullable EClass eClass) throws Exception {
-					if (eClass == null)
+					if (eClass == null) {
 						throw new NullPointerException();
+					}
 					return new BasicXArchADTTypeMetadata(eClass.getEPackage().getNsURI(), eClass.getName(),
 							featureMetadataCache.get(eClass), eClass.isAbstract());
 				}
@@ -514,8 +520,9 @@ public class XArchADTImpl implements IXArchADT {
 
 				@Override
 				public synchronized IXArchADTPackageMetadata load(@Nullable EPackage ePackage) throws Exception {
-					if (ePackage == null)
+					if (ePackage == null) {
 						throw new NullPointerException();
+					}
 					return new BasicXArchADTPackageMetadata(ePackage.getNsURI(), Iterables.transform(
 							Iterables.filter(ePackage.getEClassifiers(), EClass.class),
 							new Function<EClass, IXArchADTTypeMetadata>() {
@@ -583,8 +590,9 @@ public class XArchADTImpl implements IXArchADT {
 
 	@Override
 	public synchronized boolean isInstanceOf(@Nullable ObjRef baseObjRef, String sourceNsURI, String sourceTypeName) {
-		if (baseObjRef == null)
+		if (baseObjRef == null) {
 			return false;
+		}
 		EObject baseEObject = get(baseObjRef);
 		return getEClass(ePackageCache.getUnchecked(sourceNsURI), sourceTypeName).isSuperTypeOf(baseEObject.eClass());
 	}
@@ -602,7 +610,7 @@ public class XArchADTImpl implements IXArchADT {
 	@Override
 	public synchronized ObjRef getDocumentRootRef(URI uri) {
 		Resource r = resourceSet.getResource(uri, false);
-		return r != null ? putNullable(r.getContents().get(0)) : null;
+		return r != null && r.getContents().size() > 0 ? putNullable(r.getContents().get(0)) : null;
 	}
 
 	@Nullable
@@ -842,8 +850,9 @@ public class XArchADTImpl implements IXArchADT {
 	class ContentAdapter extends EContentAdapter {
 		@Override
 		public synchronized void notifyChanged(@Nullable Notification notification) {
-			if (notification == null)
+			if (notification == null) {
 				throw new NullPointerException();
+			}
 
 			super.notifyChanged(notification);
 			if (notification.isTouch()) {
@@ -880,8 +889,9 @@ public class XArchADTImpl implements IXArchADT {
 			else if (newValue instanceof EObject) {
 				oldNewValueTagName = getTagName(put((EObject) newValue));
 			}
-			if (oldNewValueTagName == null)
+			if (oldNewValueTagName == null) {
 				oldNewValueTagName = featureName;
+			}
 
 			String oldValuePath = null;
 			if (oldValue instanceof EObject) {
@@ -970,8 +980,9 @@ public class XArchADTImpl implements IXArchADT {
 		for (ObjRef objRef : Lists.reverse(getAllAncestors(toObjRef))) {
 			EObject eObject = get(objRef);
 			EStructuralFeature feature = eObject.eContainingFeature();
-			if (feature == null)
+			if (feature == null) {
 				continue;
+			}
 			sb.append("/");
 			sb.append(feature.getName());
 			if (feature.isMany()) {
