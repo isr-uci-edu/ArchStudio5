@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio Prolog Analysis
+Bundle-SymbolicName: org.archstudio.prolog;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.archstudio.prolog.Activator
+Bundle-Vendor: archstudio.org
+Export-Package: org.archstudio.prolog
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf,
+ org.eclipse.emf.common,
+ org.archstudio.xarchadt,
+ org.archstudio.xarchadt.variability,
+ com.google.guava,
+ org.archstudio.utils.system,
+ alice.tuprologx.eclipse
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.archstudio.archipelago.core
+Bundle-ActivationPolicy: lazy

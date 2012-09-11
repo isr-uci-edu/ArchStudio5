@@ -40,6 +40,8 @@ Require-Bundle: com.google.guava,
  org.archstudio.xadl3.implementation.myxgen,
  org.archstudio.eclipse,
  org.eclipse.ui.ide,
- org.archstudio.xarchadt.variability
+ org.archstudio.xarchadt.variability,
+ org.archstudio.prolog,
+ alice.tuprologx.eclipse
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
