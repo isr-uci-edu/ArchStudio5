@@ -8,5 +8,6 @@ Require-Bundle: org.junit,
  org.archstudio.bna.tests,
  org.archstudio.xadl.tests,
  org.archstudio.xarchadt.tests,
- org.archstudio.xarchadt.variability.tests
+ org.archstudio.xarchadt.variability.tests,
+ org.archstudio.prolog
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
