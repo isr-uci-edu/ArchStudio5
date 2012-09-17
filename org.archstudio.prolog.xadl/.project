@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>org.archstudio.prolog</name>
+	<name>org.archstudio.prolog.xadl</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -25,11 +25,4 @@
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/org/archstudio/prolog/test/genealogy.pl</name>
-			<type>1</type>
-			<locationURI>PARENT-3-PROJECT_LOC/Desktop/genealogy.pl</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

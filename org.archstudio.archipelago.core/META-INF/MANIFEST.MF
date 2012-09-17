@@ -42,6 +42,6 @@ Require-Bundle: com.google.guava,
  org.eclipse.ui.ide,
  org.archstudio.xarchadt.variability,
  org.archstudio.prolog,
- alice.tuprologx.eclipse
+ org.archstudio.prolog.xadl
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

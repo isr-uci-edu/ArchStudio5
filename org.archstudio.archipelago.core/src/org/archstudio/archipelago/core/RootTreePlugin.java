@@ -1,9 +1,11 @@
 package org.archstudio.archipelago.core;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import org.archstudio.myx.fw.Services;
-import org.archstudio.prolog.PrologUtils;
+import org.archstudio.prolog.term.Term;
+import org.archstudio.prolog.xadl.PrologUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTProxy;
@@ -17,7 +19,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ui.PlatformUI;
 
-import alice.tuprolog.Prolog;
+import com.google.common.collect.Lists;
 
 public class RootTreePlugin extends AbstractArchipelagoTreePlugin {
 	public RootTreePlugin(TreeViewer viewer, final Services AS, ObjRef documentRootRef) {
@@ -57,8 +59,9 @@ public class RootTreePlugin extends AbstractArchipelagoTreePlugin {
 				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 					SubMonitor subMonitor = SubMonitor.convert(monitor, "Prolog", 1);
 					try {
-						Prolog engine = new Prolog();
-						PrologUtils.addFacts(engine, subMonitor.newChild(1), eObject);
+						List<Term> facts = Lists.newArrayList();
+						PrologUtils.addFacts(facts, subMonitor.newChild(1), eObject);
+						System.err.println(facts);
 					}
 					catch (Throwable t) {
 						throw new InvocationTargetException(t);

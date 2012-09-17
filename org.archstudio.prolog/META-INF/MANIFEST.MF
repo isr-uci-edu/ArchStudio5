@@ -1,19 +1,19 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Prolog Analysis
+Bundle-Name: ArchStudio Prolog Engine
 Bundle-SymbolicName: org.archstudio.prolog;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.prolog.Activator
 Bundle-Vendor: archstudio.org
-Export-Package: org.archstudio.prolog
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf,
- org.eclipse.emf.common,
- org.archstudio.xarchadt,
- org.archstudio.xarchadt.variability,
+Export-Package: org.archstudio.prolog,
+ org.archstudio.prolog.engine,
+ org.archstudio.prolog.op,
+ org.archstudio.prolog.term,
+ org.archstudio.prolog.test
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
  com.google.guava,
- org.archstudio.utils.system,
- alice.tuprologx.eclipse
+ org.junit,
+ org.eclipse.jdt.annotation
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.archstudio.archipelago.core
 Bundle-ActivationPolicy: lazy

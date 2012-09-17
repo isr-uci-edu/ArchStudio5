@@ -6,7 +6,6 @@
   <rm:locator pattern="^org\.tigris\.subversion(\..*)?$" searchPathRef="org.tigris.subversion" failOnError="false"/>
   <rm:locator pattern=".*" searchPathRef="org.eclipse" failOnError="false"/>
   <rm:locator pattern=".*" searchPathRef="org.archstudio" failOnError="false"/>
-  <rm:locator pattern=".*" searchPathRef="alice.tuprologx" failOnError="false"/>
   <rm:searchPath name="local.repos">
     <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="url.catalog">
       <rm:uri format="{1}/{0}">
@@ -102,13 +101,6 @@
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="http://download.eclipse.org/modeling/emf/updates/releases/?importType=binary" />
-    </rm:provider>
-  </rm:searchPath>
-  <rm:searchPath name="alice.tuprologx">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="http://tuprolog.googlecode.com/svn/2p-plugin/trunk/alice.tuprologx.eclipse.updatesite/?importType=binary" />
     </rm:provider>
   </rm:searchPath>
 </rm:rmap>
