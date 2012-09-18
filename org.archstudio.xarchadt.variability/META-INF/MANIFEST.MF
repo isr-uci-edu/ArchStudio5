@@ -8,7 +8,7 @@ Export-Package: org.archstudio.xarchadt.variability
 Require-Bundle: org.archstudio.xarchadt;visibility:=reexport,
  org.archstudio.xadl3.variability,
  org.archstudio.xadl3.xadlcore,
- com.google.guava,
+ org.archstudio.guava,
  org.archstudio.utils.system,
  org.archstudio.xadl3.structure,
  org.archstudio.ljm

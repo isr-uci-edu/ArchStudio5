@@ -16,5 +16,5 @@ Require-Bundle: org.archstudio.filemanager,
  org.eclipse.ui,
  org.eclipse.ui.ide,
  org.archstudio.eclipse.core,
- com.google.guava
+ org.archstudio.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

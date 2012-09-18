@@ -32,12 +32,12 @@ Export-Package: org.archstudio.bna,
  org.archstudio.bna.things.swt,
  org.archstudio.bna.things.utility,
  org.archstudio.bna.utils
-Require-Bundle: com.google.guava,
+Require-Bundle: org.archstudio.guava,
  org.archstudio.utils.swt,
  org.archstudio.utils.system,
  org.eclipse.core.runtime,
  org.eclipse.ui,
- org.jogamp.jogl,
+ org.archstudio.jogl,
  org.eclipse.jdt.annotation
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

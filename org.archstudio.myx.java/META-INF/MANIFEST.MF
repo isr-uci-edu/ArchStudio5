@@ -8,6 +8,6 @@ Export-Package: org.archstudio.myx.java,
  org.archstudio.myx.java.comp,
  org.archstudio.myx.java.conn
 Require-Bundle: org.archstudio.myx.fw,
- com.google.guava,
+ org.archstudio.guava,
  org.archstudio.myx.fw.equinox
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -12,7 +12,7 @@ Export-Package: org.archstudio.prolog,
  org.archstudio.prolog.test
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- com.google.guava,
+ org.archstudio.guava,
  org.junit,
  org.eclipse.jdt.annotation
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

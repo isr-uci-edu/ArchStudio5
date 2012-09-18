@@ -40,6 +40,7 @@
       <import plugin="org.eclipse.pde.core"/>
       <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.jdt.annotation"/>
       <import plugin="org.eclipse.equinox.registry"/>
       <import plugin="org.eclipse.ant.core"/>
       <import plugin="org.eclipse.debug.core"/>
@@ -67,13 +68,6 @@
 
    <plugin
          id="org.archstudio.utils.osgi"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.google.guava"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -165,6 +159,20 @@
 
    <plugin
          id="org.eclipse.jet.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.guava"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.ljm"
          download-size="0"
          install-size="0"
          version="0.0.0"

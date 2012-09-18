@@ -8,7 +8,7 @@ Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.dblgen,
  org.archstudio.dblgen.builder,
  org.archstudio.dblgen.core
-Require-Bundle: com.google.guava,
+Require-Bundle: org.archstudio.guava,
  org.archstudio.dblgen,
  org.archstudio.utils.system,
  org.eclipse.core.resources,

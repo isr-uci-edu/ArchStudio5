@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Guava (Google Common Libraries)
-Bundle-SymbolicName: com.google.guava;singleton:=true
+Bundle-SymbolicName: org.archstudio.guava;singleton:=true
 Bundle-Version: 12.0.0.qualifier
 Bundle-ClassPath: .,
  lib/jsr305.jar,

@@ -7,6 +7,6 @@ Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.utils.eclipse
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
- com.google.guava,
+ org.archstudio.guava,
  org.archstudio.utils.osgi
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -6,6 +6,6 @@ Bundle-Version: 5.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.myx.fw
-Require-Bundle: com.google.guava,
+Require-Bundle: org.archstudio.guava,
  org.archstudio.ljm
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

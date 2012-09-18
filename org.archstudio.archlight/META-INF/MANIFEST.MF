@@ -6,5 +6,5 @@ Bundle-Version: 5.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.archlight
 Require-Bundle: org.archstudio.xarchadt,
- com.google.guava
+ org.archstudio.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

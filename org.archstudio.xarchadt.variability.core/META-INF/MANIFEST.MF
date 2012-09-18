@@ -8,7 +8,7 @@ Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.xarchadt.variability.core
 Require-Bundle: org.archstudio.xarchadt.core;visibility:=reexport,
  org.archstudio.xarchadt.variability;visibility:=reexport,
- com.google.guava,
+ org.archstudio.guava,
  org.eclipse.emf.ecore,
  org.archstudio.xadl3.variability,
  org.archstudio.utils.system,

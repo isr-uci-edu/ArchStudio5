@@ -6,7 +6,7 @@ Bundle-Version: 5.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.xarchadt,
  org.archstudio.xarchadt.internal;x-internal:=true
-Require-Bundle: com.google.guava,
+Require-Bundle: org.archstudio.guava,
  org.archstudio.utils.system,
  org.eclipse.emf.common,
  org.eclipse.emf.ecore;visibility:=reexport,

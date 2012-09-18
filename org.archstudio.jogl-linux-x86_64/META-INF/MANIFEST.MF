@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio JOGL for linux-x86_64
-Bundle-SymbolicName: org.jogamp.jogl-linux-x86_64;singleton:=true
+Bundle-SymbolicName: org.archstudio.jogl-linux-x86_64;singleton:=true
 Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: archstudio.org
-Fragment-Host: org.jogamp.jogl;bundle-version="2.0.0.qualifier"
+Fragment-Host: org.archstudio.jogl;bundle-version="2.0.0.qualifier"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-NativeCode: libgluegen-rt.so; libjogl_desktop.so; libjogl_mobile.so; libnativewindow_awt.so; libnativewindow_x11.so; libnewt.so
 Eclipse-PlatformFilter: (& (osgi.os=linux) (osgi.arch=x86_64))

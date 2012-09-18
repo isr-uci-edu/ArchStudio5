@@ -10,5 +10,5 @@ Require-Bundle: org.archstudio.resources,
  org.archstudio.xarchadt,
  org.eclipse.emf.common,
  org.eclipse.ui,
- com.google.guava
+ org.archstudio.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

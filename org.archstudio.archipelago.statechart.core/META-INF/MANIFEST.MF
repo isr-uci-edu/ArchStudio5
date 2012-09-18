@@ -12,7 +12,7 @@ Require-Bundle: org.archstudio.archipelago,
  org.eclipse.jface,
  org.archstudio.xarchadt,
  org.archstudio.filemanager,
- com.google.guava,
+ org.archstudio.guava,
  org.archstudio.xadl,
  org.archstudio.bna,
  org.archstudio.utils.system,
@@ -23,7 +23,7 @@ Require-Bundle: org.archstudio.archipelago,
  org.archstudio.eclipse.ui,
  org.archstudio.launcher,
  org.archstudio.resources,
- org.jogamp.jogl,
+ org.archstudio.jogl,
  org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

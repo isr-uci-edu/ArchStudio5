@@ -8,7 +8,7 @@ Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.archipelago.core,
  org.archstudio.archipelago.core.prefs,
  org.archstudio.archipelago.core.util
-Require-Bundle: com.google.guava,
+Require-Bundle: org.archstudio.guava,
  org.archstudio.bna,
  org.archstudio.editormanager,
  org.archstudio.eclipse.ui,

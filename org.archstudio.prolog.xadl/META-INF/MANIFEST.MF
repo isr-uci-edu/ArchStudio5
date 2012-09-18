@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.common,
  org.archstudio.xarchadt,
  org.archstudio.xarchadt.variability,
- com.google.guava,
+ org.archstudio.guava,
  org.archstudio.utils.system
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.archstudio.xarchadt.tests;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.xarchadt.common
-Require-Bundle: com.google.guava,
+Require-Bundle: org.archstudio.guava,
  org.archstudio.xadl3.structure,
  org.archstudio.xarchadt,
  org.archstudio.xarchadt.core,

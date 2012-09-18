@@ -7,6 +7,6 @@ Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.myx.fw.equinox
 Require-Bundle: org.archstudio.myx.fw,
  org.eclipse.equinox.registry,
- com.google.guava,
+ org.archstudio.guava,
  org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -6,7 +6,7 @@ Bundle-Version: 5.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.myxgen
 Require-Bundle: org.eclipse.core.runtime,
- com.google.guava,
+ org.archstudio.guava,
  org.archstudio.utils.system,
  org.archstudio.myx.fw
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

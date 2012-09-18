@@ -16,7 +16,7 @@ Require-Bundle: org.archstudio.graphlayout,
  org.archstudio.xadl3.structure,
  org.archstudio.xarchadt,
  org.eclipse.ui,
- com.google.guava,
+ org.archstudio.guava,
  org.archstudio.eclipse.core,
  org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

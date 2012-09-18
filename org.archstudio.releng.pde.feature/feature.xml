@@ -26,6 +26,7 @@
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.pde.core"/>
       <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.jdt.annotation"/>
    </requires>
 
    <plugin
@@ -43,12 +44,6 @@
          unpack="false"/>
 
    <plugin
-         id="com.google.guava"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
          id="org.archstudio.releng.pde"
          download-size="0"
          install-size="0"
@@ -64,6 +59,13 @@
 
    <plugin
          id="org.archstudio.utils.system"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.guava"
          download-size="0"
          install-size="0"
          version="0.0.0"

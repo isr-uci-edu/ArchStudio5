@@ -10,7 +10,7 @@ Require-Bundle: org.archstudio.xadl3.structure,
  org.archstudio.xarchadt.core,
  org.junit,
  org.archstudio.xadl,
- com.google.guava,
+ org.archstudio.guava,
  org.archstudio.xadl3.hints,
  org.archstudio.xadl3.domain
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

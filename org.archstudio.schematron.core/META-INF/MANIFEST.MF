@@ -68,6 +68,6 @@ Require-Bundle: org.archstudio.archlight,
  org.archstudio.eclipse.core,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
- com.google.guava
+ org.archstudio.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

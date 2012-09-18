@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.jogamp.jogl.feature"
+      id="org.archstudio.jogl.feature"
       label="ArchStudio - JOGL (Java bindings for OpenGL)"
       version="2.0.0.qualifier"
       provider-name="archstudio.org"
@@ -24,26 +24,14 @@
    </requires>
 
    <plugin
-         id="org.jogamp.jogl"
+         id="org.archstudio.jogl"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.jogamp.jogl-win32-x86_64"
-         os="win32"
-         arch="x86_64"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="org.jogamp.jogl-linux-x86_64"
-         os="linux"
-         arch="x86_64"
+         id="org.archstudio.jogl-linux-x86_64"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -51,8 +39,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.jogamp.jogl-macosx"
-         os="macosx"
+         id="org.archstudio.jogl-macosx"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -60,9 +47,15 @@
          unpack="false"/>
 
    <plugin
-         id="org.jogamp.jogl-win32-x86"
-         os="win32"
-         arch="x86"
+         id="org.archstudio.jogl-win32-x86"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.jogl-win32-x86_64"
          download-size="0"
          install-size="0"
          version="0.0.0"

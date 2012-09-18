@@ -8,5 +8,5 @@ Export-Package: org.archstudio.eclipse.ui.actions
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
- com.google.guava
+ org.archstudio.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

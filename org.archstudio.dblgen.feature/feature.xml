@@ -54,6 +54,7 @@
       <import plugin="org.eclipse.pde.core"/>
       <import plugin="org.eclipse.xsd"/>
       <import plugin="org.eclipse.xsd.ecore.importer"/>
+      <import plugin="org.eclipse.jdt.annotation"/>
    </requires>
 
    <plugin
@@ -65,13 +66,6 @@
 
    <plugin
          id="org.archstudio.utils.eclipse.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.google.guava"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -121,6 +115,20 @@
 
    <plugin
          id="org.archstudio.myxgen"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.guava"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.ljm"
          download-size="0"
          install-size="0"
          version="0.0.0"

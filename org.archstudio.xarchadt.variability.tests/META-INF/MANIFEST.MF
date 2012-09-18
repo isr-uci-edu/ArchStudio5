@@ -14,7 +14,7 @@ Require-Bundle: org.junit,
  org.eclipse.emf.ecore,
  org.archstudio.xadl3.structure,
  org.archstudio.xadl3.xadlcore,
- com.google.guava,
+ org.archstudio.guava,
  org.archstudio.utils.system,
  org.archstudio.xadl3.hints
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

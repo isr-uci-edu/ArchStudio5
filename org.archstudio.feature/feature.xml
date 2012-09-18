@@ -21,7 +21,7 @@
    </license>
 
    <includes
-         id="org.jogamp.jogl.feature"
+         id="org.archstudio.jogl.feature"
          version="0.0.0"/>
 
    <requires>
@@ -50,6 +50,7 @@
       <import plugin="org.eclipse.emf.codegen.ecore"/>
       <import plugin="org.eclipse.core.commands"/>
       <import plugin="org.eclipse.equinox.registry"/>
+      <import plugin="org.junit"/>
    </requires>
 
    <plugin
@@ -494,13 +495,6 @@
          unpack="false"/>
 
    <plugin
-         id="com.google.guava"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.archstudio.archipelago"
          download-size="0"
          install-size="0"
@@ -534,12 +528,6 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <plugin
-         id="org.jogamp.jogl"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
 
    <plugin
          id="org.archstudio.ljm"
@@ -585,6 +573,20 @@
 
    <plugin
          id="org.archstudio.prolog.xadl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.guava"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.jogl"
          download-size="0"
          install-size="0"
          version="0.0.0"
