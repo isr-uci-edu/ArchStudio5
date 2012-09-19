@@ -55,7 +55,7 @@
 
 	<!-- COMPLEX TYPE: InitializationParameters -->
 	
-	<xs:complexType ecore:instanceClass="java.util.Map$Entry" name="InitializationParameter">
+	<xs:complexType name="InitializationParameter">
 		<xs:annotation>
 			<xs:documentation>
 				This type describes an initialization parameter.
