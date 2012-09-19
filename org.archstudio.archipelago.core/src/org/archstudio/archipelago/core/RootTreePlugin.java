@@ -1,25 +1,8 @@
 package org.archstudio.archipelago.core;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
 import org.archstudio.myx.fw.Services;
-import org.archstudio.prolog.term.Term;
-import org.archstudio.prolog.xadl.PrologUtils;
-import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.archstudio.xarchadt.XArchADTProxy;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.SubMonitor;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.ui.PlatformUI;
-
-import com.google.common.collect.Lists;
 
 public class RootTreePlugin extends AbstractArchipelagoTreePlugin {
 	public RootTreePlugin(TreeViewer viewer, final Services AS, ObjRef documentRootRef) {
@@ -34,46 +17,6 @@ public class RootTreePlugin extends AbstractArchipelagoTreePlugin {
 			}
 		};
 
-		this.contextMenuFillers = new IArchipelagoTreeContextMenuFiller[] { new IArchipelagoTreeContextMenuFiller() {
-			@Override
-			public void fillContextMenu(IMenuManager m, Object[] selectedNodes) {
-				if (selectedNodes != null && selectedNodes.length == 1) {
-					final Object selectedNode = selectedNodes[0];
-					IAction newStructureAction = new Action("Temporary Entry Point") {
-						@Override
-						public void run() {
-							process(XArchADTProxy.<EObject> proxy(AS.get(IXArchADT.class), (ObjRef) selectedNode));
-						}
-					};
-					m.add(newStructureAction);
-				}
-			}
-		} };
-	}
-
-	public void process(final EObject eObject) {
-		try {
-			PlatformUI.getWorkbench().getProgressService().run(true, true, new IRunnableWithProgress() {
-
-				@Override
-				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-					SubMonitor subMonitor = SubMonitor.convert(monitor, "Prolog", 1);
-					try {
-						List<Term> facts = Lists.newArrayList();
-						PrologUtils.addFacts(facts, subMonitor.newChild(1), eObject);
-						System.err.println(facts);
-					}
-					catch (Throwable t) {
-						throw new InvocationTargetException(t);
-					}
-				}
-			});
-		}
-		catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		this.contextMenuFillers = new IArchipelagoTreeContextMenuFiller[0];
 	}
 }
