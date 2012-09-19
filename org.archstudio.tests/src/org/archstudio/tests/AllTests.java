@@ -10,7 +10,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	org.archstudio.xadl.AllTests.class, 
 	org.archstudio.xarchadt.common.AllTests.class,
 	org.archstudio.xarchadt.variability.AllTests.class,
-	org.archstudio.prolog.test.AllTests.class})
+	org.archstudio.prolog.test.AllTests.class,
+	org.archstudio.prolog.parser.test.AllTests.class})
 public class AllTests {
 
 }

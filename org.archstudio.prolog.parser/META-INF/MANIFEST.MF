@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio Prolog Parser
+Bundle-SymbolicName: org.archstudio.prolog.parser
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.archstudio.prolog.parser.Activator
+Bundle-Vendor: archstudio.org
+Require-Bundle: org.eclipse.core.runtime,
+ org.archstudio.prolog,
+ org.archstudio.prolog.xtext,
+ org.junit
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: org.archstudio.prolog.parser,
+ org.archstudio.prolog.parser.test

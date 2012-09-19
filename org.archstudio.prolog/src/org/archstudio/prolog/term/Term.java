@@ -2,8 +2,8 @@ package org.archstudio.prolog.term;
 
 public interface Term {
 
-	boolean contains(VariableTerm v);
+	boolean contains(Term v);
 
-	Term replace(VariableTerm v, Term t);
+	Term replace(Term v, Term t);
 
 }

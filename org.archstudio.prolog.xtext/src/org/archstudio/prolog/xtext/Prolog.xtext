@@ -1,0 +1,45 @@
+grammar org.archstudio.prolog.xtext.Prolog with org.eclipse.xtext.common.Terminals
+
+generate prolog "http://www.archstudio.org/prolog/xtext/Prolog"
+
+Program:
+	(clauses+=SingleClause)* (query=Query)?;
+
+SingleClause:
+	(predicates+=Predicate) (':-' predicates+=Predicate (',' predicates+=Predicate)*)? '.';
+
+Query:
+	'?-' predicates+=Predicate (',' predicates+=Predicate)* '.';
+
+Predicate:
+	(value=SingleTerm) ('(' terms+=SingleTerm (',' terms+=SingleTerm)* ')')?;
+
+SingleTerm:
+	(numeral=NUMERAL) | (atom=SmallAtom) | (variable=Variable) | (string=STRING);
+
+SmallAtom:
+	LOWER_CASE_LETTER CHARACTER*;
+
+Variable:
+	UPPER_CASE_LETTER CHARACTER*;
+
+terminal NUMERAL:
+	'-'? DIGIT+;
+
+terminal STRING:
+	'\'' CHARACTER+ '\'';
+
+terminal DIGIT:
+	('0'..'9');
+
+terminal LOWER_CASE_LETTER:
+	('a'..'z');
+
+terminal UPPER_CASE_LETTER:
+	('A'..'Z' | '_');
+
+terminal SPECIAL:
+	('+' | '-' | '*' | '/' | '\\' | '^' | '~' | ':' | '.' | '?' | '@' | '#' | '$' | '&');
+
+terminal CHARACTER:
+	(LOWER_CASE_LETTER | UPPER_CASE_LETTER | DIGIT | SPECIAL);

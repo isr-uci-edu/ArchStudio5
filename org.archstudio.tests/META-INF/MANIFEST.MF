@@ -9,5 +9,6 @@ Require-Bundle: org.junit,
  org.archstudio.xadl.tests,
  org.archstudio.xarchadt.tests,
  org.archstudio.xarchadt.variability.tests,
- org.archstudio.prolog
+ org.archstudio.prolog,
+ org.archstudio.prolog.parser
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

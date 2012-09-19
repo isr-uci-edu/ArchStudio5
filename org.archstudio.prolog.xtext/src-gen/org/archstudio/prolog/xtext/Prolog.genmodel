@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.archstudio.prolog.xtext/src-gen" editDirectory="/org.archstudio.prolog.xtext.edit/src"
+    editorDirectory="/org.archstudio.prolog.xtext.editor/src" modelPluginID="org.archstudio.prolog.xtext"
+    forceOverwrite="true" modelName="Prolog" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="org.archstudio.prolog.xtext.edit"
+    editorPluginID="org.archstudio.prolog.xtext.editor" runtimeVersion="2.8">
+  <genPackages prefix="Prolog" basePackage="org.archstudio.prolog.xtext" disposableProviderFactory="true"
+      ecorePackage="Prolog.ecore#/">
+    <genClasses ecoreClass="Prolog.ecore#//Program">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Program/clauses"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Program/query"/>
+    </genClasses>
+    <genClasses ecoreClass="Prolog.ecore#//SingleClause">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//SingleClause/predicates"/>
+    </genClasses>
+    <genClasses ecoreClass="Prolog.ecore#//Query">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Query/predicates"/>
+    </genClasses>
+    <genClasses ecoreClass="Prolog.ecore#//Predicate">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Predicate/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Predicate/terms"/>
+    </genClasses>
+    <genClasses ecoreClass="Prolog.ecore#//SingleTerm">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/numeral"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/atom"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/variable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/string"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

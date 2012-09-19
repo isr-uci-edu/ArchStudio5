@@ -3,7 +3,6 @@ package org.archstudio.prolog.term;
 import java.util.Arrays;
 import java.util.List;
 
-
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
@@ -39,16 +38,17 @@ public class ComplexTerm implements Term {
 	}
 
 	@Override
-	public boolean contains(VariableTerm v) {
+	public boolean contains(Term v) {
 		for (Term t : terms) {
-			if (t.contains(v)) {
+			if (t.equals(v) || t.contains(v)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public Term replace(VariableTerm v, Term t) {
+	@Override
+	public Term replace(Term v, Term t) {
 		List<Term> terms2 = Lists.newArrayListWithCapacity(terms.size());
 		for (Term i : terms) {
 			terms2.add(i.replace(v, t));
@@ -56,6 +56,7 @@ public class ComplexTerm implements Term {
 		return new ComplexTerm(functor, terms2);
 	}
 
+	@Override
 	public String toString() {
 		return functor + "(" + Joiner.on(',').join(terms) + ")";
 	}
@@ -64,30 +65,39 @@ public class ComplexTerm implements Term {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((functor == null) ? 0 : functor.hashCode());
-		result = prime * result + ((terms == null) ? 0 : terms.hashCode());
+		result = prime * result + (functor == null ? 0 : functor.hashCode());
+		result = prime * result + (terms == null ? 0 : terms.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		ComplexTerm other = (ComplexTerm) obj;
 		if (functor == null) {
-			if (other.functor != null)
+			if (other.functor != null) {
 				return false;
-		} else if (!functor.equals(other.functor))
+			}
+		}
+		else if (!functor.equals(other.functor)) {
 			return false;
+		}
 		if (terms == null) {
-			if (other.terms != null)
+			if (other.terms != null) {
 				return false;
-		} else if (!terms.equals(other.terms))
+			}
+		}
+		else if (!terms.equals(other.terms)) {
 			return false;
+		}
 		return true;
 	}
 }
