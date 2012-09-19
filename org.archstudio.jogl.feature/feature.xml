@@ -32,34 +32,37 @@
 
    <plugin
          id="org.archstudio.jogl-linux-x86_64"
+         os="linux"
+         arch="x86_64"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         fragment="true"
-         unpack="false"/>
+         fragment="true"/>
 
    <plugin
          id="org.archstudio.jogl-macosx"
+         os="macosx"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         fragment="true"
-         unpack="false"/>
+         fragment="true"/>
 
    <plugin
          id="org.archstudio.jogl-win32-x86"
+         os="win32"
+         arch="x86"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         fragment="true"
-         unpack="false"/>
+         fragment="true"/>
 
    <plugin
          id="org.archstudio.jogl-win32-x86_64"
+         os="win32"
+         arch="x86_64"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         fragment="true"
-         unpack="false"/>
+         fragment="true"/>
 
 </feature>
