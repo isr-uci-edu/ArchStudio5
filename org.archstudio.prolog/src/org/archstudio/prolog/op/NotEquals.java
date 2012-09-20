@@ -13,7 +13,7 @@ import org.archstudio.prolog.term.VariableTerm;
 
 public class NotEquals extends Operation {
 
-	public NotEquals(String functor, List<Term> terms) {
+	public NotEquals(List<Term> terms) {
 		super("\\=", terms);
 		checkArgument(terms.size() == 2);
 	}

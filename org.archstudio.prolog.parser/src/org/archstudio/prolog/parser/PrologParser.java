@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
 
+import org.archstudio.prolog.op.Equals;
+import org.archstudio.prolog.op.NotEquals;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
 import org.archstudio.prolog.term.Rule;
@@ -37,6 +39,9 @@ public class PrologParser {
 			Resource resource = resourceSet.createResource(URI.createURI("null:/prolog.pl"));
 			InputStream in = new ByteArrayInputStream(input.getBytes());
 			resource.load(in, resourceSet.getLoadOptions());
+			if (resource.getErrors().size() > 0) {
+				throw new IllegalArgumentException(resource.getErrors().get(0).toString());
+			}
 			return (Program) resource.getContents().get(0);
 		}
 		catch (Exception e) {
@@ -68,10 +73,16 @@ public class PrologParser {
 		if (p.getTerms().size() == 0) {
 			return parseSingleTerm(p.getValue());
 		}
-		String name = p.getValue().getAtom();
+		String name = p.getValue() != null ? p.getValue().getAtom() : p.getOperation();
 		List<Term> terms = Lists.newArrayList();
 		for (SingleTerm t : p.getTerms()) {
 			terms.add(parseSingleTerm(t));
+		}
+		if (name.equals("==")) {
+			return new Equals(terms);
+		}
+		if (name.equals("\\=")) {
+			return new NotEquals(terms);
 		}
 		return new ComplexTerm(name, terms);
 	}

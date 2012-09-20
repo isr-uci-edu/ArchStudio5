@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.PredicateImpl#getValue <em>Value</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.PredicateImpl#getTerms <em>Terms</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.PredicateImpl#getOperation <em>Operation</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,6 +58,26 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
    * @ordered
    */
   protected EList<SingleTerm> terms;
+
+  /**
+   * The default value of the '{@link #getOperation() <em>Operation</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOperation()
+   * @generated
+   * @ordered
+   */
+  protected static final String OPERATION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getOperation() <em>Operation</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOperation()
+   * @generated
+   * @ordered
+   */
+  protected String operation = OPERATION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -146,6 +167,29 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getOperation()
+  {
+    return operation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setOperation(String newOperation)
+  {
+    String oldOperation = operation;
+    operation = newOperation;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, PrologPackage.PREDICATE__OPERATION, oldOperation, operation));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -173,6 +217,8 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
         return getValue();
       case PrologPackage.PREDICATE__TERMS:
         return getTerms();
+      case PrologPackage.PREDICATE__OPERATION:
+        return getOperation();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -195,6 +241,9 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
         getTerms().clear();
         getTerms().addAll((Collection<? extends SingleTerm>)newValue);
         return;
+      case PrologPackage.PREDICATE__OPERATION:
+        setOperation((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -215,6 +264,9 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
       case PrologPackage.PREDICATE__TERMS:
         getTerms().clear();
         return;
+      case PrologPackage.PREDICATE__OPERATION:
+        setOperation(OPERATION_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -233,8 +285,27 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
         return value != null;
       case PrologPackage.PREDICATE__TERMS:
         return terms != null && !terms.isEmpty();
+      case PrologPackage.PREDICATE__OPERATION:
+        return OPERATION_EDEFAULT == null ? operation != null : !OPERATION_EDEFAULT.equals(operation);
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (operation: ");
+    result.append(operation);
+    result.append(')');
+    return result.toString();
   }
 
 } //PredicateImpl

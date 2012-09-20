@@ -21,26 +21,30 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalPrologParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_NUMERAL", "RULE_STRING", "RULE_LOWER_CASE_LETTER", "RULE_CHARACTER", "RULE_UPPER_CASE_LETTER", "RULE_DIGIT", "RULE_SPECIAL", "RULE_ID", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "':-'", "','", "'.'", "'?-'", "'('", "')'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_NUMERAL", "RULE_SMALL_ATOM", "RULE_VARIABLE", "RULE_STRING", "RULE_LOWER_CASE_LETTER", "RULE_DIGIT", "RULE_UPPER_CASE_LETTER", "RULE_CHARACTER", "RULE_SPECIAL", "RULE_ID", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "':-'", "','", "'.'", "'?-'", "'('", "')'", "'=='", "'\\\\='"
     };
-    public static final int RULE_UPPER_CASE_LETTER=8;
-    public static final int RULE_ID=11;
+    public static final int RULE_ID=13;
+    public static final int RULE_UPPER_CASE_LETTER=10;
+    public static final int T__26=26;
+    public static final int T__25=25;
+    public static final int T__24=24;
+    public static final int T__23=23;
     public static final int T__22=22;
-    public static final int RULE_ANY_OTHER=16;
+    public static final int RULE_ANY_OTHER=18;
     public static final int T__21=21;
     public static final int T__20=20;
-    public static final int RULE_CHARACTER=7;
-    public static final int RULE_LOWER_CASE_LETTER=6;
-    public static final int RULE_SL_COMMENT=14;
+    public static final int RULE_SMALL_ATOM=5;
+    public static final int RULE_CHARACTER=11;
+    public static final int RULE_LOWER_CASE_LETTER=8;
+    public static final int RULE_SL_COMMENT=16;
     public static final int EOF=-1;
-    public static final int RULE_ML_COMMENT=13;
+    public static final int RULE_ML_COMMENT=15;
     public static final int T__19=19;
-    public static final int RULE_STRING=5;
-    public static final int T__18=18;
-    public static final int T__17=17;
-    public static final int RULE_SPECIAL=10;
-    public static final int RULE_INT=12;
-    public static final int RULE_WS=15;
+    public static final int RULE_STRING=7;
+    public static final int RULE_VARIABLE=6;
+    public static final int RULE_SPECIAL=12;
+    public static final int RULE_INT=14;
+    public static final int RULE_WS=17;
     public static final int RULE_NUMERAL=4;
     public static final int RULE_DIGIT=9;
 
@@ -143,7 +147,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( ((LA1_0>=RULE_NUMERAL && LA1_0<=RULE_LOWER_CASE_LETTER)||LA1_0==RULE_UPPER_CASE_LETTER) ) {
+                if ( ((LA1_0>=RULE_NUMERAL && LA1_0<=RULE_STRING)||(LA1_0>=25 && LA1_0<=26)) ) {
                     alt1=1;
                 }
 
@@ -190,7 +194,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             int alt2=2;
             int LA2_0 = input.LA(1);
 
-            if ( (LA2_0==20) ) {
+            if ( (LA2_0==22) ) {
                 alt2=1;
             }
             switch (alt2) {
@@ -343,14 +347,14 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             int alt4=2;
             int LA4_0 = input.LA(1);
 
-            if ( (LA4_0==17) ) {
+            if ( (LA4_0==19) ) {
                 alt4=1;
             }
             switch (alt4) {
                 case 1 :
                     // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:155:4: otherlv_1= ':-' ( (lv_predicates_2_0= rulePredicate ) ) (otherlv_3= ',' ( (lv_predicates_4_0= rulePredicate ) ) )*
                     {
-                    otherlv_1=(Token)match(input,17,FOLLOW_17_in_ruleSingleClause259); 
+                    otherlv_1=(Token)match(input,19,FOLLOW_19_in_ruleSingleClause259); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getSingleClauseAccess().getColonHyphenMinusKeyword_1_0());
                         
@@ -391,7 +395,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                         int alt3=2;
                         int LA3_0 = input.LA(1);
 
-                        if ( (LA3_0==18) ) {
+                        if ( (LA3_0==20) ) {
                             alt3=1;
                         }
 
@@ -400,7 +404,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                     	case 1 :
                     	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:177:4: otherlv_3= ',' ( (lv_predicates_4_0= rulePredicate ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,18,FOLLOW_18_in_ruleSingleClause293); 
+                    	    otherlv_3=(Token)match(input,20,FOLLOW_20_in_ruleSingleClause293); 
 
                     	        	newLeafNode(otherlv_3, grammarAccess.getSingleClauseAccess().getCommaKeyword_1_2_0());
                     	        
@@ -450,7 +454,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,19,FOLLOW_19_in_ruleSingleClause330); 
+            otherlv_5=(Token)match(input,21,FOLLOW_21_in_ruleSingleClause330); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getSingleClauseAccess().getFullStopKeyword_2());
                 
@@ -532,7 +536,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:224:1: (otherlv_0= '?-' ( (lv_predicates_1_0= rulePredicate ) ) (otherlv_2= ',' ( (lv_predicates_3_0= rulePredicate ) ) )* otherlv_4= '.' )
             // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:224:3: otherlv_0= '?-' ( (lv_predicates_1_0= rulePredicate ) ) (otherlv_2= ',' ( (lv_predicates_3_0= rulePredicate ) ) )* otherlv_4= '.'
             {
-            otherlv_0=(Token)match(input,20,FOLLOW_20_in_ruleQuery413); 
+            otherlv_0=(Token)match(input,22,FOLLOW_22_in_ruleQuery413); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getQueryAccess().getQuestionMarkHyphenMinusKeyword_0());
                 
@@ -573,7 +577,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                 int alt5=2;
                 int LA5_0 = input.LA(1);
 
-                if ( (LA5_0==18) ) {
+                if ( (LA5_0==20) ) {
                     alt5=1;
                 }
 
@@ -582,7 +586,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:246:4: otherlv_2= ',' ( (lv_predicates_3_0= rulePredicate ) )
             	    {
-            	    otherlv_2=(Token)match(input,18,FOLLOW_18_in_ruleQuery447); 
+            	    otherlv_2=(Token)match(input,20,FOLLOW_20_in_ruleQuery447); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getQueryAccess().getCommaKeyword_2_0());
             	        
@@ -626,7 +630,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_4=(Token)match(input,19,FOLLOW_19_in_ruleQuery482); 
+            otherlv_4=(Token)match(input,21,FOLLOW_21_in_ruleQuery482); 
 
                 	newLeafNode(otherlv_4, grammarAccess.getQueryAccess().getFullStopKeyword_3());
                 
@@ -687,86 +691,373 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePredicate"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:289:1: rulePredicate returns [EObject current=null] : ( ( (lv_value_0_0= ruleSingleTerm ) ) (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )? ) ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:289:1: rulePredicate returns [EObject current=null] : ( ( ( (lv_value_0_0= ruleSingleTerm ) ) (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )? ) | ( ( ( (lv_operation_6_1= '==' | lv_operation_6_2= '\\\\=' ) ) ) otherlv_7= '(' ( (lv_terms_8_0= ruleSingleTerm ) ) (otherlv_9= ',' ( (lv_terms_10_0= ruleSingleTerm ) ) )* otherlv_11= ')' ) | ( ( (lv_terms_12_0= ruleSingleTerm ) ) ( ( (lv_operation_13_1= '==' | lv_operation_13_2= '\\\\=' ) ) ) ( (lv_terms_14_0= ruleSingleTerm ) ) ) ) ;
     public final EObject rulePredicate() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
         Token otherlv_3=null;
         Token otherlv_5=null;
+        Token lv_operation_6_1=null;
+        Token lv_operation_6_2=null;
+        Token otherlv_7=null;
+        Token otherlv_9=null;
+        Token otherlv_11=null;
+        Token lv_operation_13_1=null;
+        Token lv_operation_13_2=null;
         EObject lv_value_0_0 = null;
 
         EObject lv_terms_2_0 = null;
 
         EObject lv_terms_4_0 = null;
 
+        EObject lv_terms_8_0 = null;
+
+        EObject lv_terms_10_0 = null;
+
+        EObject lv_terms_12_0 = null;
+
+        EObject lv_terms_14_0 = null;
+
 
          enterRule(); 
             
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:292:28: ( ( ( (lv_value_0_0= ruleSingleTerm ) ) (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )? ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:293:1: ( ( (lv_value_0_0= ruleSingleTerm ) ) (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )? )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:292:28: ( ( ( ( (lv_value_0_0= ruleSingleTerm ) ) (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )? ) | ( ( ( (lv_operation_6_1= '==' | lv_operation_6_2= '\\\\=' ) ) ) otherlv_7= '(' ( (lv_terms_8_0= ruleSingleTerm ) ) (otherlv_9= ',' ( (lv_terms_10_0= ruleSingleTerm ) ) )* otherlv_11= ')' ) | ( ( (lv_terms_12_0= ruleSingleTerm ) ) ( ( (lv_operation_13_1= '==' | lv_operation_13_2= '\\\\=' ) ) ) ( (lv_terms_14_0= ruleSingleTerm ) ) ) ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:293:1: ( ( ( (lv_value_0_0= ruleSingleTerm ) ) (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )? ) | ( ( ( (lv_operation_6_1= '==' | lv_operation_6_2= '\\\\=' ) ) ) otherlv_7= '(' ( (lv_terms_8_0= ruleSingleTerm ) ) (otherlv_9= ',' ( (lv_terms_10_0= ruleSingleTerm ) ) )* otherlv_11= ')' ) | ( ( (lv_terms_12_0= ruleSingleTerm ) ) ( ( (lv_operation_13_1= '==' | lv_operation_13_2= '\\\\=' ) ) ) ( (lv_terms_14_0= ruleSingleTerm ) ) ) )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:293:1: ( ( (lv_value_0_0= ruleSingleTerm ) ) (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )? )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:293:2: ( (lv_value_0_0= ruleSingleTerm ) ) (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )?
-            {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:293:2: ( (lv_value_0_0= ruleSingleTerm ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:294:1: (lv_value_0_0= ruleSingleTerm )
-            {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:294:1: (lv_value_0_0= ruleSingleTerm )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:295:3: lv_value_0_0= ruleSingleTerm
-            {
-             
-            	        newCompositeNode(grammarAccess.getPredicateAccess().getValueSingleTermParserRuleCall_0_0()); 
-            	    
-            pushFollow(FOLLOW_ruleSingleTerm_in_rulePredicate574);
-            lv_value_0_0=ruleSingleTerm();
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:293:1: ( ( ( (lv_value_0_0= ruleSingleTerm ) ) (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )? ) | ( ( ( (lv_operation_6_1= '==' | lv_operation_6_2= '\\\\=' ) ) ) otherlv_7= '(' ( (lv_terms_8_0= ruleSingleTerm ) ) (otherlv_9= ',' ( (lv_terms_10_0= ruleSingleTerm ) ) )* otherlv_11= ')' ) | ( ( (lv_terms_12_0= ruleSingleTerm ) ) ( ( (lv_operation_13_1= '==' | lv_operation_13_2= '\\\\=' ) ) ) ( (lv_terms_14_0= ruleSingleTerm ) ) ) )
+            int alt11=3;
+            switch ( input.LA(1) ) {
+            case RULE_NUMERAL:
+                {
+                int LA11_1 = input.LA(2);
 
-            state._fsp--;
+                if ( ((LA11_1>=25 && LA11_1<=26)) ) {
+                    alt11=3;
+                }
+                else if ( (LA11_1==EOF||(LA11_1>=19 && LA11_1<=21)||LA11_1==23) ) {
+                    alt11=1;
+                }
+                else {
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 11, 1, input);
 
+                    throw nvae;
+                }
+                }
+                break;
+            case RULE_SMALL_ATOM:
+                {
+                int LA11_2 = input.LA(2);
 
-            	        if (current==null) {
-            	            current = createModelElementForParent(grammarAccess.getPredicateRule());
-            	        }
-                   		set(
-                   			current, 
-                   			"value",
-                    		lv_value_0_0, 
-                    		"SingleTerm");
-            	        afterParserOrEnumRuleCall();
-            	    
+                if ( (LA11_2==EOF||(LA11_2>=19 && LA11_2<=21)||LA11_2==23) ) {
+                    alt11=1;
+                }
+                else if ( ((LA11_2>=25 && LA11_2<=26)) ) {
+                    alt11=3;
+                }
+                else {
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 11, 2, input);
 
+                    throw nvae;
+                }
+                }
+                break;
+            case RULE_VARIABLE:
+                {
+                int LA11_3 = input.LA(2);
+
+                if ( ((LA11_3>=25 && LA11_3<=26)) ) {
+                    alt11=3;
+                }
+                else if ( (LA11_3==EOF||(LA11_3>=19 && LA11_3<=21)||LA11_3==23) ) {
+                    alt11=1;
+                }
+                else {
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 11, 3, input);
+
+                    throw nvae;
+                }
+                }
+                break;
+            case RULE_STRING:
+                {
+                int LA11_4 = input.LA(2);
+
+                if ( (LA11_4==EOF||(LA11_4>=19 && LA11_4<=21)||LA11_4==23) ) {
+                    alt11=1;
+                }
+                else if ( ((LA11_4>=25 && LA11_4<=26)) ) {
+                    alt11=3;
+                }
+                else {
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 11, 4, input);
+
+                    throw nvae;
+                }
+                }
+                break;
+            case 25:
+            case 26:
+                {
+                alt11=2;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 11, 0, input);
+
+                throw nvae;
             }
 
-
-            }
-
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:311:2: (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )?
-            int alt7=2;
-            int LA7_0 = input.LA(1);
-
-            if ( (LA7_0==21) ) {
-                alt7=1;
-            }
-            switch (alt7) {
+            switch (alt11) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:311:4: otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:293:2: ( ( (lv_value_0_0= ruleSingleTerm ) ) (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )? )
                     {
-                    otherlv_1=(Token)match(input,21,FOLLOW_21_in_rulePredicate587); 
-
-                        	newLeafNode(otherlv_1, grammarAccess.getPredicateAccess().getLeftParenthesisKeyword_1_0());
-                        
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:315:1: ( (lv_terms_2_0= ruleSingleTerm ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:316:1: (lv_terms_2_0= ruleSingleTerm )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:293:2: ( ( (lv_value_0_0= ruleSingleTerm ) ) (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )? )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:293:3: ( (lv_value_0_0= ruleSingleTerm ) ) (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )?
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:316:1: (lv_terms_2_0= ruleSingleTerm )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:317:3: lv_terms_2_0= ruleSingleTerm
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:293:3: ( (lv_value_0_0= ruleSingleTerm ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:294:1: (lv_value_0_0= ruleSingleTerm )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:294:1: (lv_value_0_0= ruleSingleTerm )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:295:3: lv_value_0_0= ruleSingleTerm
                     {
                      
-                    	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_1_1_0()); 
+                    	        newCompositeNode(grammarAccess.getPredicateAccess().getValueSingleTermParserRuleCall_0_0_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleSingleTerm_in_rulePredicate608);
-                    lv_terms_2_0=ruleSingleTerm();
+                    pushFollow(FOLLOW_ruleSingleTerm_in_rulePredicate575);
+                    lv_value_0_0=ruleSingleTerm();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getPredicateRule());
+                    	        }
+                           		set(
+                           			current, 
+                           			"value",
+                            		lv_value_0_0, 
+                            		"SingleTerm");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:311:2: (otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')' )?
+                    int alt7=2;
+                    int LA7_0 = input.LA(1);
+
+                    if ( (LA7_0==23) ) {
+                        alt7=1;
+                    }
+                    switch (alt7) {
+                        case 1 :
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:311:4: otherlv_1= '(' ( (lv_terms_2_0= ruleSingleTerm ) ) (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )* otherlv_5= ')'
+                            {
+                            otherlv_1=(Token)match(input,23,FOLLOW_23_in_rulePredicate588); 
+
+                                	newLeafNode(otherlv_1, grammarAccess.getPredicateAccess().getLeftParenthesisKeyword_0_1_0());
+                                
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:315:1: ( (lv_terms_2_0= ruleSingleTerm ) )
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:316:1: (lv_terms_2_0= ruleSingleTerm )
+                            {
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:316:1: (lv_terms_2_0= ruleSingleTerm )
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:317:3: lv_terms_2_0= ruleSingleTerm
+                            {
+                             
+                            	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_0_1_1_0()); 
+                            	    
+                            pushFollow(FOLLOW_ruleSingleTerm_in_rulePredicate609);
+                            lv_terms_2_0=ruleSingleTerm();
+
+                            state._fsp--;
+
+
+                            	        if (current==null) {
+                            	            current = createModelElementForParent(grammarAccess.getPredicateRule());
+                            	        }
+                                   		add(
+                                   			current, 
+                                   			"terms",
+                                    		lv_terms_2_0, 
+                                    		"SingleTerm");
+                            	        afterParserOrEnumRuleCall();
+                            	    
+
+                            }
+
+
+                            }
+
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:333:2: (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )*
+                            loop6:
+                            do {
+                                int alt6=2;
+                                int LA6_0 = input.LA(1);
+
+                                if ( (LA6_0==20) ) {
+                                    alt6=1;
+                                }
+
+
+                                switch (alt6) {
+                            	case 1 :
+                            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:333:4: otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) )
+                            	    {
+                            	    otherlv_3=(Token)match(input,20,FOLLOW_20_in_rulePredicate622); 
+
+                            	        	newLeafNode(otherlv_3, grammarAccess.getPredicateAccess().getCommaKeyword_0_1_2_0());
+                            	        
+                            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:337:1: ( (lv_terms_4_0= ruleSingleTerm ) )
+                            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:338:1: (lv_terms_4_0= ruleSingleTerm )
+                            	    {
+                            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:338:1: (lv_terms_4_0= ruleSingleTerm )
+                            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:339:3: lv_terms_4_0= ruleSingleTerm
+                            	    {
+                            	     
+                            	    	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_0_1_2_1_0()); 
+                            	    	    
+                            	    pushFollow(FOLLOW_ruleSingleTerm_in_rulePredicate643);
+                            	    lv_terms_4_0=ruleSingleTerm();
+
+                            	    state._fsp--;
+
+
+                            	    	        if (current==null) {
+                            	    	            current = createModelElementForParent(grammarAccess.getPredicateRule());
+                            	    	        }
+                            	           		add(
+                            	           			current, 
+                            	           			"terms",
+                            	            		lv_terms_4_0, 
+                            	            		"SingleTerm");
+                            	    	        afterParserOrEnumRuleCall();
+                            	    	    
+
+                            	    }
+
+
+                            	    }
+
+
+                            	    }
+                            	    break;
+
+                            	default :
+                            	    break loop6;
+                                }
+                            } while (true);
+
+                            otherlv_5=(Token)match(input,24,FOLLOW_24_in_rulePredicate657); 
+
+                                	newLeafNode(otherlv_5, grammarAccess.getPredicateAccess().getRightParenthesisKeyword_0_1_3());
+                                
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:360:6: ( ( ( (lv_operation_6_1= '==' | lv_operation_6_2= '\\\\=' ) ) ) otherlv_7= '(' ( (lv_terms_8_0= ruleSingleTerm ) ) (otherlv_9= ',' ( (lv_terms_10_0= ruleSingleTerm ) ) )* otherlv_11= ')' )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:360:6: ( ( ( (lv_operation_6_1= '==' | lv_operation_6_2= '\\\\=' ) ) ) otherlv_7= '(' ( (lv_terms_8_0= ruleSingleTerm ) ) (otherlv_9= ',' ( (lv_terms_10_0= ruleSingleTerm ) ) )* otherlv_11= ')' )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:360:7: ( ( (lv_operation_6_1= '==' | lv_operation_6_2= '\\\\=' ) ) ) otherlv_7= '(' ( (lv_terms_8_0= ruleSingleTerm ) ) (otherlv_9= ',' ( (lv_terms_10_0= ruleSingleTerm ) ) )* otherlv_11= ')'
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:360:7: ( ( (lv_operation_6_1= '==' | lv_operation_6_2= '\\\\=' ) ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:361:1: ( (lv_operation_6_1= '==' | lv_operation_6_2= '\\\\=' ) )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:361:1: ( (lv_operation_6_1= '==' | lv_operation_6_2= '\\\\=' ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:362:1: (lv_operation_6_1= '==' | lv_operation_6_2= '\\\\=' )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:362:1: (lv_operation_6_1= '==' | lv_operation_6_2= '\\\\=' )
+                    int alt8=2;
+                    int LA8_0 = input.LA(1);
+
+                    if ( (LA8_0==25) ) {
+                        alt8=1;
+                    }
+                    else if ( (LA8_0==26) ) {
+                        alt8=2;
+                    }
+                    else {
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 8, 0, input);
+
+                        throw nvae;
+                    }
+                    switch (alt8) {
+                        case 1 :
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:363:3: lv_operation_6_1= '=='
+                            {
+                            lv_operation_6_1=(Token)match(input,25,FOLLOW_25_in_rulePredicate687); 
+
+                                    newLeafNode(lv_operation_6_1, grammarAccess.getPredicateAccess().getOperationEqualsSignEqualsSignKeyword_1_0_0_0());
+                                
+
+                            	        if (current==null) {
+                            	            current = createModelElement(grammarAccess.getPredicateRule());
+                            	        }
+                                   		setWithLastConsumed(current, "operation", lv_operation_6_1, null);
+                            	    
+
+                            }
+                            break;
+                        case 2 :
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:375:8: lv_operation_6_2= '\\\\='
+                            {
+                            lv_operation_6_2=(Token)match(input,26,FOLLOW_26_in_rulePredicate716); 
+
+                                    newLeafNode(lv_operation_6_2, grammarAccess.getPredicateAccess().getOperationReverseSolidusEqualsSignKeyword_1_0_0_1());
+                                
+
+                            	        if (current==null) {
+                            	            current = createModelElement(grammarAccess.getPredicateRule());
+                            	        }
+                                   		setWithLastConsumed(current, "operation", lv_operation_6_2, null);
+                            	    
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+
+
+                    }
+
+                    otherlv_7=(Token)match(input,23,FOLLOW_23_in_rulePredicate744); 
+
+                        	newLeafNode(otherlv_7, grammarAccess.getPredicateAccess().getLeftParenthesisKeyword_1_1());
+                        
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:394:1: ( (lv_terms_8_0= ruleSingleTerm ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:395:1: (lv_terms_8_0= ruleSingleTerm )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:395:1: (lv_terms_8_0= ruleSingleTerm )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:396:3: lv_terms_8_0= ruleSingleTerm
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_1_2_0()); 
+                    	    
+                    pushFollow(FOLLOW_ruleSingleTerm_in_rulePredicate765);
+                    lv_terms_8_0=ruleSingleTerm();
 
                     state._fsp--;
 
@@ -777,7 +1068,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                            		add(
                            			current, 
                            			"terms",
-                            		lv_terms_2_0, 
+                            		lv_terms_8_0, 
                             		"SingleTerm");
                     	        afterParserOrEnumRuleCall();
                     	    
@@ -787,36 +1078,36 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:333:2: (otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) ) )*
-                    loop6:
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:412:2: (otherlv_9= ',' ( (lv_terms_10_0= ruleSingleTerm ) ) )*
+                    loop9:
                     do {
-                        int alt6=2;
-                        int LA6_0 = input.LA(1);
+                        int alt9=2;
+                        int LA9_0 = input.LA(1);
 
-                        if ( (LA6_0==18) ) {
-                            alt6=1;
+                        if ( (LA9_0==20) ) {
+                            alt9=1;
                         }
 
 
-                        switch (alt6) {
+                        switch (alt9) {
                     	case 1 :
-                    	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:333:4: otherlv_3= ',' ( (lv_terms_4_0= ruleSingleTerm ) )
+                    	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:412:4: otherlv_9= ',' ( (lv_terms_10_0= ruleSingleTerm ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,18,FOLLOW_18_in_rulePredicate621); 
+                    	    otherlv_9=(Token)match(input,20,FOLLOW_20_in_rulePredicate778); 
 
-                    	        	newLeafNode(otherlv_3, grammarAccess.getPredicateAccess().getCommaKeyword_1_2_0());
+                    	        	newLeafNode(otherlv_9, grammarAccess.getPredicateAccess().getCommaKeyword_1_3_0());
                     	        
-                    	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:337:1: ( (lv_terms_4_0= ruleSingleTerm ) )
-                    	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:338:1: (lv_terms_4_0= ruleSingleTerm )
+                    	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:416:1: ( (lv_terms_10_0= ruleSingleTerm ) )
+                    	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:417:1: (lv_terms_10_0= ruleSingleTerm )
                     	    {
-                    	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:338:1: (lv_terms_4_0= ruleSingleTerm )
-                    	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:339:3: lv_terms_4_0= ruleSingleTerm
+                    	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:417:1: (lv_terms_10_0= ruleSingleTerm )
+                    	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:418:3: lv_terms_10_0= ruleSingleTerm
                     	    {
                     	     
-                    	    	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_1_2_1_0()); 
+                    	    	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_1_3_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_ruleSingleTerm_in_rulePredicate642);
-                    	    lv_terms_4_0=ruleSingleTerm();
+                    	    pushFollow(FOLLOW_ruleSingleTerm_in_rulePredicate799);
+                    	    lv_terms_10_0=ruleSingleTerm();
 
                     	    state._fsp--;
 
@@ -827,7 +1118,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                     	           		add(
                     	           			current, 
                     	           			"terms",
-                    	            		lv_terms_4_0, 
+                    	            		lv_terms_10_0, 
                     	            		"SingleTerm");
                     	    	        afterParserOrEnumRuleCall();
                     	    	    
@@ -842,20 +1133,158 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop6;
+                    	    break loop9;
                         }
                     } while (true);
 
-                    otherlv_5=(Token)match(input,22,FOLLOW_22_in_rulePredicate656); 
+                    otherlv_11=(Token)match(input,24,FOLLOW_24_in_rulePredicate813); 
 
-                        	newLeafNode(otherlv_5, grammarAccess.getPredicateAccess().getRightParenthesisKeyword_1_3());
+                        	newLeafNode(otherlv_11, grammarAccess.getPredicateAccess().getRightParenthesisKeyword_1_4());
                         
 
                     }
+
+
+                    }
                     break;
+                case 3 :
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:439:6: ( ( (lv_terms_12_0= ruleSingleTerm ) ) ( ( (lv_operation_13_1= '==' | lv_operation_13_2= '\\\\=' ) ) ) ( (lv_terms_14_0= ruleSingleTerm ) ) )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:439:6: ( ( (lv_terms_12_0= ruleSingleTerm ) ) ( ( (lv_operation_13_1= '==' | lv_operation_13_2= '\\\\=' ) ) ) ( (lv_terms_14_0= ruleSingleTerm ) ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:439:7: ( (lv_terms_12_0= ruleSingleTerm ) ) ( ( (lv_operation_13_1= '==' | lv_operation_13_2= '\\\\=' ) ) ) ( (lv_terms_14_0= ruleSingleTerm ) )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:439:7: ( (lv_terms_12_0= ruleSingleTerm ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:440:1: (lv_terms_12_0= ruleSingleTerm )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:440:1: (lv_terms_12_0= ruleSingleTerm )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:441:3: lv_terms_12_0= ruleSingleTerm
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_2_0_0()); 
+                    	    
+                    pushFollow(FOLLOW_ruleSingleTerm_in_rulePredicate842);
+                    lv_terms_12_0=ruleSingleTerm();
 
-            }
+                    state._fsp--;
 
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getPredicateRule());
+                    	        }
+                           		add(
+                           			current, 
+                           			"terms",
+                            		lv_terms_12_0, 
+                            		"SingleTerm");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:457:2: ( ( (lv_operation_13_1= '==' | lv_operation_13_2= '\\\\=' ) ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:458:1: ( (lv_operation_13_1= '==' | lv_operation_13_2= '\\\\=' ) )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:458:1: ( (lv_operation_13_1= '==' | lv_operation_13_2= '\\\\=' ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:459:1: (lv_operation_13_1= '==' | lv_operation_13_2= '\\\\=' )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:459:1: (lv_operation_13_1= '==' | lv_operation_13_2= '\\\\=' )
+                    int alt10=2;
+                    int LA10_0 = input.LA(1);
+
+                    if ( (LA10_0==25) ) {
+                        alt10=1;
+                    }
+                    else if ( (LA10_0==26) ) {
+                        alt10=2;
+                    }
+                    else {
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 10, 0, input);
+
+                        throw nvae;
+                    }
+                    switch (alt10) {
+                        case 1 :
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:460:3: lv_operation_13_1= '=='
+                            {
+                            lv_operation_13_1=(Token)match(input,25,FOLLOW_25_in_rulePredicate862); 
+
+                                    newLeafNode(lv_operation_13_1, grammarAccess.getPredicateAccess().getOperationEqualsSignEqualsSignKeyword_2_1_0_0());
+                                
+
+                            	        if (current==null) {
+                            	            current = createModelElement(grammarAccess.getPredicateRule());
+                            	        }
+                                   		setWithLastConsumed(current, "operation", lv_operation_13_1, null);
+                            	    
+
+                            }
+                            break;
+                        case 2 :
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:472:8: lv_operation_13_2= '\\\\='
+                            {
+                            lv_operation_13_2=(Token)match(input,26,FOLLOW_26_in_rulePredicate891); 
+
+                                    newLeafNode(lv_operation_13_2, grammarAccess.getPredicateAccess().getOperationReverseSolidusEqualsSignKeyword_2_1_0_1());
+                                
+
+                            	        if (current==null) {
+                            	            current = createModelElement(grammarAccess.getPredicateRule());
+                            	        }
+                                   		setWithLastConsumed(current, "operation", lv_operation_13_2, null);
+                            	    
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+
+
+                    }
+
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:487:2: ( (lv_terms_14_0= ruleSingleTerm ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:488:1: (lv_terms_14_0= ruleSingleTerm )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:488:1: (lv_terms_14_0= ruleSingleTerm )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:489:3: lv_terms_14_0= ruleSingleTerm
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_2_2_0()); 
+                    	    
+                    pushFollow(FOLLOW_ruleSingleTerm_in_rulePredicate928);
+                    lv_terms_14_0=ruleSingleTerm();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getPredicateRule());
+                    	        }
+                           		add(
+                           			current, 
+                           			"terms",
+                            		lv_terms_14_0, 
+                            		"SingleTerm");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
 
             }
 
@@ -877,7 +1306,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSingleTerm"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:367:1: entryRuleSingleTerm returns [EObject current=null] : iv_ruleSingleTerm= ruleSingleTerm EOF ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:513:1: entryRuleSingleTerm returns [EObject current=null] : iv_ruleSingleTerm= ruleSingleTerm EOF ;
     public final EObject entryRuleSingleTerm() throws RecognitionException {
         EObject current = null;
 
@@ -885,17 +1314,17 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:368:2: (iv_ruleSingleTerm= ruleSingleTerm EOF )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:369:2: iv_ruleSingleTerm= ruleSingleTerm EOF
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:514:2: (iv_ruleSingleTerm= ruleSingleTerm EOF )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:515:2: iv_ruleSingleTerm= ruleSingleTerm EOF
             {
              newCompositeNode(grammarAccess.getSingleTermRule()); 
-            pushFollow(FOLLOW_ruleSingleTerm_in_entryRuleSingleTerm694);
+            pushFollow(FOLLOW_ruleSingleTerm_in_entryRuleSingleTerm965);
             iv_ruleSingleTerm=ruleSingleTerm();
 
             state._fsp--;
 
              current =iv_ruleSingleTerm; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleSingleTerm704); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleSingleTerm975); 
 
             }
 
@@ -913,64 +1342,62 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSingleTerm"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:376:1: ruleSingleTerm returns [EObject current=null] : ( ( (lv_numeral_0_0= RULE_NUMERAL ) ) | ( (lv_atom_1_0= ruleSmallAtom ) ) | ( (lv_variable_2_0= ruleVariable ) ) | ( (lv_string_3_0= RULE_STRING ) ) ) ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:522:1: ruleSingleTerm returns [EObject current=null] : ( ( (lv_numeral_0_0= RULE_NUMERAL ) ) | ( (lv_atom_1_0= RULE_SMALL_ATOM ) ) | ( (lv_variable_2_0= RULE_VARIABLE ) ) | ( (lv_string_3_0= RULE_STRING ) ) ) ;
     public final EObject ruleSingleTerm() throws RecognitionException {
         EObject current = null;
 
         Token lv_numeral_0_0=null;
+        Token lv_atom_1_0=null;
+        Token lv_variable_2_0=null;
         Token lv_string_3_0=null;
-        AntlrDatatypeRuleToken lv_atom_1_0 = null;
-
-        AntlrDatatypeRuleToken lv_variable_2_0 = null;
-
 
          enterRule(); 
             
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:379:28: ( ( ( (lv_numeral_0_0= RULE_NUMERAL ) ) | ( (lv_atom_1_0= ruleSmallAtom ) ) | ( (lv_variable_2_0= ruleVariable ) ) | ( (lv_string_3_0= RULE_STRING ) ) ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:380:1: ( ( (lv_numeral_0_0= RULE_NUMERAL ) ) | ( (lv_atom_1_0= ruleSmallAtom ) ) | ( (lv_variable_2_0= ruleVariable ) ) | ( (lv_string_3_0= RULE_STRING ) ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:525:28: ( ( ( (lv_numeral_0_0= RULE_NUMERAL ) ) | ( (lv_atom_1_0= RULE_SMALL_ATOM ) ) | ( (lv_variable_2_0= RULE_VARIABLE ) ) | ( (lv_string_3_0= RULE_STRING ) ) ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:526:1: ( ( (lv_numeral_0_0= RULE_NUMERAL ) ) | ( (lv_atom_1_0= RULE_SMALL_ATOM ) ) | ( (lv_variable_2_0= RULE_VARIABLE ) ) | ( (lv_string_3_0= RULE_STRING ) ) )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:380:1: ( ( (lv_numeral_0_0= RULE_NUMERAL ) ) | ( (lv_atom_1_0= ruleSmallAtom ) ) | ( (lv_variable_2_0= ruleVariable ) ) | ( (lv_string_3_0= RULE_STRING ) ) )
-            int alt8=4;
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:526:1: ( ( (lv_numeral_0_0= RULE_NUMERAL ) ) | ( (lv_atom_1_0= RULE_SMALL_ATOM ) ) | ( (lv_variable_2_0= RULE_VARIABLE ) ) | ( (lv_string_3_0= RULE_STRING ) ) )
+            int alt12=4;
             switch ( input.LA(1) ) {
             case RULE_NUMERAL:
                 {
-                alt8=1;
+                alt12=1;
                 }
                 break;
-            case RULE_LOWER_CASE_LETTER:
+            case RULE_SMALL_ATOM:
                 {
-                alt8=2;
+                alt12=2;
                 }
                 break;
-            case RULE_UPPER_CASE_LETTER:
+            case RULE_VARIABLE:
                 {
-                alt8=3;
+                alt12=3;
                 }
                 break;
             case RULE_STRING:
                 {
-                alt8=4;
+                alt12=4;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 8, 0, input);
+                    new NoViableAltException("", 12, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt8) {
+            switch (alt12) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:380:2: ( (lv_numeral_0_0= RULE_NUMERAL ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:526:2: ( (lv_numeral_0_0= RULE_NUMERAL ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:380:2: ( (lv_numeral_0_0= RULE_NUMERAL ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:381:1: (lv_numeral_0_0= RULE_NUMERAL )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:526:2: ( (lv_numeral_0_0= RULE_NUMERAL ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:527:1: (lv_numeral_0_0= RULE_NUMERAL )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:381:1: (lv_numeral_0_0= RULE_NUMERAL )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:382:3: lv_numeral_0_0= RULE_NUMERAL
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:527:1: (lv_numeral_0_0= RULE_NUMERAL )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:528:3: lv_numeral_0_0= RULE_NUMERAL
                     {
-                    lv_numeral_0_0=(Token)match(input,RULE_NUMERAL,FOLLOW_RULE_NUMERAL_in_ruleSingleTerm746); 
+                    lv_numeral_0_0=(Token)match(input,RULE_NUMERAL,FOLLOW_RULE_NUMERAL_in_ruleSingleTerm1017); 
 
                     			newLeafNode(lv_numeral_0_0, grammarAccess.getSingleTermAccess().getNumeralNUMERALTerminalRuleCall_0_0()); 
                     		
@@ -994,32 +1421,27 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:399:6: ( (lv_atom_1_0= ruleSmallAtom ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:545:6: ( (lv_atom_1_0= RULE_SMALL_ATOM ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:399:6: ( (lv_atom_1_0= ruleSmallAtom ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:400:1: (lv_atom_1_0= ruleSmallAtom )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:545:6: ( (lv_atom_1_0= RULE_SMALL_ATOM ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:546:1: (lv_atom_1_0= RULE_SMALL_ATOM )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:400:1: (lv_atom_1_0= ruleSmallAtom )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:401:3: lv_atom_1_0= ruleSmallAtom
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:546:1: (lv_atom_1_0= RULE_SMALL_ATOM )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:547:3: lv_atom_1_0= RULE_SMALL_ATOM
                     {
-                     
-                    	        newCompositeNode(grammarAccess.getSingleTermAccess().getAtomSmallAtomParserRuleCall_1_0()); 
-                    	    
-                    pushFollow(FOLLOW_ruleSmallAtom_in_ruleSingleTerm778);
-                    lv_atom_1_0=ruleSmallAtom();
+                    lv_atom_1_0=(Token)match(input,RULE_SMALL_ATOM,FOLLOW_RULE_SMALL_ATOM_in_ruleSingleTerm1045); 
 
-                    state._fsp--;
-
+                    			newLeafNode(lv_atom_1_0, grammarAccess.getSingleTermAccess().getAtomSMALL_ATOMTerminalRuleCall_1_0()); 
+                    		
 
                     	        if (current==null) {
-                    	            current = createModelElementForParent(grammarAccess.getSingleTermRule());
+                    	            current = createModelElement(grammarAccess.getSingleTermRule());
                     	        }
-                           		set(
+                           		setWithLastConsumed(
                            			current, 
                            			"atom",
                             		lv_atom_1_0, 
-                            		"SmallAtom");
-                    	        afterParserOrEnumRuleCall();
+                            		"SMALL_ATOM");
                     	    
 
                     }
@@ -1031,32 +1453,27 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:418:6: ( (lv_variable_2_0= ruleVariable ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:564:6: ( (lv_variable_2_0= RULE_VARIABLE ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:418:6: ( (lv_variable_2_0= ruleVariable ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:419:1: (lv_variable_2_0= ruleVariable )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:564:6: ( (lv_variable_2_0= RULE_VARIABLE ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:565:1: (lv_variable_2_0= RULE_VARIABLE )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:419:1: (lv_variable_2_0= ruleVariable )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:420:3: lv_variable_2_0= ruleVariable
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:565:1: (lv_variable_2_0= RULE_VARIABLE )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:566:3: lv_variable_2_0= RULE_VARIABLE
                     {
-                     
-                    	        newCompositeNode(grammarAccess.getSingleTermAccess().getVariableVariableParserRuleCall_2_0()); 
-                    	    
-                    pushFollow(FOLLOW_ruleVariable_in_ruleSingleTerm805);
-                    lv_variable_2_0=ruleVariable();
+                    lv_variable_2_0=(Token)match(input,RULE_VARIABLE,FOLLOW_RULE_VARIABLE_in_ruleSingleTerm1073); 
 
-                    state._fsp--;
-
+                    			newLeafNode(lv_variable_2_0, grammarAccess.getSingleTermAccess().getVariableVARIABLETerminalRuleCall_2_0()); 
+                    		
 
                     	        if (current==null) {
-                    	            current = createModelElementForParent(grammarAccess.getSingleTermRule());
+                    	            current = createModelElement(grammarAccess.getSingleTermRule());
                     	        }
-                           		set(
+                           		setWithLastConsumed(
                            			current, 
                            			"variable",
                             		lv_variable_2_0, 
-                            		"Variable");
-                    	        afterParserOrEnumRuleCall();
+                            		"VARIABLE");
                     	    
 
                     }
@@ -1068,15 +1485,15 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:437:6: ( (lv_string_3_0= RULE_STRING ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:583:6: ( (lv_string_3_0= RULE_STRING ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:437:6: ( (lv_string_3_0= RULE_STRING ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:438:1: (lv_string_3_0= RULE_STRING )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:583:6: ( (lv_string_3_0= RULE_STRING ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:584:1: (lv_string_3_0= RULE_STRING )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:438:1: (lv_string_3_0= RULE_STRING )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:439:3: lv_string_3_0= RULE_STRING
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:584:1: (lv_string_3_0= RULE_STRING )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:585:3: lv_string_3_0= RULE_STRING
                     {
-                    lv_string_3_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleSingleTerm828); 
+                    lv_string_3_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleSingleTerm1101); 
 
                     			newLeafNode(lv_string_3_0, grammarAccess.getSingleTermAccess().getStringSTRINGTerminalRuleCall_3_0()); 
                     		
@@ -1118,228 +1535,6 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
     }
     // $ANTLR end "ruleSingleTerm"
 
-
-    // $ANTLR start "entryRuleSmallAtom"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:463:1: entryRuleSmallAtom returns [String current=null] : iv_ruleSmallAtom= ruleSmallAtom EOF ;
-    public final String entryRuleSmallAtom() throws RecognitionException {
-        String current = null;
-
-        AntlrDatatypeRuleToken iv_ruleSmallAtom = null;
-
-
-        try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:464:2: (iv_ruleSmallAtom= ruleSmallAtom EOF )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:465:2: iv_ruleSmallAtom= ruleSmallAtom EOF
-            {
-             newCompositeNode(grammarAccess.getSmallAtomRule()); 
-            pushFollow(FOLLOW_ruleSmallAtom_in_entryRuleSmallAtom870);
-            iv_ruleSmallAtom=ruleSmallAtom();
-
-            state._fsp--;
-
-             current =iv_ruleSmallAtom.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleSmallAtom881); 
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleSmallAtom"
-
-
-    // $ANTLR start "ruleSmallAtom"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:472:1: ruleSmallAtom returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_LOWER_CASE_LETTER_0= RULE_LOWER_CASE_LETTER (this_CHARACTER_1= RULE_CHARACTER )* ) ;
-    public final AntlrDatatypeRuleToken ruleSmallAtom() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
-
-        Token this_LOWER_CASE_LETTER_0=null;
-        Token this_CHARACTER_1=null;
-
-         enterRule(); 
-            
-        try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:475:28: ( (this_LOWER_CASE_LETTER_0= RULE_LOWER_CASE_LETTER (this_CHARACTER_1= RULE_CHARACTER )* ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:476:1: (this_LOWER_CASE_LETTER_0= RULE_LOWER_CASE_LETTER (this_CHARACTER_1= RULE_CHARACTER )* )
-            {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:476:1: (this_LOWER_CASE_LETTER_0= RULE_LOWER_CASE_LETTER (this_CHARACTER_1= RULE_CHARACTER )* )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:476:6: this_LOWER_CASE_LETTER_0= RULE_LOWER_CASE_LETTER (this_CHARACTER_1= RULE_CHARACTER )*
-            {
-            this_LOWER_CASE_LETTER_0=(Token)match(input,RULE_LOWER_CASE_LETTER,FOLLOW_RULE_LOWER_CASE_LETTER_in_ruleSmallAtom921); 
-
-            		current.merge(this_LOWER_CASE_LETTER_0);
-                
-             
-                newLeafNode(this_LOWER_CASE_LETTER_0, grammarAccess.getSmallAtomAccess().getLOWER_CASE_LETTERTerminalRuleCall_0()); 
-                
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:483:1: (this_CHARACTER_1= RULE_CHARACTER )*
-            loop9:
-            do {
-                int alt9=2;
-                int LA9_0 = input.LA(1);
-
-                if ( (LA9_0==RULE_CHARACTER) ) {
-                    alt9=1;
-                }
-
-
-                switch (alt9) {
-            	case 1 :
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:483:6: this_CHARACTER_1= RULE_CHARACTER
-            	    {
-            	    this_CHARACTER_1=(Token)match(input,RULE_CHARACTER,FOLLOW_RULE_CHARACTER_in_ruleSmallAtom942); 
-
-            	    		current.merge(this_CHARACTER_1);
-            	        
-            	     
-            	        newLeafNode(this_CHARACTER_1, grammarAccess.getSmallAtomAccess().getCHARACTERTerminalRuleCall_1()); 
-            	        
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop9;
-                }
-            } while (true);
-
-
-            }
-
-
-            }
-
-             leaveRule(); 
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleSmallAtom"
-
-
-    // $ANTLR start "entryRuleVariable"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:498:1: entryRuleVariable returns [String current=null] : iv_ruleVariable= ruleVariable EOF ;
-    public final String entryRuleVariable() throws RecognitionException {
-        String current = null;
-
-        AntlrDatatypeRuleToken iv_ruleVariable = null;
-
-
-        try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:499:2: (iv_ruleVariable= ruleVariable EOF )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:500:2: iv_ruleVariable= ruleVariable EOF
-            {
-             newCompositeNode(grammarAccess.getVariableRule()); 
-            pushFollow(FOLLOW_ruleVariable_in_entryRuleVariable990);
-            iv_ruleVariable=ruleVariable();
-
-            state._fsp--;
-
-             current =iv_ruleVariable.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVariable1001); 
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleVariable"
-
-
-    // $ANTLR start "ruleVariable"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:507:1: ruleVariable returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_UPPER_CASE_LETTER_0= RULE_UPPER_CASE_LETTER (this_CHARACTER_1= RULE_CHARACTER )* ) ;
-    public final AntlrDatatypeRuleToken ruleVariable() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
-
-        Token this_UPPER_CASE_LETTER_0=null;
-        Token this_CHARACTER_1=null;
-
-         enterRule(); 
-            
-        try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:510:28: ( (this_UPPER_CASE_LETTER_0= RULE_UPPER_CASE_LETTER (this_CHARACTER_1= RULE_CHARACTER )* ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:511:1: (this_UPPER_CASE_LETTER_0= RULE_UPPER_CASE_LETTER (this_CHARACTER_1= RULE_CHARACTER )* )
-            {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:511:1: (this_UPPER_CASE_LETTER_0= RULE_UPPER_CASE_LETTER (this_CHARACTER_1= RULE_CHARACTER )* )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:511:6: this_UPPER_CASE_LETTER_0= RULE_UPPER_CASE_LETTER (this_CHARACTER_1= RULE_CHARACTER )*
-            {
-            this_UPPER_CASE_LETTER_0=(Token)match(input,RULE_UPPER_CASE_LETTER,FOLLOW_RULE_UPPER_CASE_LETTER_in_ruleVariable1041); 
-
-            		current.merge(this_UPPER_CASE_LETTER_0);
-                
-             
-                newLeafNode(this_UPPER_CASE_LETTER_0, grammarAccess.getVariableAccess().getUPPER_CASE_LETTERTerminalRuleCall_0()); 
-                
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:518:1: (this_CHARACTER_1= RULE_CHARACTER )*
-            loop10:
-            do {
-                int alt10=2;
-                int LA10_0 = input.LA(1);
-
-                if ( (LA10_0==RULE_CHARACTER) ) {
-                    alt10=1;
-                }
-
-
-                switch (alt10) {
-            	case 1 :
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:518:6: this_CHARACTER_1= RULE_CHARACTER
-            	    {
-            	    this_CHARACTER_1=(Token)match(input,RULE_CHARACTER,FOLLOW_RULE_CHARACTER_in_ruleVariable1062); 
-
-            	    		current.merge(this_CHARACTER_1);
-            	        
-            	     
-            	        newLeafNode(this_CHARACTER_1, grammarAccess.getVariableAccess().getCHARACTERTerminalRuleCall_1()); 
-            	        
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop10;
-                }
-            } while (true);
-
-
-            }
-
-
-            }
-
-             leaveRule(); 
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleVariable"
-
     // Delegated rules
 
 
@@ -1347,44 +1542,47 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
     public static final BitSet FOLLOW_ruleProgram_in_entryRuleProgram75 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleProgram85 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSingleClause_in_ruleProgram131 = new BitSet(new long[]{0x0000000000100172L});
+    public static final BitSet FOLLOW_ruleSingleClause_in_ruleProgram131 = new BitSet(new long[]{0x00000000064000F2L});
     public static final BitSet FOLLOW_ruleQuery_in_ruleProgram153 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSingleClause_in_entryRuleSingleClause190 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleSingleClause200 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePredicate_in_ruleSingleClause246 = new BitSet(new long[]{0x00000000000A0000L});
-    public static final BitSet FOLLOW_17_in_ruleSingleClause259 = new BitSet(new long[]{0x00000000001C0170L});
-    public static final BitSet FOLLOW_rulePredicate_in_ruleSingleClause280 = new BitSet(new long[]{0x00000000000C0000L});
-    public static final BitSet FOLLOW_18_in_ruleSingleClause293 = new BitSet(new long[]{0x00000000001C0170L});
-    public static final BitSet FOLLOW_rulePredicate_in_ruleSingleClause314 = new BitSet(new long[]{0x00000000000C0000L});
-    public static final BitSet FOLLOW_19_in_ruleSingleClause330 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePredicate_in_ruleSingleClause246 = new BitSet(new long[]{0x0000000000280000L});
+    public static final BitSet FOLLOW_19_in_ruleSingleClause259 = new BitSet(new long[]{0x00000000067000F0L});
+    public static final BitSet FOLLOW_rulePredicate_in_ruleSingleClause280 = new BitSet(new long[]{0x0000000000300000L});
+    public static final BitSet FOLLOW_20_in_ruleSingleClause293 = new BitSet(new long[]{0x00000000067000F0L});
+    public static final BitSet FOLLOW_rulePredicate_in_ruleSingleClause314 = new BitSet(new long[]{0x0000000000300000L});
+    public static final BitSet FOLLOW_21_in_ruleSingleClause330 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQuery_in_entryRuleQuery366 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleQuery376 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_ruleQuery413 = new BitSet(new long[]{0x00000000001C0170L});
-    public static final BitSet FOLLOW_rulePredicate_in_ruleQuery434 = new BitSet(new long[]{0x00000000000C0000L});
-    public static final BitSet FOLLOW_18_in_ruleQuery447 = new BitSet(new long[]{0x00000000001C0170L});
-    public static final BitSet FOLLOW_rulePredicate_in_ruleQuery468 = new BitSet(new long[]{0x00000000000C0000L});
-    public static final BitSet FOLLOW_19_in_ruleQuery482 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_ruleQuery413 = new BitSet(new long[]{0x00000000067000F0L});
+    public static final BitSet FOLLOW_rulePredicate_in_ruleQuery434 = new BitSet(new long[]{0x0000000000300000L});
+    public static final BitSet FOLLOW_20_in_ruleQuery447 = new BitSet(new long[]{0x00000000067000F0L});
+    public static final BitSet FOLLOW_rulePredicate_in_ruleQuery468 = new BitSet(new long[]{0x0000000000300000L});
+    public static final BitSet FOLLOW_21_in_ruleQuery482 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rulePredicate_in_entryRulePredicate518 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRulePredicate528 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSingleTerm_in_rulePredicate574 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_21_in_rulePredicate587 = new BitSet(new long[]{0x0000000000540170L});
-    public static final BitSet FOLLOW_ruleSingleTerm_in_rulePredicate608 = new BitSet(new long[]{0x0000000000440000L});
-    public static final BitSet FOLLOW_18_in_rulePredicate621 = new BitSet(new long[]{0x0000000000540170L});
-    public static final BitSet FOLLOW_ruleSingleTerm_in_rulePredicate642 = new BitSet(new long[]{0x0000000000440000L});
-    public static final BitSet FOLLOW_22_in_rulePredicate656 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSingleTerm_in_entryRuleSingleTerm694 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleSingleTerm704 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_NUMERAL_in_ruleSingleTerm746 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSmallAtom_in_ruleSingleTerm778 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariable_in_ruleSingleTerm805 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleSingleTerm828 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSmallAtom_in_entryRuleSmallAtom870 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleSmallAtom881 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_LOWER_CASE_LETTER_in_ruleSmallAtom921 = new BitSet(new long[]{0x0000000000000082L});
-    public static final BitSet FOLLOW_RULE_CHARACTER_in_ruleSmallAtom942 = new BitSet(new long[]{0x0000000000000082L});
-    public static final BitSet FOLLOW_ruleVariable_in_entryRuleVariable990 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVariable1001 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_UPPER_CASE_LETTER_in_ruleVariable1041 = new BitSet(new long[]{0x0000000000000082L});
-    public static final BitSet FOLLOW_RULE_CHARACTER_in_ruleVariable1062 = new BitSet(new long[]{0x0000000000000082L});
+    public static final BitSet FOLLOW_ruleSingleTerm_in_rulePredicate575 = new BitSet(new long[]{0x0000000000800002L});
+    public static final BitSet FOLLOW_23_in_rulePredicate588 = new BitSet(new long[]{0x00000000000000F0L});
+    public static final BitSet FOLLOW_ruleSingleTerm_in_rulePredicate609 = new BitSet(new long[]{0x0000000001100000L});
+    public static final BitSet FOLLOW_20_in_rulePredicate622 = new BitSet(new long[]{0x00000000000000F0L});
+    public static final BitSet FOLLOW_ruleSingleTerm_in_rulePredicate643 = new BitSet(new long[]{0x0000000001100000L});
+    public static final BitSet FOLLOW_24_in_rulePredicate657 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_rulePredicate687 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_26_in_rulePredicate716 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_rulePredicate744 = new BitSet(new long[]{0x00000000000000F0L});
+    public static final BitSet FOLLOW_ruleSingleTerm_in_rulePredicate765 = new BitSet(new long[]{0x0000000001100000L});
+    public static final BitSet FOLLOW_20_in_rulePredicate778 = new BitSet(new long[]{0x00000000000000F0L});
+    public static final BitSet FOLLOW_ruleSingleTerm_in_rulePredicate799 = new BitSet(new long[]{0x0000000001100000L});
+    public static final BitSet FOLLOW_24_in_rulePredicate813 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSingleTerm_in_rulePredicate842 = new BitSet(new long[]{0x0000000006000000L});
+    public static final BitSet FOLLOW_25_in_rulePredicate862 = new BitSet(new long[]{0x00000000000000F0L});
+    public static final BitSet FOLLOW_26_in_rulePredicate891 = new BitSet(new long[]{0x00000000000000F0L});
+    public static final BitSet FOLLOW_ruleSingleTerm_in_rulePredicate928 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSingleTerm_in_entryRuleSingleTerm965 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleSingleTerm975 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_NUMERAL_in_ruleSingleTerm1017 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_SMALL_ATOM_in_ruleSingleTerm1045 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_VARIABLE_in_ruleSingleTerm1073 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleSingleTerm1101 = new BitSet(new long[]{0x0000000000000002L});
 
 }

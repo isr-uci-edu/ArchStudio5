@@ -13,7 +13,7 @@ import org.archstudio.prolog.term.VariableTerm;
 
 public class Equals extends Operation {
 
-	public Equals(String functor, List<Term> terms) {
+	public Equals(List<Term> terms) {
 		super("==", terms);
 		checkArgument(terms.size() == 2);
 	}

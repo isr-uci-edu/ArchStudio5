@@ -20,6 +20,7 @@
     <genClasses ecoreClass="Prolog.ecore#//Predicate">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Predicate/value"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Predicate/terms"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Predicate/operation"/>
     </genClasses>
     <genClasses ecoreClass="Prolog.ecore#//SingleTerm">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/numeral"/>

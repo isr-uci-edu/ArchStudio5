@@ -12,16 +12,18 @@ Query:
 	'?-' predicates+=Predicate (',' predicates+=Predicate)* '.';
 
 Predicate:
-	(value=SingleTerm) ('(' terms+=SingleTerm (',' terms+=SingleTerm)* ')')?;
+	(value=SingleTerm) ('(' terms+=SingleTerm (',' terms+=SingleTerm)* ')')?
+	| operation=('==' | '\\=') '(' terms+=SingleTerm (',' terms+=SingleTerm)* ')'
+	| terms+=SingleTerm operation=('==' | '\\=') terms+=SingleTerm;
 
 SingleTerm:
-	(numeral=NUMERAL) | (atom=SmallAtom) | (variable=Variable) | (string=STRING);
+	(numeral=NUMERAL) | (atom=SMALL_ATOM) | (variable=VARIABLE) | (string=STRING);
 
-SmallAtom:
-	LOWER_CASE_LETTER CHARACTER*;
+terminal SMALL_ATOM:
+	LOWER_CASE_LETTER (DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER)*;
 
-Variable:
-	UPPER_CASE_LETTER CHARACTER*;
+terminal VARIABLE:
+	UPPER_CASE_LETTER (DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER)*;
 
 terminal NUMERAL:
 	'-'? DIGIT+;

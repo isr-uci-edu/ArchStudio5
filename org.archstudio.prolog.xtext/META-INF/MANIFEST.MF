@@ -30,5 +30,6 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.eclipse.xtext.common.types,
  org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.eclipse.xtext.xbase.lib
+Import-Package: org.eclipse.xtext.xbase.lib,
+ org.apache.log4j
 Bundle-ActivationPolicy: lazy

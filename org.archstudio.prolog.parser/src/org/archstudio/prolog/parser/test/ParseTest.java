@@ -2,6 +2,8 @@ package org.archstudio.prolog.parser.test;
 
 import junit.framework.Assert;
 
+import org.archstudio.prolog.op.Equals;
+import org.archstudio.prolog.op.NotEquals;
 import org.archstudio.prolog.parser.PrologParser;
 import org.archstudio.prolog.term.ConstantTerm;
 import org.archstudio.prolog.term.StringTerm;
@@ -29,6 +31,11 @@ public class ParseTest {
 		Assert.assertTrue(t.contains(checkIncluded));
 	}
 
+	private void assertParseOnly(String s, Term expected) {
+		Term t = PrologParser.parseTerms(s).get(0);
+		Assert.assertEquals(expected, t);
+	}
+
 	@Test
 	public void test() {
 		assertParse("f(a).");
@@ -40,12 +47,27 @@ public class ParseTest {
 	}
 
 	@Test
-	public void testNumeral() {
+	public void testFunctor() {
 		assertParse("f(-1).", new ConstantTerm(Long.valueOf(-1)));
 	}
 
 	@Test
-	public void testNumerals() {
+	public void testLongFunctor() {
+		assertParse("fabc(-1).", new ConstantTerm(Long.valueOf(-1)));
+	}
+
+	@Test
+	public void testNumeral() {
+		assertParse("f(1).", new ConstantTerm(Long.valueOf(1)));
+	}
+
+	@Test
+	public void testNegativeNumeral() {
+		assertParse("f(-1).", new ConstantTerm(Long.valueOf(-1)));
+	}
+
+	@Test
+	public void testLongNumeral() {
 		assertParse("f(123).", new ConstantTerm(Long.valueOf(123)));
 	}
 
@@ -55,7 +77,7 @@ public class ParseTest {
 	}
 
 	@Test
-	public void testStrings() {
+	public void testLongString() {
 		assertParse("f('abc').", new StringTerm("abc"));
 	}
 
@@ -65,8 +87,38 @@ public class ParseTest {
 	}
 
 	@Test
+	public void testLongAtom() {
+		assertParse("f(abc).", new ConstantTerm("abc"));
+	}
+
+	@Test
 	public void testVariable() {
 		assertParse("f(X).", new VariableTerm("X"));
+	}
+
+	@Test
+	public void testLongVariable() {
+		assertParse("f(Xabc).", new VariableTerm("Xabc"));
+	}
+
+	@Test
+	public void testEquals() {
+		assertParseOnly("Xabc==Xbcd.", new Equals(new VariableTerm("Xabc"), new VariableTerm("Xbcd")));
+	}
+
+	@Test
+	public void testEquals2() {
+		assertParseOnly("==(Xabc,Xbcd).", new Equals(new VariableTerm("Xabc"), new VariableTerm("Xbcd")));
+	}
+
+	@Test
+	public void testNotEquals() {
+		assertParseOnly("Xabc\\=Xbcd.", new NotEquals(new VariableTerm("Xabc"), new VariableTerm("Xbcd")));
+	}
+
+	@Test
+	public void testNotEquals2() {
+		assertParseOnly("\\=(Xabc,Xbcd).", new NotEquals(new VariableTerm("Xabc"), new VariableTerm("Xbcd")));
 	}
 
 }

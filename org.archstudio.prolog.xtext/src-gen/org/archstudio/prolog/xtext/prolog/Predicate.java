@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.Predicate#getValue <em>Value</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.Predicate#getTerms <em>Terms</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.Predicate#getOperation <em>Operation</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,5 +67,31 @@ public interface Predicate extends EObject
    * @generated
    */
   EList<SingleTerm> getTerms();
+
+  /**
+   * Returns the value of the '<em><b>Operation</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Operation</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Operation</em>' attribute.
+   * @see #setOperation(String)
+   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getPredicate_Operation()
+   * @model
+   * @generated
+   */
+  String getOperation();
+
+  /**
+   * Sets the value of the '{@link org.archstudio.prolog.xtext.prolog.Predicate#getOperation <em>Operation</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Operation</em>' attribute.
+   * @see #getOperation()
+   * @generated
+   */
+  void setOperation(String value);
 
 } // Predicate

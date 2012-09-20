@@ -228,6 +228,16 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getPredicate_Operation()
+  {
+    return (EAttribute)predicateEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getSingleTerm()
   {
     return singleTermEClass;
@@ -316,6 +326,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
     predicateEClass = createEClass(PREDICATE);
     createEReference(predicateEClass, PREDICATE__VALUE);
     createEReference(predicateEClass, PREDICATE__TERMS);
+    createEAttribute(predicateEClass, PREDICATE__OPERATION);
 
     singleTermEClass = createEClass(SINGLE_TERM);
     createEAttribute(singleTermEClass, SINGLE_TERM__NUMERAL);
@@ -368,6 +379,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
     initEClass(predicateEClass, Predicate.class, "Predicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPredicate_Value(), this.getSingleTerm(), null, "value", null, 0, 1, Predicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPredicate_Terms(), this.getSingleTerm(), null, "terms", null, 0, -1, Predicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPredicate_Operation(), ecorePackage.getEString(), "operation", null, 0, 1, Predicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(singleTermEClass, SingleTerm.class, "SingleTerm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSingleTerm_Numeral(), ecorePackage.getEString(), "numeral", null, 0, 1, SingleTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -178,13 +178,22 @@ public interface PrologPackage extends EPackage
   int PREDICATE__TERMS = 1;
 
   /**
+   * The feature id for the '<em><b>Operation</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PREDICATE__OPERATION = 2;
+
+  /**
    * The number of structural features of the '<em>Predicate</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PREDICATE_FEATURE_COUNT = 2;
+  int PREDICATE_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.archstudio.prolog.xtext.prolog.impl.SingleTermImpl <em>Single Term</em>}' class.
@@ -347,6 +356,17 @@ public interface PrologPackage extends EPackage
    * @generated
    */
   EReference getPredicate_Terms();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.archstudio.prolog.xtext.prolog.Predicate#getOperation <em>Operation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Operation</em>'.
+   * @see org.archstudio.prolog.xtext.prolog.Predicate#getOperation()
+   * @see #getPredicate()
+   * @generated
+   */
+  EAttribute getPredicate_Operation();
 
   /**
    * Returns the meta object for class '{@link org.archstudio.prolog.xtext.prolog.SingleTerm <em>Single Term</em>}'.
@@ -512,6 +532,14 @@ public interface PrologPackage extends EPackage
      * @generated
      */
     EReference PREDICATE__TERMS = eINSTANCE.getPredicate_Terms();
+
+    /**
+     * The meta object literal for the '<em><b>Operation</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PREDICATE__OPERATION = eINSTANCE.getPredicate_Operation();
 
     /**
      * The meta object literal for the '{@link org.archstudio.prolog.xtext.prolog.impl.SingleTermImpl <em>Single Term</em>}' class.
