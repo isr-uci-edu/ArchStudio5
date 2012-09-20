@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.archstudio.prolog.feature"
-      label="ArchStudio Prolog Feature"
+      label="ArchStudio - Prolog Integration (Optional)"
       version="1.0.0.qualifier"
       provider-name="archstudio.org"
       license-feature="org.archstudio.license.feature"
       license-feature-version="1.0.0.qualifier">
 
    <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+      A plugin for creating Prolog programs based on the xADL document.
    </description>
 
    <copyright url="http://www.example.com/copyright">
