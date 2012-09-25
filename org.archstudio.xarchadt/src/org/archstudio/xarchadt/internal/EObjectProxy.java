@@ -83,6 +83,7 @@ public class EObjectProxy extends AbstractProxy {
 			super(context);
 		}
 
+		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			IXArchADTTypeMetadata typeMetadata = proxy.xarch.getTypeMetadata(proxy.objRef);
 			EPackage ePackage = ePackageCache.getUnchecked(typeMetadata.getNsURI());
@@ -96,6 +97,7 @@ public class EObjectProxy extends AbstractProxy {
 			super(context);
 		}
 
+		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			return XArchADTProxy.proxy(proxy.xarch, proxy.xarch.getParent(proxy.objRef));
 		}
@@ -107,12 +109,28 @@ public class EObjectProxy extends AbstractProxy {
 			super(context);
 		}
 
+		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			EStructuralFeature feature = (EStructuralFeature) args[0];
-			if(feature.isMany())
+			if (feature.isMany()) {
 				return EListProxy.proxy(proxy.xarch, proxy.objRef, feature.getName());
+			}
 			Serializable result = proxy.xarch.get(proxy.objRef, feature.getName());
 			return result instanceof ObjRef ? XArchADTProxy.proxy(proxy.xarch, (ObjRef) result) : result;
+		}
+	}
+
+	static final class Set_ESet extends Handler<NameContext, ProxyImpl> {
+
+		public Set_ESet(NameContext context) {
+			super(context);
+		}
+
+		@Override
+		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
+			EStructuralFeature feature = (EStructuralFeature) args[0];
+			proxy.xarch.set(proxy.objRef, feature.getName(), (Serializable) args[1]);
+			return null;
 		}
 	}
 
@@ -227,6 +245,9 @@ public class EObjectProxy extends AbstractProxy {
 						}
 						if (name.equals("eGet")) {
 							return getHandler(Get_EGet.class, new NameContext(name));
+						}
+						if (name.equals("eSet")) {
+							return getHandler(Set_ESet.class, new NameContext(name));
 						}
 					}
 					if (name.startsWith(prefix = "get")) {
