@@ -18,15 +18,15 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Query/predicates"/>
     </genClasses>
     <genClasses ecoreClass="Prolog.ecore#//Predicate">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Predicate/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Predicate/functor"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Predicate/terms"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Predicate/operation"/>
     </genClasses>
     <genClasses ecoreClass="Prolog.ecore#//SingleTerm">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/numeral"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/atom"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/variable"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/string"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/operator"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

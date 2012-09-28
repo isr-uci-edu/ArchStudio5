@@ -208,7 +208,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPredicate_Value()
+  public EReference getPredicate_Functor()
   {
     return (EReference)predicateEClass.getEStructuralFeatures().get(0);
   }
@@ -221,16 +221,6 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
   public EReference getPredicate_Terms()
   {
     return (EReference)predicateEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getPredicate_Operation()
-  {
-    return (EAttribute)predicateEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -288,6 +278,16 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getSingleTerm_Operator()
+  {
+    return (EAttribute)singleTermEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public PrologFactory getPrologFactory()
   {
     return (PrologFactory)getEFactoryInstance();
@@ -324,15 +324,15 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
     createEReference(queryEClass, QUERY__PREDICATES);
 
     predicateEClass = createEClass(PREDICATE);
-    createEReference(predicateEClass, PREDICATE__VALUE);
+    createEReference(predicateEClass, PREDICATE__FUNCTOR);
     createEReference(predicateEClass, PREDICATE__TERMS);
-    createEAttribute(predicateEClass, PREDICATE__OPERATION);
 
     singleTermEClass = createEClass(SINGLE_TERM);
     createEAttribute(singleTermEClass, SINGLE_TERM__NUMERAL);
     createEAttribute(singleTermEClass, SINGLE_TERM__ATOM);
     createEAttribute(singleTermEClass, SINGLE_TERM__VARIABLE);
     createEAttribute(singleTermEClass, SINGLE_TERM__STRING);
+    createEAttribute(singleTermEClass, SINGLE_TERM__OPERATOR);
   }
 
   /**
@@ -377,15 +377,15 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
     initEReference(getQuery_Predicates(), this.getPredicate(), null, "predicates", null, 0, -1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(predicateEClass, Predicate.class, "Predicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPredicate_Value(), this.getSingleTerm(), null, "value", null, 0, 1, Predicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPredicate_Functor(), this.getSingleTerm(), null, "functor", null, 0, 1, Predicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPredicate_Terms(), this.getSingleTerm(), null, "terms", null, 0, -1, Predicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getPredicate_Operation(), ecorePackage.getEString(), "operation", null, 0, 1, Predicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(singleTermEClass, SingleTerm.class, "SingleTerm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSingleTerm_Numeral(), ecorePackage.getEString(), "numeral", null, 0, 1, SingleTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSingleTerm_Atom(), ecorePackage.getEString(), "atom", null, 0, 1, SingleTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSingleTerm_Variable(), ecorePackage.getEString(), "variable", null, 0, 1, SingleTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSingleTerm_String(), ecorePackage.getEString(), "string", null, 0, 1, SingleTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSingleTerm_Operator(), ecorePackage.getEString(), "operator", null, 0, 1, SingleTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

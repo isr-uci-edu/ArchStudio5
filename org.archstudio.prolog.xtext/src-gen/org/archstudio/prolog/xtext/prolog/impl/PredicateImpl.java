@@ -29,9 +29,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.PredicateImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.PredicateImpl#getFunctor <em>Functor</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.PredicateImpl#getTerms <em>Terms</em>}</li>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.PredicateImpl#getOperation <em>Operation</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,14 +39,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class PredicateImpl extends MinimalEObjectImpl.Container implements Predicate
 {
   /**
-   * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
+   * The cached value of the '{@link #getFunctor() <em>Functor</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getValue()
+   * @see #getFunctor()
    * @generated
    * @ordered
    */
-  protected SingleTerm value;
+  protected SingleTerm functor;
 
   /**
    * The cached value of the '{@link #getTerms() <em>Terms</em>}' containment reference list.
@@ -58,26 +57,6 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
    * @ordered
    */
   protected EList<SingleTerm> terms;
-
-  /**
-   * The default value of the '{@link #getOperation() <em>Operation</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getOperation()
-   * @generated
-   * @ordered
-   */
-  protected static final String OPERATION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getOperation() <em>Operation</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getOperation()
-   * @generated
-   * @ordered
-   */
-  protected String operation = OPERATION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -105,9 +84,9 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
    * <!-- end-user-doc -->
    * @generated
    */
-  public SingleTerm getValue()
+  public SingleTerm getFunctor()
   {
-    return value;
+    return functor;
   }
 
   /**
@@ -115,13 +94,13 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetValue(SingleTerm newValue, NotificationChain msgs)
+  public NotificationChain basicSetFunctor(SingleTerm newFunctor, NotificationChain msgs)
   {
-    SingleTerm oldValue = value;
-    value = newValue;
+    SingleTerm oldFunctor = functor;
+    functor = newFunctor;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PrologPackage.PREDICATE__VALUE, oldValue, newValue);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PrologPackage.PREDICATE__FUNCTOR, oldFunctor, newFunctor);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -132,20 +111,20 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(SingleTerm newValue)
+  public void setFunctor(SingleTerm newFunctor)
   {
-    if (newValue != value)
+    if (newFunctor != functor)
     {
       NotificationChain msgs = null;
-      if (value != null)
-        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PrologPackage.PREDICATE__VALUE, null, msgs);
-      if (newValue != null)
-        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PrologPackage.PREDICATE__VALUE, null, msgs);
-      msgs = basicSetValue(newValue, msgs);
+      if (functor != null)
+        msgs = ((InternalEObject)functor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PrologPackage.PREDICATE__FUNCTOR, null, msgs);
+      if (newFunctor != null)
+        msgs = ((InternalEObject)newFunctor).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PrologPackage.PREDICATE__FUNCTOR, null, msgs);
+      msgs = basicSetFunctor(newFunctor, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PrologPackage.PREDICATE__VALUE, newValue, newValue));
+      eNotify(new ENotificationImpl(this, Notification.SET, PrologPackage.PREDICATE__FUNCTOR, newFunctor, newFunctor));
   }
 
   /**
@@ -167,36 +146,13 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getOperation()
-  {
-    return operation;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setOperation(String newOperation)
-  {
-    String oldOperation = operation;
-    operation = newOperation;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PrologPackage.PREDICATE__OPERATION, oldOperation, operation));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
-      case PrologPackage.PREDICATE__VALUE:
-        return basicSetValue(null, msgs);
+      case PrologPackage.PREDICATE__FUNCTOR:
+        return basicSetFunctor(null, msgs);
       case PrologPackage.PREDICATE__TERMS:
         return ((InternalEList<?>)getTerms()).basicRemove(otherEnd, msgs);
     }
@@ -213,12 +169,10 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
   {
     switch (featureID)
     {
-      case PrologPackage.PREDICATE__VALUE:
-        return getValue();
+      case PrologPackage.PREDICATE__FUNCTOR:
+        return getFunctor();
       case PrologPackage.PREDICATE__TERMS:
         return getTerms();
-      case PrologPackage.PREDICATE__OPERATION:
-        return getOperation();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -234,15 +188,12 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
   {
     switch (featureID)
     {
-      case PrologPackage.PREDICATE__VALUE:
-        setValue((SingleTerm)newValue);
+      case PrologPackage.PREDICATE__FUNCTOR:
+        setFunctor((SingleTerm)newValue);
         return;
       case PrologPackage.PREDICATE__TERMS:
         getTerms().clear();
         getTerms().addAll((Collection<? extends SingleTerm>)newValue);
-        return;
-      case PrologPackage.PREDICATE__OPERATION:
-        setOperation((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -258,14 +209,11 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
   {
     switch (featureID)
     {
-      case PrologPackage.PREDICATE__VALUE:
-        setValue((SingleTerm)null);
+      case PrologPackage.PREDICATE__FUNCTOR:
+        setFunctor((SingleTerm)null);
         return;
       case PrologPackage.PREDICATE__TERMS:
         getTerms().clear();
-        return;
-      case PrologPackage.PREDICATE__OPERATION:
-        setOperation(OPERATION_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -281,31 +229,12 @@ public class PredicateImpl extends MinimalEObjectImpl.Container implements Predi
   {
     switch (featureID)
     {
-      case PrologPackage.PREDICATE__VALUE:
-        return value != null;
+      case PrologPackage.PREDICATE__FUNCTOR:
+        return functor != null;
       case PrologPackage.PREDICATE__TERMS:
         return terms != null && !terms.isEmpty();
-      case PrologPackage.PREDICATE__OPERATION:
-        return OPERATION_EDEFAULT == null ? operation != null : !OPERATION_EDEFAULT.equals(operation);
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (operation: ");
-    result.append(operation);
-    result.append(')');
-    return result.toString();
   }
 
 } //PredicateImpl

@@ -8,12 +8,11 @@ Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.prolog,
  org.archstudio.prolog.engine,
  org.archstudio.prolog.op,
- org.archstudio.prolog.term,
- org.archstudio.prolog.test
+ org.archstudio.prolog.op.iso,
+ org.archstudio.prolog.term
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.archstudio.guava,
- org.junit,
  org.eclipse.jdt.annotation
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

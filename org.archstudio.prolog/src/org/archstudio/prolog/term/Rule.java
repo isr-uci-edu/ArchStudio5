@@ -5,20 +5,20 @@ import java.util.List;
 
 public class Rule extends ComplexTerm {
 
-	final List<Term> bodyTerms;
+	final List<? extends Term> bodyTerms;
 
-	public Rule(String functor, List<Term> headTerms, List<Term> bodyTerms) {
+	public Rule(String functor, List<? extends Term> headTerms, List<? extends Term> bodyTerms) {
 		super(functor, headTerms);
 		this.bodyTerms = bodyTerms;
 	}
 
 	public Rule(ComplexTerm head, List<Term> bodyTerms) {
-		super(head.functor, head.terms);
+		super(head.getFunctor(), head.getTerms());
 		this.bodyTerms = bodyTerms;
 	}
 
 	public Rule(ComplexTerm head, Term... bodyTerms) {
-		super(head.functor, head.terms);
+		super(head.getFunctor(), head.getTerms());
 		this.bodyTerms = Arrays.asList(bodyTerms);
 	}
 
@@ -78,6 +78,6 @@ public class Rule extends ComplexTerm {
 	}
 
 	public ComplexTerm getHead() {
-		return new ComplexTerm(functor, terms);
+		return new ComplexTerm(getFunctor(), getTerms());
 	}
 }

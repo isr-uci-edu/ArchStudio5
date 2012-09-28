@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
-import org.archstudio.prolog.term.Term;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTProxy;
@@ -25,14 +24,16 @@ import com.google.common.collect.Lists;
 
 public class PrologUtils {
 
-	public static void addFacts(List<Term> facts, IProgressMonitor monitor, EObject eObject) {
+	public static List<ComplexTerm> getFacts(IProgressMonitor monitor, EObject eObject) {
 		SubMonitor progress = SubMonitor.convert(monitor, "Calculating Facts", 1);
 		try {
+			List<ComplexTerm> facts = Lists.newArrayList();
 			StringBuffer sb = new StringBuffer();
 			processEObject(facts, sb, 0, progress.newChild(1), null, null, eObject, null);
 
 			StringSelection stringSelection = new StringSelection(sb.toString());
 			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, stringSelection);
+			return facts;
 		}
 		finally {
 			if (monitor != null) {
@@ -41,7 +42,7 @@ public class PrologUtils {
 		}
 	}
 
-	private static void processEObject(List<Term> facts, StringBuffer sb, int indent, SubMonitor monitor,
+	private static void processEObject(List<ComplexTerm> facts, StringBuffer sb, int indent, SubMonitor monitor,
 			String parentName, ObjRef parentId, EObject eObject, String featureName) {
 
 		if (eObject == null) {
@@ -123,7 +124,7 @@ public class PrologUtils {
 		return f instanceof EAttribute;
 	}
 
-	private static void processEAttribute(List<Term> facts, StringBuffer sb, int indent, String parentType,
+	private static void processEAttribute(List<ComplexTerm> facts, StringBuffer sb, int indent, String parentType,
 			ObjRef parentId, EObject eObject, EStructuralFeature eAttribute) {
 		String attributeName = eAttribute.getName();
 
@@ -136,7 +137,7 @@ public class PrologUtils {
 		facts.add(formatFact(sb, indent, parentType, parentId, attributeName, attributeValue));
 	}
 
-	private static void processEReference(List<Term> facts, StringBuffer sb, int indent, String parentType,
+	private static void processEReference(List<ComplexTerm> facts, StringBuffer sb, int indent, String parentType,
 			ObjRef parentId, EObject eObject, EReference eReference) {
 
 		String refType = eReference.getName();
@@ -149,12 +150,13 @@ public class PrologUtils {
 
 	}
 
-	private static Term formatFact(StringBuffer sb, int indent, String name, Object value) {
+	private static ComplexTerm formatFact(StringBuffer sb, int indent, String name, Object value) {
 		sb.append(Strings.repeat(" ", indent) + SystemUtils.uncapFirst(name) + "(" + toAtom(value) + ").").append("\n");
 		return new ComplexTerm(SystemUtils.uncapFirst(name), new ConstantTerm(value));
 	}
 
-	private static Term formatFact(StringBuffer sb, int indent, String name1, Object value1, String name2, Object value2) {
+	private static ComplexTerm formatFact(StringBuffer sb, int indent, String name1, Object value1, String name2,
+			Object value2) {
 		sb.append(
 				Strings.repeat(" ", indent) + SystemUtils.uncapFirst(name1) + "_" + SystemUtils.uncapFirst(name2) + "("
 						+ toAtom(value1) + "," + toAtom(value2) + ").").append("\n");

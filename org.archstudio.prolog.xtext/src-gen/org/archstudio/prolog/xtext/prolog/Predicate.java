@@ -14,9 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.Predicate#getValue <em>Value</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.Predicate#getFunctor <em>Functor</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.Predicate#getTerms <em>Terms</em>}</li>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.Predicate#getOperation <em>Operation</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,30 +26,30 @@ import org.eclipse.emf.ecore.EObject;
 public interface Predicate extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Value</b></em>' containment reference.
+   * Returns the value of the '<em><b>Functor</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Value</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Functor</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Value</em>' containment reference.
-   * @see #setValue(SingleTerm)
-   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getPredicate_Value()
+   * @return the value of the '<em>Functor</em>' containment reference.
+   * @see #setFunctor(SingleTerm)
+   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getPredicate_Functor()
    * @model containment="true"
    * @generated
    */
-  SingleTerm getValue();
+  SingleTerm getFunctor();
 
   /**
-   * Sets the value of the '{@link org.archstudio.prolog.xtext.prolog.Predicate#getValue <em>Value</em>}' containment reference.
+   * Sets the value of the '{@link org.archstudio.prolog.xtext.prolog.Predicate#getFunctor <em>Functor</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Value</em>' containment reference.
-   * @see #getValue()
+   * @param value the new value of the '<em>Functor</em>' containment reference.
+   * @see #getFunctor()
    * @generated
    */
-  void setValue(SingleTerm value);
+  void setFunctor(SingleTerm value);
 
   /**
    * Returns the value of the '<em><b>Terms</b></em>' containment reference list.
@@ -67,31 +66,5 @@ public interface Predicate extends EObject
    * @generated
    */
   EList<SingleTerm> getTerms();
-
-  /**
-   * Returns the value of the '<em><b>Operation</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Operation</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Operation</em>' attribute.
-   * @see #setOperation(String)
-   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getPredicate_Operation()
-   * @model
-   * @generated
-   */
-  String getOperation();
-
-  /**
-   * Sets the value of the '{@link org.archstudio.prolog.xtext.prolog.Predicate#getOperation <em>Operation</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Operation</em>' attribute.
-   * @see #getOperation()
-   * @generated
-   */
-  void setOperation(String value);
 
 } // Predicate

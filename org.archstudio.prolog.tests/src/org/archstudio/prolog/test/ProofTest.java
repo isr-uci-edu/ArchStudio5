@@ -6,14 +6,13 @@ import java.util.Set;
 
 import junit.framework.Assert;
 
-import org.archstudio.prolog.engine.GenericProofEngine;
+import org.archstudio.prolog.engine.DebugProofEngine;
 import org.archstudio.prolog.engine.MostGeneralUnifierEngine;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.ProofEngine;
-import org.archstudio.prolog.engine.ProofEngine.MatchIterator;
 import org.archstudio.prolog.engine.UnificationEngine;
-import org.archstudio.prolog.op.Equals;
-import org.archstudio.prolog.op.NotEquals;
+import org.archstudio.prolog.op.iso.Equals;
+import org.archstudio.prolog.op.iso.NotEquals;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
 import org.archstudio.prolog.term.Rule;
@@ -49,7 +48,7 @@ public class ProofTest {
 	@Before
 	public void init() {
 		unificationEngine = new MostGeneralUnifierEngine();
-		proofEngine = new GenericProofEngine();
+		proofEngine = new DebugProofEngine();
 	}
 
 	@Test
@@ -69,18 +68,15 @@ public class ProofTest {
 
 		ProofContext proofContext = new ProofContext(knowledgeBase);
 		{
-			MatchIterator i = proofEngine.execute(proofContext, unificationEngine, new ComplexTerm("f", Y));
 			Set<Map<VariableTerm, Term>> results = Sets.newHashSet();
-			Map<VariableTerm, Term> v;
-			while ((v = i.next()) != null) {
+			for (Map<VariableTerm, Term> v : proofEngine.execute(proofContext, unificationEngine, //
+					new ComplexTerm("f", Y))) {
 				results.add(v);
 			}
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
 			expected.add(new MapMaker().add("Y", "a").toMap());
 			expected.add(new MapMaker().add("Y", "b").toMap());
 			Assert.assertEquals(expected, results);
-			
-			Assert.assertNull(i.next());
 		}
 	}
 
@@ -101,10 +97,9 @@ public class ProofTest {
 
 		ProofContext proofContext = new ProofContext(knowledgeBase);
 		{
-			MatchIterator i = proofEngine.execute(proofContext, unificationEngine, new ComplexTerm("k", Y));
 			Set<Map<VariableTerm, Term>> results = Sets.newHashSet();
-			Map<VariableTerm, Term> v;
-			while ((v = i.next()) != null) {
+			for (Map<VariableTerm, Term> v : proofEngine.execute(proofContext, unificationEngine, //
+					new ComplexTerm("k", Y))) {
 				results.add(v);
 			}
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
@@ -128,10 +123,9 @@ public class ProofTest {
 
 		ProofContext proofContext = new ProofContext(knowledgeBase);
 		{
-			MatchIterator i = proofEngine.execute(proofContext, unificationEngine, new ComplexTerm("jealous", X, Y));
 			Set<Map<VariableTerm, Term>> results = Sets.newHashSet();
-			Map<VariableTerm, Term> v;
-			while ((v = i.next()) != null) {
+			for (Map<VariableTerm, Term> v : proofEngine.execute(proofContext, unificationEngine, //
+					new ComplexTerm("jealous", X, Y))) {
 				results.add(v);
 			}
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
@@ -154,14 +148,13 @@ public class ProofTest {
 		knowledgeBase.add(new ComplexTerm("loves", new ConstantTerm("vincent"), new ConstantTerm("mia")));
 		knowledgeBase.add(new ComplexTerm("loves", new ConstantTerm("marcellus"), new ConstantTerm("mia")));
 		knowledgeBase.add(new Rule(new ComplexTerm("jealous", A, B), new ComplexTerm("loves", A, C), new ComplexTerm(
-				"loves", B, C), new Equals(A, B)));
+				"loves", B, C), new Equals("==", Lists.newArrayList(A, B))));
 
 		ProofContext proofContext = new ProofContext(knowledgeBase);
 		{
-			MatchIterator i = proofEngine.execute(proofContext, unificationEngine, new ComplexTerm("jealous", X, Y));
 			Set<Map<VariableTerm, Term>> results = Sets.newHashSet();
-			Map<VariableTerm, Term> v;
-			while ((v = i.next()) != null) {
+			for (Map<VariableTerm, Term> v : proofEngine.execute(proofContext, unificationEngine, //
+					new ComplexTerm("jealous", X, Y))) {
 				results.add(v);
 			}
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
@@ -182,14 +175,13 @@ public class ProofTest {
 		knowledgeBase.add(new ComplexTerm("loves", new ConstantTerm("vincent"), new ConstantTerm("mia")));
 		knowledgeBase.add(new ComplexTerm("loves", new ConstantTerm("marcellus"), new ConstantTerm("mia")));
 		knowledgeBase.add(new Rule(new ComplexTerm("jealous", A, B), new ComplexTerm("loves", A, C), new ComplexTerm(
-				"loves", B, C), new NotEquals(A, B)));
+				"loves", B, C), new NotEquals("\\=", Lists.newArrayList(A, B))));
 
 		ProofContext proofContext = new ProofContext(knowledgeBase);
 		{
-			MatchIterator i = proofEngine.execute(proofContext, unificationEngine, new ComplexTerm("jealous", X, Y));
 			Set<Map<VariableTerm, Term>> results = Sets.newHashSet();
-			Map<VariableTerm, Term> v;
-			while ((v = i.next()) != null) {
+			for (Map<VariableTerm, Term> v : proofEngine.execute(proofContext, unificationEngine, //
+					new ComplexTerm("jealous", X, Y))) {
 				results.add(v);
 			}
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
@@ -199,4 +191,53 @@ public class ProofTest {
 		}
 	}
 
+	@Test
+	public void testVariableRenames() {
+		List<ComplexTerm> knowledgeBase = Lists.newArrayList();
+		VariableTerm A = new VariableTerm("A");
+		VariableTerm B = new VariableTerm("B");
+		VariableTerm C = new VariableTerm("C");
+		VariableTerm D = new VariableTerm("D");
+		VariableTerm X = new VariableTerm("X");
+		VariableTerm Y = new VariableTerm("Y");
+		knowledgeBase.add(new ComplexTerm("f", new ConstantTerm(1), new ConstantTerm(2)));
+		knowledgeBase.add(new Rule(new ComplexTerm("g", X, Y), new ComplexTerm("f", X, Y)));
+		knowledgeBase.add(new Rule(new ComplexTerm("h", C, D), new ComplexTerm("g", C, D)));
+
+		ProofContext proofContext = new ProofContext(knowledgeBase);
+		{
+			Set<Map<VariableTerm, Term>> results = Sets.newHashSet();
+			for (Map<VariableTerm, Term> v : proofEngine.execute(proofContext, unificationEngine, //
+					new ComplexTerm("h", A, B))) {
+				results.add(v);
+			}
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new MapMaker().add("A", 1).add("B", 2).toMap());
+			Assert.assertEquals(expected, results);
+		}
+	}
+
+	@Test
+	public void testVariableRenamesWithOverlap() {
+		List<ComplexTerm> knowledgeBase = Lists.newArrayList();
+		VariableTerm X = new VariableTerm("X");
+		VariableTerm Y = new VariableTerm("Y");
+		knowledgeBase.add(new ComplexTerm("f", new ConstantTerm(1), new ConstantTerm(2)));
+		knowledgeBase.add(new ComplexTerm("f", new ConstantTerm(3), new ConstantTerm(4)));
+		knowledgeBase.add(new Rule(new ComplexTerm("g", Y, X), new ComplexTerm("f", X, Y)));
+		knowledgeBase.add(new Rule(new ComplexTerm("h", X, Y), new ComplexTerm("g", Y, X)));
+
+		ProofContext proofContext = new ProofContext(knowledgeBase);
+		{
+			Set<Map<VariableTerm, Term>> results = Sets.newHashSet();
+			for (Map<VariableTerm, Term> v : proofEngine.execute(proofContext, unificationEngine, //
+					new ComplexTerm("h", X, Y))) {
+				results.add(v);
+			}
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new MapMaker().add("X", 1).add("Y", 2).toMap());
+			expected.add(new MapMaker().add("X", 3).add("Y", 4).toMap());
+			Assert.assertEquals(expected, results);
+		}
+	}
 }

@@ -2,10 +2,11 @@ package org.archstudio.prolog.parser;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
 import java.util.List;
 
-import org.archstudio.prolog.op.Equals;
-import org.archstudio.prolog.op.NotEquals;
+import org.archstudio.prolog.engine.ProofContext;
+import org.archstudio.prolog.op.Operation;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
 import org.archstudio.prolog.term.Rule;
@@ -29,7 +30,7 @@ public class PrologParser {
 
 	private static Injector injector = null;
 
-	private static Program parse(String input) {
+	private static Program parse(String input) throws ParseException {
 		try {
 			if (injector == null) {
 				injector = new PrologStandaloneSetupGenerated().createInjectorAndDoEMFRegistration();
@@ -40,54 +41,60 @@ public class PrologParser {
 			InputStream in = new ByteArrayInputStream(input.getBytes());
 			resource.load(in, resourceSet.getLoadOptions());
 			if (resource.getErrors().size() > 0) {
-				throw new IllegalArgumentException(resource.getErrors().get(0).toString());
+				throw new ParseException(resource.getErrors().get(0).toString());
 			}
 			return (Program) resource.getContents().get(0);
 		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
+		catch (Throwable e) {
+			throw new ParseException(e);
 		}
 	}
 
-	public static synchronized List<Term> parseTerms(String input) {
+	public static synchronized List<ComplexTerm> parseTerms(ProofContext proofContext, String input)
+			throws ParseException {
 		Program program = parse(input);
-		List<Term> terms = Lists.newArrayList();
+		List<ComplexTerm> terms = Lists.newArrayList();
 		for (SingleClause clause : program.getClauses()) {
-			terms.add(parseClause(clause));
+			terms.add(parseClause(proofContext, clause));
 		}
 		return terms;
 	}
 
-	private static Term parseClause(SingleClause c) {
+	private static ComplexTerm parseClause(ProofContext proofContext, SingleClause c) throws ParseException {
 		if (c.getPredicates().size() == 1) {
-			return parsePredicate(c.getPredicates().get(0));
+			return parsePredicate(proofContext, c.getPredicates().get(0));
 		}
 		List<Term> predicates = Lists.newArrayList();
 		for (Predicate p : c.getPredicates()) {
-			predicates.add(parsePredicate(p));
+			predicates.add(parsePredicate(proofContext, p));
 		}
 		return new Rule((ComplexTerm) predicates.get(0), predicates.subList(1, predicates.size()));
 	}
 
-	private static Term parsePredicate(Predicate p) {
-		if (p.getTerms().size() == 0) {
-			return parseSingleTerm(p.getValue());
+	private static ComplexTerm parsePredicate(ProofContext proofContext, Predicate p) throws ParseException {
+		String name = p.getFunctor().getAtom() != null ? p.getFunctor().getAtom().toString() : p.getFunctor()
+				.getOperator().toString();
+		if (name == null) {
+			throw new ParseException("Require atom or operation");
 		}
-		String name = p.getValue() != null ? p.getValue().getAtom() : p.getOperation();
 		List<Term> terms = Lists.newArrayList();
 		for (SingleTerm t : p.getTerms()) {
 			terms.add(parseSingleTerm(t));
 		}
-		if (name.equals("==")) {
-			return new Equals(terms);
-		}
-		if (name.equals("\\=")) {
-			return new NotEquals(terms);
+		Class<Operation> operationClass = proofContext.getOperation(name);
+		if (operationClass != null) {
+			try {
+				Constructor<Operation> c = operationClass.getConstructor(String.class, List.class);
+				return c.newInstance(name, terms);
+			}
+			catch (Throwable e) {
+				throw new ParseException(e);
+			}
 		}
 		return new ComplexTerm(name, terms);
 	}
 
-	private static Term parseSingleTerm(SingleTerm t) {
+	private static Term parseSingleTerm(SingleTerm t) throws ParseException {
 		if (t.getNumeral() != null) {
 			return new ConstantTerm(Long.parseLong(t.getNumeral()));
 		}
@@ -96,6 +103,9 @@ public class PrologParser {
 		}
 		if (t.getVariable() != null) {
 			return new VariableTerm(t.getVariable());
+		}
+		if (t.getOperator() != null) {
+			throw new ParseException("Operator not allowed as term");
 		}
 		return new StringTerm(t.getString());
 	}

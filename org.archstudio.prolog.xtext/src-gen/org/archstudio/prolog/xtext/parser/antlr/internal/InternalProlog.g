@@ -293,29 +293,29 @@ rulePredicate returns [EObject current=null]
 (((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getPredicateAccess().getValueSingleTermParserRuleCall_0_0_0()); 
+	        newCompositeNode(grammarAccess.getPredicateAccess().getFunctorSingleTermParserRuleCall_0_0_0()); 
 	    }
-		lv_value_0_0=ruleSingleTerm		{
+		lv_functor_0_0=ruleSingleTerm		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getPredicateRule());
 	        }
        		set(
        			$current, 
-       			"value",
-        		lv_value_0_0, 
+       			"functor",
+        		lv_functor_0_0, 
         		"SingleTerm");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_1='(' 
+)	otherlv_1='(' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getPredicateAccess().getLeftParenthesisKeyword_0_1_0());
+    	newLeafNode(otherlv_1, grammarAccess.getPredicateAccess().getLeftParenthesisKeyword_0_1());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_0_1_1_0()); 
+	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_0_2_0()); 
 	    }
 		lv_terms_2_0=ruleSingleTerm		{
 	        if ($current==null) {
@@ -332,12 +332,12 @@ rulePredicate returns [EObject current=null]
 )
 )(	otherlv_3=',' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getPredicateAccess().getCommaKeyword_0_1_2_0());
+    	newLeafNode(otherlv_3, grammarAccess.getPredicateAccess().getCommaKeyword_0_3_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_0_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_0_3_1_0()); 
 	    }
 		lv_terms_4_0=ruleSingleTerm		{
 	        if ($current==null) {
@@ -354,44 +354,46 @@ rulePredicate returns [EObject current=null]
 )
 ))*	otherlv_5=')' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getPredicateAccess().getRightParenthesisKeyword_0_1_3());
+    	newLeafNode(otherlv_5, grammarAccess.getPredicateAccess().getRightParenthesisKeyword_0_4());
     }
-)?)
+)
     |((
 (
-(
-		lv_operation_6_1=	'==' 
-    {
-        newLeafNode(lv_operation_6_1, grammarAccess.getPredicateAccess().getOperationEqualsSignEqualsSignKeyword_1_0_0_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getPredicateRule());
-	        }
-       		setWithLastConsumed($current, "operation", lv_operation_6_1, null);
+		{ 
+	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_1_0_0()); 
 	    }
-
-    |		lv_operation_6_2=	'\\=' 
-    {
-        newLeafNode(lv_operation_6_2, grammarAccess.getPredicateAccess().getOperationReverseSolidusEqualsSignKeyword_1_0_0_1());
-    }
- 
-	    {
+		lv_terms_6_0=ruleSingleTerm		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getPredicateRule());
+	            $current = createModelElementForParent(grammarAccess.getPredicateRule());
 	        }
-       		setWithLastConsumed($current, "operation", lv_operation_6_2, null);
+       		add(
+       			$current, 
+       			"terms",
+        		lv_terms_6_0, 
+        		"SingleTerm");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPredicateAccess().getFunctorSingleTermParserRuleCall_1_1_0()); 
+	    }
+		lv_functor_7_0=ruleSingleTerm		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPredicateRule());
+	        }
+       		set(
+       			$current, 
+       			"functor",
+        		lv_functor_7_0, 
+        		"SingleTerm");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
-)	otherlv_7='(' 
-    {
-    	newLeafNode(otherlv_7, grammarAccess.getPredicateAccess().getLeftParenthesisKeyword_1_1());
-    }
-(
+)(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_1_2_0()); 
@@ -404,99 +406,6 @@ rulePredicate returns [EObject current=null]
        			$current, 
        			"terms",
         		lv_terms_8_0, 
-        		"SingleTerm");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(	otherlv_9=',' 
-    {
-    	newLeafNode(otherlv_9, grammarAccess.getPredicateAccess().getCommaKeyword_1_3_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_1_3_1_0()); 
-	    }
-		lv_terms_10_0=ruleSingleTerm		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getPredicateRule());
-	        }
-       		add(
-       			$current, 
-       			"terms",
-        		lv_terms_10_0, 
-        		"SingleTerm");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))*	otherlv_11=')' 
-    {
-    	newLeafNode(otherlv_11, grammarAccess.getPredicateAccess().getRightParenthesisKeyword_1_4());
-    }
-)
-    |((
-(
-		{ 
-	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_2_0_0()); 
-	    }
-		lv_terms_12_0=ruleSingleTerm		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getPredicateRule());
-	        }
-       		add(
-       			$current, 
-       			"terms",
-        		lv_terms_12_0, 
-        		"SingleTerm");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(
-(
-(
-		lv_operation_13_1=	'==' 
-    {
-        newLeafNode(lv_operation_13_1, grammarAccess.getPredicateAccess().getOperationEqualsSignEqualsSignKeyword_2_1_0_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getPredicateRule());
-	        }
-       		setWithLastConsumed($current, "operation", lv_operation_13_1, null);
-	    }
-
-    |		lv_operation_13_2=	'\\=' 
-    {
-        newLeafNode(lv_operation_13_2, grammarAccess.getPredicateAccess().getOperationReverseSolidusEqualsSignKeyword_2_1_0_1());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getPredicateRule());
-	        }
-       		setWithLastConsumed($current, "operation", lv_operation_13_2, null);
-	    }
-
-)
-
-)
-)(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getPredicateAccess().getTermsSingleTermParserRuleCall_2_2_0()); 
-	    }
-		lv_terms_14_0=ruleSingleTerm		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getPredicateRule());
-	        }
-       		add(
-       			$current, 
-       			"terms",
-        		lv_terms_14_0, 
         		"SingleTerm");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -544,9 +453,9 @@ ruleSingleTerm returns [EObject current=null]
 )
     |(
 (
-		lv_atom_1_0=RULE_SMALL_ATOM
+		lv_atom_1_0=RULE_ATOM
 		{
-			newLeafNode(lv_atom_1_0, grammarAccess.getSingleTermAccess().getAtomSMALL_ATOMTerminalRuleCall_1_0()); 
+			newLeafNode(lv_atom_1_0, grammarAccess.getSingleTermAccess().getAtomATOMTerminalRuleCall_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -556,7 +465,7 @@ ruleSingleTerm returns [EObject current=null]
        			$current, 
        			"atom",
         		lv_atom_1_0, 
-        		"SMALL_ATOM");
+        		"ATOM");
 	    }
 
 )
@@ -598,6 +507,25 @@ ruleSingleTerm returns [EObject current=null]
 	    }
 
 )
+)
+    |(
+(
+		lv_operator_4_0=RULE_OPERATOR
+		{
+			newLeafNode(lv_operator_4_0, grammarAccess.getSingleTermAccess().getOperatorOPERATORTerminalRuleCall_4_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSingleTermRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"operator",
+        		lv_operator_4_0, 
+        		"OPERATOR");
+	    }
+
+)
 ))
 ;
 
@@ -605,13 +533,15 @@ ruleSingleTerm returns [EObject current=null]
 
 
 
-RULE_SMALL_ATOM : RULE_LOWER_CASE_LETTER (RULE_DIGIT|RULE_LOWER_CASE_LETTER|RULE_UPPER_CASE_LETTER)*;
+RULE_OPERATOR : ('=='|'\\=');
+
+RULE_ATOM : RULE_LOWER_CASE_LETTER (RULE_DIGIT|RULE_LOWER_CASE_LETTER|RULE_UPPER_CASE_LETTER)*;
 
 RULE_VARIABLE : RULE_UPPER_CASE_LETTER (RULE_DIGIT|RULE_LOWER_CASE_LETTER|RULE_UPPER_CASE_LETTER)*;
 
 RULE_NUMERAL : '-'? RULE_DIGIT+;
 
-RULE_STRING : '\'' RULE_CHARACTER+ '\'';
+RULE_STRING : '\'' RULE_CHARACTER* '\'';
 
 RULE_DIGIT : '0'..'9';
 

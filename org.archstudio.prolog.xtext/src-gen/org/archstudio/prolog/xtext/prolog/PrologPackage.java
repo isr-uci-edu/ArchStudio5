@@ -160,13 +160,13 @@ public interface PrologPackage extends EPackage
   int PREDICATE = 3;
 
   /**
-   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * The feature id for the '<em><b>Functor</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PREDICATE__VALUE = 0;
+  int PREDICATE__FUNCTOR = 0;
 
   /**
    * The feature id for the '<em><b>Terms</b></em>' containment reference list.
@@ -178,22 +178,13 @@ public interface PrologPackage extends EPackage
   int PREDICATE__TERMS = 1;
 
   /**
-   * The feature id for the '<em><b>Operation</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PREDICATE__OPERATION = 2;
-
-  /**
    * The number of structural features of the '<em>Predicate</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PREDICATE_FEATURE_COUNT = 3;
+  int PREDICATE_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.archstudio.prolog.xtext.prolog.impl.SingleTermImpl <em>Single Term</em>}' class.
@@ -242,13 +233,22 @@ public interface PrologPackage extends EPackage
   int SINGLE_TERM__STRING = 3;
 
   /**
+   * The feature id for the '<em><b>Operator</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SINGLE_TERM__OPERATOR = 4;
+
+  /**
    * The number of structural features of the '<em>Single Term</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SINGLE_TERM_FEATURE_COUNT = 4;
+  int SINGLE_TERM_FEATURE_COUNT = 5;
 
 
   /**
@@ -336,15 +336,15 @@ public interface PrologPackage extends EPackage
   EClass getPredicate();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.archstudio.prolog.xtext.prolog.Predicate#getValue <em>Value</em>}'.
+   * Returns the meta object for the containment reference '{@link org.archstudio.prolog.xtext.prolog.Predicate#getFunctor <em>Functor</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Value</em>'.
-   * @see org.archstudio.prolog.xtext.prolog.Predicate#getValue()
+   * @return the meta object for the containment reference '<em>Functor</em>'.
+   * @see org.archstudio.prolog.xtext.prolog.Predicate#getFunctor()
    * @see #getPredicate()
    * @generated
    */
-  EReference getPredicate_Value();
+  EReference getPredicate_Functor();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.archstudio.prolog.xtext.prolog.Predicate#getTerms <em>Terms</em>}'.
@@ -356,17 +356,6 @@ public interface PrologPackage extends EPackage
    * @generated
    */
   EReference getPredicate_Terms();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.archstudio.prolog.xtext.prolog.Predicate#getOperation <em>Operation</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Operation</em>'.
-   * @see org.archstudio.prolog.xtext.prolog.Predicate#getOperation()
-   * @see #getPredicate()
-   * @generated
-   */
-  EAttribute getPredicate_Operation();
 
   /**
    * Returns the meta object for class '{@link org.archstudio.prolog.xtext.prolog.SingleTerm <em>Single Term</em>}'.
@@ -421,6 +410,17 @@ public interface PrologPackage extends EPackage
    * @generated
    */
   EAttribute getSingleTerm_String();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.archstudio.prolog.xtext.prolog.SingleTerm#getOperator <em>Operator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Operator</em>'.
+   * @see org.archstudio.prolog.xtext.prolog.SingleTerm#getOperator()
+   * @see #getSingleTerm()
+   * @generated
+   */
+  EAttribute getSingleTerm_Operator();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -518,12 +518,12 @@ public interface PrologPackage extends EPackage
     EClass PREDICATE = eINSTANCE.getPredicate();
 
     /**
-     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Functor</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PREDICATE__VALUE = eINSTANCE.getPredicate_Value();
+    EReference PREDICATE__FUNCTOR = eINSTANCE.getPredicate_Functor();
 
     /**
      * The meta object literal for the '<em><b>Terms</b></em>' containment reference list feature.
@@ -532,14 +532,6 @@ public interface PrologPackage extends EPackage
      * @generated
      */
     EReference PREDICATE__TERMS = eINSTANCE.getPredicate_Terms();
-
-    /**
-     * The meta object literal for the '<em><b>Operation</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute PREDICATE__OPERATION = eINSTANCE.getPredicate_Operation();
 
     /**
      * The meta object literal for the '{@link org.archstudio.prolog.xtext.prolog.impl.SingleTermImpl <em>Single Term</em>}' class.
@@ -582,6 +574,14 @@ public interface PrologPackage extends EPackage
      * @generated
      */
     EAttribute SINGLE_TERM__STRING = eINSTANCE.getSingleTerm_String();
+
+    /**
+     * The meta object literal for the '<em><b>Operator</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SINGLE_TERM__OPERATOR = eINSTANCE.getSingleTerm_Operator();
 
   }
 

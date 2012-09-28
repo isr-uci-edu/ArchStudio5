@@ -16,9 +16,5 @@ public interface ProofEngine {
 		public Map<VariableTerm, Term> next();
 	}
 
-	MatchIterator execute(ProofContext proofContext, UnificationEngine unificationEngine, ComplexTerm goal);
-
-	MatchIterator execute(ProofContext proofContext, UnificationEngine unificationEngine,
-			Map<VariableTerm, Term> variables, ComplexTerm goal);
-
+	Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine, ComplexTerm goal);
 }

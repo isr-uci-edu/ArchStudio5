@@ -8,10 +8,10 @@ import com.google.common.collect.Lists;
 
 public class ComplexTerm implements Term {
 
-	final String functor;
-	final List<Term> terms;
+	private final String functor;
+	private final List<? extends Term> terms;
 
-	public ComplexTerm(String functor, List<Term> terms) {
+	public ComplexTerm(String functor, List<? extends Term> terms) {
 		this.functor = functor;
 		this.terms = terms;
 	}
@@ -31,6 +31,10 @@ public class ComplexTerm implements Term {
 
 	public Term getTerm(int index) {
 		return terms.get(index);
+	}
+
+	public List<? extends Term> getTerms() {
+		return Lists.newArrayList(terms);
 	}
 
 	public Signature getSignature() {

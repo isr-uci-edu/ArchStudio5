@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.SingleTermImpl#getAtom <em>Atom</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.SingleTermImpl#getVariable <em>Variable</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.SingleTermImpl#getString <em>String</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.SingleTermImpl#getOperator <em>Operator</em>}</li>
  * </ul>
  * </p>
  *
@@ -109,6 +110,26 @@ public class SingleTermImpl extends MinimalEObjectImpl.Container implements Sing
    * @ordered
    */
   protected String string = STRING_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOperator()
+   * @generated
+   * @ordered
+   */
+  protected static final String OPERATOR_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getOperator() <em>Operator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOperator()
+   * @generated
+   * @ordered
+   */
+  protected String operator = OPERATOR_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -228,6 +249,29 @@ public class SingleTermImpl extends MinimalEObjectImpl.Container implements Sing
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getOperator()
+  {
+    return operator;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setOperator(String newOperator)
+  {
+    String oldOperator = operator;
+    operator = newOperator;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, PrologPackage.SINGLE_TERM__OPERATOR, oldOperator, operator));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -241,6 +285,8 @@ public class SingleTermImpl extends MinimalEObjectImpl.Container implements Sing
         return getVariable();
       case PrologPackage.SINGLE_TERM__STRING:
         return getString();
+      case PrologPackage.SINGLE_TERM__OPERATOR:
+        return getOperator();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -266,6 +312,9 @@ public class SingleTermImpl extends MinimalEObjectImpl.Container implements Sing
         return;
       case PrologPackage.SINGLE_TERM__STRING:
         setString((String)newValue);
+        return;
+      case PrologPackage.SINGLE_TERM__OPERATOR:
+        setOperator((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -293,6 +342,9 @@ public class SingleTermImpl extends MinimalEObjectImpl.Container implements Sing
       case PrologPackage.SINGLE_TERM__STRING:
         setString(STRING_EDEFAULT);
         return;
+      case PrologPackage.SINGLE_TERM__OPERATOR:
+        setOperator(OPERATOR_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -315,6 +367,8 @@ public class SingleTermImpl extends MinimalEObjectImpl.Container implements Sing
         return VARIABLE_EDEFAULT == null ? variable != null : !VARIABLE_EDEFAULT.equals(variable);
       case PrologPackage.SINGLE_TERM__STRING:
         return STRING_EDEFAULT == null ? string != null : !STRING_EDEFAULT.equals(string);
+      case PrologPackage.SINGLE_TERM__OPERATOR:
+        return OPERATOR_EDEFAULT == null ? operator != null : !OPERATOR_EDEFAULT.equals(operator);
     }
     return super.eIsSet(featureID);
   }
@@ -338,6 +392,8 @@ public class SingleTermImpl extends MinimalEObjectImpl.Container implements Sing
     result.append(variable);
     result.append(", string: ");
     result.append(string);
+    result.append(", operator: ");
+    result.append(operator);
     result.append(')');
     return result.toString();
   }

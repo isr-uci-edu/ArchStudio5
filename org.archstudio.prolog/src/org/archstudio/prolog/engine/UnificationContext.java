@@ -1,18 +1,18 @@
 package org.archstudio.prolog.engine;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 public class UnificationContext {
 
-	public final Set<Equation> equations = Sets.newHashSet();
+	public final List<Equation> equations = Lists.newArrayListWithCapacity(25);
 	public final Map<VariableTerm, Term> variables = Maps.newHashMap();
 
 	public UnificationContext() {
@@ -23,12 +23,15 @@ public class UnificationContext {
 	}
 
 	public UnificationContext(Term t1, Term t2, Map<VariableTerm, Term> variables) {
-		equations.add(new Equation(t1, t2));
 		for (Entry<VariableTerm, Term> e : variables.entrySet()) {
-			equations.add(new Equation(e.getKey(), e.getValue()));
+			t1 = t1.replace(e.getKey(), e.getValue());
+			t2 = t2.replace(e.getKey(), e.getValue());
+			this.variables.put(e.getKey(), e.getValue());
 		}
+		equations.add(new Equation(t1, t2));
 	}
 
+	@Override
 	public String toString() {
 		return "Equations: " + equations + ", Varaibles: " + variables;
 	}

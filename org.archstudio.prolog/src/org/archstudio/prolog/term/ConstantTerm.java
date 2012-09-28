@@ -2,7 +2,7 @@ package org.archstudio.prolog.term;
 
 public class ConstantTerm implements Term {
 
-	final Object value;
+	private final Object value;
 
 	public ConstantTerm(Object value) {
 		this.value = value;
@@ -21,6 +21,10 @@ public class ConstantTerm implements Term {
 	@Override
 	public String toString() {
 		return value.toString();
+	}
+
+	public Object getValue() {
+		return value;
 	}
 
 	@Override
@@ -53,5 +57,4 @@ public class ConstantTerm implements Term {
 		}
 		return true;
 	}
-
 }
