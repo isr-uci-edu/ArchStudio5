@@ -22,7 +22,6 @@
    <requires>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.junit"/>
       <import plugin="org.eclipse.jdt.annotation"/>
       <import plugin="org.eclipse.emf"/>
       <import plugin="org.eclipse.emf.common"/>
@@ -183,5 +182,12 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+
+   <plugin
+         id="org.archstudio.myx.fw"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>

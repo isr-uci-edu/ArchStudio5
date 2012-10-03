@@ -4,9 +4,9 @@ Bundle-Name: ArchStudio Prolog Tests
 Bundle-SymbolicName: org.archstudio.prolog.tests
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: archstudio.org
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.archstudio.prolog.test
 Require-Bundle: org.junit,
  org.archstudio.prolog,
  org.archstudio.prolog.parser,
  org.archstudio.prolog.xtext
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

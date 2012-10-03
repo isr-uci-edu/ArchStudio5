@@ -11,10 +11,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.xarchadt,
  org.archstudio.filemanager,
  org.eclipse.ui,
- com.google.guava,
  org.archstudio.prolog,
  org.archstudio.prolog.xadl,
  org.archstudio.myx.fw,
- org.archstudio.prolog.parser
+ org.archstudio.prolog.parser,
+ org.archstudio.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
