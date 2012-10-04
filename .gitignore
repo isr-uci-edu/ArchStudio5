@@ -7,7 +7,6 @@
 /*.xadl3.*/*.genmodel
 /*.xadl3.*/*.xsd2ecore
 /*.xadl3.*/*.ecore
-/*.xadl3.*/src/*
 /repos/
 hs_err_pid*.log
 /*.feature/build.xml
