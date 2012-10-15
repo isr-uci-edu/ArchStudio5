@@ -3,10 +3,15 @@
   <rm:property key="eclipse.version" value="3.7"/>
   <rm:property key="local.repos" value=""/>
   <rm:locator pattern=".*" searchPathRef="local.repos" failOnError="false"/>
-  <rm:locator pattern="^org\.tigris\.subversion(\..*)?$" searchPathRef="org.tigris.subversion" failOnError="false"/>
+  <rm:locator pattern="^org\.archstudio(\..*)?$" searchPathRef="org.archstudio"/>
+  <rm:locator pattern="^org\.eclipse\.jet(\..*)?$" searchPathRef="org.eclipse.jet"/>
   <rm:locator pattern=".*" searchPathRef="org.eclipse" failOnError="false"/>
+  <!--
+  <rm:locator pattern="^org\.tigris\.subversion(\..*)?$" searchPathRef="org.tigris.subversion"/>
+  <rm:locator pattern="^org\.eclipse\.emf(\..*)?$" searchPathRef="org.eclipse.emf"/>
+  <rm:locator pattern=".*" searchPathRef="org.eclipse.buckminster" failOnError="false"/>
   <rm:locator pattern=".*" searchPathRef="com.itemis" failOnError="false"/>
-  <rm:locator pattern=".*" searchPathRef="org.archstudio" failOnError="false"/>
+  -->
   <rm:searchPath name="local.repos">
     <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="url.catalog">
       <rm:uri format="{1}/{0}">
@@ -44,7 +49,7 @@
       <rm:uri format="http://subclipse.tigris.org/update_1.6.x?importType=binary"/>
     </rm:provider>
   </rm:searchPath>
-  <rm:searchPath name="org.eclipse">
+  <rm:searchPath name="org.eclipse.buckminster">
     <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
@@ -63,6 +68,8 @@
         </bc:replace>
       </rm:uri>
     </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="org.eclipse">
     <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
@@ -88,16 +95,22 @@
         </bc:replace>
       </rm:uri>
     </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="org.eclipse.jet">
     <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="http://download.eclipse.org/modeling/m2t/updates/releases/?importType=binary" />
     </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="org.eclipse.mdt">
     <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="http://download.eclipse.org/modeling/mdt/updates/releases/?importType=binary" />
     </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="org.eclipse.emf">
     <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
