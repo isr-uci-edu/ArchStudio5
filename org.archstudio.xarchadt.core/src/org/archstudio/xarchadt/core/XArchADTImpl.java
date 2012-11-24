@@ -481,16 +481,12 @@ public class XArchADTImpl implements IXArchADT {
 													.isContainment());
 								};
 							}));
-					return Maps.uniqueIndex(features, new Function<IXArchADTFeature, String>() {
-						@Override
-						public synchronized String apply(@Nullable IXArchADTFeature feature) {
-							if (feature == null) {
-								throw new NullPointerException();
-							}
-
-							return feature.getName();
-						}
-					});
+					// EClass allows multiple features by the same name, see #16
+					Map<String, IXArchADTFeature> featureMap = Maps.newHashMap();
+					for (IXArchADTFeature f : features) {
+						featureMap.put(f.getName(), f);
+					}
+					return featureMap;
 				}
 			});
 
