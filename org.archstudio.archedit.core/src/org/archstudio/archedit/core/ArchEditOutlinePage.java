@@ -678,13 +678,14 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 							}
 						}
 						for (IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
-							if (feature.isReference())
+							if (feature.isReference()) {
 								continue;
+							}
 							switch (feature.getType()) {
 							case ATTRIBUTE:
 								continue;
 							case ELEMENT_SINGLE:
-								objRefs.add((ObjRef) xarch.get(ref, feature.getName()));
+								objRefs.add(xarch.get(ref, feature.getName()));
 								continue;
 							case ELEMENT_MULTIPLE:
 								objRefs.addAll(xarch.getAll(ref, feature.getName()));
@@ -699,12 +700,23 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		return generateIdAction;
 	}
 
+	private List<IXArchADTFeature> sort(Collection<IXArchADTFeature> features) {
+		List<IXArchADTFeature> f = Lists.newArrayList(features);
+		Collections.sort(f, new Comparator<IXArchADTFeature>() {
+			@Override
+			public int compare(IXArchADTFeature arg0, IXArchADTFeature arg1) {
+				return arg0.getTypeName().compareTo(arg1.getTypeName());
+			}
+		});
+		return f;
+	}
+
 	protected List<Object> createAddContextMenuItems(final ObjRef ref) {
 		List<Object> items = new ArrayList<Object>();
 
 		final IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(ref);
 
-		for (final IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
+		for (final IXArchADTFeature feature : sort(typeMetadata.getFeatures().values())) {
 			if (feature.getType().equals(FeatureType.ELEMENT_SINGLE)
 					|| feature.getType().equals(FeatureType.ELEMENT_MULTIPLE)) {
 				boolean disabled = false;
@@ -778,13 +790,15 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 								.sortedByKey(addElementActionsByPackage.asMap().entrySet())) {
 							MenuManager p = new MenuManager("Package " + entry.getKey());
 							submenuManager.add(p);
-							for (AddElementAction addElementAction : entry.getValue())
+							for (AddElementAction addElementAction : entry.getValue()) {
 								p.add(addElementAction);
+							}
 						}
 					}
 					else if (addElementActions.size() > 0) {
-						for (AddElementAction addElementAction : addElementActions)
+						for (AddElementAction addElementAction : addElementActions) {
 							submenuManager.add(addElementAction);
+						}
 					}
 					if (!foundOne) {
 						submenuManager.add(SWTWidgetUtils.createNoAction("[No Candidates]"));
