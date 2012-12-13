@@ -4,29 +4,34 @@
     nsPrefix="prolog">
   <eClassifiers xsi:type="ecore:EClass" name="Program">
     <eStructuralFeatures xsi:type="ecore:EReference" name="clauses" upperBound="-1"
-        eType="#//SingleClause" containment="true"/>
+        eType="#//Clause" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="query" eType="#//Query"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SingleClause">
+  <eClassifiers xsi:type="ecore:EClass" name="Clause">
     <eStructuralFeatures xsi:type="ecore:EReference" name="predicates" upperBound="-1"
-        eType="#//Predicate" containment="true"/>
+        eType="#//Expression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Query">
     <eStructuralFeatures xsi:type="ecore:EReference" name="predicates" upperBound="-1"
-        eType="#//Predicate" containment="true"/>
+        eType="#//Expression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Predicate">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="functor" eType="#//SingleTerm"
+  <eClassifiers xsi:type="ecore:EClass" name="Expression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ops" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exps" upperBound="-1" eType="#//Expression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="terms" upperBound="-1"
-        eType="#//SingleTerm" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="term" eType="#//Term" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SingleTerm">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numeral" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Term">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="atom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="variable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="string" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="variable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="list" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="head" upperBound="-1" eType="#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tail" eType="#//Expression"
+        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

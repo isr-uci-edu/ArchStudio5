@@ -11,22 +11,25 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Program/clauses"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Program/query"/>
     </genClasses>
-    <genClasses ecoreClass="Prolog.ecore#//SingleClause">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//SingleClause/predicates"/>
+    <genClasses ecoreClass="Prolog.ecore#//Clause">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Clause/predicates"/>
     </genClasses>
     <genClasses ecoreClass="Prolog.ecore#//Query">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Query/predicates"/>
     </genClasses>
-    <genClasses ecoreClass="Prolog.ecore#//Predicate">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Predicate/functor"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Predicate/terms"/>
+    <genClasses ecoreClass="Prolog.ecore#//Expression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Expression/ops"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Expression/exps"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Expression/term"/>
     </genClasses>
-    <genClasses ecoreClass="Prolog.ecore#//SingleTerm">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/numeral"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/atom"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/variable"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/string"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//SingleTerm/operator"/>
+    <genClasses ecoreClass="Prolog.ecore#//Term">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Term/atom"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Term/number"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Term/string"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Term/variable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Term/list"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Term/head"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Term/tail"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

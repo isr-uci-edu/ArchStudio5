@@ -1,7 +1,6 @@
 package org.archstudio.prolog.archstudio;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.Map;
 
 import org.archstudio.archipelago.core.IArchipelagoEditorFocuser;
@@ -39,6 +38,8 @@ import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.dnd.DragSourceListener;
 import org.eclipse.ui.PlatformUI;
+
+import com.google.common.collect.Iterables;
 
 public class ArchipelagoTreePlugin implements IArchipelagoTreePlugin {
 
@@ -131,18 +132,20 @@ public class ArchipelagoTreePlugin implements IArchipelagoTreePlugin {
 						UnificationEngine unifier = new MostGeneralUnifierEngine();
 						ProofEngine proofEngine = new SingleThreadProofEngine();
 
-						List<ComplexTerm> facts = PrologUtils.getFacts(subMonitor.newChild(1), eObject);
-						facts.addAll(PrologParser
-								.parseTerms(
-										proofContext,
-										"connectedInterfaces(XIfaceRef, YIfaceRef) :- link(L), link_point1(L, XIfaceRef), link_point2(L, YIfaceRef), interface(XIfaceRef), interface(YIfaceRef), XIfaceRef\\=YIfaceRef."
-												+ "connectedInterfaces(XIfaceRef, YIfaceRef) :- link(L), link_point2(L, XIfaceRef), link_point1(L, YIfaceRef), interface(XIfaceRef), interface(YIfaceRef), XIfaceRef\\=YIfaceRef."
-												+ "brick_interface(X, Y) :- component_interface(X, Y)."
-												+ "brick_interface(X, Y) :- connector_interface(X, Y)."
-												+ "connectedBricks(XBrickRef, YBrickRef) :- connectedInterfaces(X, Y), X\\=Y, brick_interface(XBrickRef, X), brick_interface(YBrickRef, Y)."));
-						proofContext.add(facts);
+						proofContext.add(PrologUtils.getFacts(subMonitor.newChild(1), eObject));
+						proofContext.add(Iterables.filter(
+								PrologParser
+										.parseTerms(
+												proofContext,
+												"connectedInterfaces(XIfaceRef, YIfaceRef) :- link(L), link_point1(L, XIfaceRef), link_point2(L, YIfaceRef), interface(XIfaceRef), interface(YIfaceRef), XIfaceRef\\=YIfaceRef."
+														+ "connectedInterfaces(XIfaceRef, YIfaceRef) :- link(L), link_point2(L, XIfaceRef), link_point1(L, YIfaceRef), interface(XIfaceRef), interface(YIfaceRef), XIfaceRef\\=YIfaceRef."
+														+ "brick_interface(X, Y) :- component_interface(X, Y)."
+														+ "brick_interface(X, Y) :- connector_interface(X, Y)."
+														+ "connectedBricks(XBrickRef, YBrickRef) :- connectedInterfaces(X, Y), X\\=Y, brick_interface(XBrickRef, X), brick_interface(YBrickRef, Y)."),
+								ComplexTerm.class));
 
-						ComplexTerm goal = PrologParser.parseTerms(proofContext, "connectedBricks(X, Y).").get(0);
+						ComplexTerm goal = (ComplexTerm) PrologParser
+								.parseTerms(proofContext, "connectedBricks(X, Y).").get(0);
 
 						int total = 0;
 						for (Map<VariableTerm, Term> v : proofEngine.execute(proofContext, unifier, goal)) {

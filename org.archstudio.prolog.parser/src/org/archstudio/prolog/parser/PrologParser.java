@@ -3,21 +3,22 @@ package org.archstudio.prolog.parser;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.op.Operation;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
+import org.archstudio.prolog.term.ListTerm;
 import org.archstudio.prolog.term.Rule;
 import org.archstudio.prolog.term.StringTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 import org.archstudio.prolog.xtext.PrologStandaloneSetupGenerated;
-import org.archstudio.prolog.xtext.prolog.Predicate;
+import org.archstudio.prolog.xtext.prolog.Clause;
+import org.archstudio.prolog.xtext.prolog.Expression;
 import org.archstudio.prolog.xtext.prolog.Program;
-import org.archstudio.prolog.xtext.prolog.SingleClause;
-import org.archstudio.prolog.xtext.prolog.SingleTerm;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
@@ -50,63 +51,90 @@ public class PrologParser {
 		}
 	}
 
-	public static synchronized List<ComplexTerm> parseTerms(ProofContext proofContext, String input)
-			throws ParseException {
+	public static synchronized List<Term> parseTerms(ProofContext proofContext, String input) throws ParseException {
 		Program program = parse(input);
-		List<ComplexTerm> terms = Lists.newArrayList();
-		for (SingleClause clause : program.getClauses()) {
+		List<Term> terms = Lists.newArrayList();
+		for (Clause clause : program.getClauses()) {
 			terms.add(parseClause(proofContext, clause));
 		}
 		return terms;
 	}
 
-	private static ComplexTerm parseClause(ProofContext proofContext, SingleClause c) throws ParseException {
+	private static Term parseClause(ProofContext proofContext, Clause c) throws ParseException {
 		if (c.getPredicates().size() == 1) {
-			return parsePredicate(proofContext, c.getPredicates().get(0));
+			return parseOperation(proofContext, c.getPredicates().get(0));
 		}
 		List<Term> predicates = Lists.newArrayList();
-		for (Predicate p : c.getPredicates()) {
-			predicates.add(parsePredicate(proofContext, p));
+		for (Expression predicate : c.getPredicates()) {
+			predicates.add(parseOperation(proofContext, predicate));
 		}
 		return new Rule((ComplexTerm) predicates.get(0), predicates.subList(1, predicates.size()));
 	}
 
-	private static ComplexTerm parsePredicate(ProofContext proofContext, Predicate p) throws ParseException {
-		String name = p.getFunctor().getAtom() != null ? p.getFunctor().getAtom().toString() : p.getFunctor()
-				.getOperator().toString();
-		if (name == null) {
-			throw new ParseException("Require atom or operation");
+	private static List<Term> parseOperations(ProofContext proofContext, List<Expression> operations)
+			throws ParseException {
+		List<Term> terms = Lists.newArrayListWithCapacity(operations.size());
+		for (Expression o : operations) {
+			terms.add(parseOperation(proofContext, o));
 		}
-		List<Term> terms = Lists.newArrayList();
-		for (SingleTerm t : p.getTerms()) {
-			terms.add(parseSingleTerm(t));
-		}
-		Class<Operation> operationClass = proofContext.getOperation(name);
-		if (operationClass != null) {
-			try {
-				Constructor<Operation> c = operationClass.getConstructor(String.class, List.class);
-				return c.newInstance(name, terms);
-			}
-			catch (Throwable e) {
-				throw new ParseException(e);
-			}
-		}
-		return new ComplexTerm(name, terms);
+		return terms;
 	}
 
-	private static Term parseSingleTerm(SingleTerm t) throws ParseException {
-		if (t.getNumeral() != null) {
-			return new ConstantTerm(Long.parseLong(t.getNumeral()));
+	private static Term parseOperation(ProofContext proofContext, Expression o) throws ParseException {
+		if (o.getTerm() != null) {
+			return parseTerm(proofContext, o.getTerm());
 		}
+		List<Term> terms = Lists.newArrayList();
+		for (Expression t : o.getExps()) {
+			terms.add(parseOperation(proofContext, t));
+		}
+		Term t = terms.get(0);
+		for (int i = 0; i < o.getOps().size(); i++) {
+			String name = o.getOps().get(i);
+			Class<Operation> operationClass = proofContext.getOperation(name);
+			if (operationClass != null) {
+				try {
+					Constructor<Operation> c = operationClass.getConstructor(String.class, List.class);
+					t = c.newInstance(name, Lists.newArrayList(t, terms.get(i + 1)));
+				}
+				catch (Throwable e) {
+					throw new ParseException(e);
+				}
+			}
+			else {
+				t = new ComplexTerm(name, terms);
+			}
+		}
+		return t;
+	}
+
+	private static Term parseTerm(ProofContext proofContext, org.archstudio.prolog.xtext.prolog.Term t)
+			throws ParseException {
 		if (t.getAtom() != null) {
 			return new ConstantTerm(t.getAtom());
+		}
+		if (t.isList()) {
+			Term tail = new ListTerm(null, null);
+			if (t.getTail() != null) {
+				tail = parseOperation(proofContext, t.getTail());
+			}
+			if (t.getHead() != null) {
+				for (Expression o : Lists.reverse(t.getHead())) {
+					Term head = parseOperation(proofContext, o);
+					tail = new ListTerm(head, tail);
+				}
+			}
+			return tail;
+		}
+		if (t.getString() != null) {
+			return new StringTerm(t.getString());
 		}
 		if (t.getVariable() != null) {
 			return new VariableTerm(t.getVariable());
 		}
-		if (t.getOperator() != null) {
-			throw new ParseException("Operator not allowed as term");
+		if (t.getNumber() != null) {
+			return new ConstantTerm(new BigDecimal(t.getNumber()));
 		}
-		return new StringTerm(t.getString());
+		throw new IllegalArgumentException();
 	}
 }

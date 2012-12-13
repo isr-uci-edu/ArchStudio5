@@ -8,21 +8,21 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Query</b></em>'.
+ * A representation of the model object '<em><b>Clause</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.Query#getPredicates <em>Predicates</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.Clause#getPredicates <em>Predicates</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getQuery()
+ * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getClause()
  * @model
  * @generated
  */
-public interface Query extends EObject {
+public interface Clause extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Predicates</b></em>' containment reference list.
 	 * The list contents are of type {@link org.archstudio.prolog.xtext.prolog.Expression}.
@@ -33,10 +33,10 @@ public interface Query extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Predicates</em>' containment reference list.
-	 * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getQuery_Predicates()
+	 * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getClause_Predicates()
 	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Expression> getPredicates();
 
-} // Query
+} // Clause

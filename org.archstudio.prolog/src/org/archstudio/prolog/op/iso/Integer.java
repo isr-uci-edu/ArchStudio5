@@ -2,6 +2,7 @@ package org.archstudio.prolog.op.iso;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,6 @@ public class Integer extends Operation {
 		if (t instanceof VariableTerm) {
 			t = variables.get(t);
 		}
-		return t instanceof ConstantTerm && ((ConstantTerm) t).getValue() instanceof Long ? variables : null;
+		return t instanceof ConstantTerm && ((ConstantTerm) t).getValue() instanceof BigDecimal ? variables : null;
 	}
 }

@@ -4,9 +4,9 @@ package org.archstudio.prolog.xtext.prolog.impl;
 
 import java.util.Collection;
 
+import org.archstudio.prolog.xtext.prolog.Clause;
 import org.archstudio.prolog.xtext.prolog.Expression;
 import org.archstudio.prolog.xtext.prolog.PrologPackage;
-import org.archstudio.prolog.xtext.prolog.Query;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -22,18 +22,18 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Query</b></em>'.
+ * An implementation of the model object '<em><b>Clause</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.QueryImpl#getPredicates <em>Predicates</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ClauseImpl#getPredicates <em>Predicates</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class QueryImpl extends MinimalEObjectImpl.Container implements Query {
+public class ClauseImpl extends MinimalEObjectImpl.Container implements Clause {
 	/**
 	 * The cached value of the '{@link #getPredicates() <em>Predicates</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -49,7 +49,7 @@ public class QueryImpl extends MinimalEObjectImpl.Container implements Query {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected QueryImpl() {
+	protected ClauseImpl() {
 		super();
 	}
 
@@ -60,7 +60,7 @@ public class QueryImpl extends MinimalEObjectImpl.Container implements Query {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PrologPackage.Literals.QUERY;
+		return PrologPackage.Literals.CLAUSE;
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class QueryImpl extends MinimalEObjectImpl.Container implements Query {
 	 */
 	public EList<Expression> getPredicates() {
 		if (predicates == null) {
-			predicates = new EObjectContainmentEList<Expression>(Expression.class, this, PrologPackage.QUERY__PREDICATES);
+			predicates = new EObjectContainmentEList<Expression>(Expression.class, this, PrologPackage.CLAUSE__PREDICATES);
 		}
 		return predicates;
 	}
@@ -83,7 +83,7 @@ public class QueryImpl extends MinimalEObjectImpl.Container implements Query {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case PrologPackage.QUERY__PREDICATES:
+			case PrologPackage.CLAUSE__PREDICATES:
 				return ((InternalEList<?>)getPredicates()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -97,7 +97,7 @@ public class QueryImpl extends MinimalEObjectImpl.Container implements Query {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PrologPackage.QUERY__PREDICATES:
+			case PrologPackage.CLAUSE__PREDICATES:
 				return getPredicates();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -112,7 +112,7 @@ public class QueryImpl extends MinimalEObjectImpl.Container implements Query {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PrologPackage.QUERY__PREDICATES:
+			case PrologPackage.CLAUSE__PREDICATES:
 				getPredicates().clear();
 				getPredicates().addAll((Collection<? extends Expression>)newValue);
 				return;
@@ -128,7 +128,7 @@ public class QueryImpl extends MinimalEObjectImpl.Container implements Query {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PrologPackage.QUERY__PREDICATES:
+			case PrologPackage.CLAUSE__PREDICATES:
 				getPredicates().clear();
 				return;
 		}
@@ -143,10 +143,10 @@ public class QueryImpl extends MinimalEObjectImpl.Container implements Query {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PrologPackage.QUERY__PREDICATES:
+			case PrologPackage.CLAUSE__PREDICATES:
 				return predicates != null && !predicates.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //QueryImpl
+} //ClauseImpl

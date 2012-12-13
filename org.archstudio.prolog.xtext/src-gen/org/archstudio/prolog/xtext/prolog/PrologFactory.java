@@ -12,68 +12,67 @@ import org.eclipse.emf.ecore.EFactory;
  * @see org.archstudio.prolog.xtext.prolog.PrologPackage
  * @generated
  */
-public interface PrologFactory extends EFactory
-{
-  /**
-   * The singleton instance of the factory.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  PrologFactory eINSTANCE = org.archstudio.prolog.xtext.prolog.impl.PrologFactoryImpl.init();
+public interface PrologFactory extends EFactory {
+	/**
+	 * The singleton instance of the factory.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	PrologFactory eINSTANCE = org.archstudio.prolog.xtext.prolog.impl.PrologFactoryImpl.init();
 
-  /**
-   * Returns a new object of class '<em>Program</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Program</em>'.
-   * @generated
-   */
-  Program createProgram();
+	/**
+	 * Returns a new object of class '<em>Program</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Program</em>'.
+	 * @generated
+	 */
+	Program createProgram();
 
-  /**
-   * Returns a new object of class '<em>Single Clause</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Single Clause</em>'.
-   * @generated
-   */
-  SingleClause createSingleClause();
+	/**
+	 * Returns a new object of class '<em>Clause</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Clause</em>'.
+	 * @generated
+	 */
+	Clause createClause();
 
-  /**
-   * Returns a new object of class '<em>Query</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Query</em>'.
-   * @generated
-   */
-  Query createQuery();
+	/**
+	 * Returns a new object of class '<em>Query</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Query</em>'.
+	 * @generated
+	 */
+	Query createQuery();
 
-  /**
-   * Returns a new object of class '<em>Predicate</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Predicate</em>'.
-   * @generated
-   */
-  Predicate createPredicate();
+	/**
+	 * Returns a new object of class '<em>Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Expression</em>'.
+	 * @generated
+	 */
+	Expression createExpression();
 
-  /**
-   * Returns a new object of class '<em>Single Term</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Single Term</em>'.
-   * @generated
-   */
-  SingleTerm createSingleTerm();
+	/**
+	 * Returns a new object of class '<em>Term</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Term</em>'.
+	 * @generated
+	 */
+	Term createTerm();
 
-  /**
-   * Returns the package supported by this factory.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the package supported by this factory.
-   * @generated
-   */
-  PrologPackage getPrologPackage();
+	/**
+	 * Returns the package supported by this factory.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the package supported by this factory.
+	 * @generated
+	 */
+	PrologPackage getPrologPackage();
 
 } //PrologFactory

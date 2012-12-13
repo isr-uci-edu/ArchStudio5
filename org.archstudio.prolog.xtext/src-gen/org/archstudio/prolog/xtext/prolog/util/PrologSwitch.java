@@ -22,190 +22,173 @@ import org.eclipse.emf.ecore.util.Switch;
  * @see org.archstudio.prolog.xtext.prolog.PrologPackage
  * @generated
  */
-public class PrologSwitch<T> extends Switch<T>
-{
-  /**
-   * The cached model package
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected static PrologPackage modelPackage;
+public class PrologSwitch<T> extends Switch<T> {
+	/**
+	 * The cached model package
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected static PrologPackage modelPackage;
 
-  /**
-   * Creates an instance of the switch.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PrologSwitch()
-  {
-    if (modelPackage == null)
-    {
-      modelPackage = PrologPackage.eINSTANCE;
-    }
-  }
+	/**
+	 * Creates an instance of the switch.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PrologSwitch() {
+		if (modelPackage == null) {
+			modelPackage = PrologPackage.eINSTANCE;
+		}
+	}
 
-  /**
-   * Checks whether this is a switch for the given package.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @parameter ePackage the package in question.
-   * @return whether this is a switch for the given package.
-   * @generated
-   */
-  @Override
-  protected boolean isSwitchFor(EPackage ePackage)
-  {
-    return ePackage == modelPackage;
-  }
+	/**
+	 * Checks whether this is a switch for the given package.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @parameter ePackage the package in question.
+	 * @return whether this is a switch for the given package.
+	 * @generated
+	 */
+	@Override
+	protected boolean isSwitchFor(EPackage ePackage) {
+		return ePackage == modelPackage;
+	}
 
-  /**
-   * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the first non-null result returned by a <code>caseXXX</code> call.
-   * @generated
-   */
-  @Override
-  protected T doSwitch(int classifierID, EObject theEObject)
-  {
-    switch (classifierID)
-    {
-      case PrologPackage.PROGRAM:
-      {
-        Program program = (Program)theEObject;
-        T result = caseProgram(program);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case PrologPackage.SINGLE_CLAUSE:
-      {
-        SingleClause singleClause = (SingleClause)theEObject;
-        T result = caseSingleClause(singleClause);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case PrologPackage.QUERY:
-      {
-        Query query = (Query)theEObject;
-        T result = caseQuery(query);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case PrologPackage.PREDICATE:
-      {
-        Predicate predicate = (Predicate)theEObject;
-        T result = casePredicate(predicate);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case PrologPackage.SINGLE_TERM:
-      {
-        SingleTerm singleTerm = (SingleTerm)theEObject;
-        T result = caseSingleTerm(singleTerm);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      default: return defaultCase(theEObject);
-    }
-  }
+	/**
+	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the first non-null result returned by a <code>caseXXX</code> call.
+	 * @generated
+	 */
+	@Override
+	protected T doSwitch(int classifierID, EObject theEObject) {
+		switch (classifierID) {
+			case PrologPackage.PROGRAM: {
+				Program program = (Program)theEObject;
+				T result = caseProgram(program);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PrologPackage.CLAUSE: {
+				Clause clause = (Clause)theEObject;
+				T result = caseClause(clause);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PrologPackage.QUERY: {
+				Query query = (Query)theEObject;
+				T result = caseQuery(query);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PrologPackage.EXPRESSION: {
+				Expression expression = (Expression)theEObject;
+				T result = caseExpression(expression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PrologPackage.TERM: {
+				Term term = (Term)theEObject;
+				T result = caseTerm(term);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			default: return defaultCase(theEObject);
+		}
+	}
 
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Program</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Program</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseProgram(Program object)
-  {
-    return null;
-  }
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Program</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Program</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseProgram(Program object) {
+		return null;
+	}
 
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Single Clause</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Single Clause</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseSingleClause(SingleClause object)
-  {
-    return null;
-  }
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Clause</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Clause</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseClause(Clause object) {
+		return null;
+	}
 
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Query</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Query</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseQuery(Query object)
-  {
-    return null;
-  }
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Query</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Query</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseQuery(Query object) {
+		return null;
+	}
 
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Predicate</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Predicate</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casePredicate(Predicate object)
-  {
-    return null;
-  }
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExpression(Expression object) {
+		return null;
+	}
 
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Single Term</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Single Term</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseSingleTerm(SingleTerm object)
-  {
-    return null;
-  }
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Term</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Term</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTerm(Term object) {
+		return null;
+	}
 
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch, but this is the last case anyway.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject)
-   * @generated
-   */
-  @Override
-  public T defaultCase(EObject object)
-  {
-    return null;
-  }
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch, but this is the last case anyway.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
+	 * @generated
+	 */
+	@Override
+	public T defaultCase(EObject object) {
+		return null;
+	}
 
 } //PrologSwitch
