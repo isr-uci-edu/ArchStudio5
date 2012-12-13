@@ -43,25 +43,32 @@ public class PrologUtils {
 	}
 
 	private static void processEObject(List<ComplexTerm> facts, StringBuffer sb, int indent, SubMonitor monitor,
-			String parentName, ObjRef parentId, EObject eObject, String featureName) {
+			String parentName, EObject parent, EObject eObject, String featureName) {
 
 		if (eObject == null) {
 			return;
 		}
 
-		// Process root eObject
+		// Process Name and Feature Name
 		String name = eObject.eClass().getName();
-		ObjRef id = XArchADTProxy.unproxy(eObject);
-		facts.add(formatFact(sb, indent, name, id));
-
-		// Process Feature Name
-		if (featureName != null && !name.equals(featureName)) {
-			facts.add(formatFact(sb, indent, name, id, "featureName", featureName));
+		boolean hasFeatureName = false;
+		if (featureName != null && !SystemUtils.uncapFirst(name).equals(SystemUtils.uncapFirst(featureName))) {
+			hasFeatureName = true;
 		}
 
 		// add relationship of eObject to parent
-		if (parentId != null) {
-			facts.add(formatFact(sb, indent, parentName, parentId, name, id));
+		if (parent != null) {
+			facts.add(formatFact(sb, indent, parentName, parent, name, eObject));
+
+			if (hasFeatureName) {
+				facts.add(formatFact(sb, indent, parentName, parent, featureName, eObject));
+			}
+		}
+
+		// Process root eObject
+		facts.add(formatFact(sb, indent, name, eObject));
+		if (hasFeatureName) {
+			facts.add(formatFact(sb, indent, featureName, eObject));
 		}
 
 		// Process Structural Features
@@ -74,7 +81,7 @@ public class PrologUtils {
 			}
 
 			if (feature instanceof EAttribute) { // e.g., id, name
-				processEAttribute(facts, sb, indent + 1, name, id, eObject, feature);
+				processEAttribute(facts, sb, indent + 1, name, eObject, feature);
 				featureMonitor.worked(1);
 			}
 			else if (feature.isMany()) { // e.g., components, connectors, brick interfaces
@@ -82,24 +89,43 @@ public class PrologUtils {
 						((EList<?>) eObject.eGet(feature)).size());
 				for (Object childObject : (EList<?>) eObject.eGet(feature)) {
 					if (childObject instanceof EObject) {
-						processEObject(facts, sb, indent + 1, childMonitor.newChild(1), name, id,
+						if (hasFeatureName) {
+							processFeatureNameInParentChild(facts, sb, indent + 1, featureName, eObject,
+									(EObject) childObject, feature.getName());
+						}
+
+						processEObject(facts, sb, indent + 1, childMonitor.newChild(1), name, eObject,
 								(EObject) childObject, feature.getName());
 					}
 					else {
-						processEAttribute(facts, sb, indent + 1, name, id, eObject, feature);
+						if (hasFeatureName) {
+							processEAttribute(facts, sb, indent + 1, featureName, eObject, feature);
+						}
+
+						processEAttribute(facts, sb, indent + 1, name, eObject, feature);
+
 						childMonitor.worked(1);
 					}
 				}
 			}
 			else if (feature instanceof EReference && !((EReference) feature).isContainment()) {
-				processEReference(facts, sb, indent + 1, name, id, eObject, (EReference) feature);
+				processEReference(facts, sb, indent + 1, name, eObject, (EReference) feature);
+
+				if (hasFeatureName) {
+					processEReference(facts, sb, indent + 1, featureName, eObject, (EReference) feature);
+				}
+
 				featureMonitor.worked(1);
 			}
 			else { // Plain children
-				processEObject(facts, sb, indent + 1, featureMonitor.newChild(1), name, id,
+				if (hasFeatureName && eObject.eGet(feature) != null) {
+					processFeatureNameInParentChild(facts, sb, indent + 1, featureName, eObject,
+							(EObject) eObject.eGet(feature), feature.getName());
+				}
+
+				processEObject(facts, sb, indent + 1, featureMonitor.newChild(1), name, eObject,
 						(EObject) eObject.eGet(feature), feature.getName());
 			}
-
 		}
 	}
 
@@ -125,34 +151,54 @@ public class PrologUtils {
 	}
 
 	private static void processEAttribute(List<ComplexTerm> facts, StringBuffer sb, int indent, String parentType,
-			ObjRef parentId, EObject eObject, EStructuralFeature eAttribute) {
+			EObject parent, EStructuralFeature eAttribute) {
+
 		String attributeName = eAttribute.getName();
 
 		// Ignore attributes with no value
-		Object attributeValue = eObject.eGet(eAttribute);
+		Object attributeValue = parent.eGet(eAttribute);
 		if (attributeValue == null) {
 			return;
 		}
 
-		facts.add(formatFact(sb, indent, parentType, parentId, attributeName, attributeValue));
+		//		facts.add(formatFact(sb, indent, parentType, parentId, attributeName, attributeValue));
+		facts.add(formatFact(sb, indent, attributeName, parent, attributeValue));
 	}
 
 	private static void processEReference(List<ComplexTerm> facts, StringBuffer sb, int indent, String parentType,
-			ObjRef parentId, EObject eObject, EReference eReference) {
+			EObject parent, EReference eReference) {
 
 		String refType = eReference.getName();
-		EObject obj = (EObject) eObject.eGet(eReference);
+		EObject refObj = (EObject) parent.eGet(eReference);
 
-		if (obj != null) {
-			ObjRef refId = XArchADTProxy.unproxy(obj);
-			facts.add(formatFact(sb, indent, parentType, parentId, refType, refId));
+		if (refObj != null) {
+			facts.add(formatFact(sb, indent, parentType, parent, refType, refObj));
 		}
+	}
 
+	private static void processFeatureNameInParentChild(List<ComplexTerm> facts, StringBuffer sb, int indent,
+			String parentName, EObject parent, EObject child, String featureName) {
+
+		String name = child.eClass().getName();
+
+		// add relationship of eObject to parent feature name
+		facts.add(formatFact(sb, indent, parentName, parent, name, child));
+
+		if (featureName != null && !SystemUtils.uncapFirst(name).equals(SystemUtils.uncapFirst(featureName))) {
+			facts.add(formatFact(sb, indent, parentName, parent, featureName, child));
+		}
 	}
 
 	private static ComplexTerm formatFact(StringBuffer sb, int indent, String name, Object value) {
 		sb.append(Strings.repeat(" ", indent) + SystemUtils.uncapFirst(name) + "(" + toAtom(value) + ").").append("\n");
 		return new ComplexTerm(SystemUtils.uncapFirst(name), new ConstantTerm(value));
+	}
+
+	private static ComplexTerm formatFact(StringBuffer sb, int indent, String name, Object value1, Object value2) {
+		sb.append(
+				Strings.repeat(" ", indent) + SystemUtils.uncapFirst(name) + "(" + toAtom(value1) + ","
+						+ toAtom(value2) + ").").append("\n");
+		return new ComplexTerm(SystemUtils.uncapFirst(name), new ConstantTerm(value1), new ConstantTerm(value2));
 	}
 
 	private static ComplexTerm formatFact(StringBuffer sb, int indent, String name1, Object value1, String name2,
@@ -166,8 +212,9 @@ public class PrologUtils {
 
 	private static String toAtom(Object value) {
 		String atom;
-		if (value instanceof ObjRef) {
-			atom = Long.toString(((ObjRef) value).getUID());
+		if (value instanceof EObject) {
+			ObjRef id = XArchADTProxy.unproxy((EObject) value);
+			atom = Long.toString(id.getUID());
 		}
 		else if (value instanceof Number) {
 			atom = value.toString();
