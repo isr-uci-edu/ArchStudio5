@@ -157,6 +157,7 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 		}
 	}
 
+	@Override
 	public void handleEvent(Event event) {
 		if (hideSelection) {
 			event.detail &= ~SWT.SELECTED;
@@ -172,13 +173,15 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 				TreeColumn treeColumn = tree.getColumn(column);
 				CellLabelProvider labelProvider = changeSetViewer.getLabelProvider(column);
 				Object data = treeColumn.getData();
-				if (data == null)
+				if (data == null) {
 					data = treeItem.getData();
+				}
 				if (labelProvider instanceof IColorProvider) {
 					IColorProvider colorProvider = (IColorProvider) labelProvider;
 					Color fc = colorProvider.getForeground(data);
-					if (fc != null)
+					if (fc != null) {
 						event.gc.setForeground(fc);
+					}
 					Color bc = colorProvider.getBackground(data);
 					if (bc != null) {
 						event.gc.setBackground(bc);
@@ -204,9 +207,11 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 				if (labelUpdater == null) {
 					labelUpdater = new DelayedExecuteOnceThread(250, new Runnable() {
 
+						@Override
 						public void run() {
 							SWTWidgetUtils.async(changeSetViewer, new Runnable() {
 
+								@Override
 								public void run() {
 									superHandleLabelProviderChanged(new LabelProviderChangedEvent(changeSetViewer
 											.getLabelProvider()));
@@ -239,6 +244,7 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 		changeSetViewer.setCellModifier(new ChangeSetCellModifier(changeSetViewer, xarch));
 		changeSetViewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
 
+			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				synchronized (ignoreEventsLock) {
 					if (ignoreChangeSetSelectionEvents > 0) {
@@ -264,6 +270,7 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 		});
 		changeSetViewer.addOpenListener(new IOpenListener() {
 
+			@Override
 			public void open(OpenEvent event) {
 				for (Object element : ((IStructuredSelection) event.getSelection()).toArray()) {
 					changeSetViewer.getCellModifier().modify(element, "Apply",
@@ -349,8 +356,9 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 							if (XadlUtils.isInstanceOf(xarch, dataRefs[0], Variability_3_0Package.Literals.CHANGE_SET)) {
 								int newIndex = indexOf(changeSetViewer.getTree().getItems(), getCurrentTarget());
 								if (newIndex >= 0) {
-									if (getCurrentLocation() == ViewerDropAdapter.LOCATION_AFTER)
+									if (getCurrentLocation() == ViewerDropAdapter.LOCATION_AFTER) {
 										newIndex++;
+									}
 									move(xarch, xarch.getParent(dataRefs[0]), dataRefs, -newIndex - 1);
 									return true;
 								}
@@ -485,6 +493,7 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 				}
 				else {
 					Action a = new Action("Apply Transform") {
+						@Override
 						public void run() {
 						}
 					};
@@ -595,14 +604,15 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 
 		try {
 			Bundle b = null;
-			for(Bundle b2 : Activator.getContext().getBundles()){
-				if(b2.getSymbolicName().equals(javaTransformChangeSet.getBundle())){
+			for (Bundle b2 : Activator.getContext().getBundles()) {
+				if (b2.getSymbolicName().equals(javaTransformChangeSet.getBundle())) {
 					b = b2;
 					break;
 				}
 			}
 			@SuppressWarnings("unchecked")
-			final Class<ChangeSetTransform> c = (Class<ChangeSetTransform>) b.loadClass(javaTransformChangeSet.getClass_());
+			final Class<ChangeSetTransform> c = (Class<ChangeSetTransform>) b.loadClass(javaTransformChangeSet
+					.getClass_());
 			VariabilityUtils.updateDynamicChangeSet(xarch, documentRootRef, transformChangeSetRef,
 					new ChangeSetTransform() {
 
@@ -643,6 +653,7 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 
 	protected boolean hideSelection = false;
 
+	@Override
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		//		hideSelection = false;
 		//		if (this != part) {
@@ -663,7 +674,8 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 			MyxRegistry.getSharedInstance().unmap(brick, o);
 		}
 
-		getSite().getPage().removePartListener(this);
+		getSite().getWorkbenchWindow().getPartService().removePartListener(this);
+		getSite().getWorkbenchWindow().getSelectionService().removeSelectionListener(this);
 
 		super.dispose();
 	}
@@ -717,6 +729,7 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 		}
 	}
 
+	@Override
 	public void partActivated(final IWorkbenchPart part) {
 		if (part instanceof IEditorPart) {
 			IEditorPart editorPart = (IEditorPart) part;
@@ -727,9 +740,11 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 		}
 	}
 
+	@Override
 	public void partDeactivated(IWorkbenchPart part) {
 	}
 
+	@Override
 	public void partClosed(final IWorkbenchPart part) {
 		if (part instanceof IEditorPart) {
 			IEditorPart editorPart = (IEditorPart) part;
@@ -746,9 +761,11 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 		}
 	}
 
+	@Override
 	public void partBroughtToTop(IWorkbenchPart part) {
 	}
 
+	@Override
 	public void partOpened(IWorkbenchPart part) {
 	}
 
@@ -801,6 +818,7 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 						try {
 							new ProgressMonitorDialog(changeSetViewer.getControl().getShell()).run(true, true,
 									new IRunnableWithProgress() {
+										@Override
 										public void run(final IProgressMonitor monitor) {
 											monitor.beginTask(
 													"Creating a baseline change set for the current document...",
@@ -831,8 +849,9 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 			++ignoreChangeSetSelectionEvents;
 			changeSetViewer.setSelection(activeChangeSetRef != null ? new StructuredSelection(activeChangeSetRef)
 					: StructuredSelection.EMPTY);
-			if (overviewModeAction != null)
+			if (overviewModeAction != null) {
 				overviewModeAction.setChecked(xarch.isOverviewModeEnabled(xArchRef));
+			}
 		}
 
 		changeSetViewer.getControl().setEnabled(enabled);
@@ -849,18 +868,22 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 		notificationComposite.getParent().layout();
 	}
 
+	@Override
 	public void addSelectionChangedListener(ISelectionChangedListener listener) {
 		selectionChangedListeners.add(listener);
 	}
 
+	@Override
 	public ISelection getSelection() {
 		return new StructuredSelection(selectedRefs);
 	}
 
+	@Override
 	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
 		selectionChangedListeners.remove(listener);
 	}
 
+	@Override
 	public void setSelection(ISelection selection) {
 		// TODO Auto-generated method stub
 
@@ -873,6 +896,7 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 		}
 	}
 
+	@Override
 	public void selectionChanged(SelectionChangedEvent event) {
 		Iterator<?> iterator = ((IStructuredSelection) event.getSelection()).iterator();
 		if (iterator != null) {
