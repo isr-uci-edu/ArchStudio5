@@ -15,6 +15,7 @@ import org.eclipse.core.commands.operations.IUndoContext;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -25,8 +26,12 @@ import com.google.common.collect.Lists;
 public class BNAOperations {
 
 	public static void runnable(String label, final Runnable undoRunnable, final Runnable redoRunnable, boolean execute) {
-		if (execute)
+		if (execute) {
 			redoRunnable.run();
+		}
+		if (!Platform.isRunning() || !PlatformUI.isWorkbenchRunning()) {
+			return;
+		}
 
 		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
 		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
@@ -70,16 +75,18 @@ public class BNAOperations {
 			@Override
 			public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				IThing t = model.getThing(tID);
-				if (t != null)
+				if (t != null) {
 					t.set(key, oldValue);
+				}
 				return Status.OK_STATUS;
 			}
 
 			@Override
 			public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				IThing t = model.getThing(tID);
-				if (t != null)
+				if (t != null) {
 					t.set(key, newValue);
+				}
 				return Status.OK_STATUS;
 			}
 		};
@@ -98,10 +105,12 @@ public class BNAOperations {
 			if (t instanceof IHasMutableBoundingBox) {
 				final Rectangle r = ((IHasMutableBoundingBox) t).getBoundingBox();
 				runnables.add(new Runnable() {
+					@Override
 					public void run() {
 						IThing t = model.getThing(tID);
-						if (t != null)
+						if (t != null) {
 							((IHasMutableBoundingBox) t).setBoundingBox(r);
+						}
 					}
 				});
 				continue;
@@ -109,10 +118,12 @@ public class BNAOperations {
 			if (t instanceof IHasMutablePoints) {
 				final List<Point> p = ((IHasMutablePoints) t).getPoints();
 				runnables.add(new Runnable() {
+					@Override
 					public void run() {
 						IThing t = model.getThing(tID);
-						if (t != null)
+						if (t != null) {
 							((IHasMutablePoints) t).setPoints(p);
+						}
 					}
 				});
 				continue;
@@ -120,19 +131,23 @@ public class BNAOperations {
 			if (t instanceof IHasMutableReferencePoint) {
 				final Point p = ((IHasMutableReferencePoint) t).getReferencePoint();
 				runnables.add(new Runnable() {
+					@Override
 					public void run() {
 						IThing t = model.getThing(tID);
-						if (t != null)
+						if (t != null) {
 							((IHasMutableReferencePoint) t).setReferencePoint(p);
+						}
 					}
 				});
 				continue;
 			}
 		}
 		return new Runnable() {
+			@Override
 			public void run() {
-				for (Runnable r : runnables)
+				for (Runnable r : runnables) {
 					r.run();
+				}
 			}
 		};
 	}
