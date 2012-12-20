@@ -8,6 +8,7 @@ import org.archstudio.prolog.op.iso.Atom;
 import org.archstudio.prolog.op.iso.Compound;
 import org.archstudio.prolog.op.iso.Equals;
 import org.archstudio.prolog.op.iso.Nonvar;
+import org.archstudio.prolog.op.iso.Not;
 import org.archstudio.prolog.op.iso.NotEquals;
 import org.archstudio.prolog.op.iso.Var;
 import org.archstudio.prolog.term.ComplexTerm;
@@ -24,18 +25,22 @@ import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public class ProofContext {
+public class ProofContext implements Cloneable {
 
 	private static final Map<String, Class<? extends Operation>> operations = Maps.newHashMap();
 	{
 		// register the ISO operations
+
 		operations.put("==", Equals.class);
 		operations.put("\\=", NotEquals.class);
+		operations.put("\\+", Not.class);
+
 		operations.put("atom", Atom.class);
 		operations.put("compound", Compound.class);
 		operations.put("float", org.archstudio.prolog.op.iso.Float.class);
 		operations.put("integer", org.archstudio.prolog.op.iso.Integer.class);
 		operations.put("nonvar", Nonvar.class);
+		operations.put("not", Not.class); // not ISO
 		operations.put("number", org.archstudio.prolog.op.iso.Number.class);
 		operations.put("var", Var.class);
 
@@ -70,6 +75,10 @@ public class ProofContext {
 
 	public ProofContext(Iterable<ComplexTerm> knowledgeBase) {
 		add(knowledgeBase);
+	}
+
+	public ProofContext(ProofContext toCopy) {
+		add(toCopy.knowledgeBase.values());
 	}
 
 	@SuppressWarnings("unchecked")

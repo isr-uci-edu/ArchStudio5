@@ -29,7 +29,7 @@ public class SingleThreadProofEngine extends DebugProofEngine implements ProofEn
 	}
 
 	@Override
-	protected Iterable<Map<VariableTerm, Term>> execute(final ProofContext proofContext,
+	public Iterable<Map<VariableTerm, Term>> execute(final ProofContext proofContext,
 			final UnificationEngine unificationEngine, final ComplexTerm goal, final Map<VariableTerm, Term> variables) {
 
 		return new Iterable<Map<VariableTerm, Term>>() {

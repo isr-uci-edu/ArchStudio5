@@ -9,10 +9,11 @@ import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.ProofEngine;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Operation;
+import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
-public class Nonvar extends Operation {
+public class Nonvar extends ComplexTerm implements Operation {
 
 	public Nonvar(String name, List<? extends Term> terms) {
 		super(name, terms);

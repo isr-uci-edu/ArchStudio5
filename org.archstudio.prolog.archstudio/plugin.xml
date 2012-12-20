@@ -1,11 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="archlighttest" name="ArchlightTest" schema="schema/archlighttest.exsd"/>
    <extension
          point="org.archstudio.archipelago">
       <ArchipelagoTreePlugin
             class="org.archstudio.prolog.archstudio.ArchipelagoTreePlugin">
       </ArchipelagoTreePlugin>
+   </extension>
+   <extension
+         point="org.archstudio.myxgen.brick">
+      <brick
+            class="org.archstudio.prolog.archstudio.PrologMyxComponent"
+            id="org.archstudio.prolog.archstudio.PrologMyxComponent"
+            name="Prolog Impl">
+         <interface
+               class="org.archstudio.xarchadt.IXArchADT"
+               delegate="variable"
+               direction="out"
+               domain="top"
+               getter="true"
+               id="xarch"
+               name="xarch"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.testadt.IArchlightTestADT"
+               delegate="variable"
+               direction="out"
+               domain="top"
+               getter="true"
+               id="tests"
+               name="tests"
+               single="true">
+         </interface>
+         <interface
+               class="org.archstudio.archlight.IArchlightTool"
+               delegate="brick"
+               direction="in"
+               domain="top"
+               getter="true"
+               id="tools"
+               name="tools"
+               single="true">
+         </interface>
+      </brick>
+   </extension>
+   <extension
+         point="org.archstudio.prolog.archstudio.archlighttest">
+      <ArchlightTest
+            description="Checks whether linked interfaces have compatible directions."
+            goal="test"
+            id="org.archstudio.prolog.archstudio.ArchlightTest1"
+            name="xADL 3/Structures/Interface Directions Compatible">
+         <Prolog>
+            compatible_directions(&apos;in&apos;, &apos;out&apos;).
+compatible_directions(&apos;out&apos;, &apos;in&apos;).
+compatible_directions(&apos;inout&apos;, &apos;inout&apos;).
+compatible_directions(&apos;none&apos;, &apos;none&apos;).
+test(Id, &apos;Connected interfaces have incompatible directions&apos;) :- 
+    link(L), id(L, Id), 
+    link_point1(L, P1), link_point2(L, P2), 
+    direction(P1, P1d), direction(P2, P2d), 
+    \+ compatible_directions(P1d, P2d).
+         </Prolog>
+      </ArchlightTest>
    </extension>
 
 </plugin>

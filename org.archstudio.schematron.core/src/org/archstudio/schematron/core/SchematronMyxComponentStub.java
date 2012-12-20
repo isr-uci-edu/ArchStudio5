@@ -47,10 +47,11 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	}
 
 	/**
-	 * Myx interface tools: <code>IN_TOOLS</code>
-	 * 
+	 * Myx name for the <code>tools</code> interface.
+	 *
 	 * @generated
 	 */
+	// MyxGenInterface[name=tools,direction=in,single=true,serviceObjectDelegate=brick,generateGetter=true,className=org.archstudio.archlight.IArchlightTool,domain=top,description=null]
 	public static final IMyxName IN_TOOLS = MyxUtils.createName("tools");
 	/**
 	 * Myx interface tests: <code>OUT_TESTS</code>
@@ -80,8 +81,8 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	protected org.archstudio.xarchadt.IXArchADT xarch = null;
 
 	/**
-	 * Returns the service object(s) for <code>tools</code>
-	 * 
+	 * Returns the service object(s) for the <code>tools</code> interface.
+	 *
 	 * @see #IN_TOOLS
 	 * @generated
 	 */

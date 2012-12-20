@@ -6,7 +6,7 @@
       <brick
             class="org.archstudio.filemanager.core.FileManagerMyxComponent"
             id="org.archstudio.filemanager.core.FileManagerMyxComponent"
-            name="File Manager Impl B">
+            name="File Manager Impl">
          <interface
                class="org.archstudio.xarchadt.IXArchADT"
                delegate="variable"

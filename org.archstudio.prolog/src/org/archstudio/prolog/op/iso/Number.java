@@ -9,11 +9,12 @@ import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.ProofEngine;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Operation;
+import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
-public class Number extends Operation {
+public class Number extends ComplexTerm implements Operation {
 
 	public Number(String name, List<? extends Term> terms) {
 		super(name, terms);

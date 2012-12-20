@@ -15,6 +15,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.prolog.xadl,
  org.archstudio.myx.fw,
  org.archstudio.prolog.parser,
- org.archstudio.guava
+ org.archstudio.guava,
+ org.archstudio.myxgen,
+ org.archstudio.archlight,
+ org.archstudio.testadt,
+ org.eclipse.core.resources
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

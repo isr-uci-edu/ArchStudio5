@@ -10,10 +10,11 @@ import org.archstudio.prolog.engine.ProofEngine;
 import org.archstudio.prolog.engine.UnificationContext;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Operation;
+import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
-public class NotEquals extends Operation {
+public class NotEquals extends ComplexTerm implements Operation {
 
 	public NotEquals(String name, List<? extends Term> terms) {
 		super(name, terms);

@@ -84,10 +84,6 @@ public class PrologAdapterFactory extends AdapterFactoryImpl {
 				return createExpressionAdapter();
 			}
 			@Override
-			public Adapter caseTerm(Term object) {
-				return createTermAdapter();
-			}
-			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -160,20 +156,6 @@ public class PrologAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createExpressionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.archstudio.prolog.xtext.prolog.Term <em>Term</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.archstudio.prolog.xtext.prolog.Term
-	 * @generated
-	 */
-	public Adapter createTermAdapter() {
 		return null;
 	}
 

@@ -200,7 +200,9 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 
 				//Remove old issues
 				for (IMarker marker : resource.findMarkers(IMarker.PROBLEM, false, IResource.DEPTH_INFINITE)) {
-					marker.delete();
+					if (this.getClass().getName().equals(marker.getAttribute(IMarker.SOURCE_ID))) {
+						marker.delete();
+					}
 				}
 
 				//Store the new issues
@@ -224,8 +226,7 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 								marker.setAttribute(IMarker.MESSAGE, issue.getDetailedDescription());
 								marker.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_HIGH);
 								marker.setAttribute(IMarker.LOCATION, id.getElementID());
-
-								//FIXME: Make these markers open in an appropriate editor
+								marker.setAttribute(IMarker.SOURCE_ID, this.getClass().getName());
 							}
 						}
 					}

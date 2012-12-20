@@ -48,13 +48,19 @@ public class DebugProofEngine implements ProofEngine {
 			Term g = globalTerm.getTerm(j);
 			Term l = localTerm.getTerm(j);
 			if (g instanceof VariableTerm) {
-				gVariables.put((VariableTerm) g, localVariables.get(l));
+				if (l instanceof VariableTerm) {
+					gVariables.put((VariableTerm) g, localVariables.get(l));
+				}
+				else {
+					gVariables.put((VariableTerm) g, l);
+				}
 			}
 		}
 		return gVariables;
 	}
 
-	protected Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
+	@Override
+	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			ComplexTerm goal, Map<VariableTerm, Term> variables) {
 
 		List<Map<VariableTerm, Term>> results = Lists.newArrayList();

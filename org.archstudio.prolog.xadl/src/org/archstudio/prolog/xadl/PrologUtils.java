@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
+import org.archstudio.prolog.term.StringTerm;
+import org.archstudio.prolog.term.Term;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTProxy;
@@ -74,10 +76,25 @@ public class PrologUtils {
 		// Process Structural Features
 		SubMonitor featureMonitor = monitor.newChild(1).setWorkRemaining(
 				eObject.eClass().getEAllStructuralFeatures().size());
+		boolean isDocumentRoot = eObject.eContainer() == null;
 		for (EStructuralFeature feature : sort(eObject.eClass().getEAllStructuralFeatures())) {
 
 			if (monitor.isCanceled()) {
 				break;
+			}
+			if (isDocumentRoot) {
+				if (feature.getName().equals("mixed")) {
+					continue;
+				}
+				if (feature.getName().equals("xMLNSPrefixMap")) {
+					continue;
+				}
+				if (feature.getName().equals("xSISchemaLocation")) {
+					continue;
+				}
+				if (feature.getName().equals("topLevelElement")) {
+					continue;
+				}
 			}
 
 			if (feature instanceof EAttribute) { // e.g., id, name
@@ -191,14 +208,14 @@ public class PrologUtils {
 
 	private static ComplexTerm formatFact(StringBuffer sb, int indent, String name, Object value) {
 		sb.append(Strings.repeat(" ", indent) + SystemUtils.uncapFirst(name) + "(" + toAtom(value) + ").").append("\n");
-		return new ComplexTerm(SystemUtils.uncapFirst(name), new ConstantTerm(value));
+		return new ComplexTerm(SystemUtils.uncapFirst(name), toTerm(value));
 	}
 
 	private static ComplexTerm formatFact(StringBuffer sb, int indent, String name, Object value1, Object value2) {
 		sb.append(
 				Strings.repeat(" ", indent) + SystemUtils.uncapFirst(name) + "(" + toAtom(value1) + ","
 						+ toAtom(value2) + ").").append("\n");
-		return new ComplexTerm(SystemUtils.uncapFirst(name), new ConstantTerm(value1), new ConstantTerm(value2));
+		return new ComplexTerm(SystemUtils.uncapFirst(name), toTerm(value1), toTerm(value2));
 	}
 
 	private static ComplexTerm formatFact(StringBuffer sb, int indent, String name1, Object value1, String name2,
@@ -206,8 +223,18 @@ public class PrologUtils {
 		sb.append(
 				Strings.repeat(" ", indent) + SystemUtils.uncapFirst(name1) + "_" + SystemUtils.uncapFirst(name2) + "("
 						+ toAtom(value1) + "," + toAtom(value2) + ").").append("\n");
-		return new ComplexTerm(SystemUtils.uncapFirst(name1) + "_" + SystemUtils.uncapFirst(name2), new ConstantTerm(
-				value1), new ConstantTerm(value2));
+		return new ComplexTerm(SystemUtils.uncapFirst(name1) + "_" + SystemUtils.uncapFirst(name2), toTerm(value1),
+				toTerm(value2));
+	}
+
+	private static Term toTerm(Object value) {
+		if (value instanceof Number) {
+			return new ConstantTerm(value);
+		}
+		if (value instanceof EObject) {
+			return new ConstantTerm(value);
+		}
+		return new StringTerm("" + value);
 	}
 
 	private static String toAtom(Object value) {

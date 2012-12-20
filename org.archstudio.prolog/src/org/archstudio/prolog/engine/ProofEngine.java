@@ -16,6 +16,9 @@ public interface ProofEngine {
 		public Map<VariableTerm, Term> next();
 	}
 
-	Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
+	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			ComplexTerm goal);
+
+	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
+			ComplexTerm goal, Map<VariableTerm, Term> variables);
 }

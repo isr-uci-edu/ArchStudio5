@@ -21,6 +21,8 @@ import org.archstudio.prolog.xtext.prolog.Expression;
 import org.archstudio.prolog.xtext.prolog.Program;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
+import org.eclipse.xtext.diagnostics.AbstractDiagnostic;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
@@ -42,7 +44,19 @@ public class PrologParser {
 			InputStream in = new ByteArrayInputStream(input.getBytes());
 			resource.load(in, resourceSet.getLoadOptions());
 			if (resource.getErrors().size() > 0) {
-				throw new ParseException(resource.getErrors().get(0).toString());
+				Diagnostic d = resource.getErrors().get(0);
+				String l = d.getLocation();
+				if (l == null) {
+					try {
+						l = "line and column: " + d.getLine() + "," + d.getColumn();
+					}
+					catch (UnsupportedOperationException e) {
+						if (d instanceof AbstractDiagnostic) {
+							l = "offset: " + ((AbstractDiagnostic) d).getOffset();
+						}
+					}
+				}
+				throw new ParseException(resource.getErrors().get(0).getMessage() + " at " + l);
 			}
 			return (Program) resource.getContents().get(0);
 		}
@@ -62,43 +76,92 @@ public class PrologParser {
 
 	private static Term parseClause(ProofContext proofContext, Clause c) throws ParseException {
 		if (c.getPredicates().size() == 1) {
-			return parseOperation(proofContext, c.getPredicates().get(0));
+			return parseExpression(proofContext, c.getPredicates().get(0));
 		}
 		List<Term> predicates = Lists.newArrayList();
 		for (Expression predicate : c.getPredicates()) {
-			predicates.add(parseOperation(proofContext, predicate));
+			predicates.add(parseExpression(proofContext, predicate));
 		}
 		return new Rule((ComplexTerm) predicates.get(0), predicates.subList(1, predicates.size()));
 	}
 
-	private static List<Term> parseOperations(ProofContext proofContext, List<Expression> operations)
-			throws ParseException {
-		List<Term> terms = Lists.newArrayListWithCapacity(operations.size());
-		for (Expression o : operations) {
-			terms.add(parseOperation(proofContext, o));
+	private static Term parseExpression(ProofContext proofContext, Expression e) throws ParseException {
+		if (e.isList()) {
+			Term tail = new ListTerm(null, null);
+			if (e.getTail() != null) {
+				tail = parseExpression(proofContext, e.getTail());
+			}
+			if (e.getHead() != null) {
+				for (Expression e2 : Lists.reverse(e.getHead())) {
+					Term head = parseExpression(proofContext, e2);
+					tail = new ListTerm(head, tail);
+				}
+			}
+			return tail;
 		}
-		return terms;
-	}
-
-	private static Term parseOperation(ProofContext proofContext, Expression o) throws ParseException {
-		if (o.getTerm() != null) {
-			return parseTerm(proofContext, o.getTerm());
+		Term t = null;
+		if (e.getString() != null) {
+			t = new StringTerm(e.getString());
+			if (e.getExps().size() == 0) {
+				return t;
+			}
 		}
-		List<Term> terms = Lists.newArrayList();
-		for (Expression t : o.getExps()) {
-			terms.add(parseOperation(proofContext, t));
+		else if (e.getVariable() != null) {
+			t = new VariableTerm(e.getVariable());
+			if (e.getExps().size() == 0) {
+				return t;
+			}
 		}
-		Term t = terms.get(0);
-		for (int i = 0; i < o.getOps().size(); i++) {
-			String name = o.getOps().get(i);
+		else if (e.getNumber() != null) {
+			t = new ConstantTerm(new BigDecimal(e.getNumber()));
+			if (e.getExps().size() == 0) {
+				return t;
+			}
+		}
+		else if (e.isComplex() || e.getOps().size() == 1 && e.getExps().size() == 1) {
+			List<Term> terms = Lists.newArrayList();
+			for (Expression e2 : e.getExps()) {
+				terms.add(parseExpression(proofContext, e2));
+			}
+			String name = e.getOps().get(0);
+			Class<Operation> operationClass = proofContext.getOperation(name);
+			if (operationClass != null) {
+				try {
+					Constructor<Operation> c = operationClass.getConstructor(String.class, List.class);
+					return c.newInstance(name, terms);
+				}
+				catch (Throwable exc) {
+					throw new ParseException(exc);
+				}
+			}
+			return new ComplexTerm(name, terms);
+		}
+		else if (e.getOps().size() == 1) {
+			t = new ConstantTerm(e.getOps().get(0));
+			if (e.getExps().size() == 0) {
+				return t;
+			}
+		}
+		else if (t == null && e.getExps().size() == 1) {
+			return parseExpression(proofContext, e.getExps().get(0));
+		}
+		else {
+			throw new ParseException();
+		}
+		List<Term> terms = Lists.newArrayList(t);
+		for (Expression e2 : e.getExps()) {
+			terms.add(parseExpression(proofContext, e2));
+		}
+		for (int i = 0; i < e.getOps().size(); i++) {
+			String name = e.getOps().get(i);
 			Class<Operation> operationClass = proofContext.getOperation(name);
 			if (operationClass != null) {
 				try {
 					Constructor<Operation> c = operationClass.getConstructor(String.class, List.class);
 					t = c.newInstance(name, Lists.newArrayList(t, terms.get(i + 1)));
 				}
-				catch (Throwable e) {
-					throw new ParseException(e);
+				catch (Throwable exc) {
+					throw new ParseException(exc);
 				}
 			}
 			else {
@@ -106,35 +169,5 @@ public class PrologParser {
 			}
 		}
 		return t;
-	}
-
-	private static Term parseTerm(ProofContext proofContext, org.archstudio.prolog.xtext.prolog.Term t)
-			throws ParseException {
-		if (t.getAtom() != null) {
-			return new ConstantTerm(t.getAtom());
-		}
-		if (t.isList()) {
-			Term tail = new ListTerm(null, null);
-			if (t.getTail() != null) {
-				tail = parseOperation(proofContext, t.getTail());
-			}
-			if (t.getHead() != null) {
-				for (Expression o : Lists.reverse(t.getHead())) {
-					Term head = parseOperation(proofContext, o);
-					tail = new ListTerm(head, tail);
-				}
-			}
-			return tail;
-		}
-		if (t.getString() != null) {
-			return new StringTerm(t.getString());
-		}
-		if (t.getVariable() != null) {
-			return new VariableTerm(t.getVariable());
-		}
-		if (t.getNumber() != null) {
-			return new ConstantTerm(new BigDecimal(t.getNumber()));
-		}
-		throw new IllegalArgumentException();
 	}
 }

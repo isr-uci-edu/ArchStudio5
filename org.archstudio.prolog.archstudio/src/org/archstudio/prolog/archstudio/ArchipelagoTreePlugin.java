@@ -137,15 +137,20 @@ public class ArchipelagoTreePlugin implements IArchipelagoTreePlugin {
 								PrologParser
 										.parseTerms(
 												proofContext,
-												"connectedInterfaces(XIfaceRef, YIfaceRef) :- link(L), link_point1(L, XIfaceRef), link_point2(L, YIfaceRef), interface(XIfaceRef), interface(YIfaceRef), XIfaceRef\\=YIfaceRef."
-														+ "connectedInterfaces(XIfaceRef, YIfaceRef) :- link(L), link_point2(L, XIfaceRef), link_point1(L, YIfaceRef), interface(XIfaceRef), interface(YIfaceRef), XIfaceRef\\=YIfaceRef."
-														+ "brick_interface(X, Y) :- component_interface(X, Y)."
-														+ "brick_interface(X, Y) :- connector_interface(X, Y)."
-														+ "connectedBricks(XBrickRef, YBrickRef) :- connectedInterfaces(X, Y), X\\=Y, brick_interface(XBrickRef, X), brick_interface(YBrickRef, Y)."),
+												"compatible_directions('in', 'out')."
+														+ "compatible_directions('out', 'in')."
+														+ "compatible_directions('inout', 'inout')."
+														+ "compatible_directions('none', 'none')."
+														+ "test(Id, 'Connected interfaces have incompatible directions') :- link(L), id(L, Id)."),
+								//												proofContext,
+								//												"connectedInterfaces(XIfaceRef, YIfaceRef) :- link(L), link_point1(L, XIfaceRef), link_point2(L, YIfaceRef), interface(XIfaceRef), interface(YIfaceRef), XIfaceRef\\=YIfaceRef."
+								//														+ "connectedInterfaces(XIfaceRef, YIfaceRef) :- link(L), link_point2(L, XIfaceRef), link_point1(L, YIfaceRef), interface(XIfaceRef), interface(YIfaceRef), XIfaceRef\\=YIfaceRef."
+								//														+ "brick_interface(X, Y) :- component_interface(X, Y)."
+								//														+ "brick_interface(X, Y) :- connector_interface(X, Y)."
+								//														+ "connectedBricks(XBrickRef, YBrickRef) :- connectedInterfaces(X, Y), X\\=Y, brick_interface(XBrickRef, X), brick_interface(YBrickRef, Y)."),
 								ComplexTerm.class));
 
-						ComplexTerm goal = (ComplexTerm) PrologParser
-								.parseTerms(proofContext, "connectedBricks(X, Y).").get(0);
+						ComplexTerm goal = (ComplexTerm) PrologParser.parseTerms(proofContext, "test(A, B).").get(0);
 
 						int total = 0;
 						for (Map<VariableTerm, Term> v : proofEngine.execute(proofContext, unifier, goal)) {

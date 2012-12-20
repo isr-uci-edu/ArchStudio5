@@ -13,7 +13,7 @@ import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
-public class Compound extends Operation {
+public class Compound extends ComplexTerm implements Operation {
 
 	public Compound(String name, List<? extends Term> terms) {
 		super(name, terms);

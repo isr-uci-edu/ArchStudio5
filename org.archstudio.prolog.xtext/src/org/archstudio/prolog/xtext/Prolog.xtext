@@ -13,83 +13,70 @@ Query:
 	'?-' predicates+=ExpressionINF (',' predicates+=ExpressionINF)* '.';
 
 ExpressionINF returns Expression:
-	ops+=(Atom | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200)
-	'(' exps+=ExpressionINF (',' exps+=ExpressionINF)* ')'
-	| exps+=Expression1100;
+	Expression1100;
 
 Expression1100 returns Expression:
-	exps+=Expression900 (ops+=EXPRESSION_1100 exps+=Expression900)*;
+	Expression900 (ops+=EXPRESSION_1100 exps+=Expression900)*;
 
 terminal EXPRESSION_1100:
 	';';
 
 Expression900 returns Expression:
-	exps+=Expression700 (ops+=EXPRESSION_900 exps+=Expression700)*;
+	(ops+=EXPRESSION_900)? exps+=Expression700;
 
 terminal EXPRESSION_900:
 	'\\+' | 'not';
 
 Expression700 returns Expression:
-	exps+=Expression500 (ops+=EXPRESSION_700 exps+=Expression500)?;
+	Expression500 (ops+=EXPRESSION_700 exps+=Expression500)?;
 
 terminal EXPRESSION_700:
-	'<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\=' | '>'
-	| '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\=' | '\\==' | 'is';
+	'<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\=' | '\\=='
+	| 'is';
 
 Expression500 returns Expression:
-	exps+=Expression400 (ops+=EXPRESSION_500 exps+=Expression400)*;
+	Expression400 (ops+=EXPRESSION_500 exps+=Expression400)*;
 
 terminal EXPRESSION_500:
 	'+' | '-' | '/\\' | '\\/' | 'xor';
 
 Expression400 returns Expression:
-	exps+=Expression200 (ops+=EXPRESSION_400 exps+=Expression200)*;
+	Expression200 (ops+=EXPRESSION_400 exps+=Expression200)*;
 
 terminal EXPRESSION_400:
 	'*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem';
 
 Expression200 returns Expression:
-	exps+=Expression0 (ops+=EXPRESSION_200 exps+=Expression0)*;
+	Expression0 (ops+=EXPRESSION_200 exps+=Expression0)*;
 
 terminal EXPRESSION_200:
 	'**' | '^';
 
 Expression0 returns Expression:
-	term=Term | '(' exps+=ExpressionINF ')';
-
-Term:
-	(atom=Atom) | (number=Number) | '\'' (string=String) '\'' | (variable=Variable)
+	(ops+=(ATOM | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200)
+	(complex?='(' (exps+=ExpressionINF (',' exps+=ExpressionINF)*)? ')')?)
+	| (number=NUMBER)
+	| (string=STRING)
+	| (variable=VARIABLE)
 	| (list?='[' (head+=ExpressionINF (',' head+=ExpressionINF)* ('|' tail=ExpressionINF)?)? ']')
-	| (list?='.' '(' head+=ExpressionINF ',' tail=ExpressionINF ')');
+	| (list?='.' '(' head+=ExpressionINF ',' tail=ExpressionINF ')')
+	| '(' exps+=ExpressionINF ')';
 
-Atom:
-	LOWER_CASE_LETTER (DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | '_')*;
+terminal NUMBER:
+	'-'? ('0'..'9')+;
 
-Character:
-	DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | '_' | '+' | '-' |
-	'*' | '/' | '\\' | '^' | '~' | ':' | '.' | '?' | '@' | '#' | '$' | '&';
+terminal ATOM:
+	('a'..'z') ('0'..'9' | 'a'..'z' | 'A'..'Z' | '_')*;
 
-Number:
-	'-'? DIGIT+;
+terminal VARIABLE:
+	('A'..'Z' | '_') ('0'..'9' | 'a'..'z' | 'A'..'Z' | '_')*;
 
-Variable:
-	(UPPER_CASE_LETTER | '_') (DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | '_')*;
-
-String:
-	Character*;
-
-terminal DIGIT:
-	'0'..'9';
-
-terminal LOWER_CASE_LETTER:
-	'a'..'z';
-
-terminal UPPER_CASE_LETTER:
-	'A'..'Z';
+terminal STRING:
+	'\'' ('0'..'9' | 'a'..'z' | 'A'..'Z' | '_' | '+' | '-' | '*' | '/' | '\\' | '^' | '~' | ':' | '.' | '?' |
+	'@' | '#' | '$' | '&' | ' ')* '\'';
 
 terminal WHITESPACE:
 	(' ' | '\t' | '\r' | '\n')+;
 
 terminal SINGLE_LINE_COMMENT:
 	'%' !('\n' | '\r')* ('\r'? '\n')?;
-	

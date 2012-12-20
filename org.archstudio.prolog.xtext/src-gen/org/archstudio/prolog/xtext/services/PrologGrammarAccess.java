@@ -151,108 +151,21 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class ExpressionINFElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ExpressionINF");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Assignment cOpsAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final Alternatives cOpsAlternatives_0_0_0 = (Alternatives)cOpsAssignment_0_0.eContents().get(0);
-		private final RuleCall cOpsAtomParserRuleCall_0_0_0_0 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(0);
-		private final RuleCall cOpsEXPRESSION_1100TerminalRuleCall_0_0_0_1 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(1);
-		private final RuleCall cOpsEXPRESSION_900TerminalRuleCall_0_0_0_2 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(2);
-		private final RuleCall cOpsEXPRESSION_700TerminalRuleCall_0_0_0_3 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(3);
-		private final RuleCall cOpsEXPRESSION_500TerminalRuleCall_0_0_0_4 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(4);
-		private final RuleCall cOpsEXPRESSION_400TerminalRuleCall_0_0_0_5 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(5);
-		private final RuleCall cOpsEXPRESSION_200TerminalRuleCall_0_0_0_6 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(6);
-		private final Keyword cLeftParenthesisKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Assignment cExpsAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
-		private final RuleCall cExpsExpressionINFParserRuleCall_0_2_0 = (RuleCall)cExpsAssignment_0_2.eContents().get(0);
-		private final Group cGroup_0_3 = (Group)cGroup_0.eContents().get(3);
-		private final Keyword cCommaKeyword_0_3_0 = (Keyword)cGroup_0_3.eContents().get(0);
-		private final Assignment cExpsAssignment_0_3_1 = (Assignment)cGroup_0_3.eContents().get(1);
-		private final RuleCall cExpsExpressionINFParserRuleCall_0_3_1_0 = (RuleCall)cExpsAssignment_0_3_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_0_4 = (Keyword)cGroup_0.eContents().get(4);
-		private final Assignment cExpsAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cExpsExpression1100ParserRuleCall_1_0 = (RuleCall)cExpsAssignment_1.eContents().get(0);
+		private final RuleCall cExpression1100ParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//ExpressionINF returns Expression:
 		//
-		//	ops+=(Atom | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200)
-		//
-		//	"(" exps+=ExpressionINF ("," exps+=ExpressionINF)* ")" | exps+=Expression1100;
+		//	Expression1100;
 		public ParserRule getRule() { return rule; }
 
-		//ops+=(Atom | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200) "("
-		//
-		//exps+=ExpressionINF ("," exps+=ExpressionINF)* ")" | exps+=Expression1100
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//ops+=(Atom | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200) "("
-		//
-		//exps+=ExpressionINF ("," exps+=ExpressionINF)* ")"
-		public Group getGroup_0() { return cGroup_0; }
-
-		//ops+=(Atom | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200)
-		public Assignment getOpsAssignment_0_0() { return cOpsAssignment_0_0; }
-
-		//Atom | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200
-		public Alternatives getOpsAlternatives_0_0_0() { return cOpsAlternatives_0_0_0; }
-
-		//Atom
-		public RuleCall getOpsAtomParserRuleCall_0_0_0_0() { return cOpsAtomParserRuleCall_0_0_0_0; }
-
-		//EXPRESSION_1100
-		public RuleCall getOpsEXPRESSION_1100TerminalRuleCall_0_0_0_1() { return cOpsEXPRESSION_1100TerminalRuleCall_0_0_0_1; }
-
-		//EXPRESSION_900
-		public RuleCall getOpsEXPRESSION_900TerminalRuleCall_0_0_0_2() { return cOpsEXPRESSION_900TerminalRuleCall_0_0_0_2; }
-
-		//EXPRESSION_700
-		public RuleCall getOpsEXPRESSION_700TerminalRuleCall_0_0_0_3() { return cOpsEXPRESSION_700TerminalRuleCall_0_0_0_3; }
-
-		//EXPRESSION_500
-		public RuleCall getOpsEXPRESSION_500TerminalRuleCall_0_0_0_4() { return cOpsEXPRESSION_500TerminalRuleCall_0_0_0_4; }
-
-		//EXPRESSION_400
-		public RuleCall getOpsEXPRESSION_400TerminalRuleCall_0_0_0_5() { return cOpsEXPRESSION_400TerminalRuleCall_0_0_0_5; }
-
-		//EXPRESSION_200
-		public RuleCall getOpsEXPRESSION_200TerminalRuleCall_0_0_0_6() { return cOpsEXPRESSION_200TerminalRuleCall_0_0_0_6; }
-
-		//"("
-		public Keyword getLeftParenthesisKeyword_0_1() { return cLeftParenthesisKeyword_0_1; }
-
-		//exps+=ExpressionINF
-		public Assignment getExpsAssignment_0_2() { return cExpsAssignment_0_2; }
-
-		//ExpressionINF
-		public RuleCall getExpsExpressionINFParserRuleCall_0_2_0() { return cExpsExpressionINFParserRuleCall_0_2_0; }
-
-		//("," exps+=ExpressionINF)*
-		public Group getGroup_0_3() { return cGroup_0_3; }
-
-		//","
-		public Keyword getCommaKeyword_0_3_0() { return cCommaKeyword_0_3_0; }
-
-		//exps+=ExpressionINF
-		public Assignment getExpsAssignment_0_3_1() { return cExpsAssignment_0_3_1; }
-
-		//ExpressionINF
-		public RuleCall getExpsExpressionINFParserRuleCall_0_3_1_0() { return cExpsExpressionINFParserRuleCall_0_3_1_0; }
-
-		//")"
-		public Keyword getRightParenthesisKeyword_0_4() { return cRightParenthesisKeyword_0_4; }
-
-		//exps+=Expression1100
-		public Assignment getExpsAssignment_1() { return cExpsAssignment_1; }
-
 		//Expression1100
-		public RuleCall getExpsExpression1100ParserRuleCall_1_0() { return cExpsExpression1100ParserRuleCall_1_0; }
+		public RuleCall getExpression1100ParserRuleCall() { return cExpression1100ParserRuleCall; }
 	}
 
 	public class Expression1100Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression1100");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cExpsExpression900ParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
+		private final RuleCall cExpression900ParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cOpsEXPRESSION_1100TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
@@ -261,17 +174,14 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Expression1100 returns Expression:
 		//
-		//	exps+=Expression900 (ops+=EXPRESSION_1100 exps+=Expression900)*;
+		//	Expression900 (ops+=EXPRESSION_1100 exps+=Expression900)*;
 		public ParserRule getRule() { return rule; }
 
-		//exps+=Expression900 (ops+=EXPRESSION_1100 exps+=Expression900)*
+		//Expression900 (ops+=EXPRESSION_1100 exps+=Expression900)*
 		public Group getGroup() { return cGroup; }
 
-		//exps+=Expression900
-		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
-
 		//Expression900
-		public RuleCall getExpsExpression900ParserRuleCall_0_0() { return cExpsExpression900ParserRuleCall_0_0; }
+		public RuleCall getExpression900ParserRuleCall_0() { return cExpression900ParserRuleCall_0; }
 
 		//(ops+=EXPRESSION_1100 exps+=Expression900)*
 		public Group getGroup_1() { return cGroup_1; }
@@ -292,49 +202,36 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	public class Expression900Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression900");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cExpsExpression700ParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
-		private final RuleCall cOpsEXPRESSION_900TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
-		private final Assignment cExpsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cExpsExpression700ParserRuleCall_1_1_0 = (RuleCall)cExpsAssignment_1_1.eContents().get(0);
+		private final Assignment cOpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cOpsEXPRESSION_900TerminalRuleCall_0_0 = (RuleCall)cOpsAssignment_0.eContents().get(0);
+		private final Assignment cExpsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cExpsExpression700ParserRuleCall_1_0 = (RuleCall)cExpsAssignment_1.eContents().get(0);
 		
 		//Expression900 returns Expression:
 		//
-		//	exps+=Expression700 (ops+=EXPRESSION_900 exps+=Expression700)*;
+		//	ops+=EXPRESSION_900? exps+=Expression700;
 		public ParserRule getRule() { return rule; }
 
-		//exps+=Expression700 (ops+=EXPRESSION_900 exps+=Expression700)*
+		//ops+=EXPRESSION_900? exps+=Expression700
 		public Group getGroup() { return cGroup; }
 
-		//exps+=Expression700
-		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
-
-		//Expression700
-		public RuleCall getExpsExpression700ParserRuleCall_0_0() { return cExpsExpression700ParserRuleCall_0_0; }
-
-		//(ops+=EXPRESSION_900 exps+=Expression700)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//ops+=EXPRESSION_900
-		public Assignment getOpsAssignment_1_0() { return cOpsAssignment_1_0; }
+		//ops+=EXPRESSION_900?
+		public Assignment getOpsAssignment_0() { return cOpsAssignment_0; }
 
 		//EXPRESSION_900
-		public RuleCall getOpsEXPRESSION_900TerminalRuleCall_1_0_0() { return cOpsEXPRESSION_900TerminalRuleCall_1_0_0; }
+		public RuleCall getOpsEXPRESSION_900TerminalRuleCall_0_0() { return cOpsEXPRESSION_900TerminalRuleCall_0_0; }
 
 		//exps+=Expression700
-		public Assignment getExpsAssignment_1_1() { return cExpsAssignment_1_1; }
+		public Assignment getExpsAssignment_1() { return cExpsAssignment_1; }
 
 		//Expression700
-		public RuleCall getExpsExpression700ParserRuleCall_1_1_0() { return cExpsExpression700ParserRuleCall_1_1_0; }
+		public RuleCall getExpsExpression700ParserRuleCall_1_0() { return cExpsExpression700ParserRuleCall_1_0; }
 	}
 
 	public class Expression700Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression700");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cExpsExpression500ParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
+		private final RuleCall cExpression500ParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cOpsEXPRESSION_700TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
@@ -343,17 +240,14 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Expression700 returns Expression:
 		//
-		//	exps+=Expression500 (ops+=EXPRESSION_700 exps+=Expression500)?;
+		//	Expression500 (ops+=EXPRESSION_700 exps+=Expression500)?;
 		public ParserRule getRule() { return rule; }
 
-		//exps+=Expression500 (ops+=EXPRESSION_700 exps+=Expression500)?
+		//Expression500 (ops+=EXPRESSION_700 exps+=Expression500)?
 		public Group getGroup() { return cGroup; }
 
-		//exps+=Expression500
-		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
-
 		//Expression500
-		public RuleCall getExpsExpression500ParserRuleCall_0_0() { return cExpsExpression500ParserRuleCall_0_0; }
+		public RuleCall getExpression500ParserRuleCall_0() { return cExpression500ParserRuleCall_0; }
 
 		//(ops+=EXPRESSION_700 exps+=Expression500)?
 		public Group getGroup_1() { return cGroup_1; }
@@ -374,8 +268,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	public class Expression500Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression500");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cExpsExpression400ParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
+		private final RuleCall cExpression400ParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cOpsEXPRESSION_500TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
@@ -384,17 +277,14 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Expression500 returns Expression:
 		//
-		//	exps+=Expression400 (ops+=EXPRESSION_500 exps+=Expression400)*;
+		//	Expression400 (ops+=EXPRESSION_500 exps+=Expression400)*;
 		public ParserRule getRule() { return rule; }
 
-		//exps+=Expression400 (ops+=EXPRESSION_500 exps+=Expression400)*
+		//Expression400 (ops+=EXPRESSION_500 exps+=Expression400)*
 		public Group getGroup() { return cGroup; }
 
-		//exps+=Expression400
-		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
-
 		//Expression400
-		public RuleCall getExpsExpression400ParserRuleCall_0_0() { return cExpsExpression400ParserRuleCall_0_0; }
+		public RuleCall getExpression400ParserRuleCall_0() { return cExpression400ParserRuleCall_0; }
 
 		//(ops+=EXPRESSION_500 exps+=Expression400)*
 		public Group getGroup_1() { return cGroup_1; }
@@ -415,8 +305,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	public class Expression400Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression400");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cExpsExpression200ParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
+		private final RuleCall cExpression200ParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cOpsEXPRESSION_400TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
@@ -425,17 +314,14 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Expression400 returns Expression:
 		//
-		//	exps+=Expression200 (ops+=EXPRESSION_400 exps+=Expression200)*;
+		//	Expression200 (ops+=EXPRESSION_400 exps+=Expression200)*;
 		public ParserRule getRule() { return rule; }
 
-		//exps+=Expression200 (ops+=EXPRESSION_400 exps+=Expression200)*
+		//Expression200 (ops+=EXPRESSION_400 exps+=Expression200)*
 		public Group getGroup() { return cGroup; }
 
-		//exps+=Expression200
-		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
-
 		//Expression200
-		public RuleCall getExpsExpression200ParserRuleCall_0_0() { return cExpsExpression200ParserRuleCall_0_0; }
+		public RuleCall getExpression200ParserRuleCall_0() { return cExpression200ParserRuleCall_0; }
 
 		//(ops+=EXPRESSION_400 exps+=Expression200)*
 		public Group getGroup_1() { return cGroup_1; }
@@ -456,8 +342,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	public class Expression200Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression200");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cExpsExpression0ParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
+		private final RuleCall cExpression0ParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cOpsEXPRESSION_200TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
@@ -466,17 +351,14 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Expression200 returns Expression:
 		//
-		//	exps+=Expression0 (ops+=EXPRESSION_200 exps+=Expression0)*;
+		//	Expression0 (ops+=EXPRESSION_200 exps+=Expression0)*;
 		public ParserRule getRule() { return rule; }
 
-		//exps+=Expression0 (ops+=EXPRESSION_200 exps+=Expression0)*
+		//Expression0 (ops+=EXPRESSION_200 exps+=Expression0)*
 		public Group getGroup() { return cGroup; }
 
-		//exps+=Expression0
-		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
-
 		//Expression0
-		public RuleCall getExpsExpression0ParserRuleCall_0_0() { return cExpsExpression0ParserRuleCall_0_0; }
+		public RuleCall getExpression0ParserRuleCall_0() { return cExpression0ParserRuleCall_0; }
 
 		//(ops+=EXPRESSION_200 exps+=Expression0)*
 		public Group getGroup_1() { return cGroup_1; }
@@ -497,58 +379,33 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	public class Expression0Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression0");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Assignment cTermAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
-		private final RuleCall cTermTermParserRuleCall_0_0 = (RuleCall)cTermAssignment_0.eContents().get(0);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cExpsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cExpsExpressionINFParserRuleCall_1_1_0 = (RuleCall)cExpsAssignment_1_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
-		
-		//Expression0 returns Expression:
-		//
-		//	term=Term | "(" exps+=ExpressionINF ")";
-		public ParserRule getRule() { return rule; }
-
-		//term=Term | "(" exps+=ExpressionINF ")"
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//term=Term
-		public Assignment getTermAssignment_0() { return cTermAssignment_0; }
-
-		//Term
-		public RuleCall getTermTermParserRuleCall_0_0() { return cTermTermParserRuleCall_0_0; }
-
-		//"(" exps+=ExpressionINF ")"
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"("
-		public Keyword getLeftParenthesisKeyword_1_0() { return cLeftParenthesisKeyword_1_0; }
-
-		//exps+=ExpressionINF
-		public Assignment getExpsAssignment_1_1() { return cExpsAssignment_1_1; }
-
-		//ExpressionINF
-		public RuleCall getExpsExpressionINFParserRuleCall_1_1_0() { return cExpsExpressionINFParserRuleCall_1_1_0; }
-
-		//")"
-		public Keyword getRightParenthesisKeyword_1_2() { return cRightParenthesisKeyword_1_2; }
-	}
-
-	public class TermElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Term");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Assignment cAtomAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
-		private final RuleCall cAtomAtomParserRuleCall_0_0 = (RuleCall)cAtomAssignment_0.eContents().get(0);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Assignment cOpsAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final Alternatives cOpsAlternatives_0_0_0 = (Alternatives)cOpsAssignment_0_0.eContents().get(0);
+		private final RuleCall cOpsATOMTerminalRuleCall_0_0_0_0 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(0);
+		private final RuleCall cOpsEXPRESSION_1100TerminalRuleCall_0_0_0_1 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(1);
+		private final RuleCall cOpsEXPRESSION_900TerminalRuleCall_0_0_0_2 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(2);
+		private final RuleCall cOpsEXPRESSION_700TerminalRuleCall_0_0_0_3 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(3);
+		private final RuleCall cOpsEXPRESSION_500TerminalRuleCall_0_0_0_4 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(4);
+		private final RuleCall cOpsEXPRESSION_400TerminalRuleCall_0_0_0_5 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(5);
+		private final RuleCall cOpsEXPRESSION_200TerminalRuleCall_0_0_0_6 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(6);
+		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
+		private final Assignment cComplexAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
+		private final Keyword cComplexLeftParenthesisKeyword_0_1_0_0 = (Keyword)cComplexAssignment_0_1_0.eContents().get(0);
+		private final Group cGroup_0_1_1 = (Group)cGroup_0_1.eContents().get(1);
+		private final Assignment cExpsAssignment_0_1_1_0 = (Assignment)cGroup_0_1_1.eContents().get(0);
+		private final RuleCall cExpsExpressionINFParserRuleCall_0_1_1_0_0 = (RuleCall)cExpsAssignment_0_1_1_0.eContents().get(0);
+		private final Group cGroup_0_1_1_1 = (Group)cGroup_0_1_1.eContents().get(1);
+		private final Keyword cCommaKeyword_0_1_1_1_0 = (Keyword)cGroup_0_1_1_1.eContents().get(0);
+		private final Assignment cExpsAssignment_0_1_1_1_1 = (Assignment)cGroup_0_1_1_1.eContents().get(1);
+		private final RuleCall cExpsExpressionINFParserRuleCall_0_1_1_1_1_0 = (RuleCall)cExpsAssignment_0_1_1_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
 		private final Assignment cNumberAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cNumberNumberParserRuleCall_1_0 = (RuleCall)cNumberAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
-		private final Keyword cApostropheKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cStringAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cStringStringParserRuleCall_2_1_0 = (RuleCall)cStringAssignment_2_1.eContents().get(0);
-		private final Keyword cApostropheKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
+		private final RuleCall cNumberNUMBERTerminalRuleCall_1_0 = (RuleCall)cNumberAssignment_1.eContents().get(0);
+		private final Assignment cStringAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
+		private final RuleCall cStringSTRINGTerminalRuleCall_2_0 = (RuleCall)cStringAssignment_2.eContents().get(0);
 		private final Assignment cVariableAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
-		private final RuleCall cVariableVariableParserRuleCall_3_0 = (RuleCall)cVariableAssignment_3.eContents().get(0);
+		private final RuleCall cVariableVARIABLETerminalRuleCall_3_0 = (RuleCall)cVariableAssignment_3.eContents().get(0);
 		private final Group cGroup_4 = (Group)cAlternatives.eContents().get(4);
 		private final Assignment cListAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
 		private final Keyword cListLeftSquareBracketKeyword_4_0_0 = (Keyword)cListAssignment_4_0.eContents().get(0);
@@ -574,51 +431,114 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTailAssignment_5_4 = (Assignment)cGroup_5.eContents().get(4);
 		private final RuleCall cTailExpressionINFParserRuleCall_5_4_0 = (RuleCall)cTailAssignment_5_4.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_5_5 = (Keyword)cGroup_5.eContents().get(5);
+		private final Group cGroup_6 = (Group)cAlternatives.eContents().get(6);
+		private final Keyword cLeftParenthesisKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cExpsAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cExpsExpressionINFParserRuleCall_6_1_0 = (RuleCall)cExpsAssignment_6_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_6_2 = (Keyword)cGroup_6.eContents().get(2);
 		
-		//Term:
+		//Expression0 returns Expression:
 		//
-		//	atom=Atom | number=Number | "\'" string=String "\'" | variable=Variable | list?="[" (head+=ExpressionINF (","
+		//	ops+=(ATOM | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200)
 		//
-		//	head+=ExpressionINF)* ("|" tail=ExpressionINF)?)? "]" | list?="." "(" head+=ExpressionINF "," tail=ExpressionINF ")";
+		//	(complex?="(" (exps+=ExpressionINF ("," exps+=ExpressionINF)*)? ")")? | number=NUMBER | string=STRING |
+		//
+		//	variable=VARIABLE | list?="[" (head+=ExpressionINF ("," head+=ExpressionINF)* ("|" tail=ExpressionINF)?)? "]" |
+		//
+		//	list?="." "(" head+=ExpressionINF "," tail=ExpressionINF ")" | "(" exps+=ExpressionINF ")";
 		public ParserRule getRule() { return rule; }
 
-		//atom=Atom | number=Number | "\'" string=String "\'" | variable=Variable | list?="[" (head+=ExpressionINF (","
+		//ops+=(ATOM | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200)
 		//
-		//head+=ExpressionINF)* ("|" tail=ExpressionINF)?)? "]" | list?="." "(" head+=ExpressionINF "," tail=ExpressionINF ")"
+		//(complex?="(" (exps+=ExpressionINF ("," exps+=ExpressionINF)*)? ")")? | number=NUMBER | string=STRING |
+		//
+		//variable=VARIABLE | list?="[" (head+=ExpressionINF ("," head+=ExpressionINF)* ("|" tail=ExpressionINF)?)? "]" |
+		//
+		//list?="." "(" head+=ExpressionINF "," tail=ExpressionINF ")" | "(" exps+=ExpressionINF ")"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//atom=Atom
-		public Assignment getAtomAssignment_0() { return cAtomAssignment_0; }
+		//ops+=(ATOM | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200)
+		//
+		//(complex?="(" (exps+=ExpressionINF ("," exps+=ExpressionINF)*)? ")")?
+		public Group getGroup_0() { return cGroup_0; }
 
-		//Atom
-		public RuleCall getAtomAtomParserRuleCall_0_0() { return cAtomAtomParserRuleCall_0_0; }
+		//ops+=(ATOM | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200)
+		public Assignment getOpsAssignment_0_0() { return cOpsAssignment_0_0; }
 
-		//number=Number
+		//ATOM | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200
+		public Alternatives getOpsAlternatives_0_0_0() { return cOpsAlternatives_0_0_0; }
+
+		//ATOM
+		public RuleCall getOpsATOMTerminalRuleCall_0_0_0_0() { return cOpsATOMTerminalRuleCall_0_0_0_0; }
+
+		//EXPRESSION_1100
+		public RuleCall getOpsEXPRESSION_1100TerminalRuleCall_0_0_0_1() { return cOpsEXPRESSION_1100TerminalRuleCall_0_0_0_1; }
+
+		//EXPRESSION_900
+		public RuleCall getOpsEXPRESSION_900TerminalRuleCall_0_0_0_2() { return cOpsEXPRESSION_900TerminalRuleCall_0_0_0_2; }
+
+		//EXPRESSION_700
+		public RuleCall getOpsEXPRESSION_700TerminalRuleCall_0_0_0_3() { return cOpsEXPRESSION_700TerminalRuleCall_0_0_0_3; }
+
+		//EXPRESSION_500
+		public RuleCall getOpsEXPRESSION_500TerminalRuleCall_0_0_0_4() { return cOpsEXPRESSION_500TerminalRuleCall_0_0_0_4; }
+
+		//EXPRESSION_400
+		public RuleCall getOpsEXPRESSION_400TerminalRuleCall_0_0_0_5() { return cOpsEXPRESSION_400TerminalRuleCall_0_0_0_5; }
+
+		//EXPRESSION_200
+		public RuleCall getOpsEXPRESSION_200TerminalRuleCall_0_0_0_6() { return cOpsEXPRESSION_200TerminalRuleCall_0_0_0_6; }
+
+		//(complex?="(" (exps+=ExpressionINF ("," exps+=ExpressionINF)*)? ")")?
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//complex?="("
+		public Assignment getComplexAssignment_0_1_0() { return cComplexAssignment_0_1_0; }
+
+		//"("
+		public Keyword getComplexLeftParenthesisKeyword_0_1_0_0() { return cComplexLeftParenthesisKeyword_0_1_0_0; }
+
+		//(exps+=ExpressionINF ("," exps+=ExpressionINF)*)?
+		public Group getGroup_0_1_1() { return cGroup_0_1_1; }
+
+		//exps+=ExpressionINF
+		public Assignment getExpsAssignment_0_1_1_0() { return cExpsAssignment_0_1_1_0; }
+
+		//ExpressionINF
+		public RuleCall getExpsExpressionINFParserRuleCall_0_1_1_0_0() { return cExpsExpressionINFParserRuleCall_0_1_1_0_0; }
+
+		//("," exps+=ExpressionINF)*
+		public Group getGroup_0_1_1_1() { return cGroup_0_1_1_1; }
+
+		//","
+		public Keyword getCommaKeyword_0_1_1_1_0() { return cCommaKeyword_0_1_1_1_0; }
+
+		//exps+=ExpressionINF
+		public Assignment getExpsAssignment_0_1_1_1_1() { return cExpsAssignment_0_1_1_1_1; }
+
+		//ExpressionINF
+		public RuleCall getExpsExpressionINFParserRuleCall_0_1_1_1_1_0() { return cExpsExpressionINFParserRuleCall_0_1_1_1_1_0; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_0_1_2() { return cRightParenthesisKeyword_0_1_2; }
+
+		//number=NUMBER
 		public Assignment getNumberAssignment_1() { return cNumberAssignment_1; }
 
-		//Number
-		public RuleCall getNumberNumberParserRuleCall_1_0() { return cNumberNumberParserRuleCall_1_0; }
+		//NUMBER
+		public RuleCall getNumberNUMBERTerminalRuleCall_1_0() { return cNumberNUMBERTerminalRuleCall_1_0; }
 
-		//"\'" string=String "\'"
-		public Group getGroup_2() { return cGroup_2; }
+		//string=STRING
+		public Assignment getStringAssignment_2() { return cStringAssignment_2; }
 
-		//"\'"
-		public Keyword getApostropheKeyword_2_0() { return cApostropheKeyword_2_0; }
+		//STRING
+		public RuleCall getStringSTRINGTerminalRuleCall_2_0() { return cStringSTRINGTerminalRuleCall_2_0; }
 
-		//string=String
-		public Assignment getStringAssignment_2_1() { return cStringAssignment_2_1; }
-
-		//String
-		public RuleCall getStringStringParserRuleCall_2_1_0() { return cStringStringParserRuleCall_2_1_0; }
-
-		//"\'"
-		public Keyword getApostropheKeyword_2_2() { return cApostropheKeyword_2_2; }
-
-		//variable=Variable
+		//variable=VARIABLE
 		public Assignment getVariableAssignment_3() { return cVariableAssignment_3; }
 
-		//Variable
-		public RuleCall getVariableVariableParserRuleCall_3_0() { return cVariableVariableParserRuleCall_3_0; }
+		//VARIABLE
+		public RuleCall getVariableVARIABLETerminalRuleCall_3_0() { return cVariableVARIABLETerminalRuleCall_3_0; }
 
 		//list?="[" (head+=ExpressionINF ("," head+=ExpressionINF)* ("|" tail=ExpressionINF)?)? "]"
 		public Group getGroup_4() { return cGroup_4; }
@@ -694,211 +614,21 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 		//")"
 		public Keyword getRightParenthesisKeyword_5_5() { return cRightParenthesisKeyword_5_5; }
-	}
 
-	public class AtomElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Atom");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cLOWER_CASE_LETTERTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
-		private final RuleCall cDIGITTerminalRuleCall_1_0 = (RuleCall)cAlternatives_1.eContents().get(0);
-		private final RuleCall cLOWER_CASE_LETTERTerminalRuleCall_1_1 = (RuleCall)cAlternatives_1.eContents().get(1);
-		private final RuleCall cUPPER_CASE_LETTERTerminalRuleCall_1_2 = (RuleCall)cAlternatives_1.eContents().get(2);
-		private final Keyword c_Keyword_1_3 = (Keyword)cAlternatives_1.eContents().get(3);
-		
-		//Atom:
-		//
-		//	LOWER_CASE_LETTER (DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | "_")*;
-		public ParserRule getRule() { return rule; }
+		//"(" exps+=ExpressionINF ")"
+		public Group getGroup_6() { return cGroup_6; }
 
-		//LOWER_CASE_LETTER (DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | "_")*
-		public Group getGroup() { return cGroup; }
+		//"("
+		public Keyword getLeftParenthesisKeyword_6_0() { return cLeftParenthesisKeyword_6_0; }
 
-		//LOWER_CASE_LETTER
-		public RuleCall getLOWER_CASE_LETTERTerminalRuleCall_0() { return cLOWER_CASE_LETTERTerminalRuleCall_0; }
+		//exps+=ExpressionINF
+		public Assignment getExpsAssignment_6_1() { return cExpsAssignment_6_1; }
 
-		//(DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | "_")*
-		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+		//ExpressionINF
+		public RuleCall getExpsExpressionINFParserRuleCall_6_1_0() { return cExpsExpressionINFParserRuleCall_6_1_0; }
 
-		//DIGIT
-		public RuleCall getDIGITTerminalRuleCall_1_0() { return cDIGITTerminalRuleCall_1_0; }
-
-		//LOWER_CASE_LETTER
-		public RuleCall getLOWER_CASE_LETTERTerminalRuleCall_1_1() { return cLOWER_CASE_LETTERTerminalRuleCall_1_1; }
-
-		//UPPER_CASE_LETTER
-		public RuleCall getUPPER_CASE_LETTERTerminalRuleCall_1_2() { return cUPPER_CASE_LETTERTerminalRuleCall_1_2; }
-
-		//"_"
-		public Keyword get_Keyword_1_3() { return c_Keyword_1_3; }
-	}
-
-	public class CharacterElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Character");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cDIGITTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cLOWER_CASE_LETTERTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cUPPER_CASE_LETTERTerminalRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final Keyword c_Keyword_3 = (Keyword)cAlternatives.eContents().get(3);
-		private final Keyword cPlusSignKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
-		private final Keyword cHyphenMinusKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
-		private final Keyword cAsteriskKeyword_6 = (Keyword)cAlternatives.eContents().get(6);
-		private final Keyword cSolidusKeyword_7 = (Keyword)cAlternatives.eContents().get(7);
-		private final Keyword cReverseSolidusKeyword_8 = (Keyword)cAlternatives.eContents().get(8);
-		private final Keyword cCircumflexAccentKeyword_9 = (Keyword)cAlternatives.eContents().get(9);
-		private final Keyword cTildeKeyword_10 = (Keyword)cAlternatives.eContents().get(10);
-		private final Keyword cColonKeyword_11 = (Keyword)cAlternatives.eContents().get(11);
-		private final Keyword cFullStopKeyword_12 = (Keyword)cAlternatives.eContents().get(12);
-		private final Keyword cQuestionMarkKeyword_13 = (Keyword)cAlternatives.eContents().get(13);
-		private final Keyword cCommercialAtKeyword_14 = (Keyword)cAlternatives.eContents().get(14);
-		private final Keyword cNumberSignKeyword_15 = (Keyword)cAlternatives.eContents().get(15);
-		private final Keyword cDollarSignKeyword_16 = (Keyword)cAlternatives.eContents().get(16);
-		private final Keyword cAmpersandKeyword_17 = (Keyword)cAlternatives.eContents().get(17);
-		
-		//Character:
-		//
-		//	DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | "_" | "+" | "-" | "*" | "/" | "\\" | "^" | "~" | ":" | "." | "?" |
-		//
-		//	"@" | "#" | "$" | "&";
-		public ParserRule getRule() { return rule; }
-
-		//DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | "_" | "+" | "-" | "*" | "/" | "\\" | "^" | "~" | ":" | "." | "?" | "@" |
-		//
-		//"#" | "$" | "&"
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//DIGIT
-		public RuleCall getDIGITTerminalRuleCall_0() { return cDIGITTerminalRuleCall_0; }
-
-		//LOWER_CASE_LETTER
-		public RuleCall getLOWER_CASE_LETTERTerminalRuleCall_1() { return cLOWER_CASE_LETTERTerminalRuleCall_1; }
-
-		//UPPER_CASE_LETTER
-		public RuleCall getUPPER_CASE_LETTERTerminalRuleCall_2() { return cUPPER_CASE_LETTERTerminalRuleCall_2; }
-
-		//"_"
-		public Keyword get_Keyword_3() { return c_Keyword_3; }
-
-		//"+"
-		public Keyword getPlusSignKeyword_4() { return cPlusSignKeyword_4; }
-
-		//"-"
-		public Keyword getHyphenMinusKeyword_5() { return cHyphenMinusKeyword_5; }
-
-		//"*"
-		public Keyword getAsteriskKeyword_6() { return cAsteriskKeyword_6; }
-
-		//"/"
-		public Keyword getSolidusKeyword_7() { return cSolidusKeyword_7; }
-
-		//"\\"
-		public Keyword getReverseSolidusKeyword_8() { return cReverseSolidusKeyword_8; }
-
-		//"^"
-		public Keyword getCircumflexAccentKeyword_9() { return cCircumflexAccentKeyword_9; }
-
-		//"~"
-		public Keyword getTildeKeyword_10() { return cTildeKeyword_10; }
-
-		//":"
-		public Keyword getColonKeyword_11() { return cColonKeyword_11; }
-
-		//"."
-		public Keyword getFullStopKeyword_12() { return cFullStopKeyword_12; }
-
-		//"?"
-		public Keyword getQuestionMarkKeyword_13() { return cQuestionMarkKeyword_13; }
-
-		//"@"
-		public Keyword getCommercialAtKeyword_14() { return cCommercialAtKeyword_14; }
-
-		//"#"
-		public Keyword getNumberSignKeyword_15() { return cNumberSignKeyword_15; }
-
-		//"$"
-		public Keyword getDollarSignKeyword_16() { return cDollarSignKeyword_16; }
-
-		//"&"
-		public Keyword getAmpersandKeyword_17() { return cAmpersandKeyword_17; }
-	}
-
-	public class NumberElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Number");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cHyphenMinusKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cDIGITTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		
-		//Number:
-		//
-		//	"-"? DIGIT+;
-		public ParserRule getRule() { return rule; }
-
-		//"-"? DIGIT+
-		public Group getGroup() { return cGroup; }
-
-		//"-"?
-		public Keyword getHyphenMinusKeyword_0() { return cHyphenMinusKeyword_0; }
-
-		//DIGIT+
-		public RuleCall getDIGITTerminalRuleCall_1() { return cDIGITTerminalRuleCall_1; }
-	}
-
-	public class VariableElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Variable");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
-		private final RuleCall cUPPER_CASE_LETTERTerminalRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
-		private final Keyword c_Keyword_0_1 = (Keyword)cAlternatives_0.eContents().get(1);
-		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
-		private final RuleCall cDIGITTerminalRuleCall_1_0 = (RuleCall)cAlternatives_1.eContents().get(0);
-		private final RuleCall cLOWER_CASE_LETTERTerminalRuleCall_1_1 = (RuleCall)cAlternatives_1.eContents().get(1);
-		private final RuleCall cUPPER_CASE_LETTERTerminalRuleCall_1_2 = (RuleCall)cAlternatives_1.eContents().get(2);
-		private final Keyword c_Keyword_1_3 = (Keyword)cAlternatives_1.eContents().get(3);
-		
-		//Variable:
-		//
-		//	(UPPER_CASE_LETTER | "_") (DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | "_")*;
-		public ParserRule getRule() { return rule; }
-
-		//(UPPER_CASE_LETTER | "_") (DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | "_")*
-		public Group getGroup() { return cGroup; }
-
-		//UPPER_CASE_LETTER | "_"
-		public Alternatives getAlternatives_0() { return cAlternatives_0; }
-
-		//UPPER_CASE_LETTER
-		public RuleCall getUPPER_CASE_LETTERTerminalRuleCall_0_0() { return cUPPER_CASE_LETTERTerminalRuleCall_0_0; }
-
-		//"_"
-		public Keyword get_Keyword_0_1() { return c_Keyword_0_1; }
-
-		//(DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | "_")*
-		public Alternatives getAlternatives_1() { return cAlternatives_1; }
-
-		//DIGIT
-		public RuleCall getDIGITTerminalRuleCall_1_0() { return cDIGITTerminalRuleCall_1_0; }
-
-		//LOWER_CASE_LETTER
-		public RuleCall getLOWER_CASE_LETTERTerminalRuleCall_1_1() { return cLOWER_CASE_LETTERTerminalRuleCall_1_1; }
-
-		//UPPER_CASE_LETTER
-		public RuleCall getUPPER_CASE_LETTERTerminalRuleCall_1_2() { return cUPPER_CASE_LETTERTerminalRuleCall_1_2; }
-
-		//"_"
-		public Keyword get_Keyword_1_3() { return c_Keyword_1_3; }
-	}
-
-	public class StringElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "String");
-		private final RuleCall cCharacterParserRuleCall = (RuleCall)rule.eContents().get(1);
-		
-		//String:
-		//
-		//	Character*;
-		public ParserRule getRule() { return rule; }
-
-		//Character*
-		public RuleCall getCharacterParserRuleCall() { return cCharacterParserRuleCall; }
+		//")"
+		public Keyword getRightParenthesisKeyword_6_2() { return cRightParenthesisKeyword_6_2; }
 	}
 	
 	
@@ -919,15 +649,10 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	private Expression200Elements pExpression200;
 	private TerminalRule tEXPRESSION_200;
 	private Expression0Elements pExpression0;
-	private TermElements pTerm;
-	private AtomElements pAtom;
-	private CharacterElements pCharacter;
-	private NumberElements pNumber;
-	private VariableElements pVariable;
-	private StringElements pString;
-	private TerminalRule tDIGIT;
-	private TerminalRule tLOWER_CASE_LETTER;
-	private TerminalRule tUPPER_CASE_LETTER;
+	private TerminalRule tNUMBER;
+	private TerminalRule tATOM;
+	private TerminalRule tVARIABLE;
+	private TerminalRule tSTRING;
 	private TerminalRule tWHITESPACE;
 	private TerminalRule tSINGLE_LINE_COMMENT;
 	
@@ -996,9 +721,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ExpressionINF returns Expression:
 	//
-	//	ops+=(Atom | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200)
-	//
-	//	"(" exps+=ExpressionINF ("," exps+=ExpressionINF)* ")" | exps+=Expression1100;
+	//	Expression1100;
 	public ExpressionINFElements getExpressionINFAccess() {
 		return (pExpressionINF != null) ? pExpressionINF : (pExpressionINF = new ExpressionINFElements());
 	}
@@ -1009,7 +732,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression1100 returns Expression:
 	//
-	//	exps+=Expression900 (ops+=EXPRESSION_1100 exps+=Expression900)*;
+	//	Expression900 (ops+=EXPRESSION_1100 exps+=Expression900)*;
 	public Expression1100Elements getExpression1100Access() {
 		return (pExpression1100 != null) ? pExpression1100 : (pExpression1100 = new Expression1100Elements());
 	}
@@ -1027,7 +750,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression900 returns Expression:
 	//
-	//	exps+=Expression700 (ops+=EXPRESSION_900 exps+=Expression700)*;
+	//	ops+=EXPRESSION_900? exps+=Expression700;
 	public Expression900Elements getExpression900Access() {
 		return (pExpression900 != null) ? pExpression900 : (pExpression900 = new Expression900Elements());
 	}
@@ -1045,7 +768,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression700 returns Expression:
 	//
-	//	exps+=Expression500 (ops+=EXPRESSION_700 exps+=Expression500)?;
+	//	Expression500 (ops+=EXPRESSION_700 exps+=Expression500)?;
 	public Expression700Elements getExpression700Access() {
 		return (pExpression700 != null) ? pExpression700 : (pExpression700 = new Expression700Elements());
 	}
@@ -1065,7 +788,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression500 returns Expression:
 	//
-	//	exps+=Expression400 (ops+=EXPRESSION_500 exps+=Expression400)*;
+	//	Expression400 (ops+=EXPRESSION_500 exps+=Expression400)*;
 	public Expression500Elements getExpression500Access() {
 		return (pExpression500 != null) ? pExpression500 : (pExpression500 = new Expression500Elements());
 	}
@@ -1083,7 +806,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression400 returns Expression:
 	//
-	//	exps+=Expression200 (ops+=EXPRESSION_400 exps+=Expression200)*;
+	//	Expression200 (ops+=EXPRESSION_400 exps+=Expression200)*;
 	public Expression400Elements getExpression400Access() {
 		return (pExpression400 != null) ? pExpression400 : (pExpression400 = new Expression400Elements());
 	}
@@ -1101,7 +824,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression200 returns Expression:
 	//
-	//	exps+=Expression0 (ops+=EXPRESSION_200 exps+=Expression0)*;
+	//	Expression0 (ops+=EXPRESSION_200 exps+=Expression0)*;
 	public Expression200Elements getExpression200Access() {
 		return (pExpression200 != null) ? pExpression200 : (pExpression200 = new Expression200Elements());
 	}
@@ -1119,7 +842,13 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression0 returns Expression:
 	//
-	//	term=Term | "(" exps+=ExpressionINF ")";
+	//	ops+=(ATOM | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200)
+	//
+	//	(complex?="(" (exps+=ExpressionINF ("," exps+=ExpressionINF)*)? ")")? | number=NUMBER | string=STRING |
+	//
+	//	variable=VARIABLE | list?="[" (head+=ExpressionINF ("," head+=ExpressionINF)* ("|" tail=ExpressionINF)?)? "]" |
+	//
+	//	list?="." "(" head+=ExpressionINF "," tail=ExpressionINF ")" | "(" exps+=ExpressionINF ")";
 	public Expression0Elements getExpression0Access() {
 		return (pExpression0 != null) ? pExpression0 : (pExpression0 = new Expression0Elements());
 	}
@@ -1128,95 +857,34 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		return getExpression0Access().getRule();
 	}
 
-	//Term:
+	//terminal NUMBER:
 	//
-	//	atom=Atom | number=Number | "\'" string=String "\'" | variable=Variable | list?="[" (head+=ExpressionINF (","
-	//
-	//	head+=ExpressionINF)* ("|" tail=ExpressionINF)?)? "]" | list?="." "(" head+=ExpressionINF "," tail=ExpressionINF ")";
-	public TermElements getTermAccess() {
-		return (pTerm != null) ? pTerm : (pTerm = new TermElements());
-	}
-	
-	public ParserRule getTermRule() {
-		return getTermAccess().getRule();
-	}
-
-	//Atom:
-	//
-	//	LOWER_CASE_LETTER (DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | "_")*;
-	public AtomElements getAtomAccess() {
-		return (pAtom != null) ? pAtom : (pAtom = new AtomElements());
-	}
-	
-	public ParserRule getAtomRule() {
-		return getAtomAccess().getRule();
-	}
-
-	//Character:
-	//
-	//	DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | "_" | "+" | "-" | "*" | "/" | "\\" | "^" | "~" | ":" | "." | "?" |
-	//
-	//	"@" | "#" | "$" | "&";
-	public CharacterElements getCharacterAccess() {
-		return (pCharacter != null) ? pCharacter : (pCharacter = new CharacterElements());
-	}
-	
-	public ParserRule getCharacterRule() {
-		return getCharacterAccess().getRule();
-	}
-
-	//Number:
-	//
-	//	"-"? DIGIT+;
-	public NumberElements getNumberAccess() {
-		return (pNumber != null) ? pNumber : (pNumber = new NumberElements());
-	}
-	
-	public ParserRule getNumberRule() {
-		return getNumberAccess().getRule();
-	}
-
-	//Variable:
-	//
-	//	(UPPER_CASE_LETTER | "_") (DIGIT | LOWER_CASE_LETTER | UPPER_CASE_LETTER | "_")*;
-	public VariableElements getVariableAccess() {
-		return (pVariable != null) ? pVariable : (pVariable = new VariableElements());
-	}
-	
-	public ParserRule getVariableRule() {
-		return getVariableAccess().getRule();
-	}
-
-	//String:
-	//
-	//	Character*;
-	public StringElements getStringAccess() {
-		return (pString != null) ? pString : (pString = new StringElements());
-	}
-	
-	public ParserRule getStringRule() {
-		return getStringAccess().getRule();
-	}
-
-	//terminal DIGIT:
-	//
-	//	"0".."9";
-	public TerminalRule getDIGITRule() {
-		return (tDIGIT != null) ? tDIGIT : (tDIGIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "DIGIT"));
+	//	"-"? "0".."9"+;
+	public TerminalRule getNUMBERRule() {
+		return (tNUMBER != null) ? tNUMBER : (tNUMBER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "NUMBER"));
 	} 
 
-	//terminal LOWER_CASE_LETTER:
+	//terminal ATOM:
 	//
-	//	"a".."z";
-	public TerminalRule getLOWER_CASE_LETTERRule() {
-		return (tLOWER_CASE_LETTER != null) ? tLOWER_CASE_LETTER : (tLOWER_CASE_LETTER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "LOWER_CASE_LETTER"));
+	//	"a".."z" ("0".."9" | "a".."z" | "A".."Z" | "_")*;
+	public TerminalRule getATOMRule() {
+		return (tATOM != null) ? tATOM : (tATOM = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ATOM"));
 	} 
 
-	//terminal UPPER_CASE_LETTER:
+	//terminal VARIABLE:
 	//
-	//	"A".."Z";
-	public TerminalRule getUPPER_CASE_LETTERRule() {
-		return (tUPPER_CASE_LETTER != null) ? tUPPER_CASE_LETTER : (tUPPER_CASE_LETTER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "UPPER_CASE_LETTER"));
+	//	("A".."Z" | "_") ("0".."9" | "a".."z" | "A".."Z" | "_")*;
+	public TerminalRule getVARIABLERule() {
+		return (tVARIABLE != null) ? tVARIABLE : (tVARIABLE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "VARIABLE"));
+	} 
+
+	//terminal STRING:
+	//
+	//	"\'" ("0".."9" | "a".."z" | "A".."Z" | "_" | "+" | "-" | "*" | "/" | "\\" | "^" | "~" | ":" | "." | "?" | "@" | "#" |
+	//
+	//	"$" | "&" | " ")* "\'";
+	public TerminalRule getSTRINGRule() {
+		return (tSTRING != null) ? tSTRING : (tSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "STRING"));
 	} 
 
 	//terminal WHITESPACE:

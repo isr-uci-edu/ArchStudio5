@@ -9,6 +9,7 @@ import org.archstudio.prolog.op.iso.Equals;
 import org.archstudio.prolog.op.iso.NotEquals;
 import org.archstudio.prolog.parser.ParseException;
 import org.archstudio.prolog.parser.PrologParser;
+import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
 import org.archstudio.prolog.term.ListTerm;
 import org.archstudio.prolog.term.StringTerm;
@@ -54,6 +55,7 @@ public class ParseTest {
 	@Test
 	public void testRule() throws ParseException {
 		assertParse("k(X) :- f(X), g(X), h(X).");
+		assertParse("key_1(X) :- f2(X), g3_f(X), h_g(X).");
 	}
 
 	@Test
@@ -77,10 +79,10 @@ public class ParseTest {
 
 	@Test
 	public void testNumeral() throws ParseException {
-		assertParseContains(new ConstantTerm(BigDecimal.valueOf(1)), "f(1).");
-		assertParseContains(new ConstantTerm(BigDecimal.valueOf(-1)), "f(-1).");
-		assertParseContains(new ConstantTerm(BigDecimal.valueOf(123)), "f(123).");
-		assertParseContains(new ConstantTerm(BigDecimal.valueOf(-123)), "f(-123).");
+		assertParseEquals(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(1))), "f(1).");
+		assertParseEquals(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(-1))), "f(-1).");
+		assertParseEquals(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(123))), "f(123).");
+		assertParseEquals(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(-123))), "f(-123).");
 	}
 
 	@Test
@@ -117,4 +119,12 @@ public class ParseTest {
 				"\\=(Xabc,Xbcd).");
 	}
 
+	@Test
+	public void testExtra() throws ParseException {
+		assertParse("compatible_directions('in','out').");
+		assertParse("compatible_directions('out','in').");
+		assertParse("compatible_directions('inout','inout').");
+		assertParse("compatible_directions('none','none').");
+		assertParse("test(Id,'Connected interfaces have incompatible directions') :- link(L), id(L,Id), link_point1(L,A), link_point2(L,B), direction(A,Ad), direction(B,Bd), \\+ compatible_directions(Ad,Bd).");
+	}
 }

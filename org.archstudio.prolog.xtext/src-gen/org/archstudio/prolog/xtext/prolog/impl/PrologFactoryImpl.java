@@ -60,7 +60,6 @@ public class PrologFactoryImpl extends EFactoryImpl implements PrologFactory {
 			case PrologPackage.CLAUSE: return createClause();
 			case PrologPackage.QUERY: return createQuery();
 			case PrologPackage.EXPRESSION: return createExpression();
-			case PrologPackage.TERM: return createTerm();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -104,16 +103,6 @@ public class PrologFactoryImpl extends EFactoryImpl implements PrologFactory {
 	public Expression createExpression() {
 		ExpressionImpl expression = new ExpressionImpl();
 		return expression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Term createTerm() {
-		TermImpl term = new TermImpl();
-		return term;
 	}
 
 	/**
