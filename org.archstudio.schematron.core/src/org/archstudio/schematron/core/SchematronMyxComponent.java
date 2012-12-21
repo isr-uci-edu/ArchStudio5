@@ -79,10 +79,8 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 	@Override
 	public void reloadTests() {
 		addNotice("Reloading tests at [" + SystemUtils.getDateAndTime() + "]");
-		List<? extends ArchlightTest> oldTests = tests.getAllTests(TOOL_ID);
 		testManager.reload();
 		List<? extends ArchlightTest> newTests = testManager.getAllArchlightTests();
-		tests.removeTests(oldTests);
 		tests.addTests(newTests);
 
 		List<? extends Object> warnings = testManager.getWarnings();

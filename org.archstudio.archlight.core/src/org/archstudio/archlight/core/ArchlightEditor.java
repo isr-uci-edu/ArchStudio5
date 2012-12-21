@@ -267,6 +267,7 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 	}
 
 	protected void reloadTests() {
+		tests.removeTests(tests.getAllTests());
 		tools.reloadTests();
 	}
 
