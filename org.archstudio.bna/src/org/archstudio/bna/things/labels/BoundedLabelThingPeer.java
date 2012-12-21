@@ -56,10 +56,10 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
-
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		Point canvasSize = r.getComposite().getSize();
 		if (t.getText().length() == 0) {
+			text = "";
 			font = null;
 		}
 		else if (!t.getText().equals(text) //
