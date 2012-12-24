@@ -67,7 +67,7 @@ public class ColorSelectorDialog extends Dialog {
 		this.shell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 
 		String text = getText();
-		if ((text == null) || (text.trim().equals(""))) {
+		if (text == null || text.trim().equals("")) {
 			text = "Select a Color";
 		}
 		shell.setText(text);
@@ -83,7 +83,7 @@ public class ColorSelectorDialog extends Dialog {
 
 		ColorSchemeLoader csl = ColorSchemeLoader.getInstance();
 		ColorScheme[] colorSchemes = csl.getDefaultColorSchemes();
-		if ((colorSchemes != null) && (colorSchemes.length != 0)) {
+		if (colorSchemes != null && colorSchemes.length != 0) {
 			createSchemeComposite(mainComposite, colorSchemes);
 		}
 
@@ -117,8 +117,9 @@ public class ColorSelectorDialog extends Dialog {
 		shell.open();
 		Display display = parent.getDisplay();
 		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
+			if (!display.readAndDispatch()) {
 				display.sleep();
+			}
 		}
 
 		//Clean up resources used
@@ -166,7 +167,7 @@ public class ColorSelectorDialog extends Dialog {
 			bSchemeButtons[i].addSelectionListener(new SelectionListener() {
 				public void widgetSelected(SelectionEvent e) {
 					Object data = fb.getData();
-					if ((data != null) && (data instanceof RGB)) {
+					if (data != null && data instanceof RGB) {
 						select((RGB) data);
 						return;
 					}
@@ -209,15 +210,15 @@ public class ColorSelectorDialog extends Dialog {
 					imageRegistry.put(symbolicName, swatchDescriptor);
 					swatch = imageRegistry.get(symbolicName);
 				}
-				buttons[(s * 4) + v].setImage(swatch);
-				buttons[(s * 4) + v].setData(color.getRGB());
-				buttons[(s * 4) + v].setToolTipText("#" + SWTWidgetUtils.rgbToHex(color.getRGB()));
+				buttons[s * 4 + v].setImage(swatch);
+				buttons[s * 4 + v].setData(color.getRGB());
+				buttons[s * 4 + v].setToolTipText("#" + SWTWidgetUtils.rgbToHex(color.getRGB()));
 			}
 		}
 	}
 
 	protected void createHexComposite(final Composite parent, RGB initialColor) {
-		final RGB finitialColor = (initialColor == null) ? new RGB(0, 0, 0) : initialColor;
+		final RGB finitialColor = initialColor == null ? new RGB(0, 0, 0) : initialColor;
 
 		Group gHex = new Group(parent, SWT.NONE);
 		gHex.setLayout(new FillLayout());
@@ -242,7 +243,7 @@ public class ColorSelectorDialog extends Dialog {
 		bHexSwatch.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				Object data = bHexSwatch.getData();
-				if ((data != null) && (data instanceof RGB)) {
+				if (data != null && data instanceof RGB) {
 					select((RGB) data);
 					return;
 				}
@@ -286,7 +287,7 @@ public class ColorSelectorDialog extends Dialog {
 	}
 
 	protected void createCustomComposite(final Composite parent, RGB initialColor) {
-		final RGB finitialColor = (initialColor == null) ? new RGB(0, 0, 0) : initialColor;
+		final RGB finitialColor = initialColor == null ? new RGB(0, 0, 0) : initialColor;
 
 		Group gCustom = new Group(parent, SWT.NONE);
 		gCustom.setLayout(new FillLayout());

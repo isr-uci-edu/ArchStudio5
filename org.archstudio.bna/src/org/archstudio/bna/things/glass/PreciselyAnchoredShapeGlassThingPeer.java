@@ -2,6 +2,7 @@ package org.archstudio.bna.things.glass;
 
 import java.awt.Dimension;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -26,12 +27,10 @@ public class PreciselyAnchoredShapeGlassThingPeer<T extends PreciselyAnchoredSha
 		return new Rectangle(lp.x - size.width / 2, lp.y - size.height / 2, size.width, size.height);
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return getLocalBounds(view, cm).contains(location.getLocalPoint());
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (t.isSelected()) {
 			Rectangle lbb = getLocalBounds(view, cm);
@@ -43,16 +42,18 @@ public class PreciselyAnchoredShapeGlassThingPeer<T extends PreciselyAnchoredSha
 				float[] points = BNAUtils.getEllipsePoints(lbb);
 
 				gl.glColor3f(1f, 1f, 1f);
-				gl.glBegin(GL2.GL_LINE_LOOP);
-				for (int i = 0; i < points.length; i += 2)
+				gl.glBegin(GL.GL_LINE_LOOP);
+				for (int i = 0; i < points.length; i += 2) {
 					gl.glVertex2f(points[i] + 0.5f, points[i + 1] + 0.5f);
+				}
 				gl.glEnd();
 
 				gl.glColor3f(0f, 0f, 0f);
 				gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
-				gl.glBegin(GL2.GL_LINE_LOOP);
-				for (int i = 0; i < points.length; i += 2)
+				gl.glBegin(GL.GL_LINE_LOOP);
+				for (int i = 0; i < points.length; i += 2) {
 					gl.glVertex2f(points[i] + 0.5f, points[i + 1] + 0.5f);
+				}
 				gl.glEnd();
 			}
 				break;
@@ -63,16 +64,18 @@ public class PreciselyAnchoredShapeGlassThingPeer<T extends PreciselyAnchoredSha
 						lbb.x, lbb.y + lbb.height - 1 };
 
 				gl.glColor3f(1f, 1f, 1f);
-				gl.glBegin(GL2.GL_LINE_LOOP);
-				for (int i = 0; i < points.length; i += 2)
+				gl.glBegin(GL.GL_LINE_LOOP);
+				for (int i = 0; i < points.length; i += 2) {
 					gl.glVertex2f(points[i] + 0.5f, points[i + 1] + 0.5f);
+				}
 				gl.glEnd();
 
 				gl.glColor3f(0f, 0f, 0f);
 				gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
-				gl.glBegin(GL2.GL_LINE_LOOP);
-				for (int i = 0; i < points.length; i += 2)
+				gl.glBegin(GL.GL_LINE_LOOP);
+				for (int i = 0; i < points.length; i += 2) {
 					gl.glVertex2f(points[i] + 0.5f, points[i + 1] + 0.5f);
+				}
 				gl.glEnd();
 			}
 				break;

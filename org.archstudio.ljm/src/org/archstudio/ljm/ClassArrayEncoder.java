@@ -9,8 +9,9 @@ public class ClassArrayEncoder {
 	private static HashMap<String, Class<?>> nameMap = new HashMap<String, Class<?>>();
 
 	public synchronized static void init() {
-		if (initDone)
+		if (initDone) {
 			return;
+		}
 		nameMap.put("boolean", boolean.class);
 		nameMap.put("byte", byte.class);
 		nameMap.put("short", short.class);
@@ -45,8 +46,9 @@ public class ClassArrayEncoder {
 	}
 
 	public static Class[] stringArrayToClassArray(String[] arr) throws ClassNotFoundException {
-		if (!initDone)
+		if (!initDone) {
 			init();
+		}
 		Class[] classes = new Class[arr.length];
 		for (int i = 0; i < arr.length; i++) {
 			if (!arr[i].startsWith("$$PT")) {
@@ -54,7 +56,7 @@ public class ClassArrayEncoder {
 			}
 			else {
 				String realName = arr[i].substring(4);
-				classes[i] = (Class) nameMap.get(realName);
+				classes[i] = nameMap.get(realName);
 				/*
 				 * if(realName.equals("boolean")){ classes[i] = boolean.class; }
 				 * else if(realName.equals("byte")){ classes[i] = byte.class; }

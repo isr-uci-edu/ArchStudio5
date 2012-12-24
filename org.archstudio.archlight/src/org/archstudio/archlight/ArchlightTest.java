@@ -51,7 +51,6 @@ public class ArchlightTest implements java.io.Serializable {
 		this.uid = uid;
 	}
 
-	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer("ArchlightTest[");
 		sb.append("uid=").append(uid).append(",");
@@ -106,7 +105,6 @@ public class ArchlightTest implements java.io.Serializable {
 		return pathComponentList.toArray(new String[0]);
 	}
 
-	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof ArchlightTest)) {
 			return false;
@@ -116,7 +114,6 @@ public class ArchlightTest implements java.io.Serializable {
 				&& nulleq(longDescription, otherTest.longDescription);
 	}
 
-	@Override
 	public int hashCode() {
 		if (uid == null) {
 			return getClass().hashCode();

@@ -21,13 +21,11 @@ public class DebugLogic extends AbstractThingLogic implements IBNAModelListener,
 	public DebugLogic() {
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		System.err.println("DL: Initialized");
 	}
 
-	@Override
 	protected void destroy() {
 		System.err.println("DL: Destroyed");
 		super.destroy();
@@ -35,20 +33,17 @@ public class DebugLogic extends AbstractThingLogic implements IBNAModelListener,
 
 	int modelEventCount = 0;
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		modelEventCount++;
 		System.err.println("DL: bnaModelChangedSync " + modelEventCount + " " + evt);
 	}
 
-	@Override
 	public void coordinateMappingsChanged(CoordinateMapperEvent evt) {
 		System.err.println("DL: coordinateMappingsChanged " + evt);
 	}
 
 	int mouseEventCount = 0;
 
-	@Override
 	public void mouseClick(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		mouseEventCount++;
 		System.err.println("DL: mouseClick " + mouseEventCount + " " + evt);
@@ -59,19 +54,16 @@ public class DebugLogic extends AbstractThingLogic implements IBNAModelListener,
 
 	}
 
-	@Override
 	public void mouseDoubleClick(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		mouseEventCount++;
 		System.err.println("DL: mouseDoubleClick " + mouseEventCount + " " + evt);
 	}
 
-	@Override
 	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		mouseEventCount++;
 		System.err.println("DL: mouseUp " + mouseEventCount + " " + evt);
 	}
 
-	@Override
 	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		mouseEventCount++;
 		System.err.println("DL: mouseDown " + mouseEventCount + " " + evt);

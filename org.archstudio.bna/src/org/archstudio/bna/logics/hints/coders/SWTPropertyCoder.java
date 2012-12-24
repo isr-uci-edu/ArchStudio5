@@ -10,7 +10,6 @@ import org.eclipse.swt.graphics.Rectangle;
 
 public class SWTPropertyCoder implements IPropertyCoder {
 
-	@Override
 	public IEncodedValue encode(IPropertyCoder masterCoder, Object value) {
 		if (value instanceof Point) {
 			Point v = (Point) value;
@@ -33,7 +32,6 @@ public class SWTPropertyCoder implements IPropertyCoder {
 		return null;
 	}
 
-	@Override
 	public Object decode(IPropertyCoder masterCoder, IEncodedValue encodedValue) throws PropertyDecodeException {
 		try {
 			String type = encodedValue.getType();

@@ -16,7 +16,6 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 	public SnapToGridLogic() {
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		// this logic listens to events from the following
@@ -25,7 +24,6 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 
 	Point referencePointToInitialMousePointDelta = new Point(0, 0);
 
-	@Override
 	public void dragStarted(DragMoveEvent evt) {
 		referencePointToInitialMousePointDelta.x = referencePointToInitialMousePointDelta.y = 0;
 		if (evt.getInitialThing() instanceof IHasReferencePoint) {
@@ -73,7 +71,6 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 				.worldToLocal(adjustedMouseWorldPoint), adjustedMouseWorldPoint));
 	}
 
-	@Override
 	public void dragMoved(DragMoveEvent evt) {
 		Point adjustedThingWorldPoint = evt.getAdjustedThingLocation().getWorldPoint();
 		Point adjustedMouseWorldPoint = evt.getAdjustedMouseLocation().getWorldPoint();
@@ -103,7 +100,6 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 				.worldToLocal(adjustedMouseWorldPoint), adjustedMouseWorldPoint));
 	}
 
-	@Override
 	public void dragFinished(DragMoveEvent evt) {
 	}
 

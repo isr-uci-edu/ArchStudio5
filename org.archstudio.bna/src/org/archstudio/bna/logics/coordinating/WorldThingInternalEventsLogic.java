@@ -45,11 +45,11 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 
 		boolean needsTick = false;
 
-		@Override
 		public void bnaModelChanged(BNAModelEvent evt) {
 			// prevent infinite loops
-			if (!worldsBeingNotified.add(viewThing))
+			if (!worldsBeingNotified.add(viewThing)) {
 				return;
+			}
 
 			try {
 				fireInternalBNAModelEvent(viewThing, evt);
@@ -71,7 +71,6 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		typeLogic = addThingLogic(ThingTypeTrackingLogic.class);
@@ -80,14 +79,12 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	@Override
 	protected void destroy() {
 		for (IHasWorld vt : Lists.newArrayList(thingToListenerMap.keySet())) {
 			removeListener(vt);
 		}
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		if (evt.getTargetThing() != null && evt.getTargetThing() instanceof IHasWorld) {
 			IHasWorld vt = (IHasWorld) evt.getTargetThing();

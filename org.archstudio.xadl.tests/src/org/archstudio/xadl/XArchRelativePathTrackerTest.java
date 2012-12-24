@@ -62,7 +62,6 @@ public class XArchRelativePathTrackerTest extends TestCase {
 	XArchRelativePathTracker tracker;
 	List<String> results;
 
-	@Override
 	protected void setUp() throws Exception {
 		xarch = new XArchADTImpl();
 
@@ -92,17 +91,14 @@ public class XArchRelativePathTrackerTest extends TestCase {
 		tracker = new XArchRelativePathTracker(xarch);
 		tracker.addTrackerListener(new IXArchRelativePathTrackerListener() {
 
-			@Override
 			public void processAdd(List<ObjRef> relLineageRefs, ObjRef objRef) {
 				results.add("A:" + objRef);
 			}
 
-			@Override
 			public void processUpdate(List<ObjRef> relLineageRefs, String relPath, ObjRef objRef, XArchADTModelEvent evt) {
 				results.add("U:" + objRef);
 			}
 
-			@Override
 			public void processRemove(List<ObjRef> relLineageRefs, ObjRef objRef) {
 				results.add("R:" + objRef);
 			}

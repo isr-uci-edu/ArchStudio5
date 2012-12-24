@@ -226,7 +226,7 @@ public class BNADistributeUtils {
 	}
 
 	static class XComparator implements Comparator<IThing> {
-		@Override
+
 		public int compare(IThing o1, IThing o2) {
 			int x1, x2;
 
@@ -267,7 +267,7 @@ public class BNADistributeUtils {
 	}
 
 	static class YComparator implements Comparator<IThing> {
-		@Override
+
 		public int compare(IThing o1, IThing o2) {
 			int y1, y2;
 

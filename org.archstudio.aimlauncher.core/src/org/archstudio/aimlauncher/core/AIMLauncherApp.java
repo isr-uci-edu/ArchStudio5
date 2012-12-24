@@ -19,7 +19,6 @@ import org.eclipse.equinox.app.IApplicationContext;
 
 public class AIMLauncherApp implements IApplication {
 
-	@Override
 	public Object start(IApplicationContext context) throws Exception {
 		// instantiates an architecture
 		// - architecture is specified in "architecture" environment variable
@@ -52,9 +51,9 @@ public class AIMLauncherApp implements IApplication {
 
 			aim.instantiate("system", docRootRef, structureRef, new MyxNullProgressMonitor());
 			aim.begin("system", new MyxNullProgressMonitor());
-			while(true){
-				synchronized(this){
-					try{
+			while (true) {
+				synchronized (this) {
+					try {
 						wait();
 					}
 					catch (InterruptedException e) {
@@ -73,7 +72,6 @@ public class AIMLauncherApp implements IApplication {
 		}
 	}
 
-	@Override
 	public void stop() {
 	}
 

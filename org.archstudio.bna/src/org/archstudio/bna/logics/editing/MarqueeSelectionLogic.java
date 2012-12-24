@@ -32,14 +32,12 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	public MarqueeSelectionLogic() {
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		addThingLogic(RotatingOffsetLogic.class);
 		this.typesLogic = addThingLogic(ThingTypeTrackingLogic.class);
 	}
 
-	@Override
 	protected void destroy() {
 		typesLogic = null;
 		if (marqueeSelection != null) {
@@ -51,7 +49,6 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 		super.destroy();
 	}
 
-	@Override
 	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (marqueeSelection != null) {
 			getBNAModel().removeThing(marqueeSelection);
@@ -66,7 +63,6 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 		}
 	}
 
-	@Override
 	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (marqueeSelection != null) {
 			Point worldPoint = location.getWorldPoint();
@@ -78,7 +74,6 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 		}
 	}
 
-	@Override
 	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		try {
 			if (evt.button == 1) {

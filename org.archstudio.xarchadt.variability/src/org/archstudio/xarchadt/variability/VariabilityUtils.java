@@ -29,8 +29,9 @@ public class VariabilityUtils {
 			XADLType xadlType = documentRoot.getXADL();
 			if (xadlType != null) {
 				for (EObject eObject : xadlType.getTopLevelElement()) {
-					if (eObject instanceof Variability)
+					if (eObject instanceof Variability) {
 						return (Variability) eObject;
+					}
 				}
 			}
 		}
@@ -78,7 +79,7 @@ public class VariabilityUtils {
 		changeSet.setElementChange(null);
 		newAppliedChangeSetRefs.add(transformChangeSetRef);
 		xarch.applyChangeSets(documentRootRef, newAppliedChangeSetRefs);
-		
+
 		// perform the transform
 		xarch.setActiveChangeSet(documentRootRef, transformChangeSetRef);
 		transform.transform(xarch, documentRootRef);

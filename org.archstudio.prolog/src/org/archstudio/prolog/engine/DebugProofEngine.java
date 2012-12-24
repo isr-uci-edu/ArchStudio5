@@ -19,7 +19,6 @@ public class DebugProofEngine implements ProofEngine {
 
 	protected final static Map<VariableTerm, Term> EMPTY_VARIABLES = Collections.<VariableTerm, Term> emptyMap();
 
-	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			ComplexTerm goal) {
 		return execute(proofContext, unificationEngine, goal, Maps.<VariableTerm, Term> newHashMap());
@@ -59,7 +58,6 @@ public class DebugProofEngine implements ProofEngine {
 		return gVariables;
 	}
 
-	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			ComplexTerm goal, Map<VariableTerm, Term> variables) {
 

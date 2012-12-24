@@ -25,7 +25,7 @@ public class AbstractSplineThing extends AbstractPointsThing implements IHasMuta
 	public AbstractSplineThing(Object id) {
 		super(id);
 		addThingListener(new IThingListener() {
-			@Override
+
 			public void thingChanged(ThingEvent thingEvent) {
 				if (!IHasPoints.POINTS_KEY.equals(thingEvent.getPropertyName())
 						&& !IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
@@ -35,48 +35,40 @@ public class AbstractSplineThing extends AbstractPointsThing implements IHasMuta
 		});
 	}
 
-	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setEndpoint1(new Point(0, 0));
 		setEndpoint2(new Point(0, 0));
 	}
 
-	@Override
 	public Point getEndpoint1() {
 		return get(IHasEndpoints.ENDPOINT_1_KEY, new Point(0, 0));
 	}
 
-	@Override
 	public void setEndpoint1(Point endpoint1) {
 		checkNotNull(endpoint1);
 
 		set(IHasEndpoints.ENDPOINT_1_KEY, endpoint1);
 	}
 
-	@Override
 	public Point getEndpoint2() {
 		return get(IHasEndpoints.ENDPOINT_2_KEY, new Point(0, 0));
 	}
 
-	@Override
 	public void setEndpoint2(Point endpoint2) {
 		checkNotNull(endpoint2);
 
 		set(IHasEndpoints.ENDPOINT_2_KEY, endpoint2);
 	}
 
-	@Override
 	public List<Point> getMidpoints() {
-		return get(IHasMidpoints.MIDPOINTS_KEY, Collections.<Point>emptyList());
+		return get(IHasMidpoints.MIDPOINTS_KEY, Collections.<Point> emptyList());
 	}
 
-	@Override
 	public void setMidpoints(List<Point> midpoints) {
 		set(IHasMidpoints.MIDPOINTS_KEY, midpoints);
 	}
 
-	@Override
 	public List<Point> getPoints() {
 		List<Point> points = Lists.newArrayList();
 		points.add(checkNotNull(getEndpoint1()));
@@ -85,7 +77,6 @@ public class AbstractSplineThing extends AbstractPointsThing implements IHasMuta
 		return points;
 	}
 
-	@Override
 	public void setPoints(final List<Point> points) {
 		checkArgument(points.size() >= 2, "%s requires at least two points", this.getClass());
 

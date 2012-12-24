@@ -48,7 +48,6 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 		this.hasContextMenu = hasContextMenu;
 	}
 
-	@Override
 	public void setActionBars(IActionBars actionBars) {
 		super.setActionBars(actionBars);
 
@@ -56,97 +55,83 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
 		UndoRedoActionGroup undoRedo = new UndoRedoActionGroup(new IWorkbenchPartSite() {
 
-			@Override
 			public IWorkbenchPage getPage() {
 				return getSite().getPage();
 			}
 
-			@Override
 			public ISelectionProvider getSelectionProvider() {
 				throw new UnsupportedOperationException();
 			}
 
-			@Override
 			public Shell getShell() {
 				throw new UnsupportedOperationException();
 			}
 
-			@Override
 			public IWorkbenchWindow getWorkbenchWindow() {
 				return getSite().getWorkbenchWindow();
 			}
 
-			@Override
 			public void setSelectionProvider(ISelectionProvider provider) {
 				throw new UnsupportedOperationException();
 			}
 
 			@SuppressWarnings("rawtypes")
-			@Override
 			public Object getAdapter(Class adapter) {
 				throw new UnsupportedOperationException();
 			}
 
 			@SuppressWarnings("rawtypes")
-			@Override
 			public Object getService(Class api) {
 				throw new UnsupportedOperationException();
 			}
 
 			@SuppressWarnings("rawtypes")
-			@Override
 			public boolean hasService(Class api) {
 				throw new UnsupportedOperationException();
 			}
 
-			@Override
 			public String getId() {
 				throw new UnsupportedOperationException();
 			}
 
-			@Override
 			public String getPluginId() {
 				throw new UnsupportedOperationException();
 			}
 
-			@Override
 			public String getRegisteredName() {
 				throw new UnsupportedOperationException();
 			}
 
-			@Override
 			public void registerContextMenu(String menuId, MenuManager menuManager, ISelectionProvider selectionProvider) {
 				throw new UnsupportedOperationException();
 			}
 
-			@Override
 			public void registerContextMenu(MenuManager menuManager, ISelectionProvider selectionProvider) {
 				throw new UnsupportedOperationException();
 			}
 
-			@Override
 			public IKeyBindingService getKeyBindingService() {
 				throw new UnsupportedOperationException();
 			}
 
-			@Override
 			public IWorkbenchPart getPart() {
 				return getSite().getPage().getActivePart();
 			}
-			
+
 		}, undoContext, true);
 		undoRedo.fillActionBars(actionBars);
 		actionBars.updateActionBars();
 	}
-	
+
 	public void init(IPageSite pageSite) {
 		super.init(pageSite);
 	}
 
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-		if (documentRootRef == null)
+		if (documentRootRef == null) {
 			return;
+		}
 		TreeViewer viewer = getTreeViewer();
 		viewer.setContentProvider(createViewContentProvider());
 		viewer.setLabelProvider(createViewLabelProvider());
@@ -157,8 +142,8 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 		if (hasPulldownMenu) {
 			IMenuManager menu = getSite().getActionBars().getMenuManager();
 			IAction[] actions = createPulldownMenuItems();
-			for (int i = 0; i < actions.length; i++) {
-				menu.add(actions[i]);
+			for (IAction action : actions) {
+				menu.add(action);
 			}
 		}
 
@@ -184,12 +169,15 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 	}
 
 	public void updateOutlinePage() {
-		if (getTreeViewer() == null)
+		if (getTreeViewer() == null) {
 			return;
-		if (getTreeViewer().getTree() == null)
+		}
+		if (getTreeViewer().getTree() == null) {
 			return;
-		if (getTreeViewer().getTree().isDisposed())
+		}
+		if (getTreeViewer().getTree().isDisposed()) {
 			return;
+		}
 		Object[] expandedElements = getTreeViewer().getExpandedElements();
 		getTreeViewer().refresh(true);
 		getTreeViewer().setExpandedElements(expandedElements);

@@ -34,7 +34,6 @@ class ThreadModelEventProcessor {
 		final Runnable r = new Runnable() {
 			boolean hasRun = false;
 
-			@Override
 			public void run() {
 				hasRun = !hasRun;
 			}
@@ -53,7 +52,7 @@ class ThreadModelEventProcessor {
 		final BNAModelEvent fevt = evt;
 		final List<IBNAModelListener> fmodelListeners = modelListeners;
 		Runnable r = new Runnable() {
-			@Override
+
 			public void run() {
 				for (IBNAModelListener ml : fmodelListeners) {
 					ml.bnaModelChanged(fevt);

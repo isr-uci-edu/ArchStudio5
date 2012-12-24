@@ -66,7 +66,6 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		this.defaultCount = defaultCount;
 	}
 
-	@Override
 	public void init() {
 		super.init();
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
@@ -74,9 +73,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
 		addBNAUpdater(new IBNAUpdater() {
 
-			@Override
-			public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt,
-					RectangleGlassThing rootThing) {
+			public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, RectangleGlassThing rootThing) {
 				updateSubstructure(objRef, xadlPath, evt, rootThing);
 			}
 		});
@@ -86,13 +83,11 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		mvl = getBNAWorld().getThingLogicManager().addThingLogic(MirrorValueLogic.class);
 	}
 
-	@Override
 	public void destroy() {
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		super.destroy();
 	}
 
-	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		RGB defaultColor = PreferenceConverter.getColor(Activator.getDefault().getPreferenceStore(),
 				StatechartConstants.PREF_STATE_COLOR);
@@ -102,8 +97,9 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		for (RectangleGlassThing thing : getAddedThings()) {
 			if (event.getProperty().equals(StatechartConstants.PREF_STATE_COLOR)) {
 				RGB oldColor = toRGB(event.getOldValue());
-				if (Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).get(IHasColor.COLOR_KEY).equals(oldColor))
+				if (Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).get(IHasColor.COLOR_KEY).equals(oldColor)) {
 					Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasColor.COLOR_KEY, defaultColor);
+				}
 			}
 
 			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
@@ -114,13 +110,13 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 	}
 
 	private RGB toRGB(Object value) {
-		if (value instanceof RGB)
+		if (value instanceof RGB) {
 			return (RGB) value;
+		}
 		String[] rgbs = ((String) value).split(",");
 		return new RGB(Integer.valueOf(rgbs[0]), Integer.valueOf(rgbs[1]), Integer.valueOf(rgbs[2]));
 	}
 
-	@Override
 	protected RectangleGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 		RGB defaultColor = PreferenceConverter.getColor(Activator.getDefault().getPreferenceStore(),
 				StatechartConstants.PREF_STATE_COLOR);
@@ -142,13 +138,13 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		mvl.mirrorValue(Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()), IHasColor.COLOR_KEY,
 				Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()), IHasSecondaryColor.SECONDARY_COLOR_KEY,
 				new Function<RGB, RGB>() {
-					@Override
+
 					@Nullable
 					public RGB apply(@Nullable RGB input) {
 						return BNAUtils.adjustBrightness(input, 1.5f);
 					}
 				});
-		
+
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
 				IHasMutableSize.USER_MAY_RESIZE, IRelativeMovable.USER_MAY_MOVE);
 		UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, getBNAModel()),

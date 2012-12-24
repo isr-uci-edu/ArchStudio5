@@ -1,15 +1,5 @@
 package org.archstudio.testadt.core;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.concurrent.*;
-import org.archstudio.myx.fw.*;
-import org.archstudio.myx.fw.IMyxDynamicBrick;
-import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.testadt.IArchlightTestADT;
-import org.archstudio.myx.fw.IMyxBrickItems;
-import org.archstudio.testadt.ArchlightTestADTListener;
-import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -98,7 +88,7 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 	protected final org.archstudio.testadt.ArchlightTestADTListener testEventsProxy = (org.archstudio.testadt.ArchlightTestADTListener) Proxy
 			.newProxyInstance(org.archstudio.testadt.ArchlightTestADTListener.class.getClassLoader(),
 					new Class[] { org.archstudio.testadt.ArchlightTestADTListener.class }, new InvocationHandler() {
-						@Override
+
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.testadt.ArchlightTestADTListener o : testEvents) {
 								try {
@@ -147,7 +137,7 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -162,7 +152,7 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -177,14 +167,14 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_TESTS)) {
 			if (tests == null) {

@@ -13,7 +13,6 @@ public class ToggleXadl3SchemaNatureAction extends AbstractToggleNatureObjectAct
 		super(Xadl3SchemaNature.NATURE_ID);
 	}
 
-	@Override
 	protected boolean setNatureAdded(IProject project, String natureID, boolean addNature) {
 
 		if (addNature) {
@@ -23,8 +22,9 @@ public class ToggleXadl3SchemaNatureAction extends AbstractToggleNatureObjectAct
 					+ " will erase the contents of its current src folder. This operation"
 					+ " cannot be undone. Proceed?");
 			int rc = messageBox.open();
-			if (rc == SWT.YES)
+			if (rc == SWT.YES) {
 				return super.setNatureAdded(project, natureID, addNature);
+			}
 			return false;
 		}
 

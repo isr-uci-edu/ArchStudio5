@@ -11,12 +11,10 @@ public abstract class AbstractThingLogic implements IThingLogic {
 
 	private IBNAWorld bnaWorld = null;
 
-	@Override
 	public IBNAWorld getBNAWorld() {
 		return bnaWorld;
 	}
 
-	@Override
 	public void setBNAWorld(IBNAWorld newBNAWorld) {
 		if (!SystemUtils.nullEquals(this.bnaWorld, newBNAWorld)) {
 			if (this.bnaWorld != null) {

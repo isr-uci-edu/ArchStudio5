@@ -1,5 +1,6 @@
 package org.archstudio.bna.things.utility;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -19,7 +20,6 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> imp
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 
 		// only draw for the top level things
@@ -59,7 +59,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> imp
 					gl.glLineStipple(1, (short) 0xaaaa);
 					dashLength = 6;
 				}
-				gl.glBegin(GL2.GL_LINES);
+				gl.glBegin(GL.GL_LINES);
 				for (int i = wx - dx; i <= wx2; i += worldGridStep) {
 					int gx = cm.worldToLocal(new Point(i, wy)).x;
 					gl.glVertex2f(gx + 0.5f, lClip.y / dashLength * dashLength + 0.5f);
@@ -73,7 +73,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> imp
 				gl.glEnd();
 			}
 			else if (gdt == GridDisplayType.DOTS_AT_CORNERS) {
-				gl.glBegin(GL2.GL_POINTS);
+				gl.glBegin(GL.GL_POINTS);
 				for (int i = wx - dx; i <= wx2; i += worldGridStep) {
 					int gx = cm.worldToLocal(new Point(i, wy)).x;
 					for (int j = wy - dy; j <= wy2; j += worldGridStep) {
@@ -84,7 +84,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> imp
 				gl.glEnd();
 			}
 			else if (gdt == GridDisplayType.CROSSES_AT_CORNERS) {
-				gl.glBegin(GL2.GL_LINES);
+				gl.glBegin(GL.GL_LINES);
 				for (int i = wx - dx; i <= wx2; i += worldGridStep) {
 					int gx = cm.worldToLocal(new Point(i, wy)).x;
 					for (int j = wy - dy; j <= wy2; j += worldGridStep) {
@@ -100,7 +100,6 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> imp
 		}
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}

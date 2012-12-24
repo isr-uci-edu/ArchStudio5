@@ -58,18 +58,15 @@ public class PrologMyxComponent extends org.archstudio.prolog.archstudio.PrologM
 	String TOOL_ID = "Prolog";
 	Map<String, TestData> testData = Maps.newHashMap();
 
-	@Override
 	public void begin() {
 		super.begin();
 		reloadTests();
 	}
 
-	@Override
 	public String getToolID() {
 		return TOOL_ID;
 	}
 
-	@Override
 	public void reloadTests() {
 
 		testData.clear();
@@ -94,7 +91,6 @@ public class PrologMyxComponent extends org.archstudio.prolog.archstudio.PrologM
 		}
 	}
 
-	@Override
 	public void runTests(ObjRef documentRootRef, Collection<String> testUIDs) {
 		try {
 

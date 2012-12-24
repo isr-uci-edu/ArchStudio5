@@ -83,7 +83,6 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 		hintSynchronizers.remove(hintSynchronizer);
 	}
 
-	@Override
 	public void init() {
 		checkState(getBNAModel().getAllThings().isEmpty(), "SynchronizeHintsLogic must be added before things.");
 		tvtl = addThingLogic(ThingValueTrackingLogic.class);
@@ -95,7 +94,6 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 		hintRepository.addHintRepositoryChangeListener(this);
 	}
 
-	@Override
 	public void destroy() {
 		hintRepository.removeHintRepositoryChangeListener(this);
 		for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {
@@ -134,8 +132,9 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 					storeHints(thing, context, null);
 					thing.set(HINT_CONTEXT_KEY, context);
 					for (IThing t : Assemblies.getParts(world.getBNAModel(), thing)) {
-						if (t != null)
+						if (t != null) {
 							createHintContext(t);
+						}
 					}
 				}
 			}
@@ -454,7 +453,6 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 	//	}
 	//
 
-	@Override
 	public void hintRepositoryChanged(final IHintRepository repository, final Object context,
 			final @Nullable String name) {
 		SWTWidgetUtils.async(Display.getDefault(), new Runnable() {

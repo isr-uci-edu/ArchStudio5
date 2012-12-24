@@ -45,7 +45,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		}
 	}
 
-	@Override
 	public void addBrickLoader(IMyxName loaderName, Class<? extends IMyxBrickLoader> brickLoaderClass,
 			Properties initParams) throws MyxBrickLoaderException {
 		try {
@@ -79,7 +78,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		}
 	}
 
-	@Override
 	public void removeBrickLoader(IMyxName loaderName) {
 		synchronized (brickLoaders) {
 			for (BrickLoaderEntry ble : brickLoaders) {
@@ -91,7 +89,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		}
 	}
 
-	@Override
 	public Collection<? extends IMyxName> getBrickLoaderNames() {
 		synchronized (brickLoaders) {
 			List<IMyxName> nameList = new ArrayList<IMyxName>();
@@ -162,7 +159,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		}
 	}
 
-	@Override
 	public void addBrick(List<? extends IMyxName> path, IMyxName brickName, IMyxBrickDescription brickDescription,
 			IMyxBrickInitializationData initializationData) throws MyxBrickLoadException, MyxBrickCreationException {
 		IMyxContainer container = MyxUtils.resolvePath(mainContainer, path);
@@ -185,7 +181,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		container.addInternalBrick(b);
 	}
 
-	@Override
 	public void removeBrick(List<? extends IMyxName> path, IMyxName brickName) {
 		IMyxContainer container = MyxUtils.resolvePath(mainContainer, path);
 		if (container == null) {
@@ -201,7 +196,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		}
 	}
 
-	@Override
 	public Collection<? extends IMyxName> getAllBrickNames(List<? extends IMyxName> path) {
 		IMyxContainer container = MyxUtils.resolvePath(mainContainer, path);
 		if (container == null) {
@@ -216,7 +210,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		}
 	}
 
-	@Override
 	public IMyxBrickDescription getBrickDescription(List<? extends IMyxName> path, IMyxName brickName) {
 		IMyxContainer container = MyxUtils.resolvePath(mainContainer, path);
 		if (container == null) {
@@ -231,7 +224,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		return b.getMyxBrickItems().getBrickDescription();
 	}
 
-	@Override
 	public void addInterface(List<? extends IMyxName> path, IMyxName brickName, IMyxName interfaceName,
 			IMyxInterfaceDescription interfaceDescription, EMyxInterfaceDirection interfaceDirection) {
 		IMyxContainer container = MyxUtils.resolvePath(mainContainer, path);
@@ -253,7 +245,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		interfaceRepository.addInterface(b, interfaceName, interfaceDescription, interfaceDirection);
 	}
 
-	@Override
 	public void addContainerInterface(List<? extends IMyxName> path, IMyxName brickName, IMyxName interfaceName,
 			IMyxInterfaceDescription interfaceDescription, EMyxInterfaceDirection interfaceDirection,
 			IMyxName internalBrickName, IMyxName internalBrickInterfaceName) {
@@ -287,7 +278,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 				internalBrickInterfaceName);
 	}
 
-	@Override
 	public void removeInterface(List<? extends IMyxName> path, IMyxName brickName, IMyxName interfaceName) {
 		IMyxContainer container = MyxUtils.resolvePath(mainContainer, path);
 		if (container == null) {
@@ -303,7 +293,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		interfaceRepository.removeInterface(b, interfaceName);
 	}
 
-	@Override
 	public Collection<? extends IMyxName> getAllInterfaceNames(List<? extends IMyxName> path, IMyxName brickName) {
 		IMyxContainer container = MyxUtils.resolvePath(mainContainer, path);
 		if (container == null) {
@@ -318,7 +307,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		return interfaceRepository.getAllInterfaceNames(b);
 	}
 
-	@Override
 	public IMyxInterfaceDescription getInterfaceDescription(List<? extends IMyxName> path, IMyxName brickName,
 			IMyxName interfaceName) {
 		IMyxContainer container = MyxUtils.resolvePath(mainContainer, path);
@@ -334,7 +322,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		return interfaceRepository.getInterfaceDescription(b, interfaceName);
 	}
 
-	@Override
 	public EMyxInterfaceDirection getInterfaceDirection(List<? extends IMyxName> path, IMyxName brickName,
 			IMyxName interfaceName) {
 		IMyxContainer container = MyxUtils.resolvePath(mainContainer, path);
@@ -350,22 +337,18 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		return interfaceRepository.getInterfaceDirection(b, interfaceName);
 	}
 
-	@Override
 	public void init(List<? extends IMyxName> path, IMyxName brickName) {
 		callLifecycleMethod(path, brickName, Operation.INIT);
 	}
 
-	@Override
 	public void begin(List<? extends IMyxName> path, IMyxName brickName) {
 		callLifecycleMethod(path, brickName, Operation.BEGIN);
 	}
 
-	@Override
 	public void end(List<? extends IMyxName> path, IMyxName brickName) {
 		callLifecycleMethod(path, brickName, Operation.END);
 	}
 
-	@Override
 	public void destroy(List<? extends IMyxName> path, IMyxName brickName) {
 		callLifecycleMethod(path, brickName, Operation.DESTROY);
 	}
@@ -501,7 +484,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		}
 	}
 
-	@Override
 	public IMyxWeld createWeld(List<? extends IMyxName> requiredPath, IMyxName requiredBrickName,
 			IMyxName requiredInterfaceName, List<? extends IMyxName> providedPath, IMyxName providedBrickName,
 			IMyxName providedInterfaceName) {
@@ -509,7 +491,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 				providedBrickName, providedInterfaceName);
 	}
 
-	@Override
 	public void addWeld(IMyxWeld weld) {
 		synchronized (weldList) {
 			MyxWeldData mwd = parseAndValidateWeld(weld);
@@ -548,7 +529,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		}
 	}
 
-	@Override
 	public void removeWeld(IMyxWeld weld) {
 		synchronized (weldList) {
 			MyxWeldData mwd = parseAndValidateWeld(weld);
@@ -587,7 +567,6 @@ public class MyxBasicRuntime implements IMyxRuntime {
 		}
 	}
 
-	@Override
 	public Collection<? extends IMyxWeld> getAllWelds() {
 		synchronized (weldList) {
 			return Collections.unmodifiableList(new ArrayList<IMyxWeld>(weldList));

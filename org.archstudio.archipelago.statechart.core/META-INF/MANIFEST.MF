@@ -25,5 +25,5 @@ Require-Bundle: org.archstudio.archipelago,
  org.archstudio.resources,
  org.archstudio.jogl,
  org.eclipse.core.runtime
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy

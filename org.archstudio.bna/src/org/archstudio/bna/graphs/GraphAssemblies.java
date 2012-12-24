@@ -66,7 +66,7 @@ public class GraphAssemblies {
 			topAxisThing.setText(topLabel);
 			mvl.mirrorValue(graphThing, IHasBoundingBox.BOUNDING_BOX_KEY, topAxisThing,
 					IHasBoundingBox.BOUNDING_BOX_KEY, new Function<Rectangle, Rectangle>() {
-						@Override
+
 						public Rectangle apply(Rectangle input) {
 							// position the left axis to the left of the plot area
 							return new Rectangle(input.x, input.y - 2, input.width, 2);
@@ -80,7 +80,7 @@ public class GraphAssemblies {
 			bottomAxisThing.setText(bottomLabel);
 			mvl.mirrorValue(graphThing, IHasBoundingBox.BOUNDING_BOX_KEY, bottomAxisThing,
 					IHasBoundingBox.BOUNDING_BOX_KEY, new Function<Rectangle, Rectangle>() {
-						@Override
+
 						public Rectangle apply(Rectangle input) {
 							// position the left axis to the left of the plot area
 							return new Rectangle(input.x, input.y + input.height, input.width, 2);
@@ -94,7 +94,7 @@ public class GraphAssemblies {
 			leftAxisThing.setText(leftLabel);
 			mvl.mirrorValue(graphThing, IHasBoundingBox.BOUNDING_BOX_KEY, leftAxisThing,
 					IHasBoundingBox.BOUNDING_BOX_KEY, new Function<Rectangle, Rectangle>() {
-						@Override
+
 						public Rectangle apply(Rectangle input) {
 							// position the bottom axis just below the plot area
 							return new Rectangle(input.x - 2, input.y, 2, input.height);
@@ -108,7 +108,7 @@ public class GraphAssemblies {
 			rightAxisThing.setText(rightLabel);
 			mvl.mirrorValue(graphThing, IHasBoundingBox.BOUNDING_BOX_KEY, rightAxisThing,
 					IHasBoundingBox.BOUNDING_BOX_KEY, new Function<Rectangle, Rectangle>() {
-						@Override
+
 						public Rectangle apply(Rectangle input) {
 							// position the bottom axis just below the plot area
 							return new Rectangle(input.x + input.width, input.y, 2, input.height);

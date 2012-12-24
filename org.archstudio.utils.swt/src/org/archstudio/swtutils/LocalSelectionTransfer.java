@@ -33,7 +33,7 @@ public class LocalSelectionTransfer extends ByteArrayTransfer {
 	// First attempt to create a UUID for the type name to make sure that
 	// different Eclipse applications use different "types" of
 	// <code>LocalSelectionTransfer</code>
-	private static final String TYPE_NAME = "local-selection-transfer-format" + (new Long(System.currentTimeMillis())).toString(); //$NON-NLS-1$;
+	private static final String TYPE_NAME = "local-selection-transfer-format" + new Long(System.currentTimeMillis()).toString(); //$NON-NLS-1$;
 
 	private static final int TYPEID = registerType(TYPE_NAME);
 

@@ -20,7 +20,6 @@ import org.archstudio.xarchadt.ObjRef;
 
 import com.google.common.collect.Sets;
 
-
 public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	ThingValueTrackingLogic valuesLogic = null;
@@ -41,7 +40,6 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 		return objRefKey;
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
@@ -49,7 +47,6 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 
 	int inUpdateCount = 0;
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		if (inUpdateCount > 0) {
 			return;

@@ -31,7 +31,6 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 		super(id);
 	}
 
-	@Override
 	protected void initProperties() {
 		setText("");
 		setColor(new RGB(0, 0, 0));
@@ -47,124 +46,100 @@ public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHas
 		super.initProperties();
 	}
 
-	@Override
 	public @Nullable
 	RGB getColor() {
 		return get(COLOR_KEY);
 	}
 
-	@Override
 	public void setColor(@Nullable RGB c) {
 		set(COLOR_KEY, c);
 	}
 
-	@Override
 	public String getText() {
 		return get(TEXT_KEY, "");
 	}
 
-	@Override
 	public void setText(String text) {
 		set(TEXT_KEY, text);
 	}
 
-	@Override
 	public HorizontalAlignment getHorizontalAlignment() {
 		return get(HORIZONTAL_ALIGNMENT_KEY, HorizontalAlignment.CENTER);
 	}
 
-	@Override
 	public void setHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
 		set(HORIZONTAL_ALIGNMENT_KEY, horizontalAlignment);
 	}
 
-	@Override
 	public VerticalAlignment getVerticalAlignment() {
 		return get(VERTICAL_ALIGNMENT_KEY, VerticalAlignment.MIDDLE);
 	}
 
-	@Override
 	public void setVerticalAlignment(VerticalAlignment verticalAlignment) {
 		set(VERTICAL_ALIGNMENT_KEY, verticalAlignment);
 	}
 
-	@Override
 	public String getFontName() {
 		return get(FONT_NAME_KEY, IFontConstants.DEFAULT_FONT_NAME);
 	}
 
-	@Override
 	public void setFontName(String fontName) {
 		set(FONT_NAME_KEY, fontName);
 	}
 
-	@Override
 	public int getFontSize() {
 		return get(FONT_SIZE_KEY, 10);
 	}
 
-	@Override
 	public void setFontSize(int fontSize) {
 		set(FONT_SIZE_KEY, fontSize);
 	}
 
-	@Override
 	public FontStyle getFontStyle() {
 		return get(FONT_STYLE_KEY, FontStyle.NORMAL);
 	}
 
-	@Override
 	public void setFontStyle(FontStyle fontStyle) {
 		set(FONT_STYLE_KEY, fontStyle);
 	}
 
-	@Override
 	public boolean getDontIncreaseFontSize() {
 		return SystemUtils.nonNullOr(get(DONT_INCREASE_FONT_SIZE_KEY), true);
 	}
 
-	@Override
 	public void setDontIncreaseFontSize(boolean dontIncrease) {
 		set(DONT_INCREASE_FONT_SIZE_KEY, dontIncrease);
 	}
 
-	@Override
 	public int getAngle() {
 		return get(IHasAngle.ANGLE_KEY, 0);
 	}
 
-	@Override
 	public void setAngle(int angle) {
 		set(IHasAngle.ANGLE_KEY, angle);
 	}
 
-	@Override
 	public @Nullable
 	Point getIndicatorPoint() {
 		return get(IHasIndicatorPoint.INDICATOR_POINT_KEY);
 	}
 
-	@Override
 	public void setIndicatorPoint(@Nullable Point indicatorPoint) {
 		set(IHasIndicatorPoint.INDICATOR_POINT_KEY, indicatorPoint);
 	}
 
-	@Override
 	public int getLineStyle() {
 		return get(LINE_STYLE_KEY, LINE_STYLE_SOLID);
 	}
 
-	@Override
 	public void setLineStyle(int lineStyle) {
 		set(LINE_STYLE_KEY, lineStyle);
 	}
 
-	@Override
 	public int getLineWidth() {
 		return get(LINE_WIDTH_KEY, 1);
 	}
 
-	@Override
 	public void setLineWidth(int lineWidth) {
 		set(LINE_WIDTH_KEY, lineWidth);
 	}

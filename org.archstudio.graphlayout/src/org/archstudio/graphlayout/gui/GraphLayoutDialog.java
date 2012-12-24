@@ -65,8 +65,9 @@ public class GraphLayoutDialog extends Dialog {
 		System.err.println("opened done: " + result);
 
 		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
+			if (!display.readAndDispatch()) {
 				display.sleep();
+			}
 		}
 		System.err.println("exit");
 	}
@@ -141,7 +142,7 @@ public class GraphLayoutDialog extends Dialog {
 		final Shell parent = getParent();
 
 		final String[] engineIDs = graphLayout.getEngineIDs();
-		if ((engineIDs == null) || (engineIDs.length == 0)) {
+		if (engineIDs == null || engineIDs.length == 0) {
 			MessageDialog.openError(parent, "Error", "No graph layout engines available.");
 			return null;
 		}
@@ -149,7 +150,7 @@ public class GraphLayoutDialog extends Dialog {
 		this.shell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 
 		String text = getText();
-		if ((text == null) || (text.trim().equals(""))) {
+		if (text == null || text.trim().equals("")) {
 			text = "Graph Layout Options";
 		}
 		shell.setText(text);
@@ -168,8 +169,9 @@ public class GraphLayoutDialog extends Dialog {
 		String[] engineDescriptions = new String[engineIDs.length];
 		for (int i = 0; i < engineDescriptions.length; i++) {
 			engineDescriptions[i] = graphLayout.getEngineDescription(engineIDs[i]);
-			if (engineDescriptions[i] == null)
+			if (engineDescriptions[i] == null) {
 				engineDescriptions[i] = engineIDs[i];
+			}
 		}
 
 		final Combo cmbSelectEngine = new Combo(cSelectEngine, SWT.READ_ONLY);
@@ -216,8 +218,8 @@ public class GraphLayoutDialog extends Dialog {
 				if (parameterPanels != null) {
 					NamedGraphLayoutParameters[] presets = getPresets();
 					NamedGraphLayoutParameters preset = presets[cmbPresets.getSelectionIndex()];
-					for (int i = 0; i < parameterPanels.length; i++) {
-						parameterPanels[i].loadParameters(preset.params);
+					for (IGraphLayoutParameterPanel parameterPanel : parameterPanels) {
+						parameterPanel.loadParameters(preset.params);
 					}
 				}
 			}
@@ -244,8 +246,8 @@ public class GraphLayoutDialog extends Dialog {
 
 				GraphLayoutParameters glp = new GraphLayoutParameters();
 				try {
-					for (int i = 0; i < parameterPanels.length; i++) {
-						parameterPanels[i].storeParameters(glp);
+					for (IGraphLayoutParameterPanel parameterPanel : parameterPanels) {
+						parameterPanel.storeParameters(glp);
 					}
 					glp.setProperty("engineID", engineID);
 					done(glp);
@@ -278,8 +280,9 @@ public class GraphLayoutDialog extends Dialog {
 		shell.open();
 		Display display = parent.getDisplay();
 		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
+			if (!display.readAndDispatch()) {
 				display.sleep();
+			}
 		}
 
 		return result;
@@ -288,16 +291,16 @@ public class GraphLayoutDialog extends Dialog {
 	protected void setupEnginePanels(String engineID) {
 		//dispose old controls
 		Control[] children = panelParent.getChildren();
-		for (int i = 0; i < children.length; i++) {
-			children[i].dispose();
+		for (Control element : children) {
+			element.dispose();
 		}
 		parameterPanels = null;
 
 		IGraphLayoutParameterPanelProvider[] panelProviders = getPanelProviders();
 		IGraphLayoutParameterPanelProvider panelProvider = null;
-		for (int i = 0; i < panelProviders.length; i++) {
-			if (panelProviders[i].getEngineID().equals(engineID)) {
-				panelProvider = panelProviders[i];
+		for (IGraphLayoutParameterPanelProvider panelProvider2 : panelProviders) {
+			if (panelProvider2.getEngineID().equals(engineID)) {
+				panelProvider = panelProvider2;
 				break;
 			}
 		}
@@ -307,8 +310,8 @@ public class GraphLayoutDialog extends Dialog {
 		}
 		else {
 			parameterPanels = panelProvider.getPanels();
-			for (int i = 0; i < parameterPanels.length; i++) {
-				parameterPanels[i].createPanel(panelParent);
+			for (IGraphLayoutParameterPanel parameterPanel : parameterPanels) {
+				parameterPanel.createPanel(panelParent);
 			}
 		}
 		shell.layout(true, true);

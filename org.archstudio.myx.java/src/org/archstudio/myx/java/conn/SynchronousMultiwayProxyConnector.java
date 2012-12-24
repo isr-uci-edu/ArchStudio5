@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -48,6 +49,7 @@ public class SynchronousMultiwayProxyConnector extends
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		super.interfaceConnected(interfaceName, serviceObject);
@@ -58,7 +60,7 @@ public class SynchronousMultiwayProxyConnector extends
 			ClassLoader outClassLoader = out1Class.getClassLoader();
 			Set<Class<?>> outInterfaceClasses = Sets.newHashSet();
 			while (out1Class != null) {
-				outInterfaceClasses.addAll(Arrays.asList(out1Class.getInterfaces()));
+				outInterfaceClasses.addAll((Collection<? extends Class<?>>) Arrays.asList(out1Class.getInterfaces()));
 				out1Class = out1Class.getSuperclass();
 			}
 			in = Proxy.newProxyInstance(outClassLoader, outInterfaceClasses.toArray(new Class<?>[0]), this);
@@ -74,12 +76,10 @@ public class SynchronousMultiwayProxyConnector extends
 		super.interfaceDisconnecting(interfaceName, serviceObject);
 	}
 
-	@Override
 	public Object[] getReturnValues() {
 		return returnValues;
 	}
 
-	@Override
 	public Throwable[] getExceptions() {
 		return exceptions;
 	}
@@ -94,7 +94,7 @@ public class SynchronousMultiwayProxyConnector extends
 		final Throwable fexception = exception;
 		final IMultiwayProgressListener[] pls = progress.toArray(new IMultiwayProgressListener[progress.size()]);
 		asyncExecutor.execute(new Runnable() {
-			@Override
+
 			public void run() {
 				for (IMultiwayProgressListener pl : pls) {
 					pl.callProgress(fcallee, fnumCallees, freturnValue, fexception);
@@ -103,7 +103,6 @@ public class SynchronousMultiwayProxyConnector extends
 		});
 	}
 
-	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		if (in == null) {
 			throw new RuntimeException("Disconnected proxy.");

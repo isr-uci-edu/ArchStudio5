@@ -34,14 +34,16 @@ public class XArchADTCopyPaste {
 				break;
 			case ELEMENT_SINGLE:
 				Serializable s = xarch.get(objRef, feature.getName());
-				if (s instanceof ObjRef && !feature.isReference())
+				if (s instanceof ObjRef && !feature.isReference()) {
 					s = clone(xarch, (ObjRef) s, oldNewRefs);
+				}
 				xarch.set(cloneRef, feature.getName(), s);
 				break;
 			case ELEMENT_MULTIPLE:
 				for (Serializable m : xarch.getAll(objRef, feature.getName())) {
-					if (m instanceof ObjRef && !feature.isReference())
+					if (m instanceof ObjRef && !feature.isReference()) {
 						m = clone(xarch, (ObjRef) m, oldNewRefs);
+					}
 					xarch.add(cloneRef, feature.getName(), m);
 				}
 				break;
@@ -141,11 +143,13 @@ public class XArchADTCopyPaste {
 			randomizeIDs(xarch, objRef);
 
 			IXArchADTFeature feature = rootType.getFeatures().get(e.getKey());
-			if (feature == null)
+			if (feature == null) {
 				continue;
+			}
 
-			if (!xarch.isInstanceOf(objRef, feature.getNsURI(), feature.getTypeName()))
+			if (!xarch.isInstanceOf(objRef, feature.getNsURI(), feature.getTypeName())) {
 				continue;
+			}
 
 			switch (feature.getType()) {
 			case ATTRIBUTE:

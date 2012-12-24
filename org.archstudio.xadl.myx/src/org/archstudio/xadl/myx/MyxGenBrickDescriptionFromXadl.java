@@ -13,7 +13,6 @@ import org.archstudio.xarchadt.XArchADTProxy;
 
 public class MyxGenBrickDescriptionFromXadl implements IMyxBrickDescriptionFromXadl {
 
-	@Override
 	public IMyxBrickDescription parse(IXArchADT xarch, ObjRef brickRef) throws MyxUnsupportedBrickDescriptionException {
 
 		ObjRef myxGenImplRef = XadlUtils.getImplementation(xarch, brickRef, Myxgen_3_0Package.Literals.MYX_GEN);

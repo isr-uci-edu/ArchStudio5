@@ -21,7 +21,6 @@ public class MasterPropertyCoder implements IPropertyCoder {
 		propertyCoders.add(new SWTPropertyCoder());
 	}
 
-	@Override
 	public IEncodedValue encode(IPropertyCoder masterCoder, Object value) {
 		if (value == null) {
 			return new EncodedValue("null", "");
@@ -38,7 +37,6 @@ public class MasterPropertyCoder implements IPropertyCoder {
 		return null;
 	}
 
-	@Override
 	public Object decode(IPropertyCoder masterCoder, IEncodedValue encodedValue) throws PropertyDecodeException {
 		if (encodedValue == null || "null".equals(encodedValue.getType()) || null == encodedValue.getType()
 				|| null == encodedValue.getData()) {

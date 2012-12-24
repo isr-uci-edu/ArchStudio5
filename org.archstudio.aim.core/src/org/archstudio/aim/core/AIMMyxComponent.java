@@ -19,13 +19,11 @@ public class AIMMyxComponent extends org.archstudio.aim.core.AIMMyxComponentStub
 		((AIMImpl) aim).setMyxRuntime(myxRuntime);
 	}
 
-	@Override
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		super.interfaceConnected(interfaceName, serviceObject);
 		setupImpl();
 	}
 
-	@Override
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		super.interfaceDisconnected(interfaceName, serviceObject);
 		setupImpl();

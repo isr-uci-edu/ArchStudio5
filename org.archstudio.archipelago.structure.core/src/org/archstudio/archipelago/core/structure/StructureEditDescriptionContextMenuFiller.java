@@ -11,13 +11,12 @@ import org.eclipse.jface.viewers.TreeViewer;
 public class StructureEditDescriptionContextMenuFiller extends AbstractEditNameContextMenuFiller {
 
 	protected final IXArchADT xarch;
-	
+
 	public StructureEditDescriptionContextMenuFiller(TreeViewer viewer, Services AS, ObjRef xArchRef) {
 		super(viewer, AS, xArchRef);
 		this.xarch = AS.get(IXArchADT.class);
 	}
 
-	@Override
 	protected boolean matches(Object node) {
 		if (node != null) {
 			if (node instanceof ObjRef) {

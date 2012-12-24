@@ -49,21 +49,19 @@ public class FileManagerView extends ViewPart implements IXArchADTFileListener, 
 	public FileManagerView() {
 	}
 
-	@Override
 	public void handleXArchADTFileEvent(XArchADTFileEvent evt) {
 		refreshView();
 	}
 
 	public void refreshView() {
 		Display.getDefault().asyncExec(new Runnable() {
-			@Override
+
 			public void run() {
 				viewer.refresh();
 			}
 		});
 	}
 
-	@Override
 	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 	}
 
@@ -71,10 +69,10 @@ public class FileManagerView extends ViewPart implements IXArchADTFileListener, 
 	 * This is a callback that will allow us to create the viewer and initialize
 	 * it.
 	 */
-	@Override
+
 	public void createPartControl(Composite parent) {
 		InstantiateArchStudio.instantiate();
-		comp = (FileManagerMyxComponent) er.waitForBrick(FileManagerMyxComponent.class);
+		comp = er.waitForBrick(FileManagerMyxComponent.class);
 		er.map(comp, this);
 		xarch = comp.getXarch();
 
@@ -93,7 +91,7 @@ public class FileManagerView extends ViewPart implements IXArchADTFileListener, 
 		MenuManager menuMgr = new MenuManager("#PopupMenu");
 		menuMgr.setRemoveAllWhenShown(true);
 		menuMgr.addMenuListener(new IMenuListener() {
-			@Override
+
 			public void menuAboutToShow(IMenuManager manager) {
 				FileManagerView.this.fillContextMenu(manager);
 			}
@@ -127,7 +125,7 @@ public class FileManagerView extends ViewPart implements IXArchADTFileListener, 
 
 	private void makeActions() {
 		doubleClickAction = new Action() {
-			@Override
+
 			public void run() {
 				ISelection selection = viewer.getSelection();
 				Object obj = ((IStructuredSelection) selection).getFirstElement();
@@ -138,7 +136,7 @@ public class FileManagerView extends ViewPart implements IXArchADTFileListener, 
 
 	private void hookDoubleClickAction() {
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
-			@Override
+
 			public void doubleClick(DoubleClickEvent event) {
 				doubleClickAction.run();
 			}
@@ -152,21 +150,19 @@ public class FileManagerView extends ViewPart implements IXArchADTFileListener, 
 	/**
 	 * Passing the focus request to the viewer's control.
 	 */
-	@Override
+
 	public void setFocus() {
 		viewer.getControl().setFocus();
 	}
 
 	class ViewContentProvider implements IStructuredContentProvider {
-		@Override
+
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
 		}
 
-		@Override
 		public void dispose() {
 		}
 
-		@Override
 		public Object[] getElements(Object parent) {
 			//return new String[] { "One", "Two", "Three" };
 			return xarch.getOpenURIs().toArray();
@@ -174,17 +170,15 @@ public class FileManagerView extends ViewPart implements IXArchADTFileListener, 
 	}
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
-		@Override
+
 		public String getColumnText(Object obj, int index) {
 			return getText(obj);
 		}
 
-		@Override
 		public Image getColumnImage(Object obj, int index) {
 			return getImage(obj);
 		}
 
-		@Override
 		public Image getImage(Object obj) {
 			return PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
 		}

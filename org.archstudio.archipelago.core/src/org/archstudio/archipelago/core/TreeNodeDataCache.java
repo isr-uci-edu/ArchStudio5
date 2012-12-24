@@ -19,7 +19,7 @@ public class TreeNodeDataCache implements IArchipelagoTreeNodeDataCache {
 	 * org.archstudio.archipelago.core.ITreeNodeDataCache#setData(org.archstudio
 	 * .xarchflat.ObjRef, java.lang.Object, java.lang.String, java.lang.Object)
 	 */
-	@Override
+
 	public void setData(ObjRef xArchRef, Object treeNode, String key, Object data) {
 		KeyTuple kt = new KeyTuple(xArchRef, treeNode, key);
 		map.put(kt, data);
@@ -32,7 +32,7 @@ public class TreeNodeDataCache implements IArchipelagoTreeNodeDataCache {
 	 * org.archstudio.archipelago.core.ITreeNodeDataCache#getData(org.archstudio
 	 * .xarchflat.ObjRef, java.lang.Object, java.lang.String)
 	 */
-	@Override
+
 	public Object getData(ObjRef xArchRef, Object treeNode, String key) {
 		KeyTuple kt = new KeyTuple(xArchRef, treeNode, key);
 		return map.get(kt);
@@ -43,7 +43,7 @@ public class TreeNodeDataCache implements IArchipelagoTreeNodeDataCache {
 	 * 
 	 * @see org.archstudio.archipelago.core.ITreeNodeDataCache#clear()
 	 */
-	@Override
+
 	public void clear() {
 		map.clear();
 	}
@@ -72,7 +72,6 @@ public class TreeNodeDataCache implements IArchipelagoTreeNodeDataCache {
 			return xArchRef;
 		}
 
-		@Override
 		public int hashCode() {
 			final int PRIME = 31;
 			int result = 1;
@@ -82,7 +81,6 @@ public class TreeNodeDataCache implements IArchipelagoTreeNodeDataCache {
 			return result;
 		}
 
-		@Override
 		public boolean equals(Object obj) {
 			if (this == obj) {
 				return true;

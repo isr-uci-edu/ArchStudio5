@@ -1,5 +1,6 @@
 package org.archstudio.bna.things.glass;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -16,7 +17,6 @@ public class MappingGlassThingPeer<T extends MappingGlassThing> extends Abstract
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (t.isSelected()) {
 			IBNAView iView = BNAUtils.getInternalView(view, t.getInternalEndpointWorldThingID());
@@ -30,14 +30,14 @@ public class MappingGlassThingPeer<T extends MappingGlassThing> extends Abstract
 			gl.glLineWidth(1f);
 
 			gl.glColor3f(1f, 1f, 1f);
-			gl.glBegin(GL2.GL_LINES);
+			gl.glBegin(GL.GL_LINES);
 			gl.glVertex2i(lp1.x, lp1.y);
 			gl.glVertex2i(lp2.x, lp2.y);
 			gl.glEnd();
 
 			gl.glColor3f(0f, 0f, 0f);
 			gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
-			gl.glBegin(GL2.GL_LINES);
+			gl.glBegin(GL.GL_LINES);
 			gl.glVertex2i(lp1.x, lp1.y);
 			gl.glVertex2i(lp2.x, lp2.y);
 			gl.glEnd();

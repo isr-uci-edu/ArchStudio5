@@ -16,7 +16,6 @@ public class MirrorBoundingBoxLogic extends AbstractThingLogic {
 	public MirrorBoundingBoxLogic() {
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		mvl = addThingLogic(MirrorValueLogic.class);
@@ -25,7 +24,7 @@ public class MirrorBoundingBoxLogic extends AbstractThingLogic {
 	public void mirrorBoundingBox(IHasBoundingBox fromThing, IHasMutableBoundingBox toThing, final Insets insets) {
 		mvl.mirrorValue(fromThing, IHasBoundingBox.BOUNDING_BOX_KEY, toThing, IHasBoundingBox.BOUNDING_BOX_KEY,
 				new Function<Rectangle, Rectangle>() {
-					@Override
+
 					public Rectangle apply(Rectangle input) {
 						input.x += insets.left;
 						input.y += insets.top;

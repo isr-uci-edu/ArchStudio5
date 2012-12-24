@@ -22,18 +22,16 @@ import com.google.common.collect.Maps;
 @NonNullByDefault
 public class SingleThreadProofEngine extends DebugProofEngine implements ProofEngine {
 
-	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			ComplexTerm goal) {
 		return execute(proofContext, unificationEngine, goal, EMPTY_VARIABLES);
 	}
 
-	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(final ProofContext proofContext,
 			final UnificationEngine unificationEngine, final ComplexTerm goal, final Map<VariableTerm, Term> variables) {
 
 		return new Iterable<Map<VariableTerm, Term>>() {
-			@Override
+
 			public Iterator<Map<VariableTerm, Term>> iterator() {
 				return new AbstractIterator<Map<VariableTerm, Term>>() {
 
@@ -41,7 +39,6 @@ public class SingleThreadProofEngine extends DebugProofEngine implements ProofEn
 					List<ComplexTerm> kbTerms = proofContext.getKnowledgeBaseTerms(goal, variables);
 					Iterator<Map<VariableTerm, Term>> results = null;
 
-					@Override
 					protected Map<VariableTerm, Term> computeNext() {
 						while (true) {
 							if (results != null) {
@@ -61,7 +58,7 @@ public class SingleThreadProofEngine extends DebugProofEngine implements ProofEn
 										results = Iterators.transform(
 												execute(proofContext, unificationEngine, goal, localVariables, rule),
 												new Function<Map<VariableTerm, Term>, Map<VariableTerm, Term>>() {
-													@Override
+
 													@Nullable
 													public Map<VariableTerm, Term> apply(
 															@Nullable Map<VariableTerm, Term> input) {
@@ -106,7 +103,6 @@ public class SingleThreadProofEngine extends DebugProofEngine implements ProofEn
 				ruleIndex--;
 			}
 
-			@Override
 			protected Map<VariableTerm, Term> computeNext() {
 				while (ruleIndex != -1) {
 					if (ruleIndex < rule.getBodyTermSize()) {
@@ -155,7 +151,6 @@ public class SingleThreadProofEngine extends DebugProofEngine implements ProofEn
 				return endOfData();
 			}
 
-			@Override
 			public String toString() {
 				StringBuffer sb = new StringBuffer();
 				sb.append(goal + " " + variables + " " + ruleIndex + "\n");

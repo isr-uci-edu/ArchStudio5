@@ -35,7 +35,6 @@ public class InstantiateArchStudio implements IStartup {
 	private final static Object lock = new Object();
 	private static boolean instantiated = false;
 
-	@Override
 	public void earlyStartup() {
 		synchronized (lock) {
 			if (instantiated) {
@@ -44,7 +43,7 @@ public class InstantiateArchStudio implements IStartup {
 			instantiated = true;
 		}
 		//Job job = new Job("Initializing ArchStudio...") {
-		//	@Override
+		//	
 		//	protected IStatus run(IProgressMonitor monitor) {
 		//		instantiate(new MyxProgessMonitor(monitor));
 		//		return Status.OK_STATUS;
@@ -53,12 +52,12 @@ public class InstantiateArchStudio implements IStartup {
 		//job.setPriority(Job.INTERACTIVE);
 		//job.schedule();
 		new Thread(new Runnable() {
-			@Override
+
 			public void run() {
 				instantiate(new MyxProgessMonitor(new NullProgressMonitor() {
 					//protected PrintStream printStream = System.err;
 					//
-					//@Override
+					//
 					//public void beginTask(String name, int totalWork) {
 					//	if (name != null && name.length() != 0) {
 					//		printStream.println(">>> " + name);
@@ -66,7 +65,7 @@ public class InstantiateArchStudio implements IStartup {
 					//	super.beginTask(name, totalWork);
 					//}
 					//
-					//@Override
+					//
 					//public void setTaskName(String name) {
 					//	if (name != null && name.length() != 0) {
 					//		printStream.println("<>> " + name);
@@ -74,7 +73,7 @@ public class InstantiateArchStudio implements IStartup {
 					//	super.setTaskName(name);
 					//}
 					//
-					//@Override
+					//
 					//public void subTask(String name) {
 					//	if (name != null && name.length() != 0) {
 					//		printStream.println(">>  " + name);
@@ -94,8 +93,9 @@ public class InstantiateArchStudio implements IStartup {
 		// allow override of archstudio.xml file using org.archstudio.startup.uri
 		try {
 			File f = new File(System.getProperty("org.archstudio.startup.uri", null));
-			if (f.exists())
+			if (f.exists()) {
 				System.setProperty("org.archstudio.startup.uri", f.toURI().toString());
+			}
 		}
 		catch (Throwable t) {
 		}

@@ -20,7 +20,6 @@ public abstract class AbstractXArchADTTest extends TestCase {
 		return new XArchADTImpl();
 	}
 
-	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 

@@ -1,12 +1,11 @@
 /*******************************************************************************
- * Copyright (c) 2010 BestSolution.at and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Tom Schindl <tom.schindl@bestsolution.at> - adjustment to EObject
+ * Copyright (c) 2010 BestSolution.at and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: Tom Schindl <tom.schindl@bestsolution.at> - adjustment to
+ * EObject
  ******************************************************************************/
 package org.eclipse.e4.emf.internal.xpath;
 
@@ -30,27 +29,30 @@ public final class JXPathContextImpl implements XPathContext {
 
 	public static class EMFFunctions {
 		public static String eClassName(Object o) {
-			if( o instanceof Collection<?> ) {
-				if( ! ((Collection<?>) o).isEmpty() ) {
+			if (o instanceof Collection<?>) {
+				if (!((Collection<?>) o).isEmpty()) {
 					return eClassName(((Collection<?>) o).iterator().next());
 				}
-			} else if( o instanceof EObject ) {
+			}
+			else if (o instanceof EObject) {
 				return ((EObject) o).eClass().getName();
-			} else if( o instanceof NodeSet ) {
+			}
+			else if (o instanceof NodeSet) {
 				List<?> l = ((NodeSet) o).getValues();
-				if( l.size() > 0 && l.get(0) instanceof EObject ) {
-					return eClassName((EObject) l.get(0));
-				}
-			} else if( o instanceof Pointer ) {
-				if( ((Pointer) o).getValue() instanceof EObject ) {
-					return eClassName((EObject) ((Pointer) o).getValue());
+				if (l.size() > 0 && l.get(0) instanceof EObject) {
+					return eClassName(l.get(0));
 				}
 			}
-			
+			else if (o instanceof Pointer) {
+				if (((Pointer) o).getValue() instanceof EObject) {
+					return eClassName(((Pointer) o).getValue());
+				}
+			}
+
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Create a new context
 	 * 

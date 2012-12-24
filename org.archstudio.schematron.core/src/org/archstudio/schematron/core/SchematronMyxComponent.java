@@ -43,7 +43,6 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 	public SchematronMyxComponent() {
 	}
 
-	@Override
 	public String getToolID() {
 		return TOOL_ID;
 	}
@@ -60,7 +59,6 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 				+ " Archlight Tool: " + text, t));
 	}
 
-	@Override
 	public void begin() {
 		testManager = new SchematronTestManager(TOOL_ID);
 		addNotice("Initialized at [" + SystemUtils.getDateAndTime() + "]");
@@ -76,7 +74,6 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 		reloadTests();
 	}
 
-	@Override
 	public void reloadTests() {
 		addNotice("Reloading tests at [" + SystemUtils.getDateAndTime() + "]");
 		testManager.reload();
@@ -97,7 +94,6 @@ public class SchematronMyxComponent extends org.archstudio.schematron.core.Schem
 		}
 	}
 
-	@Override
 	public void runTests(ObjRef documentRef, Collection<String> testUIDs) {
 		List<SchematronTestException> schematronTestErrorList = new ArrayList<SchematronTestException>();
 		List<ArchlightTestResult> archlightTestResultList = new ArrayList<ArchlightTestResult>();

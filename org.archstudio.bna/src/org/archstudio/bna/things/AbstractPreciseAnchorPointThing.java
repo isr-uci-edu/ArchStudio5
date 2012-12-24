@@ -17,30 +17,25 @@ public abstract class AbstractPreciseAnchorPointThing extends AbstractRelativeMo
 		super(id);
 	}
 
-	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setPreciseAnchorPoint(new Point2D.Double(0, 0));
 		addShapeModifyingKey(PRECISION_ANCHOR_POINT_KEY);
 	}
 
-	@Override
 	public Point2D getPreciseAnchorPoint() {
 		return get(PRECISION_ANCHOR_POINT_KEY, new Point2D.Double(0, 0));
 	}
 
-	@Override
 	public void setPreciseAnchorPoint(Point2D p) {
 		set(PRECISION_ANCHOR_POINT_KEY, p);
 	}
 
-	@Override
 	public Point getReferencePoint() {
 		Point2D p = getPreciseAnchorPoint();
 		return new Point(BNAUtils.round(p.getX()), BNAUtils.round(p.getY()));
 	}
 
-	@Override
 	public void moveRelative(final Point moveDelta) {
 		if (moveDelta.x != 0 || moveDelta.y != 0) {
 			Point2D ap = getPreciseAnchorPoint();
@@ -48,7 +43,6 @@ public abstract class AbstractPreciseAnchorPointThing extends AbstractRelativeMo
 		}
 	}
 
-	@Override
 	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Point2D p = getPreciseAnchorPoint();
 		return new Point(BNAUtils.round(p.getX()), BNAUtils.round(p.getY()));

@@ -28,7 +28,6 @@ public class RemoveElementLogic extends AbstractThingLogic implements IBNAMenuLi
 		this.xarch = xarch;
 	}
 
-	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		final Set<ObjRef> objRefs = Sets.newHashSet();
 		for (IThing thing : BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) {
@@ -45,7 +44,7 @@ public class RemoveElementLogic extends AbstractThingLogic implements IBNAMenuLi
 		}
 		if (objRefs.size() > 0) {
 			m.add(new Action(objRefs.size() == 1 ? "Remove" : "Remove " + objRefs.size() + " Elements") {
-				@Override
+
 				public void run() {
 					final List<Runnable> undo = Lists.newArrayList();
 					final List<Runnable> redo = Lists.newArrayList();
@@ -85,16 +84,18 @@ public class RemoveElementLogic extends AbstractThingLogic implements IBNAMenuLi
 					}
 
 					BNAOperations.runnable("Remove", new Runnable() {
-						@Override
+
 						public void run() {
-							for (Runnable r : undo)
+							for (Runnable r : undo) {
 								r.run();
+							}
 						}
 					}, new Runnable() {
-						@Override
+
 						public void run() {
-							for (Runnable r : redo)
+							for (Runnable r : redo) {
 								r.run();
+							}
 						}
 					}, true);
 				}

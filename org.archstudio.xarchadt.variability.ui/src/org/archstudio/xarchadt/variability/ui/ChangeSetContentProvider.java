@@ -22,13 +22,11 @@ public class ChangeSetContentProvider implements ITreeContentProvider, IXArchADT
 		this.xarch = xarch;
 	}
 
-	@Override
 	public void dispose() {
 		viewer = null;
 		documentRootRef = null;
 	}
 
-	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		this.viewer = viewer;
 		this.documentRootRef = (ObjRef) newInput;
@@ -36,8 +34,9 @@ public class ChangeSetContentProvider implements ITreeContentProvider, IXArchADT
 	}
 
 	public Object[] getElements(Object inputElement) {
-		if (variability != null)
+		if (variability != null) {
 			return XArchADTProxy.unproxy(variability.getChangeSet()).toArray(new ObjRef[0]);
+		}
 		return new ObjRef[0];
 	}
 
@@ -53,7 +52,6 @@ public class ChangeSetContentProvider implements ITreeContentProvider, IXArchADT
 		return new Object[0];
 	}
 
-	@Override
 	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		switch (evt.getEventType()) {
 		case ADD:

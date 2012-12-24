@@ -24,37 +24,30 @@ public class BasicXArchADTFeature implements IXArchADTFeature {
 		this.reference = reference;
 	}
 
-	@Override
 	public String getNsURI() {
 		return nsURI;
 	}
 
-	@Override
 	public String getTypeName() {
 		return typeName;
 	}
 
-	@Override
 	public String getName() {
 		return name;
 	}
 
-	@Override
 	public FeatureType getType() {
 		return featureType;
 	}
 
-	@Override
 	public ValueType getValueType() {
 		return valueType;
 	}
 
-	@Override
 	public boolean isReference() {
 		return reference;
 	}
 
-	@Override
 	public String toString() {
 		return "BasicXArchADTFeature [nsURI=" + nsURI + ", typeName=" + typeName + ", name=" + name + ", featureType="
 				+ featureType + ", valueType=" + valueType + ", reference=" + reference + "]";

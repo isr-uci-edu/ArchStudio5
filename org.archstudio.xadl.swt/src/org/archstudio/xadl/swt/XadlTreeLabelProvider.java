@@ -22,8 +22,9 @@ public class XadlTreeLabelProvider extends LabelProvider implements ILabelProvid
 	}
 
 	public String getText(Object element) {
-		if (element == null)
+		if (element == null) {
 			return "null";
+		}
 
 		if (element instanceof ObjRef) {
 			ObjRef ref = (ObjRef) element;
@@ -33,14 +34,16 @@ public class XadlTreeLabelProvider extends LabelProvider implements ILabelProvid
 			}
 			else if (type.equals(XadlTreeUtils.Type.DOCUMENTROOT)) {
 				URI uri = xarch.getURI(ref);
-				if (uri == null)
+				if (uri == null) {
 					return "null";
+				}
 				return uri.toString();
 			}
 			else if (type.equals(XadlTreeUtils.Type.XADLELEMENT)) {
 				URI uri = xarch.getURI(ref);
-				if (uri == null)
+				if (uri == null) {
 					return "null";
+				}
 				return uri.toString();
 			}
 			else {

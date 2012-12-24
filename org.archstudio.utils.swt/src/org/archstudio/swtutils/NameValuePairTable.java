@@ -96,17 +96,16 @@ public class NameValuePairTable {
 			tfValue.setLayoutData(new GridData(150, SWT.DEFAULT));
 
 			SelectionListener slAddRow = new SelectionListener() {
-				@Override
+
 				public void widgetDefaultSelected(SelectionEvent e) {
 					widgetSelected(e);
 				}
 
-				@Override
 				public void widgetSelected(SelectionEvent e) {
 					String name = tfName.getText().trim();
 					String value = tfValue.getText().trim();
-					if ((name.length() > 0) && (value.length() > 0)) {
-						controller.setPropertyValue((T) input, tfName.getText(), tfValue.getText());
+					if (name.length() > 0 && value.length() > 0) {
+						controller.setPropertyValue(input, tfName.getText(), tfValue.getText());
 					}
 				}
 			};
@@ -122,19 +121,18 @@ public class NameValuePairTable {
 			bRemoveRow.setEnabled(!tv.getSelection().isEmpty());
 
 			tv.addSelectionChangedListener(new ISelectionChangedListener() {
-				@Override
+
 				public void selectionChanged(SelectionChangedEvent event) {
 					bRemoveRow.setEnabled(!tv.getSelection().isEmpty());
 				}
 			});
 
 			SelectionListener slRemoveRow = new SelectionListener() {
-				@Override
+
 				public void widgetDefaultSelected(SelectionEvent e) {
 					widgetSelected(e);
 				}
 
-				@Override
 				public void widgetSelected(SelectionEvent e) {
 					ISelection selection = tv.getSelection();
 					if (selection instanceof IStructuredSelection) {
@@ -142,7 +140,7 @@ public class NameValuePairTable {
 						Object element = structuredSelection.getFirstElement();
 						if (element instanceof String[]) {
 							String propertyName = ((String[]) element)[0];
-							controller.removeProperty((T) input, propertyName);
+							controller.removeProperty(input, propertyName);
 						}
 					}
 				}
@@ -214,8 +212,9 @@ public class NameValuePairTable {
 			}
 			if (element instanceof String[]) {
 				String[] elts = (String[]) element;
-				if (elts[1] == null)
+				if (elts[1] == null) {
 					return "";
+				}
 				return elts[1].toString();
 			}
 			return null;
@@ -232,20 +231,22 @@ public class NameValuePairTable {
 				String propertyName = elts[0].toString();
 
 				String oldValue = null;
-				if (elts[1] != null)
+				if (elts[1] != null) {
 					oldValue = elts[1].toString();
+				}
 
 				String newValue = null;
-				if (value != null)
+				if (value != null) {
 					newValue = value.toString();
+				}
 
-				if ((oldValue == null) && (newValue == null)) {
+				if (oldValue == null && newValue == null) {
 					//Do nothing
 				}
-				else if ((oldValue != null) && (newValue == null)) {
+				else if (oldValue != null && newValue == null) {
 					controller.clearPropertyValue((T) input, propertyName);
 				}
-				else if ((oldValue == null) && (newValue != null)) {
+				else if (oldValue == null && newValue != null) {
 					set(propertyName, newValue);
 				}
 				else {

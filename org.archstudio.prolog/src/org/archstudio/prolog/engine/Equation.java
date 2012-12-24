@@ -12,39 +12,45 @@ public class Equation {
 		this.term2 = term2;
 	}
 
-	@Override
 	public String toString() {
 		return term1 + " = " + term2;
 	}
 
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((term1 == null) ? 0 : term1.hashCode());
-		result = prime * result + ((term2 == null) ? 0 : term2.hashCode());
+		result = prime * result + (term1 == null ? 0 : term1.hashCode());
+		result = prime * result + (term2 == null ? 0 : term2.hashCode());
 		return result;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Equation other = (Equation) obj;
 		if (term1 == null) {
-			if (other.term1 != null)
+			if (other.term1 != null) {
 				return false;
-		} else if (!term1.equals(other.term1))
+			}
+		}
+		else if (!term1.equals(other.term1)) {
 			return false;
+		}
 		if (term2 == null) {
-			if (other.term2 != null)
+			if (other.term2 != null) {
 				return false;
-		} else if (!term2.equals(other.term2))
+			}
+		}
+		else if (!term2.equals(other.term2)) {
 			return false;
+		}
 		return true;
 	}
 }

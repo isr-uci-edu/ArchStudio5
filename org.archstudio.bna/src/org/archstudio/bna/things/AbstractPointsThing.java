@@ -19,7 +19,7 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 	public AbstractPointsThing(Object id) {
 		super(id);
 		addThingListener(new IThingListener() {
-			@Override
+
 			public void thingChanged(ThingEvent thingEvent) {
 				if (!IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
 					set(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
@@ -28,39 +28,32 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 		});
 	}
 
-	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setPoints(Lists.newArrayList(new Point(0, 0), new Point(0, 0)));
 		set(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
 	}
 
-	@Override
 	abstract public List<Point> getPoints();
 
-	@Override
 	public Point getPoint(int index) {
 		List<Point> points = getPoints();
 		Point p = points.get(index < 0 ? points.size() + index : index);
 		return new Point(p.x, p.y);
 	}
 
-	@Override
 	public int getPointsSize() {
 		return getPoints().size();
 	}
 
-	@Override
 	abstract public void setPoints(List<Point> points);
 
-	@Override
 	public void setPoint(final int index, final Point point) {
 		List<Point> newPoints = getPoints();
 		newPoints.set(index < 0 ? newPoints.size() + index : index, new Point(point.x, point.y));
 		setPoints(newPoints);
 	}
 
-	@Override
 	public void moveRelative(final Point worldDelta) {
 		if (worldDelta.x != 0 || worldDelta.y != 0) {
 			List<Point> newPoints = getPoints();
@@ -97,7 +90,6 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 		return new Rectangle(minX1, minY1, maxX1 - minX1 + 1, maxY1 - minY1 + 1);
 	}
 
-	@Override
 	public Rectangle getBoundingBox() {
 		return get(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
 	}

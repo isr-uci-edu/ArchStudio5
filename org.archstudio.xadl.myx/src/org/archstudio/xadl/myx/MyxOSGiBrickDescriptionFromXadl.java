@@ -11,7 +11,6 @@ import org.archstudio.xarchadt.ObjRef;
 
 public class MyxOSGiBrickDescriptionFromXadl implements IMyxBrickDescriptionFromXadl {
 
-	@Override
 	public IMyxBrickDescription parse(IXArchADT xarch, ObjRef brickRef) throws MyxUnsupportedBrickDescriptionException {
 
 		ObjRef osgiImplRef = XadlUtils.getImplementation(xarch, brickRef,

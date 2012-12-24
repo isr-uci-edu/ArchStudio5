@@ -22,14 +22,12 @@ public class ReorientToThingIDLogic extends AbstractThingLogic implements IBNAMo
 
 	OrientDirectionalLabelLogic orientLogic = null;
 
-	@Override
 	protected void init() {
 		super.init();
 
 		orientLogic = addThingLogic(OrientDirectionalLabelLogic.class);
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {

@@ -76,8 +76,8 @@ class ExtensionHintUtils {
 						String targetNsURI = childElement.getAttribute("targetSchema");
 						String targetTypeName = childElement.getAttribute("targetType");
 
-						if ((extensionNsURI != null) && (extensionTypeName != null) && (targetNsURI != null)
-								&& (targetTypeName != null)) {
+						if (extensionNsURI != null && extensionTypeName != null && targetNsURI != null
+								&& targetTypeName != null) {
 							extensionHints.add(new BasicXArchADTSubstitutionHint(HintType.EXTENSION, extensionNsURI,
 									extensionTypeName, targetNsURI, targetTypeName));
 						}

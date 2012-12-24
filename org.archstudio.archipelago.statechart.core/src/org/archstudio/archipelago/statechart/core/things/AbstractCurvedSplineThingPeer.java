@@ -29,8 +29,9 @@ public abstract class AbstractCurvedSplineThingPeer<T extends AbstractCurvedSpli
 		double dy = p2.y - p1.y;
 		double h = Math.sqrt(dx * dx + dy * dy);
 		double angle = Math.asin(dx / h);
-		if (dy < 0)
+		if (dy < 0) {
 			angle = Math.PI - angle;
+		}
 		Point m = new Point((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
 		double l = t.getValue();
 		double cx = m.x + Math.cos(angle) * l;
@@ -38,7 +39,6 @@ public abstract class AbstractCurvedSplineThingPeer<T extends AbstractCurvedSpli
 		return new Point(BNAUtils.round(cx), BNAUtils.round(cy));
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		Point l = location.getLocalPoint();
 		return getShape(view, cm, t).intersects(l.x - 5, l.y - 5, 10, 10);

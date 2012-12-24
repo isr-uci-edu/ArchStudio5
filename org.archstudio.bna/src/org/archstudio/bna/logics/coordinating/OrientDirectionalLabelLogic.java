@@ -133,7 +133,6 @@ public class OrientDirectionalLabelLogic extends AbstractThingLogic implements I
 		}
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {

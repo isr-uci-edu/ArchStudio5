@@ -14,7 +14,6 @@ public class MirrorAnchorPointLogic extends AbstractThingLogic {
 	public MirrorAnchorPointLogic() {
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		mvl = addThingLogic(MirrorValueLogic.class);
@@ -23,7 +22,7 @@ public class MirrorAnchorPointLogic extends AbstractThingLogic {
 	public void mirrorAnchorPoint(IHasAnchorPoint fromThing, IHasMutableAnchorPoint toThing, final Point deltaPoint) {
 		mvl.mirrorValue(fromThing, IHasAnchorPoint.ANCHOR_POINT_KEY, toThing, IHasAnchorPoint.ANCHOR_POINT_KEY,
 				new Function<Point, Point>() {
-					@Override
+
 					public Point apply(Point input) {
 						return new Point(input.x + deltaPoint.x, input.y + deltaPoint.y);
 					}

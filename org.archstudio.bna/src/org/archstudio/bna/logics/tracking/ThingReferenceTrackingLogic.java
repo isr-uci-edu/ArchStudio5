@@ -35,7 +35,6 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 			return fromKey;
 		}
 
-		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
@@ -44,7 +43,6 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 			return result;
 		}
 
-		@Override
 		public boolean equals(Object obj) {
 			if (this == obj) {
 				return true;
@@ -81,7 +79,6 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 	public ThingReferenceTrackingLogic() {
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		for (IThing t : getBNAModel().getAllThings()) {
@@ -122,7 +119,6 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED:

@@ -83,7 +83,6 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 			this.namespaceURI = namespaceURI;
 		}
 
-		@Override
 		public boolean apply(ObjRef input) {
 			IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(input);
 			return typeMetadata.getNsURI().equals(namespaceURI);
@@ -102,11 +101,11 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 			this.value = value;
 		}
 
-		@Override
 		public boolean apply(ObjRef input) {
 			Object attrValue = xarch.get(input, attribute);
-			if (attrValue != null)
+			if (attrValue != null) {
 				return value.equals(attrValue.toString());
+			}
 			return false;
 		}
 	}
@@ -412,7 +411,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	/**
 	 * Monitors the events for changes to ObjRefs relevant to the xPath.
 	 */
-	@Override
+
 	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		if (scanning) {
 			switch (evt.getEventType()) {
@@ -531,7 +530,6 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 		return false;
 	}
 
-	@Override
 	public String toString() {
 		return "XArcRelPathTracker[" + //
 				"rootObjRef=" + rootObjRef + ", " + //

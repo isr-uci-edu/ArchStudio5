@@ -11,18 +11,15 @@ public class SWTTextThing extends AbstractControlThing implements IHasMutableTex
 		super(id);
 	}
 
-	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setText("");
 	}
 
-	@Override
 	public String getText() {
 		return get(TEXT_KEY, "");
 	}
 
-	@Override
 	public void setText(String text) {
 		set(TEXT_KEY, text);
 	}

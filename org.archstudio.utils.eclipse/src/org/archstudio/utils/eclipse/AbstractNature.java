@@ -32,7 +32,7 @@ public class AbstractNature implements IProjectNature {
 	}
 
 	private final Predicate<ICommand> isBuilderPredicate = new Predicate<ICommand>() {
-		@Override
+
 		public boolean apply(ICommand input) {
 			return input.getBuilderName().equals(builderID);
 		}

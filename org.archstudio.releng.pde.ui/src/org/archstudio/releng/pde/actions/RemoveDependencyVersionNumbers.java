@@ -28,7 +28,6 @@ public class RemoveDependencyVersionNumbers extends AbstractObjectActionDelegate
 	public RemoveDependencyVersionNumbers() {
 	}
 
-	@Override
 	public void run(IAction action) {
 		for (IProject project : getProjects(selection)) {
 			run(action, project);
@@ -69,7 +68,7 @@ public class RemoveDependencyVersionNumbers extends AbstractObjectActionDelegate
 				IFeature feature = featureModel.getFeature();
 
 				Set<String> pluginIDs = Sets.newHashSet();
-				for (IFeaturePlugin featurePlugin : feature.getPlugins()){
+				for (IFeaturePlugin featurePlugin : feature.getPlugins()) {
 					pluginIDs.add(featurePlugin.getId());
 				}
 				Set<String> featureIDs = Sets.newHashSet();
@@ -77,11 +76,11 @@ public class RemoveDependencyVersionNumbers extends AbstractObjectActionDelegate
 				for (IFeatureImport featureImport : feature.getImports()) {
 					featureImport.setVersion(null);
 					featureImport.setMatch(0);
-					if(!featureIDs.add(featureImport.getId()) || pluginIDs.contains(featureImport.getId())){
+					if (!featureIDs.add(featureImport.getId()) || pluginIDs.contains(featureImport.getId())) {
 						duplicates.add(featureImport);
 					}
 				}
-				feature.removeImports((IFeatureImport[]) duplicates.toArray(new IFeatureImport[0]));
+				feature.removeImports(duplicates.toArray(new IFeatureImport[0]));
 
 				featureModel.save();
 			}

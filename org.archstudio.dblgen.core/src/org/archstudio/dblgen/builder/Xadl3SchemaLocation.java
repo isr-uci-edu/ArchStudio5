@@ -64,9 +64,9 @@ public class Xadl3SchemaLocation {
 		List<Xadl3SchemaLocation> locations = new ArrayList<Xadl3SchemaLocation>();
 		if (extensions != null) {
 			for (IPluginExtension pluginExtension : extensions.getExtensions()) {
-				if ((pluginExtension.getPoint() != null) && (pluginExtension.getPoint().equals(EXTENSION_POINT_ID))) {
+				if (pluginExtension.getPoint() != null && pluginExtension.getPoint().equals(EXTENSION_POINT_ID)) {
 					IPluginObject[] pluginObjects = pluginExtension.getChildren();
-					if ((pluginObjects != null) && (pluginObjects.length > 0)) {
+					if (pluginObjects != null && pluginObjects.length > 0) {
 						for (IPluginElement pluginElement : Iterables.filter(Arrays.asList(pluginObjects),
 								IPluginElement.class)) {
 							locations.add(new Xadl3SchemaLocation(pluginElement));

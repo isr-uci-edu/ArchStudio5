@@ -15,14 +15,13 @@ public class MyxGenBrickFactory extends MyxOSGiBrickFactory implements IMyxBrick
 	public MyxGenBrickFactory() {
 	}
 
-	@Override
 	public IMyxBrick create(IMyxName name, IMyxBrickDescription brickDescription,
 			IMyxBrickInitializationData initializationData) throws MyxBrickCreationException {
 		MyxGenBrickDescription desc = (MyxGenBrickDescription) brickDescription;
 		String brickID = desc.getMyxGenBrickID();
 		MyxGenBrick brickExtension = MyxGenExtensions.getExtenalMyxGenBrick(brickID);
 		if (brickExtension == null) {
-			throw new MyxBrickCreationException("Can't find myxgen brick of "+brickID);
+			throw new MyxBrickCreationException("Can't find myxgen brick of " + brickID);
 		}
 
 		return create(name, brickDescription, initializationData, brickExtension.getContributor().getName(),

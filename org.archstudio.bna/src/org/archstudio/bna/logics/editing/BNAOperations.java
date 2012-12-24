@@ -36,18 +36,16 @@ public class BNAOperations {
 		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
 		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 		AbstractOperation bnaOperation = new AbstractOperation(label) {
-			@Override
+
 			public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				return Status.OK_STATUS;
 			}
 
-			@Override
 			public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				undoRunnable.run();
 				return Status.OK_STATUS;
 			}
 
-			@Override
 			public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				redoRunnable.run();
 				return Status.OK_STATUS;
@@ -67,12 +65,11 @@ public class BNAOperations {
 		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
 		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 		AbstractOperation bnaOperation = new AbstractOperation(label) {
-			@Override
+
 			public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				return Status.OK_STATUS;
 			}
 
-			@Override
 			public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				IThing t = model.getThing(tID);
 				if (t != null) {
@@ -81,7 +78,6 @@ public class BNAOperations {
 				return Status.OK_STATUS;
 			}
 
-			@Override
 			public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				IThing t = model.getThing(tID);
 				if (t != null) {
@@ -105,7 +101,7 @@ public class BNAOperations {
 			if (t instanceof IHasMutableBoundingBox) {
 				final Rectangle r = ((IHasMutableBoundingBox) t).getBoundingBox();
 				runnables.add(new Runnable() {
-					@Override
+
 					public void run() {
 						IThing t = model.getThing(tID);
 						if (t != null) {
@@ -118,7 +114,7 @@ public class BNAOperations {
 			if (t instanceof IHasMutablePoints) {
 				final List<Point> p = ((IHasMutablePoints) t).getPoints();
 				runnables.add(new Runnable() {
-					@Override
+
 					public void run() {
 						IThing t = model.getThing(tID);
 						if (t != null) {
@@ -131,7 +127,7 @@ public class BNAOperations {
 			if (t instanceof IHasMutableReferencePoint) {
 				final Point p = ((IHasMutableReferencePoint) t).getReferencePoint();
 				runnables.add(new Runnable() {
-					@Override
+
 					public void run() {
 						IThing t = model.getThing(tID);
 						if (t != null) {
@@ -143,7 +139,7 @@ public class BNAOperations {
 			}
 		}
 		return new Runnable() {
-			@Override
+
 			public void run() {
 				for (Runnable r : runnables) {
 					r.run();

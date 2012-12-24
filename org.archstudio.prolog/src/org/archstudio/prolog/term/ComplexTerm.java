@@ -41,7 +41,6 @@ public class ComplexTerm implements Term {
 		return new Signature(functor, getArity());
 	}
 
-	@Override
 	public boolean contains(Term v) {
 		for (Term t : terms) {
 			if (t.equals(v) || t.contains(v)) {
@@ -51,7 +50,6 @@ public class ComplexTerm implements Term {
 		return false;
 	}
 
-	@Override
 	public Term replace(Term v, Term t) {
 		List<Term> terms2 = Lists.newArrayListWithCapacity(terms.size());
 		for (Term i : terms) {
@@ -60,12 +58,10 @@ public class ComplexTerm implements Term {
 		return new ComplexTerm(functor, terms2);
 	}
 
-	@Override
 	public String toString() {
 		return functor + "(" + Joiner.on(',').join(terms) + ")";
 	}
 
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -74,7 +70,6 @@ public class ComplexTerm implements Term {
 		return result;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;

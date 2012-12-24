@@ -40,7 +40,6 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		this.reshapingThingClass = reshapingThingClass;
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
@@ -48,7 +47,6 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		addThingLogic(DragMoveEventsLogic.class);
 	}
 
-	@Override
 	protected void destroy() {
 		untrack();
 		super.destroy();
@@ -93,7 +91,6 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		reshapeHandles.clear();
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_REMOVING:
@@ -136,7 +133,6 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		}
 	}
 
-	@Override
 	public void dragStarted(DragMoveEvent evt) {
 		IThing movedThing = evt.getInitialThing();
 		D data = reshapeHandles.get(movedThing);
@@ -149,7 +145,6 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		}
 	}
 
-	@Override
 	public void dragMoved(DragMoveEvent evt) {
 		IThing movedThing = evt.getInitialThing();
 		D data = reshapeHandles.get(movedThing);
@@ -159,7 +154,6 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		}
 	}
 
-	@Override
 	public void dragFinished(DragMoveEvent evt) {
 		IThing movedThing = evt.getInitialThing();
 		D data = reshapeHandles.get(movedThing);

@@ -18,18 +18,15 @@ public class StandardCursorLogic extends AbstractThingLogic implements IBNAMouse
 	boolean isDown = false;
 	boolean downOnCursor = false;
 
-	@Override
 	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		isDown = true;
 	}
 
-	@Override
 	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		isDown = false;
 		updateCursor(view, evt, things, location);
 	}
 
-	@Override
 	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (!isDown) {
 			updateCursor(view, evt, things, location);

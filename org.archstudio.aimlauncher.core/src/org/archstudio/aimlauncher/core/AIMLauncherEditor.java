@@ -36,17 +36,15 @@ public class AIMLauncherEditor extends AbstractArchStudioEditor<AIMLauncherMyxCo
 {
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
-		@Override
+
 		public String getColumnText(Object obj, int index) {
 			return ((String[]) obj)[index];
 		}
 
-		@Override
 		public Image getColumnImage(Object obj, int index) {
 			return null;
 		}
 
-		@Override
 		public Image getImage(Object obj) {
 			return null;
 		}
@@ -59,12 +57,10 @@ public class AIMLauncherEditor extends AbstractArchStudioEditor<AIMLauncherMyxCo
 			this.ref = ref;
 		}
 
-		@Override
 		public boolean canModify(Object element, String property) {
 			return true;
 		}
 
-		@Override
 		public Object getValue(Object element, String property) {
 			if (element == null) {
 				return "";
@@ -79,7 +75,6 @@ public class AIMLauncherEditor extends AbstractArchStudioEditor<AIMLauncherMyxCo
 			return null;
 		}
 
-		@Override
 		public void modify(Object element, String property, Object value) {
 			// SWT bug workaround
 			if (element instanceof Item) {
@@ -122,7 +117,6 @@ public class AIMLauncherEditor extends AbstractArchStudioEditor<AIMLauncherMyxCo
 		super(AIMLauncherMyxComponent.class, AIMLauncherMyxComponent.EDITOR_NAME);
 	}
 
-	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
 
@@ -130,12 +124,10 @@ public class AIMLauncherEditor extends AbstractArchStudioEditor<AIMLauncherMyxCo
 		setHasBanner(true);
 	}
 
-	@Override
 	protected AbstractArchStudioOutlinePage createOutlinePage() {
 		return new AIMLauncherOutlinePage(xarch, documentRootRef, resources);
 	}
 
-	@Override
 	public void createEditorContents(final Composite parent) {
 		parent.setLayout(new GridLayout(1, true));
 		parent.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -172,20 +164,20 @@ public class AIMLauncherEditor extends AbstractArchStudioEditor<AIMLauncherMyxCo
 					bInstantiate.setImage(resources.getImage(AIMLauncherMyxComponent.IMAGE_AIMLAUNCHER_GO_ICON));
 					bInstantiate.setText("Instantiate");
 					bInstantiate.addSelectionListener(new SelectionAdapter() {
-						@Override
+
 						public void widgetSelected(SelectionEvent e) {
 							bInstantiate.setEnabled(false);
 							bInstantiate.setText("Instantiating...");
 							parent.layout(true, true);
 							Thread t = new Thread(new Runnable() {
-								@Override
+
 								public void run() {
 									try {
 										launchArchitecture(structureRef);
 									}
 									finally {
 										SWTWidgetUtils.async(parent, new Runnable() {
-											@Override
+
 											public void run() {
 												bInstantiate.setEnabled(true);
 												bInstantiate.setText("Instantiate");

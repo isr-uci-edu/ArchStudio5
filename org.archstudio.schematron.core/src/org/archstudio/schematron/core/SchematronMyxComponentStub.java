@@ -1,16 +1,5 @@
 package org.archstudio.schematron.core;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.concurrent.*;
-import org.archstudio.myx.fw.*;
-import org.archstudio.myx.fw.IMyxDynamicBrick;
-import org.archstudio.xarchadt.IXArchADT;
-import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.testadt.IArchlightTestADT;
-import org.archstudio.archlight.IArchlightTool;
-import org.archstudio.myx.fw.IMyxBrickItems;
-import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
@@ -48,7 +37,7 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Myx name for the <code>tools</code> interface.
-	 *
+	 * 
 	 * @generated
 	 */
 	// MyxGenInterface[name=tools,direction=in,single=true,serviceObjectDelegate=brick,generateGetter=true,className=org.archstudio.archlight.IArchlightTool,domain=top,description=null]
@@ -82,7 +71,7 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 
 	/**
 	 * Returns the service object(s) for the <code>tools</code> interface.
-	 *
+	 * 
 	 * @see #IN_TOOLS
 	 * @generated
 	 */
@@ -113,7 +102,7 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -138,7 +127,7 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -157,14 +146,14 @@ abstract class SchematronMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_TOOLS)) {
 			return this;

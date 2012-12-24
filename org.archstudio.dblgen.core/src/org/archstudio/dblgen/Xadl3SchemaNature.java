@@ -13,12 +13,12 @@ public class Xadl3SchemaNature extends AbstractNature {
 		super(NATURE_ID, Xadl3SchemaBuilder.BUILDER_ID);
 	}
 
-	@Override
 	public void configure() throws CoreException {
 		super.configure();
 
 		IFolder modelFolder = project.getFolder("model");
-		if (!modelFolder.exists())
+		if (!modelFolder.exists()) {
 			modelFolder.create(true, true, null);
+		}
 	}
 }

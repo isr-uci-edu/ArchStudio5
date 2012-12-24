@@ -55,7 +55,7 @@ class MyxBasicWeld implements IMyxWeld {
 	}
 
 	public boolean equals(Object o) {
-		return (o == this) || MyxUtils.classeq(this, o)
+		return o == this || MyxUtils.classeq(this, o)
 				&& MyxUtils.nulleq(this.requiredPath, ((MyxBasicWeld) o).requiredPath)
 				&& MyxUtils.nulleq(this.requiredBrickName, ((MyxBasicWeld) o).requiredBrickName)
 				&& MyxUtils.nulleq(this.requiredInterfaceName, ((MyxBasicWeld) o).requiredInterfaceName)

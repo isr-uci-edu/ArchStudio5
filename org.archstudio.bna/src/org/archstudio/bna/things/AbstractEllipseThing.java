@@ -22,7 +22,6 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 		super(id);
 	}
 
-	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setMinimumSize(new Dimension(5, 5));
@@ -30,12 +29,10 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 		addShapeModifyingKey(BOUNDING_BOX_KEY);
 	}
 
-	@Override
 	public Dimension getMinimumSize() {
 		return get(MINIMUM_SIZE_KEY, new Dimension(5, 5));
 	}
 
-	@Override
 	public void setMinimumSize(Dimension minimumDimension) {
 		set(MINIMUM_SIZE_KEY, minimumDimension);
 		Rectangle r = getBoundingBox();
@@ -44,12 +41,10 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 		}
 	}
 
-	@Override
 	public Rectangle getBoundingBox() {
 		return get(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
 	}
 
-	@Override
 	public void setBoundingBox(Rectangle r) {
 		BNAUtils.normalizeRectangle(r);
 		Dimension minDimension = getMinimumSize();
@@ -64,13 +59,11 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 		set(BOUNDING_BOX_KEY, r);
 	}
 
-	@Override
 	public Point getReferencePoint() {
 		Rectangle r = getBoundingBox();
 		return new Point(r.x + r.width / 2, r.y + r.height / 2);
 	}
 
-	@Override
 	public void moveRelative(final Point worldDelta) {
 		Rectangle bounds = getBoundingBox();
 		bounds.x += worldDelta.x;
@@ -78,7 +71,6 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 		setBoundingBox(bounds);
 	}
 
-	@Override
 	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Rectangle r = getBoundingBox();
 		switch (stickyMode) {
@@ -90,8 +82,9 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 			double dy = cy - nearPoint.y;
 			double h = Math.sqrt(dx * dx + dy * dy);
 			double angle = Math.asin(dx / h);
-			if (dy < 0)
+			if (dy < 0) {
 				angle = Math.PI - angle;
+			}
 			return new Point(BNAUtils.round(cx + -Math.sin(angle) * r.width / 2d), BNAUtils.round(cy + -Math.cos(angle)
 					* r.height / 2d));
 		}
@@ -101,12 +94,10 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 		throw new IllegalArgumentException();
 	}
 
-	@Override
 	public Insets getLocalInsets() {
 		return get(LOCAL_INSETS_KEY, new Insets(0, 0, 0, 0));
 	}
 
-	@Override
 	public void setLocalInsets(Insets insets) {
 		set(LOCAL_INSETS_KEY, insets);
 	}

@@ -101,16 +101,16 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 		}
 	}
 
-	@Override
 	public void dispose() {
-		if (imageRegistry != null)
+		if (imageRegistry != null) {
 			imageRegistry.dispose();
-		if (activeChangeSetFont != null)
+		}
+		if (activeChangeSetFont != null) {
 			activeChangeSetFont.dispose();
+		}
 		super.dispose();
 	}
 
-	@Override
 	public boolean isLabelProperty(Object element, String property) {
 		return properties.contains(property);
 	}
@@ -136,10 +136,12 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 		}
 		else if (EXPLICIT_PROPERTY.equals(columnProperty)) {
 			ObjRef changeSetRef = (ObjRef) element;
-			if (explicitChangeSetRefs.contains(changeSetRef))
+			if (explicitChangeSetRefs.contains(changeSetRef)) {
 				return imageRegistry.get("explicit");
-			else
+			}
+			else {
 				return imageRegistry.get("implicit");
+			}
 		}
 		else if (CHANGE_SET_PROPERTY.equals(columnProperty)) {
 			ObjRef changeSetRef = (ObjRef) element;
@@ -167,7 +169,6 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 		return null;
 	}
 
-	@Override
 	public void handleXArchADTModelEvent(@NonNull XArchADTModelEvent evt) {
 		if (evt.getEventType() == EventType.ADD) {
 			if (evt.getNewValuePath().equals("xADL/variability/changeSet")) {
@@ -181,7 +182,6 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 		}
 	}
 
-	@Override
 	public void handleXArchADTVariabilityEvent(XArchADTVariabilityEvent evt) {
 		if (evt.getDocumentRootRef().equals(viewer.getInput())) {
 			refresh();

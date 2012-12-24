@@ -62,7 +62,6 @@ public class AIMImpl implements IAIM {
 		this.myx = myxruntime;
 	}
 
-	@Override
 	public synchronized void instantiate(String name, ObjRef documentRootRef, ObjRef structureRef,
 			IMyxProgressMonitor monitor) throws ArchitectureInstantiationException {
 		if (myx == null) {
@@ -85,7 +84,6 @@ public class AIMImpl implements IAIM {
 		}
 	}
 
-	@Override
 	public synchronized void begin(String name, IMyxProgressMonitor monitor) {
 		if (myx == null) {
 			throw new IllegalStateException("AIMImpl has no Myx Runtime");
@@ -95,7 +93,6 @@ public class AIMImpl implements IAIM {
 		myx.begin(IMyxRuntime.EMPTY_NAME_LIST, containerName);
 	}
 
-	@Override
 	public synchronized void end(String name, IMyxProgressMonitor monitor) {
 		if (myx == null) {
 			throw new IllegalStateException("AIMImpl has no Myx Runtime");
@@ -105,7 +102,6 @@ public class AIMImpl implements IAIM {
 		myx.end(IMyxRuntime.EMPTY_NAME_LIST, containerName);
 	}
 
-	@Override
 	public synchronized void destroy(String name, IMyxProgressMonitor monitor) {
 		if (myx == null) {
 			throw new IllegalStateException("AIMImpl has no Myx Runtime");

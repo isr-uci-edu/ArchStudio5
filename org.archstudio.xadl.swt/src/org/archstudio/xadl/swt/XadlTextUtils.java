@@ -13,7 +13,7 @@ public class XadlTextUtils {
 	public static Text createXadlTextField(final IXArchADT xarch, final ObjRef ref, final String fieldName,
 			final Composite parent, Object layoutData) {
 		Object currentDataObject = xarch.get(ref, fieldName);
-		String currentDataString = (currentDataObject == null) ? "" : currentDataObject.toString();
+		String currentDataString = currentDataObject == null ? "" : currentDataObject.toString();
 
 		final Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
 		text.setEditable(true);

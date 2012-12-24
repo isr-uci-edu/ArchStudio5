@@ -21,8 +21,6 @@ import org.eclipse.jdt.annotation.Nullable;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
-
-
 public class XadlUtils {
 
 	@Nullable

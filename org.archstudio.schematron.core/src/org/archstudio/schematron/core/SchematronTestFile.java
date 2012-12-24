@@ -66,17 +66,17 @@ public class SchematronTestFile {
 			Element rootElement = this.document.getDocumentElement();
 			if (rootElement == null) {
 				throw new SchematronTestFileParseException("Tests file missing root element"
-						+ ((sourceURL == null) ? "" : ": " + sourceURL));
+						+ (sourceURL == null ? "" : ": " + sourceURL));
 			}
 			String nsuri = rootElement.getAttribute("xmlns");
 			if (nsuri == null) {
 				throw new SchematronTestFileParseException("Tests file missing xmlns declaration"
-						+ ((sourceURL == null) ? "" : ": " + sourceURL));
+						+ (sourceURL == null ? "" : ": " + sourceURL));
 			}
 			nsuri = nsuri.trim();
 			if (!nsuri.equals(SCHEMATRON_NSURI)) {
 				throw new SchematronTestFileParseException("Tests file URI must be " + SCHEMATRON_NSURI + ": "
-						+ ((sourceURL == null) ? "" : sourceURL));
+						+ (sourceURL == null ? "" : sourceURL));
 			}
 
 			//Find all the patterns and get their IDs
@@ -86,24 +86,24 @@ public class SchematronTestFile {
 				if (child instanceof Element) {
 					Element childElt = (Element) child;
 					String tagName = childElt.getTagName();
-					if ((tagName != null) && (tagName.equals("pattern"))) {
+					if (tagName != null && tagName.equals("pattern")) {
 						String testUID = childElt.getAttribute("id");
-						if ((testUID == null) || (testUID.trim().length() == 0)) {
+						if (testUID == null || testUID.trim().length() == 0) {
 							newParseWarnings.add("Warning: Schematron tests file has pattern with no UID"
-									+ ((sourceURL == null) ? "" : ": " + sourceURL));
+									+ (sourceURL == null ? "" : ": " + sourceURL));
 						}
 						else {
 							String testCategory = childElt.getAttribute("name");
-							if ((testCategory == null) || (testCategory.trim().length() == 0)) {
+							if (testCategory == null || testCategory.trim().length() == 0) {
 								newParseWarnings
 										.add("Warning: Schematron tests file has pattern with no category (name)"
-												+ ((sourceURL == null) ? "" : ": " + sourceURL));
+												+ (sourceURL == null ? "" : ": " + sourceURL));
 								testCategory = "UnknownTest/" + testUID;
 							}
 							String testDescription = childElt.getAttribute("description");
-							if ((testDescription == null) || (testDescription.trim().length() == 0)) {
+							if (testDescription == null || testDescription.trim().length() == 0) {
 								newParseWarnings.add("Warning: Schematron tests file has pattern with no description"
-										+ ((sourceURL == null) ? "" : ": " + sourceURL)
+										+ (sourceURL == null ? "" : ": " + sourceURL)
 										+ " has pattern with no description.");
 								testDescription = "[No Description]";
 							}
@@ -120,7 +120,7 @@ public class SchematronTestFile {
 		}
 		catch (ParserConfigurationException pce) {
 			throw new SchematronTestFileParseException("XML Parser Configuration Error parsing document"
-					+ ((sourceURL == null) ? "" : ": " + sourceURL), pce);
+					+ (sourceURL == null ? "" : ": " + sourceURL), pce);
 		}
 		catch (SAXException se) {
 			String loc = "";
@@ -132,11 +132,11 @@ public class SchematronTestFile {
 			}
 
 			throw new SchematronTestFileParseException("XML Parse Error parsing document" + loc
-					+ ((sourceURL == null) ? "" : ": " + sourceURL), se);
+					+ (sourceURL == null ? "" : ": " + sourceURL), se);
 		}
 		catch (IOException ioe) {
 			throw new SchematronTestFileParseException("I/O Error parsing document"
-					+ ((sourceURL == null) ? "" : ": " + sourceURL), ioe);
+					+ (sourceURL == null ? "" : ": " + sourceURL), ioe);
 		}
 	}
 
@@ -202,7 +202,7 @@ public class SchematronTestFile {
 		if (rootElement == null) {
 			//This shoudln't happen
 			throw new SchematronTestFileParseException("Tests file missing root element"
-					+ ((newFile.sourceURL == null) ? "" : ": " + newFile.sourceURL));
+					+ (newFile.sourceURL == null ? "" : ": " + newFile.sourceURL));
 		}
 
 		//Find all the patterns and get their IDs;
@@ -213,7 +213,7 @@ public class SchematronTestFile {
 			if (child instanceof Element) {
 				Element childElt = (Element) child;
 				String tagName = childElt.getTagName();
-				if ((tagName != null) && (tagName.equals("pattern"))) {
+				if (tagName != null && tagName.equals("pattern")) {
 					String testUID = childElt.getAttribute("id");
 					boolean found = false;
 					if (testUID != null) {

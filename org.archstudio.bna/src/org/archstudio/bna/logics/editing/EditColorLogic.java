@@ -32,7 +32,6 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 	public EditColorLogic() {
 	}
 
-	@Override
 	public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		final List<IHasMutableColor> editableColoredThings = Lists.newArrayList();
 		final List<IHasColor> coloredThings = Lists.newArrayList();
@@ -53,7 +52,7 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 
 		if (editableColoredThings.size() > 0) {
 			m.add(new Action("Assign Color...") {
-				@Override
+
 				public void run() {
 					chooseAndAssignColor(view, editableColoredThings, editableColoredThings.get(0).getColor());
 				}
@@ -67,7 +66,7 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 
 		if (coloredThings.size() == 1) {
 			m.add(new Action("Copy Color") {
-				@Override
+
 				public void run() {
 					copiedRGB = coloredThings.get(0).getColor();
 				}
@@ -78,7 +77,7 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 		}
 		if (copiedRGB != null && editableColoredThings.size() > 0) {
 			m.add(new Action("Paste Color") {
-				@Override
+
 				public void run() {
 					assignColor(editableColoredThings, copiedRGB);
 				}
@@ -118,8 +117,9 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 			public void run() {
 				for (Map.Entry<Object, RGB> e : colors.entrySet()) {
 					IThing t = getBNAModel().getThing(e.getKey());
-					if (t != null)
+					if (t != null) {
 						t.set(IHasColor.COLOR_KEY, e.getValue());
+					}
 				}
 			}
 		};

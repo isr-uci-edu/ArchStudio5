@@ -30,7 +30,6 @@ public class Rule extends ComplexTerm {
 		return bodyTerms.get(index);
 	}
 
-	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer(super.toString());
 		sb.append(" :- ");
@@ -46,7 +45,6 @@ public class Rule extends ComplexTerm {
 		return sb.toString();
 	}
 
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
@@ -54,7 +52,6 @@ public class Rule extends ComplexTerm {
 		return result;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;

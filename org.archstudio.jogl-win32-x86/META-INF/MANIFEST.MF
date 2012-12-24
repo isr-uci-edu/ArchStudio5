@@ -5,6 +5,6 @@ Bundle-SymbolicName: org.archstudio.jogl-win32-x86;singleton:=true
 Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Fragment-Host: org.archstudio.jogl;bundle-version="2.0.0.qualifier"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-NativeCode: gluegen-rt.dll; jogl_desktop.dll; jogl_mobile.dll; nativewindow_awt.dll; nativewindow_win32.dll; newt.dll
 Eclipse-PlatformFilter: (& (osgi.os=win32) (osgi.arch=x86))

@@ -29,7 +29,6 @@ public class DynamicStickPointLogic extends AbstractThingLogic implements IBNAMo
 	public DynamicStickPointLogic() {
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		trtl = addThingLogic(ThingReferenceTrackingLogic.class);
@@ -45,7 +44,6 @@ public class DynamicStickPointLogic extends AbstractThingLogic implements IBNAMo
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {

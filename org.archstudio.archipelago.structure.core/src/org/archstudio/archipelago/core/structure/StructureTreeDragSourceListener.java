@@ -21,7 +21,7 @@ public class StructureTreeDragSourceListener implements DragSourceListener {
 	protected ObjRef documentRootRef = null;
 	protected final IXArchADT xarch;
 	protected final IArchipelagoEditorPane editor;
-	
+
 	public StructureTreeDragSourceListener(Services AS, ObjRef documentRootRef) {
 		this.AS = AS;
 		this.documentRootRef = documentRootRef;
@@ -29,7 +29,6 @@ public class StructureTreeDragSourceListener implements DragSourceListener {
 		this.editor = AS.get(IArchipelagoEditorPane.class);
 	}
 
-	@Override
 	public void dragStart(DragSourceEvent event) {
 		if (event.data != null && event.data instanceof ObjRef) {
 			if (XadlUtils.isInstanceOf(xarch, (ObjRef) event.data, Structure_3_0Package.Literals.STRUCTURE)) {
@@ -44,8 +43,7 @@ public class StructureTreeDragSourceListener implements DragSourceListener {
 						if (editingXArchID != null) {
 							ObjRef editingRef = xarch.getByID(documentRootRef, editingXArchID);
 							if (editingRef != null) {
-								if (XadlUtils.isInstanceOf(xarch, editingRef,
-										Structure_3_0Package.Literals.STRUCTURE)) {
+								if (XadlUtils.isInstanceOf(xarch, editingRef, Structure_3_0Package.Literals.STRUCTURE)) {
 									event.doit = true;
 									event.detail = DND.DROP_LINK;
 								}
@@ -57,11 +55,9 @@ public class StructureTreeDragSourceListener implements DragSourceListener {
 		}
 	}
 
-	@Override
 	public void dragSetData(DragSourceEvent event) {
 	}
 
-	@Override
 	public void dragFinished(DragSourceEvent event) {
 	}
 }

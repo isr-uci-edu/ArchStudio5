@@ -67,7 +67,6 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 		tracker.addTrackerListener(this);
 	}
 
-	@Override
 	public void setBNAWorld(IBNAWorld newBNAWorld) {
 		super.setBNAWorld(newBNAWorld);
 		if (newBNAWorld != null) {
@@ -76,19 +75,16 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 		}
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
 	}
 
-	@Override
 	public void destroy() {
 		tracker.stopScanning();
 		super.destroy();
 	}
 
-	@Override
 	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		if (getBNAWorld() != null) {
 			tracker.handleXArchADTModelEvent(evt);
@@ -111,10 +107,12 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 *            The runnable to run.
 	 */
 	private void execInDisplayThread(Runnable r) {
-		if (Display.getDefault() == Display.getCurrent())
+		if (Display.getDefault() == Display.getCurrent()) {
 			r.run();
-		else
+		}
+		else {
 			Display.getDefault().asyncExec(r);
+		}
 	}
 
 	/**
@@ -123,7 +121,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * through a call to
 	 * {@link #updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)}
 	 */
-	@Override
+
 	public void processAdd(final List<ObjRef> relLineageRefs, final ObjRef objRef) {
 		execInDisplayThread(new Runnable() {
 			public void run() {
@@ -157,7 +155,6 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * {@link #updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)}
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void processUpdate(final List<ObjRef> relLineageRefs, final String relPath, final ObjRef objRef,
 			final XArchADTModelEvent evt) {
 		execInDisplayThread(new Runnable() {
@@ -185,7 +182,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * Removes all BNA Assemblies that were created by this logic and correspond
 	 * to the removed ObjRef
 	 */
-	@Override
+
 	public void processRemove(final List<ObjRef> relLineageRefs, final ObjRef objRef) {
 		execInDisplayThread(new Runnable() {
 			public void run() {
@@ -214,8 +211,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * calls to {@link #storeThingData(ObjRef, IThing, BNAPath, BNAModelEvent)}.
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
-	public  void bnaModelChanged(final BNAModelEvent evt) {
+	public void bnaModelChanged(final BNAModelEvent evt) {
 		if (updatingThings == 0) {
 			if (evt.getEventType() == EventType.THING_CHANGED) {
 				IBNAModel model = getBNAModel();
@@ -301,7 +297,6 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 *            Note that this event may be for a part in the BNA Assembly and
 	 *            not for the BNA Assembly root thing.
 	 */
-	protected  void storeThingData(ObjRef objRef, T thing,
-			BNAPath relativeBNAPath, BNAModelEvent evt) {
+	protected void storeThingData(ObjRef objRef, T thing, BNAPath relativeBNAPath, BNAModelEvent evt) {
 	}
 }

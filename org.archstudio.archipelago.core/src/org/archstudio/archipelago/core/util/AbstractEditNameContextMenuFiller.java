@@ -23,9 +23,9 @@ public abstract class AbstractEditNameContextMenuFiller implements IArchipelagoT
 	protected abstract boolean matches(Object node);
 
 	public void fillContextMenu(IMenuManager m, Object[] selectedNodes) {
-		if ((selectedNodes != null) && (selectedNodes.length == 1)) {
+		if (selectedNodes != null && selectedNodes.length == 1) {
 			Object selectedNode = selectedNodes[0];
-			if ((selectedNode instanceof ObjRef) && matches(selectedNodes[0])) {
+			if (selectedNode instanceof ObjRef && matches(selectedNodes[0])) {
 				final ObjRef targetRef = (ObjRef) selectedNode;
 				IAction editNameAction = new Action("Edit Name...") {
 					public void run() {

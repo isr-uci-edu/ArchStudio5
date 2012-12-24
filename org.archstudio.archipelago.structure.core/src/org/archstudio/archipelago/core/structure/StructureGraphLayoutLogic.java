@@ -37,14 +37,14 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
 public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBNAMenuListener {
@@ -61,7 +61,6 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 		this.documentRootRef = documentRootRef;
 	}
 
-	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		if (!things.isEmpty()) {
 			return;
@@ -77,12 +76,11 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 		if (structureRef != null
 				&& XadlUtils.isInstanceOf(xarch, structureRef, Structure_3_0Package.Literals.STRUCTURE)) {
 			IAction layoutAction = new Action("Automatic Layout...") {
-				@Override
+
 				public void run() {
 					doLayout(fview, structureRef, fworldX, fworldY);
 				}
 
-				@Override
 				public ImageDescriptor getImageDescriptor() {
 					return resources.getImageDescriptor(ArchStudioCommonResources.ICON_STRUCTURE);
 				}
@@ -95,7 +93,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 	protected void doLayoutInJob(final IBNAView view, final ObjRef structureRef, final int worldX, final int worldY,
 			final String engineID, final GraphLayoutParameters glp) {
 		Job job = new Job("Laying Out") {
-			@Override
+
 			protected IStatus run(IProgressMonitor monitor) {
 				doLayout(view, structureRef, worldX, worldY, engineID, glp);
 				return Status.OK_STATUS;
@@ -123,10 +121,10 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 		view.getComposite().forceFocus();
 	}
 
-	protected void doLayout(final IBNAView view, final ObjRef structureRef, final int worldX, final int worldY, final String engineID,
-			final GraphLayoutParameters glp) {
+	protected void doLayout(final IBNAView view, final ObjRef structureRef, final int worldX, final int worldY,
+			final String engineID, final GraphLayoutParameters glp) {
 		SWTWidgetUtils.sync(view.getComposite(), new Runnable() {
-			@Override
+
 			public void run() {
 				try {
 					view.getBNAWorld().getBNAModel().beginBulkChange();

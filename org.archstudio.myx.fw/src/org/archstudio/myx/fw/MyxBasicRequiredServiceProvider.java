@@ -18,7 +18,7 @@ class MyxBasicRequiredServiceProvider implements IMyxRequiredServiceProvider {
 
 	public void addService(IMyxName interfaceName, Object serviceObject) {
 		synchronized (serviceMap) {
-			List<Object> l = (List<Object>) serviceMap.get(interfaceName);
+			List<Object> l = serviceMap.get(interfaceName);
 			if (l == null) {
 				l = new ArrayList<Object>();
 				serviceMap.put(interfaceName, l);
@@ -29,7 +29,7 @@ class MyxBasicRequiredServiceProvider implements IMyxRequiredServiceProvider {
 
 	public void removeService(IMyxName interfaceName, Object serviceObject) {
 		synchronized (serviceMap) {
-			List<Object> l = (List<Object>) serviceMap.get(interfaceName);
+			List<Object> l = serviceMap.get(interfaceName);
 			if (l == null) {
 				return;
 			}
@@ -47,12 +47,12 @@ class MyxBasicRequiredServiceProvider implements IMyxRequiredServiceProvider {
 	}
 
 	public IMyxName[] getAllInterfaceNames() {
-		return (IMyxName[]) serviceMap.keySet().toArray(new IMyxName[serviceMap.keySet().size()]);
+		return serviceMap.keySet().toArray(new IMyxName[serviceMap.keySet().size()]);
 	}
 
 	public Collection<? extends Object> getServiceObjects(IMyxName interfaceName) {
 		synchronized (serviceMap) {
-			List<Object> l = (List<Object>) serviceMap.get(interfaceName);
+			List<Object> l = serviceMap.get(interfaceName);
 			if (l == null) {
 				return Collections.emptySet();
 			}

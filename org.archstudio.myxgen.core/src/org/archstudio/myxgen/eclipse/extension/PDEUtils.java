@@ -74,7 +74,6 @@ public class PDEUtils {
 			this.pluginModelBases = pluginModelBases;
 		}
 
-		@Override
 		public synchronized IConfigurationElement[] getConfigurationElements() throws InvalidRegistryObjectException {
 			List<IConfigurationElement> configurationElements = new ArrayList<IConfigurationElement>();
 			for (IPluginModelBase pluginModelBase : pluginModelBases) {
@@ -145,62 +144,50 @@ public class PDEUtils {
 			return configurationElements.toArray(new IConfigurationElement[configurationElements.size()]);
 		}
 
-		@Override
 		public IContributor getContributor() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public IPluginDescriptor getDeclaringPluginDescriptor() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public IExtension getExtension(String extensionId) throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public IExtension[] getExtensions() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public String getLabel() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public String getNamespace() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public String getNamespaceIdentifier() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public String getSchemaReference() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public String getSimpleIdentifier() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public String getUniqueIdentifier() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public boolean isValid() {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public String getLabel(String locale) throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
@@ -216,7 +203,6 @@ public class PDEUtils {
 			this.bundle = bundle;
 		}
 
-		@Override
 		public String getName() {
 			return name;
 		}
@@ -232,7 +218,6 @@ public class PDEUtils {
 			this.project = project;
 		}
 
-		@Override
 		public String getName() {
 			return name;
 		}
@@ -253,12 +238,10 @@ public class PDEUtils {
 			this.eObject = object;
 		}
 
-		@Override
 		public Object createExecutableExtension(String propertyName) throws CoreException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public String getAttribute(String name) throws InvalidRegistryObjectException {
 			if (eObject instanceof AnyType) {
 				FeatureMap fMap = ((AnyType) eObject).getAnyAttribute();
@@ -272,17 +255,14 @@ public class PDEUtils {
 
 		}
 
-		@Override
 		public String getAttributeAsIs(String name) throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public String[] getAttributeNames() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public IConfigurationElement[] getChildren() throws InvalidRegistryObjectException {
 			EList<EObject> contents = eObject.eContents();
 			IConfigurationElement[] children = new IConfigurationElement[contents.size()];
@@ -292,22 +272,18 @@ public class PDEUtils {
 			return children;
 		}
 
-		@Override
 		public IConfigurationElement[] getChildren(String name) throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public IContributor getContributor() throws InvalidRegistryObjectException {
 			return contributor;
 		}
 
-		@Override
 		public IExtension getDeclaringExtension() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public String getName() throws InvalidRegistryObjectException {
 			if (eObject.eContainmentFeature() != null) {
 				return eObject.eContainmentFeature().getName();
@@ -315,22 +291,18 @@ public class PDEUtils {
 			return eObject.eContainingFeature().getName();
 		}
 
-		@Override
 		public String getNamespace() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public String getNamespaceIdentifier() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public Object getParent() throws InvalidRegistryObjectException {
 			return parent;
 		}
 
-		@Override
 		public String getValue() throws InvalidRegistryObjectException {
 			if (eObject instanceof AnyType) {
 				AnyType anyType = (AnyType) eObject;
@@ -344,22 +316,18 @@ public class PDEUtils {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public String getValueAsIs() throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public boolean isValid() {
 			return true;
 		}
 
-		@Override
 		public String getAttribute(String attrName, String locale) throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public String getValue(String locale) throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}

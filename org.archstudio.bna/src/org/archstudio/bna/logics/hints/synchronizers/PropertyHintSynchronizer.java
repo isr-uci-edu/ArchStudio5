@@ -34,7 +34,6 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 		this.editableQualities = editableQualities;
 	}
 
-	@Override
 	public void restoreHints(IHintRepository repository, Object context, IThing thing, @Nullable String name) {
 		if (requiredClass.isInstance(thing) && UserEditableUtils.isEditableForAnyQualities(thing, editableQualities)) {
 			try {
@@ -48,7 +47,6 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 		}
 	}
 
-	@Override
 	public void storeHints(IHintRepository repository, Object context, IThing thing, @Nullable BNAModelEvent evt) {
 
 		// ignore property changes other than those that we are interested in
@@ -73,8 +71,9 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 		List<String> path = Lists.newArrayList();
 		while (thing != null) {
 			IThingRefKey<?> partKey = Assemblies.getPartKey(thing);
-			if (partKey == null)
+			if (partKey == null) {
 				break;
+			}
 			path.add(0, partKey.getKeyData().toString());
 			thing = Assemblies.getAssemblyWithPart(model, thing);
 		}

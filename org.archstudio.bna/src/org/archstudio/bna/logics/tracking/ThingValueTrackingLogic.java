@@ -22,7 +22,7 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 
 	private final LoadingCache<IThingKey<?>, SetMultimap<Object, Object>> keyToValueToThingIDsCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<IThingKey<?>, SetMultimap<Object, Object>>() {
-				@Override
+
 				public SetMultimap<Object, Object> load(IThingKey<?> input) {
 					SetMultimap<Object, Object> m = HashMultimap.create();
 					for (IThing t : getBNAModel().getAllThings()) {
@@ -38,13 +38,11 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 	public ThingValueTrackingLogic() {
 	}
 
-	@Override
 	protected void destroy() {
 		keyToValueToThingIDsCache.invalidateAll();
 		super.destroy();
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {

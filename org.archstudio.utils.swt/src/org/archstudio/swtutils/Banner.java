@@ -121,7 +121,7 @@ public class Banner extends Canvas implements PaintListener {
 		gc.setFont(mainTextFont);
 		gc.drawString(mainText, 5 + iconSize.x + iconGap, mainY, true);
 
-		boolean shouldDrawSecondary = (mainTextBounds.width + secondaryTextBounds.width + 15) <= size.x;
+		boolean shouldDrawSecondary = mainTextBounds.width + secondaryTextBounds.width + 15 <= size.x;
 		if (shouldDrawSecondary) {
 			gc.setFont(secondaryTextFont);
 			gc.drawString(secondaryText, size.x - secondaryTextBounds.width - 5, secondaryY, true);

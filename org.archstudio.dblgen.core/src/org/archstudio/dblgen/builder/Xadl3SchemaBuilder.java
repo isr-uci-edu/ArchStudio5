@@ -86,7 +86,6 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		}
 	}
 
-	@Override
 	protected IProject[] build(int kind, @SuppressWarnings("rawtypes") Map args, IProgressMonitor monitor)
 			throws CoreException {
 
@@ -123,7 +122,6 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			pluginFile = getProject().getFile("plugin.xml");
 		}
 
-		@Override
 		public boolean visit(IResourceDelta delta) {
 			if (modelFolder != null) {
 				IResource res = delta.getResource();
@@ -183,7 +181,6 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		return folders;
 	}
 
-	@Override
 	protected void clean(IProgressMonitor monitor) throws CoreException {
 		super.clean(monitor);
 		deleteMarkers(getProject());
@@ -303,25 +300,25 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		project.getFolder("src").refreshLocal(IResource.DEPTH_INFINITE, monitor);
 		needRebuild();
 
-//		Job job = new Job("Refreshing Project") {
-//			@Override
-//			protected IStatus run(IProgressMonitor monitor) {
-//				try {
-//					// Wait until all builds are done
-//					// Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
-//
-//					// Then refresh the project to make sure that everything is synced
-//					project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-//				}
-//				catch (CoreException ce) {
-//				}
-//				// catch (InterruptedException ie) {
-//				// }
-//				return Status.OK_STATUS;
-//			}
-//		};
-//		job.setPriority(Job.SHORT);
-//		job.schedule(); // start as soon as possible
+		//		Job job = new Job("Refreshing Project") {
+		//			
+		//			protected IStatus run(IProgressMonitor monitor) {
+		//				try {
+		//					// Wait until all builds are done
+		//					// Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
+		//
+		//					// Then refresh the project to make sure that everything is synced
+		//					project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+		//				}
+		//				catch (CoreException ce) {
+		//				}
+		//				// catch (InterruptedException ie) {
+		//				// }
+		//				return Status.OK_STATUS;
+		//			}
+		//		};
+		//		job.setPriority(Job.SHORT);
+		//		job.schedule(); // start as soon as possible
 	}
 
 	private void addURIMappings(IProject project) {
@@ -362,17 +359,14 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			Xadl3SchemaBuilder.this.addMarker(file, e.getMessage(), e.getLineNumber(), severity);
 		}
 
-		@Override
 		public void error(SAXParseException exception) throws SAXException {
 			addMarker(exception, IMarker.SEVERITY_ERROR);
 		}
 
-		@Override
 		public void fatalError(SAXParseException exception) throws SAXException {
 			addMarker(exception, IMarker.SEVERITY_ERROR);
 		}
 
-		@Override
 		public void warning(SAXParseException exception) throws SAXException {
 			addMarker(exception, IMarker.SEVERITY_WARNING);
 		}

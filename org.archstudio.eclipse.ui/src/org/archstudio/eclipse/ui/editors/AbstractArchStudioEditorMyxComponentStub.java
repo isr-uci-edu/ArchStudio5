@@ -1,23 +1,5 @@
 package org.archstudio.eclipse.ui.editors;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.concurrent.*;
-import org.archstudio.myx.fw.*;
-import org.archstudio.launcher.ILaunchable;
-import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.filemanager.IFileManager;
-import org.archstudio.eclipse.ui.IFocusEditorListener;
-import org.archstudio.filemanager.IFileManagerListener;
-import org.archstudio.myx.fw.IMyxBrickItems;
-import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
-import org.archstudio.resources.IResources;
-import org.archstudio.xarchadt.variability.IXArchADTVariabilityListener;
-import org.archstudio.xarchadt.IXArchADTModelListener;
-import org.archstudio.myx.fw.IMyxDynamicBrick;
-import org.archstudio.xarchadt.IXArchADT;
-import org.archstudio.editormanager.IEditorManager;
-import org.archstudio.xarchadt.IXArchADTFileListener;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -160,7 +142,7 @@ import org.archstudio.myx.fw.MyxUtils;
 
 	/**
 	 * Myx name for the <code>variabilityEvents</code> interface.
-	 *
+	 * 
 	 * @generated
 	 */
 	// MyxGenInterface[name=variabilityEvents,direction=in,single=true,serviceObjectDelegate=myxRegistry,generateGetter=true,className=org.archstudio.xarchadt.variability.IXArchADTVariabilityListener,domain=top,description=null]
@@ -190,7 +172,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	protected final org.archstudio.eclipse.ui.IFocusEditorListener focusEditorEventsProxy = (org.archstudio.eclipse.ui.IFocusEditorListener) Proxy
 			.newProxyInstance(org.archstudio.eclipse.ui.IFocusEditorListener.class.getClassLoader(),
 					new Class[] { org.archstudio.eclipse.ui.IFocusEditorListener.class }, new InvocationHandler() {
-						@Override
+
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.eclipse.ui.IFocusEditorListener o : myxRegistry.getObjects(
 									AbstractArchStudioEditorMyxComponentStub.this,
@@ -223,7 +205,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	protected final org.archstudio.filemanager.IFileManagerListener fileManagerEventsProxy = (org.archstudio.filemanager.IFileManagerListener) Proxy
 			.newProxyInstance(org.archstudio.filemanager.IFileManagerListener.class.getClassLoader(),
 					new Class[] { org.archstudio.filemanager.IFileManagerListener.class }, new InvocationHandler() {
-						@Override
+
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.filemanager.IFileManagerListener o : myxRegistry.getObjects(
 									AbstractArchStudioEditorMyxComponentStub.this,
@@ -256,7 +238,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	protected final org.archstudio.xarchadt.IXArchADTFileListener fileEventsProxy = (org.archstudio.xarchadt.IXArchADTFileListener) Proxy
 			.newProxyInstance(org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTFileListener.class }, new InvocationHandler() {
-						@Override
+
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.xarchadt.IXArchADTFileListener o : myxRegistry.getObjects(
 									AbstractArchStudioEditorMyxComponentStub.this,
@@ -282,7 +264,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	protected final org.archstudio.xarchadt.IXArchADTModelListener modelEventsProxy = (org.archstudio.xarchadt.IXArchADTModelListener) Proxy
 			.newProxyInstance(org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTModelListener.class }, new InvocationHandler() {
-						@Override
+
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.xarchadt.IXArchADTModelListener o : myxRegistry.getObjects(
 									AbstractArchStudioEditorMyxComponentStub.this,
@@ -299,9 +281,10 @@ import org.archstudio.myx.fw.MyxUtils;
 					});
 
 	/**
-	 * Service object proxy for the variabilityEvents interface.
-	 * Calls to the proxy object are automatically delegated to all service objects of this interface.
-	 *
+	 * Service object proxy for the variabilityEvents interface. Calls to the
+	 * proxy object are automatically delegated to all service objects of this
+	 * interface.
+	 * 
 	 * @see #IN_VARIABILITY_EVENTS
 	 * @generated
 	 */
@@ -309,7 +292,7 @@ import org.archstudio.myx.fw.MyxUtils;
 			.newProxyInstance(org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.class },
 					new InvocationHandler() {
-						@Override
+
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.xarchadt.variability.IXArchADTVariabilityListener o : myxRegistry
 									.getObjects(AbstractArchStudioEditorMyxComponentStub.this,
@@ -405,7 +388,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -444,7 +427,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -471,14 +454,14 @@ import org.archstudio.myx.fw.MyxUtils;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_FOCUS_EDITOR_EVENTS)) {
 			return focusEditorEventsProxy;

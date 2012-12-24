@@ -1,5 +1,6 @@
 package org.archstudio.bna.things.shapes;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -18,14 +19,13 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 
 		if (r.setColor(t, IHasColor.COLOR_KEY) && r.setLineStyle(t)) {
 			float[] points = BNAUtils.getEllipsePoints(lbb);
-			gl.glBegin(GL2.GL_TRIANGLE_FAN);
+			gl.glBegin(GL.GL_TRIANGLE_FAN);
 			for (int i = 0; i < points.length; i += 2) {
 				gl.glVertex2f(points[i], points[i + 1]);
 			}
@@ -36,7 +36,7 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 			lbb.width -= 1;
 			lbb.height -= 1;
 			float[] points = BNAUtils.getEllipsePoints(lbb);
-			gl.glBegin(GL2.GL_LINE_LOOP);
+			gl.glBegin(GL.GL_LINE_LOOP);
 			for (int i = 0; i < points.length; i += 2) {
 				gl.glVertex2f(points[i] + 0.5f, points[i + 1] + 0.5f);
 			}

@@ -1,5 +1,6 @@
 package org.archstudio.bna.things.shapes;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -17,7 +18,6 @@ public class MappingThingPeer<T extends MappingThing> extends AbstractMappingThi
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		IBNAView iView = BNAUtils.getInternalView(view, t.getInternalEndpointWorldThingID());
 		if (iView == null) {
@@ -28,7 +28,7 @@ public class MappingThingPeer<T extends MappingThing> extends AbstractMappingThi
 			Point lp1 = view.getCoordinateMapper().worldToLocal(t.getAnchorPoint());
 			Point lp2 = iView.getCoordinateMapper().worldToLocal(t.getInternalEndpoint());
 
-			gl.glBegin(GL2.GL_LINES);
+			gl.glBegin(GL.GL_LINES);
 			gl.glVertex2i(lp1.x, lp1.y);
 			gl.glVertex2i(lp2.x, lp2.y);
 			gl.glEnd();

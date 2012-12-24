@@ -13,7 +13,7 @@ public class StructureEditDescriptionCellModifier extends AbstractEditNameCellMo
 	}
 
 	public boolean canModify(Object element, String property) {
-		if ((element != null) && (element instanceof ObjRef)) {
+		if (element != null && element instanceof ObjRef) {
 			ObjRef targetRef = (ObjRef) element;
 			if (XadlUtils.isInstanceOf(xarch, targetRef, Structure_3_0Package.Literals.STRUCTURE)) {
 				return true;

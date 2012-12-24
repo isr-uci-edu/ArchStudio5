@@ -14,7 +14,6 @@ public abstract class AbstractIndicatorPointThingPeer<T extends AbstractIndicato
 		super(thing);
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		Point lap = cm.worldToLocal(t.getAnchorPoint());
 		Point lip = cm.worldToLocal(t.getIndicatorPoint());

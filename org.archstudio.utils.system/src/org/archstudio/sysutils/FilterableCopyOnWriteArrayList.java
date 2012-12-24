@@ -20,31 +20,28 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 
 	CopyOnWriteArrayList<E> list = new CopyOnWriteArrayList<E>();
 	int listModCount = 0;
-	LoadingCache<Class<?>, List<?>> filteredListsCache = CacheBuilder.newBuilder().build(new CacheLoader<Class<?>, List<?>>() {
-		@Override
-		public List<?> load(Class<?> ofType) throws Exception {
-			return new CopyOnWriteArrayList<Object>(Lists.newArrayList(Iterables.filter(list, ofType)));
-		}
-	});
+	LoadingCache<Class<?>, List<?>> filteredListsCache = CacheBuilder.newBuilder().build(
+			new CacheLoader<Class<?>, List<?>>() {
+
+				public List<?> load(Class<?> ofType) throws Exception {
+					return new CopyOnWriteArrayList<Object>(Lists.newArrayList(Iterables.filter(list, ofType)));
+				}
+			});
 
 	int filteredListModCount = -1;
 
-	@Override
 	public int size() {
 		return list.size();
 	}
 
-	@Override
 	public boolean isEmpty() {
 		return list.isEmpty();
 	}
 
-	@Override
 	public boolean contains(Object o) {
 		return list.contains(o);
 	}
 
-	@Override
 	public int indexOf(Object o) {
 		return list.indexOf(o);
 	}
@@ -53,7 +50,6 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 		return list.indexOf(e, index);
 	}
 
-	@Override
 	public int lastIndexOf(Object o) {
 		return list.lastIndexOf(o);
 	}
@@ -62,27 +58,22 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 		return list.lastIndexOf(e, index);
 	}
 
-	@Override
 	public Object clone() {
 		return list.clone();
 	}
 
-	@Override
 	public Object[] toArray() {
 		return list.toArray();
 	}
 
-	@Override
 	public <T> T[] toArray(T[] a) {
 		return list.toArray(a);
 	}
 
-	@Override
 	public E get(int index) {
 		return list.get(index);
 	}
 
-	@Override
 	public E set(int index, E element) {
 		try {
 			return list.set(index, element);
@@ -92,7 +83,6 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 		}
 	}
 
-	@Override
 	public boolean add(E e) {
 		try {
 			return list.add(e);
@@ -102,7 +92,6 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 		}
 	}
 
-	@Override
 	public void add(int index, E element) {
 		try {
 			list.add(index, element);
@@ -112,7 +101,6 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 		}
 	}
 
-	@Override
 	public E remove(int index) {
 		try {
 			return list.remove(index);
@@ -122,7 +110,6 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 		}
 	}
 
-	@Override
 	public boolean remove(Object o) {
 		try {
 			return list.remove(o);
@@ -141,12 +128,10 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 		}
 	}
 
-	@Override
 	public boolean containsAll(Collection<?> c) {
 		return list.containsAll(c);
 	}
 
-	@Override
 	public boolean removeAll(Collection<?> c) {
 		try {
 			return list.removeAll(c);
@@ -156,7 +141,6 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 		}
 	}
 
-	@Override
 	public boolean retainAll(Collection<?> c) {
 		try {
 			return list.retainAll(c);
@@ -175,7 +159,6 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 		}
 	}
 
-	@Override
 	public void clear() {
 		try {
 			list.clear();
@@ -185,7 +168,6 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 		}
 	}
 
-	@Override
 	public boolean addAll(Collection<? extends E> c) {
 		try {
 			return list.addAll(c);
@@ -195,7 +177,6 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 		}
 	}
 
-	@Override
 	public boolean addAll(int index, Collection<? extends E> c) {
 		try {
 			return list.addAll(index, c);
@@ -205,37 +186,30 @@ public class FilterableCopyOnWriteArrayList<E> implements List<E> {
 		}
 	}
 
-	@Override
 	public String toString() {
 		return list.toString();
 	}
 
-	@Override
 	public boolean equals(Object o) {
 		return list.equals(o);
 	}
 
-	@Override
 	public int hashCode() {
 		return list.hashCode();
 	}
 
-	@Override
 	public Iterator<E> iterator() {
 		return list.iterator();
 	}
 
-	@Override
 	public ListIterator<E> listIterator() {
 		return list.listIterator();
 	}
 
-	@Override
 	public ListIterator<E> listIterator(int index) {
 		return list.listIterator(index);
 	}
 
-	@Override
 	public List<E> subList(int fromIndex, int toIndex) {
 		throw new UnsupportedOperationException();
 	}

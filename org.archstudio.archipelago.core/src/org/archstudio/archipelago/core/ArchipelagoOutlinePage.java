@@ -76,7 +76,6 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		servicesCache.addCacheEntry(this, documentRootRef, data);
 	}
 
-	@Override
 	public void createControl(Composite parent) {
 		super.createControl(parent);
 
@@ -124,17 +123,14 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		getTreeViewer().addDragSupport(DND.DROP_LINK, transfers, new ArchipelagoOutlinePageDragSourceListener());
 	}
 
-	@Override
 	protected ITreeContentProvider createViewContentProvider() {
 		return new ViewContentProvider();
 	}
 
-	@Override
 	protected ILabelProvider createViewLabelProvider() {
 		return new ViewLabelProvider();
 	}
 
-	@Override
 	public void updateOutlinePage() {
 		super.updateOutlinePage();
 	}
@@ -151,13 +147,12 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		}
 	}
 
-	@Override
 	protected void fillContextMenu(IMenuManager menuMgr) {
 		Object[] selectedNodes = getSelectedNodes();
 
 		if (selectedNodes.length == 0) {
 			Action noAction = new Action("[No Selection]") {
-				@Override
+
 				public void run() {
 				}
 			};
@@ -176,7 +171,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		}
 		if (menuMgr.getItems() != null && menuMgr.getItems().length == 0) {
 			Action noAction = new Action("[No Actions Available]") {
-				@Override
+
 				public void run() {
 				}
 			};
@@ -220,7 +215,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			}
 		};
 		SWTWidgetUtils.async(getTreeViewer(), new Runnable() {
-			@Override
+
 			public void run() {
 				try {
 					ProgressMonitorDialog pmd = new ProgressMonitorDialog(getSite().getShell());
@@ -245,7 +240,6 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		}
 	}
 
-	@Override
 	public void focusEditor(String editorName, ObjRef[] refs) {
 		for (IArchipelagoTreePlugin treePlugin : treePlugins) {
 			IArchipelagoEditorFocuser editorFocuser = treePlugin.getEditorFocuser();
@@ -324,7 +318,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 	}
 
 	class ViewLabelProvider extends LabelProvider implements ILabelProvider {
-		@Override
+
 		public String getText(Object element) {
 			String text = null;
 			for (IArchipelagoTreePlugin treePlugin : treePlugins) {
@@ -339,7 +333,6 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			return text;
 		}
 
-		@Override
 		public Image getImage(Object element) {
 			Image img = null;
 			for (IArchipelagoTreePlugin treePlugin : treePlugins) {

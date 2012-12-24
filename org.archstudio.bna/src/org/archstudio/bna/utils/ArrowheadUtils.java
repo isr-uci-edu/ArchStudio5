@@ -32,11 +32,11 @@ public class ArrowheadUtils {
 		float width, height;
 		int xc, yc, xd, yd;
 
-		width = (5 + thick);
+		width = 5 + thick;
 		height = 10;
-		dx = (x2 - x1);
-		dy = (y1 - y2);
-		l = (float) Math.sqrt((dx * dx + dy * dy));
+		dx = x2 - x1;
+		dy = y1 - y2;
+		l = (float) Math.sqrt(dx * dx + dy * dy);
 		if (l == 0) {
 			return null;
 		}

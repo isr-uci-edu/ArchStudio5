@@ -11,7 +11,7 @@ public class RootTreePlugin extends AbstractArchipelagoTreePlugin {
 
 		final TreeViewer fviewer = viewer;
 		this.editorFocuser = new IArchipelagoEditorFocuser() {
-			@Override
+
 			public void focusEditor(String editorName, ObjRef[] refs) {
 				fviewer.setSelection(null);
 			}

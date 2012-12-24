@@ -204,7 +204,6 @@ public class SchematronUtils {
 			this.baseResolver = baseResolver;
 		}
 
-		@Override
 		public Source resolve(String href, String base) throws TransformerException {
 			if (href.equals("skeleton1-6.xsl")) {
 				return schematronSkeleton;

@@ -2,7 +2,9 @@ package org.archstudio.bna.things.labels;
 
 import java.awt.Font;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
+import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -43,7 +45,6 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 		return (int) nfs;
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 
 		Point lap = cm.worldToLocal(t.getAnchorPoint());
@@ -77,7 +78,7 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 		}
 
 		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY, alpha)) {
-			gl.glBegin(GL2.GL_LINE_LOOP);
+			gl.glBegin(GL.GL_LINE_LOOP);
 			gl.glVertex2f(p1.x + 0.5f, p1.y + 0.5f);
 			gl.glVertex2f(p2.x - 0.5f, p1.y + 0.5f);
 			gl.glVertex2f(p2.x - 0.5f, p2.y - 0.5f);
@@ -87,7 +88,7 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 			Point canvasSize = view.getComposite().getSize();
 			gl.glPushMatrix();
 			tr.beginRendering(canvasSize.x, canvasSize.y);
-			gl.glMatrixMode(GL2.GL_MODELVIEW);
+			gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
 			gl.glTranslated(lap.x, canvasSize.y - lap.y, 0);
 			r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY, alpha, tr);
 			tr.draw(text, 0, 0);
@@ -96,7 +97,6 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 		}
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}

@@ -29,7 +29,6 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 		this.finder = finder;
 	}
 
-	@Override
 	public void keyPressed(IBNAView view, KeyEvent e) {
 		//Only respond if we are the top-level view.
 		if (view.getParentView() == null) {
@@ -40,15 +39,13 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 		}
 	}
 
-	@Override
 	public void keyReleased(IBNAView view, KeyEvent e) {
 	}
 
-	@Override
 	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
 		if (view.getParentView() == null) {
 			IAction findAction = new Action("Find...") {
-				@Override
+
 				public void run() {
 					Point localPoint = location.getLocalPoint();
 					showFindDialog(view, localPoint.x, localPoint.y);

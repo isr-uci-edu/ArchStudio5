@@ -54,7 +54,6 @@ public class XadlTreeContentProvider implements ITreeContentProvider {
 		return flags.contains(type);
 	}
 
-	@Override
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
 	}
@@ -83,7 +82,6 @@ public class XadlTreeContentProvider implements ITreeContentProvider {
 		}
 	}
 
-	@Override
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof XadlTreeInput) {
 			return new Object[] { xarch.get(rootRef, "xADL") };
@@ -125,7 +123,6 @@ public class XadlTreeContentProvider implements ITreeContentProvider {
 		return EMPTY_ARRAY;
 	}
 
-	@Override
 	public Object getParent(Object element) {
 		if (element instanceof ObjRef) {
 			return xarch.getParent((ObjRef) element);
@@ -133,16 +130,13 @@ public class XadlTreeContentProvider implements ITreeContentProvider {
 		return null;
 	}
 
-	@Override
 	public boolean hasChildren(Object element) {
 		return getChildren(element).length > 0;
 	}
 
-	@Override
 	public void dispose() {
 	}
 
-	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
 

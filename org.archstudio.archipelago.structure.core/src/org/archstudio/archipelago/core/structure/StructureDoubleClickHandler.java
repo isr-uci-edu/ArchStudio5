@@ -8,7 +8,7 @@ import org.archstudio.xarchadt.ObjRef;
 public class StructureDoubleClickHandler implements IArchipelagoTreeDoubleClickHandler {
 
 	Services services;
-	
+
 	public StructureDoubleClickHandler(Services services) {
 		this.services = services;
 	}

@@ -15,7 +15,6 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-
 public class AddChangeSetAction extends Action implements IHasXArchRef {
 
 	private static int count = 0;
@@ -32,7 +31,6 @@ public class AddChangeSetAction extends Action implements IHasXArchRef {
 		setXArchRef(null);
 	}
 
-	@Override
 	public void run() {
 		try {
 			if (xArchRef != null) {

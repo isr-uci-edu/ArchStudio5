@@ -24,7 +24,6 @@ abstract public class AbstractReshapeSplineGuide implements IReshapeSplineGuide 
 
 	abstract protected boolean isRelevantStickyThing(IIsSticky stickyThing);
 
-	@Override
 	public boolean shouldBeStuck(IHasPoints thing, int pointIndex) {
 		for (int i : pointIndexes) {
 			if (normalizeIndex(thing, pointIndex) == normalizeIndex(thing, i)) {
@@ -34,7 +33,6 @@ abstract public class AbstractReshapeSplineGuide implements IReshapeSplineGuide 
 		return false;
 	}
 
-	@Override
 	public StickyMode getStickyMode(IHasPoints pointsThing, IIsSticky stickyThing, int pointIndex) {
 		return isRelevantPointsThing(pointsThing) && isRelevantStickyThing(stickyThing) ? StickyMode.EDGE_FROM_CENTER
 				: null;

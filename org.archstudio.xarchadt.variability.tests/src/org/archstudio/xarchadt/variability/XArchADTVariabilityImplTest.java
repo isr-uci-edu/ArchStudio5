@@ -42,7 +42,6 @@ public class XArchADTVariabilityImplTest extends AbstractXArchADTTest {
 	XADLType xadlType;
 	Structure structure;
 
-	@Override
 	protected IXArchADT createXArch() {
 		return new XArchADTVariabilityImpl();
 	}

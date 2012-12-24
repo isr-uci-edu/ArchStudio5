@@ -4,6 +4,4 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 
 public class InternalStickLogic extends AbstractThingLogic {
 
-	
-	
 }

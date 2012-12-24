@@ -19,7 +19,6 @@ public class RectangleGlassThing extends AbstractRoundedRectangleThing implement
 		super(id);
 	}
 
-	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setSelected(false);
@@ -27,39 +26,32 @@ public class RectangleGlassThing extends AbstractRoundedRectangleThing implement
 		setCornerSize(new Dimension(0, 0));
 	}
 
-	@Override
 	public int getRotatingOffset() {
 		return get(IHasRotatingOffset.ROTATING_OFFSET_KEY, 0);
 	}
 
-	@Override
 	public boolean shouldIncrementRotatingOffset() {
 		return isSelected();
 	}
 
-	@Override
 	public void incrementRotatingOffset() {
 		Integer io = get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
 		int i = io == null ? 0 : io + 1;
 		set(IHasRotatingOffset.ROTATING_OFFSET_KEY, i);
 	}
 
-	@Override
 	public boolean isSelected() {
 		return Boolean.TRUE.equals(get(IHasSelected.SELECTED_KEY));
 	}
 
-	@Override
 	public void setSelected(boolean selected) {
 		set(IHasSelected.SELECTED_KEY, selected);
 	}
 
-	@Override
 	public Dimension getCornerSize() {
 		return get(CORNER_SIZE_KEY, new Dimension(0, 0));
 	}
 
-	@Override
 	public void setCornerSize(Dimension dimension) {
 		set(CORNER_SIZE_KEY, dimension);
 	}

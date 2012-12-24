@@ -81,8 +81,9 @@ public class MyxCodeGenerator {
 			if (!status.isOK()) {
 				for (IStatus s : status.getChildren()) {
 					System.err.println(s);
-					if (s.getException() != null)
+					if (s.getException() != null) {
 						s.getException().printStackTrace();
+					}
 				}
 				throw new Exception(status.getMessage(), status.getException());
 			}
@@ -113,7 +114,7 @@ public class MyxCodeGenerator {
 				// read settings from format file
 				SAXParserFactory factory = SAXParserFactory.newInstance();
 				factory.newSAXParser().parse(formatterFile, new DefaultHandler() {
-					@Override
+
 					public void startElement(String uri, String localName, String qName, Attributes attributes)
 							throws SAXException {
 						if ("setting".equals(qName)) {

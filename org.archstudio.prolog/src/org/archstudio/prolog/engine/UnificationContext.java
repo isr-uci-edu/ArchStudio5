@@ -31,7 +31,6 @@ public class UnificationContext {
 		equations.add(new Equation(t1, t2));
 	}
 
-	@Override
 	public String toString() {
 		return "Equations: " + equations + ", Varaibles: " + variables;
 	}

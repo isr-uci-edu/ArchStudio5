@@ -47,7 +47,7 @@ class SubstitutionHintUtils {
 		List<IXArchADTSubstitutionHint> hintList = new ArrayList<IXArchADTSubstitutionHint>();
 
 		EClassifier eClassifier = ePackage.getEClassifier(DOCUMENT_ROOT_NAME);
-		if ((eClassifier != null) && (eClassifier instanceof EClass)) {
+		if (eClassifier != null && eClassifier instanceof EClass) {
 			EClass eClass = (EClass) eClassifier;
 			for (EStructuralFeature feature : eClass.getEAllStructuralFeatures()) {
 				if (feature instanceof EReference) {

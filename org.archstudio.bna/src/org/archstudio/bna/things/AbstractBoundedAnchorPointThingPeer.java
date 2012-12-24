@@ -11,7 +11,6 @@ public abstract class AbstractBoundedAnchorPointThingPeer<T extends AbstractBoun
 		super(thing);
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return t.getBoundingBox().contains(location.getWorldPoint());
 	}

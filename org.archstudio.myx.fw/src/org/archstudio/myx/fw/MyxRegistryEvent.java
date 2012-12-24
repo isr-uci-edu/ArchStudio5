@@ -28,7 +28,6 @@ public class MyxRegistryEvent {
 		return object;
 	}
 
-	@Override
 	public String toString() {
 		return "" + eventType + ": Brick:" + brick.getMyxBrickItems().getBrickName() + " Object:" + object;
 	}

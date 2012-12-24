@@ -11,7 +11,6 @@ import org.archstudio.prolog.term.VariableTerm;
 
 public class MostGeneralUnifierEngine implements UnificationEngine {
 
-	@Override
 	public boolean unify(UnificationContext context) {
 		for (int i = 0; i < context.equations.size(); i++) {
 			Equation e = context.equations.get(i);

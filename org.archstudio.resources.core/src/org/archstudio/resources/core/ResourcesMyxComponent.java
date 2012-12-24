@@ -39,7 +39,6 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 
 		List<Runnable> toExec = new ArrayList<Runnable>();
 
-		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			synchronized (lock) {
 				final Method fMethod = method;
@@ -47,7 +46,7 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 				if (void.class.equals(method.getReturnType())) {
 					if (display == null) {
 						toExec.add(new Runnable() {
-							@Override
+
 							public void run() {
 								try {
 									fMethod.invoke(resources, fArgs);
@@ -61,7 +60,7 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 					}
 					else if (Display.getCurrent() == null) {
 						display.asyncExec(new Runnable() {
-							@Override
+
 							public void run() {
 								try {
 									fMethod.invoke(resources, fArgs);
@@ -117,7 +116,7 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 				createColor(COLOR_BANNER_DARK, RGB_BANNER_DARK);
 
 				display.disposeExec(new Runnable() {
-					@Override
+
 					public void run() {
 						setDisplay(null);
 					}
@@ -141,51 +140,43 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 		}
 	}
 
-	@Override
 	public Image getPlatformImage(String symbolicName) {
 		checkDevice();
 		return PlatformUI.getWorkbench().getSharedImages().getImage(symbolicName);
 	}
 
-	@Override
 	public ImageDescriptor getPlatformImageDescriptor(String symbolicName) {
 		checkDevice();
 		return PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(symbolicName);
 	}
 
-	@Override
 	public Font getPlatformFont(String symbolicName) {
 		checkDevice();
 		return JFaceResources.getFont(symbolicName);
 	}
 
-	@Override
 	public Font getBoldPlatformFont(String symbolicName) {
 		checkDevice();
 		FontRegistry fr = JFaceResources.getFontRegistry();
 		return fr.getBold(symbolicName);
 	}
 
-	@Override
 	public Font getItalicPlatformFont(String symbolicName) {
 		checkDevice();
 		FontRegistry fr = JFaceResources.getFontRegistry();
 		return fr.getItalic(symbolicName);
 	}
 
-	@Override
 	public Font getFont(String symbolicName) {
 		checkDevice();
 		return fontRegistry.get(symbolicName);
 	}
 
-	@Override
 	public void createFont(String symbolicName, FontData[] fontData) {
 		checkDevice();
 		fontRegistry.put(symbolicName, fontData);
 	}
 
-	@Override
 	public void createDerivedFont(String newSymbolicName, FontData[] existingFontData, int newHeight, int newStyle) {
 		checkDevice();
 		FontData[] fds = existingFontData;
@@ -225,7 +216,6 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 	//		}
 	//	}
 
-	@Override
 	public void createImage(String symbolicName, byte[] bytes) {
 		createImage(symbolicName, new ByteArrayInputStream(bytes));
 	}
@@ -247,7 +237,6 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 		}
 	}
 
-	@Override
 	public void createImage(String symbolicName, Image img) {
 		checkDevice();
 		if (imageRegistry.get(symbolicName) != null) {
@@ -261,12 +250,10 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 		}
 	}
 
-	@Override
 	public void createImage(String symbolicName, ImageDescriptor imageDescriptor) {
 		createImage(symbolicName, imageDescriptor.createImage());
 	}
 
-	@Override
 	public void createOverlayImage(String symbolicName, Image base, Image[] overlays, int[] overlayPositions) {
 		checkDevice();
 		if (imageRegistry.get(symbolicName) != null) {
@@ -276,19 +263,16 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 		imageRegistry.put(symbolicName, oii);
 	}
 
-	@Override
 	public Image getImage(String symbolicName) {
 		checkDevice();
 		return imageRegistry.get(symbolicName);
 	}
 
-	@Override
 	public ImageDescriptor getImageDescriptor(String symbolicName) {
 		checkDevice();
 		return imageRegistry.getDescriptor(symbolicName);
 	}
 
-	@Override
 	public void createColor(String symbolicName, RGB colorData) {
 		checkDevice();
 		if (colorRegistry.get(symbolicName) != null) {
@@ -297,7 +281,6 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 		colorRegistry.put(symbolicName, colorData);
 	}
 
-	@Override
 	public Color getColor(String symbolicName) {
 		checkDevice();
 		return colorRegistry.get(symbolicName);

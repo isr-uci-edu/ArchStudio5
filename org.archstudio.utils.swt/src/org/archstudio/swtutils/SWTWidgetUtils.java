@@ -33,7 +33,7 @@ public class SWTWidgetUtils {
 	public static void makeWheelFriendly(ScrolledComposite sc, Composite contentComposite) {
 		final ScrolledComposite scroll = sc;
 		Listener l = new Listener() {
-			@Override
+
 			public void handleEvent(Event e) {
 				scroll.setFocus();
 			}
@@ -62,7 +62,7 @@ public class SWTWidgetUtils {
 		menuMgr.setRemoveAllWhenShown(true);
 		final IMenuFiller ffiller = filler;
 		menuMgr.addMenuListener(new IMenuListener() {
-			@Override
+
 			public void menuAboutToShow(IMenuManager m) {
 				ffiller.fillMenu(m);
 			}
@@ -82,7 +82,7 @@ public class SWTWidgetUtils {
 
 	public static IAction createNoAction(String text) {
 		IAction noAction = new Action(text, SWT.NONE) {
-			@Override
+
 			public void run() {
 			};
 		};
@@ -298,7 +298,7 @@ public class SWTWidgetUtils {
 			return;
 		}
 		d.asyncExec(new Runnable() {
-			@Override
+
 			public void run() {
 				if (!d.isDisposed() && (w == null || !w.isDisposed())) {
 					r.run();
@@ -312,7 +312,7 @@ public class SWTWidgetUtils {
 			return;
 		}
 		d.syncExec(new Runnable() {
-			@Override
+
 			public void run() {
 				if (!d.isDisposed() && (w == null || !w.isDisposed())) {
 					r.run();

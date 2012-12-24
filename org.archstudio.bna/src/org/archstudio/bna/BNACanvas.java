@@ -4,9 +4,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
+import javax.media.opengl.GL2ES1;
+import javax.media.opengl.GL2GL3;
 import javax.media.opengl.GLContext;
 import javax.media.opengl.GLDrawableFactory;
 import javax.media.opengl.GLProfile;
+import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import javax.media.opengl.glu.GLU;
 
 import org.archstudio.bna.BNAModelEvent.EventType;
@@ -73,7 +76,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		this.resources = new Resources(this, gl = new ObscuredGL2((GL2) context.getGL(), 1));
 
 		this.addListener(SWT.Resize, new Listener() {
-			@Override
+
 			public void handleEvent(Event event) {
 				org.eclipse.swt.graphics.Rectangle bounds = BNACanvas.this.getBounds();
 				float fAspect = (float) bounds.width / (float) bounds.height;
@@ -81,24 +84,24 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 				context.makeCurrent();
 				GL2 gl = (GL2) context.getGL();
 				gl.glViewport(0, -getHorizontalBar().getSize().y, bounds.width, bounds.height);
-				gl.glMatrixMode(GL2.GL_PROJECTION);
+				gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
 				gl.glLoadIdentity();
 				GLU glu = new GLU();
 				glu.gluPerspective(45.0f, fAspect, 0.5f, 1f);
-				gl.glMatrixMode(GL2.GL_MODELVIEW);
+				gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
 				gl.glLoadIdentity();
 				context.release();
 			}
 		});
 
 		this.addControlListener(new ControlAdapter() {
-			@Override
+
 			public void controlResized(ControlEvent e) {
 				updateScrollBars();
 			}
 		});
 		getCoordinateMapper().addCoordinateMapperListener(new ICoordinateMapperListener() {
-			@Override
+
 			public void coordinateMappingsChanged(final CoordinateMapperEvent evt) {
 				if (Display.getCurrent() == null) {
 					SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
@@ -107,13 +110,13 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 			}
 		});
 		hBar.addSelectionListener(new SelectionAdapter() {
-			@Override
+
 			public void widgetSelected(SelectionEvent e) {
 				updateCM();
 			}
 		});
 		vBar.addSelectionListener(new SelectionAdapter() {
-			@Override
+
 			public void widgetSelected(SelectionEvent e) {
 				updateCM();
 			}
@@ -123,7 +126,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 
 		// prevent the mouse wheel from scrolling the canvas
 		addListener(SWT.MouseWheel, new Listener() {
-			@Override
+
 			public void handleEvent(Event event) {
 				// prevent the mouse wheel from scrolling the canvas
 				event.doit = false;
@@ -132,7 +135,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 
 		// select canvas on click
 		addMouseListener(new MouseAdapter() {
-			@Override
+
 			public void mouseDown(MouseEvent e) {
 				BNACanvas.this.forceFocus();
 			}
@@ -143,7 +146,6 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		addPaintListener(this);
 	}
 
-	@Override
 	public void dispose() {
 		getBNAView().getBNAWorld().getBNAModel().removeBNAModelListener(this);
 		eventHandler.dispose();
@@ -220,12 +222,11 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 	private boolean needsRedraw = false;
 	private boolean redrawPending = false;
 
-	@Override
 	public void bnaModelChanged(final BNAModelEvent evt) {
 		if (!evt.isInBulkChange() && !needsRedraw && !redrawPending) {
 			needsRedraw = true;
 			SWTWidgetUtils.async(this, new Runnable() {
-				@Override
+
 				public void run() {
 					if (needsRedraw && !redrawPending) {
 						redrawPending = true;
@@ -237,7 +238,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		}
 		if (evt.getEventType() == EventType.THING_REMOVING) {
 			SWTWidgetUtils.async(this, new Runnable() {
-				@Override
+
 				public void run() {
 					getBNAView().disposePeer(evt.getTargetThing());
 				}
@@ -245,7 +246,6 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		}
 	}
 
-	@Override
 	public void paintControl(PaintEvent evt) {
 		IBNAModel bnaModel = getBNAView().getBNAWorld().getBNAModel();
 
@@ -254,30 +254,30 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		try {
 			org.eclipse.swt.graphics.Rectangle bounds = getBounds();
 
-			gl.glMatrixMode(GL2.GL_PROJECTION);
+			gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
 			gl.glLoadIdentity();
 			gl.glOrtho(0, bounds.width, bounds.height, 0, 0, 1);
-			gl.glMatrixMode(GL2.GL_MODELVIEW);
-			gl.glDisable(GL2.GL_DEPTH_TEST);
+			gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
+			gl.glDisable(GL.GL_DEPTH_TEST);
 			gl.glEnable(GL2.GL_LINE_STIPPLE);
-			gl.glEnable(GL2.GL_BLEND);
-			gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
+			gl.glEnable(GL.GL_BLEND);
+			gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 
 			if (BNARenderingSettings.getAntialiasGraphics(this)) {
-				gl.glEnable(GL2.GL_LINE_SMOOTH);
-				gl.glEnable(GL2.GL_POINT_SMOOTH);
-				gl.glHint(GL2.GL_POINT_SMOOTH_HINT, GL2.GL_NICEST);
-				gl.glEnable(GL2.GL_LINE_SMOOTH);
-				gl.glHint(GL2.GL_LINE_SMOOTH_HINT, GL2.GL_NICEST);
-				gl.glEnable(GL2.GL_POLYGON_SMOOTH);
-				gl.glHint(GL2.GL_POLYGON_SMOOTH_HINT, GL2.GL_NICEST);
-				gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
+				gl.glEnable(GL.GL_LINE_SMOOTH);
+				gl.glEnable(GL2ES1.GL_POINT_SMOOTH);
+				gl.glHint(GL2ES1.GL_POINT_SMOOTH_HINT, GL.GL_NICEST);
+				gl.glEnable(GL.GL_LINE_SMOOTH);
+				gl.glHint(GL.GL_LINE_SMOOTH_HINT, GL.GL_NICEST);
+				gl.glEnable(GL2GL3.GL_POLYGON_SMOOTH);
+				gl.glHint(GL2GL3.GL_POLYGON_SMOOTH_HINT, GL.GL_NICEST);
+				gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
 			}
 			else {
-				gl.glDisable(GL2.GL_POINT_SMOOTH);
-				gl.glDisable(GL2.GL_LINE_SMOOTH);
-				gl.glDisable(GL2.GL_POLYGON_SMOOTH);
-				gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_FASTEST);
+				gl.glDisable(GL2ES1.GL_POINT_SMOOTH);
+				gl.glDisable(GL.GL_LINE_SMOOTH);
+				gl.glDisable(GL2GL3.GL_POLYGON_SMOOTH);
+				gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_FASTEST);
 			}
 			resources.setAntialiasText(BNARenderingSettings.getAntialiasText(this));
 
@@ -291,11 +291,12 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 			IBNAView bnaView = getBNAView();
 			ICoordinateMapper cm = bnaView.getCoordinateMapper();
 			for (IThing thingToRender : bnaModel.getAllThings()) {
-				if (Boolean.TRUE.equals(thingToRender.get(IIsHidden.HIDDEN_KEY)))
+				if (Boolean.TRUE.equals(thingToRender.get(IIsHidden.HIDDEN_KEY))) {
 					continue;
+				}
 
 				//gl.glPushMatrix();
-				gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT | GL2.GL_COLOR_BUFFER_BIT);
+				gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT | GL.GL_COLOR_BUFFER_BIT);
 				try {
 					gl.setAlpha(thingToRender.get(IHasAlpha.ALPHA_KEY, 1f));
 					gl.setTint(thingToRender.get(IHasTint.TINT_KEY, new RGB(0, 0, 0)));

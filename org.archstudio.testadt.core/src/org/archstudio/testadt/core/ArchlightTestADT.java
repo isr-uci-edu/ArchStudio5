@@ -26,7 +26,7 @@ public class ArchlightTestADT implements IArchlightTestADT {
 	public synchronized List<? extends ArchlightTest> getAllTests(String toolID) {
 		List<ArchlightTest> matchingList = new ArrayList<ArchlightTest>();
 		for (ArchlightTest test : testList) {
-			if ((test.getToolID() != null) && (test.getToolID().equals(toolID))) {
+			if (test.getToolID() != null && test.getToolID().equals(toolID)) {
 				matchingList.add(test);
 			}
 		}
@@ -35,7 +35,7 @@ public class ArchlightTestADT implements IArchlightTestADT {
 
 	public synchronized ArchlightTest getTest(String testUID) {
 		for (ArchlightTest test : testList) {
-			if ((test.getUID() != null) && (test.getUID().equals(testUID))) {
+			if (test.getUID() != null && test.getUID().equals(testUID)) {
 				return test;
 			}
 		}

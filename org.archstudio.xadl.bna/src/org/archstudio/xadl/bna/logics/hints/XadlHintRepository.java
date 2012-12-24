@@ -37,27 +37,29 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 		this.coder = new MasterPropertyCoder();
 	}
 
-	@Override
 	public @Nullable
 	Object getContextForThing(IBNAWorld world, IThing thing) {
 		IThing t = thing;
 		ObjRef objRef = null;
 		do {
 			objRef = t.get(IHasObjRef.OBJREF_KEY);
-			if (objRef != null)
+			if (objRef != null) {
 				break;
+			}
 			t = Assemblies.getAssemblyWithPart(world.getBNAModel(), t);
 		} while (t != null);
-		if (objRef != null && t != null)
+		if (objRef != null && t != null) {
 			return objRef;
+		}
 		return null;
 	}
 
 	private @Nullable
 	Hint getHint(HintsExtension hints, String name) {
 		for (Hint hint : hints.getHint()) {
-			if (name.equals(hint.getName()))
+			if (name.equals(hint.getName())) {
 				return hint;
+			}
 		}
 		return null;
 	}
@@ -72,14 +74,12 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 		return hint;
 	}
 
-	@Override
 	public void storeHint(Object context, String hintName, @Nullable Serializable hintValue) {
 		HintsExtension hints = XArchADTProxy.proxy(xarch, XadlUtils.createExt(xarch, (ObjRef) context,
 				Hints_3_0Package.eNS_URI, Hints_3_0Package.Literals.HINTS_EXTENSION.getName()));
 		encode(createHint(hints, hintName), hintValue);
 	}
 
-	@Override
 	public @Nullable
 	Object getHint(Object context, String hintName) throws PropertyDecodeException {
 		HintsExtension hints = XArchADTProxy.proxy(xarch, XadlUtils.createExt(xarch, (ObjRef) context,
@@ -119,12 +119,10 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 
 	CopyOnWriteArrayList<IHintRepositoryChangeListener> changeListeners = new CopyOnWriteArrayList<IHintRepositoryChangeListener>();
 
-	@Override
 	public void addHintRepositoryChangeListener(IHintRepositoryChangeListener l) {
 		changeListeners.add(l);
 	}
 
-	@Override
 	public void removeHintRepositoryChangeListener(IHintRepositoryChangeListener l) {
 		changeListeners.remove(l);
 	}
@@ -135,7 +133,6 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 		}
 	}
 
-	@Override
 	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		EObject src = XArchADTProxy.proxy(xarch, evt.getSource());
 		if (src instanceof Hint) {

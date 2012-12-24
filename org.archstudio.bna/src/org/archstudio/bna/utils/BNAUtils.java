@@ -130,7 +130,7 @@ public class BNAUtils {
 
 	public static final List<Point> worldToLocal(final ICoordinateMapper cm, List<Point> worldPoints) {
 		return Lists.transform(worldPoints, new Function<Point, Point>() {
-			@Override
+
 			public Point apply(Point input) {
 				return cm.worldToLocal(new Point(input.x, input.y));
 			}
@@ -743,7 +743,7 @@ public class BNAUtils {
 	}
 
 	private static final Predicate<IThing> isSelectedPredicate = new Predicate<IThing>() {
-		@Override
+
 		public boolean apply(IThing t) {
 			if (t instanceof IHasSelected) {
 				return ((IHasSelected) t).isSelected();
@@ -1203,7 +1203,7 @@ public class BNAUtils {
 	}
 
 	private static final Function<IThing, Object> thingToIDFunction = new Function<IThing, Object>() {
-		@Override
+
 		public Object apply(IThing input) {
 			return input.getID();
 		}
@@ -1215,7 +1215,7 @@ public class BNAUtils {
 
 	public static final Iterable<IThing> getThings(final IBNAModel model, Iterable<Object> thingIDs) {
 		return Iterables.filter(Iterables.transform(thingIDs, new Function<Object, IThing>() {
-			@Override
+
 			public IThing apply(Object input) {
 				return model.getThing(input);
 			}

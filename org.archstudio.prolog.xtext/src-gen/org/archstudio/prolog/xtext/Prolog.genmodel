@@ -6,7 +6,7 @@
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.archstudio.prolog.xtext.edit"
     editorPluginID="org.archstudio.prolog.xtext.editor" runtimeVersion="2.8">
   <genPackages prefix="Prolog" basePackage="org.archstudio.prolog.xtext" disposableProviderFactory="true"
-      ecorePackage="Prolog.ecore#/">
+      fileExtensions="pl" ecorePackage="Prolog.ecore#/">
     <genClasses ecoreClass="Prolog.ecore#//Program">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Program/clauses"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Program/query"/>

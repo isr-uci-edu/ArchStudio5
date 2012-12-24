@@ -45,7 +45,6 @@ public class ArchlightMyxComponent extends org.archstudio.archlight.core.Archlig
 		return resources.getImage(IMAGE_ARCHLIGHT_ICON);
 	}
 
-	@Override
 	public ILaunchData getLaunchData() {
 		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME, "An Architecture Analysis Framework", getIcon(),
 				ILaunchData.LaunchType.EDITOR);

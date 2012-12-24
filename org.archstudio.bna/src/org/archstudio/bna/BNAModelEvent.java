@@ -89,7 +89,6 @@ public class BNAModelEvent {
 		return streamNotification;
 	}
 
-	@Override
 	public String toString() {
 		return "BNAModelEvent[" + //
 				"eventType=" + eventType + ";" + //

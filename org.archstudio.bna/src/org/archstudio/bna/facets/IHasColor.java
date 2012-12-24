@@ -12,5 +12,6 @@ public interface IHasColor extends IThing {
 
 	public static final IThingKey<RGB> COLOR_KEY = CloneThingKey.create("color", AbstractCloneThingKey.rgb());
 
-	public @Nullable RGB getColor();
+	public @Nullable
+	RGB getColor();
 }

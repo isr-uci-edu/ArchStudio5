@@ -24,4 +24,4 @@ Require-Bundle: org.archstudio.bna,
  org.eclipse.jdt.annotation,
  org.archstudio.xarchadt.variability,
  org.archstudio.utils.swt
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

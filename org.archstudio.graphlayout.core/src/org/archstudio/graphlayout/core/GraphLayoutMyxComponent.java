@@ -21,7 +21,6 @@ public class GraphLayoutMyxComponent extends org.archstudio.graphlayout.core.Gra
 	public GraphLayoutMyxComponent() {
 	}
 
-	@Override
 	public void init() {
 		graphLayout = new GraphLayoutImpl();
 		((GraphLayoutImpl) graphLayout).addLayoutEngine(new DotLayoutEngine());
@@ -52,7 +51,6 @@ public class GraphLayoutMyxComponent extends org.archstudio.graphlayout.core.Gra
 			return null;
 		}
 
-		@Override
 		public String[] getEngineIDs() {
 			ILayoutEngine[] engines = getAllLayoutEngines();
 			String[] engineIDs = new String[engines.length];
@@ -62,7 +60,6 @@ public class GraphLayoutMyxComponent extends org.archstudio.graphlayout.core.Gra
 			return engineIDs;
 		}
 
-		@Override
 		public String getEngineDescription(String engineID) {
 			ILayoutEngine engine = getLayoutEngine(engineID);
 			if (engine == null) {
@@ -71,7 +68,6 @@ public class GraphLayoutMyxComponent extends org.archstudio.graphlayout.core.Gra
 			return engine.getDescription();
 		}
 
-		@Override
 		public GraphLayout layoutGraph(String engineID, ObjRef rootRef, GraphLayoutParameters params)
 				throws GraphLayoutException {
 			ILayoutEngine engine = getLayoutEngine(engineID);

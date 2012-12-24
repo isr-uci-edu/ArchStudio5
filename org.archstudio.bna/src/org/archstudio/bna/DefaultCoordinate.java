@@ -21,17 +21,14 @@ public class DefaultCoordinate implements ICoordinate {
 		this.worldPoint = worldPoint;
 	}
 
-	@Override
 	public Point getLocalPoint() {
 		return new Point(localPoint.x, localPoint.y);
 	}
 
-	@Override
 	public Point getWorldPoint() {
 		return new Point(worldPoint.x, worldPoint.y);
 	}
 
-	@Override
 	public String toString() {
 		return "DefaultCoordinate [localPoint=" + localPoint + ", worldPoint=" + worldPoint + "]";
 	}

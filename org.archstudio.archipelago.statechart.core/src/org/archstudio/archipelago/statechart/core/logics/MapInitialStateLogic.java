@@ -43,7 +43,6 @@ public class MapInitialStateLogic extends AbstractXADLToBNAPathLogic<EllipseGlas
 		this.defaultCount = defaultCount;
 	}
 
-	@Override
 	public void init() {
 		super.init();
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
@@ -52,7 +51,6 @@ public class MapInitialStateLogic extends AbstractXADLToBNAPathLogic<EllipseGlas
 		mvl = getBNAWorld().getThingLogicManager().addThingLogic(MirrorValueLogic.class);
 	}
 
-	@Override
 	protected EllipseGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
@@ -65,7 +63,7 @@ public class MapInitialStateLogic extends AbstractXADLToBNAPathLogic<EllipseGlas
 		mvl.mirrorValue(Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()), IHasColor.COLOR_KEY,
 				Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()), IHasSecondaryColor.SECONDARY_COLOR_KEY,
 				new Function<RGB, RGB>() {
-					@Override
+
 					@Nullable
 					public RGB apply(@Nullable RGB input) {
 						return BNAUtils.adjustBrightness(input, 1.5f);

@@ -151,7 +151,6 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 		}
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
@@ -166,8 +165,9 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 
 		// prevent update cycles
 		List<Object> updatingKey = Lists.newArrayList(pointThing, key);
-		if (!isUpdating.add(updatingKey))
+		if (!isUpdating.add(updatingKey)) {
 			return;
+		}
 		try {
 
 			updatePoint(model, pointThing, key, thingEvent);

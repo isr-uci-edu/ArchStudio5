@@ -63,7 +63,7 @@ public class DotLayoutEngine extends AbstractGraphvizLayoutEngine {
 		commandLineEltList.add("-y");
 
 		try {
-			String[] commandline = (String[]) commandLineEltList.toArray(new String[0]);
+			String[] commandline = commandLineEltList.toArray(new String[0]);
 			Process p = Runtime.getRuntime().exec(commandline);
 
 			NativeProcess np = new NativeProcess(p, toolInput);

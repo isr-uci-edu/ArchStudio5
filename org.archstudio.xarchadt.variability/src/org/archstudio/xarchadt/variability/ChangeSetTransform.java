@@ -6,5 +6,5 @@ import org.archstudio.xarchadt.ObjRef;
 public interface ChangeSetTransform {
 
 	public void transform(IXArchADT xarch, ObjRef documentRootRef);
-	
+
 }

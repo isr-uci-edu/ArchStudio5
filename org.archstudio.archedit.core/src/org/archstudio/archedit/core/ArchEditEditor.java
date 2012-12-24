@@ -62,7 +62,7 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 			selectedNodeInfos = ((ArchEditOutlinePage) outlinePage).getSelectedNodeInfos();
 		}
 
-		if ((selectedNodeInfos == null) || (selectedNodeInfos.size() == 0)) {
+		if (selectedNodeInfos == null || selectedNodeInfos.size() == 0) {
 			Label lNothingSelected = new Label(parent, SWT.LEFT);
 			lNothingSelected.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 			lNothingSelected.setFont(resources.getPlatformFont(IResources.PLATFORM_DEFAULT_FONT_ID));
@@ -201,8 +201,9 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 			}
 			if (element instanceof String[]) {
 				String[] elts = (String[]) element;
-				if (elts[1] == null)
+				if (elts[1] == null) {
 					return "";
+				}
 				return elts[1].toString();
 			}
 			return null;
@@ -218,20 +219,22 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 				String propertyName = elts[0].toString();
 
 				String oldValue = null;
-				if (elts[1] != null)
+				if (elts[1] != null) {
 					oldValue = elts[1].toString();
+				}
 
 				String newValue = null;
-				if (value != null)
+				if (value != null) {
 					newValue = value.toString();
+				}
 
-				if ((oldValue == null) && (newValue == null)) {
+				if (oldValue == null && newValue == null) {
 					//Do nothing
 				}
-				else if ((oldValue != null) && (newValue == null)) {
+				else if (oldValue != null && newValue == null) {
 					XArchADTOperations.set("Set", xarch, ref, propertyName, null);
 				}
-				else if ((oldValue == null) && (newValue != null)) {
+				else if (oldValue == null && newValue != null) {
 					set(propertyName, newValue);
 				}
 				else {
@@ -297,8 +300,7 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 		final ObjRef fParentRef = referenceNodeInfo.getParentRef();
 		final String fFeatureName = referenceNodeInfo.getFeatureName();
 
-		for (int i = 0; i < sources.length; i++) {
-			DragSource source = sources[i];
+		for (DragSource source : sources) {
 			Transfer[] types = new Transfer[] { TextTransfer.getInstance() };
 			source.setTransfer(types);
 			source.addDragListener(new DragSourceListener() {
@@ -325,7 +327,6 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Override
 	public Object getAdapter(Class key) {
 		if (key.equals(IGotoMarker.class)) {
 			return this;

@@ -101,7 +101,7 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	 */
 	public MyxSubProgressMonitor(IMyxProgressMonitor monitor, int ticks, int style) {
 		super(monitor);
-		this.parentTicks = (ticks > 0) ? ticks : 0;
+		this.parentTicks = ticks > 0 ? ticks : 0;
 		this.style = style;
 	}
 
@@ -138,15 +138,18 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	public void done() {
 		// Ignore if more done calls than beginTask calls or if we are still
 		// in some nested beginTasks
-		if (nestedBeginTasks == 0 || --nestedBeginTasks > 0)
+		if (nestedBeginTasks == 0 || --nestedBeginTasks > 0) {
 			return;
+		}
 		// Send any remaining ticks and clear out the subtask text
 		double remaining = parentTicks - sentToParent;
-		if (remaining > 0)
+		if (remaining > 0) {
 			super.internalWorked(remaining);
+		}
 		//clear the sub task if there was one
-		if (hasSubTask)
+		if (hasSubTask) {
 			subTask(""); //$NON-NLS-1$
+		}
 		sentToParent = 0;
 	}
 
@@ -159,7 +162,7 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 			return;
 		}
 
-		double realWork = (work > 0.0d) ? scale * work : 0.0d;
+		double realWork = work > 0.0d ? scale * work : 0.0d;
 		super.internalWorked(realWork);
 		sentToParent += realWork;
 		if (sentToParent >= parentTicks) {

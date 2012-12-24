@@ -5,6 +5,7 @@ import java.util.List;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.facets.IHasFlow;
 import org.archstudio.bna.facets.IHasMutableFlow;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.Assemblies;
@@ -23,7 +24,6 @@ public class EditFlowLogic extends AbstractThingLogic implements IBNAMenuListene
 	public EditFlowLogic() {
 	}
 
-	@Override
 	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
 		IThing editThing = null;
 		if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) <= 1) {
@@ -43,9 +43,9 @@ public class EditFlowLogic extends AbstractThingLogic implements IBNAMenuListene
 			MenuManager editDirectionMenu = new MenuManager("Edit Direction...");
 			for (final Flow f : Flow.values()) {
 				editDirectionMenu.add(new Action(f.toString()) {
-					@Override
+
 					public void run() {
-						BNAOperations.set("Direction", getBNAModel(), finalThing, IHasMutableFlow.FLOW_KEY, f);
+						BNAOperations.set("Direction", getBNAModel(), finalThing, IHasFlow.FLOW_KEY, f);
 					}
 				});
 			}

@@ -1,5 +1,6 @@
 package org.archstudio.bna.things.borders;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -21,12 +22,10 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 		super(thing);
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		Point p1 = new Point(lbb.x, lbb.y);
@@ -40,7 +39,7 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 		RGB rgb = t.getColor();
 
 		r.setColor(rgb, 1f);
-		gl.glBegin(GL2.GL_TRIANGLE_STRIP);
+		gl.glBegin(GL.GL_TRIANGLE_STRIP);
 		gl.glVertex2i(p1.x - size, p1.y - size);
 		gl.glVertex2i(p2.x + size, p1.y - size);
 		r.setColor(rgb, malpha);
@@ -52,7 +51,7 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 		gl.glEnd();
 
 		r.setColor(rgb, 1f);
-		gl.glBegin(GL2.GL_TRIANGLE_STRIP);
+		gl.glBegin(GL.GL_TRIANGLE_STRIP);
 		gl.glVertex2i(p2.x + size, p1.y - size);
 		gl.glVertex2i(p2.x + size, p2.y + size);
 		r.setColor(rgb, malpha);
@@ -64,7 +63,7 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 		gl.glEnd();
 
 		r.setColor(rgb, 1f);
-		gl.glBegin(GL2.GL_TRIANGLE_STRIP);
+		gl.glBegin(GL.GL_TRIANGLE_STRIP);
 		gl.glVertex2i(p1.x - size, p2.y + size);
 		gl.glVertex2i(p2.x + size, p2.y + size);
 		r.setColor(rgb, malpha);
@@ -76,7 +75,7 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 		gl.glEnd();
 
 		r.setColor(rgb, 1f);
-		gl.glBegin(GL2.GL_TRIANGLE_STRIP);
+		gl.glBegin(GL.GL_TRIANGLE_STRIP);
 		gl.glVertex2i(p1.x - size, p1.y - size);
 		gl.glVertex2i(p1.x - size, p2.y + size);
 		r.setColor(rgb, malpha);

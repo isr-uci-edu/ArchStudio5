@@ -205,7 +205,7 @@ public class ArchipelagoUtils {
 
 	public static void showUserNotification(IBNAWorld w, String text, int worldX, int worldY) {
 		w.getThingLogicManager().addThingLogic(LifeSapperLogic.class);
-		
+
 		UserNotificationThing unt = w.getBNAModel().addThing(new UserNotificationThing(null));
 		unt.setText(text);
 		unt.setAnchorPoint(new Point(worldX, worldY));
@@ -253,7 +253,7 @@ public class ArchipelagoUtils {
 				pbt.setBoundingBox(bb);
 				m.addThing(pbt);
 				Thread pulserThread = new Thread() {
-					@Override
+
 					public void run() {
 						try {
 							Thread.sleep(6000);
@@ -315,7 +315,7 @@ public class ArchipelagoUtils {
 
 	public static void addZoomWidget(final BNACanvas bnaCanvas, final IBNAView bnaView) {
 		Listener l = new Listener() {
-			@Override
+
 			public void handleEvent(Event e) {
 				bnaCanvas.forceFocus();
 			}
@@ -330,11 +330,10 @@ public class ArchipelagoUtils {
 				- 1, 1);
 
 		bnaCanvas.addControlListener(new ControlListener() {
-			@Override
+
 			public void controlMoved(ControlEvent e) {
 			}
 
-			@Override
 			public void controlResized(ControlEvent e) {
 				zoomWidget.setLocation(
 						bnaCanvas.getClientArea().x + bnaCanvas.getClientArea().width - zoomWidget.getSize().x - 1, 1);

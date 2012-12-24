@@ -17,9 +17,9 @@ import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.jface.preference.IPreferenceStore;
 
 import com.google.common.collect.Iterables;
 
@@ -27,7 +27,6 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 
 	public static final String EOL = System.getProperty("line.separator");
 
-	@Override
 	public GraphLayout layoutGraph(IXArchADT xarch, IPreferenceStore prefs, ObjRef rootRef, GraphLayoutParameters params)
 			throws GraphLayoutException {
 		StringBuffer sb = new StringBuffer();

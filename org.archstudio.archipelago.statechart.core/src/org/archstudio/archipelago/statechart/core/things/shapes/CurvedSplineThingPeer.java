@@ -4,6 +4,7 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.archipelago.statechart.core.things.AbstractCurvedSplineThingPeer;
@@ -24,7 +25,7 @@ public class CurvedSplineThingPeer<T extends CurvedSplineThing> extends Abstract
 			Shape s = getShape(view, cm, t);
 			double[] coords = new double[6];
 			PathIterator p = s.getPathIterator(new AffineTransform(), 0.25d);
-			gl.glBegin(GL2.GL_LINE_STRIP);
+			gl.glBegin(GL.GL_LINE_STRIP);
 			while (!p.isDone()) {
 				switch (p.currentSegment(coords)) {
 				case PathIterator.SEG_MOVETO:

@@ -41,7 +41,6 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 	public WorldThingExternalEventsLogic() {
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		typeLogic = addThingLogic(ThingTypeTrackingLogic.class);
@@ -123,53 +122,44 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	@Override
 	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (firstOrNull(things, IHasWorld.class) != null) {
 			mouseEvt(view, evt, things, location, MouseEventType.MOUSE_DOWN);
 		}
 	}
 
-	@Override
 	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_MOVE);
 	}
 
-	@Override
 	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_UP);
 	}
 
-	@Override
 	public void mouseClick(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (firstOrNull(things, IHasWorld.class) != null) {
 			mouseEvt(view, evt, things, location, MouseEventType.MOUSE_CLICK);
 		}
 	}
 
-	@Override
 	public void mouseDoubleClick(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (firstOrNull(things, IHasWorld.class) != null) {
 			mouseEvt(view, evt, things, location, MouseEventType.MOUSE_DOUBLECLICK);
 		}
 	}
 
-	@Override
 	public void mouseEnter(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_ENTER);
 	}
 
-	@Override
 	public void mouseExit(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_EXIT);
 	}
 
-	@Override
 	public void mouseHover(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		mouseEvt(view, evt, things, location, MouseEventType.MOUSE_HOVER);
 	}
 
-	@Override
 	public void focusGained(IBNAView view, FocusEvent e) {
 		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
@@ -188,7 +178,6 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	@Override
 	public void focusLost(IBNAView view, FocusEvent e) {
 		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
@@ -207,7 +196,6 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	@Override
 	public void keyPressed(IBNAView view, KeyEvent e) {
 		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
@@ -226,7 +214,6 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	@Override
 	public void keyReleased(IBNAView view, KeyEvent e) {
 		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
@@ -245,7 +232,6 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	@Override
 	public void handleEvent(IBNAView view, Event event) {
 		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
@@ -264,7 +250,6 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		IThing thing = firstOrNull(things);
 		if (thing instanceof IHasWorld) {
@@ -356,32 +341,26 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	@Override
 	public void dragEnter(IBNAView view, DropTargetEvent event, List<IThing> things, ICoordinate location) {
 		dropEvt(view, event, things, location, DropEventType.DRAG_ENTER);
 	}
 
-	@Override
 	public void dragOver(IBNAView view, DropTargetEvent event, List<IThing> things, ICoordinate location) {
 		dropEvt(view, event, things, location, DropEventType.DRAG_OVER);
 	}
 
-	@Override
 	public void dragOperationChanged(IBNAView view, DropTargetEvent event, List<IThing> things, ICoordinate location) {
 		dropEvt(view, event, things, location, DropEventType.DRAG_OPERATION_CHANGED);
 	}
 
-	@Override
 	public void dragLeave(IBNAView view, DropTargetEvent event, List<IThing> things, ICoordinate location) {
 		dropEvt(view, event, things, location, DropEventType.DRAG_LEAVE);
 	}
 
-	@Override
 	public void dropAccept(IBNAView view, DropTargetEvent event, List<IThing> things, ICoordinate location) {
 		dropEvt(view, event, things, location, DropEventType.DROP_ACCEPT);
 	}
 
-	@Override
 	public void drop(IBNAView view, DropTargetEvent event, List<IThing> things, ICoordinate location) {
 		dropEvt(view, event, things, location, DropEventType.DROP);
 	}

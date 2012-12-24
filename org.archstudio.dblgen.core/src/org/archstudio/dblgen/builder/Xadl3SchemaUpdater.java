@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -81,7 +80,7 @@ public class Xadl3SchemaUpdater {
 		IFolder modelFolder = project.getFolder("model");
 		if (modelFolder.exists()) {
 			IFile schemaFile = modelFolder.getFile(schemaFileName);
-			if ((schemaFile != null) && (schemaFile.exists())) {
+			if (schemaFile != null && schemaFile.exists()) {
 				return true;
 			}
 		}
@@ -92,7 +91,7 @@ public class Xadl3SchemaUpdater {
 		IFolder modelFolder = project.getFolder("model");
 		if (modelFolder.exists()) {
 			IFile schemaFile = modelFolder.getFile(schemaFileName);
-			if ((schemaFile != null) && (schemaFile.exists())) {
+			if (schemaFile != null && schemaFile.exists()) {
 				return getContents(schemaFile.getContents());
 			}
 		}
@@ -112,11 +111,10 @@ public class Xadl3SchemaUpdater {
 		Map<String, Long> lastUpdatedTimes = new HashMap<String, Long>();
 
 		try {
-			for (@SuppressWarnings("rawtypes")
-			Iterator it = project.getPersistentProperties().keySet().iterator(); it.hasNext();) {
-				QualifiedName qn = (QualifiedName) it.next();
+			for (Object element : project.getPersistentProperties().keySet()) {
+				QualifiedName qn = (QualifiedName) element;
 				String qualifier = qn.getQualifier();
-				if ((qualifier != null) && qualifier.equals(SCHEMA_LAST_UPDATE_TIME_URI)) {
+				if (qualifier != null && qualifier.equals(SCHEMA_LAST_UPDATE_TIME_URI)) {
 					String schemaName = qn.getLocalName();
 					if (schemaName != null) {
 						String lastUpdateTimeString = project.getPersistentProperty(qn);
@@ -171,8 +169,9 @@ public class Xadl3SchemaUpdater {
 		if (schemaLocation.getAutoUpdateFrequency().equals(UpdateFrequency.NEVER)) {
 			// however, if the src folder is missing or empty, then do a build
 			IFolder srcFolder = project.getFolder("src");
-			if (!srcFolder.exists() || srcFolder.members().length == 0)
+			if (!srcFolder.exists() || srcFolder.members().length == 0) {
 				return true;
+			}
 			return false;
 		}
 		else {
@@ -183,7 +182,7 @@ public class Xadl3SchemaUpdater {
 			// See if the difference between the current time and the last
 			// update time is greater than the update frequency.
 			long currentTime = new java.util.Date().getTime();
-			if ((currentTime - lastUpdateTime) > schemaLocation.getAutoUpdateFrequency().getNumMilliseconds()) {
+			if (currentTime - lastUpdateTime > schemaLocation.getAutoUpdateFrequency().getNumMilliseconds()) {
 				return true;
 			}
 			return false;
@@ -268,7 +267,7 @@ public class Xadl3SchemaUpdater {
 				newSchemaContents = getContents(uri);
 			}
 
-			if (needsUpdate && (newSchemaContents != null)) {
+			if (needsUpdate && newSchemaContents != null) {
 				boolean success = writeSchema(project, schemaFileName, newSchemaContents, true);
 				if (success) {
 					setSchemaLastUpdateTime(project, schemaFileName, new java.util.Date().getTime());
@@ -280,12 +279,12 @@ public class Xadl3SchemaUpdater {
 	public List<String> getNonCopiedSchemaURIs(IProject project) {
 		return Lists.newArrayList(Iterables.transform(
 				Iterables.filter(Xadl3SchemaLocation.parse(project), new Predicate<Xadl3SchemaLocation>() {
-					@Override
+
 					public boolean apply(Xadl3SchemaLocation input) {
 						return !input.isCopyLocally();
 					}
 				}), new Function<Xadl3SchemaLocation, String>() {
-					@Override
+
 					public String apply(Xadl3SchemaLocation input) {
 						return input.getUrl().toString();
 					}

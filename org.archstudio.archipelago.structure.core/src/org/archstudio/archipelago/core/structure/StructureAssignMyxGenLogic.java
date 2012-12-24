@@ -58,7 +58,6 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 		this.xarch = xarch;
 	}
 
-	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		IThing thing = SystemUtils.firstOrNull(things);
 		if (thing != null) {
@@ -67,7 +66,7 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 				if (XadlUtils.isBrick(xarch, objRef)) {
 					MenuManager myxGenMenu = new MenuManager("Assign MyxGen Brick...");
 					myxGenMenu.addMenuListener(new IMenuListener() {
-						@Override
+
 						public void menuAboutToShow(IMenuManager manager) {
 							populateMenuWithMyxGenBricks(objRef, manager);
 						}
@@ -91,14 +90,14 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 			manager.add(projectMenu);
 			List<MyxGenBrick> myxGenBricks = Lists.newArrayList(e.getValue());
 			Collections.sort(myxGenBricks, new Comparator<MyxGenBrick>() {
-				@Override
+
 				public int compare(MyxGenBrick o1, MyxGenBrick o2) {
 					return o1.getName().compareTo(o2.getName());
 				}
 			});
 			for (final MyxGenBrick myxGenBrick : myxGenBricks) {
 				projectMenu.add(new Action(myxGenBrick.getName()) {
-					@Override
+
 					public void run() {
 						assignMyxGenBrick(objRef, myxGenBrick);
 					}
@@ -134,7 +133,7 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 		{
 			Multimap<String, Interface> oldIfaces = Multimaps.index(brick.getInterface().iterator(),
 					new Function<Interface, String>() {
-						@Override
+
 						public String apply(Interface iface) {
 							LookupImplementation limpl = XArchADTProxy.proxy(xarch, XadlUtils.getImplementation(xarch,
 									XArchADTProxy.unproxy(iface),
@@ -187,7 +186,7 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 			List<Interface> doomedIfaces = Lists.newArrayList(oldIfaces.values());
 			doomedIfaces.removeAll(newIfaces);
 			brick.getInterface().removeAll(doomedIfaces);
-			
+
 			xarch.done("Assign MyxGen Brick");
 		}
 	}

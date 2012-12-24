@@ -1,14 +1,5 @@
 package org.archstudio.dblgen;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.concurrent.*;
-import org.archstudio.myx.fw.*;
-import org.archstudio.myx.fw.IMyxDynamicBrick;
-import org.archstudio.dblgen.IDataBindingGenerator;
-import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.myx.fw.IMyxBrickItems;
-import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
@@ -31,7 +22,7 @@ abstract class DblGenComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -40,7 +31,7 @@ abstract class DblGenComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -74,7 +65,7 @@ abstract class DblGenComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -85,7 +76,7 @@ abstract class DblGenComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -96,14 +87,14 @@ abstract class DblGenComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_DBLGEN)) {
 			if (dblgen == null) {

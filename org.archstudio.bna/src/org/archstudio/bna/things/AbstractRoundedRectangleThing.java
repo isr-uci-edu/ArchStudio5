@@ -18,14 +18,12 @@ public abstract class AbstractRoundedRectangleThing extends AbstractRectangleThi
 		super(id);
 	}
 
-	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setCornerSize(new Dimension(0, 0));
 		addShapeModifyingKey(CORNER_SIZE_KEY);
 	}
 
-	@Override
 	public Dimension getCornerSize() {
 		Dimension d = get(CORNER_SIZE_KEY, new Dimension(0, 0));
 		if (d.width != 0 || d.height != 0) {
@@ -36,12 +34,10 @@ public abstract class AbstractRoundedRectangleThing extends AbstractRectangleThi
 		return d;
 	}
 
-	@Override
 	public void setCornerSize(Dimension dimension) {
 		set(CORNER_SIZE_KEY, dimension);
 	}
 
-	@Override
 	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Rectangle bb = getBoundingBox();
 		switch (stickyMode) {

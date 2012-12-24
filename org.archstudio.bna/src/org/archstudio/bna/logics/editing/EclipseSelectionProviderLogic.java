@@ -104,13 +104,11 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 		}
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		workbenchSiteSelectionProvider.addEclipseSelectionProvider(this);
 	}
 
-	@Override
 	protected void destroy() {
 		workbenchSiteSelectionProvider.removeEclipseSelectionProvider(this);
 		super.destroy();
@@ -123,7 +121,6 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 	private int inBulkChange = 0;
 	private int ignoreSelection = 0;
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case BULK_CHANGE_BEGIN:

@@ -25,7 +25,6 @@ public class ChatClientMyxComponent extends org.archstudio.demo.chatsys.client.C
 	JButton sendButton;
 	StringBuffer transcriptBuf;
 
-	@Override
 	public void begin() {
 		super.begin();
 
@@ -59,7 +58,6 @@ public class ChatClientMyxComponent extends org.archstudio.demo.chatsys.client.C
 		}
 	}
 
-	@Override
 	public void messageSent(String sender, String message) {
 		transcriptBuf.append(sender + ": " + message);
 		transcriptBuf.append(System.getProperty("line.separator"));

@@ -100,7 +100,6 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelLis
 		}
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {

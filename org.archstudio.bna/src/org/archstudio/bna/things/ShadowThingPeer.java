@@ -19,12 +19,11 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		// TODO Auto-generated method stub
 	}
 
-	//	@Override
+	//	
 	//	public void draw(final IBNAView view, final ICoordinateMapper cm, final IResources r, final Graphics g) {
 	//		// only draw for the top level things
 	//		if (view.getParentView() != null) {
@@ -52,7 +51,6 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	//		}
 	//	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}

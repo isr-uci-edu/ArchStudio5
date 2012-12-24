@@ -68,7 +68,7 @@ public class ChangeSetCellModifier implements ICellModifier {
 				ObjRef documentRootRef = xarch.getDocumentRootRef((ObjRef) element);
 				if (documentRootRef != null) {
 					List<ObjRef> appliedChangeSetRefs = xarch.getAppliedChangeSets(documentRootRef);
-					if (!appliedChangeSetRefs.remove((ObjRef) element)) {
+					if (!appliedChangeSetRefs.remove(element)) {
 						Variability variability = VariabilityUtils.getVariability(xarch, documentRootRef);
 						if (variability != null) {
 							List<ChangeSet> appliedChangeSets = Lists.newArrayList(variability.getChangeSet());
@@ -86,14 +86,16 @@ public class ChangeSetCellModifier implements ICellModifier {
 				ObjRef documentRootRef = xarch.getDocumentRootRef((ObjRef) element);
 				if (documentRootRef != null) {
 					Set<ObjRef> explicitChangeSetRefs = xarch.getExplicitChangeSets(documentRootRef);
-					if (!explicitChangeSetRefs.remove((ObjRef) element))
+					if (!explicitChangeSetRefs.remove(element)) {
 						explicitChangeSetRefs.add((ObjRef) element);
+					}
 					xarch.setExplicitChangeSets(documentRootRef, explicitChangeSetRefs);
 				}
 			}
 			if ("Change Set".equals(property)) {
-				if (value instanceof String)
+				if (value instanceof String) {
 					xarch.set((ObjRef) element, "name", (String) value);
+				}
 			}
 		}
 		catch (Throwable e) {

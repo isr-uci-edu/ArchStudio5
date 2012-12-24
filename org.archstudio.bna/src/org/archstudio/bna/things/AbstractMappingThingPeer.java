@@ -15,7 +15,6 @@ public abstract class AbstractMappingThingPeer<T extends AbstractMappingThing> e
 		super(thing);
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		IBNAView iView = BNAUtils.getInternalView(view, t.getInternalEndpointWorldThingID());
 		if (iView == null) {

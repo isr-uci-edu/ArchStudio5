@@ -20,32 +20,26 @@ public class BasicXArchADTSubstitutionHint implements IXArchADTSubstitutionHint 
 		this.targetTypeName = targetTypeName;
 	}
 
-	@Override
 	public HintType getHintType() {
 		return hintType;
 	}
 
-	@Override
 	public String getSourceNsURI() {
 		return sourceNsURI;
 	}
 
-	@Override
 	public String getSourceTypeName() {
 		return sourceTypeName;
 	}
 
-	@Override
 	public String getTargetNsURI() {
 		return targetNsURI;
 	}
 
-	@Override
 	public String getTargetTypeName() {
 		return targetTypeName;
 	}
 
-	@Override
 	public String toString() {
 		return "BasicXArchADTSubstitutionHint [hintType=" + hintType + ", sourceNsURI=" + sourceNsURI
 				+ ", sourceTypeName=" + sourceTypeName + ", targetNsURI=" + targetNsURI + ", targetTypeName="

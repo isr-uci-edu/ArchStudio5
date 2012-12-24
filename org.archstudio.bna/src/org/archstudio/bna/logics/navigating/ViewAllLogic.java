@@ -19,11 +19,10 @@ public class ViewAllLogic extends AbstractThingLogic implements IBNAMenuListener
 	public ViewAllLogic() {
 	}
 
-	@Override
 	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
 		if (things.size() == 0) {
 			menu.add(new Action("View All") {
-				@Override
+
 				public void run() {
 					viewAll(view);
 				}

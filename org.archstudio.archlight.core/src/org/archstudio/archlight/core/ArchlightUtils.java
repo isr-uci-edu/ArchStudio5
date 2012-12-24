@@ -243,7 +243,7 @@ public class ArchlightUtils {
 
 		Action applyAction = new Action("Make " + kindOfThing + " Applied/Enabled",
 				ImageDescriptor.createFromImage(applyIcon)) {
-			@Override
+
 			public void run() {
 				changeTestState(fxarch, fdocumentRootRef, ftests, felement, APPLIED);
 			}
@@ -252,7 +252,7 @@ public class ArchlightUtils {
 
 		Action disableAction = new Action("Make " + kindOfThing + " Applied/Disabled",
 				ImageDescriptor.createFromImage(disableIcon)) {
-			@Override
+
 			public void run() {
 				changeTestState(fxarch, fdocumentRootRef, ftests, felement, DISABLED);
 			}
@@ -261,7 +261,7 @@ public class ArchlightUtils {
 
 		Action unapplyAction = new Action("Make " + kindOfThing + " Unapplied",
 				ImageDescriptor.createFromImage(unapplyIcon)) {
-			@Override
+
 			public void run() {
 				changeTestState(fxarch, fdocumentRootRef, ftests, felement, NOT_APPLIED);
 			}

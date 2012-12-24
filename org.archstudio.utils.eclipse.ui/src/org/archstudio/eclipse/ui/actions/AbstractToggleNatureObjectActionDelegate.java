@@ -32,13 +32,11 @@ public abstract class AbstractToggleNatureObjectActionDelegate extends AbstractO
 		this.commandID = commandID;
 	}
 
-	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		super.selectionChanged(action, selection);
 		action.setChecked(isNatureAdded(getProjects(selection), natureID));
 	}
 
-	@Override
 	public void run(IAction action) {
 		boolean allAdded = isNatureAdded(getProjects(selection), natureID);
 		for (IProject project : getProjects(selection)) {
@@ -46,12 +44,11 @@ public abstract class AbstractToggleNatureObjectActionDelegate extends AbstractO
 		}
 	}
 
-	@Override
 	public void earlyStartup() {
 		// Necessary to initialize toggle state
 		// see: http://wiki.eclipse.org/Menu_Contributions/Radio_Button_Command#Initializing_the_Handler
 		UIJob job = new UIJob("InitCommandsWorkaround") {
-			@Override
+
 			public IStatus runInUIThread(IProgressMonitor monitor) {
 				try {
 					ICommandService commandService = (ICommandService) PlatformUI.getWorkbench()

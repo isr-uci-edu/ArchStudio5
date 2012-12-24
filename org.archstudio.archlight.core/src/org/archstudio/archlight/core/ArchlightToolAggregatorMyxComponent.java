@@ -19,12 +19,10 @@ public class ArchlightToolAggregatorMyxComponent extends
 
 	public static final String TOOL_ID = "Aggregator";
 
-	@Override
 	public String getToolID() {
 		return TOOL_ID;
 	}
 
-	@Override
 	public void reloadTests() {
 		if (tools != null) {
 			tools.reloadTests();
@@ -34,7 +32,6 @@ public class ArchlightToolAggregatorMyxComponent extends
 	boolean runningTests = false;
 	protected IProgressMonitor progressMonitor = null;
 
-	@Override
 	public void runTests(ObjRef documentRef, Collection<String> testUIDs) {
 		if (runningTests) {
 			return;
@@ -45,7 +42,7 @@ public class ArchlightToolAggregatorMyxComponent extends
 		final Collection<String> ftestUIDs = testUIDs;
 		if (tools != null) {
 			Job job = new Job("Running Archlight Tests") {
-				@Override
+
 				protected IStatus run(IProgressMonitor monitor) {
 					try {
 						progressMonitor = monitor;

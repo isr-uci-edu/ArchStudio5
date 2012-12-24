@@ -14,7 +14,7 @@ public class StructureTreeLabelProvider implements IArchipelagoLabelProvider {
 	protected Services AS = null;
 	protected final IXArchADT xarch;
 	protected final IResources resources;
-	
+
 	public StructureTreeLabelProvider(Services AS) {
 		this.AS = AS;
 		this.xarch = AS.get(IXArchADT.class);

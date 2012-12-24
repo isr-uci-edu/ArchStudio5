@@ -14,18 +14,16 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 public class ArchStudioPreferencePanel extends PreferencePage implements IWorkbenchPreferencePage {
 
 	protected Image image = null;
-	
+
 	public ArchStudioPreferencePanel() {
 		super("ArchStudio Preferences");
 		InstantiateArchStudio.instantiate();
 	}
 
-	@Override
 	public void init(IWorkbench workbench) {
 		image = new Image(workbench.getDisplay(), ArchStudioPreferencePanel.class.getResourceAsStream("res/banner.png"));
 	}
 
-	@Override
 	protected Control createContents(Composite parent) {
 		Composite c = new Composite(parent, SWT.NONE);
 		c.setLayout(new GridLayout(1, false));
@@ -37,8 +35,7 @@ public class ArchStudioPreferencePanel extends PreferencePage implements IWorkbe
 		lText.setText("Select a sub-node for options.");
 		return c;
 	}
-	
-	@Override
+
 	public void dispose() {
 		image.dispose();
 		image = null;

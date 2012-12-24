@@ -102,7 +102,6 @@ public class ArchlightIssue implements java.io.Serializable {
 		this.testUID = testUID;
 	}
 
-	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer("ArchlightIssue[");
 		buf.append("headline=").append(headline).append("; ");
@@ -136,7 +135,6 @@ public class ArchlightIssue implements java.io.Serializable {
 		return buf.toString();
 	}
 
-	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof ArchlightIssue)) {
 			return false;
@@ -151,7 +149,6 @@ public class ArchlightIssue implements java.io.Serializable {
 				&& otherIssue.elementIdentifiers.containsAll(elementIdentifiers);
 	}
 
-	@Override
 	public int hashCode() {
 		return hc(testUID) ^ hc(toolID) ^ hc(headline);
 	}

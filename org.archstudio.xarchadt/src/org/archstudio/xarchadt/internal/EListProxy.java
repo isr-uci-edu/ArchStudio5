@@ -37,33 +37,27 @@ public class EListProxy extends AbstractProxy {
 			this.name = name;
 		}
 
-		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			return method.invoke(this, args);
 		}
 
-		@Override
 		public void move(int newPosition, E object) {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		public E move(int newPosition, int oldPosition) {
 			throw new UnsupportedOperationException();
 		}
 
-		@Override
 		@SuppressWarnings("unchecked")
 		public E get(int index) {
 			return (E) XArchADTProxy.proxy(xarch, (ObjRef) xarch.getAll(objRef, name).get(index));
 		}
 
-		@Override
 		public int size() {
 			return xarch.getAll(objRef, name).size();
 		}
 
-		@Override
 		@SuppressWarnings("unchecked")
 		public Iterator<E> iterator() {
 			final Iterator<ObjRef> i = Iterables.filter(xarch.getAll(objRef, name), ObjRef.class).iterator();
@@ -71,17 +65,14 @@ public class EListProxy extends AbstractProxy {
 
 				ObjRef current = null;
 
-				@Override
 				public boolean hasNext() {
 					return i.hasNext();
 				}
 
-				@Override
 				public E next() {
 					return (E) proxy(xarch, current = i.next());
 				}
 
-				@Override
 				public void remove() {
 					if (current == null) {
 						throw new IllegalStateException();
@@ -92,13 +83,11 @@ public class EListProxy extends AbstractProxy {
 			};
 		}
 
-		@Override
 		public boolean add(E e) {
 			xarch.add(objRef, name, (Serializable) unproxy(e));
 			return true;
 		}
 
-		@Override
 		public boolean remove(Object o) {
 			if (o instanceof EObject) {
 				xarch.remove(objRef, name, (Serializable) unproxy(o));
@@ -107,17 +96,14 @@ public class EListProxy extends AbstractProxy {
 			return false;
 		}
 
-		@Override
 		public void clear() {
 			xarch.remove(objRef, name, xarch.getAll(objRef, name));
 		}
 
-		@Override
 		public String toString() {
 			return SystemUtils.message("EList of '$0' for $1", name, objRef);
 		}
 
-		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
@@ -127,7 +113,6 @@ public class EListProxy extends AbstractProxy {
 		}
 
 		@SuppressWarnings("rawtypes")
-		@Override
 		public boolean equals(Object obj) {
 			if (this == obj) {
 				return true;
@@ -164,7 +149,7 @@ public class EListProxy extends AbstractProxy {
 
 	static final LoadingCache<IXArchADT, ConcurrentMap<List<Object>, EList<Object>>> xArchProxiesCache = CacheBuilder
 			.newBuilder().weakKeys().build(new CacheLoader<IXArchADT, ConcurrentMap<List<Object>, EList<Object>>>() {
-				@Override
+
 				public ConcurrentMap<List<Object>, EList<Object>> load(IXArchADT input) {
 					return new MapMaker().softValues().makeMap();
 				}

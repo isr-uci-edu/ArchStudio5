@@ -38,12 +38,10 @@ public class DefaultBNAView implements IBNAView {
 		this.cm = checkNotNull(cm);
 	}
 
-	@Override
 	public Composite getComposite() {
 		return composite;
 	}
 
-	@Override
 	public void setComposite(Composite composite) {
 		if (!nullEquals(this.composite, composite)) {
 			this.composite = composite;
@@ -59,28 +57,25 @@ public class DefaultBNAView implements IBNAView {
 		}
 	}
 
-	@Override
 	public IBNAView getParentView() {
 		return parentView;
 	}
 
-	@Override
 	public IBNAWorld getBNAWorld() {
 		return bnaWorld;
 	}
 
-	@Override
 	public ICoordinateMapper getCoordinateMapper() {
 		return cm;
 	}
 
-	@Override
 	public List<IThing> getThingsAt(ICoordinate location) {
 		location = DefaultCoordinate.forWorld(location.getWorldPoint(), cm);
 		List<IThing> things = Lists.newArrayList();
 		for (IThing t : getBNAWorld().getBNAModel().getReverseThings()) {
-			if (Boolean.TRUE.equals(t.get(IIsBackground.BACKGROUND_KEY)))
+			if (Boolean.TRUE.equals(t.get(IIsBackground.BACKGROUND_KEY))) {
 				continue;
+			}
 			try {
 				if (peerCache.getPeer(t).isInThing(this, cm, location)) {
 					things.add(t);
@@ -92,12 +87,10 @@ public class DefaultBNAView implements IBNAView {
 		return things;
 	}
 
-	@Override
 	public <T extends IThing> IThingPeer<T> getThingPeer(T thing) {
 		return peerCache.getPeer(thing);
 	}
 
-	@Override
 	public <T extends IThing> void disposePeer(T thing) {
 		peerCache.disposePeer(thing);
 	}

@@ -32,22 +32,18 @@ public class MyxGenExtensions {
 	static {
 		pluginRegistry.addListener(new IRegistryEventListener() {
 
-			@Override
 			public void removed(IExtensionPoint[] extensionPoints) {
 				clear();
 			}
 
-			@Override
 			public void removed(IExtension[] extensions) {
 				clear();
 			}
 
-			@Override
 			public void added(IExtensionPoint[] extensionPoints) {
 				clear();
 			}
 
-			@Override
 			public void added(IExtension[] extensions) {
 				clear();
 			}

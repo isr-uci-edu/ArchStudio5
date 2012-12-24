@@ -2,6 +2,7 @@ package org.archstudio.bna.things.shapes;
 
 import java.util.List;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -20,11 +21,10 @@ public class SplineThingPeer<T extends SplineThing> extends AbstractSplineThingP
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
 			List<Point> localPoints = BNAUtils.worldToLocal(cm, t.getPoints());
-			gl.glBegin(GL2.GL_LINE_STRIP);
+			gl.glBegin(GL.GL_LINE_STRIP);
 			for (Point p : localPoints) {
 				gl.glVertex2f(p.x + 0.5f, p.y + 0.5f);
 			}

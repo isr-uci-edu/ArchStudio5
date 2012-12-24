@@ -36,14 +36,14 @@ public class FlyToUtils {
 		final double originalScale = cm.getLocalScale();
 
 		SWTWidgetUtils.async(control, new Runnable() {
-			@Override
+
 			public void run() {
 
 				final Point localSize = BNAUtils.toPoint(control.getSize());
 				final Point localCenter = new Point(localSize.x / 2, localSize.y / 2);
 
 				Thread flyThread = new Thread(FlyToUtils.class.getName()) {
-					@Override
+
 					public void run() {
 
 						try {
@@ -64,7 +64,7 @@ public class FlyToUtils {
 								final double intermediateScale = Math.max(0.0001, originalScale - originalScale * 0.7
 										* Math.sin(d * 2));
 								SWTWidgetUtils.sync(control, new Runnable() {
-									@Override
+
 									public void run() {
 										cm.setLocalScaleAndAlign(intermediateScale, localCenter, worldIntermediate);
 									}
@@ -74,7 +74,7 @@ public class FlyToUtils {
 						finally {
 							// finally, set the cm to the correct scale and position
 							SWTWidgetUtils.async(control, new Runnable() {
-								@Override
+
 								public void run() {
 									cm.setLocalScaleAndAlign(originalScale, localCenter, toWorldPoint);
 								}

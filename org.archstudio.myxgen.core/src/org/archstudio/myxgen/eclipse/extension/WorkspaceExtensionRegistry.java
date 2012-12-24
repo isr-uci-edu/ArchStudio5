@@ -40,7 +40,6 @@ public class WorkspaceExtensionRegistry implements IExtensionRegistry {
 
 		e.addListener(new IRegistryChangeListener() {
 
-			@Override
 			public void registryChanged(IRegistryChangeEvent event) {
 				synchronized (extensionIdListeners) {
 					for (IExtensionDelta d : event.getExtensionDeltas()) {
@@ -70,22 +69,18 @@ public class WorkspaceExtensionRegistry implements IExtensionRegistry {
 		});
 	}
 
-	@Override
 	public void addRegistryChangeListener(IRegistryChangeListener listener, String namespace) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public void addRegistryChangeListener(IRegistryChangeListener listener) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public IConfigurationElement[] getConfigurationElementsFor(String extensionPointId) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public IConfigurationElement[] getConfigurationElementsFor(String namespace, String extensionPointName) {
 		String extensionPointId = namespace + "." + extensionPointName;
 		List<IConfigurationElement> configurationElements = Lists.newArrayList();
@@ -94,18 +89,15 @@ public class WorkspaceExtensionRegistry implements IExtensionRegistry {
 		return configurationElements.toArray(new IConfigurationElement[configurationElements.size()]);
 	}
 
-	@Override
 	public IConfigurationElement[] getConfigurationElementsFor(String namespace, String extensionPointName,
 			String extensionId) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public IExtension getExtension(String extensionId) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public IExtension getExtension(String extensionPointId, String extensionId) {
 		for (IExtension d : e.findExtensions(extensionPointId, true)) {
 			for (IConfigurationElement c : d.getConfigurationElements()) {
@@ -117,97 +109,79 @@ public class WorkspaceExtensionRegistry implements IExtensionRegistry {
 		return null;
 	}
 
-	@Override
 	public IExtension getExtension(String namespace, String extensionPointName, String extensionId) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public IExtensionPoint getExtensionPoint(String extensionPointId) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public IExtensionPoint getExtensionPoint(String namespace, String extensionPointName) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public IExtensionPoint[] getExtensionPoints() {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public IExtensionPoint[] getExtensionPoints(String namespace) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public IExtensionPoint[] getExtensionPoints(IContributor contributor) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public IExtension[] getExtensions(String namespace) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public IExtension[] getExtensions(IContributor contributor) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public String[] getNamespaces() {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public void removeRegistryChangeListener(IRegistryChangeListener listener) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public boolean addContribution(InputStream is, IContributor contributor, boolean persist, String name,
 			ResourceBundle translationBundle, Object token) throws IllegalArgumentException {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public boolean removeExtension(IExtension extension, Object token) throws IllegalArgumentException {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public boolean removeExtensionPoint(IExtensionPoint extensionPoint, Object token) throws IllegalArgumentException {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public void stop(Object token) throws IllegalArgumentException {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public void addListener(IRegistryEventListener listener) {
 		synchronized (extensionIdListeners) {
 			extensionIdListeners.put(null, listener);
 		}
 	}
 
-	@Override
 	public void addListener(IRegistryEventListener listener, String extensionPointId) {
 		synchronized (extensionIdListeners) {
 			extensionIdListeners.put(extensionPointId, listener);
 		}
 	}
 
-	@Override
 	public void removeListener(IRegistryEventListener listener) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public boolean isMultiLanguage() {
 		throw new UnsupportedOperationException();
 	}

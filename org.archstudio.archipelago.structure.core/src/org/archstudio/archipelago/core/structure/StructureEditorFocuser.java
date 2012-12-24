@@ -18,9 +18,9 @@ import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.graphics.Point;
 
 public class StructureEditorFocuser implements IArchipelagoEditorFocuser {
 	protected TreeViewer viewer = null;
@@ -37,7 +37,6 @@ public class StructureEditorFocuser implements IArchipelagoEditorFocuser {
 		this.editor = AS.get(IArchipelagoEditorPane.class);
 	}
 
-	@Override
 	public void focusEditor(String editorName, ObjRef[] refs) {
 		//Highlight the tree nodes
 		if (refs.length == 0) {

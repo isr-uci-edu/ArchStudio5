@@ -12,7 +12,6 @@ import org.osgi.framework.Bundle;
 
 public class MyxOSGiBrickFactory extends MyxJavaClassBrickFactory implements IMyxBrickFactory {
 
-	@Override
 	public IMyxBrick create(IMyxName name, IMyxBrickDescription brickDescription,
 			IMyxBrickInitializationData initializationData) throws MyxBrickCreationException {
 		MyxOSGiBrickDescription desc = (MyxOSGiBrickDescription) brickDescription;

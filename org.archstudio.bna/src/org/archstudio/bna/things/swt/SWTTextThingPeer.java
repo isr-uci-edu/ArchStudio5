@@ -18,17 +18,16 @@ public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThi
 		super(thing);
 	}
 
-	@Override
 	protected Text createControl(final IBNAView view, ICoordinateMapper cm) {
 		final Text control = new Text(view.getComposite(), SWT.BORDER | SWT.FLAT | SWT.SINGLE);
 		control.addFocusListener(new FocusAdapter() {
-			@Override
+
 			public void focusLost(FocusEvent e) {
 				remove(view);
 			}
 		});
 		control.addKeyListener(new KeyAdapter() {
-			@Override
+
 			public void keyReleased(KeyEvent e) {
 				if (e.character == SWT.CR) {
 					t.setText(control.getText());
@@ -45,7 +44,6 @@ public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThi
 		return control;
 	}
 
-	@Override
 	protected Rectangle getBounds(Text control, IBNAView view, ICoordinateMapper cm) {
 		Rectangle bounds = super.getBounds(control, view, cm);
 

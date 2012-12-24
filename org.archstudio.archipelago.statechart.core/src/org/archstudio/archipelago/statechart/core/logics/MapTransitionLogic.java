@@ -39,7 +39,8 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Point;
 
-public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineGlassThing> implements IPropertyChangeListener {
+public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineGlassThing> implements
+		IPropertyChangeListener {
 
 	public static final IThingRefKey<ArrowheadThing> ARROWHEAD_KEY = ThingAssemblyKey.create("assembly-arrowhead");
 
@@ -52,7 +53,6 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 		super(xarch, rootObjRef, objRefPath);
 	}
 
-	@Override
 	public void init() {
 		super.init();
 
@@ -73,13 +73,11 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
 
-	@Override
 	public void destroy() {
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		super.destroy();
 	}
 
-	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
 				StatechartConstants.PREF_TRANSITION_FONT);
@@ -91,8 +89,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 					FontStyle.fromSWT(defaultFont.getStyle()));
 		}
 	}
-	
-	@Override
+
 	protected CurvedSplineGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
 				StatechartConstants.PREF_TRANSITION_FONT);
@@ -118,12 +115,12 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 				arrowheadThing);
 		mvl.mirrorValue(thing, IHasAnchorPoint.ANCHOR_POINT_KEY, labelThing);
 		Assemblies.markPart(thing, Assemblies.TEXT_KEY, labelThing);
-		
+
 		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
 		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
 		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_STYLE_KEY,
 				FontStyle.fromSWT(defaultFont.getStyle()));
-		
+
 		UserEditableUtils.addEditableQualities(labelThing, IHasMutableText.USER_MAY_EDIT_TEXT);
 
 		return thing;

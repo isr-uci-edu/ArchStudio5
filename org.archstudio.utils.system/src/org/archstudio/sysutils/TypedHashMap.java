@@ -85,12 +85,10 @@ public class TypedHashMap implements TypedMap {
 		return map.entrySet();
 	}
 
-	@Override
 	public boolean equals(Object o) {
 		return map.equals(o);
 	}
 
-	@Override
 	public int hashCode() {
 		return map.hashCode();
 	}

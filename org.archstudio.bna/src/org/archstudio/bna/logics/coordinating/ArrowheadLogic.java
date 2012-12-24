@@ -78,7 +78,6 @@ public class ArrowheadLogic extends AbstractThingLogic implements IBNAModelListe
 		ma.apply(getBNAModel());
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {

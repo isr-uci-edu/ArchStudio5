@@ -27,8 +27,6 @@ import org.xml.sax.SAXException;
 
 import com.google.common.collect.Lists;
 
-
-
 public class XArchADTOperations implements IXArchADT {
 
 	public static <V> void remove(String label, final IXArchADT xarch, final ObjRef objRef, final String name,
@@ -39,20 +37,18 @@ public class XArchADTOperations implements IXArchADT {
 		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
 		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 		AbstractOperation operation = new AbstractOperation(label) {
-			@Override
+
 			public IStatus execute(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
 					throws ExecutionException {
 				return Status.OK_STATUS;
 			}
 
-			@Override
 			public IStatus undo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
 					throws ExecutionException {
 				xarch.add(objRef, name, value);
 				return Status.OK_STATUS;
 			}
 
-			@Override
 			public IStatus redo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
 					throws ExecutionException {
 				xarch.remove(objRef, name, value);
@@ -71,20 +67,18 @@ public class XArchADTOperations implements IXArchADT {
 		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
 		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 		AbstractOperation operation = new AbstractOperation(label) {
-			@Override
+
 			public IStatus execute(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
 					throws ExecutionException {
 				return Status.OK_STATUS;
 			}
 
-			@Override
 			public IStatus undo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
 					throws ExecutionException {
 				xarch.remove(objRef, name, value);
 				return Status.OK_STATUS;
 			}
 
-			@Override
 			public IStatus redo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
 					throws ExecutionException {
 				xarch.add(objRef, name, value);
@@ -104,29 +98,31 @@ public class XArchADTOperations implements IXArchADT {
 		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
 		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 		AbstractOperation operation = new AbstractOperation(label) {
-			@Override
+
 			public IStatus execute(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
 					throws ExecutionException {
 				return Status.OK_STATUS;
 			}
 
-			@Override
 			public IStatus undo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
 					throws ExecutionException {
-				if (oldValue == null)
+				if (oldValue == null) {
 					xarch.clear(objRef, name);
-				else
+				}
+				else {
 					xarch.set(objRef, name, oldValue);
+				}
 				return Status.OK_STATUS;
 			}
 
-			@Override
 			public IStatus redo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
 					throws ExecutionException {
-				if (newValue == null)
+				if (newValue == null) {
 					xarch.clear(objRef, name);
-				else
+				}
+				else {
 					xarch.set(objRef, name, newValue);
+				}
 				return Status.OK_STATUS;
 			}
 		};
@@ -402,31 +398,31 @@ public class XArchADTOperations implements IXArchADT {
 
 	public String getXPath(ObjRef toObjRef) {
 		return xarch.getXPath(toObjRef);
-	} 
-	
+	}
+
 	public void done(String label) {
 		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
 		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 		AbstractOperation operation = new AbstractOperation(label) {
-			@Override
+
 			public IStatus execute(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
 					throws ExecutionException {
 				return Status.OK_STATUS;
 			}
 
-			@Override
 			public IStatus undo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
 					throws ExecutionException {
-				for (Runnable r : undo)
+				for (Runnable r : undo) {
 					r.run();
+				}
 				return Status.OK_STATUS;
 			}
 
-			@Override
 			public IStatus redo(@Nullable IProgressMonitor monitor, @Nullable IAdaptable info)
 					throws ExecutionException {
-				for (Runnable r : redo)
+				for (Runnable r : redo) {
 					r.run();
+				}
 				return Status.OK_STATUS;
 			}
 		};

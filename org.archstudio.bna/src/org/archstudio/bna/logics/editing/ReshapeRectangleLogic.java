@@ -18,13 +18,11 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 		super(IHasMutableBoundingBox.class);
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		addThingLogic(StandardCursorLogic.class);
 	}
 
-	@Override
 	protected void addHandles() {
 		for (Orientation o : Orientation.values()) {
 			if (o != Orientation.NONE) {
@@ -33,7 +31,6 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 		}
 	}
 
-	@Override
 	protected void updateHandle(ReshapeHandleGlassThing handle, Orientation data) {
 		Rectangle boundingBox = reshapingThing.getBoundingBox();
 		int cursor = SWT.CURSOR_SIZEALL;
@@ -84,7 +81,6 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 		handle.set(IHasStandardCursor.STANDARD_CURSOR_KEY, cursor);
 	}
 
-	@Override
 	protected void handleMoved(ReshapeHandleGlassThing handle, Orientation data, DragMoveEvent evt) {
 		Rectangle bb = reshapingThing.getBoundingBox();
 
@@ -137,15 +133,15 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 		reshapingThing.setBoundingBox(bb);
 	}
 
-	@Override
 	protected Runnable takeSnapshot() {
 		final Object tID = this.reshapingThing.getID();
 		final Rectangle r = reshapingThing.getBoundingBox();
 		return new Runnable() {
 			public void run() {
 				IThing t = getBNAModel().getThing(tID);
-				if (t != null)
+				if (t != null) {
 					t.set(IHasBoundingBox.BOUNDING_BOX_KEY, r);
+				}
 			}
 		};
 	}

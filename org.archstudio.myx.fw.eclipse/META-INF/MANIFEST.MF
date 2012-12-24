@@ -10,5 +10,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.myx.fw,
  org.archstudio.eclipse,
  org.archstudio.utils.osgi
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy

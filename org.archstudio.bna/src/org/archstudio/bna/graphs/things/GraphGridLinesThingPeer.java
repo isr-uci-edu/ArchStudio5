@@ -1,5 +1,6 @@
 package org.archstudio.bna.graphs.things;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -17,7 +18,6 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (r.setLineStyle(t) && r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY)) {
 
@@ -26,7 +26,7 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 			int wUnit = t.getUnit();
 
 			// draw units
-			gl.glBegin(GL2.GL_LINES);
+			gl.glBegin(GL.GL_LINES);
 			switch (t.getOrientation()) {
 			case VERTICAL_LINES: {
 				switch (cm instanceof GraphCoordinateMapper ? ((GraphCoordinateMapper) cm).getXAxisType()
@@ -35,8 +35,9 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 					int wMin = wbb.x / wUnit * wUnit;
 					int wMax = wbb.x + wbb.width;
 					for (int wX = wMin; wX <= wMax; wX += wUnit) {
-						if (wX < wbb.x)
+						if (wX < wbb.x) {
 							continue;
+						}
 						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
 						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + 0.5f);
 						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + lbb.height + 0.5f);
@@ -47,8 +48,9 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 					int wMin = 1;
 					int wMax = wbb.x + wbb.width;
 					for (int wX = wMin; wX <= wMax; wX *= wUnit) {
-						if (wX < wbb.x)
+						if (wX < wbb.x) {
 							continue;
+						}
 						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
 						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + 0.5f);
 						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + lbb.height + 0.5f);
@@ -64,8 +66,9 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 					int wMin = wbb.y / wUnit * wUnit;
 					int wMax = wbb.y + wbb.height;
 					for (int wY = wMin; wY <= wMax; wY += wUnit) {
-						if (wY < wbb.y)
+						if (wY < wbb.y) {
 							continue;
+						}
 						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
 						gl.glVertex2f(lbb.x + 0.5f, lPoint.y + 0.5f);
 						gl.glVertex2f(lbb.x + lbb.width + 0.5f, lPoint.y + 0.5f);
@@ -76,8 +79,9 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 					int wMin = -1;
 					int wMax = wbb.y;
 					for (int wY = wMin; wY >= wMax; wY *= wUnit) {
-						if (wY > wbb.y + wbb.height)
+						if (wY > wbb.y + wbb.height) {
 							continue;
+						}
 						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
 						gl.glVertex2f(lbb.x + 0.5f, lPoint.y + 0.5f);
 						gl.glVertex2f(lbb.x + lbb.width + 0.5f, lPoint.y + 0.5f);

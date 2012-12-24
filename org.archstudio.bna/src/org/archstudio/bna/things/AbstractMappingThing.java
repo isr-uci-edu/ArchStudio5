@@ -9,7 +9,6 @@ public abstract class AbstractMappingThing extends AbstractAnchorPointThing impl
 		super(id);
 	}
 
-	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setInternalEndpoint(new Point(0, 0));

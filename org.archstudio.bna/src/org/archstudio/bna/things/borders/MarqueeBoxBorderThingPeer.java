@@ -1,5 +1,6 @@
 package org.archstudio.bna.things.borders;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -17,7 +18,6 @@ public class MarqueeBoxBorderThingPeer<T extends MarqueeBoxBorderThing> extends 
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		Point p1 = new Point(lbb.x, lbb.y);
@@ -26,7 +26,7 @@ public class MarqueeBoxBorderThingPeer<T extends MarqueeBoxBorderThing> extends 
 		gl.glLineWidth(1f);
 
 		gl.glColor3f(1f, 1f, 1f);
-		gl.glBegin(GL2.GL_LINE_LOOP);
+		gl.glBegin(GL.GL_LINE_LOOP);
 		gl.glVertex2f(p1.x + 0.5f, p1.y + 0.5f);
 		gl.glVertex2f(p2.x - 0.5f, p1.y + 0.5f);
 		gl.glVertex2f(p2.x - 0.5f, p2.y - 0.5f);
@@ -35,7 +35,7 @@ public class MarqueeBoxBorderThingPeer<T extends MarqueeBoxBorderThing> extends 
 
 		gl.glColor3f(0f, 0f, 0f);
 		gl.glLineStipple(1, (short) (0x0f0f0f0f << t.getRotatingOffset() % 8 >> 8));
-		gl.glBegin(GL2.GL_LINE_LOOP);
+		gl.glBegin(GL.GL_LINE_LOOP);
 		gl.glVertex2f(p1.x + 0.5f, p1.y + 0.5f);
 		gl.glVertex2f(p2.x - 0.5f, p1.y + 0.5f);
 		gl.glVertex2f(p2.x - 0.5f, p2.y - 0.5f);

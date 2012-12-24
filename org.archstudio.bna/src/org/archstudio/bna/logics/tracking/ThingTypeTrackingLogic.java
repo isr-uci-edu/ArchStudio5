@@ -22,7 +22,6 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNAMo
 	private final LoadingCache<Class<? extends IThing>, Collection<Object>> classToThingIDsCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<Class<? extends IThing>, Collection<Object>>() {
 
-				@Override
 				public Collection<Object> load(Class<? extends IThing> key) throws Exception {
 					Set<Object> things = Sets.newHashSet();
 					for (IThing t : getBNAModel().getAllThings()) {
@@ -37,14 +36,12 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNAMo
 	public ThingTypeTrackingLogic() {
 	}
 
-	@Override
 	protected void destroy() {
 		classToThingIDsCache.invalidateAll();
 		classToThingIDsCache.cleanUp();
 		super.destroy();
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {

@@ -1,18 +1,5 @@
 package org.archstudio.filemanager.core;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.concurrent.*;
-import org.archstudio.myx.fw.*;
-import org.archstudio.xarchadt.IXArchADTModelListener;
-import org.archstudio.myx.fw.IMyxDynamicBrick;
-import org.archstudio.xarchadt.IXArchADT;
-import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.filemanager.IFileManager;
-import org.archstudio.filemanager.IFileManagerListener;
-import org.archstudio.xarchadt.IXArchADTFileListener;
-import org.archstudio.myx.fw.IMyxBrickItems;
-import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -136,7 +123,7 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 	protected final org.archstudio.filemanager.IFileManagerListener fileManagerEventsProxy = (org.archstudio.filemanager.IFileManagerListener) Proxy
 			.newProxyInstance(org.archstudio.filemanager.IFileManagerListener.class.getClassLoader(),
 					new Class[] { org.archstudio.filemanager.IFileManagerListener.class }, new InvocationHandler() {
-						@Override
+
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.filemanager.IFileManagerListener o : fileManagerEvents) {
 								try {
@@ -216,7 +203,7 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -238,7 +225,7 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -257,14 +244,14 @@ abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.Abstrac
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_MODEL_EVENTS)) {
 			return this;

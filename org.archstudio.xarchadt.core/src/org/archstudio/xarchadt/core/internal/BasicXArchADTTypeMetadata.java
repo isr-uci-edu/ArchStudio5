@@ -24,22 +24,18 @@ public class BasicXArchADTTypeMetadata implements IXArchADTTypeMetadata {
 		this.isAbstract = isAbstract;
 	}
 
-	@Override
 	public String getNsURI() {
 		return nsURI;
 	}
 
-	@Override
 	public String getTypeName() {
 		return typeName;
 	}
 
-	@Override
 	public Map<String, IXArchADTFeature> getFeatures() {
 		return features;
 	}
 
-	@Override
 	public boolean isAbstract() {
 		return isAbstract;
 	}

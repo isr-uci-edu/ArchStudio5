@@ -1,5 +1,6 @@
 package org.archstudio.bna.things.glass;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -18,7 +19,6 @@ public class PolygonGlassThingPeer<T extends PolygonGlassThing> extends Abstract
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			Point a = t.getAnchorPoint();
@@ -26,7 +26,7 @@ public class PolygonGlassThingPeer<T extends PolygonGlassThing> extends Abstract
 			gl.glLineWidth(1f);
 
 			gl.glColor3f(1f, 1f, 1f);
-			gl.glBegin(GL2.GL_LINE_LOOP);
+			gl.glBegin(GL.GL_LINE_LOOP);
 			for (Point p : t.getPoints()) {
 				p.x += a.x;
 				p.y += a.y;
@@ -37,7 +37,7 @@ public class PolygonGlassThingPeer<T extends PolygonGlassThing> extends Abstract
 
 			gl.glColor3f(0f, 0f, 0f);
 			gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
-			gl.glBegin(GL2.GL_LINE_LOOP);
+			gl.glBegin(GL.GL_LINE_LOOP);
 			for (Point p : t.getPoints()) {
 				p.x += a.x;
 				p.y += a.y;

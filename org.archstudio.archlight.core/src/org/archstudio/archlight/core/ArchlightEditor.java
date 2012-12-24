@@ -49,7 +49,6 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		setHasBanner(true);
 	}
 
-	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
 
@@ -59,7 +58,6 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		setupToolbar(site);
 	}
 
-	@Override
 	protected AbstractArchStudioOutlinePage createOutlinePage() {
 		return new ArchlightOutlinePage(tests, xarch, getDocumentRootRef(), resources);
 	}
@@ -73,7 +71,6 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		}
 	}
 
-	@Override
 	public void createEditorContents(Composite c) {
 		Object[] selectedNodes = null;
 		if (outlinePage != null) {
@@ -96,12 +93,11 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		bRunTests.setText("Run Tests");
 		bRunTests.setImage(resources.getImage(ArchlightUtils.IMAGE_RUN_TESTS));
 		bRunTests.addSelectionListener(new SelectionListener() {
-			@Override
+
 			public void widgetSelected(SelectionEvent event) {
 				runTests();
 			}
 
-			@Override
 			public void widgetDefaultSelected(SelectionEvent event) {
 				runTests();
 			}
@@ -116,12 +112,11 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		bReloadTests.setText("Reload Tests");
 		bReloadTests.setImage(resources.getImage(ArchlightUtils.IMAGE_RELOAD_TESTS));
 		bReloadTests.addSelectionListener(new SelectionListener() {
-			@Override
+
 			public void widgetSelected(SelectionEvent event) {
 				reloadTests();
 			}
 
-			@Override
 			public void widgetDefaultSelected(SelectionEvent event) {
 				reloadTests();
 			}
@@ -203,13 +198,13 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 					ToolItem dropDownButton = createToolItem(toolBar, SWT.DROP_DOWN, dropDownText,
 							resources.getPlatformImage(dropDownImageID), null, dropDownText);
 					dropDownButton.addSelectionListener(new DropdownSelectionListener(dropDownButton) {
-						@Override
+
 						public void fillDropdownMenu(IMenuManager menuMgr) {
 							List<? extends IAction> actions = ArchlightUtils.createTestMenuActions(xarch,
 									documentRootRef, tests.getAllTests(), resources, node);
 							if (actions.isEmpty()) {
 								Action noAction = new Action("[No Actions]") {
-									@Override
+
 									public void run() {
 									}
 								};
@@ -239,14 +234,13 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		return item;
 	}
 
-	@Override
 	public void setFocus() {
 		// parent.getChildren()[0].setFocus();
 	}
 
 	public IAction[] getToolbarActions() {
-		Action runTests = new Action("Run Tests", Action.AS_PUSH_BUTTON) {
-			@Override
+		Action runTests = new Action("Run Tests", IAction.AS_PUSH_BUTTON) {
+
 			public void run() {
 				runTests();
 			};
@@ -254,8 +248,8 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		runTests.setImageDescriptor(resources.getImageDescriptor(ArchlightUtils.IMAGE_RUN_TESTS));
 		runTests.setToolTipText("Run Tests");
 
-		Action reloadTests = new Action("Reload Tests", Action.AS_PUSH_BUTTON) {
-			@Override
+		Action reloadTests = new Action("Reload Tests", IAction.AS_PUSH_BUTTON) {
+
 			public void run() {
 				reloadTests();
 			};

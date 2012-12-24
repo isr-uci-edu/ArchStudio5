@@ -22,7 +22,6 @@ public class ArrowheadThingPeer<T extends ArrowheadThing> extends AbstractThingP
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 
 		Point lp1 = cm.worldToLocal(t.getAnchorPoint());
@@ -54,7 +53,6 @@ public class ArrowheadThingPeer<T extends ArrowheadThing> extends AbstractThingP
 		}
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}

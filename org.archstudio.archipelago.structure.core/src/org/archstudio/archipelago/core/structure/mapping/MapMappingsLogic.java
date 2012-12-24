@@ -5,6 +5,7 @@ import java.util.List;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
+import org.archstudio.bna.facets.IHasInternalWorldEndpoint;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasToolTip;
@@ -34,7 +35,6 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThi
 		super(xarch, rootObjRef, objRefPath);
 	}
 
-	@Override
 	public void init() {
 		super.init();
 
@@ -51,17 +51,15 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThi
 		// take the inner world objRef and interface objRef, set them on the MappingSplineThing
 		syncValue("innerInterfaceLink", null, null, BNAPath.create(), MaintainMappingLogic.INTERNAL_OBJREF_KEY, false);
 		setAncestorObjRef(BNAPath.create(),
-				syncLogic.syncObjRefKeyToThingIDKey(MappingGlassThing.INTERNAL_ENDPOINT_WORLD_THING_KEY), 1);
+				syncLogic.syncObjRefKeyToThingIDKey(IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY), 1);
 
 		// take the outer interface objRef, find the thing with that objRef, and stick the anchor point to it
-		setValue(BNAPath.create(), stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY),
-				StickyMode.CENTER);
+		setValue(BNAPath.create(), stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), StickyMode.CENTER);
 		syncValue("outerInterfaceLink", null, null, BNAPath.create(),
 				syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasAnchorPoint.ANCHOR_POINT_KEY)),
 				true);
 	}
 
-	@Override
 	protected MappingGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
 		MappingGlassThing thing = Assemblies.createMapping(getBNAWorld(), null, null);

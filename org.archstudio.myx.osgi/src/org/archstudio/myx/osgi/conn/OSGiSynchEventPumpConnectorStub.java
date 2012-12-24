@@ -1,13 +1,5 @@
 package org.archstudio.myx.osgi.conn;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.concurrent.*;
-import org.archstudio.myx.fw.*;
-import org.archstudio.myx.fw.IMyxDynamicBrick;
-import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.myx.fw.IMyxBrickItems;
-import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;
 
@@ -29,7 +21,7 @@ import org.archstudio.myx.fw.MyxRegistry;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -38,7 +30,7 @@ import org.archstudio.myx.fw.MyxRegistry;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -47,7 +39,7 @@ import org.archstudio.myx.fw.MyxRegistry;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -58,7 +50,7 @@ import org.archstudio.myx.fw.MyxRegistry;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -69,14 +61,14 @@ import org.archstudio.myx.fw.MyxRegistry;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public Object getServiceObject(IMyxName interfaceName) {
 		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}

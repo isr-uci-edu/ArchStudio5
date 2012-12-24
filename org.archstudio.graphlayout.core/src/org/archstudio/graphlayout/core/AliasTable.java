@@ -43,6 +43,6 @@ public class AliasTable {
 	}
 
 	protected String generateAlias() {
-		return "elt" + (counter++);
+		return "elt" + counter++;
 	}
 }

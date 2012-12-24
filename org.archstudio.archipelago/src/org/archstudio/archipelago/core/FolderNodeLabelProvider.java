@@ -7,7 +7,7 @@ import org.eclipse.ui.ISharedImages;
 public class FolderNodeLabelProvider implements IArchipelagoLabelProvider {
 
 	protected final IResources resources;
-	
+
 	public FolderNodeLabelProvider(IResources resources) {
 		this.resources = resources;
 	}

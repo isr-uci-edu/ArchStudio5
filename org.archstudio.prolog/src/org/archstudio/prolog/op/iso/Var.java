@@ -20,7 +20,6 @@ public class Var extends ComplexTerm implements Operation {
 		checkArgument(terms.size() == 1);
 	}
 
-	@Override
 	public Map<VariableTerm, Term> execute(ProofEngine proofEngine, ProofContext proofContext,
 			UnificationEngine unificationEngine, Map<VariableTerm, Term> variables) {
 		return getTerm(0) instanceof VariableTerm ? variables : null;

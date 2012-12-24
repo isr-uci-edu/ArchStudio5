@@ -24,7 +24,6 @@ public class ProxyLogic extends AbstractThingLogic {
 	private final LoadingCache<Class<?>, Object> proxiesCache = CacheBuilder.newBuilder().build(
 			new CacheLoader<Class<?>, Object>() {
 
-				@Override
 				public Object load(final Class<?> input) throws Exception {
 					return Proxy.newProxyInstance(input.getClassLoader(), new Class[] { input },
 							new InvocationHandler() {
@@ -32,7 +31,6 @@ public class ProxyLogic extends AbstractThingLogic {
 								IBNAWorld world = checkNotNull(ProxyLogic.this.getBNAWorld());
 								IThingLogicManager logicManager = checkNotNull(world.getThingLogicManager());
 
-								@Override
 								public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 									for (Object o : logicManager.getThingLogics(input)) {
 										method.invoke(o, args);

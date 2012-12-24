@@ -1,16 +1,5 @@
 package org.archstudio.editormanager.core;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.concurrent.*;
-import org.archstudio.myx.fw.*;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.archstudio.myx.fw.IMyxDynamicBrick;
-import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.editormanager.IEditorManager;
-import org.archstudio.eclipse.ui.IFocusEditorListener;
-import org.archstudio.myx.fw.IMyxBrickItems;
-import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -109,7 +98,7 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 	protected final org.archstudio.eclipse.ui.IFocusEditorListener focusEditorEventsProxy = (org.archstudio.eclipse.ui.IFocusEditorListener) Proxy
 			.newProxyInstance(org.archstudio.eclipse.ui.IFocusEditorListener.class.getClassLoader(),
 					new Class[] { org.archstudio.eclipse.ui.IFocusEditorListener.class }, new InvocationHandler() {
-						@Override
+
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							org.archstudio.eclipse.ui.IFocusEditorListener o = focusEditorEvents;
 							if (o != null) {
@@ -166,7 +155,7 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -191,7 +180,7 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -210,14 +199,14 @@ abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.fw.Abstr
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_EDITOR_MANAGER)) {
 			if (editorManager == null) {

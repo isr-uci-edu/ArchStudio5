@@ -13,13 +13,11 @@ public class MyxGenBrickLoader implements IMyxBrickLoader {
 	public MyxGenBrickLoader() {
 	}
 
-	@Override
 	public IMyxBrickFactory load(IMyxBrickDescription brickDescription) throws MyxBrickNotFoundException,
 			MyxBrickLoadFailedException, MyxUnsupportedBrickDescriptionException {
 		return brickDescription instanceof MyxGenBrickDescription ? new MyxGenBrickFactory() : null;
 	}
 
-	@Override
 	public void setRuntime(IMyxRuntime runtime) {
 	}
 }

@@ -92,7 +92,7 @@ public class LJMURL implements java.io.Serializable {
 		}
 		LJMURL otherURL = (LJMURL) o;
 		return otherURL.getProtocol().equals(getProtocol()) && otherURL.getHost().equals(getHost())
-				&& (otherURL.getPort() == getPort()) && otherURL.getObject().equals(getObject());
+				&& otherURL.getPort() == getPort() && otherURL.getObject().equals(getObject());
 	}
 
 	public int hashCode() {

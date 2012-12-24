@@ -40,12 +40,10 @@ public class AIMInstantiationOrderCalculator {
 			this.brickRef = brickRef;
 		}
 
-		@Override
 		public Iterable<ObjRef> getBrickRefs() {
 			return brickRef == null ? Collections.<ObjRef> emptyList() : Collections.singletonList(brickRef);
 		}
 
-		@Override
 		public Iterable<ObjRef> getLinkRefs() {
 			return Iterables.concat(topLinksOut, topLinksIn, topLinksOther, otherLinks);
 		}

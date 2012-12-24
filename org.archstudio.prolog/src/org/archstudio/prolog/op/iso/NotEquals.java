@@ -21,7 +21,6 @@ public class NotEquals extends ComplexTerm implements Operation {
 		checkArgument(terms.size() == 2);
 	}
 
-	@Override
 	public Map<VariableTerm, Term> execute(ProofEngine proofEngine, ProofContext proofContext,
 			UnificationEngine unificationEngine, Map<VariableTerm, Term> variables) {
 		return unificationEngine.unify(new UnificationContext(getTerm(0), getTerm(1), variables)) ? null : variables;

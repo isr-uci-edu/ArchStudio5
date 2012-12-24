@@ -41,13 +41,11 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 		this.xarch = xarch;
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		tvtl = addThingLogic(ThingValueTrackingLogic.class);
 	}
 
-	@Override
 	public void handleXArchADTVariabilityEvent(final XArchADTVariabilityEvent evt) {
 		if (evt.getType() == Type.STATUS) {
 			final IBNAModel model = getBNAModel();
@@ -64,7 +62,6 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 		}
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {

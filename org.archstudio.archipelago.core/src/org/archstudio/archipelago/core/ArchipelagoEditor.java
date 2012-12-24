@@ -41,7 +41,8 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 	}
 
 	protected AbstractArchStudioOutlinePage createOutlinePage() {
-		return new ArchipelagoOutlinePage(this, xarch, getDocumentRootRef(), resources, fileman, editorManager, graphLayout);
+		return new ArchipelagoOutlinePage(this, xarch, getDocumentRootRef(), resources, fileman, editorManager,
+				graphLayout);
 	}
 
 	/*
@@ -90,7 +91,6 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Override
 	public Object getAdapter(Class key) {
 		if (key.equals(IGotoMarker.class)) {
 			return this;

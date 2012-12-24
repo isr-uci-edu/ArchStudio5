@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IFileEditorInput;
@@ -123,7 +124,7 @@ public class EclipseUtils {
 		final IFile targetFile = workspace.getRoot().getFile(targetPath);
 
 		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
-			@Override
+
 			protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException,
 					InterruptedException {
 				IPath targetContainerPath = targetPath.removeLastSegments(1);
@@ -169,7 +170,7 @@ public class EclipseUtils {
 		ResourceSelectionDialog dialog = new ResourceSelectionDialog(shell, workspace.getRoot(),
 				"Select a file to open");
 		int result = dialog.open();
-		if (result == ResourceSelectionDialog.OK) {
+		if (result == Window.OK) {
 			Object[] selection = dialog.getResult();
 			IFile[] files = new IFile[selection.length];
 			System.arraycopy(selection, 0, files, 0, selection.length);
@@ -183,7 +184,7 @@ public class EclipseUtils {
 		WSFileDialog dialog = new WSFileDialog(shell, selectionMode, title, workspace.getRoot(), true, extensions, null);
 
 		int result = dialog.open();
-		if (result == WSFileDialog.OK) {
+		if (result == Window.OK) {
 			if (selectionMode == SWT.SINGLE) {
 				IResource resource = dialog.getSingleResult();
 				return new IResource[] { workspace.getRoot().getFile(resource.getFullPath()) };

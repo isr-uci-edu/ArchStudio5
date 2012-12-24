@@ -27,13 +27,11 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 	public ModelBoundsTrackingLogic() {
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		typeLogic = addThingLogic(ThingTypeTrackingLogic.class);
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
@@ -148,8 +146,9 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 						}
 					}
 				}
-				if (foundSomething)
+				if (foundSomething) {
 					modelBounds = new Rectangle(x1, y1, x2 - x1, y2 - y1);
+				}
 			}
 		}
 	}

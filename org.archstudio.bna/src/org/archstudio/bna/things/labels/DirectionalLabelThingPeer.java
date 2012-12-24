@@ -1,5 +1,6 @@
 package org.archstudio.bna.things.labels;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -20,7 +21,6 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 
@@ -46,7 +46,7 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 				}
 				int[] trianglePoints = BNAUtils.createIsocolesTriangle(lbb, o);
 
-				gl.glBegin(GL2.GL_TRIANGLES);
+				gl.glBegin(GL.GL_TRIANGLES);
 				for (int i = 0; i < trianglePoints.length; i += 2) {
 					gl.glVertex2f(trianglePoints[i] + 0.5f, trianglePoints[i + 1] + 0.5f);
 				}
@@ -72,13 +72,13 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 				case NORTH:
 				case SOUTH:
 
-					gl.glBegin(GL2.GL_TRIANGLES);
+					gl.glBegin(GL.GL_TRIANGLES);
 					gl.glVertex2f(x1, ym);
 					gl.glVertex2f(xm, y1);
 					gl.glVertex2f(x2, ym);
 					gl.glEnd();
 
-					gl.glBegin(GL2.GL_TRIANGLES);
+					gl.glBegin(GL.GL_TRIANGLES);
 					gl.glVertex2f(x1, ymg);
 					gl.glVertex2f(xm, y2);
 					gl.glVertex2f(x2, ymg);
@@ -89,13 +89,13 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 				case EAST:
 				case WEST:
 
-					gl.glBegin(GL2.GL_TRIANGLES);
+					gl.glBegin(GL.GL_TRIANGLES);
 					gl.glVertex2f(xm, y1);
 					gl.glVertex2f(x1, ym);
 					gl.glVertex2f(xm, y2);
 					gl.glEnd();
 
-					gl.glBegin(GL2.GL_TRIANGLES);
+					gl.glBegin(GL.GL_TRIANGLES);
 					gl.glVertex2f(xmg, y1);
 					gl.glVertex2f(x2, ym);
 					gl.glVertex2f(xmg, y2);
@@ -106,13 +106,13 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 				case NORTHEAST:
 				case SOUTHWEST:
 
-					gl.glBegin(GL2.GL_TRIANGLES);
+					gl.glBegin(GL.GL_TRIANGLES);
 					gl.glVertex2f(xq + 1, yq);
 					gl.glVertex2f(x2, y1);
 					gl.glVertex2f(xqg, yqg - 1);
 					gl.glEnd();
 
-					gl.glBegin(GL2.GL_TRIANGLES);
+					gl.glBegin(GL.GL_TRIANGLES);
 					gl.glVertex2f(xq, yq);
 					gl.glVertex2f(x1, y2);
 					gl.glVertex2f(xqg, yqg);
@@ -123,13 +123,13 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 				case NORTHWEST:
 				case SOUTHEAST:
 
-					gl.glBegin(GL2.GL_TRIANGLES);
+					gl.glBegin(GL.GL_TRIANGLES);
 					gl.glVertex2f(xq, yqg - 1);
 					gl.glVertex2f(x1, y1);
 					gl.glVertex2f(xqg - 1, yq);
 					gl.glEnd();
 
-					gl.glBegin(GL2.GL_TRIANGLES);
+					gl.glBegin(GL.GL_TRIANGLES);
 					gl.glVertex2f(xq, yqg);
 					gl.glVertex2f(x2, y2);
 					gl.glVertex2f(xqg, yq);

@@ -21,6 +21,7 @@
 
    <requires>
       <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.archstudio.jogl" version="2.0.0.qualifier" match="greaterOrEqual"/>
    </requires>
 
    <plugin

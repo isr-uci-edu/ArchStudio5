@@ -2,6 +2,7 @@ package org.archstudio.bna.things.glass;
 
 import java.util.List;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -21,7 +22,6 @@ public class SplineGlassThingPeer<T extends SplineGlassThing> extends AbstractSp
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			List<Point> localPoints = BNAUtils.worldToLocal(cm, t.getPoints());
@@ -29,7 +29,7 @@ public class SplineGlassThingPeer<T extends SplineGlassThing> extends AbstractSp
 			gl.glLineWidth(1f);
 
 			gl.glColor3f(1f, 1f, 1f);
-			gl.glBegin(GL2.GL_LINE_STRIP);
+			gl.glBegin(GL.GL_LINE_STRIP);
 			for (Point p : localPoints) {
 				gl.glVertex2f(p.x + 0.5f, p.y + 0.5f);
 			}
@@ -37,7 +37,7 @@ public class SplineGlassThingPeer<T extends SplineGlassThing> extends AbstractSp
 
 			gl.glColor3f(0f, 0f, 0f);
 			gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
-			gl.glBegin(GL2.GL_LINE_STRIP);
+			gl.glBegin(GL.GL_LINE_STRIP);
 			for (Point p : localPoints) {
 				gl.glVertex2f(p.x + 0.5f, p.y + 0.5f);
 			}

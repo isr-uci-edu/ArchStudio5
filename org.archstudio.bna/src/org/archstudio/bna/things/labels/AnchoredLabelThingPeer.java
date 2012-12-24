@@ -9,6 +9,7 @@ import java.awt.geom.Rectangle2D;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
+import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -47,7 +48,6 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 		return (int) nfs;
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		lastTextLocalShape = null;
 		if (r.setColor(t, IHasColor.COLOR_KEY)) {
@@ -117,7 +117,7 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 
 			gl.glPushMatrix();
 			tr.beginRendering(canvasSize.x, canvasSize.y);
-			gl.glMatrixMode(GL2.GL_MODELVIEW);
+			gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
 			gl.glTranslated(textX, canvasSize.y - textY, 0);
 			gl.glRotated(-angle, 0, 0, 1);
 			r.setColor(t, IHasColor.COLOR_KEY, tr);
@@ -172,7 +172,6 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 		//		tr.endRendering();
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		if (lastTextLocalShape != null) {
 			Point lPoint = location.getLocalPoint();

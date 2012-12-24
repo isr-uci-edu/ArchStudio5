@@ -1,5 +1,6 @@
 package org.archstudio.bna.things.utility;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.BNAModelEvent;
@@ -50,7 +51,6 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		super(thing);
 	}
 
-	@Override
 	public IBNAView getInnerView() {
 		return innerView;
 	}
@@ -58,7 +58,6 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 	private Rectangle lastModelBounds = new Rectangle(0, 0, 0, 0);
 	private Rectangle lastLocalBounds = new Rectangle(0, 0, 0, 0);
 
-	@Override
 	public void coordinateMappingsChanged(CoordinateMapperEvent evt) {
 		Integer ticker = t.get(COORDINATE_MAPPER_CHANGE_TICKER);
 		if (ticker == null) {
@@ -67,7 +66,6 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		t.set(COORDINATE_MAPPER_CHANGE_TICKER, ticker + 1);
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		if (evt.getEventType() == EventType.THING_REMOVING) {
 			if (innerView != null) {
@@ -76,7 +74,6 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		}
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		IBNAWorld innerWorld = t.getWorld();
 		if (innerWorld == null) {
@@ -100,8 +97,9 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		}
 		IBNAModel model = innerWorld.getBNAModel();
 		try {
-			if (!modelsBeingRendered.put(model, lbb) || modelsBeingRendered.size() > 50)
+			if (!modelsBeingRendered.put(model, lbb) || modelsBeingRendered.size() > 50) {
 				return;
+			}
 
 			ModelBoundsTrackingLogic mbtl = innerWorld.getThingLogicManager().addThingLogic(
 					ModelBoundsTrackingLogic.class);
@@ -130,7 +128,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 
 			for (IThing thing : model.getAllThings()) {
 				//gl.glPushMatrix();
-				gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT | GL2.GL_COLOR_BUFFER_BIT);
+				gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT | GL.GL_COLOR_BUFFER_BIT);
 				try {
 					IThingPeer<?> peer = innerView.getThingPeer(thing);
 					peer.draw(innerView, innerView.getCoordinateMapper(), gl, clip, r);
@@ -149,7 +147,6 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		}
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate coordinate) {
 		if (t.getWorld() != null && innerView != null) {
 			return super.isInThing(view, cm, coordinate);

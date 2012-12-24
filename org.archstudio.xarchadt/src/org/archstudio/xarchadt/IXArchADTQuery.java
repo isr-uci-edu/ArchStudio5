@@ -290,7 +290,7 @@ public interface IXArchADTQuery {
 	public byte[] serialize(URI uri);
 
 	public String getXPath(ObjRef toObjRef);
-	
+
 	public List<ObjRef> resolveObjRefs(ObjRef contextObjRef, String xPath) throws XPathException;
 
 	public List<Serializable> resolveSerializables(ObjRef contextObjRef, String xPath) throws XPathException;

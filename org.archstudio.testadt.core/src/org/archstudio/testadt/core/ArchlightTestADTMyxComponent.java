@@ -8,7 +8,6 @@ package org.archstudio.testadt.core;
  */
 public class ArchlightTestADTMyxComponent extends org.archstudio.testadt.core.ArchlightTestADTMyxComponentStub {
 
-	@Override
 	public void init() {
 		tests = new ArchlightTestADT();
 		((ArchlightTestADT) tests).addArchlightTestADTListener(testEventsProxy);

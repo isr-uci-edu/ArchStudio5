@@ -115,12 +115,10 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 			FolderNode folderNode = null;
 
-			@Override
 			public boolean hasChildren(Object element, boolean hasChildrenFromPreviousProvider) {
 				return hasChildrenFromPreviousProvider || !getChildren(element, Lists.newArrayList()).isEmpty();
 			}
 
-			@Override
 			public Object getParent(Object element, Object parentFromPreviousProvider) {
 				if (element instanceof FolderNode) {
 					return ((FolderNode) element).getParent();
@@ -132,13 +130,13 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				return parentFromPreviousProvider;
 			}
 
-			@Override
 			public List<? extends Object> getChildren(Object parentElement,
 					List<? extends Object> childrenFromPreviousProvider) {
 				if (parentElement instanceof ObjRef
 						&& xarch.getTagsOnlyPathString((ObjRef) parentElement).equals("xADL")) {
-					if (folderNode == null)
+					if (folderNode == null) {
 						folderNode = new FolderNode(parentElement, FOLDER_NODE_TYPE, LABEL_NAME);
+					}
 					return ArchipelagoUtils.combine(childrenFromPreviousProvider, folderNode);
 				}
 				if (parentElement instanceof FolderNode
@@ -151,18 +149,15 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				return childrenFromPreviousProvider;
 			}
 
-			@Override
 			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			}
 
-			@Override
 			public void dispose() {
 			}
 		};
 
 		this.labelProvider = new IArchipelagoLabelProvider() {
 
-			@Override
 			public String getText(Object element, String textFromPreviousProvider) {
 				if (element instanceof ObjRef) {
 					ObjRef ref = (ObjRef) element;
@@ -177,7 +172,6 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				return textFromPreviousProvider;
 			}
 
-			@Override
 			public Image getImage(Object element, Image imageFromPreviousProvider) {
 				return imageFromPreviousProvider;
 			}
@@ -187,9 +181,9 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		this.contextMenuFillers = new IArchipelagoTreeContextMenuFiller[] {
 				// add new element
 				new IArchipelagoTreeContextMenuFiller() {
-					@Override
+
 					public void fillContextMenu(IMenuManager m, Object[] selectedNodes) {
-						if ((selectedNodes != null) && (selectedNodes.length == 1)) {
+						if (selectedNodes != null && selectedNodes.length == 1) {
 							Object selectedNode = selectedNodes[0];
 							if (selectedNode instanceof FolderNode) {
 								final FolderNode fn = (FolderNode) selectedNode;
@@ -215,9 +209,9 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				},
 				// remove existing element
 				new IArchipelagoTreeContextMenuFiller() {
-					@Override
+
 					public void fillContextMenu(IMenuManager m, Object[] selectedNodes) {
-						if ((selectedNodes != null) && (selectedNodes.length == 1)) {
+						if (selectedNodes != null && selectedNodes.length == 1) {
 							Object selectedNode = selectedNodes[0];
 							if (selectedNode instanceof ObjRef) {
 								final ObjRef targetRef = (ObjRef) selectedNode;
@@ -237,9 +231,9 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				},
 				// rename existing element
 				new IArchipelagoTreeContextMenuFiller() {
-					@Override
+
 					public void fillContextMenu(IMenuManager m, Object[] selectedNodes) {
-						if ((selectedNodes != null) && (selectedNodes.length == 1)) {
+						if (selectedNodes != null && selectedNodes.length == 1) {
 							Object selectedNode = selectedNodes[0];
 							if (selectedNode instanceof ObjRef) {
 								final ObjRef targetRef = (ObjRef) selectedNode;
@@ -260,7 +254,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		this.cellModifiers = new ICellModifier[] { new ICellModifier() {
 
 			public boolean canModify(Object element, String property) {
-				if ((element != null) && (element instanceof ObjRef)) {
+				if (element != null && element instanceof ObjRef) {
 					ObjRef targetRef = (ObjRef) element;
 					if (XadlUtils.isInstanceOf(xarch, targetRef, ELEMENT_TYPE)) {
 						return true;
@@ -291,7 +285,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		} };
 
 		this.doubleClickHandler = new IArchipelagoTreeDoubleClickHandler() {
-			@Override
+
 			public void treeNodeDoubleClicked(Object treeNode) {
 				if (treeNode instanceof ObjRef) {
 					if (xarch.isInstanceOf((ObjRef) treeNode, ELEMENT_TYPE.getEPackage().getNsURI(),
@@ -303,7 +297,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		};
 
 		this.dragSourceListener = new DragSourceAdapter() {
-			@Override
+
 			public void dragStart(DragSourceEvent event) {
 				if (event.data != null && event.data instanceof ObjRef) {
 					if (XadlUtils.isInstanceOf(xarch, (ObjRef) event.data, DND_SOURCE)) {
@@ -371,7 +365,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		final ICoordinateMapper cm = bnaCanvas.getBNAView().getCoordinateMapper();
 		BNAUtils.restoreCoordinateMapperData((IMutableCoordinateMapper) cm, ept);
 		bnaCanvas.addDisposeListener(new DisposeListener() {
-			@Override
+
 			public void widgetDisposed(DisposeEvent e) {
 				BNAUtils.saveCoordinateMapperData(cm, ept);
 			}
@@ -380,7 +374,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		// coordinate preferences
 		final IPreferenceStore prefs = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore();
 		final IPropertyChangeListener pcl = new IPropertyChangeListener() {
-			@Override
+
 			public void propertyChange(PropertyChangeEvent event) {
 				BNARenderingSettings.setAntialiasGraphics(bnaCanvas,
 						prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_GRAPHICS));
@@ -388,7 +382,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 						prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_TEXT));
 				BNARenderingSettings.setDecorativeGraphics(bnaCanvas,
 						prefs.getBoolean(ArchipelagoConstants.PREF_DECORATIVE_GRAPHICS));
-				GridThing gridThing = ((GridThing) fbnaWorld.getBNAModel().getThing(GridThing.class));
+				GridThing gridThing = (GridThing) fbnaWorld.getBNAModel().getThing(GridThing.class);
 				if (gridThing != null) {
 					gridThing.setGridSpacing(prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING));
 					gridThing.setGridDisplayType(GridDisplayType.valueOf(prefs
@@ -399,7 +393,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		};
 		prefs.addPropertyChangeListener(pcl);
 		bnaCanvas.addDisposeListener(new DisposeListener() {
-			@Override
+
 			public void widgetDisposed(DisposeEvent e) {
 				prefs.removePropertyChangeListener(pcl);
 			}
@@ -420,8 +414,9 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		if (services.has(IArchipelagoTreeNodeDataCache.class)) {
 			IBNAWorld bnaWorld = (IBNAWorld) services.get(IArchipelagoTreeNodeDataCache.class).getData(documentRootRef,
 					structureRef, "statecharts");
-			if (bnaWorld != null)
+			if (bnaWorld != null) {
 				return bnaWorld;
+			}
 		}
 
 		IBNAModel bnaModel = new DefaultBNAModel();

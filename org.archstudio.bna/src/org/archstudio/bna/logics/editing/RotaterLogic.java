@@ -39,20 +39,17 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 	protected IThing originalThing = null;
 	protected Integer originalValue = null;
 
-	@Override
 	protected void init() {
 		super.init();
 		mirrorLogic = addThingLogic(MirrorValueLogic.class);
 	}
 
-	@Override
 	public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		final AnchoredLabelThing tt = firstOrNull(things, AnchoredLabelThing.class);
 		if (tt != null && UserEditableUtils.isEditableForAllQualities(tt, IHasMutableAngle.USER_MAY_CHANGE_ANGLE)) {
 			originalThing = tt;
 			IAction rotateAction = new Action("Rotate") {
 
-				@Override
 				public void run() {
 					rt = view.getBNAWorld().getBNAModel().addThing(new RotaterThing(null), tt);
 					rt.setAngle(tt.getAngle());
@@ -65,7 +62,6 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 		}
 	}
 
-	@Override
 	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (evt.button == 1) {
 			if (rt != null) {
@@ -83,7 +79,6 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 		}
 	}
 
-	@Override
 	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (pressed) {
 			originalThing.set(IHasAngle.ANGLE_KEY, originalValue);
@@ -92,7 +87,6 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 		pressed = false;
 	}
 
-	@Override
 	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (pressed) {
 			Point anchorPointWorld = rt.getAnchorPoint();

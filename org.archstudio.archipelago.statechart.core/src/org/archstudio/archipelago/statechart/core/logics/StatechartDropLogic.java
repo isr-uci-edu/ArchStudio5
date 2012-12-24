@@ -1,6 +1,6 @@
 package org.archstudio.archipelago.statechart.core.logics;
 
- import java.util.List;
+import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.util.AbstractTreeDropLogic;
@@ -22,13 +22,12 @@ import org.eclipse.swt.graphics.Point;
 public class StatechartDropLogic extends AbstractTreeDropLogic {
 
 	protected final IXArchADT xarch;
-	
+
 	public StatechartDropLogic(Services services, ObjRef documentRootRef) {
 		super(services, documentRootRef);
 		this.xarch = services.get(IXArchADT.class);
 	}
 
-	@Override
 	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location,
 			Object data) {
 		IThing t = getSingleThing(ts);
@@ -54,7 +53,6 @@ public class StatechartDropLogic extends AbstractTreeDropLogic {
 		return false;
 	}
 
-	@Override
 	public void drop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (pulser != null) {
 			view.getBNAWorld().getBNAModel().removeThing(pulser);
@@ -96,8 +94,8 @@ public class StatechartDropLogic extends AbstractTreeDropLogic {
 					xarch.set(subStatechartRef, "innerStatechart", statechartRef);
 
 					Point worldPoint = location.getWorldPoint();
-					ArchipelagoUtils.showUserNotification(view.getBNAWorld(), "Substatechart Assigned",
-							worldPoint.x, worldPoint.y);
+					ArchipelagoUtils.showUserNotification(view.getBNAWorld(), "Substatechart Assigned", worldPoint.x,
+							worldPoint.y);
 				}
 			}
 		}

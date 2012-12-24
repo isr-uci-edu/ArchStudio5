@@ -19,5 +19,5 @@ Require-Bundle: org.eclipse.ui,
  org.archstudio.xarchadt.core,
  org.archstudio.myxgen.core,
  org.archstudio.myx.myxgen
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy

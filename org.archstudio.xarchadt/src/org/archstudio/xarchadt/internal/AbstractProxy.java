@@ -19,17 +19,16 @@ public class AbstractProxy {
 
 		public NameContext(String name) {
 			String suffix;
-			if (name.endsWith(suffix = "_"))
+			if (name.endsWith(suffix = "_")) {
 				name = name.substring(0, name.length() - suffix.length());
+			}
 			this.name = name;
 		}
 
-		@Override
 		public String toString() {
 			return "NamedContext[name=" + name + "]";
 		}
 
-		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
@@ -37,7 +36,6 @@ public class AbstractProxy {
 			return result;
 		}
 
-		@Override
 		public boolean equals(Object obj) {
 			if (this == obj) {
 				return true;
@@ -81,7 +79,6 @@ public class AbstractProxy {
 		public DefaultHandler() {
 		}
 
-		@Override
 		public Object invoke(InvocationHandler proxy, Method method, Object[] args) throws Throwable {
 			/*
 			 * This is a last resort handler to call the basic Object methods on
@@ -99,11 +96,11 @@ public class AbstractProxy {
 
 	private static final LoadingCache<Class<? extends Handler<?, ?>>, LoadingCache<Object, Handler<?, ?>>> handlerCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<Class<? extends Handler<?, ?>>, LoadingCache<Object, Handler<?, ?>>>() {
-				@Override
+
 				public LoadingCache<Object, Handler<?, ?>> load(final Class<? extends Handler<?, ?>> handlerClass)
 						throws Exception {
 					return CacheBuilder.newBuilder().build(new CacheLoader<Object, Handler<?, ?>>() {
-						@Override
+
 						public AbstractProxy.Handler<?, ?> load(Object context) throws Exception {
 							if (context == VOID_CONTEXT) {
 								return handlerClass.getConstructor().newInstance();

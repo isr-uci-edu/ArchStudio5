@@ -20,7 +20,6 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Point lap = cm.worldToLocal(t.getAnchorPoint());
 		int Radius = t.getRadius();
@@ -96,7 +95,6 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 		gl.glPopMatrix();
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		Point lap = cm.worldToLocal(t.getAnchorPoint());
 		int radius = t.getRadius();

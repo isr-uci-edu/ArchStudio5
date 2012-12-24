@@ -18,7 +18,7 @@ public abstract class DropdownSelectionListener extends SelectionAdapter {
 		MenuManager menuMgr = new MenuManager("#DropdownMenu");
 		menuMgr.setRemoveAllWhenShown(true);
 		menuMgr.addMenuListener(new IMenuListener() {
-			@Override
+
 			public void menuAboutToShow(IMenuManager m) {
 				fillDropdownMenu(m);
 			}
@@ -37,7 +37,7 @@ public abstract class DropdownSelectionListener extends SelectionAdapter {
 	 * @param event
 	 *            the event that trigged this call
 	 */
-	@Override
+
 	public void widgetSelected(SelectionEvent event) {
 		// If they clicked the arrow, we show the list
 		if (event.detail == SWT.ARROW) {

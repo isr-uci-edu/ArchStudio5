@@ -67,8 +67,8 @@ public class SerializableTransfer extends ByteArrayTransfer {
 
 				//writeOut.write(serializables.length);
 				//writeOut.flush();
-				for (int i = 0; i < serializables.length; i++) {
-					writeOut.writeObject(serializables[i]);
+				for (Serializable serializable : serializables) {
+					writeOut.writeObject(serializable);
 				}
 				writeOut.flush();
 				byte[] buffer = out.toByteArray();
@@ -84,8 +84,9 @@ public class SerializableTransfer extends ByteArrayTransfer {
 	public Object nativeToJava(TransferData transferData) {
 		if (isSupportedType(transferData)) {
 			byte[] buffer = (byte[]) super.nativeToJava(transferData);
-			if (buffer == null)
+			if (buffer == null) {
 				return null;
+			}
 
 			List<Serializable> serializableList = new ArrayList<Serializable>();
 			Serializable[] serializables = new Serializable[0];
@@ -95,8 +96,9 @@ public class SerializableTransfer extends ByteArrayTransfer {
 
 				while (true) {
 					Serializable s = (Serializable) readIn.readObject();
-					if (s == null)
+					if (s == null) {
 						break;
+					}
 					serializableList.add(s);
 				}
 				readIn.close();

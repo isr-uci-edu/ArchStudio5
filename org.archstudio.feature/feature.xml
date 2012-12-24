@@ -50,7 +50,6 @@
       <import plugin="org.eclipse.emf.codegen.ecore"/>
       <import plugin="org.eclipse.core.commands"/>
       <import plugin="org.eclipse.equinox.registry"/>
-      <import plugin="org.junit"/>
    </requires>
 
    <plugin

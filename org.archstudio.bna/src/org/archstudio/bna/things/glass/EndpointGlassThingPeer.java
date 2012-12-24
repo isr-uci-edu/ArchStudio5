@@ -16,7 +16,6 @@ public class EndpointGlassThingPeer<T extends EndpointGlassThing> extends Abstra
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		// TODO Auto-generated method stub
 	}

@@ -35,7 +35,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	protected final LoadingCache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().build(
 			new CacheLoader<Object, AtomicLong>() {
-				@Override
+
 				public AtomicLong load(@Nullable Object input) {
 					return new AtomicLong();
 				}
@@ -45,7 +45,6 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 		private final Map<Object, IThing> indexMap = new MapMaker().weakValues().makeMap();
 
-		@Override
 		public void bnaModelChanged(BNAModelEvent evt) {
 			switch (evt.getEventType()) {
 			case THING_ADDED:
@@ -61,8 +60,9 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		}
 
 		public IThing getThing(Object id) {
-			if (Display.getCurrent() == null)
+			if (Display.getCurrent() == null) {
 				SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+			}
 
 			if (id != null) {
 				return indexMap.get(id);
@@ -84,7 +84,6 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		synchListeners.add(thingIndex);
 	}
 
-	@Override
 	public void dispose() {
 		if (DEBUG) {
 			for (Entry<Object, AtomicLong> e : SystemUtils.sortedByValue(debugStats.asMap().entrySet())) {
@@ -93,12 +92,10 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		}
 	}
 
-	@Override
 	public void addBNAModelListener(IBNAModelListener l) {
 		synchListeners.add(l);
 	}
 
-	@Override
 	public void removeBNAModelListener(IBNAModelListener l) {
 		synchListeners.remove(l);
 	}
@@ -130,32 +127,30 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		fireBnaModelChanged(evt);
 	}
 
-	@Override
 	public void fireStreamNotificationEvent(String streamNotificationEvent) {
 		fireBnaModelEvent(BNAModelEvent.create(this, EventType.STREAM_NOTIFICATION_EVENT, bulkChangeCount.get() > 0,
 				streamNotificationEvent));
 	}
 
-	@Override
 	public void thingChanged(ThingEvent thingEvent) {
 		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_CHANGED, bulkChangeCount.get() > 0,
 				thingEvent.getTargetThing(), thingEvent));
 	}
 
-	@Override
 	public void beginBulkChange() {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		if (bulkChangeCount.getAndIncrement() == 0) {
 			firedBulkChangeEvent = false;
 		}
 	}
 
-	@Override
 	public void endBulkChange() {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		if (bulkChangeCount.decrementAndGet() <= 0) {
 			if (bulkChangeCount.get() < 0) {
@@ -168,10 +163,10 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		}
 	}
 
-	@Override
 	public <T extends IThing> T addThing(final T t) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		t.addThingListener(this);
 		thingTree.add(t);
@@ -180,10 +175,10 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		return t;
 	}
 
-	@Override
 	public <T extends IThing> T addThing(final T t, final @Nullable IThing parentThing) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		t.addThingListener(this);
 		thingTree.add(t, parentThing);
@@ -193,16 +188,17 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	}
 
 	public void removeThing(Object id) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		removeThing(getThing(id));
 	}
 
-	@Override
 	public void removeThing(final IThing t) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_REMOVING, bulkChangeCount.get() > 0, t));
 		try {
@@ -215,10 +211,10 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		}
 	}
 
-	@Override
 	public void removeThingAndChildren(IThing t) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		for (IThing thing : getChildThings(t)) {
 			removeThingAndChildren(thing);
@@ -226,31 +222,31 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		removeThing(t);
 	}
 
-	@Override
 	public IThing getThing(Object id) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		return thingIndex.getThing(id);
 	}
 
-	@Override
 	public List<IThing> getThingsByID(Iterable<Object> thingIDs) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		return Lists.newArrayList(Iterables.transform(thingIDs, new Function<Object, IThing>() {
-			@Override
+
 			public IThing apply(Object input) {
 				return getThing(input);
 			}
 		}));
 	}
 
-	@Override
 	public List<IThing> getAllThings() {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		if (thingTreeListAtModCount != thingTreeModCount) {
 			thingTreeList = thingTree.getAllThings();
@@ -259,10 +255,10 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		return thingTreeList;
 	}
 
-	@Override
 	public List<IThing> getReverseThings() {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		if (thingTreeListAtModCount != thingTreeModCount) {
 			thingTreeList = thingTree.getAllThings();
@@ -271,50 +267,50 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		return Lists.reverse(thingTreeList);
 	}
 
-	@Override
 	public int getNumThings() {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		return thingTree.size();
 	}
 
-	@Override
 	public IThing getParentThing(IThing thing) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		return thingTree.getParent(thing);
 	}
 
-	@Override
 	public Collection<IThing> getChildThings(IThing thing) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		return thingTree.getChildThings(thing);
 	}
 
-	@Override
 	public List<IThing> getAncestorThings(IThing thing) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		return thingTree.getAncestorThings(thing);
 	}
 
-	@Override
 	public List<IThing> getDescendantThings(IThing thing) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		return thingTree.getAllDescendantThings(thing);
 	}
 
-	@Override
 	public void bringToFront(Set<? extends IThing> things) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		List<IThing> movedThings = Lists.newArrayListWithExpectedSize(things.size());
 		for (IThing thing : getAllThings()) {
@@ -329,10 +325,10 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		}
 	}
 
-	@Override
 	public void sendToBack(Set<? extends IThing> things) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		List<IThing> movedThings = Lists.newArrayListWithExpectedSize(things.size());
 		for (IThing thing : getAllThings()) {
@@ -347,10 +343,10 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		}
 	}
 
-	@Override
 	public void reparent(IThing newParentThing, IThing thing) {
-		if (Display.getCurrent() == null)
+		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
 
 		List<IThing> movedThings = Lists.newArrayList(thing);
 		thingTree.reparent(newParentThing, thing);

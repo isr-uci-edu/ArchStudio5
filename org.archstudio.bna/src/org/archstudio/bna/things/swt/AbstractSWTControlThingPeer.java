@@ -24,7 +24,6 @@ public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C 
 		super(thing);
 		t.addThingListener(new IThingListener() {
 
-			@Override
 			public void thingChanged(ThingEvent thingEvent) {
 				if (!AbstractSWTControlThingPeer.this.t.isEditing() && control != null) {
 					disposeControl(control);
@@ -40,21 +39,19 @@ public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C 
 
 	protected void disposeControl(final C control) {
 		SWTWidgetUtils.async(control, new Runnable() {
-			@Override
+
 			public void run() {
 				control.dispose();
 			}
 		});
 	}
 
-	@Override
 	public void dispose() {
 		super.dispose();
 		disposeControl(control);
 		control = null;
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Composite composite = r.getComposite();
 		if (composite == null) {
@@ -79,7 +76,6 @@ public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C 
 		}
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}

@@ -103,7 +103,7 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 				ObjRef xADLRef = (ObjRef) xarch.get(documentRootRef, "xADL");
 				return new Object[] { xADLRef };
 			}
-			else if ((parentElement instanceof ObjRef) || (parentElement instanceof FolderNode)) {
+			else if (parentElement instanceof ObjRef || parentElement instanceof FolderNode) {
 				//Figure out where we are
 				String[] currentLocation = null;
 				if (parentElement instanceof ObjRef) {
@@ -121,8 +121,9 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 				List<? extends ArchlightTest> ts = tests;
 				for (ArchlightTest test : ts) {
 					String[] testLocation = ArchlightTest.getCategoryPathComponents(test.getCategory());
-					if (testLocation.length <= currentLocation.length)
+					if (testLocation.length <= currentLocation.length) {
 						continue;
+					}
 					boolean matches = true;
 					for (int j = 0; j < currentLocation.length; j++) {
 						if (!currentLocation[j].equals(testLocation[j])) {
@@ -132,7 +133,7 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 					}
 					if (matches) {
 						//Okay, this is at least a descendant of our current location
-						if (testLocation.length == (currentLocation.length + 1)) {
+						if (testLocation.length == currentLocation.length + 1) {
 							//It's a direct child
 							children.add(test);
 						}
@@ -151,17 +152,17 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 				//Sort the list of children
 				Collections.sort(children, new Comparator<Object>() {
 					public int compare(Object o1, Object o2) {
-						if ((o1 instanceof FolderNode) && (o2 instanceof ArchlightTest)) {
+						if (o1 instanceof FolderNode && o2 instanceof ArchlightTest) {
 							return -1; //folders always before tests
 						}
-						else if ((o1 instanceof ArchlightTest) && (o2 instanceof FolderNode)) {
+						else if (o1 instanceof ArchlightTest && o2 instanceof FolderNode) {
 							return 1; //Tests always after folders
 						}
-						else if ((o1 instanceof FolderNode) && (o2 instanceof FolderNode)) {
+						else if (o1 instanceof FolderNode && o2 instanceof FolderNode) {
 							return ((FolderNode) o1).getLastSegment().compareToIgnoreCase(
 									((FolderNode) o2).getLastSegment());
 						}
-						else if ((o1 instanceof ArchlightTest) && (o2 instanceof ArchlightTest)) {
+						else if (o1 instanceof ArchlightTest && o2 instanceof ArchlightTest) {
 							return ArchlightTest.getLastCategoryPathComponent(((ArchlightTest) o1).getCategory())
 									.compareTo(
 											ArchlightTest.getLastCategoryPathComponent(((ArchlightTest) o2)

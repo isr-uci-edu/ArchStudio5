@@ -39,5 +39,5 @@ Require-Bundle: org.archstudio.guava,
  org.eclipse.ui,
  org.archstudio.jogl,
  org.eclipse.jdt.annotation
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy

@@ -21,7 +21,6 @@ public class AddRequiredWorkspacePlugins extends AbstractObjectActionDelegate {
 	public AddRequiredWorkspacePlugins() {
 	}
 
-	@Override
 	public void run(IAction action) {
 		for (IProject project : getProjects(selection)) {
 			run(action, project);
@@ -38,7 +37,7 @@ public class AddRequiredWorkspacePlugins extends AbstractObjectActionDelegate {
 
 				Multimap<String, IFeaturePlugin> pluginMultimap = Multimaps.index(Arrays.asList(feature.getPlugins()),
 						new Function<IFeaturePlugin, String>() {
-							@Override
+
 							public String apply(IFeaturePlugin input) {
 								return input.getId();
 							}

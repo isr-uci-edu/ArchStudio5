@@ -1,14 +1,5 @@
 package org.archstudio.myx.java.conn;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.concurrent.*;
-import org.archstudio.myx.fw.*;
-import org.archstudio.myx.fw.IMyxDynamicBrick;
-import java.lang.Object;
-import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.myx.fw.IMyxBrickItems;
-import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -54,13 +45,13 @@ import org.archstudio.myx.fw.MyxUtils;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
 		if (interfaceName.equals(OUT_SYNCH)) {
-			synch.add((java.lang.Object) serviceObject);
+			synch.add(serviceObject);
 			return;
 		}
 		super.interfaceConnected(interfaceName, serviceObject);
@@ -69,7 +60,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -84,7 +75,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 		super.interfaceDisconnected(interfaceName, serviceObject);
 	}
@@ -92,7 +83,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public Object getServiceObject(IMyxName interfaceName) {
 		return super.getServiceObject(interfaceName);
 	}

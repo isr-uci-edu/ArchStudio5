@@ -28,4 +28,4 @@ Require-Bundle: org.archstudio.launcher,
  org.archstudio.archipelago.core,
  org.archstudio.xadl.bna,
  org.archstudio.xarchadt.variability
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

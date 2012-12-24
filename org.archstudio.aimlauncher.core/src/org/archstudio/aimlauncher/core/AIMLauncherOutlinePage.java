@@ -37,8 +37,9 @@ public class AIMLauncherOutlinePage extends AbstractArchStudioOutlinePage {
 
 	public ObjRef[] getSelectedRefs() {
 		Object[] selectedObjects = getSelectedObjects();
-		if (selectedObjects == null)
+		if (selectedObjects == null) {
 			return new ObjRef[0];
+		}
 		ObjRef[] refs = new ObjRef[selectedObjects.length];
 		System.arraycopy(selectedObjects, 0, refs, 0, selectedObjects.length);
 		return refs;
@@ -65,7 +66,7 @@ public class AIMLauncherOutlinePage extends AbstractArchStudioOutlinePage {
 			ref = normalize(ref);
 
 			List<ObjRef> ancestors = xarch.getAllAncestors(ref);
-			for (int j = (ancestors.size() - 1); j >= 1; j--) {
+			for (int j = ancestors.size() - 1; j >= 1; j--) {
 				getTreeViewer().expandToLevel(ancestors.get(j), 1);
 			}
 			IStructuredSelection ss = new StructuredSelection(new ObjRef[] { ref });

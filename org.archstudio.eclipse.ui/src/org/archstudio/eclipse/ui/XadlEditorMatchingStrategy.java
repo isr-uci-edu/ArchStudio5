@@ -12,7 +12,7 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPathEditorInput;
 
 public class XadlEditorMatchingStrategy implements org.eclipse.ui.IEditorMatchingStrategy {
-	@Override
+
 	public boolean matches(IEditorReference editorRef, IEditorInput input) {
 
 		Reader r = null;

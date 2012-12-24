@@ -20,7 +20,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.annotation.Nullable;
 import org.xml.sax.SAXException;
 
-
 public class XArchADTVariabilityElementImpl implements IXArchADT {
 
 	IXArchADT xarch;
@@ -224,7 +223,7 @@ public class XArchADTVariabilityElementImpl implements IXArchADT {
 	public List<Serializable> resolveSerializables(ObjRef contextObjRef, String xPath) throws XPathException {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	public String getXPath(ObjRef toObjRef) {
 		throw new UnsupportedOperationException();
 	}

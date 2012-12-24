@@ -3,7 +3,6 @@ package org.archstudio.bna.constants;
 public enum GridDisplayType {
 	NONE, DOTS_AT_CORNERS, CROSSES_AT_CORNERS, DOTTED_LINES, SOLID_LINES;
 
-	@Override
 	public String toString() {
 		switch (this) {
 		case NONE:

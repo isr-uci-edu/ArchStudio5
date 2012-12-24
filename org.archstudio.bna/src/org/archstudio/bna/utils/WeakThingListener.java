@@ -16,7 +16,6 @@ public class WeakThingListener implements IThingListener {
 		this.listenerRef = new WeakReference<IThingListener>(realListener);
 	}
 
-	@Override
 	public void thingChanged(ThingEvent thingEvent) {
 		IThingListener realListener = listenerRef.get();
 		if (realListener == null) {

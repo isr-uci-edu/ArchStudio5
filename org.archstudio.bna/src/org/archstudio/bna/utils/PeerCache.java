@@ -14,7 +14,6 @@ public class PeerCache {
 	protected static LoadingCache<Class<? extends IThingPeer<?>>, Constructor<?>> constructorsCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<Class<? extends IThingPeer<?>>, Constructor<?>>() {
 
-				@Override
 				public Constructor<?> load(Class<? extends IThingPeer<?>> key) throws Exception {
 					for (Constructor<?> c : key.getConstructors()) {
 						if (c.getParameterTypes().length == 1) {
@@ -30,7 +29,6 @@ public class PeerCache {
 	protected LoadingCache<IThing, IThingPeer<?>> peersCache = CacheBuilder.newBuilder().weakKeys()
 			.build(new CacheLoader<IThing, IThingPeer<?>>() {
 
-				@Override
 				public IThingPeer<?> load(IThing key) throws Exception {
 					return (IThingPeer<?>) constructorsCache.get(key.getPeerClass()).newInstance(key);
 				}

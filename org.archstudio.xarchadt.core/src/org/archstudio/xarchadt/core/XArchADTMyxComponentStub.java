@@ -1,16 +1,5 @@
 package org.archstudio.xarchadt.core;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.concurrent.*;
-import org.archstudio.myx.fw.*;
-import org.archstudio.xarchadt.IXArchADTModelListener;
-import org.archstudio.myx.fw.IMyxDynamicBrick;
-import org.archstudio.xarchadt.IXArchADT;
-import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.xarchadt.IXArchADTFileListener;
-import org.archstudio.myx.fw.IMyxBrickItems;
-import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -87,7 +76,7 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 	protected final org.archstudio.xarchadt.IXArchADTFileListener fileEventsProxy = (org.archstudio.xarchadt.IXArchADTFileListener) Proxy
 			.newProxyInstance(org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTFileListener.class }, new InvocationHandler() {
-						@Override
+
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.xarchadt.IXArchADTFileListener o : fileEvents) {
 								try {
@@ -116,7 +105,7 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 	protected final org.archstudio.xarchadt.IXArchADTModelListener modelEventsProxy = (org.archstudio.xarchadt.IXArchADTModelListener) Proxy
 			.newProxyInstance(org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTModelListener.class }, new InvocationHandler() {
-						@Override
+
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.xarchadt.IXArchADTModelListener o : modelEvents) {
 								try {
@@ -194,7 +183,7 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -213,7 +202,7 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -232,14 +221,14 @@ abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMy
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_XARCH)) {
 			if (xarch == null) {

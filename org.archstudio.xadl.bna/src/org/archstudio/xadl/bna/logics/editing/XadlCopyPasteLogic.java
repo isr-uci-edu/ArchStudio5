@@ -49,12 +49,11 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		this.actionBars = actionBars;
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 
 		actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), new Action() {
-			@Override
+
 			public void runWithEvent(@Nullable Event event) {
 				copy();
 				delete();
@@ -83,7 +82,6 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		actionBars.updateActionBars();
 	}
 
-	@Override
 	protected void destroy() {
 		actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), null);
 		actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), null);
@@ -129,20 +127,21 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 			XArchADTOperations xarch = new XArchADTOperations(this.xarch);
 
 			// unselect everything
-			for (IThing t : getBNAModel().getAllThings())
+			for (IThing t : getBNAModel().getAllThings()) {
 				t.set(IHasSelected.SELECTED_KEY, false);
+			}
 			selectAndMoveObjRefs.clear();
 
 			// keep track of the new ObjRefs to select and move them
 			pasteOffset += GridUtils.getGridSpacing(getBNAModel());
-			for (ObjRef objRef : copyPaste.paste(xarch, rootRef))
+			for (ObjRef objRef : copyPaste.paste(xarch, rootRef)) {
 				selectAndMoveObjRefs.put(objRef, pasteOffset);
+			}
 
 			xarch.done("Paste");
 		}
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		// select the new ObjRefs added by paste()
 		switch (evt.getEventType()) {
@@ -186,23 +185,22 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		xarch.done("Delete");
 	}
 
-	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		menu.add(new Action("Cut") {
-			@Override
+
 			public void run() {
 				copy();
 				delete();
 			}
 		});
 		menu.add(new Action("Copy") {
-			@Override
+
 			public void run() {
 				copy();
 			}
 		});
 		menu.add(new Action("Paste") {
-			@Override
+
 			public void run() {
 				paste();
 			}

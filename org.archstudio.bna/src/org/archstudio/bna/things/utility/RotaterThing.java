@@ -14,7 +14,6 @@ public class RotaterThing extends AbstractAnchorPointThing implements IHasMutabl
 		super(id);
 	}
 
-	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setAdjustmentIncrement(15);
@@ -22,22 +21,18 @@ public class RotaterThing extends AbstractAnchorPointThing implements IHasMutabl
 		setAngle(0);
 	}
 
-	@Override
 	public int getRadius() {
 		return get(RADIUS_KEY);
 	}
 
-	@Override
 	public void setRadius(int radius) {
 		set(RADIUS_KEY, radius);
 	}
 
-	@Override
 	public void setAngle(int degrees) {
 		set(ANGLE_KEY, degrees);
 	}
 
-	@Override
 	public int getAngle() {
 		return get(ANGLE_KEY);
 	}

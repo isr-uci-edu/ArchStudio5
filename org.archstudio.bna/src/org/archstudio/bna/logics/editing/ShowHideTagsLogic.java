@@ -49,7 +49,6 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	protected DynamicStickPointLogic stickLogic;
 	protected MirrorValueLogic mirrorLogic;
 
-	@Override
 	protected void init() {
 		super.init();
 		valueLogic = addThingLogic(ThingValueTrackingLogic.class);
@@ -61,7 +60,6 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 		}
 	}
 
-	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		IBNAModel m = getBNAModel();
 		if (!things.isEmpty()) {
@@ -72,7 +70,6 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 				// lookup tags for thing
 				IAction tagAction = new Action("Show Tag") {
 
-					@Override
 					public void run() {
 						if (tt == null) {
 							BNAOperations.set("Tag", getBNAModel(), st, SHOW_TAG_KEY, true);
@@ -88,12 +85,12 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 		}
 	}
 
-	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_CHANGED:
-			if (!evt.getThingEvent().getPropertyName().equals(SHOW_TAG_KEY))
+			if (!evt.getThingEvent().getPropertyName().equals(SHOW_TAG_KEY)) {
 				break;
+			}
 			// fall through
 		case THING_ADDED:
 			if (evt.getTargetThing() instanceof IIsSticky) {

@@ -31,7 +31,6 @@ public class EObjectProxy extends AbstractProxy {
 	private static final LoadingCache<String, EPackage> ePackageCache = CacheBuilder.newBuilder().build(
 			new CacheLoader<String, EPackage>() {
 
-				@Override
 				public synchronized EPackage load(String nsURI) throws Exception {
 					EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(nsURI);
 					if (ePackage != null) {
@@ -47,7 +46,6 @@ public class EObjectProxy extends AbstractProxy {
 			super(context);
 		}
 
-		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			return proxy(proxy.xarch, (ObjRef) proxy.xarch.get(proxy.objRef, context.name));
 		}
@@ -59,7 +57,6 @@ public class EObjectProxy extends AbstractProxy {
 			super(context);
 		}
 
-		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			return EListProxy.proxy(proxy.xarch, proxy.objRef, context.name);
 		}
@@ -71,7 +68,6 @@ public class EObjectProxy extends AbstractProxy {
 			super(context);
 		}
 
-		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			return proxy.xarch.get(proxy.objRef, context.name);
 		}
@@ -83,7 +79,6 @@ public class EObjectProxy extends AbstractProxy {
 			super(context);
 		}
 
-		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			IXArchADTTypeMetadata typeMetadata = proxy.xarch.getTypeMetadata(proxy.objRef);
 			EPackage ePackage = ePackageCache.getUnchecked(typeMetadata.getNsURI());
@@ -97,7 +92,6 @@ public class EObjectProxy extends AbstractProxy {
 			super(context);
 		}
 
-		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			return XArchADTProxy.proxy(proxy.xarch, proxy.xarch.getParent(proxy.objRef));
 		}
@@ -109,7 +103,6 @@ public class EObjectProxy extends AbstractProxy {
 			super(context);
 		}
 
-		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			EStructuralFeature feature = (EStructuralFeature) args[0];
 			if (feature.isMany()) {
@@ -126,7 +119,6 @@ public class EObjectProxy extends AbstractProxy {
 			super(context);
 		}
 
-		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			EStructuralFeature feature = (EStructuralFeature) args[0];
 			proxy.xarch.set(proxy.objRef, feature.getName(), (Serializable) args[1]);
@@ -140,7 +132,6 @@ public class EObjectProxy extends AbstractProxy {
 			super(context);
 		}
 
-		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			proxy.xarch.set(proxy.objRef, context.name, XArchADTProxy.unproxy((EObject) args[0]));
 			return null;
@@ -153,7 +144,6 @@ public class EObjectProxy extends AbstractProxy {
 			super(context);
 		}
 
-		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			return EListProxy.proxy(proxy.xarch, proxy.objRef, context.name);
 		}
@@ -166,7 +156,6 @@ public class EObjectProxy extends AbstractProxy {
 		}
 
 		@SuppressWarnings("cast")
-		@Override
 		public Object invoke(ProxyImpl proxy, Method method, Object[] args) throws Throwable {
 			proxy.xarch.set(proxy.objRef, context.name, (Serializable) args[0]);
 			return null;
@@ -183,19 +172,16 @@ public class EObjectProxy extends AbstractProxy {
 			this.objRef = objRef;
 		}
 
-		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			return methodsCache.get(method).invoke(this, method, args);
 		}
 
-		@Override
 		public String toString() {
 			Class<?>[] ifaces = getClass().getInterfaces();
 			Arrays.sort(ifaces);
 			return Arrays.asList(ifaces) + " for " + objRef;
 		}
 
-		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
@@ -203,7 +189,6 @@ public class EObjectProxy extends AbstractProxy {
 			return result;
 		}
 
-		@Override
 		public boolean equals(Object obj) {
 			if (this == obj) {
 				return true;
@@ -232,7 +217,7 @@ public class EObjectProxy extends AbstractProxy {
 
 	static final LoadingCache<Method, Handler<NameContext, ProxyImpl>> methodsCache = CacheBuilder.newBuilder().build(
 			new CacheLoader<Method, Handler<NameContext, ProxyImpl>>() {
-				@Override
+
 				public Handler<NameContext, ProxyImpl> load(Method method) throws Exception {
 					String name = method.getName();
 					String prefix;
@@ -278,7 +263,7 @@ public class EObjectProxy extends AbstractProxy {
 
 	static final LoadingCache<IXArchADT, ConcurrentMap<ObjRef, EObject>> xArchProxiesCache = CacheBuilder.newBuilder()
 			.weakKeys().build(new CacheLoader<IXArchADT, ConcurrentMap<ObjRef, EObject>>() {
-				@Override
+
 				public ConcurrentMap<ObjRef, EObject> load(IXArchADT xarch) throws Exception {
 					return new MapMaker().softValues().makeMap();
 				}
@@ -320,7 +305,6 @@ public class EObjectProxy extends AbstractProxy {
 	public static final <T extends EObject> Iterable<T> proxy(final IXArchADT xarch, Iterable<ObjRef> objRefs) {
 		return Iterables.transform(objRefs, new Function<ObjRef, T>() {
 			@SuppressWarnings("unchecked")
-			@Override
 			public T apply(ObjRef objRef) {
 				return (T) proxy(xarch, objRef);
 			}
@@ -337,7 +321,7 @@ public class EObjectProxy extends AbstractProxy {
 
 	public static final Iterable<ObjRef> unproxy(Iterable<EObject> eObjects) {
 		return Iterables.transform(eObjects, new Function<EObject, ObjRef>() {
-			@Override
+
 			public ObjRef apply(EObject eObject) {
 				return unproxy(eObject);
 			}

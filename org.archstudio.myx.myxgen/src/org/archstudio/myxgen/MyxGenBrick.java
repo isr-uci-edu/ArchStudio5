@@ -70,7 +70,6 @@ public class MyxGenBrick extends AbstractExtension {
 		return parentBrickId;
 	}
 
-	@Override
 	public String toString() {
 		return SystemUtils.simpleName(this.getClass()) + "[" //
 				+ "name=" + name + ","//

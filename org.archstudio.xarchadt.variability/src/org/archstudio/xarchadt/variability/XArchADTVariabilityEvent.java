@@ -69,7 +69,6 @@ public class XArchADTVariabilityEvent {
 		return changeStatus;
 	}
 
-	@Override
 	public String toString() {
 		return "XArchADTVariabilityEvent [type=" + type + ", documentRootRef=" + documentRootRef
 				+ ", activeChangeSetRef=" + activeChangeSetRef + ", appliedChangeSetRefs=" + appliedChangeSetRefs
@@ -77,5 +76,4 @@ public class XArchADTVariabilityEvent {
 				+ ", changedObjRef=" + changedObjRef + ", changeStatus=" + changeStatus + "]";
 	}
 
-	
 }

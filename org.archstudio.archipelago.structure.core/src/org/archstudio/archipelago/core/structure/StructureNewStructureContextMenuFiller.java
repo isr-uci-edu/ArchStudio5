@@ -26,7 +26,7 @@ public class StructureNewStructureContextMenuFiller implements IArchipelagoTreeC
 	}
 
 	public void fillContextMenu(IMenuManager m, Object[] selectedNodes) {
-		if ((selectedNodes != null) && (selectedNodes.length == 1)) {
+		if (selectedNodes != null && selectedNodes.length == 1) {
 			Object selectedNode = selectedNodes[0];
 			if (selectedNode instanceof FolderNode) {
 				FolderNode fn = (FolderNode) selectedNode;

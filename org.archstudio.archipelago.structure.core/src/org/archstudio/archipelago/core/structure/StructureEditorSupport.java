@@ -115,7 +115,7 @@ public class StructureEditorSupport {
 		final ICoordinateMapper cm = bnaCanvas.getBNAView().getCoordinateMapper();
 		BNAUtils.restoreCoordinateMapperData((IMutableCoordinateMapper) cm, ept);
 		bnaCanvas.addDisposeListener(new DisposeListener() {
-			@Override
+
 			public void widgetDisposed(DisposeEvent e) {
 				BNAUtils.saveCoordinateMapperData(cm, ept);
 			}
@@ -124,7 +124,7 @@ public class StructureEditorSupport {
 		// coordinate preferences
 		final IPreferenceStore prefs = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore();
 		final IPropertyChangeListener pcl = new IPropertyChangeListener() {
-			@Override
+
 			public void propertyChange(PropertyChangeEvent event) {
 				BNARenderingSettings.setAntialiasGraphics(bnaCanvas,
 						prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_GRAPHICS));
@@ -132,7 +132,7 @@ public class StructureEditorSupport {
 						prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_TEXT));
 				BNARenderingSettings.setDecorativeGraphics(bnaCanvas,
 						prefs.getBoolean(ArchipelagoConstants.PREF_DECORATIVE_GRAPHICS));
-				GridThing gridThing = ((GridThing) bnaWorld.getBNAModel().getThing(GridThing.class));
+				GridThing gridThing = (GridThing) bnaWorld.getBNAModel().getThing(GridThing.class);
 				if (gridThing != null) {
 					gridThing.setGridSpacing(prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING));
 					gridThing.setGridDisplayType(GridDisplayType.valueOf(prefs
@@ -143,7 +143,7 @@ public class StructureEditorSupport {
 		};
 		prefs.addPropertyChangeListener(pcl);
 		bnaCanvas.addDisposeListener(new DisposeListener() {
-			@Override
+
 			public void widgetDisposed(DisposeEvent e) {
 				prefs.removePropertyChangeListener(pcl);
 			}
@@ -161,8 +161,9 @@ public class StructureEditorSupport {
 		if (services.has(IArchipelagoTreeNodeDataCache.class)) {
 			IBNAWorld bnaWorld = (IBNAWorld) services.get(IArchipelagoTreeNodeDataCache.class).getData(documentRootRef,
 					structureRef, BNA_WORLD_KEY);
-			if (bnaWorld != null)
+			if (bnaWorld != null) {
 				return bnaWorld;
+			}
 		}
 
 		String archStructureID = XadlUtils.getID(xarch, structureRef);

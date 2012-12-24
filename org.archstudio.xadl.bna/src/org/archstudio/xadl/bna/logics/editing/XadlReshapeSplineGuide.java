@@ -21,7 +21,6 @@ public class XadlReshapeSplineGuide extends AbstractReshapeSplineGuide {
 		this.stickyEClass = stickyEClass;
 	}
 
-	@Override
 	protected boolean isRelevantPointsThing(IHasPoints pointsThing) {
 		ObjRef objRef = pointsThing.get(IHasObjRef.OBJREF_KEY);
 		if (objRef != null) {
@@ -30,7 +29,6 @@ public class XadlReshapeSplineGuide extends AbstractReshapeSplineGuide {
 		return false;
 	}
 
-	@Override
 	protected boolean isRelevantStickyThing(IIsSticky stickyThing) {
 		ObjRef objRef = stickyThing.get(IHasObjRef.OBJREF_KEY);
 		if (objRef != null) {

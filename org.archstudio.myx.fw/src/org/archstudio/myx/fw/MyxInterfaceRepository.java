@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -49,8 +48,7 @@ class MyxInterfaceRepository {
 				return;
 			}
 			MyxInterface doomedInterface = null;
-			for (Iterator<MyxInterface> it = l.iterator(); it.hasNext();) {
-				MyxInterface mi = it.next();
+			for (MyxInterface mi : l) {
 				IMyxName name = mi.getInterfaceName();
 				if (name.equals(interfaceName)) {
 					doomedInterface = mi;
@@ -81,8 +79,7 @@ class MyxInterfaceRepository {
 	protected MyxInterface getMyxInterface(IMyxBrick b, IMyxName interfaceName) {
 		List<MyxInterface> l = brickToInterfaceListMap.get(b);
 		if (l != null) {
-			for (Iterator<MyxInterface> it = l.iterator(); it.hasNext();) {
-				MyxInterface mi = it.next();
+			for (MyxInterface mi : l) {
 				IMyxName name = mi.getInterfaceName();
 				if (name.equals(interfaceName)) {
 					return mi;

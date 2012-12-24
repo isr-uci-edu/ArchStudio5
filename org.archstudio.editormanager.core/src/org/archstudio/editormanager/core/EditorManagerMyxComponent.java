@@ -19,12 +19,10 @@ public class EditorManagerMyxComponent extends org.archstudio.editormanager.core
 	public EditorManagerMyxComponent() {
 	}
 
-	@Override
 	public void init() {
 		editorManager = new EditorManager();
 	}
 
-	@Override
 	public void destroy() {
 		editorManager = null;
 	}
@@ -33,7 +31,6 @@ public class EditorManagerMyxComponent extends org.archstudio.editormanager.core
 		protected Map<String, RegisteredEditor> registeredEditors = Collections
 				.synchronizedMap(new HashMap<String, RegisteredEditor>());
 
-		@Override
 		public void focusEditor(String name, ObjRef[] refs) {
 			synchronized (EditorManagerMyxComponent.this) {
 				if (focusEditorEvents != null) {
@@ -42,7 +39,6 @@ public class EditorManagerMyxComponent extends org.archstudio.editormanager.core
 			}
 		}
 
-		@Override
 		public String getDefaultEditor() {
 			String defaultEditor = preferences.getString(EditorConstants.PREF_DEFAULT_EDITOR);
 			if (defaultEditor == null) {
@@ -57,28 +53,23 @@ public class EditorManagerMyxComponent extends org.archstudio.editormanager.core
 			return defaultEditor;
 		}
 
-		@Override
 		public void registerEditor(String name, Image icon) {
 			RegisteredEditor re = new RegisteredEditor(name, icon);
 			registeredEditors.put(name, re);
 		}
 
-		@Override
 		public void unregisterEditor(String name) {
 			registeredEditors.remove(name);
 		}
 
-		@Override
 		public boolean isEditorRegistered(String name) {
 			return registeredEditors.get(name) != null;
 		}
 
-		@Override
 		public String[] getEditors() {
 			return registeredEditors.keySet().toArray(new String[registeredEditors.keySet().size()]);
 		}
 
-		@Override
 		public Image getIcon(String name) {
 			RegisteredEditor re = registeredEditors.get(name);
 			if (re == null) {

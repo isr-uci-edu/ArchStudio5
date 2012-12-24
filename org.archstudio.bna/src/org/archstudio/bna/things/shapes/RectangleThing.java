@@ -23,7 +23,6 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 		super(id);
 	}
 
-	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setColor(new RGB(255, 255, 192));
@@ -36,75 +35,61 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 		setCornerSize(new Dimension(0, 0));
 	}
 
-	@Override
 	public void setColor(@Nullable RGB c) {
 		set(COLOR_KEY, c);
 	}
 
-	@Override
 	public @Nullable
 	RGB getColor() {
 		return get(COLOR_KEY);
 	}
 
-	@Override
 	public void setSecondaryColor(@Nullable RGB c) {
 		set(SECONDARY_COLOR_KEY, c);
 	}
 
-	@Override
 	public @Nullable
 	RGB getSecondaryColor() {
 		return get(SECONDARY_COLOR_KEY);
 	}
 
-	@Override
 	public boolean isGradientFilled() {
 		return get(GRADIENT_FILLED_KEY, true);
 	}
 
-	@Override
 	public void setGradientFilled(boolean newHasGradientFill) {
 		set(GRADIENT_FILLED_KEY, newHasGradientFill);
 	}
 
-	@Override
 	public void setEdgeColor(@Nullable RGB c) {
 		set(EDGE_COLOR_KEY, c);
 	}
 
-	@Override
 	public @Nullable
 	RGB getEdgeColor() {
 		return get(EDGE_COLOR_KEY);
 	}
 
-	@Override
 	public void setCount(int count) {
 		set(COUNT_KEY, count);
 	}
 
-	@Override
 	public int getCount() {
 		return get(COUNT_KEY, 1);
 	}
 
-	@Override
 	public int getLineStyle() {
 		return get(LINE_STYLE_KEY, LINE_STYLE_SOLID);
 	}
 
-	@Override
 	public void setLineStyle(int lineStyle) {
 		set(LINE_STYLE_KEY, lineStyle);
 	}
 
-	@Override
 	public int getLineWidth() {
 		return get(LINE_WIDTH_KEY, 1);
 	}
 
-	@Override
 	public void setLineWidth(int lineWidth) {
 		set(LINE_WIDTH_KEY, lineWidth);
 	}

@@ -8,17 +8,14 @@ public class ConstantTerm implements Term {
 		this.value = value;
 	}
 
-	@Override
 	public boolean contains(Term v) {
 		return false;
 	}
 
-	@Override
 	public Term replace(Term v, Term t) {
 		return this;
 	}
 
-	@Override
 	public String toString() {
 		return value.toString();
 	}
@@ -27,7 +24,6 @@ public class ConstantTerm implements Term {
 		return value;
 	}
 
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -35,7 +31,6 @@ public class ConstantTerm implements Term {
 		return result;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;

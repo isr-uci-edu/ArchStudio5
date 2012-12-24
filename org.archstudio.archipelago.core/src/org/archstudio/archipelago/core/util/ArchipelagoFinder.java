@@ -27,20 +27,19 @@ import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Point;
 
 public class ArchipelagoFinder implements IFinder<IBNAView> {
 
 	protected IXArchADT xarch;
 	protected IResources resources;
-	
+
 	public ArchipelagoFinder(IXArchADT xarch, IResources resources) {
 		this.xarch = xarch;
 		this.resources = resources;
 	}
 
-	@Override
 	public IFindResult[] find(IBNAView context, String search) {
 		List<IFindResult> resultList = new ArrayList<IFindResult>();
 		find(context, context.getBNAWorld().getBNAModel(), search, "", resultList);
@@ -48,7 +47,6 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 		return resultList.toArray(new IFindResult[resultList.size()]);
 	}
 
-	@Override
 	public void selected(IFindResult selectedResult) {
 		Object o = selectedResult.getData();
 		if (o != null && o instanceof FindResultData) {

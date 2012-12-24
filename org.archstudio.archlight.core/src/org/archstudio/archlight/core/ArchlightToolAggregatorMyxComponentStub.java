@@ -1,16 +1,5 @@
 package org.archstudio.archlight.core;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.concurrent.*;
-import org.archstudio.myx.fw.*;
-import org.archstudio.myx.fw.IMyxDynamicBrick;
-import org.archstudio.myx.java.conn.IMultiwayResults;
-import org.archstudio.myx.fw.IMyxLifecycleProcessor;
-import org.archstudio.archlight.IArchlightTool;
-import org.archstudio.myx.fw.IMyxBrickItems;
-import org.archstudio.myx.fw.IMyxProvidedServiceProvider;
-import org.archstudio.myx.java.conn.IMultiwayProgressListener;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -125,7 +114,7 @@ import org.archstudio.myx.fw.MyxUtils;
 			.newProxyInstance(org.archstudio.myx.java.conn.IMultiwayProgressListener.class.getClassLoader(),
 					new Class[] { org.archstudio.myx.java.conn.IMultiwayProgressListener.class },
 					new InvocationHandler() {
-						@Override
+
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							org.archstudio.myx.java.conn.IMultiwayProgressListener o = progress;
 							if (o != null) {
@@ -183,7 +172,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -208,7 +197,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -227,14 +216,14 @@ import org.archstudio.myx.fw.MyxUtils;
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
 	/**
 	 * @generated
 	 */
-	@Override
+
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_TOOL)) {
 			return this;

@@ -27,7 +27,6 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 	public ClickSelectionLogic() {
 	}
 
-	@Override
 	protected void init() {
 		super.init();
 		valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
@@ -50,11 +49,9 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 		}
 	}
 
-	@Override
 	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 	}
 
-	@Override
 	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (evt.button == 1) {
 			IHasMutableSelected mst = SystemUtils.firstOrNull(t, IHasMutableSelected.class);
@@ -94,7 +91,6 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 		}
 	}
 
-	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		/*
 		 * We don't actually want to fill the menu here, but we want to change

@@ -22,7 +22,6 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 		super(id);
 	}
 
-	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setText("");
@@ -37,102 +36,85 @@ public class UserNotificationThing extends AbstractAnchorPointThing implements I
 		setLife(32);
 	}
 
-	@Override
 	public String getText() {
 		return get(TEXT_KEY, "");
 	}
 
-	@Override
 	public void setText(String text) {
 		set(TEXT_KEY, text);
 	}
 
-	@Override
 	public String getFontName() {
 		return get(FONT_NAME_KEY, IFontConstants.DEFAULT_FONT_NAME);
 	}
 
-	@Override
 	public void setFontName(String fontName) {
 		set(FONT_NAME_KEY, fontName);
 	}
 
-	@Override
 	public int getFontSize() {
 		return get(FONT_SIZE_KEY, 10);
 	}
 
-	@Override
 	public void setFontSize(int fontSize) {
 		set(FONT_SIZE_KEY, fontSize);
 	}
 
-	@Override
 	public FontStyle getFontStyle() {
 		return get(FONT_STYLE_KEY, FontStyle.NORMAL);
 	}
 
-	@Override
 	public void setFontStyle(FontStyle fontStyle) {
 		set(FONT_STYLE_KEY, fontStyle);
 	}
 
-	@Override
 	public boolean getDontIncreaseFontSize() {
 		return get(DONT_INCREASE_FONT_SIZE_KEY, true);
 	}
 
-	@Override
 	public void setDontIncreaseFontSize(boolean dontIncrease) {
 		set(DONT_INCREASE_FONT_SIZE_KEY, dontIncrease);
 	}
 
-	@Override
-	public @Nullable RGB getColor() {
+	public @Nullable
+	RGB getColor() {
 		return get(COLOR_KEY);
 	}
 
-	@Override
 	public void setColor(@Nullable RGB c) {
 		set(COLOR_KEY, c);
 	}
 
-	@Override
 	public void setSecondaryColor(@Nullable RGB c) {
 		set(SECONDARY_COLOR_KEY, c);
 	}
 
-	@Override
-	public @Nullable RGB getSecondaryColor() {
+	public @Nullable
+	RGB getSecondaryColor() {
 		return get(SECONDARY_COLOR_KEY);
 	}
 
-	@Override
 	public boolean isGradientFilled() {
 		return get(GRADIENT_FILLED_KEY, true);
 	}
 
-	@Override
 	public void setGradientFilled(boolean newHasGradientFill) {
 		set(GRADIENT_FILLED_KEY, newHasGradientFill);
 	}
 
-	@Override
 	public void setEdgeColor(@Nullable RGB c) {
 		set(EDGE_COLOR_KEY, c);
 	}
 
-	@Override
-	public @Nullable RGB getEdgeColor() {
+	public @Nullable
+	RGB getEdgeColor() {
 		return get(EDGE_COLOR_KEY);
 	}
 
-	@Override
 	public int getLife() {
 		return get(LIFE_KEY, 32);
 	}
 
-	@Override
 	public void setLife(int life) {
 		set(LIFE_KEY, life);
 	}

@@ -45,7 +45,6 @@ public class ArchipelagoMyxComponent extends org.archstudio.archipelago.core.Arc
 		return resources.getImage(IMAGE_ARCHIPELAGO_ICON);
 	}
 
-	@Override
 	public ILaunchData getLaunchData() {
 		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME, "A graphical architecture editor", getIcon(),
 				ILaunchData.LaunchType.EDITOR);

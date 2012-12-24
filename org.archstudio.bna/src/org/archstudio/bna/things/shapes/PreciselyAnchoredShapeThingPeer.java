@@ -2,6 +2,7 @@ package org.archstudio.bna.things.shapes;
 
 import java.awt.Dimension;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -28,12 +29,10 @@ public class PreciselyAnchoredShapeThingPeer<T extends PreciselyAnchoredShapeThi
 		return new Rectangle(lp.x - size.width / 2, lp.y - size.height / 2, size.width, size.height);
 	}
 
-	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return getLocalBounds(view, cm).contains(location.getLocalPoint());
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Rectangle lbb = getLocalBounds(view, cm);
 
@@ -41,18 +40,20 @@ public class PreciselyAnchoredShapeThingPeer<T extends PreciselyAnchoredShapeThi
 		case CIRCLE: {
 			float[] points = BNAUtils.getEllipsePoints(lbb);
 			if (r.setColor(t, IHasColor.COLOR_KEY)) {
-				gl.glBegin(GL2.GL_TRIANGLE_FAN);
-				for (int i = 0; i < points.length; i += 2)
+				gl.glBegin(GL.GL_TRIANGLE_FAN);
+				for (int i = 0; i < points.length; i += 2) {
 					gl.glVertex2f(points[i], points[i + 1]);
+				}
 				gl.glEnd();
 			}
 			lbb.width -= 1;
 			lbb.height -= 1;
 			points = BNAUtils.getEllipsePoints(lbb);
 			if (r.setLineStyle(t) && r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY)) {
-				gl.glBegin(GL2.GL_LINE_LOOP);
-				for (int i = 0; i < points.length; i += 2)
+				gl.glBegin(GL.GL_LINE_LOOP);
+				for (int i = 0; i < points.length; i += 2) {
 					gl.glVertex2f(points[i] + 0.5f, points[i + 1] + 0.5f);
+				}
 				gl.glEnd();
 			}
 		}
@@ -63,9 +64,10 @@ public class PreciselyAnchoredShapeThingPeer<T extends PreciselyAnchoredShapeThi
 					lbb.x + lbb.width, lbb.y + lbb.height,//
 					lbb.x, lbb.y + lbb.height };
 			if (r.setColor(t, IHasColor.COLOR_KEY)) {
-				gl.glBegin(GL2.GL_TRIANGLE_FAN);
-				for (int i = 0; i < points.length; i += 2)
+				gl.glBegin(GL.GL_TRIANGLE_FAN);
+				for (int i = 0; i < points.length; i += 2) {
 					gl.glVertex2f(points[i], points[i + 1]);
+				}
 				gl.glEnd();
 			}
 			points = new float[] { lbb.x, lbb.y,//
@@ -73,9 +75,10 @@ public class PreciselyAnchoredShapeThingPeer<T extends PreciselyAnchoredShapeThi
 					lbb.x + lbb.width - 1, lbb.y + lbb.height - 1,//
 					lbb.x, lbb.y + lbb.height - 1 };
 			if (r.setLineStyle(t) && r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY)) {
-				gl.glBegin(GL2.GL_LINE_LOOP);
-				for (int i = 0; i < points.length; i += 2)
+				gl.glBegin(GL.GL_LINE_LOOP);
+				for (int i = 0; i < points.length; i += 2) {
 					gl.glVertex2f(points[i] + 0.5f, points[i + 1] + 0.5f);
+				}
 				gl.glEnd();
 			}
 		}

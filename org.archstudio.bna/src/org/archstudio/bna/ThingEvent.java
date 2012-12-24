@@ -53,7 +53,6 @@ public class ThingEvent {
 		return newPropertyValue;
 	}
 
-	@Override
 	public String toString() {
 		return "ThingEvent{thingID=" + targetThing.getID() + "; eventType=" + eventType + "; propertyName="
 				+ propertyName + "; oldPropertyValue=" + oldPropertyValue + "; newPropertyValue=" + newPropertyValue

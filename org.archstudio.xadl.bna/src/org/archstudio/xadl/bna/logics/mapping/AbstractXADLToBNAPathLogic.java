@@ -74,8 +74,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 		 * @see AbstractXADLToBNAThingLogic#storeThingData(ObjRef, IThing,
 		 *      BNAPath, BNAModelEvent)
 		 */
-		public  void updateXADL(T rootThing, BNAPath relativeBNAPath,
-				BNAModelEvent evt, ObjRef objRef) {
+		public void updateXADL(T rootThing, BNAPath relativeBNAPath, BNAModelEvent evt, ObjRef objRef) {
 		}
 
 	}
@@ -102,7 +101,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 * @see AbstractXADLToBNAThingLogic#updateThing(List, XArchADTPath, ObjRef,
 	 *      XArchADTModelEvent, IThing)
 	 */
-	@Override
+
 	protected void updateThing(List<ObjRef> relativeLineageRefs, String relativePath, ObjRef objRef,
 			XArchADTModelEvent evt, T thing) {
 		for (IBNAUpdater xadlUpdater : bnaUpdaters) {
@@ -117,9 +116,8 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 * @see AbstractXADLToBNAThingLogic#storeThingData(ObjRef, IThing, BNAPath,
 	 *      BNAModelEvent)
 	 */
-	@Override
-	protected  void storeThingData(ObjRef objRef, T rootThing,
-			BNAPath relativeBNAPath, BNAModelEvent evt) {
+
+	protected void storeThingData(ObjRef objRef, T rootThing, BNAPath relativeBNAPath, BNAModelEvent evt) {
 		for (IXADLUpdater xadlUpdater : bnaPathXADLUpdaters.get(relativeBNAPath)) {
 			xadlUpdater.updateXADL(rootThing, relativeBNAPath, evt, objRef);
 		}
@@ -157,7 +155,6 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 		bnaUpdaters.add(new IBNAUpdater() {
 
 			@SuppressWarnings("unchecked")
-			@Override
 			public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, T rootThing) {
 
 				// this maps updates from the xADL attribute to the BNA Thing's property
@@ -186,9 +183,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 			bnaPathXADLUpdaters.put(targetThingPath, new IXADLUpdater() {
 
 				@SuppressWarnings("unchecked")
-				@Override
-				public  void updateXADL(T rootThing,
-						BNAPath relativeBNAPath, BNAModelEvent evt, ObjRef objRef) {
+				public void updateXADL(T rootThing, BNAPath relativeBNAPath, BNAModelEvent evt, ObjRef objRef) {
 
 					// this updates xADL attributes from the BNA Thing's property value
 
@@ -222,7 +217,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 */
 	protected <V> void setValue(final BNAPath targetThingPath, final IThing.IThingKey<V> thingValueKey, final V value) {
 		bnaUpdaters.add(new IBNAUpdater() {
-			@Override
+
 			public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, T rootThing) {
 				IThing targetThing = BNAPath.resolve(getBNAModel(), rootThing, targetThingPath);
 				if (targetThing != null) {
@@ -248,7 +243,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	protected void setAncestorObjRef(final BNAPath targetThingPath, final IThing.IThingKey<ObjRef> objRefKey,
 			final int index) {
 		bnaUpdaters.add(new IBNAUpdater() {
-			@Override
+
 			public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, T rootThing) {
 				IThing targetThing = BNAPath.resolve(getBNAModel(), rootThing, targetThingPath);
 				if (targetThing != null) {
@@ -271,7 +266,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 		//bnaUpdaters.add(new IBNAUpdater() {
 		//
 		//	@SuppressWarnings("unchecked")
-		//	@Override
+		//	
 		//	public void updateBNA(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt, IThing rootThing) {
 		//		IThing targetThing = BNAPath.resolve(getBNAModel(), rootThing, targetThingPath);
 		//		if (targetThing != null) {
@@ -297,7 +292,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 		//	bnaPathXADLUpdaters.put(targetThingPath, new IXADLUpdater() {
 		//
 		//		@SuppressWarnings("unchecked")
-		//		@Override
+		//		
 		//		public  void updateXADL(IThing rootThing,
 		//				BNAPath relativeBNAPath, BNAModelEvent evt, ObjRef objRef) {
 		//			if (thingValueKey.equals(evt.getThingEvent().getPropertyName())) {
@@ -329,7 +324,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	//
 	//		bnaUpdaters.add(new IBNAUpdater() {
 	//
-	//			@Override
+	//			
 	//			public void updateBNA(ObjRef objRef, XArchADTPath xadlPath, XArchADTModelEvent evt, IThing rootThing) {
 	//				IThing targetThing = BNAPath.resolve(getBNAModel(), rootThing, targetThingPath);
 	//				if (targetThing != null) {

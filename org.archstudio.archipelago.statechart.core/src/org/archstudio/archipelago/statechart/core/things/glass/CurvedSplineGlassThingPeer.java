@@ -4,6 +4,7 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.archipelago.statechart.core.things.AbstractCurvedSplineThingPeer;
@@ -29,7 +30,7 @@ public class CurvedSplineGlassThingPeer<T extends CurvedSplineGlassThing> extend
 
 			gl.glColor3f(1f, 1f, 1f);
 			PathIterator p = s.getPathIterator(new AffineTransform(), 2d);
-			gl.glBegin(GL2.GL_LINE_STRIP);
+			gl.glBegin(GL.GL_LINE_STRIP);
 			while (!p.isDone()) {
 				switch (p.currentSegment(coords)) {
 				case PathIterator.SEG_MOVETO:
@@ -48,7 +49,7 @@ public class CurvedSplineGlassThingPeer<T extends CurvedSplineGlassThing> extend
 			gl.glColor3f(0f, 0f, 0f);
 			gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
 			p = s.getPathIterator(new AffineTransform(), 0.25d);
-			gl.glBegin(GL2.GL_LINE_STRIP);
+			gl.glBegin(GL.GL_LINE_STRIP);
 			while (!p.isDone()) {
 				switch (p.currentSegment(coords)) {
 				case PathIterator.SEG_MOVETO:

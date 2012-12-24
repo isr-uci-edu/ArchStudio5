@@ -83,10 +83,10 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 	protected String uniqueEditorID = null;
 
 	private final DelayedExecuteOnceThread updateThread = new DelayedExecuteOnceThread(250, new Runnable() {
-		@Override
+
 		public void run() {
 			getSite().getShell().getDisplay().asyncExec(new Runnable() {
-				@Override
+
 				public void run() {
 					if (updateEditorOnXArchFlatEvent) {
 						updateEditor();
@@ -140,7 +140,6 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		this.secondaryText = secondaryText;
 	}
 
-	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		if (!(input instanceof IFileEditorInput) && !(input instanceof IPathEditorInput)) {
 			throw new PartInitException("Input to " + editorName + " must be an XML file");
@@ -207,18 +206,15 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		return documentRootRef;
 	}
 
-	@Override
 	protected void setInput(IEditorInput input) {
 		super.setInput(input);
 	}
 
-	@Override
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
 		updateEditor();
 	}
 
-	@Override
 	public void dispose() {
 		clearEditor();
 		if (outlinePage != null) {
@@ -232,7 +228,6 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		super.dispose();
 	}
 
-	@Override
 	public void selectionChanged(SelectionChangedEvent event) {
 		if (updateOnSelectionChange) {
 			updateEditor();
@@ -243,7 +238,7 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		IWorkbenchPartSite site = getSite();
 		if (site != null) {
 			site.getShell().getDisplay().syncExec(new Runnable() {
-				@Override
+
 				public void run() {
 					if (parent.isDisposed()) {
 						return;
@@ -267,7 +262,7 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		clearEditor();
 
 		getSite().getShell().getDisplay().syncExec(new Runnable() {
-			@Override
+
 			public void run() {
 				ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 				sc.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
@@ -305,24 +300,21 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 
 	public abstract void createEditorContents(Composite parent);
 
-	@Override
 	public void doSave(IProgressMonitor monitor) {
 		fileman.save(documentRootRef, monitor);
 		firePropertyChange(PROP_DIRTY);
 	}
 
-	@Override
 	public void doSaveAs() {
 		// TODO Auto-generated method stub
 	}
 
-	@Override
 	public void fileDirtyStateChanged(ObjRef xArchRef, boolean dirty) {
 		checkNotNull(xArchRef);
 
 		if (xArchRef.equals(this.documentRootRef)) {
 			getSite().getShell().getDisplay().asyncExec(new Runnable() {
-				@Override
+
 				public void run() {
 					firePropertyChange(IEditorPart.PROP_DIRTY);
 				}
@@ -330,28 +322,23 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		}
 	}
 
-	@Override
 	public void fileSaving(ObjRef xArchRef, IProgressMonitor monitor) {
 	}
 
-	@Override
 	public boolean isDirty() {
 		return fileman.isDirty(documentRootRef);
 	}
 
-	@Override
 	public boolean isSaveAsAllowed() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public void setFocus() {
 		parent.getChildren()[0].setFocus();
 	}
 
 	@SuppressWarnings("rawtypes")
-	@Override
 	public Object getAdapter(Class key) {
 		if (key.equals(IContentOutlinePage.class)) {
 			return outlinePage;
@@ -365,7 +352,7 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 
 	public void doUpdateNow() {
 		getSite().getShell().getDisplay().asyncExec(new Runnable() {
-			@Override
+
 			public void run() {
 				updateEditor();
 				updateOutlinePage();
@@ -373,7 +360,6 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		});
 	}
 
-	@Override
 	public final void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		//if((!evt.getIsAttached()) && (!handleUnattachedXArchFlatEvents)){
 		//	return;
@@ -390,7 +376,6 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 	public void doHandleXArchADTModelEvent(XArchADTModelEvent evt) {
 	}
 
-	@Override
 	public void focusEditor(String editorName, ObjRef[] refs) {
 		if (editorName.equals(this.editorName)) {
 			if (outlinePage != null) {
@@ -411,7 +396,6 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 		return parent;
 	}
 
-	@Override
 	public void handleXArchADTVariabilityEvent(XArchADTVariabilityEvent evt) {
 		if (documentRootRef == null) {
 			return;

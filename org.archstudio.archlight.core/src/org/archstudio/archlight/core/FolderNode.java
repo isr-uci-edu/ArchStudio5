@@ -18,9 +18,10 @@ class FolderNode {
 	}
 
 	public boolean equals(Object obj) {
-		if (obj == this)
+		if (obj == this) {
 			return true;
-		if ((obj != null) && (obj.getClass().equals(this.getClass()))) {
+		}
+		if (obj != null && obj.getClass().equals(this.getClass())) {
 			return ArrayUtils.equals(((FolderNode) obj).pathSegments, pathSegments);
 		}
 		return false;

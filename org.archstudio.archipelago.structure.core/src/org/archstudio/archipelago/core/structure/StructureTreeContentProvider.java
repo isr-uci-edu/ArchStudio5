@@ -14,7 +14,7 @@ import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.viewers.Viewer;
 
 public class StructureTreeContentProvider implements IArchipelagoTreeContentProvider {
-	
+
 	protected static final String FOLDER_NODE_TYPE = "STRUCTURES";
 	protected FolderNode structureFolderNode = null;
 
@@ -76,7 +76,7 @@ public class StructureTreeContentProvider implements IArchipelagoTreeContentProv
 	public List<? extends Object> getChildren(Object parentElement, List<? extends Object> childrenFromPreviousProvider) {
 		if (isRootElement(parentElement) || isXADLElement(parentElement)) {
 			if (structureFolderNode == null) {
-				structureFolderNode = new FolderNode((ObjRef) parentElement, FOLDER_NODE_TYPE, "Structures");
+				structureFolderNode = new FolderNode(parentElement, FOLDER_NODE_TYPE, "Structures");
 			}
 			return ArchipelagoUtils.combine(childrenFromPreviousProvider, structureFolderNode);
 		}

@@ -5,6 +5,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.awt.geom.RoundRectangle2D;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -24,7 +25,6 @@ public class RectangleGlassThingPeer<T extends RectangleGlassThing> extends Abst
 		super(thing);
 	}
 
-	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
@@ -36,7 +36,7 @@ public class RectangleGlassThingPeer<T extends RectangleGlassThing> extends Abst
 				gl.glLineWidth(1f);
 
 				gl.glColor3f(1f, 1f, 1f);
-				gl.glBegin(GL2.GL_LINE_LOOP);
+				gl.glBegin(GL.GL_LINE_LOOP);
 				gl.glVertex2f(p1.x + 0.5f, p1.y + 0.5f);
 				gl.glVertex2f(p2.x - 0.5f, p1.y + 0.5f);
 				gl.glVertex2f(p2.x - 0.5f, p2.y - 0.5f);
@@ -45,7 +45,7 @@ public class RectangleGlassThingPeer<T extends RectangleGlassThing> extends Abst
 
 				gl.glColor3f(0f, 0f, 0f);
 				gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
-				gl.glBegin(GL2.GL_LINE_LOOP);
+				gl.glBegin(GL.GL_LINE_LOOP);
 				gl.glVertex2f(p1.x + 0.5f, p1.y + 0.5f);
 				gl.glVertex2f(p2.x - 0.5f, p1.y + 0.5f);
 				gl.glVertex2f(p2.x - 0.5f, p2.y - 0.5f);
@@ -63,7 +63,7 @@ public class RectangleGlassThingPeer<T extends RectangleGlassThing> extends Abst
 
 				gl.glColor3f(1f, 1f, 1f);
 				PathIterator p = s.getPathIterator(new AffineTransform(), 0.25d);
-				gl.glBegin(GL2.GL_LINE_LOOP);
+				gl.glBegin(GL.GL_LINE_LOOP);
 				while (!p.isDone()) {
 					switch (p.currentSegment(coords)) {
 					case PathIterator.SEG_MOVETO:
@@ -82,7 +82,7 @@ public class RectangleGlassThingPeer<T extends RectangleGlassThing> extends Abst
 				gl.glColor3f(0f, 0f, 0f);
 				gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
 				p = s.getPathIterator(new AffineTransform(), 0.25d);
-				gl.glBegin(GL2.GL_LINE_LOOP);
+				gl.glBegin(GL.GL_LINE_LOOP);
 				while (!p.isDone()) {
 					switch (p.currentSegment(coords)) {
 					case PathIterator.SEG_MOVETO:

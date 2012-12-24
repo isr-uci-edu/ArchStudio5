@@ -18,7 +18,7 @@ public class BasicXArchADTPackageMetadata implements IXArchADTPackageMetadata {
 		this.nsURI = nsURI;
 		this.typeMetadata = Collections.unmodifiableMap(Maps.uniqueIndex(factoryElementMetadata,
 				new Function<IXArchADTTypeMetadata, String>() {
-					@Override
+
 					public String apply(IXArchADTTypeMetadata input) {
 						return input.getTypeName();
 					}

@@ -18,7 +18,6 @@ import com.google.common.collect.Lists;
 
 public class XArchADTImplTest extends AbstractXArchADTTest {
 
-	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		DocumentRoot documentRoot = XArchADTProxy.proxy(xarch, documentRootRef);

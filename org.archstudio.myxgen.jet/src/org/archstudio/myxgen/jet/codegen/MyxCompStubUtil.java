@@ -83,7 +83,7 @@ public class MyxCompStubUtil {
 				+ iface.getClassName() + ".class.getClassLoader(),"//
 				+ "new Class[]{ " + iface.getClassName() + ".class },"//
 				+ "new InvocationHandler(){"//
-				+ "@Override"//
+				+ ""//
 				+ "public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {"//
 				+ "	for (" + iface.getClassName() + " l : " + getServiceObjectName(iface) + ") {"//
 				+ "		try {"//

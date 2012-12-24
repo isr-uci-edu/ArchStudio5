@@ -29,7 +29,6 @@ public class AxisThing extends AbstractRectangleThing implements IHasMutableUnit
 		super(id);
 	}
 
-	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setUnit(10);
@@ -69,72 +68,59 @@ public class AxisThing extends AbstractRectangleThing implements IHasMutableUnit
 		set(ORIENTATION_KEY, orientation);
 	}
 
-	@Override
 	public void setEdgeColor(@Nullable RGB c) {
 		set(EDGE_COLOR_KEY, c);
 	}
 
-	@Override
-	public @Nullable RGB getEdgeColor() {
+	public @Nullable
+	RGB getEdgeColor() {
 		return get(EDGE_COLOR_KEY);
 	}
 
-	@Override
 	public int getLineStyle() {
 		return get(LINE_STYLE_KEY, LINE_STYLE_SOLID);
 	}
 
-	@Override
 	public void setLineStyle(int lineStyle) {
 		set(LINE_STYLE_KEY, lineStyle);
 	}
 
-	@Override
 	public int getLineWidth() {
 		return get(LINE_WIDTH_KEY, 3);
 	}
 
-	@Override
 	public void setLineWidth(int lineWidth) {
 		set(LINE_WIDTH_KEY, lineWidth);
 	}
 
-	@Override
 	public String getFontName() {
 		return get(FONT_NAME_KEY, IFontConstants.DEFAULT_FONT_NAME);
 	}
 
-	@Override
 	public int getFontSize() {
 		return get(FONT_SIZE_KEY, 12);
 	}
 
-	@Override
 	public FontStyle getFontStyle() {
 		return get(FONT_STYLE_KEY, FontStyle.NORMAL);
 	}
 
-	@Override
 	public boolean getDontIncreaseFontSize() {
 		return get(DONT_INCREASE_FONT_SIZE_KEY, true);
 	}
 
-	@Override
 	public void setFontName(String fontName) {
 		set(FONT_NAME_KEY, fontName);
 	}
 
-	@Override
 	public void setFontSize(int fontSize) {
 		set(FONT_SIZE_KEY, fontSize);
 	}
 
-	@Override
 	public void setFontStyle(FontStyle fontStyle) {
 		set(FONT_STYLE_KEY, fontStyle);
 	}
 
-	@Override
 	public void setDontIncreaseFontSize(boolean dontIncreaseFontSize) {
 		set(DONT_INCREASE_FONT_SIZE_KEY, dontIncreaseFontSize);
 	}

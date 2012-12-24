@@ -16,8 +16,8 @@ public class ObjRefTransfer extends ByteArrayTransfer {
 
 	private static ObjRefTransfer _instance = new ObjRefTransfer();
 
-	private Cache<Long, ObjRef> transferredObjRefs = CacheBuilder.newBuilder().expireAfterWrite(12, TimeUnit.HOURS)
-			.build();
+	private final Cache<Long, ObjRef> transferredObjRefs = CacheBuilder.newBuilder()
+			.expireAfterWrite(12 * 60 * 60, TimeUnit.SECONDS).build();
 
 	private ObjRefTransfer() {
 	}
@@ -26,6 +26,7 @@ public class ObjRefTransfer extends ByteArrayTransfer {
 		return _instance;
 	}
 
+	@Override
 	public void javaToNative(Object object, TransferData transferData) {
 		if (object == null || !(object instanceof ObjRef[])) {
 			return;
@@ -38,7 +39,7 @@ public class ObjRefTransfer extends ByteArrayTransfer {
 			for (int i = 0; i < refs.length; i++) {
 				transferredObjRefs.put(refs[i].getUID(), refs[i]);
 				sb.append(refs[i].getUID());
-				if (i < (refs.length - 1)) {
+				if (i < refs.length - 1) {
 					sb.append(",");
 				}
 			}
@@ -46,6 +47,7 @@ public class ObjRefTransfer extends ByteArrayTransfer {
 		}
 	}
 
+	@Override
 	public Object nativeToJava(TransferData transferData) {
 		if (isSupportedType(transferData)) {
 			byte[] buffer = (byte[]) super.nativeToJava(transferData);
@@ -64,10 +66,12 @@ public class ObjRefTransfer extends ByteArrayTransfer {
 		return null;
 	}
 
+	@Override
 	protected String[] getTypeNames() {
 		return new String[] { OBJREF_TYPE_NAME };
 	}
 
+	@Override
 	protected int[] getTypeIds() {
 		return new int[] { OBJREF_TYPE_ID };
 	}
