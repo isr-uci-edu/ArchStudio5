@@ -91,7 +91,7 @@
           <bc:match pattern="^3\.6$" replacement="http://download.eclipse.org/releases/helios/"/>
           <bc:match pattern="^3\.7$" replacement="http://download.eclipse.org/releases/indigo/"/>
           <bc:match pattern="^4\.2$" replacement="http://download.eclipse.org/releases/juno/"/>
-          <bc:match pattern="^4\.3$" replacement="http://download.eclipse.org/releases/juno/"/><!-- kepler, when available --> 
+          <bc:match pattern="^4\.3$" replacement="http://download.eclipse.org/releases/kepler/"/> 
         </bc:replace>
       </rm:uri>
     </rm:provider>
