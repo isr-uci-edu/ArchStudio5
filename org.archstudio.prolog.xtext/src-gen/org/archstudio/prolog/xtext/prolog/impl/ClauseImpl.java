@@ -63,6 +63,7 @@ public class ClauseImpl extends MinimalEObjectImpl.Container implements Clause {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Expression> getPredicates() {
 		if (predicates == null) {
 			predicates = new EObjectContainmentEList<Expression>(Expression.class, this,

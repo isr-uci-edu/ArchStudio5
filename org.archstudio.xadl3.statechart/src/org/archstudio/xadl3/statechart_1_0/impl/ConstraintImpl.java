@@ -78,6 +78,7 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Statechart_1_0Package.Literals.CONSTRAINT;
 	}
@@ -87,6 +88,7 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this, Statechart_1_0Package.CONSTRAINT__EXT);
@@ -99,6 +101,7 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -108,6 +111,7 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -122,6 +126,7 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Statechart_1_0Package.CONSTRAINT__EXT:
@@ -136,6 +141,7 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Statechart_1_0Package.CONSTRAINT__EXT:
@@ -151,6 +157,7 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -171,6 +178,7 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.CONSTRAINT__EXT:
@@ -189,6 +197,7 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.CONSTRAINT__EXT:
@@ -205,6 +214,7 @@ public class ConstraintImpl extends EObjectImpl implements Constraint {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

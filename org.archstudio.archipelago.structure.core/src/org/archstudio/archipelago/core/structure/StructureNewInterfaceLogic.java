@@ -48,6 +48,7 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 		return false;
 	}
 
+	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
 		if (selectedThings.size() > 1) {
@@ -74,6 +75,7 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 		Action newInterfaceAction = new Action("New Interface",
 				resources.getImageDescriptor(ArchStudioCommonResources.ICON_INTERFACE)) {
 
+			@Override
 			public void run() {
 				ObjRef interfaceRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.INTERFACE);
 				xarch.set(interfaceRef, "id", UIDGenerator.generateUID("interface"));

@@ -25,6 +25,7 @@ public class StructureNewStructureContextMenuFiller implements IArchipelagoTreeC
 		this.documentRootRef = documentRootRef;
 	}
 
+	@Override
 	public void fillContextMenu(IMenuManager m, Object[] selectedNodes) {
 		if (selectedNodes != null && selectedNodes.length == 1) {
 			Object selectedNode = selectedNodes[0];
@@ -34,6 +35,7 @@ public class StructureNewStructureContextMenuFiller implements IArchipelagoTreeC
 				if (fnType != null) {
 					if (fnType.equals(StructureTreeContentProvider.FOLDER_NODE_TYPE)) {
 						IAction newStructureAction = new Action("New Structure") {
+							@Override
 							public void run() {
 								createNewStructure();
 							}

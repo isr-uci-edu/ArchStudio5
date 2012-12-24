@@ -133,6 +133,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.VARIABILITY;
 	}
@@ -142,6 +143,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ChangeSet getActiveChangeSet() {
 		return activeChangeSet;
 	}
@@ -151,6 +153,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setActiveChangeSet(ChangeSet newActiveChangeSet) {
 		ChangeSet oldActiveChangeSet = activeChangeSet;
 		activeChangeSet = newActiveChangeSet;
@@ -165,6 +168,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<ChangeSet> getAppliedChangeSets() {
 		if (appliedChangeSets == null) {
 			appliedChangeSets = new EObjectEList<ChangeSet>(ChangeSet.class, this,
@@ -178,6 +182,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<ChangeSet> getChangeSet() {
 		if (changeSet == null) {
 			changeSet = new EObjectContainmentEList<ChangeSet>(ChangeSet.class, this,
@@ -191,6 +196,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Relationship> getRelationship() {
 		if (relationship == null) {
 			relationship = new EObjectContainmentEList<Relationship>(Relationship.class, this,
@@ -204,6 +210,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isOverview() {
 		return overview;
 	}
@@ -213,6 +220,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setOverview(boolean newOverview) {
 		boolean oldOverview = overview;
 		overview = newOverview;
@@ -229,6 +237,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetOverview() {
 		boolean oldOverview = overview;
 		boolean oldOverviewESet = overviewESet;
@@ -245,6 +254,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOverview() {
 		return overviewESet;
 	}
@@ -255,6 +265,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Variability_3_0Package.VARIABILITY__CHANGE_SET:
@@ -271,6 +282,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET:
@@ -292,6 +304,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -323,6 +336,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET:
@@ -350,6 +364,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET:
@@ -372,6 +387,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

@@ -13,11 +13,13 @@ public class MyxOSGiBrickLoader implements IMyxBrickLoader {
 	public MyxOSGiBrickLoader() {
 	}
 
+	@Override
 	public IMyxBrickFactory load(IMyxBrickDescription brickDescription) throws MyxBrickNotFoundException,
 			MyxBrickLoadFailedException, MyxUnsupportedBrickDescriptionException {
 		return brickDescription instanceof MyxOSGiBrickDescription ? new MyxOSGiBrickFactory() : null;
 	}
 
+	@Override
 	public void setRuntime(IMyxRuntime runtime) {
 	}
 }

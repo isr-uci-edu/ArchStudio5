@@ -35,6 +35,7 @@ public class InstantiateArchStudio implements IStartup {
 	private final static Object lock = new Object();
 	private static boolean instantiated = false;
 
+	@Override
 	public void earlyStartup() {
 		synchronized (lock) {
 			if (instantiated) {
@@ -53,6 +54,7 @@ public class InstantiateArchStudio implements IStartup {
 		//job.schedule();
 		new Thread(new Runnable() {
 
+			@Override
 			public void run() {
 				instantiate(new MyxProgessMonitor(new NullProgressMonitor() {
 					//protected PrintStream printStream = System.err;

@@ -126,6 +126,7 @@ public class Osgiimplementation_3_0PackageImpl extends EPackageImpl implements O
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getOSGiImplementation() {
 		return osGiImplementationEClass;
 	}
@@ -135,6 +136,7 @@ public class Osgiimplementation_3_0PackageImpl extends EPackageImpl implements O
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getOSGiImplementation_Ext() {
 		return (EReference) osGiImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -144,6 +146,7 @@ public class Osgiimplementation_3_0PackageImpl extends EPackageImpl implements O
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOSGiImplementation_Bundle() {
 		return (EAttribute) osGiImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -153,6 +156,7 @@ public class Osgiimplementation_3_0PackageImpl extends EPackageImpl implements O
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Osgiimplementation_3_0Factory getOsgiimplementation_3_0Factory() {
 		return (Osgiimplementation_3_0Factory) getEFactoryInstance();
 	}

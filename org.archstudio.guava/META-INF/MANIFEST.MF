@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.archstudio.guava;singleton:=true
 Bundle-Version: 12.0.0.qualifier
 Bundle-ClassPath: .,
  lib/jsr305.jar,
- lib/guava-12.0.jar
+ lib/guava-14.0-rc1.jar
 Bundle-Vendor: archstudio.org
 Export-Package: com.google.common.annotations,
  com.google.common.base,
@@ -13,11 +13,11 @@ Export-Package: com.google.common.annotations,
  com.google.common.cache,
  com.google.common.collect,
  com.google.common.eventbus,
+ com.google.common.hash,
  com.google.common.io,
+ com.google.common.math,
  com.google.common.net,
  com.google.common.primitives,
- com.google.common.util.concurrent,
- javax.annotation,
- javax.annotation.concurrent,
- javax.annotation.meta
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+ com.google.common.reflect,
+ com.google.common.util.concurrent
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -20,6 +20,7 @@ public abstract class AbstractBoundedAnchorPointThing extends AbstractAnchorPoin
 		super(id);
 		addThingListener(new IThingListener() {
 
+			@Override
 			public void thingChanged(ThingEvent thingEvent) {
 				if (!IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
 					set(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
@@ -28,6 +29,7 @@ public abstract class AbstractBoundedAnchorPointThing extends AbstractAnchorPoin
 		});
 	}
 
+	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setSize(new Dimension(6, 6));
@@ -42,18 +44,22 @@ public abstract class AbstractBoundedAnchorPointThing extends AbstractAnchorPoin
 		return new Rectangle(p.x - size.width / 2, p.y - size.height / 2, size.width, size.height);
 	}
 
+	@Override
 	public Dimension getSize() {
 		return get(SIZE_KEY, new Dimension(6, 6));
 	}
 
+	@Override
 	public void setSize(Dimension size) {
 		set(SIZE_KEY, size);
 	}
 
+	@Override
 	public Rectangle getBoundingBox() {
 		return get(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
 	}
 
+	@Override
 	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Rectangle bb = getBoundingBox();
 		switch (stickyMode) {

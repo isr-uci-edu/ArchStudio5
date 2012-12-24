@@ -13,9 +13,11 @@ public class MyxJavaClassBrickLoader implements IMyxBrickLoader {
 	public MyxJavaClassBrickLoader() {
 	}
 
+	@Override
 	public void setRuntime(IMyxRuntime runtime) {
 	}
 
+	@Override
 	public IMyxBrickFactory load(IMyxBrickDescription brickDescription) throws MyxBrickNotFoundException,
 			MyxBrickLoadFailedException, MyxUnsupportedBrickDescriptionException {
 		return brickDescription instanceof MyxJavaClassBrickDescription ? new MyxJavaClassBrickFactory() : null;

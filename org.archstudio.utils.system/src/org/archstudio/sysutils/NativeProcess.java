@@ -86,6 +86,7 @@ public class NativeProcess extends Thread {
 		return new String(processStderr.toByteArray());
 	}
 
+	@Override
 	public void destroy() {
 		terminateNow = true;
 	}
@@ -108,6 +109,7 @@ public class NativeProcess extends Thread {
 		return lenMoved;
 	}
 
+	@Override
 	public void run() {
 		long bytesLeft = stdinLen;
 		InputStream in = null;

@@ -122,6 +122,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.SPELL_TYPE;
 	}
@@ -131,6 +132,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEnd() {
 		return end;
 	}
@@ -140,6 +142,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEnd(Object newEnd) {
 		Object oldEnd = end;
 		end = newEnd;
@@ -153,6 +156,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEndopen() {
 		return endopen;
 	}
@@ -162,6 +166,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEndopen(Object newEndopen) {
 		Object oldEndopen = endopen;
 		endopen = newEndopen;
@@ -175,6 +180,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStart() {
 		return start;
 	}
@@ -184,6 +190,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStart(Object newStart) {
 		Object oldStart = start;
 		start = newStart;
@@ -197,6 +204,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStartopen() {
 		return startopen;
 	}
@@ -206,6 +214,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStartopen(Object newStartopen) {
 		Object oldStartopen = startopen;
 		startopen = newStartopen;
@@ -221,6 +230,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.SPELL_TYPE__END:
@@ -241,6 +251,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.SPELL_TYPE__END:
@@ -265,6 +276,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.SPELL_TYPE__END:
@@ -289,6 +301,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.SPELL_TYPE__END:
@@ -309,6 +322,7 @@ public class SpellTypeImpl extends EObjectImpl implements SpellType {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

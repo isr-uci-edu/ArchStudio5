@@ -89,6 +89,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Statechart_1_0Package.Literals.DOCUMENT_ROOT;
 	}
@@ -98,6 +99,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getMixed() {
 		if (mixed == null) {
 			mixed = new BasicFeatureMap(this, Statechart_1_0Package.DOCUMENT_ROOT__MIXED);
@@ -110,6 +112,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EMap<String, String> getXMLNSPrefixMap() {
 		if (xMLNSPrefixMap == null) {
 			xMLNSPrefixMap = new EcoreEMap<String, String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY,
@@ -123,6 +126,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EMap<String, String> getXSISchemaLocation() {
 		if (xSISchemaLocation == null) {
 			xSISchemaLocation = new EcoreEMap<String, String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY,
@@ -136,6 +140,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Statechart getStatechart() {
 		return (Statechart) getMixed().get(Statechart_1_0Package.Literals.DOCUMENT_ROOT__STATECHART, true);
 	}
@@ -155,6 +160,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStatechart(Statechart newStatechart) {
 		((FeatureMap.Internal) getMixed()).set(Statechart_1_0Package.Literals.DOCUMENT_ROOT__STATECHART, newStatechart);
 	}
@@ -165,6 +171,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Statechart_1_0Package.DOCUMENT_ROOT__MIXED:
@@ -185,6 +192,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Statechart_1_0Package.DOCUMENT_ROOT__MIXED:
@@ -218,6 +226,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Statechart_1_0Package.DOCUMENT_ROOT__MIXED:
@@ -242,6 +251,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.DOCUMENT_ROOT__MIXED:
@@ -266,6 +276,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.DOCUMENT_ROOT__MIXED:
@@ -286,6 +297,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

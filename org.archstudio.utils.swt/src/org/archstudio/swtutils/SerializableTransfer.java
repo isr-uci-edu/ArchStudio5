@@ -32,6 +32,7 @@ public class SerializableTransfer extends ByteArrayTransfer {
 		return _instance;
 	}
 
+	@Override
 	public void javaToNative(Object object, TransferData transferData) {
 		if (object == null) {
 			return;
@@ -81,6 +82,7 @@ public class SerializableTransfer extends ByteArrayTransfer {
 		}
 	}
 
+	@Override
 	public Object nativeToJava(TransferData transferData) {
 		if (isSupportedType(transferData)) {
 			byte[] buffer = (byte[]) super.nativeToJava(transferData);
@@ -118,10 +120,12 @@ public class SerializableTransfer extends ByteArrayTransfer {
 		return null;
 	}
 
+	@Override
 	protected String[] getTypeNames() {
 		return new String[] { SERIALIZABLE_NAME };
 	}
 
+	@Override
 	protected int[] getTypeIds() {
 		return new int[] { SERIALIZABLE_ID };
 	}

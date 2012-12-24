@@ -11,4 +11,4 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.archstudio.dblgen,
  org.archstudio.xadl3.xadlcore
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

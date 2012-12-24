@@ -6,8 +6,6 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.IThingPeer;
@@ -34,6 +32,7 @@ public class AbstractThing implements IThing {
 
 	private static final LoadingCache<Class<? extends IThing>, Class<IThingPeer<?>>> defaultPeerClassCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<Class<? extends IThing>, Class<IThingPeer<?>>>() {
+				@Override
 				@SuppressWarnings("unchecked")
 				public Class<IThingPeer<?>> load(@Nullable Class<? extends IThing> input) throws Exception {
 					Class<?> thingClass = input;
@@ -61,14 +60,17 @@ public class AbstractThing implements IThing {
 		checkState(initedProperties, "Thing %s must call super.initPropeties().", this.getClass().getName());
 	}
 
+	@Override
 	public final Object getID() {
 		return id;
 	}
 
+	@Override
 	public int hashCode() {
 		return id.hashCode();
 	}
 
+	@Override
 	public boolean equals(@Nullable Object obj) {
 		if (this == obj) {
 			return true;
@@ -91,22 +93,24 @@ public class AbstractThing implements IThing {
 		return true;
 	}
 
-	@OverridingMethodsMustInvokeSuper
 	protected void initProperties() {
 		checkState(!initedProperties, "Thing %s may only call super.initPropeties() once.", this.getClass());
 		initedProperties = true;
 	}
 
+	@Override
 	public Class<? extends IThingPeer<?>> getPeerClass() {
 		return defaultPeerClassCache.getUnchecked(this.getClass());
 	}
 
 	private final CopyOnWriteArrayList<IThingListener> thingListeners = Lists.newCopyOnWriteArrayList();
 
+	@Override
 	public void addThingListener(IThingListener thingListener) {
 		thingListeners.add(thingListener);
 	}
 
+	@Override
 	public synchronized void removeThingListener(IThingListener thingListener) {
 		thingListeners.remove(thingListener);
 	}
@@ -122,11 +126,13 @@ public class AbstractThing implements IThing {
 		}
 	}
 
+	@Override
 	public @Nullable
 	<V> V get(IThingKey<V> key) {
 		return key.postRead(getRaw(key));
 	}
 
+	@Override
 	public final <V> V get(IThingKey<V> key, V valueIfNull) {
 		V value = get(key);
 		return value != null ? value : valueIfNull;
@@ -141,6 +147,7 @@ public class AbstractThing implements IThing {
 		return properties.get(key);
 	}
 
+	@Override
 	public @Nullable
 	<V> V set(IThingKey<V> key, @Nullable V value) {
 		return setRaw(key, key.preWrite(value));
@@ -160,6 +167,7 @@ public class AbstractThing implements IThing {
 		return oldValue;
 	}
 
+	@Override
 	public boolean has(IThingKey<?> key) {
 		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
@@ -168,6 +176,7 @@ public class AbstractThing implements IThing {
 		return properties.containsKey(key);
 	}
 
+	@Override
 	public <V> boolean has(IThing.IThingKey<V> key, @Nullable V value) {
 		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
@@ -176,6 +185,7 @@ public class AbstractThing implements IThing {
 		return SystemUtils.nullEquals(properties.get(key), value);
 	};
 
+	@Override
 	public @Nullable
 	<V> V remove(IThingKey<V> key) {
 		if (Display.getCurrent() == null) {
@@ -190,6 +200,7 @@ public class AbstractThing implements IThing {
 		return oldValue;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Set<IThingKey<?>> keySet() {
 		if (Display.getCurrent() == null) {
@@ -199,6 +210,7 @@ public class AbstractThing implements IThing {
 		return Sets.newHashSet((Set<IThingKey<?>>) properties.keySet());
 	}
 
+	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(SystemUtils.simpleName(this.getClass())).append("[id=").append(id);

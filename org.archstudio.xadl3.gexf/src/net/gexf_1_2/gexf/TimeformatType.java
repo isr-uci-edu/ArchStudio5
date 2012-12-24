@@ -222,6 +222,7 @@ public enum TimeformatType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 		return value;
 	}
@@ -231,6 +232,7 @@ public enum TimeformatType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -240,6 +242,7 @@ public enum TimeformatType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 		return literal;
 	}
@@ -251,6 +254,7 @@ public enum TimeformatType implements Enumerator {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		return literal;
 	}

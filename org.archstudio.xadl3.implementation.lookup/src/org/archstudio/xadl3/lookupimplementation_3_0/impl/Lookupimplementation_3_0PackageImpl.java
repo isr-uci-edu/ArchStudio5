@@ -126,6 +126,7 @@ public class Lookupimplementation_3_0PackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getLookupImplementation() {
 		return lookupImplementationEClass;
 	}
@@ -135,6 +136,7 @@ public class Lookupimplementation_3_0PackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getLookupImplementation_Ext() {
 		return (EReference) lookupImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -144,6 +146,7 @@ public class Lookupimplementation_3_0PackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLookupImplementation_Lookup() {
 		return (EAttribute) lookupImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -153,6 +156,7 @@ public class Lookupimplementation_3_0PackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Lookupimplementation_3_0Factory getLookupimplementation_3_0Factory() {
 		return (Lookupimplementation_3_0Factory) getEFactoryInstance();
 	}

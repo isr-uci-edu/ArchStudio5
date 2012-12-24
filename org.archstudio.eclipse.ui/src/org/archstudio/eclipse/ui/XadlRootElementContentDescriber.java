@@ -11,6 +11,7 @@ import org.eclipse.core.runtime.content.IContentDescription;
 
 public class XadlRootElementContentDescriber implements IContentDescriber {
 
+	@Override
 	public int describe(InputStream contents, IContentDescription description) throws IOException {
 		Reader r = null;
 		r = new InputStreamReader(contents);
@@ -46,6 +47,7 @@ public class XadlRootElementContentDescriber implements IContentDescriber {
 		}
 	}
 
+	@Override
 	public QualifiedName[] getSupportedOptions() {
 		return new QualifiedName[0];
 	}

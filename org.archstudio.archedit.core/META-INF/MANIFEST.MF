@@ -27,5 +27,6 @@ Require-Bundle: org.archstudio.launcher,
  org.eclipse.core.resources,
  org.archstudio.archipelago.core,
  org.archstudio.xadl.bna,
- org.archstudio.xarchadt.variability
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+ org.archstudio.xarchadt.variability,
+ org.eclipse.jdt.annotation;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -6,4 +6,4 @@ Bundle-Version: 5.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.testadt
 Require-Bundle: org.archstudio.archlight
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

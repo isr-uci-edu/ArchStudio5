@@ -23,6 +23,7 @@ public class FocusEditorUtils {
 		final String feditorID = editorID;
 		final String feditorName = editorName;
 		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+			@Override
 			public void run() {
 				_focusEditor(fxarch, fref, feditorID, feditorName);
 			}

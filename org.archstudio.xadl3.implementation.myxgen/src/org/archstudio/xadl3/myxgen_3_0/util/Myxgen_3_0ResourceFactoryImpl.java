@@ -32,6 +32,7 @@ public class Myxgen_3_0ResourceFactoryImpl extends ResourceFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Resource createResource(URI uri) {
 		XMLResource result = new Myxgen_3_0ResourceImpl(uri);
 		result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);

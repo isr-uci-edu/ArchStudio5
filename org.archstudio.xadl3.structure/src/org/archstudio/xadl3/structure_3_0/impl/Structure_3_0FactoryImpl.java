@@ -63,6 +63,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Structure_3_0Package.COMPONENT:
@@ -92,6 +93,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * @generated
 	 */
 
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 		case Structure_3_0Package.DIRECTION:
@@ -109,6 +111,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * @generated
 	 */
 
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 		case Structure_3_0Package.DIRECTION:
@@ -125,6 +128,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Component createComponent() {
 		ComponentImpl component = new ComponentImpl();
 		return component;
@@ -135,6 +139,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Connector createConnector() {
 		ConnectorImpl connector = new ConnectorImpl();
 		return connector;
@@ -145,6 +150,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public DocumentRoot createDocumentRoot() {
 		DocumentRootImpl documentRoot = new DocumentRootImpl();
 		return documentRoot;
@@ -155,6 +161,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Interface createInterface() {
 		InterfaceImpl interface_ = new InterfaceImpl();
 		return interface_;
@@ -165,6 +172,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public InterfaceMapping createInterfaceMapping() {
 		InterfaceMappingImpl interfaceMapping = new InterfaceMappingImpl();
 		return interfaceMapping;
@@ -175,6 +183,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Link createLink() {
 		LinkImpl link = new LinkImpl();
 		return link;
@@ -185,6 +194,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Structure createStructure() {
 		StructureImpl structure = new StructureImpl();
 		return structure;
@@ -195,6 +205,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SubStructure createSubStructure() {
 		SubStructureImpl subStructure = new SubStructureImpl();
 		return subStructure;
@@ -246,6 +257,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Structure_3_0Package getStructure_3_0Package() {
 		return (Structure_3_0Package) getEPackage();
 	}

@@ -23,21 +23,25 @@ public class AbstractNature implements IProjectNature {
 
 	protected IProject project;
 
+	@Override
 	public IProject getProject() {
 		return project;
 	}
 
+	@Override
 	public void setProject(IProject project) {
 		this.project = project;
 	}
 
 	private final Predicate<ICommand> isBuilderPredicate = new Predicate<ICommand>() {
 
+		@Override
 		public boolean apply(ICommand input) {
 			return input.getBuilderName().equals(builderID);
 		}
 	};
 
+	@Override
 	public void configure() throws CoreException {
 		IProjectDescription description = project.getDescription();
 		List<ICommand> commands = Lists.newArrayList(description.getBuildSpec());
@@ -56,6 +60,7 @@ public class AbstractNature implements IProjectNature {
 		project.setDescription(description, null);
 	}
 
+	@Override
 	public void deconfigure() throws CoreException {
 		IProjectDescription description = project.getDescription();
 		List<ICommand> commands = Lists.newArrayList(description.getBuildSpec());

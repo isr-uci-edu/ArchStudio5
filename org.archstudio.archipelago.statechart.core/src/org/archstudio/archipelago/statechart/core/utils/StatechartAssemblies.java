@@ -2,8 +2,6 @@ package org.archstudio.archipelago.statechart.core.utils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import javax.annotation.Nullable;
-
 import org.archstudio.archipelago.statechart.core.things.glass.CurvedSplineGlassThing;
 import org.archstudio.archipelago.statechart.core.things.shapes.CurvedSplineThing;
 import org.archstudio.bna.IBNAModel;
@@ -13,6 +11,7 @@ import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.utils.Assemblies;
+import org.eclipse.jdt.annotation.Nullable;
 
 public class StatechartAssemblies extends Assemblies {
 

@@ -125,6 +125,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Structure_3_0Package.Literals.LINK;
 	}
@@ -134,6 +135,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Interface getPoint1() {
 		return point1;
 	}
@@ -143,6 +145,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setPoint1(Interface newPoint1) {
 		Interface oldPoint1 = point1;
 		point1 = newPoint1;
@@ -156,6 +159,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Interface getPoint2() {
 		return point2;
 	}
@@ -165,6 +169,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setPoint2(Interface newPoint2) {
 		Interface oldPoint2 = point2;
 		point2 = newPoint2;
@@ -178,6 +183,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this, Structure_3_0Package.LINK__EXT);
@@ -190,6 +196,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -199,6 +206,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -212,6 +220,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -221,6 +230,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -235,6 +245,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Structure_3_0Package.LINK__EXT:
@@ -249,6 +260,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Structure_3_0Package.LINK__POINT1:
@@ -270,6 +282,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -299,6 +312,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.LINK__POINT1:
@@ -326,6 +340,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.LINK__POINT1:
@@ -348,6 +363,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

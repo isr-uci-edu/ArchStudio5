@@ -9,6 +9,6 @@ import org.eclipse.xtext.generator.IGenerator;
 
 @SuppressWarnings("all")
 public class PrologGenerator implements IGenerator {
-	public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {
-	}
+  public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {
+  }
 }

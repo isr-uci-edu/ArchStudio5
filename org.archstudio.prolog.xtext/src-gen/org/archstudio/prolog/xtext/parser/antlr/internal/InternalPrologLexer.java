@@ -53,6 +53,7 @@ public class InternalPrologLexer extends Lexer {
 
 	}
 
+	@Override
 	public String getGrammarFileName() {
 		return "../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g";
 	}
@@ -1071,6 +1072,7 @@ public class InternalPrologLexer extends Lexer {
 
 	// $ANTLR end "RULE_SINGLE_LINE_COMMENT"
 
+	@Override
 	public void mTokens() throws RecognitionException {
 		// ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1:8: ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | RULE_EXPRESSION_1100 | RULE_EXPRESSION_900 | RULE_EXPRESSION_700 | RULE_EXPRESSION_500 | RULE_EXPRESSION_400 | RULE_EXPRESSION_200 | RULE_NUMBER | RULE_ATOM | RULE_VARIABLE | RULE_STRING | RULE_WHITESPACE | RULE_SINGLE_LINE_COMMENT )
 		int alt15 = 21;
@@ -1272,6 +1274,7 @@ public class InternalPrologLexer extends Lexer {
 			this.transition = DFA2_transition;
 		}
 
+		@Override
 		public String getDescription() {
 			return "1145:23: ( '<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\\\=' | '\\\\==' | 'is' )";
 		}
@@ -1317,6 +1320,7 @@ public class InternalPrologLexer extends Lexer {
 			this.transition = DFA4_transition;
 		}
 
+		@Override
 		public String getDescription() {
 			return "1149:23: ( '*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem' )";
 		}
@@ -1375,6 +1379,7 @@ public class InternalPrologLexer extends Lexer {
 			this.transition = DFA15_transition;
 		}
 
+		@Override
 		public String getDescription() {
 			return "1:1: Tokens : ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | RULE_EXPRESSION_1100 | RULE_EXPRESSION_900 | RULE_EXPRESSION_700 | RULE_EXPRESSION_500 | RULE_EXPRESSION_400 | RULE_EXPRESSION_200 | RULE_NUMBER | RULE_ATOM | RULE_VARIABLE | RULE_STRING | RULE_WHITESPACE | RULE_SINGLE_LINE_COMMENT );";
 		}

@@ -9,6 +9,7 @@ public enum Flow {
 		this.description = description;
 	}
 
+	@Override
 	public String toString() {
 		return description;
 	}

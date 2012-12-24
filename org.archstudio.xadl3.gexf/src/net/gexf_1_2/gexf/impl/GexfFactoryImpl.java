@@ -82,6 +82,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case GexfPackage.ATTRIBUTE_CONTENT:
@@ -127,6 +128,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * @generated
 	 */
 
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 		case GexfPackage.ATTRTYPE_TYPE:
@@ -180,6 +182,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * @generated
 	 */
 
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 		case GexfPackage.ATTRTYPE_TYPE:
@@ -232,6 +235,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public AttributeContent createAttributeContent() {
 		AttributeContentImpl attributeContent = new AttributeContentImpl();
 		return attributeContent;
@@ -242,6 +246,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public AttributesContent createAttributesContent() {
 		AttributesContentImpl attributesContent = new AttributesContentImpl();
 		return attributesContent;
@@ -252,6 +257,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public AttvaluesContent createAttvaluesContent() {
 		AttvaluesContentImpl attvaluesContent = new AttvaluesContentImpl();
 		return attvaluesContent;
@@ -262,6 +268,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public AttvalueType createAttvalueType() {
 		AttvalueTypeImpl attvalueType = new AttvalueTypeImpl();
 		return attvalueType;
@@ -272,6 +279,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public DocumentRoot createDocumentRoot() {
 		DocumentRootImpl documentRoot = new DocumentRootImpl();
 		return documentRoot;
@@ -282,6 +290,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EdgeContent createEdgeContent() {
 		EdgeContentImpl edgeContent = new EdgeContentImpl();
 		return edgeContent;
@@ -292,6 +301,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EdgesContent createEdgesContent() {
 		EdgesContentImpl edgesContent = new EdgesContentImpl();
 		return edgesContent;
@@ -302,6 +312,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public GexfContent createGexfContent() {
 		GexfContentImpl gexfContent = new GexfContentImpl();
 		return gexfContent;
@@ -312,6 +323,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public GraphContent createGraphContent() {
 		GraphContentImpl graphContent = new GraphContentImpl();
 		return graphContent;
@@ -322,6 +334,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public MetaContent createMetaContent() {
 		MetaContentImpl metaContent = new MetaContentImpl();
 		return metaContent;
@@ -332,6 +345,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public NodeContent createNodeContent() {
 		NodeContentImpl nodeContent = new NodeContentImpl();
 		return nodeContent;
@@ -342,6 +356,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public NodesContent createNodesContent() {
 		NodesContentImpl nodesContent = new NodesContentImpl();
 		return nodesContent;
@@ -352,6 +367,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ParentsContent createParentsContent() {
 		ParentsContentImpl parentsContent = new ParentsContentImpl();
 		return parentsContent;
@@ -362,6 +378,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ParentType createParentType() {
 		ParentTypeImpl parentType = new ParentTypeImpl();
 		return parentType;
@@ -372,6 +389,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SpellsContent createSpellsContent() {
 		SpellsContentImpl spellsContent = new SpellsContentImpl();
 		return spellsContent;
@@ -382,6 +400,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SpellType createSpellType() {
 		SpellTypeImpl spellType = new SpellTypeImpl();
 		return spellType;
@@ -939,6 +958,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public GexfPackage getGexfPackage() {
 		return (GexfPackage) getEPackage();
 	}

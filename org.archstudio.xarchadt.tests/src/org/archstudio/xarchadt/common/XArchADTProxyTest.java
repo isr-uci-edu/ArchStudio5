@@ -16,6 +16,7 @@ import com.google.common.collect.Sets;
 
 public class XArchADTProxyTest extends AbstractXArchADTTest {
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		DocumentRoot documentRoot = XArchADTProxy.proxy(xarch, documentRootRef);

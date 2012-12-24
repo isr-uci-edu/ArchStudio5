@@ -20,6 +20,7 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener {
 	protected final LoadingCache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().weakKeys()
 			.build(new CacheLoader<Object, AtomicLong>() {
 
+				@Override
 				public AtomicLong load(Object input) {
 					return new AtomicLong();
 				}
@@ -39,6 +40,7 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener {
 		getBNAModel().addBNAModelListener(this);
 	}
 
+	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		for (IBNAModelListener logic : logicManager.getThingLogics(IBNAModelListener.class)) {
 			try {
@@ -58,10 +60,12 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener {
 		}
 	}
 
+	@Override
 	public IThingLogicManager getThingLogicManager() {
 		return logicManager;
 	}
 
+	@Override
 	public void dispose() {
 		logicManager.destroy();
 
@@ -77,14 +81,17 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener {
 		}
 	}
 
+	@Override
 	public boolean isDestroyed() {
 		return isDestroyed;
 	}
 
+	@Override
 	public Object getID() {
 		return id;
 	}
 
+	@Override
 	public IBNAModel getBNAModel() {
 		return model;
 	}

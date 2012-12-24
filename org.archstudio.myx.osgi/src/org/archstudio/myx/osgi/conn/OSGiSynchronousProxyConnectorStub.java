@@ -7,7 +7,6 @@ import org.archstudio.myx.fw.IMyxName;
  * 
  * @generated
  */
-/* package */@SuppressWarnings("unused")
 abstract class OSGiSynchronousProxyConnectorStub extends org.archstudio.myx.java.conn.SynchronousProxyConnector
 		implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
@@ -16,6 +15,7 @@ abstract class OSGiSynchronousProxyConnectorStub extends org.archstudio.myx.java
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -27,6 +27,7 @@ abstract class OSGiSynchronousProxyConnectorStub extends org.archstudio.myx.java
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -38,6 +39,7 @@ abstract class OSGiSynchronousProxyConnectorStub extends org.archstudio.myx.java
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 		super.interfaceDisconnected(interfaceName, serviceObject);
 	}
@@ -46,6 +48,7 @@ abstract class OSGiSynchronousProxyConnectorStub extends org.archstudio.myx.java
 	 * @generated
 	 */
 
+	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		return super.getServiceObject(interfaceName);
 	}

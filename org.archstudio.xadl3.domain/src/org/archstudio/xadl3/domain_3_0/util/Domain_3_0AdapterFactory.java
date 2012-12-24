@@ -49,6 +49,7 @@ public class Domain_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -67,18 +68,22 @@ public class Domain_3_0AdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected Domain_3_0Switch<Adapter> modelSwitch = new Domain_3_0Switch<Adapter>() {
 
+		@Override
 		public Adapter caseDomain(Domain object) {
 			return createDomainAdapter();
 		}
 
+		@Override
 		public Adapter caseDomainExtension(DomainExtension object) {
 			return createDomainExtensionAdapter();
 		}
 
+		@Override
 		public Adapter caseExtension(Extension object) {
 			return createExtensionAdapter();
 		}
 
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -94,6 +99,7 @@ public class Domain_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

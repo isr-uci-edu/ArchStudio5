@@ -115,6 +115,7 @@ public class MyxCodeGenerator {
 				SAXParserFactory factory = SAXParserFactory.newInstance();
 				factory.newSAXParser().parse(formatterFile, new DefaultHandler() {
 
+					@Override
 					public void startElement(String uri, String localName, String qName, Attributes attributes)
 							throws SAXException {
 						if ("setting".equals(qName)) {

@@ -55,6 +55,7 @@ public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesConten
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.ATTVALUES_CONTENT;
 	}
@@ -64,6 +65,7 @@ public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<AttvalueType> getAttvalue() {
 		if (attvalue == null) {
 			attvalue = new EObjectContainmentEList<AttvalueType>(AttvalueType.class, this,
@@ -78,6 +80,7 @@ public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesConten
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
@@ -92,6 +95,7 @@ public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesConten
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
@@ -105,6 +109,7 @@ public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -122,6 +127,7 @@ public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesConten
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
@@ -137,6 +143,7 @@ public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesConten
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:

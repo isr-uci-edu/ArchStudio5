@@ -12,6 +12,7 @@ public class LinearCoordinateMapper extends AbstractCoordinateMapper implements 
 	public LinearCoordinateMapper() {
 	}
 
+	@Override
 	public Rectangle getLocalBounds() {
 		return new Rectangle(//
 				BNAUtils.round(worldBounds.x * localScale), //
@@ -20,24 +21,28 @@ public class LinearCoordinateMapper extends AbstractCoordinateMapper implements 
 				BNAUtils.round(worldBounds.height * localScale));
 	}
 
+	@Override
 	public Point worldToLocal(Point worldPoint) {
 		return new Point(//
 				BNAUtils.round(worldPoint.x * localScale - localOrigin.x), //
 				BNAUtils.round(worldPoint.y * localScale - localOrigin.y));
 	}
 
+	@Override
 	public Point2D worldToLocal(Point2D worldPoint) {
 		return new Point2D.Double(//
 				worldPoint.getX() * localScale - localOrigin.x, //
 				worldPoint.getY() * localScale - localOrigin.y);
 	}
 
+	@Override
 	public Point localToWorld(Point localPoint) {
 		return new Point(//
 				BNAUtils.round((localPoint.x + localOrigin.x) / localScale), //
 				BNAUtils.round((localPoint.y + localOrigin.y) / localScale));
 	}
 
+	@Override
 	public Point2D localToWorld(Point2D localPoint) {
 		return new Point2D.Double(//
 				(localPoint.getX() + localOrigin.x) / localScale, //

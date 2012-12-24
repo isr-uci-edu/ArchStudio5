@@ -58,6 +58,7 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.CHANGE;
 	}
@@ -67,6 +68,7 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -76,6 +78,7 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -90,6 +93,7 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Variability_3_0Package.CHANGE__NAME:
@@ -104,6 +108,7 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Variability_3_0Package.CHANGE__NAME:
@@ -119,6 +124,7 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.CHANGE__NAME:
@@ -134,6 +140,7 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.CHANGE__NAME:
@@ -148,6 +155,7 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

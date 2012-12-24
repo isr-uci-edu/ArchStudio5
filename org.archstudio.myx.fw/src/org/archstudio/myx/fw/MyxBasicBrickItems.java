@@ -18,6 +18,7 @@ public class MyxBasicBrickItems implements IMyxBrickItems {
 		this.initializationData = initializationData;
 	}
 
+	@Override
 	public IMyxInterfaceManager getInterfaceManager() {
 		return interfaceManager;
 	}
@@ -26,6 +27,7 @@ public class MyxBasicBrickItems implements IMyxBrickItems {
 		this.interfaceManager = interfaceManager;
 	}
 
+	@Override
 	public IMyxRequiredServiceProvider getRequiredServiceProvider() {
 		return requiredServiceProvider;
 	}
@@ -34,6 +36,7 @@ public class MyxBasicBrickItems implements IMyxBrickItems {
 		this.requiredServiceProvider = requiredServiceProvider;
 	}
 
+	@Override
 	public IMyxName getBrickName() {
 		return brickName;
 	}
@@ -42,6 +45,7 @@ public class MyxBasicBrickItems implements IMyxBrickItems {
 		this.brickName = brickName;
 	}
 
+	@Override
 	public IMyxBrickDescription getBrickDescription() {
 		return brickDescription;
 	}
@@ -50,6 +54,7 @@ public class MyxBasicBrickItems implements IMyxBrickItems {
 		this.brickDescription = brickDescription;
 	}
 
+	@Override
 	public IMyxBrickInitializationData getInitializationData() {
 		return initializationData;
 	}

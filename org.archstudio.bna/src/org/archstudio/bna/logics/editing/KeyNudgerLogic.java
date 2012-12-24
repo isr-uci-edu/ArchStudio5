@@ -16,6 +16,7 @@ import org.eclipse.swt.graphics.Point;
 
 public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListener {
 
+	@Override
 	public void keyPressed(IBNAView view, KeyEvent e) {
 		if (e.keyCode == SWT.ARROW_LEFT || e.keyCode == SWT.ARROW_UP || e.keyCode == SWT.ARROW_DOWN
 				|| e.keyCode == SWT.ARROW_RIGHT) {
@@ -52,6 +53,7 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 		}
 	}
 
+	@Override
 	public void keyReleased(IBNAView view, KeyEvent e) {
 	}
 

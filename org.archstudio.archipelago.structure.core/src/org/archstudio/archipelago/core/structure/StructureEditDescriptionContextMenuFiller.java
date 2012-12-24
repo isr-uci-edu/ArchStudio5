@@ -17,6 +17,7 @@ public class StructureEditDescriptionContextMenuFiller extends AbstractEditNameC
 		this.xarch = AS.get(IXArchADT.class);
 	}
 
+	@Override
 	protected boolean matches(Object node) {
 		if (node != null) {
 			if (node instanceof ObjRef) {

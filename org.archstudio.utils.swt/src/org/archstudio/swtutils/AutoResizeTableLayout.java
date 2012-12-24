@@ -245,14 +245,17 @@ public class AutoResizeTableLayout extends TableLayout implements ControlListene
 		table.addControlListener(this);
 	}
 
+	@Override
 	public void addColumnData(ColumnLayoutData data) {
 		columns.add(data);
 		super.addColumnData(data);
 	}
 
+	@Override
 	public void controlMoved(ControlEvent e) {
 	}
 
+	@Override
 	public void controlResized(ControlEvent e) {
 		if (autosizing) {
 			return;

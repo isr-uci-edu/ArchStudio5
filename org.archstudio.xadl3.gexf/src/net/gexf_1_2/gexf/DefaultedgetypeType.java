@@ -196,6 +196,7 @@ public enum DefaultedgetypeType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 		return value;
 	}
@@ -205,6 +206,7 @@ public enum DefaultedgetypeType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -214,6 +216,7 @@ public enum DefaultedgetypeType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 		return literal;
 	}
@@ -225,6 +228,7 @@ public enum DefaultedgetypeType implements Enumerator {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		return literal;
 	}

@@ -15,6 +15,7 @@ public class MyxJavaClassBrickFactory implements IMyxBrickFactory {
 	public MyxJavaClassBrickFactory() {
 	}
 
+	@Override
 	public IMyxBrick create(IMyxName name, IMyxBrickDescription brickDescription,
 			IMyxBrickInitializationData initializationData) throws MyxBrickCreationException {
 		try {

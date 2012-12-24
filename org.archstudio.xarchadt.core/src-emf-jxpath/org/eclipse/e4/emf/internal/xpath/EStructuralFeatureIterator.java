@@ -105,6 +105,7 @@ public class EStructuralFeatureIterator implements NodeIterator {
 		targetReady = false;
 	}
 
+	@Override
 	public NodePointer getNodePointer() {
 		if (position == 0) {
 			if (name != null) {
@@ -137,10 +138,12 @@ public class EStructuralFeatureIterator implements NodeIterator {
 		}
 	}
 
+	@Override
 	public int getPosition() {
 		return position;
 	}
 
+	@Override
 	public boolean setPosition(int position) {
 		return name == null ? setPositionAllProperties(position) : setPositionIndividualProperty(position);
 	}

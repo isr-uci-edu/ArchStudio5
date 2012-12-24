@@ -5,8 +5,6 @@ import static org.archstudio.sysutils.SystemUtils.nullEquals;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
@@ -16,13 +14,13 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IIsBackground;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.widgets.Composite;
 
 import com.google.common.collect.Lists;
 
 public class DefaultBNAView implements IBNAView {
 
-	@Nullable
 	protected final IBNAView parentView;
 	protected final IBNAWorld bnaWorld;
 	protected final ICoordinateMapper cm;
@@ -38,10 +36,12 @@ public class DefaultBNAView implements IBNAView {
 		this.cm = checkNotNull(cm);
 	}
 
+	@Override
 	public Composite getComposite() {
 		return composite;
 	}
 
+	@Override
 	public void setComposite(Composite composite) {
 		if (!nullEquals(this.composite, composite)) {
 			this.composite = composite;
@@ -57,18 +57,22 @@ public class DefaultBNAView implements IBNAView {
 		}
 	}
 
+	@Override
 	public IBNAView getParentView() {
 		return parentView;
 	}
 
+	@Override
 	public IBNAWorld getBNAWorld() {
 		return bnaWorld;
 	}
 
+	@Override
 	public ICoordinateMapper getCoordinateMapper() {
 		return cm;
 	}
 
+	@Override
 	public List<IThing> getThingsAt(ICoordinate location) {
 		location = DefaultCoordinate.forWorld(location.getWorldPoint(), cm);
 		List<IThing> things = Lists.newArrayList();
@@ -87,10 +91,12 @@ public class DefaultBNAView implements IBNAView {
 		return things;
 	}
 
+	@Override
 	public <T extends IThing> IThingPeer<T> getThingPeer(T thing) {
 		return peerCache.getPeer(thing);
 	}
 
+	@Override
 	public <T extends IThing> void disposePeer(T thing) {
 		peerCache.disposePeer(thing);
 	}

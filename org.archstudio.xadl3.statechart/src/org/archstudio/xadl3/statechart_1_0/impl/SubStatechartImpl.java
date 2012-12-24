@@ -73,6 +73,7 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Statechart_1_0Package.Literals.SUB_STATECHART;
 	}
@@ -82,6 +83,7 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Statechart getInnerStatechart() {
 		return innerStatechart;
 	}
@@ -91,6 +93,7 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setInnerStatechart(Statechart newInnerStatechart) {
 		Statechart oldInnerStatechart = innerStatechart;
 		innerStatechart = newInnerStatechart;
@@ -105,6 +108,7 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -114,6 +118,7 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -128,6 +133,7 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Statechart_1_0Package.SUB_STATECHART__INNER_STATECHART:
@@ -144,6 +150,7 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Statechart_1_0Package.SUB_STATECHART__INNER_STATECHART:
@@ -162,6 +169,7 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.SUB_STATECHART__INNER_STATECHART:
@@ -180,6 +188,7 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.SUB_STATECHART__INNER_STATECHART:
@@ -196,6 +205,7 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

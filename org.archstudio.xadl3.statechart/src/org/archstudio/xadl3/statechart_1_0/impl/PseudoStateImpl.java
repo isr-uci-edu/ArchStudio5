@@ -100,6 +100,7 @@ public class PseudoStateImpl extends EObjectImpl implements PseudoState {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Statechart_1_0Package.Literals.PSEUDO_STATE;
 	}
@@ -109,6 +110,7 @@ public class PseudoStateImpl extends EObjectImpl implements PseudoState {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this, Statechart_1_0Package.PSEUDO_STATE__EXT);
@@ -121,6 +123,7 @@ public class PseudoStateImpl extends EObjectImpl implements PseudoState {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -130,6 +133,7 @@ public class PseudoStateImpl extends EObjectImpl implements PseudoState {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -143,6 +147,7 @@ public class PseudoStateImpl extends EObjectImpl implements PseudoState {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -152,6 +157,7 @@ public class PseudoStateImpl extends EObjectImpl implements PseudoState {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -167,6 +173,7 @@ public class PseudoStateImpl extends EObjectImpl implements PseudoState {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Statechart_1_0Package.PSEUDO_STATE__EXT:
@@ -181,6 +188,7 @@ public class PseudoStateImpl extends EObjectImpl implements PseudoState {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Statechart_1_0Package.PSEUDO_STATE__EXT:
@@ -198,6 +206,7 @@ public class PseudoStateImpl extends EObjectImpl implements PseudoState {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -221,6 +230,7 @@ public class PseudoStateImpl extends EObjectImpl implements PseudoState {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.PSEUDO_STATE__EXT:
@@ -242,6 +252,7 @@ public class PseudoStateImpl extends EObjectImpl implements PseudoState {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.PSEUDO_STATE__EXT:
@@ -260,6 +271,7 @@ public class PseudoStateImpl extends EObjectImpl implements PseudoState {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

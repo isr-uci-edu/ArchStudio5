@@ -35,6 +35,7 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThi
 		super(xarch, rootObjRef, objRefPath);
 	}
 
+	@Override
 	public void init() {
 		super.init();
 
@@ -60,6 +61,7 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThi
 				true);
 	}
 
+	@Override
 	protected MappingGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
 		MappingGlassThing thing = Assemblies.createMapping(getBNAWorld(), null, null);

@@ -82,6 +82,7 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES;
 	}
@@ -91,6 +92,7 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getBundle() {
 		return bundle;
 	}
@@ -100,6 +102,7 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setBundle(String newBundle) {
 		String oldBundle = bundle;
 		bundle = newBundle;
@@ -114,6 +117,7 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getClass_() {
 		return class_;
 	}
@@ -123,6 +127,7 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setClass(String newClass) {
 		String oldClass = class_;
 		class_ = newClass;
@@ -138,6 +143,7 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE:
@@ -154,6 +160,7 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE:
@@ -172,6 +179,7 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE:
@@ -190,6 +198,7 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE:
@@ -206,6 +215,7 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

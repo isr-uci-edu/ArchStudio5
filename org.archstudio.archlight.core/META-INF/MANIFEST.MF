@@ -25,4 +25,4 @@ Require-Bundle: org.archstudio.archlight,
  org.archstudio.guava,
  org.archstudio.eclipse.core,
  org.archstudio.xarchadt.variability
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -17,14 +17,17 @@ public class DotLayoutEngine extends AbstractGraphvizLayoutEngine {
 	public static final String LAYOUT_ENGINE_ID = "dot";
 	public static final String LAYOUT_ENGINE_DESCRIPTION = "GraphViz DOT Engine";
 
+	@Override
 	public String getID() {
 		return LAYOUT_ENGINE_ID;
 	}
 
+	@Override
 	public String getDescription() {
 		return LAYOUT_ENGINE_DESCRIPTION;
 	}
 
+	@Override
 	protected String runLayoutTool(IXArchADT xarch, IPreferenceStore prefs, String toolInput)
 			throws GraphLayoutException {
 		SystemUtils.OperatingSystem os = SystemUtils.guessOperatingSystem();

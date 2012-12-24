@@ -77,6 +77,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 
 		this.addListener(SWT.Resize, new Listener() {
 
+			@Override
 			public void handleEvent(Event event) {
 				org.eclipse.swt.graphics.Rectangle bounds = BNACanvas.this.getBounds();
 				float fAspect = (float) bounds.width / (float) bounds.height;
@@ -96,12 +97,14 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 
 		this.addControlListener(new ControlAdapter() {
 
+			@Override
 			public void controlResized(ControlEvent e) {
 				updateScrollBars();
 			}
 		});
 		getCoordinateMapper().addCoordinateMapperListener(new ICoordinateMapperListener() {
 
+			@Override
 			public void coordinateMappingsChanged(final CoordinateMapperEvent evt) {
 				if (Display.getCurrent() == null) {
 					SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
@@ -111,12 +114,14 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		});
 		hBar.addSelectionListener(new SelectionAdapter() {
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				updateCM();
 			}
 		});
 		vBar.addSelectionListener(new SelectionAdapter() {
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				updateCM();
 			}
@@ -127,6 +132,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		// prevent the mouse wheel from scrolling the canvas
 		addListener(SWT.MouseWheel, new Listener() {
 
+			@Override
 			public void handleEvent(Event event) {
 				// prevent the mouse wheel from scrolling the canvas
 				event.doit = false;
@@ -136,6 +142,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		// select canvas on click
 		addMouseListener(new MouseAdapter() {
 
+			@Override
 			public void mouseDown(MouseEvent e) {
 				BNACanvas.this.forceFocus();
 			}
@@ -146,6 +153,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		addPaintListener(this);
 	}
 
+	@Override
 	public void dispose() {
 		getBNAView().getBNAWorld().getBNAModel().removeBNAModelListener(this);
 		eventHandler.dispose();
@@ -222,11 +230,13 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 	private boolean needsRedraw = false;
 	private boolean redrawPending = false;
 
+	@Override
 	public void bnaModelChanged(final BNAModelEvent evt) {
 		if (!evt.isInBulkChange() && !needsRedraw && !redrawPending) {
 			needsRedraw = true;
 			SWTWidgetUtils.async(this, new Runnable() {
 
+				@Override
 				public void run() {
 					if (needsRedraw && !redrawPending) {
 						redrawPending = true;
@@ -239,6 +249,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		if (evt.getEventType() == EventType.THING_REMOVING) {
 			SWTWidgetUtils.async(this, new Runnable() {
 
+				@Override
 				public void run() {
 					getBNAView().disposePeer(evt.getTargetThing());
 				}
@@ -246,6 +257,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		}
 	}
 
+	@Override
 	public void paintControl(PaintEvent evt) {
 		IBNAModel bnaModel = getBNAView().getBNAWorld().getBNAModel();
 

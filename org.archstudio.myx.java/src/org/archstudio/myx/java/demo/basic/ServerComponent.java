@@ -13,6 +13,7 @@ public class ServerComponent extends AbstractMyxSimpleBrick {
 		this.math = new MathImpl();
 	}
 
+	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(PROVIDED_INTERFACE_NAME)) {
 			return math;
@@ -21,14 +22,17 @@ public class ServerComponent extends AbstractMyxSimpleBrick {
 	}
 
 	class MathImpl implements IMath {
+		@Override
 		public int add(int a, int b) {
 			return a + b;
 		}
 
+		@Override
 		public int mul(int a, int b) {
 			return a * b;
 		}
 
+		@Override
 		public int sub(int a, int b) {
 			return a - b;
 		}

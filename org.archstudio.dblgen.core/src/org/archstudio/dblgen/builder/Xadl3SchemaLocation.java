@@ -55,6 +55,7 @@ public class Xadl3SchemaLocation {
 			return null;
 		}
 
+		@Override
 		public String toString() {
 			return getStringRepresentation();
 		}

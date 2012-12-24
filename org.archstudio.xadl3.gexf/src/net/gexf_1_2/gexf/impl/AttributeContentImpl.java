@@ -136,6 +136,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.ATTRIBUTE_CONTENT;
 	}
@@ -145,6 +146,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getGroup() {
 		if (group == null) {
 			group = new BasicFeatureMap(this, GexfPackage.ATTRIBUTE_CONTENT__GROUP);
@@ -157,6 +159,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<String> getDefault() {
 		return getGroup().list(GexfPackage.Literals.ATTRIBUTE_CONTENT__DEFAULT);
 	}
@@ -166,6 +169,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<String> getOptions() {
 		return getGroup().list(GexfPackage.Literals.ATTRIBUTE_CONTENT__OPTIONS);
 	}
@@ -175,6 +179,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getId() {
 		return id;
 	}
@@ -184,6 +189,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(Object newId) {
 		Object oldId = id;
 		id = newId;
@@ -197,6 +203,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getTitle() {
 		return title;
 	}
@@ -206,6 +213,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setTitle(String newTitle) {
 		String oldTitle = title;
 		title = newTitle;
@@ -219,6 +227,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public AttrtypeType getType() {
 		return type;
 	}
@@ -228,6 +237,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setType(AttrtypeType newType) {
 		AttrtypeType oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
@@ -244,6 +254,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetType() {
 		AttrtypeType oldType = type;
 		boolean oldTypeESet = typeESet;
@@ -260,6 +271,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetType() {
 		return typeESet;
 	}
@@ -270,6 +282,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
@@ -284,6 +297,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
@@ -310,6 +324,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -343,6 +358,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
@@ -373,6 +389,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.ATTRIBUTE_CONTENT__GROUP:
@@ -397,6 +414,7 @@ public class AttributeContentImpl extends EObjectImpl implements AttributeConten
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

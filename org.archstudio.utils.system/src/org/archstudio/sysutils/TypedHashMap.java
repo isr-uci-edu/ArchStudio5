@@ -34,65 +34,80 @@ public class TypedHashMap implements TypedMap {
 		this.map = Maps.newHashMapWithExpectedSize(expectedSize);
 	}
 
+	@Override
 	public int size() {
 		return map.size();
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return map.isEmpty();
 	}
 
+	@Override
 	public boolean containsKey(Object key) {
 		return map.containsKey(key);
 	}
 
+	@Override
 	public boolean containsValue(Object value) {
 		return map.containsValue(value);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <K extends Key<V>, V> V get(K key) {
 		return (V) map.get(key);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <K extends Key<V>, V> V put(K key, V value) {
 		return (V) map.put(key, value);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <K extends Key<V>, V> V remove(K key) {
 		return (V) map.remove(key);
 	}
 
+	@Override
 	public void putAll(TypedMap m) {
 		map.putAll(m.asMap());
 	}
 
+	@Override
 	public void clear() {
 		map.clear();
 	}
 
+	@Override
 	public Set<? extends Key<?>> keySet() {
 		return map.keySet();
 	}
 
+	@Override
 	public Collection<?> values() {
 		return map.values();
 	}
 
+	@Override
 	public Set<? extends Map.Entry<? extends Key<?>, ?>> entrySet() {
 		return map.entrySet();
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		return map.equals(o);
 	}
 
+	@Override
 	public int hashCode() {
 		return map.hashCode();
 	}
 
+	@Override
 	public Map<? extends Key<?>, ?> asMap() {
 		return map;
 	}

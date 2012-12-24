@@ -54,6 +54,7 @@ public class Osgiimplementation_3_0FactoryImpl extends EFactoryImpl implements O
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION:
@@ -68,6 +69,7 @@ public class Osgiimplementation_3_0FactoryImpl extends EFactoryImpl implements O
 	 * 
 	 * @generated
 	 */
+	@Override
 	public OSGiImplementation createOSGiImplementation() {
 		OSGiImplementationImpl osGiImplementation = new OSGiImplementationImpl();
 		return osGiImplementation;
@@ -78,6 +80,7 @@ public class Osgiimplementation_3_0FactoryImpl extends EFactoryImpl implements O
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Osgiimplementation_3_0Package getOsgiimplementation_3_0Package() {
 		return (Osgiimplementation_3_0Package) getEPackage();
 	}

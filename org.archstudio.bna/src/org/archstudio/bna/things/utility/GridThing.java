@@ -15,6 +15,7 @@ public class GridThing extends AbstractThing implements IHasMutableColor {
 		super(id);
 	}
 
+	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setColor(new RGB(192, 192, 192));
@@ -38,10 +39,12 @@ public class GridThing extends AbstractThing implements IHasMutableColor {
 		return get(GRID_DISPLAY_TYPE_KEY);
 	}
 
+	@Override
 	public void setColor(RGB c) {
 		set(COLOR_KEY, c);
 	}
 
+	@Override
 	public RGB getColor() {
 		return get(COLOR_KEY);
 	}

@@ -18,22 +18,27 @@ public class LaunchData implements ILaunchData {
 		this.launchType = launchType;
 	}
 
+	@Override
 	public String getEclipseID() {
 		return eclipseID;
 	}
 
+	@Override
 	public String getDescription() {
 		return description;
 	}
 
+	@Override
 	public Image getIcon() {
 		return icon;
 	}
 
+	@Override
 	public LaunchType getLaunchType() {
 		return launchType;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}

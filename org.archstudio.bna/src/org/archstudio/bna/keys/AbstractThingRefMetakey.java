@@ -19,10 +19,12 @@ public abstract class AbstractThingRefMetakey<T extends IThing, N, K extends ITh
 		this.key = key;
 	}
 
+	@Override
 	public N getName() {
 		return name;
 	}
 
+	@Override
 	public K getKey() {
 		return key;
 	}

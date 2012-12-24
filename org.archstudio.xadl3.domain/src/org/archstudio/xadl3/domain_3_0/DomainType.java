@@ -176,6 +176,7 @@ public enum DomainType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 		return value;
 	}
@@ -185,6 +186,7 @@ public enum DomainType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -194,6 +196,7 @@ public enum DomainType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 		return literal;
 	}
@@ -205,6 +208,7 @@ public enum DomainType implements Enumerator {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		return literal;
 	}

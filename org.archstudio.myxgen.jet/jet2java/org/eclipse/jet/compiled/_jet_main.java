@@ -40,6 +40,7 @@ public class _jet_main implements JET2Template {
 					"{$org.archstudio.myxgen.template}", //$NON-NLS-1$
 			});
 
+	@Override
 	public void generate(final JET2Context context, final JET2Writer __out) {
 		JET2Writer out = __out;
 		out.write(NL);

@@ -24,6 +24,7 @@ public class ToolTipLogic extends AbstractThingLogic implements IBNAMouseMoveLis
 
 	protected IThing lastThing = null;
 
+	@Override
 	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		IThing newThing = SystemUtils.firstOrNull(things);
 		if (newThing != lastThing) {

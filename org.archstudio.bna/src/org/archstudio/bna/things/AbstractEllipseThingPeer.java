@@ -14,6 +14,7 @@ public abstract class AbstractEllipseThingPeer<T extends AbstractEllipseThing> e
 		super(thing);
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		Point lp = location.getLocalPoint();

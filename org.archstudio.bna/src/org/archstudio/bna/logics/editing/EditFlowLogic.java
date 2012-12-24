@@ -24,6 +24,7 @@ public class EditFlowLogic extends AbstractThingLogic implements IBNAMenuListene
 	public EditFlowLogic() {
 	}
 
+	@Override
 	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
 		IThing editThing = null;
 		if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) <= 1) {
@@ -44,6 +45,7 @@ public class EditFlowLogic extends AbstractThingLogic implements IBNAMenuListene
 			for (final Flow f : Flow.values()) {
 				editDirectionMenu.add(new Action(f.toString()) {
 
+					@Override
 					public void run() {
 						BNAOperations.set("Direction", getBNAModel(), finalThing, IHasFlow.FLOW_KEY, f);
 					}

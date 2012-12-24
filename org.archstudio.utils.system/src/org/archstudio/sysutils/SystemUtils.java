@@ -768,6 +768,7 @@ public class SystemUtils {
 			}
 		}
 
+		@Override
 		public boolean accept(@Nullable File dir, @Nullable String name) {
 			if (name != null) {
 				for (String element : extensionsToExclude) {
@@ -1094,6 +1095,7 @@ public class SystemUtils {
 
 	private static final Comparator<Object> genericComparator = new Comparator<Object>() {
 
+		@Override
 		public int compare(@Nullable Object o1, @Nullable Object o2) {
 			return SystemUtils.compare(o1, o2);
 		};
@@ -1101,6 +1103,7 @@ public class SystemUtils {
 
 	private static final Comparator<Map.Entry<?, ?>> mapEntryKeyComparator = new Comparator<Map.Entry<?, ?>>() {
 
+		@Override
 		public int compare(@Nullable Map.Entry<?, ?> o1, @Nullable Map.Entry<?, ?> o2) {
 			return SystemUtils.compare(o1 != null ? o1.getKey() : null, o2 != null ? o2.getKey() : null);
 		}
@@ -1108,6 +1111,7 @@ public class SystemUtils {
 
 	private static final Comparator<Map.Entry<?, ?>> mapEntryValueComparator = new Comparator<Map.Entry<?, ?>>() {
 
+		@Override
 		public int compare(@Nullable Map.Entry<?, ?> o1, @Nullable Map.Entry<?, ?> o2) {
 			return SystemUtils.compare(o1 != null ? o1.getValue() : null, o2 != null ? o2.getValue() : null);
 		}
@@ -1115,6 +1119,7 @@ public class SystemUtils {
 
 	private static final Predicate<Map.Entry<?, ?>> nonNullMapEntryKeyPredicate = new Predicate<Map.Entry<?, ?>>() {
 
+		@Override
 		public boolean apply(@Nullable Map.Entry<?, ?> input) {
 			return input != null ? input.getKey() != null : false;
 		}
@@ -1122,6 +1127,7 @@ public class SystemUtils {
 
 	private static final Predicate<Map.Entry<?, ?>> nonNullMapEntryValuePredicate = new Predicate<Map.Entry<?, ?>>() {
 
+		@Override
 		public boolean apply(@Nullable Map.Entry<?, ?> input) {
 			return input != null ? input.getValue() != null : false;
 		}
@@ -1154,6 +1160,7 @@ public class SystemUtils {
 			final Class<K> keyClass) {
 		return (Iterable<Map.Entry<K, V>>) (Object) Iterables.filter(entries, new Predicate<Entry<?, V>>() {
 
+			@Override
 			public boolean apply(@Nullable Entry<?, V> input) {
 				return keyClass.isInstance(input != null ? input.getKey() : null);
 			}

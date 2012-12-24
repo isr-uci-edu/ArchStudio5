@@ -42,6 +42,7 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 		this.panButton = panButton;
 	}
 
+	@Override
 	public void mouseDown(IBNAView view, MouseEvent e, List<IThing> t, ICoordinate location) {
 		//Only handle events for the top world
 		if (view.getParentView() != null) {
@@ -56,6 +57,7 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 		}
 	}
 
+	@Override
 	public void mouseUp(IBNAView view, MouseEvent e, List<IThing> t, ICoordinate location) {
 		//Only handle events for the top world
 		if (view.getParentView() != null) {
@@ -69,6 +71,7 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 		}
 	}
 
+	@Override
 	public void mouseMove(IBNAView view, MouseEvent e, List<IThing> t, ICoordinate location) {
 		if (startMouseCoordinate != null) {
 			IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
@@ -78,6 +81,7 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 		}
 	}
 
+	@Override
 	public void mouseWheel(IBNAView view, final MouseEvent e, Iterable<IThing> t, final ICoordinate location) {
 		//Only handle events for the top world
 		if (view.getParentView() != null) {
@@ -96,9 +100,11 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 		}
 	}
 
+	@Override
 	public void mouseClick(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 	}
 
+	@Override
 	public void mouseDoubleClick(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (evt.button == panButton) {
 			final IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);

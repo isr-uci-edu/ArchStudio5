@@ -47,6 +47,7 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 	public EditTextLogic() {
 	}
 
+	@Override
 	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager m) {
 		IThing editThing = null;
 		if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) <= 1) {
@@ -65,6 +66,7 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 		if (finalThing != null) {
 			m.add(new Action("Edit Description...") {
 
+				@Override
 				public void run() {
 					initEdit(finalThing);
 				}
@@ -72,9 +74,11 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 		}
 	}
 
+	@Override
 	public void keyPressed(IBNAView view, KeyEvent e) {
 	}
 
+	@Override
 	public void keyReleased(IBNAView view, KeyEvent e) {
 		if (SWT.F2 == e.keyCode) {
 			IThing editThing = null;
@@ -116,6 +120,7 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 		}
 	}
 
+	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		if (evt.getEventType() == BNAModelEvent.EventType.THING_REMOVED) {
 			EditTextLogicData data = evt.getTargetThing().get(DATA_KEY);

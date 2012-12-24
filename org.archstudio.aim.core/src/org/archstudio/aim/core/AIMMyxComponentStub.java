@@ -9,7 +9,6 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-@SuppressWarnings("unused")
 abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
 		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
@@ -22,6 +21,7 @@ abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 	/**
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -30,6 +30,7 @@ abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 	/**
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -110,6 +111,7 @@ abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -135,6 +137,7 @@ abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -154,6 +157,7 @@ abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
@@ -161,6 +165,7 @@ abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimp
 	 * @generated
 	 */
 
+	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_AIM)) {
 			if (aim == null) {

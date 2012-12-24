@@ -68,6 +68,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Domain_3_0Package.Literals.DOMAIN;
 	}
@@ -77,6 +78,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public DomainType getType() {
 		return type;
 	}
@@ -86,6 +88,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setType(DomainType newType) {
 		DomainType oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
@@ -102,6 +105,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetType() {
 		DomainType oldType = type;
 		boolean oldTypeESet = typeESet;
@@ -118,6 +122,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetType() {
 		return typeESet;
 	}
@@ -128,6 +133,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Domain_3_0Package.DOMAIN__TYPE:
@@ -142,6 +148,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Domain_3_0Package.DOMAIN__TYPE:
@@ -157,6 +164,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Domain_3_0Package.DOMAIN__TYPE:
@@ -172,6 +180,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Domain_3_0Package.DOMAIN__TYPE:
@@ -186,6 +195,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

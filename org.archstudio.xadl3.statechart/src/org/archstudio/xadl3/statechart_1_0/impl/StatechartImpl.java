@@ -127,6 +127,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Statechart_1_0Package.Literals.STATECHART;
 	}
@@ -136,6 +137,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<PseudoState> getState() {
 		if (state == null) {
 			state = new EObjectContainmentEList<PseudoState>(PseudoState.class, this,
@@ -149,6 +151,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Transition> getTransition() {
 		if (transition == null) {
 			transition = new EObjectContainmentEList<Transition>(Transition.class, this,
@@ -162,6 +165,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this, Statechart_1_0Package.STATECHART__EXT);
@@ -174,6 +178,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -183,6 +188,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -196,6 +202,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -205,6 +212,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -219,6 +227,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Statechart_1_0Package.STATECHART__STATE:
@@ -237,6 +246,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Statechart_1_0Package.STATECHART__STATE:
@@ -258,6 +268,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -289,6 +300,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.STATECHART__STATE:
@@ -316,6 +328,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.STATECHART__STATE:
@@ -338,6 +351,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

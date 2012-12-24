@@ -40,6 +40,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 		this.resources = resources;
 	}
 
+	@Override
 	public IFindResult[] find(IBNAView context, String search) {
 		List<IFindResult> resultList = new ArrayList<IFindResult>();
 		find(context, context.getBNAWorld().getBNAModel(), search, "", resultList);
@@ -47,6 +48,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 		return resultList.toArray(new IFindResult[resultList.size()]);
 	}
 
+	@Override
 	public void selected(IFindResult selectedResult) {
 		Object o = selectedResult.getData();
 		if (o != null && o instanceof FindResultData) {

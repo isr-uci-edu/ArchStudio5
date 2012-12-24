@@ -36,6 +36,7 @@ public class VizXMLProcessor extends XMLProcessor {
 	 * @generated
 	 */
 
+	@Override
 	protected Map<String, Resource.Factory> getRegistrations() {
 		if (registrations == null) {
 			super.getRegistrations();

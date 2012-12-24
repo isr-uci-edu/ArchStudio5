@@ -13,6 +13,7 @@ public class ToggleXadl3SchemaNatureAction extends AbstractToggleNatureObjectAct
 		super(Xadl3SchemaNature.NATURE_ID);
 	}
 
+	@Override
 	protected boolean setNatureAdded(IProject project, String natureID, boolean addNature) {
 
 		if (addNature) {

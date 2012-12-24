@@ -63,6 +63,7 @@ public class QueryImpl extends MinimalEObjectImpl.Container implements Query {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Expression> getPredicates() {
 		if (predicates == null) {
 			predicates = new EObjectContainmentEList<Expression>(Expression.class, this,

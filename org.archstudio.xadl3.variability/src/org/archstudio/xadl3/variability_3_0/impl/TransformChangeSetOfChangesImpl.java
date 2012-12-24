@@ -30,6 +30,7 @@ public class TransformChangeSetOfChangesImpl extends ChangeSetOfChangesImpl impl
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.TRANSFORM_CHANGE_SET_OF_CHANGES;
 	}

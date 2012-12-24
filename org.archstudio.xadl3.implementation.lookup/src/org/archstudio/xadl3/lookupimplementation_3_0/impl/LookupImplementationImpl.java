@@ -80,6 +80,7 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION;
 	}
@@ -89,6 +90,7 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this,
@@ -102,6 +104,7 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getLookup() {
 		return lookup;
 	}
@@ -111,6 +114,7 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setLookup(String newLookup) {
 		String oldLookup = lookup;
 		lookup = newLookup;
@@ -126,6 +130,7 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
@@ -140,6 +145,7 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
@@ -155,6 +161,7 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -175,6 +182,7 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
@@ -193,6 +201,7 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
@@ -209,6 +218,7 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

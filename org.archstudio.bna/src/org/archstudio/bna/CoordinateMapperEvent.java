@@ -47,6 +47,7 @@ public class CoordinateMapperEvent {
 		return newLocalScale;
 	}
 
+	@Override
 	public String toString() {
 		return simpleName(this.getClass()) + "["//
 				+ "eventType=" + eventType + ","//

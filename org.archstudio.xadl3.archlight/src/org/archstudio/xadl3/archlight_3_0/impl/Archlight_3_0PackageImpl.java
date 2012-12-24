@@ -133,6 +133,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getArchlight() {
 		return archlightEClass;
 	}
@@ -142,6 +143,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getArchlight_Test() {
 		return (EReference) archlightEClass.getEStructuralFeatures().get(0);
 	}
@@ -151,6 +153,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getArchlight_Ext() {
 		return (EReference) archlightEClass.getEStructuralFeatures().get(1);
 	}
@@ -160,6 +163,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getDocumentRoot() {
 		return documentRootEClass;
 	}
@@ -169,6 +173,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Mixed() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(0);
 	}
@@ -178,6 +183,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XMLNSPrefixMap() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(1);
 	}
@@ -187,6 +193,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XSISchemaLocation() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(2);
 	}
@@ -196,6 +203,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Archlight() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(3);
 	}
@@ -205,6 +213,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getTest() {
 		return testEClass;
 	}
@@ -214,6 +223,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getTest_Ext() {
 		return (EReference) testEClass.getEStructuralFeatures().get(0);
 	}
@@ -223,6 +233,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTest_Enabled() {
 		return (EAttribute) testEClass.getEStructuralFeatures().get(1);
 	}
@@ -232,6 +243,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTest_Id() {
 		return (EAttribute) testEClass.getEStructuralFeatures().get(2);
 	}
@@ -241,6 +253,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTest_Name() {
 		return (EAttribute) testEClass.getEStructuralFeatures().get(3);
 	}
@@ -250,6 +263,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Archlight_3_0Factory getArchlight_3_0Factory() {
 		return (Archlight_3_0Factory) getEFactoryInstance();
 	}

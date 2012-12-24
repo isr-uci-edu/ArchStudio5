@@ -57,6 +57,7 @@ public class Domain_3_0FactoryImpl extends EFactoryImpl implements Domain_3_0Fac
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Domain_3_0Package.DOMAIN:
@@ -74,6 +75,7 @@ public class Domain_3_0FactoryImpl extends EFactoryImpl implements Domain_3_0Fac
 	 * @generated
 	 */
 
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 		case Domain_3_0Package.DOMAIN_TYPE:
@@ -91,6 +93,7 @@ public class Domain_3_0FactoryImpl extends EFactoryImpl implements Domain_3_0Fac
 	 * @generated
 	 */
 
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 		case Domain_3_0Package.DOMAIN_TYPE:
@@ -107,6 +110,7 @@ public class Domain_3_0FactoryImpl extends EFactoryImpl implements Domain_3_0Fac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Domain createDomain() {
 		DomainImpl domain = new DomainImpl();
 		return domain;
@@ -117,6 +121,7 @@ public class Domain_3_0FactoryImpl extends EFactoryImpl implements Domain_3_0Fac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public DomainExtension createDomainExtension() {
 		DomainExtensionImpl domainExtension = new DomainExtensionImpl();
 		return domainExtension;
@@ -168,6 +173,7 @@ public class Domain_3_0FactoryImpl extends EFactoryImpl implements Domain_3_0Fac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Domain_3_0Package getDomain_3_0Package() {
 		return (Domain_3_0Package) getEPackage();
 	}

@@ -97,10 +97,12 @@ public class NameValuePairTable {
 
 			SelectionListener slAddRow = new SelectionListener() {
 
+				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					widgetSelected(e);
 				}
 
+				@Override
 				public void widgetSelected(SelectionEvent e) {
 					String name = tfName.getText().trim();
 					String value = tfValue.getText().trim();
@@ -122,6 +124,7 @@ public class NameValuePairTable {
 
 			tv.addSelectionChangedListener(new ISelectionChangedListener() {
 
+				@Override
 				public void selectionChanged(SelectionChangedEvent event) {
 					bRemoveRow.setEnabled(!tv.getSelection().isEmpty());
 				}
@@ -129,10 +132,12 @@ public class NameValuePairTable {
 
 			SelectionListener slRemoveRow = new SelectionListener() {
 
+				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					widgetSelected(e);
 				}
 
+				@Override
 				public void widgetSelected(SelectionEvent e) {
 					ISelection selection = tv.getSelection();
 					if (selection instanceof IStructuredSelection) {
@@ -159,6 +164,7 @@ public class NameValuePairTable {
 			this.controller = controller;
 		}
 
+		@Override
 		@SuppressWarnings("unchecked")
 		public Object[] getElements(Object inputElement) {
 			List<Map.Entry<String, String>> nameValuePairList = controller.getEntries((T) inputElement);
@@ -170,22 +176,27 @@ public class NameValuePairTable {
 			return entryArray;
 		}
 
+		@Override
 		public void dispose() {
 		}
 
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 	}
 
 	protected static class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
+		@Override
 		public String getColumnText(Object obj, int index) {
 			return ((String[]) obj)[index];
 		}
 
+		@Override
 		public Image getColumnImage(Object obj, int index) {
 			return null;
 		}
 
+		@Override
 		public Image getImage(Object obj) {
 			return null;
 		}
@@ -202,10 +213,12 @@ public class NameValuePairTable {
 			this.input = input;
 		}
 
+		@Override
 		public boolean canModify(Object element, String property) {
 			return true;
 		}
 
+		@Override
 		public Object getValue(Object element, String property) {
 			if (element == null) {
 				return "";
@@ -220,6 +233,7 @@ public class NameValuePairTable {
 			return null;
 		}
 
+		@Override
 		@SuppressWarnings("unchecked")
 		public void modify(Object element, String property, Object value) {
 			//SWT bug workaround

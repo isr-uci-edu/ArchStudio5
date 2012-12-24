@@ -73,6 +73,7 @@ public class StructureTreeContentProvider implements IArchipelagoTreeContentProv
 		return XadlUtils.getAllSubstitutionGroupElementsByTag(xarch, xADLRef, "topLevelElement", "structure");
 	}
 
+	@Override
 	public List<? extends Object> getChildren(Object parentElement, List<? extends Object> childrenFromPreviousProvider) {
 		if (isRootElement(parentElement) || isXADLElement(parentElement)) {
 			if (structureFolderNode == null) {
@@ -87,6 +88,7 @@ public class StructureTreeContentProvider implements IArchipelagoTreeContentProv
 		return childrenFromPreviousProvider;
 	}
 
+	@Override
 	public boolean hasChildren(Object element, boolean hasChildrenFromPreviousProvider) {
 		if (isRootElement(element)) {
 			return true;
@@ -100,6 +102,7 @@ public class StructureTreeContentProvider implements IArchipelagoTreeContentProv
 		return hasChildrenFromPreviousProvider;
 	}
 
+	@Override
 	public Object getParent(Object element, Object parentFromPreviousProvider) {
 		if (isTargetNode(element)) {
 			return structureFolderNode;
@@ -110,9 +113,11 @@ public class StructureTreeContentProvider implements IArchipelagoTreeContentProv
 		return parentFromPreviousProvider;
 	}
 
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
 
+	@Override
 	public void dispose() {
 	}
 

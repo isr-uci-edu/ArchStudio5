@@ -15,6 +15,7 @@ public class MyxGenBrickFactory extends MyxOSGiBrickFactory implements IMyxBrick
 	public MyxGenBrickFactory() {
 	}
 
+	@Override
 	public IMyxBrick create(IMyxName name, IMyxBrickDescription brickDescription,
 			IMyxBrickInitializationData initializationData) throws MyxBrickCreationException {
 		MyxGenBrickDescription desc = (MyxGenBrickDescription) brickDescription;

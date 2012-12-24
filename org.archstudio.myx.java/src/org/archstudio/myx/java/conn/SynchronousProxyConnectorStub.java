@@ -9,7 +9,6 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-/* package */@SuppressWarnings("unused")
 abstract class SynchronousProxyConnectorStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
 		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
@@ -22,6 +21,7 @@ abstract class SynchronousProxyConnectorStub extends org.archstudio.myx.fw.Abstr
 	/**
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -30,6 +30,7 @@ abstract class SynchronousProxyConnectorStub extends org.archstudio.myx.fw.Abstr
 	/**
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -89,6 +90,7 @@ abstract class SynchronousProxyConnectorStub extends org.archstudio.myx.fw.Abstr
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -107,6 +109,7 @@ abstract class SynchronousProxyConnectorStub extends org.archstudio.myx.fw.Abstr
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -122,6 +125,7 @@ abstract class SynchronousProxyConnectorStub extends org.archstudio.myx.fw.Abstr
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
@@ -129,6 +133,7 @@ abstract class SynchronousProxyConnectorStub extends org.archstudio.myx.fw.Abstr
 	 * @generated
 	 */
 
+	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_IN)) {
 			if (in == null) {

@@ -15,6 +15,7 @@ public abstract class AbstractSplineThingPeer<T extends AbstractSplineThing> ext
 		super(thing);
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		Point lp = location.getLocalPoint();
 		List<Point> points = BNAUtils.worldToLocal(cm, t.getPoints());

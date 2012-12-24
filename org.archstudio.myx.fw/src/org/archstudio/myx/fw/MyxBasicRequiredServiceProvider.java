@@ -50,6 +50,7 @@ class MyxBasicRequiredServiceProvider implements IMyxRequiredServiceProvider {
 		return serviceMap.keySet().toArray(new IMyxName[serviceMap.keySet().size()]);
 	}
 
+	@Override
 	public Collection<? extends Object> getServiceObjects(IMyxName interfaceName) {
 		synchronized (serviceMap) {
 			List<Object> l = serviceMap.get(interfaceName);

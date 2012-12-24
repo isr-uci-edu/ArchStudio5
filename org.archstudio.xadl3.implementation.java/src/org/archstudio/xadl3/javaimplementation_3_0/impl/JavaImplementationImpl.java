@@ -84,6 +84,7 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION;
 	}
@@ -93,6 +94,7 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * 
 	 * @generated
 	 */
+	@Override
 	public JavaClass getMainClass() {
 		return mainClass;
 	}
@@ -123,6 +125,7 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setMainClass(JavaClass newMainClass) {
 		if (newMainClass != mainClass) {
 			NotificationChain msgs = null;
@@ -150,6 +153,7 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<JavaClass> getAuxClass() {
 		if (auxClass == null) {
 			auxClass = new EObjectContainmentEList<JavaClass>(JavaClass.class, this,
@@ -163,6 +167,7 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this,
@@ -177,6 +182,7 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
@@ -195,6 +201,7 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
@@ -212,6 +219,7 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -236,6 +244,7 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
@@ -257,6 +266,7 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:

@@ -192,6 +192,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return VizPackage.Literals.NODE_SHAPE_CONTENT;
 	}
@@ -201,6 +202,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SpellsContent getSpells() {
 		return spells;
 	}
@@ -231,6 +233,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSpells(SpellsContent newSpells) {
 		if (newSpells != spells) {
 			NotificationChain msgs = null;
@@ -258,6 +261,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEnd() {
 		return end;
 	}
@@ -267,6 +271,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEnd(Object newEnd) {
 		Object oldEnd = end;
 		end = newEnd;
@@ -280,6 +285,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEndopen() {
 		return endopen;
 	}
@@ -289,6 +295,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEndopen(Object newEndopen) {
 		Object oldEndopen = endopen;
 		endopen = newEndopen;
@@ -303,6 +310,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStart() {
 		return start;
 	}
@@ -312,6 +320,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStart(Object newStart) {
 		Object oldStart = start;
 		start = newStart;
@@ -325,6 +334,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStartopen() {
 		return startopen;
 	}
@@ -334,6 +344,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStartopen(Object newStartopen) {
 		Object oldStartopen = startopen;
 		startopen = newStartopen;
@@ -348,6 +359,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getUri() {
 		return uri;
 	}
@@ -357,6 +369,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setUri(String newUri) {
 		String oldUri = uri;
 		uri = newUri;
@@ -370,6 +383,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public NodeShapeType getValue() {
 		return value;
 	}
@@ -379,6 +393,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setValue(NodeShapeType newValue) {
 		NodeShapeType oldValue = value;
 		value = newValue == null ? VALUE_EDEFAULT : newValue;
@@ -395,6 +410,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetValue() {
 		NodeShapeType oldValue = value;
 		boolean oldValueESet = valueESet;
@@ -411,6 +427,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetValue() {
 		return valueESet;
 	}
@@ -421,6 +438,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
@@ -435,6 +453,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
@@ -461,6 +480,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
@@ -494,6 +514,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
@@ -527,6 +548,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case VizPackage.NODE_SHAPE_CONTENT__SPELLS:
@@ -553,6 +575,7 @@ public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeConten
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

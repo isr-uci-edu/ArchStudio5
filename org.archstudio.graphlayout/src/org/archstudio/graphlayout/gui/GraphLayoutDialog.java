@@ -36,10 +36,12 @@ public class GraphLayoutDialog extends Dialog {
 		shell.open();
 
 		IGraphLayout fakeGraphLayout = new IGraphLayout() {
+			@Override
 			public String[] getEngineIDs() {
 				return new String[] { "dot", "neato" };
 			}
 
+			@Override
 			public String getEngineDescription(String engineID) {
 				if (engineID.equals("dot")) {
 					return "GraphViz Dot Engine";
@@ -52,6 +54,7 @@ public class GraphLayoutDialog extends Dialog {
 				}
 			}
 
+			@Override
 			public GraphLayout layoutGraph(String engineID, ObjRef rootRef, GraphLayoutParameters params)
 					throws GraphLayoutException {
 				System.err.println("laying out now.");
@@ -182,11 +185,13 @@ public class GraphLayoutDialog extends Dialog {
 		panelParent.setLayout(new GridLayout(1, false));
 
 		cmbSelectEngine.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int selectionIndex = cmbSelectEngine.getSelectionIndex();
 				setupEnginePanels(engineIDs[selectionIndex]);
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
@@ -214,6 +219,7 @@ public class GraphLayoutDialog extends Dialog {
 		Button bLoadPreset = new Button(cPresets, SWT.PUSH);
 		bLoadPreset.setText("Load");
 		bLoadPreset.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (parameterPanels != null) {
 					NamedGraphLayoutParameters[] presets = getPresets();
@@ -224,6 +230,7 @@ public class GraphLayoutDialog extends Dialog {
 				}
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
@@ -236,6 +243,7 @@ public class GraphLayoutDialog extends Dialog {
 		Button bOK = new Button(cButtons, SWT.PUSH);
 		bOK.setText("OK");
 		bOK.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (parameterPanels == null) {
 					done(null);
@@ -259,6 +267,7 @@ public class GraphLayoutDialog extends Dialog {
 				}
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
@@ -267,10 +276,12 @@ public class GraphLayoutDialog extends Dialog {
 		Button bCancel = new Button(cButtons, SWT.PUSH);
 		bCancel.setText("Cancel");
 		bCancel.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				done(null);
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}

@@ -17,12 +17,14 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 
 public class RectifyToGridLogic extends AbstractThingLogic implements IBNAMenuListener {
 
+	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		if (things.isEmpty()) {
 			final IBNAModel model = view.getBNAWorld().getBNAModel();
 			if (GridUtils.getGridSpacing(model) != 0) {
 				IAction rectifyAction = new Action("Rectify Diagram to Grid") {
 
+					@Override
 					public void run() {
 						Runnable undoRunnable = BNAOperations.takeSnapshotOfLocations(model, model.getAllThings());
 						GridUtils.rectifyToGrid(model);

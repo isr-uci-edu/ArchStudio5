@@ -280,11 +280,13 @@ public class Xadl3SchemaUpdater {
 		return Lists.newArrayList(Iterables.transform(
 				Iterables.filter(Xadl3SchemaLocation.parse(project), new Predicate<Xadl3SchemaLocation>() {
 
+					@Override
 					public boolean apply(Xadl3SchemaLocation input) {
 						return !input.isCopyLocally();
 					}
 				}), new Function<Xadl3SchemaLocation, String>() {
 
+					@Override
 					public String apply(Xadl3SchemaLocation input) {
 						return input.getUrl().toString();
 					}

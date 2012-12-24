@@ -14,6 +14,7 @@ public abstract class AbstractPolygonThingPeer<T extends AbstractPolygonThing> e
 		super(thing);
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		if (t.getBoundingBox().contains(location.getWorldPoint())) {
 			List<Point> points = t.getPoints();

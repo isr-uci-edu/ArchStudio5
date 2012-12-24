@@ -37,6 +37,7 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 		this.coder = new MasterPropertyCoder();
 	}
 
+	@Override
 	public @Nullable
 	Object getContextForThing(IBNAWorld world, IThing thing) {
 		IThing t = thing;
@@ -74,12 +75,14 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 		return hint;
 	}
 
+	@Override
 	public void storeHint(Object context, String hintName, @Nullable Serializable hintValue) {
 		HintsExtension hints = XArchADTProxy.proxy(xarch, XadlUtils.createExt(xarch, (ObjRef) context,
 				Hints_3_0Package.eNS_URI, Hints_3_0Package.Literals.HINTS_EXTENSION.getName()));
 		encode(createHint(hints, hintName), hintValue);
 	}
 
+	@Override
 	public @Nullable
 	Object getHint(Object context, String hintName) throws PropertyDecodeException {
 		HintsExtension hints = XArchADTProxy.proxy(xarch, XadlUtils.createExt(xarch, (ObjRef) context,
@@ -119,10 +122,12 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 
 	CopyOnWriteArrayList<IHintRepositoryChangeListener> changeListeners = new CopyOnWriteArrayList<IHintRepositoryChangeListener>();
 
+	@Override
 	public void addHintRepositoryChangeListener(IHintRepositoryChangeListener l) {
 		changeListeners.add(l);
 	}
 
+	@Override
 	public void removeHintRepositoryChangeListener(IHintRepositoryChangeListener l) {
 		changeListeners.remove(l);
 	}
@@ -133,6 +138,7 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 		}
 	}
 
+	@Override
 	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		EObject src = XArchADTProxy.proxy(xarch, evt.getSource());
 		if (src instanceof Hint) {

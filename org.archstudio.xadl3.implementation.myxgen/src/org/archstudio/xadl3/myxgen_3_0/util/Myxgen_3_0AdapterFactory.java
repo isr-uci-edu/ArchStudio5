@@ -48,6 +48,7 @@ public class Myxgen_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -66,14 +67,17 @@ public class Myxgen_3_0AdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected Myxgen_3_0Switch<Adapter> modelSwitch = new Myxgen_3_0Switch<Adapter>() {
 
+		@Override
 		public Adapter caseMyxGen(MyxGen object) {
 			return createMyxGenAdapter();
 		}
 
+		@Override
 		public Adapter caseImplementation(Implementation object) {
 			return createImplementationAdapter();
 		}
 
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -89,6 +93,7 @@ public class Myxgen_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

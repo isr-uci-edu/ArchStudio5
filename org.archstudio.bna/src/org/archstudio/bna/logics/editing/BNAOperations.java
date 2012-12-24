@@ -37,15 +37,18 @@ public class BNAOperations {
 		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 		AbstractOperation bnaOperation = new AbstractOperation(label) {
 
+			@Override
 			public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				return Status.OK_STATUS;
 			}
 
+			@Override
 			public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				undoRunnable.run();
 				return Status.OK_STATUS;
 			}
 
+			@Override
 			public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				redoRunnable.run();
 				return Status.OK_STATUS;
@@ -66,10 +69,12 @@ public class BNAOperations {
 		IOperationHistory operationHistory = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 		AbstractOperation bnaOperation = new AbstractOperation(label) {
 
+			@Override
 			public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				return Status.OK_STATUS;
 			}
 
+			@Override
 			public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				IThing t = model.getThing(tID);
 				if (t != null) {
@@ -78,6 +83,7 @@ public class BNAOperations {
 				return Status.OK_STATUS;
 			}
 
+			@Override
 			public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				IThing t = model.getThing(tID);
 				if (t != null) {
@@ -102,6 +108,7 @@ public class BNAOperations {
 				final Rectangle r = ((IHasMutableBoundingBox) t).getBoundingBox();
 				runnables.add(new Runnable() {
 
+					@Override
 					public void run() {
 						IThing t = model.getThing(tID);
 						if (t != null) {
@@ -115,6 +122,7 @@ public class BNAOperations {
 				final List<Point> p = ((IHasMutablePoints) t).getPoints();
 				runnables.add(new Runnable() {
 
+					@Override
 					public void run() {
 						IThing t = model.getThing(tID);
 						if (t != null) {
@@ -128,6 +136,7 @@ public class BNAOperations {
 				final Point p = ((IHasMutableReferencePoint) t).getReferencePoint();
 				runnables.add(new Runnable() {
 
+					@Override
 					public void run() {
 						IThing t = model.getThing(tID);
 						if (t != null) {
@@ -140,6 +149,7 @@ public class BNAOperations {
 		}
 		return new Runnable() {
 
+			@Override
 			public void run() {
 				for (Runnable r : runnables) {
 					r.run();

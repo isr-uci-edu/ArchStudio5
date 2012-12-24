@@ -23,6 +23,7 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 		super(id);
 	}
 
+	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setMinimumSize(new Dimension(5, 5));
@@ -30,10 +31,12 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 		addShapeModifyingKey(BOUNDING_BOX_KEY);
 	}
 
+	@Override
 	public Dimension getMinimumSize() {
 		return get(MINIMUM_SIZE_KEY, new Dimension(5, 5));
 	}
 
+	@Override
 	public void setMinimumSize(final Dimension minimumDimension) {
 		set(MINIMUM_SIZE_KEY, minimumDimension);
 		Rectangle r = getBoundingBox();
@@ -42,10 +45,12 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 		}
 	}
 
+	@Override
 	public Rectangle getBoundingBox() {
 		return get(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
 	}
 
+	@Override
 	public void setBoundingBox(final Rectangle r) {
 		BNAUtils.normalizeRectangle(r);
 		Dimension minDimension = getMinimumSize();
@@ -60,11 +65,13 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 		set(BOUNDING_BOX_KEY, r);
 	}
 
+	@Override
 	public Point getReferencePoint() {
 		Rectangle bounds = getBoundingBox();
 		return new Point(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
 	}
 
+	@Override
 	public void moveRelative(final Point worldDelta) {
 		Rectangle bounds = getBoundingBox();
 		bounds.x += worldDelta.x;
@@ -72,14 +79,17 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 		setBoundingBox(bounds);
 	}
 
+	@Override
 	public Insets getLocalInsets() {
 		return get(LOCAL_INSETS_KEY, new Insets(0, 0, 0, 0));
 	}
 
+	@Override
 	public void setLocalInsets(Insets insets) {
 		set(LOCAL_INSETS_KEY, insets);
 	}
 
+	@Override
 	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Rectangle bb = getBoundingBox();
 		switch (stickyMode) {

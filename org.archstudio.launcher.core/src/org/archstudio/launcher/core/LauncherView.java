@@ -51,6 +51,7 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 		super(LauncherMyxComponent.class);
 	}
 
+	@Override
 	public void createPartControl(Composite parent) {
 		resources = brick.getResources();
 		launchData = brick.getLaunchData();
@@ -104,6 +105,7 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 		bNewFile.setAlignment(SWT.CENTER);
 		bNewFile.addListener(SWT.Selection, new Listener() {
 
+			@Override
 			public void handleEvent(Event event) {
 				NewFileWizard.showWizard(getSite().getShell(), getSite().getWorkbenchWindow().getWorkbench());
 			}
@@ -117,6 +119,7 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 		bVisitISRWebPage.setAlignment(SWT.CENTER);
 		bVisitISRWebPage.addListener(SWT.Selection, new Listener() {
 
+			@Override
 			public void handleEvent(Event event) {
 				EclipseUtils.openExternalBrowser("http://www.isr.uci.edu/");
 			}
@@ -130,6 +133,7 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 		bVisitWebPage.setAlignment(SWT.CENTER);
 		bVisitWebPage.addListener(SWT.Selection, new Listener() {
 
+			@Override
 			public void handleEvent(Event event) {
 				EclipseUtils.openExternalBrowser("http://www.isr.uci.edu/projects/archstudio/");
 			}
@@ -218,6 +222,7 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 
 		bItem.addListener(SWT.MouseExit, new Listener() {
 
+			@Override
 			public void handleEvent(Event event) {
 				lDetail.setText(NO_TOOL);
 				lDetail.getParent().layout(controls);
@@ -226,6 +231,7 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 
 		bItem.addListener(SWT.MouseMove, new Listener() {
 
+			@Override
 			public void handleEvent(Event event) {
 				String text = launchData.getDescription();
 				if (launchData.getLaunchType().equals(ILaunchData.LaunchType.EDITOR)) {
@@ -241,10 +247,12 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 
 		bItem.addSelectionListener(new SelectionListener() {
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (launchData.getLaunchType().equals(ILaunchData.LaunchType.EDITOR)) {
 					IResource[] res = EclipseUtils.selectResourcesToOpen(getSite().getShell(), SWT.SINGLE,
@@ -269,6 +277,7 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 
 		target.addDropListener(new DropTargetListener() {
 
+			@Override
 			public void dragEnter(DropTargetEvent event) {
 				if (event.detail == DND.DROP_DEFAULT) {
 					if ((event.operations & DND.DROP_COPY) != 0) {
@@ -289,6 +298,7 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 				}
 			}
 
+			@Override
 			public void dragOver(DropTargetEvent event) {
 				event.feedback = DND.FEEDBACK_SELECT | DND.FEEDBACK_SCROLL;
 				if (resourceTransfer.isSupportedType(event.currentDataType)) {
@@ -300,6 +310,7 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 				event.detail = DND.DROP_NONE;
 			}
 
+			@Override
 			public void dragOperationChanged(DropTargetEvent event) {
 				if (resourceTransfer.isSupportedType(event.currentDataType)) {
 					if (event.detail != DND.DROP_COPY) {
@@ -308,12 +319,15 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 				}
 			}
 
+			@Override
 			public void dragLeave(DropTargetEvent event) {
 			}
 
+			@Override
 			public void dropAccept(DropTargetEvent event) {
 			}
 
+			@Override
 			public void drop(DropTargetEvent event) {
 				if (resourceTransfer.isSupportedType(event.currentDataType)) {
 					IResource[] resources = (IResource[]) event.data;
@@ -350,6 +364,7 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 		}
 	}
 
+	@Override
 	public void setFocus() {
 	}
 }

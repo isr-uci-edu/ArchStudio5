@@ -7,6 +7,7 @@ import org.archstudio.bna.logics.hints.PropertyDecodeException;
 
 public class EnumPropertyCoder implements IPropertyCoder {
 
+	@Override
 	public IEncodedValue encode(IPropertyCoder masterCoder, Object value) {
 		Class<?> c = value.getClass();
 		if (c.isEnum()) {
@@ -15,6 +16,7 @@ public class EnumPropertyCoder implements IPropertyCoder {
 		return null;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Object decode(IPropertyCoder masterCoder, IEncodedValue encodedValue) throws PropertyDecodeException {
 		try {

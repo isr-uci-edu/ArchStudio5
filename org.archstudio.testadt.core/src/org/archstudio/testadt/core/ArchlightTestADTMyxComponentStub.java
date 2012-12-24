@@ -15,7 +15,6 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-@SuppressWarnings("unused")
 abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
 		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
@@ -28,6 +27,7 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 	/**
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -36,6 +36,7 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 	/**
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -89,6 +90,7 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 			.newProxyInstance(org.archstudio.testadt.ArchlightTestADTListener.class.getClassLoader(),
 					new Class[] { org.archstudio.testadt.ArchlightTestADTListener.class }, new InvocationHandler() {
 
+						@Override
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.testadt.ArchlightTestADTListener o : testEvents) {
 								try {
@@ -138,6 +140,7 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -153,6 +156,7 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -168,6 +172,7 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
@@ -175,6 +180,7 @@ abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.myx.fw.Ab
 	 * @generated
 	 */
 
+	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_TESTS)) {
 			if (tests == null) {

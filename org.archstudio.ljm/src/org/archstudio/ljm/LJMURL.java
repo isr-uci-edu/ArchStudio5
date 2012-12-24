@@ -86,6 +86,7 @@ public class LJMURL implements java.io.Serializable {
 		return new LJMEndpoint(inetHost, port, object);
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof LJMURL)) {
 			return false;
@@ -95,10 +96,12 @@ public class LJMURL implements java.io.Serializable {
 				&& otherURL.getPort() == getPort() && otherURL.getObject().equals(getObject());
 	}
 
+	@Override
 	public int hashCode() {
 		return getHost().hashCode() ^ port ^ getObject().hashCode();
 	}
 
+	@Override
 	public String toString() {
 		return protocol + "://" + host + ":" + port + "/" + object;
 	}

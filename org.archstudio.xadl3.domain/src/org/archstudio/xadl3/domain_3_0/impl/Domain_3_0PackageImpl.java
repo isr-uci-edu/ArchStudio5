@@ -137,6 +137,7 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getDomain() {
 		return domainEClass;
 	}
@@ -146,6 +147,7 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDomain_Type() {
 		return (EAttribute) domainEClass.getEStructuralFeatures().get(0);
 	}
@@ -155,6 +157,7 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getDomainExtension() {
 		return domainExtensionEClass;
 	}
@@ -164,6 +167,7 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDomainExtension_Domain() {
 		return (EReference) domainExtensionEClass.getEStructuralFeatures().get(0);
 	}
@@ -173,6 +177,7 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EEnum getDomainType() {
 		return domainTypeEEnum;
 	}
@@ -182,6 +187,7 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getDomainTypeObject() {
 		return domainTypeObjectEDataType;
 	}
@@ -191,6 +197,7 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Domain_3_0Factory getDomain_3_0Factory() {
 		return (Domain_3_0Factory) getEFactoryInstance();
 	}

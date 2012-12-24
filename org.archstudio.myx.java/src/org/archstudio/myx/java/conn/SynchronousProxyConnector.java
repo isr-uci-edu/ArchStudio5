@@ -41,12 +41,14 @@ public class SynchronousProxyConnector extends org.archstudio.myx.java.conn.Sync
 		}
 	}
 
+	@Override
 	public void setMyxBrickItems(IMyxBrickItems brickItems) {
 		super.setMyxBrickItems(brickItems);
 
 		ClassLoader classLoader = getClassLoader(brickItems);
 		in = Proxy.newProxyInstance(classLoader, getInterfaceClasses(brickItems, classLoader), new InvocationHandler() {
 
+			@Override
 			public Object invoke(Object proxy, final Method method, final Object[] args) throws Throwable {
 				if (out == null) {
 					throw new RuntimeException("Disconnected proxy.");

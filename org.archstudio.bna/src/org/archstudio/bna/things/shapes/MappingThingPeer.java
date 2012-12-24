@@ -18,6 +18,7 @@ public class MappingThingPeer<T extends MappingThing> extends AbstractMappingThi
 		super(thing);
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		IBNAView iView = BNAUtils.getInternalView(view, t.getInternalEndpointWorldThingID());
 		if (iView == null) {

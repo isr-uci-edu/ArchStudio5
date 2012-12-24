@@ -32,6 +32,7 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> {
 		super(xarch, rootObjRef, objRefPath);
 	}
 
+	@Override
 	public void init() {
 		super.init();
 
@@ -48,6 +49,7 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> {
 				syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY)), true);
 	}
 
+	@Override
 	protected SplineGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
 		SplineGlassThing thing = Assemblies.createSpline(getBNAWorld(), null, null);

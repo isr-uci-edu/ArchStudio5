@@ -68,6 +68,7 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case VizPackage.COLOR_CONTENT:
@@ -95,6 +96,7 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	 * @generated
 	 */
 
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 		case VizPackage.EDGE_SHAPE_TYPE:
@@ -134,6 +136,7 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	 * @generated
 	 */
 
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 		case VizPackage.EDGE_SHAPE_TYPE:
@@ -172,6 +175,7 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ColorContent createColorContent() {
 		ColorContentImpl colorContent = new ColorContentImpl();
 		return colorContent;
@@ -182,6 +186,7 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EdgeShapeContent createEdgeShapeContent() {
 		EdgeShapeContentImpl edgeShapeContent = new EdgeShapeContentImpl();
 		return edgeShapeContent;
@@ -192,6 +197,7 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public NodeShapeContent createNodeShapeContent() {
 		NodeShapeContentImpl nodeShapeContent = new NodeShapeContentImpl();
 		return nodeShapeContent;
@@ -202,6 +208,7 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public PositionContent createPositionContent() {
 		PositionContentImpl positionContent = new PositionContentImpl();
 		return positionContent;
@@ -212,6 +219,7 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SizeContent createSizeContent() {
 		SizeContentImpl sizeContent = new SizeContentImpl();
 		return sizeContent;
@@ -222,6 +230,7 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ThicknessContent createThicknessContent() {
 		ThicknessContentImpl thicknessContent = new ThicknessContentImpl();
 		return thicknessContent;
@@ -232,6 +241,7 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public DocumentRoot createDocumentRoot() {
 		DocumentRootImpl documentRoot = new DocumentRootImpl();
 		return documentRoot;
@@ -487,6 +497,7 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public VizPackage getVizPackage() {
 		return (VizPackage) getEPackage();
 	}

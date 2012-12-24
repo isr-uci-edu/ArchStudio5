@@ -11,24 +11,29 @@ public class AbstractSWTThing extends AbstractRectangleThing implements IHasMuta
 		super(id);
 	}
 
+	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setCompletionStatus(CompletionStatus.INCOMPLETE);
 		setEditing(false);
 	}
 
+	@Override
 	public CompletionStatus getCompletionStatus() {
 		return get(COMPLETION_STATUS_KEY);
 	}
 
+	@Override
 	public void setCompletionStatus(CompletionStatus completionStatus) {
 		set(COMPLETION_STATUS_KEY, completionStatus);
 	}
 
+	@Override
 	public void setEditing(boolean editing) {
 		set(EDITING_KEY, editing);
 	}
 
+	@Override
 	public boolean isEditing() {
 		return get(EDITING_KEY, false);
 	}

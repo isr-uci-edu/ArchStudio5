@@ -24,12 +24,14 @@ public abstract class AbstractRemoveContextMenuFiller implements IArchipelagoTre
 
 	protected abstract boolean matches(Object node);
 
+	@Override
 	public void fillContextMenu(IMenuManager m, Object[] selectedNodes) {
 		if (selectedNodes != null && selectedNodes.length == 1) {
 			Object selectedNode = selectedNodes[0];
 			if (selectedNode instanceof ObjRef && matches(selectedNodes[0])) {
 				final ObjRef targetRef = (ObjRef) selectedNode;
 				IAction removeAction = new Action("Remove") {
+					@Override
 					public void run() {
 						remove(targetRef);
 					}

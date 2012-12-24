@@ -23,11 +23,13 @@ public abstract class AbstractObjectActionDelegate implements IObjectActionDeleg
 	protected IWorkbenchPart targetPart;
 	protected ISelection selection;
 
+	@Override
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		this.action = action;
 		this.targetPart = targetPart;
 	}
 
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		this.action = action;
 		this.selection = selection;
@@ -44,6 +46,7 @@ public abstract class AbstractObjectActionDelegate implements IObjectActionDeleg
 	protected static Iterable<Object> getSelectedElements(final ISelection selection) {
 		if (selection instanceof IStructuredSelection) {
 			return new Iterable<Object>() {
+				@Override
 				@SuppressWarnings("unchecked")
 				public Iterator<Object> iterator() {
 					return ((IStructuredSelection) selection).iterator();

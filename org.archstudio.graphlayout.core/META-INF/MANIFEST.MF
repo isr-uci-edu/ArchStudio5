@@ -19,5 +19,5 @@ Require-Bundle: org.archstudio.graphlayout,
  org.archstudio.guava,
  org.archstudio.eclipse.core,
  org.eclipse.core.runtime
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

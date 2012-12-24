@@ -28,6 +28,7 @@ public class ExampleChangeSetTransform implements ChangeSetTransform {
 	public ExampleChangeSetTransform() {
 	}
 
+	@Override
 	public void transform(IXArchADT xarch, ObjRef documentRootRef) {
 		DocumentRoot documentRoot = XArchADTProxy.proxy(xarch, documentRootRef);
 		XADLType xadlType = documentRoot.getXADL();

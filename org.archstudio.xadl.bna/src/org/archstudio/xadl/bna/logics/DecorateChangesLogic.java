@@ -41,16 +41,19 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 		this.xarch = xarch;
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 		tvtl = addThingLogic(ThingValueTrackingLogic.class);
 	}
 
+	@Override
 	public void handleXArchADTVariabilityEvent(final XArchADTVariabilityEvent evt) {
 		if (evt.getType() == Type.STATUS) {
 			final IBNAModel model = getBNAModel();
 			if (model != null) {
 				SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
+					@Override
 					public void run() {
 						for (IThing t : model.getThingsByID(tvtl.getThingIDs(IHasObjRef.OBJREF_KEY,
 								evt.getChangedObjRef()))) {
@@ -62,6 +65,7 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 		}
 	}
 
+	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {

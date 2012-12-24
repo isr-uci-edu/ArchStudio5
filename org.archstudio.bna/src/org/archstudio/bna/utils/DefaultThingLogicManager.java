@@ -28,6 +28,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 	protected final LoadingCache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().weakKeys()
 			.build(new CacheLoader<Object, AtomicLong>() {
 
+				@Override
 				public AtomicLong load(Object input) {
 					return new AtomicLong();
 				}
@@ -43,10 +44,12 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 	FilterableCopyOnWriteArrayList<IThingLogic> logics = FilterableCopyOnWriteArrayList.create();
 	Map<Class<?>, IThingLogic> typedLogics = Maps.newHashMap();
 
+	@Override
 	public void addThingLogicManagerListener(IThingLogicManagerListener l) {
 		listeners.add(l);
 	}
 
+	@Override
 	public void removeThingLogicManagerListener(IThingLogicManagerListener l) {
 		listeners.remove(l);
 	}
@@ -60,6 +63,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 		}
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <L extends IThingLogic> L addThingLogic(Class<L> logicClass) {
 		try {
@@ -80,6 +84,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 		throw new IllegalArgumentException("Unable to instantiate logic: " + logicClass);
 	}
 
+	@Override
 	public synchronized <L extends IThingLogic> L addThingLogic(L tl) {
 		long time;
 		if (DEBUG) {
@@ -98,6 +103,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 		return tl;
 	}
 
+	@Override
 	public synchronized void removeThingLogic(IThingLogic tl) {
 		fireThingLogicManagerEvent(EventType.LOGIC_REMOVING, tl);
 		long time;
@@ -114,14 +120,17 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 		fireThingLogicManagerEvent(EventType.LOGIC_REMOVED, tl);
 	}
 
+	@Override
 	public Iterable<IThingLogic> getAllThingLogics() {
 		return Lists.newArrayList(logics);
 	}
 
+	@Override
 	public <LT> Iterable<LT> getThingLogics(Class<LT> implementingInterface) {
 		return Iterables.filter(logics, implementingInterface);
 	}
 
+	@Override
 	public void destroy() {
 		// perform removals in reverse order since latter logics often depend on former logics
 		for (IThingLogic logic : Lists.newArrayList(Lists.reverse(logics))) {

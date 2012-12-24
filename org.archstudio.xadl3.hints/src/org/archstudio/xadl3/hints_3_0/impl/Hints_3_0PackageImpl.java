@@ -132,6 +132,7 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getHint() {
 		return hintEClass;
 	}
@@ -141,6 +142,7 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getHint_Value() {
 		return (EReference) hintEClass.getEStructuralFeatures().get(0);
 	}
@@ -150,6 +152,7 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getHint_Hint() {
 		return (EAttribute) hintEClass.getEStructuralFeatures().get(1);
 	}
@@ -159,6 +162,7 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getHint_Name() {
 		return (EAttribute) hintEClass.getEStructuralFeatures().get(2);
 	}
@@ -168,6 +172,7 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getHintsExtension() {
 		return hintsExtensionEClass;
 	}
@@ -177,6 +182,7 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getHintsExtension_Hint() {
 		return (EReference) hintsExtensionEClass.getEStructuralFeatures().get(0);
 	}
@@ -186,6 +192,7 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getValue() {
 		return valueEClass;
 	}
@@ -195,6 +202,7 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getValue_Value() {
 		return (EReference) valueEClass.getEStructuralFeatures().get(0);
 	}
@@ -204,6 +212,7 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getValue_Data() {
 		return (EAttribute) valueEClass.getEStructuralFeatures().get(1);
 	}
@@ -213,6 +222,7 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getValue_Type() {
 		return (EAttribute) valueEClass.getEStructuralFeatures().get(2);
 	}
@@ -222,6 +232,7 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Hints_3_0Factory getHints_3_0Factory() {
 		return (Hints_3_0Factory) getEFactoryInstance();
 	}

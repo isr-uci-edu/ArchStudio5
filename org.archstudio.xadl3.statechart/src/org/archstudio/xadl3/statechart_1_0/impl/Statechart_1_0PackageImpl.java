@@ -206,6 +206,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getBehavior() {
 		return behaviorEClass;
 	}
@@ -215,6 +216,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getBehavior_Ext() {
 		return (EReference) behaviorEClass.getEStructuralFeatures().get(0);
 	}
@@ -224,6 +226,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBehavior_Id() {
 		return (EAttribute) behaviorEClass.getEStructuralFeatures().get(1);
 	}
@@ -233,6 +236,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getConstraint() {
 		return constraintEClass;
 	}
@@ -242,6 +246,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getConstraint_Ext() {
 		return (EReference) constraintEClass.getEStructuralFeatures().get(0);
 	}
@@ -251,6 +256,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConstraint_Id() {
 		return (EAttribute) constraintEClass.getEStructuralFeatures().get(1);
 	}
@@ -260,6 +266,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getDocumentRoot() {
 		return documentRootEClass;
 	}
@@ -269,6 +276,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Mixed() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(0);
 	}
@@ -278,6 +286,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XMLNSPrefixMap() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(1);
 	}
@@ -287,6 +296,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XSISchemaLocation() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(2);
 	}
@@ -296,6 +306,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Statechart() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(3);
 	}
@@ -305,6 +316,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getFinalState() {
 		return finalStateEClass;
 	}
@@ -314,6 +326,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFinalState_Type() {
 		return (EAttribute) finalStateEClass.getEStructuralFeatures().get(0);
 	}
@@ -323,6 +336,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getInitialState() {
 		return initialStateEClass;
 	}
@@ -332,6 +346,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInitialState_Type() {
 		return (EAttribute) initialStateEClass.getEStructuralFeatures().get(0);
 	}
@@ -341,6 +356,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getPseudoState() {
 		return pseudoStateEClass;
 	}
@@ -350,6 +366,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getPseudoState_Ext() {
 		return (EReference) pseudoStateEClass.getEStructuralFeatures().get(0);
 	}
@@ -359,6 +376,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPseudoState_Id() {
 		return (EAttribute) pseudoStateEClass.getEStructuralFeatures().get(1);
 	}
@@ -368,6 +386,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPseudoState_Name() {
 		return (EAttribute) pseudoStateEClass.getEStructuralFeatures().get(2);
 	}
@@ -377,6 +396,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getState() {
 		return stateEClass;
 	}
@@ -386,6 +406,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getState_Entry() {
 		return (EReference) stateEClass.getEStructuralFeatures().get(0);
 	}
@@ -395,6 +416,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getState_Exit() {
 		return (EReference) stateEClass.getEStructuralFeatures().get(1);
 	}
@@ -404,6 +426,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getState_SubStatechart() {
 		return (EReference) stateEClass.getEStructuralFeatures().get(2);
 	}
@@ -413,6 +436,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getState_Type() {
 		return (EAttribute) stateEClass.getEStructuralFeatures().get(3);
 	}
@@ -422,6 +446,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getStatechart() {
 		return statechartEClass;
 	}
@@ -431,6 +456,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getStatechart_State() {
 		return (EReference) statechartEClass.getEStructuralFeatures().get(0);
 	}
@@ -440,6 +466,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getStatechart_Transition() {
 		return (EReference) statechartEClass.getEStructuralFeatures().get(1);
 	}
@@ -449,6 +476,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getStatechart_Ext() {
 		return (EReference) statechartEClass.getEStructuralFeatures().get(2);
 	}
@@ -458,6 +486,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStatechart_Id() {
 		return (EAttribute) statechartEClass.getEStructuralFeatures().get(3);
 	}
@@ -467,6 +496,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStatechart_Name() {
 		return (EAttribute) statechartEClass.getEStructuralFeatures().get(4);
 	}
@@ -476,6 +506,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getSubStatechart() {
 		return subStatechartEClass;
 	}
@@ -485,6 +516,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getSubStatechart_InnerStatechart() {
 		return (EReference) subStatechartEClass.getEStructuralFeatures().get(0);
 	}
@@ -494,6 +526,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSubStatechart_Id() {
 		return (EAttribute) subStatechartEClass.getEStructuralFeatures().get(1);
 	}
@@ -503,6 +536,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getTransition() {
 		return transitionEClass;
 	}
@@ -512,6 +546,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getTransition_From() {
 		return (EReference) transitionEClass.getEStructuralFeatures().get(0);
 	}
@@ -521,6 +556,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getTransition_To() {
 		return (EReference) transitionEClass.getEStructuralFeatures().get(1);
 	}
@@ -530,6 +566,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getTransition_Constraint() {
 		return (EReference) transitionEClass.getEStructuralFeatures().get(2);
 	}
@@ -539,6 +576,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getTransition_Ext() {
 		return (EReference) transitionEClass.getEStructuralFeatures().get(3);
 	}
@@ -548,6 +586,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTransition_Id() {
 		return (EAttribute) transitionEClass.getEStructuralFeatures().get(4);
 	}
@@ -557,6 +596,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTransition_Name() {
 		return (EAttribute) transitionEClass.getEStructuralFeatures().get(5);
 	}
@@ -566,6 +606,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EEnum getStateType() {
 		return stateTypeEEnum;
 	}
@@ -575,6 +616,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getStateTypeObject() {
 		return stateTypeObjectEDataType;
 	}
@@ -584,6 +626,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Statechart_1_0Factory getStatechart_1_0Factory() {
 		return (Statechart_1_0Factory) getEFactoryInstance();
 	}

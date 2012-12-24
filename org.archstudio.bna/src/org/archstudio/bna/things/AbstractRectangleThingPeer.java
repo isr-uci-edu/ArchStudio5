@@ -10,6 +10,7 @@ public abstract class AbstractRectangleThingPeer<T extends AbstractRectangleThin
 		super(thing);
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return t.getBoundingBox().contains(location.getWorldPoint());
 	}

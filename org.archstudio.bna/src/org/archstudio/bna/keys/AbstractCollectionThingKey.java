@@ -15,6 +15,7 @@ public abstract class AbstractCollectionThingKey<D, C extends Collection<V>, V> 
 	public static final <V> Function<Collection<V>, List<V>> list(final Function<V, V> cloneFunction) {
 		return new Function<Collection<V>, List<V>>() {
 
+			@Override
 			public List<V> apply(Collection<V> input) {
 				return Lists.newArrayList(input != null ? cloneFunction != null ? Collections2.transform(input,
 						cloneFunction) : input : Collections.<V> emptyList());
@@ -25,6 +26,7 @@ public abstract class AbstractCollectionThingKey<D, C extends Collection<V>, V> 
 	public static final <V> Function<Collection<V>, Set<V>> set(final Function<V, V> cloneFunction) {
 		return new Function<Collection<V>, Set<V>>() {
 
+			@Override
 			public Set<V> apply(Collection<V> input) {
 				return Sets.newHashSet(input != null ? cloneFunction != null ? Collections2.transform(input,
 						cloneFunction) : input : Collections.<V> emptySet());

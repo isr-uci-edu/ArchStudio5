@@ -58,6 +58,7 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 		this.xarch = xarch;
 	}
 
+	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		IThing thing = SystemUtils.firstOrNull(things);
 		if (thing != null) {
@@ -67,12 +68,14 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 					MenuManager myxGenMenu = new MenuManager("Assign MyxGen Brick...");
 					myxGenMenu.addMenuListener(new IMenuListener() {
 
+						@Override
 						public void menuAboutToShow(IMenuManager manager) {
 							populateMenuWithMyxGenBricks(objRef, manager);
 						}
 					});
 					menu.add(myxGenMenu);
 					myxGenMenu.add(new Action("Place holder needed to show menu") {
+						@Override
 						public void run() {
 						}
 					});
@@ -91,6 +94,7 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 			List<MyxGenBrick> myxGenBricks = Lists.newArrayList(e.getValue());
 			Collections.sort(myxGenBricks, new Comparator<MyxGenBrick>() {
 
+				@Override
 				public int compare(MyxGenBrick o1, MyxGenBrick o2) {
 					return o1.getName().compareTo(o2.getName());
 				}
@@ -98,6 +102,7 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 			for (final MyxGenBrick myxGenBrick : myxGenBricks) {
 				projectMenu.add(new Action(myxGenBrick.getName()) {
 
+					@Override
 					public void run() {
 						assignMyxGenBrick(objRef, myxGenBrick);
 					}
@@ -134,6 +139,7 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 			Multimap<String, Interface> oldIfaces = Multimaps.index(brick.getInterface().iterator(),
 					new Function<Interface, String>() {
 
+						@Override
 						public String apply(Interface iface) {
 							LookupImplementation limpl = XArchADTProxy.proxy(xarch, XadlUtils.getImplementation(xarch,
 									XArchADTProxy.unproxy(iface),

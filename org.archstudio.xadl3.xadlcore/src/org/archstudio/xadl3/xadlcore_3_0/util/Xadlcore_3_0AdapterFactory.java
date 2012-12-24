@@ -50,6 +50,7 @@ public class Xadlcore_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -68,22 +69,27 @@ public class Xadlcore_3_0AdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected Xadlcore_3_0Switch<Adapter> modelSwitch = new Xadlcore_3_0Switch<Adapter>() {
 
+		@Override
 		public Adapter caseDocumentRoot(DocumentRoot object) {
 			return createDocumentRootAdapter();
 		}
 
+		@Override
 		public Adapter caseExtension(Extension object) {
 			return createExtensionAdapter();
 		}
 
+		@Override
 		public Adapter caseSimpleLink(SimpleLink object) {
 			return createSimpleLinkAdapter();
 		}
 
+		@Override
 		public Adapter caseXADLType(XADLType object) {
 			return createXADLTypeAdapter();
 		}
 
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -99,6 +105,7 @@ public class Xadlcore_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

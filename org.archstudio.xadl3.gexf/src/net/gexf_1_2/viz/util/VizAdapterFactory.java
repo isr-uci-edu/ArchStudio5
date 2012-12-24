@@ -54,6 +54,7 @@ public class VizAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -72,34 +73,42 @@ public class VizAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected VizSwitch<Adapter> modelSwitch = new VizSwitch<Adapter>() {
 
+		@Override
 		public Adapter caseColorContent(ColorContent object) {
 			return createColorContentAdapter();
 		}
 
+		@Override
 		public Adapter caseEdgeShapeContent(EdgeShapeContent object) {
 			return createEdgeShapeContentAdapter();
 		}
 
+		@Override
 		public Adapter caseNodeShapeContent(NodeShapeContent object) {
 			return createNodeShapeContentAdapter();
 		}
 
+		@Override
 		public Adapter casePositionContent(PositionContent object) {
 			return createPositionContentAdapter();
 		}
 
+		@Override
 		public Adapter caseSizeContent(SizeContent object) {
 			return createSizeContentAdapter();
 		}
 
+		@Override
 		public Adapter caseThicknessContent(ThicknessContent object) {
 			return createThicknessContentAdapter();
 		}
 
+		@Override
 		public Adapter caseDocumentRoot(DocumentRoot object) {
 			return createDocumentRootAdapter();
 		}
 
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -115,6 +124,7 @@ public class VizAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

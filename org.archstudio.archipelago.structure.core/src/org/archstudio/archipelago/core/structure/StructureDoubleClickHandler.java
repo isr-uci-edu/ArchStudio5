@@ -23,6 +23,7 @@ public class StructureDoubleClickHandler implements IArchipelagoTreeDoubleClickH
 		return false;
 	}
 
+	@Override
 	public void treeNodeDoubleClicked(Object treeNode) {
 		if (isTargetNode(treeNode)) {
 			ObjRef structureRef = (ObjRef) treeNode;

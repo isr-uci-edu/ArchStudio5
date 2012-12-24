@@ -64,6 +64,7 @@ public class GexfSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 
+	@Override
 	protected boolean isSwitchFor(EPackage ePackage) {
 		return ePackage == modelPackage;
 	}
@@ -78,6 +79,7 @@ public class GexfSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 
+	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 		case GexfPackage.ATTRIBUTE_CONTENT: {
@@ -499,6 +501,7 @@ public class GexfSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 
+	@Override
 	public T defaultCase(EObject object) {
 		return null;
 	}

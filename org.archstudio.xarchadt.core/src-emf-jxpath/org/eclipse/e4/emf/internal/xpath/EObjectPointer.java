@@ -84,14 +84,17 @@ public class EObjectPointer extends EStructuralFeatureOwnerPointer {
 		this.beanInfo = beanInfo;
 	}
 
+	@Override
 	public EStructuralFeaturePointer getPropertyPointer() {
 		return new EObjectPropertyPointer(this, beanInfo);
 	}
 
+	@Override
 	public QName getName() {
 		return name;
 	}
 
+	@Override
 	public Object getBaseValue() {
 		return bean;
 	}
@@ -101,6 +104,7 @@ public class EObjectPointer extends EStructuralFeatureOwnerPointer {
 	 * 
 	 * @return false
 	 */
+	@Override
 	public boolean isCollection() {
 		return false;
 	}
@@ -110,19 +114,23 @@ public class EObjectPointer extends EStructuralFeatureOwnerPointer {
 	 * 
 	 * @return 1
 	 */
+	@Override
 	public int getLength() {
 		return 1;
 	}
 
+	@Override
 	public boolean isLeaf() {
 		Object value = getNode();
 		return value == null || JXPathIntrospector.getBeanInfo(value.getClass()).isAtomic();
 	}
 
+	@Override
 	public int hashCode() {
 		return name == null ? 0 : name.hashCode();
 	}
 
+	@Override
 	public boolean equals(Object object) {
 		if (object == this) {
 			return true;
@@ -158,6 +166,7 @@ public class EObjectPointer extends EStructuralFeatureOwnerPointer {
 	 * bean is null, "null()". If the bean is a primitive value, the value
 	 * itself. Otherwise - an empty string.
 	 */
+	@Override
 	public String asPath() {
 		if (parent != null) {
 			return super.asPath();
@@ -181,6 +190,7 @@ public class EObjectPointer extends EStructuralFeatureOwnerPointer {
 		return "/";
 	}
 
+	@Override
 	public String getNamespaceURI() {
 		return ((EObject) bean).eClass().getEPackage().getNsURI();
 	}

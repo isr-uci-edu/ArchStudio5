@@ -111,6 +111,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Xadlcore_3_0Package.Literals.SIMPLE_LINK;
 	}
@@ -120,6 +121,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getHref() {
 		return href;
 	}
@@ -129,6 +131,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setHref(String newHref) {
 		String oldHref = href;
 		href = newHref;
@@ -142,6 +145,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -151,6 +155,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -164,6 +169,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getType() {
 		return type;
 	}
@@ -173,6 +179,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setType(String newType) {
 		String oldType = type;
 		type = newType;
@@ -189,6 +196,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetType() {
 		String oldType = type;
 		boolean oldTypeESet = typeESet;
@@ -205,6 +213,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetType() {
 		return typeESet;
 	}
@@ -215,6 +224,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.SIMPLE_LINK__HREF:
@@ -233,6 +243,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.SIMPLE_LINK__HREF:
@@ -254,6 +265,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.SIMPLE_LINK__HREF:
@@ -275,6 +287,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.SIMPLE_LINK__HREF:
@@ -293,6 +306,7 @@ public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

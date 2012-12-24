@@ -58,6 +58,7 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Myxgen_3_0Package.Literals.MYX_GEN;
 	}
@@ -67,6 +68,7 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getBrickID() {
 		return brickID;
 	}
@@ -76,6 +78,7 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setBrickID(String newBrickID) {
 		String oldBrickID = brickID;
 		brickID = newBrickID;
@@ -91,6 +94,7 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Myxgen_3_0Package.MYX_GEN__BRICK_ID:
@@ -105,6 +109,7 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Myxgen_3_0Package.MYX_GEN__BRICK_ID:
@@ -120,6 +125,7 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Myxgen_3_0Package.MYX_GEN__BRICK_ID:
@@ -135,6 +141,7 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Myxgen_3_0Package.MYX_GEN__BRICK_ID:
@@ -149,6 +156,7 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

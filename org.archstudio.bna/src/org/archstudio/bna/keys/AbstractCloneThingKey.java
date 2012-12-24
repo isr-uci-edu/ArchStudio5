@@ -20,6 +20,7 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 	public static final Function<Dimension, Dimension> dimension() {
 		return new Function<Dimension, Dimension>() {
 
+			@Override
 			public @Nullable
 			Dimension apply(@Nullable Dimension input) {
 				return input != null ? new Dimension(input.width, input.height) : null;
@@ -30,6 +31,7 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 	public static final Function<Insets, Insets> insets() {
 		return new Function<Insets, Insets>() {
 
+			@Override
 			public @Nullable
 			Insets apply(@Nullable Insets input) {
 				return input != null ? new Insets(input.top, input.left, input.bottom, input.right) : null;
@@ -40,6 +42,7 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 	public static final Function<Point, Point> point() {
 		return new Function<Point, Point>() {
 
+			@Override
 			public @Nullable
 			Point apply(@Nullable Point input) {
 				return input != null ? new Point(input.x, input.y) : null;
@@ -50,6 +53,7 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 	public static final Function<Point2D, Point2D> point2D() {
 		return new Function<Point2D, Point2D>() {
 
+			@Override
 			public @Nullable
 			Point2D apply(@Nullable Point2D input) {
 				return input != null ? (Point2D) input.clone() : null;
@@ -60,6 +64,7 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 	public static final Function<Rectangle, Rectangle> rectangle() {
 		return new Function<Rectangle, Rectangle>() {
 
+			@Override
 			public @Nullable
 			Rectangle apply(@Nullable Rectangle input) {
 				return input != null ? new Rectangle(input.x, input.y, input.width, input.height) : null;
@@ -70,6 +75,7 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 	public static final Function<RGB, RGB> rgb() {
 		return new Function<RGB, RGB>() {
 
+			@Override
 			public @Nullable
 			RGB apply(@Nullable RGB input) {
 				return input != null ? new RGB(input.red, input.green, input.blue) : null;
@@ -88,11 +94,13 @@ public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKe
 		this.cloneFunction = cloneFunction;
 	}
 
+	@Override
 	public final @Nullable
 	V preWrite(@Nullable V value) {
 		return cloneFunction.apply(value);
 	}
 
+	@Override
 	public final @Nullable
 	V postRead(@Nullable V value) {
 		return cloneFunction.apply(value);

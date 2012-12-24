@@ -12,6 +12,7 @@ public class FolderNodeLabelProvider implements IArchipelagoLabelProvider {
 		this.resources = resources;
 	}
 
+	@Override
 	public String getText(Object element, String textFromPreviousProvider) {
 		if (element instanceof FolderNode) {
 			return ((FolderNode) element).getText();
@@ -19,6 +20,7 @@ public class FolderNodeLabelProvider implements IArchipelagoLabelProvider {
 		return textFromPreviousProvider;
 	}
 
+	@Override
 	public Image getImage(Object element, Image imageFromPreviousProvider) {
 		if (element instanceof FolderNode) {
 			return resources.getPlatformImage(ISharedImages.IMG_OBJ_FOLDER);

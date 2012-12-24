@@ -49,32 +49,38 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		this.actionBars = actionBars;
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 
 		actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), new Action() {
 
+			@Override
 			public void runWithEvent(@Nullable Event event) {
 				copy();
 				delete();
 			}
 		});
 		actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), new Action() {
+			@Override
 			public void runWithEvent(@Nullable Event event) {
 				copy();
 			}
 		});
 		actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), new Action() {
+			@Override
 			public void runWithEvent(@Nullable Event event) {
 				paste();
 			}
 		});
 		actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), new Action() {
+			@Override
 			public void runWithEvent(@Nullable Event event) {
 				delete();
 			}
 		});
 		actionBars.setGlobalActionHandler(ActionFactory.SELECT_ALL.getId(), new Action() {
+			@Override
 			public void runWithEvent(@Nullable Event event) {
 				selectAll();
 			}
@@ -82,6 +88,7 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		actionBars.updateActionBars();
 	}
 
+	@Override
 	protected void destroy() {
 		actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), null);
 		actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), null);
@@ -142,6 +149,7 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		}
 	}
 
+	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		// select the new ObjRefs added by paste()
 		switch (evt.getEventType()) {
@@ -185,9 +193,11 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		xarch.done("Delete");
 	}
 
+	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		menu.add(new Action("Cut") {
 
+			@Override
 			public void run() {
 				copy();
 				delete();
@@ -195,12 +205,14 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		});
 		menu.add(new Action("Copy") {
 
+			@Override
 			public void run() {
 				copy();
 			}
 		});
 		menu.add(new Action("Paste") {
 
+			@Override
 			public void run() {
 				paste();
 			}

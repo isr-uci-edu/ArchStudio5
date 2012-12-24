@@ -25,35 +25,43 @@ class MyxBasicWeld implements IMyxWeld {
 		this.providedInterfaceName = providedInterfaceName;
 	}
 
+	@Override
 	public IMyxName getProvidedBrickName() {
 		return providedBrickName;
 	}
 
+	@Override
 	public IMyxName getProvidedInterfaceName() {
 		return providedInterfaceName;
 	}
 
+	@Override
 	public List<? extends IMyxName> getProvidedPath() {
 		return providedPath;
 	}
 
+	@Override
 	public IMyxName getRequiredBrickName() {
 		return requiredBrickName;
 	}
 
+	@Override
 	public IMyxName getRequiredInterfaceName() {
 		return requiredInterfaceName;
 	}
 
+	@Override
 	public List<? extends IMyxName> getRequiredPath() {
 		return requiredPath;
 	}
 
+	@Override
 	public int hashCode() {
 		return MyxUtils.hc(requiredPath) ^ MyxUtils.hc(requiredBrickName) ^ MyxUtils.hc(requiredInterfaceName)
 				^ MyxUtils.hc(providedPath) ^ MyxUtils.hc(providedBrickName) ^ MyxUtils.hc(providedInterfaceName);
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		return o == this || MyxUtils.classeq(this, o)
 				&& MyxUtils.nulleq(this.requiredPath, ((MyxBasicWeld) o).requiredPath)
@@ -65,6 +73,7 @@ class MyxBasicWeld implements IMyxWeld {
 
 	}
 
+	@Override
 	public String toString() {
 		return "MyxBasicWeld{requiredPath=" + MyxUtils.pathToString(requiredPath) + "; requiredBrickName="
 				+ requiredBrickName + "; requiredInterfaceName=" + requiredInterfaceName + "; providedPath="

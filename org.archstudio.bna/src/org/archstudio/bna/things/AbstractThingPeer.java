@@ -11,6 +11,7 @@ public abstract class AbstractThingPeer<T extends IThing> implements IThingPeer<
 		this.t = thing;
 	}
 
+	@Override
 	public void dispose() {
 	}
 

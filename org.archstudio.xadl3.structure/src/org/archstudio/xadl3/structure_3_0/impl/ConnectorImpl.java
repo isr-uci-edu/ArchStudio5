@@ -53,6 +53,7 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Structure_3_0Package.Literals.CONNECTOR;
 	}
@@ -62,6 +63,7 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this, Structure_3_0Package.CONNECTOR__EXT);
@@ -75,6 +77,7 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Structure_3_0Package.CONNECTOR__EXT:
@@ -89,6 +92,7 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Structure_3_0Package.CONNECTOR__EXT:
@@ -102,6 +106,7 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -119,6 +124,7 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.CONNECTOR__EXT:
@@ -134,6 +140,7 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.CONNECTOR__EXT:

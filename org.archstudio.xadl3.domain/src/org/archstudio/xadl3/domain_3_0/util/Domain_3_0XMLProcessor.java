@@ -36,6 +36,7 @@ public class Domain_3_0XMLProcessor extends XMLProcessor {
 	 * @generated
 	 */
 
+	@Override
 	protected Map<String, Resource.Factory> getRegistrations() {
 		if (registrations == null) {
 			super.getRegistrations();

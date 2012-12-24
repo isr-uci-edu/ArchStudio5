@@ -91,6 +91,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Xadlcore_3_0Package.Literals.DOCUMENT_ROOT;
 	}
@@ -100,6 +101,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getMixed() {
 		if (mixed == null) {
 			mixed = new BasicFeatureMap(this, Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED);
@@ -112,6 +114,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EMap<String, String> getXMLNSPrefixMap() {
 		if (xMLNSPrefixMap == null) {
 			xMLNSPrefixMap = new EcoreEMap<String, String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY,
@@ -125,6 +128,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EMap<String, String> getXSISchemaLocation() {
 		if (xSISchemaLocation == null) {
 			xSISchemaLocation = new EcoreEMap<String, String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY,
@@ -138,6 +142,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EObject getTopLevelElement() {
 		return (EObject) getMixed().get(Xadlcore_3_0Package.Literals.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT, true);
 	}
@@ -157,6 +162,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setTopLevelElement(EObject newTopLevelElement) {
 		((FeatureMap.Internal) getMixed()).set(Xadlcore_3_0Package.Literals.DOCUMENT_ROOT__TOP_LEVEL_ELEMENT,
 				newTopLevelElement);
@@ -167,6 +173,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public XADLType getXADL() {
 		return (XADLType) getMixed().get(Xadlcore_3_0Package.Literals.DOCUMENT_ROOT__XADL, true);
 	}
@@ -186,6 +193,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setXADL(XADLType newXADL) {
 		((FeatureMap.Internal) getMixed()).set(Xadlcore_3_0Package.Literals.DOCUMENT_ROOT__XADL, newXADL);
 	}
@@ -196,6 +204,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
@@ -218,6 +227,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
@@ -253,6 +263,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
@@ -280,6 +291,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
@@ -307,6 +319,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.DOCUMENT_ROOT__MIXED:
@@ -329,6 +342,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

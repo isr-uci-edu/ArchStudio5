@@ -22,10 +22,12 @@ public class PulsingBorderThingPeer<T extends PulsingBorderThing> extends Abstra
 		super(thing);
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		Point p1 = new Point(lbb.x, lbb.y);

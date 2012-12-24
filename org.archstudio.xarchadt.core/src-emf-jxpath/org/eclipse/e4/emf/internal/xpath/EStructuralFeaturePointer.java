@@ -98,6 +98,7 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 		return (EObject) bean;
 	}
 
+	@Override
 	public QName getName() {
 		return new QName(null, getPropertyName());
 	}
@@ -138,6 +139,7 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 	 */
 	protected abstract boolean isActualProperty();
 
+	@Override
 	public boolean isActual() {
 		if (!isActualProperty()) {
 			return false;
@@ -150,6 +152,7 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 
 	private Object value = UNINITIALIZED;
 
+	@Override
 	public Object getImmediateNode() {
 		if (value == UNINITIALIZED) {
 			value = index == WHOLE_COLLECTION ? ValueUtils.getValue(getBaseValue()) : ValueUtils.getValue(
@@ -158,11 +161,13 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 		return value;
 	}
 
+	@Override
 	public boolean isCollection() {
 		Object value = getBaseValue();
 		return value != null && ValueUtils.isCollection(value);
 	}
 
+	@Override
 	public boolean isLeaf() {
 		Object value = getNode();
 		return value == null || JXPathIntrospector.getBeanInfo(value.getClass()).isAtomic();
@@ -174,6 +179,7 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 	 * 
 	 * @return int length
 	 */
+	@Override
 	public int getLength() {
 		return ValueUtils.getLength(getBaseValue());
 	}
@@ -184,10 +190,12 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 	 * 
 	 * @return NodePointer
 	 */
+	@Override
 	public NodePointer getImmediateValuePointer() {
 		return NodePointer.newChildNodePointer((NodePointer) this.clone(), getName(), getImmediateNode());
 	}
 
+	@Override
 	public NodePointer createPath(JXPathContext context) {
 		if (getImmediateNode() == null) {
 			AbstractFactory factory = getAbstractFactory(context);
@@ -201,6 +209,7 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 		return this;
 	}
 
+	@Override
 	public NodePointer createPath(JXPathContext context, Object value) {
 		// If neccessary, expand collection
 		if (index != WHOLE_COLLECTION && index >= getLength()) {
@@ -210,6 +219,7 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 		return this;
 	}
 
+	@Override
 	public NodePointer createChild(JXPathContext context, QName name, int index, Object value) {
 		EStructuralFeaturePointer prop = (EStructuralFeaturePointer) clone();
 		if (name != null) {
@@ -219,6 +229,7 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 		return prop.createPath(context, value);
 	}
 
+	@Override
 	public NodePointer createChild(JXPathContext context, QName name, int index) {
 		EStructuralFeaturePointer prop = (EStructuralFeaturePointer) clone();
 		if (name != null) {
@@ -228,10 +239,12 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 		return prop.createPath(context);
 	}
 
+	@Override
 	public int hashCode() {
 		return getImmediateParentPointer().hashCode() + propertyIndex + index;
 	}
 
+	@Override
 	public boolean equals(Object object) {
 		if (object == this) {
 			return true;
@@ -255,6 +268,7 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 		return iThis == iOther;
 	}
 
+	@Override
 	public int compareChildNodePointers(NodePointer pointer1, NodePointer pointer2) {
 		return getValuePointer().compareChildNodePointers(pointer1, pointer2);
 	}

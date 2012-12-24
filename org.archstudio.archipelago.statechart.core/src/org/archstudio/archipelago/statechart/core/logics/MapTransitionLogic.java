@@ -53,6 +53,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 		super(xarch, rootObjRef, objRefPath);
 	}
 
+	@Override
 	public void init() {
 		super.init();
 
@@ -73,11 +74,13 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
 
+	@Override
 	public void destroy() {
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		super.destroy();
 	}
 
+	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
 				StatechartConstants.PREF_TRANSITION_FONT);
@@ -90,6 +93,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 		}
 	}
 
+	@Override
 	protected CurvedSplineGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
 				StatechartConstants.PREF_TRANSITION_FONT);

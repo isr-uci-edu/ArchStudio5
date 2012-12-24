@@ -12,6 +12,7 @@ public class OrientInterfacesParameterPanel implements IGraphLayoutParameterPane
 
 	protected Button cbOrientInterfaces;
 
+	@Override
 	public void createPanel(Composite parent) {
 		Group gPanel = new Group(parent, SWT.NONE);
 		gPanel.setText("Interface Orientations");
@@ -24,6 +25,7 @@ public class OrientInterfacesParameterPanel implements IGraphLayoutParameterPane
 		cbOrientInterfaces.setText("Guess Interface Orientations");
 	}
 
+	@Override
 	public void loadParameters(GraphLayoutParameters params) {
 		try {
 			boolean orientInterfaces = ((Boolean) params.getProperty("orientInterfaces")).booleanValue();
@@ -34,6 +36,7 @@ public class OrientInterfacesParameterPanel implements IGraphLayoutParameterPane
 		}
 	}
 
+	@Override
 	public void storeParameters(GraphLayoutParameters params) throws DataValidationException {
 		params.setProperty("orientInterfaces", cbOrientInterfaces.getSelection());
 	}

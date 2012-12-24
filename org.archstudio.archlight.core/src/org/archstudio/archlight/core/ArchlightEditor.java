@@ -49,6 +49,7 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		setHasBanner(true);
 	}
 
+	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
 
@@ -58,6 +59,7 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		setupToolbar(site);
 	}
 
+	@Override
 	protected AbstractArchStudioOutlinePage createOutlinePage() {
 		return new ArchlightOutlinePage(tests, xarch, getDocumentRootRef(), resources);
 	}
@@ -71,6 +73,7 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		}
 	}
 
+	@Override
 	public void createEditorContents(Composite c) {
 		Object[] selectedNodes = null;
 		if (outlinePage != null) {
@@ -94,10 +97,12 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		bRunTests.setImage(resources.getImage(ArchlightUtils.IMAGE_RUN_TESTS));
 		bRunTests.addSelectionListener(new SelectionListener() {
 
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				runTests();
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent event) {
 				runTests();
 			}
@@ -113,10 +118,12 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		bReloadTests.setImage(resources.getImage(ArchlightUtils.IMAGE_RELOAD_TESTS));
 		bReloadTests.addSelectionListener(new SelectionListener() {
 
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				reloadTests();
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent event) {
 				reloadTests();
 			}
@@ -199,12 +206,14 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 							resources.getPlatformImage(dropDownImageID), null, dropDownText);
 					dropDownButton.addSelectionListener(new DropdownSelectionListener(dropDownButton) {
 
+						@Override
 						public void fillDropdownMenu(IMenuManager menuMgr) {
 							List<? extends IAction> actions = ArchlightUtils.createTestMenuActions(xarch,
 									documentRootRef, tests.getAllTests(), resources, node);
 							if (actions.isEmpty()) {
 								Action noAction = new Action("[No Actions]") {
 
+									@Override
 									public void run() {
 									}
 								};
@@ -234,6 +243,7 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 		return item;
 	}
 
+	@Override
 	public void setFocus() {
 		// parent.getChildren()[0].setFocus();
 	}
@@ -241,6 +251,7 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 	public IAction[] getToolbarActions() {
 		Action runTests = new Action("Run Tests", IAction.AS_PUSH_BUTTON) {
 
+			@Override
 			public void run() {
 				runTests();
 			};
@@ -250,6 +261,7 @@ public class ArchlightEditor extends AbstractArchStudioEditor<ArchlightMyxCompon
 
 		Action reloadTests = new Action("Reload Tests", IAction.AS_PUSH_BUTTON) {
 
+			@Override
 			public void run() {
 				reloadTests();
 			};

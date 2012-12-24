@@ -18,6 +18,7 @@ public abstract class AbstractEditNameCellModifier implements ICellModifier {
 		this.xarch = AS.get(IXArchADT.class);
 	}
 
+	@Override
 	public Object getValue(Object element, String property) {
 		if (element instanceof ObjRef) {
 			ObjRef targetRef = (ObjRef) element;
@@ -27,6 +28,7 @@ public abstract class AbstractEditNameCellModifier implements ICellModifier {
 		return null;
 	}
 
+	@Override
 	public void modify(Object element, String property, Object value) {
 		if (element instanceof ObjRef) {
 			ObjRef targetRef = (ObjRef) element;

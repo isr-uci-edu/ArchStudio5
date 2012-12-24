@@ -17,6 +17,7 @@ public class MappingGlassThingPeer<T extends MappingGlassThing> extends Abstract
 		super(thing);
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (t.isSelected()) {
 			IBNAView iView = BNAUtils.getInternalView(view, t.getInternalEndpointWorldThingID());

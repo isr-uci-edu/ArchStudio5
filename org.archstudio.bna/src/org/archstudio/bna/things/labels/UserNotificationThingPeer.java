@@ -45,6 +45,7 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 		return (int) nfs;
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 
 		Point lap = cm.worldToLocal(t.getAnchorPoint());
@@ -97,6 +98,7 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 		}
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}

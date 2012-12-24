@@ -24,9 +24,11 @@ public class ArchipelagoStructurePreferencePanel extends FieldEditorPreferencePa
 		setDescription("This panel lets you set structure preferences for Archipelago.");
 	}
 
+	@Override
 	public void init(IWorkbench workbench) {
 	}
 
+	@Override
 	protected void createFieldEditors() {
 		defaultComponentFontEditor = new FontFieldEditor(ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_FONT,
 				"Default Component Font:", getFieldEditorParent());

@@ -59,6 +59,7 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Implementation_3_0Package.Literals.IMPLEMENTATION;
 	}
@@ -68,6 +69,7 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -77,6 +79,7 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -92,6 +95,7 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Implementation_3_0Package.IMPLEMENTATION__ID:
@@ -106,6 +110,7 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Implementation_3_0Package.IMPLEMENTATION__ID:
@@ -121,6 +126,7 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Implementation_3_0Package.IMPLEMENTATION__ID:
@@ -136,6 +142,7 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Implementation_3_0Package.IMPLEMENTATION__ID:
@@ -150,6 +157,7 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

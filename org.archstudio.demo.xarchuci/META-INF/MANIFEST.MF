@@ -8,4 +8,4 @@ Require-Bundle: org.archstudio.xadl3.xadlcore,
  org.archstudio.xadl3.structure,
  org.archstudio.xarchadt,
  org.archstudio.xarchadt.core
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

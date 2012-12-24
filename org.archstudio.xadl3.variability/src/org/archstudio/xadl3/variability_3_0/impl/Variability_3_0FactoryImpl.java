@@ -62,6 +62,7 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Variability_3_0Package.ATTRIBUTE_CHANGE:
@@ -92,6 +93,7 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public AttributeChange createAttributeChange() {
 		AttributeChangeImpl attributeChange = new AttributeChangeImpl();
 		return attributeChange;
@@ -102,6 +104,7 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Change createChange() {
 		ChangeImpl change = new ChangeImpl();
 		return change;
@@ -112,6 +115,7 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ChangeSetOfChanges createChangeSetOfChanges() {
 		ChangeSetOfChangesImpl changeSetOfChanges = new ChangeSetOfChangesImpl();
 		return changeSetOfChanges;
@@ -122,6 +126,7 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public DocumentRoot createDocumentRoot() {
 		DocumentRootImpl documentRoot = new DocumentRootImpl();
 		return documentRoot;
@@ -132,6 +137,7 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ElementChange createElementChange() {
 		ElementChangeImpl elementChange = new ElementChangeImpl();
 		return elementChange;
@@ -142,6 +148,7 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ElementManyChange createElementManyChange() {
 		ElementManyChangeImpl elementManyChange = new ElementManyChangeImpl();
 		return elementManyChange;
@@ -152,6 +159,7 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public JavaTransformChangeSetOfChanges createJavaTransformChangeSetOfChanges() {
 		JavaTransformChangeSetOfChangesImpl javaTransformChangeSetOfChanges = new JavaTransformChangeSetOfChangesImpl();
 		return javaTransformChangeSetOfChanges;
@@ -162,6 +170,7 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public TransformChangeSetOfChanges createTransformChangeSetOfChanges() {
 		TransformChangeSetOfChangesImpl transformChangeSetOfChanges = new TransformChangeSetOfChangesImpl();
 		return transformChangeSetOfChanges;
@@ -172,6 +181,7 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Variability createVariability() {
 		VariabilityImpl variability = new VariabilityImpl();
 		return variability;
@@ -182,6 +192,7 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Variability_3_0Package getVariability_3_0Package() {
 		return (Variability_3_0Package) getEPackage();
 	}

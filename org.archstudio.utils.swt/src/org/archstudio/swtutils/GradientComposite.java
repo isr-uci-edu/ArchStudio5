@@ -23,19 +23,23 @@ public class GradientComposite extends Composite implements PaintListener {
 		this.addPaintListener(this);
 	}
 
+	@Override
 	public void setForeground(Color fg) {
 		this.fg = fg;
 	}
 
+	@Override
 	public void setBackground(Color bg) {
 		this.bg = bg;
 	}
 
+	@Override
 	public void dispose() {
 		this.removePaintListener(this);
 		super.dispose();
 	}
 
+	@Override
 	public void paintControl(PaintEvent e) {
 		GC gc = e.gc;
 		Composite c = (Composite) e.widget;

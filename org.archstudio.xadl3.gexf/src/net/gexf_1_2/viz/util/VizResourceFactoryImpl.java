@@ -32,6 +32,7 @@ public class VizResourceFactoryImpl extends ResourceFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Resource createResource(URI uri) {
 		XMLResource result = new VizResourceImpl(uri);
 		result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);

@@ -20,6 +20,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> imp
 		super(thing);
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 
 		// only draw for the top level things
@@ -100,6 +101,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> imp
 		}
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return false;
 	}

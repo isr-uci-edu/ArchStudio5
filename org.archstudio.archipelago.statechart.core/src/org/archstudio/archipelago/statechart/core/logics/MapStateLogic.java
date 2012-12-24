@@ -5,8 +5,6 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import java.awt.Dimension;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.statechart.core.Activator;
 import org.archstudio.archipelago.statechart.core.StatechartConstants;
@@ -39,6 +37,7 @@ import org.archstudio.xadl.bna.logics.mapping.AbstractXADLToBNAPathLogic;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -66,6 +65,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		this.defaultCount = defaultCount;
 	}
 
+	@Override
 	public void init() {
 		super.init();
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
@@ -73,6 +73,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
 		addBNAUpdater(new IBNAUpdater() {
 
+			@Override
 			public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, RectangleGlassThing rootThing) {
 				updateSubstructure(objRef, xadlPath, evt, rootThing);
 			}
@@ -83,11 +84,13 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		mvl = getBNAWorld().getThingLogicManager().addThingLogic(MirrorValueLogic.class);
 	}
 
+	@Override
 	public void destroy() {
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		super.destroy();
 	}
 
+	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		RGB defaultColor = PreferenceConverter.getColor(Activator.getDefault().getPreferenceStore(),
 				StatechartConstants.PREF_STATE_COLOR);
@@ -117,6 +120,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		return new RGB(Integer.valueOf(rgbs[0]), Integer.valueOf(rgbs[1]), Integer.valueOf(rgbs[2]));
 	}
 
+	@Override
 	protected RectangleGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 		RGB defaultColor = PreferenceConverter.getColor(Activator.getDefault().getPreferenceStore(),
 				StatechartConstants.PREF_STATE_COLOR);
@@ -139,6 +143,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 				Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()), IHasSecondaryColor.SECONDARY_COLOR_KEY,
 				new Function<RGB, RGB>() {
 
+					@Override
 					@Nullable
 					public RGB apply(@Nullable RGB input) {
 						return BNAUtils.adjustBrightness(input, 1.5f);

@@ -229,6 +229,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return VizPackage.Literals.POSITION_CONTENT;
 	}
@@ -238,6 +239,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SpellsContent getSpells() {
 		return spells;
 	}
@@ -268,6 +270,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSpells(SpellsContent newSpells) {
 		if (newSpells != spells) {
 			NotificationChain msgs = null;
@@ -295,6 +298,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEnd() {
 		return end;
 	}
@@ -304,6 +308,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEnd(Object newEnd) {
 		Object oldEnd = end;
 		end = newEnd;
@@ -317,6 +322,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEndopen() {
 		return endopen;
 	}
@@ -326,6 +332,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEndopen(Object newEndopen) {
 		Object oldEndopen = endopen;
 		endopen = newEndopen;
@@ -340,6 +347,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStart() {
 		return start;
 	}
@@ -349,6 +357,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStart(Object newStart) {
 		Object oldStart = start;
 		start = newStart;
@@ -362,6 +371,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStartopen() {
 		return startopen;
 	}
@@ -371,6 +381,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStartopen(Object newStartopen) {
 		Object oldStartopen = startopen;
 		startopen = newStartopen;
@@ -385,6 +396,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public float getX() {
 		return x;
 	}
@@ -394,6 +406,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setX(float newX) {
 		float oldX = x;
 		x = newX;
@@ -409,6 +422,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetX() {
 		float oldX = x;
 		boolean oldXESet = xESet;
@@ -425,6 +439,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetX() {
 		return xESet;
 	}
@@ -434,6 +449,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public float getY() {
 		return y;
 	}
@@ -443,6 +459,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setY(float newY) {
 		float oldY = y;
 		y = newY;
@@ -458,6 +475,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetY() {
 		float oldY = y;
 		boolean oldYESet = yESet;
@@ -474,6 +492,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetY() {
 		return yESet;
 	}
@@ -483,6 +502,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public float getZ() {
 		return z;
 	}
@@ -492,6 +512,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setZ(float newZ) {
 		float oldZ = z;
 		z = newZ;
@@ -507,6 +528,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetZ() {
 		float oldZ = z;
 		boolean oldZESet = zESet;
@@ -523,6 +545,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetZ() {
 		return zESet;
 	}
@@ -533,6 +556,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case VizPackage.POSITION_CONTENT__SPELLS:
@@ -547,6 +571,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case VizPackage.POSITION_CONTENT__SPELLS:
@@ -575,6 +600,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case VizPackage.POSITION_CONTENT__SPELLS:
@@ -611,6 +637,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case VizPackage.POSITION_CONTENT__SPELLS:
@@ -647,6 +674,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case VizPackage.POSITION_CONTENT__SPELLS:
@@ -675,6 +703,7 @@ public class PositionContentImpl extends EObjectImpl implements PositionContent 
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

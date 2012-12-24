@@ -52,6 +52,7 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Domain_3_0Package.Literals.DOMAIN_EXTENSION;
 	}
@@ -61,6 +62,7 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Domain getDomain() {
 		return domain;
 	}
@@ -91,6 +93,7 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setDomain(Domain newDomain) {
 		if (newDomain != domain) {
 			NotificationChain msgs = null;
@@ -119,6 +122,7 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
@@ -133,6 +137,7 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
@@ -147,6 +152,7 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
@@ -162,6 +168,7 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:
@@ -177,6 +184,7 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Domain_3_0Package.DOMAIN_EXTENSION__DOMAIN:

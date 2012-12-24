@@ -42,6 +42,7 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#beginTask(String, int)
 	 */
+	@Override
 	public void beginTask(String name, int totalWork) {
 		progressMonitor.beginTask(name, totalWork);
 	}
@@ -53,6 +54,7 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#done()
 	 */
+	@Override
 	public void done() {
 		progressMonitor.done();
 	}
@@ -73,6 +75,7 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#internalWorked(double)
 	 */
+	@Override
 	public void internalWorked(double work) {
 		progressMonitor.internalWorked(work);
 	}
@@ -84,6 +87,7 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#isCanceled()
 	 */
+	@Override
 	public boolean isCanceled() {
 		return progressMonitor.isCanceled();
 	}
@@ -95,6 +99,7 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#setCanceled(boolean)
 	 */
+	@Override
 	public void setCanceled(boolean b) {
 		progressMonitor.setCanceled(b);
 	}
@@ -106,6 +111,7 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#setTaskName(String)
 	 */
+	@Override
 	public void setTaskName(String name) {
 		progressMonitor.setTaskName(name);
 	}
@@ -117,6 +123,7 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#subTask(String)
 	 */
+	@Override
 	public void subTask(String name) {
 		progressMonitor.subTask(name);
 	}
@@ -128,6 +135,7 @@ public abstract class MyxProgressMonitorWrapper implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#worked(int)
 	 */
+	@Override
 	public void worked(int work) {
 		progressMonitor.worked(work);
 	}

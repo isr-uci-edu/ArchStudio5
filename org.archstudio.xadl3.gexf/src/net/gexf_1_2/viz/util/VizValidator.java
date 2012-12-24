@@ -93,6 +93,7 @@ public class VizValidator extends EObjectValidator {
 	 * @generated
 	 */
 
+	@Override
 	protected EPackage getEPackage() {
 		return VizPackage.eINSTANCE;
 	}
@@ -104,6 +105,7 @@ public class VizValidator extends EObjectValidator {
 	 * @generated
 	 */
 
+	@Override
 	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		switch (classifierID) {
 		case VizPackage.COLOR_CONTENT:
@@ -485,6 +487,7 @@ public class VizValidator extends EObjectValidator {
 	 * @generated
 	 */
 
+	@Override
 	public ResourceLocator getResourceLocator() {
 		// TODO
 		// Specialize this to return a resource locator for messages specific to this validator.

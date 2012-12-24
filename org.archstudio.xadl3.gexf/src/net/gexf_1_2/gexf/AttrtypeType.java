@@ -331,6 +331,7 @@ public enum AttrtypeType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 		return value;
 	}
@@ -340,6 +341,7 @@ public enum AttrtypeType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -349,6 +351,7 @@ public enum AttrtypeType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 		return literal;
 	}
@@ -360,6 +363,7 @@ public enum AttrtypeType implements Enumerator {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		return literal;
 	}

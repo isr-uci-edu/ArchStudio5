@@ -57,6 +57,7 @@ public class Variability_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -75,50 +76,62 @@ public class Variability_3_0AdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected Variability_3_0Switch<Adapter> modelSwitch = new Variability_3_0Switch<Adapter>() {
 
+		@Override
 		public Adapter caseAttributeChange(AttributeChange object) {
 			return createAttributeChangeAdapter();
 		}
 
+		@Override
 		public Adapter caseChange(Change object) {
 			return createChangeAdapter();
 		}
 
+		@Override
 		public Adapter caseChangeSet(ChangeSet object) {
 			return createChangeSetAdapter();
 		}
 
+		@Override
 		public Adapter caseChangeSetOfChanges(ChangeSetOfChanges object) {
 			return createChangeSetOfChangesAdapter();
 		}
 
+		@Override
 		public Adapter caseDocumentRoot(DocumentRoot object) {
 			return createDocumentRootAdapter();
 		}
 
+		@Override
 		public Adapter caseElementChange(ElementChange object) {
 			return createElementChangeAdapter();
 		}
 
+		@Override
 		public Adapter caseElementManyChange(ElementManyChange object) {
 			return createElementManyChangeAdapter();
 		}
 
+		@Override
 		public Adapter caseJavaTransformChangeSetOfChanges(JavaTransformChangeSetOfChanges object) {
 			return createJavaTransformChangeSetOfChangesAdapter();
 		}
 
+		@Override
 		public Adapter caseRelationship(Relationship object) {
 			return createRelationshipAdapter();
 		}
 
+		@Override
 		public Adapter caseTransformChangeSetOfChanges(TransformChangeSetOfChanges object) {
 			return createTransformChangeSetOfChangesAdapter();
 		}
 
+		@Override
 		public Adapter caseVariability(Variability object) {
 			return createVariabilityAdapter();
 		}
 
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -134,6 +147,7 @@ public class Variability_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

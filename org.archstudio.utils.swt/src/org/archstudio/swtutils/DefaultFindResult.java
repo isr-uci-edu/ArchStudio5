@@ -13,18 +13,22 @@ public class DefaultFindResult implements IFindResult {
 		this.image = image;
 	}
 
+	@Override
 	public Object getData() {
 		return data;
 	}
 
+	@Override
 	public ImageDescriptor getImageDescriptor() {
 		return image;
 	}
 
+	@Override
 	public String getString() {
 		return s;
 	}
 
+	@Override
 	public int compareTo(IFindResult o) {
 		return getString().compareToIgnoreCase(o.getString());
 	}

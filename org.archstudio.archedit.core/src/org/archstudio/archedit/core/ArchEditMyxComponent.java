@@ -39,6 +39,7 @@ public class ArchEditMyxComponent extends org.archstudio.archedit.core.ArchEditM
 		}
 	}
 
+	@Override
 	public ILaunchData getLaunchData() {
 		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME, "A syntax-directed editor for architecture descriptions",
 				getIcon(), ILaunchData.LaunchType.EDITOR);

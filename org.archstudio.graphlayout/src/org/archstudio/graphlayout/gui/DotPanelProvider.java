@@ -5,10 +5,12 @@ public class DotPanelProvider implements IGraphLayoutParameterPanelProvider {
 			new SizeAndScaleParameterPanel(), new GeneralOptionsParameterPanel(), new OrientInterfacesParameterPanel(),
 			new DotSpacingParameterPanel() };
 
+	@Override
 	public String getEngineID() {
 		return "dot";
 	}
 
+	@Override
 	public IGraphLayoutParameterPanel[] getPanels() {
 		return panels;
 	}

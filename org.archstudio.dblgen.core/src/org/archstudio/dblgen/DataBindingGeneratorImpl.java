@@ -180,6 +180,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		try {
 			project.accept(new IResourceVisitor() {
 
+				@Override
 				public boolean visit(IResource resource) throws CoreException {
 					if (resource instanceof IFile) {
 						IFile file = (IFile) resource;
@@ -229,6 +230,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		try {
 			project.accept(new IResourceVisitor() {
 
+				@Override
 				public boolean visit(IResource resource) throws CoreException {
 					if (resource instanceof IFile) {
 						IFile file = (IFile) resource;
@@ -625,6 +627,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			return imports;
 		}
 
+		@Override
 		public String toString() {
 			StringBuffer sb = new StringBuffer("SchemaRecord{");
 			sb.append("nsuri = ").append(nsuri).append("; ");
@@ -638,6 +641,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		}
 	}
 
+	@Override
 	public synchronized List<DataBindingGenerationStatus> generateBindings(List<String> schemaURIStrings,
 			String projectName) {
 		return generateBindings(schemaURIStrings, Collections.<Xadl3SchemaLocation> emptyList(), projectName);
@@ -674,6 +678,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			 * correct location before saving them.
 			 */
 
+			@Override
 			protected List<Resource> computeResourcesToBeSaved() {
 				List<Resource> resources = super.computeResourcesToBeSaved();
 				// move these resources to the correct location
@@ -759,6 +764,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		Multimap<String, SchemaRecord> nsuriToSchemaRecord = Multimaps.index(schemaRecords,
 				new Function<SchemaRecord, String>() {
 
+					@Override
 					public String apply(SchemaRecord input) {
 						return input.getNsuri();
 					}
@@ -857,6 +863,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 			// fix names of external packages
 			Multimap<String, EPackage> m = Multimaps.index(importer.getEPackages(), new Function<EPackage, String>() {
 
+				@Override
 				public String apply(EPackage input) {
 					return input.getNsURI();
 				}
@@ -955,6 +962,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					Multimap<String, IRequiredBundleDescription> requiredBundlesMap = Multimaps.index(requiredBundles,
 							new Function<IRequiredBundleDescription, String>() {
 
+								@Override
 								public String apply(IRequiredBundleDescription input) {
 									return input.getName();
 								}
@@ -977,6 +985,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 					Multimap<String, IPackageExportDescription> packageExportsMap = Multimaps.index(packageExports,
 							new Function<IPackageExportDescription, String>() {
 
+								@Override
 								public String apply(IPackageExportDescription input) {
 									return input.getName();
 								};

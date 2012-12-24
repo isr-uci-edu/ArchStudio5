@@ -58,6 +58,7 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.ATTRIBUTE_CHANGE;
 	}
@@ -67,6 +68,7 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getValue() {
 		return value;
 	}
@@ -76,6 +78,7 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setValue(String newValue) {
 		String oldValue = value;
 		value = newValue;
@@ -91,6 +94,7 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Variability_3_0Package.ATTRIBUTE_CHANGE__VALUE:
@@ -105,6 +109,7 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Variability_3_0Package.ATTRIBUTE_CHANGE__VALUE:
@@ -120,6 +125,7 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.ATTRIBUTE_CHANGE__VALUE:
@@ -135,6 +141,7 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.ATTRIBUTE_CHANGE__VALUE:
@@ -149,6 +156,7 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

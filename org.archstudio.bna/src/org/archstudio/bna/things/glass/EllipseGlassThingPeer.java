@@ -19,6 +19,7 @@ public class EllipseGlassThingPeer<T extends EllipseGlassThing> extends Abstract
 		super(thing);
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);

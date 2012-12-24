@@ -32,6 +32,7 @@ class MyxBasicProvidedServiceProvider implements IMyxProvidedServiceProvider {
 		return serviceMap.keySet().toArray(new IMyxName[serviceMap.keySet().size()]);
 	}
 
+	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		return serviceMap.get(interfaceName);
 	}

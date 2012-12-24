@@ -37,6 +37,7 @@ public class StructureEditorFocuser implements IArchipelagoEditorFocuser {
 		this.editor = AS.get(IArchipelagoEditorPane.class);
 	}
 
+	@Override
 	public void focusEditor(String editorName, ObjRef[] refs) {
 		//Highlight the tree nodes
 		if (refs.length == 0) {

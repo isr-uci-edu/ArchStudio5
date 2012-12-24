@@ -22,17 +22,20 @@ public class ChangeSetContentProvider implements ITreeContentProvider, IXArchADT
 		this.xarch = xarch;
 	}
 
+	@Override
 	public void dispose() {
 		viewer = null;
 		documentRootRef = null;
 	}
 
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		this.viewer = viewer;
 		this.documentRootRef = (ObjRef) newInput;
 		this.variability = VariabilityUtils.getVariability(xarch, documentRootRef);
 	}
 
+	@Override
 	public Object[] getElements(Object inputElement) {
 		if (variability != null) {
 			return XArchADTProxy.unproxy(variability.getChangeSet()).toArray(new ObjRef[0]);
@@ -40,18 +43,22 @@ public class ChangeSetContentProvider implements ITreeContentProvider, IXArchADT
 		return new ObjRef[0];
 	}
 
+	@Override
 	public Object getParent(Object element) {
 		return null;
 	}
 
+	@Override
 	public boolean hasChildren(Object element) {
 		return false;
 	}
 
+	@Override
 	public Object[] getChildren(Object parentElement) {
 		return new Object[0];
 	}
 
+	@Override
 	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		switch (evt.getEventType()) {
 		case ADD:
@@ -78,6 +85,7 @@ public class ChangeSetContentProvider implements ITreeContentProvider, IXArchADT
 		needsRefresh = true;
 		SWTWidgetUtils.async(viewer, new Runnable() {
 
+			@Override
 			public void run() {
 				if (needsRefresh) {
 					needsRefresh = false;

@@ -31,6 +31,7 @@ public abstract class ExtensionImpl extends EObjectImpl implements Extension {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Xadlcore_3_0Package.Literals.EXTENSION;
 	}

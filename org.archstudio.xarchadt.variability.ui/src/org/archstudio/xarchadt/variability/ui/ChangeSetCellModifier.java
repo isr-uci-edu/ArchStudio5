@@ -28,6 +28,7 @@ public class ChangeSetCellModifier implements ICellModifier {
 		this.xarch = xarch;
 	}
 
+	@Override
 	public boolean canModify(Object element, String property) {
 		if ("Apply".equals(property)) {
 			return true;
@@ -41,6 +42,7 @@ public class ChangeSetCellModifier implements ICellModifier {
 		return false;
 	}
 
+	@Override
 	public Object getValue(Object element, String property) {
 		if (element instanceof Item) {
 			element = ((Item) element).getData();
@@ -58,6 +60,7 @@ public class ChangeSetCellModifier implements ICellModifier {
 		return null;
 	}
 
+	@Override
 	public void modify(Object element, String property, Object value) {
 		if (element instanceof Item) {
 			element = ((Item) element).getData();

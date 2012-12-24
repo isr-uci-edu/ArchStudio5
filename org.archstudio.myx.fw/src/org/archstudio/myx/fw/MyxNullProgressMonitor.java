@@ -38,6 +38,7 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#beginTask(String, int)
 	 */
+	@Override
 	public void beginTask(String name, int totalWork) {
 		// do nothing
 	}
@@ -48,6 +49,7 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#done()
 	 */
+	@Override
 	public void done() {
 		// do nothing
 	}
@@ -57,6 +59,7 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#internalWorked(double)
 	 */
+	@Override
 	public void internalWorked(double work) {
 		// do nothing
 	}
@@ -69,6 +72,7 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	 * @see IMyxProgressMonitor#isCanceled()
 	 * @see IMyxProgressMonitor#setCanceled(boolean)
 	 */
+	@Override
 	public boolean isCanceled() {
 		return cancelled;
 	}
@@ -81,6 +85,7 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	 * @see IMyxProgressMonitor#isCanceled()
 	 * @see IMyxProgressMonitor#setCanceled(boolean)
 	 */
+	@Override
 	public void setCanceled(boolean cancelled) {
 		this.cancelled = cancelled;
 	}
@@ -91,6 +96,7 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#setTaskName(String)
 	 */
+	@Override
 	public void setTaskName(String name) {
 		// do nothing
 	}
@@ -101,6 +107,7 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#subTask(String)
 	 */
+	@Override
 	public void subTask(String name) {
 		// do nothing
 	}
@@ -111,6 +118,7 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	 * 
 	 * @see IMyxProgressMonitor#worked(int)
 	 */
+	@Override
 	public void worked(int work) {
 		// do nothing
 	}

@@ -52,10 +52,12 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 		setHasBanner(true);
 	}
 
+	@Override
 	protected AbstractArchStudioOutlinePage createOutlinePage() {
 		return new ArchEditOutlinePage(xarch, documentRootRef, resources);
 	}
 
+	@Override
 	public void createEditorContents(Composite parent) {
 		List<INodeInfo> selectedNodeInfos = null;
 		if (outlinePage != null) {
@@ -150,6 +152,7 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 		public ViewContentProvider() {
 		}
 
+		@Override
 		public Object[] getElements(Object inputElement) {
 			List<String[]> l = new ArrayList<String[]>();
 			IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata((ObjRef) inputElement);
@@ -163,22 +166,27 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 			return l.toArray();
 		}
 
+		@Override
 		public void dispose() {
 		}
 
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 	}
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
+		@Override
 		public String getColumnText(Object obj, int index) {
 			return ((String[]) obj)[index];
 		}
 
+		@Override
 		public Image getColumnImage(Object obj, int index) {
 			return null;
 		}
 
+		@Override
 		public Image getImage(Object obj) {
 			return null;
 		}
@@ -191,10 +199,12 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 			this.ref = ref;
 		}
 
+		@Override
 		public boolean canModify(Object element, String property) {
 			return true;
 		}
 
+		@Override
 		public Object getValue(Object element, String property) {
 			if (element == null) {
 				return "";
@@ -209,6 +219,7 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 			return null;
 		}
 
+		@Override
 		public void modify(Object element, String property, Object value) {
 			//SWT bug workaround
 			if (element instanceof Item) {
@@ -304,16 +315,19 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 			Transfer[] types = new Transfer[] { TextTransfer.getInstance() };
 			source.setTransfer(types);
 			source.addDragListener(new DragSourceListener() {
+				@Override
 				public void dragStart(DragSourceEvent event) {
 					event.doit = true;
 				}
 
+				@Override
 				public void dragSetData(DragSourceEvent event) {
 					if (TextTransfer.getInstance().isSupportedType(event.dataType)) {
 						event.data = "$LINK$" + fFeatureName + "$" + xarch.getXPath(fParentRef);
 					}
 				}
 
+				@Override
 				public void dragFinished(DragSourceEvent event) {
 					if (event.detail == DND.DROP_MOVE) {
 					}
@@ -322,10 +336,12 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 		}
 	}
 
+	@Override
 	public void focusEditor(String editorName, ObjRef[] refs) {
 		super.focusEditor(editorName, refs);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public Object getAdapter(Class key) {
 		if (key.equals(IGotoMarker.class)) {
@@ -334,6 +350,7 @@ public class ArchEditEditor extends AbstractArchStudioEditor<ArchEditMyxComponen
 		return super.getAdapter(key);
 	}
 
+	@Override
 	public void gotoMarker(IMarker marker) {
 		ObjRef objRef = xarch.getByID(documentRootRef, marker.getAttribute(IMarker.LOCATION, null));
 		if (objRef != null) {

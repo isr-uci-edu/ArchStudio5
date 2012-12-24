@@ -27,6 +27,7 @@ public class MyxStubBuilder extends IncrementalProjectBuilder {
 			pluginFile = getProject().getFile("plugin.xml");
 		}
 
+		@Override
 		public boolean visit(IResourceDelta delta) {
 			if (pluginFile == null) {
 				return false;
@@ -43,6 +44,7 @@ public class MyxStubBuilder extends IncrementalProjectBuilder {
 	public MyxStubBuilder() {
 	}
 
+	@Override
 	protected IProject[] build(int kind, @SuppressWarnings("rawtypes") Map args, IProgressMonitor monitor)
 			throws CoreException {
 		if (kind == FULL_BUILD) {

@@ -88,6 +88,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Structure_3_0Package.Literals.DOCUMENT_ROOT;
 	}
@@ -97,6 +98,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getMixed() {
 		if (mixed == null) {
 			mixed = new BasicFeatureMap(this, Structure_3_0Package.DOCUMENT_ROOT__MIXED);
@@ -109,6 +111,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EMap<String, String> getXMLNSPrefixMap() {
 		if (xMLNSPrefixMap == null) {
 			xMLNSPrefixMap = new EcoreEMap<String, String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY,
@@ -122,6 +125,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EMap<String, String> getXSISchemaLocation() {
 		if (xSISchemaLocation == null) {
 			xSISchemaLocation = new EcoreEMap<String, String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY,
@@ -135,6 +139,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Structure getStructure() {
 		return (Structure) getMixed().get(Structure_3_0Package.Literals.DOCUMENT_ROOT__STRUCTURE, true);
 	}
@@ -154,6 +159,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStructure(Structure newStructure) {
 		((FeatureMap.Internal) getMixed()).set(Structure_3_0Package.Literals.DOCUMENT_ROOT__STRUCTURE, newStructure);
 	}
@@ -164,6 +170,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Structure_3_0Package.DOCUMENT_ROOT__MIXED:
@@ -184,6 +191,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Structure_3_0Package.DOCUMENT_ROOT__MIXED:
@@ -217,6 +225,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Structure_3_0Package.DOCUMENT_ROOT__MIXED:
@@ -241,6 +250,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.DOCUMENT_ROOT__MIXED:
@@ -265,6 +275,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.DOCUMENT_ROOT__MIXED:
@@ -285,6 +296,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

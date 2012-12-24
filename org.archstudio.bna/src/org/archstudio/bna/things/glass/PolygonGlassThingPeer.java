@@ -19,6 +19,7 @@ public class PolygonGlassThingPeer<T extends PolygonGlassThing> extends Abstract
 		super(thing);
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			Point a = t.getAnchorPoint();

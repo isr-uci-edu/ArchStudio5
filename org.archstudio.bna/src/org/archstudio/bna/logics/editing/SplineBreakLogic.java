@@ -22,9 +22,11 @@ public class SplineBreakLogic extends AbstractThingLogic implements IBNAMouseCli
 	public SplineBreakLogic() {
 	}
 
+	@Override
 	public void mouseClick(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 	}
 
+	@Override
 	public void mouseDoubleClick(IBNAView view, MouseEvent evt, List<IThing> things, final ICoordinate location) {
 		final IHasMutablePoints t = castOrNull(firstOrNull(things), IHasMutablePoints.class);
 		if (t != null && UserEditableUtils.isEditableForAllQualities(t, IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS)) {
@@ -53,11 +55,13 @@ public class SplineBreakLogic extends AbstractThingLogic implements IBNAMouseCli
 
 			BNAOperations.runnable("Reshape", new Runnable() {
 
+				@Override
 				public void run() {
 					finalT.setPoints(oldPoints);
 				}
 			}, new Runnable() {
 
+				@Override
 				public void run() {
 					finalT.setPoints(newPoints);
 				}

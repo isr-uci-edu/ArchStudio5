@@ -131,6 +131,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Archlight_3_0Package.Literals.TEST;
 	}
@@ -140,6 +141,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this, Archlight_3_0Package.TEST__EXT);
@@ -152,6 +154,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -161,6 +164,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEnabled(boolean newEnabled) {
 		boolean oldEnabled = enabled;
 		enabled = newEnabled;
@@ -177,6 +181,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetEnabled() {
 		boolean oldEnabled = enabled;
 		boolean oldEnabledESet = enabledESet;
@@ -193,6 +198,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetEnabled() {
 		return enabledESet;
 	}
@@ -202,6 +208,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -211,6 +218,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -224,6 +232,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -233,6 +242,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -247,6 +257,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Archlight_3_0Package.TEST__EXT:
@@ -261,6 +272,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Archlight_3_0Package.TEST__EXT:
@@ -280,6 +292,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -306,6 +319,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Archlight_3_0Package.TEST__EXT:
@@ -330,6 +344,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Archlight_3_0Package.TEST__EXT:
@@ -350,6 +365,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

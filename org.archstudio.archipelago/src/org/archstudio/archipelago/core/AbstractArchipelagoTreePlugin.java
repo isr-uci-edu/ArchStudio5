@@ -20,46 +20,57 @@ public class AbstractArchipelagoTreePlugin implements IArchipelagoTreePlugin {
 	protected IArchipelagoEditorFocuser editorFocuser = null;
 	protected IArchipelagoEditorPane editor = null;
 
+	@Override
 	public IArchipelagoTreeContentProvider getContentProvider() {
 		return contentProvider;
 	}
 
+	@Override
 	public IArchipelagoTreeDoubleClickHandler getDoubleClickHandler() {
 		return doubleClickHandler;
 	}
 
+	@Override
 	public IArchipelagoLabelProvider getLabelProvider() {
 		return labelProvider;
 	}
 
+	@Override
 	public IArchipelagoTreeContextMenuFiller[] getContextMenuFillers() {
 		return contextMenuFillers;
 	}
 
+	@Override
 	public ICellModifier[] getCellModifiers() {
 		return cellModifiers;
 	}
 
+	@Override
 	public IXArchADTFileListener getXArchADTFileListener() {
 		return fileListener;
 	}
 
+	@Override
 	public IXArchADTModelListener getXArchADTModelListener() {
 		return flatListener;
 	}
 
+	@Override
 	public DragSourceListener getDragSourceListener() {
 		return dragSourceListener;
 	}
 
+	@Override
 	public IFileManagerListener getFileManagerListener() {
 		return fileManagerListener;
 	}
 
+	@Override
 	public IArchipelagoEditorFocuser getEditorFocuser() {
 		return editorFocuser;
 	}
 
+	@Override
 	public void setEditor(IArchipelagoEditorPane editor) {
 		this.editor = editor;
 	}

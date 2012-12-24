@@ -36,6 +36,7 @@ public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implem
 		return xArchIDKey;
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 		valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
@@ -43,6 +44,7 @@ public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implem
 
 	int inUpdateCount = 0;
 
+	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		if (inUpdateCount > 0) {
 			return;

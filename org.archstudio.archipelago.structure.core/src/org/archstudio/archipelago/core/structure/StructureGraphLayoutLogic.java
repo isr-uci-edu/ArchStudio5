@@ -61,6 +61,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 		this.documentRootRef = documentRootRef;
 	}
 
+	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		if (!things.isEmpty()) {
 			return;
@@ -77,10 +78,12 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 				&& XadlUtils.isInstanceOf(xarch, structureRef, Structure_3_0Package.Literals.STRUCTURE)) {
 			IAction layoutAction = new Action("Automatic Layout...") {
 
+				@Override
 				public void run() {
 					doLayout(fview, structureRef, fworldX, fworldY);
 				}
 
+				@Override
 				public ImageDescriptor getImageDescriptor() {
 					return resources.getImageDescriptor(ArchStudioCommonResources.ICON_STRUCTURE);
 				}
@@ -94,6 +97,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 			final String engineID, final GraphLayoutParameters glp) {
 		Job job = new Job("Laying Out") {
 
+			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				doLayout(view, structureRef, worldX, worldY, engineID, glp);
 				return Status.OK_STATUS;
@@ -125,6 +129,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 			final String engineID, final GraphLayoutParameters glp) {
 		SWTWidgetUtils.sync(view.getComposite(), new Runnable() {
 
+			@Override
 			public void run() {
 				try {
 					view.getBNAWorld().getBNAModel().beginBulkChange();

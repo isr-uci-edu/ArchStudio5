@@ -55,6 +55,7 @@ public class ParentsContentImpl extends EObjectImpl implements ParentsContent {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.PARENTS_CONTENT;
 	}
@@ -64,6 +65,7 @@ public class ParentsContentImpl extends EObjectImpl implements ParentsContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<ParentType> getParent() {
 		if (parent == null) {
 			parent = new EObjectContainmentEList<ParentType>(ParentType.class, this,
@@ -78,6 +80,7 @@ public class ParentsContentImpl extends EObjectImpl implements ParentsContent {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GexfPackage.PARENTS_CONTENT__PARENT:
@@ -92,6 +95,7 @@ public class ParentsContentImpl extends EObjectImpl implements ParentsContent {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.PARENTS_CONTENT__PARENT:
@@ -105,6 +109,7 @@ public class ParentsContentImpl extends EObjectImpl implements ParentsContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -122,6 +127,7 @@ public class ParentsContentImpl extends EObjectImpl implements ParentsContent {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.PARENTS_CONTENT__PARENT:
@@ -137,6 +143,7 @@ public class ParentsContentImpl extends EObjectImpl implements ParentsContent {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.PARENTS_CONTENT__PARENT:

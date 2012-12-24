@@ -17,9 +17,11 @@ public class StatechartPreferences extends FieldEditorPreferencePage implements 
 		setDescription("This panel lets you set statecharts preferences for Archipelago.");
 	}
 
+	@Override
 	public void init(IWorkbench workbench) {
 	}
 
+	@Override
 	protected void createFieldEditors() {
 		addField(new FontFieldEditor(StatechartConstants.PREF_STATE_FONT, "Default State Font:", getFieldEditorParent()));
 		addField(new ColorFieldEditor(StatechartConstants.PREF_STATE_COLOR, "Default State Color:",

@@ -6,6 +6,7 @@ import org.junit.Before;
 
 public class ProofTest2 extends ProofTest {
 
+	@Override
 	@Before
 	public void init() {
 		super.init();

@@ -56,6 +56,7 @@ public class ImplementationExtensionImpl extends ExtensionImpl implements Implem
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Implementation_3_0Package.Literals.IMPLEMENTATION_EXTENSION;
 	}
@@ -65,6 +66,7 @@ public class ImplementationExtensionImpl extends ExtensionImpl implements Implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Implementation> getImplementation() {
 		if (implementation == null) {
 			implementation = new EObjectContainmentEList<Implementation>(Implementation.class, this,
@@ -79,6 +81,7 @@ public class ImplementationExtensionImpl extends ExtensionImpl implements Implem
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:
@@ -93,6 +96,7 @@ public class ImplementationExtensionImpl extends ExtensionImpl implements Implem
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:
@@ -106,6 +110,7 @@ public class ImplementationExtensionImpl extends ExtensionImpl implements Implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -123,6 +128,7 @@ public class ImplementationExtensionImpl extends ExtensionImpl implements Implem
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:
@@ -138,6 +144,7 @@ public class ImplementationExtensionImpl extends ExtensionImpl implements Implem
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Implementation_3_0Package.IMPLEMENTATION_EXTENSION__IMPLEMENTATION:

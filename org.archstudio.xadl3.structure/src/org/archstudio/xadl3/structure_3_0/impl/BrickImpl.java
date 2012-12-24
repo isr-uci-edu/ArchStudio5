@@ -114,6 +114,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Structure_3_0Package.Literals.BRICK;
 	}
@@ -123,6 +124,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Interface> getInterface() {
 		if (interface_ == null) {
 			interface_ = new EObjectContainmentEList<Interface>(Interface.class, this,
@@ -136,6 +138,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SubStructure getSubStructure() {
 		return subStructure;
 	}
@@ -166,6 +169,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSubStructure(SubStructure newSubStructure) {
 		if (newSubStructure != subStructure) {
 			NotificationChain msgs = null;
@@ -193,6 +197,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -202,6 +207,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -215,6 +221,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -224,6 +231,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -238,6 +246,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Structure_3_0Package.BRICK__INTERFACE:
@@ -254,6 +263,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Structure_3_0Package.BRICK__INTERFACE:
@@ -273,6 +283,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -299,6 +310,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.BRICK__INTERFACE:
@@ -323,6 +335,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.BRICK__INTERFACE:
@@ -343,6 +356,7 @@ public abstract class BrickImpl extends EObjectImpl implements Brick {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

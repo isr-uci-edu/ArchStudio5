@@ -299,6 +299,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.EDGE_CONTENT;
 	}
@@ -308,6 +309,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getGroup() {
 		if (group == null) {
 			group = new BasicFeatureMap(this, GexfPackage.EDGE_CONTENT__GROUP);
@@ -320,6 +322,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<AttvaluesContent> getAttvalues() {
 		return getGroup().list(GexfPackage.Literals.EDGE_CONTENT__ATTVALUES);
 	}
@@ -329,6 +332,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<SpellsContent> getSpells() {
 		return getGroup().list(GexfPackage.Literals.EDGE_CONTENT__SPELLS);
 	}
@@ -338,6 +342,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<ColorContent> getColor() {
 		return getGroup().list(GexfPackage.Literals.EDGE_CONTENT__COLOR);
 	}
@@ -347,6 +352,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<ThicknessContent> getThickness() {
 		return getGroup().list(GexfPackage.Literals.EDGE_CONTENT__THICKNESS);
 	}
@@ -356,6 +362,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<EdgeShapeContent> getShape() {
 		return getGroup().list(GexfPackage.Literals.EDGE_CONTENT__SHAPE);
 	}
@@ -365,6 +372,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEnd() {
 		return end;
 	}
@@ -374,6 +382,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEnd(Object newEnd) {
 		Object oldEnd = end;
 		end = newEnd;
@@ -387,6 +396,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEndopen() {
 		return endopen;
 	}
@@ -396,6 +406,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEndopen(Object newEndopen) {
 		Object oldEndopen = endopen;
 		endopen = newEndopen;
@@ -410,6 +421,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getId() {
 		return id;
 	}
@@ -419,6 +431,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(Object newId) {
 		Object oldId = id;
 		id = newId;
@@ -432,6 +445,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getLabel() {
 		return label;
 	}
@@ -441,6 +455,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setLabel(String newLabel) {
 		String oldLabel = label;
 		label = newLabel;
@@ -454,6 +469,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getSource() {
 		return source;
 	}
@@ -463,6 +479,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSource(Object newSource) {
 		Object oldSource = source;
 		source = newSource;
@@ -476,6 +493,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStart() {
 		return start;
 	}
@@ -485,6 +503,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStart(Object newStart) {
 		Object oldStart = start;
 		start = newStart;
@@ -498,6 +517,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStartopen() {
 		return startopen;
 	}
@@ -507,6 +527,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStartopen(Object newStartopen) {
 		Object oldStartopen = startopen;
 		startopen = newStartopen;
@@ -521,6 +542,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getTarget() {
 		return target;
 	}
@@ -530,6 +552,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setTarget(Object newTarget) {
 		Object oldTarget = target;
 		target = newTarget;
@@ -543,6 +566,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EdgetypeType getType() {
 		return type;
 	}
@@ -552,6 +576,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setType(EdgetypeType newType) {
 		EdgetypeType oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
@@ -568,6 +593,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetType() {
 		EdgetypeType oldType = type;
 		boolean oldTypeESet = typeESet;
@@ -584,6 +610,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetType() {
 		return typeESet;
 	}
@@ -593,6 +620,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public float getWeight() {
 		return weight;
 	}
@@ -602,6 +630,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setWeight(float newWeight) {
 		float oldWeight = weight;
 		weight = newWeight;
@@ -618,6 +647,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetWeight() {
 		float oldWeight = weight;
 		boolean oldWeightESet = weightESet;
@@ -634,6 +664,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetWeight() {
 		return weightESet;
 	}
@@ -644,6 +675,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GexfPackage.EDGE_CONTENT__GROUP:
@@ -668,6 +700,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.EDGE_CONTENT__GROUP:
@@ -714,6 +747,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -780,6 +814,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.EDGE_CONTENT__GROUP:
@@ -840,6 +875,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.EDGE_CONTENT__GROUP:
@@ -884,6 +920,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

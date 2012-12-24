@@ -2,8 +2,6 @@ package org.archstudio.xadl.bna.logics.mapping;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IBNAModel;
@@ -24,6 +22,7 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.widgets.Display;
 
 import com.google.common.collect.Lists;
@@ -67,6 +66,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 		tracker.addTrackerListener(this);
 	}
 
+	@Override
 	public void setBNAWorld(IBNAWorld newBNAWorld) {
 		super.setBNAWorld(newBNAWorld);
 		if (newBNAWorld != null) {
@@ -75,16 +75,19 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 		}
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 		valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
 	}
 
+	@Override
 	public void destroy() {
 		tracker.stopScanning();
 		super.destroy();
 	}
 
+	@Override
 	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		if (getBNAWorld() != null) {
 			tracker.handleXArchADTModelEvent(evt);
@@ -122,8 +125,10 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * {@link #updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)}
 	 */
 
+	@Override
 	public void processAdd(final List<ObjRef> relLineageRefs, final ObjRef objRef) {
 		execInDisplayThread(new Runnable() {
+			@Override
 			public void run() {
 				IBNAModel model = getBNAModel();
 				if (model != null) {
@@ -154,10 +159,12 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * updates them through calls to
 	 * {@link #updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)}
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void processUpdate(final List<ObjRef> relLineageRefs, final String relPath, final ObjRef objRef,
 			final XArchADTModelEvent evt) {
 		execInDisplayThread(new Runnable() {
+			@Override
 			public void run() {
 				IBNAModel model = getBNAModel();
 				if (model != null) {
@@ -183,8 +190,10 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * to the removed ObjRef
 	 */
 
+	@Override
 	public void processRemove(final List<ObjRef> relLineageRefs, final ObjRef objRef) {
 		execInDisplayThread(new Runnable() {
+			@Override
 			public void run() {
 				IBNAModel model = getBNAModel();
 				if (model != null) {
@@ -210,6 +219,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * Assembly added by this logic. When found, updates the ObjRef data through
 	 * calls to {@link #storeThingData(ObjRef, IThing, BNAPath, BNAModelEvent)}.
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void bnaModelChanged(final BNAModelEvent evt) {
 		if (updatingThings == 0) {

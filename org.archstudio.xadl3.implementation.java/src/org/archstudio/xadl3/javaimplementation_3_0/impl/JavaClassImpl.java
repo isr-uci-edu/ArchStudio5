@@ -118,6 +118,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Javaimplementation_3_0Package.Literals.JAVA_CLASS;
 	}
@@ -127,6 +128,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<ClassPathEntry> getClassPathEntry() {
 		if (classPathEntry == null) {
 			classPathEntry = new EObjectContainmentEList<ClassPathEntry>(ClassPathEntry.class, this,
@@ -140,6 +142,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this,
@@ -153,6 +156,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getClassName() {
 		return className;
 	}
@@ -162,6 +166,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setClassName(String newClassName) {
 		String oldClassName = className;
 		className = newClassName;
@@ -176,6 +181,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -185,6 +191,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -200,6 +207,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Javaimplementation_3_0Package.JAVA_CLASS__CLASS_PATH_ENTRY:
@@ -216,6 +224,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Javaimplementation_3_0Package.JAVA_CLASS__CLASS_PATH_ENTRY:
@@ -235,6 +244,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -262,6 +272,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Javaimplementation_3_0Package.JAVA_CLASS__CLASS_PATH_ENTRY:
@@ -286,6 +297,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Javaimplementation_3_0Package.JAVA_CLASS__CLASS_PATH_ENTRY:
@@ -306,6 +318,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

@@ -10,18 +10,22 @@ public class EncodedValue implements IEncodedValue {
 		this.data = data;
 	}
 
+	@Override
 	public String getType() {
 		return type;
 	}
 
+	@Override
 	public void setType(String type) {
 		this.type = type;
 	}
 
+	@Override
 	public String getData() {
 		return data;
 	}
 
+	@Override
 	public void setData(String data) {
 		this.data = data;
 	}

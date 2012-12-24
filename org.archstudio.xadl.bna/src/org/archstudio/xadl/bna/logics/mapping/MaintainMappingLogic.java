@@ -37,6 +37,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 	public MaintainMappingLogic() {
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 		IThingLogicManager tlm = getBNAWorld().getThingLogicManager();
@@ -45,6 +46,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 		tlm.addThingLogic(WorldThingInternalEventsLogic.class);
 	}
 
+	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
@@ -71,6 +73,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 		}
 	}
 
+	@Override
 	public void internalBNAModelChanged(IHasWorld src, BNAModelEvent evt) {
 
 		switch (evt.getEventType()) {

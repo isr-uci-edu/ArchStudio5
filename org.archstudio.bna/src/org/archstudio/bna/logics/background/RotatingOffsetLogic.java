@@ -15,6 +15,7 @@ public class RotatingOffsetLogic extends AbstractThingLogic {
 	public RotatingOffsetLogic() {
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 		timer = new RotatingOffsetIncrementer();
@@ -23,6 +24,7 @@ public class RotatingOffsetLogic extends AbstractThingLogic {
 		timer.start();
 	}
 
+	@Override
 	protected void destroy() {
 		if (timer != null) {
 			timer.terminate();
@@ -42,6 +44,7 @@ public class RotatingOffsetLogic extends AbstractThingLogic {
 			shouldTerminate = true;
 		}
 
+		@Override
 		public void run() {
 			while (!shouldTerminate) {
 				try {
@@ -51,6 +54,7 @@ public class RotatingOffsetLogic extends AbstractThingLogic {
 				}
 
 				Display.getDefault().syncExec(new Runnable() {
+					@Override
 					public void run() {
 						final IBNAModel model = getBNAModel();
 						if (model != null) {

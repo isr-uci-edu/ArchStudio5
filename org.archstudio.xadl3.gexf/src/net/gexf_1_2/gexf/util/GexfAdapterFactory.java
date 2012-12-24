@@ -63,6 +63,7 @@ public class GexfAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -81,70 +82,87 @@ public class GexfAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected GexfSwitch<Adapter> modelSwitch = new GexfSwitch<Adapter>() {
 
+		@Override
 		public Adapter caseAttributeContent(AttributeContent object) {
 			return createAttributeContentAdapter();
 		}
 
+		@Override
 		public Adapter caseAttributesContent(AttributesContent object) {
 			return createAttributesContentAdapter();
 		}
 
+		@Override
 		public Adapter caseAttvaluesContent(AttvaluesContent object) {
 			return createAttvaluesContentAdapter();
 		}
 
+		@Override
 		public Adapter caseAttvalueType(AttvalueType object) {
 			return createAttvalueTypeAdapter();
 		}
 
+		@Override
 		public Adapter caseDocumentRoot(DocumentRoot object) {
 			return createDocumentRootAdapter();
 		}
 
+		@Override
 		public Adapter caseEdgeContent(EdgeContent object) {
 			return createEdgeContentAdapter();
 		}
 
+		@Override
 		public Adapter caseEdgesContent(EdgesContent object) {
 			return createEdgesContentAdapter();
 		}
 
+		@Override
 		public Adapter caseGexfContent(GexfContent object) {
 			return createGexfContentAdapter();
 		}
 
+		@Override
 		public Adapter caseGraphContent(GraphContent object) {
 			return createGraphContentAdapter();
 		}
 
+		@Override
 		public Adapter caseMetaContent(MetaContent object) {
 			return createMetaContentAdapter();
 		}
 
+		@Override
 		public Adapter caseNodeContent(NodeContent object) {
 			return createNodeContentAdapter();
 		}
 
+		@Override
 		public Adapter caseNodesContent(NodesContent object) {
 			return createNodesContentAdapter();
 		}
 
+		@Override
 		public Adapter caseParentsContent(ParentsContent object) {
 			return createParentsContentAdapter();
 		}
 
+		@Override
 		public Adapter caseParentType(ParentType object) {
 			return createParentTypeAdapter();
 		}
 
+		@Override
 		public Adapter caseSpellsContent(SpellsContent object) {
 			return createSpellsContentAdapter();
 		}
 
+		@Override
 		public Adapter caseSpellType(SpellType object) {
 			return createSpellTypeAdapter();
 		}
 
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -160,6 +178,7 @@ public class GexfAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

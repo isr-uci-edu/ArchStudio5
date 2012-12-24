@@ -254,6 +254,7 @@ public class ArchipelagoUtils {
 				m.addThing(pbt);
 				Thread pulserThread = new Thread() {
 
+					@Override
 					public void run() {
 						try {
 							Thread.sleep(6000);
@@ -261,6 +262,7 @@ public class ArchipelagoUtils {
 						catch (InterruptedException ie) {
 						}
 						Display.getDefault().asyncExec(new Runnable() {
+							@Override
 							public void run() {
 								m.removeThing(pbt);
 							}
@@ -316,6 +318,7 @@ public class ArchipelagoUtils {
 	public static void addZoomWidget(final BNACanvas bnaCanvas, final IBNAView bnaView) {
 		Listener l = new Listener() {
 
+			@Override
 			public void handleEvent(Event e) {
 				bnaCanvas.forceFocus();
 			}
@@ -331,9 +334,11 @@ public class ArchipelagoUtils {
 
 		bnaCanvas.addControlListener(new ControlListener() {
 
+			@Override
 			public void controlMoved(ControlEvent e) {
 			}
 
+			@Override
 			public void controlResized(ControlEvent e) {
 				zoomWidget.setLocation(
 						bnaCanvas.getClientArea().x + bnaCanvas.getClientArea().width - zoomWidget.getSize().x - 1, 1);

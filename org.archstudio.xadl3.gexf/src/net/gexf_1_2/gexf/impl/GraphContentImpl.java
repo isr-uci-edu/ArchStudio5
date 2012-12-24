@@ -278,6 +278,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.GRAPH_CONTENT;
 	}
@@ -287,6 +288,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getGroup() {
 		if (group == null) {
 			group = new BasicFeatureMap(this, GexfPackage.GRAPH_CONTENT__GROUP);
@@ -299,6 +301,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<AttributesContent> getAttributes() {
 		return getGroup().list(GexfPackage.Literals.GRAPH_CONTENT__ATTRIBUTES);
 	}
@@ -308,6 +311,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<NodesContent> getNodes() {
 		return getGroup().list(GexfPackage.Literals.GRAPH_CONTENT__NODES);
 	}
@@ -317,6 +321,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<EdgesContent> getEdges() {
 		return getGroup().list(GexfPackage.Literals.GRAPH_CONTENT__EDGES);
 	}
@@ -326,6 +331,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public DefaultedgetypeType getDefaultedgetype() {
 		return defaultedgetype;
 	}
@@ -335,6 +341,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setDefaultedgetype(DefaultedgetypeType newDefaultedgetype) {
 		DefaultedgetypeType oldDefaultedgetype = defaultedgetype;
 		defaultedgetype = newDefaultedgetype == null ? DEFAULTEDGETYPE_EDEFAULT : newDefaultedgetype;
@@ -351,6 +358,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetDefaultedgetype() {
 		DefaultedgetypeType oldDefaultedgetype = defaultedgetype;
 		boolean oldDefaultedgetypeESet = defaultedgetypeESet;
@@ -367,6 +375,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetDefaultedgetype() {
 		return defaultedgetypeESet;
 	}
@@ -376,6 +385,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEnd() {
 		return end;
 	}
@@ -385,6 +395,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEnd(Object newEnd) {
 		Object oldEnd = end;
 		end = newEnd;
@@ -398,6 +409,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEndopen() {
 		return endopen;
 	}
@@ -407,6 +419,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEndopen(Object newEndopen) {
 		Object oldEndopen = endopen;
 		endopen = newEndopen;
@@ -421,6 +434,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public IdtypeType getIdtype() {
 		return idtype;
 	}
@@ -430,6 +444,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setIdtype(IdtypeType newIdtype) {
 		IdtypeType oldIdtype = idtype;
 		idtype = newIdtype == null ? IDTYPE_EDEFAULT : newIdtype;
@@ -446,6 +461,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetIdtype() {
 		IdtypeType oldIdtype = idtype;
 		boolean oldIdtypeESet = idtypeESet;
@@ -462,6 +478,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetIdtype() {
 		return idtypeESet;
 	}
@@ -471,6 +488,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ModeType getMode() {
 		return mode;
 	}
@@ -480,6 +498,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setMode(ModeType newMode) {
 		ModeType oldMode = mode;
 		mode = newMode == null ? MODE_EDEFAULT : newMode;
@@ -496,6 +515,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetMode() {
 		ModeType oldMode = mode;
 		boolean oldModeESet = modeESet;
@@ -512,6 +532,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMode() {
 		return modeESet;
 	}
@@ -521,6 +542,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStart() {
 		return start;
 	}
@@ -530,6 +552,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStart(Object newStart) {
 		Object oldStart = start;
 		start = newStart;
@@ -543,6 +566,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStartopen() {
 		return startopen;
 	}
@@ -552,6 +576,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStartopen(Object newStartopen) {
 		Object oldStartopen = startopen;
 		startopen = newStartopen;
@@ -566,6 +591,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public TimeformatType getTimeformat() {
 		return timeformat;
 	}
@@ -575,6 +601,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setTimeformat(TimeformatType newTimeformat) {
 		TimeformatType oldTimeformat = timeformat;
 		timeformat = newTimeformat == null ? TIMEFORMAT_EDEFAULT : newTimeformat;
@@ -591,6 +618,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetTimeformat() {
 		TimeformatType oldTimeformat = timeformat;
 		boolean oldTimeformatESet = timeformatESet;
@@ -607,6 +635,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTimeformat() {
 		return timeformatESet;
 	}
@@ -617,6 +646,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GexfPackage.GRAPH_CONTENT__GROUP:
@@ -637,6 +667,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.GRAPH_CONTENT__GROUP:
@@ -675,6 +706,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -727,6 +759,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.GRAPH_CONTENT__GROUP:
@@ -775,6 +808,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.GRAPH_CONTENT__GROUP:
@@ -811,6 +845,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

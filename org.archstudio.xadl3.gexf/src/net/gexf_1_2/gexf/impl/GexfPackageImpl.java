@@ -370,6 +370,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 
 		// Register package validator
 		EValidator.Registry.INSTANCE.put(theGexfPackage, new EValidator.Descriptor() {
+			@Override
 			public EValidator getEValidator() {
 				return GexfValidator.INSTANCE;
 			}
@@ -388,6 +389,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getAttributeContent() {
 		return attributeContentEClass;
 	}
@@ -397,6 +399,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttributeContent_Group() {
 		return (EAttribute) attributeContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -406,6 +409,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttributeContent_Default() {
 		return (EAttribute) attributeContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -415,6 +419,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttributeContent_Options() {
 		return (EAttribute) attributeContentEClass.getEStructuralFeatures().get(2);
 	}
@@ -424,6 +429,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttributeContent_Id() {
 		return (EAttribute) attributeContentEClass.getEStructuralFeatures().get(3);
 	}
@@ -433,6 +439,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttributeContent_Title() {
 		return (EAttribute) attributeContentEClass.getEStructuralFeatures().get(4);
 	}
@@ -442,6 +449,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttributeContent_Type() {
 		return (EAttribute) attributeContentEClass.getEStructuralFeatures().get(5);
 	}
@@ -451,6 +459,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getAttributesContent() {
 		return attributesContentEClass;
 	}
@@ -460,6 +469,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getAttributesContent_Attribute() {
 		return (EReference) attributesContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -469,6 +479,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttributesContent_Class() {
 		return (EAttribute) attributesContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -478,6 +489,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttributesContent_End() {
 		return (EAttribute) attributesContentEClass.getEStructuralFeatures().get(2);
 	}
@@ -487,6 +499,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttributesContent_Endopen() {
 		return (EAttribute) attributesContentEClass.getEStructuralFeatures().get(3);
 	}
@@ -496,6 +509,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttributesContent_Mode() {
 		return (EAttribute) attributesContentEClass.getEStructuralFeatures().get(4);
 	}
@@ -505,6 +519,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttributesContent_Start() {
 		return (EAttribute) attributesContentEClass.getEStructuralFeatures().get(5);
 	}
@@ -514,6 +529,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttributesContent_Startopen() {
 		return (EAttribute) attributesContentEClass.getEStructuralFeatures().get(6);
 	}
@@ -523,6 +539,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getAttvaluesContent() {
 		return attvaluesContentEClass;
 	}
@@ -532,6 +549,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getAttvaluesContent_Attvalue() {
 		return (EReference) attvaluesContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -541,6 +559,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getAttvalueType() {
 		return attvalueTypeEClass;
 	}
@@ -550,6 +569,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttvalueType_End() {
 		return (EAttribute) attvalueTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -559,6 +579,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttvalueType_Endopen() {
 		return (EAttribute) attvalueTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -568,6 +589,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttvalueType_For() {
 		return (EAttribute) attvalueTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -577,6 +599,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttvalueType_Start() {
 		return (EAttribute) attvalueTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -586,6 +609,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttvalueType_Startopen() {
 		return (EAttribute) attvalueTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -595,6 +619,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttvalueType_Value() {
 		return (EAttribute) attvalueTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -604,6 +629,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getDocumentRoot() {
 		return documentRootEClass;
 	}
@@ -613,6 +639,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Mixed() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(0);
 	}
@@ -622,6 +649,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XMLNSPrefixMap() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(1);
 	}
@@ -631,6 +659,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XSISchemaLocation() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(2);
 	}
@@ -640,6 +669,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Attribute() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(3);
 	}
@@ -649,6 +679,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Attributes() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(4);
 	}
@@ -658,6 +689,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Attvalue() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(5);
 	}
@@ -667,6 +699,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Attvalues() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(6);
 	}
@@ -676,6 +709,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Color() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(7);
 	}
@@ -685,6 +719,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Creator() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(8);
 	}
@@ -694,6 +729,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Default() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(9);
 	}
@@ -703,6 +739,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Description() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(10);
 	}
@@ -712,6 +749,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Edge() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(11);
 	}
@@ -721,6 +759,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Edges() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(12);
 	}
@@ -730,6 +769,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Gexf() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(13);
 	}
@@ -739,6 +779,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Graph() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(14);
 	}
@@ -748,6 +789,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Keywords() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(15);
 	}
@@ -757,6 +799,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Meta() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(16);
 	}
@@ -766,6 +809,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Node() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(17);
 	}
@@ -775,6 +819,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Nodes() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(18);
 	}
@@ -784,6 +829,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Options() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(19);
 	}
@@ -793,6 +839,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Parent() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(20);
 	}
@@ -802,6 +849,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Parents() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(21);
 	}
@@ -811,6 +859,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Position() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(22);
 	}
@@ -820,6 +869,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Size() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(23);
 	}
@@ -829,6 +879,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Spell() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(24);
 	}
@@ -838,6 +889,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Spells() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(25);
 	}
@@ -847,6 +899,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Thickness() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(26);
 	}
@@ -856,6 +909,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getEdgeContent() {
 		return edgeContentEClass;
 	}
@@ -865,6 +919,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeContent_Group() {
 		return (EAttribute) edgeContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -874,6 +929,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getEdgeContent_Attvalues() {
 		return (EReference) edgeContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -883,6 +939,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getEdgeContent_Spells() {
 		return (EReference) edgeContentEClass.getEStructuralFeatures().get(2);
 	}
@@ -892,6 +949,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getEdgeContent_Color() {
 		return (EReference) edgeContentEClass.getEStructuralFeatures().get(3);
 	}
@@ -901,6 +959,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getEdgeContent_Thickness() {
 		return (EReference) edgeContentEClass.getEStructuralFeatures().get(4);
 	}
@@ -910,6 +969,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getEdgeContent_Shape() {
 		return (EReference) edgeContentEClass.getEStructuralFeatures().get(5);
 	}
@@ -919,6 +979,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeContent_End() {
 		return (EAttribute) edgeContentEClass.getEStructuralFeatures().get(6);
 	}
@@ -928,6 +989,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeContent_Endopen() {
 		return (EAttribute) edgeContentEClass.getEStructuralFeatures().get(7);
 	}
@@ -937,6 +999,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeContent_Id() {
 		return (EAttribute) edgeContentEClass.getEStructuralFeatures().get(8);
 	}
@@ -946,6 +1009,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeContent_Label() {
 		return (EAttribute) edgeContentEClass.getEStructuralFeatures().get(9);
 	}
@@ -955,6 +1019,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeContent_Source() {
 		return (EAttribute) edgeContentEClass.getEStructuralFeatures().get(10);
 	}
@@ -964,6 +1029,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeContent_Start() {
 		return (EAttribute) edgeContentEClass.getEStructuralFeatures().get(11);
 	}
@@ -973,6 +1039,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeContent_Startopen() {
 		return (EAttribute) edgeContentEClass.getEStructuralFeatures().get(12);
 	}
@@ -982,6 +1049,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeContent_Target() {
 		return (EAttribute) edgeContentEClass.getEStructuralFeatures().get(13);
 	}
@@ -991,6 +1059,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeContent_Type() {
 		return (EAttribute) edgeContentEClass.getEStructuralFeatures().get(14);
 	}
@@ -1000,6 +1069,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeContent_Weight() {
 		return (EAttribute) edgeContentEClass.getEStructuralFeatures().get(15);
 	}
@@ -1009,6 +1079,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getEdgesContent() {
 		return edgesContentEClass;
 	}
@@ -1018,6 +1089,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getEdgesContent_Edge() {
 		return (EReference) edgesContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -1027,6 +1099,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgesContent_Count() {
 		return (EAttribute) edgesContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -1036,6 +1109,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getGexfContent() {
 		return gexfContentEClass;
 	}
@@ -1045,6 +1119,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getGexfContent_Meta() {
 		return (EReference) gexfContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -1054,6 +1129,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getGexfContent_Graph() {
 		return (EReference) gexfContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -1063,6 +1139,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGexfContent_Variant() {
 		return (EAttribute) gexfContentEClass.getEStructuralFeatures().get(2);
 	}
@@ -1072,6 +1149,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGexfContent_Version() {
 		return (EAttribute) gexfContentEClass.getEStructuralFeatures().get(3);
 	}
@@ -1081,6 +1159,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getGraphContent() {
 		return graphContentEClass;
 	}
@@ -1090,6 +1169,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphContent_Group() {
 		return (EAttribute) graphContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -1099,6 +1179,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getGraphContent_Attributes() {
 		return (EReference) graphContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -1108,6 +1189,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getGraphContent_Nodes() {
 		return (EReference) graphContentEClass.getEStructuralFeatures().get(2);
 	}
@@ -1117,6 +1199,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getGraphContent_Edges() {
 		return (EReference) graphContentEClass.getEStructuralFeatures().get(3);
 	}
@@ -1126,6 +1209,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphContent_Defaultedgetype() {
 		return (EAttribute) graphContentEClass.getEStructuralFeatures().get(4);
 	}
@@ -1135,6 +1219,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphContent_End() {
 		return (EAttribute) graphContentEClass.getEStructuralFeatures().get(5);
 	}
@@ -1144,6 +1229,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphContent_Endopen() {
 		return (EAttribute) graphContentEClass.getEStructuralFeatures().get(6);
 	}
@@ -1153,6 +1239,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphContent_Idtype() {
 		return (EAttribute) graphContentEClass.getEStructuralFeatures().get(7);
 	}
@@ -1162,6 +1249,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphContent_Mode() {
 		return (EAttribute) graphContentEClass.getEStructuralFeatures().get(8);
 	}
@@ -1171,6 +1259,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphContent_Start() {
 		return (EAttribute) graphContentEClass.getEStructuralFeatures().get(9);
 	}
@@ -1180,6 +1269,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphContent_Startopen() {
 		return (EAttribute) graphContentEClass.getEStructuralFeatures().get(10);
 	}
@@ -1189,6 +1279,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphContent_Timeformat() {
 		return (EAttribute) graphContentEClass.getEStructuralFeatures().get(11);
 	}
@@ -1198,6 +1289,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getMetaContent() {
 		return metaContentEClass;
 	}
@@ -1207,6 +1299,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetaContent_Group() {
 		return (EAttribute) metaContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -1216,6 +1309,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetaContent_Creator() {
 		return (EAttribute) metaContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -1225,6 +1319,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetaContent_Keywords() {
 		return (EAttribute) metaContentEClass.getEStructuralFeatures().get(2);
 	}
@@ -1234,6 +1329,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetaContent_Description() {
 		return (EAttribute) metaContentEClass.getEStructuralFeatures().get(3);
 	}
@@ -1243,6 +1339,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetaContent_Lastmodifieddate() {
 		return (EAttribute) metaContentEClass.getEStructuralFeatures().get(4);
 	}
@@ -1252,6 +1349,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getNodeContent() {
 		return nodeContentEClass;
 	}
@@ -1261,6 +1359,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeContent_Group() {
 		return (EAttribute) nodeContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -1270,6 +1369,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getNodeContent_Attvalues() {
 		return (EReference) nodeContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -1279,6 +1379,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getNodeContent_Spells() {
 		return (EReference) nodeContentEClass.getEStructuralFeatures().get(2);
 	}
@@ -1288,6 +1389,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getNodeContent_Nodes() {
 		return (EReference) nodeContentEClass.getEStructuralFeatures().get(3);
 	}
@@ -1297,6 +1399,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getNodeContent_Edges() {
 		return (EReference) nodeContentEClass.getEStructuralFeatures().get(4);
 	}
@@ -1306,6 +1409,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getNodeContent_Parents() {
 		return (EReference) nodeContentEClass.getEStructuralFeatures().get(5);
 	}
@@ -1315,6 +1419,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getNodeContent_Color() {
 		return (EReference) nodeContentEClass.getEStructuralFeatures().get(6);
 	}
@@ -1324,6 +1429,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getNodeContent_Position() {
 		return (EReference) nodeContentEClass.getEStructuralFeatures().get(7);
 	}
@@ -1333,6 +1439,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getNodeContent_Size() {
 		return (EReference) nodeContentEClass.getEStructuralFeatures().get(8);
 	}
@@ -1342,6 +1449,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getNodeContent_Shape() {
 		return (EReference) nodeContentEClass.getEStructuralFeatures().get(9);
 	}
@@ -1351,6 +1459,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeContent_End() {
 		return (EAttribute) nodeContentEClass.getEStructuralFeatures().get(10);
 	}
@@ -1360,6 +1469,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeContent_Endopen() {
 		return (EAttribute) nodeContentEClass.getEStructuralFeatures().get(11);
 	}
@@ -1369,6 +1479,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeContent_Id() {
 		return (EAttribute) nodeContentEClass.getEStructuralFeatures().get(12);
 	}
@@ -1378,6 +1489,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeContent_Label() {
 		return (EAttribute) nodeContentEClass.getEStructuralFeatures().get(13);
 	}
@@ -1387,6 +1499,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeContent_Pid() {
 		return (EAttribute) nodeContentEClass.getEStructuralFeatures().get(14);
 	}
@@ -1396,6 +1509,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeContent_Start() {
 		return (EAttribute) nodeContentEClass.getEStructuralFeatures().get(15);
 	}
@@ -1405,6 +1519,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeContent_Startopen() {
 		return (EAttribute) nodeContentEClass.getEStructuralFeatures().get(16);
 	}
@@ -1414,6 +1529,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getNodesContent() {
 		return nodesContentEClass;
 	}
@@ -1423,6 +1539,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getNodesContent_Node() {
 		return (EReference) nodesContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -1432,6 +1549,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodesContent_Count() {
 		return (EAttribute) nodesContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -1441,6 +1559,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getParentsContent() {
 		return parentsContentEClass;
 	}
@@ -1450,6 +1569,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getParentsContent_Parent() {
 		return (EReference) parentsContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -1459,6 +1579,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getParentType() {
 		return parentTypeEClass;
 	}
@@ -1468,6 +1589,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getParentType_For() {
 		return (EAttribute) parentTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1477,6 +1599,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getSpellsContent() {
 		return spellsContentEClass;
 	}
@@ -1486,6 +1609,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getSpellsContent_Spell() {
 		return (EReference) spellsContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -1495,6 +1619,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getSpellType() {
 		return spellTypeEClass;
 	}
@@ -1504,6 +1629,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSpellType_End() {
 		return (EAttribute) spellTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1513,6 +1639,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSpellType_Endopen() {
 		return (EAttribute) spellTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -1522,6 +1649,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSpellType_Start() {
 		return (EAttribute) spellTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -1531,6 +1659,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSpellType_Startopen() {
 		return (EAttribute) spellTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -1540,6 +1669,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EEnum getAttrtypeType() {
 		return attrtypeTypeEEnum;
 	}
@@ -1549,6 +1679,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EEnum getClassType() {
 		return classTypeEEnum;
 	}
@@ -1558,6 +1689,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EEnum getDefaultedgetypeType() {
 		return defaultedgetypeTypeEEnum;
 	}
@@ -1567,6 +1699,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EEnum getEdgetypeType() {
 		return edgetypeTypeEEnum;
 	}
@@ -1576,6 +1709,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EEnum getIdtypeType() {
 		return idtypeTypeEEnum;
 	}
@@ -1585,6 +1719,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EEnum getModeType() {
 		return modeTypeEEnum;
 	}
@@ -1594,6 +1729,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EEnum getTimeformatType() {
 		return timeformatTypeEEnum;
 	}
@@ -1603,6 +1739,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EEnum getVersionType() {
 		return versionTypeEEnum;
 	}
@@ -1612,6 +1749,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getAttrtypeTypeObject() {
 		return attrtypeTypeObjectEDataType;
 	}
@@ -1621,6 +1759,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getClassTypeObject() {
 		return classTypeObjectEDataType;
 	}
@@ -1630,6 +1769,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getDefaultedgetypeTypeObject() {
 		return defaultedgetypeTypeObjectEDataType;
 	}
@@ -1639,6 +1779,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getEdgetypeTypeObject() {
 		return edgetypeTypeObjectEDataType;
 	}
@@ -1648,6 +1789,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getIdType() {
 		return idTypeEDataType;
 	}
@@ -1657,6 +1799,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getIdtypeTypeObject() {
 		return idtypeTypeObjectEDataType;
 	}
@@ -1666,6 +1809,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getModeTypeObject() {
 		return modeTypeObjectEDataType;
 	}
@@ -1675,6 +1819,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getTimeformatTypeObject() {
 		return timeformatTypeObjectEDataType;
 	}
@@ -1684,6 +1829,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getTimeType() {
 		return timeTypeEDataType;
 	}
@@ -1693,6 +1839,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getVersionTypeObject() {
 		return versionTypeObjectEDataType;
 	}
@@ -1702,6 +1849,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getWeightType() {
 		return weightTypeEDataType;
 	}
@@ -1711,6 +1859,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getWeightTypeObject() {
 		return weightTypeObjectEDataType;
 	}
@@ -1720,6 +1869,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public GexfFactory getGexfFactory() {
 		return (GexfFactory) getEFactoryInstance();
 	}

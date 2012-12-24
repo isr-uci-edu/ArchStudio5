@@ -9,11 +9,13 @@ public class ClientComponent extends AbstractMyxSimpleBrick {
 	public ClientComponent() {
 	}
 
+	@Override
 	public void begin() {
 		IMath math = (IMath) MyxUtils.getFirstRequiredServiceObject(this, MyxUtils.createName("math"));
 		System.out.println("2+2=" + math.add(2, 2));
 	}
 
+	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		return null;
 	}

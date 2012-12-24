@@ -17,6 +17,7 @@ public class ReparentToThingIDLogic extends AbstractThingLogic implements IBNAMo
 		return REPARENT_TO_THING_KEY;
 	}
 
+	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {

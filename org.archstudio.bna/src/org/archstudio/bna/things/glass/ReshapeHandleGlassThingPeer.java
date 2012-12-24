@@ -20,9 +20,11 @@ public class ReshapeHandleGlassThingPeer<T extends ReshapeHandleGlassThing> exte
 		super(thing);
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return getLocalBounds(view, cm).contains(location.getLocalPoint());
 	}

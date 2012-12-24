@@ -19,6 +19,7 @@ public class SizeAndScaleParameterPanel implements IGraphLayoutParameterPanel {
 
 	protected Text tScale;
 
+	@Override
 	public void createPanel(Composite parent) {
 		Group gPanel = new Group(parent, SWT.NONE);
 		gPanel.setText("Size and Scale");
@@ -72,6 +73,7 @@ public class SizeAndScaleParameterPanel implements IGraphLayoutParameterPanel {
 		tScale.setText("100.0");
 	}
 
+	@Override
 	public void loadParameters(GraphLayoutParameters params) {
 		tComponentWidth.setText(Double.toString(params.getRelativeComponentWidth()));
 		tComponentHeight.setText(Double.toString(params.getRelativeComponentHeight()));
@@ -80,6 +82,7 @@ public class SizeAndScaleParameterPanel implements IGraphLayoutParameterPanel {
 		tScale.setText(Double.toString(params.getScale()));
 	}
 
+	@Override
 	public void storeParameters(GraphLayoutParameters params) throws DataValidationException {
 		double componentWidth = 0.0;
 		try {

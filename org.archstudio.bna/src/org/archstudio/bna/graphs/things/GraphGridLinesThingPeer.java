@@ -18,6 +18,7 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 		super(thing);
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (r.setLineStyle(t) && r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY)) {
 

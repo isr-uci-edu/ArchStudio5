@@ -100,9 +100,11 @@ public class ZoomUtils {
 
 		final ICoordinateMapperListener cml = new ICoordinateMapperListener() {
 
+			@Override
 			public void coordinateMappingsChanged(final CoordinateMapperEvent evt) {
 				SWTWidgetUtils.async(combo, new Runnable() {
 
+					@Override
 					public void run() {
 						try {
 							combo.setText(zoomLevelToString(evt.getNewLocalScale()));
@@ -119,6 +121,7 @@ public class ZoomUtils {
 		if (cmIsMutable) {
 			combo.addSelectionListener(new SelectionListener() {
 
+				@Override
 				public void widgetSelected(SelectionEvent e) {
 					try {
 						double newScale = stringToZoomLevel(combo.getText());
@@ -132,6 +135,7 @@ public class ZoomUtils {
 					}
 				}
 
+				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					widgetSelected(e);
 				}
@@ -140,6 +144,7 @@ public class ZoomUtils {
 
 		combo.addDisposeListener(new DisposeListener() {
 
+			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				cm.removeCoordinateMapperListener(cml);
 			}

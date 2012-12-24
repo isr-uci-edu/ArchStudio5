@@ -79,30 +79,37 @@ public class NullPointer extends EStructuralFeatureOwnerPointer {
 		this.id = id;
 	}
 
+	@Override
 	public QName getName() {
 		return name;
 	}
 
+	@Override
 	public Object getBaseValue() {
 		return null;
 	}
 
+	@Override
 	public boolean isCollection() {
 		return false;
 	}
 
+	@Override
 	public boolean isLeaf() {
 		return true;
 	}
 
+	@Override
 	public boolean isActual() {
 		return false;
 	}
 
+	@Override
 	public EStructuralFeaturePointer getPropertyPointer() {
 		return new NullEStructuralFeaturePointer(this);
 	}
 
+	@Override
 	public NodePointer createPath(JXPathContext context, Object value) {
 		if (parent != null) {
 			return parent.createPath(context, value).getValuePointer();
@@ -110,6 +117,7 @@ public class NullPointer extends EStructuralFeatureOwnerPointer {
 		throw new UnsupportedOperationException("Cannot create the root object: " + asPath());
 	}
 
+	@Override
 	public NodePointer createPath(JXPathContext context) {
 		if (parent != null) {
 			return parent.createPath(context).getValuePointer();
@@ -117,18 +125,22 @@ public class NullPointer extends EStructuralFeatureOwnerPointer {
 		throw new UnsupportedOperationException("Cannot create the root object: " + asPath());
 	}
 
+	@Override
 	public NodePointer createChild(JXPathContext context, QName name, int index) {
 		return createPath(context).createChild(context, name, index);
 	}
 
+	@Override
 	public NodePointer createChild(JXPathContext context, QName name, int index, Object value) {
 		return createPath(context).createChild(context, name, index, value);
 	}
 
+	@Override
 	public int hashCode() {
 		return name == null ? 0 : name.hashCode();
 	}
 
+	@Override
 	public boolean equals(Object object) {
 		if (object == this) {
 			return true;
@@ -142,6 +154,7 @@ public class NullPointer extends EStructuralFeatureOwnerPointer {
 		return name == other.name || name != null && name.equals(other.name);
 	}
 
+	@Override
 	public String asPath() {
 		if (id != null) {
 			return "id(" + id + ")";
@@ -149,6 +162,7 @@ public class NullPointer extends EStructuralFeatureOwnerPointer {
 		return parent == null ? "null()" : super.asPath();
 	}
 
+	@Override
 	public int getLength() {
 		return 0;
 	}

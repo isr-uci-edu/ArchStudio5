@@ -29,6 +29,7 @@ public class StructureTreeDragSourceListener implements DragSourceListener {
 		this.editor = AS.get(IArchipelagoEditorPane.class);
 	}
 
+	@Override
 	public void dragStart(DragSourceEvent event) {
 		if (event.data != null && event.data instanceof ObjRef) {
 			if (XadlUtils.isInstanceOf(xarch, (ObjRef) event.data, Structure_3_0Package.Literals.STRUCTURE)) {
@@ -55,9 +56,11 @@ public class StructureTreeDragSourceListener implements DragSourceListener {
 		}
 	}
 
+	@Override
 	public void dragSetData(DragSourceEvent event) {
 	}
 
+	@Override
 	public void dragFinished(DragSourceEvent event) {
 	}
 }

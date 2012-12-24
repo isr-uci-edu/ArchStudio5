@@ -8,4 +8,4 @@ Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.myx.fw
 Require-Bundle: org.archstudio.guava,
  org.archstudio.ljm
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

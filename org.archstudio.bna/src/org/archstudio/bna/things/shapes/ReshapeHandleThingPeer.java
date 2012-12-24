@@ -21,6 +21,7 @@ public class ReshapeHandleThingPeer<T extends ReshapeHandleThing> extends Abstra
 		super(thing);
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Rectangle lbb = getLocalBounds(view, cm);
 		Point p1 = new Point(lbb.x, lbb.y);
@@ -36,6 +37,7 @@ public class ReshapeHandleThingPeer<T extends ReshapeHandleThing> extends Abstra
 		}
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return getLocalBounds(view, cm).contains(location.getLocalPoint());
 	}

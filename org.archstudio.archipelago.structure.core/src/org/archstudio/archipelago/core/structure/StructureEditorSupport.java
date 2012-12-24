@@ -116,6 +116,7 @@ public class StructureEditorSupport {
 		BNAUtils.restoreCoordinateMapperData((IMutableCoordinateMapper) cm, ept);
 		bnaCanvas.addDisposeListener(new DisposeListener() {
 
+			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				BNAUtils.saveCoordinateMapperData(cm, ept);
 			}
@@ -125,6 +126,7 @@ public class StructureEditorSupport {
 		final IPreferenceStore prefs = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore();
 		final IPropertyChangeListener pcl = new IPropertyChangeListener() {
 
+			@Override
 			public void propertyChange(PropertyChangeEvent event) {
 				BNARenderingSettings.setAntialiasGraphics(bnaCanvas,
 						prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_GRAPHICS));
@@ -144,6 +146,7 @@ public class StructureEditorSupport {
 		prefs.addPropertyChangeListener(pcl);
 		bnaCanvas.addDisposeListener(new DisposeListener() {
 
+			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				prefs.removePropertyChangeListener(pcl);
 			}

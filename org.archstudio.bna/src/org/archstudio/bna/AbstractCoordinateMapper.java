@@ -26,6 +26,7 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 	public AbstractCoordinateMapper() {
 	}
 
+	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		AbstractCoordinateMapper t = (AbstractCoordinateMapper) super.clone();
 		t.worldBounds = new Rectangle(t.worldBounds.x, t.worldBounds.y, t.worldBounds.width, t.worldBounds.height);
@@ -34,10 +35,12 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 		return t;
 	}
 
+	@Override
 	public void addCoordinateMapperListener(ICoordinateMapperListener l) {
 		listeners.add(l);
 	}
 
+	@Override
 	public void removeCoordinateMapperListener(ICoordinateMapperListener l) {
 		listeners.remove(l);
 	}
@@ -53,33 +56,40 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 		}
 	}
 
+	@Override
 	public synchronized Rectangle getWorldBounds() {
 		return BNAUtils.clone(worldBounds);
 	}
 
+	@Override
 	public synchronized void setWorldBounds(Rectangle worldBounds) {
 		this.worldBounds = BNAUtils.clone(worldBounds);
 		fireCoordinateMapperEvent(EventType.WORLD_BOUNDS);
 	}
 
+	@Override
 	public Point getLocalOrigin() {
 		return BNAUtils.clone(localOrigin);
 	}
 
+	@Override
 	public void setLocalOrigin(Point localOrigin) {
 		this.localOrigin = BNAUtils.clone(localOrigin);
 		fireCoordinateMapperEvent(EventType.LOCAL_ORIGIN);
 	}
 
+	@Override
 	public double getLocalScale() {
 		return localScale;
 	}
 
+	@Override
 	public void setLocalScale(double localScale) {
 		this.localScale = localScale;
 		fireCoordinateMapperEvent(EventType.LOCAL_SCALE);
 	}
 
+	@Override
 	public void align(Point localPoint, Point worldPoint) {
 		Point oldLocalPoint = worldToLocal(new Point(worldPoint.x, worldPoint.y));
 		Point localDelta = new Point(localPoint.x - oldLocalPoint.x, localPoint.y - oldLocalPoint.y);
@@ -88,11 +98,13 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 		fireCoordinateMapperEvent(EventType.LOCAL_ORIGIN);
 	}
 
+	@Override
 	public void setLocalScaleAndAlign(final double localScale, final Point localPoint, final Point worldPoint) {
 		setLocalScale(localScale);
 		align(localPoint, worldPoint);
 	}
 
+	@Override
 	public String toString() {
 		return simpleName(this.getClass()) + "["//
 				+ "worldBounds=" + worldBounds + ","//
@@ -100,6 +112,7 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 				+ "localOrigin=" + localOrigin + "]";
 	}
 
+	@Override
 	public Rectangle localToWorld(Rectangle localRectangle) {
 		Point topLeft = localToWorld(new Point(localRectangle.x, localRectangle.y));
 		Point bottomRight = localToWorld(new Point(//
@@ -108,6 +121,7 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 		return new Rectangle(topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y);
 	}
 
+	@Override
 	public Rectangle worldToLocal(Rectangle worldRectangle) {
 		Point topLeft = worldToLocal(new Point(worldRectangle.x, worldRectangle.y));
 		Point bottomRight = worldToLocal(new Point(//

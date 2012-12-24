@@ -208,6 +208,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.ATTRIBUTES_CONTENT;
 	}
@@ -217,6 +218,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<AttributeContent> getAttribute() {
 		if (attribute == null) {
 			attribute = new EObjectContainmentEList<AttributeContent>(AttributeContent.class, this,
@@ -230,6 +232,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ClassType getClass_() {
 		return class_;
 	}
@@ -239,6 +242,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setClass(ClassType newClass) {
 		ClassType oldClass = class_;
 		class_ = newClass == null ? CLASS_EDEFAULT : newClass;
@@ -255,6 +259,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetClass() {
 		ClassType oldClass = class_;
 		boolean oldClassESet = classESet;
@@ -271,6 +276,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetClass() {
 		return classESet;
 	}
@@ -280,6 +286,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEnd() {
 		return end;
 	}
@@ -289,6 +296,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEnd(Object newEnd) {
 		Object oldEnd = end;
 		end = newEnd;
@@ -302,6 +310,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEndopen() {
 		return endopen;
 	}
@@ -311,6 +320,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEndopen(Object newEndopen) {
 		Object oldEndopen = endopen;
 		endopen = newEndopen;
@@ -325,6 +335,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ModeType getMode() {
 		return mode;
 	}
@@ -334,6 +345,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setMode(ModeType newMode) {
 		ModeType oldMode = mode;
 		mode = newMode == null ? MODE_EDEFAULT : newMode;
@@ -350,6 +362,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetMode() {
 		ModeType oldMode = mode;
 		boolean oldModeESet = modeESet;
@@ -366,6 +379,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMode() {
 		return modeESet;
 	}
@@ -375,6 +389,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStart() {
 		return start;
 	}
@@ -384,6 +399,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStart(Object newStart) {
 		Object oldStart = start;
 		start = newStart;
@@ -398,6 +414,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStartopen() {
 		return startopen;
 	}
@@ -407,6 +424,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStartopen(Object newStartopen) {
 		Object oldStartopen = startopen;
 		startopen = newStartopen;
@@ -422,6 +440,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
@@ -436,6 +455,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
@@ -461,6 +481,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -496,6 +517,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
@@ -529,6 +551,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
@@ -555,6 +578,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

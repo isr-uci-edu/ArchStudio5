@@ -6,6 +6,7 @@ public class StringTerm extends ConstantTerm {
 		super(value);
 	}
 
+	@Override
 	public String toString() {
 		return "'" + super.toString() + "'";
 	}

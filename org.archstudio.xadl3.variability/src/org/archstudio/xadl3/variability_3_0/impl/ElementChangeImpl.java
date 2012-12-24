@@ -79,6 +79,7 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.ELEMENT_CHANGE;
 	}
@@ -88,6 +89,7 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Change> getChange() {
 		if (change == null) {
 			change = new EObjectContainmentEList<Change>(Change.class, this,
@@ -101,6 +103,7 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getType() {
 		return type;
 	}
@@ -110,6 +113,7 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setType(String newType) {
 		String oldType = type;
 		type = newType;
@@ -125,6 +129,7 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
@@ -139,6 +144,7 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
@@ -154,6 +160,7 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -174,6 +181,7 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
@@ -192,6 +200,7 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
@@ -208,6 +217,7 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

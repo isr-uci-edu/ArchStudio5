@@ -51,6 +51,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		super(thing);
 	}
 
+	@Override
 	public IBNAView getInnerView() {
 		return innerView;
 	}
@@ -58,6 +59,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 	private Rectangle lastModelBounds = new Rectangle(0, 0, 0, 0);
 	private Rectangle lastLocalBounds = new Rectangle(0, 0, 0, 0);
 
+	@Override
 	public void coordinateMappingsChanged(CoordinateMapperEvent evt) {
 		Integer ticker = t.get(COORDINATE_MAPPER_CHANGE_TICKER);
 		if (ticker == null) {
@@ -66,6 +68,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		t.set(COORDINATE_MAPPER_CHANGE_TICKER, ticker + 1);
 	}
 
+	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		if (evt.getEventType() == EventType.THING_REMOVING) {
 			if (innerView != null) {
@@ -74,6 +77,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		}
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		IBNAWorld innerWorld = t.getWorld();
 		if (innerWorld == null) {
@@ -147,6 +151,7 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 		}
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate coordinate) {
 		if (t.getWorld() != null && innerView != null) {
 			return super.isInThing(view, cm, coordinate);

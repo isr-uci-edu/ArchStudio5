@@ -101,6 +101,7 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 		}
 	}
 
+	@Override
 	public void dispose() {
 		if (imageRegistry != null) {
 			imageRegistry.dispose();
@@ -111,10 +112,12 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 		super.dispose();
 	}
 
+	@Override
 	public boolean isLabelProperty(Object element, String property) {
 		return properties.contains(property);
 	}
 
+	@Override
 	public Image getColumnImage(Object element, int columnIndex) {
 		Object columnProperty = properties.get(columnIndex);
 
@@ -154,6 +157,7 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 		return null;
 	}
 
+	@Override
 	public String getColumnText(Object element, int columnIndex) {
 		Object columnProperty = properties.get(columnIndex);
 
@@ -169,6 +173,7 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 		return null;
 	}
 
+	@Override
 	public void handleXArchADTModelEvent(@NonNull XArchADTModelEvent evt) {
 		if (evt.getEventType() == EventType.ADD) {
 			if (evt.getNewValuePath().equals("xADL/variability/changeSet")) {
@@ -182,6 +187,7 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 		}
 	}
 
+	@Override
 	public void handleXArchADTVariabilityEvent(XArchADTVariabilityEvent evt) {
 		if (evt.getDocumentRootRef().equals(viewer.getInput())) {
 			refresh();
@@ -226,6 +232,7 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 
 	private Map<ObjRef, Color> changeSetRefToColor = new HashMap<ObjRef, Color>();
 
+	@Override
 	public Color getBackground(Object element) {
 		//		ObjRef changeSetRef = (ObjRef) element;
 		//		return changeSetRefToColor.get(changeSetRef) == null ? 
@@ -233,11 +240,13 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 		return null;
 	}
 
+	@Override
 	public Color getForeground(Object element) {
 		ObjRef changeSetRef = (ObjRef) element;
 		return changeSetRefToColor.get(changeSetRef);
 	}
 
+	@Override
 	public Font getFont(Object element) {
 		if (SystemUtils.nullEquals(element, activeChangeSetRef)) {
 			return activeChangeSetFont;
@@ -253,6 +262,7 @@ public class ChangeSetLabelProvider extends LabelProvider implements IColorProvi
 		needsRefresh = true;
 		SWTWidgetUtils.async(viewer, new Runnable() {
 
+			@Override
 			public void run() {
 				if (needsRefresh) {
 					needsRefresh = false;

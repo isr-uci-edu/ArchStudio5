@@ -51,6 +51,7 @@ public class Javaimplementation_3_0Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 
+	@Override
 	protected boolean isSwitchFor(EPackage ePackage) {
 		return ePackage == modelPackage;
 	}
@@ -65,6 +66,7 @@ public class Javaimplementation_3_0Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 
+	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY: {
@@ -181,6 +183,7 @@ public class Javaimplementation_3_0Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 
+	@Override
 	public T defaultCase(EObject object) {
 		return null;
 	}

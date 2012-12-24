@@ -48,6 +48,7 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 		this.hasContextMenu = hasContextMenu;
 	}
 
+	@Override
 	public void setActionBars(IActionBars actionBars) {
 		super.setActionBars(actionBars);
 
@@ -55,65 +56,80 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 		IUndoContext undoContext = PlatformUI.getWorkbench().getOperationSupport().getUndoContext();
 		UndoRedoActionGroup undoRedo = new UndoRedoActionGroup(new IWorkbenchPartSite() {
 
+			@Override
 			public IWorkbenchPage getPage() {
 				return getSite().getPage();
 			}
 
+			@Override
 			public ISelectionProvider getSelectionProvider() {
 				throw new UnsupportedOperationException();
 			}
 
+			@Override
 			public Shell getShell() {
 				throw new UnsupportedOperationException();
 			}
 
+			@Override
 			public IWorkbenchWindow getWorkbenchWindow() {
 				return getSite().getWorkbenchWindow();
 			}
 
+			@Override
 			public void setSelectionProvider(ISelectionProvider provider) {
 				throw new UnsupportedOperationException();
 			}
 
+			@Override
 			@SuppressWarnings("rawtypes")
 			public Object getAdapter(Class adapter) {
 				throw new UnsupportedOperationException();
 			}
 
+			@Override
 			@SuppressWarnings("rawtypes")
 			public Object getService(Class api) {
 				throw new UnsupportedOperationException();
 			}
 
+			@Override
 			@SuppressWarnings("rawtypes")
 			public boolean hasService(Class api) {
 				throw new UnsupportedOperationException();
 			}
 
+			@Override
 			public String getId() {
 				throw new UnsupportedOperationException();
 			}
 
+			@Override
 			public String getPluginId() {
 				throw new UnsupportedOperationException();
 			}
 
+			@Override
 			public String getRegisteredName() {
 				throw new UnsupportedOperationException();
 			}
 
+			@Override
 			public void registerContextMenu(String menuId, MenuManager menuManager, ISelectionProvider selectionProvider) {
 				throw new UnsupportedOperationException();
 			}
 
+			@Override
 			public void registerContextMenu(MenuManager menuManager, ISelectionProvider selectionProvider) {
 				throw new UnsupportedOperationException();
 			}
 
+			@Override
 			public IKeyBindingService getKeyBindingService() {
 				throw new UnsupportedOperationException();
 			}
 
+			@Override
 			public IWorkbenchPart getPart() {
 				return getSite().getPage().getActivePart();
 			}
@@ -123,10 +139,12 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 		actionBars.updateActionBars();
 	}
 
+	@Override
 	public void init(IPageSite pageSite) {
 		super.init(pageSite);
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		super.createControl(parent);
 		if (documentRootRef == null) {
@@ -150,6 +168,7 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 		// Do Context Menu
 		if (hasContextMenu) {
 			SWTWidgetUtils.setupContextMenu("#PopupMenu", getTreeViewer().getControl(), getSite(), new IMenuFiller() {
+				@Override
 				public void fillMenu(IMenuManager m) {
 					fillContextMenu(m);
 				}
@@ -195,6 +214,7 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 		}
 	}
 
+	@Override
 	public abstract void focusEditor(String editorName, ObjRef[] refs);
 
 }

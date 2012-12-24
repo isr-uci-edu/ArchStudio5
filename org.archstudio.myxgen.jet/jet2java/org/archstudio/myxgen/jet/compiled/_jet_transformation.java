@@ -26,6 +26,7 @@ public class _jet_transformation implements JET2TemplateLoader, JET2TemplateLoad
 	 * 
 	 * @see org.eclipse.jet.JET2TemplateLoader#getTemplate(java.lang.String)
 	 */
+	@Override
 	public JET2Template getTemplate(final String templatePath) {
 		final Integer ordinal = pathToTemplateOrdinalMap.get(templatePath);
 		if (ordinal != null) {
@@ -48,6 +49,7 @@ public class _jet_transformation implements JET2TemplateLoader, JET2TemplateLoad
 	 * 
 	 * @see org.eclipse.jet.JET2TemplateLoaderExtension#getDelegateLoader()
 	 */
+	@Override
 	public JET2TemplateLoader getDelegateLoader() {
 		return this.delegate;
 	}
@@ -59,6 +61,7 @@ public class _jet_transformation implements JET2TemplateLoader, JET2TemplateLoad
 	 * org.eclipse.jet.JET2TemplateLoaderExtension#setDelegateLoader(org.eclipse
 	 * .jet.JET2TemplateLoader)
 	 */
+	@Override
 	public void setDelegateLoader(final JET2TemplateLoader loader) {
 		this.delegate = loader;
 	}

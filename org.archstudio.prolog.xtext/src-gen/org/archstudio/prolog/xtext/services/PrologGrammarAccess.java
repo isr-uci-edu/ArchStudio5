@@ -35,6 +35,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//Program:
 		//
 		//	clauses+=Clause* query=Query?;
+		@Override
 		public ParserRule getRule() {
 			return rule;
 		}
@@ -86,6 +87,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//Clause:
 		//
 		//	predicates+=ExpressionINF (":-" predicates+=ExpressionINF ("," predicates+=ExpressionINF)*)? ".";
+		@Override
 		public ParserRule getRule() {
 			return rule;
 		}
@@ -168,6 +170,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//Query:
 		//
 		//	"?-" predicates+=ExpressionINF ("," predicates+=ExpressionINF)* ".";
+		@Override
 		public ParserRule getRule() {
 			return rule;
 		}
@@ -225,6 +228,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//ExpressionINF returns Expression:
 		//
 		//	Expression1100;
+		@Override
 		public ParserRule getRule() {
 			return rule;
 		}
@@ -250,6 +254,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//Expression1100 returns Expression:
 		//
 		//	Expression900 (ops+=EXPRESSION_1100 exps+=Expression900)*;
+		@Override
 		public ParserRule getRule() {
 			return rule;
 		}
@@ -301,6 +306,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//Expression900 returns Expression:
 		//
 		//	ops+=EXPRESSION_900? exps+=Expression700;
+		@Override
 		public ParserRule getRule() {
 			return rule;
 		}
@@ -346,6 +352,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//Expression700 returns Expression:
 		//
 		//	Expression500 (ops+=EXPRESSION_700 exps+=Expression500)?;
+		@Override
 		public ParserRule getRule() {
 			return rule;
 		}
@@ -401,6 +408,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//Expression500 returns Expression:
 		//
 		//	Expression400 (ops+=EXPRESSION_500 exps+=Expression400)*;
+		@Override
 		public ParserRule getRule() {
 			return rule;
 		}
@@ -456,6 +464,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//Expression400 returns Expression:
 		//
 		//	Expression200 (ops+=EXPRESSION_400 exps+=Expression200)*;
+		@Override
 		public ParserRule getRule() {
 			return rule;
 		}
@@ -510,6 +519,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//Expression200 returns Expression:
 		//
 		//	Expression0 (ops+=EXPRESSION_200 exps+=Expression0)*;
+		@Override
 		public ParserRule getRule() {
 			return rule;
 		}
@@ -636,6 +646,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//	variable=VARIABLE | list?="[" (head+=ExpressionINF ("," head+=ExpressionINF)* ("|" tail=ExpressionINF)?)? "]" |
 		//
 		//	list?="." "(" head+=ExpressionINF "," tail=ExpressionINF ")" | "(" exps+=ExpressionINF ")";
+		@Override
 		public ParserRule getRule() {
 			return rule;
 		}
@@ -987,6 +998,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		return grammar;
 	}
 
+	@Override
 	public Grammar getGrammar() {
 		return grammar;
 	}

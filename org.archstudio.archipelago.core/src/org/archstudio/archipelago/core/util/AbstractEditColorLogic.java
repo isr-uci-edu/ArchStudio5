@@ -34,6 +34,7 @@ public abstract class AbstractEditColorLogic extends AbstractThingLogic implemen
 	public AbstractEditColorLogic() {
 	}
 
+	@Override
 	public void destroy() {
 		super.destroy();
 		disposeResources();
@@ -122,6 +123,7 @@ public abstract class AbstractEditColorLogic extends AbstractThingLogic implemen
 		final RGB finitialRGB = initialRGB;
 		Action assignColorAction = new Action("Assign Color...") {
 
+			@Override
 			public void run() {
 				chooseAndAssignColor(fview, fthingsToEdit, finitialRGB);
 			}
@@ -133,6 +135,7 @@ public abstract class AbstractEditColorLogic extends AbstractThingLogic implemen
 		if (defaultRGB != null) {
 			Action resetToDefaultColorAction = new Action("Reset to Default Color") {
 
+				@Override
 				public void run() {
 					assignColor(fview, fthingsToEdit, defaultRGB);
 				}
@@ -147,6 +150,7 @@ public abstract class AbstractEditColorLogic extends AbstractThingLogic implemen
 		if (currentColors.length == 1) {
 			Action copyColorAction = new Action("Copy Color") {
 
+				@Override
 				public void run() {
 					copiedRGB = currentColors[0].getRGB();
 				}
@@ -161,6 +165,7 @@ public abstract class AbstractEditColorLogic extends AbstractThingLogic implemen
 		if (copiedRGB != null) {
 			Action pasteColorAction = new Action("Paste Color") {
 
+				@Override
 				public void run() {
 					assignColor(fview, fthingsToEdit, copiedRGB);
 				}

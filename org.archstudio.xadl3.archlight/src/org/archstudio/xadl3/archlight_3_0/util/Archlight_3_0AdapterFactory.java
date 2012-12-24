@@ -49,6 +49,7 @@ public class Archlight_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -67,18 +68,22 @@ public class Archlight_3_0AdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected Archlight_3_0Switch<Adapter> modelSwitch = new Archlight_3_0Switch<Adapter>() {
 
+		@Override
 		public Adapter caseArchlight(Archlight object) {
 			return createArchlightAdapter();
 		}
 
+		@Override
 		public Adapter caseDocumentRoot(DocumentRoot object) {
 			return createDocumentRootAdapter();
 		}
 
+		@Override
 		public Adapter caseTest(Test object) {
 			return createTestAdapter();
 		}
 
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -94,6 +99,7 @@ public class Archlight_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

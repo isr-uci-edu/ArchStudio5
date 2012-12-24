@@ -66,6 +66,7 @@ public class MyxGenInterface extends AbstractExtension {
 		return description;
 	}
 
+	@Override
 	public String toString() {
 		return SystemUtils.simpleName(this.getClass()) + "[" //
 				+ "name=" + name + ","//

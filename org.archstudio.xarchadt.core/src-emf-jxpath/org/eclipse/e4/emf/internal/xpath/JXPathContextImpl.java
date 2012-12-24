@@ -77,14 +77,17 @@ public final class JXPathContextImpl implements XPathContext {
 		this.context = JXPathContext.newContext(jContext, contextBean);
 	}
 
+	@Override
 	public Object getValue(String xpath) {
 		return context.getValue(xpath);
 	}
 
+	@Override
 	public Object getValue(String xpath, Class<?> requiredType) {
 		return context.getValue(xpath, requiredType);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <Type> Iterator<Type> iterate(String xpath) {
 		return context.iterate(xpath);

@@ -167,6 +167,7 @@ public class WSFileDialog extends Dialog {
 	 * .Composite)
 	 */
 
+	@Override
 	protected Control createDialogArea(Composite parent) {
 
 		Composite comp = (Composite) super.createDialogArea(parent);
@@ -217,6 +218,7 @@ public class WSFileDialog extends Dialog {
 
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
 
+			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				ISelection selection = viewer.getSelection();
 				if (!selection.isEmpty()) {
@@ -290,6 +292,7 @@ public class WSFileDialog extends Dialog {
 	 * 
 	 */
 
+	@Override
 	protected void okPressed() {
 
 		ISelection selection = viewer.getSelection();
@@ -398,6 +401,7 @@ public class WSFileDialog extends Dialog {
 		 * 
 		 */
 
+		@Override
 		public boolean select(Viewer viewer, Object parentElement, Object element) {
 
 			if (extensions == null || extensions.length == 0) {

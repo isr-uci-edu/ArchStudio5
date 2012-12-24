@@ -47,6 +47,7 @@ public class XlinkAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -65,10 +66,12 @@ public class XlinkAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected XlinkSwitch<Adapter> modelSwitch = new XlinkSwitch<Adapter>() {
 
+		@Override
 		public Adapter caseDocumentRoot(DocumentRoot object) {
 			return createDocumentRootAdapter();
 		}
 
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -84,6 +87,7 @@ public class XlinkAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

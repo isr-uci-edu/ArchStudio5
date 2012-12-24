@@ -18,4 +18,4 @@ Require-Bundle: org.archstudio.xadl3.implementation;visibility:=reexport,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.archstudio.dblgen
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

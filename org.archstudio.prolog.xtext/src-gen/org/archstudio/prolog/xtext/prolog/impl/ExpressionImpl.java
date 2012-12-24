@@ -212,6 +212,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<String> getOps() {
 		if (ops == null) {
 			ops = new EDataTypeEList<String>(String.class, this, PrologPackage.EXPRESSION__OPS);
@@ -224,6 +225,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Expression> getExps() {
 		if (exps == null) {
 			exps = new EObjectContainmentEList<Expression>(Expression.class, this, PrologPackage.EXPRESSION__EXPS);
@@ -236,6 +238,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isComplex() {
 		return complex;
 	}
@@ -245,6 +248,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setComplex(boolean newComplex) {
 		boolean oldComplex = complex;
 		complex = newComplex;
@@ -259,6 +263,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getNumber() {
 		return number;
 	}
@@ -268,6 +273,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setNumber(String newNumber) {
 		String oldNumber = number;
 		number = newNumber;
@@ -281,6 +287,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getString() {
 		return string;
 	}
@@ -290,6 +297,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setString(String newString) {
 		String oldString = string;
 		string = newString;
@@ -303,6 +311,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getVariable() {
 		return variable;
 	}
@@ -312,6 +321,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setVariable(String newVariable) {
 		String oldVariable = variable;
 		variable = newVariable;
@@ -326,6 +336,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isList() {
 		return list;
 	}
@@ -335,6 +346,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setList(boolean newList) {
 		boolean oldList = list;
 		list = newList;
@@ -348,6 +360,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Expression> getHead() {
 		if (head == null) {
 			head = new EObjectContainmentEList<Expression>(Expression.class, this, PrologPackage.EXPRESSION__HEAD);
@@ -360,6 +373,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Expression getTail() {
 		return tail;
 	}
@@ -390,6 +404,7 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setTail(Expression newTail) {
 		if (newTail != tail) {
 			NotificationChain msgs = null;

@@ -55,10 +55,12 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 	}
 
+	@Override
 	public String[] getTokenNames() {
 		return InternalPrologParser.tokenNames;
 	}
 
+	@Override
 	public String getGrammarFileName() {
 		return "../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g";
 	}
@@ -3091,10 +3093,12 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 			this.transition = DFA7_transition;
 		}
 
+		@Override
 		public String getDescription() {
 			return "401:2: ( (lv_ops_0_0= RULE_EXPRESSION_900 ) )?";
 		}
 
+		@Override
 		public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
 			TokenStream input = (TokenStream) _input;
 			int _s = s;

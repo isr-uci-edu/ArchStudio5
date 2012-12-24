@@ -14,6 +14,7 @@ public class ListTerm implements Term {
 		return head == null && tail == null;
 	}
 
+	@Override
 	public boolean contains(Term v) {
 		if (isEmpty()) {
 			return false;
@@ -24,6 +25,7 @@ public class ListTerm implements Term {
 		return tail.contains(v);
 	}
 
+	@Override
 	public Term replace(Term v, Term t) {
 		if (isEmpty()) {
 			return this;
@@ -34,6 +36,7 @@ public class ListTerm implements Term {
 		return new ListTerm(head, tail.replace(v, t));
 	}
 
+	@Override
 	public String toString() {
 		if (isEmpty()) {
 			return "[]";
@@ -41,6 +44,7 @@ public class ListTerm implements Term {
 		return ".(" + head + ", " + tail + ")";
 	}
 
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -49,6 +53,7 @@ public class ListTerm implements Term {
 		return result;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;

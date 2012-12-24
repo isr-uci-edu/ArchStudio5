@@ -132,6 +132,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Structure_3_0Package.Literals.INTERFACE_MAPPING;
 	}
@@ -141,6 +142,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Interface getOuterInterfaceLink() {
 		return outerInterfaceLink;
 	}
@@ -150,6 +152,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setOuterInterfaceLink(Interface newOuterInterfaceLink) {
 		Interface oldOuterInterfaceLink = outerInterfaceLink;
 		outerInterfaceLink = newOuterInterfaceLink;
@@ -165,6 +168,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Interface getInnerInterfaceLink() {
 		return innerInterfaceLink;
 	}
@@ -174,6 +178,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setInnerInterfaceLink(Interface newInnerInterfaceLink) {
 		Interface oldInnerInterfaceLink = innerInterfaceLink;
 		innerInterfaceLink = newInnerInterfaceLink;
@@ -189,6 +194,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this,
@@ -202,6 +208,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -211,6 +218,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -224,6 +232,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -233,6 +242,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -248,6 +258,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Structure_3_0Package.INTERFACE_MAPPING__EXT:
@@ -262,6 +273,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Structure_3_0Package.INTERFACE_MAPPING__OUTER_INTERFACE_LINK:
@@ -283,6 +295,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -312,6 +325,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.INTERFACE_MAPPING__OUTER_INTERFACE_LINK:
@@ -339,6 +353,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.INTERFACE_MAPPING__OUTER_INTERFACE_LINK:
@@ -361,6 +376,7 @@ public class InterfaceMappingImpl extends EObjectImpl implements InterfaceMappin
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

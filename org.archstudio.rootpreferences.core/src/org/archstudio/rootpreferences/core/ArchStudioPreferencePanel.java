@@ -20,10 +20,12 @@ public class ArchStudioPreferencePanel extends PreferencePage implements IWorkbe
 		InstantiateArchStudio.instantiate();
 	}
 
+	@Override
 	public void init(IWorkbench workbench) {
 		image = new Image(workbench.getDisplay(), ArchStudioPreferencePanel.class.getResourceAsStream("res/banner.png"));
 	}
 
+	@Override
 	protected Control createContents(Composite parent) {
 		Composite c = new Composite(parent, SWT.NONE);
 		c.setLayout(new GridLayout(1, false));
@@ -36,6 +38,7 @@ public class ArchStudioPreferencePanel extends PreferencePage implements IWorkbe
 		return c;
 	}
 
+	@Override
 	public void dispose() {
 		image.dispose();
 		image = null;

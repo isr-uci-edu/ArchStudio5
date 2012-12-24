@@ -88,6 +88,7 @@ public class CollectionPropertyCoder implements IPropertyCoder {
 		return new EncodedValue(type + "{" + encodedType + "}", encodedData);
 	}
 
+	@Override
 	public IEncodedValue encode(IPropertyCoder masterCoder, Object value) {
 		if (value.getClass().isArray()) {
 			return encode(masterCoder, "Array", Arrays.asList((Object[]) value));
@@ -118,6 +119,7 @@ public class CollectionPropertyCoder implements IPropertyCoder {
 		return values;
 	}
 
+	@Override
 	public Object decode(IPropertyCoder masterCoder, IEncodedValue encodedValue) throws PropertyDecodeException {
 		try {
 			String type = encodedValue.getType();

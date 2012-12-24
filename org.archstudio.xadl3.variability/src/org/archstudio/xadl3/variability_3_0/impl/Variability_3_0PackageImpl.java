@@ -198,6 +198,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getAttributeChange() {
 		return attributeChangeEClass;
 	}
@@ -207,6 +208,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAttributeChange_Value() {
 		return (EAttribute) attributeChangeEClass.getEStructuralFeatures().get(0);
 	}
@@ -216,6 +218,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getChange() {
 		return changeEClass;
 	}
@@ -225,6 +228,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getChange_Name() {
 		return (EAttribute) changeEClass.getEStructuralFeatures().get(0);
 	}
@@ -234,6 +238,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getChangeSet() {
 		return changeSetEClass;
 	}
@@ -243,6 +248,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getChangeSet_Ext() {
 		return (EReference) changeSetEClass.getEStructuralFeatures().get(0);
 	}
@@ -252,6 +258,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getChangeSet_Id() {
 		return (EAttribute) changeSetEClass.getEStructuralFeatures().get(1);
 	}
@@ -261,6 +268,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getChangeSet_Name() {
 		return (EAttribute) changeSetEClass.getEStructuralFeatures().get(2);
 	}
@@ -270,6 +278,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getChangeSetOfChanges() {
 		return changeSetOfChangesEClass;
 	}
@@ -279,6 +288,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getChangeSetOfChanges_ElementChange() {
 		return (EReference) changeSetOfChangesEClass.getEStructuralFeatures().get(0);
 	}
@@ -288,6 +298,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getDocumentRoot() {
 		return documentRootEClass;
 	}
@@ -297,6 +308,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Mixed() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(0);
 	}
@@ -306,6 +318,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XMLNSPrefixMap() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(1);
 	}
@@ -315,6 +328,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XSISchemaLocation() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(2);
 	}
@@ -324,6 +338,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Variability() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(3);
 	}
@@ -333,6 +348,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getElementChange() {
 		return elementChangeEClass;
 	}
@@ -342,6 +358,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getElementChange_Change() {
 		return (EReference) elementChangeEClass.getEStructuralFeatures().get(0);
 	}
@@ -351,6 +368,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getElementChange_Type() {
 		return (EAttribute) elementChangeEClass.getEStructuralFeatures().get(1);
 	}
@@ -360,6 +378,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getElementManyChange() {
 		return elementManyChangeEClass;
 	}
@@ -369,6 +388,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getElementManyChange_Change() {
 		return (EReference) elementManyChangeEClass.getEStructuralFeatures().get(0);
 	}
@@ -378,6 +398,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getJavaTransformChangeSetOfChanges() {
 		return javaTransformChangeSetOfChangesEClass;
 	}
@@ -387,6 +408,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJavaTransformChangeSetOfChanges_Bundle() {
 		return (EAttribute) javaTransformChangeSetOfChangesEClass.getEStructuralFeatures().get(0);
 	}
@@ -396,6 +418,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJavaTransformChangeSetOfChanges_Class() {
 		return (EAttribute) javaTransformChangeSetOfChangesEClass.getEStructuralFeatures().get(1);
 	}
@@ -405,6 +428,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getRelationship() {
 		return relationshipEClass;
 	}
@@ -414,6 +438,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getRelationship_Ext() {
 		return (EReference) relationshipEClass.getEStructuralFeatures().get(0);
 	}
@@ -423,6 +448,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRelationship_Id() {
 		return (EAttribute) relationshipEClass.getEStructuralFeatures().get(1);
 	}
@@ -432,6 +458,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRelationship_Name() {
 		return (EAttribute) relationshipEClass.getEStructuralFeatures().get(2);
 	}
@@ -441,6 +468,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getTransformChangeSetOfChanges() {
 		return transformChangeSetOfChangesEClass;
 	}
@@ -450,6 +478,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getVariability() {
 		return variabilityEClass;
 	}
@@ -459,6 +488,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getVariability_ActiveChangeSet() {
 		return (EReference) variabilityEClass.getEStructuralFeatures().get(0);
 	}
@@ -468,6 +498,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getVariability_AppliedChangeSets() {
 		return (EReference) variabilityEClass.getEStructuralFeatures().get(1);
 	}
@@ -477,6 +508,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getVariability_ChangeSet() {
 		return (EReference) variabilityEClass.getEStructuralFeatures().get(2);
 	}
@@ -486,6 +518,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getVariability_Relationship() {
 		return (EReference) variabilityEClass.getEStructuralFeatures().get(3);
 	}
@@ -495,6 +528,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVariability_Overview() {
 		return (EAttribute) variabilityEClass.getEStructuralFeatures().get(4);
 	}
@@ -504,6 +538,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Variability_3_0Factory getVariability_3_0Factory() {
 		return (Variability_3_0Factory) getEFactoryInstance();
 	}

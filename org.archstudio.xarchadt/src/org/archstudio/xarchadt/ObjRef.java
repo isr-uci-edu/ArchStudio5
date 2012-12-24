@@ -20,10 +20,12 @@ public final class ObjRef implements java.io.Serializable {
 		return uid;
 	}
 
+	@Override
 	public int hashCode() {
 		return Longs.hashCode(uid);
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -41,6 +43,7 @@ public final class ObjRef implements java.io.Serializable {
 		return true;
 	}
 
+	@Override
 	public String toString() {
 		return "ObjRef[" + uid + "]";
 	}

@@ -32,6 +32,7 @@ public class GexfResourceFactoryImpl extends ResourceFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Resource createResource(URI uri) {
 		XMLResource result = new GexfResourceImpl(uri);
 		result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);

@@ -19,9 +19,11 @@ public class GraphLayoutPreferencePanel extends FieldEditorPreferencePage implem
 		setDescription("This panel lets you set graph layout preferences, particularly the path to the GraphViz toolkit.");
 	}
 
+	@Override
 	public void init(IWorkbench workbench) {
 	}
 
+	@Override
 	protected void createFieldEditors() {
 		graphvizPathEditor = new DirectoryFieldEditor(GraphLayoutConstants.PREF_GRAPHVIZ_PATH, "Path to Graphviz",
 				getFieldEditorParent());

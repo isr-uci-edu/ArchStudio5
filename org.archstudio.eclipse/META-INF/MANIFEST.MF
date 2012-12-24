@@ -10,5 +10,5 @@ Require-Bundle: org.archstudio.guava,
  org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.core.resources,
  org.archstudio.utils.osgi
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
@@ -30,6 +28,7 @@ import org.archstudio.xadl.bna.facets.IHasXArchID;
 import org.archstudio.xadl.bna.logics.mapping.AbstractXADLToBNAPathLogic;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
@@ -52,6 +51,7 @@ public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<EllipseGlassT
 		this.defaultCount = defaultCount;
 	}
 
+	@Override
 	public void init() {
 		super.init();
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
@@ -60,6 +60,7 @@ public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<EllipseGlassT
 		mvl = getBNAWorld().getThingLogicManager().addThingLogic(MirrorValueLogic.class);
 	}
 
+	@Override
 	protected EllipseGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
@@ -80,6 +81,7 @@ public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<EllipseGlassT
 				Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()), IHasSecondaryColor.SECONDARY_COLOR_KEY,
 				new Function<RGB, RGB>() {
 
+					@Override
 					@Nullable
 					public RGB apply(@Nullable RGB input) {
 						return BNAUtils.adjustBrightness(input, 1.5f);

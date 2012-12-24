@@ -54,6 +54,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 	List<java.awt.font.TextLayout> textLayouts = Lists.newArrayList();
 	float totalHeight = 0;
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		Point canvasSize = r.getComposite().getSize();

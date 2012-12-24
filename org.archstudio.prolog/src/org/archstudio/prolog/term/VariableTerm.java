@@ -14,18 +14,22 @@ public class VariableTerm implements Term {
 		this.name = name;
 	}
 
+	@Override
 	public boolean contains(Term v) {
 		return this.equals(v);
 	}
 
+	@Override
 	public Term replace(Term v, Term t) {
 		return this.equals(v) ? t : this;
 	}
 
+	@Override
 	public String toString() {
 		return name.toString();
 	}
 
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -33,6 +37,7 @@ public class VariableTerm implements Term {
 		return result;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;

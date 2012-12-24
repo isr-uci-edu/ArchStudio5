@@ -76,6 +76,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		servicesCache.addCacheEntry(this, documentRootRef, data);
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		super.createControl(parent);
 
@@ -113,6 +114,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		getTreeViewer().setCellModifier(new DefaultArchipelagoCellModifier());
 	}
 
+	@Override
 	public void dispose() {
 		super.dispose();
 		ArchipelagoDataCache.getInstance().removeCacheEntry(ArchipelagoOutlinePage.this);
@@ -123,14 +125,17 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		getTreeViewer().addDragSupport(DND.DROP_LINK, transfers, new ArchipelagoOutlinePageDragSourceListener());
 	}
 
+	@Override
 	protected ITreeContentProvider createViewContentProvider() {
 		return new ViewContentProvider();
 	}
 
+	@Override
 	protected ILabelProvider createViewLabelProvider() {
 		return new ViewLabelProvider();
 	}
 
+	@Override
 	public void updateOutlinePage() {
 		super.updateOutlinePage();
 	}
@@ -147,12 +152,14 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		}
 	}
 
+	@Override
 	protected void fillContextMenu(IMenuManager menuMgr) {
 		Object[] selectedNodes = getSelectedNodes();
 
 		if (selectedNodes.length == 0) {
 			Action noAction = new Action("[No Selection]") {
 
+				@Override
 				public void run() {
 				}
 			};
@@ -172,6 +179,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		if (menuMgr.getItems() != null && menuMgr.getItems().length == 0) {
 			Action noAction = new Action("[No Actions Available]") {
 
+				@Override
 				public void run() {
 				}
 			};
@@ -199,8 +207,10 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		}
 	}
 
+	@Override
 	public void fileSaving(final ObjRef xArchRef, IProgressMonitor monitor) {
 		final IRunnableWithProgress op = new IRunnableWithProgress() {
+			@Override
 			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 				monitor.beginTask("Notifying Archipelago Elements", treePlugins.length);
 				for (int i = 0; i < treePlugins.length; i++) {
@@ -216,6 +226,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		};
 		SWTWidgetUtils.async(getTreeViewer(), new Runnable() {
 
+			@Override
 			public void run() {
 				try {
 					ProgressMonitorDialog pmd = new ProgressMonitorDialog(getSite().getShell());
@@ -231,6 +242,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		});
 	}
 
+	@Override
 	public void fileDirtyStateChanged(ObjRef xArchRef, boolean dirty) {
 		for (IArchipelagoTreePlugin treePlugin : treePlugins) {
 			IFileManagerListener l = treePlugin.getFileManagerListener();
@@ -240,6 +252,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 		}
 	}
 
+	@Override
 	public void focusEditor(String editorName, ObjRef[] refs) {
 		for (IArchipelagoTreePlugin treePlugin : treePlugins) {
 			IArchipelagoEditorFocuser editorFocuser = treePlugin.getEditorFocuser();
@@ -260,6 +273,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 	}
 
 	class ViewContentProvider implements ITreeContentProvider {
+		@Override
 		public Object[] getChildren(Object parentElement) {
 			List<? extends Object> childrenList = Collections.emptyList();
 			for (IArchipelagoTreePlugin treePlugin : treePlugins) {
@@ -272,10 +286,12 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			return children;
 		}
 
+		@Override
 		public Object[] getElements(Object inputElement) {
 			return getChildren(inputElement);
 		}
 
+		@Override
 		public Object getParent(Object element) {
 			Object parent = null;
 			for (IArchipelagoTreePlugin treePlugin : treePlugins) {
@@ -287,6 +303,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			return parent;
 		}
 
+		@Override
 		public boolean hasChildren(Object element) {
 			boolean hasChildren = false;
 			for (IArchipelagoTreePlugin treePlugin : treePlugins) {
@@ -298,6 +315,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			return hasChildren;
 		}
 
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			for (IArchipelagoTreePlugin treePlugin : treePlugins) {
 				IArchipelagoTreeContentProvider contentProvider = treePlugin.getContentProvider();
@@ -307,6 +325,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			}
 		}
 
+		@Override
 		public void dispose() {
 			for (IArchipelagoTreePlugin treePlugin : treePlugins) {
 				IArchipelagoTreeContentProvider contentProvider = treePlugin.getContentProvider();
@@ -319,6 +338,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 
 	class ViewLabelProvider extends LabelProvider implements ILabelProvider {
 
+		@Override
 		public String getText(Object element) {
 			String text = null;
 			for (IArchipelagoTreePlugin treePlugin : treePlugins) {
@@ -333,6 +353,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			return text;
 		}
 
+		@Override
 		public Image getImage(Object element) {
 			Image img = null;
 			for (IArchipelagoTreePlugin treePlugin : treePlugins) {
@@ -346,6 +367,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 	}
 
 	class DoubleClickListener implements IDoubleClickListener {
+		@Override
 		public void doubleClick(DoubleClickEvent event) {
 			ISelection selection = getTreeViewer().getSelection();
 			if (selection instanceof IStructuredSelection) {
@@ -378,6 +400,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 	 * shot of cell editing.
 	 */
 	class DefaultArchipelagoCellModifier implements ICellModifier {
+		@Override
 		public boolean canModify(Object element, String property) {
 			if (element == null) {
 				return false;
@@ -398,6 +421,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			return false;
 		}
 
+		@Override
 		public Object getValue(Object element, String property) {
 			for (IArchipelagoTreePlugin treePlugin : treePlugins) {
 				ICellModifier[] cms = treePlugin.getCellModifiers();
@@ -412,6 +436,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			return null;
 		}
 
+		@Override
 		public void modify(Object element, String property, Object value) {
 			//SWT bug workaround
 			if (element instanceof Item) {
@@ -435,6 +460,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 	class ArchipelagoOutlinePageDragSourceListener implements DragSourceListener {
 		private ISelection selectionOnDrag = null;
 
+		@Override
 		public void dragStart(DragSourceEvent event) {
 			event.doit = false;
 
@@ -460,6 +486,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			}
 		}
 
+		@Override
 		public void dragSetData(DragSourceEvent event) {
 			if (LocalSelectionTransfer.getInstance().isSupportedType(event.dataType)) {
 				event.data = selectionOnDrag;
@@ -473,6 +500,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			}
 		}
 
+		@Override
 		public void dragFinished(DragSourceEvent event) {
 			for (IArchipelagoTreePlugin treePlugin : treePlugins) {
 				DragSourceListener dsl = treePlugin.getDragSourceListener();
@@ -491,27 +519,33 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 			this.editor = editor;
 		}
 
+		@Override
 		public void clearEditor() {
 			editor.clearEditor();
 			propertyMap.clear();
 		}
 
+		@Override
 		public void displayDefaultEditor() {
 			editor.updateEditor();
 		}
 
+		@Override
 		public Composite getParentComposite() {
 			return editor.getParentComposite();
 		}
 
+		@Override
 		public IActionBars getActionBars() {
 			return ((IEditorSite) editor.getSite()).getActionBars();
 		}
 
+		@Override
 		public void setProperty(String name, Object value) {
 			propertyMap.put(name, value);
 		}
 
+		@Override
 		public Object getProperty(String name) {
 			return propertyMap.get(name);
 		}

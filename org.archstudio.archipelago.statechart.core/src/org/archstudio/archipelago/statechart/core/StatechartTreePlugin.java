@@ -115,10 +115,12 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 			FolderNode folderNode = null;
 
+			@Override
 			public boolean hasChildren(Object element, boolean hasChildrenFromPreviousProvider) {
 				return hasChildrenFromPreviousProvider || !getChildren(element, Lists.newArrayList()).isEmpty();
 			}
 
+			@Override
 			public Object getParent(Object element, Object parentFromPreviousProvider) {
 				if (element instanceof FolderNode) {
 					return ((FolderNode) element).getParent();
@@ -130,6 +132,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				return parentFromPreviousProvider;
 			}
 
+			@Override
 			public List<? extends Object> getChildren(Object parentElement,
 					List<? extends Object> childrenFromPreviousProvider) {
 				if (parentElement instanceof ObjRef
@@ -149,15 +152,18 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				return childrenFromPreviousProvider;
 			}
 
+			@Override
 			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			}
 
+			@Override
 			public void dispose() {
 			}
 		};
 
 		this.labelProvider = new IArchipelagoLabelProvider() {
 
+			@Override
 			public String getText(Object element, String textFromPreviousProvider) {
 				if (element instanceof ObjRef) {
 					ObjRef ref = (ObjRef) element;
@@ -172,6 +178,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				return textFromPreviousProvider;
 			}
 
+			@Override
 			public Image getImage(Object element, Image imageFromPreviousProvider) {
 				return imageFromPreviousProvider;
 			}
@@ -182,6 +189,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				// add new element
 				new IArchipelagoTreeContextMenuFiller() {
 
+					@Override
 					public void fillContextMenu(IMenuManager m, Object[] selectedNodes) {
 						if (selectedNodes != null && selectedNodes.length == 1) {
 							Object selectedNode = selectedNodes[0];
@@ -191,6 +199,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 								if (fnType != null) {
 									if (fnType.equals(FOLDER_NODE_TYPE)) {
 										IAction newStructureAction = new Action("New " + ELEMENT_LABEL_NAME) {
+											@Override
 											public void run() {
 												ObjRef newObjRef = XadlUtils.create(xarch, ELEMENT_TYPE);
 												xarch.set(newObjRef, "id", UIDGenerator.generateUID(ELEMENT_LABEL_NAME)
@@ -210,6 +219,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				// remove existing element
 				new IArchipelagoTreeContextMenuFiller() {
 
+					@Override
 					public void fillContextMenu(IMenuManager m, Object[] selectedNodes) {
 						if (selectedNodes != null && selectedNodes.length == 1) {
 							Object selectedNode = selectedNodes[0];
@@ -218,6 +228,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 								if (xarch.isInstanceOf(targetRef, ELEMENT_TYPE.getEPackage().getNsURI(),
 										ELEMENT_TYPE.getName())) {
 									IAction removeAction = new Action("Remove") {
+										@Override
 										public void run() {
 											XArchADTOperations.remove("Remove " + ELEMENT_LABEL_NAME, xarch,
 													xarch.getParent(targetRef), XADL_FEATURE_NAME, targetRef);
@@ -232,6 +243,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				// rename existing element
 				new IArchipelagoTreeContextMenuFiller() {
 
+					@Override
 					public void fillContextMenu(IMenuManager m, Object[] selectedNodes) {
 						if (selectedNodes != null && selectedNodes.length == 1) {
 							Object selectedNode = selectedNodes[0];
@@ -240,6 +252,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 								if (xarch.isInstanceOf(targetRef, ELEMENT_TYPE.getEPackage().getNsURI(),
 										ELEMENT_TYPE.getName())) {
 									IAction removeAction = new Action("Edit Name...") {
+										@Override
 										public void run() {
 											ArchipelagoUtils.beginTreeCellEditing(viewer, targetRef);
 										}
@@ -253,6 +266,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 		this.cellModifiers = new ICellModifier[] { new ICellModifier() {
 
+			@Override
 			public boolean canModify(Object element, String property) {
 				if (element != null && element instanceof ObjRef) {
 					ObjRef targetRef = (ObjRef) element;
@@ -263,6 +277,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				return false;
 			}
 
+			@Override
 			public Object getValue(Object element, String property) {
 				if (element instanceof ObjRef) {
 					ObjRef targetRef = (ObjRef) element;
@@ -272,6 +287,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				return null;
 			}
 
+			@Override
 			public void modify(Object element, String property, Object value) {
 				if (element instanceof ObjRef) {
 					ObjRef targetRef = (ObjRef) element;
@@ -286,6 +302,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 		this.doubleClickHandler = new IArchipelagoTreeDoubleClickHandler() {
 
+			@Override
 			public void treeNodeDoubleClicked(Object treeNode) {
 				if (treeNode instanceof ObjRef) {
 					if (xarch.isInstanceOf((ObjRef) treeNode, ELEMENT_TYPE.getEPackage().getNsURI(),
@@ -298,6 +315,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 		this.dragSourceListener = new DragSourceAdapter() {
 
+			@Override
 			public void dragStart(DragSourceEvent event) {
 				if (event.data != null && event.data instanceof ObjRef) {
 					if (XadlUtils.isInstanceOf(xarch, (ObjRef) event.data, DND_SOURCE)) {
@@ -366,6 +384,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		BNAUtils.restoreCoordinateMapperData((IMutableCoordinateMapper) cm, ept);
 		bnaCanvas.addDisposeListener(new DisposeListener() {
 
+			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				BNAUtils.saveCoordinateMapperData(cm, ept);
 			}
@@ -375,6 +394,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		final IPreferenceStore prefs = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore();
 		final IPropertyChangeListener pcl = new IPropertyChangeListener() {
 
+			@Override
 			public void propertyChange(PropertyChangeEvent event) {
 				BNARenderingSettings.setAntialiasGraphics(bnaCanvas,
 						prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_GRAPHICS));
@@ -394,6 +414,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		prefs.addPropertyChangeListener(pcl);
 		bnaCanvas.addDisposeListener(new DisposeListener() {
 
+			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				prefs.removePropertyChangeListener(pcl);
 			}

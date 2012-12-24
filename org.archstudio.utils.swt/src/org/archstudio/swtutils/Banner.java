@@ -67,6 +67,7 @@ public class Banner extends Canvas implements PaintListener {
 		this.addPaintListener(this);
 	}
 
+	@Override
 	public void dispose() {
 		this.removePaintListener(this);
 		super.dispose();
@@ -85,14 +86,17 @@ public class Banner extends Canvas implements PaintListener {
 		return new Point(width, height);
 	}
 
+	@Override
 	public Point computeSize(int wHint, int hHint) {
 		return _computeSize(wHint, hHint);
 	}
 
+	@Override
 	public Point computeSize(int wHint, int hHint, boolean changed) {
 		return _computeSize(wHint, hHint);
 	}
 
+	@Override
 	public void paintControl(PaintEvent e) {
 		GC gc = e.gc;
 		Canvas c = (Canvas) e.widget;

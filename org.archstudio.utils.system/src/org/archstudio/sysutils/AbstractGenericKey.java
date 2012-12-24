@@ -14,10 +14,12 @@ public abstract class AbstractGenericKey<D, V> implements TypedMap.Key<V> {
 		return keyData;
 	}
 
+	@Override
 	public final int hashCode() {
 		return keyDataHashCode;
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public final boolean equals(Object obj) {
 		if (this == obj) {
@@ -41,6 +43,7 @@ public abstract class AbstractGenericKey<D, V> implements TypedMap.Key<V> {
 		return true;
 	}
 
+	@Override
 	public final String toString() {
 		return "Key[id=" + keyData + "]";
 	}

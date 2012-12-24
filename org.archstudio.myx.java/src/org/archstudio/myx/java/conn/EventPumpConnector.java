@@ -23,11 +23,13 @@ public class EventPumpConnector extends org.archstudio.myx.java.conn.EventPumpCo
 
 	protected ExecutorService asyncExecutor = null;
 
+	@Override
 	public void init() {
 		super.init();
 		asyncExecutor = Executors.newSingleThreadExecutor();
 	}
 
+	@Override
 	public void destroy() {
 		asyncExecutor.shutdown();
 		try {
@@ -63,16 +65,19 @@ public class EventPumpConnector extends org.archstudio.myx.java.conn.EventPumpCo
 		}
 	}
 
+	@Override
 	public void setMyxBrickItems(IMyxBrickItems brickItems) {
 		super.setMyxBrickItems(brickItems);
 
 		ClassLoader classLoader = getClassLoader(brickItems);
 		in = Proxy.newProxyInstance(classLoader, getInterfaceClasses(brickItems, classLoader), new InvocationHandler() {
 
+			@Override
 			public Object invoke(Object proxy, final Method method, final Object[] args) throws Throwable {
 				for (final Object o : out) {
 					try {
 						asyncExecutor.submit(new Runnable() {
+							@Override
 							public void run() {
 								try {
 									method.invoke(o, args);

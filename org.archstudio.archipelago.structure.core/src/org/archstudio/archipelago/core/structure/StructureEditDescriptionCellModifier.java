@@ -12,6 +12,7 @@ public class StructureEditDescriptionCellModifier extends AbstractEditNameCellMo
 		super(AS, xArchRef);
 	}
 
+	@Override
 	public boolean canModify(Object element, String property) {
 		if (element != null && element instanceof ObjRef) {
 			ObjRef targetRef = (ObjRef) element;

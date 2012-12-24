@@ -150,6 +150,7 @@ public class PrologUtils {
 		List<EStructuralFeature> sorted = Lists.newArrayList(eAllStructuralFeatures);
 		Collections.sort(sorted, new Comparator<EStructuralFeature>() {
 
+			@Override
 			public int compare(EStructuralFeature arg0, EStructuralFeature arg1) {
 				if (sortIsSimple(arg0) && !sortIsSimple(arg1)) {
 					return -1;

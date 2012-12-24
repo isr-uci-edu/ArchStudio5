@@ -100,6 +100,7 @@ public class XlinkPackageImpl extends EPackageImpl implements XlinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getDocumentRoot() {
 		return documentRootEClass;
 	}
@@ -109,6 +110,7 @@ public class XlinkPackageImpl extends EPackageImpl implements XlinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Mixed() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(0);
 	}
@@ -118,6 +120,7 @@ public class XlinkPackageImpl extends EPackageImpl implements XlinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XMLNSPrefixMap() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(1);
 	}
@@ -127,6 +130,7 @@ public class XlinkPackageImpl extends EPackageImpl implements XlinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XSISchemaLocation() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(2);
 	}
@@ -136,6 +140,7 @@ public class XlinkPackageImpl extends EPackageImpl implements XlinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Href() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(3);
 	}
@@ -145,6 +150,7 @@ public class XlinkPackageImpl extends EPackageImpl implements XlinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Type() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(4);
 	}
@@ -154,6 +160,7 @@ public class XlinkPackageImpl extends EPackageImpl implements XlinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public XlinkFactory getXlinkFactory() {
 		return (XlinkFactory) getEFactoryInstance();
 	}

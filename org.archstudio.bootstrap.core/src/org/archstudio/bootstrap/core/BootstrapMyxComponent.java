@@ -23,9 +23,11 @@ public class BootstrapMyxComponent extends org.archstudio.bootstrap.core.Bootstr
 
 	protected String uriString = null;
 
+	@Override
 	public void begin() {
 		Thread t = new Thread() {
 
+			@Override
 			public void run() {
 				_begin();
 			};

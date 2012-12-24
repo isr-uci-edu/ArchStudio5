@@ -7,6 +7,7 @@ import org.archstudio.bna.logics.hints.PropertyDecodeException;
 
 public class NativePropertyCoder implements IPropertyCoder {
 
+	@Override
 	public IEncodedValue encode(IPropertyCoder masterCoder, Object value) {
 		if (value instanceof java.lang.String) {
 			return new EncodedValue("java.lang.String", (java.lang.String) value);
@@ -38,6 +39,7 @@ public class NativePropertyCoder implements IPropertyCoder {
 		return null;
 	}
 
+	@Override
 	public Object decode(IPropertyCoder masterCoder, IEncodedValue encodedValue) throws PropertyDecodeException {
 		try {
 			String type = encodedValue.getType();

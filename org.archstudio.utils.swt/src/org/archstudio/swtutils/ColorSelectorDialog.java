@@ -104,10 +104,12 @@ public class ColorSelectorDialog extends Dialog {
 		bCancel.setLayoutData(new GridData(GridData.END, GridData.CENTER, true, false));
 		bCancel.setText("Cancel");
 		bCancel.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				select(null);
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
@@ -165,6 +167,7 @@ public class ColorSelectorDialog extends Dialog {
 
 			final Button fb = bSchemeButtons[i];
 			bSchemeButtons[i].addSelectionListener(new SelectionListener() {
+				@Override
 				public void widgetSelected(SelectionEvent e) {
 					Object data = fb.getData();
 					if (data != null && data instanceof RGB) {
@@ -173,6 +176,7 @@ public class ColorSelectorDialog extends Dialog {
 					}
 				}
 
+				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					widgetSelected(e);
 				}
@@ -181,12 +185,14 @@ public class ColorSelectorDialog extends Dialog {
 		setupSchemeButtons(parent.getDisplay(), bSchemeButtons, colorSchemes[0], colorRegistry, imageRegistry);
 
 		cbSelectScheme.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = cbSelectScheme.getSelectionIndex();
 				ColorScheme selectedScheme = colorSchemes[index];
 				setupSchemeButtons(parent.getDisplay(), bSchemeButtons, selectedScheme, colorRegistry, imageRegistry);
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
@@ -241,6 +247,7 @@ public class ColorSelectorDialog extends Dialog {
 		final Button bHexSwatch = new Button(cHexSelection, SWT.FLAT);
 		setupHexButton(parent.getDisplay(), bHexSwatch, finitialColor, colorRegistry, imageRegistry);
 		bHexSwatch.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Object data = bHexSwatch.getData();
 				if (data != null && data instanceof RGB) {
@@ -249,12 +256,14 @@ public class ColorSelectorDialog extends Dialog {
 				}
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
 		});
 
 		tHexSelection.addModifyListener(new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
 				String text = tHexSelection.getText();
 				RGB rgb = SWTWidgetUtils.hexToRGB(text);
@@ -300,6 +309,7 @@ public class ColorSelectorDialog extends Dialog {
 		bCustom.setLayoutData(new GridData(GridData.CENTER, GridData.CENTER, true, true));
 		bCustom.setText("Custom Color...");
 		bCustom.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ColorDialog cd = new ColorDialog(parent.getShell(), SWT.APPLICATION_MODAL);
 				cd.setRGB(finitialColor);
@@ -309,6 +319,7 @@ public class ColorSelectorDialog extends Dialog {
 				}
 			};
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}

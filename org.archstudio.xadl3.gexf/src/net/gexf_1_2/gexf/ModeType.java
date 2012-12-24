@@ -168,6 +168,7 @@ public enum ModeType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 		return value;
 	}
@@ -177,6 +178,7 @@ public enum ModeType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -186,6 +188,7 @@ public enum ModeType implements Enumerator {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 		return literal;
 	}
@@ -197,6 +200,7 @@ public enum ModeType implements Enumerator {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		return literal;
 	}

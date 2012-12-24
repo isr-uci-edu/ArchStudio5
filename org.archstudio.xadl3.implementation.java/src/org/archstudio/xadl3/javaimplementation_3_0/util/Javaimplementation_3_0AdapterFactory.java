@@ -50,6 +50,7 @@ public class Javaimplementation_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -68,22 +69,27 @@ public class Javaimplementation_3_0AdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected Javaimplementation_3_0Switch<Adapter> modelSwitch = new Javaimplementation_3_0Switch<Adapter>() {
 
+		@Override
 		public Adapter caseClassPathEntry(ClassPathEntry object) {
 			return createClassPathEntryAdapter();
 		}
 
+		@Override
 		public Adapter caseJavaClass(JavaClass object) {
 			return createJavaClassAdapter();
 		}
 
+		@Override
 		public Adapter caseJavaImplementation(JavaImplementation object) {
 			return createJavaImplementationAdapter();
 		}
 
+		@Override
 		public Adapter caseImplementation(Implementation object) {
 			return createImplementationAdapter();
 		}
 
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -99,6 +105,7 @@ public class Javaimplementation_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

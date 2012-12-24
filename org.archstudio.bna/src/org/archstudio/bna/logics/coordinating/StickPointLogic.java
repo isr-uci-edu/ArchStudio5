@@ -6,8 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
@@ -25,6 +23,7 @@ import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.BNAUtils;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -151,6 +150,7 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 		}
 	}
 
+	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {

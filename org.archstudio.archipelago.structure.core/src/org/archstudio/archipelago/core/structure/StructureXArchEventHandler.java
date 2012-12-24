@@ -21,6 +21,7 @@ public class StructureXArchEventHandler implements IXArchADTModelListener {
 		this.editor = AS.get(IArchipelagoEditorPane.class);
 	}
 
+	@Override
 	public synchronized void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		BNACanvas currentlyEditingCanvas = ArchipelagoUtils.getBNACanvas(editor);
 		if (currentlyEditingCanvas != null) {

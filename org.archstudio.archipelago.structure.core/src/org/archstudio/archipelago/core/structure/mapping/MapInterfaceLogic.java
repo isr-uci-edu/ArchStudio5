@@ -35,10 +35,12 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 
 	private static final IXADLToBNATranslator<Direction, Flow> DIRECTION_TO_FLOW = new IXADLToBNATranslator<Direction, Flow>() {
 
+		@Override
 		public Flow toBNAValue(Direction xadlValue) {
 			return Flow.valueOf(xadlValue.getName().toUpperCase());
 		}
 
+		@Override
 		public Direction toXadlValue(Flow value) {
 			return Direction.valueOf(value.name().toUpperCase());
 		}
@@ -46,6 +48,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 
 	private static final IXADLToBNATranslator<String, StickyMode> DOMAIN_TO_STICKY_MODE = new IXADLToBNATranslator<String, StickyMode>() {
 
+		@Override
 		public StickyMode toBNAValue(String xadlValue) {
 			if (xadlValue == null) {
 				return EDGE;
@@ -54,6 +57,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 			return DomainType.TOP.equals(xadlValue) ? StickyMode.EDGE : StickyMode.EDGE;
 		};
 
+		@Override
 		public String toXadlValue(StickyMode value) {
 			throw new UnsupportedOperationException();
 		};
@@ -68,6 +72,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		super(xarch, rootObjRef, objRefPath);
 	}
 
+	@Override
 	public void init() {
 		super.init();
 
@@ -86,6 +91,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 				stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), false);
 	}
 
+	@Override
 	protected EndpointGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
 		EndpointGlassThing thing = Assemblies.createEndpoint(getBNAWorld(), null, null);

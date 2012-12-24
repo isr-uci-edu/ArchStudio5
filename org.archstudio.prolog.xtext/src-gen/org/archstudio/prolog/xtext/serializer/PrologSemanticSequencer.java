@@ -17,6 +17,7 @@ public class PrologSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	@Inject
 	private PrologGrammarAccess grammarAccess;
 
+	@Override
 	public void createSequence(EObject context, EObject semanticObject) {
 		if (semanticObject.eClass().getEPackage() == PrologPackage.eINSTANCE) {
 			switch (semanticObject.eClass().getClassifierID()) {

@@ -41,6 +41,7 @@ public final class XArchADTProxy {
 	public static final List<ObjRef> unproxy(Iterable<? extends EObject> eObjects) {
 		return Lists.newArrayList(Iterables.transform(eObjects, new Function<EObject, ObjRef>() {
 
+			@Override
 			public ObjRef apply(EObject input) {
 				return EObjectProxy.unproxy(input);
 			}

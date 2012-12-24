@@ -55,6 +55,7 @@ public class Structure_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -73,42 +74,52 @@ public class Structure_3_0AdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected Structure_3_0Switch<Adapter> modelSwitch = new Structure_3_0Switch<Adapter>() {
 
+		@Override
 		public Adapter caseBrick(Brick object) {
 			return createBrickAdapter();
 		}
 
+		@Override
 		public Adapter caseComponent(Component object) {
 			return createComponentAdapter();
 		}
 
+		@Override
 		public Adapter caseConnector(Connector object) {
 			return createConnectorAdapter();
 		}
 
+		@Override
 		public Adapter caseDocumentRoot(DocumentRoot object) {
 			return createDocumentRootAdapter();
 		}
 
+		@Override
 		public Adapter caseInterface(Interface object) {
 			return createInterfaceAdapter();
 		}
 
+		@Override
 		public Adapter caseInterfaceMapping(InterfaceMapping object) {
 			return createInterfaceMappingAdapter();
 		}
 
+		@Override
 		public Adapter caseLink(Link object) {
 			return createLinkAdapter();
 		}
 
+		@Override
 		public Adapter caseStructure(Structure object) {
 			return createStructureAdapter();
 		}
 
+		@Override
 		public Adapter caseSubStructure(SubStructure object) {
 			return createSubStructureAdapter();
 		}
 
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -124,6 +135,7 @@ public class Structure_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

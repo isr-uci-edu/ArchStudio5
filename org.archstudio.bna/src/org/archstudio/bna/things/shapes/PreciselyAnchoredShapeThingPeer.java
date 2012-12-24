@@ -29,10 +29,12 @@ public class PreciselyAnchoredShapeThingPeer<T extends PreciselyAnchoredShapeThi
 		return new Rectangle(lp.x - size.width / 2, lp.y - size.height / 2, size.width, size.height);
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		return getLocalBounds(view, cm).contains(location.getLocalPoint());
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Rectangle lbb = getLocalBounds(view, cm);
 

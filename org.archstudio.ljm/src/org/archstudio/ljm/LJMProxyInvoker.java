@@ -112,6 +112,7 @@ public class LJMProxyInvoker implements InvocationHandler {
 		socket = null;
 	}
 
+	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		return invoke(proxy, method, args, 5);
 	}

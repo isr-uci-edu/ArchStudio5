@@ -56,6 +56,7 @@ public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Xadlcore_3_0Package.Literals.XADL_TYPE;
 	}
@@ -65,6 +66,7 @@ public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<EObject> getTopLevelElement() {
 		if (topLevelElement == null) {
 			topLevelElement = new EObjectContainmentEList<EObject>(EObject.class, this,
@@ -79,6 +81,7 @@ public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
@@ -93,6 +96,7 @@ public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
@@ -106,6 +110,7 @@ public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -123,6 +128,7 @@ public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
@@ -138,6 +144,7 @@ public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:

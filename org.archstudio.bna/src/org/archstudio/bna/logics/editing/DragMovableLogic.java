@@ -37,6 +37,7 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 		super();
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 		this.valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
@@ -44,11 +45,13 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 		addThingLogic(DragMoveEventsLogic.class);
 	}
 
+	@Override
 	protected void destroy() {
 		movingThings.clear();
 		super.destroy();
 	}
 
+	@Override
 	public void dragStarted(DragMoveEvent evt) {
 		movingThings.clear();
 		totalRelativePoint.x = 0;
@@ -92,6 +95,7 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 		}
 	}
 
+	@Override
 	public void dragMoved(DragMoveEvent evt) {
 		IBNAModel model = getBNAModel();
 		if (model != null) {
@@ -127,6 +131,7 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 		}
 	}
 
+	@Override
 	public void dragFinished(DragMoveEvent evt) {
 		// if we moved a handle, let the reshape logic handle the undo
 		if (!(movingThings.size() == 1 && movingThings.keySet().iterator().next() instanceof ReshapeHandleGlassThing)) {

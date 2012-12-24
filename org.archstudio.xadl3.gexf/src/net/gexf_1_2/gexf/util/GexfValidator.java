@@ -113,6 +113,7 @@ public class GexfValidator extends EObjectValidator {
 	 * @generated
 	 */
 
+	@Override
 	protected EPackage getEPackage() {
 		return GexfPackage.eINSTANCE;
 	}
@@ -124,6 +125,7 @@ public class GexfValidator extends EObjectValidator {
 	 * @generated
 	 */
 
+	@Override
 	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		switch (classifierID) {
 		case GexfPackage.ATTRIBUTE_CONTENT:
@@ -656,6 +658,7 @@ public class GexfValidator extends EObjectValidator {
 	 * @generated
 	 */
 
+	@Override
 	public ResourceLocator getResourceLocator() {
 		// TODO
 		// Specialize this to return a resource locator for messages specific to this validator.

@@ -225,6 +225,7 @@ public class XArchADTImpl implements IXArchADT {
 				Map<String, EStructuralFeature> structuralFeatures = Maps.newHashMap();
 				Map<Integer, EStructuralFeature> featureIDs = Maps.newHashMap();
 
+				@Override
 				public synchronized Map<String, EStructuralFeature> load(@Nullable EClass eClass) throws Exception {
 					structuralFeatures = Maps.newHashMap();
 					featureIDs = Maps.newHashMap();
@@ -289,15 +290,18 @@ public class XArchADTImpl implements IXArchADT {
 		}
 	}
 
+	@Override
 	public synchronized boolean isValidObjRef(ObjRef objRef) {
 		return get(objRef) != null;
 	}
 
+	@Override
 	public synchronized void set(ObjRef baseObjRef, String typeOfThing, @Nullable Serializable value) {
 		EObject baseEObject = get(baseObjRef);
 		baseEObject.eSet(getEFeature(baseEObject, typeOfThing, false), uncheck(value));
 	}
 
+	@Override
 	public synchronized @Nullable
 	Serializable get(ObjRef baseObjRef, String typeOfThing) {
 		return get(baseObjRef, typeOfThing, true);
@@ -309,27 +313,32 @@ public class XArchADTImpl implements IXArchADT {
 		return check(baseEObject.eGet(getEFeature(baseEObject, typeOfThing, false), resolve));
 	}
 
+	@Override
 	public synchronized @Nullable
 	Serializable resolve(ObjRef objRef) {
 		EObject baseEObject = get(objRef);
 		return check(EcoreUtil.resolve(baseEObject, baseEObject.eResource()));
 	}
 
+	@Override
 	public synchronized void clear(ObjRef baseObjRef, String typeOfThing) {
 		EObject baseEObject = get(baseObjRef);
 		baseEObject.eUnset(getEFeature(baseEObject, typeOfThing, false));
 	}
 
+	@Override
 	public synchronized void add(ObjRef baseObjRef, String typeOfThing, Serializable thingToAdd) {
 		getEList(get(baseObjRef), typeOfThing).add(uncheck(thingToAdd));
 	}
 
+	@Override
 	public synchronized void add(ObjRef baseObjRef, String typeOfThing, Collection<? extends Serializable> thingsToAdd) {
 		for (Serializable thingToAdd : thingsToAdd) {
 			getEList(get(baseObjRef), typeOfThing).add(uncheck(thingToAdd));
 		}
 	}
 
+	@Override
 	public synchronized List<Serializable> getAll(ObjRef baseObjRef, String typeOfThing) {
 		EList<Object> list = getEList(get(baseObjRef), typeOfThing);
 		List<Serializable> result = Lists.newArrayListWithCapacity(list.size());
@@ -339,10 +348,12 @@ public class XArchADTImpl implements IXArchADT {
 		return result;
 	}
 
+	@Override
 	public synchronized void remove(ObjRef baseObjRef, String typeOfThing, Serializable thingToRemove) {
 		getEList(get(baseObjRef), typeOfThing).remove(uncheck(thingToRemove));
 	}
 
+	@Override
 	public synchronized void remove(ObjRef baseObjRef, String typeOfThing,
 			Collection<? extends Serializable> thingsToRemove) {
 		for (Serializable thingToRemove : thingsToRemove) {
@@ -350,11 +361,13 @@ public class XArchADTImpl implements IXArchADT {
 		}
 	}
 
+	@Override
 	@Nullable
 	public synchronized ObjRef getByID(ObjRef documentRef, String id) {
 		return putNullable(get(documentRef).eResource().getEObject(id));
 	}
 
+	@Override
 	@Nullable
 	public synchronized ObjRef getByID(String id) {
 		for (Resource r : resourceSet.getResources()) {
@@ -366,15 +379,18 @@ public class XArchADTImpl implements IXArchADT {
 		return null;
 	}
 
+	@Override
 	@Nullable
 	public synchronized ObjRef getParent(ObjRef targetObjRef) {
 		return putNullable(get(targetObjRef).eContainer());
 	}
 
+	@Override
 	public synchronized boolean hasAncestor(ObjRef childObjRef, ObjRef ancestorObjRef) {
 		return EcoreUtil.isAncestor(get(ancestorObjRef), get(childObjRef));
 	}
 
+	@Override
 	public synchronized List<ObjRef> getAllAncestors(ObjRef targetObjRef) {
 		EObject eObject = get(targetObjRef);
 		List<ObjRef> ancestorObjRefs = Lists.newArrayList();
@@ -385,10 +401,12 @@ public class XArchADTImpl implements IXArchADT {
 		return ancestorObjRefs;
 	}
 
+	@Override
 	public synchronized List<ObjRef> getLineage(ObjRef targetObjRef) {
 		return Lists.reverse(getAllAncestors(targetObjRef));
 	}
 
+	@Override
 	public synchronized boolean isAttached(ObjRef targetObjRef) {
 		EObject eObject = get(targetObjRef);
 		Resource resource = eObject.eResource();
@@ -417,6 +435,7 @@ public class XArchADTImpl implements IXArchADT {
 	private static final LoadingCache<String, EPackage> ePackageCache = CacheBuilder.newBuilder().build(
 			new CacheLoader<String, EPackage>() {
 
+				@Override
 				public synchronized EPackage load(@Nullable String nsURI) throws Exception {
 					EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(nsURI);
 					if (ePackage != null) {
@@ -429,6 +448,7 @@ public class XArchADTImpl implements IXArchADT {
 	private static final LoadingCache<EClass, Map<String, IXArchADTFeature>> featureMetadataCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<EClass, Map<String, IXArchADTFeature>>() {
 
+				@Override
 				public synchronized Map<String, IXArchADTFeature> load(@Nullable EClass eClass) throws Exception {
 					if (eClass == null) {
 						throw new NullPointerException();
@@ -438,6 +458,7 @@ public class XArchADTImpl implements IXArchADT {
 					features.addAll(Collections2.transform(eClass.getEAllAttributes(),
 							new Function<EAttribute, IXArchADTFeature>() {
 
+								@Override
 								public synchronized IXArchADTFeature apply(@Nullable EAttribute eFeature) {
 									if (eFeature == null) {
 										throw new NullPointerException();
@@ -450,6 +471,7 @@ public class XArchADTImpl implements IXArchADT {
 					features.addAll(Collections2.transform(eClass.getEAllReferences(),
 							new Function<EReference, IXArchADTFeature>() {
 
+								@Override
 								public synchronized IXArchADTFeature apply(@Nullable EReference eFeature) {
 									if (eFeature == null) {
 										throw new NullPointerException();
@@ -477,6 +499,7 @@ public class XArchADTImpl implements IXArchADT {
 	private static final LoadingCache<EClass, IXArchADTTypeMetadata> typeMetadataCache = CacheBuilder.newBuilder()
 			.build(new CacheLoader<EClass, IXArchADTTypeMetadata>() {
 
+				@Override
 				public synchronized IXArchADTTypeMetadata load(@Nullable EClass eClass) throws Exception {
 					if (eClass == null) {
 						throw new NullPointerException();
@@ -493,6 +516,7 @@ public class XArchADTImpl implements IXArchADT {
 	private static final LoadingCache<EPackage, IXArchADTPackageMetadata> packageMetatadataCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<EPackage, IXArchADTPackageMetadata>() {
 
+				@Override
 				public synchronized IXArchADTPackageMetadata load(@Nullable EPackage ePackage) throws Exception {
 					if (ePackage == null) {
 						throw new NullPointerException();
@@ -501,6 +525,7 @@ public class XArchADTImpl implements IXArchADT {
 							Iterables.filter(ePackage.getEClassifiers(), EClass.class),
 							new Function<EClass, IXArchADTTypeMetadata>() {
 
+								@Override
 								public synchronized IXArchADTTypeMetadata apply(@Nullable EClass eClass) {
 									return typeMetadataCache.getUnchecked(eClass);
 								};
@@ -523,28 +548,34 @@ public class XArchADTImpl implements IXArchADT {
 		throw new IllegalArgumentException("Classifier was not an instance of EClass");
 	}
 
+	@Override
 	public synchronized IXArchADTPackageMetadata getPackageMetadata(String nsURI) {
 		return packageMetatadataCache.getUnchecked(ePackageCache.getUnchecked(nsURI));
 	}
 
+	@Override
 	public synchronized IXArchADTTypeMetadata getTypeMetadata(String nsURI, String typeName) {
 		return typeMetadataCache.getUnchecked(getEClass(ePackageCache.getUnchecked(nsURI), typeName));
 	}
 
+	@Override
 	public synchronized IXArchADTTypeMetadata getTypeMetadata(ObjRef objRef) {
 		return typeMetadataCache.getUnchecked(get(objRef).eClass());
 	}
 
+	@Override
 	public synchronized List<IXArchADTPackageMetadata> getAvailablePackageMetadata() {
 		return Lists.newArrayList(Collections2.transform(EPackage.Registry.INSTANCE.keySet(),
 				new Function<String, IXArchADTPackageMetadata>() {
 
+					@Override
 					public synchronized IXArchADTPackageMetadata apply(@Nullable String nsURI) {
 						return packageMetatadataCache.getUnchecked(ePackageCache.getUnchecked(nsURI));
 					}
 				}));
 	}
 
+	@Override
 	public synchronized boolean isAssignable(String sourceNsURI, String sourceTypeName, String targetNsURI,
 			String targetTypeName) {
 		EClass eSourceClass = getEClass(ePackageCache.getUnchecked(sourceNsURI), sourceTypeName);
@@ -557,6 +588,7 @@ public class XArchADTImpl implements IXArchADT {
 		return eSourceClass.isSuperTypeOf(eTargetClass);
 	}
 
+	@Override
 	public synchronized boolean isInstanceOf(@Nullable ObjRef baseObjRef, String sourceNsURI, String sourceTypeName) {
 		if (baseObjRef == null) {
 			return false;
@@ -565,6 +597,7 @@ public class XArchADTImpl implements IXArchADT {
 		return getEClass(ePackageCache.getUnchecked(sourceNsURI), sourceTypeName).isSuperTypeOf(baseEObject.eClass());
 	}
 
+	@Override
 	public synchronized List<URI> getOpenURIs() {
 		List<URI> uriList = new ArrayList<URI>();
 		for (Resource r : resourceSet.getResources()) {
@@ -573,18 +606,21 @@ public class XArchADTImpl implements IXArchADT {
 		return uriList;
 	}
 
+	@Override
 	@Nullable
 	public synchronized ObjRef getDocumentRootRef(URI uri) {
 		Resource r = resourceSet.getResource(uri, false);
 		return r != null && r.getContents().size() > 0 ? putNullable(r.getContents().get(0)) : null;
 	}
 
+	@Override
 	@Nullable
 	public synchronized ObjRef getDocumentRootRef(ObjRef objRef) {
 		Resource eResource = get(objRef).eResource();
 		return eResource != null ? putNullable(eResource.getContents().get(0)) : null;
 	}
 
+	@Override
 	public synchronized void close(URI uri) {
 		Resource r = resourceSet.getResource(uri, false);
 		setResourceFinishedLoading(r, false);
@@ -592,6 +628,7 @@ public class XArchADTImpl implements IXArchADT {
 		fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_CLOSED_EVENT, uri));
 	}
 
+	@Override
 	public synchronized ObjRef create(String nsURI, String typeOfThing) {
 		EPackage ePackage = ePackageCache.getUnchecked(nsURI);
 		EClass eClass = getEClass(ePackage, typeOfThing);
@@ -599,10 +636,12 @@ public class XArchADTImpl implements IXArchADT {
 		return put(eObject);
 	}
 
+	@Override
 	public synchronized ObjRef createDocument(URI uri) {
 		return createDocument(uri, Xadlcore_3_0Package.eINSTANCE.getNsURI());
 	}
 
+	@Override
 	public synchronized ObjRef createDocument(URI uri, String nsURI) {
 		Resource r = resourceSet.getResource(uri, false);
 		if (r != null && r.getContents().size() >= 1) {
@@ -623,6 +662,7 @@ public class XArchADTImpl implements IXArchADT {
 		return documentRootRef;
 	}
 
+	@Override
 	public synchronized ObjRef load(URI uri) throws SAXException, IOException {
 		for (Resource r : resourceSet.getResources()) {
 			if (r.getURI().equals(uri)) {
@@ -660,6 +700,7 @@ public class XArchADTImpl implements IXArchADT {
 		return rootElementRef;
 	}
 
+	@Override
 	public synchronized ObjRef load(URI uri, byte[] content) throws SAXException, IOException {
 		Resource r = resourceSet.createResource(uri);
 		if (r instanceof ResourceImpl) {
@@ -673,11 +714,13 @@ public class XArchADTImpl implements IXArchADT {
 		return rootElementRef;
 	}
 
+	@Override
 	public synchronized void renameXArch(String oldURI, String newURI) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	@Nullable
 	public synchronized URI getURI(ObjRef ref) {
 		EObject obj = get(ref);
@@ -687,12 +730,14 @@ public class XArchADTImpl implements IXArchADT {
 		return obj.eResource().getURI();
 	}
 
+	@Override
 	public synchronized void save(URI uri) throws IOException {
 		Resource r = resourceSet.getResource(uri, false);
 		r.save(SAVE_OPTIONS_MAP);
 		fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_SAVED_EVENT, uri, getDocumentRootRef(uri)));
 	}
 
+	@Override
 	public synchronized byte[] serialize(URI uri) {
 		Resource r = resourceSet.getResource(uri, false);
 
@@ -706,6 +751,7 @@ public class XArchADTImpl implements IXArchADT {
 		}
 	}
 
+	@Override
 	@Nullable
 	public synchronized String getTagName(ObjRef objRef) {
 		EObject eObject = get(objRef);
@@ -719,6 +765,7 @@ public class XArchADTImpl implements IXArchADT {
 		return null;
 	}
 
+	@Override
 	@Nullable
 	public synchronized String getContainingFeatureName(ObjRef ref) {
 		EObject eobject = get(ref);
@@ -729,6 +776,7 @@ public class XArchADTImpl implements IXArchADT {
 		return containingFeature.getName();
 	}
 
+	@Override
 	public synchronized String getTagsOnlyPathString(ObjRef targetObjRef) {
 		List<String> tags = new ArrayList<String>();
 		EObject eObject = get(targetObjRef);
@@ -748,6 +796,7 @@ public class XArchADTImpl implements IXArchADT {
 		return Joiner.on("/").join(Lists.reverse(tags));
 	}
 
+	@Override
 	@Nullable
 	public synchronized ObjRef resolveHref(ObjRef documentRef, String href) {
 		// TODO Do this right
@@ -800,6 +849,7 @@ public class XArchADTImpl implements IXArchADT {
 
 	class ContentAdapter extends EContentAdapter {
 
+		@Override
 		public synchronized void notifyChanged(@Nullable Notification notification) {
 			if (notification == null) {
 				throw new NullPointerException();
@@ -886,6 +936,7 @@ public class XArchADTImpl implements IXArchADT {
 
 	protected List<IXArchADTSubstitutionHint> allSubstitutionHints = null;
 
+	@Override
 	public synchronized List<IXArchADTSubstitutionHint> getAllSubstitutionHints() {
 		if (allSubstitutionHints == null) {
 			List<EPackage> allEPackages = Lists.newArrayList();
@@ -900,6 +951,7 @@ public class XArchADTImpl implements IXArchADT {
 		return allSubstitutionHints;
 	}
 
+	@Override
 	public synchronized List<IXArchADTSubstitutionHint> getSubstitutionHintsForSource(String sourceNsURI,
 			String sourceTypeName) {
 		List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
@@ -911,6 +963,7 @@ public class XArchADTImpl implements IXArchADT {
 		return matchingHints;
 	}
 
+	@Override
 	public synchronized List<IXArchADTSubstitutionHint> getSubstitutionHintsForTarget(String targetNsURI,
 			String targetTypeName) {
 		List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
@@ -922,6 +975,7 @@ public class XArchADTImpl implements IXArchADT {
 		return matchingHints;
 	}
 
+	@Override
 	public String getXPath(ObjRef toObjRef) {
 		StringBuffer sb = new StringBuffer();
 		for (ObjRef objRef : Lists.reverse(getAllAncestors(toObjRef))) {
@@ -941,6 +995,7 @@ public class XArchADTImpl implements IXArchADT {
 		return sb.toString();
 	}
 
+	@Override
 	public synchronized List<ObjRef> resolveObjRefs(ObjRef contextObjRef, String xPath) throws XPathException {
 		Iterator<EObject> it = EcoreXPathContextFactory.newInstance().newContext(get(contextObjRef)).iterate(xPath);
 		List<ObjRef> result = Lists.newArrayList();
@@ -950,6 +1005,7 @@ public class XArchADTImpl implements IXArchADT {
 		return result;
 	}
 
+	@Override
 	public synchronized List<Serializable> resolveSerializables(ObjRef contextObjRef, String xPath)
 			throws XPathException {
 		Iterator<EObject> it = EcoreXPathContextFactory.newInstance().newContext(get(contextObjRef)).iterate(xPath);

@@ -43,5 +43,5 @@ Require-Bundle: org.archstudio.guava,
  org.archstudio.xarchadt.variability,
  org.archstudio.prolog,
  org.archstudio.prolog.xadl
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

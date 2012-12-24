@@ -108,6 +108,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Structure_3_0Package.Literals.SUB_STRUCTURE;
 	}
@@ -117,6 +118,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Structure getInnerStructureLink() {
 		return innerStructureLink;
 	}
@@ -126,6 +128,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setInnerStructureLink(Structure newInnerStructureLink) {
 		Structure oldInnerStructureLink = innerStructureLink;
 		innerStructureLink = newInnerStructureLink;
@@ -140,6 +143,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<InterfaceMapping> getInterfaceMapping() {
 		if (interfaceMapping == null) {
 			interfaceMapping = new EObjectContainmentEList<InterfaceMapping>(InterfaceMapping.class, this,
@@ -153,6 +157,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this, Structure_3_0Package.SUB_STRUCTURE__EXT);
@@ -165,6 +170,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -174,6 +180,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -188,6 +195,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Structure_3_0Package.SUB_STRUCTURE__INTERFACE_MAPPING:
@@ -204,6 +212,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK:
@@ -223,6 +232,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -250,6 +260,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK:
@@ -274,6 +285,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK:
@@ -294,6 +306,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

@@ -27,11 +27,13 @@ public class LJMExample {
 
 			Object value = null;
 
+			@Override
 			public Object getValue() {
 				System.err.println("Someone asked for my value, which is: " + value);
 				return value;
 			}
 
+			@Override
 			public void setValue(Object value) {
 				System.err.println("Someone set my value to: " + value);
 				this.value = value;

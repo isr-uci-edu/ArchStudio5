@@ -27,6 +27,7 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 
 	public static final String EOL = System.getProperty("line.separator");
 
+	@Override
 	public GraphLayout layoutGraph(IXArchADT xarch, IPreferenceStore prefs, ObjRef rootRef, GraphLayoutParameters params)
 			throws GraphLayoutException {
 		StringBuffer sb = new StringBuffer();

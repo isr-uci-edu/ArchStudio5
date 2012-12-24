@@ -50,6 +50,7 @@ public class LJMServer extends Thread {
 		serverObjects.remove(objectName);
 	}
 
+	@Override
 	public void destroy() {
 		try {
 			socket.close();
@@ -58,6 +59,7 @@ public class LJMServer extends Thread {
 		}
 	}
 
+	@Override
 	public void run() {
 		LJMConnectionHandler connHandler = null;
 		try {
@@ -179,6 +181,7 @@ public class LJMServer extends Thread {
 			}
 		}
 
+		@Override
 		public void run() {
 			while (true) {
 				//System.err.println("Processing call: ");

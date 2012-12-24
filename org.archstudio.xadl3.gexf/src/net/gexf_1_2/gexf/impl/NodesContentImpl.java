@@ -78,6 +78,7 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.NODES_CONTENT;
 	}
@@ -87,6 +88,7 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<NodeContent> getNode() {
 		if (node == null) {
 			node = new EObjectContainmentEList<NodeContent>(NodeContent.class, this, GexfPackage.NODES_CONTENT__NODE);
@@ -99,6 +101,7 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public BigInteger getCount() {
 		return count;
 	}
@@ -108,6 +111,7 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setCount(BigInteger newCount) {
 		BigInteger oldCount = count;
 		count = newCount;
@@ -122,6 +126,7 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GexfPackage.NODES_CONTENT__NODE:
@@ -136,6 +141,7 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.NODES_CONTENT__NODE:
@@ -151,6 +157,7 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -171,6 +178,7 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.NODES_CONTENT__NODE:
@@ -189,6 +197,7 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.NODES_CONTENT__NODE:
@@ -205,6 +214,7 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

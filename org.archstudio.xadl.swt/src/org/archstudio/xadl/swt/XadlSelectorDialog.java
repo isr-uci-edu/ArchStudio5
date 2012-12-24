@@ -83,6 +83,7 @@ public class XadlSelectorDialog {
 		final Set<XadlTreeUtils.Type> fselectionFlags = selectionFlags;
 		final Listener okListener = new Listener() {
 
+			@Override
 			public void handleEvent(Event event) {
 				IStructuredSelection selection = (IStructuredSelection) treeViewer.getSelection();
 				if (!validateSelection(fxarch, selection, fselectionFlags)) {
@@ -106,6 +107,7 @@ public class XadlSelectorDialog {
 
 		treeViewer.addDoubleClickListener(new IDoubleClickListener() {
 
+			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				okListener.handleEvent(null);
 			}
@@ -122,6 +124,7 @@ public class XadlSelectorDialog {
 
 		Listener cancelListener = new Listener() {
 
+			@Override
 			public void handleEvent(Event event) {
 				dialog.close();
 			}

@@ -78,6 +78,7 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Clause> getClauses() {
 		if (clauses == null) {
 			clauses = new EObjectContainmentEList<Clause>(Clause.class, this, PrologPackage.PROGRAM__CLAUSES);
@@ -90,6 +91,7 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Query getQuery() {
 		return query;
 	}
@@ -120,6 +122,7 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setQuery(Query newQuery) {
 		if (newQuery != query) {
 			NotificationChain msgs = null;

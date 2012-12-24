@@ -19,10 +19,12 @@ public class ArchlightTestADT implements IArchlightTestADT {
 		testList = new ArrayList<ArchlightTest>();
 	}
 
+	@Override
 	public synchronized List<? extends ArchlightTest> getAllTests() {
 		return Collections.unmodifiableList(new ArrayList<ArchlightTest>(testList));
 	}
 
+	@Override
 	public synchronized List<? extends ArchlightTest> getAllTests(String toolID) {
 		List<ArchlightTest> matchingList = new ArrayList<ArchlightTest>();
 		for (ArchlightTest test : testList) {
@@ -33,6 +35,7 @@ public class ArchlightTestADT implements IArchlightTestADT {
 		return Collections.unmodifiableList(matchingList);
 	}
 
+	@Override
 	public synchronized ArchlightTest getTest(String testUID) {
 		for (ArchlightTest test : testList) {
 			if (test.getUID() != null && test.getUID().equals(testUID)) {
@@ -42,11 +45,13 @@ public class ArchlightTestADT implements IArchlightTestADT {
 		return null;
 	}
 
+	@Override
 	public synchronized void addTests(Collection<? extends ArchlightTest> tests) {
 		testList.addAll(tests);
 		fireTestsAdded(tests);
 	}
 
+	@Override
 	public synchronized void removeTests(Collection<? extends ArchlightTest> tests) {
 		testList.removeAll(tests);
 		fireTestsRemoved(tests);

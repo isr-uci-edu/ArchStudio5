@@ -1,10 +1,9 @@
 package org.archstudio.bna.logics.editing;
 
-import javax.annotation.Nullable;
-
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IIsSticky;
+import org.eclipse.jdt.annotation.Nullable;
 
 public interface IReshapeSplineGuide {
 

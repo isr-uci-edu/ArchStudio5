@@ -95,6 +95,7 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Hints_3_0Package.Literals.HINT;
 	}
@@ -104,6 +105,7 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Value getValue() {
 		return value;
 	}
@@ -134,6 +136,7 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setValue(Value newValue) {
 		if (newValue != value) {
 			NotificationChain msgs = null;
@@ -160,6 +163,7 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getHint() {
 		return hint;
 	}
@@ -169,6 +173,7 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setHint(String newHint) {
 		String oldHint = hint;
 		hint = newHint;
@@ -182,6 +187,7 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -191,6 +197,7 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -205,6 +212,7 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Hints_3_0Package.HINT__VALUE:
@@ -219,6 +227,7 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Hints_3_0Package.HINT__VALUE:
@@ -237,6 +246,7 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Hints_3_0Package.HINT__VALUE:
@@ -258,6 +268,7 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Hints_3_0Package.HINT__VALUE:
@@ -279,6 +290,7 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Hints_3_0Package.HINT__VALUE:
@@ -297,6 +309,7 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

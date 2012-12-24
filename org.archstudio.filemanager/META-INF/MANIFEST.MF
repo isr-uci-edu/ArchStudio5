@@ -8,4 +8,4 @@ Export-Package: org.archstudio.filemanager
 Require-Bundle: org.archstudio.xarchadt,
  org.eclipse.core.resources,
  org.eclipse.core.runtime
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

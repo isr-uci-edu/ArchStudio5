@@ -54,6 +54,7 @@ public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.SPELLS_CONTENT;
 	}
@@ -63,6 +64,7 @@ public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<SpellType> getSpell() {
 		if (spell == null) {
 			spell = new EObjectContainmentEList<SpellType>(SpellType.class, this, GexfPackage.SPELLS_CONTENT__SPELL);
@@ -76,6 +78,7 @@ public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GexfPackage.SPELLS_CONTENT__SPELL:
@@ -90,6 +93,7 @@ public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.SPELLS_CONTENT__SPELL:
@@ -103,6 +107,7 @@ public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -120,6 +125,7 @@ public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.SPELLS_CONTENT__SPELL:
@@ -135,6 +141,7 @@ public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.SPELLS_CONTENT__SPELL:

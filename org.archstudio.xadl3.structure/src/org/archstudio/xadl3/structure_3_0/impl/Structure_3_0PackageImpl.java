@@ -198,6 +198,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getBrick() {
 		return brickEClass;
 	}
@@ -207,6 +208,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getBrick_Interface() {
 		return (EReference) brickEClass.getEStructuralFeatures().get(0);
 	}
@@ -216,6 +218,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getBrick_SubStructure() {
 		return (EReference) brickEClass.getEStructuralFeatures().get(1);
 	}
@@ -225,6 +228,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBrick_Id() {
 		return (EAttribute) brickEClass.getEStructuralFeatures().get(2);
 	}
@@ -234,6 +238,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBrick_Name() {
 		return (EAttribute) brickEClass.getEStructuralFeatures().get(3);
 	}
@@ -243,6 +248,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getComponent() {
 		return componentEClass;
 	}
@@ -252,6 +258,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getComponent_Ext() {
 		return (EReference) componentEClass.getEStructuralFeatures().get(0);
 	}
@@ -261,6 +268,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getConnector() {
 		return connectorEClass;
 	}
@@ -270,6 +278,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getConnector_Ext() {
 		return (EReference) connectorEClass.getEStructuralFeatures().get(0);
 	}
@@ -279,6 +288,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getDocumentRoot() {
 		return documentRootEClass;
 	}
@@ -288,6 +298,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Mixed() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(0);
 	}
@@ -297,6 +308,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XMLNSPrefixMap() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(1);
 	}
@@ -306,6 +318,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XSISchemaLocation() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(2);
 	}
@@ -315,6 +328,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Structure() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(3);
 	}
@@ -324,6 +338,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getInterface() {
 		return interfaceEClass;
 	}
@@ -333,6 +348,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getInterface_Ext() {
 		return (EReference) interfaceEClass.getEStructuralFeatures().get(0);
 	}
@@ -342,6 +358,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterface_Direction() {
 		return (EAttribute) interfaceEClass.getEStructuralFeatures().get(1);
 	}
@@ -351,6 +368,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterface_Id() {
 		return (EAttribute) interfaceEClass.getEStructuralFeatures().get(2);
 	}
@@ -360,6 +378,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterface_Name() {
 		return (EAttribute) interfaceEClass.getEStructuralFeatures().get(3);
 	}
@@ -369,6 +388,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getInterfaceMapping() {
 		return interfaceMappingEClass;
 	}
@@ -378,6 +398,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getInterfaceMapping_OuterInterfaceLink() {
 		return (EReference) interfaceMappingEClass.getEStructuralFeatures().get(0);
 	}
@@ -387,6 +408,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getInterfaceMapping_InnerInterfaceLink() {
 		return (EReference) interfaceMappingEClass.getEStructuralFeatures().get(1);
 	}
@@ -396,6 +418,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getInterfaceMapping_Ext() {
 		return (EReference) interfaceMappingEClass.getEStructuralFeatures().get(2);
 	}
@@ -405,6 +428,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterfaceMapping_Id() {
 		return (EAttribute) interfaceMappingEClass.getEStructuralFeatures().get(3);
 	}
@@ -414,6 +438,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterfaceMapping_Name() {
 		return (EAttribute) interfaceMappingEClass.getEStructuralFeatures().get(4);
 	}
@@ -423,6 +448,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getLink() {
 		return linkEClass;
 	}
@@ -432,6 +458,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getLink_Point1() {
 		return (EReference) linkEClass.getEStructuralFeatures().get(0);
 	}
@@ -441,6 +468,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getLink_Point2() {
 		return (EReference) linkEClass.getEStructuralFeatures().get(1);
 	}
@@ -450,6 +478,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getLink_Ext() {
 		return (EReference) linkEClass.getEStructuralFeatures().get(2);
 	}
@@ -459,6 +488,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLink_Id() {
 		return (EAttribute) linkEClass.getEStructuralFeatures().get(3);
 	}
@@ -468,6 +498,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLink_Name() {
 		return (EAttribute) linkEClass.getEStructuralFeatures().get(4);
 	}
@@ -477,6 +508,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getStructure() {
 		return structureEClass;
 	}
@@ -486,6 +518,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getStructure_Component() {
 		return (EReference) structureEClass.getEStructuralFeatures().get(0);
 	}
@@ -495,6 +528,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getStructure_Connector() {
 		return (EReference) structureEClass.getEStructuralFeatures().get(1);
 	}
@@ -504,6 +538,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getStructure_Link() {
 		return (EReference) structureEClass.getEStructuralFeatures().get(2);
 	}
@@ -513,6 +548,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getStructure_Ext() {
 		return (EReference) structureEClass.getEStructuralFeatures().get(3);
 	}
@@ -522,6 +558,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStructure_Id() {
 		return (EAttribute) structureEClass.getEStructuralFeatures().get(4);
 	}
@@ -531,6 +568,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStructure_Name() {
 		return (EAttribute) structureEClass.getEStructuralFeatures().get(5);
 	}
@@ -540,6 +578,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getSubStructure() {
 		return subStructureEClass;
 	}
@@ -549,6 +588,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getSubStructure_InnerStructureLink() {
 		return (EReference) subStructureEClass.getEStructuralFeatures().get(0);
 	}
@@ -558,6 +598,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getSubStructure_InterfaceMapping() {
 		return (EReference) subStructureEClass.getEStructuralFeatures().get(1);
 	}
@@ -567,6 +608,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getSubStructure_Ext() {
 		return (EReference) subStructureEClass.getEStructuralFeatures().get(2);
 	}
@@ -576,6 +618,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSubStructure_Id() {
 		return (EAttribute) subStructureEClass.getEStructuralFeatures().get(3);
 	}
@@ -585,6 +628,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EEnum getDirection() {
 		return directionEEnum;
 	}
@@ -594,6 +638,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getDirectionObject() {
 		return directionObjectEDataType;
 	}
@@ -603,6 +648,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Structure_3_0Factory getStructure_3_0Factory() {
 		return (Structure_3_0Factory) getEFactoryInstance();
 	}

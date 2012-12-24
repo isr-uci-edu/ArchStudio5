@@ -42,15 +42,18 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 		updateDocTests();
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		super.createControl(parent);
 		getTreeViewer().expandToLevel(4);
 	}
 
+	@Override
 	protected ITreeContentProvider createViewContentProvider() {
 		return new ViewContentProvider();
 	}
 
+	@Override
 	protected ILabelProvider createViewLabelProvider() {
 		return new ViewLabelProvider();
 	}
@@ -63,6 +66,7 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 		doctests = ArchlightUtils.loadDocTests(xarch, documentRootRef);
 	}
 
+	@Override
 	public void updateOutlinePage() {
 		updateTests();
 		updateDocTests();
@@ -94,10 +98,12 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 	class ViewContentProvider implements ITreeContentProvider {
 		private Object[] EMPTY_ARRAY = new Object[0];
 
+		@Override
 		public Object[] getElements(Object inputElement) {
 			return getChildren(inputElement);
 		}
 
+		@Override
 		public Object[] getChildren(Object parentElement) {
 			if (parentElement instanceof IWorkbenchSite) {
 				ObjRef xADLRef = (ObjRef) xarch.get(documentRootRef, "xADL");
@@ -151,6 +157,7 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 				}
 				//Sort the list of children
 				Collections.sort(children, new Comparator<Object>() {
+					@Override
 					public int compare(Object o1, Object o2) {
 						if (o1 instanceof FolderNode && o2 instanceof ArchlightTest) {
 							return -1; //folders always before tests
@@ -176,10 +183,12 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 			return EMPTY_ARRAY;
 		}
 
+		@Override
 		public Object getParent(Object element) {
 			return null;
 		}
 
+		@Override
 		public boolean hasChildren(Object element) {
 			if (element instanceof IWorkbenchSite) {
 				return true;
@@ -196,14 +205,17 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 			return false;
 		}
 
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 
+		@Override
 		public void dispose() {
 		}
 	}
 
 	class ViewLabelProvider extends LabelProvider implements ILabelProvider {
+		@Override
 		public Image getImage(Object element) {
 			if (element instanceof ObjRef) {
 				return resources.getPlatformImage(ISharedImages.IMG_OBJ_FOLDER);
@@ -225,6 +237,7 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 			return null;
 		}
 
+		@Override
 		public String getText(Object element) {
 			if (element instanceof ObjRef) {
 				String uri = xarch.getURI(xarch.getDocumentRootRef((ObjRef) element)).toString();
@@ -257,10 +270,12 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 		}
 	}
 
+	@Override
 	protected void fillContextMenu(IMenuManager menuMgr) {
 		Object[] selectedNodes = getSelectedNodes();
 		if (selectedNodes.length == 0) {
 			Action noAction = new Action("[No Selection]") {
+				@Override
 				public void run() {
 				}
 			};
@@ -269,6 +284,7 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 		}
 		else if (selectedNodes.length > 1) {
 			Action noAction = new Action("[Select One Node for Menu]") {
+				@Override
 				public void run() {
 				}
 			};
@@ -281,6 +297,7 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 					resources, node);
 			if (actions.isEmpty()) {
 				Action noAction = new Action("[No Actions]") {
+					@Override
 					public void run() {
 					}
 				};
@@ -294,6 +311,7 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 		menuMgr.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
 
+	@Override
 	public void focusEditor(String editorName, ObjRef[] refs) {
 	}
 }

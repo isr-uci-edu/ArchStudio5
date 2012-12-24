@@ -21,6 +21,7 @@ public class XadlTreeLabelProvider extends LabelProvider implements ILabelProvid
 		ArchStudioCommonResources.init(resources);
 	}
 
+	@Override
 	public String getText(Object element) {
 		if (element == null) {
 			return "null";
@@ -61,6 +62,7 @@ public class XadlTreeLabelProvider extends LabelProvider implements ILabelProvid
 		return super.getText(element);
 	}
 
+	@Override
 	public Image getImage(Object element) {
 		if (element instanceof ObjRef) {
 			ObjRef ref = (ObjRef) element;

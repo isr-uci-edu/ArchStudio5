@@ -88,6 +88,7 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.META_CONTENT;
 	}
@@ -97,6 +98,7 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getGroup() {
 		if (group == null) {
 			group = new BasicFeatureMap(this, GexfPackage.META_CONTENT__GROUP);
@@ -109,6 +111,7 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<String> getCreator() {
 		return getGroup().list(GexfPackage.Literals.META_CONTENT__CREATOR);
 	}
@@ -118,6 +121,7 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<String> getKeywords() {
 		return getGroup().list(GexfPackage.Literals.META_CONTENT__KEYWORDS);
 	}
@@ -127,6 +131,7 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<String> getDescription() {
 		return getGroup().list(GexfPackage.Literals.META_CONTENT__DESCRIPTION);
 	}
@@ -136,6 +141,7 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public XMLGregorianCalendar getLastmodifieddate() {
 		return lastmodifieddate;
 	}
@@ -145,6 +151,7 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setLastmodifieddate(XMLGregorianCalendar newLastmodifieddate) {
 		XMLGregorianCalendar oldLastmodifieddate = lastmodifieddate;
 		lastmodifieddate = newLastmodifieddate;
@@ -160,6 +167,7 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GexfPackage.META_CONTENT__GROUP:
@@ -174,6 +182,7 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.META_CONTENT__GROUP:
@@ -198,6 +207,7 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -229,6 +239,7 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.META_CONTENT__GROUP:
@@ -256,6 +267,7 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.META_CONTENT__GROUP:
@@ -279,6 +291,7 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

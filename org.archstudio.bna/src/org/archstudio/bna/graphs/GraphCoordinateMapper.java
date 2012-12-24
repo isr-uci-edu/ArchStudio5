@@ -27,6 +27,7 @@ public class GraphCoordinateMapper extends AbstractCoordinateMapper implements I
 		this.yAxisType = yAxisType;
 	}
 
+	@Override
 	public Rectangle getLocalBounds() {
 		return new Rectangle(//
 				BNAUtils.round(worldBounds.x * localScale), //
@@ -53,6 +54,7 @@ public class GraphCoordinateMapper extends AbstractCoordinateMapper implements I
 		fireCoordinateMapperEvent(EventType.OTHER);
 	}
 
+	@Override
 	public Point worldToLocal(Point worldPoint) {
 
 		double x = worldPoint.x;
@@ -79,6 +81,7 @@ public class GraphCoordinateMapper extends AbstractCoordinateMapper implements I
 		return new Point(BNAUtils.round(x), BNAUtils.round(y));
 	}
 
+	@Override
 	public Point2D worldToLocal(Point2D worldPoint) {
 
 		double x = worldPoint.getX();
@@ -105,6 +108,7 @@ public class GraphCoordinateMapper extends AbstractCoordinateMapper implements I
 		return new Point2D.Double(x, y);
 	}
 
+	@Override
 	public Point localToWorld(Point localPoint) {
 
 		double x = localPoint.x;
@@ -131,6 +135,7 @@ public class GraphCoordinateMapper extends AbstractCoordinateMapper implements I
 		return new Point(BNAUtils.round(x), BNAUtils.round(y));
 	}
 
+	@Override
 	public Point2D localToWorld(Point2D localPoint) {
 
 		double x = localPoint.getX();

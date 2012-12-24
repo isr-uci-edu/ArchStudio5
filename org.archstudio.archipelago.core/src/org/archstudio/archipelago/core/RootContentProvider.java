@@ -21,6 +21,7 @@ public class RootContentProvider implements IArchipelagoTreeContentProvider {
 		this.xarch = AS.get(IXArchADT.class);
 	}
 
+	@Override
 	public List<? extends Object> getChildren(Object parentElement, List<? extends Object> childrenFromPreviousProvider) {
 		if (parentElement instanceof IWorkbenchSite) {
 			ObjRef xADLRef = (ObjRef) xarch.get(documentRootRef, "xADL");
@@ -31,10 +32,12 @@ public class RootContentProvider implements IArchipelagoTreeContentProvider {
 		return childrenFromPreviousProvider;
 	}
 
+	@Override
 	public Object getParent(Object element, Object parentFromPreviousProvider) {
 		return parentFromPreviousProvider;
 	}
 
+	@Override
 	public boolean hasChildren(Object element, boolean hasChildrenFromPreviousProvider) {
 		if (element instanceof IWorkbenchSite) {
 			return true;
@@ -42,9 +45,11 @@ public class RootContentProvider implements IArchipelagoTreeContentProvider {
 		return hasChildrenFromPreviousProvider;
 	}
 
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
 
+	@Override
 	public void dispose() {
 	}
 }

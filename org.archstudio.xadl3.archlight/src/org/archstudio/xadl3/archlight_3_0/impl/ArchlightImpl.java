@@ -67,6 +67,7 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Archlight_3_0Package.Literals.ARCHLIGHT;
 	}
@@ -76,6 +77,7 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Test> getTest() {
 		if (test == null) {
 			test = new EObjectContainmentEList<Test>(Test.class, this, Archlight_3_0Package.ARCHLIGHT__TEST);
@@ -88,6 +90,7 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this, Archlight_3_0Package.ARCHLIGHT__EXT);
@@ -101,6 +104,7 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Archlight_3_0Package.ARCHLIGHT__TEST:
@@ -117,6 +121,7 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Archlight_3_0Package.ARCHLIGHT__TEST:
@@ -132,6 +137,7 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -153,6 +159,7 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Archlight_3_0Package.ARCHLIGHT__TEST:
@@ -171,6 +178,7 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Archlight_3_0Package.ARCHLIGHT__TEST:

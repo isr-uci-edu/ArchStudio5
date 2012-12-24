@@ -33,8 +33,10 @@ public interface TypedMap {
 
 	public Set<? extends Map.Entry<? extends Key<?>, ?>> entrySet();
 
+	@Override
 	public boolean equals(Object o);
 
+	@Override
 	public int hashCode();
 
 	Map<? extends Key<?>, ?> asMap();

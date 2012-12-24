@@ -3,6 +3,7 @@ package org.archstudio.archlight;
 public enum DoubleClickAction {
 	OPEN_DETAIL_WINDOW, FOCUS_IN_DEFAULT_EDITOR;
 
+	@Override
 	public String toString() {
 		switch (this) {
 		case OPEN_DETAIL_WINDOW:

@@ -65,6 +65,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Statechart_1_0Package.BEHAVIOR:
@@ -98,6 +99,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * @generated
 	 */
 
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 		case Statechart_1_0Package.STATE_TYPE:
@@ -115,6 +117,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * @generated
 	 */
 
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 		case Statechart_1_0Package.STATE_TYPE:
@@ -131,6 +134,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Behavior createBehavior() {
 		BehaviorImpl behavior = new BehaviorImpl();
 		return behavior;
@@ -141,6 +145,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Constraint createConstraint() {
 		ConstraintImpl constraint = new ConstraintImpl();
 		return constraint;
@@ -151,6 +156,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public DocumentRoot createDocumentRoot() {
 		DocumentRootImpl documentRoot = new DocumentRootImpl();
 		return documentRoot;
@@ -161,6 +167,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public FinalState createFinalState() {
 		FinalStateImpl finalState = new FinalStateImpl();
 		return finalState;
@@ -171,6 +178,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public InitialState createInitialState() {
 		InitialStateImpl initialState = new InitialStateImpl();
 		return initialState;
@@ -181,6 +189,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public PseudoState createPseudoState() {
 		PseudoStateImpl pseudoState = new PseudoStateImpl();
 		return pseudoState;
@@ -191,6 +200,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public State createState() {
 		StateImpl state = new StateImpl();
 		return state;
@@ -201,6 +211,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Statechart createStatechart() {
 		StatechartImpl statechart = new StatechartImpl();
 		return statechart;
@@ -211,6 +222,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SubStatechart createSubStatechart() {
 		SubStatechartImpl subStatechart = new SubStatechartImpl();
 		return subStatechart;
@@ -221,6 +233,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Transition createTransition() {
 		TransitionImpl transition = new TransitionImpl();
 		return transition;
@@ -272,6 +285,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Statechart_1_0Package getStatechart_1_0Package() {
 		return (Statechart_1_0Package) getEPackage();
 	}

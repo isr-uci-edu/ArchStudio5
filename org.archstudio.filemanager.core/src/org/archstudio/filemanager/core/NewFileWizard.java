@@ -42,6 +42,7 @@ public class NewFileWizard extends Wizard implements INewWizard {
 	public NewFileWizard() {
 	}
 
+	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		InstantiateArchStudio.instantiate();
 		comp = er.waitForBrick(FileManagerMyxComponent.class);
@@ -54,11 +55,13 @@ public class NewFileWizard extends Wizard implements INewWizard {
 		//setDefaultPageImageDescriptor(ReadmeImages.README_WIZARD_BANNER);
 	}
 
+	@Override
 	public void addPages() {
 		mainPage = new NewFileCreationPage(workbench, selection);
 		addPage(mainPage);
 	}
 
+	@Override
 	public boolean performFinish() {
 		IPath containerPath = mainPage.getContainerFullPath();
 		String fileName = mainPage.getFileName();
@@ -111,6 +114,7 @@ public class NewFileWizard extends Wizard implements INewWizard {
 			setTitle("New Architecture Description");
 		}
 
+		@Override
 		public void createControl(Composite parent) {
 			super.createControl(parent);
 		}

@@ -122,6 +122,7 @@ public class Myxgen_3_0PackageImpl extends EPackageImpl implements Myxgen_3_0Pac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getMyxGen() {
 		return myxGenEClass;
 	}
@@ -131,6 +132,7 @@ public class Myxgen_3_0PackageImpl extends EPackageImpl implements Myxgen_3_0Pac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMyxGen_BrickID() {
 		return (EAttribute) myxGenEClass.getEStructuralFeatures().get(0);
 	}
@@ -140,6 +142,7 @@ public class Myxgen_3_0PackageImpl extends EPackageImpl implements Myxgen_3_0Pac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Myxgen_3_0Factory getMyxgen_3_0Factory() {
 		return (Myxgen_3_0Factory) getEFactoryInstance();
 	}

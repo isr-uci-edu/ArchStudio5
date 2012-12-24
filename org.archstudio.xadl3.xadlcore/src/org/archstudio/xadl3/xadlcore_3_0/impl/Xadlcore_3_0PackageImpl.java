@@ -134,6 +134,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getDocumentRoot() {
 		return documentRootEClass;
 	}
@@ -143,6 +144,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Mixed() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(0);
 	}
@@ -152,6 +154,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XMLNSPrefixMap() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(1);
 	}
@@ -161,6 +164,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XSISchemaLocation() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(2);
 	}
@@ -170,6 +174,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_TopLevelElement() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(3);
 	}
@@ -179,6 +184,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XADL() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(4);
 	}
@@ -188,6 +194,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getExtension() {
 		return extensionEClass;
 	}
@@ -197,6 +204,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getSimpleLink() {
 		return simpleLinkEClass;
 	}
@@ -206,6 +214,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSimpleLink_Href() {
 		return (EAttribute) simpleLinkEClass.getEStructuralFeatures().get(0);
 	}
@@ -215,6 +224,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSimpleLink_Id() {
 		return (EAttribute) simpleLinkEClass.getEStructuralFeatures().get(1);
 	}
@@ -224,6 +234,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSimpleLink_Type() {
 		return (EAttribute) simpleLinkEClass.getEStructuralFeatures().get(2);
 	}
@@ -233,6 +244,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getXADLType() {
 		return xadlTypeEClass;
 	}
@@ -242,6 +254,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getXADLType_TopLevelElement() {
 		return (EReference) xadlTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -251,6 +264,7 @@ public class Xadlcore_3_0PackageImpl extends EPackageImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Xadlcore_3_0Factory getXadlcore_3_0Factory() {
 		return (Xadlcore_3_0Factory) getEFactoryInstance();
 	}

@@ -143,6 +143,7 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getImplementation() {
 		return implementationEClass;
 	}
@@ -152,6 +153,7 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getImplementation_Id() {
 		return (EAttribute) implementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -161,6 +163,7 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getImplementationExtension() {
 		return implementationExtensionEClass;
 	}
@@ -170,6 +173,7 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getImplementationExtension_Implementation() {
 		return (EReference) implementationExtensionEClass.getEStructuralFeatures().get(0);
 	}
@@ -179,6 +183,7 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getInitializationParameter() {
 		return initializationParameterEClass;
 	}
@@ -188,6 +193,7 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getInitializationParameter_Ext() {
 		return (EReference) initializationParameterEClass.getEStructuralFeatures().get(0);
 	}
@@ -197,6 +203,7 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInitializationParameter_Key() {
 		return (EAttribute) initializationParameterEClass.getEStructuralFeatures().get(1);
 	}
@@ -206,6 +213,7 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInitializationParameter_Value() {
 		return (EAttribute) initializationParameterEClass.getEStructuralFeatures().get(2);
 	}
@@ -215,6 +223,7 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getInitializationParametersImplementation() {
 		return initializationParametersImplementationEClass;
 	}
@@ -224,6 +233,7 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getInitializationParametersImplementation_InitializationParameter() {
 		return (EReference) initializationParametersImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -233,6 +243,7 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Implementation_3_0Factory getImplementation_3_0Factory() {
 		return (Implementation_3_0Factory) getEFactoryInstance();
 	}

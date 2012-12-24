@@ -19,6 +19,7 @@ public class StructureRemoveContextMenuFiller extends AbstractRemoveContextMenuF
 		this.xarch = AS.get(IXArchADT.class);
 	}
 
+	@Override
 	protected boolean matches(Object node) {
 		if (node != null) {
 			if (node instanceof ObjRef) {
@@ -31,6 +32,7 @@ public class StructureRemoveContextMenuFiller extends AbstractRemoveContextMenuF
 		return false;
 	}
 
+	@Override
 	protected void remove(ObjRef targetRef) {
 		if (targetRef != null) {
 			if (XadlUtils.isInstanceOf(xarch, targetRef, Structure_3_0Package.Literals.STRUCTURE)) {

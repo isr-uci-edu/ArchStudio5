@@ -13,6 +13,7 @@ public abstract class AbstractRelativeMovableReferencePointThing extends Abstrac
 		super(id);
 	}
 
+	@Override
 	public void setReferencePoint(Point worldPoint) {
 		Point referencePoint = getReferencePoint();
 		moveRelative(new Point(worldPoint.x - referencePoint.x, worldPoint.y - referencePoint.y));

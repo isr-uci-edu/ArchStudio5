@@ -9,6 +9,7 @@ public enum EMyxInterfaceDirection {
 		this.stringRepresentation = stringRepresentation;
 	}
 
+	@Override
 	public String toString() {
 		return stringRepresentation;
 	}

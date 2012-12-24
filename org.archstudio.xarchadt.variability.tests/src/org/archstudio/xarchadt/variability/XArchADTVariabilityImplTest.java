@@ -42,10 +42,12 @@ public class XArchADTVariabilityImplTest extends AbstractXArchADTTest {
 	XADLType xadlType;
 	Structure structure;
 
+	@Override
 	protected IXArchADT createXArch() {
 		return new XArchADTVariabilityImpl();
 	}
 
+	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 

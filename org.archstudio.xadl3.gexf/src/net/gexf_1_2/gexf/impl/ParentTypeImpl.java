@@ -58,6 +58,7 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.PARENT_TYPE;
 	}
@@ -67,6 +68,7 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getFor() {
 		return for_;
 	}
@@ -76,6 +78,7 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setFor(Object newFor) {
 		Object oldFor = for_;
 		for_ = newFor;
@@ -90,6 +93,7 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.PARENT_TYPE__FOR:
@@ -104,6 +108,7 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.PARENT_TYPE__FOR:
@@ -119,6 +124,7 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.PARENT_TYPE__FOR:
@@ -134,6 +140,7 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.PARENT_TYPE__FOR:
@@ -148,6 +155,7 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

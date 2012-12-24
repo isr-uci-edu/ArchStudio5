@@ -57,6 +57,7 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Implementation_3_0Package.Literals.INITIALIZATION_PARAMETERS_IMPLEMENTATION;
 	}
@@ -66,6 +67,7 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<InitializationParameter> getInitializationParameter() {
 		if (initializationParameter == null) {
 			initializationParameter = new EObjectContainmentEList<InitializationParameter>(
@@ -81,6 +83,7 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
@@ -95,6 +98,7 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
@@ -108,6 +112,7 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -125,6 +130,7 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
@@ -140,6 +146,7 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:

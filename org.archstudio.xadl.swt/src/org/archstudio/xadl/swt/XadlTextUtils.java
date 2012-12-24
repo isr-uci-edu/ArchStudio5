@@ -22,10 +22,12 @@ public class XadlTextUtils {
 			text.setLayoutData(layoutData);
 		}
 		text.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String input = text.getText();
 				try {

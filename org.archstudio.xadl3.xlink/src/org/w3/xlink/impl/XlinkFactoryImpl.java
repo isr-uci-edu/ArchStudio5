@@ -54,6 +54,7 @@ public class XlinkFactoryImpl extends EFactoryImpl implements XlinkFactory {
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case XlinkPackage.DOCUMENT_ROOT:
@@ -68,6 +69,7 @@ public class XlinkFactoryImpl extends EFactoryImpl implements XlinkFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public DocumentRoot createDocumentRoot() {
 		DocumentRootImpl documentRoot = new DocumentRootImpl();
 		return documentRoot;
@@ -78,6 +80,7 @@ public class XlinkFactoryImpl extends EFactoryImpl implements XlinkFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public XlinkPackage getXlinkPackage() {
 		return (XlinkPackage) getEPackage();
 	}

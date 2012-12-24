@@ -54,6 +54,7 @@ public class Lookupimplementation_3_0FactoryImpl extends EFactoryImpl implements
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION:
@@ -68,6 +69,7 @@ public class Lookupimplementation_3_0FactoryImpl extends EFactoryImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public LookupImplementation createLookupImplementation() {
 		LookupImplementationImpl lookupImplementation = new LookupImplementationImpl();
 		return lookupImplementation;
@@ -78,6 +80,7 @@ public class Lookupimplementation_3_0FactoryImpl extends EFactoryImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Lookupimplementation_3_0Package getLookupimplementation_3_0Package() {
 		return (Lookupimplementation_3_0Package) getEPackage();
 	}

@@ -56,6 +56,7 @@ public class Statechart_1_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -74,46 +75,57 @@ public class Statechart_1_0AdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected Statechart_1_0Switch<Adapter> modelSwitch = new Statechart_1_0Switch<Adapter>() {
 
+		@Override
 		public Adapter caseBehavior(Behavior object) {
 			return createBehaviorAdapter();
 		}
 
+		@Override
 		public Adapter caseConstraint(Constraint object) {
 			return createConstraintAdapter();
 		}
 
+		@Override
 		public Adapter caseDocumentRoot(DocumentRoot object) {
 			return createDocumentRootAdapter();
 		}
 
+		@Override
 		public Adapter caseFinalState(FinalState object) {
 			return createFinalStateAdapter();
 		}
 
+		@Override
 		public Adapter caseInitialState(InitialState object) {
 			return createInitialStateAdapter();
 		}
 
+		@Override
 		public Adapter casePseudoState(PseudoState object) {
 			return createPseudoStateAdapter();
 		}
 
+		@Override
 		public Adapter caseState(State object) {
 			return createStateAdapter();
 		}
 
+		@Override
 		public Adapter caseStatechart(Statechart object) {
 			return createStatechartAdapter();
 		}
 
+		@Override
 		public Adapter caseSubStatechart(SubStatechart object) {
 			return createSubStatechartAdapter();
 		}
 
+		@Override
 		public Adapter caseTransition(Transition object) {
 			return createTransitionAdapter();
 		}
 
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -129,6 +141,7 @@ public class Statechart_1_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

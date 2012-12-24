@@ -13,16 +13,20 @@ public class ArchStudioNature implements IProjectNature {
 	public ArchStudioNature() {
 	}
 
+	@Override
 	public void configure() throws CoreException {
 	}
 
+	@Override
 	public void deconfigure() throws CoreException {
 	}
 
+	@Override
 	public IProject getProject() {
 		return theProject;
 	}
 
+	@Override
 	public void setProject(IProject project) {
 		theProject = project;
 	}

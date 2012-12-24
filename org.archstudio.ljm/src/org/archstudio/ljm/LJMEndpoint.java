@@ -46,6 +46,7 @@ public class LJMEndpoint implements java.io.Serializable {
 		return objectName;
 	}
 
+	@Override
 	public String toString() {
 		return "LJMEndpoint{host=\"" + host + "\", port=\"" + port + "\", objectName=\"" + objectName + "\"};";
 	}

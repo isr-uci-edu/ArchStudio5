@@ -48,6 +48,7 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 		return (int) nfs;
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		lastTextLocalShape = null;
 		if (r.setColor(t, IHasColor.COLOR_KEY)) {
@@ -172,6 +173,7 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 		//		tr.endRendering();
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		if (lastTextLocalShape != null) {
 			Point lPoint = location.getLocalPoint();

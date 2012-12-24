@@ -63,12 +63,14 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 	protected abstract boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts,
 			ICoordinate location, Object data);
 
+	@Override
 	public void dragEnter(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (acceptDrop(view, event, ts, location)) {
 			event.detail = DND.DROP_LINK;
 		}
 	}
 
+	@Override
 	public void dragLeave(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (pulser != null) {
 			view.getBNAWorld().getBNAModel().removeThing(pulser);
@@ -76,6 +78,7 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 		}
 	}
 
+	@Override
 	public void dragOver(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (acceptDrop(view, event, ts, location)) {
 			IThing t = getSingleThing(ts);
@@ -101,6 +104,7 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 		}
 	}
 
+	@Override
 	public void dropAccept(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (acceptDrop(view, event, ts, location)) {
 			event.detail = DND.DROP_LINK;
@@ -114,9 +118,11 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 		}
 	}
 
+	@Override
 	public void dragOperationChanged(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 	}
 
+	@Override
 	public void drop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 	}
 

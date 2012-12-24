@@ -39,11 +39,13 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 	public FileManagerMyxComponent() {
 	}
 
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.map(this, this);
 	}
 
+	@Override
 	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		ObjRef documentRootRef = xarch.getDocumentRootRef(evt.getSource());
 		if (documentRootRef != null) {
@@ -51,6 +53,7 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 		}
 	}
 
+	@Override
 	public void handleXArchADTFileEvent(XArchADTFileEvent evt) {
 		// TODO: When a file is closed, cleanup openerMap, send notifications, etc.
 	}
@@ -63,16 +66,19 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 		return URI.createFileURI(f.getPath());
 	}
 
+	@Override
 	public boolean isOpen(IFile f) {
 		URI uri = getURI(f);
 		return xarch.getOpenURIs().contains(uri);
 	}
 
+	@Override
 	public ObjRef getDocumentRootRef(IFile f) {
 		URI uri = getURI(f);
 		return xarch.getDocumentRootRef(uri);
 	}
 
+	@Override
 	public ObjRef open(String toolID, IFile f) throws CantOpenFileException {
 		InputStream is = null;
 		OutputStream os = null;
@@ -111,6 +117,7 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 		}
 	}
 
+	@Override
 	public ObjRef open(String toolID, java.io.File f) throws CantOpenFileException {
 		InputStream is = null;
 		OutputStream os = null;
@@ -149,6 +156,7 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 		}
 	}
 
+	@Override
 	public void close(String toolID, ObjRef documentRootRef) {
 		List<String> toolList = openerMap.get(documentRootRef);
 		URI uri = xarch.getURI(documentRootRef);
@@ -164,6 +172,7 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 		}
 	}
 
+	@Override
 	public void makeDirty(ObjRef xArchRef) {
 		checkNotNull(xArchRef);
 
@@ -174,6 +183,7 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 		fileManagerEventsProxy.fileDirtyStateChanged(xArchRef, true);
 	}
 
+	@Override
 	public void makeClean(ObjRef xArchRef) {
 		checkNotNull(xArchRef);
 
@@ -184,10 +194,12 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 		fileManagerEventsProxy.fileDirtyStateChanged(xArchRef, false);
 	}
 
+	@Override
 	public boolean isDirty(ObjRef xArchRef) {
 		return dirtySet.contains(xArchRef);
 	}
 
+	@Override
 	public void save(ObjRef xArchRef, IProgressMonitor monitor) {
 		if (monitor != null) {
 			monitor.beginTask("Saving File", 100);
@@ -222,6 +234,7 @@ public class FileManagerMyxComponent extends org.archstudio.filemanager.core.Fil
 		monitor.done();
 	}
 
+	@Override
 	public void saveAs(ObjRef xArchRef, IFile f) {
 	}
 }

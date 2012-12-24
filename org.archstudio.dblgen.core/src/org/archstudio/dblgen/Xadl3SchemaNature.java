@@ -13,6 +13,7 @@ public class Xadl3SchemaNature extends AbstractNature {
 		super(NATURE_ID, Xadl3SchemaBuilder.BUILDER_ID);
 	}
 
+	@Override
 	public void configure() throws CoreException {
 		super.configure();
 

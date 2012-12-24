@@ -26,7 +26,9 @@ import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 public interface IThingRefMetakey<T extends IThing, N, K extends IThingKey<?>> extends IThingRefKey<T>,
 		IThingMetakey<N, K, Object> {
 
+	@Override
 	N getName();
 
+	@Override
 	K getKey();
 }

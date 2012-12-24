@@ -50,6 +50,7 @@ public class Hints_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -68,22 +69,27 @@ public class Hints_3_0AdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected Hints_3_0Switch<Adapter> modelSwitch = new Hints_3_0Switch<Adapter>() {
 
+		@Override
 		public Adapter caseHint(Hint object) {
 			return createHintAdapter();
 		}
 
+		@Override
 		public Adapter caseHintsExtension(HintsExtension object) {
 			return createHintsExtensionAdapter();
 		}
 
+		@Override
 		public Adapter caseValue(Value object) {
 			return createValueAdapter();
 		}
 
+		@Override
 		public Adapter caseExtension(Extension object) {
 			return createExtensionAdapter();
 		}
 
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -99,6 +105,7 @@ public class Hints_3_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

@@ -80,6 +80,7 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Osgiimplementation_3_0Package.Literals.OS_GI_IMPLEMENTATION;
 	}
@@ -89,6 +90,7 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this,
@@ -102,6 +104,7 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getBundle() {
 		return bundle;
 	}
@@ -111,6 +114,7 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setBundle(String newBundle) {
 		String oldBundle = bundle;
 		bundle = newBundle;
@@ -126,6 +130,7 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
@@ -140,6 +145,7 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
@@ -155,6 +161,7 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -175,6 +182,7 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
@@ -193,6 +201,7 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
@@ -209,6 +218,7 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

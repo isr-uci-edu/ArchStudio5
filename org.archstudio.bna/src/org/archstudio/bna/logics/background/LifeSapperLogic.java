@@ -15,6 +15,7 @@ public class LifeSapperLogic extends AbstractThingLogic {
 	public LifeSapperLogic() {
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 		typeLogic = addThingLogic(ThingTypeTrackingLogic.class);
@@ -24,6 +25,7 @@ public class LifeSapperLogic extends AbstractThingLogic {
 		sapper.start();
 	}
 
+	@Override
 	protected void destroy() {
 		if (sapper != null) {
 			sapper.terminate();
@@ -43,6 +45,7 @@ public class LifeSapperLogic extends AbstractThingLogic {
 			shouldTerminate = true;
 		}
 
+		@Override
 		public void run() {
 			while (!shouldTerminate) {
 				try {
@@ -52,6 +55,7 @@ public class LifeSapperLogic extends AbstractThingLogic {
 				}
 
 				Display.getDefault().syncExec(new Runnable() {
+					@Override
 					public void run() {
 						final IBNAModel model = getBNAModel();
 						if (model != null) {

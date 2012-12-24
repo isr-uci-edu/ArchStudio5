@@ -226,6 +226,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.NODE_CONTENT;
 	}
@@ -235,6 +236,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getGroup() {
 		if (group == null) {
 			group = new BasicFeatureMap(this, GexfPackage.NODE_CONTENT__GROUP);
@@ -247,6 +249,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<AttvaluesContent> getAttvalues() {
 		return getGroup().list(GexfPackage.Literals.NODE_CONTENT__ATTVALUES);
 	}
@@ -256,6 +259,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<SpellsContent> getSpells() {
 		return getGroup().list(GexfPackage.Literals.NODE_CONTENT__SPELLS);
 	}
@@ -265,6 +269,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<NodesContent> getNodes() {
 		return getGroup().list(GexfPackage.Literals.NODE_CONTENT__NODES);
 	}
@@ -274,6 +279,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<EdgesContent> getEdges() {
 		return getGroup().list(GexfPackage.Literals.NODE_CONTENT__EDGES);
 	}
@@ -283,6 +289,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<ParentsContent> getParents() {
 		return getGroup().list(GexfPackage.Literals.NODE_CONTENT__PARENTS);
 	}
@@ -292,6 +299,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<ColorContent> getColor() {
 		return getGroup().list(GexfPackage.Literals.NODE_CONTENT__COLOR);
 	}
@@ -301,6 +309,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<PositionContent> getPosition() {
 		return getGroup().list(GexfPackage.Literals.NODE_CONTENT__POSITION);
 	}
@@ -310,6 +319,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<SizeContent> getSize() {
 		return getGroup().list(GexfPackage.Literals.NODE_CONTENT__SIZE);
 	}
@@ -319,6 +329,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<NodeShapeContent> getShape() {
 		return getGroup().list(GexfPackage.Literals.NODE_CONTENT__SHAPE);
 	}
@@ -328,6 +339,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEnd() {
 		return end;
 	}
@@ -337,6 +349,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEnd(Object newEnd) {
 		Object oldEnd = end;
 		end = newEnd;
@@ -350,6 +363,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEndopen() {
 		return endopen;
 	}
@@ -359,6 +373,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEndopen(Object newEndopen) {
 		Object oldEndopen = endopen;
 		endopen = newEndopen;
@@ -373,6 +388,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getId() {
 		return id;
 	}
@@ -382,6 +398,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(Object newId) {
 		Object oldId = id;
 		id = newId;
@@ -395,6 +412,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getLabel() {
 		return label;
 	}
@@ -404,6 +422,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setLabel(String newLabel) {
 		String oldLabel = label;
 		label = newLabel;
@@ -417,6 +436,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getPid() {
 		return pid;
 	}
@@ -426,6 +446,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setPid(Object newPid) {
 		Object oldPid = pid;
 		pid = newPid;
@@ -439,6 +460,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStart() {
 		return start;
 	}
@@ -448,6 +470,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStart(Object newStart) {
 		Object oldStart = start;
 		start = newStart;
@@ -461,6 +484,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStartopen() {
 		return startopen;
 	}
@@ -470,6 +494,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStartopen(Object newStartopen) {
 		Object oldStartopen = startopen;
 		startopen = newStartopen;
@@ -485,6 +510,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GexfPackage.NODE_CONTENT__GROUP:
@@ -517,6 +543,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.NODE_CONTENT__GROUP:
@@ -565,6 +592,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -638,6 +666,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.NODE_CONTENT__GROUP:
@@ -701,6 +730,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.NODE_CONTENT__GROUP:
@@ -747,6 +777,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

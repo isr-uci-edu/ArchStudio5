@@ -20,6 +20,7 @@ public class RootLabelProvider implements IArchipelagoLabelProvider {
 		this.resources = AS.get(IResources.class);
 	}
 
+	@Override
 	public String getText(Object element, String textFromPreviousProvider) {
 		if (element instanceof ObjRef) {
 			ObjRef ref = (ObjRef) element;
@@ -33,6 +34,7 @@ public class RootLabelProvider implements IArchipelagoLabelProvider {
 		return textFromPreviousProvider;
 	}
 
+	@Override
 	public Image getImage(Object element, Image imageFromPreviousProvider) {
 		if (element instanceof ObjRef) {
 			ObjRef ref = (ObjRef) element;

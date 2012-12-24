@@ -56,6 +56,7 @@ public class Implementation_3_0FactoryImpl extends EFactoryImpl implements Imple
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Implementation_3_0Package.IMPLEMENTATION_EXTENSION:
@@ -74,6 +75,7 @@ public class Implementation_3_0FactoryImpl extends EFactoryImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ImplementationExtension createImplementationExtension() {
 		ImplementationExtensionImpl implementationExtension = new ImplementationExtensionImpl();
 		return implementationExtension;
@@ -84,6 +86,7 @@ public class Implementation_3_0FactoryImpl extends EFactoryImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public InitializationParameter createInitializationParameter() {
 		InitializationParameterImpl initializationParameter = new InitializationParameterImpl();
 		return initializationParameter;
@@ -94,6 +97,7 @@ public class Implementation_3_0FactoryImpl extends EFactoryImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public InitializationParametersImplementation createInitializationParametersImplementation() {
 		InitializationParametersImplementationImpl initializationParametersImplementation = new InitializationParametersImplementationImpl();
 		return initializationParametersImplementation;
@@ -104,6 +108,7 @@ public class Implementation_3_0FactoryImpl extends EFactoryImpl implements Imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Implementation_3_0Package getImplementation_3_0Package() {
 		return (Implementation_3_0Package) getEPackage();
 	}

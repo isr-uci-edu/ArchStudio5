@@ -25,6 +25,7 @@ public class _jet_MyxCompStubjava implements JET2Template {
 	private static final TagInfo _td_java_merge_6_1 = new TagInfo("java:merge", //$NON-NLS-1$
 			6, 1, new String[] {}, new String[] {});
 
+	@Override
 	public void generate(final JET2Context context, final JET2Writer __out) {
 		JET2Writer out = __out;
 		RuntimeTagElement _jettag_java_merge_6_1 = context.getTagFactory().createRuntimeTag(_jetns_java,

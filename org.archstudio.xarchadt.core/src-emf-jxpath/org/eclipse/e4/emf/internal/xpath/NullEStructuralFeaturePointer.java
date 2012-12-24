@@ -52,45 +52,56 @@ public class NullEStructuralFeaturePointer extends EStructuralFeaturePointer {
 		super(parent);
 	}
 
+	@Override
 	public QName getName() {
 		return new QName(propertyName);
 	}
 
+	@Override
 	public void setPropertyIndex(int index) {
 	}
 
+	@Override
 	public int getLength() {
 		return 0;
 	}
 
+	@Override
 	public Object getBaseValue() {
 		return null;
 	}
 
+	@Override
 	public Object getImmediateNode() {
 		return null;
 	}
 
+	@Override
 	public boolean isLeaf() {
 		return true;
 	}
 
+	@Override
 	public NodePointer getValuePointer() {
 		return new NullPointer(this, new QName(getPropertyName()));
 	}
 
+	@Override
 	protected boolean isActualProperty() {
 		return false;
 	}
 
+	@Override
 	public boolean isActual() {
 		return false;
 	}
 
+	@Override
 	public boolean isContainer() {
 		return true;
 	}
 
+	@Override
 	public void setValue(Object value) {
 		if (parent == null || parent.isContainer()) {
 			throw new JXPathInvalidAccessException("Cannot set property " + asPath() + ", the target object is null");
@@ -109,6 +120,7 @@ public class NullEStructuralFeaturePointer extends EStructuralFeaturePointer {
 		}
 	}
 
+	@Override
 	public NodePointer createPath(JXPathContext context) {
 		NodePointer newParent = parent.createPath(context);
 		if (isAttribute()) {
@@ -137,6 +149,7 @@ public class NullEStructuralFeaturePointer extends EStructuralFeaturePointer {
 		return newParent.createChild(context, getName(), getIndex());
 	}
 
+	@Override
 	public NodePointer createPath(JXPathContext context, Object value) {
 		NodePointer newParent = parent.createPath(context);
 		if (isAttribute()) {
@@ -154,18 +167,22 @@ public class NullEStructuralFeaturePointer extends EStructuralFeaturePointer {
 		return newParent.createChild(context, getName(), index, value);
 	}
 
+	@Override
 	public NodePointer createChild(JXPathContext context, QName name, int index) {
 		return createPath(context).createChild(context, name, index);
 	}
 
+	@Override
 	public NodePointer createChild(JXPathContext context, QName name, int index, Object value) {
 		return createPath(context).createChild(context, name, index, value);
 	}
 
+	@Override
 	public String getPropertyName() {
 		return propertyName;
 	}
 
+	@Override
 	public void setPropertyName(String propertyName) {
 		this.propertyName = propertyName;
 	}
@@ -181,18 +198,22 @@ public class NullEStructuralFeaturePointer extends EStructuralFeaturePointer {
 		byNameAttribute = true;
 	}
 
+	@Override
 	public boolean isCollection() {
 		return getIndex() != WHOLE_COLLECTION;
 	}
 
+	@Override
 	public int getPropertyCount() {
 		return 0;
 	}
 
+	@Override
 	public String[] getPropertyNames() {
 		return new String[0];
 	}
 
+	@Override
 	public String asPath() {
 		if (!byNameAttribute) {
 			return super.asPath();

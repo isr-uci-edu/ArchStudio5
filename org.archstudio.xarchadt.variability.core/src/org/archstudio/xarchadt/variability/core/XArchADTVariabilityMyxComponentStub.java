@@ -15,7 +15,6 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-/* package */@SuppressWarnings("unused")
 abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
 		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
 		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
@@ -28,6 +27,7 @@ abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio.myx.fw
 	/**
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -36,6 +36,7 @@ abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio.myx.fw
 	/**
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -89,6 +90,7 @@ abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio.myx.fw
 			.newProxyInstance(org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTFileListener.class }, new InvocationHandler() {
 
+						@Override
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.xarchadt.IXArchADTFileListener o : fileEvents) {
 								try {
@@ -120,6 +122,7 @@ abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio.myx.fw
 			.newProxyInstance(org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTModelListener.class }, new InvocationHandler() {
 
+						@Override
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.xarchadt.IXArchADTModelListener o : modelEvents) {
 								try {
@@ -159,6 +162,7 @@ abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio.myx.fw
 					new Class[] { org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.class },
 					new InvocationHandler() {
 
+						@Override
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.xarchadt.variability.IXArchADTVariabilityListener o : variabilityEvents) {
 								try {
@@ -253,6 +257,7 @@ abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio.myx.fw
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -276,6 +281,7 @@ abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio.myx.fw
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -299,6 +305,7 @@ abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio.myx.fw
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
@@ -306,6 +313,7 @@ abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio.myx.fw
 	 * @generated
 	 */
 
+	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_XARCH)) {
 			if (xarch == null) {

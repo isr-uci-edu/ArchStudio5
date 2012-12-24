@@ -54,6 +54,7 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Hints_3_0Package.Literals.HINTS_EXTENSION;
 	}
@@ -63,6 +64,7 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Hint> getHint() {
 		if (hint == null) {
 			hint = new EObjectContainmentEList<Hint>(Hint.class, this, Hints_3_0Package.HINTS_EXTENSION__HINT);
@@ -76,6 +78,7 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Hints_3_0Package.HINTS_EXTENSION__HINT:
@@ -90,6 +93,7 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Hints_3_0Package.HINTS_EXTENSION__HINT:
@@ -103,6 +107,7 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -120,6 +125,7 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Hints_3_0Package.HINTS_EXTENSION__HINT:
@@ -135,6 +141,7 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Hints_3_0Package.HINTS_EXTENSION__HINT:

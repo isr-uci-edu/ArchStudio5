@@ -60,6 +60,7 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 		return false;
 	}
 
+	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
 		if (selectedThings.size() > 1) {
@@ -89,6 +90,7 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 					ObjRef archStructureRef = (ObjRef) xarch.get(subArchitectureRef, "innerStructureLink");
 					if (archStructureRef != null) {
 						return new Action("New Interface-Interface Mapping...") {
+							@Override
 							public void run() {
 								Point p1 = BNAUtils.getCentralPoint(t);
 								if (p1 == null) {
@@ -109,15 +111,18 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 		return null;
 	}
 
+	@Override
 	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 	}
 
+	@Override
 	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (indicatorSpline != null) {
 			indicatorSpline.setEndpoint2(location.getWorldPoint());
 		}
 	}
 
+	@Override
 	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (indicatorSpline != null) {
 			if (evt.button == 1) {

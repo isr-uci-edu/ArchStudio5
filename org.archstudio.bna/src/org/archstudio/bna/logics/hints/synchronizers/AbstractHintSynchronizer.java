@@ -11,6 +11,7 @@ public abstract class AbstractHintSynchronizer implements IHintSynchronizer {
 	public AbstractHintSynchronizer() {
 	}
 
+	@Override
 	public void setBNAWorld(@Nullable IBNAWorld bnaWorld) {
 		this.bnaWorld = bnaWorld;
 	}

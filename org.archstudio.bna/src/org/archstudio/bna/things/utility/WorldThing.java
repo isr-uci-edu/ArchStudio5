@@ -10,10 +10,12 @@ public class WorldThing extends AbstractRectangleThing implements IHasMutableWor
 		super(id);
 	}
 
+	@Override
 	public IBNAWorld getWorld() {
 		return get(WORLD_KEY);
 	}
 
+	@Override
 	public void setWorld(IBNAWorld world) {
 		set(WORLD_KEY, world);
 	}

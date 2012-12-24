@@ -23,6 +23,7 @@ public abstract class AbstractPolygonThing extends AbstractPointsThing implement
 		super(id);
 	}
 
+	@Override
 	protected void initProperties() {
 		setAnchorPoint(new Point(0, 0));
 		super.initProperties();
@@ -30,6 +31,7 @@ public abstract class AbstractPolygonThing extends AbstractPointsThing implement
 		addShapeModifyingKey(ANCHOR_POINT_KEY);
 	}
 
+	@Override
 	protected Rectangle calculateBoundingBox() {
 		Rectangle r = super.calculateBoundingBox();
 		Point a = getAnchorPoint();
@@ -38,30 +40,37 @@ public abstract class AbstractPolygonThing extends AbstractPointsThing implement
 		return r;
 	}
 
+	@Override
 	public Point getAnchorPoint() {
 		return get(ANCHOR_POINT_KEY, new Point(0, 0));
 	}
 
+	@Override
 	public void setAnchorPoint(Point p) {
 		set(ANCHOR_POINT_KEY, p);
 	}
 
+	@Override
 	public List<Point> getPoints() {
 		return get(IHasPoints.POINTS_KEY, Collections.<Point> emptyList());
 	}
 
+	@Override
 	public void setPoints(List<Point> points) {
 		set(IHasPoints.POINTS_KEY, points);
 	}
 
+	@Override
 	public Point getReferencePoint() {
 		return getAnchorPoint();
 	}
 
+	@Override
 	public void setReferencePoint(Point worldPoint) {
 		setAnchorPoint(worldPoint);
 	}
 
+	@Override
 	public void moveRelative(final Point moveDelta) {
 		if (moveDelta.x != 0 || moveDelta.y != 0) {
 			Point a = getAnchorPoint();
@@ -71,6 +80,7 @@ public abstract class AbstractPolygonThing extends AbstractPointsThing implement
 		}
 	}
 
+	@Override
 	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		Rectangle bb = getBoundingBox();
 		Point center = new Point(bb.x + bb.width / 2, bb.y + bb.height / 2);

@@ -87,6 +87,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 
 		SWTWidgetUtils.setupContextMenu("#PopupMenu", control, new IMenuFiller() {
 
+			@Override
 			public void fillMenu(IMenuManager m) {
 				fillContextMenu(m);
 			}
@@ -193,6 +194,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 
 	private MouseEvent lastMouseDownEvt = null;
 
+	@Override
 	public void mouseUp(MouseEvent e) {
 		mouseEvt(e, MouseEventType.MOUSE_UP);
 		if (lastMouseDownEvt != null && BNAUtils.wasClick(lastMouseDownEvt, e)) {
@@ -200,11 +202,13 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 		}
 	}
 
+	@Override
 	public void mouseDown(MouseEvent e) {
 		mouseEvt(e, MouseEventType.MOUSE_DOWN);
 		lastMouseDownEvt = e;
 	}
 
+	@Override
 	public void mouseDoubleClick(MouseEvent e) {
 		mouseEvt(e, MouseEventType.MOUSE_DOUBLECLICK);
 	}
@@ -219,6 +223,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 	 * BNA apps
 	 */
 
+	@Override
 	public void mouseMove(MouseEvent e) {
 		mouseEventThread.setEvent(e);
 		mouseEventThread.event();
@@ -226,22 +231,27 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 		lastMouseDownEvt = null;
 	}
 
+	@Override
 	public void mouseEnter(MouseEvent e) {
 		mouseEvt(e, MouseEventType.MOUSE_ENTER);
 	}
 
+	@Override
 	public void mouseExit(MouseEvent e) {
 		mouseEvt(e, MouseEventType.MOUSE_EXIT);
 	}
 
+	@Override
 	public void mouseHover(MouseEvent e) {
 		mouseEvt(e, MouseEventType.MOUSE_HOVER);
 	}
 
+	@Override
 	public void mouseScrolled(MouseEvent e) {
 		mouseEvt(e, MouseEventType.MOUSE_WHEEL);
 	}
 
+	@Override
 	public void keyPressed(KeyEvent e) {
 		try {
 			IBNAView bnaView = view;
@@ -254,6 +264,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 		}
 	}
 
+	@Override
 	public void keyReleased(KeyEvent e) {
 		try {
 			IBNAView bnaView = view;
@@ -266,6 +277,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 		}
 	}
 
+	@Override
 	public void focusGained(FocusEvent e) {
 		try {
 			IBNAView bnaView = view;
@@ -278,6 +290,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 		}
 	}
 
+	@Override
 	public void focusLost(FocusEvent e) {
 		try {
 			IBNAView bnaView = view;
@@ -290,6 +303,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 		}
 	}
 
+	@Override
 	public void handleEvent(Event evt) {
 		try {
 			IBNAView bnaView = view;
@@ -355,6 +369,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 		}
 	}
 
+	@Override
 	public void dragEnter(DropTargetEvent e) {
 		dropEvt(e, DropEventType.DRAG_ENTER);
 	}
@@ -367,6 +382,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 	 */
 	int counter = 0;
 
+	@Override
 	public void dragOver(DropTargetEvent e) {
 		counter++;
 		if (counter % 3 == 0) {
@@ -374,24 +390,29 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 		}
 	}
 
+	@Override
 	public void dragOperationChanged(DropTargetEvent e) {
 		dropEvt(e, DropEventType.DRAG_OPERATION_CHANGED);
 	}
 
+	@Override
 	public void dragLeave(DropTargetEvent e) {
 		dropEvt(e, DropEventType.DRAG_LEAVE);
 	}
 
+	@Override
 	public void dropAccept(DropTargetEvent e) {
 		dropEvt(e, DropEventType.DROP_ACCEPT);
 	}
 
+	@Override
 	public void drop(DropTargetEvent e) {
 		dropEvt(e, DropEventType.DROP);
 	}
 
 	class PeriodicMouseEventThread extends PeriodicEventThread {
 
+		@Override
 		public void doEvent() {
 			mouseEvt((MouseEvent) evt, MouseEventType.MOUSE_MOVE);
 		}
@@ -399,6 +420,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 
 	class PeriodicDropEventThread extends PeriodicEventThread {
 
+		@Override
 		public void doEvent() {
 			dropEvt((DropTargetEvent) evt, DropEventType.DRAG_OVER);
 		}
@@ -429,6 +451,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 
 		private final Runnable eventer = new Runnable() {
 
+			@Override
 			public void run() {
 				try {
 					doEvent();
@@ -453,6 +476,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 			}
 		}
 
+		@Override
 		public void run() {
 			while (true) {
 				synchronized (this) {

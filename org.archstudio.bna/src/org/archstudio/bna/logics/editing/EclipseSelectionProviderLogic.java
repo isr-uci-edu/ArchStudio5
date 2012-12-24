@@ -44,10 +44,12 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 		private final CopyOnWriteArrayList<ISelectionChangedListener> selectionChangedListeners = Lists
 				.newCopyOnWriteArrayList();
 
+		@Override
 		public void addSelectionChangedListener(ISelectionChangedListener listener) {
 			selectionChangedListeners.add(listener);
 		}
 
+		@Override
 		public void removeSelectionChangedListener(ISelectionChangedListener listener) {
 			selectionChangedListeners.remove(listener);
 		}
@@ -56,6 +58,7 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 			final SelectionChangedEvent evt = new SelectionChangedEvent(this, getSelection());
 
 			SWTWidgetUtils.async(workbenchSite.getShell(), new Runnable() {
+				@Override
 				public void run() {
 					for (ISelectionChangedListener l : selectionChangedListeners) {
 						l.selectionChanged(evt);
@@ -66,10 +69,12 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 
 		private final Collection<Object> selection = Collections.synchronizedCollection(new ArrayList<Object>());
 
+		@Override
 		public ISelection getSelection() {
 			return new StructuredSelection(selection.toArray());
 		}
 
+		@Override
 		public void setSelection(ISelection selection) {
 			// TODO: not sure how to support this
 		}
@@ -104,11 +109,13 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 		}
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 		workbenchSiteSelectionProvider.addEclipseSelectionProvider(this);
 	}
 
+	@Override
 	protected void destroy() {
 		workbenchSiteSelectionProvider.removeEclipseSelectionProvider(this);
 		super.destroy();
@@ -121,6 +128,7 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 	private int inBulkChange = 0;
 	private int ignoreSelection = 0;
 
+	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case BULK_CHANGE_BEGIN:

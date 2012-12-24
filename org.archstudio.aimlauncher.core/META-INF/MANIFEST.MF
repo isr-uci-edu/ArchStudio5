@@ -30,4 +30,4 @@ Require-Bundle: org.archstudio.aim,
  org.archstudio.aim.core,
  org.archstudio.xadl3.structure,
  org.archstudio.xarchadt.variability
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

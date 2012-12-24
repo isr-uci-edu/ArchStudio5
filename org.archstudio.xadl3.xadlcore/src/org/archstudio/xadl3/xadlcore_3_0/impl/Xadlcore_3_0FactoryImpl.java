@@ -56,6 +56,7 @@ public class Xadlcore_3_0FactoryImpl extends EFactoryImpl implements Xadlcore_3_
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Xadlcore_3_0Package.DOCUMENT_ROOT:
@@ -74,6 +75,7 @@ public class Xadlcore_3_0FactoryImpl extends EFactoryImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public DocumentRoot createDocumentRoot() {
 		DocumentRootImpl documentRoot = new DocumentRootImpl();
 		return documentRoot;
@@ -84,6 +86,7 @@ public class Xadlcore_3_0FactoryImpl extends EFactoryImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SimpleLink createSimpleLink() {
 		SimpleLinkImpl simpleLink = new SimpleLinkImpl();
 		return simpleLink;
@@ -94,6 +97,7 @@ public class Xadlcore_3_0FactoryImpl extends EFactoryImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public XADLType createXADLType() {
 		XADLTypeImpl xadlType = new XADLTypeImpl();
 		return xadlType;
@@ -104,6 +108,7 @@ public class Xadlcore_3_0FactoryImpl extends EFactoryImpl implements Xadlcore_3_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Xadlcore_3_0Package getXadlcore_3_0Package() {
 		return (Xadlcore_3_0Package) getEPackage();
 	}

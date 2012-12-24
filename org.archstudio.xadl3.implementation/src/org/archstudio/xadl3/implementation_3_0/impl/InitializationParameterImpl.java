@@ -103,6 +103,7 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Implementation_3_0Package.Literals.INITIALIZATION_PARAMETER;
 	}
@@ -112,6 +113,7 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this,
@@ -125,6 +127,7 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getKey() {
 		return key;
 	}
@@ -134,6 +137,7 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setKey(String newKey) {
 		String oldKey = key;
 		key = newKey;
@@ -148,6 +152,7 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getValue() {
 		return value;
 	}
@@ -157,6 +162,7 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setValue(String newValue) {
 		String oldValue = value;
 		value = newValue;
@@ -172,6 +178,7 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
@@ -186,6 +193,7 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
@@ -203,6 +211,7 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -226,6 +235,7 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
@@ -247,6 +257,7 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
@@ -265,6 +276,7 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

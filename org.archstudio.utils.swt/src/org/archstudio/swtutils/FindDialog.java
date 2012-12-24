@@ -111,6 +111,7 @@ public class FindDialog<C> extends Dialog {
 		resultViewer.getTree().setLayoutData(resultViewerData);
 		resultViewer.addDoubleClickListener(new IDoubleClickListener() {
 
+			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				ISelection selection = event.getSelection();
 				if (selection instanceof IStructuredSelection) {
@@ -125,6 +126,7 @@ public class FindDialog<C> extends Dialog {
 
 		SelectionListener findListener = new SelectionListener() {
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String text = tFind.getText();
 				if (text == null) {
@@ -143,6 +145,7 @@ public class FindDialog<C> extends Dialog {
 				}
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
@@ -159,10 +162,12 @@ public class FindDialog<C> extends Dialog {
 		bClose.setText("Close");
 		bClose.addSelectionListener(new SelectionListener() {
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				done();
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
@@ -191,10 +196,12 @@ public class FindDialog<C> extends Dialog {
 
 	class ResultsTreeContentProvider implements ITreeContentProvider {
 
+		@Override
 		public Object[] getElements(Object inputElement) {
 			return getChildren(inputElement);
 		}
 
+		@Override
 		public Object[] getChildren(Object parentElement) {
 			if (parentElement instanceof FindDialog) {
 				return ((FindDialog<?>) parentElement).currentResults;
@@ -202,13 +209,16 @@ public class FindDialog<C> extends Dialog {
 			return null;
 		}
 
+		@Override
 		public boolean hasChildren(Object element) {
 			return element instanceof FindDialog;
 		}
 
+		@Override
 		public void dispose() {
 		}
 
+		@Override
 		public Object getParent(Object element) {
 			if (element instanceof IFindResult) {
 				return FindDialog.this;
@@ -216,6 +226,7 @@ public class FindDialog<C> extends Dialog {
 			return null;
 		}
 
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			return;
 		}
@@ -224,6 +235,7 @@ public class FindDialog<C> extends Dialog {
 	class ResultsTreeLabelProvider extends LabelProvider implements ILabelProvider {
 		Map<IFindResult, Image> resultImages = new HashMap<IFindResult, Image>();
 
+		@Override
 		public String getText(Object element) {
 			if (element instanceof IFindResult) {
 				return ((IFindResult) element).getString();
@@ -231,6 +243,7 @@ public class FindDialog<C> extends Dialog {
 			return null;
 		}
 
+		@Override
 		public Image getImage(Object element) {
 			if (element instanceof IFindResult) {
 				Image img = resultImages.get(element);
@@ -255,6 +268,7 @@ public class FindDialog<C> extends Dialog {
 			return null;
 		}
 
+		@Override
 		public void dispose() {
 			Image[] images = resultImages.values().toArray(new Image[resultImages.size()]);
 			for (int i = 0; i < images.length; i++) {

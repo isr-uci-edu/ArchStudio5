@@ -114,6 +114,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Statechart_1_0Package.Literals.STATE;
 	}
@@ -123,6 +124,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Behavior> getEntry() {
 		if (entry == null) {
 			entry = new EObjectContainmentEList<Behavior>(Behavior.class, this, Statechart_1_0Package.STATE__ENTRY);
@@ -135,6 +137,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Behavior> getExit() {
 		if (exit == null) {
 			exit = new EObjectContainmentEList<Behavior>(Behavior.class, this, Statechart_1_0Package.STATE__EXIT);
@@ -147,6 +150,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SubStatechart getSubStatechart() {
 		return subStatechart;
 	}
@@ -177,6 +181,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSubStatechart(SubStatechart newSubStatechart) {
 		if (newSubStatechart != subStatechart) {
 			NotificationChain msgs = null;
@@ -204,6 +209,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public StateType getType() {
 		return type;
 	}
@@ -213,6 +219,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setType(StateType newType) {
 		StateType oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
@@ -229,6 +236,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetType() {
 		StateType oldType = type;
 		boolean oldTypeESet = typeESet;
@@ -245,6 +253,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetType() {
 		return typeESet;
 	}
@@ -255,6 +264,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Statechart_1_0Package.STATE__ENTRY:
@@ -273,6 +283,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Statechart_1_0Package.STATE__ENTRY:
@@ -292,6 +303,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -319,6 +331,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.STATE__ENTRY:
@@ -343,6 +356,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.STATE__ENTRY:
@@ -363,6 +377,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

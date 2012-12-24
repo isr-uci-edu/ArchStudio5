@@ -16,4 +16,4 @@ Require-Bundle: org.archstudio.eclipse.ui,
  org.eclipse.ui.ide,
  org.archstudio.utils.system,
  org.archstudio.myx.java
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

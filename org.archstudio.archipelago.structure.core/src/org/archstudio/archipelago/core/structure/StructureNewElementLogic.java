@@ -41,6 +41,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 		return t == null;
 	}
 
+	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		if (matches(view, SystemUtils.firstOrNull(things))) {
 			Point world = location.getWorldPoint();
@@ -57,6 +58,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 
 		Action newComponentAction = new Action("New Component") {
 
+			@Override
 			public void run() {
 				ObjRef componentRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.COMPONENT);
 				xarch.set(componentRef, "id", UIDGenerator.generateUID("component"));
@@ -64,6 +66,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 				XArchADTOperations.add("Add Component", xarch, structureRef, "component", componentRef);
 			}
 
+			@Override
 			public ImageDescriptor getImageDescriptor() {
 				return resources.getImageDescriptor(ArchStudioCommonResources.ICON_COMPONENT);
 			}
@@ -71,6 +74,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 
 		Action newConnectorAction = new Action("New Connector") {
 
+			@Override
 			public void run() {
 				ObjRef connectorRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.CONNECTOR);
 				xarch.set(connectorRef, "id", UIDGenerator.generateUID("connector"));
@@ -78,6 +82,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 				XArchADTOperations.add("Add Connector", xarch, structureRef, "connector", connectorRef);
 			}
 
+			@Override
 			public ImageDescriptor getImageDescriptor() {
 				return resources.getImageDescriptor(ArchStudioCommonResources.ICON_CONNECTOR);
 			}
@@ -85,6 +90,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 
 		Action newLinkAction = new Action("New Link") {
 
+			@Override
 			public void run() {
 				ObjRef linkRef = XadlUtils.create(xarch, Structure_3_0Package.Literals.LINK);
 				xarch.set(linkRef, "id", UIDGenerator.generateUID("link"));
@@ -92,6 +98,7 @@ public class StructureNewElementLogic extends AbstractThingLogic implements IBNA
 				XArchADTOperations.add("Add Link", xarch, structureRef, "link", linkRef);
 			}
 
+			@Override
 			public ImageDescriptor getImageDescriptor() {
 				return resources.getImageDescriptor(ArchStudioCommonResources.ICON_LINK);
 			}

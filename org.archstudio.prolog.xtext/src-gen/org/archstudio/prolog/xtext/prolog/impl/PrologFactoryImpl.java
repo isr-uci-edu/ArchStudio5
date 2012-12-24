@@ -77,6 +77,7 @@ public class PrologFactoryImpl extends EFactoryImpl implements PrologFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Program createProgram() {
 		ProgramImpl program = new ProgramImpl();
 		return program;
@@ -87,6 +88,7 @@ public class PrologFactoryImpl extends EFactoryImpl implements PrologFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Clause createClause() {
 		ClauseImpl clause = new ClauseImpl();
 		return clause;
@@ -97,6 +99,7 @@ public class PrologFactoryImpl extends EFactoryImpl implements PrologFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Query createQuery() {
 		QueryImpl query = new QueryImpl();
 		return query;
@@ -107,6 +110,7 @@ public class PrologFactoryImpl extends EFactoryImpl implements PrologFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Expression createExpression() {
 		ExpressionImpl expression = new ExpressionImpl();
 		return expression;
@@ -117,6 +121,7 @@ public class PrologFactoryImpl extends EFactoryImpl implements PrologFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public PrologPackage getPrologPackage() {
 		return (PrologPackage) getEPackage();
 	}

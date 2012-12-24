@@ -33,6 +33,7 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 		return cm.worldToLocal(t.getBoundingBox());
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 
 		if (control == null) {
@@ -45,6 +46,7 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 		if (!oldBounds.equals(newBounds)) {
 			SWTWidgetUtils.async(control, new Runnable() {
 
+				@Override
 				public void run() {
 					if (oldBounds.width != newBounds.width || oldBounds.height != newBounds.height) {
 						control.setSize(newBounds.width, newBounds.height);
@@ -59,11 +61,13 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 		}
 	}
 
+	@Override
 	public void dispose() {
 		super.dispose();
 		control = SWTWidgetUtils.quietlyDispose(control);
 	}
 
+	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		if (control != null) {
 			Point local = location.getLocalPoint();

@@ -21,6 +21,7 @@ public class SplineThingPeer<T extends SplineThing> extends AbstractSplineThingP
 		super(thing);
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
 			List<Point> localPoints = BNAUtils.worldToLocal(cm, t.getPoints());

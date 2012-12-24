@@ -28,6 +28,7 @@ public class RemoveDependencyVersionNumbers extends AbstractObjectActionDelegate
 	public RemoveDependencyVersionNumbers() {
 	}
 
+	@Override
 	public void run(IAction action) {
 		for (IProject project : getProjects(selection)) {
 			run(action, project);

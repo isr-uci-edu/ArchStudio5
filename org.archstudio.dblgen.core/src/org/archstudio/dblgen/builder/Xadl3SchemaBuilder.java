@@ -86,6 +86,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		}
 	}
 
+	@Override
 	protected IProject[] build(int kind, @SuppressWarnings("rawtypes") Map args, IProgressMonitor monitor)
 			throws CoreException {
 
@@ -122,6 +123,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			pluginFile = getProject().getFile("plugin.xml");
 		}
 
+		@Override
 		public boolean visit(IResourceDelta delta) {
 			if (modelFolder != null) {
 				IResource res = delta.getResource();
@@ -181,6 +183,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		return folders;
 	}
 
+	@Override
 	protected void clean(IProgressMonitor monitor) throws CoreException {
 		super.clean(monitor);
 		deleteMarkers(getProject());
@@ -359,14 +362,17 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 			Xadl3SchemaBuilder.this.addMarker(file, e.getMessage(), e.getLineNumber(), severity);
 		}
 
+		@Override
 		public void error(SAXParseException exception) throws SAXException {
 			addMarker(exception, IMarker.SEVERITY_ERROR);
 		}
 
+		@Override
 		public void fatalError(SAXParseException exception) throws SAXException {
 			addMarker(exception, IMarker.SEVERITY_ERROR);
 		}
 
+		@Override
 		public void warning(SAXParseException exception) throws SAXException {
 			addMarker(exception, IMarker.SEVERITY_WARNING);
 		}

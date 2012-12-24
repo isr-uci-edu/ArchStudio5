@@ -43,6 +43,7 @@ public class ArchlightTestResult {
 		this.testUID = testUID;
 	}
 
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer("ArchlightTestResult[");
 		buf.append("testUID=").append(testUID).append(";");

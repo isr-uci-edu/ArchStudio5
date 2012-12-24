@@ -15,6 +15,7 @@ public class DotSpacingParameterPanel implements IGraphLayoutParameterPanel {
 	protected Text tRankSep;
 	protected Text tNodeSep;
 
+	@Override
 	public void createPanel(Composite parent) {
 		Group gPanel = new Group(parent, SWT.NONE);
 		gPanel.setText("Spacing Options");
@@ -38,6 +39,7 @@ public class DotSpacingParameterPanel implements IGraphLayoutParameterPanel {
 		tNodeSep.setText("1.0");
 	}
 
+	@Override
 	public void loadParameters(GraphLayoutParameters params) {
 		try {
 			double rankSep = ((Double) params.getProperty("rankSep")).doubleValue();
@@ -56,6 +58,7 @@ public class DotSpacingParameterPanel implements IGraphLayoutParameterPanel {
 		}
 	}
 
+	@Override
 	public void storeParameters(GraphLayoutParameters params) throws DataValidationException {
 		String rankSepString = tRankSep.getText().trim();
 		if (rankSepString.equals("")) {

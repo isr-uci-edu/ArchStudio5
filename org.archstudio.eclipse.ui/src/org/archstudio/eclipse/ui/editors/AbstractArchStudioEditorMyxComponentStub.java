@@ -13,7 +13,7 @@ import org.archstudio.myx.fw.MyxUtils;
  * 
  * @generated
  */
-@SuppressWarnings("unused")
+
 /* package */abstract class AbstractArchStudioEditorMyxComponentStub extends
 		org.archstudio.myx.fw.AbstractMyxSimpleBrick implements org.archstudio.myx.fw.IMyxDynamicBrick,
 		org.archstudio.launcher.ILaunchable, org.archstudio.myx.fw.IMyxLifecycleProcessor,
@@ -27,6 +27,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	/**
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -35,6 +36,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	/**
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -173,6 +175,7 @@ import org.archstudio.myx.fw.MyxUtils;
 			.newProxyInstance(org.archstudio.eclipse.ui.IFocusEditorListener.class.getClassLoader(),
 					new Class[] { org.archstudio.eclipse.ui.IFocusEditorListener.class }, new InvocationHandler() {
 
+						@Override
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.eclipse.ui.IFocusEditorListener o : myxRegistry.getObjects(
 									AbstractArchStudioEditorMyxComponentStub.this,
@@ -206,6 +209,7 @@ import org.archstudio.myx.fw.MyxUtils;
 			.newProxyInstance(org.archstudio.filemanager.IFileManagerListener.class.getClassLoader(),
 					new Class[] { org.archstudio.filemanager.IFileManagerListener.class }, new InvocationHandler() {
 
+						@Override
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.filemanager.IFileManagerListener o : myxRegistry.getObjects(
 									AbstractArchStudioEditorMyxComponentStub.this,
@@ -239,6 +243,7 @@ import org.archstudio.myx.fw.MyxUtils;
 			.newProxyInstance(org.archstudio.xarchadt.IXArchADTFileListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTFileListener.class }, new InvocationHandler() {
 
+						@Override
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.xarchadt.IXArchADTFileListener o : myxRegistry.getObjects(
 									AbstractArchStudioEditorMyxComponentStub.this,
@@ -265,6 +270,7 @@ import org.archstudio.myx.fw.MyxUtils;
 			.newProxyInstance(org.archstudio.xarchadt.IXArchADTModelListener.class.getClassLoader(),
 					new Class[] { org.archstudio.xarchadt.IXArchADTModelListener.class }, new InvocationHandler() {
 
+						@Override
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.xarchadt.IXArchADTModelListener o : myxRegistry.getObjects(
 									AbstractArchStudioEditorMyxComponentStub.this,
@@ -293,6 +299,7 @@ import org.archstudio.myx.fw.MyxUtils;
 					new Class[] { org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.class },
 					new InvocationHandler() {
 
+						@Override
 						public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 							for (org.archstudio.xarchadt.variability.IXArchADTVariabilityListener o : myxRegistry
 									.getObjects(AbstractArchStudioEditorMyxComponentStub.this,
@@ -389,6 +396,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -428,6 +436,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
@@ -455,6 +464,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	 * @generated
 	 */
 
+	@Override
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 
@@ -462,6 +472,7 @@ import org.archstudio.myx.fw.MyxUtils;
 	 * @generated
 	 */
 
+	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_FOCUS_EDITOR_EVENTS)) {
 			return focusEditorEventsProxy;

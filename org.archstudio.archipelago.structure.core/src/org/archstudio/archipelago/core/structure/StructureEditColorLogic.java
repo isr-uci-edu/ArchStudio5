@@ -28,12 +28,14 @@ public class StructureEditColorLogic extends EditColorLogic {
 		this.xarch = xarch;
 	}
 
+	@Override
 	protected void appendMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu,
 			final List<IHasMutableColor> editableColoredThings, List<IHasColor> coloredThings) {
 
 		if (editableColoredThings.size() > 0) {
 			menu.add(new Action("Reset to Default Color") {
 
+				@Override
 				public void run() {
 					for (IHasMutableColor t : editableColoredThings) {
 						IThing glass = Assemblies.getAssemblyWithPart(getBNAModel(), t);

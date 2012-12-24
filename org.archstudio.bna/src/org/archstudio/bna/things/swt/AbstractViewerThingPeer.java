@@ -27,6 +27,7 @@ public abstract class AbstractViewerThingPeer<T extends AbstractViewerThing, C e
 
 	protected abstract V createViewer(IBNAView view, ICoordinateMapper cm);
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 
 		if (viewer == null) {

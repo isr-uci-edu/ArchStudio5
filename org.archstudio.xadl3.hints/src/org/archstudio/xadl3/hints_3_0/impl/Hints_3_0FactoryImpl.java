@@ -56,6 +56,7 @@ public class Hints_3_0FactoryImpl extends EFactoryImpl implements Hints_3_0Facto
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Hints_3_0Package.HINT:
@@ -74,6 +75,7 @@ public class Hints_3_0FactoryImpl extends EFactoryImpl implements Hints_3_0Facto
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Hint createHint() {
 		HintImpl hint = new HintImpl();
 		return hint;
@@ -84,6 +86,7 @@ public class Hints_3_0FactoryImpl extends EFactoryImpl implements Hints_3_0Facto
 	 * 
 	 * @generated
 	 */
+	@Override
 	public HintsExtension createHintsExtension() {
 		HintsExtensionImpl hintsExtension = new HintsExtensionImpl();
 		return hintsExtension;
@@ -94,6 +97,7 @@ public class Hints_3_0FactoryImpl extends EFactoryImpl implements Hints_3_0Facto
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Value createValue() {
 		ValueImpl value = new ValueImpl();
 		return value;
@@ -104,6 +108,7 @@ public class Hints_3_0FactoryImpl extends EFactoryImpl implements Hints_3_0Facto
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Hints_3_0Package getHints_3_0Package() {
 		return (Hints_3_0Package) getEPackage();
 	}

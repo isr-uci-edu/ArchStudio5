@@ -48,6 +48,7 @@ public class ArchlightElementIdentifier implements java.io.Serializable {
 		this.elementRef = elementRef;
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof ArchlightElementIdentifier)) {
 			return false;
@@ -70,6 +71,7 @@ public class ArchlightElementIdentifier implements java.io.Serializable {
 		return o1.equals(o2);
 	}
 
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer("ArchlightElementIdentifier[");
 		buf.append("elementID=").append(elementID).append("; ");

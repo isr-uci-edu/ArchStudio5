@@ -47,6 +47,7 @@ public class AIMLauncherMyxComponent extends org.archstudio.aimlauncher.core.AIM
 		}
 	}
 
+	@Override
 	public ILaunchData getLaunchData() {
 		return new LaunchData(ECLIPSE_EDITOR_ID, EDITOR_NAME, "Architecture Instantiation Manager", getIcon(),
 				ILaunchData.LaunchType.EDITOR);

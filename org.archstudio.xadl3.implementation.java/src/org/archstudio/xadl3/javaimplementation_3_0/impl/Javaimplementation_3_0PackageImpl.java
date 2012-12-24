@@ -142,6 +142,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getClassPathEntry() {
 		return classPathEntryEClass;
 	}
@@ -151,6 +152,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getClassPathEntry_Ext() {
 		return (EReference) classPathEntryEClass.getEStructuralFeatures().get(0);
 	}
@@ -160,6 +162,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getClassPathEntry_Entry() {
 		return (EAttribute) classPathEntryEClass.getEStructuralFeatures().get(1);
 	}
@@ -169,6 +172,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getClassPathEntry_Id() {
 		return (EAttribute) classPathEntryEClass.getEStructuralFeatures().get(2);
 	}
@@ -178,6 +182,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getJavaClass() {
 		return javaClassEClass;
 	}
@@ -187,6 +192,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getJavaClass_ClassPathEntry() {
 		return (EReference) javaClassEClass.getEStructuralFeatures().get(0);
 	}
@@ -196,6 +202,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getJavaClass_Ext() {
 		return (EReference) javaClassEClass.getEStructuralFeatures().get(1);
 	}
@@ -205,6 +212,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJavaClass_ClassName() {
 		return (EAttribute) javaClassEClass.getEStructuralFeatures().get(2);
 	}
@@ -214,6 +222,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJavaClass_Id() {
 		return (EAttribute) javaClassEClass.getEStructuralFeatures().get(3);
 	}
@@ -223,6 +232,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getJavaImplementation() {
 		return javaImplementationEClass;
 	}
@@ -232,6 +242,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getJavaImplementation_MainClass() {
 		return (EReference) javaImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -241,6 +252,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getJavaImplementation_AuxClass() {
 		return (EReference) javaImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -250,6 +262,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getJavaImplementation_Ext() {
 		return (EReference) javaImplementationEClass.getEStructuralFeatures().get(2);
 	}
@@ -259,6 +272,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Javaimplementation_3_0Factory getJavaimplementation_3_0Factory() {
 		return (Javaimplementation_3_0Factory) getEFactoryInstance();
 	}

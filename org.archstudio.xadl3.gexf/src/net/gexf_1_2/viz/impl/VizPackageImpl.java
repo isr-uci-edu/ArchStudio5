@@ -245,6 +245,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 
 		// Register package validator
 		EValidator.Registry.INSTANCE.put(theVizPackage, new EValidator.Descriptor() {
+			@Override
 			public EValidator getEValidator() {
 				return VizValidator.INSTANCE;
 			}
@@ -263,6 +264,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getColorContent() {
 		return colorContentEClass;
 	}
@@ -272,6 +274,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getColorContent_Spells() {
 		return (EReference) colorContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -281,6 +284,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getColorContent_A() {
 		return (EAttribute) colorContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -290,6 +294,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getColorContent_B() {
 		return (EAttribute) colorContentEClass.getEStructuralFeatures().get(2);
 	}
@@ -299,6 +304,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getColorContent_End() {
 		return (EAttribute) colorContentEClass.getEStructuralFeatures().get(3);
 	}
@@ -308,6 +314,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getColorContent_Endopen() {
 		return (EAttribute) colorContentEClass.getEStructuralFeatures().get(4);
 	}
@@ -317,6 +324,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getColorContent_G() {
 		return (EAttribute) colorContentEClass.getEStructuralFeatures().get(5);
 	}
@@ -326,6 +334,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getColorContent_R() {
 		return (EAttribute) colorContentEClass.getEStructuralFeatures().get(6);
 	}
@@ -335,6 +344,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getColorContent_Start() {
 		return (EAttribute) colorContentEClass.getEStructuralFeatures().get(7);
 	}
@@ -344,6 +354,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getColorContent_Startopen() {
 		return (EAttribute) colorContentEClass.getEStructuralFeatures().get(8);
 	}
@@ -353,6 +364,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getEdgeShapeContent() {
 		return edgeShapeContentEClass;
 	}
@@ -362,6 +374,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getEdgeShapeContent_Spells() {
 		return (EReference) edgeShapeContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -371,6 +384,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeShapeContent_End() {
 		return (EAttribute) edgeShapeContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -380,6 +394,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeShapeContent_Endopen() {
 		return (EAttribute) edgeShapeContentEClass.getEStructuralFeatures().get(2);
 	}
@@ -389,6 +404,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeShapeContent_Start() {
 		return (EAttribute) edgeShapeContentEClass.getEStructuralFeatures().get(3);
 	}
@@ -398,6 +414,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeShapeContent_Startopen() {
 		return (EAttribute) edgeShapeContentEClass.getEStructuralFeatures().get(4);
 	}
@@ -407,6 +424,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEdgeShapeContent_Value() {
 		return (EAttribute) edgeShapeContentEClass.getEStructuralFeatures().get(5);
 	}
@@ -416,6 +434,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getNodeShapeContent() {
 		return nodeShapeContentEClass;
 	}
@@ -425,6 +444,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getNodeShapeContent_Spells() {
 		return (EReference) nodeShapeContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -434,6 +454,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeShapeContent_End() {
 		return (EAttribute) nodeShapeContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -443,6 +464,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeShapeContent_Endopen() {
 		return (EAttribute) nodeShapeContentEClass.getEStructuralFeatures().get(2);
 	}
@@ -452,6 +474,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeShapeContent_Start() {
 		return (EAttribute) nodeShapeContentEClass.getEStructuralFeatures().get(3);
 	}
@@ -461,6 +484,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeShapeContent_Startopen() {
 		return (EAttribute) nodeShapeContentEClass.getEStructuralFeatures().get(4);
 	}
@@ -470,6 +494,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeShapeContent_Uri() {
 		return (EAttribute) nodeShapeContentEClass.getEStructuralFeatures().get(5);
 	}
@@ -479,6 +504,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNodeShapeContent_Value() {
 		return (EAttribute) nodeShapeContentEClass.getEStructuralFeatures().get(6);
 	}
@@ -488,6 +514,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getPositionContent() {
 		return positionContentEClass;
 	}
@@ -497,6 +524,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getPositionContent_Spells() {
 		return (EReference) positionContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -506,6 +534,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPositionContent_End() {
 		return (EAttribute) positionContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -515,6 +544,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPositionContent_Endopen() {
 		return (EAttribute) positionContentEClass.getEStructuralFeatures().get(2);
 	}
@@ -524,6 +554,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPositionContent_Start() {
 		return (EAttribute) positionContentEClass.getEStructuralFeatures().get(3);
 	}
@@ -533,6 +564,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPositionContent_Startopen() {
 		return (EAttribute) positionContentEClass.getEStructuralFeatures().get(4);
 	}
@@ -542,6 +574,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPositionContent_X() {
 		return (EAttribute) positionContentEClass.getEStructuralFeatures().get(5);
 	}
@@ -551,6 +584,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPositionContent_Y() {
 		return (EAttribute) positionContentEClass.getEStructuralFeatures().get(6);
 	}
@@ -560,6 +594,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPositionContent_Z() {
 		return (EAttribute) positionContentEClass.getEStructuralFeatures().get(7);
 	}
@@ -569,6 +604,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getSizeContent() {
 		return sizeContentEClass;
 	}
@@ -578,6 +614,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getSizeContent_Spells() {
 		return (EReference) sizeContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -587,6 +624,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSizeContent_End() {
 		return (EAttribute) sizeContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -596,6 +634,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSizeContent_Endopen() {
 		return (EAttribute) sizeContentEClass.getEStructuralFeatures().get(2);
 	}
@@ -605,6 +644,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSizeContent_Start() {
 		return (EAttribute) sizeContentEClass.getEStructuralFeatures().get(3);
 	}
@@ -614,6 +654,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSizeContent_Startopen() {
 		return (EAttribute) sizeContentEClass.getEStructuralFeatures().get(4);
 	}
@@ -623,6 +664,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSizeContent_Value() {
 		return (EAttribute) sizeContentEClass.getEStructuralFeatures().get(5);
 	}
@@ -632,6 +674,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getThicknessContent() {
 		return thicknessContentEClass;
 	}
@@ -641,6 +684,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getThicknessContent_Spells() {
 		return (EReference) thicknessContentEClass.getEStructuralFeatures().get(0);
 	}
@@ -650,6 +694,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThicknessContent_End() {
 		return (EAttribute) thicknessContentEClass.getEStructuralFeatures().get(1);
 	}
@@ -659,6 +704,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThicknessContent_Endopen() {
 		return (EAttribute) thicknessContentEClass.getEStructuralFeatures().get(2);
 	}
@@ -668,6 +714,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThicknessContent_Start() {
 		return (EAttribute) thicknessContentEClass.getEStructuralFeatures().get(3);
 	}
@@ -677,6 +724,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThicknessContent_Startopen() {
 		return (EAttribute) thicknessContentEClass.getEStructuralFeatures().get(4);
 	}
@@ -686,6 +734,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThicknessContent_Value() {
 		return (EAttribute) thicknessContentEClass.getEStructuralFeatures().get(5);
 	}
@@ -695,6 +744,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getDocumentRoot() {
 		return documentRootEClass;
 	}
@@ -704,6 +754,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDocumentRoot_Mixed() {
 		return (EAttribute) documentRootEClass.getEStructuralFeatures().get(0);
 	}
@@ -713,6 +764,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XMLNSPrefixMap() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(1);
 	}
@@ -722,6 +774,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_XSISchemaLocation() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(2);
 	}
@@ -731,6 +784,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDocumentRoot_Spells() {
 		return (EReference) documentRootEClass.getEStructuralFeatures().get(3);
 	}
@@ -740,6 +794,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EEnum getEdgeShapeType() {
 		return edgeShapeTypeEEnum;
 	}
@@ -749,6 +804,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EEnum getNodeShapeType() {
 		return nodeShapeTypeEEnum;
 	}
@@ -758,6 +814,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getAlphaChannel() {
 		return alphaChannelEDataType;
 	}
@@ -767,6 +824,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getAlphaChannelObject() {
 		return alphaChannelObjectEDataType;
 	}
@@ -776,6 +834,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getColorChannel() {
 		return colorChannelEDataType;
 	}
@@ -785,6 +844,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getEdgeShapeTypeObject() {
 		return edgeShapeTypeObjectEDataType;
 	}
@@ -794,6 +854,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getNodeShapeTypeObject() {
 		return nodeShapeTypeObjectEDataType;
 	}
@@ -803,6 +864,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getSizeType() {
 		return sizeTypeEDataType;
 	}
@@ -812,6 +874,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getSizeTypeObject() {
 		return sizeTypeObjectEDataType;
 	}
@@ -821,6 +884,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getSpacePoint() {
 		return spacePointEDataType;
 	}
@@ -830,6 +894,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getSpacePointObject() {
 		return spacePointObjectEDataType;
 	}
@@ -839,6 +904,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getThicknessType() {
 		return thicknessTypeEDataType;
 	}
@@ -848,6 +914,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EDataType getThicknessTypeObject() {
 		return thicknessTypeObjectEDataType;
 	}
@@ -857,6 +924,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public VizFactory getVizFactory() {
 		return (VizFactory) getEFactoryInstance();
 	}

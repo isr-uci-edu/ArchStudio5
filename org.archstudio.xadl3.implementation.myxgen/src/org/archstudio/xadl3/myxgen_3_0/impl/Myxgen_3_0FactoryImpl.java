@@ -54,6 +54,7 @@ public class Myxgen_3_0FactoryImpl extends EFactoryImpl implements Myxgen_3_0Fac
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Myxgen_3_0Package.MYX_GEN:
@@ -68,6 +69,7 @@ public class Myxgen_3_0FactoryImpl extends EFactoryImpl implements Myxgen_3_0Fac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public MyxGen createMyxGen() {
 		MyxGenImpl myxGen = new MyxGenImpl();
 		return myxGen;
@@ -78,6 +80,7 @@ public class Myxgen_3_0FactoryImpl extends EFactoryImpl implements Myxgen_3_0Fac
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Myxgen_3_0Package getMyxgen_3_0Package() {
 		return (Myxgen_3_0Package) getEPackage();
 	}

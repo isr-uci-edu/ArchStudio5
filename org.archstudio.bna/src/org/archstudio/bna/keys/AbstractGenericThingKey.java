@@ -15,15 +15,18 @@ public abstract class AbstractGenericThingKey<D, V> extends AbstractGenericKey<D
 		this.isFireEventOnChange = isFireEventOnChange;
 	}
 
+	@Override
 	public boolean isFireEventOnChange() {
 		return isFireEventOnChange;
 	}
 
+	@Override
 	public @Nullable
 	V preWrite(@Nullable V value) {
 		return value;
 	}
 
+	@Override
 	public @Nullable
 	V postRead(@Nullable V value) {
 		return value;

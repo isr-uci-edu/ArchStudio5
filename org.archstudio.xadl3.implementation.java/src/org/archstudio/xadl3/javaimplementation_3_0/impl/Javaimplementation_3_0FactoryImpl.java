@@ -56,6 +56,7 @@ public class Javaimplementation_3_0FactoryImpl extends EFactoryImpl implements J
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Javaimplementation_3_0Package.CLASS_PATH_ENTRY:
@@ -74,6 +75,7 @@ public class Javaimplementation_3_0FactoryImpl extends EFactoryImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ClassPathEntry createClassPathEntry() {
 		ClassPathEntryImpl classPathEntry = new ClassPathEntryImpl();
 		return classPathEntry;
@@ -84,6 +86,7 @@ public class Javaimplementation_3_0FactoryImpl extends EFactoryImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public JavaClass createJavaClass() {
 		JavaClassImpl javaClass = new JavaClassImpl();
 		return javaClass;
@@ -94,6 +97,7 @@ public class Javaimplementation_3_0FactoryImpl extends EFactoryImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public JavaImplementation createJavaImplementation() {
 		JavaImplementationImpl javaImplementation = new JavaImplementationImpl();
 		return javaImplementation;
@@ -104,6 +108,7 @@ public class Javaimplementation_3_0FactoryImpl extends EFactoryImpl implements J
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Javaimplementation_3_0Package getJavaimplementation_3_0Package() {
 		return (Javaimplementation_3_0Package) getEPackage();
 	}

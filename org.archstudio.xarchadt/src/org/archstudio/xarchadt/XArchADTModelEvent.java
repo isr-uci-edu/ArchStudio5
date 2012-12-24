@@ -122,6 +122,7 @@ public class XArchADTModelEvent implements java.io.Serializable {
 		return newValuePath;
 	}
 
+	@Override
 	public String toString() {
 		return "XArchADTModelEvent[" + //
 				"eventType=" + eventType + ", " + //

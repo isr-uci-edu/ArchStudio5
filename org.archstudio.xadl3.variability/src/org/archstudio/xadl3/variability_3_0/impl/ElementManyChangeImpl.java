@@ -54,6 +54,7 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.ELEMENT_MANY_CHANGE;
 	}
@@ -63,6 +64,7 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<ElementChange> getChange() {
 		if (change == null) {
 			change = new EObjectContainmentEList<ElementChange>(ElementChange.class, this,
@@ -77,6 +79,7 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
@@ -91,6 +94,7 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
@@ -104,6 +108,7 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -121,6 +126,7 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
@@ -136,6 +142,7 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:

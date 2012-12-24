@@ -120,6 +120,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getProgram() {
 		return programEClass;
 	}
@@ -129,6 +130,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getProgram_Clauses() {
 		return (EReference) programEClass.getEStructuralFeatures().get(0);
 	}
@@ -138,6 +140,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getProgram_Query() {
 		return (EReference) programEClass.getEStructuralFeatures().get(1);
 	}
@@ -147,6 +150,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getClause() {
 		return clauseEClass;
 	}
@@ -156,6 +160,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getClause_Predicates() {
 		return (EReference) clauseEClass.getEStructuralFeatures().get(0);
 	}
@@ -165,6 +170,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getQuery() {
 		return queryEClass;
 	}
@@ -174,6 +180,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getQuery_Predicates() {
 		return (EReference) queryEClass.getEStructuralFeatures().get(0);
 	}
@@ -183,6 +190,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getExpression() {
 		return expressionEClass;
 	}
@@ -192,6 +200,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getExpression_Ops() {
 		return (EAttribute) expressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -201,6 +210,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getExpression_Exps() {
 		return (EReference) expressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -210,6 +220,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getExpression_Complex() {
 		return (EAttribute) expressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -219,6 +230,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getExpression_Number() {
 		return (EAttribute) expressionEClass.getEStructuralFeatures().get(3);
 	}
@@ -228,6 +240,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getExpression_String() {
 		return (EAttribute) expressionEClass.getEStructuralFeatures().get(4);
 	}
@@ -237,6 +250,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getExpression_Variable() {
 		return (EAttribute) expressionEClass.getEStructuralFeatures().get(5);
 	}
@@ -246,6 +260,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getExpression_List() {
 		return (EAttribute) expressionEClass.getEStructuralFeatures().get(6);
 	}
@@ -255,6 +270,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getExpression_Head() {
 		return (EReference) expressionEClass.getEStructuralFeatures().get(7);
 	}
@@ -264,6 +280,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getExpression_Tail() {
 		return (EReference) expressionEClass.getEStructuralFeatures().get(8);
 	}
@@ -273,6 +290,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public PrologFactory getPrologFactory() {
 		return (PrologFactory) getEFactoryInstance();
 	}

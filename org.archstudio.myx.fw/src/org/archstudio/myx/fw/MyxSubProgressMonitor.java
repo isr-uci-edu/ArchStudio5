@@ -116,6 +116,7 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	 * string will be prepended to every string passed to
 	 * <code>subTask(String)</code>.
 	 */
+	@Override
 	public void beginTask(String name, int totalWork) {
 		nestedBeginTasks++;
 		// Ignore nested begin task calls.
@@ -135,6 +136,7 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	 * (Intentionally not javadoc'd) Implements the method
 	 * <code>IMyxProgressMonitor.done</code>.
 	 */
+	@Override
 	public void done() {
 		// Ignore if more done calls than beginTask calls or if we are still
 		// in some nested beginTasks
@@ -157,6 +159,7 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	 * (Intentionally not javadoc'd) Implements the internal method
 	 * <code>IMyxProgressMonitor.internalWorked</code>.
 	 */
+	@Override
 	public void internalWorked(double work) {
 		if (usedUp || nestedBeginTasks != 1) {
 			return;
@@ -174,6 +177,7 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	 * (Intentionally not javadoc'd) Implements the method
 	 * <code>IMyxProgressMonitor.subTask</code>.
 	 */
+	@Override
 	public void subTask(String name) {
 		if ((style & SUPPRESS_SUBTASK_LABEL) != 0) {
 			return;
@@ -190,6 +194,7 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	 * (Intentionally not javadoc'd) Implements the method
 	 * <code>IMyxProgressMonitor.worked</code>.
 	 */
+	@Override
 	public void worked(int work) {
 		internalWorked(work);
 	}

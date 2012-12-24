@@ -28,9 +28,11 @@ public class ArchipelagoPreferencePanel extends FieldEditorPreferencePage implem
 		setDescription("This panel lets you set general preferences for Archipelago; feature-specific preferences are in subpanels.");
 	}
 
+	@Override
 	public void init(IWorkbench workbench) {
 	}
 
+	@Override
 	protected void createFieldEditors() {
 		antialiasGraphicsEditor = new BooleanFieldEditor(ArchipelagoConstants.PREF_ANTIALIAS_GRAPHICS,
 				"Antialias Graphics", getFieldEditorParent());

@@ -32,6 +32,7 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 		setUpdateEditorOnXArchFlatEvent(false);
 	}
 
+	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
 
@@ -40,6 +41,7 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 		//setupToolbar(site);
 	}
 
+	@Override
 	protected AbstractArchStudioOutlinePage createOutlinePage() {
 		return new ArchipelagoOutlinePage(this, xarch, getDocumentRootRef(), resources, fileman, editorManager,
 				graphLayout);
@@ -52,6 +54,7 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 	 * actions.length; i++){ manager.add(actions[i]); } }
 	 */
 
+	@Override
 	public void createEditorContents(Composite c) {
 		//System.out.println("create editor contents");
 		Label l = new Label(c, SWT.NONE);
@@ -60,10 +63,12 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 		l.setBackground(c.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 	}
 
+	@Override
 	public void setFocus() {
 		// parent.getChildren()[0].setFocus();
 	}
 
+	@Override
 	public void doHandleXArchADTModelEvent(XArchADTModelEvent evt) {
 		if (outlinePage != null) {
 			((ArchipelagoOutlinePage) outlinePage).handleXArchFlatEvent(evt);
@@ -76,6 +81,7 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 		}
 	}
 
+	@Override
 	public void fileDirtyStateChanged(ObjRef xArchRef, boolean dirty) {
 		super.fileDirtyStateChanged(xArchRef, dirty);
 		if (outlinePage != null) {
@@ -83,6 +89,7 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 		}
 	}
 
+	@Override
 	public void fileSaving(ObjRef xArchRef, IProgressMonitor monitor) {
 		super.fileSaving(xArchRef, monitor);
 		if (outlinePage != null) {
@@ -90,6 +97,7 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 		}
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public Object getAdapter(Class key) {
 		if (key.equals(IGotoMarker.class)) {
@@ -98,6 +106,7 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 		return super.getAdapter(key);
 	}
 
+	@Override
 	public void gotoMarker(IMarker marker) {
 		ObjRef objRef = xarch.getByID(documentRootRef, marker.getAttribute(IMarker.LOCATION, null));
 		if (objRef != null) {

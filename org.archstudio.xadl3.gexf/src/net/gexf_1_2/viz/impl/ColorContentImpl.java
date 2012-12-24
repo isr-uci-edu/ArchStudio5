@@ -232,6 +232,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return VizPackage.Literals.COLOR_CONTENT;
 	}
@@ -241,6 +242,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SpellsContent getSpells() {
 		return spells;
 	}
@@ -271,6 +273,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSpells(SpellsContent newSpells) {
 		if (newSpells != spells) {
 			NotificationChain msgs = null;
@@ -298,6 +301,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public float getA() {
 		return a;
 	}
@@ -307,6 +311,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setA(float newA) {
 		float oldA = a;
 		a = newA;
@@ -322,6 +327,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetA() {
 		float oldA = a;
 		boolean oldAESet = aESet;
@@ -338,6 +344,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetA() {
 		return aESet;
 	}
@@ -347,6 +354,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public BigInteger getB() {
 		return b;
 	}
@@ -356,6 +364,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setB(BigInteger newB) {
 		BigInteger oldB = b;
 		b = newB;
@@ -369,6 +378,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEnd() {
 		return end;
 	}
@@ -378,6 +388,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEnd(Object newEnd) {
 		Object oldEnd = end;
 		end = newEnd;
@@ -391,6 +402,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEndopen() {
 		return endopen;
 	}
@@ -400,6 +412,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEndopen(Object newEndopen) {
 		Object oldEndopen = endopen;
 		endopen = newEndopen;
@@ -414,6 +427,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public BigInteger getG() {
 		return g;
 	}
@@ -423,6 +437,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setG(BigInteger newG) {
 		BigInteger oldG = g;
 		g = newG;
@@ -436,6 +451,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public BigInteger getR() {
 		return r;
 	}
@@ -445,6 +461,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setR(BigInteger newR) {
 		BigInteger oldR = r;
 		r = newR;
@@ -458,6 +475,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStart() {
 		return start;
 	}
@@ -467,6 +485,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStart(Object newStart) {
 		Object oldStart = start;
 		start = newStart;
@@ -480,6 +499,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStartopen() {
 		return startopen;
 	}
@@ -489,6 +509,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStartopen(Object newStartopen) {
 		Object oldStartopen = startopen;
 		startopen = newStartopen;
@@ -504,6 +525,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case VizPackage.COLOR_CONTENT__SPELLS:
@@ -518,6 +540,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case VizPackage.COLOR_CONTENT__SPELLS:
@@ -548,6 +571,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case VizPackage.COLOR_CONTENT__SPELLS:
@@ -587,6 +611,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case VizPackage.COLOR_CONTENT__SPELLS:
@@ -626,6 +651,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case VizPackage.COLOR_CONTENT__SPELLS:
@@ -656,6 +682,7 @@ public class ColorContentImpl extends EObjectImpl implements ColorContent {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

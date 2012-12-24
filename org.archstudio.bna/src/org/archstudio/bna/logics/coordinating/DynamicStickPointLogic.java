@@ -29,6 +29,7 @@ public class DynamicStickPointLogic extends AbstractThingLogic implements IBNAMo
 	public DynamicStickPointLogic() {
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 		trtl = addThingLogic(ThingReferenceTrackingLogic.class);
@@ -43,6 +44,7 @@ public class DynamicStickPointLogic extends AbstractThingLogic implements IBNAMo
 		return ThingRefMetakey.create(STICKY_THING_ID_KEY_NAME, pointKey);
 	}
 
+	@Override
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();

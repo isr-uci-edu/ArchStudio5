@@ -117,6 +117,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.GEXF_CONTENT;
 	}
@@ -126,6 +127,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public MetaContent getMeta() {
 		return meta;
 	}
@@ -156,6 +158,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setMeta(MetaContent newMeta) {
 		if (newMeta != meta) {
 			NotificationChain msgs = null;
@@ -182,6 +185,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public GraphContent getGraph() {
 		return graph;
 	}
@@ -212,6 +216,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setGraph(GraphContent newGraph) {
 		if (newGraph != graph) {
 			NotificationChain msgs = null;
@@ -238,6 +243,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getVariant() {
 		return variant;
 	}
@@ -247,6 +253,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setVariant(String newVariant) {
 		String oldVariant = variant;
 		variant = newVariant;
@@ -261,6 +268,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public VersionType getVersion() {
 		return version;
 	}
@@ -270,6 +278,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setVersion(VersionType newVersion) {
 		VersionType oldVersion = version;
 		version = newVersion == null ? VERSION_EDEFAULT : newVersion;
@@ -286,6 +295,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetVersion() {
 		VersionType oldVersion = version;
 		boolean oldVersionESet = versionESet;
@@ -302,6 +312,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetVersion() {
 		return versionESet;
 	}
@@ -312,6 +323,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GexfPackage.GEXF_CONTENT__META:
@@ -328,6 +340,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.GEXF_CONTENT__META:
@@ -348,6 +361,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.GEXF_CONTENT__META:
@@ -372,6 +386,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.GEXF_CONTENT__META:
@@ -396,6 +411,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.GEXF_CONTENT__META:
@@ -416,6 +432,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

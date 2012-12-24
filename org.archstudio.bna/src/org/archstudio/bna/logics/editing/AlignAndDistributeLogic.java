@@ -66,12 +66,14 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 				new Image(disp, getClass().getResourceAsStream("res/distribute-vertical-tight.gif")));
 	}
 
+	@Override
 	protected void destroy() {
 		if (imageRegistry != null) {
 			imageRegistry.dispose();
 		}
 	}
 
+	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		if (imageRegistry == null) {
 			loadImages(view);
@@ -100,6 +102,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 
 		IAction alignTop = new Action("Align &Top", imageRegistry.getDescriptor(ALIGN_TOP)) {
 
+			@Override
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, VerticalAlignment.TOP);
 				BNAOperations.runnable("Align", undoRunnable,
@@ -110,6 +113,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 
 		IAction alignMiddle = new Action("Align &Middle", imageRegistry.getDescriptor(ALIGN_MIDDLE)) {
 
+			@Override
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, VerticalAlignment.MIDDLE);
 				BNAOperations.runnable("Align", undoRunnable,
@@ -120,6 +124,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 
 		IAction alignBottom = new Action("Align &Bottom", imageRegistry.getDescriptor(ALIGN_BOTTOM)) {
 
+			@Override
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, VerticalAlignment.BOTTOM);
 				BNAOperations.runnable("Align", undoRunnable,
@@ -130,6 +135,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 
 		IAction alignLeft = new Action("Align &Left", imageRegistry.getDescriptor(ALIGN_LEFT)) {
 
+			@Override
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.LEFT);
 				BNAOperations.runnable("Align", undoRunnable,
@@ -140,6 +146,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 
 		IAction alignCenter = new Action("Align &Center", imageRegistry.getDescriptor(ALIGN_CENTER)) {
 
+			@Override
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.CENTER);
 				BNAOperations.runnable("Align", undoRunnable,
@@ -150,6 +157,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 
 		IAction alignRight = new Action("Align &Right", imageRegistry.getDescriptor(ALIGN_RIGHT)) {
 
+			@Override
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.RIGHT);
 				BNAOperations.runnable("Align", undoRunnable,
@@ -163,6 +171,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 		IAction distributeHorizontalLoose = new Action("Distribute Horizontal Loose",
 				imageRegistry.getDescriptor(DISTRIBUTE_HORIZONTAL_LOOSE)) {
 
+			@Override
 			public void run() {
 				BNADistributeUtils.distributeHorizontalLoose(thingsToEdit);
 				BNAOperations.runnable("Distribute", undoRunnable,
@@ -174,6 +183,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 		IAction distributeHorizontalTight = new Action("Distribute Horizontal Tight",
 				imageRegistry.getDescriptor(DISTRIBUTE_HORIZONTAL_TIGHT)) {
 
+			@Override
 			public void run() {
 				BNADistributeUtils.distributeHorizontalTight(thingsToEdit);
 				BNAOperations.runnable("Distribute", undoRunnable,
@@ -185,6 +195,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 		IAction distributeVerticalLoose = new Action("Distribute Vertical Loose",
 				imageRegistry.getDescriptor(DISTRIBUTE_VERTICAL_LOOSE)) {
 
+			@Override
 			public void run() {
 				BNADistributeUtils.distributeVerticalLoose(thingsToEdit);
 				BNAOperations.runnable("Distribute", undoRunnable,
@@ -196,6 +207,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 		IAction distributeVerticalTight = new Action("Distribute Vertical Tight",
 				imageRegistry.getDescriptor(DISTRIBUTE_VERTICAL_TIGHT)) {
 
+			@Override
 			public void run() {
 				BNADistributeUtils.distributeVerticalTight(thingsToEdit);
 				BNAOperations.runnable("Distribute", undoRunnable,

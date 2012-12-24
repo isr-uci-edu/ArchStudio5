@@ -133,6 +133,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Structure_3_0Package.Literals.INTERFACE;
 	}
@@ -142,6 +143,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this, Structure_3_0Package.INTERFACE__EXT);
@@ -154,6 +156,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Direction getDirection() {
 		return direction;
 	}
@@ -163,6 +166,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setDirection(Direction newDirection) {
 		Direction oldDirection = direction;
 		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
@@ -179,6 +183,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetDirection() {
 		Direction oldDirection = direction;
 		boolean oldDirectionESet = directionESet;
@@ -195,6 +200,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetDirection() {
 		return directionESet;
 	}
@@ -204,6 +210,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -213,6 +220,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -226,6 +234,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -235,6 +244,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -249,6 +259,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Structure_3_0Package.INTERFACE__EXT:
@@ -263,6 +274,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Structure_3_0Package.INTERFACE__EXT:
@@ -282,6 +294,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -308,6 +321,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.INTERFACE__EXT:
@@ -332,6 +346,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Structure_3_0Package.INTERFACE__EXT:
@@ -352,6 +367,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

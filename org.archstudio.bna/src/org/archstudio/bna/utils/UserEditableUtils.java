@@ -58,6 +58,7 @@ public class UserEditableUtils {
 			final String... editableQualities) {
 		return Iterables.filter(things, new Predicate<IThing>() {
 
+			@Override
 			public boolean apply(IThing input) {
 				return isEditableForAllQualities(input, editableQualities);
 			}
@@ -86,6 +87,7 @@ public class UserEditableUtils {
 			final String... editableQualities) {
 		return Iterables.filter(things, new Predicate<IThing>() {
 
+			@Override
 			public boolean apply(IThing input) {
 				return isEditableForAnyQualities(input, editableQualities);
 			}

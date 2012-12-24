@@ -32,6 +32,7 @@ public class Javaimplementation_3_0ResourceFactoryImpl extends ResourceFactoryIm
 	 * @generated
 	 */
 
+	@Override
 	public Resource createResource(URI uri) {
 		XMLResource result = new Javaimplementation_3_0ResourceImpl(uri);
 		result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);

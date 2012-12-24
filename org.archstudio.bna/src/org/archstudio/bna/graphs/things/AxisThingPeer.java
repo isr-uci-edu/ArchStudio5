@@ -23,6 +23,7 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 		super(thing);
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Point canvasSize = r.getComposite().getSize();
 		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) & r.setLineStyle(t)) {

@@ -29,6 +29,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 		this.xarch = services.get(IXArchADT.class);
 	}
 
+	@Override
 	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location,
 			Object data) {
 		IThing t = getSingleThing(ts);
@@ -54,6 +55,7 @@ public class StructureDropLogic extends AbstractTreeDropLogic {
 		return false;
 	}
 
+	@Override
 	public void drop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (pulser != null) {
 			view.getBNAWorld().getBNAModel().removeThing(pulser);

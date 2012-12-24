@@ -15,24 +15,29 @@ public abstract class AbstractAnchorPointThing extends AbstractRelativeMovableRe
 		super(id);
 	}
 
+	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setAnchorPoint(new Point(0, 0));
 		addShapeModifyingKey(ANCHOR_POINT_KEY);
 	}
 
+	@Override
 	public Point getAnchorPoint() {
 		return get(ANCHOR_POINT_KEY, new Point(0, 0));
 	}
 
+	@Override
 	public void setAnchorPoint(@Nullable Point p) {
 		set(ANCHOR_POINT_KEY, p);
 	}
 
+	@Override
 	public Point getReferencePoint() {
 		return getAnchorPoint();
 	}
 
+	@Override
 	public void moveRelative(final Point moveDelta) {
 		if (moveDelta.x != 0 || moveDelta.y != 0) {
 			Point p = getAnchorPoint();
@@ -40,6 +45,7 @@ public abstract class AbstractAnchorPointThing extends AbstractRelativeMovableRe
 		}
 	}
 
+	@Override
 	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
 		return getAnchorPoint();
 	}

@@ -32,6 +32,7 @@ public class XlinkResourceFactoryImpl extends ResourceFactoryImpl {
 	 * @generated
 	 */
 
+	@Override
 	public Resource createResource(URI uri) {
 		XMLResource result = new XlinkResourceImpl(uri);
 		result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);

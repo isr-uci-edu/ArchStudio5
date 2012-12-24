@@ -189,6 +189,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.DOCUMENT_ROOT;
 	}
@@ -198,6 +199,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getMixed() {
 		if (mixed == null) {
 			mixed = new BasicFeatureMap(this, GexfPackage.DOCUMENT_ROOT__MIXED);
@@ -210,6 +212,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EMap<String, String> getXMLNSPrefixMap() {
 		if (xMLNSPrefixMap == null) {
 			xMLNSPrefixMap = new EcoreEMap<String, String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY,
@@ -223,6 +226,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EMap<String, String> getXSISchemaLocation() {
 		if (xSISchemaLocation == null) {
 			xSISchemaLocation = new EcoreEMap<String, String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY,
@@ -236,6 +240,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public AttributeContent getAttribute() {
 		return (AttributeContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__ATTRIBUTE, true);
 	}
@@ -255,6 +260,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setAttribute(AttributeContent newAttribute) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__ATTRIBUTE, newAttribute);
 	}
@@ -264,6 +270,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public AttributesContent getAttributes() {
 		return (AttributesContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__ATTRIBUTES, true);
 	}
@@ -283,6 +290,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setAttributes(AttributesContent newAttributes) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__ATTRIBUTES, newAttributes);
 	}
@@ -292,6 +300,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public AttvalueType getAttvalue() {
 		return (AttvalueType) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__ATTVALUE, true);
 	}
@@ -311,6 +320,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setAttvalue(AttvalueType newAttvalue) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__ATTVALUE, newAttvalue);
 	}
@@ -320,6 +330,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public AttvaluesContent getAttvalues() {
 		return (AttvaluesContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__ATTVALUES, true);
 	}
@@ -339,6 +350,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setAttvalues(AttvaluesContent newAttvalues) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__ATTVALUES, newAttvalues);
 	}
@@ -348,6 +360,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ColorContent getColor() {
 		return (ColorContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__COLOR, true);
 	}
@@ -366,6 +379,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setColor(ColorContent newColor) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__COLOR, newColor);
 	}
@@ -375,6 +389,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getCreator() {
 		return (String) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__CREATOR, true);
 	}
@@ -384,6 +399,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setCreator(String newCreator) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__CREATOR, newCreator);
 	}
@@ -393,6 +409,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getDefault() {
 		return (String) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__DEFAULT, true);
 	}
@@ -402,6 +419,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setDefault(String newDefault) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__DEFAULT, newDefault);
 	}
@@ -411,6 +429,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getDescription() {
 		return (String) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__DESCRIPTION, true);
 	}
@@ -420,6 +439,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__DESCRIPTION, newDescription);
 	}
@@ -429,6 +449,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EdgeContent getEdge() {
 		return (EdgeContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__EDGE, true);
 	}
@@ -447,6 +468,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEdge(EdgeContent newEdge) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__EDGE, newEdge);
 	}
@@ -456,6 +478,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EdgesContent getEdges() {
 		return (EdgesContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__EDGES, true);
 	}
@@ -474,6 +497,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEdges(EdgesContent newEdges) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__EDGES, newEdges);
 	}
@@ -483,6 +507,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public GexfContent getGexf() {
 		return (GexfContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__GEXF, true);
 	}
@@ -501,6 +526,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setGexf(GexfContent newGexf) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__GEXF, newGexf);
 	}
@@ -510,6 +536,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public GraphContent getGraph() {
 		return (GraphContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__GRAPH, true);
 	}
@@ -528,6 +555,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setGraph(GraphContent newGraph) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__GRAPH, newGraph);
 	}
@@ -537,6 +565,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getKeywords() {
 		return (String) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__KEYWORDS, true);
 	}
@@ -546,6 +575,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setKeywords(String newKeywords) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__KEYWORDS, newKeywords);
 	}
@@ -555,6 +585,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public MetaContent getMeta() {
 		return (MetaContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__META, true);
 	}
@@ -573,6 +604,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setMeta(MetaContent newMeta) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__META, newMeta);
 	}
@@ -582,6 +614,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public NodeContent getNode() {
 		return (NodeContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__NODE, true);
 	}
@@ -600,6 +633,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setNode(NodeContent newNode) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__NODE, newNode);
 	}
@@ -609,6 +643,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public NodesContent getNodes() {
 		return (NodesContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__NODES, true);
 	}
@@ -627,6 +662,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setNodes(NodesContent newNodes) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__NODES, newNodes);
 	}
@@ -636,6 +672,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getOptions() {
 		return (String) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__OPTIONS, true);
 	}
@@ -645,6 +682,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setOptions(String newOptions) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__OPTIONS, newOptions);
 	}
@@ -654,6 +692,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ParentType getParent() {
 		return (ParentType) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__PARENT, true);
 	}
@@ -672,6 +711,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setParent(ParentType newParent) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__PARENT, newParent);
 	}
@@ -681,6 +721,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ParentsContent getParents() {
 		return (ParentsContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__PARENTS, true);
 	}
@@ -700,6 +741,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setParents(ParentsContent newParents) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__PARENTS, newParents);
 	}
@@ -709,6 +751,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public PositionContent getPosition() {
 		return (PositionContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__POSITION, true);
 	}
@@ -728,6 +771,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setPosition(PositionContent newPosition) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__POSITION, newPosition);
 	}
@@ -737,6 +781,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SizeContent getSize() {
 		return (SizeContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__SIZE, true);
 	}
@@ -755,6 +800,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSize(SizeContent newSize) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__SIZE, newSize);
 	}
@@ -764,6 +810,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SpellType getSpell() {
 		return (SpellType) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__SPELL, true);
 	}
@@ -782,6 +829,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSpell(SpellType newSpell) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__SPELL, newSpell);
 	}
@@ -791,6 +839,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SpellsContent getSpells() {
 		return (SpellsContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__SPELLS, true);
 	}
@@ -809,6 +858,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSpells(SpellsContent newSpells) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__SPELLS, newSpells);
 	}
@@ -818,6 +868,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ThicknessContent getThickness() {
 		return (ThicknessContent) getMixed().get(GexfPackage.Literals.DOCUMENT_ROOT__THICKNESS, true);
 	}
@@ -837,6 +888,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setThickness(ThicknessContent newThickness) {
 		((FeatureMap.Internal) getMixed()).set(GexfPackage.Literals.DOCUMENT_ROOT__THICKNESS, newThickness);
 	}
@@ -847,6 +899,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GexfPackage.DOCUMENT_ROOT__MIXED:
@@ -903,6 +956,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.DOCUMENT_ROOT__MIXED:
@@ -982,6 +1036,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.DOCUMENT_ROOT__MIXED:
@@ -1075,6 +1130,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.DOCUMENT_ROOT__MIXED:
@@ -1168,6 +1224,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.DOCUMENT_ROOT__MIXED:
@@ -1235,6 +1292,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

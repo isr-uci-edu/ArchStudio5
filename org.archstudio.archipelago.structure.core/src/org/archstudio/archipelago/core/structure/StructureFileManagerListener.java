@@ -14,9 +14,11 @@ public class StructureFileManagerListener implements IFileManagerListener {
 		this.documentRootRef = documentRootRef;
 	}
 
+	@Override
 	public void fileDirtyStateChanged(ObjRef xArchRef, boolean dirty) {
 	}
 
+	@Override
 	public void fileSaving(final ObjRef documentRootRef, final IProgressMonitor monitor) {
 		//if(documentRootRef.equals(this.documentRootRef)){
 		//	monitor.subTask("Writing Hints");

@@ -165,6 +165,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.ATTVALUE_TYPE;
 	}
@@ -174,6 +175,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEnd() {
 		return end;
 	}
@@ -183,6 +185,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEnd(Object newEnd) {
 		Object oldEnd = end;
 		end = newEnd;
@@ -196,6 +199,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getEndopen() {
 		return endopen;
 	}
@@ -205,6 +209,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setEndopen(Object newEndopen) {
 		Object oldEndopen = endopen;
 		endopen = newEndopen;
@@ -219,6 +224,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getFor() {
 		return for_;
 	}
@@ -228,6 +234,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setFor(Object newFor) {
 		Object oldFor = for_;
 		for_ = newFor;
@@ -241,6 +248,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStart() {
 		return start;
 	}
@@ -250,6 +258,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStart(Object newStart) {
 		Object oldStart = start;
 		start = newStart;
@@ -263,6 +272,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getStartopen() {
 		return startopen;
 	}
@@ -272,6 +282,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setStartopen(Object newStartopen) {
 		Object oldStartopen = startopen;
 		startopen = newStartopen;
@@ -286,6 +297,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getValue() {
 		return value;
 	}
@@ -295,6 +307,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setValue(String newValue) {
 		String oldValue = value;
 		value = newValue;
@@ -309,6 +322,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GexfPackage.ATTVALUE_TYPE__END:
@@ -333,6 +347,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.ATTVALUE_TYPE__END:
@@ -363,6 +378,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case GexfPackage.ATTVALUE_TYPE__END:
@@ -393,6 +409,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GexfPackage.ATTVALUE_TYPE__END:
@@ -417,6 +434,7 @@ public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

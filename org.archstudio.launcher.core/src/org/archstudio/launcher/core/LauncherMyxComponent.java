@@ -26,6 +26,7 @@ public class LauncherMyxComponent extends org.archstudio.launcher.core.LauncherM
 		}
 		Collections.sort(l, new Comparator<ILaunchData>() {
 
+			@Override
 			public int compare(ILaunchData o1, ILaunchData o2) {
 				String n1 = o1.getName();
 				String n2 = o2.getName();

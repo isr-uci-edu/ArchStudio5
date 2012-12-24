@@ -49,6 +49,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		super(IHasMutablePoints.class);
 	}
 
+	@Override
 	protected void init() {
 		super.init();
 		stickLogic = addThingLogic(DynamicStickPointLogic.class);
@@ -61,6 +62,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 
 	int potentialHandles = 0;
 
+	@Override
 	protected void addHandles() {
 		potentialHandles = 0;
 		for (int i = 0; i < reshapingThing.getPointsSize(); i++) {
@@ -87,6 +89,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		}
 	}
 
+	@Override
 	protected synchronized void updateHandles() {
 		if (reshapingThing != null) {
 			if (potentialHandles != reshapingThing.getPointsSize()) {
@@ -97,6 +100,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		super.updateHandles();
 	}
 
+	@Override
 	protected void updateHandle(ReshapeHandleGlassThing handle, Integer data) {
 
 		// if stuck to the center of something, place the handle at the center (not the calculated edge point)
@@ -117,6 +121,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		updateColor(handle, data);
 	}
 
+	@Override
 	protected void handleMoved(ReshapeHandleGlassThing handle, Integer data, DragMoveEvent evt) {
 
 		Point p = evt.getMouseLocation().getWorldPoint();
@@ -165,6 +170,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		reshapingThing.setPoint(data, ap);
 	}
 
+	@Override
 	protected void handleMoveFinished(ReshapeHandleGlassThing handle, Integer data, DragMoveEvent evt) {
 
 		// merge points (i.e., remove one), if one has been moved close to its neighbor
@@ -221,6 +227,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		return null;
 	}
 
+	@Override
 	protected Runnable takeSnapshot() {
 		final Object tID = this.reshapingThing.getID();
 		final List<Point> points = reshapingThing.getPoints();
@@ -231,6 +238,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 				.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY));
 		final Object stickToThingID2 = reshapingThing.get(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY));
 		return new Runnable() {
+			@Override
 			public void run() {
 				IHasMutablePoints t = SystemUtils.castOrNull(getBNAModel().getThing(tID), IHasMutablePoints.class);
 				{

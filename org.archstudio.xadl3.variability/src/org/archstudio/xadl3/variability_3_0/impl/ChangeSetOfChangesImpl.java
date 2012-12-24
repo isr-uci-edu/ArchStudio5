@@ -52,6 +52,7 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.CHANGE_SET_OF_CHANGES;
 	}
@@ -61,6 +62,7 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ElementChange getElementChange() {
 		return elementChange;
 	}
@@ -91,6 +93,7 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setElementChange(ElementChange newElementChange) {
 		if (newElementChange != elementChange) {
 			NotificationChain msgs = null;
@@ -119,6 +122,7 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
@@ -133,6 +137,7 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
@@ -147,6 +152,7 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
@@ -162,6 +168,7 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:
@@ -177,6 +184,7 @@ public class ChangeSetOfChangesImpl extends ChangeSetImpl implements ChangeSetOf
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Variability_3_0Package.CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE:

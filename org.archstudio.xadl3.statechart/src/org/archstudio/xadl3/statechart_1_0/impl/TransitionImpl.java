@@ -139,6 +139,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Statechart_1_0Package.Literals.TRANSITION;
 	}
@@ -148,6 +149,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public PseudoState getFrom() {
 		return from;
 	}
@@ -157,6 +159,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setFrom(PseudoState newFrom) {
 		PseudoState oldFrom = from;
 		from = newFrom;
@@ -170,6 +173,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public PseudoState getTo() {
 		return to;
 	}
@@ -179,6 +183,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setTo(PseudoState newTo) {
 		PseudoState oldTo = to;
 		to = newTo;
@@ -192,6 +197,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Constraint getConstraint() {
 		return constraint;
 	}
@@ -222,6 +228,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setConstraint(Constraint newConstraint) {
 		if (newConstraint != constraint) {
 			NotificationChain msgs = null;
@@ -249,6 +256,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Extension> getExt() {
 		if (ext == null) {
 			ext = new EObjectContainmentEList<Extension>(Extension.class, this, Statechart_1_0Package.TRANSITION__EXT);
@@ -261,6 +269,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -270,6 +279,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -283,6 +293,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -292,6 +303,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -306,6 +318,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Statechart_1_0Package.TRANSITION__CONSTRAINT:
@@ -322,6 +335,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Statechart_1_0Package.TRANSITION__FROM:
@@ -345,6 +359,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -377,6 +392,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.TRANSITION__FROM:
@@ -407,6 +423,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.TRANSITION__FROM:
@@ -431,6 +448,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

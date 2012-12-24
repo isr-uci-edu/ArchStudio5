@@ -49,6 +49,7 @@ public class Myxgen_3_0Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 
+	@Override
 	protected boolean isSwitchFor(EPackage ePackage) {
 		return ePackage == modelPackage;
 	}
@@ -63,6 +64,7 @@ public class Myxgen_3_0Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 
+	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 		case Myxgen_3_0Package.MYX_GEN: {
@@ -129,6 +131,7 @@ public class Myxgen_3_0Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 
+	@Override
 	public T defaultCase(EObject object) {
 		return null;
 	}

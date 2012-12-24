@@ -67,6 +67,7 @@ public class FinalStateImpl extends PseudoStateImpl implements FinalState {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Statechart_1_0Package.Literals.FINAL_STATE;
 	}
@@ -76,6 +77,7 @@ public class FinalStateImpl extends PseudoStateImpl implements FinalState {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public StateType getType() {
 		return type;
 	}
@@ -85,6 +87,7 @@ public class FinalStateImpl extends PseudoStateImpl implements FinalState {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setType(StateType newType) {
 		StateType oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
@@ -101,6 +104,7 @@ public class FinalStateImpl extends PseudoStateImpl implements FinalState {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void unsetType() {
 		StateType oldType = type;
 		boolean oldTypeESet = typeESet;
@@ -117,6 +121,7 @@ public class FinalStateImpl extends PseudoStateImpl implements FinalState {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isSetType() {
 		return typeESet;
 	}
@@ -127,6 +132,7 @@ public class FinalStateImpl extends PseudoStateImpl implements FinalState {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Statechart_1_0Package.FINAL_STATE__TYPE:
@@ -141,6 +147,7 @@ public class FinalStateImpl extends PseudoStateImpl implements FinalState {
 	 * @generated
 	 */
 
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Statechart_1_0Package.FINAL_STATE__TYPE:
@@ -156,6 +163,7 @@ public class FinalStateImpl extends PseudoStateImpl implements FinalState {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.FINAL_STATE__TYPE:
@@ -171,6 +179,7 @@ public class FinalStateImpl extends PseudoStateImpl implements FinalState {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Statechart_1_0Package.FINAL_STATE__TYPE:
@@ -185,6 +194,7 @@ public class FinalStateImpl extends PseudoStateImpl implements FinalState {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

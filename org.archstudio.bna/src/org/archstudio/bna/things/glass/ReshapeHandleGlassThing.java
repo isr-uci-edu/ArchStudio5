@@ -18,6 +18,7 @@ public class ReshapeHandleGlassThing extends AbstractAnchorPointThing implements
 		super(id);
 	}
 
+	@Override
 	protected void initProperties() {
 		super.initProperties();
 		setOrientation(Orientation.NONE);
@@ -25,14 +26,17 @@ public class ReshapeHandleGlassThing extends AbstractAnchorPointThing implements
 		set(IHasEdgeColor.EDGE_COLOR_KEY, new RGB(0, 0, 0));
 	}
 
+	@Override
 	public Orientation getOrientation() {
 		return get(ORIENTATION_KEY);
 	}
 
+	@Override
 	public void setOrientation(Orientation orientation) {
 		set(ORIENTATION_KEY, orientation);
 	}
 
+	@Override
 	public int getStandardCursor() {
 		switch (getOrientation()) {
 		case NORTHWEST:
@@ -56,10 +60,12 @@ public class ReshapeHandleGlassThing extends AbstractAnchorPointThing implements
 		}
 	}
 
+	@Override
 	public Dimension getSize() {
 		return get(SIZE_KEY);
 	}
 
+	@Override
 	public void setSize(Dimension size) {
 		set(SIZE_KEY, size);
 	}

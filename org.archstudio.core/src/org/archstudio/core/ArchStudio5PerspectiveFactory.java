@@ -12,6 +12,7 @@ public class ArchStudio5PerspectiveFactory implements IPerspectiveFactory {
 	public ArchStudio5PerspectiveFactory() {
 	}
 
+	@Override
 	@SuppressWarnings("deprecation")
 	public synchronized void createInitialLayout(IPageLayout layout) {
 		String editorArea = layout.getEditorArea();

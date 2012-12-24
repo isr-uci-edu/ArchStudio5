@@ -30,6 +30,7 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 		super(thing);
 	}
 
+	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		Point p1 = new Point(lbb.x, lbb.y);

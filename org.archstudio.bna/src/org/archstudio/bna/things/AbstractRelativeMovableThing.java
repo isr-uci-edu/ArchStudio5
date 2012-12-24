@@ -20,22 +20,27 @@ public abstract class AbstractRelativeMovableThing extends AbstractThing impleme
 		super(id);
 	}
 
+	@Override
 	public abstract void moveRelative(Point worldDelta);
 
+	@Override
 	public void moveRelative(Dimension worldDelta) {
 		moveRelative(new Point(worldDelta.width, worldDelta.height));
 	}
 
+	@Override
 	public void addShapeModifyingKey(IThingKey<?> key) {
 		Set<IThingKey<?>> keys = Sets.newHashSet(get(SHAPE_MODIFYING_KEYS_KEY));
 		keys.add(key);
 		set(SHAPE_MODIFYING_KEYS_KEY, keys);
 	}
 
+	@Override
 	public Collection<IThingKey<?>> getShapeModifyingKeys() {
 		return get(SHAPE_MODIFYING_KEYS_KEY, Collections.<IThingKey<?>> emptySet());
 	}
 
+	@Override
 	public boolean isShapeModifyingKey(IThingKey<?> key) {
 		return get(SHAPE_MODIFYING_KEYS_KEY, Collections.<IThingKey<?>> emptySet()).contains(key);
 	}

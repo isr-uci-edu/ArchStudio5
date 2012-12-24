@@ -225,6 +225,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 	private final LoadingCache<ObjRef, VariabilityStatus> variabilityStatusCache = CacheBuilder.newBuilder().build(
 			new CacheLoader<ObjRef, VariabilityStatus>() {
 
+				@Override
 				public VariabilityStatus load(@Nullable ObjRef documentRootRef) throws Exception {
 					if (documentRootRef == null) {
 						throw new NullPointerException();
@@ -281,6 +282,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		return getStatus(eObject).explicitAttached;
 	}
 
+	@Override
 	public ChangeStatus getChangeStatus(ObjRef objRef) {
 		return getStatus(get(objRef)).status;
 	}
@@ -344,6 +346,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		return objRef;
 	}
 
+	@Override
 	public synchronized void setChangeSetsEnabled(ObjRef documentRootRef, boolean enabled) {
 
 		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
@@ -398,6 +401,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		}
 	}
 
+	@Override
 	public synchronized boolean isChangeSetsEnabled(ObjRef documentRootRef) {
 		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 
@@ -405,6 +409,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		return vs.isChangeSetsEnabled;
 	}
 
+	@Override
 	public synchronized void setActiveChangeSet(ObjRef documentRootRef, @Nullable ObjRef changeSetRef) {
 		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 		checkArgument(changeSetRef == null
@@ -424,6 +429,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		}
 	}
 
+	@Override
 	@Nullable
 	public synchronized ObjRef getActiveChangeSet(ObjRef documentRootRef) {
 		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
@@ -473,6 +479,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		return diff;
 	}
 
+	@Override
 	public synchronized void applyChangeSets(ObjRef documentRootRef, List<ObjRef> changeSetRefs) {
 		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 		for (ObjRef changeSetRef : changeSetRefs) {
@@ -511,6 +518,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		}
 	}
 
+	@Override
 	public synchronized List<ObjRef> getAppliedChangeSets(ObjRef documentRootRef) {
 		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 
@@ -526,6 +534,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		return changeSetRefs;
 	}
 
+	@Override
 	public void setExplicitChangeSets(ObjRef documentRootRef, Iterable<ObjRef> changeSetRefs) {
 		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 		for (ObjRef changeSetRef : changeSetRefs) {
@@ -553,6 +562,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		}
 	}
 
+	@Override
 	public Set<ObjRef> getExplicitChangeSets(ObjRef documentRootRef) {
 		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 
@@ -564,6 +574,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		return Sets.newHashSet(putAll(vs.explicitChangeSets));
 	}
 
+	@Override
 	public boolean isOverviewModeEnabled(ObjRef documentRootRef) {
 		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 
@@ -575,6 +586,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		return vs.isOverview;
 	}
 
+	@Override
 	public void setOverviewModeEnabled(ObjRef documentRootRef, boolean enabled) {
 		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 
@@ -790,6 +802,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 	private static final LoadingCache<String, Class<?>> classForNameCache = CacheBuilder.newBuilder().build(
 			new CacheLoader<String, Class<?>>() {
 
+				@Override
 				public Class<?> load(@Nullable String className) throws Exception {
 					if (className == null) {
 						throw new NullPointerException();
@@ -984,6 +997,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		}
 		if (eFeature instanceof EReference && !((EReference) eFeature).isContainment()) {
 			endRunnables.add(new Runnable() {
+				@Override
 				public void run() {
 					ObjRef objRef = newChange != null ? XArchADTVariabilityImpl.super.getByID((String) newChange)
 							: null;
@@ -1268,10 +1282,12 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		synchronizeElement(vs, vs._synchronizeIndecies, documentRoot,
 				resolveElementChanges(vs._changeSets, documentRoot), new SynchElementHelper(true) {
 
+					@Override
 					public void clear(EObject oldEObject) {
 						throw new UnsupportedOperationException();
 					}
 
+					@Override
 					public void set(EObject newEObject) {
 						throw new UnsupportedOperationException();
 					}
@@ -1514,6 +1530,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					&& !((EReference) eFeature).isContainment()) {
 				synchronizeAttribute(vs, synchronizeIndecies, eObject, eFeature,
 						resolveAttributeChanges(values, eFeature.getName()), new SynchAttributeHelper() {
+							@Override
 							@Nullable
 							public AttributeChange createChange(VariabilityStatus vs, EObject eObject,
 									EStructuralFeature eAttribute) {
@@ -1526,10 +1543,12 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 				synchronizeElement(vs, synchronizeIndecies, (EObject) eObject.eGet(eFeature),
 						resolveElementChanges(values, eFeature.getName()), new SynchElementHelper(true) {
 
+							@Override
 							public void set(EObject newEObject) {
 								eObject.eSet(eFeature, newEObject);
 							}
 
+							@Override
 							@Nullable
 							public ElementChange createChange(VariabilityStatus vs, EObject newEObject) {
 								return createElementChange(synchHelper.createChange(vs, eObject), eFeature.getName(),
@@ -1540,11 +1559,13 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 			else {
 				synchronizeElementMany(vs, synchronizeIndecies, eObject, eFeature, values,
 						new SynchElementHelper(false) {
+							@Override
 							@SuppressWarnings("unchecked")
 							public void set(EObject newEObject) {
 								((EList<EObject>) eObject.eGet(eFeature)).add(newEObject);
 							}
 
+							@Override
 							@Nullable
 							public ElementChange createChange(VariabilityStatus vs, EObject newEObject) {
 								return createElementChange(synchHelper.createChange(vs, eObject), eFeature.getName(),
@@ -1582,6 +1603,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 
 			synchronizeElement(vs, synchronizeIndecies, eObject, resolveElementChanges(vs._changeSets, eObject),
 					new SynchElementHelper(!eFeature.isMany()) {
+						@Override
 						@SuppressWarnings("unchecked")
 						public void set(EObject newEObject) {
 							if (!eFeature.isMany()) {
@@ -1654,6 +1676,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 
 	//////////////////////////////////////////////////////////////////////////
 
+	@Override
 	public synchronized void set(ObjRef baseObjRef, String typeOfThing, @Nullable Serializable value) {
 		final VariabilityStatus vs = getVariabilityStatusCache(baseObjRef);
 		if (vs == null || !vs.isChangeSetsEnabled || !super.isAttached(baseObjRef)) {
@@ -1687,6 +1710,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					synchronizeElement(vs, childEObject, resolveElementChanges(vs.workingChangeSets, childEObject),
 							new SynchElementHelper(true) {
 
+								@Override
 								public void set(EObject newEObject) {
 									eObject.eSet(eFeature, newEObject);
 								}
@@ -1696,6 +1720,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
 							new SynchElementHelper(true) {
 
+								@Override
 								public void set(EObject newEObject) {
 									eObject.eSet(eFeature, newEObject);
 								}
@@ -1705,6 +1730,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		}
 	}
 
+	@Override
 	public synchronized void clear(ObjRef baseObjRef, String typeOfThing) {
 		final VariabilityStatus vs = getVariabilityStatusCache(baseObjRef);
 		if (vs == null || !vs.isChangeSetsEnabled || !super.isAttached(baseObjRef)) {
@@ -1744,6 +1770,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					synchronizeElement(vs, childEObject, resolveElementChanges(vs.workingChangeSets, childEObject),
 							new SynchElementHelper(true) {
 
+								@Override
 								public void set(EObject newEObject) {
 									eObject.eSet(eFeature, newEObject);
 								}
@@ -1753,6 +1780,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		}
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public synchronized void add(ObjRef baseObjRef, String typeOfThing, Serializable thingToAdd) {
 		final VariabilityStatus vs = getVariabilityStatusCache(baseObjRef);
@@ -1769,6 +1797,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
 							new SynchElementHelper(false) {
 
+								@Override
 								public void set(EObject newEObject) {
 									throw new UnsupportedOperationException();
 								}
@@ -1782,6 +1811,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					synchronizeElement(vs, eChildObject, resolveElementChanges(vs.workingChangeSets, eChildObject),
 							new SynchElementHelper(false) {
 
+								@Override
 								public void set(EObject newEObject) {
 									((EList<EObject>) eObject.eGet(eFeature)).add(newEObject);
 								}
@@ -1796,12 +1826,14 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		}
 	}
 
+	@Override
 	public synchronized void add(ObjRef baseObjRef, String typeOfThing, Collection<? extends Serializable> thingsToAdd) {
 		for (Serializable thingToAdd : thingsToAdd) {
 			add(baseObjRef, typeOfThing, thingToAdd);
 		}
 	}
 
+	@Override
 	public synchronized void remove(ObjRef baseObjRef, String typeOfThing, Serializable thingToRemove) {
 		final VariabilityStatus vs = getVariabilityStatusCache(baseObjRef);
 		if (vs == null || !vs.isChangeSetsEnabled || !super.isAttached(baseObjRef)) {
@@ -1816,6 +1848,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
 							new SynchElementHelper(false) {
 
+								@Override
 								public void set(EObject newEObject) {
 									throw new UnsupportedOperationException();
 								}
@@ -1837,6 +1870,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		}
 	}
 
+	@Override
 	public synchronized void remove(ObjRef baseObjRef, String typeOfThing,
 			Collection<? extends Serializable> thingsToRemove) {
 		for (Serializable thingToRemove : thingsToRemove) {
@@ -1846,50 +1880,60 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 
 	//////////////////////////////////////////////////////////////////////////
 
+	@Override
 	public synchronized @Nullable
 	Serializable get(ObjRef baseObjRef, String typeOfThing) {
 		return filterDetached(super.get(baseObjRef, typeOfThing));
 	}
 
+	@Override
 	public synchronized @Nullable
 	Serializable get(ObjRef baseObjRef, String typeOfThing, boolean resolve) {
 		return filterDetached(super.get(baseObjRef, typeOfThing, resolve));
 	}
 
+	@Override
 	public synchronized List<Serializable> getAll(ObjRef baseObjRef, String typeOfThing) {
 		return filterDetached(super.getAll(baseObjRef, typeOfThing));
 	}
 
+	@Override
 	@Nullable
 	public synchronized ObjRef getByID(ObjRef documentRef, String id) {
 		return filterDetachedByAncestors(super.getByID(documentRef, id));
 	}
 
+	@Override
 	@Nullable
 	public synchronized ObjRef getByID(String id) {
 		return filterDetachedByAncestors(super.getByID(id));
 	}
 
+	@Override
 	@Nullable
 	public synchronized String getContainingFeatureName(ObjRef ref) {
 		return isAttachedObjRef(ref) ? super.getContainingFeatureName(ref) : null;
 	}
 
+	@Override
 	@Nullable
 	public synchronized ObjRef getParent(ObjRef ref) {
 		return isAttachedObjRef(ref) ? super.getParent(ref) : null;
 	}
 
+	@Override
 	@Nullable
 	public synchronized String getTagName(ObjRef ref) {
 		return isAttachedObjRef(ref) ? super.getTagName(ref) : null;
 	}
 
+	@Override
 	@Nullable
 	public synchronized URI getURI(ObjRef ref) {
 		return isAttachedObjRef(ref) ? super.getURI(ref) : null;
 	}
 
+	@Override
 	public synchronized List<ObjRef> getAllAncestors(ObjRef ref) {
 		EObject eObject = get(ref);
 		List<ObjRef> ancestorObjRefs = Lists.newArrayList();
@@ -1903,6 +1947,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		return ancestorObjRefs;
 	}
 
+	@Override
 	public synchronized String getTagsOnlyPathString(ObjRef ref) {
 		EObject eObject = get(ref);
 		List<String> tags = Lists.newArrayList();
@@ -1920,6 +1965,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		return Joiner.on("/").join(Lists.reverse(tags));
 	}
 
+	@Override
 	@Nullable
 	public synchronized ObjRef getDocumentRootRef(ObjRef ref) {
 		return isAttachedObjRef(ref) ? super.getDocumentRootRef(ref) : null;

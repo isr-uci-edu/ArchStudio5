@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.Nullable;
 import javax.xml.xpath.XPathException;
 
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
@@ -29,6 +28,7 @@ import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.variability.IXArchADTVariability;
 import org.archstudio.xarchadt.variability.IXArchADTVariability.ChangeStatus;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
@@ -75,6 +75,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		super(xarch, xArchRef, resources, true, true);
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		super.createControl(parent);
 		if (documentRootRef == null) {
@@ -84,10 +85,12 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		setupDragAndDrop();
 	}
 
+	@Override
 	protected ITreeContentProvider createViewContentProvider() {
 		return new ViewContentProvider();
 	}
 
+	@Override
 	protected ILabelProvider createViewLabelProvider() {
 		return new ViewLabelProvider();
 	}
@@ -95,6 +98,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 	protected void setupDoubleClick() {
 		getTreeViewer().addDoubleClickListener(new IDoubleClickListener() {
 
+			@Override
 			public void doubleClick(DoubleClickEvent event) {
 				List<INodeInfo> selectedNodeInfos = getSelectedNodeInfos();
 				if (selectedNodeInfos.size() == 1) {
@@ -134,6 +138,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 
 		target.addDropListener(new DropTargetListener() {
 
+			@Override
 			public void dragEnter(DropTargetEvent event) {
 				if (event.detail == DND.DROP_DEFAULT) {
 					if ((event.operations & DND.DROP_COPY) != 0) {
@@ -145,6 +150,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 				}
 			}
 
+			@Override
 			public void dragOver(DropTargetEvent event) {
 				if (textTransfer.isSupportedType(event.currentDataType)) {
 					Object o = textTransfer.nativeToJava(event.currentDataType);
@@ -158,6 +164,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 				event.feedback = DND.FEEDBACK_NONE;
 			}
 
+			@Override
 			public void dragOperationChanged(DropTargetEvent event) {
 				if (event.detail == DND.DROP_DEFAULT) {
 					if ((event.operations & DND.DROP_COPY) != 0) {
@@ -169,12 +176,15 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 				}
 			}
 
+			@Override
 			public void dragLeave(DropTargetEvent event) {
 			}
 
+			@Override
 			public void dropAccept(DropTargetEvent event) {
 			}
 
+			@Override
 			public void drop(DropTargetEvent event) {
 				if (textTransfer.isSupportedType(event.currentDataType)) {
 					String text = (String) event.data;
@@ -228,10 +238,12 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 
 		IArchEditNode rootNode = null;
 
+		@Override
 		public Object[] getElements(Object inputElement) {
 			return getChildren(inputElement);
 		}
 
+		@Override
 		public Object[] getChildren(Object parentElement) {
 			if (parentElement instanceof IWorkbenchSite) {
 				if (rootNode == null) {
@@ -245,10 +257,12 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			return EMPTY_ARRAY;
 		}
 
+		@Override
 		public Object getParent(Object element) {
 			return null;
 		}
 
+		@Override
 		public boolean hasChildren(Object element) {
 			if (element instanceof IWorkbenchSite) {
 				return true;
@@ -259,15 +273,18 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			return false;
 		}
 
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 
+		@Override
 		public void dispose() {
 		}
 	}
 
 	class ViewLabelProvider extends LabelProvider implements ILabelProvider {
 
+		@Override
 		public Image getImage(Object element) {
 			if (element instanceof IArchEditNode) {
 				return ((IArchEditNode) element).getImage();
@@ -275,6 +292,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			return null;
 		}
 
+		@Override
 		public String getText(Object element) {
 			String text = super.getText(element);
 			if (element instanceof ArchEditElementNode) {
@@ -322,34 +340,42 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			this.index = index;
 		}
 
+		@Override
 		public ObjRef getParentRef() {
 			return parentRef;
 		}
 
+		@Override
 		public String getFeatureName() {
 			return featureName;
 		}
 
+		@Override
 		public Image getImage() {
 			return resources.getPlatformImage(ISharedImages.IMG_TOOL_FORWARD);
 		}
 
+		@Override
 		public boolean hasChildren() {
 			return false;
 		}
 
+		@Override
 		public List<IArchEditNode> getChildren() {
 			return Collections.emptyList();
 		}
 
+		@Override
 		public boolean isMultiple() {
 			return isMultiple;
 		}
 
+		@Override
 		public int getIndex() {
 			return index;
 		}
 
+		@Override
 		public String toString() {
 			return getFeatureName();
 		}
@@ -364,10 +390,12 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			typeMetadata = xarch.getTypeMetadata(ref);
 		}
 
+		@Override
 		public ObjRef getRef() {
 			return ref;
 		}
 
+		@Override
 		public boolean equals(Object o) {
 			if (o == this) {
 				return true;
@@ -380,10 +408,12 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			return false;
 		}
 
+		@Override
 		public int hashCode() {
 			return ref.hashCode();
 		}
 
+		@Override
 		public String toString() {
 			StringBuffer sb = new StringBuffer();
 
@@ -428,6 +458,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			return sb.toString();
 		}
 
+		@Override
 		public List<IArchEditNode> getChildren() {
 			List<IArchEditNode> l = new ArrayList<IArchEditNode>();
 
@@ -468,6 +499,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			return l;
 		}
 
+		@Override
 		public boolean hasChildren() {
 			for (IXArchADTFeature feature : typeMetadata.getFeatures().values()) {
 				switch (feature.getType()) {
@@ -482,6 +514,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			return false;
 		}
 
+		@Override
 		public Image getImage() {
 			if (hasChildren()) {
 				return resources.getPlatformImage(ISharedImages.IMG_OBJ_FOLDER);
@@ -492,9 +525,11 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		}
 	}
 
+	@Override
 	protected IAction[] createPulldownMenuItems() {
 		Action showIDAction = new Action("Show IDs", IAction.AS_CHECK_BOX) {
 
+			@Override
 			public void run() {
 				Object[] expandedElements = getTreeViewer().getExpandedElements();
 				showIDs = isChecked();
@@ -508,6 +543,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 
 		Action showDescAction = new Action("Show Descriptions", IAction.AS_CHECK_BOX) {
 
+			@Override
 			public void run() {
 				Object[] expandedElements = getTreeViewer().getExpandedElements();
 				showDescriptions = isChecked();
@@ -521,6 +557,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 
 		Action showObjRefAction = new Action("Show ObjRefs", IAction.AS_CHECK_BOX) {
 
+			@Override
 			public void run() {
 				Object[] expandedElements = getTreeViewer().getExpandedElements();
 				showObjRefs = isChecked();
@@ -535,11 +572,13 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		return new Action[] { showIDAction, showDescAction, showObjRefAction };
 	}
 
+	@Override
 	protected void fillContextMenu(IMenuManager menuMgr) {
 		List<INodeInfo> selectedNodeInfos = getSelectedNodeInfos();
 		if (selectedNodeInfos.size() == 0) {
 			Action noAction = new Action("[No Selection]") {
 
+				@Override
 				public void run() {
 				}
 			};
@@ -549,6 +588,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		else if (selectedNodeInfos.size() > 1) {
 			Action noAction = new Action("[Select One Node for Menu]") {
 
+				@Override
 				public void run() {
 				}
 			};
@@ -599,6 +639,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		final ObjRef fref = ref;
 		Action removeAction = new Action("Remove") {
 
+			@Override
 			public void run() {
 				XadlUtils.remove(xarch, fref);
 				Object[] expandedElements = getTreeViewer().getExpandedElements();
@@ -618,6 +659,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		}
 		Action generateIdAction = new Action("Generate ID") {
 
+			@Override
 			public void run() {
 				XArchADTOperations.set("Generate ID", xarch, fref, "id", UIDGenerator.generateUID());
 			}
@@ -631,6 +673,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		final ObjRef fref = ref;
 		Action generateIdAction = new Action("Generate All IDs") {
 
+			@Override
 			public void run() {
 				XArchADTOperations xarch = new XArchADTOperations(ArchEditOutlinePage.this.xarch);
 				List<Serializable> objRefs = Lists.<Serializable> newArrayList(fref);
@@ -672,6 +715,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		List<IXArchADTFeature> f = Lists.newArrayList(features);
 		Collections.sort(f, new Comparator<IXArchADTFeature>() {
 
+			@Override
 			public int compare(IXArchADTFeature arg0, IXArchADTFeature arg1) {
 				return arg0.getTypeName().compareTo(arg1.getTypeName());
 			}
@@ -741,6 +785,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 					}
 					Collections.sort(addElementActions, new Comparator<AddElementAction>() {
 
+						@Override
 						public int compare(AddElementAction o1, AddElementAction o2) {
 							return o1.getText().compareTo(o2.getText());
 						}
@@ -749,6 +794,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 						Multimap<String, AddElementAction> addElementActionsByPackage = Multimaps.index(
 								addElementActions, new Function<AddElementAction, String>() {
 
+									@Override
 									@Nullable
 									public String apply(@Nullable AddElementAction input) {
 										return input.getPackageNsURI();
@@ -794,6 +840,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 			setDescription(packageNsURI);
 		}
 
+		@Override
 		public void run() {
 			ObjRef newRef = xarch.create(packageNsURI, elementName);
 			switch (feature.getType()) {
@@ -817,6 +864,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 		}
 	}
 
+	@Override
 	public void focusEditor(String editorName, ObjRef[] refs) {
 		if (refs.length > 0) {
 			List<ArchEditElementNode> nodes = new ArrayList<ArchEditElementNode>(refs.length);

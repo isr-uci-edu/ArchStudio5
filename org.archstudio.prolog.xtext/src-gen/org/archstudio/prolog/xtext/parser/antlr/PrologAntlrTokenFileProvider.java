@@ -9,6 +9,7 @@ import org.eclipse.xtext.parser.antlr.IAntlrTokenFileProvider;
 
 public class PrologAntlrTokenFileProvider implements IAntlrTokenFileProvider {
 
+	@Override
 	public InputStream getAntlrTokenFile() {
 		ClassLoader classLoader = getClass().getClassLoader();
 		return classLoader

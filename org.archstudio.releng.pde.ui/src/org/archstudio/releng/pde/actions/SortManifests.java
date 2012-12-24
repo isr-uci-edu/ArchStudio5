@@ -28,6 +28,7 @@ public class SortManifests extends AbstractObjectActionDelegate {
 	public SortManifests() {
 	}
 
+	@Override
 	public void run(IAction action) {
 		for (IProject project : getProjects(selection)) {
 			run(action, project);
@@ -47,6 +48,7 @@ public class SortManifests extends AbstractObjectActionDelegate {
 				List<IRequiredBundleDescription> newRequiredBundles = Lists.newArrayList(requiredBundles);
 				Collections.sort(newRequiredBundles, new Comparator<IRequiredBundleDescription>() {
 
+					@Override
 					public int compare(IRequiredBundleDescription o1, IRequiredBundleDescription o2) {
 						return o1.getName().compareTo(o2.getName());
 					}

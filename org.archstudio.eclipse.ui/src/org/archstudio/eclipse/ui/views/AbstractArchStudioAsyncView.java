@@ -34,6 +34,7 @@ public abstract class AbstractArchStudioAsyncView<B extends IMyxBrick> extends V
 		myxRegistry.addMyxRegistryListener(this);
 	}
 
+	@Override
 	final public void createPartControl(Composite parent) {
 		new Label(parent, SWT.NONE).setText("Initializing ArchStudio...");
 		this.parent = parent;
@@ -42,6 +43,7 @@ public abstract class AbstractArchStudioAsyncView<B extends IMyxBrick> extends V
 
 	abstract public void createMyxPartControl(Composite parent);
 
+	@Override
 	final public void setFocus() {
 		if (parentCreated) {
 			setMyxFocus();
@@ -50,6 +52,7 @@ public abstract class AbstractArchStudioAsyncView<B extends IMyxBrick> extends V
 
 	abstract public void setMyxFocus();
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void handleMyxRegistryEvent(MyxRegistryEvent evt) {
 		if (evt.getEventType() == MyxRegistryEvent.EventType.BRICK_REGISTERED) {
@@ -57,6 +60,7 @@ public abstract class AbstractArchStudioAsyncView<B extends IMyxBrick> extends V
 				this.brick = (B) evt.getBrick();
 				SWTWidgetUtils.async(parent, new Runnable() {
 
+					@Override
 					public void run() {
 						checkInitialization();
 					}
@@ -66,6 +70,7 @@ public abstract class AbstractArchStudioAsyncView<B extends IMyxBrick> extends V
 				this.brick = (B) evt.getBrick();
 				SWTWidgetUtils.async(parent, new Runnable() {
 
+					@Override
 					public void run() {
 						checkInitialization();
 					}

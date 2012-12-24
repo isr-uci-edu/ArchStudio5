@@ -56,6 +56,7 @@ public class Archlight_3_0FactoryImpl extends EFactoryImpl implements Archlight_
 	 * @generated
 	 */
 
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Archlight_3_0Package.ARCHLIGHT:
@@ -74,6 +75,7 @@ public class Archlight_3_0FactoryImpl extends EFactoryImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Archlight createArchlight() {
 		ArchlightImpl archlight = new ArchlightImpl();
 		return archlight;
@@ -84,6 +86,7 @@ public class Archlight_3_0FactoryImpl extends EFactoryImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public DocumentRoot createDocumentRoot() {
 		DocumentRootImpl documentRoot = new DocumentRootImpl();
 		return documentRoot;
@@ -94,6 +97,7 @@ public class Archlight_3_0FactoryImpl extends EFactoryImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Test createTest() {
 		TestImpl test = new TestImpl();
 		return test;
@@ -104,6 +108,7 @@ public class Archlight_3_0FactoryImpl extends EFactoryImpl implements Archlight_
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Archlight_3_0Package getArchlight_3_0Package() {
 		return (Archlight_3_0Package) getEPackage();
 	}

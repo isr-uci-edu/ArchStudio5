@@ -19,6 +19,7 @@ import org.eclipse.equinox.app.IApplicationContext;
 
 public class AIMLauncherApp implements IApplication {
 
+	@Override
 	public Object start(IApplicationContext context) throws Exception {
 		// instantiates an architecture
 		// - architecture is specified in "architecture" environment variable
@@ -72,6 +73,7 @@ public class AIMLauncherApp implements IApplication {
 		}
 	}
 
+	@Override
 	public void stop() {
 	}
 

@@ -22,14 +22,17 @@ public class AIMLauncherOutlinePage extends AbstractArchStudioOutlinePage {
 		super(xarch, documentRootRef, resources, false, false);
 	}
 
+	@Override
 	protected ITreeContentProvider createViewContentProvider() {
 		return new XadlTreeContentProvider(xarch, documentRootRef, EnumSet.of(XadlTreeUtils.Type.STRUCTURE));
 	}
 
+	@Override
 	protected ILabelProvider createViewLabelProvider() {
 		return new XadlTreeLabelProvider(xarch, resources);
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		super.createControl(parent);
 		getTreeViewer().expandToLevel(2);
@@ -60,6 +63,7 @@ public class AIMLauncherOutlinePage extends AbstractArchStudioOutlinePage {
 		return normalize(parentRef);
 	}
 
+	@Override
 	public void focusEditor(String editorName, ObjRef[] refs) {
 		if (refs.length > 0) {
 			ObjRef ref = refs[0];

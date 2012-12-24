@@ -99,6 +99,7 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * @generated
 	 */
 
+	@Override
 	protected EClass eStaticClass() {
 		return Hints_3_0Package.Literals.VALUE;
 	}
@@ -108,6 +109,7 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Value> getValue() {
 		if (value == null) {
 			value = new EObjectContainmentEList<Value>(Value.class, this, Hints_3_0Package.VALUE__VALUE);
@@ -120,6 +122,7 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getData() {
 		return data;
 	}
@@ -129,6 +132,7 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setData(String newData) {
 		String oldData = data;
 		data = newData;
@@ -142,6 +146,7 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getType() {
 		return type;
 	}
@@ -151,6 +156,7 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setType(String newType) {
 		String oldType = type;
 		type = newType;
@@ -165,6 +171,7 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * @generated
 	 */
 
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Hints_3_0Package.VALUE__VALUE:
@@ -179,6 +186,7 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * @generated
 	 */
 
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Hints_3_0Package.VALUE__VALUE:
@@ -196,6 +204,7 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * 
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -219,6 +228,7 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * @generated
 	 */
 
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Hints_3_0Package.VALUE__VALUE:
@@ -240,6 +250,7 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * @generated
 	 */
 
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Hints_3_0Package.VALUE__VALUE:
@@ -258,6 +269,7 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * @generated
 	 */
 
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

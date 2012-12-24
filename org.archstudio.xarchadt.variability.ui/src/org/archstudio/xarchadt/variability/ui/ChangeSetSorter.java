@@ -29,6 +29,7 @@ public class ChangeSetSorter extends ViewerComparator implements IXArchADTModelL
 		this.xarch = xarch;
 	}
 
+	@Override
 	public void handleXArchADTModelEvent(XArchADTModelEvent evt) {
 		//		if (evt.getXArchRef().equals(xArchRef)) {
 		//			if ((evt.getTargetName().equals("changeSetOrder") || evt.getTargetName().equals("appliedChangeSets"))
@@ -45,6 +46,7 @@ public class ChangeSetSorter extends ViewerComparator implements IXArchADTModelL
 		final Viewer fViewer = viewer;
 		SWTWidgetUtils.async(fViewer, new Runnable() {
 
+			@Override
 			public void run() {
 				if (needsRefresh) {
 					needsRefresh = false;
@@ -54,18 +56,22 @@ public class ChangeSetSorter extends ViewerComparator implements IXArchADTModelL
 		});
 	}
 
+	@Override
 	public boolean isSorterProperty(Object element, String property) {
 		return false;
 	}
 
+	@Override
 	public int category(Object element) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public int compare(Viewer viewer, Object e1, Object e2) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	synchronized public void sort(Viewer viewer, Object[] elements) {
 		this.viewer = viewer;
 		DocumentRoot documentRoot = XArchADTProxy.proxy(xarch, (ObjRef) viewer.getInput());
@@ -86,6 +92,7 @@ public class ChangeSetSorter extends ViewerComparator implements IXArchADTModelL
 				}
 				final Integer FIRST = Integer.MIN_VALUE;
 				Arrays.sort(elements, new Comparator<Object>() {
+					@Override
 					public int compare(Object o1, Object o2) {
 						Integer i1 = orderMap.get(o1);
 						Integer i2 = orderMap.get(o2);
