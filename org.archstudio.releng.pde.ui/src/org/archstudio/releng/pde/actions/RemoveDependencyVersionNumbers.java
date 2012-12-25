@@ -3,13 +3,11 @@ package org.archstudio.releng.pde.actions;
 import java.util.List;
 import java.util.Set;
 
-import org.archstudio.eclipse.ui.actions.AbstractObjectActionDelegate;
 import org.archstudio.releng.pde.ui.Activator;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.utils.osgi.OSGiUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.pde.core.project.IBundleProjectDescription;
 import org.eclipse.pde.core.project.IBundleProjectService;
 import org.eclipse.pde.core.project.IRequiredBundleDescription;
@@ -23,19 +21,13 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 @SuppressWarnings("restriction")
-public class RemoveDependencyVersionNumbers extends AbstractObjectActionDelegate {
+public class RemoveDependencyVersionNumbers extends AbstractProjectHandler {
 
 	public RemoveDependencyVersionNumbers() {
 	}
 
 	@Override
-	public void run(IAction action) {
-		for (IProject project : getProjects(selection)) {
-			run(action, project);
-		}
-	}
-
-	private void run(IAction action, IProject project) {
+	protected void execute(IProject project) {
 		try {
 			// remove dependencies in the MANIFEST.MF file
 			if (project.getFile("META-INF/MANIFEST.MF").exists()) {

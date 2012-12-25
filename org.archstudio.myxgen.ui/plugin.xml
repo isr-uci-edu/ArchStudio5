@@ -2,38 +2,34 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="true"
-            id="org.archstudio.myxgen.core.objectContribution1"
-            nameFilter="*"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               class="org.archstudio.myxgen.ui.actions.ToggleMyxStubNatureAction"
-               enablesFor="+"
-               id="org.archstudio.myxgen.myxStubNature.action"
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.archstudio.myxgen.ui.generateMyxComponentStubs"
+            name="Generate Myx Component Stubs">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.archstudio.myxgen.ui.actions.ToggleMyxStubNatureAction"
+            commandId="org.archstudio.myxgen.ui.generateMyxComponentStubs">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.archstudio.eclipse.ui.menu">
+         <command
+               commandId="org.archstudio.myxgen.ui.generateMyxComponentStubs"
                label="Generate Myx Component Stubs"
-               menubarPath="org.archstudio.eclipse.popupMenuMain/bottom"
                style="toggle">
-         </action>
-         <visibility>
-            <and>
-               <objectState
-                     name="projectNature"
-                     value="org.eclipse.jdt.core.javanature">
-               </objectState>
-               <objectState
-                     name="projectNature"
-                     value="org.eclipse.pde.PluginNature">
-               </objectState>
-            </and>
-         </visibility>
-      </objectContribution>
+         </command>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.startup">
       <startup
-            class="org.archstudio.myxgen.ui.actions.ToggleMyxStubNatureAction">
-      </startup>
+            class="org.archstudio.myxgen.ui.actions.ToggleMyxStubNatureAction"></startup>
    </extension>
 </plugin>

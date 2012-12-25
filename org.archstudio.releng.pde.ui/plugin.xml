@@ -2,51 +2,59 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="false"
-            id="org.archstudio.relengtools.core.objectContribution1"
-            nameFilter="*"
-            objectClass="java.lang.Object">
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.archstudio.releng.pde.ui.addRequiredWorkspacePlugins"
+            name="Add Required Workspace Plugins">
+      </command>
+      <command
+            id="org.archstudio.releng.pde.ui.removeDependencyVersionNumbers"
+            name="Remove Dependency Version Numbers">
+      </command>
+      <command
+            id="org.archstudio.releng.pde.ui.sortManifest"
+            name="Sort Manifest">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.archstudio.releng.pde.actions.AddRequiredWorkspacePlugins"
+            commandId="org.archstudio.releng.pde.ui.addRequiredWorkspacePlugins">
+      </handler>
+      <handler
+            class="org.archstudio.releng.pde.actions.RemoveDependencyVersionNumbers"
+            commandId="org.archstudio.releng.pde.ui.removeDependencyVersionNumbers">
+      </handler>
+      <handler
+            class="org.archstudio.releng.pde.actions.SortManifests"
+            commandId="org.archstudio.releng.pde.ui.sortManifest">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.archstudio.eclipse.ui.menu">
          <menu
-               id="org.archstudio.relengtools.core.popupMenuMain"
-               label="Release Tools"
-               path="org.archstudio.eclipse.popupMenuMain/bottom">
-            <groupMarker
-                  name="top">
-            </groupMarker>
-            <separator
-                  name="additions">
-            </separator>
-            <separator
-                  name="bottom">
-            </separator>
+               label="Release Tools">
+            <command
+                  commandId="org.archstudio.releng.pde.ui.addRequiredWorkspacePlugins"
+                  label="Add Required Workspace Plugins"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.archstudio.releng.pde.ui.removeDependencyVersionNumbers"
+                  label="Remove Dependency Version Numbers"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.archstudio.releng.pde.ui.sortManifest"
+                  label="Sort Manifest"
+                  style="push">
+            </command>
          </menu>
-         <action
-               class="org.archstudio.releng.pde.actions.AddRequiredWorkspacePlugins"
-               enablesFor="+"
-               id="org.archstudio.relengtools.core.action2"
-               label="Add Required Workspace Plugins"
-               menubarPath="org.archstudio.eclipse.popupMenuMain/org.archstudio.relengtools.core.popupMenuMain/additions"
-               style="push">
-         </action>
-         <action
-               class="org.archstudio.releng.pde.actions.RemoveDependencyVersionNumbers"
-               enablesFor="+"
-               id="org.archstudio.relengtools.core.action1"
-               label="Remove Dependency Version Numbers"
-               menubarPath="org.archstudio.eclipse.popupMenuMain/org.archstudio.relengtools.core.popupMenuMain/additions"
-               style="push">
-         </action>
-         <action
-               class="org.archstudio.releng.pde.actions.SortManifests"
-               enablesFor="+"
-               id="org.archstudio.relengtools.core.action3"
-               label="Sort Manifests"
-               menubarPath="org.archstudio.eclipse.popupMenuMain/org.archstudio.relengtools.core.popupMenuMain/additions"
-               style="push">
-         </action>
-      </objectContribution>
+      </menuContribution>
    </extension>
 
 </plugin>

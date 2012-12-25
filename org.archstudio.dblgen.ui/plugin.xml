@@ -29,52 +29,6 @@
       </builder>
    </extension>
    <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="true"
-            id="org.archstudio.dblgen.core.objectContribution1"
-            nameFilter="*"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               class="org.archstudio.dblgen.ui.actions.ToggleXadl3SchemaNatureAction"
-               enablesFor="+"
-               id="org.archstudio.dblgen.xadl3SchemaNature.action"
-               label="Generate xADL 3 Schema DBLs"
-               menubarPath="org.archstudio.eclipse.popupMenuMain/bottom"
-               style="toggle">
-         </action>
-         <visibility>
-            <and>
-               <objectState
-                     name="projectNature"
-                     value="org.eclipse.jdt.core.javanature">
-               </objectState>
-               <objectState
-                     name="projectNature"
-                     value="org.eclipse.pde.PluginNature">
-               </objectState>
-            </and>
-         </visibility>
-      </objectContribution>
-   </extension>
-   <extension
-         id="org.archstudio.dblgen.xadl3SchemaBuilderProblem"
-         name="xADL 3 Schema Builder Problem"
-         point="org.eclipse.core.resources.markers">
-      <super
-            type="org.eclipse.core.resources.problemmarker">
-      </super>
-      <persistent
-            value="true">
-      </persistent>
-   </extension>
-   <extension
-         point="org.eclipse.ui.startup">
-      <startup
-            class="org.archstudio.dblgen.ui.actions.ToggleXadl3SchemaNatureAction">
-      </startup>
-   </extension>
-   <extension
          point="org.archstudio.myxgen.brick">
       <brick
             class="org.archstudio.dblgen.DblGenComponent"
@@ -91,5 +45,36 @@
                single="true">
          </interface>
       </brick>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.archstudio.dblgen.ui.toggleXadl3SchemaNature"
+            name="Generate xADL 3 Schema DBLs">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.archstudio.dblgen.ui.actions.ToggleXadl3SchemaNatureAction"
+            commandId="org.archstudio.dblgen.ui.toggleXadl3SchemaNature">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.archstudio.eclipse.ui.menu">
+         <command
+               commandId="org.archstudio.dblgen.ui.toggleXadl3SchemaNature"
+               label="Generate xADL 3 Schema DBLs"
+               style="toggle">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="org.archstudio.dblgen.ui.actions.ToggleXadl3SchemaNatureAction"></startup>
    </extension>
 </plugin>

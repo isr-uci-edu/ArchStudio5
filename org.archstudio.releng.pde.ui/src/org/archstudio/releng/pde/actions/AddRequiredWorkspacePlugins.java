@@ -2,10 +2,8 @@ package org.archstudio.releng.pde.actions;
 
 import java.util.Arrays;
 
-import org.archstudio.eclipse.ui.actions.AbstractObjectActionDelegate;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.pde.internal.core.feature.WorkspaceFeatureModel;
 import org.eclipse.pde.internal.core.ifeature.IFeature;
 import org.eclipse.pde.internal.core.ifeature.IFeatureImport;
@@ -16,19 +14,13 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 
 @SuppressWarnings("restriction")
-public class AddRequiredWorkspacePlugins extends AbstractObjectActionDelegate {
+public class AddRequiredWorkspacePlugins extends AbstractProjectHandler {
 
 	public AddRequiredWorkspacePlugins() {
 	}
 
 	@Override
-	public void run(IAction action) {
-		for (IProject project : getProjects(selection)) {
-			run(action, project);
-		}
-	}
-
-	private void run(IAction action, IProject project) {
+	protected void execute(IProject project) {
 		try {
 			IFile featureFile = project.getFile("feature.xml");
 			if (featureFile.exists()) {

@@ -1,13 +1,14 @@
 package org.archstudio.dblgen.ui.actions;
 
 import org.archstudio.dblgen.Xadl3SchemaNature;
-import org.archstudio.eclipse.ui.actions.AbstractToggleNatureObjectActionDelegate;
+import org.archstudio.eclipse.ui.actions.AbstractToggleProjectNatureHandler;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.ui.IStartup;
 import org.eclipse.ui.PlatformUI;
 
-public class ToggleXadl3SchemaNatureAction extends AbstractToggleNatureObjectActionDelegate {
+public class ToggleXadl3SchemaNatureAction extends AbstractToggleProjectNatureHandler implements IStartup {
 
 	public ToggleXadl3SchemaNatureAction() {
 		super(Xadl3SchemaNature.NATURE_ID);
@@ -30,5 +31,10 @@ public class ToggleXadl3SchemaNatureAction extends AbstractToggleNatureObjectAct
 		}
 
 		return super.setNatureAdded(project, natureID, false);
+	}
+
+	@Override
+	public void earlyStartup() {
+		// do nothing, but required for correct initial menu checked setting
 	}
 }

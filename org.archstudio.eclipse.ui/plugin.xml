@@ -111,26 +111,16 @@
       </brick>
    </extension>
    <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="true"
-            id="org.archstudio.eclipse.objectContribution1"
-            nameFilter="*"
-            objectClass="java.lang.Object">
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
          <menu
                icon="res/archstudio-icon-16x16.png"
-               id="org.archstudio.eclipse.popupMenuMain"
-               label="ArchStudio">
-            <groupMarker
-                  name="top">
-            </groupMarker>
-            <separator
-                  name="additions">
-            </separator>
-            <separator
-                  name="bottom">
-            </separator>
+               id="org.archstudio.eclipse.ui.menu"
+               label="ArchStudio"
+               mnemonic=" ">
          </menu>
-      </objectContribution>
+      </menuContribution>
    </extension>
 </plugin>
