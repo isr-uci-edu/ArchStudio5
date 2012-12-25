@@ -52,6 +52,12 @@ public class ParseTest {
 		Assert.assertEquals(expected, t);
 	}
 
+	private void assertParseEquals(String expected, String s) throws ParseException {
+		Term expectedTerm = PrologParser.parseTerms(proofContext, expected).get(0);
+		Term sTerm = PrologParser.parseTerms(proofContext, s).get(0);
+		Assert.assertEquals(expectedTerm, sTerm);
+	}
+
 	@Test
 	public void testRule() throws ParseException {
 		assertParse("k(X) :- f(X), g(X), h(X).");
@@ -125,6 +131,8 @@ public class ParseTest {
 		assertParse("compatible_directions('out','in').");
 		assertParse("compatible_directions('inout','inout').");
 		assertParse("compatible_directions('none','none').");
-		assertParse("test(Id,'Connected interfaces have incompatible directions') :- link(L), id(L,Id), link_point1(L,A), link_point2(L,B), direction(A,Ad), direction(B,Bd), \\+ compatible_directions(Ad,Bd).");
+		assertParseEquals(
+				"test(Id,'Connected interfaces have incompatible directions') :- link(L), id(L,Id), link_point1(L,A), link_point2(L,B), direction(A,Ad), direction(B,Bd), \\+(compatible_directions(Ad,Bd)).",
+				"test(Id,'Connected interfaces have incompatible directions') :- link(L), id(L,Id), link_point1(L,A), link_point2(L,B), direction(A,Ad), direction(B,Bd), \\+ compatible_directions(Ad,Bd).");
 	}
 }
