@@ -33,6 +33,10 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		if (!lbb.intersects(clip)) {
+			return;
+		}
+
 		Point p1 = new Point(lbb.x, lbb.y);
 		Point p2 = new Point(lbb.x + lbb.width, lbb.y + lbb.height);
 		Dimension corner = t.getCornerSize();

@@ -307,8 +307,6 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 					continue;
 				}
 
-				//gl.glPushMatrix();
-				gl.glPushAttrib(GL2.GL_TRANSFORM_BIT | GL2.GL_LINE_BIT | GL2.GL_CURRENT_BIT | GL.GL_COLOR_BUFFER_BIT);
 				try {
 					gl.setAlpha(thingToRender.get(IHasAlpha.ALPHA_KEY, 1f));
 					gl.setTint(thingToRender.get(IHasTint.TINT_KEY, new RGB(0, 0, 0)));
@@ -317,10 +315,6 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 				}
 				catch (Exception e) {
 					e.printStackTrace();
-				}
-				finally {
-					gl.glPopAttrib();
-					//gl.glPopMatrix();
 				}
 			}
 			gl.glFlush();
