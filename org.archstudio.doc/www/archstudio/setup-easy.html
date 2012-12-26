@@ -14,24 +14,35 @@
 	install ArchStudio. ArchStudio has three critical components:</p>
 
 <ol>
-	<li>A Java 2&trade; Standard Edition (J2SE) version 5.0 virtual
+	<li>A Java 2&trade; Standard Edition (J2SE) version 1.6 virtual
 		machine;</li>
 	<li>Eclipse version 4.2 or better; and</li>
 	<li>ArchStudio itself.</li>
 </ol>
 
-<p>If you already have Java 5 or Eclipse 4.2 (or better) installed,
+<p>ArchStudio also includes some binary distributions of software (e.g., 
+	<a href="http://jogamp.org/jogl/www/" target="_blank">JOGL</a>) for 
+	the following operating systems:
+<ol>
+	<li>Windows 32-/64-bit</li>
+	<li>Mac OS X 32-/64-bit</li>
+	<li>Linux 32-/64-bit</li>
+</ol>
+	To support another operating system, please ask in the mailing list
+	at the bottom of this page.
+
+<p>If you already have Java 1.6 or Eclipse 4.2 (or better) installed,
 	you may safely skip those parts of these instructions as they require
 	no special configuration for ArchStudio.</p>
 
 <h2>Step 1: Setting up Java</h2>
 
 <p>ArchStudio (and Eclipse) are Java applications. ArchStudio is
-	written specifically for Java 2 Standard Edition version 5.0 (aka
-	JDK1.5) or better. It will not run properly in any previous version of
+	written for Java 2 Standard Edition version 6 (aka
+	JDK1.6) or better. It will not run properly in any previous version of
 	Java.</p>
 
-<p>It is possible that you already have Java 5 installed on your
+<p>It is possible that you already have Java 6 installed on your
 	machine. To check, start a command-prompt and run:</p>
 
 <p>
@@ -39,35 +50,27 @@
 </p>
 
 <p>
-	If the version reported is (1.)5.0 or better, skip to the next step. If
+	If the version reported is (1.)6.0 or better, skip to the next step. If
 	not, you will need to obtain a version of Java for your target
 	environment. In general, you can obtain such a release free of charge
 	from Oracle at <a target="_blank"
 		href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java
 		SE site</a>. This is generally the path to pursue if you are running on
-	Windows or Solaris. Note that Oracle offers many Java 5 packages -
+	Windows or Linux. Note that Oracle offers many Java 6 packages -
 	nearly any should work, although we recommend the Java Development Kit
 	(JDK) package.
 </p>
 
 <p>
-	MacOS X users can download a Java 5 development kit from <a
+	MacOS X users can download a Java 6 development kit from <a
 		target="_blank" href="http://developer.apple.com/java/">Apple's
-		Developer Site</a>.
+		Developer Site</a>. 
 </p>
 
 <p>
 	Linux users will want to investigate how Java is deployed on their
-	particular distribution of Linux. For many years, getting official
-	Oracle implementations on Linux was difficult because Oracle's Java
-	license was not compatible with those of the various Linux
-	distributions, and users had to download and install Java on their own.
-	Oracle's licensing of Java has recently become much more favorable and
-	many distributions are now offering Oracle Java through their package
-	repositories such as
-	<code>apt</code>
-	. We recommend the use of Oracle Java, as other VMs such as kaffe may
-	not be compatible with Eclipse and ArchStudio.
+	particular distribution of Linux. Many distributions are now offering 
+	Java through their package repositories such as	<code>apt</code>.
 </p>
 
 <h2>Step 2: Setting up Eclipse</h2>
