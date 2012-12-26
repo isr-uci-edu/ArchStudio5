@@ -48,6 +48,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 	DynamicStickPointLogic stickLogic = null;
 	ArrowheadLogic arrowheadLogic = null;
 	MirrorValueLogic mvl = null;
+	OrientTextLogic otl = null;
 
 	public MapTransitionLogic(IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
 		super(xarch, rootObjRef, objRefPath);
@@ -61,6 +62,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 		stickLogic = addThingLogic(DynamicStickPointLogic.class);
 		arrowheadLogic = addThingLogic(ArrowheadLogic.class);
 		mvl = addThingLogic(MirrorValueLogic.class);
+		otl = addThingLogic(OrientTextLogic.class);
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY, true);
@@ -126,6 +128,8 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 				FontStyle.fromSWT(defaultFont.getStyle()));
 
 		UserEditableUtils.addEditableQualities(labelThing, IHasMutableText.USER_MAY_EDIT_TEXT);
+
+		otl.orientText(thing, Assemblies.TEXT_KEY.get(thing, getBNAModel()));
 
 		return thing;
 	}

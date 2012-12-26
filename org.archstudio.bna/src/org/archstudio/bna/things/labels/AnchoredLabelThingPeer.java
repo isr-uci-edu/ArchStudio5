@@ -77,7 +77,7 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 				//textX -= offset * cm.getLocalScale();
 				break;
 			}
-			int textY = lap.y;
+			int textY = lap.y + fontSize;
 			switch (t.getVerticalAlignment()) {
 			case TOP:
 				break;
