@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="org.archstudio.myxgen.myxStubNature"
+         name="Myx Component Stub Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.archstudio.myxgen.MyxStubNature">
+         </run>
+      </runtime>
+      <builder
+            id="org.archstudio.myxgen.myxStubBuilder">
+      </builder>
+      <requires-nature
+            id="org.eclipse.pde.PluginNature">
+      </requires-nature>
+   </extension>
+   <extension
+         id="org.archstudio.myxgen.myxStubBuilder"
+         name="Myx Component Stub Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="org.archstudio.myxgen.builder.MyxStubBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         point="org.archstudio.myxgen.brick">
+      <brick
+            class="org.archstudio.myxgen.MyxGenMyxComponent"
+            id="org.archstudio.myxgen.core.brick1"
+            name="Myx Component Stub Generator Impl">
+         <interface
+               class="org.archstudio.myxgen.IMyxStubGenerator"
+               delegate="variable"
+               direction="in"
+               domain="bottom"
+               getter="true"
+               id="myxgen"
+               name="myxgen"
+               single="true">
+         </interface>
+      </brick>
+   </extension>
+
+</plugin>

@@ -45,7 +45,6 @@
       <import plugin="org.eclipse.emf"/>
       <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.jet"/>
       <import plugin="org.eclipse.pde"/>
       <import plugin="org.eclipse.emf.codegen.ecore"/>
       <import plugin="org.eclipse.core.commands"/>
@@ -264,13 +263,6 @@
 
    <plugin
          id="org.archstudio.myxgen.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.archstudio.myxgen.jet"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -586,6 +578,48 @@
 
    <plugin
          id="org.archstudio.jogl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.myxgen.builder"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.eclipse.formatcode"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.prolog.archstudio"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.prolog.parser"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.prolog.xtext"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.xadl3.gexf"
          download-size="0"
          install-size="0"
          version="0.0.0"

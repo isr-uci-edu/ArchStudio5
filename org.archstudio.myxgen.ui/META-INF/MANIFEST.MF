@@ -11,6 +11,6 @@ Require-Bundle: org.archstudio.eclipse,
  org.archstudio.utils.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.ui,
- org.archstudio.myxgen.jet
+ org.archstudio.myxgen.builder;bundle-version="5.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

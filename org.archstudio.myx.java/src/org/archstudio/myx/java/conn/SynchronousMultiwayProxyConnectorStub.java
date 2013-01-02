@@ -1,40 +1,47 @@
 package org.archstudio.myx.java.conn;
 
-import java.util.Collection;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
+/*
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
+ * BE OVERWRITTEN.
+ * 
+ * To modify, update the "Synchronous Multiway Proxy Impl" MyxGen extension in
+ * the org.archstudio.myx.java plugin.
+ */
+
 /**
- * Abstract Myx brick: "Synchronous Multiway Proxy Impl"
+ * Abstract Myx brick: Synchronous Multiway Proxy Impl
  * 
  * @generated
  */
-
-/* package */abstract class SynchronousMultiwayProxyConnectorStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
-		implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
-		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
+public abstract class SynchronousMultiwayProxyConnectorStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
+		implements org.archstudio.myx.fw.IMyxDynamicBrick {
 
 	/**
+	 * The registry of objects for this brick.
+	 * 
 	 * @generated
 	 */
 	protected final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
 
 	/**
+	 * Register this brick instance with the registry.
+	 * 
 	 * @generated
 	 */
-	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
 	}
 
 	/**
+	 * Unregister this brick instance with the registry.
+	 * 
 	 * @generated
 	 */
-	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -45,164 +52,189 @@ import org.archstudio.myx.fw.MyxUtils;
 	 * 
 	 * @generated
 	 */
-	// MyxGenInterface[name=results,direction=in,single=false,serviceObjectDelegate=brick,generateGetter=true,className=org.archstudio.myx.java.conn.IMultiwayResults,description=null]
 	public static final IMyxName IN_RESULTS = MyxUtils.createName("results");
+
 	/**
-	 * Myx name for the <code>out</code> interface.
-	 * 
-	 * @generated
-	 */
-	// MyxGenInterface[name=out,direction=out,single=false,serviceObjectDelegate=variable,generateGetter=true,className=java.lang.Object,description=null]
-	public static final IMyxName OUT_OUT = MyxUtils.createName("out");
-	/**
-	 * Myx name for the <code>in</code> interface.
-	 * 
-	 * @generated
-	 */
-	// MyxGenInterface[name=in,direction=in,single=true,serviceObjectDelegate=variable,generateGetter=true,className=java.lang.Object,description=null]
-	public static final IMyxName IN_IN = MyxUtils.createName("in");
-	/**
-	 * Myx name for the <code>progress</code> interface.
-	 * 
-	 * @generated
-	 */
-	// MyxGenInterface[name=progress,direction=out,single=false,serviceObjectDelegate=variable,generateGetter=true,className=org.archstudio.myx.java.conn.IMultiwayProgressListener,description=null]
-	public static final IMyxName OUT_PROGRESS = MyxUtils.createName("progress");
-	/**
-	 * Service object(s) for the results interface.
+	 * Service object for the results interface.
 	 * 
 	 * @see #IN_RESULTS
 	 * @generated
 	 */
 	protected org.archstudio.myx.java.conn.IMultiwayResults results = null;
-	/**
-	 * Service object(s) for the out interface.
-	 * 
-	 * @see #OUT_OUT
-	 * @generated
-	 */
-	protected final Collection<java.lang.Object> out = new CopyOnWriteArrayList<java.lang.Object>();
-	/**
-	 * Service object(s) for the in interface.
-	 * 
-	 * @see #IN_IN
-	 * @generated
-	 */
-	protected java.lang.Object in = null;
-	/**
-	 * Service object(s) for the progress interface.
-	 * 
-	 * @see #IN_PROGRESS
-	 * @generated
-	 */
-	protected final Collection<org.archstudio.myx.java.conn.IMultiwayProgressListener> progress = new CopyOnWriteArrayList<org.archstudio.myx.java.conn.IMultiwayProgressListener>();
 
 	/**
-	 * Returns the service object(s) for the <code>results</code> interface.
+	 * Returns the service object(s) for the results interface.
 	 * 
 	 * @see #IN_RESULTS
 	 * @generated
 	 */
 	public org.archstudio.myx.java.conn.IMultiwayResults getResults() {
+		if (results == null) {
+			throw new NullPointerException("Uninitialized service object: results");
+		}
 		return results;
 	}
 
 	/**
-	 * Returns the service object(s) for the <code>out</code> interface.
+	 * Myx name for the <code>out</code> interface.
+	 * 
+	 * @generated
+	 */
+	public static final IMyxName OUT_OUT = MyxUtils.createName("out");
+
+	/**
+	 * Service objects for the out interface.
 	 * 
 	 * @see #OUT_OUT
 	 * @generated
 	 */
-	public Collection<java.lang.Object> getOut() {
+	protected final java.util.Collection<java.lang.Object> out = new java.util.concurrent.CopyOnWriteArrayList<java.lang.Object>();
+
+	/**
+	 * Returns the service object(s) for the out interface.
+	 * 
+	 * @see #OUT_OUT
+	 * @generated
+	 */
+	public java.util.Collection<java.lang.Object> getOut() {
 		return out;
 	}
 
 	/**
-	 * Returns the service object(s) for the <code>in</code> interface.
+	 * Myx name for the <code>in</code> interface.
+	 * 
+	 * @generated
+	 */
+	public static final IMyxName IN_IN = MyxUtils.createName("in");
+
+	/**
+	 * Service object for the in interface.
+	 * 
+	 * @see #IN_IN
+	 * @generated
+	 */
+	protected java.lang.Object in = null;
+
+	/**
+	 * Returns the service object(s) for the in interface.
 	 * 
 	 * @see #IN_IN
 	 * @generated
 	 */
 	public java.lang.Object getIn() {
+		if (in == null) {
+			throw new NullPointerException("Uninitialized service object: in");
+		}
 		return in;
 	}
 
 	/**
-	 * Returns the service object(s) for the <code>progress</code> interface.
+	 * Myx name for the <code>progress</code> interface.
 	 * 
-	 * @see #IN_PROGRESS
 	 * @generated
 	 */
-	public Collection<org.archstudio.myx.java.conn.IMultiwayProgressListener> getProgress() {
+	public static final IMyxName OUT_PROGRESS = MyxUtils.createName("progress");
+
+	/**
+	 * Service objects for the progress interface.
+	 * 
+	 * @see #OUT_PROGRESS
+	 * @generated
+	 */
+	protected final java.util.Collection<org.archstudio.myx.java.conn.IMultiwayProgressListener> progress = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.myx.java.conn.IMultiwayProgressListener>();
+
+	/**
+	 * Returns the service object(s) for the progress interface.
+	 * 
+	 * @see #OUT_PROGRESS
+	 * @generated
+	 */
+	public java.util.Collection<org.archstudio.myx.java.conn.IMultiwayProgressListener> getProgress() {
 		return progress;
 	}
 
 	/**
+	 * Returns service object(s) for IN interfaces.
+	 * 
+	 * @see #IN_RESULTS
+	 * @see #IN_IN
 	 * @generated
 	 */
-
-	@Override
-	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
-		if (serviceObject == null) {
-			throw new NullPointerException(interfaceName.getName());
-		}
-		if (interfaceName.equals(OUT_OUT)) {
-			out.add(serviceObject);
-			return;
-		}
-		if (interfaceName.equals(OUT_PROGRESS)) {
-			progress.add((org.archstudio.myx.java.conn.IMultiwayProgressListener) serviceObject);
-			return;
-		}
-		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
-	}
-
-	/**
-	 * @generated
-	 */
-
-	@Override
-	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
-		if (serviceObject == null) {
-			throw new NullPointerException(interfaceName.getName());
-		}
-		if (interfaceName.equals(OUT_OUT)) {
-			out.remove(serviceObject);
-			return;
-		}
-		if (interfaceName.equals(OUT_PROGRESS)) {
-			progress.remove(serviceObject);
-			return;
-		}
-		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
-	}
-
-	/**
-	 * @generated
-	 */
-
-	@Override
-	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
-	}
-
-	/**
-	 * @generated
-	 */
-
 	@Override
 	public Object getServiceObject(IMyxName interfaceName) {
 		if (interfaceName.equals(IN_RESULTS)) {
 			if (results == null) {
-				throw new NullPointerException("results");
+				throw new NullPointerException("Uninitialized service object: results");
 			}
 			return results;
 		}
 		if (interfaceName.equals(IN_IN)) {
 			if (in == null) {
-				throw new NullPointerException("in");
+				throw new NullPointerException("Uninitialized service object: in");
 			}
 			return in;
 		}
-		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
+		throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
+	}
+
+	/**
+	 * Update service objects based on connected OUT interfaces.
+	 * 
+	 * @see #OUT_OUT
+	 * @see #OUT_PROGRESS
+	 * @generated
+	 */
+	@Override
+	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
+		if (serviceObject == null) {
+			throw new NullPointerException(interfaceName.getName());
+		}
+
+		if (interfaceName.equals(OUT_OUT)) {
+			out.add((java.lang.Object) serviceObject);
+			return;
+		}
+
+		if (interfaceName.equals(OUT_PROGRESS)) {
+			progress.add((org.archstudio.myx.java.conn.IMultiwayProgressListener) serviceObject);
+			return;
+		}
+
+		throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
+	}
+
+	/**
+	 * Update service objects based on disconnecting OUT interfaces.
+	 * 
+	 * @see #OUT_OUT
+	 * @see #OUT_PROGRESS
+	 * @generated
+	 */
+	@Override
+	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
+		if (serviceObject == null) {
+			throw new NullPointerException(interfaceName.getName());
+		}
+
+		if (interfaceName.equals(OUT_OUT)) {
+			out.remove(serviceObject);
+			return;
+		}
+
+		if (interfaceName.equals(OUT_PROGRESS)) {
+			progress.remove(serviceObject);
+			return;
+		}
+
+		throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
+	}
+
+	/**
+	 * Performs no operation upon the completion of an interface disconnecting.
+	 * 
+	 * @generated
+	 */
+	@Override
+	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
 	}
 }

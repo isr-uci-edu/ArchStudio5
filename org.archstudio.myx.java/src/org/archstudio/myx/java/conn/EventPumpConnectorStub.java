@@ -1,40 +1,47 @@
 package org.archstudio.myx.java.conn;
 
-import java.util.Collection;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
+/*
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
+ * BE OVERWRITTEN.
+ * 
+ * To modify, update the "Event Pump Impl" MyxGen extension in the
+ * org.archstudio.myx.java plugin.
+ */
+
 /**
- * Abstract Myx brick: "Event Pump Impl"
+ * Abstract Myx brick: Event Pump Impl
  * 
  * @generated
  */
-
-/* package */abstract class EventPumpConnectorStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
-		org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.myx.fw.IMyxLifecycleProcessor,
-		org.archstudio.myx.fw.IMyxProvidedServiceProvider {
+public abstract class EventPumpConnectorStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick implements
+		org.archstudio.myx.fw.IMyxDynamicBrick {
 
 	/**
+	 * The registry of objects for this brick.
+	 * 
 	 * @generated
 	 */
 	protected final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
 
 	/**
+	 * Register this brick instance with the registry.
+	 * 
 	 * @generated
 	 */
-	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
 	}
 
 	/**
+	 * Unregister this brick instance with the registry.
+	 * 
 	 * @generated
 	 */
-	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -45,103 +52,117 @@ import org.archstudio.myx.fw.MyxUtils;
 	 * 
 	 * @generated
 	 */
-	// MyxGenInterface[name=in,direction=in,single=true,serviceObjectDelegate=variable,generateGetter=true,className=java.lang.Object,description=null]
 	public static final IMyxName IN_IN = MyxUtils.createName("in");
-	/**
-	 * Myx name for the <code>out</code> interface.
-	 * 
-	 * @generated
-	 */
-	// MyxGenInterface[name=out,direction=out,single=true,serviceObjectDelegate=variable,generateGetter=true,className=java.lang.Object,description=null]
-	public static final IMyxName OUT_OUT = MyxUtils.createName("out");
 
 	/**
-	 * Service object(s) for the in interface.
+	 * Service object for the in interface.
 	 * 
 	 * @see #IN_IN
 	 * @generated
 	 */
 	protected java.lang.Object in = null;
-	/**
-	 * Service object(s) for the out interface.
-	 * 
-	 * @see #OUT_OUT
-	 * @generated
-	 */
-	protected final Collection<java.lang.Object> out = new CopyOnWriteArrayList<java.lang.Object>();
 
 	/**
-	 * Returns the service object(s) for the <code>in</code> interface.
+	 * Returns the service object(s) for the in interface.
 	 * 
 	 * @see #IN_IN
 	 * @generated
 	 */
 	public java.lang.Object getIn() {
+		if (in == null) {
+			throw new NullPointerException("Uninitialized service object: in");
+		}
 		return in;
 	}
 
 	/**
-	 * Returns the service object(s) for the <code>out</code> interface.
+	 * Myx name for the <code>out</code> interface.
+	 * 
+	 * @generated
+	 */
+	public static final IMyxName OUT_OUT = MyxUtils.createName("out");
+
+	/**
+	 * Service objects for the out interface.
 	 * 
 	 * @see #OUT_OUT
 	 * @generated
 	 */
-	public Collection<java.lang.Object> getOut() {
+	protected final java.util.Collection<java.lang.Object> out = new java.util.concurrent.CopyOnWriteArrayList<java.lang.Object>();
+
+	/**
+	 * Returns the service object(s) for the out interface.
+	 * 
+	 * @see #OUT_OUT
+	 * @generated
+	 */
+	public java.util.Collection<java.lang.Object> getOut() {
 		return out;
 	}
 
 	/**
+	 * Returns service object(s) for IN interfaces.
+	 * 
+	 * @see #IN_IN
 	 * @generated
 	 */
+	@Override
+	public Object getServiceObject(IMyxName interfaceName) {
+		if (interfaceName.equals(IN_IN)) {
+			if (in == null) {
+				throw new NullPointerException("Uninitialized service object: in");
+			}
+			return in;
+		}
+		throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
+	}
 
+	/**
+	 * Update service objects based on connected OUT interfaces.
+	 * 
+	 * @see #OUT_OUT
+	 * @generated
+	 */
 	@Override
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
+
 		if (interfaceName.equals(OUT_OUT)) {
-			out.add(serviceObject);
+			out.add((java.lang.Object) serviceObject);
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface connection: " + interfaceName);
+
+		throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
 	}
 
 	/**
+	 * Update service objects based on disconnecting OUT interfaces.
+	 * 
+	 * @see #OUT_OUT
 	 * @generated
 	 */
-
 	@Override
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
 		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
 		}
+
 		if (interfaceName.equals(OUT_OUT)) {
 			out.remove(serviceObject);
 			return;
 		}
-		throw new IllegalArgumentException("Unhandled interface disconnection: " + interfaceName);
+
+		throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
 	}
 
 	/**
+	 * Performs no operation upon the completion of an interface disconnecting.
+	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void interfaceDisconnected(IMyxName interfaceName, Object serviceObject) {
-	}
-
-	/**
-	 * @generated
-	 */
-
-	@Override
-	public Object getServiceObject(IMyxName interfaceName) {
-		if (interfaceName.equals(IN_IN)) {
-			if (in == null) {
-				throw new NullPointerException("in");
-			}
-			return in;
-		}
-		throw new IllegalArgumentException("Unhandled interface service object: " + interfaceName);
 	}
 }

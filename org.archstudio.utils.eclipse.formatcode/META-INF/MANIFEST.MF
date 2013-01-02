@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio Format Code Utilities
+Bundle-SymbolicName: org.archstudio.utils.eclipse.formatcode
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.archstudio.utils.eclipse.jdt.Activator
+Export-Package: org.archstudio.utils.eclipse.jdt
+Require-Bundle: org.archstudio.guava,
+ org.archstudio.utils.system,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.jdt,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.core.manipulation,
+ org.eclipse.jdt.ui,
+ org.eclipse.jface.text,
+ org.eclipse.ltk.core.refactoring
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

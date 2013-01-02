@@ -55,7 +55,6 @@
       <import plugin="org.eclipse.core.filebuffers" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.jdt.core" version="3.2.0" match="compatible"/>
       <import plugin="org.apache.ant" version="1.6.5" match="compatible"/>
-      <import plugin="org.eclipse.jet.core" version="1.0.0" match="compatible"/>
    </requires>
 
    <plugin
@@ -143,28 +142,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.archstudio.myxgen.jet"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.archstudio.myx.fw.equinox"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jet"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jet.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -179,6 +157,20 @@
 
    <plugin
          id="org.archstudio.ljm"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.myxgen.builder"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.eclipse.formatcode"
          download-size="0"
          install-size="0"
          version="0.0.0"

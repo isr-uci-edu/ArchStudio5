@@ -416,7 +416,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	 * @return Ecore <tt>GenModel</tt> object.
 	 */
 	public GenModel getEcoreGenModel(ResourceSet resourceSet) {
-		URI ecoreGenModelURI = EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(EcorePackage.eNS_URI);
+		URI ecoreGenModelURI = EcorePlugin.getEPackageNsURIToGenModelLocationMap(false).get(EcorePackage.eNS_URI);
 		Resource emfEcoreResource = resourceSet.getResource(ecoreGenModelURI, true);
 		GenModel ecoreGenModel = (GenModel) emfEcoreResource.getContents().get(0);
 		return ecoreGenModel;
