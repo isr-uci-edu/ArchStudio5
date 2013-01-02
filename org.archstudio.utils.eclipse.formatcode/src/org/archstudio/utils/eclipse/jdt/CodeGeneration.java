@@ -68,7 +68,9 @@ public class CodeGeneration {
 					if (f.exists()) {
 						for (IResource r : f.members()) {
 							if (r instanceof IFile && "java".equalsIgnoreCase(((IFile) r).getFileExtension())) {
-								cus.add(JavaCore.createCompilationUnitFrom((IFile) r));
+								ICompilationUnit cu = JavaCore.createCompilationUnitFrom((IFile) r);
+								cu.becomeWorkingCopy(new NullProgressMonitor());
+								cus.add(cu);
 							}
 							else if (r instanceof IFolder) {
 								folders.add((IFolder) r);
@@ -192,6 +194,7 @@ public class CodeGeneration {
 			// save file
 			{
 				for (ICompilationUnit cu : cus) {
+					cu.commitWorkingCopy(true, new NullProgressMonitor());
 					cu.save(new NullProgressMonitor(), true);
 				}
 			}
