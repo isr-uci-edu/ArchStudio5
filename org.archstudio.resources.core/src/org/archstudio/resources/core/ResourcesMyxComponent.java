@@ -1,12 +1,5 @@
 package org.archstudio.resources.core;
 
-import static org.archstudio.resources.IResources.COLOR_ARCHSTUDIO;
-import static org.archstudio.resources.IResources.COLOR_BANNER_BRIGHT;
-import static org.archstudio.resources.IResources.COLOR_BANNER_DARK;
-import static org.archstudio.resources.IResources.RGB_ARCHSTUDIO_MAIN;
-import static org.archstudio.resources.IResources.RGB_BANNER_BRIGHT;
-import static org.archstudio.resources.IResources.RGB_BANNER_DARK;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.InvocationHandler;
@@ -121,9 +114,9 @@ public class ResourcesMyxComponent extends org.archstudio.resources.core.Resourc
 				imageRegistry = new ImageRegistry(display);
 				colorRegistry = new ColorRegistry(display);
 
-				createColor(COLOR_ARCHSTUDIO, RGB_ARCHSTUDIO_MAIN);
-				createColor(COLOR_BANNER_BRIGHT, RGB_BANNER_BRIGHT);
-				createColor(COLOR_BANNER_DARK, RGB_BANNER_DARK);
+				createColor(IResources.COLOR_ARCHSTUDIO, IResources.RGB_ARCHSTUDIO_MAIN);
+				createColor(IResources.COLOR_BANNER_BRIGHT, IResources.RGB_BANNER_BRIGHT);
+				createColor(IResources.COLOR_BANNER_DARK, IResources.RGB_BANNER_DARK);
 
 				display.disposeExec(new Runnable() {
 

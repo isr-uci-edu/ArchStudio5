@@ -199,8 +199,7 @@ public class XadlUtils {
 	}
 
 	/**
-	 * Returns true if an instance of the thing referred to by typeMetadata
-	 * could be assigned to the feature.
+	 * Returns true if an instance of the thing referred to by typeMetadata could be assigned to the feature.
 	 * 
 	 * @param xarch
 	 *            xArchADT instance

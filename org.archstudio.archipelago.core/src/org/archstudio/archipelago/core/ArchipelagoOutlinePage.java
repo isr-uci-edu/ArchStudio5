@@ -387,17 +387,13 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 	}
 
 	/*
-	 * This is a somewhat dirty hack because Eclipse's (actually JFace's) cell
-	 * editing behavior is not particularly flexible. Basically, if you set a
-	 * cell editor and a cell modifier the normal way, then any selection of a
-	 * node will enable editing of that node. This is too permissive, it means
-	 * that editors are always being activated and it doesn't feel right. What
-	 * we do instead is only enable cell editing after the user has hit a
-	 * context menu option (for example), and only on a particular cell for one
-	 * shot. If callers (e.g., fillContextMenu) want to allow cell editing on a
-	 * particular cell, they need to call ArchipelagoUtils.beginCellEditing()
-	 * which will set the appropriate data element in the viewer to allow one
-	 * shot of cell editing.
+	 * This is a somewhat dirty hack because Eclipse's (actually JFace's) cell editing behavior is not particularly
+	 * flexible. Basically, if you set a cell editor and a cell modifier the normal way, then any selection of a node
+	 * will enable editing of that node. This is too permissive, it means that editors are always being activated and it
+	 * doesn't feel right. What we do instead is only enable cell editing after the user has hit a context menu option
+	 * (for example), and only on a particular cell for one shot. If callers (e.g., fillContextMenu) want to allow cell
+	 * editing on a particular cell, they need to call ArchipelagoUtils.beginCellEditing() which will set the
+	 * appropriate data element in the viewer to allow one shot of cell editing.
 	 */
 	class DefaultArchipelagoCellModifier implements ICellModifier {
 		@Override

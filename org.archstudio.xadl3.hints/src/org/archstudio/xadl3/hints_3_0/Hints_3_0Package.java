@@ -9,8 +9,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 /**
- * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
- * accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains accessors for the meta objects to represent
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
@@ -22,20 +21,18 @@ import org.eclipse.emf.ecore.EReference;
  * 
  * xADL 3 Hints Schema
  * 
- * This schema defines the concept of rendering hints that can be applied to
- * different objects to permit them to be hinted.
+ * This schema defines the concept of rendering hints that can be applied to different objects to permit them to be
+ * hinted.
  * 
- * Changelog: - 3.0.1 * Deprecated value, replaced by hint attribute - 3.0.0 *
- * Initial version
+ * Changelog: - 3.0.1 * Deprecated value, replaced by hint attribute - 3.0.0 * Initial version
  * 
  * 
  * 
  * 
  * xADL 3 Core Schema
  * 
- * This schema defines the core elements for xADL 3 documents. The schema is
- * intentionally small, defining only a few elements that are intended to be
- * common across xADL descriptions and extensions, regardless of domain.
+ * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
+ * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
  * 
  * Changelog: - 3.0.0: * Initial version
  * 
@@ -69,17 +66,15 @@ public interface Hints_3_0Package extends EPackage {
 	String eNS_PREFIX = "hints_3_0";
 
 	/**
-	 * The singleton instance of the package. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	Hints_3_0Package eINSTANCE = org.archstudio.xadl3.hints_3_0.impl.Hints_3_0PackageImpl.init();
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.hints_3_0.impl.HintImpl <em>Hint</em>}'
-	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.hints_3_0.impl.HintImpl <em>Hint</em>}' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.hints_3_0.impl.HintImpl
 	 * @see org.archstudio.xadl3.hints_3_0.impl.Hints_3_0PackageImpl#getHint()
@@ -88,8 +83,8 @@ public interface Hints_3_0Package extends EPackage {
 	int HINT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Value</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -97,8 +92,7 @@ public interface Hints_3_0Package extends EPackage {
 	int HINT__VALUE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Hint</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Hint</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -106,8 +100,7 @@ public interface Hints_3_0Package extends EPackage {
 	int HINT__HINT = 1;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -115,8 +108,7 @@ public interface Hints_3_0Package extends EPackage {
 	int HINT__NAME = 2;
 
 	/**
-	 * The number of structural features of the '<em>Hint</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Hint</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -124,10 +116,8 @@ public interface Hints_3_0Package extends EPackage {
 	int HINT_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.hints_3_0.impl.HintsExtensionImpl
-	 * <em>Hints Extension</em>}' class. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.hints_3_0.impl.HintsExtensionImpl
+	 * <em>Hints Extension</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.hints_3_0.impl.HintsExtensionImpl
 	 * @see org.archstudio.xadl3.hints_3_0.impl.Hints_3_0PackageImpl#getHintsExtension()
@@ -136,8 +126,8 @@ public interface Hints_3_0Package extends EPackage {
 	int HINTS_EXTENSION = 1;
 
 	/**
-	 * The feature id for the '<em><b>Hint</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Hint</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -145,8 +135,8 @@ public interface Hints_3_0Package extends EPackage {
 	int HINTS_EXTENSION__HINT = Xadlcore_3_0Package.EXTENSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Hints Extension</em>'
-	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Hints Extension</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -154,9 +144,8 @@ public interface Hints_3_0Package extends EPackage {
 	int HINTS_EXTENSION_FEATURE_COUNT = Xadlcore_3_0Package.EXTENSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl <em>Value</em>}'
-	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl <em>Value</em>}' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.hints_3_0.impl.ValueImpl
 	 * @see org.archstudio.xadl3.hints_3_0.impl.Hints_3_0PackageImpl#getValue()
@@ -165,8 +154,8 @@ public interface Hints_3_0Package extends EPackage {
 	int VALUE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' containment reference
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Value</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -174,8 +163,7 @@ public interface Hints_3_0Package extends EPackage {
 	int VALUE__VALUE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Data</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Data</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -183,8 +171,7 @@ public interface Hints_3_0Package extends EPackage {
 	int VALUE__DATA = 1;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -192,8 +179,7 @@ public interface Hints_3_0Package extends EPackage {
 	int VALUE__TYPE = 2;
 
 	/**
-	 * The number of structural features of the '<em>Value</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Value</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -201,8 +187,7 @@ public interface Hints_3_0Package extends EPackage {
 	int VALUE_FEATURE_COUNT = 3;
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.hints_3_0.Hint <em>Hint</em>}'. <!--
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.hints_3_0.Hint <em>Hint</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Hint</em>'.
@@ -212,9 +197,8 @@ public interface Hints_3_0Package extends EPackage {
 	EClass getHint();
 
 	/**
-	 * Returns the meta object for the containment reference '
-	 * {@link org.archstudio.xadl3.hints_3_0.Hint#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the containment reference '{@link org.archstudio.xadl3.hints_3_0.Hint#getValue
+	 * <em>Value</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Value</em>'.
 	 * @see org.archstudio.xadl3.hints_3_0.Hint#getValue()
@@ -224,9 +208,8 @@ public interface Hints_3_0Package extends EPackage {
 	EReference getHint_Value();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.hints_3_0.Hint#getHint <em>Hint</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.hints_3_0.Hint#getHint <em>Hint</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Hint</em>'.
 	 * @see org.archstudio.xadl3.hints_3_0.Hint#getHint()
@@ -236,9 +219,8 @@ public interface Hints_3_0Package extends EPackage {
 	EAttribute getHint_Hint();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.hints_3_0.Hint#getName <em>Name</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.hints_3_0.Hint#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Name</em>'.
 	 * @see org.archstudio.xadl3.hints_3_0.Hint#getName()
@@ -248,9 +230,8 @@ public interface Hints_3_0Package extends EPackage {
 	EAttribute getHint_Name();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.hints_3_0.HintsExtension
-	 * <em>Hints Extension</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.hints_3_0.HintsExtension <em>Hints Extension</em>}
+	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Hints Extension</em>'.
 	 * @see org.archstudio.xadl3.hints_3_0.HintsExtension
@@ -260,11 +241,10 @@ public interface Hints_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.hints_3_0.HintsExtension#getHint
-	 * <em>Hint</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.hints_3_0.HintsExtension#getHint <em>Hint</em>}'. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference list '<em>Hint</em>
-	 *         '.
+	 * @return the meta object for the containment reference list '<em>Hint</em>'.
 	 * @see org.archstudio.xadl3.hints_3_0.HintsExtension#getHint()
 	 * @see #getHintsExtension()
 	 * @generated
@@ -272,8 +252,7 @@ public interface Hints_3_0Package extends EPackage {
 	EReference getHintsExtension_Hint();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.hints_3_0.Value <em>Value</em>}'. <!--
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.hints_3_0.Value <em>Value</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Value</em>'.
@@ -283,12 +262,10 @@ public interface Hints_3_0Package extends EPackage {
 	EClass getValue();
 
 	/**
-	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.hints_3_0.Value#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the containment reference list '{@link org.archstudio.xadl3.hints_3_0.Value#getValue
+	 * <em>Value</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference list '
-	 *         <em>Value</em>'.
+	 * @return the meta object for the containment reference list '<em>Value</em>'.
 	 * @see org.archstudio.xadl3.hints_3_0.Value#getValue()
 	 * @see #getValue()
 	 * @generated
@@ -296,9 +273,8 @@ public interface Hints_3_0Package extends EPackage {
 	EReference getValue_Value();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.hints_3_0.Value#getData <em>Data</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.hints_3_0.Value#getData <em>Data</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Data</em>'.
 	 * @see org.archstudio.xadl3.hints_3_0.Value#getData()
@@ -308,9 +284,8 @@ public interface Hints_3_0Package extends EPackage {
 	EAttribute getValue_Data();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.hints_3_0.Value#getType <em>Type</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.hints_3_0.Value#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Type</em>'.
 	 * @see org.archstudio.xadl3.hints_3_0.Value#getType()
@@ -320,8 +295,7 @@ public interface Hints_3_0Package extends EPackage {
 	EAttribute getValue_Type();
 
 	/**
-	 * Returns the factory that creates the instances of the model. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the factory that creates the instances of the model.
 	 * @generated
@@ -329,8 +303,7 @@ public interface Hints_3_0Package extends EPackage {
 	Hints_3_0Factory getHints_3_0Factory();
 
 	/**
-	 * <!-- begin-user-doc --> Defines literals for the meta objects that
-	 * represent
+	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
@@ -343,9 +316,8 @@ public interface Hints_3_0Package extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.hints_3_0.impl.HintImpl <em>Hint</em>}'
-		 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.hints_3_0.impl.HintImpl <em>Hint</em>}' class.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.hints_3_0.impl.HintImpl
 		 * @see org.archstudio.xadl3.hints_3_0.impl.Hints_3_0PackageImpl#getHint()
@@ -354,34 +326,32 @@ public interface Hints_3_0Package extends EPackage {
 		EClass HINT = eINSTANCE.getHint();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' containment
-		 * reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature. <!-- begin-user-doc
+		 * --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference HINT__VALUE = eINSTANCE.getHint_Value();
 
 		/**
-		 * The meta object literal for the '<em><b>Hint</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Hint</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute HINT__HINT = eINSTANCE.getHint_Hint();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute HINT__NAME = eINSTANCE.getHint_Name();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.hints_3_0.impl.HintsExtensionImpl
-		 * <em>Hints Extension</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.hints_3_0.impl.HintsExtensionImpl
+		 * <em>Hints Extension</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.hints_3_0.impl.HintsExtensionImpl
 		 * @see org.archstudio.xadl3.hints_3_0.impl.Hints_3_0PackageImpl#getHintsExtension()
@@ -390,17 +360,16 @@ public interface Hints_3_0Package extends EPackage {
 		EClass HINTS_EXTENSION = eINSTANCE.getHintsExtension();
 
 		/**
-		 * The meta object literal for the '<em><b>Hint</b></em>' containment
-		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Hint</b></em>' containment reference list feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference HINTS_EXTENSION__HINT = eINSTANCE.getHintsExtension_Hint();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl <em>Value</em>}'
-		 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl <em>Value</em>}' class.
+		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.hints_3_0.impl.ValueImpl
 		 * @see org.archstudio.xadl3.hints_3_0.impl.Hints_3_0PackageImpl#getValue()
@@ -409,24 +378,24 @@ public interface Hints_3_0Package extends EPackage {
 		EClass VALUE = eINSTANCE.getValue();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' containment
-		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference list feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference VALUE__VALUE = eINSTANCE.getValue_Value();
 
 		/**
-		 * The meta object literal for the '<em><b>Data</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Data</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute VALUE__DATA = eINSTANCE.getValue_Data();
 
 		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */

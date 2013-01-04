@@ -8,8 +8,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Extension</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Extension</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  * 
@@ -30,7 +29,6 @@ public abstract class ExtensionImpl extends EObjectImpl implements Extension {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Xadlcore_3_0Package.Literals.EXTENSION;

@@ -1,11 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2010 BestSolution.at and others. All rights reserved. This
- * program and the accompanying materials are made available under the terms of
- * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * Copyright (c) 2010 BestSolution.at and others. All rights reserved. This program and the accompanying materials are
+ * made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is
  * available at http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors: Tom Schindl <tom.schindl@bestsolution.at> - initial API and
- * implementation
+ * Contributors: Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
  ******************************************************************************/
 package org.eclipse.e4.emf.xpath;
 
@@ -29,9 +27,8 @@ public abstract class XPathContextFactory<Type extends Object> {
 	public abstract XPathContext newContext(Type contextBean);
 
 	/**
-	 * Creates a new XPathContext with the specified bean as the root node and
-	 * the specified parent context. Variables defined in a parent context can
-	 * be referenced in XPaths passed to the child context.
+	 * Creates a new XPathContext with the specified bean as the root node and the specified parent context. Variables
+	 * defined in a parent context can be referenced in XPaths passed to the child context.
 	 * 
 	 * @param parentContext
 	 *            parent context

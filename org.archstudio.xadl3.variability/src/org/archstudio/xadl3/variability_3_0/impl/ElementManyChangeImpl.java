@@ -15,14 +15,12 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Element Many Change</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Element Many Change</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.variability_3_0.impl.ElementManyChangeImpl#getChange
- * <em>Change</em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ElementManyChangeImpl#getChange <em>Change</em>}</li>
  * </ul>
  * </p>
  * 
@@ -30,8 +28,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChange {
 	/**
-	 * The cached value of the '{@link #getChange() <em>Change</em>}'
-	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getChange() <em>Change</em>}' containment reference list. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #getChange()
 	 * @generated
@@ -53,7 +51,6 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.ELEMENT_MANY_CHANGE;
@@ -78,7 +75,6 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -93,7 +89,6 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -108,8 +103,8 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Variability_3_0Package.ELEMENT_MANY_CHANGE__CHANGE:
@@ -125,7 +120,6 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -141,7 +135,6 @@ public class ElementManyChangeImpl extends ChangeImpl implements ElementManyChan
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {

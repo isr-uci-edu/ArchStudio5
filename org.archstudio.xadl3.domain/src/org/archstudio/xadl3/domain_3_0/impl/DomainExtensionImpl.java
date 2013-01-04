@@ -13,14 +13,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Domain Extension</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Domain Extension</b></em>'. <!-- end-user-doc
+ * -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.domain_3_0.impl.DomainExtensionImpl#getDomain
- * <em>Domain</em>}</li>
+ * <li>{@link org.archstudio.xadl3.domain_3_0.impl.DomainExtensionImpl#getDomain <em>Domain</em>}</li>
  * </ul>
  * </p>
  * 
@@ -28,8 +26,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class DomainExtensionImpl extends ExtensionImpl implements DomainExtension {
 	/**
-	 * The cached value of the '{@link #getDomain() <em>Domain</em>}'
-	 * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getDomain() <em>Domain</em>}' containment reference. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getDomain()
 	 * @generated
@@ -51,7 +49,6 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Domain_3_0Package.Literals.DOMAIN_EXTENSION;
@@ -121,7 +118,6 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -136,7 +132,6 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -151,7 +146,6 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -167,7 +161,6 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -183,7 +176,6 @@ public class DomainExtensionImpl extends ExtensionImpl implements DomainExtensio
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {

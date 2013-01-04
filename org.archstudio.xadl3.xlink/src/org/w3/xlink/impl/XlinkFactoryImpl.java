@@ -12,15 +12,13 @@ import org.w3.xlink.XlinkFactory;
 import org.w3.xlink.XlinkPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
  * 
  * @generated
  */
 public class XlinkFactoryImpl extends EFactoryImpl implements XlinkFactory {
 	/**
-	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -39,8 +37,7 @@ public class XlinkFactoryImpl extends EFactoryImpl implements XlinkFactory {
 	}
 
 	/**
-	 * Creates an instance of the factory. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -53,7 +50,6 @@ public class XlinkFactoryImpl extends EFactoryImpl implements XlinkFactory {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {

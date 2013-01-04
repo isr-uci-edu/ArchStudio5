@@ -13,9 +13,8 @@ import com.google.common.collect.Iterables;
 public final class MyxRegistry {
 
 	/**
-	 * Maps bricks to lists of Objects to which they correspond. Because the
-	 * lists tend to be iterated over and modified also, CopyOnWriteArrayLists
-	 * should generally be used.
+	 * Maps bricks to lists of Objects to which they correspond. Because the lists tend to be iterated over and modified
+	 * also, CopyOnWriteArrayLists should generally be used.
 	 */
 
 	protected Map<IMyxBrick, List<Object>> brickToObjectMap = Collections

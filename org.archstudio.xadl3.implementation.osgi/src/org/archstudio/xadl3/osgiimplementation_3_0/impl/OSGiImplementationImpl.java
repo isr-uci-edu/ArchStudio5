@@ -18,17 +18,13 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>OS Gi Implementation</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>OS Gi Implementation</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl#getExt
- * <em>Ext</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl#getBundle
- * <em>Bundle</em>}</li>
+ * <li>{@link org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl#getExt <em>Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl#getBundle <em>Bundle</em>}</li>
  * </ul>
  * </p>
  * 
@@ -36,8 +32,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class OSGiImplementationImpl extends ImplementationImpl implements OSGiImplementation {
 	/**
-	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getExt()
 	 * @generated
@@ -46,8 +42,8 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	protected EList<Extension> ext;
 
 	/**
-	 * The default value of the '{@link #getBundle() <em>Bundle</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getBundle() <em>Bundle</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getBundle()
 	 * @generated
@@ -56,8 +52,8 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	protected static final String BUNDLE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getBundle() <em>Bundle</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getBundle()
 	 * @generated
@@ -79,7 +75,6 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Osgiimplementation_3_0Package.Literals.OS_GI_IMPLEMENTATION;
@@ -129,7 +124,6 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -144,7 +138,6 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -161,8 +154,8 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Osgiimplementation_3_0Package.OS_GI_IMPLEMENTATION__EXT:
@@ -181,7 +174,6 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -200,7 +192,6 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -217,7 +208,6 @@ public class OSGiImplementationImpl extends ImplementationImpl implements OSGiIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

@@ -9,9 +9,8 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc --> A representation of the literals of the enumeration '
- * <em><b>State Type</b></em>', and utility methods for working with them. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '<em><b>State Type</b></em>', and utility
+ * methods for working with them. <!-- end-user-doc -->
  * 
  * @see org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package#getStateType()
  * @model extendedMetaData="name='StateType'"
@@ -19,8 +18,7 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum StateType implements Enumerator {
 	/**
-	 * The '<em><b>Initial</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Initial</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #INITIAL_VALUE
 	 * @generated
@@ -29,8 +27,7 @@ public enum StateType implements Enumerator {
 	INITIAL(0, "initial", "initial"),
 
 	/**
-	 * The '<em><b>State</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>State</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #STATE_VALUE
 	 * @generated
@@ -39,8 +36,7 @@ public enum StateType implements Enumerator {
 	STATE(1, "state", "state"),
 
 	/**
-	 * The '<em><b>Final</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>Final</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #FINAL_VALUE
 	 * @generated
@@ -51,8 +47,8 @@ public enum StateType implements Enumerator {
 	/**
 	 * The '<em><b>Initial</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Initial</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Initial</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -66,8 +62,8 @@ public enum StateType implements Enumerator {
 	/**
 	 * The '<em><b>State</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>State</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>State</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -81,8 +77,8 @@ public enum StateType implements Enumerator {
 	/**
 	 * The '<em><b>Final</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Final</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Final</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -94,24 +90,23 @@ public enum StateType implements Enumerator {
 	public static final int FINAL_VALUE = 2;
 
 	/**
-	 * An array of all the '<em><b>State Type</b></em>' enumerators. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * An array of all the '<em><b>State Type</b></em>' enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	private static final StateType[] VALUES_ARRAY = new StateType[] { INITIAL, STATE, FINAL, };
 
 	/**
-	 * A public read-only list of all the '<em><b>State Type</b></em>'
-	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * A public read-only list of all the '<em><b>State Type</b></em>' enumerators. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	public static final List<StateType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>State Type</b></em>' literal with the specified
-	 * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>State Type</b></em>' literal with the specified literal value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -125,8 +120,8 @@ public enum StateType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>State Type</b></em>' literal with the specified name.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>State Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -140,8 +135,8 @@ public enum StateType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>State Type</b></em>' literal with the specified
-	 * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>State Type</b></em>' literal with the specified integer value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -179,8 +174,7 @@ public enum StateType implements Enumerator {
 	private final String literal;
 
 	/**
-	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Only this class can construct instances. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -221,12 +215,11 @@ public enum StateType implements Enumerator {
 	}
 
 	/**
-	 * Returns the literal value of the enumerator, which is its string
-	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the literal value of the enumerator, which is its string representation. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		return literal;

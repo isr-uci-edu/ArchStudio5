@@ -85,14 +85,11 @@ public class AbstractProxy {
 		@Override
 		public Object invoke(InvocationHandler proxy, Method method, Object[] args) throws Throwable {
 			/*
-			 * This is a last resort handler to call the basic Object methods on
-			 * the actual proxy object itself, e.g.: #toString(),
-			 * #equals(Object), and #hashCode()
+			 * This is a last resort handler to call the basic Object methods on the actual proxy object itself, e.g.:
+			 * #toString(), #equals(Object), and #hashCode()
 			 * 
-			 * Note: an IllegalArgumentException with the message of 'object is
-			 * not an instance of declaring class' may occur if the methods map
-			 * does not create a specialized handler for the method being
-			 * called.
+			 * Note: an IllegalArgumentException with the message of 'object is not an instance of declaring class' may
+			 * occur if the methods map does not create a specialized handler for the method being called.
 			 */
 			return method.invoke(proxy, args);
 		}

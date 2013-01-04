@@ -18,20 +18,14 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Initialization Parameter</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Initialization Parameter</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.implementation_3_0.impl.InitializationParameterImpl#getExt
- * <em>Ext</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.implementation_3_0.impl.InitializationParameterImpl#getKey
- * <em>Key</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.implementation_3_0.impl.InitializationParameterImpl#getValue
- * <em>Value</em>}</li>
+ * <li>{@link org.archstudio.xadl3.implementation_3_0.impl.InitializationParameterImpl#getExt <em>Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.implementation_3_0.impl.InitializationParameterImpl#getKey <em>Key</em>}</li>
+ * <li>{@link org.archstudio.xadl3.implementation_3_0.impl.InitializationParameterImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  * 
@@ -39,8 +33,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class InitializationParameterImpl extends EObjectImpl implements InitializationParameter {
 	/**
-	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getExt()
 	 * @generated
@@ -49,8 +43,8 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	protected EList<Extension> ext;
 
 	/**
-	 * The default value of the '{@link #getKey() <em>Key</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getKey() <em>Key</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getKey()
 	 * @generated
@@ -59,8 +53,7 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	protected static final String KEY_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getKey() <em>Key</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getKey() <em>Key</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getKey()
 	 * @generated
@@ -69,8 +62,8 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	protected String key = KEY_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getValue()
 	 * @generated
@@ -79,8 +72,8 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	protected static final String VALUE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getValue()
 	 * @generated
@@ -102,7 +95,6 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Implementation_3_0Package.Literals.INITIALIZATION_PARAMETER;
@@ -177,7 +169,6 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -192,7 +183,6 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -211,8 +201,8 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Implementation_3_0Package.INITIALIZATION_PARAMETER__EXT:
@@ -234,7 +224,6 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -256,7 +245,6 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -275,7 +263,6 @@ public class InitializationParameterImpl extends EObjectImpl implements Initiali
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

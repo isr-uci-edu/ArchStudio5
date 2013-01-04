@@ -18,17 +18,13 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Lookup Implementation</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Lookup Implementation</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.lookupimplementation_3_0.impl.LookupImplementationImpl#getExt
- * <em>Ext</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.lookupimplementation_3_0.impl.LookupImplementationImpl#getLookup
- * <em>Lookup</em>}</li>
+ * <li>{@link org.archstudio.xadl3.lookupimplementation_3_0.impl.LookupImplementationImpl#getExt <em>Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.lookupimplementation_3_0.impl.LookupImplementationImpl#getLookup <em>Lookup</em>}</li>
  * </ul>
  * </p>
  * 
@@ -36,8 +32,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class LookupImplementationImpl extends ImplementationImpl implements LookupImplementation {
 	/**
-	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getExt()
 	 * @generated
@@ -46,8 +42,8 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	protected EList<Extension> ext;
 
 	/**
-	 * The default value of the '{@link #getLookup() <em>Lookup</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getLookup() <em>Lookup</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getLookup()
 	 * @generated
@@ -56,8 +52,8 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	protected static final String LOOKUP_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getLookup() <em>Lookup</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getLookup() <em>Lookup</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getLookup()
 	 * @generated
@@ -79,7 +75,6 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Lookupimplementation_3_0Package.Literals.LOOKUP_IMPLEMENTATION;
@@ -129,7 +124,6 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -144,7 +138,6 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -161,8 +154,8 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Lookupimplementation_3_0Package.LOOKUP_IMPLEMENTATION__EXT:
@@ -181,7 +174,6 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -200,7 +192,6 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -217,7 +208,6 @@ public class LookupImplementationImpl extends ImplementationImpl implements Look
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

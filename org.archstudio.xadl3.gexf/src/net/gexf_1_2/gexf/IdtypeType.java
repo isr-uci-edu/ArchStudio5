@@ -9,9 +9,8 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc --> A representation of the literals of the enumeration '
- * <em><b>Idtype Type</b></em>', and utility methods for working with them. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '<em><b>Idtype Type</b></em>', and
+ * utility methods for working with them. <!-- end-user-doc -->
  * 
  * @see net.gexf_1_2.gexf.GexfPackage#getIdtypeType()
  * @model extendedMetaData="name='idtype-type'"
@@ -19,8 +18,7 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum IdtypeType implements Enumerator {
 	/**
-	 * The '<em><b>Integer</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Integer</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #INTEGER_VALUE
 	 * @generated
@@ -29,8 +27,7 @@ public enum IdtypeType implements Enumerator {
 	INTEGER(0, "integer", "integer"),
 
 	/**
-	 * The '<em><b>String</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>String</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #STRING_VALUE
 	 * @generated
@@ -41,8 +38,8 @@ public enum IdtypeType implements Enumerator {
 	/**
 	 * The '<em><b>Integer</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Integer</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Integer</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -56,8 +53,8 @@ public enum IdtypeType implements Enumerator {
 	/**
 	 * The '<em><b>String</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>String</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>String</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -69,24 +66,23 @@ public enum IdtypeType implements Enumerator {
 	public static final int STRING_VALUE = 1;
 
 	/**
-	 * An array of all the '<em><b>Idtype Type</b></em>' enumerators. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * An array of all the '<em><b>Idtype Type</b></em>' enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	private static final IdtypeType[] VALUES_ARRAY = new IdtypeType[] { INTEGER, STRING, };
 
 	/**
-	 * A public read-only list of all the '<em><b>Idtype Type</b></em>'
-	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * A public read-only list of all the '<em><b>Idtype Type</b></em>' enumerators. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	public static final List<IdtypeType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Idtype Type</b></em>' literal with the specified
-	 * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Idtype Type</b></em>' literal with the specified literal value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -100,8 +96,8 @@ public enum IdtypeType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Idtype Type</b></em>' literal with the specified
-	 * name. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Idtype Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -115,8 +111,8 @@ public enum IdtypeType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Idtype Type</b></em>' literal with the specified
-	 * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Idtype Type</b></em>' literal with the specified integer value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -152,8 +148,7 @@ public enum IdtypeType implements Enumerator {
 	private final String literal;
 
 	/**
-	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Only this class can construct instances. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -194,12 +189,11 @@ public enum IdtypeType implements Enumerator {
 	}
 
 	/**
-	 * Returns the literal value of the enumerator, which is its string
-	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the literal value of the enumerator, which is its string representation. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		return literal;

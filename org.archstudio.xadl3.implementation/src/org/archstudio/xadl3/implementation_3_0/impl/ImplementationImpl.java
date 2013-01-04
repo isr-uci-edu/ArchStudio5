@@ -10,14 +10,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Implementation</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Implementation</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.implementation_3_0.impl.ImplementationImpl#getId
- * <em>Id</em>}</li>
+ * <li>{@link org.archstudio.xadl3.implementation_3_0.impl.ImplementationImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
  * 
@@ -25,8 +22,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public abstract class ImplementationImpl extends EObjectImpl implements Implementation {
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -35,8 +31,7 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -58,7 +53,6 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Implementation_3_0Package.Literals.IMPLEMENTATION;
@@ -94,7 +88,6 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -109,7 +102,6 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -125,7 +117,6 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -141,7 +132,6 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -156,7 +146,6 @@ public abstract class ImplementationImpl extends EObjectImpl implements Implemen
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

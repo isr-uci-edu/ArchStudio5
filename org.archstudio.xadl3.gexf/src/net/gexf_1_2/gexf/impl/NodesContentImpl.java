@@ -20,8 +20,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Nodes Content</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Nodes Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -34,8 +33,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	/**
-	 * The cached value of the '{@link #getNode() <em>Node</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getNode() <em>Node</em>}' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getNode()
 	 * @generated
@@ -44,8 +43,8 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	protected EList<NodeContent> node;
 
 	/**
-	 * The default value of the '{@link #getCount() <em>Count</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getCount() <em>Count</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getCount()
 	 * @generated
@@ -54,8 +53,8 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	protected static final BigInteger COUNT_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getCount() <em>Count</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getCount() <em>Count</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getCount()
 	 * @generated
@@ -77,7 +76,6 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.NODES_CONTENT;
@@ -125,7 +123,6 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -140,7 +137,6 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -157,8 +153,8 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.NODES_CONTENT__NODE:
@@ -177,7 +173,6 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -196,7 +191,6 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -213,7 +207,6 @@ public class NodesContentImpl extends EObjectImpl implements NodesContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

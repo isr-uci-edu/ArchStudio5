@@ -16,14 +16,11 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>XADL Type</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>XADL Type</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.xadlcore_3_0.impl.XADLTypeImpl#getTopLevelElement
- * <em>Top Level Element</em>}</li>
+ * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.XADLTypeImpl#getTopLevelElement <em>Top Level Element</em>}</li>
  * </ul>
  * </p>
  * 
@@ -31,9 +28,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	/**
-	 * The cached value of the '{@link #getTopLevelElement()
-	 * <em>Top Level Element</em>}' containment reference list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getTopLevelElement() <em>Top Level Element</em>}' containment reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getTopLevelElement()
 	 * @generated
@@ -55,7 +51,6 @@ public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Xadlcore_3_0Package.Literals.XADL_TYPE;
@@ -80,7 +75,6 @@ public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -95,7 +89,6 @@ public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -110,8 +103,8 @@ public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Xadlcore_3_0Package.XADL_TYPE__TOP_LEVEL_ELEMENT:
@@ -127,7 +120,6 @@ public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -143,7 +135,6 @@ public class XADLTypeImpl extends EObjectImpl implements XADLType {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {

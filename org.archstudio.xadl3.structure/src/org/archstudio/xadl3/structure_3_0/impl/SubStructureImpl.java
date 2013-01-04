@@ -20,21 +20,15 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Sub Structure</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Sub Structure</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getInnerStructureLink
- * <em>Inner Structure Link</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getInterfaceMapping
- * <em>Interface Mapping</em>}</li>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getExt
- * <em>Ext</em>}</li>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getId
- * <em>Id</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getInnerStructureLink <em>Inner Structure Link
+ * </em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getInterfaceMapping <em>Interface Mapping</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getExt <em>Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
  * 
@@ -42,9 +36,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	/**
-	 * The cached value of the '{@link #getInnerStructureLink()
-	 * <em>Inner Structure Link</em>}' reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached value of the '{@link #getInnerStructureLink() <em>Inner Structure Link</em>}' reference. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getInnerStructureLink()
 	 * @generated
@@ -53,9 +46,8 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	protected Structure innerStructureLink;
 
 	/**
-	 * The cached value of the '{@link #getInterfaceMapping()
-	 * <em>Interface Mapping</em>}' containment reference list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getInterfaceMapping() <em>Interface Mapping</em>}' containment reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getInterfaceMapping()
 	 * @generated
@@ -64,8 +56,8 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	protected EList<InterfaceMapping> interfaceMapping;
 
 	/**
-	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getExt()
 	 * @generated
@@ -74,8 +66,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	protected EList<Extension> ext;
 
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -84,8 +75,7 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -107,7 +97,6 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Structure_3_0Package.Literals.SUB_STRUCTURE;
@@ -194,7 +183,6 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -211,7 +199,6 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -232,8 +219,8 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Structure_3_0Package.SUB_STRUCTURE__INNER_STRUCTURE_LINK:
@@ -259,7 +246,6 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -284,7 +270,6 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -305,7 +290,6 @@ public class SubStructureImpl extends EObjectImpl implements SubStructure {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

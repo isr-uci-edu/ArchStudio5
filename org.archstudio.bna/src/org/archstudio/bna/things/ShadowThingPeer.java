@@ -10,8 +10,7 @@ import org.archstudio.bna.IThingPeer;
 import org.eclipse.swt.graphics.Rectangle;
 
 /**
- * Render all shadows at the same time. Otherwise, shadows do not overlap
- * correctly.
+ * Render all shadows at the same time. Otherwise, shadows do not overlap correctly.
  */
 public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T> implements IThingPeer<T> {
 

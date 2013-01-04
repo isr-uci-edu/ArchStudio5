@@ -18,19 +18,14 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Test</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Test</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl#getExt <em>Ext
- * </em>}</li>
- * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl#isEnabled <em>
- * Enabled</em>}</li>
- * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl#getId <em>Id
- * </em>}</li>
- * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl#getName <em>Name
- * </em>}</li>
+ * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl#getExt <em>Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl#isEnabled <em>Enabled</em>}</li>
+ * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl#getId <em>Id</em>}</li>
+ * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  * 
@@ -38,8 +33,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class TestImpl extends EObjectImpl implements Test {
 	/**
-	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getExt()
 	 * @generated
@@ -48,8 +43,8 @@ public class TestImpl extends EObjectImpl implements Test {
 	protected EList<Extension> ext;
 
 	/**
-	 * The default value of the '{@link #isEnabled() <em>Enabled</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #isEnabled()
 	 * @generated
@@ -58,8 +53,8 @@ public class TestImpl extends EObjectImpl implements Test {
 	protected static final boolean ENABLED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isEnabled() <em>Enabled</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #isEnabled()
 	 * @generated
@@ -68,8 +63,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	protected boolean enabled = ENABLED_EDEFAULT;
 
 	/**
-	 * This is true if the Enabled attribute has been set. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * This is true if the Enabled attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -77,8 +71,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	protected boolean enabledESet;
 
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -87,8 +80,7 @@ public class TestImpl extends EObjectImpl implements Test {
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -97,8 +89,8 @@ public class TestImpl extends EObjectImpl implements Test {
 	protected String id = ID_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getName()
 	 * @generated
@@ -107,8 +99,8 @@ public class TestImpl extends EObjectImpl implements Test {
 	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getName()
 	 * @generated
@@ -130,7 +122,6 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Archlight_3_0Package.Literals.TEST;
@@ -256,7 +247,6 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -271,7 +261,6 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -292,8 +281,8 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Archlight_3_0Package.TEST__EXT:
@@ -318,7 +307,6 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -343,7 +331,6 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -364,7 +351,6 @@ public class TestImpl extends EObjectImpl implements Test {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

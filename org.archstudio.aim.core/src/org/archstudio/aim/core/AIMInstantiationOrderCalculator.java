@@ -55,8 +55,7 @@ public class AIMInstantiationOrderCalculator {
 	 * Returns an ordered list of brick and links to instantiate such that:
 	 * <ul>
 	 * <li>bricks on "top" will be instantiated before bricks on "bottom"</li>
-	 * <li>links directed "out" and on "top" will be welded before links
-	 * directed "in" and on "bottom"</li>
+	 * <li>links directed "out" and on "top" will be welded before links directed "in" and on "bottom"</li>
 	 * </ul>
 	 */
 	public static List<? extends OrderedGroup> calculateInstantiationOrder(IXArchADT xarch, ObjRef structureRef) {

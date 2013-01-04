@@ -1,8 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2006 IBM Corporation and others. All rights reserved.
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v1.0 which accompanies this distribution,
- * and is available at http://www.eclipse.org/legal/epl-v10.html
+ * Copyright (c) 2000, 2006 IBM Corporation and others. All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: IBM Corporation - initial API and implementation
  *******************************************************************************/
@@ -11,8 +10,7 @@ package org.archstudio.myx.fw;
 /**
  * A default progress monitor implementation suitable for subclassing.
  * <p>
- * This implementation supports cancelation. The default implementations of the
- * other methods do nothing.
+ * This implementation supports cancelation. The default implementations of the other methods do nothing.
  * </p>
  * <p>
  * This class can be used without OSGi running.
@@ -33,8 +31,8 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation does nothing. Subclasses may override this method to
-	 * do interesting processing when a task begins.
+	 * This implementation does nothing. Subclasses may override this method to do interesting processing when a task
+	 * begins.
 	 * 
 	 * @see IMyxProgressMonitor#beginTask(String, int)
 	 */
@@ -44,8 +42,8 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation does nothing. Subclasses may override this method to
-	 * do interesting processing when a task is done.
+	 * This implementation does nothing. Subclasses may override this method to do interesting processing when a task is
+	 * done.
 	 * 
 	 * @see IMyxProgressMonitor#done()
 	 */
@@ -65,9 +63,8 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation returns the value of the internal state variable set
-	 * by <code>setCanceled</code>. Subclasses which override this method should
-	 * override <code>setCanceled</code> as well.
+	 * This implementation returns the value of the internal state variable set by <code>setCanceled</code>. Subclasses
+	 * which override this method should override <code>setCanceled</code> as well.
 	 * 
 	 * @see IMyxProgressMonitor#isCanceled()
 	 * @see IMyxProgressMonitor#setCanceled(boolean)
@@ -78,9 +75,8 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation sets the value of an internal state variable.
-	 * Subclasses which override this method should override
-	 * <code>isCanceled</code> as well.
+	 * This implementation sets the value of an internal state variable. Subclasses which override this method should
+	 * override <code>isCanceled</code> as well.
 	 * 
 	 * @see IMyxProgressMonitor#isCanceled()
 	 * @see IMyxProgressMonitor#setCanceled(boolean)
@@ -91,8 +87,7 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation does nothing. Subclasses may override this method to
-	 * do something with the name of the task.
+	 * This implementation does nothing. Subclasses may override this method to do something with the name of the task.
 	 * 
 	 * @see IMyxProgressMonitor#setTaskName(String)
 	 */
@@ -102,8 +97,8 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation does nothing. Subclasses may override this method to
-	 * do interesting processing when a subtask begins.
+	 * This implementation does nothing. Subclasses may override this method to do interesting processing when a subtask
+	 * begins.
 	 * 
 	 * @see IMyxProgressMonitor#subTask(String)
 	 */
@@ -113,8 +108,8 @@ public class MyxNullProgressMonitor implements IMyxProgressMonitor {
 	}
 
 	/**
-	 * This implementation does nothing. Subclasses may override this method to
-	 * do interesting processing when some work has been completed.
+	 * This implementation does nothing. Subclasses may override this method to do interesting processing when some work
+	 * has been completed.
 	 * 
 	 * @see IMyxProgressMonitor#worked(int)
 	 */

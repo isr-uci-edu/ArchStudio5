@@ -17,17 +17,12 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Element Change</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Element Change</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl#getChange
- * <em>Change</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl#getType
- * <em>Type</em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl#getChange <em>Change</em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  * 
@@ -35,8 +30,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	/**
-	 * The cached value of the '{@link #getChange() <em>Change</em>}'
-	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getChange() <em>Change</em>}' containment reference list. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #getChange()
 	 * @generated
@@ -45,8 +40,8 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	protected EList<Change> change;
 
 	/**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getType()
 	 * @generated
@@ -55,8 +50,8 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	protected static final String TYPE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getType()
 	 * @generated
@@ -78,7 +73,6 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.ELEMENT_CHANGE;
@@ -128,7 +122,6 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -143,7 +136,6 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -160,8 +152,8 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Variability_3_0Package.ELEMENT_CHANGE__CHANGE:
@@ -180,7 +172,6 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -199,7 +190,6 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -216,7 +206,6 @@ public class ElementChangeImpl extends ChangeImpl implements ElementChange {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

@@ -16,13 +16,12 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Hints Extension</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Hints Extension</b></em>'. <!-- end-user-doc
+ * -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintsExtensionImpl#getHint
- * <em>Hint</em>}</li>
+ * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintsExtensionImpl#getHint <em>Hint</em>}</li>
  * </ul>
  * </p>
  * 
@@ -30,8 +29,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension {
 	/**
-	 * The cached value of the '{@link #getHint() <em>Hint</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getHint() <em>Hint</em>}' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getHint()
 	 * @generated
@@ -53,7 +52,6 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Hints_3_0Package.Literals.HINTS_EXTENSION;
@@ -77,7 +75,6 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -92,7 +89,6 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -107,8 +103,8 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Hints_3_0Package.HINTS_EXTENSION__HINT:
@@ -124,7 +120,6 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -140,7 +135,6 @@ public class HintsExtensionImpl extends ExtensionImpl implements HintsExtension 
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {

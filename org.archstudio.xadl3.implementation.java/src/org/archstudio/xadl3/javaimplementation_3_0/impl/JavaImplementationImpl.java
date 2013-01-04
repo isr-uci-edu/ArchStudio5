@@ -19,20 +19,14 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Java Implementation</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Java Implementation</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaImplementationImpl#getMainClass
- * <em>Main Class</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaImplementationImpl#getAuxClass
- * <em>Aux Class</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaImplementationImpl#getExt
- * <em>Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaImplementationImpl#getMainClass <em>Main Class</em>}</li>
+ * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaImplementationImpl#getAuxClass <em>Aux Class</em>}</li>
+ * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaImplementationImpl#getExt <em>Ext</em>}</li>
  * </ul>
  * </p>
  * 
@@ -40,8 +34,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class JavaImplementationImpl extends ImplementationImpl implements JavaImplementation {
 	/**
-	 * The cached value of the '{@link #getMainClass() <em>Main Class</em>}'
-	 * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getMainClass() <em>Main Class</em>}' containment reference. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #getMainClass()
 	 * @generated
@@ -50,8 +44,8 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	protected JavaClass mainClass;
 
 	/**
-	 * The cached value of the '{@link #getAuxClass() <em>Aux Class</em>}'
-	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getAuxClass() <em>Aux Class</em>}' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getAuxClass()
 	 * @generated
@@ -60,8 +54,8 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	protected EList<JavaClass> auxClass;
 
 	/**
-	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getExt()
 	 * @generated
@@ -83,7 +77,6 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Javaimplementation_3_0Package.Literals.JAVA_IMPLEMENTATION;
@@ -181,7 +174,6 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -200,7 +192,6 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -219,8 +210,8 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Javaimplementation_3_0Package.JAVA_IMPLEMENTATION__MAIN_CLASS:
@@ -243,7 +234,6 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -265,7 +255,6 @@ public class JavaImplementationImpl extends ImplementationImpl implements JavaIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {

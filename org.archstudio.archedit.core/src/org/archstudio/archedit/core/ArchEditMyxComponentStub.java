@@ -3,11 +3,9 @@ package org.archstudio.archedit.core;
 import org.archstudio.myx.fw.IMyxName;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "ArchEdit Component Impl" MyxGen extension in the
- * org.archstudio.archedit.core plugin.
+ * To modify, update the "ArchEdit Component Impl" MyxGen extension in the org.archstudio.archedit.core plugin.
  */
 
 /**

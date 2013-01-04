@@ -10,13 +10,11 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Myx Gen</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Myx Gen</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.myxgen_3_0.impl.MyxGenImpl#getBrickID <em>
- * Brick ID</em>}</li>
+ * <li>{@link org.archstudio.xadl3.myxgen_3_0.impl.MyxGenImpl#getBrickID <em>Brick ID</em>}</li>
  * </ul>
  * </p>
  * 
@@ -24,8 +22,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	/**
-	 * The default value of the '{@link #getBrickID() <em>Brick ID</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getBrickID() <em>Brick ID</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getBrickID()
 	 * @generated
@@ -34,8 +32,8 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	protected static final String BRICK_ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getBrickID() <em>Brick ID</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getBrickID() <em>Brick ID</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getBrickID()
 	 * @generated
@@ -57,7 +55,6 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Myxgen_3_0Package.Literals.MYX_GEN;
@@ -93,7 +90,6 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -108,7 +104,6 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -124,7 +119,6 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -140,7 +134,6 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -155,7 +148,6 @@ public class MyxGenImpl extends ImplementationImpl implements MyxGen {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

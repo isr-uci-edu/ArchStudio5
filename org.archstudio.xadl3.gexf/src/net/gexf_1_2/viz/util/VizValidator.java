@@ -23,8 +23,7 @@ import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.xml.type.util.XMLTypeValidator;
 
 /**
- * <!-- begin-user-doc --> The <b>Validator</b> for the model. <!-- end-user-doc
- * -->
+ * <!-- begin-user-doc --> The <b>Validator</b> for the model. <!-- end-user-doc -->
  * 
  * @see net.gexf_1_2.viz.VizPackage
  * @generated
@@ -38,10 +37,9 @@ public class VizValidator extends EObjectValidator {
 	public static final VizValidator INSTANCE = new VizValidator();
 
 	/**
-	 * A constant for the
-	 * {@link org.eclipse.emf.common.util.Diagnostic#getSource() source} of
-	 * diagnostic {@link org.eclipse.emf.common.util.Diagnostic#getCode() codes}
-	 * from this package. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * A constant for the {@link org.eclipse.emf.common.util.Diagnostic#getSource() source} of diagnostic
+	 * {@link org.eclipse.emf.common.util.Diagnostic#getCode() codes} from this package. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see org.eclipse.emf.common.util.Diagnostic#getSource()
 	 * @see org.eclipse.emf.common.util.Diagnostic#getCode()
@@ -50,34 +48,30 @@ public class VizValidator extends EObjectValidator {
 	public static final String DIAGNOSTIC_SOURCE = "net.gexf_1_2.viz";
 
 	/**
-	 * A constant with a fixed name that can be used as the base value for
-	 * additional hand written constants. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * A constant with a fixed name that can be used as the base value for additional hand written constants. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	private static final int GENERATED_DIAGNOSTIC_CODE_COUNT = 0;
 
 	/**
-	 * A constant with a fixed name that can be used as the base value for
-	 * additional hand written constants in a derived class. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * A constant with a fixed name that can be used as the base value for additional hand written constants in a
+	 * derived class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	protected static final int DIAGNOSTIC_CODE_COUNT = GENERATED_DIAGNOSTIC_CODE_COUNT;
 
 	/**
-	 * The cached base package validator. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached base package validator. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	protected XMLTypeValidator xmlTypeValidator;
 
 	/**
-	 * Creates an instance of the switch. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -87,24 +81,21 @@ public class VizValidator extends EObjectValidator {
 	}
 
 	/**
-	 * Returns the package of this validator switch. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the package of this validator switch. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EPackage getEPackage() {
 		return VizPackage.eINSTANCE;
 	}
 
 	/**
-	 * Calls <code>validateXXX</code> for the corresponding classifier of the
-	 * model. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Calls <code>validateXXX</code> for the corresponding classifier of the model. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		switch (classifierID) {
@@ -264,8 +255,7 @@ public class VizValidator extends EObjectValidator {
 	public static final float ALPHA_CHANNEL__MIN__VALUE = 0.0F;
 
 	/**
-	 * Validates the Min constraint of '<em>Alpha Channel</em>'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Validates the Min constraint of '<em>Alpha Channel</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -287,8 +277,7 @@ public class VizValidator extends EObjectValidator {
 	public static final float ALPHA_CHANNEL__MAX__VALUE = 1.0F;
 
 	/**
-	 * Validates the Max constraint of '<em>Alpha Channel</em>'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Validates the Max constraint of '<em>Alpha Channel</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -338,8 +327,7 @@ public class VizValidator extends EObjectValidator {
 	public static final BigInteger COLOR_CHANNEL__MAX__VALUE = new BigInteger("255");
 
 	/**
-	 * Validates the Max constraint of '<em>Color Channel</em>'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Validates the Max constraint of '<em>Color Channel</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -392,8 +380,7 @@ public class VizValidator extends EObjectValidator {
 	public static final float SIZE_TYPE__MIN__VALUE = 0.0F;
 
 	/**
-	 * Validates the Min constraint of '<em>Size Type</em>'. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * Validates the Min constraint of '<em>Size Type</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -454,8 +441,7 @@ public class VizValidator extends EObjectValidator {
 	public static final float THICKNESS_TYPE__MIN__VALUE = 0.0F;
 
 	/**
-	 * Validates the Min constraint of '<em>Thickness Type</em>'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Validates the Min constraint of '<em>Thickness Type</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -481,12 +467,11 @@ public class VizValidator extends EObjectValidator {
 	}
 
 	/**
-	 * Returns the resource locator that will be used to fetch messages for this
-	 * validator's diagnostics. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the resource locator that will be used to fetch messages for this validator's diagnostics. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public ResourceLocator getResourceLocator() {
 		// TODO

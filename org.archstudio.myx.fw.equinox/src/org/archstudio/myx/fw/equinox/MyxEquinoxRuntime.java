@@ -23,8 +23,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
 /**
- * A {@link MyxBasicRuntime} that automatically loads all brick loaders defined
- * by the brickLoader extension points.
+ * A {@link MyxBasicRuntime} that automatically loads all brick loaders defined by the brickLoader extension points.
  */
 public class MyxEquinoxRuntime extends MyxBasicRuntime {
 

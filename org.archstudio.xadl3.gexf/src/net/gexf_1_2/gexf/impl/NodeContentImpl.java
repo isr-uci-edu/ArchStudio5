@@ -28,33 +28,27 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Node Content</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Node Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getGroup <em>Group</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getAttvalues <em>Attvalues
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getAttvalues <em>Attvalues</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getSpells <em>Spells</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getNodes <em>Nodes</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getEdges <em>Edges</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getParents <em>Parents
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getParents <em>Parents</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getColor <em>Color</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getPosition <em>Position
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getPosition <em>Position</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getSize <em>Size</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getShape <em>Shape</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getEnd <em>End</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getEndopen <em>Endopen
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getEndopen <em>Endopen</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getId <em>Id</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getLabel <em>Label</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getPid <em>Pid</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getStart <em>Start</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getStartopen <em>Startopen
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.NodeContentImpl#getStartopen <em>Startopen</em>}</li>
  * </ul>
  * </p>
  * 
@@ -62,8 +56,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	/**
-	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getGroup()
 	 * @generated
@@ -72,8 +66,8 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected FeatureMap group;
 
 	/**
-	 * The default value of the '{@link #getEnd() <em>End</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getEnd() <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getEnd()
 	 * @generated
@@ -82,8 +76,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected static final Object END_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getEnd() <em>End</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getEnd() <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getEnd()
 	 * @generated
@@ -92,8 +85,8 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected Object end = END_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getEndopen() <em>Endopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getEndopen() <em>Endopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getEndopen()
 	 * @generated
@@ -102,8 +95,8 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected static final Object ENDOPEN_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getEndopen() <em>Endopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getEndopen() <em>Endopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getEndopen()
 	 * @generated
@@ -112,8 +105,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected Object endopen = ENDOPEN_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -122,8 +114,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected static final Object ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -132,8 +123,8 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected Object id = ID_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getLabel()
 	 * @generated
@@ -142,8 +133,8 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected static final String LABEL_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getLabel()
 	 * @generated
@@ -152,8 +143,8 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected String label = LABEL_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getPid() <em>Pid</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getPid() <em>Pid</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getPid()
 	 * @generated
@@ -162,8 +153,7 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected static final Object PID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getPid() <em>Pid</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getPid() <em>Pid</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getPid()
 	 * @generated
@@ -172,8 +162,8 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected Object pid = PID_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getStart() <em>Start</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getStart() <em>Start</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStart()
 	 * @generated
@@ -182,8 +172,8 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected static final Object START_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getStart() <em>Start</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getStart() <em>Start</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getStart()
 	 * @generated
@@ -192,8 +182,8 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected Object start = START_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getStartopen() <em>Startopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getStartopen() <em>Startopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStartopen()
 	 * @generated
@@ -202,8 +192,8 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	protected static final Object STARTOPEN_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getStartopen() <em>Startopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getStartopen() <em>Startopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStartopen()
 	 * @generated
@@ -225,7 +215,6 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.NODE_CONTENT;
@@ -509,7 +498,6 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -542,7 +530,6 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -592,8 +579,8 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.NODE_CONTENT__GROUP:
@@ -665,7 +652,6 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -729,7 +715,6 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -776,7 +761,6 @@ public class NodeContentImpl extends EObjectImpl implements NodeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

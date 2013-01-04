@@ -52,8 +52,7 @@ public class Test {
 	}
 
 	/**
-	 * The following three methods do the same thing, they all create an
-	 * architecture that looks like the following:
+	 * The following three methods do the same thing, they all create an architecture that looks like the following:
 	 * 
 	 * <pre>
 	 *    ================
@@ -75,8 +74,8 @@ public class Test {
 	 */
 
 	/**
-	 * Create the architecture using the xADL data binding library directly,
-	 * i.e., using the EMF generated classes from Apigen.
+	 * Create the architecture using the xADL data binding library directly, i.e., using the EMF generated classes from
+	 * Apigen.
 	 */
 	public String createUsingEMF() throws IOException {
 
@@ -168,28 +167,25 @@ public class Test {
 	}
 
 	/**
-	 * Create the architecture using the IXArchADT flat interface. Note that the
-	 * main differences involve the creation and saving of the document. This is
-	 * because we have to ensure that the document is created in IXArchADT then
+	 * Create the architecture using the IXArchADT flat interface. Note that the main differences involve the creation
+	 * and saving of the document. This is because we have to ensure that the document is created in IXArchADT then
 	 * proxied rather than created in the local memory space.
 	 */
 	public String createUsingXArchADT() {
 
 		/*
-		 * Normally, this is provided through the XArchADT component, but we
-		 * have to manually create it here.
+		 * Normally, this is provided through the XArchADT component, but we have to manually create it here.
 		 */
 		IXArchADT xarch = new XArchADTImpl();
 
 		/*
-		 * Note: from this point on, we will comment out the EMF-based version
-		 * and include the equivalent IXArchADT version of the code.
+		 * Note: from this point on, we will comment out the EMF-based version and include the equivalent IXArchADT
+		 * version of the code.
 		 */
 
 		// Get references to the factories used to create objects
 		/*
-		 * Unlike when using EMF, we use the namespace URI's to refer to the
-		 * factories in the flat interface.
+		 * Unlike when using EMF, we use the namespace URI's to refer to the factories in the flat interface.
 		 */
 
 		// Xadlcore_3_0Factory coreFactory = Xadlcore_3_0Factory.eINSTANCE;
@@ -327,22 +323,20 @@ public class Test {
 	public String createUsingXArchADTProxy() {
 
 		/*
-		 * Normally, this is provided through the XArchADT component, but we
-		 * have to manually create it here.
+		 * Normally, this is provided through the XArchADT component, but we have to manually create it here.
 		 */
 		IXArchADT xarch = new XArchADTImpl();
 
 		/*
-		 * Note: from this point on, we will comment out the EMF-based version
-		 * and include the equivalent IXArchADT version of the code.
+		 * Note: from this point on, we will comment out the EMF-based version and include the equivalent IXArchADT
+		 * version of the code.
 		 */
 
 		// Get references to the factories used to create objects
 		/*
-		 * XArchADTProxy proxies two types of things: 1) NS URIs that represent
-		 * factories 2) ObjRefs that represent EObjects. Below we proxy the
-		 * factories. Everything from that point on is actually occuring over
-		 * the IXArchADT "under the covers".
+		 * XArchADTProxy proxies two types of things: 1) NS URIs that represent factories 2) ObjRefs that represent
+		 * EObjects. Below we proxy the factories. Everything from that point on is actually occuring over the IXArchADT
+		 * "under the covers".
 		 */
 		// Xadlcore_3_0Factory coreFactory = Xadlcore_3_0Factory.eINSTANCE;
 		String coreNsUri = Xadlcore_3_0Package.eINSTANCE.getNsURI();
@@ -364,10 +358,8 @@ public class Test {
 		// create component A and its interface
 
 		/*
-		 * Because the factory is already proxied, it creates proxied ObjRefs
-		 * already for us. However, if you received an ObjRef that was not
-		 * already proxied, you would proxy it using XArchADT.proxy(xarch,
-		 * objRef)
+		 * Because the factory is already proxied, it creates proxied ObjRefs already for us. However, if you received
+		 * an ObjRef that was not already proxied, you would proxy it using XArchADT.proxy(xarch, objRef)
 		 */
 		Component componentA = structureFactory.createComponent();
 		componentA.setId("ComponentA");

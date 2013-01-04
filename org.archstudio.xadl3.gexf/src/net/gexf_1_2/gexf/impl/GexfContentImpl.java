@@ -16,17 +16,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Content</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.GexfContentImpl#getMeta <em>Meta</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.GexfContentImpl#getGraph <em>Graph</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.GexfContentImpl#getVariant <em>Variant
- * </em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.GexfContentImpl#getVersion <em>Version
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.GexfContentImpl#getVariant <em>Variant</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.GexfContentImpl#getVersion <em>Version</em>}</li>
  * </ul>
  * </p>
  * 
@@ -34,8 +31,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	/**
-	 * The cached value of the '{@link #getMeta() <em>Meta</em>}' containment
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getMeta() <em>Meta</em>}' containment reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getMeta()
 	 * @generated
@@ -44,8 +41,8 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	protected MetaContent meta;
 
 	/**
-	 * The cached value of the '{@link #getGraph() <em>Graph</em>}' containment
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getGraph() <em>Graph</em>}' containment reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getGraph()
 	 * @generated
@@ -54,8 +51,8 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	protected GraphContent graph;
 
 	/**
-	 * The default value of the '{@link #getVariant() <em>Variant</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getVariant() <em>Variant</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getVariant()
 	 * @generated
@@ -64,8 +61,8 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	protected static final String VARIANT_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getVariant() <em>Variant</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getVariant() <em>Variant</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getVariant()
 	 * @generated
@@ -74,8 +71,8 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	protected String variant = VARIANT_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getVersion() <em>Version</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getVersion()
 	 * @generated
@@ -84,8 +81,8 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	protected static final VersionType VERSION_EDEFAULT = VersionType._12;
 
 	/**
-	 * The cached value of the '{@link #getVersion() <em>Version</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getVersion()
 	 * @generated
@@ -94,8 +91,7 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	protected VersionType version = VERSION_EDEFAULT;
 
 	/**
-	 * This is true if the Version attribute has been set. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * This is true if the Version attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -116,7 +112,6 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.GEXF_CONTENT;
@@ -322,7 +317,6 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -339,7 +333,6 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -360,7 +353,6 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -385,7 +377,6 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -410,7 +401,6 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -431,7 +421,6 @@ public class GexfContentImpl extends EObjectImpl implements GexfContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

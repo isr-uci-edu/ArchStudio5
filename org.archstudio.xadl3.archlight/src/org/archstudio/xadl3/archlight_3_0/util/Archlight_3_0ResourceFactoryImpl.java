@@ -8,16 +8,14 @@ import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 
 /**
- * <!-- begin-user-doc --> The <b>Resource Factory</b> associated with the
- * package. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Resource Factory</b> associated with the package. <!-- end-user-doc -->
  * 
  * @see org.archstudio.xadl3.archlight_3_0.util.Archlight_3_0ResourceImpl
  * @generated
  */
 public class Archlight_3_0ResourceFactoryImpl extends ResourceFactoryImpl {
 	/**
-	 * Creates an instance of the resource factory. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Creates an instance of the resource factory. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -26,12 +24,10 @@ public class Archlight_3_0ResourceFactoryImpl extends ResourceFactoryImpl {
 	}
 
 	/**
-	 * Creates an instance of the resource. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Creates an instance of the resource. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Resource createResource(URI uri) {
 		XMLResource result = new Archlight_3_0ResourceImpl(uri);

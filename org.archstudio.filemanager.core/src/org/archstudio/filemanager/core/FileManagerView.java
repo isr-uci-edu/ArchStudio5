@@ -69,8 +69,7 @@ public class FileManagerView extends ViewPart implements IXArchADTFileListener, 
 	}
 
 	/**
-	 * This is a callback that will allow us to create the viewer and initialize
-	 * it.
+	 * This is a callback that will allow us to create the viewer and initialize it.
 	 */
 
 	@Override

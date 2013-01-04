@@ -15,9 +15,8 @@ public class TreeNodeDataCache implements IArchipelagoTreeNodeDataCache {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.archstudio.archipelago.core.ITreeNodeDataCache#setData(org.archstudio
-	 * .xarchflat.ObjRef, java.lang.Object, java.lang.String, java.lang.Object)
+	 * @see org.archstudio.archipelago.core.ITreeNodeDataCache#setData(org.archstudio .xarchflat.ObjRef,
+	 * java.lang.Object, java.lang.String, java.lang.Object)
 	 */
 
 	@Override
@@ -29,9 +28,8 @@ public class TreeNodeDataCache implements IArchipelagoTreeNodeDataCache {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.archstudio.archipelago.core.ITreeNodeDataCache#getData(org.archstudio
-	 * .xarchflat.ObjRef, java.lang.Object, java.lang.String)
+	 * @see org.archstudio.archipelago.core.ITreeNodeDataCache#getData(org.archstudio .xarchflat.ObjRef,
+	 * java.lang.Object, java.lang.String)
 	 */
 
 	@Override

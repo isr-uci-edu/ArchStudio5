@@ -38,54 +38,37 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Document Root</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Document Root</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getMixed <em>Mixed</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getXMLNSPrefixMap <em>
- * XMLNS Prefix Map</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getXSISchemaLocation <em>
- * XSI Schema Location</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getAttribute <em>Attribute
- * </em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getAttributes <em>
- * Attributes</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getAttvalue <em>Attvalue
- * </em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getAttvalues <em>Attvalues
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getXMLNSPrefixMap <em>XMLNS Prefix Map</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getXSISchemaLocation <em>XSI Schema Location</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getAttribute <em>Attribute</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getAttributes <em>Attributes</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getAttvalue <em>Attvalue</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getAttvalues <em>Attvalues</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getColor <em>Color</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getCreator <em>Creator
- * </em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getDefault <em>Default
- * </em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getDescription <em>
- * Description</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getCreator <em>Creator</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getDefault <em>Default</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getDescription <em>Description</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getEdge <em>Edge</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getEdges <em>Edges</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getGexf <em>Gexf</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getGraph <em>Graph</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getKeywords <em>Keywords
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getKeywords <em>Keywords</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getMeta <em>Meta</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getNode <em>Node</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getNodes <em>Nodes</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getOptions <em>Options
- * </em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getParent <em>Parent</em>}
- * </li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getParents <em>Parents
- * </em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getPosition <em>Position
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getOptions <em>Options</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getParent <em>Parent</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getParents <em>Parents</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getPosition <em>Position</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getSize <em>Size</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getSpell <em>Spell</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getSpells <em>Spells</em>}
- * </li>
- * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getThickness <em>Thickness
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getSpells <em>Spells</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.DocumentRootImpl#getThickness <em>Thickness</em>}</li>
  * </ul>
  * </p>
  * 
@@ -93,8 +76,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	/**
-	 * The cached value of the '{@link #getMixed() <em>Mixed</em>}' attribute
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getMixed() <em>Mixed</em>}' attribute list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getMixed()
 	 * @generated
@@ -103,9 +86,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected FeatureMap mixed;
 
 	/**
-	 * The cached value of the '{@link #getXMLNSPrefixMap()
-	 * <em>XMLNS Prefix Map</em>}' map. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached value of the '{@link #getXMLNSPrefixMap() <em>XMLNS Prefix Map</em>}' map. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getXMLNSPrefixMap()
 	 * @generated
@@ -114,9 +96,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected EMap<String, String> xMLNSPrefixMap;
 
 	/**
-	 * The cached value of the '{@link #getXSISchemaLocation()
-	 * <em>XSI Schema Location</em>}' map. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached value of the '{@link #getXSISchemaLocation() <em>XSI Schema Location</em>}' map. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #getXSISchemaLocation()
 	 * @generated
@@ -125,8 +106,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected EMap<String, String> xSISchemaLocation;
 
 	/**
-	 * The default value of the '{@link #getCreator() <em>Creator</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getCreator() <em>Creator</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getCreator()
 	 * @generated
@@ -135,8 +116,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected static final String CREATOR_EDEFAULT = null;
 
 	/**
-	 * The default value of the '{@link #getDefault() <em>Default</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getDefault() <em>Default</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getDefault()
 	 * @generated
@@ -145,8 +126,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected static final String DEFAULT_EDEFAULT = null;
 
 	/**
-	 * The default value of the '{@link #getDescription() <em>Description</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getDescription()
 	 * @generated
@@ -155,8 +136,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected static final String DESCRIPTION_EDEFAULT = null;
 
 	/**
-	 * The default value of the '{@link #getKeywords() <em>Keywords</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getKeywords() <em>Keywords</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getKeywords()
 	 * @generated
@@ -165,8 +146,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected static final String KEYWORDS_EDEFAULT = null;
 
 	/**
-	 * The default value of the '{@link #getOptions() <em>Options</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getOptions() <em>Options</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getOptions()
 	 * @generated
@@ -188,7 +169,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.DOCUMENT_ROOT;
@@ -898,7 +878,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -955,7 +934,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -1035,7 +1013,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -1129,7 +1106,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -1223,7 +1199,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -1291,7 +1266,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

@@ -100,9 +100,8 @@ public class SchematronTestResultParser {
 				//Can't find it.  Try resolving the XPath?
 			}
 			/*
-			 * else{ String id = elementIdentifiers[0].getElementID(); ObjRef
-			 * ref = xarch.getByID(documentRef, id); System.out.println(ref);
-			 * System.out.println(xarch.getXArchPath(ref)); }
+			 * else{ String id = elementIdentifiers[0].getElementID(); ObjRef ref = xarch.getByID(documentRef, id);
+			 * System.out.println(ref); System.out.println(xarch.getXArchPath(ref)); }
 			 */
 			archlightIssues.add(new ArchlightIssue(testUID, documentRef, toolID, severity, headline,
 					detailedDescription, iconHref, elementIdentifiers));

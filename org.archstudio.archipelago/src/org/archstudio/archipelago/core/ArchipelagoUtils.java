@@ -346,17 +346,14 @@ public class ArchipelagoUtils {
 		});
 
 		/*
-		 * final IToolBarManager tb =
-		 * AS.editor.getActionBars().getToolBarManager();
+		 * final IToolBarManager tb = AS.editor.getActionBars().getToolBarManager();
 		 * 
-		 * final ControlContribution cc = new ControlContribution("ZOOM"){
-		 * protected Control createControl(Canvas parent){ final Control
-		 * zoomWidget = ZoomUtils.createZoomWidget(parent, bnaCanvas,
-		 * bnaView.getCoordinateMapper()); return zoomWidget; } }; tb.add(cc);
-		 * tb.markDirty(); tb.update(true);
+		 * final ControlContribution cc = new ControlContribution("ZOOM"){ protected Control createControl(Canvas
+		 * parent){ final Control zoomWidget = ZoomUtils.createZoomWidget(parent, bnaCanvas,
+		 * bnaView.getCoordinateMapper()); return zoomWidget; } }; tb.add(cc); tb.markDirty(); tb.update(true);
 		 * 
-		 * bnaCanvas.addDisposeListener(new DisposeListener(){ public void
-		 * widgetDisposed(DisposeEvent e){ tb.remove(cc); tb.update(true); } });
+		 * bnaCanvas.addDisposeListener(new DisposeListener(){ public void widgetDisposed(DisposeEvent e){
+		 * tb.remove(cc); tb.update(true); } });
 		 */
 	}
 }

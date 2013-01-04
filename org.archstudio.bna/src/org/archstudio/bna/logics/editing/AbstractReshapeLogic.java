@@ -186,8 +186,7 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 	}
 
 	/*
-	 * Record an operation that will restore the thing to its current shape.
-	 * Used for undo/redo.
+	 * Record an operation that will restore the thing to its current shape. Used for undo/redo.
 	 */
 	abstract protected Runnable takeSnapshot();
 

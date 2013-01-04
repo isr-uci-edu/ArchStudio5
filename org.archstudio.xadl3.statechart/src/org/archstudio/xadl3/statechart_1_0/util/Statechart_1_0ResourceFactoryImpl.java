@@ -8,16 +8,14 @@ import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 
 /**
- * <!-- begin-user-doc --> The <b>Resource Factory</b> associated with the
- * package. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Resource Factory</b> associated with the package. <!-- end-user-doc -->
  * 
  * @see org.archstudio.xadl3.statechart_1_0.util.Statechart_1_0ResourceImpl
  * @generated
  */
 public class Statechart_1_0ResourceFactoryImpl extends ResourceFactoryImpl {
 	/**
-	 * Creates an instance of the resource factory. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Creates an instance of the resource factory. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -26,12 +24,10 @@ public class Statechart_1_0ResourceFactoryImpl extends ResourceFactoryImpl {
 	}
 
 	/**
-	 * Creates an instance of the resource. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Creates an instance of the resource. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Resource createResource(URI uri) {
 		XMLResource result = new Statechart_1_0ResourceImpl(uri);

@@ -97,11 +97,9 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		/*
-		 * We don't actually want to fill the menu here, but we want to change
-		 * the selection before the menu really gets filled to reflect the
-		 * click. If we clicked on something already selected, we leave the
-		 * selection alone. If we click on something not selected, but
-		 * selectable, we change the selection to be that thing. If we click on
+		 * We don't actually want to fill the menu here, but we want to change the selection before the menu really gets
+		 * filled to reflect the click. If we clicked on something already selected, we leave the selection alone. If we
+		 * click on something not selected, but selectable, we change the selection to be that thing. If we click on
 		 * something not selectable, then we clear the selection.
 		 */
 		if (things.isEmpty()) {

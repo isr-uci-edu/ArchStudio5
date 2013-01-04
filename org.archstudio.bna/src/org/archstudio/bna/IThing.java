@@ -18,8 +18,7 @@ public interface IThing {
 	/**
 	 * Describes a key that stores a property value of type V.
 	 * <p>
-	 * There are currently four types of keys, illustrated by the following
-	 * table:
+	 * There are currently four types of keys, illustrated by the following table:
 	 * <table border='1' cellspacing='0'>
 	 * <tr>
 	 * <td>key type \ value type</td>
@@ -37,8 +36,7 @@ public interface IThing {
 	 * <td>{@link IThingRefMetakey}</td>
 	 * </tr>
 	 * </table>
-	 * A metakey stores data about another key's data whereas a reference stores
-	 * references to other things.
+	 * A metakey stores data about another key's data whereas a reference stores references to other things.
 	 * 
 	 * @param <V>
 	 *            The type of value stored by the key.
@@ -54,8 +52,7 @@ public interface IThing {
 	}
 
 	/**
-	 * Gets the class that maintains and draws the graphical representation of
-	 * this Thing.
+	 * Gets the class that maintains and draws the graphical representation of this Thing.
 	 * 
 	 * @return The Thing's Peer's class.
 	 */

@@ -1218,9 +1218,8 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		checkArgument(vs._changeSets.size() == values.size());
 
 		/*
-		 * Determine the attribute value according to (1) the change sets as if
-		 * the active change set had the current attribute value (aMergedType),
-		 * and (2) the changes sets as they are (oMergedType)
+		 * Determine the attribute value according to (1) the change sets as if the active change set had the current
+		 * attribute value (aMergedType), and (2) the changes sets as they are (oMergedType)
 		 */
 		AttributeMerger aMergedChange = new AttributeMerger();
 		AttributeMerger oMergedChange = new AttributeMerger();
@@ -1331,10 +1330,9 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		checkArgument(vs._changeSets.size() == values.size());
 
 		/*
-		 * Determine the type according to (1) the change sets as if the active
-		 * change set had the current objRef type (aMergedType), (2) as if all
-		 * change sets were applied (for the overview - oMergedType), and (3)
-		 * for explicit change sets (eMergedType)
+		 * Determine the type according to (1) the change sets as if the active change set had the current objRef type
+		 * (aMergedType), (2) as if all change sets were applied (for the overview - oMergedType), and (3) for explicit
+		 * change sets (eMergedType)
 		 */
 		TypeMerger aMergedType = new TypeMerger(synchHelper.isImplicitlyResolvable());
 		TypeMerger cMergedType = new TypeMerger(synchHelper.isImplicitlyResolvable());

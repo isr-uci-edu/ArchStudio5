@@ -11,13 +11,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Domain</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Domain</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.domain_3_0.impl.DomainImpl#getType <em>Type
- * </em>}</li>
+ * <li>{@link org.archstudio.xadl3.domain_3_0.impl.DomainImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  * 
@@ -25,8 +23,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public class DomainImpl extends EObjectImpl implements Domain {
 	/**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getType()
 	 * @generated
@@ -35,8 +33,8 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	protected static final DomainType TYPE_EDEFAULT = DomainType.TOP;
 
 	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getType()
 	 * @generated
@@ -45,8 +43,7 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	protected DomainType type = TYPE_EDEFAULT;
 
 	/**
-	 * This is true if the Type attribute has been set. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This is true if the Type attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -67,7 +64,6 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Domain_3_0Package.Literals.DOMAIN;
@@ -132,7 +128,6 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -147,7 +142,6 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -163,7 +157,6 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -179,7 +172,6 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -194,7 +186,6 @@ public class DomainImpl extends EObjectImpl implements Domain {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

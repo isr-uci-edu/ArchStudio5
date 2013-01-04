@@ -806,13 +806,10 @@ public class BNAUtils {
 	}
 
 	/**
-	 * Determines a point that represents the same relative location on new
-	 * bounding box, as the old point represented on the old bounding box. For
-	 * example, if the old point was midway down the left edge of the old
-	 * bounding box, the new point will be midway down the left edge of the new
-	 * bounding box. Likewise, if the old point was in the center of the old
-	 * bounding box, the new point will be in the center of the new bounding
-	 * box.
+	 * Determines a point that represents the same relative location on new bounding box, as the old point represented
+	 * on the old bounding box. For example, if the old point was midway down the left edge of the old bounding box, the
+	 * new point will be midway down the left edge of the new bounding box. Likewise, if the old point was in the center
+	 * of the old bounding box, the new point will be in the center of the new bounding box.
 	 */
 	public static Point movePointWith(Rectangle oldBoundingBox, Rectangle newBoundingBox, Point oldPoint) {
 		if (oldBoundingBox != null && newBoundingBox != null && oldPoint != null) {

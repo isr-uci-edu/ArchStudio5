@@ -158,26 +158,19 @@ public class LauncherView extends AbstractArchStudioView<LauncherMyxComponent> {
 		createToolBar(mainGroup, lExplanation);
 
 		/*
-		 * tb.addListener(SWT.MouseExit, new Listener(){ public void
-		 * handleEvent(Event event){ lExplanation.setText(NO_TOOL);
-		 * mainGroup.layout(new Control[]{lExplanation}); } });
-		 * tb.addListener(SWT.MouseMove, new Listener(){ public void
-		 * handleEvent(Event event){ ToolItem ti = tb.getItem(new Point(event.x,
-		 * event.y)); if((ti != null) && (ti.getData() instanceof ILaunchData)){
-		 * ILaunchData ld = (ILaunchData)ti.getData(); String text =
-		 * ld.getDescription(); if(ld.getLaunchType() == ILaunchData.EDITOR){
-		 * text += ".  Drop a file here to begin."; } else if(ld.getLaunchType()
-		 * == ILaunchData.VIEW){ text += ".  Click this button to begin."; }
-		 * lExplanation.setText(text); } else{ lExplanation.setText(NO_TOOL); }
-		 * mainGroup.layout(new Control[]{lExplanation}); } }); for(int i = 0; i
-		 * < tb.getItemCount(); i++){ ToolItem ti = tb.getItem(i);
-		 * if(ti.getData() instanceof ILaunchData){ final ILaunchData ld =
-		 * (ILaunchData)ti.getData(); ti.addListener(SWT.Selection, new
-		 * Listener(){ public void handleEvent(Event event){
-		 * if(ld.getLaunchType() == ILaunchData.EDITOR){ IResource[] res =
-		 * EclipseUtils.selectResourcesToOpen(getSite().getShell(), SWT.SINGLE,
-		 * "Choose file to open", new String[]{"xml"}); if((res != null) &&
-		 * (res.length > 0)){ openEditor(ld, res[0]); } return; } else{
+		 * tb.addListener(SWT.MouseExit, new Listener(){ public void handleEvent(Event event){
+		 * lExplanation.setText(NO_TOOL); mainGroup.layout(new Control[]{lExplanation}); } });
+		 * tb.addListener(SWT.MouseMove, new Listener(){ public void handleEvent(Event event){ ToolItem ti =
+		 * tb.getItem(new Point(event.x, event.y)); if((ti != null) && (ti.getData() instanceof ILaunchData)){
+		 * ILaunchData ld = (ILaunchData)ti.getData(); String text = ld.getDescription(); if(ld.getLaunchType() ==
+		 * ILaunchData.EDITOR){ text += ".  Drop a file here to begin."; } else if(ld.getLaunchType() ==
+		 * ILaunchData.VIEW){ text += ".  Click this button to begin."; } lExplanation.setText(text); } else{
+		 * lExplanation.setText(NO_TOOL); } mainGroup.layout(new Control[]{lExplanation}); } }); for(int i = 0; i <
+		 * tb.getItemCount(); i++){ ToolItem ti = tb.getItem(i); if(ti.getData() instanceof ILaunchData){ final
+		 * ILaunchData ld = (ILaunchData)ti.getData(); ti.addListener(SWT.Selection, new Listener(){ public void
+		 * handleEvent(Event event){ if(ld.getLaunchType() == ILaunchData.EDITOR){ IResource[] res =
+		 * EclipseUtils.selectResourcesToOpen(getSite().getShell(), SWT.SINGLE, "Choose file to open", new
+		 * String[]{"xml"}); if((res != null) && (res.length > 0)){ openEditor(ld, res[0]); } return; } else{
 		 * //TODO:Implement view selection } }; }); } }
 		 */
 

@@ -28,9 +28,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 /**
- * Notifies listeners of added, modified, and removed objRefs that are pointed
- * to by an xPath relative to a given root objRef. The root objRef does not need
- * to be attached.
+ * Notifies listeners of added, modified, and removed objRefs that are pointed to by an xPath relative to a given root
+ * objRef. The root objRef does not need to be attached.
  * 
  * @see IXArchRelativePathTrackerListener
  */
@@ -120,8 +119,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 		final String name;
 
 		/**
-		 * A predicate to handle special xPath segment conditions, e.g., to
-		 * check for a required attribute
+		 * A predicate to handle special xPath segment conditions, e.g., to check for a required attribute
 		 */
 		final Predicate<ObjRef> predicate;
 
@@ -163,20 +161,17 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	 */
 	private String xPath = null;
 	/**
-	 * The xPath parsed into individual segments, e.g., "component" and
-	 * "interface"
+	 * The xPath parsed into individual segments, e.g., "component" and "interface"
 	 */
 	private List<Segment> xPathSegments = null;
 	/**
-	 * Whether model events are being monitored for changes to ObjRefs pointed
-	 * to by the xPath
+	 * Whether model events are being monitored for changes to ObjRefs pointed to by the xPath
 	 */
 	private boolean scanning = true;
 	/**
-	 * The set of ObjRefs that have been found by the xPath, mapped to the
-	 * lineage of ObjRefs connecting them to the rootObjRef. Keeping track of
-	 * the lineage is important because it allows us to remove ObjRefs if one of
-	 * their ancestors that connects it to the rootObjRef is removed.
+	 * The set of ObjRefs that have been found by the xPath, mapped to the lineage of ObjRefs connecting them to the
+	 * rootObjRef. Keeping track of the lineage is important because it allows us to remove ObjRefs if one of their
+	 * ancestors that connects it to the rootObjRef is removed.
 	 */
 	private final Map<ObjRef, List<ObjRef>> addedObjRefToLineageRefs = Maps.newHashMap();
 
@@ -252,11 +247,9 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	}
 
 	/**
-	 * Finds all ObjRefs described by the xPath relative to the rootObjRef,
-	 * begins monitoring model events for new ObjRefs, as well modifications to
-	 * them. Note: calling this method will result in multiple calls to
-	 * {@link IXArchRelativePathTrackerListener#processAdd(List, ObjRef)} for
-	 * each ObjRef initially found.
+	 * Finds all ObjRefs described by the xPath relative to the rootObjRef, begins monitoring model events for new
+	 * ObjRefs, as well modifications to them. Note: calling this method will result in multiple calls to
+	 * {@link IXArchRelativePathTrackerListener#processAdd(List, ObjRef)} for each ObjRef initially found.
 	 */
 	public void startScanning() {
 		if (!scanning && rootObjRef != null && xPath != null) {
@@ -270,11 +263,9 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	}
 
 	/**
-	 * Discontinues monitoring of model events for additions, modifications, and
-	 * removals of ObjRefs referred to by the xPath. Note: calling this method
-	 * will result in multiple calls to
-	 * {@link IXArchRelativePathTrackerListener#processRemove(List, ObjRef)} for
-	 * all previously added ObjRefs.
+	 * Discontinues monitoring of model events for additions, modifications, and removals of ObjRefs referred to by the
+	 * xPath. Note: calling this method will result in multiple calls to
+	 * {@link IXArchRelativePathTrackerListener#processRemove(List, ObjRef)} for all previously added ObjRefs.
 	 */
 	public void stopScanning() {
 		if (scanning) {
@@ -286,14 +277,13 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	}
 
 	/**
-	 * Determines the number of ObjRefs in relLineage that match the xPath,
-	 * treating the first ObjRef in relLineage as the root ObjRef.
+	 * Determines the number of ObjRefs in relLineage that match the xPath, treating the first ObjRef in relLineage as
+	 * the root ObjRef.
 	 * 
 	 * @param xPath
 	 *            xPath to check, e.g., component/interface
 	 * @param relLineage
-	 *            ObjRefs to check for a match, e.g., [ArchStructure, Component,
-	 *            Interface]
+	 *            ObjRefs to check for a match, e.g., [ArchStructure, Component, Interface]
 	 * @return the number of ObjRefs that match the xPath, or -1 if none.
 	 */
 
@@ -316,8 +306,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	}
 
 	/**
-	 * Scan the given ObjRef's children for those that match the specified
-	 * segment in the xPath
+	 * Scan the given ObjRef's children for those that match the specified segment in the xPath
 	 */
 	protected void scanObjRef(List<ObjRef> relLineageRefs, ObjRef objRef, int xPathSegmentIndex) {
 		assert relLineageRefs.get(0).equals(rootObjRef);
@@ -371,8 +360,8 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	}
 
 	/**
-	 * Called when one of the ObjRefs at the given xPath is added or changed and
-	 * notifies the listeners of the added/modified ObjRef.
+	 * Called when one of the ObjRefs at the given xPath is added or changed and notifies the listeners of the
+	 * added/modified ObjRef.
 	 */
 	protected void changedObjRef(List<ObjRef> relLineageRefs, String relPath, ObjRef objRef, XArchADTModelEvent evt) {
 		checkArgument(relLineageRefs.get(0).equals(rootObjRef));
@@ -395,8 +384,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	}
 
 	/**
-	 * Called when of the ObjRefs at the given xPath is removed and notifies the
-	 * listeners of the removed ObjRef.
+	 * Called when of the ObjRefs at the given xPath is removed and notifies the listeners of the removed ObjRef.
 	 */
 	protected boolean removedObjRef(ObjRef objRef) {
 		List<ObjRef> relLineageRefs = addedObjRefToLineageRefs.remove(objRef);

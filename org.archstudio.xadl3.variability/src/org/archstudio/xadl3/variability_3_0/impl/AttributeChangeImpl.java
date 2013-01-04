@@ -9,14 +9,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Attribute Change</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Attribute Change</b></em>'. <!-- end-user-doc
+ * -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.variability_3_0.impl.AttributeChangeImpl#getValue
- * <em>Value</em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.AttributeChangeImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  * 
@@ -24,8 +22,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	/**
-	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getValue()
 	 * @generated
@@ -34,8 +32,8 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	protected static final String VALUE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getValue()
 	 * @generated
@@ -57,7 +55,6 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.ATTRIBUTE_CHANGE;
@@ -93,7 +90,6 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -108,7 +104,6 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -124,7 +119,6 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -140,7 +134,6 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -155,7 +148,6 @@ public class AttributeChangeImpl extends ChangeImpl implements AttributeChange {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

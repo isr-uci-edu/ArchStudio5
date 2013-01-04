@@ -15,13 +15,11 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Connector</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Connector</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.ConnectorImpl#getExt <em>
- * Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.ConnectorImpl#getExt <em>Ext</em>}</li>
  * </ul>
  * </p>
  * 
@@ -29,8 +27,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ConnectorImpl extends BrickImpl implements Connector {
 	/**
-	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getExt()
 	 * @generated
@@ -52,7 +50,6 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Structure_3_0Package.Literals.CONNECTOR;
@@ -76,7 +73,6 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -91,7 +87,6 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -106,8 +101,8 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Structure_3_0Package.CONNECTOR__EXT:
@@ -123,7 +118,6 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -139,7 +133,6 @@ public class ConnectorImpl extends BrickImpl implements Connector {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {

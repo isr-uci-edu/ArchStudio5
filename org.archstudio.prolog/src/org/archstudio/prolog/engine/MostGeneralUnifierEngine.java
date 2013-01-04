@@ -5,8 +5,7 @@ import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
 /*
- * A unifer based on
- * http://www.univ-orleans.fr/lifo/software/stdprolog/unification.html
+ * A unifer based on http://www.univ-orleans.fr/lifo/software/stdprolog/unification.html
  */
 
 public class MostGeneralUnifierEngine implements UnificationEngine {

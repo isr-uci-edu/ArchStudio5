@@ -24,8 +24,7 @@ class SubstitutionHintUtils {
 	 * 
 	 * @param allEPackages
 	 *            All the EPackages to check for hints
-	 * @return List of all substitution hints found in all the factories in the
-	 *         map.
+	 * @return List of all substitution hints found in all the factories in the map.
 	 */
 	public static List<IXArchADTSubstitutionHint> parseSubstitutionHints(Collection<EPackage> allEPackages) {
 		List<IXArchADTSubstitutionHint> allHints = new ArrayList<IXArchADTSubstitutionHint>();
@@ -40,8 +39,7 @@ class SubstitutionHintUtils {
 	 * 
 	 * @param ePackage
 	 *            The package to search.
-	 * @return List of all substitution hints found in all the factories in the
-	 *         map.
+	 * @return List of all substitution hints found in all the factories in the map.
 	 */
 	public static List<IXArchADTSubstitutionHint> parseSubstitutionHints(EPackage ePackage) {
 		List<IXArchADTSubstitutionHint> hintList = new ArrayList<IXArchADTSubstitutionHint>();

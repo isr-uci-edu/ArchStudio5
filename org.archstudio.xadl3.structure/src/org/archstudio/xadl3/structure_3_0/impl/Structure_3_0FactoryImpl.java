@@ -21,15 +21,13 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
  * 
  * @generated
  */
 public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_3_0Factory {
 	/**
-	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -48,8 +46,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	}
 
 	/**
-	 * Creates an instance of the factory. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -62,7 +59,6 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
@@ -92,7 +88,6 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
@@ -110,7 +105,6 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {

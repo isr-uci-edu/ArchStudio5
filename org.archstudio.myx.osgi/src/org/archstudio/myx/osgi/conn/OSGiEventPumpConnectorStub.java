@@ -3,11 +3,9 @@ package org.archstudio.myx.osgi.conn;
 import org.archstudio.myx.fw.IMyxName;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "OSGi Event Pump Connector" MyxGen extension in the
- * org.archstudio.myx.osgi plugin.
+ * To modify, update the "OSGi Event Pump Connector" MyxGen extension in the org.archstudio.myx.osgi plugin.
  */
 
 /**

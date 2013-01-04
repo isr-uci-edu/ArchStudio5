@@ -20,24 +20,16 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Document Root</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Document Root</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getMixed
- * <em>Mixed</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getXMLNSPrefixMap
- * <em>XMLNS Prefix Map</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getXSISchemaLocation
- * <em>XSI Schema Location</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getTopLevelElement
- * <em>Top Level Element</em>}</li>
- * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getXADL
- * <em>XADL</em>}</li>
+ * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getMixed <em>Mixed</em>}</li>
+ * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getXMLNSPrefixMap <em>XMLNS Prefix Map</em>}</li>
+ * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getXSISchemaLocation <em>XSI Schema Location</em>}
+ * </li>
+ * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getTopLevelElement <em>Top Level Element</em>}</li>
+ * <li>{@link org.archstudio.xadl3.xadlcore_3_0.impl.DocumentRootImpl#getXADL <em>XADL</em>}</li>
  * </ul>
  * </p>
  * 
@@ -45,8 +37,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	/**
-	 * The cached value of the '{@link #getMixed() <em>Mixed</em>}' attribute
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getMixed() <em>Mixed</em>}' attribute list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getMixed()
 	 * @generated
@@ -55,9 +47,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected FeatureMap mixed;
 
 	/**
-	 * The cached value of the '{@link #getXMLNSPrefixMap()
-	 * <em>XMLNS Prefix Map</em>}' map. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached value of the '{@link #getXMLNSPrefixMap() <em>XMLNS Prefix Map</em>}' map. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getXMLNSPrefixMap()
 	 * @generated
@@ -66,9 +57,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected EMap<String, String> xMLNSPrefixMap;
 
 	/**
-	 * The cached value of the '{@link #getXSISchemaLocation()
-	 * <em>XSI Schema Location</em>}' map. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached value of the '{@link #getXSISchemaLocation() <em>XSI Schema Location</em>}' map. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #getXSISchemaLocation()
 	 * @generated
@@ -90,7 +80,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Xadlcore_3_0Package.Literals.DOCUMENT_ROOT;
@@ -203,7 +192,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -226,7 +214,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -262,7 +249,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -290,7 +276,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -318,7 +303,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -341,7 +325,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

@@ -20,26 +20,16 @@ import org.eclipse.emf.ecore.util.EObjectEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Variability</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Variability</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getActiveChangeSet
- * <em>Active Change Set</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getAppliedChangeSets
- * <em>Applied Change Sets</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getChangeSet
- * <em>Change Set</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getRelationship
- * <em>Relationship</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#isOverview
- * <em>Overview</em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getActiveChangeSet <em>Active Change Set</em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getAppliedChangeSets <em>Applied Change Sets
+ * </em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getChangeSet <em>Change Set</em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#getRelationship <em>Relationship</em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl#isOverview <em>Overview</em>}</li>
  * </ul>
  * </p>
  * 
@@ -47,9 +37,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class VariabilityImpl extends EObjectImpl implements Variability {
 	/**
-	 * The cached value of the '{@link #getActiveChangeSet()
-	 * <em>Active Change Set</em>}' reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached value of the '{@link #getActiveChangeSet() <em>Active Change Set</em>}' reference. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #getActiveChangeSet()
 	 * @generated
@@ -58,9 +47,8 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	protected ChangeSet activeChangeSet;
 
 	/**
-	 * The cached value of the '{@link #getAppliedChangeSets()
-	 * <em>Applied Change Sets</em>}' reference list. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getAppliedChangeSets() <em>Applied Change Sets</em>}' reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getAppliedChangeSets()
 	 * @generated
@@ -69,8 +57,8 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	protected EList<ChangeSet> appliedChangeSets;
 
 	/**
-	 * The cached value of the '{@link #getChangeSet() <em>Change Set</em>}'
-	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getChangeSet() <em>Change Set</em>}' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getChangeSet()
 	 * @generated
@@ -79,9 +67,8 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	protected EList<ChangeSet> changeSet;
 
 	/**
-	 * The cached value of the '{@link #getRelationship() <em>Relationship</em>}
-	 * ' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * The cached value of the '{@link #getRelationship() <em>Relationship</em>}' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getRelationship()
 	 * @generated
@@ -90,8 +77,8 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	protected EList<Relationship> relationship;
 
 	/**
-	 * The default value of the '{@link #isOverview() <em>Overview</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #isOverview() <em>Overview</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #isOverview()
 	 * @generated
@@ -100,8 +87,8 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	protected static final boolean OVERVIEW_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isOverview() <em>Overview</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #isOverview() <em>Overview</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #isOverview()
 	 * @generated
@@ -110,8 +97,7 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	protected boolean overview = OVERVIEW_EDEFAULT;
 
 	/**
-	 * This is true if the Overview attribute has been set. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * This is true if the Overview attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -132,7 +118,6 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.VARIABILITY;
@@ -264,7 +249,6 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -281,7 +265,6 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -304,8 +287,8 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Variability_3_0Package.VARIABILITY__ACTIVE_CHANGE_SET:
@@ -335,7 +318,6 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -363,7 +345,6 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -386,7 +367,6 @@ public class VariabilityImpl extends EObjectImpl implements Variability {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

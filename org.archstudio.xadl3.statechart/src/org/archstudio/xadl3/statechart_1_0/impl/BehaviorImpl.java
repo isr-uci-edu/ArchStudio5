@@ -18,15 +18,12 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Behavior</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Behavior</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.BehaviorImpl#getExt <em>
- * Ext</em>}</li>
- * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.BehaviorImpl#getId <em>Id
- * </em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.BehaviorImpl#getExt <em>Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.BehaviorImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
  * 
@@ -34,8 +31,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class BehaviorImpl extends EObjectImpl implements Behavior {
 	/**
-	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getExt()
 	 * @generated
@@ -44,8 +41,7 @@ public class BehaviorImpl extends EObjectImpl implements Behavior {
 	protected EList<Extension> ext;
 
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -54,8 +50,7 @@ public class BehaviorImpl extends EObjectImpl implements Behavior {
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -77,7 +72,6 @@ public class BehaviorImpl extends EObjectImpl implements Behavior {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Statechart_1_0Package.Literals.BEHAVIOR;
@@ -125,7 +119,6 @@ public class BehaviorImpl extends EObjectImpl implements Behavior {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -140,7 +133,6 @@ public class BehaviorImpl extends EObjectImpl implements Behavior {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -157,8 +149,8 @@ public class BehaviorImpl extends EObjectImpl implements Behavior {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Statechart_1_0Package.BEHAVIOR__EXT:
@@ -177,7 +169,6 @@ public class BehaviorImpl extends EObjectImpl implements Behavior {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -196,7 +187,6 @@ public class BehaviorImpl extends EObjectImpl implements Behavior {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -213,7 +203,6 @@ public class BehaviorImpl extends EObjectImpl implements Behavior {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

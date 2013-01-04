@@ -11,16 +11,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Sub Statechart</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Sub Statechart</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.statechart_1_0.impl.SubStatechartImpl#getInnerStatechart
- * <em>Inner Statechart</em>}</li>
- * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.SubStatechartImpl#getId
- * <em>Id</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.SubStatechartImpl#getInnerStatechart <em>Inner Statechart</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.SubStatechartImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
  * 
@@ -28,9 +24,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	/**
-	 * The cached value of the '{@link #getInnerStatechart()
-	 * <em>Inner Statechart</em>}' reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached value of the '{@link #getInnerStatechart() <em>Inner Statechart</em>}' reference. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #getInnerStatechart()
 	 * @generated
@@ -39,8 +34,7 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	protected Statechart innerStatechart;
 
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -49,8 +43,7 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -72,7 +65,6 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Statechart_1_0Package.Literals.SUB_STATECHART;
@@ -132,7 +124,6 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -149,7 +140,6 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -168,7 +158,6 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -187,7 +176,6 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -204,7 +192,6 @@ public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

@@ -4,11 +4,9 @@ import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxRegistry;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "OSGi Synch Event Pump Connector" MyxGen extension in
- * the org.archstudio.myx.osgi plugin.
+ * To modify, update the "OSGi Synch Event Pump Connector" MyxGen extension in the org.archstudio.myx.osgi plugin.
  */
 
 /**
@@ -31,6 +29,7 @@ public abstract class OSGiSynchEventPumpConnectorStub extends org.archstudio.myx
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -41,6 +40,7 @@ public abstract class OSGiSynchEventPumpConnectorStub extends org.archstudio.myx
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();

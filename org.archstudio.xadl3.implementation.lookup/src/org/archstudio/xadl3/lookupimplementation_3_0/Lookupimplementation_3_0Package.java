@@ -9,8 +9,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 /**
- * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
- * accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains accessors for the meta objects to represent
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
@@ -31,9 +30,8 @@ import org.eclipse.emf.ecore.EReference;
  * 
  * xADL 3 Core Schema
  * 
- * This schema defines the core elements for xADL 3 documents. The schema is
- * intentionally small, defining only a few elements that are intended to be
- * common across xADL descriptions and extensions, regardless of domain.
+ * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
+ * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
  * 
  * Changelog: - 3.0.0: * Initial version
  * 
@@ -42,10 +40,8 @@ import org.eclipse.emf.ecore.EReference;
  * 
  * xADL 3 Abstract Implementation Schema
  * 
- * This schema defines the concept of an implementation. The concept is
- * abstract, so it is intended to be specialized by various specific types of
- * implementations. However, it exists so that implementations can be treated
- * similarly.
+ * This schema defines the concept of an implementation. The concept is abstract, so it is intended to be specialized by
+ * various specific types of implementations. However, it exists so that implementations can be treated similarly.
  * 
  * Changelog: - 3.0.0 * Initial version
  * 
@@ -79,8 +75,7 @@ public interface Lookupimplementation_3_0Package extends EPackage {
 	String eNS_PREFIX = "lookupimplementation_3_0";
 
 	/**
-	 * The singleton instance of the package. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -88,10 +83,8 @@ public interface Lookupimplementation_3_0Package extends EPackage {
 			.init();
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.lookupimplementation_3_0.impl.LookupImplementationImpl
-	 * <em>Lookup Implementation</em>}' class. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.lookupimplementation_3_0.impl.LookupImplementationImpl
+	 * <em>Lookup Implementation</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.lookupimplementation_3_0.impl.LookupImplementationImpl
 	 * @see org.archstudio.xadl3.lookupimplementation_3_0.impl.Lookupimplementation_3_0PackageImpl#getLookupImplementation()
@@ -100,8 +93,7 @@ public interface Lookupimplementation_3_0Package extends EPackage {
 	int LOOKUP_IMPLEMENTATION = 0;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -109,8 +101,8 @@ public interface Lookupimplementation_3_0Package extends EPackage {
 	int LOOKUP_IMPLEMENTATION__ID = Implementation_3_0Package.IMPLEMENTATION__ID;
 
 	/**
-	 * The feature id for the '<em><b>Ext</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -118,8 +110,7 @@ public interface Lookupimplementation_3_0Package extends EPackage {
 	int LOOKUP_IMPLEMENTATION__EXT = Implementation_3_0Package.IMPLEMENTATION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Lookup</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Lookup</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -127,8 +118,8 @@ public interface Lookupimplementation_3_0Package extends EPackage {
 	int LOOKUP_IMPLEMENTATION__LOOKUP = Implementation_3_0Package.IMPLEMENTATION_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Lookup Implementation</em>'
-	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Lookup Implementation</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -136,10 +127,8 @@ public interface Lookupimplementation_3_0Package extends EPackage {
 	int LOOKUP_IMPLEMENTATION_FEATURE_COUNT = Implementation_3_0Package.IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.lookupimplementation_3_0.LookupImplementation
-	 * <em>Lookup Implementation</em>}'. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.lookupimplementation_3_0.LookupImplementation
+	 * <em>Lookup Implementation</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Lookup Implementation</em>'.
 	 * @see org.archstudio.xadl3.lookupimplementation_3_0.LookupImplementation
@@ -149,11 +138,10 @@ public interface Lookupimplementation_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.lookupimplementation_3_0.LookupImplementation#getExt
-	 * <em>Ext</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.lookupimplementation_3_0.LookupImplementation#getExt <em>Ext</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference list '<em>Ext</em>
-	 *         '.
+	 * @return the meta object for the containment reference list '<em>Ext</em>'.
 	 * @see org.archstudio.xadl3.lookupimplementation_3_0.LookupImplementation#getExt()
 	 * @see #getLookupImplementation()
 	 * @generated
@@ -162,8 +150,8 @@ public interface Lookupimplementation_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.lookupimplementation_3_0.LookupImplementation#getLookup
-	 * <em>Lookup</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.lookupimplementation_3_0.LookupImplementation#getLookup <em>Lookup</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Lookup</em>'.
 	 * @see org.archstudio.xadl3.lookupimplementation_3_0.LookupImplementation#getLookup()
@@ -173,8 +161,7 @@ public interface Lookupimplementation_3_0Package extends EPackage {
 	EAttribute getLookupImplementation_Lookup();
 
 	/**
-	 * Returns the factory that creates the instances of the model. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the factory that creates the instances of the model.
 	 * @generated
@@ -182,8 +169,7 @@ public interface Lookupimplementation_3_0Package extends EPackage {
 	Lookupimplementation_3_0Factory getLookupimplementation_3_0Factory();
 
 	/**
-	 * <!-- begin-user-doc --> Defines literals for the meta objects that
-	 * represent
+	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
@@ -198,8 +184,7 @@ public interface Lookupimplementation_3_0Package extends EPackage {
 		/**
 		 * The meta object literal for the '
 		 * {@link org.archstudio.xadl3.lookupimplementation_3_0.impl.LookupImplementationImpl
-		 * <em>Lookup Implementation</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * <em>Lookup Implementation</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.lookupimplementation_3_0.impl.LookupImplementationImpl
 		 * @see org.archstudio.xadl3.lookupimplementation_3_0.impl.Lookupimplementation_3_0PackageImpl#getLookupImplementation()
@@ -208,16 +193,16 @@ public interface Lookupimplementation_3_0Package extends EPackage {
 		EClass LOOKUP_IMPLEMENTATION = eINSTANCE.getLookupImplementation();
 
 		/**
-		 * The meta object literal for the '<em><b>Ext</b></em>' containment
-		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Ext</b></em>' containment reference list feature. <!-- begin-user-doc
+		 * --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference LOOKUP_IMPLEMENTATION__EXT = eINSTANCE.getLookupImplementation_Ext();
 
 		/**
-		 * The meta object literal for the '<em><b>Lookup</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Lookup</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */

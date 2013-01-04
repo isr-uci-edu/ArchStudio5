@@ -214,13 +214,10 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 	}
 
 	/*
-	 * Mouse move events are run through the Periodic thread because SWT is
-	 * really good at emitting mouse events...like, it emits five gazillion a
-	 * second, and if BNA tries to respond to them all it will choke because
-	 * each little mouse event sets off a cascade of BNA model events. So, this
-	 * use of the alternate thread rate-limits mouse events to one every 66ms
-	 * (15 events per second) which substantially improves the responsiveness of
-	 * BNA apps
+	 * Mouse move events are run through the Periodic thread because SWT is really good at emitting mouse events...like,
+	 * it emits five gazillion a second, and if BNA tries to respond to them all it will choke because each little mouse
+	 * event sets off a cascade of BNA model events. So, this use of the alternate thread rate-limits mouse events to
+	 * one every 66ms (15 events per second) which substantially improves the responsiveness of BNA apps
 	 */
 
 	@Override
@@ -375,10 +372,9 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 	}
 
 	/*
-	 * These can't be rate-limited like mouse events because the event has to be
-	 * fully processed synchronously because clients change the event internals
-	 * and the results of that won't be properly displayed if the changes are
-	 * done in another thread.
+	 * These can't be rate-limited like mouse events because the event has to be fully processed synchronously because
+	 * clients change the event internals and the results of that won't be properly displayed if the changes are done in
+	 * another thread.
 	 */
 	int counter = 0;
 

@@ -89,11 +89,9 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 	}
 
 	/*
-	 * We do an interesting thing here; namely that the tree itself is fake and
-	 * not structured like a tree. Instead, we just have the list of current
-	 * tests. The view content provider iterates through those and responds to
-	 * getChildren based on the contents of that list. Intermediate FolderNodes
-	 * are created as necessary as placeholders.
+	 * We do an interesting thing here; namely that the tree itself is fake and not structured like a tree. Instead, we
+	 * just have the list of current tests. The view content provider iterates through those and responds to getChildren
+	 * based on the contents of that list. Intermediate FolderNodes are created as necessary as placeholders.
 	 */
 	class ViewContentProvider implements ITreeContentProvider {
 		private Object[] EMPTY_ARRAY = new Object[0];

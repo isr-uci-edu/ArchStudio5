@@ -38,9 +38,8 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 		if (r.setColor(t, IHasColor.COLOR_KEY)) {
 			if (f.equals(Flow.OUT) || f.equals(Flow.IN)) {
 				/*
-				 * For "out" facing flows, the triangle points in the direction
-				 * of the orientation. For "in" facing flows, it points the
-				 * opposite direction.
+				 * For "out" facing flows, the triangle points in the direction of the orientation. For "in" facing
+				 * flows, it points the opposite direction.
 				 */
 				if (f.equals(Flow.IN)) {
 					o = o.opposite();

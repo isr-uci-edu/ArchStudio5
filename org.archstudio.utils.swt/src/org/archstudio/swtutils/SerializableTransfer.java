@@ -13,9 +13,8 @@ import org.eclipse.swt.dnd.ByteArrayTransfer;
 import org.eclipse.swt.dnd.TransferData;
 
 /*
- * NOTE: This class probably isn't useful in Eclipse using the default
- * ObjectInputStream, but extended ObjectInputStreams that can use alternate
- * classloaders would work. If using this class, find one of those
+ * NOTE: This class probably isn't useful in Eclipse using the default ObjectInputStream, but extended
+ * ObjectInputStreams that can use alternate classloaders would work. If using this class, find one of those
  * objectinputstreamloader classes under license, and use that instead.
  */
 public class SerializableTransfer extends ByteArrayTransfer {

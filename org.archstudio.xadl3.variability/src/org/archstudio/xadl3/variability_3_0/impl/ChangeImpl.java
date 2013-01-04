@@ -10,13 +10,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Change</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Change</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ChangeImpl#getName <em>
- * Name</em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.ChangeImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  * 
@@ -24,8 +22,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public class ChangeImpl extends EObjectImpl implements Change {
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getName()
 	 * @generated
@@ -34,8 +32,8 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getName()
 	 * @generated
@@ -57,7 +55,6 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.CHANGE;
@@ -92,7 +89,6 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -107,7 +103,6 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -123,7 +118,6 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -139,7 +133,6 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -154,7 +147,6 @@ public class ChangeImpl extends EObjectImpl implements Change {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

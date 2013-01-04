@@ -23,8 +23,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
 /**
- * An interim wrapper for {@link PDEExtensionRegistry} until something better
- * comes along... Methods are implemented as needed...
+ * An interim wrapper for {@link PDEExtensionRegistry} until something better comes along... Methods are implemented as
+ * needed...
  */
 @SuppressWarnings("restriction")
 public class WorkspaceExtensionRegistry implements IExtensionRegistry {

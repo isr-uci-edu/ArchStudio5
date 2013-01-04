@@ -19,20 +19,14 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>State</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>State</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl#getEntry <em>
- * Entry</em>}</li>
- * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl#getExit <em>
- * Exit</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl#getSubStatechart
- * <em>Sub Statechart</em>}</li>
- * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl#getType <em>
- * Type</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl#getEntry <em>Entry</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl#getExit <em>Exit</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl#getSubStatechart <em>Sub Statechart</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  * 
@@ -40,8 +34,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class StateImpl extends PseudoStateImpl implements State {
 	/**
-	 * The cached value of the '{@link #getEntry() <em>Entry</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getEntry() <em>Entry</em>}' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getEntry()
 	 * @generated
@@ -50,8 +44,8 @@ public class StateImpl extends PseudoStateImpl implements State {
 	protected EList<Behavior> entry;
 
 	/**
-	 * The cached value of the '{@link #getExit() <em>Exit</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExit() <em>Exit</em>}' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getExit()
 	 * @generated
@@ -60,9 +54,8 @@ public class StateImpl extends PseudoStateImpl implements State {
 	protected EList<Behavior> exit;
 
 	/**
-	 * The cached value of the '{@link #getSubStatechart()
-	 * <em>Sub Statechart</em>}' containment reference. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getSubStatechart() <em>Sub Statechart</em>}' containment reference. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getSubStatechart()
 	 * @generated
@@ -71,8 +64,8 @@ public class StateImpl extends PseudoStateImpl implements State {
 	protected SubStatechart subStatechart;
 
 	/**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getType()
 	 * @generated
@@ -81,8 +74,8 @@ public class StateImpl extends PseudoStateImpl implements State {
 	protected static final StateType TYPE_EDEFAULT = StateType.STATE;
 
 	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getType()
 	 * @generated
@@ -91,8 +84,7 @@ public class StateImpl extends PseudoStateImpl implements State {
 	protected StateType type = TYPE_EDEFAULT;
 
 	/**
-	 * This is true if the Type attribute has been set. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This is true if the Type attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -113,7 +105,6 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Statechart_1_0Package.Literals.STATE;
@@ -263,7 +254,6 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -282,7 +272,6 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -303,8 +292,8 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Statechart_1_0Package.STATE__ENTRY:
@@ -330,7 +319,6 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -355,7 +343,6 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -376,7 +363,6 @@ public class StateImpl extends PseudoStateImpl implements State {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

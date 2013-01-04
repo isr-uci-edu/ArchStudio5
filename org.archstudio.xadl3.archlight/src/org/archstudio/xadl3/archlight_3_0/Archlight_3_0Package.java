@@ -8,8 +8,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 /**
- * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
- * accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains accessors for the meta objects to represent
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
@@ -21,8 +20,8 @@ import org.eclipse.emf.ecore.EReference;
  * 
  * xADL 3 Archlight Schema
  * 
- * This schema defines a set of test references that can be added to a xADL
- * document to indicate what Archlight tests should be enabled on that document.
+ * This schema defines a set of test references that can be added to a xADL document to indicate what Archlight tests
+ * should be enabled on that document.
  * 
  * Changelog: - 3.0.0 * Initial version
  * 
@@ -31,9 +30,8 @@ import org.eclipse.emf.ecore.EReference;
  * 
  * xADL 3 Core Schema
  * 
- * This schema defines the core elements for xADL 3 documents. The schema is
- * intentionally small, defining only a few elements that are intended to be
- * common across xADL descriptions and extensions, regardless of domain.
+ * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
+ * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
  * 
  * Changelog: - 3.0.0: * Initial version
  * 
@@ -67,17 +65,15 @@ public interface Archlight_3_0Package extends EPackage {
 	String eNS_PREFIX = "archlight_3_0";
 
 	/**
-	 * The singleton instance of the package. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	Archlight_3_0Package eINSTANCE = org.archstudio.xadl3.archlight_3_0.impl.Archlight_3_0PackageImpl.init();
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.archlight_3_0.impl.ArchlightImpl
-	 * <em>Archlight</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.archlight_3_0.impl.ArchlightImpl <em>Archlight</em>}'
+	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.archlight_3_0.impl.ArchlightImpl
 	 * @see org.archstudio.xadl3.archlight_3_0.impl.Archlight_3_0PackageImpl#getArchlight()
@@ -86,8 +82,8 @@ public interface Archlight_3_0Package extends EPackage {
 	int ARCHLIGHT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Test</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Test</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -95,8 +91,8 @@ public interface Archlight_3_0Package extends EPackage {
 	int ARCHLIGHT__TEST = 0;
 
 	/**
-	 * The feature id for the '<em><b>Ext</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -104,8 +100,8 @@ public interface Archlight_3_0Package extends EPackage {
 	int ARCHLIGHT__EXT = 1;
 
 	/**
-	 * The number of structural features of the '<em>Archlight</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Archlight</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -113,10 +109,8 @@ public interface Archlight_3_0Package extends EPackage {
 	int ARCHLIGHT_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.archlight_3_0.impl.DocumentRootImpl
-	 * <em>Document Root</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.archlight_3_0.impl.DocumentRootImpl
+	 * <em>Document Root</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.archlight_3_0.impl.DocumentRootImpl
 	 * @see org.archstudio.xadl3.archlight_3_0.impl.Archlight_3_0PackageImpl#getDocumentRoot()
@@ -125,8 +119,7 @@ public interface Archlight_3_0Package extends EPackage {
 	int DOCUMENT_ROOT = 1;
 
 	/**
-	 * The feature id for the '<em><b>Mixed</b></em>' attribute list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Mixed</b></em>' attribute list. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -134,8 +127,7 @@ public interface Archlight_3_0Package extends EPackage {
 	int DOCUMENT_ROOT__MIXED = 0;
 
 	/**
-	 * The feature id for the '<em><b>XMLNS Prefix Map</b></em>' map. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>XMLNS Prefix Map</b></em>' map. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -143,8 +135,7 @@ public interface Archlight_3_0Package extends EPackage {
 	int DOCUMENT_ROOT__XMLNS_PREFIX_MAP = 1;
 
 	/**
-	 * The feature id for the '<em><b>XSI Schema Location</b></em>' map. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>XSI Schema Location</b></em>' map. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -152,8 +143,8 @@ public interface Archlight_3_0Package extends EPackage {
 	int DOCUMENT_ROOT__XSI_SCHEMA_LOCATION = 2;
 
 	/**
-	 * The feature id for the '<em><b>Archlight</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Archlight</b></em>' containment reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -161,8 +152,8 @@ public interface Archlight_3_0Package extends EPackage {
 	int DOCUMENT_ROOT__ARCHLIGHT = 3;
 
 	/**
-	 * The number of structural features of the '<em>Document Root</em>' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Document Root</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -170,9 +161,8 @@ public interface Archlight_3_0Package extends EPackage {
 	int DOCUMENT_ROOT_FEATURE_COUNT = 4;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl <em>Test</em>}'
-	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl <em>Test</em>}' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.archlight_3_0.impl.TestImpl
 	 * @see org.archstudio.xadl3.archlight_3_0.impl.Archlight_3_0PackageImpl#getTest()
@@ -181,8 +171,8 @@ public interface Archlight_3_0Package extends EPackage {
 	int TEST = 2;
 
 	/**
-	 * The feature id for the '<em><b>Ext</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -190,8 +180,7 @@ public interface Archlight_3_0Package extends EPackage {
 	int TEST__EXT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Enabled</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -199,8 +188,7 @@ public interface Archlight_3_0Package extends EPackage {
 	int TEST__ENABLED = 1;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -208,8 +196,7 @@ public interface Archlight_3_0Package extends EPackage {
 	int TEST__ID = 2;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -217,8 +204,7 @@ public interface Archlight_3_0Package extends EPackage {
 	int TEST__NAME = 3;
 
 	/**
-	 * The number of structural features of the '<em>Test</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Test</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -226,9 +212,8 @@ public interface Archlight_3_0Package extends EPackage {
 	int TEST_FEATURE_COUNT = 4;
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.archlight_3_0.Archlight <em>Archlight</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.archlight_3_0.Archlight <em>Archlight</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Archlight</em>'.
 	 * @see org.archstudio.xadl3.archlight_3_0.Archlight
@@ -238,11 +223,10 @@ public interface Archlight_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.archlight_3_0.Archlight#getTest
-	 * <em>Test</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.archlight_3_0.Archlight#getTest <em>Test</em>}'. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference list '<em>Test</em>
-	 *         '.
+	 * @return the meta object for the containment reference list '<em>Test</em>'.
 	 * @see org.archstudio.xadl3.archlight_3_0.Archlight#getTest()
 	 * @see #getArchlight()
 	 * @generated
@@ -251,11 +235,10 @@ public interface Archlight_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.archlight_3_0.Archlight#getExt <em>Ext</em>}
-	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.archlight_3_0.Archlight#getExt <em>Ext</em>}'. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference list '<em>Ext</em>
-	 *         '.
+	 * @return the meta object for the containment reference list '<em>Ext</em>'.
 	 * @see org.archstudio.xadl3.archlight_3_0.Archlight#getExt()
 	 * @see #getArchlight()
 	 * @generated
@@ -263,9 +246,8 @@ public interface Archlight_3_0Package extends EPackage {
 	EReference getArchlight_Ext();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.archlight_3_0.DocumentRoot
-	 * <em>Document Root</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.archlight_3_0.DocumentRoot <em>Document Root</em>}
+	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Document Root</em>'.
 	 * @see org.archstudio.xadl3.archlight_3_0.DocumentRoot
@@ -274,8 +256,7 @@ public interface Archlight_3_0Package extends EPackage {
 	EClass getDocumentRoot();
 
 	/**
-	 * Returns the meta object for the attribute list '
-	 * {@link org.archstudio.xadl3.archlight_3_0.DocumentRoot#getMixed
+	 * Returns the meta object for the attribute list '{@link org.archstudio.xadl3.archlight_3_0.DocumentRoot#getMixed
 	 * <em>Mixed</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute list '<em>Mixed</em>'.
@@ -286,10 +267,8 @@ public interface Archlight_3_0Package extends EPackage {
 	EAttribute getDocumentRoot_Mixed();
 
 	/**
-	 * Returns the meta object for the map '
-	 * {@link org.archstudio.xadl3.archlight_3_0.DocumentRoot#getXMLNSPrefixMap
-	 * <em>XMLNS Prefix Map</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * Returns the meta object for the map '{@link org.archstudio.xadl3.archlight_3_0.DocumentRoot#getXMLNSPrefixMap
+	 * <em>XMLNS Prefix Map</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the map '<em>XMLNS Prefix Map</em>'.
 	 * @see org.archstudio.xadl3.archlight_3_0.DocumentRoot#getXMLNSPrefixMap()
@@ -299,10 +278,8 @@ public interface Archlight_3_0Package extends EPackage {
 	EReference getDocumentRoot_XMLNSPrefixMap();
 
 	/**
-	 * Returns the meta object for the map '
-	 * {@link org.archstudio.xadl3.archlight_3_0.DocumentRoot#getXSISchemaLocation
-	 * <em>XSI Schema Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * Returns the meta object for the map '{@link org.archstudio.xadl3.archlight_3_0.DocumentRoot#getXSISchemaLocation
+	 * <em>XSI Schema Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the map '<em>XSI Schema Location</em>'.
 	 * @see org.archstudio.xadl3.archlight_3_0.DocumentRoot#getXSISchemaLocation()
@@ -313,11 +290,10 @@ public interface Archlight_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference '
-	 * {@link org.archstudio.xadl3.archlight_3_0.DocumentRoot#getArchlight
-	 * <em>Archlight</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.archlight_3_0.DocumentRoot#getArchlight <em>Archlight</em>}'. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference '<em>Archlight</em>
-	 *         '.
+	 * @return the meta object for the containment reference '<em>Archlight</em>'.
 	 * @see org.archstudio.xadl3.archlight_3_0.DocumentRoot#getArchlight()
 	 * @see #getDocumentRoot()
 	 * @generated
@@ -325,8 +301,7 @@ public interface Archlight_3_0Package extends EPackage {
 	EReference getDocumentRoot_Archlight();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.archlight_3_0.Test <em>Test</em>}'. <!--
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.archlight_3_0.Test <em>Test</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Test</em>'.
@@ -337,11 +312,10 @@ public interface Archlight_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.archlight_3_0.Test#getExt <em>Ext</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.archlight_3_0.Test#getExt <em>Ext</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
-	 * @return the meta object for the containment reference list '<em>Ext</em>
-	 *         '.
+	 * @return the meta object for the containment reference list '<em>Ext</em>'.
 	 * @see org.archstudio.xadl3.archlight_3_0.Test#getExt()
 	 * @see #getTest()
 	 * @generated
@@ -349,8 +323,7 @@ public interface Archlight_3_0Package extends EPackage {
 	EReference getTest_Ext();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.archlight_3_0.Test#isEnabled
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.archlight_3_0.Test#isEnabled
 	 * <em>Enabled</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Enabled</em>'.
@@ -361,9 +334,8 @@ public interface Archlight_3_0Package extends EPackage {
 	EAttribute getTest_Enabled();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.archlight_3_0.Test#getId <em>Id</em>}'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.archlight_3_0.Test#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Id</em>'.
 	 * @see org.archstudio.xadl3.archlight_3_0.Test#getId()
@@ -373,9 +345,8 @@ public interface Archlight_3_0Package extends EPackage {
 	EAttribute getTest_Id();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.archlight_3_0.Test#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.archlight_3_0.Test#getName <em>Name</em>}
+	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Name</em>'.
 	 * @see org.archstudio.xadl3.archlight_3_0.Test#getName()
@@ -385,8 +356,7 @@ public interface Archlight_3_0Package extends EPackage {
 	EAttribute getTest_Name();
 
 	/**
-	 * Returns the factory that creates the instances of the model. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the factory that creates the instances of the model.
 	 * @generated
@@ -394,8 +364,7 @@ public interface Archlight_3_0Package extends EPackage {
 	Archlight_3_0Factory getArchlight_3_0Factory();
 
 	/**
-	 * <!-- begin-user-doc --> Defines literals for the meta objects that
-	 * represent
+	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
@@ -408,10 +377,8 @@ public interface Archlight_3_0Package extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.archlight_3_0.impl.ArchlightImpl
-		 * <em>Archlight</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
-		 * -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.archlight_3_0.impl.ArchlightImpl
+		 * <em>Archlight</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.archlight_3_0.impl.ArchlightImpl
 		 * @see org.archstudio.xadl3.archlight_3_0.impl.Archlight_3_0PackageImpl#getArchlight()
@@ -420,26 +387,24 @@ public interface Archlight_3_0Package extends EPackage {
 		EClass ARCHLIGHT = eINSTANCE.getArchlight();
 
 		/**
-		 * The meta object literal for the '<em><b>Test</b></em>' containment
-		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Test</b></em>' containment reference list feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference ARCHLIGHT__TEST = eINSTANCE.getArchlight_Test();
 
 		/**
-		 * The meta object literal for the '<em><b>Ext</b></em>' containment
-		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Ext</b></em>' containment reference list feature. <!-- begin-user-doc
+		 * --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference ARCHLIGHT__EXT = eINSTANCE.getArchlight_Ext();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.archlight_3_0.impl.DocumentRootImpl
-		 * <em>Document Root</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.archlight_3_0.impl.DocumentRootImpl
+		 * <em>Document Root</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.archlight_3_0.impl.DocumentRootImpl
 		 * @see org.archstudio.xadl3.archlight_3_0.impl.Archlight_3_0PackageImpl#getDocumentRoot()
@@ -448,42 +413,40 @@ public interface Archlight_3_0Package extends EPackage {
 		EClass DOCUMENT_ROOT = eINSTANCE.getDocumentRoot();
 
 		/**
-		 * The meta object literal for the '<em><b>Mixed</b></em>' attribute
-		 * list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Mixed</b></em>' attribute list feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute DOCUMENT_ROOT__MIXED = eINSTANCE.getDocumentRoot_Mixed();
 
 		/**
-		 * The meta object literal for the '<em><b>XMLNS Prefix Map</b></em>'
-		 * map feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>XMLNS Prefix Map</b></em>' map feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference DOCUMENT_ROOT__XMLNS_PREFIX_MAP = eINSTANCE.getDocumentRoot_XMLNSPrefixMap();
 
 		/**
-		 * The meta object literal for the '<em><b>XSI Schema Location</b></em>'
-		 * map feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>XSI Schema Location</b></em>' map feature. <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference DOCUMENT_ROOT__XSI_SCHEMA_LOCATION = eINSTANCE.getDocumentRoot_XSISchemaLocation();
 
 		/**
-		 * The meta object literal for the '<em><b>Archlight</b></em>'
-		 * containment reference feature. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '<em><b>Archlight</b></em>' containment reference feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference DOCUMENT_ROOT__ARCHLIGHT = eINSTANCE.getDocumentRoot_Archlight();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl
-		 * <em>Test</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl <em>Test</em>}'
+		 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.archlight_3_0.impl.TestImpl
 		 * @see org.archstudio.xadl3.archlight_3_0.impl.Archlight_3_0PackageImpl#getTest()
@@ -492,32 +455,32 @@ public interface Archlight_3_0Package extends EPackage {
 		EClass TEST = eINSTANCE.getTest();
 
 		/**
-		 * The meta object literal for the '<em><b>Ext</b></em>' containment
-		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Ext</b></em>' containment reference list feature. <!-- begin-user-doc
+		 * --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference TEST__EXT = eINSTANCE.getTest_Ext();
 
 		/**
-		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute TEST__ENABLED = eINSTANCE.getTest_Enabled();
 
 		/**
-		 * The meta object literal for the '<em><b>Id</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute TEST__ID = eINSTANCE.getTest_Id();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */

@@ -58,15 +58,12 @@ public class ClassArrayEncoder {
 				String realName = arr[i].substring(4);
 				classes[i] = nameMap.get(realName);
 				/*
-				 * if(realName.equals("boolean")){ classes[i] = boolean.class; }
-				 * else if(realName.equals("byte")){ classes[i] = byte.class; }
-				 * else if(realName.equals("short")){ classes[i] = int.class; }
-				 * else if(realName.equals("int")){ classes[i] = int.class; }
-				 * else if(realName.equals("long")){ classes[i] = long.class; }
-				 * else if(realName.equals("float")){ classes[i] = float.class;
-				 * } else if(realName.equals("double")){ classes[i] = int.class;
-				 * } else if(realName.equals("void")){ classes[i] = void.class;
-				 * }
+				 * if(realName.equals("boolean")){ classes[i] = boolean.class; } else if(realName.equals("byte")){
+				 * classes[i] = byte.class; } else if(realName.equals("short")){ classes[i] = int.class; } else
+				 * if(realName.equals("int")){ classes[i] = int.class; } else if(realName.equals("long")){ classes[i] =
+				 * long.class; } else if(realName.equals("float")){ classes[i] = float.class; } else
+				 * if(realName.equals("double")){ classes[i] = int.class; } else if(realName.equals("void")){ classes[i]
+				 * = void.class; }
 				 */
 			}
 		}

@@ -17,17 +17,13 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Value</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Value</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl#getValue <em>Value
- * </em>}</li>
- * <li>{@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl#getData <em>Data
- * </em>}</li>
- * <li>{@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl#getType <em>Type
- * </em>}</li>
+ * <li>{@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl#getValue <em>Value</em>}</li>
+ * <li>{@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl#getData <em>Data</em>}</li>
+ * <li>{@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  * 
@@ -35,8 +31,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ValueImpl extends EObjectImpl implements Value {
 	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getValue()
 	 * @generated
@@ -45,8 +41,8 @@ public class ValueImpl extends EObjectImpl implements Value {
 	protected EList<Value> value;
 
 	/**
-	 * The default value of the '{@link #getData() <em>Data</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getData() <em>Data</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getData()
 	 * @generated
@@ -55,8 +51,8 @@ public class ValueImpl extends EObjectImpl implements Value {
 	protected static final String DATA_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getData() <em>Data</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getData() <em>Data</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getData()
 	 * @generated
@@ -65,8 +61,8 @@ public class ValueImpl extends EObjectImpl implements Value {
 	protected String data = DATA_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getType()
 	 * @generated
@@ -75,8 +71,8 @@ public class ValueImpl extends EObjectImpl implements Value {
 	protected static final String TYPE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getType()
 	 * @generated
@@ -98,7 +94,6 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Hints_3_0Package.Literals.VALUE;
@@ -170,7 +165,6 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -185,7 +179,6 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -204,8 +197,8 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Hints_3_0Package.VALUE__VALUE:
@@ -227,7 +220,6 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -249,7 +241,6 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -268,7 +259,6 @@ public class ValueImpl extends EObjectImpl implements Value {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

@@ -11,8 +11,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Parent Type</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Parent Type</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -24,8 +23,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	/**
-	 * The default value of the '{@link #getFor() <em>For</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getFor() <em>For</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getFor()
 	 * @generated
@@ -34,8 +33,7 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	protected static final Object FOR_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getFor() <em>For</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getFor() <em>For</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getFor()
 	 * @generated
@@ -57,7 +55,6 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.PARENT_TYPE;
@@ -92,7 +89,6 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -107,7 +103,6 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -123,7 +118,6 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -139,7 +133,6 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -154,7 +147,6 @@ public class ParentTypeImpl extends EObjectImpl implements ParentType {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

@@ -5,14 +5,12 @@ import org.eclipse.swt.graphics.Point;
 /**
  * A B-Spline calculator.
  * 
- * Ported by E. M. Dashofy from C++ code released into the public domain with
- * the following notice:
+ * Ported by E. M. Dashofy from C++ code released into the public domain with the following notice:
  * 
  * <code>Copyright 1994 by Keith Vertanen (vertankd@cda.mrs.umn.edu)</code> <br>
  * <code>Released to the public domain (your mileage may vary)</code>
  * 
- * @author Eric M. Dashofy <a
- *         href="mailto:edashofy@ics.uci.edu">edashofy@ics.uci.edu</a>
+ * @author Eric M. Dashofy <a href="mailto:edashofy@ics.uci.edu">edashofy@ics.uci.edu</a>
  */
 public class BSpline {
 
@@ -25,16 +23,14 @@ public class BSpline {
 	};
 
 	/**
-	 * Calculate the points of a B-spline given an array of control points and
-	 * some other parameters.
+	 * Calculate the points of a B-spline given an array of control points and some other parameters.
 	 * 
 	 * @param controlPoints
 	 *            A set of control points for the B-Spline
 	 * @param splinePointsPerMidpoint
-	 *            How many points to add per midpoint (should be an even
-	 *            number), the more you put, the curvier the spline.
-	 * @return An ordered set of line segment endpoints that should be drawn to
-	 *         render the B-Spline
+	 *            How many points to add per midpoint (should be an even number), the more you put, the curvier the
+	 *            spline.
+	 * @return An ordered set of line segment endpoints that should be drawn to render the B-Spline
 	 */
 	public static Point[] bspline(Point[] controlPoints, int splinePointsPerMidpoint) {
 		if (controlPoints.length <= 2) { //A bspline with 2 control points is called a line :)
@@ -82,8 +78,7 @@ public class BSpline {
 	}
 
 	/**
-	 * Calculate the points of a B-spline given an array of control points and
-	 * some other parameters.
+	 * Calculate the points of a B-spline given an array of control points and some other parameters.
 	 * 
 	 * @param n
 	 *            the number of control points minus 1
@@ -121,30 +116,23 @@ public class BSpline {
 	}
 
 	/*
-	 * void main() { int *u; int n,t,i; n=7; // number of control points = n+1
-	 * t=4; // degree of polynomial = t-1
+	 * void main() { int *u; int n,t,i; n=7; // number of control points = n+1 t=4; // degree of polynomial = t-1
 	 * 
 	 * point[] pts; // allocate our control point array pts = new point[n+1];
 	 * 
-	 * // randomize(); // for (i=0; i<=n; i++) // assign the control points
-	 * randomly // { // (pts[i].x)=random(100)+(i*600/n); //
-	 * (pts[i].y)=random(500); // (pts[i].z)=random(500); // }
+	 * // randomize(); // for (i=0; i<=n; i++) // assign the control points randomly // { //
+	 * (pts[i].x)=random(100)+(i*600/n); // (pts[i].y)=random(500); // (pts[i].z)=random(500); // }
 	 * 
-	 * pts[0].x=10; pts[0].y=100; pts[0].z=0; pts[1].x=200; pts[1].y=100;
-	 * pts[1].z=0; pts[2].x=345; pts[2].y=300; pts[2].z=0; pts[3].x=400;
-	 * pts[3].y=250; pts[3].z=0; pts[4].x=500; pts[4].y=550; pts[4].z=0;
-	 * pts[5].x=550; pts[5].y=150; pts[5].z=0; pts[6].x=570; pts[6].y=50;
-	 * pts[6].z=0; pts[7].x=600; pts[7].y=100; pts[7].z=0;
+	 * pts[0].x=10; pts[0].y=100; pts[0].z=0; pts[1].x=200; pts[1].y=100; pts[1].z=0; pts[2].x=345; pts[2].y=300;
+	 * pts[2].z=0; pts[3].x=400; pts[3].y=250; pts[3].z=0; pts[4].x=500; pts[4].y=550; pts[4].z=0; pts[5].x=550;
+	 * pts[5].y=150; pts[5].z=0; pts[6].x=570; pts[6].y=50; pts[6].z=0; pts[7].x=600; pts[7].y=100; pts[7].z=0;
 	 * 
-	 * int resolution = 100; // how many points our in our output array point
-	 * *out_pts; out_pts = new point[resolution];
+	 * int resolution = 100; // how many points our in our output array point *out_pts; out_pts = new point[resolution];
 	 * 
-	 * bspline(n, t, pts, out_pts, resolution); if (set_graph()) { setcolor(69);
-	 * for (i=0; i<=n; i++) circle(pts[i].x,pts[i].y,2); // put circles at
-	 * control points circle(pts[0].x,pts[0].y,0); // drop the pen down at first
-	 * control point for (i=0; i<resolution; i++) { setcolor(i); // have a
-	 * little fun with the colors putpixel(out_pts[i].x,out_pts[i].y,WHITE); } }
-	 * }
+	 * bspline(n, t, pts, out_pts, resolution); if (set_graph()) { setcolor(69); for (i=0; i<=n; i++)
+	 * circle(pts[i].x,pts[i].y,2); // put circles at control points circle(pts[0].x,pts[0].y,0); // drop the pen down
+	 * at first control point for (i=0; i<resolution; i++) { setcolor(i); // have a little fun with the colors
+	 * putpixel(out_pts[i].x,out_pts[i].y,WHITE); } } }
 	 */
 	private static double blend(int k, int t, int[] u, double v) // calculate the blending value
 	{

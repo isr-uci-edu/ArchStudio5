@@ -5,11 +5,9 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "AIM Myx Component Impl" MyxGen extension in the
- * org.archstudio.aim.core plugin.
+ * To modify, update the "AIM Myx Component Impl" MyxGen extension in the org.archstudio.aim.core plugin.
  */
 
 /**
@@ -32,6 +30,7 @@ public abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -42,6 +41,7 @@ public abstract class AIMMyxComponentStub extends org.archstudio.myx.fw.Abstract
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();

@@ -23,15 +23,13 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
  * 
  * @generated
  */
 public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechart_1_0Factory {
 	/**
-	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -50,8 +48,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	}
 
 	/**
-	 * Creates an instance of the factory. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -64,7 +61,6 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
@@ -98,7 +94,6 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
@@ -116,7 +111,6 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {

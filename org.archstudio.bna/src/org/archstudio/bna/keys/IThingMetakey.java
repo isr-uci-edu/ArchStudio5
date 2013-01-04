@@ -4,16 +4,14 @@ import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 
 /**
- * Describes a key that captures metadata about another key's data: K is the
- * other key, N is the name of the metadata for that other key's data, and V is
- * the metadata type. Logics use this to capture extra data about specific
+ * Describes a key that captures metadata about another key's data: K is the other key, N is the name of the metadata
+ * for that other key's data, and V is the metadata type. Logics use this to capture extra data about specific
  * properties and to relate that data to the property.
  * <p>
  * 
  * <p>
- * As an example, the {@link DynamicStickPointLogic#getStickyModeKey(IThingKey)}
- * uses this type of key to capture the desired sticky mode for the provided
- * point key.
+ * As an example, the {@link DynamicStickPointLogic#getStickyModeKey(IThingKey)} uses this type of key to capture the
+ * desired sticky mode for the provided point key.
  * 
  * @param <N>
  *            The name of the metadata being captured

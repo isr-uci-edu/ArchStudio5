@@ -117,14 +117,11 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	/**
-	 * This method causes the EPackage.eINSTANCE variable of each EMF-generated
-	 * bundle (plugin) in Eclipse to be touched. This causes the package to
-	 * spontaneously register itself with the EPackage Registry, which is how we
-	 * find out what EPackages are available on the system. This is an EMF-ism
-	 * that isn't easily avoided. If you are running outside of ArchStudio then
-	 * these bundles will not be available. What you have to do then is just
-	 * read the eINSTANCE variable for all the EPackages you want to have
-	 * available to you.
+	 * This method causes the EPackage.eINSTANCE variable of each EMF-generated bundle (plugin) in Eclipse to be
+	 * touched. This causes the package to spontaneously register itself with the EPackage Registry, which is how we
+	 * find out what EPackages are available on the system. This is an EMF-ism that isn't easily avoided. If you are
+	 * running outside of ArchStudio then these bundles will not be available. What you have to do then is just read the
+	 * eINSTANCE variable for all the EPackages you want to have available to you.
 	 */
 	private void registerAllSchemaPackages() {
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
@@ -493,8 +490,7 @@ public class XArchADTImpl implements IXArchADT {
 			});
 
 	/**
-	 * This is a map that generates type metadata for an EClass on demand,
-	 * caching it after it's generated.
+	 * This is a map that generates type metadata for an EClass on demand, caching it after it's generated.
 	 */
 	private static final LoadingCache<EClass, IXArchADTTypeMetadata> typeMetadataCache = CacheBuilder.newBuilder()
 			.build(new CacheLoader<EClass, IXArchADTTypeMetadata>() {
@@ -510,8 +506,7 @@ public class XArchADTImpl implements IXArchADT {
 			});
 
 	/**
-	 * This is a map that generates package metadata for an EPackage on demand,
-	 * caching it after it's generated.
+	 * This is a map that generates package metadata for an EPackage on demand, caching it after it's generated.
 	 */
 	private static final LoadingCache<EPackage, IXArchADTPackageMetadata> packageMetatadataCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<EPackage, IXArchADTPackageMetadata>() {

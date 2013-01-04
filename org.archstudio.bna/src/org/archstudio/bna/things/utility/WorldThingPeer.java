@@ -38,10 +38,9 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 			.create("CoordinateMapperChangeTicker");
 
 	/*
-	 * Records where each model is being rendered. If we discover that we are
-	 * trying to render a model in the same size and location, then we would
-	 * recurse rendering that model forever. So, instead we cut it off when we
-	 * hit that situation.
+	 * Records where each model is being rendered. If we discover that we are trying to render a model in the same size
+	 * and location, then we would recurse rendering that model forever. So, instead we cut it off when we hit that
+	 * situation.
 	 */
 	static Multimap<IBNAModel, Rectangle> modelsBeingRendered = HashMultimap.create();
 

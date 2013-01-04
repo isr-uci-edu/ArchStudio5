@@ -5,11 +5,10 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "Editor Manager Myx Component" MyxGen extension in the
- * org.archstudio.editormanager.core plugin.
+ * To modify, update the "Editor Manager Myx Component" MyxGen extension in the org.archstudio.editormanager.core
+ * plugin.
  */
 
 /**
@@ -32,6 +31,7 @@ public abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.f
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -42,6 +42,7 @@ public abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.f
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -91,9 +92,8 @@ public abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.f
 	protected org.archstudio.eclipse.ui.IFocusEditorListener focusEditorEvents = null;
 
 	/**
-	 * Service object proxy for the focusEditorEvents interface. Calls to this
-	 * proxy object are automatically delegated to all connections on the
-	 * interface
+	 * Service object proxy for the focusEditorEvents interface. Calls to this proxy object are automatically delegated
+	 * to all connections on the interface
 	 * 
 	 * @see #OUT_FOCUS_EDITOR_EVENTS
 	 * @generated
@@ -185,19 +185,22 @@ public abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.f
 	 */
 	@Override
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
-		if (serviceObject == null)
+		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
+		}
 
 		if (interfaceName.equals(OUT_FOCUS_EDITOR_EVENTS)) {
-			if (focusEditorEvents != null)
+			if (focusEditorEvents != null) {
 				throw new IllegalStateException("Only a single connection is supported on interface: focusEditorEvents");
+			}
 			focusEditorEvents = (org.archstudio.eclipse.ui.IFocusEditorListener) serviceObject;
 			return;
 		}
 
 		if (interfaceName.equals(OUT_PREFERENCES)) {
-			if (preferences != null)
+			if (preferences != null) {
 				throw new IllegalStateException("Only a single connection is supported on interface: preferences");
+			}
 			preferences = (org.eclipse.jface.preference.IPreferenceStore) serviceObject;
 			return;
 		}
@@ -214,19 +217,22 @@ public abstract class EditorManagerMyxComponentStub extends org.archstudio.myx.f
 	 */
 	@Override
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
-		if (serviceObject == null)
+		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
+		}
 
 		if (interfaceName.equals(OUT_FOCUS_EDITOR_EVENTS)) {
-			if (focusEditorEvents == null)
+			if (focusEditorEvents == null) {
 				throw new IllegalStateException("A connection was never made on interface: focusEditorEvents");
+			}
 			focusEditorEvents = null;
 			return;
 		}
 
 		if (interfaceName.equals(OUT_PREFERENCES)) {
-			if (preferences == null)
+			if (preferences == null) {
 				throw new IllegalStateException("A connection was never made on interface: preferences");
+			}
 			preferences = null;
 			return;
 		}

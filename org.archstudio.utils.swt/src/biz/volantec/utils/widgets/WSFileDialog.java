@@ -162,9 +162,7 @@ public class WSFileDialog extends Dialog {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.eclipse.jface.dialogs.Dialog#createDialogArea(org.eclipse.swt.widgets
-	 * .Composite)
+	 * @see org.eclipse.jface.dialogs.Dialog#createDialogArea(org.eclipse.swt.widgets .Composite)
 	 */
 
 	@Override
@@ -283,8 +281,7 @@ public class WSFileDialog extends Dialog {
 
 	/**
 	 * 
-	 * process the tree selection and keep as the resultIResource[] until needed
-	 * by our client
+	 * process the tree selection and keep as the resultIResource[] until needed by our client
 	 * 
 	 * 
 	 * 
@@ -384,8 +381,7 @@ public class WSFileDialog extends Dialog {
 
 	/**
 	 * 
-	 * ViewerFilter to only show non-derived folders and those files matching
-	 * the file extensions
+	 * ViewerFilter to only show non-derived folders and those files matching the file extensions
 	 * 
 	 * @author Frank Sauer
 	 * 
@@ -396,8 +392,8 @@ public class WSFileDialog extends Dialog {
 		/**
 		 * Select all folders and files matching the desired file extensions
 		 * 
-		 * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer,
-		 *      java.lang.Object, java.lang.Object)
+		 * @see org.eclipse.jface.viewers.ViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object,
+		 *      java.lang.Object)
 		 * 
 		 */
 

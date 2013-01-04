@@ -30,15 +30,12 @@ public class ColorSelectorDialog extends Dialog {
 	/*
 	 * public static void main(String[] args){ Display display = new Display();
 	 * 
-	 * Shell shell = new Shell(display); shell.setText("Dialog Example");
-	 * shell.setSize(300, 200); shell.open();
+	 * Shell shell = new Shell(display); shell.setText("Dialog Example"); shell.setSize(300, 200); shell.open();
 	 * 
-	 * ColorSelectorDialog csd = new ColorSelectorDialog(shell);
-	 * System.err.println("opening"); RGB result = csd.open(new RGB(0,0,0));
-	 * System.err.println("opened done: " + result);
+	 * ColorSelectorDialog csd = new ColorSelectorDialog(shell); System.err.println("opening"); RGB result =
+	 * csd.open(new RGB(0,0,0)); System.err.println("opened done: " + result);
 	 * 
-	 * while (!shell.isDisposed()) { if (!display.readAndDispatch())
-	 * display.sleep(); } System.err.println("exit"); }
+	 * while (!shell.isDisposed()) { if (!display.readAndDispatch()) display.sleep(); } System.err.println("exit"); }
 	 */
 
 	public static final int NUM_SCHEME_COLORS = 16;

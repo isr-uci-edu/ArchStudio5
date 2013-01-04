@@ -9,9 +9,8 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc --> A representation of the literals of the enumeration '
- * <em><b>Node Shape Type</b></em>', and utility methods for working with them.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '<em><b>Node Shape Type</b></em>', and
+ * utility methods for working with them. <!-- end-user-doc -->
  * 
  * @see net.gexf_1_2.viz.VizPackage#getNodeShapeType()
  * @model extendedMetaData="name='node-shape-type'"
@@ -19,8 +18,7 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum NodeShapeType implements Enumerator {
 	/**
-	 * The '<em><b>Disc</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>Disc</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #DISC_VALUE
 	 * @generated
@@ -29,8 +27,7 @@ public enum NodeShapeType implements Enumerator {
 	DISC(0, "disc", "disc"),
 
 	/**
-	 * The '<em><b>Square</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>Square</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #SQUARE_VALUE
 	 * @generated
@@ -39,8 +36,7 @@ public enum NodeShapeType implements Enumerator {
 	SQUARE(1, "square", "square"),
 
 	/**
-	 * The '<em><b>Triangle</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Triangle</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #TRIANGLE_VALUE
 	 * @generated
@@ -49,8 +45,7 @@ public enum NodeShapeType implements Enumerator {
 	TRIANGLE(2, "triangle", "triangle"),
 
 	/**
-	 * The '<em><b>Diamond</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Diamond</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #DIAMOND_VALUE
 	 * @generated
@@ -59,8 +54,7 @@ public enum NodeShapeType implements Enumerator {
 	DIAMOND(3, "diamond", "diamond"),
 
 	/**
-	 * The '<em><b>Image</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>Image</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #IMAGE_VALUE
 	 * @generated
@@ -71,8 +65,8 @@ public enum NodeShapeType implements Enumerator {
 	/**
 	 * The '<em><b>Disc</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Disc</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Disc</b></em>' literal object isn't clear, there really should be more of a description
+	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -86,8 +80,8 @@ public enum NodeShapeType implements Enumerator {
 	/**
 	 * The '<em><b>Square</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Square</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Square</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -101,8 +95,8 @@ public enum NodeShapeType implements Enumerator {
 	/**
 	 * The '<em><b>Triangle</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Triangle</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Triangle</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -116,8 +110,8 @@ public enum NodeShapeType implements Enumerator {
 	/**
 	 * The '<em><b>Diamond</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Diamond</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Diamond</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -131,8 +125,8 @@ public enum NodeShapeType implements Enumerator {
 	/**
 	 * The '<em><b>Image</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Image</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Image</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -144,24 +138,23 @@ public enum NodeShapeType implements Enumerator {
 	public static final int IMAGE_VALUE = 4;
 
 	/**
-	 * An array of all the '<em><b>Node Shape Type</b></em>' enumerators. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * An array of all the '<em><b>Node Shape Type</b></em>' enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	private static final NodeShapeType[] VALUES_ARRAY = new NodeShapeType[] { DISC, SQUARE, TRIANGLE, DIAMOND, IMAGE, };
 
 	/**
-	 * A public read-only list of all the '<em><b>Node Shape Type</b></em>'
-	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * A public read-only list of all the '<em><b>Node Shape Type</b></em>' enumerators. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	public static final List<NodeShapeType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Node Shape Type</b></em>' literal with the specified
-	 * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Node Shape Type</b></em>' literal with the specified literal value. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -175,8 +168,8 @@ public enum NodeShapeType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Node Shape Type</b></em>' literal with the specified
-	 * name. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Node Shape Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -190,8 +183,8 @@ public enum NodeShapeType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Node Shape Type</b></em>' literal with the specified
-	 * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Node Shape Type</b></em>' literal with the specified integer value. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -233,8 +226,7 @@ public enum NodeShapeType implements Enumerator {
 	private final String literal;
 
 	/**
-	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Only this class can construct instances. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -275,12 +267,11 @@ public enum NodeShapeType implements Enumerator {
 	}
 
 	/**
-	 * Returns the literal value of the enumerator, which is its string
-	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the literal value of the enumerator, which is its string representation. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		return literal;

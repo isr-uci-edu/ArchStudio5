@@ -4,11 +4,9 @@ import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "Archipelago Impl" MyxGen extension in the
- * org.archstudio.archipelago.core plugin.
+ * To modify, update the "Archipelago Impl" MyxGen extension in the org.archstudio.archipelago.core plugin.
  */
 
 /**
@@ -76,12 +74,14 @@ public abstract class ArchipelagoMyxComponentStub extends
 	 */
 	@Override
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
-		if (serviceObject == null)
+		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
+		}
 
 		if (interfaceName.equals(OUT_GRAPH_LAYOUT)) {
-			if (graphLayout != null)
+			if (graphLayout != null) {
 				throw new IllegalStateException("Only a single connection is supported on interface: graphLayout");
+			}
 			graphLayout = (org.archstudio.graphlayout.IGraphLayout) serviceObject;
 			return;
 		}
@@ -97,12 +97,14 @@ public abstract class ArchipelagoMyxComponentStub extends
 	 */
 	@Override
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
-		if (serviceObject == null)
+		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
+		}
 
 		if (interfaceName.equals(OUT_GRAPH_LAYOUT)) {
-			if (graphLayout == null)
+			if (graphLayout == null) {
 				throw new IllegalStateException("A connection was never made on interface: graphLayout");
+			}
 			graphLayout = null;
 			return;
 		}

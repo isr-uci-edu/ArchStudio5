@@ -19,21 +19,15 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Link</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Link</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getPoint1 <em>
- * Point1</em>}</li>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getPoint2 <em>
- * Point2</em>}</li>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getExt <em>Ext
- * </em>}</li>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getId <em>Id
- * </em>}</li>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getName <em>Name
- * </em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getPoint1 <em>Point1</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getPoint2 <em>Point2</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getExt <em>Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getId <em>Id</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  * 
@@ -41,8 +35,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class LinkImpl extends EObjectImpl implements Link {
 	/**
-	 * The cached value of the '{@link #getPoint1() <em>Point1</em>}' reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getPoint1() <em>Point1</em>}' reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getPoint1()
 	 * @generated
@@ -51,8 +45,8 @@ public class LinkImpl extends EObjectImpl implements Link {
 	protected Interface point1;
 
 	/**
-	 * The cached value of the '{@link #getPoint2() <em>Point2</em>}' reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getPoint2() <em>Point2</em>}' reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getPoint2()
 	 * @generated
@@ -61,8 +55,8 @@ public class LinkImpl extends EObjectImpl implements Link {
 	protected Interface point2;
 
 	/**
-	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getExt()
 	 * @generated
@@ -71,8 +65,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	protected EList<Extension> ext;
 
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -81,8 +74,7 @@ public class LinkImpl extends EObjectImpl implements Link {
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -91,8 +83,8 @@ public class LinkImpl extends EObjectImpl implements Link {
 	protected String id = ID_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getName()
 	 * @generated
@@ -101,8 +93,8 @@ public class LinkImpl extends EObjectImpl implements Link {
 	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getName()
 	 * @generated
@@ -124,7 +116,6 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Structure_3_0Package.Literals.LINK;
@@ -244,7 +235,6 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -259,7 +249,6 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -282,8 +271,8 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Structure_3_0Package.LINK__POINT1:
@@ -311,7 +300,6 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -339,7 +327,6 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -362,7 +349,6 @@ public class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

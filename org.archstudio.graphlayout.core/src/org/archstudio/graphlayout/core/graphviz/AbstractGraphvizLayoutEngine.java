@@ -315,9 +315,8 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 						port1Token = endpt1Token.substring(colon1Index + 1);
 					}
 					/*
-					 * else{ int secondEIndex = endpt1Token.indexOf("e", 1);
-					 * node1Token = endpt1Token.substring(0, secondEIndex);
-					 * port1Token = endpt1Token.substring(secondEIndex); }
+					 * else{ int secondEIndex = endpt1Token.indexOf("e", 1); node1Token = endpt1Token.substring(0,
+					 * secondEIndex); port1Token = endpt1Token.substring(secondEIndex); }
 					 */
 
 					int colon2Index = endpt2Token.indexOf(":");
@@ -329,9 +328,8 @@ public abstract class AbstractGraphvizLayoutEngine implements ILayoutEngine {
 						port2Token = endpt2Token.substring(colon2Index + 1);
 					}
 					/*
-					 * else{ int secondEIndex = endpt2Token.indexOf("e", 1);
-					 * node2Token = endpt2Token.substring(0, secondEIndex);
-					 * port2Token = endpt2Token.substring(secondEIndex); }
+					 * else{ int secondEIndex = endpt2Token.indexOf("e", 1); node2Token = endpt2Token.substring(0,
+					 * secondEIndex); port2Token = endpt2Token.substring(secondEIndex); }
 					 */
 					edge.setEndpoint1(at.getTruename(node1Token), at.getTruename(port1Token));
 					edge.setEndpoint2(at.getTruename(node2Token), at.getTruename(port2Token));

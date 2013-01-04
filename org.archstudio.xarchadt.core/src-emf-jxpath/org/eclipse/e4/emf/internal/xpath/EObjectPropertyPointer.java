@@ -1,27 +1,21 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements. See the NOTICE file distributed with this
- * work for additional information regarding copyright ownership. The ASF
- * licenses this file to You under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE
+ * file distributed with this work for additional information regarding copyright ownership. The ASF licenses this file
+ * to You under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 /*******************************************************************************
- * Copyright (c) 2010 BestSolution.at and others. All rights reserved. This
- * program and the accompanying materials are made available under the terms of
- * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * Copyright (c) 2010 BestSolution.at and others. All rights reserved. This program and the accompanying materials are
+ * made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is
  * available at http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors: Tom Schindl <tom.schindl@bestsolution.at> - adjustment to
- * EObject
+ * Contributors: Tom Schindl <tom.schindl@bestsolution.at> - adjustment to EObject
  ******************************************************************************/
 package org.eclipse.e4.emf.internal.xpath;
 
@@ -159,10 +153,9 @@ public class EObjectPropertyPointer extends EStructuralFeaturePointer {
 	}
 
 	/**
-	 * If index == WHOLE_COLLECTION, the value of the property, otherwise the
-	 * value of the index'th element of the collection represented by the
-	 * property. If the property is not a collection, index should be zero and
-	 * the value will be the property itself.
+	 * If index == WHOLE_COLLECTION, the value of the property, otherwise the value of the index'th element of the
+	 * collection represented by the property. If the property is not a collection, index should be zero and the value
+	 * will be the property itself.
 	 * 
 	 * @return Object
 	 */
@@ -219,8 +212,7 @@ public class EObjectPropertyPointer extends EStructuralFeaturePointer {
 	}
 
 	/**
-	 * If the property contains a collection, then the length of that
-	 * collection, otherwise - 1.
+	 * If the property contains a collection, then the length of that collection, otherwise - 1.
 	 * 
 	 * @return int length
 	 */
@@ -249,9 +241,8 @@ public class EObjectPropertyPointer extends EStructuralFeaturePointer {
 	}
 
 	/**
-	 * If index == WHOLE_COLLECTION, change the value of the property, otherwise
-	 * change the value of the index'th element of the collection represented by
-	 * the property.
+	 * If index == WHOLE_COLLECTION, change the value of the property, otherwise change the value of the index'th
+	 * element of the collection represented by the property.
 	 * 
 	 * @param value
 	 *            value to set
@@ -317,8 +308,7 @@ public class EObjectPropertyPointer extends EStructuralFeaturePointer {
 	}
 
 	/**
-	 * Finds the property descriptor corresponding to the current property
-	 * index.
+	 * Finds the property descriptor corresponding to the current property index.
 	 * 
 	 * @return PropertyDescriptor
 	 */

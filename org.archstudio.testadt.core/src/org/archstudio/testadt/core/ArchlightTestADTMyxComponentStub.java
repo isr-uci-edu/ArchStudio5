@@ -5,11 +5,9 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "Archlight Test ADT Impl" MyxGen extension in the
- * org.archstudio.testadt.core plugin.
+ * To modify, update the "Archlight Test ADT Impl" MyxGen extension in the org.archstudio.testadt.core plugin.
  */
 
 /**
@@ -32,6 +30,7 @@ public abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.my
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -42,6 +41,7 @@ public abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.my
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -91,8 +91,8 @@ public abstract class ArchlightTestADTMyxComponentStub extends org.archstudio.my
 	protected final java.util.Collection<org.archstudio.testadt.ArchlightTestADTListener> testEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.testadt.ArchlightTestADTListener>();
 
 	/**
-	 * Service object proxy for the testEvents interface. Calls to this proxy
-	 * object are automatically delegated to all connections on the interface
+	 * Service object proxy for the testEvents interface. Calls to this proxy object are automatically delegated to all
+	 * connections on the interface
 	 * 
 	 * @see #OUT_TEST_EVENTS
 	 * @generated

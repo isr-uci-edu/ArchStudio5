@@ -8,8 +8,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 
 /**
- * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
- * accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains accessors for the meta objects to represent
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
@@ -30,10 +29,8 @@ import org.eclipse.emf.ecore.EPackage;
  * 
  * xADL 3 Abstract Implementation Schema
  * 
- * This schema defines the concept of an implementation. The concept is
- * abstract, so it is intended to be specialized by various specific types of
- * implementations. However, it exists so that implementations can be treated
- * similarly.
+ * This schema defines the concept of an implementation. The concept is abstract, so it is intended to be specialized by
+ * various specific types of implementations. However, it exists so that implementations can be treated similarly.
  * 
  * Changelog: - 3.0.0 * Initial version
  * 
@@ -42,9 +39,8 @@ import org.eclipse.emf.ecore.EPackage;
  * 
  * xADL 3 Core Schema
  * 
- * This schema defines the core elements for xADL 3 documents. The schema is
- * intentionally small, defining only a few elements that are intended to be
- * common across xADL descriptions and extensions, regardless of domain.
+ * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
+ * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
  * 
  * Changelog: - 3.0.0: * Initial version
  * 
@@ -78,17 +74,15 @@ public interface Myxgen_3_0Package extends EPackage {
 	String eNS_PREFIX = "myxgen_3_0";
 
 	/**
-	 * The singleton instance of the package. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	Myxgen_3_0Package eINSTANCE = org.archstudio.xadl3.myxgen_3_0.impl.Myxgen_3_0PackageImpl.init();
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.myxgen_3_0.impl.MyxGenImpl <em>Myx Gen</em>}'
-	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.myxgen_3_0.impl.MyxGenImpl <em>Myx Gen</em>}' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.myxgen_3_0.impl.MyxGenImpl
 	 * @see org.archstudio.xadl3.myxgen_3_0.impl.Myxgen_3_0PackageImpl#getMyxGen()
@@ -97,8 +91,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	int MYX_GEN = 0;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -106,8 +99,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	int MYX_GEN__ID = Implementation_3_0Package.IMPLEMENTATION__ID;
 
 	/**
-	 * The feature id for the '<em><b>Brick ID</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Brick ID</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -115,8 +107,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	int MYX_GEN__BRICK_ID = Implementation_3_0Package.IMPLEMENTATION_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Myx Gen</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Myx Gen</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -124,8 +115,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	int MYX_GEN_FEATURE_COUNT = Implementation_3_0Package.IMPLEMENTATION_FEATURE_COUNT + 1;
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.myxgen_3_0.MyxGen <em>Myx Gen</em>}'. <!--
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.myxgen_3_0.MyxGen <em>Myx Gen</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Myx Gen</em>'.
@@ -135,8 +125,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	EClass getMyxGen();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.myxgen_3_0.MyxGen#getBrickID
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.myxgen_3_0.MyxGen#getBrickID
 	 * <em>Brick ID</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Brick ID</em>'.
@@ -147,8 +136,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	EAttribute getMyxGen_BrickID();
 
 	/**
-	 * Returns the factory that creates the instances of the model. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the factory that creates the instances of the model.
 	 * @generated
@@ -156,8 +144,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	Myxgen_3_0Factory getMyxgen_3_0Factory();
 
 	/**
-	 * <!-- begin-user-doc --> Defines literals for the meta objects that
-	 * represent
+	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
@@ -170,10 +157,8 @@ public interface Myxgen_3_0Package extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.myxgen_3_0.impl.MyxGenImpl
-		 * <em>Myx Gen</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
-		 * -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.myxgen_3_0.impl.MyxGenImpl <em>Myx Gen</em>}'
+		 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.myxgen_3_0.impl.MyxGenImpl
 		 * @see org.archstudio.xadl3.myxgen_3_0.impl.Myxgen_3_0PackageImpl#getMyxGen()
@@ -182,8 +167,8 @@ public interface Myxgen_3_0Package extends EPackage {
 		EClass MYX_GEN = eINSTANCE.getMyxGen();
 
 		/**
-		 * The meta object literal for the '<em><b>Brick ID</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Brick ID</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */

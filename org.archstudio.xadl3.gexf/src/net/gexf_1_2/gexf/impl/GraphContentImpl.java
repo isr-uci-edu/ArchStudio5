@@ -26,29 +26,22 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Graph Content</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Graph Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getGroup <em>Group</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getAttributes <em>
- * Attributes</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getAttributes <em>Attributes</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getNodes <em>Nodes</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getEdges <em>Edges</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getDefaultedgetype <em>
- * Defaultedgetype</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getDefaultedgetype <em>Defaultedgetype</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getEnd <em>End</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getEndopen <em>Endopen
- * </em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getIdtype <em>Idtype</em>}
- * </li>
+ * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getEndopen <em>Endopen</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getIdtype <em>Idtype</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getMode <em>Mode</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getStart <em>Start</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getStartopen <em>Startopen
- * </em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getTimeformat <em>
- * Timeformat</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getStartopen <em>Startopen</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.GraphContentImpl#getTimeformat <em>Timeformat</em>}</li>
  * </ul>
  * </p>
  * 
@@ -56,8 +49,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	/**
-	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getGroup()
 	 * @generated
@@ -66,9 +59,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected FeatureMap group;
 
 	/**
-	 * The default value of the '{@link #getDefaultedgetype()
-	 * <em>Defaultedgetype</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The default value of the '{@link #getDefaultedgetype() <em>Defaultedgetype</em>}' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #getDefaultedgetype()
 	 * @generated
@@ -77,9 +69,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected static final DefaultedgetypeType DEFAULTEDGETYPE_EDEFAULT = DefaultedgetypeType.DIRECTED;
 
 	/**
-	 * The cached value of the '{@link #getDefaultedgetype()
-	 * <em>Defaultedgetype</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached value of the '{@link #getDefaultedgetype() <em>Defaultedgetype</em>}' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #getDefaultedgetype()
 	 * @generated
@@ -88,8 +79,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected DefaultedgetypeType defaultedgetype = DEFAULTEDGETYPE_EDEFAULT;
 
 	/**
-	 * This is true if the Defaultedgetype attribute has been set. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * This is true if the Defaultedgetype attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -97,8 +87,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected boolean defaultedgetypeESet;
 
 	/**
-	 * The default value of the '{@link #getEnd() <em>End</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getEnd() <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getEnd()
 	 * @generated
@@ -107,8 +97,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected static final Object END_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getEnd() <em>End</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getEnd() <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getEnd()
 	 * @generated
@@ -117,8 +106,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected Object end = END_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getEndopen() <em>Endopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getEndopen() <em>Endopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getEndopen()
 	 * @generated
@@ -127,8 +116,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected static final Object ENDOPEN_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getEndopen() <em>Endopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getEndopen() <em>Endopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getEndopen()
 	 * @generated
@@ -137,8 +126,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected Object endopen = ENDOPEN_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getIdtype() <em>Idtype</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getIdtype() <em>Idtype</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getIdtype()
 	 * @generated
@@ -147,8 +136,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected static final IdtypeType IDTYPE_EDEFAULT = IdtypeType.INTEGER;
 
 	/**
-	 * The cached value of the '{@link #getIdtype() <em>Idtype</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getIdtype() <em>Idtype</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getIdtype()
 	 * @generated
@@ -157,8 +146,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected IdtypeType idtype = IDTYPE_EDEFAULT;
 
 	/**
-	 * This is true if the Idtype attribute has been set. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * This is true if the Idtype attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -166,8 +154,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected boolean idtypeESet;
 
 	/**
-	 * The default value of the '{@link #getMode() <em>Mode</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getMode() <em>Mode</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getMode()
 	 * @generated
@@ -176,8 +164,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected static final ModeType MODE_EDEFAULT = ModeType.STATIC;
 
 	/**
-	 * The cached value of the '{@link #getMode() <em>Mode</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getMode() <em>Mode</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getMode()
 	 * @generated
@@ -186,8 +174,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected ModeType mode = MODE_EDEFAULT;
 
 	/**
-	 * This is true if the Mode attribute has been set. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This is true if the Mode attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -195,8 +182,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected boolean modeESet;
 
 	/**
-	 * The default value of the '{@link #getStart() <em>Start</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getStart() <em>Start</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStart()
 	 * @generated
@@ -205,8 +192,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected static final Object START_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getStart() <em>Start</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getStart() <em>Start</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getStart()
 	 * @generated
@@ -215,8 +202,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected Object start = START_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getStartopen() <em>Startopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getStartopen() <em>Startopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStartopen()
 	 * @generated
@@ -225,8 +212,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected static final Object STARTOPEN_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getStartopen() <em>Startopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getStartopen() <em>Startopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStartopen()
 	 * @generated
@@ -235,8 +222,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected Object startopen = STARTOPEN_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getTimeformat() <em>Timeformat</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getTimeformat() <em>Timeformat</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getTimeformat()
 	 * @generated
@@ -245,8 +232,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected static final TimeformatType TIMEFORMAT_EDEFAULT = TimeformatType.INTEGER;
 
 	/**
-	 * The cached value of the '{@link #getTimeformat() <em>Timeformat</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getTimeformat() <em>Timeformat</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getTimeformat()
 	 * @generated
@@ -255,8 +242,7 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	protected TimeformatType timeformat = TIMEFORMAT_EDEFAULT;
 
 	/**
-	 * This is true if the Timeformat attribute has been set. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * This is true if the Timeformat attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -277,7 +263,6 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.GRAPH_CONTENT;
@@ -645,7 +630,6 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -666,7 +650,6 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -706,8 +689,8 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.GRAPH_CONTENT__GROUP:
@@ -758,7 +741,6 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -807,7 +789,6 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -844,7 +825,6 @@ public class GraphContentImpl extends EObjectImpl implements GraphContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

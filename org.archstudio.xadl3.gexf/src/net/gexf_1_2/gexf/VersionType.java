@@ -9,9 +9,8 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc --> A representation of the literals of the enumeration '
- * <em><b>Version Type</b></em>', and utility methods for working with them.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '<em><b>Version Type</b></em>', and
+ * utility methods for working with them. <!-- end-user-doc -->
  * 
  * @see net.gexf_1_2.gexf.GexfPackage#getVersionType()
  * @model extendedMetaData="name='version_._type'"
@@ -19,8 +18,7 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum VersionType implements Enumerator {
 	/**
-	 * The '<em><b>12</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>12</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #_12_VALUE
 	 * @generated
@@ -31,8 +29,8 @@ public enum VersionType implements Enumerator {
 	/**
 	 * The '<em><b>12</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>12</b></em>' literal object isn't clear, there
-	 * really should be more of a description here...
+	 * If the meaning of '<em><b>12</b></em>' literal object isn't clear, there really should be more of a description
+	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -44,24 +42,23 @@ public enum VersionType implements Enumerator {
 	public static final int _12_VALUE = 0;
 
 	/**
-	 * An array of all the '<em><b>Version Type</b></em>' enumerators. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * An array of all the '<em><b>Version Type</b></em>' enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	private static final VersionType[] VALUES_ARRAY = new VersionType[] { _12, };
 
 	/**
-	 * A public read-only list of all the '<em><b>Version Type</b></em>'
-	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * A public read-only list of all the '<em><b>Version Type</b></em>' enumerators. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	public static final List<VersionType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Version Type</b></em>' literal with the specified
-	 * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Version Type</b></em>' literal with the specified literal value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -75,8 +72,8 @@ public enum VersionType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Version Type</b></em>' literal with the specified
-	 * name. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Version Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -90,8 +87,8 @@ public enum VersionType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Version Type</b></em>' literal with the specified
-	 * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Version Type</b></em>' literal with the specified integer value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -125,8 +122,7 @@ public enum VersionType implements Enumerator {
 	private final String literal;
 
 	/**
-	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Only this class can construct instances. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -167,12 +163,11 @@ public enum VersionType implements Enumerator {
 	}
 
 	/**
-	 * Returns the literal value of the enumerator, which is its string
-	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the literal value of the enumerator, which is its string representation. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		return literal;

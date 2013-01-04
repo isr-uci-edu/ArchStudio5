@@ -21,24 +21,18 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Attributes Content</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Attributes Content</b></em>'. <!-- end-user-doc
+ * -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getAttribute <em>
- * Attribute</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getClass_ <em>Class
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getAttribute <em>Attribute</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getClass_ <em>Class</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getEnd <em>End</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getEndopen <em>
- * Endopen</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getMode <em>Mode
- * </em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getStart <em>Start
- * </em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getStartopen <em>
- * Startopen</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getEndopen <em>Endopen</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getMode <em>Mode</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getStart <em>Start</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.AttributesContentImpl#getStartopen <em>Startopen</em>}</li>
  * </ul>
  * </p>
  * 
@@ -46,8 +40,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class AttributesContentImpl extends EObjectImpl implements AttributesContent {
 	/**
-	 * The cached value of the '{@link #getAttribute() <em>Attribute</em>}'
-	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getAttribute() <em>Attribute</em>}' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getAttribute()
 	 * @generated
@@ -56,8 +50,8 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected EList<AttributeContent> attribute;
 
 	/**
-	 * The default value of the '{@link #getClass_() <em>Class</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getClass_() <em>Class</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getClass_()
 	 * @generated
@@ -66,8 +60,8 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected static final ClassType CLASS_EDEFAULT = ClassType.NODE;
 
 	/**
-	 * The cached value of the '{@link #getClass_() <em>Class</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getClass_() <em>Class</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getClass_()
 	 * @generated
@@ -76,8 +70,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected ClassType class_ = CLASS_EDEFAULT;
 
 	/**
-	 * This is true if the Class attribute has been set. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This is true if the Class attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -85,8 +78,8 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected boolean classESet;
 
 	/**
-	 * The default value of the '{@link #getEnd() <em>End</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getEnd() <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getEnd()
 	 * @generated
@@ -95,8 +88,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected static final Object END_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getEnd() <em>End</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getEnd() <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getEnd()
 	 * @generated
@@ -105,8 +97,8 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected Object end = END_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getEndopen() <em>Endopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getEndopen() <em>Endopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getEndopen()
 	 * @generated
@@ -115,8 +107,8 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected static final Object ENDOPEN_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getEndopen() <em>Endopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getEndopen() <em>Endopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getEndopen()
 	 * @generated
@@ -125,8 +117,8 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected Object endopen = ENDOPEN_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getMode() <em>Mode</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getMode() <em>Mode</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getMode()
 	 * @generated
@@ -135,8 +127,8 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected static final ModeType MODE_EDEFAULT = ModeType.STATIC;
 
 	/**
-	 * The cached value of the '{@link #getMode() <em>Mode</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getMode() <em>Mode</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getMode()
 	 * @generated
@@ -145,8 +137,7 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected ModeType mode = MODE_EDEFAULT;
 
 	/**
-	 * This is true if the Mode attribute has been set. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This is true if the Mode attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -154,8 +145,8 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected boolean modeESet;
 
 	/**
-	 * The default value of the '{@link #getStart() <em>Start</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getStart() <em>Start</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStart()
 	 * @generated
@@ -164,8 +155,8 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected static final Object START_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getStart() <em>Start</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getStart() <em>Start</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getStart()
 	 * @generated
@@ -174,8 +165,8 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected Object start = START_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getStartopen() <em>Startopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getStartopen() <em>Startopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStartopen()
 	 * @generated
@@ -184,8 +175,8 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	protected static final Object STARTOPEN_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getStartopen() <em>Startopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getStartopen() <em>Startopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStartopen()
 	 * @generated
@@ -207,7 +198,6 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.ATTRIBUTES_CONTENT;
@@ -439,7 +429,6 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -454,7 +443,6 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -481,8 +469,8 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.ATTRIBUTES_CONTENT__ATTRIBUTE:
@@ -516,7 +504,6 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -550,7 +537,6 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -577,7 +563,6 @@ public class AttributesContentImpl extends EObjectImpl implements AttributesCont
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

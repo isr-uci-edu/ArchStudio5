@@ -5,11 +5,9 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "Myx Impl" MyxGen extension in the
- * org.archstudio.archlight.core plugin.
+ * To modify, update the "Myx Impl" MyxGen extension in the org.archstudio.archlight.core plugin.
  */
 
 /**
@@ -32,6 +30,7 @@ public abstract class ArchlightToolAggregatorMyxComponentStub extends org.archst
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -42,6 +41,7 @@ public abstract class ArchlightToolAggregatorMyxComponentStub extends org.archst
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -136,8 +136,8 @@ public abstract class ArchlightToolAggregatorMyxComponentStub extends org.archst
 	protected org.archstudio.myx.java.conn.IMultiwayProgressListener progress = null;
 
 	/**
-	 * Service object proxy for the progress interface. Calls to this proxy
-	 * object are automatically delegated to all connections on the interface
+	 * Service object proxy for the progress interface. Calls to this proxy object are automatically delegated to all
+	 * connections on the interface
 	 * 
 	 * @see #IN_PROGRESS
 	 * @generated

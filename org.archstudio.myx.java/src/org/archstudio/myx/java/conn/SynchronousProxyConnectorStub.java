@@ -5,11 +5,9 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "Synch Proxy Impl" MyxGen extension in the
- * org.archstudio.myx.java plugin.
+ * To modify, update the "Synch Proxy Impl" MyxGen extension in the org.archstudio.myx.java plugin.
  */
 
 /**
@@ -32,6 +30,7 @@ public abstract class SynchronousProxyConnectorStub extends org.archstudio.myx.f
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -42,6 +41,7 @@ public abstract class SynchronousProxyConnectorStub extends org.archstudio.myx.f
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -136,7 +136,7 @@ public abstract class SynchronousProxyConnectorStub extends org.archstudio.myx.f
 			if (out != null) {
 				throw new IllegalStateException("Only a single connection is supported on interface: out");
 			}
-			out = (java.lang.Object) serviceObject;
+			out = serviceObject;
 			return;
 		}
 

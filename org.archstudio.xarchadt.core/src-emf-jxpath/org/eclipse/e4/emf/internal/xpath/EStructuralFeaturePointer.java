@@ -1,27 +1,21 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements. See the NOTICE file distributed with this
- * work for additional information regarding copyright ownership. The ASF
- * licenses this file to You under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE
+ * file distributed with this work for additional information regarding copyright ownership. The ASF licenses this file
+ * to You under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 /*******************************************************************************
- * Copyright (c) 2010 BestSolution.at and others. All rights reserved. This
- * program and the accompanying materials are made available under the terms of
- * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * Copyright (c) 2010 BestSolution.at and others. All rights reserved. This program and the accompanying materials are
+ * made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is
  * available at http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors: Tom Schindl <tom.schindl@bestsolution.at> - adjustment to
- * EObject
+ * Contributors: Tom Schindl <tom.schindl@bestsolution.at> - adjustment to EObject
  ******************************************************************************/
 package org.eclipse.e4.emf.internal.xpath;
 
@@ -35,8 +29,7 @@ import org.eclipse.e4.emf.internal.xpath.helper.ValueUtils;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * A pointer allocated by a PropertyOwnerPointer to represent the value of a
- * property of the parent object.
+ * A pointer allocated by a PropertyOwnerPointer to represent the value of a property of the parent object.
  * 
  */
 public abstract class EStructuralFeaturePointer extends NodePointer {
@@ -54,8 +47,7 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 	protected Object bean;
 
 	/**
-	 * Takes a javabean, a descriptor of a property of that object and an offset
-	 * within that property (starting with 0).
+	 * Takes a javabean, a descriptor of a property of that object and an offset within that property (starting with 0).
 	 * 
 	 * @param parent
 	 *            parent pointer
@@ -174,8 +166,7 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 	}
 
 	/**
-	 * If the property contains a collection, then the length of that
-	 * collection, otherwise - 1.
+	 * If the property contains a collection, then the length of that collection, otherwise - 1.
 	 * 
 	 * @return int length
 	 */
@@ -185,8 +176,7 @@ public abstract class EStructuralFeaturePointer extends NodePointer {
 	}
 
 	/**
-	 * Returns a NodePointer that can be used to access the currently selected
-	 * property value.
+	 * Returns a NodePointer that can be used to access the currently selected property value.
 	 * 
 	 * @return NodePointer
 	 */

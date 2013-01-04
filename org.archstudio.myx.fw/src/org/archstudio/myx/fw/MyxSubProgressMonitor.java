@@ -1,8 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2007 IBM Corporation and others. All rights reserved.
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v1.0 which accompanies this distribution,
- * and is available at http://www.eclipse.org/legal/epl-v10.html
+ * Copyright (c) 2000, 2007 IBM Corporation and others. All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: IBM Corporation - initial API and implementation
  *******************************************************************************/
@@ -11,8 +10,7 @@ package org.archstudio.myx.fw;
 /**
  * For new implementations consider using {@link SubMonitor}.
  * 
- * A progress monitor that uses a given amount of work ticks from a parent
- * monitor. It can be used as follows:
+ * A progress monitor that uses a given amount of work ticks from a parent monitor. It can be used as follows:
  * 
  * <pre>
  * try {
@@ -44,15 +42,13 @@ package org.archstudio.myx.fw;
 public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 
 	/**
-	 * Style constant indicating that calls to <code>subTask</code> should not
-	 * have any effect.
+	 * Style constant indicating that calls to <code>subTask</code> should not have any effect.
 	 * 
 	 * @see #SubProgressMonitor(IMyxProgressMonitor,int,int)
 	 */
 	public static final int SUPPRESS_SUBTASK_LABEL = 1 << 1;
 	/**
-	 * Style constant indicating that the main task label should be prepended to
-	 * the subtask label.
+	 * Style constant indicating that the main task label should be prepended to the subtask label.
 	 * 
 	 * @see #SubProgressMonitor(IMyxProgressMonitor,int,int)
 	 */
@@ -68,9 +64,8 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	private String mainTaskLabel;
 
 	/**
-	 * Creates a new sub-progress monitor for the given monitor. The sub
-	 * progress monitor uses the given number of work ticks from its parent
-	 * monitor.
+	 * Creates a new sub-progress monitor for the given monitor. The sub progress monitor uses the given number of work
+	 * ticks from its parent monitor.
 	 * 
 	 * @param monitor
 	 *            the parent progress monitor
@@ -82,9 +77,8 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	}
 
 	/**
-	 * Creates a new sub-progress monitor for the given monitor. The sub
-	 * progress monitor uses the given number of work ticks from its parent
-	 * monitor.
+	 * Creates a new sub-progress monitor for the given monitor. The sub progress monitor uses the given number of work
+	 * ticks from its parent monitor.
 	 * 
 	 * @param monitor
 	 *            the parent progress monitor
@@ -106,15 +100,12 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	}
 
 	/*
-	 * (Intentionally not javadoc'd) Implements the method
-	 * <code>IMyxProgressMonitor.beginTask</code>.
+	 * (Intentionally not javadoc'd) Implements the method <code>IMyxProgressMonitor.beginTask</code>.
 	 * 
-	 * Starts a new main task. Since this progress monitor is a sub progress
-	 * monitor, the given name will NOT be used to update the progress bar's
-	 * main task label. That means the given string will be ignored. If style
-	 * <code>PREPEND_MAIN_LABEL_TO_SUBTASK <code> is specified, then the given
-	 * string will be prepended to every string passed to
-	 * <code>subTask(String)</code>.
+	 * Starts a new main task. Since this progress monitor is a sub progress monitor, the given name will NOT be used to
+	 * update the progress bar's main task label. That means the given string will be ignored. If style
+	 * <code>PREPEND_MAIN_LABEL_TO_SUBTASK <code> is specified, then the given string will be prepended to every string
+	 * passed to <code>subTask(String)</code>.
 	 */
 	@Override
 	public void beginTask(String name, int totalWork) {
@@ -133,8 +124,7 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	}
 
 	/*
-	 * (Intentionally not javadoc'd) Implements the method
-	 * <code>IMyxProgressMonitor.done</code>.
+	 * (Intentionally not javadoc'd) Implements the method <code>IMyxProgressMonitor.done</code>.
 	 */
 	@Override
 	public void done() {
@@ -156,8 +146,7 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	}
 
 	/*
-	 * (Intentionally not javadoc'd) Implements the internal method
-	 * <code>IMyxProgressMonitor.internalWorked</code>.
+	 * (Intentionally not javadoc'd) Implements the internal method <code>IMyxProgressMonitor.internalWorked</code>.
 	 */
 	@Override
 	public void internalWorked(double work) {
@@ -174,8 +163,7 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	}
 
 	/*
-	 * (Intentionally not javadoc'd) Implements the method
-	 * <code>IMyxProgressMonitor.subTask</code>.
+	 * (Intentionally not javadoc'd) Implements the method <code>IMyxProgressMonitor.subTask</code>.
 	 */
 	@Override
 	public void subTask(String name) {
@@ -191,8 +179,7 @@ public class MyxSubProgressMonitor extends MyxProgressMonitorWrapper {
 	}
 
 	/*
-	 * (Intentionally not javadoc'd) Implements the method
-	 * <code>IMyxProgressMonitor.worked</code>.
+	 * (Intentionally not javadoc'd) Implements the method <code>IMyxProgressMonitor.worked</code>.
 	 */
 	@Override
 	public void worked(int work) {

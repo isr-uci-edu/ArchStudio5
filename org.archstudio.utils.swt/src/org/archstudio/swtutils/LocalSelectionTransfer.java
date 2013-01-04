@@ -1,8 +1,7 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2004 IBM Corporation and others. All rights reserved.
- * This program and the accompanying materials are made available under the
- * terms of the Common Public License v1.0 which accompanies this distribution,
- * and is available at http://www.eclipse.org/legal/cpl-v10.html
+ * Copyright (c) 2000, 2004 IBM Corporation and others. All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Common Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/cpl-v10.html
  * 
  * Contributors: IBM Corporation - initial API and implementation
  *******************************************************************************/
@@ -18,11 +17,10 @@ import org.eclipse.swt.dnd.TransferData;
 // import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 
 /**
- * A LocalSelectionTransfer may be used for drag and drop operations within the
- * same instance of Eclipse. The selection is made available directly for use in
- * the DropTargetListener. dropAccept method. The DropTargetEvent passed to
- * dropAccept does not contain the drop data. The selection may be used for
- * validation purposes so that the drop can be aborted if appropriate.
+ * A LocalSelectionTransfer may be used for drag and drop operations within the same instance of Eclipse. The selection
+ * is made available directly for use in the DropTargetListener. dropAccept method. The DropTargetEvent passed to
+ * dropAccept does not contain the drop data. The selection may be used for validation purposes so that the drop can be
+ * aborted if appropriate.
  * 
  * This class is not intended to be subclassed.
  * 
@@ -72,8 +70,7 @@ public class LocalSelectionTransfer extends ByteArrayTransfer {
 	 * 
 	 * @param result
 	 *            result of converting the native drop data to Java
-	 * @return true if the native drop data does not match this transfer type.
-	 *         false otherwise.
+	 * @return true if the native drop data does not match this transfer type. false otherwise.
 	 */
 	private boolean isInvalidNativeType(Object result) {
 		return !(result instanceof byte[]) || !TYPE_NAME.equals(new String((byte[]) result));
@@ -100,12 +97,10 @@ public class LocalSelectionTransfer extends ByteArrayTransfer {
 	}
 
 	/**
-	 * Overrides org.eclipse.swt.dnd.ByteArrayTransfer#javaToNative(Object,
-	 * TransferData). Only encode the transfer type name since the selection is
-	 * read and written in the same process.
+	 * Overrides org.eclipse.swt.dnd.ByteArrayTransfer#javaToNative(Object, TransferData). Only encode the transfer type
+	 * name since the selection is read and written in the same process.
 	 * 
-	 * @see org.eclipse.swt.dnd.ByteArrayTransfer#javaToNative(java.lang.Object,
-	 *      org.eclipse.swt.dnd.TransferData)
+	 * @see org.eclipse.swt.dnd.ByteArrayTransfer#javaToNative(java.lang.Object, org.eclipse.swt.dnd.TransferData)
 	 */
 	@Override
 	public void javaToNative(Object object, TransferData transferData) {
@@ -117,9 +112,8 @@ public class LocalSelectionTransfer extends ByteArrayTransfer {
 	}
 
 	/**
-	 * Overrides
-	 * org.eclipse.swt.dnd.ByteArrayTransfer#nativeToJava(TransferData). Test if
-	 * the native drop data matches this transfer type.
+	 * Overrides org.eclipse.swt.dnd.ByteArrayTransfer#nativeToJava(TransferData). Test if the native drop data matches
+	 * this transfer type.
 	 * 
 	 * @see org.eclipse.swt.dnd.ByteArrayTransfer#nativeToJava(TransferData)
 	 */
@@ -143,8 +137,7 @@ public class LocalSelectionTransfer extends ByteArrayTransfer {
 	}
 
 	/**
-	 * Returns the time when the selection operation this transfer is associated
-	 * with was started.
+	 * Returns the time when the selection operation this transfer is associated with was started.
 	 * 
 	 * @return the time when the selection operation has started
 	 * 
@@ -155,9 +148,8 @@ public class LocalSelectionTransfer extends ByteArrayTransfer {
 	}
 
 	/**
-	 * Sets the time when the selection operation this transfer is associated
-	 * with was started. If assigning this from an SWT event, be sure to use
-	 * <code>setSelectionTime(event.time & 0xFFFF)</code>
+	 * Sets the time when the selection operation this transfer is associated with was started. If assigning this from
+	 * an SWT event, be sure to use <code>setSelectionTime(event.time & 0xFFFF)</code>
 	 * 
 	 * @param time
 	 *            the time when the selection operation was started

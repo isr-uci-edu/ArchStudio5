@@ -49,8 +49,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import com.google.common.base.Function;
 
 /**
- * Maps xADL Bricks (i.e., Components or Connectors) to BNA Rectangle
- * Assemblies.
+ * Maps xADL Bricks (i.e., Components or Connectors) to BNA Rectangle Assemblies.
  */
 public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThing> implements IPropertyChangeListener {
 	protected final Services services;

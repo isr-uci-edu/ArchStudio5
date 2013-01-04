@@ -7,52 +7,42 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '
- * <em><b>Relationship</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Relationship</b></em>'. <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.archstudio.xadl3.variability_3_0.Relationship#getExt <em>Ext
- * </em>}</li>
- * <li>{@link org.archstudio.xadl3.variability_3_0.Relationship#getId <em>Id
- * </em>}</li>
- * <li>{@link org.archstudio.xadl3.variability_3_0.Relationship#getName <em>Name
- * </em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.Relationship#getExt <em>Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.Relationship#getId <em>Id</em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.Relationship#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  * 
  * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getRelationship()
- * @model abstract="true"
- *        extendedMetaData="name='Relationship' kind='elementOnly'"
+ * @model abstract="true" extendedMetaData="name='Relationship' kind='elementOnly'"
  * @generated
  */
 public interface Relationship extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Ext</b></em>' containment reference
-	 * list. The list contents are of type
-	 * {@link org.archstudio.xadl3.xadlcore_3_0.Extension}. <!-- begin-user-doc
-	 * -->
+	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.xadlcore_3_0.Extension}. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Ext</em>' containment reference list isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of the '<em>Ext</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Ext</em>' containment reference list.
 	 * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getRelationship_Ext()
-	 * @model containment="true" extendedMetaData=
-	 *        "kind='element' name='ext' namespace='##targetNamespace'"
+	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
 	 * @generated
 	 */
 	EList<Extension> getExt();
 
 	/**
-	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Id</em>' attribute isn't clear, there really
-	 * should be more of a description here...
+	 * If the meaning of the '<em>Id</em>' attribute isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -60,16 +50,14 @@ public interface Relationship extends EObject {
 	 * @see #setId(String)
 	 * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getRelationship_Id()
 	 * @model id="true" dataType="org.eclipse.emf.ecore.xml.type.ID"
-	 *        extendedMetaData
-	 *        ="kind='attribute' name='id' namespace='##targetNamespace'"
+	 *        extendedMetaData="kind='attribute' name='id' namespace='##targetNamespace'"
 	 * @generated
 	 */
 	String getId();
 
 	/**
-	 * Sets the value of the '
-	 * {@link org.archstudio.xadl3.variability_3_0.Relationship#getId
-	 * <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link org.archstudio.xadl3.variability_3_0.Relationship#getId <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>Id</em>' attribute.
@@ -79,27 +67,24 @@ public interface Relationship extends EObject {
 	void setId(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Name</em>' attribute isn't clear, there really
-	 * should be more of a description here...
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see org.archstudio.xadl3.variability_3_0.Variability_3_0Package#getRelationship_Name()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" extendedMetaData=
-	 *        "kind='attribute' name='name' namespace='##targetNamespace'"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+	 *        extendedMetaData="kind='attribute' name='name' namespace='##targetNamespace'"
 	 * @generated
 	 */
 	String getName();
 
 	/**
-	 * Sets the value of the '
-	 * {@link org.archstudio.xadl3.variability_3_0.Relationship#getName
-	 * <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link org.archstudio.xadl3.variability_3_0.Relationship#getName <em>Name</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>Name</em>' attribute.

@@ -25,28 +25,23 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Edge Content</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Edge Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getGroup <em>Group</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getAttvalues <em>Attvalues
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getAttvalues <em>Attvalues</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getSpells <em>Spells</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getColor <em>Color</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getThickness <em>Thickness
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getThickness <em>Thickness</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getShape <em>Shape</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getEnd <em>End</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getEndopen <em>Endopen
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getEndopen <em>Endopen</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getId <em>Id</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getLabel <em>Label</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getSource <em>Source</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getStart <em>Start</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getStartopen <em>Startopen
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getStartopen <em>Startopen</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getTarget <em>Target</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getType <em>Type</em>}</li>
  * <li>{@link net.gexf_1_2.gexf.impl.EdgeContentImpl#getWeight <em>Weight</em>}</li>
@@ -57,8 +52,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	/**
-	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getGroup()
 	 * @generated
@@ -67,8 +62,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected FeatureMap group;
 
 	/**
-	 * The default value of the '{@link #getEnd() <em>End</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getEnd() <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getEnd()
 	 * @generated
@@ -77,8 +72,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected static final Object END_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getEnd() <em>End</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getEnd() <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getEnd()
 	 * @generated
@@ -87,8 +81,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected Object end = END_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getEndopen() <em>Endopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getEndopen() <em>Endopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getEndopen()
 	 * @generated
@@ -97,8 +91,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected static final Object ENDOPEN_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getEndopen() <em>Endopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getEndopen() <em>Endopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getEndopen()
 	 * @generated
@@ -107,8 +101,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected Object endopen = ENDOPEN_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -117,8 +110,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected static final Object ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -127,8 +119,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected Object id = ID_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getLabel()
 	 * @generated
@@ -137,8 +129,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected static final String LABEL_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getLabel()
 	 * @generated
@@ -147,8 +139,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected String label = LABEL_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getSource() <em>Source</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getSource() <em>Source</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getSource()
 	 * @generated
@@ -157,8 +149,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected static final Object SOURCE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getSource() <em>Source</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getSource() <em>Source</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getSource()
 	 * @generated
@@ -167,8 +159,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected Object source = SOURCE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getStart() <em>Start</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getStart() <em>Start</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStart()
 	 * @generated
@@ -177,8 +169,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected static final Object START_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getStart() <em>Start</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getStart() <em>Start</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getStart()
 	 * @generated
@@ -187,8 +179,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected Object start = START_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getStartopen() <em>Startopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getStartopen() <em>Startopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStartopen()
 	 * @generated
@@ -197,8 +189,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected static final Object STARTOPEN_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getStartopen() <em>Startopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getStartopen() <em>Startopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStartopen()
 	 * @generated
@@ -207,8 +199,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected Object startopen = STARTOPEN_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getTarget() <em>Target</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getTarget() <em>Target</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getTarget()
 	 * @generated
@@ -217,8 +209,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected static final Object TARGET_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTarget() <em>Target</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getTarget() <em>Target</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getTarget()
 	 * @generated
@@ -227,8 +219,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected Object target = TARGET_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getType()
 	 * @generated
@@ -237,8 +229,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected static final EdgetypeType TYPE_EDEFAULT = EdgetypeType.DIRECTED;
 
 	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getType()
 	 * @generated
@@ -247,8 +239,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected EdgetypeType type = TYPE_EDEFAULT;
 
 	/**
-	 * This is true if the Type attribute has been set. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This is true if the Type attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -256,8 +247,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected boolean typeESet;
 
 	/**
-	 * The default value of the '{@link #getWeight() <em>Weight</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getWeight()
 	 * @generated
@@ -266,8 +257,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected static final float WEIGHT_EDEFAULT = 0.0F;
 
 	/**
-	 * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getWeight()
 	 * @generated
@@ -276,8 +267,7 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	protected float weight = WEIGHT_EDEFAULT;
 
 	/**
-	 * This is true if the Weight attribute has been set. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * This is true if the Weight attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -298,7 +288,6 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.EDGE_CONTENT;
@@ -674,7 +663,6 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -699,7 +687,6 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -747,8 +734,8 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.EDGE_CONTENT__GROUP:
@@ -813,7 +800,6 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -874,7 +860,6 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -919,7 +904,6 @@ public class EdgeContentImpl extends EObjectImpl implements EdgeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

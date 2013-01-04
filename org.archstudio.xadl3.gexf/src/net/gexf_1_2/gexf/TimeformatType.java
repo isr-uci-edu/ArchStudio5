@@ -9,9 +9,8 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc --> A representation of the literals of the enumeration '
- * <em><b>Timeformat Type</b></em>', and utility methods for working with them.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '<em><b>Timeformat Type</b></em>', and
+ * utility methods for working with them. <!-- end-user-doc -->
  * 
  * @see net.gexf_1_2.gexf.GexfPackage#getTimeformatType()
  * @model extendedMetaData="name='timeformat-type'"
@@ -19,8 +18,7 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum TimeformatType implements Enumerator {
 	/**
-	 * The '<em><b>Integer</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Integer</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #INTEGER_VALUE
 	 * @generated
@@ -29,8 +27,7 @@ public enum TimeformatType implements Enumerator {
 	INTEGER(0, "integer", "integer"),
 
 	/**
-	 * The '<em><b>Double</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>Double</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #DOUBLE_VALUE
 	 * @generated
@@ -39,8 +36,7 @@ public enum TimeformatType implements Enumerator {
 	DOUBLE(1, "double", "double"),
 
 	/**
-	 * The '<em><b>Date</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>Date</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #DATE_VALUE
 	 * @generated
@@ -49,8 +45,7 @@ public enum TimeformatType implements Enumerator {
 	DATE(2, "date", "date"),
 
 	/**
-	 * The '<em><b>Date Time</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Date Time</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #DATE_TIME_VALUE
 	 * @generated
@@ -61,8 +56,8 @@ public enum TimeformatType implements Enumerator {
 	/**
 	 * The '<em><b>Integer</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Integer</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Integer</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -76,8 +71,8 @@ public enum TimeformatType implements Enumerator {
 	/**
 	 * The '<em><b>Double</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Double</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Double</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -91,8 +86,8 @@ public enum TimeformatType implements Enumerator {
 	/**
 	 * The '<em><b>Date</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Date</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Date</b></em>' literal object isn't clear, there really should be more of a description
+	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -106,8 +101,8 @@ public enum TimeformatType implements Enumerator {
 	/**
 	 * The '<em><b>Date Time</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Date Time</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Date Time</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -119,24 +114,23 @@ public enum TimeformatType implements Enumerator {
 	public static final int DATE_TIME_VALUE = 3;
 
 	/**
-	 * An array of all the '<em><b>Timeformat Type</b></em>' enumerators. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * An array of all the '<em><b>Timeformat Type</b></em>' enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	private static final TimeformatType[] VALUES_ARRAY = new TimeformatType[] { INTEGER, DOUBLE, DATE, DATE_TIME, };
 
 	/**
-	 * A public read-only list of all the '<em><b>Timeformat Type</b></em>'
-	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * A public read-only list of all the '<em><b>Timeformat Type</b></em>' enumerators. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	public static final List<TimeformatType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Timeformat Type</b></em>' literal with the specified
-	 * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Timeformat Type</b></em>' literal with the specified literal value. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -150,8 +144,8 @@ public enum TimeformatType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Timeformat Type</b></em>' literal with the specified
-	 * name. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Timeformat Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -165,8 +159,8 @@ public enum TimeformatType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Timeformat Type</b></em>' literal with the specified
-	 * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Timeformat Type</b></em>' literal with the specified integer value. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -206,8 +200,7 @@ public enum TimeformatType implements Enumerator {
 	private final String literal;
 
 	/**
-	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Only this class can construct instances. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -248,12 +241,11 @@ public enum TimeformatType implements Enumerator {
 	}
 
 	/**
-	 * Returns the literal value of the enumerator, which is its string
-	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the literal value of the enumerator, which is its string representation. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		return literal;

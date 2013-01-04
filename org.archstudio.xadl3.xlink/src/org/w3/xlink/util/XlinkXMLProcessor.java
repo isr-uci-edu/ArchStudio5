@@ -10,16 +10,15 @@ import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
 import org.w3.xlink.XlinkPackage;
 
 /**
- * This class contains helper methods to serialize and deserialize XML documents
- * <!-- begin-user-doc --> <!-- end-user-doc -->
+ * This class contains helper methods to serialize and deserialize XML documents <!-- begin-user-doc --> <!--
+ * end-user-doc -->
  * 
  * @generated
  */
 public class XlinkXMLProcessor extends XMLProcessor {
 
 	/**
-	 * Public constructor to instantiate the helper. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Public constructor to instantiate the helper. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -29,12 +28,11 @@ public class XlinkXMLProcessor extends XMLProcessor {
 	}
 
 	/**
-	 * Register for "*" and "xml" file extensions the XlinkResourceFactoryImpl
-	 * factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Register for "*" and "xml" file extensions the XlinkResourceFactoryImpl factory. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected Map<String, Resource.Factory> getRegistrations() {
 		if (registrations == null) {

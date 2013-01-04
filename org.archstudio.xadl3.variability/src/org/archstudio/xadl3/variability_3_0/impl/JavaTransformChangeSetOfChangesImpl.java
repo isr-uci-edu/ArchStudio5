@@ -9,17 +9,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Java Transform Change Set Of Changes</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Java Transform Change Set Of Changes</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl#getBundle
- * <em>Bundle</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl#getClass_
- * <em>Class</em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl#getBundle <em>Bundle</em>}</li>
+ * <li>{@link org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl#getClass_ <em>Class</em>}</li>
  * </ul>
  * </p>
  * 
@@ -28,8 +24,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfChangesImpl implements
 		JavaTransformChangeSetOfChanges {
 	/**
-	 * The default value of the '{@link #getBundle() <em>Bundle</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getBundle() <em>Bundle</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getBundle()
 	 * @generated
@@ -38,8 +34,8 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	protected static final String BUNDLE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getBundle() <em>Bundle</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getBundle() <em>Bundle</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getBundle()
 	 * @generated
@@ -48,8 +44,8 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	protected String bundle = BUNDLE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getClass_() <em>Class</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getClass_() <em>Class</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getClass_()
 	 * @generated
@@ -58,8 +54,8 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	protected static final String CLASS_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getClass_() <em>Class</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getClass_() <em>Class</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getClass_()
 	 * @generated
@@ -81,7 +77,6 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Variability_3_0Package.Literals.JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES;
@@ -142,7 +137,6 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -159,7 +153,6 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -178,7 +171,6 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -197,7 +189,6 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -214,7 +205,6 @@ public class JavaTransformChangeSetOfChangesImpl extends TransformChangeSetOfCha
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

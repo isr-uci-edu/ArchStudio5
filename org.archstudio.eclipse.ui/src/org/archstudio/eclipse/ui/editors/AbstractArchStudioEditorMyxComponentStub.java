@@ -5,11 +5,10 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "Abstract ArchStudio Editor Component Impl" MyxGen
- * extension in the org.archstudio.eclipse.ui plugin.
+ * To modify, update the "Abstract ArchStudio Editor Component Impl" MyxGen extension in the org.archstudio.eclipse.ui
+ * plugin.
  */
 
 /**
@@ -32,6 +31,7 @@ public abstract class AbstractArchStudioEditorMyxComponentStub extends org.archs
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -42,6 +42,7 @@ public abstract class AbstractArchStudioEditorMyxComponentStub extends org.archs
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -111,9 +112,8 @@ public abstract class AbstractArchStudioEditorMyxComponentStub extends org.archs
 	public static final IMyxName IN_FOCUS_EDITOR_EVENTS = MyxUtils.createName("focusEditorEvents");
 
 	/**
-	 * Service object proxy for the focusEditorEvents interface. Calls to this
-	 * proxy object are automatically delegated to all service objects in the
-	 * MyxRegistry of type org.archstudio.eclipse.ui.IFocusEditorListener.
+	 * Service object proxy for the focusEditorEvents interface. Calls to this proxy object are automatically delegated
+	 * to all service objects in the MyxRegistry of type org.archstudio.eclipse.ui.IFocusEditorListener.
 	 * 
 	 * @see #IN_FOCUS_EDITOR_EVENTS
 	 * @generated
@@ -185,9 +185,8 @@ public abstract class AbstractArchStudioEditorMyxComponentStub extends org.archs
 	public static final IMyxName IN_FILE_MANAGER_EVENTS = MyxUtils.createName("fileManagerEvents");
 
 	/**
-	 * Service object proxy for the fileManagerEvents interface. Calls to this
-	 * proxy object are automatically delegated to all service objects in the
-	 * MyxRegistry of type org.archstudio.filemanager.IFileManagerListener.
+	 * Service object proxy for the fileManagerEvents interface. Calls to this proxy object are automatically delegated
+	 * to all service objects in the MyxRegistry of type org.archstudio.filemanager.IFileManagerListener.
 	 * 
 	 * @see #IN_FILE_MANAGER_EVENTS
 	 * @generated
@@ -259,9 +258,8 @@ public abstract class AbstractArchStudioEditorMyxComponentStub extends org.archs
 	public static final IMyxName IN_FILE_EVENTS = MyxUtils.createName("fileEvents");
 
 	/**
-	 * Service object proxy for the fileEvents interface. Calls to this proxy
-	 * object are automatically delegated to all service objects in the
-	 * MyxRegistry of type org.archstudio.xarchadt.IXArchADTFileListener.
+	 * Service object proxy for the fileEvents interface. Calls to this proxy object are automatically delegated to all
+	 * service objects in the MyxRegistry of type org.archstudio.xarchadt.IXArchADTFileListener.
 	 * 
 	 * @see #IN_FILE_EVENTS
 	 * @generated
@@ -305,9 +303,8 @@ public abstract class AbstractArchStudioEditorMyxComponentStub extends org.archs
 	public static final IMyxName IN_MODEL_EVENTS = MyxUtils.createName("modelEvents");
 
 	/**
-	 * Service object proxy for the modelEvents interface. Calls to this proxy
-	 * object are automatically delegated to all service objects in the
-	 * MyxRegistry of type org.archstudio.xarchadt.IXArchADTModelListener.
+	 * Service object proxy for the modelEvents interface. Calls to this proxy object are automatically delegated to all
+	 * service objects in the MyxRegistry of type org.archstudio.xarchadt.IXArchADTModelListener.
 	 * 
 	 * @see #IN_MODEL_EVENTS
 	 * @generated
@@ -368,9 +365,8 @@ public abstract class AbstractArchStudioEditorMyxComponentStub extends org.archs
 	public static final IMyxName IN_VARIABILITY_EVENTS = MyxUtils.createName("variabilityEvents");
 
 	/**
-	 * Service object proxy for the variabilityEvents interface. Calls to this
-	 * proxy object are automatically delegated to all service objects in the
-	 * MyxRegistry of type
+	 * Service object proxy for the variabilityEvents interface. Calls to this proxy object are automatically delegated
+	 * to all service objects in the MyxRegistry of type
 	 * org.archstudio.xarchadt.variability.IXArchADTVariabilityListener.
 	 * 
 	 * @see #IN_VARIABILITY_EVENTS

@@ -20,22 +20,15 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Statechart</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Statechart</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getState
- * <em>State</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getTransition
- * <em>Transition</em>}</li>
- * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getExt
- * <em>Ext</em>}</li>
- * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getId <em>
- * Id</em>}</li>
- * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getName
- * <em>Name</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getState <em>State</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getTransition <em>Transition</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getExt <em>Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getId <em>Id</em>}</li>
+ * <li>{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  * 
@@ -43,8 +36,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class StatechartImpl extends EObjectImpl implements Statechart {
 	/**
-	 * The cached value of the '{@link #getState() <em>State</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getState() <em>State</em>}' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getState()
 	 * @generated
@@ -53,8 +46,8 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	protected EList<PseudoState> state;
 
 	/**
-	 * The cached value of the '{@link #getTransition() <em>Transition</em>}'
-	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getTransition() <em>Transition</em>}' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getTransition()
 	 * @generated
@@ -63,8 +56,8 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	protected EList<Transition> transition;
 
 	/**
-	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getExt()
 	 * @generated
@@ -73,8 +66,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	protected EList<Extension> ext;
 
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -83,8 +75,7 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -93,8 +84,8 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	protected String id = ID_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getName()
 	 * @generated
@@ -103,8 +94,8 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getName()
 	 * @generated
@@ -126,7 +117,6 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Statechart_1_0Package.Literals.STATECHART;
@@ -226,7 +216,6 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -245,7 +234,6 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -268,8 +256,8 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Statechart_1_0Package.STATECHART__STATE:
@@ -299,7 +287,6 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -327,7 +314,6 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -350,7 +336,6 @@ public class StatechartImpl extends EObjectImpl implements Statechart {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

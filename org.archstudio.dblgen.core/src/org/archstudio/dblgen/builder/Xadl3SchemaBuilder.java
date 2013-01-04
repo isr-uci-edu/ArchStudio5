@@ -44,9 +44,8 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 	public static final String BUILDER_ID = "org.archstudio.dblgen.xadl3SchemaBuilder";
 
 	/*
-	 * This ID has to match one in the plugin.xml file for this to work, and for
-	 * these to show up in the problems view, the marker type has to have the
-	 * Problem marker type set as a 'super' in its attributes.
+	 * This ID has to match one in the plugin.xml file for this to work, and for these to show up in the problems view,
+	 * the marker type has to have the Problem marker type set as a 'super' in its attributes.
 	 */
 	public static final String MARKER_TYPE = "org.archstudio.dblgen.xadl3SchemaBuilderProblem";
 
@@ -149,8 +148,7 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 
 	private void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor) throws IOException, CoreException {
 		/*
-		 * See if anything in the model directory changed that would require a
-		 * rebuild. If so, do a full build.
+		 * See if anything in the model directory changed that would require a rebuild. If so, do a full build.
 		 */
 		Xadl3ResourceDeltaVisitor visitor = new Xadl3ResourceDeltaVisitor(getProject());
 		delta.accept(visitor);

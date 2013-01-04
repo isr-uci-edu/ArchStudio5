@@ -17,15 +17,12 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Archlight</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Archlight</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.ArchlightImpl#getTest <em>
- * Test</em>}</li>
- * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.ArchlightImpl#getExt <em>
- * Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.ArchlightImpl#getTest <em>Test</em>}</li>
+ * <li>{@link org.archstudio.xadl3.archlight_3_0.impl.ArchlightImpl#getExt <em>Ext</em>}</li>
  * </ul>
  * </p>
  * 
@@ -33,8 +30,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ArchlightImpl extends EObjectImpl implements Archlight {
 	/**
-	 * The cached value of the '{@link #getTest() <em>Test</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getTest() <em>Test</em>}' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getTest()
 	 * @generated
@@ -43,8 +40,8 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	protected EList<Test> test;
 
 	/**
-	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getExt()
 	 * @generated
@@ -66,7 +63,6 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Archlight_3_0Package.Literals.ARCHLIGHT;
@@ -103,7 +99,6 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -120,7 +115,6 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -137,8 +131,8 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Archlight_3_0Package.ARCHLIGHT__TEST:
@@ -158,7 +152,6 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -177,7 +170,6 @@ public class ArchlightImpl extends EObjectImpl implements Archlight {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {

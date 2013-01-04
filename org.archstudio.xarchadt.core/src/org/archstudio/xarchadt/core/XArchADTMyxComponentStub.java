@@ -5,11 +5,9 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "XArch ADT Impl" MyxGen extension in the
- * org.archstudio.xarchadt.core plugin.
+ * To modify, update the "XArch ADT Impl" MyxGen extension in the org.archstudio.xarchadt.core plugin.
  */
 
 /**
@@ -32,6 +30,7 @@ public abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.Abs
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -42,6 +41,7 @@ public abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.Abs
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -63,8 +63,8 @@ public abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.Abs
 	protected final java.util.Collection<org.archstudio.xarchadt.IXArchADTFileListener> fileEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTFileListener>();
 
 	/**
-	 * Service object proxy for the fileEvents interface. Calls to this proxy
-	 * object are automatically delegated to all connections on the interface
+	 * Service object proxy for the fileEvents interface. Calls to this proxy object are automatically delegated to all
+	 * connections on the interface
 	 * 
 	 * @see #OUT_FILE_EVENTS
 	 * @generated
@@ -114,8 +114,8 @@ public abstract class XArchADTMyxComponentStub extends org.archstudio.myx.fw.Abs
 	protected final java.util.Collection<org.archstudio.xarchadt.IXArchADTModelListener> modelEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTModelListener>();
 
 	/**
-	 * Service object proxy for the modelEvents interface. Calls to this proxy
-	 * object are automatically delegated to all connections on the interface
+	 * Service object proxy for the modelEvents interface. Calls to this proxy object are automatically delegated to all
+	 * connections on the interface
 	 * 
 	 * @see #OUT_MODEL_EVENTS
 	 * @generated

@@ -17,8 +17,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Spells Content</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Spells Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -30,8 +29,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	/**
-	 * The cached value of the '{@link #getSpell() <em>Spell</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getSpell() <em>Spell</em>}' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getSpell()
 	 * @generated
@@ -53,7 +52,6 @@ public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.SPELLS_CONTENT;
@@ -77,7 +75,6 @@ public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -92,7 +89,6 @@ public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -107,8 +103,8 @@ public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.SPELLS_CONTENT__SPELL:
@@ -124,7 +120,6 @@ public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -140,7 +135,6 @@ public class SpellsContentImpl extends EObjectImpl implements SpellsContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {

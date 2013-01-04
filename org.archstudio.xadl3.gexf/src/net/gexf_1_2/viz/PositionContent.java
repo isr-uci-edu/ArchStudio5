@@ -7,8 +7,8 @@ import net.gexf_1_2.gexf.SpellsContent;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '
- * <em><b>Position Content</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Position Content</b></em>'. <!-- end-user-doc
+ * -->
  * 
  * <p>
  * The following features are supported:
@@ -30,27 +30,24 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface PositionContent extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Spells</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Spells</b></em>' containment reference. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Spells</em>' containment reference isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of the '<em>Spells</em>' containment reference isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Spells</em>' containment reference.
 	 * @see #setSpells(SpellsContent)
 	 * @see net.gexf_1_2.viz.VizPackage#getPositionContent_Spells()
-	 * @model containment="true" extendedMetaData=
-	 *        "kind='element' name='spells' namespace='##targetNamespace'"
+	 * @model containment="true" extendedMetaData="kind='element' name='spells' namespace='##targetNamespace'"
 	 * @generated
 	 */
 	SpellsContent getSpells();
 
 	/**
-	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getSpells
-	 * <em>Spells</em>}' containment reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getSpells <em>Spells</em>}' containment reference.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>Spells</em>' containment reference.
@@ -60,26 +57,23 @@ public interface PositionContent extends EObject {
 	void setSpells(SpellsContent value);
 
 	/**
-	 * Returns the value of the '<em><b>End</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>End</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>End</em>' attribute isn't clear, there really
-	 * should be more of a description here...
+	 * If the meaning of the '<em>End</em>' attribute isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>End</em>' attribute.
 	 * @see #setEnd(Object)
 	 * @see net.gexf_1_2.viz.VizPackage#getPositionContent_End()
-	 * @model dataType="net.gexf_1_2.gexf.TimeType"
-	 *        extendedMetaData="kind='attribute' name='end'"
+	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='end'"
 	 * @generated
 	 */
 	Object getEnd();
 
 	/**
-	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getEnd
-	 * <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getEnd <em>End</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>End</em>' attribute.
@@ -89,27 +83,24 @@ public interface PositionContent extends EObject {
 	void setEnd(Object value);
 
 	/**
-	 * Returns the value of the '<em><b>Endopen</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Endopen</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Endopen</em>' attribute isn't clear, there
-	 * really should be more of a description here...
+	 * If the meaning of the '<em>Endopen</em>' attribute isn't clear, there really should be more of a description
+	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Endopen</em>' attribute.
 	 * @see #setEndopen(Object)
 	 * @see net.gexf_1_2.viz.VizPackage#getPositionContent_Endopen()
-	 * @model dataType="net.gexf_1_2.gexf.TimeType"
-	 *        extendedMetaData="kind='attribute' name='endopen'"
+	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='endopen'"
 	 * @generated
 	 */
 	Object getEndopen();
 
 	/**
-	 * Sets the value of the '
-	 * {@link net.gexf_1_2.viz.PositionContent#getEndopen <em>Endopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getEndopen <em>Endopen</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>Endopen</em>' attribute.
@@ -119,26 +110,24 @@ public interface PositionContent extends EObject {
 	void setEndopen(Object value);
 
 	/**
-	 * Returns the value of the '<em><b>Start</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Start</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Start</em>' attribute isn't clear, there
-	 * really should be more of a description here...
+	 * If the meaning of the '<em>Start</em>' attribute isn't clear, there really should be more of a description
+	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Start</em>' attribute.
 	 * @see #setStart(Object)
 	 * @see net.gexf_1_2.viz.VizPackage#getPositionContent_Start()
-	 * @model dataType="net.gexf_1_2.gexf.TimeType"
-	 *        extendedMetaData="kind='attribute' name='start'"
+	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='start'"
 	 * @generated
 	 */
 	Object getStart();
 
 	/**
-	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getStart
-	 * <em>Start</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getStart <em>Start</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>Start</em>' attribute.
@@ -148,27 +137,24 @@ public interface PositionContent extends EObject {
 	void setStart(Object value);
 
 	/**
-	 * Returns the value of the '<em><b>Startopen</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Startopen</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Startopen</em>' attribute isn't clear, there
-	 * really should be more of a description here...
+	 * If the meaning of the '<em>Startopen</em>' attribute isn't clear, there really should be more of a description
+	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Startopen</em>' attribute.
 	 * @see #setStartopen(Object)
 	 * @see net.gexf_1_2.viz.VizPackage#getPositionContent_Startopen()
-	 * @model dataType="net.gexf_1_2.gexf.TimeType"
-	 *        extendedMetaData="kind='attribute' name='startopen'"
+	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='startopen'"
 	 * @generated
 	 */
 	Object getStartopen();
 
 	/**
-	 * Sets the value of the '
-	 * {@link net.gexf_1_2.viz.PositionContent#getStartopen <em>Startopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getStartopen <em>Startopen</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>Startopen</em>' attribute.
@@ -178,11 +164,9 @@ public interface PositionContent extends EObject {
 	void setStartopen(Object value);
 
 	/**
-	 * Returns the value of the '<em><b>X</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>X</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>X</em>' attribute isn't clear, there really
-	 * should be more of a description here...
+	 * If the meaning of the '<em>X</em>' attribute isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -191,15 +175,15 @@ public interface PositionContent extends EObject {
 	 * @see #unsetX()
 	 * @see #setX(float)
 	 * @see net.gexf_1_2.viz.VizPackage#getPositionContent_X()
-	 * @model unsettable="true" dataType="net.gexf_1_2.viz.SpacePoint"
-	 *        required="true" extendedMetaData="kind='attribute' name='x'"
+	 * @model unsettable="true" dataType="net.gexf_1_2.viz.SpacePoint" required="true"
+	 *        extendedMetaData="kind='attribute' name='x'"
 	 * @generated
 	 */
 	float getX();
 
 	/**
-	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getX
-	 * <em>X</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getX <em>X</em>}' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>X</em>' attribute.
@@ -211,8 +195,8 @@ public interface PositionContent extends EObject {
 	void setX(float value);
 
 	/**
-	 * Unsets the value of the '{@link net.gexf_1_2.viz.PositionContent#getX
-	 * <em>X</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Unsets the value of the '{@link net.gexf_1_2.viz.PositionContent#getX <em>X</em>}' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #isSetX()
 	 * @see #getX()
@@ -222,9 +206,8 @@ public interface PositionContent extends EObject {
 	void unsetX();
 
 	/**
-	 * Returns whether the value of the '
-	 * {@link net.gexf_1_2.viz.PositionContent#getX <em>X</em>}' attribute is
-	 * set. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns whether the value of the '{@link net.gexf_1_2.viz.PositionContent#getX <em>X</em>}' attribute is set.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return whether the value of the '<em>X</em>' attribute is set.
 	 * @see #unsetX()
@@ -235,11 +218,9 @@ public interface PositionContent extends EObject {
 	boolean isSetX();
 
 	/**
-	 * Returns the value of the '<em><b>Y</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Y</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Y</em>' attribute isn't clear, there really
-	 * should be more of a description here...
+	 * If the meaning of the '<em>Y</em>' attribute isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -248,15 +229,15 @@ public interface PositionContent extends EObject {
 	 * @see #unsetY()
 	 * @see #setY(float)
 	 * @see net.gexf_1_2.viz.VizPackage#getPositionContent_Y()
-	 * @model unsettable="true" dataType="net.gexf_1_2.viz.SpacePoint"
-	 *        required="true" extendedMetaData="kind='attribute' name='y'"
+	 * @model unsettable="true" dataType="net.gexf_1_2.viz.SpacePoint" required="true"
+	 *        extendedMetaData="kind='attribute' name='y'"
 	 * @generated
 	 */
 	float getY();
 
 	/**
-	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getY
-	 * <em>Y</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getY <em>Y</em>}' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>Y</em>' attribute.
@@ -268,8 +249,8 @@ public interface PositionContent extends EObject {
 	void setY(float value);
 
 	/**
-	 * Unsets the value of the '{@link net.gexf_1_2.viz.PositionContent#getY
-	 * <em>Y</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Unsets the value of the '{@link net.gexf_1_2.viz.PositionContent#getY <em>Y</em>}' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #isSetY()
 	 * @see #getY()
@@ -279,9 +260,8 @@ public interface PositionContent extends EObject {
 	void unsetY();
 
 	/**
-	 * Returns whether the value of the '
-	 * {@link net.gexf_1_2.viz.PositionContent#getY <em>Y</em>}' attribute is
-	 * set. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns whether the value of the '{@link net.gexf_1_2.viz.PositionContent#getY <em>Y</em>}' attribute is set.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return whether the value of the '<em>Y</em>' attribute is set.
 	 * @see #unsetY()
@@ -292,11 +272,9 @@ public interface PositionContent extends EObject {
 	boolean isSetY();
 
 	/**
-	 * Returns the value of the '<em><b>Z</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Z</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Z</em>' attribute isn't clear, there really
-	 * should be more of a description here...
+	 * If the meaning of the '<em>Z</em>' attribute isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -305,15 +283,15 @@ public interface PositionContent extends EObject {
 	 * @see #unsetZ()
 	 * @see #setZ(float)
 	 * @see net.gexf_1_2.viz.VizPackage#getPositionContent_Z()
-	 * @model unsettable="true" dataType="net.gexf_1_2.viz.SpacePoint"
-	 *        required="true" extendedMetaData="kind='attribute' name='z'"
+	 * @model unsettable="true" dataType="net.gexf_1_2.viz.SpacePoint" required="true"
+	 *        extendedMetaData="kind='attribute' name='z'"
 	 * @generated
 	 */
 	float getZ();
 
 	/**
-	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getZ
-	 * <em>Z</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link net.gexf_1_2.viz.PositionContent#getZ <em>Z</em>}' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>Z</em>' attribute.
@@ -325,8 +303,8 @@ public interface PositionContent extends EObject {
 	void setZ(float value);
 
 	/**
-	 * Unsets the value of the '{@link net.gexf_1_2.viz.PositionContent#getZ
-	 * <em>Z</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Unsets the value of the '{@link net.gexf_1_2.viz.PositionContent#getZ <em>Z</em>}' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #isSetZ()
 	 * @see #getZ()
@@ -336,9 +314,8 @@ public interface PositionContent extends EObject {
 	void unsetZ();
 
 	/**
-	 * Returns whether the value of the '
-	 * {@link net.gexf_1_2.viz.PositionContent#getZ <em>Z</em>}' attribute is
-	 * set. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns whether the value of the '{@link net.gexf_1_2.viz.PositionContent#getZ <em>Z</em>}' attribute is set.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return whether the value of the '<em>Z</em>' attribute is set.
 	 * @see #unsetZ()

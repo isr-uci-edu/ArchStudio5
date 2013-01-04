@@ -13,17 +13,13 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Hint</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Hint</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintImpl#getValue <em>Value
- * </em>}</li>
- * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintImpl#getHint <em>Hint
- * </em>}</li>
- * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintImpl#getName <em>Name
- * </em>}</li>
+ * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintImpl#getValue <em>Value</em>}</li>
+ * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintImpl#getHint <em>Hint</em>}</li>
+ * <li>{@link org.archstudio.xadl3.hints_3_0.impl.HintImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  * 
@@ -31,8 +27,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public class HintImpl extends EObjectImpl implements Hint {
 	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getValue()
 	 * @generated
@@ -41,8 +37,8 @@ public class HintImpl extends EObjectImpl implements Hint {
 	protected Value value;
 
 	/**
-	 * The default value of the '{@link #getHint() <em>Hint</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getHint() <em>Hint</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getHint()
 	 * @generated
@@ -51,8 +47,8 @@ public class HintImpl extends EObjectImpl implements Hint {
 	protected static final String HINT_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getHint() <em>Hint</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getHint() <em>Hint</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getHint()
 	 * @generated
@@ -61,8 +57,8 @@ public class HintImpl extends EObjectImpl implements Hint {
 	protected String hint = HINT_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getName()
 	 * @generated
@@ -71,8 +67,8 @@ public class HintImpl extends EObjectImpl implements Hint {
 	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getName()
 	 * @generated
@@ -94,7 +90,6 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Hints_3_0Package.Literals.HINT;
@@ -211,7 +206,6 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -226,7 +220,6 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -245,7 +238,6 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -267,7 +259,6 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -289,7 +280,6 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -308,7 +298,6 @@ public class HintImpl extends EObjectImpl implements Hint {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

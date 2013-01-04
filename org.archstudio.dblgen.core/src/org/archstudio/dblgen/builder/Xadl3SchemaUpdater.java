@@ -29,14 +29,11 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 /*
- * This class makes a non-standard use of Eclipse extension points. This class
- * lives at the meta-Eclipse level, which means it's part of a plug-in that's
- * installed in the development copy of Eclipse. ArchStudio runs in the next
- * instance. So, here we want to look at some data defined in plug-in extension
- * points. Normally, that data lives in plug-ins installed in the current
- * instance of Eclipse (i.e., that were developed one meta-level higher). But in
- * this case, we want to look at data that's stored in the plug-ins whose code
- * is in the workspace.
+ * This class makes a non-standard use of Eclipse extension points. This class lives at the meta-Eclipse level, which
+ * means it's part of a plug-in that's installed in the development copy of Eclipse. ArchStudio runs in the next
+ * instance. So, here we want to look at some data defined in plug-in extension points. Normally, that data lives in
+ * plug-ins installed in the current instance of Eclipse (i.e., that were developed one meta-level higher). But in this
+ * case, we want to look at data that's stored in the plug-ins whose code is in the workspace.
  */
 
 public class Xadl3SchemaUpdater {
@@ -99,11 +96,9 @@ public class Xadl3SchemaUpdater {
 	}
 
 	/*
-	 * Last-updated times for schemas are stored as persistent project
-	 * properties. The qualified name has two parts: the qualifier is a
-	 * distinguished URI and the local name is the filename of the schema. The
-	 * property value is a stringified Long representing the last updated time
-	 * for the schema.
+	 * Last-updated times for schemas are stored as persistent project properties. The qualified name has two parts: the
+	 * qualifier is a distinguished URI and the local name is the filename of the schema. The property value is a
+	 * stringified Long representing the last updated time for the schema.
 	 */
 	private final static String SCHEMA_LAST_UPDATE_TIME_URI = "http://www.archstudio.org/schemaLastUpdateTime/";
 

@@ -8,8 +8,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 /**
- * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
- * accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains accessors for the meta objects to represent
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
@@ -21,9 +20,8 @@ import org.eclipse.emf.ecore.EReference;
  * 
  * xADL 3 Core Schema
  * 
- * This schema defines the core elements for xADL 3 documents. The schema is
- * intentionally small, defining only a few elements that are intended to be
- * common across xADL descriptions and extensions, regardless of domain.
+ * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
+ * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
  * 
  * Changelog: - 3.0.0: * Initial version
  * 
@@ -57,17 +55,15 @@ public interface Variability_3_0Package extends EPackage {
 	String eNS_PREFIX = "variability_3_0";
 
 	/**
-	 * The singleton instance of the package. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	Variability_3_0Package eINSTANCE = org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl.init();
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.variability_3_0.impl.ChangeImpl
-	 * <em>Change</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.ChangeImpl <em>Change</em>}' class.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.variability_3_0.impl.ChangeImpl
 	 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getChange()
@@ -76,8 +72,7 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -85,8 +80,7 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE__NAME = 0;
 
 	/**
-	 * The number of structural features of the '<em>Change</em>' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Change</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -94,10 +88,8 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.variability_3_0.impl.AttributeChangeImpl
-	 * <em>Attribute Change</em>}' class. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.AttributeChangeImpl
+	 * <em>Attribute Change</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.variability_3_0.impl.AttributeChangeImpl
 	 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getAttributeChange()
@@ -106,8 +98,7 @@ public interface Variability_3_0Package extends EPackage {
 	int ATTRIBUTE_CHANGE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -115,8 +106,7 @@ public interface Variability_3_0Package extends EPackage {
 	int ATTRIBUTE_CHANGE__NAME = CHANGE__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -124,8 +114,8 @@ public interface Variability_3_0Package extends EPackage {
 	int ATTRIBUTE_CHANGE__VALUE = CHANGE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Attribute Change</em>'
-	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Attribute Change</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -133,10 +123,8 @@ public interface Variability_3_0Package extends EPackage {
 	int ATTRIBUTE_CHANGE_FEATURE_COUNT = CHANGE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetImpl
-	 * <em>Change Set</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetImpl <em>Change Set</em>}'
+	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.variability_3_0.impl.ChangeSetImpl
 	 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getChangeSet()
@@ -145,8 +133,8 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_SET = 2;
 
 	/**
-	 * The feature id for the '<em><b>Ext</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -154,8 +142,7 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_SET__EXT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -163,8 +150,7 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_SET__ID = 1;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -172,8 +158,8 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_SET__NAME = 2;
 
 	/**
-	 * The number of structural features of the '<em>Change Set</em>' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Change Set</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -181,10 +167,8 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_SET_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetOfChangesImpl
-	 * <em>Change Set Of Changes</em>}' class. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetOfChangesImpl
+	 * <em>Change Set Of Changes</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.variability_3_0.impl.ChangeSetOfChangesImpl
 	 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getChangeSetOfChanges()
@@ -193,8 +177,8 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_SET_OF_CHANGES = 3;
 
 	/**
-	 * The feature id for the '<em><b>Ext</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -202,8 +186,7 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_SET_OF_CHANGES__EXT = CHANGE_SET__EXT;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -211,8 +194,7 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_SET_OF_CHANGES__ID = CHANGE_SET__ID;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -220,8 +202,8 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_SET_OF_CHANGES__NAME = CHANGE_SET__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Element Change</b></em>' containment
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Element Change</b></em>' containment reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -229,8 +211,8 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE = CHANGE_SET_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Change Set Of Changes</em>'
-	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Change Set Of Changes</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -238,10 +220,8 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_SET_OF_CHANGES_FEATURE_COUNT = CHANGE_SET_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.variability_3_0.impl.DocumentRootImpl
-	 * <em>Document Root</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.DocumentRootImpl
+	 * <em>Document Root</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.variability_3_0.impl.DocumentRootImpl
 	 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getDocumentRoot()
@@ -250,8 +230,7 @@ public interface Variability_3_0Package extends EPackage {
 	int DOCUMENT_ROOT = 4;
 
 	/**
-	 * The feature id for the '<em><b>Mixed</b></em>' attribute list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Mixed</b></em>' attribute list. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -259,8 +238,7 @@ public interface Variability_3_0Package extends EPackage {
 	int DOCUMENT_ROOT__MIXED = 0;
 
 	/**
-	 * The feature id for the '<em><b>XMLNS Prefix Map</b></em>' map. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>XMLNS Prefix Map</b></em>' map. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -268,8 +246,7 @@ public interface Variability_3_0Package extends EPackage {
 	int DOCUMENT_ROOT__XMLNS_PREFIX_MAP = 1;
 
 	/**
-	 * The feature id for the '<em><b>XSI Schema Location</b></em>' map. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>XSI Schema Location</b></em>' map. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -277,8 +254,8 @@ public interface Variability_3_0Package extends EPackage {
 	int DOCUMENT_ROOT__XSI_SCHEMA_LOCATION = 2;
 
 	/**
-	 * The feature id for the '<em><b>Variability</b></em>' containment
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Variability</b></em>' containment reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -286,8 +263,8 @@ public interface Variability_3_0Package extends EPackage {
 	int DOCUMENT_ROOT__VARIABILITY = 3;
 
 	/**
-	 * The number of structural features of the '<em>Document Root</em>' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Document Root</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -295,10 +272,8 @@ public interface Variability_3_0Package extends EPackage {
 	int DOCUMENT_ROOT_FEATURE_COUNT = 4;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl
-	 * <em>Element Change</em>}' class. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl
+	 * <em>Element Change</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl
 	 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getElementChange()
@@ -307,8 +282,7 @@ public interface Variability_3_0Package extends EPackage {
 	int ELEMENT_CHANGE = 5;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -316,8 +290,8 @@ public interface Variability_3_0Package extends EPackage {
 	int ELEMENT_CHANGE__NAME = CHANGE__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Change</b></em>' containment reference
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Change</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -325,8 +299,7 @@ public interface Variability_3_0Package extends EPackage {
 	int ELEMENT_CHANGE__CHANGE = CHANGE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -334,8 +307,8 @@ public interface Variability_3_0Package extends EPackage {
 	int ELEMENT_CHANGE__TYPE = CHANGE_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Element Change</em>' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Element Change</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -343,10 +316,8 @@ public interface Variability_3_0Package extends EPackage {
 	int ELEMENT_CHANGE_FEATURE_COUNT = CHANGE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.variability_3_0.impl.ElementManyChangeImpl
-	 * <em>Element Many Change</em>}' class. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.ElementManyChangeImpl
+	 * <em>Element Many Change</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.variability_3_0.impl.ElementManyChangeImpl
 	 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getElementManyChange()
@@ -355,8 +326,7 @@ public interface Variability_3_0Package extends EPackage {
 	int ELEMENT_MANY_CHANGE = 6;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -364,8 +334,8 @@ public interface Variability_3_0Package extends EPackage {
 	int ELEMENT_MANY_CHANGE__NAME = CHANGE__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Change</b></em>' containment reference
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Change</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -373,8 +343,8 @@ public interface Variability_3_0Package extends EPackage {
 	int ELEMENT_MANY_CHANGE__CHANGE = CHANGE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Element Many Change</em>'
-	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Element Many Change</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -382,10 +352,8 @@ public interface Variability_3_0Package extends EPackage {
 	int ELEMENT_MANY_CHANGE_FEATURE_COUNT = CHANGE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.variability_3_0.impl.TransformChangeSetOfChangesImpl
-	 * <em>Transform Change Set Of Changes</em>}' class. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.TransformChangeSetOfChangesImpl
+	 * <em>Transform Change Set Of Changes</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.variability_3_0.impl.TransformChangeSetOfChangesImpl
 	 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getTransformChangeSetOfChanges()
@@ -394,8 +362,8 @@ public interface Variability_3_0Package extends EPackage {
 	int TRANSFORM_CHANGE_SET_OF_CHANGES = 9;
 
 	/**
-	 * The feature id for the '<em><b>Ext</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -403,8 +371,7 @@ public interface Variability_3_0Package extends EPackage {
 	int TRANSFORM_CHANGE_SET_OF_CHANGES__EXT = CHANGE_SET_OF_CHANGES__EXT;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -412,8 +379,7 @@ public interface Variability_3_0Package extends EPackage {
 	int TRANSFORM_CHANGE_SET_OF_CHANGES__ID = CHANGE_SET_OF_CHANGES__ID;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -421,8 +387,8 @@ public interface Variability_3_0Package extends EPackage {
 	int TRANSFORM_CHANGE_SET_OF_CHANGES__NAME = CHANGE_SET_OF_CHANGES__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Element Change</b></em>' containment
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Element Change</b></em>' containment reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -430,9 +396,8 @@ public interface Variability_3_0Package extends EPackage {
 	int TRANSFORM_CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE = CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE;
 
 	/**
-	 * The number of structural features of the '
-	 * <em>Transform Change Set Of Changes</em>' class. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Transform Change Set Of Changes</em>' class. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -440,10 +405,8 @@ public interface Variability_3_0Package extends EPackage {
 	int TRANSFORM_CHANGE_SET_OF_CHANGES_FEATURE_COUNT = CHANGE_SET_OF_CHANGES_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl
-	 * <em>Java Transform Change Set Of Changes</em>}' class. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl
+	 * <em>Java Transform Change Set Of Changes</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl
 	 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getJavaTransformChangeSetOfChanges()
@@ -452,8 +415,8 @@ public interface Variability_3_0Package extends EPackage {
 	int JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES = 7;
 
 	/**
-	 * The feature id for the '<em><b>Ext</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -461,8 +424,7 @@ public interface Variability_3_0Package extends EPackage {
 	int JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__EXT = TRANSFORM_CHANGE_SET_OF_CHANGES__EXT;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -470,8 +432,7 @@ public interface Variability_3_0Package extends EPackage {
 	int JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__ID = TRANSFORM_CHANGE_SET_OF_CHANGES__ID;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -479,8 +440,8 @@ public interface Variability_3_0Package extends EPackage {
 	int JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__NAME = TRANSFORM_CHANGE_SET_OF_CHANGES__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Element Change</b></em>' containment
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Element Change</b></em>' containment reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -488,8 +449,7 @@ public interface Variability_3_0Package extends EPackage {
 	int JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE = TRANSFORM_CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE;
 
 	/**
-	 * The feature id for the '<em><b>Bundle</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -497,8 +457,7 @@ public interface Variability_3_0Package extends EPackage {
 	int JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE = TRANSFORM_CHANGE_SET_OF_CHANGES_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Class</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Class</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -506,9 +465,8 @@ public interface Variability_3_0Package extends EPackage {
 	int JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__CLASS = TRANSFORM_CHANGE_SET_OF_CHANGES_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '
-	 * <em>Java Transform Change Set Of Changes</em>' class. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Java Transform Change Set Of Changes</em>' class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -516,10 +474,8 @@ public interface Variability_3_0Package extends EPackage {
 	int JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES_FEATURE_COUNT = TRANSFORM_CHANGE_SET_OF_CHANGES_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.variability_3_0.impl.RelationshipImpl
-	 * <em>Relationship</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.RelationshipImpl
+	 * <em>Relationship</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.variability_3_0.impl.RelationshipImpl
 	 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getRelationship()
@@ -528,8 +484,8 @@ public interface Variability_3_0Package extends EPackage {
 	int RELATIONSHIP = 8;
 
 	/**
-	 * The feature id for the '<em><b>Ext</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -537,8 +493,7 @@ public interface Variability_3_0Package extends EPackage {
 	int RELATIONSHIP__EXT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -546,8 +501,7 @@ public interface Variability_3_0Package extends EPackage {
 	int RELATIONSHIP__ID = 1;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -555,8 +509,8 @@ public interface Variability_3_0Package extends EPackage {
 	int RELATIONSHIP__NAME = 2;
 
 	/**
-	 * The number of structural features of the '<em>Relationship</em>' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Relationship</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -564,10 +518,8 @@ public interface Variability_3_0Package extends EPackage {
 	int RELATIONSHIP_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl
-	 * <em>Variability</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl
+	 * <em>Variability</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl
 	 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getVariability()
@@ -576,8 +528,8 @@ public interface Variability_3_0Package extends EPackage {
 	int VARIABILITY = 10;
 
 	/**
-	 * The feature id for the '<em><b>Active Change Set</b></em>' reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Active Change Set</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -585,8 +537,8 @@ public interface Variability_3_0Package extends EPackage {
 	int VARIABILITY__ACTIVE_CHANGE_SET = 0;
 
 	/**
-	 * The feature id for the '<em><b>Applied Change Sets</b></em>' reference
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Applied Change Sets</b></em>' reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -594,8 +546,8 @@ public interface Variability_3_0Package extends EPackage {
 	int VARIABILITY__APPLIED_CHANGE_SETS = 1;
 
 	/**
-	 * The feature id for the '<em><b>Change Set</b></em>' containment reference
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Change Set</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -603,8 +555,8 @@ public interface Variability_3_0Package extends EPackage {
 	int VARIABILITY__CHANGE_SET = 2;
 
 	/**
-	 * The feature id for the '<em><b>Relationship</b></em>' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Relationship</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -612,8 +564,7 @@ public interface Variability_3_0Package extends EPackage {
 	int VARIABILITY__RELATIONSHIP = 3;
 
 	/**
-	 * The feature id for the '<em><b>Overview</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Overview</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -621,8 +572,8 @@ public interface Variability_3_0Package extends EPackage {
 	int VARIABILITY__OVERVIEW = 4;
 
 	/**
-	 * The number of structural features of the '<em>Variability</em>' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>Variability</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -630,10 +581,8 @@ public interface Variability_3_0Package extends EPackage {
 	int VARIABILITY_FEATURE_COUNT = 5;
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.variability_3_0.AttributeChange
-	 * <em>Attribute Change</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.AttributeChange
+	 * <em>Attribute Change</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Attribute Change</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.AttributeChange
@@ -642,8 +591,7 @@ public interface Variability_3_0Package extends EPackage {
 	EClass getAttributeChange();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.variability_3_0.AttributeChange#getValue
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.AttributeChange#getValue
 	 * <em>Value</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Value</em>'.
@@ -654,9 +602,8 @@ public interface Variability_3_0Package extends EPackage {
 	EAttribute getAttributeChange_Value();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.variability_3_0.Change <em>Change</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.Change <em>Change</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Change</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.Change
@@ -665,9 +612,8 @@ public interface Variability_3_0Package extends EPackage {
 	EClass getChange();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.variability_3_0.Change#getName <em>Name</em>}
-	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.Change#getName
+	 * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Name</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.Change#getName()
@@ -677,9 +623,8 @@ public interface Variability_3_0Package extends EPackage {
 	EAttribute getChange_Name();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.variability_3_0.ChangeSet
-	 * <em>Change Set</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.ChangeSet <em>Change Set</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Change Set</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.ChangeSet
@@ -689,11 +634,10 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.variability_3_0.ChangeSet#getExt
-	 * <em>Ext</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.variability_3_0.ChangeSet#getExt <em>Ext</em>}'. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference list '<em>Ext</em>
-	 *         '.
+	 * @return the meta object for the containment reference list '<em>Ext</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.ChangeSet#getExt()
 	 * @see #getChangeSet()
 	 * @generated
@@ -701,9 +645,8 @@ public interface Variability_3_0Package extends EPackage {
 	EReference getChangeSet_Ext();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.variability_3_0.ChangeSet#getId <em>Id</em>}
-	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.ChangeSet#getId
+	 * <em>Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Id</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.ChangeSet#getId()
@@ -713,8 +656,7 @@ public interface Variability_3_0Package extends EPackage {
 	EAttribute getChangeSet_Id();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.variability_3_0.ChangeSet#getName
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.ChangeSet#getName
 	 * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Name</em>'.
@@ -725,10 +667,8 @@ public interface Variability_3_0Package extends EPackage {
 	EAttribute getChangeSet_Name();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.variability_3_0.ChangeSetOfChanges
-	 * <em>Change Set Of Changes</em>}'. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.ChangeSetOfChanges
+	 * <em>Change Set Of Changes</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Change Set Of Changes</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.ChangeSetOfChanges
@@ -738,11 +678,10 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference '
-	 * {@link org.archstudio.xadl3.variability_3_0.ChangeSetOfChanges#getElementChange
-	 * <em>Element Change</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.variability_3_0.ChangeSetOfChanges#getElementChange <em>Element Change</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference '
-	 *         <em>Element Change</em>'.
+	 * @return the meta object for the containment reference '<em>Element Change</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.ChangeSetOfChanges#getElementChange()
 	 * @see #getChangeSetOfChanges()
 	 * @generated
@@ -750,8 +689,7 @@ public interface Variability_3_0Package extends EPackage {
 	EReference getChangeSetOfChanges_ElementChange();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.variability_3_0.DocumentRoot
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.DocumentRoot
 	 * <em>Document Root</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Document Root</em>'.
@@ -762,8 +700,8 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute list '
-	 * {@link org.archstudio.xadl3.variability_3_0.DocumentRoot#getMixed
-	 * <em>Mixed</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.variability_3_0.DocumentRoot#getMixed <em>Mixed</em>}'. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute list '<em>Mixed</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.DocumentRoot#getMixed()
@@ -773,10 +711,8 @@ public interface Variability_3_0Package extends EPackage {
 	EAttribute getDocumentRoot_Mixed();
 
 	/**
-	 * Returns the meta object for the map '
-	 * {@link org.archstudio.xadl3.variability_3_0.DocumentRoot#getXMLNSPrefixMap
-	 * <em>XMLNS Prefix Map</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * Returns the meta object for the map '{@link org.archstudio.xadl3.variability_3_0.DocumentRoot#getXMLNSPrefixMap
+	 * <em>XMLNS Prefix Map</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the map '<em>XMLNS Prefix Map</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.DocumentRoot#getXMLNSPrefixMap()
@@ -787,9 +723,8 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the map '
-	 * {@link org.archstudio.xadl3.variability_3_0.DocumentRoot#getXSISchemaLocation
-	 * <em>XSI Schema Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * {@link org.archstudio.xadl3.variability_3_0.DocumentRoot#getXSISchemaLocation <em>XSI Schema Location</em>}'.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the map '<em>XSI Schema Location</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.DocumentRoot#getXSISchemaLocation()
@@ -800,11 +735,10 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference '
-	 * {@link org.archstudio.xadl3.variability_3_0.DocumentRoot#getVariability
-	 * <em>Variability</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.variability_3_0.DocumentRoot#getVariability <em>Variability</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference '
-	 *         <em>Variability</em>'.
+	 * @return the meta object for the containment reference '<em>Variability</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.DocumentRoot#getVariability()
 	 * @see #getDocumentRoot()
 	 * @generated
@@ -812,8 +746,7 @@ public interface Variability_3_0Package extends EPackage {
 	EReference getDocumentRoot_Variability();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.variability_3_0.ElementChange
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.ElementChange
 	 * <em>Element Change</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Element Change</em>'.
@@ -824,11 +757,10 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.variability_3_0.ElementChange#getChange
-	 * <em>Change</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.variability_3_0.ElementChange#getChange <em>Change</em>}'. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference list '
-	 *         <em>Change</em>'.
+	 * @return the meta object for the containment reference list '<em>Change</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.ElementChange#getChange()
 	 * @see #getElementChange()
 	 * @generated
@@ -836,8 +768,7 @@ public interface Variability_3_0Package extends EPackage {
 	EReference getElementChange_Change();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.variability_3_0.ElementChange#getType
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.ElementChange#getType
 	 * <em>Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Type</em>'.
@@ -848,10 +779,8 @@ public interface Variability_3_0Package extends EPackage {
 	EAttribute getElementChange_Type();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.variability_3_0.ElementManyChange
-	 * <em>Element Many Change</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.ElementManyChange
+	 * <em>Element Many Change</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Element Many Change</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.ElementManyChange
@@ -861,11 +790,10 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.variability_3_0.ElementManyChange#getChange
-	 * <em>Change</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.variability_3_0.ElementManyChange#getChange <em>Change</em>}'. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference list '
-	 *         <em>Change</em>'.
+	 * @return the meta object for the containment reference list '<em>Change</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.ElementManyChange#getChange()
 	 * @see #getElementManyChange()
 	 * @generated
@@ -873,13 +801,10 @@ public interface Variability_3_0Package extends EPackage {
 	EReference getElementManyChange_Change();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges
-	 * <em>Java Transform Change Set Of Changes</em>}'. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges
+	 * <em>Java Transform Change Set Of Changes</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for class '
-	 *         <em>Java Transform Change Set Of Changes</em>'.
+	 * @return the meta object for class '<em>Java Transform Change Set Of Changes</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges
 	 * @generated
 	 */
@@ -887,8 +812,8 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges#getBundle
-	 * <em>Bundle</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges#getBundle <em>Bundle</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Bundle</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges#getBundle()
@@ -899,8 +824,8 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges#getClass_
-	 * <em>Class</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges#getClass_ <em>Class</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Class</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.JavaTransformChangeSetOfChanges#getClass_()
@@ -910,8 +835,7 @@ public interface Variability_3_0Package extends EPackage {
 	EAttribute getJavaTransformChangeSetOfChanges_Class();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.variability_3_0.Relationship
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.Relationship
 	 * <em>Relationship</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Relationship</em>'.
@@ -922,11 +846,10 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.variability_3_0.Relationship#getExt
-	 * <em>Ext</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.variability_3_0.Relationship#getExt <em>Ext</em>}'. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference list '<em>Ext</em>
-	 *         '.
+	 * @return the meta object for the containment reference list '<em>Ext</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.Relationship#getExt()
 	 * @see #getRelationship()
 	 * @generated
@@ -934,8 +857,7 @@ public interface Variability_3_0Package extends EPackage {
 	EReference getRelationship_Ext();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.variability_3_0.Relationship#getId
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.Relationship#getId
 	 * <em>Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Id</em>'.
@@ -946,8 +868,7 @@ public interface Variability_3_0Package extends EPackage {
 	EAttribute getRelationship_Id();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.variability_3_0.Relationship#getName
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.Relationship#getName
 	 * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Name</em>'.
@@ -958,22 +879,18 @@ public interface Variability_3_0Package extends EPackage {
 	EAttribute getRelationship_Name();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.variability_3_0.TransformChangeSetOfChanges
-	 * <em>Transform Change Set Of Changes</em>}'. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.TransformChangeSetOfChanges
+	 * <em>Transform Change Set Of Changes</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for class '
-	 *         <em>Transform Change Set Of Changes</em>'.
+	 * @return the meta object for class '<em>Transform Change Set Of Changes</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.TransformChangeSetOfChanges
 	 * @generated
 	 */
 	EClass getTransformChangeSetOfChanges();
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.variability_3_0.Variability
-	 * <em>Variability</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.Variability <em>Variability</em>}
+	 * '. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Variability</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.Variability
@@ -983,9 +900,8 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the reference '
-	 * {@link org.archstudio.xadl3.variability_3_0.Variability#getActiveChangeSet
-	 * <em>Active Change Set</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * {@link org.archstudio.xadl3.variability_3_0.Variability#getActiveChangeSet <em>Active Change Set</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the reference '<em>Active Change Set</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.Variability#getActiveChangeSet()
@@ -996,12 +912,10 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the reference list '
-	 * {@link org.archstudio.xadl3.variability_3_0.Variability#getAppliedChangeSets
-	 * <em>Applied Change Sets</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * {@link org.archstudio.xadl3.variability_3_0.Variability#getAppliedChangeSets <em>Applied Change Sets</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the reference list '
-	 *         <em>Applied Change Sets</em>'.
+	 * @return the meta object for the reference list '<em>Applied Change Sets</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.Variability#getAppliedChangeSets()
 	 * @see #getVariability()
 	 * @generated
@@ -1010,11 +924,10 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.variability_3_0.Variability#getChangeSet
-	 * <em>Change Set</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.variability_3_0.Variability#getChangeSet <em>Change Set</em>}'. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference list '
-	 *         <em>Change Set</em>'.
+	 * @return the meta object for the containment reference list '<em>Change Set</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.Variability#getChangeSet()
 	 * @see #getVariability()
 	 * @generated
@@ -1023,11 +936,10 @@ public interface Variability_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.variability_3_0.Variability#getRelationship
-	 * <em>Relationship</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.variability_3_0.Variability#getRelationship <em>Relationship</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference list '
-	 *         <em>Relationship</em>'.
+	 * @return the meta object for the containment reference list '<em>Relationship</em>'.
 	 * @see org.archstudio.xadl3.variability_3_0.Variability#getRelationship()
 	 * @see #getVariability()
 	 * @generated
@@ -1035,8 +947,7 @@ public interface Variability_3_0Package extends EPackage {
 	EReference getVariability_Relationship();
 
 	/**
-	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.variability_3_0.Variability#isOverview
+	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.variability_3_0.Variability#isOverview
 	 * <em>Overview</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Overview</em>'.
@@ -1047,8 +958,7 @@ public interface Variability_3_0Package extends EPackage {
 	EAttribute getVariability_Overview();
 
 	/**
-	 * Returns the factory that creates the instances of the model. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the factory that creates the instances of the model.
 	 * @generated
@@ -1056,8 +966,7 @@ public interface Variability_3_0Package extends EPackage {
 	Variability_3_0Factory getVariability_3_0Factory();
 
 	/**
-	 * <!-- begin-user-doc --> Defines literals for the meta objects that
-	 * represent
+	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
@@ -1070,10 +979,8 @@ public interface Variability_3_0Package extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.variability_3_0.impl.AttributeChangeImpl
-		 * <em>Attribute Change</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.variability_3_0.impl.AttributeChangeImpl
+		 * <em>Attribute Change</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.variability_3_0.impl.AttributeChangeImpl
 		 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getAttributeChange()
@@ -1082,18 +989,16 @@ public interface Variability_3_0Package extends EPackage {
 		EClass ATTRIBUTE_CHANGE = eINSTANCE.getAttributeChange();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute ATTRIBUTE_CHANGE__VALUE = eINSTANCE.getAttributeChange_Value();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.variability_3_0.impl.ChangeImpl
-		 * <em>Change</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
-		 * -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.variability_3_0.impl.ChangeImpl <em>Change</em>}
+		 * ' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.variability_3_0.impl.ChangeImpl
 		 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getChange()
@@ -1102,18 +1007,16 @@ public interface Variability_3_0Package extends EPackage {
 		EClass CHANGE = eINSTANCE.getChange();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute CHANGE__NAME = eINSTANCE.getChange_Name();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetImpl
-		 * <em>Change Set</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetImpl
+		 * <em>Change Set</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.variability_3_0.impl.ChangeSetImpl
 		 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getChangeSet()
@@ -1122,34 +1025,32 @@ public interface Variability_3_0Package extends EPackage {
 		EClass CHANGE_SET = eINSTANCE.getChangeSet();
 
 		/**
-		 * The meta object literal for the '<em><b>Ext</b></em>' containment
-		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Ext</b></em>' containment reference list feature. <!-- begin-user-doc
+		 * --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference CHANGE_SET__EXT = eINSTANCE.getChangeSet_Ext();
 
 		/**
-		 * The meta object literal for the '<em><b>Id</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute CHANGE_SET__ID = eINSTANCE.getChangeSet_Id();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute CHANGE_SET__NAME = eINSTANCE.getChangeSet_Name();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetOfChangesImpl
-		 * <em>Change Set Of Changes</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetOfChangesImpl
+		 * <em>Change Set Of Changes</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.variability_3_0.impl.ChangeSetOfChangesImpl
 		 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getChangeSetOfChanges()
@@ -1158,19 +1059,16 @@ public interface Variability_3_0Package extends EPackage {
 		EClass CHANGE_SET_OF_CHANGES = eINSTANCE.getChangeSetOfChanges();
 
 		/**
-		 * The meta object literal for the '<em><b>Element Change</b></em>'
-		 * containment reference feature. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '<em><b>Element Change</b></em>' containment reference feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference CHANGE_SET_OF_CHANGES__ELEMENT_CHANGE = eINSTANCE.getChangeSetOfChanges_ElementChange();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.variability_3_0.impl.DocumentRootImpl
-		 * <em>Document Root</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.variability_3_0.impl.DocumentRootImpl
+		 * <em>Document Root</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.variability_3_0.impl.DocumentRootImpl
 		 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getDocumentRoot()
@@ -1179,43 +1077,40 @@ public interface Variability_3_0Package extends EPackage {
 		EClass DOCUMENT_ROOT = eINSTANCE.getDocumentRoot();
 
 		/**
-		 * The meta object literal for the '<em><b>Mixed</b></em>' attribute
-		 * list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Mixed</b></em>' attribute list feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute DOCUMENT_ROOT__MIXED = eINSTANCE.getDocumentRoot_Mixed();
 
 		/**
-		 * The meta object literal for the '<em><b>XMLNS Prefix Map</b></em>'
-		 * map feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>XMLNS Prefix Map</b></em>' map feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference DOCUMENT_ROOT__XMLNS_PREFIX_MAP = eINSTANCE.getDocumentRoot_XMLNSPrefixMap();
 
 		/**
-		 * The meta object literal for the '<em><b>XSI Schema Location</b></em>'
-		 * map feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>XSI Schema Location</b></em>' map feature. <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference DOCUMENT_ROOT__XSI_SCHEMA_LOCATION = eINSTANCE.getDocumentRoot_XSISchemaLocation();
 
 		/**
-		 * The meta object literal for the '<em><b>Variability</b></em>'
-		 * containment reference feature. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '<em><b>Variability</b></em>' containment reference feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference DOCUMENT_ROOT__VARIABILITY = eINSTANCE.getDocumentRoot_Variability();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl
-		 * <em>Element Change</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl
+		 * <em>Element Change</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl
 		 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getElementChange()
@@ -1224,26 +1119,24 @@ public interface Variability_3_0Package extends EPackage {
 		EClass ELEMENT_CHANGE = eINSTANCE.getElementChange();
 
 		/**
-		 * The meta object literal for the '<em><b>Change</b></em>' containment
-		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Change</b></em>' containment reference list feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference ELEMENT_CHANGE__CHANGE = eINSTANCE.getElementChange_Change();
 
 		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute ELEMENT_CHANGE__TYPE = eINSTANCE.getElementChange_Type();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.variability_3_0.impl.ElementManyChangeImpl
-		 * <em>Element Many Change</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.variability_3_0.impl.ElementManyChangeImpl
+		 * <em>Element Many Change</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.variability_3_0.impl.ElementManyChangeImpl
 		 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getElementManyChange()
@@ -1252,8 +1145,8 @@ public interface Variability_3_0Package extends EPackage {
 		EClass ELEMENT_MANY_CHANGE = eINSTANCE.getElementManyChange();
 
 		/**
-		 * The meta object literal for the '<em><b>Change</b></em>' containment
-		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Change</b></em>' containment reference list feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
@@ -1262,8 +1155,7 @@ public interface Variability_3_0Package extends EPackage {
 		/**
 		 * The meta object literal for the '
 		 * {@link org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl
-		 * <em>Java Transform Change Set Of Changes</em>}' class. <!--
-		 * begin-user-doc --> <!-- end-user-doc -->
+		 * <em>Java Transform Change Set Of Changes</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl
 		 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getJavaTransformChangeSetOfChanges()
@@ -1272,26 +1164,24 @@ public interface Variability_3_0Package extends EPackage {
 		EClass JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES = eINSTANCE.getJavaTransformChangeSetOfChanges();
 
 		/**
-		 * The meta object literal for the '<em><b>Bundle</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Bundle</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__BUNDLE = eINSTANCE.getJavaTransformChangeSetOfChanges_Bundle();
 
 		/**
-		 * The meta object literal for the '<em><b>Class</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Class</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES__CLASS = eINSTANCE.getJavaTransformChangeSetOfChanges_Class();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.variability_3_0.impl.RelationshipImpl
-		 * <em>Relationship</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.variability_3_0.impl.RelationshipImpl
+		 * <em>Relationship</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.variability_3_0.impl.RelationshipImpl
 		 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getRelationship()
@@ -1300,24 +1190,24 @@ public interface Variability_3_0Package extends EPackage {
 		EClass RELATIONSHIP = eINSTANCE.getRelationship();
 
 		/**
-		 * The meta object literal for the '<em><b>Ext</b></em>' containment
-		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Ext</b></em>' containment reference list feature. <!-- begin-user-doc
+		 * --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference RELATIONSHIP__EXT = eINSTANCE.getRelationship_Ext();
 
 		/**
-		 * The meta object literal for the '<em><b>Id</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EAttribute RELATIONSHIP__ID = eINSTANCE.getRelationship_Id();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */
@@ -1326,8 +1216,7 @@ public interface Variability_3_0Package extends EPackage {
 		/**
 		 * The meta object literal for the '
 		 * {@link org.archstudio.xadl3.variability_3_0.impl.TransformChangeSetOfChangesImpl
-		 * <em>Transform Change Set Of Changes</em>}' class. <!-- begin-user-doc
-		 * --> <!-- end-user-doc -->
+		 * <em>Transform Change Set Of Changes</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.variability_3_0.impl.TransformChangeSetOfChangesImpl
 		 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getTransformChangeSetOfChanges()
@@ -1336,10 +1225,8 @@ public interface Variability_3_0Package extends EPackage {
 		EClass TRANSFORM_CHANGE_SET_OF_CHANGES = eINSTANCE.getTransformChangeSetOfChanges();
 
 		/**
-		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl
-		 * <em>Variability</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl
+		 * <em>Variability</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl
 		 * @see org.archstudio.xadl3.variability_3_0.impl.Variability_3_0PackageImpl#getVariability()
@@ -1348,42 +1235,40 @@ public interface Variability_3_0Package extends EPackage {
 		EClass VARIABILITY = eINSTANCE.getVariability();
 
 		/**
-		 * The meta object literal for the '<em><b>Active Change Set</b></em>'
-		 * reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Active Change Set</b></em>' reference feature. <!-- begin-user-doc
+		 * --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference VARIABILITY__ACTIVE_CHANGE_SET = eINSTANCE.getVariability_ActiveChangeSet();
 
 		/**
-		 * The meta object literal for the '<em><b>Applied Change Sets</b></em>'
-		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Applied Change Sets</b></em>' reference list feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference VARIABILITY__APPLIED_CHANGE_SETS = eINSTANCE.getVariability_AppliedChangeSets();
 
 		/**
-		 * The meta object literal for the '<em><b>Change Set</b></em>'
-		 * containment reference list feature. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '<em><b>Change Set</b></em>' containment reference list feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference VARIABILITY__CHANGE_SET = eINSTANCE.getVariability_ChangeSet();
 
 		/**
-		 * The meta object literal for the '<em><b>Relationship</b></em>'
-		 * containment reference list feature. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '<em><b>Relationship</b></em>' containment reference list feature. <!--
+		 * begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference VARIABILITY__RELATIONSHIP = eINSTANCE.getVariability_Relationship();
 
 		/**
-		 * The meta object literal for the '<em><b>Overview</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Overview</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */

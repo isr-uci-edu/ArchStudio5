@@ -21,20 +21,15 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Meta Content</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Meta Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
  * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getGroup <em>Group</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getCreator <em>Creator
- * </em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getKeywords <em>Keywords
- * </em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getDescription <em>
- * Description</em>}</li>
- * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getLastmodifieddate <em>
- * Lastmodifieddate</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getCreator <em>Creator</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getKeywords <em>Keywords</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getDescription <em>Description</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.MetaContentImpl#getLastmodifieddate <em>Lastmodifieddate</em>}</li>
  * </ul>
  * </p>
  * 
@@ -42,8 +37,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	/**
-	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getGroup() <em>Group</em>}' attribute list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getGroup()
 	 * @generated
@@ -52,9 +47,8 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	protected FeatureMap group;
 
 	/**
-	 * The default value of the '{@link #getLastmodifieddate()
-	 * <em>Lastmodifieddate</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The default value of the '{@link #getLastmodifieddate() <em>Lastmodifieddate</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getLastmodifieddate()
 	 * @generated
@@ -63,9 +57,8 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	protected static final XMLGregorianCalendar LASTMODIFIEDDATE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getLastmodifieddate()
-	 * <em>Lastmodifieddate</em>}' attribute. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached value of the '{@link #getLastmodifieddate() <em>Lastmodifieddate</em>}' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #getLastmodifieddate()
 	 * @generated
@@ -87,7 +80,6 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.META_CONTENT;
@@ -166,7 +158,6 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -181,7 +172,6 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -207,8 +197,8 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.META_CONTENT__GROUP:
@@ -238,7 +228,6 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -266,7 +255,6 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -290,7 +278,6 @@ public class MetaContentImpl extends EObjectImpl implements MetaContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

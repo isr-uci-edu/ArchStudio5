@@ -32,8 +32,7 @@ class ExtensionHintUtils {
 	 * 
 	 * @param allEPackages
 	 *            All the EPackages to check for hints
-	 * @return List of all extension hints found in all the factories in the
-	 *         map.
+	 * @return List of all extension hints found in all the factories in the map.
 	 */
 	public static List<IXArchADTSubstitutionHint> parseExtensionHints(Collection<EPackage> allEPackages) {
 		List<IXArchADTSubstitutionHint> allHints = new ArrayList<IXArchADTSubstitutionHint>();
@@ -48,8 +47,7 @@ class ExtensionHintUtils {
 	 * 
 	 * @param ePackage
 	 *            The package to search.
-	 * @return List of all extension hints found in all the factories in the
-	 *         map.
+	 * @return List of all extension hints found in all the factories in the map.
 	 */
 	public static List<IXArchADTSubstitutionHint> parseExtensionHints(EPackage ePackage) {
 		EAnnotation eAnnotation = ePackage.getEAnnotation(EXTENSION_HINT_URI);

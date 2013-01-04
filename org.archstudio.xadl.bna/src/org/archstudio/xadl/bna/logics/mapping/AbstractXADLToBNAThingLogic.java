@@ -28,15 +28,13 @@ import org.eclipse.swt.widgets.Display;
 import com.google.common.collect.Lists;
 
 /**
- * Synchronizes a xADL ObjRef with a single BNA Assembly (or plain Thing).
- * Changes to the xADL ObjRef and its children will be reflected in the BNA
- * Assembly, and changes to things in the BNA Assembly will be reflected in the
- * xADL ObjRef. This class facilitates the synchronization by preventing update
- * cycles.
+ * Synchronizes a xADL ObjRef with a single BNA Assembly (or plain Thing). Changes to the xADL ObjRef and its children
+ * will be reflected in the BNA Assembly, and changes to things in the BNA Assembly will be reflected in the xADL
+ * ObjRef. This class facilitates the synchronization by preventing update cycles.
  * 
  * @param <T>
- *            The type of BNA Assembly/Thing that will be created by this class
- *            to represent targeted ObjRefs, see {@link #addThing(List, ObjRef)}
+ *            The type of BNA Assembly/Thing that will be created by this class to represent targeted ObjRefs, see
+ *            {@link #addThing(List, ObjRef)}
  */
 public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends AbstractThingLogic implements
 		IBNAModelListener, IXArchADTModelListener, IXArchRelativePathTrackerListener {
@@ -48,15 +46,13 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	protected final IXArchADT xarch;
 
 	/**
-	 * The {@link XArchRelativePathTracker} used to identify the set of ObjRefs
-	 * that will be mapped to BNA Assemblies
+	 * The {@link XArchRelativePathTracker} used to identify the set of ObjRefs that will be mapped to BNA Assemblies
 	 */
 	protected final XArchRelativePathTracker tracker;
 
 	/**
-	 * Prevents cycles in updates--when the value is &gt; 0, the BNA events that
-	 * are being monitored originated either directly from this logic or
-	 * indirectly from other logics, but should be ignored.
+	 * Prevents cycles in updates--when the value is &gt; 0, the BNA events that are being monitored originated either
+	 * directly from this logic or indirectly from other logics, but should be ignored.
 	 */
 	private int updatingThings = 0;
 
@@ -103,8 +99,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	}
 
 	/**
-	 * Ensures that the runnable is run in the display thread (runs it
-	 * immediately if already in the display thread).
+	 * Ensures that the runnable is run in the display thread (runs it immediately if already in the display thread).
 	 * 
 	 * @param r
 	 *            The runnable to run.
@@ -119,9 +114,8 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	}
 
 	/**
-	 * Takes the newly added ObjRef, translates it into a BNA Assembly through a
-	 * call to {@link #addThing(List, ObjRef)} and updates the BNA Assembly
-	 * through a call to
+	 * Takes the newly added ObjRef, translates it into a BNA Assembly through a call to {@link #addThing(List, ObjRef)}
+	 * and updates the BNA Assembly through a call to
 	 * {@link #updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)}
 	 */
 
@@ -155,8 +149,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	}
 
 	/**
-	 * Finds any BNA Assemblies that correspond to the modified ObjRef and
-	 * updates them through calls to
+	 * Finds any BNA Assemblies that correspond to the modified ObjRef and updates them through calls to
 	 * {@link #updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)}
 	 */
 	@Override
@@ -186,8 +179,7 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	}
 
 	/**
-	 * Removes all BNA Assemblies that were created by this logic and correspond
-	 * to the removed ObjRef
+	 * Removes all BNA Assemblies that were created by this logic and correspond to the removed ObjRef
 	 */
 
 	@Override
@@ -215,9 +207,8 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	}
 
 	/**
-	 * Monitors BNA model events to see if they represent changes to a BNA
-	 * Assembly added by this logic. When found, updates the ObjRef data through
-	 * calls to {@link #storeThingData(ObjRef, IThing, BNAPath, BNAModelEvent)}.
+	 * Monitors BNA model events to see if they represent changes to a BNA Assembly added by this logic. When found,
+	 * updates the ObjRef data through calls to {@link #storeThingData(ObjRef, IThing, BNAPath, BNAModelEvent)}.
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
@@ -247,40 +238,35 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	}
 
 	/**
-	 * Creates the BNA Assembly that represents the given ObjRef. Note that this
-	 * class should merely create the assembly and not configure it with
-	 * information from the ObjRef, that functionality is reserved for
+	 * Creates the BNA Assembly that represents the given ObjRef. Note that this class should merely create the assembly
+	 * and not configure it with information from the ObjRef, that functionality is reserved for
 	 * {@link #updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)}
 	 * 
 	 * @param relativeLineageRefs
 	 *            The ObjRefs from the rootObjRef to the objRef
 	 * @param objRef
-	 *            The objRef that is to be represented as a Thing in the BNA
-	 *            model
-	 * @return The thing that was created to represent the ObjRef, or
-	 *         <code>null</code> if no thing should be added for the given
-	 *         objRef.
+	 *            The objRef that is to be represented as a Thing in the BNA model
+	 * @return The thing that was created to represent the ObjRef, or <code>null</code> if no thing should be added for
+	 *         the given objRef.
 	 */
 	protected abstract @Nullable
 	T addThing(List<ObjRef> relativeLineageRefs, ObjRef objRef);
 
 	/**
-	 * Updates the Thing returned from {@link #addThing(List, ObjRef)} to
-	 * reflect information stored in the ObjRef and its children. This will be
-	 * called upon initial creation of the BNA Assembly, and when the ObjRef or
-	 * its children are modified.
+	 * Updates the Thing returned from {@link #addThing(List, ObjRef)} to reflect information stored in the ObjRef and
+	 * its children. This will be called upon initial creation of the BNA Assembly, and when the ObjRef or its children
+	 * are modified.
 	 * 
 	 * @param relativeLineageRefs
 	 *            The ObjRefs from the rootObjRef to the objRef
 	 * @param relativePath
-	 *            The {@link XArchADTPath} from the rootObjRef to the objRef,
-	 *            <code>null</code> when called initially from
-	 *            {@link #addThing(List, ObjRef)}
+	 *            The {@link XArchADTPath} from the rootObjRef to the objRef, <code>null</code> when called initially
+	 *            from {@link #addThing(List, ObjRef)}
 	 * @param objRef
 	 *            The objRef that is represented by the Thing in the BNA model
 	 * @param evt
-	 *            The event that caused the update, <code>null</code> when
-	 *            called initially from {@link #addThing(List, ObjRef)}
+	 *            The event that caused the update, <code>null</code> when called initially from
+	 *            {@link #addThing(List, ObjRef)}
 	 * @param thing
 	 *            The BNA Thing that represents the ObjRef.
 	 */
@@ -289,23 +275,19 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	}
 
 	/**
-	 * Updates the ObjRef to reflect information in the BNA Assembly returned
-	 * from {@link #addThing(List, ObjRef)}. This will be called when the BNA
-	 * Assembly's root thing or any of its parts are modified.
+	 * Updates the ObjRef to reflect information in the BNA Assembly returned from {@link #addThing(List, ObjRef)}. This
+	 * will be called when the BNA Assembly's root thing or any of its parts are modified.
 	 * 
 	 * @param objRef
 	 *            The objRef corresponding to the BNA Assembly
 	 * @param thing
-	 *            The BNA Assembly (or plain old Thing) that represents the
-	 *            ObjRef.
+	 *            The BNA Assembly (or plain old Thing) that represents the ObjRef.
 	 * @param relativeBNAPath
-	 *            The path within the BNA Assembly to the specific thing that
-	 *            was modified, empty if the BNA Assembly's root thing is
-	 *            modified
+	 *            The path within the BNA Assembly to the specific thing that was modified, empty if the BNA Assembly's
+	 *            root thing is modified
 	 * @param evt
-	 *            The original {@link BNAModelEvent} that triggered the update.
-	 *            Note that this event may be for a part in the BNA Assembly and
-	 *            not for the BNA Assembly root thing.
+	 *            The original {@link BNAModelEvent} that triggered the update. Note that this event may be for a part
+	 *            in the BNA Assembly and not for the BNA Assembly root thing.
 	 */
 	protected void storeThingData(ObjRef objRef, T thing, BNAPath relativeBNAPath, BNAModelEvent evt) {
 	}

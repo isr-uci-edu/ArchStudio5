@@ -73,8 +73,9 @@ public class CodeGeneration {
 								ICompilationUnit cu = JavaCore.createCompilationUnitFrom((IFile) r);
 								cu = cu.getPrimary();
 								cu = cu.getWorkingCopy(new NullProgressMonitor());
-								if (!cu.isWorkingCopy())
+								if (!cu.isWorkingCopy()) {
 									System.out.println(cu);
+								}
 								cus.add(cu);
 							}
 							else if (r instanceof IFolder) {

@@ -20,8 +20,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
 /*
- * This example transform reverses the direction of all interfaces in all
- * architectures
+ * This example transform reverses the direction of all interfaces in all architectures
  */
 public class ExampleChangeSetTransform implements ChangeSetTransform {
 

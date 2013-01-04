@@ -147,8 +147,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Gets all the projects in the workspace that have the xADL 3 Schema Nature
-	 * added to them. Projects must be open and accessible to be returned.
+	 * Gets all the projects in the workspace that have the xADL 3 Schema Nature added to them. Projects must be open
+	 * and accessible to be returned.
 	 * 
 	 * @return A list of <tt>IProject</tt>s that have the appropriate nature.
 	 * @throws CoreException
@@ -168,8 +168,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Gets a list of .xsd files that exist in the project root or in the
-	 * <tt>model/</tt> directory of the given project.
+	 * Gets a list of .xsd files that exist in the project root or in the <tt>model/</tt> directory of the given
+	 * project.
 	 * 
 	 * @param project
 	 *            Project to test.
@@ -218,8 +218,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Gets a list of <tt>.genmodel</tt> files that exist at the project root of
-	 * the given project.
+	 * Gets a list of <tt>.genmodel</tt> files that exist at the project root of the given project.
 	 * 
 	 * @param project
 	 *            Project to test.
@@ -260,9 +259,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Gets the namespace URI (NSURI) for a given .xsd file. Parses the file,
-	 * extracts the <tt>xmlns</tt> attribute from the root element, and returns
-	 * its contents.
+	 * Gets the namespace URI (NSURI) for a given .xsd file. Parses the file, extracts the <tt>xmlns</tt> attribute from
+	 * the root element, and returns its contents.
 	 * 
 	 * @param schemaFile
 	 *            <tt>IFile</tt> representing schema file to parse
@@ -305,10 +303,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	 * 
 	 * @param schemaFileList
 	 *            List of <tt>IFile</tt> representing <tt>.xsd</tt> files.
-	 * @return map mapping <tt>IFile</tt>s in <tt>schemaFileList</tt> to
-	 *         Strings, representing their namespace URIs. Parsing and other
-	 *         errors are ignored and those URIs will not be present in the
-	 *         returned map.
+	 * @return map mapping <tt>IFile</tt>s in <tt>schemaFileList</tt> to Strings, representing their namespace URIs.
+	 *         Parsing and other errors are ignored and those URIs will not be present in the returned map.
 	 */
 	public Map<IFile, String> getNSURIsForSchemaFiles(List<IFile> schemaFileList) throws ParserConfigurationException,
 			SAXException, IOException, CoreException {
@@ -326,8 +322,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	 * @param schemaURIString
 	 *            an Eclipse URI pointing to an <tt>.xsd</tt> resource.
 	 * @param resourceSet
-	 *            Resource set to use for resolving URIs in
-	 *            <tt>schemaURIStrings</tt>
+	 *            Resource set to use for resolving URIs in <tt>schemaURIStrings</tt>
 	 * @return namespace URI declared in the schema
 	 */
 	private static String getNSURIForSchema(String schemaURIString, ResourceSet resourceSet)
@@ -345,14 +340,12 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Returns the namespace to location mappings contained within a schema URI
-	 * (in the Eclipse universe).
+	 * Returns the namespace to location mappings contained within a schema URI (in the Eclipse universe).
 	 * 
 	 * @param schemaURIString
 	 *            an Eclipse URI pointing to an <tt>.xsd</tt> resource.
 	 * @param resourceSet
-	 *            Resource set to use for resolving URIs in
-	 *            <tt>schemaURIStrings</tt>
+	 *            Resource set to use for resolving URIs in <tt>schemaURIStrings</tt>
 	 * @return namespace URI to location mappings declared in the schema
 	 */
 	public Map<String, String> getImportsForSchema(String schemaURIString, ResourceSet resourceSet)
@@ -388,12 +381,11 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Parses a <tt>.genmodel</tt> file and returns the EMF <tt>GenModel</tt>
-	 * class representing that file.
+	 * Parses a <tt>.genmodel</tt> file and returns the EMF <tt>GenModel</tt> class representing that file.
 	 * 
 	 * @param resourceSet
-	 *            Resource set to use for URI resolution (EMF location requires
-	 *            the IFile to be turned into a URI internally).
+	 *            Resource set to use for URI resolution (EMF location requires the IFile to be turned into a URI
+	 *            internally).
 	 * @param genModelFile
 	 *            <tt>IFile</tt> representing <tt>.genmodel</tt> file.
 	 * @return <tt>GenModel</tt> object from parsed file.
@@ -441,15 +433,13 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Returns a mapping of <tt>.genmodel</tt> files to parsed <tt>GenModel</tt>
-	 * objects representing those files.
+	 * Returns a mapping of <tt>.genmodel</tt> files to parsed <tt>GenModel</tt> objects representing those files.
 	 * 
 	 * @param resourceSet
 	 *            <tt>ResourceSet</tt> used to rString esolve URIs
 	 * @param genModelFileList
 	 *            List of <tt>IFile</tt> objects representing GenModel files.
-	 * @return Map from <tt>IFile</tt> objects passed in to <tt>GenModel</tt>
-	 *         parsed objects.
+	 * @return Map from <tt>IFile</tt> objects passed in to <tt>GenModel</tt> parsed objects.
 	 */
 	public Map<IFile, GenModel> parseGenModelFiles(ResourceSet resourceSet, List<IFile> genModelFileList) {
 		Map<IFile, GenModel> fileToGenModelMap = new HashMap<IFile, GenModel>();
@@ -466,14 +456,13 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Clearinghouse method to get information about all the xADL schema
-	 * projects in the workspace, what schemas they contain, and what
-	 * <tt>.genmodel</tt> files they have.
+	 * Clearinghouse method to get information about all the xADL schema projects in the workspace, what schemas they
+	 * contain, and what <tt>.genmodel</tt> files they have.
 	 * 
 	 * @param importer
 	 *            a ModelImporter object (used for URI resolution)
-	 * @return A list of <tt>SchemaRecord</tt> objects containing information
-	 *         about other schema projects in the workspace.
+	 * @return A list of <tt>SchemaRecord</tt> objects containing information about other schema projects in the
+	 *         workspace.
 	 */
 	private List<SchemaRecord> getSchemaRecords(ModelImporter importer) throws ParserConfigurationException,
 			SAXException, IOException, CoreException {
@@ -552,11 +541,9 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	}
 
 	/**
-	 * Internal data structure for capturing data about a Schema in a xADL
-	 * Schema project. Includes namespace URI of the schema, the project
-	 * containing the schema, the <tt>IFile</tt>s representing the schema itself
-	 * and its GenModel, and the parsed GenModel representation and individual
-	 * GenPackage corresponding to the schema.
+	 * Internal data structure for capturing data about a Schema in a xADL Schema project. Includes namespace URI of the
+	 * schema, the project containing the schema, the <tt>IFile</tt>s representing the schema itself and its GenModel,
+	 * and the parsed GenModel representation and individual GenPackage corresponding to the schema.
 	 */
 	@SuppressWarnings("unused")
 	private static class SchemaRecord {
@@ -575,8 +562,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		private final IFile schemaFile;
 
 		/**
-		 * The parsed GenModel object containing the GenPackage that refers to
-		 * the schema
+		 * The parsed GenModel object containing the GenPackage that refers to the schema
 		 */
 		private final GenModel genModel;
 
@@ -670,13 +656,10 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 
 		XSDImporter importer = new XSDImporter() {
 			/*
-			 * Note: XSDImporter seems to not support non-local files (e.g.,
-			 * projects imported from an external folder, linked files, etc.).
-			 * This is a problem because, in such cases, the generated resources
-			 * are saved in the wrong location. Later, when searching for the
-			 * resources, they cannot be found and the process fails. To resolve
-			 * this, we extend the base class and move the resources to the
-			 * correct location before saving them.
+			 * Note: XSDImporter seems to not support non-local files (e.g., projects imported from an external folder,
+			 * linked files, etc.). This is a problem because, in such cases, the generated resources are saved in the
+			 * wrong location. Later, when searching for the resources, they cannot be found and the process fails. To
+			 * resolve this, we extend the base class and move the resources to the correct location before saving them.
 			 */
 
 			@Override
@@ -1105,7 +1088,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 						WorkspaceBundlePluginModel model = (WorkspaceBundlePluginModel) plugin;
 						model.save();
 					}
-					
+
 					CodeGeneration.formatCode(project);
 				}
 				catch (Throwable t) {

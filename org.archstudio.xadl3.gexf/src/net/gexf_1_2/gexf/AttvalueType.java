@@ -5,8 +5,7 @@ package net.gexf_1_2.gexf;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '
- * <em><b>Attvalue Type</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Attvalue Type</b></em>'. <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -26,26 +25,23 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface AttvalueType extends EObject {
 	/**
-	 * Returns the value of the '<em><b>End</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>End</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>End</em>' attribute isn't clear, there really
-	 * should be more of a description here...
+	 * If the meaning of the '<em>End</em>' attribute isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>End</em>' attribute.
 	 * @see #setEnd(Object)
 	 * @see net.gexf_1_2.gexf.GexfPackage#getAttvalueType_End()
-	 * @model dataType="net.gexf_1_2.gexf.TimeType"
-	 *        extendedMetaData="kind='attribute' name='end'"
+	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='end'"
 	 * @generated
 	 */
 	Object getEnd();
 
 	/**
-	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttvalueType#getEnd
-	 * <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttvalueType#getEnd <em>End</em>}' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>End</em>' attribute.
@@ -55,27 +51,24 @@ public interface AttvalueType extends EObject {
 	void setEnd(Object value);
 
 	/**
-	 * Returns the value of the '<em><b>Endopen</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Endopen</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Endopen</em>' attribute isn't clear, there
-	 * really should be more of a description here...
+	 * If the meaning of the '<em>Endopen</em>' attribute isn't clear, there really should be more of a description
+	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Endopen</em>' attribute.
 	 * @see #setEndopen(Object)
 	 * @see net.gexf_1_2.gexf.GexfPackage#getAttvalueType_Endopen()
-	 * @model dataType="net.gexf_1_2.gexf.TimeType"
-	 *        extendedMetaData="kind='attribute' name='endopen'"
+	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='endopen'"
 	 * @generated
 	 */
 	Object getEndopen();
 
 	/**
-	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttvalueType#getEndopen
-	 * <em>Endopen</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-	 * -->
+	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttvalueType#getEndopen <em>Endopen</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>Endopen</em>' attribute.
@@ -85,26 +78,23 @@ public interface AttvalueType extends EObject {
 	void setEndopen(Object value);
 
 	/**
-	 * Returns the value of the '<em><b>For</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>For</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>For</em>' attribute isn't clear, there really
-	 * should be more of a description here...
+	 * If the meaning of the '<em>For</em>' attribute isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>For</em>' attribute.
 	 * @see #setFor(Object)
 	 * @see net.gexf_1_2.gexf.GexfPackage#getAttvalueType_For()
-	 * @model dataType="net.gexf_1_2.gexf.IdType" required="true"
-	 *        extendedMetaData="kind='attribute' name='for'"
+	 * @model dataType="net.gexf_1_2.gexf.IdType" required="true" extendedMetaData="kind='attribute' name='for'"
 	 * @generated
 	 */
 	Object getFor();
 
 	/**
-	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttvalueType#getFor
-	 * <em>For</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttvalueType#getFor <em>For</em>}' attribute. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>For</em>' attribute.
@@ -114,26 +104,24 @@ public interface AttvalueType extends EObject {
 	void setFor(Object value);
 
 	/**
-	 * Returns the value of the '<em><b>Start</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Start</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Start</em>' attribute isn't clear, there
-	 * really should be more of a description here...
+	 * If the meaning of the '<em>Start</em>' attribute isn't clear, there really should be more of a description
+	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Start</em>' attribute.
 	 * @see #setStart(Object)
 	 * @see net.gexf_1_2.gexf.GexfPackage#getAttvalueType_Start()
-	 * @model dataType="net.gexf_1_2.gexf.TimeType"
-	 *        extendedMetaData="kind='attribute' name='start'"
+	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='start'"
 	 * @generated
 	 */
 	Object getStart();
 
 	/**
-	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttvalueType#getStart
-	 * <em>Start</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttvalueType#getStart <em>Start</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>Start</em>' attribute.
@@ -143,27 +131,24 @@ public interface AttvalueType extends EObject {
 	void setStart(Object value);
 
 	/**
-	 * Returns the value of the '<em><b>Startopen</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Startopen</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Startopen</em>' attribute isn't clear, there
-	 * really should be more of a description here...
+	 * If the meaning of the '<em>Startopen</em>' attribute isn't clear, there really should be more of a description
+	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Startopen</em>' attribute.
 	 * @see #setStartopen(Object)
 	 * @see net.gexf_1_2.gexf.GexfPackage#getAttvalueType_Startopen()
-	 * @model dataType="net.gexf_1_2.gexf.TimeType"
-	 *        extendedMetaData="kind='attribute' name='startopen'"
+	 * @model dataType="net.gexf_1_2.gexf.TimeType" extendedMetaData="kind='attribute' name='startopen'"
 	 * @generated
 	 */
 	Object getStartopen();
 
 	/**
-	 * Sets the value of the '
-	 * {@link net.gexf_1_2.gexf.AttvalueType#getStartopen <em>Startopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttvalueType#getStartopen <em>Startopen</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>Startopen</em>' attribute.
@@ -173,11 +158,10 @@ public interface AttvalueType extends EObject {
 	void setStartopen(Object value);
 
 	/**
-	 * Returns the value of the '<em><b>Value</b></em>' attribute. <!--
-	 * begin-user-doc -->
+	 * Returns the value of the '<em><b>Value</b></em>' attribute. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Value</em>' attribute isn't clear, there
-	 * really should be more of a description here...
+	 * If the meaning of the '<em>Value</em>' attribute isn't clear, there really should be more of a description
+	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -191,8 +175,8 @@ public interface AttvalueType extends EObject {
 	String getValue();
 
 	/**
-	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttvalueType#getValue
-	 * <em>Value</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Sets the value of the '{@link net.gexf_1_2.gexf.AttvalueType#getValue <em>Value</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
 	 *            the new value of the '<em>Value</em>' attribute.

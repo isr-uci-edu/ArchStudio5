@@ -4,11 +4,9 @@ import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "AIM Launcher Component Impl" MyxGen extension in the
- * org.archstudio.aimlauncher.core plugin.
+ * To modify, update the "AIM Launcher Component Impl" MyxGen extension in the org.archstudio.aimlauncher.core plugin.
  */
 
 /**

@@ -17,13 +17,12 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Attvalues Content</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Attvalues Content</b></em>'. <!-- end-user-doc
+ * -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link net.gexf_1_2.gexf.impl.AttvaluesContentImpl#getAttvalue <em>
- * Attvalue</em>}</li>
+ * <li>{@link net.gexf_1_2.gexf.impl.AttvaluesContentImpl#getAttvalue <em>Attvalue</em>}</li>
  * </ul>
  * </p>
  * 
@@ -31,8 +30,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesContent {
 	/**
-	 * The cached value of the '{@link #getAttvalue() <em>Attvalue</em>}'
-	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getAttvalue() <em>Attvalue</em>}' containment reference list. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getAttvalue()
 	 * @generated
@@ -54,7 +53,6 @@ public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesConten
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.ATTVALUES_CONTENT;
@@ -79,7 +77,6 @@ public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesConten
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -94,7 +91,6 @@ public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesConten
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -109,8 +105,8 @@ public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesConten
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.ATTVALUES_CONTENT__ATTVALUE:
@@ -126,7 +122,6 @@ public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesConten
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -142,7 +137,6 @@ public class AttvaluesContentImpl extends EObjectImpl implements AttvaluesConten
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {

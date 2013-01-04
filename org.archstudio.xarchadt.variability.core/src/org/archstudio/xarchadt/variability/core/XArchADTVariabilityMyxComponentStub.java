@@ -5,11 +5,10 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "XArch ADT Variability Impl" MyxGen extension in the
- * org.archstudio.xarchadt.variability.core plugin.
+ * To modify, update the "XArch ADT Variability Impl" MyxGen extension in the org.archstudio.xarchadt.variability.core
+ * plugin.
  */
 
 /**
@@ -32,6 +31,7 @@ public abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -42,6 +42,7 @@ public abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -63,8 +64,8 @@ public abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio
 	protected final java.util.Collection<org.archstudio.xarchadt.IXArchADTFileListener> fileEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTFileListener>();
 
 	/**
-	 * Service object proxy for the fileEvents interface. Calls to this proxy
-	 * object are automatically delegated to all connections on the interface
+	 * Service object proxy for the fileEvents interface. Calls to this proxy object are automatically delegated to all
+	 * connections on the interface
 	 * 
 	 * @see #OUT_FILE_EVENTS
 	 * @generated
@@ -114,8 +115,8 @@ public abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio
 	protected final java.util.Collection<org.archstudio.xarchadt.IXArchADTModelListener> modelEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.IXArchADTModelListener>();
 
 	/**
-	 * Service object proxy for the modelEvents interface. Calls to this proxy
-	 * object are automatically delegated to all connections on the interface
+	 * Service object proxy for the modelEvents interface. Calls to this proxy object are automatically delegated to all
+	 * connections on the interface
 	 * 
 	 * @see #OUT_MODEL_EVENTS
 	 * @generated
@@ -165,9 +166,8 @@ public abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio
 	protected final java.util.Collection<org.archstudio.xarchadt.variability.IXArchADTVariabilityListener> variabilityEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.xarchadt.variability.IXArchADTVariabilityListener>();
 
 	/**
-	 * Service object proxy for the variabilityEvents interface. Calls to this
-	 * proxy object are automatically delegated to all connections on the
-	 * interface
+	 * Service object proxy for the variabilityEvents interface. Calls to this proxy object are automatically delegated
+	 * to all connections on the interface
 	 * 
 	 * @see #OUT_VARIABILITY_EVENTS
 	 * @generated
@@ -256,8 +256,9 @@ public abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio
 	 */
 	@Override
 	public void interfaceConnected(IMyxName interfaceName, Object serviceObject) {
-		if (serviceObject == null)
+		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
+		}
 
 		if (interfaceName.equals(OUT_FILE_EVENTS)) {
 			fileEvents.add((org.archstudio.xarchadt.IXArchADTFileListener) serviceObject);
@@ -287,8 +288,9 @@ public abstract class XArchADTVariabilityMyxComponentStub extends org.archstudio
 	 */
 	@Override
 	public void interfaceDisconnecting(IMyxName interfaceName, Object serviceObject) {
-		if (serviceObject == null)
+		if (serviceObject == null) {
 			throw new NullPointerException(interfaceName.getName());
+		}
 
 		if (interfaceName.equals(OUT_FILE_EVENTS)) {
 			fileEvents.remove(serviceObject);

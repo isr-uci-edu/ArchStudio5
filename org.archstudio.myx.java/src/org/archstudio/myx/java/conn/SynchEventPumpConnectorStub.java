@@ -4,11 +4,9 @@ import org.archstudio.myx.fw.IMyxName;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "Synch Event Pump Impl" MyxGen extension in the
- * org.archstudio.myx.java plugin.
+ * To modify, update the "Synch Event Pump Impl" MyxGen extension in the org.archstudio.myx.java plugin.
  */
 
 /**
@@ -67,7 +65,7 @@ public abstract class SynchEventPumpConnectorStub extends org.archstudio.myx.jav
 		}
 
 		if (interfaceName.equals(OUT_SYNCH)) {
-			synch.add((java.lang.Object) serviceObject);
+			synch.add(serviceObject);
 			return;
 		}
 

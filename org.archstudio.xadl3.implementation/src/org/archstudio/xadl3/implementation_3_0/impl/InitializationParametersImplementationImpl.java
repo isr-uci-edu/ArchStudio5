@@ -16,8 +16,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Initialization Parameters Implementation</b></em>'. <!-- end-user-doc
- * -->
+ * <em><b>Initialization Parameters Implementation</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -32,9 +31,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class InitializationParametersImplementationImpl extends ImplementationImpl implements
 		InitializationParametersImplementation {
 	/**
-	 * The cached value of the '{@link #getInitializationParameter()
-	 * <em>Initialization Parameter</em>}' containment reference list. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getInitializationParameter() <em>Initialization Parameter</em>}' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getInitializationParameter()
 	 * @generated
@@ -56,7 +54,6 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Implementation_3_0Package.Literals.INITIALIZATION_PARAMETERS_IMPLEMENTATION;
@@ -82,7 +79,6 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -97,7 +93,6 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -112,8 +107,8 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Implementation_3_0Package.INITIALIZATION_PARAMETERS_IMPLEMENTATION__INITIALIZATION_PARAMETER:
@@ -129,7 +124,6 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -145,7 +139,6 @@ public class InitializationParametersImplementationImpl extends ImplementationIm
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {

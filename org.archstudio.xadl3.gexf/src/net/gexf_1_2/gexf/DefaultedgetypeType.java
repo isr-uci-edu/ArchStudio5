@@ -9,9 +9,8 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc --> A representation of the literals of the enumeration '
- * <em><b>Defaultedgetype Type</b></em>', and utility methods for working with
- * them. <!-- end-user-doc --> <!-- begin-model-doc --> Datatypes <!--
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '<em><b>Defaultedgetype Type</b></em>',
+ * and utility methods for working with them. <!-- end-user-doc --> <!-- begin-model-doc --> Datatypes <!--
  * end-model-doc -->
  * 
  * @see net.gexf_1_2.gexf.GexfPackage#getDefaultedgetypeType()
@@ -20,8 +19,7 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum DefaultedgetypeType implements Enumerator {
 	/**
-	 * The '<em><b>Directed</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Directed</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #DIRECTED_VALUE
 	 * @generated
@@ -30,8 +28,7 @@ public enum DefaultedgetypeType implements Enumerator {
 	DIRECTED(0, "directed", "directed"),
 
 	/**
-	 * The '<em><b>Undirected</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Undirected</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #UNDIRECTED_VALUE
 	 * @generated
@@ -40,8 +37,7 @@ public enum DefaultedgetypeType implements Enumerator {
 	UNDIRECTED(1, "undirected", "undirected"),
 
 	/**
-	 * The '<em><b>Mutual</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>Mutual</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #MUTUAL_VALUE
 	 * @generated
@@ -52,8 +48,8 @@ public enum DefaultedgetypeType implements Enumerator {
 	/**
 	 * The '<em><b>Directed</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Directed</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Directed</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -67,8 +63,8 @@ public enum DefaultedgetypeType implements Enumerator {
 	/**
 	 * The '<em><b>Undirected</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Undirected</b></em>' literal object isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>Undirected</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -82,8 +78,8 @@ public enum DefaultedgetypeType implements Enumerator {
 	/**
 	 * The '<em><b>Mutual</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Mutual</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Mutual</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -95,24 +91,24 @@ public enum DefaultedgetypeType implements Enumerator {
 	public static final int MUTUAL_VALUE = 2;
 
 	/**
-	 * An array of all the '<em><b>Defaultedgetype Type</b></em>' enumerators.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * An array of all the '<em><b>Defaultedgetype Type</b></em>' enumerators. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @generated
 	 */
 	private static final DefaultedgetypeType[] VALUES_ARRAY = new DefaultedgetypeType[] { DIRECTED, UNDIRECTED, MUTUAL, };
 
 	/**
-	 * A public read-only list of all the '<em><b>Defaultedgetype Type</b></em>'
-	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * A public read-only list of all the '<em><b>Defaultedgetype Type</b></em>' enumerators. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	public static final List<DefaultedgetypeType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Defaultedgetype Type</b></em>' literal with the
-	 * specified literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Defaultedgetype Type</b></em>' literal with the specified literal value. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -126,8 +122,8 @@ public enum DefaultedgetypeType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Defaultedgetype Type</b></em>' literal with the
-	 * specified name. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Defaultedgetype Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -141,8 +137,8 @@ public enum DefaultedgetypeType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Defaultedgetype Type</b></em>' literal with the
-	 * specified integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Defaultedgetype Type</b></em>' literal with the specified integer value. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -180,8 +176,7 @@ public enum DefaultedgetypeType implements Enumerator {
 	private final String literal;
 
 	/**
-	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Only this class can construct instances. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -222,12 +217,11 @@ public enum DefaultedgetypeType implements Enumerator {
 	}
 
 	/**
-	 * Returns the literal value of the enumerator, which is its string
-	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the literal value of the enumerator, which is its string representation. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		return literal;

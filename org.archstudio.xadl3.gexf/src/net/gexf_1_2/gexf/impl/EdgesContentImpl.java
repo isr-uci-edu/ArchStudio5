@@ -20,8 +20,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Edges Content</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Edges Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -34,8 +33,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class EdgesContentImpl extends EObjectImpl implements EdgesContent {
 	/**
-	 * The cached value of the '{@link #getEdge() <em>Edge</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getEdge() <em>Edge</em>}' containment reference list. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getEdge()
 	 * @generated
@@ -44,8 +43,8 @@ public class EdgesContentImpl extends EObjectImpl implements EdgesContent {
 	protected EList<EdgeContent> edge;
 
 	/**
-	 * The default value of the '{@link #getCount() <em>Count</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getCount() <em>Count</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getCount()
 	 * @generated
@@ -54,8 +53,8 @@ public class EdgesContentImpl extends EObjectImpl implements EdgesContent {
 	protected static final BigInteger COUNT_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getCount() <em>Count</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getCount() <em>Count</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getCount()
 	 * @generated
@@ -77,7 +76,6 @@ public class EdgesContentImpl extends EObjectImpl implements EdgesContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return GexfPackage.Literals.EDGES_CONTENT;
@@ -125,7 +123,6 @@ public class EdgesContentImpl extends EObjectImpl implements EdgesContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -140,7 +137,6 @@ public class EdgesContentImpl extends EObjectImpl implements EdgesContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -157,8 +153,8 @@ public class EdgesContentImpl extends EObjectImpl implements EdgesContent {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GexfPackage.EDGES_CONTENT__EDGE:
@@ -177,7 +173,6 @@ public class EdgesContentImpl extends EObjectImpl implements EdgesContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -196,7 +191,6 @@ public class EdgesContentImpl extends EObjectImpl implements EdgesContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -213,7 +207,6 @@ public class EdgesContentImpl extends EObjectImpl implements EdgesContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

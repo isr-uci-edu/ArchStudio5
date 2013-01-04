@@ -48,10 +48,9 @@ public class ArchipelagoEditor extends AbstractArchStudioEditor<ArchipelagoMyxCo
 	}
 
 	/*
-	 * protected void setupToolbar(IEditorSite site){ IActionBars bars =
-	 * site.getActionBars(); IToolBarManager manager = bars.getToolBarManager();
-	 * IAction[] actions = getToolbarActions(); for(int i = 0; i <
-	 * actions.length; i++){ manager.add(actions[i]); } }
+	 * protected void setupToolbar(IEditorSite site){ IActionBars bars = site.getActionBars(); IToolBarManager manager =
+	 * bars.getToolBarManager(); IAction[] actions = getToolbarActions(); for(int i = 0; i < actions.length; i++){
+	 * manager.add(actions[i]); } }
 	 */
 
 	@Override

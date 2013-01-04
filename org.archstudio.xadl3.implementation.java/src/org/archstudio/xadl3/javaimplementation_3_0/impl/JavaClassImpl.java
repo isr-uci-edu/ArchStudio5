@@ -19,23 +19,15 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Java Class</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Java Class</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaClassImpl#getClassPathEntry
- * <em>Class Path Entry</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaClassImpl#getExt
- * <em>Ext</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaClassImpl#getClassName
- * <em>Class Name</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaClassImpl#getId
- * <em>Id</em>}</li>
+ * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaClassImpl#getClassPathEntry <em>Class Path Entry
+ * </em>}</li>
+ * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaClassImpl#getExt <em>Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaClassImpl#getClassName <em>Class Name</em>}</li>
+ * <li>{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaClassImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
  * 
@@ -43,8 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	/**
-	 * The cached value of the '{@link #getClassPathEntry()
-	 * <em>Class Path Entry</em>}' containment reference list. <!--
+	 * The cached value of the '{@link #getClassPathEntry() <em>Class Path Entry</em>}' containment reference list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getClassPathEntry()
@@ -54,8 +45,8 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	protected EList<ClassPathEntry> classPathEntry;
 
 	/**
-	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getExt()
 	 * @generated
@@ -64,8 +55,8 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	protected EList<Extension> ext;
 
 	/**
-	 * The default value of the '{@link #getClassName() <em>Class Name</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getClassName() <em>Class Name</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getClassName()
 	 * @generated
@@ -74,8 +65,8 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	protected static final String CLASS_NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getClassName() <em>Class Name</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getClassName() <em>Class Name</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getClassName()
 	 * @generated
@@ -84,8 +75,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	protected String className = CLASS_NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -94,8 +84,7 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -117,7 +106,6 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Javaimplementation_3_0Package.Literals.JAVA_CLASS;
@@ -206,7 +194,6 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -223,7 +210,6 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -244,8 +230,8 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Javaimplementation_3_0Package.JAVA_CLASS__CLASS_PATH_ENTRY:
@@ -271,7 +257,6 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -296,7 +281,6 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -317,7 +301,6 @@ public class JavaClassImpl extends EObjectImpl implements JavaClass {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

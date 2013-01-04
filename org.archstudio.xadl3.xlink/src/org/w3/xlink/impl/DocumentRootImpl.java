@@ -20,16 +20,13 @@ import org.w3.xlink.DocumentRoot;
 import org.w3.xlink.XlinkPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Document Root</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Document Root</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
  * <li>{@link org.w3.xlink.impl.DocumentRootImpl#getMixed <em>Mixed</em>}</li>
- * <li>{@link org.w3.xlink.impl.DocumentRootImpl#getXMLNSPrefixMap <em>XMLNS
- * Prefix Map</em>}</li>
- * <li>{@link org.w3.xlink.impl.DocumentRootImpl#getXSISchemaLocation <em>XSI
- * Schema Location</em>}</li>
+ * <li>{@link org.w3.xlink.impl.DocumentRootImpl#getXMLNSPrefixMap <em>XMLNS Prefix Map</em>}</li>
+ * <li>{@link org.w3.xlink.impl.DocumentRootImpl#getXSISchemaLocation <em>XSI Schema Location</em>}</li>
  * <li>{@link org.w3.xlink.impl.DocumentRootImpl#getHref <em>Href</em>}</li>
  * <li>{@link org.w3.xlink.impl.DocumentRootImpl#getType <em>Type</em>}</li>
  * </ul>
@@ -39,8 +36,8 @@ import org.w3.xlink.XlinkPackage;
  */
 public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	/**
-	 * The cached value of the '{@link #getMixed() <em>Mixed</em>}' attribute
-	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getMixed() <em>Mixed</em>}' attribute list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getMixed()
 	 * @generated
@@ -49,9 +46,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected FeatureMap mixed;
 
 	/**
-	 * The cached value of the '{@link #getXMLNSPrefixMap()
-	 * <em>XMLNS Prefix Map</em>}' map. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached value of the '{@link #getXMLNSPrefixMap() <em>XMLNS Prefix Map</em>}' map. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getXMLNSPrefixMap()
 	 * @generated
@@ -60,9 +56,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected EMap<String, String> xMLNSPrefixMap;
 
 	/**
-	 * The cached value of the '{@link #getXSISchemaLocation()
-	 * <em>XSI Schema Location</em>}' map. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The cached value of the '{@link #getXSISchemaLocation() <em>XSI Schema Location</em>}' map. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
 	 * @see #getXSISchemaLocation()
 	 * @generated
@@ -71,8 +66,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected EMap<String, String> xSISchemaLocation;
 
 	/**
-	 * The default value of the '{@link #getHref() <em>Href</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getHref() <em>Href</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getHref()
 	 * @generated
@@ -81,8 +76,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected static final String HREF_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getHref() <em>Href</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getHref() <em>Href</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getHref()
 	 * @generated
@@ -91,8 +86,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected String href = HREF_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getType()
 	 * @generated
@@ -101,8 +96,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	protected static final String TYPE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getType()
 	 * @generated
@@ -124,7 +119,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return XlinkPackage.Literals.DOCUMENT_ROOT;
@@ -224,7 +218,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -243,7 +236,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -279,7 +271,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -307,7 +298,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -335,7 +325,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -358,7 +347,6 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

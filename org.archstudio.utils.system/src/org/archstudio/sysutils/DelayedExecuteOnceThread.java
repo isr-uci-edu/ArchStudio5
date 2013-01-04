@@ -1,15 +1,12 @@
 package org.archstudio.sysutils;
 
 /**
- * This is a utility base Thread class for executing an activity once after a
- * given delay where additional requests to execute the activity during the
- * delay period reset the delay. This is useful, for example, in dealing with
- * cases where each of a burst of events would cause a computationally-intensive
- * operation that is only dependent upon the last event. So, let's say we get
- * 1000 events inside two seconds. Each of them should trigger the
- * recomputation, but we don't want to actually recompute 1000 times when once
- * at the end would be enough. This allows us to ignore all but the last
- * request, and, after a short delay, perform recomputation once.
+ * This is a utility base Thread class for executing an activity once after a given delay where additional requests to
+ * execute the activity during the delay period reset the delay. This is useful, for example, in dealing with cases
+ * where each of a burst of events would cause a computationally-intensive operation that is only dependent upon the
+ * last event. So, let's say we get 1000 events inside two seconds. Each of them should trigger the recomputation, but
+ * we don't want to actually recompute 1000 times when once at the end would be enough. This allows us to ignore all but
+ * the last request, and, after a short delay, perform recomputation once.
  */
 public class DelayedExecuteOnceThread extends Thread {
 

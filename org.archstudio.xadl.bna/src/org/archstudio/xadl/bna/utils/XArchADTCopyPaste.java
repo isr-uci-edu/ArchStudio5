@@ -18,10 +18,9 @@ import com.google.common.collect.Multimap;
 public class XArchADTCopyPaste {
 
 	/**
-	 * Performs a deep clone of an ObjRef, keeping references to other ObjRefs,
-	 * but not cloning the referenced ObjRefs. For a link this would mean that
-	 * the cloned Link still points to the same interfaces, but does not clone
-	 * the interfaces themselves.
+	 * Performs a deep clone of an ObjRef, keeping references to other ObjRefs, but not cloning the referenced ObjRefs.
+	 * For a link this would mean that the cloned Link still points to the same interfaces, but does not clone the
+	 * interfaces themselves.
 	 */
 	protected ObjRef clone(IXArchADT xarch, ObjRef objRef, Map<ObjRef, ObjRef> oldNewRefs) {
 		IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(objRef);
@@ -53,9 +52,8 @@ public class XArchADTCopyPaste {
 	}
 
 	/**
-	 * Goes through the ObjRef and replaces all IDs with new, unique
-	 * identifiers. The goal is for the result to be inserted into a document
-	 * without any ID conflicts.
+	 * Goes through the ObjRef and replaces all IDs with new, unique identifiers. The goal is for the result to be
+	 * inserted into a document without any ID conflicts.
 	 */
 	protected void randomizeIDs(IXArchADT xarch, ObjRef objRef) {
 		IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(objRef);
@@ -84,8 +82,7 @@ public class XArchADTCopyPaste {
 	}
 
 	/**
-	 * Goes through the Objref and replaces all references to old objRefs with
-	 * references to the new objRefs.
+	 * Goes through the Objref and replaces all references to old objRefs with references to the new objRefs.
 	 */
 	protected void updateReferences(IXArchADT xarch, ObjRef objRef, Map<ObjRef, ObjRef> oldNewRefs) {
 		IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(objRef);
@@ -117,8 +114,7 @@ public class XArchADTCopyPaste {
 	Multimap<String, ObjRef> featureToCopiedObjRefs = ArrayListMultimap.create();
 
 	/**
-	 * Clones and copies the set of ObjRefs so that they can be pasted into a
-	 * document later.
+	 * Clones and copies the set of ObjRefs so that they can be pasted into a document later.
 	 */
 	public void copy(IXArchADT xarch, Iterable<ObjRef> objRefs) {
 		featureToCopiedObjRefs.clear();
@@ -132,8 +128,8 @@ public class XArchADTCopyPaste {
 	}
 
 	/**
-	 * Pastes the copied ObjRefs into a document after cloning them and
-	 * randomizing their IDs so that there are no ID conflicts.
+	 * Pastes the copied ObjRefs into a document after cloning them and randomizing their IDs so that there are no ID
+	 * conflicts.
 	 */
 	public Collection<ObjRef> paste(IXArchADT xarch, ObjRef rootRef) {
 		IXArchADTTypeMetadata rootType = xarch.getTypeMetadata(rootRef);

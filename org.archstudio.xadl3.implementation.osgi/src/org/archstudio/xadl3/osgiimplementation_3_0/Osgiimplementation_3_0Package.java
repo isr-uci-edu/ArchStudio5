@@ -9,8 +9,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 /**
- * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains
- * accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains accessors for the meta objects to represent
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
@@ -31,9 +30,8 @@ import org.eclipse.emf.ecore.EReference;
  * 
  * xADL 3 Core Schema
  * 
- * This schema defines the core elements for xADL 3 documents. The schema is
- * intentionally small, defining only a few elements that are intended to be
- * common across xADL descriptions and extensions, regardless of domain.
+ * This schema defines the core elements for xADL 3 documents. The schema is intentionally small, defining only a few
+ * elements that are intended to be common across xADL descriptions and extensions, regardless of domain.
  * 
  * Changelog: - 3.0.0: * Initial version
  * 
@@ -42,10 +40,8 @@ import org.eclipse.emf.ecore.EReference;
  * 
  * xADL 3 Abstract Implementation Schema
  * 
- * This schema defines the concept of an implementation. The concept is
- * abstract, so it is intended to be specialized by various specific types of
- * implementations. However, it exists so that implementations can be treated
- * similarly.
+ * This schema defines the concept of an implementation. The concept is abstract, so it is intended to be specialized by
+ * various specific types of implementations. However, it exists so that implementations can be treated similarly.
  * 
  * Changelog: - 3.0.0 * Initial version
  * 
@@ -79,8 +75,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	String eNS_PREFIX = "osgiimplementation_3_0";
 
 	/**
-	 * The singleton instance of the package. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -88,10 +83,8 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 			.init();
 
 	/**
-	 * The meta object id for the '
-	 * {@link org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl
-	 * <em>OS Gi Implementation</em>}' class. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The meta object id for the '{@link org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl
+	 * <em>OS Gi Implementation</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl
 	 * @see org.archstudio.xadl3.osgiimplementation_3_0.impl.Osgiimplementation_3_0PackageImpl#getOSGiImplementation()
@@ -100,8 +93,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	int OS_GI_IMPLEMENTATION = 0;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -109,8 +101,8 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	int OS_GI_IMPLEMENTATION__ID = Implementation_3_0Package.IMPLEMENTATION__ID;
 
 	/**
-	 * The feature id for the '<em><b>Ext</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -118,8 +110,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	int OS_GI_IMPLEMENTATION__EXT = Implementation_3_0Package.IMPLEMENTATION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Bundle</b></em>' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Bundle</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -127,8 +118,8 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	int OS_GI_IMPLEMENTATION__BUNDLE = Implementation_3_0Package.IMPLEMENTATION_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>OS Gi Implementation</em>'
-	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The number of structural features of the '<em>OS Gi Implementation</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -136,10 +127,8 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	int OS_GI_IMPLEMENTATION_FEATURE_COUNT = Implementation_3_0Package.IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
-	 * Returns the meta object for class '
-	 * {@link org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation
-	 * <em>OS Gi Implementation</em>}'. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation
+	 * <em>OS Gi Implementation</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>OS Gi Implementation</em>'.
 	 * @see org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation
@@ -149,11 +138,10 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation#getExt
-	 * <em>Ext</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation#getExt <em>Ext</em>}'. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * 
-	 * @return the meta object for the containment reference list '<em>Ext</em>
-	 *         '.
+	 * @return the meta object for the containment reference list '<em>Ext</em>'.
 	 * @see org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation#getExt()
 	 * @see #getOSGiImplementation()
 	 * @generated
@@ -162,8 +150,8 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '
-	 * {@link org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation#getBundle
-	 * <em>Bundle</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * {@link org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation#getBundle <em>Bundle</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Bundle</em>'.
 	 * @see org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation#getBundle()
@@ -173,8 +161,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	EAttribute getOSGiImplementation_Bundle();
 
 	/**
-	 * Returns the factory that creates the instances of the model. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the factory that creates the instances of the model.
 	 * @generated
@@ -182,8 +169,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	Osgiimplementation_3_0Factory getOsgiimplementation_3_0Factory();
 
 	/**
-	 * <!-- begin-user-doc --> Defines literals for the meta objects that
-	 * represent
+	 * <!-- begin-user-doc --> Defines literals for the meta objects that represent
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
@@ -197,9 +183,8 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	interface Literals {
 		/**
 		 * The meta object literal for the '
-		 * {@link org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl
-		 * <em>OS Gi Implementation</em>}' class. <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * {@link org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl <em>OS Gi Implementation</em>}
+		 * ' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @see org.archstudio.xadl3.osgiimplementation_3_0.impl.OSGiImplementationImpl
 		 * @see org.archstudio.xadl3.osgiimplementation_3_0.impl.Osgiimplementation_3_0PackageImpl#getOSGiImplementation()
@@ -208,16 +193,16 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 		EClass OS_GI_IMPLEMENTATION = eINSTANCE.getOSGiImplementation();
 
 		/**
-		 * The meta object literal for the '<em><b>Ext</b></em>' containment
-		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Ext</b></em>' containment reference list feature. <!-- begin-user-doc
+		 * --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
 		EReference OS_GI_IMPLEMENTATION__EXT = eINSTANCE.getOSGiImplementation_Ext();
 
 		/**
-		 * The meta object literal for the '<em><b>Bundle</b></em>' attribute
-		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Bundle</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
 		 * 
 		 * @generated
 		 */

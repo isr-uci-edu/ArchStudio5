@@ -105,8 +105,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		UserEditableUtils.addEditableQualities(thing, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG);
 
 		/*
-		 * restack on top of the thing representing the first ancestor (i.e.,
-		 * the component or connector)
+		 * restack on top of the thing representing the first ancestor (i.e., the component or connector)
 		 */
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(
 				syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingIDKey()), relLineageRefs.get(1));

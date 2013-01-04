@@ -5,11 +5,9 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "File Manager Impl" MyxGen extension in the
- * org.archstudio.filemanager.core plugin.
+ * To modify, update the "File Manager Impl" MyxGen extension in the org.archstudio.filemanager.core plugin.
  */
 
 /**
@@ -33,6 +31,7 @@ public abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -43,6 +42,7 @@ public abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();
@@ -143,9 +143,8 @@ public abstract class FileManagerMyxComponentStub extends org.archstudio.myx.fw.
 	protected final java.util.Collection<org.archstudio.filemanager.IFileManagerListener> fileManagerEvents = new java.util.concurrent.CopyOnWriteArrayList<org.archstudio.filemanager.IFileManagerListener>();
 
 	/**
-	 * Service object proxy for the fileManagerEvents interface. Calls to this
-	 * proxy object are automatically delegated to all connections on the
-	 * interface
+	 * Service object proxy for the fileManagerEvents interface. Calls to this proxy object are automatically delegated
+	 * to all connections on the interface
 	 * 
 	 * @see #OUT_FILE_MANAGER_EVENTS
 	 * @generated

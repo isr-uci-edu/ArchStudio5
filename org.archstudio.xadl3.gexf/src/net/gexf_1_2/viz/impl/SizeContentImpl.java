@@ -14,18 +14,15 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Size Content</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Size Content</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
  * <li>{@link net.gexf_1_2.viz.impl.SizeContentImpl#getSpells <em>Spells</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.SizeContentImpl#getEnd <em>End</em>}</li>
- * <li>{@link net.gexf_1_2.viz.impl.SizeContentImpl#getEndopen <em>Endopen</em>}
- * </li>
+ * <li>{@link net.gexf_1_2.viz.impl.SizeContentImpl#getEndopen <em>Endopen</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.SizeContentImpl#getStart <em>Start</em>}</li>
- * <li>{@link net.gexf_1_2.viz.impl.SizeContentImpl#getStartopen <em>Startopen
- * </em>}</li>
+ * <li>{@link net.gexf_1_2.viz.impl.SizeContentImpl#getStartopen <em>Startopen</em>}</li>
  * <li>{@link net.gexf_1_2.viz.impl.SizeContentImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
@@ -34,8 +31,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	/**
-	 * The cached value of the '{@link #getSpells() <em>Spells</em>}'
-	 * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getSpells() <em>Spells</em>}' containment reference. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @see #getSpells()
 	 * @generated
@@ -44,8 +41,8 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	protected SpellsContent spells;
 
 	/**
-	 * The default value of the '{@link #getEnd() <em>End</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getEnd() <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getEnd()
 	 * @generated
@@ -54,8 +51,7 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	protected static final Object END_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getEnd() <em>End</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getEnd() <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getEnd()
 	 * @generated
@@ -64,8 +60,8 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	protected Object end = END_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getEndopen() <em>Endopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getEndopen() <em>Endopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getEndopen()
 	 * @generated
@@ -74,8 +70,8 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	protected static final Object ENDOPEN_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getEndopen() <em>Endopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getEndopen() <em>Endopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getEndopen()
 	 * @generated
@@ -84,8 +80,8 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	protected Object endopen = ENDOPEN_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getStart() <em>Start</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getStart() <em>Start</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStart()
 	 * @generated
@@ -94,8 +90,8 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	protected static final Object START_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getStart() <em>Start</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getStart() <em>Start</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getStart()
 	 * @generated
@@ -104,8 +100,8 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	protected Object start = START_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getStartopen() <em>Startopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getStartopen() <em>Startopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStartopen()
 	 * @generated
@@ -114,8 +110,8 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	protected static final Object STARTOPEN_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getStartopen() <em>Startopen</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getStartopen() <em>Startopen</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getStartopen()
 	 * @generated
@@ -124,8 +120,8 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	protected Object startopen = STARTOPEN_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getValue()
 	 * @generated
@@ -134,8 +130,8 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	protected static final float VALUE_EDEFAULT = 0.0F;
 
 	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getValue()
 	 * @generated
@@ -144,8 +140,7 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	protected float value = VALUE_EDEFAULT;
 
 	/**
-	 * This is true if the Value attribute has been set. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * This is true if the Value attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -166,7 +161,6 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return VizPackage.Literals.SIZE_CONTENT;
@@ -386,7 +380,6 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -401,7 +394,6 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -426,7 +418,6 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -457,7 +448,6 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -488,7 +478,6 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -513,7 +502,6 @@ public class SizeContentImpl extends EObjectImpl implements SizeContent {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {

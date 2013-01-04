@@ -5,11 +5,10 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.MyxUtils;
 
 /*
- * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL
- * BE OVERWRITTEN.
+ * DO NOT EDIT THIS CLASS, it is automatically generated. ANY MODIFICATIONS WILL BE OVERWRITTEN.
  * 
- * To modify, update the "xADL Data Binding Library (DBL) Generator Impl" MyxGen
- * extension in the org.archstudio.dblgen.core plugin.
+ * To modify, update the "xADL Data Binding Library (DBL) Generator Impl" MyxGen extension in the
+ * org.archstudio.dblgen.core plugin.
  */
 
 /**
@@ -32,6 +31,7 @@ public abstract class DblGenComponentStub extends org.archstudio.myx.fw.Abstract
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void begin() {
 		super.begin();
 		myxRegistry.register(this);
@@ -42,6 +42,7 @@ public abstract class DblGenComponentStub extends org.archstudio.myx.fw.Abstract
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void end() {
 		myxRegistry.unregister(this);
 		super.end();

@@ -201,8 +201,7 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 			@Override
 			protected synchronized void handleLabelProviderChanged(LabelProviderChangedEvent event) {
 				/*
-				 * We catch calls to this method and then perform a single call
-				 * at a later time.
+				 * We catch calls to this method and then perform a single call at a later time.
 				 */
 				if (labelUpdater == null) {
 					labelUpdater = new DelayedExecuteOnceThread(250, new Runnable() {
@@ -419,9 +418,8 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 		tree.setLayout(layout);
 
 		/*
-		 * Feature in Windows. The first column in a windows table reserves room
-		 * for a check box. The fix is to have this column with a width of zero
-		 * to hide it.
+		 * Feature in Windows. The first column in a windows table reserves room for a check box. The fix is to have
+		 * this column with a width of zero to hide it.
 		 */
 		column = new TreeColumn(tree, SWT.CENTER);
 		column.setText("Windows first column fix");
@@ -510,8 +508,7 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 		getSite().registerContextMenu(contextMenuManager, changeSetViewer);
 
 		/*
-		 * This needs to be here since we always want to update the change sets
-		 * viewer before the relationships viewer.
+		 * This needs to be here since we always want to update the change sets viewer before the relationships viewer.
 		 */
 		myxMap(this);
 		myxMap(changeSetViewer.getContentProvider());
@@ -597,10 +594,8 @@ public class VariabilityViewPart extends AbstractArchStudioView<VariabilityMyxCo
 		ObjRef documentRootRef = xarch.getDocumentRootRef(transformChangeSetRef);
 
 		/*
-		 * There are three possibilities for how this is run: (1) as a plug-in
-		 * project in the current workspace, (2) as a java project in the
-		 * current workspace, and (3) as an installed plugin in the current
-		 * runtime environment.
+		 * There are three possibilities for how this is run: (1) as a plug-in project in the current workspace, (2) as
+		 * a java project in the current workspace, and (3) as an installed plugin in the current runtime environment.
 		 * 
 		 * TODO: We only support (3) right now...
 		 */

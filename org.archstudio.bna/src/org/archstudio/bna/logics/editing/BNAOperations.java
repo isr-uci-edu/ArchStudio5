@@ -97,8 +97,7 @@ public class BNAOperations {
 	}
 
 	/**
-	 * Records a set of operations that will restore things to their current
-	 * locations. Used for undo/redo.
+	 * Records a set of operations that will restore things to their current locations. Used for undo/redo.
 	 */
 	public static Runnable takeSnapshotOfLocations(final IBNAModel model, Iterable<? extends IThing> things) {
 		final List<Runnable> runnables = Lists.newArrayList();

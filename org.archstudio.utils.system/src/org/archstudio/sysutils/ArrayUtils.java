@@ -5,10 +5,9 @@ public class ArrayUtils {
 	public static boolean equals(Object[] arr1, Object[] arr2) {
 		return java.util.Arrays.equals(arr1, arr2);
 		/*
-		 * if(arr1.length != arr2.length){ return false; } for(int i = 0; i <
-		 * arr1.length; i++){ if((arr1[i] == null) && (arr2[i] == null)){
-		 * continue; } if((arr1[i] == null) || (arr2[i] == null)){ return false;
-		 * } if(!arr1[i].equals(arr2[i])){ return false; } } return true;
+		 * if(arr1.length != arr2.length){ return false; } for(int i = 0; i < arr1.length; i++){ if((arr1[i] == null) &&
+		 * (arr2[i] == null)){ continue; } if((arr1[i] == null) || (arr2[i] == null)){ return false; }
+		 * if(!arr1[i].equals(arr2[i])){ return false; } } return true;
 		 */
 	}
 
@@ -102,8 +101,7 @@ public class ArrayUtils {
 	 *            the array to join
 	 * @param delimiter
 	 *            the string used to separate elements
-	 * @return a string created by converting each element of the array to a
-	 *         string, separated by the given delimiter
+	 * @return a string created by converting each element of the array to a string, separated by the given delimiter
 	 */
 	public static String join(Object[] array, String delimiter) {
 		if (array == null) {

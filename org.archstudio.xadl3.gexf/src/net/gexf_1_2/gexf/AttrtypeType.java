@@ -9,9 +9,8 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc --> A representation of the literals of the enumeration '
- * <em><b>Attrtype Type</b></em>', and utility methods for working with them.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '<em><b>Attrtype Type</b></em>', and
+ * utility methods for working with them. <!-- end-user-doc -->
  * 
  * @see net.gexf_1_2.gexf.GexfPackage#getAttrtypeType()
  * @model extendedMetaData="name='attrtype-type'"
@@ -19,8 +18,7 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum AttrtypeType implements Enumerator {
 	/**
-	 * The '<em><b>Integer</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Integer</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #INTEGER_VALUE
 	 * @generated
@@ -29,8 +27,7 @@ public enum AttrtypeType implements Enumerator {
 	INTEGER(0, "integer", "integer"),
 
 	/**
-	 * The '<em><b>Long</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>Long</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #LONG_VALUE
 	 * @generated
@@ -39,8 +36,7 @@ public enum AttrtypeType implements Enumerator {
 	LONG(1, "long", "long"),
 
 	/**
-	 * The '<em><b>Double</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>Double</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #DOUBLE_VALUE
 	 * @generated
@@ -49,8 +45,7 @@ public enum AttrtypeType implements Enumerator {
 	DOUBLE(2, "double", "double"),
 
 	/**
-	 * The '<em><b>Float</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>Float</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #FLOAT_VALUE
 	 * @generated
@@ -59,8 +54,7 @@ public enum AttrtypeType implements Enumerator {
 	FLOAT(3, "float", "float"),
 
 	/**
-	 * The '<em><b>Boolean</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Boolean</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #BOOLEAN_VALUE
 	 * @generated
@@ -69,8 +63,7 @@ public enum AttrtypeType implements Enumerator {
 	BOOLEAN(4, "boolean", "boolean"),
 
 	/**
-	 * The '<em><b>Liststring</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Liststring</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #LISTSTRING_VALUE
 	 * @generated
@@ -79,8 +72,7 @@ public enum AttrtypeType implements Enumerator {
 	LISTSTRING(5, "liststring", "liststring"),
 
 	/**
-	 * The '<em><b>String</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>String</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #STRING_VALUE
 	 * @generated
@@ -89,8 +81,7 @@ public enum AttrtypeType implements Enumerator {
 	STRING(6, "string", "string"),
 
 	/**
-	 * The '<em><b>Any URI</b></em>' literal object. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Any URI</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #ANY_URI_VALUE
 	 * @generated
@@ -101,8 +92,8 @@ public enum AttrtypeType implements Enumerator {
 	/**
 	 * The '<em><b>Integer</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Integer</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Integer</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -116,8 +107,8 @@ public enum AttrtypeType implements Enumerator {
 	/**
 	 * The '<em><b>Long</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Long</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Long</b></em>' literal object isn't clear, there really should be more of a description
+	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -131,8 +122,8 @@ public enum AttrtypeType implements Enumerator {
 	/**
 	 * The '<em><b>Double</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Double</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Double</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -146,8 +137,8 @@ public enum AttrtypeType implements Enumerator {
 	/**
 	 * The '<em><b>Float</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Float</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Float</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -161,8 +152,8 @@ public enum AttrtypeType implements Enumerator {
 	/**
 	 * The '<em><b>Boolean</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Boolean</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Boolean</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -176,8 +167,8 @@ public enum AttrtypeType implements Enumerator {
 	/**
 	 * The '<em><b>Liststring</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Liststring</b></em>' literal object isn't
-	 * clear, there really should be more of a description here...
+	 * If the meaning of '<em><b>Liststring</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -191,8 +182,8 @@ public enum AttrtypeType implements Enumerator {
 	/**
 	 * The '<em><b>String</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>String</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>String</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -206,8 +197,8 @@ public enum AttrtypeType implements Enumerator {
 	/**
 	 * The '<em><b>Any URI</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Any URI</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Any URI</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -219,8 +210,7 @@ public enum AttrtypeType implements Enumerator {
 	public static final int ANY_URI_VALUE = 7;
 
 	/**
-	 * An array of all the '<em><b>Attrtype Type</b></em>' enumerators. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * An array of all the '<em><b>Attrtype Type</b></em>' enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -228,16 +218,16 @@ public enum AttrtypeType implements Enumerator {
 			LISTSTRING, STRING, ANY_URI, };
 
 	/**
-	 * A public read-only list of all the '<em><b>Attrtype Type</b></em>'
-	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * A public read-only list of all the '<em><b>Attrtype Type</b></em>' enumerators. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	public static final List<AttrtypeType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Attrtype Type</b></em>' literal with the specified
-	 * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Attrtype Type</b></em>' literal with the specified literal value. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -251,8 +241,8 @@ public enum AttrtypeType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Attrtype Type</b></em>' literal with the specified
-	 * name. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Attrtype Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -266,8 +256,8 @@ public enum AttrtypeType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Attrtype Type</b></em>' literal with the specified
-	 * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Attrtype Type</b></em>' literal with the specified integer value. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -315,8 +305,7 @@ public enum AttrtypeType implements Enumerator {
 	private final String literal;
 
 	/**
-	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Only this class can construct instances. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -357,12 +346,11 @@ public enum AttrtypeType implements Enumerator {
 	}
 
 	/**
-	 * Returns the literal value of the enumerator, which is its string
-	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the literal value of the enumerator, which is its string representation. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		return literal;

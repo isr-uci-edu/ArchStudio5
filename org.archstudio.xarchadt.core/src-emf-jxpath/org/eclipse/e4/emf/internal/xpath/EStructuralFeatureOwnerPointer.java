@@ -1,27 +1,21 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements. See the NOTICE file distributed with this
- * work for additional information regarding copyright ownership. The ASF
- * licenses this file to You under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE
+ * file distributed with this work for additional information regarding copyright ownership. The ASF licenses this file
+ * to You under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 /*******************************************************************************
- * Copyright (c) 2010 BestSolution.at and others. All rights reserved. This
- * program and the accompanying materials are made available under the terms of
- * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * Copyright (c) 2010 BestSolution.at and others. All rights reserved. This program and the accompanying materials are
+ * made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is
  * available at http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors: Tom Schindl <tom.schindl@bestsolution.at> - adjustment to
- * EObject
+ * Contributors: Tom Schindl <tom.schindl@bestsolution.at> - adjustment to EObject
  ******************************************************************************/
 package org.eclipse.e4.emf.internal.xpath;
 
@@ -38,8 +32,7 @@ import org.apache.commons.jxpath.ri.model.NodePointer;
 import org.eclipse.e4.emf.internal.xpath.helper.ValueUtils;
 
 /**
- * A pointer describing a node that has properties, each of which could be a
- * collection.
+ * A pointer describing a node that has properties, each of which could be a collection.
  * 
  */
 public abstract class EStructuralFeatureOwnerPointer extends NodePointer {
@@ -132,8 +125,7 @@ public abstract class EStructuralFeatureOwnerPointer extends NodePointer {
 	public abstract QName getName();
 
 	/**
-	 * Learn whether <code>name</code> is a valid child name for this
-	 * PropertyOwnerPointer.
+	 * Learn whether <code>name</code> is a valid child name for this PropertyOwnerPointer.
 	 * 
 	 * @param name
 	 *            the QName to test
@@ -145,8 +137,7 @@ public abstract class EStructuralFeatureOwnerPointer extends NodePointer {
 	}
 
 	/**
-	 * Throws an exception if you try to change the root element, otherwise
-	 * forwards the call to the parent pointer.
+	 * Throws an exception if you try to change the root element, otherwise forwards the call to the parent pointer.
 	 * 
 	 * @param value
 	 *            to set
@@ -172,8 +163,7 @@ public abstract class EStructuralFeatureOwnerPointer extends NodePointer {
 	}
 
 	/**
-	 * If this is a root node pointer, throws an exception; otherwise forwards
-	 * the call to the parent node.
+	 * If this is a root node pointer, throws an exception; otherwise forwards the call to the parent node.
 	 */
 	@Override
 	public void remove() {
@@ -197,9 +187,8 @@ public abstract class EStructuralFeatureOwnerPointer extends NodePointer {
 	/**
 	 * Learn whether dynamic property declaration is supported.
 	 * 
-	 * @return true if the property owner can set a property "does not exist". A
-	 *         good example is a Map. You can always assign a value to any key
-	 *         even if it has never been "declared".
+	 * @return true if the property owner can set a property "does not exist". A good example is a Map. You can always
+	 *         assign a value to any key even if it has never been "declared".
 	 */
 	public boolean isDynamicPropertyDeclarationSupported() {
 		return false;

@@ -9,12 +9,10 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc --> A representation of the literals of the enumeration '
- * <em><b>Domain Type</b></em>', and utility methods for working with them. <!--
- * end-user-doc --> <!-- begin-model-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration '<em><b>Domain Type</b></em>', and
+ * utility methods for working with them. <!-- end-user-doc --> <!-- begin-model-doc -->
  * 
- * This enumeration defines allowable domains for interfaces in styles that
- * support the notion of domains.
+ * This enumeration defines allowable domains for interfaces in styles that support the notion of domains.
  * 
  * They are: - top: Top domain. - bottom: Bottom domain.
  * 
@@ -27,8 +25,7 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum DomainType implements Enumerator {
 	/**
-	 * The '<em><b>Top</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>Top</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #TOP_VALUE
 	 * @generated
@@ -37,8 +34,7 @@ public enum DomainType implements Enumerator {
 	TOP(0, "top", "top"),
 
 	/**
-	 * The '<em><b>Bottom</b></em>' literal object. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * The '<em><b>Bottom</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #BOTTOM_VALUE
 	 * @generated
@@ -49,8 +45,8 @@ public enum DomainType implements Enumerator {
 	/**
 	 * The '<em><b>Top</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Top</b></em>' literal object isn't clear, there
-	 * really should be more of a description here...
+	 * If the meaning of '<em><b>Top</b></em>' literal object isn't clear, there really should be more of a description
+	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -64,8 +60,8 @@ public enum DomainType implements Enumerator {
 	/**
 	 * The '<em><b>Bottom</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Bottom</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Bottom</b></em>' literal object isn't clear, there really should be more of a
+	 * description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * 
@@ -77,24 +73,23 @@ public enum DomainType implements Enumerator {
 	public static final int BOTTOM_VALUE = 1;
 
 	/**
-	 * An array of all the '<em><b>Domain Type</b></em>' enumerators. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * An array of all the '<em><b>Domain Type</b></em>' enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	private static final DomainType[] VALUES_ARRAY = new DomainType[] { TOP, BOTTOM, };
 
 	/**
-	 * A public read-only list of all the '<em><b>Domain Type</b></em>'
-	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * A public read-only list of all the '<em><b>Domain Type</b></em>' enumerators. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	public static final List<DomainType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Domain Type</b></em>' literal with the specified
-	 * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Domain Type</b></em>' literal with the specified literal value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -108,8 +103,8 @@ public enum DomainType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Domain Type</b></em>' literal with the specified
-	 * name. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Domain Type</b></em>' literal with the specified name. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -123,8 +118,8 @@ public enum DomainType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Domain Type</b></em>' literal with the specified
-	 * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the '<em><b>Domain Type</b></em>' literal with the specified integer value. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -160,8 +155,7 @@ public enum DomainType implements Enumerator {
 	private final String literal;
 
 	/**
-	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
+	 * Only this class can construct instances. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
@@ -202,12 +196,11 @@ public enum DomainType implements Enumerator {
 	}
 
 	/**
-	 * Returns the literal value of the enumerator, which is its string
-	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the literal value of the enumerator, which is its string representation. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		return literal;

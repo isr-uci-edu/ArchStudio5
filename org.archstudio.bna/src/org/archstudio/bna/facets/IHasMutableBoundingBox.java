@@ -4,8 +4,7 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.swt.graphics.Rectangle;
 
 /**
- * For mutable properties, see {@link IRelativeMovable} and
- * {@link IHasMutableSize}.
+ * For mutable properties, see {@link IRelativeMovable} and {@link IHasMutableSize}.
  */
 
 @NonNullByDefault

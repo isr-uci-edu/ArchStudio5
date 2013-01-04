@@ -19,20 +19,14 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Interface</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Interface</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceImpl#getExt <em>
- * Ext</em>}</li>
- * <li>
- * {@link org.archstudio.xadl3.structure_3_0.impl.InterfaceImpl#getDirection
- * <em>Direction</em>}</li>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceImpl#getId <em>Id
- * </em>}</li>
- * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceImpl#getName <em>
- * Name</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceImpl#getExt <em>Ext</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceImpl#getDirection <em>Direction</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceImpl#getId <em>Id</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  * 
@@ -40,8 +34,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class InterfaceImpl extends EObjectImpl implements Interface {
 	/**
-	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getExt()
 	 * @generated
@@ -50,8 +44,8 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	protected EList<Extension> ext;
 
 	/**
-	 * The default value of the '{@link #getDirection() <em>Direction</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getDirection() <em>Direction</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getDirection()
 	 * @generated
@@ -60,8 +54,8 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	protected static final Direction DIRECTION_EDEFAULT = Direction.NONE;
 
 	/**
-	 * The cached value of the '{@link #getDirection() <em>Direction</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getDirection() <em>Direction</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
 	 * 
 	 * @see #getDirection()
 	 * @generated
@@ -70,8 +64,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	protected Direction direction = DIRECTION_EDEFAULT;
 
 	/**
-	 * This is true if the Direction attribute has been set. <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
+	 * This is true if the Direction attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
@@ -79,8 +72,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	protected boolean directionESet;
 
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -89,8 +81,7 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #getId()
 	 * @generated
@@ -99,8 +90,8 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	protected String id = ID_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getName()
 	 * @generated
@@ -109,8 +100,8 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
 	 * 
 	 * @see #getName()
 	 * @generated
@@ -132,7 +123,6 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	protected EClass eStaticClass() {
 		return Structure_3_0Package.Literals.INTERFACE;
@@ -258,7 +248,6 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -273,7 +262,6 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -294,8 +282,8 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Structure_3_0Package.INTERFACE__EXT:
@@ -320,7 +308,6 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
@@ -345,7 +332,6 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
@@ -366,7 +352,6 @@ public class InterfaceImpl extends EObjectImpl implements Interface {
 	 * 
 	 * @generated
 	 */
-
 	@Override
 	public String toString() {
 		if (eIsProxy()) {
