@@ -1,6 +1,7 @@
 package org.archstudio.bna.things;
 
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
@@ -19,7 +20,7 @@ public abstract class AbstractPolygonThingPeer<T extends AbstractPolygonThing> e
 		if (t.getBoundingBox().contains(location.getWorldPoint())) {
 			List<Point> points = t.getPoints();
 			Point anchorPoint = t.getAnchorPoint();
-			GeneralPath path = new GeneralPath(GeneralPath.WIND_NON_ZERO, points.size());
+			GeneralPath path = new GeneralPath(Path2D.WIND_NON_ZERO, points.size());
 			Point point = points.get(0);
 			point.x += anchorPoint.x;
 			point.y += anchorPoint.y;

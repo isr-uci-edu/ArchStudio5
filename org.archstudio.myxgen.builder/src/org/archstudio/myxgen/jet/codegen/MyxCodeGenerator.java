@@ -33,10 +33,12 @@ public class MyxCodeGenerator {
 		IFile stubFile = javaProject.getProject()
 				.getFile("src/" + brick.getStubClassName().replace('.', '/') + ".java");
 		String stubSource = MyxCompStubBuilder.generate(brick);
-		if (stubFile.exists())
+		if (stubFile.exists()) {
 			stubFile.setContents(new ByteArrayInputStream(stubSource.getBytes()), true, true, new NullProgressMonitor());
-		else
+		}
+		else {
 			stubFile.create(new ByteArrayInputStream(stubSource.getBytes()), true, new NullProgressMonitor());
+		}
 		CodeGeneration.formatCode(stubFile);
 
 		IFile mainFile = javaProject.getProject().getFile("src/" + brick.getClassName().replace('.', '/') + ".java");

@@ -16,6 +16,9 @@
       <requires-nature
             id="org.eclipse.pde.PluginNature">
       </requires-nature>
+      <requires-nature
+            id="org.eclipse.jdt.core.javanature">
+      </requires-nature>
    </extension>
    <extension
          id="org.archstudio.dblgen.xadl3SchemaBuilder"

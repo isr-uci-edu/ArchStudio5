@@ -1,5 +1,12 @@
 package org.archstudio.resources.core;
 
+import static org.archstudio.resources.IResources.COLOR_ARCHSTUDIO;
+import static org.archstudio.resources.IResources.COLOR_BANNER_BRIGHT;
+import static org.archstudio.resources.IResources.COLOR_BANNER_DARK;
+import static org.archstudio.resources.IResources.RGB_ARCHSTUDIO_MAIN;
+import static org.archstudio.resources.IResources.RGB_BANNER_BRIGHT;
+import static org.archstudio.resources.IResources.RGB_BANNER_DARK;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.InvocationHandler;

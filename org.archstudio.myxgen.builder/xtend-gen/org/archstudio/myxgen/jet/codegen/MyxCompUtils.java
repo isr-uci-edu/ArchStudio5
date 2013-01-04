@@ -1,5 +1,6 @@
 package org.archstudio.myxgen.jet.codegen;
 
+import com.google.common.base.Objects;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
@@ -21,7 +22,6 @@ import org.eclipse.jdt.core.Signature;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
-import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.osgi.framework.Bundle;
 
 @SuppressWarnings("all")
@@ -244,7 +244,7 @@ public class MyxCompUtils {
       String _get = ((List<String>)Conversions.doWrapArray(_parameterTypes)).get(i);
       final String type = Signature.toString(_get);
       final String[][] resolved = t.resolveType(type);
-      boolean _equals = ObjectExtensions.operator_equals(resolved, null);
+      boolean _equals = Objects.equal(resolved, null);
       if (_equals) {
         return type;
       }

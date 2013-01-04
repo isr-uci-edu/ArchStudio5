@@ -20,6 +20,7 @@ import org.archstudio.dblgen.DataBindingGenerationStatus.Status;
 import org.archstudio.dblgen.builder.Xadl3SchemaLocation;
 import org.archstudio.dblgen.core.Activator;
 import org.archstudio.sysutils.SystemUtils;
+import org.archstudio.utils.eclipse.jdt.CodeGeneration;
 import org.archstudio.utils.osgi.OSGiUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -1104,6 +1105,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 						WorkspaceBundlePluginModel model = (WorkspaceBundlePluginModel) plugin;
 						model.save();
 					}
+					
+					CodeGeneration.formatCode(project);
 				}
 				catch (Throwable t) {
 					// well, we tried

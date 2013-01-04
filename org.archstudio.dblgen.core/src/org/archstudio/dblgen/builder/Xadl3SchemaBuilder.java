@@ -303,20 +303,20 @@ public class Xadl3SchemaBuilder extends IncrementalProjectBuilder {
 		project.getFolder("src").refreshLocal(IResource.DEPTH_INFINITE, monitor);
 		needRebuild();
 
-		//		Job job = new Job("Refreshing Project") {
-		//			
+		//		Job job = new Job("Formatting Project") {
+		//
+		//			@Override
 		//			protected IStatus run(IProgressMonitor monitor) {
 		//				try {
 		//					// Wait until all builds are done
-		//					// Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
+		//					Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
 		//
 		//					// Then refresh the project to make sure that everything is synced
-		//					project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+		//					CodeGeneration.formatCode(project);
+		//					project.getFolder("src").refreshLocal(IResource.DEPTH_INFINITE, monitor);
 		//				}
-		//				catch (CoreException ce) {
+		//				catch (Exception e) {
 		//				}
-		//				// catch (InterruptedException ie) {
-		//				// }
 		//				return Status.OK_STATUS;
 		//			}
 		//		};

@@ -1,5 +1,6 @@
 package org.archstudio.myxgen.jet.codegen;
 
+import com.google.common.base.Objects;
 import java.util.Collection;
 import org.archstudio.myx.fw.EMyxInterfaceDirection;
 import org.archstudio.myxgen.EServiceObjectDelegate;
@@ -12,7 +13,6 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 @SuppressWarnings("all")
@@ -42,7 +42,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.newLineIfNotEmpty();
       _builder.newLine();
       {
-        boolean _equals = ObjectExtensions.operator_equals(pb, null);
+        boolean _equals = Objects.equal(pb, null);
         if (_equals) {
           _builder.append("import org.archstudio.myx.fw.MyxRegistry;");
           _builder.newLine();
@@ -99,7 +99,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.append("* ");
       {
         String _description = b.getDescription();
-        boolean _notEquals = ObjectExtensions.operator_notEquals(_description, null);
+        boolean _notEquals = (!Objects.equal(_description, null));
         if (_notEquals) {
           _builder.append("<p>");
           String _description_1 = b.getDescription();
@@ -119,7 +119,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.append(_className, "");
       _builder.newLineIfNotEmpty();
       {
-        boolean _equals_1 = ObjectExtensions.operator_equals(pb, null);
+        boolean _equals_1 = Objects.equal(pb, null);
         if (_equals_1) {
           _builder.append("extends org.archstudio.myx.fw.AbstractMyxSimpleBrick");
           _builder.newLine();
@@ -137,7 +137,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
         final Function1<MyxGenInterface,Boolean> _function = new Function1<MyxGenInterface,Boolean>() {
             public Boolean apply(final MyxGenInterface i) {
               EServiceObjectDelegate _serviceObjectDelegate = i.getServiceObjectDelegate();
-              boolean _equals = ObjectExtensions.operator_equals(_serviceObjectDelegate, EServiceObjectDelegate.brick);
+              boolean _equals = Objects.equal(_serviceObjectDelegate, EServiceObjectDelegate.brick);
               return Boolean.valueOf(_equals);
             }
           };
@@ -160,7 +160,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.append("\t");
       _builder.newLine();
       {
-        boolean _notEquals_1 = ObjectExtensions.operator_notEquals(pb, null);
+        boolean _notEquals_1 = (!Objects.equal(pb, null));
         if (_notEquals_1) {
           _builder.append("\t");
           IContributor _contributor_1 = pb.getContributor();
@@ -206,6 +206,9 @@ public class MyxCompStubBuilder extends MyxCompUtils {
           _builder.append("*/");
           _builder.newLine();
           _builder.append("\t");
+          _builder.append("@Override");
+          _builder.newLine();
+          _builder.append("\t");
           _builder.append("public void begin(){");
           _builder.newLine();
           _builder.append("\t");
@@ -235,6 +238,9 @@ public class MyxCompStubBuilder extends MyxCompUtils {
           _builder.append("\t");
           _builder.append(" ");
           _builder.append("*/");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("@Override");
           _builder.newLine();
           _builder.append("\t");
           _builder.append("public void end(){");
@@ -272,7 +278,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
           _builder.append("* ");
           {
             String _description_2 = i_1.getDescription();
-            boolean _notEquals_2 = ObjectExtensions.operator_notEquals(_description_2, null);
+            boolean _notEquals_2 = (!Objects.equal(_description_2, null));
             if (_notEquals_2) {
               _builder.append("<p>");
               String _description_3 = i_1.getDescription();
@@ -397,7 +403,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               _builder.append("* Calls to this proxy object are automatically delegated to ");
               {
                 EServiceObjectDelegate _serviceObjectDelegate_2 = i_1.getServiceObjectDelegate();
-                boolean _equals_2 = ObjectExtensions.operator_equals(_serviceObjectDelegate_2, EServiceObjectDelegate.myxRegistry);
+                boolean _equals_2 = Objects.equal(_serviceObjectDelegate_2, EServiceObjectDelegate.myxRegistry);
                 if (_equals_2) {
                   _builder.append("all service objects in the MyxRegistry of type ");
                   String _className_7 = i_1.getClassName();
@@ -468,7 +474,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               _builder.newLine();
               {
                 EServiceObjectDelegate _serviceObjectDelegate_3 = i_1.getServiceObjectDelegate();
-                boolean _equals_3 = ObjectExtensions.operator_equals(_serviceObjectDelegate_3, EServiceObjectDelegate.myxRegistry);
+                boolean _equals_3 = Objects.equal(_serviceObjectDelegate_3, EServiceObjectDelegate.myxRegistry);
                 if (_equals_3) {
                   _builder.append("\t");
                   _builder.append("\t\t\t\t");
@@ -642,7 +648,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
               }
               {
                 EServiceObjectDelegate _serviceObjectDelegate_5 = i_1.getServiceObjectDelegate();
-                boolean _equals_4 = ObjectExtensions.operator_equals(_serviceObjectDelegate_5, EServiceObjectDelegate.brick);
+                boolean _equals_4 = Objects.equal(_serviceObjectDelegate_5, EServiceObjectDelegate.brick);
                 if (_equals_4) {
                   _builder.append("\t");
                   _builder.append("\t");
@@ -719,7 +725,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
         final Function1<MyxGenInterface,Boolean> _function_1 = new Function1<MyxGenInterface,Boolean>() {
             public Boolean apply(final MyxGenInterface i) {
               EMyxInterfaceDirection _direction = i.getDirection();
-              boolean _equals = ObjectExtensions.operator_equals(_direction, EMyxInterfaceDirection.IN);
+              boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.IN);
               return Boolean.valueOf(_equals);
             }
           };
@@ -755,7 +761,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
         final Function1<MyxGenInterface,Boolean> _function_2 = new Function1<MyxGenInterface,Boolean>() {
             public Boolean apply(final MyxGenInterface i) {
               EMyxInterfaceDirection _direction = i.getDirection();
-              boolean _equals = ObjectExtensions.operator_equals(_direction, EMyxInterfaceDirection.IN);
+              boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.IN);
               return Boolean.valueOf(_equals);
             }
           };
@@ -775,7 +781,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
           _builder.newLineIfNotEmpty();
           {
             EServiceObjectDelegate _serviceObjectDelegate_8 = i_3.getServiceObjectDelegate();
-            boolean _equals_5 = ObjectExtensions.operator_equals(_serviceObjectDelegate_8, EServiceObjectDelegate.brick);
+            boolean _equals_5 = Objects.equal(_serviceObjectDelegate_8, EServiceObjectDelegate.brick);
             if (_equals_5) {
               _builder.append("\t");
               _builder.append("\t");
@@ -838,7 +844,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       }
       {
         String _parentBrickId_1 = b.getParentBrickId();
-        boolean _equals_6 = ObjectExtensions.operator_equals(_parentBrickId_1, null);
+        boolean _equals_6 = Objects.equal(_parentBrickId_1, null);
         if (_equals_6) {
           _builder.append("\t");
           _builder.append("throw new IllegalArgumentException(\"Unhandled interface: \"+interfaceName.getName());");
@@ -864,7 +870,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
         final Function1<MyxGenInterface,Boolean> _function_3 = new Function1<MyxGenInterface,Boolean>() {
             public Boolean apply(final MyxGenInterface i) {
               EMyxInterfaceDirection _direction = i.getDirection();
-              boolean _equals = ObjectExtensions.operator_equals(_direction, EMyxInterfaceDirection.OUT);
+              boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
               return Boolean.valueOf(_equals);
             }
           };
@@ -906,7 +912,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
         final Function1<MyxGenInterface,Boolean> _function_4 = new Function1<MyxGenInterface,Boolean>() {
             public Boolean apply(final MyxGenInterface i) {
               EMyxInterfaceDirection _direction = i.getDirection();
-              boolean _equals = ObjectExtensions.operator_equals(_direction, EMyxInterfaceDirection.OUT);
+              boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
               return Boolean.valueOf(_equals);
             }
           };
@@ -977,7 +983,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.newLine();
       {
         String _parentBrickId_2 = b.getParentBrickId();
-        boolean _equals_7 = ObjectExtensions.operator_equals(_parentBrickId_2, null);
+        boolean _equals_7 = Objects.equal(_parentBrickId_2, null);
         if (_equals_7) {
           _builder.append("\t");
           _builder.append("throw new IllegalArgumentException(\"Unhandled interface: \"+interfaceName.getName());");
@@ -1003,7 +1009,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
         final Function1<MyxGenInterface,Boolean> _function_5 = new Function1<MyxGenInterface,Boolean>() {
             public Boolean apply(final MyxGenInterface i) {
               EMyxInterfaceDirection _direction = i.getDirection();
-              boolean _equals = ObjectExtensions.operator_equals(_direction, EMyxInterfaceDirection.OUT);
+              boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
               return Boolean.valueOf(_equals);
             }
           };
@@ -1045,7 +1051,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
         final Function1<MyxGenInterface,Boolean> _function_6 = new Function1<MyxGenInterface,Boolean>() {
             public Boolean apply(final MyxGenInterface i) {
               EMyxInterfaceDirection _direction = i.getDirection();
-              boolean _equals = ObjectExtensions.operator_equals(_direction, EMyxInterfaceDirection.OUT);
+              boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
               return Boolean.valueOf(_equals);
             }
           };
@@ -1110,7 +1116,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.newLine();
       {
         String _parentBrickId_3 = b.getParentBrickId();
-        boolean _equals_8 = ObjectExtensions.operator_equals(_parentBrickId_3, null);
+        boolean _equals_8 = Objects.equal(_parentBrickId_3, null);
         if (_equals_8) {
           _builder.append("\t");
           _builder.append("throw new IllegalArgumentException(\"Unhandled interface: \"+interfaceName.getName());");
@@ -1145,7 +1151,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.newLine();
       {
         String _parentBrickId_4 = b.getParentBrickId();
-        boolean _notEquals_3 = ObjectExtensions.operator_notEquals(_parentBrickId_4, null);
+        boolean _notEquals_3 = (!Objects.equal(_parentBrickId_4, null));
         if (_notEquals_3) {
           _builder.append("\t");
           _builder.append("super.interfaceDisconnected(interfaceName, serviceObject);");

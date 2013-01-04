@@ -62,6 +62,7 @@ class MyxCompStubBuilder extends MyxCompUtils {
 				 * Register this brick instance with the registry.
 				 * @generated
 				 */
+				@Override
 				public void begin(){
 					super.begin();
 					myxRegistry.register(this);
@@ -71,6 +72,7 @@ class MyxCompStubBuilder extends MyxCompUtils {
 				 * Unregister this brick instance with the registry.
 				 * @generated
 				 */
+				@Override
 				public void end(){
 					myxRegistry.unregister(this);
 					super.end();

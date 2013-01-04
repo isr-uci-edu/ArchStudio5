@@ -1,9 +1,9 @@
 package org.archstudio.myxgen.jet.codegen;
 
+import com.google.common.base.Objects;
 import org.archstudio.myxgen.MyxGenBrick;
 import org.archstudio.myxgen.jet.codegen.MyxCompUtils;
 import org.eclipse.xtend2.lib.StringConcatenation;
-import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 
 @SuppressWarnings("all")
 public class MyxCompBuilder extends MyxCompUtils {
@@ -27,7 +27,7 @@ public class MyxCompBuilder extends MyxCompUtils {
     _builder.append("* ");
     {
       String _description = b.getDescription();
-      boolean _notEquals = ObjectExtensions.operator_notEquals(_description, null);
+      boolean _notEquals = (!Objects.equal(_description, null));
       if (_notEquals) {
         _builder.append("<p>");
         String _description_1 = b.getDescription();
