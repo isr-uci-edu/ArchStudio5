@@ -130,7 +130,7 @@ public abstract class EventPumpConnectorStub extends org.archstudio.myx.fw.Abstr
 		}
 
 		if (interfaceName.equals(OUT_OUT)) {
-			out.add(serviceObject);
+			out.add((java.lang.Object) serviceObject);
 			return;
 		}
 

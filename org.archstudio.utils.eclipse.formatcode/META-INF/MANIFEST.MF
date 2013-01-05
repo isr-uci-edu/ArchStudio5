@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Format Code Utilities
-Bundle-SymbolicName: org.archstudio.utils.eclipse.formatcode
+Bundle-Name: ArchStudio Utilities Format Code
+Bundle-SymbolicName: org.archstudio.utils.eclipse.formatcode;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.utils.eclipse.jdt.Activator
 Export-Package: org.archstudio.utils.eclipse.jdt
@@ -17,3 +17,4 @@ Require-Bundle: org.archstudio.guava,
  org.eclipse.ltk.core.refactoring
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
+Bundle-Vendor: archstudio.org

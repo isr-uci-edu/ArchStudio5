@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Myx Component Stub Generator JET Extensions
+Bundle-Name: ArchStudio Myx Component Stub Generator (MyxGen) Builder
 Bundle-SymbolicName: org.archstudio.myxgen.builder;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Activator: org.archstudio.myxgen.jet.Activator

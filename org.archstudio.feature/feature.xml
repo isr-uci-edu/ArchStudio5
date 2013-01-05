@@ -367,20 +367,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.archstudio.xadl"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.archstudio.xadl.myx"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.archstudio.xadl3.archlight"
          download-size="0"
          install-size="0"
@@ -452,20 +438,6 @@
 
    <plugin
          id="org.archstudio.xadl3.xlink"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.archstudio.xadl.bna"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.archstudio.xadl.swt"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -563,13 +535,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.archstudio.prolog.xadl"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.archstudio.guava"
          download-size="0"
          install-size="0"
@@ -620,6 +585,41 @@
 
    <plugin
          id="org.archstudio.xadl3.gexf"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.prolog.archstudio.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.xadl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.xadl.bna"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.xadl.myx"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.xadl.swt"
          download-size="0"
          install-size="0"
          version="0.0.0"

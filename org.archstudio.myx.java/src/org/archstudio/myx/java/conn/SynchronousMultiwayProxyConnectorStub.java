@@ -191,7 +191,7 @@ public abstract class SynchronousMultiwayProxyConnectorStub extends org.archstud
 		}
 
 		if (interfaceName.equals(OUT_OUT)) {
-			out.add(serviceObject);
+			out.add((java.lang.Object) serviceObject);
 			return;
 		}
 

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: xADL 3 Data bindings for xlink
+Bundle-Name: ArchStudio xADL Data Bindings: xlink
 Bundle-SymbolicName: org.archstudio.xadl3.xlink;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-ClassPath: .

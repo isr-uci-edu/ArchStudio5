@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio - Statechart
+Bundle-Name: ArchStudio Archipelago Statechart Core
 Bundle-SymbolicName: org.archstudio.archipelago.statechart.core;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.archipelago.statechart.core.Activator
@@ -13,11 +13,11 @@ Require-Bundle: org.archstudio.archipelago,
  org.archstudio.xarchadt,
  org.archstudio.filemanager,
  org.archstudio.guava,
- org.archstudio.xadl,
+ org.archstudio.utils.xadl,
  org.archstudio.bna,
  org.archstudio.utils.system,
  org.archstudio.xadl3.statechart,
- org.archstudio.xadl.bna,
+ org.archstudio.utils.xadl.bna,
  org.archstudio.utils.swt,
  org.eclipse.ui,
  org.archstudio.eclipse.ui,

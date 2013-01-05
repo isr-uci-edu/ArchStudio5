@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: xADL 3 bindings for implementation.osgi
+Bundle-Name: ArchStudio xADL Data Bindings: implementation.osgi
 Bundle-SymbolicName: org.archstudio.xadl3.implementation.osgi;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .

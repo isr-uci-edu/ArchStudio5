@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Jogamp JOGL
+Bundle-Name: ArchStudio JOGL (Java Binding for the OpenGL)
 Bundle-SymbolicName: org.archstudio.jogl;singleton:=true
 Bundle-Version: 2.0.0.qualifier
 Bundle-ClassPath: .,

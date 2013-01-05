@@ -65,7 +65,7 @@ public abstract class SynchEventPumpConnectorStub extends org.archstudio.myx.jav
 		}
 
 		if (interfaceName.equals(OUT_SYNCH)) {
-			synch.add(serviceObject);
+			synch.add((java.lang.Object) serviceObject);
 			return;
 		}
 

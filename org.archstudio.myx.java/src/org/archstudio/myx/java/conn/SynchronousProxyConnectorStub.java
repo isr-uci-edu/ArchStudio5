@@ -136,7 +136,7 @@ public abstract class SynchronousProxyConnectorStub extends org.archstudio.myx.f
 			if (out != null) {
 				throw new IllegalStateException("Only a single connection is supported on interface: out");
 			}
-			out = serviceObject;
+			out = (java.lang.Object) serviceObject;
 			return;
 		}
 

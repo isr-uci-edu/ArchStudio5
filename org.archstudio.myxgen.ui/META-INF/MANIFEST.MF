@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio MyxGen UI
+Bundle-Name: ArchStudio Myx Component Stub Generator (MyxGen) UI
 Bundle-SymbolicName: org.archstudio.myxgen.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.myxgen.ui.Activator

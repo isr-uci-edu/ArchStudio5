@@ -55,13 +55,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.archstudio.prolog.xadl"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.archstudio.prolog.xtext"
          download-size="0"
          install-size="0"
@@ -185,6 +178,13 @@
 
    <plugin
          id="org.archstudio.myx.fw"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.prolog.archstudio.core"
          download-size="0"
          install-size="0"
          version="0.0.0"

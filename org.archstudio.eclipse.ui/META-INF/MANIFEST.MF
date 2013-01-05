@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Eclipse Editors UI Common
+Bundle-Name: ArchStudio Eclipse UI
 Bundle-SymbolicName: org.archstudio.eclipse.ui;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Activator: org.archstudio.eclipse.ui.Activator
@@ -13,7 +13,7 @@ Require-Bundle: org.archstudio.myx.fw,
  org.archstudio.resources,
  org.archstudio.utils.swt,
  org.archstudio.utils.system,
- org.archstudio.xadl,
+ org.archstudio.utils.xadl,
  org.archstudio.xarchadt,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,

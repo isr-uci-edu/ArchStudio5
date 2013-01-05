@@ -9,7 +9,7 @@ Require-Bundle: org.archstudio.xadl3.structure,
  org.archstudio.xarchadt,
  org.archstudio.xarchadt.core,
  org.junit,
- org.archstudio.xadl,
+ org.archstudio.utils.xadl,
  org.archstudio.guava,
  org.archstudio.xadl3.hints,
  org.archstudio.xadl3.domain

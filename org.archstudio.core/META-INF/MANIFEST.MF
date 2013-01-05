@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio 5 Main
+Bundle-Name: ArchStudio
 Bundle-SymbolicName: org.archstudio.core;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Activator: org.archstudio.core.ArchStudio5Activator
@@ -12,7 +12,7 @@ Require-Bundle: org.archstudio.aim,
  org.archstudio.myx.fw,
  org.archstudio.myxgen,
  org.archstudio.myxgen.core,
- org.archstudio.xadl,
+ org.archstudio.utils.xadl,
  org.archstudio.xadl3.structure,
  org.archstudio.xarchadt,
  org.archstudio.xarchadt.core,

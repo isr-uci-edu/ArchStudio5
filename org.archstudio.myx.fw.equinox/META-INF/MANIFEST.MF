@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Myx extensions for use in equinox
+Bundle-Name: ArchStudio Myx Framework Equinox Functionality
 Bundle-SymbolicName: org.archstudio.myx.fw.equinox;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: archstudio.org

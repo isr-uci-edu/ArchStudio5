@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio Prolog for ArchStudio Core
+Bundle-SymbolicName: org.archstudio.prolog.archstudio.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.archstudio.prolog.archstudio.Activator
+Bundle-Vendor: archstudio.org
+Require-Bundle: org.eclipse.core.runtime,
+ org.archstudio.archipelago,
+ org.eclipse.jface,
+ org.archstudio.xarchadt,
+ org.archstudio.filemanager,
+ org.eclipse.ui,
+ org.archstudio.prolog,
+ org.archstudio.myx.fw,
+ org.archstudio.prolog.parser,
+ org.archstudio.guava,
+ org.archstudio.myxgen,
+ org.archstudio.archlight,
+ org.archstudio.testadt,
+ org.eclipse.core.resources,
+ org.archstudio.utils.system;bundle-version="5.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

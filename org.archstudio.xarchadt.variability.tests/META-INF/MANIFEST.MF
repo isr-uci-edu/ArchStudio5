@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio XArchADTVariability Tests
+Bundle-Name: ArchStudio xArchADTVariability Tests
 Bundle-SymbolicName: org.archstudio.xarchadt.variability.tests
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: archstudio.org

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.archstudio.prolog.xtext
-Bundle-Vendor: My Company
+Bundle-Name: ArchStudio Prolog Parser Xtext
+Bundle-Vendor: archstudio.org
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: org.archstudio.prolog.xtext; singleton:=true
 Bundle-ActivationPolicy: lazy

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Myx Component Stub Generator Core
+Bundle-Name: ArchStudio Myx Component Stub Generator (MyxGen) Core
 Bundle-SymbolicName: org.archstudio.myxgen.core;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.myxgen.core.Activator

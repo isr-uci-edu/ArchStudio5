@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio Utilities xADL Myx
+Bundle-SymbolicName: org.archstudio.utils.xadl.myx;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.archstudio.xadl.myx.Activator
+Bundle-Vendor: archstudio.org
+Export-Package: org.archstudio.xadl.myx
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.archstudio.myx.osgi,
+ org.archstudio.xadl3.implementation.java,
+ org.archstudio.xadl3.implementation.osgi,
+ org.archstudio.xarchadt,
+ org.archstudio.myx.fw,
+ org.archstudio.utils.xadl,
+ org.archstudio.myx.java,
+ org.archstudio.xadl3.implementation.myxgen,
+ org.archstudio.xarchadt.core,
+ org.archstudio.myxgen.core,
+ org.archstudio.myx.myxgen
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

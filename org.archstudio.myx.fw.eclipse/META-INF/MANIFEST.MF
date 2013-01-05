@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio Myx Eclipse Functionality
+Bundle-Name: ArchStudio Myx Framework Eclipse Functionality
 Bundle-SymbolicName: org.archstudio.myx.fw.eclipse;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.myx.fw.eclipse.Activator

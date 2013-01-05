@@ -8,7 +8,7 @@ Export-Package: org.archstudio.filemanager.core
 Require-Bundle: org.archstudio.filemanager,
  org.archstudio.myx.fw,
  org.archstudio.utils.system,
- org.archstudio.xadl,
+ org.archstudio.utils.xadl,
  org.archstudio.xadl3.xadlcore,
  org.archstudio.xarchadt,
  org.eclipse.core.resources,

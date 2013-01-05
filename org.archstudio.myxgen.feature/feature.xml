@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.archstudio.myxgen.feature"
-      label="ArchStudio - Myx Component Stub Generator"
+      label="ArchStudio - Myx Component Stub Generator (MyxGen)"
       version="5.0.0.qualifier"
       provider-name="archstudio.org"
       license-feature="org.archstudio.license.feature"

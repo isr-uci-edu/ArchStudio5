@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio XArchADTVariability Core
+Bundle-Name: ArchStudio xArchADTVariability Core
 Bundle-SymbolicName: org.archstudio.xarchadt.variability.core;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.archstudio.xarchadt.variability.core.Activator
