@@ -68,10 +68,11 @@
 
    <plugin
          id="org.archstudio.jogl-linux-x86"
+         os="linux"
+         arch="x86"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         fragment="true"
-         unpack="false"/>
+         fragment="true"/>
 
 </feature>
