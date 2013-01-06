@@ -6,6 +6,7 @@ import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.eclipse.jface.preference.ColorFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FontFieldEditor;
+import org.eclipse.jface.preference.ScaleFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
@@ -15,6 +16,7 @@ public class ArchipelagoStructurePreferencePanel extends FieldEditorPreferencePa
 	protected FontFieldEditor defaultConnectorFontEditor;
 	protected ColorFieldEditor defaultComponentColorEditor;
 	protected ColorFieldEditor defaultConnectorColorEditor;
+	protected ScaleFieldEditor defaultLineWidthEditor;
 
 	public ArchipelagoStructurePreferencePanel() {
 		super("Archipelago Structure Preferences", FLAT);
@@ -45,6 +47,12 @@ public class ArchipelagoStructurePreferencePanel extends FieldEditorPreferencePa
 		defaultConnectorColorEditor = new ColorFieldEditor(ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_COLOR,
 				"Default Connector Color:", getFieldEditorParent());
 		addField(defaultConnectorColorEditor);
+
+		defaultLineWidthEditor = new ScaleFieldEditor(ArchipelagoStructureConstants.PREF_LINE_WIDTH,
+				"Default Line Width:", getFieldEditorParent());
+		defaultLineWidthEditor.setMinimum(1);
+		defaultLineWidthEditor.setMaximum(10);
+		addField(defaultLineWidthEditor);
 	}
 
 }

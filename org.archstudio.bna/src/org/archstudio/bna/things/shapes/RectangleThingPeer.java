@@ -56,13 +56,14 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 			if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
 				int count = t.getCount();
 				int width = t.getLineWidth();
+				float o = width % 2 > 0 ? 0.5f : 0;
 				while (count > 0) {
 					int inset = (count - 1) * width * 2;
 					gl.glBegin(GL.GL_LINE_LOOP);
-					gl.glVertex2f(p1.x + inset + 0.5f, p1.y + inset + 0.5f);
-					gl.glVertex2f(p2.x - inset - 0.5f, p1.y + inset + 0.5f);
-					gl.glVertex2f(p2.x - inset - 0.5f, p2.y - inset - 0.5f);
-					gl.glVertex2f(p1.x + inset + 0.5f, p2.y - inset - 0.5f);
+					gl.glVertex2f(p1.x + inset + o, p1.y + inset + o);
+					gl.glVertex2f(p2.x - inset - o, p1.y + inset + o);
+					gl.glVertex2f(p2.x - inset - o, p2.y - inset - o);
+					gl.glVertex2f(p1.x + inset + o, p2.y - inset - o);
 					gl.glEnd();
 					count--;
 				}

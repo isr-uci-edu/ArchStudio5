@@ -41,6 +41,7 @@ import org.archstudio.bna.logics.editing.RectifyToGridLogic;
 import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
 import org.archstudio.bna.logics.editing.ReshapeSplineLogic;
 import org.archstudio.bna.logics.editing.RotaterLogic;
+import org.archstudio.bna.logics.editing.ExportImageLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.editing.SnapToGridLogic;
 import org.archstudio.bna.logics.editing.SplineBreakLogic;
@@ -495,8 +496,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		logicManager.addThingLogic(RectifyToGridLogic.class);
 		//logicManager.addThingLogic(StructureGraphLayoutLogic(xarch, services.get(IResources.class),
 		//		services.get(IGraphLayout.class), structureRef));
-		//logicManager.addThingLogic(ExportBitmapLogic.class);
 		logicManager.addThingLogic(ViewAllLogic.class);
+		logicManager.addThingLogic(ExportImageLogic.class);
 
 		// xADL mapping logics
 

@@ -2,10 +2,8 @@ package org.archstudio.bna;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
-import javax.media.opengl.GL2ES1;
-import javax.media.opengl.GL2GL3;
+import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLContext;
 import javax.media.opengl.GLDrawableFactory;
 import javax.media.opengl.GLProfile;
@@ -13,10 +11,8 @@ import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import javax.media.opengl.glu.GLU;
 
 import org.archstudio.bna.BNAModelEvent.EventType;
-import org.archstudio.bna.facets.IHasAlpha;
-import org.archstudio.bna.facets.IHasTint;
-import org.archstudio.bna.facets.IIsHidden;
 import org.archstudio.bna.utils.BNARenderingSettings;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.swt.SWT;
@@ -29,7 +25,6 @@ import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.opengl.GLCanvas;
 import org.eclipse.swt.opengl.GLData;
@@ -73,27 +68,10 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		setCurrent();
 		GLProfile glprofile = GLProfile.get(GLProfile.GL2);
 		this.context = GLDrawableFactory.getFactory(glprofile).createExternalGLContext();
+		GLCapabilities tGLCapabilities = new GLCapabilities(glprofile);
+		tGLCapabilities.setSampleBuffers(true);
+		tGLCapabilities.setNumSamples(4);
 		this.resources = new Resources(this, gl = new ObscuredGL2((GL2) context.getGL(), 1));
-
-		this.addListener(SWT.Resize, new Listener() {
-
-			@Override
-			public void handleEvent(Event event) {
-				org.eclipse.swt.graphics.Rectangle bounds = BNACanvas.this.getBounds();
-				float fAspect = (float) bounds.width / (float) bounds.height;
-				BNACanvas.this.setCurrent();
-				context.makeCurrent();
-				GL2 gl = (GL2) context.getGL();
-				gl.glViewport(0, -getHorizontalBar().getSize().y, bounds.width, bounds.height);
-				gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
-				gl.glLoadIdentity();
-				GLU glu = new GLU();
-				glu.gluPerspective(45.0f, fAspect, 0.5f, 1f);
-				gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
-				gl.glLoadIdentity();
-				context.release();
-			}
-		});
 
 		this.addControlListener(new ControlAdapter() {
 
@@ -259,65 +237,24 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 
 	@Override
 	public void paintControl(PaintEvent evt) {
-		IBNAModel bnaModel = getBNAView().getBNAWorld().getBNAModel();
-
 		setCurrent();
 		context.makeCurrent();
 		try {
-			org.eclipse.swt.graphics.Rectangle bounds = getBounds();
-
+			org.eclipse.swt.graphics.Rectangle bounds = BNACanvas.this.getBounds();
+			float fAspect = (float) bounds.width / (float) bounds.height;
+			gl.glViewport(0, -getHorizontalBar().getSize().y, bounds.width, bounds.height);
 			gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
 			gl.glLoadIdentity();
-			gl.glOrtho(0, bounds.width, bounds.height, 0, 0, 1);
+			GLU glu = new GLU();
+			glu.gluPerspective(45.0f, fAspect, 0.5f, 1f);
 			gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
-			gl.glDisable(GL.GL_DEPTH_TEST);
-			gl.glEnable(GL2.GL_LINE_STIPPLE);
-			gl.glEnable(GL.GL_BLEND);
-			gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-
-			if (BNARenderingSettings.getAntialiasGraphics(this)) {
-				gl.glEnable(GL.GL_LINE_SMOOTH);
-				gl.glEnable(GL2ES1.GL_POINT_SMOOTH);
-				gl.glHint(GL2ES1.GL_POINT_SMOOTH_HINT, GL.GL_NICEST);
-				gl.glEnable(GL.GL_LINE_SMOOTH);
-				gl.glHint(GL.GL_LINE_SMOOTH_HINT, GL.GL_NICEST);
-				gl.glEnable(GL2GL3.GL_POLYGON_SMOOTH);
-				gl.glHint(GL2GL3.GL_POLYGON_SMOOTH_HINT, GL.GL_NICEST);
-				gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
-			}
-			else {
-				gl.glDisable(GL2ES1.GL_POINT_SMOOTH);
-				gl.glDisable(GL.GL_LINE_SMOOTH);
-				gl.glDisable(GL2GL3.GL_POLYGON_SMOOTH);
-				gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_FASTEST);
-			}
-			resources.setAntialiasText(BNARenderingSettings.getAntialiasText(this));
-
-			gl.glClearColor(1f, 1f, 1f, 1f);
-			gl.glClear(GL.GL_COLOR_BUFFER_BIT);
-
+			gl.glLoadIdentity();
+			
 			redrawPending = false;
-			// clip from evt doesn't seem to work consistently
-			// instead always using entire bounds
-			Rectangle clip = new Rectangle(0, 0, bounds.width, bounds.height);
-			IBNAView bnaView = getBNAView();
-			ICoordinateMapper cm = bnaView.getCoordinateMapper();
-			for (IThing thingToRender : bnaModel.getAllThings()) {
-				if (Boolean.TRUE.equals(thingToRender.get(IIsHidden.HIDDEN_KEY))) {
-					continue;
-				}
-
-				try {
-					gl.setAlpha(thingToRender.get(IHasAlpha.ALPHA_KEY, 1f));
-					gl.setTint(thingToRender.get(IHasTint.TINT_KEY, new RGB(0, 0, 0)));
-					IThingPeer<?> peer = bnaView.getThingPeer(thingToRender);
-					peer.draw(bnaView, cm, gl, clip, resources);
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			gl.glFlush();
+			BNAUtils.render(new ObscuredGL2(gl, 1d), getBNAView(), resources, //
+					new Rectangle(0, 0, getBounds().width, getBounds().height), //
+					BNARenderingSettings.getAntialiasGraphics(this), //
+					BNARenderingSettings.getAntialiasText(this));
 			swapBuffers();
 		}
 		finally {

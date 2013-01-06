@@ -5,9 +5,12 @@ import static org.archstudio.bna.constants.StickyMode.EDGE;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.archipelago.core.structure.ArchipelagoStructureConstants;
+import org.archstudio.archipelago.structure.core.Activator;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasFlow;
+import org.archstudio.bna.facets.IHasLineWidth;
 import org.archstudio.bna.facets.IHasMutableFlow;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
@@ -29,9 +32,12 @@ import org.archstudio.xadl3.domain_3_0.Domain_3_0Package;
 import org.archstudio.xadl3.structure_3_0.Direction;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.graphics.Point;
 
-public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassThing> {
+public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassThing> implements
+		IPropertyChangeListener {
 
 	private static final IXADLToBNATranslator<Direction, Flow> DIRECTION_TO_FLOW = new IXADLToBNATranslator<Direction, Flow>() {
 
@@ -89,14 +95,28 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		syncXAttribute("ext[*[namespace-uri()='" + Domain_3_0Package.eNS_URI + "']]/domain/type",
 				DOMAIN_TO_STICKY_MODE, null, BNAPath.create(Assemblies.BACKGROUND_KEY),
 				stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), false);
+		
+		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
 
 	@Override
+	public void destroy() {
+		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+		
+		super.destroy();
+	}
+	
+	@Override
 	protected EndpointGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
+
+		int defaultLineWidth = Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoStructureConstants.PREF_LINE_WIDTH);
 
 		EndpointGlassThing thing = Assemblies.createEndpoint(getBNAWorld(), null, null);
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
 		thing.setAnchorPoint(newPointSpot);
+
+		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 
 		UserEditableUtils.addEditableQualities(thing, IRelativeMovable.USER_MAY_MOVE);
 		//UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, getBNAModel()), IHasMutableText.USER_MAY_EDIT_TEXT);
@@ -119,5 +139,15 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 				relLineageRefs.get(1));
 
 		return thing;
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		int defaultLineWidth = Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoStructureConstants.PREF_LINE_WIDTH);
+
+		for (EndpointGlassThing thing : getAddedThings()) {
+			Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
+		}
 	}
 }

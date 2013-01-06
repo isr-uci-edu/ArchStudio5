@@ -24,10 +24,12 @@ public class SplineThingPeer<T extends SplineThing> extends AbstractSplineThingP
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
+			int width = t.getLineWidth();
+			float o = width % 2 > 0 ? 0.5f : 0;
 			List<Point> localPoints = BNAUtils.worldToLocal(cm, t.getPoints());
 			gl.glBegin(GL.GL_LINE_STRIP);
 			for (Point p : localPoints) {
-				gl.glVertex2f(p.x + 0.5f, p.y + 0.5f);
+				gl.glVertex2f(p.x + o, p.y + o);
 			}
 			gl.glEnd();
 		}

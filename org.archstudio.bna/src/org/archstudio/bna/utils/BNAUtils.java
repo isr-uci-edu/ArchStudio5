@@ -7,9 +7,18 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
+import javax.media.opengl.GL2ES1;
+import javax.media.opengl.GL2GL3;
+import javax.media.opengl.fixedfunc.GLMatrixFunc;
+import javax.media.opengl.glu.GLU;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
@@ -19,13 +28,18 @@ import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.ObscuredGL2;
+import org.archstudio.bna.Resources;
 import org.archstudio.bna.constants.GridDisplayType;
+import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasLocalInsets;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IHasSelected;
+import org.archstudio.bna.facets.IHasTint;
 import org.archstudio.bna.facets.IHasWorld;
+import org.archstudio.bna.facets.IIsHidden;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
@@ -1286,4 +1300,97 @@ public class BNAUtils {
 		}
 		return Floats.toArray(points);
 	}
+
+	public static BufferedImage renderToImage(ObscuredGL2 gl, IBNAView view, Resources resources, Rectangle bounds,
+			boolean antialiasGraphics, boolean antialiasText) {
+
+		float fAspect = (float) bounds.width / (float) bounds.height;
+		gl.glViewport(0, 0, bounds.width, bounds.height);
+		gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
+		gl.glLoadIdentity();
+		GLU glu = new GLU();
+		glu.gluPerspective(45.0f, fAspect, 0.5f, 1f);
+		gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
+		gl.glLoadIdentity();
+		
+		gl.glDrawBuffer(GL.GL_BACK);
+		
+		render(gl, view, resources, bounds, antialiasGraphics, antialiasText);
+
+		ByteBuffer buffer = ByteBuffer.allocate(bounds.width * bounds.height * 4);
+
+		gl.glReadBuffer(GL.GL_BACK);
+		gl.glPixelStorei(GL.GL_PACK_ALIGNMENT, 1);
+		gl.glReadPixels(0, 0, bounds.width, bounds.height, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, buffer);
+
+		BufferedImage image = new BufferedImage(bounds.width, bounds.height, BufferedImage.TYPE_4BYTE_ABGR);
+
+		int bufferIndex = 0;
+		for (int y = bounds.height - 1; y >= 0; y--) {
+			for (int x = 0; x < bounds.width; x++) {
+				int r = buffer.get(bufferIndex++);
+				int g = buffer.get(bufferIndex++);
+				int b = buffer.get(bufferIndex++);
+				int a = buffer.get(bufferIndex++);
+				int i = a << 24 | (r & 0xFF) << 16 | (g & 0xFF) << 8 | (b & 0xFF);
+				image.setRGB(x, y, i);
+			}
+		}
+
+		return image;
+	}
+
+	public static void render(ObscuredGL2 gl, IBNAView view, Resources resources, Rectangle bounds,
+			boolean antialiasGraphics, boolean antialiasText) {
+		IBNAModel bnaModel = view.getBNAWorld().getBNAModel();
+
+		gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
+		gl.glLoadIdentity();
+		gl.glOrtho(0, bounds.width, bounds.height, 0, 0, 1);
+		gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
+		gl.glDisable(GL.GL_DEPTH_TEST);
+		gl.glEnable(GL2.GL_LINE_STIPPLE);
+		gl.glEnable(GL.GL_BLEND);
+		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+
+		if (antialiasGraphics) {
+			gl.glEnable(GL.GL_LINE_SMOOTH);
+			gl.glEnable(GL2ES1.GL_POINT_SMOOTH);
+			gl.glHint(GL2ES1.GL_POINT_SMOOTH_HINT, GL.GL_NICEST);
+			gl.glEnable(GL.GL_LINE_SMOOTH);
+			gl.glHint(GL.GL_LINE_SMOOTH_HINT, GL.GL_NICEST);
+			gl.glEnable(GL2GL3.GL_POLYGON_SMOOTH);
+			gl.glHint(GL2GL3.GL_POLYGON_SMOOTH_HINT, GL.GL_NICEST);
+			gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
+		}
+		else {
+			gl.glDisable(GL2ES1.GL_POINT_SMOOTH);
+			gl.glDisable(GL.GL_LINE_SMOOTH);
+			gl.glDisable(GL2GL3.GL_POLYGON_SMOOTH);
+			gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_FASTEST);
+		}
+		resources.setAntialiasText(antialiasText);
+
+		gl.glClearColor(1f, 1f, 1f, 0f);
+		gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+
+		ICoordinateMapper cm = view.getCoordinateMapper();
+		for (IThing thingToRender : bnaModel.getAllThings()) {
+			if (Boolean.TRUE.equals(thingToRender.get(IIsHidden.HIDDEN_KEY))) {
+				continue;
+			}
+
+			try {
+				gl.setAlpha(thingToRender.get(IHasAlpha.ALPHA_KEY, 1f));
+				gl.setTint(thingToRender.get(IHasTint.TINT_KEY, new RGB(0, 0, 0)));
+				IThingPeer<?> peer = view.getThingPeer(thingToRender);
+				peer.draw(view, cm, gl, bounds, resources);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		gl.glFlush();
+	}
+
 }

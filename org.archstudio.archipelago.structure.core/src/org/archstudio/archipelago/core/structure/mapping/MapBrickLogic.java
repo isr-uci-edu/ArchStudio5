@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.archipelago.core.structure.ArchipelagoStructureConstants;
 import org.archstudio.archipelago.core.structure.StructureEditorSupport;
 import org.archstudio.archipelago.structure.core.Activator;
 import org.archstudio.bna.IBNAWorld;
@@ -13,6 +14,7 @@ import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasCount;
 import org.archstudio.bna.facets.IHasFontData;
 import org.archstudio.bna.facets.IHasGradientFill;
+import org.archstudio.bna.facets.IHasLineWidth;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
@@ -100,6 +102,8 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		RGB defaultColor = PreferenceConverter.getColor(Activator.getDefault().getPreferenceStore(), defaultColorPref);
 		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
 				defaultFontPref);
+		int defaultLineWidth = Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoStructureConstants.PREF_LINE_WIDTH);
 
 		for (RectangleGlassThing thing : getAddedThings()) {
 			if (event.getProperty().equals(defaultColorPref)) {
@@ -113,6 +117,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
 			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_STYLE_KEY,
 					FontStyle.fromSWT(defaultFont.getStyle()));
+			Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 		}
 	}
 
@@ -130,6 +135,8 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		RGB defaultColor = PreferenceConverter.getColor(Activator.getDefault().getPreferenceStore(), defaultColorPref);
 		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
 				defaultFontPref);
+		int defaultLineWidth = Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoStructureConstants.PREF_LINE_WIDTH);
 
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
 
@@ -138,6 +145,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasColor.COLOR_KEY, defaultColor);
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasGradientFill.GRADIENT_FILLED_KEY, true);
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasCount.COUNT_KEY, defaultCount);
+		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
 		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
 		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_STYLE_KEY,

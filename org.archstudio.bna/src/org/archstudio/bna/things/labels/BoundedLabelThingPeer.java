@@ -50,6 +50,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 	String text = null;
 	Dimension size = null;
 	Font font = null;
+	int thingSize = 0;
 	List<String> lines = Lists.newArrayList();
 	List<java.awt.font.TextLayout> textLayouts = Lists.newArrayList();
 	float totalHeight = 0;
@@ -60,7 +61,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 		if (!lbb.intersects(clip)) {
 			return;
 		}
-		Point canvasSize = r.getComposite().getSize();
+		Point canvasSize = new Point(clip.width, clip.height);
 		if (t.getText().length() == 0) {
 			text = "";
 			font = null;
@@ -69,9 +70,11 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 				|| font != null && !r.getFont(t, font.getSize()).equals(font)
 				// leave a little tolerance for rounding of coordinates
 				|| Math.abs(lbb.height - size.height) > 2 //
-				|| Math.abs(lbb.width - size.width) > 2) {
+				|| Math.abs(lbb.width - size.width) > 2 //
+				|| thingSize != t.getFontSize()) {
 			text = t.getText();
 			size = new Dimension(lbb.width, lbb.height);
+			thingSize = t.getFontSize();
 			int minFontSize = 1;
 			int maxFontSize = t.getFontSize();
 			Set<Integer> allowableLineBreaks = getAllowableLinebreaks(text);

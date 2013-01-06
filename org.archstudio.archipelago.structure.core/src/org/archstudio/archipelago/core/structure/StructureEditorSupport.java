@@ -32,6 +32,7 @@ import org.archstudio.bna.logics.editing.RectifyToGridLogic;
 import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
 import org.archstudio.bna.logics.editing.ReshapeSplineLogic;
 import org.archstudio.bna.logics.editing.RotaterLogic;
+import org.archstudio.bna.logics.editing.ExportImageLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.editing.SnapToGridLogic;
 import org.archstudio.bna.logics.editing.SplineBreakLogic;
@@ -242,8 +243,8 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new RectifyToGridLogic());
 		logicManager.addThingLogic(new StructureGraphLayoutLogic(xarch, services.get(IResources.class), services
 				.get(IGraphLayout.class), structureRef));
-		//logicManager.addThingLogic(new ExportBitmapLogic());
 		logicManager.addThingLogic(new ViewAllLogic());
+		logicManager.addThingLogic(ExportImageLogic.class);
 
 		// xADL mapping logics
 

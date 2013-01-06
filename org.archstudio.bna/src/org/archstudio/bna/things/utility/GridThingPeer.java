@@ -39,6 +39,8 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> imp
 		}
 
 		if (r.setColor(t, IHasColor.COLOR_KEY)) {
+			
+			gl.glLineWidth(0.5f);
 
 			while (worldGridStep * cm.getLocalScale() <= 8) {
 				worldGridStep *= 2;
