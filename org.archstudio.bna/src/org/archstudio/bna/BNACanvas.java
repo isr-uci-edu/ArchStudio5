@@ -90,20 +90,24 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 				updateScrollBars();
 			}
 		});
-		hBar.addSelectionListener(new SelectionAdapter() {
+		if (hBar != null) {
+			hBar.addSelectionListener(new SelectionAdapter() {
 
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				updateCM();
-			}
-		});
-		vBar.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					updateCM();
+				}
+			});
+		}
+		if (vBar != null) {
+			vBar.addSelectionListener(new SelectionAdapter() {
 
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				updateCM();
-			}
-		});
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					updateCM();
+				}
+			});
+		}
 		updateScrollBars();
 		updateCM();
 
@@ -154,8 +158,12 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 			org.eclipse.swt.graphics.Rectangle client = getClientArea();
 			Rectangle localBounds = mcm.getLocalBounds();
 			Point localOrigin = mcm.getLocalOrigin();
-			updateScrollBar(hBar, localOrigin.x - localBounds.x, client.width, localBounds.width);
-			updateScrollBar(vBar, localOrigin.y - localBounds.y, client.height, localBounds.height);
+			if (hBar != null) {
+				updateScrollBar(hBar, localOrigin.x - localBounds.x, client.width, localBounds.width);
+			}
+			if (vBar != null) {
+				updateScrollBar(vBar, localOrigin.y - localBounds.y, client.height, localBounds.height);
+			}
 		}
 		finally {
 			isUpdatingScrollBars = false;
@@ -177,8 +185,8 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 			try {
 				IMutableCoordinateMapper mcm = getCoordinateMapper();
 				Rectangle localBounds = mcm.getLocalBounds();
-				Point newLocalOrigin = new Point(hBar.getSelection() + localBounds.x, vBar.getSelection()
-						+ localBounds.y);
+				Point newLocalOrigin = new Point((hBar != null ? hBar.getSelection() : 0) + localBounds.x,
+						(vBar != null ? vBar.getSelection() : 0) + localBounds.y);
 				updateCanvas(mcm.getLocalScale(), newLocalOrigin);
 				mcm.setLocalOrigin(newLocalOrigin);
 			}
@@ -240,19 +248,19 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		setCurrent();
 		context.makeCurrent();
 		try {
-			org.eclipse.swt.graphics.Rectangle bounds = BNACanvas.this.getBounds();
+			org.eclipse.swt.graphics.Rectangle bounds = getClientArea();
 			float fAspect = (float) bounds.width / (float) bounds.height;
-			gl.glViewport(0, -getHorizontalBar().getSize().y, bounds.width, bounds.height);
+			gl.glViewport(0, 0, bounds.width, bounds.height);
 			gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
 			gl.glLoadIdentity();
 			GLU glu = new GLU();
 			glu.gluPerspective(45.0f, fAspect, 0.5f, 1f);
 			gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
 			gl.glLoadIdentity();
-			
+
 			redrawPending = false;
 			BNAUtils.render(new ObscuredGL2(gl, 1d), getBNAView(), resources, //
-					new Rectangle(0, 0, getBounds().width, getBounds().height), //
+					new Rectangle(0, 0, bounds.width, bounds.height), //
 					BNARenderingSettings.getAntialiasGraphics(this), //
 					BNARenderingSettings.getAntialiasText(this));
 			swapBuffers();
