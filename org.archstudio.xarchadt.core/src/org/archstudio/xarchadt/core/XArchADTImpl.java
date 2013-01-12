@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.xml.xpath.XPathException;
 
@@ -38,6 +40,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.emf.xpath.EcoreXPathContextFactory;
+import org.eclipse.e4.emf.xpath.XPathContextFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.Enumerator;
@@ -81,6 +84,9 @@ public class XArchADTImpl implements IXArchADT {
 
 	protected final List<IXArchADTModelListener> modelListeners = Lists.newCopyOnWriteArrayList();
 	protected final List<IXArchADTFileListener> fileListeners = Lists.newCopyOnWriteArrayList();
+	protected final ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
+	protected final Lock rLock = rwLock.readLock();
+	protected final Lock wLock = rwLock.writeLock();
 
 	// All the resources here indexed by URI
 	private final ResourceSet resourceSet;
@@ -148,9 +154,11 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	// Map ObjRef <-> EObjects
-	private final Object objRefToEObjectLock = new Object();
 	private final Map<ObjRef, EObject> objRefToEObject = new MapMaker().weakKeys().makeMap();
 	private final Map<EObject, ObjRef> eObjectToObjRef = new MapMaker().softValues().makeMap();
+	private final ReentrantReadWriteLock objRefToEObjectLockRWLock = new ReentrantReadWriteLock();
+	private final Lock objRefToEObjectLockRLock = objRefToEObjectLockRWLock.readLock();
+	private final Lock objRefToEObjectLockWLock = objRefToEObjectLockRWLock.writeLock();
 
 	@Nullable
 	protected ObjRef putNullable(@Nullable EObject eObject) {
@@ -158,45 +166,61 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	protected ObjRef put(EObject eObject) {
-		synchronized (objRefToEObjectLock) {
+		objRefToEObjectLockRLock.lock();
+		try {
 			ObjRef objRef = eObjectToObjRef.get(eObject);
 			if (objRef == null) {
-				objRef = new ObjRef();
-				eObjectToObjRef.put(eObject, objRef);
-				objRefToEObject.put(objRef, eObject);
+				objRefToEObjectLockRLock.unlock();
+				try {
+					objRefToEObjectLockWLock.lock();
+					try {
+						objRef = new ObjRef();
+						eObjectToObjRef.put(eObject, objRef);
+						objRefToEObject.put(objRef, eObject);
+					}
+					finally {
+						objRefToEObjectLockWLock.unlock();
+					}
+				}
+				finally {
+					objRefToEObjectLockRLock.lock();
+				}
 			}
 			return objRef;
+		}
+		finally {
+			objRefToEObjectLockRLock.unlock();
 		}
 	}
 
 	protected List<ObjRef> putAll(Iterable<? extends EObject> eObjects) {
-		synchronized (objRefToEObjectLock) {
-			List<ObjRef> objRefs = Lists.newArrayList();
-			for (EObject eObject : eObjects) {
-				objRefs.add(put(eObject));
-			}
-			return objRefs;
+		List<ObjRef> objRefs = Lists.newArrayList();
+		for (EObject eObject : eObjects) {
+			objRefs.add(put(eObject));
 		}
+		return objRefs;
 	}
 
 	protected EObject get(ObjRef objRef) {
-		synchronized (objRefToEObjectLock) {
+		objRefToEObjectLockRLock.lock();
+		try {
 			EObject eObject = objRefToEObject.get(objRef);
 			if (eObject == null) {
 				throw new IllegalArgumentException("No such object: " + objRef);
 			}
 			return eObject;
 		}
+		finally {
+			objRefToEObjectLockRLock.unlock();
+		}
 	}
 
 	protected List<EObject> getAll(Iterable<ObjRef> objRefs) {
-		synchronized (objRefToEObjectLock) {
-			List<EObject> eObjects = Lists.newArrayList();
-			for (ObjRef objRef : objRefs) {
-				eObjects.add(get(objRef));
-			}
-			return eObjects;
+		List<EObject> eObjects = Lists.newArrayList();
+		for (ObjRef objRef : objRefs) {
+			eObjects.add(get(objRef));
 		}
+		return eObjects;
 	}
 
 	@Nullable
@@ -223,7 +247,7 @@ public class XArchADTImpl implements IXArchADT {
 				Map<Integer, EStructuralFeature> featureIDs = Maps.newHashMap();
 
 				@Override
-				public synchronized Map<String, EStructuralFeature> load(@Nullable EClass eClass) throws Exception {
+				public Map<String, EStructuralFeature> load(@Nullable EClass eClass) throws Exception {
 					structuralFeatures = Maps.newHashMap();
 					featureIDs = Maps.newHashMap();
 					apply0(eClass);
@@ -288,129 +312,235 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@Override
-	public synchronized boolean isValidObjRef(ObjRef objRef) {
-		return get(objRef) != null;
+	public boolean isValidObjRef(ObjRef objRef) {
+		try {
+			return get(objRef) != null;
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override
-	public synchronized void set(ObjRef baseObjRef, String typeOfThing, @Nullable Serializable value) {
-		EObject baseEObject = get(baseObjRef);
-		baseEObject.eSet(getEFeature(baseEObject, typeOfThing, false), uncheck(value));
+	public void set(ObjRef baseObjRef, String typeOfThing, @Nullable Serializable value) {
+		wLock.lock();
+		try {
+			EObject baseEObject = get(baseObjRef);
+			baseEObject.eSet(getEFeature(baseEObject, typeOfThing, false), uncheck(value));
+		}
+		finally {
+			wLock.unlock();
+		}
 	}
 
 	@Override
-	public synchronized @Nullable
+	public @Nullable
 	Serializable get(ObjRef baseObjRef, String typeOfThing) {
-		return get(baseObjRef, typeOfThing, true);
+		rLock.lock();
+		try {
+			return get(baseObjRef, typeOfThing, true);
+		}
+		finally {
+			rLock.unlock();
+		}
 	}
 
-	public synchronized @Nullable
+	public @Nullable
 	Serializable get(ObjRef baseObjRef, String typeOfThing, boolean resolve) {
-		EObject baseEObject = get(baseObjRef);
-		return check(baseEObject.eGet(getEFeature(baseEObject, typeOfThing, false), resolve));
+		rLock.lock();
+		try {
+			EObject baseEObject = get(baseObjRef);
+			return check(baseEObject.eGet(getEFeature(baseEObject, typeOfThing, false), resolve));
+		}
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
-	public synchronized @Nullable
+	public @Nullable
 	Serializable resolve(ObjRef objRef) {
-		EObject baseEObject = get(objRef);
-		return check(EcoreUtil.resolve(baseEObject, baseEObject.eResource()));
+		rLock.lock();
+		try {
+			EObject baseEObject = get(objRef);
+			return check(EcoreUtil.resolve(baseEObject, baseEObject.eResource()));
+		}
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
-	public synchronized void clear(ObjRef baseObjRef, String typeOfThing) {
-		EObject baseEObject = get(baseObjRef);
-		baseEObject.eUnset(getEFeature(baseEObject, typeOfThing, false));
+	public void clear(ObjRef baseObjRef, String typeOfThing) {
+		wLock.lock();
+		try {
+			EObject baseEObject = get(baseObjRef);
+			baseEObject.eUnset(getEFeature(baseEObject, typeOfThing, false));
+		}
+		finally {
+			wLock.unlock();
+		}
 	}
 
 	@Override
-	public synchronized void add(ObjRef baseObjRef, String typeOfThing, Serializable thingToAdd) {
-		getEList(get(baseObjRef), typeOfThing).add(uncheck(thingToAdd));
-	}
-
-	@Override
-	public synchronized void add(ObjRef baseObjRef, String typeOfThing, Collection<? extends Serializable> thingsToAdd) {
-		for (Serializable thingToAdd : thingsToAdd) {
+	public void add(ObjRef baseObjRef, String typeOfThing, Serializable thingToAdd) {
+		wLock.lock();
+		try {
 			getEList(get(baseObjRef), typeOfThing).add(uncheck(thingToAdd));
 		}
-	}
-
-	@Override
-	public synchronized List<Serializable> getAll(ObjRef baseObjRef, String typeOfThing) {
-		EList<Object> list = getEList(get(baseObjRef), typeOfThing);
-		List<Serializable> result = Lists.newArrayListWithCapacity(list.size());
-		for (Object object : list) {
-			result.add(check(object));
-		}
-		return result;
-	}
-
-	@Override
-	public synchronized void remove(ObjRef baseObjRef, String typeOfThing, Serializable thingToRemove) {
-		getEList(get(baseObjRef), typeOfThing).remove(uncheck(thingToRemove));
-	}
-
-	@Override
-	public synchronized void remove(ObjRef baseObjRef, String typeOfThing,
-			Collection<? extends Serializable> thingsToRemove) {
-		for (Serializable thingToRemove : thingsToRemove) {
-			getEList(get(baseObjRef), typeOfThing).remove(uncheck(thingToRemove));
+		finally {
+			wLock.unlock();
 		}
 	}
 
 	@Override
-	@Nullable
-	public synchronized ObjRef getByID(ObjRef documentRef, String id) {
-		return putNullable(get(documentRef).eResource().getEObject(id));
-	}
-
-	@Override
-	@Nullable
-	public synchronized ObjRef getByID(String id) {
-		for (Resource r : resourceSet.getResources()) {
-			EObject objectByID = r.getEObject(id);
-			if (objectByID != null) {
-				return put(objectByID);
+	public void add(ObjRef baseObjRef, String typeOfThing, Collection<? extends Serializable> thingsToAdd) {
+		wLock.lock();
+		try {
+			for (Serializable thingToAdd : thingsToAdd) {
+				getEList(get(baseObjRef), typeOfThing).add(uncheck(thingToAdd));
 			}
 		}
-		return null;
+		finally {
+			wLock.unlock();
+		}
+	}
+
+	@Override
+	public List<Serializable> getAll(ObjRef baseObjRef, String typeOfThing) {
+		rLock.lock();
+		try {
+			EList<Object> list = getEList(get(baseObjRef), typeOfThing);
+			List<Serializable> result = Lists.newArrayListWithCapacity(list.size());
+			for (Object object : list) {
+				result.add(check(object));
+			}
+			return result;
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	public void remove(ObjRef baseObjRef, String typeOfThing, Serializable thingToRemove) {
+		wLock.lock();
+		try {
+			getEList(get(baseObjRef), typeOfThing).remove(uncheck(thingToRemove));
+		}
+		finally {
+			wLock.unlock();
+		}
+	}
+
+	@Override
+	public void remove(ObjRef baseObjRef, String typeOfThing, Collection<? extends Serializable> thingsToRemove) {
+		wLock.lock();
+		try {
+			for (Serializable thingToRemove : thingsToRemove) {
+				getEList(get(baseObjRef), typeOfThing).remove(uncheck(thingToRemove));
+			}
+		}
+		finally {
+			wLock.unlock();
+		}
 	}
 
 	@Override
 	@Nullable
-	public synchronized ObjRef getParent(ObjRef targetObjRef) {
-		return putNullable(get(targetObjRef).eContainer());
-	}
-
-	@Override
-	public synchronized boolean hasAncestor(ObjRef childObjRef, ObjRef ancestorObjRef) {
-		return EcoreUtil.isAncestor(get(ancestorObjRef), get(childObjRef));
-	}
-
-	@Override
-	public synchronized List<ObjRef> getAllAncestors(ObjRef targetObjRef) {
-		EObject eObject = get(targetObjRef);
-		List<ObjRef> ancestorObjRefs = Lists.newArrayList();
-		while (eObject != null) {
-			ancestorObjRefs.add(put(eObject));
-			eObject = eObject.eContainer();
+	public ObjRef getByID(ObjRef documentRef, String id) {
+		rLock.lock();
+		try {
+			return putNullable(get(documentRef).eResource().getEObject(id));
 		}
-		return ancestorObjRefs;
-	}
-
-	@Override
-	public synchronized List<ObjRef> getLineage(ObjRef targetObjRef) {
-		return Lists.reverse(getAllAncestors(targetObjRef));
-	}
-
-	@Override
-	public synchronized boolean isAttached(ObjRef targetObjRef) {
-		EObject eObject = get(targetObjRef);
-		Resource resource = eObject.eResource();
-		if (resource != null) {
-			return EcoreUtil.isAncestor(resource, eObject);
+		finally {
+			rLock.unlock();
 		}
-		return false;
+	}
+
+	@Override
+	@Nullable
+	public ObjRef getByID(String id) {
+		rLock.lock();
+		try {
+			for (Resource r : resourceSet.getResources()) {
+				EObject objectByID = r.getEObject(id);
+				if (objectByID != null) {
+					return put(objectByID);
+				}
+			}
+			return null;
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	@Nullable
+	public ObjRef getParent(ObjRef targetObjRef) {
+		rLock.lock();
+		try {
+			return putNullable(get(targetObjRef).eContainer());
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	public boolean hasAncestor(ObjRef childObjRef, ObjRef ancestorObjRef) {
+		rLock.lock();
+		try {
+			return EcoreUtil.isAncestor(get(ancestorObjRef), get(childObjRef));
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	public List<ObjRef> getAllAncestors(ObjRef targetObjRef) {
+		rLock.lock();
+		try {
+			EObject eObject = get(targetObjRef);
+			List<ObjRef> ancestorObjRefs = Lists.newArrayList();
+			while (eObject != null) {
+				ancestorObjRefs.add(put(eObject));
+				eObject = eObject.eContainer();
+			}
+			return ancestorObjRefs;
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	public List<ObjRef> getLineage(ObjRef targetObjRef) {
+		rLock.lock();
+		try {
+			return Lists.reverse(getAllAncestors(targetObjRef));
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	public boolean isAttached(ObjRef targetObjRef) {
+		rLock.lock();
+		try {
+			EObject eObject = get(targetObjRef);
+			Resource resource = eObject.eResource();
+			if (resource != null) {
+				return EcoreUtil.isAncestor(resource, eObject);
+			}
+			return false;
+		}
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	private static IXArchADTFeature.ValueType getValueType(EStructuralFeature feature) {
@@ -433,7 +563,7 @@ public class XArchADTImpl implements IXArchADT {
 			new CacheLoader<String, EPackage>() {
 
 				@Override
-				public synchronized EPackage load(@Nullable String nsURI) throws Exception {
+				public EPackage load(@Nullable String nsURI) throws Exception {
 					EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(nsURI);
 					if (ePackage != null) {
 						return ePackage;
@@ -446,7 +576,7 @@ public class XArchADTImpl implements IXArchADT {
 			.newBuilder().build(new CacheLoader<EClass, Map<String, IXArchADTFeature>>() {
 
 				@Override
-				public synchronized Map<String, IXArchADTFeature> load(@Nullable EClass eClass) throws Exception {
+				public Map<String, IXArchADTFeature> load(@Nullable EClass eClass) throws Exception {
 					if (eClass == null) {
 						throw new NullPointerException();
 					}
@@ -456,7 +586,7 @@ public class XArchADTImpl implements IXArchADT {
 							new Function<EAttribute, IXArchADTFeature>() {
 
 								@Override
-								public synchronized IXArchADTFeature apply(@Nullable EAttribute eFeature) {
+								public IXArchADTFeature apply(@Nullable EAttribute eFeature) {
 									if (eFeature == null) {
 										throw new NullPointerException();
 									}
@@ -469,7 +599,7 @@ public class XArchADTImpl implements IXArchADT {
 							new Function<EReference, IXArchADTFeature>() {
 
 								@Override
-								public synchronized IXArchADTFeature apply(@Nullable EReference eFeature) {
+								public IXArchADTFeature apply(@Nullable EReference eFeature) {
 									if (eFeature == null) {
 										throw new NullPointerException();
 									}
@@ -496,7 +626,7 @@ public class XArchADTImpl implements IXArchADT {
 			.build(new CacheLoader<EClass, IXArchADTTypeMetadata>() {
 
 				@Override
-				public synchronized IXArchADTTypeMetadata load(@Nullable EClass eClass) throws Exception {
+				public IXArchADTTypeMetadata load(@Nullable EClass eClass) throws Exception {
 					if (eClass == null) {
 						throw new NullPointerException();
 					}
@@ -512,7 +642,7 @@ public class XArchADTImpl implements IXArchADT {
 			.newBuilder().build(new CacheLoader<EPackage, IXArchADTPackageMetadata>() {
 
 				@Override
-				public synchronized IXArchADTPackageMetadata load(@Nullable EPackage ePackage) throws Exception {
+				public IXArchADTPackageMetadata load(@Nullable EPackage ePackage) throws Exception {
 					if (ePackage == null) {
 						throw new NullPointerException();
 					}
@@ -521,7 +651,7 @@ public class XArchADTImpl implements IXArchADT {
 							new Function<EClass, IXArchADTTypeMetadata>() {
 
 								@Override
-								public synchronized IXArchADTTypeMetadata apply(@Nullable EClass eClass) {
+								public IXArchADTTypeMetadata apply(@Nullable EClass eClass) {
 									return typeMetadataCache.getUnchecked(eClass);
 								};
 							}));
@@ -544,262 +674,399 @@ public class XArchADTImpl implements IXArchADT {
 	}
 
 	@Override
-	public synchronized IXArchADTPackageMetadata getPackageMetadata(String nsURI) {
-		return packageMetatadataCache.getUnchecked(ePackageCache.getUnchecked(nsURI));
+	public IXArchADTPackageMetadata getPackageMetadata(String nsURI) {
+		rLock.lock();
+		try {
+			return packageMetatadataCache.getUnchecked(ePackageCache.getUnchecked(nsURI));
+		}
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
-	public synchronized IXArchADTTypeMetadata getTypeMetadata(String nsURI, String typeName) {
-		return typeMetadataCache.getUnchecked(getEClass(ePackageCache.getUnchecked(nsURI), typeName));
+	public IXArchADTTypeMetadata getTypeMetadata(String nsURI, String typeName) {
+		rLock.lock();
+		try {
+			return typeMetadataCache.getUnchecked(getEClass(ePackageCache.getUnchecked(nsURI), typeName));
+		}
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
-	public synchronized IXArchADTTypeMetadata getTypeMetadata(ObjRef objRef) {
-		return typeMetadataCache.getUnchecked(get(objRef).eClass());
+	public IXArchADTTypeMetadata getTypeMetadata(ObjRef objRef) {
+		rLock.lock();
+		try {
+			return typeMetadataCache.getUnchecked(get(objRef).eClass());
+		}
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
-	public synchronized List<IXArchADTPackageMetadata> getAvailablePackageMetadata() {
-		return Lists.newArrayList(Collections2.transform(EPackage.Registry.INSTANCE.keySet(),
-				new Function<String, IXArchADTPackageMetadata>() {
+	public List<IXArchADTPackageMetadata> getAvailablePackageMetadata() {
+		rLock.lock();
+		try {
+			return Lists.newArrayList(Collections2.transform(EPackage.Registry.INSTANCE.keySet(),
+					new Function<String, IXArchADTPackageMetadata>() {
 
-					@Override
-					public synchronized IXArchADTPackageMetadata apply(@Nullable String nsURI) {
-						return packageMetatadataCache.getUnchecked(ePackageCache.getUnchecked(nsURI));
+						@Override
+						public IXArchADTPackageMetadata apply(@Nullable String nsURI) {
+							return packageMetatadataCache.getUnchecked(ePackageCache.getUnchecked(nsURI));
+						}
+					}));
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	public boolean isAssignable(String sourceNsURI, String sourceTypeName, String targetNsURI, String targetTypeName) {
+		rLock.lock();
+		try {
+			EClass eSourceClass = getEClass(ePackageCache.getUnchecked(sourceNsURI), sourceTypeName);
+			EClass eTargetClass = getEClass(ePackageCache.getUnchecked(targetNsURI), targetTypeName);
+			if (eSourceClass.equals(EcorePackage.Literals.EOBJECT)) {
+				// This is a special case - all EWhatevers are inherently assignable
+				// to EObject.  This comes up when a schema has an 'any' element.
+				return true;
+			}
+			return eSourceClass.isSuperTypeOf(eTargetClass);
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	public boolean isInstanceOf(@Nullable ObjRef baseObjRef, String sourceNsURI, String sourceTypeName) {
+		rLock.lock();
+		try {
+			if (baseObjRef == null) {
+				return false;
+			}
+			EObject baseEObject = get(baseObjRef);
+			return getEClass(ePackageCache.getUnchecked(sourceNsURI), sourceTypeName).isSuperTypeOf(
+					baseEObject.eClass());
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	public List<URI> getOpenURIs() {
+		rLock.lock();
+		try {
+			List<URI> uriList = new ArrayList<URI>();
+			for (Resource r : resourceSet.getResources()) {
+				uriList.add(r.getURI());
+			}
+			return uriList;
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	@Nullable
+	public ObjRef getDocumentRootRef(URI uri) {
+		rLock.lock();
+		try {
+			Resource r = resourceSet.getResource(uri, false);
+			return r != null && r.getContents().size() > 0 ? putNullable(r.getContents().get(0)) : null;
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	@Nullable
+	public ObjRef getDocumentRootRef(ObjRef objRef) {
+		rLock.lock();
+		try {
+			Resource eResource = get(objRef).eResource();
+			return eResource != null ? putNullable(eResource.getContents().get(0)) : null;
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	public void close(URI uri) {
+		wLock.lock();
+		try {
+			Resource r = resourceSet.getResource(uri, false);
+			setResourceFinishedLoading(r, false);
+			r.unload();
+			fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_CLOSED_EVENT, uri));
+		}
+		finally {
+			wLock.unlock();
+		}
+	}
+
+	@Override
+	public ObjRef create(String nsURI, String typeOfThing) {
+		wLock.lock();
+		try {
+			EPackage ePackage = ePackageCache.getUnchecked(nsURI);
+			EClass eClass = getEClass(ePackage, typeOfThing);
+			EObject eObject = ePackage.getEFactoryInstance().create(eClass);
+			return put(eObject);
+		}
+		finally {
+			wLock.unlock();
+		}
+	}
+
+	@Override
+	public ObjRef createDocument(URI uri) {
+		wLock.lock();
+		try {
+			return createDocument(uri, Xadlcore_3_0Package.eINSTANCE.getNsURI());
+		}
+		finally {
+			wLock.unlock();
+		}
+	}
+
+	@Override
+	public ObjRef createDocument(URI uri, String nsURI) {
+		wLock.lock();
+		try {
+			Resource r = resourceSet.getResource(uri, false);
+			if (r != null && r.getContents().size() >= 1) {
+				return put(r.getContents().get(0));
+			}
+			r = resourceSet.createResource(uri, "xml");
+			if (r instanceof ResourceImpl) {
+				((ResourceImpl) r).setIntrinsicIDToEObjectMap(new HashMap<String, EObject>());
+			}
+
+			ObjRef documentRootRef = create(nsURI, "DocumentRoot");
+			EObject documentRootObject = get(documentRootRef);
+			r.getContents().add(documentRootObject);
+
+			setResourceFinishedLoading(r, true);
+
+			fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_CREATED_EVENT, uri, documentRootRef));
+			return documentRootRef;
+		}
+		finally {
+			wLock.unlock();
+		}
+	}
+
+	@Override
+	public ObjRef load(URI uri) throws SAXException, IOException {
+		wLock.lock();
+		try {
+			for (Resource r : resourceSet.getResources()) {
+				if (r.getURI().equals(uri)) {
+					// Possibly already open
+					if (r.isLoaded() && r.getContents().size() >= 1) {
+						// Already open
+						return put(r.getContents().get(0));
 					}
-				}));
-	}
-
-	@Override
-	public synchronized boolean isAssignable(String sourceNsURI, String sourceTypeName, String targetNsURI,
-			String targetTypeName) {
-		EClass eSourceClass = getEClass(ePackageCache.getUnchecked(sourceNsURI), sourceTypeName);
-		EClass eTargetClass = getEClass(ePackageCache.getUnchecked(targetNsURI), targetTypeName);
-		if (eSourceClass.equals(EcorePackage.Literals.EOBJECT)) {
-			// This is a special case - all EWhatevers are inherently assignable
-			// to EObject.  This comes up when a schema has an 'any' element.
-			return true;
-		}
-		return eSourceClass.isSuperTypeOf(eTargetClass);
-	}
-
-	@Override
-	public synchronized boolean isInstanceOf(@Nullable ObjRef baseObjRef, String sourceNsURI, String sourceTypeName) {
-		if (baseObjRef == null) {
-			return false;
-		}
-		EObject baseEObject = get(baseObjRef);
-		return getEClass(ePackageCache.getUnchecked(sourceNsURI), sourceTypeName).isSuperTypeOf(baseEObject.eClass());
-	}
-
-	@Override
-	public synchronized List<URI> getOpenURIs() {
-		List<URI> uriList = new ArrayList<URI>();
-		for (Resource r : resourceSet.getResources()) {
-			uriList.add(r.getURI());
-		}
-		return uriList;
-	}
-
-	@Override
-	@Nullable
-	public synchronized ObjRef getDocumentRootRef(URI uri) {
-		Resource r = resourceSet.getResource(uri, false);
-		return r != null && r.getContents().size() > 0 ? putNullable(r.getContents().get(0)) : null;
-	}
-
-	@Override
-	@Nullable
-	public synchronized ObjRef getDocumentRootRef(ObjRef objRef) {
-		Resource eResource = get(objRef).eResource();
-		return eResource != null ? putNullable(eResource.getContents().get(0)) : null;
-	}
-
-	@Override
-	public synchronized void close(URI uri) {
-		Resource r = resourceSet.getResource(uri, false);
-		setResourceFinishedLoading(r, false);
-		r.unload();
-		fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_CLOSED_EVENT, uri));
-	}
-
-	@Override
-	public synchronized ObjRef create(String nsURI, String typeOfThing) {
-		EPackage ePackage = ePackageCache.getUnchecked(nsURI);
-		EClass eClass = getEClass(ePackage, typeOfThing);
-		EObject eObject = ePackage.getEFactoryInstance().create(eClass);
-		return put(eObject);
-	}
-
-	@Override
-	public synchronized ObjRef createDocument(URI uri) {
-		return createDocument(uri, Xadlcore_3_0Package.eINSTANCE.getNsURI());
-	}
-
-	@Override
-	public synchronized ObjRef createDocument(URI uri, String nsURI) {
-		Resource r = resourceSet.getResource(uri, false);
-		if (r != null && r.getContents().size() >= 1) {
-			return put(r.getContents().get(0));
-		}
-		r = resourceSet.createResource(uri, "xml");
-		if (r instanceof ResourceImpl) {
-			((ResourceImpl) r).setIntrinsicIDToEObjectMap(new HashMap<String, EObject>());
-		}
-
-		ObjRef documentRootRef = create(nsURI, "DocumentRoot");
-		EObject documentRootObject = get(documentRootRef);
-		r.getContents().add(documentRootObject);
-
-		setResourceFinishedLoading(r, true);
-
-		fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_CREATED_EVENT, uri, documentRootRef));
-		return documentRootRef;
-	}
-
-	@Override
-	public synchronized ObjRef load(URI uri) throws SAXException, IOException {
-		for (Resource r : resourceSet.getResources()) {
-			if (r.getURI().equals(uri)) {
-				// Possibly already open
-				if (r.isLoaded() && r.getContents().size() >= 1) {
-					// Already open
-					return put(r.getContents().get(0));
 				}
 			}
-		}
 
-		Resource newResource = null;
-		try {
-			newResource = resourceSet.getResource(uri, false);
-			if (newResource == null) {
-				newResource = resourceSet.createResource(uri);
-				if (newResource instanceof ResourceImpl) {
-					((ResourceImpl) newResource).setIntrinsicIDToEObjectMap(new HashMap<String, EObject>());
+			Resource newResource = null;
+			try {
+				newResource = resourceSet.getResource(uri, false);
+				if (newResource == null) {
+					newResource = resourceSet.createResource(uri);
+					if (newResource instanceof ResourceImpl) {
+						((ResourceImpl) newResource).setIntrinsicIDToEObjectMap(new HashMap<String, EObject>());
+					}
+				}
+				if (!newResource.isLoaded()) {
+					newResource.load(LOAD_OPTIONS_MAP);
 				}
 			}
-			if (!newResource.isLoaded()) {
-				newResource.load(LOAD_OPTIONS_MAP);
+			catch (WrappedException e) {
+				// This catches problems with the model itself, such as unresolved dependencies
+				e.printStackTrace();
+				// We still want to open the model (and eventually correct these problems)
+				newResource = resourceSet.getResource(uri, false);
+			}
+			setResourceFinishedLoading(newResource, true);
+
+			ObjRef rootElementRef = put(newResource.getContents().get(0));
+			fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_OPENED_EVENT, uri, rootElementRef));
+			return rootElementRef;
+		}
+		finally {
+			wLock.unlock();
+		}
+	}
+
+	@Override
+	public ObjRef load(URI uri, byte[] content) throws SAXException, IOException {
+		wLock.lock();
+		try {
+			Resource r = resourceSet.createResource(uri);
+			if (r instanceof ResourceImpl) {
+				((ResourceImpl) r).setIntrinsicIDToEObjectMap(new HashMap<String, EObject>());
+			}
+			r.load(new ByteArrayInputStream(content), LOAD_OPTIONS_MAP);
+			setResourceFinishedLoading(r, true);
+
+			ObjRef rootElementRef = put(r.getContents().get(0));
+			fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_OPENED_EVENT, uri, rootElementRef));
+			return rootElementRef;
+		}
+		finally {
+			wLock.unlock();
+		}
+	}
+
+	@Override
+	public void renameXArch(String oldURI, String newURI) {
+		wLock.lock();
+		try {
+			// TODO Auto-generated method stub
+			throw new UnsupportedOperationException();
+		}
+		finally {
+			wLock.unlock();
+		}
+	}
+
+	@Override
+	@Nullable
+	public URI getURI(ObjRef ref) {
+		rLock.lock();
+		try {
+			EObject obj = get(ref);
+			if (obj.eResource() == null) {
+				return null;
+			}
+			return obj.eResource().getURI();
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	public void save(URI uri) throws IOException {
+		wLock.lock();
+		try {
+			Resource r = resourceSet.getResource(uri, false);
+			r.save(SAVE_OPTIONS_MAP);
+			fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_SAVED_EVENT, uri, getDocumentRootRef(uri)));
+		}
+		finally {
+			wLock.unlock();
+		}
+	}
+
+	@Override
+	public byte[] serialize(URI uri) {
+		rLock.lock();
+		try {
+			Resource r = resourceSet.getResource(uri, false);
+
+			try {
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				r.save(baos, SAVE_OPTIONS_MAP);
+				return baos.toByteArray();
+			}
+			catch (IOException ioe) {
+				throw new RuntimeException("This shouldn't happen", ioe);
 			}
 		}
-		catch (WrappedException e) {
-			// This catches problems with the model itself, such as unresolved dependencies
-			e.printStackTrace();
-			// We still want to open the model (and eventually correct these problems)
-			newResource = resourceSet.getResource(uri, false);
+		finally {
+			rLock.unlock();
 		}
-		setResourceFinishedLoading(newResource, true);
-
-		ObjRef rootElementRef = put(newResource.getContents().get(0));
-		fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_OPENED_EVENT, uri, rootElementRef));
-		return rootElementRef;
-	}
-
-	@Override
-	public synchronized ObjRef load(URI uri, byte[] content) throws SAXException, IOException {
-		Resource r = resourceSet.createResource(uri);
-		if (r instanceof ResourceImpl) {
-			((ResourceImpl) r).setIntrinsicIDToEObjectMap(new HashMap<String, EObject>());
-		}
-		r.load(new ByteArrayInputStream(content), LOAD_OPTIONS_MAP);
-		setResourceFinishedLoading(r, true);
-
-		ObjRef rootElementRef = put(r.getContents().get(0));
-		fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_OPENED_EVENT, uri, rootElementRef));
-		return rootElementRef;
-	}
-
-	@Override
-	public synchronized void renameXArch(String oldURI, String newURI) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	@Nullable
-	public synchronized URI getURI(ObjRef ref) {
-		EObject obj = get(ref);
-		if (obj.eResource() == null) {
-			return null;
-		}
-		return obj.eResource().getURI();
-	}
-
-	@Override
-	public synchronized void save(URI uri) throws IOException {
-		Resource r = resourceSet.getResource(uri, false);
-		r.save(SAVE_OPTIONS_MAP);
-		fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_SAVED_EVENT, uri, getDocumentRootRef(uri)));
-	}
-
-	@Override
-	public synchronized byte[] serialize(URI uri) {
-		Resource r = resourceSet.getResource(uri, false);
-
+	public String getTagName(ObjRef objRef) {
+		rLock.lock();
 		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			r.save(baos, SAVE_OPTIONS_MAP);
-			return baos.toByteArray();
-		}
-		catch (IOException ioe) {
-			throw new RuntimeException("This shouldn't happen", ioe);
-		}
-	}
-
-	@Override
-	@Nullable
-	public synchronized String getTagName(ObjRef objRef) {
-		EObject eObject = get(objRef);
-		EStructuralFeature sf = elementHandlerImpl.getRoot(ExtendedMetaData.INSTANCE, eObject.eClass());
-		if (sf != null) {
-			return sf.getName();
-		}
-		else if (eObject.eContainer() != null) {
-			return eObject.eContainingFeature().getName();
-		}
-		return null;
-	}
-
-	@Override
-	@Nullable
-	public synchronized String getContainingFeatureName(ObjRef ref) {
-		EObject eobject = get(ref);
-		EStructuralFeature containingFeature = eobject.eContainingFeature();
-		if (containingFeature == null) {
-			return null;
-		}
-		return containingFeature.getName();
-	}
-
-	@Override
-	public synchronized String getTagsOnlyPathString(ObjRef targetObjRef) {
-		List<String> tags = new ArrayList<String>();
-		EObject eObject = get(targetObjRef);
-		while (eObject != null) {
+			EObject eObject = get(objRef);
 			EStructuralFeature sf = elementHandlerImpl.getRoot(ExtendedMetaData.INSTANCE, eObject.eClass());
 			if (sf != null) {
-				tags.add(sf.getName());
+				return sf.getName();
 			}
 			else if (eObject.eContainer() != null) {
-				tags.add(eObject.eContainingFeature().getName());
+				return eObject.eContainingFeature().getName();
 			}
-			else {
-				break;
-			}
-			eObject = eObject.eContainer();
+			return null;
 		}
-		return Joiner.on("/").join(Lists.reverse(tags));
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
 	@Nullable
-	public synchronized ObjRef resolveHref(ObjRef documentRef, String href) {
-		// TODO Do this right
-		if (href.startsWith("#")) {
-			String id = href.substring(1);
-			return getByID(documentRef, id);
+	public String getContainingFeatureName(ObjRef ref) {
+		rLock.lock();
+		try {
+			EObject eobject = get(ref);
+			EStructuralFeature containingFeature = eobject.eContainingFeature();
+			if (containingFeature == null) {
+				return null;
+			}
+			return containingFeature.getName();
 		}
-		throw new IllegalArgumentException("resolveHref only supports local hrefs right now.");
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	public String getTagsOnlyPathString(ObjRef targetObjRef) {
+		rLock.lock();
+		try {
+			List<String> tags = new ArrayList<String>();
+			EObject eObject = get(targetObjRef);
+			while (eObject != null) {
+				EStructuralFeature sf = elementHandlerImpl.getRoot(ExtendedMetaData.INSTANCE, eObject.eClass());
+				if (sf != null) {
+					tags.add(sf.getName());
+				}
+				else if (eObject.eContainer() != null) {
+					tags.add(eObject.eContainingFeature().getName());
+				}
+				else {
+					break;
+				}
+				eObject = eObject.eContainer();
+			}
+			return Joiner.on("/").join(Lists.reverse(tags));
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	@Nullable
+	public ObjRef resolveHref(ObjRef documentRef, String href) {
+		rLock.lock();
+		try {// TODO Do this right (e.g., open the target URL if necessary)
+			if (href.startsWith("#")) {
+				String id = href.substring(1);
+				return getByID(documentRef, id);
+			}
+			throw new IllegalArgumentException("resolveHref only supports local hrefs right now.");
+		}
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	protected void fireXArchADTModelEvent(XArchADTModelEvent evt) {
@@ -808,26 +1075,50 @@ public class XArchADTImpl implements IXArchADT {
 		}
 	}
 
-	public synchronized void addXArchADTModelListener(IXArchADTModelListener l) {
-		modelListeners.add(l);
+	public void addXArchADTModelListener(IXArchADTModelListener l) {
+		wLock.lock();
+		try {
+			modelListeners.add(l);
+		}
+		finally {
+			wLock.unlock();
+		}
 	}
 
-	public synchronized void removeXArchADTModelListener(IXArchADTModelListener l) {
-		modelListeners.remove(l);
+	public void removeXArchADTModelListener(IXArchADTModelListener l) {
+		wLock.lock();
+		try {
+			modelListeners.remove(l);
+		}
+		finally {
+			wLock.unlock();
+		}
 	}
 
-	protected void fireXArchADTFileEvent(XArchADTFileEvent evt) {
+	protected synchronized void fireXArchADTFileEvent(XArchADTFileEvent evt) {
 		for (IXArchADTFileListener l : fileListeners) {
 			l.handleXArchADTFileEvent(evt);
 		}
 	}
 
-	public synchronized void addXArchADTFileListener(IXArchADTFileListener l) {
-		fileListeners.add(l);
+	public void addXArchADTFileListener(IXArchADTFileListener l) {
+		wLock.lock();
+		try {
+			fileListeners.add(l);
+		}
+		finally {
+			wLock.unlock();
+		}
 	}
 
-	public synchronized void removeXArchADTFileListener(IXArchADTFileListener l) {
-		fileListeners.remove(l);
+	public void removeXArchADTFileListener(IXArchADTFileListener l) {
+		wLock.lock();
+		try {
+			fileListeners.remove(l);
+		}
+		finally {
+			wLock.unlock();
+		}
 	}
 
 	// This stuff is necessary to suppress the event flurry when a document is loaded.
@@ -845,7 +1136,7 @@ public class XArchADTImpl implements IXArchADT {
 	class ContentAdapter extends EContentAdapter {
 
 		@Override
-		public synchronized void notifyChanged(@Nullable Notification notification) {
+		public void notifyChanged(@Nullable Notification notification) {
 			if (notification == null) {
 				throw new NullPointerException();
 			}
@@ -932,82 +1223,117 @@ public class XArchADTImpl implements IXArchADT {
 	protected List<IXArchADTSubstitutionHint> allSubstitutionHints = null;
 
 	@Override
-	public synchronized List<IXArchADTSubstitutionHint> getAllSubstitutionHints() {
-		if (allSubstitutionHints == null) {
-			List<EPackage> allEPackages = Lists.newArrayList();
-			for (String packageNsURI : Lists.newArrayList(EPackage.Registry.INSTANCE.keySet())) {
-				allEPackages.add(EPackage.Registry.INSTANCE.getEPackage(packageNsURI));
+	public List<IXArchADTSubstitutionHint> getAllSubstitutionHints() {
+		rLock.lock();
+		try {
+			if (allSubstitutionHints == null) {
+				List<EPackage> allEPackages = Lists.newArrayList();
+				for (String packageNsURI : Lists.newArrayList(EPackage.Registry.INSTANCE.keySet())) {
+					allEPackages.add(EPackage.Registry.INSTANCE.getEPackage(packageNsURI));
+				}
+				allSubstitutionHints = Lists.newArrayList();
+				allSubstitutionHints.addAll(ExtensionHintUtils.parseExtensionHints(allEPackages));
+				allSubstitutionHints.addAll(SubstitutionHintUtils.parseSubstitutionHints(allEPackages));
 			}
-			allSubstitutionHints = Lists.newArrayList();
-			allSubstitutionHints.addAll(ExtensionHintUtils.parseExtensionHints(allEPackages));
-			allSubstitutionHints.addAll(SubstitutionHintUtils.parseSubstitutionHints(allEPackages));
-		}
 
-		return allSubstitutionHints;
+			return allSubstitutionHints;
+		}
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
-	public synchronized List<IXArchADTSubstitutionHint> getSubstitutionHintsForSource(String sourceNsURI,
-			String sourceTypeName) {
-		List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
-		for (IXArchADTSubstitutionHint hint : getAllSubstitutionHints()) {
-			if (sourceNsURI.equals(hint.getSourceNsURI()) && sourceTypeName.equals(hint.getSourceTypeName())) {
-				matchingHints.add(hint);
+	public List<IXArchADTSubstitutionHint> getSubstitutionHintsForSource(String sourceNsURI, String sourceTypeName) {
+		rLock.lock();
+		try {
+			List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
+			for (IXArchADTSubstitutionHint hint : getAllSubstitutionHints()) {
+				if (sourceNsURI.equals(hint.getSourceNsURI()) && sourceTypeName.equals(hint.getSourceTypeName())) {
+					matchingHints.add(hint);
+				}
 			}
+			return matchingHints;
 		}
-		return matchingHints;
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
-	public synchronized List<IXArchADTSubstitutionHint> getSubstitutionHintsForTarget(String targetNsURI,
-			String targetTypeName) {
-		List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
-		for (IXArchADTSubstitutionHint hint : getAllSubstitutionHints()) {
-			if (targetNsURI.equals(hint.getTargetNsURI()) && targetTypeName.equals(hint.getTargetTypeName())) {
-				matchingHints.add(hint);
+	public List<IXArchADTSubstitutionHint> getSubstitutionHintsForTarget(String targetNsURI, String targetTypeName) {
+		rLock.lock();
+		try {
+			List<IXArchADTSubstitutionHint> matchingHints = new ArrayList<IXArchADTSubstitutionHint>();
+			for (IXArchADTSubstitutionHint hint : getAllSubstitutionHints()) {
+				if (targetNsURI.equals(hint.getTargetNsURI()) && targetTypeName.equals(hint.getTargetTypeName())) {
+					matchingHints.add(hint);
+				}
 			}
+			return matchingHints;
 		}
-		return matchingHints;
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
 	public String getXPath(ObjRef toObjRef) {
-		StringBuffer sb = new StringBuffer();
-		for (ObjRef objRef : Lists.reverse(getAllAncestors(toObjRef))) {
-			EObject eObject = get(objRef);
-			EStructuralFeature feature = eObject.eContainingFeature();
-			if (feature == null) {
-				continue;
+		rLock.lock();
+		try {
+			StringBuffer sb = new StringBuffer();
+			for (ObjRef objRef : Lists.reverse(getAllAncestors(toObjRef))) {
+				EObject eObject = get(objRef);
+				EStructuralFeature feature = eObject.eContainingFeature();
+				if (feature == null) {
+					continue;
+				}
+				sb.append("/");
+				sb.append(feature.getName());
+				if (feature.isMany()) {
+					sb.append("[");
+					sb.append(((EList<?>) eObject.eContainer().eGet(feature)).indexOf(eObject) + 1);
+					sb.append("]");
+				}
 			}
-			sb.append("/");
-			sb.append(feature.getName());
-			if (feature.isMany()) {
-				sb.append("[");
-				sb.append(((EList<?>) eObject.eContainer().eGet(feature)).indexOf(eObject) + 1);
-				sb.append("]");
-			}
+			return sb.toString();
 		}
-		return sb.toString();
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	XPathContextFactory<EObject> ecoreXPathContextFactory = EcoreXPathContextFactory.newInstance();
+
+	@Override
+	public List<ObjRef> resolveObjRefs(ObjRef contextObjRef, String xPath) throws XPathException {
+		rLock.lock();
+		try {
+			Iterator<EObject> it = ecoreXPathContextFactory.newContext(get(contextObjRef)).iterate(xPath);
+			List<ObjRef> result = Lists.newArrayList();
+			while (it.hasNext()) {
+				result.add(put(it.next()));
+			}
+			return result;
+		}
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
-	public synchronized List<ObjRef> resolveObjRefs(ObjRef contextObjRef, String xPath) throws XPathException {
-		Iterator<EObject> it = EcoreXPathContextFactory.newInstance().newContext(get(contextObjRef)).iterate(xPath);
-		List<ObjRef> result = Lists.newArrayList();
-		while (it.hasNext()) {
-			result.add(put(it.next()));
+	public List<Serializable> resolveSerializables(ObjRef contextObjRef, String xPath) throws XPathException {
+		rLock.lock();
+		try {
+			Iterator<EObject> it = ecoreXPathContextFactory.newContext(get(contextObjRef)).iterate(xPath);
+			List<Serializable> result = Lists.newArrayList();
+			while (it.hasNext()) {
+				result.add(check(it.next()));
+			}
+			return result;
 		}
-		return result;
-	}
-
-	@Override
-	public synchronized List<Serializable> resolveSerializables(ObjRef contextObjRef, String xPath)
-			throws XPathException {
-		Iterator<EObject> it = EcoreXPathContextFactory.newInstance().newContext(get(contextObjRef)).iterate(xPath);
-		List<Serializable> result = Lists.newArrayList();
-		while (it.hasNext()) {
-			result.add(check(it.next()));
+		finally {
+			rLock.unlock();
 		}
-		return result;
 	}
 }
