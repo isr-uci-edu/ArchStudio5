@@ -45,7 +45,6 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPathEditorInput;
-import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.operations.UndoRedoActionGroup;
@@ -242,12 +241,12 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 	}
 
 	public void clearEditor() {
-		IWorkbenchPartSite site = getSite();
-		if (site != null) {
-			site.getShell().getDisplay().syncExec(new Runnable() {
-
-				@Override
-				public void run() {
+//		IWorkbenchPartSite site = getSite();
+//		if (site != null) {
+//			site.getShell().getDisplay().syncExec(new Runnable() {
+//
+//				@Override
+//				public void run() {
 					if (parent.isDisposed()) {
 						return;
 					}
@@ -255,9 +254,9 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 					for (int i = children.length - 1; i >= 0; i--) {
 						children[i].dispose();
 					}
-				}
-			});
-		}
+//				}
+//			});
+//		}
 	}
 
 	public void updateOutlinePage() {
@@ -269,10 +268,10 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 	public void updateEditor() {
 		clearEditor();
 
-		getSite().getShell().getDisplay().syncExec(new Runnable() {
-
-			@Override
-			public void run() {
+//		getSite().getShell().getDisplay().syncExec(new Runnable() {
+//
+//			@Override
+//			public void run() {
 				ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 				sc.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 				sc.setBackgroundMode(SWT.INHERIT_DEFAULT);
@@ -303,8 +302,8 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 				createEditorContents(c);
 				c.pack();
 				parent.layout(true);
-			}
-		});
+//			}
+//		});
 	}
 
 	public abstract void createEditorContents(Composite parent);

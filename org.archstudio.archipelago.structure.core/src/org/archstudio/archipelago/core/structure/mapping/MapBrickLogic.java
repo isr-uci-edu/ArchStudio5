@@ -5,8 +5,8 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import java.awt.Dimension;
 import java.util.List;
 
+import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
-import org.archstudio.archipelago.core.structure.ArchipelagoStructureConstants;
 import org.archstudio.archipelago.core.structure.StructureEditorSupport;
 import org.archstudio.archipelago.structure.core.Activator;
 import org.archstudio.bna.IBNAWorld;
@@ -87,6 +87,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		});
 
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 
 		mvl = getBNAWorld().getThingLogicManager().addThingLogic(MirrorValueLogic.class);
 	}
@@ -94,6 +95,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 	@Override
 	public void destroy() {
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		super.destroy();
 	}
 
@@ -102,8 +104,8 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		RGB defaultColor = PreferenceConverter.getColor(Activator.getDefault().getPreferenceStore(), defaultColorPref);
 		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
 				defaultFontPref);
-		int defaultLineWidth = Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoStructureConstants.PREF_LINE_WIDTH);
+		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
 
 		for (RectangleGlassThing thing : getAddedThings()) {
 			if (event.getProperty().equals(defaultColorPref)) {
@@ -135,8 +137,8 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		RGB defaultColor = PreferenceConverter.getColor(Activator.getDefault().getPreferenceStore(), defaultColorPref);
 		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
 				defaultFontPref);
-		int defaultLineWidth = Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoStructureConstants.PREF_LINE_WIDTH);
+		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
 
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
 

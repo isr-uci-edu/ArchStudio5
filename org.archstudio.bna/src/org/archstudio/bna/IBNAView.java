@@ -22,4 +22,5 @@ public interface IBNAView {
 
 	public Composite getComposite();
 
+	public void dispose();
 }

@@ -9,6 +9,7 @@ import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
+import org.eclipse.jface.preference.ScaleFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
@@ -17,7 +18,10 @@ public class ArchipelagoPreferencePanel extends FieldEditorPreferencePage implem
 	protected BooleanFieldEditor antialiasGraphicsEditor;
 	protected BooleanFieldEditor antialiasTextEditor;
 	protected BooleanFieldEditor decorativeGraphicsEditor;
+	protected BooleanFieldEditor shadowsEditor;
 
+	protected ScaleFieldEditor defaultLineWidthEditor;
+	
 	protected IntegerFieldEditor gridSpacingEditor;
 	protected RadioGroupFieldEditor gridDisplayTypeEditor;
 
@@ -45,6 +49,16 @@ public class ArchipelagoPreferencePanel extends FieldEditorPreferencePage implem
 		decorativeGraphicsEditor = new BooleanFieldEditor(ArchipelagoConstants.PREF_DECORATIVE_GRAPHICS,
 				"Decorative Graphics", getFieldEditorParent());
 		addField(decorativeGraphicsEditor);
+
+		shadowsEditor = new BooleanFieldEditor(ArchipelagoConstants.PREF_DISPLAY_SHADOWS,
+				"Display Shadows", getFieldEditorParent());
+		addField(shadowsEditor);
+
+		defaultLineWidthEditor = new ScaleFieldEditor(ArchipelagoConstants.PREF_LINE_WIDTH,
+				"Line Width:", getFieldEditorParent());
+		defaultLineWidthEditor.setMinimum(1);
+		defaultLineWidthEditor.setMaximum(3);
+		addField(defaultLineWidthEditor);
 
 		gridSpacingEditor = new IntegerFieldEditor(ArchipelagoConstants.PREF_GRID_SPACING, "Grid Spacing",
 				getFieldEditorParent());

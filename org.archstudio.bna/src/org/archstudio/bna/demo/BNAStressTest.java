@@ -54,6 +54,7 @@ public class BNAStressTest {
 		BNARenderingSettings.setAntialiasGraphics(canvas, true);
 		BNARenderingSettings.setAntialiasText(canvas, true);
 		BNARenderingSettings.setDecorativeGraphics(canvas, true);
+		BNARenderingSettings.setDisplayShadows(canvas, true);
 
 		canvas.setSize(500, 500);
 		canvas.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
@@ -91,8 +92,8 @@ public class BNAStressTest {
 		IBNAWorld world = view.getBNAWorld();
 		IBNAModel model = world.getBNAModel();
 
-		model.addThing(new ShadowThing(null));
 		model.addThing(new GridThing(null));
+		model.addThing(new ShadowThing(null));
 
 		ICoordinateMapper cm = view.getCoordinateMapper();
 		Rectangle bounds = cm.getLocalBounds();

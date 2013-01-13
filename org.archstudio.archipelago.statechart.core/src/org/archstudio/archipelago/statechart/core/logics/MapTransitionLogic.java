@@ -2,6 +2,7 @@ package org.archstudio.archipelago.statechart.core.logics;
 
 import java.util.List;
 
+import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.statechart.core.Activator;
 import org.archstudio.archipelago.statechart.core.StatechartConstants;
@@ -11,6 +12,7 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasFontData;
+import org.archstudio.bna.facets.IHasLineWidth;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableText;
@@ -74,31 +76,41 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 				syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY)), true);
 
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
 
 	@Override
 	public void destroy() {
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+
 		super.destroy();
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
+
 		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
 				StatechartConstants.PREF_TRANSITION_FONT);
+		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
 
 		for (CurvedSplineGlassThing thing : getAddedThings()) {
 			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
 			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
 			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_STYLE_KEY,
 					FontStyle.fromSWT(defaultFont.getStyle()));
+			Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 		}
 	}
 
 	@Override
 	protected CurvedSplineGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
+
 		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
 				StatechartConstants.PREF_TRANSITION_FONT);
+		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
 
 		CurvedSplineGlassThing thing = StatechartAssemblies.createCurvedSpline(getBNAWorld(), null, null);
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
@@ -126,6 +138,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
 		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_STYLE_KEY,
 				FontStyle.fromSWT(defaultFont.getStyle()));
+		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 
 		UserEditableUtils.addEditableQualities(labelThing, IHasMutableText.USER_MAY_EDIT_TEXT);
 

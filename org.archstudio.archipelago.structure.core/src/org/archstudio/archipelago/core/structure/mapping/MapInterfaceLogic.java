@@ -4,8 +4,8 @@ import static org.archstudio.bna.constants.StickyMode.EDGE;
 
 import java.util.List;
 
+import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
-import org.archstudio.archipelago.core.structure.ArchipelagoStructureConstants;
 import org.archstudio.archipelago.structure.core.Activator;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
@@ -97,11 +97,13 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 				stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), false);
 		
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
 
 	@Override
 	public void destroy() {
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		
 		super.destroy();
 	}
@@ -109,8 +111,8 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 	@Override
 	protected EndpointGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
-		int defaultLineWidth = Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoStructureConstants.PREF_LINE_WIDTH);
+		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
 
 		EndpointGlassThing thing = Assemblies.createEndpoint(getBNAWorld(), null, null);
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
@@ -143,8 +145,8 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		int defaultLineWidth = Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoStructureConstants.PREF_LINE_WIDTH);
+		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
 
 		for (EndpointGlassThing thing : getAddedThings()) {
 			Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);

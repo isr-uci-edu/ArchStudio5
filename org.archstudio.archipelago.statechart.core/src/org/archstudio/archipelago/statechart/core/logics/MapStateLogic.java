@@ -5,6 +5,7 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import java.awt.Dimension;
 import java.util.List;
 
+import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.statechart.core.Activator;
 import org.archstudio.archipelago.statechart.core.StatechartConstants;
@@ -13,6 +14,7 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasCount;
 import org.archstudio.bna.facets.IHasFontData;
+import org.archstudio.bna.facets.IHasLineWidth;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
@@ -80,6 +82,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		});
 
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 
 		mvl = getBNAWorld().getThingLogicManager().addThingLogic(MirrorValueLogic.class);
 	}
@@ -87,6 +90,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 	@Override
 	public void destroy() {
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		super.destroy();
 	}
 
@@ -96,6 +100,8 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 				StatechartConstants.PREF_STATE_COLOR);
 		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
 				StatechartConstants.PREF_STATE_FONT);
+		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
 
 		for (RectangleGlassThing thing : getAddedThings()) {
 			if (event.getProperty().equals(StatechartConstants.PREF_STATE_COLOR)) {
@@ -109,6 +115,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
 			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_STYLE_KEY,
 					FontStyle.fromSWT(defaultFont.getStyle()));
+			Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 		}
 	}
 
@@ -126,6 +133,8 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 				StatechartConstants.PREF_STATE_COLOR);
 		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
 				StatechartConstants.PREF_STATE_FONT);
+		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
 
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
 
@@ -138,6 +147,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
 		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_STYLE_KEY,
 				FontStyle.fromSWT(defaultFont.getStyle()));
+		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 
 		mvl.mirrorValue(Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()), IHasColor.COLOR_KEY,
 				Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()), IHasSecondaryColor.SECONDARY_COLOR_KEY,

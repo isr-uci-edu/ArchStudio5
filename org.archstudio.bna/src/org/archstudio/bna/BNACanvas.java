@@ -2,6 +2,7 @@ package org.archstudio.bna;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import javax.media.opengl.DebugGL2;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLContext;
@@ -137,7 +138,9 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 
 	@Override
 	public void dispose() {
+		removePaintListener(this);
 		getBNAView().getBNAWorld().getBNAModel().removeBNAModelListener(this);
+		bnaView.dispose();
 		eventHandler.dispose();
 		resources.destroy();
 		context.destroy();
@@ -259,7 +262,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 			gl.glLoadIdentity();
 
 			redrawPending = false;
-			BNAUtils.render(new ObscuredGL2(gl, 1d), getBNAView(), resources, //
+			BNAUtils.render(new ObscuredGL2(DEBUG != 0 ? new DebugGL2(gl) : gl, 1d), getBNAView(), resources, //
 					new Rectangle(0, 0, bounds.width, bounds.height), //
 					BNARenderingSettings.getAntialiasGraphics(this), //
 					BNARenderingSettings.getAntialiasText(this));

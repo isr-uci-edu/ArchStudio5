@@ -403,6 +403,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 						prefs.getBoolean(ArchipelagoConstants.PREF_ANTIALIAS_TEXT));
 				BNARenderingSettings.setDecorativeGraphics(bnaCanvas,
 						prefs.getBoolean(ArchipelagoConstants.PREF_DECORATIVE_GRAPHICS));
+				BNARenderingSettings.setDisplayShadows(bnaCanvas,
+						prefs.getBoolean(ArchipelagoConstants.PREF_DISPLAY_SHADOWS));
 				GridThing gridThing = (GridThing) fbnaWorld.getBNAModel().getThing(GridThing.class);
 				if (gridThing != null) {
 					gridThing.setGridSpacing(prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING));
@@ -454,8 +456,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 		logicManager.addThingLogic(new SynchronizeHintsLogic(logicProxy.addObject(new XadlHintRepository(xarch))));
 
-		bnaWorld.getBNAModel().addThing(new ShadowThing(null));
 		bnaWorld.getBNAModel().addThing(new GridThing(GridThing.class));
+		bnaWorld.getBNAModel().addThing(new ShadowThing(null));
 
 		// these logics need to be first
 

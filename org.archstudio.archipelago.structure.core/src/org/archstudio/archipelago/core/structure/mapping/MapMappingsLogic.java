@@ -2,10 +2,13 @@ package org.archstudio.archipelago.core.structure.mapping;
 
 import java.util.List;
 
+import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.archipelago.structure.core.Activator;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasInternalWorldEndpoint;
+import org.archstudio.bna.facets.IHasLineWidth;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasToolTip;
@@ -21,11 +24,13 @@ import org.archstudio.xadl.bna.logics.mapping.MaintainMappingLogic;
 import org.archstudio.xadl.bna.logics.mapping.SynchronizeThingIDAndObjRefLogic;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Lists;
 
-public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThing> {
+public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThing> implements IPropertyChangeListener {
 
 	DynamicStickPointLogic stickLogic = null;
 	SynchronizeThingIDAndObjRefLogic syncLogic = null;
@@ -59,15 +64,30 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThi
 		syncValue("outerInterfaceLink", null, null, BNAPath.create(),
 				syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasAnchorPoint.ANCHOR_POINT_KEY)),
 				true);
+
+		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+	}
+
+	@Override
+	public void destroy() {
+		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+
+		super.destroy();
 	}
 
 	@Override
 	protected MappingGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
+		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
+
 		MappingGlassThing thing = Assemblies.createMapping(getBNAWorld(), null, null);
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
 		thing.setAnchorPoint(new Point(newPointSpot.x - 50, newPointSpot.y + 50));
 		thing.setInternalEndpoint(new Point(newPointSpot.x + 50, newPointSpot.y - 50));
+		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableText.USER_MAY_EDIT_TEXT,
 				IHasMutableSelected.USER_MAY_SELECT);
@@ -80,4 +100,13 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThi
 		return thing;
 	}
 
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
+
+		for (MappingGlassThing thing : getAddedThings()) {
+			Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
+		}
+	}
 }

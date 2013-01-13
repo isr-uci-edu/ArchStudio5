@@ -100,4 +100,9 @@ public class DefaultBNAView implements IBNAView {
 	public <T extends IThing> void disposePeer(T thing) {
 		peerCache.disposePeer(thing);
 	}
+	
+	@Override
+	public void dispose() {
+		peerCache.dispose();
+	}
 }

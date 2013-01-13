@@ -15,6 +15,8 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
+import com.google.common.collect.Lists;
+
 @NonNullByDefault
 public abstract class AbstractPolygonThing extends AbstractPointsThing implements IHasMutableAnchorPoint,
 		IHasMutablePoints, IHasMutableReferencePoint, IIsSticky {
@@ -27,6 +29,7 @@ public abstract class AbstractPolygonThing extends AbstractPointsThing implement
 	protected void initProperties() {
 		setAnchorPoint(new Point(0, 0));
 		super.initProperties();
+		setPoints(Lists.newArrayList(new Point(0, -5), new Point(5, 0), new Point(0, 5), new Point(-5, 0)));
 		addShapeModifyingKey(POINTS_KEY);
 		addShapeModifyingKey(ANCHOR_POINT_KEY);
 	}

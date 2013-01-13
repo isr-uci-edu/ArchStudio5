@@ -44,4 +44,11 @@ public class PeerCache {
 	public void disposePeer(IThing thing) {
 		getPeer(thing).dispose();
 	}
+
+	public void dispose() {
+		for (IThingPeer<?> p : peersCache.asMap().values()) {
+			p.dispose();
+		}
+		peersCache.invalidateAll();
+	}
 }

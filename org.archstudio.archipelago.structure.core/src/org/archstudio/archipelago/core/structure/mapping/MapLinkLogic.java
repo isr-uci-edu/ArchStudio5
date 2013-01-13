@@ -2,8 +2,8 @@ package org.archstudio.archipelago.core.structure.mapping;
 
 import java.util.List;
 
+import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
-import org.archstudio.archipelago.core.structure.ArchipelagoStructureConstants;
 import org.archstudio.archipelago.structure.core.Activator;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasEndpoints;
@@ -54,11 +54,13 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> i
 				syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY)), true);
 
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
 
 	@Override
 	public void destroy() {
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
+		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 
 		super.destroy();
 	}
@@ -66,15 +68,15 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> i
 	@Override
 	protected SplineGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
-		int defaultLineWidth = Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoStructureConstants.PREF_LINE_WIDTH);
+		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
 
 		SplineGlassThing thing = Assemblies.createSpline(getBNAWorld(), null, null);
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
 		thing.setPoint(0, new Point(newPointSpot.x - 50, newPointSpot.y + 50));
 		thing.setPoint(-1, new Point(newPointSpot.x + 50, newPointSpot.y - 50));
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
-		
+
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
 				IRelativeMovable.USER_MAY_MOVE, IHasMutableText.USER_MAY_EDIT_TEXT,
 				IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS, IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS,
@@ -90,8 +92,8 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> i
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		int defaultLineWidth = Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoStructureConstants.PREF_LINE_WIDTH);
+		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
 
 		for (SplineGlassThing thing : getAddedThings()) {
 			Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);

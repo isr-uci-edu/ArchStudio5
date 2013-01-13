@@ -8,6 +8,4 @@ public class ArchipelagoStructureConstants {
 	public static final String PREF_DEFAULT_COMPONENT_COLOR = "org.archstudio.archipelago.core.structure.defaultComponentColor";
 	public static final String PREF_DEFAULT_CONNECTOR_FONT = "org.archstudio.archipelago.core.structure.defaultConnectorFont";
 	public static final String PREF_DEFAULT_CONNECTOR_COLOR = "org.archstudio.archipelago.core.structure.defaultConnectorColor";
-	public static final String PREF_LINE_WIDTH = "org.archstudio.archipelago.core.structure.defaultLineWidth";
-
 }
