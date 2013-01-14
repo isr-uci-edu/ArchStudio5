@@ -959,14 +959,14 @@ public class XArchADTImpl implements IXArchADT {
 
 	@Override
 	public void save(URI uri) throws IOException {
-		wLock.lock();
+		rLock.lock();
 		try {
 			Resource r = resourceSet.getResource(uri, false);
 			r.save(SAVE_OPTIONS_MAP);
 			fireXArchADTFileEvent(new XArchADTFileEvent(EventType.XARCH_SAVED_EVENT, uri, getDocumentRootRef(uri)));
 		}
 		finally {
-			wLock.unlock();
+			rLock.unlock();
 		}
 	}
 

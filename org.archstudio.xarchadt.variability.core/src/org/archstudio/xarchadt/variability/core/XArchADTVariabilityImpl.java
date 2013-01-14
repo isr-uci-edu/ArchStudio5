@@ -238,11 +238,23 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 	private final List<IXArchADTVariabilityListener> variabilityListeners = Lists.newCopyOnWriteArrayList();
 
 	public void addXArchADTVariabilityListener(IXArchADTVariabilityListener listener) {
-		variabilityListeners.add(listener);
+		wLock.lock();
+		try {
+			variabilityListeners.add(listener);
+		}
+		finally {
+			wLock.unlock();
+		}
 	}
 
 	public void removeXArchADTVariabilityListener(IXArchADTVariabilityListener listener) {
-		variabilityListeners.remove(listener);
+		wLock.lock();
+		try {
+			variabilityListeners.remove(listener);
+		}
+		finally {
+			wLock.unlock();
+		}
 	}
 
 	protected void fireVariabilityEvent(XArchADTVariabilityEvent.Type type, VariabilityStatus vs, ObjRef changedObjRef,
@@ -347,99 +359,124 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 	}
 
 	@Override
-	public synchronized void setChangeSetsEnabled(ObjRef documentRootRef, boolean enabled) {
+	public void setChangeSetsEnabled(ObjRef documentRootRef, boolean enabled) {
+		wLock.lock();
+		try {
+			checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 
-		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
-
-		VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
-		if (!vs.isChangeSetsEnabled && enabled) {
-			DocumentRoot documentRoot = (DocumentRoot) get(documentRootRef);
-			XADLType xadlType = documentRoot.getXADL();
-			if (xadlType == null) {
-				xadlType = Xadlcore_3_0Factory.eINSTANCE.createXADLType();
-				documentRoot.setXADL(xadlType);
-			}
-			Variability variability = null;
-			for (EObject eObject : xadlType.getTopLevelElement()) {
-				if (eObject instanceof Variability) {
-					variability = (Variability) eObject;
-					break;
+			VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
+			if (!vs.isChangeSetsEnabled && enabled) {
+				DocumentRoot documentRoot = (DocumentRoot) get(documentRootRef);
+				XADLType xadlType = documentRoot.getXADL();
+				if (xadlType == null) {
+					xadlType = Xadlcore_3_0Factory.eINSTANCE.createXADLType();
+					documentRoot.setXADL(xadlType);
 				}
-			}
-			if (variability == null) {
-				variability = Variability_3_0Factory.eINSTANCE.createVariability();
-				xadlType.getTopLevelElement().add(variability);
-			}
-			ChangeSetOfChanges changeSet = Variability_3_0Factory.eINSTANCE.createChangeSetOfChanges();
-			changeSet.setId(UIDGenerator.generateUID());
-			changeSet.setName("Baseline");
-			variability.getChangeSet().add(changeSet);
-			variability.getAppliedChangeSets().add(changeSet);
-			variability.setActiveChangeSet(changeSet);
+				Variability variability = null;
+				for (EObject eObject : xadlType.getTopLevelElement()) {
+					if (eObject instanceof Variability) {
+						variability = (Variability) eObject;
+						break;
+					}
+				}
+				if (variability == null) {
+					variability = Variability_3_0Factory.eINSTANCE.createVariability();
+					xadlType.getTopLevelElement().add(variability);
+				}
+				ChangeSetOfChanges changeSet = Variability_3_0Factory.eINSTANCE.createChangeSetOfChanges();
+				changeSet.setId(UIDGenerator.generateUID());
+				changeSet.setName("Baseline");
+				variability.getChangeSet().add(changeSet);
+				variability.getAppliedChangeSets().add(changeSet);
+				variability.setActiveChangeSet(changeSet);
 
-			vs.refreshFromXadl();
-			fireVariabilityEvent(Type.ENABLED, vs, null, null);
+				vs.refreshFromXadl();
+				fireVariabilityEvent(Type.ENABLED, vs, null, null);
 
-			vs.setup(vs.workingChangeSets, 0, vs.workingChangeSets.indexOf(vs.activeChangeSet), new int[0]);
-			synchronizeDocumentRoot(vs, documentRoot);
+				vs.setup(vs.workingChangeSets, 0, vs.workingChangeSets.indexOf(vs.activeChangeSet), new int[0]);
+				synchronizeDocumentRoot(vs, documentRoot);
+			}
+			else if (vs.isChangeSetsEnabled && !enabled) {
+				DocumentRoot documentRoot = (DocumentRoot) get(documentRootRef);
+				XADLType xadlType = documentRoot.getXADL();
+				if (xadlType == null) {
+					xadlType = Xadlcore_3_0Factory.eINSTANCE.createXADLType();
+					documentRoot.setXADL(xadlType);
+				}
+				for (EObject eObject : xadlType.getTopLevelElement()) {
+					if (eObject instanceof Variability) {
+						xadlType.getTopLevelElement().remove(eObject);
+					}
+				}
+
+				vs.refreshFromXadl();
+				fireVariabilityEvent(Type.DISABLED, vs, null, null);
+			}
 		}
-		else if (vs.isChangeSetsEnabled && !enabled) {
-			DocumentRoot documentRoot = (DocumentRoot) get(documentRootRef);
-			XADLType xadlType = documentRoot.getXADL();
-			if (xadlType == null) {
-				xadlType = Xadlcore_3_0Factory.eINSTANCE.createXADLType();
-				documentRoot.setXADL(xadlType);
-			}
-			for (EObject eObject : xadlType.getTopLevelElement()) {
-				if (eObject instanceof Variability) {
-					xadlType.getTopLevelElement().remove(eObject);
-				}
-			}
-
-			vs.refreshFromXadl();
-			fireVariabilityEvent(Type.DISABLED, vs, null, null);
+		finally {
+			wLock.unlock();
 		}
 	}
 
 	@Override
-	public synchronized boolean isChangeSetsEnabled(ObjRef documentRootRef) {
-		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
+	public boolean isChangeSetsEnabled(ObjRef documentRootRef) {
+		rLock.lock();
+		try {
+			checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 
-		VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
-		return vs.isChangeSetsEnabled;
+			VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
+			return vs.isChangeSetsEnabled;
+		}
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
-	public synchronized void setActiveChangeSet(ObjRef documentRootRef, @Nullable ObjRef changeSetRef) {
-		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
-		checkArgument(changeSetRef == null
-				|| isInstanceOf(changeSetRef, Variability_3_0Package.eNS_URI,
-						Variability_3_0Package.Literals.CHANGE_SET.getName()));
+	public void setActiveChangeSet(ObjRef documentRootRef, @Nullable ObjRef changeSetRef) {
+		wLock.lock();
+		try {
 
-		VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
-		if (!vs.isChangeSetsEnabled) {
-			throw new RuntimeException("Change sets are not enabled");
+			checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
+			checkArgument(changeSetRef == null
+					|| isInstanceOf(changeSetRef, Variability_3_0Package.eNS_URI,
+							Variability_3_0Package.Literals.CHANGE_SET.getName()));
+
+			VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
+			if (!vs.isChangeSetsEnabled) {
+				throw new RuntimeException("Change sets are not enabled");
+			}
+
+			if (!SystemUtils
+					.nullEquals(vs.activeChangeSet, changeSetRef != null ? (ChangeSet) get(changeSetRef) : null)) {
+				vs.variability.setActiveChangeSet(changeSetRef != null ? (ChangeSet) get(changeSetRef) : null);
+
+				vs.refreshFromXadl();
+				fireVariabilityEvent(Type.ACTIVE, vs, null, null);
+			}
 		}
-
-		if (!SystemUtils.nullEquals(vs.activeChangeSet, changeSetRef != null ? (ChangeSet) get(changeSetRef) : null)) {
-			vs.variability.setActiveChangeSet(changeSetRef != null ? (ChangeSet) get(changeSetRef) : null);
-
-			vs.refreshFromXadl();
-			fireVariabilityEvent(Type.ACTIVE, vs, null, null);
+		finally {
+			wLock.unlock();
 		}
 	}
 
 	@Override
 	@Nullable
-	public synchronized ObjRef getActiveChangeSet(ObjRef documentRootRef) {
-		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
+	public ObjRef getActiveChangeSet(ObjRef documentRootRef) {
+		rLock.lock();
+		try {
+			checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 
-		VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
-		if (!vs.isChangeSetsEnabled) {
-			throw new RuntimeException("Change sets are not enabled");
+			VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
+			if (!vs.isChangeSetsEnabled) {
+				throw new RuntimeException("Change sets are not enabled");
+			}
+
+			return putNullable(vs.activeChangeSet);
 		}
-
-		return putNullable(vs.activeChangeSet);
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	// if this needs to be optimized later, see: http://www.cs.dartmouth.edu/~doug/diff.ps
@@ -480,141 +517,177 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 	}
 
 	@Override
-	public synchronized void applyChangeSets(ObjRef documentRootRef, List<ObjRef> changeSetRefs) {
-		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
-		for (ObjRef changeSetRef : changeSetRefs) {
-			checkArgument(isInstanceOf(changeSetRef, Variability_3_0Package.eNS_URI,
-					Variability_3_0Package.Literals.CHANGE_SET.getName()));
-		}
-
-		VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
-		if (!vs.isChangeSetsEnabled) {
-			throw new RuntimeException("Change sets are not enabled");
-		}
-
-		if (!putAll(vs.appliedChangeSets).equals(changeSetRefs)) {
-			List<ChangeSet> changeSets = Lists.newArrayList();
+	public void applyChangeSets(ObjRef documentRootRef, List<ObjRef> changeSetRefs) {
+		wLock.lock();
+		try {
+			checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 			for (ObjRef changeSetRef : changeSetRefs) {
-				changeSets.add((ChangeSet) get(changeSetRef));
+				checkArgument(isInstanceOf(changeSetRef, Variability_3_0Package.eNS_URI,
+						Variability_3_0Package.Literals.CHANGE_SET.getName()));
 			}
 
-			// only update based on change sets that were (un)applied recently
-			Set<ChangeSet> changeSetDiff = diff(changeSets.toArray(new ChangeSet[0]),
-					vs.appliedChangeSets.toArray(new ChangeSet[0]));
-
-			vs.variability.getAppliedChangeSets().clear();
-			vs.variability.getAppliedChangeSets().addAll(changeSets);
-			vs.refreshFromXadl();
-			fireVariabilityEvent(Type.APPLIED, vs, null, null);
-
-			Set<Integer> ints = Sets.newHashSet();
-			for (ChangeSet changeSet : changeSetDiff) {
-				ints.add(vs.workingChangeSets.indexOf(changeSet));
+			VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
+			if (!vs.isChangeSetsEnabled) {
+				throw new RuntimeException("Change sets are not enabled");
 			}
 
-			//TODO: use ints
-			vs.setup(vs.workingChangeSets, vs.workingChangeSetsBeginIndex, -1, new int[0]); // Ints.toArray(ints));
-			synchronizeDocumentRoot(vs, get(documentRootRef));
+			if (!putAll(vs.appliedChangeSets).equals(changeSetRefs)) {
+				List<ChangeSet> changeSets = Lists.newArrayList();
+				for (ObjRef changeSetRef : changeSetRefs) {
+					changeSets.add((ChangeSet) get(changeSetRef));
+				}
+
+				// only update based on change sets that were (un)applied recently
+				Set<ChangeSet> changeSetDiff = diff(changeSets.toArray(new ChangeSet[0]),
+						vs.appliedChangeSets.toArray(new ChangeSet[0]));
+
+				vs.variability.getAppliedChangeSets().clear();
+				vs.variability.getAppliedChangeSets().addAll(changeSets);
+				vs.refreshFromXadl();
+				fireVariabilityEvent(Type.APPLIED, vs, null, null);
+
+				Set<Integer> ints = Sets.newHashSet();
+				for (ChangeSet changeSet : changeSetDiff) {
+					ints.add(vs.workingChangeSets.indexOf(changeSet));
+				}
+
+				//TODO: use ints
+				vs.setup(vs.workingChangeSets, vs.workingChangeSetsBeginIndex, -1, new int[0]); // Ints.toArray(ints));
+				synchronizeDocumentRoot(vs, get(documentRootRef));
+			}
+		}
+		finally {
+			wLock.unlock();
 		}
 	}
 
 	@Override
-	public synchronized List<ObjRef> getAppliedChangeSets(ObjRef documentRootRef) {
-		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
+	public List<ObjRef> getAppliedChangeSets(ObjRef documentRootRef) {
+		rLock.lock();
+		try {
+			checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 
-		VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
-		if (!vs.isChangeSetsEnabled) {
-			throw new RuntimeException("Change sets are not enabled");
-		}
+			VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
+			if (!vs.isChangeSetsEnabled) {
+				throw new RuntimeException("Change sets are not enabled");
+			}
 
-		List<ObjRef> changeSetRefs = Lists.newArrayListWithCapacity(vs.appliedChangeSets.size());
-		for (ChangeSet changeSet : vs.appliedChangeSets) {
-			changeSetRefs.add(put(changeSet));
+			List<ObjRef> changeSetRefs = Lists.newArrayListWithCapacity(vs.appliedChangeSets.size());
+			for (ChangeSet changeSet : vs.appliedChangeSets) {
+				changeSetRefs.add(put(changeSet));
+			}
+			return changeSetRefs;
 		}
-		return changeSetRefs;
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
 	public void setExplicitChangeSets(ObjRef documentRootRef, Iterable<ObjRef> changeSetRefs) {
-		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
-		for (ObjRef changeSetRef : changeSetRefs) {
-			checkArgument(isInstanceOf(changeSetRef, Variability_3_0Package.eNS_URI,
-					Variability_3_0Package.Literals.CHANGE_SET.getName()));
-		}
-
-		VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
-		if (!vs.isChangeSetsEnabled) {
-			throw new RuntimeException("Change sets are not enabled");
-		}
-
-		if (!Sets.newHashSet(putAll(vs.explicitChangeSets)).equals(Sets.newHashSet(changeSetRefs))) {
-			vs.explicitChangeSets.clear();
+		wLock.lock();
+		try {
+			checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 			for (ObjRef changeSetRef : changeSetRefs) {
-				vs.explicitChangeSets.add((ChangeSet) get(changeSetRef));
+				checkArgument(isInstanceOf(changeSetRef, Variability_3_0Package.eNS_URI,
+						Variability_3_0Package.Literals.CHANGE_SET.getName()));
 			}
 
-			vs.refreshFromXadl();
-			fireVariabilityEvent(Type.EXPLICIT, vs, null, null);
+			VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
+			if (!vs.isChangeSetsEnabled) {
+				throw new RuntimeException("Change sets are not enabled");
+			}
 
-			// TODO: set ints[0] to include the explicit change set diff change sets
-			vs.setup(vs.workingChangeSets, vs.workingChangeSetsBeginIndex, -1, new int[0]);
-			synchronizeDocumentRoot(vs, get(documentRootRef));
+			if (!Sets.newHashSet(putAll(vs.explicitChangeSets)).equals(Sets.newHashSet(changeSetRefs))) {
+				vs.explicitChangeSets.clear();
+				for (ObjRef changeSetRef : changeSetRefs) {
+					vs.explicitChangeSets.add((ChangeSet) get(changeSetRef));
+				}
+
+				vs.refreshFromXadl();
+				fireVariabilityEvent(Type.EXPLICIT, vs, null, null);
+
+				// TODO: set ints[0] to include the explicit change set diff change sets
+				vs.setup(vs.workingChangeSets, vs.workingChangeSetsBeginIndex, -1, new int[0]);
+				synchronizeDocumentRoot(vs, get(documentRootRef));
+			}
+		}
+		finally {
+			wLock.unlock();
 		}
 	}
 
 	@Override
 	public Set<ObjRef> getExplicitChangeSets(ObjRef documentRootRef) {
-		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
+		rLock.lock();
+		try {
+			checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 
-		VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
-		if (!vs.isChangeSetsEnabled) {
-			throw new RuntimeException("Change sets are not enabled");
+			VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
+			if (!vs.isChangeSetsEnabled) {
+				throw new RuntimeException("Change sets are not enabled");
+			}
+
+			return Sets.newHashSet(putAll(vs.explicitChangeSets));
 		}
-
-		return Sets.newHashSet(putAll(vs.explicitChangeSets));
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
 	public boolean isOverviewModeEnabled(ObjRef documentRootRef) {
-		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
+		rLock.lock();
+		try {
+			checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 
-		VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
-		if (!vs.isChangeSetsEnabled) {
-			throw new RuntimeException("Change sets are not enabled");
+			VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
+			if (!vs.isChangeSetsEnabled) {
+				throw new RuntimeException("Change sets are not enabled");
+			}
+
+			return vs.isOverview;
 		}
-
-		return vs.isOverview;
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
 	public void setOverviewModeEnabled(ObjRef documentRootRef, boolean enabled) {
-		checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
+		wLock.lock();
+		try {
+			checkArgument(documentRootRef.equals(getDocumentRootRef(documentRootRef)));
 
-		VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
-		if (!vs.isChangeSetsEnabled) {
-			throw new RuntimeException("Change sets are not enabled");
+			VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
+			if (!vs.isChangeSetsEnabled) {
+				throw new RuntimeException("Change sets are not enabled");
+			}
+
+			vs.variability.setOverview(enabled);
+
+			vs.refreshFromXadl();
+			fireVariabilityEvent(Type.OVERVIEW, vs, null, null);
+
+			if (enabled) {
+				// TODO make ints the new change sets
+				vs.setup(vs.workingChangeSets, vs.workingChangeSetsBeginIndex, -1, new int[0]);
+				synchronizeDocumentRoot(vs, get(documentRootRef));
+			}
+			else {
+				// TODO make ints the old change sets
+				List<ChangeSet> changeSets = Lists.newArrayList(vs.allChangeSets);
+				Set<ChangeSet> appliedChangeSets = Sets.newHashSet(vs.appliedChangeSets);
+				changeSets.removeAll(appliedChangeSets);
+				int beginChangeSetIndex = changeSets.size();
+				changeSets.addAll(vs.appliedChangeSets);
+
+				vs.setup(changeSets, beginChangeSetIndex, -1, new int[0]);
+				synchronizeDocumentRoot(vs, get(documentRootRef));
+			}
 		}
-
-		vs.variability.setOverview(enabled);
-
-		vs.refreshFromXadl();
-		fireVariabilityEvent(Type.OVERVIEW, vs, null, null);
-
-		if (enabled) {
-			// TODO make ints the new change sets
-			vs.setup(vs.workingChangeSets, vs.workingChangeSetsBeginIndex, -1, new int[0]);
-			synchronizeDocumentRoot(vs, get(documentRootRef));
-		}
-		else {
-			// TODO make ints the old change sets
-			List<ChangeSet> changeSets = Lists.newArrayList(vs.allChangeSets);
-			Set<ChangeSet> appliedChangeSets = Sets.newHashSet(vs.appliedChangeSets);
-			changeSets.removeAll(appliedChangeSets);
-			int beginChangeSetIndex = changeSets.size();
-			changeSets.addAll(vs.appliedChangeSets);
-
-			vs.setup(changeSets, beginChangeSetIndex, -1, new int[0]);
-			synchronizeDocumentRoot(vs, get(documentRootRef));
+		finally {
+			wLock.unlock();
 		}
 	}
 
@@ -1675,297 +1748,404 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 	//////////////////////////////////////////////////////////////////////////
 
 	@Override
-	public synchronized void set(ObjRef baseObjRef, String typeOfThing, @Nullable Serializable value) {
-		final VariabilityStatus vs = getVariabilityStatusCache(baseObjRef);
-		if (vs == null || !vs.isChangeSetsEnabled || !super.isAttached(baseObjRef)) {
-			super.set(baseObjRef, typeOfThing, value);
-		}
-		else {
-			final EObject eObject = get(baseObjRef);
-			final EStructuralFeature eFeature = getEFeature(eObject, typeOfThing, false);
-
-			List<String> preChangePath = getChangePath(eObject);
-			Serializable oldValue = super.get(baseObjRef, typeOfThing);
-			super.set(baseObjRef, typeOfThing, value);
-			List<String> postChangePath = getChangePath(eObject);
-
-			if (!preChangePath.equals(postChangePath)) {
-				super.set(baseObjRef, typeOfThing, oldValue);
-				ElementChange preElementChange = preChangePath.contains(null) ? null : createElementChange(
-						vs.activeChangeSet, eObject);
+	public void set(ObjRef baseObjRef, String typeOfThing, @Nullable Serializable value) {
+		wLock.lock();
+		try {
+			final VariabilityStatus vs = getVariabilityStatusCache(baseObjRef);
+			if (vs == null || !vs.isChangeSetsEnabled || !super.isAttached(baseObjRef)) {
 				super.set(baseObjRef, typeOfThing, value);
-				synchronizeElement(vs, eObject, preChangePath, preElementChange, postChangePath);
 			}
-			else if (!postChangePath.contains(null)) {
-				if (eFeature instanceof EAttribute || eFeature instanceof EReference
-						&& !((EReference) eFeature).isContainment()) {
-					synchronizeAttribute(vs, eObject, eFeature,
-							resolveAttributeChanges(vs.workingChangeSets, eObject, eFeature.getName()),
-							new SynchAttributeHelper());
-				}
-				else if (value != null) {
-					EObject childEObject = get((ObjRef) value);
-					synchronizeElement(vs, childEObject, resolveElementChanges(vs.workingChangeSets, childEObject),
-							new SynchElementHelper(true) {
+			else {
+				final EObject eObject = get(baseObjRef);
+				final EStructuralFeature eFeature = getEFeature(eObject, typeOfThing, false);
 
-								@Override
-								public void set(EObject newEObject) {
-									eObject.eSet(eFeature, newEObject);
-								}
-							});
-				}
-				else {
-					synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
-							new SynchElementHelper(true) {
+				List<String> preChangePath = getChangePath(eObject);
+				Serializable oldValue = super.get(baseObjRef, typeOfThing);
+				super.set(baseObjRef, typeOfThing, value);
+				List<String> postChangePath = getChangePath(eObject);
 
-								@Override
-								public void set(EObject newEObject) {
-									eObject.eSet(eFeature, newEObject);
-								}
-							});
+				if (!preChangePath.equals(postChangePath)) {
+					super.set(baseObjRef, typeOfThing, oldValue);
+					ElementChange preElementChange = preChangePath.contains(null) ? null : createElementChange(
+							vs.activeChangeSet, eObject);
+					super.set(baseObjRef, typeOfThing, value);
+					synchronizeElement(vs, eObject, preChangePath, preElementChange, postChangePath);
+				}
+				else if (!postChangePath.contains(null)) {
+					if (eFeature instanceof EAttribute || eFeature instanceof EReference
+							&& !((EReference) eFeature).isContainment()) {
+						synchronizeAttribute(vs, eObject, eFeature,
+								resolveAttributeChanges(vs.workingChangeSets, eObject, eFeature.getName()),
+								new SynchAttributeHelper());
+					}
+					else if (value != null) {
+						EObject childEObject = get((ObjRef) value);
+						synchronizeElement(vs, childEObject, resolveElementChanges(vs.workingChangeSets, childEObject),
+								new SynchElementHelper(true) {
+
+									@Override
+									public void set(EObject newEObject) {
+										eObject.eSet(eFeature, newEObject);
+									}
+								});
+					}
+					else {
+						synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
+								new SynchElementHelper(true) {
+
+									@Override
+									public void set(EObject newEObject) {
+										eObject.eSet(eFeature, newEObject);
+									}
+								});
+					}
 				}
 			}
+		}
+		finally {
+			wLock.unlock();
 		}
 	}
 
 	@Override
-	public synchronized void clear(ObjRef baseObjRef, String typeOfThing) {
-		final VariabilityStatus vs = getVariabilityStatusCache(baseObjRef);
-		if (vs == null || !vs.isChangeSetsEnabled || !super.isAttached(baseObjRef)) {
-			super.clear(baseObjRef, typeOfThing);
-		}
-		else {
-			final EObject eObject = get(baseObjRef);
-			final EStructuralFeature eFeature = getEFeature(eObject, typeOfThing, false);
-
-			List<String> preChangePath = getChangePath(eObject);
-			ElementChange preElementChange = preChangePath.contains(null) ? null : createElementChange(
-					vs.activeChangeSet, eObject);
-
-			if (eFeature instanceof EAttribute || eFeature instanceof EReference
-					&& ((EReference) eFeature).isContainment()) {
+	public void clear(ObjRef baseObjRef, String typeOfThing) {
+		wLock.lock();
+		try {
+			final VariabilityStatus vs = getVariabilityStatusCache(baseObjRef);
+			if (vs == null || !vs.isChangeSetsEnabled || !super.isAttached(baseObjRef)) {
 				super.clear(baseObjRef, typeOfThing);
-				List<String> postChangePath = getChangePath(eObject);
-
-				if (!preChangePath.equals(postChangePath)) {
-					synchronizeElement(vs, eObject, preChangePath, preElementChange, postChangePath);
-				}
-				else {
-					synchronizeAttribute(vs, eObject, eFeature,
-							resolveAttributeChanges(vs.workingChangeSets, eObject, eFeature.getName()),
-							new SynchAttributeHelper());
-				}
 			}
 			else {
-				EObject childEObject = (EObject) eObject.eGet(eFeature);
-				setStatus(vs, childEObject, Status.DETACHED);
-				List<String> postChangePath = getChangePath(eObject);
+				final EObject eObject = get(baseObjRef);
+				final EStructuralFeature eFeature = getEFeature(eObject, typeOfThing, false);
 
-				if (!preChangePath.equals(postChangePath)) {
-					synchronizeElement(vs, eObject, preChangePath, preElementChange, postChangePath);
+				List<String> preChangePath = getChangePath(eObject);
+				ElementChange preElementChange = preChangePath.contains(null) ? null : createElementChange(
+						vs.activeChangeSet, eObject);
+
+				if (eFeature instanceof EAttribute || eFeature instanceof EReference
+						&& ((EReference) eFeature).isContainment()) {
+					super.clear(baseObjRef, typeOfThing);
+					List<String> postChangePath = getChangePath(eObject);
+
+					if (!preChangePath.equals(postChangePath)) {
+						synchronizeElement(vs, eObject, preChangePath, preElementChange, postChangePath);
+					}
+					else {
+						synchronizeAttribute(vs, eObject, eFeature,
+								resolveAttributeChanges(vs.workingChangeSets, eObject, eFeature.getName()),
+								new SynchAttributeHelper());
+					}
 				}
 				else {
-					synchronizeElement(vs, childEObject, resolveElementChanges(vs.workingChangeSets, childEObject),
-							new SynchElementHelper(true) {
+					EObject childEObject = (EObject) eObject.eGet(eFeature);
+					setStatus(vs, childEObject, Status.DETACHED);
+					List<String> postChangePath = getChangePath(eObject);
 
-								@Override
-								public void set(EObject newEObject) {
-									eObject.eSet(eFeature, newEObject);
-								}
-							});
+					if (!preChangePath.equals(postChangePath)) {
+						synchronizeElement(vs, eObject, preChangePath, preElementChange, postChangePath);
+					}
+					else {
+						synchronizeElement(vs, childEObject, resolveElementChanges(vs.workingChangeSets, childEObject),
+								new SynchElementHelper(true) {
+
+									@Override
+									public void set(EObject newEObject) {
+										eObject.eSet(eFeature, newEObject);
+									}
+								});
+					}
 				}
 			}
+		}
+		finally {
+			wLock.unlock();
 		}
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public synchronized void add(ObjRef baseObjRef, String typeOfThing, Serializable thingToAdd) {
-		final VariabilityStatus vs = getVariabilityStatusCache(baseObjRef);
-		if (vs == null || !vs.isChangeSetsEnabled || !super.isAttached(baseObjRef)) {
-			super.add(baseObjRef, typeOfThing, thingToAdd);
-		}
-		else {
-			final EObject eObject = get(baseObjRef);
-			final EStructuralFeature eFeature = getEFeature(eObject, typeOfThing, true);
-			super.add(baseObjRef, typeOfThing, thingToAdd);
-			if (!(thingToAdd instanceof ObjRef)) {
-				List<String> changePath = getChangePath(eObject);
-				if (!changePath.contains(null)) {
-					synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
-							new SynchElementHelper(false) {
-
-								@Override
-								public void set(EObject newEObject) {
-									throw new UnsupportedOperationException();
-								}
-							});
-				}
+	public void add(ObjRef baseObjRef, String typeOfThing, Serializable thingToAdd) {
+		wLock.lock();
+		try {
+			final VariabilityStatus vs = getVariabilityStatusCache(baseObjRef);
+			if (vs == null || !vs.isChangeSetsEnabled || !super.isAttached(baseObjRef)) {
+				super.add(baseObjRef, typeOfThing, thingToAdd);
 			}
 			else {
-				final EObject eChildObject = get((ObjRef) thingToAdd);
-				List<String> changePath = getChangePath(eChildObject);
-				if (!changePath.contains(null)) {
-					synchronizeElement(vs, eChildObject, resolveElementChanges(vs.workingChangeSets, eChildObject),
-							new SynchElementHelper(false) {
+				final EObject eObject = get(baseObjRef);
+				final EStructuralFeature eFeature = getEFeature(eObject, typeOfThing, true);
+				super.add(baseObjRef, typeOfThing, thingToAdd);
+				if (!(thingToAdd instanceof ObjRef)) {
+					List<String> changePath = getChangePath(eObject);
+					if (!changePath.contains(null)) {
+						synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
+								new SynchElementHelper(false) {
 
-								@Override
-								public void set(EObject newEObject) {
-									((EList<EObject>) eObject.eGet(eFeature)).add(newEObject);
-								}
-							});
+									@Override
+									public void set(EObject newEObject) {
+										throw new UnsupportedOperationException();
+									}
+								});
+					}
 				}
 				else {
-					EList<EObject> eList = (EList<EObject>) eObject.eGet(eFeature);
-					eList.move(eList.size() - 1, eChildObject);
-					setStatus(vs, eChildObject, Status.ATTACHED);
+					final EObject eChildObject = get((ObjRef) thingToAdd);
+					List<String> changePath = getChangePath(eChildObject);
+					if (!changePath.contains(null)) {
+						synchronizeElement(vs, eChildObject, resolveElementChanges(vs.workingChangeSets, eChildObject),
+								new SynchElementHelper(false) {
+
+									@Override
+									public void set(EObject newEObject) {
+										((EList<EObject>) eObject.eGet(eFeature)).add(newEObject);
+									}
+								});
+					}
+					else {
+						EList<EObject> eList = (EList<EObject>) eObject.eGet(eFeature);
+						eList.move(eList.size() - 1, eChildObject);
+						setStatus(vs, eChildObject, Status.ATTACHED);
+					}
 				}
 			}
 		}
-	}
-
-	@Override
-	public synchronized void add(ObjRef baseObjRef, String typeOfThing, Collection<? extends Serializable> thingsToAdd) {
-		for (Serializable thingToAdd : thingsToAdd) {
-			add(baseObjRef, typeOfThing, thingToAdd);
+		finally {
+			wLock.unlock();
 		}
 	}
 
 	@Override
-	public synchronized void remove(ObjRef baseObjRef, String typeOfThing, Serializable thingToRemove) {
-		final VariabilityStatus vs = getVariabilityStatusCache(baseObjRef);
-		if (vs == null || !vs.isChangeSetsEnabled || !super.isAttached(baseObjRef)) {
-			super.remove(baseObjRef, typeOfThing, thingToRemove);
+	public void add(ObjRef baseObjRef, String typeOfThing, Collection<? extends Serializable> thingsToAdd) {
+		wLock.lock();
+		try {
+			for (Serializable thingToAdd : thingsToAdd) {
+				add(baseObjRef, typeOfThing, thingToAdd);
+			}
 		}
-		else {
-			final EObject eObject = get(baseObjRef);
-			if (!(thingToRemove instanceof ObjRef)) {
+		finally {
+			wLock.unlock();
+		}
+	}
+
+	@Override
+	public void remove(ObjRef baseObjRef, String typeOfThing, Serializable thingToRemove) {
+		wLock.lock();
+		try {
+			final VariabilityStatus vs = getVariabilityStatusCache(baseObjRef);
+			if (vs == null || !vs.isChangeSetsEnabled || !super.isAttached(baseObjRef)) {
 				super.remove(baseObjRef, typeOfThing, thingToRemove);
-				List<String> changePath = getChangePath(eObject);
-				if (!changePath.contains(null)) {
-					synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
-							new SynchElementHelper(false) {
-
-								@Override
-								public void set(EObject newEObject) {
-									throw new UnsupportedOperationException();
-								}
-							});
-				}
 			}
 			else {
-				final EObject eChildObject = get((ObjRef) thingToRemove);
-				List<String> preChangePath = getChangePath(eChildObject);
-				ElementChange preElementChange = preChangePath.contains(null) ? null : createElementChange(
-						vs.activeChangeSet, eChildObject);
-				//super.remove(baseObjRef, typeOfThing, thingToRemove);
-				setStatus(vs, eChildObject, Status.DETACHED);
-				if (preElementChange != null) {
-					preElementChange.setType(null);
-					preElementChange.getChange().clear();
+				final EObject eObject = get(baseObjRef);
+				if (!(thingToRemove instanceof ObjRef)) {
+					super.remove(baseObjRef, typeOfThing, thingToRemove);
+					List<String> changePath = getChangePath(eObject);
+					if (!changePath.contains(null)) {
+						synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
+								new SynchElementHelper(false) {
+
+									@Override
+									public void set(EObject newEObject) {
+										throw new UnsupportedOperationException();
+									}
+								});
+					}
+				}
+				else {
+					final EObject eChildObject = get((ObjRef) thingToRemove);
+					List<String> preChangePath = getChangePath(eChildObject);
+					ElementChange preElementChange = preChangePath.contains(null) ? null : createElementChange(
+							vs.activeChangeSet, eChildObject);
+					//super.remove(baseObjRef, typeOfThing, thingToRemove);
+					setStatus(vs, eChildObject, Status.DETACHED);
+					if (preElementChange != null) {
+						preElementChange.setType(null);
+						preElementChange.getChange().clear();
+					}
 				}
 			}
+		}
+		finally {
+			wLock.unlock();
 		}
 	}
 
 	@Override
-	public synchronized void remove(ObjRef baseObjRef, String typeOfThing,
-			Collection<? extends Serializable> thingsToRemove) {
-		for (Serializable thingToRemove : thingsToRemove) {
-			remove(baseObjRef, typeOfThing, thingToRemove);
+	public void remove(ObjRef baseObjRef, String typeOfThing, Collection<? extends Serializable> thingsToRemove) {
+		wLock.lock();
+		try {
+			for (Serializable thingToRemove : thingsToRemove) {
+				remove(baseObjRef, typeOfThing, thingToRemove);
+			}
+		}
+		finally {
+			wLock.unlock();
 		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////
 
 	@Override
-	public synchronized @Nullable
+	public @Nullable
 	Serializable get(ObjRef baseObjRef, String typeOfThing) {
-		return filterDetached(super.get(baseObjRef, typeOfThing));
+		rLock.lock();
+		try {
+			return filterDetached(super.get(baseObjRef, typeOfThing));
+		}
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
-	public synchronized @Nullable
+	public @Nullable
 	Serializable get(ObjRef baseObjRef, String typeOfThing, boolean resolve) {
-		return filterDetached(super.get(baseObjRef, typeOfThing, resolve));
-	}
-
-	@Override
-	public synchronized List<Serializable> getAll(ObjRef baseObjRef, String typeOfThing) {
-		return filterDetached(super.getAll(baseObjRef, typeOfThing));
-	}
-
-	@Override
-	@Nullable
-	public synchronized ObjRef getByID(ObjRef documentRef, String id) {
-		return filterDetachedByAncestors(super.getByID(documentRef, id));
-	}
-
-	@Override
-	@Nullable
-	public synchronized ObjRef getByID(String id) {
-		return filterDetachedByAncestors(super.getByID(id));
-	}
-
-	@Override
-	@Nullable
-	public synchronized String getContainingFeatureName(ObjRef ref) {
-		return isAttachedObjRef(ref) ? super.getContainingFeatureName(ref) : null;
-	}
-
-	@Override
-	@Nullable
-	public synchronized ObjRef getParent(ObjRef ref) {
-		return isAttachedObjRef(ref) ? super.getParent(ref) : null;
-	}
-
-	@Override
-	@Nullable
-	public synchronized String getTagName(ObjRef ref) {
-		return isAttachedObjRef(ref) ? super.getTagName(ref) : null;
-	}
-
-	@Override
-	@Nullable
-	public synchronized URI getURI(ObjRef ref) {
-		return isAttachedObjRef(ref) ? super.getURI(ref) : null;
-	}
-
-	@Override
-	public synchronized List<ObjRef> getAllAncestors(ObjRef ref) {
-		EObject eObject = get(ref);
-		List<ObjRef> ancestorObjRefs = Lists.newArrayList();
-		while (eObject != null) {
-			ancestorObjRefs.add(put(eObject));
-			if (!isAttached(eObject)) {
-				break;
-			}
-			eObject = eObject.eContainer();
+		rLock.lock();
+		try {
+			return filterDetached(super.get(baseObjRef, typeOfThing, resolve));
 		}
-		return ancestorObjRefs;
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
-	public synchronized String getTagsOnlyPathString(ObjRef ref) {
-		EObject eObject = get(ref);
-		List<String> tags = Lists.newArrayList();
-		while (eObject != null) {
-			if (!isAttached(eObject)) {
-				break;
-			}
-			String tagName = getTagName(put(eObject));
-			if (tagName == null) {
-				break;
-			}
-			tags.add(tagName);
-			eObject = eObject.eContainer();
+	public List<Serializable> getAll(ObjRef baseObjRef, String typeOfThing) {
+		rLock.lock();
+		try {
+			return filterDetached(super.getAll(baseObjRef, typeOfThing));
 		}
-		return Joiner.on("/").join(Lists.reverse(tags));
+		finally {
+			rLock.unlock();
+		}
 	}
 
 	@Override
 	@Nullable
-	public synchronized ObjRef getDocumentRootRef(ObjRef ref) {
-		return isAttachedObjRef(ref) ? super.getDocumentRootRef(ref) : null;
+	public ObjRef getByID(ObjRef documentRef, String id) {
+		rLock.lock();
+		try {
+			return filterDetachedByAncestors(super.getByID(documentRef, id));
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	@Nullable
+	public ObjRef getByID(String id) {
+		rLock.lock();
+		try {
+			return filterDetachedByAncestors(super.getByID(id));
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	@Nullable
+	public String getContainingFeatureName(ObjRef ref) {
+		rLock.lock();
+		try {
+			return isAttachedObjRef(ref) ? super.getContainingFeatureName(ref) : null;
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	@Nullable
+	public ObjRef getParent(ObjRef ref) {
+		rLock.lock();
+		try {
+			return isAttachedObjRef(ref) ? super.getParent(ref) : null;
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	@Nullable
+	public String getTagName(ObjRef ref) {
+		rLock.lock();
+		try {
+			return isAttachedObjRef(ref) ? super.getTagName(ref) : null;
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	@Nullable
+	public URI getURI(ObjRef ref) {
+		rLock.lock();
+		try {
+			return isAttachedObjRef(ref) ? super.getURI(ref) : null;
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	public List<ObjRef> getAllAncestors(ObjRef ref) {
+		rLock.lock();
+		try {
+			EObject eObject = get(ref);
+			List<ObjRef> ancestorObjRefs = Lists.newArrayList();
+			while (eObject != null) {
+				ancestorObjRefs.add(put(eObject));
+				if (!isAttached(eObject)) {
+					break;
+				}
+				eObject = eObject.eContainer();
+			}
+			return ancestorObjRefs;
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	public String getTagsOnlyPathString(ObjRef ref) {
+		rLock.lock();
+		try {
+			EObject eObject = get(ref);
+			List<String> tags = Lists.newArrayList();
+			while (eObject != null) {
+				if (!isAttached(eObject)) {
+					break;
+				}
+				String tagName = getTagName(put(eObject));
+				if (tagName == null) {
+					break;
+				}
+				tags.add(tagName);
+				eObject = eObject.eContainer();
+			}
+			return Joiner.on("/").join(Lists.reverse(tags));
+		}
+		finally {
+			rLock.unlock();
+		}
+	}
+
+	@Override
+	@Nullable
+	public ObjRef getDocumentRootRef(ObjRef ref) {
+		rLock.lock();
+		try {
+			return isAttachedObjRef(ref) ? super.getDocumentRootRef(ref) : null;
+		}
+		finally {
+			rLock.unlock();
+		}
 	}
 }
