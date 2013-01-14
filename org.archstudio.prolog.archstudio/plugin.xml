@@ -19,6 +19,12 @@ test(Id, &apos;Connected interfaces have incompatible directions&apos;) :-
     link_point1(L, P1), link_point2(L, P2), 
     direction(P1, P1d), direction(P2, P2d), 
     \+ compatible_directions(P1d, P2d).
+test(Id, &apos;Connected interfaces have incompatible directions&apos;) :- 
+    interfaceMapping(L), id(L, Id), 
+    interfaceMapping_innerInterfaceLink(L, P1), 
+    interfaceMapping_outerInterfaceLink(L, P2), 
+    direction(P1, P1d), direction(P2, P2d), 
+    P1d \= P2d.
          </Prolog>
       </ArchlightTest>
    </extension>
