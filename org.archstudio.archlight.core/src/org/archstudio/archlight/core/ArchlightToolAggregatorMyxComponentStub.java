@@ -16,7 +16,8 @@ import org.archstudio.myx.fw.MyxUtils;
  * @generated
  */
 public abstract class ArchlightToolAggregatorMyxComponentStub extends org.archstudio.myx.fw.AbstractMyxSimpleBrick
-		implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.archlight.IArchlightTool {
+		implements org.archstudio.myx.fw.IMyxDynamicBrick, org.archstudio.archlight.IArchlightTool,
+		org.archstudio.myx.java.conn.IMultiwayProgressListener {
 
 	/**
 	 * The registry of objects for this brick.
@@ -128,51 +129,13 @@ public abstract class ArchlightToolAggregatorMyxComponentStub extends org.archst
 	public static final IMyxName IN_PROGRESS = MyxUtils.createName("progress");
 
 	/**
-	 * Service object for the progress interface.
-	 * 
-	 * @see #IN_PROGRESS
-	 * @generated
-	 */
-	protected org.archstudio.myx.java.conn.IMultiwayProgressListener progress = null;
-
-	/**
-	 * Service object proxy for the progress interface. Calls to this proxy object are automatically delegated to all
-	 * connections on the interface
-	 * 
-	 * @see #IN_PROGRESS
-	 * @generated
-	 */
-	protected final org.archstudio.myx.java.conn.IMultiwayProgressListener progressProxy = (org.archstudio.myx.java.conn.IMultiwayProgressListener) java.lang.reflect.Proxy
-			.newProxyInstance(org.archstudio.myx.java.conn.IMultiwayProgressListener.class.getClassLoader(),
-					new Class[] { org.archstudio.myx.java.conn.IMultiwayProgressListener.class },
-					new java.lang.reflect.InvocationHandler() {
-						@Override
-						public Object invoke(Object proxy, java.lang.reflect.Method method, Object[] args)
-								throws Throwable {
-							org.archstudio.myx.java.conn.IMultiwayProgressListener o = progress;
-							if (o == null) {
-								throw new NullPointerException("progress");
-							}
-							else {
-								try {
-									method.invoke(o, args);
-								}
-								catch (Exception e) {
-									e.printStackTrace();
-								}
-							}
-							return null;
-						}
-					});
-
-	/**
 	 * Returns the service object(s) for the progress interface.
 	 * 
 	 * @see #IN_PROGRESS
 	 * @generated
 	 */
 	public org.archstudio.myx.java.conn.IMultiwayProgressListener getProgress() {
-		return progressProxy;
+		return this;
 	}
 
 	/**
@@ -188,7 +151,7 @@ public abstract class ArchlightToolAggregatorMyxComponentStub extends org.archst
 			return this;
 		}
 		if (interfaceName.equals(IN_PROGRESS)) {
-			return progressProxy;
+			return this;
 		}
 		throw new IllegalArgumentException("Unhandled interface: " + interfaceName.getName());
 	}

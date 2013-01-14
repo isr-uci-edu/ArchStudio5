@@ -64,6 +64,7 @@ public class ArchlightToolAggregatorMyxComponent extends
 		}
 	}
 
+	@Override
 	public void callProgress(int calleeNum, int totalCallees, Object returnValue, Throwable exception) {
 		IProgressMonitor lprogressMonitor = progressMonitor;
 		if (lprogressMonitor != null) {

@@ -39,7 +39,7 @@
          </interface>
          <interface
                class="org.archstudio.myx.java.conn.IMultiwayProgressListener"
-               delegate="events"
+               delegate="brick"
                direction="in"
                domain="top"
                getter="true"
