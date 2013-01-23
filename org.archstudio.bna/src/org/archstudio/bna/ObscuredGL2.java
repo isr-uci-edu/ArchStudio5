@@ -31,13 +31,12 @@ import com.jogamp.common.nio.PointerBuffer;
 
 public class ObscuredGL2 implements GL2 {
 
-	GL2 gl2;
+	final GL2 gl2;
 	double alpha = 1d;
 	RGB tint = new RGB(0, 0, 0);
 
-	public ObscuredGL2(GL2 gl2, double alpha) {
+	public ObscuredGL2(GL2 gl2) {
 		this.gl2 = gl2;
-		this.alpha = alpha;
 	}
 
 	public double getAlpha() {

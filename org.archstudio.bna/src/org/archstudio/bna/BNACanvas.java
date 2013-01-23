@@ -37,7 +37,7 @@ import org.eclipse.swt.widgets.ScrollBar;
 
 public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListener {
 
-	protected static int DEBUG = 0;
+	protected static boolean DEBUG = false;
 
 	protected final IBNAView bnaView;
 	protected final ScrollBar hBar = getHorizontalBar();
@@ -72,7 +72,8 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		GLCapabilities tGLCapabilities = new GLCapabilities(glprofile);
 		tGLCapabilities.setSampleBuffers(true);
 		tGLCapabilities.setNumSamples(4);
-		this.resources = new Resources(this, gl = new ObscuredGL2((GL2) context.getGL(), 1));
+		this.gl = new ObscuredGL2(DEBUG ? new DebugGL2((GL2) context.getGL()) : (GL2) context.getGL());
+		this.resources = new Resources(this, gl);
 
 		this.addControlListener(new ControlAdapter() {
 
@@ -262,7 +263,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 			gl.glLoadIdentity();
 
 			redrawPending = false;
-			BNAUtils.render(new ObscuredGL2(DEBUG != 0 ? new DebugGL2(gl) : gl, 1d), getBNAView(), resources, //
+			BNAUtils.render(gl, getBNAView(), resources, //
 					new Rectangle(0, 0, bounds.width, bounds.height), //
 					BNARenderingSettings.getAntialiasGraphics(this), //
 					BNARenderingSettings.getAntialiasText(this));

@@ -78,7 +78,7 @@ public class ExportImageLogic extends AbstractThingLogic implements IBNAMenuList
 						null, bounds.width, bounds.height, null);
 				context = buffer.createContext(null);
 				context.makeCurrent();
-				ObscuredGL2 gl = new ObscuredGL2((GL2) context.getGL(), 1);
+				ObscuredGL2 gl = new ObscuredGL2((GL2) context.getGL());
 				resources = new Resources(view.getComposite(), gl);
 				final LinearCoordinateMapper cm = new LinearCoordinateMapper();
 				cm.align(new Point(0, 0), new Point(bounds.x, bounds.y));
