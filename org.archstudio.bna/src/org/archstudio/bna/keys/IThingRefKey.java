@@ -12,7 +12,7 @@ import org.archstudio.bna.logics.tracking.ThingReferenceTrackingLogic;
  * <ul>
  * <li>{@link AbstractThingRefKey#preWrite(Object)} prohibits {@link IThing}s to prevent accidentally setting a thing as
  * a property value,</li>
- * <li>{@link #get(IThing, IBNAModel)} retrieves the the corresponding thing and automatically typecasts it,</li>
+ * <li>{@link #get(IThing, IBNAModel)} retrieves the corresponding thing and automatically typecasts it,</li>
  * <li>type information for the expected thing is captured in T, and</li>
  * <li>such properties are tracked by {@link ThingReferenceTrackingLogic}.</li>
  * </ul>
