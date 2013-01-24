@@ -35,13 +35,13 @@ import org.archstudio.bna.logics.editing.AlignAndDistributeLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.EditTextLogic;
+import org.archstudio.bna.logics.editing.ExportImageLogic;
 import org.archstudio.bna.logics.editing.KeyNudgerLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.editing.RectifyToGridLogic;
 import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
 import org.archstudio.bna.logics.editing.ReshapeSplineLogic;
 import org.archstudio.bna.logics.editing.RotaterLogic;
-import org.archstudio.bna.logics.editing.ExportImageLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.editing.SnapToGridLogic;
 import org.archstudio.bna.logics.editing.SplineBreakLogic;
@@ -66,6 +66,7 @@ import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
+import org.archstudio.xadl.bna.logics.DecorateChangesLogic;
 import org.archstudio.xadl.bna.logics.editing.RemoveElementLogic;
 import org.archstudio.xadl.bna.logics.editing.XadlCopyPasteLogic;
 import org.archstudio.xadl.bna.logics.editing.XadlReshapeSplineGuide;
@@ -76,6 +77,8 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFileListener;
 import org.archstudio.xarchadt.IXArchADTModelListener;
 import org.archstudio.xarchadt.ObjRef;
+import org.archstudio.xarchadt.variability.IXArchADTVariability;
+import org.archstudio.xarchadt.variability.IXArchADTVariabilityListener;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -466,6 +469,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		// generic logics -- alphabetized
 
 		logicManager.addThingLogic(ClickSelectionLogic.class);
+		logicManager.addThingLogic(new DecorateChangesLogic((IXArchADTVariability) xarch));
 		logicManager.addThingLogic(DragMovableLogic.class);
 		logicManager.addThingLogic(KeyNudgerLogic.class);
 		logicManager.addThingLogic(LifeSapperLogic.class);
@@ -517,6 +521,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		final IMyxBrick brick = myxRegistry.waitForBrick(ArchipelagoMyxComponent.class);
 		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTModelListener.class));
 		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTFileListener.class));
+		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTVariabilityListener.class));
 
 		// these logics need to be last
 
