@@ -76,8 +76,6 @@ class MyxCompUtils {
 
 			return sb.toString;
 		} catch (Exception e) {
-			e.printStackTrace;
-
 			// check for constructors in the class file (from a bundle)
 			val Class parent = Platform::getBundle(bundleProjectId).loadClass(fullClassName);
 			for (Constructor c : parent.declaredConstructors) {

@@ -153,7 +153,6 @@ public class MyxCompUtils {
       } catch (final Throwable _t) {
         if (_t instanceof Exception) {
           final Exception e = (Exception)_t;
-          e.printStackTrace();
           Bundle _bundle = Platform.getBundle(bundleProjectId);
           final Class parent = _bundle.loadClass(fullClassName);
           Constructor<? extends Object>[] _declaredConstructors = parent.getDeclaredConstructors();
