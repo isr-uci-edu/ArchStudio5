@@ -190,9 +190,12 @@ public class XArchADTVariabilityImplTest extends AbstractXArchADTTest {
 	public void testExplicitRemove() {
 		xarch.setChangeSetsEnabled(documentRootRef, true);
 		Component c = strFactory.createComponent();
+		Interface i = strFactory.createInterface();
 		String oldID;
 		c.setId(oldID = UIDGenerator.generateUID());
+		i.setId(UIDGenerator.generateUID());
 		structure.getComponent().add(c);
+		c.getInterface().add(i);
 		assertEquals(structure, c.eContainer());
 		List<ObjRef> updatedChangeSets = VariabilityUtils.createAndApplyChangeSet(xarch, documentRootRef,
 				"Remove Component");
@@ -204,10 +207,22 @@ public class XArchADTVariabilityImplTest extends AbstractXArchADTTest {
 		assertEquals(oldID, c.getId());
 		assertEquals(structure, c.eContainer());
 		assertEquals(ChangeStatus.EXPLICITLY_REMOVED, xarch.getChangeStatus(XArchADTProxy.unproxy(c)));
+		assertEquals(ChangeStatus.EXPLICITLY_REMOVED, xarch.getChangeStatus(XArchADTProxy.unproxy(i)));
 		xarch.setExplicitChangeSets(documentRootRef, Lists.<ObjRef> newArrayList());
 		assertEquals(oldID, c.getId());
 		assertEquals(null, c.eContainer());
 		assertEquals(ChangeStatus.ATTACHED, xarch.getChangeStatus(XArchADTProxy.unproxy(c)));
+		assertEquals(ChangeStatus.ATTACHED, xarch.getChangeStatus(XArchADTProxy.unproxy(i)));
+		xarch.applyChangeSets(documentRootRef, updatedChangeSets.subList(0, 1));
+		assertEquals(oldID, c.getId());
+		assertEquals(structure, c.eContainer());
+		assertEquals(ChangeStatus.ATTACHED, xarch.getChangeStatus(XArchADTProxy.unproxy(c)));
+		assertEquals(ChangeStatus.ATTACHED, xarch.getChangeStatus(XArchADTProxy.unproxy(i)));
+		xarch.setExplicitChangeSets(documentRootRef, updatedChangeSets.subList(1, 2));
+		assertEquals(oldID, c.getId());
+		assertEquals(structure, c.eContainer());
+		assertEquals(ChangeStatus.EXPLICITLY_REMOVED_BUT_REALLY_ADDED, xarch.getChangeStatus(XArchADTProxy.unproxy(c)));
+		assertEquals(ChangeStatus.EXPLICITLY_REMOVED_BUT_REALLY_ADDED, xarch.getChangeStatus(XArchADTProxy.unproxy(i)));
 	}
 
 	public void testExplicitAddWithRemove() {
@@ -277,7 +292,7 @@ public class XArchADTVariabilityImplTest extends AbstractXArchADTTest {
 		assertEquals(ChangeStatus.EXPLICITLY_ADDED, xarch.getChangeStatus(XArchADTProxy.unproxy(i)));
 	}
 
-	public void testModifyParentsViaAttribute() {
+	public void testModifyParentsViaAttributeThenChildrenViaRemove() {
 		xarch.setChangeSetsEnabled(documentRootRef, true);
 		List<ObjRef> originalChangeSets = xarch.getAppliedChangeSets(documentRootRef);
 		Component c = strFactory.createComponent();
@@ -287,6 +302,9 @@ public class XArchADTVariabilityImplTest extends AbstractXArchADTTest {
 		Interface i = strFactory.createInterface();
 		i.setId(UIDGenerator.generateUID());
 		c.getInterface().add(i);
+		Interface i2 = strFactory.createInterface();
+		i2.setId(UIDGenerator.generateUID());
+		c.getInterface().add(i2);
 		List<ObjRef> updatedChangeSets = VariabilityUtils.createAndApplyChangeSet(xarch, documentRootRef,
 				"Modify Interface");
 		xarch.setExplicitChangeSets(documentRootRef, Lists.newArrayList(updatedChangeSets.get(1)));
@@ -298,6 +316,18 @@ public class XArchADTVariabilityImplTest extends AbstractXArchADTTest {
 		assertEquals(ChangeStatus.EXPLICITLY_MODIFIED, xarch.getChangeStatus(XArchADTProxy.unproxy(structure)));
 		assertEquals(ChangeStatus.EXPLICITLY_MODIFIED, xarch.getChangeStatus(XArchADTProxy.unproxy(c)));
 		assertEquals(ChangeStatus.EXPLICITLY_MODIFIED, xarch.getChangeStatus(XArchADTProxy.unproxy(i)));
+		List<ObjRef> removedChangeSets = VariabilityUtils.createAndApplyChangeSet(xarch, documentRootRef,
+				"Remove Component");
+		xarch.setExplicitChangeSets(documentRootRef, removedChangeSets.subList(2, 3));
+		structure.getComponent().remove(c);
+		assertEquals(ChangeStatus.EXPLICITLY_REMOVED, xarch.getChangeStatus(XArchADTProxy.unproxy(c)));
+		assertEquals(ChangeStatus.EXPLICITLY_REMOVED, xarch.getChangeStatus(XArchADTProxy.unproxy(i)));
+		assertEquals(ChangeStatus.EXPLICITLY_REMOVED, xarch.getChangeStatus(XArchADTProxy.unproxy(i2)));
+		xarch.setExplicitChangeSets(documentRootRef, removedChangeSets.subList(1, 2));
+		assertEquals(ChangeStatus.EXPLICITLY_MODIFIED_BUT_REALLY_REMOVED, xarch.getChangeStatus(XArchADTProxy.unproxy(c)));
+		assertEquals(ChangeStatus.EXPLICITLY_MODIFIED_BUT_REALLY_REMOVED, xarch.getChangeStatus(XArchADTProxy.unproxy(i)));
+		assertEquals(ChangeStatus.ATTACHED, xarch.getChangeStatus(XArchADTProxy.unproxy(i2)));
+		assertEquals(null, i2.eContainer());
 	}
 
 	public void testInitialCreate() {

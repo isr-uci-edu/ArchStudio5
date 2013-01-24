@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -53,6 +54,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.xml.type.internal.DataValue.Base64;
 import org.eclipse.jdt.annotation.Nullable;
 import org.osgi.framework.Bundle;
+import org.xml.sax.SAXException;
 
 import com.google.common.base.Joiner;
 import com.google.common.cache.CacheBuilder;
@@ -66,24 +68,22 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 
 	private enum Status {
 
-		EXPLICITLY_ADDED(ChangeStatus.EXPLICITLY_ADDED, true, true, true), //
-		EXPLICITLY_ADDED_BUT_REALLY_REMOVED(ChangeStatus.EXPLICITLY_ADDED_BUT_REALLY_REMOVED, true, false, true), //
-		EXPLICITLY_MODIFIED(ChangeStatus.EXPLICITLY_MODIFIED, true, true, true), //
-		EXPLICITLY_MODIFIED_BUT_REALLY_REMOVED(ChangeStatus.EXPLICITLY_MODIFIED_BUT_REALLY_REMOVED, true, false, true), //
-		EXPLICITLY_REMOVED(ChangeStatus.EXPLICITLY_REMOVED, true, false, true), //
-		EXPLICITLY_REMOVED_BUT_REALLY_ADDED(ChangeStatus.EXPLICITLY_REMOVED_BUT_REALLY_ADDED, true, true, true), //
-		OVERVIEW(ChangeStatus.OVERVIEW, true, false, false), //
-		ATTACHED(ChangeStatus.ATTACHED, true, true, false), //
-		DETACHED(ChangeStatus.ATTACHED, false, false, false);
+		EXPLICITLY_ADDED(ChangeStatus.EXPLICITLY_ADDED, true, true), //
+		EXPLICITLY_ADDED_BUT_REALLY_REMOVED(ChangeStatus.EXPLICITLY_ADDED_BUT_REALLY_REMOVED, true, true), //
+		EXPLICITLY_MODIFIED(ChangeStatus.EXPLICITLY_MODIFIED, true, true), //
+		EXPLICITLY_MODIFIED_BUT_REALLY_REMOVED(ChangeStatus.EXPLICITLY_MODIFIED_BUT_REALLY_REMOVED, true, true), //
+		EXPLICITLY_REMOVED(ChangeStatus.EXPLICITLY_REMOVED, true, true), //
+		EXPLICITLY_REMOVED_BUT_REALLY_ADDED(ChangeStatus.EXPLICITLY_REMOVED_BUT_REALLY_ADDED, true, true), //
+		OVERVIEW(ChangeStatus.OVERVIEW, true, false), //
+		ATTACHED(ChangeStatus.ATTACHED, true, false), //
+		DETACHED(ChangeStatus.ATTACHED, false, false);
 
 		public final ChangeStatus status;
-		public final boolean explicitAttached;
 		public final boolean attached;
 		public final boolean explicit;
 
-		private Status(ChangeStatus status, boolean explicitAttached, boolean attached, boolean explicit) {
+		private Status(ChangeStatus status, boolean attached, boolean explicit) {
 			this.status = status;
-			this.explicitAttached = explicitAttached;
 			this.attached = attached;
 			this.explicit = explicit;
 		}
@@ -189,7 +189,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 		}
 	}
 
-	private abstract class SynchElementHelper {
+	private class SynchElementHelper {
 
 		boolean isImplicitlyResolvable;
 
@@ -210,7 +210,19 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 			}
 		}
 
-		abstract public void set(EObject newEObject);
+		@SuppressWarnings("unchecked")
+		public void set(EObject newEObject) {
+			EStructuralFeature eFeature = newEObject.eContainmentFeature();
+			EObject eContainer = newEObject.eContainer();
+			if (eFeature != null && eContainer != null) {
+				if (eFeature.isMany()) {
+					((EList<EObject>) eContainer.eGet(eFeature)).add(newEObject);
+				}
+				else {
+					eContainer.eSet(eFeature, newEObject);
+				}
+			}
+		}
 
 		@Nullable
 		public ElementChange createChange(VariabilityStatus vs, EObject newEObject) {
@@ -278,7 +290,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 			eObjectStatus.put(eObj, status);
 		}
 		if (oldStatus != status) {
-			if (oldStatus.explicitAttached != status.explicitAttached) {
+			if (oldStatus.attached != status.attached) {
 				fireXArchADTModelEvent(eObj, status != Status.DETACHED);
 			}
 			fireVariabilityEvent(Type.STATUS, vs, put(eObj), status.status);
@@ -291,7 +303,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 	}
 
 	private boolean isAttached(EObject eObject) {
-		return getStatus(eObject).explicitAttached;
+		return getStatus(eObject).attached;
 	}
 
 	@Override
@@ -1053,7 +1065,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 	@Nullable
 	private Serializable getSerializable(EObject eObject, EStructuralFeature eFeature) {
 		if (eFeature instanceof EAttribute) {
-			return (Serializable) eObject.eGet(eFeature);
+			return (Serializable) (eObject.eIsSet(eFeature) ? eObject.eGet(eFeature) : null);
 		}
 		if (eFeature instanceof EReference && !((EReference) eFeature).isContainment()) {
 			EObject eRef = (EObject) eObject.eGet(eFeature);
@@ -1352,18 +1364,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 
 		List<Runnable> endRunnables = Lists.newArrayList();
 		synchronizeElement(vs, vs._synchronizeIndecies, documentRoot,
-				resolveElementChanges(vs._changeSets, documentRoot), new SynchElementHelper(true) {
-
-					@Override
-					public void clear(EObject oldEObject) {
-						throw new UnsupportedOperationException();
-					}
-
-					@Override
-					public void set(EObject newEObject) {
-						throw new UnsupportedOperationException();
-					}
-				}, endRunnables);
+				resolveElementChanges(vs._changeSets, documentRoot), new SynchElementHelper(true), endRunnables);
 		run(endRunnables);
 	}
 
@@ -1521,20 +1522,10 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 	}
 
 	private Status mergeStatus(VariabilityStatus vs, EObject eContainer, Status status) {
-		boolean isOverview = false;
-		boolean childrenAttached = true;
-
-		EObject parent = eContainer;
-		while (parent != null) {
-			Status parentStatus = getStatus(parent);
-			isOverview |= parentStatus == Status.OVERVIEW;
-			childrenAttached &= parentStatus.attached;
-			parent = parent.eContainer();
-		}
 
 		// mark parents as modified, if necessary
+		EObject parent = eContainer;
 		if (status.explicit) {
-			parent = eContainer;
 			OUTER: while (parent != null && parent.eContainer() != null && parent.eContainer().eContainer() != null) {
 				switch (getStatus(parent)) {
 				case ATTACHED:
@@ -1550,25 +1541,21 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 			}
 		}
 
-		if (isOverview || !childrenAttached) {
-			switch (status) {
-			case EXPLICITLY_ADDED:
-			case EXPLICITLY_ADDED_BUT_REALLY_REMOVED:
-				return Status.EXPLICITLY_ADDED_BUT_REALLY_REMOVED;
-			case EXPLICITLY_MODIFIED:
-			case EXPLICITLY_MODIFIED_BUT_REALLY_REMOVED:
-				return Status.EXPLICITLY_MODIFIED_BUT_REALLY_REMOVED;
-			case EXPLICITLY_REMOVED:
-			case EXPLICITLY_REMOVED_BUT_REALLY_ADDED:
-				return Status.EXPLICITLY_REMOVED;
-			case ATTACHED:
-			case DETACHED:
-			case OVERVIEW:
-				return Status.OVERVIEW;
-			}
+		switch (getStatus(eContainer)) {
+		case OVERVIEW:
+			return Status.OVERVIEW;
+		case EXPLICITLY_REMOVED:
+			return Status.EXPLICITLY_REMOVED;
+		case EXPLICITLY_REMOVED_BUT_REALLY_ADDED:
+			return Status.EXPLICITLY_REMOVED_BUT_REALLY_ADDED;
+		case EXPLICITLY_MODIFIED_BUT_REALLY_REMOVED:
+			return status == Status.ATTACHED ? vs.isOverview ? Status.OVERVIEW : Status.DETACHED
+					: Status.EXPLICITLY_MODIFIED_BUT_REALLY_REMOVED;
+		case EXPLICITLY_ADDED_BUT_REALLY_REMOVED:
+			return Status.EXPLICITLY_ADDED_BUT_REALLY_REMOVED;
+		default:
+			return status;
 		}
-
-		return status;
 	}
 
 	private void synchronizeElementContent(final VariabilityStatus vs, int[] synchronizeIndecies,
@@ -1601,6 +1588,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					&& !((EReference) eFeature).isContainment()) {
 				synchronizeAttribute(vs, synchronizeIndecies, eObject, eFeature,
 						resolveAttributeChanges(values, eFeature.getName()), new SynchAttributeHelper() {
+
 							@Override
 							@Nullable
 							public AttributeChange createChange(VariabilityStatus vs, EObject eObject,
@@ -1615,26 +1603,17 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 						resolveElementChanges(values, eFeature.getName()), new SynchElementHelper(true) {
 
 							@Override
-							public void set(EObject newEObject) {
-								eObject.eSet(eFeature, newEObject);
-							}
-
-							@Override
 							@Nullable
 							public ElementChange createChange(VariabilityStatus vs, EObject newEObject) {
 								return createElementChange(synchHelper.createChange(vs, eObject), eFeature.getName(),
 										newEObject);
 							}
+
 						}, endRunnables);
 			}
 			else {
 				synchronizeElementMany(vs, synchronizeIndecies, eObject, eFeature, values,
 						new SynchElementHelper(false) {
-							@Override
-							@SuppressWarnings("unchecked")
-							public void set(EObject newEObject) {
-								((EList<EObject>) eObject.eGet(eFeature)).add(newEObject);
-							}
 
 							@Override
 							@Nullable
@@ -1669,22 +1648,10 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 			while (getChangePath(eObject).size() > diffIndex) {
 				eObject = eObject.eContainer();
 			}
-			final EObject eParentObject = eObject.eContainer();
 			final EStructuralFeature eFeature = eObject.eContainingFeature();
 
 			synchronizeElement(vs, synchronizeIndecies, eObject, resolveElementChanges(vs._changeSets, eObject),
-					new SynchElementHelper(!eFeature.isMany()) {
-						@Override
-						@SuppressWarnings("unchecked")
-						public void set(EObject newEObject) {
-							if (!eFeature.isMany()) {
-								eParentObject.eSet(eFeature, newEObject);
-							}
-							else {
-								((EList<EObject>) eParentObject.eGet(eFeature)).add(newEObject);
-							}
-						}
-					}, endRunnables);
+					new SynchElementHelper(!eFeature.isMany()), endRunnables);
 		}
 	}
 
@@ -1760,7 +1727,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 				final EStructuralFeature eFeature = getEFeature(eObject, typeOfThing, false);
 
 				List<String> preChangePath = getChangePath(eObject);
-				Serializable oldValue = super.get(baseObjRef, typeOfThing);
+				Serializable oldValue = getSerializable(eObject, eFeature);
 				super.set(baseObjRef, typeOfThing, value);
 				List<String> postChangePath = getChangePath(eObject);
 
@@ -1781,23 +1748,11 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					else if (value != null) {
 						EObject childEObject = get((ObjRef) value);
 						synchronizeElement(vs, childEObject, resolveElementChanges(vs.workingChangeSets, childEObject),
-								new SynchElementHelper(true) {
-
-									@Override
-									public void set(EObject newEObject) {
-										eObject.eSet(eFeature, newEObject);
-									}
-								});
+								new SynchElementHelper(true));
 					}
 					else {
 						synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
-								new SynchElementHelper(true) {
-
-									@Override
-									public void set(EObject newEObject) {
-										eObject.eSet(eFeature, newEObject);
-									}
-								});
+								new SynchElementHelper(true));
 					}
 				}
 			}
@@ -1847,13 +1802,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					}
 					else {
 						synchronizeElement(vs, childEObject, resolveElementChanges(vs.workingChangeSets, childEObject),
-								new SynchElementHelper(true) {
-
-									@Override
-									public void set(EObject newEObject) {
-										eObject.eSet(eFeature, newEObject);
-									}
-								});
+								new SynchElementHelper(true));
 					}
 				}
 			}
@@ -1880,13 +1829,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					List<String> changePath = getChangePath(eObject);
 					if (!changePath.contains(null)) {
 						synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
-								new SynchElementHelper(false) {
-
-									@Override
-									public void set(EObject newEObject) {
-										throw new UnsupportedOperationException();
-									}
-								});
+								new SynchElementHelper(false));
 					}
 				}
 				else {
@@ -1894,13 +1837,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					List<String> changePath = getChangePath(eChildObject);
 					if (!changePath.contains(null)) {
 						synchronizeElement(vs, eChildObject, resolveElementChanges(vs.workingChangeSets, eChildObject),
-								new SynchElementHelper(false) {
-
-									@Override
-									public void set(EObject newEObject) {
-										((EList<EObject>) eObject.eGet(eFeature)).add(newEObject);
-									}
-								});
+								new SynchElementHelper(false));
 					}
 					else {
 						EList<EObject> eList = (EList<EObject>) eObject.eGet(eFeature);
@@ -1943,13 +1880,7 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					List<String> changePath = getChangePath(eObject);
 					if (!changePath.contains(null)) {
 						synchronizeElement(vs, eObject, resolveElementChanges(vs.workingChangeSets, eObject),
-								new SynchElementHelper(false) {
-
-									@Override
-									public void set(EObject newEObject) {
-										throw new UnsupportedOperationException();
-									}
-								});
+								new SynchElementHelper(false));
 					}
 				}
 				else {
@@ -1957,11 +1888,15 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 					List<String> preChangePath = getChangePath(eChildObject);
 					ElementChange preElementChange = preChangePath.contains(null) ? null : createElementChange(
 							vs.activeChangeSet, eChildObject);
-					//super.remove(baseObjRef, typeOfThing, thingToRemove);
-					setStatus(vs, eChildObject, Status.DETACHED);
 					if (preElementChange != null) {
 						preElementChange.setType(null);
 						preElementChange.getChange().clear();
+						List<Runnable> endRunnables = Lists.newArrayList();
+						vs.setup(vs.workingChangeSets, vs.workingChangeSetsBeginIndex, -1, new int[0]);
+						synchronizeElement(vs, vs._synchronizeIndecies, eChildObject,
+								resolveElementChanges(vs.workingChangeSets, eChildObject),
+								new SynchElementHelper(false), endRunnables);
+						run(endRunnables);
 					}
 				}
 			}
@@ -1985,6 +1920,42 @@ public class XArchADTVariabilityImpl extends XArchADTImpl implements IXArchADTVa
 	}
 
 	//////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public ObjRef load(URI uri) throws SAXException, IOException {
+		wLock.lock();
+		try {
+			ObjRef documentRootRef = super.load(uri);
+			VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
+			if (vs != null && vs.isChangeSetsEnabled) {
+				vs.refreshFromXadl();
+				vs.setup(vs.appliedChangeSets, 0, -1, new int[0]);
+				synchronizeDocumentRoot(vs, get(documentRootRef));
+			}
+			return documentRootRef;
+		}
+		finally {
+			wLock.unlock();
+		}
+	};
+
+	@Override
+	public ObjRef load(URI uri, byte[] content) throws SAXException, IOException {
+		wLock.lock();
+		try {
+			ObjRef documentRootRef = super.load(uri, content);
+			VariabilityStatus vs = variabilityStatusCache.getUnchecked(documentRootRef);
+			if (vs != null && vs.isChangeSetsEnabled) {
+				vs.refreshFromXadl();
+				vs.setup(vs.appliedChangeSets, 0, -1, new int[0]);
+				synchronizeDocumentRoot(vs, get(documentRootRef));
+			}
+			return documentRootRef;
+		}
+		finally {
+			wLock.unlock();
+		}
+	};
 
 	@Override
 	public @Nullable
