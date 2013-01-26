@@ -5,15 +5,24 @@ import java.awt.datatransfer.StringSelection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
+import org.archstudio.prolog.engine.ProofContext;
+import org.archstudio.prolog.parser.ParseException;
+import org.archstudio.prolog.parser.PrologParser;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
 import org.archstudio.prolog.term.StringTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.sysutils.SystemUtils;
+import org.archstudio.xadl3.prolog_3_0.PrologExtension;
+import org.archstudio.xadl3.prolog_3_0.Statement;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTProxy;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
@@ -23,15 +32,40 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class PrologUtils {
 
-	public static List<ComplexTerm> getFacts(IProgressMonitor monitor, EObject eObject) {
+	public static List<ComplexTerm> getFacts(ProofContext proofContext, IProgressMonitor monitor, EObject eObject)
+			throws ParseException {
 		SubMonitor progress = SubMonitor.convert(monitor, "Calculating Facts", 1);
 		try {
 			List<ComplexTerm> facts = Lists.newArrayList();
+			Set<String> nsURIs = Sets.newHashSet();
 			StringBuffer sb = new StringBuffer();
-			processEObject(facts, sb, 0, progress.newChild(1), null, null, eObject, null);
+			processEObject(proofContext, facts, nsURIs, sb, 0, progress.newChild(1), null, null, eObject, null);
+
+			// add prolog for schema NS URIs
+			IExtensionRegistry reg = Platform.getExtensionRegistry();
+			if (reg != null) {
+				// The Extension Registry can be null if we're running outside of Eclipse
+				for (IConfigurationElement statements : reg
+						.getConfigurationElementsFor("org.archstudio.prolog.archstudio.prologstatement")) {
+					String nsURI = statements.getAttribute("nsURI");
+					if (nsURIs.contains(nsURI)) {
+						for (IConfigurationElement child : statements.getChildren()) {
+							String statement = child.getValue();
+							if (statement != null && statement.trim().length() > 0) {
+								sb.append("\n% ").append(nsURI).append("\n");
+								sb.append(statement).append("\n");
+								for (Term term : PrologParser.parseTerms(proofContext, statement)) {
+									facts.add((ComplexTerm) term);
+								}
+							}
+						}
+					}
+				}
+			}
 
 			StringSelection stringSelection = new StringSelection(sb.toString());
 			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, stringSelection);
@@ -44,12 +78,16 @@ public class PrologUtils {
 		}
 	}
 
-	private static void processEObject(List<ComplexTerm> facts, StringBuffer sb, int indent, SubMonitor monitor,
-			String parentName, EObject parent, EObject eObject, String featureName) {
+	private static void processEObject(ProofContext proofContext, List<ComplexTerm> facts, Set<String> nsURIs,
+			StringBuffer sb, int indent, SubMonitor monitor, String parentName, EObject parent, EObject eObject,
+			String featureName) throws ParseException {
 
 		if (eObject == null) {
 			return;
 		}
+
+		// Record the NS URI of each eObject
+		nsURIs.add(eObject.eClass().getEPackage().getNsURI());
 
 		// Process Name and Feature Name
 		String name = eObject.eClass().getName();
@@ -111,8 +149,8 @@ public class PrologUtils {
 									(EObject) childObject, feature.getName());
 						}
 
-						processEObject(facts, sb, indent + 1, childMonitor.newChild(1), name, eObject,
-								(EObject) childObject, feature.getName());
+						processEObject(proofContext, facts, nsURIs, sb, indent + 1, childMonitor.newChild(1), name,
+								eObject, (EObject) childObject, feature.getName());
 					}
 					else {
 						if (hasFeatureName) {
@@ -140,8 +178,23 @@ public class PrologUtils {
 							(EObject) eObject.eGet(feature), feature.getName());
 				}
 
-				processEObject(facts, sb, indent + 1, featureMonitor.newChild(1), name, eObject,
+				processEObject(proofContext, facts, nsURIs, sb, indent + 1, featureMonitor.newChild(1), name, eObject,
 						(EObject) eObject.eGet(feature), feature.getName());
+			}
+		}
+
+		// Process prolog statements
+		if (eObject instanceof PrologExtension) {
+			for (Statement statement : ((PrologExtension) eObject).getStatement()) {
+				String value = statement.getValue();
+				if (value == null || value.trim().length() == 0) {
+					continue;
+				}
+
+				sb.append(Strings.repeat(" ", indent + 1)).append(value).append("\n");
+				for (Term term : PrologParser.parseTerms(proofContext, value)) {
+					facts.add((ComplexTerm) term);
+				}
 			}
 		}
 	}

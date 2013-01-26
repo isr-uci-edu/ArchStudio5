@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.archstudio.org/xadl3/schemas/prolog-3.0.xsd"
+            class="org.archstudio.xadl3.prolog_3_0.Prolog_3_0Package">
+      </package>
+   </extension>
+   <extension
+         point="org.archstudio.dblgen.processedSchema">
+      <Schema
+            file="model/prolog-3.0.xsd"
+            nsURI="http://www.archstudio.org/xadl3/schemas/prolog-3.0.xsd">
+      </Schema>
+   </extension>
+
+</plugin>

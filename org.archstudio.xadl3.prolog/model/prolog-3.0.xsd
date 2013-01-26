@@ -1,0 +1,49 @@
+<xs:schema xmlns="http://www.archstudio.org/xadl3/schemas/prolog-3.0.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:core="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
+           targetNamespace="http://www.archstudio.org/xadl3/schemas/prolog-3.0.xsd"
+           xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+           elementFormDefault="qualified"
+           attributeFormDefault="qualified"
+           version="3.0.0"
+            
+           ecore:package="org.archstudio.xadl3.prolog_3_0"
+           ecore:nsPrefix="prolog_3_0">
+
+	<xs:import namespace="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
+	           schemaLocation="https://raw.github.com/isr-uci-edu/ArchStudio/master/org.archstudio.xadl3.xadlcore/model/xadlcore-3.0.xsd"/>
+	<xs:import namespace="http://www.eclipse.org/emf/2002/Ecore" />
+
+	<xs:annotation>
+		<xs:documentation>
+
+			xADL 3 Prolog Schema
+
+			This schema defines additional prolog statements to be included
+			in generated prolog
+
+			Changelog:
+			  - 3.0.0
+			    * Initial version
+			
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="PrologExtension">
+		<xs:complexContent>
+			<xs:extension base="core:Extension">
+				<xs:sequence>
+					<xs:element 
+								name="statement" type="Statement"
+								minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>				
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Statement">
+		<xs:attribute name="value" type="xs:string"/>
+	</xs:complexType>
+	
+
+</xs:schema>

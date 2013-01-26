@@ -19,6 +19,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.archlight,
  org.archstudio.testadt,
  org.eclipse.core.resources,
- org.archstudio.utils.system;bundle-version="5.0.0"
+ org.archstudio.utils.system,
+ org.archstudio.xadl3.prolog,
+ org.archstudio.xadl3.xadlcore
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

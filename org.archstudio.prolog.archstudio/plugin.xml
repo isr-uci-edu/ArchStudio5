@@ -2,6 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="archlighttest" name="ArchlightTest" schema="schema/archlighttest.exsd"/>
+   <extension-point id="prologstatement" name="PrologStatement" schema="schema/prologstatement.exsd"/>
    <extension
          point="org.archstudio.prolog.archstudio.archlighttest">
       <ArchlightTest
@@ -10,11 +11,7 @@
             id="org.archstudio.prolog.archstudio.ArchlightTest1"
             name="xADL 3/Structures/Interface Directions Compatible">
          <Prolog>
-            compatible_directions(&apos;in&apos;, &apos;out&apos;).
-compatible_directions(&apos;out&apos;, &apos;in&apos;).
-compatible_directions(&apos;inout&apos;, &apos;inout&apos;).
-compatible_directions(&apos;none&apos;, &apos;none&apos;).
-test(Id, &apos;Connected interfaces have incompatible directions&apos;) :- 
+            test(Id, &apos;Connected interfaces have incompatible directions&apos;) :- 
     link(L), id(L, Id), 
     link_point1(L, P1), link_point2(L, P2), 
     direction(P1, P1d), direction(P2, P2d), 

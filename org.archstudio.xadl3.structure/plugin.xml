@@ -2,6 +2,18 @@
 <plugin>
 
    <extension
+         point="org.archstudio.prolog.archstudio.prologstatement">
+      <Statements
+            nsURI="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd">
+         <Statement>
+            compatible_directions(&apos;in&apos;, &apos;out&apos;).
+compatible_directions(&apos;out&apos;, &apos;in&apos;).
+compatible_directions(&apos;inout&apos;, &apos;inout&apos;).
+compatible_directions(&apos;none&apos;, &apos;none&apos;).
+         </Statement>
+      </Statements>
+   </extension>
+   <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd"

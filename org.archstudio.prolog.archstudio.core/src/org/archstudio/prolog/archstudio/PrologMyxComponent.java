@@ -100,7 +100,7 @@ public class PrologMyxComponent extends org.archstudio.prolog.archstudio.PrologM
 			ProofContext proofContext = new ProofContext();
 			UnificationEngine unifier = new MostGeneralUnifierEngine();
 			ProofEngine proofEngine = new SingleThreadProofEngine();
-			proofContext.add(PrologUtils.getFacts(null, XArchADTProxy.proxy(xarch, documentRootRef)));
+			proofContext.add(PrologUtils.getFacts(proofContext, null, XArchADTProxy.proxy(xarch, documentRootRef)));
 
 			URI uri = xarch.getURI(documentRootRef);
 			IResource resource = null;
