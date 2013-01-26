@@ -1128,6 +1128,12 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		for (IPluginAttribute attribute : ((IPluginElement) child).getAttributes()) {
 			newChild.setAttribute(attribute.getName(), attribute.getValue());
 		}
+		for (IPluginObject grandchild : ((IPluginElement) child).getChildren()) {
+			newChild.add(copy(factory, child, grandchild));
+		}
+		if(((IPluginElement)child).getText() != null){
+			newChild.setText(((IPluginElement)child).getText());
+		}
 		return newChild;
 	}
 
