@@ -21,6 +21,6 @@ Require-Bundle: org.archstudio.guava,
  org.archstudio.utils.osgi,
  org.archstudio.utils.eclipse,
  org.archstudio.myx.fw,
- org.archstudio.utils.eclipse.formatcode;bundle-version="1.0.0"
+ org.archstudio.utils.eclipse.formatcode
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

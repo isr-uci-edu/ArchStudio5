@@ -55,6 +55,12 @@
       <import plugin="org.eclipse.xsd"/>
       <import plugin="org.eclipse.xsd.ecore.importer"/>
       <import plugin="org.eclipse.jdt.annotation"/>
+      <import plugin="org.eclipse.jdt"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jdt.core.manipulation"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.ltk.core.refactoring"/>
    </requires>
 
    <plugin
@@ -129,6 +135,13 @@
 
    <plugin
          id="org.archstudio.ljm"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.archstudio.utils.eclipse.formatcode"
          download-size="0"
          install-size="0"
          version="0.0.0"
