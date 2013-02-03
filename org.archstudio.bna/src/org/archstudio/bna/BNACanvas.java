@@ -69,9 +69,6 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		setCurrent();
 		GLProfile glprofile = GLProfile.get(GLProfile.GL2);
 		this.context = GLDrawableFactory.getFactory(glprofile).createExternalGLContext();
-		GLCapabilities tGLCapabilities = new GLCapabilities(glprofile);
-		tGLCapabilities.setSampleBuffers(true);
-		tGLCapabilities.setNumSamples(4);
 		this.gl = new ObscuredGL2(DEBUG ? new DebugGL2((GL2) context.getGL()) : (GL2) context.getGL());
 		this.resources = new Resources(this, gl);
 
@@ -231,7 +228,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 					if (needsRedraw && !redrawPending) {
 						redrawPending = true;
 						needsRedraw = false;
-						redraw();
+						repaint();
 					}
 				}
 			});
@@ -249,6 +246,10 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 
 	@Override
 	public void paintControl(PaintEvent evt) {
+		repaint();
+	}
+	
+	public void repaint() {
 		setCurrent();
 		context.makeCurrent();
 		try {
@@ -267,6 +268,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 					new Rectangle(0, 0, bounds.width, bounds.height), //
 					BNARenderingSettings.getAntialiasGraphics(this), //
 					BNARenderingSettings.getAntialiasText(this));
+			gl.glFlush();
 			swapBuffers();
 		}
 		finally {

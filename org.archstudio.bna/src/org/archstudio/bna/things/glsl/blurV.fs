@@ -1,4 +1,4 @@
-#version 110
+#version 120
 
 #ifdef GL_ES
 precision highp float;
@@ -6,7 +6,7 @@ precision highp float;
 
 uniform sampler2D texture; // texture to blur
 uniform int size; // blur size
-vec2 resolution;
+uniform vec2 resolution;
 vec2 maxxy;
 
 vec2 clampxy(float x, float y){
@@ -16,7 +16,7 @@ vec2 clampxy(float x, float y){
 void main(void)
 {
 	vec4 color = vec4(0.0); // resulting color
-	resolution = textureSize2D(texture, 0);
+	//resolution = textureSize2D(texture, 0);
 	maxxy = vec2((resolution.x - 1.0) / resolution.x, (resolution.y - 1.0)/resolution.y);
 	int c = size;
 	float total = 1;

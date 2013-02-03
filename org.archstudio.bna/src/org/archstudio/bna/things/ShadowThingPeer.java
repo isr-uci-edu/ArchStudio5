@@ -239,6 +239,10 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 				throw new RuntimeException("glCheckFramebufferStatus: error " + status);
 			}
 
+			// clear the background
+			gl.glClearColor(1f, 1f, 1f, 0f);
+			gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+
 			// draw the shadows
 			gl.glTranslated(offset, offset, 0);
 			try {
@@ -263,11 +267,17 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 				throw new RuntimeException("glCheckFramebufferStatus: error " + status);
 			}
 
+			// clear the background
+			gl.glClearColor(1f, 1f, 1f, 0f);
+			gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+			
+			// apply blur
 			gl.glUseProgram(programs[0]);
 
 			gl.glActiveTexture(GL.GL_TEXTURE0);
 			gl.glBindTexture(GL.GL_TEXTURE_2D, renderTexture[0]);
 			gl.glUniform1i(gl.glGetUniformLocation(programs[0], "texture"), 0);
+			gl.glUniform2f(gl.glGetUniformLocation(programs[0], "resolution"), clip.width, clip.height);
 			gl.glUniform1i(gl.glGetUniformLocation(programs[0], "size"), size);
 
 			gl.glValidateProgram(programs[0]);
@@ -289,11 +299,13 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 				throw new RuntimeException("glCheckFramebufferStatus: error " + status);
 			}
 
+			// apply blur
 			gl.glUseProgram(programs[1]);
 
 			gl.glActiveTexture(GL.GL_TEXTURE0);
 			gl.glBindTexture(GL.GL_TEXTURE_2D, renderTexture[1]);
 			gl.glUniform1i(gl.glGetUniformLocation(programs[1], "texture"), 0);
+			gl.glUniform2f(gl.glGetUniformLocation(programs[1], "resolution"), clip.width, clip.height);
 			gl.glUniform1i(gl.glGetUniformLocation(programs[1], "size"), size);
 
 			gl.glValidateProgram(programs[1]);

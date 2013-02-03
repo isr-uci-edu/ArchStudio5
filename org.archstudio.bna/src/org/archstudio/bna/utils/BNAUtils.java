@@ -1390,7 +1390,6 @@ public class BNAUtils {
 				e.printStackTrace();
 			}
 		}
-		gl.glFlush();
 	}
 
 }
