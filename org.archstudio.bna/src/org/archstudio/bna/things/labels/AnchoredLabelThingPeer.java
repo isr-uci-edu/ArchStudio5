@@ -61,7 +61,8 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 			int angle = t.getAngle();
 
 			TextRenderer tr = r.getTextRenderer(font);
-			Point canvasSize = view.getComposite().getSize();
+			Point canvasSize = new Point(view.getComposite().getClientArea().width,
+					view.getComposite().getClientArea().height);
 			Rectangle2D size = tr.getBounds(t.getText());
 
 			int textX = lap.x;
