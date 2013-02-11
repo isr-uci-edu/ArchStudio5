@@ -51,11 +51,13 @@ public class AbstractThing implements IThing {
 			});
 
 	private final Object id;
+	private final int uid;
 	private final TypedMap properties = TypedHashMap.create();
 	private boolean initedProperties = false;
 
 	public AbstractThing(@Nullable Object id) {
 		this.id = id == null ? Long.valueOf(atomicLong.getAndIncrement()) : id;
+		this.uid = (int) atomicLong.getAndIncrement();
 		initProperties();
 		checkState(initedProperties, "Thing %s must call super.initPropeties().", this.getClass().getName());
 	}
@@ -66,8 +68,13 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
+	public int getUID() {
+		return uid;
+	}
+
+	@Override
 	public int hashCode() {
-		return id.hashCode();
+		return uid;
 	}
 
 	@Override
@@ -82,12 +89,7 @@ public class AbstractThing implements IThing {
 			return false;
 		}
 		AbstractThing other = (AbstractThing) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		}
-		else if (!id.equals(other.id)) {
+		if (uid != other.uid) {
 			return false;
 		}
 		return true;

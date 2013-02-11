@@ -59,11 +59,19 @@ public interface IThing {
 	public Class<? extends IThingPeer<?>> getPeerClass();
 
 	/**
-	 * Gets the unique ID of this Thing.
+	 * Gets the unique ID of this Thing. The ID used by {@link IBNAModel#getThing(Object)}.
 	 * 
 	 * @return Thing ID.
 	 */
 	public Object getID();
+
+	/**
+	 * Gets a unique numeric ID for this Thing, which is automatically generated. You should use {@link #getID()}.
+	 * 
+	 * @return A unique numeric ID for this Thing.
+	 */
+
+	public int getUID();
 
 	public void addThingListener(IThingListener thingListener);
 

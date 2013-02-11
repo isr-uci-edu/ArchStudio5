@@ -1,9 +1,11 @@
 package org.archstudio.bna.utils;
 
 import java.lang.reflect.Constructor;
+import java.util.Iterator;
 
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.utils.FastIntMap.Entry;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -27,28 +29,35 @@ public class PeerCache {
 				}
 			});
 
-	protected LoadingCache<IThing, IThingPeer<?>> peersCache = CacheBuilder.newBuilder().weakKeys()
-			.build(new CacheLoader<IThing, IThingPeer<?>>() {
-
-				@Override
-				public IThingPeer<?> load(IThing key) throws Exception {
-					return (IThingPeer<?>) constructorsCache.get(key.getPeerClass()).newInstance(key);
-				}
-			});
+	FastIntMap<IThingPeer<?>> peersCache = new FastIntMap<IThingPeer<?>>(1000);
 
 	@SuppressWarnings("unchecked")
 	public <T extends IThing> IThingPeer<T> getPeer(T thing) {
-		return (IThingPeer<T>) peersCache.getUnchecked(thing);
+
+		IThingPeer<?> thingPeer = peersCache.get(thing.getUID());
+		if (thingPeer == null) {
+			try {
+				thingPeer = (IThingPeer<?>) constructorsCache.get(thing.getPeerClass()).newInstance(thing);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			peersCache.put(thing.getUID(), thingPeer);
+		}
+
+		return (IThingPeer<T>) thingPeer;
 	}
 
 	public void disposePeer(IThing thing) {
 		getPeer(thing).dispose();
+		peersCache.remove(thing.getUID());
 	}
 
 	public void dispose() {
-		for (IThingPeer<?> p : peersCache.asMap().values()) {
+		for (Iterator<Entry<IThingPeer<?>>> i = peersCache.iterator(); i.hasNext();) {
+			IThingPeer<?> p = i.next().value;
 			p.dispose();
 		}
-		peersCache.invalidateAll();
+		peersCache.clear();
 	}
 }
