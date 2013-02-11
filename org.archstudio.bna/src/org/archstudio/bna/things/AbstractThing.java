@@ -2,6 +2,7 @@ package org.archstudio.bna.things;
 
 import static com.google.common.base.Preconditions.checkState;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
@@ -10,10 +11,10 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.FastIntMap;
+import org.archstudio.bna.utils.FastIntMap.Entry;
 import org.archstudio.sysutils.SystemUtils;
-import org.archstudio.sysutils.TypedHashMap;
-import org.archstudio.sysutils.TypedMap;
-import org.archstudio.sysutils.TypedMap.Key;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.SWT;
@@ -52,7 +53,7 @@ public class AbstractThing implements IThing {
 
 	private final Object id;
 	private final int uid;
-	private final TypedMap properties = TypedHashMap.create();
+	private final FastIntMap<Object> properties = new FastIntMap<Object>();
 	private boolean initedProperties = false;
 
 	public AbstractThing(@Nullable Object id) {
@@ -140,13 +141,14 @@ public class AbstractThing implements IThing {
 		return value != null ? value : valueIfNull;
 	}
 
+	@SuppressWarnings("unchecked")
 	private @Nullable
 	<V> V getRaw(IThingKey<V> key) {
 		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 		}
 
-		return properties.get(key);
+		return (V) properties.get(key.getUID());
 	}
 
 	@Override
@@ -155,13 +157,14 @@ public class AbstractThing implements IThing {
 		return setRaw(key, key.preWrite(value));
 	}
 
+	@SuppressWarnings("unchecked")
 	private @Nullable
 	<V> V setRaw(IThingKey<V> key, @Nullable V value) {
 		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 		}
 
-		V oldValue = properties.put(key, value);
+		V oldValue = (V) properties.put(key.getUID(), value);
 		if (key.isFireEventOnChange() && !SystemUtils.nullEquals(oldValue, value)) {
 			fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_SET, this, key, key.postRead(oldValue),
 					key.postRead(value)));
@@ -175,7 +178,7 @@ public class AbstractThing implements IThing {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 		}
 
-		return properties.containsKey(key);
+		return properties.containsKey(key.getUID());
 	}
 
 	@Override
@@ -184,9 +187,10 @@ public class AbstractThing implements IThing {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 		}
 
-		return SystemUtils.nullEquals(properties.get(key), value);
+		return SystemUtils.nullEquals(properties.get(key.getUID()), value);
 	};
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public @Nullable
 	<V> V remove(IThingKey<V> key) {
@@ -194,8 +198,9 @@ public class AbstractThing implements IThing {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 		}
 
-		boolean containedValue = properties.containsKey(key);
-		V oldValue = properties.remove(key);
+		boolean containedValue = properties.containsKey(key.getUID());
+		V oldValue = (V) properties.get(key.getUID());
+		properties.remove(key.getUID());
 		if (containedValue && key.isFireEventOnChange()) {
 			fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_REMOVED, this, key, oldValue, null));
 		}
@@ -209,15 +214,20 @@ public class AbstractThing implements IThing {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 		}
 
-		return Sets.newHashSet((Set<IThingKey<?>>) properties.keySet());
+		Set<IThingKey<?>> keys = Sets.newHashSet();
+		for (Iterator<Entry<Object>> i = properties.iterator(); i.hasNext();) {
+			keys.add(BNAUtils.getRegisteredKey(i.next().getKey()));
+		}
+
+		return keys;
 	}
 
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(SystemUtils.simpleName(this.getClass())).append("[id=").append(id);
-		for (Key<?> key : SystemUtils.sorted(properties.keySet())) {
-			sb.append(",").append(key).append("=").append(properties.get(key));
+		for (IThingKey<?> key : SystemUtils.sorted(keySet())) {
+			sb.append(",").append(key).append("=").append(properties.get(key.getUID()));
 		}
 		sb.append("]");
 		return sb.toString();

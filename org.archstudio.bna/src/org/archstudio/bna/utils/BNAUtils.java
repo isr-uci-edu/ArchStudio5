@@ -12,6 +12,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
@@ -62,12 +63,37 @@ import org.eclipse.swt.widgets.Widget;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.primitives.Floats;
 
 public class BNAUtils {
+
+	private static final LoadingCache<Object, Integer> keyUIDs = CacheBuilder.newBuilder().build(
+			new CacheLoader<Object, Integer>() {
+				@Override
+				public Integer load(Object key) throws Exception {
+					return (int) keyUIDs.size();
+				};
+			});
+
+	private static final Map<Integer, IThingKey<?>> reverseKeyUIDs = Maps.newHashMap();
+
+	public static final <V> IThingKey<V> registerKey(IThingKey<V> key) {
+		key.setUID(keyUIDs.getUnchecked(key.getID()));
+		reverseKeyUIDs.put(key.getUID(), key);
+		return key;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static final <V> IThingKey<V> getRegisteredKey(int uid) {
+		return (IThingKey<V>) reverseKeyUIDs.get(uid);
+	}
 
 	@SuppressWarnings("unchecked")
 	public static <T> T castOrNull(IThing thing, Class<T> thingClass) {
@@ -1312,9 +1338,9 @@ public class BNAUtils {
 		glu.gluPerspective(45.0f, fAspect, 0.5f, 1f);
 		gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
 		gl.glLoadIdentity();
-		
+
 		gl.glDrawBuffer(GL.GL_BACK);
-		
+
 		render(gl, view, resources, bounds, antialiasGraphics, antialiasText);
 
 		ByteBuffer buffer = ByteBuffer.allocate(bounds.width * bounds.height * 4);
@@ -1332,7 +1358,7 @@ public class BNAUtils {
 				int g = buffer.get(bufferIndex++);
 				int b = buffer.get(bufferIndex++);
 				int a = buffer.get(bufferIndex++);
-				int i = a << 24 | (r & 0xFF) << 16 | (g & 0xFF) << 8 | (b & 0xFF);
+				int i = a << 24 | (r & 0xFF) << 16 | (g & 0xFF) << 8 | b & 0xFF;
 				image.setRGB(x, y, i);
 			}
 		}

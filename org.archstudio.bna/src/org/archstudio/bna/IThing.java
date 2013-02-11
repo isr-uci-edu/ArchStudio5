@@ -44,6 +44,12 @@ public interface IThing {
 	public static interface IThingKey<V> extends TypedMap.Key<V> {
 		public boolean isFireEventOnChange();
 
+		public Object getID();
+
+		public int getUID();
+
+		public void setUID(int uid);
+
 		public @Nullable
 		V preWrite(@Nullable V value);
 
