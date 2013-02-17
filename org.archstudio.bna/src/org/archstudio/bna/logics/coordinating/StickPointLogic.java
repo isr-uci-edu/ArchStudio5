@@ -50,8 +50,6 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 
 	private static class StuckPoint {
 
-		boolean isUpdating;
-
 		final Object pointThingID;
 		final IThingKey<Point> pointKey;
 		final StickyMode stickyMode;
@@ -65,39 +63,28 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 		}
 
 		public void update(IBNAModel model, ThingEvent thingEvent) {
+			IThing pointThing = model.getThing(pointThingID);
+			if (pointThing != null) {
+				Point nearPoint = getNearPoint(pointThing, pointKey, stickyMode);
+				if (nearPoint != null) {
+					IIsSticky stickyThing = BNAUtils.castOrNull(model.getThing(stickyThingID), IIsSticky.class);
+					if (stickyThing != null) {
 
-			if (isUpdating) {
-				return;
-			}
-
-			isUpdating = true;
-			try {
-				IThing pointThing = model.getThing(pointThingID);
-				if (pointThing != null) {
-					Point nearPoint = getNearPoint(pointThing, pointKey, stickyMode);
-					if (nearPoint != null) {
-						IIsSticky stickyThing = BNAUtils.castOrNull(model.getThing(stickyThingID), IIsSticky.class);
-						if (stickyThing != null) {
-
-							// adjust the point proportionally if the 'stickyThing' has a rectangle and was just resized/moved
-							if (thingEvent != null && stickyThing.equals(thingEvent.getTargetThing())) {
-								if (IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
-									nearPoint = BNAUtils.movePointWith((Rectangle) thingEvent.getOldPropertyValue(),
-											(Rectangle) thingEvent.getNewPropertyValue(), nearPoint);
-								}
+						// adjust the point proportionally if the 'stickyThing' has a rectangle and was just resized/moved
+						if (thingEvent != null && stickyThing.equals(thingEvent.getTargetThing())) {
+							if (IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
+								nearPoint = BNAUtils.movePointWith((Rectangle) thingEvent.getOldPropertyValue(),
+										(Rectangle) thingEvent.getNewPropertyValue(), nearPoint);
 							}
-
-							// calculate the closest sticky point on the sticky thing, given the current point as reference
-							Point stickyPoint = stickyThing.getStickyPointNear(stickyMode, nearPoint);
-
-							// update the actual stuck point
-							pointThing.set(pointKey, stickyPoint);
 						}
+
+						// calculate the closest sticky point on the sticky thing, given the current point as reference
+						Point stickyPoint = stickyThing.getStickyPointNear(stickyMode, nearPoint);
+
+						// update the actual stuck point
+						pointThing.set(pointKey, stickyPoint);
 					}
 				}
-			}
-			finally {
-				isUpdating = false;
 			}
 		}
 	}
