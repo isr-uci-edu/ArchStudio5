@@ -459,7 +459,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 		logicManager.addThingLogic(new SynchronizeHintsLogic(logicProxy.addObject(new XadlHintRepository(xarch))));
 
-		bnaWorld.getBNAModel().addThing(new GridThing(GridThing.class));
+		bnaWorld.getBNAModel().addThing(new GridThing());
 		bnaWorld.getBNAModel().addThing(new ShadowThing(null));
 
 		// these logics need to be first

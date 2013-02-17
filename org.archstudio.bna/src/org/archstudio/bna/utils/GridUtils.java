@@ -115,12 +115,12 @@ public class GridUtils {
 	}
 
 	public static GridThing getGridThing(IBNAModel m) {
-		for (IThing t : m.getAllThings()) {
-			if (t instanceof GridThing) {
-				return (GridThing) t;
-			}
+		GridThing gt = (GridThing) m.getThing(GridThing.class);
+		if (gt != null) {
+			return gt;
 		}
-		GridThing gt = new GridThing(null);
+
+		gt = new GridThing();
 		m.addThing(gt);
 		m.sendToBack(Collections.singleton(gt));
 		return gt;

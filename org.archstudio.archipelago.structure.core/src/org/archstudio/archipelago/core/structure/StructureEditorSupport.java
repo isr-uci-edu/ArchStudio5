@@ -26,13 +26,13 @@ import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.EditFlowLogic;
 import org.archstudio.bna.logics.editing.EditTextLogic;
+import org.archstudio.bna.logics.editing.ExportImageLogic;
 import org.archstudio.bna.logics.editing.KeyNudgerLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.editing.RectifyToGridLogic;
 import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
 import org.archstudio.bna.logics.editing.ReshapeSplineLogic;
 import org.archstudio.bna.logics.editing.RotaterLogic;
-import org.archstudio.bna.logics.editing.ExportImageLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.editing.SnapToGridLogic;
 import org.archstudio.bna.logics.editing.SplineBreakLogic;
@@ -199,7 +199,7 @@ public class StructureEditorSupport {
 
 		logicManager.addThingLogic(new SynchronizeHintsLogic(logicProxy.addObject(new XadlHintRepository(xarch))));
 
-		bnaWorld.getBNAModel().addThing(new GridThing(GridThing.class));
+		bnaWorld.getBNAModel().addThing(new GridThing());
 		bnaWorld.getBNAModel().addThing(new ShadowThing(null));
 
 		// these logics need to be first

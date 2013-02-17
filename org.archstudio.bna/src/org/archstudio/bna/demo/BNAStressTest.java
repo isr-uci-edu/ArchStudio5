@@ -62,7 +62,7 @@ public class BNAStressTest {
 		shell.setSize(400, 400);
 		shell.open();
 
-		populateModel(canvas.getBNAView(), 16, 16, 3, 2);
+		populateModel(canvas.getBNAView(), 40, 40, 3, 2);
 		addUILogics(canvas.getBNAView());
 
 		while (!shell.isDisposed()) {
@@ -92,7 +92,7 @@ public class BNAStressTest {
 		IBNAWorld world = view.getBNAWorld();
 		IBNAModel model = world.getBNAModel();
 
-		model.addThing(new GridThing(null));
+		model.addThing(new GridThing());
 		model.addThing(new ShadowThing(null));
 
 		ICoordinateMapper cm = view.getCoordinateMapper();

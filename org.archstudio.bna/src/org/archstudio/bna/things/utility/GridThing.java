@@ -11,8 +11,8 @@ public class GridThing extends AbstractThing implements IHasMutableColor {
 	public static final IThingKey<Integer> GRID_SPACING_KEY = ThingKey.create("gridSpacing");
 	public static final IThingKey<GridDisplayType> GRID_DISPLAY_TYPE_KEY = ThingKey.create("gridDisplayType");
 
-	public GridThing(Object id) {
-		super(id);
+	public GridThing() {
+		super(GridThing.class);
 	}
 
 	@Override
