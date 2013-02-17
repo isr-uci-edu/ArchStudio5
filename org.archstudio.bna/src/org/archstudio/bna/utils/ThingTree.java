@@ -4,12 +4,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.archstudio.bna.IThing;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 class ThingTree {
 
@@ -22,51 +20,21 @@ class ThingTree {
 		public Node(IThing t) {
 			this.t = t;
 		}
-
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + (t == null ? 0 : t.hashCode());
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj) {
-				return true;
-			}
-			if (obj == null) {
-				return false;
-			}
-			if (getClass() != obj.getClass()) {
-				return false;
-			}
-			Node other = (Node) obj;
-			if (t == null) {
-				if (other.t != null) {
-					return false;
-				}
-			}
-			else if (!t.equals(other.t)) {
-				return false;
-			}
-			return true;
-		}
 	}
 
-	final Node root;
-	final Map<IThing, Node> lookup;
+	final Node root = new Node(null);
+	final FastIntMap<Node> lookup = new FastIntMap<Node>(1000);
 
 	public ThingTree() {
-		this.lookup = Maps.newHashMap();
-		this.root = getNode(null, true);
 	}
 
 	protected Node getNode(IThing t, boolean create) {
-		Node node = lookup.get(t);
+		if (t == null) {
+			return root;
+		}
+		Node node = lookup.get(t.getUID());
 		if (node == null && create) {
-			lookup.put(t, node = new Node(t));
+			lookup.put(t.getUID(), node = new Node(t));
 		}
 		return node;
 	}
@@ -86,7 +54,7 @@ class ThingTree {
 	}
 
 	public void remove(IThing t) {
-		Node childNode = lookup.remove(t);
+		Node childNode = lookup.remove(t.getUID());
 		if (childNode != null) {
 			Node parentNode = childNode.parent;
 			if (parentNode != null) {
@@ -222,6 +190,6 @@ class ThingTree {
 	}
 
 	public int size() {
-		return lookup.size() - 1;
+		return lookup.size();
 	}
 }

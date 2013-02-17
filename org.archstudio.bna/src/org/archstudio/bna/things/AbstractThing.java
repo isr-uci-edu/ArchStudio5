@@ -144,10 +144,6 @@ public class AbstractThing implements IThing {
 	@SuppressWarnings("unchecked")
 	private final @Nullable
 	<V> V getRaw(IThingKey<V> key) {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-		}
-
 		return (V) properties.get(key.getUID());
 	}
 
@@ -174,19 +170,11 @@ public class AbstractThing implements IThing {
 
 	@Override
 	public boolean has(IThingKey<?> key) {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-		}
-
 		return properties.containsKey(key.getUID());
 	}
 
 	@Override
 	public <V> boolean has(IThing.IThingKey<V> key, @Nullable V value) {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-		}
-
 		return SystemUtils.nullEquals(properties.get(key.getUID()), value);
 	};
 
@@ -209,10 +197,6 @@ public class AbstractThing implements IThing {
 
 	@Override
 	public Set<IThingKey<?>> keySet() {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-		}
-
 		Set<IThingKey<?>> keys = Sets.newHashSet();
 		for (Iterator<Entry<Object>> i = properties.iterator(); i.hasNext();) {
 			keys.add(BNAUtils.getRegisteredKey(i.next().getKey()));

@@ -1,6 +1,7 @@
 package org.archstudio.bna;
 
 import org.archstudio.bna.IThing.IThingKey;
+import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -16,6 +17,7 @@ public class ThingEvent {
 	protected IThingKey<?> propertyName;
 	protected Object oldPropertyValue;
 	protected Object newPropertyValue;
+	protected long thingKeyUID;
 
 	public static ThingEvent create(EventType eventType, IThing targetThing, IThingKey<?> propertyName,
 			@Nullable Object oldPropertyValue, @Nullable Object newPropertyValue) {
@@ -29,6 +31,11 @@ public class ThingEvent {
 		this.propertyName = propertyName;
 		this.oldPropertyValue = oldPropertyValue;
 		this.newPropertyValue = newPropertyValue;
+		this.thingKeyUID = BNAUtils.getThingKeyUID(targetThing, propertyName);
+	}
+
+	public long getThingKeyUID() {
+		return thingKeyUID;
 	}
 
 	public EventType getEventType() {

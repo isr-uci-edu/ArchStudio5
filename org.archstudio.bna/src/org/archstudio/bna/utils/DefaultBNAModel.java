@@ -62,10 +62,6 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		}
 
 		public IThing getThing(Object id) {
-			if (Display.getCurrent() == null) {
-				SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-			}
-
 			if (id != null) {
 				return indexMap.get(id);
 			}
@@ -146,10 +142,6 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public void beginBulkChange() {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-		}
-
 		if (bulkChangeCount.getAndIncrement() == 0) {
 			firedBulkChangeEvent = false;
 		}
@@ -157,10 +149,6 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public void endBulkChange() {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-		}
-
 		if (bulkChangeCount.decrementAndGet() <= 0) {
 			if (bulkChangeCount.get() < 0) {
 				System.err.println("Bulk change count < 0");
@@ -237,19 +225,11 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public IThing getThing(Object id) {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-		}
-
 		return thingIndex.getThing(id);
 	}
 
 	@Override
 	public List<IThing> getThingsByID(Iterable<Object> thingIDs) {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-		}
-
 		return Lists.newArrayList(Iterables.transform(thingIDs, new Function<Object, IThing>() {
 
 			@Override
@@ -261,10 +241,6 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public List<IThing> getAllThings() {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-		}
-
 		if (thingTreeListAtModCount != thingTreeModCount) {
 			thingTreeList = thingTree.getAllThings();
 			thingTreeListAtModCount = thingTreeModCount;
@@ -274,10 +250,6 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public List<IThing> getReverseThings() {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-		}
-
 		if (thingTreeListAtModCount != thingTreeModCount) {
 			thingTreeList = thingTree.getAllThings();
 			thingTreeListAtModCount = thingTreeModCount;
@@ -287,10 +259,6 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public int getNumThings() {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-		}
-
 		return thingTree.size();
 	}
 

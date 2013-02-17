@@ -2,8 +2,8 @@ package org.archstudio.bna.logics.coordinating;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
@@ -12,12 +12,12 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.FastLongMap;
 
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
-import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
 
 public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelListener {
 
@@ -33,12 +33,6 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelLis
 
 		public Mirror(Object fromThingID, IThingKey<FV> fromKey, Object toThingID, IThingKey<TV> toKey,
 				Function<FV, TV> transformFunction) {
-			checkNotNull(fromThingID);
-			checkNotNull(fromKey);
-			checkNotNull(toThingID);
-			checkNotNull(toKey);
-			checkNotNull(transformFunction);
-
 			this.fromThingID = fromThingID;
 			this.fromKey = fromKey;
 			this.toThingID = toThingID;
@@ -47,8 +41,6 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelLis
 		}
 
 		public void apply(IBNAModel model) {
-			checkNotNull(model);
-
 			if (isUpdating) {
 				return;
 			}
@@ -67,9 +59,52 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelLis
 		}
 	}
 
-	Multimap<List<?>, Mirror<?, ?>> mirrors = ArrayListMultimap.create();
+	private class Registrar {
+
+		final int fromThingUID;
+		final IThingKey<?> fromKey;
+		final int toThingUID;
+		final IThingKey<?> toKey;
+		final Mirror<?, ?> mirror;
+
+		public Registrar(int fromThingUID, IThingKey<?> fromKey, int toThingUID, IThingKey<?> toKey, Mirror<?, ?> mirror) {
+			this.fromThingUID = fromThingUID;
+			this.fromKey = fromKey;
+			this.toThingUID = toThingUID;
+			this.toKey = toKey;
+			this.mirror = mirror;
+		}
+
+		public void register() {
+			get(BNAUtils.getThingKeyUID(fromThingUID, fromKey.getUID()), true).add(mirror);
+			get(BNAUtils.getThingKeyUID(toThingUID, toKey.getUID()), true).add(mirror);
+			registrars.put(BNAUtils.getThingKeyUID(toThingUID, toKey.getUID()), this);
+		}
+
+		public void unregister() {
+			get(BNAUtils.getThingKeyUID(fromThingUID, fromKey.getUID()), false).remove(mirror);
+			get(BNAUtils.getThingKeyUID(toThingUID, toKey.getUID()), false).remove(mirror);
+			registrars.remove(BNAUtils.getThingKeyUID(toThingUID, toKey.getUID()));
+		}
+	}
 
 	public MirrorValueLogic() {
+	}
+
+	FastLongMap<Collection<Mirror<?, ?>>> mirrors = new FastLongMap<Collection<Mirror<?, ?>>>(256);
+	FastLongMap<Registrar> registrars = new FastLongMap<Registrar>(128);
+
+	private Collection<Mirror<?, ?>> get(long thingKeyUID, boolean create) {
+		Collection<Mirror<?, ?>> mirrorsCollection = mirrors.get(thingKeyUID);
+		if (mirrorsCollection == null) {
+			if (create) {
+				mirrors.put(thingKeyUID, mirrorsCollection = Lists.newArrayList());
+			}
+			else {
+				return Collections.emptyList();
+			}
+		}
+		return mirrorsCollection;
 	}
 
 	public <V> void mirrorValue(IThing fromThing, IThingKey<V> key, IThing toThing) {
@@ -80,23 +115,28 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelLis
 		mirrorValue(fromThing, fromKey, toThing, toKey, Functions.<V> identity());
 	}
 
-	public synchronized <FV, TV> void mirrorValue(IThing fromThing, IThingKey<FV> fromKey, IThing toThing,
-			IThingKey<TV> toKey, Function<FV, TV> transformFunction) {
+	public <FV, TV> void mirrorValue(IThing fromThing, IThingKey<FV> fromKey, IThing toThing, IThingKey<TV> toKey,
+			Function<FV, TV> transformFunction) {
+		checkNotNull(fromThing);
+		checkNotNull(fromKey);
+		checkNotNull(toThing);
+		checkNotNull(toKey);
+		checkNotNull(transformFunction);
+
+		unmirror(toThing, toKey);
+
 		Mirror<FV, TV> mirror = new Mirror<FV, TV>(fromThing.getID(), fromKey, toThing.getID(), toKey,
 				transformFunction);
-
-		mirrors.put(Lists.newArrayList(fromThing.getID(), fromKey), mirror);
-		mirrors.put(Lists.newArrayList(toThing.getID(), toKey), mirror);
+		Registrar registrar = new Registrar(fromThing.getUID(), fromKey, toThing.getUID(), toKey, mirror);
+		registrar.register();
 
 		mirror.apply(getBNAModel());
 	}
 
-	public synchronized <FV> void unmirror(IThing toThing, IThingKey<FV> toKey) {
-		Iterator<Mirror<?, ?>> i;
-		while ((i = mirrors.get(Lists.newArrayList(toThing.getID(), toKey)).iterator()).hasNext()) {
-			Mirror<?, ?> mirror = i.next();
-			while (mirrors.values().remove(mirror)) {
-			}
+	public void unmirror(IThing toThing, IThingKey<?> toKey) {
+		Registrar registrar = registrars.get(BNAUtils.getThingKeyUID(toThing, toKey));
+		if (registrar != null) {
+			registrar.unregister();
 		}
 	}
 
@@ -104,8 +144,7 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelLis
 	public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
-			for (Mirror<?, ?> mirror : mirrors.get(Lists.newArrayList(thingEvent.getTargetThing().getID(),
-					thingEvent.getPropertyName()))) {
+			for (Mirror<?, ?> mirror : get(thingEvent.getThingKeyUID(), false)) {
 				mirror.apply(evt.getSource());
 			}
 		}

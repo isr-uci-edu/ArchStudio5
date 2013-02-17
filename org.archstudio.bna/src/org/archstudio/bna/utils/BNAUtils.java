@@ -1437,4 +1437,11 @@ public class BNAUtils {
 		}
 	}
 
+	public static final long getThingKeyUID(IThing targetThing, IThingKey<?> propertyName) {
+		return (long) targetThing.getUID() << 32 | propertyName.getUID();
+	}
+
+	public static final long getThingKeyUID(int targetThingUID, int propertyNameUID) {
+		return (long) targetThingUID << 32 | propertyNameUID;
+	}
 }
