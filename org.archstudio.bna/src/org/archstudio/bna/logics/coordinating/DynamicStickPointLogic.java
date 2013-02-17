@@ -8,6 +8,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.constants.StickyMode;
+import org.archstudio.bna.facets.IHasShapeKeys;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.keys.IThingMetakey;
 import org.archstudio.bna.keys.IThingRefKey;
@@ -60,7 +61,9 @@ public class DynamicStickPointLogic extends AbstractThingLogic implements IBNAMo
 					// || a thing's sticky thing ID has changed, update the stuck point
 					if (STICKY_MODE_KEY_NAME.equals(keyKey.getName())
 							|| STICKY_THING_ID_KEY_NAME.equals(keyKey.getName())) {
-						updateStuckPoint(evt.getSource(), thing, keyKey.getKey());
+						if (thing instanceof IHasShapeKeys) {
+							updateStuckPoint(evt.getSource(), (IHasShapeKeys) thing, keyKey.getKey());
+						}
 					}
 				}
 			}
@@ -76,8 +79,8 @@ public class DynamicStickPointLogic extends AbstractThingLogic implements IBNAMo
 							if (STICKY_THING_ID_KEY_NAME.equals(refKeyKey.getName())) {
 								// a dynamic sticky point thing is referring to this sticky thing
 								IThing pointThing = getBNAModel().getThing(reference.getFromThingID());
-								if (pointThing != null) {
-									updateStuckPoint(evt.getSource(), pointThing, refKeyKey.getKey());
+								if (pointThing instanceof IHasShapeKeys) {
+									updateStuckPoint(evt.getSource(), (IHasShapeKeys) pointThing, refKeyKey.getKey());
 								}
 							}
 						}
@@ -87,7 +90,7 @@ public class DynamicStickPointLogic extends AbstractThingLogic implements IBNAMo
 		}
 	}
 
-	private void updateStuckPoint(IBNAModel model, IThing pointThing, IThingKey<Point> pointKey) {
+	private void updateStuckPoint(IBNAModel model, IHasShapeKeys pointThing, IThingKey<Point> pointKey) {
 		StickyMode stickyMode = pointThing.get(getStickyModeKey(pointKey));
 		IIsSticky stickyThing = getStickyThingKey(pointKey).get(pointThing, model);
 		if (stickyMode != null && stickyThing != null) {

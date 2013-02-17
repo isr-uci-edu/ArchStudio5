@@ -124,9 +124,13 @@ public class ExportImageLogic extends AbstractThingLogic implements IBNAMenuList
 					public Composite getComposite() {
 						return view.getComposite();
 					}
-					
+
 					@Override
 					public void dispose() {
+					}
+
+					@Override
+					public void disposePeers() {
 					}
 
 				}, resources, new Rectangle(0, 0, bounds.width, bounds.height), true, true);
@@ -138,7 +142,7 @@ public class ExportImageLogic extends AbstractThingLogic implements IBNAMenuList
 			}
 			finally {
 				if (resources != null) {
-					resources.destroy();
+					resources.dispose();
 				}
 				if (context != null) {
 					context.release();

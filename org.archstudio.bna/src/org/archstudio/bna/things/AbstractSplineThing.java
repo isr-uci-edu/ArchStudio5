@@ -39,8 +39,9 @@ public class AbstractSplineThing extends AbstractPointsThing implements IHasMuta
 	@Override
 	protected void initProperties() {
 		super.initProperties();
-		setEndpoint1(new Point(0, 0));
-		setEndpoint2(new Point(0, 0));
+		addShapeModifyingKey(IHasEndpoints.ENDPOINT_1_KEY);
+		addShapeModifyingKey(IHasEndpoints.ENDPOINT_2_KEY);
+		addShapeModifyingKey(IHasMidpoints.MIDPOINTS_KEY);
 	}
 
 	@Override

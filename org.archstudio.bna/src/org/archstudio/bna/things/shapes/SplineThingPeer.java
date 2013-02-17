@@ -23,6 +23,10 @@ public class SplineThingPeer<T extends SplineThing> extends AbstractSplineThingP
 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		if (!clip.intersects(lbb))
+			return;
+
 		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
 			int width = t.getLineWidth();
 			float o = width % 2 > 0 ? 0.5f : 0;

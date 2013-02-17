@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
+import javax.media.opengl.GL2ES2;
 import javax.media.opengl.glu.GLU;
 
 import org.archstudio.bna.IBNAView;
@@ -37,9 +38,9 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 		}
 		if (ShadowThingPeer.gl == null) {
 			try {
-				loadShaderProgram(gl, 0, GL2.GL_FRAGMENT_SHADER,
+				loadShaderProgram(gl, 0, GL2ES2.GL_FRAGMENT_SHADER,
 						ShadowThingPeer.class.getResourceAsStream("glsl/blurH.fs"));
-				loadShaderProgram(gl, 1, GL2.GL_FRAGMENT_SHADER,
+				loadShaderProgram(gl, 1, GL2ES2.GL_FRAGMENT_SHADER,
 						ShadowThingPeer.class.getResourceAsStream("glsl/blurV.fs"));
 			}
 			catch (IOException e) {
@@ -111,8 +112,9 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 
 	private static void handleGLError(GL2 gl, int obj) {
 		String errors;
-		if ((errors = getGLErrorLog(gl, obj)) != null)
+		if ((errors = getGLErrorLog(gl, obj)) != null) {
 			throw new RuntimeException("Compile error:\n" + errors);
+		}
 	}
 
 	private static String getGLErrorLog(GL2 gl, int obj) {
@@ -196,8 +198,9 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 		}
 
 		initialize(gl);
-		if (programs[0] == 0 || programs[1] == 0)
+		if (programs[0] == 0 || programs[1] == 0) {
 			return;
+		}
 
 		final int offset = BNAUtils.round(6 * cm.getLocalScale());
 		final int size = Math.min(offset, 15);
@@ -215,8 +218,8 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 
 			// create and bind textures
 			gl.glGenTextures(renderTexture.length, renderTexture, 0);
-			for (int i = 0; i < renderTexture.length; i++) {
-				gl.glBindTexture(GL.GL_TEXTURE_2D, renderTexture[i]);
+			for (int element : renderTexture) {
+				gl.glBindTexture(GL.GL_TEXTURE_2D, element);
 				gl.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, clip.width, clip.height, 0, GL.GL_RGBA,
 						GL.GL_UNSIGNED_BYTE, null);
 				gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
@@ -246,7 +249,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 			// draw the shadows
 			gl.glTranslated(offset, offset, 0);
 			try {
-				Rectangle newClip = new Rectangle(0, 0, clip.width, clip.height);
+				Rectangle newClip = new Rectangle(offset, offset, clip.width, clip.height);
 				for (IThing t : view.getBNAWorld().getBNAModel().getAllThings()) {
 					IThingPeer<?> tp = view.getThingPeer(t);
 					if (tp instanceof IHasShadowPeer) {
@@ -270,7 +273,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 			// clear the background
 			gl.glClearColor(1f, 1f, 1f, 0f);
 			gl.glClear(GL.GL_COLOR_BUFFER_BIT);
-			
+
 			// apply blur
 			gl.glUseProgram(programs[0]);
 

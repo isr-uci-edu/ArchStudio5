@@ -24,8 +24,10 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
-
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		if (!clip.intersects(lbb)) {
+			return;
+		}
 
 		if (r.setColor(t, IHasColor.COLOR_KEY) && r.setLineStyle(t)) {
 			float[] points = BNAUtils.getEllipsePoints(lbb);
@@ -50,8 +52,10 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 
 	@Override
 	public void drawShadow(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
-
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		if (!clip.intersects(lbb)) {
+			return;
+		}
 
 		r.setColor(new RGB(0, 0, 0), 1f);
 		float[] points = BNAUtils.getEllipsePoints(lbb);

@@ -25,6 +25,11 @@ public class SplineGlassThingPeer<T extends SplineGlassThing> extends AbstractSp
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
+			Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+			if (!clip.intersects(lbb)) {
+				return;
+			}
+
 			List<Point> localPoints = BNAUtils.worldToLocal(cm, t.getPoints());
 
 			gl.glLineWidth(1f);

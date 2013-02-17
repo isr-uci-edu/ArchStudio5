@@ -1,5 +1,6 @@
 package org.archstudio.bna.utils;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.awt.Insets;
@@ -13,8 +14,12 @@ import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasColor;
+import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasInternalWorldEndpoint;
+import org.archstudio.bna.facets.IHasLineStyle;
+import org.archstudio.bna.facets.IHasLineWidth;
 import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasMutableWorld;
@@ -26,6 +31,7 @@ import org.archstudio.bna.keys.AbstractThingRefKey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.keys.ThingRefKey;
+import org.archstudio.bna.logics.coordinating.ArrowheadLogic;
 import org.archstudio.bna.logics.coordinating.MirrorBoundingBoxLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.coordinating.OrientDirectionalLabelLogic;
@@ -39,6 +45,7 @@ import org.archstudio.bna.things.glass.PolygonGlassThing;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.things.glass.SplineGlassThing;
+import org.archstudio.bna.things.labels.ArrowheadThing;
 import org.archstudio.bna.things.labels.BoundedLabelThing;
 import org.archstudio.bna.things.labels.DirectionalLabelThing;
 import org.archstudio.bna.things.shapes.EllipseThing;
@@ -50,6 +57,7 @@ import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.NoThing;
 import org.archstudio.bna.things.utility.WorldThing;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 
 import com.google.common.collect.Sets;
@@ -75,9 +83,12 @@ public class Assemblies {
 	public static final IThingRefKey<IHasMutableText> TEXT_KEY = ThingAssemblyKey.create("assembly-text");
 	public static final IThingRefKey<DirectionalLabelThing> LABEL_KEY = ThingAssemblyKey.create("assembly-label");
 	public static final IThingRefKey<IHasMutableWorld> WORLD_KEY = ThingAssemblyKey.create("assembly-world");
+	public static final IThingRefKey<IThing> ARROWHEAD1_KEY = ThingAssemblyKey.create("assembly-arrowhead-1");
+	public static final IThingRefKey<IThing> ARROWHEAD2_KEY = ThingAssemblyKey.create("assembly-arrowhead-2");
 
 	public static final Object BASE_LAYER_THING_ID = new Object();
 	public static final Object SPLINE_LAYER_THING_ID = new Object();
+	public static final Object ARROWHEAD_LAYER_THING_ID = new Object();
 	public static final Object MIDDLE_LAYER_THING_ID = new Object();
 	public static final Object TOP_LAYER_THING_ID = new Object();
 
@@ -91,8 +102,13 @@ public class Assemblies {
 
 	@SuppressWarnings("unused")
 	protected static void initLayers(IBNAModel model) {
+		if (model.getThing(BASE_LAYER_THING_ID) != null) {
+			return;
+		}
+
 		IThing baseLayerThing = initLayer(model, BASE_LAYER_THING_ID, null);
 		IThing splineLayerThing = initLayer(model, SPLINE_LAYER_THING_ID, baseLayerThing);
+		IThing arrowheadLayerThing = initLayer(model, ARROWHEAD_LAYER_THING_ID, baseLayerThing);
 		IThing middleLayerThing = initLayer(model, MIDDLE_LAYER_THING_ID, baseLayerThing);
 		IThing topLayerThing = initLayer(model, TOP_LAYER_THING_ID, baseLayerThing);
 	}
@@ -331,6 +347,35 @@ public class Assemblies {
 		mvl.mirrorValue(glass, IHasEndpoints.ENDPOINT_2_KEY, bkg);
 
 		return glass;
+	}
+
+	public static SplineGlassThing addArrowhead(IBNAWorld world, SplineGlassThing splineGlassThing,
+			IThingKey<Point> endpointKey, @Nullable IThing parent) {
+		checkNotNull(world);
+		checkArgument(endpointKey == IHasEndpoints.ENDPOINT_1_KEY || endpointKey == IHasEndpoints.ENDPOINT_2_KEY,
+				"endpointKey must be IHasEndpoints.ENDPOINT_1_KEY or IHasEndpoints.ENDPOINT_2_KEY");
+
+		IBNAModel model = world.getBNAModel();
+
+		ArrowheadThing arrowheadThing = model.addThing(new ArrowheadThing(null),
+				parent != null ? parent : getLayer(model, ARROWHEAD_LAYER_THING_ID));
+
+		markPart(splineGlassThing, endpointKey == IHasEndpoints.ENDPOINT_1_KEY ? ARROWHEAD1_KEY : ARROWHEAD2_KEY,
+				arrowheadThing);
+
+		IThingLogicManager tlm = world.getThingLogicManager();
+		ArrowheadLogic al = tlm.addThingLogic(ArrowheadLogic.class);
+		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
+
+		al.point(arrowheadThing, splineGlassThing, endpointKey);
+		mvl.mirrorValue(Assemblies.BACKGROUND_KEY.get(splineGlassThing, model), IHasEdgeColor.EDGE_COLOR_KEY,
+				arrowheadThing, IHasColor.COLOR_KEY);
+		mvl.mirrorValue(Assemblies.BACKGROUND_KEY.get(splineGlassThing, model), IHasLineStyle.LINE_STYLE_KEY,
+				arrowheadThing);
+		mvl.mirrorValue(Assemblies.BACKGROUND_KEY.get(splineGlassThing, model), IHasLineWidth.LINE_WIDTH_KEY,
+				arrowheadThing);
+
+		return splineGlassThing;
 	}
 
 	public static MappingGlassThing createMapping(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {

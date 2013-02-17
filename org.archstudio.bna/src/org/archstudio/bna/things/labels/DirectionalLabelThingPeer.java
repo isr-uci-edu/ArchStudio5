@@ -24,6 +24,9 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		if (!clip.intersects(lbb)) {
+			return;
+		}
 
 		Flow f = t.getFlow();
 		if (f.equals(Flow.NONE)) {

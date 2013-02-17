@@ -29,6 +29,10 @@ public class RectangleGlassThingPeer<T extends RectangleGlassThing> extends Abst
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+			if (!clip.intersects(lbb)) {
+				return;
+			}
+
 			Point p1 = new Point(lbb.x, lbb.y);
 			Point p2 = new Point(lbb.x + lbb.width, lbb.y + lbb.height);
 			Dimension corner = t.getCornerSize();

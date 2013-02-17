@@ -9,6 +9,7 @@ import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractPolygonThingPeer;
+import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -22,6 +23,11 @@ public class PolygonGlassThingPeer<T extends PolygonGlassThing> extends Abstract
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
+			Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+			if (!clip.intersects(lbb)) {
+				return;
+			}
+
 			Point a = t.getAnchorPoint();
 
 			gl.glLineWidth(1f);

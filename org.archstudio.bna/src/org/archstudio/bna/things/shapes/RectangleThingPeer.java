@@ -74,7 +74,8 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 			RoundRectangle2D s = new RoundRectangle2D.Double(lbb.x + 0.5f, lbb.y + 0.5f, lbb.width, lbb.height,//
 					Math.min(lbb.width, corner.width), Math.min(lbb.height, corner.height));
 			double[] coords = new double[6];
-			boolean isGradientFilled = t.isGradientFilled() && BNARenderingSettings.getDecorativeGraphics(view.getComposite());
+			boolean isGradientFilled = t.isGradientFilled()
+					&& BNARenderingSettings.getDecorativeGraphics(view.getComposite());
 			RGB color1 = t.getColor();
 			RGB color2 = t.getSecondaryColor();
 			if (r.setColor(t, IHasColor.COLOR_KEY)) {
@@ -130,6 +131,10 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 	@Override
 	public void drawShadow(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		if (!clip.intersects(lbb)) {
+			return;
+		}
+
 		Dimension corner = t.getCornerSize();
 
 		RoundRectangle2D s = new RoundRectangle2D.Double(lbb.x + 0.5f, lbb.y + 0.5f, lbb.width, lbb.height,//

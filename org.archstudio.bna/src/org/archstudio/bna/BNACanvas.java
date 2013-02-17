@@ -36,7 +36,7 @@ import org.eclipse.swt.widgets.ScrollBar;
 
 public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListener {
 
-	protected static boolean DEBUG = false;
+	protected static final boolean DEBUG = false;
 
 	protected final IBNAView bnaView;
 	protected final ScrollBar hBar = getHorizontalBar();
@@ -114,7 +114,6 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 
 			@Override
 			public void handleEvent(Event event) {
-				// prevent the mouse wheel from scrolling the canvas
 				event.doit = false;
 			}
 		});
@@ -139,7 +138,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		getBNAView().getBNAWorld().getBNAModel().removeBNAModelListener(this);
 		bnaView.dispose();
 		eventHandler.dispose();
-		resources.destroy();
+		resources.dispose();
 		context.destroy();
 		super.dispose();
 	}
@@ -204,35 +203,22 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		if (lastLocalScale != newLocalScale) {
 			// the scale changed, force a redraw of everything
 			lastBoundsRelevantCount++;
-			redraw();
+			enqueueRedraw();
 		}
 		else if (!lastLocalOrigin.equals(newLocalOrigin)) {
-			redraw();
+			enqueueRedraw();
 		}
 		lastLocalScale = newLocalScale;
 		lastLocalOrigin = newLocalOrigin;
 	}
 
-	private boolean needsRedraw = false;
-	private boolean redrawPending = false;
-
 	@Override
 	public void bnaModelChanged(final BNAModelEvent evt) {
-		if (!evt.isInBulkChange() && !needsRedraw && !redrawPending) {
-			needsRedraw = true;
-			SWTWidgetUtils.async(this, new Runnable() {
-
-				@Override
-				public void run() {
-					if (needsRedraw && !redrawPending) {
-						redrawPending = true;
-						needsRedraw = false;
-						repaint();
-					}
-				}
-			});
+		if (!evt.isInBulkChange()) {
+			enqueueRedraw();
 		}
-		if (evt.getEventType() == EventType.THING_REMOVING) {
+
+		if (evt.getEventType() == EventType.THING_REMOVED) {
 			SWTWidgetUtils.async(this, new Runnable() {
 
 				@Override
@@ -243,12 +229,37 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		}
 	}
 
+	private boolean redrawPending = false;
+	private long redrawRequestTime;
+
+	private void enqueueRedraw() {
+		if (redrawPending) {
+			return;
+		}
+
+		redrawRequestTime = System.nanoTime();
+		redrawPending = true;
+		SWTWidgetUtils.async(this, new Runnable() {
+
+			@Override
+			public void run() {
+				redrawPending = false;
+				repaint();
+			}
+		});
+	}
+
 	@Override
 	public void paintControl(PaintEvent evt) {
 		repaint();
 	}
-	
+
 	public void repaint() {
+		if (DEBUG) {
+			System.out.println("Redraw lag : " + (System.nanoTime() - redrawRequestTime) / 1000000f);
+		}
+
+		long redrawTime = System.nanoTime();
 		setCurrent();
 		context.makeCurrent();
 		try {
@@ -262,7 +273,6 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 			gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
 			gl.glLoadIdentity();
 
-			redrawPending = false;
 			BNAUtils.render(gl, getBNAView(), resources, //
 					new Rectangle(0, 0, bounds.width, bounds.height), //
 					BNARenderingSettings.getAntialiasGraphics(this), //
@@ -272,6 +282,10 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		}
 		finally {
 			context.release();
+		}
+
+		if (DEBUG) {
+			System.out.println("Redraw time: " + (System.nanoTime() - redrawTime) / 1000000f);
 		}
 	}
 

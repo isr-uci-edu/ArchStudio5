@@ -33,7 +33,7 @@ public class Resources implements IResources {
 	}
 
 	@Override
-	public void destroy() {
+	public void dispose() {
 	}
 
 	@Override
@@ -92,13 +92,21 @@ public class Resources implements IResources {
 	}
 
 	@Override
-	public void setColor(RGB color, float alpha) {
-		gl.glColor4f(color.red / 255f, color.green / 255f, color.blue / 255f, alpha);
+	public boolean setColor(RGB color, float alpha) {
+		if (color != null) {
+			gl.glColor4f(color.red / 255f, color.green / 255f, color.blue / 255f, alpha);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
-	public void setColor(RGB color, float alpha, TextRenderer tr) {
-		tr.setColor(color.red / 255f, color.green / 255f, color.blue / 255f, alpha);
+	public boolean setColor(RGB color, float alpha, TextRenderer tr) {
+		if (color != null) {
+			tr.setColor(color.red / 255f, color.green / 255f, color.blue / 255f, alpha);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -172,6 +180,7 @@ public class Resources implements IResources {
 				}
 			});
 
+	@Override
 	public void setAntialiasText(boolean antialiasText) {
 		if (this.antialiasText != antialiasText) {
 			textRendererCache.invalidateAll();

@@ -24,8 +24,10 @@ public class ArrowheadThingPeer<T extends ArrowheadThing> extends AbstractThingP
 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
-
 		Point lp1 = cm.worldToLocal(t.getAnchorPoint());
+		if(!clip.contains(lp1))
+			return;
+		
 		Point lp2 = cm.worldToLocal(t.getSecondaryAnchorPoint());
 
 		ArrowheadShape arrowheadShape = t.getArrowheadShape();
@@ -40,12 +42,12 @@ public class ArrowheadThingPeer<T extends ArrowheadThing> extends AbstractThingP
 		}
 		if (r.setColor(t, IHasColor.COLOR_KEY)) {
 			gl.glBegin(GL.GL_TRIANGLES);
-			gl.glVertex2d(xyPoints[0], xyPoints[1]);
-			gl.glVertex2d(xyPoints[2], xyPoints[3]);
-			gl.glVertex2d(xyPoints[4], xyPoints[5]);
+			gl.glVertex2d(xyPoints[0] + 0.5f, xyPoints[1] + 0.5f);
+			gl.glVertex2d(xyPoints[2] + 0.5f, xyPoints[3] + 0.5f);
+			gl.glVertex2d(xyPoints[4] + 0.5f, xyPoints[5] + 0.5f);
 			gl.glEnd();
 		}
-		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY)) {
+		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
 			gl.glBegin(arrowheadShape == ArrowheadShape.WEDGE ? GL.GL_LINE_STRIP : GL.GL_LINE_LOOP);
 			gl.glVertex2d(xyPoints[0] + 0.5f, xyPoints[1] + 0.5f);
 			gl.glVertex2d(xyPoints[2] + 0.5f, xyPoints[3] + 0.5f);

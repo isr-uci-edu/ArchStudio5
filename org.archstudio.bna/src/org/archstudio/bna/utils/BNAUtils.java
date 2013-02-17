@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
@@ -73,6 +75,8 @@ import com.google.common.collect.Maps;
 import com.google.common.primitives.Floats;
 
 public class BNAUtils {
+
+	private static final boolean DEBUG = false;
 
 	private static final LoadingCache<Object, Integer> keyUIDs = CacheBuilder.newBuilder().build(
 			new CacheLoader<Object, Integer>() {
@@ -1398,7 +1402,9 @@ public class BNAUtils {
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 
 		ICoordinateMapper cm = view.getCoordinateMapper();
+		Map<Class<?>, AtomicLong[]> counts = Maps.newHashMap();
 		for (IThing thingToRender : bnaModel.getAllThings()) {
+			long time = System.nanoTime();
 			if (Boolean.TRUE.equals(thingToRender.get(IIsHidden.HIDDEN_KEY))) {
 				continue;
 			}
@@ -1411,6 +1417,22 @@ public class BNAUtils {
 			}
 			catch (Exception e) {
 				e.printStackTrace();
+			}
+			if (DEBUG) {
+				time = System.nanoTime() - time;
+				AtomicLong[] als = counts.get(thingToRender.getClass());
+				if (als == null) {
+					counts.put(thingToRender.getClass(), als = new AtomicLong[] { new AtomicLong(), new AtomicLong() });
+				}
+				als[0].getAndIncrement();
+				als[1].getAndAdd(time);
+			}
+		}
+
+		if (DEBUG) {
+			for (Entry<Class<?>, AtomicLong[]> e : SystemUtils.sortedByKey(counts.entrySet())) {
+				AtomicLong[] als = e.getValue();
+				System.err.println(e.getKey() + ": " + als[0] + " total, " + als[1].longValue() / als[0].longValue());
 			}
 		}
 	}

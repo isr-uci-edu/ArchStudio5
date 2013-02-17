@@ -11,6 +11,7 @@ import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.peers.IHasShadowPeer;
 import org.archstudio.bna.things.AbstractPolygonThingPeer;
+import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
@@ -24,6 +25,11 @@ public class PolygonThingPeer<T extends PolygonThing> extends AbstractPolygonThi
 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		if (!clip.intersects(lbb)) {
+			return;
+		}
+
 		Point a = t.getAnchorPoint();
 
 		if (r.setColor(t, IHasColor.COLOR_KEY)) {
@@ -55,6 +61,11 @@ public class PolygonThingPeer<T extends PolygonThing> extends AbstractPolygonThi
 
 	@Override
 	public void drawShadow(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		if (!clip.intersects(lbb)) {
+			return;
+		}
+
 		r.setColor(new RGB(0, 0, 0), 1f);
 		Point a = t.getAnchorPoint();
 		gl.glBegin(GL.GL_TRIANGLE_FAN);

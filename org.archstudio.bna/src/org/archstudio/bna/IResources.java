@@ -29,9 +29,9 @@ public interface IResources {
 
 	public boolean setColor(IThing thing, IThingKey<RGB> colorKey, float alpha, TextRenderer tr);
 
-	public void setColor(RGB color, float alpha);
+	public boolean setColor(RGB color, float alpha);
 
-	public void setColor(RGB color, float alpha, TextRenderer tr);
+	public boolean setColor(RGB color, float alpha, TextRenderer tr);
 
 	public boolean setLineStyle(IHasLineData thing);
 
@@ -39,8 +39,10 @@ public interface IResources {
 
 	public Font getFont(IHasFontData thing, int size);
 
-	public void destroy();
+	public void dispose();
 
 	public TextRenderer getTextRenderer(Font f);
+
+	public void setAntialiasText(boolean antialiasText);
 
 }

@@ -17,14 +17,6 @@ import com.google.common.cache.LoadingCache;
 public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener {
 
 	protected static final boolean DEBUG = false;
-	protected final LoadingCache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().weakKeys()
-			.build(new CacheLoader<Object, AtomicLong>() {
-
-				@Override
-				public AtomicLong load(Object input) {
-					return new AtomicLong();
-				}
-			});
 
 	protected Object id = null;
 	protected IBNAModel model = null;
@@ -42,20 +34,33 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener {
 
 	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
+		LoadingCache<Object, AtomicLong> debugStats;
+		if (DEBUG) {
+			debugStats = CacheBuilder.newBuilder().weakKeys().build(new CacheLoader<Object, AtomicLong>() {
+
+				@Override
+				public AtomicLong load(Object input) {
+					return new AtomicLong();
+				}
+			});
+		}
+
 		for (IBNAModelListener logic : logicManager.getThingLogics(IBNAModelListener.class)) {
 			try {
-				long lTime;
-				if (DEBUG) {
-					lTime = System.nanoTime();
-				}
+				long time = System.nanoTime();
 				logic.bnaModelChanged(evt);
 				if (DEBUG) {
-					lTime = System.nanoTime() - lTime;
-					debugStats.getUnchecked(logic).addAndGet(lTime);
+					time = System.nanoTime() - time;
+					debugStats.getUnchecked(logic).addAndGet(time);
 				}
 			}
 			catch (Throwable t) {
 				t.printStackTrace();
+			}
+		}
+		if (DEBUG) {
+			for (Entry<Object, AtomicLong> e : SystemUtils.sortedByValue(debugStats.asMap().entrySet())) {
+				System.err.println(e.getKey() + "\t" + e.getValue());
 			}
 		}
 	}
@@ -70,15 +75,8 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener {
 		logicManager.destroy();
 
 		model.removeBNAModelListener(this);
-		model.removeBNAModelListener(this);
 
 		isDestroyed = true;
-
-		if (DEBUG) {
-			for (Entry<Object, AtomicLong> e : SystemUtils.sortedByValue(debugStats.asMap().entrySet())) {
-				System.err.println(e.getValue() + " " + e.getKey());
-			}
-		}
 	}
 
 	@Override

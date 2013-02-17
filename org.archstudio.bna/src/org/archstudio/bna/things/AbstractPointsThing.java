@@ -76,12 +76,11 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 	}
 
 	protected Rectangle calculateBoundingBox() {
-		List<Point> points = getPoints();
 		int minX1 = Integer.MAX_VALUE;
 		int maxX1 = Integer.MIN_VALUE;
 		int minY1 = Integer.MAX_VALUE;
 		int maxY1 = Integer.MIN_VALUE;
-		for (Point p : points) {
+		for (Point p : getPoints()) {
 			if (minX1 > p.x) {
 				minX1 = p.x;
 			}

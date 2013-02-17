@@ -1,9 +1,11 @@
 package org.archstudio.bna.things.labels;
 
 import org.archstudio.bna.constants.ArrowheadShape;
+import org.archstudio.bna.facets.IHasLineStyle;
 import org.archstudio.bna.facets.IHasMutableArrowhead;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
+import org.archstudio.bna.facets.IHasMutableLineData;
 import org.archstudio.bna.facets.IHasMutableSecondaryAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.things.AbstractAnchorPointThing;
@@ -12,7 +14,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 
 public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMutableColor, IHasMutableSecondaryColor,
-		IHasMutableEdgeColor, IHasMutableArrowhead, IHasMutableSecondaryAnchorPoint {
+		IHasMutableEdgeColor, IHasMutableArrowhead, IHasMutableSecondaryAnchorPoint, IHasMutableLineData {
 
 	public ArrowheadThing(Object id) {
 		super(id);
@@ -27,6 +29,8 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 		setSecondaryColor(new RGB(0, 0, 0));
 		setEdgeColor(new RGB(0, 0, 0));
 		setSecondaryAnchorPoint(new Point(0, 0));
+		setLineStyle(IHasLineStyle.LINE_STYLE_SOLID);
+		setLineWidth(1);
 	}
 
 	@Override
@@ -91,4 +95,25 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 	public void setSecondaryAnchorPoint(Point secondaryAnchorPoint) {
 		set(SECONDARY_ANCHOR_POINT_KEY, secondaryAnchorPoint);
 	}
+
+	@Override
+	public int getLineStyle() {
+		return get(LINE_STYLE_KEY);
+	}
+
+	@Override
+	public void setLineStyle(int lineStyle) {
+		set(LINE_STYLE_KEY, lineStyle);
+	}
+
+	@Override
+	public int getLineWidth() {
+		return get(LINE_WIDTH_KEY);
+	}
+
+	@Override
+	public void setLineWidth(int lineWidth) {
+		set(LINE_WIDTH_KEY, lineWidth);
+	}
+
 }

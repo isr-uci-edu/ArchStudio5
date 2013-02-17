@@ -76,31 +76,25 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 	}
 
 	private <V> void update(Object thingID, IThingKey<V> forKey, Object oldValue, Object newValue) {
-		synchronized (keyToValueToThingIDsCache) {
-			if (keyToValueToThingIDsCache.asMap().containsKey(forKey)) {
-				Multimap<Object, Object> valueToThingIDsMap = keyToValueToThingIDsCache.getUnchecked(forKey);
-				if (oldValue != null) {
-					valueToThingIDsMap.get(oldValue).remove(thingID);
-				}
-				if (newValue != null) {
-					valueToThingIDsMap.get(newValue).add(thingID);
-				}
+		Multimap<Object, Object> valueToThingIDsMap = keyToValueToThingIDsCache.getIfPresent(forKey);
+		if (valueToThingIDsMap != null) {
+			if (oldValue != null) {
+				valueToThingIDsMap.get(oldValue).remove(thingID);
+			}
+			if (newValue != null) {
+				valueToThingIDsMap.get(newValue).add(thingID);
 			}
 		}
 	}
 
 	public <V> Collection<Object> getThingIDs(IThingKey<V> withKey, V ofValue) {
-		synchronized (keyToValueToThingIDsCache) {
-			return Lists.newArrayList(keyToValueToThingIDsCache.getUnchecked(withKey).get(ofValue));
-		}
+		return Lists.newArrayList(keyToValueToThingIDsCache.getUnchecked(withKey).get(ofValue));
 	}
 
 	public <V1, V2> Collection<Object> getThingIDs(IThingKey<V1> withKey1, V1 ofValue1, IThingKey<V2> withKey2,
 			V2 ofValue2) {
-		synchronized (keyToValueToThingIDsCache) {
-			return Lists.newArrayList(Sets.intersection(keyToValueToThingIDsCache.getUnchecked(withKey1).get(ofValue1),
-					keyToValueToThingIDsCache.getUnchecked(withKey2).get(ofValue2)));
-		}
+		return Lists.newArrayList(Sets.intersection(keyToValueToThingIDsCache.getUnchecked(withKey1).get(ofValue1),
+				keyToValueToThingIDsCache.getUnchecked(withKey2).get(ofValue2)));
 	}
 
 }

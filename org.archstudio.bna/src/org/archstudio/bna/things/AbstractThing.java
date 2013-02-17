@@ -114,7 +114,7 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
-	public synchronized void removeThingListener(IThingListener thingListener) {
+	public void removeThingListener(IThingListener thingListener) {
 		thingListeners.remove(thingListener);
 	}
 
@@ -142,7 +142,7 @@ public class AbstractThing implements IThing {
 	}
 
 	@SuppressWarnings("unchecked")
-	private @Nullable
+	private final @Nullable
 	<V> V getRaw(IThingKey<V> key) {
 		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
@@ -158,7 +158,7 @@ public class AbstractThing implements IThing {
 	}
 
 	@SuppressWarnings("unchecked")
-	private @Nullable
+	private final @Nullable
 	<V> V setRaw(IThingKey<V> key, @Nullable V value) {
 		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
@@ -208,7 +208,6 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public Set<IThingKey<?>> keySet() {
 		if (Display.getCurrent() == null) {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
