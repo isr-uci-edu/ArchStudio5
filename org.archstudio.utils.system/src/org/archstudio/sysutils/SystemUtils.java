@@ -970,7 +970,7 @@ public class SystemUtils {
 		return diff;
 	}
 
-	public static boolean nullEquals(@Nullable Object o1, @Nullable Object o2) {
+	public static final boolean nullEquals(@Nullable Object o1, @Nullable Object o2) {
 		return o1 == null ? o2 == null : o1.equals(o2);
 	}
 

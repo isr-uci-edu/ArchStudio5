@@ -96,11 +96,8 @@ public class BNAUtils {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <T> T castOrNull(IThing thing, Class<T> thingClass) {
-		if (thingClass.isInstance(thing)) {
-			return (T) thing;
-		}
-		return null;
+	public static final <T> T castOrNull(IThing thing, Class<T> thingClass) {
+		return thingClass.isInstance(thing) ? (T) thing : null;
 	}
 
 	public static final Rectangle NONEXISTENT_RECTANGLE = new Rectangle(Integer.MIN_VALUE, Integer.MIN_VALUE, 0, 0);
