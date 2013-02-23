@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.media.opengl.GL;
@@ -73,16 +74,21 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.primitives.Floats;
+import com.google.common.util.concurrent.CycleDetectingLockFactory;
 
 public class BNAUtils {
 
+	public static CycleDetectingLockFactory LOCK_FACTORY = CycleDetectingLockFactory
+			.newInstance(CycleDetectingLockFactory.Policies.DISABLED);
+
 	private static final boolean DEBUG = false;
 
+	private static final AtomicInteger keyUID = new AtomicInteger();
 	private static final LoadingCache<Object, Integer> keyUIDs = CacheBuilder.newBuilder().build(
 			new CacheLoader<Object, Integer>() {
 				@Override
 				public Integer load(Object key) throws Exception {
-					return (int) keyUIDs.size();
+					return (int) keyUID.getAndIncrement();
 				};
 			});
 
