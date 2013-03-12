@@ -6,7 +6,7 @@ Bundle-Version: 2.0.0.qualifier
 Bundle-ClassPath: .,
  lib/gluegen-rt.jar,
  lib/gluegen.jar,
- lib/jogl.all.jar
+ lib/jogl-all.jar
 Bundle-Activator: org.jogamp.jogl.Activator
 Bundle-Vendor: archstudio.org
 Export-Package: com.jogamp.common,
@@ -48,6 +48,7 @@ Export-Package: com.jogamp.common,
  com.jogamp.newt.event,
  com.jogamp.newt.event.awt,
  com.jogamp.newt.opengl,
+ com.jogamp.newt.swt,
  com.jogamp.newt.util,
  com.jogamp.opengl,
  com.jogamp.opengl.swt,
@@ -75,7 +76,6 @@ Export-Package: com.jogamp.common,
  jogamp.common.awt,
  jogamp.common.jvm,
  jogamp.common.os,
- jogamp.common.os.android,
  jogamp.common.util.locks,
  jogamp.graph.curve.opengl,
  jogamp.graph.curve.opengl.shader,
@@ -106,6 +106,8 @@ Export-Package: com.jogamp.common,
  jogamp.newt.awt.event,
  jogamp.newt.driver,
  jogamp.newt.driver.awt,
+ jogamp.newt.driver.bcm.vc.iv,
+ jogamp.newt.driver.linux,
  jogamp.newt.driver.macosx,
  jogamp.newt.driver.windows,
  jogamp.newt.driver.x11,
@@ -137,7 +139,8 @@ Export-Package: com.jogamp.common,
  jogamp.opengl.windows.wgl,
  jogamp.opengl.windows.wgl.awt,
  jogamp.opengl.x11.glx,
- net.highteq.nativetaglet
+ net.highteq.nativetaglet,
+ org.jogamp.jogl
 Require-Bundle: org.eclipse.osgi
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

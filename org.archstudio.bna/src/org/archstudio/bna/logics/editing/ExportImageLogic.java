@@ -33,6 +33,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 
+@SuppressWarnings("deprecation")
 public class ExportImageLogic extends AbstractThingLogic implements IBNAMenuListener {
 
 	@Override

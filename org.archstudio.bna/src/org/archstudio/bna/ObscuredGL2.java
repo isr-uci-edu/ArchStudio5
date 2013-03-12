@@ -2052,11 +2052,6 @@ public class ObscuredGL2 implements GL2 {
 	}
 
 	@Override
-	public void glFeedbackBuffer(int arg0, int arg1, float[] arg2, int arg3) {
-		gl2.glFeedbackBuffer(arg0, arg1, arg2, arg3);
-	}
-
-	@Override
 	public void glFeedbackBuffer(int arg0, int arg1, FloatBuffer arg2) {
 		gl2.glFeedbackBuffer(arg0, arg1, arg2);
 	}
@@ -8408,11 +8403,6 @@ public class ObscuredGL2 implements GL2 {
 	}
 
 	@Override
-	public void glSelectBuffer(int arg0, int[] arg1, int arg2) {
-		gl2.glSelectBuffer(arg0, arg1, arg2);
-	}
-
-	@Override
 	public void glSelectBuffer(int arg0, IntBuffer arg1) {
 		gl2.glSelectBuffer(arg0, arg1);
 	}
@@ -12081,6 +12071,51 @@ public class ObscuredGL2 implements GL2 {
 	@Override
 	public void setSwapInterval(int arg0) {
 		gl2.setSwapInterval(arg0);
+	}
+
+	@Override
+	public int getBoundFramebuffer(int target) {
+		return gl2.getBoundFramebuffer(target);
+	}
+
+	@Override
+	public int getDefaultDrawFramebuffer() {
+		return gl2.getDefaultDrawFramebuffer();
+	}
+
+	@Override
+	public int getDefaultReadFramebuffer() {
+		return gl2.getDefaultReadFramebuffer();
+	}
+
+	@Override
+	public int getMaxRenderbufferSamples() {
+		return gl2.getMaxRenderbufferSamples();
+	}
+
+	@Override
+	public void glVertexAttribIPointer(int index, int size, int type, int stride, long pointer_buffer_offset) {
+		gl2.glVertexAttribIPointer(index, size, type, stride, pointer_buffer_offset);
+	}
+
+	@Override
+	public void glVertexAttribLPointer(int index, int size, int type, int stride, long pointer_buffer_offset) {
+		gl2.glVertexAttribLPointer(index, size, type, stride, pointer_buffer_offset);
+	}
+
+	@Override
+	public boolean hasBasicFBOSupport() {
+		return gl2.hasBasicFBOSupport();
+	}
+
+	@Override
+	public boolean hasFullFBOSupport() {
+		return gl2.hasFullFBOSupport();
+	}
+
+	@Override
+	public boolean isTextureFormatBGRA8888Available() {
+		return gl2.isTextureFormatBGRA8888Available();
 	}
 
 }
