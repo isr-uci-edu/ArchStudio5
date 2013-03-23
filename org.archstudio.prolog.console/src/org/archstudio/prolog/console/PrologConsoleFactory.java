@@ -153,6 +153,7 @@ public class PrologConsoleFactory implements IConsoleFactory {
 				}
 			}
 		});
+		t.setName("Prolog Console");
 		t.setDaemon(true);
 		t.start();
 	}
