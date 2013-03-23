@@ -64,7 +64,7 @@ public class AIMLauncherOutlinePage extends AbstractArchStudioOutlinePage {
 	}
 
 	@Override
-	public void focusEditor(String editorName, ObjRef[] refs) {
+	public void focusEditor(ObjRef[] refs) {
 		if (refs.length > 0) {
 			ObjRef ref = refs[0];
 			ref = normalize(ref);

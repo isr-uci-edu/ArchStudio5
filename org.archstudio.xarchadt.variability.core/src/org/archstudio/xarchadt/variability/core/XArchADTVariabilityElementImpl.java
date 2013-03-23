@@ -29,6 +29,12 @@ public class XArchADTVariabilityElementImpl implements IXArchADT {
 	}
 
 	@Override
+	@Nullable
+	public ObjRef lookupObjRefUID(long uid) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public boolean isValidObjRef(ObjRef ref) {
 		throw new UnsupportedOperationException();
 	}

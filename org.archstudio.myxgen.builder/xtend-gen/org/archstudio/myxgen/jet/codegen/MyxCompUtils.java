@@ -102,7 +102,7 @@ public class MyxCompUtils {
             _builder.newLine();
             _builder.append(" ");
             _builder.append("*/");
-            sb.append(_builder.toString());
+            sb.append(_builder);
             int _flags_2 = m.getFlags();
             String _string = Flags.toString(_flags_2);
             String _plus_2 = (_string + " ");
@@ -121,7 +121,7 @@ public class MyxCompUtils {
             while (_while) {
               {
                 String[] _parameterNames = m.getParameterNames();
-                final String name = ((List<String>)Conversions.doWrapArray(_parameterNames)).get(i);
+                final String name = _parameterNames[i];
                 final String type = MyxCompUtils.toType(cuType, m, i);
                 boolean _greaterThan = (i > 0);
                 if (_greaterThan) {
@@ -154,9 +154,9 @@ public class MyxCompUtils {
         if (_t instanceof Exception) {
           final Exception e = (Exception)_t;
           Bundle _bundle = Platform.getBundle(bundleProjectId);
-          final Class parent = _bundle.loadClass(fullClassName);
+          final Class<?> parent = _bundle.loadClass(fullClassName);
           Constructor<? extends Object>[] _declaredConstructors = parent.getDeclaredConstructors();
-          for (final Constructor c : _declaredConstructors) {
+          for (final Constructor<?> c : _declaredConstructors) {
             boolean _or_1 = false;
             int _modifiers = c.getModifiers();
             boolean _isPublic_1 = Modifier.isPublic(_modifiers);
@@ -179,7 +179,7 @@ public class MyxCompUtils {
               _builder_1.newLine();
               _builder_1.append(" ");
               _builder_1.append("*/");
-              sb.append(_builder_1.toString());
+              sb.append(_builder_1);
               int _modifiers_2 = c.getModifiers();
               String _string_1 = Modifier.toString(_modifiers_2);
               String _plus_8 = (_string_1 + " ");
@@ -232,7 +232,7 @@ public class MyxCompUtils {
           throw Exceptions.sneakyThrow(_t);
         }
       }
-    } catch (Exception _e) {
+    } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
@@ -240,39 +240,39 @@ public class MyxCompUtils {
   private static String toType(final IType t, final IMethod m, final int i) {
     try {
       String[] _parameterTypes = m.getParameterTypes();
-      String _get = ((List<String>)Conversions.doWrapArray(_parameterTypes)).get(i);
+      String _get = _parameterTypes[i];
       final String type = Signature.toString(_get);
       final String[][] resolved = t.resolveType(type);
       boolean _equals = Objects.equal(resolved, null);
       if (_equals) {
         return type;
       }
-      String[] _get_1 = ((List<String[]>)Conversions.doWrapArray(resolved)).get(0);
-      String _get_2 = ((List<String>)Conversions.doWrapArray(_get_1)).get(0);
+      String[] _get_1 = resolved[0];
+      String _get_2 = _get_1[0];
       boolean _equals_1 = "".equals(_get_2);
       if (_equals_1) {
         return type;
       }
-      String[] _get_3 = ((List<String[]>)Conversions.doWrapArray(resolved)).get(0);
-      String _get_4 = ((List<String>)Conversions.doWrapArray(_get_3)).get(0);
+      String[] _get_3 = resolved[0];
+      String _get_4 = _get_3[0];
       String _plus = (_get_4 + ".");
-      String[] _get_5 = ((List<String[]>)Conversions.doWrapArray(resolved)).get(0);
-      String _get_6 = ((List<String>)Conversions.doWrapArray(_get_5)).get(1);
+      String[] _get_5 = resolved[0];
+      String _get_6 = _get_5[1];
       final String c = (_plus + _get_6);
       return c;
-    } catch (Exception _e) {
+    } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
   
-  private static String toType(final Constructor c, final int i) {
+  private static String toType(final Constructor<? extends Object> c, final int i) {
     Class<? extends Object>[] _parameterTypes = c.getParameterTypes();
-    Class<? extends Object> _get = ((List<Class<? extends Object>>)Conversions.doWrapArray(_parameterTypes)).get(i);
+    Class<? extends Object> _get = _parameterTypes[i];
     final String t = MyxCompUtils.toType(_get);
     return t;
   }
   
-  private static String toType(final Class c) {
+  private static String toType(final Class<? extends Object> c) {
     boolean _isArray = c.isArray();
     if (_isArray) {
       Class<? extends Object> _componentType = c.getComponentType();

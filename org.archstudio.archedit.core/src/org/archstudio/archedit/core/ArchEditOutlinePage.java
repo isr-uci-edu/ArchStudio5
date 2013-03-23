@@ -865,7 +865,7 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 	}
 
 	@Override
-	public void focusEditor(String editorName, ObjRef[] refs) {
+	public void focusEditor(ObjRef[] refs) {
 		if (refs.length > 0) {
 			List<ArchEditElementNode> nodes = new ArrayList<ArchEditElementNode>(refs.length);
 			for (ObjRef ref : refs) {

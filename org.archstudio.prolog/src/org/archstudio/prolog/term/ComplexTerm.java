@@ -1,24 +1,43 @@
 package org.archstudio.prolog.term;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import org.archstudio.prolog.engine.ProofContext;
+import org.archstudio.prolog.engine.Signature;
+import org.archstudio.prolog.engine.UnificationContext;
+import org.archstudio.prolog.engine.UnificationEngine;
+import org.archstudio.prolog.op.Operation;
+import org.archstudio.prolog.op.iso.Neck;
 
 import com.google.common.base.Joiner;
+import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Lists;
 
-public class ComplexTerm implements Term {
+public class ComplexTerm implements Term, Operation {
+
+	private static void checkNotContainsNull(Iterable<?> i) {
+		for (Object j : i) {
+			checkNotNull(j);
+		}
+	}
 
 	private final String functor;
 	private final List<? extends Term> terms;
 
 	public ComplexTerm(String functor, List<? extends Term> terms) {
-		this.functor = functor;
-		this.terms = terms;
+		this.functor = checkNotNull(functor);
+		this.terms = checkNotNull(terms);
+		checkNotContainsNull(terms);
 	}
 
 	public ComplexTerm(String functor, Term... terms) {
-		this.functor = functor;
-		this.terms = Arrays.asList(terms);
+		this(functor, Arrays.asList(terms));
 	}
 
 	public int getArity() {
@@ -29,11 +48,15 @@ public class ComplexTerm implements Term {
 		return functor;
 	}
 
+	public int getTermsSize() {
+		return terms.size();
+	}
+
 	public Term getTerm(int index) {
 		return terms.get(index);
 	}
 
-	public List<? extends Term> getTerms() {
+	public List<Term> getTerms() {
 		return Lists.newArrayList(terms);
 	}
 
@@ -103,5 +126,49 @@ public class ComplexTerm implements Term {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public Iterable<Map<VariableTerm, Term>> execute(final ProofContext proofContext,
+			final UnificationEngine unificationEngine, final Term source, final Map<VariableTerm, Term> variables) {
+
+		return new Iterable<Map<VariableTerm, Term>>() {
+
+			@Override
+			public Iterator<Map<VariableTerm, Term>> iterator() {
+				return new AbstractIterator<Map<VariableTerm, Term>>() {
+
+					List<ComplexTerm> kbTerms = proofContext.getKnowledgeBaseTerms(ComplexTerm.this, variables);
+					int kbIndex = 0;
+					Iterator<Map<VariableTerm, Term>> variablesIterator = Collections
+							.<Map<VariableTerm, Term>> emptyList().iterator();
+
+					@Override
+					protected Map<VariableTerm, Term> computeNext() {
+						while (true) {
+							if (variablesIterator.hasNext()) {
+								return variablesIterator.next();
+							}
+							if (kbIndex < kbTerms.size()) {
+								ComplexTerm kbTerm = kbTerms.get(kbIndex++);
+								if (kbTerm instanceof Neck) {
+									variablesIterator = ((Neck) kbTerm).execute(proofContext, unificationEngine,
+											ComplexTerm.this, variables).iterator();
+									continue;
+								}
+								else {
+									UnificationContext context = new UnificationContext(ComplexTerm.this, kbTerm,
+											variables);
+									if (unificationEngine.unifies(context)) {
+										return context.variables;
+									}
+								}
+							}
+							return endOfData();
+						}
+					}
+				};
+			}
+		};
 	}
 }

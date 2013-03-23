@@ -31,13 +31,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#getOps <em>Ops</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#getExps <em>Exps</em>}</li>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#isComplex <em>Complex</em>}</li>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#getNumber <em>Number</em>}</li>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#getString <em>String</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#isPrefix <em>Prefix</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#getVariable <em>Variable</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#getString <em>String</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#getNumber <em>Number</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#isList <em>List</em>}</li>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#getHead <em>Head</em>}</li>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#getTail <em>Tail</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#getHeads <em>Heads</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl#getTails <em>Tails</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,64 +66,24 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
   protected EList<Expression> exps;
 
   /**
-   * The default value of the '{@link #isComplex() <em>Complex</em>}' attribute.
+   * The default value of the '{@link #isPrefix() <em>Prefix</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isComplex()
+   * @see #isPrefix()
    * @generated
    * @ordered
    */
-  protected static final boolean COMPLEX_EDEFAULT = false;
+  protected static final boolean PREFIX_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isComplex() <em>Complex</em>}' attribute.
+   * The cached value of the '{@link #isPrefix() <em>Prefix</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isComplex()
+   * @see #isPrefix()
    * @generated
    * @ordered
    */
-  protected boolean complex = COMPLEX_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getNumber() <em>Number</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getNumber()
-   * @generated
-   * @ordered
-   */
-  protected static final String NUMBER_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getNumber() <em>Number</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getNumber()
-   * @generated
-   * @ordered
-   */
-  protected String number = NUMBER_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getString() <em>String</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getString()
-   * @generated
-   * @ordered
-   */
-  protected static final String STRING_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getString() <em>String</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getString()
-   * @generated
-   * @ordered
-   */
-  protected String string = STRING_EDEFAULT;
+  protected boolean prefix = PREFIX_EDEFAULT;
 
   /**
    * The default value of the '{@link #getVariable() <em>Variable</em>}' attribute.
@@ -146,6 +106,46 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
   protected String variable = VARIABLE_EDEFAULT;
 
   /**
+   * The default value of the '{@link #getString() <em>String</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getString()
+   * @generated
+   * @ordered
+   */
+  protected static final String STRING_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getString() <em>String</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getString()
+   * @generated
+   * @ordered
+   */
+  protected String string = STRING_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getNumber() <em>Number</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getNumber()
+   * @generated
+   * @ordered
+   */
+  protected static final String NUMBER_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getNumber() <em>Number</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getNumber()
+   * @generated
+   * @ordered
+   */
+  protected String number = NUMBER_EDEFAULT;
+
+  /**
    * The default value of the '{@link #isList() <em>List</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -166,24 +166,24 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
   protected boolean list = LIST_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getHead() <em>Head</em>}' containment reference list.
+   * The cached value of the '{@link #getHeads() <em>Heads</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getHead()
+   * @see #getHeads()
    * @generated
    * @ordered
    */
-  protected EList<Expression> head;
+  protected EList<Expression> heads;
 
   /**
-   * The cached value of the '{@link #getTail() <em>Tail</em>}' containment reference.
+   * The cached value of the '{@link #getTails() <em>Tails</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTail()
+   * @see #getTails()
    * @generated
    * @ordered
    */
-  protected Expression tail;
+  protected EList<Expression> tails;
 
   /**
    * <!-- begin-user-doc -->
@@ -239,9 +239,9 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isComplex()
+  public boolean isPrefix()
   {
-    return complex;
+    return prefix;
   }
 
   /**
@@ -249,58 +249,12 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setComplex(boolean newComplex)
+  public void setPrefix(boolean newPrefix)
   {
-    boolean oldComplex = complex;
-    complex = newComplex;
+    boolean oldPrefix = prefix;
+    prefix = newPrefix;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PrologPackage.EXPRESSION__COMPLEX, oldComplex, complex));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getNumber()
-  {
-    return number;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setNumber(String newNumber)
-  {
-    String oldNumber = number;
-    number = newNumber;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PrologPackage.EXPRESSION__NUMBER, oldNumber, number));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getString()
-  {
-    return string;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setString(String newString)
-  {
-    String oldString = string;
-    string = newString;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PrologPackage.EXPRESSION__STRING, oldString, string));
+      eNotify(new ENotificationImpl(this, Notification.SET, PrologPackage.EXPRESSION__PREFIX, oldPrefix, prefix));
   }
 
   /**
@@ -331,6 +285,52 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getString()
+  {
+    return string;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setString(String newString)
+  {
+    String oldString = string;
+    string = newString;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, PrologPackage.EXPRESSION__STRING, oldString, string));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getNumber()
+  {
+    return number;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setNumber(String newNumber)
+  {
+    String oldNumber = number;
+    number = newNumber;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, PrologPackage.EXPRESSION__NUMBER, oldNumber, number));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public boolean isList()
   {
     return list;
@@ -354,13 +354,13 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Expression> getHead()
+  public EList<Expression> getHeads()
   {
-    if (head == null)
+    if (heads == null)
     {
-      head = new EObjectContainmentEList<Expression>(Expression.class, this, PrologPackage.EXPRESSION__HEAD);
+      heads = new EObjectContainmentEList<Expression>(Expression.class, this, PrologPackage.EXPRESSION__HEADS);
     }
-    return head;
+    return heads;
   }
 
   /**
@@ -368,47 +368,13 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
-  public Expression getTail()
+  public EList<Expression> getTails()
   {
-    return tail;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetTail(Expression newTail, NotificationChain msgs)
-  {
-    Expression oldTail = tail;
-    tail = newTail;
-    if (eNotificationRequired())
+    if (tails == null)
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PrologPackage.EXPRESSION__TAIL, oldTail, newTail);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
+      tails = new EObjectContainmentEList<Expression>(Expression.class, this, PrologPackage.EXPRESSION__TAILS);
     }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTail(Expression newTail)
-  {
-    if (newTail != tail)
-    {
-      NotificationChain msgs = null;
-      if (tail != null)
-        msgs = ((InternalEObject)tail).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PrologPackage.EXPRESSION__TAIL, null, msgs);
-      if (newTail != null)
-        msgs = ((InternalEObject)newTail).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PrologPackage.EXPRESSION__TAIL, null, msgs);
-      msgs = basicSetTail(newTail, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PrologPackage.EXPRESSION__TAIL, newTail, newTail));
+    return tails;
   }
 
   /**
@@ -423,10 +389,10 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
     {
       case PrologPackage.EXPRESSION__EXPS:
         return ((InternalEList<?>)getExps()).basicRemove(otherEnd, msgs);
-      case PrologPackage.EXPRESSION__HEAD:
-        return ((InternalEList<?>)getHead()).basicRemove(otherEnd, msgs);
-      case PrologPackage.EXPRESSION__TAIL:
-        return basicSetTail(null, msgs);
+      case PrologPackage.EXPRESSION__HEADS:
+        return ((InternalEList<?>)getHeads()).basicRemove(otherEnd, msgs);
+      case PrologPackage.EXPRESSION__TAILS:
+        return ((InternalEList<?>)getTails()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -445,20 +411,20 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
         return getOps();
       case PrologPackage.EXPRESSION__EXPS:
         return getExps();
-      case PrologPackage.EXPRESSION__COMPLEX:
-        return isComplex();
-      case PrologPackage.EXPRESSION__NUMBER:
-        return getNumber();
-      case PrologPackage.EXPRESSION__STRING:
-        return getString();
+      case PrologPackage.EXPRESSION__PREFIX:
+        return isPrefix();
       case PrologPackage.EXPRESSION__VARIABLE:
         return getVariable();
+      case PrologPackage.EXPRESSION__STRING:
+        return getString();
+      case PrologPackage.EXPRESSION__NUMBER:
+        return getNumber();
       case PrologPackage.EXPRESSION__LIST:
         return isList();
-      case PrologPackage.EXPRESSION__HEAD:
-        return getHead();
-      case PrologPackage.EXPRESSION__TAIL:
-        return getTail();
+      case PrologPackage.EXPRESSION__HEADS:
+        return getHeads();
+      case PrologPackage.EXPRESSION__TAILS:
+        return getTails();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -482,27 +448,28 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
         getExps().clear();
         getExps().addAll((Collection<? extends Expression>)newValue);
         return;
-      case PrologPackage.EXPRESSION__COMPLEX:
-        setComplex((Boolean)newValue);
-        return;
-      case PrologPackage.EXPRESSION__NUMBER:
-        setNumber((String)newValue);
-        return;
-      case PrologPackage.EXPRESSION__STRING:
-        setString((String)newValue);
+      case PrologPackage.EXPRESSION__PREFIX:
+        setPrefix((Boolean)newValue);
         return;
       case PrologPackage.EXPRESSION__VARIABLE:
         setVariable((String)newValue);
         return;
+      case PrologPackage.EXPRESSION__STRING:
+        setString((String)newValue);
+        return;
+      case PrologPackage.EXPRESSION__NUMBER:
+        setNumber((String)newValue);
+        return;
       case PrologPackage.EXPRESSION__LIST:
         setList((Boolean)newValue);
         return;
-      case PrologPackage.EXPRESSION__HEAD:
-        getHead().clear();
-        getHead().addAll((Collection<? extends Expression>)newValue);
+      case PrologPackage.EXPRESSION__HEADS:
+        getHeads().clear();
+        getHeads().addAll((Collection<? extends Expression>)newValue);
         return;
-      case PrologPackage.EXPRESSION__TAIL:
-        setTail((Expression)newValue);
+      case PrologPackage.EXPRESSION__TAILS:
+        getTails().clear();
+        getTails().addAll((Collection<? extends Expression>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -524,26 +491,26 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
       case PrologPackage.EXPRESSION__EXPS:
         getExps().clear();
         return;
-      case PrologPackage.EXPRESSION__COMPLEX:
-        setComplex(COMPLEX_EDEFAULT);
-        return;
-      case PrologPackage.EXPRESSION__NUMBER:
-        setNumber(NUMBER_EDEFAULT);
-        return;
-      case PrologPackage.EXPRESSION__STRING:
-        setString(STRING_EDEFAULT);
+      case PrologPackage.EXPRESSION__PREFIX:
+        setPrefix(PREFIX_EDEFAULT);
         return;
       case PrologPackage.EXPRESSION__VARIABLE:
         setVariable(VARIABLE_EDEFAULT);
         return;
+      case PrologPackage.EXPRESSION__STRING:
+        setString(STRING_EDEFAULT);
+        return;
+      case PrologPackage.EXPRESSION__NUMBER:
+        setNumber(NUMBER_EDEFAULT);
+        return;
       case PrologPackage.EXPRESSION__LIST:
         setList(LIST_EDEFAULT);
         return;
-      case PrologPackage.EXPRESSION__HEAD:
-        getHead().clear();
+      case PrologPackage.EXPRESSION__HEADS:
+        getHeads().clear();
         return;
-      case PrologPackage.EXPRESSION__TAIL:
-        setTail((Expression)null);
+      case PrologPackage.EXPRESSION__TAILS:
+        getTails().clear();
         return;
     }
     super.eUnset(featureID);
@@ -563,20 +530,20 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
         return ops != null && !ops.isEmpty();
       case PrologPackage.EXPRESSION__EXPS:
         return exps != null && !exps.isEmpty();
-      case PrologPackage.EXPRESSION__COMPLEX:
-        return complex != COMPLEX_EDEFAULT;
-      case PrologPackage.EXPRESSION__NUMBER:
-        return NUMBER_EDEFAULT == null ? number != null : !NUMBER_EDEFAULT.equals(number);
-      case PrologPackage.EXPRESSION__STRING:
-        return STRING_EDEFAULT == null ? string != null : !STRING_EDEFAULT.equals(string);
+      case PrologPackage.EXPRESSION__PREFIX:
+        return prefix != PREFIX_EDEFAULT;
       case PrologPackage.EXPRESSION__VARIABLE:
         return VARIABLE_EDEFAULT == null ? variable != null : !VARIABLE_EDEFAULT.equals(variable);
+      case PrologPackage.EXPRESSION__STRING:
+        return STRING_EDEFAULT == null ? string != null : !STRING_EDEFAULT.equals(string);
+      case PrologPackage.EXPRESSION__NUMBER:
+        return NUMBER_EDEFAULT == null ? number != null : !NUMBER_EDEFAULT.equals(number);
       case PrologPackage.EXPRESSION__LIST:
         return list != LIST_EDEFAULT;
-      case PrologPackage.EXPRESSION__HEAD:
-        return head != null && !head.isEmpty();
-      case PrologPackage.EXPRESSION__TAIL:
-        return tail != null;
+      case PrologPackage.EXPRESSION__HEADS:
+        return heads != null && !heads.isEmpty();
+      case PrologPackage.EXPRESSION__TAILS:
+        return tails != null && !tails.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -594,14 +561,14 @@ public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expr
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (ops: ");
     result.append(ops);
-    result.append(", complex: ");
-    result.append(complex);
-    result.append(", number: ");
-    result.append(number);
-    result.append(", string: ");
-    result.append(string);
+    result.append(", prefix: ");
+    result.append(prefix);
     result.append(", variable: ");
     result.append(variable);
+    result.append(", string: ");
+    result.append(string);
+    result.append(", number: ");
+    result.append(number);
     result.append(", list: ");
     result.append(list);
     result.append(')');

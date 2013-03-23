@@ -2,6 +2,6 @@ package org.archstudio.prolog.engine;
 
 public interface UnificationEngine {
 
-	public boolean unify(UnificationContext context);
+	public boolean unifies(UnificationContext context);
 
 }

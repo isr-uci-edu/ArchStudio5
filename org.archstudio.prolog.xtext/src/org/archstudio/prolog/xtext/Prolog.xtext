@@ -4,66 +4,90 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 generate prolog "http://www.archstudio.org/prolog/xtext/Prolog"
 
 Program:
-	(clauses+=Clause)* (query=Query)?;
-
-Clause:
-	(predicates+=ExpressionINF) (':-' predicates+=ExpressionINF (',' predicates+=ExpressionINF)*)? '.';
-
-Query:
-	'?-' predicates+=ExpressionINF (',' predicates+=ExpressionINF)* '.';
+	(exps+=ExpressionINF '.')+;
 
 ExpressionINF returns Expression:
-	Expression1100;
+	Expression1200;
+
+Expression1200 returns Expression:
+	Expression1200fx (ops+=EXPRESSION_1200 exps+=Expression1200fx)?;
+
+terminal EXPRESSION_1200:
+	'-->' | ':-';
+
+Expression1200fx returns Expression:
+	(ops+=EXPRESSION_1200FX)? exps+=Expression1100;
+
+terminal EXPRESSION_1200FX:
+	'?-';
 
 Expression1100 returns Expression:
-	Expression900 (ops+=EXPRESSION_1100 exps+=Expression900)*;
+	Expression1000 (ops+=EXPRESSION_1100 exps+=Expression1000)*;
 
 terminal EXPRESSION_1100:
-	';';
+	';' | '|';
 
-Expression900 returns Expression:
-	(ops+=EXPRESSION_900)? exps+=Expression700;
+Expression1000 returns Expression:
+	Expression900fx (ops+=EXPRESSION_1000 exps+=Expression900fx)*;
 
-terminal EXPRESSION_900:
+terminal EXPRESSION_1000:
+	',';
+
+Expression900fx returns Expression:
+	(ops+=EXPRESSION_900FX)? exps+=Expression700;
+
+terminal EXPRESSION_900FX:
 	'\\+' | 'not';
 
 Expression700 returns Expression:
-	Expression500 (ops+=EXPRESSION_700 exps+=Expression500)?;
+	Expression600 (ops+=EXPRESSION_700 exps+=Expression600)?;
 
 terminal EXPRESSION_700:
 	'<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\=' | '\\=='
 	| 'is';
 
+Expression600 returns Expression:
+	Expression500 (ops+=EXPRESSION_600 exps+=Expression500)?;
+
+terminal EXPRESSION_600:
+	':';
+
 Expression500 returns Expression:
-	Expression400 (ops+=EXPRESSION_500 exps+=Expression400)*;
+	Expression400 (ops+=EXPRESSION_500 exps+=Expression400)?;
 
 terminal EXPRESSION_500:
 	'+' | '-' | '/\\' | '\\/' | 'xor';
 
 Expression400 returns Expression:
-	Expression200 (ops+=EXPRESSION_400 exps+=Expression200)*;
+	Expression200 (ops+=EXPRESSION_400 exps+=Expression200)?;
 
 terminal EXPRESSION_400:
 	'*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem';
 
 Expression200 returns Expression:
-	Expression0 (ops+=EXPRESSION_200 exps+=Expression0)*;
+	Expression0 (ops+=EXPRESSION_200 exps+=Expression0)?;
 
 terminal EXPRESSION_200:
 	'**' | '^';
 
 Expression0 returns Expression:
-	(ops+=(ATOM | EXPRESSION_1100 | EXPRESSION_900 | EXPRESSION_700 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200)
-	(complex?='(' (exps+=ExpressionINF (',' exps+=ExpressionINF)*)? ')')?)
-	| (number=NUMBER)
-	| (string=STRING)
+	(ops+=('.'
+	| ATOM
+	| EXPRESSION_1200
+	| EXPRESSION_1200FX
+	| EXPRESSION_1100
+	| EXPRESSION_1000
+	| EXPRESSION_900FX
+	| EXPRESSION_700
+	| EXPRESSION_600
+	| EXPRESSION_500
+	| EXPRESSION_400
+	| EXPRESSION_200) (prefix?='(' exps+=ExpressionINF ')')?)
 	| (variable=VARIABLE)
-	| (list?='[' (head+=ExpressionINF (',' head+=ExpressionINF)* ('|' tail=ExpressionINF)?)? ']')
-	| (list?='.' '(' head+=ExpressionINF ',' tail=ExpressionINF ')')
+	| (string=STRING)
+	| (number=NUMBER)
+	| (list?='[' (heads+=ExpressionINF ('|' tails+=ExpressionINF)?)? ']')
 	| '(' exps+=ExpressionINF ')';
-
-terminal NUMBER:
-	'-'? ('0'..'9')+;
 
 terminal ATOM:
 	('a'..'z') ('0'..'9' | 'a'..'z' | 'A'..'Z' | '_')*;
@@ -72,8 +96,14 @@ terminal VARIABLE:
 	('A'..'Z' | '_') ('0'..'9' | 'a'..'z' | 'A'..'Z' | '_')*;
 
 terminal STRING:
-	'\'' ('0'..'9' | 'a'..'z' | 'A'..'Z' | '_' | '+' | '-' | '*' | '/' | '\\' | '^' | '~' | ':' | '.' | '?' |
-	'@' | '#' | '$' | '&' | ' ')* '\'';
+	'\'' ('0'..'9' | 'a'..'z' | 'A'..'Z' | '_' | '+' | '-' | '*' | '/' | '\\' | '^' | '~' | ':' | '.' | '?' | '@' | '#' |
+	'$' | '&' | ' ')* '\'';
+
+terminal DIGIT:
+	('0'..'9');
+
+NUMBER:
+	'-'? DIGIT+ ('.' DIGIT+)? (('e' | 'E') ('+' | '-')? DIGIT+)?;
 
 terminal WHITESPACE:
 	(' ' | '\t' | '\r' | '\n')+;

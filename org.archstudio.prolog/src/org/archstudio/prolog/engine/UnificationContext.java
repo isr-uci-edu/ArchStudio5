@@ -36,11 +36,4 @@ public class UnificationContext {
 		return "Equations: " + equations + ", Varaibles: " + variables;
 	}
 
-	public void reset() {
-		for (Entry<VariableTerm, Term> var : variables.entrySet()) {
-			equations.add(new Equation(var.getKey(), var.getValue()));
-		}
-		variables.clear();
-	}
-
 }

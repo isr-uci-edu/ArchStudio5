@@ -4,12 +4,10 @@ package org.archstudio.prolog.xtext.prolog.impl;
 
 import java.util.Collection;
 
-import org.archstudio.prolog.xtext.prolog.Clause;
+import org.archstudio.prolog.xtext.prolog.Expression;
 import org.archstudio.prolog.xtext.prolog.Program;
 import org.archstudio.prolog.xtext.prolog.PrologPackage;
-import org.archstudio.prolog.xtext.prolog.Query;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -17,7 +15,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -30,8 +27,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ProgramImpl#getClauses <em>Clauses</em>}</li>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ProgramImpl#getQuery <em>Query</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ProgramImpl#getExps <em>Exps</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,24 +36,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
 {
   /**
-   * The cached value of the '{@link #getClauses() <em>Clauses</em>}' containment reference list.
+   * The cached value of the '{@link #getExps() <em>Exps</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getClauses()
+   * @see #getExps()
    * @generated
    * @ordered
    */
-  protected EList<Clause> clauses;
-
-  /**
-   * The cached value of the '{@link #getQuery() <em>Query</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getQuery()
-   * @generated
-   * @ordered
-   */
-  protected Query query;
+  protected EList<Expression> exps;
 
   /**
    * <!-- begin-user-doc -->
@@ -85,61 +71,13 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Clause> getClauses()
+  public EList<Expression> getExps()
   {
-    if (clauses == null)
+    if (exps == null)
     {
-      clauses = new EObjectContainmentEList<Clause>(Clause.class, this, PrologPackage.PROGRAM__CLAUSES);
+      exps = new EObjectContainmentEList<Expression>(Expression.class, this, PrologPackage.PROGRAM__EXPS);
     }
-    return clauses;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Query getQuery()
-  {
-    return query;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetQuery(Query newQuery, NotificationChain msgs)
-  {
-    Query oldQuery = query;
-    query = newQuery;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PrologPackage.PROGRAM__QUERY, oldQuery, newQuery);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setQuery(Query newQuery)
-  {
-    if (newQuery != query)
-    {
-      NotificationChain msgs = null;
-      if (query != null)
-        msgs = ((InternalEObject)query).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PrologPackage.PROGRAM__QUERY, null, msgs);
-      if (newQuery != null)
-        msgs = ((InternalEObject)newQuery).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PrologPackage.PROGRAM__QUERY, null, msgs);
-      msgs = basicSetQuery(newQuery, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PrologPackage.PROGRAM__QUERY, newQuery, newQuery));
+    return exps;
   }
 
   /**
@@ -152,10 +90,8 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
   {
     switch (featureID)
     {
-      case PrologPackage.PROGRAM__CLAUSES:
-        return ((InternalEList<?>)getClauses()).basicRemove(otherEnd, msgs);
-      case PrologPackage.PROGRAM__QUERY:
-        return basicSetQuery(null, msgs);
+      case PrologPackage.PROGRAM__EXPS:
+        return ((InternalEList<?>)getExps()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -170,10 +106,8 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
   {
     switch (featureID)
     {
-      case PrologPackage.PROGRAM__CLAUSES:
-        return getClauses();
-      case PrologPackage.PROGRAM__QUERY:
-        return getQuery();
+      case PrologPackage.PROGRAM__EXPS:
+        return getExps();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -189,12 +123,9 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
   {
     switch (featureID)
     {
-      case PrologPackage.PROGRAM__CLAUSES:
-        getClauses().clear();
-        getClauses().addAll((Collection<? extends Clause>)newValue);
-        return;
-      case PrologPackage.PROGRAM__QUERY:
-        setQuery((Query)newValue);
+      case PrologPackage.PROGRAM__EXPS:
+        getExps().clear();
+        getExps().addAll((Collection<? extends Expression>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -210,11 +141,8 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
   {
     switch (featureID)
     {
-      case PrologPackage.PROGRAM__CLAUSES:
-        getClauses().clear();
-        return;
-      case PrologPackage.PROGRAM__QUERY:
-        setQuery((Query)null);
+      case PrologPackage.PROGRAM__EXPS:
+        getExps().clear();
         return;
     }
     super.eUnset(featureID);
@@ -230,10 +158,8 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
   {
     switch (featureID)
     {
-      case PrologPackage.PROGRAM__CLAUSES:
-        return clauses != null && !clauses.isEmpty();
-      case PrologPackage.PROGRAM__QUERY:
-        return query != null;
+      case PrologPackage.PROGRAM__EXPS:
+        return exps != null && !exps.isEmpty();
     }
     return super.eIsSet(featureID);
   }

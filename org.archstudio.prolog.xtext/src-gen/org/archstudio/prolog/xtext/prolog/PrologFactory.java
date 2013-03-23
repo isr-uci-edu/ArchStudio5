@@ -32,24 +32,6 @@ public interface PrologFactory extends EFactory
   Program createProgram();
 
   /**
-   * Returns a new object of class '<em>Clause</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Clause</em>'.
-   * @generated
-   */
-  Clause createClause();
-
-  /**
-   * Returns a new object of class '<em>Query</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Query</em>'.
-   * @generated
-   */
-  Query createQuery();
-
-  /**
    * Returns a new object of class '<em>Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

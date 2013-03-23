@@ -11,6 +11,7 @@ import org.archstudio.archipelago.core.IArchipelagoTreeDoubleClickHandler;
 import org.archstudio.archipelago.core.IArchipelagoTreePlugin;
 import org.archstudio.filemanager.IFileManagerListener;
 import org.archstudio.myx.fw.Services;
+import org.archstudio.prolog.console.PrologConsoleFactory;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFileListener;
@@ -65,8 +66,9 @@ public class ArchipelagoTreePlugin implements IArchipelagoTreePlugin {
 
 							@Override
 							public void run() {
-								process(XArchADTProxy.<EObject> proxy(services.get(IXArchADT.class),
-										(ObjRef) selectedNode));
+								ProofContext proofContext = process(XArchADTProxy.<EObject> proxy(
+										services.get(IXArchADT.class), (ObjRef) selectedNode));
+								PrologConsoleFactory.openConsole(proofContext);
 							}
 						};
 						m.add(newStructureAction);
@@ -110,7 +112,8 @@ public class ArchipelagoTreePlugin implements IArchipelagoTreePlugin {
 		return null;
 	}
 
-	public void process(final EObject eObject) {
+	public ProofContext process(final EObject eObject) {
+		final ProofContext[] proofContextResult = new ProofContext[1];
 		try {
 			PlatformUI.getWorkbench().getProgressService().run(true, true, new IRunnableWithProgress() {
 
@@ -120,6 +123,7 @@ public class ArchipelagoTreePlugin implements IArchipelagoTreePlugin {
 					try {
 						ProofContext proofContext = new ProofContext();
 						proofContext.add(PrologUtils.getFacts(proofContext, subMonitor.newChild(1), eObject));
+						proofContextResult[0] = proofContext;
 					}
 					catch (Throwable t) {
 						throw new InvocationTargetException(t);
@@ -127,11 +131,13 @@ public class ArchipelagoTreePlugin implements IArchipelagoTreePlugin {
 				}
 			});
 		}
-		catch (InvocationTargetException e) {
+		catch (Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
+		if (proofContextResult[0] == null) {
+			throw new NullPointerException();
 		}
+		return proofContextResult[0];
 	}
 }

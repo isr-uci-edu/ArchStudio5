@@ -241,22 +241,22 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 	}
 
 	public void clearEditor() {
-//		IWorkbenchPartSite site = getSite();
-//		if (site != null) {
-//			site.getShell().getDisplay().syncExec(new Runnable() {
-//
-//				@Override
-//				public void run() {
-					if (parent.isDisposed()) {
-						return;
-					}
-					Control[] children = parent.getChildren();
-					for (int i = children.length - 1; i >= 0; i--) {
-						children[i].dispose();
-					}
-//				}
-//			});
-//		}
+		//		IWorkbenchPartSite site = getSite();
+		//		if (site != null) {
+		//			site.getShell().getDisplay().syncExec(new Runnable() {
+		//
+		//				@Override
+		//				public void run() {
+		if (parent.isDisposed()) {
+			return;
+		}
+		Control[] children = parent.getChildren();
+		for (int i = children.length - 1; i >= 0; i--) {
+			children[i].dispose();
+		}
+		//				}
+		//			});
+		//		}
 	}
 
 	public void updateOutlinePage() {
@@ -268,42 +268,43 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 	public void updateEditor() {
 		clearEditor();
 
-//		getSite().getShell().getDisplay().syncExec(new Runnable() {
-//
-//			@Override
-//			public void run() {
-				ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-				sc.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-				sc.setBackgroundMode(SWT.INHERIT_DEFAULT);
-				sc.setExpandHorizontal(true);
-				sc.getVerticalBar().setIncrement(10);
-				sc.getVerticalBar().setPageIncrement(50);
+		//		getSite().getShell().getDisplay().syncExec(new Runnable() {
+		//
+		//			@Override
+		//			public void run() {
+		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+		sc.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		sc.setBackgroundMode(SWT.INHERIT_DEFAULT);
+		sc.setExpandHorizontal(true);
+		sc.getVerticalBar().setIncrement(10);
+		sc.getVerticalBar().setPageIncrement(50);
 
-				Composite c = new Composite(sc, SWT.NONE);
-				c.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-				sc.setContent(c);
-				c.setBackgroundMode(SWT.INHERIT_DEFAULT);
-				SWTWidgetUtils.makeWheelFriendly(sc, c);
+		Composite c = new Composite(sc, SWT.NONE);
+		c.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		sc.setContent(c);
+		c.setBackgroundMode(SWT.INHERIT_DEFAULT);
+		SWTWidgetUtils.makeWheelFriendly(sc, c);
 
-				GridLayout gridLayout = new GridLayout(1, true);
-				gridLayout.marginTop = 5;
-				gridLayout.marginBottom = 5;
-				gridLayout.marginLeft = 5;
-				gridLayout.marginRight = 5;
-				gridLayout.verticalSpacing = 5;
-				c.setLayout(gridLayout);
+		GridLayout gridLayout = new GridLayout(1, true);
+		gridLayout.marginTop = 5;
+		gridLayout.marginBottom = 5;
+		gridLayout.marginLeft = 5;
+		gridLayout.marginRight = 5;
+		gridLayout.verticalSpacing = 5;
+		c.setLayout(gridLayout);
 
-				if (hasBanner) {
-					Composite header = new Banner(c, icon, editorName, secondaryText, resources
-							.getColor(IResources.COLOR_BANNER_BRIGHT), resources.getColor(IResources.COLOR_BANNER_DARK));
-					header.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL));
-				}
+		if (hasBanner) {
+			Composite header = new Banner(c, icon, editorName, secondaryText,
+					resources.getColor(IResources.COLOR_BANNER_BRIGHT),
+					resources.getColor(IResources.COLOR_BANNER_DARK));
+			header.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL));
+		}
 
-				createEditorContents(c);
-				c.pack();
-				parent.layout(true);
-//			}
-//		});
+		createEditorContents(c);
+		c.pack();
+		parent.layout(true);
+		//			}
+		//		});
 	}
 
 	public abstract void createEditorContents(Composite parent);
@@ -401,6 +402,13 @@ public abstract class AbstractArchStudioEditor<B extends AbstractArchStudioEdito
 			if (outlinePage != null) {
 				outlinePage.focusEditor(editorName, refs);
 			}
+		}
+	}
+
+	@Override
+	public void focusEditor(ObjRef[] refs) {
+		if (outlinePage != null) {
+			outlinePage.focusEditor(editorName, refs);
 		}
 	}
 

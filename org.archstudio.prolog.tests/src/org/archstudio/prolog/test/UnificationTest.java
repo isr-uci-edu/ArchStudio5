@@ -35,7 +35,7 @@ public class UnificationTest {
 
 		UnificationContext context = new UnificationContext(fXX, fYgR);
 
-		Assert.assertTrue(engine.unify(context));
+		Assert.assertTrue(engine.unifies(context));
 
 		Map<VariableTerm, Term> expectedA = Maps.newHashMap();
 		expectedA.put(x, y);

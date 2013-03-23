@@ -79,20 +79,6 @@ public class PrologSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PrologPackage.CLAUSE:
-      {
-        Clause clause = (Clause)theEObject;
-        T result = caseClause(clause);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case PrologPackage.QUERY:
-      {
-        Query query = (Query)theEObject;
-        T result = caseQuery(query);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case PrologPackage.EXPRESSION:
       {
         Expression expression = (Expression)theEObject;
@@ -116,38 +102,6 @@ public class PrologSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseProgram(Program object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Clause</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Clause</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseClause(Clause object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Query</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Query</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseQuery(Query object)
   {
     return null;
   }

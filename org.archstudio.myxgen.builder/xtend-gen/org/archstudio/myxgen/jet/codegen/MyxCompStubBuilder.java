@@ -1164,7 +1164,7 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       _builder.append("}");
       _builder.newLine();
       return _builder.toString();
-    } catch (Exception _e) {
+    } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }

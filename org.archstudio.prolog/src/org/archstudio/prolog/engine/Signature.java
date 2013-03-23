@@ -1,4 +1,4 @@
-package org.archstudio.prolog.term;
+package org.archstudio.prolog.engine;
 
 public class Signature {
 

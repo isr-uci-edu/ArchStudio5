@@ -1,5 +1,7 @@
 package org.archstudio.prolog.term;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class VariableTerm implements Term {
 
 	private static long nextTemp = 0;
@@ -11,7 +13,7 @@ public class VariableTerm implements Term {
 	final String name;
 
 	public VariableTerm(String name) {
-		this.name = name;
+		this.name = checkNotNull(name);
 	}
 
 	@Override

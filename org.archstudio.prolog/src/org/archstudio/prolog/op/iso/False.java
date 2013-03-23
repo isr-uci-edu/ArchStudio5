@@ -2,27 +2,27 @@ package org.archstudio.prolog.op.iso;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.archstudio.prolog.engine.ProofContext;
-import org.archstudio.prolog.engine.ProofEngine;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Operation;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
-public class Var extends ComplexTerm implements Operation {
+public class False extends ComplexTerm implements Operation {
 
-	public Var(String name, List<? extends Term> terms) {
+	public False(String name, List<? extends Term> terms) {
 		super(name, terms);
-		checkArgument(terms.size() == 1);
+		checkArgument(terms.size() == 0);
 	}
 
 	@Override
-	public Map<VariableTerm, Term> execute(ProofEngine proofEngine, ProofContext proofContext,
-			UnificationEngine unificationEngine, Map<VariableTerm, Term> variables) {
-		return getTerm(0) instanceof VariableTerm ? variables : null;
+	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
+			Term source, Map<VariableTerm, Term> variables) {
+		return Collections.emptyList();
 	}
 }

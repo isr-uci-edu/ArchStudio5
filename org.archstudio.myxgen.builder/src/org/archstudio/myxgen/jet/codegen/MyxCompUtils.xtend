@@ -77,8 +77,8 @@ class MyxCompUtils {
 			return sb.toString;
 		} catch (Exception e) {
 			// check for constructors in the class file (from a bundle)
-			val Class parent = Platform::getBundle(bundleProjectId).loadClass(fullClassName);
-			for (Constructor c : parent.declaredConstructors) {
+			val Class<?> parent = Platform::getBundle(bundleProjectId).loadClass(fullClassName);
+			for (Constructor<?> c : parent.declaredConstructors) {
 				if (Modifier::isPublic(c.modifiers) || Modifier::isProtected(c.modifiers)) {
 					sb.append('''
 					/**
@@ -119,12 +119,12 @@ class MyxCompUtils {
 		return c;
 	}
 
-	def private static String toType(Constructor c, int i) {
+	def private static String toType(Constructor<?> c, int i) {
 		val String t = toType(c.parameterTypes.get(i));
 		return t;
 	}
 
-	def private static String toType(Class c) {
+	def private static String toType(Class<?> c) {
 		if (c.array) {
 			return toType(c.componentType) + '[]';
 		}

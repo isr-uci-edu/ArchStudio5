@@ -215,6 +215,7 @@ public abstract class AbstractArchStudioOutlinePage extends ContentOutlinePage i
 	}
 
 	@Override
-	public abstract void focusEditor(String editorName, ObjRef[] refs);
-
+	public void focusEditor(String editorName, ObjRef[] refs) {
+		focusEditor(refs);
+	}
 }

@@ -1,17 +1,20 @@
 package org.archstudio.prolog.test;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import junit.framework.Assert;
 
 import org.archstudio.prolog.engine.ProofContext;
-import org.archstudio.prolog.op.iso.Equals;
-import org.archstudio.prolog.op.iso.NotEquals;
+import org.archstudio.prolog.op.iso.Conjunction;
+import org.archstudio.prolog.op.iso.ListTerm;
+import org.archstudio.prolog.op.iso.Neck;
+import org.archstudio.prolog.op.iso.NotUnifiable;
+import org.archstudio.prolog.op.iso.Unifiable;
 import org.archstudio.prolog.parser.ParseException;
 import org.archstudio.prolog.parser.PrologParser;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
-import org.archstudio.prolog.term.ListTerm;
 import org.archstudio.prolog.term.StringTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
@@ -30,29 +33,21 @@ public class ParseTest {
 	}
 
 	private void assertParse(String expected) throws ParseException {
-		String r = PrologParser.parseTerms(proofContext, expected).get(0).toString();
-		if (!r.endsWith(".")) {
-			r = r + ".";
-		}
+		String r = PrologParser.parseTerms(proofContext, expected).get(0).toString() + ".";
 		Assert.assertEquals(expected, r);
 	}
 
 	private void assertParseContains(Term expectedIncluded, String s) throws ParseException {
 		Term t = PrologParser.parseTerms(proofContext, s).get(0);
-		String r = t.toString();
-		if (!r.endsWith(".")) {
-			r = r + ".";
-		}
-		Assert.assertEquals(s, r);
 		Assert.assertTrue(t.contains(expectedIncluded));
 	}
 
-	private void assertParseEquals(Term expected, String s) throws ParseException {
+	private void assertParse(Term expected, String s) throws ParseException {
 		Term t = PrologParser.parseTerms(proofContext, s).get(0);
 		Assert.assertEquals(expected, t);
 	}
 
-	private void assertParseEquals(String expected, String s) throws ParseException {
+	private void assertParse(String expected, String s) throws ParseException {
 		Term expectedTerm = PrologParser.parseTerms(proofContext, expected).get(0);
 		Term sTerm = PrologParser.parseTerms(proofContext, s).get(0);
 		Assert.assertEquals(expectedTerm, sTerm);
@@ -60,35 +55,60 @@ public class ParseTest {
 
 	@Test
 	public void testRule() throws ParseException {
-		assertParse("k(X) :- f(X), g(X), h(X).");
-		assertParse("key_1(X) :- f2(X), g3_f(X), h_g(X).");
+		VariableTerm X = new VariableTerm("X");
+		assertParse(new Neck(new ComplexTerm("key_1", X), new Conjunction(",", new ComplexTerm("f2", X),
+				new ComplexTerm("g3_f", X), new ComplexTerm("h_g", X))), "key_1(X) :- f2(X), g3_f(X), h_g(X).");
+		assertParse(new Neck(new ComplexTerm("key_1", X), new Conjunction(",", new ComplexTerm("f2", X),
+				new ComplexTerm("g3_f", X), new ComplexTerm("h_g", X))), ":-(key_1(X), ,(f2(X), g3_f(X), h_g(X))).");
 	}
 
 	@Test
 	public void testList() throws ParseException {
+		assertParse("=(.(X,Y),.(1,.(2,.(3,[])))).", "[X|Y]=[1,2,3].");
 		ListTerm l = new ListTerm(new VariableTerm("A"), new ListTerm(new VariableTerm("B"), new ListTerm(
-				new VariableTerm("C"), new ListTerm(null, null))));
-		assertParseEquals(l, "[A, B, C].");
-		assertParseEquals(l, "[A|[B, C]].");
-		assertParseEquals(l, "[A, B|[C]].");
-		assertParseEquals(l, "[A, B, C|[]].");
-		assertParseEquals(l, ".(A, .(B, .(C, []))).");
-		assertParseEquals(l, ".(A, .(B, [C])).");
-		assertParseEquals(l, ".(A, [B, C]).");
+				new VariableTerm("C"), new ListTerm())));
+		assertParse(l, ".(A, .(B, .(C, []))).");
+		assertParse(l, ".(A, .(B, [C])).");
+		assertParse(l, ".(A, [B, C]).");
+		assertParse(l, "[A, B, C].");
+		assertParse(l, "[A|[B, C]].");
+		assertParse(l, "[A, B|[C]].");
+		assertParse(l, "[A, B, C|[]].");
+		ListTerm m = new ListTerm(new ConstantTerm(BigInteger.valueOf(1)), new ListTerm(new ConstantTerm(
+				BigInteger.valueOf(2)), new ListTerm(new ConstantTerm(BigInteger.valueOf(3)), new ListTerm())));
+		assertParse(m, ".(1, .(2, .(3, []))).");
+		assertParse(m, ".(1, .(2, [3])).");
+		assertParse(m, ".(1, [2, 3]).");
+		assertParse(m, "[1, 2, 3].");
+		assertParse(m, "[1|[2, 3]].");
+		assertParse(m, "[1, 2|[3]].");
+		assertParse(m, "[1, 2, 3|[]].");
 	}
 
 	@Test
 	public void testFunctor() throws ParseException {
-		assertParseContains(new ConstantTerm(BigDecimal.valueOf(1)), "f(1).");
-		assertParseContains(new ConstantTerm(BigDecimal.valueOf(1)), "fabc(1).");
+		assertParseContains(new ConstantTerm(BigInteger.valueOf(1)), "f(1).");
+		assertParseContains(new ConstantTerm(BigInteger.valueOf(1)), "fabc(1).");
 	}
 
 	@Test
-	public void testNumeral() throws ParseException {
-		assertParseEquals(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(1))), "f(1).");
-		assertParseEquals(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(-1))), "f(-1).");
-		assertParseEquals(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(123))), "f(123).");
-		assertParseEquals(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(-123))), "f(-123).");
+	public void testInteger() throws ParseException {
+		assertParse(new ComplexTerm("f", new ConstantTerm(BigInteger.valueOf(1))), "f(1).");
+		assertParse(new ComplexTerm("f", new ConstantTerm(BigInteger.valueOf(-1))), "f(-1).");
+		assertParse(new ComplexTerm("f", new ConstantTerm(BigInteger.valueOf(123))), "f(123).");
+		assertParse(new ComplexTerm("f", new ConstantTerm(BigInteger.valueOf(-123))), "f(-123).");
+	}
+
+	@Test
+	public void testFloat() throws ParseException {
+		assertParse(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(1.0))), "f(1.0).");
+		assertParse(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(-1.0))), "f(-1.0).");
+		assertParse(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(123.0))), "f(123.0).");
+		assertParse(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(-123.0))), "f(-123.0).");
+		assertParse(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(1.0e+10))), "f(1.0e+10).");
+		assertParse(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(-1.0e+10))), "f(-1.0e+10).");
+		assertParse(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(1.0e-10))), "f(1.0e-10).");
+		assertParse(new ComplexTerm("f", new ConstantTerm(BigDecimal.valueOf(-1.0e-10))), "f(-1.0e-10).");
 	}
 
 	@Test
@@ -110,18 +130,18 @@ public class ParseTest {
 	}
 
 	@Test
-	public void testEquals() throws ParseException {
-		assertParseEquals(new Equals("==", Lists.newArrayList(new VariableTerm("Xabc"), new VariableTerm("Xbcd"))),
-				"Xabc==Xbcd.");
-		assertParseEquals(new Equals("==", Lists.newArrayList(new VariableTerm("Xabc"), new VariableTerm("Xbcd"))),
-				"==(Xabc,Xbcd).");
+	public void testUnifiable() throws ParseException {
+		assertParse(new Unifiable("=", Lists.newArrayList(new VariableTerm("Xabc"), new VariableTerm("Xbcd"))),
+				"Xabc=Xbcd.");
+		assertParse(new Unifiable("=", Lists.newArrayList(new VariableTerm("Xabc"), new VariableTerm("Xbcd"))),
+				"=(Xabc,Xbcd).");
 	}
 
 	@Test
-	public void testNotEquals() throws ParseException {
-		assertParseEquals(new NotEquals("\\=", Lists.newArrayList(new VariableTerm("Xabc"), new VariableTerm("Xbcd"))),
+	public void testNotUnifiable() throws ParseException {
+		assertParse(new NotUnifiable("\\=", Lists.newArrayList(new VariableTerm("Xabc"), new VariableTerm("Xbcd"))),
 				"Xabc\\=Xbcd.");
-		assertParseEquals(new NotEquals("\\=", Lists.newArrayList(new VariableTerm("Xabc"), new VariableTerm("Xbcd"))),
+		assertParse(new NotUnifiable("\\=", Lists.newArrayList(new VariableTerm("Xabc"), new VariableTerm("Xbcd"))),
 				"\\=(Xabc,Xbcd).");
 	}
 
@@ -131,7 +151,7 @@ public class ParseTest {
 		assertParse("compatible_directions('out','in').");
 		assertParse("compatible_directions('inout','inout').");
 		assertParse("compatible_directions('none','none').");
-		assertParseEquals(
+		assertParse(
 				"test(Id,'Connected interfaces have incompatible directions') :- link(L), id(L,Id), link_point1(L,A), link_point2(L,B), direction(A,Ad), direction(B,Bd), \\+(compatible_directions(Ad,Bd)).",
 				"test(Id,'Connected interfaces have incompatible directions') :- link(L), id(L,Id), link_point1(L,A), link_point2(L,B), direction(A,Ad), direction(B,Bd), \\+ compatible_directions(Ad,Bd).");
 	}

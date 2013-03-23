@@ -65,8 +65,6 @@ public class PrologFactoryImpl extends EFactoryImpl implements PrologFactory
     switch (eClass.getClassifierID())
     {
       case PrologPackage.PROGRAM: return createProgram();
-      case PrologPackage.CLAUSE: return createClause();
-      case PrologPackage.QUERY: return createQuery();
       case PrologPackage.EXPRESSION: return createExpression();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -82,28 +80,6 @@ public class PrologFactoryImpl extends EFactoryImpl implements PrologFactory
   {
     ProgramImpl program = new ProgramImpl();
     return program;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Clause createClause()
-  {
-    ClauseImpl clause = new ClauseImpl();
-    return clause;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Query createQuery()
-  {
-    QueryImpl query = new QueryImpl();
-    return query;
   }
 
   /**

@@ -192,7 +192,7 @@ public class EObjectProxy extends AbstractProxy {
 		public String toString() {
 			Class<?>[] ifaces = getClass().getInterfaces();
 			Arrays.sort(ifaces);
-			return Arrays.asList(ifaces) + " for " + objRef;
+			return objRef.toString();
 		}
 
 		@Override

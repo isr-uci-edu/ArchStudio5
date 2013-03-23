@@ -67,22 +67,13 @@ public interface PrologPackage extends EPackage
   int PROGRAM = 0;
 
   /**
-   * The feature id for the '<em><b>Clauses</b></em>' containment reference list.
+   * The feature id for the '<em><b>Exps</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROGRAM__CLAUSES = 0;
-
-  /**
-   * The feature id for the '<em><b>Query</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROGRAM__QUERY = 1;
+  int PROGRAM__EXPS = 0;
 
   /**
    * The number of structural features of the '<em>Program</em>' class.
@@ -91,63 +82,7 @@ public interface PrologPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROGRAM_FEATURE_COUNT = 2;
-
-  /**
-   * The meta object id for the '{@link org.archstudio.prolog.xtext.prolog.impl.ClauseImpl <em>Clause</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.archstudio.prolog.xtext.prolog.impl.ClauseImpl
-   * @see org.archstudio.prolog.xtext.prolog.impl.PrologPackageImpl#getClause()
-   * @generated
-   */
-  int CLAUSE = 1;
-
-  /**
-   * The feature id for the '<em><b>Predicates</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CLAUSE__PREDICATES = 0;
-
-  /**
-   * The number of structural features of the '<em>Clause</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CLAUSE_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link org.archstudio.prolog.xtext.prolog.impl.QueryImpl <em>Query</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.archstudio.prolog.xtext.prolog.impl.QueryImpl
-   * @see org.archstudio.prolog.xtext.prolog.impl.PrologPackageImpl#getQuery()
-   * @generated
-   */
-  int QUERY = 2;
-
-  /**
-   * The feature id for the '<em><b>Predicates</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int QUERY__PREDICATES = 0;
-
-  /**
-   * The number of structural features of the '<em>Query</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int QUERY_FEATURE_COUNT = 1;
+  int PROGRAM_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl <em>Expression</em>}' class.
@@ -157,7 +92,7 @@ public interface PrologPackage extends EPackage
    * @see org.archstudio.prolog.xtext.prolog.impl.PrologPackageImpl#getExpression()
    * @generated
    */
-  int EXPRESSION = 3;
+  int EXPRESSION = 1;
 
   /**
    * The feature id for the '<em><b>Ops</b></em>' attribute list.
@@ -178,22 +113,22 @@ public interface PrologPackage extends EPackage
   int EXPRESSION__EXPS = 1;
 
   /**
-   * The feature id for the '<em><b>Complex</b></em>' attribute.
+   * The feature id for the '<em><b>Prefix</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXPRESSION__COMPLEX = 2;
+  int EXPRESSION__PREFIX = 2;
 
   /**
-   * The feature id for the '<em><b>Number</b></em>' attribute.
+   * The feature id for the '<em><b>Variable</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXPRESSION__NUMBER = 3;
+  int EXPRESSION__VARIABLE = 3;
 
   /**
    * The feature id for the '<em><b>String</b></em>' attribute.
@@ -205,13 +140,13 @@ public interface PrologPackage extends EPackage
   int EXPRESSION__STRING = 4;
 
   /**
-   * The feature id for the '<em><b>Variable</b></em>' attribute.
+   * The feature id for the '<em><b>Number</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXPRESSION__VARIABLE = 5;
+  int EXPRESSION__NUMBER = 5;
 
   /**
    * The feature id for the '<em><b>List</b></em>' attribute.
@@ -223,22 +158,22 @@ public interface PrologPackage extends EPackage
   int EXPRESSION__LIST = 6;
 
   /**
-   * The feature id for the '<em><b>Head</b></em>' containment reference list.
+   * The feature id for the '<em><b>Heads</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXPRESSION__HEAD = 7;
+  int EXPRESSION__HEADS = 7;
 
   /**
-   * The feature id for the '<em><b>Tail</b></em>' containment reference.
+   * The feature id for the '<em><b>Tails</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXPRESSION__TAIL = 8;
+  int EXPRESSION__TAILS = 8;
 
   /**
    * The number of structural features of the '<em>Expression</em>' class.
@@ -261,68 +196,15 @@ public interface PrologPackage extends EPackage
   EClass getProgram();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.archstudio.prolog.xtext.prolog.Program#getClauses <em>Clauses</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.archstudio.prolog.xtext.prolog.Program#getExps <em>Exps</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Clauses</em>'.
-   * @see org.archstudio.prolog.xtext.prolog.Program#getClauses()
+   * @return the meta object for the containment reference list '<em>Exps</em>'.
+   * @see org.archstudio.prolog.xtext.prolog.Program#getExps()
    * @see #getProgram()
    * @generated
    */
-  EReference getProgram_Clauses();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.archstudio.prolog.xtext.prolog.Program#getQuery <em>Query</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Query</em>'.
-   * @see org.archstudio.prolog.xtext.prolog.Program#getQuery()
-   * @see #getProgram()
-   * @generated
-   */
-  EReference getProgram_Query();
-
-  /**
-   * Returns the meta object for class '{@link org.archstudio.prolog.xtext.prolog.Clause <em>Clause</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Clause</em>'.
-   * @see org.archstudio.prolog.xtext.prolog.Clause
-   * @generated
-   */
-  EClass getClause();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.archstudio.prolog.xtext.prolog.Clause#getPredicates <em>Predicates</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Predicates</em>'.
-   * @see org.archstudio.prolog.xtext.prolog.Clause#getPredicates()
-   * @see #getClause()
-   * @generated
-   */
-  EReference getClause_Predicates();
-
-  /**
-   * Returns the meta object for class '{@link org.archstudio.prolog.xtext.prolog.Query <em>Query</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Query</em>'.
-   * @see org.archstudio.prolog.xtext.prolog.Query
-   * @generated
-   */
-  EClass getQuery();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.archstudio.prolog.xtext.prolog.Query#getPredicates <em>Predicates</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Predicates</em>'.
-   * @see org.archstudio.prolog.xtext.prolog.Query#getPredicates()
-   * @see #getQuery()
-   * @generated
-   */
-  EReference getQuery_Predicates();
+  EReference getProgram_Exps();
 
   /**
    * Returns the meta object for class '{@link org.archstudio.prolog.xtext.prolog.Expression <em>Expression</em>}'.
@@ -357,37 +239,15 @@ public interface PrologPackage extends EPackage
   EReference getExpression_Exps();
 
   /**
-   * Returns the meta object for the attribute '{@link org.archstudio.prolog.xtext.prolog.Expression#isComplex <em>Complex</em>}'.
+   * Returns the meta object for the attribute '{@link org.archstudio.prolog.xtext.prolog.Expression#isPrefix <em>Prefix</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Complex</em>'.
-   * @see org.archstudio.prolog.xtext.prolog.Expression#isComplex()
+   * @return the meta object for the attribute '<em>Prefix</em>'.
+   * @see org.archstudio.prolog.xtext.prolog.Expression#isPrefix()
    * @see #getExpression()
    * @generated
    */
-  EAttribute getExpression_Complex();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.archstudio.prolog.xtext.prolog.Expression#getNumber <em>Number</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Number</em>'.
-   * @see org.archstudio.prolog.xtext.prolog.Expression#getNumber()
-   * @see #getExpression()
-   * @generated
-   */
-  EAttribute getExpression_Number();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.archstudio.prolog.xtext.prolog.Expression#getString <em>String</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>String</em>'.
-   * @see org.archstudio.prolog.xtext.prolog.Expression#getString()
-   * @see #getExpression()
-   * @generated
-   */
-  EAttribute getExpression_String();
+  EAttribute getExpression_Prefix();
 
   /**
    * Returns the meta object for the attribute '{@link org.archstudio.prolog.xtext.prolog.Expression#getVariable <em>Variable</em>}'.
@@ -401,6 +261,28 @@ public interface PrologPackage extends EPackage
   EAttribute getExpression_Variable();
 
   /**
+   * Returns the meta object for the attribute '{@link org.archstudio.prolog.xtext.prolog.Expression#getString <em>String</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>String</em>'.
+   * @see org.archstudio.prolog.xtext.prolog.Expression#getString()
+   * @see #getExpression()
+   * @generated
+   */
+  EAttribute getExpression_String();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.archstudio.prolog.xtext.prolog.Expression#getNumber <em>Number</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Number</em>'.
+   * @see org.archstudio.prolog.xtext.prolog.Expression#getNumber()
+   * @see #getExpression()
+   * @generated
+   */
+  EAttribute getExpression_Number();
+
+  /**
    * Returns the meta object for the attribute '{@link org.archstudio.prolog.xtext.prolog.Expression#isList <em>List</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -412,26 +294,26 @@ public interface PrologPackage extends EPackage
   EAttribute getExpression_List();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.archstudio.prolog.xtext.prolog.Expression#getHead <em>Head</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.archstudio.prolog.xtext.prolog.Expression#getHeads <em>Heads</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Head</em>'.
-   * @see org.archstudio.prolog.xtext.prolog.Expression#getHead()
+   * @return the meta object for the containment reference list '<em>Heads</em>'.
+   * @see org.archstudio.prolog.xtext.prolog.Expression#getHeads()
    * @see #getExpression()
    * @generated
    */
-  EReference getExpression_Head();
+  EReference getExpression_Heads();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.archstudio.prolog.xtext.prolog.Expression#getTail <em>Tail</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.archstudio.prolog.xtext.prolog.Expression#getTails <em>Tails</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Tail</em>'.
-   * @see org.archstudio.prolog.xtext.prolog.Expression#getTail()
+   * @return the meta object for the containment reference list '<em>Tails</em>'.
+   * @see org.archstudio.prolog.xtext.prolog.Expression#getTails()
    * @see #getExpression()
    * @generated
    */
-  EReference getExpression_Tail();
+  EReference getExpression_Tails();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -467,56 +349,12 @@ public interface PrologPackage extends EPackage
     EClass PROGRAM = eINSTANCE.getProgram();
 
     /**
-     * The meta object literal for the '<em><b>Clauses</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Exps</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PROGRAM__CLAUSES = eINSTANCE.getProgram_Clauses();
-
-    /**
-     * The meta object literal for the '<em><b>Query</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PROGRAM__QUERY = eINSTANCE.getProgram_Query();
-
-    /**
-     * The meta object literal for the '{@link org.archstudio.prolog.xtext.prolog.impl.ClauseImpl <em>Clause</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.archstudio.prolog.xtext.prolog.impl.ClauseImpl
-     * @see org.archstudio.prolog.xtext.prolog.impl.PrologPackageImpl#getClause()
-     * @generated
-     */
-    EClass CLAUSE = eINSTANCE.getClause();
-
-    /**
-     * The meta object literal for the '<em><b>Predicates</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CLAUSE__PREDICATES = eINSTANCE.getClause_Predicates();
-
-    /**
-     * The meta object literal for the '{@link org.archstudio.prolog.xtext.prolog.impl.QueryImpl <em>Query</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.archstudio.prolog.xtext.prolog.impl.QueryImpl
-     * @see org.archstudio.prolog.xtext.prolog.impl.PrologPackageImpl#getQuery()
-     * @generated
-     */
-    EClass QUERY = eINSTANCE.getQuery();
-
-    /**
-     * The meta object literal for the '<em><b>Predicates</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference QUERY__PREDICATES = eINSTANCE.getQuery_Predicates();
+    EReference PROGRAM__EXPS = eINSTANCE.getProgram_Exps();
 
     /**
      * The meta object literal for the '{@link org.archstudio.prolog.xtext.prolog.impl.ExpressionImpl <em>Expression</em>}' class.
@@ -545,28 +383,12 @@ public interface PrologPackage extends EPackage
     EReference EXPRESSION__EXPS = eINSTANCE.getExpression_Exps();
 
     /**
-     * The meta object literal for the '<em><b>Complex</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Prefix</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute EXPRESSION__COMPLEX = eINSTANCE.getExpression_Complex();
-
-    /**
-     * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXPRESSION__NUMBER = eINSTANCE.getExpression_Number();
-
-    /**
-     * The meta object literal for the '<em><b>String</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXPRESSION__STRING = eINSTANCE.getExpression_String();
+    EAttribute EXPRESSION__PREFIX = eINSTANCE.getExpression_Prefix();
 
     /**
      * The meta object literal for the '<em><b>Variable</b></em>' attribute feature.
@@ -577,6 +399,22 @@ public interface PrologPackage extends EPackage
     EAttribute EXPRESSION__VARIABLE = eINSTANCE.getExpression_Variable();
 
     /**
+     * The meta object literal for the '<em><b>String</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EXPRESSION__STRING = eINSTANCE.getExpression_String();
+
+    /**
+     * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EXPRESSION__NUMBER = eINSTANCE.getExpression_Number();
+
+    /**
      * The meta object literal for the '<em><b>List</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -585,20 +423,20 @@ public interface PrologPackage extends EPackage
     EAttribute EXPRESSION__LIST = eINSTANCE.getExpression_List();
 
     /**
-     * The meta object literal for the '<em><b>Head</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Heads</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference EXPRESSION__HEAD = eINSTANCE.getExpression_Head();
+    EReference EXPRESSION__HEADS = eINSTANCE.getExpression_Heads();
 
     /**
-     * The meta object literal for the '<em><b>Tail</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Tails</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference EXPRESSION__TAIL = eINSTANCE.getExpression_Tail();
+    EReference EXPRESSION__TAILS = eINSTANCE.getExpression_Tails();
 
   }
 

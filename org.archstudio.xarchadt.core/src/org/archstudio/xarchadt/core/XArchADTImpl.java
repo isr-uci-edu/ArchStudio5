@@ -160,6 +160,23 @@ public class XArchADTImpl implements IXArchADT {
 	private final Lock objRefToEObjectLockRLock = objRefToEObjectLockRWLock.readLock();
 	private final Lock objRefToEObjectLockWLock = objRefToEObjectLockRWLock.writeLock();
 
+	@Override
+	@Nullable
+	public ObjRef lookupObjRefUID(long uid) {
+		objRefToEObjectLockRLock.lock();
+		try {
+			for (ObjRef objRef : objRefToEObject.keySet()) {
+				if (objRef.getUID() == uid) {
+					return objRef;
+				}
+			}
+			return null;
+		}
+		finally {
+			objRefToEObjectLockRLock.unlock();
+		}
+	}
+
 	@Nullable
 	protected ObjRef putNullable(@Nullable EObject eObject) {
 		return eObject != null ? put(eObject) : null;

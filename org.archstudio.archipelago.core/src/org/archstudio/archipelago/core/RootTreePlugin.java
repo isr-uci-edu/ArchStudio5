@@ -13,6 +13,11 @@ public class RootTreePlugin extends AbstractArchipelagoTreePlugin {
 		this.editorFocuser = new IArchipelagoEditorFocuser() {
 
 			@Override
+			public void focusEditor(ObjRef[] refs) {
+				fviewer.setSelection(null);
+			}
+
+			@Override
 			public void focusEditor(String editorName, ObjRef[] refs) {
 				fviewer.setSelection(null);
 			}

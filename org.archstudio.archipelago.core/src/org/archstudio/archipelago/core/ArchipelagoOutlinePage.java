@@ -253,6 +253,16 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 	}
 
 	@Override
+	public void focusEditor(ObjRef[] refs) {
+		for (IArchipelagoTreePlugin treePlugin : treePlugins) {
+			IArchipelagoEditorFocuser editorFocuser = treePlugin.getEditorFocuser();
+			if (editorFocuser != null) {
+				editorFocuser.focusEditor(refs);
+			}
+		}
+	}
+
+	@Override
 	public void focusEditor(String editorName, ObjRef[] refs) {
 		for (IArchipelagoTreePlugin treePlugin : treePlugins) {
 			IArchipelagoEditorFocuser editorFocuser = treePlugin.getEditorFocuser();

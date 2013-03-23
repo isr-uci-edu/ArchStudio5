@@ -4,16 +4,24 @@ import java.util.List;
 import java.util.Map;
 
 import org.archstudio.prolog.op.Operation;
-import org.archstudio.prolog.op.iso.Atom;
-import org.archstudio.prolog.op.iso.Compound;
+import org.archstudio.prolog.op.iso.Conjunction;
+import org.archstudio.prolog.op.iso.Disjunction;
 import org.archstudio.prolog.op.iso.Equals;
-import org.archstudio.prolog.op.iso.Nonvar;
+import org.archstudio.prolog.op.iso.False;
+import org.archstudio.prolog.op.iso.Is;
+import org.archstudio.prolog.op.iso.IsAtom;
+import org.archstudio.prolog.op.iso.IsCompound;
+import org.archstudio.prolog.op.iso.IsFloat;
+import org.archstudio.prolog.op.iso.IsInteger;
+import org.archstudio.prolog.op.iso.IsNonvar;
+import org.archstudio.prolog.op.iso.IsNumber;
+import org.archstudio.prolog.op.iso.IsVar;
+import org.archstudio.prolog.op.iso.Neck;
 import org.archstudio.prolog.op.iso.Not;
-import org.archstudio.prolog.op.iso.NotEquals;
-import org.archstudio.prolog.op.iso.Var;
+import org.archstudio.prolog.op.iso.NotUnifiable;
+import org.archstudio.prolog.op.iso.True;
+import org.archstudio.prolog.op.iso.Unifiable;
 import org.archstudio.prolog.term.ComplexTerm;
-import org.archstudio.prolog.term.Rule;
-import org.archstudio.prolog.term.Signature;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -31,18 +39,25 @@ public class ProofContext implements Cloneable {
 	{
 		// register the ISO operations
 
+		operations.put(",", Conjunction.class);
+		operations.put(";", Disjunction.class);
+		operations.put("|", Disjunction.class);
 		operations.put("==", Equals.class);
-		operations.put("\\=", NotEquals.class);
+		operations.put(":-", Neck.class);
 		operations.put("\\+", Not.class);
+		operations.put("\\=", NotUnifiable.class);
+		operations.put("=", Unifiable.class);
 
-		operations.put("atom", Atom.class);
-		operations.put("compound", Compound.class);
-		operations.put("float", org.archstudio.prolog.op.iso.Float.class);
-		operations.put("integer", org.archstudio.prolog.op.iso.Integer.class);
-		operations.put("nonvar", Nonvar.class);
-		operations.put("not", Not.class); // not ISO
-		operations.put("number", org.archstudio.prolog.op.iso.Number.class);
-		operations.put("var", Var.class);
+		operations.put("atom", IsAtom.class);
+		operations.put("compound", IsCompound.class);
+		operations.put("false", False.class);
+		operations.put("float", IsFloat.class);
+		operations.put("integer", IsInteger.class);
+		operations.put("is", Is.class);
+		operations.put("nonvar", IsNonvar.class);
+		operations.put("number", IsNumber.class);
+		operations.put("true", True.class);
+		operations.put("var", IsVar.class);
 
 		// add additional operations
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
@@ -67,7 +82,7 @@ public class ProofContext implements Cloneable {
 		}
 	}
 	private final ListMultimap<Signature, ComplexTerm> knowledgeBase = ArrayListMultimap.create();
-	private final ListMultimap<Signature, Rule> indexedRules = ArrayListMultimap.create();
+	private final ListMultimap<Signature, Neck> indexedRules = ArrayListMultimap.create();
 	private final Map<Signature, ListMultimap<Object, ComplexTerm>[]> indexedTerms = Maps.newHashMap();
 
 	public ProofContext() {
@@ -89,20 +104,22 @@ public class ProofContext implements Cloneable {
 	@SuppressWarnings("unchecked")
 	public void add(Iterable<ComplexTerm> knowledgeBase) {
 		for (ComplexTerm i : knowledgeBase) {
-			this.knowledgeBase.put(i.getSignature(), i);
-			if (i instanceof Rule) {
-				this.indexedRules.put(i.getSignature(), (Rule) i);
+			ComplexTerm head = i;
+			if (i instanceof Neck) {
+				head = ((Neck) i).getHead();
+				this.indexedRules.put(head.getSignature(), (Neck) i);
 			}
-			ListMultimap<Object, ComplexTerm>[] indexes = indexedTerms.get(i.getSignature());
+			this.knowledgeBase.put(head.getSignature(), i);
+			ListMultimap<Object, ComplexTerm>[] indexes = indexedTerms.get(head.getSignature());
 			if (indexes == null) {
-				indexedTerms.put(i.getSignature(), indexes = new ListMultimap[i.getArity()]);
-				for (int j = 0; j < i.getArity(); j++) {
+				indexedTerms.put(head.getSignature(), indexes = new ListMultimap[head.getArity()]);
+				for (int j = 0; j < head.getArity(); j++) {
 					indexes[j] = ArrayListMultimap.create();
 				}
 			}
-			for (int termIndex = 0; termIndex < i.getArity(); termIndex++) {
+			for (int termIndex = 0; termIndex < head.getArity(); termIndex++) {
 				ListMultimap<Object, ComplexTerm> index = indexes[termIndex];
-				index.put(i.getTerm(termIndex), i);
+				index.put(head.getTerm(termIndex), i);
 			}
 		}
 	}

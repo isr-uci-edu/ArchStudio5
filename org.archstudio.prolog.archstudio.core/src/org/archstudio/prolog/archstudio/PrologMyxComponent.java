@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.archstudio.archlight.ArchlightTest;
+import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.prolog.engine.MostGeneralUnifierEngine;
 import org.archstudio.prolog.engine.ProofContext;
-import org.archstudio.prolog.engine.ProofEngine;
-import org.archstudio.prolog.engine.SingleThreadProofEngine;
 import org.archstudio.prolog.engine.UnificationEngine;
+import org.archstudio.prolog.engine.Utils;
 import org.archstudio.prolog.parser.PrologParser;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
@@ -61,6 +61,7 @@ public class PrologMyxComponent extends org.archstudio.prolog.archstudio.PrologM
 	public void begin() {
 		super.begin();
 		reloadTests();
+		MyxRegistry.getSharedInstance().map(this, xarch);
 	}
 
 	@Override
@@ -99,7 +100,6 @@ public class PrologMyxComponent extends org.archstudio.prolog.archstudio.PrologM
 
 			ProofContext proofContext = new ProofContext();
 			UnificationEngine unifier = new MostGeneralUnifierEngine();
-			ProofEngine proofEngine = new SingleThreadProofEngine();
 			proofContext.add(PrologUtils.getFacts(proofContext, null, XArchADTProxy.proxy(xarch, documentRootRef)));
 
 			URI uri = xarch.getURI(documentRootRef);
@@ -133,7 +133,8 @@ public class PrologMyxComponent extends org.archstudio.prolog.archstudio.PrologM
 						VariableTerm vid = new VariableTerm("ARCHLIGHT_FAILURE_ID");
 						VariableTerm vdesc = new VariableTerm("ARCHLIGHT_FAILURE_DESCRIPTION");
 						ComplexTerm goal = new ComplexTerm(td.goalname, vid, vdesc);
-						for (Map<VariableTerm, Term> variables : proofEngine.execute(context, unifier, goal)) {
+						for (Map<VariableTerm, Term> variables : goal.execute(context, unifier, goal,
+								Utils.emptyVariables())) {
 
 							Term idTerm = variables.get(vid);
 							String id = ((ConstantTerm) idTerm).getValue().toString();

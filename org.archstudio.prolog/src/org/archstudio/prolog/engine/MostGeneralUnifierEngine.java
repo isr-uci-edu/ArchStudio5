@@ -1,5 +1,6 @@
 package org.archstudio.prolog.engine;
 
+import org.archstudio.prolog.op.iso.ListTerm;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
@@ -11,7 +12,7 @@ import org.archstudio.prolog.term.VariableTerm;
 public class MostGeneralUnifierEngine implements UnificationEngine {
 
 	@Override
-	public boolean unify(UnificationContext context) {
+	public boolean unifies(UnificationContext context) {
 		for (int i = 0; i < context.equations.size(); i++) {
 			Equation e = context.equations.get(i);
 			Term f = e.term1;
@@ -58,6 +59,28 @@ public class MostGeneralUnifierEngine implements UnificationEngine {
 					// 4
 					context.equations.add(new Equation(c.getTerm(j), d.getTerm(j)));
 				}
+				continue;
+			}
+			// added
+			if (f instanceof ListTerm) {
+				if (!(g instanceof ListTerm)) {
+					return false;
+				}
+
+				ListTerm c = (ListTerm) f;
+				ListTerm d = (ListTerm) g;
+				if (c.isEmpty()) {
+					if (d.isEmpty()) {
+						continue;
+					}
+					return false;
+				}
+				if (d.isEmpty()) {
+					return false;
+				}
+
+				context.equations.add(new Equation(c.getHead(), d.getHead()));
+				context.equations.add(new Equation(c.getTail(), d.getTail()));
 				continue;
 			}
 			if (g instanceof ComplexTerm && !(f instanceof VariableTerm)) {

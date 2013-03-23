@@ -1,11 +1,25 @@
 package org.archstudio.prolog.term;
 
-public class ConstantTerm implements Term {
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.Map;
+
+import org.archstudio.prolog.op.Function;
+
+public class ConstantTerm implements Term, Function {
 
 	private final Object value;
 
 	public ConstantTerm(Object value) {
-		this.value = value;
+		this.value = checkNotNull(value);
+	}
+
+	@Override
+	public Number evaluate(Map<VariableTerm, Term> variables) {
+		if (value instanceof Number) {
+			return (Number) value;
+		}
+		return null;
 	}
 
 	@Override

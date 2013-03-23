@@ -45,5 +45,14 @@
          </interface>
       </brick>
    </extension>
+   <extension
+         point="org.eclipse.ui.console.consolePatternMatchListeners">
+      <consolePatternMatchListener
+            class="org.archstudio.prolog.archstudio.ObjRefPatternMatchListenerDelegate"
+            id="org.archstudio.prolog.archstudio.core.consolePatternMatchListener1"
+            regex="ObjRef\[[0-9]*\]">
+         <enablement></enablement>
+      </consolePatternMatchListener>
+   </extension>
 
 </plugin>

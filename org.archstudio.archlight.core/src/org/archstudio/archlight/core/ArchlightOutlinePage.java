@@ -310,6 +310,6 @@ public class ArchlightOutlinePage extends AbstractArchStudioOutlinePage {
 	}
 
 	@Override
-	public void focusEditor(String editorName, ObjRef[] refs) {
+	public void focusEditor(ObjRef[] refs) {
 	}
 }

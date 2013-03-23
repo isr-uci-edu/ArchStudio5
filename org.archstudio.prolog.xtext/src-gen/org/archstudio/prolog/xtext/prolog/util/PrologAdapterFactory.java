@@ -80,16 +80,6 @@ public class PrologAdapterFactory extends AdapterFactoryImpl
         return createProgramAdapter();
       }
       @Override
-      public Adapter caseClause(Clause object)
-      {
-        return createClauseAdapter();
-      }
-      @Override
-      public Adapter caseQuery(Query object)
-      {
-        return createQueryAdapter();
-      }
-      @Override
       public Adapter caseExpression(Expression object)
       {
         return createExpressionAdapter();
@@ -127,36 +117,6 @@ public class PrologAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createProgramAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.archstudio.prolog.xtext.prolog.Clause <em>Clause</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.archstudio.prolog.xtext.prolog.Clause
-   * @generated
-   */
-  public Adapter createClauseAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.archstudio.prolog.xtext.prolog.Query <em>Query</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.archstudio.prolog.xtext.prolog.Query
-   * @generated
-   */
-  public Adapter createQueryAdapter()
   {
     return null;
   }

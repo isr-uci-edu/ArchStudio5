@@ -1,4 +1,10 @@
-package org.archstudio.prolog.term;
+package org.archstudio.prolog.op.iso;
+
+import static com.google.common.base.Preconditions.checkArgument;
+
+import java.util.List;
+
+import org.archstudio.prolog.term.Term;
 
 public class ListTerm implements Term {
 
@@ -10,6 +16,15 @@ public class ListTerm implements Term {
 		this.tail = tail;
 	}
 
+	public ListTerm() {
+		this((Term) null, (Term) null);
+	}
+
+	public ListTerm(String functor, List<Term> terms) {
+		this(terms.get(0), terms.get(1));
+		checkArgument(terms.size() == 2);
+	}
+
 	public boolean isEmpty() {
 		return head == null && tail == null;
 	}
@@ -19,10 +34,7 @@ public class ListTerm implements Term {
 		if (isEmpty()) {
 			return false;
 		}
-		if (head.equals(v)) {
-			return true;
-		}
-		return tail.contains(v);
+		return head.equals(v) || head.contains(v) || tail.equals(v) || tail.contains(v);
 	}
 
 	@Override
@@ -36,12 +48,25 @@ public class ListTerm implements Term {
 		return new ListTerm(head, tail.replace(v, t));
 	}
 
+	protected String toListString() {
+		if (isEmpty()) {
+			return "]";
+		}
+		if (tail instanceof ListTerm) {
+			return ", " + head + ((ListTerm) tail).toListString();
+		}
+		return ", " + head + ", " + tail + "]";
+	}
+
 	@Override
 	public String toString() {
 		if (isEmpty()) {
 			return "[]";
 		}
-		return ".(" + head + ", " + tail + ")";
+		if (tail instanceof ListTerm) {
+			return "[" + head + ((ListTerm) tail).toListString();
+		}
+		return "[" + head + ", " + tail + "]";
 	}
 
 	@Override
@@ -82,5 +107,13 @@ public class ListTerm implements Term {
 			return false;
 		}
 		return true;
+	}
+
+	public Term getHead() {
+		return head;
+	}
+
+	public Term getTail() {
+		return tail;
 	}
 }
