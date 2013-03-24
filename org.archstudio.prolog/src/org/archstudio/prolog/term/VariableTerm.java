@@ -16,6 +16,10 @@ public class VariableTerm implements Term {
 		this.name = checkNotNull(name);
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	@Override
 	public boolean contains(Term v) {
 		return this.equals(v);

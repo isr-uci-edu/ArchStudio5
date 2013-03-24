@@ -28,10 +28,12 @@ public class MostGeneralUnifierEngine implements UnificationEngine {
 			// 6
 			if (f instanceof VariableTerm) {
 				VariableTerm v = (VariableTerm) f;
-				context.variables.put(v, g);
-				for (int j = i + 1; j < context.equations.size(); j++) {
-					Equation e2 = context.equations.get(j);
-					context.equations.set(j, new Equation(e2.term1.replace(v, g), e2.term2.replace(v, g)));
+				if (!v.getName().equals("_")) {
+					context.variables.put(v, g);
+					for (int j = i + 1; j < context.equations.size(); j++) {
+						Equation e2 = context.equations.get(j);
+						context.equations.set(j, new Equation(e2.term1.replace(v, g), e2.term2.replace(v, g)));
+					}
 				}
 				continue;
 			}
