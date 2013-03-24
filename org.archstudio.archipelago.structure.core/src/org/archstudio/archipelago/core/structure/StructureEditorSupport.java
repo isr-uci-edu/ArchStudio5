@@ -88,6 +88,22 @@ public class StructureEditorSupport {
 	public static final String EDITING_BNA_COMPOSITE_KEY = "bnaComposite";
 
 	public static void setupEditor(Services services, IXArchADT xarch, ObjRef structureRef) {
+
+		// if the editor is already set up, return
+		{
+			IArchipelagoEditorPane editor = services.get(IArchipelagoEditorPane.class);
+			if (editor != null) {
+				BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(editor);
+				if (bnaCanvas != null) {
+					IBNAModel model = bnaCanvas.getBNAView().getBNAWorld().getBNAModel();
+					EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(model);
+					if (ept.has(IHasObjRef.OBJREF_KEY, structureRef)) {
+						return;
+					}
+				}
+			}
+		}
+
 		ObjRef documentRootRef = xarch.getDocumentRootRef(structureRef);
 
 		final IBNAWorld bnaWorld = setupWorld(services, xarch, documentRootRef, structureRef);
