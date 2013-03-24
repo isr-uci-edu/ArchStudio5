@@ -106,6 +106,7 @@ public class BNASWTEventHandler implements MouseListener, MouseWheelListener, Mo
 		control.removeMouseListener(this);
 		control.removeMouseWheelListener(this);
 		this.mouseEventThread.terminate();
+		this.dropEventThread.terminate();
 	}
 
 	private final Point lastMouseActionPoint = new Point(0, 0);

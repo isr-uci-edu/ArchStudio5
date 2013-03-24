@@ -23,8 +23,9 @@ public abstract class ArchlightMyxComponentStub extends
 	 * 
 	 * @generated
 	 */
-	protected ArchlightMyxComponentStub(java.lang.String arg0, java.lang.String arg1, boolean arg2) {
-		super(arg0, arg1, arg2);
+	protected ArchlightMyxComponentStub(java.lang.String editorName, java.lang.String eclipseEditorID,
+			boolean registerWithEditorManager) {
+		super(editorName, eclipseEditorID, registerWithEditorManager);
 	}
 
 	/**
