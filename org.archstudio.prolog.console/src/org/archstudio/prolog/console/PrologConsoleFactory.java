@@ -1,6 +1,7 @@
 package org.archstudio.prolog.console;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Map;
@@ -146,6 +147,10 @@ public class PrologConsoleFactory implements IConsoleFactory {
 							}
 							continue;
 						}
+					}
+					catch (IOException e) {
+						// console window was closed
+						return;
 					}
 					catch (Exception e) {
 						e.printStackTrace(errpw);
