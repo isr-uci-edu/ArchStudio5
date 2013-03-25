@@ -139,6 +139,15 @@ public class PrologUtils {
 				processEAttribute(facts, sb, indent + 1, name, eObject, feature);
 				featureMonitor.worked(1);
 			}
+			else if (feature instanceof EReference && !((EReference) feature).isContainment()) {
+				processEReference(facts, sb, indent + 1, name, eObject, (EReference) feature);
+
+				if (hasFeatureName) {
+					processEReference(facts, sb, indent + 1, featureName, eObject, (EReference) feature);
+				}
+
+				featureMonitor.worked(1);
+			}
 			else if (feature.isMany()) { // e.g., components, connectors, brick interfaces
 				SubMonitor childMonitor = featureMonitor.newChild(1).setWorkRemaining(
 						((EList<?>) eObject.eGet(feature)).size());
@@ -162,15 +171,6 @@ public class PrologUtils {
 						childMonitor.worked(1);
 					}
 				}
-			}
-			else if (feature instanceof EReference && !((EReference) feature).isContainment()) {
-				processEReference(facts, sb, indent + 1, name, eObject, (EReference) feature);
-
-				if (hasFeatureName) {
-					processEReference(facts, sb, indent + 1, featureName, eObject, (EReference) feature);
-				}
-
-				featureMonitor.worked(1);
 			}
 			else { // Plain children
 				if (hasFeatureName && eObject.eGet(feature) != null) {
@@ -236,14 +236,21 @@ public class PrologUtils {
 		facts.add(formatFact(sb, indent, attributeName, parent, attributeValue));
 	}
 
+	@SuppressWarnings("unchecked")
 	private static void processEReference(List<ComplexTerm> facts, StringBuffer sb, int indent, String parentType,
 			EObject parent, EReference eReference) {
 
 		String refType = eReference.getName();
-		EObject refObj = (EObject) parent.eGet(eReference);
-
-		if (refObj != null) {
-			facts.add(formatFact(sb, indent, parentType, parent, refType, refObj));
+		if (parent.eGet(eReference) instanceof EObject) {
+			EObject refObj = (EObject) parent.eGet(eReference);
+			if (refObj != null) {
+				facts.add(formatFact(sb, indent, parentType, parent, refType, refObj));
+			}
+		}
+		else if (parent.eGet(eReference) instanceof EList) {
+			for (EObject refObj : (EList<EObject>) parent.eGet(eReference)) {
+				facts.add(formatFact(sb, indent, parentType, parent, refType, refObj));
+			}
 		}
 	}
 
