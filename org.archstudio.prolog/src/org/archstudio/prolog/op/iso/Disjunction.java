@@ -1,23 +1,22 @@
 package org.archstudio.prolog.op.iso;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
-import org.archstudio.prolog.op.Operation;
+import org.archstudio.prolog.op.Executable;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
 import com.google.common.collect.AbstractIterator;
 
-public class Disjunction extends ComplexTerm implements Operation {
+public class Disjunction extends ComplexTerm implements Executable {
 
 	public Disjunction(String name, List<? extends Term> terms) {
-		super(name, terms);
+		super(name, -1, terms);
 	}
 
 	@Override
@@ -31,28 +30,26 @@ public class Disjunction extends ComplexTerm implements Operation {
 				return new AbstractIterator<Map<VariableTerm, Term>>() {
 
 					int termsIndex = 0;
-					Iterator<Map<VariableTerm, Term>> variablesIterator = Collections
-							.<Map<VariableTerm, Term>> emptyList().iterator();
+					Iterator<Map<VariableTerm, Term>> variablesIterator = null;
 
 					@Override
 					protected Map<VariableTerm, Term> computeNext() {
 						while (true) {
-							if (variablesIterator.hasNext()) {
+							if (variablesIterator != null && variablesIterator.hasNext()) {
 								return variablesIterator.next();
 							}
-							if (termsIndex == getTermsSize()) {
-								return endOfData();
-							}
-							Term term = getTerm(termsIndex++);
-							if (term instanceof Operation) {
-								variablesIterator = ((Operation) term).execute(proofContext, unificationEngine, term,
-										variables).iterator();
+							if (variablesIterator == null && termsIndex < getTermsSize()) {
+								Term term = getTerm(termsIndex++);
+								variablesIterator = resolveOperation(term, variables).execute(proofContext,
+										unificationEngine, term, variables).iterator();
+								if (!variablesIterator.hasNext()) {
+									variablesIterator = null;
+								}
 								continue;
 							}
-							else {
-								throw new UnsupportedOperationException(term.toString());
-							}
+							break;
 						}
+						return endOfData();
 					}
 				};
 			}

@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import org.archstudio.prolog.engine.MostGeneralUnifierEngine;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
-import org.archstudio.prolog.op.Operation;
+import org.archstudio.prolog.op.Executable;
 import org.archstudio.prolog.op.iso.Neck;
 import org.archstudio.prolog.parser.PrologParser;
 import org.archstudio.prolog.term.ComplexTerm;
@@ -99,25 +99,33 @@ public class PrologConsoleFactory implements IConsoleFactory {
 							}
 
 							for (Term t : PrologParser.parseTerms(proofContext, command)) {
-								if (!(t instanceof Operation)) {
+								if (!(t instanceof Executable)) {
 									errpw.println("Not executable: ?- " + command);
 									continue;
 								}
 								boolean firstResult = true;
-								for (Map<VariableTerm, Term> result : ((Operation) t).execute(proofContext,
+								for (Map<VariableTerm, Term> result : ((Executable) t).execute(proofContext,
 										unificationEngine, t, Maps.<VariableTerm, Term> newHashMap())) {
 									if (!firstResult) {
 										outpw.println(";");
 									}
 									firstResult = false;
-									boolean firstVar = true;
-									for (Entry<VariableTerm, Term> var : SystemUtils.sortedByKey(result.entrySet())) {
-										if (!firstVar) {
-											outpw.println();
-										}
-										firstVar = false;
-										outpw.print(var.getKey() + " = " + var.getValue());
+									if (result.isEmpty()) {
+										outpw.print("true");
 									}
+									else {
+										boolean firstVar = true;
+										for (Entry<VariableTerm, Term> var : SystemUtils.sortedByKey(result.entrySet())) {
+											if (!firstVar) {
+												outpw.println();
+											}
+											firstVar = false;
+											outpw.print(var.getKey() + " = " + var.getValue());
+										}
+									}
+								}
+								if (firstResult) {
+									outpw.print("false");
 								}
 								outpw.println(".");
 								outpw.flush();

@@ -7,7 +7,7 @@ import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
-public interface Operation extends Term {
+public interface Executable extends Term {
 
 	/**
 	 * @return the resulting variables after the operation succeeds.

@@ -1,6 +1,5 @@
 package org.archstudio.prolog.op.iso;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.Map;
 
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
-import org.archstudio.prolog.op.Operation;
+import org.archstudio.prolog.op.Executable;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
@@ -16,14 +15,11 @@ import org.archstudio.prolog.term.VariableTerm;
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Lists;
 
-public class Conjunction extends ComplexTerm implements Operation {
+public class Conjunction extends ComplexTerm implements Executable {
 
 	public Conjunction(String name, List<? extends Term> terms) {
-		super(name, terms);
-	}
+		super(name, -1, terms);
 
-	public Conjunction(String name, Term... terms) {
-		super(name, Arrays.asList(terms));
 	}
 
 	@Override
@@ -49,21 +45,16 @@ public class Conjunction extends ComplexTerm implements Operation {
 							if (variablesIterator.hasNext()) {
 								if (termsIndex < getTermsSize()) {
 									Term term = getTerm(termsIndex++);
-									if (term instanceof Operation) {
-										indexVariables.add(((Operation) term).execute(proofContext, unificationEngine,
-												term, variablesIterator.next()).iterator());
-										continue;
-									}
-									else {
-										throw new UnsupportedOperationException(term.toString());
-									}
+									indexVariables.add(resolveOperation(term, variables).execute(proofContext,
+											unificationEngine, term, variablesIterator.next()).iterator());
+									continue;
 								}
 								else {
 									return variablesIterator.next();
 								}
 							}
 							indexVariables.remove(termsIndex--);
-							if (termsIndex == 0) {
+							if (termsIndex == 0 || getTerm(termsIndex) instanceof Cut) {
 								return endOfData();
 							}
 						}

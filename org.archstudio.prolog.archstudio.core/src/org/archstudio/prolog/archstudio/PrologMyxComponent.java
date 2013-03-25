@@ -1,6 +1,7 @@
 package org.archstudio.prolog.archstudio;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,6 @@ import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.prolog.engine.MostGeneralUnifierEngine;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
-import org.archstudio.prolog.engine.Utils;
 import org.archstudio.prolog.parser.PrologParser;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
@@ -132,9 +132,9 @@ public class PrologMyxComponent extends org.archstudio.prolog.archstudio.PrologM
 						context.add(Iterables.filter(PrologParser.parseTerms(context, td.prolog), ComplexTerm.class));
 						VariableTerm vid = new VariableTerm("ARCHLIGHT_FAILURE_ID");
 						VariableTerm vdesc = new VariableTerm("ARCHLIGHT_FAILURE_DESCRIPTION");
-						ComplexTerm goal = new ComplexTerm(td.goalname, vid, vdesc);
+						ComplexTerm goal = new ComplexTerm(td.goalname, Lists.newArrayList(vid, vdesc));
 						for (Map<VariableTerm, Term> variables : goal.execute(context, unifier, goal,
-								Utils.emptyVariables())) {
+								Collections.<VariableTerm, Term> emptyMap())) {
 
 							Term idTerm = variables.get(vid);
 							String id = ((ConstantTerm) idTerm).getValue().toString();

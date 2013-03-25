@@ -4,9 +4,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Map;
 
-import org.archstudio.prolog.op.Function;
+import org.archstudio.prolog.op.Evaluable;
 
-public class ConstantTerm implements Term, Function {
+public class ConstantTerm extends AbstractTerm implements Term, Evaluable {
 
 	private final Object value;
 

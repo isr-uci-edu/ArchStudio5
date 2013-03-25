@@ -134,19 +134,9 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getExpression_Ops()
-  {
-    return (EAttribute)expressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getExpression_Exps()
   {
-    return (EReference)expressionEClass.getEStructuralFeatures().get(1);
+    return (EReference)expressionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -154,7 +144,17 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getExpression_Prefix()
+  public EAttribute getExpression_Ops()
+  {
+    return (EAttribute)expressionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getExpression_Atom()
   {
     return (EAttribute)expressionEClass.getEStructuralFeatures().get(2);
   }
@@ -164,7 +164,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getExpression_Variable()
+  public EAttribute getExpression_Prefix()
   {
     return (EAttribute)expressionEClass.getEStructuralFeatures().get(3);
   }
@@ -174,9 +174,9 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getExpression_String()
+  public EReference getExpression_Terms()
   {
-    return (EAttribute)expressionEClass.getEStructuralFeatures().get(4);
+    return (EReference)expressionEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -184,7 +184,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getExpression_Number()
+  public EAttribute getExpression_Variable()
   {
     return (EAttribute)expressionEClass.getEStructuralFeatures().get(5);
   }
@@ -194,7 +194,7 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getExpression_List()
+  public EAttribute getExpression_String()
   {
     return (EAttribute)expressionEClass.getEStructuralFeatures().get(6);
   }
@@ -204,9 +204,9 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getExpression_Heads()
+  public EAttribute getExpression_Number()
   {
-    return (EReference)expressionEClass.getEStructuralFeatures().get(7);
+    return (EAttribute)expressionEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -214,9 +214,49 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getExpression_Tails()
+  public EAttribute getExpression_List()
   {
-    return (EReference)expressionEClass.getEStructuralFeatures().get(8);
+    return (EAttribute)expressionEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExpression_Head()
+  {
+    return (EReference)expressionEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExpression_Tail()
+  {
+    return (EReference)expressionEClass.getEStructuralFeatures().get(10);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getExpression_Paren()
+  {
+    return (EAttribute)expressionEClass.getEStructuralFeatures().get(11);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExpression_Sub()
+  {
+    return (EReference)expressionEClass.getEStructuralFeatures().get(12);
   }
 
   /**
@@ -253,15 +293,19 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
     createEReference(programEClass, PROGRAM__EXPS);
 
     expressionEClass = createEClass(EXPRESSION);
-    createEAttribute(expressionEClass, EXPRESSION__OPS);
     createEReference(expressionEClass, EXPRESSION__EXPS);
+    createEAttribute(expressionEClass, EXPRESSION__OPS);
+    createEAttribute(expressionEClass, EXPRESSION__ATOM);
     createEAttribute(expressionEClass, EXPRESSION__PREFIX);
+    createEReference(expressionEClass, EXPRESSION__TERMS);
     createEAttribute(expressionEClass, EXPRESSION__VARIABLE);
     createEAttribute(expressionEClass, EXPRESSION__STRING);
     createEAttribute(expressionEClass, EXPRESSION__NUMBER);
     createEAttribute(expressionEClass, EXPRESSION__LIST);
-    createEReference(expressionEClass, EXPRESSION__HEADS);
-    createEReference(expressionEClass, EXPRESSION__TAILS);
+    createEReference(expressionEClass, EXPRESSION__HEAD);
+    createEReference(expressionEClass, EXPRESSION__TAIL);
+    createEAttribute(expressionEClass, EXPRESSION__PAREN);
+    createEReference(expressionEClass, EXPRESSION__SUB);
   }
 
   /**
@@ -299,15 +343,19 @@ public class PrologPackageImpl extends EPackageImpl implements PrologPackage
     initEReference(getProgram_Exps(), this.getExpression(), null, "exps", null, 0, -1, Program.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getExpression_Ops(), ecorePackage.getEString(), "ops", null, 0, -1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getExpression_Exps(), this.getExpression(), null, "exps", null, 0, -1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getExpression_Ops(), ecorePackage.getEString(), "ops", null, 0, -1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getExpression_Atom(), ecorePackage.getEString(), "atom", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getExpression_Prefix(), ecorePackage.getEBoolean(), "prefix", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExpression_Terms(), this.getExpression(), null, "terms", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getExpression_Variable(), ecorePackage.getEString(), "variable", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getExpression_String(), ecorePackage.getEString(), "string", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getExpression_Number(), ecorePackage.getEString(), "number", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getExpression_List(), ecorePackage.getEBoolean(), "list", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExpression_Heads(), this.getExpression(), null, "heads", null, 0, -1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExpression_Tails(), this.getExpression(), null, "tails", null, 0, -1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExpression_Head(), this.getExpression(), null, "head", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExpression_Tail(), this.getExpression(), null, "tail", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getExpression_Paren(), ecorePackage.getEBoolean(), "paren", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExpression_Sub(), this.getExpression(), null, "sub", null, 0, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

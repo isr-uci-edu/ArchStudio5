@@ -1,30 +1,23 @@
 package org.archstudio.prolog.op.iso;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Executable;
-import org.archstudio.prolog.term.ComplexTerm;
-import org.archstudio.prolog.term.ConstantTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
-public class IsNumber extends ComplexTerm implements Executable {
+public class NotEquals extends Equals implements Executable {
 
-	public IsNumber(String name, List<? extends Term> terms) {
-		super(name, 1, terms);
+	public NotEquals(String name, List<? extends Term> terms) {
+		super(name, terms);
 	}
 
 	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			Term source, Map<VariableTerm, Term> variables) {
-		Term t = resolve(getTerm(0), variables);
-		if (t instanceof ConstantTerm && ((ConstantTerm) t).getValue() instanceof Number) {
-			return Collections.singleton(variables);
-		}
-		return Collections.emptyList();
+		return negate(super.execute(proofContext, unificationEngine, source, variables), variables);
 	}
 }

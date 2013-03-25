@@ -11,15 +11,19 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Program/exps"/>
     </genClasses>
     <genClasses ecoreClass="Prolog.ecore#//Expression">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Expression/ops"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Expression/exps"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Expression/ops"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Expression/atom"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Expression/prefix"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Expression/terms"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Expression/variable"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Expression/string"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Expression/number"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Expression/list"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Expression/heads"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Expression/tails"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Expression/head"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Expression/tail"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Prolog.ecore#//Expression/paren"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Prolog.ecore#//Expression/sub"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

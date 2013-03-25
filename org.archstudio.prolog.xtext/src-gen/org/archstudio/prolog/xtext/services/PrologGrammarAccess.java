@@ -58,7 +58,8 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	public class Expression1200Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression1200");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cExpression1200fxParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cExpsExpression1200fxParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cOpsEXPRESSION_1200TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
@@ -67,14 +68,17 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Expression1200 returns Expression:
 		//
-		//	Expression1200fx (ops+=EXPRESSION_1200 exps+=Expression1200fx)?;
+		//	exps+=Expression1200fx (ops+=EXPRESSION_1200 exps+=Expression1200fx)?;
 		public ParserRule getRule() { return rule; }
 
-		//Expression1200fx (ops+=EXPRESSION_1200 exps+=Expression1200fx)?
+		//exps+=Expression1200fx (ops+=EXPRESSION_1200 exps+=Expression1200fx)?
 		public Group getGroup() { return cGroup; }
 
+		//exps+=Expression1200fx
+		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
+
 		//Expression1200fx
-		public RuleCall getExpression1200fxParserRuleCall_0() { return cExpression1200fxParserRuleCall_0; }
+		public RuleCall getExpsExpression1200fxParserRuleCall_0_0() { return cExpsExpression1200fxParserRuleCall_0_0; }
 
 		//(ops+=EXPRESSION_1200 exps+=Expression1200fx)?
 		public Group getGroup_1() { return cGroup_1; }
@@ -124,25 +128,29 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	public class Expression1100Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression1100");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cExpression1000ParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cExpsExpression1050ParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cOpsEXPRESSION_1100TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
 		private final Assignment cExpsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cExpsExpression1000ParserRuleCall_1_1_0 = (RuleCall)cExpsAssignment_1_1.eContents().get(0);
+		private final RuleCall cExpsExpression1050ParserRuleCall_1_1_0 = (RuleCall)cExpsAssignment_1_1.eContents().get(0);
 		
 		//Expression1100 returns Expression:
 		//
-		//	Expression1000 (ops+=EXPRESSION_1100 exps+=Expression1000)*;
+		//	exps+=Expression1050 (ops+=EXPRESSION_1100 exps+=Expression1050)*;
 		public ParserRule getRule() { return rule; }
 
-		//Expression1000 (ops+=EXPRESSION_1100 exps+=Expression1000)*
+		//exps+=Expression1050 (ops+=EXPRESSION_1100 exps+=Expression1050)*
 		public Group getGroup() { return cGroup; }
 
-		//Expression1000
-		public RuleCall getExpression1000ParserRuleCall_0() { return cExpression1000ParserRuleCall_0; }
+		//exps+=Expression1050
+		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
 
-		//(ops+=EXPRESSION_1100 exps+=Expression1000)*
+		//Expression1050
+		public RuleCall getExpsExpression1050ParserRuleCall_0_0() { return cExpsExpression1050ParserRuleCall_0_0; }
+
+		//(ops+=EXPRESSION_1100 exps+=Expression1050)*
 		public Group getGroup_1() { return cGroup_1; }
 
 		//ops+=EXPRESSION_1100
@@ -150,6 +158,47 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 		//EXPRESSION_1100
 		public RuleCall getOpsEXPRESSION_1100TerminalRuleCall_1_0_0() { return cOpsEXPRESSION_1100TerminalRuleCall_1_0_0; }
+
+		//exps+=Expression1050
+		public Assignment getExpsAssignment_1_1() { return cExpsAssignment_1_1; }
+
+		//Expression1050
+		public RuleCall getExpsExpression1050ParserRuleCall_1_1_0() { return cExpsExpression1050ParserRuleCall_1_1_0; }
+	}
+
+	public class Expression1050Elements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression1050");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cExpsExpression1000ParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
+		private final RuleCall cOpsEXPRESSION_1050TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
+		private final Assignment cExpsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cExpsExpression1000ParserRuleCall_1_1_0 = (RuleCall)cExpsAssignment_1_1.eContents().get(0);
+		
+		//Expression1050 returns Expression:
+		//
+		//	exps+=Expression1000 (ops+=EXPRESSION_1050 exps+=Expression1000)?;
+		public ParserRule getRule() { return rule; }
+
+		//exps+=Expression1000 (ops+=EXPRESSION_1050 exps+=Expression1000)?
+		public Group getGroup() { return cGroup; }
+
+		//exps+=Expression1000
+		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
+
+		//Expression1000
+		public RuleCall getExpsExpression1000ParserRuleCall_0_0() { return cExpsExpression1000ParserRuleCall_0_0; }
+
+		//(ops+=EXPRESSION_1050 exps+=Expression1000)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//ops+=EXPRESSION_1050
+		public Assignment getOpsAssignment_1_0() { return cOpsAssignment_1_0; }
+
+		//EXPRESSION_1050
+		public RuleCall getOpsEXPRESSION_1050TerminalRuleCall_1_0_0() { return cOpsEXPRESSION_1050TerminalRuleCall_1_0_0; }
 
 		//exps+=Expression1000
 		public Assignment getExpsAssignment_1_1() { return cExpsAssignment_1_1; }
@@ -161,7 +210,8 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	public class Expression1000Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression1000");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cExpression900fxParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cExpsExpression900fxParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cOpsEXPRESSION_1000TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
@@ -170,14 +220,17 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Expression1000 returns Expression:
 		//
-		//	Expression900fx (ops+=EXPRESSION_1000 exps+=Expression900fx)*;
+		//	exps+=Expression900fx (ops+=EXPRESSION_1000 exps+=Expression900fx)*;
 		public ParserRule getRule() { return rule; }
 
-		//Expression900fx (ops+=EXPRESSION_1000 exps+=Expression900fx)*
+		//exps+=Expression900fx (ops+=EXPRESSION_1000 exps+=Expression900fx)*
 		public Group getGroup() { return cGroup; }
 
+		//exps+=Expression900fx
+		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
+
 		//Expression900fx
-		public RuleCall getExpression900fxParserRuleCall_0() { return cExpression900fxParserRuleCall_0; }
+		public RuleCall getExpsExpression900fxParserRuleCall_0_0() { return cExpsExpression900fxParserRuleCall_0_0; }
 
 		//(ops+=EXPRESSION_1000 exps+=Expression900fx)*
 		public Group getGroup_1() { return cGroup_1; }
@@ -227,7 +280,8 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	public class Expression700Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression700");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cExpression600ParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cExpsExpression600ParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cOpsEXPRESSION_700TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
@@ -236,14 +290,17 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Expression700 returns Expression:
 		//
-		//	Expression600 (ops+=EXPRESSION_700 exps+=Expression600)?;
+		//	exps+=Expression600 (ops+=EXPRESSION_700 exps+=Expression600)?;
 		public ParserRule getRule() { return rule; }
 
-		//Expression600 (ops+=EXPRESSION_700 exps+=Expression600)?
+		//exps+=Expression600 (ops+=EXPRESSION_700 exps+=Expression600)?
 		public Group getGroup() { return cGroup; }
 
+		//exps+=Expression600
+		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
+
 		//Expression600
-		public RuleCall getExpression600ParserRuleCall_0() { return cExpression600ParserRuleCall_0; }
+		public RuleCall getExpsExpression600ParserRuleCall_0_0() { return cExpsExpression600ParserRuleCall_0_0; }
 
 		//(ops+=EXPRESSION_700 exps+=Expression600)?
 		public Group getGroup_1() { return cGroup_1; }
@@ -264,7 +321,8 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	public class Expression600Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression600");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cExpression500ParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cExpsExpression500ParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cOpsEXPRESSION_600TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
@@ -273,14 +331,17 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Expression600 returns Expression:
 		//
-		//	Expression500 (ops+=EXPRESSION_600 exps+=Expression500)?;
+		//	exps+=Expression500 (ops+=EXPRESSION_600 exps+=Expression500)?;
 		public ParserRule getRule() { return rule; }
 
-		//Expression500 (ops+=EXPRESSION_600 exps+=Expression500)?
+		//exps+=Expression500 (ops+=EXPRESSION_600 exps+=Expression500)?
 		public Group getGroup() { return cGroup; }
 
+		//exps+=Expression500
+		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
+
 		//Expression500
-		public RuleCall getExpression500ParserRuleCall_0() { return cExpression500ParserRuleCall_0; }
+		public RuleCall getExpsExpression500ParserRuleCall_0_0() { return cExpsExpression500ParserRuleCall_0_0; }
 
 		//(ops+=EXPRESSION_600 exps+=Expression500)?
 		public Group getGroup_1() { return cGroup_1; }
@@ -301,7 +362,8 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	public class Expression500Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression500");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cExpression400ParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cExpsExpression400ParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cOpsEXPRESSION_500TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
@@ -310,14 +372,17 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Expression500 returns Expression:
 		//
-		//	Expression400 (ops+=EXPRESSION_500 exps+=Expression400)?;
+		//	exps+=Expression400 (ops+=EXPRESSION_500 exps+=Expression400)?;
 		public ParserRule getRule() { return rule; }
 
-		//Expression400 (ops+=EXPRESSION_500 exps+=Expression400)?
+		//exps+=Expression400 (ops+=EXPRESSION_500 exps+=Expression400)?
 		public Group getGroup() { return cGroup; }
 
+		//exps+=Expression400
+		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
+
 		//Expression400
-		public RuleCall getExpression400ParserRuleCall_0() { return cExpression400ParserRuleCall_0; }
+		public RuleCall getExpsExpression400ParserRuleCall_0_0() { return cExpsExpression400ParserRuleCall_0_0; }
 
 		//(ops+=EXPRESSION_500 exps+=Expression400)?
 		public Group getGroup_1() { return cGroup_1; }
@@ -338,7 +403,8 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	public class Expression400Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression400");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cExpression200ParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cExpsExpression200ParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cOpsEXPRESSION_400TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
@@ -347,14 +413,17 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Expression400 returns Expression:
 		//
-		//	Expression200 (ops+=EXPRESSION_400 exps+=Expression200)?;
+		//	exps+=Expression200 (ops+=EXPRESSION_400 exps+=Expression200)?;
 		public ParserRule getRule() { return rule; }
 
-		//Expression200 (ops+=EXPRESSION_400 exps+=Expression200)?
+		//exps+=Expression200 (ops+=EXPRESSION_400 exps+=Expression200)?
 		public Group getGroup() { return cGroup; }
 
+		//exps+=Expression200
+		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
+
 		//Expression200
-		public RuleCall getExpression200ParserRuleCall_0() { return cExpression200ParserRuleCall_0; }
+		public RuleCall getExpsExpression200ParserRuleCall_0_0() { return cExpsExpression200ParserRuleCall_0_0; }
 
 		//(ops+=EXPRESSION_400 exps+=Expression200)?
 		public Group getGroup_1() { return cGroup_1; }
@@ -375,7 +444,8 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	public class Expression200Elements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression200");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cExpression0ParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Assignment cExpsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cExpsExpression0ParserRuleCall_0_0 = (RuleCall)cExpsAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Assignment cOpsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cOpsEXPRESSION_200TerminalRuleCall_1_0_0 = (RuleCall)cOpsAssignment_1_0.eContents().get(0);
@@ -384,14 +454,17 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Expression200 returns Expression:
 		//
-		//	Expression0 (ops+=EXPRESSION_200 exps+=Expression0)?;
+		//	exps+=Expression0 (ops+=EXPRESSION_200 exps+=Expression0)?;
 		public ParserRule getRule() { return rule; }
 
-		//Expression0 (ops+=EXPRESSION_200 exps+=Expression0)?
+		//exps+=Expression0 (ops+=EXPRESSION_200 exps+=Expression0)?
 		public Group getGroup() { return cGroup; }
 
+		//exps+=Expression0
+		public Assignment getExpsAssignment_0() { return cExpsAssignment_0; }
+
 		//Expression0
-		public RuleCall getExpression0ParserRuleCall_0() { return cExpression0ParserRuleCall_0; }
+		public RuleCall getExpsExpression0ParserRuleCall_0_0() { return cExpsExpression0ParserRuleCall_0_0; }
 
 		//(ops+=EXPRESSION_200 exps+=Expression0)?
 		public Group getGroup_1() { return cGroup_1; }
@@ -413,25 +486,27 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression0");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Assignment cOpsAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final Alternatives cOpsAlternatives_0_0_0 = (Alternatives)cOpsAssignment_0_0.eContents().get(0);
-		private final Keyword cOpsFullStopKeyword_0_0_0_0 = (Keyword)cOpsAlternatives_0_0_0.eContents().get(0);
-		private final RuleCall cOpsATOMTerminalRuleCall_0_0_0_1 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(1);
-		private final RuleCall cOpsEXPRESSION_1200TerminalRuleCall_0_0_0_2 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(2);
-		private final RuleCall cOpsEXPRESSION_1200FXTerminalRuleCall_0_0_0_3 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(3);
-		private final RuleCall cOpsEXPRESSION_1100TerminalRuleCall_0_0_0_4 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(4);
-		private final RuleCall cOpsEXPRESSION_1000TerminalRuleCall_0_0_0_5 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(5);
-		private final RuleCall cOpsEXPRESSION_900FXTerminalRuleCall_0_0_0_6 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(6);
-		private final RuleCall cOpsEXPRESSION_700TerminalRuleCall_0_0_0_7 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(7);
-		private final RuleCall cOpsEXPRESSION_600TerminalRuleCall_0_0_0_8 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(8);
-		private final RuleCall cOpsEXPRESSION_500TerminalRuleCall_0_0_0_9 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(9);
-		private final RuleCall cOpsEXPRESSION_400TerminalRuleCall_0_0_0_10 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(10);
-		private final RuleCall cOpsEXPRESSION_200TerminalRuleCall_0_0_0_11 = (RuleCall)cOpsAlternatives_0_0_0.eContents().get(11);
+		private final Assignment cAtomAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final Alternatives cAtomAlternatives_0_0_0 = (Alternatives)cAtomAssignment_0_0.eContents().get(0);
+		private final Keyword cAtomFullStopKeyword_0_0_0_0 = (Keyword)cAtomAlternatives_0_0_0.eContents().get(0);
+		private final Keyword cAtomExclamationMarkKeyword_0_0_0_1 = (Keyword)cAtomAlternatives_0_0_0.eContents().get(1);
+		private final RuleCall cAtomATOMTerminalRuleCall_0_0_0_2 = (RuleCall)cAtomAlternatives_0_0_0.eContents().get(2);
+		private final RuleCall cAtomEXPRESSION_1200TerminalRuleCall_0_0_0_3 = (RuleCall)cAtomAlternatives_0_0_0.eContents().get(3);
+		private final RuleCall cAtomEXPRESSION_1200FXTerminalRuleCall_0_0_0_4 = (RuleCall)cAtomAlternatives_0_0_0.eContents().get(4);
+		private final RuleCall cAtomEXPRESSION_1100TerminalRuleCall_0_0_0_5 = (RuleCall)cAtomAlternatives_0_0_0.eContents().get(5);
+		private final RuleCall cAtomEXPRESSION_1050TerminalRuleCall_0_0_0_6 = (RuleCall)cAtomAlternatives_0_0_0.eContents().get(6);
+		private final RuleCall cAtomEXPRESSION_1000TerminalRuleCall_0_0_0_7 = (RuleCall)cAtomAlternatives_0_0_0.eContents().get(7);
+		private final RuleCall cAtomEXPRESSION_900FXTerminalRuleCall_0_0_0_8 = (RuleCall)cAtomAlternatives_0_0_0.eContents().get(8);
+		private final RuleCall cAtomEXPRESSION_700TerminalRuleCall_0_0_0_9 = (RuleCall)cAtomAlternatives_0_0_0.eContents().get(9);
+		private final RuleCall cAtomEXPRESSION_600TerminalRuleCall_0_0_0_10 = (RuleCall)cAtomAlternatives_0_0_0.eContents().get(10);
+		private final RuleCall cAtomEXPRESSION_500TerminalRuleCall_0_0_0_11 = (RuleCall)cAtomAlternatives_0_0_0.eContents().get(11);
+		private final RuleCall cAtomEXPRESSION_400TerminalRuleCall_0_0_0_12 = (RuleCall)cAtomAlternatives_0_0_0.eContents().get(12);
+		private final RuleCall cAtomEXPRESSION_200TerminalRuleCall_0_0_0_13 = (RuleCall)cAtomAlternatives_0_0_0.eContents().get(13);
 		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
 		private final Assignment cPrefixAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
 		private final Keyword cPrefixLeftParenthesisKeyword_0_1_0_0 = (Keyword)cPrefixAssignment_0_1_0.eContents().get(0);
-		private final Assignment cExpsAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
-		private final RuleCall cExpsExpressionINFParserRuleCall_0_1_1_0 = (RuleCall)cExpsAssignment_0_1_1.eContents().get(0);
+		private final Assignment cTermsAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
+		private final RuleCall cTermsExpressionINFParserRuleCall_0_1_1_0 = (RuleCall)cTermsAssignment_0_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
 		private final Assignment cVariableAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final RuleCall cVariableVARIABLETerminalRuleCall_1_0 = (RuleCall)cVariableAssignment_1.eContents().get(0);
@@ -443,93 +518,100 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cListAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
 		private final Keyword cListLeftSquareBracketKeyword_4_0_0 = (Keyword)cListAssignment_4_0.eContents().get(0);
 		private final Group cGroup_4_1 = (Group)cGroup_4.eContents().get(1);
-		private final Assignment cHeadsAssignment_4_1_0 = (Assignment)cGroup_4_1.eContents().get(0);
-		private final RuleCall cHeadsExpressionINFParserRuleCall_4_1_0_0 = (RuleCall)cHeadsAssignment_4_1_0.eContents().get(0);
+		private final Assignment cHeadAssignment_4_1_0 = (Assignment)cGroup_4_1.eContents().get(0);
+		private final RuleCall cHeadExpressionINFParserRuleCall_4_1_0_0 = (RuleCall)cHeadAssignment_4_1_0.eContents().get(0);
 		private final Group cGroup_4_1_1 = (Group)cGroup_4_1.eContents().get(1);
 		private final Keyword cVerticalLineKeyword_4_1_1_0 = (Keyword)cGroup_4_1_1.eContents().get(0);
-		private final Assignment cTailsAssignment_4_1_1_1 = (Assignment)cGroup_4_1_1.eContents().get(1);
-		private final RuleCall cTailsExpressionINFParserRuleCall_4_1_1_1_0 = (RuleCall)cTailsAssignment_4_1_1_1.eContents().get(0);
+		private final Assignment cTailAssignment_4_1_1_1 = (Assignment)cGroup_4_1_1.eContents().get(1);
+		private final RuleCall cTailExpressionINFParserRuleCall_4_1_1_1_0 = (RuleCall)cTailAssignment_4_1_1_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
 		private final Group cGroup_5 = (Group)cAlternatives.eContents().get(5);
-		private final Keyword cLeftParenthesisKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cExpsAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cExpsExpressionINFParserRuleCall_5_1_0 = (RuleCall)cExpsAssignment_5_1.eContents().get(0);
+		private final Assignment cParenAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
+		private final Keyword cParenLeftParenthesisKeyword_5_0_0 = (Keyword)cParenAssignment_5_0.eContents().get(0);
+		private final Assignment cSubAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cSubExpressionINFParserRuleCall_5_1_0 = (RuleCall)cSubAssignment_5_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
 		
 		//Expression0 returns Expression:
 		//
-		//	ops+=("." | ATOM | EXPRESSION_1200 | EXPRESSION_1200FX | EXPRESSION_1100 | EXPRESSION_1000 | EXPRESSION_900FX |
+		//	atom=("." | "!" | ATOM | EXPRESSION_1200 | EXPRESSION_1200FX | EXPRESSION_1100 | EXPRESSION_1050 | EXPRESSION_1000 |
 		//
-		//	EXPRESSION_700 | EXPRESSION_600 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200) (prefix?="(" exps+=ExpressionINF
+		//	EXPRESSION_900FX | EXPRESSION_700 | EXPRESSION_600 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200) (prefix?="("
 		//
-		//	")")? | variable=VARIABLE | string=STRING | number=NUMBER | list?="[" (heads+=ExpressionINF ("|"
+		//	terms=ExpressionINF ")")? | variable=VARIABLE | string=STRING | number=NUMBER | list?="[" (head=ExpressionINF ("|"
 		//
-		//	tails+=ExpressionINF)?)? "]" | "(" exps+=ExpressionINF ")";
+		//	tail=ExpressionINF)?)? "]" | paren?="(" sub=ExpressionINF ")";
 		public ParserRule getRule() { return rule; }
 
-		//ops+=("." | ATOM | EXPRESSION_1200 | EXPRESSION_1200FX | EXPRESSION_1100 | EXPRESSION_1000 | EXPRESSION_900FX |
+		//atom=("." | "!" | ATOM | EXPRESSION_1200 | EXPRESSION_1200FX | EXPRESSION_1100 | EXPRESSION_1050 | EXPRESSION_1000 |
 		//
-		//EXPRESSION_700 | EXPRESSION_600 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200) (prefix?="(" exps+=ExpressionINF
+		//EXPRESSION_900FX | EXPRESSION_700 | EXPRESSION_600 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200) (prefix?="("
 		//
-		//")")? | variable=VARIABLE | string=STRING | number=NUMBER | list?="[" (heads+=ExpressionINF ("|"
+		//terms=ExpressionINF ")")? | variable=VARIABLE | string=STRING | number=NUMBER | list?="[" (head=ExpressionINF ("|"
 		//
-		//tails+=ExpressionINF)?)? "]" | "(" exps+=ExpressionINF ")"
+		//tail=ExpressionINF)?)? "]" | paren?="(" sub=ExpressionINF ")"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//ops+=("." | ATOM | EXPRESSION_1200 | EXPRESSION_1200FX | EXPRESSION_1100 | EXPRESSION_1000 | EXPRESSION_900FX |
+		//atom=("." | "!" | ATOM | EXPRESSION_1200 | EXPRESSION_1200FX | EXPRESSION_1100 | EXPRESSION_1050 | EXPRESSION_1000 |
 		//
-		//EXPRESSION_700 | EXPRESSION_600 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200) (prefix?="(" exps+=ExpressionINF
+		//EXPRESSION_900FX | EXPRESSION_700 | EXPRESSION_600 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200) (prefix?="("
 		//
-		//")")?
+		//terms=ExpressionINF ")")?
 		public Group getGroup_0() { return cGroup_0; }
 
-		//ops+=("." | ATOM | EXPRESSION_1200 | EXPRESSION_1200FX | EXPRESSION_1100 | EXPRESSION_1000 | EXPRESSION_900FX |
+		//atom=("." | "!" | ATOM | EXPRESSION_1200 | EXPRESSION_1200FX | EXPRESSION_1100 | EXPRESSION_1050 | EXPRESSION_1000 |
 		//
-		//EXPRESSION_700 | EXPRESSION_600 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200)
-		public Assignment getOpsAssignment_0_0() { return cOpsAssignment_0_0; }
+		//EXPRESSION_900FX | EXPRESSION_700 | EXPRESSION_600 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200)
+		public Assignment getAtomAssignment_0_0() { return cAtomAssignment_0_0; }
 
-		//"." | ATOM | EXPRESSION_1200 | EXPRESSION_1200FX | EXPRESSION_1100 | EXPRESSION_1000 | EXPRESSION_900FX | EXPRESSION_700
+		//"." | "!" | ATOM | EXPRESSION_1200 | EXPRESSION_1200FX | EXPRESSION_1100 | EXPRESSION_1050 | EXPRESSION_1000 |
 		//
-		//| EXPRESSION_600 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200
-		public Alternatives getOpsAlternatives_0_0_0() { return cOpsAlternatives_0_0_0; }
+		//EXPRESSION_900FX | EXPRESSION_700 | EXPRESSION_600 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200
+		public Alternatives getAtomAlternatives_0_0_0() { return cAtomAlternatives_0_0_0; }
 
 		//"."
-		public Keyword getOpsFullStopKeyword_0_0_0_0() { return cOpsFullStopKeyword_0_0_0_0; }
+		public Keyword getAtomFullStopKeyword_0_0_0_0() { return cAtomFullStopKeyword_0_0_0_0; }
+
+		//"!"
+		public Keyword getAtomExclamationMarkKeyword_0_0_0_1() { return cAtomExclamationMarkKeyword_0_0_0_1; }
 
 		//ATOM
-		public RuleCall getOpsATOMTerminalRuleCall_0_0_0_1() { return cOpsATOMTerminalRuleCall_0_0_0_1; }
+		public RuleCall getAtomATOMTerminalRuleCall_0_0_0_2() { return cAtomATOMTerminalRuleCall_0_0_0_2; }
 
 		//EXPRESSION_1200
-		public RuleCall getOpsEXPRESSION_1200TerminalRuleCall_0_0_0_2() { return cOpsEXPRESSION_1200TerminalRuleCall_0_0_0_2; }
+		public RuleCall getAtomEXPRESSION_1200TerminalRuleCall_0_0_0_3() { return cAtomEXPRESSION_1200TerminalRuleCall_0_0_0_3; }
 
 		//EXPRESSION_1200FX
-		public RuleCall getOpsEXPRESSION_1200FXTerminalRuleCall_0_0_0_3() { return cOpsEXPRESSION_1200FXTerminalRuleCall_0_0_0_3; }
+		public RuleCall getAtomEXPRESSION_1200FXTerminalRuleCall_0_0_0_4() { return cAtomEXPRESSION_1200FXTerminalRuleCall_0_0_0_4; }
 
 		//EXPRESSION_1100
-		public RuleCall getOpsEXPRESSION_1100TerminalRuleCall_0_0_0_4() { return cOpsEXPRESSION_1100TerminalRuleCall_0_0_0_4; }
+		public RuleCall getAtomEXPRESSION_1100TerminalRuleCall_0_0_0_5() { return cAtomEXPRESSION_1100TerminalRuleCall_0_0_0_5; }
+
+		//EXPRESSION_1050
+		public RuleCall getAtomEXPRESSION_1050TerminalRuleCall_0_0_0_6() { return cAtomEXPRESSION_1050TerminalRuleCall_0_0_0_6; }
 
 		//EXPRESSION_1000
-		public RuleCall getOpsEXPRESSION_1000TerminalRuleCall_0_0_0_5() { return cOpsEXPRESSION_1000TerminalRuleCall_0_0_0_5; }
+		public RuleCall getAtomEXPRESSION_1000TerminalRuleCall_0_0_0_7() { return cAtomEXPRESSION_1000TerminalRuleCall_0_0_0_7; }
 
 		//EXPRESSION_900FX
-		public RuleCall getOpsEXPRESSION_900FXTerminalRuleCall_0_0_0_6() { return cOpsEXPRESSION_900FXTerminalRuleCall_0_0_0_6; }
+		public RuleCall getAtomEXPRESSION_900FXTerminalRuleCall_0_0_0_8() { return cAtomEXPRESSION_900FXTerminalRuleCall_0_0_0_8; }
 
 		//EXPRESSION_700
-		public RuleCall getOpsEXPRESSION_700TerminalRuleCall_0_0_0_7() { return cOpsEXPRESSION_700TerminalRuleCall_0_0_0_7; }
+		public RuleCall getAtomEXPRESSION_700TerminalRuleCall_0_0_0_9() { return cAtomEXPRESSION_700TerminalRuleCall_0_0_0_9; }
 
 		//EXPRESSION_600
-		public RuleCall getOpsEXPRESSION_600TerminalRuleCall_0_0_0_8() { return cOpsEXPRESSION_600TerminalRuleCall_0_0_0_8; }
+		public RuleCall getAtomEXPRESSION_600TerminalRuleCall_0_0_0_10() { return cAtomEXPRESSION_600TerminalRuleCall_0_0_0_10; }
 
 		//EXPRESSION_500
-		public RuleCall getOpsEXPRESSION_500TerminalRuleCall_0_0_0_9() { return cOpsEXPRESSION_500TerminalRuleCall_0_0_0_9; }
+		public RuleCall getAtomEXPRESSION_500TerminalRuleCall_0_0_0_11() { return cAtomEXPRESSION_500TerminalRuleCall_0_0_0_11; }
 
 		//EXPRESSION_400
-		public RuleCall getOpsEXPRESSION_400TerminalRuleCall_0_0_0_10() { return cOpsEXPRESSION_400TerminalRuleCall_0_0_0_10; }
+		public RuleCall getAtomEXPRESSION_400TerminalRuleCall_0_0_0_12() { return cAtomEXPRESSION_400TerminalRuleCall_0_0_0_12; }
 
 		//EXPRESSION_200
-		public RuleCall getOpsEXPRESSION_200TerminalRuleCall_0_0_0_11() { return cOpsEXPRESSION_200TerminalRuleCall_0_0_0_11; }
+		public RuleCall getAtomEXPRESSION_200TerminalRuleCall_0_0_0_13() { return cAtomEXPRESSION_200TerminalRuleCall_0_0_0_13; }
 
-		//(prefix?="(" exps+=ExpressionINF ")")?
+		//(prefix?="(" terms=ExpressionINF ")")?
 		public Group getGroup_0_1() { return cGroup_0_1; }
 
 		//prefix?="("
@@ -538,11 +620,11 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//"("
 		public Keyword getPrefixLeftParenthesisKeyword_0_1_0_0() { return cPrefixLeftParenthesisKeyword_0_1_0_0; }
 
-		//exps+=ExpressionINF
-		public Assignment getExpsAssignment_0_1_1() { return cExpsAssignment_0_1_1; }
+		//terms=ExpressionINF
+		public Assignment getTermsAssignment_0_1_1() { return cTermsAssignment_0_1_1; }
 
 		//ExpressionINF
-		public RuleCall getExpsExpressionINFParserRuleCall_0_1_1_0() { return cExpsExpressionINFParserRuleCall_0_1_1_0; }
+		public RuleCall getTermsExpressionINFParserRuleCall_0_1_1_0() { return cTermsExpressionINFParserRuleCall_0_1_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_0_1_2() { return cRightParenthesisKeyword_0_1_2; }
@@ -565,7 +647,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//NUMBER
 		public RuleCall getNumberNUMBERParserRuleCall_3_0() { return cNumberNUMBERParserRuleCall_3_0; }
 
-		//list?="[" (heads+=ExpressionINF ("|" tails+=ExpressionINF)?)? "]"
+		//list?="[" (head=ExpressionINF ("|" tail=ExpressionINF)?)? "]"
 		public Group getGroup_4() { return cGroup_4; }
 
 		//list?="["
@@ -574,41 +656,44 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getListLeftSquareBracketKeyword_4_0_0() { return cListLeftSquareBracketKeyword_4_0_0; }
 
-		//(heads+=ExpressionINF ("|" tails+=ExpressionINF)?)?
+		//(head=ExpressionINF ("|" tail=ExpressionINF)?)?
 		public Group getGroup_4_1() { return cGroup_4_1; }
 
-		//heads+=ExpressionINF
-		public Assignment getHeadsAssignment_4_1_0() { return cHeadsAssignment_4_1_0; }
+		//head=ExpressionINF
+		public Assignment getHeadAssignment_4_1_0() { return cHeadAssignment_4_1_0; }
 
 		//ExpressionINF
-		public RuleCall getHeadsExpressionINFParserRuleCall_4_1_0_0() { return cHeadsExpressionINFParserRuleCall_4_1_0_0; }
+		public RuleCall getHeadExpressionINFParserRuleCall_4_1_0_0() { return cHeadExpressionINFParserRuleCall_4_1_0_0; }
 
-		//("|" tails+=ExpressionINF)?
+		//("|" tail=ExpressionINF)?
 		public Group getGroup_4_1_1() { return cGroup_4_1_1; }
 
 		//"|"
 		public Keyword getVerticalLineKeyword_4_1_1_0() { return cVerticalLineKeyword_4_1_1_0; }
 
-		//tails+=ExpressionINF
-		public Assignment getTailsAssignment_4_1_1_1() { return cTailsAssignment_4_1_1_1; }
+		//tail=ExpressionINF
+		public Assignment getTailAssignment_4_1_1_1() { return cTailAssignment_4_1_1_1; }
 
 		//ExpressionINF
-		public RuleCall getTailsExpressionINFParserRuleCall_4_1_1_1_0() { return cTailsExpressionINFParserRuleCall_4_1_1_1_0; }
+		public RuleCall getTailExpressionINFParserRuleCall_4_1_1_1_0() { return cTailExpressionINFParserRuleCall_4_1_1_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_4_2() { return cRightSquareBracketKeyword_4_2; }
 
-		//"(" exps+=ExpressionINF ")"
+		//paren?="(" sub=ExpressionINF ")"
 		public Group getGroup_5() { return cGroup_5; }
 
-		//"("
-		public Keyword getLeftParenthesisKeyword_5_0() { return cLeftParenthesisKeyword_5_0; }
+		//paren?="("
+		public Assignment getParenAssignment_5_0() { return cParenAssignment_5_0; }
 
-		//exps+=ExpressionINF
-		public Assignment getExpsAssignment_5_1() { return cExpsAssignment_5_1; }
+		//"("
+		public Keyword getParenLeftParenthesisKeyword_5_0_0() { return cParenLeftParenthesisKeyword_5_0_0; }
+
+		//sub=ExpressionINF
+		public Assignment getSubAssignment_5_1() { return cSubAssignment_5_1; }
 
 		//ExpressionINF
-		public RuleCall getExpsExpressionINFParserRuleCall_5_1_0() { return cExpsExpressionINFParserRuleCall_5_1_0; }
+		public RuleCall getSubExpressionINFParserRuleCall_5_1_0() { return cSubExpressionINFParserRuleCall_5_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_5_2() { return cRightParenthesisKeyword_5_2; }
@@ -688,6 +773,8 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tEXPRESSION_1200FX;
 	private Expression1100Elements pExpression1100;
 	private TerminalRule tEXPRESSION_1100;
+	private Expression1050Elements pExpression1050;
+	private TerminalRule tEXPRESSION_1050;
 	private Expression1000Elements pExpression1000;
 	private TerminalRule tEXPRESSION_1000;
 	private Expression900fxElements pExpression900fx;
@@ -765,7 +852,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression1200 returns Expression:
 	//
-	//	Expression1200fx (ops+=EXPRESSION_1200 exps+=Expression1200fx)?;
+	//	exps+=Expression1200fx (ops+=EXPRESSION_1200 exps+=Expression1200fx)?;
 	public Expression1200Elements getExpression1200Access() {
 		return (pExpression1200 != null) ? pExpression1200 : (pExpression1200 = new Expression1200Elements());
 	}
@@ -801,7 +888,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression1100 returns Expression:
 	//
-	//	Expression1000 (ops+=EXPRESSION_1100 exps+=Expression1000)*;
+	//	exps+=Expression1050 (ops+=EXPRESSION_1100 exps+=Expression1050)*;
 	public Expression1100Elements getExpression1100Access() {
 		return (pExpression1100 != null) ? pExpression1100 : (pExpression1100 = new Expression1100Elements());
 	}
@@ -817,9 +904,27 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		return (tEXPRESSION_1100 != null) ? tEXPRESSION_1100 : (tEXPRESSION_1100 = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "EXPRESSION_1100"));
 	} 
 
+	//Expression1050 returns Expression:
+	//
+	//	exps+=Expression1000 (ops+=EXPRESSION_1050 exps+=Expression1000)?;
+	public Expression1050Elements getExpression1050Access() {
+		return (pExpression1050 != null) ? pExpression1050 : (pExpression1050 = new Expression1050Elements());
+	}
+	
+	public ParserRule getExpression1050Rule() {
+		return getExpression1050Access().getRule();
+	}
+
+	//terminal EXPRESSION_1050:
+	//
+	//	"->" | "*->";
+	public TerminalRule getEXPRESSION_1050Rule() {
+		return (tEXPRESSION_1050 != null) ? tEXPRESSION_1050 : (tEXPRESSION_1050 = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "EXPRESSION_1050"));
+	} 
+
 	//Expression1000 returns Expression:
 	//
-	//	Expression900fx (ops+=EXPRESSION_1000 exps+=Expression900fx)*;
+	//	exps+=Expression900fx (ops+=EXPRESSION_1000 exps+=Expression900fx)*;
 	public Expression1000Elements getExpression1000Access() {
 		return (pExpression1000 != null) ? pExpression1000 : (pExpression1000 = new Expression1000Elements());
 	}
@@ -855,7 +960,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression700 returns Expression:
 	//
-	//	Expression600 (ops+=EXPRESSION_700 exps+=Expression600)?;
+	//	exps+=Expression600 (ops+=EXPRESSION_700 exps+=Expression600)?;
 	public Expression700Elements getExpression700Access() {
 		return (pExpression700 != null) ? pExpression700 : (pExpression700 = new Expression700Elements());
 	}
@@ -875,7 +980,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression600 returns Expression:
 	//
-	//	Expression500 (ops+=EXPRESSION_600 exps+=Expression500)?;
+	//	exps+=Expression500 (ops+=EXPRESSION_600 exps+=Expression500)?;
 	public Expression600Elements getExpression600Access() {
 		return (pExpression600 != null) ? pExpression600 : (pExpression600 = new Expression600Elements());
 	}
@@ -893,7 +998,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression500 returns Expression:
 	//
-	//	Expression400 (ops+=EXPRESSION_500 exps+=Expression400)?;
+	//	exps+=Expression400 (ops+=EXPRESSION_500 exps+=Expression400)?;
 	public Expression500Elements getExpression500Access() {
 		return (pExpression500 != null) ? pExpression500 : (pExpression500 = new Expression500Elements());
 	}
@@ -911,7 +1016,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression400 returns Expression:
 	//
-	//	Expression200 (ops+=EXPRESSION_400 exps+=Expression200)?;
+	//	exps+=Expression200 (ops+=EXPRESSION_400 exps+=Expression200)?;
 	public Expression400Elements getExpression400Access() {
 		return (pExpression400 != null) ? pExpression400 : (pExpression400 = new Expression400Elements());
 	}
@@ -929,7 +1034,7 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression200 returns Expression:
 	//
-	//	Expression0 (ops+=EXPRESSION_200 exps+=Expression0)?;
+	//	exps+=Expression0 (ops+=EXPRESSION_200 exps+=Expression0)?;
 	public Expression200Elements getExpression200Access() {
 		return (pExpression200 != null) ? pExpression200 : (pExpression200 = new Expression200Elements());
 	}
@@ -947,13 +1052,13 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Expression0 returns Expression:
 	//
-	//	ops+=("." | ATOM | EXPRESSION_1200 | EXPRESSION_1200FX | EXPRESSION_1100 | EXPRESSION_1000 | EXPRESSION_900FX |
+	//	atom=("." | "!" | ATOM | EXPRESSION_1200 | EXPRESSION_1200FX | EXPRESSION_1100 | EXPRESSION_1050 | EXPRESSION_1000 |
 	//
-	//	EXPRESSION_700 | EXPRESSION_600 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200) (prefix?="(" exps+=ExpressionINF
+	//	EXPRESSION_900FX | EXPRESSION_700 | EXPRESSION_600 | EXPRESSION_500 | EXPRESSION_400 | EXPRESSION_200) (prefix?="("
 	//
-	//	")")? | variable=VARIABLE | string=STRING | number=NUMBER | list?="[" (heads+=ExpressionINF ("|"
+	//	terms=ExpressionINF ")")? | variable=VARIABLE | string=STRING | number=NUMBER | list?="[" (head=ExpressionINF ("|"
 	//
-	//	tails+=ExpressionINF)?)? "]" | "(" exps+=ExpressionINF ")";
+	//	tail=ExpressionINF)?)? "]" | paren?="(" sub=ExpressionINF ")";
 	public Expression0Elements getExpression0Access() {
 		return (pExpression0 != null) ? pExpression0 : (pExpression0 = new Expression0Elements());
 	}

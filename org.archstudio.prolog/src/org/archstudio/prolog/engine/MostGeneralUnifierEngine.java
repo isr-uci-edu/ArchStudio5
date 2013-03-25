@@ -18,6 +18,10 @@ public class MostGeneralUnifierEngine implements UnificationEngine {
 			Term f = e.term1;
 			Term g = e.term2;
 
+			// 2 & 3
+			if (f.equals(g)) {
+				continue;
+			}
 			// 5
 			if (g instanceof VariableTerm && !(f instanceof VariableTerm)) {
 				Term t = f;
@@ -35,10 +39,6 @@ public class MostGeneralUnifierEngine implements UnificationEngine {
 						context.equations.set(j, new Equation(e2.term1.replace(v, g), e2.term2.replace(v, g)));
 					}
 				}
-				continue;
-			}
-			// 2 & 3
-			if (f.equals(g)) {
 				continue;
 			}
 			// 4

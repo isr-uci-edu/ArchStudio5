@@ -12,8 +12,8 @@ public class ListTerm implements Term {
 	private final Term tail;
 
 	public ListTerm(Term head, Term tail) {
-		this.head = head;
-		this.tail = tail;
+		this.head = head; // nullable
+		this.tail = tail; // nullable
 	}
 
 	public ListTerm() {
@@ -48,12 +48,12 @@ public class ListTerm implements Term {
 		return new ListTerm(head, tail.replace(v, t));
 	}
 
-	protected String toListString() {
+	protected String toStringHelper() {
 		if (isEmpty()) {
 			return "]";
 		}
 		if (tail instanceof ListTerm) {
-			return ", " + head + ((ListTerm) tail).toListString();
+			return ", " + head + ((ListTerm) tail).toStringHelper();
 		}
 		return ", " + head + ", " + tail + "]";
 	}
@@ -64,7 +64,7 @@ public class ListTerm implements Term {
 			return "[]";
 		}
 		if (tail instanceof ListTerm) {
-			return "[" + head + ((ListTerm) tail).toListString();
+			return "[" + head + ((ListTerm) tail).toStringHelper();
 		}
 		return "[" + head + ", " + tail + "]";
 	}

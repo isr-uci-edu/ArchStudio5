@@ -2,13 +2,7 @@ package org.archstudio.prolog.term;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class VariableTerm implements Term {
-
-	private static long nextTemp = 0;
-
-	public static VariableTerm nextTemp() {
-		return new VariableTerm("_" + nextTemp++);
-	}
+public class VariableTerm extends AbstractTerm implements Term {
 
 	final String name;
 

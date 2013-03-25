@@ -10,7 +10,7 @@ ExpressionINF returns Expression:
 	Expression1200;
 
 Expression1200 returns Expression:
-	Expression1200fx (ops+=EXPRESSION_1200 exps+=Expression1200fx)?;
+	exps+=Expression1200fx (ops+=EXPRESSION_1200 exps+=Expression1200fx)?;
 
 terminal EXPRESSION_1200:
 	'-->' | ':-';
@@ -22,13 +22,19 @@ terminal EXPRESSION_1200FX:
 	'?-';
 
 Expression1100 returns Expression:
-	Expression1000 (ops+=EXPRESSION_1100 exps+=Expression1000)*;
+	exps+=Expression1050 (ops+=EXPRESSION_1100 exps+=Expression1050)*;
 
 terminal EXPRESSION_1100:
 	';' | '|';
 
+Expression1050 returns Expression:
+	exps+=Expression1000 (ops+=EXPRESSION_1050 exps+=Expression1000)?;
+
+terminal EXPRESSION_1050:
+	'->' | '*->';
+
 Expression1000 returns Expression:
-	Expression900fx (ops+=EXPRESSION_1000 exps+=Expression900fx)*;
+	exps+=Expression900fx (ops+=EXPRESSION_1000 exps+=Expression900fx)*;
 
 terminal EXPRESSION_1000:
 	',';
@@ -40,54 +46,55 @@ terminal EXPRESSION_900FX:
 	'\\+' | 'not';
 
 Expression700 returns Expression:
-	Expression600 (ops+=EXPRESSION_700 exps+=Expression600)?;
+	exps+=Expression600 (ops+=EXPRESSION_700 exps+=Expression600)?;
 
 terminal EXPRESSION_700:
 	'<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\=' | '\\=='
 	| 'is';
 
 Expression600 returns Expression:
-	Expression500 (ops+=EXPRESSION_600 exps+=Expression500)?;
+	exps+=Expression500 (ops+=EXPRESSION_600 exps+=Expression500)?;
 
 terminal EXPRESSION_600:
 	':';
 
 Expression500 returns Expression:
-	Expression400 (ops+=EXPRESSION_500 exps+=Expression400)?;
+	exps+=Expression400 (ops+=EXPRESSION_500 exps+=Expression400)?;
 
 terminal EXPRESSION_500:
 	'+' | '-' | '/\\' | '\\/' | 'xor';
 
 Expression400 returns Expression:
-	Expression200 (ops+=EXPRESSION_400 exps+=Expression200)?;
+	exps+=Expression200 (ops+=EXPRESSION_400 exps+=Expression200)?;
 
 terminal EXPRESSION_400:
 	'*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem';
 
 Expression200 returns Expression:
-	Expression0 (ops+=EXPRESSION_200 exps+=Expression0)?;
+	exps+=Expression0 (ops+=EXPRESSION_200 exps+=Expression0)?;
 
 terminal EXPRESSION_200:
 	'**' | '^';
 
 Expression0 returns Expression:
-	(ops+=('.'
+	(atom=('.' | '!'
 	| ATOM
 	| EXPRESSION_1200
 	| EXPRESSION_1200FX
 	| EXPRESSION_1100
+	| EXPRESSION_1050
 	| EXPRESSION_1000
 	| EXPRESSION_900FX
 	| EXPRESSION_700
 	| EXPRESSION_600
 	| EXPRESSION_500
 	| EXPRESSION_400
-	| EXPRESSION_200) (prefix?='(' exps+=ExpressionINF ')')?)
+	| EXPRESSION_200) (prefix?='(' terms=ExpressionINF ')')?)
 	| (variable=VARIABLE)
 	| (string=STRING)
 	| (number=NUMBER)
-	| (list?='[' (heads+=ExpressionINF ('|' tails+=ExpressionINF)?)? ']')
-	| '(' exps+=ExpressionINF ')';
+	| (list?='[' (head=ExpressionINF ('|' tail=ExpressionINF)?)? ']')
+	| paren?='(' sub=ExpressionINF ')';
 
 terminal ATOM:
 	('a'..'z') ('0'..'9' | 'a'..'z' | 'A'..'Z' | '_')*;

@@ -1,8 +1,8 @@
 package org.archstudio.prolog.term;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -12,32 +12,31 @@ import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.Signature;
 import org.archstudio.prolog.engine.UnificationContext;
 import org.archstudio.prolog.engine.UnificationEngine;
-import org.archstudio.prolog.op.Operation;
+import org.archstudio.prolog.op.Executable;
 import org.archstudio.prolog.op.iso.Neck;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Lists;
 
-public class ComplexTerm implements Term, Operation {
-
-	private static void checkNotContainsNull(Iterable<?> i) {
-		for (Object j : i) {
-			checkNotNull(j);
-		}
-	}
+public class ComplexTerm extends AbstractTerm implements Term, Executable {
 
 	private final String functor;
 	private final List<? extends Term> terms;
 
 	public ComplexTerm(String functor, List<? extends Term> terms) {
-		this.functor = checkNotNull(functor);
-		this.terms = checkNotNull(terms);
-		checkNotContainsNull(terms);
+		this(functor, -1, terms);
 	}
 
-	public ComplexTerm(String functor, Term... terms) {
-		this(functor, Arrays.asList(terms));
+	protected ComplexTerm(String functor, int arity, List<? extends Term> terms) {
+		this.functor = checkNotNull(functor);
+		this.terms = checkNotNull(terms);
+		for (Term term : terms) {
+			checkNotNull(term);
+		}
+		if (arity >= 0) {
+			checkArgument(terms.size() == arity);
+		}
 	}
 
 	public int getArity() {
@@ -80,7 +79,7 @@ public class ComplexTerm implements Term, Operation {
 		for (Term i : terms) {
 			terms2.add(i.replace(v, t));
 		}
-		return new ComplexTerm(functor, terms2);
+		return new ComplexTerm(functor, terms.size(), terms2);
 	}
 
 	@Override

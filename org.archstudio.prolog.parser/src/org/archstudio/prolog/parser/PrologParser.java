@@ -8,7 +8,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import org.archstudio.prolog.engine.ProofContext;
-import org.archstudio.prolog.op.Operation;
+import org.archstudio.prolog.op.Executable;
 import org.archstudio.prolog.op.iso.Conjunction;
 import org.archstudio.prolog.op.iso.ListTerm;
 import org.archstudio.prolog.term.ComplexTerm;
@@ -74,91 +74,91 @@ public class PrologParser {
 	}
 
 	private static Term parseExpression(ProofContext proofContext, Expression e) throws ParseException {
-		boolean isAtom = e.getOps().size() == 0 && e.getExps().size() == 0 && !e.isList();
-		Term t = null;
-		if (e.getNumber() != null) {
-			try {
-				t = new ConstantTerm(new BigInteger(e.getNumber()));
-			}
-			catch (Exception e2) {
-				t = new ConstantTerm(new BigDecimal(e.getNumber()));
-			}
-			if (isAtom) {
-				return t;
-			}
-		}
-		else if (e.getString() != null) {
-			t = new StringTerm(e.getString());
-			if (isAtom) {
-				return t;
-			}
-		}
-		else if (e.getVariable() != null) {
-			t = new VariableTerm(e.getVariable());
-			if (isAtom) {
-				return t;
-			}
-		}
-		else if (e.getOps().size() == 1 && e.getExps().size() == 0) {
-			return new ConstantTerm(e.getOps().get(0));
-		}
-		else if (e.getOps().size() == 0 && e.getExps().size() == 1) {
-			// must be an Expression*fx rule in Prolog.xtext
+		if (e.getOps().isEmpty() && e.getExps().size() == 1) {
 			return parseExpression(proofContext, e.getExps().get(0));
 		}
-		else if (e.isList()) {
-			if (e.getTails().size() == 0) {
-				t = new ListTerm();
+		if (e.isParen()) {
+			return parseExpression(proofContext, e.getSub());
+		}
+		if (e.getNumber() != null) {
+			try {
+				return new ConstantTerm(new BigInteger(e.getNumber()));
+			}
+			catch (Exception e2) {
+				return new ConstantTerm(new BigDecimal(e.getNumber()));
+			}
+		}
+		if (e.getString() != null) {
+			return new StringTerm(e.getString());
+		}
+		if (e.getVariable() != null) {
+			return new VariableTerm(e.getVariable());
+		}
+		if (e.isList()) {
+			Term list;
+			if (e.getTail() != null) {
+				list = parseExpression(proofContext, e.getTail());
 			}
 			else {
-				t = parseExpression(proofContext, e.getTails().get(0));
+				list = new ListTerm();
 			}
-			for (Expression e2 : Lists.reverse(e.getHeads())) {
-				Term t2 = parseExpression(proofContext, e2);
-				if (t2 instanceof Conjunction) {
-					for (Term t3 : Lists.reverse(((Conjunction) t2).getTerms())) {
-						t = new ListTerm(t3, t);
+			if (e.getHead() != null) {
+				Term head = parseExpression(proofContext, e.getHead());
+				if (head instanceof Conjunction) {
+					for (Term t : Lists.reverse(((Conjunction) head).getTerms())) {
+						list = new ListTerm(t, list);
 					}
 				}
 				else {
-					t = new ListTerm(t2, t);
+					list = new ListTerm(head, list);
+				}
+			}
+			return list;
+		}
+
+		String name;
+		List<Term> terms = null;
+		if (e.getAtom() != null) {
+			name = e.getAtom();
+			if (e.isPrefix()) {
+				Term atomTerms = parseExpression(proofContext, e.getTerms());
+				if (atomTerms instanceof Conjunction) {
+					terms = ((Conjunction) atomTerms).getTerms();
+				}
+				else {
+					terms = Lists.newArrayList(atomTerms);
 				}
 			}
 		}
-
-		List<Term> terms = Lists.newArrayList();
-		if (t != null) {
-			terms.add(t);
-		}
-		for (Expression e2 : e.getExps()) {
-			terms.add(parseExpression(proofContext, e2));
-		}
-		if (e.isPrefix()) {
-			if (terms.size() > 0) {
-				if (terms.get(0) instanceof Conjunction) {
-					terms = ((Conjunction) terms.get(0)).getTerms();
-				}
+		else {
+			name = e.getOps().get(0);
+			terms = Lists.newArrayList();
+			for (Expression exp : e.getExps()) {
+				terms.add(parseExpression(proofContext, exp));
 			}
 		}
-
-		String name = e.getOps().size() > 0 ? e.getOps().get(0) : null;
 		if (".".equals(name)) {
 			return new ListTerm(terms.get(0), terms.get(1));
 		}
-		Class<Operation> operationClass = proofContext.getOperation(name);
+		Class<Executable> operationClass = proofContext.getOperation(name);
 		if (operationClass != null) {
 			try {
-				Constructor<Operation> c = operationClass.getConstructor(String.class, List.class);
-				return c.newInstance(name, terms);
+				if (terms != null) {
+					Constructor<Executable> c = operationClass.getConstructor(String.class, List.class);
+					return c.newInstance(name, terms);
+				}
+				else {
+					Constructor<Executable> c = operationClass.getConstructor(String.class);
+					return c.newInstance(name);
+				}
 			}
 			catch (Throwable exc) {
 				throw new ParseException(exc);
 			}
 		}
-
-		if (name == null) {
-			return terms.get(0);
+		if (terms != null) {
+			return new ComplexTerm(name, terms);
 		}
-		return new ComplexTerm(name, terms);
+		return new ConstantTerm(name);
 	}
 }

@@ -28,41 +28,45 @@ public class PrologSemanticSequencer extends AbstractDelegatingSemanticSequencer
 					sequence_Expression0(context, (Expression) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getExpression200Rule()) {
-					sequence_Expression0_Expression200(context, (Expression) semanticObject); 
+				else if(context == grammarAccess.getExpression1000Rule()) {
+					sequence_Expression1000(context, (Expression) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getExpression400Rule()) {
-					sequence_Expression0_Expression200_Expression400(context, (Expression) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getExpression500Rule()) {
-					sequence_Expression0_Expression200_Expression400_Expression500(context, (Expression) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getExpression600Rule()) {
-					sequence_Expression0_Expression200_Expression400_Expression500_Expression600(context, (Expression) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getExpression700Rule()) {
-					sequence_Expression0_Expression200_Expression400_Expression500_Expression600_Expression700(context, (Expression) semanticObject); 
+				else if(context == grammarAccess.getExpression1050Rule()) {
+					sequence_Expression1050(context, (Expression) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getExpression1100Rule()) {
-					sequence_Expression1000_Expression1100_Expression900fx(context, (Expression) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getExpression1000Rule()) {
-					sequence_Expression1000_Expression900fx(context, (Expression) semanticObject); 
+					sequence_Expression1100(context, (Expression) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getExpression1200Rule() ||
 				   context == grammarAccess.getExpressionINFRule()) {
-					sequence_Expression1200_Expression1200fx(context, (Expression) semanticObject); 
+					sequence_Expression1200(context, (Expression) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getExpression1200fxRule()) {
 					sequence_Expression1200fx(context, (Expression) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getExpression200Rule()) {
+					sequence_Expression200(context, (Expression) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getExpression400Rule()) {
+					sequence_Expression400(context, (Expression) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getExpression500Rule()) {
+					sequence_Expression500(context, (Expression) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getExpression600Rule()) {
+					sequence_Expression600(context, (Expression) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getExpression700Rule()) {
+					sequence_Expression700(context, (Expression) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getExpression900fxRule()) {
@@ -85,26 +89,28 @@ public class PrologSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     (
 	 *         (
 	 *             (
-	 *                 ops+='.' | 
-	 *                 ops+=ATOM | 
-	 *                 ops+=EXPRESSION_1200 | 
-	 *                 ops+=EXPRESSION_1200FX | 
-	 *                 ops+=EXPRESSION_1100 | 
-	 *                 ops+=EXPRESSION_1000 | 
-	 *                 ops+=EXPRESSION_900FX | 
-	 *                 ops+=EXPRESSION_700 | 
-	 *                 ops+=EXPRESSION_600 | 
-	 *                 ops+=EXPRESSION_500 | 
-	 *                 ops+=EXPRESSION_400 | 
-	 *                 ops+=EXPRESSION_200
+	 *                 atom='.' | 
+	 *                 atom='!' | 
+	 *                 atom=ATOM | 
+	 *                 atom=EXPRESSION_1200 | 
+	 *                 atom=EXPRESSION_1200FX | 
+	 *                 atom=EXPRESSION_1100 | 
+	 *                 atom=EXPRESSION_1050 | 
+	 *                 atom=EXPRESSION_1000 | 
+	 *                 atom=EXPRESSION_900FX | 
+	 *                 atom=EXPRESSION_700 | 
+	 *                 atom=EXPRESSION_600 | 
+	 *                 atom=EXPRESSION_500 | 
+	 *                 atom=EXPRESSION_400 | 
+	 *                 atom=EXPRESSION_200
 	 *             ) 
-	 *             (prefix?='(' exps+=ExpressionINF)?
+	 *             (prefix?='(' terms=ExpressionINF)?
 	 *         ) | 
 	 *         variable=VARIABLE | 
 	 *         string=STRING | 
 	 *         number=NUMBER | 
-	 *         (list?='[' (heads+=ExpressionINF tails+=ExpressionINF?)?) | 
-	 *         exps+=ExpressionINF
+	 *         (list?='[' (head=ExpressionINF tail=ExpressionINF?)?) | 
+	 *         (paren?='(' sub=ExpressionINF)
 	 *     )
 	 */
 	protected void sequence_Expression0(EObject context, Expression semanticObject) {
@@ -114,212 +120,36 @@ public class PrologSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         (
-	 *             (
-	 *                 (
-	 *                     ops+='.' | 
-	 *                     ops+=ATOM | 
-	 *                     ops+=EXPRESSION_1200 | 
-	 *                     ops+=EXPRESSION_1200FX | 
-	 *                     ops+=EXPRESSION_1100 | 
-	 *                     ops+=EXPRESSION_1000 | 
-	 *                     ops+=EXPRESSION_900FX | 
-	 *                     ops+=EXPRESSION_700 | 
-	 *                     ops+=EXPRESSION_600 | 
-	 *                     ops+=EXPRESSION_500 | 
-	 *                     ops+=EXPRESSION_400 | 
-	 *                     ops+=EXPRESSION_200
-	 *                 ) 
-	 *                 (prefix?='(' exps+=ExpressionINF)?
-	 *             ) | 
-	 *             variable=VARIABLE | 
-	 *             string=STRING | 
-	 *             number=NUMBER | 
-	 *             (list?='[' (heads+=ExpressionINF tails+=ExpressionINF?)?) | 
-	 *             exps+=ExpressionINF
-	 *         ) 
-	 *         (ops+=EXPRESSION_200 exps+=Expression0)?
-	 *     )
+	 *     (exps+=Expression900fx (ops+=EXPRESSION_1000 exps+=Expression900fx)*)
 	 */
-	protected void sequence_Expression0_Expression200(EObject context, Expression semanticObject) {
+	protected void sequence_Expression1000(EObject context, Expression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         (
-	 *             (
-	 *                 (
-	 *                     ops+='.' | 
-	 *                     ops+=ATOM | 
-	 *                     ops+=EXPRESSION_1200 | 
-	 *                     ops+=EXPRESSION_1200FX | 
-	 *                     ops+=EXPRESSION_1100 | 
-	 *                     ops+=EXPRESSION_1000 | 
-	 *                     ops+=EXPRESSION_900FX | 
-	 *                     ops+=EXPRESSION_700 | 
-	 *                     ops+=EXPRESSION_600 | 
-	 *                     ops+=EXPRESSION_500 | 
-	 *                     ops+=EXPRESSION_400 | 
-	 *                     ops+=EXPRESSION_200
-	 *                 ) 
-	 *                 (prefix?='(' exps+=ExpressionINF)?
-	 *             ) | 
-	 *             variable=VARIABLE | 
-	 *             string=STRING | 
-	 *             number=NUMBER | 
-	 *             (list?='[' (heads+=ExpressionINF tails+=ExpressionINF?)?) | 
-	 *             exps+=ExpressionINF
-	 *         ) 
-	 *         (ops+=EXPRESSION_200 exps+=Expression0)? 
-	 *         (ops+=EXPRESSION_400 exps+=Expression200)?
-	 *     )
+	 *     (exps+=Expression1000 (ops+=EXPRESSION_1050 exps+=Expression1000)?)
 	 */
-	protected void sequence_Expression0_Expression200_Expression400(EObject context, Expression semanticObject) {
+	protected void sequence_Expression1050(EObject context, Expression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         (
-	 *             (
-	 *                 (
-	 *                     ops+='.' | 
-	 *                     ops+=ATOM | 
-	 *                     ops+=EXPRESSION_1200 | 
-	 *                     ops+=EXPRESSION_1200FX | 
-	 *                     ops+=EXPRESSION_1100 | 
-	 *                     ops+=EXPRESSION_1000 | 
-	 *                     ops+=EXPRESSION_900FX | 
-	 *                     ops+=EXPRESSION_700 | 
-	 *                     ops+=EXPRESSION_600 | 
-	 *                     ops+=EXPRESSION_500 | 
-	 *                     ops+=EXPRESSION_400 | 
-	 *                     ops+=EXPRESSION_200
-	 *                 ) 
-	 *                 (prefix?='(' exps+=ExpressionINF)?
-	 *             ) | 
-	 *             variable=VARIABLE | 
-	 *             string=STRING | 
-	 *             number=NUMBER | 
-	 *             (list?='[' (heads+=ExpressionINF tails+=ExpressionINF?)?) | 
-	 *             exps+=ExpressionINF
-	 *         ) 
-	 *         (ops+=EXPRESSION_200 exps+=Expression0)? 
-	 *         (ops+=EXPRESSION_400 exps+=Expression200)? 
-	 *         (ops+=EXPRESSION_500 exps+=Expression400)?
-	 *     )
+	 *     (exps+=Expression1050 (ops+=EXPRESSION_1100 exps+=Expression1050)*)
 	 */
-	protected void sequence_Expression0_Expression200_Expression400_Expression500(EObject context, Expression semanticObject) {
+	protected void sequence_Expression1100(EObject context, Expression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         (
-	 *             (
-	 *                 (
-	 *                     ops+='.' | 
-	 *                     ops+=ATOM | 
-	 *                     ops+=EXPRESSION_1200 | 
-	 *                     ops+=EXPRESSION_1200FX | 
-	 *                     ops+=EXPRESSION_1100 | 
-	 *                     ops+=EXPRESSION_1000 | 
-	 *                     ops+=EXPRESSION_900FX | 
-	 *                     ops+=EXPRESSION_700 | 
-	 *                     ops+=EXPRESSION_600 | 
-	 *                     ops+=EXPRESSION_500 | 
-	 *                     ops+=EXPRESSION_400 | 
-	 *                     ops+=EXPRESSION_200
-	 *                 ) 
-	 *                 (prefix?='(' exps+=ExpressionINF)?
-	 *             ) | 
-	 *             variable=VARIABLE | 
-	 *             string=STRING | 
-	 *             number=NUMBER | 
-	 *             (list?='[' (heads+=ExpressionINF tails+=ExpressionINF?)?) | 
-	 *             exps+=ExpressionINF
-	 *         ) 
-	 *         (ops+=EXPRESSION_200 exps+=Expression0)? 
-	 *         (ops+=EXPRESSION_400 exps+=Expression200)? 
-	 *         (ops+=EXPRESSION_500 exps+=Expression400)? 
-	 *         (ops+=EXPRESSION_600 exps+=Expression500)?
-	 *     )
+	 *     (exps+=Expression1200fx (ops+=EXPRESSION_1200 exps+=Expression1200fx)?)
 	 */
-	protected void sequence_Expression0_Expression200_Expression400_Expression500_Expression600(EObject context, Expression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             (
-	 *                 (
-	 *                     ops+='.' | 
-	 *                     ops+=ATOM | 
-	 *                     ops+=EXPRESSION_1200 | 
-	 *                     ops+=EXPRESSION_1200FX | 
-	 *                     ops+=EXPRESSION_1100 | 
-	 *                     ops+=EXPRESSION_1000 | 
-	 *                     ops+=EXPRESSION_900FX | 
-	 *                     ops+=EXPRESSION_700 | 
-	 *                     ops+=EXPRESSION_600 | 
-	 *                     ops+=EXPRESSION_500 | 
-	 *                     ops+=EXPRESSION_400 | 
-	 *                     ops+=EXPRESSION_200
-	 *                 ) 
-	 *                 (prefix?='(' exps+=ExpressionINF)?
-	 *             ) | 
-	 *             variable=VARIABLE | 
-	 *             string=STRING | 
-	 *             number=NUMBER | 
-	 *             (list?='[' (heads+=ExpressionINF tails+=ExpressionINF?)?) | 
-	 *             exps+=ExpressionINF
-	 *         ) 
-	 *         (ops+=EXPRESSION_200 exps+=Expression0)? 
-	 *         (ops+=EXPRESSION_400 exps+=Expression200)? 
-	 *         (ops+=EXPRESSION_500 exps+=Expression400)? 
-	 *         (ops+=EXPRESSION_600 exps+=Expression500)? 
-	 *         (ops+=EXPRESSION_700 exps+=Expression600)?
-	 *     )
-	 */
-	protected void sequence_Expression0_Expression200_Expression400_Expression500_Expression600_Expression700(EObject context, Expression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (ops+=EXPRESSION_900FX? exps+=Expression700 (ops+=EXPRESSION_1000 exps+=Expression900fx)* (ops+=EXPRESSION_1100 exps+=Expression1000)*)
-	 */
-	protected void sequence_Expression1000_Expression1100_Expression900fx(EObject context, Expression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (ops+=EXPRESSION_900FX? exps+=Expression700 (ops+=EXPRESSION_1000 exps+=Expression900fx)*)
-	 */
-	protected void sequence_Expression1000_Expression900fx(EObject context, Expression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (ops+=EXPRESSION_1200FX? exps+=Expression1100 (ops+=EXPRESSION_1200 exps+=Expression1200fx)?)
-	 */
-	protected void sequence_Expression1200_Expression1200fx(EObject context, Expression semanticObject) {
+	protected void sequence_Expression1200(EObject context, Expression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -329,6 +159,51 @@ public class PrologSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     (ops+=EXPRESSION_1200FX? exps+=Expression1100)
 	 */
 	protected void sequence_Expression1200fx(EObject context, Expression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (exps+=Expression0 (ops+=EXPRESSION_200 exps+=Expression0)?)
+	 */
+	protected void sequence_Expression200(EObject context, Expression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (exps+=Expression200 (ops+=EXPRESSION_400 exps+=Expression200)?)
+	 */
+	protected void sequence_Expression400(EObject context, Expression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (exps+=Expression400 (ops+=EXPRESSION_500 exps+=Expression400)?)
+	 */
+	protected void sequence_Expression500(EObject context, Expression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (exps+=Expression500 (ops+=EXPRESSION_600 exps+=Expression500)?)
+	 */
+	protected void sequence_Expression600(EObject context, Expression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (exps+=Expression600 (ops+=EXPRESSION_700 exps+=Expression600)?)
+	 */
+	protected void sequence_Expression700(EObject context, Expression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

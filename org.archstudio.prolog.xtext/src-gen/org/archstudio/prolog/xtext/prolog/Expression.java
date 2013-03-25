@@ -14,15 +14,19 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#getOps <em>Ops</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#getExps <em>Exps</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#getOps <em>Ops</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#getAtom <em>Atom</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#isPrefix <em>Prefix</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#getTerms <em>Terms</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#getVariable <em>Variable</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#getString <em>String</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#getNumber <em>Number</em>}</li>
  *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#isList <em>List</em>}</li>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#getHeads <em>Heads</em>}</li>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#getTails <em>Tails</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#getHead <em>Head</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#getTail <em>Tail</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#isParen <em>Paren</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.Expression#getSub <em>Sub</em>}</li>
  * </ul>
  * </p>
  *
@@ -32,6 +36,22 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Expression extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Exps</b></em>' containment reference list.
+   * The list contents are of type {@link org.archstudio.prolog.xtext.prolog.Expression}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Exps</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Exps</em>' containment reference list.
+   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getExpression_Exps()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Expression> getExps();
+
   /**
    * Returns the value of the '<em><b>Ops</b></em>' attribute list.
    * The list contents are of type {@link java.lang.String}.
@@ -49,20 +69,30 @@ public interface Expression extends EObject
   EList<String> getOps();
 
   /**
-   * Returns the value of the '<em><b>Exps</b></em>' containment reference list.
-   * The list contents are of type {@link org.archstudio.prolog.xtext.prolog.Expression}.
+   * Returns the value of the '<em><b>Atom</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Exps</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Atom</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Exps</em>' containment reference list.
-   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getExpression_Exps()
-   * @model containment="true"
+   * @return the value of the '<em>Atom</em>' attribute.
+   * @see #setAtom(String)
+   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getExpression_Atom()
+   * @model
    * @generated
    */
-  EList<Expression> getExps();
+  String getAtom();
+
+  /**
+   * Sets the value of the '{@link org.archstudio.prolog.xtext.prolog.Expression#getAtom <em>Atom</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Atom</em>' attribute.
+   * @see #getAtom()
+   * @generated
+   */
+  void setAtom(String value);
 
   /**
    * Returns the value of the '<em><b>Prefix</b></em>' attribute.
@@ -89,6 +119,32 @@ public interface Expression extends EObject
    * @generated
    */
   void setPrefix(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Terms</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Terms</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Terms</em>' containment reference.
+   * @see #setTerms(Expression)
+   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getExpression_Terms()
+   * @model containment="true"
+   * @generated
+   */
+  Expression getTerms();
+
+  /**
+   * Sets the value of the '{@link org.archstudio.prolog.xtext.prolog.Expression#getTerms <em>Terms</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Terms</em>' containment reference.
+   * @see #getTerms()
+   * @generated
+   */
+  void setTerms(Expression value);
 
   /**
    * Returns the value of the '<em><b>Variable</b></em>' attribute.
@@ -195,35 +251,107 @@ public interface Expression extends EObject
   void setList(boolean value);
 
   /**
-   * Returns the value of the '<em><b>Heads</b></em>' containment reference list.
-   * The list contents are of type {@link org.archstudio.prolog.xtext.prolog.Expression}.
+   * Returns the value of the '<em><b>Head</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Heads</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Head</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Heads</em>' containment reference list.
-   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getExpression_Heads()
+   * @return the value of the '<em>Head</em>' containment reference.
+   * @see #setHead(Expression)
+   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getExpression_Head()
    * @model containment="true"
    * @generated
    */
-  EList<Expression> getHeads();
+  Expression getHead();
 
   /**
-   * Returns the value of the '<em><b>Tails</b></em>' containment reference list.
-   * The list contents are of type {@link org.archstudio.prolog.xtext.prolog.Expression}.
+   * Sets the value of the '{@link org.archstudio.prolog.xtext.prolog.Expression#getHead <em>Head</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Head</em>' containment reference.
+   * @see #getHead()
+   * @generated
+   */
+  void setHead(Expression value);
+
+  /**
+   * Returns the value of the '<em><b>Tail</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Tails</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Tail</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Tails</em>' containment reference list.
-   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getExpression_Tails()
+   * @return the value of the '<em>Tail</em>' containment reference.
+   * @see #setTail(Expression)
+   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getExpression_Tail()
    * @model containment="true"
    * @generated
    */
-  EList<Expression> getTails();
+  Expression getTail();
+
+  /**
+   * Sets the value of the '{@link org.archstudio.prolog.xtext.prolog.Expression#getTail <em>Tail</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Tail</em>' containment reference.
+   * @see #getTail()
+   * @generated
+   */
+  void setTail(Expression value);
+
+  /**
+   * Returns the value of the '<em><b>Paren</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Paren</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Paren</em>' attribute.
+   * @see #setParen(boolean)
+   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getExpression_Paren()
+   * @model
+   * @generated
+   */
+  boolean isParen();
+
+  /**
+   * Sets the value of the '{@link org.archstudio.prolog.xtext.prolog.Expression#isParen <em>Paren</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Paren</em>' attribute.
+   * @see #isParen()
+   * @generated
+   */
+  void setParen(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Sub</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Sub</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Sub</em>' containment reference.
+   * @see #setSub(Expression)
+   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getExpression_Sub()
+   * @model containment="true"
+   * @generated
+   */
+  Expression getSub();
+
+  /**
+   * Sets the value of the '{@link org.archstudio.prolog.xtext.prolog.Expression#getSub <em>Sub</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Sub</em>' containment reference.
+   * @see #getSub()
+   * @generated
+   */
+  void setSub(Expression value);
 
 } // Expression

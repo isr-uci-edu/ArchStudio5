@@ -5,27 +5,24 @@ import java.util.List;
 import java.util.Map;
 
 import org.archstudio.prolog.engine.ProofContext;
-import org.archstudio.prolog.engine.UnificationContext;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Executable;
 import org.archstudio.prolog.term.ComplexTerm;
-import org.archstudio.prolog.term.ConstantTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
-public class Is extends ComplexTerm implements Executable {
+public class IsCallable extends ComplexTerm implements Executable {
 
-	public Is(String name, List<? extends Term> terms) {
-		super(name, 2, terms);
+	public IsCallable(String name, List<? extends Term> terms) {
+		super(name, 1, terms);
 	}
 
 	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			Term source, Map<VariableTerm, Term> variables) {
-		UnificationContext context = new UnificationContext(getTerm(0), new ConstantTerm(
-				evaluate(getTerm(1), variables)), variables);
-		if (unificationEngine.unifies(context)) {
-			return Collections.singleton(context.variables);
+		Term t = resolve(getTerm(0), variables);
+		if (t instanceof Executable) {
+			return Collections.singleton(variables);
 		}
 		return Collections.emptyList();
 	}

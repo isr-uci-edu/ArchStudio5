@@ -3,13 +3,17 @@ package org.archstudio.prolog.engine;
 import java.util.List;
 import java.util.Map;
 
-import org.archstudio.prolog.op.Operation;
+import org.archstudio.prolog.op.Executable;
 import org.archstudio.prolog.op.iso.Conjunction;
+import org.archstudio.prolog.op.iso.Cut;
 import org.archstudio.prolog.op.iso.Disjunction;
 import org.archstudio.prolog.op.iso.Equals;
 import org.archstudio.prolog.op.iso.False;
+import org.archstudio.prolog.op.iso.IfThen;
 import org.archstudio.prolog.op.iso.Is;
 import org.archstudio.prolog.op.iso.IsAtom;
+import org.archstudio.prolog.op.iso.IsAtomic;
+import org.archstudio.prolog.op.iso.IsCallable;
 import org.archstudio.prolog.op.iso.IsCompound;
 import org.archstudio.prolog.op.iso.IsFloat;
 import org.archstudio.prolog.op.iso.IsInteger;
@@ -18,7 +22,9 @@ import org.archstudio.prolog.op.iso.IsNumber;
 import org.archstudio.prolog.op.iso.IsVar;
 import org.archstudio.prolog.op.iso.Neck;
 import org.archstudio.prolog.op.iso.Not;
+import org.archstudio.prolog.op.iso.NotEquals;
 import org.archstudio.prolog.op.iso.NotUnifiable;
+import org.archstudio.prolog.op.iso.SoftCut;
 import org.archstudio.prolog.op.iso.True;
 import org.archstudio.prolog.op.iso.Unifiable;
 import org.archstudio.prolog.term.ComplexTerm;
@@ -35,26 +41,34 @@ import com.google.common.collect.Maps;
 
 public class ProofContext implements Cloneable {
 
-	private static final Map<String, Class<? extends Operation>> operations = Maps.newHashMap();
+	private static final Map<String, Class<? extends Executable>> operations = Maps.newHashMap();
 	{
 		// register the ISO operations
 
 		operations.put(",", Conjunction.class);
+		operations.put("!", Cut.class);
 		operations.put(";", Disjunction.class);
-		operations.put("|", Disjunction.class);
+		operations.put("|", Disjunction.class); // not ISO
 		operations.put("==", Equals.class);
+		operations.put("->", IfThen.class);
 		operations.put(":-", Neck.class);
 		operations.put("\\+", Not.class);
 		operations.put("\\=", NotUnifiable.class);
+		operations.put("\\==", NotEquals.class);
+		operations.put("*->", SoftCut.class);
 		operations.put("=", Unifiable.class);
 
 		operations.put("atom", IsAtom.class);
+		operations.put("atomic", IsAtomic.class);
+		operations.put("callable", IsCallable.class);
 		operations.put("compound", IsCompound.class);
+		operations.put("fail", False.class);
 		operations.put("false", False.class);
 		operations.put("float", IsFloat.class);
 		operations.put("integer", IsInteger.class);
 		operations.put("is", Is.class);
 		operations.put("nonvar", IsNonvar.class);
+		operations.put("not", Not.class); // not ISO
 		operations.put("number", IsNumber.class);
 		operations.put("true", True.class);
 		operations.put("var", IsVar.class);
@@ -71,7 +85,7 @@ public class ProofContext implements Cloneable {
 					String bundleName = configurationElement.getDeclaringExtension().getContributor().getName();
 					try {
 						@SuppressWarnings("unchecked")
-						Class<Operation> clazz = (Class<Operation>) Platform.getBundle(bundleName).loadClass(className);
+						Class<Executable> clazz = (Class<Executable>) Platform.getBundle(bundleName).loadClass(className);
 						operations.put(name, clazz);
 					}
 					catch (ClassNotFoundException cnfe) {
@@ -97,30 +111,34 @@ public class ProofContext implements Cloneable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Class<Operation> getOperation(String name) {
-		return (Class<Operation>) operations.get(name);
+	public Class<Executable> getOperation(String name) {
+		return (Class<Executable>) operations.get(name);
+	}
+
+	public void add(Iterable<ComplexTerm> terms) {
+		for (ComplexTerm term : terms) {
+			add(term);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
-	public void add(Iterable<ComplexTerm> knowledgeBase) {
-		for (ComplexTerm i : knowledgeBase) {
-			ComplexTerm head = i;
-			if (i instanceof Neck) {
-				head = ((Neck) i).getHead();
-				this.indexedRules.put(head.getSignature(), (Neck) i);
+	public void add(ComplexTerm term) {
+		ComplexTerm head = term;
+		if (term instanceof Neck) {
+			head = (ComplexTerm) ((Neck) term).getTerm(0);
+			this.indexedRules.put(head.getSignature(), (Neck) term);
+		}
+		this.knowledgeBase.put(head.getSignature(), term);
+		ListMultimap<Object, ComplexTerm>[] indexes = indexedTerms.get(head.getSignature());
+		if (indexes == null) {
+			indexedTerms.put(head.getSignature(), indexes = new ListMultimap[head.getArity()]);
+			for (int j = 0; j < head.getArity(); j++) {
+				indexes[j] = ArrayListMultimap.create();
 			}
-			this.knowledgeBase.put(head.getSignature(), i);
-			ListMultimap<Object, ComplexTerm>[] indexes = indexedTerms.get(head.getSignature());
-			if (indexes == null) {
-				indexedTerms.put(head.getSignature(), indexes = new ListMultimap[head.getArity()]);
-				for (int j = 0; j < head.getArity(); j++) {
-					indexes[j] = ArrayListMultimap.create();
-				}
-			}
-			for (int termIndex = 0; termIndex < head.getArity(); termIndex++) {
-				ListMultimap<Object, ComplexTerm> index = indexes[termIndex];
-				index.put(head.getTerm(termIndex), i);
-			}
+		}
+		for (int termIndex = 0; termIndex < head.getArity(); termIndex++) {
+			ListMultimap<Object, ComplexTerm> index = indexes[termIndex];
+			index.put(head.getTerm(termIndex), term);
 		}
 	}
 
