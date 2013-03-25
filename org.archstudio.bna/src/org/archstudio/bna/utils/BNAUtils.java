@@ -759,6 +759,9 @@ public class BNAUtils {
 
 	public static @Nullable
 	Point getCentralPoint(IThing t) {
+		if (t instanceof IHasAnchorPoint) {
+			return ((IHasAnchorPoint) t).getAnchorPoint();
+		}
 		if (t instanceof IHasPoints) {
 			List<Point> points = ((IHasPoints) t).getPoints();
 			int x1 = Integer.MAX_VALUE;
@@ -778,9 +781,6 @@ public class BNAUtils {
 				p.y += a.y;
 			}
 			return p;
-		}
-		if (t instanceof IHasAnchorPoint) {
-			return ((IHasAnchorPoint) t).getAnchorPoint();
 		}
 		if (t instanceof IHasBoundingBox) {
 			Rectangle r = ((IHasBoundingBox) t).getBoundingBox();

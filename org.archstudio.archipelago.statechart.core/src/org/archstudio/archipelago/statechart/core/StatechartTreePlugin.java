@@ -1,6 +1,7 @@
 package org.archstudio.archipelago.statechart.core;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.archstudio.archipelago.core.AbstractArchipelagoTreePlugin;
@@ -8,6 +9,7 @@ import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.archipelago.core.ArchipelagoMyxComponent;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.FolderNode;
+import org.archstudio.archipelago.core.IArchipelagoEditorFocuser;
 import org.archstudio.archipelago.core.IArchipelagoEditorPane;
 import org.archstudio.archipelago.core.IArchipelagoLabelProvider;
 import org.archstudio.archipelago.core.IArchipelagoTreeContentProvider;
@@ -27,6 +29,7 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IMutableCoordinateMapper;
+import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
@@ -54,14 +57,17 @@ import org.archstudio.bna.logics.navigating.ViewAllLogic;
 import org.archstudio.bna.things.ShadowThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.GridThing;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAWorld;
+import org.archstudio.bna.utils.FlyToUtils;
 import org.archstudio.myx.fw.IMyxBrick;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.resources.IResources;
+import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
@@ -87,6 +93,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ICellModifier;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
@@ -96,6 +103,7 @@ import org.eclipse.swt.dnd.DragSourceEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
@@ -346,9 +354,87 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 				}
 			}
 		};
+
+		this.editorFocuser = new IArchipelagoEditorFocuser() {
+
+			@Override
+			public void focusEditor(String editorName, ObjRef[] refs) {
+				focusEditor(refs);
+			}
+
+			@Override
+			public void focusEditor(ObjRef[] refs) {
+				if (refs.length == 0) {
+					return;
+				}
+
+				// highlight the tree node
+				List<ObjRef> structureRefList = new ArrayList<ObjRef>();
+				for (int i = 0; i < refs.length; i++) {
+					String pathString = xarch.getTagsOnlyPathString(refs[i]);
+					if (pathString != null) {
+						List<ObjRef> ancestors = xarch.getAllAncestors(refs[i]);
+						if (pathString.startsWith("xADL/" + TOP_LEVEL_ELEMENT_NAME)) {
+							ObjRef structureRef = ancestors.get(ancestors.size() - 3);
+							if (i == 0) {
+								focusOnElement(structureRef, refs[i]);
+							}
+							structureRefList.add(structureRef);
+						}
+					}
+				}
+				if (structureRefList.size() > 0) {
+					IStructuredSelection ss = ArchipelagoUtils.addToSelection(viewer.getSelection(),
+							structureRefList.toArray());
+					viewer.setSelection(ss, true);
+				}
+			}
+
+			private void focusOnElement(ObjRef structureRef, ObjRef objRef) {
+				setupEditor(AS, xarch, structureRef);
+				if (SystemUtils.nullEquals(structureRef, objRef)) {
+					return;
+				}
+				BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(editor);
+				if (bnaCanvas != null) {
+					IBNAView view = bnaCanvas.getBNAView();
+					IBNAModel structureModel = view.getBNAWorld().getBNAModel();
+					String xArchID = XadlUtils.getID(xarch, objRef);
+					if (xArchID != null) {
+						IThing t = ArchipelagoUtils.findThing(structureModel, xArchID);
+						if (t != null) {
+							IThing root = Assemblies.getAssemblyWithRootOrPart(structureModel, t);
+							if (root != null) {
+								Point p = BNAUtils.getCentralPoint(root);
+								if (p != null) {
+									FlyToUtils.flyTo(view, p);
+									ArchipelagoUtils.pulseNotify(structureModel, root);
+								}
+							}
+						}
+					}
+				}
+			}
+		};
 	}
 
 	protected void setupEditor(Services services, IXArchADT xarch, ObjRef structureRef) {
+
+		// if the editor is already set up, return
+		{
+			IArchipelagoEditorPane editor = services.get(IArchipelagoEditorPane.class);
+			if (editor != null) {
+				BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(editor);
+				if (bnaCanvas != null) {
+					IBNAModel model = bnaCanvas.getBNAView().getBNAWorld().getBNAModel();
+					EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(model);
+					if (ept.has(IHasObjRef.OBJREF_KEY, structureRef)) {
+						return;
+					}
+				}
+			}
+		}
+
 		ObjRef documentRootRef = xarch.getDocumentRootRef(structureRef);
 
 		// get and clear editor
