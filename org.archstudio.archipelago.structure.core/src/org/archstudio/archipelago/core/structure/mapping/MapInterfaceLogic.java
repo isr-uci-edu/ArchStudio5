@@ -19,6 +19,7 @@ import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.ReorientToThingIDLogic;
 import org.archstudio.bna.logics.coordinating.ReparentToThingIDLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
+import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
@@ -95,7 +96,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		syncXAttribute("ext[*[namespace-uri()='" + Domain_3_0Package.eNS_URI + "']]/domain/type",
 				DOMAIN_TO_STICKY_MODE, null, BNAPath.create(Assemblies.BACKGROUND_KEY),
 				stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), false);
-		
+
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
@@ -104,10 +105,10 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 	public void destroy() {
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
-		
+
 		super.destroy();
 	}
-	
+
 	@Override
 	protected EndpointGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
@@ -120,7 +121,8 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 
-		UserEditableUtils.addEditableQualities(thing, IRelativeMovable.USER_MAY_MOVE);
+		UserEditableUtils
+				.addEditableQualities(thing, IRelativeMovable.USER_MAY_MOVE, HighlightLogic.USER_MAY_HIGHLIGHT);
 		//UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, getBNAModel()), IHasMutableText.USER_MAY_EDIT_TEXT);
 		UserEditableUtils.addEditableQualities(Assemblies.LABEL_KEY.get(thing, getBNAModel()),
 				IHasMutableFlow.USER_MAY_EDIT_FLOW);

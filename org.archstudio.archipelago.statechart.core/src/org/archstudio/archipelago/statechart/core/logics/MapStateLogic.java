@@ -26,6 +26,7 @@ import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
+import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.things.glass.RectangleGlassThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
@@ -161,7 +162,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 				});
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
-				IHasMutableSize.USER_MAY_RESIZE, IRelativeMovable.USER_MAY_MOVE);
+				IHasMutableSize.USER_MAY_RESIZE, IRelativeMovable.USER_MAY_MOVE, HighlightLogic.USER_MAY_HIGHLIGHT);
 		UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, getBNAModel()),
 				IHasMutableText.USER_MAY_EDIT_TEXT);
 		UserEditableUtils.addEditableQualities(Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()),

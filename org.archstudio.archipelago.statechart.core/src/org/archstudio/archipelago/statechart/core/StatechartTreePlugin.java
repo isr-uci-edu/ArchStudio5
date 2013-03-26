@@ -51,6 +51,7 @@ import org.archstudio.bna.logics.editing.SplineBreakLogic;
 import org.archstudio.bna.logics.editing.StandardCursorLogic;
 import org.archstudio.bna.logics.events.ProxyLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
+import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.logics.navigating.ViewAllLogic;
@@ -570,6 +571,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		logicManager.addThingLogic(StandardCursorLogic.class);
 		logicManager.addThingLogic(new StatechartDropLogic(services, documentRootRef));
 		logicManager.addThingLogic(ToolTipLogic.class);
+		logicManager.addThingLogic(HighlightLogic.class);
 
 		// menu logics -- order dictates menu order
 

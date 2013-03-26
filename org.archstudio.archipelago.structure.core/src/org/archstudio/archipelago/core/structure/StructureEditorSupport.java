@@ -40,6 +40,7 @@ import org.archstudio.bna.logics.editing.StandardCursorLogic;
 import org.archstudio.bna.logics.events.ProxyLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
 import org.archstudio.bna.logics.information.FindDialogLogic;
+import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.logics.navigating.ViewAllLogic;
@@ -240,6 +241,7 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new StandardCursorLogic());
 		logicManager.addThingLogic(new StructureDropLogic(services, documentRootRef));
 		logicManager.addThingLogic(new ToolTipLogic());
+		logicManager.addThingLogic(HighlightLogic.class);
 
 		// menu logics -- order dictates menu order
 

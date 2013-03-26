@@ -23,6 +23,7 @@ import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.logics.coordinating.ArrowheadLogic;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
+import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.things.labels.AnchoredLabelThing;
 import org.archstudio.bna.things.labels.ArrowheadThing;
 import org.archstudio.bna.utils.Assemblies;
@@ -140,6 +141,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineG
 				FontStyle.fromSWT(defaultFont.getStyle()));
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 
+		UserEditableUtils.addEditableQualities(thing, HighlightLogic.USER_MAY_HIGHLIGHT);
 		UserEditableUtils.addEditableQualities(labelThing, IHasMutableText.USER_MAY_EDIT_TEXT);
 
 		otl.orientText(thing, Assemblies.TEXT_KEY.get(thing, getBNAModel()));

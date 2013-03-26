@@ -15,6 +15,7 @@ import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
+import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.things.glass.SplineGlassThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
@@ -82,7 +83,7 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineGlassThing> i
 				IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS, IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS,
 				IHasMutableMidpoints.USER_MAY_REMOVE_MIDPOINTS, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1,
 				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT1, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2,
-				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT2);
+				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT2, HighlightLogic.USER_MAY_HIGHLIGHT);
 
 		thing.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), StickyMode.EDGE_FROM_CENTER);
 		thing.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY), StickyMode.EDGE_FROM_CENTER);

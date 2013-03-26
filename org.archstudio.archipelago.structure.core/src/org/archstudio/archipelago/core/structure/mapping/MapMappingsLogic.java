@@ -14,6 +14,7 @@ import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.ReparentToThingIDLogic;
+import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.things.glass.MappingGlassThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
@@ -90,7 +91,7 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThi
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableText.USER_MAY_EDIT_TEXT,
-				IHasMutableSelected.USER_MAY_SELECT);
+				IHasMutableSelected.USER_MAY_SELECT, HighlightLogic.USER_MAY_HIGHLIGHT);
 
 		// stack above the world thing
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(
