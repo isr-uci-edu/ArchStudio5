@@ -26,6 +26,15 @@ import com.google.common.collect.Lists;
 
 public class ParseTest {
 
+	Term a = new ConstantTerm("a");
+	Term b = new ConstantTerm("b");
+	VariableTerm A = new VariableTerm("A");
+	VariableTerm B = new VariableTerm("B");
+	VariableTerm C = new VariableTerm("C");
+	ConstantTerm b1 = new ConstantTerm(BigInteger.valueOf(1));
+	ConstantTerm b2 = new ConstantTerm(BigInteger.valueOf(2));
+	ConstantTerm b3 = new ConstantTerm(BigInteger.valueOf(3));
+
 	ProofContext proofContext;
 
 	@Before
@@ -66,8 +75,6 @@ public class ParseTest {
 
 	@Test
 	public void testTautology() throws ParseException {
-		Term a = new ConstantTerm("a");
-		Term b = new ConstantTerm("b");
 		assertParse(new Unifiable("=", Lists.newArrayList(a, a)), "a=a.");
 		assertParse(new Unifiable("=", Lists.newArrayList(a, b)), "a=b.");
 		assertParse(new Unifiable("=", Lists.newArrayList(b, a)), "b=a.");
@@ -77,8 +84,7 @@ public class ParseTest {
 	@Test
 	public void testList() throws ParseException {
 		assertParse("=(.(X,Y),.(1,.(2,.(3,[])))).", "[X|Y]=[1,2,3].");
-		ListTerm l = new ListTerm(new VariableTerm("A"), new ListTerm(new VariableTerm("B"), new ListTerm(
-				new VariableTerm("C"), new ListTerm())));
+		ListTerm l = new ListTerm(A, new ListTerm(B, new ListTerm(C, new ListTerm())));
 		assertParse(l, ".(A, .(B, .(C, []))).");
 		assertParse(l, ".(A, .(B, [C])).");
 		assertParse(l, ".(A, [B, C]).");
@@ -86,8 +92,7 @@ public class ParseTest {
 		assertParse(l, "[A|[B, C]].");
 		assertParse(l, "[A, B|[C]].");
 		assertParse(l, "[A, B, C|[]].");
-		ListTerm m = new ListTerm(new ConstantTerm(BigInteger.valueOf(1)), new ListTerm(new ConstantTerm(
-				BigInteger.valueOf(2)), new ListTerm(new ConstantTerm(BigInteger.valueOf(3)), new ListTerm())));
+		ListTerm m = new ListTerm(b1, new ListTerm(b2, new ListTerm(b3, new ListTerm())));
 		assertParse(m, ".(1, .(2, .(3, []))).");
 		assertParse(m, ".(1, .(2, [3])).");
 		assertParse(m, ".(1, [2, 3]).");
@@ -163,30 +168,32 @@ public class ParseTest {
 
 	@Test
 	public void testUnifiable() throws ParseException {
-		assertParse(new Unifiable("=", Lists.newArrayList(new VariableTerm("Xabc"), new VariableTerm("Xbcd"))),
-				"Xabc=Xbcd.");
-		assertParse(new Unifiable("=", Lists.newArrayList(new VariableTerm("Xabc"), new VariableTerm("Xbcd"))),
-				"=(Xabc,Xbcd).");
+		VariableTerm Xabc = new VariableTerm("Xabc");
+		VariableTerm Xbcd = new VariableTerm("Xbcd");
+
+		assertParse(new Unifiable("=", Lists.newArrayList(Xabc, Xbcd)), "Xabc=Xbcd.");
+		assertParse(new Unifiable("=", Lists.newArrayList(Xabc, Xbcd)), "=(Xabc,Xbcd).");
 	}
 
 	@Test
 	public void testNotUnifiable() throws ParseException {
-		assertParse(new NotUnifiable("\\=", Lists.newArrayList(new VariableTerm("Xabc"), new VariableTerm("Xbcd"))),
-				"Xabc\\=Xbcd.");
-		assertParse(new NotUnifiable("\\=", Lists.newArrayList(new VariableTerm("Xabc"), new VariableTerm("Xbcd"))),
-				"\\=(Xabc,Xbcd).");
+		VariableTerm Xabc = new VariableTerm("Xabc");
+		VariableTerm Xbcd = new VariableTerm("Xbcd");
+
+		assertParse(new NotUnifiable("\\=", Lists.newArrayList(Xabc, Xbcd)), "Xabc\\=Xbcd.");
+		assertParse(new NotUnifiable("\\=", Lists.newArrayList(Xabc, Xbcd)), "\\=(Xabc,Xbcd).");
 	}
 
 	@Test
 	public void testE() throws ParseException {
-		assertParse(new Unifiable("=", Lists.newArrayList(new VariableTerm("X"), new ConstantTerm(BigInteger.ONE))),
-				"X=1.");
-		assertParse(new Unifiable("=", Lists.newArrayList(new VariableTerm("X"), new ConstantTerm(BigInteger.ONE))),
-				"=(X,1).");
-		assertParse(new Unifiable("=", Lists.newArrayList(new VariableTerm("E"), new ConstantTerm(BigInteger.ONE))),
-				"E=1.");
-		assertParse(new Unifiable("=", Lists.newArrayList(new VariableTerm("E"), new ConstantTerm(BigInteger.ONE))),
-				"=(E,1).");
+		VariableTerm E = new VariableTerm("E");
+		VariableTerm X = new VariableTerm("X");
+		ConstantTerm b1 = new ConstantTerm(BigInteger.ONE);
+
+		assertParse(new Unifiable("=", Lists.newArrayList(X, b1)), "X=1.");
+		assertParse(new Unifiable("=", Lists.newArrayList(X, b1)), "=(X,1).");
+		assertParse(new Unifiable("=", Lists.newArrayList(E, b1)), "E=1.");
+		assertParse(new Unifiable("=", Lists.newArrayList(E, b1)), "=(E,1).");
 	}
 
 	@Test
