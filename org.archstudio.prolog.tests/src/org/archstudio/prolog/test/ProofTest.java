@@ -460,4 +460,113 @@ public class ProofTest {
 			Assert.assertEquals(expected, run("compound(a(1))."));
 		}
 	}
+
+	@Test
+	public void testValueEquals() throws ParseException {
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().done());
+			Assert.assertEquals(expected, run("1 =:= 1."));
+			Assert.assertEquals(expected, run("1.0 =:= 1."));
+			Assert.assertEquals(expected, run("1 =:= 1.0."));
+			Assert.assertEquals(expected, run("1.0 =:= 1.0."));
+			Assert.assertEquals(expected, run("1 =\\= 2."));
+			Assert.assertEquals(expected, run("1.0 =\\= 2."));
+			Assert.assertEquals(expected, run("1 =\\= 2.0."));
+			Assert.assertEquals(expected, run("1.0 =\\= 2.0."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			Assert.assertEquals(expected, run("1 =:= 2."));
+			Assert.assertEquals(expected, run("1.0 =:= 2."));
+			Assert.assertEquals(expected, run("1 =:= 2.0."));
+			Assert.assertEquals(expected, run("1.0 =:= 2.0."));
+			Assert.assertEquals(expected, run("1 =\\= 1."));
+			Assert.assertEquals(expected, run("1.0 =\\= 1."));
+			Assert.assertEquals(expected, run("1 =\\= 1.0."));
+			Assert.assertEquals(expected, run("1.0 =\\= 1.0."));
+		}
+	}
+
+	@Test
+	public void testAlphaEquals() throws ParseException {
+		{
+			Set<Map<VariableTerm, Term>> t = Sets.newHashSet();
+			t.add(new Variables().done());
+			Set<Map<VariableTerm, Term>> f = Sets.newHashSet();
+
+			Assert.assertEquals(t, run("'1' == '1'."));
+			Assert.assertEquals(f, run("'1.0' == '1'."));
+			Assert.assertEquals(f, run("'1' == '1.0'."));
+			Assert.assertEquals(t, run("'1.0' == '1.0'."));
+			Assert.assertEquals(t, run("'1' \\== '2'."));
+			Assert.assertEquals(t, run("'1.0' \\== '2'."));
+			Assert.assertEquals(t, run("'1' \\== '2.0'."));
+			Assert.assertEquals(t, run("'1.0' \\== '2.0'."));
+			Assert.assertEquals(f, run("'1' == '2'."));
+			Assert.assertEquals(f, run("'1.0' == '2'."));
+			Assert.assertEquals(f, run("'1' == '2.0'."));
+			Assert.assertEquals(f, run("'1.0' == '2.0'."));
+			Assert.assertEquals(f, run("'1' \\== '1'."));
+			Assert.assertEquals(t, run("'1.0' \\== '1'."));
+			Assert.assertEquals(t, run("'1' \\== '1.0'."));
+			Assert.assertEquals(f, run("'1.0' \\== '1.0'."));
+		}
+	}
+
+	@Test
+	public void testValueInequalities() throws ParseException {
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().done());
+			Assert.assertEquals(expected, run("1 =< 1."));
+			Assert.assertEquals(expected, run("1 =< 2."));
+			Assert.assertEquals(expected, run("1 < 2."));
+			Assert.assertEquals(expected, run("1 >= 1."));
+			Assert.assertEquals(expected, run("2 >= 1."));
+			Assert.assertEquals(expected, run("2 > 1."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			Assert.assertEquals(expected, run("1 =< 0."));
+			Assert.assertEquals(expected, run("1 < 1."));
+			Assert.assertEquals(expected, run("1 < 0."));
+			Assert.assertEquals(expected, run("0 >= 1."));
+			Assert.assertEquals(expected, run("1 > 1."));
+			Assert.assertEquals(expected, run("0 > 1."));
+		}
+	}
+
+	@Test
+	public void testAlphaInequalities() throws ParseException {
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().done());
+			Assert.assertEquals(expected, run("'1' @=< '1'."));
+			Assert.assertEquals(expected, run("'1' @=< '2'."));
+			Assert.assertEquals(expected, run("'1' @< '2'."));
+			Assert.assertEquals(expected, run("'1' @>= '1'."));
+			Assert.assertEquals(expected, run("'2' @>= '1'."));
+			Assert.assertEquals(expected, run("'2' @> '1'."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			Assert.assertEquals(expected, run("'1' @=< '0'."));
+			Assert.assertEquals(expected, run("'1' @< '1'."));
+			Assert.assertEquals(expected, run("'1' @< '0'."));
+			Assert.assertEquals(expected, run("'0' @>= '1'."));
+			Assert.assertEquals(expected, run("'1' @> '1'."));
+			Assert.assertEquals(expected, run("'0' @> '1'."));
+		}
+	}
+
+	@Test
+	public void testAbs() throws ParseException {
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b1).done());
+			Assert.assertEquals(expected, run("X is abs(-1)."));
+			Assert.assertEquals(expected, run("X is abs(1)."));
+		}
+	}
 }

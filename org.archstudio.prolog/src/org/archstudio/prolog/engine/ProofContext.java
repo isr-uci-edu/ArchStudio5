@@ -4,6 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.archstudio.prolog.op.Executable;
+import org.archstudio.prolog.op.iso.Abs;
+import org.archstudio.prolog.op.iso.Add;
+import org.archstudio.prolog.op.iso.AlphaGreaterThan;
+import org.archstudio.prolog.op.iso.AlphaGreaterThanEqual;
+import org.archstudio.prolog.op.iso.AlphaLessThan;
+import org.archstudio.prolog.op.iso.AlphaLessThanEqual;
 import org.archstudio.prolog.op.iso.Conjunction;
 import org.archstudio.prolog.op.iso.Cut;
 import org.archstudio.prolog.op.iso.Disjunction;
@@ -25,8 +31,15 @@ import org.archstudio.prolog.op.iso.Not;
 import org.archstudio.prolog.op.iso.NotEquals;
 import org.archstudio.prolog.op.iso.NotUnifiable;
 import org.archstudio.prolog.op.iso.SoftCut;
+import org.archstudio.prolog.op.iso.Subtract;
 import org.archstudio.prolog.op.iso.True;
 import org.archstudio.prolog.op.iso.Unifiable;
+import org.archstudio.prolog.op.iso.ValueEquals;
+import org.archstudio.prolog.op.iso.ValueGreaterThan;
+import org.archstudio.prolog.op.iso.ValueGreaterThanEqual;
+import org.archstudio.prolog.op.iso.ValueLessThan;
+import org.archstudio.prolog.op.iso.ValueLessThanEqual;
+import org.archstudio.prolog.op.iso.ValueNotEquals;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
@@ -45,6 +58,11 @@ public class ProofContext implements Cloneable {
 	{
 		// register the ISO operations
 
+		operations.put("+", Add.class);
+		operations.put("@>", AlphaGreaterThan.class);
+		operations.put("@>=", AlphaGreaterThanEqual.class);
+		operations.put("@<", AlphaLessThan.class);
+		operations.put("@=<", AlphaLessThanEqual.class);
 		operations.put(",", Conjunction.class);
 		operations.put("!", Cut.class);
 		operations.put(";", Disjunction.class);
@@ -56,8 +74,16 @@ public class ProofContext implements Cloneable {
 		operations.put("\\=", NotUnifiable.class);
 		operations.put("\\==", NotEquals.class);
 		operations.put("*->", SoftCut.class);
+		operations.put("-", Subtract.class);
 		operations.put("=", Unifiable.class);
+		operations.put("=:=", ValueEquals.class);
+		operations.put(">", ValueGreaterThan.class);
+		operations.put(">=", ValueGreaterThanEqual.class);
+		operations.put("<", ValueLessThan.class);
+		operations.put("=<", ValueLessThanEqual.class);
+		operations.put("=\\=", ValueNotEquals.class);
 
+		operations.put("abs", Abs.class);
 		operations.put("atom", IsAtom.class);
 		operations.put("atomic", IsAtomic.class);
 		operations.put("callable", IsCallable.class);
@@ -85,7 +111,8 @@ public class ProofContext implements Cloneable {
 					String bundleName = configurationElement.getDeclaringExtension().getContributor().getName();
 					try {
 						@SuppressWarnings("unchecked")
-						Class<Executable> clazz = (Class<Executable>) Platform.getBundle(bundleName).loadClass(className);
+						Class<Executable> clazz = (Class<Executable>) Platform.getBundle(bundleName).loadClass(
+								className);
 						operations.put(name, clazz);
 					}
 					catch (ClassNotFoundException cnfe) {

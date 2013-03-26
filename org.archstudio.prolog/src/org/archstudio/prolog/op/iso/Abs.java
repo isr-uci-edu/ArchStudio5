@@ -1,5 +1,6 @@
 package org.archstudio.prolog.op.iso;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
@@ -9,19 +10,18 @@ import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
-public class Plus extends ComplexTerm implements Evaluable {
+public class Abs extends ComplexTerm implements Evaluable {
 
-	public Plus(String name, List<? extends Term> terms) {
-		super(name, 2, terms);
+	public Abs(String name, List<? extends Term> terms) {
+		super(name, 1, terms);
 	}
 
 	@Override
 	public java.lang.Number evaluate(Map<VariableTerm, Term> variables) {
 		java.lang.Number n1 = evaluate(getTerm(0), variables);
-		java.lang.Number n2 = evaluate(getTerm(2), variables);
-		if (n1 instanceof BigInteger && n2 instanceof BigInteger) {
-			return ((BigInteger) n1).add((BigInteger) n2);
+		if (n1 instanceof BigInteger) {
+			return ((BigInteger) n1).abs();
 		}
-		return toBigDecimal(n1).add(toBigDecimal(n2));
+		return ((BigDecimal) n1).abs();
 	}
 }
