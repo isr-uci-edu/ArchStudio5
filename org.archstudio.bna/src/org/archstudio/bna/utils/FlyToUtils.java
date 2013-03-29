@@ -63,13 +63,13 @@ public class FlyToUtils {
 								final Point worldIntermediate = new Point(//
 										worldStart.x + BNAUtils.round(worldDiff.x * transposeFactor),//
 										worldStart.y + BNAUtils.round(worldDiff.y * transposeFactor));
-								final double intermediateScale = Math.max(0.0001, originalScale - originalScale * 0.7
-										* Math.sin(d * 2));
+								//final double intermediateScale = Math.max(0.0001, originalScale - originalScale * 0.7
+								//		* Math.sin(d * 2));
 								SWTWidgetUtils.sync(control, new Runnable() {
 
 									@Override
 									public void run() {
-										cm.setLocalScaleAndAlign(intermediateScale, localCenter, worldIntermediate);
+										cm.setLocalScaleAndAlign(originalScale, localCenter, worldIntermediate);
 									}
 								});
 							}
