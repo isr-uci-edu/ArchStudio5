@@ -31,7 +31,7 @@ public class Precedes extends ComplexTerm implements Executable {
 				return new AbstractIterator<Map<VariableTerm, Term>>() {
 
 					Iterator<Map<VariableTerm, Term>> term0Variables = null;
-					int term0Index = Integer.MAX_VALUE;
+					Integer term0Index = Integer.MAX_VALUE;
 					Iterator<Map<VariableTerm, Term>> term1Variables = null;
 
 					@Override
@@ -44,12 +44,18 @@ public class Precedes extends ComplexTerm implements Executable {
 							if ((term1Variables == null || !term1Variables.hasNext()) && term0Variables.hasNext()) {
 								Map<VariableTerm, Term> variables = term0Variables.next();
 								term0Index = getIndex(getTerm(0), variables);
+								if (term0Index == null) {
+									continue;
+								}
 								ComplexTerm t = resolveComplexTerm(getTerm(1), variables);
 								term1Variables = t.execute(proofContext, unificationEngine, t, variables).iterator();
 							}
 							if (term1Variables != null && term1Variables.hasNext()) {
 								Map<VariableTerm, Term> variables = term1Variables.next();
-								int term1Index = getIndex(getTerm(1), variables);
+								Integer term1Index = getIndex(getTerm(1), variables);
+								if (term1Index == null) {
+									continue;
+								}
 								if (term0Index < term1Index) {
 									return variables;
 								}
@@ -59,7 +65,7 @@ public class Precedes extends ComplexTerm implements Executable {
 						}
 					}
 
-					private int getIndex(Term term, Map<VariableTerm, Term> variables) {
+					private Integer getIndex(Term term, Map<VariableTerm, Term> variables) {
 						return proofContext.getIndex(resolveComplexTerm(term, variables).resolve(variables));
 					}
 				};

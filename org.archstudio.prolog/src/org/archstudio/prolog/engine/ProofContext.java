@@ -229,7 +229,7 @@ public class ProofContext implements Cloneable {
 		return Lists.newArrayList(result);
 	}
 
-	public int getIndex(ComplexTerm complexTerm) {
+	public Integer getIndex(ComplexTerm complexTerm) {
 		return knowledgeBaseIndeces.getUnchecked(complexTerm.getSignature()).get(complexTerm);
 	}
 }
