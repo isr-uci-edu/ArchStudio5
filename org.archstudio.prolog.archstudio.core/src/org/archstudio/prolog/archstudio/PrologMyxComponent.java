@@ -45,12 +45,10 @@ public class PrologMyxComponent extends org.archstudio.prolog.archstudio.PrologM
 
 	private class TestData {
 		String prolog;
-		String goalname;
 
-		public TestData(String prolog, String goalname) {
+		public TestData(String prolog) {
 			super();
 			this.prolog = prolog;
-			this.goalname = goalname;
 		}
 	}
 
@@ -83,12 +81,11 @@ public class PrologMyxComponent extends org.archstudio.prolog.archstudio.PrologM
 				String id = configurationElement.getAttribute("id");
 				String name = configurationElement.getAttribute("name");
 				String description = configurationElement.getAttribute("description");
-				String goalname = configurationElement.getAttribute("goal");
 				String prolog = "";
 				if (configurationElement.getChildren("Prolog").length > 0) {
 					prolog = configurationElement.getChildren("Prolog")[0].getValue();
 				}
-				testData.put(id, new TestData(prolog, goalname));
+				testData.put(id, new TestData(prolog));
 				tests.addTests(Lists.newArrayList(new ArchlightTest(id, TOOL_ID, name, description)));
 			}
 		}
@@ -132,7 +129,7 @@ public class PrologMyxComponent extends org.archstudio.prolog.archstudio.PrologM
 						context.add(Iterables.filter(PrologParser.parseTerms(context, td.prolog), ComplexTerm.class));
 						VariableTerm vid = new VariableTerm("ARCHLIGHT_FAILURE_ID");
 						VariableTerm vdesc = new VariableTerm("ARCHLIGHT_FAILURE_DESCRIPTION");
-						ComplexTerm goal = new ComplexTerm(td.goalname, Lists.newArrayList(vid, vdesc));
+						ComplexTerm goal = new ComplexTerm("error", Lists.newArrayList(vid, vdesc));
 						for (Map<VariableTerm, Term> variables : goal.execute(context, unifier, goal,
 								Collections.<VariableTerm, Term> emptyMap())) {
 

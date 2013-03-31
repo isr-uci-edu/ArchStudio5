@@ -49,7 +49,7 @@
 
    <element name="ArchlightTest">
       <complexType>
-         <sequence minOccurs="0" maxOccurs="1">
+         <sequence>
             <element ref="Prolog"/>
          </sequence>
          <attribute name="id" type="string" use="required">
@@ -73,13 +73,6 @@
             <annotation>
                <documentation>
                   A description of the Prolog test for display purposes
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="goal" type="string" use="default" value="test">
-            <annotation>
-               <documentation>
-                  The Prolog goal name to be executed as goal_name(FAILURE_ID, FAILURE_DESCRIPTION), each result will be considered a failure.
                </documentation>
             </annotation>
          </attribute>

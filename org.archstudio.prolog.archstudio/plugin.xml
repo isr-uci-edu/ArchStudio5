@@ -7,20 +7,19 @@
          point="org.archstudio.prolog.archstudio.archlighttest">
       <ArchlightTest
             description="Checks whether linked interfaces have compatible directions."
-            goal="test"
             id="org.archstudio.prolog.archstudio.ArchlightTest1"
             name="xADL 3/Structures/Interface Directions Compatible">
          <Prolog>
-            test(Id, &apos;Connected interfaces have incompatible directions&apos;) :- 
-    link(L), id(L, Id), 
-    link_point1(L, P1), link_point2(L, P2), 
-    direction(P1, P1d), direction(P2, P2d), 
+            error(Id,&apos;Connected interfaces have incompatible directions&apos;) :-
+    type(L, link), attribute(L, id, Id),
+    child(L, point1, P1), child(L, point2, P2),
+    attribute(P1, direction, P1d), attribute(P2, direction, P2d),
     \+ compatible_directions(P1d, P2d).
-test(Id, &apos;Connected interfaces have incompatible directions&apos;) :- 
-    interfaceMapping(L), id(L, Id), 
-    interfaceMapping_innerInterfaceLink(L, P1), 
-    interfaceMapping_outerInterfaceLink(L, P2), 
-    direction(P1, P1d), direction(P2, P2d), 
+error(Id, &apos;Connected interfaces have incompatible directions&apos;) :-
+    type(L, interfaceMapping), attribute(L, id, Id),
+    child(L, innerInterfaceLink, P1),
+    child(L, outerInterfaceLink, P2),
+    attribute(P1, direction, P1d), attribute(P2, direction, P2d), 
     P1d \= P2d.
          </Prolog>
       </ArchlightTest>
