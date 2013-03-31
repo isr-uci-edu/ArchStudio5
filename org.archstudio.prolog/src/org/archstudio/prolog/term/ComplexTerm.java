@@ -82,6 +82,18 @@ public class ComplexTerm extends AbstractTerm implements Term, Executable {
 		return new ComplexTerm(functor, terms.size(), terms2);
 	}
 
+	public ComplexTerm resolve(Map<VariableTerm, Term> variables) {
+		List<Term> terms = Lists.newArrayListWithCapacity(getArity());
+		for (Term t : getTerms()) {
+			t = resolve(t, variables);
+			if (t instanceof ComplexTerm) {
+				t = ((ComplexTerm) t).resolve(variables);
+			}
+			terms.add(t);
+		}
+		return new ComplexTerm(getFunctor(), terms);
+	}
+
 	@Override
 	public String toString() {
 		return functor + "(" + Joiner.on(',').join(terms) + ")";
