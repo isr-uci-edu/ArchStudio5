@@ -27,6 +27,7 @@ import org.eclipse.ui.console.IOConsole;
 import org.eclipse.ui.console.IOConsoleInputStream;
 import org.eclipse.ui.console.IOConsoleOutputStream;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -103,6 +104,7 @@ public class PrologConsoleFactory implements IConsoleFactory {
 									errpw.println("Not executable: ?- " + command);
 									continue;
 								}
+								int count = 1;
 								boolean firstResult = true;
 								for (Map<VariableTerm, Term> result : ((Executable) t).execute(proofContext,
 										unificationEngine, t, Maps.<VariableTerm, Term> newHashMap())) {
@@ -115,9 +117,14 @@ public class PrologConsoleFactory implements IConsoleFactory {
 									}
 									else {
 										boolean firstVar = true;
+										String prefix = "" + count++ + ". ";
 										for (Entry<VariableTerm, Term> var : SystemUtils.sortedByKey(result.entrySet())) {
 											if (!firstVar) {
 												outpw.println();
+												outpw.print(Strings.repeat(" ", prefix.length()));
+											}
+											else {
+												outpw.print(prefix);
 											}
 											firstVar = false;
 											outpw.print(var.getKey() + " = " + var.getValue());
