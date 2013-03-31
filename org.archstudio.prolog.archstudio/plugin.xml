@@ -11,15 +11,15 @@
             name="xADL 3/Structures/Interface Directions Compatible">
          <Prolog>
             error(Id,&apos;Connected interfaces have incompatible directions&apos;) :-
-    type(L, link), attribute(L, id, Id),
-    child(L, point1, P1), child(L, point2, P2),
-    attribute(P1, direction, P1d), attribute(P2, direction, P2d),
+    type(L, link), value(L, id, Id),
+    value(L, point1, P1), value(L, point2, P2),
+    value(P1, direction, P1d), value(P2, direction, P2d),
     \+ compatible_directions(P1d, P2d).
 error(Id, &apos;Connected interfaces have incompatible directions&apos;) :-
-    type(L, interfaceMapping), attribute(L, id, Id),
-    child(L, innerInterfaceLink, P1),
-    child(L, outerInterfaceLink, P2),
-    attribute(P1, direction, P1d), attribute(P2, direction, P2d), 
+    type(L, interfaceMapping), value(L, id, Id),
+    value(L, innerInterfaceLink, P1),
+    value(L, outerInterfaceLink, P2),
+    value(P1, direction, P1d), value(P2, direction, P2d), 
     P1d \= P2d.
          </Prolog>
       </ArchlightTest>

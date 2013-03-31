@@ -226,17 +226,17 @@ public class PrologUtils {
 	private static ComplexTerm createAttribute(StringBuffer sb, int indent, EObject parent, String attributeName,
 			Object attributeValue) {
 		sb.append(
-				Strings.repeat(" ", indent) + "attribute(" + toAtom(parent) + ", "
-						+ SystemUtils.uncapFirst(attributeName) + ", " + toAtom(attributeValue) + ").").append("\n");
-		return new ComplexTerm("attribute", Lists.newArrayList(toTerm(parent),
+				Strings.repeat(" ", indent) + "value(" + toAtom(parent) + ", " + SystemUtils.uncapFirst(attributeName)
+						+ ", " + toAtom(attributeValue) + ").").append("\n");
+		return new ComplexTerm("value", Lists.newArrayList(toTerm(parent),
 				new ConstantTerm(SystemUtils.uncapFirst(attributeName)), toTerm(attributeValue)));
 	}
 
 	private static ComplexTerm createChild(StringBuffer sb, int indent, EObject parent, String childName, EObject child) {
 		sb.append(
-				Strings.repeat(" ", indent) + "child(" + toAtom(parent) + ", " + SystemUtils.uncapFirst(childName)
+				Strings.repeat(" ", indent) + "value(" + toAtom(parent) + ", " + SystemUtils.uncapFirst(childName)
 						+ ", " + toAtom(child) + ").").append("\n");
-		return new ComplexTerm("child", Lists.newArrayList(toTerm(parent),
+		return new ComplexTerm("value", Lists.newArrayList(toTerm(parent),
 				new ConstantTerm(SystemUtils.uncapFirst(childName)), toTerm(child)));
 	}
 
