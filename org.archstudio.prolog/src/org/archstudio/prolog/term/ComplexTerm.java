@@ -162,6 +162,7 @@ public class ComplexTerm extends AbstractTerm implements Term, Executable {
 										return context.variables;
 									}
 								}
+								continue;
 							}
 							return endOfData();
 						}
