@@ -30,7 +30,6 @@ import org.archstudio.prolog.op.iso.Neck;
 import org.archstudio.prolog.op.iso.Not;
 import org.archstudio.prolog.op.iso.NotEquals;
 import org.archstudio.prolog.op.iso.NotUnifiable;
-import org.archstudio.prolog.op.iso.Precedes;
 import org.archstudio.prolog.op.iso.SoftCut;
 import org.archstudio.prolog.op.iso.Subtract;
 import org.archstudio.prolog.op.iso.True;
@@ -106,7 +105,6 @@ public class ProofContext implements Cloneable {
 		operations.put("|", Disjunction.class);
 
 		operations.put("not", Not.class);
-		operations.put("precedes", Precedes.class);
 
 		// add additional operations
 		IExtensionRegistry reg = Platform.getExtensionRegistry();

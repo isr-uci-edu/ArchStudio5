@@ -54,5 +54,12 @@
          <enablement></enablement>
       </consolePatternMatchListener>
    </extension>
+   <extension
+         point="org.archstudio.prolog.operation">
+      <Operation
+            class="org.archstudio.prolog.archstudio.Precedes"
+            name="precedes">
+      </Operation>
+   </extension>
 
 </plugin>

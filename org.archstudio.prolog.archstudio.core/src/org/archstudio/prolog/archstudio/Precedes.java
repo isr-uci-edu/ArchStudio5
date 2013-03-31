@@ -1,4 +1,4 @@
-package org.archstudio.prolog.op.iso;
+package org.archstudio.prolog.archstudio;
 
 import java.util.Iterator;
 import java.util.List;
