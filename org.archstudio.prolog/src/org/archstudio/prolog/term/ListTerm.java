@@ -1,10 +1,11 @@
-package org.archstudio.prolog.op.iso;
+package org.archstudio.prolog.term;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
 import java.util.List;
+import java.util.Map;
 
-import org.archstudio.prolog.term.Term;
+import org.archstudio.prolog.engine.ProofContext;
 
 public class ListTerm implements Term {
 
@@ -30,22 +31,10 @@ public class ListTerm implements Term {
 	}
 
 	@Override
-	public boolean contains(Term v) {
-		if (isEmpty()) {
-			return false;
-		}
-		return head.equals(v) || head.contains(v) || tail.equals(v) || tail.contains(v);
-	}
-
-	@Override
-	public Term replace(Term v, Term t) {
-		if (isEmpty()) {
-			return this;
-		}
-		if (head.equals(v)) {
-			return new ListTerm(t, tail.replace(v, t));
-		}
-		return new ListTerm(head, tail.replace(v, t));
+	public Term resolve(ProofContext proofContext, Map<VariableTerm, Term> variables) {
+		Term h = head == null ? null : head.resolve(proofContext, variables);
+		Term t = tail == null ? null : tail.resolve(proofContext, variables);
+		return new ListTerm(h, t);
 	}
 
 	protected String toStringHelper() {

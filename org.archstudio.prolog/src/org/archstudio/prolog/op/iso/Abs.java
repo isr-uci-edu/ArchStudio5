@@ -5,6 +5,8 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
+import org.archstudio.prolog.engine.PrologUtils;
+import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.op.Evaluable;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.Term;
@@ -17,8 +19,8 @@ public class Abs extends ComplexTerm implements Evaluable {
 	}
 
 	@Override
-	public java.lang.Number evaluate(Map<VariableTerm, Term> variables) {
-		java.lang.Number n1 = evaluate(getTerm(0), variables);
+	public java.lang.Number evaluate(ProofContext proofContext, Map<VariableTerm, Term> variables) {
+		java.lang.Number n1 = PrologUtils.evaluate(proofContext, getTerm(0), variables);
 		if (n1 instanceof BigInteger) {
 			return ((BigInteger) n1).abs();
 		}

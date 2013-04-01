@@ -1,7 +1,7 @@
 package org.archstudio.prolog.engine;
 
-import org.archstudio.prolog.op.iso.ListTerm;
 import org.archstudio.prolog.term.ComplexTerm;
+import org.archstudio.prolog.term.ListTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
@@ -12,7 +12,7 @@ import org.archstudio.prolog.term.VariableTerm;
 public class MostGeneralUnifierEngine implements UnificationEngine {
 
 	@Override
-	public boolean unifies(UnificationContext context) {
+	public boolean unifies(ProofContext proofContext, UnificationContext context) {
 		for (int i = 0; i < context.equations.size(); i++) {
 			Equation e = context.equations.get(i);
 			Term f = e.term1;
@@ -36,7 +36,8 @@ public class MostGeneralUnifierEngine implements UnificationEngine {
 					context.variables.put(v, g);
 					for (int j = i + 1; j < context.equations.size(); j++) {
 						Equation e2 = context.equations.get(j);
-						context.equations.set(j, new Equation(e2.term1.replace(v, g), e2.term2.replace(v, g)));
+						context.equations.set(j, new Equation(e2.term1.resolve(proofContext, context.variables),
+								e2.term2.resolve(proofContext, context.variables)));
 					}
 				}
 				continue;

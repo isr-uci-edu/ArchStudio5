@@ -1,9 +1,11 @@
 package org.archstudio.prolog.term;
 
+import java.util.Map;
+
+import org.archstudio.prolog.engine.ProofContext;
+
 public interface Term {
 
-	boolean contains(Term v);
-
-	Term replace(Term v, Term t);
+	Term resolve(ProofContext proofContext, Map<VariableTerm, Term> variables);
 
 }

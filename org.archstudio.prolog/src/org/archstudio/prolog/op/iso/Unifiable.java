@@ -21,8 +21,8 @@ public class Unifiable extends ComplexTerm implements Executable {
 	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			Term source, Map<VariableTerm, Term> variables) {
-		UnificationContext context = new UnificationContext(getTerm(0), getTerm(1), variables);
-		if (unificationEngine.unifies(context)) {
+		UnificationContext context = new UnificationContext(proofContext, getTerm(0), getTerm(1), variables);
+		if (unificationEngine.unifies(proofContext, context)) {
 			return Collections.singleton(context.variables);
 		}
 		return Collections.emptyList();

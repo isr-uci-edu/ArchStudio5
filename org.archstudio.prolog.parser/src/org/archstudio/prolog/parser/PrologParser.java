@@ -2,17 +2,14 @@ package org.archstudio.prolog.parser;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.lang.reflect.Constructor;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
 import org.archstudio.prolog.engine.ProofContext;
-import org.archstudio.prolog.op.Executable;
 import org.archstudio.prolog.op.iso.Conjunction;
-import org.archstudio.prolog.op.iso.ListTerm;
-import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
+import org.archstudio.prolog.term.ListTerm;
 import org.archstudio.prolog.term.StringTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
@@ -137,28 +134,6 @@ public class PrologParser {
 				terms.add(parseExpression(proofContext, exp));
 			}
 		}
-		if (".".equals(name)) {
-			return new ListTerm(terms.get(0), terms.get(1));
-		}
-		Class<Executable> operationClass = proofContext.getOperation(name);
-		if (operationClass != null) {
-			try {
-				if (terms != null) {
-					Constructor<Executable> c = operationClass.getConstructor(String.class, List.class);
-					return c.newInstance(name, terms);
-				}
-				else {
-					Constructor<Executable> c = operationClass.getConstructor(String.class);
-					return c.newInstance(name);
-				}
-			}
-			catch (Throwable exc) {
-				throw new ParseException(exc);
-			}
-		}
-		if (terms != null) {
-			return new ComplexTerm(name, terms);
-		}
-		return new ConstantTerm(name);
+		return proofContext.create(name, terms);
 	}
 }

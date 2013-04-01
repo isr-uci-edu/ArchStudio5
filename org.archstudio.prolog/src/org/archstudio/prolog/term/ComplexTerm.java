@@ -64,34 +64,12 @@ public class ComplexTerm extends AbstractTerm implements Term, Executable {
 	}
 
 	@Override
-	public boolean contains(Term v) {
-		for (Term t : terms) {
-			if (t.equals(v) || t.contains(v)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Override
-	public Term replace(Term v, Term t) {
-		List<Term> terms2 = Lists.newArrayListWithCapacity(terms.size());
-		for (Term i : terms) {
-			terms2.add(i.replace(v, t));
-		}
-		return new ComplexTerm(functor, terms.size(), terms2);
-	}
-
-	public ComplexTerm resolve(Map<VariableTerm, Term> variables) {
+	public Term resolve(ProofContext proofContext, Map<VariableTerm, Term> variables) {
 		List<Term> terms = Lists.newArrayListWithCapacity(getArity());
-		for (Term t : getTerms()) {
-			t = resolve(t, variables);
-			if (t instanceof ComplexTerm) {
-				t = ((ComplexTerm) t).resolve(variables);
-			}
-			terms.add(t);
+		for (Term term : getTerms()) {
+			terms.add(term.resolve(proofContext, variables));
 		}
-		return new ComplexTerm(getFunctor(), terms);
+		return proofContext.create(getFunctor(), terms);
 	}
 
 	@Override
@@ -168,9 +146,9 @@ public class ComplexTerm extends AbstractTerm implements Term, Executable {
 									continue;
 								}
 								else {
-									UnificationContext context = new UnificationContext(ComplexTerm.this, kbTerm,
-											variables);
-									if (unificationEngine.unifies(context)) {
+									UnificationContext context = new UnificationContext(proofContext, ComplexTerm.this,
+											kbTerm, variables);
+									if (unificationEngine.unifies(proofContext, context)) {
 										return context.variables;
 									}
 								}

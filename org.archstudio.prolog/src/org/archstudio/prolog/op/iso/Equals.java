@@ -20,8 +20,8 @@ public class Equals extends ComplexTerm implements Executable {
 	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			Term source, Map<VariableTerm, Term> variables) {
-		Term t0 = resolve(getTerm(0), variables);
-		Term t1 = resolve(getTerm(1), variables);
+		Term t0 = getTerm(0).resolve(proofContext, variables);
+		Term t1 = getTerm(1).resolve(proofContext, variables);
 		if (t0.equals(t1)) {
 			return Collections.singleton(variables);
 		}

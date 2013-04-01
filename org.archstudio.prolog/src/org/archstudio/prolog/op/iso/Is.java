@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.archstudio.prolog.engine.PrologUtils;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationContext;
 import org.archstudio.prolog.engine.UnificationEngine;
@@ -22,9 +23,9 @@ public class Is extends ComplexTerm implements Executable {
 	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			Term source, Map<VariableTerm, Term> variables) {
-		UnificationContext context = new UnificationContext(getTerm(0), new ConstantTerm(
-				evaluate(getTerm(1), variables)), variables);
-		if (unificationEngine.unifies(context)) {
+		UnificationContext context = new UnificationContext(proofContext, getTerm(0), new ConstantTerm(
+				PrologUtils.evaluate(proofContext, getTerm(1), variables)), variables);
+		if (unificationEngine.unifies(proofContext, context)) {
 			return Collections.singleton(context.variables);
 		}
 		return Collections.emptyList();

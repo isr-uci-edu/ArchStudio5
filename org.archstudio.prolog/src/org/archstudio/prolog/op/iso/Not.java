@@ -3,6 +3,7 @@ package org.archstudio.prolog.op.iso;
 import java.util.List;
 import java.util.Map;
 
+import org.archstudio.prolog.engine.PrologUtils;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Executable;
@@ -19,8 +20,8 @@ public class Not extends ComplexTerm implements Executable {
 	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			Term source, Map<VariableTerm, Term> variables) {
-		return negate(
-				resolveOperation(getTerm(0), variables).execute(proofContext, unificationEngine, this, variables),
-				variables);
+		return PrologUtils.negate(
+				PrologUtils.resolveExecutable(proofContext, getTerm(0), variables).execute(proofContext,
+						unificationEngine, this, variables), variables);
 	}
 }

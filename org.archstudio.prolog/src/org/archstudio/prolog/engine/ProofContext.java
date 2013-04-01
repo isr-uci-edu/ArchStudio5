@@ -1,5 +1,6 @@
 package org.archstudio.prolog.engine;
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import org.archstudio.prolog.op.iso.ValueLessThan;
 import org.archstudio.prolog.op.iso.ValueLessThanEqual;
 import org.archstudio.prolog.op.iso.ValueNotEquals;
 import org.archstudio.prolog.term.ComplexTerm;
+import org.archstudio.prolog.term.ConstantTerm;
+import org.archstudio.prolog.term.ListTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -54,6 +57,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 public class ProofContext implements Cloneable {
 
@@ -155,11 +159,6 @@ public class ProofContext implements Cloneable {
 		add(toCopy.knowledgeBase.values());
 	}
 
-	@SuppressWarnings("unchecked")
-	public Class<Executable> getOperation(String name) {
-		return (Class<Executable>) operations.get(name);
-	}
-
 	public void add(Iterable<ComplexTerm> terms) {
 		for (ComplexTerm term : terms) {
 			add(term, true);
@@ -169,6 +168,9 @@ public class ProofContext implements Cloneable {
 	@SuppressWarnings("unchecked")
 	public void add(ComplexTerm term, boolean atEnd) {
 		ComplexTerm head = term;
+		if (!(term instanceof Neck) && !PrologUtils.extractVariables(Sets.<VariableTerm> newHashSet(), term).isEmpty()) {
+			term = new Neck(":-", Lists.newArrayList(term, new True("true")));
+		}
 		if (term instanceof Neck) {
 			head = (ComplexTerm) ((Neck) term).getTerm(0);
 		}
@@ -217,7 +219,7 @@ public class ProofContext implements Cloneable {
 				Object value = goal.getTerm(termIndex);
 				ListMultimap<Object, ComplexTerm>[] v = valueBasedKnowledgeBase.get(goal.getSignature());
 				if (v != null) {
-					List<ComplexTerm> t = v[termIndex].get(value);
+					List<ComplexTerm> t = (List<ComplexTerm>) v[termIndex].asMap().get(value);
 					if (t != null) {
 						if (t.size() < result.size()) {
 							result = t;
@@ -231,5 +233,32 @@ public class ProofContext implements Cloneable {
 
 	public Integer getIndex(ComplexTerm complexTerm) {
 		return knowledgeBaseIndeces.getUnchecked(complexTerm.getSignature()).get(complexTerm);
+	}
+
+	public Term create(String name, List<Term> terms) {
+		if (".".equals(name)) {
+			return new ListTerm(terms.get(0), terms.get(1));
+		}
+		@SuppressWarnings("unchecked")
+		Class<Executable> operationClass = (Class<Executable>) operations.get(name);
+		if (operationClass != null) {
+			try {
+				if (terms != null) {
+					Constructor<Executable> c = operationClass.getConstructor(String.class, List.class);
+					return c.newInstance(name, terms);
+				}
+				else {
+					Constructor<Executable> c = operationClass.getConstructor(String.class);
+					return c.newInstance(name);
+				}
+			}
+			catch (Throwable exc) {
+				throw new RuntimeException(exc);
+			}
+		}
+		if (terms != null) {
+			return new ComplexTerm(name, terms);
+		}
+		return new ConstantTerm(name);
 	}
 }

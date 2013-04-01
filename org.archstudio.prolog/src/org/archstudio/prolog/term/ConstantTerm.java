@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Map;
 
+import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.op.Evaluable;
 
 public class ConstantTerm extends AbstractTerm implements Term, Evaluable {
@@ -15,20 +16,15 @@ public class ConstantTerm extends AbstractTerm implements Term, Evaluable {
 	}
 
 	@Override
-	public Number evaluate(Map<VariableTerm, Term> variables) {
+	public Number evaluate(ProofContext proofContext, Map<VariableTerm, Term> variables) {
 		if (value instanceof Number) {
 			return (Number) value;
 		}
-		return null;
+		throw new RuntimeException("Not evaluable: " + this);
 	}
 
 	@Override
-	public boolean contains(Term v) {
-		return false;
-	}
-
-	@Override
-	public Term replace(Term v, Term t) {
+	public Term resolve(ProofContext proofContext, Map<VariableTerm, Term> variables) {
 		return this;
 	}
 

@@ -2,7 +2,15 @@ package org.archstudio.prolog.term;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class VariableTerm extends AbstractTerm implements Term {
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+
+import org.archstudio.prolog.engine.ProofContext;
+
+import com.google.common.collect.Sets;
+
+public class VariableTerm extends AbstractTerm implements Term, Comparable<VariableTerm> {
 
 	final String name;
 
@@ -15,13 +23,21 @@ public class VariableTerm extends AbstractTerm implements Term {
 	}
 
 	@Override
-	public boolean contains(Term v) {
-		return this.equals(v);
+	public Term resolve(ProofContext proofContext, Map<VariableTerm, Term> variables) {
+		Term t = this;
+		Set<VariableTerm> termsVisited = Sets.newHashSet();
+		while (variables.containsKey(t)) {
+			if (!termsVisited.add((VariableTerm) t)) {
+				return Collections.min(termsVisited);
+			}
+			t = variables.get(t);
+		}
+		return t;
 	}
 
 	@Override
-	public Term replace(Term v, Term t) {
-		return this.equals(v) ? t : this;
+	public int compareTo(VariableTerm o) {
+		return o.name.compareTo(name);
 	}
 
 	@Override

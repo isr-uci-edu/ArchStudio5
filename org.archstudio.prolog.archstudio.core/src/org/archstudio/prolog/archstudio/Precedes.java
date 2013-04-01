@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.archstudio.prolog.engine.PrologUtils;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Executable;
@@ -38,7 +39,7 @@ public class Precedes extends ComplexTerm implements Executable {
 					protected Map<VariableTerm, Term> computeNext() {
 						while (true) {
 							if (term0Variables == null) {
-								ComplexTerm t = resolveComplexTerm(getTerm(0), variables);
+								ComplexTerm t = PrologUtils.resolveComplexTerm(proofContext, getTerm(0), variables);
 								term0Variables = t.execute(proofContext, unificationEngine, t, variables).iterator();
 							}
 							if ((term1Variables == null || !term1Variables.hasNext()) && term0Variables.hasNext()) {
@@ -47,7 +48,7 @@ public class Precedes extends ComplexTerm implements Executable {
 								if (term0Index == null) {
 									continue;
 								}
-								ComplexTerm t = resolveComplexTerm(getTerm(1), variables);
+								ComplexTerm t = PrologUtils.resolveComplexTerm(proofContext, getTerm(1), variables);
 								term1Variables = t.execute(proofContext, unificationEngine, t, variables).iterator();
 							}
 							if (term1Variables != null && term1Variables.hasNext()) {
@@ -66,7 +67,7 @@ public class Precedes extends ComplexTerm implements Executable {
 					}
 
 					private Integer getIndex(Term term, Map<VariableTerm, Term> variables) {
-						return proofContext.getIndex(resolveComplexTerm(term, variables).resolve(variables));
+						return proofContext.getIndex(PrologUtils.resolveComplexTerm(proofContext, term, variables));
 					}
 				};
 			}

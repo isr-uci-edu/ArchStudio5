@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.archstudio.prolog.engine.PrologUtils;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Executable;
@@ -19,7 +20,6 @@ public class Conjunction extends ComplexTerm implements Executable {
 
 	public Conjunction(String name, List<? extends Term> terms) {
 		super(name, -1, terms);
-
 	}
 
 	@Override
@@ -45,8 +45,9 @@ public class Conjunction extends ComplexTerm implements Executable {
 							if (variablesIterator.hasNext()) {
 								if (termsIndex < getTermsSize()) {
 									Term term = getTerm(termsIndex++);
-									indexVariables.add(resolveOperation(term, variables).execute(proofContext,
-											unificationEngine, term, variablesIterator.next()).iterator());
+									indexVariables.add(PrologUtils.resolveExecutable(proofContext, term, variables)
+											.execute(proofContext, unificationEngine, term, variablesIterator.next())
+											.iterator());
 									continue;
 								}
 								else {

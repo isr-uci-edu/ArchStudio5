@@ -10,11 +10,11 @@ import org.archstudio.prolog.engine.MostGeneralUnifierEngine;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Executable;
-import org.archstudio.prolog.op.iso.ListTerm;
 import org.archstudio.prolog.parser.ParseException;
 import org.archstudio.prolog.parser.PrologParser;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
+import org.archstudio.prolog.term.ListTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 import org.junit.Before;
@@ -38,7 +38,6 @@ public class ProofTest {
 		public Map<VariableTerm, Term> done() {
 			return result;
 		}
-
 	}
 
 	ProofContext proofContext;
@@ -567,6 +566,66 @@ public class ProofTest {
 			expected.add(new Variables().add(X, b1).done());
 			Assert.assertEquals(expected, run("X is abs(-1)."));
 			Assert.assertEquals(expected, run("X is abs(1)."));
+		}
+	}
+
+	@Test
+	public void testMember() throws ParseException {
+		proofContext.add(parse("member(X, [X|_])."));
+		proofContext.add(parse("member(X, [_|T]) :- member(X, T)."));
+
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().done());
+			Assert.assertEquals(expected, run("member(1, [1])."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().done());
+			expected.add(new Variables().done());
+			Assert.assertEquals(expected, run("member(1, [1, 1])."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().done());
+			Assert.assertEquals(expected, run("member(1, [1, 2])."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().done());
+			Assert.assertEquals(expected, run("member(1, [1, 2, 3])."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().done());
+			Assert.assertEquals(expected, run("member(2, [1, 2, 3])."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().done());
+			Assert.assertEquals(expected, run("member(3, [1, 2, 3])."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			Assert.assertEquals(expected, run("member(4, [1, 2, 3])."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b1).done());
+			Assert.assertEquals(expected, run("member(X, [1])."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b1).done());
+			expected.add(new Variables().add(X, b2).done());
+			Assert.assertEquals(expected, run("member(X, [1, 2])."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b1).done());
+			expected.add(new Variables().add(X, b2).done());
+			expected.add(new Variables().add(X, b3).done());
+			Assert.assertEquals(expected, run("member(X, [1, 2, 3])."));
 		}
 	}
 }

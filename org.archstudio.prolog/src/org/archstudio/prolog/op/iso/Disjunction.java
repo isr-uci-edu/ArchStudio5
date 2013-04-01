@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.archstudio.prolog.engine.PrologUtils;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Executable;
@@ -40,16 +41,15 @@ public class Disjunction extends ComplexTerm implements Executable {
 							}
 							if (variablesIterator == null && termsIndex < getTermsSize()) {
 								Term term = getTerm(termsIndex++);
-								variablesIterator = resolveOperation(term, variables).execute(proofContext,
-										unificationEngine, term, variables).iterator();
+								variablesIterator = PrologUtils.resolveExecutable(proofContext, term, variables)
+										.execute(proofContext, unificationEngine, term, variables).iterator();
 								if (!variablesIterator.hasNext()) {
 									variablesIterator = null;
 								}
 								continue;
 							}
-							break;
+							return endOfData();
 						}
-						return endOfData();
 					}
 				};
 			}

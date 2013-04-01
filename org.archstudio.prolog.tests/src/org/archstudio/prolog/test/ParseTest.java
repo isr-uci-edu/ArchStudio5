@@ -8,7 +8,6 @@ import junit.framework.Assert;
 
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.op.iso.Conjunction;
-import org.archstudio.prolog.op.iso.ListTerm;
 import org.archstudio.prolog.op.iso.Neck;
 import org.archstudio.prolog.op.iso.NotUnifiable;
 import org.archstudio.prolog.op.iso.Unifiable;
@@ -16,6 +15,7 @@ import org.archstudio.prolog.parser.ParseException;
 import org.archstudio.prolog.parser.PrologParser;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
+import org.archstudio.prolog.term.ListTerm;
 import org.archstudio.prolog.term.StringTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;

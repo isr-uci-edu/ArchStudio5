@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.archstudio.prolog.engine.PrologUtils;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Executable;
@@ -23,23 +24,18 @@ public class SoftCut extends ComplexTerm implements Executable {
 	public Iterable<Map<VariableTerm, Term>> execute(final ProofContext proofContext,
 			final UnificationEngine unificationEngine, final Term source, final Map<VariableTerm, Term> variables) {
 
-		final Executable t0 = resolveOperation(getTerm(0), variables);
-		final Executable t1 = resolveOperation(getTerm(1), variables);
-
 		return new Iterable<Map<VariableTerm, Term>>() {
-
-			Iterator<Map<VariableTerm, Term>> t0i = t0.execute(proofContext, unificationEngine, t0, variables)
-					.iterator();
-			boolean t0iHadNext = t0i.hasNext();
-			Iterator<Map<VariableTerm, Term>> t1i = emptyVariablesList().iterator();
 
 			@Override
 			public Iterator<Map<VariableTerm, Term>> iterator() {
-				if (!t0iHadNext) {
-					return emptyVariablesList().iterator();
-				}
 
 				return new AbstractIterator<Map<VariableTerm, Term>>() {
+
+					Executable t0 = PrologUtils.resolveExecutable(proofContext, getTerm(0), variables);
+					Iterator<Map<VariableTerm, Term>> t0i = t0.execute(proofContext, unificationEngine, t0, variables)
+							.iterator();
+					Iterator<Map<VariableTerm, Term>> t1i = PrologUtils.emptyVariablesList().iterator();
+
 					@Override
 					protected Map<VariableTerm, Term> computeNext() {
 						while (true) {
@@ -47,12 +43,13 @@ public class SoftCut extends ComplexTerm implements Executable {
 								return t1i.next();
 							}
 							if (t0i.hasNext()) {
-								t1i = t1.execute(proofContext, unificationEngine, t1, t0i.next()).iterator();
+								Map<VariableTerm, Term> variables = t0i.next();
+								Executable t1 = PrologUtils.resolveExecutable(proofContext, getTerm(1), variables);
+								t1i = t1.execute(proofContext, unificationEngine, t1, variables).iterator();
 								continue;
 							}
-							break;
+							return endOfData();
 						}
-						return endOfData();
 					}
 				};
 			}

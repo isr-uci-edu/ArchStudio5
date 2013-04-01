@@ -20,7 +20,7 @@ public class IsCallable extends ComplexTerm implements Executable {
 	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			Term source, Map<VariableTerm, Term> variables) {
-		Term t = resolve(getTerm(0), variables);
+		Term t = getTerm(0).resolve(proofContext, variables);
 		if (t instanceof Executable) {
 			return Collections.singleton(variables);
 		}
