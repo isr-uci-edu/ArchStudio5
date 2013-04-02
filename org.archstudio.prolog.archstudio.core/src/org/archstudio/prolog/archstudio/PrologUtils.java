@@ -43,7 +43,7 @@ public class PrologUtils {
 		try {
 			List<ComplexTerm> facts = Lists.newArrayList();
 			Set<String> nsURIs = Sets.newHashSet();
-			StringBuffer sb = new StringBuffer();
+			StringBuffer sb = new StringBuffer(":- discontiguous(type/2, value/3).\n");
 			processEObject(proofContext, facts, nsURIs, sb, 0, progress.newChild(1), null, null, eObject);
 
 			// add prolog for schema NS URIs
