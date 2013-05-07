@@ -48,7 +48,6 @@
       <import plugin="org.eclipse.pde"/>
       <import plugin="org.eclipse.emf.codegen.ecore"/>
       <import plugin="org.eclipse.equinox.registry"/>
-      <import plugin="com.google.guava"/>
       <import plugin="org.eclipse.xtend.lib"/>
       <import plugin="org.eclipse.xtext.xbase.lib"/>
       <import plugin="org.eclipse.jdt"/>

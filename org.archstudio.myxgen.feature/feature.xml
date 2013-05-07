@@ -42,7 +42,6 @@
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.jdt.annotation"/>
       <import plugin="org.eclipse.equinox.registry"/>
-      <import plugin="com.google.guava"/>
       <import plugin="org.eclipse.xtend.lib"/>
       <import plugin="org.eclipse.xtext.xbase.lib"/>
       <import plugin="org.eclipse.jdt"/>
