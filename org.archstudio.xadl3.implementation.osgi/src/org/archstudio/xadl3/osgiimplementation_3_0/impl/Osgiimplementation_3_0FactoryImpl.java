@@ -25,7 +25,7 @@ public class Osgiimplementation_3_0FactoryImpl extends EFactoryImpl implements O
 	public static Osgiimplementation_3_0Factory init() {
 		try {
 			Osgiimplementation_3_0Factory theOsgiimplementation_3_0Factory = (Osgiimplementation_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.archstudio.org/xadl3/schemas/osgiimplementation-3.0.xsd");
+					.getEFactory(Osgiimplementation_3_0Package.eNS_URI);
 			if (theOsgiimplementation_3_0Factory != null) {
 				return theOsgiimplementation_3_0Factory;
 			}

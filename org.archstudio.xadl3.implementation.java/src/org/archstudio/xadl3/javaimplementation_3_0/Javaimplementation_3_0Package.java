@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -127,6 +128,14 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	int CLASS_PATH_ENTRY_FEATURE_COUNT = 3;
 
 	/**
+	 * The number of operations of the '<em>Class Path Entry</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS_PATH_ENTRY_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaClassImpl
 	 * <em>Java Class</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -178,6 +187,14 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int JAVA_CLASS_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Java Class</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.javaimplementation_3_0.impl.JavaImplementationImpl
@@ -232,6 +249,15 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int JAVA_IMPLEMENTATION_FEATURE_COUNT = Implementation_3_0Package.IMPLEMENTATION_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of operations of the '<em>Java Implementation</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_IMPLEMENTATION_OPERATION_COUNT = Implementation_3_0Package.IMPLEMENTATION_OPERATION_COUNT + 0;
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.javaimplementation_3_0.ClassPathEntry
@@ -395,6 +421,7 @@ public interface Javaimplementation_3_0Package extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

@@ -8,7 +8,7 @@ import net.gexf_1_2.gexf.ParentType;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Parent Type</b></em>'. <!-- end-user-doc -->
@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * 
  * @generated
  */
-public class ParentTypeImpl extends EObjectImpl implements ParentType {
+public class ParentTypeImpl extends MinimalEObjectImpl.Container implements ParentType {
 	/**
 	 * The default value of the '{@link #getFor() <em>For</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->

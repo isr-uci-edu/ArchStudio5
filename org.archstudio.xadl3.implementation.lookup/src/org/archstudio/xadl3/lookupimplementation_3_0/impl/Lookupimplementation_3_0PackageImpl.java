@@ -219,7 +219,7 @@ public class Lookupimplementation_3_0PackageImpl extends EPackageImpl implements
 		// Add supertypes to classes
 		lookupImplementationEClass.getESuperTypes().add(theImplementation_3_0Package.getImplementation());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(lookupImplementationEClass, LookupImplementation.class, "LookupImplementation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLookupImplementation_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1,

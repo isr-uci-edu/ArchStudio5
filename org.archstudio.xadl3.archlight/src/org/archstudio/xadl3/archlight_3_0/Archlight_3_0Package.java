@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -109,6 +110,14 @@ public interface Archlight_3_0Package extends EPackage {
 	int ARCHLIGHT_FEATURE_COUNT = 2;
 
 	/**
+	 * The number of operations of the '<em>Archlight</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ARCHLIGHT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.archlight_3_0.impl.DocumentRootImpl
 	 * <em>Document Root</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -161,6 +170,14 @@ public interface Archlight_3_0Package extends EPackage {
 	int DOCUMENT_ROOT_FEATURE_COUNT = 4;
 
 	/**
+	 * The number of operations of the '<em>Document Root</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DOCUMENT_ROOT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.archlight_3_0.impl.TestImpl <em>Test</em>}' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -210,6 +227,14 @@ public interface Archlight_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int TEST_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Test</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TEST_OPERATION_COUNT = 0;
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.archlight_3_0.Archlight <em>Archlight</em>}'. <!--
@@ -368,6 +393,7 @@ public interface Archlight_3_0Package extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

@@ -36,7 +36,7 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	public static Statechart_1_0Factory init() {
 		try {
 			Statechart_1_0Factory theStatechart_1_0Factory = (Statechart_1_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.archstudio.org/xadl3/schemas/statechart-1.0.xsd");
+					.getEFactory(Statechart_1_0Package.eNS_URI);
 			if (theStatechart_1_0Factory != null) {
 				return theStatechart_1_0Factory;
 			}

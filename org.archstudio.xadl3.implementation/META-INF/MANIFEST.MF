@@ -10,6 +10,7 @@ Export-Package: org.archstudio.xadl3.implementation_3_0,
  org.archstudio.xadl3.implementation_3_0.impl,
  org.archstudio.xadl3.implementation_3_0.util
 Require-Bundle: org.archstudio.xadl3.xadlcore;visibility:=reexport,
+ org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.archstudio.xadl3.xadlcore;visibility:=reexport,
@@ -17,3 +18,4 @@ Require-Bundle: org.archstudio.xadl3.xadlcore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi,
  org.archstudio.dblgen
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

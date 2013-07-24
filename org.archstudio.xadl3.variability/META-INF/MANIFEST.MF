@@ -1,14 +1,18 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio xADL Data Bindings: variability
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.archstudio.xadl3.variability;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: archstudio.org
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Export-Package: org.archstudio.xadl3.variability_3_0,
  org.archstudio.xadl3.variability_3_0.impl,
  org.archstudio.xadl3.variability_3_0.util
-Require-Bundle: org.eclipse.emf.ecore,
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.archstudio.dblgen,
  org.archstudio.xadl3.xadlcore
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

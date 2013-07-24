@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -127,6 +128,15 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	int OS_GI_IMPLEMENTATION_FEATURE_COUNT = Implementation_3_0Package.IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
+	 * The number of operations of the '<em>OS Gi Implementation</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int OS_GI_IMPLEMENTATION_OPERATION_COUNT = Implementation_3_0Package.IMPLEMENTATION_OPERATION_COUNT + 0;
+
+	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.osgiimplementation_3_0.OSGiImplementation
 	 * <em>OS Gi Implementation</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -173,6 +183,7 @@ public interface Osgiimplementation_3_0Package extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

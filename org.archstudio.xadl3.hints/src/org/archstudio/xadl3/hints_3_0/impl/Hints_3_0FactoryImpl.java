@@ -27,7 +27,7 @@ public class Hints_3_0FactoryImpl extends EFactoryImpl implements Hints_3_0Facto
 	public static Hints_3_0Factory init() {
 		try {
 			Hints_3_0Factory theHints_3_0Factory = (Hints_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.archstudio.org/xadl3/schemas/hints-3.0.xsd");
+					.getEFactory(Hints_3_0Package.eNS_URI);
 			if (theHints_3_0Factory != null) {
 				return theHints_3_0Factory;
 			}

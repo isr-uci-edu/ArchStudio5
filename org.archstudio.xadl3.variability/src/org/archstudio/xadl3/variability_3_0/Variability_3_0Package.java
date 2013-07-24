@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -88,6 +89,14 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_FEATURE_COUNT = 1;
 
 	/**
+	 * The number of operations of the '<em>Change</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CHANGE_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.AttributeChangeImpl
 	 * <em>Attribute Change</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -121,6 +130,14 @@ public interface Variability_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int ATTRIBUTE_CHANGE_FEATURE_COUNT = CHANGE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Attribute Change</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE_CHANGE_OPERATION_COUNT = CHANGE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetImpl <em>Change Set</em>}'
@@ -165,6 +182,14 @@ public interface Variability_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int CHANGE_SET_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Change Set</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CHANGE_SET_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.ChangeSetOfChangesImpl
@@ -220,6 +245,15 @@ public interface Variability_3_0Package extends EPackage {
 	int CHANGE_SET_OF_CHANGES_FEATURE_COUNT = CHANGE_SET_FEATURE_COUNT + 1;
 
 	/**
+	 * The number of operations of the '<em>Change Set Of Changes</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CHANGE_SET_OF_CHANGES_OPERATION_COUNT = CHANGE_SET_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.DocumentRootImpl
 	 * <em>Document Root</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -272,6 +306,14 @@ public interface Variability_3_0Package extends EPackage {
 	int DOCUMENT_ROOT_FEATURE_COUNT = 4;
 
 	/**
+	 * The number of operations of the '<em>Document Root</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DOCUMENT_ROOT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.ElementChangeImpl
 	 * <em>Element Change</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -316,6 +358,14 @@ public interface Variability_3_0Package extends EPackage {
 	int ELEMENT_CHANGE_FEATURE_COUNT = CHANGE_FEATURE_COUNT + 2;
 
 	/**
+	 * The number of operations of the '<em>Element Change</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_CHANGE_OPERATION_COUNT = CHANGE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.ElementManyChangeImpl
 	 * <em>Element Many Change</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -350,6 +400,15 @@ public interface Variability_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int ELEMENT_MANY_CHANGE_FEATURE_COUNT = CHANGE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Element Many Change</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_MANY_CHANGE_OPERATION_COUNT = CHANGE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.TransformChangeSetOfChangesImpl
@@ -403,6 +462,15 @@ public interface Variability_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int TRANSFORM_CHANGE_SET_OF_CHANGES_FEATURE_COUNT = CHANGE_SET_OF_CHANGES_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Transform Change Set Of Changes</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSFORM_CHANGE_SET_OF_CHANGES_OPERATION_COUNT = CHANGE_SET_OF_CHANGES_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.JavaTransformChangeSetOfChangesImpl
@@ -474,6 +542,15 @@ public interface Variability_3_0Package extends EPackage {
 	int JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES_FEATURE_COUNT = TRANSFORM_CHANGE_SET_OF_CHANGES_FEATURE_COUNT + 2;
 
 	/**
+	 * The number of operations of the '<em>Java Transform Change Set Of Changes</em>' class. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_TRANSFORM_CHANGE_SET_OF_CHANGES_OPERATION_COUNT = TRANSFORM_CHANGE_SET_OF_CHANGES_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.RelationshipImpl
 	 * <em>Relationship</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -516,6 +593,14 @@ public interface Variability_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int RELATIONSHIP_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Relationship</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int RELATIONSHIP_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.variability_3_0.impl.VariabilityImpl
@@ -579,6 +664,14 @@ public interface Variability_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int VARIABILITY_FEATURE_COUNT = 5;
+
+	/**
+	 * The number of operations of the '<em>Variability</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABILITY_OPERATION_COUNT = 0;
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.variability_3_0.AttributeChange
@@ -970,6 +1063,7 @@ public interface Variability_3_0Package extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

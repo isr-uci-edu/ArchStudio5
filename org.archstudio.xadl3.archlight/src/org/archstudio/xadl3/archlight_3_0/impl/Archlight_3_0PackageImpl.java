@@ -336,7 +336,7 @@ public class Archlight_3_0PackageImpl extends EPackageImpl implements Archlight_
 
 		// Add supertypes to classes
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(archlightEClass, Archlight.class, "Archlight", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getArchlight_Test(), this.getTest(), null, "test", null, 0, -1, Archlight.class, !IS_TRANSIENT,

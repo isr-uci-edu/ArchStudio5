@@ -742,7 +742,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 		initialStateEClass.getESuperTypes().add(this.getPseudoState());
 		stateEClass.getESuperTypes().add(this.getPseudoState());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(behaviorEClass, Behavior.class, "Behavior", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBehavior_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1,
 				Behavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,

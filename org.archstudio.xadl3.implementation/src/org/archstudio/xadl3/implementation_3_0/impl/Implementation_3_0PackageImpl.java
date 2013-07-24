@@ -316,7 +316,7 @@ public class Implementation_3_0PackageImpl extends EPackageImpl implements Imple
 		implementationExtensionEClass.getESuperTypes().add(theXadlcore_3_0Package.getExtension());
 		initializationParametersImplementationEClass.getESuperTypes().add(this.getImplementation());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(implementationEClass, Implementation.class, "Implementation", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getImplementation_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Implementation.class,

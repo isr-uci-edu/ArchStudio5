@@ -25,7 +25,7 @@ public class Myxgen_3_0FactoryImpl extends EFactoryImpl implements Myxgen_3_0Fac
 	public static Myxgen_3_0Factory init() {
 		try {
 			Myxgen_3_0Factory theMyxgen_3_0Factory = (Myxgen_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.archstudio.org/xadl3/schemas/myxgen-3.0.xsd");
+					.getEFactory(Myxgen_3_0Package.eNS_URI);
 			if (theMyxgen_3_0Factory != null) {
 				return theMyxgen_3_0Factory;
 			}

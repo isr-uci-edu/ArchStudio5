@@ -13,7 +13,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Content</b></em>'. <!-- end-user-doc -->
@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * 
  * @generated
  */
-public class GexfContentImpl extends EObjectImpl implements GexfContent {
+public class GexfContentImpl extends MinimalEObjectImpl.Container implements GexfContent {
 	/**
 	 * The cached value of the '{@link #getMeta() <em>Meta</em>}' containment reference. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->

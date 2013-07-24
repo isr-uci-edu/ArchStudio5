@@ -27,7 +27,7 @@ public class Xadlcore_3_0FactoryImpl extends EFactoryImpl implements Xadlcore_3_
 	public static Xadlcore_3_0Factory init() {
 		try {
 			Xadlcore_3_0Factory theXadlcore_3_0Factory = (Xadlcore_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd");
+					.getEFactory(Xadlcore_3_0Package.eNS_URI);
 			if (theXadlcore_3_0Factory != null) {
 				return theXadlcore_3_0Factory;
 			}

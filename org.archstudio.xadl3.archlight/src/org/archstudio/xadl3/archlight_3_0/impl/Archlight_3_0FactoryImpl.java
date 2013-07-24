@@ -27,7 +27,7 @@ public class Archlight_3_0FactoryImpl extends EFactoryImpl implements Archlight_
 	public static Archlight_3_0Factory init() {
 		try {
 			Archlight_3_0Factory theArchlight_3_0Factory = (Archlight_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.archstudio.org/xadl3/schemas/archlight-3.0.xsd");
+					.getEFactory(Archlight_3_0Package.eNS_URI);
 			if (theArchlight_3_0Factory != null) {
 				return theArchlight_3_0Factory;
 			}

@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EPackage;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -115,6 +116,14 @@ public interface Myxgen_3_0Package extends EPackage {
 	int MYX_GEN_FEATURE_COUNT = Implementation_3_0Package.IMPLEMENTATION_FEATURE_COUNT + 1;
 
 	/**
+	 * The number of operations of the '<em>Myx Gen</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int MYX_GEN_OPERATION_COUNT = Implementation_3_0Package.IMPLEMENTATION_OPERATION_COUNT + 0;
+
+	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.myxgen_3_0.MyxGen <em>Myx Gen</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -148,6 +157,7 @@ public interface Myxgen_3_0Package extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

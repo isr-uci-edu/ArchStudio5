@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -120,6 +121,14 @@ public interface GexfPackage extends EPackage {
 	int ATTRIBUTE_CONTENT_FEATURE_COUNT = 6;
 
 	/**
+	 * The number of operations of the '<em>Attribute Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE_CONTENT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.AttributesContentImpl <em>Attributes Content</em>}'
 	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -196,6 +205,15 @@ public interface GexfPackage extends EPackage {
 	int ATTRIBUTES_CONTENT_FEATURE_COUNT = 7;
 
 	/**
+	 * The number of operations of the '<em>Attributes Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTES_CONTENT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.AttvaluesContentImpl <em>Attvalues Content</em>}'
 	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -222,6 +240,14 @@ public interface GexfPackage extends EPackage {
 	 * @ordered
 	 */
 	int ATTVALUES_CONTENT_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Attvalues Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ATTVALUES_CONTENT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.AttvalueTypeImpl <em>Attvalue Type</em>}' class. <!--
@@ -289,6 +315,14 @@ public interface GexfPackage extends EPackage {
 	 * @ordered
 	 */
 	int ATTVALUE_TYPE_FEATURE_COUNT = 6;
+
+	/**
+	 * The number of operations of the '<em>Attvalue Type</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int ATTVALUE_TYPE_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.DocumentRootImpl <em>Document Root</em>}' class. <!--
@@ -545,6 +579,14 @@ public interface GexfPackage extends EPackage {
 	int DOCUMENT_ROOT_FEATURE_COUNT = 27;
 
 	/**
+	 * The number of operations of the '<em>Document Root</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DOCUMENT_ROOT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.EdgeContentImpl <em>Edge Content</em>}' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -697,6 +739,14 @@ public interface GexfPackage extends EPackage {
 	int EDGE_CONTENT_FEATURE_COUNT = 16;
 
 	/**
+	 * The number of operations of the '<em>Edge Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_CONTENT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.EdgesContentImpl <em>Edges Content</em>}' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -731,6 +781,14 @@ public interface GexfPackage extends EPackage {
 	 * @ordered
 	 */
 	int EDGES_CONTENT_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Edges Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EDGES_CONTENT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.GexfContentImpl <em>Content</em>}' class. <!--
@@ -783,6 +841,14 @@ public interface GexfPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEXF_CONTENT_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int GEXF_CONTENT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.GraphContentImpl <em>Graph Content</em>}' class. <!--
@@ -903,6 +969,14 @@ public interface GexfPackage extends EPackage {
 	int GRAPH_CONTENT_FEATURE_COUNT = 12;
 
 	/**
+	 * The number of operations of the '<em>Graph Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int GRAPH_CONTENT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.MetaContentImpl <em>Meta Content</em>}' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -962,6 +1036,14 @@ public interface GexfPackage extends EPackage {
 	 * @ordered
 	 */
 	int META_CONTENT_FEATURE_COUNT = 5;
+
+	/**
+	 * The number of operations of the '<em>Meta Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int META_CONTENT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.NodeContentImpl <em>Node Content</em>}' class. <!--
@@ -1128,6 +1210,14 @@ public interface GexfPackage extends EPackage {
 	int NODE_CONTENT_FEATURE_COUNT = 17;
 
 	/**
+	 * The number of operations of the '<em>Node Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_CONTENT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.NodesContentImpl <em>Nodes Content</em>}' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -1164,6 +1254,14 @@ public interface GexfPackage extends EPackage {
 	int NODES_CONTENT_FEATURE_COUNT = 2;
 
 	/**
+	 * The number of operations of the '<em>Nodes Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int NODES_CONTENT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.ParentsContentImpl <em>Parents Content</em>}' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -1190,6 +1288,14 @@ public interface GexfPackage extends EPackage {
 	 * @ordered
 	 */
 	int PARENTS_CONTENT_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Parents Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int PARENTS_CONTENT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.ParentTypeImpl <em>Parent Type</em>}' class. <!--
@@ -1219,6 +1325,14 @@ public interface GexfPackage extends EPackage {
 	int PARENT_TYPE_FEATURE_COUNT = 1;
 
 	/**
+	 * The number of operations of the '<em>Parent Type</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int PARENT_TYPE_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.SpellsContentImpl <em>Spells Content</em>}' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -1245,6 +1359,14 @@ public interface GexfPackage extends EPackage {
 	 * @ordered
 	 */
 	int SPELLS_CONTENT_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Spells Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int SPELLS_CONTENT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.impl.SpellTypeImpl <em>Spell Type</em>}' class. <!--
@@ -1296,6 +1418,14 @@ public interface GexfPackage extends EPackage {
 	 * @ordered
 	 */
 	int SPELL_TYPE_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Spell Type</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int SPELL_TYPE_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link net.gexf_1_2.gexf.AttrtypeType <em>Attrtype Type</em>}' enum. <!--
@@ -3116,6 +3246,7 @@ public interface GexfPackage extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

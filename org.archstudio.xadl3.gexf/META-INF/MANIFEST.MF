@@ -1,9 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArchStudio xADL Data Bindings: Graph Exchange XML Format (GEXF)
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.archstudio.xadl3.gexf;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: archstudio.org
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Export-Package: net.gexf_1_2.gexf,
  net.gexf_1_2.gexf.impl,
  net.gexf_1_2.gexf.util,
@@ -11,6 +13,8 @@ Export-Package: net.gexf_1_2.gexf,
  net.gexf_1_2.viz.impl,
  net.gexf_1_2.viz.util
 Require-Bundle: org.archstudio.dblgen,
+ org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

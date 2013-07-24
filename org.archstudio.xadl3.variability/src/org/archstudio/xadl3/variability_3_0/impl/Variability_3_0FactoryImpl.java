@@ -33,7 +33,7 @@ public class Variability_3_0FactoryImpl extends EFactoryImpl implements Variabil
 	public static Variability_3_0Factory init() {
 		try {
 			Variability_3_0Factory theVariability_3_0Factory = (Variability_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.archstudio.org/xadl3/schemas/variability-3.0.xsd");
+					.getEFactory(Variability_3_0Package.eNS_URI);
 			if (theVariability_3_0Factory != null) {
 				return theVariability_3_0Factory;
 			}

@@ -34,7 +34,7 @@ public class Structure_3_0FactoryImpl extends EFactoryImpl implements Structure_
 	public static Structure_3_0Factory init() {
 		try {
 			Structure_3_0Factory theStructure_3_0Factory = (Structure_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd");
+					.getEFactory(Structure_3_0Package.eNS_URI);
 			if (theStructure_3_0Factory != null) {
 				return theStructure_3_0Factory;
 			}

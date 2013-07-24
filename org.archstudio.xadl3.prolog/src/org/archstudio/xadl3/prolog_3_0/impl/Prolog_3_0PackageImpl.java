@@ -228,7 +228,7 @@ public class Prolog_3_0PackageImpl extends EPackageImpl implements Prolog_3_0Pac
 		// Add supertypes to classes
 		prologExtensionEClass.getESuperTypes().add(theXadlcore_3_0Package.getExtension());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(prologExtensionEClass, PrologExtension.class, "PrologExtension", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPrologExtension_Statement(), this.getStatement(), null, "statement", null, 0, -1,

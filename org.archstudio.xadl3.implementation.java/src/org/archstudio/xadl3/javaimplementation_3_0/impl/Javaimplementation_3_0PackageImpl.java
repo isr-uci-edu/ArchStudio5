@@ -347,7 +347,7 @@ public class Javaimplementation_3_0PackageImpl extends EPackageImpl implements J
 		// Add supertypes to classes
 		javaImplementationEClass.getESuperTypes().add(theImplementation_3_0Package.getImplementation());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(classPathEntryEClass, ClassPathEntry.class, "ClassPathEntry", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getClassPathEntry_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1,

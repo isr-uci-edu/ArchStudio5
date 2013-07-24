@@ -14,7 +14,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * 
  * @generated
  */
-public class VariabilityImpl extends EObjectImpl implements Variability {
+public class VariabilityImpl extends MinimalEObjectImpl.Container implements Variability {
 	/**
 	 * The cached value of the '{@link #getActiveChangeSet() <em>Active Change Set</em>}' reference. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->

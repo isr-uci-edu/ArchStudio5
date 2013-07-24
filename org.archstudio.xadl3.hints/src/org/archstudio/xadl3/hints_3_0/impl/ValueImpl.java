@@ -12,7 +12,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * 
  * @generated
  */
-public class ValueImpl extends EObjectImpl implements Value {
+public class ValueImpl extends MinimalEObjectImpl.Container implements Value {
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference list. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -9,7 +9,8 @@ Bundle-Localization: plugin
 Export-Package: org.archstudio.xadl3.structure_3_0,
  org.archstudio.xadl3.structure_3_0.impl,
  org.archstudio.xadl3.structure_3_0.util
-Require-Bundle: org.eclipse.emf.ecore,
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.archstudio.xadl3.xadlcore,
  org.eclipse.emf.ecore,
@@ -18,3 +19,4 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.archstudio.dblgen,
  org.archstudio.prolog.archstudio
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

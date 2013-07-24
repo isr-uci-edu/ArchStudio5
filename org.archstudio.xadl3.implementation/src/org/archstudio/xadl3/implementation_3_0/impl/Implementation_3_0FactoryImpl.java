@@ -27,7 +27,7 @@ public class Implementation_3_0FactoryImpl extends EFactoryImpl implements Imple
 	public static Implementation_3_0Factory init() {
 		try {
 			Implementation_3_0Factory theImplementation_3_0Factory = (Implementation_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.archstudio.org/xadl3/schemas/implementation-3.0.xsd");
+					.getEFactory(Implementation_3_0Package.eNS_URI);
 			if (theImplementation_3_0Factory != null) {
 				return theImplementation_3_0Factory;
 			}

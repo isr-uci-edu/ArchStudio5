@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -110,6 +111,14 @@ public interface XlinkPackage extends EPackage {
 	int DOCUMENT_ROOT_FEATURE_COUNT = 5;
 
 	/**
+	 * The number of operations of the '<em>Document Root</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DOCUMENT_ROOT_OPERATION_COUNT = 0;
+
+	/**
 	 * Returns the meta object for class '{@link org.w3.xlink.DocumentRoot <em>Document Root</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
@@ -187,6 +196,7 @@ public interface XlinkPackage extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

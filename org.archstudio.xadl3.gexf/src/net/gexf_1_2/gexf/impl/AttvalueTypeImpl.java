@@ -8,7 +8,7 @@ import net.gexf_1_2.gexf.GexfPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Attvalue Type</b></em>'. <!-- end-user-doc -->
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * 
  * @generated
  */
-public class AttvalueTypeImpl extends EObjectImpl implements AttvalueType {
+public class AttvalueTypeImpl extends MinimalEObjectImpl.Container implements AttvalueType {
 	/**
 	 * The default value of the '{@link #getEnd() <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->

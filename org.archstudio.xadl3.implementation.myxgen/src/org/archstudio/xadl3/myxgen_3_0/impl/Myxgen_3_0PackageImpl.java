@@ -203,7 +203,7 @@ public class Myxgen_3_0PackageImpl extends EPackageImpl implements Myxgen_3_0Pac
 		// Add supertypes to classes
 		myxGenEClass.getESuperTypes().add(theImplementation_3_0Package.getImplementation());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(myxGenEClass, MyxGen.class, "MyxGen", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMyxGen_BrickID(), theXMLTypePackage.getIDREF(), "brickID", null, 1, 1, MyxGen.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -7,7 +7,7 @@ import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Simple Link</b></em>'. <!-- end-user-doc -->
@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * 
  * @generated
  */
-public class SimpleLinkImpl extends EObjectImpl implements SimpleLink {
+public class SimpleLinkImpl extends MinimalEObjectImpl.Container implements SimpleLink {
 	/**
 	 * The default value of the '{@link #getHref() <em>Href</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->

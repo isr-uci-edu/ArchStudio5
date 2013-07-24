@@ -27,7 +27,7 @@ public class Javaimplementation_3_0FactoryImpl extends EFactoryImpl implements J
 	public static Javaimplementation_3_0Factory init() {
 		try {
 			Javaimplementation_3_0Factory theJavaimplementation_3_0Factory = (Javaimplementation_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.archstudio.org/xadl3/schemas/javaimplementation-3.0.xsd");
+					.getEFactory(Javaimplementation_3_0Package.eNS_URI);
 			if (theJavaimplementation_3_0Factory != null) {
 				return theJavaimplementation_3_0Factory;
 			}

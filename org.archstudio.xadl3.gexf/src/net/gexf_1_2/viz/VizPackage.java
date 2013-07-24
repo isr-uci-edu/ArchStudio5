@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -145,6 +146,14 @@ public interface VizPackage extends EPackage {
 	int COLOR_CONTENT_FEATURE_COUNT = 9;
 
 	/**
+	 * The number of operations of the '<em>Color Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR_CONTENT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link net.gexf_1_2.viz.impl.EdgeShapeContentImpl <em>Edge Shape Content</em>}'
 	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -211,6 +220,15 @@ public interface VizPackage extends EPackage {
 	 * @ordered
 	 */
 	int EDGE_SHAPE_CONTENT_FEATURE_COUNT = 6;
+
+	/**
+	 * The number of operations of the '<em>Edge Shape Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_SHAPE_CONTENT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link net.gexf_1_2.viz.impl.NodeShapeContentImpl <em>Node Shape Content</em>}'
@@ -287,6 +305,15 @@ public interface VizPackage extends EPackage {
 	 * @ordered
 	 */
 	int NODE_SHAPE_CONTENT_FEATURE_COUNT = 7;
+
+	/**
+	 * The number of operations of the '<em>Node Shape Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_SHAPE_CONTENT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link net.gexf_1_2.viz.impl.PositionContentImpl <em>Position Content</em>}' class.
@@ -373,6 +400,14 @@ public interface VizPackage extends EPackage {
 	int POSITION_CONTENT_FEATURE_COUNT = 8;
 
 	/**
+	 * The number of operations of the '<em>Position Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int POSITION_CONTENT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link net.gexf_1_2.viz.impl.SizeContentImpl <em>Size Content</em>}' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -439,6 +474,14 @@ public interface VizPackage extends EPackage {
 	 * @ordered
 	 */
 	int SIZE_CONTENT_FEATURE_COUNT = 6;
+
+	/**
+	 * The number of operations of the '<em>Size Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int SIZE_CONTENT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link net.gexf_1_2.viz.impl.ThicknessContentImpl <em>Thickness Content</em>}' class.
@@ -509,6 +552,14 @@ public interface VizPackage extends EPackage {
 	int THICKNESS_CONTENT_FEATURE_COUNT = 6;
 
 	/**
+	 * The number of operations of the '<em>Thickness Content</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int THICKNESS_CONTENT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link net.gexf_1_2.viz.impl.DocumentRootImpl <em>Document Root</em>}' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -559,6 +610,14 @@ public interface VizPackage extends EPackage {
 	 * @ordered
 	 */
 	int DOCUMENT_ROOT_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Document Root</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DOCUMENT_ROOT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link net.gexf_1_2.viz.EdgeShapeType <em>Edge Shape Type</em>}' enum. <!--
@@ -1408,6 +1467,7 @@ public interface VizPackage extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

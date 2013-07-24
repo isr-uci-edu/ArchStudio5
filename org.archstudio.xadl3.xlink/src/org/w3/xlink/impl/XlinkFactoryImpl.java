@@ -24,8 +24,7 @@ public class XlinkFactoryImpl extends EFactoryImpl implements XlinkFactory {
 	 */
 	public static XlinkFactory init() {
 		try {
-			XlinkFactory theXlinkFactory = (XlinkFactory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.w3.org/1999/xlink");
+			XlinkFactory theXlinkFactory = (XlinkFactory) EPackage.Registry.INSTANCE.getEFactory(XlinkPackage.eNS_URI);
 			if (theXlinkFactory != null) {
 				return theXlinkFactory;
 			}

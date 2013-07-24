@@ -1057,7 +1057,7 @@ public class VizPackageImpl extends EPackageImpl implements VizPackage {
 
 		// Add supertypes to classes
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(colorContentEClass, ColorContent.class, "ColorContent", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getColorContent_Spells(), theGexfPackage.getSpellsContent(), null, "spells", null, 0, 1,

@@ -15,7 +15,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * 
  * @generated
  */
-public class StatechartImpl extends EObjectImpl implements Statechart {
+public class StatechartImpl extends MinimalEObjectImpl.Container implements Statechart {
 	/**
 	 * The cached value of the '{@link #getState() <em>State</em>}' containment reference list. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

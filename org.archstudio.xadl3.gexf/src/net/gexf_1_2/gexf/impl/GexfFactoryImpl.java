@@ -52,8 +52,7 @@ public class GexfFactoryImpl extends EFactoryImpl implements GexfFactory {
 	 */
 	public static GexfFactory init() {
 		try {
-			GexfFactory theGexfFactory = (GexfFactory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.gexf.net/1.2draft");
+			GexfFactory theGexfFactory = (GexfFactory) EPackage.Registry.INSTANCE.getEFactory(GexfPackage.eNS_URI);
 			if (theGexfFactory != null) {
 				return theGexfFactory;
 			}

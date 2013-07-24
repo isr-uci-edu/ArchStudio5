@@ -14,6 +14,34 @@ compatible_directions(&apos;none&apos;, &apos;none&apos;).
       </Statements>
    </extension>
    <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            type="structure_3_0"
+            class="org.archstudio.xadl3.structure_3_0.util.Structure_3_0ResourceFactoryImpl">
+      </parser>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            type="xadlcore_3_0"
+            class="org.archstudio.xadl3.xadlcore_3_0.util.Xadlcore_3_0ResourceFactoryImpl">
+      </parser>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            type="xlink"
+            class="org.w3.xlink.util.XlinkResourceFactoryImpl">
+      </parser>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            type="structure_3_0"
+            class="org.archstudio.xadl3.structure_3_0.util.Structure_3_0ResourceFactoryImpl">
+      </parser>
+   </extension>
+   <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd"

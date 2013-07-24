@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -102,6 +103,14 @@ public interface Domain_3_0Package extends EPackage {
 	int DOMAIN_FEATURE_COUNT = 1;
 
 	/**
+	 * The number of operations of the '<em>Domain</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DOMAIN_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.domain_3_0.impl.DomainExtensionImpl
 	 * <em>Domain Extension</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -128,6 +137,14 @@ public interface Domain_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int DOMAIN_EXTENSION_FEATURE_COUNT = Xadlcore_3_0Package.EXTENSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Domain Extension</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DOMAIN_EXTENSION_OPERATION_COUNT = Xadlcore_3_0Package.EXTENSION_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.domain_3_0.DomainType <em>Domain Type</em>}' enum. <!--
@@ -226,6 +243,7 @@ public interface Domain_3_0Package extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

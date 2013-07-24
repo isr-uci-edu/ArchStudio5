@@ -28,7 +28,7 @@ public class Domain_3_0FactoryImpl extends EFactoryImpl implements Domain_3_0Fac
 	public static Domain_3_0Factory init() {
 		try {
 			Domain_3_0Factory theDomain_3_0Factory = (Domain_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.archstudio.org/xadl3/schemas/domain-3.0.xsd");
+					.getEFactory(Domain_3_0Package.eNS_URI);
 			if (theDomain_3_0Factory != null) {
 				return theDomain_3_0Factory;
 			}

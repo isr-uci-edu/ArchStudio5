@@ -645,7 +645,7 @@ public class Variability_3_0PackageImpl extends EPackageImpl implements Variabil
 		javaTransformChangeSetOfChangesEClass.getESuperTypes().add(this.getTransformChangeSetOfChanges());
 		transformChangeSetOfChangesEClass.getESuperTypes().add(this.getChangeSetOfChanges());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(attributeChangeEClass, AttributeChange.class, "AttributeChange", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAttributeChange_Value(), theXMLTypePackage.getString(), "value", null, 0, 1,

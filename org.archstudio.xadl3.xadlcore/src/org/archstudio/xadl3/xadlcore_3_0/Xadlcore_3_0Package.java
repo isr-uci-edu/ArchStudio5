@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -123,6 +124,14 @@ public interface Xadlcore_3_0Package extends EPackage {
 	int DOCUMENT_ROOT_FEATURE_COUNT = 5;
 
 	/**
+	 * The number of operations of the '<em>Document Root</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DOCUMENT_ROOT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.xadlcore_3_0.impl.ExtensionImpl <em>Extension</em>}'
 	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -140,6 +149,14 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int EXTENSION_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>Extension</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENSION_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.xadlcore_3_0.impl.SimpleLinkImpl <em>Simple Link</em>}'
@@ -185,6 +202,14 @@ public interface Xadlcore_3_0Package extends EPackage {
 	int SIMPLE_LINK_FEATURE_COUNT = 3;
 
 	/**
+	 * The number of operations of the '<em>Simple Link</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_LINK_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.xadlcore_3_0.impl.XADLTypeImpl <em>XADL Type</em>}'
 	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -211,6 +236,14 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int XADL_TYPE_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>XADL Type</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int XADL_TYPE_OPERATION_COUNT = 0;
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.xadlcore_3_0.DocumentRoot <em>Document Root</em>}
@@ -367,6 +400,7 @@ public interface Xadlcore_3_0Package extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

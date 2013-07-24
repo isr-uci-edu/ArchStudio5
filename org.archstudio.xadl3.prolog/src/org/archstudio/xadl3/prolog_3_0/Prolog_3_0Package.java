@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -100,6 +101,14 @@ public interface Prolog_3_0Package extends EPackage {
 	int PROLOG_EXTENSION_FEATURE_COUNT = Xadlcore_3_0Package.EXTENSION_FEATURE_COUNT + 1;
 
 	/**
+	 * The number of operations of the '<em>Prolog Extension</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int PROLOG_EXTENSION_OPERATION_COUNT = Xadlcore_3_0Package.EXTENSION_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.prolog_3_0.impl.StatementImpl <em>Statement</em>}' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -125,6 +134,14 @@ public interface Prolog_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int STATEMENT_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Statement</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int STATEMENT_OPERATION_COUNT = 0;
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.prolog_3_0.PrologExtension
@@ -182,6 +199,7 @@ public interface Prolog_3_0Package extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

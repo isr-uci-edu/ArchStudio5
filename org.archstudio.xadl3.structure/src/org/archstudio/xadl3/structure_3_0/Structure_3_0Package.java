@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -127,6 +128,14 @@ public interface Structure_3_0Package extends EPackage {
 	int BRICK_FEATURE_COUNT = 4;
 
 	/**
+	 * The number of operations of the '<em>Brick</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int BRICK_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.structure_3_0.impl.ComponentImpl <em>Component</em>}'
 	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -187,6 +196,14 @@ public interface Structure_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int COMPONENT_FEATURE_COUNT = BRICK_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Component</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_OPERATION_COUNT = BRICK_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.structure_3_0.impl.ConnectorImpl <em>Connector</em>}'
@@ -251,6 +268,14 @@ public interface Structure_3_0Package extends EPackage {
 	int CONNECTOR_FEATURE_COUNT = BRICK_FEATURE_COUNT + 1;
 
 	/**
+	 * The number of operations of the '<em>Connector</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTOR_OPERATION_COUNT = BRICK_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.structure_3_0.impl.DocumentRootImpl
 	 * <em>Document Root</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -303,6 +328,14 @@ public interface Structure_3_0Package extends EPackage {
 	int DOCUMENT_ROOT_FEATURE_COUNT = 4;
 
 	/**
+	 * The number of operations of the '<em>Document Root</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DOCUMENT_ROOT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceImpl <em>Interface</em>}'
 	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -353,6 +386,14 @@ public interface Structure_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int INTERFACE_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Interface</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int INTERFACE_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.structure_3_0.impl.InterfaceMappingImpl
@@ -417,6 +458,14 @@ public interface Structure_3_0Package extends EPackage {
 	int INTERFACE_MAPPING_FEATURE_COUNT = 5;
 
 	/**
+	 * The number of operations of the '<em>Interface Mapping</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int INTERFACE_MAPPING_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.structure_3_0.impl.LinkImpl <em>Link</em>}' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -474,6 +523,14 @@ public interface Structure_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int LINK_FEATURE_COUNT = 5;
+
+	/**
+	 * The number of operations of the '<em>Link</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.structure_3_0.impl.StructureImpl <em>Structure</em>}'
@@ -547,6 +604,14 @@ public interface Structure_3_0Package extends EPackage {
 	int STRUCTURE_FEATURE_COUNT = 6;
 
 	/**
+	 * The number of operations of the '<em>Structure</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURE_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.structure_3_0.impl.SubStructureImpl
 	 * <em>Sub Structure</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -599,6 +664,14 @@ public interface Structure_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int SUB_STRUCTURE_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Sub Structure</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_STRUCTURE_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.structure_3_0.Direction <em>Direction</em>}' enum. <!--
@@ -1135,6 +1208,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

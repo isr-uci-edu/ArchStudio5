@@ -303,7 +303,7 @@ public class Hints_3_0PackageImpl extends EPackageImpl implements Hints_3_0Packa
 		// Add supertypes to classes
 		hintsExtensionEClass.getESuperTypes().add(theXadlcore_3_0Package.getExtension());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(hintEClass, Hint.class, "Hint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getHint_Value(), this.getValue(), null, "value", null, 1, 1, Hint.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,

@@ -12,7 +12,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Node Shape Content</b></em>'. <!-- end-user-doc
@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * 
  * @generated
  */
-public class NodeShapeContentImpl extends EObjectImpl implements NodeShapeContent {
+public class NodeShapeContentImpl extends MinimalEObjectImpl.Container implements NodeShapeContent {
 	/**
 	 * The cached value of the '{@link #getSpells() <em>Spells</em>}' containment reference. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

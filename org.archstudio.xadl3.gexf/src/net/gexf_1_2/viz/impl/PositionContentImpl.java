@@ -11,7 +11,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Position Content</b></em>'. <!-- end-user-doc
@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * 
  * @generated
  */
-public class PositionContentImpl extends EObjectImpl implements PositionContent {
+public class PositionContentImpl extends MinimalEObjectImpl.Container implements PositionContent {
 	/**
 	 * The cached value of the '{@link #getSpells() <em>Spells</em>}' containment reference. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -116,6 +117,14 @@ public interface Hints_3_0Package extends EPackage {
 	int HINT_FEATURE_COUNT = 3;
 
 	/**
+	 * The number of operations of the '<em>Hint</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int HINT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.hints_3_0.impl.HintsExtensionImpl
 	 * <em>Hints Extension</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -142,6 +151,14 @@ public interface Hints_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int HINTS_EXTENSION_FEATURE_COUNT = Xadlcore_3_0Package.EXTENSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Hints Extension</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int HINTS_EXTENSION_OPERATION_COUNT = Xadlcore_3_0Package.EXTENSION_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.hints_3_0.impl.ValueImpl <em>Value</em>}' class. <!--
@@ -185,6 +202,14 @@ public interface Hints_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int VALUE_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Value</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_OPERATION_COUNT = 0;
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.hints_3_0.Hint <em>Hint</em>}'. <!--
@@ -307,6 +332,7 @@ public interface Hints_3_0Package extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

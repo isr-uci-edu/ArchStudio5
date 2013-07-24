@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -99,6 +100,14 @@ public interface Statechart_1_0Package extends EPackage {
 	int BEHAVIOR_FEATURE_COUNT = 2;
 
 	/**
+	 * The number of operations of the '<em>Behavior</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.impl.ConstraintImpl <em>Constraint</em>}'
 	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -133,6 +142,14 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @ordered
 	 */
 	int CONSTRAINT_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Constraint</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTRAINT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.impl.DocumentRootImpl
@@ -187,6 +204,14 @@ public interface Statechart_1_0Package extends EPackage {
 	int DOCUMENT_ROOT_FEATURE_COUNT = 4;
 
 	/**
+	 * The number of operations of the '<em>Document Root</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DOCUMENT_ROOT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.impl.PseudoStateImpl
 	 * <em>Pseudo State</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -229,6 +254,14 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @ordered
 	 */
 	int PSEUDO_STATE_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Pseudo State</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int PSEUDO_STATE_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.impl.FinalStateImpl <em>Final State</em>}'
@@ -283,6 +316,14 @@ public interface Statechart_1_0Package extends EPackage {
 	int FINAL_STATE_FEATURE_COUNT = PSEUDO_STATE_FEATURE_COUNT + 1;
 
 	/**
+	 * The number of operations of the '<em>Final State</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int FINAL_STATE_OPERATION_COUNT = PSEUDO_STATE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.impl.InitialStateImpl
 	 * <em>Initial State</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -333,6 +374,14 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @ordered
 	 */
 	int INITIAL_STATE_FEATURE_COUNT = PSEUDO_STATE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Initial State</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int INITIAL_STATE_OPERATION_COUNT = PSEUDO_STATE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.impl.StateImpl <em>State</em>}' class.
@@ -413,6 +462,14 @@ public interface Statechart_1_0Package extends EPackage {
 	int STATE_FEATURE_COUNT = PSEUDO_STATE_FEATURE_COUNT + 4;
 
 	/**
+	 * The number of operations of the '<em>State</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_OPERATION_COUNT = PSEUDO_STATE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartImpl <em>Statechart</em>}'
 	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -475,6 +532,14 @@ public interface Statechart_1_0Package extends EPackage {
 	int STATECHART_FEATURE_COUNT = 5;
 
 	/**
+	 * The number of operations of the '<em>Statechart</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int STATECHART_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.impl.SubStatechartImpl
 	 * <em>Sub Statechart</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -509,6 +574,14 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @ordered
 	 */
 	int SUB_STATECHART_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Sub Statechart</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int SUB_STATECHART_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.impl.TransitionImpl <em>Transition</em>}'
@@ -578,6 +651,14 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @ordered
 	 */
 	int TRANSITION_FEATURE_COUNT = 6;
+
+	/**
+	 * The number of operations of the '<em>Transition</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.StateType <em>State Type</em>}' enum. <!--
@@ -1077,6 +1158,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

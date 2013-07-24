@@ -265,7 +265,7 @@ public class Domain_3_0PackageImpl extends EPackageImpl implements Domain_3_0Pac
 		// Add supertypes to classes
 		domainExtensionEClass.getESuperTypes().add(theXadlcore_3_0Package.getExtension());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(domainEClass, Domain.class, "Domain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDomain_Type(), this.getDomainType(), "type", null, 0, 1, Domain.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

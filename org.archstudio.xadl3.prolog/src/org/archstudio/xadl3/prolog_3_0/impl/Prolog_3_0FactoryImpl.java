@@ -26,7 +26,7 @@ public class Prolog_3_0FactoryImpl extends EFactoryImpl implements Prolog_3_0Fac
 	public static Prolog_3_0Factory init() {
 		try {
 			Prolog_3_0Factory theProlog_3_0Factory = (Prolog_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.archstudio.org/xadl3/schemas/prolog-3.0.xsd");
+					.getEFactory(Prolog_3_0Package.eNS_URI);
 			if (theProlog_3_0Factory != null) {
 				return theProlog_3_0Factory;
 			}

@@ -38,8 +38,7 @@ public class VizFactoryImpl extends EFactoryImpl implements VizFactory {
 	 */
 	public static VizFactory init() {
 		try {
-			VizFactory theVizFactory = (VizFactory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.gexf.net/1.2draft/viz");
+			VizFactory theVizFactory = (VizFactory) EPackage.Registry.INSTANCE.getEFactory(VizPackage.eNS_URI);
 			if (theVizFactory != null) {
 				return theVizFactory;
 			}

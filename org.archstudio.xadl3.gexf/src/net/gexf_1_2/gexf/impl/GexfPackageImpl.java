@@ -2093,7 +2093,7 @@ public class GexfPackageImpl extends EPackageImpl implements GexfPackage {
 
 		// Add supertypes to classes
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(attributeContentEClass, AttributeContent.class, "AttributeContent", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAttributeContent_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1,

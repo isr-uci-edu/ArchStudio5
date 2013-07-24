@@ -9,9 +9,11 @@ Bundle-Localization: plugin
 Export-Package: org.w3.xlink,
  org.w3.xlink.impl,
  org.w3.xlink.util
-Require-Bundle: org.eclipse.emf.ecore,
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.archstudio.dblgen
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

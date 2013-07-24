@@ -765,7 +765,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 		componentEClass.getESuperTypes().add(this.getBrick());
 		connectorEClass.getESuperTypes().add(this.getBrick());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(brickEClass, Brick.class, "Brick", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBrick_Interface(), this.getInterface(), null, "interface", null, 0, -1, Brick.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,

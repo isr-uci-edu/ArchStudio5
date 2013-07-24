@@ -8,7 +8,7 @@ import net.gexf_1_2.gexf.SpellType;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Spell Type</b></em>'. <!-- end-user-doc -->
@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * 
  * @generated
  */
-public class SpellTypeImpl extends EObjectImpl implements SpellType {
+public class SpellTypeImpl extends MinimalEObjectImpl.Container implements SpellType {
 	/**
 	 * The default value of the '{@link #getEnd() <em>End</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->

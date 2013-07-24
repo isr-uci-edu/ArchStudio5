@@ -219,7 +219,7 @@ public class Osgiimplementation_3_0PackageImpl extends EPackageImpl implements O
 		// Add supertypes to classes
 		osGiImplementationEClass.getESuperTypes().add(theImplementation_3_0Package.getImplementation());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(osGiImplementationEClass, OSGiImplementation.class, "OSGiImplementation", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOSGiImplementation_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1,

@@ -24,6 +24,27 @@
       </schema>
    </extension>
    <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            type="gexf"
+            class="net.gexf_1_2.gexf.util.GexfResourceFactoryImpl">
+      </parser>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            type="viz"
+            class="net.gexf_1_2.viz.util.VizResourceFactoryImpl">
+      </parser>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            type="gexf"
+            class="net.gexf_1_2.gexf.util.GexfResourceFactoryImpl">
+      </parser>
+   </extension>
+   <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.gexf.net/1.2draft"

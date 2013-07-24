@@ -7,7 +7,7 @@ import org.archstudio.xadl3.prolog_3_0.Statement;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Statement</b></em>'. <!-- end-user-doc -->
@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * 
  * @generated
  */
-public class StatementImpl extends EObjectImpl implements Statement {
+public class StatementImpl extends MinimalEObjectImpl.Container implements Statement {
 	/**
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->

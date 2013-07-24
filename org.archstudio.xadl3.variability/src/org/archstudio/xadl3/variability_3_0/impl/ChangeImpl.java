@@ -7,7 +7,7 @@ import org.archstudio.xadl3.variability_3_0.Variability_3_0Package;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Change</b></em>'. <!-- end-user-doc -->
@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * 
  * @generated
  */
-public class ChangeImpl extends EObjectImpl implements Change {
+public class ChangeImpl extends MinimalEObjectImpl.Container implements Change {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->

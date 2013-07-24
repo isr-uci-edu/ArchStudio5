@@ -25,7 +25,7 @@ public class Lookupimplementation_3_0FactoryImpl extends EFactoryImpl implements
 	public static Lookupimplementation_3_0Factory init() {
 		try {
 			Lookupimplementation_3_0Factory theLookupimplementation_3_0Factory = (Lookupimplementation_3_0Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.archstudio.org/xadl3/schemas/lookupimplementation-3.0.xsd");
+					.getEFactory(Lookupimplementation_3_0Package.eNS_URI);
 			if (theLookupimplementation_3_0Factory != null) {
 				return theLookupimplementation_3_0Factory;
 			}

@@ -7,7 +7,7 @@ import org.archstudio.xadl3.implementation_3_0.Implementation_3_0Package;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Implementation</b></em>'. <!-- end-user-doc -->
@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * 
  * @generated
  */
-public abstract class ImplementationImpl extends EObjectImpl implements Implementation {
+public abstract class ImplementationImpl extends MinimalEObjectImpl.Container implements Implementation {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 

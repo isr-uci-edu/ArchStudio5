@@ -8,7 +8,7 @@ import org.archstudio.xadl3.statechart_1_0.SubStatechart;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Sub Statechart</b></em>'. <!-- end-user-doc -->
@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * 
  * @generated
  */
-public class SubStatechartImpl extends EObjectImpl implements SubStatechart {
+public class SubStatechartImpl extends MinimalEObjectImpl.Container implements SubStatechart {
 	/**
 	 * The cached value of the '{@link #getInnerStatechart() <em>Inner Statechart</em>}' reference. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->

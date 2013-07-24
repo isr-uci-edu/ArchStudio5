@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EReference;
  * <ul>
  * <li>each class,</li>
  * <li>each feature of each class,</li>
+ * <li>each operation of each class,</li>
  * <li>each enum,</li>
  * <li>and each data type</li>
  * </ul>
@@ -101,6 +102,14 @@ public interface Implementation_3_0Package extends EPackage {
 	int IMPLEMENTATION_FEATURE_COUNT = 1;
 
 	/**
+	 * The number of operations of the '<em>Implementation</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLEMENTATION_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.implementation_3_0.impl.ImplementationExtensionImpl
 	 * <em>Implementation Extension</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -127,6 +136,15 @@ public interface Implementation_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int IMPLEMENTATION_EXTENSION_FEATURE_COUNT = Xadlcore_3_0Package.EXTENSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Implementation Extension</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLEMENTATION_EXTENSION_OPERATION_COUNT = Xadlcore_3_0Package.EXTENSION_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.implementation_3_0.impl.InitializationParameterImpl
@@ -173,6 +191,15 @@ public interface Implementation_3_0Package extends EPackage {
 	int INITIALIZATION_PARAMETER_FEATURE_COUNT = 3;
 
 	/**
+	 * The number of operations of the '<em>Initialization Parameter</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int INITIALIZATION_PARAMETER_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '
 	 * {@link org.archstudio.xadl3.implementation_3_0.impl.InitializationParametersImplementationImpl
 	 * <em>Initialization Parameters Implementation</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -208,6 +235,15 @@ public interface Implementation_3_0Package extends EPackage {
 	 * @ordered
 	 */
 	int INITIALIZATION_PARAMETERS_IMPLEMENTATION_FEATURE_COUNT = IMPLEMENTATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Initialization Parameters Implementation</em>' class. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int INITIALIZATION_PARAMETERS_IMPLEMENTATION_OPERATION_COUNT = IMPLEMENTATION_OPERATION_COUNT + 0;
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.implementation_3_0.Implementation
@@ -334,6 +370,7 @@ public interface Implementation_3_0Package extends EPackage {
 	 * <ul>
 	 * <li>each class,</li>
 	 * <li>each feature of each class,</li>
+	 * <li>each operation of each class,</li>
 	 * <li>each enum,</li>
 	 * <li>and each data type</li>
 	 * </ul>

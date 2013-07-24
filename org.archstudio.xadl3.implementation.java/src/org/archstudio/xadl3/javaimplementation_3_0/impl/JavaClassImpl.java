@@ -14,7 +14,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * 
  * @generated
  */
-public class JavaClassImpl extends EObjectImpl implements JavaClass {
+public class JavaClassImpl extends MinimalEObjectImpl.Container implements JavaClass {
 	/**
 	 * The cached value of the '{@link #getClassPathEntry() <em>Class Path Entry</em>}' containment reference list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->

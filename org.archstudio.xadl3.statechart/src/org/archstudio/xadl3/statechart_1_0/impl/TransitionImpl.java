@@ -15,7 +15,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * 
  * @generated
  */
-public class TransitionImpl extends EObjectImpl implements Transition {
+public class TransitionImpl extends MinimalEObjectImpl.Container implements Transition {
 	/**
 	 * The cached value of the '{@link #getFrom() <em>From</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
