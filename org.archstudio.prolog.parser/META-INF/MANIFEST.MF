@@ -9,5 +9,5 @@ Export-Package: org.archstudio.prolog.parser
 Require-Bundle: org.eclipse.core.runtime,
  org.archstudio.prolog,
  org.archstudio.prolog.xtext
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

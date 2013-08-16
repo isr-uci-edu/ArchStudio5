@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry excluding="org/archstudio/myx/conn/EventRegulatorConnector.java|org/archstudio/myx/conn/IEventRegulatorValve.java|org/archstudio/myx/conn/OverrideSynchronousProxyConnector.java|org/archstudio/myx/conn/SynchAsynchPumpConnector.java|org/archstudio/myx/conn/SynchronousProxyConnector.java|org/archstudio/myx/demo/basic/" kind="src" path="src"/>
 	<classpathentry kind="output" path="bin"/>

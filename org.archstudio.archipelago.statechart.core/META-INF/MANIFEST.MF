@@ -27,5 +27,5 @@ Require-Bundle: org.archstudio.archipelago,
  org.eclipse.core.runtime,
  org.eclipse.jdt.annotation,
  org.archstudio.xarchadt.variability
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

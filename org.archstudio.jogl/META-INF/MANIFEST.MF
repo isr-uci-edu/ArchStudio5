@@ -142,5 +142,5 @@ Export-Package: com.jogamp.common,
  net.highteq.nativetaglet,
  org.jogamp.jogl
 Require-Bundle: org.eclipse.osgi
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

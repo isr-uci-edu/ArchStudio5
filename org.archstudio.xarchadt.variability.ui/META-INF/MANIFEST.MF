@@ -25,5 +25,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.annotation,
  org.eclipse.debug.core,
  org.eclipse.jdt.launching
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

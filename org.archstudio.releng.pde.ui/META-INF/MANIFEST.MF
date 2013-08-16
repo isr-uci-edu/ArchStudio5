@@ -15,5 +15,5 @@ Require-Bundle: org.eclipse.ui,
  org.archstudio.guava,
  org.archstudio.utils.osgi,
  org.archstudio.utils.system
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

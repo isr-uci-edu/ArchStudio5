@@ -16,5 +16,5 @@ Require-Bundle: org.archstudio.utils.eclipse,
  org.eclipse.core.runtime,
  org.archstudio.dblgen.core,
  org.archstudio.utils.osgi
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

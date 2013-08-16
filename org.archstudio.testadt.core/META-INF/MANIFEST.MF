@@ -8,4 +8,4 @@ Export-Package: org.archstudio.testadt.core
 Require-Bundle: org.archstudio.archlight,
  org.archstudio.myx.fw,
  org.archstudio.testadt
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

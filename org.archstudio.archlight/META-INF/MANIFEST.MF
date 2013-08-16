@@ -7,4 +7,4 @@ Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.archlight
 Require-Bundle: org.archstudio.xarchadt,
  org.archstudio.guava
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

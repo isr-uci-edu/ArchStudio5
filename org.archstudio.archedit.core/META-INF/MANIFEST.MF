@@ -29,4 +29,4 @@ Require-Bundle: org.archstudio.launcher,
  org.archstudio.utils.xadl.bna,
  org.archstudio.xarchadt.variability,
  org.eclipse.jdt.annotation
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

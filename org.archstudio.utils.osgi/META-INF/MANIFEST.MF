@@ -6,4 +6,4 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.utils.osgi
 Require-Bundle: org.eclipse.osgi
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

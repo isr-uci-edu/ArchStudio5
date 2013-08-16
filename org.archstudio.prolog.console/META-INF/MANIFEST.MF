@@ -13,5 +13,5 @@ Require-Bundle: org.eclipse.ui,
  org.archstudio.prolog.parser,
  org.archstudio.guava,
  org.archstudio.utils.system
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

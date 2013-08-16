@@ -38,5 +38,5 @@ Require-Bundle: org.eclipse.ui,
  org.archstudio.eclipse.core,
  org.archstudio.xarchadt.variability,
  org.eclipse.jdt.annotation
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

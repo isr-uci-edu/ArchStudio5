@@ -29,5 +29,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.archstudio.myx.fw.equinox,
  org.eclipse.jdt.annotation
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

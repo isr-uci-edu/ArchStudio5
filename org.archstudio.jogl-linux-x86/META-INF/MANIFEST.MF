@@ -5,6 +5,6 @@ Bundle-SymbolicName: org.archstudio.jogl-linux-x86;singleton:=true
 Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Fragment-Host: org.archstudio.jogl;bundle-version="2.0.0.qualifier"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-NativeCode: libgluegen-rt.so; libjogl_desktop.so; libjogl_mobile.so; libnativewindow_awt.so; libnativewindow_x11.so; libnewt.so
 Eclipse-PlatformFilter: (& (osgi.os=linux) (osgi.arch=x86))

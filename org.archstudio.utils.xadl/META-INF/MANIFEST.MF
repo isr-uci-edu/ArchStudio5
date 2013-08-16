@@ -13,4 +13,4 @@ Require-Bundle: org.archstudio.utils.system,
  org.archstudio.xarchadt.core,
  org.archstudio.guava,
  org.eclipse.jdt.annotation
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

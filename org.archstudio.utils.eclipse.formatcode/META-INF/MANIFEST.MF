@@ -16,5 +16,5 @@ Require-Bundle: org.archstudio.guava,
  org.eclipse.jdt.ui,
  org.eclipse.jface.text,
  org.eclipse.ltk.core.refactoring
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

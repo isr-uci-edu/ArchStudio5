@@ -12,4 +12,4 @@ Require-Bundle: org.archstudio.xarchadt;visibility:=reexport,
  org.archstudio.utils.system,
  org.archstudio.xadl3.structure,
  org.archstudio.ljm
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

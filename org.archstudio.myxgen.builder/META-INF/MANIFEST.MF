@@ -23,5 +23,5 @@ Require-Bundle: org.archstudio.guava,
  org.eclipse.jdt.core,
  org.eclipse.xtend.lib,
  org.eclipse.xtext.xbase.lib
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

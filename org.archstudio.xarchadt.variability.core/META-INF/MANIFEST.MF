@@ -19,5 +19,5 @@ Require-Bundle: org.archstudio.xarchadt.core;visibility:=reexport,
  org.archstudio.utils.osgi,
  org.eclipse.osgi,
  org.archstudio.xadl3.hints
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

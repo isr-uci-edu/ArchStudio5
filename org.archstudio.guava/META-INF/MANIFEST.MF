@@ -20,4 +20,4 @@ Export-Package: com.google.common.annotations,
  com.google.common.primitives,
  com.google.common.reflect,
  com.google.common.util.concurrent
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

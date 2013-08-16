@@ -20,5 +20,5 @@ Require-Bundle: org.archstudio.aim,
  org.eclipse.emf.common,
  org.eclipse.ui,
  org.archstudio.launcher.core
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
