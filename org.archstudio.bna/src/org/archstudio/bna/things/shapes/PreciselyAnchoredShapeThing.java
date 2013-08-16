@@ -1,17 +1,25 @@
 package org.archstudio.bna.things.shapes;
 
 import java.awt.Dimension;
+import java.awt.Shape;
+import java.awt.geom.Path2D;
+import java.awt.geom.Rectangle2D;
 
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableLineData;
+import org.archstudio.bna.facets.IHasMutableRotatingOffset;
+import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableShape;
 import org.archstudio.bna.facets.IHasMutableSize;
+import org.archstudio.bna.facets.IHasRotatingOffset;
+import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractPreciseAnchorPointThing;
 import org.eclipse.swt.graphics.RGB;
 
 public class PreciselyAnchoredShapeThing extends AbstractPreciseAnchorPointThing implements IHasMutableColor,
-		IHasMutableEdgeColor, IHasMutableSize, IHasMutableLineData, IHasMutableShape {
+		IHasMutableEdgeColor, IHasMutableSize, IHasMutableLineData, IHasMutableShape, IHasMutableSelected,
+		IHasMutableRotatingOffset {
 
 	public PreciselyAnchoredShapeThing(Object id) {
 		super(id);
@@ -25,7 +33,8 @@ public class PreciselyAnchoredShapeThing extends AbstractPreciseAnchorPointThing
 		setLineStyle(LINE_STYLE_SOLID);
 		setLineWidth(1);
 		setSize(new Dimension(8, 8));
-		setShape(Shape.CIRCLE);
+		setShape(new Rectangle2D.Float(-0.5f, -0.5f, 1f, 1f));
+		setSelected(false);
 	}
 
 	@Override
@@ -79,8 +88,8 @@ public class PreciselyAnchoredShapeThing extends AbstractPreciseAnchorPointThing
 	}
 
 	@Override
-	public Shape getShape() {
-		return get(SHAPE_KEY);
+	public Path2D getShape() {
+		return (Path2D) get(SHAPE_KEY);
 	}
 
 	@Override
@@ -88,4 +97,30 @@ public class PreciselyAnchoredShapeThing extends AbstractPreciseAnchorPointThing
 		set(SHAPE_KEY, shape);
 	}
 
+	@Override
+	public boolean isSelected() {
+		return Boolean.TRUE.equals(get(IHasSelected.SELECTED_KEY));
+	}
+
+	@Override
+	public void setSelected(boolean selected) {
+		set(IHasSelected.SELECTED_KEY, selected);
+	}
+
+	@Override
+	public int getRotatingOffset() {
+		return get(IHasRotatingOffset.ROTATING_OFFSET_KEY, 0);
+	}
+
+	@Override
+	public boolean shouldIncrementRotatingOffset() {
+		return isSelected();
+	}
+
+	@Override
+	public void incrementRotatingOffset() {
+		Integer io = get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
+		int i = io == null ? 0 : io + 1;
+		set(IHasRotatingOffset.ROTATING_OFFSET_KEY, i);
+	}
 }

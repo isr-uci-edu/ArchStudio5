@@ -12,7 +12,7 @@ import org.archstudio.bna.facets.IHasMutableLineData;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasMutableVerticalAlignment;
 import org.archstudio.bna.facets.IRelativeMovable;
-import org.archstudio.bna.things.AbstractAnchorPointThing;
+import org.archstudio.bna.things.AbstractMutableAnchorPointThing;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
@@ -23,7 +23,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 
 @NonNullByDefault
-public class AnchoredLabelThing extends AbstractAnchorPointThing implements IHasMutableText, IHasMutableColor,
+public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implements IHasMutableText, IHasMutableColor,
 		IHasMutableHorizontalAlignment, IHasMutableVerticalAlignment, IHasMutableFontData, IRelativeMovable,
 		IHasMutableAngle, IHasMutableIndicatorPoint, IHasMutableLineData {
 

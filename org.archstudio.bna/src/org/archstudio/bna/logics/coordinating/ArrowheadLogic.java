@@ -72,7 +72,7 @@ public class ArrowheadLogic extends AbstractThingLogic implements IBNAModelListe
 	public ArrowheadLogic() {
 	}
 
-	public void point(ArrowheadThing arrowheadThing, IHasPoints pointsThing, IThingKey<Point> endpoint) {
+	public void point(ArrowheadThing arrowheadThing, IHasEndpoints pointsThing, IThingKey<Point> endpoint) {
 		MaintainArrowhead ma = new MaintainArrowhead(pointsThing.getID(), endpoint, arrowheadThing.getID());
 		maintainArrowheads.put(pointsThing.getID(), ma);
 		ma.apply(getBNAModel());

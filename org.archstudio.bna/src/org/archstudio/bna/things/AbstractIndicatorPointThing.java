@@ -3,7 +3,7 @@ package org.archstudio.bna.things;
 import org.archstudio.bna.facets.IHasMutableIndicatorPoint;
 import org.eclipse.swt.graphics.Point;
 
-public abstract class AbstractIndicatorPointThing extends AbstractAnchorPointThing implements IHasMutableIndicatorPoint {
+public abstract class AbstractIndicatorPointThing extends AbstractMutableAnchorPointThing implements IHasMutableIndicatorPoint {
 
 	public AbstractIndicatorPointThing(Object id) {
 		super(id);

@@ -5,8 +5,6 @@ import org.archstudio.myxgen.EServiceObjectDelegate
 import org.archstudio.myxgen.MyxGenBrick
 import org.archstudio.myxgen.eclipse.^extension.MyxGenWorkspaceExtensions
 
-import static extension org.archstudio.myxgen.jet.codegen.MyxCompUtils.*
-
 class MyxCompStubBuilder extends MyxCompUtils {
 
 	def static String generate(MyxGenBrick b) {

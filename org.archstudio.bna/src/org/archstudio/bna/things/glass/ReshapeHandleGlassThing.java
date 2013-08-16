@@ -6,12 +6,12 @@ import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasMutableOrientation;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasStandardCursor;
-import org.archstudio.bna.things.AbstractAnchorPointThing;
+import org.archstudio.bna.things.AbstractMutableAnchorPointThing;
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 
-public class ReshapeHandleGlassThing extends AbstractAnchorPointThing implements IHasMutableOrientation,
+public class ReshapeHandleGlassThing extends AbstractMutableAnchorPointThing implements IHasMutableOrientation,
 		IHasStandardCursor, IHasMutableSize {
 
 	public ReshapeHandleGlassThing(Object id) {

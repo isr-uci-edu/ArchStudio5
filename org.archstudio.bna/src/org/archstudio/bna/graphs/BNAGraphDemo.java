@@ -10,7 +10,6 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
-import org.archstudio.bna.facets.IHasShape.Shape;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.graphs.GraphCoordinateMapper.Type;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
@@ -59,7 +58,6 @@ public class BNAGraphDemo {
 			double x = random.nextDouble() * graphGlassThing.getBoundingBox().width;
 			double y = -random.nextDouble() * graphGlassThing.getBoundingBox().height;
 			PreciselyAnchoredShapeGlassThing point = GraphAssemblies.createDataPoint(bnaWorld, null);
-			point.setShape(Shape.SQUARE);
 			point.setPreciseAnchorPoint(new Point2D.Double(x, y));
 			ToolTipLogic.setToolTip(point, "Point #" + (i + 1));
 			UserEditableUtils.addEditableQualities(point, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG,

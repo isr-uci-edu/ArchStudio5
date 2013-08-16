@@ -8,14 +8,14 @@ import org.archstudio.bna.facets.IHasMutableGradientFill;
 import org.archstudio.bna.facets.IHasMutableLife;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.facets.IHasMutableText;
-import org.archstudio.bna.things.AbstractAnchorPointThing;
+import org.archstudio.bna.things.AbstractMutableAnchorPointThing;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
 @NonNullByDefault
-public class UserNotificationThing extends AbstractAnchorPointThing implements IHasMutableText, IHasMutableFontData,
+public class UserNotificationThing extends AbstractMutableAnchorPointThing implements IHasMutableText, IHasMutableFontData,
 		IHasMutableColor, IHasMutableGradientFill, IHasMutableSecondaryColor, IHasMutableEdgeColor, IHasMutableLife {
 
 	public UserNotificationThing(@Nullable Object id) {

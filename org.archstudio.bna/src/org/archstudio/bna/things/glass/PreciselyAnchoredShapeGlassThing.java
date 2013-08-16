@@ -1,6 +1,9 @@
 package org.archstudio.bna.things.glass;
 
 import java.awt.Dimension;
+import java.awt.Shape;
+import java.awt.geom.Path2D;
+import java.awt.geom.Rectangle2D;
 
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSelected;
@@ -20,11 +23,11 @@ public class PreciselyAnchoredShapeGlassThing extends AbstractPreciseAnchorPoint
 
 	@Override
 	protected void initProperties() {
+		setSize(new Dimension(8, 8));
+		setShape(new Rectangle2D.Float(-0.5f, -0.5f, 1f, 1f));
 		super.initProperties();
 		setSelected(false);
 		incrementRotatingOffset();
-		setSize(new Dimension(8, 8));
-		setShape(Shape.CIRCLE);
 	}
 
 	@Override
@@ -65,8 +68,8 @@ public class PreciselyAnchoredShapeGlassThing extends AbstractPreciseAnchorPoint
 	}
 
 	@Override
-	public Shape getShape() {
-		return get(SHAPE_KEY);
+	public Path2D getShape() {
+		return (Path2D) get(SHAPE_KEY);
 	}
 
 	@Override

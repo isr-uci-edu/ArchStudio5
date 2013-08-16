@@ -3,9 +3,9 @@ package org.archstudio.bna.things.utility;
 import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableRadius;
 import org.archstudio.bna.keys.ThingKey;
-import org.archstudio.bna.things.AbstractAnchorPointThing;
+import org.archstudio.bna.things.AbstractMutableAnchorPointThing;
 
-public class RotaterThing extends AbstractAnchorPointThing implements IHasMutableAngle, IHasMutableRadius {
+public class RotaterThing extends AbstractMutableAnchorPointThing implements IHasMutableAngle, IHasMutableRadius {
 
 	public static final IThingKey<Integer> ROTATED_THING_IDS_KEY = ThingKey.create("rotatedThingIDs");
 	public static final IThingKey<Integer> ADJUSTMENT_INCREMENT_KEY = ThingKey.create("adjustmentIncrement");

@@ -7,8 +7,12 @@ import org.archstudio.bna.facets.IHasMutableCount;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableGradientFill;
 import org.archstudio.bna.facets.IHasMutableLineData;
+import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableRoundedCorners;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
+import org.archstudio.bna.facets.IHasMutableSelected;
+import org.archstudio.bna.facets.IHasRotatingOffset;
+import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractRoundedRectangleThing;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -17,7 +21,7 @@ import org.eclipse.swt.graphics.RGB;
 @NonNullByDefault
 public class RectangleThing extends AbstractRoundedRectangleThing implements IHasMutableColor,
 		IHasMutableSecondaryColor, IHasMutableGradientFill, IHasMutableEdgeColor, IHasMutableCount,
-		IHasMutableLineData, IHasMutableRoundedCorners {
+		IHasMutableLineData, IHasMutableRoundedCorners, IHasMutableSelected, IHasMutableRotatingOffset {
 
 	public RectangleThing(@Nullable Object id) {
 		super(id);
@@ -34,6 +38,7 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 		setLineWidth(1);
 		setCount(1);
 		setCornerSize(new Dimension(0, 0));
+		setSelected(false);
 	}
 
 	@Override
@@ -107,5 +112,32 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 	@Override
 	public void setLineWidth(int lineWidth) {
 		set(LINE_WIDTH_KEY, lineWidth);
+	}
+
+	@Override
+	public boolean isSelected() {
+		return Boolean.TRUE.equals(get(IHasSelected.SELECTED_KEY));
+	}
+
+	@Override
+	public void setSelected(boolean selected) {
+		set(IHasSelected.SELECTED_KEY, selected);
+	}
+
+	@Override
+	public int getRotatingOffset() {
+		return get(IHasRotatingOffset.ROTATING_OFFSET_KEY, 0);
+	}
+
+	@Override
+	public boolean shouldIncrementRotatingOffset() {
+		return isSelected();
+	}
+
+	@Override
+	public void incrementRotatingOffset() {
+		Integer io = get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
+		int i = io == null ? 0 : io + 1;
+		set(IHasRotatingOffset.ROTATING_OFFSET_KEY, i);
 	}
 }

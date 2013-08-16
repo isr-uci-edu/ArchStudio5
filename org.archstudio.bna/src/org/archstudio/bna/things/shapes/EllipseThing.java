@@ -1,15 +1,21 @@
 package org.archstudio.bna.things.shapes;
 
 import org.archstudio.bna.facets.IHasMutableColor;
+import org.archstudio.bna.facets.IHasMutableCount;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableGradientFill;
 import org.archstudio.bna.facets.IHasMutableLineData;
+import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
+import org.archstudio.bna.facets.IHasMutableSelected;
+import org.archstudio.bna.facets.IHasRotatingOffset;
+import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractEllipseThing;
 import org.eclipse.swt.graphics.RGB;
 
 public class EllipseThing extends AbstractEllipseThing implements IHasMutableColor, IHasMutableSecondaryColor,
-		IHasMutableGradientFill, IHasMutableEdgeColor, IHasMutableLineData {
+		IHasMutableGradientFill, IHasMutableEdgeColor, IHasMutableCount, IHasMutableLineData, IHasMutableSelected,
+		IHasMutableRotatingOffset {
 
 	public EllipseThing(Object id) {
 		super(id);
@@ -19,11 +25,13 @@ public class EllipseThing extends AbstractEllipseThing implements IHasMutableCol
 	protected void initProperties() {
 		super.initProperties();
 		setColor(new RGB(192, 128, 128));
+		setCount(1);
 		setSecondaryColor(new RGB(255, 192, 192));
 		setGradientFilled(true);
 		setEdgeColor(new RGB(0, 0, 0));
 		setLineStyle(LINE_STYLE_SOLID);
 		setLineWidth(1);
+		setSelected(false);
 	}
 
 	@Override
@@ -67,6 +75,16 @@ public class EllipseThing extends AbstractEllipseThing implements IHasMutableCol
 	}
 
 	@Override
+	public void setCount(int count) {
+		set(COUNT_KEY, count);
+	}
+
+	@Override
+	public int getCount() {
+		return get(COUNT_KEY, 1);
+	}
+
+	@Override
 	public int getLineStyle() {
 		return get(LINE_STYLE_KEY);
 	}
@@ -84,5 +102,32 @@ public class EllipseThing extends AbstractEllipseThing implements IHasMutableCol
 	@Override
 	public void setLineWidth(int lineWidth) {
 		set(LINE_WIDTH_KEY, lineWidth);
+	}
+
+	@Override
+	public boolean isSelected() {
+		return Boolean.TRUE.equals(get(IHasSelected.SELECTED_KEY));
+	}
+
+	@Override
+	public void setSelected(boolean selected) {
+		set(IHasSelected.SELECTED_KEY, selected);
+	}
+
+	@Override
+	public int getRotatingOffset() {
+		return get(IHasRotatingOffset.ROTATING_OFFSET_KEY, 0);
+	}
+
+	@Override
+	public boolean shouldIncrementRotatingOffset() {
+		return isSelected();
+	}
+
+	@Override
+	public void incrementRotatingOffset() {
+		Integer io = get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
+		int i = io == null ? 0 : io + 1;
+		set(IHasRotatingOffset.ROTATING_OFFSET_KEY, i);
 	}
 }

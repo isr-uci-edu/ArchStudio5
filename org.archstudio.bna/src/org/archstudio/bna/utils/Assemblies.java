@@ -297,7 +297,7 @@ public class Assemblies {
 		bkg.setColor(new RGB(255, 255, 255));
 		bkg.setSecondaryColor(null);
 		DirectionalLabelThing label = model.addThing(new DirectionalLabelThing(null), bkg);
-		label.setLocalInsets(new Insets(2, 2, 2, 2));
+		//FIXME: label.setLocalInsets(new Insets(2, 2, 2, 2));
 		//AnchoredLabelThing text = model.addThing(new AnchoredLabelThing(null), bkg);
 		EndpointGlassThing glass = model.addThing(new EndpointGlassThing(id), bkg);
 

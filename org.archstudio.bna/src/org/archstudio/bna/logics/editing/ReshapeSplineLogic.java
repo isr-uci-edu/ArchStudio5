@@ -17,6 +17,7 @@ import org.archstudio.bna.facets.IHasMutablePoints;
 import org.archstudio.bna.facets.IHasStandardCursor;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
+import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.things.shapes.ReshapeHandleThing;
@@ -43,7 +44,8 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 
 	private final List<IReshapeSplineGuide> reshapeSplineGuides = Lists.newArrayList();
 
-	protected DynamicStickPointLogic stickLogic = null;
+	protected DynamicStickPointLogic dynamicStickLogic = null;
+	protected StickPointLogic stickLogic = null;
 
 	public ReshapeSplineLogic() {
 		super(IHasMutablePoints.class);
@@ -52,7 +54,8 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 	@Override
 	protected void init() {
 		super.init();
-		stickLogic = addThingLogic(DynamicStickPointLogic.class);
+		dynamicStickLogic = addThingLogic(DynamicStickPointLogic.class);
+		stickLogic = addThingLogic(StickPointLogic.class);
 		addThingLogic(StandardCursorLogic.class);
 	}
 
@@ -107,11 +110,12 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		Point point = reshapingThing.getPoint(data);
 		IThingKey<Point> endpointKey = getEndpointKey(data);
 		if (endpointKey != null) {
-			StickyMode stickyMode = reshapingThing.get(stickLogic.getStickyModeKey(endpointKey));
+			StickyMode stickyMode = reshapingThing.get(dynamicStickLogic.getStickyModeKey(endpointKey));
 			if (stickyMode != null && stickyMode.isStuckToCenterPoint()) {
-				IIsSticky stickyThing = stickLogic.getStickyThingKey(endpointKey).get(reshapingThing, getBNAModel());
+				IIsSticky stickyThing = dynamicStickLogic.getStickyThingKey(endpointKey).get(reshapingThing,
+						getBNAModel());
 				if (stickyThing != null) {
-					point = stickyThing.getStickyPointNear(StickyMode.CENTER, reshapingThing.getPoint(data));
+					point = BNAUtils.getCentralPoint(stickyThing);
 				}
 			}
 		}
@@ -131,8 +135,8 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		if (endpointKey != null) {
 
 			// one of the endpoints is being moved
-			StickyMode stickToThingMode = reshapingThing.get(stickLogic.getStickyModeKey(endpointKey));
-			Object stickToThingID = reshapingThing.get(stickLogic.getStickyThingKey(endpointKey));
+			StickyMode stickToThingMode = reshapingThing.get(dynamicStickLogic.getStickyModeKey(endpointKey));
+			Object stickToThingID = reshapingThing.get(dynamicStickLogic.getStickyThingKey(endpointKey));
 
 			// if pulled far away from a stuck point, unstick it
 			if (BNAUtils.getDistance(reshapingThing.getPoint(data), ap) >= UNSTICK_DIST) {
@@ -147,7 +151,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 				for (IReshapeSplineGuide guide : reshapeSplineGuides) {
 					StickyMode stickyMode = guide.getStickyMode(reshapingThing, stickyThing, data);
 					if (stickyMode != null) {
-						Point stuckPoint = stickyThing.getStickyPointNear(stickyMode, p);
+						Point stuckPoint = BNAUtils.getClosestPointOnShape(stickyThing.getStickyShape(), p.x, p.y);
 						IBNAView view = evt.getView();
 						ICoordinateMapper cm = view.getCoordinateMapper();
 						IThingPeer<?> peer = view.getThingPeer(stickyThing);
@@ -162,12 +166,17 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 			}
 
 			// update the stuck thing
-			reshapingThing.set(stickLogic.getStickyModeKey(endpointKey), stickToThingMode);
-			reshapingThing.set(stickLogic.getStickyThingKey(endpointKey), stickToThingID);
+			reshapingThing.set(dynamicStickLogic.getStickyModeKey(endpointKey), stickToThingMode);
+			reshapingThing.set(dynamicStickLogic.getStickyThingKey(endpointKey), stickToThingID);
 
+			// update the point if not stuck
+			if (stickToThingID == null || stickToThingMode == null) {
+				reshapingThing.setPoint(data, ap);
+			}
 		}
-
-		reshapingThing.setPoint(data, ap);
+		else {
+			reshapingThing.setPoint(data, ap);
+		}
 	}
 
 	@Override
@@ -211,7 +220,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		boolean isStuck = false;
 		IThingKey<Point> endpointKey = getEndpointKey(data);
 		if (endpointKey != null) {
-			isStuck |= reshapingThing.get(stickLogic.getStickyThingKey(endpointKey)) != null;
+			isStuck |= reshapingThing.get(dynamicStickLogic.getStickyThingKey(endpointKey)) != null;
 		}
 		RGB color = shouldBeStuck ? isStuck ? STUCK_COLOR : UNSTUCK_COLOR : NORMAL_COLOR;
 		((IHasMutableColor) Assemblies.BACKGROUND_KEY.get(handle, getBNAModel())).setColor(color);
@@ -231,22 +240,24 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 	protected Runnable takeSnapshot() {
 		final Object tID = this.reshapingThing.getID();
 		final List<Point> points = reshapingThing.getPoints();
-		final StickyMode stickToThingMode1 = reshapingThing.get(stickLogic
+		final StickyMode stickToThingMode1 = reshapingThing.get(dynamicStickLogic
 				.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY));
-		final Object stickToThingID1 = reshapingThing.get(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_1_KEY));
-		final StickyMode stickToThingMode2 = reshapingThing.get(stickLogic
+		final Object stickToThingID1 = reshapingThing.get(dynamicStickLogic
+				.getStickyThingKey(IHasEndpoints.ENDPOINT_1_KEY));
+		final StickyMode stickToThingMode2 = reshapingThing.get(dynamicStickLogic
 				.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY));
-		final Object stickToThingID2 = reshapingThing.get(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY));
+		final Object stickToThingID2 = reshapingThing.get(dynamicStickLogic
+				.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY));
 		return new Runnable() {
 			@Override
 			public void run() {
 				IHasMutablePoints t = SystemUtils.castOrNull(getBNAModel().getThing(tID), IHasMutablePoints.class);
 				{
 					t.setPoints(points);
-					t.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), stickToThingMode1);
-					t.set(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_1_KEY), stickToThingID1);
-					t.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY), stickToThingMode2);
-					t.set(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY), stickToThingID2);
+					t.set(dynamicStickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), stickToThingMode1);
+					t.set(dynamicStickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_1_KEY), stickToThingID1);
+					t.set(dynamicStickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY), stickToThingMode2);
+					t.set(dynamicStickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY), stickToThingID2);
 				}
 			}
 		};

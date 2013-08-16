@@ -63,8 +63,8 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 
 	@Override
 	public void dispose() {
-		super.dispose();
 		control = SWTWidgetUtils.quietlyDispose(control);
+		super.dispose();
 	}
 
 	@Override

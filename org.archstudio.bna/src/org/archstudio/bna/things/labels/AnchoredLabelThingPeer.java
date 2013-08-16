@@ -50,6 +50,9 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+		if ("".equals(t.getText().trim()))
+			return;
+
 		lastTextLocalShape = null;
 		if (r.setColor(t, IHasColor.COLOR_KEY)) {
 			String text = t.getText();

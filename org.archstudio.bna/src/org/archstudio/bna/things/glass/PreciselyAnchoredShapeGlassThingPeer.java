@@ -1,8 +1,10 @@
 package org.archstudio.bna.things.glass;
 
 import java.awt.Dimension;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
@@ -21,67 +23,27 @@ public class PreciselyAnchoredShapeGlassThingPeer<T extends PreciselyAnchoredSha
 		super(thing);
 	}
 
-	public Rectangle getLocalBounds(IBNAView view, ICoordinateMapper cm) {
-		Point lp = BNAUtils.toPoint(cm.worldToLocal(t.getPreciseAnchorPoint()));
-		Dimension size = t.getSize();
-		return new Rectangle(lp.x - size.width / 2, lp.y - size.height / 2, size.width, size.height);
-	}
-
 	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
-		return getLocalBounds(view, cm).contains(location.getLocalPoint());
+		Path2D shape = t.getShape();
+		Dimension size = t.getSize();
+		shape.transform(AffineTransform.getScaleInstance(size.getWidth(), size.getHeight()));
+		Point2D localPoint = cm.worldToLocal(t.getPreciseAnchorPoint());
+		shape.transform(AffineTransform.getTranslateInstance(localPoint.getX(), localPoint.getY()));
+		Point lPoint = location.getLocalPoint();
+		return shape.getBounds().contains(lPoint.x, lPoint.y) && shape.contains(lPoint.x, lPoint.y);
 	}
 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
 		if (t.isSelected()) {
-			Rectangle lbb = getLocalBounds(view, cm);
+			Path2D shape = t.getShape();
+			Dimension size = t.getSize();
+			shape.transform(AffineTransform.getScaleInstance(size.getWidth(), size.getHeight()));
+			Point2D localPoint = cm.worldToLocal(t.getPreciseAnchorPoint());
+			shape.transform(AffineTransform.getTranslateInstance(localPoint.getX(), localPoint.getY()));
 
-			switch (t.getShape()) {
-			case CIRCLE: {
-				lbb.width -= 1;
-				lbb.height -= 1;
-				float[] points = BNAUtils.getEllipsePoints(lbb);
-
-				gl.glColor3f(1f, 1f, 1f);
-				gl.glBegin(GL.GL_LINE_LOOP);
-				for (int i = 0; i < points.length; i += 2) {
-					gl.glVertex2f(points[i] + 0.5f, points[i + 1] + 0.5f);
-				}
-				gl.glEnd();
-
-				gl.glColor3f(0f, 0f, 0f);
-				gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
-				gl.glBegin(GL.GL_LINE_LOOP);
-				for (int i = 0; i < points.length; i += 2) {
-					gl.glVertex2f(points[i] + 0.5f, points[i + 1] + 0.5f);
-				}
-				gl.glEnd();
-			}
-				break;
-			case SQUARE: {
-				float[] points = new float[] { lbb.x, lbb.y,//
-						lbb.x + lbb.width - 1, lbb.y,//
-						lbb.x + lbb.width - 1, lbb.y + lbb.height - 1,//
-						lbb.x, lbb.y + lbb.height - 1 };
-
-				gl.glColor3f(1f, 1f, 1f);
-				gl.glBegin(GL.GL_LINE_LOOP);
-				for (int i = 0; i < points.length; i += 2) {
-					gl.glVertex2f(points[i] + 0.5f, points[i + 1] + 0.5f);
-				}
-				gl.glEnd();
-
-				gl.glColor3f(0f, 0f, 0f);
-				gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.getRotatingOffset() % 8));
-				gl.glBegin(GL.GL_LINE_LOOP);
-				for (int i = 0; i < points.length; i += 2) {
-					gl.glVertex2f(points[i] + 0.5f, points[i + 1] + 0.5f);
-				}
-				gl.glEnd();
-			}
-				break;
-			}
+			BNAUtils.renderShapeSelected(t, view, cm, gl, clip, r, shape);
 		}
 	}
 }

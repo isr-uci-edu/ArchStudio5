@@ -1,22 +1,20 @@
 package org.archstudio.bna.things.shapes;
 
-import javax.media.opengl.GL;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
+
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
-import org.archstudio.bna.IThingPeer;
-import org.archstudio.bna.facets.IHasColor;
-import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.peers.IHasShadowPeer;
 import org.archstudio.bna.things.AbstractEllipseThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThingPeer<T> implements IThingPeer<T>,
-		IHasShadowPeer {
+public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThingPeer<T> implements IHasShadowPeer {
 
 	public EllipseThingPeer(T thing) {
 		super(thing);
@@ -29,25 +27,16 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 			return;
 		}
 
-		if (r.setColor(t, IHasColor.COLOR_KEY) && r.setLineStyle(t)) {
-			float[] points = BNAUtils.getEllipsePoints(lbb);
-			gl.glBegin(GL.GL_TRIANGLE_FAN);
-			for (int i = 0; i < points.length; i += 2) {
-				gl.glVertex2f(points[i], points[i + 1]);
-			}
-			gl.glEnd();
-		}
+		Shape localShape = new Ellipse2D.Float(lbb.x, lbb.y, lbb.width, lbb.height);
 
-		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
-			lbb.width -= 1;
-			lbb.height -= 1;
-			float[] points = BNAUtils.getEllipsePoints(lbb);
-			gl.glBegin(GL.GL_LINE_LOOP);
-			for (int i = 0; i < points.length; i += 2) {
-				gl.glVertex2f(points[i] + 0.5f, points[i + 1] + 0.5f);
-			}
-			gl.glEnd();
+		BNAUtils.renderShapeFill(t, view, cm, gl, clip, r, localShape);
+		for (int count = 0; count < t.getCount(); count++) {
+			int offset = count * 2 * t.getLineWidth();
+			Shape edgeShape = new Ellipse2D.Float(lbb.x + offset, lbb.y + offset, lbb.width - 2 * offset, lbb.height
+					- 2 * offset);
+			BNAUtils.renderShapeEdge(t, view, cm, gl, clip, r, edgeShape);
 		}
+		BNAUtils.renderShapeSelected(t, view, cm, gl, clip, r, localShape);
 	}
 
 	@Override
@@ -57,12 +46,9 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 			return;
 		}
 
+		Shape localShape = new Ellipse2D.Float(lbb.x, lbb.y, lbb.width, lbb.height);
+
 		r.setColor(new RGB(0, 0, 0), 1f);
-		float[] points = BNAUtils.getEllipsePoints(lbb);
-		gl.glBegin(GL.GL_TRIANGLE_FAN);
-		for (int i = 0; i < points.length; i += 2) {
-			gl.glVertex2f(points[i], points[i + 1]);
-		}
-		gl.glEnd();
+		BNAUtils.renderShapeFill(view, cm, gl, clip, r, localShape);
 	}
 }

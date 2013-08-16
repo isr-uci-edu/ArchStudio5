@@ -10,7 +10,6 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.ThingEvent;
-import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasInternalWorldEndpoint;
 import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.IIsSticky;
@@ -21,6 +20,7 @@ import org.archstudio.bna.logics.coordinating.IInternalBNAModelListener;
 import org.archstudio.bna.logics.coordinating.WorldThingInternalEventsLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.things.glass.MappingGlassThing;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.swt.graphics.Point;
@@ -118,7 +118,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 							IIsSticky.class);
 					if (iThing != null) {
 						t.set(INTERNAL_THING_KEY, iThing.getID());
-						t.setInternalEndpoint(iThing.getStickyPointNear(StickyMode.CENTER, new Point(0, 0)));
+						t.setInternalEndpoint(BNAUtils.getCentralPoint(iThing));
 					}
 				}
 			}
@@ -144,7 +144,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 
 	private void updateEndpoint(IHasWorld worldThing, IThing changedThing) {
 		if (changedThing instanceof IIsSticky) {
-			Point endpoint = ((IIsSticky) changedThing).getStickyPointNear(StickyMode.CENTER, new Point(0, 0));
+			Point endpoint = BNAUtils.getCentralPoint(changedThing);
 			for (IThing t : getBNAModel().getThingsByID(
 					thingValueTrackingLogic.getThingIDs(INTERNAL_THING_KEY, changedThing.getID(),
 							IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY, worldThing.getID()))) {

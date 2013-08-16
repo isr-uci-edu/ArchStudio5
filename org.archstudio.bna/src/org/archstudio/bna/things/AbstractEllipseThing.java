@@ -1,11 +1,12 @@
 package org.archstudio.bna.things;
 
 import java.awt.Dimension;
-import java.awt.Insets;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 
-import org.archstudio.bna.constants.StickyMode;
+import org.archstudio.bna.IThingListener;
+import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
-import org.archstudio.bna.facets.IHasMutableLocalInsets;
 import org.archstudio.bna.facets.IHasMutableMinimumSize;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
@@ -16,7 +17,7 @@ import org.eclipse.swt.graphics.Rectangle;
 
 @NonNullByDefault
 public abstract class AbstractEllipseThing extends AbstractRelativeMovableReferencePointThing implements
-		IHasMutableBoundingBox, IHasMutableMinimumSize, IRelativeMovable, IIsSticky, IHasMutableLocalInsets {
+		IHasMutableBoundingBox, IHasMutableMinimumSize, IRelativeMovable, IIsSticky {
 
 	public AbstractEllipseThing(Object id) {
 		super(id);
@@ -24,10 +25,18 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 
 	@Override
 	protected void initProperties() {
+		addThingListener(new IThingListener() {
+			@Override
+			public void thingChanged(ThingEvent thingEvent) {
+				if (isShapeModifyingKey(thingEvent.getPropertyName())) {
+					set(IIsSticky.STICKY_SHAPE_KEY, createStickyShape());
+				}
+			}
+		});
 		super.initProperties();
 		setMinimumSize(new Dimension(5, 5));
-		setBoundingBox(new Rectangle(0, 0, 10, 10));
 		addShapeModifyingKey(BOUNDING_BOX_KEY);
+		setBoundingBox(new Rectangle(0, 0, 10, 10));
 	}
 
 	@Override
@@ -78,38 +87,13 @@ public abstract class AbstractEllipseThing extends AbstractRelativeMovableRefere
 		setBoundingBox(bounds);
 	}
 
-	@Override
-	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
+	protected Shape createStickyShape() {
 		Rectangle r = getBoundingBox();
-		switch (stickyMode) {
-		case EDGE:
-		case EDGE_FROM_CENTER: {
-			double cx = r.x + r.width / 2d;
-			double cy = r.y + r.height / 2d;
-			double dx = cx - nearPoint.x;
-			double dy = cy - nearPoint.y;
-			double h = Math.sqrt(dx * dx + dy * dy);
-			double angle = Math.asin(dx / h);
-			if (dy < 0) {
-				angle = Math.PI - angle;
-			}
-			return new Point(BNAUtils.round(cx + -Math.sin(angle) * r.width / 2d), BNAUtils.round(cy + -Math.cos(angle)
-					* r.height / 2d));
-		}
-		case CENTER:
-			return new Point(r.x + r.width / 2, r.y + r.height / 2);
-		}
-		throw new IllegalArgumentException();
+		return new Ellipse2D.Float(r.x, r.y, r.width, r.height);
 	}
 
 	@Override
-	public Insets getLocalInsets() {
-		return get(LOCAL_INSETS_KEY, new Insets(0, 0, 0, 0));
+	public Shape getStickyShape() {
+		return get(IIsSticky.STICKY_SHAPE_KEY);
 	}
-
-	@Override
-	public void setLocalInsets(Insets insets) {
-		set(LOCAL_INSETS_KEY, insets);
-	}
-
 }

@@ -2,9 +2,10 @@ package org.archstudio.bna.utils;
 
 import java.awt.Dimension;
 import java.awt.Insets;
-import java.awt.Polygon;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -29,6 +30,7 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IMutableCoordinateMapper;
+import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingPeer;
@@ -38,12 +40,19 @@ import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasColor;
+import org.archstudio.bna.facets.IHasEdgeColor;
+import org.archstudio.bna.facets.IHasGradientFill;
+import org.archstudio.bna.facets.IHasLineData;
 import org.archstudio.bna.facets.IHasLocalInsets;
 import org.archstudio.bna.facets.IHasPoints;
+import org.archstudio.bna.facets.IHasRotatingOffset;
+import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.facets.IHasTint;
 import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.IIsHidden;
+import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
@@ -73,7 +82,6 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.primitives.Floats;
 import com.google.common.util.concurrent.CycleDetectingLockFactory;
 
 public class BNAUtils {
@@ -759,8 +767,9 @@ public class BNAUtils {
 
 	public static @Nullable
 	Point getCentralPoint(IThing t) {
-		if (t instanceof IHasAnchorPoint) {
-			return ((IHasAnchorPoint) t).getAnchorPoint();
+		if (t instanceof IIsSticky) {
+			java.awt.Rectangle r = ((IIsSticky) t).getStickyShape().getBounds();
+			return new Point(round(r.getCenterX()), round(r.getCenterY()));
 		}
 		if (t instanceof IHasPoints) {
 			List<Point> points = ((IHasPoints) t).getPoints();
@@ -781,6 +790,9 @@ public class BNAUtils {
 				p.y += a.y;
 			}
 			return p;
+		}
+		if (t instanceof IHasAnchorPoint) {
+			return ((IHasAnchorPoint) t).getAnchorPoint();
 		}
 		if (t instanceof IHasBoundingBox) {
 			Rectangle r = ((IHasBoundingBox) t).getBoundingBox();
@@ -900,18 +912,7 @@ public class BNAUtils {
 		return Float.POSITIVE_INFINITY;
 	}
 
-	public static Point getClosestPointOnPolygon(int[] xyCoords, final int nearX, final int nearY, final int refX,
-			final int refY) {
-
-		if (nearX == refX && nearY == refY) {
-			return new Point(refX, refY);
-		}
-
-		// convert to a polygon
-		Polygon polygon = new Polygon();
-		for (int i = 0; i < xyCoords.length; i += 2) {
-			polygon.addPoint(xyCoords[i], xyCoords[i + 1]);
-		}
+	public static Point getClosestPointOnShape(Shape shape, int nearX, int nearY, int refX, int refY) {
 
 		// search for the point closest to (nearX,nearY) that intersects the referenceLine
 		Line2D referenceLine = new Line2D.Double(refX, refY, nearX, nearY);
@@ -921,7 +922,7 @@ public class BNAUtils {
 		{
 			Point2D lastMoveTo = null;
 			Point2D lastPoint = null;
-			for (PathIterator i = polygon.getPathIterator(new AffineTransform()); !i.isDone(); i.next()) {
+			for (PathIterator i = shape.getPathIterator(new AffineTransform(), 0.5f); !i.isDone(); i.next()) {
 				Line2D lineSegment = null;
 				switch (i.currentSegment(pathCoords)) {
 				case PathIterator.SEG_MOVETO:
@@ -997,13 +998,7 @@ public class BNAUtils {
 		return new Point(round(p.getX()), round(p.getY()));
 	}
 
-	public static Point getClosestPointOnPolygon(int[] xyCoords, final int nearX, final int nearY) {
-
-		// convert to a polygon
-		Polygon polygon = new Polygon();
-		for (int i = 0; i < xyCoords.length; i += 2) {
-			polygon.addPoint(xyCoords[i], xyCoords[i + 1]);
-		}
+	public static Point getClosestPointOnShape(Shape shape, int nearX, int nearY) {
 
 		// search for the closest line segment
 		double[] pathCoords = new double[6];
@@ -1012,7 +1007,7 @@ public class BNAUtils {
 		{
 			Point2D lastMoveTo = null;
 			Point2D lastPoint = null;
-			for (PathIterator i = polygon.getPathIterator(new AffineTransform()); !i.isDone(); i.next()) {
+			for (PathIterator i = shape.getPathIterator(new AffineTransform(), 0.5f); !i.isDone(); i.next()) {
 				Line2D lineSegment = null;
 				switch (i.currentSegment(pathCoords)) {
 				case PathIterator.SEG_MOVETO:
@@ -1040,122 +1035,6 @@ public class BNAUtils {
 		}
 
 		return getClosestPointOnLineSegment(closestLineSeg, nearX, nearY);
-	}
-
-	public static final Point getClosestPointOnEllipse(Rectangle r, int nearX, int nearY) {
-		// normalize to a circle at (0,0) with a radius of 0.5
-		double npx = (double) (nearX - r.x) / r.width - 0.5d;
-		double npy = (double) (nearY - r.y) / r.height - 0.5d;
-
-		// y = mx + b, b = 0;
-		double nM = npy / npx;
-		double nM2 = nM * nM;
-
-		// x^2 + y^2 = r^2, r = 0.5
-		double nx = Math.sqrt(0.25d / (1d + nM2));
-		double ny = Math.sqrt(0.25d - nx * nx);
-
-		// un-normalize results
-		double x1 = ((npx < 0 ? -nx : nx) + 0.5d) * r.width + r.x;
-		double y1 = ((npy < 0 ? -ny : ny) + 0.5d) * r.height + r.y;
-
-		return new Point(round(x1), round(y1));
-	}
-
-	public static final Point getClosestPointOnEllipse(Rectangle r, int nearX, int nearY, int referenceX, int referenceY) {
-		if (nearX != referenceX) {
-			// normalize to a circle at (0,0) with a radius of 0.5
-			double npx = (double) (nearX - r.x) / r.width - 0.5d;
-			double npy = (double) (nearY - r.y) / r.height - 0.5d;
-			double nrx = (double) (referenceX - r.x) / r.width - 0.5d;
-			double nry = (double) (referenceY - r.y) / r.height - 0.5d;
-
-			// y = mx + b
-			double nM = (npy - nry) / (npx - nrx);
-			double nB = nry - nM * nrx;
-			double nM2 = nM * nM;
-			double nB2 = nB * nB;
-
-			// quadratic formula
-			double QA = 1d + nM2;
-			double QB = 2 * nM * nB;
-			double QC = nB2 - 0.25;
-
-			double b24ac = QB * QB - 4d * QA * QC;
-			if (b24ac >= 0) {
-				double sqrt = Math.sqrt(b24ac);
-				double nx1 = (-QB + sqrt) / 2d / QA;
-				double nx2 = (-QB - sqrt) / 2d / QA;
-
-				double nx = npx < 0 ? Math.min(nx1, nx2) : Math.max(nx1, nx2);
-				double ny = Math.sqrt(0.25d - nx * nx);
-
-				// un-normalize results
-				double x1 = (nx + 0.5d) * r.width + r.x;
-				double y1 = ((npy < 0 ? -ny : ny) + 0.5d) * r.height + r.y;
-
-				return new Point(round(x1), round(y1));
-			}
-		}
-		else {
-			return getClosestPointOnEllipse(r, nearX, nearY);
-		}
-
-		throw new IllegalArgumentException("This shouldn't happen");
-	}
-
-	public static Point getClosestPointOnRectangle(Rectangle rectangle, Dimension cornerSize, Point nearPoint) {
-		int x1 = rectangle.x;
-		int y1 = rectangle.y;
-		int x2 = x1 + rectangle.width;
-		int y2 = y1 + rectangle.height;
-		Point closestPoint = BNAUtils.getClosestPointOnPolygon(new int[] { x1, y1, x2, y1, x2, y2, x1, y2, x1, y1 },
-				nearPoint.x, nearPoint.y);
-		if (cornerSize.width != 0 || cornerSize.height != 0) {
-			int cornerWidth = cornerSize.width;
-			int cornerHeight = cornerSize.height;
-			if (closestPoint.x < rectangle.x + cornerWidth / 2
-					|| closestPoint.x > rectangle.x + rectangle.width - cornerWidth / 2) {
-				if (closestPoint.y < rectangle.y + cornerHeight / 2
-						|| closestPoint.y > rectangle.y + rectangle.height - cornerHeight / 2) {
-					int cornerX = nearPoint.x < rectangle.x + rectangle.width / 2 ? rectangle.x : rectangle.x
-							+ rectangle.width - cornerWidth;
-					int cornerY = nearPoint.y < rectangle.y + rectangle.height / 2 ? rectangle.y : rectangle.y
-							+ rectangle.height - cornerHeight;
-					Rectangle cornerR = new Rectangle(cornerX, cornerY, cornerWidth, cornerHeight);
-					closestPoint = BNAUtils.getClosestPointOnEllipse(cornerR, nearPoint.x, nearPoint.y);
-				}
-			}
-		}
-		return closestPoint;
-	}
-
-	public static Point getClosestPointOnRectangle(Rectangle rectangle, Dimension cornerSize, Point nearPoint,
-			Point referencePoint) {
-		int x1 = rectangle.x;
-		int y1 = rectangle.y;
-		int x2 = x1 + rectangle.width;
-		int y2 = y1 + rectangle.height;
-		Point closestPoint = BNAUtils.getClosestPointOnPolygon(new int[] { x1, y1, x2, y1, x2, y2, x1, y2, x1, y1 },
-				nearPoint.x, nearPoint.y, referencePoint.x, referencePoint.y);
-		if (cornerSize.width != 0 || cornerSize.height != 0) {
-			int cornerWidth = cornerSize.width;
-			int cornerHeight = cornerSize.height;
-			if (closestPoint.x < rectangle.x + cornerWidth / 2
-					|| closestPoint.x > rectangle.x + rectangle.width - cornerWidth / 2) {
-				if (closestPoint.y < rectangle.y + cornerHeight / 2
-						|| closestPoint.y > rectangle.y + rectangle.height - cornerHeight / 2) {
-					int cornerX = nearPoint.x < referencePoint.x ? rectangle.x : rectangle.x + rectangle.width
-							- cornerWidth;
-					int cornerY = nearPoint.y < referencePoint.y ? rectangle.y : rectangle.y + rectangle.height
-							- cornerHeight;
-					Rectangle cornerR = new Rectangle(cornerX, cornerY, cornerWidth, cornerHeight);
-					closestPoint = BNAUtils.getClosestPointOnEllipse(cornerR, nearPoint.x, nearPoint.y,
-							referencePoint.x, referencePoint.y);
-				}
-			}
-		}
-		return closestPoint;
 	}
 
 	public static final IBNAView getInternalView(IBNAView outerView, IThing worldThing) {
@@ -1318,22 +1197,6 @@ public class BNAUtils {
 		return new Point(round(p.getX()), round(p.getY()));
 	}
 
-	public static float[] getEllipsePoints(Rectangle r) {
-		float error = 0.25f;
-		float radius = Math.max(r.width, r.height) / 2;
-		float radianDelta = (float) Math.acos(2 * (1 - error / radius) * (1 - error / radius) - 1);
-		float cx = r.x + (float) r.width / 2;
-		float cy = r.y + (float) r.height / 2;
-		List<Float> points = Lists.newArrayList();
-		for (float radians = 0; radians < 2 * Math.PI; radians += radianDelta) {
-			float x = cx + (float) Math.cos(radians) * r.width / 2f;
-			float y = cy + (float) Math.sin(radians) * r.height / 2f;
-			points.add(x);
-			points.add(y);
-		}
-		return Floats.toArray(points);
-	}
-
 	public static BufferedImage renderToImage(ObscuredGL2 gl, IBNAView view, Resources resources, Rectangle bounds,
 			boolean antialiasGraphics, boolean antialiasText) {
 
@@ -1443,11 +1306,224 @@ public class BNAUtils {
 		}
 	}
 
+	public static final void renderShapeFill(IHasColor t, IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip,
+			IResources r, Shape localShape) {
+
+		boolean isGradientFilled = Boolean.TRUE.equals(t.get(IHasGradientFill.GRADIENT_FILLED_KEY))
+				&& BNARenderingSettings.getDecorativeGraphics(view.getComposite());
+		RGB color1 = t.getColor();
+		RGB color2 = isGradientFilled ? t.get(IHasSecondaryColor.SECONDARY_COLOR_KEY) : null;
+		double minY = isGradientFilled ? localShape.getBounds2D().getMinY() : 0;
+		double maxY = isGradientFilled ? localShape.getBounds2D().getMaxY() : 1;
+
+		if (r.setColor(t, IHasColor.COLOR_KEY)) {
+			PathIterator p = localShape.getPathIterator(new AffineTransform(), 0.25d);
+			double[] startCoords = new double[6];
+			double[] coords = new double[6];
+			gl.glBegin(GL.GL_TRIANGLE_FAN);
+			while (!p.isDone()) {
+				switch (p.currentSegment(coords)) {
+				case PathIterator.SEG_CLOSE:
+					System.arraycopy(startCoords, 0, coords, 0, 6);
+				case PathIterator.SEG_MOVETO:
+					System.arraycopy(coords, 0, startCoords, 0, 6);
+				case PathIterator.SEG_LINETO:
+					if (isGradientFilled) {
+						setColor(gl, color1, color2, minY, maxY, coords[1]);
+					}
+					gl.glVertex2d(coords[0], coords[1]);
+					break;
+				default:
+					throw new IllegalArgumentException();
+				}
+				p.next();
+			}
+			gl.glEnd();
+		}
+	}
+
+	public static final void renderShapeFill(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r,
+			Shape localShape) {
+
+		PathIterator p = localShape.getPathIterator(new AffineTransform(), 0.25d);
+		double[] startCoords = new double[6];
+		double[] coords = new double[6];
+		gl.glBegin(GL.GL_TRIANGLE_FAN);
+		while (!p.isDone()) {
+			switch (p.currentSegment(coords)) {
+			case PathIterator.SEG_CLOSE:
+				System.arraycopy(startCoords, 0, coords, 0, 6);
+			case PathIterator.SEG_MOVETO:
+				System.arraycopy(coords, 0, startCoords, 0, 6);
+			case PathIterator.SEG_LINETO:
+				gl.glVertex2d(coords[0], coords[1]);
+				break;
+			default:
+				throw new IllegalArgumentException();
+			}
+			p.next();
+		}
+		gl.glEnd();
+	}
+
+	private static final void setColor(GL2 gl, RGB color1, RGB color2, double minY, double maxY, double d) {
+		if (color2 == null) {
+			gl.glColor3d(color1.red / 255d, color1.green / 255d, color1.blue / 255d);
+		}
+		else {
+			double f = SystemUtils.bound(0d, (d - minY) / (maxY - minY), 1d);
+			gl.glColor3d(//
+					(color1.red + (color2.red - color1.red) * f) / 255d,//
+					(color1.green + (color2.green - color1.green) * f) / 255d,//
+					(color1.blue + (color2.blue - color1.blue) * f) / 255d);
+		}
+	}
+
+	public static final void renderShapeEdge(IHasLineData t, IBNAView view, ICoordinateMapper cm, GL2 gl,
+			Rectangle clip, IResources r, Shape localShape) {
+
+		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
+			PathIterator p = localShape.getPathIterator(new AffineTransform(), 0.25d);
+			double[] startCoords = new double[6];
+			double[] coords = new double[6];
+			gl.glBegin(GL.GL_LINE_STRIP);
+			while (!p.isDone()) {
+				switch (p.currentSegment(coords)) {
+				case PathIterator.SEG_CLOSE:
+					System.arraycopy(startCoords, 0, coords, 0, 6);
+				case PathIterator.SEG_MOVETO:
+					System.arraycopy(coords, 0, startCoords, 0, 6);
+				case PathIterator.SEG_LINETO:
+					gl.glVertex2d(coords[0] + 0.5f, coords[1] + 0.5f);
+					break;
+				default:
+					throw new IllegalArgumentException();
+				}
+				p.next();
+			}
+			gl.glEnd();
+			gl.glLineWidth(1f);
+			gl.glLineStipple(1, (short) 0xffff);
+		}
+	}
+
+	public static final void renderShapeEdge(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r,
+			Shape localShape) {
+
+		PathIterator p = localShape.getPathIterator(new AffineTransform(), 0.25d);
+		double[] startCoords = new double[6];
+		double[] coords = new double[6];
+		gl.glBegin(GL.GL_LINE_STRIP);
+		while (!p.isDone()) {
+			switch (p.currentSegment(coords)) {
+			case PathIterator.SEG_CLOSE:
+				System.arraycopy(startCoords, 0, coords, 0, 6);
+			case PathIterator.SEG_MOVETO:
+				System.arraycopy(coords, 0, startCoords, 0, 6);
+			case PathIterator.SEG_LINETO:
+				gl.glVertex2d(coords[0] + 0.5f, coords[1] + 0.5f);
+				break;
+			default:
+				throw new IllegalArgumentException();
+			}
+			p.next();
+		}
+		gl.glEnd();
+		gl.glLineWidth(1f);
+		gl.glLineStipple(1, (short) 0xffff);
+	}
+
+	public static final void renderShapeSelected(IHasSelected t, IBNAView view, ICoordinateMapper cm, GL2 gl,
+			Rectangle clip, IResources r, Shape localShape) {
+
+		if (t.isSelected()) {
+			gl.glColor3f(1, 1, 1);
+			PathIterator p = localShape.getPathIterator(new AffineTransform(), 0.25d);
+			double[] startCoords = new double[6];
+			double[] coords = new double[6];
+			gl.glBegin(GL.GL_LINE_STRIP);
+			while (!p.isDone()) {
+				switch (p.currentSegment(coords)) {
+				case PathIterator.SEG_CLOSE:
+					System.arraycopy(startCoords, 0, coords, 0, 6);
+				case PathIterator.SEG_MOVETO:
+					System.arraycopy(coords, 0, startCoords, 0, 6);
+				case PathIterator.SEG_LINETO:
+					gl.glVertex2d(coords[0] + 0.5f, coords[1] + 0.5f);
+					break;
+				default:
+					throw new IllegalArgumentException();
+				}
+				p.next();
+			}
+			gl.glEnd();
+
+			gl.glColor3f(0f, 0f, 0f);
+			gl.glLineStipple(1, (short) (0x0f0f0f0f >> t.get(IHasRotatingOffset.ROTATING_OFFSET_KEY, 0) % 8));
+			p = localShape.getPathIterator(new AffineTransform(), 0.25d);
+			gl.glBegin(GL.GL_LINE_STRIP);
+			while (!p.isDone()) {
+				switch (p.currentSegment(coords)) {
+				case PathIterator.SEG_CLOSE:
+					System.arraycopy(startCoords, 0, coords, 0, 6);
+				case PathIterator.SEG_MOVETO:
+					System.arraycopy(coords, 0, startCoords, 0, 6);
+				case PathIterator.SEG_LINETO:
+					gl.glVertex2d(coords[0] + 0.5f, coords[1] + 0.5f);
+					break;
+				default:
+					throw new IllegalArgumentException();
+				}
+				p.next();
+			}
+			gl.glEnd();
+			gl.glLineStipple(1, (short) 0xffff);
+		}
+	}
+
 	public static final long getThingKeyUID(IThing targetThing, IThingKey<?> propertyName) {
 		return (long) targetThing.getUID() << 32 | propertyName.getUID();
 	}
 
 	public static final long getThingKeyUID(int targetThingUID, int propertyNameUID) {
 		return (long) targetThingUID << 32 | propertyNameUID;
+	}
+
+	public static Path2D worldToLocal(ICoordinateMapper cm, Path2D shape) {
+		Path2D p = new Path2D.Double();
+		PathIterator i = shape.getPathIterator(new AffineTransform());
+		double[] coords = new double[6];
+		Point2D.Double d = new Point2D.Double();
+		while (!i.isDone()) {
+			int seg = i.currentSegment(coords);
+			for (int j = 0; j < 6; j += 2) {
+				d.x = coords[j];
+				d.y = coords[j + 1];
+				Point2D d2 = cm.worldToLocal(d);
+				coords[j] = d2.getX();
+				coords[j + 1] = d2.getY();
+			}
+			switch (seg) {
+			case PathIterator.SEG_MOVETO:
+				p.moveTo(coords[0], coords[1]);
+				break;
+			case PathIterator.SEG_LINETO:
+				p.lineTo(coords[0], coords[1]);
+				break;
+			case PathIterator.SEG_QUADTO:
+				p.quadTo(coords[0], coords[1], coords[2], coords[3]);
+				break;
+			case PathIterator.SEG_CUBICTO:
+				p.curveTo(coords[0], coords[1], coords[2], coords[3], coords[4], coords[5]);
+				break;
+			case PathIterator.SEG_CLOSE:
+				p.closePath();
+				break;
+			default:
+				throw new IllegalArgumentException();
+			}
+			i.next();
+		}
+		return p;
 	}
 }

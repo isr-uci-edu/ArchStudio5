@@ -1,8 +1,11 @@
 package org.archstudio.bna.things;
 
+import java.awt.Shape;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
-import org.archstudio.bna.constants.StickyMode;
+import org.archstudio.bna.IThingListener;
+import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasMutablePreciseAnchorPoint;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.utils.BNAUtils;
@@ -19,9 +22,17 @@ public abstract class AbstractPreciseAnchorPointThing extends AbstractRelativeMo
 
 	@Override
 	protected void initProperties() {
+		addThingListener(new IThingListener() {
+			@Override
+			public void thingChanged(ThingEvent thingEvent) {
+				if (isShapeModifyingKey(thingEvent.getPropertyName())) {
+					set(IIsSticky.STICKY_SHAPE_KEY, createStickyShape());
+				}
+			}
+		});
 		super.initProperties();
-		setPreciseAnchorPoint(new Point2D.Double(0, 0));
 		addShapeModifyingKey(PRECISION_ANCHOR_POINT_KEY);
+		setPreciseAnchorPoint(new Point2D.Double(0, 0));
 	}
 
 	@Override
@@ -48,9 +59,13 @@ public abstract class AbstractPreciseAnchorPointThing extends AbstractRelativeMo
 		}
 	}
 
+	protected Shape createStickyShape() {
+		Point2D point = getPreciseAnchorPoint();
+		return new Rectangle2D.Double(point.getX(), point.getY(), 0, 0);
+	}
+
 	@Override
-	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
-		Point2D p = getPreciseAnchorPoint();
-		return new Point(BNAUtils.round(p.getX()), BNAUtils.round(p.getY()));
+	public Shape getStickyShape() {
+		return get(IIsSticky.STICKY_SHAPE_KEY);
 	}
 }

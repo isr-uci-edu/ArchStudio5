@@ -3,7 +3,7 @@ package org.archstudio.bna.things;
 import org.archstudio.bna.facets.IHasMutableInternalWorldEndpoint;
 import org.eclipse.swt.graphics.Point;
 
-public abstract class AbstractMappingThing extends AbstractAnchorPointThing implements IHasMutableInternalWorldEndpoint {
+public abstract class AbstractMappingThing extends AbstractMutableAnchorPointThing implements IHasMutableInternalWorldEndpoint {
 
 	public AbstractMappingThing(Object id) {
 		super(id);

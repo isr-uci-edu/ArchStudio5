@@ -1,14 +1,13 @@
 package org.archstudio.bna.things;
 
 import java.awt.Dimension;
+import java.awt.Shape;
+import java.awt.geom.RoundRectangle2D;
 
-import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableRoundedCorners;
-import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
 @NonNullByDefault
@@ -42,18 +41,12 @@ public abstract class AbstractRoundedRectangleThing extends AbstractRectangleThi
 	}
 
 	@Override
-	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
-		Rectangle bb = getBoundingBox();
-		switch (stickyMode) {
-		case CENTER:
-			return new Point(bb.x + bb.width / 2, bb.y + bb.height / 2);
-		case EDGE:
-			return BNAUtils.getClosestPointOnRectangle(bb, getCornerSize(), nearPoint);
-		case EDGE_FROM_CENTER:
-			return BNAUtils.getClosestPointOnRectangle(bb, getCornerSize(), nearPoint, new Point(bb.x + bb.width / 2,
-					bb.y + bb.height / 2));
+	public Shape getStickyShape() {
+		Dimension c = getCornerSize();
+		if (c.width != 0 || c.height != 0) {
+			Rectangle r = getBoundingBox();
+			return new RoundRectangle2D.Float(r.x, r.y, r.width, r.height, c.width, c.height);
 		}
-		throw new IllegalArgumentException(stickyMode.name());
+		return super.getStickyShape();
 	}
-
 }

@@ -5,7 +5,7 @@ import org.archstudio.bna.keys.AbstractCloneThingKey;
 import org.archstudio.bna.keys.CloneThingKey;
 import org.eclipse.swt.graphics.Point;
 
-public interface IHasEndpoints extends IThing, IHasPoints {
+public interface IHasEndpoints extends IThing {
 
 	public static final IThingKey<Point> ENDPOINT_1_KEY = CloneThingKey.create("endpoint1",
 			AbstractCloneThingKey.point());

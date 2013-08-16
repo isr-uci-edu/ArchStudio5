@@ -4,10 +4,10 @@ import java.awt.Dimension;
 
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableSize;
-import org.archstudio.bna.things.AbstractAnchorPointThing;
+import org.archstudio.bna.things.AbstractMutableAnchorPointThing;
 import org.eclipse.swt.graphics.RGB;
 
-public class ReshapeHandleThing extends AbstractAnchorPointThing implements IHasMutableSize, IHasMutableColor {
+public class ReshapeHandleThing extends AbstractMutableAnchorPointThing implements IHasMutableSize, IHasMutableColor {
 
 	public ReshapeHandleThing(Object id) {
 		super(id);

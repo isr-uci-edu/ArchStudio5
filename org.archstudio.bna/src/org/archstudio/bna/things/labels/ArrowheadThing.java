@@ -1,6 +1,9 @@
 package org.archstudio.bna.things.labels;
 
+import org.archstudio.bna.IThingListener;
+import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.constants.ArrowheadShape;
+import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasLineStyle;
 import org.archstudio.bna.facets.IHasMutableArrowhead;
 import org.archstudio.bna.facets.IHasMutableColor;
@@ -8,13 +11,16 @@ import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableLineData;
 import org.archstudio.bna.facets.IHasMutableSecondaryAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
-import org.archstudio.bna.things.AbstractAnchorPointThing;
+import org.archstudio.bna.things.AbstractMutableAnchorPointThing;
+import org.archstudio.bna.utils.ArrowheadUtils;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.Rectangle;
 
-public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMutableColor, IHasMutableSecondaryColor,
-		IHasMutableEdgeColor, IHasMutableArrowhead, IHasMutableSecondaryAnchorPoint, IHasMutableLineData {
+public class ArrowheadThing extends AbstractMutableAnchorPointThing implements IHasMutableColor,
+		IHasMutableSecondaryColor, IHasMutableEdgeColor, IHasMutableArrowhead, IHasMutableSecondaryAnchorPoint,
+		IHasMutableLineData, IHasBoundingBox {
 
 	public ArrowheadThing(Object id) {
 		super(id);
@@ -25,10 +31,29 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 		super.initProperties();
 		setArrowheadShape(ArrowheadShape.TRIANGLE);
 		setArrowheadSize(20);
+		addThingListener(new IThingListener() {
+			@Override
+			public void thingChanged(ThingEvent thingEvent) {
+				if (!IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
+					Point lp1 = getAnchorPoint();
+					Point lp2 = getSecondaryAnchorPoint();
+					int arrowheadSize = getArrowheadSize();
+					int[] xyPoints = ArrowheadUtils.calculateTriangularArrowhead(lp2.x, lp2.y, lp1.x, lp1.y,
+							arrowheadSize);
+					if (xyPoints != null) {
+						Rectangle r = new Rectangle(lp1.x, lp1.y, 0, 0);
+						for (int i = 0; i < 6; i += 2) {
+							r.add(new Rectangle(xyPoints[i], xyPoints[i + 1], 0, 0));
+						}
+						set(IHasBoundingBox.BOUNDING_BOX_KEY, r);
+					}
+				}
+			}
+		});
+		setSecondaryAnchorPoint(new Point(0, 0));
 		setColor(new RGB(128, 128, 128));
 		setSecondaryColor(new RGB(0, 0, 0));
 		setEdgeColor(new RGB(0, 0, 0));
-		setSecondaryAnchorPoint(new Point(0, 0));
 		setLineStyle(IHasLineStyle.LINE_STYLE_SOLID);
 		setLineWidth(1);
 	}
@@ -116,4 +141,8 @@ public class ArrowheadThing extends AbstractAnchorPointThing implements IHasMuta
 		set(LINE_WIDTH_KEY, lineWidth);
 	}
 
+	@Override
+	public Rectangle getBoundingBox() {
+		return get(BOUNDING_BOX_KEY);
+	}
 }

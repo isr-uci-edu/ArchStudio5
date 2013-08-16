@@ -1,11 +1,12 @@
 package org.archstudio.bna.things;
 
 import java.awt.Dimension;
-import java.awt.Insets;
+import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
 
-import org.archstudio.bna.constants.StickyMode;
+import org.archstudio.bna.IThingListener;
+import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
-import org.archstudio.bna.facets.IHasMutableLocalInsets;
 import org.archstudio.bna.facets.IHasMutableMinimumSize;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
@@ -17,7 +18,7 @@ import org.eclipse.swt.graphics.Rectangle;
 
 @NonNullByDefault
 public abstract class AbstractRectangleThing extends AbstractRelativeMovableReferencePointThing implements
-		IHasMutableBoundingBox, IHasMutableMinimumSize, IRelativeMovable, IHasMutableLocalInsets, IIsSticky {
+		IHasMutableBoundingBox, IHasMutableMinimumSize, IRelativeMovable, IIsSticky {
 
 	public AbstractRectangleThing(@Nullable Object id) {
 		super(id);
@@ -25,10 +26,19 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 
 	@Override
 	protected void initProperties() {
+		addThingListener(new IThingListener() {
+			@Override
+			public void thingChanged(ThingEvent thingEvent) {
+				if (isShapeModifyingKey(thingEvent.getPropertyName())) {
+					set(IIsSticky.STICKY_SHAPE_KEY, createStickyShape());
+				}
+			}
+		});
 		super.initProperties();
 		setMinimumSize(new Dimension(5, 5));
-		setBoundingBox(new Rectangle(0, 0, 10, 10));
+		addShapeModifyingKey(MINIMUM_SIZE_KEY);
 		addShapeModifyingKey(BOUNDING_BOX_KEY);
+		setBoundingBox(new Rectangle(0, 0, 10, 10));
 	}
 
 	@Override
@@ -79,28 +89,13 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 		setBoundingBox(bounds);
 	}
 
-	@Override
-	public Insets getLocalInsets() {
-		return get(LOCAL_INSETS_KEY, new Insets(0, 0, 0, 0));
+	protected Shape createStickyShape() {
+		Rectangle bounds = getBoundingBox();
+		return new Rectangle2D.Float(bounds.x, bounds.y, bounds.width, bounds.height);
 	}
 
 	@Override
-	public void setLocalInsets(Insets insets) {
-		set(LOCAL_INSETS_KEY, insets);
-	}
-
-	@Override
-	public Point getStickyPointNear(StickyMode stickyMode, Point nearPoint) {
-		Rectangle bb = getBoundingBox();
-		switch (stickyMode) {
-		case CENTER:
-			return new Point(bb.x + bb.width / 2, bb.y + bb.height / 2);
-		case EDGE:
-			return BNAUtils.getClosestPointOnRectangle(bb, new Dimension(0, 0), nearPoint);
-		case EDGE_FROM_CENTER:
-			return BNAUtils.getClosestPointOnRectangle(bb, new Dimension(0, 0), nearPoint, new Point(bb.x + bb.width
-					/ 2, bb.y + bb.height / 2));
-		}
-		throw new IllegalArgumentException(stickyMode.name());
+	public Shape getStickyShape() {
+		return get(IIsSticky.STICKY_SHAPE_KEY);
 	}
 }
