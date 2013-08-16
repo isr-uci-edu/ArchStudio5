@@ -37,7 +37,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 	private static Set<Integer> getAllowableLinebreaks(String text) {
 		Set<Integer> breaks = Sets.newHashSet(0, text.length());
 		int index = 0;
-		for (String s : text.split("\\s")) {
+		for (String s : text.split("[\\s-]")) {
 			index += s.length();
 			breaks.add(index);
 			index++;
