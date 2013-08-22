@@ -38,9 +38,9 @@ public class StructureEditColorLogic extends EditColorLogic {
 				@Override
 				public void run() {
 					for (IHasMutableColor t : editableColoredThings) {
-						IThing glass = Assemblies.getAssemblyWithPart(getBNAModel(), t);
-						if (glass != null) {
-							ObjRef objRef = glass.get(IHasObjRef.OBJREF_KEY);
+						IThing root = Assemblies.getThingWithProperty(getBNAModel(), t, IHasObjRef.OBJREF_KEY);
+						if (root != null) {
+							ObjRef objRef = root.get(IHasObjRef.OBJREF_KEY);
 							if (objRef != null) {
 								if (XadlUtils.isComponent(xarch, objRef)) {
 									t.setColor(PreferenceConverter.getColor(

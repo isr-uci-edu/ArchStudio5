@@ -2,10 +2,10 @@ package org.archstudio.archipelago.statechart.core.logics;
 
 import java.util.List;
 
-import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasHorizontalAlignment;
 import org.archstudio.bna.facets.IHasPoints;
+import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasVerticalAlignment;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
@@ -20,7 +20,7 @@ public class OrientTextLogic extends AbstractThingLogic {
 	public OrientTextLogic() {
 	}
 
-	public void orientText(IHasEndpoints pointsThing, final IThing orientationThing) {
+	public void orientText(IHasEndpoints pointsThing, final IHasText orientationThing) {
 
 		MirrorValueLogic mvl = getBNAWorld().getThingLogicManager().addThingLogic(MirrorValueLogic.class);
 

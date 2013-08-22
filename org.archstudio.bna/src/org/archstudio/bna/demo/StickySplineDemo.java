@@ -26,9 +26,9 @@ import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.things.ShadowThing;
-import org.archstudio.bna.things.glass.PolygonGlassThing;
-import org.archstudio.bna.things.glass.SplineGlassThing;
 import org.archstudio.bna.things.labels.AnchoredLabelThing;
+import org.archstudio.bna.things.shapes.PolygonThing;
+import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAModel;
@@ -101,12 +101,10 @@ public class StickySplineDemo {
 		List<IIsSticky> shapeThings = Lists.newArrayList();
 		IThingKey<StickyMode> shapeStickyMode = ThingKey.create("stickyMode");
 
-		System.err.println(cm);
-
 		Random r = new Random();
 		for (StickyMode stickyMode : StickyMode.values()) {
-			PolygonGlassThing p = Assemblies.createPolygon(world, null, null);
-			((IHasMutableColor) Assemblies.BACKGROUND_KEY.get(p, model)).setColor(null);
+			PolygonThing p = Assemblies.createPolygon(world, null, null);
+			p.setColor(null);
 			p.setAnchorPoint(new Point(offset.x + r.nextInt(200) + 50, offset.y + r.nextInt(200) + 50));
 			List<Point> points = Lists.newArrayList();
 			points.add(new Point(-50, -50));
@@ -150,7 +148,7 @@ public class StickySplineDemo {
 				IIsSticky tt = shapeThings.get(t);
 				StickyMode tsm = tt.get(shapeStickyMode);
 
-				SplineGlassThing s = Assemblies.createSpline(world, null, null);
+				SplineThing s = Assemblies.createSpline(world, null, null);
 				spl.stick(s, IHasEndpoints.ENDPOINT_1_KEY, fsm, ft);
 				spl.stick(s, IHasEndpoints.ENDPOINT_2_KEY, tsm, tt);
 

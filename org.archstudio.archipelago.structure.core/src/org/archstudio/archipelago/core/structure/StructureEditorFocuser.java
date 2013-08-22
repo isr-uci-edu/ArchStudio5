@@ -85,12 +85,12 @@ public class StructureEditorFocuser implements IArchipelagoEditorFocuser {
 			if (xArchID != null) {
 				IThing t = ArchipelagoUtils.findThing(structureModel, xArchID);
 				if (t != null) {
-					IThing glassThing = Assemblies.getAssemblyWithRootOrPart(structureModel, t);
-					if (glassThing != null) {
-						Point p = BNAUtils.getCentralPoint(glassThing);
+					IThing rootThing = Assemblies.getRoot(structureModel, t);
+					if (rootThing != null) {
+						Point p = BNAUtils.getCentralPoint(rootThing);
 						if (p != null) {
 							FlyToUtils.flyTo(view, p);
-							ArchipelagoUtils.pulseNotify(structureModel, glassThing);
+							ArchipelagoUtils.pulseNotify(structureModel, rootThing);
 						}
 					}
 				}

@@ -134,7 +134,7 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 					restoreHints(thing, context);
 					storeHints(thing, context, null);
 					thing.set(HINT_CONTEXT_KEY, context);
-					for (IThing t : Assemblies.getParts(world.getBNAModel(), thing)) {
+					for (IThing t : Assemblies.getParts(world.getBNAModel(), thing).values()) {
 						if (t != null) {
 							createHintContext(t);
 						}

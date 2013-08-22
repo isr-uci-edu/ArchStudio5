@@ -19,8 +19,8 @@ import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
-import org.archstudio.bna.things.glass.PreciselyAnchoredShapeGlassThing;
-import org.archstudio.bna.things.glass.RectangleGlassThing;
+import org.archstudio.bna.things.shapes.PreciselyAnchoredShapeThing;
+import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAView;
@@ -47,17 +47,16 @@ public class BNAGraphDemo {
 				Type.LOGARITHMIC));
 
 		// setup graph
-		RectangleGlassThing graphGlassThing = GraphAssemblies.createGraph(bnaWorld, null, "Top", "Bottom", "Left",
-				"Right");
-		graphGlassThing.setBoundingBox(new Rectangle(0, -100, 150, 100));
-		UserEditableUtils.addEditableQualities(graphGlassThing, IRelativeMovable.USER_MAY_MOVE,
+		RectangleThing graphThing = GraphAssemblies.createGraph(bnaWorld, null, "Top", "Bottom", "Left", "Right");
+		graphThing.setBoundingBox(new Rectangle(0, -100, 150, 100));
+		UserEditableUtils.addEditableQualities(graphThing, IRelativeMovable.USER_MAY_MOVE,
 				IHasMutableSize.USER_MAY_RESIZE, IHasMutableSelected.USER_MAY_SELECT);
 
 		// add some points to the plot
 		for (int i = 0; i < 100; i++) {
-			double x = random.nextDouble() * graphGlassThing.getBoundingBox().width;
-			double y = -random.nextDouble() * graphGlassThing.getBoundingBox().height;
-			PreciselyAnchoredShapeGlassThing point = GraphAssemblies.createDataPoint(bnaWorld, null);
+			double x = random.nextDouble() * graphThing.getBoundingBox().width;
+			double y = -random.nextDouble() * graphThing.getBoundingBox().height;
+			PreciselyAnchoredShapeThing point = GraphAssemblies.createDataPoint(bnaWorld, null);
 			point.setPreciseAnchorPoint(new Point2D.Double(x, y));
 			ToolTipLogic.setToolTip(point, "Point #" + (i + 1));
 			UserEditableUtils.addEditableQualities(point, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG,

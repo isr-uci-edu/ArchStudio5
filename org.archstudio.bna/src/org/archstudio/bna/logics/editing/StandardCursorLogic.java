@@ -1,5 +1,7 @@
 package org.archstudio.bna.logics.editing;
 
+import static org.archstudio.sysutils.SystemUtils.firstOrNull;
+
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
@@ -7,6 +9,7 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasStandardCursor;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.IBNAMouseListener;
 import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.eclipse.swt.SWT;
@@ -42,12 +45,10 @@ public class StandardCursorLogic extends AbstractThingLogic implements IBNAMouse
 		if (src != null && src instanceof Control) {
 			Control control = (Control) src;
 			if (control != null && !control.isDisposed()) {
-				for (IThing t : things) {
-					if (t instanceof IHasStandardCursor) {
-						IHasStandardCursor sct = (IHasStandardCursor) t;
-						cursor = sct.getStandardCursor();
-						break;
-					}
+				IThing cursorThing = Assemblies.getThingWithProperty(getBNAModel(), firstOrNull(things),
+						IHasStandardCursor.STANDARD_CURSOR_KEY);
+				if (cursorThing != null) {
+					cursor = cursorThing.get(IHasStandardCursor.STANDARD_CURSOR_KEY);
 				}
 				if (cursor == SWT.NONE) {
 					control.setCursor(null);

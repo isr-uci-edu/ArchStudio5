@@ -63,7 +63,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 	protected void find(IBNAView context, IBNAModel m, String search, String prefix, List<IFindResult> resultList) {
 		for (IThing t : m.getAllThings()) {
 			IFindResult r = null;
-			IThing assembly = Assemblies.isAssembly(t) ? t : null;
+			IThing assembly = Assemblies.isRoot(t) ? t : null;
 			ObjRef objRef = assembly != null ? assembly.get(IHasObjRef.OBJREF_KEY) : null;
 			if (assembly != null && objRef != null
 					&& XadlUtils.isInstanceOf(xarch, objRef, Structure_3_0Package.Literals.COMPONENT)) {

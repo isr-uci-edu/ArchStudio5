@@ -1,5 +1,7 @@
 package org.archstudio.bna.logics.editing;
 
+import static org.archstudio.sysutils.SystemUtils.firstOrNull;
+
 import java.util.List;
 
 import org.archstudio.bna.IBNAModel;
@@ -10,11 +12,10 @@ import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.IBNAMouseListener;
-import org.archstudio.bna.utils.UserEditableUtils;
-import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.events.MouseEvent;
 
@@ -57,29 +58,30 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 	@Override
 	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (evt.button == 1) {
-			IHasMutableSelected mst = SystemUtils.firstOrNull(t, IHasMutableSelected.class);
-			if (mst != null && UserEditableUtils.isEditableForAllQualities(mst, IHasMutableSelected.USER_MAY_SELECT)) {
+			IHasMutableSelected selectableThing = Assemblies.getEditableThing(getBNAModel(), firstOrNull(t),
+					IHasMutableSelected.class, IHasMutableSelected.USER_MAY_SELECT);
+			if (selectableThing != null) {
 				boolean controlPressed = BNAUtils.wasControlPressed(evt);
 				boolean shiftPressed = BNAUtils.wasShiftPressed(evt);
 
 				if (!controlPressed && !shiftPressed) {
 					//Only deselect everything if the thing we're clicking on is not selected
-					if (!mst.isSelected()) {
+					if (!selectableThing.isSelected()) {
 						removeAllSelections();
 					}
-					mst.setSelected(true);
+					selectableThing.setSelected(true);
 				}
 				else if (controlPressed && !shiftPressed) {
 					//Toggle selection
-					mst.setSelected(!mst.isSelected());
+					selectableThing.setSelected(!selectableThing.isSelected());
 				}
 				else if (shiftPressed && !controlPressed) {
 					//Add to selection
-					mst.setSelected(true);
+					selectableThing.setSelected(true);
 				}
 				else if (shiftPressed && controlPressed) {
 					//Subtract from selection
-					mst.setSelected(false);
+					selectableThing.setSelected(false);
 				}
 				return;
 			}
@@ -106,8 +108,9 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 			removeAllSelections();
 		}
 		else {
-			IHasMutableSelected mst = SystemUtils.firstOrNull(things, IHasMutableSelected.class);
-			if (mst != null && UserEditableUtils.isEditableForAllQualities(mst, IHasMutableSelected.USER_MAY_SELECT)) {
+			IHasMutableSelected mst = Assemblies.getEditableThing(getBNAModel(), firstOrNull(things),
+					IHasMutableSelected.class, IHasMutableSelected.USER_MAY_SELECT);
+			if (mst != null) {
 
 				if (!mst.isSelected()) {
 					removeAllSelections();

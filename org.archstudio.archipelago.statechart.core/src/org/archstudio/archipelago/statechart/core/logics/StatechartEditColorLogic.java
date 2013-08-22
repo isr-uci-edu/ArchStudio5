@@ -40,9 +40,9 @@ public class StatechartEditColorLogic extends EditColorLogic {
 				@Override
 				public void run() {
 					for (IHasMutableColor t : editableColoredThings) {
-						IThing glass = Assemblies.getAssemblyWithPart(getBNAModel(), t);
-						if (glass != null) {
-							ObjRef objRef = glass.get(IHasObjRef.OBJREF_KEY);
+						IThing root = Assemblies.getThingWithProperty(getBNAModel(), t, IHasObjRef.OBJREF_KEY);
+						if (root != null) {
+							ObjRef objRef = root.get(IHasObjRef.OBJREF_KEY);
 							if (objRef != null) {
 								if (XadlUtils.isInstanceOf(xarch, objRef, Statechart_1_0Package.Literals.STATE)) {
 									t.setColor(PreferenceConverter.getColor(

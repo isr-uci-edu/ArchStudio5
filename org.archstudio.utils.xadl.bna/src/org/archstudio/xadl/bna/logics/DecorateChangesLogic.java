@@ -186,7 +186,7 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 		if (!editable && Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			t.set(IHasSelected.SELECTED_KEY, false);
 		}
-		for (IThing p : Assemblies.getParts(getBNAModel(), t)) {
+		for (IThing p : Assemblies.getParts(getBNAModel(), t).values()) {
 			if (!p.has(IHasObjRef.OBJREF_KEY) || p.has(IHasObjRef.OBJREF_KEY, t.get(IHasObjRef.OBJREF_KEY))) {
 				updateAttributes(p, alpha, editable);
 			}

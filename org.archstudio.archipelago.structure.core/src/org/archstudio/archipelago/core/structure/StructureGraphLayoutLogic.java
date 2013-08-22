@@ -15,7 +15,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
-import org.archstudio.bna.things.glass.SplineGlassThing;
+import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
@@ -260,8 +260,8 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 			midpoints = optimizePoints(midpoints);
 
 			IThing linkRootThing = ArchipelagoUtils.findThing(view.getBNAWorld().getBNAModel(), edgeID);
-			if (linkRootThing instanceof SplineGlassThing) {
-				((SplineGlassThing) linkRootThing).setMidpoints(Arrays.asList(midpoints));
+			if (linkRootThing instanceof SplineThing) {
+				((SplineThing) linkRootThing).setMidpoints(Arrays.asList(midpoints));
 			}
 		}
 	}
@@ -294,8 +294,8 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 			String edgeID = edge.getEdgeId();
 
 			IThing linkRootThing = ArchipelagoUtils.findThing(view.getBNAWorld().getBNAModel(), edgeID);
-			if (linkRootThing instanceof SplineGlassThing) {
-				((SplineGlassThing) linkRootThing).setMidpoints(Collections.<Point> emptyList());
+			if (linkRootThing instanceof SplineThing) {
+				((SplineThing) linkRootThing).setMidpoints(Collections.<Point> emptyList());
 			}
 		}
 	}

@@ -1,5 +1,7 @@
 package org.archstudio.archipelago.core.structure;
 
+import static org.archstudio.sysutils.SystemUtils.firstOrNull;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,6 +12,7 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.myxgen.MyxGenBrick;
 import org.archstudio.myxgen.MyxGenInterface;
@@ -60,7 +63,7 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 
 	@Override
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
-		IThing thing = SystemUtils.firstOrNull(things);
+		IThing thing = Assemblies.getThingWithProperty(getBNAModel(), firstOrNull(things), IHasObjRef.OBJREF_KEY);
 		if (thing != null) {
 			final ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);
 			if (objRef != null) {

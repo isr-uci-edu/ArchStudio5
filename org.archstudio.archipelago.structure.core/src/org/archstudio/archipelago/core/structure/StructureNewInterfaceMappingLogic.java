@@ -14,12 +14,12 @@ import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.shapes.SplineThing;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.IBNAMouseListener;
 import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.archstudio.resources.IResources;
-import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
@@ -67,9 +67,10 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 			return;
 		}
 
-		if (matches(view, SystemUtils.firstOrNull(things))) {
+		IThing t = Assemblies.getThingWithProperty(getBNAModel(), firstOrNull(things), IHasObjRef.OBJREF_KEY);
+		if (matches(view, t)) {
 			Point world = location.getWorldPoint();
-			IAction action = getAction(view, SystemUtils.firstOrNull(things), world.x, world.y);
+			IAction action = getAction(view, t, world.x, world.y);
 			if (action != null) {
 				m.add(action);
 			}

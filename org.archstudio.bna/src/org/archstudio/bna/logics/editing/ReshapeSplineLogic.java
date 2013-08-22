@@ -10,7 +10,6 @@ import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasMutablePoints;
@@ -19,7 +18,6 @@ import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.events.DragMoveEvent;
-import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
 import org.archstudio.bna.things.shapes.ReshapeHandleThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
@@ -104,7 +102,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 	}
 
 	@Override
-	protected void updateHandle(ReshapeHandleGlassThing handle, Integer data) {
+	protected void updateHandle(ReshapeHandleThing handle, Integer data) {
 
 		// if stuck to the center of something, place the handle at the center (not the calculated edge point)
 		Point point = reshapingThing.getPoint(data);
@@ -126,7 +124,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 	}
 
 	@Override
-	protected void handleMoved(ReshapeHandleGlassThing handle, Integer data, DragMoveEvent evt) {
+	protected void handleMoved(ReshapeHandleThing handle, Integer data, DragMoveEvent evt) {
 
 		Point p = evt.getMouseLocation().getWorldPoint();
 		Point ap = evt.getAdjustedMouseLocation().getWorldPoint();
@@ -145,7 +143,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 
 			// if moved close to a sticky thing, stick to it
 			for (IIsSticky stickyThing : Iterables.filter(Lists.reverse(getBNAModel().getAllThings()), IIsSticky.class)) {
-				if (stickyThing instanceof ReshapeHandleGlassThing || stickyThing instanceof ReshapeHandleThing) {
+				if (stickyThing instanceof ReshapeHandleThing || stickyThing instanceof ReshapeHandleThing) {
 					continue;
 				}
 				for (IReshapeSplineGuide guide : reshapeSplineGuides) {
@@ -180,7 +178,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 	}
 
 	@Override
-	protected void handleMoveFinished(ReshapeHandleGlassThing handle, Integer data, DragMoveEvent evt) {
+	protected void handleMoveFinished(ReshapeHandleThing handle, Integer data, DragMoveEvent evt) {
 
 		// merge points (i.e., remove one), if one has been moved close to its neighbor
 		List<Point> points = reshapingThing.getPoints();
@@ -212,7 +210,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		super.handleMoveFinished(handle, data, evt);
 	}
 
-	protected void updateColor(ReshapeHandleGlassThing handle, Integer data) {
+	protected void updateColor(ReshapeHandleThing handle, Integer data) {
 		boolean shouldBeStuck = false;
 		for (IReshapeSplineGuide guide : reshapeSplineGuides) {
 			shouldBeStuck |= guide.shouldBeStuck(reshapingThing, data);
@@ -223,7 +221,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 			isStuck |= reshapingThing.get(dynamicStickLogic.getStickyThingKey(endpointKey)) != null;
 		}
 		RGB color = shouldBeStuck ? isStuck ? STUCK_COLOR : UNSTUCK_COLOR : NORMAL_COLOR;
-		((IHasMutableColor) Assemblies.BACKGROUND_KEY.get(handle, getBNAModel())).setColor(color);
+		handle.setColor(color);
 	}
 
 	protected IThingKey<Point> getEndpointKey(int point) {

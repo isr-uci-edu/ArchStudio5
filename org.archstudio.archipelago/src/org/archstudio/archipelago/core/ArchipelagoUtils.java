@@ -125,6 +125,18 @@ public class ArchipelagoUtils {
 		ept.setNewThingSpot(new Point(worldX, worldY));
 	}
 
+	public static Point getNewThingSpot(IBNAModel m) {
+		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
+		try {
+			if (ept.has(EnvironmentPropertiesThing.NEW_THING_SPOT_KEY)) {
+				return ept.getNewThingSpot();
+			}
+		}
+		catch (Exception e) {
+		}
+		return new Point(0, 0);
+	}
+
 	public static Point findOpenSpotForNewThing(IBNAModel m) {
 		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
 		try {

@@ -11,11 +11,8 @@ import org.archstudio.archipelago.core.structure.StructureEditorSupport;
 import org.archstudio.archipelago.structure.core.Activator;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasColor;
-import org.archstudio.bna.facets.IHasCount;
-import org.archstudio.bna.facets.IHasFontData;
-import org.archstudio.bna.facets.IHasGradientFill;
-import org.archstudio.bna.facets.IHasLineWidth;
 import org.archstudio.bna.facets.IHasMutableColor;
+import org.archstudio.bna.facets.IHasMutableFontData;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasMutableText;
@@ -27,7 +24,7 @@ import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
-import org.archstudio.bna.things.glass.RectangleGlassThing;
+import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.bna.utils.BNAUtils;
@@ -54,13 +51,17 @@ import com.google.common.base.Function;
 /**
  * Maps xADL Bricks (i.e., Components or Connectors) to BNA Rectangle Assemblies.
  */
-public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThing> implements IPropertyChangeListener {
+public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> implements IPropertyChangeListener {
 	protected final Services services;
 	protected final Dimension defaultSize;
 	protected final String defaultColorPref;
 	protected final String defaultFontPref;
 	protected final int defaultCount;
-	protected MirrorValueLogic mvl = null;
+
+	protected RGB defaultColor;
+	protected FontData defaultFont;
+	protected int defaultLineWidth;
+	protected MirrorValueLogic mvl;
 
 	public MapBrickLogic(Services services, IXArchADT xarch, ObjRef rootObjRef, String objRefPath,
 			Dimension defaultSize, String defaultColorPref, int defaultCount, String defaultFontPref) {
@@ -81,7 +82,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		addBNAUpdater(new IBNAUpdater() {
 
 			@Override
-			public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, RectangleGlassThing rootThing) {
+			public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, RectangleThing rootThing) {
 
 				updateSubstructure(objRef, xadlPath, evt, rootThing);
 			}
@@ -90,7 +91,15 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 
+		loadPreferences();
 		mvl = getBNAWorld().getThingLogicManager().addThingLogic(MirrorValueLogic.class);
+	}
+
+	protected void loadPreferences() {
+		defaultColor = PreferenceConverter.getColor(Activator.getDefault().getPreferenceStore(), defaultColorPref);
+		defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(), defaultFontPref);
+		defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
 	}
 
 	@Override
@@ -102,25 +111,22 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		RGB defaultColor = PreferenceConverter.getColor(Activator.getDefault().getPreferenceStore(), defaultColorPref);
-		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
-				defaultFontPref);
-		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
+		loadPreferences();
 
-		for (RectangleGlassThing thing : getAddedThings()) {
+		for (RectangleThing thing : getAddedThings()) {
 			if (event.getProperty().equals(defaultColorPref)) {
 				RGB oldColor = toRGB(event.getOldValue());
-				if (Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).get(IHasColor.COLOR_KEY).equals(oldColor)) {
-					Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasColor.COLOR_KEY, defaultColor);
+				if (thing.getColor().equals(oldColor)) {
+					thing.setColor(defaultColor);
 				}
 			}
 
-			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
-			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
-			Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_STYLE_KEY,
-					FontStyle.fromSWT(defaultFont.getStyle()));
-			Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
+			((IHasMutableFontData) Assemblies.TEXT_KEY.get(thing, getBNAModel())).setFontName(defaultFont.getName());
+			((IHasMutableFontData) Assemblies.TEXT_KEY.get(thing, getBNAModel())).setFontSize(defaultFont.getHeight());
+			((IHasMutableFontData) Assemblies.TEXT_KEY.get(thing, getBNAModel())).setFontStyle(FontStyle
+					.fromSWT(defaultFont.getStyle()));
+
+			thing.setLineWidth(defaultLineWidth);
 		}
 	}
 
@@ -133,29 +139,24 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 	}
 
 	@Override
-	protected RectangleGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
+	protected RectangleThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
-		RGB defaultColor = PreferenceConverter.getColor(Activator.getDefault().getPreferenceStore(), defaultColorPref);
-		FontData defaultFont = PreferenceConverter.getFontData(Activator.getDefault().getPreferenceStore(),
-				defaultFontPref);
-		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
+		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(getBNAWorld().getBNAModel());
 
-		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
-
-		RectangleGlassThing thing = Assemblies.createRectangleWithWorld(getBNAWorld(), null, null);
+		RectangleThing thing = Assemblies.addWorld(getBNAWorld(), null,
+				Assemblies.createRectangle(getBNAWorld(), null, null));
 		thing.setBoundingBox(new Rectangle(newPointSpot.x, newPointSpot.y, defaultSize.width, defaultSize.height));
-		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasColor.COLOR_KEY, defaultColor);
-		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasGradientFill.GRADIENT_FILLED_KEY, true);
-		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasCount.COUNT_KEY, defaultCount);
-		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
-		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
-		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
-		Assemblies.TEXT_KEY.get(thing, getBNAModel()).set(IHasFontData.FONT_STYLE_KEY,
-				FontStyle.fromSWT(defaultFont.getStyle()));
+		thing.setColor(defaultColor);
+		thing.setGradientFilled(true);
+		thing.setCount(defaultCount);
+		thing.setLineWidth(defaultLineWidth);
 
-		mvl.mirrorValue(Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()), IHasColor.COLOR_KEY,
-				Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()), IHasSecondaryColor.SECONDARY_COLOR_KEY,
+		((IHasMutableFontData) Assemblies.TEXT_KEY.get(thing, getBNAModel())).setFontName(defaultFont.getName());
+		((IHasMutableFontData) Assemblies.TEXT_KEY.get(thing, getBNAModel())).setFontSize(defaultFont.getHeight());
+		((IHasMutableFontData) Assemblies.TEXT_KEY.get(thing, getBNAModel())).setFontStyle(FontStyle
+				.fromSWT(defaultFont.getStyle()));
+
+		mvl.mirrorValue(thing, IHasColor.COLOR_KEY, thing, IHasSecondaryColor.SECONDARY_COLOR_KEY,
 				new Function<RGB, RGB>() {
 
 					@Override
@@ -166,17 +167,15 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleGlassThin
 				});
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
-				IHasMutableSize.USER_MAY_RESIZE, IRelativeMovable.USER_MAY_MOVE, HighlightLogic.USER_MAY_HIGHLIGHT);
+				IHasMutableSize.USER_MAY_RESIZE, IRelativeMovable.USER_MAY_MOVE, HighlightLogic.USER_MAY_HIGHLIGHT,
+				IHasColor.USER_MAY_COPY_COLOR, IHasMutableColor.USER_MAY_EDIT_COLOR);
 		UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, getBNAModel()),
 				IHasMutableText.USER_MAY_EDIT_TEXT);
-		UserEditableUtils.addEditableQualities(Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()),
-				IHasMutableColor.USER_MAY_EDIT_COLOR);
 
 		return thing;
 	}
 
-	protected void updateSubstructure(ObjRef objRef, String xadlPath, XArchADTModelEvent evt,
-			RectangleGlassThing rootThing) {
+	protected void updateSubstructure(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, RectangleThing rootThing) {
 
 		IHasMutableWorld worldThing = castOrNull(
 				BNAPath.resolve(getBNAModel(), rootThing, BNAPath.create(Assemblies.WORLD_KEY)), IHasMutableWorld.class);

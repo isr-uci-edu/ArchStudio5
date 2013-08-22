@@ -12,7 +12,6 @@ import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasFlow;
 import org.archstudio.bna.facets.IHasLineWidth;
 import org.archstudio.bna.facets.IHasMutableFlow;
-import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
@@ -88,10 +87,9 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		reorientLogic = addThingLogic(ReorientToThingIDLogic.class);
 		stickLogic = addThingLogic(DynamicStickPointLogic.class);
 
-		syncValue("direction", DIRECTION_TO_FLOW, Flow.NONE, BNAPath.create(Assemblies.LABEL_KEY), IHasFlow.FLOW_KEY,
-				true);
+		syncValue("direction", DIRECTION_TO_FLOW, Flow.NONE, BNAPath.create(Assemblies.DIRECTION_KEY),
+				IHasFlow.FLOW_KEY, true);
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
-		syncValue("name", null, "[no name]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
 		syncXAttribute("ext[*[namespace-uri()='" + Domain_3_0Package.eNS_URI + "']]/domain/type",
 				DOMAIN_TO_STICKY_MODE, null, BNAPath.create(Assemblies.BACKGROUND_KEY),
@@ -116,17 +114,16 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
 
 		EndpointGlassThing thing = Assemblies.createEndpoint(getBNAWorld(), null, null);
-		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
+		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(getBNAWorld().getBNAModel());
 		thing.setAnchorPoint(newPointSpot);
 
 		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 
-		UserEditableUtils
-				.addEditableQualities(thing, IRelativeMovable.USER_MAY_MOVE, HighlightLogic.USER_MAY_HIGHLIGHT);
-		//UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, getBNAModel()), IHasMutableText.USER_MAY_EDIT_TEXT);
-		UserEditableUtils.addEditableQualities(Assemblies.LABEL_KEY.get(thing, getBNAModel()),
+		UserEditableUtils.addEditableQualities(thing, IRelativeMovable.USER_MAY_MOVE,
+				HighlightLogic.USER_MAY_HIGHLIGHT, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG,
+				IHasToolTip.USER_MAY_EDIT_TOOL_TIP);
+		UserEditableUtils.addEditableQualities(Assemblies.DIRECTION_KEY.get(thing, getBNAModel()),
 				IHasMutableFlow.USER_MAY_EDIT_FLOW);
-		UserEditableUtils.addEditableQualities(thing, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG);
 
 		/*
 		 * restack on top of the thing representing the first ancestor (i.e., the component or connector)
@@ -135,7 +132,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 				syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingIDKey()), relLineageRefs.get(1));
 
 		/* orient to the parent thing */
-		Assemblies.LABEL_KEY.get(thing, getBNAModel()).set(
+		Assemblies.DIRECTION_KEY.get(thing, getBNAModel()).set(
 				syncLogic.syncObjRefKeyToThingIDKey(reorientLogic.getReorientToThingKey()), relLineageRefs.get(1));
 
 		thing.set(stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), StickyMode.EDGE);

@@ -1,5 +1,7 @@
 package org.archstudio.archipelago.core.structure;
 
+import static org.archstudio.sysutils.SystemUtils.firstOrNull;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -7,12 +9,11 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.things.glass.RectangleGlassThing;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.resources.ArchStudioCommonResources;
 import org.archstudio.resources.IResources;
-import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
@@ -39,7 +40,7 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 	}
 
 	public boolean matches(IBNAView view, IThing t) {
-		if (t instanceof RectangleGlassThing) {
+		if (t != null) {
 			ObjRef objRef = t.get(IHasObjRef.OBJREF_KEY);
 			if (XadlUtils.isInstanceOf(xarch, objRef, Structure_3_0Package.Literals.BRICK)) {
 				return true;
@@ -55,9 +56,10 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 			return;
 		}
 
-		if (matches(view, SystemUtils.firstOrNull(things))) {
+		IThing t = Assemblies.getThingWithProperty(getBNAModel(), firstOrNull(things), IHasObjRef.OBJREF_KEY);
+		if (matches(view, t)) {
 			Point world = location.getWorldPoint();
-			for (IAction action : getActions(view, SystemUtils.firstOrNull(things), world.x, world.y)) {
+			for (IAction action : getActions(view, t, world.x, world.y)) {
 				m.add(action);
 			}
 			m.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));

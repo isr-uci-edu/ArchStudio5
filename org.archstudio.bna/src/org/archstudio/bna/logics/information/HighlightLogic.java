@@ -13,9 +13,12 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
+import org.archstudio.bna.facets.IHasEndpoints;
+import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
+import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.editing.BNAOperations;
@@ -24,7 +27,6 @@ import org.archstudio.bna.things.borders.RectangleGlowThing;
 import org.archstudio.bna.things.borders.SplineGlowThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.IBNAMenuListener;
-import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -35,8 +37,7 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 
 	public static final String USER_MAY_HIGHLIGHT = "userMayHighlight";
 
-	public static final IThingRefKey<IThing> HIGHLIGHT_PART_KEY = Assemblies.ThingAssemblyKey
-			.create("assembly-highlight");
+	public static final IThingRefKey<IThing> HIGHLIGHT_PART_KEY = ThingRefKey.create("assembly-highlight");
 
 	public static final IThingKey<RGB> HIGHLIGHT_COLOR_KEY = ThingKey.create("highlight");
 
@@ -59,8 +60,8 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 	public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		IBNAModel m = getBNAModel();
 		if (!things.isEmpty()) {
-			final IThing t = Assemblies.getAssemblyWithRootOrPart(m, firstOrNull(things));
-			if (t != null && UserEditableUtils.isEditableForAllQualities(t, USER_MAY_HIGHLIGHT)) {
+			final IThing t = Assemblies.getEditableThing(m, firstOrNull(things), IThing.class, USER_MAY_HIGHLIGHT);
+			if (t != null) {
 				final IThing ht = getHighlight(t);
 				IAction highlightAction = new Action("Highlight") {
 
@@ -116,9 +117,13 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 	protected IThing showHighlight(IThing forThing) {
 		IThing t = getHighlight(forThing);
 		if (t == null) {
-			if (forThing instanceof IHasPoints) {
+			if (forThing instanceof IHasEndpoints) {
 				t = getBNAModel().addThing(new SplineGlowThing(null), forThing);
-				mirrorLogic.mirrorValue(forThing, IHasPoints.POINTS_KEY, t);
+				mirrorLogic.mirrorValue(forThing, IHasEndpoints.ENDPOINT_1_KEY, t);
+				mirrorLogic.mirrorValue(forThing, IHasEndpoints.ENDPOINT_2_KEY, t);
+				if (forThing instanceof IHasMidpoints) {
+					mirrorLogic.mirrorValue(forThing, IHasMidpoints.MIDPOINTS_KEY, t);
+				}
 			}
 			else if (forThing instanceof IHasBoundingBox) {
 				t = getBNAModel().addThing(new RectangleGlowThing(null), forThing);

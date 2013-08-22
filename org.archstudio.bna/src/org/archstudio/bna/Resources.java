@@ -114,7 +114,7 @@ public class Resources implements IResources {
 		Integer width = thing.getLineWidth();
 		Integer style = thing.getLineStyle();
 		if (width != null && style != null) {
-			gl.glLineWidth(width - 0.5f); // 275f);
+			gl.glLineWidth(width);
 			int pattern = 0xffff;
 			switch (style) {
 			case IHasLineStyle.LINE_STYLE_DASH:

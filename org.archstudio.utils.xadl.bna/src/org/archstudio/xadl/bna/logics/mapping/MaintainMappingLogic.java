@@ -19,7 +19,7 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.IInternalBNAModelListener;
 import org.archstudio.bna.logics.coordinating.WorldThingInternalEventsLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
-import org.archstudio.bna.things.glass.MappingGlassThing;
+import org.archstudio.bna.things.shapes.MappingThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.ObjRef;
@@ -51,19 +51,19 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing t = evt.getTargetThing();
-			if (t instanceof MappingGlassThing) {
-				updateThing((MappingGlassThing) t);
+			if (t instanceof MappingThing) {
+				updateThing((MappingThing) t);
 			}
 		}
 			break;
 		case THING_CHANGED: {
 			IThing t = evt.getTargetThing();
-			if (t instanceof MappingGlassThing) {
+			if (t instanceof MappingThing) {
 				if (evt.getThingEvent().getPropertyName().equals(INTERNAL_THING_KEY)
 						|| evt.getThingEvent().getPropertyName().equals(INTERNAL_OBJREF_KEY)
 						|| evt.getThingEvent().getPropertyName()
 								.equals(IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY)) {
-					updateThing((MappingGlassThing) t);
+					updateThing((MappingThing) t);
 				}
 			}
 			break;
@@ -103,7 +103,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 
 	}
 
-	private void updateThing(MappingGlassThing t) {
+	private void updateThing(MappingThing t) {
 		IHasWorld worldThing = castOrNull(getBNAModel().getThing(t.getInternalEndpointWorldThingID()), IHasWorld.class);
 		if (worldThing != null) {
 			IBNAWorld iWorld = worldThing.getWorld();

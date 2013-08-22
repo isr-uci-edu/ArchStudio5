@@ -1,15 +1,14 @@
 package org.archstudio.bna.things.shapes;
 
+import java.awt.geom.Path2D;
 import java.util.List;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThingPeer;
-import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.things.AbstractSplineThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
@@ -30,15 +29,20 @@ public class SplineThingPeer<T extends SplineThing> extends AbstractSplineThingP
 			return;
 		}
 
-		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) && r.setLineStyle(t)) {
-			int width = t.getLineWidth();
-			float o = width % 2 > 0 ? 0.5f : 0;
-			List<Point> localPoints = BNAUtils.worldToLocal(cm, t.getPoints());
-			gl.glBegin(GL.GL_LINE_STRIP);
-			for (Point p : localPoints) {
-				gl.glVertex2f(p.x + o, p.y + o);
+		Path2D localShape = new Path2D.Double();
+		List<Point> localPoints = BNAUtils.worldToLocal(cm, t.getPoints());
+		boolean first = true;
+		for (Point p : localPoints) {
+			if (first) {
+				localShape.moveTo(p.x, p.y);
+				first = false;
 			}
-			gl.glEnd();
+			else {
+				localShape.lineTo(p.x, p.y);
+			}
 		}
+
+		BNAUtils.renderShapeEdge(t, view, cm, gl, clip, r, localShape);
+		BNAUtils.renderShapeSelected(t, view, cm, gl, clip, r, localShape);
 	}
 }

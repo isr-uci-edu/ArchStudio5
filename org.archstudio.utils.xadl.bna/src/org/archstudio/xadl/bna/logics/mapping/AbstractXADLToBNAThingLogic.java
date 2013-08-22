@@ -229,8 +229,8 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 							}
 						}
 						// now check to see if this thing is part of an assembly
-						bnaPathSegments.add(Assemblies.getPartKey(thing));
-						thing = Assemblies.getAssemblyWithPart(model, thing);
+						bnaPathSegments.add(Assemblies.getPartName(thing));
+						thing = Assemblies.getRootWithPart(model, thing);
 					}
 				}
 			}

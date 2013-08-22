@@ -72,12 +72,12 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 		IBNAModel model = bnaWorld.getBNAModel();
 		List<String> path = Lists.newArrayList();
 		while (thing != null) {
-			IThingRefKey<?> partKey = Assemblies.getPartKey(thing);
+			IThingRefKey<?> partKey = Assemblies.getPartName(thing);
 			if (partKey == null) {
 				break;
 			}
 			path.add(0, partKey.getKeyData().toString());
-			thing = Assemblies.getAssemblyWithPart(model, thing);
+			thing = Assemblies.getRootWithPart(model, thing);
 		}
 		path.add(hintNameSuffix);
 		return Joiner.on("/").join(path);

@@ -14,10 +14,9 @@ import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.logics.events.DragMoveEventsLogic;
 import org.archstudio.bna.logics.events.IDragMoveListener;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
-import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
+import org.archstudio.bna.things.shapes.ReshapeHandleThing;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.UserEditableUtils;
-import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Iterables;
@@ -61,8 +60,9 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 		if (model != null) {
 			model.beginBulkChange();
 			try {
-				IRelativeMovable movingThing = SystemUtils.castOrNull(evt.getInitialThing(), IRelativeMovable.class);
-				if (UserEditableUtils.isEditableForAllQualities(movingThing, IRelativeMovable.USER_MAY_MOVE)) {
+				IRelativeMovable movingThing = Assemblies.getEditableThing(model, evt.getInitialThing(),
+						IRelativeMovable.class, IRelativeMovable.USER_MAY_MOVE);
+				if (movingThing != null) {
 					List<IRelativeMovable> selectedThings = Lists
 							.newArrayList(Iterables.filter(
 									BNAUtils.getThings(model,
@@ -134,7 +134,7 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 	@Override
 	public void dragFinished(DragMoveEvent evt) {
 		// if we moved a handle, let the reshape logic handle the undo
-		if (!(movingThings.size() == 1 && movingThings.keySet().iterator().next() instanceof ReshapeHandleGlassThing)) {
+		if (!(movingThings.size() == 1 && movingThings.keySet().iterator().next() instanceof ReshapeHandleThing)) {
 			if (totalRelativePoint.x != 0 || totalRelativePoint.y != 0) {
 				BNAOperations.runnable("Drag", initialSnapshot,
 						BNAOperations.takeSnapshotOfLocations(getBNAModel(), movingThings.keySet()), false);

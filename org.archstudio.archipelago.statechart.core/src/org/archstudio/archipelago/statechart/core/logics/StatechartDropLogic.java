@@ -1,5 +1,7 @@
 package org.archstudio.archipelago.statechart.core.logics;
 
+import static org.archstudio.sysutils.SystemUtils.firstOrNull;
+
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
@@ -7,7 +9,8 @@ import org.archstudio.archipelago.core.util.AbstractTreeDropLogic;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.things.glass.RectangleGlassThing;
+import org.archstudio.bna.facets.IHasMutableWorld;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.swtutils.LocalSelectionTransfer;
 import org.archstudio.sysutils.UIDGenerator;
@@ -31,15 +34,11 @@ public class StatechartDropLogic extends AbstractTreeDropLogic {
 	@Override
 	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location,
 			Object data) {
-		IThing t = getSingleThing(ts);
-		if (t == null) {
-			//This is a drop on nothing...just return.
-			return false;
-		}
-		else if (t instanceof RectangleGlassThing) {
-			//Drop on a glass thing
-			if (t != null) {
-				if (XadlUtils.isInstanceOf(xarch, t.get(IHasObjRef.OBJREF_KEY), Statechart_1_0Package.Literals.STATE)) {
+		IHasMutableWorld t = Assemblies.getThingOfType(getBNAModel(), firstOrNull(ts), IHasMutableWorld.class);
+		if (t != null) {
+			IThing p = Assemblies.getThingWithProperty(getBNAModel(), t, IHasObjRef.OBJREF_KEY);
+			if (p != null) {
+				if (XadlUtils.isInstanceOf(xarch, p.get(IHasObjRef.OBJREF_KEY), Statechart_1_0Package.Literals.STATE)) {
 					if (data == null) {
 						return true;
 					}
@@ -61,20 +60,14 @@ public class StatechartDropLogic extends AbstractTreeDropLogic {
 			pulser = null;
 		}
 
-		if (!acceptDrop(view, event, ts, location)) {
-			return;
-		}
-
-		IThing t = getSingleThing(ts);
-		if (t == null) {
-			throw new IllegalArgumentException("Drop on null - this shouldn't happen.");
-		}
-
 		ObjRef outerRef = null;
-		if (t != null && t instanceof RectangleGlassThing) {
-			String xArchID = t.get(ArchipelagoUtils.XARCH_ID_KEY);
-			if (xArchID != null) {
-				outerRef = xarch.getByID(documentRootRef, xArchID);
+		if (acceptDrop(view, event, ts, location)) {
+			IHasMutableWorld t = Assemblies.getThingOfType(getBNAModel(), firstOrNull(ts), IHasMutableWorld.class);
+			if (t != null) {
+				IThing p = Assemblies.getThingWithProperty(getBNAModel(), t, IHasObjRef.OBJREF_KEY);
+				if (p != null) {
+					outerRef = p.get(IHasObjRef.OBJREF_KEY);
+				}
 			}
 		}
 

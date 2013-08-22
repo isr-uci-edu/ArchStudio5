@@ -1,7 +1,9 @@
 package org.archstudio.bna.logics.editing;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.archstudio.bna.BNAModelEvent;
@@ -49,28 +51,18 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 
 	@Override
 	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager m) {
-		IThing editThing = null;
 		if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) <= 1) {
-			MAIN: for (IThing thing : things) {
-				for (IThing assemblyPartThing : Assemblies.getRelatedParts(view.getBNAWorld().getBNAModel(), thing)) {
-					if (assemblyPartThing instanceof IHasMutableText
-							&& UserEditableUtils.isEditableForAnyQualities(assemblyPartThing,
-									IHasMutableText.USER_MAY_EDIT_TEXT, IHasToolTip.USER_MAY_EDIT_TOOL_TIP)) {
-						editThing = assemblyPartThing;
-						break MAIN;
-					}
-				}
-			}
-		}
-		final IThing finalThing = editThing;
-		if (finalThing != null) {
-			m.add(new Action("Edit Description...") {
+			final IThing editThing = Assemblies.getEditableThing(getBNAModel(), firstOrNull(things), IThing.class,
+					IHasMutableText.USER_MAY_EDIT_TEXT, IHasToolTip.USER_MAY_EDIT_TOOL_TIP);
+			if (editThing != null) {
+				m.add(new Action("Edit Description...") {
 
-				@Override
-				public void run() {
-					initEdit(finalThing);
-				}
-			});
+					@Override
+					public void run() {
+						initEdit(editThing);
+					}
+				});
+			}
 		}
 	}
 
@@ -81,17 +73,11 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 	@Override
 	public void keyReleased(IBNAView view, KeyEvent e) {
 		if (SWT.F2 == e.keyCode) {
+			Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
 			IThing editThing = null;
-			if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) == 1) {
-				MAIN: for (IThing thing : BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) {
-					for (IThing assemblyPartThing : Assemblies.getRelatedParts(view.getBNAWorld().getBNAModel(), thing)) {
-						if (UserEditableUtils.isEditableForAnyQualities(assemblyPartThing,
-								IHasMutableText.USER_MAY_EDIT_TEXT, IHasToolTip.USER_MAY_EDIT_TOOL_TIP)) {
-							editThing = assemblyPartThing;
-							break MAIN;
-						}
-					}
-				}
+			if (selectedThings.size() == 1) {
+				editThing = Assemblies.getEditableThing(getBNAModel(), firstOrNull(selectedThings), IThing.class,
+						IHasMutableText.USER_MAY_EDIT_TEXT, IHasToolTip.USER_MAY_EDIT_TOOL_TIP);
 			}
 			if (editThing != null) {
 				initEdit(editThing);

@@ -1,6 +1,5 @@
 package org.archstudio.bna.logics.editing;
 
-import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
 import java.util.List;
@@ -21,6 +20,7 @@ import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
+import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
@@ -41,9 +41,9 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 
 	public static final String USER_MAY_SHOW_HIDE_TAG = "userMayShowHideTag";
 
-	public static final IThingRefKey<AnchoredLabelThing> TAG_KEY = Assemblies.ThingAssemblyKey.create("assembly-tag");
-
 	public static final IThingKey<Boolean> SHOW_TAG_KEY = ThingKey.create("showTag");
+
+	public static final IThingRefKey<AnchoredLabelThing> TAG_KEY = ThingRefKey.create("assembly-tag");
 
 	protected ThingValueTrackingLogic valueLogic;
 	protected DynamicStickPointLogic stickLogic;
@@ -65,9 +65,9 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		IBNAModel m = getBNAModel();
 		if (!things.isEmpty()) {
-			final IIsSticky st = castOrNull(Assemblies.getAssemblyWithRootOrPart(m, firstOrNull(things)),
-					IIsSticky.class);
-			if (st != null && UserEditableUtils.isEditableForAllQualities(st, USER_MAY_SHOW_HIDE_TAG)) {
+			final IIsSticky st = Assemblies.getEditableThing(m, firstOrNull(things), IIsSticky.class,
+					USER_MAY_SHOW_HIDE_TAG);
+			if (st != null) {
 				final AnchoredLabelThing tt = getTag(st);
 				// lookup tags for thing
 				IAction tagAction = new Action("Show Tag") {
@@ -138,7 +138,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 			else {
 				mirrorLogic.mirrorValue(forThing, IHasToolTip.TOOL_TIP_KEY, t, IHasText.TEXT_KEY);
 			}
-			Assemblies.markPart(forThing, TAG_KEY, t);
+			Assemblies.markPart(Assemblies.getRoot(getBNAModel(), forThing), TAG_KEY, t);
 		}
 		return t;
 	}
@@ -148,6 +148,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 		if (t != null) {
 			t.remove(stickLogic.getStickyThingKey(IHasIndicatorPoint.INDICATOR_POINT_KEY));
 			mirrorLogic.unmirror(t, IHasText.TEXT_KEY);
+			Assemblies.unmarkPart(getBNAModel(), t);
 			getBNAModel().removeThing(t);
 		}
 	}

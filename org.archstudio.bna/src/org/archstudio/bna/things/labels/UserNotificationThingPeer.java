@@ -61,8 +61,8 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 		lbb.y += lap.y;
 		lbb.x -= SPACING;
 		lbb.y -= SPACING;
-		lbb.width += 2 * SPACING;
-		lbb.height += 2 * SPACING;
+		lbb.width += 3 * SPACING;
+		lbb.height += 3 * SPACING;
 		Point p1 = new Point(lbb.x, lbb.y);
 		Point p2 = new Point(lbb.x + lbb.width, lbb.y + lbb.height);
 
@@ -86,13 +86,12 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 			gl.glVertex2f(p1.x + 0.5f, p2.y - 0.5f);
 			gl.glEnd();
 
-			Point canvasSize = view.getComposite().getSize();
+			Point canvasSize = new Point(clip.width, clip.height);
 			gl.glPushMatrix();
 			tr.beginRendering(canvasSize.x, canvasSize.y);
 			gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
-			gl.glTranslated(lap.x, canvasSize.y - lap.y, 0);
 			r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY, alpha, tr);
-			tr.draw(text, 0, 0);
+			tr.draw(text, lap.x + SPACING, canvasSize.y - (lap.y + SPACING));
 			tr.endRendering();
 			gl.glPopMatrix();
 		}

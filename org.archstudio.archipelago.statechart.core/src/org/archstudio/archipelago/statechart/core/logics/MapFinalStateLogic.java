@@ -1,25 +1,21 @@
 package org.archstudio.archipelago.statechart.core.logics;
 
 import java.awt.Dimension;
-import java.awt.Insets;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
-import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.archipelago.statechart.core.things.shapes.FinalStateThing;
 import org.archstudio.bna.facets.IHasColor;
-import org.archstudio.bna.facets.IHasCount;
 import org.archstudio.bna.facets.IHasEdgeColor;
-import org.archstudio.bna.facets.IHasLocalInsets;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.IThingRefKey;
+import org.archstudio.bna.keys.ThingRefKey;
+import org.archstudio.bna.logics.coordinating.MirrorBoundingBoxLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
-import org.archstudio.bna.things.glass.EllipseGlassThing;
-import org.archstudio.bna.things.shapes.EllipseThing;
 import org.archstudio.bna.utils.Assemblies;
-import org.archstudio.bna.utils.Assemblies.ThingAssemblyKey;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -35,20 +31,19 @@ import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.base.Function;
 
-public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<EllipseGlassThing> {
+public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<FinalStateThing> {
 	protected final Services services;
 	protected final Dimension defaultSize;
-	protected final int defaultCount;
 	protected MirrorValueLogic mvl = null;
+	protected MirrorBoundingBoxLogic mbbl = null;
 
-	public static final IThingRefKey<IHasEdgeColor> EDGE_KEY = ThingAssemblyKey.create("assembly-edge");
+	public static final IThingRefKey<IHasEdgeColor> CENTER_KEY = ThingRefKey.create("assembly-center");
 
 	public MapFinalStateLogic(Services services, IXArchADT xarch, ObjRef rootObjRef, String objRefPath,
-			Dimension defaultSize, int defaultCount) {
+			Dimension defaultSize) {
 		super(xarch, rootObjRef, objRefPath);
 		this.services = services;
 		this.defaultSize = defaultSize;
-		this.defaultCount = defaultCount;
 	}
 
 	@Override
@@ -58,27 +53,22 @@ public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<EllipseGlassT
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
 
 		mvl = getBNAWorld().getThingLogicManager().addThingLogic(MirrorValueLogic.class);
+		mbbl = getBNAWorld().getThingLogicManager().addThingLogic(MirrorBoundingBoxLogic.class);
 	}
 
 	@Override
-	protected EllipseGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
+	protected FinalStateThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
 
-		EllipseThing edge = getBNAModel().addThing(new EllipseThing(null));
-		edge.setLineWidth(2);
-		edge.setColor(null);
+		FinalStateThing thing = getBNAModel().addThing(new FinalStateThing(null),
+				Assemblies.getLayer(getBNAModel(), Assemblies.MIDDLE_LAYER_THING_ID));
+		thing.setBoundingBox(new Rectangle(newPointSpot.x - defaultSize.width / 2, newPointSpot.y - defaultSize.height
+				/ 2, defaultSize.width, defaultSize.height));
 
-		EllipseGlassThing thing = Assemblies.createEllipse(getBNAWorld(), null, edge);
-		thing.setBoundingBox(new Rectangle(newPointSpot.x, newPointSpot.y, defaultSize.width, defaultSize.height));
-		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasColor.COLOR_KEY, new RGB(32, 32, 32));
-		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasCount.COUNT_KEY, defaultCount);
-		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLocalInsets.LOCAL_INSETS_KEY,
-				new Insets(4, 4, 4, 4));
-		Assemblies.markPart(thing, EDGE_KEY, edge);
+		Assemblies.markRoot(thing);
 
-		mvl.mirrorValue(Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()), IHasColor.COLOR_KEY,
-				Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()), IHasSecondaryColor.SECONDARY_COLOR_KEY,
+		mvl.mirrorValue(thing, IHasColor.COLOR_KEY, thing, IHasSecondaryColor.SECONDARY_COLOR_KEY,
 				new Function<RGB, RGB>() {
 
 					@Override
@@ -87,7 +77,6 @@ public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<EllipseGlassT
 						return BNAUtils.adjustBrightness(input, 1.5f);
 					}
 				});
-		mvl.mirrorValue(thing, IHasBoundingBox.BOUNDING_BOX_KEY, edge);
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
 				IRelativeMovable.USER_MAY_MOVE);

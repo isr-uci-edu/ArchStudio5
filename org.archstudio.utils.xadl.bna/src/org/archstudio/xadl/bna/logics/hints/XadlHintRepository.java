@@ -47,7 +47,7 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 			if (objRef != null) {
 				break;
 			}
-			t = Assemblies.getAssemblyWithPart(world.getBNAModel(), t);
+			t = Assemblies.getRootWithPart(world.getBNAModel(), t);
 		} while (t != null);
 		if (objRef != null && t != null) {
 			return objRef;

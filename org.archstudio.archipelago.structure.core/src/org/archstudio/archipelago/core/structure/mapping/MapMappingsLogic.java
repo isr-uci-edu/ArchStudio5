@@ -8,14 +8,13 @@ import org.archstudio.archipelago.structure.core.Activator;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasInternalWorldEndpoint;
-import org.archstudio.bna.facets.IHasLineWidth;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.ReparentToThingIDLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
-import org.archstudio.bna.things.glass.MappingGlassThing;
+import org.archstudio.bna.things.shapes.MappingThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -31,7 +30,7 @@ import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Lists;
 
-public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThing> implements IPropertyChangeListener {
+public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> implements IPropertyChangeListener {
 
 	DynamicStickPointLogic stickLogic = null;
 	SynchronizeThingIDAndObjRefLogic syncLogic = null;
@@ -79,23 +78,22 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThi
 	}
 
 	@Override
-	protected MappingGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
+	protected MappingThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
-		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
+		int defaultLineWidth = Math.max(1, org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH));
 
-		MappingGlassThing thing = Assemblies.createMapping(getBNAWorld(), null, null);
-		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
+		MappingThing thing = Assemblies.createMapping(getBNAWorld(), null, null);
+		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(getBNAWorld().getBNAModel());
 		thing.setAnchorPoint(new Point(newPointSpot.x - 50, newPointSpot.y + 50));
 		thing.setInternalEndpoint(new Point(newPointSpot.x + 50, newPointSpot.y - 50));
-		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
+		thing.setLineWidth(defaultLineWidth);
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableText.USER_MAY_EDIT_TEXT,
 				IHasMutableSelected.USER_MAY_SELECT, HighlightLogic.USER_MAY_HIGHLIGHT);
 
-		// stack above the world thing
-		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(
-				syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingIDKey()),
+		//stack above the world thing
+		thing.set(syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingIDKey()),
 				Lists.reverse(relLineageRefs).get(1));
 
 		return thing;
@@ -103,11 +101,11 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingGlassThi
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
+		int defaultLineWidth = Math.max(1, org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH));
 
-		for (MappingGlassThing thing : getAddedThings()) {
-			Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
+		for (MappingThing thing : getAddedThings()) {
+			thing.setLineWidth(defaultLineWidth);
 		}
 	}
 }

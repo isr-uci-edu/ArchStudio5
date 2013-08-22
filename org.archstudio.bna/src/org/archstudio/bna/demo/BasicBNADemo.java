@@ -10,13 +10,14 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.LinearCoordinateMapper;
 import org.archstudio.bna.facets.IHasMutableColor;
-import org.archstudio.bna.facets.IHasMutableGradientFill;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasMutableText;
+import org.archstudio.bna.facets.IHasMutableWorld;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.coordinating.WorldThingExternalEventsLogic;
+import org.archstudio.bna.logics.coordinating.WorldThingInternalEventsLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.EditTextLogic;
@@ -29,8 +30,8 @@ import org.archstudio.bna.logics.editing.StandardCursorLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
-import org.archstudio.bna.things.glass.RectangleGlassThing;
-import org.archstudio.bna.things.glass.SplineGlassThing;
+import org.archstudio.bna.things.shapes.RectangleThing;
+import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAModel;
@@ -117,17 +118,17 @@ public class BasicBNADemo {
 		//logicManager.addThingLogic(DebugLogic.class);
 
 		logicManager.addThingLogic(WorldThingExternalEventsLogic.class);
+		logicManager.addThingLogic(WorldThingInternalEventsLogic.class);
 	}
 
 	static void populateModel(IBNAWorld world) {
 		final IBNAModel model = world.getBNAModel();
-		final RectangleGlassThing[] boxes = new RectangleGlassThing[50];
+		final RectangleThing[] boxes = new RectangleThing[50];
 
 		for (int i = 0; i < boxes.length; i++) {
-			RectangleGlassThing box = Assemblies.createRectangle(world, null, null);
-			((IHasMutableGradientFill) Assemblies.BACKGROUND_KEY.get(box, model)).setGradientFilled(true);
-			Assemblies.TEXT_KEY.get(box, model).setText(
-					"Now is the time for all good men to come to the aid of their country");
+			RectangleThing box = Assemblies.createRectangle(world, null, null);
+			((IHasMutableText) Assemblies.TEXT_KEY.get(box, model))
+					.setText("Now is the time for all good men to come to the aid of their country");
 			((IHasMutableColor) Assemblies.TEXT_KEY.get(box, model)).setColor(new RGB(255, 0, 0));
 			box.setBoundingBox(new Rectangle(origin.x + 20 + i * 10, origin.y + 20 + i * 10, 100, 100));
 			box.setSelected(i % 2 == 0);
@@ -141,14 +142,13 @@ public class BasicBNADemo {
 		}
 
 		EndpointGlassThing endpoint = Assemblies.createEndpoint(world, null, boxes[0]);
-		Assemblies.LABEL_KEY.get(endpoint, model).setColor(new RGB(0, 0, 0));
-		Assemblies.LABEL_KEY.get(endpoint, model).setOrientation(Orientation.NORTHWEST);
-		Assemblies.LABEL_KEY.get(endpoint, model).setFlow(Flow.INOUT);
+		Assemblies.DIRECTION_KEY.get(endpoint, model).setColor(new RGB(0, 0, 0));
+		Assemblies.DIRECTION_KEY.get(endpoint, model).setOrientation(Orientation.NORTHWEST);
+		Assemblies.DIRECTION_KEY.get(endpoint, model).setFlow(Flow.INOUT);
 		endpoint.setAnchorPoint(new Point(origin.x + 20, origin.y + 20));
 
-		SplineGlassThing spline = Assemblies.createSpline(world, null, null);
-		spline.setPoints(Arrays.asList(
-		//
+		SplineThing spline = Assemblies.createSpline(world, null, null);
+		spline.setPoints(Arrays.asList(//
 				new Point(origin.x + 20, origin.y + 20), //
 				new Point(origin.x + 30, origin.y + 30), //
 				new Point(origin.x + 50, origin.y + 50), //
@@ -171,24 +171,22 @@ public class BasicBNADemo {
 	static void populateWithViews(IBNAWorld world, IBNAView parentView, IBNAWorld internalWorld) {
 		IBNAModel model = world.getBNAModel();
 
-		RectangleGlassThing vbox1 = Assemblies.createRectangleWithWorld(world, null, null);
-		((IHasMutableGradientFill) Assemblies.BACKGROUND_KEY.get(vbox1, model)).setGradientFilled(true);
-		Assemblies.TEXT_KEY.get(vbox1, model).setText("Viewsion 1");
+		RectangleThing vbox1 = Assemblies.addWorld(world, null, Assemblies.createRectangle(world, null, null));
+		((IHasMutableText) Assemblies.TEXT_KEY.get(vbox1, model)).setText("View 1");
 		((IHasMutableColor) Assemblies.TEXT_KEY.get(vbox1, model)).setColor(new RGB(255, 0, 0));
 		vbox1.setBoundingBox(new Rectangle(origin.x + 20 + 200, origin.y + 20 + 100, 200, 200));
-		Assemblies.WORLD_KEY.get(vbox1, model).setWorld(internalWorld);
+		((IHasMutableWorld) Assemblies.WORLD_KEY.get(vbox1, model)).setWorld(internalWorld);
 
 		UserEditableUtils.addEditableQualities(vbox1, IHasMutableSelected.USER_MAY_SELECT,
 				IHasMutableSize.USER_MAY_RESIZE, IRelativeMovable.USER_MAY_MOVE);
 		UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(vbox1, model),
 				IHasMutableText.USER_MAY_EDIT_TEXT);
 
-		RectangleGlassThing vbox2 = Assemblies.createRectangleWithWorld(world, null, null);
-		((IHasMutableGradientFill) Assemblies.BACKGROUND_KEY.get(vbox2, model)).setGradientFilled(true);
-		Assemblies.TEXT_KEY.get(vbox2, model).setText("Viewsion 2");
+		RectangleThing vbox2 = Assemblies.addWorld(world, null, Assemblies.createRectangle(world, null, null));
+		((IHasMutableText) Assemblies.TEXT_KEY.get(vbox2, model)).setText("View 2");
 		((IHasMutableColor) Assemblies.TEXT_KEY.get(vbox2, model)).setColor(new RGB(255, 0, 0));
 		vbox2.setBoundingBox(new Rectangle(origin.x + 20 + 400, origin.y + 20 + 100, 200, 200));
-		Assemblies.WORLD_KEY.get(vbox2, model).setWorld(internalWorld);
+		((IHasMutableWorld) Assemblies.WORLD_KEY.get(vbox2, model)).setWorld(internalWorld);
 
 		UserEditableUtils.addEditableQualities(vbox2, IHasMutableSelected.USER_MAY_SELECT,
 				IHasMutableSize.USER_MAY_RESIZE, IRelativeMovable.USER_MAY_MOVE);

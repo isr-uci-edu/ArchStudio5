@@ -404,12 +404,12 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 					if (xArchID != null) {
 						IThing t = ArchipelagoUtils.findThing(structureModel, xArchID);
 						if (t != null) {
-							IThing root = Assemblies.getAssemblyWithRootOrPart(structureModel, t);
-							if (root != null) {
-								Point p = BNAUtils.getCentralPoint(root);
+							IThing rootThing = Assemblies.getRoot(structureModel, t);
+							if (rootThing != null) {
+								Point p = BNAUtils.getCentralPoint(rootThing);
 								if (p != null) {
 									FlyToUtils.flyTo(view, p);
-									ArchipelagoUtils.pulseNotify(structureModel, root);
+									ArchipelagoUtils.pulseNotify(structureModel, rootThing);
 								}
 							}
 						}
@@ -598,9 +598,9 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		logicManager.addThingLogic(new MapStateLogic(services, xarch, structureRef, "state[@type='state']", //
 				new Dimension(6 * 24, 4 * 24), 1));
 		logicManager.addThingLogic(new MapInitialStateLogic(services, xarch, structureRef, "state[@type='initial']", //
-				new Dimension(4 * 24 / 3, 4 * 24 / 3), 1));
+				new Dimension(4 * 24 / 3, 4 * 24 / 3)));
 		logicManager.addThingLogic(new MapFinalStateLogic(services, xarch, structureRef, "state[@type='final']", //
-				new Dimension(4 * 24 / 3, 4 * 24 / 3), 1));
+				new Dimension(4 * 24 / 3, 4 * 24 / 3)));
 		logicManager.addThingLogic(new MapTransitionLogic(xarch, structureRef, "transition"));
 
 		// propagate external events logics

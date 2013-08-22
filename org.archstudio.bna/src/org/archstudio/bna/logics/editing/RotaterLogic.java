@@ -15,11 +15,11 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.things.labels.AnchoredLabelThing;
 import org.archstudio.bna.things.utility.RotaterThing;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.IBNAMouseListener;
 import org.archstudio.bna.utils.IBNAMouseMoveListener;
-import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -47,8 +47,9 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 
 	@Override
 	public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
-		final AnchoredLabelThing tt = firstOrNull(things, AnchoredLabelThing.class);
-		if (tt != null && UserEditableUtils.isEditableForAllQualities(tt, IHasMutableAngle.USER_MAY_CHANGE_ANGLE)) {
+		final AnchoredLabelThing tt = Assemblies.getEditableThing(getBNAModel(), firstOrNull(things),
+				AnchoredLabelThing.class, IHasMutableAngle.USER_MAY_CHANGE_ANGLE);
+		if (tt != null) {
 			originalThing = tt;
 			IAction rotateAction = new Action("Rotate") {
 

@@ -2,37 +2,40 @@ package org.archstudio.archipelago.statechart.core.utils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import org.archstudio.archipelago.statechart.core.things.glass.CurvedSplineGlassThing;
+import org.archstudio.archipelago.statechart.core.logics.OrientTextLogic;
 import org.archstudio.archipelago.statechart.core.things.shapes.CurvedSplineThing;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
+import org.archstudio.bna.things.labels.AnchoredLabelThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.eclipse.jdt.annotation.Nullable;
 
-public class StatechartAssemblies extends Assemblies {
+public class StatechartAssemblies {
 
-	public static CurvedSplineGlassThing createCurvedSpline(IBNAWorld world, @Nullable Object id,
-			@Nullable IThing parent) {
+	public static CurvedSplineThing createTransition(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
 		checkNotNull(world);
 
 		IBNAModel model = world.getBNAModel();
 
-		CurvedSplineThing bkg = model.addThing(new CurvedSplineThing(null),
-				parent != null ? parent : getLayer(model, SPLINE_LAYER_THING_ID));
-		CurvedSplineGlassThing glass = model.addThing(new CurvedSplineGlassThing(id), bkg);
+		CurvedSplineThing bkg = model.addThing(new CurvedSplineThing(id),
+				parent != null ? parent : Assemblies.getLayer(model, Assemblies.SPLINE_LAYER_THING_ID));
+		Assemblies.addArrowhead(world, bkg, IHasEndpoints.ENDPOINT_1_KEY, null, null);
+		AnchoredLabelThing labelThing = model.addThing(new AnchoredLabelThing(null), bkg);
 
-		markPart(glass, BACKGROUND_KEY, bkg);
+		Assemblies.markPart(bkg, Assemblies.TEXT_KEY, labelThing);
 
 		IThingLogicManager tlm = world.getThingLogicManager();
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
+		OrientTextLogic otl = tlm.addThingLogic(OrientTextLogic.class);
 
-		mvl.mirrorValue(glass, IHasEndpoints.ENDPOINT_1_KEY, bkg);
-		mvl.mirrorValue(glass, IHasEndpoints.ENDPOINT_2_KEY, bkg);
+		mvl.mirrorValue(bkg, IHasAnchorPoint.ANCHOR_POINT_KEY, labelThing);
+		otl.orientText(bkg, labelThing);
 
-		return glass;
+		return bkg;
 	}
 }

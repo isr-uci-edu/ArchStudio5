@@ -16,7 +16,7 @@ import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.logics.events.DragMoveEventsLogic;
 import org.archstudio.bna.logics.events.IDragMoveListener;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
-import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
+import org.archstudio.bna.things.shapes.ReshapeHandleThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.sysutils.SystemUtils;
@@ -30,7 +30,7 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 
 	protected R reshapingThing = null;
 	protected final Class<R> reshapingThingClass;
-	protected final Map<ReshapeHandleGlassThing, D> reshapeHandles = Maps.newHashMap();
+	protected final Map<ReshapeHandleThing, D> reshapeHandles = Maps.newHashMap();
 	protected Runnable initialSnapshot = null;
 	protected Point initialPosition = null;
 
@@ -65,19 +65,19 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 
 	abstract protected void addHandles();
 
-	protected ReshapeHandleGlassThing addHandle(ReshapeHandleGlassThing handle, D data) {
+	protected ReshapeHandleThing addHandle(ReshapeHandleThing handle, D data) {
 		reshapeHandles.put(handle, data);
 		UserEditableUtils.addEditableQualities(handle, IRelativeMovable.USER_MAY_MOVE);
 		return handle;
 	}
 
 	protected void updateHandles() {
-		for (Entry<ReshapeHandleGlassThing, D> entry : reshapeHandles.entrySet()) {
+		for (Entry<ReshapeHandleThing, D> entry : reshapeHandles.entrySet()) {
 			updateHandle(entry.getKey(), entry.getValue());
 		}
 	}
 
-	abstract protected void updateHandle(ReshapeHandleGlassThing handle, D data);
+	abstract protected void updateHandle(ReshapeHandleThing handle, D data);
 
 	protected void untrack() {
 		if (reshapingThing != null) {
@@ -87,7 +87,7 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 	}
 
 	protected synchronized void removeHandles() {
-		for (ReshapeHandleGlassThing handle : reshapeHandles.keySet()) {
+		for (ReshapeHandleThing handle : reshapeHandles.keySet()) {
 			Assemblies.removeRootAndParts(getBNAModel(), handle);
 		}
 		reshapeHandles.clear();
@@ -142,9 +142,9 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		D data = reshapeHandles.get(movedThing);
 		if (data != null) {
 			initialSnapshot = takeSnapshot();
-			initialPosition = ((ReshapeHandleGlassThing) movedThing).getReferencePoint();
+			initialPosition = ((ReshapeHandleThing) movedThing).getReferencePoint();
 
-			handleMoveStarted((ReshapeHandleGlassThing) movedThing, data, evt);
+			handleMoveStarted((ReshapeHandleThing) movedThing, data, evt);
 			checkHandles();
 		}
 	}
@@ -154,7 +154,7 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		IThing movedThing = evt.getInitialThing();
 		D data = reshapeHandles.get(movedThing);
 		if (data != null) {
-			handleMoved((ReshapeHandleGlassThing) movedThing, data, evt);
+			handleMoved((ReshapeHandleThing) movedThing, data, evt);
 			checkHandles();
 		}
 	}
@@ -164,10 +164,10 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		IThing movedThing = evt.getInitialThing();
 		D data = reshapeHandles.get(movedThing);
 		if (data != null) {
-			handleMoveFinished((ReshapeHandleGlassThing) movedThing, data, evt);
+			handleMoveFinished((ReshapeHandleThing) movedThing, data, evt);
 			checkHandles();
 
-			if (!initialPosition.equals(((ReshapeHandleGlassThing) movedThing).getReferencePoint())) {
+			if (!initialPosition.equals(((ReshapeHandleThing) movedThing).getReferencePoint())) {
 				final Runnable undoSnapshot = initialSnapshot;
 				final Runnable redoSnapshot = takeSnapshot();
 				BNAOperations.runnable("Reshape", undoSnapshot, redoSnapshot, false);
@@ -177,12 +177,12 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		}
 	}
 
-	protected void handleMoveStarted(ReshapeHandleGlassThing handle, D data, DragMoveEvent evt) {
+	protected void handleMoveStarted(ReshapeHandleThing handle, D data, DragMoveEvent evt) {
 	}
 
-	abstract protected void handleMoved(ReshapeHandleGlassThing handle, D data, DragMoveEvent evt);
+	abstract protected void handleMoved(ReshapeHandleThing handle, D data, DragMoveEvent evt);
 
-	protected void handleMoveFinished(ReshapeHandleGlassThing handle, D data, DragMoveEvent evt) {
+	protected void handleMoveFinished(ReshapeHandleThing handle, D data, DragMoveEvent evt) {
 	}
 
 	/*

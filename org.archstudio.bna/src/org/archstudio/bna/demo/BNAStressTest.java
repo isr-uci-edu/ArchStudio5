@@ -21,8 +21,8 @@ import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.things.ShadowThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
-import org.archstudio.bna.things.glass.RectangleGlassThing;
-import org.archstudio.bna.things.glass.SplineGlassThing;
+import org.archstudio.bna.things.shapes.RectangleThing;
+import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.GridThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
@@ -116,7 +116,7 @@ public class BNAStressTest {
 					int cy1 = y0 + (h + sh) * chi;
 					Object id = id(cwi, chi);
 
-					RectangleGlassThing b = Assemblies.createRectangle(world, id, null);
+					RectangleThing b = Assemblies.createRectangle(world, id, null);
 					b.setBoundingBox(new Rectangle(cx1, cy1, w, h));
 					Assemblies.TEXT_KEY.get(b, model).set(
 							IHasText.TEXT_KEY,
@@ -199,8 +199,8 @@ public class BNAStressTest {
 		EndpointGlassThing e = Assemblies.createEndpoint(world, id, parent);
 		e.setAnchorPoint(location);
 
-		Assemblies.LABEL_KEY.get(e, model).setFlow(flow);
-		Assemblies.LABEL_KEY.get(e, model).setOrientation(orientation);
+		Assemblies.DIRECTION_KEY.get(e, model).setFlow(flow);
+		Assemblies.DIRECTION_KEY.get(e, model).setOrientation(orientation);
 
 		UserEditableUtils.addEditableQualities(e, IRelativeMovable.USER_MAY_MOVE);
 
@@ -211,7 +211,7 @@ public class BNAStressTest {
 		IBNAModel model = world.getBNAModel();
 		IThingLogicManager tlm = world.getThingLogicManager();
 
-		SplineGlassThing s = Assemblies.createSpline(world, null, null);
+		SplineThing s = Assemblies.createSpline(world, null, null);
 		IHasAnchorPoint a0 = (IHasAnchorPoint) model.getThing(id0);
 		IHasAnchorPoint a1 = (IHasAnchorPoint) model.getThing(id1);
 

@@ -5,7 +5,7 @@ import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.facets.IHasStandardCursor;
 import org.archstudio.bna.logics.events.DragMoveEvent;
-import org.archstudio.bna.things.glass.ReshapeHandleGlassThing;
+import org.archstudio.bna.things.shapes.ReshapeHandleThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.swt.SWT;
@@ -34,7 +34,7 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 	}
 
 	@Override
-	protected void updateHandle(ReshapeHandleGlassThing handle, Orientation data) {
+	protected void updateHandle(ReshapeHandleThing handle, Orientation data) {
 		Rectangle boundingBox = reshapingThing.getBoundingBox();
 		int cursor = SWT.CURSOR_SIZEALL;
 		int x1 = boundingBox.x;
@@ -85,7 +85,7 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 	}
 
 	@Override
-	protected void handleMoved(ReshapeHandleGlassThing handle, Orientation data, DragMoveEvent evt) {
+	protected void handleMoved(ReshapeHandleThing handle, Orientation data, DragMoveEvent evt) {
 		Rectangle bb = reshapingThing.getBoundingBox();
 
 		int nx1 = bb.x;

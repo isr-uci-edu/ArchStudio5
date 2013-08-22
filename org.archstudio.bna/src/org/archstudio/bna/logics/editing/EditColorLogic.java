@@ -12,7 +12,6 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
-import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
@@ -40,14 +39,16 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 		MenuManager m = new MenuManager("Edit Color...");
 		menu.add(m);
 
-		for (IThing glass : BNAUtils.getSelectedThings(getBNAModel())) {
-			IThing bkg = Assemblies.getPart(getBNAModel(), glass, Assemblies.BACKGROUND_KEY);
-			if (bkg instanceof IHasMutableColor
-					&& UserEditableUtils.isEditableForAnyQualities(bkg, IHasMutableColor.USER_MAY_EDIT_COLOR)) {
-				editableColoredThings.add((IHasMutableColor) bkg);
+		for (IThing selectedThing : BNAUtils.getSelectedThings(getBNAModel())) {
+			IHasMutableColor editableColorThing = Assemblies.getEditableThing(getBNAModel(), selectedThing,
+					IHasMutableColor.class, IHasMutableColor.USER_MAY_EDIT_COLOR);
+			if (editableColorThing != null) {
+				editableColoredThings.add(editableColorThing);
 			}
-			if (bkg instanceof IHasColor) {
-				coloredThings.add((IHasColor) bkg);
+			IHasColor colorThing = Assemblies.getEditableThing(getBNAModel(), selectedThing, IHasColor.class,
+					IHasColor.USER_MAY_COPY_COLOR);
+			if (colorThing != null) {
+				coloredThings.add(colorThing);
 			}
 		}
 
