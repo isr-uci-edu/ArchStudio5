@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.op.iso.Conjunction;
 import org.archstudio.prolog.op.iso.Neck;
@@ -19,6 +17,7 @@ import org.archstudio.prolog.term.ListTerm;
 import org.archstudio.prolog.term.StringTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -70,6 +70,8 @@ import org.archstudio.myx.fw.Services;
 import org.archstudio.resources.IResources;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
+import org.archstudio.utils.bna.dot.ExportImportDot;
+import org.archstudio.utils.bna.gexf.ExportImportGexf;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
@@ -588,6 +590,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		logicManager.addThingLogic(RotaterLogic.class);
 		logicManager.addThingLogic(AlignAndDistributeLogic.class);
 		logicManager.addThingLogic(RectifyToGridLogic.class);
+		logicManager.addThingLogic(new ExportImportGexf());
+		logicManager.addThingLogic(new ExportImportDot());
 		//logicManager.addThingLogic(StructureGraphLayoutLogic(xarch, services.get(IResources.class),
 		//		services.get(IGraphLayout.class), structureRef));
 		logicManager.addThingLogic(ViewAllLogic.class);

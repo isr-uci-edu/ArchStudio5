@@ -1277,7 +1277,7 @@ public class SystemUtils {
 		return elements != null ? elements : Collections.<T> emptyList();
 	}
 
-	public static final <T> Iterable<T> emptyIfNull(@Nullable T... elements) {
+	public static final <T> Iterable<T> emptyIfNull(@SuppressWarnings("unchecked") @Nullable T... elements) {
 		return elements != null ? Arrays.asList(elements) : Collections.<T> emptyList();
 	}
 

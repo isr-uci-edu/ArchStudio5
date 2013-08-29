@@ -26,6 +26,8 @@ Require-Bundle: org.archstudio.archipelago,
  org.archstudio.jogl,
  org.eclipse.core.runtime,
  org.eclipse.jdt.annotation,
- org.archstudio.xarchadt.variability
+ org.archstudio.xarchadt.variability,
+ org.archstudio.utils.bna.dot,
+ org.archstudio.utils.bna.gexf
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

@@ -4,8 +4,6 @@ import java.math.BigInteger;
 import java.util.Map;
 import java.util.Set;
 
-import junit.framework.Assert;
-
 import org.archstudio.prolog.engine.MostGeneralUnifierEngine;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
@@ -17,6 +15,7 @@ import org.archstudio.prolog.term.ConstantTerm;
 import org.archstudio.prolog.term.ListTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

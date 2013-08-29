@@ -2,6 +2,27 @@
 <plugin>
 
    <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            type="xadlcore_3_0"
+            class="org.archstudio.xadl3.xadlcore_3_0.util.Xadlcore_3_0ResourceFactoryImpl">
+      </parser>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            type="xlink"
+            class="org.w3.xlink.util.XlinkResourceFactoryImpl">
+      </parser>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            type="hints_3_0"
+            class="org.archstudio.xadl3.hints_3_0.util.Hints_3_0ResourceFactoryImpl">
+      </parser>
+   </extension>
+   <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.archstudio.org/xadl3/schemas/hints-3.0.xsd"

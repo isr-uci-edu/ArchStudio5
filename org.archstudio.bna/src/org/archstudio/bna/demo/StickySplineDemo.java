@@ -13,7 +13,6 @@ import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IIsSticky;

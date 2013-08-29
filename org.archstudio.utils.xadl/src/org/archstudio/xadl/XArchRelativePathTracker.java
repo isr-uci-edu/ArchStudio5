@@ -111,6 +111,28 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 		}
 	}
 
+	private static final Pattern attributeContainsPattern = Pattern.compile("([^\\[]*)\\[contains\\(@([^=\\s]*),'([^']*)'");
+
+	private class RequireAttributeContainsValuePredicate implements Predicate<ObjRef> {
+
+		String attribute;
+		String value;
+
+		public RequireAttributeContainsValuePredicate(String attribute, String value) {
+			this.attribute = attribute;
+			this.value = value;
+		}
+
+		@Override
+		public boolean apply(ObjRef input) {
+			Object attrValue = xarch.get(input, attribute);
+			if (attrValue != null) {
+				return attrValue.toString().indexOf(value) >= 0;
+			}
+			return false;
+		}
+	}
+
 	private static class Segment {
 
 		/**
@@ -143,6 +165,10 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 			if ((m = attributePattern.matcher(name)).find()) {
 				name = m.group(1);
 				predicate = new RequireAttributeValuePredicate(m.group(2), m.group(3));
+			}
+			if ((m = attributeContainsPattern.matcher(name)).find()) {
+				name = m.group(1);
+				predicate = new RequireAttributeContainsValuePredicate(m.group(2), m.group(3));
 			}
 			if (name.indexOf('[') >= 0) {
 				throw new IllegalArgumentException("Unrecognized xpath options for " + name + ": " + segmentTexts);

@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio Dot Export & Import Utilities
+Bundle-SymbolicName: org.archstudio.utils.bna.dot;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: archstudio.org
+Export-Package: org.archstudio.utils.bna.dot
+Require-Bundle: org.archstudio.xadl3.gexf,
+ org.archstudio.bna,
+ org.archstudio.utils.xadl.bna,
+ org.archstudio.utils.xadl,
+ org.archstudio.xarchadt,
+ org.archstudio.xarchadt.core,
+ org.eclipse.jface,
+ org.archstudio.utils.swt,
+ org.eclipse.ui,
+ org.archstudio.guava,
+ org.archstudio.utils.system,
+ org.eclipse.jdt.annotation,
+ org.archstudio.graphlayout,
+ org.archstudio.graphlayout.core,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

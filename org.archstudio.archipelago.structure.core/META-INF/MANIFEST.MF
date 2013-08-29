@@ -37,6 +37,8 @@ Require-Bundle: org.eclipse.ui,
  org.archstudio.utils.xadl.swt,
  org.archstudio.eclipse.core,
  org.archstudio.xarchadt.variability,
- org.eclipse.jdt.annotation
+ org.eclipse.jdt.annotation,
+ org.archstudio.utils.bna.dot,
+ org.archstudio.utils.bna.gexf
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

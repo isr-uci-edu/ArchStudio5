@@ -17,10 +17,15 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IMutableCoordinateMapper;
+import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.GridDisplayType;
+import org.archstudio.bna.facets.IHasMutableBoundingBox;
+import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
+import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.editing.AlignAndDistributeLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
@@ -47,6 +52,7 @@ import org.archstudio.bna.logics.navigating.ViewAllLogic;
 import org.archstudio.bna.things.ShadowThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.GridThing;
+import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAModel;
@@ -56,6 +62,8 @@ import org.archstudio.myx.fw.IMyxBrick;
 import org.archstudio.myx.fw.MyxRegistry;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.resources.IResources;
+import org.archstudio.utils.bna.dot.ExportImportDot;
+import org.archstudio.utils.bna.gexf.ExportImportGexf;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
@@ -77,6 +85,7 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
@@ -263,6 +272,38 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new RectifyToGridLogic());
 		logicManager.addThingLogic(new StructureGraphLayoutLogic(xarch, services.get(IResources.class), services
 				.get(IGraphLayout.class), structureRef));
+		logicManager.addThingLogic(new ExportImportGexf() {
+			@Override
+			protected boolean isNodeOfInterest(IBNAModel model, IThing node) {
+				return Assemblies.getEditableThing(model, node, IHasMutableBoundingBox.class,
+						IHasMutableSize.USER_MAY_RESIZE) == node;
+			}
+
+			@Override
+			protected IThing getNodeFromEdgeEndpoint(IBNAModel model, IThing edge, IThingKey<Point> endpointKey,
+					StickPointLogic spl) {
+				IThing endpointRoot = super.getNodeFromEdgeEndpoint(model, edge, endpointKey, spl);
+				IThing endpointBkg = Assemblies.getPart(model, endpointRoot, Assemblies.BACKGROUND_KEY);
+				IThing brick = Assemblies.getRoot(model, model.getParentThing(endpointBkg));
+				return brick;
+			}
+		});
+		logicManager.addThingLogic(new ExportImportDot() {
+			@Override
+			protected boolean isNodeOfInterest(IBNAModel model, IThing node) {
+				return Assemblies.getEditableThing(model, node, IHasMutableBoundingBox.class,
+						IHasMutableSize.USER_MAY_RESIZE) == node;
+			}
+
+			@Override
+			protected IThing getNodeFromEdgeEndpoint(IBNAModel model, IThing edge, IThingKey<Point> endpointKey,
+					StickPointLogic spl) {
+				IThing endpointRoot = super.getNodeFromEdgeEndpoint(model, edge, endpointKey, spl);
+				IThing endpointBkg = Assemblies.getPart(model, endpointRoot, Assemblies.BACKGROUND_KEY);
+				IThing brick = Assemblies.getRoot(model, model.getParentThing(endpointBkg));
+				return brick;
+			}
+		});
 		logicManager.addThingLogic(new ViewAllLogic());
 		logicManager.addThingLogic(ExportImageLogic.class);
 

@@ -408,6 +408,7 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 	 *            resource set to use to get the Ecore package.
 	 * @return Ecore <tt>GenModel</tt> object.
 	 */
+	@SuppressWarnings("deprecation")
 	public GenModel getEcoreGenModel(ResourceSet resourceSet) {
 		URI ecoreGenModelURI = EcorePlugin.getEPackageNsURIToGenModelLocationMap(/* false */).get(EcorePackage.eNS_URI);
 		Resource emfEcoreResource = resourceSet.getResource(ecoreGenModelURI, true);
@@ -1131,8 +1132,8 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 		for (IPluginObject grandchild : ((IPluginElement) child).getChildren()) {
 			newChild.add(copy(factory, child, grandchild));
 		}
-		if(((IPluginElement)child).getText() != null){
-			newChild.setText(((IPluginElement)child).getText());
+		if (((IPluginElement) child).getText() != null) {
+			newChild.setText(((IPluginElement) child).getText());
 		}
 		return newChild;
 	}
