@@ -45,9 +45,9 @@ public class Conjunction extends ComplexTerm implements Executable {
 							if (variablesIterator.hasNext()) {
 								if (termsIndex < getTermsSize()) {
 									Term term = getTerm(termsIndex++);
+									Map<VariableTerm, Term> variables = variablesIterator.next();
 									indexVariables.add(PrologUtils.resolveExecutable(proofContext, term, variables)
-											.execute(proofContext, unificationEngine, term, variablesIterator.next())
-											.iterator());
+											.execute(proofContext, unificationEngine, term, variables).iterator());
 									continue;
 								}
 								else {

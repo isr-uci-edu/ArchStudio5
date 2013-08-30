@@ -626,5 +626,15 @@ public class ProofTest {
 			expected.add(new Variables().add(X, b3).done());
 			Assert.assertEquals(expected, run("member(X, [1, 2, 3])."));
 		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b1)
+					.add(Y, new ListTerm(b1, new ListTerm(b2, new ListTerm(b3, new ListTerm())))).done());
+			expected.add(new Variables().add(X, b2)
+					.add(Y, new ListTerm(b1, new ListTerm(b2, new ListTerm(b3, new ListTerm())))).done());
+			expected.add(new Variables().add(X, b3)
+					.add(Y, new ListTerm(b1, new ListTerm(b2, new ListTerm(b3, new ListTerm())))).done());
+			Assert.assertEquals(expected, run("Y=[1, 2, 3], member(X, Y)."));
+		}
 	}
 }

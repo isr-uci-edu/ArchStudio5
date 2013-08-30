@@ -9,7 +9,6 @@ import org.archstudio.prolog.term.VariableTerm;
 public interface Evaluable extends Term {
 
 	/**
-	 * @param proofContext TODO
 	 * @return the value of the expression
 	 */
 	public Number evaluate(ProofContext proofContext, Map<VariableTerm, Term> variables);
