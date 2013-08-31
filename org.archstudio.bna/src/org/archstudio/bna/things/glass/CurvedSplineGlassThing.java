@@ -1,10 +1,10 @@
-package org.archstudio.archipelago.statechart.core.things.glass;
+package org.archstudio.bna.things.glass;
 
-import org.archstudio.archipelago.statechart.core.things.AbstractCurvedSplineThing;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasRotatingOffset;
 import org.archstudio.bna.facets.IHasSelected;
+import org.archstudio.bna.things.AbstractCurvedSplineThing;
 
 public class CurvedSplineGlassThing extends AbstractCurvedSplineThing implements IHasMutableSelected,
 		IHasMutableRotatingOffset {

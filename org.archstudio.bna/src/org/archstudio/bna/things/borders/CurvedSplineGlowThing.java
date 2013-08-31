@@ -6,14 +6,13 @@ import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableWidth;
 import org.archstudio.bna.facets.IHasWidth;
-import org.archstudio.bna.things.AbstractRoundedRectangleThing;
-import org.eclipse.jdt.annotation.Nullable;
+import org.archstudio.bna.things.AbstractCurvedSplineThing;
 import org.eclipse.swt.graphics.RGB;
 
-public class RectangleGlowThing extends AbstractRoundedRectangleThing implements IHasMutableColor, IHasMutableWidth,
+public class CurvedSplineGlowThing extends AbstractCurvedSplineThing implements IHasMutableColor, IHasMutableWidth,
 		IHasMutableAlpha, IHasGlowData {
 
-	public RectangleGlowThing(@Nullable Object id) {
+	public CurvedSplineGlowThing(Object id) {
 		super(id);
 	}
 

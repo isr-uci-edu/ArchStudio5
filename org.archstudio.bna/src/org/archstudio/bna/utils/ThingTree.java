@@ -46,10 +46,21 @@ class ThingTree {
 	public void add(IThing t, IThing parent) {
 		Node parentNode = checkNotNull(getNode(parent, false));
 		Node childNode = getNode(t, true);
-		if (childNode.parent != null && childNode.parent != parentNode) {
-			remove(t);
+		if (childNode.parent != null) {
+			throw new IllegalArgumentException("Thing already added!");
 		}
 		parentNode.children.add(childNode);
+		childNode.parent = parentNode;
+	}
+
+	public void insert(IThing t, IThing beforeThing) {
+		Node parentNode = checkNotNull(getNode(getParent(beforeThing), false));
+		Node beforeNode = checkNotNull(getNode(beforeThing, false));
+		Node childNode = getNode(t, true);
+		if (childNode.parent != null) {
+			throw new IllegalArgumentException("Thing already added!");
+		}
+		parentNode.children.add(parentNode.children.indexOf(beforeNode), childNode);
 		childNode.parent = parentNode;
 	}
 

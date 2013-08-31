@@ -1,6 +1,5 @@
-package org.archstudio.archipelago.statechart.core.things.shapes;
+package org.archstudio.bna.things.shapes;
 
-import org.archstudio.archipelago.statechart.core.things.AbstractCurvedSplineThing;
 import org.archstudio.bna.facets.IHasLineData;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableLineStyle;
@@ -9,6 +8,7 @@ import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasRotatingOffset;
 import org.archstudio.bna.facets.IHasSelected;
+import org.archstudio.bna.things.AbstractCurvedSplineThing;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 

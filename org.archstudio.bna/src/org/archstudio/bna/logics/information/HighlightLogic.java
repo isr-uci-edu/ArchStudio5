@@ -3,6 +3,7 @@ package org.archstudio.bna.logics.information;
 import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
 import java.util.List;
+import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
@@ -16,6 +17,8 @@ import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasPoints;
+import org.archstudio.bna.facets.IHasRoundedCorners;
+import org.archstudio.bna.facets.IHasValue;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.keys.ThingRefKey;
@@ -23,6 +26,10 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.editing.BNAOperations;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
+import org.archstudio.bna.things.AbstractCurvedSplineThing;
+import org.archstudio.bna.things.AbstractEllipseThing;
+import org.archstudio.bna.things.borders.CurvedSplineGlowThing;
+import org.archstudio.bna.things.borders.EllipseGlowThing;
 import org.archstudio.bna.things.borders.RectangleGlowThing;
 import org.archstudio.bna.things.borders.SplineGlowThing;
 import org.archstudio.bna.utils.Assemblies;
@@ -32,6 +39,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.ColorDialog;
+
+import com.google.common.collect.Sets;
 
 public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListener, IBNAModelListener {
 
@@ -117,17 +126,39 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 	protected IThing showHighlight(IThing forThing) {
 		IThing t = getHighlight(forThing);
 		if (t == null) {
-			if (forThing instanceof IHasEndpoints) {
-				t = getBNAModel().addThing(new SplineGlowThing(null), forThing);
+			IThing bkgThing = null;
+			IBNAModel model = getBNAModel();
+			Set<IThing> assemblyThings = Sets.newHashSet(Assemblies.getAssemblyThings(model, forThing));
+			for (IThing furthestBackThing : model.getAllThings()) {
+				if (assemblyThings.contains(furthestBackThing)) {
+					bkgThing = furthestBackThing;
+					break;
+				}
+			}
+			if (forThing instanceof AbstractCurvedSplineThing) {
+				t = model.insertThing(new CurvedSplineGlowThing(null), bkgThing);
+				mirrorLogic.mirrorValue(forThing, IHasEndpoints.ENDPOINT_1_KEY, t);
+				mirrorLogic.mirrorValue(forThing, IHasEndpoints.ENDPOINT_2_KEY, t);
+				mirrorLogic.mirrorValue(forThing, IHasValue.VALUE_KEY, t);
+			}
+			else if (forThing instanceof IHasEndpoints) {
+				t = model.insertThing(new SplineGlowThing(null), bkgThing);
 				mirrorLogic.mirrorValue(forThing, IHasEndpoints.ENDPOINT_1_KEY, t);
 				mirrorLogic.mirrorValue(forThing, IHasEndpoints.ENDPOINT_2_KEY, t);
 				if (forThing instanceof IHasMidpoints) {
 					mirrorLogic.mirrorValue(forThing, IHasMidpoints.MIDPOINTS_KEY, t);
 				}
 			}
-			else if (forThing instanceof IHasBoundingBox) {
-				t = getBNAModel().addThing(new RectangleGlowThing(null), forThing);
+			else if (forThing instanceof AbstractEllipseThing) {
+				t = model.insertThing(new EllipseGlowThing(null), bkgThing);
 				mirrorLogic.mirrorValue(forThing, IHasBoundingBox.BOUNDING_BOX_KEY, t);
+			}
+			else if (forThing instanceof IHasBoundingBox) {
+				t = model.insertThing(new RectangleGlowThing(null), bkgThing);
+				mirrorLogic.mirrorValue(forThing, IHasBoundingBox.BOUNDING_BOX_KEY, t);
+				if (forThing instanceof IHasRoundedCorners) {
+					mirrorLogic.mirrorValue(forThing, IHasRoundedCorners.CORNER_SIZE_KEY, t);
+				}
 			}
 			if (t != null) {
 				mirrorLogic.mirrorValue(forThing, HIGHLIGHT_COLOR_KEY, t, IHasColor.COLOR_KEY);

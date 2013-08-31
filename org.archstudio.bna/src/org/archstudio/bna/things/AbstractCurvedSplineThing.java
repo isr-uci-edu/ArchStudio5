@@ -1,4 +1,4 @@
-package org.archstudio.archipelago.statechart.core.things;
+package org.archstudio.bna.things;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -16,7 +16,6 @@ import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutablePoints;
 import org.archstudio.bna.facets.IHasMutableValue;
 import org.archstudio.bna.facets.IHasPoints;
-import org.archstudio.bna.things.AbstractAnchorPointThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;

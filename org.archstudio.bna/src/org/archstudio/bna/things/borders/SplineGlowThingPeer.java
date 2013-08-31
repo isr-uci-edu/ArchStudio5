@@ -1,5 +1,6 @@
 package org.archstudio.bna.things.borders;
 
+import java.awt.geom.Path2D;
 import java.util.List;
 
 import javax.media.opengl.GL2;
@@ -11,10 +12,7 @@ import org.archstudio.bna.IResources;
 import org.archstudio.bna.things.AbstractSplineThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
-
-import com.google.common.collect.Lists;
 
 public class SplineGlowThingPeer<T extends SplineGlowThing> extends AbstractSplineThingPeer<T> {
 
@@ -29,36 +27,26 @@ public class SplineGlowThingPeer<T extends SplineGlowThing> extends AbstractSpli
 
 	@Override
 	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
-		List<Point> localPoints = BNAUtils.worldToLocal(cm, t.getPoints());
-		drawSide(view, cm, gl, clip, r, localPoints);
-		drawSide(view, cm, gl, clip, r, Lists.reverse(localPoints));
-	}
-
-	private void drawSide(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r,
-			List<Point> localPoints) {
-		int width = t.getWidth();
-		RGB color = t.getColor();
-
-		if (color != null) {
-			gl.glBegin(GL2.GL_TRIANGLE_STRIP);
-			for (int i = 1; i < localPoints.size(); i++) {
-				Point p1 = localPoints.get(i - 1);
-				Point p2 = localPoints.get(i);
-
-				double angle = Math.atan2(p2.y - p1.y, p2.x - p1.x);
-
-				r.setColor(color, 0.5f);
-				gl.glVertex2d(p1.x, p1.y);
-				r.setColor(color, 0f);
-				gl.glVertex2d(p1.x + width * Math.sin(-angle), p1.y + width * Math.cos(-angle));
-
-				r.setColor(color, 0.5f);
-				gl.glVertex2d(p2.x, p2.y);
-				r.setColor(color, 0f);
-				gl.glVertex2d(p2.x + width * Math.sin(-angle), p2.y + width * Math.cos(-angle));
-
-			}
-			gl.glEnd();
+		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		lbb.width += 1;
+		lbb.height += 1;
+		if (!clip.intersects(lbb)) {
+			return;
 		}
+
+		Path2D localShape = new Path2D.Double();
+		List<Point> localPoints = BNAUtils.worldToLocal(cm, t.getPoints());
+		boolean first = true;
+		for (Point p : localPoints) {
+			if (first) {
+				localShape.moveTo(p.x, p.y);
+				first = false;
+			}
+			else {
+				localShape.lineTo(p.x, p.y);
+			}
+		}
+
+		BNAUtils.renderShapeGlow(t, view, cm, gl, clip, r, localShape);
 	}
 }

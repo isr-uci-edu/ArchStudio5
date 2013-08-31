@@ -33,6 +33,8 @@ public interface IBNAModel {
 
 	public <T extends IThing> T addThing(T thing, IThing parentThing);
 
+	public <T extends IThing> T insertThing(T thing, IThing beforeThing);
+
 	public void removeThing(IThing thing);
 
 	public void removeThingAndChildren(IThing thing);

@@ -42,6 +42,7 @@ import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
+import org.archstudio.bna.facets.IHasGlowData;
 import org.archstudio.bna.facets.IHasGradientFill;
 import org.archstudio.bna.facets.IHasLineData;
 import org.archstudio.bna.facets.IHasLocalInsets;
@@ -1481,6 +1482,90 @@ public class BNAUtils {
 		}
 	}
 
+	public static void renderShapeGlow(IHasGlowData t, IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip,
+			IResources r, Shape localShape) {
+
+		RGB color = t.getColor();
+		int width = t.getWidth();
+		float alpha = t.getAlpha();
+
+		if (color != null && width > 0) {
+
+			List<Point2D> localPoints = Lists.newArrayList();
+			PathIterator p = localShape.getPathIterator(new AffineTransform(), 0.25d);
+			boolean closes = false;
+			double[] startCoords = new double[6];
+			double[] coords = new double[6];
+			while (!p.isDone()) {
+				switch (p.currentSegment(coords)) {
+				case PathIterator.SEG_CLOSE:
+					closes = true;
+					System.arraycopy(startCoords, 0, coords, 0, 6);
+				case PathIterator.SEG_MOVETO:
+					System.arraycopy(coords, 0, startCoords, 0, 6);
+				case PathIterator.SEG_LINETO:
+					// glowing is sensitive to duplicate points, remove them
+					Point2D p2d = new Point2D.Double(coords[0], coords[1]);
+					if (localPoints.size() > 0) {
+						if (localPoints.get(localPoints.size() - 1).distance(p2d) < 0.25d) {
+							break;
+						}
+					}
+
+					localPoints.add(p2d);
+					break;
+				default:
+					throw new IllegalArgumentException();
+				}
+				p.next();
+			}
+
+			renderGlowSide(gl, r, color, width, alpha, localPoints, closes);
+			renderGlowSide(gl, r, color, width, alpha, Lists.reverse(localPoints), closes);
+		}
+	}
+
+	private static void renderGlowSide(GL2 gl, IResources r, RGB color, int width, float alpha,
+			List<Point2D> localPoints, boolean closes) {
+
+		Point2D closesP = new Point2D.Double(0, 0);
+		Point2D closesPa = new Point2D.Double(0, 0);
+
+		gl.glBegin(GL2.GL_TRIANGLE_STRIP);
+		for (int i = 1; i < localPoints.size(); i++) {
+			Point2D p1 = localPoints.get(i - 1);
+			Point2D p2 = localPoints.get(i);
+
+			double angle = Math.atan2(p2.getY() - p1.getY(), p2.getX() - p1.getX());
+
+			Point2D p1a = new Point2D.Double(p1.getX() + width * Math.sin(-angle), p1.getY() + width * Math.cos(-angle));
+			Point2D p2a = new Point2D.Double(p2.getX() + width * Math.sin(-angle), p2.getY() + width * Math.cos(-angle));
+
+			r.setColor(color, alpha);
+			gl.glVertex2d(p1.getX(), p1.getY());
+			r.setColor(color, 0f);
+			gl.glVertex2d(p1a.getX(), p1a.getY());
+
+			if (i == 1) {
+				closesP = p1;
+				closesPa = p1a;
+			}
+
+			r.setColor(color, alpha);
+			gl.glVertex2d(p2.getX(), p2.getY());
+			r.setColor(color, 0f);
+			gl.glVertex2d(p2a.getX(), p2a.getY());
+		}
+		if (closes) {
+			r.setColor(color, alpha);
+			gl.glVertex2d(closesP.getX(), closesP.getY());
+			r.setColor(color, 0f);
+			gl.glVertex2d(closesPa.getX(), closesPa.getY());
+		}
+		gl.glEnd();
+
+	}
+
 	public static final long getThingKeyUID(IThing targetThing, IThingKey<?> propertyName) {
 		return (long) targetThing.getUID() << 32 | propertyName.getUID();
 	}
@@ -1526,4 +1611,5 @@ public class BNAUtils {
 		}
 		return p;
 	}
+
 }

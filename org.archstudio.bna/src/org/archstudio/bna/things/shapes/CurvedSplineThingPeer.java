@@ -1,14 +1,14 @@
-package org.archstudio.archipelago.statechart.core.things.shapes;
+package org.archstudio.bna.things.shapes;
 
 import java.awt.Shape;
 import java.awt.geom.QuadCurve2D;
 
 import javax.media.opengl.GL2;
 
-import org.archstudio.archipelago.statechart.core.things.AbstractCurvedSplineThingPeer;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
+import org.archstudio.bna.things.AbstractCurvedSplineThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;

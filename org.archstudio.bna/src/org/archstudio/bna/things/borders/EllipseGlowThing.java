@@ -6,14 +6,14 @@ import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableWidth;
 import org.archstudio.bna.facets.IHasWidth;
-import org.archstudio.bna.things.AbstractRoundedRectangleThing;
+import org.archstudio.bna.things.AbstractEllipseThing;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
-public class RectangleGlowThing extends AbstractRoundedRectangleThing implements IHasMutableColor, IHasMutableWidth,
+public class EllipseGlowThing extends AbstractEllipseThing implements IHasMutableColor, IHasMutableWidth,
 		IHasMutableAlpha, IHasGlowData {
 
-	public RectangleGlowThing(@Nullable Object id) {
+	public EllipseGlowThing(@Nullable Object id) {
 		super(id);
 	}
 

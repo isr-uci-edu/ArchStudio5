@@ -162,15 +162,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	@Override
 	public <T extends IThing> T addThing(final T t) {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-		}
-
-		t.addThingListener(this);
-		thingTree.add(t);
-		thingTreeModCount++;
-		fireBnaModelEvent(BNAModelEvent.create(this, BNAModelEvent.EventType.THING_ADDED, bulkChangeCount.get() > 0, t));
-		return t;
+		return addThing(t, null);
 	}
 
 	@Override
@@ -181,6 +173,19 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 		t.addThingListener(this);
 		thingTree.add(t, parentThing);
+		thingTreeModCount++;
+		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_ADDED, bulkChangeCount.get() > 0, t));
+		return t;
+	}
+
+	@Override
+	public <T extends IThing> T insertThing(final T t, final IThing beforeThing) {
+		if (Display.getCurrent() == null) {
+			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		}
+
+		t.addThingListener(this);
+		thingTree.insert(t, beforeThing);
 		thingTreeModCount++;
 		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_ADDED, bulkChangeCount.get() > 0, t));
 		return t;

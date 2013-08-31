@@ -1,14 +1,11 @@
 package org.archstudio.bna.things.shapes;
 
-import java.awt.Dimension;
-
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableCount;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableGradientFill;
 import org.archstudio.bna.facets.IHasMutableLineData;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
-import org.archstudio.bna.facets.IHasMutableRoundedCorners;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasRotatingOffset;
@@ -21,7 +18,7 @@ import org.eclipse.swt.graphics.RGB;
 @NonNullByDefault
 public class RectangleThing extends AbstractRoundedRectangleThing implements IHasMutableColor,
 		IHasMutableSecondaryColor, IHasMutableGradientFill, IHasMutableEdgeColor, IHasMutableCount,
-		IHasMutableLineData, IHasMutableRoundedCorners, IHasMutableSelected, IHasMutableRotatingOffset {
+		IHasMutableLineData, IHasMutableSelected, IHasMutableRotatingOffset {
 
 	public RectangleThing(@Nullable Object id) {
 		super(id);
@@ -37,7 +34,6 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 		setLineStyle(LINE_STYLE_SOLID);
 		setLineWidth(1);
 		setCount(1);
-		setCornerSize(new Dimension(0, 0));
 		setSelected(false);
 	}
 

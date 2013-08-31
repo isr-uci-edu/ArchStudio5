@@ -1,4 +1,4 @@
-package org.archstudio.archipelago.statechart.core.things;
+package org.archstudio.bna.things;
 
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -9,7 +9,6 @@ import java.awt.geom.QuadCurve2D;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
