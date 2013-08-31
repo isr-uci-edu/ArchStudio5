@@ -14,6 +14,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.StickyMode;
+import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
@@ -300,7 +301,6 @@ public final class Assemblies {
 		checkNotNull(model);
 		checkNotNull(editableClass);
 		checkNotNull(editableQualities);
-		checkArgument(editableQualities.length > 0);
 		if (rootOrPart == null) {
 			return null;
 		}
@@ -430,8 +430,10 @@ public final class Assemblies {
 		markPart(bkg, TEXT_KEY, label);
 
 		IThingLogicManager tlm = world.getThingLogicManager();
+		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
 
+		mvl.mirrorValue(bkg, IHasAlpha.ALPHA_KEY, label);
 		mbbl.mirrorBoundingBox(bkg, label, new Insets(3, 3, 3, 3));
 
 		return bkg;
@@ -450,8 +452,10 @@ public final class Assemblies {
 		markPart(bkg, TEXT_KEY, label);
 
 		IThingLogicManager tlm = world.getThingLogicManager();
+		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
 
+		mvl.mirrorValue(bkg, IHasAlpha.ALPHA_KEY, label);
 		mbbl.mirrorBoundingBox(bkg, label, new Insets(3, 3, 3, 3));
 
 		return bkg;
@@ -470,8 +474,10 @@ public final class Assemblies {
 
 		IThingLogicManager tlm = world.getThingLogicManager();
 		tlm.addThingLogic(WorldThingExternalEventsLogic.class);
+		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
 
+		mvl.mirrorValue(backgroundThing, IHasAlpha.ALPHA_KEY, worldThing);
 		mbbl.mirrorBoundingBox(backgroundThing, worldThing, new Insets(6, 6, 6, 6));
 
 		return backgroundThing;
@@ -511,6 +517,8 @@ public final class Assemblies {
 		IThingLogicManager tlm = world.getThingLogicManager();
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 
+		mvl.mirrorValue(glass, IHasAlpha.ALPHA_KEY, bkg);
+		mvl.mirrorValue(glass, IHasAlpha.ALPHA_KEY, direction);
 		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, bkg);
 		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, direction);
 
@@ -558,6 +566,7 @@ public final class Assemblies {
 		ArrowheadLogic al = tlm.addThingLogic(ArrowheadLogic.class);
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 
+		mvl.mirrorValue(splineThing, IHasAlpha.ALPHA_KEY, arrowheadThing);
 		al.point(arrowheadThing, splineThing, endpointKey);
 		mvl.mirrorValue(splineThing, IHasEdgeColor.EDGE_COLOR_KEY, arrowheadThing, IHasColor.COLOR_KEY);
 		mvl.mirrorValue(splineThing, IHasLineStyle.LINE_STYLE_KEY, arrowheadThing);

@@ -29,6 +29,27 @@ import org.eclipse.jdt.annotation.Nullable;
 
 public class XadlHintRepository implements IHintRepository, IXArchADTModelListener {
 
+	private static class HintValueImpl implements HintValue {
+
+		private final boolean present;
+		private final Object value;
+
+		public HintValueImpl(boolean present, Object value) {
+			this.present = present;
+			this.value = value;
+		}
+
+		@Override
+		public boolean isPresent() {
+			return present;
+		}
+
+		@Override
+		public Object getValue() {
+			return value;
+		}
+	}
+
 	private final IXArchADT xarch;
 	private final IPropertyCoder coder;
 
@@ -83,11 +104,30 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 	}
 
 	@Override
-	public @Nullable
-	Object getHint(Object context, String hintName) throws PropertyDecodeException {
-		HintsExtension hints = XArchADTProxy.proxy(xarch, XadlUtils.createExt(xarch, (ObjRef) context,
+	public void removeHint(Object context, String hintName) {
+		HintsExtension hints = XArchADTProxy.proxy(xarch, XadlUtils.getExt(xarch, (ObjRef) context,
 				Hints_3_0Package.eNS_URI, Hints_3_0Package.Literals.HINTS_EXTENSION.getName()));
-		return decode(getHint(hints, hintName));
+		if (hints != null) {
+			for (Hint hint : hints.getHint()) {
+				if (hintName.equals(hint.getName())) {
+					hints.getHint().remove(hint);
+				}
+			}
+		}
+	}
+
+	@Override
+	public @Nullable
+	HintValue getHint(Object context, String hintName) throws PropertyDecodeException {
+		HintsExtension hints = XArchADTProxy.proxy(xarch, XadlUtils.getExt(xarch, (ObjRef) context,
+				Hints_3_0Package.eNS_URI, Hints_3_0Package.Literals.HINTS_EXTENSION.getName()));
+		if (hints != null) {
+			Hint hint = getHint(hints, hintName);
+			if (hint != null) {
+				return new HintValueImpl(true, decode(hint));
+			}
+		}
+		return new HintValueImpl(false, null);
 	}
 
 	private void encode(Hint hint, @Nullable Serializable hintValue) {

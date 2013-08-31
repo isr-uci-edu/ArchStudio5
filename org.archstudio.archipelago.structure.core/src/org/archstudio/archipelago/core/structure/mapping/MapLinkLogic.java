@@ -7,6 +7,7 @@ import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.structure.core.Activator;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasEndpoints;
+import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasMutableSelected;
@@ -82,7 +83,8 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineThing> implem
 				IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS, IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS,
 				IHasMutableMidpoints.USER_MAY_REMOVE_MIDPOINTS, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1,
 				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT1, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2,
-				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT2, HighlightLogic.USER_MAY_HIGHLIGHT);
+				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT2, HighlightLogic.USER_MAY_HIGHLIGHT,
+				IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
 
 		thing.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), StickyMode.EDGE_FROM_CENTER);
 		thing.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY), StickyMode.EDGE_FROM_CENTER);

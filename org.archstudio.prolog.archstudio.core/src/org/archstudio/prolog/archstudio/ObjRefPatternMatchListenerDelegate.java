@@ -20,10 +20,10 @@ import org.eclipse.ui.console.TextConsole;
 public class ObjRefPatternMatchListenerDelegate implements IPatternMatchListenerDelegate {
 
 	static class Hyperlink implements IHyperlink {
-		final ObjRef objRef;
+		final long uid;
 
-		public Hyperlink(ObjRef objRef) {
-			this.objRef = objRef;
+		public Hyperlink(long uid) {
+			this.uid = uid;
 		}
 
 		@Override
@@ -39,9 +39,17 @@ public class ObjRefPatternMatchListenerDelegate implements IPatternMatchListener
 			for (IEditorReference p : PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 					.getEditorReferences()) {
 				IEditorPart e = p.getEditor(false);
-				if (e != null) {
-					if (e instanceof IFocusEditorListener) {
-						((IFocusEditorListener) e).focusEditor(new ObjRef[] { objRef });
+				if (e instanceof IFocusEditorListener) {
+					IMyxBrick brick = MyxRegistry.getSharedInstance().getBrick(PrologMyxComponent.class);
+					if (brick != null) {
+						IXArchADT xarch = SystemUtils.firstOrNull(MyxRegistry.getSharedInstance().getObjects(brick,
+								IXArchADT.class));
+						if (xarch != null) {
+							ObjRef objRef = xarch.lookupObjRefUID(uid);
+							if (objRef != null) {
+								((IFocusEditorListener) e).focusEditor(new ObjRef[] { objRef });
+							}
+						}
 					}
 				}
 			}
@@ -67,17 +75,7 @@ public class ObjRefPatternMatchListenerDelegate implements IPatternMatchListener
 			Matcher m = Pattern.compile("[0-9]+").matcher(objRefText);
 			if (m.find()) {
 				long uid = Long.parseLong(m.group(0));
-				IMyxBrick brick = MyxRegistry.getSharedInstance().getBrick(PrologMyxComponent.class);
-				if (brick != null) {
-					IXArchADT xarch = SystemUtils.firstOrNull(MyxRegistry.getSharedInstance().getObjects(brick,
-							IXArchADT.class));
-					if (xarch != null) {
-						ObjRef objRef = xarch.lookupObjRefUID(uid);
-						if (objRef != null) {
-							console.addHyperlink(new Hyperlink(objRef), event.getOffset(), event.getLength());
-						}
-					}
-				}
+				console.addHyperlink(new Hyperlink(uid), event.getOffset(), event.getLength());
 			}
 		}
 		catch (Exception e) {

@@ -11,6 +11,7 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasFlow;
 import org.archstudio.bna.facets.IHasLineWidth;
+import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableFlow;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IRelativeMovable;
@@ -121,7 +122,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 
 		UserEditableUtils.addEditableQualities(thing, IRelativeMovable.USER_MAY_MOVE,
 				HighlightLogic.USER_MAY_HIGHLIGHT, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG,
-				IHasToolTip.USER_MAY_EDIT_TOOL_TIP);
+				IHasToolTip.USER_MAY_EDIT_TOOL_TIP, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
 		UserEditableUtils.addEditableQualities(Assemblies.DIRECTION_KEY.get(thing, getBNAModel()),
 				IHasMutableFlow.USER_MAY_EDIT_FLOW);
 

@@ -7,6 +7,7 @@ import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.statechart.core.things.shapes.FinalStateThing;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
+import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.facets.IHasToolTip;
@@ -79,7 +80,7 @@ public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<FinalStateThi
 				});
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
-				IRelativeMovable.USER_MAY_MOVE);
+				IRelativeMovable.USER_MAY_MOVE, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
 
 		return thing;
 	}

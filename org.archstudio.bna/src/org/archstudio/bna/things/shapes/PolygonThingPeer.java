@@ -7,6 +7,7 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.peers.IHasShadowPeer;
@@ -66,7 +67,7 @@ public class PolygonThingPeer<T extends PolygonThing> extends AbstractPolygonThi
 			return;
 		}
 
-		r.setColor(new RGB(0, 0, 0), 1f);
+		r.setColor(new RGB(0, 0, 0), t.get(IHasAlpha.ALPHA_KEY, 1f));
 		Point a = t.getAnchorPoint();
 		gl.glBegin(GL.GL_TRIANGLE_FAN);
 		Point s = cm.worldToLocal(a);

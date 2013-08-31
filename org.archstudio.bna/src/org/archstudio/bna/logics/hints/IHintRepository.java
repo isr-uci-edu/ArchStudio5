@@ -8,13 +8,21 @@ import org.eclipse.jdt.annotation.Nullable;
 
 public interface IHintRepository {
 
+	public static interface HintValue {
+		public boolean isPresent();
+
+		public @Nullable
+		Object getValue();
+	}
+
 	public @Nullable
 	Object getContextForThing(IBNAWorld world, IThing thing);
 
 	public void storeHint(Object context, String name, @Nullable Serializable value);
 
-	public @Nullable
-	Object getHint(Object context, String name) throws PropertyDecodeException;
+	public void removeHint(Object context, String name);
+
+	public HintValue getHint(Object context, String name) throws PropertyDecodeException;
 
 	public void addHintRepositoryChangeListener(IHintRepositoryChangeListener l);
 

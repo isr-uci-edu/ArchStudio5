@@ -52,12 +52,16 @@ public class PrologUtils {
 				// The Extension Registry can be null if we're running outside of Eclipse
 				for (IConfigurationElement statements : reg
 						.getConfigurationElementsFor("org.archstudio.prolog.archstudio.prologstatement")) {
+					String name = statements.getAttribute("name");
 					String nsURI = statements.getAttribute("nsURI");
-					if (nsURIs.contains(nsURI)) {
+					if (nsURI == null || nsURIs.contains(nsURI)) {
 						for (IConfigurationElement child : statements.getChildren()) {
 							String statement = child.getValue();
 							if (statement != null && statement.trim().length() > 0) {
-								sb.append("\n% ").append(nsURI).append("\n");
+								sb.append("\n% ").append(name).append("\n");
+								if (nsURI != null) {
+									sb.append("% ").append(nsURI).append("\n");
+								}
 								sb.append(statement).append("\n");
 								for (Term term : PrologParser.parseTerms(proofContext, statement)) {
 									facts.add((ComplexTerm) term);

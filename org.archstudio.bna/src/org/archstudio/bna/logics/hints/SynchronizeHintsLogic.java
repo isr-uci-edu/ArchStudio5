@@ -12,12 +12,15 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasAngle;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEndpoints;
+import org.archstudio.bna.facets.IHasHighlight;
 import org.archstudio.bna.facets.IHasMidpoints;
+import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
@@ -30,6 +33,7 @@ import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.hints.synchronizers.PropertyHintSynchronizer;
+import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.swtutils.SWTWidgetUtils;
@@ -67,6 +71,10 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 				IHasMutableMidpoints.class, IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS));
 		addHintSynchronizer(new PropertyHintSynchronizer("color", IHasColor.COLOR_KEY, IHasMutableColor.class,
 				IHasMutableColor.USER_MAY_EDIT_COLOR));
+		addHintSynchronizer(new PropertyHintSynchronizer("highlight", IHasHighlight.HIGHLIGHT_KEY, IThing.class,
+				HighlightLogic.USER_MAY_HIGHLIGHT));
+		addHintSynchronizer(new PropertyHintSynchronizer("alpha", IHasAlpha.ALPHA_KEY, IThing.class,
+				IHasMutableAlpha.USER_MAY_CHANGE_ALPHA));
 	}
 
 	final protected CopyOnWriteArrayList<IHintSynchronizer> hintSynchronizers = Lists.newCopyOnWriteArrayList();

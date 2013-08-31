@@ -8,6 +8,7 @@ import org.archstudio.archipelago.structure.core.Activator;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasInternalWorldEndpoint;
+import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasToolTip;
@@ -90,7 +91,8 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 		thing.setLineWidth(defaultLineWidth);
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableText.USER_MAY_EDIT_TEXT,
-				IHasMutableSelected.USER_MAY_SELECT, HighlightLogic.USER_MAY_HIGHLIGHT);
+				IHasMutableSelected.USER_MAY_SELECT, HighlightLogic.USER_MAY_HIGHLIGHT,
+				IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
 
 		//stack above the world thing
 		thing.set(syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingIDKey()),

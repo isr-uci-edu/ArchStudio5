@@ -11,6 +11,7 @@ import org.archstudio.archipelago.core.structure.StructureEditorSupport;
 import org.archstudio.archipelago.structure.core.Activator;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasColor;
+import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableFontData;
 import org.archstudio.bna.facets.IHasMutableSelected;
@@ -168,7 +169,8 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
 				IHasMutableSize.USER_MAY_RESIZE, IRelativeMovable.USER_MAY_MOVE, HighlightLogic.USER_MAY_HIGHLIGHT,
-				IHasColor.USER_MAY_COPY_COLOR, IHasMutableColor.USER_MAY_EDIT_COLOR);
+				IHasColor.USER_MAY_COPY_COLOR, IHasMutableColor.USER_MAY_EDIT_COLOR,
+				IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
 		UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, getBNAModel()),
 				IHasMutableText.USER_MAY_EDIT_TEXT);
 

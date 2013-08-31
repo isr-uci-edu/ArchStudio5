@@ -10,6 +10,7 @@ import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.logics.hints.IHintRepository;
+import org.archstudio.bna.logics.hints.IHintRepository.HintValue;
 import org.archstudio.bna.logics.hints.PropertyDecodeException;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -38,9 +39,14 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 	public void restoreHints(IHintRepository repository, Object context, IThing thing, @Nullable String name) {
 		if (requiredClass.isInstance(thing) && UserEditableUtils.isEditableForAnyQualities(thing, editableQualities)) {
 			try {
-				Object value = repository.getHint(context, getHintName(thing));
-				if (value != null) {
-					thing.set(propertyName, value);
+				HintValue value = repository.getHint(context, getHintName(thing));
+				if (value.isPresent()) {
+					if (value.getValue() != null) {
+						thing.set(propertyName, value.getValue());
+					}
+					else {
+						thing.remove(propertyName);
+					}
 				}
 			}
 			catch (PropertyDecodeException e) {
@@ -64,6 +70,9 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 			Object value = thing.get(propertyName);
 			if (value != null && value instanceof Serializable) {
 				repository.storeHint(context, getHintName(thing), (Serializable) value);
+			}
+			else {
+				repository.removeHint(context, getHintName(thing));
 			}
 		}
 	}

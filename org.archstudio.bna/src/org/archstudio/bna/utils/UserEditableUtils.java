@@ -45,6 +45,9 @@ public class UserEditableUtils {
 		if (!isEditable(thing)) {
 			return false;
 		}
+		if (editableQualities.length == 0) {
+			return true;
+		}
 		Set<String> thingEditableQualities = thing.get(USER_EDITABLE_QUALITIES_KEY);
 		for (String editableQuality : editableQualities) {
 			if (!thingEditableQualities.contains(editableQuality)) {
@@ -73,6 +76,9 @@ public class UserEditableUtils {
 	public static boolean isEditableForAnyQualities(IThing thing, final String... editableQualities) {
 		if (!isEditable(thing)) {
 			return false;
+		}
+		if (editableQualities.length == 0) {
+			return true;
 		}
 		Set<String> thingEditableQualities = thing.get(USER_EDITABLE_QUALITIES_KEY);
 		for (String editableQuality : editableQualities) {

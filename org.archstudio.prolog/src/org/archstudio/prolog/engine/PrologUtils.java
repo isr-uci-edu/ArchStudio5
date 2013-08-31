@@ -3,6 +3,7 @@ package org.archstudio.prolog.engine;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,7 +14,12 @@ import org.archstudio.prolog.term.ListTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
+import com.google.common.collect.AbstractIterator;
+
 public class PrologUtils {
+
+	private PrologUtils() {
+	}
 
 	public static final Set<VariableTerm> extractVariables(Set<VariableTerm> variables, Term term) {
 		if (term instanceof VariableTerm) {
@@ -37,7 +43,8 @@ public class PrologUtils {
 		return variables;
 	}
 
-	public static final ComplexTerm resolveComplexTerm(ProofContext proofContext, Term t, Map<VariableTerm, Term> variables) {
+	public static final ComplexTerm resolveComplexTerm(ProofContext proofContext, Term t,
+			Map<VariableTerm, Term> variables) {
 		t = t.resolve(proofContext, variables);
 		if (t instanceof ComplexTerm) {
 			return (ComplexTerm) t;
@@ -45,7 +52,8 @@ public class PrologUtils {
 		throw new RuntimeException("Not complex term: " + t);
 	}
 
-	public static final Executable resolveExecutable(ProofContext proofContext, Term t, Map<VariableTerm, Term> variables) {
+	public static final Executable resolveExecutable(ProofContext proofContext, Term t,
+			Map<VariableTerm, Term> variables) {
 		t = t.resolve(proofContext, variables);
 		if (t instanceof Executable) {
 			return (Executable) t;
@@ -69,7 +77,8 @@ public class PrologUtils {
 		return n instanceof BigDecimal ? (BigDecimal) n : new BigDecimal((BigInteger) n);
 	}
 
-	public static final Iterable<Map<VariableTerm, Term>> negate(Iterable<Map<VariableTerm, Term>> result, Map<VariableTerm, Term> variables) {
+	public static final Iterable<Map<VariableTerm, Term>> negate(Iterable<Map<VariableTerm, Term>> result,
+			Map<VariableTerm, Term> variables) {
 		if (result.iterator().hasNext()) {
 			return emptyVariablesList();
 		}
@@ -80,8 +89,37 @@ public class PrologUtils {
 		return Collections.emptyList();
 	}
 
-	public PrologUtils() {
-		super();
-	}
+	public static Iterable<Term> termOrListTerms(final Term t) {
 
+		if (t instanceof ListTerm) {
+			return new Iterable<Term>() {
+
+				@Override
+				public Iterator<Term> iterator() {
+					return new AbstractIterator<Term>() {
+						Term i = t;
+
+						@Override
+						protected Term computeNext() {
+							if (i instanceof ListTerm) {
+								ListTerm listTerm = (ListTerm) i;
+								Term next = listTerm.getHead();
+								i = listTerm.getTail();
+								if (next != null) {
+									return next;
+								}
+							}
+							if (i == null) {
+								return endOfData();
+							}
+							Term next = i;
+							i = null;
+							return next;
+						}
+					};
+				}
+			};
+		}
+		return Collections.singleton(t);
+	}
 }

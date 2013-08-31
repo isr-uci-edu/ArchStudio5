@@ -57,9 +57,34 @@
    <extension
          point="org.archstudio.prolog.operation">
       <Operation
-            class="org.archstudio.prolog.archstudio.Precedes"
+            class="org.archstudio.prolog.archstudio.ops.Alpha"
+            name="alpha">
+      </Operation>
+      <Operation
+            class="org.archstudio.prolog.archstudio.ops.ClearHighlight"
+            name="clear_highlight">
+      </Operation>
+      <Operation
+            class="org.archstudio.prolog.archstudio.ops.Color"
+            name="color">
+      </Operation>
+      <Operation
+            class="org.archstudio.prolog.archstudio.ops.Highlight"
+            name="highlight">
+      </Operation>
+      <Operation
+            class="org.archstudio.prolog.archstudio.ops.Precedes"
             name="precedes">
       </Operation>
+   </extension>
+   <extension
+         point="org.archstudio.prolog.archstudio.prologstatement">
+      <Statements
+            name="ArchStudio Operations">
+         <Statement>
+            reset(_) :- type(X, _), alpha(X, 1.0), clear_highlight(X).
+         </Statement>
+      </Statements>
    </extension>
 
 </plugin>

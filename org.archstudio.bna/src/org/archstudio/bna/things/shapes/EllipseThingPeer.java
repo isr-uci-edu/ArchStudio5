@@ -8,6 +8,7 @@ import javax.media.opengl.GL2;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
+import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.peers.IHasShadowPeer;
 import org.archstudio.bna.things.AbstractEllipseThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
@@ -48,7 +49,7 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 
 		Shape localShape = new Ellipse2D.Float(lbb.x, lbb.y, lbb.width, lbb.height);
 
-		r.setColor(new RGB(0, 0, 0), 1f);
+		r.setColor(new RGB(0, 0, 0), t.get(IHasAlpha.ALPHA_KEY, 1f));
 		BNAUtils.renderShapeFill(view, cm, gl, clip, r, localShape);
 	}
 }

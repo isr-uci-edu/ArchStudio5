@@ -4,6 +4,7 @@
    <extension
          point="org.archstudio.prolog.archstudio.prologstatement">
       <Statements
+            name="Compatible Directions"
             nsURI="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd">
          <Statement>
             compatible_directions(&apos;in&apos;, &apos;out&apos;).

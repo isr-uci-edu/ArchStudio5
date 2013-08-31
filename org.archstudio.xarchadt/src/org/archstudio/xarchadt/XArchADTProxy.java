@@ -64,6 +64,12 @@ public final class XArchADTProxy {
 	public static @Nullable
 	<T extends Extension> T getExtension(IXArchADT xarch, EObject baseEObject, EClass extensionEClass, boolean create) {
 		EStructuralFeature ext = baseEObject.eClass().getEStructuralFeature("ext");
+		if (ext == null) {
+			if (create) {
+				throw new IllegalArgumentException(baseEObject.eClass().getName() + " does not support extensions.");
+			}
+			return null;
+		}
 		for (EObject eObject : (EList<EObject>) baseEObject.eGet(ext)) {
 			if (extensionEClass.isInstance(eObject)) {
 				return (T) eObject;
@@ -75,5 +81,9 @@ public final class XArchADTProxy {
 			return eObject;
 		}
 		return null;
+	}
+
+	public static IXArchADT getXArchADT(EObject eObject) {
+		return EObjectProxy.getXArchADT(eObject);
 	}
 }

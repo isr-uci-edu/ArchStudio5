@@ -346,4 +346,8 @@ public class EObjectProxy extends AbstractProxy {
 			}
 		});
 	}
+
+	public static IXArchADT getXArchADT(EObject eObject) {
+		return ((ProxyImpl) Proxy.getInvocationHandler(eObject)).xarch;
+	}
 }

@@ -866,7 +866,8 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 
 	@Override
 	public void focusEditor(ObjRef[] refs) {
-		if (refs.length > 0) {
+		// FIXME: getTreeViewer() can be null if the editor has not yet been focused
+		if (refs.length > 0 && getTreeViewer() != null) {
 			List<ArchEditElementNode> nodes = new ArrayList<ArchEditElementNode>(refs.length);
 			for (ObjRef ref : refs) {
 				nodes.add(new ArchEditElementNode(ref));

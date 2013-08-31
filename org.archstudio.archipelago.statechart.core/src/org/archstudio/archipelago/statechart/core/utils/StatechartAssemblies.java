@@ -7,6 +7,7 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
@@ -33,6 +34,7 @@ public class StatechartAssemblies {
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 		OrientTextLogic otl = tlm.addThingLogic(OrientTextLogic.class);
 
+		mvl.mirrorValue(bkg, IHasAlpha.ALPHA_KEY, labelThing);
 		mvl.mirrorValue(bkg, IHasAnchorPoint.ANCHOR_POINT_KEY, labelThing);
 		otl.orientText(bkg, labelThing);
 

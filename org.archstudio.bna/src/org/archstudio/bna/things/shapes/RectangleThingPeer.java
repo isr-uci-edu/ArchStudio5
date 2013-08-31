@@ -10,6 +10,7 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.peers.IHasShadowPeer;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
@@ -55,7 +56,7 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 		Shape localShape = new RoundRectangle2D.Float(lbb.x, lbb.y, lbb.width, lbb.height, Math.min(lbb.width,
 				corner.width), Math.min(lbb.height, corner.height));
 
-		r.setColor(new RGB(0, 0, 0), 1);
+		r.setColor(new RGB(0, 0, 0), t.get(IHasAlpha.ALPHA_KEY, 1f));
 		BNAUtils.renderShapeFill(view, cm, gl, clip, r, localShape);
 	}
 }

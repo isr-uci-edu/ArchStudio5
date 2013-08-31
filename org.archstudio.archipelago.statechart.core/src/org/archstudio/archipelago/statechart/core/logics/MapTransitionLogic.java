@@ -10,6 +10,7 @@ import org.archstudio.archipelago.statechart.core.utils.StatechartAssemblies;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasFontData;
+import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableText;
@@ -113,7 +114,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineT
 		UserEditableUtils.addEditableQualities(transition, IHasMutableSelected.USER_MAY_SELECT,
 				IRelativeMovable.USER_MAY_MOVE, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1,
 				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT1, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2,
-				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT2);
+				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT2, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
 
 		transition.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), StickyMode.EDGE_FROM_CENTER);
 		transition.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY), StickyMode.EDGE_FROM_CENTER);
