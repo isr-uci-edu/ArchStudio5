@@ -31,3 +31,7 @@ Require-Bundle: org.archstudio.archipelago,
  org.archstudio.utils.bna.gexf
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
+Export-Package: org.archstudio.archipelago.statechart.core,
+ org.archstudio.archipelago.statechart.core.logics,
+ org.archstudio.archipelago.statechart.core.things.shapes,
+ org.archstudio.archipelago.statechart.core.utils

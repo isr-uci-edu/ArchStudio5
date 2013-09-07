@@ -20,4 +20,4 @@ Require-Bundle: org.archstudio.xadl3.gexf,
  org.archstudio.graphlayout,
  org.archstudio.graphlayout.core,
  org.eclipse.core.runtime
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
