@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 
 import org.archstudio.sysutils.SystemUtils;
@@ -24,6 +24,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
 
 public class EObjectProxy extends AbstractProxy {
@@ -190,9 +191,25 @@ public class EObjectProxy extends AbstractProxy {
 
 		@Override
 		public String toString() {
-			Class<?>[] ifaces = getClass().getInterfaces();
-			Arrays.sort(ifaces);
-			return objRef.toString();
+			IXArchADTTypeMetadata typeMetadata = xarch.getTypeMetadata(objRef);
+			List<String> features = Lists.newArrayList("name", "id");
+			String info = null;
+			for (String feature : features) {
+				if (typeMetadata.getFeatures().get(feature) != null) {
+					Object value = xarch.get(objRef, feature);
+					if (value != null) {
+						String string = value.toString();
+						if (string.length() > 0) {
+							info = "[" + feature + "=" + string + "]";
+							break;
+						}
+					}
+				}
+			}
+			if (info == null) {
+				info = "[type=" + typeMetadata.getTypeName() + "]";
+			}
+			return objRef.toString() + info;
 		}
 
 		@Override
