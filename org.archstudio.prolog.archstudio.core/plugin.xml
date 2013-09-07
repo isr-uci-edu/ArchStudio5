@@ -76,6 +76,18 @@
             class="org.archstudio.prolog.archstudio.ops.Precedes"
             name="precedes">
       </Operation>
+      <Operation
+            class="org.archstudio.prolog.archstudio.ops.Ascending"
+            name="ascending">
+      </Operation>
+      <Operation
+            class="org.archstudio.prolog.archstudio.ops.Populate"
+            name="populate">
+      </Operation>
+      <Operation
+            class="org.archstudio.prolog.archstudio.ops.PopulateAscending"
+            name="populateascending">
+      </Operation>
    </extension>
    <extension
          point="org.archstudio.prolog.archstudio.prologstatement">

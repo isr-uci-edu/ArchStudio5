@@ -1,5 +1,7 @@
 package org.archstudio.bna.things.shapes;
 
+import java.awt.geom.Point2D;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
@@ -28,6 +30,8 @@ public class MappingThingPeer<T extends MappingThing> extends AbstractMappingThi
 		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY)) {
 			Point lp1 = view.getCoordinateMapper().worldToLocal(t.getAnchorPoint());
 			Point lp2 = iView.getCoordinateMapper().worldToLocal(t.getInternalEndpoint());
+
+			t.setMappingPoint(cm.localToWorld(new Point2D.Double(lp2.x, lp2.y)));
 
 			gl.glBegin(GL.GL_LINES);
 			gl.glVertex2i(lp1.x, lp1.y);

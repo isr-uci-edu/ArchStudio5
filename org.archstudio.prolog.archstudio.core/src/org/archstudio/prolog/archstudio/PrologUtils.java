@@ -2,6 +2,11 @@ package org.archstudio.prolog.archstudio;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -30,6 +35,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.osgi.framework.Bundle;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -43,7 +49,7 @@ public class PrologUtils {
 		try {
 			List<ComplexTerm> facts = Lists.newArrayList();
 			Set<String> nsURIs = Sets.newHashSet();
-			StringBuffer sb = new StringBuffer(":- discontiguous(type/2, value/3).\n");
+			StringBuffer sb = new StringBuffer(":- discontiguous(child/3, type/2, value/3).\n");
 			processEObject(proofContext, facts, nsURIs, sb, 0, progress.newChild(1), null, null, eObject);
 
 			// add prolog for schema NS URIs
@@ -55,16 +61,47 @@ public class PrologUtils {
 					String name = statements.getAttribute("name");
 					String nsURI = statements.getAttribute("nsURI");
 					if (nsURI == null || nsURIs.contains(nsURI)) {
+						sb.append("\n% ").append(name).append("\n");
+						if (nsURI != null) {
+							sb.append("% ").append(nsURI).append("\n");
+						}
 						for (IConfigurationElement child : statements.getChildren()) {
-							String statement = child.getValue();
-							if (statement != null && statement.trim().length() > 0) {
-								sb.append("\n% ").append(name).append("\n");
-								if (nsURI != null) {
-									sb.append("% ").append(nsURI).append("\n");
+							if ("Statement".equals(child.getName())) {
+								String statement = child.getValue();
+								if (statement != null && statement.trim().length() > 0) {
+									sb.append(statement).append("\n");
+									for (Term term : PrologParser.parseTerms(proofContext, statement)) {
+										facts.add((ComplexTerm) term);
+									}
 								}
-								sb.append(statement).append("\n");
-								for (Term term : PrologParser.parseTerms(proofContext, statement)) {
-									facts.add((ComplexTerm) term);
+							}
+							else if ("Resource".equals(child.getName())) {
+								String bundleName = statements.getContributor().getName();
+								String path = child.getAttribute("path");
+								Bundle bundle = Platform.getBundle(bundleName);
+								URL url = bundle.getEntry(path);
+								InputStream in = null;
+								try {
+									BufferedReader br = new BufferedReader(new InputStreamReader(in = url.openStream()));
+									String line;
+									StringBuffer statement = new StringBuffer();
+									while ((line = br.readLine()) != null) {
+										sb.append(line).append("\n");
+										statement.append(line).append("\n");
+									}
+									if (statement.toString().trim().length() > 0) {
+										for (Term term : PrologParser.parseTerms(proofContext, statement.toString())) {
+											facts.add((ComplexTerm) term);
+										}
+									}
+								}
+								catch (IOException e) {
+									throw new ParseException(e);
+								}
+								finally {
+									if (in != null) {
+										SystemUtils.closeQuietly(in);
+									}
 								}
 							}
 						}
@@ -238,9 +275,9 @@ public class PrologUtils {
 
 	private static ComplexTerm createChild(StringBuffer sb, int indent, EObject parent, String childName, EObject child) {
 		sb.append(
-				Strings.repeat(" ", indent) + "value(" + toAtom(parent) + ", " + SystemUtils.uncapFirst(childName)
+				Strings.repeat(" ", indent) + "child(" + toAtom(parent) + ", " + SystemUtils.uncapFirst(childName)
 						+ ", " + toAtom(child) + ").").append("\n");
-		return new ComplexTerm("value", Lists.newArrayList(toTerm(parent),
+		return new ComplexTerm("child", Lists.newArrayList(toTerm(parent),
 				new ConstantTerm(SystemUtils.uncapFirst(childName)), toTerm(child)));
 	}
 

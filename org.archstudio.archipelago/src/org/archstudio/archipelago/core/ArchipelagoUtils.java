@@ -1,5 +1,6 @@
 package org.archstudio.archipelago.core;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
+import org.archstudio.bna.things.AbstractMappingThing;
 import org.archstudio.bna.things.borders.PulsingBorderThing;
 import org.archstudio.bna.things.labels.UserNotificationThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
@@ -258,8 +260,19 @@ public class ArchipelagoUtils {
 	}
 
 	public static void pulseNotify(final IBNAModel m, final IThing t) {
-		if (t != null && t instanceof IHasBoundingBox) {
-			final Rectangle bb = ((IHasBoundingBox) t).getBoundingBox();
+		if (t != null) {
+			final Rectangle bb;
+			if (t instanceof IHasBoundingBox) {
+				bb = ((IHasBoundingBox) t).getBoundingBox();
+			}
+			else if (t instanceof AbstractMappingThing) {
+				Point p1 = ((AbstractMappingThing) t).getAnchorPoint();
+				Point2D p2 = ((AbstractMappingThing) t).getMappingPoint();
+				bb = new Rectangle(p1.x, p1.y, BNAUtils.round(p2.getX() - p1.x), BNAUtils.round(p2.getY() - p1.y));
+			}
+			else {
+				bb = null;
+			}
 			if (bb != null) {
 				final PulsingBorderThing pbt = new PulsingBorderThing(null);
 				pbt.setBoundingBox(bb);
