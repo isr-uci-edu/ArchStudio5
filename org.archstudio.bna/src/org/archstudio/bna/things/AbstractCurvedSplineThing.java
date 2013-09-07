@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.awt.Shape;
+import java.awt.geom.CubicCurve2D;
 import java.awt.geom.QuadCurve2D;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
+import org.archstudio.bna.facets.IHasMutableLoopPoint;
 import org.archstudio.bna.facets.IHasMutablePoints;
 import org.archstudio.bna.facets.IHasMutableValue;
 import org.archstudio.bna.facets.IHasPoints;
@@ -23,7 +25,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import com.google.common.collect.Lists;
 
 public abstract class AbstractCurvedSplineThing extends AbstractAnchorPointThing implements IHasMutableEndpoints,
-		IHasMutableValue<Integer>, IHasMutablePoints, IHasBoundingBox {
+		IHasMutableValue<Integer>, IHasMutablePoints, IHasBoundingBox, IHasMutableLoopPoint {
 
 	public AbstractCurvedSplineThing(Object id) {
 		super(id);
@@ -40,20 +42,27 @@ public abstract class AbstractCurvedSplineThing extends AbstractAnchorPointThing
 						&& !IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
 					Point p1 = getEndpoint1();
 					Point p2 = getEndpoint2();
-					double dx = p2.x - p1.x;
-					double dy = p2.y - p1.y;
-					double angle = Math.PI - Math.atan2(dy, dx);
-					Point m = new Point((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
 					double l = -getValue();
-					double cx = m.x + Math.sin(angle) * l;
-					double cy = m.y + Math.cos(angle) * l;
-					Point ap = new Point(BNAUtils.round(cx), BNAUtils.round(cy));
+					Point lp = getLoopPoint();
+					Point ap;
+					Shape s;
+					if (lp != null) {
+						ap = new Point(BNAUtils.round(lp.x - l), BNAUtils.round(lp.y));
+						s = new CubicCurve2D.Double(p1.x, p1.y, lp.x - l * 2, lp.y, lp.x, lp.y + l * 2, p2.x, p2.y);
+					}
+					else {
+						double dx = p2.x - p1.x;
+						double dy = p2.y - p1.y;
+						double angle = Math.PI - Math.atan2(dy, dx);
+						Point m = new Point((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
+						double cx = m.x + Math.sin(angle) * l;
+						double cy = m.y + Math.cos(angle) * l;
+						ap = new Point(BNAUtils.round(cx), BNAUtils.round(cy));
+						s = new QuadCurve2D.Double(p1.x, p1.y, ap.x, ap.y, p2.x, p2.y);
+					}
 					setAnchorPoint(ap);
 					set(IHasPoints.POINTS_KEY, Lists.newArrayList(p1, ap, p2));
-					Rectangle r = new Rectangle(p1.x, p1.y, 0, 0);
-					r = r.union(new Rectangle(p2.x, p2.y, 0, 0));
-					r = r.union(new Rectangle(ap.x, ap.y, 0, 0));
-					set(IHasBoundingBox.BOUNDING_BOX_KEY, r);
+					set(IHasBoundingBox.BOUNDING_BOX_KEY, BNAUtils.toRectangle(s.getBounds()));
 				}
 			}
 		});
@@ -64,14 +73,6 @@ public abstract class AbstractCurvedSplineThing extends AbstractAnchorPointThing
 		addShapeModifyingKey(ENDPOINT_2_KEY);
 		addShapeModifyingKey(VALUE_KEY);
 		setValue(10);
-	}
-
-	@Override
-	protected Shape createStickyShape() {
-		Point p1 = getEndpoint1();
-		Point p2 = getEndpoint2();
-		Point ap = getAnchorPoint();
-		return new QuadCurve2D.Double(p1.x, p1.y, ap.x, ap.y, p2.x, p2.y);
 	}
 
 	@Override
@@ -160,5 +161,15 @@ public abstract class AbstractCurvedSplineThing extends AbstractAnchorPointThing
 	@Override
 	public Rectangle getBoundingBox() {
 		return get(IHasBoundingBox.BOUNDING_BOX_KEY);
+	}
+
+	@Override
+	public void setLoopPoint(Point loop) {
+		set(IHasMutableLoopPoint.LOOP_POINT_KEY, loop);
+	}
+
+	@Override
+	public Point getLoopPoint() {
+		return get(IHasMutableLoopPoint.LOOP_POINT_KEY);
 	}
 }

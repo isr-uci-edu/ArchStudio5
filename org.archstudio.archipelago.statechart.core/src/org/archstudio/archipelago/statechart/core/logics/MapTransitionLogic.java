@@ -20,6 +20,7 @@ import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.ArrowheadLogic;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
+import org.archstudio.bna.logics.coordinating.OrientTextLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.things.shapes.CurvedSplineThing;
 import org.archstudio.bna.utils.Assemblies;

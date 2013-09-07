@@ -2,7 +2,6 @@ package org.archstudio.archipelago.statechart.core.utils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import org.archstudio.archipelago.statechart.core.logics.OrientTextLogic;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
@@ -11,6 +10,7 @@ import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
+import org.archstudio.bna.logics.coordinating.OrientTextLogic;
 import org.archstudio.bna.things.labels.AnchoredLabelThing;
 import org.archstudio.bna.things.shapes.CurvedSplineThing;
 import org.archstudio.bna.utils.Assemblies;

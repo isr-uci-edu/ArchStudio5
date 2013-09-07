@@ -2,6 +2,7 @@ package org.archstudio.bna.things;
 
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.QuadCurve2D;
@@ -19,6 +20,23 @@ public abstract class AbstractCurvedSplineThingPeer<T extends AbstractCurvedSpli
 		super(thing);
 	}
 
+	protected Shape getShape(IBNAView view, ICoordinateMapper cm) {
+		Point p1 = cm.worldToLocal(t.getEndpoint1());
+		Point p2 = cm.worldToLocal(t.getEndpoint2());
+		Point ap = cm.worldToLocal(t.getAnchorPoint());
+		Point lp = t.getLoopPoint();
+		if (lp != null) {
+			lp = cm.worldToLocal(lp);
+		}
+		if (lp != null) {
+			double l = t.getValue() * cm.getLocalScale();
+			return new CubicCurve2D.Double(p1.x, p1.y, lp.x + l * 2, lp.y, lp.x, lp.y - l * 2, p2.x, p2.y);
+		}
+		else {
+			return new QuadCurve2D.Double(p1.x, p1.y, ap.x, ap.y, p2.x, p2.y);
+		}
+	}
+
 	@Override
 	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
 		int distance = 5;
@@ -29,11 +47,7 @@ public abstract class AbstractCurvedSplineThingPeer<T extends AbstractCurvedSpli
 		lbb.height += distance * 2;
 		if (lbb.contains(location.getLocalPoint())) {
 			Point lp = location.getLocalPoint();
-			Point p1 = cm.worldToLocal(t.getEndpoint1());
-			Point p2 = cm.worldToLocal(t.getEndpoint2());
-			Point ap = cm.worldToLocal(t.getAnchorPoint());
-			Shape s = new QuadCurve2D.Double(p1.x, p1.y, ap.x, ap.y, p2.x, p2.y);
-			PathIterator pi = s.getPathIterator(new AffineTransform(), 2);
+			PathIterator pi = getShape(view, cm).getPathIterator(new AffineTransform(), 2);
 			double[] coords = new double[6];
 			double x1 = 0;
 			double y1 = 0;

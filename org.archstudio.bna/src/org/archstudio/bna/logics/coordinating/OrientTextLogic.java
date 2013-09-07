@@ -1,4 +1,4 @@
-package org.archstudio.archipelago.statechart.core.logics;
+package org.archstudio.bna.logics.coordinating;
 
 import java.util.List;
 

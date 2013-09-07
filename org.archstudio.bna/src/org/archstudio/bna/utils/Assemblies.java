@@ -376,8 +376,8 @@ public final class Assemblies {
 
 	public static final Object BASE_LAYER_THING_ID = new Object();
 	public static final Object SPLINE_LAYER_THING_ID = new Object();
-	public static final Object ARROWHEAD_LAYER_THING_ID = new Object();
 	public static final Object MIDDLE_LAYER_THING_ID = new Object();
+	public static final Object ARROWHEAD_LAYER_THING_ID = new Object();
 	public static final Object TOP_LAYER_THING_ID = new Object();
 
 	public static final IThing initLayer(IBNAModel model, Object layerThingID, IThing parentThing) {
@@ -399,8 +399,8 @@ public final class Assemblies {
 
 			IThing baseLayerThing = initLayer(model, BASE_LAYER_THING_ID, null);
 			IThing splineLayerThing = initLayer(model, SPLINE_LAYER_THING_ID, baseLayerThing);
-			IThing arrowheadLayerThing = initLayer(model, ARROWHEAD_LAYER_THING_ID, baseLayerThing);
 			IThing middleLayerThing = initLayer(model, MIDDLE_LAYER_THING_ID, baseLayerThing);
+			IThing arrowheadLayerThing = initLayer(model, ARROWHEAD_LAYER_THING_ID, baseLayerThing);
 			IThing topLayerThing = initLayer(model, TOP_LAYER_THING_ID, baseLayerThing);
 		}
 	}

@@ -2,10 +2,12 @@ package org.archstudio.bna.logics.coordinating;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
@@ -17,6 +19,7 @@ import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasIndicatorPoint;
+import org.archstudio.bna.facets.IHasMutableLoopPoint;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IHasShapeKeys;
 import org.archstudio.bna.facets.IIsSticky;
@@ -28,6 +31,7 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class StickPointLogic extends AbstractThingLogic implements IBNAModelListener {
 
@@ -51,6 +55,30 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 			stickyShape = stickyThing.getStickyShape();
 		}
 
+		private boolean isLoop(IBNAModel model, IThing pointThing, IThingKey<Point> pointKey) {
+			IThingKey<Point> otherPointKey = null;
+			if (pointKey.equals(IHasEndpoints.ENDPOINT_1_KEY) && pointThing instanceof IHasEndpoints) {
+				otherPointKey = IHasEndpoints.ENDPOINT_2_KEY;
+			}
+			if (pointKey.equals(IHasEndpoints.ENDPOINT_2_KEY) && pointThing instanceof IHasEndpoints) {
+				otherPointKey = IHasEndpoints.ENDPOINT_1_KEY;
+			}
+			if (otherPointKey != null) {
+				Registrar pointKeyRegistrar = registrars.get(BNAUtils.getThingKeyUID(pointThing, pointKey));
+				Registrar otherPointKeyRegistrar = registrars.get(BNAUtils.getThingKeyUID(pointThing, otherPointKey));
+				if (pointKeyRegistrar != null && otherPointKeyRegistrar != null) {
+					if (pointKeyRegistrar.stickyThingUID == otherPointKeyRegistrar.stickyThingUID) {
+						if (pointKeyRegistrar.stuckPoint.stickyMode == StickyMode.EDGE_FROM_CENTER) {
+							if (otherPointKeyRegistrar.stuckPoint.stickyMode == StickyMode.EDGE_FROM_CENTER) {
+								return true;
+							}
+						}
+					}
+				}
+			}
+			return false;
+		}
+
 		private Point getSecondaryPoint(IBNAModel model, IThing pointThing, IThingKey<Point> pointKey) {
 			if (pointKey.equals(IHasEndpoints.ENDPOINT_1_KEY) && pointThing instanceof IHasPoints) {
 				return getSecondaryPoint(model, pointThing, IHasEndpoints.ENDPOINT_2_KEY,
@@ -71,11 +99,12 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 			throw new IllegalArgumentException("Cannot find secondary point for " + pointThing + " and key " + pointKey);
 		}
 
-		private Point getSecondaryPoint(IBNAModel model, IThing pointThing, IThingKey<Point> pointKey, Point defaultPoint) {
+		private Point getSecondaryPoint(IBNAModel model, IThing pointThing, IThingKey<Point> pointKey,
+				Point defaultPoint) {
 
 			/*
-			 * Check to see if the point is stuck to something, and if stuck to the center point of that thing, return the
-			 * center point rather than the secondary point as this will be more accurate
+			 * Check to see if the point is stuck to something, and if stuck to the center point of that thing, return
+			 * the center point rather than the secondary point as this will be more accurate
 			 */
 			Registrar registrar = registrars.get(BNAUtils.getThingKeyUID(pointThing, pointKey));
 			if (registrar != null) {
@@ -99,7 +128,8 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 				if (stickyThing != null) {
 
 					// adjust the point proportionally if the 'stickyThing' has resized/moved
-					if (thingEvent != null && stickyThing.getShapeModifyingKeys().contains(thingEvent.getPropertyName())) {
+					if (thingEvent != null
+							&& stickyThing.getShapeModifyingKeys().contains(thingEvent.getPropertyName())) {
 						Shape newStickyShape = stickyThing.getStickyShape();
 						if (stickyShape != null) {
 							stuckPoint = BNAUtils.movePointWith(BNAUtils.toRectangle(stickyShape.getBounds()),
@@ -136,8 +166,41 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 						// get center point
 						stuckPoint = BNAUtils.getCentralPoint(stickyThing);
 
-						// get secondary point
-						Point secondaryPoint = getSecondaryPoint(model, pointThing, pointKey);
+						// get secondary point ...
+						Point secondaryPoint;
+
+						// ... check for loop
+						if (pointThing instanceof IHasMutableLoopPoint && isLoop(model, pointThing, pointKey)) {
+
+							// determine top-right point offset
+							int dx = 0;
+							int dy = 0;
+							if (pointKey.equals(IHasEndpoints.ENDPOINT_1_KEY)) {
+								dx = 10;
+								dy = 10;
+							}
+							else if (pointKey.equals(IHasEndpoints.ENDPOINT_2_KEY)) {
+								dx = -10;
+								dy = -10;
+							}
+							else {
+								throw new IllegalArgumentException(pointKey.toString());
+							}
+
+							// get offset top-right point
+							Rectangle r = stickyShape.getBounds();
+							secondaryPoint = new Point(r.x + r.width + dx, r.y + dy);
+
+							((IHasMutableLoopPoint) pointThing).setLoopPoint(new Point(r.x + r.width, r.y));
+						}
+						else {
+							// get secondary point
+							secondaryPoint = getSecondaryPoint(model, pointThing, pointKey);
+
+							if (pointThing instanceof IHasMutableLoopPoint) {
+								((IHasMutableLoopPoint) pointThing).setLoopPoint(null);
+							}
+						}
 
 						// calculate the closest point on the sticky shape, given the current point as reference
 						stuckPoint = BNAUtils.getClosestPointOnShape(stickyShape, secondaryPoint.x, secondaryPoint.y,
@@ -262,12 +325,21 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 		return null;
 	}
 
+	Set<Long> currentlyUpdating = Sets.newHashSet();
+
 	@Override
 	public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
 			for (StuckPoint stuckPoint : get(thingEvent.getThingKeyUID(), false)) {
-					stuckPoint.update(evt.getSource(), thingEvent, evt.isInBulkChange());
+				if (currentlyUpdating.add(thingEvent.getThingKeyUID())) {
+					try {
+						stuckPoint.update(evt.getSource(), thingEvent, evt.isInBulkChange());
+					}
+					finally {
+						currentlyUpdating.remove(thingEvent.getThingKeyUID());
+					}
+				}
 			}
 		}
 	}

@@ -16,6 +16,7 @@ import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMidpoints;
+import org.archstudio.bna.facets.IHasMutableLoopPoint;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IHasRoundedCorners;
 import org.archstudio.bna.facets.IHasValue;
@@ -140,6 +141,7 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 				mirrorLogic.mirrorValue(forThing, IHasEndpoints.ENDPOINT_1_KEY, t);
 				mirrorLogic.mirrorValue(forThing, IHasEndpoints.ENDPOINT_2_KEY, t);
 				mirrorLogic.mirrorValue(forThing, IHasValue.VALUE_KEY, t);
+				mirrorLogic.mirrorValue(forThing, IHasMutableLoopPoint.LOOP_POINT_KEY, t);
 			}
 			else if (forThing instanceof IHasEndpoints) {
 				t = model.insertThing(new SplineGlowThing(null), bkgThing);
