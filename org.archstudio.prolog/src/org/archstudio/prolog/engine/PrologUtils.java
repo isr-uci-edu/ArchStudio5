@@ -3,20 +3,24 @@ package org.archstudio.prolog.engine;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.archstudio.prolog.op.Evaluable;
 import org.archstudio.prolog.op.Executable;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ListTerm;
+import org.archstudio.prolog.term.StringTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
-import com.google.common.collect.AbstractIterator;
+import com.google.common.collect.Lists;
 
 public class PrologUtils {
+
+	static private AtomicInteger temporaryVarialeCounter = new AtomicInteger();
 
 	private PrologUtils() {
 	}
@@ -69,6 +73,14 @@ public class PrologUtils {
 		throw new RuntimeException("Not evaluable: " + t);
 	}
 
+	public static final String resolveString(ProofContext proofContext, Term t, Map<VariableTerm, Term> variables) {
+		t = t.resolve(proofContext, variables);
+		if (t instanceof StringTerm) {
+			return (String) ((StringTerm) t).getValue();
+		}
+		return t.toString();
+	}
+
 	public static final Number evaluate(ProofContext proofContext, Term term, Map<VariableTerm, Term> variables) {
 		return resolveEvaluable(proofContext, term, variables).evaluate(proofContext, variables);
 	}
@@ -89,37 +101,23 @@ public class PrologUtils {
 		return Collections.emptyList();
 	}
 
-	public static Iterable<Term> termOrListTerms(final Term t) {
+	public static final List<Term> termOrListTerms(final Term t) {
+
+		List<Term> terms = Lists.newArrayList();
 
 		if (t instanceof ListTerm) {
-			return new Iterable<Term>() {
-
-				@Override
-				public Iterator<Term> iterator() {
-					return new AbstractIterator<Term>() {
-						Term i = t;
-
-						@Override
-						protected Term computeNext() {
-							if (i instanceof ListTerm) {
-								ListTerm listTerm = (ListTerm) i;
-								Term next = listTerm.getHead();
-								i = listTerm.getTail();
-								if (next != null) {
-									return next;
-								}
-							}
-							if (i == null) {
-								return endOfData();
-							}
-							Term next = i;
-							i = null;
-							return next;
-						}
-					};
-				}
-			};
+			for (Term t2 : ((ListTerm) t).asList()) {
+				terms.addAll(termOrListTerms(t2));
+			}
 		}
-		return Collections.singleton(t);
+		else {
+			terms.add(t);
+		}
+
+		return terms;
+	}
+
+	public static final VariableTerm getTemporaryVariableTerm() {
+		return new VariableTerm("_G" + temporaryVarialeCounter.incrementAndGet());
 	}
 }

@@ -2,12 +2,15 @@ package org.archstudio.prolog.term;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import org.archstudio.prolog.engine.ProofContext;
 
-public class ListTerm implements Term {
+import com.google.common.collect.Lists;
+
+public class ListTerm extends AbstractTerm implements Term {
 
 	private final Term head;
 	private final Term tail;
@@ -58,6 +61,29 @@ public class ListTerm implements Term {
 		return "[" + head + ", " + tail + "]";
 	}
 
+	public int length() {
+		if (isEmpty()) {
+			return 0;
+		}
+		if (tail instanceof ListTerm) {
+			return ((ListTerm) tail).length() + 1;
+		}
+		throw new UnsupportedOperationException("Cannot calculate length!");
+	}
+
+	public List<Term> asList() {
+		List<Term> list = Lists.newArrayList();
+		ListTerm lt = this;
+		while (!lt.isEmpty()) {
+			list.add(lt.getHead());
+			if (!(lt.getTail() instanceof ListTerm)) {
+				throw new UnsupportedOperationException("Cannot create list!");
+			}
+			lt = (ListTerm) lt.getTail();
+		}
+		return list;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -104,5 +130,21 @@ public class ListTerm implements Term {
 
 	public Term getTail() {
 		return tail;
+	}
+
+	public static ListTerm asListTerm(Term... terms) {
+		return asListTerm(Arrays.asList(terms));
+	}
+
+	public static ListTerm asListTerm(Iterable<? extends Term> terms) {
+		return asListTerm(Lists.newArrayList(terms));
+	}
+
+	public static ListTerm asListTerm(List<? extends Term> terms) {
+		ListTerm lt = new ListTerm();
+		for (Term term : Lists.reverse(terms)) {
+			lt = new ListTerm(term, lt);
+		}
+		return lt;
 	}
 }

@@ -49,7 +49,9 @@ public class PrologParser {
 					}
 					catch (UnsupportedOperationException e) {
 						if (d instanceof AbstractDiagnostic) {
-							l = "offset: " + ((AbstractDiagnostic) d).getOffset();
+							int offset = ((AbstractDiagnostic) d).getOffset();
+							input = input.substring(0, offset) + "<<<HERE>>>" + input.substring(offset);
+							l = "offset: " + offset;
 						}
 					}
 				}

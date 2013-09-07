@@ -1,9 +1,14 @@
 package org.archstudio.prolog.engine;
 
+import java.util.Map.Entry;
+import java.util.Set;
+
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ListTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
+
+import com.google.common.collect.Sets;
 
 /*
  * A unifer based on http://www.univ-orleans.fr/lifo/software/stdprolog/unification.html
@@ -28,6 +33,7 @@ public class MostGeneralUnifierEngine implements UnificationEngine {
 				f = g;
 				g = t;
 				context.equations.set(i, new Equation(f, g));
+				// fall through
 			}
 			// 6
 			if (f instanceof VariableTerm) {
@@ -93,6 +99,20 @@ public class MostGeneralUnifierEngine implements UnificationEngine {
 			// 1.1
 			return false;
 		}
+
+		// Note: This is necessary otherwise, intermediate variables do not get resolved
+		// and results (especially with lists) end up looking weird and incomplete.
+		// FIXME: check for loops, self references, and do not simplify when those occur
+		for (Entry<VariableTerm, Term> entry : context.variables.entrySet()) {
+			Term value = entry.getValue();
+			int tries = 0;
+			Set<Term> seenTerms = Sets.newHashSet();
+			while (seenTerms.add(value) && tries++ < 20) {
+				value = value.resolve(proofContext, context.variables);
+				entry.setValue(value);
+			}
+		}
+
 		return true;
 	}
 }

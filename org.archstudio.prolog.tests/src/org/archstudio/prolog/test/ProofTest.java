@@ -73,6 +73,7 @@ public class ProofTest {
 	VariableTerm X = new VariableTerm("X");
 	VariableTerm Y = new VariableTerm("Y");
 	VariableTerm Z = new VariableTerm("Z");
+	ConstantTerm b0 = new ConstantTerm(BigInteger.valueOf(0));
 	ConstantTerm b1 = new ConstantTerm(BigInteger.valueOf(1));
 	ConstantTerm b2 = new ConstantTerm(BigInteger.valueOf(2));
 	ConstantTerm b3 = new ConstantTerm(BigInteger.valueOf(3));
@@ -165,12 +166,12 @@ public class ProofTest {
 	public void testLists() throws ParseException {
 		{
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
-			expected.add(new Variables().add(X, a).add(Y, new ListTerm(b, new ListTerm(c, new ListTerm()))).done());
+			expected.add(new Variables().add(X, a).add(Y, ListTerm.asListTerm(b, c)).done());
 			Assert.assertEquals(expected, run("[X|Y]=[a, b, c]."));
 		}
 		{
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
-			expected.add(new Variables().add(X, a).add(Y, new ListTerm(b, new ListTerm(c, new ListTerm()))).done());
+			expected.add(new Variables().add(X, a).add(Y, ListTerm.asListTerm(b, c)).done());
 			Assert.assertEquals(expected, run("[a, b, c]=[X|Y]."));
 		}
 	}
@@ -343,12 +344,12 @@ public class ProofTest {
 		}
 		{
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
-			expected.add(new Variables().add(X, Y).add(Y, b1).done());
+			expected.add(new Variables().add(X, b1).add(Y, b1).done());
 			Assert.assertEquals(expected, run("X=Y, Y=1, nonvar(X)."));
 		}
 		{
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
-			Assert.assertEquals(expected, run("X=Y, Y=X, nonvar(X)."));
+			Assert.assertEquals(expected, run("X=Z, Y=X, nonvar(X)."));
 		}
 	}
 
@@ -628,13 +629,285 @@ public class ProofTest {
 		}
 		{
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
-			expected.add(new Variables().add(X, b1)
-					.add(Y, new ListTerm(b1, new ListTerm(b2, new ListTerm(b3, new ListTerm())))).done());
-			expected.add(new Variables().add(X, b2)
-					.add(Y, new ListTerm(b1, new ListTerm(b2, new ListTerm(b3, new ListTerm())))).done());
-			expected.add(new Variables().add(X, b3)
-					.add(Y, new ListTerm(b1, new ListTerm(b2, new ListTerm(b3, new ListTerm())))).done());
+			expected.add(new Variables().add(X, b1).add(Y, ListTerm.asListTerm(b1, b2, b3)).done());
+			expected.add(new Variables().add(X, b2).add(Y, ListTerm.asListTerm(b1, b2, b3)).done());
+			expected.add(new Variables().add(X, b3).add(Y, ListTerm.asListTerm(b1, b2, b3)).done());
 			Assert.assertEquals(expected, run("Y=[1, 2, 3], member(X, Y)."));
+		}
+	}
+
+	@Test
+	public void testFindAll() throws ParseException {
+		//ConstantTerm martha = new ConstantTerm("martha");
+		ConstantTerm charlotte = new ConstantTerm("charlotte");
+		ConstantTerm caroline = new ConstantTerm("caroline");
+		ConstantTerm laura = new ConstantTerm("laura");
+		ConstantTerm rose = new ConstantTerm("rose");
+
+		proofContext.add(parse("child(martha,charlotte)."));
+		proofContext.add(parse("child(charlotte,caroline)."));
+		proofContext.add(parse("child(caroline,laura)."));
+		proofContext.add(parse("child(laura,rose)."));
+		proofContext.add(parse("descend(X,Y) :- child(X,Y)."));
+		proofContext.add(parse("descend(X,Y) :- child(X,Z), descend(Z,Y)."));
+
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Z, ListTerm.asListTerm(charlotte, caroline, laura, rose)).done());
+			Assert.assertEquals(expected, run("findall(X, descend(martha, X), Z)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Z, ListTerm.asListTerm(caroline, laura, rose)).done());
+			Assert.assertEquals(expected, run("findall(X, descend(charlotte, X), Z)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Z, ListTerm.asListTerm(laura, rose)).done());
+			Assert.assertEquals(expected, run("findall(X, descend(caroline, X), Z)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Z, ListTerm.asListTerm(rose)).done());
+			Assert.assertEquals(expected, run("findall(X, descend(laura, X), Z)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Z, ListTerm.asListTerm()).done());
+			Assert.assertEquals(expected, run("findall(X, descend(rose, X), Z)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Z,
+					ListTerm.asListTerm(charlotte, caroline, laura, rose, caroline, laura, rose, laura, rose, rose))
+					.done());
+			Assert.assertEquals(expected, run("findall(X, descend(Mother, X), Z)."));
+		}
+		{
+			// findall(Y,descend(martha,X),Z) % result is Z = unbound internal variables of length 4 (one for each solution)
+			Set<Map<VariableTerm, Term>> results = run("findall(Y, descend(martha, X), Z).");
+			Assert.assertEquals(1, results.size()); // one result
+			Map<VariableTerm, Term> result = results.iterator().next();
+			Assert.assertEquals(1, result.size()); // with one variable, Z
+			Term value = result.get(Z);
+			Assert.assertEquals(4, ((ListTerm) value).length()); // of length 4
+		}
+	}
+
+	@Test
+	public void testBagOf() throws ParseException {
+
+		VariableTerm Mother = new VariableTerm("Mother");
+		ConstantTerm martha = new ConstantTerm("martha");
+		ConstantTerm charlotte = new ConstantTerm("charlotte");
+		ConstantTerm caroline = new ConstantTerm("caroline");
+		ConstantTerm laura = new ConstantTerm("laura");
+		ConstantTerm rose = new ConstantTerm("rose");
+
+		proofContext.add(parse("child(martha,charlotte)."));
+		proofContext.add(parse("child(charlotte,caroline)."));
+		proofContext.add(parse("child(caroline,laura)."));
+		proofContext.add(parse("child(laura,rose)."));
+		proofContext.add(parse("descend(X,Y) :- child(X,Y)."));
+		proofContext.add(parse("descend(X,Y) :- child(X,Z), descend(Z,Y)."));
+
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Z, ListTerm.asListTerm(charlotte, caroline, laura, rose)).done());
+			Assert.assertEquals(expected, run("bagof(X, descend(martha, X), Z)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Z, ListTerm.asListTerm(caroline, laura, rose)).done());
+			Assert.assertEquals(expected, run("bagof(X, descend(charlotte, X), Z)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Z, ListTerm.asListTerm(laura, rose)).done());
+			Assert.assertEquals(expected, run("bagof(X, descend(caroline, X), Z)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Z, ListTerm.asListTerm(rose)).done());
+			Assert.assertEquals(expected, run("bagof(X, descend(laura, X), Z)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			// bagof does not return empty lists, rose fails
+			Assert.assertEquals(expected, run("bagof(X, descend(rose, X), Z)."));
+		}
+		{
+			// FIXME: bagof/3 order matters? But, test does not check for this!
+
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Mother, martha) //
+					.add(Z, ListTerm.asListTerm(charlotte, caroline, laura, rose)).done());
+			expected.add(new Variables().add(Mother, charlotte) //
+					.add(Z, ListTerm.asListTerm(caroline, laura, rose)).done());
+			expected.add(new Variables().add(Mother, caroline) //
+					.add(Z, ListTerm.asListTerm(laura, rose)).done());
+			expected.add(new Variables().add(Mother, laura) //
+					.add(Z, ListTerm.asListTerm(rose)).done());
+			// bagof does not return empty lists, thus rose fails
+			Assert.assertEquals(expected, run("bagof(X, descend(Mother, X), Z)."));
+		}
+		{
+			// FIXME: bagof(Y,descend(martha,X),Z) % results are not understood!
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables()//
+					.add(Z, ListTerm.asListTerm(//
+							charlotte, caroline, laura, rose,//
+							caroline, laura, rose,//
+							laura, rose,//
+							rose//
+							)).done());
+			Assert.assertEquals(expected, run("bagof(X, Mother^descend(Mother, X), Z)."));
+		}
+	}
+
+	@Test
+	public void testSetOf() throws ParseException {
+
+		ConstantTerm harry = new ConstantTerm("harry");
+		ConstantTerm draco = new ConstantTerm("draco");
+		ConstantTerm ron = new ConstantTerm("ron");
+		ConstantTerm hermione = new ConstantTerm("hermione");
+		ConstantTerm dumbledore = new ConstantTerm("dumbledore");
+		ConstantTerm hagrid = new ConstantTerm("hagrid");
+		ConstantTerm b13 = new ConstantTerm(BigInteger.valueOf(13));
+		ConstantTerm b14 = new ConstantTerm(BigInteger.valueOf(14));
+		ConstantTerm b30 = new ConstantTerm(BigInteger.valueOf(30));
+		ConstantTerm b60 = new ConstantTerm(BigInteger.valueOf(60));
+
+		proofContext.add(parse("age(harry,13)."));
+		proofContext.add(parse("age(draco,14)."));
+		proofContext.add(parse("age(ron,13)."));
+		proofContext.add(parse("age(hermione,13)."));
+		proofContext.add(parse("age(dumbledore,60)."));
+		proofContext.add(parse("age(hagrid,30)."));
+
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Z, //
+					ListTerm.asListTerm(draco, dumbledore, hagrid, harry, hermione, ron)).done());
+			Assert.assertEquals(expected, run("setof(X, Y^age(X, Y), Z)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Z, //
+					ListTerm.asListTerm(b13, b14, b30, b60)).done());
+			Assert.assertEquals(expected, run("setof(Y, X^age(X, Y), Z)."));
+		}
+	}
+
+	@Test
+	public void testSort() throws ParseException {
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, ListTerm.asListTerm()).done());
+			Assert.assertEquals(expected, run("sort([], X)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, ListTerm.asListTerm(b1)).done());
+			Assert.assertEquals(expected, run("sort([1], X)."));
+			Assert.assertEquals(expected, run("sort([1, 1], X)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, ListTerm.asListTerm(b1, b2)).done());
+			Assert.assertEquals(expected, run("sort([1, 2], X)."));
+			Assert.assertEquals(expected, run("sort([1, 1, 2], X)."));
+			Assert.assertEquals(expected, run("sort([1, 2, 2], X)."));
+			Assert.assertEquals(expected, run("sort([2, 1], X)."));
+			Assert.assertEquals(expected, run("sort([2, 2, 1], X)."));
+			Assert.assertEquals(expected, run("sort([2, 1, 1], X)."));
+		}
+	}
+
+	@Test
+	public void testLength() throws ParseException {
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b0).done());
+			Assert.assertEquals(expected, run("length([], X)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b1).done());
+			Assert.assertEquals(expected, run("length([1], X)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b2).done());
+			Assert.assertEquals(expected, run("length([1, 2], X)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b3).done());
+			Assert.assertEquals(expected, run("length([1, 2, 3], X)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> results = run("length(X, 0).");
+			Assert.assertEquals(1, results.size()); // one result
+			Map<VariableTerm, Term> result = results.iterator().next();
+			Assert.assertEquals(1, result.size()); // with one variable, X
+			Term value = result.get(X);
+			Assert.assertEquals(0, ((ListTerm) value).length()); // of length 0
+		}
+		{
+			Set<Map<VariableTerm, Term>> results = run("length(X, 1).");
+			Assert.assertEquals(1, results.size()); // one result
+			Map<VariableTerm, Term> result = results.iterator().next();
+			Assert.assertEquals(1, result.size()); // with one variable, X
+			Term value = result.get(X);
+			Assert.assertEquals(1, ((ListTerm) value).length()); // of length 1
+		}
+		{
+			Set<Map<VariableTerm, Term>> results = run("length(X, 2).");
+			Assert.assertEquals(1, results.size()); // one result
+			Map<VariableTerm, Term> result = results.iterator().next();
+			Assert.assertEquals(1, result.size()); // with one variable, X
+			Term value = result.get(X);
+			Assert.assertEquals(2, ((ListTerm) value).length()); // of length 2
+		}
+		{
+			Set<Map<VariableTerm, Term>> results = run("length(X, 3).");
+			Assert.assertEquals(1, results.size()); // one result
+			Map<VariableTerm, Term> result = results.iterator().next();
+			Assert.assertEquals(1, result.size()); // with one variable, X
+			Term value = result.get(X);
+			Assert.assertEquals(3, ((ListTerm) value).length()); // of length 3
+		}
+		{
+			Set<Map<VariableTerm, Term>> results = run("length([1|X], 0).");
+			Assert.assertEquals(0, results.size()); // no results
+		}
+		{
+			Set<Map<VariableTerm, Term>> results = run("length([1|X], 1).");
+			Assert.assertEquals(1, results.size()); // one result
+			Map<VariableTerm, Term> result = results.iterator().next();
+			Assert.assertEquals(1, result.size()); // with one variable, X
+			Term value = result.get(X);
+			Assert.assertEquals(0, ((ListTerm) value).length()); // of length 0
+		}
+		{
+			Set<Map<VariableTerm, Term>> results = run("length([1|X], 2).");
+			Assert.assertEquals(1, results.size()); // one result
+			Map<VariableTerm, Term> result = results.iterator().next();
+			Assert.assertEquals(1, result.size()); // with one variable, X
+			Term value = result.get(X);
+			Assert.assertEquals(1, ((ListTerm) value).length()); // of length 1
+		}
+		{
+			Set<Map<VariableTerm, Term>> results = run("length([1|X], 3).");
+			Assert.assertEquals(1, results.size()); // one result
+			Map<VariableTerm, Term> result = results.iterator().next();
+			Assert.assertEquals(1, result.size()); // with one variable, X
+			Term value = result.get(X);
+			Assert.assertEquals(2, ((ListTerm) value).length()); // of length 2
 		}
 	}
 }

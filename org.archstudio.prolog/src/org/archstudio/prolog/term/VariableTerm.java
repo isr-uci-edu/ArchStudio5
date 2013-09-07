@@ -10,7 +10,7 @@ import org.archstudio.prolog.engine.ProofContext;
 
 import com.google.common.collect.Sets;
 
-public class VariableTerm extends AbstractTerm implements Term, Comparable<VariableTerm> {
+public class VariableTerm extends AbstractTerm implements Term {
 
 	final String name;
 
@@ -33,11 +33,6 @@ public class VariableTerm extends AbstractTerm implements Term, Comparable<Varia
 			t = variables.get(t);
 		}
 		return t;
-	}
-
-	@Override
-	public int compareTo(VariableTerm o) {
-		return o.name.compareTo(name);
 	}
 
 	@Override

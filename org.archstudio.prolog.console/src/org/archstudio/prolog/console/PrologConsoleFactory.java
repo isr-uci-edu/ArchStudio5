@@ -1,8 +1,10 @@
 package org.archstudio.prolog.console;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -79,24 +81,28 @@ public class PrologConsoleFactory implements IConsoleFactory {
 			public void run() {
 
 				outpw.println("Welcome. Use :- to switch to INPUT mode and ?- to switch to QUERY mode.");
+				proofContext.setOutput(new BufferedWriter(new OutputStreamWriter(out)));
 
 				boolean inQueryMode = true;
 
-				while (true) {
+				MAIN: while (true) {
 					try {
 						if (inQueryMode) {
 
 							promptpw.print("[QUERY MODE] ?- ");
 							promptpw.flush();
 
-							String command = inbr.readLine().trim();
-							if ("?-".equals(command)) {
-								inQueryMode = true;
-								continue;
-							}
-							if (":-".equals(command)) {
-								inQueryMode = false;
-								continue;
+							String command = "";
+							while (true) {
+								String line = inbr.readLine().trim();
+								command += "\n" + line;
+								if (":-".equals(command.trim())) {
+									inQueryMode = false;
+									continue MAIN;
+								}
+								if (command.endsWith(".")) {
+									break;
+								}
 							}
 
 							for (Term t : PrologParser.parseTerms(proofContext, command)) {
@@ -119,6 +125,9 @@ public class PrologConsoleFactory implements IConsoleFactory {
 										boolean firstVar = true;
 										String prefix = "" + count++ + ". ";
 										for (Entry<VariableTerm, Term> var : SystemUtils.sortedByKey(result.entrySet())) {
+											if (var.getKey().getName().startsWith("_G")) {
+												continue;
+											}
 											if (!firstVar) {
 												outpw.println();
 												outpw.print(Strings.repeat(" ", prefix.length()));
@@ -129,6 +138,7 @@ public class PrologConsoleFactory implements IConsoleFactory {
 											firstVar = false;
 											outpw.print(var.getKey() + " = " + var.getValue());
 										}
+										outpw.flush();
 									}
 								}
 								if (firstResult) {
@@ -143,14 +153,17 @@ public class PrologConsoleFactory implements IConsoleFactory {
 							promptpw.print("[INPUT MODE] > ");
 							promptpw.flush();
 
-							String command = inbr.readLine().trim();
-							if ("?-".equals(command)) {
-								inQueryMode = true;
-								continue;
-							}
-							if (":-".equals(command)) {
-								inQueryMode = false;
-								continue;
+							String command = "";
+							while (true) {
+								String line = inbr.readLine().trim();
+								command += "\n" + line;
+								if ("?-".equals(command.trim())) {
+									inQueryMode = true;
+									continue MAIN;
+								}
+								if (command.endsWith(".")) {
+									break;
+								}
 							}
 
 							for (Term t : PrologParser.parseTerms(proofContext, command)) {
@@ -165,6 +178,7 @@ public class PrologConsoleFactory implements IConsoleFactory {
 					}
 					catch (IOException e) {
 						// console window was closed
+						proofContext.setOutput(new BufferedWriter(new OutputStreamWriter(System.out)));
 						return;
 					}
 					catch (Exception e) {

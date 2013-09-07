@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.archstudio.prolog.engine.PrologUtils;
 import org.archstudio.prolog.engine.ProofContext;
@@ -23,7 +22,6 @@ import com.google.common.collect.Sets;
 public class Neck extends ComplexTerm {
 
 	final Set<VariableTerm> allVariables;
-	static AtomicInteger temporaryVarialeCounter = new AtomicInteger();
 
 	public Neck(String functor, List<? extends Term> terms) {
 		super(functor, 2, terms);
@@ -36,7 +34,7 @@ public class Neck extends ComplexTerm {
 
 		final Map<VariableTerm, Term> temporaryVariables = Maps.newHashMapWithExpectedSize(allVariables.size());
 		for (VariableTerm v : allVariables) {
-			temporaryVariables.put(v, new VariableTerm("_G" + temporaryVarialeCounter.incrementAndGet()));
+			temporaryVariables.put(v, PrologUtils.getTemporaryVariableTerm());
 		}
 		Neck n = (Neck) resolve(proofContext, temporaryVariables);
 

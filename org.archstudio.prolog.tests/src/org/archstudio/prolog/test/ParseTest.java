@@ -133,6 +133,10 @@ public class ParseTest {
 		assertParse(new ComplexTerm("f", d(-1.0e+10)), "f(-1.0e+10).");
 		assertParse(new ComplexTerm("f", d(1.0e-10)), "f(1.0e-10).");
 		assertParse(new ComplexTerm("f", d(-1.0e-10)), "f(-1.0e-10).");
+		assertParse(new ComplexTerm("f", d(1.0e+10)), "f(1.0E+10).");
+		assertParse(new ComplexTerm("f", d(-1.0e+10)), "f(-1.0E+10).");
+		assertParse(new ComplexTerm("f", d(1.0e-10)), "f(1.0E-10).");
+		assertParse(new ComplexTerm("f", d(-1.0e-10)), "f(-1.0E-10).");
 	}
 
 	private List<? extends Term> s(String v) {
@@ -151,8 +155,12 @@ public class ParseTest {
 
 	@Test
 	public void testAtom() throws ParseException {
+		assertParse(new ComplexTerm("e", a("a")), "e(a).");
+		assertParse(new ComplexTerm("e", a("abc")), "e(abc).");
 		assertParse(new ComplexTerm("f", a("a")), "f(a).");
 		assertParse(new ComplexTerm("f", a("abc")), "f(abc).");
+		assertParse(new ComplexTerm("f", a("e")), "f(e).");
+		assertParse(new ComplexTerm("f", a("ebc")), "f(ebc).");
 	}
 
 	private List<? extends Term> v(String v) {
@@ -189,10 +197,10 @@ public class ParseTest {
 		VariableTerm X = new VariableTerm("X");
 		ConstantTerm b1 = new ConstantTerm(BigInteger.ONE);
 
-		assertParse(new Unifiable("=", Lists.newArrayList(X, b1)), "X=1.");
-		assertParse(new Unifiable("=", Lists.newArrayList(X, b1)), "=(X,1).");
 		assertParse(new Unifiable("=", Lists.newArrayList(E, b1)), "E=1.");
 		assertParse(new Unifiable("=", Lists.newArrayList(E, b1)), "=(E,1).");
+		assertParse(new Unifiable("=", Lists.newArrayList(X, b1)), "X=1.");
+		assertParse(new Unifiable("=", Lists.newArrayList(X, b1)), "=(X,1).");
 	}
 
 	@Test

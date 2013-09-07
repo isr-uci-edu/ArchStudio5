@@ -55,7 +55,7 @@ public class Conjunction extends ComplexTerm implements Executable {
 								}
 							}
 							indexVariables.remove(termsIndex--);
-							if (termsIndex == 0 || getTerm(termsIndex) instanceof Cut) {
+							if (termsIndex <= 0 || getTerm(termsIndex) instanceof Cut) {
 								return endOfData();
 							}
 						}

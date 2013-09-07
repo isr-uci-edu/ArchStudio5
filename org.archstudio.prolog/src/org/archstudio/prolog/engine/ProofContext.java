@@ -1,5 +1,7 @@
 package org.archstudio.prolog.engine;
 
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Map;
@@ -11,11 +13,13 @@ import org.archstudio.prolog.op.iso.AlphaGreaterThan;
 import org.archstudio.prolog.op.iso.AlphaGreaterThanEqual;
 import org.archstudio.prolog.op.iso.AlphaLessThan;
 import org.archstudio.prolog.op.iso.AlphaLessThanEqual;
+import org.archstudio.prolog.op.iso.BagOf;
 import org.archstudio.prolog.op.iso.Conjunction;
 import org.archstudio.prolog.op.iso.Cut;
 import org.archstudio.prolog.op.iso.Disjunction;
 import org.archstudio.prolog.op.iso.Equals;
 import org.archstudio.prolog.op.iso.False;
+import org.archstudio.prolog.op.iso.FindAll;
 import org.archstudio.prolog.op.iso.IfThen;
 import org.archstudio.prolog.op.iso.Is;
 import org.archstudio.prolog.op.iso.IsAtom;
@@ -27,11 +31,15 @@ import org.archstudio.prolog.op.iso.IsInteger;
 import org.archstudio.prolog.op.iso.IsNonvar;
 import org.archstudio.prolog.op.iso.IsNumber;
 import org.archstudio.prolog.op.iso.IsVar;
+import org.archstudio.prolog.op.iso.Length;
+import org.archstudio.prolog.op.iso.Multiply;
 import org.archstudio.prolog.op.iso.Neck;
 import org.archstudio.prolog.op.iso.Not;
 import org.archstudio.prolog.op.iso.NotEquals;
 import org.archstudio.prolog.op.iso.NotUnifiable;
+import org.archstudio.prolog.op.iso.SetOf;
 import org.archstudio.prolog.op.iso.SoftCut;
+import org.archstudio.prolog.op.iso.Sort;
 import org.archstudio.prolog.op.iso.Subtract;
 import org.archstudio.prolog.op.iso.True;
 import org.archstudio.prolog.op.iso.Unifiable;
@@ -41,6 +49,8 @@ import org.archstudio.prolog.op.iso.ValueGreaterThanEqual;
 import org.archstudio.prolog.op.iso.ValueLessThan;
 import org.archstudio.prolog.op.iso.ValueLessThanEqual;
 import org.archstudio.prolog.op.iso.ValueNotEquals;
+import org.archstudio.prolog.op.iso.Write;
+import org.archstudio.prolog.op.iso.WriteNewLine;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
 import org.archstudio.prolog.term.ListTerm;
@@ -75,6 +85,7 @@ public class ProofContext implements Cloneable {
 		operations.put(";", Disjunction.class);
 		operations.put("==", Equals.class);
 		operations.put("->", IfThen.class);
+		operations.put("*", Multiply.class);
 		operations.put(":-", Neck.class);
 		operations.put("\\+", Not.class);
 		operations.put("\\=", NotUnifiable.class);
@@ -92,23 +103,24 @@ public class ProofContext implements Cloneable {
 		operations.put("abs", Abs.class);
 		operations.put("atom", IsAtom.class);
 		operations.put("atomic", IsAtomic.class);
+		operations.put("bagof", BagOf.class);
 		operations.put("callable", IsCallable.class);
 		operations.put("compound", IsCompound.class);
 		operations.put("fail", False.class);
 		operations.put("false", False.class);
+		operations.put("findall", FindAll.class);
 		operations.put("float", IsFloat.class);
 		operations.put("integer", IsInteger.class);
 		operations.put("is", Is.class);
+		operations.put("length", Length.class);
 		operations.put("nonvar", IsNonvar.class);
 		operations.put("number", IsNumber.class);
+		operations.put("setof", SetOf.class);
+		operations.put("sort", Sort.class);
 		operations.put("true", True.class);
 		operations.put("var", IsVar.class);
-
-		// register non ISO operations
-
-		operations.put("|", Disjunction.class);
-
-		operations.put("not", Not.class);
+		operations.put("write", Write.class);
+		operations.put("writeln", WriteNewLine.class);
 
 		// add additional operations
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
@@ -147,6 +159,8 @@ public class ProofContext implements Cloneable {
 					return indeces;
 				}
 			});
+
+	private BufferedWriter output = new BufferedWriter(new OutputStreamWriter(System.out));
 
 	public ProofContext() {
 	}
@@ -199,6 +213,9 @@ public class ProofContext implements Cloneable {
 	}
 
 	public List<ComplexTerm> getKnowledgeBaseTerms(ComplexTerm goal, Map<VariableTerm, Term> variables) {
+		if (!knowledgeBase.containsKey(goal.getSignature())) {
+			throw new IllegalArgumentException("Unrecognized signature: " + goal.getSignature());
+		}
 		List<ComplexTerm> result = knowledgeBase.get(goal.getSignature());
 		for (int termIndex = 0; termIndex < goal.getArity(); termIndex++) {
 			if (goal.getTerm(termIndex) instanceof VariableTerm) {
@@ -208,6 +225,7 @@ public class ProofContext implements Cloneable {
 					if (v != null) {
 						List<ComplexTerm> t = v[termIndex].get(value);
 						if (t != null) {
+							// TODO: perform intersection instead of size comparison
 							if (t.size() < result.size()) {
 								result = t;
 							}
@@ -221,6 +239,7 @@ public class ProofContext implements Cloneable {
 				if (v != null) {
 					List<ComplexTerm> t = (List<ComplexTerm>) v[termIndex].asMap().get(value);
 					if (t != null) {
+						// TODO: perform intersection instead of size comparison
 						if (t.size() < result.size()) {
 							result = t;
 						}
@@ -260,5 +279,13 @@ public class ProofContext implements Cloneable {
 			return new ComplexTerm(name, terms);
 		}
 		return new ConstantTerm(name);
+	}
+
+	public BufferedWriter getOutput() {
+		return output;
+	}
+
+	public void setOutput(BufferedWriter output) {
+		this.output = output;
 	}
 }
