@@ -17,7 +17,7 @@ import com.google.common.collect.AbstractIterator;
 public class Disjunction extends ComplexTerm implements Executable {
 
 	public Disjunction(String name, List<? extends Term> terms) {
-		super(name, -1, terms);
+		super(name, 2, terms);
 	}
 
 	@Override

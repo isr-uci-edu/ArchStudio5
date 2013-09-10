@@ -162,6 +162,7 @@ public class ProofContext implements Cloneable {
 			});
 
 	private BufferedWriter output = new BufferedWriter(new OutputStreamWriter(System.out));
+	private boolean cancelled = false;
 
 	public ProofContext() {
 	}
@@ -285,5 +286,13 @@ public class ProofContext implements Cloneable {
 
 	public void setOutput(BufferedWriter output) {
 		this.output = output;
+	}
+
+	public boolean isCancelled() {
+		return cancelled;
+	}
+
+	public void setCancelled(boolean cancelled) {
+		this.cancelled = cancelled;
 	}
 }

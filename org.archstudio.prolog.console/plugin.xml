@@ -8,5 +8,17 @@
             label="Prolog">
       </consoleFactory>
    </extension>
+   <extension
+         point="org.eclipse.ui.console.consolePageParticipants">
+      <consolePageParticipant
+            class="org.archstudio.prolog.console.PrologConsoleFactory$PageParticipant"
+            id="org.archstudio.prolog.console.consolePageParticipant1">
+         <enablement>
+            <test
+                  property="org.eclipse.ui.console.consoleTypeTest"
+                  value="org.archstudio.prolog.console.PrologConsoleFactory">
+            </test></enablement>
+      </consolePageParticipant>
+   </extension>
 
 </plugin>

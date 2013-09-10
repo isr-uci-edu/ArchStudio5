@@ -19,21 +19,76 @@ import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 import org.archstudio.sysutils.SystemUtils;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.IConsoleConstants;
 import org.eclipse.ui.console.IConsoleFactory;
 import org.eclipse.ui.console.IConsoleManager;
+import org.eclipse.ui.console.IConsolePageParticipant;
 import org.eclipse.ui.console.IOConsole;
 import org.eclipse.ui.console.IOConsoleInputStream;
 import org.eclipse.ui.console.IOConsoleOutputStream;
+import org.eclipse.ui.part.IPageBookViewPage;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class PrologConsoleFactory implements IConsoleFactory {
+
+	public static final class StopExecutionAction extends Action {
+
+		private final IConsole console;
+
+		public StopExecutionAction(IConsole console) {
+			super("Stop Execution", ImageDescriptor.createFromImage(PlatformUI.getWorkbench().getSharedImages()
+					.getImage(ISharedImages.IMG_ELCL_STOP)));
+			this.console = console;
+		}
+
+		@Override
+		public void run() {
+			((ProofContext) ((IOConsole) console).getAttribute(ProofContext.class.getName())).setCancelled(true);
+		}
+	}
+
+	public static final class PageParticipant implements IConsolePageParticipant {
+
+		private StopExecutionAction stopExecutionAction;
+
+		@Override
+		public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
+			return null;
+		}
+
+		@Override
+		public void init(IPageBookViewPage page, IConsole console) {
+			stopExecutionAction = new StopExecutionAction(console);
+
+			IToolBarManager manager = page.getSite().getActionBars().getToolBarManager();
+			manager.appendToGroup(IConsoleConstants.LAUNCH_GROUP, stopExecutionAction);
+		}
+
+		@Override
+		public void dispose() {
+		}
+
+		@Override
+		public void activated() {
+		}
+
+		@Override
+		public void deactivated() {
+		}
+
+	}
 
 	@Override
 	public void openConsole() {
@@ -76,6 +131,8 @@ public class PrologConsoleFactory implements IConsoleFactory {
 		final ProofContext proofContext = optionalProofContext != null ? optionalProofContext : new ProofContext();
 		final UnificationEngine unificationEngine = new MostGeneralUnifierEngine();
 
+		console.setAttribute(ProofContext.class.getName(), proofContext);
+
 		Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -105,6 +162,7 @@ public class PrologConsoleFactory implements IConsoleFactory {
 								}
 							}
 
+							proofContext.setCancelled(false);
 							for (Term t : PrologParser.parseTerms(proofContext, command)) {
 								if (!(t instanceof Executable)) {
 									errpw.println("Not executable: ?- " + command);
@@ -146,6 +204,9 @@ public class PrologConsoleFactory implements IConsoleFactory {
 								}
 								outpw.println(".");
 								outpw.flush();
+								if (proofContext.isCancelled()) {
+									errpw.println("Execution stopped.");
+								}
 							}
 						}
 						else {
@@ -166,6 +227,7 @@ public class PrologConsoleFactory implements IConsoleFactory {
 								}
 							}
 
+							proofContext.setCancelled(false);
 							for (Term t : PrologParser.parseTerms(proofContext, command)) {
 								if (!(t instanceof ComplexTerm || t instanceof Neck)) {
 									errpw.println("Expecting a complex term or rule: " + command);

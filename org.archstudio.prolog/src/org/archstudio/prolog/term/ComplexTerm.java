@@ -25,18 +25,16 @@ public class ComplexTerm extends AbstractTerm implements Term, Executable {
 	private final List<? extends Term> terms;
 
 	public ComplexTerm(String functor, List<? extends Term> terms) {
-		this(functor, -1, terms);
+		this(functor, terms.size(), terms);
 	}
 
 	protected ComplexTerm(String functor, int arity, List<? extends Term> terms) {
 		this.functor = checkNotNull(functor);
 		this.terms = checkNotNull(terms);
 		checkArgument(terms.size() > 0);
+		checkArgument(terms.size() == arity, functor + "/" + arity + terms);
 		for (Term term : terms) {
 			checkNotNull(term);
-		}
-		if (arity >= 0) {
-			checkArgument(terms.size() == arity);
 		}
 	}
 
@@ -136,6 +134,9 @@ public class ComplexTerm extends AbstractTerm implements Term, Executable {
 					@Override
 					protected Map<VariableTerm, Term> computeNext() {
 						while (true) {
+							if (proofContext.isCancelled()) {
+								return endOfData();
+							}
 							if (variablesIterator.hasNext()) {
 								return variablesIterator.next();
 							}

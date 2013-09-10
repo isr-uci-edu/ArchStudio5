@@ -41,6 +41,9 @@ public class Conjunction extends ComplexTerm implements Executable {
 
 					@Override
 					protected Map<VariableTerm, Term> computeNext() {
+						if (proofContext.isCancelled()) {
+							return endOfData();
+						}
 						if (!term1Variables.hasNext()) {
 							while (term0Variables.hasNext()) {
 								Map<VariableTerm, Term> variables = term0Variables.next();
