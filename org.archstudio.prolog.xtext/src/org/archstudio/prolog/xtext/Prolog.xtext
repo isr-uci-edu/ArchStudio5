@@ -3,117 +3,151 @@ grammar org.archstudio.prolog.xtext.Prolog hidden(WHITESPACE, SINGLE_LINE_COMMEN
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 generate prolog "http://www.archstudio.org/prolog/xtext/Prolog"
 
-Program:
-	(exps+=ExpressionINF '.')+;
-
-ExpressionINF returns Expression:
-	Expression1200;
-
-Expression1200 returns Expression:
-	exps+=Expression1200fx (ops+=EXPRESSION_1200 exps+=Expression1200fx)?;
-
-terminal EXPRESSION_1200:
-	'-->' | ':-';
-
-Expression1200fx returns Expression:
-	(ops+=EXPRESSION_1200FX)? exps+=Expression1100;
-
-terminal EXPRESSION_1200FX:
-	'?-';
-
-Expression1100 returns Expression:
-	exps+=Expression1050 (ops+=EXPRESSION_1100 exps+=Expression1050)*;
-
-terminal EXPRESSION_1100:
-	';' | '|';
-
-Expression1050 returns Expression:
-	exps+=Expression1000 (ops+=EXPRESSION_1050 exps+=Expression1000)?;
-
-terminal EXPRESSION_1050:
-	'->' | '*->';
-
-Expression1000 returns Expression:
-	exps+=Expression900fx (ops+=EXPRESSION_1000 exps+=Expression900fx)*;
-
-terminal EXPRESSION_1000:
-	',';
-
-Expression900fx returns Expression:
-	(ops+=EXPRESSION_900FX)? exps+=Expression700;
-
-terminal EXPRESSION_900FX:
-	'\\+' | 'not';
-
-Expression700 returns Expression:
-	exps+=Expression600 (ops+=EXPRESSION_700 exps+=Expression600)?;
-
-terminal EXPRESSION_700:
-	'<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\=' | '\\=='
-	| 'is';
-
-Expression600 returns Expression:
-	exps+=Expression500 (ops+=EXPRESSION_600 exps+=Expression500)?;
-
-terminal EXPRESSION_600:
-	':';
-
-Expression500 returns Expression:
-	exps+=Expression400 (ops+=EXPRESSION_500 exps+=Expression400)?;
-
-terminal EXPRESSION_500:
-	'+' | '-' | '/\\' | '\\/' | 'xor';
-
-Expression400 returns Expression:
-	exps+=Expression200 (ops+=EXPRESSION_400 exps+=Expression200)?;
-
-terminal EXPRESSION_400:
-	'*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem';
-
-Expression200 returns Expression:
-	exps+=Expression0 (ops+=EXPRESSION_200 exps+=Expression0)?;
-
-terminal EXPRESSION_200:
-	'**' | '^';
-
-Expression0 returns Expression:
-	(atom=('.' | '!'
-	| ATOM
-	| EXPRESSION_1200
-	| EXPRESSION_1200FX
-	| EXPRESSION_1100
-	| EXPRESSION_1050
-	| EXPRESSION_1000
-	| EXPRESSION_900FX
-	| EXPRESSION_700
-	| EXPRESSION_600
-	| EXPRESSION_500
-	| EXPRESSION_400
-	| EXPRESSION_200) (prefix?='(' terms=ExpressionINF ')')?)
-	| (variable=VARIABLE)
-	| (string=STRING)
-	| (number=NUMBER)
-	| (list?='[' (head=ExpressionINF ('|' tail=ExpressionINF)?)? ']')
-	| paren?='(' sub=ExpressionINF ')';
-
-terminal ATOM:
-	('a'..'z') ('0'..'9' | 'a'..'z' | 'A'..'Z' | '_')*;
-
-terminal VARIABLE:
-	('A'..'Z' | '_') ('0'..'9' | 'a'..'z' | 'A'..'Z' | '_')*;
-
-terminal STRING:
-	'\'' ('0'..'9' | 'a'..'z' | 'A'..'Z' | '_' | '+' | '-' | '*' | '/' | '\\' | '^' | '~' | ':' | '.' | '?' | '@' | '#' |
-	'$' | '&' | ' ')* '\'';
-
-terminal DIGIT:
-	('0'..'9');
-
-NUMBER:
-	'-'? DIGIT+ ('.' DIGIT+)? (('e' | 'E') ('+' | '-')? DIGIT+)?;
+Model:
+	(exps+=ExpressionInfinity '.')+;
 
 terminal WHITESPACE:
 	(' ' | '\t' | '\r' | '\n')+;
 
 terminal SINGLE_LINE_COMMENT:
 	'%' !('\n' | '\r')* ('\r'? '\n')?;
+
+	// http://www.cse.unsw.edu.au/~billw/cs9414/notes/prolog/op.html
+terminal OP1200XFX:
+	'-->' | ':-';
+
+terminal OP1200FX:
+	':-' | '?-';
+
+terminal OP1150FX:
+	'dynamic' | 'discontiguous' | 'initialization' | 'module_transparent' | 'multifile' | 'thread_local' | 'volatile';
+
+terminal OP1100XFY:
+	';' | '|';
+
+terminal OP1050XFY:
+	'->' | '*->';
+
+terminal OP1000XFY:
+	',';
+
+terminal OP954XFY:
+	'\\';
+
+terminal OP900FY:
+	'\\+';
+
+terminal OP900FX:
+	'~';
+
+terminal OP700XFX:
+	'<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\=' | '\\=='
+	| 'is';
+
+terminal OP600XFY:
+	':';
+
+terminal OP500YFX:
+	'+' | '-' | '/\\' | '\\/' | 'xor';
+
+terminal OP500FX:
+	'+' | '-' | '?' | '\\';
+
+terminal OP400YFX:
+	'*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem';
+
+terminal OP200XFX:
+	'**';
+
+terminal OP200XFY:
+	'^';
+
+terminal ATOM:
+	'a'..'z' ('A'..'Z' | 'a'..'z' | '0'..'9' | '_')*;
+
+ATOMS:
+	'.' | '!' | ATOM | OP1200XFX | OP1200FX | OP1150FX | OP1100XFY | OP1050XFY | OP1000XFY | OP954XFY | OP900FY | OP900FX
+	| OP700XFX | OP600XFY | OP500YFX | OP500FX | OP400YFX | OP200XFX | OP200XFY;
+
+terminal VARIABLE:
+	('A'..'Z' | '_') ('A'..'Z' | 'a'..'z' | '0'..'9' | '_')*;
+
+terminal STRING:
+	'\''->'\'';
+
+terminal INT:
+	('0'..'9')+;
+
+terminal EXT_INT:
+	INT ('e' | 'E') ('-' | '+')? INT;
+
+NUMBER hidden():
+	'-'? INT ('.' (EXT_INT | INT))?;
+
+	// http://www.csupomona.edu/~jrfisher/www/prolog_tutorial/4.html
+// xfx infix nonassociative 
+// xfy infix right-associative 
+// yfx infix left-associative 
+// fx prefix nonassociative 
+// fy prefix right-associative 
+// xf postfix nonassociative 
+// yf postfix left-associative
+ExpressionInfinity returns Expression:
+	Expression1200xfx;
+
+Expression1200xfx returns Expression:
+	Expression1200fx ({Expression.left=current} op=OP1200XFX right=Expression1200fx)?;
+
+Expression1200fx returns UnaryExpression:
+	(op=OP1200FX)? right=Expression1150fx;
+
+Expression1150fx returns UnaryExpression:
+	(op=OP1150FX)? right=Expression1100xfy;
+
+Expression1100xfy returns Expression:
+	Expression1050xfy ({Expression.left=current} op=OP1100XFY right=Expression1100xfy)?;
+
+Expression1050xfy returns Expression:
+	Expression1000xfy ({Expression.left=current} op=OP1050XFY right=Expression1050xfy)?;
+
+Expression1000xfy returns Expression:
+	Expression954xfy ({Expression.left=current} op=OP1000XFY right=Expression1000xfy)?;
+
+Expression954xfy returns Expression:
+	Expression900fy ({Expression.left=current} op=OP954XFY right=Expression954xfy)?;
+
+	// TODO: Determine how to do right-associative UnaryExpressions, if necessary
+Expression900fy returns UnaryExpression:
+	(op=OP900FY)? right=Expression900fx;
+
+Expression900fx returns UnaryExpression:
+	(op=OP900FX)? right=Expression700xfx;
+
+Expression700xfx returns Expression:
+	Expression600xfy ({Expression.left=current} op=OP700XFX right=Expression600xfy)?;
+
+Expression600xfy returns Expression:
+	Expression500yfx ({Expression.left=current} op=OP600XFY right=Expression600xfy)?;
+
+Expression500yfx returns Expression:
+	Expression500fx ({Expression.left=current} op=OP500YFX right=Expression500fx)*;
+
+Expression500fx returns UnaryExpression:
+	(op=OP500FX)? right=Expression400yfx;
+
+Expression400yfx returns Expression:
+	Expression200xfx ({Expression.left=current} op=OP400YFX right=Expression200xfx)*;
+
+Expression200xfx returns Expression:
+	Expression200xfy ({Expression.left=current} op=OP200XFX right=Expression200xfy)?;
+
+Expression200xfy returns Expression:
+	Expression0 ({Expression.left=current} op=OP200XFY right=Expression200xfy)?;
+
+Expression0 returns Expression:
+	{AtomExpression} atom=ATOMS ('(' terms=ExpressionInfinity ')')?
+	| {VariableExpression} name=VARIABLE
+	| {StringExpression} value=STRING
+	| {NumberExpression} value=NUMBER
+	| {ListExpression} '[' (head=ExpressionInfinity ('|' tail=ExpressionInfinity)?)? ']'
+	| '(' ExpressionInfinity ')';

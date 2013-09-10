@@ -31,6 +31,7 @@ public class ComplexTerm extends AbstractTerm implements Term, Executable {
 	protected ComplexTerm(String functor, int arity, List<? extends Term> terms) {
 		this.functor = checkNotNull(functor);
 		this.terms = checkNotNull(terms);
+		checkArgument(terms.size() > 0);
 		for (Term term : terms) {
 			checkNotNull(term);
 		}

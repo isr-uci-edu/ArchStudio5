@@ -7,15 +7,21 @@ import java.math.BigInteger;
 import java.util.List;
 
 import org.archstudio.prolog.engine.ProofContext;
-import org.archstudio.prolog.op.iso.Conjunction;
+import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
 import org.archstudio.prolog.term.ListTerm;
 import org.archstudio.prolog.term.StringTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 import org.archstudio.prolog.xtext.PrologStandaloneSetupGenerated;
+import org.archstudio.prolog.xtext.prolog.AtomExpression;
 import org.archstudio.prolog.xtext.prolog.Expression;
-import org.archstudio.prolog.xtext.prolog.Program;
+import org.archstudio.prolog.xtext.prolog.ListExpression;
+import org.archstudio.prolog.xtext.prolog.Model;
+import org.archstudio.prolog.xtext.prolog.NumberExpression;
+import org.archstudio.prolog.xtext.prolog.StringExpression;
+import org.archstudio.prolog.xtext.prolog.UnaryExpression;
+import org.archstudio.prolog.xtext.prolog.VariableExpression;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
@@ -30,7 +36,7 @@ public class PrologParser {
 
 	private static Injector injector = null;
 
-	private static Program parse(String input) throws ParseException {
+	private static Model parse(String input) throws ParseException {
 		try {
 			if (injector == null) {
 				injector = new PrologStandaloneSetupGenerated().createInjectorAndDoEMFRegistration();
@@ -57,7 +63,7 @@ public class PrologParser {
 				}
 				throw new ParseException(resource.getErrors().get(0).getMessage() + " at " + l + " for: " + input);
 			}
-			return (Program) resource.getContents().get(0);
+			return (Model) resource.getContents().get(0);
 		}
 		catch (Throwable e) {
 			throw new ParseException("Parse exception for: " + input, e);
@@ -73,69 +79,71 @@ public class PrologParser {
 	}
 
 	private static Term parseExpression(ProofContext proofContext, Expression e) throws ParseException {
-		if (e.getOps().isEmpty() && e.getExps().size() == 1) {
-			return parseExpression(proofContext, e.getExps().get(0));
+		if (e == null) {
+			return null;
 		}
-		if (e.isParen()) {
-			return parseExpression(proofContext, e.getSub());
-		}
-		if (e.getNumber() != null) {
-			try {
-				return new ConstantTerm(new BigInteger(e.getNumber()));
+		if (e instanceof UnaryExpression) {
+			UnaryExpression c = (UnaryExpression) e;
+			Term right = parseExpression(proofContext, c.getRight());
+			if (c.getOp() != null) {
+				right = proofContext.create(c.getOp(), Lists.newArrayList(right));
 			}
-			catch (Exception e2) {
-				return new ConstantTerm(new BigDecimal(e.getNumber()));
-			}
+			return right;
 		}
-		if (e.getString() != null) {
-			return new StringTerm(e.getString());
+		if (e instanceof AtomExpression) {
+			AtomExpression c = (AtomExpression) e;
+			String op = c.getAtom();
+			List<Term> terms = toList(parseExpression(proofContext, c.getTerms()));
+			return proofContext.create(op, terms);
 		}
-		if (e.getVariable() != null) {
-			return new VariableTerm(e.getVariable());
+		if (e instanceof VariableExpression) {
+			VariableExpression c = (VariableExpression) e;
+			return new VariableTerm(c.getName());
 		}
-		if (e.isList()) {
-			Term list;
-			if (e.getTail() != null) {
-				list = parseExpression(proofContext, e.getTail());
+		if (e instanceof StringExpression) {
+			StringExpression c = (StringExpression) e;
+			return new StringTerm(c.getValue());
+		}
+		if (e instanceof NumberExpression) {
+			NumberExpression c = (NumberExpression) e;
+			String value = c.getValue().toLowerCase();
+			Number n;
+			if (value.indexOf('.') >= 0 || value.indexOf('e') >= 0) {
+				n = new BigDecimal(value);
 			}
 			else {
-				list = new ListTerm();
+				n = new BigInteger(value);
 			}
-			if (e.getHead() != null) {
-				Term head = parseExpression(proofContext, e.getHead());
-				if (head instanceof Conjunction) {
-					for (Term t : Lists.reverse(((Conjunction) head).getTerms())) {
-						list = new ListTerm(t, list);
-					}
-				}
-				else {
-					list = new ListTerm(head, list);
-				}
+			return new ConstantTerm(n);
+		}
+		if (e instanceof ListExpression) {
+			ListExpression c = (ListExpression) e;
+			Term list = new ListTerm();
+			if (c.getTail() != null) {
+				list = parseExpression(proofContext, c.getTail());
+			}
+			for (Term head : Lists.reverse(toList(parseExpression(proofContext, c.getHead())))) {
+				list = new ListTerm(head, list);
 			}
 			return list;
 		}
+		Term left = parseExpression(proofContext, e.getLeft());
+		Term right = parseExpression(proofContext, e.getRight());
+		return proofContext.create(e.getOp(), Lists.newArrayList(left, right));
+	}
 
-		String name;
-		List<Term> terms = null;
-		if (e.getAtom() != null) {
-			name = e.getAtom();
-			if (e.isPrefix()) {
-				Term atomTerms = parseExpression(proofContext, e.getTerms());
-				if (atomTerms instanceof Conjunction) {
-					terms = ((Conjunction) atomTerms).getTerms();
-				}
-				else {
-					terms = Lists.newArrayList(atomTerms);
-				}
+	private static List<Term> toList(Term t) {
+		if (t instanceof ComplexTerm) {
+			ComplexTerm c = (ComplexTerm) t;
+			if (",".equals(c.getFunctor())) {
+				List<Term> list = Lists.newArrayList(c.getTerm(0));
+				list.addAll(toList(c.getTerm(1)));
+				return list;
 			}
 		}
-		else {
-			name = e.getOps().get(0);
-			terms = Lists.newArrayList();
-			for (Expression exp : e.getExps()) {
-				terms.add(parseExpression(proofContext, exp));
-			}
+		if (t != null) {
+			return Lists.newArrayList(t);
 		}
-		return proofContext.create(name, terms);
+		return Lists.newArrayList();
 	}
 }

@@ -20,6 +20,8 @@ import com.google.common.collect.Lists;
 
 public class PrologUtils {
 
+	public static final VariableTerm DONT_CARE_VARIABLE = new VariableTerm("_");
+
 	static private AtomicInteger temporaryVarialeCounter = new AtomicInteger();
 
 	private PrologUtils() {

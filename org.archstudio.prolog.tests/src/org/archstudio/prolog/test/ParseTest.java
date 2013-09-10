@@ -5,8 +5,10 @@ import java.math.BigInteger;
 import java.util.List;
 
 import org.archstudio.prolog.engine.ProofContext;
+import org.archstudio.prolog.op.iso.Add;
 import org.archstudio.prolog.op.iso.Conjunction;
 import org.archstudio.prolog.op.iso.Neck;
+import org.archstudio.prolog.op.iso.Not;
 import org.archstudio.prolog.op.iso.NotUnifiable;
 import org.archstudio.prolog.op.iso.Unifiable;
 import org.archstudio.prolog.parser.ParseException;
@@ -27,6 +29,7 @@ public class ParseTest {
 
 	Term a = new ConstantTerm("a");
 	Term b = new ConstantTerm("b");
+	Term c = new ConstantTerm("c");
 	VariableTerm A = new VariableTerm("A");
 	VariableTerm B = new VariableTerm("B");
 	VariableTerm C = new VariableTerm("C");
@@ -46,6 +49,15 @@ public class ParseTest {
 		Assert.assertEquals(expected, r);
 	}
 
+	private void assertNotParse(String expected) throws ParseException {
+		try {
+			String r = PrologParser.parseTerms(proofContext, expected).get(0).toString() + ".";
+			Assert.fail(expected);
+		}
+		catch (Exception e) {
+		}
+	}
+
 	private void assertParse(Term expected, String s) throws ParseException {
 		Term t = PrologParser.parseTerms(proofContext, s).get(0);
 		Assert.assertEquals(expected, t);
@@ -58,18 +70,50 @@ public class ParseTest {
 	}
 
 	@Test
+	public void testKnownParseErrorsX() throws ParseException {
+		assertParse(new VariableTerm("X"), "X.");
+	}
+
+	@Test
+	public void testKnownParseErrorsE() throws ParseException {
+		assertParse(new VariableTerm("E"), "E.");
+	}
+
+	@Test
+	public void testKnownParseErrors_x() throws ParseException {
+		assertParse(new ConstantTerm("x"), "x.");
+	}
+
+	@Test
+	public void testKnownParseErrors_e() throws ParseException {
+		assertParse(new ConstantTerm("e"), "e.");
+	}
+
+	@Test
+	public void testKnownParseErrors_3() throws ParseException {
+		assertParse(new ConstantTerm(BigInteger.valueOf(3)), "3.");
+	}
+
+	@Test
+	public void testKnownParseErrors_30() throws ParseException {
+		assertParse(new ConstantTerm(BigDecimal.valueOf(3.0d)), "3.0.");
+	}
+
+	@Test
+	public void testKnownParseErrors_30e1() throws ParseException {
+		assertParse(new ConstantTerm(new BigDecimal("3.0e1")), "3.0e1.");
+	}
+
+	@Test
 	public void testRule() throws ParseException {
 		List<? extends Term> X = Lists.newArrayList(new VariableTerm("X"));
 		assertParse(
 				new Neck(":-", Lists.newArrayList(
 						new ComplexTerm("key_1", X),
-						new Conjunction(",", Lists.newArrayList(new ComplexTerm("f2", X), new ComplexTerm("g3_f", X),
-								new ComplexTerm("h_g", X))))), "key_1(X) :- f2(X), g3_f(X), h_g(X).");
-		assertParse(
-				new Neck(":-", Lists.newArrayList(
-						new ComplexTerm("key_1", X),
-						new Conjunction(",", Lists.newArrayList(new ComplexTerm("f2", X), new ComplexTerm("g3_f", X),
-								new ComplexTerm("h_g", X))))), ":-(key_1(X), ,(f2(X), g3_f(X), h_g(X))).");
+						new Conjunction(",", Lists.newArrayList(
+								new ComplexTerm("f2", X),
+								new Conjunction(",", Lists.newArrayList(new ComplexTerm("g3_f", X), new ComplexTerm(
+										"h_g", X))))))), "key_1(X) :- f2(X), g3_f(X), h_g(X).");
 	}
 
 	@Test
@@ -129,6 +173,8 @@ public class ParseTest {
 		assertParse(new ComplexTerm("f", d(-1.0)), "f(-1.0).");
 		assertParse(new ComplexTerm("f", d(123.0)), "f(123.0).");
 		assertParse(new ComplexTerm("f", d(-123.0)), "f(-123.0).");
+		assertParse(new ComplexTerm("f", d(1.0e10)), "f(1.0e10).");
+		assertParse(new ComplexTerm("f", d(-1.0e10)), "f(-1.0e10).");
 		assertParse(new ComplexTerm("f", d(1.0e+10)), "f(1.0e+10).");
 		assertParse(new ComplexTerm("f", d(-1.0e+10)), "f(-1.0e+10).");
 		assertParse(new ComplexTerm("f", d(1.0e-10)), "f(1.0e-10).");
@@ -212,5 +258,53 @@ public class ParseTest {
 		assertParse(
 				"test(Id,'Connected interfaces have incompatible directions') :- link(L), id(L,Id), link_point1(L,A), link_point2(L,B), direction(A,Ad), direction(B,Bd), \\+(compatible_directions(Ad,Bd)).",
 				"test(Id,'Connected interfaces have incompatible directions') :- link(L), id(L,Id), link_point1(L,A), link_point2(L,B), direction(A,Ad), direction(B,Bd), \\+ compatible_directions(Ad,Bd).");
+	}
+
+	@Test
+	public void testXFX() throws ParseException {
+		// xfx infix nonassociative 
+		assertParse(new ComplexTerm("-->", Lists.newArrayList(a, b)), "a-->b.");
+		assertNotParse("a-->b-->c.");
+	}
+
+	@Test
+	public void testXFY() throws ParseException {
+		// xfy infix right-associative
+		assertParse(new Conjunction(",", Lists.newArrayList(a, new Conjunction(",", Lists.newArrayList(b, c)))),
+				"a,b,c.");
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testYFX() throws ParseException {
+		// yfx infix left-associative 
+		assertParse(new Add("+", Lists.newArrayList(new Add("+", Lists.newArrayList(b1, b2)), b3)), "1+2+3.");
+	}
+
+	@Test
+	public void testFX() throws ParseException {
+		// fx prefix nonassociative
+		assertParse(new ComplexTerm("~", Lists.newArrayList(a)), "~a.");
+		assertNotParse("~~a.");
+	}
+
+	@Test
+	public void testFY() throws ParseException {
+		// fy prefix right-associative
+		assertParse(new Not("\\+", Lists.newArrayList(A)), "\\+ A.");
+		// FIXME: \\+ \\+ A doesn't work
+		// assertParse(new Not("\\+", Lists.newArrayList(new Not("\\+", Lists.newArrayList(A)))), "\\+ \\+ A.");
+	}
+
+	@Test
+	public void testXF() throws ParseException {
+		// xf postfix nonassociative
+		// none exist
+	}
+
+	@Test
+	public void testYF() throws ParseException {
+		// yf postfix left-associative
+		// none exist
 	}
 }

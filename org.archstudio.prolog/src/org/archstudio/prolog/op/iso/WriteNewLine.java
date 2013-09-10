@@ -15,17 +15,14 @@ import org.archstudio.prolog.term.VariableTerm;
 public class WriteNewLine extends ComplexTerm implements Executable {
 
 	public WriteNewLine(String name, List<? extends Term> terms) {
-		super(name, 1, terms);
+		super(name, 0, terms);
 	}
 
 	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			Term source, Map<VariableTerm, Term> variables) {
 
-		Term t = getTerm(0).resolve(proofContext, variables);
-
 		try {
-			proofContext.getOutput().write(t.toString());
 			proofContext.getOutput().newLine();
 			proofContext.getOutput().flush();
 		}

@@ -1,25 +1,38 @@
 package org.archstudio.prolog.op.iso;
 
+import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Executable;
-import org.archstudio.prolog.term.ConstantTerm;
+import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
-public class Cut extends ConstantTerm implements Executable {
+public class WriteLine extends ComplexTerm implements Executable {
 
-	public Cut(String name) {
-		super(name);
+	public WriteLine(String name, List<? extends Term> terms) {
+		super(name, 1, terms);
 	}
 
 	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext, UnificationEngine unificationEngine,
 			Term source, Map<VariableTerm, Term> variables) {
-		// Note: Cut is actually implemented in Conjunction, this implements the "true" part of it
+
+		Term t = getTerm(0).resolve(proofContext, variables);
+
+		try {
+			proofContext.getOutput().write(t.toString());
+			proofContext.getOutput().newLine();
+			proofContext.getOutput().flush();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		return Collections.singleton(variables);
 	}
 }

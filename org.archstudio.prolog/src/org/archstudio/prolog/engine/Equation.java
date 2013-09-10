@@ -8,6 +8,11 @@ public class Equation {
 	public final Term term2;
 
 	public Equation(Term term1, Term term2) {
+		if (PrologUtils.DONT_CARE_VARIABLE.equals(term1) || PrologUtils.DONT_CARE_VARIABLE.equals(term2)) {
+			term1 = PrologUtils.DONT_CARE_VARIABLE;
+			term2 = PrologUtils.DONT_CARE_VARIABLE;
+		}
+
 		this.term1 = term1;
 		this.term2 = term2;
 	}

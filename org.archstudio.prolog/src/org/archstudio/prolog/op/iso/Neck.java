@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.archstudio.prolog.engine.PrologUtils;
 import org.archstudio.prolog.engine.ProofContext;
+import org.archstudio.prolog.engine.Signature;
 import org.archstudio.prolog.engine.UnificationContext;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.term.ComplexTerm;
@@ -26,6 +27,11 @@ public class Neck extends ComplexTerm {
 	public Neck(String functor, List<? extends Term> terms) {
 		super(functor, 2, terms);
 		allVariables = PrologUtils.extractVariables(Sets.<VariableTerm> newHashSet(), this);
+	}
+
+	@Override
+	public Signature getSignature() {
+		return ((ComplexTerm) getTerm(0)).getSignature();
 	}
 
 	@Override

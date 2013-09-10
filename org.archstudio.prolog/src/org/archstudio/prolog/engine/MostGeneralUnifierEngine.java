@@ -38,7 +38,7 @@ public class MostGeneralUnifierEngine implements UnificationEngine {
 			// 6
 			if (f instanceof VariableTerm) {
 				VariableTerm v = (VariableTerm) f;
-				if (!v.getName().equals("_")) {
+				if (!PrologUtils.DONT_CARE_VARIABLE.equals(v) && !PrologUtils.DONT_CARE_VARIABLE.equals(g)) {
 					context.variables.put(v, g);
 					for (int j = i + 1; j < context.equations.size(); j++) {
 						Equation e2 = context.equations.get(j);

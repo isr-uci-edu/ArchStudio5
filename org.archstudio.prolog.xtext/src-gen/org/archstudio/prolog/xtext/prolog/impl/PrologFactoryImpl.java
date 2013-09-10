@@ -30,7 +30,7 @@ public class PrologFactoryImpl extends EFactoryImpl implements PrologFactory
   {
     try
     {
-      PrologFactory thePrologFactory = (PrologFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.archstudio.org/prolog/xtext/Prolog"); 
+      PrologFactory thePrologFactory = (PrologFactory)EPackage.Registry.INSTANCE.getEFactory(PrologPackage.eNS_URI);
       if (thePrologFactory != null)
       {
         return thePrologFactory;
@@ -64,8 +64,14 @@ public class PrologFactoryImpl extends EFactoryImpl implements PrologFactory
   {
     switch (eClass.getClassifierID())
     {
-      case PrologPackage.PROGRAM: return createProgram();
+      case PrologPackage.MODEL: return createModel();
       case PrologPackage.EXPRESSION: return createExpression();
+      case PrologPackage.UNARY_EXPRESSION: return createUnaryExpression();
+      case PrologPackage.ATOM_EXPRESSION: return createAtomExpression();
+      case PrologPackage.VARIABLE_EXPRESSION: return createVariableExpression();
+      case PrologPackage.STRING_EXPRESSION: return createStringExpression();
+      case PrologPackage.NUMBER_EXPRESSION: return createNumberExpression();
+      case PrologPackage.LIST_EXPRESSION: return createListExpression();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -76,10 +82,10 @@ public class PrologFactoryImpl extends EFactoryImpl implements PrologFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Program createProgram()
+  public Model createModel()
   {
-    ProgramImpl program = new ProgramImpl();
-    return program;
+    ModelImpl model = new ModelImpl();
+    return model;
   }
 
   /**
@@ -91,6 +97,72 @@ public class PrologFactoryImpl extends EFactoryImpl implements PrologFactory
   {
     ExpressionImpl expression = new ExpressionImpl();
     return expression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UnaryExpression createUnaryExpression()
+  {
+    UnaryExpressionImpl unaryExpression = new UnaryExpressionImpl();
+    return unaryExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AtomExpression createAtomExpression()
+  {
+    AtomExpressionImpl atomExpression = new AtomExpressionImpl();
+    return atomExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VariableExpression createVariableExpression()
+  {
+    VariableExpressionImpl variableExpression = new VariableExpressionImpl();
+    return variableExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public StringExpression createStringExpression()
+  {
+    StringExpressionImpl stringExpression = new StringExpressionImpl();
+    return stringExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NumberExpression createNumberExpression()
+  {
+    NumberExpressionImpl numberExpression = new NumberExpressionImpl();
+    return numberExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ListExpression createListExpression()
+  {
+    ListExpressionImpl listExpression = new ListExpressionImpl();
+    return listExpression;
   }
 
   /**

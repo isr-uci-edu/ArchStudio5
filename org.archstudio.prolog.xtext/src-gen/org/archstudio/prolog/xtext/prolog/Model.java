@@ -8,21 +8,21 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Program</b></em>'.
+ * A representation of the model object '<em><b>Model</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.Program#getExps <em>Exps</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.Model#getExps <em>Exps</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getProgram()
+ * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getModel()
  * @model
  * @generated
  */
-public interface Program extends EObject
+public interface Model extends EObject
 {
   /**
    * Returns the value of the '<em><b>Exps</b></em>' containment reference list.
@@ -34,10 +34,10 @@ public interface Program extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Exps</em>' containment reference list.
-   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getProgram_Exps()
+   * @see org.archstudio.prolog.xtext.prolog.PrologPackage#getModel_Exps()
    * @model containment="true"
    * @generated
    */
   EList<Expression> getExps();
 
-} // Program
+} // Model

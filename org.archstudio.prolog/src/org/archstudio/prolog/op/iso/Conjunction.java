@@ -14,51 +14,48 @@ import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
 import com.google.common.collect.AbstractIterator;
-import com.google.common.collect.Lists;
 
 public class Conjunction extends ComplexTerm implements Executable {
 
 	public Conjunction(String name, List<? extends Term> terms) {
-		super(name, -1, terms);
+		super(name, 2, terms);
 	}
 
 	@Override
 	public Iterable<Map<VariableTerm, Term>> execute(final ProofContext proofContext,
 			final UnificationEngine unificationEngine, Term source, final Map<VariableTerm, Term> variables) {
 
+		Executable term0 = PrologUtils.resolveExecutable(proofContext, getTerm(0), variables);
+		final Iterator<Map<VariableTerm, Term>> term0Variables = term0.execute(proofContext, unificationEngine, term0,
+				variables).iterator();
+
 		return new Iterable<Map<VariableTerm, Term>>() {
 
 			@Override
 			public Iterator<Map<VariableTerm, Term>> iterator() {
 
-				final List<Iterator<Map<VariableTerm, Term>>> indexVariables = Lists.newArrayList();
-				indexVariables.add(Collections.singleton(variables).iterator());
-
 				return new AbstractIterator<Map<VariableTerm, Term>>() {
 
-					int termsIndex = 0;
+					Iterator<Map<VariableTerm, Term>> term1Variables = Collections
+							.<Map<VariableTerm, Term>> emptyList().iterator();
 
 					@Override
 					protected Map<VariableTerm, Term> computeNext() {
-						while (true) {
-							Iterator<Map<VariableTerm, Term>> variablesIterator = indexVariables.get(termsIndex);
-							if (variablesIterator.hasNext()) {
-								if (termsIndex < getTermsSize()) {
-									Term term = getTerm(termsIndex++);
-									Map<VariableTerm, Term> variables = variablesIterator.next();
-									indexVariables.add(PrologUtils.resolveExecutable(proofContext, term, variables)
-											.execute(proofContext, unificationEngine, term, variables).iterator());
-									continue;
-								}
-								else {
-									return variablesIterator.next();
+						if (!term1Variables.hasNext()) {
+							while (term0Variables.hasNext()) {
+								Map<VariableTerm, Term> variables = term0Variables.next();
+								Executable term1 = PrologUtils.resolveExecutable(proofContext, getTerm(1), variables);
+								term1Variables = term1.execute(proofContext, unificationEngine, term1, variables)
+										.iterator();
+								if (term1Variables.hasNext()) {
+									break;
 								}
 							}
-							indexVariables.remove(termsIndex--);
-							if (termsIndex <= 0 || getTerm(termsIndex) instanceof Cut) {
+							if (!term1Variables.hasNext()) {
 								return endOfData();
 							}
 						}
+						return term1Variables.next();
 					}
 				};
 			}

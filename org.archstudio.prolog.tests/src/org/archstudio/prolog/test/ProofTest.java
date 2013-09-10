@@ -293,19 +293,19 @@ public class ProofTest {
 		}
 		{
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Course, english).add(Student, alice).done());
+			expected.add(new Variables().add(Course, english).add(Student, angus).done());
+			expected.add(new Variables().add(Course, drama).add(Student, amelia).done());
+			Assert.assertEquals(expected, run("!, teaches(dr_fred, Course), studies(Student, Course)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
 			Assert.assertEquals(expected, run("teaches(dr_fred, Course), !, studies(Student, Course)."));
 		}
 		{
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
 			expected.add(new Variables().add(Course, english).add(Student, alice).done());
 			Assert.assertEquals(expected, run("teaches(dr_fred, Course), studies(Student, Course), !."));
-		}
-		{
-			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
-			expected.add(new Variables().add(Course, english).add(Student, alice).done());
-			expected.add(new Variables().add(Course, english).add(Student, angus).done());
-			expected.add(new Variables().add(Course, drama).add(Student, amelia).done());
-			Assert.assertEquals(expected, run("!, teaches(dr_fred, Course), studies(Student, Course)."));
 		}
 	}
 

@@ -75,14 +75,44 @@ public class PrologAdapterFactory extends AdapterFactoryImpl
     new PrologSwitch<Adapter>()
     {
       @Override
-      public Adapter caseProgram(Program object)
+      public Adapter caseModel(Model object)
       {
-        return createProgramAdapter();
+        return createModelAdapter();
       }
       @Override
       public Adapter caseExpression(Expression object)
       {
         return createExpressionAdapter();
+      }
+      @Override
+      public Adapter caseUnaryExpression(UnaryExpression object)
+      {
+        return createUnaryExpressionAdapter();
+      }
+      @Override
+      public Adapter caseAtomExpression(AtomExpression object)
+      {
+        return createAtomExpressionAdapter();
+      }
+      @Override
+      public Adapter caseVariableExpression(VariableExpression object)
+      {
+        return createVariableExpressionAdapter();
+      }
+      @Override
+      public Adapter caseStringExpression(StringExpression object)
+      {
+        return createStringExpressionAdapter();
+      }
+      @Override
+      public Adapter caseNumberExpression(NumberExpression object)
+      {
+        return createNumberExpressionAdapter();
+      }
+      @Override
+      public Adapter caseListExpression(ListExpression object)
+      {
+        return createListExpressionAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -107,16 +137,16 @@ public class PrologAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link org.archstudio.prolog.xtext.prolog.Program <em>Program</em>}'.
+   * Creates a new adapter for an object of class '{@link org.archstudio.prolog.xtext.prolog.Model <em>Model</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.archstudio.prolog.xtext.prolog.Program
+   * @see org.archstudio.prolog.xtext.prolog.Model
    * @generated
    */
-  public Adapter createProgramAdapter()
+  public Adapter createModelAdapter()
   {
     return null;
   }
@@ -132,6 +162,96 @@ public class PrologAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.archstudio.prolog.xtext.prolog.UnaryExpression <em>Unary Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.archstudio.prolog.xtext.prolog.UnaryExpression
+   * @generated
+   */
+  public Adapter createUnaryExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.archstudio.prolog.xtext.prolog.AtomExpression <em>Atom Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.archstudio.prolog.xtext.prolog.AtomExpression
+   * @generated
+   */
+  public Adapter createAtomExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.archstudio.prolog.xtext.prolog.VariableExpression <em>Variable Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.archstudio.prolog.xtext.prolog.VariableExpression
+   * @generated
+   */
+  public Adapter createVariableExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.archstudio.prolog.xtext.prolog.StringExpression <em>String Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.archstudio.prolog.xtext.prolog.StringExpression
+   * @generated
+   */
+  public Adapter createStringExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.archstudio.prolog.xtext.prolog.NumberExpression <em>Number Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.archstudio.prolog.xtext.prolog.NumberExpression
+   * @generated
+   */
+  public Adapter createNumberExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.archstudio.prolog.xtext.prolog.ListExpression <em>List Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.archstudio.prolog.xtext.prolog.ListExpression
+   * @generated
+   */
+  public Adapter createListExpressionAdapter()
   {
     return null;
   }

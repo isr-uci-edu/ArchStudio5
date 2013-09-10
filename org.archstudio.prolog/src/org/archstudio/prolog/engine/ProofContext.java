@@ -15,7 +15,6 @@ import org.archstudio.prolog.op.iso.AlphaLessThan;
 import org.archstudio.prolog.op.iso.AlphaLessThanEqual;
 import org.archstudio.prolog.op.iso.BagOf;
 import org.archstudio.prolog.op.iso.Conjunction;
-import org.archstudio.prolog.op.iso.Cut;
 import org.archstudio.prolog.op.iso.Disjunction;
 import org.archstudio.prolog.op.iso.Equals;
 import org.archstudio.prolog.op.iso.False;
@@ -50,6 +49,7 @@ import org.archstudio.prolog.op.iso.ValueLessThan;
 import org.archstudio.prolog.op.iso.ValueLessThanEqual;
 import org.archstudio.prolog.op.iso.ValueNotEquals;
 import org.archstudio.prolog.op.iso.Write;
+import org.archstudio.prolog.op.iso.WriteLine;
 import org.archstudio.prolog.op.iso.WriteNewLine;
 import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.ConstantTerm;
@@ -71,56 +71,57 @@ import com.google.common.collect.Sets;
 
 public class ProofContext implements Cloneable {
 
-	private static final Map<String, Class<? extends Executable>> operations = Maps.newHashMap();
+	private static final Map<String, Class<? extends Term>> operations = Maps.newHashMap();
 	{
 		// register the ISO operations
 
-		operations.put("+", Add.class);
-		operations.put("@>", AlphaGreaterThan.class);
-		operations.put("@>=", AlphaGreaterThanEqual.class);
-		operations.put("@<", AlphaLessThan.class);
-		operations.put("@=<", AlphaLessThanEqual.class);
-		operations.put(",", Conjunction.class);
-		operations.put("!", Cut.class);
-		operations.put(";", Disjunction.class);
-		operations.put("==", Equals.class);
-		operations.put("->", IfThen.class);
-		operations.put("*", Multiply.class);
-		operations.put(":-", Neck.class);
-		operations.put("\\+", Not.class);
-		operations.put("\\=", NotUnifiable.class);
-		operations.put("\\==", NotEquals.class);
-		operations.put("*->", SoftCut.class);
-		operations.put("-", Subtract.class);
-		operations.put("=", Unifiable.class);
-		operations.put("=:=", ValueEquals.class);
-		operations.put(">", ValueGreaterThan.class);
-		operations.put(">=", ValueGreaterThanEqual.class);
-		operations.put("<", ValueLessThan.class);
-		operations.put("=<", ValueLessThanEqual.class);
-		operations.put("=\\=", ValueNotEquals.class);
+		operations.put("+/2", Add.class);
+		operations.put("@>/2", AlphaGreaterThan.class);
+		operations.put("@>=/2", AlphaGreaterThanEqual.class);
+		operations.put("@</2", AlphaLessThan.class);
+		operations.put("@=</2", AlphaLessThanEqual.class);
+		operations.put(",/2", Conjunction.class);
+		operations.put(";/2", Disjunction.class);
+		operations.put("==/2", Equals.class);
+		operations.put("->/2", IfThen.class);
+		operations.put("./2", ListTerm.class);
+		operations.put("*/2", Multiply.class);
+		operations.put(":-/2", Neck.class);
+		operations.put("\\+/1", Not.class);
+		operations.put("\\=/2", NotUnifiable.class);
+		operations.put("\\==/2", NotEquals.class);
+		operations.put("*->/2", SoftCut.class);
+		operations.put("-/2", Subtract.class);
+		operations.put("=/2", Unifiable.class);
+		operations.put("=:=/2", ValueEquals.class);
+		operations.put(">/2", ValueGreaterThan.class);
+		operations.put(">=/2", ValueGreaterThanEqual.class);
+		operations.put("</2", ValueLessThan.class);
+		operations.put("=</2", ValueLessThanEqual.class);
+		operations.put("=\\=/2", ValueNotEquals.class);
 
-		operations.put("abs", Abs.class);
-		operations.put("atom", IsAtom.class);
-		operations.put("atomic", IsAtomic.class);
-		operations.put("bagof", BagOf.class);
-		operations.put("callable", IsCallable.class);
-		operations.put("compound", IsCompound.class);
-		operations.put("fail", False.class);
-		operations.put("false", False.class);
-		operations.put("findall", FindAll.class);
-		operations.put("float", IsFloat.class);
-		operations.put("integer", IsInteger.class);
-		operations.put("is", Is.class);
-		operations.put("length", Length.class);
-		operations.put("nonvar", IsNonvar.class);
-		operations.put("number", IsNumber.class);
-		operations.put("setof", SetOf.class);
-		operations.put("sort", Sort.class);
-		operations.put("true", True.class);
-		operations.put("var", IsVar.class);
-		operations.put("write", Write.class);
-		operations.put("writeln", WriteNewLine.class);
+		operations.put("abs/1", Abs.class);
+		operations.put("atom/1", IsAtom.class);
+		operations.put("atomic/1", IsAtomic.class);
+		operations.put("bagof/3", BagOf.class);
+		operations.put("callable/1", IsCallable.class);
+		operations.put("compound/1", IsCompound.class);
+		operations.put("fail/0", False.class);
+		operations.put("false/0", False.class);
+		operations.put("findall/3", FindAll.class);
+		operations.put("float/1", IsFloat.class);
+		operations.put("integer/1", IsInteger.class);
+		operations.put("is/2", Is.class);
+		operations.put("length/2", Length.class);
+		operations.put("nonvar/1", IsNonvar.class);
+		operations.put("nl/0", WriteNewLine.class);
+		operations.put("number/1", IsNumber.class);
+		operations.put("setof/3", SetOf.class);
+		operations.put("sort/2", Sort.class);
+		operations.put("true/0", True.class);
+		operations.put("var/1", IsVar.class);
+		operations.put("write/1", Write.class);
+		operations.put("writeln/1", WriteLine.class);
 
 		// add additional operations
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
@@ -255,14 +256,11 @@ public class ProofContext implements Cloneable {
 	}
 
 	public Term create(String name, List<Term> terms) {
-		if (".".equals(name)) {
-			return new ListTerm(terms.get(0), terms.get(1));
-		}
 		@SuppressWarnings("unchecked")
-		Class<Executable> operationClass = (Class<Executable>) operations.get(name);
+		Class<Executable> operationClass = (Class<Executable>) operations.get(name + "/" + terms.size());
 		if (operationClass != null) {
 			try {
-				if (terms != null) {
+				if (terms.size() > 0) {
 					Constructor<Executable> c = operationClass.getConstructor(String.class, List.class);
 					return c.newInstance(name, terms);
 				}
@@ -275,7 +273,7 @@ public class ProofContext implements Cloneable {
 				throw new RuntimeException(exc);
 			}
 		}
-		if (terms != null) {
+		if (terms.size() > 0) {
 			return new ComplexTerm(name, terms);
 		}
 		return new ConstantTerm(name);

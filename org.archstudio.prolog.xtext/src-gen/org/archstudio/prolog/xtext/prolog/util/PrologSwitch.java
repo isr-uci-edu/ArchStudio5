@@ -72,10 +72,10 @@ public class PrologSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case PrologPackage.PROGRAM:
+      case PrologPackage.MODEL:
       {
-        Program program = (Program)theEObject;
-        T result = caseProgram(program);
+        Model model = (Model)theEObject;
+        T result = caseModel(model);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -86,22 +86,70 @@ public class PrologSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case PrologPackage.UNARY_EXPRESSION:
+      {
+        UnaryExpression unaryExpression = (UnaryExpression)theEObject;
+        T result = caseUnaryExpression(unaryExpression);
+        if (result == null) result = caseExpression(unaryExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PrologPackage.ATOM_EXPRESSION:
+      {
+        AtomExpression atomExpression = (AtomExpression)theEObject;
+        T result = caseAtomExpression(atomExpression);
+        if (result == null) result = caseExpression(atomExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PrologPackage.VARIABLE_EXPRESSION:
+      {
+        VariableExpression variableExpression = (VariableExpression)theEObject;
+        T result = caseVariableExpression(variableExpression);
+        if (result == null) result = caseExpression(variableExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PrologPackage.STRING_EXPRESSION:
+      {
+        StringExpression stringExpression = (StringExpression)theEObject;
+        T result = caseStringExpression(stringExpression);
+        if (result == null) result = caseExpression(stringExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PrologPackage.NUMBER_EXPRESSION:
+      {
+        NumberExpression numberExpression = (NumberExpression)theEObject;
+        T result = caseNumberExpression(numberExpression);
+        if (result == null) result = caseExpression(numberExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PrologPackage.LIST_EXPRESSION:
+      {
+        ListExpression listExpression = (ListExpression)theEObject;
+        T result = caseListExpression(listExpression);
+        if (result == null) result = caseExpression(listExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Program</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Model</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Program</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Model</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseProgram(Program object)
+  public T caseModel(Model object)
   {
     return null;
   }
@@ -118,6 +166,102 @@ public class PrologSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseExpression(Expression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Unary Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Unary Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUnaryExpression(UnaryExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Atom Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Atom Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAtomExpression(AtomExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Variable Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variable Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariableExpression(VariableExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>String Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>String Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseStringExpression(StringExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Number Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Number Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNumberExpression(NumberExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>List Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>List Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseListExpression(ListExpression object)
   {
     return null;
   }

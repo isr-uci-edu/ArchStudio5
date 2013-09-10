@@ -5,7 +5,7 @@ package org.archstudio.prolog.xtext.prolog.impl;
 import java.util.Collection;
 
 import org.archstudio.prolog.xtext.prolog.Expression;
-import org.archstudio.prolog.xtext.prolog.Program;
+import org.archstudio.prolog.xtext.prolog.Model;
 import org.archstudio.prolog.xtext.prolog.PrologPackage;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -22,18 +22,18 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Program</b></em>'.
+ * An implementation of the model object '<em><b>Model</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ProgramImpl#getExps <em>Exps</em>}</li>
+ *   <li>{@link org.archstudio.prolog.xtext.prolog.impl.ModelImpl#getExps <em>Exps</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
+public class ModelImpl extends MinimalEObjectImpl.Container implements Model
 {
   /**
    * The cached value of the '{@link #getExps() <em>Exps</em>}' containment reference list.
@@ -50,7 +50,7 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ProgramImpl()
+  protected ModelImpl()
   {
     super();
   }
@@ -63,7 +63,7 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
   @Override
   protected EClass eStaticClass()
   {
-    return PrologPackage.Literals.PROGRAM;
+    return PrologPackage.Literals.MODEL;
   }
 
   /**
@@ -75,7 +75,7 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
   {
     if (exps == null)
     {
-      exps = new EObjectContainmentEList<Expression>(Expression.class, this, PrologPackage.PROGRAM__EXPS);
+      exps = new EObjectContainmentEList<Expression>(Expression.class, this, PrologPackage.MODEL__EXPS);
     }
     return exps;
   }
@@ -90,7 +90,7 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
   {
     switch (featureID)
     {
-      case PrologPackage.PROGRAM__EXPS:
+      case PrologPackage.MODEL__EXPS:
         return ((InternalEList<?>)getExps()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -106,7 +106,7 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
   {
     switch (featureID)
     {
-      case PrologPackage.PROGRAM__EXPS:
+      case PrologPackage.MODEL__EXPS:
         return getExps();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -123,7 +123,7 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
   {
     switch (featureID)
     {
-      case PrologPackage.PROGRAM__EXPS:
+      case PrologPackage.MODEL__EXPS:
         getExps().clear();
         getExps().addAll((Collection<? extends Expression>)newValue);
         return;
@@ -141,7 +141,7 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
   {
     switch (featureID)
     {
-      case PrologPackage.PROGRAM__EXPS:
+      case PrologPackage.MODEL__EXPS:
         getExps().clear();
         return;
     }
@@ -158,10 +158,10 @@ public class ProgramImpl extends MinimalEObjectImpl.Container implements Program
   {
     switch (featureID)
     {
-      case PrologPackage.PROGRAM__EXPS:
+      case PrologPackage.MODEL__EXPS:
         return exps != null && !exps.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //ProgramImpl
+} //ModelImpl
