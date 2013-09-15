@@ -18,9 +18,9 @@ public interface IHintRepository {
 	public @Nullable
 	Object getContextForThing(IBNAWorld world, IThing thing);
 
-	public void storeHint(Object context, String name, @Nullable Serializable value);
+	public boolean storeHint(Object context, String name, @Nullable Serializable value);
 
-	public void removeHint(Object context, String name);
+	public boolean removeHint(Object context, String name);
 
 	public HintValue getHint(Object context, String name) throws PropertyDecodeException;
 

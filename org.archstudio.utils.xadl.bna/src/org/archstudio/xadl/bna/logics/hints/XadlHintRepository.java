@@ -13,6 +13,7 @@ import org.archstudio.bna.logics.hints.IPropertyCoder;
 import org.archstudio.bna.logics.hints.MasterPropertyCoder;
 import org.archstudio.bna.logics.hints.PropertyDecodeException;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl3.hints_3_0.Hint;
@@ -97,23 +98,25 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 	}
 
 	@Override
-	public void storeHint(Object context, String hintName, @Nullable Serializable hintValue) {
+	public boolean storeHint(Object context, String hintName, @Nullable Serializable hintValue) {
 		HintsExtension hints = XArchADTProxy.proxy(xarch, XadlUtils.createExt(xarch, (ObjRef) context,
 				Hints_3_0Package.eNS_URI, Hints_3_0Package.Literals.HINTS_EXTENSION.getName()));
-		encode(createHint(hints, hintName), hintValue);
+		return encode(createHint(hints, hintName), hintValue);
 	}
 
 	@Override
-	public void removeHint(Object context, String hintName) {
+	public boolean removeHint(Object context, String hintName) {
 		HintsExtension hints = XArchADTProxy.proxy(xarch, XadlUtils.getExt(xarch, (ObjRef) context,
 				Hints_3_0Package.eNS_URI, Hints_3_0Package.Literals.HINTS_EXTENSION.getName()));
 		if (hints != null) {
 			for (Hint hint : hints.getHint()) {
 				if (hintName.equals(hint.getName())) {
 					hints.getHint().remove(hint);
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 
 	@Override
@@ -130,14 +133,18 @@ public class XadlHintRepository implements IHintRepository, IXArchADTModelListen
 		return new HintValueImpl(false, null);
 	}
 
-	private void encode(Hint hint, @Nullable Serializable hintValue) {
+	private boolean encode(Hint hint, @Nullable Serializable hintValue) {
+		String newValue = null;
 		if (hintValue != null) {
 			IEncodedValue encodedValue = coder.encode(coder, hintValue);
-			hint.setHint(encodedValue.getType() + ":" + encodedValue.getData());
+			newValue = encodedValue.getType() + ":" + encodedValue.getData();
 		}
-		else {
-			hint.setHint(null);
+		String oldValue = hint.getHint();
+		if (!SystemUtils.nullEquals(oldValue, newValue)) {
+			hint.setHint(newValue);
+			return true;
 		}
+		return false;
 	}
 
 	private @Nullable

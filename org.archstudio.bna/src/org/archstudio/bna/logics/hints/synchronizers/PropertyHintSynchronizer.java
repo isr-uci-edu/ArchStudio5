@@ -21,6 +21,8 @@ import com.google.common.collect.Lists;
 
 public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 
+	protected static final boolean DEBUG = false;
+
 	protected final String hintNameSuffix;
 	protected final IThingKey<Object> propertyName;
 	protected final Class<?> requiredClass;
@@ -36,26 +38,40 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 	}
 
 	@Override
-	public void restoreHints(IHintRepository repository, Object context, IThing thing, @Nullable String name) {
-		if (requiredClass.isInstance(thing) && UserEditableUtils.isEditableForAnyQualities(thing, editableQualities)) {
-			try {
-				HintValue value = repository.getHint(context, getHintName(thing));
-				if (value.isPresent()) {
-					if (value.getValue() != null) {
-						thing.set(propertyName, value.getValue());
+	public synchronized void restoreHints(IHintRepository repository, Object context, IThing thing,
+			@Nullable String name) {
+		String ourName = getHintName(thing);
+		if (name == null) {
+			name = ourName;
+		}
+		if (ourName.equals(name)) {
+			if (!wasIgnored(context, name)) {
+				if (requiredClass.isInstance(thing)
+						&& UserEditableUtils.isEditableForAnyQualities(thing, editableQualities)) {
+					try {
+						HintValue value = repository.getHint(context, name);
+						if (value.isPresent()) {
+							if (DEBUG) {
+								System.err.println("Restoring: " + name);
+							}
+							if (value.getValue() != null) {
+								thing.set(propertyName, value.getValue());
+							}
+							else {
+								thing.remove(propertyName);
+							}
+						}
 					}
-					else {
-						thing.remove(propertyName);
+					catch (PropertyDecodeException e) {
 					}
 				}
-			}
-			catch (PropertyDecodeException e) {
 			}
 		}
 	}
 
 	@Override
-	public void storeHints(IHintRepository repository, Object context, IThing thing, @Nullable BNAModelEvent evt) {
+	public synchronized void storeHints(IHintRepository repository, Object context, IThing thing,
+			@Nullable BNAModelEvent evt) {
 
 		// ignore property changes other than those that we are interested in
 		if (evt != null) {
@@ -68,11 +84,19 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 		}
 		if (requiredClass.isInstance(thing) && UserEditableUtils.isEditableForAnyQualities(thing, editableQualities)) {
 			Object value = thing.get(propertyName);
+			String name = getHintName(thing);
+			if (DEBUG) {
+				System.err.println("  Storing: " + name);
+			}
 			if (value != null && value instanceof Serializable) {
-				repository.storeHint(context, getHintName(thing), (Serializable) value);
+				if (repository.storeHint(context, name, (Serializable) value)) {
+					ignore(context, name);
+				}
 			}
 			else {
-				repository.removeHint(context, getHintName(thing));
+				if (repository.removeHint(context, name)) {
+					ignore(context, name);
+				}
 			}
 		}
 	}
