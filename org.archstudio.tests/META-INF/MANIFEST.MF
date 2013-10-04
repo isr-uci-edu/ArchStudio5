@@ -5,7 +5,6 @@ Bundle-SymbolicName: org.archstudio.tests
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: archstudio.org
 Require-Bundle: org.junit,
- org.archstudio.bna.tests,
  org.archstudio.xadl.tests,
  org.archstudio.xarchadt.tests,
  org.archstudio.xarchadt.variability.tests,

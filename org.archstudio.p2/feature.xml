@@ -43,7 +43,6 @@
 
    <requires>
       <import plugin="org.junit"/>
-      <import plugin="org.archstudio.bna.tests"/>
       <import plugin="org.archstudio.xadl.tests"/>
       <import plugin="org.archstudio.xarchadt.tests"/>
       <import plugin="org.archstudio.xarchadt.variability.tests"/>
