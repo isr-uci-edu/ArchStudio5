@@ -11,6 +11,11 @@ public interface ICoordinateMapper {
 	public static final ICoordinateMapper IDENTITY = new ICoordinateMapper() {
 
 		@Override
+		public void insertCoordinateMapperListener(ICoordinateMapperListener l) {
+			// ignored: this class will never generate an event
+		}
+
+		@Override
 		public void addCoordinateMapperListener(ICoordinateMapperListener l) {
 			// ignored: this class will never generate an event
 		}
@@ -69,6 +74,8 @@ public interface ICoordinateMapper {
 			return BNAUtils.clone(localRectangle);
 		}
 	};
+
+	public abstract void insertCoordinateMapperListener(ICoordinateMapperListener l);
 
 	public abstract void addCoordinateMapperListener(ICoordinateMapperListener l);
 

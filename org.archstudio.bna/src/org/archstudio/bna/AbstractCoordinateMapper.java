@@ -3,12 +3,13 @@ package org.archstudio.bna;
 import static org.archstudio.sysutils.SystemUtils.simpleName;
 
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.archstudio.bna.CoordinateMapperEvent.EventType;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+
+import com.google.common.collect.Lists;
 
 public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapper, Cloneable {
 
@@ -21,7 +22,7 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 	protected Point localOrigin = new Point(worldBounds.x + worldBounds.width / 2, worldBounds.y + worldBounds.height
 			/ 2);
 
-	protected List<ICoordinateMapperListener> listeners = new CopyOnWriteArrayList<ICoordinateMapperListener>();
+	protected List<ICoordinateMapperListener> listeners = Lists.newCopyOnWriteArrayList();
 
 	public AbstractCoordinateMapper() {
 	}
@@ -31,8 +32,13 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 		AbstractCoordinateMapper t = (AbstractCoordinateMapper) super.clone();
 		t.worldBounds = new Rectangle(t.worldBounds.x, t.worldBounds.y, t.worldBounds.width, t.worldBounds.height);
 		t.localOrigin = new Point(t.localOrigin.x, t.localOrigin.y);
-		t.listeners = new CopyOnWriteArrayList<ICoordinateMapperListener>();
+		t.listeners = Lists.newCopyOnWriteArrayList();
 		return t;
+	}
+
+	@Override
+	public void insertCoordinateMapperListener(ICoordinateMapperListener l) {
+		listeners.add(0, l);
 	}
 
 	@Override
@@ -63,8 +69,10 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 
 	@Override
 	public synchronized void setWorldBounds(Rectangle worldBounds) {
-		this.worldBounds = BNAUtils.clone(worldBounds);
-		fireCoordinateMapperEvent(EventType.WORLD_BOUNDS);
+		if (!this.worldBounds.equals(worldBounds)) {
+			this.worldBounds = BNAUtils.clone(worldBounds);
+			fireCoordinateMapperEvent(EventType.WORLD_BOUNDS);
+		}
 	}
 
 	@Override
@@ -74,8 +82,10 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 
 	@Override
 	public void setLocalOrigin(Point localOrigin) {
-		this.localOrigin = BNAUtils.clone(localOrigin);
-		fireCoordinateMapperEvent(EventType.LOCAL_ORIGIN);
+		if (!this.localOrigin.equals(localOrigin)) {
+			this.localOrigin = BNAUtils.clone(localOrigin);
+			fireCoordinateMapperEvent(EventType.LOCAL_ORIGIN);
+		}
 	}
 
 	@Override
@@ -85,23 +95,41 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 
 	@Override
 	public void setLocalScale(double localScale) {
-		this.localScale = localScale;
-		fireCoordinateMapperEvent(EventType.LOCAL_SCALE);
+		if (Math.abs(this.localScale - localScale) > Double.MIN_VALUE) {
+			this.localScale = localScale;
+			fireCoordinateMapperEvent(EventType.LOCAL_SCALE);
+		}
 	}
 
 	@Override
 	public void align(Point localPoint, Point worldPoint) {
 		Point oldLocalPoint = worldToLocal(new Point(worldPoint.x, worldPoint.y));
 		Point localDelta = new Point(localPoint.x - oldLocalPoint.x, localPoint.y - oldLocalPoint.y);
-		this.localOrigin.x -= localDelta.x;
-		this.localOrigin.y -= localDelta.y;
-		fireCoordinateMapperEvent(EventType.LOCAL_ORIGIN);
+		if (localDelta.x != 0 || localDelta.y != 0) {
+			this.localOrigin.x -= localDelta.x;
+			this.localOrigin.y -= localDelta.y;
+			fireCoordinateMapperEvent(EventType.LOCAL_ORIGIN);
+		}
 	}
 
 	@Override
-	public void setLocalScaleAndAlign(final double localScale, final Point localPoint, final Point worldPoint) {
-		setLocalScale(localScale);
-		align(localPoint, worldPoint);
+	public void setLocalScaleAndAlign(double localScale, Point localPoint, Point worldPoint) {
+		if (Math.abs(this.localScale - localScale) > Double.MIN_VALUE) {
+			this.localScale = localScale;
+			Point oldLocalPoint = worldToLocal(new Point(worldPoint.x, worldPoint.y));
+			Point localDelta = new Point(localPoint.x - oldLocalPoint.x, localPoint.y - oldLocalPoint.y);
+			if (localDelta.x != 0 || localDelta.y != 0) {
+				this.localOrigin.x -= localDelta.x;
+				this.localOrigin.y -= localDelta.y;
+				fireCoordinateMapperEvent(EventType.LOCAL_SCALE_AND_ORIGIN);
+			}
+			else {
+				fireCoordinateMapperEvent(EventType.LOCAL_SCALE);
+			}
+		}
+		else {
+			align(localPoint, worldPoint);
+		}
 	}
 
 	@Override

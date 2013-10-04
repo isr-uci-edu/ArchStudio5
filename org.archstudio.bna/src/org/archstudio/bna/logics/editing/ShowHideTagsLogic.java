@@ -33,6 +33,7 @@ import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.swt.graphics.RGB;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -128,6 +129,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 		if (t == null) {
 			t = getBNAModel().addThing(new AnchoredLabelThing(Lists.newArrayList(forThing.getID(), "tag")));
 			t.setAnchorPoint(BNAUtils.getCentralPoint(forThing));
+			t.setEdgeColor(new RGB(0, 0, 0));
 			UserEditableUtils.addEditableQualities(t, IRelativeMovable.USER_MAY_MOVE,
 					IHasMutableAngle.USER_MAY_CHANGE_ANGLE);
 			t.set(stickLogic.getStickyModeKey(IHasIndicatorPoint.INDICATOR_POINT_KEY), StickyMode.EDGE_FROM_CENTER);

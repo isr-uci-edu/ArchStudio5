@@ -9,7 +9,6 @@ import java.awt.geom.Rectangle2D;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
-import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -17,11 +16,9 @@ import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.Resources;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractAnchorPointThingPeer;
-import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.TextUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-
-import com.jogamp.opengl.util.awt.TextRenderer;
 
 public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends AbstractAnchorPointThingPeer<T> {
 
@@ -62,118 +59,74 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 			Font font = r.getFont(t, fontSize);
 			int angle = t.getAngle();
 
-			TextRenderer tr = r.getTextRenderer(font);
-			Point canvasSize = new Point(view.getComposite().getClientArea().width,
-					view.getComposite().getClientArea().height);
-			Rectangle2D size = tr.getBounds(t.getText());
+			TextUtils textUtils = r.getTextUtils();
+			lastTextLocalShape = font.getStringBounds(text, textUtils.getFontRenderContext());
+			float descent = font.getLineMetrics(text, textUtils.getFontRenderContext()).getDescent();
+			Rectangle2D bounds = lastTextLocalShape.getBounds2D();
 
-			int textX = lap.x;
+			double offsetX = 0;
 			switch (t.getHorizontalAlignment()) {
 			case LEFT:
-				//textX += offset * cm.getLocalScale();
+				offsetX -= bounds.getWidth() / 2;
 				break;
 			case CENTER:
-				textX -= size.getWidth() / 2;
 				break;
 			case RIGHT:
-				textX -= size.getWidth();
-				//textX -= offset * cm.getLocalScale();
+				offsetX += bounds.getWidth() / 2;
 				break;
 			}
-			int textY = lap.y + fontSize;
+
+			double offsetY = 0;
 			switch (t.getVerticalAlignment()) {
 			case TOP:
+				offsetY -= bounds.getHeight() / 2;
 				break;
 			case MIDDLE:
-				textY -= size.getHeight() / 2;
 				break;
 			case BOTTOM:
-				textY -= size.getHeight();
+				offsetY += bounds.getHeight() / 2;
 				break;
 			}
-			lastTextLocalShape = tr.getBounds(text);
-			Rectangle textBounds = BNAUtils.toRectangle(tr.getBounds(text));
+
+			GeneralPath path = new GeneralPath(lastTextLocalShape);
+			path.transform(AffineTransform.getTranslateInstance(-bounds.getWidth() / 2 + offsetX, bounds.getHeight()
+					/ 2 + offsetY - descent));
+			Rectangle2D pathR = path.getBounds2D();
+			Point2D lap2d1 = new Point2D.Double(pathR.getMinX() - SPACING, pathR.getCenterY());
+			Point2D lap2d2 = new Point2D.Double(pathR.getMaxX() + SPACING, pathR.getCenterY());
 
 			AffineTransform transform = new AffineTransform();
-			transform.translate(textX, textY);
+			transform.translate(lap.x, lap.y);
 			transform.rotate(Math.PI * angle / 180);
-			GeneralPath path = new GeneralPath(lastTextLocalShape);
 			path.transform(transform);
 			lastTextLocalShape = path;
 
 			if (lip != null && r.setLineStyle(t)) {
-				Point2D lap2d = new Point2D.Float(-SPACING, 0);
-				Point2D lap2d2 = new Point2D.Float(textBounds.width + SPACING, 0);
-				transform.transform(lap2d, lap2d);
+				transform.transform(lap2d1, lap2d1);
 				transform.transform(lap2d2, lap2d2);
-				double dist1 = Point2D.distance(lap2d.getX(), lap2d.getY(), lip.x, lip.y);
+				double dist1 = Point2D.distance(lap2d1.getX(), lap2d1.getY(), lip.x, lip.y);
 				double dist2 = Point2D.distance(lap2d2.getX(), lap2d2.getY(), lip.x, lip.y);
 				gl.glBegin(GL.GL_LINE_STRIP);
 				if (dist1 < dist2) {
-					gl.glVertex2d(lap2d.getX() + 0.5d, localBounds.height - lap2d.getY() + 0.5d);
+					gl.glVertex2d(lap2d1.getX() + 0.5d, localBounds.height - lap2d1.getY() + 0.5d);
 				}
 				else {
 					gl.glVertex2d(lap2d2.getX() + 0.5d, localBounds.height - lap2d2.getY() + 0.5d);
 				}
 				gl.glVertex2i(lip.x, localBounds.height - lip.y);
 				gl.glEnd();
+				r.resetLineStyle();
 			}
 
 			gl.glPushMatrix();
-			tr.beginRendering(canvasSize.x, canvasSize.y);
-			gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
-			gl.glTranslated(textX, canvasSize.y - textY, 0);
+			gl.glTranslated(lap.x, localBounds.height - lap.y, 0);
 			gl.glRotated(-angle, 0, 0, 1);
-			r.setColor(t, IHasColor.COLOR_KEY, tr);
-			tr.draw(text, 0, 0);
-			tr.endRendering();
+			textUtils.beginRendering();
+			textUtils.draw(font, text, (int) (-bounds.getWidth() / 2 + offsetX), (int) (-bounds.getHeight() / 2
+					- offsetY + descent));
+			textUtils.endRendering(gl, localBounds);
 			gl.glPopMatrix();
 		}
-
-		//		Point canvasSize = view.getComposite().getSize();
-		//		String text = t.getText();
-		//		TextRenderer tr = r.getTextRenderer(r.getFont(t));
-		//		Rectangle2D rectangleSize = tr.getBounds(text);
-		//		Dimension size = new Dimension(BNAUtils.round(rectangleSize.getWidth()), BNAUtils.round(rectangleSize
-		//				.getHeight()));
-		//		Point localAnchor = cm.worldToLocal(t.getAnchorPoint());
-		//		Point ip = t.getIndicatorPoint();
-		//		Point lip = ip != null ? cm.worldToLocal(ip) : null;
-		//		Point localOffset = new Point(0, 0);
-		//		int offset = 0;
-		//
-		//		HorizontalAlignment horizontalAlignment = t.getHorizontalAlignment();
-		//		switch (horizontalAlignment) {
-		//		case LEFT:
-		//			localOffset.x += offset * cm.getLocalScale();
-		//			break;
-		//		case CENTER:
-		//			localOffset.x -= size.width / 2;
-		//			break;
-		//		case RIGHT:
-		//			localOffset.x -= size.width;
-		//			localOffset.x -= offset * cm.getLocalScale();
-		//			break;
-		//		}
-		//		switch (t.getVerticalAlignment()) {
-		//		case TOP:
-		//			break;
-		//		case MIDDLE:
-		//			localOffset.y -= size.height / 2;
-		//			break;
-		//		case BOTTOM:
-		//			localOffset.y -= size.height;
-		//			break;
-		//		}
-		//
-		//		tr.beginRendering(canvasSize.x, canvasSize.y);
-		//		if (r.setColor(t, IHasColor.COLOR_KEY)) {
-		//			gl.glMatrixMode(GL2.GL_MODELVIEW);
-		//			gl.glTranslatef(localAnchor.x, canvasSize.y - localAnchor.y, 0);
-		//			gl.glRotatef(t.getAngle(), 0, 0, 1);
-		//			tr.draw(text, 0, 0);
-		//		}
-		//		tr.endRendering();
 	}
 
 	@Override

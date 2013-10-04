@@ -8,6 +8,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -871,6 +872,10 @@ public class BNAUtils {
 		return oldPoint;
 	}
 
+	public static final Dimension getSize(Rectangle r) {
+		return new Dimension(r.width, r.height);
+	}
+
 	public static float getDistance(Point p1, Point p2) {
 		if (p1 != null && p2 != null) {
 			int dx = p2.x - p1.x;
@@ -1153,8 +1158,8 @@ public class BNAUtils {
 		return new Rectangle(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 	}
 
-	public static final Rectangle toRectangle(org.eclipse.swt.graphics.Rectangle bounds) {
-		return new Rectangle(bounds.x, bounds.y, bounds.width, bounds.height);
+	public static final Rectangle2D toRectangle2D(Rectangle bounds) {
+		return new Rectangle2D.Double(bounds.x, bounds.y, bounds.width, bounds.height);
 	}
 
 	public static Point toPoint(org.eclipse.swt.graphics.Point point) {
@@ -1237,7 +1242,6 @@ public class BNAUtils {
 			gl.glDisable(GL2GL3.GL_POLYGON_SMOOTH);
 			gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_FASTEST);
 		}
-		resources.setAntialiasText(antialiasText);
 	}
 
 	public static final void renderReshape(IBNAView view, GL2 gl, Rectangle localBounds, Resources resources) {

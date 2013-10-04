@@ -37,10 +37,11 @@ public class GraphAssemblies {
 		checkNotNull(world);
 
 		IBNAModel model = world.getBNAModel();
+		IThingLogicManager logics = world.getThingLogicManager();
 
 		GraphGridLinesThing hGridLinesThing = model.addThing(new GraphGridLinesThing(null));
 		GraphGridLinesThing vGridLinesThing = model.addThing(new GraphGridLinesThing(null), hGridLinesThing);
-		RectangleThing graphThing = model.addThing(new RectangleThing(null), vGridLinesThing);
+		RectangleThing graphThing = model.addThing(new RectangleThing(id), vGridLinesThing);
 		graphThing.setColor(null);
 
 		Assemblies.markPart(graphThing, HORIZONTAL_GRID_LINES_KEY, hGridLinesThing);
@@ -49,8 +50,7 @@ public class GraphAssemblies {
 		hGridLinesThing.setOrientation(GraphGridLinesThing.Orientation.HORIZONTAL_LINES);
 		vGridLinesThing.setOrientation(GraphGridLinesThing.Orientation.VERTICAL_LINES);
 
-		IThingLogicManager tlm = world.getThingLogicManager();
-		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
+		MirrorValueLogic mvl = logics.addThingLogic(MirrorValueLogic.class);
 		mvl.mirrorValue(graphThing, IHasBoundingBox.BOUNDING_BOX_KEY, hGridLinesThing);
 		mvl.mirrorValue(graphThing, IHasBoundingBox.BOUNDING_BOX_KEY, vGridLinesThing);
 

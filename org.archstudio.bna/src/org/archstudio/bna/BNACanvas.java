@@ -41,7 +41,6 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 	protected final BNASWTEventHandler eventHandler;
 	protected final GLContext context;
 	protected final ObscuredGL2 gl;
-	protected final Resources resources;
 
 	public BNACanvas(Composite parent, int style, IBNAWorld bnaWorld) {
 		this(parent, style, new DefaultBNAView(null, bnaWorld, new LinearCoordinateMapper()));
@@ -66,7 +65,6 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		GLProfile glprofile = GLProfile.get(GLProfile.GL2);
 		this.context = GLDrawableFactory.getFactory(glprofile).createExternalGLContext();
 		this.gl = new ObscuredGL2(DEBUG ? new DebugGL2((GL2) context.getGL()) : (GL2) context.getGL());
-		this.resources = new Resources(this, gl);
 
 		this.addControlListener(new ControlAdapter() {
 
@@ -135,7 +133,6 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		getBNAView().getBNAWorld().getBNAModel().removeBNAModelListener(this);
 		bnaView.dispose();
 		eventHandler.dispose();
-		resources.dispose();
 		context.destroy();
 		super.dispose();
 	}
@@ -151,7 +148,7 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		try {
 			IMutableCoordinateMapper mcm = getCoordinateMapper();
 			updateCanvas(mcm.getLocalScale(), mcm.getLocalOrigin());
-			org.eclipse.swt.graphics.Rectangle client = getClientArea();
+			Rectangle client = getClientArea();
 			Rectangle localBounds = mcm.getLocalBounds();
 			Point localOrigin = mcm.getLocalOrigin();
 			if (hBar != null) {
@@ -250,14 +247,24 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		setCurrent();
 		context.makeCurrent();
 		try {
-			Rectangle localBounds = getClientArea();
-			BNAUtils.renderInit(bnaView, gl, localBounds, resources, //
-					BNARenderingSettings.getAntialiasGraphics(this), //
-					BNARenderingSettings.getAntialiasText(this));
-			BNAUtils.renderReshape(bnaView, gl, localBounds, resources);
-			BNAUtils.renderTopLevelThings(bnaView, gl, localBounds, resources);
-			gl.glFlush();
-			swapBuffers();
+			Resources resources = null;
+			try {
+				resources = new Resources(this, gl, //
+						BNARenderingSettings.getAntialiasText(this));
+				Rectangle localBounds = getClientArea();
+				BNAUtils.renderInit(bnaView, gl, localBounds, resources, //
+						BNARenderingSettings.getAntialiasGraphics(this), //
+						BNARenderingSettings.getAntialiasText(this));
+				BNAUtils.renderReshape(bnaView, gl, localBounds, resources);
+				BNAUtils.renderTopLevelThings(bnaView, gl, localBounds, resources);
+				gl.glFlush();
+				swapBuffers();
+			}
+			finally {
+				if (resources != null) {
+					resources.dispose();
+				}
+			}
 		}
 		finally {
 			context.release();

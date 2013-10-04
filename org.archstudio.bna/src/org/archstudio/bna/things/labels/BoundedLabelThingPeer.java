@@ -2,159 +2,225 @@ package org.archstudio.bna.things.labels;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.font.LineBreakMeasurer;
-import java.awt.font.TextAttribute;
-import java.text.AttributedCharacterIterator.Attribute;
-import java.text.AttributedString;
+import java.awt.font.FontRenderContext;
+import java.awt.font.LineMetrics;
+import java.awt.geom.Rectangle2D;
+import java.text.BreakIterator;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.Resources;
-import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
-import org.eclipse.swt.graphics.Point;
+import org.archstudio.bna.utils.TextUtils;
+import org.archstudio.swtutils.constants.FontStyle;
+import org.archstudio.sysutils.RegExBreakIterator;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-import com.jogamp.opengl.util.awt.TextRenderer;
 
-public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends AbstractRectangleThingPeer<T> implements
-		IThingPeer<T> {
+public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends AbstractRectangleThingPeer<T> {
+
+	private static final int MIN_FONT_SIZE = 2;
+	private static final int MIN_LOCAL_WIDTH = 4;
+	private static final int MIN_LOCAL_HEIGHT = MIN_FONT_SIZE + 1;
+
+	private static final class LayoutData {
+		Font font = null;
+		List<String> lines = Lists.newArrayList();
+		List<Float> lineWidths = Lists.newArrayList();
+		float lineAscent = 0;
+		float lineDescent = 0;
+		//float totalWidth = 0;
+		float totalHeight = 0;
+	}
+
+	private static final String trimRight(String string) {
+		int end = string.length();
+		while (end > 0 && Character.isWhitespace(string.charAt(end - 1))) {
+			end--;
+		}
+		return string.substring(0, end);
+	}
+
+	private static final LayoutData calculateLayout(BoundedLabelThing t, Dimension localSize,
+			FontRenderContext fontRenderContext) {
+
+		LayoutData layoutData = new LayoutData();
+
+		if (localSize.width > MIN_LOCAL_WIDTH && localSize.height > MIN_LOCAL_HEIGHT) {
+
+			Font font = null;
+			List<String> lines = Lists.newArrayList();
+			List<Float> lineWidths = Lists.newArrayList();
+			float lineAscent = 0;
+			float lineDescent = 0;
+			float totalWidth = 0;
+			float totalHeight = 0;
+
+			String text = t.getText();
+			String fontName = t.getFontName();
+			FontStyle fontStyle = t.getFontStyle();
+			int minFontSize = MIN_FONT_SIZE;
+			int originalMinFontSize = minFontSize;
+			int maxFontSize = t.getFontSize();
+
+			float[] breakWidths = new float[text.length()];
+			Font breakWidthsFont = new Font(fontName, fontStyle.toAWT(), maxFontSize);
+			{
+				BreakIterator breakIterator = new RegExBreakIterator(null, "\\s+|-");
+				breakIterator.setText(text);
+				int start = breakIterator.first();
+				float previousWidth = 0;
+				for (int end = breakIterator.next(); end != BreakIterator.DONE; start = end, end = breakIterator.next()) {
+					String lineText = text.substring(start, end);
+					String leftLineText = trimRight(lineText);
+					String rightLineText = lineText.substring(leftLineText.length());
+					float width = (float) breakWidthsFont.getStringBounds(leftLineText, fontRenderContext).getWidth();
+					Arrays.fill(breakWidths, start, end, previousWidth += width);
+					if (rightLineText.length() > 0) {
+						Rectangle2D bounds = breakWidthsFont.getStringBounds(rightLineText, fontRenderContext);
+						previousWidth += (float) bounds.getWidth();
+					}
+				}
+			}
+
+			RESIZING: while (minFontSize <= maxFontSize) {
+				int trialFontSize;
+				if (minFontSize == maxFontSize) {
+					trialFontSize = minFontSize;
+				}
+				else {
+					trialFontSize = (maxFontSize + minFontSize + 1) / 2; // round up
+				}
+
+				font = new Font(fontName, fontStyle.toAWT(), trialFontSize);
+				lines.clear();
+				lineWidths.clear();
+				LineMetrics lineMetrics = font.getLineMetrics(text, fontRenderContext);
+				lineAscent = lineMetrics.getAscent();
+				lineDescent = lineMetrics.getDescent();
+				totalWidth = 0;
+				totalHeight = 0;
+				float lineHeight = lineAscent + lineDescent;
+				float adjustedSize = localSize.width * breakWidthsFont.getSize2D() / trialFontSize;
+
+				int start = 0;
+				float startingOffset = 0;
+				while (start < text.length()) {
+					totalHeight += lineHeight;
+					if (totalHeight > localSize.height) {
+						maxFontSize = trialFontSize - 1;
+						continue RESIZING;
+					}
+					int end = Arrays
+							.binarySearch(breakWidths, start, breakWidths.length, startingOffset + adjustedSize);
+					if (end < 0) {
+						end = -end - 1;
+					}
+					else {
+						while (++end < breakWidths.length) {
+							if (breakWidths[end] != breakWidths[end - 1]) {
+								break;
+							}
+						}
+					}
+					if (start == end) {
+						maxFontSize = trialFontSize - 1;
+						continue RESIZING;
+					}
+					lines.add(trimRight(text.substring(start, end)));
+					float width = (breakWidths[end - 1] - startingOffset) * trialFontSize / breakWidthsFont.getSize2D();
+					lineWidths.add(width);
+					totalWidth = Math.max(totalWidth, width);
+					start = end;
+					startingOffset = breakWidths[end - 1];
+				}
+				if (minFontSize == maxFontSize) {
+					break RESIZING;
+				}
+				minFontSize = trialFontSize;
+			}
+
+			if (maxFontSize >= originalMinFontSize) {
+				layoutData.font = font;
+				layoutData.lines = lines;
+				layoutData.lineWidths = lineWidths;
+				layoutData.lineAscent = lineAscent;
+				layoutData.lineDescent = lineDescent;
+				//layoutData.totalWidth = totalWidth;
+				layoutData.totalHeight = totalHeight;
+			}
+		}
+
+		return layoutData;
+	}
 
 	public BoundedLabelThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
 		super(thing, view, cm);
 	}
 
-	private static Set<Integer> getAllowableLinebreaks(String text) {
-		Set<Integer> breaks = Sets.newHashSet(0, text.length());
-		int index = 0;
-		for (String s : text.split("[\\s-]")) {
-			index += s.length();
-			breaks.add(index);
-			index++;
-			breaks.add(index);
-		}
-		breaks.remove(text.length() + 1);
-		return breaks;
-	}
-
-	String text = null;
-	Dimension size = null;
-	Font font = null;
-	int thingSize = 0;
-	List<String> lines = Lists.newArrayList();
-	List<java.awt.font.TextLayout> textLayouts = Lists.newArrayList();
-	float totalHeight = 0;
-
 	@Override
 	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
+
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		if (!lbb.intersects(localBounds)) {
 			return;
 		}
-		Point canvasSize = new Point(localBounds.width, localBounds.height);
-		if (t.getText().length() == 0) {
-			text = "";
-			font = null;
-		}
-		else if (!t.getText().equals(text) //
-				|| font != null && !r.getFont(t, font.getSize()).equals(font)
-				// leave a little tolerance for rounding of coordinates
-				|| Math.abs(lbb.height - size.height) > 2 //
-				|| Math.abs(lbb.width - size.width) > 2 //
-				|| thingSize != t.getFontSize()) {
-			text = t.getText();
-			size = new Dimension(lbb.width, lbb.height);
-			thingSize = t.getFontSize();
-			int minFontSize = 1;
-			int maxFontSize = t.getFontSize();
-			Set<Integer> allowableLineBreaks = getAllowableLinebreaks(text);
-			while (true) {
-				int fontSize = (maxFontSize + minFontSize) / 2;
-				font = r.getFont(t, fontSize);
-				TextRenderer tr = r.getTextRenderer(font);
-				Map<Attribute, Object> attrs = Maps.newHashMap();
-				attrs.put(TextAttribute.FONT, font);
-				AttributedString str = new AttributedString(text, attrs);
-				LineBreakMeasurer measurer = new LineBreakMeasurer(str.getIterator(), tr.getFontRenderContext());
-				lines.clear();
-				textLayouts.clear();
-				totalHeight = 0;
-				if (lbb.width > 0 && lbb.height > 0) {
-					while (measurer.getPosition() < text.length()) {
-						if (!allowableLineBreaks.contains(measurer.getPosition())) {
-							totalHeight += lbb.height + 1;
-							break;
-						}
-						String line = text.substring(measurer.getPosition());
-						java.awt.font.TextLayout tl = measurer.nextLayout(lbb.width);
-						line = line.substring(0, tl.getCharacterCount());
-						lines.add(line);
-						textLayouts.add(tl);
-						totalHeight += tl.getAscent() + tl.getDescent();
-						if (totalHeight > lbb.height) {
-							break;
-						}
-					}
-				}
-				if (minFontSize > maxFontSize) {
-					if (maxFontSize < 1) {
-						font = null;
-					}
-					break;
-				}
-				if (totalHeight > lbb.height) {
-					maxFontSize = fontSize - 1;
-				}
-				else {
-					minFontSize = fontSize + 1;
-				}
-			}
-		}
-		if (font != null) {
-			TextRenderer tr = r.getTextRenderer(font);
-			tr.beginRendering(canvasSize.x, canvasSize.y);
-			if (r.setColor(t, IHasColor.COLOR_KEY)) {
-				float y = lbb.y;
-				switch (t.getVerticalAlignment()) {
-				case BOTTOM:
-					y += lbb.height - totalHeight;
-					break;
-				case MIDDLE:
-					y += Math.floor((lbb.height - totalHeight) / 2);
-					break;
-				case TOP:
-					break;
-				}
 
-				for (int i = 0; i < lines.size(); i++) {
-					String line = lines.get(i);
-					java.awt.font.TextLayout tl = textLayouts.get(i);
-					int x = lbb.x;
-					switch (t.getHorizontalAlignment()) {
-					case RIGHT:
-						x += lbb.width - tl.getBounds().getWidth();
+		if (t.getText().trim().length() == 0) {
+			return;
+		}
+
+		RGB rgb = t.getColor();
+		if (rgb != null) {
+			gl.glColor3f(rgb.red / 255f, rgb.green / 255f, rgb.blue / 255f);
+
+			TextUtils textUtils = r.getTextUtils();
+			LayoutData layoutData = calculateLayout(t, BNAUtils.getSize(lbb), textUtils.getFontRenderContext());
+
+			if (layoutData.font != null) {
+				float scale = 1.0f;
+				textUtils.beginRendering();
+				try {
+					float y = lbb.y;
+					switch (t.getVerticalAlignment()) {
+					case BOTTOM:
+						y += lbb.height - layoutData.totalHeight * scale;
 						break;
-					case CENTER:
-						x += Math.floor((lbb.width - tl.getBounds().getWidth()) / 2);
+					case MIDDLE:
+						y += Math.floor((lbb.height - layoutData.totalHeight * scale) / 2);
 						break;
-					case LEFT:
+					case TOP:
 						break;
 					}
-					tr.draw(line, BNAUtils.round(x), BNAUtils.round(canvasSize.y - (y + tl.getAscent())));
-					y += tl.getAscent() + tl.getDescent();
+					for (int i = 0; i < layoutData.lines.size(); i++) {
+						String line = layoutData.lines.get(i);
+						float x = lbb.x;
+						switch (t.getHorizontalAlignment()) {
+						case RIGHT:
+							x += lbb.width - layoutData.lineWidths.get(i) * scale;
+							break;
+						case CENTER:
+							x += (lbb.width - layoutData.lineWidths.get(i) * scale) / 2;
+							break;
+						case LEFT:
+							break;
+						}
+						textUtils.draw(layoutData.font, line, x, localBounds.height
+								- (y + layoutData.lineAscent * scale));
+						y += (layoutData.lineAscent + layoutData.lineDescent) * scale;
+					}
+				}
+				finally {
+					textUtils.endRendering(gl, localBounds);
 				}
 			}
-			tr.endRendering();
 		}
 	}
 }

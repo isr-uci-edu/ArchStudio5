@@ -5,6 +5,7 @@ import org.archstudio.bna.facets.IHasAngle;
 import org.archstudio.bna.facets.IHasIndicatorPoint;
 import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableColor;
+import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableFontData;
 import org.archstudio.bna.facets.IHasMutableHorizontalAlignment;
 import org.archstudio.bna.facets.IHasMutableIndicatorPoint;
@@ -25,7 +26,7 @@ import org.eclipse.swt.graphics.RGB;
 @NonNullByDefault
 public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implements IHasMutableText, IHasMutableColor,
 		IHasMutableHorizontalAlignment, IHasMutableVerticalAlignment, IHasMutableFontData, IRelativeMovable,
-		IHasMutableAngle, IHasMutableIndicatorPoint, IHasMutableLineData {
+		IHasMutableAngle, IHasMutableIndicatorPoint, IHasMutableLineData, IHasMutableEdgeColor {
 
 	public AnchoredLabelThing(@Nullable Object id) {
 		super(id);
@@ -44,7 +45,18 @@ public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implemen
 		setAngle(0);
 		setLineStyle(LINE_STYLE_SOLID);
 		setLineWidth(1);
+		setEdgeColor(null);
 		super.initProperties();
+	}
+
+	@Override
+	public void setEdgeColor(RGB c) {
+		set(EDGE_COLOR_KEY, c);
+	}
+
+	@Override
+	public RGB getEdgeColor() {
+		return get(EDGE_COLOR_KEY);
 	}
 
 	@Override

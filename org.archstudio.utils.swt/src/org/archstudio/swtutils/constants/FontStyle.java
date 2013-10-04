@@ -1,31 +1,48 @@
 package org.archstudio.swtutils.constants;
 
+import java.awt.Font;
+
 import org.eclipse.swt.SWT;
 
 public enum FontStyle {
-	NORMAL, BOLD, ITALIC;
+	NORMAL(Font.PLAIN, SWT.NORMAL), //
+	BOLD(Font.BOLD, SWT.BOLD), //
+	ITALIC(Font.ITALIC, SWT.ITALIC), //
+	BOLD_ITALIC(Font.BOLD | Font.ITALIC, SWT.BOLD | SWT.ITALIC);
 
-	public int toSWT() {
-		switch (this) {
-		case NORMAL:
-			return SWT.NORMAL;
-		case BOLD:
-			return SWT.BOLD;
-		case ITALIC:
-			return SWT.ITALIC;
-		}
-		return SWT.NORMAL;
+	private int awtStyle;
+	private int swtStyle;
+
+	private FontStyle(int awtStyle, int swtStyle) {
+		this.awtStyle = awtStyle;
+		this.swtStyle = swtStyle;
 	}
 
-	public static FontStyle fromSWT(int style) {
-		switch (style) {
-		case SWT.NORMAL:
-			return NORMAL;
-		case SWT.BOLD:
-			return BOLD;
-		case SWT.ITALIC:
-			return ITALIC;
+	public int toSWT() {
+		return swtStyle;
+	}
+
+	public static FontStyle fromSWT(int swtStyle) {
+		swtStyle &= BOLD_ITALIC.swtStyle;
+		for (FontStyle style : values()) {
+			if (style.swtStyle == swtStyle) {
+				return style;
+			}
 		}
-		throw new IllegalArgumentException("Invaid font style constant.");
+		throw new IllegalArgumentException("Invaid font style: " + swtStyle);
+	}
+
+	public int toAWT() {
+		return awtStyle;
+	}
+
+	public static FontStyle fromAWT(int awtStyle) {
+		awtStyle &= BOLD_ITALIC.awtStyle;
+		for (FontStyle style : values()) {
+			if (style.awtStyle == awtStyle) {
+				return style;
+			}
+		}
+		throw new IllegalArgumentException("Invaid font style: " + awtStyle);
 	}
 }

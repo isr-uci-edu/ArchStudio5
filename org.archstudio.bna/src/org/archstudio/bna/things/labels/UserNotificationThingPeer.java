@@ -4,7 +4,6 @@ import java.awt.Font;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
-import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -16,11 +15,10 @@ import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.things.AbstractAnchorPointThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.TextUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-
-import com.jogamp.opengl.util.awt.TextRenderer;
 
 public class UserNotificationThingPeer<T extends UserNotificationThing> extends AbstractAnchorPointThingPeer<T>
 		implements IThingPeer<T> {
@@ -54,9 +52,9 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 		String text = t.getText();
 		int fontSize = calculateFontSize(view.getCoordinateMapper(), t.getFontSize(), t.getDontIncreaseFontSize());
 		Font font = r.getFont(t, fontSize);
-		TextRenderer tr = r.getTextRenderer(font);
+		TextUtils textUtils = r.getTextUtils();
 
-		Rectangle lbb = BNAUtils.toRectangle(tr.getBounds(text));
+		Rectangle lbb = BNAUtils.toRectangle(font.getStringBounds(text, textUtils.getFontRenderContext()));
 		lbb.x += lap.x;
 		lbb.y += lap.y;
 		lbb.x -= SPACING;
@@ -86,14 +84,10 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 			gl.glVertex2f(p1.x + 0.5f, p2.y - 0.5f);
 			gl.glEnd();
 
-			Point canvasSize = new Point(localBounds.width, localBounds.height);
-			gl.glPushMatrix();
-			tr.beginRendering(canvasSize.x, canvasSize.y);
-			gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
-			r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY, alpha, tr);
-			tr.draw(text, lap.x + SPACING, canvasSize.y - (lap.y + SPACING));
-			tr.endRendering();
-			gl.glPopMatrix();
+			r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY, alpha);
+			textUtils.beginRendering();
+			textUtils.draw(font, text, lap.x + SPACING, localBounds.y - (lap.y + SPACING));
+			textUtils.endRendering(gl, localBounds);
 		}
 	}
 

@@ -23,6 +23,7 @@ import org.archstudio.bna.ObscuredGL2;
 import org.archstudio.bna.Resources;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
+import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.eclipse.jface.action.Action;
@@ -80,7 +81,8 @@ public class ExportImageLogic extends AbstractThingLogic implements IBNAMenuList
 				context = buffer.createContext(null);
 				context.makeCurrent();
 				ObscuredGL2 gl = new ObscuredGL2((GL2) context.getGL());
-				resources = new Resources(view.getComposite(), gl);
+				resources = new Resources(view.getComposite(), gl, BNARenderingSettings.getAntialiasText(view
+						.getComposite()));
 				final LinearCoordinateMapper cm = new LinearCoordinateMapper();
 				cm.align(new Point(0, 0), new Point(bounds.x, bounds.y));
 

@@ -4,18 +4,15 @@ import java.awt.Font;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
-import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.Resources;
-import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.graphs.GraphCoordinateMapper;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
+import org.archstudio.bna.utils.TextUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-
-import com.jogamp.opengl.util.awt.TextRenderer;
 
 public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPeer<T> {
 
@@ -25,16 +22,14 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 
 	@Override
 	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
-		Point canvasSize = r.getComposite().getSize();
-		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) & r.setLineStyle(t)) {
-			TextRenderer tr = r.getTextRenderer(r.getFont(t));
-			r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY, tr);
+		if (r.setLineStyle(t)) {
+			TextUtils textUtils = r.getTextUtils();
 			Rectangle wbb = t.getBoundingBox();
 			Rectangle lbb = cm.worldToLocal(wbb);
 			int wUnit = t.getUnit();
 			int localTickSize = t.getLocalTickSize();
-			int maxWidth = 0;
-			Font f;
+			double maxWidth = 0;
+			Font f = r.getFont(t);
 			switch (t.getOrientation()) {
 			case BOTTOM:
 				gl.glBegin(GL.GL_LINES);
@@ -46,6 +41,7 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 				case LINEAR: {
 					int wMin = wbb.x / wUnit * wUnit;
 					int wMax = ((wbb.x + wbb.width) / wUnit + 1) * wUnit;
+					textUtils.beginRendering();
 					for (int wX = wMin; wX <= wMax; wX += wUnit) {
 						if (wX < wbb.x || wX > wbb.x + wbb.width) {
 							continue;
@@ -55,11 +51,11 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + 0.5f));
 						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + localTickSize + 0.5f));
 						gl.glEnd();
-						tr.beginRendering(canvasSize.x, canvasSize.y);
-						tr.draw("" + wX, lPoint.x - (int) tr.getBounds("" + wX).getWidth() / 2, canvasSize.y
+						gl.glColor4f(0, 0, 0, 1);
+						textUtils.draw(f, "" + wX, lPoint.x - textUtils.getWidth(f, "" + wX) / 2, localBounds.height
 								- (lPoint.y + localTickSize + t.getFontSize()));
-						tr.endRendering();
 					}
+					textUtils.endRendering(gl, localBounds);
 					break;
 				}
 				case LOGARITHMIC: {
@@ -78,29 +74,27 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + localTickSize + 0.5f));
 						gl.glEnd();
 					}
-					tr.beginRendering(canvasSize.x, canvasSize.y);
-					tr.setColor(0, 0, 0, 1f);
+					gl.glColor4f(0, 0, 0, 1);
+					textUtils.beginRendering();
 					for (int wX = wMin; wX <= wMax; wX *= wUnit) {
 						if (wX < wbb.x || wX > wbb.x + wbb.width) {
 							continue;
 						}
 						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
-						tr.draw("" + wX, lPoint.x - (int) tr.getBounds("" + wX).getWidth() / 2, canvasSize.y - lPoint.y
-								- localTickSize - t.getFontSize());
+						textUtils.draw(f, "" + wX, lPoint.x - textUtils.getWidth(f, "" + wX) / 2, localBounds.height
+								- lPoint.y - localTickSize - t.getFontSize());
 					}
-					tr.endRendering();
+					textUtils.endRendering(gl, localBounds);
 					break;
 				}
 				}
-				f = tr.getFont();
 				f = f.deriveFont(Font.BOLD);
 				f = f.deriveFont(f.getSize2D() * 1.2f);
-				tr = r.getTextRenderer(f);
-				tr.beginRendering(canvasSize.x, canvasSize.y);
-				tr.setColor(0, 0, 0, 1);
-				tr.draw(t.getText(), lbb.x + lbb.width / 2 - (int) tr.getBounds(t.getText()).getWidth() / 2,
-						canvasSize.y - lbb.y - localTickSize - t.getFontSize() * 2);
-				tr.endRendering();
+				gl.glColor4f(0, 0, 0, 1);
+				textUtils.beginRendering();
+				textUtils.draw(f, t.getText(), lbb.x + lbb.width / 2 - textUtils.getWidth(f, t.getText()) / 2,
+						localBounds.height - (lbb.y + localTickSize + t.getFontSize() * 2));
+				textUtils.endRendering(gl, localBounds);
 				break;
 			case TOP:
 				gl.glBegin(GL.GL_LINES);
@@ -112,6 +106,7 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 				case LINEAR: {
 					int wMin = wbb.x / wUnit * wUnit;
 					int wMax = ((wbb.x + wbb.width) / wUnit + 1) * wUnit;
+					textUtils.beginRendering();
 					for (int wX = wMin; wX <= wMax; wX += wUnit) {
 						if (wX < wbb.x || wX > wbb.x + wbb.width) {
 							continue;
@@ -121,11 +116,11 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + lbb.height + 0.5f));
 						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + lbb.height - localTickSize + 0.5f));
 						gl.glEnd();
-						tr.beginRendering(canvasSize.x, canvasSize.y);
-						tr.draw("" + wX, lPoint.x - (int) tr.getBounds("" + wX).getWidth() / 2, canvasSize.y
+						gl.glColor4f(0, 0, 0, 1);
+						textUtils.draw(f, "" + wX, lPoint.x - textUtils.getWidth(f, "" + wX) / 2, localBounds.height
 								- (lPoint.y - localTickSize));
-						tr.endRendering();
 					}
+					textUtils.endRendering(gl, localBounds);
 					break;
 				}
 				case LOGARITHMIC: {
@@ -144,29 +139,27 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + lbb.height - localTickSize + 0.5f));
 						gl.glEnd();
 					}
-					tr.beginRendering(canvasSize.x, canvasSize.y);
-					tr.setColor(0, 0, 0, 1f);
+					gl.glColor4f(0, 0, 0, 1);
+					textUtils.beginRendering();
 					for (int wX = wMin; wX <= wMax; wX *= wUnit) {
 						if (wX < wbb.x || wX > wbb.x + wbb.width) {
 							continue;
 						}
 						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
-						tr.draw("" + wX, lPoint.x - (int) tr.getBounds("" + wX).getWidth() / 2, canvasSize.y - lPoint.y
-								+ localTickSize);
+						textUtils.draw(f, "" + wX, lPoint.x - textUtils.getWidth(f, "" + wX) / 2, localBounds.height
+								- (lPoint.y - localTickSize));
 					}
-					tr.endRendering();
+					textUtils.endRendering(gl, localBounds);
 					break;
 				}
 				}
-				f = tr.getFont();
 				f = f.deriveFont(Font.BOLD);
 				f = f.deriveFont(f.getSize2D() * 1.2f);
-				tr = r.getTextRenderer(f);
-				tr.beginRendering(canvasSize.x, canvasSize.y);
-				tr.setColor(0, 0, 0, 1);
-				tr.draw(t.getText(), lbb.x + lbb.width / 2 - (int) tr.getBounds(t.getText()).getWidth() / 2,
-						canvasSize.y - (lbb.y + lbb.height - localTickSize - t.getFontSize()));
-				tr.endRendering();
+				gl.glColor4f(0, 0, 0, 1);
+				textUtils.beginRendering();
+				textUtils.draw(f, t.getText(), lbb.x + lbb.width / 2 - textUtils.getWidth(f, t.getText()) / 2,
+						localBounds.height - (lbb.y + lbb.height - localTickSize - t.getFontSize()));
+				textUtils.endRendering(gl, localBounds);
 				break;
 			case LEFT:
 				gl.glBegin(GL.GL_LINES);
@@ -178,6 +171,7 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 				case LINEAR: {
 					int wMin = wbb.y / wUnit * wUnit;
 					int wMax = ((wbb.y + wbb.height) / wUnit + 1) * wUnit;
+					textUtils.beginRendering();
 					for (int wY = wMin; wY <= wMax; wY += wUnit) {
 						if (wY < wbb.y || wY > wbb.y + wbb.height) {
 							continue;
@@ -187,12 +181,12 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						gl.glVertex2f(lPoint.x - localTickSize + 0.5f, localBounds.height - (lPoint.y + 0.5f));
 						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lPoint.y + 0.5f));
 						gl.glEnd();
-						tr.beginRendering(canvasSize.x, canvasSize.y);
-						tr.draw("" + -wY, lPoint.x - (int) tr.getBounds("" + -wY).getWidth() - localTickSize,
-								canvasSize.y - (lPoint.y + localTickSize));
-						tr.endRendering();
-						maxWidth = Math.max(maxWidth, (int) tr.getBounds("" + -wY).getWidth());
+						gl.glColor4f(0, 0, 0, 1);
+						textUtils.draw(f, "" + -wY, lPoint.x - textUtils.getWidth(f, "" + -wY) - localTickSize,
+								localBounds.height - (lPoint.y + localTickSize));
+						maxWidth = Math.max(maxWidth, textUtils.getWidth(f, "" + -wY));
 					}
+					textUtils.endRendering(gl, localBounds);
 					break;
 				}
 				case LOGARITHMIC: {
@@ -208,33 +202,33 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						gl.glVertex2f(lbb.x + lbb.width + 0.5f, localBounds.height - (lPoint.y + 0.5f));
 						gl.glEnd();
 					}
-					tr.beginRendering(canvasSize.x, canvasSize.y);
-					tr.setColor(0, 0, 0, 1f);
+					gl.glColor4f(0, 0, 0, 1);
+					textUtils.beginRendering();
 					for (int wY = wMin; wY >= wMax; wY *= wUnit) {
 						if (wY < wbb.y || wY > wbb.y + wbb.height) {
 							continue;
 						}
 						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
-						tr.draw("" + -wY, lbb.x + lbb.width - (int) tr.getBounds("" + -wY).getWidth() - localTickSize,
-								canvasSize.y - lPoint.y - t.getFontSize() / 2);
-						maxWidth = Math.max(maxWidth, (int) tr.getBounds("" + -wY).getWidth());
+						textUtils.draw(f, "" + -wY,
+								lbb.x + lbb.width - textUtils.getWidth(f, "" + -wY) - localTickSize, localBounds.height
+										- (lPoint.y + t.getFontSize() / 2));
+						maxWidth = Math.max(maxWidth, textUtils.getWidth(f, "" + -wY));
 					}
-					tr.endRendering();
+					textUtils.endRendering(gl, localBounds);
 					break;
 				}
 				}
-				f = tr.getFont();
 				f = f.deriveFont(Font.BOLD);
 				f = f.deriveFont(f.getSize2D() * 1.2f);
-				tr = r.getTextRenderer(f);
-				tr.beginRendering(canvasSize.x, canvasSize.y);
-				gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
-				gl.glTranslated(lbb.x + lbb.width - localTickSize - maxWidth, canvasSize.y - lbb.y
-						- (lbb.height + tr.getBounds(t.getText()).getWidth()) / 2, 0);
+				gl.glPushMatrix();
+				gl.glTranslated(lbb.x + lbb.width - localTickSize - maxWidth, localBounds.height
+						- (lbb.y + (lbb.height + textUtils.getWidth(f, t.getText())) / 2), 0);
 				gl.glRotated(90, 0, 0, 1);
-				tr.setColor(0, 0, 0, 1);
-				tr.draw(t.getText(), 0, 0);
-				tr.endRendering();
+				gl.glColor4f(0, 0, 0, 1);
+				textUtils.beginRendering();
+				textUtils.draw(f, t.getText(), 0, 0);
+				textUtils.endRendering(gl, localBounds);
+				gl.glPopMatrix();
 				break;
 			case RIGHT:
 				gl.glBegin(GL.GL_LINES);
@@ -255,10 +249,12 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lPoint.y + 0.5f));
 						gl.glVertex2f(lPoint.x + localTickSize + 0.5f, localBounds.height - (lPoint.y + 0.5f));
 						gl.glEnd();
-						tr.beginRendering(canvasSize.x, canvasSize.y);
-						tr.draw("" + -wY, lPoint.x + localTickSize, canvasSize.y - (lPoint.y + localTickSize));
-						tr.endRendering();
-						maxWidth = Math.max(maxWidth, (int) tr.getBounds("" + -wY).getWidth());
+						gl.glColor4f(0, 0, 0, 1);
+						textUtils.beginRendering();
+						textUtils.draw(f, "" + -wY, lPoint.x + localTickSize, localBounds.height
+								- (lPoint.y + localTickSize));
+						textUtils.endRendering(gl, localBounds);
+						maxWidth = Math.max(maxWidth, textUtils.getWidth(f, "" + -wY));
 					}
 					break;
 				}
@@ -275,32 +271,32 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						gl.glVertex2f(lbb.x + localTickSize + 0.5f, localBounds.height - (lPoint.y + 0.5f));
 						gl.glEnd();
 					}
-					tr.beginRendering(canvasSize.x, canvasSize.y);
-					tr.setColor(0, 0, 0, 1f);
+					gl.glColor4f(0, 0, 0, 1);
+					textUtils.beginRendering();
 					for (int wY = wMin; wY >= wMax; wY *= wUnit) {
 						if (wY < wbb.y || wY > wbb.y + wbb.height) {
 							continue;
 						}
 						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
-						tr.draw("" + -wY, lbb.x + localTickSize, canvasSize.y - lPoint.y - t.getFontSize() / 2);
-						maxWidth = Math.max(maxWidth, (int) tr.getBounds("" + -wY).getWidth());
+						textUtils.draw(f, "" + -wY, lbb.x + localTickSize,
+								localBounds.height - (lPoint.y + t.getFontSize() / 2));
+						maxWidth = Math.max(maxWidth, textUtils.getWidth(f, "" + -wY));
 					}
-					tr.endRendering();
+					textUtils.endRendering(gl, localBounds);
 					break;
 				}
 				}
-				f = tr.getFont();
 				f = f.deriveFont(Font.BOLD);
 				f = f.deriveFont(f.getSize2D() * 1.2f);
-				tr = r.getTextRenderer(f);
-				tr.beginRendering(canvasSize.x, canvasSize.y);
-				gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
-				gl.glTranslated(lbb.x + localTickSize + maxWidth + t.getFontSize(), canvasSize.y - lbb.y
-						- (lbb.height + tr.getBounds(t.getText()).getWidth()) / 2, 0);
+				gl.glPushMatrix();
+				gl.glTranslated(lbb.x + localTickSize + maxWidth + t.getFontSize(), localBounds.height
+						- (lbb.y + (lbb.height + textUtils.getWidth(f, t.getText())) / 2), 0);
 				gl.glRotated(90, 0, 0, 1);
-				tr.setColor(0, 0, 0, 1);
-				tr.draw(t.getText(), 0, 0);
-				tr.endRendering();
+				gl.glColor4f(0, 0, 0, 1);
+				textUtils.beginRendering();
+				textUtils.draw(f, t.getText(), 0, 0);
+				textUtils.endRendering(gl, localBounds);
+				gl.glPopMatrix();
 				break;
 			}
 		}

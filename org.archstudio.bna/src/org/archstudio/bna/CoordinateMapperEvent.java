@@ -8,7 +8,27 @@ import org.eclipse.swt.graphics.Rectangle;
 public class CoordinateMapperEvent {
 
 	public enum EventType {
-		WORLD_BOUNDS, LOCAL_ORIGIN, LOCAL_SCALE, LOCAL_SCALE_AND_ORIGIN, OTHER
+		WORLD_BOUNDS(false, false), //
+		LOCAL_ORIGIN(true, false), //
+		LOCAL_SCALE(false, true), //
+		LOCAL_SCALE_AND_ORIGIN(true, true), //
+		OTHER(true, true);
+
+		private final boolean originModified;
+		private final boolean scaleModified;
+
+		private EventType(boolean originModified, boolean scaleModified) {
+			this.originModified = originModified;
+			this.scaleModified = scaleModified;
+		}
+
+		public boolean isOriginModified() {
+			return originModified;
+		}
+
+		public boolean isScaleModified() {
+			return scaleModified;
+		}
 	}
 
 	private final ICoordinateMapper source;
