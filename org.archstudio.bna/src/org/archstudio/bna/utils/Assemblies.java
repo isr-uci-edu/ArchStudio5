@@ -11,6 +11,7 @@ import java.util.Map;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IEntry;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.StickyMode;
@@ -203,11 +204,11 @@ public final class Assemblies {
 
 		Map<IThingRefKey<?>, IThing> allParts = Maps.newHashMap();
 
-		for (IThingKey<?> k : root.keySet()) {
-			if (k instanceof IThingRefKey) {
-				IThing t = ((IThingRefKey<?>) k).get(root, model);
-				if (t != null && t.has(ROOT_KEY, root.getID())) {
-					allParts.put((IThingRefKey<?>) k, t);
+		for (IEntry entry : root.entries()) {
+			if (entry.getKey() instanceof IThingRefKey) {
+				IThing t = model.getThing(entry.getValue());
+				if (t != null && t.has(ROOT_KEY, root.getUID())) {
+					allParts.put((IThingRefKey<?>) entry.getKey(), t);
 				}
 			}
 		}

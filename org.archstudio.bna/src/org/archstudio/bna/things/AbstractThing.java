@@ -3,7 +3,6 @@ package org.archstudio.bna.things;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.util.Iterator;
-import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -12,8 +11,8 @@ import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.FastIntMap;
-import org.archstudio.bna.utils.FastIntMap.Entry;
+import org.archstudio.sysutils.FastIntMap;
+import org.archstudio.sysutils.FastIntMap.Entry;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -23,8 +22,8 @@ import org.eclipse.swt.widgets.Display;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 @NonNullByDefault
 public class AbstractThing implements IThing {
@@ -196,21 +195,47 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
-	public Set<IThingKey<?>> keySet() {
-		Set<IThingKey<?>> keys = Sets.newHashSet();
-		for (Iterator<Entry<Object>> i = properties.iterator(); i.hasNext();) {
-			keys.add(BNAUtils.getRegisteredKey(i.next().getKey()));
-		}
+	public Iterable<IEntry> entries() {
+		return new Iterable<IEntry>() {
+			@Override
+			public Iterator<IEntry> iterator() {
+				return new AbstractIterator<IEntry>() {
+					Iterator<Entry<Object>> i = properties.entries().iterator();
 
-		return keys;
+					@Override
+					protected IEntry computeNext() {
+						if (i.hasNext()) {
+							final Entry<Object> entry = i.next();
+							return new IEntry() {
+								IThingKey<?> key = null;
+
+								@Override
+								public IThingKey<?> getKey() {
+									if (key != null) {
+										return key;
+									}
+									return key = BNAUtils.getRegisteredKey(entry.getKey());
+								}
+
+								@Override
+								public Object getValue() {
+									return entry.getValue();
+								}
+							};
+						}
+						return endOfData();
+					}
+				};
+			}
+		};
 	}
 
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(SystemUtils.simpleName(this.getClass())).append("[id=").append(id);
-		for (IThingKey<?> key : SystemUtils.sorted(keySet())) {
-			sb.append(",").append(key).append("=").append(properties.get(key.getUID()));
+		for (Entry<?> entry : properties.entries()) {
+			sb.append(",").append(BNAUtils.getRegisteredKey(entry.getKey())).append("=").append(entry.getValue());
 		}
 		sb.append("]");
 		return sb.toString();

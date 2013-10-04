@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
@@ -25,12 +25,11 @@ import org.archstudio.bna.facets.IHasShapeKeys;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.FastLongMap;
+import org.archstudio.sysutils.FastLongMap;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 public class StickPointLogic extends AbstractThingLogic implements IBNAModelListener {
@@ -236,20 +235,24 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 
 		public void register() {
 			for (IThingKey<?> shapeModifyingKey : pointThingShapeModifyingKeys) {
-				get(BNAUtils.getThingKeyUID(pointThingUID, shapeModifyingKey.getUID()), true).add(stuckPoint);
+				FastLongMap.getList(stuckPoints, BNAUtils.getThingKeyUID(pointThingUID, shapeModifyingKey.getUID()),
+						true).add(stuckPoint);
 			}
 			for (IThingKey<?> shapeModifyingKey : stickyThingShapeModifyingKeys) {
-				get(BNAUtils.getThingKeyUID(stickyThingUID, shapeModifyingKey.getUID()), true).add(stuckPoint);
+				FastLongMap.getList(stuckPoints, BNAUtils.getThingKeyUID(stickyThingUID, shapeModifyingKey.getUID()),
+						true).add(stuckPoint);
 			}
 			registrars.put(BNAUtils.getThingKeyUID(pointThingUID, stuckPoint.pointKey.getUID()), this);
 		}
 
 		public void unregister() {
 			for (IThingKey<?> shapeModifyingKey : pointThingShapeModifyingKeys) {
-				get(BNAUtils.getThingKeyUID(pointThingUID, shapeModifyingKey.getUID()), false).remove(stuckPoint);
+				FastLongMap.getList(stuckPoints, BNAUtils.getThingKeyUID(pointThingUID, shapeModifyingKey.getUID()),
+						false).remove(stuckPoint);
 			}
 			for (IThingKey<?> shapeModifyingKey : stickyThingShapeModifyingKeys) {
-				get(BNAUtils.getThingKeyUID(stickyThingUID, shapeModifyingKey.getUID()), false).remove(stuckPoint);
+				FastLongMap.getList(stuckPoints, BNAUtils.getThingKeyUID(stickyThingUID, shapeModifyingKey.getUID()),
+						false).remove(stuckPoint);
 			}
 			registrars.remove(BNAUtils.getThingKeyUID(pointThingUID, stuckPoint.pointKey.getUID()));
 		}
@@ -258,21 +261,8 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 	public StickPointLogic() {
 	}
 
-	FastLongMap<Collection<StuckPoint>> stuckPoints = new FastLongMap<Collection<StuckPoint>>(1024);
+	FastLongMap<List<StuckPoint>> stuckPoints = new FastLongMap<>(1024);
 	FastLongMap<Registrar> registrars = new FastLongMap<Registrar>(128);
-
-	private Collection<StuckPoint> get(long thingKeyUID, boolean create) {
-		Collection<StuckPoint> stuckPointCollection = stuckPoints.get(thingKeyUID);
-		if (stuckPointCollection == null) {
-			if (create) {
-				stuckPoints.put(thingKeyUID, stuckPointCollection = Lists.newArrayList());
-			}
-			else {
-				return Collections.emptyList();
-			}
-		}
-		return stuckPointCollection;
-	}
 
 	public void stick(IHasShapeKeys pointThing, IThingKey<Point> pointKey, final StickyMode stickyMode,
 			IIsSticky stickyThing) {
@@ -331,7 +321,7 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 	public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
-			for (StuckPoint stuckPoint : get(thingEvent.getThingKeyUID(), false)) {
+			for (StuckPoint stuckPoint : FastLongMap.getList(stuckPoints, thingEvent.getThingKeyUID(), false)) {
 				if (currentlyUpdating.add(thingEvent.getThingKeyUID())) {
 					try {
 						stuckPoint.update(evt.getSource(), thingEvent, evt.isInBulkChange());

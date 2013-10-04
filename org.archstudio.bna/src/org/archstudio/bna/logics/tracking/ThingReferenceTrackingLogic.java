@@ -7,6 +7,7 @@ import java.util.Collection;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IEntry;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.keys.IThingRefKey;
@@ -91,18 +92,18 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 
 	@SuppressWarnings("rawtypes")
 	private void scanForReferences(IThing fromThing) {
-		for (IThingKey<?> key : fromThing.keySet()) {
-			if (key instanceof IThingRefKey) {
-				addReference(fromThing, (IThingRefKey) key, fromThing.get(key));
+		for (IEntry entry : fromThing.entries()) {
+			if (entry.getKey() instanceof IThingRefKey) {
+				addReference(fromThing, (IThingRefKey) entry.getKey(), entry.getValue());
 			}
 		}
 	}
 
 	@SuppressWarnings("rawtypes")
 	private void removeReferences(IThing fromThing) {
-		for (IThingKey<?> key : fromThing.keySet()) {
-			if (key instanceof IThingRefKey) {
-				removeReference(fromThing, (IThingRefKey) key, fromThing.get(key));
+		for (IEntry entry : fromThing.entries()) {
+			if (entry.getKey() instanceof IThingRefKey) {
+				removeReference(fromThing, (IThingRefKey) entry.getKey(), entry.getValue());
 			}
 		}
 	}

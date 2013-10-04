@@ -2,8 +2,7 @@ package org.archstudio.bna.logics.coordinating;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
@@ -15,14 +14,12 @@ import org.archstudio.bna.facets.IHasOrientation;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.labels.DirectionalLabelThing;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.FastIntMap;
-import org.archstudio.bna.utils.FastLongMap;
 import org.archstudio.swtutils.constants.Orientation;
+import org.archstudio.sysutils.FastIntMap;
+import org.archstudio.sysutils.FastLongMap;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-
-import com.google.common.collect.Lists;
 
 public class OrientDirectionalLabelLogic extends AbstractThingLogic implements IBNAModelListener {
 
@@ -117,26 +114,34 @@ public class OrientDirectionalLabelLogic extends AbstractThingLogic implements I
 		}
 
 		public void register() {
-			get(BNAUtils.getThingKeyUID(boundingBoxThingUID, IHasBoundingBox.BOUNDING_BOX_KEY.getUID()), true).add(
+			FastLongMap.getList(orients,
+					BNAUtils.getThingKeyUID(boundingBoxThingUID, IHasBoundingBox.BOUNDING_BOX_KEY.getUID()), true).add(
 					orient);
-			get(BNAUtils.getThingKeyUID(directionalThingUID, IHasAnchorPoint.ANCHOR_POINT_KEY.getUID()), true).add(
+			FastLongMap.getList(orients,
+					BNAUtils.getThingKeyUID(directionalThingUID, IHasAnchorPoint.ANCHOR_POINT_KEY.getUID()), true).add(
 					orient);
-			get(BNAUtils.getThingKeyUID(directionalThingUID, IHasBoundingBox.BOUNDING_BOX_KEY.getUID()), true).add(
+			FastLongMap.getList(orients,
+					BNAUtils.getThingKeyUID(directionalThingUID, IHasBoundingBox.BOUNDING_BOX_KEY.getUID()), true).add(
 					orient);
-			get(BNAUtils.getThingKeyUID(directionalThingUID, IHasOrientation.ORIENTATION_KEY.getUID()), true).add(
+			FastLongMap.getList(orients,
+					BNAUtils.getThingKeyUID(directionalThingUID, IHasOrientation.ORIENTATION_KEY.getUID()), true).add(
 					orient);
 			registrars.put(directionalThingUID, this);
 		}
 
 		public void unregister() {
-			get(BNAUtils.getThingKeyUID(boundingBoxThingUID, IHasBoundingBox.BOUNDING_BOX_KEY.getUID()), false).remove(
-					orient);
-			get(BNAUtils.getThingKeyUID(directionalThingUID, IHasAnchorPoint.ANCHOR_POINT_KEY.getUID()), false).remove(
-					orient);
-			get(BNAUtils.getThingKeyUID(directionalThingUID, IHasBoundingBox.BOUNDING_BOX_KEY.getUID()), false).remove(
-					orient);
-			get(BNAUtils.getThingKeyUID(directionalThingUID, IHasOrientation.ORIENTATION_KEY.getUID()), false).remove(
-					orient);
+			FastLongMap.getList(orients,
+					BNAUtils.getThingKeyUID(boundingBoxThingUID, IHasBoundingBox.BOUNDING_BOX_KEY.getUID()), false)
+					.remove(orient);
+			FastLongMap.getList(orients,
+					BNAUtils.getThingKeyUID(directionalThingUID, IHasAnchorPoint.ANCHOR_POINT_KEY.getUID()), false)
+					.remove(orient);
+			FastLongMap.getList(orients,
+					BNAUtils.getThingKeyUID(directionalThingUID, IHasBoundingBox.BOUNDING_BOX_KEY.getUID()), false)
+					.remove(orient);
+			FastLongMap.getList(orients,
+					BNAUtils.getThingKeyUID(directionalThingUID, IHasOrientation.ORIENTATION_KEY.getUID()), false)
+					.remove(orient);
 			registrars.remove(directionalThingUID);
 		}
 	}
@@ -144,21 +149,8 @@ public class OrientDirectionalLabelLogic extends AbstractThingLogic implements I
 	public OrientDirectionalLabelLogic() {
 	}
 
-	FastLongMap<Collection<Orient>> orients = new FastLongMap<Collection<Orient>>(512);
+	FastLongMap<List<Orient>> orients = new FastLongMap<>(512);
 	FastIntMap<Registrar> registrars = new FastIntMap<Registrar>(128);
-
-	private Collection<Orient> get(long thingKeyUID, boolean create) {
-		Collection<Orient> orientsCollection = orients.get(thingKeyUID);
-		if (orientsCollection == null) {
-			if (create) {
-				orients.put(thingKeyUID, orientsCollection = Lists.newArrayList());
-			}
-			else {
-				return Collections.emptyList();
-			}
-		}
-		return orientsCollection;
-	}
 
 	public void orient(IHasBoundingBox boundingBoxThing, DirectionalLabelThing directionalThing) {
 		checkNotNull(boundingBoxThing);
@@ -186,7 +178,7 @@ public class OrientDirectionalLabelLogic extends AbstractThingLogic implements I
 	public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
-			for (Orient orient : get(thingEvent.getThingKeyUID(), false)) {
+			for (Orient orient : FastLongMap.getList(orients, thingEvent.getThingKeyUID(), false)) {
 				orient.apply(evt.getSource());
 			}
 		}

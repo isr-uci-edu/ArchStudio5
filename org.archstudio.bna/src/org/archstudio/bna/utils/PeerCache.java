@@ -1,11 +1,11 @@
 package org.archstudio.bna.utils;
 
 import java.lang.reflect.Constructor;
-import java.util.Iterator;
 
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
-import org.archstudio.bna.utils.FastIntMap.Entry;
+import org.archstudio.sysutils.FastIntMap;
+import org.archstudio.sysutils.FastIntMap.Entry;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -54,8 +54,8 @@ public class PeerCache {
 	}
 
 	public void dispose() {
-		for (Iterator<Entry<IThingPeer<?>>> i = peersCache.iterator(); i.hasNext();) {
-			IThingPeer<?> p = i.next().value;
+		for (Entry<IThingPeer<?>> entry : peersCache.entriesAndClear()) {
+			IThingPeer<?> p = entry.getValue();
 			p.dispose();
 		}
 		peersCache.clear();

@@ -30,15 +30,19 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 @NonNullByDefault
 public class SystemUtils {
@@ -1078,6 +1082,22 @@ public class SystemUtils {
 		return simpleName(clazz.getName());
 	}
 
+	private static Map<Class<?>, Function<?, ?>> comparables = Maps.newHashMap();
+	static {
+		comparables.put(AtomicInteger.class, new Function<AtomicInteger, Object>() {
+			@Override
+			public Object apply(AtomicInteger input) {
+				return input.intValue();
+			}
+		});
+		comparables.put(AtomicLong.class, new Function<AtomicLong, Object>() {
+			@Override
+			public Object apply(AtomicLong input) {
+				return input.longValue();
+			}
+		});
+	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static final int compare(@Nullable Object o1, @Nullable Object o2) {
 		if (o1 == null) {
@@ -1086,6 +1106,14 @@ public class SystemUtils {
 		if (o2 == null) {
 			return 1;
 		}
+
+		if (comparables.containsKey(o1.getClass())) {
+			o1 = ((Function<Object, Object>) comparables.get(o1.getClass())).apply(o1);
+		}
+		if (comparables.containsKey(o2.getClass())) {
+			o2 = ((Function<Object, Object>) comparables.get(o2.getClass())).apply(o2);
+		}
+
 		if (o1 instanceof Comparable) {
 			return ((Comparable) o1).compareTo(o2);
 		}
@@ -1140,19 +1168,19 @@ public class SystemUtils {
 	}
 
 	public static final <T> List<T> sorted(Iterable<? extends T> iterable) {
-		return SystemUtils.sorted(iterable, SystemUtils.genericComparator);
+		return sorted(iterable, genericComparator);
 	}
 
 	public static final <K, V, E extends Map.Entry<K, V>> List<E> sortedByKey(Iterable<E> entries) {
-		return SystemUtils.sorted(//
-				Iterables.filter(entries, SystemUtils.nonNullMapEntryKeyPredicate),//
-				SystemUtils.mapEntryKeyComparator);
+		return sorted(//
+				Iterables.filter(entries, nonNullMapEntryKeyPredicate),//
+				mapEntryKeyComparator);
 	}
 
 	public static final <K, V, E extends Map.Entry<K, V>> List<E> sortedByValue(Iterable<E> entries) {
-		return SystemUtils.sorted(//
-				Iterables.filter(entries, SystemUtils.nonNullMapEntryValuePredicate),//
-				SystemUtils.mapEntryValueComparator);
+		return sorted(//
+				Iterables.filter(entries, nonNullMapEntryValuePredicate),//
+				mapEntryValueComparator);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -1267,8 +1295,10 @@ public class SystemUtils {
 
 	public static final @Nullable
 	<T> T firstOrNull(Iterable<T> elements) {
-		for (T o : elements) {
-			return o;
+		if (elements != null) {
+			for (T o : elements) {
+				return o;
+			}
 		}
 		return null;
 	}
@@ -1331,6 +1361,10 @@ public class SystemUtils {
 
 	public static final <T> T nonNullOr(@Nullable T value, T valueIfNull) {
 		return value != null ? value : valueIfNull;
+	}
+
+	public static final <T> List<T> filter(Iterable<?> elements, Class<T> ofType) {
+		return Lists.newArrayList(Iterables.filter(elements, ofType));
 	}
 
 }

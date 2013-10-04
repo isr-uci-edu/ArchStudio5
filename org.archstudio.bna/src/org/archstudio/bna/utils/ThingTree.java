@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.archstudio.bna.IThing;
+import org.archstudio.sysutils.FastIntMap;
 
 import com.google.common.collect.Lists;
 

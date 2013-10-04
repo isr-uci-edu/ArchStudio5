@@ -2,8 +2,7 @@ package org.archstudio.bna.logics.coordinating;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
@@ -13,11 +12,10 @@ import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.FastLongMap;
+import org.archstudio.sysutils.FastLongMap;
 
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
-import com.google.common.collect.Lists;
 
 public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelListener {
 
@@ -76,14 +74,14 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelLis
 		}
 
 		public void register() {
-			get(BNAUtils.getThingKeyUID(fromThingUID, fromKey.getUID()), true).add(mirror);
-			get(BNAUtils.getThingKeyUID(toThingUID, toKey.getUID()), true).add(mirror);
+			FastLongMap.getList(mirrors, BNAUtils.getThingKeyUID(fromThingUID, fromKey.getUID()), true).add(mirror);
+			FastLongMap.getList(mirrors, BNAUtils.getThingKeyUID(toThingUID, toKey.getUID()), true).add(mirror);
 			registrars.put(BNAUtils.getThingKeyUID(toThingUID, toKey.getUID()), this);
 		}
 
 		public void unregister() {
-			get(BNAUtils.getThingKeyUID(fromThingUID, fromKey.getUID()), false).remove(mirror);
-			get(BNAUtils.getThingKeyUID(toThingUID, toKey.getUID()), false).remove(mirror);
+			FastLongMap.getList(mirrors, BNAUtils.getThingKeyUID(fromThingUID, fromKey.getUID()), false).remove(mirror);
+			FastLongMap.getList(mirrors, BNAUtils.getThingKeyUID(toThingUID, toKey.getUID()), false).remove(mirror);
 			registrars.remove(BNAUtils.getThingKeyUID(toThingUID, toKey.getUID()));
 		}
 	}
@@ -91,21 +89,8 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelLis
 	public MirrorValueLogic() {
 	}
 
-	FastLongMap<Collection<Mirror<?, ?>>> mirrors = new FastLongMap<Collection<Mirror<?, ?>>>(256);
+	FastLongMap<List<Mirror<?, ?>>> mirrors = new FastLongMap<>(256);
 	FastLongMap<Registrar> registrars = new FastLongMap<Registrar>(128);
-
-	private Collection<Mirror<?, ?>> get(long thingKeyUID, boolean create) {
-		Collection<Mirror<?, ?>> mirrorsCollection = mirrors.get(thingKeyUID);
-		if (mirrorsCollection == null) {
-			if (create) {
-				mirrors.put(thingKeyUID, mirrorsCollection = Lists.newArrayList());
-			}
-			else {
-				return Collections.emptyList();
-			}
-		}
-		return mirrorsCollection;
-	}
 
 	public <V> void mirrorValue(IThing fromThing, IThingKey<V> key, IThing toThing) {
 		mirrorValue(fromThing, key, toThing, key, Functions.<V> identity());
@@ -144,7 +129,7 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelLis
 	public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
-			for (Mirror<?, ?> mirror : get(thingEvent.getThingKeyUID(), false)) {
+			for (Mirror<?, ?> mirror : FastLongMap.getList(mirrors, thingEvent.getThingKeyUID(), false)) {
 				mirror.apply(evt.getSource());
 			}
 		}

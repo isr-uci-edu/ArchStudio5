@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IEntry;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -51,8 +52,8 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
 			Object thingID = thing.getID();
-			for (IThingKey<?> k : thing.keySet()) {
-				update(thingID, k, null, thing.get(k));
+			for (IEntry entry : thing.entries()) {
+				update(thingID, entry.getKey(), null, entry.getValue());
 			}
 			break;
 		}
@@ -65,8 +66,8 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 		case THING_REMOVED: {
 			IThing thing = evt.getTargetThing();
 			Object thingID = thing.getID();
-			for (IThingKey<?> k : thing.keySet()) {
-				update(thingID, k, thing.get(k), null);
+			for (IEntry entry : thing.entries()) {
+				update(thingID, entry.getKey(), entry.getValue(), null);
 			}
 			break;
 		}
