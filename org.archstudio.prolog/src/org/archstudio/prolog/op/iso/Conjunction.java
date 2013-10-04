@@ -25,9 +25,7 @@ public class Conjunction extends ComplexTerm implements Executable {
 	public Iterable<Map<VariableTerm, Term>> execute(final ProofContext proofContext,
 			final UnificationEngine unificationEngine, Term source, final Map<VariableTerm, Term> variables) {
 
-		Executable term0 = PrologUtils.resolveExecutable(proofContext, getTerm(0), variables);
-		final Iterator<Map<VariableTerm, Term>> term0Variables = term0.execute(proofContext, unificationEngine, term0,
-				variables).iterator();
+		final Executable term0 = PrologUtils.resolveExecutable(proofContext, getTerm(0), variables);
 
 		return new Iterable<Map<VariableTerm, Term>>() {
 
@@ -36,6 +34,8 @@ public class Conjunction extends ComplexTerm implements Executable {
 
 				return new AbstractIterator<Map<VariableTerm, Term>>() {
 
+					Iterator<Map<VariableTerm, Term>> term0Variables = term0.execute(proofContext, unificationEngine,
+							term0, variables).iterator();
 					Iterator<Map<VariableTerm, Term>> term1Variables = Collections
 							.<Map<VariableTerm, Term>> emptyList().iterator();
 

@@ -206,6 +206,29 @@ public class ProofTest {
 	}
 
 	@Test
+	public void testIfThenElse() throws ParseException {
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b).done());
+			Assert.assertEquals(expected, run("false -> false, X=a; X=b."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			Assert.assertEquals(expected, run("true -> false, X=a; X=b."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b).done());
+			Assert.assertEquals(expected, run("false -> true, X=a; X=b."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, a).done());
+			Assert.assertEquals(expected, run("true -> true, X=a; X=b."));
+		}
+	}
+
+	@Test
 	public void testIfThen() throws ParseException {
 		{
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();

@@ -12,8 +12,6 @@ import org.archstudio.prolog.term.ComplexTerm;
 import org.archstudio.prolog.term.Term;
 import org.archstudio.prolog.term.VariableTerm;
 
-import com.google.common.collect.AbstractIterator;
-
 public class Disjunction extends ComplexTerm implements Executable {
 
 	public Disjunction(String name, List<? extends Term> terms) {
@@ -24,35 +22,31 @@ public class Disjunction extends ComplexTerm implements Executable {
 	public Iterable<Map<VariableTerm, Term>> execute(final ProofContext proofContext,
 			final UnificationEngine unificationEngine, Term source, final Map<VariableTerm, Term> variables) {
 
-		return new Iterable<Map<VariableTerm, Term>>() {
+		if (getTerm(0) instanceof IfThen) {
+			// special case for IF-THEN-ELSE, A -> B ; C
 
-			@Override
-			public Iterator<Map<VariableTerm, Term>> iterator() {
-				return new AbstractIterator<Map<VariableTerm, Term>>() {
+			Executable term0if = PrologUtils.resolveExecutable(proofContext, ((IfThen) getTerm(0)).getTerm(0),
+					variables);
+			Iterator<Map<VariableTerm, Term>> term0Variables = term0if.execute(proofContext, unificationEngine,
+					term0if, variables).iterator();
 
-					int termsIndex = 0;
-					Iterator<Map<VariableTerm, Term>> variablesIterator = null;
-
-					@Override
-					protected Map<VariableTerm, Term> computeNext() {
-						while (true) {
-							if (variablesIterator != null && variablesIterator.hasNext()) {
-								return variablesIterator.next();
-							}
-							if (variablesIterator == null && termsIndex < getTermsSize()) {
-								Term term = getTerm(termsIndex++);
-								variablesIterator = PrologUtils.resolveExecutable(proofContext, term, variables)
-										.execute(proofContext, unificationEngine, term, variables).iterator();
-								if (!variablesIterator.hasNext()) {
-									variablesIterator = null;
-								}
-								continue;
-							}
-							return endOfData();
-						}
-					}
-				};
+			if (term0Variables.hasNext()) {
+				Executable term0then = PrologUtils.resolveExecutable(proofContext, ((IfThen) getTerm(0)).getTerm(1),
+						variables);
+				return term0then.execute(proofContext, unificationEngine, term0then, term0Variables.next());
 			}
-		};
+		}
+		else {
+			Executable term0 = PrologUtils.resolveExecutable(proofContext, getTerm(0), variables);
+			Iterable<Map<VariableTerm, Term>> term0Variables = term0.execute(proofContext, unificationEngine, term0,
+					variables);
+
+			if (term0Variables.iterator().hasNext()) {
+				return term0Variables;
+			}
+		}
+
+		Executable term1 = PrologUtils.resolveExecutable(proofContext, getTerm(1), variables);
+		return term1.execute(proofContext, unificationEngine, term1, variables);
 	}
 }

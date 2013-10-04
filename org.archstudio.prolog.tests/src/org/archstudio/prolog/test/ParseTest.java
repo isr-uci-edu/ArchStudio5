@@ -51,7 +51,7 @@ public class ParseTest {
 
 	private void assertNotParse(String expected) throws ParseException {
 		try {
-			String r = PrologParser.parseTerms(proofContext, expected).get(0).toString() + ".";
+			PrologParser.parseTerms(proofContext, expected);
 			Assert.fail(expected);
 		}
 		catch (Exception e) {
