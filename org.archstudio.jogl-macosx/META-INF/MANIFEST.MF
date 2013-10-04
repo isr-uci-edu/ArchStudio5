@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio JOGL for macosx
 Bundle-SymbolicName: org.archstudio.jogl-macosx;singleton:=true
-Bundle-Version: 2.0.0.qualifier
+Bundle-Version: 2.0.2.qualifier
 Bundle-Vendor: archstudio.org
-Fragment-Host: org.archstudio.jogl;bundle-version="2.0.0.qualifier"
+Fragment-Host: org.archstudio.jogl
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-NativeCode: libgluegen-rt.jnilib; libjogl_desktop.jnilib; libjogl_mobile.jnilib; libnativewindow_awt.jnilib; libnativewindow_macosx.jnilib; libnewt.jnilib
 Eclipse-PlatformFilter: (osgi.os=macosx)
