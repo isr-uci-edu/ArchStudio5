@@ -12,7 +12,7 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
  *            The type of value stored by the key, e.g., a Rectangle, RGB, an Integer, etc.
  */
 @NonNullByDefault
-public class ThingKey<D, V> extends AbstractGenericThingKey<D, V> {
+public class ThingKey<D, V> extends AbstractThingKey<D, V> {
 
 	public static final <D, V> IThing.IThingKey<V> create(D keyData) {
 		return new ThingKey<D, V>(keyData, true);

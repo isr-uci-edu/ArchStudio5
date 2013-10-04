@@ -6,6 +6,7 @@ import java.util.List;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IThing.IThingKey;
+import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasFontData;
 import org.archstudio.bna.facets.IHasLineData;
 import org.archstudio.bna.facets.IHasLineStyle;
@@ -20,7 +21,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.jogamp.opengl.util.awt.TextRenderer;
 
-public class Resources implements IResources {
+public class Resources {
 
 	final Composite composite;
 
@@ -32,26 +33,21 @@ public class Resources implements IResources {
 		this.gl = gl;
 	}
 
-	@Override
 	public void dispose() {
 	}
 
-	@Override
 	public Device getDevice() {
 		return composite.getDisplay();
 	}
 
-	@Override
 	public Composite getComposite() {
 		return composite;
 	}
 
-	@Override
 	public GL2 getGL() {
 		return gl;
 	}
 
-	@Override
 	public boolean setColor(IThing thing, IThingKey<RGB> colorKey) {
 		RGB color = thing.get(colorKey);
 		if (color != null) {
@@ -61,7 +57,6 @@ public class Resources implements IResources {
 		return false;
 	}
 
-	@Override
 	public boolean setColor(IThing thing, IThingKey<RGB> colorKey, TextRenderer tr) {
 		RGB color = thing.get(colorKey);
 		if (color != null) {
@@ -71,7 +66,6 @@ public class Resources implements IResources {
 		return false;
 	}
 
-	@Override
 	public boolean setColor(IThing thing, IThingKey<RGB> colorKey, float alpha) {
 		RGB color = thing.get(colorKey);
 		if (color != null) {
@@ -81,7 +75,6 @@ public class Resources implements IResources {
 		return false;
 	}
 
-	@Override
 	public boolean setColor(IThing thing, IThingKey<RGB> colorKey, float alpha, TextRenderer tr) {
 		RGB color = thing.get(colorKey);
 		if (color != null) {
@@ -91,7 +84,6 @@ public class Resources implements IResources {
 		return false;
 	}
 
-	@Override
 	public boolean setColor(RGB color, float alpha) {
 		if (color != null) {
 			gl.glColor4f(color.red / 255f, color.green / 255f, color.blue / 255f, alpha);
@@ -100,7 +92,6 @@ public class Resources implements IResources {
 		return false;
 	}
 
-	@Override
 	public boolean setColor(RGB color, float alpha, TextRenderer tr) {
 		if (color != null) {
 			tr.setColor(color.red / 255f, color.green / 255f, color.blue / 255f, alpha);
@@ -109,8 +100,8 @@ public class Resources implements IResources {
 		return false;
 	}
 
-	@Override
 	public boolean setLineStyle(IHasLineData thing) {
+		setColor(thing, IHasEdgeColor.EDGE_COLOR_KEY);
 		Integer width = thing.getLineWidth();
 		Integer style = thing.getLineStyle();
 		if (width != null && style != null) {
@@ -139,6 +130,11 @@ public class Resources implements IResources {
 		return false;
 	}
 
+	public void resetLineStyle() {
+		gl.glLineWidth(1);
+		gl.glLineStipple(1, (short) 0xffff);
+	}
+
 	Cache<List<Object>, Font> fontCache = CacheBuilder.newBuilder().build(new CacheLoader<List<Object>, Font>() {
 
 		@Override
@@ -147,7 +143,6 @@ public class Resources implements IResources {
 		}
 	});
 
-	@Override
 	public Font getFont(IHasFontData thing, int size) {
 		FontStyle fontStyle = thing.getFontStyle();
 		int awtFontStyle = Font.PLAIN;
@@ -165,7 +160,6 @@ public class Resources implements IResources {
 		return new Font(thing.getFontName(), awtFontStyle, size);
 	}
 
-	@Override
 	public Font getFont(IHasFontData thing) {
 		return getFont(thing, thing.getFontSize());
 	}
@@ -180,7 +174,6 @@ public class Resources implements IResources {
 				}
 			});
 
-	@Override
 	public void setAntialiasText(boolean antialiasText) {
 		if (this.antialiasText != antialiasText) {
 			textRendererCache.invalidateAll();
@@ -188,7 +181,6 @@ public class Resources implements IResources {
 		}
 	}
 
-	@Override
 	public TextRenderer getTextRenderer(Font f) {
 		return textRendererCache.getUnchecked(f);
 	}

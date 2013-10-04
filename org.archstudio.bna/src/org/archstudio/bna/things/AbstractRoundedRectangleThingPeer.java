@@ -5,14 +5,15 @@ import java.awt.geom.RoundRectangle2D;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
+import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.things.shapes.RectangleThing;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractRoundedRectangleThingPeer<T extends RectangleThing> extends AbstractRectangleThingPeer<T> {
 
-	public AbstractRoundedRectangleThingPeer(T thing) {
-		super(thing);
+	public AbstractRoundedRectangleThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	public boolean isInThing(IBNAView View, ICoordinate location) {

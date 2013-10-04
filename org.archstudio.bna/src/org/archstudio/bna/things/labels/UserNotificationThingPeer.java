@@ -9,8 +9,8 @@ import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.Resources;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasSecondaryColor;
@@ -27,8 +27,8 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 
 	int SPACING = 4;
 
-	public UserNotificationThingPeer(T thing) {
-		super(thing);
+	public UserNotificationThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	protected static int calculateFontSize(ICoordinateMapper cm, int origFontSize, boolean dontIncreaseFontSize) {
@@ -46,7 +46,7 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
 
 		Point lap = cm.worldToLocal(t.getAnchorPoint());
 		float alpha = SystemUtils.bound(0, (16 - Math.abs(t.getLife() - 16)) / 8f, 1);
@@ -86,7 +86,7 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 			gl.glVertex2f(p1.x + 0.5f, p2.y - 0.5f);
 			gl.glEnd();
 
-			Point canvasSize = new Point(clip.width, clip.height);
+			Point canvasSize = new Point(localBounds.width, localBounds.height);
 			gl.glPushMatrix();
 			tr.beginRendering(canvasSize.x, canvasSize.y);
 			gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
@@ -98,7 +98,7 @@ public class UserNotificationThingPeer<T extends UserNotificationThing> extends 
 	}
 
 	@Override
-	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
+	public boolean isInThing(ICoordinate location) {
 		return false;
 	}
 }

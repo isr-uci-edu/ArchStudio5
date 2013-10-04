@@ -7,10 +7,7 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.GLContext;
 import javax.media.opengl.GLDrawableFactory;
 import javax.media.opengl.GLProfile;
-import javax.media.opengl.fixedfunc.GLMatrixFunc;
-import javax.media.opengl.glu.GLU;
 
-import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAView;
@@ -217,16 +214,6 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		if (!evt.isInBulkChange()) {
 			enqueueRedraw();
 		}
-
-		if (evt.getEventType() == EventType.THING_REMOVED) {
-			SWTWidgetUtils.async(this, new Runnable() {
-
-				@Override
-				public void run() {
-					getBNAView().disposePeer(evt.getTargetThing());
-				}
-			});
-		}
 	}
 
 	private boolean redrawPending = false;
@@ -263,20 +250,12 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		setCurrent();
 		context.makeCurrent();
 		try {
-			org.eclipse.swt.graphics.Rectangle bounds = getClientArea();
-			float fAspect = (float) bounds.width / (float) bounds.height;
-			gl.glViewport(0, 0, bounds.width, bounds.height);
-			gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
-			gl.glLoadIdentity();
-			GLU glu = new GLU();
-			glu.gluPerspective(45.0f, fAspect, 0.5f, 1f);
-			gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
-			gl.glLoadIdentity();
-
-			BNAUtils.render(gl, getBNAView(), resources, //
-					new Rectangle(0, 0, bounds.width, bounds.height), //
+			Rectangle localBounds = getClientArea();
+			BNAUtils.renderInit(bnaView, gl, localBounds, resources, //
 					BNARenderingSettings.getAntialiasGraphics(this), //
 					BNARenderingSettings.getAntialiasText(this));
+			BNAUtils.renderReshape(bnaView, gl, localBounds, resources);
+			BNAUtils.renderTopLevelThings(bnaView, gl, localBounds, resources);
 			gl.glFlush();
 			swapBuffers();
 		}

@@ -10,12 +10,12 @@ import org.eclipse.swt.graphics.Point;
 public abstract class AbstractIndicatorPointThingPeer<T extends AbstractIndicatorPointThing> extends
 		AbstractAnchorPointThingPeer<T> {
 
-	public AbstractIndicatorPointThingPeer(T thing) {
-		super(thing);
+	public AbstractIndicatorPointThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	@Override
-	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
+	public boolean isInThing(ICoordinate location) {
 		Point lap = cm.worldToLocal(t.getAnchorPoint());
 		Point lip = cm.worldToLocal(t.getIndicatorPoint());
 		Point lp = location.getLocalPoint();

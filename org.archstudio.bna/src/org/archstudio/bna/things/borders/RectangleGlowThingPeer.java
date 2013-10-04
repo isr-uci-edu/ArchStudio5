@@ -8,21 +8,21 @@ import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
+import org.archstudio.bna.Resources;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Rectangle;
 
 public class RectangleGlowThingPeer<T extends RectangleGlowThing> extends AbstractRectangleThingPeer<T> {
 
-	public RectangleGlowThingPeer(T thing) {
-		super(thing);
+	public RectangleGlowThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
-		if (!clip.intersects(lbb)) {
+		if (!localBounds.intersects(lbb)) {
 			return;
 		}
 
@@ -30,6 +30,6 @@ public class RectangleGlowThingPeer<T extends RectangleGlowThing> extends Abstra
 		Shape localShape = new RoundRectangle2D.Float(lbb.x, lbb.y, lbb.width, lbb.height, Math.min(lbb.width,
 				corner.width), Math.min(lbb.height, corner.height));
 
-		BNAUtils.renderShapeGlow(t, view, cm, gl, clip, r, localShape);
+		BNAUtils.renderShapeGlow(gl, localBounds, localShape, t.getColor(), t.getWidth(), t.getAlpha());
 	}
 }

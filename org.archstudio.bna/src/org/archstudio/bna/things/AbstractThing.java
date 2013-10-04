@@ -1,23 +1,24 @@
 package org.archstudio.bna.things;
 
 import static com.google.common.base.Preconditions.checkState;
+import static org.archstudio.sysutils.SystemUtils.nullEquals;
+import static org.archstudio.sysutils.SystemUtils.simpleName;
 
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReadWriteLock;
 
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.keys.AbstractThingKey;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.sysutils.FastIntMap;
 import org.archstudio.sysutils.FastIntMap.Entry;
-import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -28,7 +29,7 @@ import com.google.common.collect.Lists;
 @NonNullByDefault
 public class AbstractThing implements IThing {
 
-	private static final AtomicLong atomicLong = new AtomicLong(0);
+	private static final AtomicInteger uidGenerator = new AtomicInteger(0);
 
 	private static final LoadingCache<Class<? extends IThing>, Class<IThingPeer<?>>> defaultPeerClassCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<Class<? extends IThing>, Class<IThingPeer<?>>>() {
@@ -53,11 +54,13 @@ public class AbstractThing implements IThing {
 	private final Object id;
 	private final int uid;
 	private final FastIntMap<Object> properties = new FastIntMap<Object>();
+	private final ReadWriteLock lock;
 	private boolean initedProperties = false;
 
 	public AbstractThing(@Nullable Object id) {
-		this.id = id == null ? Long.valueOf(atomicLong.getAndIncrement()) : id;
-		this.uid = (int) atomicLong.getAndIncrement();
+		this.id = id != null ? id : new Object();
+		this.uid = uidGenerator.incrementAndGet();
+		this.lock = BNAUtils.LOCK_FACTORY.newReentrantReadWriteLock("Thing " + uid);
 		initProperties();
 		checkState(initedProperties, "Thing %s must call super.initPropeties().", this.getClass().getName());
 	}
@@ -68,17 +71,17 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
-	public int getUID() {
+	public final int getUID() {
 		return uid;
 	}
 
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		return uid;
 	}
 
 	@Override
-	public boolean equals(@Nullable Object obj) {
+	public final boolean equals(@Nullable Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -101,23 +104,28 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
-	public Class<? extends IThingPeer<?>> getPeerClass() {
+	public final Class<? extends IThingPeer<?>> getPeerClass() {
 		return defaultPeerClassCache.getUnchecked(this.getClass());
 	}
 
 	private final CopyOnWriteArrayList<IThingListener> thingListeners = Lists.newCopyOnWriteArrayList();
 
 	@Override
-	public void addThingListener(IThingListener thingListener) {
+	public void insertThingListener(IThingListener thingListener) {
+		thingListeners.add(0, thingListener);
+	}
+
+	@Override
+	public final void addThingListener(IThingListener thingListener) {
 		thingListeners.add(thingListener);
 	}
 
 	@Override
-	public void removeThingListener(IThingListener thingListener) {
+	public final void removeThingListener(IThingListener thingListener) {
 		thingListeners.remove(thingListener);
 	}
 
-	protected void fireThingEvent(ThingEvent evt) {
+	protected final void fireThingEvent(ThingEvent evt) {
 		for (IThingListener l : thingListeners) {
 			try {
 				l.thingChanged(evt);
@@ -129,69 +137,100 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
-	public @Nullable
+	public final @Nullable
 	<V> V get(IThingKey<V> key) {
 		return key.postRead(getRaw(key));
 	}
 
 	@Override
 	public final <V> V get(IThingKey<V> key, V valueIfNull) {
-		V value = get(key);
-		return value != null ? value : valueIfNull;
+		V value = getRaw(key);
+		return value != null ? key.postRead(value) : valueIfNull;
 	}
 
 	@SuppressWarnings("unchecked")
-	private final @Nullable
+	private @Nullable
 	<V> V getRaw(IThingKey<V> key) {
-		return (V) properties.get(key.getUID());
+		lock.readLock().lock();
+		try {
+			return (V) properties.get(key.getUID());
+		}
+		finally {
+			lock.readLock().unlock();
+		}
 	}
 
 	@Override
-	public @Nullable
-	<V> V set(IThingKey<V> key, @Nullable V value) {
-		return setRaw(key, key.preWrite(value));
+	public final <V> void set(IThingKey<V> key, @Nullable V value) {
+		setRaw(key, value);
+	}
+
+	@Override
+	public final @Nullable
+	<V> V getAndSet(IThingKey<V> key, @Nullable V value) {
+		return key.postRead(setRaw(key, value));
 	}
 
 	@SuppressWarnings("unchecked")
-	private final @Nullable
+	private @Nullable
 	<V> V setRaw(IThingKey<V> key, @Nullable V value) {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		lock.writeLock().lock();
+		try {
+			Entry<Object> entry = properties.createEntry(key.getUID());
+			V oldValue = (V) entry.getValue();
+			if (!nullEquals(oldValue, value)) {
+				entry.setValue(key.preWrite(value));
+				if (key.isFireEventOnChange()) {
+					fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_SET, this, key, oldValue,
+							key.preWrite(value)));
+				}
+			}
+			return oldValue;
 		}
-
-		V oldValue = (V) properties.put(key.getUID(), value);
-		if (key.isFireEventOnChange() && !SystemUtils.nullEquals(oldValue, value)) {
-			fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_SET, this, key, key.postRead(oldValue),
-					key.postRead(value)));
+		finally {
+			lock.writeLock().unlock();
 		}
-		return oldValue;
 	}
 
 	@Override
-	public boolean has(IThingKey<?> key) {
-		return properties.containsKey(key.getUID());
+	public final boolean has(IThingKey<?> key) {
+		lock.readLock().lock();
+		try {
+			return properties.containsKey(key.getUID());
+		}
+		finally {
+			lock.readLock().unlock();
+		}
 	}
 
 	@Override
-	public <V> boolean has(IThing.IThingKey<V> key, @Nullable V value) {
-		return SystemUtils.nullEquals(properties.get(key.getUID()), value);
+	public final <V> boolean has(IThingKey<V> key, @Nullable V value) {
+		lock.readLock().lock();
+		try {
+			return nullEquals(properties.get(key.getUID()), value);
+		}
+		finally {
+			lock.readLock().unlock();
+		}
 	};
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public @Nullable
+	public final @Nullable
 	<V> V remove(IThingKey<V> key) {
-		if (Display.getCurrent() == null) {
-			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+		lock.writeLock().lock();
+		try {
+			boolean containedValue = properties.containsKey(key.getUID());
+			V oldValue = (V) properties.get(key.getUID());
+			properties.remove(key.getUID());
+			if (containedValue && key.isFireEventOnChange()) {
+				fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_REMOVED, this, key, oldValue, null));
+			}
+			return oldValue;
 		}
-
-		boolean containedValue = properties.containsKey(key.getUID());
-		V oldValue = (V) properties.get(key.getUID());
-		properties.remove(key.getUID());
-		if (containedValue && key.isFireEventOnChange()) {
-			fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_REMOVED, this, key, oldValue, null));
+		finally {
+			lock.writeLock().unlock();
 		}
-		return oldValue;
 	}
 
 	@Override
@@ -214,7 +253,7 @@ public class AbstractThing implements IThing {
 									if (key != null) {
 										return key;
 									}
-									return key = BNAUtils.getRegisteredKey(entry.getKey());
+									return key = AbstractThingKey.getKey(entry.getKey());
 								}
 
 								@Override
@@ -232,12 +271,18 @@ public class AbstractThing implements IThing {
 
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		sb.append(SystemUtils.simpleName(this.getClass())).append("[id=").append(id);
-		for (Entry<?> entry : properties.entries()) {
-			sb.append(",").append(BNAUtils.getRegisteredKey(entry.getKey())).append("=").append(entry.getValue());
+		lock.readLock().lock();
+		try {
+			StringBuffer sb = new StringBuffer();
+			sb.append(simpleName(this.getClass())).append("[uid=").append(uid);
+			for (Entry<?> entry : properties.entries()) {
+				sb.append(",").append(AbstractThingKey.getKey(entry.getKey())).append("=").append(entry.getValue());
+			}
+			sb.append("]");
+			return sb.toString();
 		}
-		sb.append("]");
-		return sb.toString();
+		finally {
+			lock.readLock().unlock();
+		}
 	}
 }

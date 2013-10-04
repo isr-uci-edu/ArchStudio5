@@ -16,11 +16,11 @@ import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractCurvedSplineThingPeer<T extends AbstractCurvedSplineThing> extends AbstractThingPeer<T> {
 
-	public AbstractCurvedSplineThingPeer(T thing) {
-		super(thing);
+	public AbstractCurvedSplineThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
-	protected Shape getShape(IBNAView view, ICoordinateMapper cm) {
+	protected Shape createLocalShape() {
 		Point p1 = cm.worldToLocal(t.getEndpoint1());
 		Point p2 = cm.worldToLocal(t.getEndpoint2());
 		Point ap = cm.worldToLocal(t.getAnchorPoint());
@@ -38,7 +38,7 @@ public abstract class AbstractCurvedSplineThingPeer<T extends AbstractCurvedSpli
 	}
 
 	@Override
-	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
+	public boolean isInThing(ICoordinate location) {
 		int distance = 5;
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		lbb.x -= distance;
@@ -47,7 +47,7 @@ public abstract class AbstractCurvedSplineThingPeer<T extends AbstractCurvedSpli
 		lbb.height += distance * 2;
 		if (lbb.contains(location.getLocalPoint())) {
 			Point lp = location.getLocalPoint();
-			PathIterator pi = getShape(view, cm).getPathIterator(new AffineTransform(), 2);
+			PathIterator pi = createLocalShape().getPathIterator(new AffineTransform(), 2);
 			double[] coords = new double[6];
 			double x1 = 0;
 			double y1 = 0;

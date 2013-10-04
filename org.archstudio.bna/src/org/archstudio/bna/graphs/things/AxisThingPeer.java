@@ -8,7 +8,7 @@ import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
+import org.archstudio.bna.Resources;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.graphs.GraphCoordinateMapper;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
@@ -19,12 +19,12 @@ import com.jogamp.opengl.util.awt.TextRenderer;
 
 public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPeer<T> {
 
-	public AxisThingPeer(T thing) {
-		super(thing);
+	public AxisThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
 		Point canvasSize = r.getComposite().getSize();
 		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY) & r.setLineStyle(t)) {
 			TextRenderer tr = r.getTextRenderer(r.getFont(t));
@@ -38,8 +38,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 			switch (t.getOrientation()) {
 			case BOTTOM:
 				gl.glBegin(GL.GL_LINES);
-				gl.glVertex2f(lbb.x + 0.5f, lbb.y + 0.5f);
-				gl.glVertex2f(lbb.x + lbb.width + 0.5f, lbb.y + 0.5f);
+				gl.glVertex2f(lbb.x + 0.5f, localBounds.height - (lbb.y + 0.5f));
+				gl.glVertex2f(lbb.x + lbb.width + 0.5f, localBounds.height - (lbb.y + 0.5f));
 				gl.glEnd();
 				switch (cm instanceof GraphCoordinateMapper ? ((GraphCoordinateMapper) cm).getXAxisType()
 						: GraphCoordinateMapper.Type.LINEAR) {
@@ -52,8 +52,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						}
 						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
 						gl.glBegin(GL.GL_LINES);
-						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + 0.5f);
-						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + localTickSize + 0.5f);
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + 0.5f));
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + localTickSize + 0.5f));
 						gl.glEnd();
 						tr.beginRendering(canvasSize.x, canvasSize.y);
 						tr.draw("" + wX, lPoint.x - (int) tr.getBounds("" + wX).getWidth() / 2, canvasSize.y
@@ -74,8 +74,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						}
 						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
 						gl.glBegin(GL.GL_LINES);
-						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + 0.5f);
-						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + localTickSize + 0.5f);
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + 0.5f));
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + localTickSize + 0.5f));
 						gl.glEnd();
 					}
 					tr.beginRendering(canvasSize.x, canvasSize.y);
@@ -104,8 +104,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 				break;
 			case TOP:
 				gl.glBegin(GL.GL_LINES);
-				gl.glVertex2f(lbb.x + 0.5f, lbb.y + lbb.height + 0.5f);
-				gl.glVertex2f(lbb.x + lbb.width + 0.5f, lbb.y + lbb.height + 0.5f);
+				gl.glVertex2f(lbb.x + 0.5f, localBounds.height - (lbb.y + lbb.height + 0.5f));
+				gl.glVertex2f(lbb.x + lbb.width + 0.5f, localBounds.height - (lbb.y + lbb.height + 0.5f));
 				gl.glEnd();
 				switch (cm instanceof GraphCoordinateMapper ? ((GraphCoordinateMapper) cm).getXAxisType()
 						: GraphCoordinateMapper.Type.LINEAR) {
@@ -118,8 +118,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						}
 						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y + wbb.height));
 						gl.glBegin(GL.GL_LINES);
-						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + lbb.height + 0.5f);
-						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + lbb.height - localTickSize + 0.5f);
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + lbb.height + 0.5f));
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + lbb.height - localTickSize + 0.5f));
 						gl.glEnd();
 						tr.beginRendering(canvasSize.x, canvasSize.y);
 						tr.draw("" + wX, lPoint.x - (int) tr.getBounds("" + wX).getWidth() / 2, canvasSize.y
@@ -140,8 +140,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						}
 						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
 						gl.glBegin(GL.GL_LINES);
-						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + lbb.height + 0.5f);
-						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + lbb.height - localTickSize + 0.5f);
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + lbb.height + 0.5f));
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + lbb.height - localTickSize + 0.5f));
 						gl.glEnd();
 					}
 					tr.beginRendering(canvasSize.x, canvasSize.y);
@@ -170,8 +170,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 				break;
 			case LEFT:
 				gl.glBegin(GL.GL_LINES);
-				gl.glVertex2f(lbb.x + lbb.width + 0.5f, lbb.y + 0.5f);
-				gl.glVertex2f(lbb.x + lbb.width + 0.5f, lbb.y + lbb.height + 0.5f);
+				gl.glVertex2f(lbb.x + lbb.width + 0.5f, localBounds.height - (lbb.y + 0.5f));
+				gl.glVertex2f(lbb.x + lbb.width + 0.5f, localBounds.height - (lbb.y + lbb.height + 0.5f));
 				gl.glEnd();
 				switch (cm instanceof GraphCoordinateMapper ? ((GraphCoordinateMapper) cm).getYAxisType()
 						: GraphCoordinateMapper.Type.LINEAR) {
@@ -184,8 +184,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						}
 						Point lPoint = cm.worldToLocal(new Point(wbb.x + wbb.width, wY));
 						gl.glBegin(GL.GL_LINES);
-						gl.glVertex2f(lPoint.x - localTickSize + 0.5f, lPoint.y + 0.5f);
-						gl.glVertex2f(lPoint.x + 0.5f, lPoint.y + 0.5f);
+						gl.glVertex2f(lPoint.x - localTickSize + 0.5f, localBounds.height - (lPoint.y + 0.5f));
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lPoint.y + 0.5f));
 						gl.glEnd();
 						tr.beginRendering(canvasSize.x, canvasSize.y);
 						tr.draw("" + -wY, lPoint.x - (int) tr.getBounds("" + -wY).getWidth() - localTickSize,
@@ -204,8 +204,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						}
 						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
 						gl.glBegin(GL.GL_LINES);
-						gl.glVertex2f(lbb.x + lbb.width - localTickSize + 0.5f, lPoint.y + 0.5f);
-						gl.glVertex2f(lbb.x + lbb.width + 0.5f, lPoint.y + 0.5f);
+						gl.glVertex2f(lbb.x + lbb.width - localTickSize + 0.5f, localBounds.height - (lPoint.y + 0.5f));
+						gl.glVertex2f(lbb.x + lbb.width + 0.5f, localBounds.height - (lPoint.y + 0.5f));
 						gl.glEnd();
 					}
 					tr.beginRendering(canvasSize.x, canvasSize.y);
@@ -238,8 +238,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 				break;
 			case RIGHT:
 				gl.glBegin(GL.GL_LINES);
-				gl.glVertex2f(lbb.x + 0.5f, lbb.y + 0.5f);
-				gl.glVertex2f(lbb.x + 0.5f, lbb.y + lbb.height + 0.5f);
+				gl.glVertex2f(lbb.x + 0.5f, localBounds.height - (lbb.y + 0.5f));
+				gl.glVertex2f(lbb.x + 0.5f, localBounds.height - (lbb.y + lbb.height + 0.5f));
 				gl.glEnd();
 				switch (cm instanceof GraphCoordinateMapper ? ((GraphCoordinateMapper) cm).getYAxisType()
 						: GraphCoordinateMapper.Type.LINEAR) {
@@ -252,8 +252,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						}
 						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
 						gl.glBegin(GL.GL_LINES);
-						gl.glVertex2f(lPoint.x + 0.5f, lPoint.y + 0.5f);
-						gl.glVertex2f(lPoint.x + localTickSize + 0.5f, lPoint.y + 0.5f);
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lPoint.y + 0.5f));
+						gl.glVertex2f(lPoint.x + localTickSize + 0.5f, localBounds.height - (lPoint.y + 0.5f));
 						gl.glEnd();
 						tr.beginRendering(canvasSize.x, canvasSize.y);
 						tr.draw("" + -wY, lPoint.x + localTickSize, canvasSize.y - (lPoint.y + localTickSize));
@@ -271,8 +271,8 @@ public class AxisThingPeer<T extends AxisThing> extends AbstractRectangleThingPe
 						}
 						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
 						gl.glBegin(GL.GL_LINES);
-						gl.glVertex2f(lbb.x + 0.5f, lPoint.y + 0.5f);
-						gl.glVertex2f(lbb.x + localTickSize + 0.5f, lPoint.y + 0.5f);
+						gl.glVertex2f(lbb.x + 0.5f, localBounds.height - (lPoint.y + 0.5f));
+						gl.glVertex2f(lbb.x + localTickSize + 0.5f, localBounds.height - (lPoint.y + 0.5f));
 						gl.glEnd();
 					}
 					tr.beginRendering(canvasSize.x, canvasSize.y);

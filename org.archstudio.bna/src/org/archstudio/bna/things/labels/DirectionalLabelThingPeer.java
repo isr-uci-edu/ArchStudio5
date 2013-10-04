@@ -5,8 +5,7 @@ import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
-import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.Resources;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
@@ -14,17 +13,16 @@ import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends AbstractRectangleThingPeer<T> implements
-		IThingPeer<T> {
+public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends AbstractRectangleThingPeer<T> {
 
-	public DirectionalLabelThingPeer(T thing) {
-		super(thing);
+	public DirectionalLabelThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
-		if (!clip.intersects(lbb)) {
+		if (!localBounds.intersects(lbb)) {
 			return;
 		}
 
@@ -51,7 +49,7 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 
 				gl.glBegin(GL.GL_TRIANGLES);
 				for (int i = 0; i < trianglePoints.length; i += 2) {
-					gl.glVertex2f(trianglePoints[i] + 0.5f, trianglePoints[i + 1] + 0.5f);
+					gl.glVertex2f(trianglePoints[i] + 0.5f, localBounds.height - trianglePoints[i + 1] + 0.5f);
 				}
 				gl.glEnd();
 			}
@@ -76,15 +74,15 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 				case SOUTH:
 
 					gl.glBegin(GL.GL_TRIANGLES);
-					gl.glVertex2f(x1, ym);
-					gl.glVertex2f(xm, y1);
-					gl.glVertex2f(x2, ym);
+					gl.glVertex2f(x1, localBounds.height - ym);
+					gl.glVertex2f(xm, localBounds.height - y1);
+					gl.glVertex2f(x2, localBounds.height - ym);
 					gl.glEnd();
 
 					gl.glBegin(GL.GL_TRIANGLES);
-					gl.glVertex2f(x1, ymg);
-					gl.glVertex2f(xm, y2);
-					gl.glVertex2f(x2, ymg);
+					gl.glVertex2f(x1, localBounds.height - ymg);
+					gl.glVertex2f(xm, localBounds.height - y2);
+					gl.glVertex2f(x2, localBounds.height - ymg);
 					gl.glEnd();
 
 					break;
@@ -93,15 +91,15 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 				case WEST:
 
 					gl.glBegin(GL.GL_TRIANGLES);
-					gl.glVertex2f(xm, y1);
-					gl.glVertex2f(x1, ym);
-					gl.glVertex2f(xm, y2);
+					gl.glVertex2f(xm, localBounds.height - y1);
+					gl.glVertex2f(x1, localBounds.height - ym);
+					gl.glVertex2f(xm, localBounds.height - y2);
 					gl.glEnd();
 
 					gl.glBegin(GL.GL_TRIANGLES);
-					gl.glVertex2f(xmg, y1);
-					gl.glVertex2f(x2, ym);
-					gl.glVertex2f(xmg, y2);
+					gl.glVertex2f(xmg, localBounds.height - y1);
+					gl.glVertex2f(x2, localBounds.height - ym);
+					gl.glVertex2f(xmg, localBounds.height - y2);
 					gl.glEnd();
 
 					break;
@@ -110,15 +108,15 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 				case SOUTHWEST:
 
 					gl.glBegin(GL.GL_TRIANGLES);
-					gl.glVertex2f(xq + 1, yq);
-					gl.glVertex2f(x2, y1);
-					gl.glVertex2f(xqg, yqg - 1);
+					gl.glVertex2f(xq + 1, localBounds.height - yq);
+					gl.glVertex2f(x2, localBounds.height - y1);
+					gl.glVertex2f(xqg, localBounds.height - (yqg - 1));
 					gl.glEnd();
 
 					gl.glBegin(GL.GL_TRIANGLES);
-					gl.glVertex2f(xq, yq);
-					gl.glVertex2f(x1, y2);
-					gl.glVertex2f(xqg, yqg);
+					gl.glVertex2f(xq, localBounds.height - yq);
+					gl.glVertex2f(x1, localBounds.height - y2);
+					gl.glVertex2f(xqg, localBounds.height - yqg);
 					gl.glEnd();
 
 					break;
@@ -127,15 +125,15 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 				case SOUTHEAST:
 
 					gl.glBegin(GL.GL_TRIANGLES);
-					gl.glVertex2f(xq, yqg - 1);
-					gl.glVertex2f(x1, y1);
-					gl.glVertex2f(xqg - 1, yq);
+					gl.glVertex2f(xq, localBounds.height - (yqg - 1));
+					gl.glVertex2f(x1, localBounds.height - y1);
+					gl.glVertex2f(xqg - 1, localBounds.height - yq);
 					gl.glEnd();
 
 					gl.glBegin(GL.GL_TRIANGLES);
-					gl.glVertex2f(xq, yqg);
-					gl.glVertex2f(x2, y2);
-					gl.glVertex2f(xqg, yq);
+					gl.glVertex2f(xq, localBounds.height - yqg);
+					gl.glVertex2f(x2, localBounds.height - y2);
+					gl.glVertex2f(xqg, localBounds.height - yq);
 					gl.glEnd();
 
 					break;

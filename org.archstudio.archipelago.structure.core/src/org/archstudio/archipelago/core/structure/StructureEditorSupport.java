@@ -49,9 +49,9 @@ import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.logics.navigating.ViewAllLogic;
-import org.archstudio.bna.things.ShadowThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.GridThing;
+import org.archstudio.bna.things.utility.ShadowThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
@@ -226,7 +226,7 @@ public class StructureEditorSupport {
 		logicManager.addThingLogic(new SynchronizeHintsLogic(logicProxy.addObject(new XadlHintRepository(xarch))));
 
 		bnaWorld.getBNAModel().addThing(new GridThing());
-		bnaWorld.getBNAModel().addThing(new ShadowThing(null));
+		bnaWorld.getBNAModel().addThing(new ShadowThing());
 
 		// these logics need to be first
 

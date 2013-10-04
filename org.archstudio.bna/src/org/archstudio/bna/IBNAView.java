@@ -16,10 +16,6 @@ public interface IBNAView {
 
 	public <T extends IThing> IThingPeer<T> getThingPeer(T t);
 
-	public <T extends IThing> void disposePeer(T t);
-
-	public void disposePeers();
-
 	public void setComposite(Composite composite);
 
 	public Composite getComposite();

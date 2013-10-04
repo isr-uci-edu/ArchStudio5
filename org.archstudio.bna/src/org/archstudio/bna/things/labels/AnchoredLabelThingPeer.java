@@ -14,8 +14,7 @@ import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
-import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.Resources;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractAnchorPointThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
@@ -24,14 +23,13 @@ import org.eclipse.swt.graphics.Rectangle;
 
 import com.jogamp.opengl.util.awt.TextRenderer;
 
-public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends AbstractAnchorPointThingPeer<T> implements
-		IThingPeer<T> {
+public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends AbstractAnchorPointThingPeer<T> {
 
 	Shape lastTextLocalShape = null;
 	int SPACING = 2;
 
-	public AnchoredLabelThingPeer(T thing) {
-		super(thing);
+	public AnchoredLabelThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	protected static int calculateFontSize(ICoordinateMapper cm, int origFontSize, boolean dontIncreaseFontSize) {
@@ -49,9 +47,10 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
-		if ("".equals(t.getText().trim()))
+	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
+		if ("".equals(t.getText().trim())) {
 			return;
+		}
 
 		lastTextLocalShape = null;
 		if (r.setColor(t, IHasColor.COLOR_KEY)) {
@@ -111,12 +110,12 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 				double dist2 = Point2D.distance(lap2d2.getX(), lap2d2.getY(), lip.x, lip.y);
 				gl.glBegin(GL.GL_LINE_STRIP);
 				if (dist1 < dist2) {
-					gl.glVertex2d(lap2d.getX() + 0.5d, lap2d.getY() + 0.5d);
+					gl.glVertex2d(lap2d.getX() + 0.5d, localBounds.height - lap2d.getY() + 0.5d);
 				}
 				else {
-					gl.glVertex2d(lap2d2.getX() + 0.5d, lap2d2.getY() + 0.5d);
+					gl.glVertex2d(lap2d2.getX() + 0.5d, localBounds.height - lap2d2.getY() + 0.5d);
 				}
-				gl.glVertex2i(lip.x, lip.y);
+				gl.glVertex2i(lip.x, localBounds.height - lip.y);
 				gl.glEnd();
 			}
 
@@ -178,7 +177,7 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 	}
 
 	@Override
-	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
+	public boolean isInThing(ICoordinate location) {
 		if (lastTextLocalShape != null) {
 			Point lPoint = location.getLocalPoint();
 			return lastTextLocalShape.contains(lPoint.x, lPoint.y);

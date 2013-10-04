@@ -7,7 +7,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.eclipse.jdt.annotation.Nullable;
 
-public abstract class AbstractThingRefKey<D, T extends IThing> extends AbstractGenericThingKey<D, Object> implements
+public abstract class AbstractThingRefKey<D, T extends IThing> extends AbstractThingKey<D, Object> implements
 		IThingKey<Object>, IThingRefKey<T> {
 
 	protected AbstractThingRefKey(D keyData, boolean isFireEventOnChange) {

@@ -8,20 +8,19 @@ import javax.media.opengl.GL2;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
-import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.Resources;
 import org.archstudio.bna.things.AbstractAnchorPointThingPeer;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPointThingPeer<T> implements IThingPeer<T> {
+public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPointThingPeer<T> {
 
-	public RotaterThingPeer(T thing) {
-		super(thing);
+	public RotaterThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
 		Point lap = cm.worldToLocal(t.getAnchorPoint());
 		int Radius = t.getRadius();
 		int radius = Radius / 4;
@@ -32,7 +31,7 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 
 		int UNDERHANG = 4;
 		gl.glPushMatrix();
-		gl.glTranslatef(lap.x, lap.y, 0);
+		gl.glTranslatef(lap.x, localBounds.height - lap.y, 0);
 
 		{ // background circle
 			gl.glBegin(GL.GL_TRIANGLE_STRIP);
@@ -84,12 +83,12 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 			gl.glColor4f(1f, 0f, 0f, 0.5f);
 			for (float radians = -10 * (float) Math.PI / 180; radians < 10 * (float) Math.PI / 180; radians += radianDelta) {
 				float x = (float) Math.cos(radians + angleRadians) * Radius;
-				float y = (float) Math.sin(radians + angleRadians) * Radius;
+				float y = -(float) Math.sin(radians + angleRadians) * Radius;
 				gl.glVertex2f(x, y);
 			}
 			float radians = 10 * (float) Math.PI / 180;
 			float x = (float) Math.cos(radians + angleRadians) * Radius;
-			float y = (float) Math.sin(radians + angleRadians) * Radius;
+			float y = -(float) Math.sin(radians + angleRadians) * Radius;
 			gl.glVertex2f(x, y);
 		}
 		gl.glEnd();
@@ -97,7 +96,7 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 	}
 
 	@Override
-	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
+	public boolean isInThing(ICoordinate location) {
 		Point lap = cm.worldToLocal(t.getAnchorPoint());
 		int radius = t.getRadius();
 		Point lLocation = location.getLocalPoint();

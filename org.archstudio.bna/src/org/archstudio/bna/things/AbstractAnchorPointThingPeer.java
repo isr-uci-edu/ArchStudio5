@@ -1,9 +1,13 @@
 package org.archstudio.bna.things;
 
-public abstract class AbstractAnchorPointThingPeer<T extends AbstractMutableAnchorPointThing> extends AbstractThingPeer<T> {
+import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinateMapper;
 
-	public AbstractAnchorPointThingPeer(T thing) {
-		super(thing);
+public abstract class AbstractAnchorPointThingPeer<T extends AbstractMutableAnchorPointThing> extends
+		AbstractThingPeer<T> {
+
+	public AbstractAnchorPointThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 }

@@ -11,12 +11,12 @@ import org.eclipse.swt.graphics.Point;
 
 public abstract class AbstractMappingThingPeer<T extends AbstractMappingThing> extends AbstractAnchorPointThingPeer<T> {
 
-	public AbstractMappingThingPeer(T thing) {
-		super(thing);
+	public AbstractMappingThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	@Override
-	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
+	public boolean isInThing(ICoordinate location) {
 		IBNAView iView = BNAUtils.getInternalView(view, t.getInternalEndpointWorldThingID());
 		if (iView == null) {
 			return false;

@@ -6,27 +6,27 @@ import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
+import org.archstudio.bna.Resources;
 import org.archstudio.bna.things.AbstractCurvedSplineThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Rectangle;
 
 public class CurvedSplineGlowThingPeer<T extends CurvedSplineGlowThing> extends AbstractCurvedSplineThingPeer<T> {
 
-	public CurvedSplineGlowThingPeer(T thing) {
-		super(thing);
+	public CurvedSplineGlowThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
-		if (!lbb.intersects(clip)) {
+		if (!lbb.intersects(localBounds)) {
 			return;
 		}
 
-		Shape localShape = getShape(view, cm);
+		Shape localShape = createLocalShape();
 
-		BNAUtils.renderShapeGlow(t, view, cm, gl, clip, r, localShape);
+		BNAUtils.renderShapeGlow(gl, localBounds, localShape, t.getColor(), t.getWidth(), t.getAlpha());
 	};
 
 }

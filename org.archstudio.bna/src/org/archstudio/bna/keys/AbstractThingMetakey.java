@@ -6,7 +6,7 @@ import org.archstudio.bna.IThing.IThingKey;
 
 import com.google.common.collect.Lists;
 
-public abstract class AbstractThingMetakey<N, K extends IThingKey<?>, V> extends AbstractGenericThingKey<List<?>, V>
+public abstract class AbstractThingMetakey<N, K extends IThingKey<?>, V> extends AbstractThingKey<List<?>, V>
 		implements IThingMetakey<N, K, V> {
 
 	protected final N name;

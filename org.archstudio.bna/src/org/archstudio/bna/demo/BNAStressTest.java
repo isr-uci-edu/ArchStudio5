@@ -19,11 +19,11 @@ import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
-import org.archstudio.bna.things.ShadowThing;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.GridThing;
+import org.archstudio.bna.things.utility.ShadowThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAModel;
@@ -93,7 +93,7 @@ public class BNAStressTest {
 		IBNAModel model = world.getBNAModel();
 
 		model.addThing(new GridThing());
-		model.addThing(new ShadowThing(null));
+		model.addThing(new ShadowThing());
 
 		ICoordinateMapper cm = view.getCoordinateMapper();
 		Rectangle bounds = cm.getLocalBounds();

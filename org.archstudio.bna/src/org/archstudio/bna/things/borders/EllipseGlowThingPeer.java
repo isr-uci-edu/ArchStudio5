@@ -7,27 +7,27 @@ import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
+import org.archstudio.bna.Resources;
 import org.archstudio.bna.things.AbstractEllipseThingPeer;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Rectangle;
 
 public class EllipseGlowThingPeer<T extends EllipseGlowThing> extends AbstractEllipseThingPeer<T> {
 
-	public EllipseGlowThingPeer(T thing) {
-		super(thing);
+	public EllipseGlowThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
-		if (!clip.intersects(lbb)) {
+		if (!localBounds.intersects(lbb)) {
 			return;
 		}
 
 		Shape localShape = new Ellipse2D.Float(lbb.x, lbb.y, lbb.width, lbb.height);
 
-		BNAUtils.renderShapeGlow(t, view, cm, gl, clip, r, localShape);
+		BNAUtils.renderShapeGlow(gl, localBounds, localShape, t.getColor(), t.getWidth(), t.getAlpha());
 	}
 
 }

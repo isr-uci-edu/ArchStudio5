@@ -6,22 +6,21 @@ import javax.media.opengl.GL2;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
-import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.Resources;
 import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> implements IThingPeer<T> {
+public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 
-	public GridThingPeer(T thing) {
-		super(thing);
+	public GridThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
 
 		// only draw for the top level things
 		if (view.getParentView() != null) {
@@ -39,14 +38,12 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> imp
 		}
 
 		if (r.setColor(t, IHasColor.COLOR_KEY)) {
-			
-			gl.glLineWidth(0.5f);
 
 			while (worldGridStep * cm.getLocalScale() <= 8) {
 				worldGridStep *= 2;
 			}
 
-			Rectangle lClip = new Rectangle(clip.x, clip.y, clip.width, clip.height);
+			Rectangle lClip = new Rectangle(localBounds.x, localBounds.y, localBounds.width, localBounds.height);
 			Rectangle wClip = cm.localToWorld(lClip);
 			int wx = wClip.x;
 			int wy = wClip.y;
@@ -65,13 +62,13 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> imp
 				gl.glBegin(GL.GL_LINES);
 				for (int i = wx - dx; i <= wx2; i += worldGridStep) {
 					int gx = cm.worldToLocal(new Point(i, wy)).x;
-					gl.glVertex2f(gx + 0.5f, lClip.y / dashLength * dashLength + 0.5f);
-					gl.glVertex2f(gx + 0.5f, lClip.y + lClip.height + 2 + 0.5f);
+					gl.glVertex2f(gx + 0.5f, localBounds.height - lClip.y / dashLength * dashLength + 0.5f);
+					gl.glVertex2f(gx + 0.5f, localBounds.height - (lClip.y + lClip.height + 2) + 0.5f);
 				}
 				for (int i = wy - dy; i <= wy2; i += worldGridStep) {
 					int gy = cm.worldToLocal(new Point(wx, i)).y;
-					gl.glVertex2f(lClip.x / dashLength * dashLength + 0.5f, gy + 0.5f);
-					gl.glVertex2f(lClip.x + lClip.width + 2 + 0.5f, gy + 0.5f);
+					gl.glVertex2f(lClip.x / dashLength * dashLength + 0.5f, localBounds.height - gy + 0.5f);
+					gl.glVertex2f(lClip.x + lClip.width + 2 + 0.5f, localBounds.height - gy + 0.5f);
 				}
 				gl.glEnd();
 			}
@@ -81,7 +78,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> imp
 					int gx = cm.worldToLocal(new Point(i, wy)).x;
 					for (int j = wy - dy; j <= wy2; j += worldGridStep) {
 						int gy = cm.worldToLocal(new Point(wx, j)).y;
-						gl.glVertex2f(gx + 0.5f, gy + 0.5f);
+						gl.glVertex2f(gx + 0.5f, localBounds.height - gy + 0.5f);
 					}
 				}
 				gl.glEnd();
@@ -92,10 +89,10 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> imp
 					int gx = cm.worldToLocal(new Point(i, wy)).x;
 					for (int j = wy - dy; j <= wy2; j += worldGridStep) {
 						int gy = cm.worldToLocal(new Point(wx, j)).y;
-						gl.glVertex2f(gx - 3 + 0.5f, gy + 0.5f);
-						gl.glVertex2f(gx + 3 + 0.5f, gy + 0.5f);
-						gl.glVertex2f(gx + 0.5f, gy - 3 + 0.5f);
-						gl.glVertex2f(gx + 0.5f, gy + 3 + 0.5f);
+						gl.glVertex2f(gx - 3 + 0.5f, localBounds.height - gy + 0.5f);
+						gl.glVertex2f(gx + 3 + 0.5f, localBounds.height - gy + 0.5f);
+						gl.glVertex2f(gx + 0.5f, localBounds.height - gy - 3 + 0.5f);
+						gl.glVertex2f(gx + 0.5f, localBounds.height - gy + 3 + 0.5f);
 					}
 				}
 				gl.glEnd();
@@ -104,7 +101,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> imp
 	}
 
 	@Override
-	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
+	public boolean isInThing(ICoordinate location) {
 		return false;
 	}
 }

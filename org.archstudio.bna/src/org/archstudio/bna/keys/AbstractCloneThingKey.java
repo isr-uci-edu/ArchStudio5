@@ -15,7 +15,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Functions;
 
 @NonNullByDefault
-public abstract class AbstractCloneThingKey<D, V> extends AbstractGenericThingKey<D, V> {
+public abstract class AbstractCloneThingKey<D, V> extends AbstractThingKey<D, V> {
 
 	public static final Function<Dimension, Dimension> dimension() {
 		return new Function<Dimension, Dimension>() {

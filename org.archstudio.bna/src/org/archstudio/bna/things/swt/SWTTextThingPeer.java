@@ -14,8 +14,8 @@ import org.eclipse.swt.widgets.Text;
 
 public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThingPeer<T, Text> {
 
-	public SWTTextThingPeer(T thing) {
-		super(thing);
+	public SWTTextThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	@Override
@@ -48,8 +48,8 @@ public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThi
 	}
 
 	@Override
-	protected Rectangle getBounds(Text control, IBNAView view, ICoordinateMapper cm) {
-		Rectangle bounds = super.getBounds(control, view, cm);
+	protected Rectangle getBounds(IBNAView view, ICoordinateMapper cm) {
+		Rectangle bounds = super.getBounds(view, cm);
 
 		GC gc = null;
 		try {

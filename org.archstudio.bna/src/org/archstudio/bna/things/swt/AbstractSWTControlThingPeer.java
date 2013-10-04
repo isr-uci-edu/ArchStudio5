@@ -5,9 +5,9 @@ import javax.media.opengl.GL2;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.IThingPeer;
+import org.archstudio.bna.Resources;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
 import org.archstudio.swtutils.SWTWidgetUtils;
@@ -20,8 +20,8 @@ public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C 
 
 	private C control;
 
-	public AbstractSWTControlThingPeer(T thing) {
-		super(thing);
+	public AbstractSWTControlThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 		t.addThingListener(new IThingListener() {
 
 			@Override
@@ -56,7 +56,7 @@ public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C 
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
 		Composite composite = r.getComposite();
 		if (composite == null) {
 			return;
@@ -81,7 +81,7 @@ public abstract class AbstractSWTControlThingPeer<T extends AbstractSWTThing, C 
 	}
 
 	@Override
-	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
+	public boolean isInThing(ICoordinate location) {
 		return false;
 	}
 }

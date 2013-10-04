@@ -5,7 +5,7 @@ import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.IResources;
+import org.archstudio.bna.Resources;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.graphs.GraphCoordinateMapper;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
@@ -14,12 +14,12 @@ import org.eclipse.swt.graphics.Rectangle;
 
 public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends AbstractRectangleThingPeer<T> {
 
-	public GraphGridLinesThingPeer(T thing) {
-		super(thing);
+	public GraphGridLinesThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
 	}
 
 	@Override
-	public void draw(IBNAView view, ICoordinateMapper cm, GL2 gl, Rectangle clip, IResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
 		if (r.setLineStyle(t) && r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY)) {
 
 			Rectangle wbb = t.getBoundingBox();
@@ -40,8 +40,8 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 							continue;
 						}
 						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
-						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + 0.5f);
-						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + lbb.height + 0.5f);
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + 0.5f));
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + lbb.height + 0.5f));
 					}
 					break;
 				}
@@ -53,8 +53,8 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 							continue;
 						}
 						Point lPoint = cm.worldToLocal(new Point(wX, wbb.y));
-						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + 0.5f);
-						gl.glVertex2f(lPoint.x + 0.5f, lbb.y + lbb.height + 0.5f);
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + 0.5f));
+						gl.glVertex2f(lPoint.x + 0.5f, localBounds.height - (lbb.y + lbb.height + 0.5f));
 					}
 					break;
 				}
@@ -71,8 +71,8 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 							continue;
 						}
 						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
-						gl.glVertex2f(lbb.x + 0.5f, lPoint.y + 0.5f);
-						gl.glVertex2f(lbb.x + lbb.width + 0.5f, lPoint.y + 0.5f);
+						gl.glVertex2f(lbb.x + 0.5f, localBounds.height - (lPoint.y + 0.5f));
+						gl.glVertex2f(lbb.x + lbb.width + 0.5f, localBounds.height - (lPoint.y + 0.5f));
 					}
 					break;
 				}
@@ -84,8 +84,8 @@ public class GraphGridLinesThingPeer<T extends GraphGridLinesThing> extends Abst
 							continue;
 						}
 						Point lPoint = cm.worldToLocal(new Point(wbb.x, wY));
-						gl.glVertex2f(lbb.x + 0.5f, lPoint.y + 0.5f);
-						gl.glVertex2f(lbb.x + lbb.width + 0.5f, lPoint.y + 0.5f);
+						gl.glVertex2f(lbb.x + 0.5f, localBounds.height - (lPoint.y + 0.5f));
+						gl.glVertex2f(lbb.x + lbb.width + 0.5f, localBounds.height - (lPoint.y + 0.5f));
 					}
 					break;
 				}

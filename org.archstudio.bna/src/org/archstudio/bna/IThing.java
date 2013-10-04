@@ -40,7 +40,7 @@ public interface IThing {
 	 * <td>{@link IThingRefMetakey}</td>
 	 * </tr>
 	 * </table>
-	 * A metakey stores data about another key's data whereas a reference stores references to other things.
+	 * A metakey stores data about another key's data whereas a reference key stores references to other things.
 	 * 
 	 * @param <V>
 	 *            The type of value stored by the key.
@@ -51,8 +51,6 @@ public interface IThing {
 		public Object getID();
 
 		public int getUID();
-
-		public void setUID(int uid);
 
 		public @Nullable
 		V preWrite(@Nullable V value);
@@ -69,19 +67,21 @@ public interface IThing {
 	public Class<? extends IThingPeer<?>> getPeerClass();
 
 	/**
-	 * Gets the unique ID of this Thing. The ID used by {@link IBNAModel#getThing(Object)}.
+	 * Gets the unique ID of this Thing. The ID is used by {@link IBNAModel#getThing(Object)}.
 	 * 
 	 * @return Thing ID.
 	 */
 	public Object getID();
 
 	/**
-	 * Gets a unique numeric ID for this Thing, which is automatically generated. You should use {@link #getID()}.
+	 * Gets the unique ID of this Thing. The UID is used by {@link IBNAModel#getThing(int)} and
+	 * {@link IBNAModel#getThing(Integer)}.
 	 * 
-	 * @return A unique numeric ID for this Thing.
+	 * @return Thing UID.
 	 */
-
 	public int getUID();
+
+	public void insertThingListener(IThingListener thingListener);
 
 	public void addThingListener(IThingListener thingListener);
 
@@ -92,8 +92,10 @@ public interface IThing {
 
 	public <V> V get(IThingKey<V> key, V valueIfNull);
 
+	public <V> void set(IThingKey<V> key, @Nullable V value);
+
 	public @Nullable
-	<V> V set(IThingKey<V> key, @Nullable V value);
+	<V> V getAndSet(IThingKey<V> key, @Nullable V value);
 
 	public boolean has(IThingKey<?> key);
 

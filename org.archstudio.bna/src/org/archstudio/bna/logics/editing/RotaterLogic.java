@@ -76,7 +76,7 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 					view.getBNAWorld().getBNAModel().removeThing(rt);
 					rt = null;
 				}
-				else if (view.getThingPeer(rt).isInThing(view, view.getCoordinateMapper(), location)) {
+				else if (view.getThingPeer(rt).isInThing(location)) {
 					pressed = true;
 					originalValue = rt.get(IHasAngle.ANGLE_KEY);
 				}

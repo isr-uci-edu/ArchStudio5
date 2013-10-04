@@ -1,40 +1,39 @@
 package org.archstudio.bna.things;
 
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Path2D;
-import java.util.List;
+import java.awt.Polygon;
+import java.awt.Shape;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 
 public abstract class AbstractPolygonThingPeer<T extends AbstractPolygonThing> extends AbstractThingPeer<T> {
 
-	public AbstractPolygonThingPeer(T thing) {
-		super(thing);
+	public AbstractPolygonThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
+	}
+
+	protected Shape createLocalShape() {
+		Point a = cm.worldToLocal(t.getAnchorPoint());
+
+		Polygon localShape = new Polygon();
+		for (Point p : t.getPoints()) {
+			p.x += a.x;
+			p.y += a.y;
+			p = cm.worldToLocal(p);
+			localShape.addPoint(p.x, p.y);
+		}
+
+		return localShape;
 	}
 
 	@Override
-	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
+	public boolean isInThing(ICoordinate location) {
 		if (t.getBoundingBox().contains(location.getWorldPoint())) {
-			List<Point> points = t.getPoints();
-			Point anchorPoint = t.getAnchorPoint();
-			GeneralPath path = new GeneralPath(Path2D.WIND_NON_ZERO, points.size());
-			Point point = points.get(0);
-			point.x += anchorPoint.x;
-			point.y += anchorPoint.y;
-			path.moveTo(point.x, point.y);
-			for (int i = 1; i < points.size(); i++) {
-				point = points.get(i);
-				point.x += anchorPoint.x;
-				point.y += anchorPoint.y;
-				path.lineTo(point.x, point.y);
-			}
-			point = location.getWorldPoint();
-			return path.contains(point.x, point.y);
+			return createLocalShape().contains(BNAUtils.toPoint2D(location.getLocalPoint()));
 		}
 		return false;
 	}
-
 }

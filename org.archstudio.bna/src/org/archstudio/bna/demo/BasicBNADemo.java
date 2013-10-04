@@ -32,6 +32,7 @@ import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
+import org.archstudio.bna.things.utility.ShadowThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.DefaultBNAModel;
@@ -60,6 +61,7 @@ public class BasicBNADemo {
 		shell.setLayout(new FillLayout());
 
 		final IBNAModel m = new DefaultBNAModel();
+		m.addThing(new ShadowThing());
 
 		IBNAWorld bnaWorld1 = new DefaultBNAWorld("bna", m);
 		setupTopWorld(bnaWorld1);

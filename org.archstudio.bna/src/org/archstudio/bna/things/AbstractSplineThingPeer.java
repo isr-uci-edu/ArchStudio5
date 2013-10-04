@@ -1,6 +1,8 @@
 package org.archstudio.bna.things;
 
+import java.awt.Shape;
 import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
@@ -12,12 +14,30 @@ import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractSplineThingPeer<T extends AbstractSplineThing> extends AbstractThingPeer<T> {
 
-	public AbstractSplineThingPeer(T thing) {
-		super(thing);
+	public AbstractSplineThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
+	}
+
+	protected Shape createLocalShape() {
+		Path2D localShape = new Path2D.Double();
+
+		boolean firstPoint = true;
+		for (Point p : t.getPoints()) {
+			p = cm.worldToLocal(p);
+			if (firstPoint) {
+				firstPoint = false;
+				localShape.moveTo(p.x, p.y);
+			}
+			else {
+				localShape.lineTo(p.x, p.y);
+			}
+		}
+
+		return localShape;
 	}
 
 	@Override
-	public boolean isInThing(IBNAView view, ICoordinateMapper cm, ICoordinate location) {
+	public boolean isInThing(ICoordinate location) {
 		int distance = 5;
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		lbb.x -= distance;

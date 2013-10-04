@@ -131,7 +131,7 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 				otherThings.remove(indicatorSpline);
 				IHasWorld worldThing = castOrNull(firstOrNull(otherThings), IHasWorld.class);
 				if (worldThing != null) {
-					IHasInnerViewPeer worldThingPeer = castOrNull(view.getThingPeer(worldThing),
+					IHasInnerViewPeer<?> worldThingPeer = castOrNull(view.getThingPeer(worldThing),
 							IHasInnerViewPeer.class);
 					if (worldThingPeer != null) {
 						IBNAView iView = worldThingPeer.getInnerView();

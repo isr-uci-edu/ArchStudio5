@@ -154,8 +154,8 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 						ICoordinateMapper cm = view.getCoordinateMapper();
 						IThingPeer<?> peer = view.getThingPeer(stickyThing);
 						if (stuckPoint != null
-								&& (BNAUtils.getDistance(stuckPoint, p) <= STICK_DIST || peer.isInThing(view, cm,
-										DefaultCoordinate.forWorld(p, cm)))) {
+								&& (BNAUtils.getDistance(stuckPoint, p) <= STICK_DIST || peer
+										.isInThing(DefaultCoordinate.forWorld(p, cm)))) {
 							stickToThingID = stickyThing.getID();
 							stickToThingMode = stickyMode;
 						}

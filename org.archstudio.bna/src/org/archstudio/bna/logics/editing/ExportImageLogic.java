@@ -84,7 +84,7 @@ public class ExportImageLogic extends AbstractThingLogic implements IBNAMenuList
 				final LinearCoordinateMapper cm = new LinearCoordinateMapper();
 				cm.align(new Point(0, 0), new Point(bounds.x, bounds.y));
 
-				BufferedImage image = BNAUtils.renderToImage(gl, new IBNAView() {
+				BufferedImage image = BNAUtils.renderToImage(new IBNAView() {
 
 					@Override
 					public IBNAView getParentView() {
@@ -112,11 +112,6 @@ public class ExportImageLogic extends AbstractThingLogic implements IBNAMenuList
 					}
 
 					@Override
-					public <T extends IThing> void disposePeer(T t) {
-						view.disposePeer(t);
-					}
-
-					@Override
 					public void setComposite(Composite composite) {
 						throw new UnsupportedOperationException();
 					}
@@ -130,11 +125,7 @@ public class ExportImageLogic extends AbstractThingLogic implements IBNAMenuList
 					public void dispose() {
 					}
 
-					@Override
-					public void disposePeers() {
-					}
-
-				}, resources, new Rectangle(0, 0, bounds.width, bounds.height), true, true);
+				}, gl, new Rectangle(0, 0, bounds.width, bounds.height), resources, true, true);
 
 				ImageIO.write(image, fd.getFilterExtensions()[fd.getFilterIndex()].substring(2), f);
 			}
