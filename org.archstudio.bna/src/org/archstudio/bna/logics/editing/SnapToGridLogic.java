@@ -24,7 +24,7 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 	synchronized public void dragStarted(DragMoveEvent evt) {
 		referencePointToInitialMousePointDelta.x = referencePointToInitialMousePointDelta.y = 0;
 		if (evt.getInitialThing() instanceof IHasReferencePoint) {
-			int gridSpacing = GridUtils.getGridSpacing(model);
+			int gridSpacing = GridUtils.getGridSpacing(world);
 			if (gridSpacing != 0) {
 				// calculate relative movable and mouse point delta, used to translate between them when snapping 
 				Point initialRelativeMovablePoint = ((IHasReferencePoint) evt.getInitialThing()).getReferencePoint();
@@ -40,7 +40,7 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 		Point adjustedMouseWorldPoint = evt.getAdjustedMouseLocation().getWorldPoint();
 
 		if ((evt.getEvt().stateMask & SWT.MOD3) == 0) {
-			int gridSpacing = GridUtils.getGridSpacing(model);
+			int gridSpacing = GridUtils.getGridSpacing(world);
 			if (gridSpacing != 0) {
 				// adjust the mouse point to the relative movable point 
 				adjustedThingWorldPoint.x -= referencePointToInitialMousePointDelta.x;
@@ -67,7 +67,7 @@ public class SnapToGridLogic extends AbstractThingLogic implements IDragMoveList
 		Point adjustedMouseWorldPoint = evt.getAdjustedMouseLocation().getWorldPoint();
 
 		if ((evt.getEvt().stateMask & SWT.MOD3) == 0) {
-			int gridSpacing = GridUtils.getGridSpacing(model);
+			int gridSpacing = GridUtils.getGridSpacing(world);
 			if (gridSpacing != 0) {
 				// adjust the mouse point to the relative movable point 
 				adjustedThingWorldPoint.x -= referencePointToInitialMousePointDelta.x;

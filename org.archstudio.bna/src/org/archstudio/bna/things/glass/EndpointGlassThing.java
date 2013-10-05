@@ -4,28 +4,27 @@ import java.awt.Dimension;
 
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSelected;
-import org.archstudio.bna.facets.IHasRotatingOffset;
-import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractBoundedAnchorPointThing;
+import org.eclipse.jdt.annotation.Nullable;
 
 public class EndpointGlassThing extends AbstractBoundedAnchorPointThing implements IHasMutableSelected,
 		IHasMutableRotatingOffset {
 
-	public EndpointGlassThing(Object id) {
+	public EndpointGlassThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setSelected(false);
 		setSize(new Dimension(10, 10));
-		incrementRotatingOffset();
+		set(ROTATING_OFFSET_KEY, 0);
+		super.initProperties();
 	}
 
 	@Override
 	public int getRotatingOffset() {
-		return get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
+		return get(ROTATING_OFFSET_KEY);
 	}
 
 	@Override
@@ -35,19 +34,17 @@ public class EndpointGlassThing extends AbstractBoundedAnchorPointThing implemen
 
 	@Override
 	public void incrementRotatingOffset() {
-		Integer io = get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
-		int i = io == null ? 0 : io + 1;
-		set(IHasRotatingOffset.ROTATING_OFFSET_KEY, i);
+		set(ROTATING_OFFSET_KEY, get(ROTATING_OFFSET_KEY) + 1);
 	}
 
 	@Override
 	public boolean isSelected() {
-		return Boolean.TRUE.equals(get(IHasSelected.SELECTED_KEY));
+		return has(SELECTED_KEY, true);
 	}
 
 	@Override
 	public void setSelected(boolean selected) {
-		set(IHasSelected.SELECTED_KEY, selected);
+		set(SELECTED_KEY, selected);
 	}
 
 }

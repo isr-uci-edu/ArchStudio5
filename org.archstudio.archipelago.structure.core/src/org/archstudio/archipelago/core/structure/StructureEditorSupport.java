@@ -105,8 +105,8 @@ public class StructureEditorSupport {
 			if (editor != null) {
 				BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(editor);
 				if (bnaCanvas != null) {
-					IBNAModel model = bnaCanvas.getBNAView().getBNAWorld().getBNAModel();
-					EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(model);
+					IBNAWorld world = bnaCanvas.getBNAView().getBNAWorld();
+					EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
 					if (ept.has(IHasObjRef.OBJREF_KEY, structureRef)) {
 						return;
 					}
@@ -130,9 +130,7 @@ public class StructureEditorSupport {
 
 		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, world);
 		bnaCanvas.setBackground(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-
-		final EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAView()
-				.getBNAWorld().getBNAModel());
+		final EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
 
 		ept.set(IHasObjRef.OBJREF_KEY, structureRef);
 		ept.set(IHasXArchID.XARCH_ID_KEY, (String) xarch.get(structureRef, "id"));
@@ -225,8 +223,8 @@ public class StructureEditorSupport {
 
 		logics.addThingLogic(new SynchronizeHintsLogic(world, proxyLogic.addObject(new XadlHintRepository(xarch))));
 
-		world.getBNAModel().addThing(new GridThing());
-		world.getBNAModel().addThing(new ShadowThing());
+		GridThing.createIn(world);
+		ShadowThing.createIn(world);
 
 		// these logics need to be first
 

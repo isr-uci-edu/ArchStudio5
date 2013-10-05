@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.archstudio.bna.AbstractCoordinateMapper;
 import org.archstudio.bna.BNACanvas;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
@@ -14,7 +13,6 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.constants.GridDisplayType;
-import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
@@ -24,6 +22,7 @@ import org.archstudio.bna.things.labels.UserNotificationThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.NoThing;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.GridUtils;
 import org.archstudio.bna.utils.ZoomUtils;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
@@ -122,68 +121,19 @@ public class ArchipelagoUtils {
 		return getRootThing(m, BNA_TOP_ROOT_THING_ID);
 	}
 
-	public static void setNewThingSpot(IBNAModel m, int worldX, int worldY) {
-		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
+	public static void setNewThingSpot(IBNAWorld world, int worldX, int worldY) {
+		EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
 		ept.setNewThingSpot(new Point(worldX, worldY));
 	}
 
-	public static Point getNewThingSpot(IBNAModel m) {
-		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
-		try {
-			if (ept.has(EnvironmentPropertiesThing.NEW_THING_SPOT_KEY)) {
-				return ept.getNewThingSpot();
-			}
-		}
-		catch (Exception e) {
-		}
-		return new Point(0, 0);
+	public static Point getNewThingSpot(IBNAWorld world) {
+		EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
+		return ept.getNewThingSpot();
 	}
 
-	public static Point findOpenSpotForNewThing(IBNAModel m) {
-		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
-		try {
-			if (ept.has(EnvironmentPropertiesThing.NEW_THING_SPOT_KEY)) {
-				return ept.getNewThingSpot();
-			}
-		}
-		catch (Exception e) {
-		}
-
-		Point p;
-		if (ept.has(EnvironmentPropertiesThing.LAST_OPEN_SPOT_KEY)) {
-			p = ept.getLastOpenSpot();
-			p.x += 10;
-			p.y += 10;
-		}
-		else {
-			Rectangle bounds = AbstractCoordinateMapper.getDefaultBounds();
-			p = new Point(bounds.x + bounds.width / 2 + 30, bounds.y + bounds.height / 2 + 30);
-			// first find all things along the points of interest
-			int dyx = p.y - p.x;
-			Set<Integer> xValues = new HashSet<Integer>();
-			for (IThing t : m.getAllThings()) {
-				if (t instanceof IHasBoundingBox) {
-					Rectangle r = ((IHasBoundingBox) t).getBoundingBox();
-					if (r.y - r.x == dyx) {
-						xValues.add(r.x);
-					}
-				}
-				if (t instanceof IHasAnchorPoint) {
-					Point ap = ((IHasAnchorPoint) t).getAnchorPoint();
-					if (ap.y - ap.x == dyx) {
-						xValues.add(ap.x);
-					}
-				}
-			}
-			// now find an open point
-			while (xValues.contains(p.x)) {
-				p.x += 10;
-				p.y += 10;
-			}
-		}
-
-		ept.setLastOpenSpot(p);
-		return p;
+	public static Point findOpenSpotForNewThing(IBNAWorld world) {
+		EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
+		return ept.getNewThingSpot();
 	}
 
 	public static final String EDITOR_PANE_PROPERTY_BNA_COMPOSITE = "bnaCanvas";
@@ -240,9 +190,9 @@ public class ArchipelagoUtils {
 		return c.getName();
 	}
 
-	public static void applyGridPreferences(IPreferenceStore prefs, IBNAModel bnaModel) {
+	public static void applyGridPreferences(IPreferenceStore prefs, IBNAWorld world) {
 		int gridSpacing = prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING);
-		BNAUtils.setGridSpacing(bnaModel, gridSpacing);
+		GridUtils.setGridSpacing(world, gridSpacing);
 
 		String gridDisplayTypeString = prefs.getString(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE);
 		if (gridDisplayTypeString == null || gridDisplayTypeString.length() == 0) {
@@ -251,11 +201,11 @@ public class ArchipelagoUtils {
 		try {
 			GridDisplayType gdt = GridDisplayType.valueOf(gridDisplayTypeString);
 			if (gdt != null) {
-				BNAUtils.setGridDisplayType(bnaModel, gdt);
+				GridUtils.setGridDisplayType(world, gdt);
 			}
 		}
 		catch (Exception e) {
-			BNAUtils.setGridDisplayType(bnaModel, GridDisplayType.NONE);
+			GridUtils.setGridDisplayType(world, GridDisplayType.NONE);
 		}
 	}
 
@@ -267,7 +217,10 @@ public class ArchipelagoUtils {
 			}
 			else if (t instanceof AbstractMappingThing) {
 				Point p1 = ((AbstractMappingThing) t).getAnchorPoint();
-				Point2D p2 = ((AbstractMappingThing) t).getMappingPoint();
+				Point2D p2 = ((AbstractMappingThing) t).getExternalEndpoint();
+				if (p2 == null) {
+					p2 = BNAUtils.toPoint2D(p1);
+				}
 				bb = new Rectangle(p1.x, p1.y, BNAUtils.round(p2.getX() - p1.x), BNAUtils.round(p2.getY() - p1.y));
 			}
 			else {

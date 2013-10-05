@@ -18,10 +18,7 @@ import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IRelativeMovable;
-import org.archstudio.bna.logics.coordinating.ArrowheadLogic;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
-import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
-import org.archstudio.bna.logics.coordinating.OrientTextLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.things.shapes.CurvedSplineThing;
 import org.archstudio.bna.utils.Assemblies;
@@ -100,7 +97,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineT
 	protected CurvedSplineThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
 		CurvedSplineThing transition = StatechartAssemblies.createTransition(world, null, null);
-		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(model);
+		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(world);
 		transition.setEndpoint1(new Point(newPointSpot.x - 50, newPointSpot.y + 50));
 		transition.setEndpoint2(new Point(newPointSpot.x + 50, newPointSpot.y - 50));
 

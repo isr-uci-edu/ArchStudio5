@@ -32,6 +32,7 @@ import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
+import org.archstudio.bna.things.utility.GridThing;
 import org.archstudio.bna.things.utility.ShadowThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
@@ -60,23 +61,25 @@ public class BasicBNADemo {
 		final Shell shell = new Shell(display);
 		shell.setLayout(new FillLayout());
 
-		final IBNAModel m = new DefaultBNAModel();
-		m.addThing(new ShadowThing());
+		IBNAModel model = new DefaultBNAModel();
+		IBNAWorld world = new DefaultBNAWorld("bna", model);
+		IBNAView view = new DefaultBNAView(null, world, new LinearCoordinateMapper());
 
-		IBNAWorld bnaWorld1 = new DefaultBNAWorld("bna", m);
-		setupTopWorld(bnaWorld1);
-		populateModel(bnaWorld1);
+		GridThing.createIn(world);
+		ShadowThing.createIn(world);
 
-		IBNAView bnaView1 = new DefaultBNAView(null, bnaWorld1, new LinearCoordinateMapper());
+		setupTopWorld(world);
+		populateModel(world);
 
-		IBNAModel m2 = new DefaultBNAModel();
-		IBNAWorld bnaWorld2 = new DefaultBNAWorld("subworld", m2);
-		setupWorld(bnaWorld2);
-		populateModel(bnaWorld2);
+		IBNAModel iModel = new DefaultBNAModel();
+		IBNAWorld iWorld = new DefaultBNAWorld("subworld", iModel);
 
-		populateWithViews(bnaWorld1, bnaView1, bnaWorld2);
+		setupWorld(iWorld);
+		populateModel(iWorld);
 
-		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, bnaView1);
+		populateWithViews(world, view, iWorld);
+
+		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, view);
 		BNARenderingSettings.setAntialiasGraphics(bnaComposite, true);
 		BNARenderingSettings.setAntialiasText(bnaComposite, true);
 		BNARenderingSettings.setDecorativeGraphics(bnaComposite, true);

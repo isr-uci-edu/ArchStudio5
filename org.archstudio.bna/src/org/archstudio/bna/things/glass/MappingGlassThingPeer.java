@@ -29,7 +29,7 @@ public class MappingGlassThingPeer<T extends MappingGlassThing> extends Abstract
 
 		Point lp1 = view.getCoordinateMapper().worldToLocal(t.getAnchorPoint());
 		Point lp2 = iView.getCoordinateMapper().worldToLocal(t.getInternalEndpoint());
-		t.setMappingPoint(cm.localToWorld(new Point2D.Double(lp2.x, lp2.y)));
+		t.setExternalEndpoint(cm.localToWorld(new Point2D.Double(lp2.x, lp2.y)));
 
 		Shape localShape = new Line2D.Float(lp1.x, lp1.y, lp2.x, lp2.y);
 

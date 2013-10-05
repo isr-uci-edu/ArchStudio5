@@ -26,13 +26,13 @@ public class RectifyToGridLogic extends AbstractThingLogic implements IBNAMenuLi
 	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		if (things.isEmpty()) {
 			final IBNAModel model = view.getBNAWorld().getBNAModel();
-			if (GridUtils.getGridSpacing(model) != 0) {
+			if (GridUtils.getGridSpacing(world) != 0) {
 				IAction rectifyAction = new Action("Rectify Diagram to Grid") {
 
 					@Override
 					public void run() {
 						Runnable undoRunnable = BNAOperations.takeSnapshotOfLocations(model, model.getAllThings());
-						GridUtils.rectifyToGrid(model);
+						GridUtils.rectifyToGrid(world);
 						BNAOperations.runnable("Rectify", undoRunnable,
 								BNAOperations.takeSnapshotOfLocations(model, model.getAllThings()), false);
 					}

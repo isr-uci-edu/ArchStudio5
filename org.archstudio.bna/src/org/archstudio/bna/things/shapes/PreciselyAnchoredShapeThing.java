@@ -5,26 +5,27 @@ import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableLineData;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSelected;
-import org.archstudio.bna.facets.IHasRotatingOffset;
-import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractPreciselyAnchoredShapeThing;
+import org.archstudio.swtutils.constants.LineStyle;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
 public class PreciselyAnchoredShapeThing extends AbstractPreciselyAnchoredShapeThing implements IHasMutableColor,
 		IHasMutableEdgeColor, IHasMutableLineData, IHasMutableSelected, IHasMutableRotatingOffset {
 
-	public PreciselyAnchoredShapeThing(Object id) {
+	public PreciselyAnchoredShapeThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setColor(new RGB(128, 128, 128));
 		setEdgeColor(new RGB(0, 0, 0));
 		setLineStyle(LINE_STYLE_SOLID);
 		setLineWidth(1);
 		setSelected(false);
+		set(ROTATING_OFFSET_KEY, 0);
+		super.initProperties();
 	}
 
 	@Override
@@ -48,12 +49,12 @@ public class PreciselyAnchoredShapeThing extends AbstractPreciselyAnchoredShapeT
 	}
 
 	@Override
-	public int getLineStyle() {
+	public LineStyle getLineStyle() {
 		return get(LINE_STYLE_KEY);
 	}
 
 	@Override
-	public void setLineStyle(int lineStyle) {
+	public void setLineStyle(LineStyle lineStyle) {
 		set(LINE_STYLE_KEY, lineStyle);
 	}
 
@@ -69,17 +70,17 @@ public class PreciselyAnchoredShapeThing extends AbstractPreciselyAnchoredShapeT
 
 	@Override
 	public boolean isSelected() {
-		return Boolean.TRUE.equals(get(IHasSelected.SELECTED_KEY));
+		return has(SELECTED_KEY, true);
 	}
 
 	@Override
 	public void setSelected(boolean selected) {
-		set(IHasSelected.SELECTED_KEY, selected);
+		set(SELECTED_KEY, selected);
 	}
 
 	@Override
 	public int getRotatingOffset() {
-		return get(IHasRotatingOffset.ROTATING_OFFSET_KEY, 0);
+		return get(ROTATING_OFFSET_KEY);
 	}
 
 	@Override
@@ -89,8 +90,6 @@ public class PreciselyAnchoredShapeThing extends AbstractPreciselyAnchoredShapeT
 
 	@Override
 	public void incrementRotatingOffset() {
-		Integer io = get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
-		int i = io == null ? 0 : io + 1;
-		set(IHasRotatingOffset.ROTATING_OFFSET_KEY, i);
+		set(ROTATING_OFFSET_KEY, get(ROTATING_OFFSET_KEY) + 1);
 	}
 }

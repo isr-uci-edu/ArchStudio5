@@ -20,8 +20,6 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-import com.google.common.collect.Iterables;
-
 public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMouseMoveListener {
 
 	protected final ThingTypeTrackingLogic typeLogic;
@@ -80,9 +78,7 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 
 					model.beginBulkChange();
 					try {
-						for (IHasMutableSelected mst : Iterables.filter(
-								model.getThingsByID(typeLogic.getThingIDs(IHasMutableSelected.class)),
-								IHasMutableSelected.class)) {
+						for (IHasMutableSelected mst : typeLogic.getThings(IHasMutableSelected.class)) {
 							if (!BNAUtils.wasControlPressed(evt)) {
 								mst.setSelected(false);
 							}

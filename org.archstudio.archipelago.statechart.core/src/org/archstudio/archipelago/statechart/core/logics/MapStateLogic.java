@@ -136,9 +136,8 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 
 	@Override
 	protected RectangleThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
-		loadPreferences();
 
-		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(model);
+		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(world);
 
 		RectangleThing thing = Assemblies.addWorld(world, null, Assemblies.createRectangle(world, null, null));
 		thing.setBoundingBox(new Rectangle(newPointSpot.x, newPointSpot.y, defaultSize.width, defaultSize.height));

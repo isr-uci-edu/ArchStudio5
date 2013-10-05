@@ -112,7 +112,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 
 			boolean foundSomething = false;
 			for (IHasBoundingBox t : typeLogic.getThings(IHasBoundingBox.class)) {
-				if (!Boolean.TRUE.equals(t.get(IIsHidden.HIDDEN_KEY))) {
+				if (!t.has(IIsHidden.HIDDEN_KEY, true)) {
 					Rectangle bb = t.getBoundingBox();
 					if (bb != null) {
 						if (bb.width <= 0 || bb.height <= 0) {

@@ -92,8 +92,8 @@ public class BNAStressTest {
 		IBNAWorld world = view.getBNAWorld();
 		IBNAModel model = world.getBNAModel();
 
-		model.addThing(new GridThing());
-		model.addThing(new ShadowThing());
+		GridThing.createIn(world);
+		ShadowThing.createIn(world);
 
 		ICoordinateMapper cm = view.getCoordinateMapper();
 		Rectangle bounds = cm.getLocalBounds();

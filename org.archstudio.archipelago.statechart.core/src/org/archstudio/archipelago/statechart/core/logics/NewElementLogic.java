@@ -52,7 +52,7 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 
 	protected IAction[] getActions(IBNAView view, IThing t, int worldX, int worldY) {
 
-		ArchipelagoUtils.setNewThingSpot(view.getBNAWorld().getBNAModel(), worldX, worldY);
+		ArchipelagoUtils.setNewThingSpot(view.getBNAWorld(), worldX, worldY);
 
 		return new IAction[] {//
 		new Action("New State") {

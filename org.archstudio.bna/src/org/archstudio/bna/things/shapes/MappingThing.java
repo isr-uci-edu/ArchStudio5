@@ -5,22 +5,23 @@ import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableLineStyle;
 import org.archstudio.bna.facets.IHasMutableLineWidth;
 import org.archstudio.bna.things.AbstractMappingThing;
-import org.eclipse.swt.SWT;
+import org.archstudio.swtutils.constants.LineStyle;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
 public class MappingThing extends AbstractMappingThing implements IHasMutableEdgeColor, IHasMutableLineWidth,
 		IHasMutableLineStyle, IHasLineData {
 
-	public MappingThing(Object id) {
+	public MappingThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
-		setLineStyle(SWT.LINE_SOLID);
+		setLineStyle(LineStyle.SOLID);
 		setEdgeColor(new RGB(0, 0, 0));
 		setLineWidth(1);
+		super.initProperties();
 	}
 
 	@Override
@@ -34,12 +35,12 @@ public class MappingThing extends AbstractMappingThing implements IHasMutableEdg
 	}
 
 	@Override
-	public int getLineStyle() {
+	public LineStyle getLineStyle() {
 		return get(LINE_STYLE_KEY);
 	}
 
 	@Override
-	public void setLineStyle(int lineStyle) {
+	public void setLineStyle(LineStyle lineStyle) {
 		set(LINE_STYLE_KEY, lineStyle);
 	}
 

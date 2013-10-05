@@ -1,8 +1,6 @@
 package org.archstudio.bna.things.labels;
 
 import org.archstudio.bna.constants.IFontConstants;
-import org.archstudio.bna.facets.IHasAngle;
-import org.archstudio.bna.facets.IHasIndicatorPoint;
 import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
@@ -16,8 +14,8 @@ import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.things.AbstractMutableAnchorPointThing;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
+import org.archstudio.swtutils.constants.LineStyle;
 import org.archstudio.swtutils.constants.VerticalAlignment;
-import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
@@ -72,7 +70,7 @@ public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implemen
 
 	@Override
 	public String getText() {
-		return get(TEXT_KEY, "");
+		return get(TEXT_KEY);
 	}
 
 	@Override
@@ -82,7 +80,7 @@ public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implemen
 
 	@Override
 	public HorizontalAlignment getHorizontalAlignment() {
-		return get(HORIZONTAL_ALIGNMENT_KEY, HorizontalAlignment.CENTER);
+		return get(HORIZONTAL_ALIGNMENT_KEY);
 	}
 
 	@Override
@@ -92,7 +90,7 @@ public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implemen
 
 	@Override
 	public VerticalAlignment getVerticalAlignment() {
-		return get(VERTICAL_ALIGNMENT_KEY, VerticalAlignment.MIDDLE);
+		return get(VERTICAL_ALIGNMENT_KEY);
 	}
 
 	@Override
@@ -102,7 +100,7 @@ public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implemen
 
 	@Override
 	public String getFontName() {
-		return get(FONT_NAME_KEY, IFontConstants.DEFAULT_FONT_NAME);
+		return get(FONT_NAME_KEY);
 	}
 
 	@Override
@@ -112,7 +110,7 @@ public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implemen
 
 	@Override
 	public int getFontSize() {
-		return get(FONT_SIZE_KEY, 10);
+		return get(FONT_SIZE_KEY);
 	}
 
 	@Override
@@ -122,7 +120,7 @@ public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implemen
 
 	@Override
 	public FontStyle getFontStyle() {
-		return get(FONT_STYLE_KEY, FontStyle.NORMAL);
+		return get(FONT_STYLE_KEY);
 	}
 
 	@Override
@@ -132,7 +130,7 @@ public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implemen
 
 	@Override
 	public boolean getDontIncreaseFontSize() {
-		return SystemUtils.nonNullOr(get(DONT_INCREASE_FONT_SIZE_KEY), true);
+		return has(DONT_INCREASE_FONT_SIZE_KEY, true);
 	}
 
 	@Override
@@ -142,38 +140,38 @@ public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implemen
 
 	@Override
 	public int getAngle() {
-		return get(IHasAngle.ANGLE_KEY, 0);
+		return get(ANGLE_KEY);
 	}
 
 	@Override
 	public void setAngle(int angle) {
-		set(IHasAngle.ANGLE_KEY, angle);
+		set(ANGLE_KEY, angle);
 	}
 
 	@Override
 	public @Nullable
 	Point getIndicatorPoint() {
-		return get(IHasIndicatorPoint.INDICATOR_POINT_KEY);
+		return get(INDICATOR_POINT_KEY);
 	}
 
 	@Override
 	public void setIndicatorPoint(@Nullable Point indicatorPoint) {
-		set(IHasIndicatorPoint.INDICATOR_POINT_KEY, indicatorPoint);
+		set(INDICATOR_POINT_KEY, indicatorPoint);
 	}
 
 	@Override
-	public int getLineStyle() {
-		return get(LINE_STYLE_KEY, LINE_STYLE_SOLID);
+	public LineStyle getLineStyle() {
+		return get(LINE_STYLE_KEY);
 	}
 
 	@Override
-	public void setLineStyle(int lineStyle) {
+	public void setLineStyle(LineStyle lineStyle) {
 		set(LINE_STYLE_KEY, lineStyle);
 	}
 
 	@Override
 	public int getLineWidth() {
-		return get(LINE_WIDTH_KEY, 1);
+		return get(LINE_WIDTH_KEY);
 	}
 
 	@Override

@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
 
-import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableRoundedCorners;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -19,16 +18,26 @@ public abstract class AbstractRoundedRectangleThing extends AbstractRectangleThi
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setCornerSize(new Dimension(0, 0));
 		addShapeModifyingKey(CORNER_SIZE_KEY);
+		super.initProperties();
+	}
+
+	@Override
+	protected Shape createStickyShape() {
+		Dimension c = getCornerSize();
+		if (c.width != 0 || c.height != 0) {
+			Rectangle r = getBoundingBox();
+			return new RoundRectangle2D.Float(r.x, r.y, r.width, r.height, c.width, c.height);
+		}
+		return super.createStickyShape();
 	}
 
 	@Override
 	public Dimension getCornerSize() {
-		Dimension d = get(CORNER_SIZE_KEY, new Dimension(0, 0));
+		Dimension d = get(CORNER_SIZE_KEY);
 		if (d.width != 0 || d.height != 0) {
-			Rectangle r = get(IHasBoundingBox.BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
+			Rectangle r = get(BOUNDING_BOX_KEY);
 			d.width = Math.min(d.width, r.width / 2);
 			d.height = Math.min(d.height, r.height / 2);
 		}

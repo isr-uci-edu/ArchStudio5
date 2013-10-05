@@ -10,34 +10,37 @@ import org.archstudio.bna.facets.IHasMutablePreciseAnchorPoint;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 
 @NonNullByDefault
 public abstract class AbstractPreciseAnchorPointThing extends AbstractRelativeMovableReferencePointThing implements
 		IHasMutablePreciseAnchorPoint, IIsSticky {
 
-	public AbstractPreciseAnchorPointThing(Object id) {
+	public AbstractPreciseAnchorPointThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
+		setPreciseAnchorPoint(new Point2D.Double(0, 0));
+		set(STICKY_SHAPE_KEY, new Rectangle2D.Double(0, 0, 0, 0));
+		addShapeModifyingKey(PRECISION_ANCHOR_POINT_KEY);
+		super.initProperties();
 		addThingListener(new IThingListener() {
 			@Override
 			public void thingChanged(ThingEvent thingEvent) {
 				if (isShapeModifyingKey(thingEvent.getPropertyName())) {
-					set(IIsSticky.STICKY_SHAPE_KEY, createStickyShape());
+					set(STICKY_SHAPE_KEY, createStickyShape());
 				}
 			}
 		});
-		super.initProperties();
-		addShapeModifyingKey(PRECISION_ANCHOR_POINT_KEY);
-		setPreciseAnchorPoint(new Point2D.Double(0, 0));
+		set(STICKY_SHAPE_KEY, createStickyShape());
 	}
 
 	@Override
 	public Point2D getPreciseAnchorPoint() {
-		return get(PRECISION_ANCHOR_POINT_KEY, new Point2D.Double(0, 0));
+		return get(PRECISION_ANCHOR_POINT_KEY);
 	}
 
 	@Override
@@ -66,6 +69,6 @@ public abstract class AbstractPreciseAnchorPointThing extends AbstractRelativeMo
 
 	@Override
 	public Shape getStickyShape() {
-		return get(IIsSticky.STICKY_SHAPE_KEY);
+		return get(STICKY_SHAPE_KEY);
 	}
 }

@@ -105,7 +105,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 				if (objRef != null) {
 					ThingValueTrackingLogic iValueLogic = iWorld.getThingLogicManager().addThingLogic(
 							ThingValueTrackingLogic.class);
-					IIsSticky iThing = castOrNull(firstOrNull(iValueLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef)),
+					IIsSticky iThing = castOrNull(firstOrNull(iValueLogic.getThings(IHasObjRef.OBJREF_KEY, objRef)),
 							IIsSticky.class);
 					if (iThing != null) {
 						t.set(INTERNAL_THING_KEY, iThing.getID());

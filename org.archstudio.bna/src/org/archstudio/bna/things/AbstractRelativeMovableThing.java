@@ -1,7 +1,6 @@
 package org.archstudio.bna.things;
 
 import java.awt.Dimension;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
@@ -30,18 +29,18 @@ public abstract class AbstractRelativeMovableThing extends AbstractThing impleme
 
 	@Override
 	public void addShapeModifyingKey(IThingKey<?> key) {
-		Set<IThingKey<?>> keys = Sets.newHashSet(get(SHAPE_MODIFYING_KEYS_KEY));
+		Set<IThingKey<?>> keys = get(SHAPE_MODIFYING_KEYS_KEY, Sets.<IThingKey<?>> newHashSet());
 		keys.add(key);
 		set(SHAPE_MODIFYING_KEYS_KEY, keys);
 	}
 
 	@Override
-	public Collection<IThingKey<?>> getShapeModifyingKeys() {
+	public Set<IThingKey<?>> getShapeModifyingKeys() {
 		return get(SHAPE_MODIFYING_KEYS_KEY, Collections.<IThingKey<?>> emptySet());
 	}
 
 	@Override
 	public boolean isShapeModifyingKey(IThingKey<?> key) {
-		return get(SHAPE_MODIFYING_KEYS_KEY, Collections.<IThingKey<?>> emptySet()).contains(key);
+		return getShapeModifyingKeys().contains(key);
 	}
 }

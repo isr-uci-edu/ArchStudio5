@@ -24,7 +24,6 @@ public class UserNotificationThing extends AbstractMutableAnchorPointThing imple
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setText("");
 		setFontName(IFontConstants.DEFAULT_FONT_NAME);
 		setFontSize(10);
@@ -35,11 +34,12 @@ public class UserNotificationThing extends AbstractMutableAnchorPointThing imple
 		setSecondaryColor(new RGB(255, 255, 192));
 		setEdgeColor(new RGB(0, 0, 0));
 		setLife(32);
+		super.initProperties();
 	}
 
 	@Override
 	public String getText() {
-		return get(TEXT_KEY, "");
+		return get(TEXT_KEY);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class UserNotificationThing extends AbstractMutableAnchorPointThing imple
 
 	@Override
 	public String getFontName() {
-		return get(FONT_NAME_KEY, IFontConstants.DEFAULT_FONT_NAME);
+		return get(FONT_NAME_KEY);
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class UserNotificationThing extends AbstractMutableAnchorPointThing imple
 
 	@Override
 	public int getFontSize() {
-		return get(FONT_SIZE_KEY, 10);
+		return get(FONT_SIZE_KEY);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class UserNotificationThing extends AbstractMutableAnchorPointThing imple
 
 	@Override
 	public FontStyle getFontStyle() {
-		return get(FONT_STYLE_KEY, FontStyle.NORMAL);
+		return get(FONT_STYLE_KEY);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class UserNotificationThing extends AbstractMutableAnchorPointThing imple
 
 	@Override
 	public boolean getDontIncreaseFontSize() {
-		return get(DONT_INCREASE_FONT_SIZE_KEY, true);
+		return get(DONT_INCREASE_FONT_SIZE_KEY);
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class UserNotificationThing extends AbstractMutableAnchorPointThing imple
 
 	@Override
 	public boolean isGradientFilled() {
-		return get(GRADIENT_FILLED_KEY, true);
+		return get(GRADIENT_FILLED_KEY);
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class UserNotificationThing extends AbstractMutableAnchorPointThing imple
 
 	@Override
 	public int getLife() {
-		return get(LIFE_KEY, 32);
+		return get(LIFE_KEY);
 	}
 
 	@Override

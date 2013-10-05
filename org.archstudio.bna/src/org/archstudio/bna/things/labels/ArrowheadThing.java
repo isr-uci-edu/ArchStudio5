@@ -13,6 +13,7 @@ import org.archstudio.bna.facets.IHasMutableSecondaryAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.things.AbstractMutableAnchorPointThing;
 import org.archstudio.bna.utils.ArrowheadUtils;
+import org.archstudio.swtutils.constants.LineStyle;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
@@ -22,45 +23,50 @@ public class ArrowheadThing extends AbstractMutableAnchorPointThing implements I
 		IHasMutableSecondaryColor, IHasMutableEdgeColor, IHasMutableArrowhead, IHasMutableSecondaryAnchorPoint,
 		IHasMutableLineData, IHasBoundingBox {
 
-	public ArrowheadThing(Object id) {
+	public ArrowheadThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setArrowheadShape(ArrowheadShape.TRIANGLE);
 		setArrowheadSize(20);
-		addThingListener(new IThingListener() {
-			@Override
-			public void thingChanged(ThingEvent thingEvent) {
-				if (!IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
-					Point lp1 = getAnchorPoint();
-					Point lp2 = getSecondaryAnchorPoint();
-					int arrowheadSize = getArrowheadSize();
-					int[] xyPoints = ArrowheadUtils.calculateTriangularArrowhead(lp2.x, lp2.y, lp1.x, lp1.y,
-							arrowheadSize);
-					if (xyPoints != null) {
-						Rectangle r = new Rectangle(lp1.x, lp1.y, 0, 0);
-						for (int i = 0; i < 6; i += 2) {
-							r.add(new Rectangle(xyPoints[i], xyPoints[i + 1], 0, 0));
-						}
-						set(IHasBoundingBox.BOUNDING_BOX_KEY, r);
-					}
-				}
-			}
-		});
 		setSecondaryAnchorPoint(new Point(0, 0));
 		setColor(new RGB(128, 128, 128));
 		setSecondaryColor(new RGB(0, 0, 0));
 		setEdgeColor(new RGB(0, 0, 0));
 		setLineStyle(IHasLineStyle.LINE_STYLE_SOLID);
 		setLineWidth(1);
+		set(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
+		super.initProperties();
+		addThingListener(new IThingListener() {
+			@Override
+			public void thingChanged(ThingEvent thingEvent) {
+				if (!BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
+					set(BOUNDING_BOX_KEY, calculateBoundingBox());
+				}
+			}
+		});
+		set(BOUNDING_BOX_KEY, calculateBoundingBox());
+	}
+
+	protected Rectangle calculateBoundingBox() {
+		Point lp1 = getAnchorPoint();
+		Point lp2 = getSecondaryAnchorPoint();
+		Rectangle r = new Rectangle(lp1.x, lp1.y, 0, 0);
+		int arrowheadSize = getArrowheadSize();
+		int[] xyPoints = ArrowheadUtils.calculateTriangularArrowhead(lp2.x, lp2.y, lp1.x, lp1.y, arrowheadSize);
+		if (xyPoints != null) {
+			for (int i = 0; i < 6; i += 2) {
+				r.add(new Rectangle(xyPoints[i], xyPoints[i + 1], 0, 0));
+			}
+		}
+		return r;
 	}
 
 	@Override
 	public int getArrowheadSize() {
-		return get(ARROWHEAD_SIZE_KEY, 20);
+		return get(ARROWHEAD_SIZE_KEY);
 	}
 
 	@Override
@@ -103,7 +109,7 @@ public class ArrowheadThing extends AbstractMutableAnchorPointThing implements I
 
 	@Override
 	public ArrowheadShape getArrowheadShape() {
-		return get(ARROWHEAD_SHAPE_KEY, ArrowheadShape.TRIANGLE);
+		return get(ARROWHEAD_SHAPE_KEY);
 	}
 
 	@Override
@@ -113,7 +119,7 @@ public class ArrowheadThing extends AbstractMutableAnchorPointThing implements I
 
 	@Override
 	public Point getSecondaryAnchorPoint() {
-		return get(SECONDARY_ANCHOR_POINT_KEY, new Point(0, 0));
+		return get(SECONDARY_ANCHOR_POINT_KEY);
 	}
 
 	@Override
@@ -122,12 +128,12 @@ public class ArrowheadThing extends AbstractMutableAnchorPointThing implements I
 	}
 
 	@Override
-	public int getLineStyle() {
+	public LineStyle getLineStyle() {
 		return get(LINE_STYLE_KEY);
 	}
 
 	@Override
-	public void setLineStyle(int lineStyle) {
+	public void setLineStyle(LineStyle lineStyle) {
 		set(LINE_STYLE_KEY, lineStyle);
 	}
 

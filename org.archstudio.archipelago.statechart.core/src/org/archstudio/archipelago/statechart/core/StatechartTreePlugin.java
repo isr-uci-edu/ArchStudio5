@@ -338,17 +338,14 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 						BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(editor);
 						IBNAView view = bnaCanvas.getBNAView();
 						if (bnaCanvas != null) {
-							IBNAModel m = view.getBNAWorld().getBNAModel();
-							if (m != null) {
-								EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
-								String editingXArchID = ept.get(ArchipelagoUtils.XARCH_ID_KEY);
-								if (editingXArchID != null) {
-									ObjRef editingRef = xarch.getByID(documentRootRef, editingXArchID);
-									if (editingRef != null) {
-										if (XadlUtils.isInstanceOf(xarch, editingRef, DND_TARGET)) {
-											event.doit = true;
-											event.detail = DND.DROP_LINK;
-										}
+							EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(view.getBNAWorld());
+							String editingXArchID = ept.get(ArchipelagoUtils.XARCH_ID_KEY);
+							if (editingXArchID != null) {
+								ObjRef editingRef = xarch.getByID(documentRootRef, editingXArchID);
+								if (editingRef != null) {
+									if (XadlUtils.isInstanceOf(xarch, editingRef, DND_TARGET)) {
+										event.doit = true;
+										event.detail = DND.DROP_LINK;
 									}
 								}
 							}
@@ -429,8 +426,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 			if (editor != null) {
 				BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(editor);
 				if (bnaCanvas != null) {
-					IBNAModel model = bnaCanvas.getBNAView().getBNAWorld().getBNAModel();
-					EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(model);
+					IBNAWorld world = bnaCanvas.getBNAView().getBNAWorld();
+					EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
 					if (ept.has(IHasObjRef.OBJREF_KEY, structureRef)) {
 						return;
 					}
@@ -467,8 +464,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, fbnaWorld);
 		bnaCanvas.setBackground(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
-		final EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAView()
-				.getBNAWorld().getBNAModel());
+		IBNAWorld world = bnaCanvas.getBNAView().getBNAWorld();
+		final EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
 		ept.set(IHasObjRef.OBJREF_KEY, structureRef);
 		ept.set(IHasXArchID.XARCH_ID_KEY, (String) xarch.get(structureRef, "id"));
 
@@ -548,8 +545,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 		logics.addThingLogic(new SynchronizeHintsLogic(world, proxyLogic.addObject(new XadlHintRepository(xarch))));
 
-		world.getBNAModel().addThing(new GridThing());
-		world.getBNAModel().addThing(new ShadowThing());
+		GridThing.createIn(world);
+		ShadowThing.createIn(world);
 
 		// these logics need to be first
 

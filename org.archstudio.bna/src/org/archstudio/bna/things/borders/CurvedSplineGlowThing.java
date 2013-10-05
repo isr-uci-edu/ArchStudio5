@@ -1,47 +1,46 @@
 package org.archstudio.bna.things.borders;
 
-import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasGlowData;
 import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableWidth;
-import org.archstudio.bna.facets.IHasWidth;
 import org.archstudio.bna.things.AbstractCurvedSplineThing;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
 public class CurvedSplineGlowThing extends AbstractCurvedSplineThing implements IHasMutableColor, IHasMutableWidth,
 		IHasMutableAlpha, IHasGlowData {
 
-	public CurvedSplineGlowThing(Object id) {
+	public CurvedSplineGlowThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setWidth(10);
 		setColor(new RGB(255, 0, 0));
 		setAlpha(0.5f);
+		super.initProperties();
 	}
 
 	@Override
 	public int getWidth() {
-		return get(IHasWidth.WIDTH_KEY);
+		return get(WIDTH_KEY);
 	}
 
 	@Override
 	public void setWidth(int width) {
-		set(IHasWidth.WIDTH_KEY, width);
+		set(WIDTH_KEY, width);
 	}
 
 	@Override
 	public RGB getColor() {
-		return get(IHasColor.COLOR_KEY);
+		return get(COLOR_KEY);
 	}
 
 	@Override
 	public void setColor(RGB color) {
-		set(IHasColor.COLOR_KEY, color);
+		set(COLOR_KEY, color);
 	}
 
 	@Override

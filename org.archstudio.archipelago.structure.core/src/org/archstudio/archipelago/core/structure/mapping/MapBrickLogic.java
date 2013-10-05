@@ -141,7 +141,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 	@Override
 	protected RectangleThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
-		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(model);
+		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(world);
 
 		RectangleThing thing = Assemblies.addWorld(world, null, Assemblies.createRectangle(world, null, null));
 		thing.setBoundingBox(new Rectangle(newPointSpot.x, newPointSpot.y, defaultSize.width, defaultSize.height));

@@ -9,7 +9,6 @@ import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasFontData;
 import org.archstudio.bna.facets.IHasLineData;
-import org.archstudio.bna.facets.IHasLineStyle;
 import org.archstudio.bna.utils.TextUtils;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.eclipse.swt.graphics.Device;
@@ -81,38 +80,16 @@ public class Resources {
 
 	public boolean setLineStyle(IHasLineData thing) {
 		if (setColor(thing, IHasEdgeColor.EDGE_COLOR_KEY)) {
-			Integer width = thing.getLineWidth();
-			Integer style = thing.getLineStyle();
-			if (width != null && style != null) {
-				gl.glLineWidth(width);
-				int pattern = 0xffff;
-				switch (style) {
-				case IHasLineStyle.LINE_STYLE_DASH:
-					pattern = 0x0f0f;
-					break;
-				case IHasLineStyle.LINE_STYLE_DOT:
-					pattern = 0x5555;
-					break;
-				case IHasLineStyle.LINE_STYLE_DASHDOT:
-					pattern = 0x2727;
-					break;
-				case IHasLineStyle.LINE_STYLE_DASHDOTDOT:
-					pattern = 0x111f;
-					break;
-				case IHasLineStyle.LINE_STYLE_SOLID:
-				default:
-					break;
-				}
-				gl.glLineStipple(1, (short) pattern);
-				return true;
-			}
+			gl.glLineWidth(thing.getLineWidth());
+			gl.glLineStipple(1, (short) thing.getLineStyle().toBitPattern());
+			return true;
 		}
 		return false;
 	}
 
 	public void resetLineStyle() {
 		gl.glLineWidth(1);
-		gl.glLineStipple(1, (short) 0xffff);
+		gl.glLineStipple(1, (short) 0xffffffff);
 	}
 
 	Cache<List<Object>, Font> fontCache = CacheBuilder.newBuilder().build(new CacheLoader<List<Object>, Font>() {

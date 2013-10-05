@@ -14,7 +14,6 @@ import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.GridUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -98,7 +97,7 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 	List<ObjRef> getSelectedObjRefs() {
 		List<ObjRef> objRefs = Lists.newArrayList();
 		for (IThing t : model.getAllThings()) {
-			if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
+			if (t.has(IHasSelected.SELECTED_KEY, true)) {
 				ObjRef objRef = t.get(IHasObjRef.OBJREF_KEY);
 				if (objRef != null) {
 					objRefs.add(objRef);
@@ -124,7 +123,7 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 
 	synchronized public void paste() {
 
-		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(model);
+		EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
 		ObjRef rootRef = ept.get(IHasObjRef.OBJREF_KEY);
 		if (rootRef != null) {
 			XArchADTOperations xarch = new XArchADTOperations(this.xarch);
@@ -136,7 +135,7 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 			selectAndMoveObjRefs.clear();
 
 			// keep track of the new ObjRefs to select and move them
-			pasteOffset += GridUtils.getGridSpacing(model);
+			pasteOffset += GridUtils.getGridSpacing(world);
 			for (ObjRef objRef : copyPaste.paste(xarch, rootRef)) {
 				selectAndMoveObjRefs.put(objRef, pasteOffset);
 			}

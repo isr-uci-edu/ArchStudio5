@@ -26,7 +26,7 @@ public class RectangleThingPeer<T extends RectangleThing> extends AbstractRectan
 	@Override
 	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
-		if (!lbb.intersects(localBounds) || t.getColor() == null) {
+		if (!lbb.intersects(localBounds)) {
 			return;
 		}
 

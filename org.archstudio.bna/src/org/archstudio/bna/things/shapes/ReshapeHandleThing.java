@@ -5,19 +5,20 @@ import java.awt.Dimension;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.things.AbstractMutableAnchorPointThing;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
 public class ReshapeHandleThing extends AbstractMutableAnchorPointThing implements IHasMutableSize, IHasMutableColor {
 
-	public ReshapeHandleThing(Object id) {
+	public ReshapeHandleThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setSize(new Dimension(8, 8));
 		setColor(new RGB(0, 0, 255));
+		super.initProperties();
 	}
 
 	@Override

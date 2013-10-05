@@ -20,12 +20,12 @@ public abstract class AbstractThingLogic implements IThingLogic {
 	}
 
 	@Override
-	public IBNAWorld getBNAWorld() {
+	synchronized public IBNAWorld getBNAWorld() {
 		return world;
 	}
 
 	@Override
-	public void init() {
+	synchronized public void init() {
 	}
 
 	@Override

@@ -26,24 +26,26 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 
 	@Override
 	protected void initProperties() {
+		setMinimumSize(new Dimension(5, 5));
+		setBoundingBox(new Rectangle(0, 0, 50, 50));
+		set(STICKY_SHAPE_KEY, new Rectangle2D.Float(0, 0, 50, 50));
+		addShapeModifyingKey(MINIMUM_SIZE_KEY);
+		addShapeModifyingKey(BOUNDING_BOX_KEY);
+		super.initProperties();
 		addThingListener(new IThingListener() {
 			@Override
 			public void thingChanged(ThingEvent thingEvent) {
 				if (isShapeModifyingKey(thingEvent.getPropertyName())) {
-					set(IIsSticky.STICKY_SHAPE_KEY, createStickyShape());
+					set(STICKY_SHAPE_KEY, createStickyShape());
 				}
 			}
 		});
-		super.initProperties();
-		setMinimumSize(new Dimension(5, 5));
-		addShapeModifyingKey(MINIMUM_SIZE_KEY);
-		addShapeModifyingKey(BOUNDING_BOX_KEY);
-		setBoundingBox(new Rectangle(0, 0, 10, 10));
+		set(STICKY_SHAPE_KEY, createStickyShape());
 	}
 
 	@Override
 	public Dimension getMinimumSize() {
-		return get(MINIMUM_SIZE_KEY, new Dimension(5, 5));
+		return get(MINIMUM_SIZE_KEY);
 	}
 
 	@Override
@@ -57,7 +59,7 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 
 	@Override
 	public Rectangle getBoundingBox() {
-		return get(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
+		return get(BOUNDING_BOX_KEY);
 	}
 
 	@Override
@@ -96,6 +98,6 @@ public abstract class AbstractRectangleThing extends AbstractRelativeMovableRefe
 
 	@Override
 	public Shape getStickyShape() {
-		return get(IIsSticky.STICKY_SHAPE_KEY);
+		return get(STICKY_SHAPE_KEY);
 	}
 }

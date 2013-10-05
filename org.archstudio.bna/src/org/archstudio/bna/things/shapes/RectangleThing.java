@@ -8,9 +8,8 @@ import org.archstudio.bna.facets.IHasMutableLineData;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.facets.IHasMutableSelected;
-import org.archstudio.bna.facets.IHasRotatingOffset;
-import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractRoundedRectangleThing;
+import org.archstudio.swtutils.constants.LineStyle;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
@@ -26,7 +25,6 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setColor(new RGB(255, 255, 192));
 		setSecondaryColor(new RGB(192, 192, 128));
 		setGradientFilled(true);
@@ -35,6 +33,8 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 		setLineWidth(1);
 		setCount(1);
 		setSelected(false);
+		set(ROTATING_OFFSET_KEY, 0);
+		super.initProperties();
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 
 	@Override
 	public boolean isGradientFilled() {
-		return get(GRADIENT_FILLED_KEY, true);
+		return get(GRADIENT_FILLED_KEY);
 	}
 
 	@Override
@@ -87,22 +87,22 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 
 	@Override
 	public int getCount() {
-		return get(COUNT_KEY, 1);
+		return get(COUNT_KEY);
 	}
 
 	@Override
-	public int getLineStyle() {
-		return get(LINE_STYLE_KEY, LINE_STYLE_SOLID);
+	public LineStyle getLineStyle() {
+		return get(LINE_STYLE_KEY);
 	}
 
 	@Override
-	public void setLineStyle(int lineStyle) {
+	public void setLineStyle(LineStyle lineStyle) {
 		set(LINE_STYLE_KEY, lineStyle);
 	}
 
 	@Override
 	public int getLineWidth() {
-		return get(LINE_WIDTH_KEY, 1);
+		return get(LINE_WIDTH_KEY);
 	}
 
 	@Override
@@ -112,17 +112,17 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 
 	@Override
 	public boolean isSelected() {
-		return Boolean.TRUE.equals(get(IHasSelected.SELECTED_KEY));
+		return has(SELECTED_KEY, true);
 	}
 
 	@Override
 	public void setSelected(boolean selected) {
-		set(IHasSelected.SELECTED_KEY, selected);
+		set(SELECTED_KEY, selected);
 	}
 
 	@Override
 	public int getRotatingOffset() {
-		return get(IHasRotatingOffset.ROTATING_OFFSET_KEY, 0);
+		return get(ROTATING_OFFSET_KEY);
 	}
 
 	@Override
@@ -132,8 +132,6 @@ public class RectangleThing extends AbstractRoundedRectangleThing implements IHa
 
 	@Override
 	public void incrementRotatingOffset() {
-		Integer io = get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
-		int i = io == null ? 0 : io + 1;
-		set(IHasRotatingOffset.ROTATING_OFFSET_KEY, i);
+		set(ROTATING_OFFSET_KEY, get(ROTATING_OFFSET_KEY) + 1);
 	}
 }

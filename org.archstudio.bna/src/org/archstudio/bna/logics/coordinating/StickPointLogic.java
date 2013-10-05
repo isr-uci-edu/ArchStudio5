@@ -81,10 +81,18 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 
 		private Point getSecondaryPoint(IBNAModel model, IThing pointThing, IThingKey<Point> pointKey) {
 			if (pointKey.equals(IHasEndpoints.ENDPOINT_1_KEY) && pointThing instanceof IHasPoints) {
+				List<Point> points = ((IHasPoints) pointThing).getPoints();
+				if (points.size() > 2) {
+					return points.get(1);
+				}
 				return getSecondaryPoint(model, pointThing, IHasEndpoints.ENDPOINT_2_KEY,
 						((IHasPoints) pointThing).getPoint(1));
 			}
 			if (pointKey.equals(IHasEndpoints.ENDPOINT_2_KEY) && pointThing instanceof IHasPoints) {
+				List<Point> points = ((IHasPoints) pointThing).getPoints();
+				if (points.size() > 2) {
+					return points.get(points.size() - 2);
+				}
 				return getSecondaryPoint(model, pointThing, IHasEndpoints.ENDPOINT_1_KEY,
 						((IHasPoints) pointThing).getPoint(-2));
 			}

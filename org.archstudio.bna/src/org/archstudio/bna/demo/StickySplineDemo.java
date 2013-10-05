@@ -27,6 +27,7 @@ import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
 import org.archstudio.bna.things.labels.AnchoredLabelThing;
 import org.archstudio.bna.things.shapes.PolygonThing;
 import org.archstudio.bna.things.shapes.SplineThing;
+import org.archstudio.bna.things.utility.GridThing;
 import org.archstudio.bna.things.utility.ShadowThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
@@ -63,7 +64,8 @@ public class StickySplineDemo {
 		shell.setSize(400, 400);
 		shell.open();
 
-		model.addThing(new ShadowThing());
+		GridThing.createIn(world);
+		ShadowThing.createIn(world);
 
 		populateModel(canvas.getBNAView());
 		addLogics(canvas.getBNAView());

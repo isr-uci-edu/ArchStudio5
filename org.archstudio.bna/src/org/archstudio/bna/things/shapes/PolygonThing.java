@@ -8,25 +8,26 @@ import org.archstudio.bna.facets.IHasMutableLineStyle;
 import org.archstudio.bna.facets.IHasMutableLineWidth;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.things.AbstractPolygonThing;
-import org.eclipse.swt.SWT;
+import org.archstudio.swtutils.constants.LineStyle;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
 public class PolygonThing extends AbstractPolygonThing implements IHasMutableColor, IHasMutableSecondaryColor,
 		IHasMutableGradientFill, IHasMutableEdgeColor, IHasMutableLineStyle, IHasMutableLineWidth, IHasLineData {
 
-	public PolygonThing(Object id) {
+	public PolygonThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setColor(new RGB(128, 192, 128));
 		setSecondaryColor(new RGB(192, 255, 192));
 		setGradientFilled(true);
-		setLineStyle(SWT.LINE_SOLID);
+		setLineStyle(LineStyle.SOLID);
 		setEdgeColor(new RGB(0, 0, 0));
 		setLineWidth(1);
+		super.initProperties();
 	}
 
 	@Override
@@ -70,12 +71,12 @@ public class PolygonThing extends AbstractPolygonThing implements IHasMutableCol
 	}
 
 	@Override
-	public int getLineStyle() {
+	public LineStyle getLineStyle() {
 		return get(LINE_STYLE_KEY);
 	}
 
 	@Override
-	public void setLineStyle(int lineStyle) {
+	public void setLineStyle(LineStyle lineStyle) {
 		set(LINE_STYLE_KEY, lineStyle);
 	}
 

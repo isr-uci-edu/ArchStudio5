@@ -21,22 +21,24 @@ public abstract class AbstractAnchorPointThing extends AbstractRelativeMovableRe
 
 	@Override
 	protected void initProperties() {
+		setAnchorPoint(new Point(0, 0));
+		set(STICKY_SHAPE_KEY, new Rectangle2D.Double(0, 0, 0, 0));
+		addShapeModifyingKey(ANCHOR_POINT_KEY);
+		super.initProperties();
 		addThingListener(new IThingListener() {
 			@Override
 			public void thingChanged(ThingEvent thingEvent) {
 				if (isShapeModifyingKey(thingEvent.getPropertyName())) {
-					set(IIsSticky.STICKY_SHAPE_KEY, createStickyShape());
+					set(STICKY_SHAPE_KEY, createStickyShape());
 				}
 			}
 		});
-		super.initProperties();
-		addShapeModifyingKey(ANCHOR_POINT_KEY);
-		setAnchorPoint(new Point(0, 0));
+		set(STICKY_SHAPE_KEY, createStickyShape());
 	}
 
 	@Override
 	public Point getAnchorPoint() {
-		return get(ANCHOR_POINT_KEY, new Point(0, 0));
+		return get(ANCHOR_POINT_KEY);
 	}
 
 	protected void setAnchorPoint(@Nullable Point p) {
@@ -63,6 +65,6 @@ public abstract class AbstractAnchorPointThing extends AbstractRelativeMovableRe
 
 	@Override
 	public Shape getStickyShape() {
-		return get(IIsSticky.STICKY_SHAPE_KEY);
+		return get(STICKY_SHAPE_KEY);
 	}
 }

@@ -3,18 +3,14 @@ package org.archstudio.bna.things;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
-import org.archstudio.bna.facets.IHasBoundingBox;
-import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasMidpoints;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
-import org.archstudio.bna.facets.IHasPoints;
 import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Lists;
@@ -22,60 +18,65 @@ import com.google.common.collect.Lists;
 @NonNullByDefault
 public class AbstractSplineThing extends AbstractPointsThing implements IHasMutableEndpoints, IHasMutableMidpoints {
 
-	public AbstractSplineThing(Object id) {
+	public AbstractSplineThing(@Nullable Object id) {
 		super(id);
-		addThingListener(new IThingListener() {
-
-			@Override
-			public void thingChanged(ThingEvent thingEvent) {
-				if (!IHasPoints.POINTS_KEY.equals(thingEvent.getPropertyName())
-						&& !IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
-					set(IHasPoints.POINTS_KEY, getPoints());
-				}
-			}
-		});
 	}
 
 	@Override
 	protected void initProperties() {
+		setEndpoint1(new Point(0, 0));
+		setEndpoint2(new Point(0, 0));
+		setMidpoints(Lists.<Point> newArrayList());
+		addShapeModifyingKey(ENDPOINT_1_KEY);
+		addShapeModifyingKey(ENDPOINT_2_KEY);
+		addShapeModifyingKey(MIDPOINTS_KEY);
 		super.initProperties();
-		addShapeModifyingKey(IHasEndpoints.ENDPOINT_1_KEY);
-		addShapeModifyingKey(IHasEndpoints.ENDPOINT_2_KEY);
-		addShapeModifyingKey(IHasMidpoints.MIDPOINTS_KEY);
+		set(POINTS_KEY, Lists.newArrayList(new Point(0, 0), new Point(0, 0)));
+		addThingListener(new IThingListener() {
+
+			@Override
+			public void thingChanged(ThingEvent thingEvent) {
+				if (!POINTS_KEY.equals(thingEvent.getPropertyName())
+						&& !BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
+					set(POINTS_KEY, getPoints());
+				}
+			}
+		});
+		set(POINTS_KEY, getPoints());
 	}
 
 	@Override
 	public Point getEndpoint1() {
-		return get(IHasEndpoints.ENDPOINT_1_KEY, new Point(0, 0));
+		return get(ENDPOINT_1_KEY);
 	}
 
 	@Override
 	public void setEndpoint1(Point endpoint1) {
 		checkNotNull(endpoint1);
 
-		set(IHasEndpoints.ENDPOINT_1_KEY, endpoint1);
+		set(ENDPOINT_1_KEY, endpoint1);
 	}
 
 	@Override
 	public Point getEndpoint2() {
-		return get(IHasEndpoints.ENDPOINT_2_KEY, new Point(0, 0));
+		return get(ENDPOINT_2_KEY);
 	}
 
 	@Override
 	public void setEndpoint2(Point endpoint2) {
 		checkNotNull(endpoint2);
 
-		set(IHasEndpoints.ENDPOINT_2_KEY, endpoint2);
+		set(ENDPOINT_2_KEY, endpoint2);
 	}
 
 	@Override
 	public List<Point> getMidpoints() {
-		return get(IHasMidpoints.MIDPOINTS_KEY, Collections.<Point> emptyList());
+		return get(MIDPOINTS_KEY);
 	}
 
 	@Override
 	public void setMidpoints(List<Point> midpoints) {
-		set(IHasMidpoints.MIDPOINTS_KEY, midpoints);
+		set(MIDPOINTS_KEY, midpoints);
 	}
 
 	@Override

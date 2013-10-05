@@ -7,6 +7,7 @@ import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutablePoints;
 import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -16,24 +17,25 @@ import com.google.common.collect.Lists;
 public abstract class AbstractPointsThing extends AbstractRelativeMovableThing implements IHasMutablePoints,
 		IHasBoundingBox {
 
-	public AbstractPointsThing(Object id) {
+	public AbstractPointsThing(@Nullable Object id) {
 		super(id);
-		addThingListener(new IThingListener() {
-
-			@Override
-			public void thingChanged(ThingEvent thingEvent) {
-				if (!IHasBoundingBox.BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
-					set(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
-				}
-			}
-		});
 	}
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setPoints(Lists.newArrayList(new Point(0, 0), new Point(0, 0)));
-		set(IHasBoundingBox.BOUNDING_BOX_KEY, calculateBoundingBox());
+		set(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
+		super.initProperties();
+		addThingListener(new IThingListener() {
+
+			@Override
+			public void thingChanged(ThingEvent thingEvent) {
+				if (!BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
+					set(BOUNDING_BOX_KEY, calculateBoundingBox());
+				}
+			}
+		});
+		set(BOUNDING_BOX_KEY, calculateBoundingBox());
 	}
 
 	@Override
@@ -99,6 +101,6 @@ public abstract class AbstractPointsThing extends AbstractRelativeMovableThing i
 
 	@Override
 	public Rectangle getBoundingBox() {
-		return get(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
+		return get(BOUNDING_BOX_KEY);
 	}
 }

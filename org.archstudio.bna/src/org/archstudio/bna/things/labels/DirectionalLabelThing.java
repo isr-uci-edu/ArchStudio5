@@ -7,21 +7,22 @@ import org.archstudio.bna.facets.IHasMutableOrientation;
 import org.archstudio.bna.things.AbstractRectangleThing;
 import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.swtutils.constants.Orientation;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
 public class DirectionalLabelThing extends AbstractRectangleThing implements IHasMinimumSize, IHasMutableColor,
 		IHasMutableOrientation, IHasMutableFlow {
 
-	public DirectionalLabelThing(Object id) {
+	public DirectionalLabelThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setOrientation(Orientation.NONE);
 		setFlow(Flow.NONE);
 		setColor(new RGB(0, 0, 0));
+		super.initProperties();
 	}
 
 	@Override

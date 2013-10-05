@@ -1,11 +1,12 @@
 package org.archstudio.archipelago.statechart.core.things.shapes;
 
 import org.archstudio.bna.things.shapes.EllipseThing;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
 public class FinalStateThing extends EllipseThing {
 
-	public FinalStateThing(Object id) {
+	public FinalStateThing(@Nullable Object id) {
 		super(id);
 	}
 

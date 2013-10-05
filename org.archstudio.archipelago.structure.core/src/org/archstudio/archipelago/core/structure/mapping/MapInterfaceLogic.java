@@ -125,7 +125,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 	protected EndpointGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
 		EndpointGlassThing thing = Assemblies.createEndpoint(world, null, null);
-		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(model);
+		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(world);
 		thing.setAnchorPoint(newPointSpot);
 
 		Assemblies.BACKGROUND_KEY.get(thing, model).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);

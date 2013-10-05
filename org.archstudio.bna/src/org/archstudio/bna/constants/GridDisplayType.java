@@ -1,22 +1,24 @@
 package org.archstudio.bna.constants;
 
 public enum GridDisplayType {
-	NONE, DOTS_AT_CORNERS, CROSSES_AT_CORNERS, DOTTED_LINES, SOLID_LINES;
+	NONE("None"), //
+	DOTS_AT_CORNERS("Dots at Corners"), //
+	CROSSES_AT_CORNERS("Crosses at Corners"), //
+	DOTTED_LINES("Dotted Lines"), //
+	SOLID_LINES("Solid Lines");
+
+	private final String description;
+
+	private GridDisplayType(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+		return description;
+	}
 
 	@Override
 	public String toString() {
-		switch (this) {
-		case NONE:
-			return "None";
-		case DOTS_AT_CORNERS:
-			return "Dots at Corners";
-		case CROSSES_AT_CORNERS:
-			return "Crosses at Corners";
-		case DOTTED_LINES:
-			return "Dotted Lines";
-		case SOLID_LINES:
-			return "Solid Lines";
-		}
-		return super.toString();
+		return description;
 	}
 }

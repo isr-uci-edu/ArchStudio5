@@ -2,28 +2,26 @@ package org.archstudio.bna.things.glass;
 
 import java.awt.Dimension;
 
-import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasMutableOrientation;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasStandardCursor;
 import org.archstudio.bna.things.AbstractMutableAnchorPointThing;
 import org.archstudio.swtutils.constants.Orientation;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.RGB;
 
 public class ReshapeHandleGlassThing extends AbstractMutableAnchorPointThing implements IHasMutableOrientation,
 		IHasStandardCursor, IHasMutableSize {
 
-	public ReshapeHandleGlassThing(Object id) {
+	public ReshapeHandleGlassThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setOrientation(Orientation.NONE);
 		setSize(new Dimension(8, 8));
-		set(IHasEdgeColor.EDGE_COLOR_KEY, new RGB(0, 0, 0));
+		super.initProperties();
 	}
 
 	@Override

@@ -5,7 +5,8 @@ import org.archstudio.bna.facets.IHasMutableLineData;
 import org.archstudio.bna.facets.IHasMutableUnit;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.AbstractRectangleThing;
-import org.eclipse.swt.SWT;
+import org.archstudio.swtutils.constants.LineStyle;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
 public class GraphGridLinesThing extends AbstractRectangleThing implements IHasMutableUnit, IHasMutableLineData,
@@ -17,18 +18,18 @@ public class GraphGridLinesThing extends AbstractRectangleThing implements IHasM
 
 	public static final IThingKey<Orientation> ORIENTATION_KEY = ThingKey.create("orientation");
 
-	public GraphGridLinesThing(Object id) {
+	public GraphGridLinesThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setUnit(10);
 		setOrientation(Orientation.HORIZONTAL_LINES);
-		setLineStyle(SWT.LINE_DOT);
+		setLineStyle(LineStyle.DOT);
 		setEdgeColor(new RGB(128, 128, 128));
 		setLineWidth(1);
+		super.initProperties();
 	}
 
 	@Override
@@ -60,12 +61,12 @@ public class GraphGridLinesThing extends AbstractRectangleThing implements IHasM
 	}
 
 	@Override
-	public int getLineStyle() {
+	public LineStyle getLineStyle() {
 		return get(LINE_STYLE_KEY);
 	}
 
 	@Override
-	public void setLineStyle(int lineStyle) {
+	public void setLineStyle(LineStyle lineStyle) {
 		set(LINE_STYLE_KEY, lineStyle);
 	}
 

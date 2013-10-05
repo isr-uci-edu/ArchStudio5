@@ -3,10 +3,8 @@ package org.archstudio.archipelago.core.structure;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.IArchipelagoEditorPane;
 import org.archstudio.bna.BNACanvas;
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
@@ -37,17 +35,14 @@ public class StructureTreeDragSourceListener implements DragSourceListener {
 				BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(editor);
 				IBNAView view = bnaCanvas.getBNAView();
 				if (bnaCanvas != null) {
-					IBNAModel m = view.getBNAWorld().getBNAModel();
-					if (m != null) {
-						EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(m);
-						String editingXArchID = ept.get(ArchipelagoUtils.XARCH_ID_KEY);
-						if (editingXArchID != null) {
-							ObjRef editingRef = xarch.getByID(documentRootRef, editingXArchID);
-							if (editingRef != null) {
-								if (XadlUtils.isInstanceOf(xarch, editingRef, Structure_3_0Package.Literals.STRUCTURE)) {
-									event.doit = true;
-									event.detail = DND.DROP_LINK;
-								}
+					EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(view.getBNAWorld());
+					String editingXArchID = ept.get(ArchipelagoUtils.XARCH_ID_KEY);
+					if (editingXArchID != null) {
+						ObjRef editingRef = xarch.getByID(documentRootRef, editingXArchID);
+						if (editingRef != null) {
+							if (XadlUtils.isInstanceOf(xarch, editingRef, Structure_3_0Package.Literals.STRUCTURE)) {
+								event.doit = true;
+								event.detail = DND.DROP_LINK;
 							}
 						}
 					}

@@ -94,7 +94,7 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 	protected MappingThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
 		MappingThing thing = Assemblies.createMapping(world, null, null);
-		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(model);
+		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(world);
 		thing.setAnchorPoint(new Point(newPointSpot.x - 50, newPointSpot.y + 50));
 		thing.setInternalEndpoint(new Point(newPointSpot.x + 50, newPointSpot.y - 50));
 		thing.setLineWidth(defaultLineWidth);

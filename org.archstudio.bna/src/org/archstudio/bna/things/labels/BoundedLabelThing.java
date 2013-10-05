@@ -49,7 +49,7 @@ public class BoundedLabelThing extends AbstractRectangleThing implements IHasMut
 
 	@Override
 	public String getText() {
-		return get(TEXT_KEY, "");
+		return get(TEXT_KEY);
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class BoundedLabelThing extends AbstractRectangleThing implements IHasMut
 
 	@Override
 	public HorizontalAlignment getHorizontalAlignment() {
-		return get(HORIZONTAL_ALIGNMENT_KEY, HorizontalAlignment.CENTER);
+		return get(HORIZONTAL_ALIGNMENT_KEY);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class BoundedLabelThing extends AbstractRectangleThing implements IHasMut
 
 	@Override
 	public VerticalAlignment getVerticalAlignment() {
-		return get(VERTICAL_ALIGNMENT_KEY, VerticalAlignment.MIDDLE);
+		return get(VERTICAL_ALIGNMENT_KEY);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class BoundedLabelThing extends AbstractRectangleThing implements IHasMut
 
 	@Override
 	public String getFontName() {
-		return get(FONT_NAME_KEY, IFontConstants.DEFAULT_FONT_NAME);
+		return get(FONT_NAME_KEY);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class BoundedLabelThing extends AbstractRectangleThing implements IHasMut
 
 	@Override
 	public int getFontSize() {
-		return get(FONT_SIZE_KEY, 12);
+		return get(FONT_SIZE_KEY);
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class BoundedLabelThing extends AbstractRectangleThing implements IHasMut
 
 	@Override
 	public FontStyle getFontStyle() {
-		return get(FONT_STYLE_KEY, FontStyle.NORMAL);
+		return get(FONT_STYLE_KEY);
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class BoundedLabelThing extends AbstractRectangleThing implements IHasMut
 
 	@Override
 	public boolean getDontIncreaseFontSize() {
-		return get(DONT_INCREASE_FONT_SIZE_KEY, true);
+		return get(DONT_INCREASE_FONT_SIZE_KEY);
 	}
 
 	@Override

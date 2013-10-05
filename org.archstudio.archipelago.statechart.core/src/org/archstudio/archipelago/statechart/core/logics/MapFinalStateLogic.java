@@ -56,7 +56,7 @@ public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<FinalStateThi
 	@Override
 	protected FinalStateThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
-		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(model);
+		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(world);
 
 		FinalStateThing thing = model.addThing(new FinalStateThing(null),
 				Assemblies.getLayer(model, Assemblies.MIDDLE_LAYER_THING_ID));

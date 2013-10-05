@@ -83,7 +83,7 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineThing> implem
 	protected SplineThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
 		SplineThing thing = Assemblies.createSpline(world, null, null);
-		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(model);
+		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(world);
 		thing.setPoint(0, new Point(newPointSpot.x - 50, newPointSpot.y + 50));
 		thing.setPoint(-1, new Point(newPointSpot.x + 50, newPointSpot.y - 50));
 		thing.setLineWidth(defaultLineWidth);

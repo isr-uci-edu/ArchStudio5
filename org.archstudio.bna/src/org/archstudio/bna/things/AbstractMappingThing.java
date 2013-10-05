@@ -3,21 +3,21 @@ package org.archstudio.bna.things;
 import java.awt.geom.Point2D;
 
 import org.archstudio.bna.facets.IHasMutableInternalWorldEndpoint;
-import org.archstudio.bna.facets.IHasMutableMappingPoint;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 
 public abstract class AbstractMappingThing extends AbstractMutableAnchorPointThing implements
-		IHasMutableInternalWorldEndpoint, IHasMutableMappingPoint {
+		IHasMutableInternalWorldEndpoint {
 
-	public AbstractMappingThing(Object id) {
+	public AbstractMappingThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setInternalEndpoint(new Point(0, 0));
-		setMappingPoint(new Point2D.Double(0, 0));
+		setExternalEndpoint(new Point2D.Double(0, 0));
+		super.initProperties();
 	}
 
 	@Override
@@ -41,12 +41,12 @@ public abstract class AbstractMappingThing extends AbstractMutableAnchorPointThi
 	}
 
 	@Override
-	public void setMappingPoint(Point2D point) {
-		set(MAPPING_POINT_KEY, point);
+	public Point2D getExternalEndpoint() {
+		return get(EXTERNAL_ENDPOINT_KEY);
 	}
 
 	@Override
-	public Point2D getMappingPoint() {
-		return get(MAPPING_POINT_KEY);
+	public void setExternalEndpoint(Point2D externalWorldPoint) {
+		set(EXTERNAL_ENDPOINT_KEY, externalWorldPoint);
 	}
 }

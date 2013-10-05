@@ -1,6 +1,5 @@
 package org.archstudio.bna.facets;
 
-import java.util.Collection;
 import java.util.Set;
 
 import org.archstudio.bna.IThing;
@@ -15,7 +14,7 @@ public interface IHasShapeKeys extends IThing {
 
 	public void addShapeModifyingKey(IThingKey<?> key);
 
-	public Collection<IThingKey<?>> getShapeModifyingKeys();
+	public Set<IThingKey<?>> getShapeModifyingKeys();
 
 	public boolean isShapeModifyingKey(IThingKey<?> key);
 

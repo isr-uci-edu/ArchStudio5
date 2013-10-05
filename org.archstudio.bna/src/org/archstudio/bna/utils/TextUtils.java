@@ -96,7 +96,7 @@ public class TextUtils {
 				textArea = textArea.union(textToRender.getBounds());
 			}
 		}
-		if (textArea == null) {
+		if (textArea == null || textArea.width == 0 || textArea.height == 0) {
 			textsToRender.clear();
 			return;
 		}

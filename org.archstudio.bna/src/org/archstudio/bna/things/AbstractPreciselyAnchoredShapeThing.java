@@ -2,18 +2,18 @@ package org.archstudio.bna.things;
 
 import java.awt.Dimension;
 import java.awt.Shape;
-import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
 import org.archstudio.bna.facets.IHasMutableShape;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
 @NonNullByDefault
 public abstract class AbstractPreciselyAnchoredShapeThing extends AbstractPreciseAnchorPointThing implements
 		IHasMutableSize, IHasMutableShape {
 
-	public AbstractPreciselyAnchoredShapeThing(Object id) {
+	public AbstractPreciselyAnchoredShapeThing(@Nullable Object id) {
 		super(id);
 	}
 
@@ -37,8 +37,8 @@ public abstract class AbstractPreciselyAnchoredShapeThing extends AbstractPrecis
 	}
 
 	@Override
-	public Path2D getShape() {
-		return (Path2D) get(SHAPE_KEY);
+	public Shape getShape() {
+		return get(SHAPE_KEY);
 	}
 
 	@Override

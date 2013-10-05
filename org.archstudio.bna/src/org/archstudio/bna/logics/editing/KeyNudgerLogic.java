@@ -27,7 +27,7 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 			model.beginBulkChange();
 			try {
 				Orientation o = orientationForKeyCode(e.keyCode);
-				int gridSpacing = GridUtils.getGridSpacing(model);
+				int gridSpacing = GridUtils.getGridSpacing(world);
 				int distance = gridSpacing == 0 ? 5 : gridSpacing;
 
 				boolean nudged = false;

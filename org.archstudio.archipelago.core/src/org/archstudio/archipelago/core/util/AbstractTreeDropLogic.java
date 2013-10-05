@@ -1,6 +1,7 @@
 package org.archstudio.archipelago.core.util;
 
-import java.util.Iterator;
+import static org.archstudio.sysutils.SystemUtils.firstOrNull;
+
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
@@ -83,7 +84,7 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 	@Override
 	synchronized public void dragOver(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (acceptDrop(view, event, ts, location)) {
-			IThing t = getSingleThing(ts);
+			IThing t = firstOrNull(ts);
 			event.detail = DND.DROP_LINK;
 			if (pulser == null && t != null && t instanceof IHasBoundingBox) {
 				pulser = new PulsingBorderThing(null);
@@ -129,13 +130,4 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 	synchronized public void drop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 	}
 
-	protected static IThing getSingleThing(List<IThing> ts) {
-		if (ts != null) {
-			Iterator<IThing> iterator = ts.iterator();
-			if (iterator.hasNext()) {
-				return iterator.next();
-			}
-		}
-		return null;
-	}
 }

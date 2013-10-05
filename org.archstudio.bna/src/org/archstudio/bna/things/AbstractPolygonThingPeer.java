@@ -16,7 +16,7 @@ public abstract class AbstractPolygonThingPeer<T extends AbstractPolygonThing> e
 	}
 
 	protected Shape createLocalShape() {
-		Point a = cm.worldToLocal(t.getAnchorPoint());
+		Point a = t.getAnchorPoint();
 
 		Polygon localShape = new Polygon();
 		for (Point p : t.getPoints()) {

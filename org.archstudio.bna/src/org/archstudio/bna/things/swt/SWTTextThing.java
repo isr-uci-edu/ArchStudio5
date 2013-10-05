@@ -13,13 +13,13 @@ public class SWTTextThing extends AbstractControlThing implements IHasMutableTex
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setText("");
+		super.initProperties();
 	}
 
 	@Override
 	public String getText() {
-		return get(TEXT_KEY, "");
+		return get(TEXT_KEY);
 	}
 
 	@Override

@@ -113,6 +113,11 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	@Override
 	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
 
+		// only render shadows if hardware accelerated
+		if (!gl.getGLProfile().isHardwareRasterizer()) {
+			return;
+		}
+
 		// only draw for the top level things
 		if (view.getParentView() != null) {
 			return;
@@ -154,7 +159,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 				int shadowSize = Math.min(shadowOffset, 15);
 				gl.glTranslated(shadowOffset, -shadowOffset, 0);
 				try {
-					Rectangle newLocalBounds = new Rectangle(-shadowOffset, shadowOffset, localBounds.width,
+					Rectangle newLocalBounds = new Rectangle(-shadowOffset, -shadowOffset, localBounds.width,
 							localBounds.height);
 					for (IThing t : model.getAllThings()) {
 						IThingPeer<?> tp = view.getThingPeer(t);

@@ -18,7 +18,6 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.graphlayout.GraphLayout;
 import org.archstudio.graphlayout.GraphLayoutException;
@@ -74,7 +73,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 		final int fworldX = fworld.x;
 		final int fworldY = fworld.y;
 
-		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(view.getBNAWorld().getBNAModel());
+		EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(world);
 		final ObjRef structureRef = ept.get(IHasObjRef.OBJREF_KEY);
 		if (structureRef != null
 				&& XadlUtils.isInstanceOf(xarch, structureRef, Structure_3_0Package.Literals.STRUCTURE)) {

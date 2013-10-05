@@ -9,9 +9,9 @@ import org.archstudio.bna.facets.IHasMutableUnit;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.AbstractRectangleThing;
 import org.archstudio.swtutils.constants.FontStyle;
+import org.archstudio.swtutils.constants.LineStyle;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 
 @NonNullByDefault
@@ -31,11 +31,10 @@ public class AxisThing extends AbstractRectangleThing implements IHasMutableUnit
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
 		setUnit(10);
 		setLocalTickSize(6);
 		setOrientation(Orientation.BOTTOM);
-		setLineStyle(SWT.LINE_SOLID);
+		setLineStyle(LineStyle.SOLID);
 		setEdgeColor(new RGB(0, 0, 0));
 		setLineWidth(3);
 		setFontName(IFontConstants.DEFAULT_FONT_NAME);
@@ -43,11 +42,12 @@ public class AxisThing extends AbstractRectangleThing implements IHasMutableUnit
 		setFontStyle(FontStyle.NORMAL);
 		setDontIncreaseFontSize(true);
 		setText("");
+		super.initProperties();
 	}
 
 	@Override
 	public int getUnit() {
-		return get(UNIT_KEY, 10);
+		return get(UNIT_KEY);
 	}
 
 	@Override
@@ -60,11 +60,11 @@ public class AxisThing extends AbstractRectangleThing implements IHasMutableUnit
 	}
 
 	public int getLocalTickSize() {
-		return get(LOCAL_TICK_SIZE_KEY, 6);
+		return get(LOCAL_TICK_SIZE_KEY);
 	}
 
 	public Orientation getOrientation() {
-		return get(ORIENTATION_KEY, Orientation.BOTTOM);
+		return get(ORIENTATION_KEY);
 	}
 
 	public void setOrientation(Orientation orientation) {
@@ -83,18 +83,18 @@ public class AxisThing extends AbstractRectangleThing implements IHasMutableUnit
 	}
 
 	@Override
-	public int getLineStyle() {
-		return get(LINE_STYLE_KEY, LINE_STYLE_SOLID);
+	public LineStyle getLineStyle() {
+		return get(LINE_STYLE_KEY);
 	}
 
 	@Override
-	public void setLineStyle(int lineStyle) {
+	public void setLineStyle(LineStyle lineStyle) {
 		set(LINE_STYLE_KEY, lineStyle);
 	}
 
 	@Override
 	public int getLineWidth() {
-		return get(LINE_WIDTH_KEY, 3);
+		return get(LINE_WIDTH_KEY);
 	}
 
 	@Override
@@ -104,22 +104,22 @@ public class AxisThing extends AbstractRectangleThing implements IHasMutableUnit
 
 	@Override
 	public String getFontName() {
-		return get(FONT_NAME_KEY, IFontConstants.DEFAULT_FONT_NAME);
+		return get(FONT_NAME_KEY);
 	}
 
 	@Override
 	public int getFontSize() {
-		return get(FONT_SIZE_KEY, 12);
+		return get(FONT_SIZE_KEY);
 	}
 
 	@Override
 	public FontStyle getFontStyle() {
-		return get(FONT_STYLE_KEY, FontStyle.NORMAL);
+		return get(FONT_STYLE_KEY);
 	}
 
 	@Override
 	public boolean getDontIncreaseFontSize() {
-		return get(DONT_INCREASE_FONT_SIZE_KEY, true);
+		return get(DONT_INCREASE_FONT_SIZE_KEY);
 	}
 
 	@Override
@@ -144,7 +144,7 @@ public class AxisThing extends AbstractRectangleThing implements IHasMutableUnit
 
 	@Override
 	public String getText() {
-		return get(TEXT_KEY, "");
+		return get(TEXT_KEY);
 	}
 
 	@Override

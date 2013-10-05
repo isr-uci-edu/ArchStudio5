@@ -33,10 +33,10 @@ public class UserEditableUtils {
 	}
 
 	public static boolean isEditable(IThing thing) {
-		if (Boolean.TRUE.equals(thing.get(IIsHidden.HIDDEN_KEY))) {
+		if (thing.has(IIsHidden.HIDDEN_KEY, true)) {
 			return false;
 		}
-		if (Boolean.TRUE.equals(thing.get(IIsBackground.BACKGROUND_KEY))) {
+		if (thing.has(IIsBackground.BACKGROUND_KEY, true)) {
 			return false;
 		}
 		return true;

@@ -6,27 +6,26 @@ import org.archstudio.bna.facets.IHasMutableLineStyle;
 import org.archstudio.bna.facets.IHasMutableLineWidth;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSelected;
-import org.archstudio.bna.facets.IHasRotatingOffset;
-import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.things.AbstractCurvedSplineThing;
-import org.eclipse.swt.SWT;
+import org.archstudio.swtutils.constants.LineStyle;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
 public class CurvedSplineThing extends AbstractCurvedSplineThing implements IHasMutableEdgeColor, IHasMutableLineWidth,
 		IHasMutableLineStyle, IHasLineData, IHasMutableSelected, IHasMutableRotatingOffset {
 
-	public CurvedSplineThing(Object id) {
+	public CurvedSplineThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
 	protected void initProperties() {
-		super.initProperties();
-		setLineStyle(SWT.LINE_SOLID);
+		setLineStyle(LineStyle.SOLID);
 		setEdgeColor(new RGB(0, 0, 0));
 		setLineWidth(1);
 		setSelected(false);
-		incrementRotatingOffset();
+		set(ROTATING_OFFSET_KEY, 0);
+		super.initProperties();
 	}
 
 	@Override
@@ -40,12 +39,12 @@ public class CurvedSplineThing extends AbstractCurvedSplineThing implements IHas
 	}
 
 	@Override
-	public int getLineStyle() {
+	public LineStyle getLineStyle() {
 		return get(LINE_STYLE_KEY);
 	}
 
 	@Override
-	public void setLineStyle(int lineStyle) {
+	public void setLineStyle(LineStyle lineStyle) {
 		set(LINE_STYLE_KEY, lineStyle);
 	}
 
@@ -61,17 +60,17 @@ public class CurvedSplineThing extends AbstractCurvedSplineThing implements IHas
 
 	@Override
 	public boolean isSelected() {
-		return Boolean.TRUE.equals(get(IHasSelected.SELECTED_KEY));
+		return has(SELECTED_KEY, true);
 	}
 
 	@Override
 	public void setSelected(boolean selected) {
-		set(IHasSelected.SELECTED_KEY, selected);
+		set(SELECTED_KEY, selected);
 	}
 
 	@Override
 	public int getRotatingOffset() {
-		return get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
+		return get(ROTATING_OFFSET_KEY);
 	}
 
 	@Override
@@ -81,8 +80,6 @@ public class CurvedSplineThing extends AbstractCurvedSplineThing implements IHas
 
 	@Override
 	public void incrementRotatingOffset() {
-		Integer io = get(IHasRotatingOffset.ROTATING_OFFSET_KEY);
-		int i = io == null ? 0 : io + 1;
-		set(IHasRotatingOffset.ROTATING_OFFSET_KEY, i);
+		set(ROTATING_OFFSET_KEY, get(ROTATING_OFFSET_KEY) + 1);
 	}
 }

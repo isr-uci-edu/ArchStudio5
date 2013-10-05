@@ -35,7 +35,6 @@ import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.ObscuredGL2;
 import org.archstudio.bna.Resources;
-import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
@@ -50,7 +49,6 @@ import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
-import org.archstudio.bna.things.utility.GridThing;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.swtutils.constants.Orientation;
 import org.archstudio.sysutils.SystemUtils;
@@ -662,15 +660,6 @@ public class BNAUtils {
 		return dd;
 	}
 
-	public static EnvironmentPropertiesThing getEnvironmentPropertiesThing(IBNAModel m) {
-		EnvironmentPropertiesThing ept = (EnvironmentPropertiesThing) m
-				.getThing(EnvironmentPropertiesThing.ENVIRONMENT_PROPERTIES_THING_ID);
-		if (ept == null) {
-			m.addThing(ept = new EnvironmentPropertiesThing());
-		}
-		return ept;
-	}
-
 	//	public static Rectangle clone(Rectangle r) {
 	//		return r == null ? null : new Rectangle(r.x, r.y, r.width, r.height);
 	//	}
@@ -786,20 +775,6 @@ public class BNAUtils {
 
 	public static final int sizeOfSelectedThings(IBNAModel m) {
 		return Iterables.size(getSelectedThings(m));
-	}
-
-	public static void setGridSpacing(IBNAModel m, int gridSpacing) {
-		GridThing gt = GridUtils.getGridThing(m);
-		if (gt != null) {
-			gt.setGridSpacing(gridSpacing);
-		}
-	}
-
-	public static void setGridDisplayType(IBNAModel m, GridDisplayType gdt) {
-		GridThing gt = GridUtils.getGridThing(m);
-		if (gt != null) {
-			gt.setGridDisplayType(gdt);
-		}
 	}
 
 	public static void saveCoordinateMapperData(ICoordinateMapper cm, EnvironmentPropertiesThing ept) {

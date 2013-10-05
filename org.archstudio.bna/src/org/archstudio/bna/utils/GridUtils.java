@@ -1,10 +1,10 @@
 package org.archstudio.bna.utils;
 
-import java.util.Collections;
 import java.util.List;
 
-import org.archstudio.bna.IBNAModel;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
@@ -20,13 +20,13 @@ public class GridUtils {
 	private GridUtils() {
 	}
 
-	public static void rectifyToGrid(IBNAModel m) {
-		int gridSpacing = GridUtils.getGridSpacing(m);
+	public static void rectifyToGrid(IBNAWorld world) {
+		int gridSpacing = GridUtils.getGridSpacing(world);
 		if (gridSpacing == 0) {
 			return;
 		}
 
-		for (IThing t : m.getAllThings()) {
+		for (IThing t : world.getBNAModel().getAllThings()) {
 			if (t instanceof IHasMutableEndpoints) {
 				rectifyToGrid(gridSpacing, (IHasMutableEndpoints) t);
 			}
@@ -45,13 +45,13 @@ public class GridUtils {
 		}
 	}
 
-	public static void rectifyToGrid(int gridSpacing, IHasMutableReferencePoint t) {
+	private static void rectifyToGrid(int gridSpacing, IHasMutableReferencePoint t) {
 		Point p = t.getReferencePoint();
 		p = GridUtils.snapToGrid(gridSpacing, p);
 		t.setReferencePoint(p);
 	}
 
-	public static void rectifyToGrid(int gridSpacing, IHasMutableBoundingBox t) {
+	private static void rectifyToGrid(int gridSpacing, IHasMutableBoundingBox t) {
 		Rectangle r = t.getBoundingBox();
 
 		if (UserEditableUtils.isEditableForAllQualities(t, IRelativeMovable.USER_MAY_MOVE)) {
@@ -83,7 +83,7 @@ public class GridUtils {
 		t.setBoundingBox(r);
 	}
 
-	public static void rectifyToGrid(int gridSpacing, IHasMutableEndpoints t) {
+	private static void rectifyToGrid(int gridSpacing, IHasMutableEndpoints t) {
 		Point ep1 = t.getEndpoint1();
 		if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1)) {
 			ep1 = GridUtils.snapToGrid(gridSpacing, new Point(ep1.x, ep1.y));
@@ -103,7 +103,7 @@ public class GridUtils {
 		t.setEndpoint2(ep2);
 	}
 
-	public static void rectifyToGrid(int gridSpacing, IHasMutableMidpoints t) {
+	private static void rectifyToGrid(int gridSpacing, IHasMutableMidpoints t) {
 		List<Point> midPoints = t.getMidpoints();
 
 		for (Point p : midPoints) {
@@ -114,24 +114,34 @@ public class GridUtils {
 		t.setMidpoints(midPoints);
 	}
 
-	public static GridThing getGridThing(IBNAModel m) {
-		GridThing gt = (GridThing) m.getThing(GridThing.class);
-		if (gt != null) {
-			return gt;
-		}
-
-		gt = new GridThing();
-		m.addThing(gt);
-		m.sendToBack(Collections.singleton(gt));
-		return gt;
-	}
-
-	public static int getGridSpacing(IBNAModel m) {
-		GridThing gt = getGridThing(m);
-		if (gt != null) {
-			return gt.getGridSpacing();
+	public static int getGridSpacing(IBNAWorld world) {
+		GridThing gridThing = GridThing.getIn(world);
+		if (gridThing != null) {
+			return gridThing.getGridSpacing();
 		}
 		return 0;
+	}
+
+	public static void setGridSpacing(IBNAWorld world, int gridSpacing) {
+		GridThing gridThing = GridThing.createIn(world);
+		if (gridThing != null) {
+			gridThing.setGridSpacing(gridSpacing);
+		}
+	}
+
+	public static GridDisplayType getGridDisplayType(IBNAWorld world) {
+		GridThing gridThing = GridThing.getIn(world);
+		if (gridThing != null) {
+			return gridThing.getGridDisplayType();
+		}
+		return GridDisplayType.NONE;
+	}
+
+	public static void setGridDisplayType(IBNAWorld world, GridDisplayType gdt) {
+		GridThing gridThing = GridThing.createIn(world);
+		if (gridThing != null) {
+			gridThing.setGridDisplayType(gdt);
+		}
 	}
 
 	public static Point snapToGrid(int gridSpacing, Point p) {
@@ -141,7 +151,7 @@ public class GridUtils {
 		return new Point(snapToGrid(gridSpacing, p.x), snapToGrid(gridSpacing, p.y));
 	}
 
-	public static int snapToGrid(int gridSpacing, int coord) {
+	private static int snapToGrid(int gridSpacing, int coord) {
 		int diff = coord % gridSpacing;
 
 		if (diff < gridSpacing / 2) {
