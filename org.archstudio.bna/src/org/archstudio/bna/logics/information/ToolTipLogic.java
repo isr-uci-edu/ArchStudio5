@@ -3,6 +3,7 @@ package org.archstudio.bna.logics.information;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasToolTip;
@@ -24,8 +25,12 @@ public class ToolTipLogic extends AbstractThingLogic implements IBNAMouseMoveLis
 
 	protected IThing lastThing = null;
 
+	public ToolTipLogic(IBNAWorld world) {
+		super(world);
+	}
+
 	@Override
-	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		IThing newThing = SystemUtils.firstOrNull(things);
 		if (newThing != lastThing) {
 			lastThing = newThing;

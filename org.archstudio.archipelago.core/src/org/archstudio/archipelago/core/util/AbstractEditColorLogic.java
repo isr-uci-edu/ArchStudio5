@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.BNAUtils;
@@ -31,13 +32,14 @@ public abstract class AbstractEditColorLogic extends AbstractThingLogic implemen
 	protected Color defaultColor = null;
 	protected ImageDescriptor defaultSwatchDescriptor = null;
 
-	public AbstractEditColorLogic() {
+	public AbstractEditColorLogic(IBNAWorld world) {
+		super(world);
 	}
 
 	@Override
-	public void destroy() {
-		super.destroy();
+	synchronized public void dispose() {
 		disposeResources();
+		super.dispose();
 	}
 
 	protected abstract boolean matches(IBNAView view, IThing t);
@@ -65,7 +67,8 @@ public abstract class AbstractEditColorLogic extends AbstractThingLogic implemen
 		}
 	}
 
-	public void fillMenu(IBNAView view, IMenuManager m, int localX, int localY, IThing t, int worldX, int worldY) {
+	synchronized public void fillMenu(IBNAView view, IMenuManager m, int localX, int localY, IThing t, int worldX,
+			int worldY) {
 		if (t == null) {
 			return;
 		}

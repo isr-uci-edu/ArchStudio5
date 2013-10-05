@@ -6,7 +6,6 @@ import static com.google.common.base.Preconditions.checkState;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
@@ -51,69 +50,55 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 
 	final protected IHintRepository hintRepository;
 
-	protected ThingValueTrackingLogic tvtl = null;
+	protected final ThingValueTrackingLogic valueLogic;
 
-	public SynchronizeHintsLogic(IHintRepository hintRepository) {
+	public SynchronizeHintsLogic(IBNAWorld world, IHintRepository hintRepository) {
+		super(world);
+		checkState(model.getAllThings().isEmpty(), "SynchronizeHintsLogic must be added before things.");
+		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
+
 		this.hintRepository = hintRepository;
-		addHintSynchronizer(new PropertyHintSynchronizer("bounds", IHasBoundingBox.BOUNDING_BOX_KEY,
+		hintSynchronizers.add(new PropertyHintSynchronizer("bounds", IHasBoundingBox.BOUNDING_BOX_KEY,
 				IHasMutableBoundingBox.class, IRelativeMovable.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE));
-		addHintSynchronizer(new PropertyHintSynchronizer("location", IHasAnchorPoint.ANCHOR_POINT_KEY,
+		hintSynchronizers.add(new PropertyHintSynchronizer("location", IHasAnchorPoint.ANCHOR_POINT_KEY,
 				IHasMutableAnchorPoint.class, IRelativeMovable.USER_MAY_MOVE));
-		addHintSynchronizer(new PropertyHintSynchronizer("tagged", ShowHideTagsLogic.SHOW_TAG_KEY, IThing.class,
+		hintSynchronizers.add(new PropertyHintSynchronizer("tagged", ShowHideTagsLogic.SHOW_TAG_KEY, IThing.class,
 				ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG));
-		addHintSynchronizer(new PropertyHintSynchronizer("angle", IHasAngle.ANGLE_KEY, IHasMutableAngle.class,
+		hintSynchronizers.add(new PropertyHintSynchronizer("angle", IHasAngle.ANGLE_KEY, IHasMutableAngle.class,
 				IHasMutableAngle.USER_MAY_CHANGE_ANGLE));
-		addHintSynchronizer(new PropertyHintSynchronizer("endpoint1", IHasEndpoints.ENDPOINT_1_KEY,
+		hintSynchronizers.add(new PropertyHintSynchronizer("endpoint1", IHasEndpoints.ENDPOINT_1_KEY,
 				IHasMutableEndpoints.class, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1));
-		addHintSynchronizer(new PropertyHintSynchronizer("endpoint2", IHasEndpoints.ENDPOINT_2_KEY,
+		hintSynchronizers.add(new PropertyHintSynchronizer("endpoint2", IHasEndpoints.ENDPOINT_2_KEY,
 				IHasMutableEndpoints.class, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2));
-		addHintSynchronizer(new PropertyHintSynchronizer("midpoints", IHasMidpoints.MIDPOINTS_KEY,
+		hintSynchronizers.add(new PropertyHintSynchronizer("midpoints", IHasMidpoints.MIDPOINTS_KEY,
 				IHasMutableMidpoints.class, IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS));
-		addHintSynchronizer(new PropertyHintSynchronizer("color", IHasColor.COLOR_KEY, IHasMutableColor.class,
+		hintSynchronizers.add(new PropertyHintSynchronizer("color", IHasColor.COLOR_KEY, IHasMutableColor.class,
 				IHasMutableColor.USER_MAY_EDIT_COLOR));
-		addHintSynchronizer(new PropertyHintSynchronizer("highlight", IHasHighlight.HIGHLIGHT_KEY, IThing.class,
+		hintSynchronizers.add(new PropertyHintSynchronizer("highlight", IHasHighlight.HIGHLIGHT_KEY, IThing.class,
 				HighlightLogic.USER_MAY_HIGHLIGHT));
-		addHintSynchronizer(new PropertyHintSynchronizer("alpha", IHasAlpha.ALPHA_KEY, IThing.class,
+		hintSynchronizers.add(new PropertyHintSynchronizer("alpha", IHasAlpha.ALPHA_KEY, IThing.class,
 				IHasMutableAlpha.USER_MAY_CHANGE_ALPHA));
+
+		for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {
+			hintSynchronizer.setBNAWorld(world);
+		}
+
+		hintRepository.addHintRepositoryChangeListener(this);
 	}
 
 	final protected CopyOnWriteArrayList<IHintSynchronizer> hintSynchronizers = Lists.newCopyOnWriteArrayList();
 
-	public void addHintSynchronizer(IHintSynchronizer hintSynchronizer) {
-		checkState(getBNAWorld() == null, "Hint synchronizer updates must occur before logic initialization");
-
-		hintSynchronizers.add(hintSynchronizer);
-	}
-
-	public void removeHintSynchronizer(IHintSynchronizer hintSynchronizer) {
-		checkState(getBNAWorld() == null, "Hint synchronizer updates must occur before logic initialization");
-
-		hintSynchronizers.remove(hintSynchronizer);
-	}
-
 	@Override
-	public void init() {
-		checkState(getBNAModel().getAllThings().isEmpty(), "SynchronizeHintsLogic must be added before things.");
-		tvtl = addThingLogic(ThingValueTrackingLogic.class);
-
-		super.init();
-		for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {
-			hintSynchronizer.setBNAWorld(getBNAWorld());
-		}
-		hintRepository.addHintRepositoryChangeListener(this);
-	}
-
-	@Override
-	public void destroy() {
+	public void dispose() {
 		hintRepository.removeHintRepositoryChangeListener(this);
 		for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {
 			hintSynchronizer.setBNAWorld(null);
 		}
-		super.destroy();
+		super.dispose();
 	}
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED:
 		case THING_CHANGED:
@@ -136,17 +121,14 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 		checkNotNull(thing);
 		Object context = thing.get(HINT_CONTEXT_KEY);
 		if (context == null) {
-			IBNAWorld world = getBNAWorld();
-			if (world != null) {
-				context = hintRepository.getContextForThing(world, thing);
-				if (context != null) {
-					restoreHints(thing, context, null);
-					storeHints(thing, context, null);
-					thing.set(HINT_CONTEXT_KEY, context);
-					for (IThing t : Assemblies.getParts(world.getBNAModel(), thing).values()) {
-						if (t != null) {
-							createHintContext(t);
-						}
+			context = hintRepository.getContextForThing(world, thing);
+			if (context != null) {
+				restoreHints(thing, context, null);
+				storeHints(thing, context, null);
+				thing.set(HINT_CONTEXT_KEY, context);
+				for (IThing t : Assemblies.getParts(model, thing).values()) {
+					if (t != null) {
+						createHintContext(t);
 					}
 				}
 			}
@@ -173,21 +155,16 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 	}
 
 	@Override
-	public void hintRepositoryChanged(final IHintRepository repository, final Object context,
+	synchronized public void hintRepositoryChanged(final IHintRepository repository, final Object context,
 			final @Nullable String name) {
-		final IBNAModel model = getBNAModel();
-		if (model != null) {
-			SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
-				@Override
-				public void run() {
-					for (IThing t : model.getThingsByID(tvtl.getThingIDs(HINT_CONTEXT_KEY, context))) {
-						if (t != null) {
-							restoreHints(t, context, name);
-						}
-					}
+		SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
+			@Override
+			public void run() {
+				for (IThing t : valueLogic.getThings(HINT_CONTEXT_KEY, context)) {
+					restoreHints(t, context, name);
 				}
-			});
-		}
+			}
+		});
 	}
 
 }

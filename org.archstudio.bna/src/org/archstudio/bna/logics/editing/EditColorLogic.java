@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasColor;
@@ -28,24 +29,25 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 
 	protected static RGB copiedRGB = null;
 
-	public EditColorLogic() {
+	public EditColorLogic(IBNAWorld world) {
+		super(world);
 	}
 
 	@Override
-	public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	synchronized public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		final List<IHasMutableColor> editableColoredThings = Lists.newArrayList();
 		final List<IHasColor> coloredThings = Lists.newArrayList();
 
 		MenuManager m = new MenuManager("Edit Color...");
 		menu.add(m);
 
-		for (IThing selectedThing : BNAUtils.getSelectedThings(getBNAModel())) {
-			IHasMutableColor editableColorThing = Assemblies.getEditableThing(getBNAModel(), selectedThing,
+		for (IThing selectedThing : BNAUtils.getSelectedThings(model)) {
+			IHasMutableColor editableColorThing = Assemblies.getEditableThing(model, selectedThing,
 					IHasMutableColor.class, IHasMutableColor.USER_MAY_EDIT_COLOR);
 			if (editableColorThing != null) {
 				editableColoredThings.add(editableColorThing);
 			}
-			IHasColor colorThing = Assemblies.getEditableThing(getBNAModel(), selectedThing, IHasColor.class,
+			IHasColor colorThing = Assemblies.getEditableThing(model, selectedThing, IHasColor.class,
 					IHasColor.USER_MAY_COPY_COLOR);
 			if (colorThing != null) {
 				coloredThings.add(colorThing);
@@ -122,7 +124,7 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 			@Override
 			public void run() {
 				for (Map.Entry<Object, RGB> e : colors.entrySet()) {
-					IThing t = getBNAModel().getThing(e.getKey());
+					IThing t = model.getThing(e.getKey());
 					if (t != null) {
 						t.set(IHasColor.COLOR_KEY, e.getValue());
 					}

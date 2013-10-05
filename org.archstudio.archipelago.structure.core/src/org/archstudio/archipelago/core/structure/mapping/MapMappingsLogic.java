@@ -5,6 +5,7 @@ import java.util.List;
 import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.structure.core.Activator;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasInternalWorldEndpoint;
@@ -33,23 +34,18 @@ import com.google.common.collect.Lists;
 
 public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> implements IPropertyChangeListener {
 
-	DynamicStickPointLogic stickLogic = null;
-	SynchronizeThingIDAndObjRefLogic syncLogic = null;
-	ReparentToThingIDLogic reparentLogic = null;
+	protected final DynamicStickPointLogic stickLogic;
+	protected final SynchronizeThingIDAndObjRefLogic syncLogic;
+	protected final ReparentToThingIDLogic reparentLogic;
 
-	public MapMappingsLogic(IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
-		super(xarch, rootObjRef, objRefPath);
-	}
+	protected int defaultLineWidth;
 
-	@Override
-	public void init() {
-		super.init();
-
-		stickLogic = addThingLogic(DynamicStickPointLogic.class);
-		syncLogic = addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
-		reparentLogic = addThingLogic(ReparentToThingIDLogic.class);
-		// we use this logic to maintain mappings
-		addThingLogic(MaintainMappingLogic.class);
+	public MapMappingsLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
+		super(world, xarch, rootObjRef, objRefPath);
+		stickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
+		syncLogic = logics.addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
+		reparentLogic = logics.addThingLogic(ReparentToThingIDLogic.class);
+		logics.addThingLogic(MaintainMappingLogic.class);
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), Assemblies.TEXT_KEY, true);
@@ -66,26 +62,39 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 				syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasAnchorPoint.ANCHOR_POINT_KEY)),
 				true);
 
+		loadPreferences();
+
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
 
 	@Override
-	public void destroy() {
+	synchronized public void dispose() {
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 
-		super.destroy();
+		super.dispose();
+	}
+
+	protected void loadPreferences() {
+		defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
+	}
+
+	@Override
+	synchronized public void propertyChange(PropertyChangeEvent event) {
+		loadPreferences();
+
+		for (MappingThing thing : getAddedThings()) {
+			thing.setLineWidth(defaultLineWidth);
+		}
 	}
 
 	@Override
 	protected MappingThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
-		int defaultLineWidth = Math.max(1, org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH));
-
-		MappingThing thing = Assemblies.createMapping(getBNAWorld(), null, null);
-		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(getBNAWorld().getBNAModel());
+		MappingThing thing = Assemblies.createMapping(world, null, null);
+		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(model);
 		thing.setAnchorPoint(new Point(newPointSpot.x - 50, newPointSpot.y + 50));
 		thing.setInternalEndpoint(new Point(newPointSpot.x + 50, newPointSpot.y - 50));
 		thing.setLineWidth(defaultLineWidth);
@@ -99,15 +108,5 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 				Lists.reverse(relLineageRefs).get(1));
 
 		return thing;
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent event) {
-		int defaultLineWidth = Math.max(1, org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH));
-
-		for (MappingThing thing : getAddedThings()) {
-			thing.setLineWidth(defaultLineWidth);
-		}
 	}
 }

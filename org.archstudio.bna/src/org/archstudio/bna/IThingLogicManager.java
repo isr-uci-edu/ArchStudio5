@@ -6,7 +6,7 @@ public interface IThingLogicManager {
 
 	public void removeThingLogicManagerListener(IThingLogicManagerListener l);
 
-	public void destroy();
+	public void dispose();
 
 	public <L extends IThingLogic> L addThingLogic(Class<L> logicClass);
 
@@ -16,5 +16,5 @@ public interface IThingLogicManager {
 
 	public Iterable<IThingLogic> getAllThingLogics();
 
-	public <T> Iterable<T> getThingLogics(Class<T> implementingInterface);
+	public <T> Iterable<T> getThingLogics(Class<T> ofType);
 }

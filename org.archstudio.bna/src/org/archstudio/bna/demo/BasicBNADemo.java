@@ -96,14 +96,14 @@ public class BasicBNADemo {
 		System.exit(0);
 	}
 
-	static void setupTopWorld(IBNAWorld bnaWorld) {
-		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
-		logicManager.addThingLogic(new MousePanAndZoomLogic());
-		setupWorld(bnaWorld);
+	static void setupTopWorld(IBNAWorld world) {
+		IThingLogicManager logicManager = world.getThingLogicManager();
+		logicManager.addThingLogic(new MousePanAndZoomLogic(world));
+		setupWorld(world);
 	}
 
-	static void setupWorld(IBNAWorld bnaWorld) {
-		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
+	static void setupWorld(IBNAWorld world) {
+		IThingLogicManager logicManager = world.getThingLogicManager();
 
 		logicManager.addThingLogic(ClickSelectionLogic.class);
 		logicManager.addThingLogic(DragMovableLogic.class);

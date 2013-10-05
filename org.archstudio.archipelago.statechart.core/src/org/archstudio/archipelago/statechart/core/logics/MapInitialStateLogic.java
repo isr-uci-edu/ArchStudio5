@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableSelected;
@@ -29,36 +30,31 @@ import org.eclipse.swt.graphics.Rectangle;
 import com.google.common.base.Function;
 
 public class MapInitialStateLogic extends AbstractXADLToBNAPathLogic<EllipseThing> {
+	protected final MirrorValueLogic mirrorLogic;
 	protected final Services services;
 	protected final Dimension defaultSize;
-	protected MirrorValueLogic mvl = null;
 
-	public MapInitialStateLogic(Services services, IXArchADT xarch, ObjRef rootObjRef, String objRefPath,
-			Dimension defaultSize) {
-		super(xarch, rootObjRef, objRefPath);
+	public MapInitialStateLogic(IBNAWorld world, Services services, IXArchADT xarch, ObjRef rootObjRef,
+			String objRefPath, Dimension defaultSize) {
+		super(world, xarch, rootObjRef, objRefPath);
+		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
 		this.services = services;
 		this.defaultSize = defaultSize;
-	}
 
-	@Override
-	public void init() {
-		super.init();
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
-
-		mvl = getBNAWorld().getThingLogicManager().addThingLogic(MirrorValueLogic.class);
 	}
 
 	@Override
 	protected EllipseThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
-		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(getBNAWorld().getBNAModel());
+		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(model);
 
-		EllipseThing thing = Assemblies.createEllipse(getBNAWorld(), null, null);
+		EllipseThing thing = Assemblies.createEllipse(world, null, null);
 		thing.setBoundingBox(new Rectangle(newPointSpot.x, newPointSpot.y, defaultSize.width, defaultSize.height));
 		thing.set(IHasColor.COLOR_KEY, new RGB(32, 32, 32));
 
-		mvl.mirrorValue(thing, IHasColor.COLOR_KEY, thing, IHasSecondaryColor.SECONDARY_COLOR_KEY,
+		mirrorLogic.mirrorValue(thing, IHasColor.COLOR_KEY, thing, IHasSecondaryColor.SECONDARY_COLOR_KEY,
 				new Function<RGB, RGB>() {
 
 					@Override

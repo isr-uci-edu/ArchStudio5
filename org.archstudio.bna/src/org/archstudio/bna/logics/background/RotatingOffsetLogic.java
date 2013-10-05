@@ -1,23 +1,18 @@
 package org.archstudio.bna.logics.background;
 
-import org.archstudio.bna.IBNAModel;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.eclipse.swt.widgets.Display;
 
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 
 public class RotatingOffsetLogic extends AbstractThingLogic {
 
-	protected RotatingOffsetIncrementer timer = null;
+	protected final RotatingOffsetIncrementer timer;
 
-	public RotatingOffsetLogic() {
-	}
-
-	@Override
-	protected void init() {
-		super.init();
+	public RotatingOffsetLogic(IBNAWorld world) {
+		super(world);
 		timer = new RotatingOffsetIncrementer();
 		timer.setName(this.getClass().getName());
 		timer.setDaemon(true);
@@ -25,12 +20,11 @@ public class RotatingOffsetLogic extends AbstractThingLogic {
 	}
 
 	@Override
-	protected void destroy() {
+	synchronized public void dispose() {
 		if (timer != null) {
 			timer.terminate();
-			timer = null;
 		}
-		super.destroy();
+		super.dispose();
 	}
 
 	public class RotatingOffsetIncrementer extends Thread {
@@ -56,20 +50,17 @@ public class RotatingOffsetLogic extends AbstractThingLogic {
 				Display.getDefault().syncExec(new Runnable() {
 					@Override
 					public void run() {
-						final IBNAModel model = getBNAModel();
-						if (model != null) {
-							model.beginBulkChange();
-							try {
-								for (IHasMutableRotatingOffset t : Lists.newArrayList(Iterables.filter(
-										model.getAllThings(), IHasMutableRotatingOffset.class))) {
-									if (t.shouldIncrementRotatingOffset()) {
-										t.incrementRotatingOffset();
-									}
+						model.beginBulkChange();
+						try {
+							for (IHasMutableRotatingOffset t : Iterables.filter(model.getAllThings(),
+									IHasMutableRotatingOffset.class)) {
+								if (t.shouldIncrementRotatingOffset()) {
+									t.incrementRotatingOffset();
 								}
 							}
-							finally {
-								model.endBulkChange();
-							}
+						}
+						finally {
+							model.endBulkChange();
 						}
 					}
 				});

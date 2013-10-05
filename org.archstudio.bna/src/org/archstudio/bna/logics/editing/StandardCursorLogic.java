@@ -5,6 +5,7 @@ import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasStandardCursor;
@@ -21,31 +22,35 @@ public class StandardCursorLogic extends AbstractThingLogic implements IBNAMouse
 	boolean isDown = false;
 	boolean downOnCursor = false;
 
+	public StandardCursorLogic(IBNAWorld world) {
+		super(world);
+	}
+
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		isDown = true;
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		isDown = false;
 		updateCursor(view, evt, things, location);
 	}
 
 	@Override
-	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (!isDown) {
 			updateCursor(view, evt, things, location);
 		}
 	}
 
-	protected void updateCursor(IBNAView view, MouseEvent evt, Iterable<IThing> things, ICoordinate location) {
+	protected void updateCursor(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		int cursor = SWT.NONE;
 		Object src = evt.getSource();
 		if (src != null && src instanceof Control) {
 			Control control = (Control) src;
 			if (control != null && !control.isDisposed()) {
-				IThing cursorThing = Assemblies.getThingWithProperty(getBNAModel(), firstOrNull(things),
+				IThing cursorThing = Assemblies.getThingWithProperty(model, firstOrNull(things),
 						IHasStandardCursor.STANDARD_CURSOR_KEY);
 				if (cursorThing != null) {
 					cursor = cursorThing.get(IHasStandardCursor.STANDARD_CURSOR_KEY);

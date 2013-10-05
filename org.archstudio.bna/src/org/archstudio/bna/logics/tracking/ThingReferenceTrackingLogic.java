@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IEntry;
 import org.archstudio.bna.IThing.IThingKey;
@@ -79,13 +80,9 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 
 	Multimap<Object, Reference> idToReferences = ArrayListMultimap.create();
 
-	public ThingReferenceTrackingLogic() {
-	}
-
-	@Override
-	protected void init() {
-		super.init();
-		for (IThing t : getBNAModel().getAllThings()) {
+	public ThingReferenceTrackingLogic(IBNAWorld world) {
+		super(world);
+		for (IThing t : model.getAllThings()) {
 			scanForReferences(t);
 		}
 	}
@@ -124,7 +121,7 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 
 	@Override
 	@SuppressWarnings("rawtypes")
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED:
 			scanForReferences(evt.getTargetThing());

@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasWorld;
@@ -45,12 +46,13 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 	protected final IXArchADT xarch;
 	protected final IResources resources;
 
-	public StructureNewInterfaceMappingLogic(IXArchADT xarch, IResources resources) {
+	public StructureNewInterfaceMappingLogic(IBNAWorld world, IXArchADT xarch, IResources resources) {
+		super(world);
 		this.xarch = xarch;
 		this.resources = resources;
 	}
 
-	public boolean matches(IBNAView view, IThing t) {
+	protected boolean matches(IBNAView view, IThing t) {
 		if (t != null) {
 			ObjRef objRef = t.get(IHasObjRef.OBJREF_KEY);
 			if (XadlUtils.isInstanceOf(xarch, objRef, Structure_3_0Package.Literals.INTERFACE)) {
@@ -61,13 +63,13 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
 		if (selectedThings.size() > 1) {
 			return;
 		}
 
-		IThing t = Assemblies.getThingWithProperty(getBNAModel(), firstOrNull(things), IHasObjRef.OBJREF_KEY);
+		IThing t = Assemblies.getThingWithProperty(model, firstOrNull(things), IHasObjRef.OBJREF_KEY);
 		if (matches(view, t)) {
 			Point world = location.getWorldPoint();
 			IAction action = getAction(view, t, world.x, world.y);
@@ -113,18 +115,18 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 	}
 
 	@Override
-	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (indicatorSpline != null) {
 			indicatorSpline.setEndpoint2(location.getWorldPoint());
 		}
 	}
 
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (indicatorSpline != null) {
 			if (evt.button == 1) {
 				List<IThing> otherThings = Lists.newArrayList(things);

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -22,14 +23,20 @@ import com.google.common.collect.Sets;
 
 public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic implements IBNAModelListener {
 
-	ThingValueTrackingLogic valuesLogic = null;
+	protected final ThingValueTrackingLogic valueLogic;
 	Set<IThingMetakey<?, IThingKey<Object>, ObjRef>> objRefKeys = Collections
 			.<IThingMetakey<?, IThingKey<Object>, ObjRef>> synchronizedSet(Sets
 					.<IThingMetakey<?, IThingKey<Object>, ObjRef>> newHashSet());
 	Set<IThingKey<Object>> thingIDKeys = Collections.<IThingKey<Object>> synchronizedSet(Sets
 			.<IThingKey<Object>> newHashSet());
+	int inUpdateCount = 0;
 
-	public IThingKey<ObjRef> syncObjRefKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
+	public SynchronizeThingIDAndObjRefLogic(IBNAWorld world) {
+		super(world);
+		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
+	}
+
+	synchronized public IThingKey<ObjRef> syncObjRefKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
 		return getObjRefKey(thingRefKey);
 	}
 
@@ -41,15 +48,7 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 	}
 
 	@Override
-	protected void init() {
-		super.init();
-		valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
-	}
-
-	int inUpdateCount = 0;
-
-	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		if (inUpdateCount > 0) {
 			return;
 		}
@@ -65,7 +64,7 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 				for (IThingMetakey<?, IThingKey<Object>, ObjRef> objRefKey : objRefKeys) {
 					objRef = t.get(objRefKey);
 					if (objRef != null) {
-						t.set(objRefKey.getKey(), firstOrNull(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef)));
+						t.set(objRefKey.getKey(), firstOrNull(valueLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef)));
 					}
 				}
 				break;
@@ -92,11 +91,11 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 					IThingMetakey<?, IThingKey<Object>, ObjRef> objRefKey = (IThingMetakey<?, IThingKey<Object>, ObjRef>) p;
 					ObjRef objRef = thingWithObjRef.get(objRefKey);
 					thingWithObjRef.set(objRefKey.getKey(),
-							firstOrNull(valuesLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef)));
+							firstOrNull(valueLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef)));
 				}
 				break;
 			}
-			case THING_REMOVING: {
+			case THING_REMOVED: {
 				IThing t = evt.getTargetThing();
 				ObjRef objRef = t.get(IHasObjRef.OBJREF_KEY);
 				if (objRef != null) {
@@ -115,7 +114,7 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic impleme
 
 	private void setThingIdForObjRef(ObjRef objRef, Object thingId) {
 		for (IThingMetakey<?, IThingKey<Object>, ObjRef> objRefKey : objRefKeys) {
-			for (IThing thingWithObjRef : getBNAModel().getThingsByID(valuesLogic.getThingIDs(objRefKey, objRef))) {
+			for (IThing thingWithObjRef : valueLogic.getThings(objRefKey, objRef)) {
 				thingWithObjRef.set(objRefKey.getKey(), thingId);
 			}
 		}

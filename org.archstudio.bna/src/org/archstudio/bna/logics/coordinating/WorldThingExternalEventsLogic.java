@@ -36,20 +36,16 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		IBNAMouseClickListener, IBNAMouseMoveListener, IBNAMouseTrackListener, IBNAMenuListener, IBNAFocusListener,
 		IBNAKeyListener, IBNADragAndDropListener, IBNAUntypedListener {
 
-	protected ThingTypeTrackingLogic typeLogic = null;
+	protected final ThingTypeTrackingLogic typeLogic;
 
-	public WorldThingExternalEventsLogic() {
-	}
-
-	@Override
-	protected void init() {
-		super.init();
-		typeLogic = addThingLogic(ThingTypeTrackingLogic.class);
+	public WorldThingExternalEventsLogic(IBNAWorld world) {
+		super(world);
+		typeLogic = logics.addThingLogic(ThingTypeTrackingLogic.class);
 	}
 
 	protected IHasWorld draggingIn = null;
 
-	protected void mouseEvt(IBNAView view, MouseEvent e, Iterable<IThing> t, ICoordinate location, MouseEventType type) {
+	protected void mouseEvt(IBNAView view, MouseEvent e, List<IThing> t, ICoordinate location, MouseEventType type) {
 		IHasWorld worldThing = null;
 		if (draggingIn != null) {
 			worldThing = draggingIn;
@@ -171,7 +167,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 
 	@Override
 	public void focusGained(IBNAView view, FocusEvent e) {
-		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
+		for (IHasWorld worldThing : typeLogic.getThings(IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
 			if (innerWorld == null) {
 				return;
@@ -190,7 +186,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 
 	@Override
 	public void focusLost(IBNAView view, FocusEvent e) {
-		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
+		for (IHasWorld worldThing : typeLogic.getThings(IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
 			if (innerWorld == null) {
 				return;
@@ -209,7 +205,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 
 	@Override
 	public void keyPressed(IBNAView view, KeyEvent e) {
-		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
+		for (IHasWorld worldThing : typeLogic.getThings(IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
 			if (innerWorld == null) {
 				return;
@@ -228,7 +224,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 
 	@Override
 	public void keyReleased(IBNAView view, KeyEvent e) {
-		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
+		for (IHasWorld worldThing : typeLogic.getThings(IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
 			if (innerWorld == null) {
 				return;
@@ -247,7 +243,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 
 	@Override
 	public void handleEvent(IBNAView view, Event event) {
-		for (IHasWorld worldThing : typeLogic.getThings(view.getBNAWorld().getBNAModel(), IHasWorld.class)) {
+		for (IHasWorld worldThing : typeLogic.getThings(IHasWorld.class)) {
 			IBNAWorld innerWorld = worldThing.getWorld();
 			if (innerWorld == null) {
 				return;
@@ -291,7 +287,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic implements
 		}
 	}
 
-	public void dropEvt(IBNAView view, DropTargetEvent event, Iterable<IThing> things, ICoordinate location,
+	public void dropEvt(IBNAView view, DropTargetEvent event, List<IThing> things, ICoordinate location,
 			DropEventType eventType) {
 		IThing thing = firstOrNull(things);
 		if (thing instanceof IHasWorld) {

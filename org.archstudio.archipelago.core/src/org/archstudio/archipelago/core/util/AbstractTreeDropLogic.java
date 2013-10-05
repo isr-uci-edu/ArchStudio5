@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasBoundingBox;
@@ -19,12 +20,13 @@ import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.TransferData;
 
 public abstract class AbstractTreeDropLogic extends AbstractThingLogic implements IBNADragAndDropListener {
-	protected Services AS = null;
+	protected Services services = null;
 	protected ObjRef documentRootRef = null;
 	protected PulsingBorderThing pulser = null;
 
-	public AbstractTreeDropLogic(Services services, ObjRef documentRootRef) {
-		this.AS = services;
+	public AbstractTreeDropLogic(IBNAWorld world, Services services, ObjRef documentRootRef) {
+		super(world);
+		this.services = services;
 		this.documentRootRef = documentRootRef;
 	}
 
@@ -47,7 +49,7 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 		return null;
 	}
 
-	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location) {
+	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		//Two possibilities: either the platform we are on can give us the data
 		//or it can't.  If it can, we can make a more educated decision here.
 
@@ -60,18 +62,18 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 		return acceptDrop(view, event, ts, location, data);
 	}
 
-	protected abstract boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts,
-			ICoordinate location, Object data);
+	protected abstract boolean acceptDrop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location,
+			Object data);
 
 	@Override
-	public void dragEnter(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
+	synchronized public void dragEnter(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (acceptDrop(view, event, ts, location)) {
 			event.detail = DND.DROP_LINK;
 		}
 	}
 
 	@Override
-	public void dragLeave(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
+	synchronized public void dragLeave(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (pulser != null) {
 			view.getBNAWorld().getBNAModel().removeThing(pulser);
 			pulser = null;
@@ -79,7 +81,7 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 	}
 
 	@Override
-	public void dragOver(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
+	synchronized public void dragOver(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (acceptDrop(view, event, ts, location)) {
 			IThing t = getSingleThing(ts);
 			event.detail = DND.DROP_LINK;
@@ -105,7 +107,7 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 	}
 
 	@Override
-	public void dropAccept(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
+	synchronized public void dropAccept(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (acceptDrop(view, event, ts, location)) {
 			event.detail = DND.DROP_LINK;
 			LocalSelectionTransfer transfer = LocalSelectionTransfer.getInstance();
@@ -119,14 +121,15 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 	}
 
 	@Override
-	public void dragOperationChanged(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
+	synchronized public void dragOperationChanged(IBNAView view, DropTargetEvent event, List<IThing> ts,
+			ICoordinate location) {
 	}
 
 	@Override
-	public void drop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
+	synchronized public void drop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 	}
 
-	protected static IThing getSingleThing(Iterable<IThing> ts) {
+	protected static IThing getSingleThing(List<IThing> ts) {
 		if (ts != null) {
 			Iterator<IThing> iterator = ts.iterator();
 			if (iterator.hasNext()) {

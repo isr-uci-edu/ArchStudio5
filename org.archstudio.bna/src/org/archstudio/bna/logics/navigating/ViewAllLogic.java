@@ -3,6 +3,7 @@ package org.archstudio.bna.logics.navigating;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThing;
@@ -16,22 +17,6 @@ import org.eclipse.swt.graphics.Rectangle;
 
 public class ViewAllLogic extends AbstractThingLogic implements IBNAMenuListener {
 
-	public ViewAllLogic() {
-	}
-
-	@Override
-	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
-		if (things.size() == 0) {
-			menu.add(new Action("View All") {
-
-				@Override
-				public void run() {
-					viewAll(view);
-				}
-			});
-		}
-	}
-
 	public static void viewAll(IBNAView view) {
 		ModelBoundsTrackingLogic mbtl = view.getBNAWorld().getThingLogicManager()
 				.addThingLogic(ModelBoundsTrackingLogic.class);
@@ -43,6 +28,24 @@ public class ViewAllLogic extends AbstractThingLogic implements IBNAMenuListener
 		Point vc = new Point(v.x + v.width / 2, v.y + v.height / 2);
 		double s = Math.min(1, Math.min((double) v.width / m.width, (double) v.height / m.height));
 		cm.setLocalScaleAndAlign(s, vc, mc);
+	}
+
+	public ViewAllLogic(IBNAWorld world) {
+		super(world);
+	}
+
+	@Override
+	synchronized public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location,
+			IMenuManager menu) {
+		if (things.size() == 0) {
+			menu.add(new Action("View All") {
+
+				@Override
+				public void run() {
+					viewAll(view);
+				}
+			});
+		}
 	}
 
 }

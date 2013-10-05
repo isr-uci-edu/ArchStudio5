@@ -1,5 +1,6 @@
 package org.archstudio.bna.logics.editing;
 
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
@@ -14,21 +15,16 @@ import org.eclipse.swt.graphics.Rectangle;
 
 public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBoundingBox, Orientation> {
 
-	public ReshapeRectangleLogic() {
-		super(IHasMutableBoundingBox.class);
-	}
-
-	@Override
-	protected void init() {
-		super.init();
-		addThingLogic(StandardCursorLogic.class);
+	public ReshapeRectangleLogic(IBNAWorld world) {
+		super(world, IHasMutableBoundingBox.class);
+		logics.addThingLogic(StandardCursorLogic.class);
 	}
 
 	@Override
 	protected void addHandles() {
 		for (Orientation o : Orientation.values()) {
 			if (o != Orientation.NONE) {
-				addHandle(Assemblies.createHandle(getBNAWorld(), null, null), o);
+				addHandle(Assemblies.createHandle(world, null, null), o);
 			}
 		}
 	}
@@ -139,14 +135,14 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 
 	@Override
 	protected Runnable takeSnapshot() {
-		final Object tID = this.reshapingThing.getID();
-		final Rectangle r = reshapingThing.getBoundingBox();
+		final Object reshapingThingID = reshapingThing.getID();
+		final Rectangle bounds = reshapingThing.getBoundingBox();
 		return new Runnable() {
 			@Override
 			public void run() {
-				IThing t = getBNAModel().getThing(tID);
+				IThing t = model.getThing(reshapingThingID);
 				if (t != null) {
-					t.set(IHasBoundingBox.BOUNDING_BOX_KEY, r);
+					t.set(IHasBoundingBox.BOUNDING_BOX_KEY, bounds);
 				}
 			}
 		};

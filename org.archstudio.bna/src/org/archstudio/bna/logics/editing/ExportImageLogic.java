@@ -37,8 +37,13 @@ import org.eclipse.swt.widgets.FileDialog;
 @SuppressWarnings("deprecation")
 public class ExportImageLogic extends AbstractThingLogic implements IBNAMenuListener {
 
+	public ExportImageLogic(IBNAWorld world) {
+		super(world);
+	}
+
 	@Override
-	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
+	synchronized public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location,
+			IMenuManager menu) {
 		if (things.size() == 0) {
 			menu.add(new Action("Export Image...") {
 
@@ -50,7 +55,7 @@ public class ExportImageLogic extends AbstractThingLogic implements IBNAMenuList
 		}
 	}
 
-	public static void saveAs(final IBNAView view) {
+	protected void saveAs(final IBNAView view) {
 		ModelBoundsTrackingLogic mbtl = view.getBNAWorld().getThingLogicManager()
 				.addThingLogic(ModelBoundsTrackingLogic.class);
 		FileDialog fd = new FileDialog(view.getComposite().getShell(), SWT.SAVE);

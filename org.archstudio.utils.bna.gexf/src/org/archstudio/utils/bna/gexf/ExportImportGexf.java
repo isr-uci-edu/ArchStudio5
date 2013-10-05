@@ -21,6 +21,7 @@ import net.gexf_1_2.viz.VizPackage;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
@@ -59,8 +60,12 @@ import com.google.common.io.Files;
 
 public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuListener {
 
+	public ExportImportGexf(IBNAWorld world) {
+		super(world);
+	}
+
 	@Override
-	public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	synchronized public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		if (things.size() == 0) {
 			menu.add(new Action("Export GEXF") {
 				@Override

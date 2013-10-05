@@ -7,6 +7,7 @@ import java.util.List;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
@@ -146,13 +147,14 @@ public class OrientDirectionalLabelLogic extends AbstractThingLogic implements I
 		}
 	}
 
-	public OrientDirectionalLabelLogic() {
+	public OrientDirectionalLabelLogic(IBNAWorld world) {
+		super(world);
 	}
 
 	FastLongMap<List<Orient>> orients = new FastLongMap<>(512);
 	FastIntMap<Registrar> registrars = new FastIntMap<Registrar>(128);
 
-	public void orient(IHasBoundingBox boundingBoxThing, DirectionalLabelThing directionalThing) {
+	synchronized public void orient(IHasBoundingBox boundingBoxThing, DirectionalLabelThing directionalThing) {
 		checkNotNull(boundingBoxThing);
 		checkNotNull(directionalThing);
 
@@ -162,10 +164,10 @@ public class OrientDirectionalLabelLogic extends AbstractThingLogic implements I
 		Registrar registrar = new Registrar(boundingBoxThing.getUID(), directionalThing.getUID(), orient);
 		registrar.register();
 
-		orient.apply(getBNAModel());
+		orient.apply(model);
 	}
 
-	public void unorient(DirectionalLabelThing directionalThing) {
+	synchronized public void unorient(DirectionalLabelThing directionalThing) {
 		checkNotNull(directionalThing);
 
 		Registrar registrar = registrars.get(directionalThing.getUID());
@@ -175,7 +177,7 @@ public class OrientDirectionalLabelLogic extends AbstractThingLogic implements I
 	}
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
 			for (Orient orient : FastLongMap.getList(orients, thingEvent.getThingKeyUID(), false)) {

@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -34,12 +35,13 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 	protected final IXArchADT xarch;
 	protected final IResources resources;
 
-	public StructureNewInterfaceLogic(IXArchADT xarch, IResources resources) {
+	public StructureNewInterfaceLogic(IBNAWorld world, IXArchADT xarch, IResources resources) {
+		super(world);
 		this.xarch = xarch;
 		this.resources = resources;
 	}
 
-	public boolean matches(IBNAView view, IThing t) {
+	protected boolean matches(IBNAView view, IThing t) {
 		if (t != null) {
 			ObjRef objRef = t.get(IHasObjRef.OBJREF_KEY);
 			if (XadlUtils.isInstanceOf(xarch, objRef, Structure_3_0Package.Literals.BRICK)) {
@@ -50,13 +52,13 @@ public class StructureNewInterfaceLogic extends AbstractThingLogic implements IB
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
 		if (selectedThings.size() > 1) {
 			return;
 		}
 
-		IThing t = Assemblies.getThingWithProperty(getBNAModel(), firstOrNull(things), IHasObjRef.OBJREF_KEY);
+		IThing t = Assemblies.getThingWithProperty(model, firstOrNull(things), IHasObjRef.OBJREF_KEY);
 		if (matches(view, t)) {
 			Point world = location.getWorldPoint();
 			for (IAction action : getActions(view, t, world.x, world.y)) {

@@ -2,6 +2,7 @@ package org.archstudio.bna.logics.coordinating;
 
 import java.awt.Insets;
 
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -11,19 +12,16 @@ import com.google.common.base.Function;
 
 public class MirrorBoundingBoxLogic extends AbstractThingLogic {
 
-	MirrorValueLogic mvl = null;
+	protected final MirrorValueLogic mirrorLogic;
 
-	public MirrorBoundingBoxLogic() {
+	public MirrorBoundingBoxLogic(IBNAWorld world) {
+		super(world);
+		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
 	}
 
-	@Override
-	protected void init() {
-		super.init();
-		mvl = addThingLogic(MirrorValueLogic.class);
-	}
-
-	public void mirrorBoundingBox(IHasBoundingBox fromThing, IHasMutableBoundingBox toThing, final Insets insets) {
-		mvl.mirrorValue(fromThing, IHasBoundingBox.BOUNDING_BOX_KEY, toThing, IHasBoundingBox.BOUNDING_BOX_KEY,
+	synchronized public void mirrorBoundingBox(IHasBoundingBox fromThing, IHasMutableBoundingBox toThing,
+			final Insets insets) {
+		mirrorLogic.mirrorValue(fromThing, IHasBoundingBox.BOUNDING_BOX_KEY, toThing, IHasBoundingBox.BOUNDING_BOX_KEY,
 				new Function<Rectangle, Rectangle>() {
 
 					@Override
@@ -37,7 +35,7 @@ public class MirrorBoundingBoxLogic extends AbstractThingLogic {
 				});
 	}
 
-	public void unmirrorBoundingBox(IHasMutableBoundingBox toThing) {
-		mvl.unmirror(toThing, IHasBoundingBox.BOUNDING_BOX_KEY);
+	synchronized public void unmirrorBoundingBox(IHasMutableBoundingBox toThing) {
+		mirrorLogic.unmirror(toThing, IHasBoundingBox.BOUNDING_BOX_KEY);
 	}
 }

@@ -7,8 +7,8 @@ import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.jface.viewers.ISelection;
@@ -95,7 +95,8 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 
 	private final WorkbenchSiteSelectionProvider workbenchSiteSelectionProvider;
 
-	public EclipseSelectionProviderLogic(IWorkbenchSite workbenchSite) {
+	public EclipseSelectionProviderLogic(IBNAWorld world, IWorkbenchSite workbenchSite) {
+		super(world);
 		if (workbenchSite.getSelectionProvider() == null) {
 			workbenchSite.setSelectionProvider(workbenchSiteSelectionProvider = new WorkbenchSiteSelectionProvider(
 					workbenchSite));
@@ -107,18 +108,13 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 			throw new RuntimeException(
 					"EclipseSelectionProviderLogic cannot register itself as the selection provider.");
 		}
-	}
-
-	@Override
-	protected void init() {
-		super.init();
 		workbenchSiteSelectionProvider.addEclipseSelectionProvider(this);
 	}
 
 	@Override
-	protected void destroy() {
+	synchronized public void dispose() {
 		workbenchSiteSelectionProvider.removeEclipseSelectionProvider(this);
-		super.destroy();
+		super.dispose();
 	}
 
 	private static final String BEGIN_IGNORING_SELECTION_EVENTS_NOTIFICATION = EclipseSelectionProviderLogic.class
@@ -129,7 +125,7 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 	private int ignoreSelection = 0;
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case BULK_CHANGE_BEGIN:
 			inBulkChange++;
@@ -156,12 +152,9 @@ public abstract class EclipseSelectionProviderLogic extends AbstractThingLogic i
 	}
 
 	private void _unselectAll() {
-		IBNAModel model = getBNAModel();
-		if (model != null) {
-			model.fireStreamNotificationEvent(BEGIN_IGNORING_SELECTION_EVENTS_NOTIFICATION);
-			unselectAll();
-			model.fireStreamNotificationEvent(END_IGNORING_SELECTION_EVENTS_NOTIFICATION);
-		}
+		model.fireStreamNotificationEvent(BEGIN_IGNORING_SELECTION_EVENTS_NOTIFICATION);
+		unselectAll();
+		model.fireStreamNotificationEvent(END_IGNORING_SELECTION_EVENTS_NOTIFICATION);
 	}
 
 	abstract protected void unselectAll();

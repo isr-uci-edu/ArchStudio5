@@ -7,6 +7,7 @@ import java.awt.geom.Line2D;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
@@ -19,15 +20,17 @@ import org.eclipse.swt.graphics.Point;
 
 public class SplineBreakLogic extends AbstractThingLogic implements IBNAMouseClickListener {
 
-	public SplineBreakLogic() {
+	public SplineBreakLogic(IBNAWorld world) {
+		super(world);
 	}
 
 	@Override
-	public void mouseClick(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseClick(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 	}
 
 	@Override
-	public void mouseDoubleClick(IBNAView view, MouseEvent evt, List<IThing> things, final ICoordinate location) {
+	synchronized public void mouseDoubleClick(IBNAView view, MouseEvent evt, List<IThing> things,
+			final ICoordinate location) {
 		final IHasMutablePoints t = castOrNull(firstOrNull(things), IHasMutablePoints.class);
 		if (t != null && UserEditableUtils.isEditableForAllQualities(t, IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS)) {
 

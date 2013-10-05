@@ -12,6 +12,7 @@ import java.util.Set;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -258,13 +259,14 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 		}
 	}
 
-	public StickPointLogic() {
+	public StickPointLogic(IBNAWorld world) {
+		super(world);
 	}
 
 	FastLongMap<List<StuckPoint>> stuckPoints = new FastLongMap<>(1024);
 	FastLongMap<Registrar> registrars = new FastLongMap<Registrar>(128);
 
-	public void stick(IHasShapeKeys pointThing, IThingKey<Point> pointKey, final StickyMode stickyMode,
+	synchronized public void stick(IHasShapeKeys pointThing, IThingKey<Point> pointKey, final StickyMode stickyMode,
 			IIsSticky stickyThing) {
 		checkNotNull(pointThing);
 		checkNotNull(pointKey);
@@ -278,10 +280,10 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 				stickyThing.getUID(), stickyThing.getShapeModifyingKeys(), stuckPoint);
 		registrar.register();
 
-		stuckPoint.update(getBNAModel(), null, false);
+		stuckPoint.update(model, null, false);
 	}
 
-	public void unstick(IHasShapeKeys pointThing, IThingKey<Point> pointKey) {
+	synchronized public void unstick(IHasShapeKeys pointThing, IThingKey<Point> pointKey) {
 		checkNotNull(pointThing);
 		checkNotNull(pointKey);
 
@@ -291,7 +293,7 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 		}
 	}
 
-	public @Nullable
+	synchronized public @Nullable
 	StickyMode getStickyMode(IHasShapeKeys pointThing, IThingKey<Point> pointKey) {
 		checkNotNull(pointThing);
 		checkNotNull(pointKey);
@@ -303,7 +305,7 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 		return null;
 	}
 
-	public @Nullable
+	synchronized public @Nullable
 	Object getStickyThingID(IHasShapeKeys pointThing, IThingKey<Point> pointKey) {
 		checkNotNull(pointThing);
 		checkNotNull(pointKey);
@@ -318,7 +320,7 @@ public class StickPointLogic extends AbstractThingLogic implements IBNAModelList
 	Set<Long> currentlyUpdating = Sets.newHashSet();
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
 			for (StuckPoint stuckPoint : FastLongMap.getList(stuckPoints, thingEvent.getThingKeyUID(), false)) {

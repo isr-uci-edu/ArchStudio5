@@ -7,6 +7,7 @@ import java.util.List;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.util.AbstractTreeDropLogic;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasMutableWorld;
@@ -26,17 +27,17 @@ public class StatechartDropLogic extends AbstractTreeDropLogic {
 
 	protected final IXArchADT xarch;
 
-	public StatechartDropLogic(Services services, ObjRef documentRootRef) {
-		super(services, documentRootRef);
+	public StatechartDropLogic(IBNAWorld world, Services services, ObjRef documentRootRef) {
+		super(world, services, documentRootRef);
 		this.xarch = services.get(IXArchADT.class);
 	}
 
 	@Override
-	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, Iterable<IThing> ts, ICoordinate location,
+	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location,
 			Object data) {
-		IHasMutableWorld t = Assemblies.getThingOfType(getBNAModel(), firstOrNull(ts), IHasMutableWorld.class);
+		IHasMutableWorld t = Assemblies.getThingOfType(model, firstOrNull(ts), IHasMutableWorld.class);
 		if (t != null) {
-			IThing p = Assemblies.getThingWithProperty(getBNAModel(), t, IHasObjRef.OBJREF_KEY);
+			IThing p = Assemblies.getThingWithProperty(model, t, IHasObjRef.OBJREF_KEY);
 			if (p != null) {
 				if (XadlUtils.isInstanceOf(xarch, p.get(IHasObjRef.OBJREF_KEY), Statechart_1_0Package.Literals.STATE)) {
 					if (data == null) {
@@ -54,7 +55,7 @@ public class StatechartDropLogic extends AbstractTreeDropLogic {
 	}
 
 	@Override
-	public void drop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
+	synchronized public void drop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
 		if (pulser != null) {
 			view.getBNAWorld().getBNAModel().removeThing(pulser);
 			pulser = null;
@@ -62,9 +63,9 @@ public class StatechartDropLogic extends AbstractTreeDropLogic {
 
 		ObjRef outerRef = null;
 		if (acceptDrop(view, event, ts, location)) {
-			IHasMutableWorld t = Assemblies.getThingOfType(getBNAModel(), firstOrNull(ts), IHasMutableWorld.class);
+			IHasMutableWorld t = Assemblies.getThingOfType(model, firstOrNull(ts), IHasMutableWorld.class);
 			if (t != null) {
-				IThing p = Assemblies.getThingWithProperty(getBNAModel(), t, IHasObjRef.OBJREF_KEY);
+				IThing p = Assemblies.getThingWithProperty(model, t, IHasObjRef.OBJREF_KEY);
 				if (p != null) {
 					outerRef = p.get(IHasObjRef.OBJREF_KEY);
 				}

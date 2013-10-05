@@ -5,9 +5,9 @@ import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 import java.util.List;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
@@ -35,7 +35,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.RGB;
 
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuListener, IBNAModelListener {
@@ -46,27 +45,24 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 
 	public static final IThingRefKey<AnchoredLabelThing> TAG_KEY = ThingRefKey.create("assembly-tag");
 
-	protected ThingValueTrackingLogic valueLogic;
-	protected DynamicStickPointLogic stickLogic;
-	protected MirrorValueLogic mirrorLogic;
+	protected final ThingValueTrackingLogic valueLogic;
+	protected final DynamicStickPointLogic stickLogic;
+	protected final MirrorValueLogic mirrorLogic;
 
-	@Override
-	protected void init() {
-		super.init();
-		valueLogic = addThingLogic(ThingValueTrackingLogic.class);
-		stickLogic = addThingLogic(DynamicStickPointLogic.class);
-		mirrorLogic = addThingLogic(MirrorValueLogic.class);
-		for (IIsSticky forThing : Iterables.filter(
-				getBNAModel().getThingsByID(valueLogic.getThingIDs(SHOW_TAG_KEY, true)), IIsSticky.class)) {
+	public ShowHideTagsLogic(IBNAWorld world) {
+		super(world);
+		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
+		stickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
+		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
+		for (IIsSticky forThing : valueLogic.getThings(SHOW_TAG_KEY, true, IIsSticky.class)) {
 			showTag(forThing);
 		}
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
-		IBNAModel m = getBNAModel();
+	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		if (!things.isEmpty()) {
-			final IIsSticky st = Assemblies.getEditableThing(m, firstOrNull(things), IIsSticky.class,
+			final IIsSticky st = Assemblies.getEditableThing(model, firstOrNull(things), IIsSticky.class,
 					USER_MAY_SHOW_HIDE_TAG);
 			if (st != null) {
 				final AnchoredLabelThing tt = getTag(st);
@@ -76,10 +72,10 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 					@Override
 					public void run() {
 						if (tt == null) {
-							BNAOperations.set("Tag", getBNAModel(), st, SHOW_TAG_KEY, true);
+							BNAOperations.set("Tag", model, st, SHOW_TAG_KEY, true);
 						}
 						else {
-							BNAOperations.set("Tag", getBNAModel(), st, SHOW_TAG_KEY, false);
+							BNAOperations.set("Tag", model, st, SHOW_TAG_KEY, false);
 						}
 					}
 				};
@@ -90,7 +86,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	}
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_CHANGED:
 			if (!evt.getThingEvent().getPropertyName().equals(SHOW_TAG_KEY)) {
@@ -118,16 +114,14 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	}
 
 	protected AnchoredLabelThing getTag(IIsSticky forThing) {
-		return firstOrNull(Iterables.filter(
-				getBNAModel().getThingsByID(
-						valueLogic.getThingIDs(stickLogic.getStickyThingKey(IHasIndicatorPoint.INDICATOR_POINT_KEY),
-								forThing.getID())), AnchoredLabelThing.class));
+		return firstOrNull(valueLogic.getThings(stickLogic.getStickyThingKey(IHasIndicatorPoint.INDICATOR_POINT_KEY),
+				forThing.getID(), AnchoredLabelThing.class));
 	}
 
 	protected AnchoredLabelThing showTag(IIsSticky forThing) {
 		AnchoredLabelThing t = getTag(forThing);
 		if (t == null) {
-			t = getBNAModel().addThing(new AnchoredLabelThing(Lists.newArrayList(forThing.getID(), "tag")));
+			t = model.addThing(new AnchoredLabelThing(Lists.newArrayList(forThing.getID(), "tag")));
 			t.setAnchorPoint(BNAUtils.getCentralPoint(forThing));
 			t.setEdgeColor(new RGB(0, 0, 0));
 			UserEditableUtils.addEditableQualities(t, IRelativeMovable.USER_MAY_MOVE,
@@ -140,7 +134,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 			else {
 				mirrorLogic.mirrorValue(forThing, IHasToolTip.TOOL_TIP_KEY, t, IHasText.TEXT_KEY);
 			}
-			Assemblies.markPart(Assemblies.getRoot(getBNAModel(), forThing), TAG_KEY, t);
+			Assemblies.markPart(Assemblies.getRoot(model, forThing), TAG_KEY, t);
 		}
 		return t;
 	}
@@ -150,8 +144,8 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 		if (t != null) {
 			t.remove(stickLogic.getStickyThingKey(IHasIndicatorPoint.INDICATOR_POINT_KEY));
 			mirrorLogic.unmirror(t, IHasText.TEXT_KEY);
-			Assemblies.unmarkPart(getBNAModel(), t);
-			getBNAModel().removeThing(t);
+			Assemblies.unmarkPart(model, t);
+			model.removeThing(t);
 		}
 	}
 }

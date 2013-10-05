@@ -29,12 +29,12 @@ public class ProxyLogic extends AbstractThingLogic {
 					return Proxy.newProxyInstance(input.getClassLoader(), new Class[] { input },
 							new InvocationHandler() {
 
-								IBNAWorld world = checkNotNull(ProxyLogic.this.getBNAWorld());
-								IThingLogicManager logicManager = checkNotNull(world.getThingLogicManager());
+								IBNAWorld world = checkNotNull(ProxyLogic.this.world);
+								IThingLogicManager logics = checkNotNull(world.getThingLogicManager());
 
 								@Override
 								public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-									for (Object o : logicManager.getThingLogics(input)) {
+									for (Object o : logics.getThingLogics(input)) {
 										method.invoke(o, args);
 									}
 									for (Object o : Iterables.filter(additionalObjects, input)) {
@@ -46,17 +46,17 @@ public class ProxyLogic extends AbstractThingLogic {
 				}
 			});
 
-	public ProxyLogic() {
-		super();
+	public ProxyLogic(IBNAWorld world) {
+		super(world);
 	}
 
-	public <T> T addObject(T object) {
+	synchronized public <T> T addObject(T object) {
 		additionalObjects.add(object);
 		return object;
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> T getProxyForInterface(Class<T> interfaceClass) {
+	synchronized public <T> T getProxyForInterface(Class<T> interfaceClass) {
 		return (T) proxiesCache.getUnchecked(interfaceClass);
 	}
 }

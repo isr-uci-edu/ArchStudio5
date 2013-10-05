@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -24,12 +25,13 @@ public class RemoveElementLogic extends AbstractThingLogic implements IBNAMenuLi
 
 	final protected IXArchADT xarch;
 
-	public RemoveElementLogic(IXArchADT xarch) {
+	public RemoveElementLogic(IBNAWorld world, IXArchADT xarch) {
+		super(world);
 		this.xarch = xarch;
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		final Set<ObjRef> objRefs = Sets.newHashSet();
 		for (IThing thing : BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) {
 			ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);

@@ -3,6 +3,7 @@ package org.archstudio.bna.utils;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import java.lang.reflect.Constructor;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
@@ -34,10 +35,10 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 				}
 			});
 
-	protected final IBNAWorld bnaWorld;
+	protected final IBNAWorld world;
 
-	public DefaultThingLogicManager(IBNAWorld bnaWorld) {
-		this.bnaWorld = bnaWorld;
+	public DefaultThingLogicManager(IBNAWorld world) {
+		this.world = world;
 	}
 
 	CopyOnWriteArrayList<IThingLogicManagerListener> listeners = Lists.newCopyOnWriteArrayList();
@@ -73,8 +74,10 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 			}
 			for (Constructor<?> c : logicClass.getConstructors()) {
 				Class<?>[] paramTypes = c.getParameterTypes();
-				if (paramTypes.length == 0) {
-					return addThingLogic((L) c.newInstance());
+				if (paramTypes.length == 1) {
+					if (IBNAWorld.class.isAssignableFrom(paramTypes[0])) {
+						return addThingLogic((L) c.newInstance(world));
+					}
 				}
 			}
 		}
@@ -85,22 +88,23 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 	}
 
 	@Override
-	public synchronized <L extends IThingLogic> L addThingLogic(L tl) {
+	public synchronized <L extends IThingLogic> L addThingLogic(L l) {
+		checkArgument(l.getBNAWorld() == world, "Logic is of a different world: %s", l);
+		checkArgument(!logics.contains(l), "Logic was already added: %s", l);
 		long time;
 		if (DEBUG) {
 			time = System.nanoTime();
 		}
-		tl.setBNAWorld(bnaWorld);
-		checkArgument(!logics.contains(tl), "Logic was already added: %s", tl);
-		logics.add(tl);
-		typedLogics.put(tl.getClass(), tl);
+		l.init();
+		logics.add(l);
+		typedLogics.put(l.getClass(), l);
 		if (DEBUG) {
 			time = System.nanoTime() - time;
-			debugStats.getUnchecked(tl).addAndGet(time);
+			debugStats.getUnchecked(l).addAndGet(time);
 		}
-		fireThingLogicManagerEvent(EventType.LOGIC_ADDED, tl);
+		fireThingLogicManagerEvent(EventType.LOGIC_ADDED, l);
 
-		return tl;
+		return l;
 	}
 
 	@Override
@@ -111,8 +115,8 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 			time = System.nanoTime();
 		}
 		logics.remove(tl);
-		tl.setBNAWorld(null);
 		typedLogics.remove(tl.getClass());
+		tl.dispose();
 		if (DEBUG) {
 			time = System.nanoTime() - time;
 			debugStats.getUnchecked(tl).addAndGet(time);
@@ -121,17 +125,17 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 	}
 
 	@Override
-	public Iterable<IThingLogic> getAllThingLogics() {
+	public List<IThingLogic> getAllThingLogics() {
 		return Lists.newArrayList(logics);
 	}
 
 	@Override
-	public <LT> Iterable<LT> getThingLogics(Class<LT> implementingInterface) {
-		return Iterables.filter(logics, implementingInterface);
+	public <T> Iterable<T> getThingLogics(Class<T> ofType) {
+		return Iterables.filter(logics, ofType);
 	}
 
 	@Override
-	public void destroy() {
+	public void dispose() {
 		// perform removals in reverse order since latter logics often depend on former logics
 		for (IThingLogic logic : Lists.newArrayList(Lists.reverse(logics))) {
 			removeThingLogic(logic);

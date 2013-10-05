@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.archstudio.bna.IBNAMouseWheelListener;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.BNAUtils;
@@ -26,24 +26,30 @@ import org.eclipse.swt.widgets.Composite;
 
 public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWheelListener, IBNAMouseListener,
 		IBNAMouseMoveListener, IBNAMouseClickListener {
-	public static final int DEFAULT_PAN_BUTTON = 2;
+
+	public static final int DEFAULT_PAN_BUTTON = 2; // middle button
+
+	synchronized private static final void union(Rectangle bounds, Rectangle lastBounds) {
+		if (bounds.isEmpty()) {
+			bounds.x = lastBounds.x;
+			bounds.y = lastBounds.y;
+			bounds.width = lastBounds.width;
+			bounds.height = lastBounds.height;
+		}
+		else if (!lastBounds.isEmpty()) {
+			bounds.union(lastBounds);
+		}
+	}
 
 	protected int panButton = DEFAULT_PAN_BUTTON;
 	protected ICoordinate startMouseCoordinate = null;
 
-	public MousePanAndZoomLogic(IThingLogicManager tlm) {
-	}
-
-	public MousePanAndZoomLogic() {
-		this(DEFAULT_PAN_BUTTON);
-	}
-
-	public MousePanAndZoomLogic(int panButton) {
-		this.panButton = panButton;
+	public MousePanAndZoomLogic(IBNAWorld world) {
+		super(world);
 	}
 
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent e, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseEvent e, List<IThing> t, ICoordinate location) {
 		//Only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -58,7 +64,7 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseEvent e, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseEvent e, List<IThing> t, ICoordinate location) {
 		//Only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -72,7 +78,7 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 	}
 
 	@Override
-	public void mouseMove(IBNAView view, MouseEvent e, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseEvent e, List<IThing> t, ICoordinate location) {
 		if (startMouseCoordinate != null) {
 			IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
 			if (mcm != null) {
@@ -82,7 +88,7 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 	}
 
 	@Override
-	public void mouseWheel(IBNAView view, final MouseEvent e, Iterable<IThing> t, final ICoordinate location) {
+	synchronized public void mouseWheel(IBNAView view, final MouseEvent e, List<IThing> t, final ICoordinate location) {
 		//Only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -101,16 +107,16 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 	}
 
 	@Override
-	public void mouseClick(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseClick(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 	}
 
 	@Override
-	public void mouseDoubleClick(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseDoubleClick(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (evt.button == panButton) {
 			final IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
 			if (mcm != null) {
 				Rectangle r = new Rectangle(0, 0, 0, 0);
-				for (IThing thing : getBNAModel().getAllThings()) {
+				for (IThing thing : model.getAllThings()) {
 					if (thing instanceof IHasBoundingBox) {
 						union(r, ((IHasBoundingBox) thing).getBoundingBox());
 					}
@@ -120,18 +126,6 @@ public class MousePanAndZoomLogic extends AbstractThingLogic implements IBNAMous
 							/ 2));
 				}
 			}
-		}
-	}
-
-	public static final void union(Rectangle bounds, Rectangle lastBounds) {
-		if (bounds.isEmpty()) {
-			bounds.x = lastBounds.x;
-			bounds.y = lastBounds.y;
-			bounds.width = lastBounds.width;
-			bounds.height = lastBounds.height;
-		}
-		else if (!lastBounds.isEmpty()) {
-			bounds.union(lastBounds);
 		}
 	}
 }

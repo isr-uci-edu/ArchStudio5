@@ -72,7 +72,7 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener {
 
 	@Override
 	public void dispose() {
-		logicManager.destroy();
+		logicManager.dispose();
 
 		model.removeBNAModelListener(this);
 

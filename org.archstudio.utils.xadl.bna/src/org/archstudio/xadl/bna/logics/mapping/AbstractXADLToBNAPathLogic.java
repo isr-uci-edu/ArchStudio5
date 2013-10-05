@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.xarchadt.IXArchADT;
@@ -72,8 +73,8 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 	}
 
-	public AbstractXADLToBNAPathLogic(IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
-		super(xarch, rootObjRef, objRefPath);
+	public AbstractXADLToBNAPathLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
+		super(world, xarch, rootObjRef, objRefPath);
 	}
 
 	private final Collection<IBNAUpdater> bnaUpdaters = Lists.newArrayList();
@@ -148,7 +149,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 				// this maps updates from the xADL attribute to the BNA Thing's property
 
-				IThing targetThing = BNAPath.resolve(getBNAModel(), rootThing, targetThingPath);
+				IThing targetThing = BNAPath.resolve(model, rootThing, targetThingPath);
 				if (targetThing != null) {
 					B thingValue;
 					X xadlValue = (X) xarch.get(objRef, xADLAttributeName);
@@ -210,7 +211,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 			@Override
 			public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, T rootThing) {
-				IThing targetThing = BNAPath.resolve(getBNAModel(), rootThing, targetThingPath);
+				IThing targetThing = BNAPath.resolve(model, rootThing, targetThingPath);
 				if (targetThing != null) {
 					targetThing.set(thingValueKey, value);
 				}
@@ -235,7 +236,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 			@Override
 			public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, T rootThing) {
-				IThing targetThing = BNAPath.resolve(getBNAModel(), rootThing, targetThingPath);
+				IThing targetThing = BNAPath.resolve(model, rootThing, targetThingPath);
 				if (targetThing != null) {
 					List<ObjRef> ancestors = xarch.getAllAncestors(objRef);
 					int actualIndex = index;

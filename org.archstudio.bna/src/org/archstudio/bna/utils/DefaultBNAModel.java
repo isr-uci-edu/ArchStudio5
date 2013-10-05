@@ -205,7 +205,6 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 			SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
 		}
 
-		fireBnaModelEvent(BNAModelEvent.create(this, EventType.THING_REMOVING, bulkChangeCount.get() > 0, t));
 		try {
 			t.removeThingListener(this);
 			thingTree.remove(t);

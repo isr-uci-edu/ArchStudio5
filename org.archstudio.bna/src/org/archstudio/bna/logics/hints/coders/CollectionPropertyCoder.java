@@ -102,7 +102,7 @@ public class CollectionPropertyCoder implements IPropertyCoder {
 		return null;
 	}
 
-	private Iterable<Object> decode(IPropertyCoder masterCoder, String type, String data)
+	private List<Object> decode(IPropertyCoder masterCoder, String type, String data)
 			throws PropertyDecodeException {
 		String[] splitTypes = type.length() > 0 ? type.split(";") : new String[0];
 		String[] splitValues = data.length() > 0 ? data.split(";") : new String[0];

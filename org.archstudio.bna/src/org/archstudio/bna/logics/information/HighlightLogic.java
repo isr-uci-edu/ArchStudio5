@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
@@ -51,15 +51,14 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 
 	public static final IThingKey<RGB> HIGHLIGHT_COLOR_KEY = ThingKey.create("highlight");
 
-	protected ThingValueTrackingLogic valueLogic;
-	protected MirrorValueLogic mirrorLogic;
+	protected final ThingValueTrackingLogic valueLogic;
+	protected final MirrorValueLogic mirrorLogic;
 
-	@Override
-	protected void init() {
-		super.init();
-		valueLogic = addThingLogic(ThingValueTrackingLogic.class);
-		mirrorLogic = addThingLogic(MirrorValueLogic.class);
-		for (IThing thing : getBNAModel().getAllThings()) {
+	public HighlightLogic(IBNAWorld world) {
+		super(world);
+		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
+		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
+		for (IThing thing : model.getAllThings()) {
 			if (thing.get(HIGHLIGHT_COLOR_KEY) != null) {
 				showHighlight(thing);
 			}
@@ -67,10 +66,9 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 	}
 
 	@Override
-	public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
-		IBNAModel m = getBNAModel();
+	synchronized public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		if (!things.isEmpty()) {
-			final IThing t = Assemblies.getEditableThing(m, firstOrNull(things), IThing.class, USER_MAY_HIGHLIGHT);
+			final IThing t = Assemblies.getEditableThing(model, firstOrNull(things), IThing.class, USER_MAY_HIGHLIGHT);
 			if (t != null) {
 				final IThing ht = getHighlight(t);
 				IAction highlightAction = new Action("Highlight") {
@@ -82,11 +80,11 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 							cd.setText("Highlight Color");
 							RGB newColor = cd.open();
 							if (newColor != null) {
-								BNAOperations.set("Highlight", getBNAModel(), t, HIGHLIGHT_COLOR_KEY, newColor);
+								BNAOperations.set("Highlight", model, t, HIGHLIGHT_COLOR_KEY, newColor);
 							}
 						}
 						else {
-							BNAOperations.set("Remove Highlight", getBNAModel(), t, HIGHLIGHT_COLOR_KEY, null);
+							BNAOperations.set("Remove Highlight", model, t, HIGHLIGHT_COLOR_KEY, null);
 						}
 					}
 				};
@@ -97,7 +95,7 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 	}
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_CHANGED:
 			if (!evt.getThingEvent().getPropertyName().equals(HIGHLIGHT_COLOR_KEY)) {
@@ -121,14 +119,13 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 	}
 
 	protected IThing getHighlight(IThing forThing) {
-		return Assemblies.getPart(getBNAModel(), forThing, HIGHLIGHT_PART_KEY);
+		return Assemblies.getPart(model, forThing, HIGHLIGHT_PART_KEY);
 	}
 
 	protected IThing showHighlight(IThing forThing) {
 		IThing t = getHighlight(forThing);
 		if (t == null) {
 			IThing bkgThing = null;
-			IBNAModel model = getBNAModel();
 			Set<IThing> assemblyThings = Sets.newHashSet(Assemblies.getAssemblyThings(model, forThing));
 			for (IThing furthestBackThing : model.getAllThings()) {
 				if (assemblyThings.contains(furthestBackThing)) {
@@ -175,7 +172,7 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 		if (t != null) {
 			mirrorLogic.unmirror(t, IHasPoints.POINTS_KEY);
 			mirrorLogic.unmirror(t, IHasBoundingBox.BOUNDING_BOX_KEY);
-			getBNAModel().removeThing(t);
+			model.removeThing(t);
 		}
 	}
 }

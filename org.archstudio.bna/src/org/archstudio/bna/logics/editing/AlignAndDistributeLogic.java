@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasBoundingBox;
@@ -42,7 +43,8 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 	protected static final String DISTRIBUTE_VERTICAL_LOOSE = "distributeVerticalLoose";
 	protected static final String DISTRIBUTE_VERTICAL_TIGHT = "distributeVerticalTight";
 
-	public AlignAndDistributeLogic() {
+	public AlignAndDistributeLogic(IBNAWorld world) {
+		super(world);
 	}
 
 	protected void loadImages(IBNAView view) {
@@ -67,14 +69,14 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 	}
 
 	@Override
-	protected void destroy() {
+	synchronized public void dispose() {
 		if (imageRegistry != null) {
 			imageRegistry.dispose();
 		}
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		if (imageRegistry == null) {
 			loadImages(view);
 		}
@@ -96,7 +98,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			return;
 		}
 		final IThing[] thingsToEdit = thingsToEditList.toArray(new IThing[thingsToEditList.size()]);
-		final Runnable undoRunnable = BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList);
+		final Runnable undoRunnable = BNAOperations.takeSnapshotOfLocations(model, thingsToEditList);
 
 		IMenuManager alignMenu = new MenuManager("Align");
 
@@ -106,7 +108,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, VerticalAlignment.TOP);
 				BNAOperations.runnable("Align", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
 			}
 		};
 		alignMenu.add(alignTop);
@@ -117,7 +119,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, VerticalAlignment.MIDDLE);
 				BNAOperations.runnable("Align", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
 			}
 		};
 		alignMenu.add(alignMiddle);
@@ -128,7 +130,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, VerticalAlignment.BOTTOM);
 				BNAOperations.runnable("Align", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
 			}
 		};
 		alignMenu.add(alignBottom);
@@ -139,7 +141,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.LEFT);
 				BNAOperations.runnable("Align", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
 			}
 		};
 		alignMenu.add(alignLeft);
@@ -150,7 +152,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.CENTER);
 				BNAOperations.runnable("Align", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
 			}
 		};
 		alignMenu.add(alignCenter);
@@ -161,7 +163,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			public void run() {
 				BNAAlignUtils.align(thingsToEdit, HorizontalAlignment.RIGHT);
 				BNAOperations.runnable("Align", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
 			}
 		};
 		alignMenu.add(alignRight);
@@ -175,7 +177,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			public void run() {
 				BNADistributeUtils.distributeHorizontalLoose(thingsToEdit);
 				BNAOperations.runnable("Distribute", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
 			}
 		};
 		distributeMenu.add(distributeHorizontalLoose);
@@ -187,7 +189,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			public void run() {
 				BNADistributeUtils.distributeHorizontalTight(thingsToEdit);
 				BNAOperations.runnable("Distribute", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
 			}
 		};
 		distributeMenu.add(distributeHorizontalTight);
@@ -199,7 +201,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			public void run() {
 				BNADistributeUtils.distributeVerticalLoose(thingsToEdit);
 				BNAOperations.runnable("Distribute", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
 			}
 		};
 		distributeMenu.add(distributeVerticalLoose);
@@ -211,7 +213,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 			public void run() {
 				BNADistributeUtils.distributeVerticalTight(thingsToEdit);
 				BNAOperations.runnable("Distribute", undoRunnable,
-						BNAOperations.takeSnapshotOfLocations(getBNAModel(), thingsToEditList), false);
+						BNAOperations.takeSnapshotOfLocations(model, thingsToEditList), false);
 			}
 		};
 		distributeMenu.add(distributeVerticalTight);

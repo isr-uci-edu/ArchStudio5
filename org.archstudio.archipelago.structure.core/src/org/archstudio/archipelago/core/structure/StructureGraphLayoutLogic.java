@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
@@ -53,8 +54,9 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 	protected final IGraphLayout graphLayout;
 	protected final ObjRef documentRootRef;
 
-	public StructureGraphLayoutLogic(IXArchADT xarch, IResources resources, IGraphLayout graphLayout,
+	public StructureGraphLayoutLogic(IBNAWorld world, IXArchADT xarch, IResources resources, IGraphLayout graphLayout,
 			ObjRef documentRootRef) {
+		super(world);
 		this.xarch = xarch;
 		this.resources = resources;
 		this.graphLayout = graphLayout;
@@ -62,7 +64,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		if (!things.isEmpty()) {
 			return;
 		}

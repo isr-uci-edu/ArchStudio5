@@ -7,6 +7,7 @@ import java.util.List;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -86,22 +87,23 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelLis
 		}
 	}
 
-	public MirrorValueLogic() {
+	public MirrorValueLogic(IBNAWorld world) {
+		super(world);
 	}
 
 	FastLongMap<List<Mirror<?, ?>>> mirrors = new FastLongMap<>(256);
 	FastLongMap<Registrar> registrars = new FastLongMap<Registrar>(128);
 
-	public <V> void mirrorValue(IThing fromThing, IThingKey<V> key, IThing toThing) {
+	synchronized public <V> void mirrorValue(IThing fromThing, IThingKey<V> key, IThing toThing) {
 		mirrorValue(fromThing, key, toThing, key, Functions.<V> identity());
 	}
 
-	public <V> void mirrorValue(IThing fromThing, IThingKey<V> fromKey, IThing toThing, IThingKey<V> toKey) {
+	synchronized public <V> void mirrorValue(IThing fromThing, IThingKey<V> fromKey, IThing toThing, IThingKey<V> toKey) {
 		mirrorValue(fromThing, fromKey, toThing, toKey, Functions.<V> identity());
 	}
 
-	public <FV, TV> void mirrorValue(IThing fromThing, IThingKey<FV> fromKey, IThing toThing, IThingKey<TV> toKey,
-			Function<FV, TV> transformFunction) {
+	synchronized public <FV, TV> void mirrorValue(IThing fromThing, IThingKey<FV> fromKey, IThing toThing,
+			IThingKey<TV> toKey, Function<FV, TV> transformFunction) {
 		checkNotNull(fromThing);
 		checkNotNull(fromKey);
 		checkNotNull(toThing);
@@ -115,10 +117,10 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelLis
 		Registrar registrar = new Registrar(fromThing.getUID(), fromKey, toThing.getUID(), toKey, mirror);
 		registrar.register();
 
-		mirror.apply(getBNAModel());
+		mirror.apply(model);
 	}
 
-	public void unmirror(IThing toThing, IThingKey<?> toKey) {
+	synchronized public void unmirror(IThing toThing, IThingKey<?> toKey) {
 		Registrar registrar = registrars.get(BNAUtils.getThingKeyUID(toThing, toKey));
 		if (registrar != null) {
 			registrar.unregister();
@@ -126,7 +128,7 @@ public class MirrorValueLogic extends AbstractThingLogic implements IBNAModelLis
 	}
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
 			for (Mirror<?, ?> mirror : FastLongMap.getList(mirrors, thingEvent.getThingKeyUID(), false)) {

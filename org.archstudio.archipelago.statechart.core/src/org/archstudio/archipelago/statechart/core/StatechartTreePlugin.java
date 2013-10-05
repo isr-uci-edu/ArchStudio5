@@ -535,89 +535,89 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 			}
 		}
 
-		IBNAModel bnaModel = new DefaultBNAModel();
-		IBNAWorld bnaWorld = new DefaultBNAWorld("", bnaModel);
+		IBNAModel model = new DefaultBNAModel();
+		IBNAWorld world = new DefaultBNAWorld("", model);
 
 		if (services.has(IArchipelagoTreeNodeDataCache.class)) {
 			services.get(IArchipelagoTreeNodeDataCache.class).setData(documentRootRef, structureRef, "statecharts",
-					bnaWorld);
+					world);
 		}
 
-		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
-		ProxyLogic logicProxy = logicManager.addThingLogic(new ProxyLogic());
+		IThingLogicManager logics = world.getThingLogicManager();
+		ProxyLogic proxyLogic = logics.addThingLogic(ProxyLogic.class);
 
-		logicManager.addThingLogic(new SynchronizeHintsLogic(logicProxy.addObject(new XadlHintRepository(xarch))));
+		logics.addThingLogic(new SynchronizeHintsLogic(world, proxyLogic.addObject(new XadlHintRepository(xarch))));
 
-		bnaWorld.getBNAModel().addThing(new GridThing());
-		bnaWorld.getBNAModel().addThing(new ShadowThing());
+		world.getBNAModel().addThing(new GridThing());
+		world.getBNAModel().addThing(new ShadowThing());
 
 		// these logics need to be first
 
-		logicManager.addThingLogic(SnapToGridLogic.class);
+		logics.addThingLogic(SnapToGridLogic.class);
 
 		// generic logics -- alphabetized
 
-		logicManager.addThingLogic(ClickSelectionLogic.class);
-		logicManager.addThingLogic(new DecorateChangesLogic((IXArchADTVariability) xarch));
-		logicManager.addThingLogic(DragMovableLogic.class);
-		logicManager.addThingLogic(KeyNudgerLogic.class);
-		logicManager.addThingLogic(LifeSapperLogic.class);
-		logicManager.addThingLogic(MarqueeSelectionLogic.class);
-		logicManager.addThingLogic(MousePanAndZoomLogic.class);
-		logicManager.addThingLogic(ReshapeRectangleLogic.class);
-		logicManager.addThingLogic(ReshapeSplineLogic.class).addReshapeSplineGuides(
+		logics.addThingLogic(ClickSelectionLogic.class);
+		logics.addThingLogic(new DecorateChangesLogic(world, (IXArchADTVariability) xarch));
+		logics.addThingLogic(DragMovableLogic.class);
+		logics.addThingLogic(KeyNudgerLogic.class);
+		logics.addThingLogic(LifeSapperLogic.class);
+		logics.addThingLogic(MarqueeSelectionLogic.class);
+		logics.addThingLogic(MousePanAndZoomLogic.class);
+		logics.addThingLogic(ReshapeRectangleLogic.class);
+		logics.addThingLogic(ReshapeSplineLogic.class).addReshapeSplineGuides(
 				new XadlReshapeSplineGuide(xarch, Statechart_1_0Package.Literals.TRANSITION,
 						Statechart_1_0Package.Literals.PSEUDO_STATE, -1, 0));
-		logicManager.addThingLogic(RotatingOffsetLogic.class);
-		logicManager.addThingLogic(SplineBreakLogic.class);
-		logicManager.addThingLogic(StandardCursorLogic.class);
-		logicManager.addThingLogic(new StatechartDropLogic(services, documentRootRef));
-		logicManager.addThingLogic(ToolTipLogic.class);
-		logicManager.addThingLogic(HighlightLogic.class);
+		logics.addThingLogic(RotatingOffsetLogic.class);
+		logics.addThingLogic(SplineBreakLogic.class);
+		logics.addThingLogic(StandardCursorLogic.class);
+		logics.addThingLogic(new StatechartDropLogic(world, services, documentRootRef));
+		logics.addThingLogic(ToolTipLogic.class);
+		logics.addThingLogic(HighlightLogic.class);
 
 		// menu logics -- order dictates menu order
 
-		logicManager.addThingLogic(new NewElementLogic(xarch, services.get(IResources.class), structureRef));
-		logicManager.addThingLogic(EditTextLogic.class);
+		logics.addThingLogic(new NewElementLogic(world, xarch, services.get(IResources.class), structureRef));
+		logics.addThingLogic(EditTextLogic.class);
 		//logicManager.addThingLogic(EditFlowLogic.class);
 		//logicManager.addThingLogic(StructureAssignMyxGenLogic(xarch));
-		logicManager.addThingLogic(new StatechartEditColorLogic(xarch));
-		logicManager.addThingLogic(ShowHideTagsLogic.class);
+		logics.addThingLogic(new StatechartEditColorLogic(world, xarch));
+		logics.addThingLogic(ShowHideTagsLogic.class);
 		//logicManager.addThingLogic(FindDialogLogic(ArchipelagoFinder(xarch, services.get(IResources.class))));
-		logicManager.addThingLogic(new XadlCopyPasteLogic(xarch, services.get(IArchipelagoEditorPane.class)
+		logics.addThingLogic(new XadlCopyPasteLogic(world, xarch, services.get(IArchipelagoEditorPane.class)
 				.getActionBars()));
-		logicManager.addThingLogic(new RemoveElementLogic(xarch));
-		logicManager.addThingLogic(RotaterLogic.class);
-		logicManager.addThingLogic(AlignAndDistributeLogic.class);
-		logicManager.addThingLogic(RectifyToGridLogic.class);
-		logicManager.addThingLogic(new ExportImportGexf());
-		logicManager.addThingLogic(new ExportImportDot());
+		logics.addThingLogic(new RemoveElementLogic(world, xarch));
+		logics.addThingLogic(RotaterLogic.class);
+		logics.addThingLogic(AlignAndDistributeLogic.class);
+		logics.addThingLogic(RectifyToGridLogic.class);
+		logics.addThingLogic(new ExportImportGexf(world));
+		logics.addThingLogic(new ExportImportDot(world));
 		//logicManager.addThingLogic(StructureGraphLayoutLogic(xarch, services.get(IResources.class),
 		//		services.get(IGraphLayout.class), structureRef));
-		logicManager.addThingLogic(ViewAllLogic.class);
-		logicManager.addThingLogic(ExportImageLogic.class);
+		logics.addThingLogic(ViewAllLogic.class);
+		logics.addThingLogic(ExportImageLogic.class);
 
 		// xADL mapping logics
 
-		logicManager.addThingLogic(new MapStateLogic(services, xarch, structureRef, "state[@type='state']", //
+		logics.addThingLogic(new MapStateLogic(world, services, xarch, structureRef, "state[@type='state']", //
 				new Dimension(6 * 24, 4 * 24), 1));
-		logicManager.addThingLogic(new MapInitialStateLogic(services, xarch, structureRef, "state[@type='initial']", //
+		logics.addThingLogic(new MapInitialStateLogic(world, services, xarch, structureRef, "state[@type='initial']", //
 				new Dimension(4 * 24 / 3, 4 * 24 / 3)));
-		logicManager.addThingLogic(new MapFinalStateLogic(services, xarch, structureRef, "state[@type='final']", //
+		logics.addThingLogic(new MapFinalStateLogic(world, services, xarch, structureRef, "state[@type='final']", //
 				new Dimension(4 * 24 / 3, 4 * 24 / 3)));
-		logicManager.addThingLogic(new MapTransitionLogic(xarch, structureRef, "transition"));
+		logics.addThingLogic(new MapTransitionLogic(world, xarch, structureRef, "transition"));
 
 		// propagate external events logics
 
 		final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
 		final IMyxBrick brick = myxRegistry.waitForBrick(ArchipelagoMyxComponent.class);
-		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTModelListener.class));
-		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTFileListener.class));
-		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTVariabilityListener.class));
+		myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTModelListener.class));
+		myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTFileListener.class));
+		myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTVariabilityListener.class));
 
 		// these logics need to be last
 
-		return bnaWorld;
+		return world;
 	}
 
 }

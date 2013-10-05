@@ -1,8 +1,8 @@
 package org.archstudio.xadl.bna.logics;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -43,41 +43,33 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 	private static final IThingKey<ChangeStatus> CHANGE_STATUS_KEY = ThingKey.create("ChangeStatus");
 	private static final IThingRefKey<IThing> CHANGE_DECORATION_KEY = ThingRefKey.create("ChangeStatusDecoration");
 
+	protected final ThingValueTrackingLogic valueLogic;
+	protected final MirrorValueLogic mirrorLogic;
 	protected final IXArchADTVariability xarch;
-	protected ThingValueTrackingLogic tvtl;
-	protected MirrorValueLogic mvl;
 
-	public DecorateChangesLogic(IXArchADTVariability xarch) {
+	public DecorateChangesLogic(IBNAWorld world, IXArchADTVariability xarch) {
+		super(world);
+		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
+		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
 		this.xarch = xarch;
 	}
 
 	@Override
-	protected void init() {
-		super.init();
-		tvtl = addThingLogic(ThingValueTrackingLogic.class);
-		mvl = addThingLogic(MirrorValueLogic.class);
-	}
-
-	@Override
-	public void handleXArchADTVariabilityEvent(final XArchADTVariabilityEvent evt) {
+	synchronized public void handleXArchADTVariabilityEvent(final XArchADTVariabilityEvent evt) {
 		if (evt.getType() == Type.STATUS) {
-			final IBNAModel model = getBNAModel();
-			if (model != null) {
-				SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
-					@Override
-					public void run() {
-						for (IThing t : model.getThingsByID(tvtl.getThingIDs(IHasObjRef.OBJREF_KEY,
-								evt.getChangedObjRef()))) {
-							updateDecoration(t, evt.getChangeStatus());
-						}
+			SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
+				@Override
+				public void run() {
+					for (IThing t : valueLogic.getThings(IHasObjRef.OBJREF_KEY, evt.getChangedObjRef())) {
+						updateDecoration(t, evt.getChangeStatus());
 					}
-				});
-			}
+				}
+			});
 		}
 	}
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing t = evt.getTargetThing();
@@ -146,37 +138,31 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 	private void updateDecoration(IThing t, RGB rgb, float alpha, boolean editable) {
 		removeDecoration(t);
 		updateAttributes(t, alpha, editable);
-		IBNAModel model = getBNAModel();
-		if (model != null) {
-			IThing decoration = null;
-			if (t instanceof IHasPoints) {
-				decoration = model.addThing(new SplineGlowThing(null), t);
-				mvl.mirrorValue(t, IHasEndpoints.ENDPOINT_1_KEY, decoration);
-				mvl.mirrorValue(t, IHasEndpoints.ENDPOINT_2_KEY, decoration);
-				mvl.mirrorValue(t, IHasMidpoints.MIDPOINTS_KEY, decoration);
-			}
-			else if (t instanceof IHasBoundingBox) {
-				decoration = model.addThing(new RectangleGlowThing(null), t);
-				mvl.mirrorValue(t, IHasBoundingBox.BOUNDING_BOX_KEY, decoration);
-			}
-			if (decoration != null) {
-				model.sendToBack(Sets.newHashSet(decoration));
-				decoration.set(IHasColor.COLOR_KEY, rgb);
-				CHANGE_DECORATION_KEY.set(t, decoration);
-			}
+		IThing decoration = null;
+		if (t instanceof IHasPoints) {
+			decoration = model.addThing(new SplineGlowThing(null), t);
+			mirrorLogic.mirrorValue(t, IHasEndpoints.ENDPOINT_1_KEY, decoration);
+			mirrorLogic.mirrorValue(t, IHasEndpoints.ENDPOINT_2_KEY, decoration);
+			mirrorLogic.mirrorValue(t, IHasMidpoints.MIDPOINTS_KEY, decoration);
+		}
+		else if (t instanceof IHasBoundingBox) {
+			decoration = model.addThing(new RectangleGlowThing(null), t);
+			mirrorLogic.mirrorValue(t, IHasBoundingBox.BOUNDING_BOX_KEY, decoration);
+		}
+		if (decoration != null) {
+			model.sendToBack(Sets.newHashSet(decoration));
+			decoration.set(IHasColor.COLOR_KEY, rgb);
+			CHANGE_DECORATION_KEY.set(t, decoration);
 		}
 	}
 
 	protected void removeDecoration(IThing t) {
-		IBNAModel model = getBNAModel();
-		if (model != null) {
-			IThing d = CHANGE_DECORATION_KEY.get(t, model);
-			if (d != null) {
-				model.removeThingAndChildren(d);
-			}
-			t.remove(CHANGE_STATUS_KEY);
-			t.remove(CHANGE_DECORATION_KEY);
+		IThing d = CHANGE_DECORATION_KEY.get(t, model);
+		if (d != null) {
+			model.removeThingAndChildren(d);
 		}
+		t.remove(CHANGE_STATUS_KEY);
+		t.remove(CHANGE_DECORATION_KEY);
 		updateAttributes(t, 1f, true);
 	}
 
@@ -186,7 +172,7 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 		if (!editable && Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 			t.set(IHasSelected.SELECTED_KEY, false);
 		}
-		for (IThing p : Assemblies.getParts(getBNAModel(), t).values()) {
+		for (IThing p : Assemblies.getParts(model, t).values()) {
 			if (!p.has(IHasObjRef.OBJREF_KEY) || p.has(IHasObjRef.OBJREF_KEY, t.get(IHasObjRef.OBJREF_KEY))) {
 				updateAttributes(p, alpha, editable);
 			}

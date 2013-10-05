@@ -7,9 +7,9 @@ import java.util.Collection;
 import java.util.List;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
@@ -46,13 +46,15 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 
 	private static final IThingKey<EditTextLogicData> DATA_KEY = ThingKey.create(EditTextLogic.class);
 
-	public EditTextLogic() {
+	public EditTextLogic(IBNAWorld world) {
+		super(world);
 	}
 
 	@Override
-	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager m) {
+	synchronized public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location,
+			IMenuManager m) {
 		if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) <= 1) {
-			final IThing editThing = Assemblies.getEditableThing(getBNAModel(), firstOrNull(things), IThing.class,
+			final IThing editThing = Assemblies.getEditableThing(model, firstOrNull(things), IThing.class,
 					IHasMutableText.USER_MAY_EDIT_TEXT, IHasToolTip.USER_MAY_EDIT_TOOL_TIP);
 			if (editThing != null) {
 				m.add(new Action("Edit Description...") {
@@ -67,16 +69,16 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 	}
 
 	@Override
-	public void keyPressed(IBNAView view, KeyEvent e) {
+	synchronized public void keyPressed(IBNAView view, KeyEvent e) {
 	}
 
 	@Override
-	public void keyReleased(IBNAView view, KeyEvent e) {
+	synchronized public void keyReleased(IBNAView view, KeyEvent e) {
 		if (SWT.F2 == e.keyCode) {
 			Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
 			IThing editThing = null;
 			if (selectedThings.size() == 1) {
-				editThing = Assemblies.getEditableThing(getBNAModel(), firstOrNull(selectedThings), IThing.class,
+				editThing = Assemblies.getEditableThing(model, firstOrNull(selectedThings), IThing.class,
 						IHasMutableText.USER_MAY_EDIT_TEXT, IHasToolTip.USER_MAY_EDIT_TOOL_TIP);
 			}
 			if (editThing != null) {
@@ -88,26 +90,23 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 	private void initEdit(IThing forThing) {
 		checkNotNull(forThing);
 
-		IBNAModel model = getBNAModel();
-		if (model != null) {
-			Point p = checkNotNull(BNAUtils.getCentralPoint(forThing));
+		Point p = checkNotNull(BNAUtils.getCentralPoint(forThing));
 
-			SWTTextThing tt = model.addThing(new SWTTextThing(null), forThing);
-			tt.set(DATA_KEY, new EditTextLogicData(forThing.getID()));
-			String text = "";
-			if (forThing instanceof IHasText) {
-				text = ((IHasText) forThing).getText();
-			}
-			else {
-				text = ToolTipLogic.getToolTip(forThing);
-			}
-			tt.setText(text);
-			tt.setBoundingBox(new Rectangle(p.x, p.y, 0, 0));
+		SWTTextThing tt = model.addThing(new SWTTextThing(null), forThing);
+		tt.set(DATA_KEY, new EditTextLogicData(forThing.getID()));
+		String text = "";
+		if (forThing instanceof IHasText) {
+			text = ((IHasText) forThing).getText();
 		}
+		else {
+			text = ToolTipLogic.getToolTip(forThing);
+		}
+		tt.setText(text);
+		tt.setBoundingBox(new Rectangle(p.x, p.y, 0, 0));
 	}
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		if (evt.getEventType() == BNAModelEvent.EventType.THING_REMOVED) {
 			EditTextLogicData data = evt.getTargetThing().get(DATA_KEY);
 			if (data != null) {
@@ -115,11 +114,11 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 				IThing t = evt.getSource().getThing(data.thingID);
 				if (t instanceof IHasMutableText
 						&& UserEditableUtils.isEditableForAnyQualities(t, IHasMutableText.USER_MAY_EDIT_TEXT)) {
-					BNAOperations.set("Text", getBNAModel(), t, IHasText.TEXT_KEY, tt.getText());
+					BNAOperations.set("Text", model, t, IHasText.TEXT_KEY, tt.getText());
 				}
 				else if (t != null
 						&& UserEditableUtils.isEditableForAnyQualities(t, IHasToolTip.USER_MAY_EDIT_TOOL_TIP)) {
-					BNAOperations.set("Text", getBNAModel(), t, IHasToolTip.TOOL_TIP_KEY, tt.getText());
+					BNAOperations.set("Text", model, t, IHasToolTip.TOOL_TIP_KEY, tt.getText());
 				}
 			}
 		}

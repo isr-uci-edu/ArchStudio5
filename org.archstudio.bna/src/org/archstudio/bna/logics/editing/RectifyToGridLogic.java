@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -17,8 +18,12 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 
 public class RectifyToGridLogic extends AbstractThingLogic implements IBNAMenuListener {
 
+	public RectifyToGridLogic(IBNAWorld world) {
+		super(world);
+	}
+
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		if (things.isEmpty()) {
 			final IBNAModel model = view.getBNAWorld().getBNAModel();
 			if (GridUtils.getGridSpacing(model) != 0) {

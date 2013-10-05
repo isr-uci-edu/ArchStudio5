@@ -7,7 +7,6 @@ public class BNAModelEvent {
 
 	public enum EventType {
 		THING_ADDED(true), //
-		THING_REMOVING(false), //
 		THING_REMOVED(true), //
 		THING_CHANGED(true), //
 		THING_RESTACKED(true), //

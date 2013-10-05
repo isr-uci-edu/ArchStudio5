@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -21,11 +22,18 @@ import com.google.common.collect.Sets;
 
 public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implements IBNAModelListener {
 
-	ThingValueTrackingLogic valuesLogic = null;
+	protected final ThingValueTrackingLogic valueLogic;
+
 	Set<IThingMetakey<?, IThingKey<Object>, String>> xArchIDKeys = Sets.newHashSet();
 	Set<IThingKey<Object>> thingIDKeys = Sets.newHashSet();
+	int inUpdateCount = 0;
 
-	public IThingKey<String> syncXArchIDKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
+	public SynchronizeThingIDAndXArchIDLogic(IBNAWorld world) {
+		super(world);
+		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
+	}
+
+	synchronized public IThingKey<String> syncXArchIDKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
 		return getXArchIDKey(thingRefKey);
 	}
 
@@ -37,15 +45,7 @@ public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implem
 	}
 
 	@Override
-	protected void init() {
-		super.init();
-		valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
-	}
-
-	int inUpdateCount = 0;
-
-	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		if (inUpdateCount > 0) {
 			return;
 		}
@@ -62,7 +62,7 @@ public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implem
 					xArchID = t.get(xArchIDKey);
 					if (xArchID != null) {
 						t.set(xArchIDKey.getKey(),
-								firstOrNull(valuesLogic.getThingIDs(IHasXArchID.XARCH_ID_KEY, xArchID)));
+								firstOrNull(valueLogic.getThingIDs(IHasXArchID.XARCH_ID_KEY, xArchID)));
 					}
 				}
 				break;
@@ -89,11 +89,11 @@ public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implem
 					IThingMetakey<?, IThingKey<Object>, String> xArchIDKey = (IThingMetakey<?, IThingKey<Object>, String>) p;
 					String xArchID = thingWithXArchID.get(xArchIDKey);
 					thingWithXArchID.set(xArchIDKey.getKey(),
-							firstOrNull(valuesLogic.getThingIDs(IHasXArchID.XARCH_ID_KEY, xArchID)));
+							firstOrNull(valueLogic.getThingIDs(IHasXArchID.XARCH_ID_KEY, xArchID)));
 				}
 				break;
 			}
-			case THING_REMOVING: {
+			case THING_REMOVED: {
 				IThing t = evt.getTargetThing();
 				String xArchID = t.get(IHasXArchID.XARCH_ID_KEY);
 				if (xArchID != null) {
@@ -112,7 +112,7 @@ public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implem
 
 	private void setThingIdForXArchID(String xArchID, @Nullable Object thingId) {
 		for (IThingMetakey<?, IThingKey<Object>, String> xArchIDKey : xArchIDKeys) {
-			for (IThing thingWithXArchID : getBNAModel().getThingsByID(valuesLogic.getThingIDs(xArchIDKey, xArchID))) {
+			for (IThing thingWithXArchID : valueLogic.getThings(xArchIDKey, xArchID)) {
 				thingWithXArchID.set(xArchIDKey.getKey(), thingId);
 			}
 		}

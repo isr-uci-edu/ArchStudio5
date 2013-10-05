@@ -2,12 +2,13 @@ package org.archstudio.bna.logics.editing;
 
 import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.facets.IRelativeMovable;
@@ -22,36 +23,30 @@ import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
 
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 
 public abstract class AbstractReshapeLogic<R extends IThing, D> extends AbstractThingLogic implements
 		IBNAModelListener, IDragMoveListener {
 
-	protected R reshapingThing = null;
+	protected final ThingValueTrackingLogic valueLogic;
 	protected final Class<R> reshapingThingClass;
 	protected final Map<ReshapeHandleThing, D> reshapeHandles = Maps.newHashMap();
+
+	protected R reshapingThing = null;
 	protected Runnable initialSnapshot = null;
 	protected Point initialPosition = null;
 
-	protected ThingValueTrackingLogic valuesLogic = null;
-
-	public AbstractReshapeLogic(Class<R> reshapingThingClass) {
+	public AbstractReshapeLogic(IBNAWorld world, Class<R> reshapingThingClass) {
+		super(world);
 		this.reshapingThingClass = reshapingThingClass;
+		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
+		logics.addThingLogic(DragMoveEventsLogic.class);
 	}
 
 	@Override
-	protected void init() {
-		super.init();
-		valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
-		// this logic listens to events from the following
-		addThingLogic(DragMoveEventsLogic.class);
-	}
-
-	@Override
-	protected void destroy() {
+	synchronized public void dispose() {
 		untrack();
-		super.destroy();
+		super.dispose();
 	}
 
 	protected void track(R selectedThing) {
@@ -61,6 +56,13 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		reshapingThing = selectedThing;
 		addHandles();
 		updateHandles();
+	}
+
+	protected void untrack() {
+		if (reshapingThing != null) {
+			removeHandles();
+			reshapingThing = null;
+		}
 	}
 
 	abstract protected void addHandles();
@@ -79,24 +81,17 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 
 	abstract protected void updateHandle(ReshapeHandleThing handle, D data);
 
-	protected void untrack() {
-		if (reshapingThing != null) {
-			removeHandles();
-			reshapingThing = null;
-		}
-	}
-
-	protected synchronized void removeHandles() {
+	protected void removeHandles() {
 		for (ReshapeHandleThing handle : reshapeHandles.keySet()) {
-			Assemblies.removeRootAndParts(getBNAModel(), handle);
+			Assemblies.removeRootAndParts(model, handle);
 		}
 		reshapeHandles.clear();
 	}
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
-		case THING_REMOVING:
+		case THING_REMOVED:
 			if (SystemUtils.nullEquals(evt.getTargetThing(), reshapingThing)) {
 				untrack();
 			}
@@ -113,44 +108,37 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 		}
 	}
 
-	protected synchronized void checkHandles() {
+	protected void checkHandles() {
 		R selectedThing = null;
-		IBNAModel model = getBNAModel();
-		if (model != null) {
-			Iterable<Object> selectedThingIDs = valuesLogic.getThingIDs(IHasSelected.SELECTED_KEY, Boolean.TRUE);
-			if (Iterables.size(selectedThingIDs) == 1) {
-				selectedThing = firstOrNull(model.getThingsByID(selectedThingIDs), reshapingThingClass);
-				//if(selectedThing != null && !UserEditableUtils.isEditableForAllQualities(selectedThing, IHasMutableSize.USER_MAY_RESIZE)){
-				//	selectedThing = null;
-				//}
-			}
-			if (selectedThing == null || selectedThing != reshapingThing) {
-				untrack();
-			}
-			if (selectedThing != null && selectedThing != reshapingThing) {
-				track(selectedThing);
-			}
-			if (reshapingThing != null) {
-				updateHandles();
-			}
+		Collection<IThing> selectedThings = valueLogic.getThings(IHasSelected.SELECTED_KEY, Boolean.TRUE);
+		if (selectedThings.size() == 1) {
+			selectedThing = firstOrNull(selectedThings, reshapingThingClass);
+		}
+		if (selectedThing == null || selectedThing != reshapingThing) {
+			untrack();
+		}
+		if (selectedThing != null && selectedThing != reshapingThing) {
+			track(selectedThing);
+		}
+		if (reshapingThing != null) {
+			updateHandles();
 		}
 	}
 
 	@Override
-	public void dragStarted(DragMoveEvent evt) {
+	synchronized public void dragStarted(DragMoveEvent evt) {
 		IThing movedThing = evt.getInitialThing();
 		D data = reshapeHandles.get(movedThing);
 		if (data != null) {
 			initialSnapshot = takeSnapshot();
 			initialPosition = ((ReshapeHandleThing) movedThing).getReferencePoint();
-
 			handleMoveStarted((ReshapeHandleThing) movedThing, data, evt);
 			checkHandles();
 		}
 	}
 
 	@Override
-	public void dragMoved(DragMoveEvent evt) {
+	synchronized public void dragMoved(DragMoveEvent evt) {
 		IThing movedThing = evt.getInitialThing();
 		D data = reshapeHandles.get(movedThing);
 		if (data != null) {
@@ -160,7 +148,7 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 	}
 
 	@Override
-	public void dragFinished(DragMoveEvent evt) {
+	synchronized public void dragFinished(DragMoveEvent evt) {
 		IThing movedThing = evt.getInitialThing();
 		D data = reshapeHandles.get(movedThing);
 		if (data != null) {

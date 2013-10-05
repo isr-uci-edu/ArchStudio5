@@ -4,8 +4,8 @@ import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
 import java.util.List;
 
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasMutableSelected;
@@ -19,46 +19,36 @@ import org.archstudio.bna.utils.IBNAMouseListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.events.MouseEvent;
 
-import com.google.common.collect.Iterables;
-
 public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMenuListener {
 
-	protected ThingValueTrackingLogic valuesLogic;
+	protected final ThingValueTrackingLogic valueLogic;
 
-	public ClickSelectionLogic() {
-	}
-
-	@Override
-	protected void init() {
-		super.init();
-		valuesLogic = addThingLogic(ThingValueTrackingLogic.class);
+	public ClickSelectionLogic(IBNAWorld world) {
+		super(world);
+		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
 	}
 
 	private void removeAllSelections() {
-		IBNAModel model = getBNAModel();
-		if (model != null) {
-			model.beginBulkChange();
-			try {
-				for (IHasMutableSelected t : Iterables.filter(
-						BNAUtils.getThings(model, valuesLogic.getThingIDs(IHasSelected.SELECTED_KEY, Boolean.TRUE)),
-						IHasMutableSelected.class)) {
-					t.setSelected(false);
-				}
+		model.beginBulkChange();
+		try {
+			for (IHasMutableSelected t : valueLogic.getThings(IHasSelected.SELECTED_KEY, Boolean.TRUE,
+					IHasMutableSelected.class)) {
+				t.setSelected(false);
 			}
-			finally {
-				model.endBulkChange();
-			}
+		}
+		finally {
+			model.endBulkChange();
 		}
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 	}
 
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (evt.button == 1) {
-			IHasMutableSelected selectableThing = Assemblies.getEditableThing(getBNAModel(), firstOrNull(t),
+			IHasMutableSelected selectableThing = Assemblies.getEditableThing(model, firstOrNull(t),
 					IHasMutableSelected.class, IHasMutableSelected.USER_MAY_SELECT);
 			if (selectableThing != null) {
 				boolean controlPressed = BNAUtils.wasControlPressed(evt);
@@ -97,7 +87,7 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		/*
 		 * We don't actually want to fill the menu here, but we want to change the selection before the menu really gets
 		 * filled to reflect the click. If we clicked on something already selected, we leave the selection alone. If we
@@ -108,7 +98,7 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 			removeAllSelections();
 		}
 		else {
-			IHasMutableSelected mst = Assemblies.getEditableThing(getBNAModel(), firstOrNull(things),
+			IHasMutableSelected mst = Assemblies.getEditableThing(model, firstOrNull(things),
 					IHasMutableSelected.class, IHasMutableSelected.USER_MAY_SELECT);
 			if (mst != null) {
 

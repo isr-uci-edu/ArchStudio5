@@ -6,6 +6,7 @@ import java.util.Map;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasMutableSelected;
@@ -43,15 +44,10 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 	protected final Map<ObjRef, Integer> selectAndMoveObjRefs = Maps.newHashMap();
 	protected int pasteOffset = 0;
 
-	public XadlCopyPasteLogic(IXArchADT xarch, IActionBars actionBars) {
-		super();
+	public XadlCopyPasteLogic(IBNAWorld world, IXArchADT xarch, IActionBars actionBars) {
+		super(world);
 		this.xarch = xarch;
 		this.actionBars = actionBars;
-	}
-
-	@Override
-	protected void init() {
-		super.init();
 
 		actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), new Action() {
 
@@ -89,19 +85,19 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 	}
 
 	@Override
-	protected void destroy() {
+	synchronized public void dispose() {
 		actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), null);
 		actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), null);
 		actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), null);
 		actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), null);
 		actionBars.updateActionBars();
 
-		super.destroy();
+		super.dispose();
 	}
 
 	List<ObjRef> getSelectedObjRefs() {
 		List<ObjRef> objRefs = Lists.newArrayList();
-		for (IThing t : getBNAModel().getAllThings()) {
+		for (IThing t : model.getAllThings()) {
 			if (Boolean.TRUE.equals(t.get(IHasSelected.SELECTED_KEY))) {
 				ObjRef objRef = t.get(IHasObjRef.OBJREF_KEY);
 				if (objRef != null) {
@@ -112,35 +108,35 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		return objRefs;
 	}
 
-	public void selectAll() {
-		for (IThing t : getBNAModel().getAllThings()) {
+	synchronized public void selectAll() {
+		for (IThing t : model.getAllThings()) {
 			if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableSelected.USER_MAY_SELECT)) {
 				t.set(IHasSelected.SELECTED_KEY, true);
 			}
 		}
 	}
 
-	public void copy() {
+	synchronized public void copy() {
 		pasteOffset = 0;
 
 		copyPaste.copy(xarch, getSelectedObjRefs());
 	}
 
-	public void paste() {
+	synchronized public void paste() {
 
-		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(getBNAModel());
+		EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(model);
 		ObjRef rootRef = ept.get(IHasObjRef.OBJREF_KEY);
 		if (rootRef != null) {
 			XArchADTOperations xarch = new XArchADTOperations(this.xarch);
 
 			// unselect everything
-			for (IThing t : getBNAModel().getAllThings()) {
+			for (IThing t : model.getAllThings()) {
 				t.set(IHasSelected.SELECTED_KEY, false);
 			}
 			selectAndMoveObjRefs.clear();
 
 			// keep track of the new ObjRefs to select and move them
-			pasteOffset += GridUtils.getGridSpacing(getBNAModel());
+			pasteOffset += GridUtils.getGridSpacing(model);
 			for (ObjRef objRef : copyPaste.paste(xarch, rootRef)) {
 				selectAndMoveObjRefs.put(objRef, pasteOffset);
 			}
@@ -150,7 +146,7 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 	}
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		// select the new ObjRefs added by paste()
 		switch (evt.getEventType()) {
 		case THING_CHANGED:
@@ -170,7 +166,7 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 		}
 	}
 
-	public void delete() {
+	synchronized public void delete() {
 		XArchADTOperations xarch = new XArchADTOperations(this.xarch);
 
 		for (ObjRef objRef : getSelectedObjRefs()) {
@@ -194,7 +190,7 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		menu.add(new Action("Cut") {
 
 			@Override

@@ -2,8 +2,8 @@ package org.archstudio.bna.logics.editing;
 
 import java.util.List;
 
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasBoundingBox;
@@ -24,50 +24,42 @@ import com.google.common.collect.Iterables;
 
 public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMouseListener, IBNAMouseMoveListener {
 
-	protected ThingTypeTrackingLogic typesLogic;
+	protected final ThingTypeTrackingLogic typeLogic;
 
 	protected MarqueeBoxBorderThing marqueeSelection = null;
 	protected Point initDownWorldPoint = new Point(0, 0);
 
-	public MarqueeSelectionLogic() {
+	public MarqueeSelectionLogic(IBNAWorld world) {
+		super(world);
+		this.typeLogic = logics.addThingLogic(ThingTypeTrackingLogic.class);
+		logics.addThingLogic(RotatingOffsetLogic.class);
 	}
 
 	@Override
-	protected void init() {
-		super.init();
-		addThingLogic(RotatingOffsetLogic.class);
-		this.typesLogic = addThingLogic(ThingTypeTrackingLogic.class);
-	}
-
-	@Override
-	protected void destroy() {
-		typesLogic = null;
+	synchronized public void dispose() {
 		if (marqueeSelection != null) {
-			IBNAModel m = getBNAModel();
-			if (m != null) {
-				m.removeThing(marqueeSelection);
-			}
+			model.removeThing(marqueeSelection);
 		}
-		super.destroy();
+		super.dispose();
 	}
 
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (marqueeSelection != null) {
-			getBNAModel().removeThing(marqueeSelection);
+			model.removeThing(marqueeSelection);
 			marqueeSelection = null;
 		}
 		if (evt.button == 1) {
 			if (t.isEmpty()) {
 				initDownWorldPoint = location.getWorldPoint();
-				marqueeSelection = getBNAModel().addThing(new MarqueeBoxBorderThing(null));
+				marqueeSelection = model.addThing(new MarqueeBoxBorderThing(null));
 				marqueeSelection.setBoundingBox(new Rectangle(initDownWorldPoint.x, initDownWorldPoint.y, 1, 1));
 			}
 		}
 	}
 
 	@Override
-	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (marqueeSelection != null) {
 			Point worldPoint = location.getWorldPoint();
 			int x1 = Math.min(initDownWorldPoint.x, worldPoint.x);
@@ -79,18 +71,17 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		try {
 			if (evt.button == 1) {
 				if (marqueeSelection != null) {
 					Rectangle selectionRectangle = marqueeSelection.getBoundingBox();
 					selectionRectangle = BNAUtils.normalizeRectangle(selectionRectangle);
 
-					IBNAModel model = getBNAModel();
 					model.beginBulkChange();
 					try {
 						for (IHasMutableSelected mst : Iterables.filter(
-								BNAUtils.getThings(model, typesLogic.getThingIDs(IHasMutableSelected.class)),
+								model.getThingsByID(typeLogic.getThingIDs(IHasMutableSelected.class)),
 								IHasMutableSelected.class)) {
 							if (!BNAUtils.wasControlPressed(evt)) {
 								mst.setSelected(false);
@@ -118,7 +109,7 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 		}
 		finally {
 			if (marqueeSelection != null) {
-				getBNAModel().removeThing(marqueeSelection);
+				model.removeThing(marqueeSelection);
 				marqueeSelection = null;
 			}
 		}

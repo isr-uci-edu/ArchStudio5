@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
@@ -56,6 +57,10 @@ import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 
 public class ExportImportDot extends AbstractThingLogic implements IBNAMenuListener {
+
+	public ExportImportDot(IBNAWorld world) {
+		super(world);
+	}
 
 	private static class Node {
 		IThing thing;
@@ -122,7 +127,7 @@ public class ExportImportDot extends AbstractThingLogic implements IBNAMenuListe
 	}
 
 	@Override
-	public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+	synchronized public void fillMenu(final IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		menu.add(new Action("Layout using Dot") {
 			@Override
 			public void run() {

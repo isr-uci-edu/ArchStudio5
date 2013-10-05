@@ -24,12 +24,17 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 
 	static protected Set<IHasWorld> worldsBeingNotified = Sets.newHashSet();
 
-	protected ThingTypeTrackingLogic typeLogic = null;
+	protected final ThingTypeTrackingLogic typeLogic;
 	protected Map<IHasWorld, InternalModelListener> thingToListenerMap = new HashMap<IHasWorld, InternalModelListener>();
 
 	public static final IThingKey<Integer> INTERNAL_MODEL_CHANGE_TICKER = ThingKey.create("InternalChangeTicker");
 
-	public WorldThingInternalEventsLogic() {
+	public WorldThingInternalEventsLogic(IBNAWorld world) {
+		super(world);
+		typeLogic = logics.addThingLogic(ThingTypeTrackingLogic.class);
+		for (IHasWorld vt : typeLogic.getThings(IHasWorld.class)) {
+			addListener(vt);
+		}
 	}
 
 	class InternalModelListener implements IBNAModelListener {
@@ -73,30 +78,21 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 	}
 
 	@Override
-	protected void init() {
-		super.init();
-		typeLogic = addThingLogic(ThingTypeTrackingLogic.class);
-		for (IHasWorld vt : typeLogic.getThings(getBNAModel(), IHasWorld.class)) {
-			addListener(vt);
-		}
-	}
-
-	@Override
-	protected void destroy() {
+	synchronized public void dispose() {
 		for (IHasWorld vt : Lists.newArrayList(thingToListenerMap.keySet())) {
 			removeListener(vt);
 		}
 	}
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		if (evt.getTargetThing() != null && evt.getTargetThing() instanceof IHasWorld) {
 			IHasWorld vt = (IHasWorld) evt.getTargetThing();
 			switch (evt.getEventType()) {
 			case THING_ADDED:
 				addListener(vt);
 				break;
-			case THING_REMOVING:
+			case THING_REMOVED:
 				removeListener(vt);
 				break;
 			case THING_CHANGED:
@@ -130,8 +126,7 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 	}
 
 	protected void fireInternalBNAModelEvent(IHasWorld src, BNAModelEvent evt) {
-		for (IInternalBNAModelListener l : getBNAWorld().getThingLogicManager().getThingLogics(
-				IInternalBNAModelListener.class)) {
+		for (IInternalBNAModelListener l : logics.getThingLogics(IInternalBNAModelListener.class)) {
 			l.internalBNAModelChanged(src, evt);
 		}
 	}

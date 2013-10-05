@@ -1,6 +1,7 @@
 package org.archstudio.bna.utils;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import org.archstudio.bna.IThing;
@@ -11,6 +12,7 @@ import org.archstudio.bna.keys.CollectionThingKey;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 public class UserEditableUtils {
@@ -56,20 +58,20 @@ public class UserEditableUtils {
 		return true;
 	}
 
-	public static <T extends IThing> Iterable<T> getEditableForAllQualities(Iterable<T> things,
+	public static <T extends IThing> List<T> getEditableForAllQualities(Iterable<T> things,
 			final String... editableQualities) {
-		return Iterables.filter(things, new Predicate<IThing>() {
+		return Lists.newArrayList(Iterables.filter(things, new Predicate<IThing>() {
 
 			@Override
 			public boolean apply(IThing input) {
 				return isEditableForAllQualities(input, editableQualities);
 			}
-		});
+		}));
 	}
 
-	public static <T extends IThing> Iterable<T> getEditableForAllQualities(Iterable<IThing> things, Class<T> ofType,
+	public static <T extends IThing> List<T> getEditableForAllQualities(Iterable<IThing> things, Class<T> ofType,
 			final String... editableQualities) {
-		return Iterables.filter(getEditableForAllQualities(things, editableQualities), ofType);
+		return Lists.newArrayList(Iterables.filter(getEditableForAllQualities(things, editableQualities), ofType));
 	}
 
 	public static boolean isEditableForAnyQualities(IThing thing, final String... editableQualities) {
@@ -88,19 +90,18 @@ public class UserEditableUtils {
 		return false;
 	}
 
-	public static Iterable<IThing> getEditableForAnyQualities(Iterable<IThing> things,
-			final String... editableQualities) {
-		return Iterables.filter(things, new Predicate<IThing>() {
+	public static List<IThing> getEditableForAnyQualities(Iterable<IThing> things, final String... editableQualities) {
+		return Lists.newArrayList(Iterables.filter(things, new Predicate<IThing>() {
 
 			@Override
 			public boolean apply(IThing input) {
 				return isEditableForAnyQualities(input, editableQualities);
 			}
-		});
+		}));
 	}
 
-	public static <T extends IThing> Iterable<T> getEditableForAnyQualities(Iterable<IThing> things, Class<T> ofType,
+	public static <T extends IThing> List<T> getEditableForAnyQualities(List<IThing> things, Class<T> ofType,
 			final String... editableQualities) {
-		return Iterables.filter(getEditableForAnyQualities(things, editableQualities), ofType);
+		return Lists.newArrayList(Iterables.filter(getEditableForAnyQualities(things, editableQualities), ofType));
 	}
 }

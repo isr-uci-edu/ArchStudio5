@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingPeer;
@@ -40,28 +41,22 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 	private static final int STICK_DIST = 8;
 	private static final int UNSTICK_DIST = 8;
 
-	private final List<IReshapeSplineGuide> reshapeSplineGuides = Lists.newArrayList();
+	protected final DynamicStickPointLogic dynamicStickLogic;
+	protected final StickPointLogic stickLogic;
 
-	protected DynamicStickPointLogic dynamicStickLogic = null;
-	protected StickPointLogic stickLogic = null;
+	protected final List<IReshapeSplineGuide> reshapeSplineGuides = Lists.newArrayList();
+	private int potentialHandles = 0;
 
-	public ReshapeSplineLogic() {
-		super(IHasMutablePoints.class);
+	public ReshapeSplineLogic(IBNAWorld world) {
+		super(world, IHasMutablePoints.class);
+		dynamicStickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
+		stickLogic = logics.addThingLogic(StickPointLogic.class);
+		logics.addThingLogic(StandardCursorLogic.class);
 	}
 
-	@Override
-	protected void init() {
-		super.init();
-		dynamicStickLogic = addThingLogic(DynamicStickPointLogic.class);
-		stickLogic = addThingLogic(StickPointLogic.class);
-		addThingLogic(StandardCursorLogic.class);
-	}
-
-	public void addReshapeSplineGuides(IReshapeSplineGuide... guides) {
+	synchronized public void addReshapeSplineGuides(IReshapeSplineGuide... guides) {
 		reshapeSplineGuides.addAll(Arrays.asList(guides));
 	}
-
-	int potentialHandles = 0;
 
 	@Override
 	protected void addHandles() {
@@ -86,7 +81,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 				continue;
 			}
 
-			addHandle(Assemblies.createHandle(getBNAWorld(), null, null), i);
+			addHandle(Assemblies.createHandle(world, null, null), i);
 		}
 	}
 
@@ -110,8 +105,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		if (endpointKey != null) {
 			StickyMode stickyMode = reshapingThing.get(dynamicStickLogic.getStickyModeKey(endpointKey));
 			if (stickyMode != null && stickyMode.isStuckToCenterPoint()) {
-				IIsSticky stickyThing = dynamicStickLogic.getStickyThingKey(endpointKey).get(reshapingThing,
-						getBNAModel());
+				IIsSticky stickyThing = dynamicStickLogic.getStickyThingKey(endpointKey).get(reshapingThing, model);
 				if (stickyThing != null) {
 					point = BNAUtils.getCentralPoint(stickyThing);
 				}
@@ -142,8 +136,8 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 			}
 
 			// if moved close to a sticky thing, stick to it
-			for (IIsSticky stickyThing : Iterables.filter(Lists.reverse(getBNAModel().getAllThings()), IIsSticky.class)) {
-				if (stickyThing instanceof ReshapeHandleThing || stickyThing instanceof ReshapeHandleThing) {
+			for (IIsSticky stickyThing : Iterables.filter(Lists.reverse(model.getAllThings()), IIsSticky.class)) {
+				if (stickyThing instanceof ReshapeHandleThing) {
 					continue;
 				}
 				for (IReshapeSplineGuide guide : reshapeSplineGuides) {
@@ -236,7 +230,7 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 
 	@Override
 	protected Runnable takeSnapshot() {
-		final Object tID = this.reshapingThing.getID();
+		final Object reshapingThingID = reshapingThing.getID();
 		final List<Point> points = reshapingThing.getPoints();
 		final StickyMode stickToThingMode1 = reshapingThing.get(dynamicStickLogic
 				.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY));
@@ -249,8 +243,8 @@ public class ReshapeSplineLogic extends AbstractReshapeLogic<IHasMutablePoints, 
 		return new Runnable() {
 			@Override
 			public void run() {
-				IHasMutablePoints t = SystemUtils.castOrNull(getBNAModel().getThing(tID), IHasMutablePoints.class);
-				{
+				IHasMutablePoints t = SystemUtils.castOrNull(model.getThing(reshapingThingID), IHasMutablePoints.class);
+				if (t != null) {
 					t.setPoints(points);
 					t.set(dynamicStickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), stickToThingMode1);
 					t.set(dynamicStickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_1_KEY), stickToThingID1);

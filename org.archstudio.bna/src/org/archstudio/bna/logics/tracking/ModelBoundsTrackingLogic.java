@@ -1,11 +1,9 @@
 package org.archstudio.bna.logics.tracking;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IIsHidden;
@@ -14,27 +12,17 @@ import org.eclipse.swt.graphics.Rectangle;
 
 public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNAModelListener {
 
-	public static Rectangle getModelBounds(IBNAWorld world) {
-		IThingLogicManager tlm = world.getThingLogicManager();
-		ModelBoundsTrackingLogic mbtl = tlm.addThingLogic(ModelBoundsTrackingLogic.class);
-		return mbtl.getModelBounds();
-	}
-
-	protected ThingTypeTrackingLogic typeLogic = null;
+	protected final ThingTypeTrackingLogic typeLogic;
 
 	private Rectangle modelBounds = null;
 
-	public ModelBoundsTrackingLogic() {
+	public ModelBoundsTrackingLogic(IBNAWorld world) {
+		super(world);
+		typeLogic = logics.addThingLogic(ThingTypeTrackingLogic.class);
 	}
 
 	@Override
-	protected void init() {
-		super.init();
-		typeLogic = addThingLogic(ThingTypeTrackingLogic.class);
-	}
-
-	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
@@ -117,40 +105,37 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 		assert Thread.holdsLock(this);
 
 		if (modelBounds == null) {
-			IBNAModel m = getBNAModel();
-			if (m != null) {
-				int x1 = Integer.MAX_VALUE;
-				int y1 = Integer.MAX_VALUE;
-				int x2 = Integer.MIN_VALUE;
-				int y2 = Integer.MIN_VALUE;
+			int x1 = Integer.MAX_VALUE;
+			int y1 = Integer.MAX_VALUE;
+			int x2 = Integer.MIN_VALUE;
+			int y2 = Integer.MIN_VALUE;
 
-				boolean foundSomething = false;
-				for (IHasBoundingBox t : typeLogic.getThings(m, IHasBoundingBox.class)) {
-					if (!Boolean.TRUE.equals(t.get(IIsHidden.HIDDEN_KEY))) {
-						Rectangle bb = t.getBoundingBox();
-						if (bb != null) {
-							if (bb.width <= 0 || bb.height <= 0) {
-								continue;
-							}
-							foundSomething = true;
-							if (bb.x < x1) {
-								x1 = bb.x;
-							}
-							if (bb.y < y1) {
-								y1 = bb.y;
-							}
-							if (bb.x + bb.width > x2) {
-								x2 = bb.x + bb.width;
-							}
-							if (bb.y + bb.height > y2) {
-								y2 = bb.y + bb.height;
-							}
+			boolean foundSomething = false;
+			for (IHasBoundingBox t : typeLogic.getThings(IHasBoundingBox.class)) {
+				if (!Boolean.TRUE.equals(t.get(IIsHidden.HIDDEN_KEY))) {
+					Rectangle bb = t.getBoundingBox();
+					if (bb != null) {
+						if (bb.width <= 0 || bb.height <= 0) {
+							continue;
+						}
+						foundSomething = true;
+						if (bb.x < x1) {
+							x1 = bb.x;
+						}
+						if (bb.y < y1) {
+							y1 = bb.y;
+						}
+						if (bb.x + bb.width > x2) {
+							x2 = bb.x + bb.width;
+						}
+						if (bb.y + bb.height > y2) {
+							y2 = bb.y + bb.height;
 						}
 					}
 				}
-				if (foundSomething) {
-					modelBounds = new Rectangle(x1, y1, x2 - x1, y2 - y1);
-				}
+			}
+			if (foundSomething) {
+				modelBounds = new Rectangle(x1, y1, x2 - x1, y2 - y1);
 			}
 		}
 	}

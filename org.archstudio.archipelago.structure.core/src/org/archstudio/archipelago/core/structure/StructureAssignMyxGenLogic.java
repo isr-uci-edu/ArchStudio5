@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -57,13 +58,14 @@ public class StructureAssignMyxGenLogic extends AbstractThingLogic implements IB
 
 	protected final IXArchADT xarch;
 
-	public StructureAssignMyxGenLogic(IXArchADT xarch) {
+	public StructureAssignMyxGenLogic(IBNAWorld world, IXArchADT xarch) {
+		super(world);
 		this.xarch = xarch;
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
-		IThing thing = Assemblies.getThingWithProperty(getBNAModel(), firstOrNull(things), IHasObjRef.OBJREF_KEY);
+	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+		IThing thing = Assemblies.getThingWithProperty(model, firstOrNull(things), IHasObjRef.OBJREF_KEY);
 		if (thing != null) {
 			final ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);
 			if (objRef != null) {

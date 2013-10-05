@@ -5,6 +5,7 @@ import java.util.List;
 import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.structure.core.Activator;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMutableAlpha;
@@ -31,19 +32,15 @@ import org.eclipse.swt.graphics.Point;
 
 public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineThing> implements IPropertyChangeListener {
 
-	SynchronizeThingIDAndObjRefLogic syncLogic = null;
-	DynamicStickPointLogic stickLogic = null;
+	protected final SynchronizeThingIDAndObjRefLogic syncLogic;
+	protected final DynamicStickPointLogic stickLogic;
 
-	public MapLinkLogic(IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
-		super(xarch, rootObjRef, objRefPath);
-	}
+	protected int defaultLineWidth;
 
-	@Override
-	public void init() {
-		super.init();
-
-		syncLogic = addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
-		stickLogic = addThingLogic(DynamicStickPointLogic.class);
+	public MapLinkLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
+		super(world, xarch, rootObjRef, objRefPath);
+		syncLogic = logics.addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
+		stickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), Assemblies.TEXT_KEY, true);
@@ -54,26 +51,39 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineThing> implem
 		syncValue("point2", null, null, BNAPath.create(),
 				syncLogic.syncObjRefKeyToThingIDKey(stickLogic.getStickyThingKey(IHasEndpoints.ENDPOINT_2_KEY)), true);
 
+		loadPreferences();
+
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
 
 	@Override
-	public void destroy() {
+	synchronized public void dispose() {
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 
-		super.destroy();
+		super.dispose();
+	}
+
+	protected void loadPreferences() {
+		defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
+	}
+
+	@Override
+	synchronized public void propertyChange(PropertyChangeEvent event) {
+		loadPreferences();
+
+		for (SplineThing thing : getAddedThings()) {
+			thing.setLineWidth(defaultLineWidth);
+		}
 	}
 
 	@Override
 	protected SplineThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
-		int defaultLineWidth = Math.max(1, org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH));
-
-		SplineThing thing = Assemblies.createSpline(getBNAWorld(), null, null);
-		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(getBNAWorld().getBNAModel());
+		SplineThing thing = Assemblies.createSpline(world, null, null);
+		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(model);
 		thing.setPoint(0, new Point(newPointSpot.x - 50, newPointSpot.y + 50));
 		thing.setPoint(-1, new Point(newPointSpot.x + 50, newPointSpot.y - 50));
 		thing.setLineWidth(defaultLineWidth);
@@ -90,15 +100,5 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineThing> implem
 		thing.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_2_KEY), StickyMode.EDGE_FROM_CENTER);
 
 		return thing;
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent event) {
-		int defaultLineWidth = Math.max(1, org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH));
-
-		for (SplineThing thing : getAddedThings()) {
-			thing.setLineWidth(defaultLineWidth);
-		}
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IRelativeMovable;
@@ -21,13 +22,14 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 
 	DragMoveEvent currentEvent = null;
 
-	public DragMoveEventsLogic() {
+	public DragMoveEventsLogic(IBNAWorld world) {
+		super(world);
 	}
 
 	@Override
-	public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (evt.button == 1 && (evt.stateMask & SWT.MODIFIER_MASK) == 0) {
-			IRelativeMovable relativeMovableThing = Assemblies.getEditableThing(getBNAModel(), firstOrNull(t),
+			IRelativeMovable relativeMovableThing = Assemblies.getEditableThing(model, firstOrNull(t),
 					IRelativeMovable.class, IRelativeMovable.USER_MAY_MOVE);
 			if (relativeMovableThing != null) {
 				view.getComposite().setCursor(view.getComposite().getDisplay().getSystemCursor(SWT.CURSOR_HAND));
@@ -39,7 +41,7 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (currentEvent != null) {
 			fireDragMoveEvent(currentEvent = new DragMoveEvent(currentEvent, evt, DefaultCoordinate.forLocal(new Point(
 					evt.x, evt.y), view.getCoordinateMapper())));
@@ -47,7 +49,7 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (currentEvent != null) {
 			view.getComposite().setCursor(view.getComposite().getDisplay().getSystemCursor(SWT.CURSOR_ARROW));
 			fireDragFinishedEvent(currentEvent = new DragMoveEvent(currentEvent, evt, DefaultCoordinate.forLocal(
@@ -57,19 +59,19 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	protected void fireDragStartedEvent(DragMoveEvent evt) {
-		for (IDragMoveListener logic : getBNAWorld().getThingLogicManager().getThingLogics(IDragMoveListener.class)) {
+		for (IDragMoveListener logic : logics.getThingLogics(IDragMoveListener.class)) {
 			logic.dragStarted(evt);
 		}
 	}
 
 	protected void fireDragMoveEvent(DragMoveEvent evt) {
-		for (IDragMoveListener logic : getBNAWorld().getThingLogicManager().getThingLogics(IDragMoveListener.class)) {
+		for (IDragMoveListener logic : logics.getThingLogics(IDragMoveListener.class)) {
 			logic.dragMoved(evt);
 		}
 	}
 
 	protected void fireDragFinishedEvent(DragMoveEvent evt) {
-		for (IDragMoveListener logic : getBNAWorld().getThingLogicManager().getThingLogics(IDragMoveListener.class)) {
+		for (IDragMoveListener logic : logics.getThingLogics(IDragMoveListener.class)) {
 			logic.dragFinished(evt);
 		}
 	}

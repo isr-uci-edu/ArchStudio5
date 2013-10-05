@@ -1,7 +1,7 @@
 package org.archstudio.bna.logics.editing;
 
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -16,45 +16,45 @@ import org.eclipse.swt.graphics.Point;
 
 public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListener {
 
+	public KeyNudgerLogic(IBNAWorld world) {
+		super(world);
+	}
+
 	@Override
-	public void keyPressed(IBNAView view, KeyEvent e) {
+	synchronized public void keyPressed(IBNAView view, KeyEvent e) {
 		if (e.keyCode == SWT.ARROW_LEFT || e.keyCode == SWT.ARROW_UP || e.keyCode == SWT.ARROW_DOWN
 				|| e.keyCode == SWT.ARROW_RIGHT) {
-			IBNAModel model = getBNAModel();
-			if (model != null) {
-				model.beginBulkChange();
-				try {
-					Orientation o = orientationForKeyCode(e.keyCode);
-					int gridSpacing = GridUtils.getGridSpacing(getBNAModel());
-					int distance = gridSpacing == 0 ? 5 : gridSpacing;
+			model.beginBulkChange();
+			try {
+				Orientation o = orientationForKeyCode(e.keyCode);
+				int gridSpacing = GridUtils.getGridSpacing(model);
+				int distance = gridSpacing == 0 ? 5 : gridSpacing;
 
-					boolean nudged = false;
-					Runnable undoRunnable = BNAOperations.takeSnapshotOfLocations(getBNAModel(),
-							BNAUtils.getSelectedThings(getBNAModel()));
-					for (IThing t : BNAUtils.getSelectedThings(getBNAModel())) {
-						if (t instanceof IRelativeMovable) {
-							nudged = true;
-							nudge(o, distance, (IRelativeMovable) t);
-							//if(gridSpacing != 0){
-							//	GridUtils.rectifyToGrid(gridSpacing, (IRelativeMovable)t);
-							//}
-						}
-					}
-					if (nudged) {
-						Runnable redoRunnable = BNAOperations.takeSnapshotOfLocations(getBNAModel(),
-								BNAUtils.getSelectedThings(getBNAModel()));
-						BNAOperations.runnable("Nudge", undoRunnable, redoRunnable, false);
+				boolean nudged = false;
+				Runnable undoRunnable = BNAOperations.takeSnapshotOfLocations(model, BNAUtils.getSelectedThings(model));
+				for (IThing t : BNAUtils.getSelectedThings(model)) {
+					if (t instanceof IRelativeMovable) {
+						nudged = true;
+						nudge(o, distance, (IRelativeMovable) t);
+						//if(gridSpacing != 0){
+						//	GridUtils.rectifyToGrid(gridSpacing, (IRelativeMovable)t);
+						//}
 					}
 				}
-				finally {
-					model.endBulkChange();
+				if (nudged) {
+					Runnable redoRunnable = BNAOperations.takeSnapshotOfLocations(model,
+							BNAUtils.getSelectedThings(model));
+					BNAOperations.runnable("Nudge", undoRunnable, redoRunnable, false);
 				}
+			}
+			finally {
+				model.endBulkChange();
 			}
 		}
 	}
 
 	@Override
-	public void keyReleased(IBNAView view, KeyEvent e) {
+	synchronized public void keyReleased(IBNAView view, KeyEvent e) {
 	}
 
 	private Orientation orientationForKeyCode(int keyCode) {

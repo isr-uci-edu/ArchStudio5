@@ -2,13 +2,13 @@ package org.archstudio.bna.logics.coordinating;
 
 import java.util.List;
 
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasHorizontalAlignment;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasVerticalAlignment;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
 import org.eclipse.swt.graphics.Point;
@@ -17,14 +17,16 @@ import com.google.common.base.Function;
 
 public class OrientTextLogic extends AbstractThingLogic {
 
-	public OrientTextLogic() {
+	protected final MirrorValueLogic mirrorLogic;
+
+	public OrientTextLogic(IBNAWorld world) {
+		super(world);
+		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
 	}
 
-	public void orientText(IHasEndpoints pointsThing, final IHasText orientationThing) {
+	synchronized public void orientText(IHasEndpoints pointsThing, final IHasText orientationThing) {
 
-		MirrorValueLogic mvl = getBNAWorld().getThingLogicManager().addThingLogic(MirrorValueLogic.class);
-
-		mvl.mirrorValue(pointsThing, IHasPoints.POINTS_KEY, orientationThing,
+		mirrorLogic.mirrorValue(pointsThing, IHasPoints.POINTS_KEY, orientationThing,
 				IHasHorizontalAlignment.HORIZONTAL_ALIGNMENT_KEY, new Function<List<Point>, HorizontalAlignment>() {
 					@Override
 					public HorizontalAlignment apply(List<Point> points) {
@@ -43,7 +45,7 @@ public class OrientTextLogic extends AbstractThingLogic {
 					}
 				});
 
-		mvl.mirrorValue(pointsThing, IHasPoints.POINTS_KEY, orientationThing,
+		mirrorLogic.mirrorValue(pointsThing, IHasPoints.POINTS_KEY, orientationThing,
 				IHasVerticalAlignment.VERTICAL_ALIGNMENT_KEY, new Function<List<Point>, VerticalAlignment>() {
 					@Override
 					public VerticalAlignment apply(List<Point> points) {

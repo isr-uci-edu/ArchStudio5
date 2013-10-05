@@ -5,6 +5,7 @@ import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasFlow;
@@ -22,14 +23,16 @@ import com.google.common.collect.Iterables;
 
 public class EditFlowLogic extends AbstractThingLogic implements IBNAMenuListener {
 
-	public EditFlowLogic() {
+	public EditFlowLogic(IBNAWorld world) {
+		super(world);
 	}
 
 	@Override
-	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
+	synchronized public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location,
+			IMenuManager menu) {
 		IHasMutableFlow editThing = null;
 		if (Iterables.size(BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel())) <= 1) {
-			editThing = Assemblies.getEditableThing(getBNAModel(), firstOrNull(things), IHasMutableFlow.class,
+			editThing = Assemblies.getEditableThing(model, firstOrNull(things), IHasMutableFlow.class,
 					IHasMutableFlow.USER_MAY_EDIT_FLOW);
 		}
 		final IHasMutableFlow finalThing = editThing;
@@ -40,7 +43,7 @@ public class EditFlowLogic extends AbstractThingLogic implements IBNAMenuListene
 
 					@Override
 					public void run() {
-						BNAOperations.set("Direction", getBNAModel(), finalThing, IHasFlow.FLOW_KEY, f);
+						BNAOperations.set("Direction", model, finalThing, IHasFlow.FLOW_KEY, f);
 					}
 				});
 			}

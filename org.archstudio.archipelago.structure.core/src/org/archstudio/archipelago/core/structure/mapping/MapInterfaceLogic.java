@@ -7,6 +7,7 @@ import java.util.List;
 import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.structure.core.Activator;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasFlow;
@@ -70,23 +71,19 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		};
 	};
 
-	SynchronizeThingIDAndObjRefLogic syncLogic = null;
-	ReparentToThingIDLogic reparentLogic = null;
-	ReorientToThingIDLogic reorientLogic = null;
-	DynamicStickPointLogic stickLogic = null;
+	protected final SynchronizeThingIDAndObjRefLogic syncLogic;
+	protected final ReparentToThingIDLogic reparentLogic;
+	protected final ReorientToThingIDLogic reorientLogic;
+	protected final DynamicStickPointLogic stickLogic;
 
-	public MapInterfaceLogic(IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
-		super(xarch, rootObjRef, objRefPath);
-	}
+	protected int defaultLineWidth;
 
-	@Override
-	public void init() {
-		super.init();
-
-		syncLogic = addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
-		reparentLogic = addThingLogic(ReparentToThingIDLogic.class);
-		reorientLogic = addThingLogic(ReorientToThingIDLogic.class);
-		stickLogic = addThingLogic(DynamicStickPointLogic.class);
+	public MapInterfaceLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
+		super(world, xarch, rootObjRef, objRefPath);
+		syncLogic = logics.addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
+		reparentLogic = logics.addThingLogic(ReparentToThingIDLogic.class);
+		reorientLogic = logics.addThingLogic(ReorientToThingIDLogic.class);
+		stickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
 
 		syncValue("direction", DIRECTION_TO_FLOW, Flow.NONE, BNAPath.create(Assemblies.DIRECTION_KEY),
 				IHasFlow.FLOW_KEY, true);
@@ -96,44 +93,57 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 				DOMAIN_TO_STICKY_MODE, null, BNAPath.create(Assemblies.BACKGROUND_KEY),
 				stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), false);
 
+		loadPreferences();
+
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
 
 	@Override
-	public void destroy() {
+	synchronized public void dispose() {
 		Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().removePropertyChangeListener(this);
 
-		super.destroy();
+		super.dispose();
+	}
+
+	protected void loadPreferences() {
+		defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
+				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
+	}
+
+	@Override
+	synchronized public void propertyChange(PropertyChangeEvent event) {
+		loadPreferences();
+
+		for (EndpointGlassThing thing : getAddedThings()) {
+			Assemblies.BACKGROUND_KEY.get(thing, model).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
+		}
 	}
 
 	@Override
 	protected EndpointGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
-		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
-
-		EndpointGlassThing thing = Assemblies.createEndpoint(getBNAWorld(), null, null);
-		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(getBNAWorld().getBNAModel());
+		EndpointGlassThing thing = Assemblies.createEndpoint(world, null, null);
+		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(model);
 		thing.setAnchorPoint(newPointSpot);
 
-		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
+		Assemblies.BACKGROUND_KEY.get(thing, model).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 
 		UserEditableUtils.addEditableQualities(thing, IRelativeMovable.USER_MAY_MOVE,
 				HighlightLogic.USER_MAY_HIGHLIGHT, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG,
 				IHasToolTip.USER_MAY_EDIT_TOOL_TIP, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
-		UserEditableUtils.addEditableQualities(Assemblies.DIRECTION_KEY.get(thing, getBNAModel()),
+		UserEditableUtils.addEditableQualities(Assemblies.DIRECTION_KEY.get(thing, model),
 				IHasMutableFlow.USER_MAY_EDIT_FLOW);
 
 		/*
 		 * restack on top of the thing representing the first ancestor (i.e., the component or connector)
 		 */
-		Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(
+		Assemblies.BACKGROUND_KEY.get(thing, model).set(
 				syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingIDKey()), relLineageRefs.get(1));
 
 		/* orient to the parent thing */
-		Assemblies.DIRECTION_KEY.get(thing, getBNAModel()).set(
+		Assemblies.DIRECTION_KEY.get(thing, model).set(
 				syncLogic.syncObjRefKeyToThingIDKey(reorientLogic.getReorientToThingKey()), relLineageRefs.get(1));
 
 		thing.set(stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), StickyMode.EDGE);
@@ -141,15 +151,5 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 				relLineageRefs.get(1));
 
 		return thing;
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent event) {
-		int defaultLineWidth = org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore()
-				.getInt(ArchipelagoConstants.PREF_LINE_WIDTH);
-
-		for (EndpointGlassThing thing : getAddedThings()) {
-			Assemblies.BACKGROUND_KEY.get(thing, getBNAModel()).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
-		}
 	}
 }

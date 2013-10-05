@@ -68,7 +68,6 @@ import org.eclipse.swt.widgets.Widget;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -1107,18 +1106,8 @@ public class BNAUtils {
 		}
 	};
 
-	public static final Iterable<Object> getThingIDs(Iterable<? extends IThing> things) {
-		return Iterables.transform(things, thingToIDFunction);
-	}
-
-	public static final Iterable<IThing> getThings(final IBNAModel model, Iterable<Object> thingIDs) {
-		return Iterables.filter(Iterables.transform(thingIDs, new Function<Object, IThing>() {
-
-			@Override
-			public IThing apply(Object input) {
-				return model.getThing(input);
-			}
-		}), Predicates.notNull());
+	public static final List<Object> getThingIDs(Iterable<? extends IThing> things) {
+		return Lists.newArrayList(Iterables.transform(things, thingToIDFunction));
 	}
 
 	public static final void union(Rectangle result, Rectangle other) {

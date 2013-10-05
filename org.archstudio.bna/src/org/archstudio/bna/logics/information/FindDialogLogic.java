@@ -3,6 +3,7 @@ package org.archstudio.bna.logics.information;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -25,12 +26,13 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 	protected IFinder<IBNAView> finder = null;
 	protected FindDialog<IBNAView> fd = null;
 
-	public FindDialogLogic(IFinder<IBNAView> finder) {
+	public FindDialogLogic(IBNAWorld world, IFinder<IBNAView> finder) {
+		super(world);
 		this.finder = finder;
 	}
 
 	@Override
-	public void keyPressed(IBNAView view, KeyEvent e) {
+	synchronized public void keyPressed(IBNAView view, KeyEvent e) {
 		//Only respond if we are the top-level view.
 		if (view.getParentView() == null) {
 			//102 == f
@@ -41,11 +43,12 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 	}
 
 	@Override
-	public void keyReleased(IBNAView view, KeyEvent e) {
+	synchronized public void keyReleased(IBNAView view, KeyEvent e) {
 	}
 
 	@Override
-	public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location, IMenuManager menu) {
+	synchronized public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location,
+			IMenuManager menu) {
 		if (view.getParentView() == null) {
 			IAction findAction = new Action("Find...") {
 
@@ -60,7 +63,7 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 		}
 	}
 
-	public void showFindDialog(IBNAView view, int localX, int localY) {
+	synchronized public void showFindDialog(IBNAView view, int localX, int localY) {
 		if (fd != null && fd.getShell() != null && !fd.getShell().isDisposed()) {
 			fd.getParent().setActive();
 			fd.getParent().setFocus();

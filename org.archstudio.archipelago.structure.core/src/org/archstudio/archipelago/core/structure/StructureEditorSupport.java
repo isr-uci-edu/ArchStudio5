@@ -92,7 +92,7 @@ import org.eclipse.swt.widgets.Composite;
 public class StructureEditorSupport {
 
 	//For tree node cache
-	public static final String BNA_WORLD_KEY = "bnaWorld";
+	public static final String BNA_WORLD_KEY = "world";
 
 	//For editor pane properties
 	public static final String EDITING_BNA_COMPOSITE_KEY = "bnaComposite";
@@ -116,8 +116,8 @@ public class StructureEditorSupport {
 
 		ObjRef documentRootRef = xarch.getDocumentRootRef(structureRef);
 
-		final IBNAWorld bnaWorld = setupWorld(services, xarch, documentRootRef, structureRef);
-		if (bnaWorld == null) {
+		final IBNAWorld world = setupWorld(services, xarch, documentRootRef, structureRef);
+		if (world == null) {
 			return;
 		}
 
@@ -128,7 +128,7 @@ public class StructureEditorSupport {
 		fl.type = SWT.HORIZONTAL;
 		parentComposite.setLayout(fl);
 
-		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, bnaWorld);
+		final BNACanvas bnaCanvas = new BNACanvas(parentComposite, SWT.V_SCROLL | SWT.H_SCROLL, world);
 		bnaCanvas.setBackground(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
 		final EnvironmentPropertiesThing ept = BNAUtils.getEnvironmentPropertiesThing(bnaCanvas.getBNAView()
@@ -163,7 +163,7 @@ public class StructureEditorSupport {
 						prefs.getBoolean(ArchipelagoConstants.PREF_DECORATIVE_GRAPHICS));
 				BNARenderingSettings.setDisplayShadows(bnaCanvas,
 						prefs.getBoolean(ArchipelagoConstants.PREF_DISPLAY_SHADOWS));
-				GridThing gridThing = (GridThing) bnaWorld.getBNAModel().getThing(GridThing.class);
+				GridThing gridThing = (GridThing) world.getBNAModel().getThing(GridThing.class);
 				if (gridThing != null) {
 					gridThing.setGridSpacing(prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING));
 					gridThing.setGridDisplayType(GridDisplayType.valueOf(prefs
@@ -191,10 +191,10 @@ public class StructureEditorSupport {
 
 	public static IBNAWorld setupWorld(Services services, IXArchADT xarch, ObjRef documentRootRef, ObjRef structureRef) {
 		if (services.has(IArchipelagoTreeNodeDataCache.class)) {
-			IBNAWorld bnaWorld = (IBNAWorld) services.get(IArchipelagoTreeNodeDataCache.class).getData(documentRootRef,
+			IBNAWorld world = (IBNAWorld) services.get(IArchipelagoTreeNodeDataCache.class).getData(documentRootRef,
 					structureRef, BNA_WORLD_KEY);
-			if (bnaWorld != null) {
-				return bnaWorld;
+			if (world != null) {
+				return world;
 			}
 		}
 
@@ -203,76 +203,76 @@ public class StructureEditorSupport {
 			return null;
 		}
 		IBNAModel bnaModel = new DefaultBNAModel();
-		IBNAWorld bnaWorld = new DefaultBNAWorld("structure", bnaModel);
+		IBNAWorld world = new DefaultBNAWorld("structure", bnaModel);
 		if (services.has(IArchipelagoTreeNodeDataCache.class)) {
 			services.get(IArchipelagoTreeNodeDataCache.class).setData(documentRootRef, structureRef, BNA_WORLD_KEY,
-					bnaWorld);
+					world);
 		}
 
 		// ArchipelagoUtils.applyGridPreferences(AS, bnaModel);
 
-		setupWorld(services, xarch, documentRootRef, structureRef, bnaWorld);
+		setupWorld(services, xarch, documentRootRef, structureRef, world);
 
-		//AS.eventBus.fireArchipelagoEvent(new StructureEvents.WorldCreatedEvent(structureRef, bnaWorld));
+		//AS.eventBus.fireArchipelagoEvent(new StructureEvents.WorldCreatedEvent(structureRef, world));
 
-		return bnaWorld;
+		return world;
 	}
 
 	static void setupWorld(Services services, IXArchADT xarch, ObjRef documentRootRef, ObjRef structureRef,
-			IBNAWorld bnaWorld) {
-		IThingLogicManager logicManager = bnaWorld.getThingLogicManager();
-		ProxyLogic logicProxy = logicManager.addThingLogic(new ProxyLogic());
+			IBNAWorld world) {
+		IThingLogicManager logics = world.getThingLogicManager();
+		ProxyLogic proxyLogic = logics.addThingLogic(ProxyLogic.class);
 
-		logicManager.addThingLogic(new SynchronizeHintsLogic(logicProxy.addObject(new XadlHintRepository(xarch))));
+		logics.addThingLogic(new SynchronizeHintsLogic(world, proxyLogic.addObject(new XadlHintRepository(xarch))));
 
-		bnaWorld.getBNAModel().addThing(new GridThing());
-		bnaWorld.getBNAModel().addThing(new ShadowThing());
+		world.getBNAModel().addThing(new GridThing());
+		world.getBNAModel().addThing(new ShadowThing());
 
 		// these logics need to be first
 
-		logicManager.addThingLogic(new SnapToGridLogic());
+		logics.addThingLogic(SnapToGridLogic.class);
 
 		// generic logics -- alphabetized
 
-		logicManager.addThingLogic(new ClickSelectionLogic());
-		logicManager.addThingLogic(new DecorateChangesLogic((IXArchADTVariability) xarch));
-		logicManager.addThingLogic(new DragMovableLogic());
-		logicManager.addThingLogic(new KeyNudgerLogic());
-		logicManager.addThingLogic(new LifeSapperLogic());
-		logicManager.addThingLogic(new MarqueeSelectionLogic());
-		logicManager.addThingLogic(new MousePanAndZoomLogic());
-		logicManager.addThingLogic(new ReshapeRectangleLogic());
-		logicManager.addThingLogic(new ReshapeSplineLogic()).addReshapeSplineGuides(
+		logics.addThingLogic(ClickSelectionLogic.class);
+		logics.addThingLogic(new DecorateChangesLogic(world, (IXArchADTVariability) xarch));
+		logics.addThingLogic(DragMovableLogic.class);
+		logics.addThingLogic(KeyNudgerLogic.class);
+		logics.addThingLogic(LifeSapperLogic.class);
+		logics.addThingLogic(MarqueeSelectionLogic.class);
+		logics.addThingLogic(MousePanAndZoomLogic.class);
+		logics.addThingLogic(ReshapeRectangleLogic.class);
+		logics.addThingLogic(ReshapeSplineLogic.class).addReshapeSplineGuides(
 				new XadlReshapeSplineGuide(xarch, Structure_3_0Package.Literals.LINK,
 						Structure_3_0Package.Literals.INTERFACE, -1, 0));
-		logicManager.addThingLogic(new RotatingOffsetLogic());
-		logicManager.addThingLogic(new SplineBreakLogic());
-		logicManager.addThingLogic(new StandardCursorLogic());
-		logicManager.addThingLogic(new StructureDropLogic(services, documentRootRef));
-		logicManager.addThingLogic(new ToolTipLogic());
-		logicManager.addThingLogic(HighlightLogic.class);
+		logics.addThingLogic(RotatingOffsetLogic.class);
+		logics.addThingLogic(SplineBreakLogic.class);
+		logics.addThingLogic(StandardCursorLogic.class);
+		logics.addThingLogic(new StructureDropLogic(world, services, documentRootRef));
+		logics.addThingLogic(ToolTipLogic.class);
+		logics.addThingLogic(HighlightLogic.class);
 
 		// menu logics -- order dictates menu order
 
-		logicManager.addThingLogic(new StructureNewElementLogic(xarch, services.get(IResources.class), structureRef));
-		logicManager.addThingLogic(new StructureNewInterfaceLogic(xarch, services.get(IResources.class)));
-		logicManager.addThingLogic(new StructureNewInterfaceMappingLogic(xarch, services.get(IResources.class)));
-		logicManager.addThingLogic(new EditTextLogic());
-		logicManager.addThingLogic(new StructureEditColorLogic(xarch));
-		logicManager.addThingLogic(new EditFlowLogic());
-		logicManager.addThingLogic(new StructureAssignMyxGenLogic(xarch));
-		//logicManager.addThingLogic(new StructureEditColorLogic(AS));
-		logicManager.addThingLogic(new ShowHideTagsLogic());
-		logicManager.addThingLogic(new FindDialogLogic(new ArchipelagoFinder(xarch, services.get(IResources.class))));
-		logicManager.addThingLogic(new XadlCopyPasteLogic(xarch, services.get(IArchipelagoEditorPane.class)
+		logics.addThingLogic(new StructureNewElementLogic(world, xarch, services.get(IResources.class), structureRef));
+		logics.addThingLogic(new StructureNewInterfaceLogic(world, xarch, services.get(IResources.class)));
+		logics.addThingLogic(new StructureNewInterfaceMappingLogic(world, xarch, services.get(IResources.class)));
+		logics.addThingLogic(EditTextLogic.class);
+		logics.addThingLogic(new StructureEditColorLogic(world, xarch));
+		logics.addThingLogic(EditFlowLogic.class);
+		logics.addThingLogic(new StructureAssignMyxGenLogic(world, xarch));
+		//logics.addThingLogic(new StructureEditColorLogic(AS));
+		logics.addThingLogic(ShowHideTagsLogic.class);
+		logics.addThingLogic(new FindDialogLogic(world, new ArchipelagoFinder(xarch, services.get(IResources.class))));
+		logics.addThingLogic(new XadlCopyPasteLogic(world, xarch, services.get(IArchipelagoEditorPane.class)
 				.getActionBars()));
-		logicManager.addThingLogic(new RemoveElementLogic(xarch));
-		logicManager.addThingLogic(new RotaterLogic());
-		logicManager.addThingLogic(new AlignAndDistributeLogic());
-		logicManager.addThingLogic(new RectifyToGridLogic());
-		logicManager.addThingLogic(new StructureGraphLayoutLogic(xarch, services.get(IResources.class), services
+		logics.addThingLogic(new RemoveElementLogic(world, xarch));
+		logics.addThingLogic(RotaterLogic.class);
+		logics.addThingLogic(AlignAndDistributeLogic.class);
+		logics.addThingLogic(RectifyToGridLogic.class);
+		logics.addThingLogic(new StructureGraphLayoutLogic(world, xarch, services.get(IResources.class), services
 				.get(IGraphLayout.class), structureRef));
-		logicManager.addThingLogic(new ExportImportGexf() {
+		logics.addThingLogic(new ExportImportGexf(world) {
 			@Override
 			protected boolean isNodeOfInterest(IBNAModel model, IThing node) {
 				return Assemblies.getEditableThing(model, node, IHasMutableBoundingBox.class,
@@ -288,7 +288,7 @@ public class StructureEditorSupport {
 				return brick;
 			}
 		});
-		logicManager.addThingLogic(new ExportImportDot() {
+		logics.addThingLogic(new ExportImportDot(world) {
 			@Override
 			protected boolean isNodeOfInterest(IBNAModel model, IThing node) {
 				return Assemblies.getEditableThing(model, node, IHasMutableBoundingBox.class,
@@ -304,36 +304,34 @@ public class StructureEditorSupport {
 				return brick;
 			}
 		});
-		logicManager.addThingLogic(new ViewAllLogic());
-		logicManager.addThingLogic(ExportImageLogic.class);
+		logics.addThingLogic(ViewAllLogic.class);
+		logics.addThingLogic(ExportImageLogic.class);
 
 		// xADL mapping logics
 
-		logicManager.addThingLogic(new MapBrickLogic(services, xarch, structureRef,
+		logics.addThingLogic(new MapBrickLogic(world, services, xarch, structureRef,
 				"component", //
 				new Dimension(120, 80), ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_COLOR, 2,
 				ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_FONT));
-		logicManager.addThingLogic(new MapInterfaceLogic(xarch, structureRef, "component/interface"));
-		logicManager
-				.addThingLogic(new MapMappingsLogic(xarch, structureRef, "component/subStructure/interfaceMapping"));
+		logics.addThingLogic(new MapInterfaceLogic(world, xarch, structureRef, "component/interface"));
+		logics.addThingLogic(new MapMappingsLogic(world, xarch, structureRef, "component/subStructure/interfaceMapping"));
 
-		logicManager.addThingLogic(new MapBrickLogic(services, xarch, structureRef,
+		logics.addThingLogic(new MapBrickLogic(world, services, xarch, structureRef,
 				"connector", //
 				new Dimension(240, 36), ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_COLOR, 1,
 				ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_FONT));
-		logicManager.addThingLogic(new MapInterfaceLogic(xarch, structureRef, "connector/interface"));
-		logicManager
-				.addThingLogic(new MapMappingsLogic(xarch, structureRef, "connector/subStructure/interfaceMapping"));
+		logics.addThingLogic(new MapInterfaceLogic(world, xarch, structureRef, "connector/interface"));
+		logics.addThingLogic(new MapMappingsLogic(world, xarch, structureRef, "connector/subStructure/interfaceMapping"));
 
-		logicManager.addThingLogic(new MapLinkLogic(xarch, structureRef, "link"));
+		logics.addThingLogic(new MapLinkLogic(world, xarch, structureRef, "link"));
 
 		// propagate external events logics
 
 		final MyxRegistry myxRegistry = MyxRegistry.getSharedInstance();
 		final IMyxBrick brick = myxRegistry.waitForBrick(ArchipelagoMyxComponent.class);
-		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTModelListener.class));
-		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTFileListener.class));
-		myxRegistry.map(brick, logicProxy.getProxyForInterface(IXArchADTVariabilityListener.class));
+		myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTModelListener.class));
+		myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTFileListener.class));
+		myxRegistry.map(brick, proxyLogic.getProxyForInterface(IXArchADTVariabilityListener.class));
 
 		// these logics need to be last
 	}

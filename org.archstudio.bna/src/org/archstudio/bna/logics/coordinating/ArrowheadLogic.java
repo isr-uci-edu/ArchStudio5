@@ -6,6 +6,7 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -69,17 +70,18 @@ public class ArrowheadLogic extends AbstractThingLogic implements IBNAModelListe
 
 	Multimap<Object, MaintainArrowhead> maintainArrowheads = ArrayListMultimap.create();
 
-	public ArrowheadLogic() {
+	public ArrowheadLogic(IBNAWorld world) {
+		super(world);
 	}
 
-	public void point(ArrowheadThing arrowheadThing, IHasEndpoints pointsThing, IThingKey<Point> endpoint) {
+	synchronized public void point(ArrowheadThing arrowheadThing, IHasEndpoints pointsThing, IThingKey<Point> endpoint) {
 		MaintainArrowhead ma = new MaintainArrowhead(pointsThing.getID(), endpoint, arrowheadThing.getID());
 		maintainArrowheads.put(pointsThing.getID(), ma);
-		ma.apply(getBNAModel());
+		ma.apply(model);
 	}
 
 	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
 			for (MaintainArrowhead maintainArrowhead : maintainArrowheads.get(thingEvent.getTargetThing().getID())) {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -31,14 +32,15 @@ public class NewElementLogic extends AbstractThingLogic implements IBNAMenuListe
 	protected final IResources resources;
 	protected final ObjRef structureRef;
 
-	public NewElementLogic(IXArchADT xarch, IResources resources, ObjRef structureRef) {
+	public NewElementLogic(IBNAWorld world, IXArchADT xarch, IResources resources, ObjRef structureRef) {
+		super(world);
 		this.xarch = xarch;
 		this.resources = resources;
 		this.structureRef = structureRef;
 	}
 
 	@Override
-	public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
+	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager m) {
 		if (things.size() == 0) {
 			Point world = location.getWorldPoint();
 			for (IAction action : getActions(view, SystemUtils.firstOrNull(things), world.x, world.y)) {

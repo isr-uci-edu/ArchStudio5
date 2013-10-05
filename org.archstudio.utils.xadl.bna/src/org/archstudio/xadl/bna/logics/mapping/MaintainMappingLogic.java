@@ -8,7 +8,6 @@ import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
-import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasInternalWorldEndpoint;
 import org.archstudio.bna.facets.IHasWorld;
@@ -32,22 +31,16 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 	public static final IThingMetakey<String, IThingKey<Point>, ObjRef> INTERNAL_OBJREF_KEY = ThingMetakey.create(
 			".internalObjRef", IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_KEY);
 
-	ThingValueTrackingLogic thingValueTrackingLogic = null;
+	protected final ThingValueTrackingLogic valueLogic;
 
-	public MaintainMappingLogic() {
+	public MaintainMappingLogic(IBNAWorld world) {
+		super(world);
+		this.valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
+		logics.addThingLogic(WorldThingInternalEventsLogic.class);
 	}
 
 	@Override
-	protected void init() {
-		super.init();
-		IThingLogicManager tlm = getBNAWorld().getThingLogicManager();
-		this.thingValueTrackingLogic = tlm.addThingLogic(ThingValueTrackingLogic.class);
-		// listen to internal world events
-		tlm.addThingLogic(WorldThingInternalEventsLogic.class);
-	}
-
-	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing t = evt.getTargetThing();
@@ -74,7 +67,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 	}
 
 	@Override
-	public void internalBNAModelChanged(IHasWorld src, BNAModelEvent evt) {
+	synchronized public void internalBNAModelChanged(IHasWorld src, BNAModelEvent evt) {
 
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
@@ -104,17 +97,15 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 	}
 
 	private void updateThing(MappingThing t) {
-		IHasWorld worldThing = castOrNull(getBNAModel().getThing(t.getInternalEndpointWorldThingID()), IHasWorld.class);
+		IHasWorld worldThing = castOrNull(model.getThing(t.getInternalEndpointWorldThingID()), IHasWorld.class);
 		if (worldThing != null) {
 			IBNAWorld iWorld = worldThing.getWorld();
 			if (iWorld != null) {
 				ObjRef objRef = t.get(INTERNAL_OBJREF_KEY);
 				if (objRef != null) {
-					ThingValueTrackingLogic iThingValueTrackingLogic = iWorld.getThingLogicManager().addThingLogic(
+					ThingValueTrackingLogic iValueLogic = iWorld.getThingLogicManager().addThingLogic(
 							ThingValueTrackingLogic.class);
-					IIsSticky iThing = castOrNull(
-							firstOrNull(iWorld.getBNAModel().getThingsByID(
-									iThingValueTrackingLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef))),
+					IIsSticky iThing = castOrNull(firstOrNull(iValueLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef)),
 							IIsSticky.class);
 					if (iThing != null) {
 						t.set(INTERNAL_THING_KEY, iThing.getID());
@@ -127,16 +118,14 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 
 	protected void updateObjRef(IHasWorld worldThing, Object innerThingId, ObjRef oldObjRef, ObjRef newObjRef) {
 		if (oldObjRef != null) {
-			for (IThing t : getBNAModel().getThingsByID(
-					thingValueTrackingLogic.getThingIDs(INTERNAL_OBJREF_KEY, oldObjRef,
-							IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY, worldThing.getID()))) {
+			for (IThing t : valueLogic.getThings(INTERNAL_OBJREF_KEY, oldObjRef,
+					IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY, worldThing.getID())) {
 				t.set(INTERNAL_THING_KEY, null);
 			}
 		}
 		if (newObjRef != null) {
-			for (IThing t : getBNAModel().getThingsByID(
-					thingValueTrackingLogic.getThingIDs(INTERNAL_OBJREF_KEY, newObjRef,
-							IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY, worldThing.getID()))) {
+			for (IThing t : valueLogic.getThings(INTERNAL_OBJREF_KEY, newObjRef,
+					IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY, worldThing.getID())) {
 				t.set(INTERNAL_THING_KEY, innerThingId);
 			}
 		}
@@ -145,9 +134,8 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 	private void updateEndpoint(IHasWorld worldThing, IThing changedThing) {
 		if (changedThing instanceof IIsSticky) {
 			Point endpoint = BNAUtils.getCentralPoint(changedThing);
-			for (IThing t : getBNAModel().getThingsByID(
-					thingValueTrackingLogic.getThingIDs(INTERNAL_THING_KEY, changedThing.getID(),
-							IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY, worldThing.getID()))) {
+			for (IThing t : valueLogic.getThings(INTERNAL_THING_KEY, changedThing.getID(),
+					IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY, worldThing.getID())) {
 				t.set(IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_KEY, endpoint);
 			}
 		}

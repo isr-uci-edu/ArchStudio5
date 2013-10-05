@@ -3,6 +3,7 @@ package org.archstudio.bna.logics.coordinating;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
@@ -16,21 +17,19 @@ public class ReorientToThingIDLogic extends AbstractThingLogic implements IBNAMo
 	public static final IThingRefKey<IHasBoundingBox> REORIENT_TO_THING_KEY = ThingRefKey
 			.create(ReorientToThingIDLogic.class);
 
-	public IThingRefKey<IHasBoundingBox> getReorientToThingKey() {
+	protected final OrientDirectionalLabelLogic orientLogic;
+
+	public ReorientToThingIDLogic(IBNAWorld world) {
+		super(world);
+		orientLogic = logics.addThingLogic(OrientDirectionalLabelLogic.class);
+	}
+
+	synchronized public IThingRefKey<IHasBoundingBox> getReorientToThingKey() {
 		return REORIENT_TO_THING_KEY;
 	}
 
-	OrientDirectionalLabelLogic orientLogic = null;
-
 	@Override
-	protected void init() {
-		super.init();
-
-		orientLogic = addThingLogic(OrientDirectionalLabelLogic.class);
-	}
-
-	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			reorientThing(evt.getSource(), evt.getTargetThing());

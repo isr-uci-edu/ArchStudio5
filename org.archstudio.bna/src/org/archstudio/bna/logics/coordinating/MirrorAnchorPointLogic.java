@@ -1,5 +1,6 @@
 package org.archstudio.bna.logics.coordinating;
 
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -9,19 +10,16 @@ import com.google.common.base.Function;
 
 public class MirrorAnchorPointLogic extends AbstractThingLogic {
 
-	private MirrorValueLogic mvl;
+	protected final MirrorValueLogic mirrorLogic;
 
-	public MirrorAnchorPointLogic() {
+	public MirrorAnchorPointLogic(IBNAWorld world) {
+		super(world);
+		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
 	}
 
-	@Override
-	protected void init() {
-		super.init();
-		mvl = addThingLogic(MirrorValueLogic.class);
-	}
-
-	public void mirrorAnchorPoint(IHasAnchorPoint fromThing, IHasMutableAnchorPoint toThing, final Point deltaPoint) {
-		mvl.mirrorValue(fromThing, IHasAnchorPoint.ANCHOR_POINT_KEY, toThing, IHasAnchorPoint.ANCHOR_POINT_KEY,
+	synchronized public void mirrorAnchorPoint(IHasAnchorPoint fromThing, IHasMutableAnchorPoint toThing,
+			final Point deltaPoint) {
+		mirrorLogic.mirrorValue(fromThing, IHasAnchorPoint.ANCHOR_POINT_KEY, toThing, IHasAnchorPoint.ANCHOR_POINT_KEY,
 				new Function<Point, Point>() {
 
 					@Override
@@ -31,8 +29,8 @@ public class MirrorAnchorPointLogic extends AbstractThingLogic {
 				});
 	}
 
-	public void unmirrorAnchorPoint(IHasMutableAnchorPoint toThing) {
-		mvl.unmirror(toThing, IHasAnchorPoint.ANCHOR_POINT_KEY);
+	synchronized public void unmirrorAnchorPoint(IHasMutableAnchorPoint toThing) {
+		mirrorLogic.unmirror(toThing, IHasAnchorPoint.ANCHOR_POINT_KEY);
 	}
 
 }

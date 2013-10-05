@@ -4,6 +4,7 @@ import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -24,30 +25,26 @@ public class DynamicStickPointLogic extends AbstractThingLogic implements IBNAMo
 	private static final String STICKY_MODE_KEY_NAME = ".stickyMode";
 	private static final String STICKY_THING_ID_KEY_NAME = ".&stickyThingID";
 
-	ThingReferenceTrackingLogic trtl = null;
-	StickPointLogic spl = null;
+	protected final ThingReferenceTrackingLogic referenceLogic;
+	protected final StickPointLogic stickLogic;
 
-	public DynamicStickPointLogic() {
+	public DynamicStickPointLogic(IBNAWorld world) {
+		super(world);
+		referenceLogic = logics.addThingLogic(ThingReferenceTrackingLogic.class);
+		stickLogic = logics.addThingLogic(StickPointLogic.class);
 	}
 
-	@Override
-	protected void init() {
-		super.init();
-		trtl = addThingLogic(ThingReferenceTrackingLogic.class);
-		spl = addThingLogic(StickPointLogic.class);
-	}
-
-	public IThingKey<StickyMode> getStickyModeKey(IThingKey<Point> pointKey) {
+	synchronized public IThingKey<StickyMode> getStickyModeKey(IThingKey<Point> pointKey) {
 		return ThingMetakey.create(STICKY_MODE_KEY_NAME, pointKey);
 	}
 
-	public IThingRefKey<IIsSticky> getStickyThingKey(IThingKey<Point> pointKey) {
+	synchronized public IThingRefKey<IIsSticky> getStickyThingKey(IThingKey<Point> pointKey) {
 		return ThingRefMetakey.create(STICKY_THING_ID_KEY_NAME, pointKey);
 	}
 
 	@Override
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		ThingEvent thingEvent = evt.getThingEvent();
 		if (thingEvent != null) {
 			IThing thing = thingEvent.getTargetThing();
@@ -72,13 +69,14 @@ public class DynamicStickPointLogic extends AbstractThingLogic implements IBNAMo
 				if (thing instanceof IIsSticky) {
 					// a sticky thing's been added, update any points stuck to it
 					IIsSticky stickyThing = (IIsSticky) thing;
-					for (ThingReferenceTrackingLogic.Reference reference : trtl.getReferences(stickyThing.getID())) {
+					for (ThingReferenceTrackingLogic.Reference reference : referenceLogic.getReferences(stickyThing
+							.getID())) {
 						IThingRefKey refKey = reference.getFromKey();
 						if (refKey instanceof IThingRefMetakey) {
 							IThingRefMetakey refKeyKey = (IThingRefMetakey) refKey;
 							if (STICKY_THING_ID_KEY_NAME.equals(refKeyKey.getName())) {
 								// a dynamic sticky point thing is referring to this sticky thing
-								IThing pointThing = getBNAModel().getThing(reference.getFromThingID());
+								IThing pointThing = model.getThing(reference.getFromThingID());
 								if (pointThing instanceof IHasShapeKeys) {
 									updateStuckPoint(evt.getSource(), (IHasShapeKeys) pointThing, refKeyKey.getKey());
 								}
@@ -94,10 +92,10 @@ public class DynamicStickPointLogic extends AbstractThingLogic implements IBNAMo
 		StickyMode stickyMode = pointThing.get(getStickyModeKey(pointKey));
 		IIsSticky stickyThing = getStickyThingKey(pointKey).get(pointThing, model);
 		if (stickyMode != null && stickyThing != null) {
-			spl.stick(pointThing, pointKey, stickyMode, stickyThing);
+			stickLogic.stick(pointThing, pointKey, stickyMode, stickyThing);
 		}
 		else {
-			spl.unstick(pointThing, pointKey);
+			stickLogic.unstick(pointThing, pointKey);
 		}
 	}
 }

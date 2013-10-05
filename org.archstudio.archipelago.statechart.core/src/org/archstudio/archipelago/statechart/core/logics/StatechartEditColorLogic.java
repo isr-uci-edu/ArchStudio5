@@ -5,6 +5,7 @@ import java.util.List;
 import org.archstudio.archipelago.statechart.core.Activator;
 import org.archstudio.archipelago.statechart.core.StatechartConstants;
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasColor;
@@ -25,8 +26,8 @@ public class StatechartEditColorLogic extends EditColorLogic {
 
 	protected final IXArchADT xarch;
 
-	public StatechartEditColorLogic(IXArchADT xarch) {
-		super();
+	public StatechartEditColorLogic(IBNAWorld world, IXArchADT xarch) {
+		super(world);
 		this.xarch = xarch;
 	}
 
@@ -40,7 +41,7 @@ public class StatechartEditColorLogic extends EditColorLogic {
 				@Override
 				public void run() {
 					for (IHasMutableColor t : editableColoredThings) {
-						IThing root = Assemblies.getThingWithProperty(getBNAModel(), t, IHasObjRef.OBJREF_KEY);
+						IThing root = Assemblies.getThingWithProperty(model, t, IHasObjRef.OBJREF_KEY);
 						if (root != null) {
 							ObjRef objRef = root.get(IHasObjRef.OBJREF_KEY);
 							if (objRef != null) {
