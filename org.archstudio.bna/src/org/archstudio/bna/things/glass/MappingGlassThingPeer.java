@@ -4,12 +4,10 @@ import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
-import javax.media.opengl.GL2;
-
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.Resources;
 import org.archstudio.bna.things.AbstractMappingThingPeer;
+import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -21,10 +19,10 @@ public class MappingGlassThingPeer<T extends MappingGlassThing> extends Abstract
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
+	public boolean draw(Rectangle localBounds, IUIResources r) {
 		IBNAView iView = BNAUtils.getInternalView(view, t.getInternalEndpointWorldThingID());
 		if (iView == null || !t.isSelected()) {
-			return;
+			return false;
 		}
 
 		Point lp1 = view.getCoordinateMapper().worldToLocal(t.getAnchorPoint());
@@ -33,6 +31,8 @@ public class MappingGlassThingPeer<T extends MappingGlassThing> extends Abstract
 
 		Shape localShape = new Line2D.Float(lp1.x, lp1.y, lp2.x, lp2.y);
 
-		BNAUtils.renderShapeSelected(gl, localBounds, localShape, t.getRotatingOffset());
+		r.selectShape(localShape, t.getRotatingOffset());
+
+		return true;
 	}
 }

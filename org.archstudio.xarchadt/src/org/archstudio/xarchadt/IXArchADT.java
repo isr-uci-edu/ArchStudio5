@@ -17,9 +17,6 @@ import org.xml.sax.SAXException;
 @NonNullByDefault
 public interface IXArchADT extends IXArchADTQuery {
 
-	@Nullable
-	public ObjRef lookupObjRefUID(long uid);
-
 	public ObjRef createDocument(URI uri);
 
 	public ObjRef createDocument(URI uri, String nsURI);

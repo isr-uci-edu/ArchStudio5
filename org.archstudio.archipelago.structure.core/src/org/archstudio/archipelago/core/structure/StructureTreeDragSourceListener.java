@@ -10,7 +10,6 @@ import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSourceEvent;
 import org.eclipse.swt.dnd.DragSourceListener;
 
@@ -42,7 +41,6 @@ public class StructureTreeDragSourceListener implements DragSourceListener {
 						if (editingRef != null) {
 							if (XadlUtils.isInstanceOf(xarch, editingRef, Structure_3_0Package.Literals.STRUCTURE)) {
 								event.doit = true;
-								event.detail = DND.DROP_LINK;
 							}
 						}
 					}

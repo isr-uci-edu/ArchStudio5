@@ -34,7 +34,6 @@ import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -138,7 +137,7 @@ public class ArchipelagoUtils {
 
 	public static final String EDITOR_PANE_PROPERTY_BNA_COMPOSITE = "bnaCanvas";
 
-	public static void setBNACanvas(IArchipelagoEditorPane editorPane, Canvas bnaCanvas) {
+	public static void setBNACanvas(IArchipelagoEditorPane editorPane, BNACanvas bnaCanvas) {
 		editorPane.setProperty(EDITOR_PANE_PROPERTY_BNA_COMPOSITE, bnaCanvas);
 	}
 

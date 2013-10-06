@@ -1,6 +1,5 @@
 package org.archstudio.bna.things.labels;
 
-import org.archstudio.bna.constants.IFontConstants;
 import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
@@ -34,7 +33,7 @@ public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implemen
 	protected void initProperties() {
 		setText("");
 		setColor(new RGB(0, 0, 0));
-		setFontName(IFontConstants.DEFAULT_FONT_NAME);
+		setFontName(null);
 		setFontSize(10);
 		setDontIncreaseFontSize(Boolean.TRUE);
 		setFontStyle(FontStyle.NORMAL);

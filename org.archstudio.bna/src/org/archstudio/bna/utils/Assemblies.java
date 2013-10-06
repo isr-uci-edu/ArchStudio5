@@ -35,7 +35,7 @@ import org.archstudio.bna.logics.coordinating.MirrorBoundingBoxLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.coordinating.OrientDirectionalLabelLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
-import org.archstudio.bna.logics.coordinating.WorldThingExternalEventsLogic;
+import org.archstudio.bna.logics.events.WorldThingExternalEventsLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.labels.ArrowheadThing;
 import org.archstudio.bna.things.labels.BoundedLabelThing;
@@ -207,7 +207,7 @@ public final class Assemblies {
 		for (IEntry entry : root.entries()) {
 			if (entry.getKey() instanceof IThingRefKey) {
 				IThing t = model.getThing(entry.getValue());
-				if (t != null && t.has(ROOT_KEY, root.getUID())) {
+				if (t != null && t.has(ROOT_KEY, root.getID())) {
 					allParts.put((IThingRefKey<?>) entry.getKey(), t);
 				}
 			}
@@ -375,40 +375,27 @@ public final class Assemblies {
 		return null;
 	}
 
-	public static final Object BASE_LAYER_THING_ID = new Object();
-	public static final Object SPLINE_LAYER_THING_ID = new Object();
-	public static final Object MIDDLE_LAYER_THING_ID = new Object();
-	public static final Object ARROWHEAD_LAYER_THING_ID = new Object();
-	public static final Object TOP_LAYER_THING_ID = new Object();
-
-	public static final IThing initLayer(IBNAModel model, Object layerThingID, IThing parentThing) {
-		synchronized (model) {
-			IThing noThing = model.getThing(layerThingID);
-			if (noThing == null) {
-				model.addThing(new NoThing(layerThingID), parentThing);
-			}
-			return noThing;
-		}
-	}
-
-	@SuppressWarnings("unused")
-	private static final void initLayers(IBNAModel model) {
-		synchronized (model) {
-			if (model.getThing(BASE_LAYER_THING_ID) != null) {
-				return;
-			}
-
-			IThing baseLayerThing = initLayer(model, BASE_LAYER_THING_ID, null);
-			IThing splineLayerThing = initLayer(model, SPLINE_LAYER_THING_ID, baseLayerThing);
-			IThing middleLayerThing = initLayer(model, MIDDLE_LAYER_THING_ID, baseLayerThing);
-			IThing arrowheadLayerThing = initLayer(model, ARROWHEAD_LAYER_THING_ID, baseLayerThing);
-			IThing topLayerThing = initLayer(model, TOP_LAYER_THING_ID, baseLayerThing);
-		}
+	public static enum Layer {
+		BASE, SPLINE, MIDDLE, ARROWHEAD, TOP
 	}
 
 	public static final IThing getLayer(IBNAModel model, Object layerThingID) {
-		initLayers(model);
-		return model.getThing(layerThingID);
+		IThing layerThing = model.getThing(layerThingID);
+		if (layerThing == null) {
+			synchronized (model) {
+				layerThing = model.getThing(layerThingID);
+				if (layerThing == null) {
+					for (Object layerID : Layer.values()) {
+						model.addThing(new NoThing(layerID));
+					}
+					layerThing = model.getThing(layerThingID);
+				}
+			}
+		}
+		if (layerThing == null) {
+			throw new IllegalArgumentException("Unknown layer: " + layerThingID);
+		}
+		return layerThing;
 	}
 
 	public static final IThingRefKey<IThing> BACKGROUND_KEY = ThingRefKey.create("assembly-background");
@@ -423,8 +410,8 @@ public final class Assemblies {
 
 		IBNAModel model = world.getBNAModel();
 
-		EllipseThing bkg = model.addThing(new EllipseThing(id),
-				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
+		EllipseThing bkg = model
+				.addThing(new EllipseThing(id), parent != null ? parent : getLayer(model, Layer.MIDDLE));
 		BoundedLabelThing label = model.addThing(new BoundedLabelThing(null), bkg);
 
 		markRoot(bkg);
@@ -446,7 +433,7 @@ public final class Assemblies {
 		IBNAModel model = world.getBNAModel();
 
 		RectangleThing bkg = model.addThing(new RectangleThing(id),
-				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
+				parent != null ? parent : getLayer(model, Layer.MIDDLE));
 		BoundedLabelThing label = model.addThing(new BoundedLabelThing(null), bkg);
 
 		markRoot(bkg);
@@ -489,8 +476,8 @@ public final class Assemblies {
 
 		IBNAModel model = world.getBNAModel();
 
-		PolygonThing bkg = model.addThing(new PolygonThing(id),
-				parent != null ? parent : getLayer(model, MIDDLE_LAYER_THING_ID));
+		PolygonThing bkg = model
+				.addThing(new PolygonThing(id), parent != null ? parent : getLayer(model, Layer.MIDDLE));
 
 		markRoot(bkg);
 
@@ -504,7 +491,7 @@ public final class Assemblies {
 		IBNAModel model = world.getBNAModel();
 
 		RectangleThing bkg = model.addThing(new RectangleThing(null),
-				parent != null ? parent : getLayer(model, TOP_LAYER_THING_ID));
+				parent != null ? parent : getLayer(model, Layer.TOP));
 		bkg.setColor(new RGB(255, 255, 255));
 		bkg.setSecondaryColor(null);
 		DirectionalLabelThing direction = model.addThing(new DirectionalLabelThing(null), bkg);
@@ -540,8 +527,8 @@ public final class Assemblies {
 
 		IBNAModel model = world.getBNAModel();
 
-		SplineThing bkg = model.addThing(new SplineThing(null),
-				parent != null ? parent : getLayer(model, SPLINE_LAYER_THING_ID));
+		SplineThing bkg = model
+				.addThing(new SplineThing(null), parent != null ? parent : getLayer(model, Layer.SPLINE));
 
 		markRoot(bkg);
 
@@ -557,7 +544,7 @@ public final class Assemblies {
 		IBNAModel model = world.getBNAModel();
 
 		ArrowheadThing arrowheadThing = model.addThing(new ArrowheadThing(id),
-				parent != null ? parent : getLayer(model, ARROWHEAD_LAYER_THING_ID));
+				parent != null ? parent : getLayer(model, Layer.ARROWHEAD));
 
 		markRoot(splineThing);
 		markPart(splineThing, endpointKey == IHasEndpoints.ENDPOINT_1_KEY ? ARROWHEAD_1_KEY : ARROWHEAD_2_KEY,
@@ -581,8 +568,8 @@ public final class Assemblies {
 
 		IBNAModel model = world.getBNAModel();
 
-		MappingThing bkg = model.addThing(new MappingThing(id),
-				parent != null ? parent : getLayer(model, SPLINE_LAYER_THING_ID));
+		MappingThing bkg = model
+				.addThing(new MappingThing(id), parent != null ? parent : getLayer(model, Layer.SPLINE));
 
 		markRoot(bkg);
 

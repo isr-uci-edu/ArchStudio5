@@ -2,12 +2,10 @@ package org.archstudio.bna.things.glass;
 
 import java.awt.Shape;
 
-import javax.media.opengl.GL2;
-
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.Resources;
 import org.archstudio.bna.things.AbstractPreciselyAnchoredShapeThingPeer;
+import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -19,11 +17,19 @@ public class PreciselyAnchoredShapeGlassThingPeer<T extends PreciselyAnchoredSha
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
+	public boolean draw(Rectangle localBounds, IUIResources r) {
+		if (!t.isSelected()) {
+			return false;
+		}
 
 		Shape localShape = createLocalShape();
 
-		BNAUtils.renderShapeSelected(gl, localBounds, localShape, t.getRotatingOffset());
-	}
+		if (!localBounds.intersects(BNAUtils.toRectangle(localShape.getBounds()))) {
+			return false;
+		}
 
+		r.selectShape(localShape, t.getRotatingOffset());
+
+		return true;
+	}
 }

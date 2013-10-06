@@ -45,7 +45,7 @@ public class ObjRefPatternMatchListenerDelegate implements IPatternMatchListener
 						IXArchADT xarch = SystemUtils.firstOrNull(MyxRegistry.getSharedInstance().getObjects(brick,
 								IXArchADT.class));
 						if (xarch != null) {
-							ObjRef objRef = xarch.lookupObjRefUID(uid);
+							ObjRef objRef = ObjRef.lookupObjRef(uid);
 							if (objRef != null) {
 								((IFocusEditorListener) e).focusEditor(new ObjRef[] { objRef });
 							}

@@ -9,6 +9,7 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasAngle;
 import org.archstudio.bna.facets.IHasMutableAngle;
@@ -16,11 +17,11 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.things.labels.AnchoredLabelThing;
 import org.archstudio.bna.things.utility.RotaterThing;
+import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAMouseListener;
+import org.archstudio.bna.ui.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.IBNAMenuListener;
-import org.archstudio.bna.utils.IBNAMouseListener;
-import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -55,7 +56,7 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 
 				@Override
 				public void run() {
-					rt = view.getBNAWorld().getBNAModel().addThing(new RotaterThing(null), tt);
+					rt = view.getBNAWorld().getBNAModel().insertThing(new RotaterThing(null), tt);
 					rt.setAngle(tt.getAngle());
 					mirrorLogic.mirrorValue(tt, IHasAnchorPoint.ANCHOR_POINT_KEY, rt);
 					mirrorLogic.mirrorValue(rt, IHasAngle.ANGLE_KEY, tt);
@@ -67,7 +68,8 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
+			ICoordinate location) {
 		if (evt.button == 1) {
 			if (rt != null) {
 				Point lap = view.getCoordinateMapper().worldToLocal(rt.getAnchorPoint());
@@ -85,7 +87,7 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (pressed) {
 			originalThing.set(IHasAngle.ANGLE_KEY, originalValue);
 			BNAOperations.set("Rotate", model, originalThing, IHasAngle.ANGLE_KEY, rt.get(IHasAngle.ANGLE_KEY));
@@ -94,7 +96,8 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
+			ICoordinate location) {
 		if (pressed) {
 			Point anchorPointWorld = rt.getAnchorPoint();
 

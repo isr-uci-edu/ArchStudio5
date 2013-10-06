@@ -1,132 +1,117 @@
 package org.archstudio.bna.things.labels;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.Resources;
 import org.archstudio.bna.facets.IHasColor;
+import org.archstudio.bna.facets.peers.IHasLocalBounds;
 import org.archstudio.bna.things.AbstractAnchorPointThingPeer;
-import org.archstudio.bna.utils.TextUtils;
+import org.archstudio.bna.ui.IUIResources;
+import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends AbstractAnchorPointThingPeer<T> {
+public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends AbstractAnchorPointThingPeer<T> implements
+		IHasLocalBounds {
 
 	Shape lastTextLocalShape = null;
-	int SPACING = 2;
+	int SPACING = 4;
 
 	public AnchoredLabelThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
 		super(thing, view, cm);
 	}
 
-	protected static int calculateFontSize(ICoordinateMapper cm, int origFontSize, boolean dontIncreaseFontSize) {
-		double scale = cm.getLocalScale();
-		double nfs = origFontSize;
-		if (dontIncreaseFontSize) {
-			if (scale < 1.0d) {
-				nfs = origFontSize * scale;
-			}
-		}
-		else {
-			nfs = origFontSize * scale;
-		}
-		return (int) nfs;
-	}
-
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
-		if ("".equals(t.getText().trim())) {
-			return;
+	public boolean draw(Rectangle localBounds, IUIResources r) {
+		String text = t.getText().trim();
+		if (text.length() == 0) {
+			return false;
 		}
 
-		lastTextLocalShape = null;
 		if (r.setColor(t, IHasColor.COLOR_KEY)) {
-			String text = t.getText();
+
 			Point lap = cm.worldToLocal(t.getAnchorPoint());
 			Point ip = t.getIndicatorPoint();
 			Point lip = ip != null ? cm.worldToLocal(ip) : null;
-			int fontSize = calculateFontSize(view.getCoordinateMapper(), t.getFontSize(), t.getDontIncreaseFontSize());
-			Font font = r.getFont(t, fontSize);
+			Font font = r.getFont(t, t.getFontSize());
 			int angle = t.getAngle();
 
-			TextUtils textUtils = r.getTextUtils();
-			lastTextLocalShape = font.getStringBounds(text, textUtils.getFontRenderContext());
-			float descent = font.getLineMetrics(text, textUtils.getFontRenderContext()).getDescent();
-			Rectangle2D bounds = lastTextLocalShape.getBounds2D();
+			Dimension size = r.getTextSize(font, text);
 
-			double offsetX = 0;
+			double offsetX = -size.width / 2;
 			switch (t.getHorizontalAlignment()) {
 			case LEFT:
-				offsetX -= bounds.getWidth() / 2;
+				offsetX -= size.width / 2;
 				break;
 			case CENTER:
 				break;
 			case RIGHT:
-				offsetX += bounds.getWidth() / 2;
+				offsetX += size.width / 2;
 				break;
 			}
 
-			double offsetY = 0;
+			double offsetY = -size.height / 2;
 			switch (t.getVerticalAlignment()) {
 			case TOP:
-				offsetY -= bounds.getHeight() / 2;
+				offsetY -= size.height / 2;
 				break;
 			case MIDDLE:
 				break;
 			case BOTTOM:
-				offsetY += bounds.getHeight() / 2;
+				offsetY += size.height / 2;
 				break;
 			}
 
-			GeneralPath path = new GeneralPath(lastTextLocalShape);
-			path.transform(AffineTransform.getTranslateInstance(-bounds.getWidth() / 2 + offsetX, bounds.getHeight()
-					/ 2 + offsetY - descent));
-			Rectangle2D pathR = path.getBounds2D();
-			Point2D lap2d1 = new Point2D.Double(pathR.getMinX() - SPACING, pathR.getCenterY());
-			Point2D lap2d2 = new Point2D.Double(pathR.getMaxX() + SPACING, pathR.getCenterY());
-
+			Rectangle2D bounds = new Rectangle2D.Double(offsetX, offsetY, size.width, size.height);
 			AffineTransform transform = new AffineTransform();
 			transform.translate(lap.x, lap.y);
 			transform.rotate(Math.PI * angle / 180);
-			path.transform(transform);
-			lastTextLocalShape = path;
+			Path2D boundsPath = new Path2D.Double(bounds);
+			boundsPath.transform(transform);
+			lastTextLocalShape = boundsPath;
 
-			if (lip != null && r.setLineStyle(t)) {
-				transform.transform(lap2d1, lap2d1);
-				transform.transform(lap2d2, lap2d2);
-				double dist1 = Point2D.distance(lap2d1.getX(), lap2d1.getY(), lip.x, lip.y);
-				double dist2 = Point2D.distance(lap2d2.getX(), lap2d2.getY(), lip.x, lip.y);
-				gl.glBegin(GL.GL_LINE_STRIP);
-				if (dist1 < dist2) {
-					gl.glVertex2d(lap2d1.getX() + 0.5d, localBounds.height - lap2d1.getY() + 0.5d);
-				}
-				else {
-					gl.glVertex2d(lap2d2.getX() + 0.5d, localBounds.height - lap2d2.getY() + 0.5d);
-				}
-				gl.glVertex2i(lip.x, localBounds.height - lip.y);
-				gl.glEnd();
-				r.resetLineStyle();
+			r.pushMatrix(lap.x, lap.y, Math.PI * angle / 180);
+			try {
+				r.setColor(t, IHasColor.COLOR_KEY);
+				r.drawText(font, text, offsetX, offsetY);
+			}
+			finally {
+				r.popMatrix();
 			}
 
-			gl.glPushMatrix();
-			gl.glTranslated(lap.x, localBounds.height - lap.y, 0);
-			gl.glRotated(-angle, 0, 0, 1);
-			textUtils.beginRendering();
-			textUtils.draw(font, text, (int) (-bounds.getWidth() / 2 + offsetX), (int) (-bounds.getHeight() / 2
-					- offsetY + descent));
-			textUtils.endRendering(gl, localBounds);
-			gl.glPopMatrix();
+			if (lip != null && r.setLineStyle(t)) {
+				Point2D lap2d1 = new Point2D.Double(bounds.getMinX() - SPACING, bounds.getCenterY());
+				Point2D lap2d2 = new Point2D.Double(bounds.getMaxX() + SPACING, bounds.getCenterY());
+				Point2D lip2D = BNAUtils.toPoint2D(lip);
+				transform.transform(lap2d1, lap2d1);
+				transform.transform(lap2d2, lap2d2);
+				double dist1 = lap2d1.distance(lip2D);
+				double dist2 = lap2d2.distance(lip2D);
+				Point2D fromPoint = dist1 < dist2 ? lap2d1 : lap2d2;
+				Line2D.Double line = new Line2D.Double(fromPoint, lip2D);
+				r.drawShape(line);
+				r.resetLineStyle();
+			}
 		}
+
+		return true;
+	}
+
+	@Override
+	public Rectangle getLocalBounds() {
+		if (lastTextLocalShape != null) {
+			return BNAUtils.toRectangle(lastTextLocalShape.getBounds2D());
+		}
+		return null;
 	}
 
 	@Override

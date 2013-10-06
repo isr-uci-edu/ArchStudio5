@@ -3,13 +3,10 @@ package org.archstudio.bna.things.borders;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 
-import javax.media.opengl.GL2;
-
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.Resources;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
-import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.ui.IUIResources;
 import org.eclipse.swt.graphics.Rectangle;
 
 public class MarqueeBoxBorderThingPeer<T extends MarqueeBoxBorderThing> extends AbstractRectangleThingPeer<T> {
@@ -19,14 +16,16 @@ public class MarqueeBoxBorderThingPeer<T extends MarqueeBoxBorderThing> extends 
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
+	public boolean draw(Rectangle localBounds, IUIResources r) {
 		Rectangle lbb = cm.worldToLocal(t.getBoundingBox());
 		if (!localBounds.intersects(lbb)) {
-			return;
+			return false;
 		}
 
 		Shape localShape = new Rectangle2D.Double(lbb.x, lbb.y, lbb.width, lbb.height);
 
-		BNAUtils.renderShapeSelected(gl, localBounds, localShape, t.getRotatingOffset());
+		r.selectShape(localShape, t.getRotatingOffset());
+
+		return true;
 	}
 }

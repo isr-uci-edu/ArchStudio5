@@ -59,7 +59,7 @@ public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<FinalStateThi
 		Point newPointSpot = ArchipelagoUtils.findOpenSpotForNewThing(world);
 
 		FinalStateThing thing = model.addThing(new FinalStateThing(null),
-				Assemblies.getLayer(model, Assemblies.MIDDLE_LAYER_THING_ID));
+				Assemblies.getLayer(model, Assemblies.Layer.MIDDLE));
 		thing.setBoundingBox(new Rectangle(newPointSpot.x - defaultSize.width / 2, newPointSpot.y - defaultSize.height
 				/ 2, defaultSize.width, defaultSize.height));
 

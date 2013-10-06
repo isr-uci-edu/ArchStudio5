@@ -8,11 +8,12 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.facets.IHasStandardCursor;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.ui.IBNAMouseListener;
+import org.archstudio.bna.ui.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.Assemblies;
-import org.archstudio.bna.utils.IBNAMouseListener;
-import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Control;
@@ -27,18 +28,18 @@ public class StandardCursorLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		isDown = true;
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		isDown = false;
 		updateCursor(view, evt, things, location);
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (!isDown) {
 			updateCursor(view, evt, things, location);
 		}

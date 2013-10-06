@@ -40,5 +40,11 @@
             name="Archipelago">
       </page>
    </extension>
+   <extension
+         point="org.archstudio.bna.dndtransferprovider">
+      <DNDTransferProvider
+            class="org.archstudio.archipelago.core.ObjRefTransferProvider">
+      </DNDTransferProvider>
+   </extension>
 
 </plugin>

@@ -23,7 +23,7 @@ import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
-import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
+import org.archstudio.bna.logics.navigating.PanAndZoomLogic;
 import org.archstudio.bna.things.labels.AnchoredLabelThing;
 import org.archstudio.bna.things.shapes.PolygonThing;
 import org.archstudio.bna.things.shapes.SplineThing;
@@ -57,6 +57,7 @@ public class StickySplineDemo {
 		BNARenderingSettings.setAntialiasGraphics(canvas, true);
 		BNARenderingSettings.setAntialiasText(canvas, true);
 		BNARenderingSettings.setDecorativeGraphics(canvas, true);
+		BNARenderingSettings.setDisplayShadows(canvas, true);
 
 		canvas.setSize(500, 500);
 		canvas.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
@@ -82,7 +83,7 @@ public class StickySplineDemo {
 	private static void addLogics(IBNAView view) {
 		IThingLogicManager tlm = view.getBNAWorld().getThingLogicManager();
 
-		tlm.addThingLogic(MousePanAndZoomLogic.class);
+		tlm.addThingLogic(PanAndZoomLogic.class);
 		tlm.addThingLogic(MarqueeSelectionLogic.class);
 		tlm.addThingLogic(ClickSelectionLogic.class);
 		tlm.addThingLogic(DragMovableLogic.class);

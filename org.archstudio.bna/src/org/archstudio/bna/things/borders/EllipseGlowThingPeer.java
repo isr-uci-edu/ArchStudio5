@@ -3,12 +3,10 @@ package org.archstudio.bna.things.borders;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
-import javax.media.opengl.GL2;
-
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.Resources;
 import org.archstudio.bna.things.AbstractEllipseThingPeer;
+import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -19,15 +17,17 @@ public class EllipseGlowThingPeer<T extends EllipseGlowThing> extends AbstractEl
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
+	public boolean draw(Rectangle localBounds, IUIResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		if (!localBounds.intersects(lbb)) {
-			return;
+			return false;
 		}
 
 		Shape localShape = new Ellipse2D.Float(lbb.x, lbb.y, lbb.width, lbb.height);
 
-		BNAUtils.renderShapeGlow(gl, localBounds, localShape, t.getColor(), t.getWidth(), t.getAlpha());
+		r.glowShape(localShape, t.getColor(), t.getWidth(), t.getAlpha());
+
+		return true;
 	}
 
 }

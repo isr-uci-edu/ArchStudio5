@@ -11,15 +11,16 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.shapes.SplineThing;
+import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAMouseListener;
+import org.archstudio.bna.ui.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.IBNAMenuListener;
-import org.archstudio.bna.utils.IBNAMouseListener;
-import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.archstudio.resources.IResources;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;
@@ -115,18 +116,18 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (indicatorSpline != null) {
 			indicatorSpline.setEndpoint2(location.getWorldPoint());
 		}
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (indicatorSpline != null) {
 			if (evt.button == 1) {
 				List<IThing> otherThings = Lists.newArrayList(things);

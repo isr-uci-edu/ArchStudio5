@@ -16,7 +16,7 @@ import org.archstudio.bna.keys.IThingMetakey;
 import org.archstudio.bna.keys.ThingMetakey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.IInternalBNAModelListener;
-import org.archstudio.bna.logics.coordinating.WorldThingInternalEventsLogic;
+import org.archstudio.bna.logics.events.WorldThingInternalEventsLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.things.shapes.MappingThing;
 import org.archstudio.bna.utils.BNAUtils;

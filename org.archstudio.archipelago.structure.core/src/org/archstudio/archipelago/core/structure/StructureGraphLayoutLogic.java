@@ -18,7 +18,7 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
-import org.archstudio.bna.utils.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.graphlayout.GraphLayout;
 import org.archstudio.graphlayout.GraphLayoutException;
 import org.archstudio.graphlayout.GraphLayoutParameters;
@@ -113,7 +113,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 	}
 
 	protected void doLayout(IBNAView view, ObjRef structureRef, int worldX, int worldY) {
-		GraphLayoutDialog gld = new GraphLayoutDialog(view.getComposite().getShell());
+		GraphLayoutDialog gld = new GraphLayoutDialog(view.getBNAUI().getComposite().getShell());
 		GraphLayoutParameters glp = gld.open(graphLayout);
 		if (glp == null) {
 			return;
@@ -123,12 +123,12 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 			return;
 		}
 		doLayoutInJob(view, structureRef, worldX, worldY, engineID, glp);
-		view.getComposite().forceFocus();
+		view.getBNAUI().forceFocus();
 	}
 
 	protected void doLayout(final IBNAView view, final ObjRef structureRef, final int worldX, final int worldY,
 			final String engineID, final GraphLayoutParameters glp) {
-		SWTWidgetUtils.sync(view.getComposite(), new Runnable() {
+		SWTWidgetUtils.sync(view.getBNAUI().getComposite(), new Runnable() {
 
 			@Override
 			public void run() {
@@ -138,7 +138,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 					applyGraphLayout(view, structureRef, gl, glp, worldX, worldY);
 				}
 				catch (final GraphLayoutException gle) {
-					MessageDialog.openError(view.getComposite().getShell(), "Error", gle.getMessage());
+					MessageDialog.openError(view.getBNAUI().getComposite().getShell(), "Error", gle.getMessage());
 				}
 				finally {
 					view.getBNAWorld().getBNAModel().endBulkChange();

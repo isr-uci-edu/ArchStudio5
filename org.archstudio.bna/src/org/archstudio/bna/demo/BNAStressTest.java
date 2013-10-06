@@ -18,7 +18,7 @@ import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
-import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
+import org.archstudio.bna.logics.navigating.PanAndZoomLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
@@ -80,7 +80,7 @@ public class BNAStressTest {
 	private static void addUILogics(IBNAView view) {
 		IThingLogicManager tlm = view.getBNAWorld().getThingLogicManager();
 		tlm.addThingLogic(RotatingOffsetLogic.class);
-		tlm.addThingLogic(MousePanAndZoomLogic.class);
+		tlm.addThingLogic(PanAndZoomLogic.class);
 		tlm.addThingLogic(MarqueeSelectionLogic.class);
 		tlm.addThingLogic(ClickSelectionLogic.class);
 		tlm.addThingLogic(DragMovableLogic.class);

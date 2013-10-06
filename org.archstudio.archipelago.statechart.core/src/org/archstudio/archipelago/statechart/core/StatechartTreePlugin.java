@@ -53,7 +53,7 @@ import org.archstudio.bna.logics.events.ProxyLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
-import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
+import org.archstudio.bna.logics.navigating.PanAndZoomLogic;
 import org.archstudio.bna.logics.navigating.ViewAllLogic;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.GridThing;
@@ -560,7 +560,7 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		logics.addThingLogic(KeyNudgerLogic.class);
 		logics.addThingLogic(LifeSapperLogic.class);
 		logics.addThingLogic(MarqueeSelectionLogic.class);
-		logics.addThingLogic(MousePanAndZoomLogic.class);
+		logics.addThingLogic(PanAndZoomLogic.class);
 		logics.addThingLogic(ReshapeRectangleLogic.class);
 		logics.addThingLogic(ReshapeSplineLogic.class).addReshapeSplineGuides(
 				new XadlReshapeSplineGuide(xarch, Statechart_1_0Package.Literals.TRANSITION,

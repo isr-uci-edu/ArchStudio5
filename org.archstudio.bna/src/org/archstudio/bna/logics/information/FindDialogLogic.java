@@ -6,9 +6,10 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.constants.KeyType;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.utils.IBNAKeyListener;
-import org.archstudio.bna.utils.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAKeyListener;
+import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.swtutils.FindDialog;
 import org.archstudio.swtutils.IFinder;
 import org.eclipse.jface.action.Action;
@@ -32,7 +33,7 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 	}
 
 	@Override
-	synchronized public void keyPressed(IBNAView view, KeyEvent e) {
+	synchronized public void keyPressed(IBNAView view, KeyType type, KeyEvent e) {
 		//Only respond if we are the top-level view.
 		if (view.getParentView() == null) {
 			//102 == f
@@ -43,7 +44,7 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 	}
 
 	@Override
-	synchronized public void keyReleased(IBNAView view, KeyEvent e) {
+	synchronized public void keyReleased(IBNAView view, KeyType type, KeyEvent e) {
 	}
 
 	@Override
@@ -69,7 +70,7 @@ public class FindDialogLogic extends AbstractThingLogic implements IBNAKeyListen
 			fd.getParent().setFocus();
 		}
 		else {
-			Control c = view.getComposite();
+			Control c = view.getBNAUI().getComposite();
 			if (c != null) {
 				fd = new FindDialog<IBNAView>(finder, c.getShell());
 				//if(localX != Integer.MIN_VALUE){

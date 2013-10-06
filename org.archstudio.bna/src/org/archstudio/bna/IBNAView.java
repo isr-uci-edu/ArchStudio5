@@ -2,11 +2,15 @@ package org.archstudio.bna;
 
 import java.util.List;
 
-import org.eclipse.swt.widgets.Composite;
+import org.archstudio.bna.ui.IBNAUI;
 
 public interface IBNAView {
 
 	public IBNAView getParentView();
+
+	public IBNAUI getBNAUI();
+
+	public void setBNAUI(IBNAUI bnaUI);
 
 	public IBNAWorld getBNAWorld();
 
@@ -15,10 +19,6 @@ public interface IBNAView {
 	public List<IThing> getThingsAt(ICoordinate location);
 
 	public <T extends IThing> IThingPeer<T> getThingPeer(T t);
-
-	public void setComposite(Composite composite);
-
-	public Composite getComposite();
 
 	public void dispose();
 }

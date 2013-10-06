@@ -2,24 +2,18 @@ package org.archstudio.bna.things.labels;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.font.FontRenderContext;
-import java.awt.font.LineMetrics;
-import java.awt.geom.Rectangle2D;
 import java.text.BreakIterator;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.media.opengl.GL2;
-
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.Resources;
+import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractRectangleThingPeer;
+import org.archstudio.bna.ui.IUIResources;
+import org.archstudio.bna.ui.IUIResources.FontMetrics;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.TextUtils;
-import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.sysutils.RegExBreakIterator;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Lists;
@@ -34,6 +28,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 		Font font = null;
 		List<String> lines = Lists.newArrayList();
 		List<Float> lineWidths = Lists.newArrayList();
+		float lineLeading = 0;
 		float lineAscent = 0;
 		float lineDescent = 0;
 		//float totalWidth = 0;
@@ -48,8 +43,15 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 		return string.substring(0, end);
 	}
 
-	private static final LayoutData calculateLayout(BoundedLabelThing t, Dimension localSize,
-			FontRenderContext fontRenderContext) {
+	Font breakWidthsFont;
+	float[] breakWidths;
+	List<Object> breakWidthsCacheConditions;
+
+	public BoundedLabelThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
+		super(thing, view, cm);
+	}
+
+	protected LayoutData calculateLayout(BoundedLabelThing t, Dimension localSize, IUIResources r) {
 
 		LayoutData layoutData = new LayoutData();
 
@@ -58,35 +60,40 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 			Font font = null;
 			List<String> lines = Lists.newArrayList();
 			List<Float> lineWidths = Lists.newArrayList();
+			float lineLeading = 0;
 			float lineAscent = 0;
 			float lineDescent = 0;
 			float totalWidth = 0;
 			float totalHeight = 0;
 
 			String text = t.getText();
-			String fontName = t.getFontName();
-			FontStyle fontStyle = t.getFontStyle();
 			int minFontSize = MIN_FONT_SIZE;
 			int originalMinFontSize = minFontSize;
 			int maxFontSize = t.getFontSize();
 
-			float[] breakWidths = new float[text.length()];
-			Font breakWidthsFont = new Font(fontName, fontStyle.toAWT(), maxFontSize);
-			{
+			breakWidthsFont = r.getFont(t, maxFontSize);
+			/*
+			 * Here, we list the set of conditions under which the cache is valid. When one of the conditions changes,
+			 * the cache must be recalculated. This is done by creating a list of the conditions then comparing it to
+			 * the conditions stored alongside the cached value. If the stored conditions do not match, we recalculate
+			 * the cache and store the new conditions.
+			 */
+			List<Object> breakWidthsCacheConditions = Lists.newArrayList();
+			breakWidthsCacheConditions.add(text);
+			breakWidthsCacheConditions.add(breakWidthsFont);
+			breakWidthsCacheConditions.add(r.isAntialiasText());
+			breakWidthsCacheConditions.add(r.getClass());
+			if (!breakWidthsCacheConditions.equals(this.breakWidthsCacheConditions)) {
+				this.breakWidthsCacheConditions = breakWidthsCacheConditions;
+				breakWidths = new float[text.length()];
 				BreakIterator breakIterator = new RegExBreakIterator(null, "\\s+|-");
 				breakIterator.setText(text);
 				int start = breakIterator.first();
-				float previousWidth = 0;
 				for (int end = breakIterator.next(); end != BreakIterator.DONE; start = end, end = breakIterator.next()) {
-					String lineText = text.substring(start, end);
+					String lineText = text.substring(0, end);
 					String leftLineText = trimRight(lineText);
-					String rightLineText = lineText.substring(leftLineText.length());
-					float width = (float) breakWidthsFont.getStringBounds(leftLineText, fontRenderContext).getWidth();
-					Arrays.fill(breakWidths, start, end, previousWidth += width);
-					if (rightLineText.length() > 0) {
-						Rectangle2D bounds = breakWidthsFont.getStringBounds(rightLineText, fontRenderContext);
-						previousWidth += (float) bounds.getWidth();
-					}
+					int width = r.getTextSize(breakWidthsFont, leftLineText).width;
+					Arrays.fill(breakWidths, start, end, width);
 				}
 			}
 
@@ -96,24 +103,33 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 					trialFontSize = minFontSize;
 				}
 				else {
-					trialFontSize = (maxFontSize + minFontSize + 1) / 2; // round up
+					// must round up otherwise minFontSize may keep getting set to the same value
+					trialFontSize = (maxFontSize + minFontSize + 1) / 2;
 				}
 
-				font = new Font(fontName, fontStyle.toAWT(), trialFontSize);
+				font = r.getFont(t, trialFontSize);
 				lines.clear();
 				lineWidths.clear();
-				LineMetrics lineMetrics = font.getLineMetrics(text, fontRenderContext);
-				lineAscent = lineMetrics.getAscent();
-				lineDescent = lineMetrics.getDescent();
+				FontMetrics metrics = r.getFontMetrics(font);
+				lineLeading = metrics.getLeading();
+				lineAscent = metrics.getAscent();
+				lineDescent = metrics.getDescent();
 				totalWidth = 0;
 				totalHeight = 0;
-				float lineHeight = lineAscent + lineDescent;
-				float adjustedSize = localSize.width * breakWidthsFont.getSize2D() / trialFontSize;
+				float lineHeight = lineLeading + lineAscent + lineDescent;
+				float adjustedSize = (float) localSize.width * breakWidthsFont.getSize() / font.getSize();
 
 				int start = 0;
 				float startingOffset = 0;
 				while (start < text.length()) {
-					totalHeight += lineHeight;
+					if (totalHeight == 0) {
+						// for the first line, only add the ascent
+						totalHeight += lineAscent;
+					}
+					else {
+						// for the remaining lines, add the descent too
+						totalHeight += lineHeight;
+					}
 					if (totalHeight > localSize.height) {
 						maxFontSize = trialFontSize - 1;
 						continue RESIZING;
@@ -135,7 +151,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 						continue RESIZING;
 					}
 					lines.add(trimRight(text.substring(start, end)));
-					float width = (breakWidths[end - 1] - startingOffset) * trialFontSize / breakWidthsFont.getSize2D();
+					float width = (breakWidths[end - 1] - startingOffset) * font.getSize() / breakWidthsFont.getSize();
 					lineWidths.add(width);
 					totalWidth = Math.max(totalWidth, width);
 					start = end;
@@ -151,6 +167,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 				layoutData.font = font;
 				layoutData.lines = lines;
 				layoutData.lineWidths = lineWidths;
+				layoutData.lineLeading = lineLeading;
 				layoutData.lineAscent = lineAscent;
 				layoutData.lineDescent = lineDescent;
 				//layoutData.totalWidth = totalWidth;
@@ -161,66 +178,71 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 		return layoutData;
 	}
 
-	public BoundedLabelThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
-		super(thing, view, cm);
-	}
+	LayoutData layoutData;
+	List<Object> layoutDataCacheConditions;
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
+	public boolean draw(Rectangle localBounds, IUIResources r) {
 
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		if (!lbb.intersects(localBounds)) {
-			return;
+			return false;
 		}
 
 		if (t.getText().trim().length() == 0) {
-			return;
+			return false;
 		}
 
-		RGB rgb = t.getColor();
-		if (rgb != null) {
-			gl.glColor3f(rgb.red / 255f, rgb.green / 255f, rgb.blue / 255f);
+		if (r.setColor(t, IHasColor.COLOR_KEY)) {
 
-			TextUtils textUtils = r.getTextUtils();
-			LayoutData layoutData = calculateLayout(t, BNAUtils.getSize(lbb), textUtils.getFontRenderContext());
+			List<Object> layoutDataCacheConditions = Lists.newArrayList();
+			layoutDataCacheConditions.add(t.getText());
+			layoutDataCacheConditions.add(t.getFontName());
+			layoutDataCacheConditions.add(t.getFontStyle());
+			layoutDataCacheConditions.add(t.getFontSize());
+			layoutDataCacheConditions.add(t.getDontIncreaseFontSize());
+			layoutDataCacheConditions.add(r.isAntialiasText());
+			layoutDataCacheConditions.add(r.getClass());
+			// don't use the local bounding box as it can vary slightly depending on location
+			layoutDataCacheConditions.add(BNAUtils.toDimension(t.getBoundingBox()));
+			layoutDataCacheConditions.add(cm.getLocalScale());
+			if (!layoutDataCacheConditions.equals(this.layoutDataCacheConditions)) {
+				this.layoutDataCacheConditions = layoutDataCacheConditions;
+				layoutData = calculateLayout(t, BNAUtils.getSize(lbb), r);
+			}
 
 			if (layoutData.font != null) {
 				float scale = 1.0f;
-				textUtils.beginRendering();
-				try {
-					float y = lbb.y;
-					switch (t.getVerticalAlignment()) {
-					case BOTTOM:
-						y += lbb.height - layoutData.totalHeight * scale;
-						break;
-					case MIDDLE:
-						y += Math.floor((lbb.height - layoutData.totalHeight * scale) / 2);
-						break;
-					case TOP:
-						break;
-					}
-					for (int i = 0; i < layoutData.lines.size(); i++) {
-						String line = layoutData.lines.get(i);
-						float x = lbb.x;
-						switch (t.getHorizontalAlignment()) {
-						case RIGHT:
-							x += lbb.width - layoutData.lineWidths.get(i) * scale;
-							break;
-						case CENTER:
-							x += (lbb.width - layoutData.lineWidths.get(i) * scale) / 2;
-							break;
-						case LEFT:
-							break;
-						}
-						textUtils.draw(layoutData.font, line, x, localBounds.height
-								- (y + layoutData.lineAscent * scale));
-						y += (layoutData.lineAscent + layoutData.lineDescent) * scale;
-					}
+				float y = lbb.y;
+				switch (t.getVerticalAlignment()) {
+				case BOTTOM:
+					y += lbb.height - layoutData.totalHeight * scale;
+					break;
+				case MIDDLE:
+					y += Math.floor((lbb.height - layoutData.totalHeight * scale) / 2);
+					break;
+				case TOP:
+					break;
 				}
-				finally {
-					textUtils.endRendering(gl, localBounds);
+				for (int i = 0; i < layoutData.lines.size(); i++) {
+					String line = layoutData.lines.get(i);
+					float x = lbb.x;
+					switch (t.getHorizontalAlignment()) {
+					case RIGHT:
+						x += lbb.width - layoutData.lineWidths.get(i) * scale;
+						break;
+					case CENTER:
+						x += (lbb.width - layoutData.lineWidths.get(i) * scale) / 2;
+						break;
+					case LEFT:
+						break;
+					}
+					r.drawText(layoutData.font, line, x, y - layoutData.lineLeading);
+					y += (layoutData.lineLeading + layoutData.lineAscent + layoutData.lineDescent) * scale;
 				}
 			}
 		}
+
+		return true;
 	}
 }

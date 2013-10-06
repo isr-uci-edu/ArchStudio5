@@ -6,15 +6,16 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.borders.MarqueeBoxBorderThing;
+import org.archstudio.bna.ui.IBNAMouseListener;
+import org.archstudio.bna.ui.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.IBNAMouseListener;
-import org.archstudio.bna.utils.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Point;
@@ -42,7 +43,7 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (marqueeSelection != null) {
 			model.removeThing(marqueeSelection);
 			marqueeSelection = null;
@@ -57,7 +58,7 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
 		if (marqueeSelection != null) {
 			Point worldPoint = location.getWorldPoint();
 			int x1 = Math.min(initDownWorldPoint.x, worldPoint.x);
@@ -69,7 +70,7 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		try {
 			if (evt.button == 1) {
 				if (marqueeSelection != null) {

@@ -8,8 +8,8 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.swtutils.ColorSelectorDialog;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.jface.action.Action;
@@ -99,7 +99,7 @@ public abstract class AbstractEditColorLogic extends AbstractThingLogic implemen
 	}
 
 	protected IAction[] getActions(IBNAView view, IThing[] thingsToEdit, int worldX, int worldY) {
-		Display d = view.getComposite().getDisplay();
+		Display d = view.getBNAUI().getComposite().getDisplay();
 		final IBNAView fview = view;
 		final IThing[] fthingsToEdit = thingsToEdit;
 
@@ -187,7 +187,7 @@ public abstract class AbstractEditColorLogic extends AbstractThingLogic implemen
 	}
 
 	protected void chooseAndAssignColor(IBNAView view, IThing[] thingsToEdit, RGB initialRGB) {
-		ColorSelectorDialog csd = new ColorSelectorDialog(view.getComposite().getShell());
+		ColorSelectorDialog csd = new ColorSelectorDialog(view.getBNAUI().getComposite().getShell());
 		RGB rgb = csd.open(initialRGB);
 		if (rgb != null) {
 			assignColor(view, thingsToEdit, rgb);

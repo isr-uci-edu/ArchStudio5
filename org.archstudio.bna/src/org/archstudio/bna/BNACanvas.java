@@ -1,156 +1,157 @@
 package org.archstudio.bna;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
-import javax.media.opengl.DebugGL2;
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLContext;
-import javax.media.opengl.GLDrawableFactory;
-import javax.media.opengl.GLProfile;
-
-import org.archstudio.bna.utils.BNARenderingSettings;
-import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.ui.AutodetectBNAUI;
+import org.archstudio.bna.ui.IBNAUI;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
-import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.opengl.GLCanvas;
-import org.eclipse.swt.opengl.GLData;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 
-public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListener {
+public class BNACanvas extends Composite implements ControlListener, SelectionListener, MouseListener,
+		IBNAModelListener, ICoordinateMapperListener {
 
-	protected static final boolean DEBUG = false;
+	protected final int bnaUIStyle;
+	protected final IBNAView view;
+	protected IBNAUI bnaUI;
+	protected ScrollBar hBar;
+	protected ScrollBar vBar;
+	protected boolean disposeView = false;
 
-	protected final IBNAView bnaView;
-	protected final ScrollBar hBar = getHorizontalBar();
-	protected final ScrollBar vBar = getVerticalBar();
-	protected final BNASWTEventHandler eventHandler;
-	protected final GLContext context;
-	protected final ObscuredGL2 gl;
-
-	public BNACanvas(Composite parent, int style, IBNAWorld bnaWorld) {
-		this(parent, style, new DefaultBNAView(null, bnaWorld, new LinearCoordinateMapper()));
+	public BNACanvas(Composite parent, int style, IBNAWorld world) {
+		this(parent, style, new DefaultBNAView(null, world, new LinearCoordinateMapper()));
+		disposeView = true;
 	}
 
-	private static final GLData getInitialGLData() {
-		GLData glData = new GLData();
-		glData.doubleBuffer = true;
-		return glData;
-	}
-
-	public BNACanvas(Composite parent, int style, IBNAView bnaView) {
-		super(parent, style | SWT.NO_BACKGROUND, getInitialGLData());
-		checkNotNull(bnaView);
-		checkNotNull(bnaView.getBNAWorld());
-		checkNotNull(bnaView.getBNAWorld().getBNAModel());
-		this.bnaView = bnaView;
-		bnaView.setComposite(this);
-		this.eventHandler = new BNASWTEventHandler(this, bnaView);
-
-		setCurrent();
-		GLProfile glprofile = GLProfile.get(GLProfile.GL2);
-		this.context = GLDrawableFactory.getFactory(glprofile).createExternalGLContext();
-		this.gl = new ObscuredGL2(DEBUG ? new DebugGL2((GL2) context.getGL()) : (GL2) context.getGL());
-
-		this.addControlListener(new ControlAdapter() {
-
+	public BNACanvas(Composite parent, int style, final IBNAView view) {
+		super(parent, style & ~(SWT.H_SCROLL | SWT.V_SCROLL));
+		parent.setLayout(new FillLayout());
+		setLayout(new FillLayout());
+		this.bnaUIStyle = style & (SWT.H_SCROLL | SWT.V_SCROLL);
+		this.view = view;
+		setBNAUI(new AutodetectBNAUI(view));
+		updateScrollBars();
+		updateCoordinateMapper();
+		view.getCoordinateMapper().addCoordinateMapperListener(this);
+		view.getBNAWorld().getBNAModel().addBNAModelListener(this);
+		addDisposeListener(new DisposeListener() {
 			@Override
-			public void controlResized(ControlEvent e) {
-				updateScrollBars();
-			}
-		});
-		getCoordinateMapper().addCoordinateMapperListener(new ICoordinateMapperListener() {
-
-			@Override
-			public void coordinateMappingsChanged(final CoordinateMapperEvent evt) {
-				if (Display.getCurrent() == null) {
-					SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
+			public void widgetDisposed(DisposeEvent e) {
+				view.getCoordinateMapper().removeCoordinateMapperListener(BNACanvas.this);
+				view.getBNAWorld().getBNAModel().removeBNAModelListener(BNACanvas.this);
+				bnaUI.getComposite().removeControlListener(BNACanvas.this);
+				bnaUI.getComposite().removeMouseListener(BNACanvas.this);
+				bnaUI.dispose();
+				if (disposeView) {
+					view.dispose();
 				}
-				updateScrollBars();
 			}
 		});
+	}
+
+	synchronized public void setBNAUI(IBNAUI bnaUI) {
+		if (hBar != null && !hBar.isDisposed()) {
+			hBar.removeSelectionListener(this);
+		}
+		if (vBar != null && !vBar.isDisposed()) {
+			vBar.removeSelectionListener(this);
+		}
+		if (this.bnaUI != null) {
+			this.bnaUI.getComposite().removeControlListener(this);
+			this.bnaUI.getComposite().removeMouseListener(this);
+			this.bnaUI.dispose();
+		}
+		this.bnaUI = bnaUI;
+		bnaUI.init(this, bnaUIStyle);
+		layout(true, true);
+		bnaUI.getComposite().addControlListener(this);
+		bnaUI.getComposite().addMouseListener(this);
+		hBar = bnaUI.getComposite().getHorizontalBar();
+		vBar = bnaUI.getComposite().getVerticalBar();
 		if (hBar != null) {
-			hBar.addSelectionListener(new SelectionAdapter() {
-
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					updateCM();
-				}
-			});
+			hBar.addSelectionListener(this);
 		}
 		if (vBar != null) {
-			vBar.addSelectionListener(new SelectionAdapter() {
-
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					updateCM();
-				}
-			});
+			vBar.addSelectionListener(this);
 		}
-		updateScrollBars();
-		updateCM();
-
-		// prevent the mouse wheel from scrolling the canvas
-		addListener(SWT.MouseWheel, new Listener() {
-
-			@Override
-			public void handleEvent(Event event) {
-				event.doit = false;
-			}
-		});
-
-		// select canvas on click
-		addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseDown(MouseEvent e) {
-				BNACanvas.this.forceFocus();
-			}
-		});
-
-		// handle events
-		getBNAView().getBNAWorld().getBNAModel().addBNAModelListener(this);
-		addPaintListener(this);
 	}
 
 	@Override
-	public void dispose() {
-		removePaintListener(this);
-		getBNAView().getBNAWorld().getBNAModel().removeBNAModelListener(this);
-		bnaView.dispose();
-		eventHandler.dispose();
-		context.destroy();
-		super.dispose();
+	synchronized public void controlMoved(ControlEvent e) {
+	}
+
+	@Override
+	synchronized public void controlResized(ControlEvent e) {
+		updateScrollBars();
+	}
+
+	@Override
+	synchronized public void widgetDefaultSelected(SelectionEvent e) {
+		updateCoordinateMapper();
+	}
+
+	@Override
+	synchronized public void widgetSelected(SelectionEvent e) {
+		updateCoordinateMapper();
+	}
+
+	@Override
+	synchronized public void mouseDoubleClick(MouseEvent e) {
+	}
+
+	@Override
+	synchronized public void mouseUp(MouseEvent e) {
+	}
+
+	@Override
+	synchronized public void mouseDown(MouseEvent e) {
+		bnaUI.forceFocus();
+	}
+
+	@Override
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+		if (!evt.isInBulkChange()) {
+			bnaUI.paint();
+		}
+	}
+
+	@Override
+	synchronized public void coordinateMappingsChanged(CoordinateMapperEvent evt) {
+		SWTWidgetUtils.async(bnaUI.getComposite(), new Runnable() {
+			@Override
+			public void run() {
+				updateScrollBars();
+				bnaUI.paint();
+			}
+		});
 	}
 
 	boolean isUpdatingScrollBars = false;
-	boolean isUpdatingCM = false;
+	boolean isUpdatingCoordinateMapper = false;
 
 	protected void updateScrollBars() {
-		if (isUpdatingCM) {
+		if (isUpdatingCoordinateMapper) {
 			return;
 		}
 		isUpdatingScrollBars = true;
 		try {
-			IMutableCoordinateMapper mcm = getCoordinateMapper();
-			updateCanvas(mcm.getLocalScale(), mcm.getLocalOrigin());
+			ICoordinateMapper cm = view.getCoordinateMapper();
 			Rectangle client = getClientArea();
-			Rectangle localBounds = mcm.getLocalBounds();
-			Point localOrigin = mcm.getLocalOrigin();
+			Rectangle localBounds = cm.getLocalBounds();
+			Point localOrigin = cm.getLocalOrigin();
 			if (hBar != null) {
 				updateScrollBar(hBar, localOrigin.x - localBounds.x, client.width, localBounds.width);
 			}
@@ -163,123 +164,34 @@ public class BNACanvas extends GLCanvas implements IBNAModelListener, PaintListe
 		}
 	}
 
-	private void updateScrollBar(ScrollBar bar, int selection, int thumb, int total) {
-		assert isUpdatingScrollBars;
-
-		// ScrollBar silently fails when certain constraints are violated
+	protected void updateScrollBar(ScrollBar bar, int selection, int thumb, int total) {
+		// ScrollBar setValues(...) silently fails when certain constraints are violated
 		thumb = Math.min(thumb, total);
 		bar.setValues(Math.max(0, selection), 0, Math.max(1, total - thumb), Math.max(1, thumb),
 				Math.max(1, thumb / 10), Math.max(1, thumb / 3));
 	}
 
-	protected void updateCM() {
+	protected void updateCoordinateMapper() {
 		if (!isUpdatingScrollBars) {
-			isUpdatingCM = true;
+			isUpdatingCoordinateMapper = true;
 			try {
-				IMutableCoordinateMapper mcm = getCoordinateMapper();
-				Rectangle localBounds = mcm.getLocalBounds();
-				Point newLocalOrigin = new Point((hBar != null ? hBar.getSelection() : 0) + localBounds.x,
-						(vBar != null ? vBar.getSelection() : 0) + localBounds.y);
-				updateCanvas(mcm.getLocalScale(), newLocalOrigin);
-				mcm.setLocalOrigin(newLocalOrigin);
-			}
-			finally {
-				isUpdatingCM = false;
-			}
-		}
-	}
-
-	int lastBoundsRelevantCount = 0;
-	double lastLocalScale = 0;
-	Point lastLocalOrigin = new Point(0, 0);
-
-	protected void updateCanvas(double newLocalScale, Point newLocalOrigin) {
-		if (lastLocalScale != newLocalScale) {
-			// the scale changed, force a redraw of everything
-			lastBoundsRelevantCount++;
-			enqueueRedraw();
-		}
-		else if (!lastLocalOrigin.equals(newLocalOrigin)) {
-			enqueueRedraw();
-		}
-		lastLocalScale = newLocalScale;
-		lastLocalOrigin = newLocalOrigin;
-	}
-
-	@Override
-	public void bnaModelChanged(final BNAModelEvent evt) {
-		if (!evt.isInBulkChange()) {
-			enqueueRedraw();
-		}
-	}
-
-	private boolean redrawPending = false;
-	private long redrawRequestTime;
-
-	private void enqueueRedraw() {
-		if (redrawPending) {
-			return;
-		}
-
-		redrawRequestTime = System.nanoTime();
-		redrawPending = true;
-		SWTWidgetUtils.async(this, new Runnable() {
-
-			@Override
-			public void run() {
-				redrawPending = false;
-				repaint();
-			}
-		});
-	}
-
-	@Override
-	public void paintControl(PaintEvent evt) {
-		repaint();
-	}
-
-	public void repaint() {
-		if (DEBUG) {
-			System.out.println("Redraw lag : " + (System.nanoTime() - redrawRequestTime) / 1000000f);
-		}
-
-		long redrawTime = System.nanoTime();
-		setCurrent();
-		context.makeCurrent();
-		try {
-			Resources resources = null;
-			try {
-				resources = new Resources(this, gl, //
-						BNARenderingSettings.getAntialiasText(this));
-				Rectangle localBounds = getClientArea();
-				BNAUtils.renderInit(bnaView, gl, localBounds, resources, //
-						BNARenderingSettings.getAntialiasGraphics(this), //
-						BNARenderingSettings.getAntialiasText(this));
-				BNAUtils.renderReshape(bnaView, gl, localBounds, resources);
-				BNAUtils.renderTopLevelThings(bnaView, gl, localBounds, resources);
-				gl.glFlush();
-				swapBuffers();
-			}
-			finally {
-				if (resources != null) {
-					resources.dispose();
+				IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
+				if (mcm != null) {
+					Rectangle localBounds = mcm.getLocalBounds();
+					Point oldLocalOrigin = mcm.getLocalOrigin();
+					Point newLocalOrigin = new Point(hBar != null ? hBar.getSelection() + localBounds.x
+							: oldLocalOrigin.x, vBar != null ? vBar.getSelection() + localBounds.y : oldLocalOrigin.y);
+					mcm.setLocalOrigin(newLocalOrigin);
 				}
 			}
-		}
-		finally {
-			context.release();
-		}
-
-		if (DEBUG) {
-			System.out.println("Redraw time: " + (System.nanoTime() - redrawTime) / 1000000f);
+			finally {
+				isUpdatingCoordinateMapper = false;
+			}
 		}
 	}
 
-	public IBNAView getBNAView() {
-		return bnaView;
+	synchronized public IBNAView getBNAView() {
+		return view;
 	}
 
-	private IMutableCoordinateMapper getCoordinateMapper() {
-		return (IMutableCoordinateMapper) getBNAView().getCoordinateMapper();
-	}
 }

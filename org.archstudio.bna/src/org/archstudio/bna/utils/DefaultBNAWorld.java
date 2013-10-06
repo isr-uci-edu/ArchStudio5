@@ -1,87 +1,36 @@
 package org.archstudio.bna.utils;
 
-import java.util.Map.Entry;
-import java.util.concurrent.atomic.AtomicLong;
+import static com.google.common.base.Preconditions.checkNotNull;
 
-import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
-import org.archstudio.sysutils.SystemUtils;
+import org.archstudio.bna.IThingLogicManagerListener;
+import org.archstudio.bna.ThingLogicManagerEvent;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
-
-public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener {
-
-	protected static final boolean DEBUG = false;
+public class DefaultBNAWorld implements IBNAWorld, IThingLogicManagerListener {
 
 	protected Object id = null;
 	protected IBNAModel model = null;
-	protected boolean isDestroyed = false;
 
-	protected transient IThingLogicManager logicManager = null;
+	protected transient IThingLogicManager logics = null;
 
 	public DefaultBNAWorld(Object id, IBNAModel model) {
 		this.id = id;
-		this.model = model;
-		this.logicManager = new DefaultThingLogicManager(this);
-
-		getBNAModel().addBNAModelListener(this);
-	}
-
-	@Override
-	public void bnaModelChanged(BNAModelEvent evt) {
-		LoadingCache<Object, AtomicLong> debugStats;
-		if (DEBUG) {
-			debugStats = CacheBuilder.newBuilder().weakKeys().build(new CacheLoader<Object, AtomicLong>() {
-
-				@Override
-				public AtomicLong load(Object input) {
-					return new AtomicLong();
-				}
-			});
-		}
-
-		for (IBNAModelListener logic : logicManager.getThingLogics(IBNAModelListener.class)) {
-			try {
-				long time = System.nanoTime();
-				logic.bnaModelChanged(evt);
-				if (DEBUG) {
-					time = System.nanoTime() - time;
-					debugStats.getUnchecked(logic).addAndGet(time);
-				}
-			}
-			catch (Throwable t) {
-				t.printStackTrace();
-			}
-		}
-		if (DEBUG) {
-			for (Entry<Object, AtomicLong> e : SystemUtils.sortedByValue(debugStats.asMap().entrySet())) {
-				System.err.println(e.getKey() + "\t" + e.getValue());
-			}
-		}
+		this.model = checkNotNull(model);
+		this.logics = new DefaultThingLogicManager(this);
+		logics.addThingLogicManagerListener(this);
 	}
 
 	@Override
 	public IThingLogicManager getThingLogicManager() {
-		return logicManager;
+		return logics;
 	}
 
 	@Override
 	public void dispose() {
-		logicManager.dispose();
-
-		model.removeBNAModelListener(this);
-
-		isDestroyed = true;
-	}
-
-	@Override
-	public boolean isDestroyed() {
-		return isDestroyed;
+		logics.dispose();
 	}
 
 	@Override
@@ -92,6 +41,24 @@ public class DefaultBNAWorld implements IBNAWorld, IBNAModelListener {
 	@Override
 	public IBNAModel getBNAModel() {
 		return model;
+	}
+
+	@Override
+	public void handleThingLogicManagerEvent(ThingLogicManagerEvent evt) {
+		switch (evt.getEventType()) {
+		case LOGIC_ADDED:
+			if (evt.getLogic() instanceof IBNAModelListener) {
+				model.addBNAModelListener((IBNAModelListener) evt.getLogic());
+			}
+			break;
+		case LOGIC_REMOVING:
+			if (evt.getLogic() instanceof IBNAModelListener) {
+				model.removeBNAModelListener((IBNAModelListener) evt.getLogic());
+			}
+			break;
+		default:
+			// do nothing
+		}
 	}
 
 }

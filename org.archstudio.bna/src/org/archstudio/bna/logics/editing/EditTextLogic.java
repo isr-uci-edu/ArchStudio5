@@ -13,6 +13,7 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
+import org.archstudio.bna.constants.KeyType;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
@@ -20,10 +21,10 @@ import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
 import org.archstudio.bna.things.swt.SWTTextThing;
+import org.archstudio.bna.ui.IBNAKeyListener;
+import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.IBNAKeyListener;
-import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
@@ -69,11 +70,11 @@ public class EditTextLogic extends AbstractThingLogic implements IBNAMenuListene
 	}
 
 	@Override
-	synchronized public void keyPressed(IBNAView view, KeyEvent e) {
+	synchronized public void keyPressed(IBNAView view, KeyType type, KeyEvent e) {
 	}
 
 	@Override
-	synchronized public void keyReleased(IBNAView view, KeyEvent e) {
+	synchronized public void keyReleased(IBNAView view, KeyType type, KeyEvent e) {
 		if (SWT.F2 == e.keyCode) {
 			Collection<IThing> selectedThings = BNAUtils.getSelectedThings(view.getBNAWorld().getBNAModel());
 			IThing editThing = null;

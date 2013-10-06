@@ -35,10 +35,11 @@ import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
+import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.swtutils.SWTWidgetUtils;
+import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTProxy;
@@ -75,7 +76,7 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 					}
 					catch (Exception e) {
 						e.printStackTrace();
-						MessageDialog.openError(view.getComposite().getShell(), "Error", e.getMessage());
+						MessageDialog.openError(view.getBNAUI().getComposite().getShell(), "Error", e.getMessage());
 					}
 				}
 			});
@@ -87,7 +88,7 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 					}
 					catch (Exception e) {
 						e.printStackTrace();
-						MessageDialog.openError(view.getComposite().getShell(), "Error", e.getMessage());
+						MessageDialog.openError(view.getBNAUI().getComposite().getShell(), "Error", e.getMessage());
 					}
 				}
 			});
@@ -99,7 +100,7 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 	}
 
 	protected void exportGexf(IBNAView view) throws IOException {
-		FileDialog fd = new FileDialog(view.getComposite().getShell(), SWT.SAVE);
+		FileDialog fd = new FileDialog(view.getBNAUI().getComposite().getShell(), SWT.SAVE);
 		fd.setFilterExtensions(new String[] { "*.gexf" });
 		String filepath = fd.open();
 		if (filepath != null) {
@@ -215,7 +216,7 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 	}
 
 	protected void importGexf(IBNAView view) throws SAXException, IOException {
-		FileDialog fd = new FileDialog(view.getComposite().getShell(), SWT.OPEN);
+		FileDialog fd = new FileDialog(view.getBNAUI().getComposite().getShell(), SWT.OPEN);
 		fd.setFilterExtensions(new String[] { "*.gexf" });
 		String filepath = fd.open();
 		if (filepath != null) {
@@ -241,7 +242,7 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 				for (PositionContent position : node.getPosition()) {
 					int id = Integer.parseInt(node.getId().toString().substring("thing:".length()));
 					float factor = 10f;
-					Point p = new Point(BNAUtils.round(factor * position.getX()), -BNAUtils.round(factor
+					Point p = new Point(SystemUtils.round(factor * position.getX()), -SystemUtils.round(factor
 							* position.getY()));
 					positions.put(id, p);
 				}

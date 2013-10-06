@@ -15,7 +15,6 @@ import org.archstudio.filemanager.IFileManagerListener;
 import org.archstudio.graphlayout.IGraphLayout;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.resources.IResources;
-import org.archstudio.swtutils.LocalSelectionTransfer;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFileListener;
@@ -121,7 +120,7 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 	}
 
 	protected void initDragAndDrop() {
-		Transfer[] transfers = new Transfer[] { LocalSelectionTransfer.getInstance() };
+		Transfer[] transfers = new Transfer[] { ObjRefTransfer.getInstance() };
 		getTreeViewer().addDragSupport(DND.DROP_LINK, transfers, new ArchipelagoOutlinePageDragSourceListener());
 	}
 
@@ -479,8 +478,8 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 				Object[] selectedNodes = structuredSelection.toArray();
 				if (selectedNodes.length == 1) {
 					Object data = selectedNodes[0];
-					if (data instanceof java.io.Serializable) {
-						event.data = selectedNodes[0];
+					if (data instanceof ObjRef) {
+						event.data = data;
 						for (IArchipelagoTreePlugin treePlugin : treePlugins) {
 							DragSourceListener dsl = treePlugin.getDragSourceListener();
 							if (dsl != null) {
@@ -494,13 +493,19 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 
 		@Override
 		public void dragSetData(DragSourceEvent event) {
-			if (LocalSelectionTransfer.getInstance().isSupportedType(event.dataType)) {
-				event.data = selectionOnDrag;
-				//LocalSelectionTransfer.getInstance().setSelection(selection);
-				for (IArchipelagoTreePlugin treePlugin : treePlugins) {
-					DragSourceListener dsl = treePlugin.getDragSourceListener();
-					if (dsl != null) {
-						dsl.dragSetData(event);
+			if (ObjRefTransfer.getInstance().isSupportedType(event.dataType)) {
+				IStructuredSelection structuredSelection = (IStructuredSelection) selectionOnDrag;
+				Object[] selectedNodes = structuredSelection.toArray();
+				if (selectedNodes.length == 1) {
+					Object data = selectedNodes[0];
+					if (data instanceof ObjRef) {
+						event.data = data;
+						for (IArchipelagoTreePlugin treePlugin : treePlugins) {
+							DragSourceListener dsl = treePlugin.getDragSourceListener();
+							if (dsl != null) {
+								dsl.dragSetData(event);
+							}
+						}
 					}
 				}
 			}

@@ -25,7 +25,7 @@ public class FlyToUtils {
 			view = topLevelView;
 		}
 
-		final Control control = view.getComposite();
+		final Control control = view.getBNAUI().getComposite();
 		if (control == null) {
 			return;
 		}
@@ -40,7 +40,7 @@ public class FlyToUtils {
 			@Override
 			public void run() {
 
-				final Point localSize = BNAUtils.toPoint(control.getSize());
+				final Point localSize = control.getSize();
 				final Point localCenter = new Point(localSize.x / 2, localSize.y / 2);
 
 				Thread flyThread = new Thread(FlyToUtils.class.getName()) {
@@ -63,13 +63,13 @@ public class FlyToUtils {
 								final Point worldIntermediate = new Point(//
 										worldStart.x + BNAUtils.round(worldDiff.x * transposeFactor),//
 										worldStart.y + BNAUtils.round(worldDiff.y * transposeFactor));
-								//final double intermediateScale = Math.max(0.0001, originalScale - originalScale * 0.7
-								//		* Math.sin(d * 2));
+								final double intermediateScale = Math.max(0.0001, originalScale - originalScale * 0.7
+										* Math.sin(d * 2));
 								SWTWidgetUtils.sync(control, new Runnable() {
 
 									@Override
 									public void run() {
-										cm.setLocalScaleAndAlign(originalScale, localCenter, worldIntermediate);
+										cm.setLocalScaleAndAlign(intermediateScale, localCenter, worldIntermediate);
 									}
 								});
 							}

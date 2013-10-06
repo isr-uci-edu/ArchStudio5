@@ -6,8 +6,6 @@ public interface IBNAWorld {
 
 	public void dispose();
 
-	public boolean isDestroyed();
-
 	public IBNAModel getBNAModel();
 
 	public IThingLogicManager getThingLogicManager();

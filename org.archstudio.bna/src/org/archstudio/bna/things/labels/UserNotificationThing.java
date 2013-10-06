@@ -1,6 +1,5 @@
 package org.archstudio.bna.things.labels;
 
-import org.archstudio.bna.constants.IFontConstants;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
 import org.archstudio.bna.facets.IHasMutableFontData;
@@ -15,8 +14,9 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.RGB;
 
 @NonNullByDefault
-public class UserNotificationThing extends AbstractMutableAnchorPointThing implements IHasMutableText, IHasMutableFontData,
-		IHasMutableColor, IHasMutableGradientFill, IHasMutableSecondaryColor, IHasMutableEdgeColor, IHasMutableLife {
+public class UserNotificationThing extends AbstractMutableAnchorPointThing implements IHasMutableText,
+		IHasMutableFontData, IHasMutableColor, IHasMutableGradientFill, IHasMutableSecondaryColor,
+		IHasMutableEdgeColor, IHasMutableLife {
 
 	public UserNotificationThing(@Nullable Object id) {
 		super(id);
@@ -25,7 +25,7 @@ public class UserNotificationThing extends AbstractMutableAnchorPointThing imple
 	@Override
 	protected void initProperties() {
 		setText("");
-		setFontName(IFontConstants.DEFAULT_FONT_NAME);
+		setFontName(null);
 		setFontSize(10);
 		setDontIncreaseFontSize(Boolean.TRUE);
 		setFontStyle(FontStyle.NORMAL);

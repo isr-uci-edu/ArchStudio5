@@ -24,7 +24,7 @@ public class StatechartAssemblies {
 		IBNAModel model = world.getBNAModel();
 
 		CurvedSplineThing bkg = model.addThing(new CurvedSplineThing(id),
-				parent != null ? parent : Assemblies.getLayer(model, Assemblies.SPLINE_LAYER_THING_ID));
+				parent != null ? parent : Assemblies.getLayer(model, Assemblies.Layer.SPLINE));
 		Assemblies.addArrowhead(world, bkg, IHasEndpoints.ENDPOINT_1_KEY, null, null);
 		AnchoredLabelThing labelThing = model.addThing(new AnchoredLabelThing(null), bkg);
 

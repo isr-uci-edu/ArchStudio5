@@ -47,11 +47,13 @@ import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
 import org.archstudio.bna.logics.information.FindDialogLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
-import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
+import org.archstudio.bna.logics.navigating.PanAndZoomLogic;
 import org.archstudio.bna.logics.navigating.ViewAllLogic;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.GridThing;
 import org.archstudio.bna.things.utility.ShadowThing;
+import org.archstudio.bna.ui.IBNAUI;
+import org.archstudio.bna.ui.IBNAUI.AvailableUI;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
@@ -161,11 +163,20 @@ public class StructureEditorSupport {
 						prefs.getBoolean(ArchipelagoConstants.PREF_DECORATIVE_GRAPHICS));
 				BNARenderingSettings.setDisplayShadows(bnaCanvas,
 						prefs.getBoolean(ArchipelagoConstants.PREF_DISPLAY_SHADOWS));
-				GridThing gridThing = (GridThing) world.getBNAModel().getThing(GridThing.class);
+				GridThing gridThing = GridThing.getIn(world);
 				if (gridThing != null) {
 					gridThing.setGridSpacing(prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING));
 					gridThing.setGridDisplayType(GridDisplayType.valueOf(prefs
 							.getString(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE)));
+				}
+				try {
+					AvailableUI availableUI = AvailableUI.valueOf(prefs.getString(ArchipelagoConstants.PREF_BNA_UI));
+					IBNAUI bnaUI = (IBNAUI) availableUI.getBNAUIClass().getConstructors()[0].newInstance(bnaCanvas
+							.getBNAView());
+					bnaCanvas.setBNAUI(bnaUI);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
 				}
 				bnaCanvas.redraw();
 			}
@@ -238,7 +249,7 @@ public class StructureEditorSupport {
 		logics.addThingLogic(KeyNudgerLogic.class);
 		logics.addThingLogic(LifeSapperLogic.class);
 		logics.addThingLogic(MarqueeSelectionLogic.class);
-		logics.addThingLogic(MousePanAndZoomLogic.class);
+		logics.addThingLogic(PanAndZoomLogic.class);
 		logics.addThingLogic(ReshapeRectangleLogic.class);
 		logics.addThingLogic(ReshapeSplineLogic.class).addReshapeSplineGuides(
 				new XadlReshapeSplineGuide(xarch, Structure_3_0Package.Literals.LINK,

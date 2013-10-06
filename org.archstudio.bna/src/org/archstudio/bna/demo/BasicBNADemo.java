@@ -16,8 +16,6 @@ import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasMutableWorld;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
-import org.archstudio.bna.logics.coordinating.WorldThingExternalEventsLogic;
-import org.archstudio.bna.logics.coordinating.WorldThingInternalEventsLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.EditTextLogic;
@@ -27,8 +25,10 @@ import org.archstudio.bna.logics.editing.ReshapeRectangleLogic;
 import org.archstudio.bna.logics.editing.ReshapeSplineLogic;
 import org.archstudio.bna.logics.editing.SplineBreakLogic;
 import org.archstudio.bna.logics.editing.StandardCursorLogic;
+import org.archstudio.bna.logics.events.WorldThingExternalEventsLogic;
+import org.archstudio.bna.logics.events.WorldThingInternalEventsLogic;
 import org.archstudio.bna.logics.information.ToolTipLogic;
-import org.archstudio.bna.logics.navigating.MousePanAndZoomLogic;
+import org.archstudio.bna.logics.navigating.PanAndZoomLogic;
 import org.archstudio.bna.things.glass.EndpointGlassThing;
 import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
@@ -79,10 +79,11 @@ public class BasicBNADemo {
 
 		populateWithViews(world, view, iWorld);
 
-		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, view);
+		final BNACanvas bnaComposite = new BNACanvas(shell, SWT.H_SCROLL | SWT.V_SCROLL, view);
 		BNARenderingSettings.setAntialiasGraphics(bnaComposite, true);
 		BNARenderingSettings.setAntialiasText(bnaComposite, true);
 		BNARenderingSettings.setDecorativeGraphics(bnaComposite, true);
+		BNARenderingSettings.setDisplayShadows(bnaComposite, true);
 
 		bnaComposite.setSize(500, 500);
 		bnaComposite.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
@@ -101,7 +102,7 @@ public class BasicBNADemo {
 
 	static void setupTopWorld(IBNAWorld world) {
 		IThingLogicManager logicManager = world.getThingLogicManager();
-		logicManager.addThingLogic(new MousePanAndZoomLogic(world));
+		logicManager.addThingLogic(PanAndZoomLogic.class);
 		setupWorld(world);
 	}
 
@@ -113,7 +114,7 @@ public class BasicBNADemo {
 		logicManager.addThingLogic(EditTextLogic.class);
 		logicManager.addThingLogic(KeyNudgerLogic.class);
 		logicManager.addThingLogic(MarqueeSelectionLogic.class);
-		logicManager.addThingLogic(MousePanAndZoomLogic.class);
+		logicManager.addThingLogic(PanAndZoomLogic.class);
 		logicManager.addThingLogic(ReshapeRectangleLogic.class);
 		logicManager.addThingLogic(ReshapeSplineLogic.class);
 		logicManager.addThingLogic(RotatingOffsetLogic.class);

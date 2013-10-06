@@ -2,12 +2,10 @@ package org.archstudio.bna.things.shapes;
 
 import java.awt.Shape;
 
-import javax.media.opengl.GL2;
-
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.Resources;
 import org.archstudio.bna.things.AbstractCurvedSplineThingPeer;
+import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -18,20 +16,23 @@ public class CurvedSplineThingPeer<T extends CurvedSplineThing> extends Abstract
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
+	public boolean draw(Rectangle localBounds, IUIResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		if (!lbb.intersects(localBounds)) {
-			return;
+			return false;
 		}
 
 		Shape localShape = createLocalShape();
 
-		r.setLineStyle(t);
-		BNAUtils.renderShapeEdge(gl, localBounds, localShape);
-		r.resetLineStyle();
-		if (t.isSelected()) {
-			BNAUtils.renderShapeSelected(gl, localBounds, localShape, t.getRotatingOffset());
+		if (r.setLineStyle(t)) {
+			r.drawShape(localShape);
+			r.resetLineStyle();
 		}
+		if (t.isSelected()) {
+			r.selectShape(localShape, t.getRotatingOffset());
+		}
+
+		return true;
 	};
 
 }

@@ -8,14 +8,15 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasSelected;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
+import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAMouseListener;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.IBNAMenuListener;
-import org.archstudio.bna.utils.IBNAMouseListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.events.MouseEvent;
 
@@ -42,11 +43,11 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
 		if (evt.button == 1) {
 			IHasMutableSelected selectableThing = Assemblies.getEditableThing(model, firstOrNull(t),
 					IHasMutableSelected.class, IHasMutableSelected.USER_MAY_SELECT);

@@ -7,11 +7,17 @@ import org.eclipse.swt.graphics.RGB;
 
 public class ObscuredGL2 extends GL2Delegate {
 
-	double alpha = 1d;
-	RGB tint = new RGB(0, 0, 0);
+	double alpha;
+	RGB tint;
 
 	public ObscuredGL2(GL2 gl) {
 		super(gl);
+		reset();
+	}
+
+	public void reset() {
+		alpha = 1d;
+		tint = new RGB(0, 0, 0);
 	}
 
 	public double getAlpha() {

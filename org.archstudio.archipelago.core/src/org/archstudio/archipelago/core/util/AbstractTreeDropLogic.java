@@ -8,22 +8,21 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.constants.DNDData;
+import org.archstudio.bna.constants.DNDType;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.borders.PulsingBorderThing;
-import org.archstudio.bna.utils.IBNADragAndDropListener;
+import org.archstudio.bna.ui.IBNADragAndDropListener;
 import org.archstudio.myx.fw.Services;
-import org.archstudio.swtutils.LocalSelectionTransfer;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.dnd.DND;
-import org.eclipse.swt.dnd.DropTargetEvent;
-import org.eclipse.swt.dnd.TransferData;
 
 public abstract class AbstractTreeDropLogic extends AbstractThingLogic implements IBNADragAndDropListener {
-	protected Services services = null;
-	protected ObjRef documentRootRef = null;
-	protected PulsingBorderThing pulser = null;
+
+	protected final Services services;
+	protected final ObjRef documentRootRef;
+
+	private PulsingBorderThing pulser = null;
 
 	public AbstractTreeDropLogic(IBNAWorld world, Services services, ObjRef documentRootRef) {
 		super(world);
@@ -31,103 +30,58 @@ public abstract class AbstractTreeDropLogic extends AbstractThingLogic implement
 		this.documentRootRef = documentRootRef;
 	}
 
-	protected static Object getDataFromSelection(Object selection) {
-		if (selection != null) {
-			if (selection instanceof IStructuredSelection) {
-				IStructuredSelection ss = (IStructuredSelection) selection;
-				Object[] allSelected = ss.toArray();
-				if (allSelected.length == 0) {
-					return null;
-				}
-				else if (allSelected.length == 1) {
-					return allSelected[0];
-				}
-				else {
-					return allSelected;
-				}
-			}
-		}
-		return null;
-	}
+	protected abstract boolean acceptDrop(IBNAView view, DNDType type, DNDData data, Iterable<IThing> things,
+			ICoordinate location);
 
-	protected boolean acceptDrop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
-		//Two possibilities: either the platform we are on can give us the data
-		//or it can't.  If it can, we can make a more educated decision here.
-
-		Object data = null;
-		LocalSelectionTransfer transfer = LocalSelectionTransfer.getInstance();
-		if (transfer.isSupportedType(event.currentDataType)) {
-			Object o = transfer.nativeToJava(event.currentDataType);
-			data = getDataFromSelection(o);
-		}
-		return acceptDrop(view, event, ts, location, data);
-	}
-
-	protected abstract boolean acceptDrop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location,
-			Object data);
+	protected abstract void doDrop(IBNAView view, DNDType type, DNDData data, Iterable<IThing> things,
+			ICoordinate location);
 
 	@Override
-	synchronized public void dragEnter(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
-		if (acceptDrop(view, event, ts, location)) {
-			event.detail = DND.DROP_LINK;
-		}
+	public void dragEnter(IBNAView view, DNDType type, DNDData data, List<IThing> things, ICoordinate location) {
 	}
 
 	@Override
-	synchronized public void dragLeave(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
+	synchronized public void dragExit(IBNAView view, DNDType type) {
 		if (pulser != null) {
-			view.getBNAWorld().getBNAModel().removeThing(pulser);
+			model.removeThing(pulser);
 			pulser = null;
 		}
 	}
 
 	@Override
-	synchronized public void dragOver(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
-		if (acceptDrop(view, event, ts, location)) {
-			IThing t = firstOrNull(ts);
-			event.detail = DND.DROP_LINK;
+	synchronized public void drag(IBNAView view, DNDType type, DNDData data, List<IThing> things, ICoordinate location) {
+		if (acceptDrop(view, type, data, things, location)) {
+			IThing t = firstOrNull(things);
 			if (pulser == null && t != null && t instanceof IHasBoundingBox) {
 				pulser = new PulsingBorderThing(null);
 				pulser.setBoundingBox(((IHasBoundingBox) t).getBoundingBox());
-				view.getBNAWorld().getBNAModel().addThing(pulser, t);
+				model.addThing(pulser, t);
 			}
 			else if (pulser != null && t != null && t instanceof IHasBoundingBox) {
 				pulser.setBoundingBox(((IHasBoundingBox) t).getBoundingBox());
 			}
 			else if (pulser != null) {
-				view.getBNAWorld().getBNAModel().removeThing(pulser);
+				model.removeThing(pulser);
 				pulser = null;
 			}
 		}
 		else {
 			if (pulser != null) {
-				view.getBNAWorld().getBNAModel().removeThing(pulser);
+				model.removeThing(pulser);
 				pulser = null;
 			}
 		}
 	}
 
 	@Override
-	synchronized public void dropAccept(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
-		if (acceptDrop(view, event, ts, location)) {
-			event.detail = DND.DROP_LINK;
-			LocalSelectionTransfer transfer = LocalSelectionTransfer.getInstance();
-			for (TransferData dataType : event.dataTypes) {
-				if (transfer.isSupportedType(dataType)) {
-					event.currentDataType = dataType;
-					break;
-				}
-			}
+	synchronized public void drop(IBNAView view, DNDType type, DNDData data, List<IThing> things, ICoordinate location) {
+		if (pulser != null) {
+			model.removeThing(pulser);
+			pulser = null;
+		}
+
+		if (acceptDrop(view, type, data, things, location)) {
+			doDrop(view, type, data, things, location);
 		}
 	}
-
-	@Override
-	synchronized public void dragOperationChanged(IBNAView view, DropTargetEvent event, List<IThing> ts,
-			ICoordinate location) {
-	}
-
-	@Override
-	synchronized public void drop(IBNAView view, DropTargetEvent event, List<IThing> ts, ICoordinate location) {
-	}
-
 }

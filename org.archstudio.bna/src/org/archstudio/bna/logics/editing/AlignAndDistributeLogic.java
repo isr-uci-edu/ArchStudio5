@@ -11,10 +11,10 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.BNAAlignUtils;
 import org.archstudio.bna.utils.BNADistributeUtils;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
 import org.eclipse.jface.action.Action;
@@ -48,7 +48,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 	}
 
 	protected void loadImages(IBNAView view) {
-		Display disp = view.getComposite().getDisplay();
+		Display disp = view.getBNAUI().getComposite().getDisplay();
 		imageRegistry = new ImageRegistry(disp);
 
 		imageRegistry.put(ALIGN_LEFT, new Image(disp, getClass().getResourceAsStream("res/align-left.gif")));

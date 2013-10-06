@@ -1,10 +1,18 @@
 package org.archstudio.xarchadt;
 
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.google.common.collect.MapMaker;
 import com.google.common.primitives.Longs;
 
 public final class ObjRef implements java.io.Serializable {
+
+	private static Map<Long, ObjRef> objRefs = new MapMaker().softValues().makeMap();
+
+	public static ObjRef lookupObjRef(long uid) {
+		return objRefs.get(uid);
+	}
 
 	private static final long serialVersionUID = -1027266603679479510L;
 
@@ -14,6 +22,7 @@ public final class ObjRef implements java.io.Serializable {
 
 	public ObjRef() {
 		this.uid = atomicLong.getAndIncrement();
+		objRefs.put(uid, this);
 	}
 
 	public long getUID() {

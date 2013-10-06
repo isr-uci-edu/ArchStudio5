@@ -8,7 +8,7 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.utils.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.resources.ArchStudioCommonResources;
 import org.archstudio.resources.IResources;
 import org.archstudio.sysutils.SystemUtils;

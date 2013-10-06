@@ -2,6 +2,8 @@ package org.archstudio.bna;
 
 import javax.media.opengl.GL2;
 
+import org.archstudio.bna.ui.IUIResources;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
 
 public interface IThingPeer<T extends IThing> {
@@ -17,7 +19,11 @@ public interface IThingPeer<T extends IThing> {
 	 */
 	public boolean isInThing(ICoordinate location);
 
-	public void draw(GL2 gl, Rectangle localBounds, Resources r);
+	public boolean draw(Rectangle localBounds, IUIResources r);
+
+	public void draw(GL2 gl, Rectangle localBounds, IUIResources r);
+
+	public void draw(GC gc, Rectangle localBounds, IUIResources r);
 
 	public void dispose();
 }

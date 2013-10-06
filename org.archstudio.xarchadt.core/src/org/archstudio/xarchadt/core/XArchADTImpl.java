@@ -130,8 +130,8 @@ public class XArchADTImpl implements IXArchADT {
 	 * eINSTANCE variable for all the EPackages you want to have available to you.
 	 */
 	private void registerAllSchemaPackages() {
-		IExtensionRegistry reg = Platform.getExtensionRegistry();
-		if (reg != null) {
+		if (Platform.isRunning()) {
+			IExtensionRegistry reg = Platform.getExtensionRegistry();
 			// The Extension Registry can be null if we're running outside of Eclipse
 			for (IConfigurationElement configurationElement : reg.getConfigurationElementsFor(EMF_EXTENSION_POINT_ID)) {
 				String packageClassName = configurationElement.getAttribute("class");
@@ -159,23 +159,6 @@ public class XArchADTImpl implements IXArchADT {
 	private final ReentrantReadWriteLock objRefToEObjectLockRWLock = new ReentrantReadWriteLock();
 	private final Lock objRefToEObjectLockRLock = objRefToEObjectLockRWLock.readLock();
 	private final Lock objRefToEObjectLockWLock = objRefToEObjectLockRWLock.writeLock();
-
-	@Override
-	@Nullable
-	public ObjRef lookupObjRefUID(long uid) {
-		objRefToEObjectLockRLock.lock();
-		try {
-			for (ObjRef objRef : objRefToEObject.keySet()) {
-				if (objRef.getUID() == uid) {
-					return objRef;
-				}
-			}
-			return null;
-		}
-		finally {
-			objRefToEObjectLockRLock.unlock();
-		}
-	}
 
 	@Nullable
 	protected ObjRef putNullable(@Nullable EObject eObject) {

@@ -1,6 +1,5 @@
 package org.archstudio.bna.things.labels;
 
-import org.archstudio.bna.constants.IFontConstants;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableFontData;
 import org.archstudio.bna.facets.IHasMutableHorizontalAlignment;
@@ -27,7 +26,7 @@ public class BoundedLabelThing extends AbstractRectangleThing implements IHasMut
 	protected void initProperties() {
 		setText("");
 		setColor(new RGB(0, 0, 0));
-		setFontName(IFontConstants.DEFAULT_FONT_NAME);
+		setFontName(null);
 		setFontSize(12);
 		setFontStyle(FontStyle.NORMAL);
 		setHorizontalAlignment(HorizontalAlignment.CENTER);

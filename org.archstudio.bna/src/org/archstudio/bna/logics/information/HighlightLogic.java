@@ -33,8 +33,8 @@ import org.archstudio.bna.things.borders.CurvedSplineGlowThing;
 import org.archstudio.bna.things.borders.EllipseGlowThing;
 import org.archstudio.bna.things.borders.RectangleGlowThing;
 import org.archstudio.bna.things.borders.SplineGlowThing;
+import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
-import org.archstudio.bna.utils.IBNAMenuListener;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -76,7 +76,7 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 					@Override
 					public void run() {
 						if (ht == null) {
-							ColorDialog cd = new ColorDialog(view.getComposite().getShell());
+							ColorDialog cd = new ColorDialog(view.getBNAUI().getComposite().getShell());
 							cd.setText("Highlight Color");
 							RGB newColor = cd.open();
 							if (newColor != null) {

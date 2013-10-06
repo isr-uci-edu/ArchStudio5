@@ -7,10 +7,10 @@ import javax.media.opengl.GL2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.Resources;
 import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.peers.IHasShadowPeer;
 import org.archstudio.bna.things.AbstractEllipseThingPeer;
+import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
@@ -22,34 +22,36 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
+	public boolean draw(Rectangle localBounds, IUIResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		if (!localBounds.intersects(lbb)) {
-			return;
+			return false;
 		}
 
 		Shape localShape = new Ellipse2D.Float(lbb.x, lbb.y, lbb.width, lbb.height);
 
 		if (t.getColor() != null) {
-			BNAUtils.renderShapeFill(gl, localBounds, localShape, t.getColor(),
-					t.isGradientFilled() ? t.getSecondaryColor() : null);
+			r.fillShape(localShape, t.getColor(), t.isGradientFilled() ? t.getSecondaryColor() : null);
 		}
 		if (r.setLineStyle(t)) {
-			for (int count = 0; count < t.getCount(); count++) {
-				int offset = count * 2 * t.getLineWidth();
-				Shape edgeShape = new Ellipse2D.Float(lbb.x + offset, lbb.y + offset, lbb.width - 2 * offset,
-						lbb.height - 2 * offset);
-				BNAUtils.renderShapeEdge(gl, localBounds, edgeShape);
+			r.drawShape(localShape);
+			for (int count = 1; count < t.getCount(); count++) {
+				int inset = count * 2 * t.getLineWidth();
+				Shape insetShape = new Ellipse2D.Float(lbb.x + inset, lbb.y + inset, lbb.width - 2 * inset, lbb.height
+						- 2 * inset);
+				r.drawShape(insetShape);
 			}
 			r.resetLineStyle();
 		}
 		if (t.isSelected()) {
-			BNAUtils.renderShapeSelected(gl, localBounds, localShape, t.getRotatingOffset());
+			r.selectShape(localShape, t.getRotatingOffset());
 		}
+
+		return true;
 	}
 
 	@Override
-	public void drawShadow(GL2 gl, Rectangle localBounds, Resources r) {
+	public void drawShadow(GL2 gl, Rectangle localBounds, IUIResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		if (!localBounds.intersects(lbb) || t.getColor() == null) {
 			return;
@@ -58,6 +60,6 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 		Shape localShape = new Ellipse2D.Float(lbb.x, lbb.y, lbb.width, lbb.height);
 
 		r.setColor(new RGB(0, 0, 0), t.get(IHasAlpha.ALPHA_KEY, 1f));
-		BNAUtils.renderShapeFill(gl, localBounds, localShape, null, null);
+		r.fillShape(localShape, null, null);
 	}
 }

@@ -1,7 +1,6 @@
 package org.archstudio.bna.utils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static org.archstudio.sysutils.SystemUtils.nullEquals;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
@@ -18,10 +17,11 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IIsBackground;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
+import org.archstudio.bna.ui.IBNAUI;
 import org.archstudio.sysutils.FastIntMap;
 import org.archstudio.sysutils.FastIntMap.Entry;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.swt.widgets.Composite;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -55,11 +55,10 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 	protected final IBNAWorld world;
 	protected final FastIntMap<IThingPeer<?>> peers = new FastIntMap<>(1000);
 	protected final ICoordinateMapper cm;
-	protected Composite composite = null;
+	protected IBNAUI bnaUI;
 
 	public DefaultBNAView(@Nullable IBNAView parentView, IBNAWorld bnaWorld, ICoordinateMapper cm) {
 		super();
-		this.composite = parentView != null ? parentView.getComposite() : null;
 		this.parentView = parentView;
 		this.world = checkNotNull(bnaWorld);
 		this.cm = checkNotNull(cm);
@@ -67,29 +66,29 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 	}
 
 	@Override
-	public Composite getComposite() {
-		return composite;
+	public IBNAView getParentView() {
+		return parentView;
 	}
 
 	@Override
-	public void setComposite(Composite composite) {
-		if (!nullEquals(this.composite, composite)) {
-			this.composite = composite;
+	public IBNAUI getBNAUI() {
+		return bnaUI;
+	}
+
+	@Override
+	public void setBNAUI(IBNAUI bnaUI) {
+		if (!SystemUtils.nullEquals(this.bnaUI, bnaUI)) {
+			this.bnaUI = bnaUI;
 			for (IThing t : getBNAWorld().getBNAModel().getAllThings()) {
 				IThingPeer<?> tp = getThingPeer(t);
 				if (tp instanceof IHasInnerViewPeer) {
 					IBNAView innerView = ((IHasInnerViewPeer<?>) tp).getInnerView();
 					if (innerView != null) {
-						innerView.setComposite(composite);
+						innerView.setBNAUI(bnaUI);
 					}
 				}
 			}
 		}
-	}
-
-	@Override
-	public IBNAView getParentView() {
-		return parentView;
 	}
 
 	@Override

@@ -20,7 +20,7 @@ public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThi
 
 	@Override
 	protected Text createControl(final IBNAView view, ICoordinateMapper cm) {
-		final Text control = new Text(view.getComposite(), SWT.BORDER | SWT.FLAT | SWT.SINGLE);
+		final Text control = new Text(view.getBNAUI().getComposite(), SWT.BORDER | SWT.FLAT | SWT.SINGLE);
 		control.addFocusListener(new FocusAdapter() {
 
 			@Override
@@ -57,7 +57,7 @@ public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThi
 			gc.setFont(control.getFont());
 			int minHeight = gc.getFontMetrics().getHeight();
 			int minWidth = gc.textExtent(control.getText()).x + gc.getFontMetrics().getAverageCharWidth() * 4;
-			org.eclipse.swt.graphics.Rectangle newBounds = control.computeTrim(bounds.x, bounds.y, minWidth, minHeight);
+			Rectangle newBounds = control.computeTrim(bounds.x, bounds.y, minWidth, minHeight);
 			bounds.width = Math.max(newBounds.width, bounds.width);
 			bounds.height = Math.max(newBounds.height, bounds.height);
 		}

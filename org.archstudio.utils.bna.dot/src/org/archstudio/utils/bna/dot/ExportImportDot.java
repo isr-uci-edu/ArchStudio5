@@ -27,9 +27,9 @@ import org.archstudio.bna.facets.IHasShapeKeys;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.things.AbstractRelativeMovableReferencePointThing;
+import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.graphlayout.GraphLayoutConstants;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.NativeProcess;
@@ -136,7 +136,7 @@ public class ExportImportDot extends AbstractThingLogic implements IBNAMenuListe
 				}
 				catch (Exception e) {
 					e.printStackTrace();
-					MessageDialog.openError(view.getComposite().getShell(), "Error", e.getMessage());
+					MessageDialog.openError(view.getBNAUI().getComposite().getShell(), "Error", e.getMessage());
 				}
 			}
 		});
@@ -330,8 +330,10 @@ public class ExportImportDot extends AbstractThingLogic implements IBNAMenuListe
 							float height = Float.parseFloat(fields[5]);
 							float x = Float.parseFloat(fields[2]) - width / 2;
 							float y = Float.parseFloat(fields[3]) - height / 2;
-							locations.put(uid,
-									new Point(BNAUtils.round(x - graphWidth / 2), BNAUtils.round(y - graphHeight / 2)));
+							locations.put(
+									uid,
+									new Point(SystemUtils.round(x - graphWidth / 2), SystemUtils.round(y - graphHeight
+											/ 2)));
 						}
 					}
 

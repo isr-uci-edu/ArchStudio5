@@ -3,11 +3,12 @@ package org.archstudio.bna.logics.editing;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.constants.KeyType;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.ui.IBNAKeyListener;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.GridUtils;
-import org.archstudio.bna.utils.IBNAKeyListener;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.swt.SWT;
@@ -21,7 +22,7 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 	}
 
 	@Override
-	synchronized public void keyPressed(IBNAView view, KeyEvent e) {
+	synchronized public void keyPressed(IBNAView view, KeyType type, KeyEvent e) {
 		if (e.keyCode == SWT.ARROW_LEFT || e.keyCode == SWT.ARROW_UP || e.keyCode == SWT.ARROW_DOWN
 				|| e.keyCode == SWT.ARROW_RIGHT) {
 			model.beginBulkChange();
@@ -54,7 +55,7 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 	}
 
 	@Override
-	synchronized public void keyReleased(IBNAView view, KeyEvent e) {
+	synchronized public void keyReleased(IBNAView view, KeyType type, KeyEvent e) {
 	}
 
 	private Orientation orientationForKeyCode(int keyCode) {

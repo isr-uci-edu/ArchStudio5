@@ -1,12 +1,9 @@
 package org.archstudio.bna.things.swt;
 
-import javax.media.opengl.GL2;
-
 import org.archstudio.bna.IBNAView;
-import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.Resources;
 import org.archstudio.bna.things.AbstractThingPeer;
+import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
@@ -32,8 +29,8 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, Resources r) {
-		SWTWidgetUtils.async(view.getComposite(), new Runnable() {
+	public boolean draw(Rectangle localBounds, IUIResources r) {
+		SWTWidgetUtils.async(view.getBNAUI().getComposite(), new Runnable() {
 			@Override
 			public void run() {
 				if (control == null) {
@@ -56,17 +53,14 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 				}
 			}
 		});
+
+		return true;
 	}
 
 	@Override
 	public void dispose() {
 		control = SWTWidgetUtils.quietlyDispose(control);
 		super.dispose();
-	}
-
-	@Override
-	public boolean isInThing(ICoordinate location) {
-		return false;
 	}
 
 }

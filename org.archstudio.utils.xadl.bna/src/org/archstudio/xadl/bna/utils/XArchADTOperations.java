@@ -149,12 +149,6 @@ public class XArchADTOperations implements IXArchADT {
 	}
 
 	@Override
-	@Nullable
-	public ObjRef lookupObjRefUID(long uid) {
-		return xarch.lookupObjRefUID(uid);
-	}
-
-	@Override
 	public boolean isValidObjRef(ObjRef ref) {
 		return xarch.isValidObjRef(ref);
 	}

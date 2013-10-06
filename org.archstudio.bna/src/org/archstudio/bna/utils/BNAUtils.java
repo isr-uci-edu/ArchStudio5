@@ -9,21 +9,9 @@ import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.atomic.AtomicLong;
-
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
-import javax.media.opengl.GL2ES1;
-import javax.media.opengl.GL2GL3;
-import javax.media.opengl.fixedfunc.GLMatrixFunc;
-import javax.media.opengl.glu.GLU;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
@@ -33,21 +21,15 @@ import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingPeer;
-import org.archstudio.bna.ObscuredGL2;
-import org.archstudio.bna.Resources;
-import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasLocalInsets;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IHasSelected;
-import org.archstudio.bna.facets.IHasTint;
 import org.archstudio.bna.facets.IHasWorld;
-import org.archstudio.bna.facets.IIsHidden;
 import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.keys.ThingKey;
-import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.swtutils.constants.Orientation;
@@ -58,6 +40,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
+import org.eclipse.swt.graphics.Path;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
@@ -69,15 +52,13 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.CycleDetectingLockFactory;
 
 public class BNAUtils {
 
 	public static final CycleDetectingLockFactory LOCK_FACTORY = CycleDetectingLockFactory
 			.newInstance(CycleDetectingLockFactory.Policies.DISABLED);
-
-	private static final boolean DEBUG = false;
+	public static final double TO_POINTS_ERROR = 0.25d;
 
 	@SuppressWarnings("unchecked")
 	public static final <T> T castOrNull(IThing thing, Class<T> thingClass) {
@@ -1126,7 +1107,7 @@ public class BNAUtils {
 		return new Rectangle2D.Double(bounds.x, bounds.y, bounds.width, bounds.height);
 	}
 
-	public static Point toPoint(org.eclipse.swt.graphics.Point point) {
+	public static Point toPoint(java.awt.Point point) {
 		return new Point(point.x, point.y);
 	}
 
@@ -1138,145 +1119,17 @@ public class BNAUtils {
 		return new Point2D.Float(p.x, p.y);
 	}
 
-	public static final BufferedImage renderToImage(IBNAView view, ObscuredGL2 gl, Rectangle localBounds,
-			Resources resources, boolean antialiasGraphics, boolean antialiasText) {
-
-		// FIXME: (1) to capture the whole image, and (2) to use better common practices (?)
-
-		ModelBoundsTrackingLogic boundsLogic = view.getBNAWorld().getThingLogicManager()
-				.addThingLogic(ModelBoundsTrackingLogic.class);
-
-		localBounds = view.getCoordinateMapper().worldToLocal(boundsLogic.getModelBounds());
-		int BORDER = 10;
-		localBounds.x -= BORDER;
-		localBounds.y -= BORDER;
-		localBounds.width += 2 * BORDER;
-		localBounds.height += 2 * BORDER;
-
-		gl.glDrawBuffer(GL.GL_BACK);
-
-		renderInit(view, gl, localBounds, resources, antialiasGraphics, antialiasText);
-		renderReshape(view, gl, localBounds, resources);
-		renderTopLevelThings(view, gl, localBounds, resources);
-
-		ByteBuffer buffer = ByteBuffer.allocate(localBounds.width * localBounds.height * 4);
-
-		gl.glReadBuffer(GL.GL_BACK);
-		gl.glPixelStorei(GL.GL_PACK_ALIGNMENT, 1);
-		gl.glReadPixels(localBounds.x, localBounds.y, localBounds.width, localBounds.height, GL.GL_RGBA,
-				GL.GL_UNSIGNED_BYTE, buffer);
-
-		BufferedImage image = new BufferedImage(localBounds.width, localBounds.height, BufferedImage.TYPE_4BYTE_ABGR);
-
-		int bufferIndex = 0;
-		for (int y = localBounds.height - 1; y >= 0; y--) {
-			for (int x = 0; x < localBounds.width; x++) {
-				int r = buffer.get(bufferIndex++);
-				int g = buffer.get(bufferIndex++);
-				int b = buffer.get(bufferIndex++);
-				int a = buffer.get(bufferIndex++);
-				int i = a << 24 | (r & 0xFF) << 16 | (g & 0xFF) << 8 | b & 0xFF;
-				image.setRGB(x, y, i);
-			}
-		}
-
-		return image;
+	public static Dimension toDimension(Point p) {
+		return new Dimension(p.x, p.y);
 	}
 
-	public static final void renderInit(IBNAView view, GL2 gl, Rectangle localBounds, Resources resources,
-			boolean antialiasGraphics, boolean antialiasText) {
-		gl.glDisable(GL.GL_DEPTH_TEST);
-		gl.glEnable(GL2.GL_LINE_STIPPLE);
-		gl.glEnable(GL.GL_BLEND);
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-
-		if (antialiasGraphics) {
-			gl.glEnable(GL.GL_LINE_SMOOTH);
-			gl.glEnable(GL2ES1.GL_POINT_SMOOTH);
-			gl.glHint(GL2ES1.GL_POINT_SMOOTH_HINT, GL.GL_NICEST);
-			gl.glEnable(GL.GL_LINE_SMOOTH);
-			gl.glHint(GL.GL_LINE_SMOOTH_HINT, GL.GL_NICEST);
-			gl.glEnable(GL2GL3.GL_POLYGON_SMOOTH);
-			gl.glHint(GL2GL3.GL_POLYGON_SMOOTH_HINT, GL.GL_NICEST);
-			gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
-		}
-		else {
-			gl.glDisable(GL2ES1.GL_POINT_SMOOTH);
-			gl.glDisable(GL.GL_LINE_SMOOTH);
-			gl.glDisable(GL2GL3.GL_POLYGON_SMOOTH);
-			gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_FASTEST);
-		}
+	public static Dimension toDimension(Rectangle2D r) {
+		return new Dimension(round(r.getWidth()), round(r.getHeight()));
 	}
 
-	public static final void renderReshape(IBNAView view, GL2 gl, Rectangle localBounds, Resources resources) {
-		GLU glu = null;
-		try {
-			glu = new GLU();
-			float fAspect = (float) localBounds.width / localBounds.height;
-			gl.glViewport(0, 0, localBounds.width, localBounds.height);
-			gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
-			gl.glLoadIdentity();
-			glu.gluPerspective(45.0f, fAspect, 0.0f, 1.0f);
-			gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
-			gl.glLoadIdentity();
-			gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
-			gl.glLoadIdentity();
-			gl.glOrtho(0, localBounds.width, 0, localBounds.height, 0.0f, 1.0f);
-		}
-		finally {
-			if (glu != null) {
-				glu.destroy();
-			}
-		}
+	public static Object toDimension(Rectangle lbb) {
+		return new Dimension(lbb.width, lbb.height);
 	}
-
-	public static final void renderTopLevelThings(IBNAView view, GL2 gl, Rectangle localBounds, Resources resources) {
-		gl.glClearColor(1f, 1f, 1f, 0f);
-		gl.glClear(GL.GL_COLOR_BUFFER_BIT);
-
-		renderThings(view, gl, localBounds, resources);
-	}
-
-	public static final void renderThings(IBNAView view, GL2 gl, Rectangle localBounds, Resources resources) {
-		IBNAModel model = view.getBNAWorld().getBNAModel();
-		ObscuredGL2 ogl = new ObscuredGL2(gl);
-
-		Map<Class<?>, AtomicLong[]> counts = Maps.newHashMap();
-		for (IThing thingToRender : model.getAllThings()) {
-			long time = System.nanoTime();
-			if (thingToRender.has(IIsHidden.HIDDEN_KEY, Boolean.TRUE)) {
-				continue;
-			}
-
-			try {
-				ogl.setAlpha(thingToRender.get(IHasAlpha.ALPHA_KEY, 1f));
-				ogl.setTint(thingToRender.get(IHasTint.TINT_KEY, new RGB(0, 0, 0)));
-				IThingPeer<?> peer = view.getThingPeer(thingToRender);
-				peer.draw(ogl, localBounds, resources);
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-			if (DEBUG) {
-				time = System.nanoTime() - time;
-				AtomicLong[] als = counts.get(thingToRender.getClass());
-				if (als == null) {
-					counts.put(thingToRender.getClass(), als = new AtomicLong[] { new AtomicLong(), new AtomicLong() });
-				}
-				als[0].getAndIncrement();
-				als[1].getAndAdd(time);
-			}
-		}
-
-		if (DEBUG) {
-			for (Entry<Class<?>, AtomicLong[]> e : SystemUtils.sortedByKey(counts.entrySet())) {
-				AtomicLong[] als = e.getValue();
-				System.err.println(e.getKey() + ": " + als[0] + " total, " + als[1].longValue() / als[0].longValue());
-			}
-		}
-	}
-
-	private static final double TO_POINTS_ERROR = 0.25d;
 
 	public static List<Point2D> toPoints(Shape localShape) {
 		List<Point2D> points = Lists.newArrayList();
@@ -1310,119 +1163,80 @@ public class BNAUtils {
 		return points;
 	}
 
-	public static final void renderShapeFill(GL2 gl, Rectangle localBounds, Shape localShape, RGB color1, RGB color2) {
-
-		boolean isGradientFilled = color1 != null && color2 != null && !color1.equals(color2);
-		double minY = isGradientFilled ? localShape.getBounds2D().getMinY() : 0;
-		double maxY = isGradientFilled ? localShape.getBounds2D().getMaxY() : 1;
-
-		gl.glBegin(GL.GL_TRIANGLE_FAN);
-		if (color1 != null) {
-			gl.glColor3f(color1.red / 255f, color1.green / 255f, color1.blue / 255f);
-		}
-		for (Point2D point : toPoints(localShape)) {
-			if (isGradientFilled) {
-				setColor(gl, color1, color2, minY, maxY, point.getY());
-			}
-			gl.glVertex2d(point.getX(), localBounds.height - point.getY());
-		}
-		gl.glEnd();
-	}
-
-	private static final void setColor(GL2 gl, RGB color1, RGB color2, double minY, double maxY, double d) {
-		if (color2 == null) {
-			gl.glColor3d(color1.red / 255d, color1.green / 255d, color1.blue / 255d);
-		}
-		else {
-			double f = SystemUtils.bound(0d, (d - minY) / (maxY - minY), 1d);
-			gl.glColor3d(//
-					(color1.red + (color2.red - color1.red) * f) / 255d,//
-					(color1.green + (color2.green - color1.green) * f) / 255d,//
-					(color1.blue + (color2.blue - color1.blue) * f) / 255d);
-		}
-	}
-
-	public static final void renderShapeEdge(GL2 gl, Rectangle localBounds, Shape localShape) {
-
-		gl.glBegin(GL.GL_LINE_STRIP);
-		for (Point2D point : toPoints(localShape)) {
-			gl.glVertex2d(point.getX() + 0.5d, localBounds.height - point.getY() + 0.5d);
-		}
-		gl.glEnd();
-	}
-
-	public static final void renderShapeSelected(GL2 gl, Rectangle localBounds, Shape localShape, int offset) {
-
+	public static final int[] toXYIntArray(Shape localShape) {
 		List<Point2D> points = toPoints(localShape);
+		int[] xyArray = new int[points.size() * 2];
+		int xyArrayIndex = 0;
 
-		gl.glColor3f(1, 1, 1);
-		gl.glBegin(GL.GL_LINE_STRIP);
 		for (Point2D point : points) {
-			gl.glVertex2d(point.getX() + 0.5d, localBounds.height - point.getY() + 0.5d);
-		}
-		gl.glEnd();
-
-		gl.glColor3f(0f, 0f, 0f);
-		gl.glLineStipple(1, (short) (0x0f0f0f0f >> offset % 8));
-		gl.glBegin(GL.GL_LINE_STRIP);
-		for (Point2D point : points) {
-			gl.glVertex2d(point.getX() + 0.5d, localBounds.height - point.getY() + 0.5d);
-		}
-		gl.glEnd();
-		gl.glLineStipple(1, (short) 0xffff);
-	}
-
-	public static final void renderShapeGlow(GL2 gl, Rectangle localBounds, Shape localShape, RGB color, int width,
-			float alpha) {
-
-		List<Point2D> points = toPoints(localShape);
-		boolean closed = false;
-		if (points.size() >= 2) {
-			closed = points.get(0).distanceSq(points.get(points.size() - 1)) < TO_POINTS_ERROR * TO_POINTS_ERROR;
-		}
-
-		renderGlowSide(gl, localBounds, points, color, width, alpha, closed);
-		renderGlowSide(gl, localBounds, Lists.reverse(points), color, width, alpha, closed);
-	}
-
-	private static void renderGlowSide(GL2 gl, Rectangle localBounds, List<Point2D> points, RGB color, int width,
-			float alpha, boolean closed) {
-
-		Point2D closesP = new Point2D.Double(0, 0);
-		Point2D closesPa = new Point2D.Double(0, 0);
-
-		gl.glBegin(GL2.GL_TRIANGLE_STRIP);
-		for (int i = 1; i < points.size(); i++) {
-			Point2D p1 = points.get(i - 1);
-			Point2D p2 = points.get(i);
-
-			double angle = Math.atan2(p2.getY() - p1.getY(), p2.getX() - p1.getX());
-			Point2D p1a = new Point2D.Double(p1.getX() + width * Math.sin(-angle), p1.getY() + width * Math.cos(-angle));
-			Point2D p2a = new Point2D.Double(p2.getX() + width * Math.sin(-angle), p2.getY() + width * Math.cos(-angle));
-
-			gl.glColor4f(color.red / 255f, color.green / 255f, color.blue / 255f, alpha);
-			gl.glVertex2d(p1.getX(), localBounds.height - p1.getY());
-			gl.glColor4f(color.red / 255f, color.green / 255f, color.blue / 255f, 0f);
-			gl.glVertex2d(p1a.getX(), localBounds.height - p1a.getY());
-
-			if (i == 1) {
-				closesP = p1;
-				closesPa = p1a;
+			int x = round(point.getX());
+			int y = round(point.getY());
+			// remove duplicate points, especially necessary for glow things
+			if (xyArrayIndex >= 2) {
+				if (xyArray[xyArrayIndex - 2] == x && xyArray[xyArrayIndex - 1] == y) {
+					continue;
+				}
 			}
-
-			gl.glColor4f(color.red / 255f, color.green / 255f, color.blue / 255f, alpha);
-			gl.glVertex2d(p2.getX(), localBounds.height - p2.getY());
-			gl.glColor4f(color.red / 255f, color.green / 255f, color.blue / 255f, 0f);
-			gl.glVertex2d(p2a.getX(), localBounds.height - p2a.getY());
+			xyArray[xyArrayIndex++] = x;
+			xyArray[xyArrayIndex++] = y;
 		}
-		if (closed) {
-			gl.glColor4f(color.red / 255f, color.green / 255f, color.blue / 255f, alpha);
-			gl.glVertex2d(closesP.getX(), localBounds.height - closesP.getY());
-			gl.glColor4f(color.red / 255f, color.green / 255f, color.blue / 255f, 0f);
-			gl.glVertex2d(closesPa.getX(), localBounds.height - closesPa.getY());
-		}
-		gl.glEnd();
 
+		int[] xyArraySubset = xyArray;
+		if (xyArrayIndex < xyArray.length) {
+			xyArraySubset = new int[xyArrayIndex];
+			System.arraycopy(xyArray, 0, xyArraySubset, 0, xyArrayIndex);
+		}
+		return xyArraySubset;
+	}
+
+	public static final float[] toXYFloatArray(Shape localShape) {
+		List<Point2D> points = toPoints(localShape);
+		float[] xyArray = new float[points.size() * 2];
+		int xyArrayIndex = 0;
+
+		for (Point2D point : points) {
+			float x = (float) point.getX();
+			float y = (float) point.getY();
+			// duplicate points were alerady removed in toPoints(...)
+			xyArray[xyArrayIndex++] = x;
+			xyArray[xyArrayIndex++] = y;
+		}
+
+		float[] xyArraySubset = xyArray;
+		if (xyArrayIndex < xyArray.length) {
+			xyArraySubset = new float[xyArrayIndex];
+			System.arraycopy(xyArray, 0, xyArraySubset, 0, xyArrayIndex);
+		}
+		return xyArraySubset;
+	}
+
+	public static final Path toPath(Path path, Shape localShape) {
+		PathIterator p = localShape.getPathIterator(null);
+		double[] coords = new double[6];
+		while (!p.isDone()) {
+			switch (p.currentSegment(coords)) {
+			case PathIterator.SEG_CLOSE:
+				path.close();
+				break;
+			case PathIterator.SEG_MOVETO:
+				path.moveTo((float) coords[0], (float) coords[1]);
+				break;
+			case PathIterator.SEG_LINETO:
+				path.lineTo((float) coords[0], (float) coords[1]);
+				break;
+			case PathIterator.SEG_QUADTO:
+				path.quadTo((float) coords[0], (float) coords[1], (float) coords[2], (float) coords[3]);
+				break;
+			case PathIterator.SEG_CUBICTO:
+				path.cubicTo((float) coords[0], (float) coords[1], (float) coords[2], (float) coords[3],
+						(float) coords[4], (float) coords[5]);
+				break;
+			default:
+				throw new IllegalArgumentException();
+			}
+			p.next();
+		}
+		return path;
 	}
 
 	public static final long getThingKeyUID(IThing targetThing, IThingKey<?> propertyName) {

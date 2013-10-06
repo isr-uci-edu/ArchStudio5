@@ -14,9 +14,9 @@ public class MarqueeBoxBorderThing extends AbstractRectangleThing implements IHa
 
 	@Override
 	protected void initProperties() {
-		setMinimumSize(new Dimension(0, 0));
 		set(ROTATING_OFFSET_KEY, 0);
 		super.initProperties();
+		setMinimumSize(new Dimension(0, 0));
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package org.archstudio.archipelago.core.prefs;
 import org.archstudio.archipelago.core.Activator;
 import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.bna.constants.GridDisplayType;
+import org.archstudio.bna.ui.IBNAUI;
 import org.archstudio.eclipse.core.startup.InstantiateArchStudio;
 import org.archstudio.eclipse.ui.EclipseUtils;
 import org.eclipse.jface.preference.BooleanFieldEditor;
@@ -20,8 +21,10 @@ public class ArchipelagoPreferencePanel extends FieldEditorPreferencePage implem
 	protected BooleanFieldEditor decorativeGraphicsEditor;
 	protected BooleanFieldEditor shadowsEditor;
 
+	protected RadioGroupFieldEditor bnaUIEditor;
+
 	protected ScaleFieldEditor defaultLineWidthEditor;
-	
+
 	protected IntegerFieldEditor gridSpacingEditor;
 	protected RadioGroupFieldEditor gridDisplayTypeEditor;
 
@@ -50,12 +53,16 @@ public class ArchipelagoPreferencePanel extends FieldEditorPreferencePage implem
 				"Decorative Graphics", getFieldEditorParent());
 		addField(decorativeGraphicsEditor);
 
-		shadowsEditor = new BooleanFieldEditor(ArchipelagoConstants.PREF_DISPLAY_SHADOWS,
-				"Display Shadows", getFieldEditorParent());
+		shadowsEditor = new BooleanFieldEditor(ArchipelagoConstants.PREF_DISPLAY_SHADOWS, "Display Shadows",
+				getFieldEditorParent());
 		addField(shadowsEditor);
 
-		defaultLineWidthEditor = new ScaleFieldEditor(ArchipelagoConstants.PREF_LINE_WIDTH,
-				"Line Width:", getFieldEditorParent());
+		bnaUIEditor = new RadioGroupFieldEditor(ArchipelagoConstants.PREF_BNA_UI, "Graphical Subsystem", 1,
+				EclipseUtils.getFieldEditorPreferenceData(IBNAUI.AvailableUI.class), getFieldEditorParent(), true);
+		addField(bnaUIEditor);
+
+		defaultLineWidthEditor = new ScaleFieldEditor(ArchipelagoConstants.PREF_LINE_WIDTH, "Line Width:",
+				getFieldEditorParent());
 		defaultLineWidthEditor.setMinimum(1);
 		defaultLineWidthEditor.setMaximum(3);
 		addField(defaultLineWidthEditor);

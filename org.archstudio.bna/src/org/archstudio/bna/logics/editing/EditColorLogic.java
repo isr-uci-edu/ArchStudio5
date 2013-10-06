@@ -10,9 +10,9 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.bna.utils.IBNAMenuListener;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
@@ -105,7 +105,7 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 
 	protected void chooseAndAssignColor(IBNAView view, Iterable<IHasMutableColor> thingsToEdit, RGB initialRGB) {
 		Runnable undoRunnable = takeSnapshot(thingsToEdit);
-		ColorDialog colorDialog = new ColorDialog(view.getComposite().getShell());
+		ColorDialog colorDialog = new ColorDialog(view.getBNAUI().getComposite().getShell());
 		colorDialog.setRGB(initialRGB);
 		RGB rgb = colorDialog.open();
 		if (rgb != null) {

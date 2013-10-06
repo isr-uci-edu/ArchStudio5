@@ -1,5 +1,7 @@
 package org.archstudio.sysutils;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -1365,6 +1367,36 @@ public class SystemUtils {
 
 	public static final <T> List<T> filter(Iterable<?> elements, Class<T> ofType) {
 		return Lists.newArrayList(Iterables.filter(elements, ofType));
+	}
+
+	public static final int floor(double v) {
+		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE);
+		return (int) v;
+	}
+
+	public static final int floor(float v) {
+		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE);
+		return (int) v;
+	}
+
+	public static final int ceil(double v) {
+		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE);
+		return (int) Math.ceil(v);
+	}
+
+	public static final int ceil(float v) {
+		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE);
+		return (int) Math.ceil(v);
+	}
+
+	public static final int round(double v) {
+		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE);
+		return (int) Math.round(v);
+	}
+
+	public static final int round(float v) {
+		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE);
+		return Math.round(v);
 	}
 
 }
