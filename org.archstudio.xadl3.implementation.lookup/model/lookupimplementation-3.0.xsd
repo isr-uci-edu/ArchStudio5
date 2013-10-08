@@ -12,9 +12,9 @@
             ecore:nsPrefix="lookupimplementation_3_0">
 
 	<xs:import namespace="http://www.archstudio.org/xadl3/schemas/implementation-3.0.xsd"
-	           schemaLocation="https://raw.github.com/isr-uci-edu/ArchStudio/master/org.archstudio.xadl3.implementation/model/implementation-3.0.xsd"/>
+	           schemaLocation="https://raw.github.com/isr-uci-edu/ArchStudio5/master/org.archstudio.xadl3.implementation/model/implementation-3.0.xsd"/>
 	<xs:import namespace="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd"
-	           schemaLocation="https://raw.github.com/isr-uci-edu/ArchStudio/master/org.archstudio.xadl3.xadlcore/model/xadlcore-3.0.xsd"/>
+	           schemaLocation="https://raw.github.com/isr-uci-edu/ArchStudio5/master/org.archstudio.xadl3.xadlcore/model/xadlcore-3.0.xsd"/>
 	<xs:import namespace="http://www.eclipse.org/emf/2002/Ecore" />
 
 	<xs:annotation>
