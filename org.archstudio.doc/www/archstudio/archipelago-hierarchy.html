@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--#set var="subtitle" value="Components" -->
+<!--#set var="subsubtitle" value="Archipelago (Overview)" -->
+
+<!--#include virtual="_pagetop.html" -->
+
+<h1>Archipelago: Creating Hierarchical Structures</h1>
+
+<p>ArchStudio supports the concept of hierarchical structures,
+   i.e., where components and connectors have internal structures
+   that define how they are constructed internally. Archipelago 
+   displays these structures directly in the graphical editor 
+   and allows them to be directly manipulated.</p>
+
+<p>Unlike general graphical editing tools (like PowerPoint) where 
+   graphical objects are simply layered and dragged on top of each 
+   other, ArchStudio defines hierarchies through explicit 
+   substructures.</p>
+
+<h2>Assigning and Linking to a Substructure</h2>
+
+<p>Below is an example of how to define and create
+   a substructure.</p>
+ 
+
+   <table border="1" cellpadding="3" cellspacing="2">
+     <tr>
+       <td><a href="images/substructure/mainstructure.png"><img style="border: 0" src="images/substructure/mainstructure.png" width="200" alt="Main Structure"/></a></td>
+       <td>This shows the main structure of our example architecture in Archipelago. 
+           We will assign a substructure to the top component of this structure. 
+           Note that the structure is listed to the left, under the "Structures" node of the "Outline" view.</td>
+     </tr>
+     <tr>
+       <td><a href="images/substructure/substructure.png"><img style="border: 0" src="images/substructure/substructure.png" width="200" alt="Substructure"/></a></td>
+       <td>This shows the substructure of our example in Archipelago, the one that we will assign to the top component of the main structure.
+           Note that this is an independent, first-class structure in and of itself.
+           It is listed to the left under the "Structures" node of the "Outline" view as well.</td>
+     </tr>
+     <tr>
+       <td><a href="images/substructure/substructure-drag.png"><img style="border: 0" src="images/substructure/substructure-drag.png" width="200" alt="Assigning a Substructure"/></a></td>
+       <td>To assign the substructure to the top component of the main structure, we return to the main structure and drag the substructure from the outline view to the top component of the main structure.</td>
+     </tr>
+     <tr>
+       <td><a href="images/substructure/substructure-assigned.png"><img style="border: 0" src="images/substructure/substructure-assigned.png" width="200" alt="Substructure Assigned"/></a></td>
+       <td>Once assigned, Archipelago displays the substructure within the top component. 
+           The substructure can be directly manipulated from the main structure, or each structure can be independently edited by double clicking on it in the "Outline" view.</td>
+     </tr>
+     <tr>
+       <td><a href="images/substructure/mainstructure-mapping.png"><img style="border: 0" src="images/substructure/mainstructure-mapping.png" width="200" alt="Main Structure"/></a></td>
+       <td>Finally, mappings from an interface on the outer component to an interface within the substructure can be created through context menus.
+           To do this:
+       <ol>
+       <li>Right-click on the interface of the outer component,</li>
+       <li>Select "New Interface-Interface Mapping",</li>
+       <li>Drag the blue line to the desired interface within the substructure, and</li>
+       <li>Click on the substructure's interface.</li>
+       </ol>
+       A new mapping from the outer interface to the inner interface will appear.
+       </td>
+     </tr>
+   </table>
+
+<p>Connectors can have substructures as well. These are assigned in the same way as components.</p>
+
+<!--#include virtual="_pagebottom.html" -->
+
+</html>
