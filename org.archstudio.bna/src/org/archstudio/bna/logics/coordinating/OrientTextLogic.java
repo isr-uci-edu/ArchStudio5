@@ -36,10 +36,10 @@ public class OrientTextLogic extends AbstractThingLogic {
 						double dy = p2.y - p1.y;
 						double angle = Math.atan2(dy, dx);
 						if (angle > Math.PI / 8 && angle < Math.PI * 7 / 8) {
-							return HorizontalAlignment.RIGHT;
+							return HorizontalAlignment.LEFT;
 						}
 						if (-angle > Math.PI / 8 && -angle < Math.PI * 7 / 8) {
-							return HorizontalAlignment.LEFT;
+							return HorizontalAlignment.RIGHT;
 						}
 						return HorizontalAlignment.CENTER;
 					}
@@ -55,10 +55,10 @@ public class OrientTextLogic extends AbstractThingLogic {
 						double dy = p2.y - p1.y;
 						double angle = Math.atan2(dx, dy);
 						if (angle > Math.PI / 8 && angle < Math.PI * 7 / 8) {
-							return VerticalAlignment.TOP;
+							return VerticalAlignment.BOTTOM;
 						}
 						if (-angle > Math.PI / 8 && -angle < Math.PI * 7 / 8) {
-							return VerticalAlignment.BOTTOM;
+							return VerticalAlignment.TOP;
 						}
 						return VerticalAlignment.MIDDLE;
 					}
