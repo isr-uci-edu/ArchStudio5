@@ -5,115 +5,87 @@ import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
-import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.keys.IThingMetakey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingMetakey;
-import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
+import org.archstudio.bna.logics.AbstractKeyCoordinatingThingLogic;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
-import org.eclipse.jdt.annotation.Nullable;
 
 import com.google.common.collect.Sets;
 
-public class SynchronizeThingIDAndXArchIDLogic extends AbstractThingLogic implements IBNAModelListener {
+public class SynchronizeThingIDAndXArchIDLogic extends AbstractKeyCoordinatingThingLogic implements IBNAModelListener {
 
-	protected final ThingValueTrackingLogic valueLogic;
-
-	Set<IThingMetakey<?, IThingKey<Object>, String>> xArchIDKeys = Sets.newHashSet();
-	Set<IThingKey<Object>> thingIDKeys = Sets.newHashSet();
-	int inUpdateCount = 0;
+	private static final String XARCH_ID_NAME = ".xArchID";
+	private final Set<IThingMetakey<?, IThingRefKey<?>, String>> xArchIDMetakeys = Sets.newHashSet();
 
 	public SynchronizeThingIDAndXArchIDLogic(IBNAWorld world) {
-		super(world);
-		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
+		super(world, true);
+		track(IHasXArchID.XARCH_ID_KEY);
 	}
 
 	synchronized public IThingKey<String> syncXArchIDKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
-		return getXArchIDKey(thingRefKey);
+		track(thingRefKey);
+		IThingMetakey<?, IThingRefKey<?>, String> xArchIDMetakey = _syncXArchIDKeyToThingIDKey(thingRefKey);
+		xArchIDMetakeys.add(xArchIDMetakey);
+		track(xArchIDMetakey);
+		return xArchIDMetakey;
 	}
 
-	private IThingKey<String> getXArchIDKey(IThingKey<Object> thingIDKey) {
-		thingIDKeys.add(thingIDKey);
-		IThingMetakey<?, IThingKey<Object>, String> xArchIDKey = ThingMetakey.create("xArchID", thingIDKey);
-		xArchIDKeys.add(xArchIDKey);
-		return xArchIDKey;
+	private IThingMetakey<?, IThingRefKey<?>, String> _syncXArchIDKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
+		return ThingMetakey.<String, IThingRefKey<?>, String> create(XARCH_ID_NAME, thingRefKey);
+	}
+
+	@Override
+	protected void update(IThing thing, IThingKey<?> key) {
+		if (IHasXArchID.XARCH_ID_KEY.equals(key)) {
+			String xArchID = thing.get(IHasXArchID.XARCH_ID_KEY);
+			if (xArchID != null) {
+				for (IThingMetakey<?, IThingRefKey<?>, String> xArchIDKey : xArchIDMetakeys) {
+					for (IThing thingWithXArchID : valueLogic.getThings(xArchIDKey, xArchID)) {
+						thingWithXArchID.set(xArchIDKey.getKey(), thing.getID());
+					}
+				}
+			}
+		}
+		else if (key instanceof IThingMetakey && XARCH_ID_NAME.equals(((IThingMetakey<?, ?, ?>) key).getName())) {
+			@SuppressWarnings("unchecked")
+			IThingMetakey<?, IThingRefKey<?>, String> xArchIDKey = (IThingMetakey<?, IThingRefKey<?>, String>) key;
+			String xArchID = thing.get(xArchIDKey);
+			if (xArchID != null) {
+				thing.set(xArchIDKey.getKey(), firstOrNull(valueLogic.getThingIDs(IHasXArchID.XARCH_ID_KEY, xArchID)));
+			}
+			else {
+				thing.set(xArchIDKey.getKey(), null);
+			}
+		}
+		else if (key instanceof IThingRefKey) {
+			IThingRefKey<?> refKey = (IThingRefKey<?>) key;
+			IThingMetakey<?, IThingRefKey<?>, String> xArchIDKey = _syncXArchIDKeyToThingIDKey(refKey);
+			if (thing.has(xArchIDKey)) {
+				IThing referencedThing = refKey.get(thing, model);
+				String xArchID = referencedThing != null ? referencedThing.get(IHasXArchID.XARCH_ID_KEY) : null;
+				thing.set(xArchIDKey, xArchID);
+			}
+		}
 	}
 
 	@Override
 	synchronized public void bnaModelChanged(BNAModelEvent evt) {
-		if (inUpdateCount > 0) {
-			return;
-		}
-		inUpdateCount++;
-		try {
-			switch (evt.getEventType()) {
-			case THING_ADDED: {
-				IThing t = evt.getTargetThing();
-				String xArchID = t.get(IHasXArchID.XARCH_ID_KEY);
-				if (xArchID != null) {
-					setThingIdForXArchID(xArchID, t.getID());
-				}
-				for (IThingMetakey<?, IThingKey<Object>, String> xArchIDKey : xArchIDKeys) {
-					xArchID = t.get(xArchIDKey);
-					if (xArchID != null) {
-						t.set(xArchIDKey.getKey(),
-								firstOrNull(valueLogic.getThingIDs(IHasXArchID.XARCH_ID_KEY, xArchID)));
+		super.bnaModelChanged(evt);
+		if (evt.getEventType() == EventType.THING_REMOVED) {
+			IThing thing = evt.getTargetThing();
+			String xArchID = thing.get(IHasXArchID.XARCH_ID_KEY);
+			if (xArchID != null) {
+				for (IThingMetakey<?, IThingRefKey<?>, String> xArchIDKey : xArchIDMetakeys) {
+					for (IThing thingWithXArchID : valueLogic.getThings(xArchIDKey, xArchID)) {
+						thingWithXArchID.set(xArchIDKey.getKey(), null);
 					}
 				}
-				break;
-			}
-			case THING_CHANGED: {
-				ThingEvent te = evt.getThingEvent();
-				IThingKey<?> p = te.getPropertyName();
-				if (thingIDKeys.contains(p)) {
-					@SuppressWarnings("unchecked")
-					IThingKey<Object> idKey = (IThingKey<Object>) p;
-					IThing thingWithReference = evt.getTargetThing();
-					IThing referencedThing = evt.getSource().getThing(thingWithReference.get(idKey));
-					String xArchID = referencedThing != null ? referencedThing.get(IHasXArchID.XARCH_ID_KEY) : null;
-					thingWithReference.set(getXArchIDKey(idKey), xArchID);
-				}
-				else if (IHasXArchID.XARCH_ID_KEY.equals(p)) {
-					IThing thingWithXArchID = evt.getTargetThing();
-					String xArchID = thingWithXArchID.get(IHasXArchID.XARCH_ID_KEY);
-					setThingIdForXArchID(xArchID, thingWithXArchID.getID());
-				}
-				else if (xArchIDKeys.contains(p)) {
-					IThing thingWithXArchID = evt.getTargetThing();
-					@SuppressWarnings("unchecked")
-					IThingMetakey<?, IThingKey<Object>, String> xArchIDKey = (IThingMetakey<?, IThingKey<Object>, String>) p;
-					String xArchID = thingWithXArchID.get(xArchIDKey);
-					thingWithXArchID.set(xArchIDKey.getKey(),
-							firstOrNull(valueLogic.getThingIDs(IHasXArchID.XARCH_ID_KEY, xArchID)));
-				}
-				break;
-			}
-			case THING_REMOVED: {
-				IThing t = evt.getTargetThing();
-				String xArchID = t.get(IHasXArchID.XARCH_ID_KEY);
-				if (xArchID != null) {
-					setThingIdForXArchID(xArchID, null);
-				}
-				break;
-			}
-			default:
-				// do nothing
-			}
-		}
-		finally {
-			inUpdateCount--;
-		}
-	}
-
-	private void setThingIdForXArchID(String xArchID, @Nullable Object thingId) {
-		for (IThingMetakey<?, IThingKey<Object>, String> xArchIDKey : xArchIDKeys) {
-			for (IThing thingWithXArchID : valueLogic.getThings(xArchIDKey, xArchID)) {
-				thingWithXArchID.set(xArchIDKey.getKey(), thingId);
 			}
 		}
 	}

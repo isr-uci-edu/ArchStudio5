@@ -6,7 +6,6 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import java.util.List;
 import java.util.Set;
 
-import org.archstudio.bna.IBNAMouseWheelListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
@@ -19,6 +18,7 @@ import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
 import org.archstudio.bna.ui.IBNAMagnifyGestureListener;
 import org.archstudio.bna.ui.IBNAMouseListener;
 import org.archstudio.bna.ui.IBNAMouseMoveListener;
+import org.archstudio.bna.ui.IBNAMouseWheelListener;
 import org.archstudio.bna.ui.IBNAPanGestureListener;
 import org.archstudio.bna.ui.IBNATrackGestureListener;
 import org.archstudio.bna.utils.BNAUtils;

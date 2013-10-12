@@ -1,6 +1,5 @@
 package org.archstudio.bna;
 
-import org.archstudio.bna.utils.DefaultBNAModel;
 import org.eclipse.jdt.annotation.Nullable;
 
 public class BNAModelEvent {
@@ -12,50 +11,48 @@ public class BNAModelEvent {
 		THING_RESTACKED(true), //
 		BULK_CHANGE_BEGIN(false), //
 		BULK_CHANGE_END(false), //
+		FLUSH(false), //
 		STREAM_NOTIFICATION_EVENT(false);
 
 		private final boolean modelModified;
 
-		public boolean isModelModifyingEvent() {
-			return modelModified;
-		}
-
 		private EventType(boolean modelModified) {
 			this.modelModified = modelModified;
 		}
+
+		public boolean isModelModifyingEvent() {
+			return modelModified;
+		}
 	};
 
-	public static final BNAModelEvent create(DefaultBNAModel source, EventType eventType, boolean inBulkChange) {
-		return new BNAModelEvent(source, eventType, inBulkChange, null, null, null);
+	public static final BNAModelEvent create(IBNAModel source, EventType eventType) {
+		return new BNAModelEvent(source, eventType, null, null, null);
 	}
 
-	public static final BNAModelEvent create(IBNAModel source, EventType eventType, boolean inBulkChange,
-			String streamNotification) {
-		return new BNAModelEvent(source, eventType, inBulkChange, null, null, streamNotification);
+	public static final BNAModelEvent create(IBNAModel source, EventType eventType, Object streamNotification) {
+		return new BNAModelEvent(source, eventType, null, null, streamNotification);
 	}
 
-	public static final BNAModelEvent create(IBNAModel source, EventType eventType, boolean inBulkChange,
-			IThing targetThing) {
-		return new BNAModelEvent(source, eventType, inBulkChange, targetThing, null, null);
+	public static final BNAModelEvent create(IBNAModel source, EventType eventType, IThing targetThing) {
+		return new BNAModelEvent(source, eventType, targetThing, null, null);
 	}
 
-	public static final BNAModelEvent create(IBNAModel source, EventType eventType, boolean inBulkChange,
-			IThing targetThing, ThingEvent thingEvent) {
-		return new BNAModelEvent(source, eventType, inBulkChange, targetThing, thingEvent, null);
+	public static final BNAModelEvent create(IBNAModel source, EventType eventType, IThing targetThing,
+			ThingEvent thingEvent) {
+		return new BNAModelEvent(source, eventType, targetThing, thingEvent, null);
 	}
 
-	protected final IBNAModel source;
 	protected final EventType eventType;
-	protected final boolean inBulkChange;
-	protected final IThing targetThing;
 	protected final ThingEvent thingEvent;
-	protected final String streamNotification;
+	protected final IThing targetThing;
+	protected final Object streamNotification;
+	protected final IBNAModel source;
+	protected final Thread thread = Thread.currentThread();
 
-	protected BNAModelEvent(IBNAModel source, EventType eventType, boolean inBulkChange, @Nullable IThing targetThing,
-			@Nullable ThingEvent thingEvent, @Nullable String streamNotification) {
+	protected BNAModelEvent(IBNAModel source, EventType eventType, @Nullable IThing targetThing,
+			@Nullable ThingEvent thingEvent, @Nullable Object streamNotification) {
 		this.source = source;
 		this.eventType = eventType;
-		this.inBulkChange = inBulkChange;
 		this.targetThing = targetThing;
 		this.thingEvent = thingEvent;
 		this.streamNotification = streamNotification;
@@ -69,10 +66,6 @@ public class BNAModelEvent {
 		return eventType;
 	}
 
-	public boolean isInBulkChange() {
-		return inBulkChange;
-	}
-
 	public @Nullable
 	IThing getTargetThing() {
 		return targetThing;
@@ -84,19 +77,17 @@ public class BNAModelEvent {
 	}
 
 	public @Nullable
-	String getStreamNotification() {
+	Object getStreamNotification() {
 		return streamNotification;
+	}
+
+	public Thread getThread() {
+		return thread;
 	}
 
 	@Override
 	public String toString() {
-		return "BNAModelEvent[" + //
-				"eventType=" + eventType + ";" + //
-				"inBulkChange=" + inBulkChange + ";" + //
-				"streamNotification=" + streamNotification + ";" + //
-				"thingEvent=" + thingEvent + ";" + //
-				"source=" + source + ";" + //
-				"targetThing=" + targetThing + ";" + //
-				"]";
+		return "BNAModelEvent [eventType=" + eventType + ", thingEvent=" + thingEvent + ", targetThing=" + targetThing
+				+ ", streamNotification=" + streamNotification + ", source=" + source + "]";
 	}
 }

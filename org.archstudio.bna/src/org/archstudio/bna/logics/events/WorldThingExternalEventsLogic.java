@@ -8,7 +8,6 @@ import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
@@ -32,16 +31,17 @@ import org.archstudio.bna.ui.IBNAPanGestureListener;
 import org.archstudio.bna.ui.IBNARotateGestureListener;
 import org.archstudio.bna.ui.IBNASwipeGestureListener;
 import org.archstudio.bna.ui.IBNATrackGestureListener;
+import org.archstudio.bna.utils.DefaultCoordinate;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.events.MouseEvent;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.google.common.collect.Lists;
 
 public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 
-	protected static final boolean PROFILE = false;
+	public boolean PROFILE = false;
 	protected static final LoadingCache<Object, AtomicLong> profileStats = CacheBuilder.newBuilder().weakKeys()
 			.build(new CacheLoader<Object, AtomicLong>() {
 				@Override
@@ -69,11 +69,13 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 		}
 	}
 
-	protected class ProxyHandler implements IThingLogic, InvocationHandler, IBNAMouseListener, IBNAMouseMoveListener {
+	protected class ProxyHandler implements IThingLogic, InvocationHandler, IBNAMouseListener, IBNAMouseMoveListener,
+			IBNAMenuListener {
 
+		protected Method method;
 		protected IHasWorld capturedWorldThing = null;
 
-		public ProxyHandler() throws NoSuchMethodException, SecurityException {
+		public ProxyHandler() {
 		}
 
 		@Override
@@ -91,6 +93,7 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+			this.method = method;
 			try {
 				Method selfMethod = this.getClass().getMethod(method.getName(), method.getParameterTypes());
 				return selfMethod.invoke(this, args);
@@ -149,47 +152,46 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 			}
 		}
 
-		Method MOUSE_DOWN = IBNAMouseListener.class.getMethod("mouseDown", IBNAView.class, MouseType.class,
-				MouseEvent.class, List.class, ICoordinate.class);
-
 		@Override
 		public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
 			capturedWorldThing = firstOrNull(things, IHasWorld.class);
 			if (capturedWorldThing != null) {
-				propagateEvent(view, capturedWorldThing, MOUSE_DOWN, new Object[] { view, type, evt, things, location });
+				propagateEvent(view, capturedWorldThing, method, new Object[] { view, type, evt, things, location });
 			}
 		}
-
-		Method MOUSE_UP = IBNAMouseListener.class.getMethod("mouseUp", IBNAView.class, MouseType.class,
-				MouseEvent.class, List.class, ICoordinate.class);
 
 		@Override
 		public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
 			if (capturedWorldThing != null) {
-				propagateEvent(view, capturedWorldThing, MOUSE_UP, new Object[] { view, type, evt, things, location });
+				propagateEvent(view, capturedWorldThing, method, new Object[] { view, type, evt, things, location });
 				capturedWorldThing = null;
 			}
 		}
 
-		Method MOUSE_MOVE = IBNAMouseMoveListener.class.getMethod("mouseMove", IBNAView.class, MouseType.class,
-				MouseEvent.class, List.class, ICoordinate.class);
-
 		@Override
 		public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
 			if (capturedWorldThing != null) {
-				propagateEvent(view, capturedWorldThing, MOUSE_MOVE, new Object[] { view, type, evt, things, location });
+				propagateEvent(view, capturedWorldThing, method, new Object[] { view, type, evt, things, location });
 			}
 		}
+
+		@Override
+		public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
+			IHasWorld worldThing = firstOrNull(things, IHasWorld.class);
+			if (worldThing != null) {
+				propagateEvent(view, worldThing, method, new Object[] { view, things, location, menu });
+			}
+		}
+
 	}
 
 	protected final ThingTypeTrackingLogic typeLogic;
 
-	List<IThingLogic> proxies = Lists.newArrayList();
+	protected final IThingLogic proxy;
 
 	public WorldThingExternalEventsLogic(IBNAWorld world) {
 		super(world);
 		typeLogic = logics.addThingLogic(ThingTypeTrackingLogic.class);
-		IThingLogic proxy;
 		try {
 			proxy = (IThingLogic) Proxy.newProxyInstance( //
 					this.getClass().getClassLoader(), //
@@ -209,23 +211,24 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 							IBNATrackGestureListener.class //
 					}, new ProxyHandler());
 		}
-		catch (IllegalArgumentException | NoSuchMethodException | SecurityException e) {
+		catch (IllegalArgumentException | SecurityException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-		proxies.add(proxy);
 		logics.addThingLogic(proxy);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T> T proxy(Class<T> ofType) {
+		if (ofType.isInstance(proxy)) {
+			return (T) proxy;
+		}
+		throw new IllegalArgumentException(ofType.toString());
 	}
 
 	@Override
 	synchronized public void dispose() {
-		for (IThingLogic logic : proxies) {
-			logics.removeThingLogic(logic);
-		}
-		proxies.clear();
+		logics.removeThingLogic(proxy);
 		super.dispose();
-	}
-
-	protected void createProxy(Class<?> ofType) {
 	}
 }

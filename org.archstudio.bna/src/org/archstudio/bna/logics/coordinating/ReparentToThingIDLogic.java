@@ -1,50 +1,31 @@
 package org.archstudio.bna.logics.coordinating;
 
-import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingRefKey;
-import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.logics.AbstractKeyCoordinatingThingLogic;
 
-public class ReparentToThingIDLogic extends AbstractThingLogic implements IBNAModelListener {
+public class ReparentToThingIDLogic extends AbstractKeyCoordinatingThingLogic implements IBNAModelListener {
 
-	public static final IThingRefKey<IThing> REPARENT_TO_THING_KEY = ThingRefKey.create(ReparentToThingIDLogic.class);
+	private static final IThingRefKey<IThing> REPARENT_TO_THING_KEY = ThingRefKey.create(ReparentToThingIDLogic.class);
 
 	public ReparentToThingIDLogic(IBNAWorld world) {
-		super(world);
+		super(world, false);
+		track(REPARENT_TO_THING_KEY);
 	}
 
-	synchronized public IThingRefKey<IThing> getReparentToThingIDKey() {
+	synchronized public IThingRefKey<IThing> getReparentToThingKey() {
 		return REPARENT_TO_THING_KEY;
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
-		switch (evt.getEventType()) {
-		case THING_ADDED: {
-			reparentThing(evt.getSource(), evt.getTargetThing());
-			break;
-		}
-		case THING_CHANGED: {
-			ThingEvent te = evt.getThingEvent();
-			if (REPARENT_TO_THING_KEY.equals(te.getPropertyName())) {
-				reparentThing(evt.getSource(), te.getTargetThing());
-			}
-			break;
-		}
-		default:
-			// do nothing
-		}
-	}
-
-	private void reparentThing(IBNAModel model, IThing childThing) {
-		IThing parentThing = REPARENT_TO_THING_KEY.get(childThing, model);
+	protected void update(IThing thing, IThingKey<?> key) {
+		IThing parentThing = REPARENT_TO_THING_KEY.get(thing, model);
 		if (parentThing != null) {
-			model.reparent(parentThing, childThing);
+			model.reparent(parentThing, thing);
 		}
 	}
 }

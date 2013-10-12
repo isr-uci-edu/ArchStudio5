@@ -1,11 +1,13 @@
-package org.archstudio.bna;
+package org.archstudio.bna.utils;
 
 import static org.archstudio.sysutils.SystemUtils.simpleName;
 
 import java.util.List;
 
+import org.archstudio.bna.CoordinateMapperEvent;
+import org.archstudio.bna.ICoordinateMapperListener;
+import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.CoordinateMapperEvent.EventType;
-import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 

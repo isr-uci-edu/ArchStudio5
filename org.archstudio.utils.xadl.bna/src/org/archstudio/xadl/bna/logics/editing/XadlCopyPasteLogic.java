@@ -17,6 +17,7 @@ import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.GridUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
+import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl.bna.utils.XArchADTCopyPaste;
 import org.archstudio.xadl.bna.utils.XArchADTOperations;
@@ -28,6 +29,7 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.actions.ActionFactory;
@@ -43,54 +45,63 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 	protected final Map<ObjRef, Integer> selectAndMoveObjRefs = Maps.newHashMap();
 	protected int pasteOffset = 0;
 
-	public XadlCopyPasteLogic(IBNAWorld world, IXArchADT xarch, IActionBars actionBars) {
+	public XadlCopyPasteLogic(IBNAWorld world, IXArchADT xarch, final IActionBars actionBars) {
 		super(world);
 		this.xarch = xarch;
 		this.actionBars = actionBars;
 
-		actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), new Action() {
+		SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
+			@Override
+			public void run() {
+				actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), new Action() {
 
-			@Override
-			public void runWithEvent(@Nullable Event event) {
-				copy();
-				delete();
+					@Override
+					public void runWithEvent(@Nullable Event event) {
+						copy();
+						delete();
+					}
+				});
+				actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), new Action() {
+					@Override
+					public void runWithEvent(@Nullable Event event) {
+						copy();
+					}
+				});
+				actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), new Action() {
+					@Override
+					public void runWithEvent(@Nullable Event event) {
+						paste();
+					}
+				});
+				actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), new Action() {
+					@Override
+					public void runWithEvent(@Nullable Event event) {
+						delete();
+					}
+				});
+				actionBars.setGlobalActionHandler(ActionFactory.SELECT_ALL.getId(), new Action() {
+					@Override
+					public void runWithEvent(@Nullable Event event) {
+						selectAll();
+					}
+				});
+				actionBars.updateActionBars();
 			}
 		});
-		actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), new Action() {
-			@Override
-			public void runWithEvent(@Nullable Event event) {
-				copy();
-			}
-		});
-		actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), new Action() {
-			@Override
-			public void runWithEvent(@Nullable Event event) {
-				paste();
-			}
-		});
-		actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), new Action() {
-			@Override
-			public void runWithEvent(@Nullable Event event) {
-				delete();
-			}
-		});
-		actionBars.setGlobalActionHandler(ActionFactory.SELECT_ALL.getId(), new Action() {
-			@Override
-			public void runWithEvent(@Nullable Event event) {
-				selectAll();
-			}
-		});
-		actionBars.updateActionBars();
 	}
 
 	@Override
 	synchronized public void dispose() {
-		actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), null);
-		actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), null);
-		actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), null);
-		actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), null);
-		actionBars.updateActionBars();
-
+		SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
+			@Override
+			public void run() {
+				actionBars.setGlobalActionHandler(ActionFactory.CUT.getId(), null);
+				actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(), null);
+				actionBars.setGlobalActionHandler(ActionFactory.PASTE.getId(), null);
+				actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), null);
+				actionBars.updateActionBars();
+			}
+		});
 		super.dispose();
 	}
 

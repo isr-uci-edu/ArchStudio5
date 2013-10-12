@@ -14,6 +14,8 @@ import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractSplineThingPeer<T extends AbstractSplineThing> extends AbstractThingPeer<T> {
 
+	public static final int LINE_CLICK_DISTANCE = 5;
+
 	public AbstractSplineThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
 		super(thing, view, cm);
 	}
@@ -38,12 +40,11 @@ public abstract class AbstractSplineThingPeer<T extends AbstractSplineThing> ext
 
 	@Override
 	public boolean isInThing(ICoordinate location) {
-		int distance = 5;
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
-		lbb.x -= distance;
-		lbb.y -= distance;
-		lbb.width += distance * 2;
-		lbb.height += distance * 2;
+		lbb.x -= LINE_CLICK_DISTANCE;
+		lbb.y -= LINE_CLICK_DISTANCE;
+		lbb.width += LINE_CLICK_DISTANCE * 2;
+		lbb.height += LINE_CLICK_DISTANCE * 2;
 		if (lbb.contains(location.getLocalPoint())) {
 			Point lp = location.getLocalPoint();
 			List<Point> points = BNAUtils.worldToLocal(cm, t.getPoints());
@@ -51,7 +52,7 @@ public abstract class AbstractSplineThingPeer<T extends AbstractSplineThing> ext
 				Point p0 = points.get(i - 1);
 				Point p1 = points.get(i);
 				double distSq = Line2D.ptSegDistSq(p0.x, p0.y, p1.x, p1.y, lp.x, lp.y);
-				if (distSq <= distance * distance) {
+				if (distSq <= LINE_CLICK_DISTANCE * LINE_CLICK_DISTANCE) {
 					return true;
 				}
 			}

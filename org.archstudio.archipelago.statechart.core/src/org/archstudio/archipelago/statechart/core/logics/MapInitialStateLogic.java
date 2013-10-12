@@ -35,7 +35,7 @@ public class MapInitialStateLogic extends AbstractXADLToBNAPathLogic<EllipseThin
 	protected final Dimension defaultSize;
 
 	public MapInitialStateLogic(IBNAWorld world, Services services, IXArchADT xarch, ObjRef rootObjRef,
-			String objRefPath, Dimension defaultSize) {
+			String objRefPath, Dimension defaultSize, String description) {
 		super(world, xarch, rootObjRef, objRefPath);
 		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
 		this.services = services;
@@ -43,6 +43,8 @@ public class MapInitialStateLogic extends AbstractXADLToBNAPathLogic<EllipseThin
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
+
+		setProgressInfo(description);
 	}
 
 	@Override

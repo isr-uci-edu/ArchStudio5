@@ -6,7 +6,6 @@ import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 import java.util.Collection;
 import java.util.List;
 
-import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
@@ -21,6 +20,7 @@ import org.archstudio.bna.ui.IBNAMouseListener;
 import org.archstudio.bna.ui.IBNAMouseMoveListener;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.DefaultCoordinate;
 import org.archstudio.resources.IResources;
 import org.archstudio.sysutils.UIDGenerator;
 import org.archstudio.xadl.XadlUtils;

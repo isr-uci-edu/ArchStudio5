@@ -1,16 +1,25 @@
 package org.archstudio.bna;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
+
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jdt.annotation.Nullable;
 
 public interface IBNAModel {
+
+	public interface RunnableStreamNotification extends Runnable {
+
+	}
+
+	public void addPrivilegedBNAModelListener(IPrivilegedBNAModelListener l);
+
+	public void removePrivilegedBNAModelListener(IPrivilegedBNAModelListener l);
 
 	public void addBNAModelListener(IBNAModelListener l);
 
 	public void removeBNAModelListener(IBNAModelListener l);
 
-	public void fireStreamNotificationEvent(String streamNotification);
+	public void fireStreamNotificationEvent(Object streamNotification);
 
 	/**
 	 * Callers should invoke this when they are about to start a bulk change to the model, that is, many changes to the
@@ -29,6 +38,14 @@ public interface IBNAModel {
 	 */
 	public void endBulkChange();
 
+	public boolean isInBulkChange();
+
+	public void ensureFlush();
+
+	public void flush();
+
+	public void flush(IProgressMonitor monitor);
+
 	public <T extends IThing> T addThing(T thing);
 
 	public <T extends IThing> T addThing(T thing, IThing parentThing);
@@ -39,11 +56,20 @@ public interface IBNAModel {
 
 	public void removeThingAndChildren(IThing thing);
 
-	public IThing getThing(Object thingId);
+	public @Nullable
+	IThing getThing(int thingUID);
 
-	public List<IThing> getAllThings();
+	public @Nullable
+	IThing getThing(@Nullable Integer thingUID);
+
+	public List<IThing> getThingsByUID(Iterable<Integer> thingUIDs);
+
+	public @Nullable
+	IThing getThing(@Nullable Object thingID);
 
 	public List<IThing> getThingsByID(Iterable<Object> thingIDs);
+
+	public List<IThing> getAllThings();
 
 	public List<IThing> getReverseThings();
 
@@ -51,15 +77,15 @@ public interface IBNAModel {
 
 	public IThing getParentThing(IThing thing);
 
-	public Collection<IThing> getChildThings(IThing thing);
+	public List<IThing> getChildThings(IThing thing);
 
-	public Collection<IThing> getAncestorThings(IThing thing);
+	public List<IThing> getAncestorThings(IThing thing);
 
-	public Collection<IThing> getDescendantThings(IThing thing);
+	public List<IThing> getDescendantThings(IThing thing);
 
-	public void bringToFront(Set<? extends IThing> things);
+	public void bringToFront(IThing thing);
 
-	public void sendToBack(Set<? extends IThing> things);
+	public void sendToBack(IThing thing);
 
 	public void reparent(IThing newParent, IThing thing);
 

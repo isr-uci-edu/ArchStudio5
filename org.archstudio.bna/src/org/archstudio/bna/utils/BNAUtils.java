@@ -9,7 +9,6 @@ import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -996,30 +995,17 @@ public class BNAUtils {
 		}
 	}
 
-	public static final List<IThing> toThings(String[] thingIDs, IBNAModel model) {
-		List<IThing> things = new ArrayList<IThing>(thingIDs.length);
-		for (String thingID : thingIDs) {
-			IThing thing = model.getThing(thingID);
-			if (thing != null) {
-				things.add(thing);
-			}
+	public static int[] toXYIntArrayFromPoint2D(List<Point2D> points) {
+		int[] xyArray = new int[2 * points.size()];
+		for (int i = 0, length = points.size(), xy = 0; i < length; i++) {
+			Point2D p = points.get(i);
+			xyArray[xy++] = SystemUtils.round(p.getX());
+			xyArray[xy++] = SystemUtils.round(p.getY());
 		}
-		return things;
+		return xyArray;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static final <T extends IThing> List<T> toThings(String[] thingIDs, IBNAModel model, Class<T> thingClass) {
-		List<T> things = new ArrayList<T>(thingIDs.length);
-		for (String thingID : thingIDs) {
-			IThing thing = model.getThing(thingID);
-			if (thingClass.isInstance(thing)) {
-				things.add((T) thing);
-			}
-		}
-		return things;
-	}
-
-	public static int[] toXYArray(List<Point> points) {
+	public static int[] toXYIntArrayFromPoint(List<Point> points) {
 		int[] xyArray = new int[2 * points.size()];
 		for (int i = 0, length = points.size(), xy = 0; i < length; i++) {
 			Point p = points.get(i);
@@ -1029,7 +1015,7 @@ public class BNAUtils {
 		return xyArray;
 	}
 
-	public static int[] toXYArray(ICoordinateMapper cm, List<Point> points, Point anchorPoint) {
+	public static int[] toXYIntArrayFromPoint(ICoordinateMapper cm, List<Point> points, Point anchorPoint) {
 		int[] xyArray = new int[2 * points.size()];
 		for (int i = 0, length = points.size(), xy = 0; i < length; i++) {
 			Point p = points.get(i);
@@ -1105,6 +1091,10 @@ public class BNAUtils {
 
 	public static final Rectangle2D toRectangle2D(Rectangle bounds) {
 		return new Rectangle2D.Double(bounds.x, bounds.y, bounds.width, bounds.height);
+	}
+
+	public static Point toPoint(double x, double y) {
+		return new Point(SystemUtils.round(x), SystemUtils.round(y));
 	}
 
 	public static Point toPoint(java.awt.Point point) {
@@ -1243,8 +1233,12 @@ public class BNAUtils {
 		return (long) targetThing.getUID() << 32 | propertyName.getUID();
 	}
 
-	public static final long getThingKeyUID(int targetThingUID, int propertyNameUID) {
-		return (long) targetThingUID << 32 | propertyNameUID;
+	public static final int getThingUID(long thingKeyUID) {
+		return (int) (thingKeyUID >> 32); // FIXME, use the correct bit operator here
+	}
+
+	public static final IThingKey<?> getThingKey(long thingKeyUID) {
+		return ThingKey.getKey((int) thingKeyUID); // FIXME, use the correct bit operator here
 	}
 
 	public static Path2D worldToLocal(ICoordinateMapper cm, Path2D shape) {

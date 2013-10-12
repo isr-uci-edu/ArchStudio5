@@ -54,7 +54,9 @@ public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThi
 		GC gc = null;
 		try {
 			gc = new GC(control.getDisplay());
-			gc.setFont(control.getFont());
+			if (control.getFont() != null) {
+				gc.setFont(control.getFont());
+			}
 			int minHeight = gc.getFontMetrics().getHeight();
 			int minWidth = gc.textExtent(control.getText()).x + gc.getFontMetrics().getAverageCharWidth() * 4;
 			Rectangle newBounds = control.computeTrim(bounds.x, bounds.y, minWidth, minHeight);

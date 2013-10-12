@@ -2,9 +2,11 @@ package org.archstudio.bna;
 
 import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
-import org.archstudio.bna.ui.AutodetectBNAUI;
+import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.ui.IBNAUI;
+import org.archstudio.bna.ui.utils.AutodetectBNAUI;
 import org.archstudio.bna.utils.DefaultBNAView;
+import org.archstudio.bna.utils.LinearCoordinateMapper;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
@@ -74,6 +76,7 @@ public class BNACanvas extends Composite implements ControlListener, SelectionLi
 			this.bnaUI.getComposite().removeMouseListener(this);
 			this.bnaUI.dispose();
 		}
+		// FIXME: The current BNAUI setup always initializes the autodetect UI first, then switches to the selected one. It should use the selected one first.
 		this.bnaUI = bnaUI;
 		bnaUI.init(this, bnaUIStyle);
 		layout(true, true);
@@ -123,7 +126,7 @@ public class BNACanvas extends Composite implements ControlListener, SelectionLi
 
 	@Override
 	synchronized public void bnaModelChanged(BNAModelEvent evt) {
-		if (!evt.isInBulkChange()) {
+		if (evt.getEventType() == EventType.BULK_CHANGE_END) {
 			bnaUI.paint();
 		}
 	}

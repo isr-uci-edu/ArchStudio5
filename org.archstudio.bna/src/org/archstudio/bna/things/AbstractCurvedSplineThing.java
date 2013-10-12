@@ -1,29 +1,31 @@
 package org.archstudio.bna.things;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.awt.Shape;
-import java.awt.geom.CubicCurve2D;
-import java.awt.geom.QuadCurve2D;
-import java.util.List;
-
+import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
-import org.archstudio.bna.facets.IHasMutableLoopPoint;
-import org.archstudio.bna.facets.IHasMutablePoints;
 import org.archstudio.bna.facets.IHasMutableValue;
+import org.archstudio.bna.keys.ThingMetakey;
+import org.archstudio.bna.logics.coordinating.ArrowheadLogic.IHasArrowheadStemPoint;
+import org.archstudio.bna.logics.coordinating.StickPointLogic;
+import org.archstudio.bna.logics.coordinating.StickPointLogic.IHasLoopablePoint;
+import org.archstudio.bna.things.AbstractCurvedSplineThingPeer.ShapeInfo;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.LinearCoordinateMapper;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-import com.google.common.collect.Lists;
-
 public abstract class AbstractCurvedSplineThing extends AbstractAnchorPointThing implements IHasMutableEndpoints,
-		IHasMutableValue<Integer>, IHasMutablePoints, IHasBoundingBox, IHasMutableLoopPoint {
+		IHasMutableValue<Integer>, IHasBoundingBox, IHasLoopablePoint, IHasArrowheadStemPoint {
+
+	private static final IThingKey<Point> ENDPOINT_1_ARROWHEAD_STEM_POINT_KEY = ThingMetakey.create(
+			".arrowheadStemPoint", ENDPOINT_1_KEY);
+	private static final IThingKey<Point> ENDPOINT_2_ARROWHEAD_STEM_POINT_KEY = ThingMetakey.create(
+			".arrowheadStemPoint", ENDPOINT_2_KEY);
 
 	public AbstractCurvedSplineThing(@Nullable Object id) {
 		super(id);
@@ -31,12 +33,15 @@ public abstract class AbstractCurvedSplineThing extends AbstractAnchorPointThing
 
 	@Override
 	protected void initProperties() {
-		setEndpoint1(new Point(10, -10));
-		setEndpoint2(new Point(-10, 10));
-		setLoopPoint(null);
+		Point p1 = new Point(10, -10);
+		Point p2 = new Point(-10, 10);
+		setEndpoint1(p1);
+		set(ENDPOINT_1_ARROWHEAD_STEM_POINT_KEY, p2);
+		setEndpoint2(p2);
+		set(ENDPOINT_2_ARROWHEAD_STEM_POINT_KEY, p1);
+		setLoopType(LoopType.NONE);
 		setValue(10);
 		setAnchorPoint(new Point(0, 0));
-		set(POINTS_KEY, Lists.newArrayList(new Point(0, 0), new Point(0, 0), new Point(0, 0)));
 		set(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
 		addShapeModifyingKey(ENDPOINT_1_KEY);
 		addShapeModifyingKey(ENDPOINT_2_KEY);
@@ -45,10 +50,7 @@ public abstract class AbstractCurvedSplineThing extends AbstractAnchorPointThing
 		addThingListener(new IThingListener() {
 			@Override
 			public void thingChanged(ThingEvent thingEvent) {
-				if (isShapeModifyingKey(thingEvent.getPropertyName())
-						&& !ANCHOR_POINT_KEY.equals(thingEvent.getPropertyName())
-						&& !POINTS_KEY.equals(thingEvent.getPropertyName())
-						&& !BOUNDING_BOX_KEY.equals(thingEvent.getPropertyName())) {
+				if (isShapeModifyingKey(thingEvent.getPropertyName())) {
 					updateCurvedSplineProperties();
 				}
 			}
@@ -57,29 +59,11 @@ public abstract class AbstractCurvedSplineThing extends AbstractAnchorPointThing
 	}
 
 	protected void updateCurvedSplineProperties() {
-		Point p1 = getEndpoint1();
-		Point p2 = getEndpoint2();
-		double l = -getValue();
-		Point lp = getLoopPoint();
-		Point ap;
-		Shape s;
-		if (lp != null) {
-			ap = new Point(BNAUtils.round(lp.x - l), BNAUtils.round(lp.y));
-			s = new CubicCurve2D.Double(p1.x, p1.y, lp.x - l * 2, lp.y, lp.x, lp.y + l * 2, p2.x, p2.y);
-		}
-		else {
-			double dx = p2.x - p1.x;
-			double dy = p2.y - p1.y;
-			double angle = Math.PI - Math.atan2(dy, dx);
-			Point m = new Point((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
-			double cx = m.x + Math.sin(angle) * l;
-			double cy = m.y + Math.cos(angle) * l;
-			ap = new Point(BNAUtils.round(cx), BNAUtils.round(cy));
-			s = new QuadCurve2D.Double(p1.x, p1.y, ap.x, ap.y, p2.x, p2.y);
-		}
-		setAnchorPoint(ap);
-		set(POINTS_KEY, Lists.newArrayList(p1, ap, p2));
-		set(BOUNDING_BOX_KEY, BNAUtils.toRectangle(s.getBounds()));
+		ShapeInfo shapeInfo = AbstractCurvedSplineThingPeer.getShapeInfo(this, LinearCoordinateMapper.IDENTITY);
+		set(ENDPOINT_1_ARROWHEAD_STEM_POINT_KEY, shapeInfo.endpoint1StemPoint);
+		set(ENDPOINT_2_ARROWHEAD_STEM_POINT_KEY, shapeInfo.endpoint2StemPoint);
+		setAnchorPoint(shapeInfo.anchorPoint);
+		set(BOUNDING_BOX_KEY, BNAUtils.toRectangle(shapeInfo.shape.getBounds()));
 	}
 
 	@Override
@@ -128,56 +112,74 @@ public abstract class AbstractCurvedSplineThing extends AbstractAnchorPointThing
 	}
 
 	@Override
-	public int getPointsSize() {
-		return getPoints().size();
-	}
-
-	@Override
-	public List<Point> getPoints() {
-		return get(POINTS_KEY);
-	}
-
-	@Override
-	public Point getPoint(int index) {
-		List<Point> points = getPoints();
-		return index >= 0 ? points.get(index) : points.get(points.size() + index);
-	}
-
-	@Override
-	public void setPoint(int index, Point point) {
-		switch (index) {
-		case 0:
-			setEndpoint1(point);
-			break;
-		case -1:
-		case 2:
-			setEndpoint2(point);
-			break;
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	@Override
-	public void setPoints(List<Point> points) {
-		checkArgument(points.size() == 3, "Exactly 3 points must be specified");
-		setEndpoint1(points.get(0));
-		setEndpoint2(points.get(2));
-	}
-
-	@Override
 	public Rectangle getBoundingBox() {
 		return get(BOUNDING_BOX_KEY);
 	}
 
 	@Override
-	public void setLoopPoint(@Nullable Point loop) {
-		set(LOOP_POINT_KEY, loop);
+	public void setLoopType(LoopType loopType) {
+		set(LOOP_TYPE_KEY, loopType);
+	}
+
+	public LoopType getLoopType() {
+		return get(LOOP_TYPE_KEY);
 	}
 
 	@Override
-	public @Nullable
-	Point getLoopPoint() {
-		return get(LOOP_POINT_KEY);
+	public Point getArroheadStempPoint(IThingKey<Point> pointKey) {
+		if (ENDPOINT_1_KEY.equals(pointKey)) {
+			return get(ENDPOINT_1_ARROWHEAD_STEM_POINT_KEY);
+		}
+		else if (ENDPOINT_2_KEY.equals(pointKey)) {
+			return get(ENDPOINT_2_ARROWHEAD_STEM_POINT_KEY);
+		}
+		else {
+			throw new IllegalArgumentException(pointKey.toString());
+		}
 	}
+
+	@Override
+	public Point getSecondaryPoint(IBNAModel model, StickPointLogic stickLogic, IThingKey<Point> pointKey) {
+		if (stickLogic.isLoopingPoint(this, ENDPOINT_1_KEY, ENDPOINT_2_KEY)) {
+			if (ENDPOINT_1_KEY.equals(pointKey)) {
+				return get(ENDPOINT_1_ARROWHEAD_STEM_POINT_KEY);
+			}
+			else if (ENDPOINT_2_KEY.equals(pointKey)) {
+				return get(ENDPOINT_2_ARROWHEAD_STEM_POINT_KEY);
+			}
+			else {
+				throw new IllegalArgumentException(pointKey.toString());
+			}
+		}
+		else {
+			if (ENDPOINT_1_KEY.equals(pointKey) || ENDPOINT_2_KEY.equals(pointKey)) {
+				Point p1 = stickLogic.getStuckPoint(this, ENDPOINT_1_KEY);
+				Point p2 = stickLogic.getStuckPoint(this, ENDPOINT_2_KEY);
+				double l = getValue();
+				double mx = (p1.x + p2.x) / 2;
+				double my = (p1.y + p2.y) / 2;
+				double dx = p2.x - p1.x;
+				double dy = p2.y - p1.y;
+				double angle = Math.PI - Math.atan2(dy, dx);
+				double cx = mx + 2 * l * -Math.sin(angle);
+				double cy = my + 2 * l * -Math.cos(angle);
+				return BNAUtils.toPoint(cx, cy);
+			}
+			else {
+				throw new IllegalArgumentException(pointKey.toString());
+			}
+		}
+	}
+
+	@Override
+	public LoopType getLoopType(IBNAModel model, StickPointLogic stickLogic, IThingKey<Point> pointKey) {
+		if (ENDPOINT_1_KEY.equals(pointKey) || ENDPOINT_2_KEY.equals(pointKey)) {
+			if (stickLogic.isLoopingPoint(this, ENDPOINT_1_KEY, ENDPOINT_2_KEY)) {
+				return getValue() >= 0 ? LoopType.TOP_RIGHT : LoopType.BOTTOM_LEFT;
+			}
+			return LoopType.NONE;
+		}
+		throw new IllegalArgumentException(pointKey.toString());
+	}
+
 }

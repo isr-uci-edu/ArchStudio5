@@ -2,19 +2,18 @@ package org.archstudio.bna.logics.background;
 
 import java.util.List;
 
+import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
+import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
-import org.archstudio.swtutils.SWTWidgetUtils;
-import org.eclipse.swt.widgets.Display;
 
 import com.google.common.collect.Lists;
 
 public final class RotatingOffsetLogic extends AbstractThingLogic {
 
-	protected static final boolean DEBUG = false;
-	private static List<IBNAWorld> worlds = Lists.newCopyOnWriteArrayList();
+	private static List<RotatingOffsetLogic> instances = Lists.newCopyOnWriteArrayList();
 	private static Thread updater;
 	static {
 		updater = new Thread(new Runnable() {
@@ -26,37 +25,26 @@ public final class RotatingOffsetLogic extends AbstractThingLogic {
 					}
 					catch (InterruptedException e) {
 					}
-
-					if (DEBUG) {
-						continue;
-					}
-					SWTWidgetUtils.sync(Display.getDefault(), new Runnable() {
-						@Override
-						public void run() {
-							for (IBNAWorld world : worlds) {
-								boolean changedSomething = false;
-								try {
-									ThingTypeTrackingLogic typesLogic = world.getThingLogicManager().addThingLogic(
-											ThingTypeTrackingLogic.class);
-									for (IHasMutableRotatingOffset t : typesLogic
-											.getThings(IHasMutableRotatingOffset.class)) {
-										if (t.shouldIncrementRotatingOffset()) {
-											if (!changedSomething) {
-												world.getBNAModel().beginBulkChange();
-												changedSomething = true;
-											}
-											t.incrementRotatingOffset();
-										}
-									}
-								}
-								finally {
-									if (changedSomething) {
-										world.getBNAModel().endBulkChange();
-									}
+					for (RotatingOffsetLogic instance : instances) {
+						if (instance.DEBUG) {
+							continue;
+						}
+						IBNAWorld world = instance.world;
+						IBNAModel model = world.getBNAModel();
+						IThingLogicManager logics = world.getThingLogicManager();
+						model.beginBulkChange();
+						try {
+							ThingTypeTrackingLogic typesLogic = logics.addThingLogic(ThingTypeTrackingLogic.class);
+							for (IHasMutableRotatingOffset t : typesLogic.getThings(IHasMutableRotatingOffset.class)) {
+								if (t.shouldIncrementRotatingOffset()) {
+									t.incrementRotatingOffset();
 								}
 							}
 						}
-					});
+						finally {
+							model.endBulkChange();
+						}
+					}
 				}
 			}
 
@@ -66,14 +54,16 @@ public final class RotatingOffsetLogic extends AbstractThingLogic {
 		updater.start();
 	}
 
+	public boolean DEBUG = false;
+
 	public RotatingOffsetLogic(IBNAWorld world) {
 		super(world);
-		worlds.add(world);
+		instances.add(this);
 	}
 
 	@Override
 	synchronized public void dispose() {
-		worlds.remove(world);
+		instances.remove(this);
 		super.dispose();
 	}
 }

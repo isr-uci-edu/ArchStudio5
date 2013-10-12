@@ -12,19 +12,20 @@ public class ThingEvent {
 		PROPERTY_SET, PROPERTY_REMOVED
 	}
 
-	protected EventType eventType;
-	protected IThing targetThing;
-	protected IThingKey<?> propertyName;
-	protected Object oldPropertyValue;
-	protected Object newPropertyValue;
-	protected long thingKeyUID;
+	private final EventType eventType;
+	private final IThingKey<?> propertyName;
+	private final Object oldPropertyValue;
+	private Object newPropertyValue;
+	private final int modCount;
+	private final long thingKeyUID;
+	private final IThing targetThing;
 
 	public static ThingEvent create(EventType eventType, IThing targetThing, IThingKey<?> propertyName,
 			@Nullable Object oldPropertyValue, @Nullable Object newPropertyValue) {
 		return new ThingEvent(eventType, targetThing, propertyName, oldPropertyValue, newPropertyValue);
 	}
 
-	protected ThingEvent(EventType eventType, IThing targetThing, IThingKey<?> propertyName,
+	private ThingEvent(EventType eventType, IThing targetThing, IThingKey<?> propertyName,
 			@Nullable Object oldPropertyValue, @Nullable Object newPropertyValue) {
 		this.eventType = eventType;
 		this.targetThing = targetThing;
@@ -32,6 +33,7 @@ public class ThingEvent {
 		this.oldPropertyValue = oldPropertyValue;
 		this.newPropertyValue = newPropertyValue;
 		this.thingKeyUID = BNAUtils.getThingKeyUID(targetThing, propertyName);
+		this.modCount = targetThing.getModCount();
 	}
 
 	public long getThingKeyUID() {
@@ -60,10 +62,19 @@ public class ThingEvent {
 		return newPropertyValue;
 	}
 
+	public void setNewPropertyValue(@Nullable Object newPropertyValue) {
+		this.newPropertyValue = newPropertyValue;
+	}
+
+	public int getModCount() {
+		return modCount;
+	}
+
 	@Override
 	public String toString() {
-		return "ThingEvent{thingID=" + targetThing.getID() + "; eventType=" + eventType + "; propertyName="
-				+ propertyName + "; oldPropertyValue=" + oldPropertyValue + "; newPropertyValue=" + newPropertyValue
-				+ "; targetThing=" + targetThing + "};";
+		return "ThingEvent [eventType=" + eventType + ", propertyName=" + propertyName + ", oldPropertyValue="
+				+ oldPropertyValue + ", newPropertyValue=" + newPropertyValue + ", modCount=" + modCount
+				+ ", thingKeyUID=" + thingKeyUID + ", targetThing=" + targetThing + "]";
 	}
+
 }

@@ -40,7 +40,7 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 
 	protected int defaultLineWidth;
 
-	public MapMappingsLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
+	public MapMappingsLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath, String description) {
 		super(world, xarch, rootObjRef, objRefPath);
 		stickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
 		syncLogic = logics.addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
@@ -66,6 +66,8 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+
+		setProgressInfo(description);
 	}
 
 	@Override
@@ -104,7 +106,7 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 				IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
 
 		//stack above the world thing
-		thing.set(syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingIDKey()),
+		thing.set(syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingKey()),
 				Lists.reverse(relLineageRefs).get(1));
 
 		return thing;

@@ -56,6 +56,7 @@ public class AbstractThing implements IThing {
 	private final FastIntMap<Object> properties = new FastIntMap<Object>();
 	private final ReadWriteLock lock;
 	private boolean initedProperties = false;
+	private int modCount = 0;
 
 	public AbstractThing(@Nullable Object id) {
 		this.id = id != null ? id : new Object();
@@ -179,6 +180,7 @@ public class AbstractThing implements IThing {
 			Entry<Object> entry = properties.createEntry(key.getUID());
 			V oldValue = (V) entry.getValue();
 			if (!nullEquals(oldValue, value)) {
+				modCount++;
 				entry.setValue(key.preWrite(value));
 				if (key.isFireEventOnChange()) {
 					fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_SET, this, key, oldValue,
@@ -220,13 +222,16 @@ public class AbstractThing implements IThing {
 	<V> V remove(IThingKey<V> key) {
 		lock.writeLock().lock();
 		try {
-			boolean containedValue = properties.containsKey(key.getUID());
-			V oldValue = (V) properties.get(key.getUID());
-			properties.remove(key.getUID());
-			if (containedValue && key.isFireEventOnChange()) {
-				fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_REMOVED, this, key, oldValue, null));
+			Entry<V> entry = (Entry<V>) properties.removeEntry(key.getUID());
+			if (entry != null) {
+				modCount++;
+				if (key.isFireEventOnChange()) {
+					fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_REMOVED, this, key,
+							entry.getValue(), null));
+				}
+				return entry.getValue();
 			}
-			return oldValue;
+			return null;
 		}
 		finally {
 			lock.writeLock().unlock();
@@ -267,6 +272,17 @@ public class AbstractThing implements IThing {
 				};
 			}
 		};
+	}
+
+	@Override
+	public int getModCount() {
+		lock.readLock().lock();
+		try {
+			return modCount;
+		}
+		finally {
+			lock.readLock().unlock();
+		}
 	}
 
 	@Override

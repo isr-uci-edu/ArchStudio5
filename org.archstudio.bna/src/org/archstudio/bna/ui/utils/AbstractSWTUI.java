@@ -1,9 +1,8 @@
-package org.archstudio.bna.ui;
+package org.archstudio.bna.ui.utils;
 
 import java.util.List;
 import java.util.Map;
 
-import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
@@ -13,6 +12,9 @@ import org.archstudio.bna.constants.FocusType;
 import org.archstudio.bna.constants.GestureType;
 import org.archstudio.bna.constants.KeyType;
 import org.archstudio.bna.constants.MouseType;
+import org.archstudio.bna.ui.IBNAUI;
+import org.archstudio.bna.ui.IUITransferProvider;
+import org.archstudio.bna.utils.DefaultCoordinate;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;

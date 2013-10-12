@@ -66,7 +66,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 	protected int defaultLineWidth;
 
 	public MapStateLogic(IBNAWorld world, Services services, IXArchADT xarch, ObjRef rootObjRef, String objRefPath,
-			Dimension defaultSize, int defaultCount) {
+			Dimension defaultSize, int defaultCount, String description) {
 		super(world, xarch, rootObjRef, objRefPath);
 		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
 		this.services = services;
@@ -88,6 +88,8 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+
+		setProgressInfo(description);
 	}
 
 	@Override

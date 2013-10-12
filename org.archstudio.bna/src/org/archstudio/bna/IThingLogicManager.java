@@ -16,5 +16,7 @@ public interface IThingLogicManager {
 
 	public Iterable<IThingLogic> getAllThingLogics();
 
+	public <T> T getThingLogic(Class<T> ofType);
+
 	public <T> Iterable<T> getThingLogics(Class<T> ofType);
 }

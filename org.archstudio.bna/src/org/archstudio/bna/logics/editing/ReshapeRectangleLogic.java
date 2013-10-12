@@ -21,16 +21,16 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 	}
 
 	@Override
-	protected void addHandles() {
+	protected void addHandles(IHasMutableBoundingBox reshapingThing) {
 		for (Orientation o : Orientation.values()) {
 			if (o != Orientation.NONE) {
-				addHandle(Assemblies.createHandle(world, null, null), o);
+				addHandle(reshapingThing, Assemblies.createHandle(world, null, null), o);
 			}
 		}
 	}
 
 	@Override
-	protected void updateHandle(ReshapeHandleThing handle, Orientation data) {
+	protected void updateHandle(IHasMutableBoundingBox reshapingThing, ReshapeHandleThing handle, Orientation data) {
 		Rectangle boundingBox = reshapingThing.getBoundingBox();
 		int cursor = SWT.CURSOR_SIZEALL;
 		int x1 = boundingBox.x;
@@ -81,7 +81,8 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 	}
 
 	@Override
-	protected void handleMoved(ReshapeHandleThing handle, Orientation data, DragMoveEvent evt) {
+	protected void handleMoved(IHasMutableBoundingBox reshapingThing, ReshapeHandleThing handle, Orientation data,
+			DragMoveEvent evt) {
 		Rectangle bb = reshapingThing.getBoundingBox();
 
 		int nx1 = bb.x;
@@ -134,7 +135,7 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 	}
 
 	@Override
-	protected Runnable takeSnapshot() {
+	protected Runnable takeSnapshot(IHasMutableBoundingBox reshapingThing) {
 		final Object reshapingThingID = reshapingThing.getID();
 		final Rectangle bounds = reshapingThing.getBoundingBox();
 		return new Runnable() {

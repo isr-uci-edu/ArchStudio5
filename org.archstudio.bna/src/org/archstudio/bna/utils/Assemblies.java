@@ -31,6 +31,7 @@ import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.coordinating.ArrowheadLogic;
+import org.archstudio.bna.logics.coordinating.ArrowheadLogic.IHasArrowheadStemPoint;
 import org.archstudio.bna.logics.coordinating.MirrorBoundingBoxLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.coordinating.OrientDirectionalLabelLogic;
@@ -257,8 +258,15 @@ public final class Assemblies {
 			return;
 		}
 
+		if (isPart(root)) {
+			unmarkPart(model, root);
+		}
+		_removeRootAndParts(model, root);
+	}
+
+	private static final void _removeRootAndParts(IBNAModel model, @Nullable IThing root) {
 		for (IThing part : getParts(model, root).values()) {
-			removeRootAndParts(model, part);
+			_removeRootAndParts(model, part);
 		}
 		model.removeThing(root);
 	}
@@ -535,11 +543,9 @@ public final class Assemblies {
 		return bkg;
 	}
 
-	public static final <T extends IHasEndpoints & IHasEdgeColor & IHasLineData> T addArrowhead(IBNAWorld world,
-			T splineThing, IThingKey<Point> endpointKey, @Nullable Object id, @Nullable IThing parent) {
+	public static final <T extends IHasEndpoints & IHasArrowheadStemPoint & IHasEdgeColor & IHasLineData> T addArrowhead(
+			IBNAWorld world, T splineThing, IThingKey<Point> endpointKey, @Nullable Object id, @Nullable IThing parent) {
 		checkNotNull(world);
-		checkArgument(endpointKey == IHasEndpoints.ENDPOINT_1_KEY || endpointKey == IHasEndpoints.ENDPOINT_2_KEY,
-				"endpointKey must be IHasEndpoints.ENDPOINT_1_KEY or IHasEndpoints.ENDPOINT_2_KEY");
 
 		IBNAModel model = world.getBNAModel();
 
@@ -555,7 +561,7 @@ public final class Assemblies {
 		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 
 		mvl.mirrorValue(splineThing, IHasAlpha.ALPHA_KEY, arrowheadThing);
-		al.point(arrowheadThing, splineThing, endpointKey);
+		al.attach(arrowheadThing, splineThing, endpointKey);
 		mvl.mirrorValue(splineThing, IHasEdgeColor.EDGE_COLOR_KEY, arrowheadThing, IHasColor.COLOR_KEY);
 		mvl.mirrorValue(splineThing, IHasLineStyle.LINE_STYLE_KEY, arrowheadThing);
 		mvl.mirrorValue(splineThing, IHasLineWidth.LINE_WIDTH_KEY, arrowheadThing);

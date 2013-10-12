@@ -32,6 +32,7 @@ import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.GridDisplayType;
+import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.editing.AlignAndDistributeLogic;
@@ -47,7 +48,6 @@ import org.archstudio.bna.logics.editing.ReshapeSplineLogic;
 import org.archstudio.bna.logics.editing.RotaterLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.editing.SnapToGridLogic;
-import org.archstudio.bna.logics.editing.SplineBreakLogic;
 import org.archstudio.bna.logics.editing.StandardCursorLogic;
 import org.archstudio.bna.logics.events.ProxyLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
@@ -564,9 +564,9 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		logics.addThingLogic(ReshapeRectangleLogic.class);
 		logics.addThingLogic(ReshapeSplineLogic.class).addReshapeSplineGuides(
 				new XadlReshapeSplineGuide(xarch, Statechart_1_0Package.Literals.TRANSITION,
-						Statechart_1_0Package.Literals.PSEUDO_STATE, -1, 0));
+						Statechart_1_0Package.Literals.PSEUDO_STATE, IHasEndpoints.ENDPOINT_1_KEY,
+						IHasEndpoints.ENDPOINT_2_KEY));
 		logics.addThingLogic(RotatingOffsetLogic.class);
-		logics.addThingLogic(SplineBreakLogic.class);
 		logics.addThingLogic(StandardCursorLogic.class);
 		logics.addThingLogic(new StatechartDropLogic(world, services, documentRootRef));
 		logics.addThingLogic(ToolTipLogic.class);
@@ -587,8 +587,8 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 		logics.addThingLogic(RotaterLogic.class);
 		logics.addThingLogic(AlignAndDistributeLogic.class);
 		logics.addThingLogic(RectifyToGridLogic.class);
-		logics.addThingLogic(new ExportImportGexf(world));
-		logics.addThingLogic(new ExportImportDot(world));
+		logics.addThingLogic(ExportImportGexf.class);
+		logics.addThingLogic(ExportImportDot.class);
 		//logicManager.addThingLogic(StructureGraphLayoutLogic(xarch, services.get(IResources.class),
 		//		services.get(IGraphLayout.class), structureRef));
 		logics.addThingLogic(ViewAllLogic.class);
@@ -596,13 +596,16 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 
 		// xADL mapping logics
 
+		String prefix = "" + XadlUtils.getName(xarch, structureRef) + ": ";
+
 		logics.addThingLogic(new MapStateLogic(world, services, xarch, structureRef, "state[@type='state']", //
-				new Dimension(6 * 24, 4 * 24), 1));
+				new Dimension(6 * 24, 4 * 24), 1, prefix + "Loading States"));
 		logics.addThingLogic(new MapInitialStateLogic(world, services, xarch, structureRef, "state[@type='initial']", //
-				new Dimension(4 * 24 / 3, 4 * 24 / 3)));
+				new Dimension(4 * 24 / 3, 4 * 24 / 3), prefix + "Loading States"));
 		logics.addThingLogic(new MapFinalStateLogic(world, services, xarch, structureRef, "state[@type='final']", //
-				new Dimension(4 * 24 / 3, 4 * 24 / 3)));
-		logics.addThingLogic(new MapTransitionLogic(world, xarch, structureRef, "transition"));
+				new Dimension(4 * 24 / 3, 4 * 24 / 3), prefix + "Loading States"));
+		logics.addThingLogic(new MapTransitionLogic(world, xarch, structureRef, "transition", prefix
+				+ "Loading Transitions"));
 
 		// propagate external events logics
 

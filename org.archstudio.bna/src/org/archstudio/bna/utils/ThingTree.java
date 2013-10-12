@@ -2,13 +2,17 @@ package org.archstudio.bna.utils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import org.archstudio.bna.IThing;
 import org.archstudio.sysutils.FastIntMap;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 class ThingTree {
 
@@ -23,19 +27,32 @@ class ThingTree {
 		}
 	}
 
-	final Node root = new Node(null);
-	final FastIntMap<Node> lookup = new FastIntMap<Node>(1000);
+	private final Node root = new Node(null);
+	private final FastIntMap<Node> nodesByUID = new FastIntMap<Node>(1000);
+	private final Map<Object, Node> nodesByID = Maps.newHashMap();
+	private List<IThing> allThings = null;
 
 	public ThingTree() {
 	}
 
-	protected Node getNode(IThing t, boolean create) {
+	public IThing getThing(int uid) {
+		Node node = nodesByUID.get(uid);
+		return node != null ? node.t : null;
+	}
+
+	public IThing getThing(Object id) {
+		Node node = nodesByID.get(id);
+		return node != null ? node.t : null;
+	}
+
+	private Node getNode(IThing t, boolean create) {
 		if (t == null) {
 			return root;
 		}
-		Node node = lookup.get(t.getUID());
+		Node node = nodesByUID.get(t.getUID());
 		if (node == null && create) {
-			lookup.put(t.getUID(), node = new Node(t));
+			nodesByUID.put(t.getUID(), node = new Node(t));
+			nodesByID.put(t.getID(), node);
 		}
 		return node;
 	}
@@ -52,6 +69,12 @@ class ThingTree {
 		}
 		parentNode.children.add(childNode);
 		childNode.parent = parentNode;
+		if (parent != null) {
+			allThings = null;
+		}
+		else if (allThings != null) {
+			allThings.add(t);
+		}
 	}
 
 	public void insert(IThing t, IThing beforeThing) {
@@ -63,11 +86,13 @@ class ThingTree {
 		}
 		parentNode.children.add(parentNode.children.indexOf(beforeNode), childNode);
 		childNode.parent = parentNode;
+		allThings = null;
 	}
 
 	public void remove(IThing t) {
-		Node childNode = lookup.remove(t.getUID());
+		Node childNode = nodesByUID.remove(t.getUID());
 		if (childNode != null) {
+			nodesByID.remove(t.getID());
 			Node parentNode = childNode.parent;
 			if (parentNode != null) {
 				List<Node> siblings = parentNode.children;
@@ -81,9 +106,17 @@ class ThingTree {
 				}
 			}
 		}
+		if (allThings != null) {
+			if (allThings.size() > 0 && allThings.get(allThings.size() - 1).equals(t)) {
+				allThings.remove(allThings.size() - 1);
+			}
+			else {
+				allThings = null;
+			}
+		}
 	}
 
-	protected void move(Node parentNode, Node childNode, int toIndex) {
+	private void move(Node parentNode, Node childNode, int toIndex) {
 		List<Node> siblings = parentNode.children;
 		int index = siblings.indexOf(childNode);
 		if (toIndex < 0) {
@@ -96,6 +129,7 @@ class ThingTree {
 			}
 			siblings.add(toIndex, childNode);
 		}
+		allThings = null;
 	}
 
 	public void bringToFront(IThing t) {
@@ -106,6 +140,7 @@ class ThingTree {
 				move(parentNode, childNode, -1);
 			}
 		}
+		allThings = null;
 	}
 
 	public void sendToBack(IThing t) {
@@ -116,6 +151,7 @@ class ThingTree {
 				move(parentNode, childNode, 0);
 			}
 		}
+		allThings = null;
 	}
 
 	public void moveAfter(IThing t, IThing referenceThing) {
@@ -130,6 +166,7 @@ class ThingTree {
 				}
 			}
 		}
+		allThings = null;
 	}
 
 	public void reparent(IThing newParentThing, IThing thing) {
@@ -143,9 +180,10 @@ class ThingTree {
 			newParentThingNode.children.add(thingNode);
 			thingNode.parent = newParentThingNode;
 		}
+		allThings = null;
 	}
 
-	protected List<IThing> appendAllDescendants(Node parent, List<IThing> toList) {
+	private List<IThing> appendAllDescendants(Node parent, List<IThing> toList) {
 		for (Node child : parent.children) {
 			toList.add(child.t);
 			appendAllDescendants(child, toList);
@@ -161,10 +199,19 @@ class ThingTree {
 		return Collections.emptyList();
 	}
 
-	public List<IThing> getAllThings() {
-		List<IThing> allThings = Lists.newArrayListWithCapacity(size());
-		appendAllDescendants(root, allThings);
+	private List<IThing> _getAllThings() {
+		synchronized (this) {
+			if (allThings == null) {
+				List<IThing> allThings = Lists.newArrayListWithCapacity(size());
+				appendAllDescendants(root, allThings);
+				this.allThings = allThings;
+			}
+		}
 		return allThings;
+	}
+
+	public List<IThing> getAllThings() {
+		return Lists.newArrayList(_getAllThings());
 	}
 
 	public List<IThing> getAncestorThings(IThing t) {
@@ -202,6 +249,39 @@ class ThingTree {
 	}
 
 	public int size() {
-		return lookup.size();
+		return nodesByUID.size();
+	}
+
+	private FastIntMap<Long> _getOrderByUID() {
+		synchronized (this) {
+			FastIntMap<Long> orderByUID = new FastIntMap<>(nodesByUID.size());
+			long orderByUIDSpread = Long.MAX_VALUE / (nodesByUID.size() + 1);
+			long orderByUIDNumber = Long.MIN_VALUE + orderByUIDSpread;
+			for (IThing t : _getAllThings()) {
+				orderByUID.put(t.getUID(), orderByUIDNumber);
+				orderByUIDNumber += orderByUIDSpread;
+			}
+			return orderByUID;
+		}
+	}
+
+	public List<IThing> sortBackToFront(Collection<IThing> things) {
+		final FastIntMap<Long> orderByUID = _getOrderByUID();
+		List<IThing> sorted = Lists.newArrayList(things);
+		Collections.sort(sorted, new Comparator<IThing>() {
+			@Override
+			public int compare(IThing o1, IThing o2) {
+				long lo1 = orderByUID.get(o1.getUID());
+				long lo2 = orderByUID.get(o2.getUID());
+				if (lo1 < lo2) {
+					return -1;
+				}
+				if (lo1 == lo2) {
+					return 0;
+				}
+				return 1;
+			}
+		});
+		return sorted;
 	}
 }

@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.BNAModelEvent.EventType;
-import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
@@ -63,6 +62,20 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 		this.world = checkNotNull(bnaWorld);
 		this.cm = checkNotNull(cm);
 		world.getBNAModel().addBNAModelListener(this);
+	}
+
+	@Override
+	synchronized public void dispose() {
+		world.getBNAModel().removeBNAModelListener(this);
+		for (Entry<IThingPeer<?>> entry : peers.entries()) {
+			try {
+				entry.getValue().dispose();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		peers.clear();
 	}
 
 	@Override
@@ -144,19 +157,5 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 				peer.dispose();
 			}
 		}
-	}
-
-	@Override
-	synchronized public void dispose() {
-		world.getBNAModel().removeBNAModelListener(this);
-		for (Entry<IThingPeer<?>> entry : peers.entries()) {
-			try {
-				entry.getValue().dispose();
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		peers.clear();
 	}
 }

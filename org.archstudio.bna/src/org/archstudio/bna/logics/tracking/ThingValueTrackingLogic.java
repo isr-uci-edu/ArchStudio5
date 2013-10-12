@@ -1,10 +1,12 @@
 package org.archstudio.bna.logics.tracking;
 
+import static org.archstudio.sysutils.SystemUtils.filter;
+
 import java.util.Collection;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
+import org.archstudio.bna.IPrivilegedBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IEntry;
 import org.archstudio.bna.IThing.IThingKey;
@@ -15,13 +17,12 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 
-public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAModelListener {
+public class ThingValueTrackingLogic extends AbstractThingLogic implements IPrivilegedBNAModelListener {
 
 	private final LoadingCache<IThingKey<?>, SetMultimap<Object, Object>> keyToValueToThingIDsCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<IThingKey<?>, SetMultimap<Object, Object>>() {
@@ -50,7 +51,7 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void privilegedBNAModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
@@ -58,22 +59,22 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 			for (IEntry entry : thing.entries()) {
 				update(thingID, entry.getKey(), null, entry.getValue());
 			}
-			break;
 		}
+			break;
 		case THING_CHANGED: {
 			IThing thing = evt.getTargetThing();
 			ThingEvent te = evt.getThingEvent();
 			update(thing.getID(), te.getPropertyName(), te.getOldPropertyValue(), te.getNewPropertyValue());
-			break;
 		}
+			break;
 		case THING_REMOVED: {
 			IThing thing = evt.getTargetThing();
 			Object thingID = thing.getID();
 			for (IEntry entry : thing.entries()) {
 				update(thingID, entry.getKey(), entry.getValue(), null);
 			}
-			break;
 		}
+			break;
 		default:
 			// do nothing
 		}
@@ -100,8 +101,7 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 	}
 
 	synchronized public <V, T extends IThing> Collection<T> getThings(IThingKey<V> withKey, V ofValue, Class<T> ofType) {
-		return Lists.newArrayList(Iterables.filter(
-				model.getThingsByID(keyToValueToThingIDsCache.getUnchecked(withKey).get(ofValue)), ofType));
+		return filter(model.getThingsByID(keyToValueToThingIDsCache.getUnchecked(withKey).get(ofValue)), ofType);
 	}
 
 	synchronized public <V1, V2> Collection<Object> getThingIDs(IThingKey<V1> withKey1, V1 ofValue1,
@@ -118,8 +118,8 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 
 	synchronized public <V1, V2, T extends IThing> Collection<T> getThings(IThingKey<V1> withKey1, V1 ofValue1,
 			IThingKey<V2> withKey2, V2 ofValue2, Class<T> ofType) {
-		return Lists.newArrayList(Iterables.filter(
-				model.getThingsByID(Sets.intersection(keyToValueToThingIDsCache.getUnchecked(withKey1).get(ofValue1),
-						keyToValueToThingIDsCache.getUnchecked(withKey2).get(ofValue2))), ofType));
+		return filter(model.getThingsByID(Sets.intersection(
+				keyToValueToThingIDsCache.getUnchecked(withKey1).get(ofValue1),
+				keyToValueToThingIDsCache.getUnchecked(withKey2).get(ofValue2))), ofType);
 	}
 }

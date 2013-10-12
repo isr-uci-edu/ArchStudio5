@@ -1,10 +1,10 @@
-package org.archstudio.bna.ui;
+package org.archstudio.bna.ui.utils;
+
+import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.archstudio.bna.DefaultCoordinate;
-import org.archstudio.bna.IBNAMouseWheelListener;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
@@ -16,8 +16,26 @@ import org.archstudio.bna.constants.FocusType;
 import org.archstudio.bna.constants.GestureType;
 import org.archstudio.bna.constants.KeyType;
 import org.archstudio.bna.constants.MouseType;
+import org.archstudio.bna.facets.IHasWorld;
+import org.archstudio.bna.logics.events.WorldThingExternalEventsLogic;
+import org.archstudio.bna.ui.IBNADragAndDropListener;
+import org.archstudio.bna.ui.IBNAFocusListener;
+import org.archstudio.bna.ui.IBNAKeyListener;
+import org.archstudio.bna.ui.IBNAMagnifyGestureListener;
+import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.ui.IBNAMouseClickListener;
+import org.archstudio.bna.ui.IBNAMouseListener;
+import org.archstudio.bna.ui.IBNAMouseMoveListener;
+import org.archstudio.bna.ui.IBNAMouseTrackListener;
+import org.archstudio.bna.ui.IBNAMouseWheelListener;
+import org.archstudio.bna.ui.IBNAPanGestureListener;
+import org.archstudio.bna.ui.IBNARotateGestureListener;
+import org.archstudio.bna.ui.IBNASwipeGestureListener;
+import org.archstudio.bna.ui.IBNATrackGestureListener;
+import org.archstudio.bna.ui.IBNAUI;
+import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNARenderingSettings;
-import org.eclipse.jface.action.Action;
+import org.archstudio.bna.utils.DefaultCoordinate;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -39,8 +57,8 @@ import com.google.common.collect.Lists;
 
 public abstract class AbstractBNAUI implements IBNAUI {
 
-	protected static final boolean DEBUG = false;
-	protected static final boolean PROFILE = false;
+	public boolean DEBUG = false;
+	public boolean PROFILE = false;
 	protected static final LoadingCache<Object, AtomicLong> profileStats = CacheBuilder.newBuilder().weakKeys()
 			.build(new CacheLoader<Object, AtomicLong>() {
 				@Override
@@ -430,18 +448,18 @@ public abstract class AbstractBNAUI implements IBNAUI {
 		try {
 			menuMgr = new MenuManager("BNA Popup Menu");
 			Menu menu = menuMgr.createContextMenu(eventControl);
-			menuMgr.add(new Action("Test") {
-
-				@Override
-				public void run() {
-				}
-			});
-			for (IBNAMenuListener logic : logics.getThingLogics(IBNAMenuListener.class)) {
-				try {
-					logic.fillMenu(view, things, location, menuMgr);
-				}
-				catch (Throwable t) {
-					t.printStackTrace();
+			if (firstOrNull(things, IHasWorld.class) != null) {
+				logics.addThingLogic(WorldThingExternalEventsLogic.class).proxy(IBNAMenuListener.class)
+						.fillMenu(view, things, location, menuMgr);
+			}
+			else {
+				for (IBNAMenuListener logic : logics.getThingLogics(IBNAMenuListener.class)) {
+					try {
+						logic.fillMenu(view, things, location, menuMgr);
+					}
+					catch (Throwable t) {
+						t.printStackTrace();
+					}
 				}
 			}
 

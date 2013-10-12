@@ -1,8 +1,7 @@
-package org.archstudio.bna;
+package org.archstudio.bna.utils;
 
 import javax.media.opengl.GL2;
 
-import org.archstudio.bna.utils.GL2Delegate;
 import org.eclipse.swt.graphics.RGB;
 
 public class ObscuredGL2 extends GL2Delegate {

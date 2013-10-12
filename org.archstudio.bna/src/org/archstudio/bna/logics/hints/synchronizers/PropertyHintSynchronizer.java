@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModel;
+import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -21,7 +21,7 @@ import com.google.common.collect.Lists;
 
 public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 
-	protected static final boolean DEBUG = false;
+	public boolean DEBUG = false;
 
 	protected final String hintNameSuffix;
 	protected final IThingKey<Object> propertyName;
@@ -29,8 +29,9 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 	protected final String[] editableQualities;
 
 	@SuppressWarnings("unchecked")
-	public PropertyHintSynchronizer(String hintNameSuffix, IThingKey<?> propertyName, Class<?> requiredClass,
-			String... editableQualities) {
+	public PropertyHintSynchronizer(IBNAWorld world, String hintNameSuffix, IThingKey<?> propertyName,
+			Class<?> requiredClass, String... editableQualities) {
+		super(world);
 		this.hintNameSuffix = hintNameSuffix;
 		this.propertyName = (IThingKey<Object>) propertyName;
 		this.requiredClass = requiredClass;
@@ -38,7 +39,7 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 	}
 
 	@Override
-	public synchronized void restoreHints(IHintRepository repository, Object context, IThing thing,
+	synchronized public void restoreHints(IHintRepository repository, Object context, IThing thing,
 			@Nullable String name) {
 		String ourName = getHintName(thing);
 		if (name == null) {
@@ -70,7 +71,7 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 	}
 
 	@Override
-	public synchronized void storeHints(IHintRepository repository, Object context, IThing thing,
+	synchronized public void storeHints(IHintRepository repository, Object context, IThing thing,
 			@Nullable BNAModelEvent evt) {
 
 		// ignore property changes other than those that we are interested in
@@ -102,7 +103,6 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 	}
 
 	private String getHintName(IThing thing) {
-		IBNAModel model = bnaWorld.getBNAModel();
 		List<String> path = Lists.newArrayList();
 		while (thing != null) {
 			IThingRefKey<?> partKey = Assemblies.getPartName(thing);

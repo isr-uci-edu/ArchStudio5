@@ -1,7 +1,6 @@
 package org.archstudio.bna.keys;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -19,8 +18,8 @@ public class CollectionThingKey<D, C extends Collection<V>, V> extends AbstractC
 
 			@Override
 			public List<V> apply(Collection<V> input) {
-				return Lists.newArrayList(input != null ? cloneFunction != null ? Collections2.transform(input,
-						cloneFunction) : input : Collections.<V> emptyList());
+				return input == null ? null : Lists.newArrayList(cloneFunction == null ? input : Collections2
+						.transform(input, cloneFunction));
 			}
 		};
 	}
@@ -30,8 +29,8 @@ public class CollectionThingKey<D, C extends Collection<V>, V> extends AbstractC
 
 			@Override
 			public Set<V> apply(Collection<V> input) {
-				return Sets.newHashSet(input != null ? cloneFunction != null ? Collections2.transform(input,
-						cloneFunction) : input : Collections.<V> emptySet());
+				return input == null ? null : Sets.newHashSet(cloneFunction == null ? input : Collections2.transform(
+						input, cloneFunction));
 			}
 		};
 	}

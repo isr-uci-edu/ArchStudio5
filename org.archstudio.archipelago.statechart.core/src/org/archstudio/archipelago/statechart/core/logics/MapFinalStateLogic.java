@@ -42,7 +42,7 @@ public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<FinalStateThi
 	public static final IThingRefKey<IHasEdgeColor> CENTER_KEY = ThingRefKey.create("assembly-center");
 
 	public MapFinalStateLogic(IBNAWorld world, Services services, IXArchADT xarch, ObjRef rootObjRef,
-			String objRefPath, Dimension defaultSize) {
+			String objRefPath, Dimension defaultSize, String description) {
 		super(world, xarch, rootObjRef, objRefPath);
 		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
 		boundsLogic = logics.addThingLogic(MirrorBoundingBoxLogic.class);
@@ -51,6 +51,8 @@ public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<FinalStateThi
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
+
+		setProgressInfo(description);
 	}
 
 	@Override

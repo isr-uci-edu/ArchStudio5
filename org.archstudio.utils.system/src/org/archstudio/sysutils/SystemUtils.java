@@ -1250,6 +1250,26 @@ public class SystemUtils {
 		return value;
 	}
 
+	public static final long bound(long lower, long value, long upper) {
+		if (lower < upper) {
+			if (value < lower) {
+				return lower;
+			}
+			if (value > upper) {
+				return upper;
+			}
+		}
+		else {
+			if (value < upper) {
+				return upper;
+			}
+			if (value > lower) {
+				return lower;
+			}
+		}
+		return value;
+	}
+
 	public static final float bound(float lower, float value, float upper) {
 		if (lower < upper) {
 			if (value < lower) {
@@ -1288,6 +1308,26 @@ public class SystemUtils {
 			}
 		}
 		return value;
+	}
+
+	public static final int loop(int lower, int value, int upper) {
+		int span = upper - lower;
+		return bound(lower, lower + value - value / span * span, upper);
+	}
+
+	public static final long loop(long lower, long value, long upper) {
+		long span = upper - lower;
+		return bound(lower, lower + value - value / span * span, upper);
+	}
+
+	public static final float loop(float lower, float value, float upper) {
+		float span = upper - lower;
+		return bound(lower, lower + value - (float) Math.floor(value / span) * span, upper);
+	}
+
+	public static final double loop(double lower, double value, double upper) {
+		double span = upper - lower;
+		return bound(lower, lower + value - Math.floor(value / span) * span, upper);
 	}
 
 	public static final @Nullable
@@ -1397,6 +1437,12 @@ public class SystemUtils {
 	public static final int round(float v) {
 		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE);
 		return Math.round(v);
+	}
+
+	public static final <T> Collection<T> getAndClear(Collection<T> collection) {
+		List<T> copy = Lists.newArrayList(collection);
+		collection.clear();
+		return copy;
 	}
 
 }

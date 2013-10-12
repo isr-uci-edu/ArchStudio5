@@ -14,6 +14,7 @@
 package org.archstudio.sysutils;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -32,12 +33,16 @@ import com.google.common.collect.Lists;
 @SuppressWarnings("unchecked")
 public final class FastIntMap<V> {
 
-	public static final <T> List<T> getList(FastIntMap<List<T>> map, int key, boolean create) {
-		FastIntMap.Entry<List<T>> entry = //
-		create ? map.createEntry(key) : map.getEntry(key);
+	public static final <T> Collection<T> get(FastIntMap<? extends Collection<T>> map, int key) {
+		FastIntMap.Entry<?> entry = map.getEntry(key);
 		if (entry == null) {
 			return Collections.emptyList();
 		}
+		return (Collection<T>) entry.getValue();
+	}
+
+	public static final <T> List<T> createList(FastIntMap<List<T>> map, int key) {
+		FastIntMap.Entry<List<T>> entry = map.createEntry(key);
 		if (entry.getValue() == null) {
 			entry.setValue(Lists.<T> newArrayList());
 		}

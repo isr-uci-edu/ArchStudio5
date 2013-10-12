@@ -30,7 +30,7 @@ import com.google.common.collect.Multimap;
 public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends AbstractXADLToBNAThingLogic<T> {
 
 	/**
-	 * Translates XADL attributes values (e.g., a Direction) to BNA values (e.g., a Flow) and vice versa.
+	 * Translates XADL attribute values (e.g., a Direction) to BNA values (e.g., a Flow) and vice versa.
 	 * 
 	 * @param <X>
 	 *            the xADL type
@@ -47,14 +47,14 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 	/**
 	 * Updates the BNA Assembly/Thing from the xADL ObjRef, see
-	 * {@link #updateBNA(ObjRef, XArchADTPath, XArchADTModelEvent, IThing)} for a description.
+	 * {@link #updateBNA(ObjRef, String, XArchADTModelEvent, IThing)} for a description.
 	 */
 	public abstract class IBNAUpdater {
 
 		/**
 		 * Updates the BNA Assembly/Thing from the xADL ObjRef
 		 * 
-		 * @see AbstractXADLToBNAThingLogic#updateThing(List, XArchADTPath, ObjRef, XArchADTModelEvent, IThing)
+		 * @see AbstractXADLToBNAThingLogic#updateThing(List, String, ObjRef, XArchADTModelEvent, IThing)
 		 */
 		public void updateBNA(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, T rootThing) {
 		}

@@ -1,8 +1,9 @@
-package org.archstudio.bna;
+package org.archstudio.bna.utils;
 
 import java.awt.geom.Point2D;
 
-import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.IMutableCoordinateMapper;
+import org.archstudio.bna.IScrollableCoordinateMapper;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 

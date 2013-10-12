@@ -3,7 +3,7 @@ package org.archstudio.bna.ui.swt;
 import java.awt.image.BufferedImage;
 
 import org.archstudio.bna.IBNAView;
-import org.archstudio.bna.ui.AbstractSWTUI;
+import org.archstudio.bna.ui.utils.AbstractSWTUI;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;

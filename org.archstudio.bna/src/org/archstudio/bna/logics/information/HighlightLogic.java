@@ -16,7 +16,6 @@ import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMidpoints;
-import org.archstudio.bna.facets.IHasMutableLoopPoint;
 import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IHasRoundedCorners;
 import org.archstudio.bna.facets.IHasValue;
@@ -25,6 +24,7 @@ import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
+import org.archstudio.bna.logics.coordinating.StickPointLogic.IHasLoopablePoint;
 import org.archstudio.bna.logics.editing.BNAOperations;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.things.AbstractCurvedSplineThing;
@@ -138,7 +138,7 @@ public class HighlightLogic extends AbstractThingLogic implements IBNAMenuListen
 				mirrorLogic.mirrorValue(forThing, IHasEndpoints.ENDPOINT_1_KEY, t);
 				mirrorLogic.mirrorValue(forThing, IHasEndpoints.ENDPOINT_2_KEY, t);
 				mirrorLogic.mirrorValue(forThing, IHasValue.VALUE_KEY, t);
-				mirrorLogic.mirrorValue(forThing, IHasMutableLoopPoint.LOOP_POINT_KEY, t);
+				mirrorLogic.mirrorValue(forThing, IHasLoopablePoint.LOOP_TYPE_KEY, t);
 			}
 			else if (forThing instanceof IHasEndpoints) {
 				t = model.insertThing(new SplineGlowThing(null), bkgThing);

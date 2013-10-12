@@ -1,6 +1,7 @@
 package org.archstudio.bna.utils;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -21,13 +22,15 @@ public class UserEditableUtils {
 			"userEditableQualities", CollectionThingKey.<String> set(null));
 
 	public static void addEditableQualities(final IThing thing, final String... qualities) {
-		Set<String> newEditableQualities = Sets.newHashSet(thing.get(USER_EDITABLE_QUALITIES_KEY));
+		Set<String> newEditableQualities = Sets.newHashSet(thing.get(USER_EDITABLE_QUALITIES_KEY,
+				Sets.<String> newHashSet()));
 		newEditableQualities.addAll(Arrays.asList(qualities));
 		thing.set(USER_EDITABLE_QUALITIES_KEY, newEditableQualities);
 	}
 
 	public static void removeEditableQualities(final IThing thing, final String... qualities) {
-		Set<String> newEditableQualities = Sets.newHashSet(thing.get(USER_EDITABLE_QUALITIES_KEY));
+		Set<String> newEditableQualities = Sets.newHashSet(thing.get(USER_EDITABLE_QUALITIES_KEY,
+				Collections.<String> emptySet()));
 		newEditableQualities.removeAll(Arrays.asList(qualities));
 		thing.set(USER_EDITABLE_QUALITIES_KEY, newEditableQualities);
 	}
@@ -49,7 +52,7 @@ public class UserEditableUtils {
 		if (editableQualities.length == 0) {
 			return true;
 		}
-		Set<String> thingEditableQualities = thing.get(USER_EDITABLE_QUALITIES_KEY);
+		Set<String> thingEditableQualities = thing.get(USER_EDITABLE_QUALITIES_KEY, Collections.<String> emptySet());
 		for (String editableQuality : editableQualities) {
 			if (!thingEditableQualities.contains(editableQuality)) {
 				return false;
@@ -81,7 +84,7 @@ public class UserEditableUtils {
 		if (editableQualities.length == 0) {
 			return true;
 		}
-		Set<String> thingEditableQualities = thing.get(USER_EDITABLE_QUALITIES_KEY);
+		Set<String> thingEditableQualities = thing.get(USER_EDITABLE_QUALITIES_KEY, Collections.<String> emptySet());
 		for (String editableQuality : editableQualities) {
 			if (thingEditableQualities.contains(editableQuality)) {
 				return true;

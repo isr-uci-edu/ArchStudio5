@@ -1,5 +1,7 @@
-package org.archstudio.bna;
+package org.archstudio.bna.utils;
 
+import org.archstudio.bna.ICoordinate;
+import org.archstudio.bna.ICoordinateMapper;
 import org.eclipse.swt.graphics.Point;
 
 public class DefaultCoordinate implements ICoordinate {

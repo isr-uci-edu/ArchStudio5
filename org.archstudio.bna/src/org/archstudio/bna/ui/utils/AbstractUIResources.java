@@ -1,4 +1,4 @@
-package org.archstudio.bna.ui;
+package org.archstudio.bna.ui.utils;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,6 +15,7 @@ import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasFontData;
+import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.sysutils.SystemUtils;

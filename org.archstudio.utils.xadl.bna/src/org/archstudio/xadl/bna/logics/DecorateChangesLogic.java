@@ -35,8 +35,6 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 
-import com.google.common.collect.Sets;
-
 @NonNullByDefault
 public class DecorateChangesLogic extends AbstractThingLogic implements IXArchADTVariabilityListener, IBNAModelListener {
 
@@ -150,7 +148,7 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 			mirrorLogic.mirrorValue(t, IHasBoundingBox.BOUNDING_BOX_KEY, decoration);
 		}
 		if (decoration != null) {
-			model.sendToBack(Sets.newHashSet(decoration));
+			model.sendToBack(decoration);
 			decoration.set(IHasColor.COLOR_KEY, rgb);
 			CHANGE_DECORATION_KEY.set(t, decoration);
 		}

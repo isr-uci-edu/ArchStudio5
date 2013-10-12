@@ -1,28 +1,19 @@
 package org.archstudio.bna.logics.coordinating;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
-import java.util.List;
-
-import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
-import org.archstudio.bna.ThingEvent;
-import org.archstudio.bna.facets.IHasAnchorPoint;
+import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasBoundingBox;
-import org.archstudio.bna.facets.IHasOrientation;
-import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.logics.AbstractCoordinatingThingLogic;
 import org.archstudio.bna.things.labels.DirectionalLabelThing;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.Orientation;
-import org.archstudio.sysutils.FastIntMap;
-import org.archstudio.sysutils.FastLongMap;
-import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class OrientDirectionalLabelLogic extends AbstractThingLogic implements IBNAModelListener {
+public class OrientDirectionalLabelLogic extends AbstractCoordinatingThingLogic implements IBNAModelListener {
 
 	private static Orientation getOnEdgeOrientation(int x1, int x2, int y1, int y2, int x, int y) {
 		if (y == y1) {
@@ -58,92 +49,28 @@ public class OrientDirectionalLabelLogic extends AbstractThingLogic implements I
 		return Orientation.NONE;
 	}
 
-	private static class Orient {
+	private class OrientationUpdater extends Updater {
 
-		boolean isUpdating = false;
+		final Object rectangleThingID;
+		final Object labelThingID;
 
-		final Object boundingBoxThingID;
-		final Object directionLabelThingID;
-
-		public Orient(Object boundingBoxThingID, Object directionLabelThingID) {
-			checkNotNull(boundingBoxThingID);
-			checkNotNull(directionLabelThingID);
-
-			this.boundingBoxThingID = boundingBoxThingID;
-			this.directionLabelThingID = directionLabelThingID;
+		public OrientationUpdater(IHasBoundingBox rectangleThing, DirectionalLabelThing labelThing) {
+			this.rectangleThingID = rectangleThing.getID();
+			this.labelThingID = labelThing.getID();
 		}
 
-		public void apply(IBNAModel model) {
-			checkNotNull(model);
-
-			if (isUpdating) {
-				return;
-			}
-
-			IHasBoundingBox boundingBoxThing = SystemUtils.castOrNull(model.getThing(boundingBoxThingID),
-					IHasBoundingBox.class);
-			DirectionalLabelThing directionLabelThing = SystemUtils.castOrNull(model.getThing(directionLabelThingID),
-					DirectionalLabelThing.class);
-			if (boundingBoxThing != null && directionLabelThing != null) {
-				isUpdating = true;
-				try {
-					Rectangle r = boundingBoxThing.getBoundingBox();
-					Point p = directionLabelThing.getReferencePoint();
-					if (r != null && p != null) {
-						Orientation orientation = getOnEdgeOrientation(r.x, r.x + r.width, r.y, r.y + r.height, p.x,
-								p.y);
-						directionLabelThing.setOrientation(orientation);
-					}
-				}
-				finally {
-					isUpdating = false;
+		@Override
+		public void update() {
+			IHasBoundingBox rectangleThing = castOrNull(model.getThing(rectangleThingID), IHasBoundingBox.class);
+			if (rectangleThing != null) {
+				DirectionalLabelThing labelThing = castOrNull(model.getThing(labelThingID), DirectionalLabelThing.class);
+				if (labelThing != null) {
+					Rectangle r = rectangleThing.getBoundingBox();
+					Point p = labelThing.getReferencePoint();
+					Orientation orientation = getOnEdgeOrientation(r.x, r.x + r.width, r.y, r.y + r.height, p.x, p.y);
+					labelThing.setOrientation(orientation);
 				}
 			}
-		}
-	}
-
-	private class Registrar {
-
-		final int boundingBoxThingUID;
-		final int directionalThingUID;
-		final Orient orient;
-
-		public Registrar(int boundingBoxThingUID, int directionalThingUID, Orient orient) {
-			this.boundingBoxThingUID = boundingBoxThingUID;
-			this.directionalThingUID = directionalThingUID;
-			this.orient = orient;
-		}
-
-		public void register() {
-			FastLongMap.getList(orients,
-					BNAUtils.getThingKeyUID(boundingBoxThingUID, IHasBoundingBox.BOUNDING_BOX_KEY.getUID()), true).add(
-					orient);
-			FastLongMap.getList(orients,
-					BNAUtils.getThingKeyUID(directionalThingUID, IHasAnchorPoint.ANCHOR_POINT_KEY.getUID()), true).add(
-					orient);
-			FastLongMap.getList(orients,
-					BNAUtils.getThingKeyUID(directionalThingUID, IHasBoundingBox.BOUNDING_BOX_KEY.getUID()), true).add(
-					orient);
-			FastLongMap.getList(orients,
-					BNAUtils.getThingKeyUID(directionalThingUID, IHasOrientation.ORIENTATION_KEY.getUID()), true).add(
-					orient);
-			registrars.put(directionalThingUID, this);
-		}
-
-		public void unregister() {
-			FastLongMap.getList(orients,
-					BNAUtils.getThingKeyUID(boundingBoxThingUID, IHasBoundingBox.BOUNDING_BOX_KEY.getUID()), false)
-					.remove(orient);
-			FastLongMap.getList(orients,
-					BNAUtils.getThingKeyUID(directionalThingUID, IHasAnchorPoint.ANCHOR_POINT_KEY.getUID()), false)
-					.remove(orient);
-			FastLongMap.getList(orients,
-					BNAUtils.getThingKeyUID(directionalThingUID, IHasBoundingBox.BOUNDING_BOX_KEY.getUID()), false)
-					.remove(orient);
-			FastLongMap.getList(orients,
-					BNAUtils.getThingKeyUID(directionalThingUID, IHasOrientation.ORIENTATION_KEY.getUID()), false)
-					.remove(orient);
-			registrars.remove(directionalThingUID);
 		}
 	}
 
@@ -151,38 +78,21 @@ public class OrientDirectionalLabelLogic extends AbstractThingLogic implements I
 		super(world);
 	}
 
-	FastLongMap<List<Orient>> orients = new FastLongMap<>(512);
-	FastIntMap<Registrar> registrars = new FastIntMap<Registrar>(128);
+	synchronized public void orient(IHasBoundingBox rectangleThing, DirectionalLabelThing labelThing) {
+		checkNotNull(rectangleThing);
+		checkNotNull(labelThing);
 
-	synchronized public void orient(IHasBoundingBox boundingBoxThing, DirectionalLabelThing directionalThing) {
-		checkNotNull(boundingBoxThing);
-		checkNotNull(directionalThing);
+		OrientationUpdater updater = new OrientationUpdater(rectangleThing, labelThing);
+		register(updater, labelThing);
 
-		unorient(directionalThing);
-
-		Orient orient = new Orient(boundingBoxThing.getID(), directionalThing.getID());
-		Registrar registrar = new Registrar(boundingBoxThing.getUID(), directionalThing.getUID(), orient);
-		registrar.register();
-
-		orient.apply(model);
+		track(updater, rectangleThing, IHasBoundingBox.BOUNDING_BOX_KEY);
+		track(updater, labelThing, IHasBoundingBox.BOUNDING_BOX_KEY);
 	}
 
-	synchronized public void unorient(DirectionalLabelThing directionalThing) {
-		checkNotNull(directionalThing);
+	synchronized public void unorient(IThing labelThing) {
+		checkNotNull(labelThing);
 
-		Registrar registrar = registrars.get(directionalThing.getUID());
-		if (registrar != null) {
-			registrar.unregister();
-		}
+		unregister(labelThing);
 	}
 
-	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
-		ThingEvent thingEvent = evt.getThingEvent();
-		if (thingEvent != null) {
-			for (Orient orient : FastLongMap.getList(orients, thingEvent.getThingKeyUID(), false)) {
-				orient.apply(evt.getSource());
-			}
-		}
-	}
 }

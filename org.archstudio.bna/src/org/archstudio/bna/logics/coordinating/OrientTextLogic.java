@@ -1,12 +1,10 @@
 package org.archstudio.bna.logics.coordinating;
 
-import java.util.List;
-
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasHorizontalAlignment;
-import org.archstudio.bna.facets.IHasPoints;
-import org.archstudio.bna.facets.IHasText;
+import org.archstudio.bna.facets.IHasMutableHorizontalAlignment;
+import org.archstudio.bna.facets.IHasMutableVerticalAlignment;
 import org.archstudio.bna.facets.IHasVerticalAlignment;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
@@ -24,45 +22,51 @@ public class OrientTextLogic extends AbstractThingLogic {
 		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
 	}
 
-	synchronized public void orientText(IHasEndpoints pointsThing, final IHasText orientationThing) {
+	synchronized public <T extends IHasMutableHorizontalAlignment & IHasMutableVerticalAlignment> void orientText(
+			final IHasEndpoints pointsThing, final T orientationThing) {
 
-		mirrorLogic.mirrorValue(pointsThing, IHasPoints.POINTS_KEY, orientationThing,
-				IHasHorizontalAlignment.HORIZONTAL_ALIGNMENT_KEY, new Function<List<Point>, HorizontalAlignment>() {
-					@Override
-					public HorizontalAlignment apply(List<Point> points) {
-						Point p1 = points.get(0);
-						Point p2 = points.get(points.size() - 1);
-						double dx = p2.x - p1.x;
-						double dy = p2.y - p1.y;
-						double angle = Math.atan2(dy, dx);
-						if (angle > Math.PI / 8 && angle < Math.PI * 7 / 8) {
-							return HorizontalAlignment.LEFT;
-						}
-						if (-angle > Math.PI / 8 && -angle < Math.PI * 7 / 8) {
-							return HorizontalAlignment.RIGHT;
-						}
-						return HorizontalAlignment.CENTER;
-					}
-				});
+		Function<Object, HorizontalAlignment> horizontalFunction = new Function<Object, HorizontalAlignment>() {
+			@Override
+			public HorizontalAlignment apply(Object ignored) {
+				Point p1 = pointsThing.getEndpoint1();
+				Point p2 = pointsThing.getEndpoint2();
+				double dx = p2.x - p1.x;
+				double dy = p2.y - p1.y;
+				double angle = Math.atan2(dy, dx);
+				if (angle > Math.PI / 8 && angle < Math.PI * 7 / 8) {
+					return HorizontalAlignment.LEFT;
+				}
+				if (-angle > Math.PI / 8 && -angle < Math.PI * 7 / 8) {
+					return HorizontalAlignment.RIGHT;
+				}
+				return HorizontalAlignment.CENTER;
+			}
+		};
+		Function<Object, VerticalAlignment> verticalFunction = new Function<Object, VerticalAlignment>() {
+			@Override
+			public VerticalAlignment apply(Object ignored) {
+				Point p1 = pointsThing.getEndpoint1();
+				Point p2 = pointsThing.getEndpoint2();
+				double dx = p2.x - p1.x;
+				double dy = p2.y - p1.y;
+				double angle = Math.atan2(dx, dy);
+				if (angle > Math.PI / 8 && angle < Math.PI * 7 / 8) {
+					return VerticalAlignment.BOTTOM;
+				}
+				if (-angle > Math.PI / 8 && -angle < Math.PI * 7 / 8) {
+					return VerticalAlignment.TOP;
+				}
+				return VerticalAlignment.MIDDLE;
+			}
+		};
 
-		mirrorLogic.mirrorValue(pointsThing, IHasPoints.POINTS_KEY, orientationThing,
-				IHasVerticalAlignment.VERTICAL_ALIGNMENT_KEY, new Function<List<Point>, VerticalAlignment>() {
-					@Override
-					public VerticalAlignment apply(List<Point> points) {
-						Point p1 = points.get(0);
-						Point p2 = points.get(points.size() - 1);
-						double dx = p2.x - p1.x;
-						double dy = p2.y - p1.y;
-						double angle = Math.atan2(dx, dy);
-						if (angle > Math.PI / 8 && angle < Math.PI * 7 / 8) {
-							return VerticalAlignment.BOTTOM;
-						}
-						if (-angle > Math.PI / 8 && -angle < Math.PI * 7 / 8) {
-							return VerticalAlignment.TOP;
-						}
-						return VerticalAlignment.MIDDLE;
-					}
-				});
+		mirrorLogic.mirrorValue(pointsThing, IHasEndpoints.ENDPOINT_1_KEY, orientationThing,
+				IHasHorizontalAlignment.HORIZONTAL_ALIGNMENT_KEY, horizontalFunction);
+		mirrorLogic.mirrorValue(pointsThing, IHasEndpoints.ENDPOINT_2_KEY, orientationThing,
+				IHasHorizontalAlignment.HORIZONTAL_ALIGNMENT_KEY, horizontalFunction);
+		mirrorLogic.mirrorValue(pointsThing, IHasEndpoints.ENDPOINT_1_KEY, orientationThing,
+				IHasVerticalAlignment.VERTICAL_ALIGNMENT_KEY, verticalFunction);
+		mirrorLogic.mirrorValue(pointsThing, IHasEndpoints.ENDPOINT_2_KEY, orientationThing,
+				IHasVerticalAlignment.VERTICAL_ALIGNMENT_KEY, verticalFunction);
 	}
-
 }

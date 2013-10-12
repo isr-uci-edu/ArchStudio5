@@ -17,7 +17,7 @@ import org.archstudio.bna.facets.IHasMutableFlow;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
-import org.archstudio.bna.logics.coordinating.ReorientToThingIDLogic;
+import org.archstudio.bna.logics.coordinating.ReorientDirectionalLabelToThingIDLogic;
 import org.archstudio.bna.logics.coordinating.ReparentToThingIDLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
@@ -73,16 +73,16 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 
 	protected final SynchronizeThingIDAndObjRefLogic syncLogic;
 	protected final ReparentToThingIDLogic reparentLogic;
-	protected final ReorientToThingIDLogic reorientLogic;
+	protected final ReorientDirectionalLabelToThingIDLogic reorientLogic;
 	protected final DynamicStickPointLogic stickLogic;
 
 	protected int defaultLineWidth;
 
-	public MapInterfaceLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
+	public MapInterfaceLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath, String description) {
 		super(world, xarch, rootObjRef, objRefPath);
 		syncLogic = logics.addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
 		reparentLogic = logics.addThingLogic(ReparentToThingIDLogic.class);
-		reorientLogic = logics.addThingLogic(ReorientToThingIDLogic.class);
+		reorientLogic = logics.addThingLogic(ReorientDirectionalLabelToThingIDLogic.class);
 		stickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
 
 		syncValue("direction", DIRECTION_TO_FLOW, Flow.NONE, BNAPath.create(Assemblies.DIRECTION_KEY),
@@ -97,6 +97,8 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+
+		setProgressInfo(description);
 	}
 
 	@Override
@@ -140,7 +142,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		 * restack on top of the thing representing the first ancestor (i.e., the component or connector)
 		 */
 		Assemblies.BACKGROUND_KEY.get(thing, model).set(
-				syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingIDKey()), relLineageRefs.get(1));
+				syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingKey()), relLineageRefs.get(1));
 
 		/* orient to the parent thing */
 		Assemblies.DIRECTION_KEY.get(thing, model).set(

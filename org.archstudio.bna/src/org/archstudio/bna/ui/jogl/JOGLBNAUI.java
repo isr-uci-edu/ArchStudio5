@@ -9,7 +9,7 @@ import javax.media.opengl.GLProfile;
 import javax.media.opengl.GLRunnable;
 
 import org.archstudio.bna.IBNAView;
-import org.archstudio.bna.ui.AbstractSWTUI;
+import org.archstudio.bna.ui.utils.AbstractSWTUI;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;

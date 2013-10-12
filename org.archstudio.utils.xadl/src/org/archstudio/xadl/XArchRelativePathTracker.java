@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,11 +18,12 @@ import org.archstudio.xarchadt.IXArchADTQuery;
 import org.archstudio.xarchadt.IXArchADTTypeMetadata;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -37,7 +37,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 
 	private final IXArchADTQuery xarch;
 
-	private final List<IXArchRelativePathTrackerListener> pathTrackerListeners = new CopyOnWriteArrayList<IXArchRelativePathTrackerListener>();
+	private final List<IXArchRelativePathTrackerListener> pathTrackerListeners = Lists.newCopyOnWriteArrayList();
 
 	public void addTrackerListener(IXArchRelativePathTrackerListener l) {
 		pathTrackerListeners.add(l);
@@ -111,7 +111,8 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 		}
 	}
 
-	private static final Pattern attributeContainsPattern = Pattern.compile("([^\\[]*)\\[contains\\(@([^=\\s]*),'([^']*)'");
+	private static final Pattern attributeContainsPattern = Pattern
+			.compile("([^\\[]*)\\[contains\\(@([^=\\s]*),'([^']*)'");
 
 	private class RequireAttributeContainsValuePredicate implements Predicate<ObjRef> {
 
@@ -146,7 +147,6 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 		final Predicate<ObjRef> predicate;
 
 		public Segment(String name, Predicate<ObjRef> predicate) {
-			super();
 			this.name = name;
 			this.predicate = predicate;
 		}
@@ -208,7 +208,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	public XArchRelativePathTracker(IXArchADTQuery xarch, ObjRef rootObjRef, String relPath, boolean startScanning) {
 		this.xarch = xarch;
 		this.scanning = startScanning;
-		setTrackInfo(rootObjRef, relPath);
+		setTrackInfo(null, rootObjRef, relPath);
 	}
 
 	public ObjRef getRootObjRef() {
@@ -220,6 +220,10 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	}
 
 	public void setTrackInfo(ObjRef rootObjRef, String xPath) {
+		setTrackInfo(null, rootObjRef, xPath);
+	}
+
+	public void setTrackInfo(IProgressMonitor monitor, ObjRef rootObjRef, String xPath) {
 		if (!SystemUtils.nullEquals(this.rootObjRef, rootObjRef) || !SystemUtils.nullEquals(this.xPath, xPath)) {
 			boolean wasScanning = scanning;
 			stopScanning();
@@ -253,7 +257,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 			}
 
 			if (wasScanning) {
-				startScanning();
+				startScanning(monitor);
 			}
 		}
 	}
@@ -278,9 +282,13 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	 * {@link IXArchRelativePathTrackerListener#processAdd(List, ObjRef)} for each ObjRef initially found.
 	 */
 	public void startScanning() {
+		startScanning(null);
+	}
+
+	public void startScanning(IProgressMonitor monitor) {
 		if (!scanning && rootObjRef != null && xPath != null) {
 			scanning = true;
-			scanObjRef(Lists.newArrayList(rootObjRef), rootObjRef, 0);
+			scanObjRef(monitor, Lists.newArrayList(rootObjRef), rootObjRef, 0);
 		}
 	}
 
@@ -334,7 +342,8 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 	/**
 	 * Scan the given ObjRef's children for those that match the specified segment in the xPath
 	 */
-	protected void scanObjRef(List<ObjRef> relLineageRefs, ObjRef objRef, int xPathSegmentIndex) {
+	protected void scanObjRef(IProgressMonitor monitor, List<ObjRef> relLineageRefs, ObjRef objRef,
+			int xPathSegmentIndex) {
 		assert relLineageRefs.get(0).equals(rootObjRef);
 		assert relLineageRefs.get(relLineageRefs.size() - 1).equals(objRef);
 		assert relLineageRefs.size() - 1 == xPathSegmentIndex;
@@ -353,7 +362,7 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 					if (childRef != null) {
 						if (xPathSegment.predicate.apply(childRef)) {
 							relLineageRefs.add(childRef);
-							scanObjRef(relLineageRefs, childRef, xPathSegmentIndex + 1);
+							scanObjRef(monitor, relLineageRefs, childRef, xPathSegmentIndex + 1);
 							relLineageRefs.remove(relLineageRefs.size() - 1);
 						}
 						else {
@@ -365,15 +374,22 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 
 				case ELEMENT_MULTIPLE: {
 					relLineageRefs.add(null);
-					for (ObjRef childRef : Iterables.filter(xarch.getAll(objRef, xPathSegment.name), ObjRef.class)) {
+					List<ObjRef> childRefs = SystemUtils.filter(xarch.getAll(objRef, xPathSegment.name), ObjRef.class);
+					List<ObjRef> filteredChildRefs = Lists.newArrayListWithExpectedSize(childRefs.size());
+					for (ObjRef childRef : childRefs) {
 						if (xPathSegment.predicate.apply(childRef)) {
-							relLineageRefs.set(relLineageRefs.size() - 1, childRef);
-							scanObjRef(relLineageRefs, childRef, xPathSegmentIndex + 1);
+							filteredChildRefs.add(childRef);
 						}
 						else {
 							removedObjRef(childRef);
 						}
 					}
+					SubMonitor progress = SubMonitor.convert(monitor, filteredChildRefs.size());
+					for (ObjRef childRef : filteredChildRefs) {
+						relLineageRefs.set(relLineageRefs.size() - 1, childRef);
+						scanObjRef(progress.newChild(1), relLineageRefs, childRef, xPathSegmentIndex + 1);
+					}
+					progress.done();
 					relLineageRefs.remove(relLineageRefs.size() - 1);
 				}
 					break;
@@ -464,8 +480,8 @@ public final class XArchRelativePathTracker implements IXArchADTModelListener {
 						changedObjRef(relLineageRefs, relPath, relLineageRefs.get(relLineageRefs.size() - 1), evt);
 					}
 					else if (matchLength >= 0) {
-						scanObjRef(Lists.newArrayList(relLineageRefs), relLineageRefs.get(relLineageRefs.size() - 1),
-								matchLength);
+						scanObjRef(null, Lists.newArrayList(relLineageRefs),
+								relLineageRefs.get(relLineageRefs.size() - 1), matchLength);
 					}
 				}
 				break;

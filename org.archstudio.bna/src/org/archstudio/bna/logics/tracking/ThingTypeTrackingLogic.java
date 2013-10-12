@@ -1,24 +1,25 @@
 package org.archstudio.bna.logics.tracking;
 
+import static org.archstudio.sysutils.SystemUtils.filter;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
+import org.archstudio.bna.IPrivilegedBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNAModelListener {
+public class ThingTypeTrackingLogic extends AbstractThingLogic implements IPrivilegedBNAModelListener {
 
 	private final LoadingCache<Class<? extends IThing>, Collection<Object>> classToThingIDsCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<Class<? extends IThing>, Collection<Object>>() {
@@ -42,12 +43,11 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNAMo
 	@Override
 	synchronized public void dispose() {
 		classToThingIDsCache.invalidateAll();
-		classToThingIDsCache.cleanUp();
 		super.dispose();
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void privilegedBNAModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing t = evt.getTargetThing();
@@ -78,7 +78,6 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNAMo
 	}
 
 	synchronized public <T extends IThing> List<T> getThings(Class<T> ofType) {
-		return Lists.newArrayList(Iterables.filter(model.getThingsByID(classToThingIDsCache.getUnchecked(ofType)),
-				ofType));
+		return filter(model.getThingsByID(classToThingIDsCache.getUnchecked(ofType)), ofType);
 	}
 }

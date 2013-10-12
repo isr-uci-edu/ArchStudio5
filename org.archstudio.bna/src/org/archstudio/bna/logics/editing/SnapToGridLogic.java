@@ -1,12 +1,12 @@
 package org.archstudio.bna.logics.editing;
 
-import org.archstudio.bna.DefaultCoordinate;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasReferencePoint;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.logics.events.DragMoveEventsLogic;
 import org.archstudio.bna.logics.events.IDragMoveListener;
+import org.archstudio.bna.utils.DefaultCoordinate;
 import org.archstudio.bna.utils.GridUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;

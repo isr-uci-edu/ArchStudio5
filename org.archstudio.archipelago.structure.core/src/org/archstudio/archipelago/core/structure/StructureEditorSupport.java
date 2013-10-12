@@ -21,6 +21,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.GridDisplayType;
+import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
@@ -40,7 +41,6 @@ import org.archstudio.bna.logics.editing.ReshapeSplineLogic;
 import org.archstudio.bna.logics.editing.RotaterLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.editing.SnapToGridLogic;
-import org.archstudio.bna.logics.editing.SplineBreakLogic;
 import org.archstudio.bna.logics.editing.StandardCursorLogic;
 import org.archstudio.bna.logics.events.ProxyLogic;
 import org.archstudio.bna.logics.hints.SynchronizeHintsLogic;
@@ -230,16 +230,15 @@ public class StructureEditorSupport {
 	static void setupWorld(Services services, IXArchADT xarch, ObjRef documentRootRef, ObjRef structureRef,
 			IBNAWorld world) {
 		IThingLogicManager logics = world.getThingLogicManager();
-		ProxyLogic proxyLogic = logics.addThingLogic(ProxyLogic.class);
 
+		// these logics need to be first
+
+		ProxyLogic proxyLogic = logics.addThingLogic(ProxyLogic.class);
+		logics.addThingLogic(SnapToGridLogic.class);
 		logics.addThingLogic(new SynchronizeHintsLogic(world, proxyLogic.addObject(new XadlHintRepository(xarch))));
 
 		GridThing.createIn(world);
 		ShadowThing.createIn(world);
-
-		// these logics need to be first
-
-		logics.addThingLogic(SnapToGridLogic.class);
 
 		// generic logics -- alphabetized
 
@@ -253,9 +252,9 @@ public class StructureEditorSupport {
 		logics.addThingLogic(ReshapeRectangleLogic.class);
 		logics.addThingLogic(ReshapeSplineLogic.class).addReshapeSplineGuides(
 				new XadlReshapeSplineGuide(xarch, Structure_3_0Package.Literals.LINK,
-						Structure_3_0Package.Literals.INTERFACE, -1, 0));
+						Structure_3_0Package.Literals.INTERFACE, IHasEndpoints.ENDPOINT_1_KEY,
+						IHasEndpoints.ENDPOINT_2_KEY));
 		logics.addThingLogic(RotatingOffsetLogic.class);
-		logics.addThingLogic(SplineBreakLogic.class);
 		logics.addThingLogic(StandardCursorLogic.class);
 		logics.addThingLogic(new StructureDropLogic(world, services, documentRootRef));
 		logics.addThingLogic(ToolTipLogic.class);
@@ -318,21 +317,27 @@ public class StructureEditorSupport {
 
 		// xADL mapping logics
 
+		String prefix = "" + XadlUtils.getName(xarch, structureRef) + ": ";
+
 		logics.addThingLogic(new MapBrickLogic(world, services, xarch, structureRef,
 				"component", //
 				new Dimension(120, 80), ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_COLOR, 2,
-				ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_FONT));
-		logics.addThingLogic(new MapInterfaceLogic(world, xarch, structureRef, "component/interface"));
-		logics.addThingLogic(new MapMappingsLogic(world, xarch, structureRef, "component/subStructure/interfaceMapping"));
+				ArchipelagoStructureConstants.PREF_DEFAULT_COMPONENT_FONT, prefix + "Loading Components"));
+		logics.addThingLogic(new MapInterfaceLogic(world, xarch, structureRef, "component/interface", prefix
+				+ "Loading Component Interfaces"));
+		logics.addThingLogic(new MapMappingsLogic(world, xarch, structureRef,
+				"component/subStructure/interfaceMapping", prefix + "Loading Component Substructure Links"));
 
 		logics.addThingLogic(new MapBrickLogic(world, services, xarch, structureRef,
 				"connector", //
 				new Dimension(240, 36), ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_COLOR, 1,
-				ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_FONT));
-		logics.addThingLogic(new MapInterfaceLogic(world, xarch, structureRef, "connector/interface"));
-		logics.addThingLogic(new MapMappingsLogic(world, xarch, structureRef, "connector/subStructure/interfaceMapping"));
+				ArchipelagoStructureConstants.PREF_DEFAULT_CONNECTOR_FONT, prefix + "Loading Connectors"));
+		logics.addThingLogic(new MapInterfaceLogic(world, xarch, structureRef, "connector/interface", prefix
+				+ "Loading Connector Interfaces"));
+		logics.addThingLogic(new MapMappingsLogic(world, xarch, structureRef,
+				"connector/subStructure/interfaceMapping", prefix + "Loading Component Substructure Links"));
 
-		logics.addThingLogic(new MapLinkLogic(world, xarch, structureRef, "link"));
+		logics.addThingLogic(new MapLinkLogic(world, xarch, structureRef, "link", prefix + "Loading Links"));
 
 		// propagate external events logics
 

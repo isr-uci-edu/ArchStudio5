@@ -1,15 +1,15 @@
 package org.archstudio.bna.logics.hints.synchronizers;
 
+import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.logics.hints.IHintSynchronizer;
-import org.eclipse.jdt.annotation.Nullable;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 
 public abstract class AbstractHintSynchronizer implements IHintSynchronizer {
 
-	protected static final boolean DEBUG = false;
+	public boolean DEBUG = false;
 
 	private static class HintReference {
 		Object context;
@@ -67,15 +67,13 @@ public abstract class AbstractHintSynchronizer implements IHintSynchronizer {
 
 	}
 
-	protected IBNAWorld bnaWorld;
+	protected final IBNAWorld world;
+	protected final IBNAModel model;
 	private final Multiset<HintReference> ignoreHintUpdates = HashMultiset.create();
 
-	public AbstractHintSynchronizer() {
-	}
-
-	@Override
-	public void setBNAWorld(@Nullable IBNAWorld bnaWorld) {
-		this.bnaWorld = bnaWorld;
+	public AbstractHintSynchronizer(IBNAWorld world) {
+		this.world = world;
+		this.model = world.getBNAModel();
 	}
 
 	protected void ignore(Object context, String name) {

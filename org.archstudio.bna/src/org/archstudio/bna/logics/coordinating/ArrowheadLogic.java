@@ -3,90 +3,73 @@ package org.archstudio.bna.logics.coordinating;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
-import org.archstudio.bna.BNAModelEvent;
-import org.archstudio.bna.IBNAModel;
-import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
-import org.archstudio.bna.ThingEvent;
-import org.archstudio.bna.facets.IHasAnchorPoint;
-import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasPoints;
-import org.archstudio.bna.facets.IHasSecondaryAnchorPoint;
-import org.archstudio.bna.logics.AbstractThingLogic;
+import org.archstudio.bna.facets.IHasShapeKeys;
+import org.archstudio.bna.logics.AbstractCoordinatingThingLogic;
 import org.archstudio.bna.things.labels.ArrowheadThing;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.swt.graphics.Point;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
+public class ArrowheadLogic extends AbstractCoordinatingThingLogic {
 
-public class ArrowheadLogic extends AbstractThingLogic implements IBNAModelListener {
+	@NonNullByDefault
+	public static interface IHasArrowheadStemPoint extends IThing, IHasShapeKeys {
 
-	private static class MaintainArrowhead {
+		public Point getArroheadStempPoint(IThingKey<Point> pointKey);
 
-		boolean isUpdating = false;
+	}
 
-		final Object pointsThingID;
-		final IThingKey<Point> endpointKey;
+	private class ArrowheadUpdater extends Updater {
+
 		final Object arrowheadThingID;
+		final Object pointThingID;
+		final IThingKey<Point> pointKey;
 
-		public MaintainArrowhead(Object pointsThingID, IThingKey<Point> endpointKey, Object arrowheadThingID) {
-			checkNotNull(pointsThingID);
-			checkNotNull(endpointKey);
-			checkNotNull(arrowheadThingID);
-
-			this.pointsThingID = pointsThingID;
-			this.endpointKey = endpointKey;
-			this.arrowheadThingID = arrowheadThingID;
+		public ArrowheadUpdater(ArrowheadThing arrowheadThing, IHasArrowheadStemPoint pointThing,
+				IThingKey<Point> pointKey) {
+			this.arrowheadThingID = arrowheadThing.getID();
+			this.pointThingID = pointThing.getID();
+			this.pointKey = pointKey;
 		}
 
-		public void apply(IBNAModel model) {
-			checkNotNull(model);
-
-			if (isUpdating) {
-				return;
-			}
-
-			IHasPoints pointsThing = castOrNull(model.getThing(pointsThingID), IHasPoints.class);
-			IThing toThing = model.getThing(arrowheadThingID);
-			if (pointsThing != null && toThing != null) {
-				isUpdating = true;
-				try {
-					toThing.set(IHasAnchorPoint.ANCHOR_POINT_KEY, pointsThing.get(endpointKey));
-					if (endpointKey.equals(IHasEndpoints.ENDPOINT_1_KEY)) {
-						toThing.set(IHasSecondaryAnchorPoint.SECONDARY_ANCHOR_POINT_KEY, pointsThing.getPoint(1));
-					}
-					else if (endpointKey.equals(IHasEndpoints.ENDPOINT_2_KEY)) {
-						toThing.set(IHasSecondaryAnchorPoint.SECONDARY_ANCHOR_POINT_KEY, pointsThing.getPoint(-2));
-					}
-				}
-				finally {
-					isUpdating = false;
+		@Override
+		public void update() {
+			IHasArrowheadStemPoint pointThing = castOrNull(model.getThing(pointThingID), IHasArrowheadStemPoint.class);
+			if (pointThing != null) {
+				ArrowheadThing arrowheadThing = castOrNull(model.getThing(arrowheadThingID), ArrowheadThing.class);
+				if (arrowheadThing != null) {
+					arrowheadThing.setAnchorPoint(pointThing.get(pointKey));
+					arrowheadThing.setSecondaryAnchorPoint(pointThing.getArroheadStempPoint(pointKey));
 				}
 			}
 		}
 	}
 
-	Multimap<Object, MaintainArrowhead> maintainArrowheads = ArrayListMultimap.create();
+	protected final StickPointLogic stickLogic;
 
 	public ArrowheadLogic(IBNAWorld world) {
 		super(world);
+		stickLogic = logics.addThingLogic(StickPointLogic.class);
 	}
 
-	synchronized public void point(ArrowheadThing arrowheadThing, IHasEndpoints pointsThing, IThingKey<Point> endpoint) {
-		MaintainArrowhead ma = new MaintainArrowhead(pointsThing.getID(), endpoint, arrowheadThing.getID());
-		maintainArrowheads.put(pointsThing.getID(), ma);
-		ma.apply(model);
-	}
+	synchronized public void attach(ArrowheadThing arrowheadThing, IHasArrowheadStemPoint pointThing,
+			IThingKey<Point> pointKey) {
+		checkNotNull(arrowheadThing);
+		checkNotNull(pointThing);
+		checkNotNull(pointKey);
 
-	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
-		ThingEvent thingEvent = evt.getThingEvent();
-		if (thingEvent != null) {
-			for (MaintainArrowhead maintainArrowhead : maintainArrowheads.get(thingEvent.getTargetThing().getID())) {
-				maintainArrowhead.apply(evt.getSource());
-			}
+		ArrowheadUpdater updater = new ArrowheadUpdater(arrowheadThing, pointThing, pointKey);
+		register(updater, arrowheadThing);
+
+		track(updater, pointThing, arrowheadThing);
+		for (IThingKey<?> key : pointThing.getShapeModifyingKeys()) {
+			track(updater, pointThing, key);
 		}
+	}
+
+	synchronized public void detach(ArrowheadThing arrowheadThing) {
+		unregister(arrowheadThing);
 	}
 }

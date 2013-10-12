@@ -15,6 +15,7 @@ import org.archstudio.bna.IThingLogicManagerListener;
 import org.archstudio.bna.ThingLogicManagerEvent;
 import org.archstudio.bna.ThingLogicManagerEvent.EventType;
 import org.archstudio.sysutils.FilterableCopyOnWriteArrayList;
+import org.archstudio.sysutils.SystemUtils;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -25,7 +26,7 @@ import com.google.common.collect.Maps;
 
 public class DefaultThingLogicManager implements IThingLogicManager {
 
-	protected static final boolean DEBUG = true;
+	public boolean DEBUG = true;
 	protected final LoadingCache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().weakKeys()
 			.build(new CacheLoader<Object, AtomicLong>() {
 
@@ -46,12 +47,12 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 	Map<Class<?>, IThingLogic> typedLogics = Maps.newHashMap();
 
 	@Override
-	public void addThingLogicManagerListener(IThingLogicManagerListener l) {
+	synchronized public void addThingLogicManagerListener(IThingLogicManagerListener l) {
 		listeners.add(l);
 	}
 
 	@Override
-	public void removeThingLogicManagerListener(IThingLogicManagerListener l) {
+	synchronized public void removeThingLogicManagerListener(IThingLogicManagerListener l) {
 		listeners.remove(l);
 	}
 
@@ -66,7 +67,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public <L extends IThingLogic> L addThingLogic(Class<L> logicClass) {
+	synchronized public <L extends IThingLogic> L addThingLogic(Class<L> logicClass) {
 		try {
 			L logic = (L) typedLogics.get(logicClass);
 			if (logic != null) {
@@ -91,10 +92,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 	public synchronized <L extends IThingLogic> L addThingLogic(L l) {
 		checkArgument(l.getBNAWorld() == world, "Logic is of a different world: %s", l);
 		checkArgument(!logics.contains(l), "Logic was already added: %s", l);
-		long time;
-		if (DEBUG) {
-			time = System.nanoTime();
-		}
+		long time = System.nanoTime();
 		l.init();
 		logics.add(l);
 		typedLogics.put(l.getClass(), l);
@@ -110,10 +108,7 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 	@Override
 	public synchronized void removeThingLogic(IThingLogic tl) {
 		fireThingLogicManagerEvent(EventType.LOGIC_REMOVING, tl);
-		long time;
-		if (DEBUG) {
-			time = System.nanoTime();
-		}
+		long time = System.nanoTime();
 		logics.remove(tl);
 		typedLogics.remove(tl.getClass());
 		tl.dispose();
@@ -125,17 +120,22 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 	}
 
 	@Override
-	public List<IThingLogic> getAllThingLogics() {
+	synchronized public List<IThingLogic> getAllThingLogics() {
 		return Lists.newArrayList(logics);
 	}
 
 	@Override
-	public <T> Iterable<T> getThingLogics(Class<T> ofType) {
+	synchronized public <T> T getThingLogic(Class<T> ofType) {
+		return SystemUtils.firstOrNull(Iterables.filter(logics, ofType));
+	}
+
+	@Override
+	synchronized public <T> Iterable<T> getThingLogics(Class<T> ofType) {
 		return Iterables.filter(logics, ofType);
 	}
 
 	@Override
-	public void dispose() {
+	synchronized public void dispose() {
 		// perform removals in reverse order since latter logics often depend on former logics
 		for (IThingLogic logic : Lists.newArrayList(Lists.reverse(logics))) {
 			removeThingLogic(logic);

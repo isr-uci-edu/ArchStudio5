@@ -45,7 +45,7 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineT
 	FontData defaultFont;
 	int defaultLineWidth;
 
-	public MapTransitionLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
+	public MapTransitionLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath, String description) {
 		super(world, xarch, rootObjRef, objRefPath);
 		syncLogic = logics.addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
 		stickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
@@ -63,6 +63,8 @@ public class MapTransitionLogic extends AbstractXADLToBNAPathLogic<CurvedSplineT
 
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+
+		setProgressInfo(description);
 	}
 
 	@Override

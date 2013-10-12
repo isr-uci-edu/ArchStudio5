@@ -326,25 +326,37 @@ public class SWTWidgetUtils {
 		});
 	}
 
-	public static <R extends Resource> R quietlyDispose(R r) {
-		try {
-			if (r != null) {
-				r.dispose();
+	public static <R extends Resource> R quietlyDispose(final R r) {
+		async(Display.getDefault(), new Runnable() {
+			@Override
+			public void run() {
+				try {
+					if (r != null) {
+						r.dispose();
+					}
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-		}
-		catch (Exception e) {
-		}
+		});
 		return null;
 	}
 
-	public static <W extends Widget> W quietlyDispose(W d) {
-		try {
-			if (d != null) {
-				d.dispose();
+	public static <W extends Widget> W quietlyDispose(final W w) {
+		async(w, new Runnable() {
+			@Override
+			public void run() {
+				try {
+					if (w != null) {
+						w.dispose();
+					}
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-		}
-		catch (Exception e) {
-		}
+		});
 		return null;
 	}
 }

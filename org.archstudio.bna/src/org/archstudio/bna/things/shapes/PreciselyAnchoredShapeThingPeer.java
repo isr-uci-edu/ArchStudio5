@@ -4,6 +4,7 @@ import java.awt.Shape;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.things.AbstractPreciselyAnchoredShapeThingPeer;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNAUtils;
@@ -25,8 +26,12 @@ public class PreciselyAnchoredShapeThingPeer<T extends PreciselyAnchoredShapeThi
 			return false;
 		}
 
-		if (t.getColor() != null) {
-			r.fillShape(localShape, t.getColor(), null);
+		if (r.setColor(t, IHasColor.COLOR_KEY)) {
+			r.fillShape(localShape);
+		}
+		if (r.setLineStyle(t)) {
+			r.drawShape(localShape);
+			r.resetLineStyle();
 		}
 		if (t.isSelected()) {
 			r.selectShape(localShape, t.getRotatingOffset());

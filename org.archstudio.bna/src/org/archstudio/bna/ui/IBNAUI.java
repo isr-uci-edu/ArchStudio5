@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import org.archstudio.bna.ui.jogl.JOGLBNAUI;
 import org.archstudio.bna.ui.swt.SWTBNAUI;
+import org.archstudio.bna.ui.utils.AutodetectBNAUI;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 

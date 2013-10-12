@@ -28,15 +28,15 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
-import org.archstudio.bna.ObscuredGL2;
 import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasLineData;
 import org.archstudio.bna.facets.IHasTint;
 import org.archstudio.bna.facets.IIsHidden;
-import org.archstudio.bna.ui.AbstractUIResources;
 import org.archstudio.bna.ui.IUIResources;
+import org.archstudio.bna.ui.utils.AbstractUIResources;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.ObscuredGL2;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
@@ -397,9 +397,10 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 	@Override
 	public void fillShape(Shape localShape, RGB color1, RGB color2, double alpha) {
 
+		Rectangle2D localBounds = localShape.getBounds2D();
 		boolean isGradientFilled = isDecorativeGraphics() && color1 != null && color2 != null && !color1.equals(color2);
-		double minY = isGradientFilled ? localShape.getBounds2D().getMinY() : 0;
-		double maxY = isGradientFilled ? localShape.getBounds2D().getMaxY() : 0;
+		double minY = isGradientFilled ? localBounds.getMinY() : 0;
+		double maxY = isGradientFilled ? localBounds.getMaxY() : 0;
 
 		gl.glBegin(GL.GL_TRIANGLE_FAN);
 		if (color1 != null) {
@@ -410,11 +411,15 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 				gl.glColor3f(color1.red / 255f, color1.green / 255f, color1.blue / 255f);
 			}
 		}
+		if (isGradientFilled) {
+			blendColor(color1, color2, minY, maxY, localBounds.getCenterY(), alpha);
+		}
+		gl.glVertex2f((float) localBounds.getCenterX() + 0.5f, (float) localBounds.getCenterY() + 0.5f);
 		for (Point2D point : toPointsList(localShape)) {
 			if (isGradientFilled) {
 				blendColor(color1, color2, minY, maxY, point.getY(), alpha);
 			}
-			gl.glVertex2f((float) point.getX(), (float) point.getY());
+			gl.glVertex2f((float) point.getX() + 0.5f, (float) point.getY() + 0.5f);
 		}
 		gl.glEnd();
 	}

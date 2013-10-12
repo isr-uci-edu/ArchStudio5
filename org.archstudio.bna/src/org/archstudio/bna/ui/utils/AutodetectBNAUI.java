@@ -1,8 +1,9 @@
-package org.archstudio.bna.ui;
+package org.archstudio.bna.ui.utils;
 
 import java.awt.image.BufferedImage;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ui.IBNAUI;
 import org.archstudio.bna.ui.jogl.JOGLBNAUI;
 import org.archstudio.bna.ui.swt.SWTBNAUI;
 import org.eclipse.swt.graphics.Rectangle;

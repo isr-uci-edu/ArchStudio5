@@ -37,7 +37,7 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineThing> implem
 
 	protected int defaultLineWidth;
 
-	public MapLinkLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath) {
+	public MapLinkLogic(IBNAWorld world, IXArchADT xarch, ObjRef rootObjRef, String objRefPath, String description) {
 		super(world, xarch, rootObjRef, objRefPath);
 		syncLogic = logics.addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
 		stickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
@@ -55,6 +55,8 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineThing> implem
 
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+
+		setProgressInfo(description);
 	}
 
 	@Override

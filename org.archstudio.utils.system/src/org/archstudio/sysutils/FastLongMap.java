@@ -32,12 +32,16 @@ import com.google.common.collect.Lists;
 @SuppressWarnings("unchecked")
 public final class FastLongMap<V> {
 
-	public static final <T> List<T> getList(FastLongMap<List<T>> map, long key, boolean create) {
-		FastLongMap.Entry<List<T>> entry = //
-		create ? map.createEntry(key) : map.getEntry(key);
+	public static final <T> List<T> get(FastLongMap<List<T>> map, long key) {
+		FastLongMap.Entry<List<T>> entry = map.getEntry(key);
 		if (entry == null) {
 			return Collections.emptyList();
 		}
+		return entry.getValue();
+	}
+
+	public static final <T> List<T> createList(FastLongMap<List<T>> map, long key) {
+		FastLongMap.Entry<List<T>> entry = map.createEntry(key);
 		if (entry.getValue() == null) {
 			entry.setValue(Lists.<T> newArrayList());
 		}

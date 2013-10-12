@@ -105,4 +105,6 @@ public interface IThing {
 	<V> V remove(IThingKey<V> key);
 
 	public Iterable<IEntry> entries();
+
+	public int getModCount();
 }

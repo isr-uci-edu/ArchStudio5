@@ -1,9 +1,13 @@
 package org.archstudio.bna.logics.hints;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
 
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
@@ -35,8 +39,8 @@ import org.archstudio.bna.logics.hints.synchronizers.PropertyHintSynchronizer;
 import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.utils.Assemblies;
-import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 
 import com.google.common.collect.Lists;
@@ -44,72 +48,106 @@ import com.google.common.collect.Lists;
 public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAModelListener,
 		IHintRepositoryChangeListener {
 
-	protected static final boolean DEBUG = false;
+	public boolean DEBUG = false;
 
 	private static final IThingKey<Object> HINT_CONTEXT_KEY = ThingKey.create(SynchronizeHintsLogic.class);
 
-	final protected IHintRepository hintRepository;
-
 	protected final ThingValueTrackingLogic valueLogic;
+	protected final IHintRepository hintRepository;
+	protected final ExecutorService asyncExecutor = new ThreadPoolExecutor(1, 5, 5L, TimeUnit.SECONDS,
+			new LinkedBlockingQueue<Runnable>(), new ThreadFactory() {
+				@Override
+				public Thread newThread(Runnable r) {
+					Thread t = new Thread(r);
+					t.setName(SynchronizeHintsLogic.class.getName());
+					t.setDaemon(true);
+					return t;
+				}
+			});
 
 	public SynchronizeHintsLogic(IBNAWorld world, IHintRepository hintRepository) {
 		super(world);
-		checkState(model.getAllThings().isEmpty(), "SynchronizeHintsLogic must be added before things.");
-		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
-
+		this.valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
 		this.hintRepository = hintRepository;
-		hintSynchronizers.add(new PropertyHintSynchronizer("bounds", IHasBoundingBox.BOUNDING_BOX_KEY,
+
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "bounds", IHasBoundingBox.BOUNDING_BOX_KEY,
 				IHasMutableBoundingBox.class, IRelativeMovable.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE));
-		hintSynchronizers.add(new PropertyHintSynchronizer("location", IHasAnchorPoint.ANCHOR_POINT_KEY,
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "location", IHasAnchorPoint.ANCHOR_POINT_KEY,
 				IHasMutableAnchorPoint.class, IRelativeMovable.USER_MAY_MOVE));
-		hintSynchronizers.add(new PropertyHintSynchronizer("tagged", ShowHideTagsLogic.SHOW_TAG_KEY, IThing.class,
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "tagged", ShowHideTagsLogic.SHOW_TAG_KEY, IThing.class,
 				ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG));
-		hintSynchronizers.add(new PropertyHintSynchronizer("angle", IHasAngle.ANGLE_KEY, IHasMutableAngle.class,
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "angle", IHasAngle.ANGLE_KEY, IHasMutableAngle.class,
 				IHasMutableAngle.USER_MAY_CHANGE_ANGLE));
-		hintSynchronizers.add(new PropertyHintSynchronizer("endpoint1", IHasEndpoints.ENDPOINT_1_KEY,
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "endpoint1", IHasEndpoints.ENDPOINT_1_KEY,
 				IHasMutableEndpoints.class, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1));
-		hintSynchronizers.add(new PropertyHintSynchronizer("endpoint2", IHasEndpoints.ENDPOINT_2_KEY,
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "endpoint2", IHasEndpoints.ENDPOINT_2_KEY,
 				IHasMutableEndpoints.class, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2));
-		hintSynchronizers.add(new PropertyHintSynchronizer("midpoints", IHasMidpoints.MIDPOINTS_KEY,
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "midpoints", IHasMidpoints.MIDPOINTS_KEY,
 				IHasMutableMidpoints.class, IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS));
-		hintSynchronizers.add(new PropertyHintSynchronizer("color", IHasColor.COLOR_KEY, IHasMutableColor.class,
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "color", IHasColor.COLOR_KEY, IHasMutableColor.class,
 				IHasMutableColor.USER_MAY_EDIT_COLOR));
-		hintSynchronizers.add(new PropertyHintSynchronizer("highlight", IHasHighlight.HIGHLIGHT_KEY, IThing.class,
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "highlight", IHasHighlight.HIGHLIGHT_KEY, IThing.class,
 				HighlightLogic.USER_MAY_HIGHLIGHT));
-		hintSynchronizers.add(new PropertyHintSynchronizer("alpha", IHasAlpha.ALPHA_KEY, IThing.class,
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "alpha", IHasAlpha.ALPHA_KEY, IThing.class,
 				IHasMutableAlpha.USER_MAY_CHANGE_ALPHA));
 
-		for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {
-			hintSynchronizer.setBNAWorld(world);
-		}
-
 		hintRepository.addHintRepositoryChangeListener(this);
+		for (IThing thing : model.getAllThings()) {
+			createHintContext(thing);
+		}
 	}
 
 	final protected CopyOnWriteArrayList<IHintSynchronizer> hintSynchronizers = Lists.newCopyOnWriteArrayList();
 
+	synchronized public void addHintSynchronizer(IHintSynchronizer hintSynchronizer) {
+		hintSynchronizers.add(hintSynchronizer);
+	}
+
+	synchronized public void removeHintSynchronizer(IHintSynchronizer hintSynchronizer) {
+		hintSynchronizers.remove(hintSynchronizer);
+	}
+
 	@Override
-	public void dispose() {
+	synchronized public void dispose() {
 		hintRepository.removeHintRepositoryChangeListener(this);
-		for (IHintSynchronizer hintSynchronizer : hintSynchronizers) {
-			hintSynchronizer.setBNAWorld(null);
+		asyncExecutor.shutdown();
+		try {
+			asyncExecutor.awaitTermination(30, TimeUnit.SECONDS);
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+			MessageDialog.openError(Display.getDefault().getActiveShell(), "Error", "An exception ("
+					+ e.getClass().getName() + ") has occurred. Please see the platform log file for details.");
 		}
 		super.dispose();
 	}
 
 	@Override
-	synchronized public void bnaModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(final BNAModelEvent evt) {
 		switch (evt.getEventType()) {
-		case THING_ADDED:
-		case THING_CHANGED:
+		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
-			ThingEvent te = evt.getThingEvent();
-			if (thing != null && (te == null || !HINT_CONTEXT_KEY.equals(te.getPropertyName()))) {
-				Object context = createHintContext(thing);
-				if (context != null) {
-					storeHints(thing, context, evt);
-				}
+			Object context = createHintContext(thing);
+			if (context != null) {
+				storeHints(thing, context, evt);
 			}
+		}
+			break;
+		case THING_CHANGED: {
+			final IThing thing = evt.getTargetThing();
+			final ThingEvent thingEvent = evt.getThingEvent();
+			if (!HINT_CONTEXT_KEY.equals(thingEvent.getPropertyName())) {
+				asyncExecutor.execute(new Runnable() {
+					@Override
+					public void run() {
+						Object context = createHintContext(thing);
+						if (context != null) {
+							storeHints(thing, context, evt);
+						}
+					}
+				});
+			}
+		}
 			break;
 		default:
 			// do nothing
@@ -119,6 +157,7 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 	protected @Nullable
 	Object createHintContext(IThing thing) {
 		checkNotNull(thing);
+
 		Object context = thing.get(HINT_CONTEXT_KEY);
 		if (context == null) {
 			context = hintRepository.getContextForThing(world, thing);
@@ -134,6 +173,10 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 			}
 		}
 		return context;
+	}
+
+	synchronized public void restoreHints(IThing thing) {
+		createHintContext(thing);
 	}
 
 	protected void restoreHints(IThing thing, Object context, @Nullable String name) {
@@ -157,14 +200,9 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 	@Override
 	synchronized public void hintRepositoryChanged(final IHintRepository repository, final Object context,
 			final @Nullable String name) {
-		SWTWidgetUtils.async(Display.getDefault(), new Runnable() {
-			@Override
-			public void run() {
-				for (IThing t : valueLogic.getThings(HINT_CONTEXT_KEY, context)) {
-					restoreHints(t, context, name);
-				}
-			}
-		});
+		for (IThing t : valueLogic.getThings(HINT_CONTEXT_KEY, context)) {
+			restoreHints(t, context, name);
+		}
 	}
 
 }

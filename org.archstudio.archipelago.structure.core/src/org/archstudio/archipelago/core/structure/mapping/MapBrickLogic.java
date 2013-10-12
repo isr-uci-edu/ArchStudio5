@@ -67,7 +67,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 	protected int defaultLineWidth;
 
 	public MapBrickLogic(IBNAWorld world, Services services, IXArchADT xarch, ObjRef rootObjRef, String objRefPath,
-			Dimension defaultSize, String defaultColorPref, int defaultCount, String defaultFontPref) {
+			Dimension defaultSize, String defaultColorPref, int defaultCount, String defaultFontPref, String description) {
 		super(world, xarch, rootObjRef, objRefPath);
 		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
 		this.services = services;
@@ -92,6 +92,8 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 
 		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 		org.archstudio.archipelago.core.Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+
+		setProgressInfo(description);
 	}
 
 	@Override

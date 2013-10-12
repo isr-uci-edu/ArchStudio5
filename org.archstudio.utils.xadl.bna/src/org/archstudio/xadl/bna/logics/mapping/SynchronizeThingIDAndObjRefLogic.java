@@ -2,120 +2,91 @@ package org.archstudio.xadl.bna.logics.mapping;
 
 import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
-import java.util.Collections;
 import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
-import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.keys.IThingMetakey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingMetakey;
-import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
+import org.archstudio.bna.logics.AbstractKeyCoordinatingThingLogic;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.ObjRef;
 
 import com.google.common.collect.Sets;
 
-public class SynchronizeThingIDAndObjRefLogic extends AbstractThingLogic implements IBNAModelListener {
+public class SynchronizeThingIDAndObjRefLogic extends AbstractKeyCoordinatingThingLogic implements IBNAModelListener {
 
-	protected final ThingValueTrackingLogic valueLogic;
-	Set<IThingMetakey<?, IThingKey<Object>, ObjRef>> objRefKeys = Collections
-			.<IThingMetakey<?, IThingKey<Object>, ObjRef>> synchronizedSet(Sets
-					.<IThingMetakey<?, IThingKey<Object>, ObjRef>> newHashSet());
-	Set<IThingKey<Object>> thingIDKeys = Collections.<IThingKey<Object>> synchronizedSet(Sets
-			.<IThingKey<Object>> newHashSet());
-	int inUpdateCount = 0;
+	private static final String OBJREF_KEY_NAME = ".objRef";
+	private final Set<IThingMetakey<?, IThingRefKey<?>, ObjRef>> objRefMetakeys = Sets.newHashSet();
 
 	public SynchronizeThingIDAndObjRefLogic(IBNAWorld world) {
-		super(world);
-		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
+		super(world, true);
+		track(IHasObjRef.OBJREF_KEY);
 	}
 
-	synchronized public IThingKey<ObjRef> syncObjRefKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
-		return getObjRefKey(thingRefKey);
+	synchronized public IThingMetakey<?, IThingRefKey<?>, ObjRef> syncObjRefKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
+		track(thingRefKey);
+		IThingMetakey<?, IThingRefKey<?>, ObjRef> objRefMetakey = _syncObjRefKeyToThingIDKey(thingRefKey);
+		objRefMetakeys.add(objRefMetakey);
+		track(objRefMetakey);
+		return objRefMetakey;
 	}
 
-	private IThingKey<ObjRef> getObjRefKey(IThingKey<Object> thingIDKey) {
-		thingIDKeys.add(thingIDKey);
-		IThingMetakey<?, IThingKey<Object>, ObjRef> objRefKey = ThingMetakey.create(".objRef", thingIDKey);
-		objRefKeys.add(objRefKey);
-		return objRefKey;
+	private IThingMetakey<?, IThingRefKey<?>, ObjRef> _syncObjRefKeyToThingIDKey(IThingRefKey<?> thingRefKey) {
+		return ThingMetakey.<String, IThingRefKey<?>, ObjRef> create(OBJREF_KEY_NAME, thingRefKey);
+	}
+
+	@Override
+	protected void update(IThing thing, IThingKey<?> key) {
+		if (IHasObjRef.OBJREF_KEY.equals(key)) {
+			ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);
+			if (objRef != null) {
+				for (IThingMetakey<?, IThingRefKey<?>, ObjRef> objRefKey : objRefMetakeys) {
+					for (IThing thingWithObjRef : valueLogic.getThings(objRefKey, objRef)) {
+						thingWithObjRef.set(objRefKey.getKey(), thing.getID());
+					}
+				}
+			}
+		}
+		else if (key instanceof IThingMetakey && OBJREF_KEY_NAME.equals(((IThingMetakey<?, ?, ?>) key).getName())) {
+			@SuppressWarnings("unchecked")
+			IThingMetakey<?, IThingRefKey<?>, ObjRef> objRefKey = (IThingMetakey<?, IThingRefKey<?>, ObjRef>) key;
+			ObjRef objRef = thing.get(objRefKey);
+			if (objRef != null) {
+				thing.set(objRefKey.getKey(), firstOrNull(valueLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef)));
+			}
+			else {
+				thing.set(objRefKey.getKey(), null);
+			}
+		}
+		else if (key instanceof IThingRefKey) {
+			IThingRefKey<?> refKey = (IThingRefKey<?>) key;
+			IThingMetakey<?, IThingRefKey<?>, ObjRef> objRefKey = _syncObjRefKeyToThingIDKey(refKey);
+			if (thing.has(objRefKey)) {
+				IThing referencedThing = refKey.get(thing, model);
+				ObjRef objRef = referencedThing != null ? referencedThing.get(IHasObjRef.OBJREF_KEY) : null;
+				thing.set(objRefKey, objRef);
+			}
+		}
 	}
 
 	@Override
 	synchronized public void bnaModelChanged(BNAModelEvent evt) {
-		if (inUpdateCount > 0) {
-			return;
-		}
-		inUpdateCount++;
-		try {
-			switch (evt.getEventType()) {
-			case THING_ADDED: {
-				IThing t = evt.getTargetThing();
-				ObjRef objRef = t.get(IHasObjRef.OBJREF_KEY);
-				if (objRef != null) {
-					setThingIdForObjRef(objRef, t.getID());
-				}
-				for (IThingMetakey<?, IThingKey<Object>, ObjRef> objRefKey : objRefKeys) {
-					objRef = t.get(objRefKey);
-					if (objRef != null) {
-						t.set(objRefKey.getKey(), firstOrNull(valueLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef)));
+		super.bnaModelChanged(evt);
+		if (evt.getEventType() == EventType.THING_REMOVED) {
+			IThing thing = evt.getTargetThing();
+			ObjRef objRef = thing.get(IHasObjRef.OBJREF_KEY);
+			if (objRef != null) {
+				for (IThingMetakey<?, IThingRefKey<?>, ObjRef> objRefKey : objRefMetakeys) {
+					for (IThing thingWithObjRef : valueLogic.getThings(objRefKey, objRef)) {
+						thingWithObjRef.set(objRefKey.getKey(), null);
 					}
 				}
-				break;
-			}
-			case THING_CHANGED: {
-				ThingEvent te = evt.getThingEvent();
-				IThingKey<?> p = te.getPropertyName();
-				if (thingIDKeys.contains(p)) {
-					@SuppressWarnings("unchecked")
-					IThingKey<Object> idKey = (IThingKey<Object>) p;
-					IThing thingWithReference = evt.getTargetThing();
-					IThing referencedThing = evt.getSource().getThing(thingWithReference.get(idKey));
-					ObjRef objRef = referencedThing != null ? referencedThing.get(IHasObjRef.OBJREF_KEY) : null;
-					thingWithReference.set(getObjRefKey(idKey), objRef);
-				}
-				else if (IHasObjRef.OBJREF_KEY.equals(p)) {
-					IThing thingWithObjRef = evt.getTargetThing();
-					ObjRef objRef = thingWithObjRef.get(IHasObjRef.OBJREF_KEY);
-					setThingIdForObjRef(objRef, thingWithObjRef.getID());
-				}
-				else if (objRefKeys.contains(p)) {
-					IThing thingWithObjRef = evt.getTargetThing();
-					@SuppressWarnings("unchecked")
-					IThingMetakey<?, IThingKey<Object>, ObjRef> objRefKey = (IThingMetakey<?, IThingKey<Object>, ObjRef>) p;
-					ObjRef objRef = thingWithObjRef.get(objRefKey);
-					thingWithObjRef.set(objRefKey.getKey(),
-							firstOrNull(valueLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef)));
-				}
-				break;
-			}
-			case THING_REMOVED: {
-				IThing t = evt.getTargetThing();
-				ObjRef objRef = t.get(IHasObjRef.OBJREF_KEY);
-				if (objRef != null) {
-					setThingIdForObjRef(objRef, null);
-				}
-				break;
-			}
-			default:
-				// do nothing
-			}
-		}
-		finally {
-			inUpdateCount--;
-		}
-	}
-
-	private void setThingIdForObjRef(ObjRef objRef, Object thingId) {
-		for (IThingMetakey<?, IThingKey<Object>, ObjRef> objRefKey : objRefKeys) {
-			for (IThing thingWithObjRef : valueLogic.getThings(objRefKey, objRef)) {
-				thingWithObjRef.set(objRefKey.getKey(), thingId);
 			}
 		}
 	}

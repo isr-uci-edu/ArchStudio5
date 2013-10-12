@@ -1,5 +1,7 @@
 package org.archstudio.bna.things.labels;
 
+import java.awt.Shape;
+
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.constants.ArrowheadShape;
@@ -12,7 +14,9 @@ import org.archstudio.bna.facets.IHasMutableLineData;
 import org.archstudio.bna.facets.IHasMutableSecondaryAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableSecondaryColor;
 import org.archstudio.bna.things.AbstractMutableAnchorPointThing;
-import org.archstudio.bna.utils.ArrowheadUtils;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.bna.utils.LinearCoordinateMapper;
+import org.archstudio.bna.utils.ShapeUtils;
 import org.archstudio.swtutils.constants.LineStyle;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
@@ -30,7 +34,8 @@ public class ArrowheadThing extends AbstractMutableAnchorPointThing implements I
 	@Override
 	protected void initProperties() {
 		setArrowheadShape(ArrowheadShape.TRIANGLE);
-		setArrowheadSize(20);
+		setArrowheadStemLength(20);
+		setArrowheadAngle(40);
 		setSecondaryAnchorPoint(new Point(0, 0));
 		setColor(new RGB(128, 128, 128));
 		setSecondaryColor(new RGB(0, 0, 0));
@@ -51,27 +56,32 @@ public class ArrowheadThing extends AbstractMutableAnchorPointThing implements I
 	}
 
 	protected Rectangle calculateBoundingBox() {
-		Point lp1 = getAnchorPoint();
-		Point lp2 = getSecondaryAnchorPoint();
-		Rectangle r = new Rectangle(lp1.x, lp1.y, 0, 0);
-		int arrowheadSize = getArrowheadSize();
-		int[] xyPoints = ArrowheadUtils.calculateTriangularArrowhead(lp2.x, lp2.y, lp1.x, lp1.y, arrowheadSize);
-		if (xyPoints != null) {
-			for (int i = 0; i < 6; i += 2) {
-				r.add(new Rectangle(xyPoints[i], xyPoints[i + 1], 0, 0));
-			}
+		Shape shape = ShapeUtils.createArrowhead(this, LinearCoordinateMapper.IDENTITY);
+		if (shape != null) {
+			return BNAUtils.toRectangle(shape.getBounds());
 		}
-		return r;
+		Point ap = getAnchorPoint();
+		return new Rectangle(ap.x, ap.y, 0, 0);
 	}
 
 	@Override
-	public int getArrowheadSize() {
-		return get(ARROWHEAD_SIZE_KEY);
+	public int getArrowheadStemLength() {
+		return get(ARROWHEAD_STEM_LENGTH_KEY);
 	}
 
 	@Override
-	public void setArrowheadSize(int arrowheadSize) {
-		set(ARROWHEAD_SIZE_KEY, arrowheadSize);
+	public void setArrowheadStemLength(int arrowheadStemLength) {
+		set(ARROWHEAD_STEM_LENGTH_KEY, arrowheadStemLength);
+	}
+
+	@Override
+	public int getArrowheadAngle() {
+		return get(ARROWHEAD_ANGLE_KEY);
+	}
+
+	@Override
+	public void setArrowheadAngle(int arrowheadAngle) {
+		set(ARROWHEAD_ANGLE_KEY, arrowheadAngle);
 	}
 
 	@Override
