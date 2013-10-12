@@ -199,7 +199,7 @@ public final class FastIntMap<V> {
 		return null;
 	}
 
-	public V remove(int key) {
+	public Entry<V> removeEntry(int key) {
 		int index = key & mask;
 		Entry<V> prev = table[index];
 		Entry<V> e = prev;
@@ -213,10 +213,18 @@ public final class FastIntMap<V> {
 				else {
 					prev.next = next;
 				}
-				return e.value;
+				return e;
 			}
 			prev = e;
 			e = next;
+		}
+		return null;
+	}
+
+	public V remove(int key) {
+		Entry<V> entry = removeEntry(key);
+		if (entry != null) {
+			return entry.value;
 		}
 		return null;
 	}
