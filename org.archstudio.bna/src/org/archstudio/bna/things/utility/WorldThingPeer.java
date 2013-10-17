@@ -1,6 +1,5 @@
 package org.archstudio.bna.things.utility;
 
-import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
@@ -88,10 +87,9 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
-		if (localBounds.intersects(lbb) && lbb.height >= 5 && lbb.width >= 5) {
+		if (localBounds.intersects(lbb)) {
 			IBNAView iView = getInnerView();
 			if (iView != null) {
-				IBNAModel iModel = iView.getBNAWorld().getBNAModel();
 				r.renderThings(iView, localBounds);
 			}
 		}
