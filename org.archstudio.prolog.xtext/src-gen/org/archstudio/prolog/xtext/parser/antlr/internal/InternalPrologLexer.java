@@ -223,10 +223,10 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1763:17: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1763:19: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1782:17: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1782:19: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1763:19: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1782:19: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt1=0;
             loop1:
             do {
@@ -280,11 +280,11 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_SINGLE_LINE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1765:26: ( '%' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1765:28: '%' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1784:26: ( '%' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1784:28: '%' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match('%'); 
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1765:32: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1784:32: (~ ( ( '\\n' | '\\r' ) ) )*
             loop2:
             do {
                 int alt2=2;
@@ -297,7 +297,7 @@ public class InternalPrologLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1765:32: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1784:32: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -317,7 +317,7 @@ public class InternalPrologLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1765:48: ( ( '\\r' )? '\\n' )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1784:48: ( ( '\\r' )? '\\n' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -326,9 +326,9 @@ public class InternalPrologLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1765:49: ( '\\r' )? '\\n'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1784:49: ( '\\r' )? '\\n'
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1765:49: ( '\\r' )?
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1784:49: ( '\\r' )?
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -337,7 +337,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1765:49: '\\r'
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1784:49: '\\r'
                             {
                             match('\r'); 
 
@@ -369,10 +369,10 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP1200XFX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1767:16: ( ( '-->' | ':-' ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1767:18: ( '-->' | ':-' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1786:16: ( ( '-->' | ':-' ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1786:18: ( '-->' | ':-' )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1767:18: ( '-->' | ':-' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1786:18: ( '-->' | ':-' )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -390,7 +390,7 @@ public class InternalPrologLexer extends Lexer {
             }
             switch (alt5) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1767:19: '-->'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1786:19: '-->'
                     {
                     match("-->"); 
 
@@ -398,7 +398,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1767:25: ':-'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1786:25: ':-'
                     {
                     match(":-"); 
 
@@ -424,10 +424,10 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP1200FX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1769:15: ( ( ':-' | '?-' ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1769:17: ( ':-' | '?-' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1788:15: ( ( ':-' | '?-' ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1788:17: ( ':-' | '?-' )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1769:17: ( ':-' | '?-' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1788:17: ( ':-' | '?-' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -445,7 +445,7 @@ public class InternalPrologLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1769:18: ':-'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1788:18: ':-'
                     {
                     match(":-"); 
 
@@ -453,7 +453,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1769:23: '?-'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1788:23: '?-'
                     {
                     match("?-"); 
 
@@ -479,15 +479,15 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP1150FX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1771:15: ( ( 'dynamic' | 'discontiguous' | 'initialization' | 'module_transparent' | 'multifile' | 'thread_local' | 'volatile' ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1771:17: ( 'dynamic' | 'discontiguous' | 'initialization' | 'module_transparent' | 'multifile' | 'thread_local' | 'volatile' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1790:15: ( ( 'dynamic' | 'discontiguous' | 'initialization' | 'module_transparent' | 'multifile' | 'thread_local' | 'volatile' ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1790:17: ( 'dynamic' | 'discontiguous' | 'initialization' | 'module_transparent' | 'multifile' | 'thread_local' | 'volatile' )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1771:17: ( 'dynamic' | 'discontiguous' | 'initialization' | 'module_transparent' | 'multifile' | 'thread_local' | 'volatile' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1790:17: ( 'dynamic' | 'discontiguous' | 'initialization' | 'module_transparent' | 'multifile' | 'thread_local' | 'volatile' )
             int alt7=7;
             alt7 = dfa7.predict(input);
             switch (alt7) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1771:18: 'dynamic'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1790:18: 'dynamic'
                     {
                     match("dynamic"); 
 
@@ -495,7 +495,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1771:28: 'discontiguous'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1790:28: 'discontiguous'
                     {
                     match("discontiguous"); 
 
@@ -503,7 +503,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1771:44: 'initialization'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1790:44: 'initialization'
                     {
                     match("initialization"); 
 
@@ -511,7 +511,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1771:61: 'module_transparent'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1790:61: 'module_transparent'
                     {
                     match("module_transparent"); 
 
@@ -519,7 +519,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1771:82: 'multifile'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1790:82: 'multifile'
                     {
                     match("multifile"); 
 
@@ -527,7 +527,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1771:94: 'thread_local'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1790:94: 'thread_local'
                     {
                     match("thread_local"); 
 
@@ -535,7 +535,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 7 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1771:109: 'volatile'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1790:109: 'volatile'
                     {
                     match("volatile"); 
 
@@ -561,8 +561,8 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP1100XFY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1773:16: ( ( ';' | '|' ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1773:18: ( ';' | '|' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1792:16: ( ( ';' | '|' ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1792:18: ( ';' | '|' )
             {
             if ( input.LA(1)==';'||input.LA(1)=='|' ) {
                 input.consume();
@@ -589,10 +589,10 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP1050XFY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1775:16: ( ( '->' | '*->' ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1775:18: ( '->' | '*->' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1794:16: ( ( '->' | '*->' ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1794:18: ( '->' | '*->' )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1775:18: ( '->' | '*->' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1794:18: ( '->' | '*->' )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -610,7 +610,7 @@ public class InternalPrologLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1775:19: '->'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1794:19: '->'
                     {
                     match("->"); 
 
@@ -618,7 +618,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1775:24: '*->'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1794:24: '*->'
                     {
                     match("*->"); 
 
@@ -644,8 +644,8 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP1000XFY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1777:16: ( ',' )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1777:18: ','
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1796:16: ( ',' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1796:18: ','
             {
             match(','); 
 
@@ -664,8 +664,8 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP954XFY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1779:15: ( '\\\\' )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1779:17: '\\\\'
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1798:15: ( '\\\\' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1798:17: '\\\\'
             {
             match('\\'); 
 
@@ -684,8 +684,8 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP900FY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1781:14: ( '\\\\+' )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1781:16: '\\\\+'
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1800:14: ( '\\\\+' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1800:16: '\\\\+'
             {
             match("\\+"); 
 
@@ -705,8 +705,8 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP900FX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1783:14: ( '~' )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1783:16: '~'
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1802:14: ( '~' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1802:16: '~'
             {
             match('~'); 
 
@@ -725,29 +725,29 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP700XFX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:15: ( ( '<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\\\=' | '\\\\==' | 'is' ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:17: ( '<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\\\=' | '\\\\==' | 'is' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:15: ( ( '<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\\\=' | '\\\\==' | 'is' ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:17: ( '<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\\\=' | '\\\\==' | 'is' )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:17: ( '<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\\\=' | '\\\\==' | 'is' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:17: ( '<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\\\=' | '\\\\==' | 'is' )
             int alt9=17;
             alt9 = dfa9.predict(input);
             switch (alt9) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:18: '<'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:18: '<'
                     {
                     match('<'); 
 
                     }
                     break;
                 case 2 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:22: '='
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:22: '='
                     {
                     match('='); 
 
                     }
                     break;
                 case 3 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:26: '=..'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:26: '=..'
                     {
                     match("=.."); 
 
@@ -755,7 +755,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:32: '=@='
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:32: '=@='
                     {
                     match("=@="); 
 
@@ -763,7 +763,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:38: '=:='
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:38: '=:='
                     {
                     match("=:="); 
 
@@ -771,7 +771,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:44: '=<'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:44: '=<'
                     {
                     match("=<"); 
 
@@ -779,7 +779,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 7 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:49: '=='
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:49: '=='
                     {
                     match("=="); 
 
@@ -787,7 +787,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 8 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:54: '=\\\\='
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:54: '=\\\\='
                     {
                     match("=\\="); 
 
@@ -795,14 +795,14 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 9 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:61: '>'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:61: '>'
                     {
                     match('>'); 
 
                     }
                     break;
                 case 10 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:65: '>='
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:65: '>='
                     {
                     match(">="); 
 
@@ -810,7 +810,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 11 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:70: '@<'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:70: '@<'
                     {
                     match("@<"); 
 
@@ -818,7 +818,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 12 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:75: '@=<'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:75: '@=<'
                     {
                     match("@=<"); 
 
@@ -826,7 +826,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 13 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:81: '@>'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:81: '@>'
                     {
                     match("@>"); 
 
@@ -834,7 +834,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 14 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:86: '@>='
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:86: '@>='
                     {
                     match("@>="); 
 
@@ -842,7 +842,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 15 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:92: '\\\\='
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:92: '\\\\='
                     {
                     match("\\="); 
 
@@ -850,7 +850,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 16 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:98: '\\\\=='
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:98: '\\\\=='
                     {
                     match("\\=="); 
 
@@ -858,7 +858,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 17 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1785:105: 'is'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1804:105: 'is'
                     {
                     match("is"); 
 
@@ -884,8 +884,8 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP600XFY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1787:15: ( ':' )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1787:17: ':'
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1806:15: ( ':' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1806:17: ':'
             {
             match(':'); 
 
@@ -904,10 +904,10 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP500YFX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1789:15: ( ( '+' | '-' | '/\\\\' | '\\\\/' | 'xor' ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1789:17: ( '+' | '-' | '/\\\\' | '\\\\/' | 'xor' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1808:15: ( ( '+' | '-' | '/\\\\' | '\\\\/' | 'xor' ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1808:17: ( '+' | '-' | '/\\\\' | '\\\\/' | 'xor' )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1789:17: ( '+' | '-' | '/\\\\' | '\\\\/' | 'xor' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1808:17: ( '+' | '-' | '/\\\\' | '\\\\/' | 'xor' )
             int alt10=5;
             switch ( input.LA(1) ) {
             case '+':
@@ -944,21 +944,21 @@ public class InternalPrologLexer extends Lexer {
 
             switch (alt10) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1789:18: '+'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1808:18: '+'
                     {
                     match('+'); 
 
                     }
                     break;
                 case 2 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1789:22: '-'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1808:22: '-'
                     {
                     match('-'); 
 
                     }
                     break;
                 case 3 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1789:26: '/\\\\'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1808:26: '/\\\\'
                     {
                     match("/\\"); 
 
@@ -966,7 +966,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1789:32: '\\\\/'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1808:32: '\\\\/'
                     {
                     match("\\/"); 
 
@@ -974,7 +974,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1789:38: 'xor'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1808:38: 'xor'
                     {
                     match("xor"); 
 
@@ -1000,8 +1000,8 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP500FX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1791:14: ( ( '+' | '-' | '?' | '\\\\' ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1791:16: ( '+' | '-' | '?' | '\\\\' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1810:14: ( ( '+' | '-' | '?' | '\\\\' ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1810:16: ( '+' | '-' | '?' | '\\\\' )
             {
             if ( input.LA(1)=='+'||input.LA(1)=='-'||input.LA(1)=='?'||input.LA(1)=='\\' ) {
                 input.consume();
@@ -1028,29 +1028,29 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP400YFX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1793:15: ( ( '*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem' ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1793:17: ( '*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1812:15: ( ( '*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem' ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1812:17: ( '*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem' )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1793:17: ( '*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1812:17: ( '*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem' )
             int alt11=8;
             alt11 = dfa11.predict(input);
             switch (alt11) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1793:18: '*'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1812:18: '*'
                     {
                     match('*'); 
 
                     }
                     break;
                 case 2 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1793:22: '/'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1812:22: '/'
                     {
                     match('/'); 
 
                     }
                     break;
                 case 3 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1793:26: '//'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1812:26: '//'
                     {
                     match("//"); 
 
@@ -1058,7 +1058,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1793:31: 'rdiv'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1812:31: 'rdiv'
                     {
                     match("rdiv"); 
 
@@ -1066,7 +1066,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1793:38: '<<'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1812:38: '<<'
                     {
                     match("<<"); 
 
@@ -1074,7 +1074,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1793:43: '>>'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1812:43: '>>'
                     {
                     match(">>"); 
 
@@ -1082,7 +1082,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 7 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1793:48: 'mod'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1812:48: 'mod'
                     {
                     match("mod"); 
 
@@ -1090,7 +1090,7 @@ public class InternalPrologLexer extends Lexer {
                     }
                     break;
                 case 8 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1793:54: 'rem'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1812:54: 'rem'
                     {
                     match("rem"); 
 
@@ -1116,8 +1116,8 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP200XFX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1795:15: ( '**' )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1795:17: '**'
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1814:15: ( '**' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1814:17: '**'
             {
             match("**"); 
 
@@ -1137,8 +1137,8 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_OP200XFY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1797:15: ( '^' )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1797:17: '^'
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1816:15: ( '^' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1816:17: '^'
             {
             match('^'); 
 
@@ -1157,11 +1157,11 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_ATOM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1799:11: ( 'a' .. 'z' ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' )* )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1799:13: 'a' .. 'z' ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' )*
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1818:11: ( 'a' .. 'z' ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' )* )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1818:13: 'a' .. 'z' ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' )*
             {
             matchRange('a','z'); 
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1799:22: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' )*
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1818:22: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' )*
             loop12:
             do {
                 int alt12=2;
@@ -1210,8 +1210,8 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_VARIABLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1801:15: ( ( 'A' .. 'Z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' )* )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1801:17: ( 'A' .. 'Z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' )*
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1820:15: ( ( 'A' .. 'Z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' )* )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1820:17: ( 'A' .. 'Z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_' ) {
                 input.consume();
@@ -1222,7 +1222,7 @@ public class InternalPrologLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1801:32: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' )*
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1820:32: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' )*
             loop13:
             do {
                 int alt13=2;
@@ -1271,11 +1271,11 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1803:13: ( '\\'' ( options {greedy=false; } : . )* '\\'' )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1803:15: '\\'' ( options {greedy=false; } : . )* '\\''
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1822:13: ( '\\'' ( options {greedy=false; } : . )* '\\'' )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1822:15: '\\'' ( options {greedy=false; } : . )* '\\''
             {
             match('\''); 
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1803:20: ( options {greedy=false; } : . )*
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1822:20: ( options {greedy=false; } : . )*
             loop14:
             do {
                 int alt14=2;
@@ -1291,7 +1291,7 @@ public class InternalPrologLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1803:48: .
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1822:48: .
             	    {
             	    matchAny(); 
 
@@ -1320,10 +1320,10 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1805:10: ( ( '0' .. '9' )+ )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1805:12: ( '0' .. '9' )+
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1824:10: ( ( '0' .. '9' )+ )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1824:12: ( '0' .. '9' )+
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1805:12: ( '0' .. '9' )+
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1824:12: ( '0' .. '9' )+
             int cnt15=0;
             loop15:
             do {
@@ -1337,7 +1337,7 @@ public class InternalPrologLexer extends Lexer {
 
                 switch (alt15) {
             	case 1 :
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1805:13: '0' .. '9'
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1824:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1369,8 +1369,8 @@ public class InternalPrologLexer extends Lexer {
         try {
             int _type = RULE_EXT_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1807:14: ( RULE_INT ( 'e' | 'E' ) ( '-' | '+' )? RULE_INT )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1807:16: RULE_INT ( 'e' | 'E' ) ( '-' | '+' )? RULE_INT
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1826:14: ( RULE_INT ( 'e' | 'E' ) ( '-' | '+' )? RULE_INT )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1826:16: RULE_INT ( 'e' | 'E' ) ( '-' | '+' )? RULE_INT
             {
             mRULE_INT(); 
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
@@ -1382,7 +1382,7 @@ public class InternalPrologLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1807:35: ( '-' | '+' )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1826:35: ( '-' | '+' )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -1707,7 +1707,7 @@ public class InternalPrologLexer extends Lexer {
             this.transition = DFA7_transition;
         }
         public String getDescription() {
-            return "1771:17: ( 'dynamic' | 'discontiguous' | 'initialization' | 'module_transparent' | 'multifile' | 'thread_local' | 'volatile' )";
+            return "1790:17: ( 'dynamic' | 'discontiguous' | 'initialization' | 'module_transparent' | 'multifile' | 'thread_local' | 'volatile' )";
         }
     }
     static final String DFA9_eotS =
@@ -1781,7 +1781,7 @@ public class InternalPrologLexer extends Lexer {
             this.transition = DFA9_transition;
         }
         public String getDescription() {
-            return "1785:17: ( '<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\\\=' | '\\\\==' | 'is' )";
+            return "1804:17: ( '<' | '=' | '=..' | '=@=' | '=:=' | '=<' | '==' | '=\\\\=' | '>' | '>=' | '@<' | '@=<' | '@>' | '@>=' | '\\\\=' | '\\\\==' | 'is' )";
         }
     }
     static final String DFA11_eotS =
@@ -1841,7 +1841,7 @@ public class InternalPrologLexer extends Lexer {
             this.transition = DFA11_transition;
         }
         public String getDescription() {
-            return "1793:17: ( '*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem' )";
+            return "1812:17: ( '*' | '/' | '//' | 'rdiv' | '<<' | '>>' | 'mod' | 'rem' )";
         }
     }
     static final String DFA17_eotS =

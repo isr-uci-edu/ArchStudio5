@@ -2429,37 +2429,42 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExpression900fy"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:897:1: ruleExpression900fy returns [EObject current=null] : ( ( (lv_op_0_0= RULE_OP900FY ) )? ( (lv_right_1_0= ruleExpression900fx ) ) ) ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:897:1: ruleExpression900fy returns [EObject current=null] : ( ( ( (lv_op_0_0= RULE_OP900FY ) ) ( (lv_right_1_0= ruleExpression900fy ) ) ) | ( (lv_right_2_0= ruleExpression900fx ) ) ) ;
     public final EObject ruleExpression900fy() throws RecognitionException {
         EObject current = null;
 
         Token lv_op_0_0=null;
         EObject lv_right_1_0 = null;
 
+        EObject lv_right_2_0 = null;
+
 
          enterRule(); 
             
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:900:28: ( ( ( (lv_op_0_0= RULE_OP900FY ) )? ( (lv_right_1_0= ruleExpression900fx ) ) ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:1: ( ( (lv_op_0_0= RULE_OP900FY ) )? ( (lv_right_1_0= ruleExpression900fx ) ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:900:28: ( ( ( ( (lv_op_0_0= RULE_OP900FY ) ) ( (lv_right_1_0= ruleExpression900fy ) ) ) | ( (lv_right_2_0= ruleExpression900fx ) ) ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:1: ( ( ( (lv_op_0_0= RULE_OP900FY ) ) ( (lv_right_1_0= ruleExpression900fy ) ) ) | ( (lv_right_2_0= ruleExpression900fx ) ) )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:1: ( ( (lv_op_0_0= RULE_OP900FY ) )? ( (lv_right_1_0= ruleExpression900fx ) ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:2: ( (lv_op_0_0= RULE_OP900FY ) )? ( (lv_right_1_0= ruleExpression900fx ) )
-            {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:2: ( (lv_op_0_0= RULE_OP900FY ) )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:1: ( ( ( (lv_op_0_0= RULE_OP900FY ) ) ( (lv_right_1_0= ruleExpression900fy ) ) ) | ( (lv_right_2_0= ruleExpression900fx ) ) )
             int alt13=2;
             alt13 = dfa13.predict(input);
             switch (alt13) {
                 case 1 :
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:2: ( ( (lv_op_0_0= RULE_OP900FY ) ) ( (lv_right_1_0= ruleExpression900fy ) ) )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:2: ( ( (lv_op_0_0= RULE_OP900FY ) ) ( (lv_right_1_0= ruleExpression900fy ) ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:3: ( (lv_op_0_0= RULE_OP900FY ) ) ( (lv_right_1_0= ruleExpression900fy ) )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:3: ( (lv_op_0_0= RULE_OP900FY ) )
                     // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:902:1: (lv_op_0_0= RULE_OP900FY )
                     {
                     // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:902:1: (lv_op_0_0= RULE_OP900FY )
                     // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:903:3: lv_op_0_0= RULE_OP900FY
                     {
-                    lv_op_0_0=(Token)match(input,RULE_OP900FY,FOLLOW_RULE_OP900FY_in_ruleExpression900fy2068); if (state.failed) return current;
+                    lv_op_0_0=(Token)match(input,RULE_OP900FY,FOLLOW_RULE_OP900FY_in_ruleExpression900fy2069); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_op_0_0, grammarAccess.getExpression900fyAccess().getOpOP900FYTerminalRuleCall_0_0()); 
+                      			newLeafNode(lv_op_0_0, grammarAccess.getExpression900fyAccess().getOpOP900FYTerminalRuleCall_0_0_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
@@ -2479,45 +2484,89 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
                     }
+
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:919:2: ( (lv_right_1_0= ruleExpression900fy ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:920:1: (lv_right_1_0= ruleExpression900fy )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:920:1: (lv_right_1_0= ruleExpression900fy )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:921:3: lv_right_1_0= ruleExpression900fy
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                      	        newCompositeNode(grammarAccess.getExpression900fyAccess().getRightExpression900fyParserRuleCall_0_1_0()); 
+                      	    
+                    }
+                    pushFollow(FOLLOW_ruleExpression900fy_in_ruleExpression900fy2095);
+                    lv_right_1_0=ruleExpression900fy();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      	        if (current==null) {
+                      	            current = createModelElementForParent(grammarAccess.getExpression900fyRule());
+                      	        }
+                             		set(
+                             			current, 
+                             			"right",
+                              		lv_right_1_0, 
+                              		"Expression900fy");
+                      	        afterParserOrEnumRuleCall();
+                      	    
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+
+
+                    }
                     break;
+                case 2 :
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:938:6: ( (lv_right_2_0= ruleExpression900fx ) )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:938:6: ( (lv_right_2_0= ruleExpression900fx ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:939:1: (lv_right_2_0= ruleExpression900fx )
+                    {
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:939:1: (lv_right_2_0= ruleExpression900fx )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:940:3: lv_right_2_0= ruleExpression900fx
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                      	        newCompositeNode(grammarAccess.getExpression900fyAccess().getRightExpression900fxParserRuleCall_1_0()); 
+                      	    
+                    }
+                    pushFollow(FOLLOW_ruleExpression900fx_in_ruleExpression900fy2123);
+                    lv_right_2_0=ruleExpression900fx();
 
-            }
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
 
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:919:3: ( (lv_right_1_0= ruleExpression900fx ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:920:1: (lv_right_1_0= ruleExpression900fx )
-            {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:920:1: (lv_right_1_0= ruleExpression900fx )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:921:3: lv_right_1_0= ruleExpression900fx
-            {
-            if ( state.backtracking==0 ) {
-               
-              	        newCompositeNode(grammarAccess.getExpression900fyAccess().getRightExpression900fxParserRuleCall_1_0()); 
-              	    
-            }
-            pushFollow(FOLLOW_ruleExpression900fx_in_ruleExpression900fy2095);
-            lv_right_1_0=ruleExpression900fx();
+                      	        if (current==null) {
+                      	            current = createModelElementForParent(grammarAccess.getExpression900fyRule());
+                      	        }
+                             		set(
+                             			current, 
+                             			"right",
+                              		lv_right_2_0, 
+                              		"Expression900fx");
+                      	        afterParserOrEnumRuleCall();
+                      	    
+                    }
 
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getExpression900fyRule());
-              	        }
-                     		set(
-                     			current, 
-                     			"right",
-                      		lv_right_1_0, 
-                      		"Expression900fx");
-              	        afterParserOrEnumRuleCall();
-              	    
-            }
-
-            }
+                    }
 
 
-            }
+                    }
 
+
+                    }
+                    break;
 
             }
 
@@ -2541,7 +2590,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExpression900fx"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:945:1: entryRuleExpression900fx returns [EObject current=null] : iv_ruleExpression900fx= ruleExpression900fx EOF ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:964:1: entryRuleExpression900fx returns [EObject current=null] : iv_ruleExpression900fx= ruleExpression900fx EOF ;
     public final EObject entryRuleExpression900fx() throws RecognitionException {
         EObject current = null;
 
@@ -2549,13 +2598,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:946:2: (iv_ruleExpression900fx= ruleExpression900fx EOF )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:947:2: iv_ruleExpression900fx= ruleExpression900fx EOF
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:965:2: (iv_ruleExpression900fx= ruleExpression900fx EOF )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:966:2: iv_ruleExpression900fx= ruleExpression900fx EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpression900fxRule()); 
             }
-            pushFollow(FOLLOW_ruleExpression900fx_in_entryRuleExpression900fx2131);
+            pushFollow(FOLLOW_ruleExpression900fx_in_entryRuleExpression900fx2159);
             iv_ruleExpression900fx=ruleExpression900fx();
 
             state._fsp--;
@@ -2563,7 +2612,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleExpression900fx; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression900fx2141); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression900fx2169); if (state.failed) return current;
 
             }
 
@@ -2581,7 +2630,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExpression900fx"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:954:1: ruleExpression900fx returns [EObject current=null] : ( ( (lv_op_0_0= RULE_OP900FX ) )? ( (lv_right_1_0= ruleExpression700xfx ) ) ) ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:973:1: ruleExpression900fx returns [EObject current=null] : ( ( (lv_op_0_0= RULE_OP900FX ) )? ( (lv_right_1_0= ruleExpression700xfx ) ) ) ;
     public final EObject ruleExpression900fx() throws RecognitionException {
         EObject current = null;
 
@@ -2592,23 +2641,23 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:957:28: ( ( ( (lv_op_0_0= RULE_OP900FX ) )? ( (lv_right_1_0= ruleExpression700xfx ) ) ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:958:1: ( ( (lv_op_0_0= RULE_OP900FX ) )? ( (lv_right_1_0= ruleExpression700xfx ) ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:976:28: ( ( ( (lv_op_0_0= RULE_OP900FX ) )? ( (lv_right_1_0= ruleExpression700xfx ) ) ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:977:1: ( ( (lv_op_0_0= RULE_OP900FX ) )? ( (lv_right_1_0= ruleExpression700xfx ) ) )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:958:1: ( ( (lv_op_0_0= RULE_OP900FX ) )? ( (lv_right_1_0= ruleExpression700xfx ) ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:958:2: ( (lv_op_0_0= RULE_OP900FX ) )? ( (lv_right_1_0= ruleExpression700xfx ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:977:1: ( ( (lv_op_0_0= RULE_OP900FX ) )? ( (lv_right_1_0= ruleExpression700xfx ) ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:977:2: ( (lv_op_0_0= RULE_OP900FX ) )? ( (lv_right_1_0= ruleExpression700xfx ) )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:958:2: ( (lv_op_0_0= RULE_OP900FX ) )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:977:2: ( (lv_op_0_0= RULE_OP900FX ) )?
             int alt14=2;
             alt14 = dfa14.predict(input);
             switch (alt14) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:959:1: (lv_op_0_0= RULE_OP900FX )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:978:1: (lv_op_0_0= RULE_OP900FX )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:959:1: (lv_op_0_0= RULE_OP900FX )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:960:3: lv_op_0_0= RULE_OP900FX
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:978:1: (lv_op_0_0= RULE_OP900FX )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:979:3: lv_op_0_0= RULE_OP900FX
                     {
-                    lv_op_0_0=(Token)match(input,RULE_OP900FX,FOLLOW_RULE_OP900FX_in_ruleExpression900fx2183); if (state.failed) return current;
+                    lv_op_0_0=(Token)match(input,RULE_OP900FX,FOLLOW_RULE_OP900FX_in_ruleExpression900fx2211); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_op_0_0, grammarAccess.getExpression900fxAccess().getOpOP900FXTerminalRuleCall_0_0()); 
@@ -2635,18 +2684,18 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:976:3: ( (lv_right_1_0= ruleExpression700xfx ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:977:1: (lv_right_1_0= ruleExpression700xfx )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:995:3: ( (lv_right_1_0= ruleExpression700xfx ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:996:1: (lv_right_1_0= ruleExpression700xfx )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:977:1: (lv_right_1_0= ruleExpression700xfx )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:978:3: lv_right_1_0= ruleExpression700xfx
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:996:1: (lv_right_1_0= ruleExpression700xfx )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:997:3: lv_right_1_0= ruleExpression700xfx
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getExpression900fxAccess().getRightExpression700xfxParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleExpression700xfx_in_ruleExpression900fx2210);
+            pushFollow(FOLLOW_ruleExpression700xfx_in_ruleExpression900fx2238);
             lv_right_1_0=ruleExpression700xfx();
 
             state._fsp--;
@@ -2693,7 +2742,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExpression700xfx"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1002:1: entryRuleExpression700xfx returns [EObject current=null] : iv_ruleExpression700xfx= ruleExpression700xfx EOF ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1021:1: entryRuleExpression700xfx returns [EObject current=null] : iv_ruleExpression700xfx= ruleExpression700xfx EOF ;
     public final EObject entryRuleExpression700xfx() throws RecognitionException {
         EObject current = null;
 
@@ -2701,13 +2750,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1003:2: (iv_ruleExpression700xfx= ruleExpression700xfx EOF )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1004:2: iv_ruleExpression700xfx= ruleExpression700xfx EOF
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1022:2: (iv_ruleExpression700xfx= ruleExpression700xfx EOF )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1023:2: iv_ruleExpression700xfx= ruleExpression700xfx EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpression700xfxRule()); 
             }
-            pushFollow(FOLLOW_ruleExpression700xfx_in_entryRuleExpression700xfx2246);
+            pushFollow(FOLLOW_ruleExpression700xfx_in_entryRuleExpression700xfx2274);
             iv_ruleExpression700xfx=ruleExpression700xfx();
 
             state._fsp--;
@@ -2715,7 +2764,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleExpression700xfx; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression700xfx2256); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression700xfx2284); if (state.failed) return current;
 
             }
 
@@ -2733,7 +2782,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExpression700xfx"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1011:1: ruleExpression700xfx returns [EObject current=null] : (this_Expression600xfy_0= ruleExpression600xfy ( () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? ) ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1030:1: ruleExpression700xfx returns [EObject current=null] : (this_Expression600xfy_0= ruleExpression600xfy ( () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? ) ;
     public final EObject ruleExpression700xfx() throws RecognitionException {
         EObject current = null;
 
@@ -2746,11 +2795,11 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1014:28: ( (this_Expression600xfy_0= ruleExpression600xfy ( () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1015:1: (this_Expression600xfy_0= ruleExpression600xfy ( () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1033:28: ( (this_Expression600xfy_0= ruleExpression600xfy ( () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1034:1: (this_Expression600xfy_0= ruleExpression600xfy ( () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1015:1: (this_Expression600xfy_0= ruleExpression600xfy ( () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1016:2: this_Expression600xfy_0= ruleExpression600xfy ( () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1034:1: (this_Expression600xfy_0= ruleExpression600xfy ( () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1035:2: this_Expression600xfy_0= ruleExpression600xfy ( () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )?
             {
             if ( state.backtracking==0 ) {
                
@@ -2762,7 +2811,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                       newCompositeNode(grammarAccess.getExpression700xfxAccess().getExpression600xfyParserRuleCall_0()); 
                   
             }
-            pushFollow(FOLLOW_ruleExpression600xfy_in_ruleExpression700xfx2306);
+            pushFollow(FOLLOW_ruleExpression600xfy_in_ruleExpression700xfx2334);
             this_Expression600xfy_0=ruleExpression600xfy();
 
             state._fsp--;
@@ -2773,7 +2822,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                       afterParserOrEnumRuleCall();
                   
             }
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1027:1: ( () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1046:1: ( () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -2782,10 +2831,10 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             }
             switch (alt15) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1027:2: () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1046:2: () ( (lv_op_2_0= RULE_OP700XFX ) ) ( (lv_right_3_0= ruleExpression600xfy ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1027:2: ()
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1028:2: 
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1046:2: ()
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1047:2: 
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -2802,13 +2851,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1036:2: ( (lv_op_2_0= RULE_OP700XFX ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1037:1: (lv_op_2_0= RULE_OP700XFX )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1055:2: ( (lv_op_2_0= RULE_OP700XFX ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1056:1: (lv_op_2_0= RULE_OP700XFX )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1037:1: (lv_op_2_0= RULE_OP700XFX )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1038:3: lv_op_2_0= RULE_OP700XFX
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1056:1: (lv_op_2_0= RULE_OP700XFX )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1057:3: lv_op_2_0= RULE_OP700XFX
                     {
-                    lv_op_2_0=(Token)match(input,RULE_OP700XFX,FOLLOW_RULE_OP700XFX_in_ruleExpression700xfx2335); if (state.failed) return current;
+                    lv_op_2_0=(Token)match(input,RULE_OP700XFX,FOLLOW_RULE_OP700XFX_in_ruleExpression700xfx2363); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_op_2_0, grammarAccess.getExpression700xfxAccess().getOpOP700XFXTerminalRuleCall_1_1_0()); 
@@ -2832,18 +2881,18 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1054:2: ( (lv_right_3_0= ruleExpression600xfy ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1055:1: (lv_right_3_0= ruleExpression600xfy )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1073:2: ( (lv_right_3_0= ruleExpression600xfy ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1074:1: (lv_right_3_0= ruleExpression600xfy )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1055:1: (lv_right_3_0= ruleExpression600xfy )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1056:3: lv_right_3_0= ruleExpression600xfy
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1074:1: (lv_right_3_0= ruleExpression600xfy )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1075:3: lv_right_3_0= ruleExpression600xfy
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getExpression700xfxAccess().getRightExpression600xfyParserRuleCall_1_2_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleExpression600xfy_in_ruleExpression700xfx2361);
+                    pushFollow(FOLLOW_ruleExpression600xfy_in_ruleExpression700xfx2389);
                     lv_right_3_0=ruleExpression600xfy();
 
                     state._fsp--;
@@ -2896,7 +2945,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExpression600xfy"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1080:1: entryRuleExpression600xfy returns [EObject current=null] : iv_ruleExpression600xfy= ruleExpression600xfy EOF ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1099:1: entryRuleExpression600xfy returns [EObject current=null] : iv_ruleExpression600xfy= ruleExpression600xfy EOF ;
     public final EObject entryRuleExpression600xfy() throws RecognitionException {
         EObject current = null;
 
@@ -2904,13 +2953,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1081:2: (iv_ruleExpression600xfy= ruleExpression600xfy EOF )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1082:2: iv_ruleExpression600xfy= ruleExpression600xfy EOF
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1100:2: (iv_ruleExpression600xfy= ruleExpression600xfy EOF )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1101:2: iv_ruleExpression600xfy= ruleExpression600xfy EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpression600xfyRule()); 
             }
-            pushFollow(FOLLOW_ruleExpression600xfy_in_entryRuleExpression600xfy2399);
+            pushFollow(FOLLOW_ruleExpression600xfy_in_entryRuleExpression600xfy2427);
             iv_ruleExpression600xfy=ruleExpression600xfy();
 
             state._fsp--;
@@ -2918,7 +2967,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleExpression600xfy; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression600xfy2409); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression600xfy2437); if (state.failed) return current;
 
             }
 
@@ -2936,7 +2985,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExpression600xfy"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1089:1: ruleExpression600xfy returns [EObject current=null] : (this_Expression500yfx_0= ruleExpression500yfx ( () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? ) ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1108:1: ruleExpression600xfy returns [EObject current=null] : (this_Expression500yfx_0= ruleExpression500yfx ( () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? ) ;
     public final EObject ruleExpression600xfy() throws RecognitionException {
         EObject current = null;
 
@@ -2949,11 +2998,11 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1092:28: ( (this_Expression500yfx_0= ruleExpression500yfx ( () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1093:1: (this_Expression500yfx_0= ruleExpression500yfx ( () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1111:28: ( (this_Expression500yfx_0= ruleExpression500yfx ( () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1112:1: (this_Expression500yfx_0= ruleExpression500yfx ( () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1093:1: (this_Expression500yfx_0= ruleExpression500yfx ( () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1094:2: this_Expression500yfx_0= ruleExpression500yfx ( () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1112:1: (this_Expression500yfx_0= ruleExpression500yfx ( () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )? )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1113:2: this_Expression500yfx_0= ruleExpression500yfx ( () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )?
             {
             if ( state.backtracking==0 ) {
                
@@ -2965,7 +3014,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                       newCompositeNode(grammarAccess.getExpression600xfyAccess().getExpression500yfxParserRuleCall_0()); 
                   
             }
-            pushFollow(FOLLOW_ruleExpression500yfx_in_ruleExpression600xfy2459);
+            pushFollow(FOLLOW_ruleExpression500yfx_in_ruleExpression600xfy2487);
             this_Expression500yfx_0=ruleExpression500yfx();
 
             state._fsp--;
@@ -2976,7 +3025,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                       afterParserOrEnumRuleCall();
                   
             }
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1105:1: ( () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1124:1: ( () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) ) )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -2985,10 +3034,10 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             }
             switch (alt16) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1105:2: () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1124:2: () ( (lv_op_2_0= RULE_OP600XFY ) ) ( (lv_right_3_0= ruleExpression600xfy ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1105:2: ()
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1106:2: 
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1124:2: ()
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1125:2: 
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -3005,13 +3054,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1114:2: ( (lv_op_2_0= RULE_OP600XFY ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1115:1: (lv_op_2_0= RULE_OP600XFY )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1133:2: ( (lv_op_2_0= RULE_OP600XFY ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1134:1: (lv_op_2_0= RULE_OP600XFY )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1115:1: (lv_op_2_0= RULE_OP600XFY )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1116:3: lv_op_2_0= RULE_OP600XFY
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1134:1: (lv_op_2_0= RULE_OP600XFY )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1135:3: lv_op_2_0= RULE_OP600XFY
                     {
-                    lv_op_2_0=(Token)match(input,RULE_OP600XFY,FOLLOW_RULE_OP600XFY_in_ruleExpression600xfy2488); if (state.failed) return current;
+                    lv_op_2_0=(Token)match(input,RULE_OP600XFY,FOLLOW_RULE_OP600XFY_in_ruleExpression600xfy2516); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_op_2_0, grammarAccess.getExpression600xfyAccess().getOpOP600XFYTerminalRuleCall_1_1_0()); 
@@ -3035,18 +3084,18 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1132:2: ( (lv_right_3_0= ruleExpression600xfy ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1133:1: (lv_right_3_0= ruleExpression600xfy )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1151:2: ( (lv_right_3_0= ruleExpression600xfy ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1152:1: (lv_right_3_0= ruleExpression600xfy )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1133:1: (lv_right_3_0= ruleExpression600xfy )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1134:3: lv_right_3_0= ruleExpression600xfy
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1152:1: (lv_right_3_0= ruleExpression600xfy )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1153:3: lv_right_3_0= ruleExpression600xfy
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getExpression600xfyAccess().getRightExpression600xfyParserRuleCall_1_2_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleExpression600xfy_in_ruleExpression600xfy2514);
+                    pushFollow(FOLLOW_ruleExpression600xfy_in_ruleExpression600xfy2542);
                     lv_right_3_0=ruleExpression600xfy();
 
                     state._fsp--;
@@ -3099,7 +3148,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExpression500yfx"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1158:1: entryRuleExpression500yfx returns [EObject current=null] : iv_ruleExpression500yfx= ruleExpression500yfx EOF ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1177:1: entryRuleExpression500yfx returns [EObject current=null] : iv_ruleExpression500yfx= ruleExpression500yfx EOF ;
     public final EObject entryRuleExpression500yfx() throws RecognitionException {
         EObject current = null;
 
@@ -3107,13 +3156,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1159:2: (iv_ruleExpression500yfx= ruleExpression500yfx EOF )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1160:2: iv_ruleExpression500yfx= ruleExpression500yfx EOF
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1178:2: (iv_ruleExpression500yfx= ruleExpression500yfx EOF )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1179:2: iv_ruleExpression500yfx= ruleExpression500yfx EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpression500yfxRule()); 
             }
-            pushFollow(FOLLOW_ruleExpression500yfx_in_entryRuleExpression500yfx2552);
+            pushFollow(FOLLOW_ruleExpression500yfx_in_entryRuleExpression500yfx2580);
             iv_ruleExpression500yfx=ruleExpression500yfx();
 
             state._fsp--;
@@ -3121,7 +3170,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleExpression500yfx; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression500yfx2562); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression500yfx2590); if (state.failed) return current;
 
             }
 
@@ -3139,7 +3188,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExpression500yfx"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1167:1: ruleExpression500yfx returns [EObject current=null] : (this_Expression500fx_0= ruleExpression500fx ( () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) ) )* ) ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1186:1: ruleExpression500yfx returns [EObject current=null] : (this_Expression500fx_0= ruleExpression500fx ( () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) ) )* ) ;
     public final EObject ruleExpression500yfx() throws RecognitionException {
         EObject current = null;
 
@@ -3152,11 +3201,11 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1170:28: ( (this_Expression500fx_0= ruleExpression500fx ( () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) ) )* ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1171:1: (this_Expression500fx_0= ruleExpression500fx ( () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) ) )* )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1189:28: ( (this_Expression500fx_0= ruleExpression500fx ( () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) ) )* ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1190:1: (this_Expression500fx_0= ruleExpression500fx ( () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) ) )* )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1171:1: (this_Expression500fx_0= ruleExpression500fx ( () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) ) )* )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1172:2: this_Expression500fx_0= ruleExpression500fx ( () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) ) )*
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1190:1: (this_Expression500fx_0= ruleExpression500fx ( () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) ) )* )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1191:2: this_Expression500fx_0= ruleExpression500fx ( () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) ) )*
             {
             if ( state.backtracking==0 ) {
                
@@ -3168,7 +3217,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                       newCompositeNode(grammarAccess.getExpression500yfxAccess().getExpression500fxParserRuleCall_0()); 
                   
             }
-            pushFollow(FOLLOW_ruleExpression500fx_in_ruleExpression500yfx2612);
+            pushFollow(FOLLOW_ruleExpression500fx_in_ruleExpression500yfx2640);
             this_Expression500fx_0=ruleExpression500fx();
 
             state._fsp--;
@@ -3179,7 +3228,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                       afterParserOrEnumRuleCall();
                   
             }
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1183:1: ( () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) ) )*
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1202:1: ( () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) ) )*
             loop17:
             do {
                 int alt17=2;
@@ -3192,10 +3241,10 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                 switch (alt17) {
             	case 1 :
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1183:2: () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1202:2: () ( (lv_op_2_0= RULE_OP500YFX ) ) ( (lv_right_3_0= ruleExpression500fx ) )
             	    {
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1183:2: ()
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1184:2: 
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1202:2: ()
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1203:2: 
             	    {
             	    if ( state.backtracking==0 ) {
             	       
@@ -3212,13 +3261,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1192:2: ( (lv_op_2_0= RULE_OP500YFX ) )
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1193:1: (lv_op_2_0= RULE_OP500YFX )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1211:2: ( (lv_op_2_0= RULE_OP500YFX ) )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1212:1: (lv_op_2_0= RULE_OP500YFX )
             	    {
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1193:1: (lv_op_2_0= RULE_OP500YFX )
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1194:3: lv_op_2_0= RULE_OP500YFX
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1212:1: (lv_op_2_0= RULE_OP500YFX )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1213:3: lv_op_2_0= RULE_OP500YFX
             	    {
-            	    lv_op_2_0=(Token)match(input,RULE_OP500YFX,FOLLOW_RULE_OP500YFX_in_ruleExpression500yfx2641); if (state.failed) return current;
+            	    lv_op_2_0=(Token)match(input,RULE_OP500YFX,FOLLOW_RULE_OP500YFX_in_ruleExpression500yfx2669); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      			newLeafNode(lv_op_2_0, grammarAccess.getExpression500yfxAccess().getOpOP500YFXTerminalRuleCall_1_1_0()); 
@@ -3242,18 +3291,18 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1210:2: ( (lv_right_3_0= ruleExpression500fx ) )
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1211:1: (lv_right_3_0= ruleExpression500fx )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1229:2: ( (lv_right_3_0= ruleExpression500fx ) )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1230:1: (lv_right_3_0= ruleExpression500fx )
             	    {
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1211:1: (lv_right_3_0= ruleExpression500fx )
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1212:3: lv_right_3_0= ruleExpression500fx
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1230:1: (lv_right_3_0= ruleExpression500fx )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1231:3: lv_right_3_0= ruleExpression500fx
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getExpression500yfxAccess().getRightExpression500fxParserRuleCall_1_2_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleExpression500fx_in_ruleExpression500yfx2667);
+            	    pushFollow(FOLLOW_ruleExpression500fx_in_ruleExpression500yfx2695);
             	    lv_right_3_0=ruleExpression500fx();
 
             	    state._fsp--;
@@ -3309,7 +3358,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExpression500fx"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1236:1: entryRuleExpression500fx returns [EObject current=null] : iv_ruleExpression500fx= ruleExpression500fx EOF ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1255:1: entryRuleExpression500fx returns [EObject current=null] : iv_ruleExpression500fx= ruleExpression500fx EOF ;
     public final EObject entryRuleExpression500fx() throws RecognitionException {
         EObject current = null;
 
@@ -3317,13 +3366,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1237:2: (iv_ruleExpression500fx= ruleExpression500fx EOF )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1238:2: iv_ruleExpression500fx= ruleExpression500fx EOF
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1256:2: (iv_ruleExpression500fx= ruleExpression500fx EOF )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1257:2: iv_ruleExpression500fx= ruleExpression500fx EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpression500fxRule()); 
             }
-            pushFollow(FOLLOW_ruleExpression500fx_in_entryRuleExpression500fx2705);
+            pushFollow(FOLLOW_ruleExpression500fx_in_entryRuleExpression500fx2733);
             iv_ruleExpression500fx=ruleExpression500fx();
 
             state._fsp--;
@@ -3331,7 +3380,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleExpression500fx; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression500fx2715); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression500fx2743); if (state.failed) return current;
 
             }
 
@@ -3349,7 +3398,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExpression500fx"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1245:1: ruleExpression500fx returns [EObject current=null] : ( ( (lv_op_0_0= RULE_OP500FX ) )? ( (lv_right_1_0= ruleExpression400yfx ) ) ) ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1264:1: ruleExpression500fx returns [EObject current=null] : ( ( (lv_op_0_0= RULE_OP500FX ) )? ( (lv_right_1_0= ruleExpression400yfx ) ) ) ;
     public final EObject ruleExpression500fx() throws RecognitionException {
         EObject current = null;
 
@@ -3360,23 +3409,23 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1248:28: ( ( ( (lv_op_0_0= RULE_OP500FX ) )? ( (lv_right_1_0= ruleExpression400yfx ) ) ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1249:1: ( ( (lv_op_0_0= RULE_OP500FX ) )? ( (lv_right_1_0= ruleExpression400yfx ) ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1267:28: ( ( ( (lv_op_0_0= RULE_OP500FX ) )? ( (lv_right_1_0= ruleExpression400yfx ) ) ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1268:1: ( ( (lv_op_0_0= RULE_OP500FX ) )? ( (lv_right_1_0= ruleExpression400yfx ) ) )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1249:1: ( ( (lv_op_0_0= RULE_OP500FX ) )? ( (lv_right_1_0= ruleExpression400yfx ) ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1249:2: ( (lv_op_0_0= RULE_OP500FX ) )? ( (lv_right_1_0= ruleExpression400yfx ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1268:1: ( ( (lv_op_0_0= RULE_OP500FX ) )? ( (lv_right_1_0= ruleExpression400yfx ) ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1268:2: ( (lv_op_0_0= RULE_OP500FX ) )? ( (lv_right_1_0= ruleExpression400yfx ) )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1249:2: ( (lv_op_0_0= RULE_OP500FX ) )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1268:2: ( (lv_op_0_0= RULE_OP500FX ) )?
             int alt18=2;
             alt18 = dfa18.predict(input);
             switch (alt18) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1250:1: (lv_op_0_0= RULE_OP500FX )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1269:1: (lv_op_0_0= RULE_OP500FX )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1250:1: (lv_op_0_0= RULE_OP500FX )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1251:3: lv_op_0_0= RULE_OP500FX
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1269:1: (lv_op_0_0= RULE_OP500FX )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1270:3: lv_op_0_0= RULE_OP500FX
                     {
-                    lv_op_0_0=(Token)match(input,RULE_OP500FX,FOLLOW_RULE_OP500FX_in_ruleExpression500fx2757); if (state.failed) return current;
+                    lv_op_0_0=(Token)match(input,RULE_OP500FX,FOLLOW_RULE_OP500FX_in_ruleExpression500fx2785); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_op_0_0, grammarAccess.getExpression500fxAccess().getOpOP500FXTerminalRuleCall_0_0()); 
@@ -3403,18 +3452,18 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1267:3: ( (lv_right_1_0= ruleExpression400yfx ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1268:1: (lv_right_1_0= ruleExpression400yfx )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1286:3: ( (lv_right_1_0= ruleExpression400yfx ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1287:1: (lv_right_1_0= ruleExpression400yfx )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1268:1: (lv_right_1_0= ruleExpression400yfx )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1269:3: lv_right_1_0= ruleExpression400yfx
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1287:1: (lv_right_1_0= ruleExpression400yfx )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1288:3: lv_right_1_0= ruleExpression400yfx
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getExpression500fxAccess().getRightExpression400yfxParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleExpression400yfx_in_ruleExpression500fx2784);
+            pushFollow(FOLLOW_ruleExpression400yfx_in_ruleExpression500fx2812);
             lv_right_1_0=ruleExpression400yfx();
 
             state._fsp--;
@@ -3461,7 +3510,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExpression400yfx"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1293:1: entryRuleExpression400yfx returns [EObject current=null] : iv_ruleExpression400yfx= ruleExpression400yfx EOF ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1312:1: entryRuleExpression400yfx returns [EObject current=null] : iv_ruleExpression400yfx= ruleExpression400yfx EOF ;
     public final EObject entryRuleExpression400yfx() throws RecognitionException {
         EObject current = null;
 
@@ -3469,13 +3518,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1294:2: (iv_ruleExpression400yfx= ruleExpression400yfx EOF )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1295:2: iv_ruleExpression400yfx= ruleExpression400yfx EOF
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1313:2: (iv_ruleExpression400yfx= ruleExpression400yfx EOF )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1314:2: iv_ruleExpression400yfx= ruleExpression400yfx EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpression400yfxRule()); 
             }
-            pushFollow(FOLLOW_ruleExpression400yfx_in_entryRuleExpression400yfx2820);
+            pushFollow(FOLLOW_ruleExpression400yfx_in_entryRuleExpression400yfx2848);
             iv_ruleExpression400yfx=ruleExpression400yfx();
 
             state._fsp--;
@@ -3483,7 +3532,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleExpression400yfx; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression400yfx2830); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression400yfx2858); if (state.failed) return current;
 
             }
 
@@ -3501,7 +3550,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExpression400yfx"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1302:1: ruleExpression400yfx returns [EObject current=null] : (this_Expression200xfx_0= ruleExpression200xfx ( () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) ) )* ) ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1321:1: ruleExpression400yfx returns [EObject current=null] : (this_Expression200xfx_0= ruleExpression200xfx ( () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) ) )* ) ;
     public final EObject ruleExpression400yfx() throws RecognitionException {
         EObject current = null;
 
@@ -3514,11 +3563,11 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1305:28: ( (this_Expression200xfx_0= ruleExpression200xfx ( () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) ) )* ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1306:1: (this_Expression200xfx_0= ruleExpression200xfx ( () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) ) )* )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1324:28: ( (this_Expression200xfx_0= ruleExpression200xfx ( () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) ) )* ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1325:1: (this_Expression200xfx_0= ruleExpression200xfx ( () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) ) )* )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1306:1: (this_Expression200xfx_0= ruleExpression200xfx ( () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) ) )* )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1307:2: this_Expression200xfx_0= ruleExpression200xfx ( () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) ) )*
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1325:1: (this_Expression200xfx_0= ruleExpression200xfx ( () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) ) )* )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1326:2: this_Expression200xfx_0= ruleExpression200xfx ( () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) ) )*
             {
             if ( state.backtracking==0 ) {
                
@@ -3530,7 +3579,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                       newCompositeNode(grammarAccess.getExpression400yfxAccess().getExpression200xfxParserRuleCall_0()); 
                   
             }
-            pushFollow(FOLLOW_ruleExpression200xfx_in_ruleExpression400yfx2880);
+            pushFollow(FOLLOW_ruleExpression200xfx_in_ruleExpression400yfx2908);
             this_Expression200xfx_0=ruleExpression200xfx();
 
             state._fsp--;
@@ -3541,7 +3590,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                       afterParserOrEnumRuleCall();
                   
             }
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1318:1: ( () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) ) )*
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1337:1: ( () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) ) )*
             loop19:
             do {
                 int alt19=2;
@@ -3554,10 +3603,10 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                 switch (alt19) {
             	case 1 :
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1318:2: () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1337:2: () ( (lv_op_2_0= RULE_OP400YFX ) ) ( (lv_right_3_0= ruleExpression200xfx ) )
             	    {
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1318:2: ()
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1319:2: 
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1337:2: ()
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1338:2: 
             	    {
             	    if ( state.backtracking==0 ) {
             	       
@@ -3574,13 +3623,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1327:2: ( (lv_op_2_0= RULE_OP400YFX ) )
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1328:1: (lv_op_2_0= RULE_OP400YFX )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1346:2: ( (lv_op_2_0= RULE_OP400YFX ) )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1347:1: (lv_op_2_0= RULE_OP400YFX )
             	    {
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1328:1: (lv_op_2_0= RULE_OP400YFX )
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1329:3: lv_op_2_0= RULE_OP400YFX
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1347:1: (lv_op_2_0= RULE_OP400YFX )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1348:3: lv_op_2_0= RULE_OP400YFX
             	    {
-            	    lv_op_2_0=(Token)match(input,RULE_OP400YFX,FOLLOW_RULE_OP400YFX_in_ruleExpression400yfx2909); if (state.failed) return current;
+            	    lv_op_2_0=(Token)match(input,RULE_OP400YFX,FOLLOW_RULE_OP400YFX_in_ruleExpression400yfx2937); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      			newLeafNode(lv_op_2_0, grammarAccess.getExpression400yfxAccess().getOpOP400YFXTerminalRuleCall_1_1_0()); 
@@ -3604,18 +3653,18 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1345:2: ( (lv_right_3_0= ruleExpression200xfx ) )
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1346:1: (lv_right_3_0= ruleExpression200xfx )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1364:2: ( (lv_right_3_0= ruleExpression200xfx ) )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1365:1: (lv_right_3_0= ruleExpression200xfx )
             	    {
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1346:1: (lv_right_3_0= ruleExpression200xfx )
-            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1347:3: lv_right_3_0= ruleExpression200xfx
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1365:1: (lv_right_3_0= ruleExpression200xfx )
+            	    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1366:3: lv_right_3_0= ruleExpression200xfx
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getExpression400yfxAccess().getRightExpression200xfxParserRuleCall_1_2_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleExpression200xfx_in_ruleExpression400yfx2935);
+            	    pushFollow(FOLLOW_ruleExpression200xfx_in_ruleExpression400yfx2963);
             	    lv_right_3_0=ruleExpression200xfx();
 
             	    state._fsp--;
@@ -3671,7 +3720,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExpression200xfx"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1371:1: entryRuleExpression200xfx returns [EObject current=null] : iv_ruleExpression200xfx= ruleExpression200xfx EOF ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1390:1: entryRuleExpression200xfx returns [EObject current=null] : iv_ruleExpression200xfx= ruleExpression200xfx EOF ;
     public final EObject entryRuleExpression200xfx() throws RecognitionException {
         EObject current = null;
 
@@ -3679,13 +3728,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1372:2: (iv_ruleExpression200xfx= ruleExpression200xfx EOF )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1373:2: iv_ruleExpression200xfx= ruleExpression200xfx EOF
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1391:2: (iv_ruleExpression200xfx= ruleExpression200xfx EOF )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1392:2: iv_ruleExpression200xfx= ruleExpression200xfx EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpression200xfxRule()); 
             }
-            pushFollow(FOLLOW_ruleExpression200xfx_in_entryRuleExpression200xfx2973);
+            pushFollow(FOLLOW_ruleExpression200xfx_in_entryRuleExpression200xfx3001);
             iv_ruleExpression200xfx=ruleExpression200xfx();
 
             state._fsp--;
@@ -3693,7 +3742,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleExpression200xfx; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression200xfx2983); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression200xfx3011); if (state.failed) return current;
 
             }
 
@@ -3711,7 +3760,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExpression200xfx"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1380:1: ruleExpression200xfx returns [EObject current=null] : (this_Expression200xfy_0= ruleExpression200xfy ( () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? ) ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1399:1: ruleExpression200xfx returns [EObject current=null] : (this_Expression200xfy_0= ruleExpression200xfy ( () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? ) ;
     public final EObject ruleExpression200xfx() throws RecognitionException {
         EObject current = null;
 
@@ -3724,11 +3773,11 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1383:28: ( (this_Expression200xfy_0= ruleExpression200xfy ( () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1384:1: (this_Expression200xfy_0= ruleExpression200xfy ( () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1402:28: ( (this_Expression200xfy_0= ruleExpression200xfy ( () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1403:1: (this_Expression200xfy_0= ruleExpression200xfy ( () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1384:1: (this_Expression200xfy_0= ruleExpression200xfy ( () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1385:2: this_Expression200xfy_0= ruleExpression200xfy ( () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1403:1: (this_Expression200xfy_0= ruleExpression200xfy ( () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1404:2: this_Expression200xfy_0= ruleExpression200xfy ( () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )?
             {
             if ( state.backtracking==0 ) {
                
@@ -3740,7 +3789,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                       newCompositeNode(grammarAccess.getExpression200xfxAccess().getExpression200xfyParserRuleCall_0()); 
                   
             }
-            pushFollow(FOLLOW_ruleExpression200xfy_in_ruleExpression200xfx3033);
+            pushFollow(FOLLOW_ruleExpression200xfy_in_ruleExpression200xfx3061);
             this_Expression200xfy_0=ruleExpression200xfy();
 
             state._fsp--;
@@ -3751,7 +3800,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                       afterParserOrEnumRuleCall();
                   
             }
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1396:1: ( () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1415:1: ( () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )?
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -3760,10 +3809,10 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             }
             switch (alt20) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1396:2: () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1415:2: () ( (lv_op_2_0= RULE_OP200XFX ) ) ( (lv_right_3_0= ruleExpression200xfy ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1396:2: ()
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1397:2: 
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1415:2: ()
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1416:2: 
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -3780,13 +3829,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1405:2: ( (lv_op_2_0= RULE_OP200XFX ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1406:1: (lv_op_2_0= RULE_OP200XFX )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1424:2: ( (lv_op_2_0= RULE_OP200XFX ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1425:1: (lv_op_2_0= RULE_OP200XFX )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1406:1: (lv_op_2_0= RULE_OP200XFX )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1407:3: lv_op_2_0= RULE_OP200XFX
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1425:1: (lv_op_2_0= RULE_OP200XFX )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1426:3: lv_op_2_0= RULE_OP200XFX
                     {
-                    lv_op_2_0=(Token)match(input,RULE_OP200XFX,FOLLOW_RULE_OP200XFX_in_ruleExpression200xfx3062); if (state.failed) return current;
+                    lv_op_2_0=(Token)match(input,RULE_OP200XFX,FOLLOW_RULE_OP200XFX_in_ruleExpression200xfx3090); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_op_2_0, grammarAccess.getExpression200xfxAccess().getOpOP200XFXTerminalRuleCall_1_1_0()); 
@@ -3810,18 +3859,18 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1423:2: ( (lv_right_3_0= ruleExpression200xfy ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1424:1: (lv_right_3_0= ruleExpression200xfy )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1442:2: ( (lv_right_3_0= ruleExpression200xfy ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1443:1: (lv_right_3_0= ruleExpression200xfy )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1424:1: (lv_right_3_0= ruleExpression200xfy )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1425:3: lv_right_3_0= ruleExpression200xfy
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1443:1: (lv_right_3_0= ruleExpression200xfy )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1444:3: lv_right_3_0= ruleExpression200xfy
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getExpression200xfxAccess().getRightExpression200xfyParserRuleCall_1_2_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleExpression200xfy_in_ruleExpression200xfx3088);
+                    pushFollow(FOLLOW_ruleExpression200xfy_in_ruleExpression200xfx3116);
                     lv_right_3_0=ruleExpression200xfy();
 
                     state._fsp--;
@@ -3874,7 +3923,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExpression200xfy"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1449:1: entryRuleExpression200xfy returns [EObject current=null] : iv_ruleExpression200xfy= ruleExpression200xfy EOF ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1468:1: entryRuleExpression200xfy returns [EObject current=null] : iv_ruleExpression200xfy= ruleExpression200xfy EOF ;
     public final EObject entryRuleExpression200xfy() throws RecognitionException {
         EObject current = null;
 
@@ -3882,13 +3931,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1450:2: (iv_ruleExpression200xfy= ruleExpression200xfy EOF )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1451:2: iv_ruleExpression200xfy= ruleExpression200xfy EOF
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1469:2: (iv_ruleExpression200xfy= ruleExpression200xfy EOF )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1470:2: iv_ruleExpression200xfy= ruleExpression200xfy EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpression200xfyRule()); 
             }
-            pushFollow(FOLLOW_ruleExpression200xfy_in_entryRuleExpression200xfy3126);
+            pushFollow(FOLLOW_ruleExpression200xfy_in_entryRuleExpression200xfy3154);
             iv_ruleExpression200xfy=ruleExpression200xfy();
 
             state._fsp--;
@@ -3896,7 +3945,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleExpression200xfy; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression200xfy3136); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression200xfy3164); if (state.failed) return current;
 
             }
 
@@ -3914,7 +3963,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExpression200xfy"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1458:1: ruleExpression200xfy returns [EObject current=null] : (this_Expression0_0= ruleExpression0 ( () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? ) ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1477:1: ruleExpression200xfy returns [EObject current=null] : (this_Expression0_0= ruleExpression0 ( () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? ) ;
     public final EObject ruleExpression200xfy() throws RecognitionException {
         EObject current = null;
 
@@ -3927,11 +3976,11 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1461:28: ( (this_Expression0_0= ruleExpression0 ( () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1462:1: (this_Expression0_0= ruleExpression0 ( () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1480:28: ( (this_Expression0_0= ruleExpression0 ( () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1481:1: (this_Expression0_0= ruleExpression0 ( () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1462:1: (this_Expression0_0= ruleExpression0 ( () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1463:2: this_Expression0_0= ruleExpression0 ( () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1481:1: (this_Expression0_0= ruleExpression0 ( () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )? )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1482:2: this_Expression0_0= ruleExpression0 ( () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )?
             {
             if ( state.backtracking==0 ) {
                
@@ -3943,7 +3992,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                       newCompositeNode(grammarAccess.getExpression200xfyAccess().getExpression0ParserRuleCall_0()); 
                   
             }
-            pushFollow(FOLLOW_ruleExpression0_in_ruleExpression200xfy3186);
+            pushFollow(FOLLOW_ruleExpression0_in_ruleExpression200xfy3214);
             this_Expression0_0=ruleExpression0();
 
             state._fsp--;
@@ -3954,7 +4003,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                       afterParserOrEnumRuleCall();
                   
             }
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1474:1: ( () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )?
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1493:1: ( () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) ) )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -3963,10 +4012,10 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             }
             switch (alt21) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1474:2: () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1493:2: () ( (lv_op_2_0= RULE_OP200XFY ) ) ( (lv_right_3_0= ruleExpression200xfy ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1474:2: ()
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1475:2: 
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1493:2: ()
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1494:2: 
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -3983,13 +4032,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1483:2: ( (lv_op_2_0= RULE_OP200XFY ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1484:1: (lv_op_2_0= RULE_OP200XFY )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1502:2: ( (lv_op_2_0= RULE_OP200XFY ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1503:1: (lv_op_2_0= RULE_OP200XFY )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1484:1: (lv_op_2_0= RULE_OP200XFY )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1485:3: lv_op_2_0= RULE_OP200XFY
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1503:1: (lv_op_2_0= RULE_OP200XFY )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1504:3: lv_op_2_0= RULE_OP200XFY
                     {
-                    lv_op_2_0=(Token)match(input,RULE_OP200XFY,FOLLOW_RULE_OP200XFY_in_ruleExpression200xfy3215); if (state.failed) return current;
+                    lv_op_2_0=(Token)match(input,RULE_OP200XFY,FOLLOW_RULE_OP200XFY_in_ruleExpression200xfy3243); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_op_2_0, grammarAccess.getExpression200xfyAccess().getOpOP200XFYTerminalRuleCall_1_1_0()); 
@@ -4013,18 +4062,18 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1501:2: ( (lv_right_3_0= ruleExpression200xfy ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1502:1: (lv_right_3_0= ruleExpression200xfy )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1520:2: ( (lv_right_3_0= ruleExpression200xfy ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1521:1: (lv_right_3_0= ruleExpression200xfy )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1502:1: (lv_right_3_0= ruleExpression200xfy )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1503:3: lv_right_3_0= ruleExpression200xfy
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1521:1: (lv_right_3_0= ruleExpression200xfy )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1522:3: lv_right_3_0= ruleExpression200xfy
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getExpression200xfyAccess().getRightExpression200xfyParserRuleCall_1_2_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleExpression200xfy_in_ruleExpression200xfy3241);
+                    pushFollow(FOLLOW_ruleExpression200xfy_in_ruleExpression200xfy3269);
                     lv_right_3_0=ruleExpression200xfy();
 
                     state._fsp--;
@@ -4077,7 +4126,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExpression0"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1527:1: entryRuleExpression0 returns [EObject current=null] : iv_ruleExpression0= ruleExpression0 EOF ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1546:1: entryRuleExpression0 returns [EObject current=null] : iv_ruleExpression0= ruleExpression0 EOF ;
     public final EObject entryRuleExpression0() throws RecognitionException {
         EObject current = null;
 
@@ -4085,13 +4134,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1528:2: (iv_ruleExpression0= ruleExpression0 EOF )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1529:2: iv_ruleExpression0= ruleExpression0 EOF
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1547:2: (iv_ruleExpression0= ruleExpression0 EOF )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1548:2: iv_ruleExpression0= ruleExpression0 EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpression0Rule()); 
             }
-            pushFollow(FOLLOW_ruleExpression0_in_entryRuleExpression03279);
+            pushFollow(FOLLOW_ruleExpression0_in_entryRuleExpression03307);
             iv_ruleExpression0=ruleExpression0();
 
             state._fsp--;
@@ -4099,7 +4148,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleExpression0; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression03289); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleExpression03317); if (state.failed) return current;
 
             }
 
@@ -4117,7 +4166,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExpression0"
-    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1536:1: ruleExpression0 returns [EObject current=null] : ( ( () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )? ) | ( () ( (lv_name_6_0= RULE_VARIABLE ) ) ) | ( () ( (lv_value_8_0= RULE_STRING ) ) ) | ( () ( (lv_value_10_0= ruleNUMBER ) ) ) | ( () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']' ) | (otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')' ) ) ;
+    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1555:1: ruleExpression0 returns [EObject current=null] : ( ( () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )? ) | ( () ( (lv_name_6_0= RULE_VARIABLE ) ) ) | ( () ( (lv_value_8_0= RULE_STRING ) ) ) | ( () ( (lv_value_10_0= ruleNUMBER ) ) ) | ( () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']' ) | (otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')' ) ) ;
     public final EObject ruleExpression0() throws RecognitionException {
         EObject current = null;
 
@@ -4146,10 +4195,10 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1539:28: ( ( ( () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )? ) | ( () ( (lv_name_6_0= RULE_VARIABLE ) ) ) | ( () ( (lv_value_8_0= RULE_STRING ) ) ) | ( () ( (lv_value_10_0= ruleNUMBER ) ) ) | ( () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']' ) | (otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')' ) ) )
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1540:1: ( ( () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )? ) | ( () ( (lv_name_6_0= RULE_VARIABLE ) ) ) | ( () ( (lv_value_8_0= RULE_STRING ) ) ) | ( () ( (lv_value_10_0= ruleNUMBER ) ) ) | ( () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']' ) | (otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')' ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1558:28: ( ( ( () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )? ) | ( () ( (lv_name_6_0= RULE_VARIABLE ) ) ) | ( () ( (lv_value_8_0= RULE_STRING ) ) ) | ( () ( (lv_value_10_0= ruleNUMBER ) ) ) | ( () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']' ) | (otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')' ) ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1559:1: ( ( () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )? ) | ( () ( (lv_name_6_0= RULE_VARIABLE ) ) ) | ( () ( (lv_value_8_0= RULE_STRING ) ) ) | ( () ( (lv_value_10_0= ruleNUMBER ) ) ) | ( () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']' ) | (otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')' ) )
             {
-            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1540:1: ( ( () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )? ) | ( () ( (lv_name_6_0= RULE_VARIABLE ) ) ) | ( () ( (lv_value_8_0= RULE_STRING ) ) ) | ( () ( (lv_value_10_0= ruleNUMBER ) ) ) | ( () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']' ) | (otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')' ) )
+            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1559:1: ( ( () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )? ) | ( () ( (lv_name_6_0= RULE_VARIABLE ) ) ) | ( () ( (lv_value_8_0= RULE_STRING ) ) ) | ( () ( (lv_value_10_0= ruleNUMBER ) ) ) | ( () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']' ) | (otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')' ) )
             int alt25=6;
             switch ( input.LA(1) ) {
             case RULE_ATOM:
@@ -4211,13 +4260,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
             switch (alt25) {
                 case 1 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1540:2: ( () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )? )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1559:2: ( () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )? )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1540:2: ( () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )? )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1540:3: () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )?
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1559:2: ( () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )? )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1559:3: () ( (lv_atom_1_0= ruleATOMS ) ) (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )?
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1540:3: ()
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1541:2: 
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1559:3: ()
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1560:2: 
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -4234,18 +4283,18 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1549:2: ( (lv_atom_1_0= ruleATOMS ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1550:1: (lv_atom_1_0= ruleATOMS )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1568:2: ( (lv_atom_1_0= ruleATOMS ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1569:1: (lv_atom_1_0= ruleATOMS )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1550:1: (lv_atom_1_0= ruleATOMS )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1551:3: lv_atom_1_0= ruleATOMS
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1569:1: (lv_atom_1_0= ruleATOMS )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1570:3: lv_atom_1_0= ruleATOMS
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getExpression0Access().getAtomATOMSParserRuleCall_0_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleATOMS_in_ruleExpression03348);
+                    pushFollow(FOLLOW_ruleATOMS_in_ruleExpression03376);
                     lv_atom_1_0=ruleATOMS();
 
                     state._fsp--;
@@ -4269,7 +4318,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1567:2: (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )?
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1586:2: (otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')' )?
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
@@ -4278,26 +4327,26 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt22) {
                         case 1 :
-                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1567:4: otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')'
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1586:4: otherlv_2= '(' ( (lv_terms_3_0= ruleExpressionInfinity ) ) otherlv_4= ')'
                             {
-                            otherlv_2=(Token)match(input,30,FOLLOW_30_in_ruleExpression03361); if (state.failed) return current;
+                            otherlv_2=(Token)match(input,30,FOLLOW_30_in_ruleExpression03389); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_2, grammarAccess.getExpression0Access().getLeftParenthesisKeyword_0_2_0());
                                   
                             }
-                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1571:1: ( (lv_terms_3_0= ruleExpressionInfinity ) )
-                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1572:1: (lv_terms_3_0= ruleExpressionInfinity )
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1590:1: ( (lv_terms_3_0= ruleExpressionInfinity ) )
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1591:1: (lv_terms_3_0= ruleExpressionInfinity )
                             {
-                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1572:1: (lv_terms_3_0= ruleExpressionInfinity )
-                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1573:3: lv_terms_3_0= ruleExpressionInfinity
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1591:1: (lv_terms_3_0= ruleExpressionInfinity )
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1592:3: lv_terms_3_0= ruleExpressionInfinity
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getExpression0Access().getTermsExpressionInfinityParserRuleCall_0_2_1_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleExpressionInfinity_in_ruleExpression03382);
+                            pushFollow(FOLLOW_ruleExpressionInfinity_in_ruleExpression03410);
                             lv_terms_3_0=ruleExpressionInfinity();
 
                             state._fsp--;
@@ -4321,7 +4370,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_4=(Token)match(input,31,FOLLOW_31_in_ruleExpression03394); if (state.failed) return current;
+                            otherlv_4=(Token)match(input,31,FOLLOW_31_in_ruleExpression03422); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_4, grammarAccess.getExpression0Access().getRightParenthesisKeyword_0_2_2());
@@ -4340,13 +4389,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1594:6: ( () ( (lv_name_6_0= RULE_VARIABLE ) ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1613:6: ( () ( (lv_name_6_0= RULE_VARIABLE ) ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1594:6: ( () ( (lv_name_6_0= RULE_VARIABLE ) ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1594:7: () ( (lv_name_6_0= RULE_VARIABLE ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1613:6: ( () ( (lv_name_6_0= RULE_VARIABLE ) ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1613:7: () ( (lv_name_6_0= RULE_VARIABLE ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1594:7: ()
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1595:2: 
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1613:7: ()
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1614:2: 
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -4363,13 +4412,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1603:2: ( (lv_name_6_0= RULE_VARIABLE ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1604:1: (lv_name_6_0= RULE_VARIABLE )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1622:2: ( (lv_name_6_0= RULE_VARIABLE ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1623:1: (lv_name_6_0= RULE_VARIABLE )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1604:1: (lv_name_6_0= RULE_VARIABLE )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1605:3: lv_name_6_0= RULE_VARIABLE
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1623:1: (lv_name_6_0= RULE_VARIABLE )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1624:3: lv_name_6_0= RULE_VARIABLE
                     {
-                    lv_name_6_0=(Token)match(input,RULE_VARIABLE,FOLLOW_RULE_VARIABLE_in_ruleExpression03433); if (state.failed) return current;
+                    lv_name_6_0=(Token)match(input,RULE_VARIABLE,FOLLOW_RULE_VARIABLE_in_ruleExpression03461); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_name_6_0, grammarAccess.getExpression0Access().getNameVARIABLETerminalRuleCall_1_1_0()); 
@@ -4400,13 +4449,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1622:6: ( () ( (lv_value_8_0= RULE_STRING ) ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1641:6: ( () ( (lv_value_8_0= RULE_STRING ) ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1622:6: ( () ( (lv_value_8_0= RULE_STRING ) ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1622:7: () ( (lv_value_8_0= RULE_STRING ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1641:6: ( () ( (lv_value_8_0= RULE_STRING ) ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1641:7: () ( (lv_value_8_0= RULE_STRING ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1622:7: ()
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1623:2: 
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1641:7: ()
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1642:2: 
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -4423,13 +4472,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1631:2: ( (lv_value_8_0= RULE_STRING ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1632:1: (lv_value_8_0= RULE_STRING )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1650:2: ( (lv_value_8_0= RULE_STRING ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1651:1: (lv_value_8_0= RULE_STRING )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1632:1: (lv_value_8_0= RULE_STRING )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1633:3: lv_value_8_0= RULE_STRING
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1651:1: (lv_value_8_0= RULE_STRING )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1652:3: lv_value_8_0= RULE_STRING
                     {
-                    lv_value_8_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleExpression03475); if (state.failed) return current;
+                    lv_value_8_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleExpression03503); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_value_8_0, grammarAccess.getExpression0Access().getValueSTRINGTerminalRuleCall_2_1_0()); 
@@ -4460,13 +4509,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1650:6: ( () ( (lv_value_10_0= ruleNUMBER ) ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1669:6: ( () ( (lv_value_10_0= ruleNUMBER ) ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1650:6: ( () ( (lv_value_10_0= ruleNUMBER ) ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1650:7: () ( (lv_value_10_0= ruleNUMBER ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1669:6: ( () ( (lv_value_10_0= ruleNUMBER ) ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1669:7: () ( (lv_value_10_0= ruleNUMBER ) )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1650:7: ()
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1651:2: 
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1669:7: ()
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1670:2: 
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -4483,18 +4532,18 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1659:2: ( (lv_value_10_0= ruleNUMBER ) )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1660:1: (lv_value_10_0= ruleNUMBER )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1678:2: ( (lv_value_10_0= ruleNUMBER ) )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1679:1: (lv_value_10_0= ruleNUMBER )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1660:1: (lv_value_10_0= ruleNUMBER )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1661:3: lv_value_10_0= ruleNUMBER
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1679:1: (lv_value_10_0= ruleNUMBER )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1680:3: lv_value_10_0= ruleNUMBER
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getExpression0Access().getValueNUMBERParserRuleCall_3_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleNUMBER_in_ruleExpression03521);
+                    pushFollow(FOLLOW_ruleNUMBER_in_ruleExpression03549);
                     lv_value_10_0=ruleNUMBER();
 
                     state._fsp--;
@@ -4525,13 +4574,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1678:6: ( () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']' )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1697:6: ( () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']' )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1678:6: ( () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']' )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1678:7: () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1697:6: ( () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']' )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1697:7: () otherlv_12= '[' ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )? otherlv_16= ']'
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1678:7: ()
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1679:2: 
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1697:7: ()
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1698:2: 
                     {
                     if ( state.backtracking==0 ) {
                        
@@ -4548,13 +4597,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_12=(Token)match(input,32,FOLLOW_32_in_ruleExpression03553); if (state.failed) return current;
+                    otherlv_12=(Token)match(input,32,FOLLOW_32_in_ruleExpression03581); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_12, grammarAccess.getExpression0Access().getLeftSquareBracketKeyword_4_1());
                           
                     }
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1691:1: ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )?
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1710:1: ( ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )? )?
                     int alt24=2;
                     int LA24_0 = input.LA(1);
 
@@ -4563,20 +4612,20 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt24) {
                         case 1 :
-                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1691:2: ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )?
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1710:2: ( (lv_head_13_0= ruleExpressionInfinity ) ) (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )?
                             {
-                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1691:2: ( (lv_head_13_0= ruleExpressionInfinity ) )
-                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1692:1: (lv_head_13_0= ruleExpressionInfinity )
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1710:2: ( (lv_head_13_0= ruleExpressionInfinity ) )
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1711:1: (lv_head_13_0= ruleExpressionInfinity )
                             {
-                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1692:1: (lv_head_13_0= ruleExpressionInfinity )
-                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1693:3: lv_head_13_0= ruleExpressionInfinity
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1711:1: (lv_head_13_0= ruleExpressionInfinity )
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1712:3: lv_head_13_0= ruleExpressionInfinity
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getExpression0Access().getHeadExpressionInfinityParserRuleCall_4_2_0_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleExpressionInfinity_in_ruleExpression03575);
+                            pushFollow(FOLLOW_ruleExpressionInfinity_in_ruleExpression03603);
                             lv_head_13_0=ruleExpressionInfinity();
 
                             state._fsp--;
@@ -4600,7 +4649,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1709:2: (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )?
+                            // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1728:2: (otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) ) )?
                             int alt23=2;
                             int LA23_0 = input.LA(1);
 
@@ -4609,26 +4658,26 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                             }
                             switch (alt23) {
                                 case 1 :
-                                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1709:4: otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) )
+                                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1728:4: otherlv_14= '|' ( (lv_tail_15_0= ruleExpressionInfinity ) )
                                     {
-                                    otherlv_14=(Token)match(input,33,FOLLOW_33_in_ruleExpression03588); if (state.failed) return current;
+                                    otherlv_14=(Token)match(input,33,FOLLOW_33_in_ruleExpression03616); if (state.failed) return current;
                                     if ( state.backtracking==0 ) {
 
                                           	newLeafNode(otherlv_14, grammarAccess.getExpression0Access().getVerticalLineKeyword_4_2_1_0());
                                           
                                     }
-                                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1713:1: ( (lv_tail_15_0= ruleExpressionInfinity ) )
-                                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1714:1: (lv_tail_15_0= ruleExpressionInfinity )
+                                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1732:1: ( (lv_tail_15_0= ruleExpressionInfinity ) )
+                                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1733:1: (lv_tail_15_0= ruleExpressionInfinity )
                                     {
-                                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1714:1: (lv_tail_15_0= ruleExpressionInfinity )
-                                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1715:3: lv_tail_15_0= ruleExpressionInfinity
+                                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1733:1: (lv_tail_15_0= ruleExpressionInfinity )
+                                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1734:3: lv_tail_15_0= ruleExpressionInfinity
                                     {
                                     if ( state.backtracking==0 ) {
                                        
                                       	        newCompositeNode(grammarAccess.getExpression0Access().getTailExpressionInfinityParserRuleCall_4_2_1_1_0()); 
                                       	    
                                     }
-                                    pushFollow(FOLLOW_ruleExpressionInfinity_in_ruleExpression03609);
+                                    pushFollow(FOLLOW_ruleExpressionInfinity_in_ruleExpression03637);
                                     lv_tail_15_0=ruleExpressionInfinity();
 
                                     state._fsp--;
@@ -4664,7 +4713,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_16=(Token)match(input,34,FOLLOW_34_in_ruleExpression03625); if (state.failed) return current;
+                    otherlv_16=(Token)match(input,34,FOLLOW_34_in_ruleExpression03653); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_16, grammarAccess.getExpression0Access().getRightSquareBracketKeyword_4_3());
@@ -4677,12 +4726,12 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1736:6: (otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')' )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1755:6: (otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')' )
                     {
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1736:6: (otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')' )
-                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1736:8: otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')'
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1755:6: (otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')' )
+                    // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1755:8: otherlv_17= '(' this_ExpressionInfinity_18= ruleExpressionInfinity otherlv_19= ')'
                     {
-                    otherlv_17=(Token)match(input,30,FOLLOW_30_in_ruleExpression03645); if (state.failed) return current;
+                    otherlv_17=(Token)match(input,30,FOLLOW_30_in_ruleExpression03673); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_17, grammarAccess.getExpression0Access().getLeftParenthesisKeyword_5_0());
@@ -4698,7 +4747,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getExpression0Access().getExpressionInfinityParserRuleCall_5_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleExpressionInfinity_in_ruleExpression03670);
+                    pushFollow(FOLLOW_ruleExpressionInfinity_in_ruleExpression03698);
                     this_ExpressionInfinity_18=ruleExpressionInfinity();
 
                     state._fsp--;
@@ -4709,7 +4758,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
                               afterParserOrEnumRuleCall();
                           
                     }
-                    otherlv_19=(Token)match(input,31,FOLLOW_31_in_ruleExpression03681); if (state.failed) return current;
+                    otherlv_19=(Token)match(input,31,FOLLOW_31_in_ruleExpression03709); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_19, grammarAccess.getExpression0Access().getRightParenthesisKeyword_5_2());
@@ -4833,14 +4882,50 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
     // $ANTLR start synpred30_InternalProlog
     public final void synpred30_InternalProlog_fragment() throws RecognitionException {   
         Token lv_op_0_0=null;
+        EObject lv_right_1_0 = null;
 
-        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:902:1: ( (lv_op_0_0= RULE_OP900FY ) )
+
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:2: ( ( ( (lv_op_0_0= RULE_OP900FY ) ) ( (lv_right_1_0= ruleExpression900fy ) ) ) )
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:2: ( ( (lv_op_0_0= RULE_OP900FY ) ) ( (lv_right_1_0= ruleExpression900fy ) ) )
+        {
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:2: ( ( (lv_op_0_0= RULE_OP900FY ) ) ( (lv_right_1_0= ruleExpression900fy ) ) )
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:3: ( (lv_op_0_0= RULE_OP900FY ) ) ( (lv_right_1_0= ruleExpression900fy ) )
+        {
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:901:3: ( (lv_op_0_0= RULE_OP900FY ) )
         // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:902:1: (lv_op_0_0= RULE_OP900FY )
         {
         // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:902:1: (lv_op_0_0= RULE_OP900FY )
         // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:903:3: lv_op_0_0= RULE_OP900FY
         {
-        lv_op_0_0=(Token)match(input,RULE_OP900FY,FOLLOW_RULE_OP900FY_in_synpred30_InternalProlog2068); if (state.failed) return ;
+        lv_op_0_0=(Token)match(input,RULE_OP900FY,FOLLOW_RULE_OP900FY_in_synpred30_InternalProlog2069); if (state.failed) return ;
+
+        }
+
+
+        }
+
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:919:2: ( (lv_right_1_0= ruleExpression900fy ) )
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:920:1: (lv_right_1_0= ruleExpression900fy )
+        {
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:920:1: (lv_right_1_0= ruleExpression900fy )
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:921:3: lv_right_1_0= ruleExpression900fy
+        {
+        if ( state.backtracking==0 ) {
+           
+          	        newCompositeNode(grammarAccess.getExpression900fyAccess().getRightExpression900fyParserRuleCall_0_1_0()); 
+          	    
+        }
+        pushFollow(FOLLOW_ruleExpression900fy_in_synpred30_InternalProlog2095);
+        lv_right_1_0=ruleExpression900fy();
+
+        state._fsp--;
+        if (state.failed) return ;
+
+        }
+
+
+        }
+
 
         }
 
@@ -4853,13 +4938,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
     public final void synpred31_InternalProlog_fragment() throws RecognitionException {   
         Token lv_op_0_0=null;
 
-        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:959:1: ( (lv_op_0_0= RULE_OP900FX ) )
-        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:959:1: (lv_op_0_0= RULE_OP900FX )
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:978:1: ( (lv_op_0_0= RULE_OP900FX ) )
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:978:1: (lv_op_0_0= RULE_OP900FX )
         {
-        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:959:1: (lv_op_0_0= RULE_OP900FX )
-        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:960:3: lv_op_0_0= RULE_OP900FX
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:978:1: (lv_op_0_0= RULE_OP900FX )
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:979:3: lv_op_0_0= RULE_OP900FX
         {
-        lv_op_0_0=(Token)match(input,RULE_OP900FX,FOLLOW_RULE_OP900FX_in_synpred31_InternalProlog2183); if (state.failed) return ;
+        lv_op_0_0=(Token)match(input,RULE_OP900FX,FOLLOW_RULE_OP900FX_in_synpred31_InternalProlog2211); if (state.failed) return ;
 
         }
 
@@ -4872,13 +4957,13 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
     public final void synpred35_InternalProlog_fragment() throws RecognitionException {   
         Token lv_op_0_0=null;
 
-        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1250:1: ( (lv_op_0_0= RULE_OP500FX ) )
-        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1250:1: (lv_op_0_0= RULE_OP500FX )
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1269:1: ( (lv_op_0_0= RULE_OP500FX ) )
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1269:1: (lv_op_0_0= RULE_OP500FX )
         {
-        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1250:1: (lv_op_0_0= RULE_OP500FX )
-        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1251:3: lv_op_0_0= RULE_OP500FX
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1269:1: (lv_op_0_0= RULE_OP500FX )
+        // ../org.archstudio.prolog.xtext/src-gen/org/archstudio/prolog/xtext/parser/antlr/internal/InternalProlog.g:1270:3: lv_op_0_0= RULE_OP500FX
         {
-        lv_op_0_0=(Token)match(input,RULE_OP500FX,FOLLOW_RULE_OP500FX_in_synpred35_InternalProlog2757); if (state.failed) return ;
+        lv_op_0_0=(Token)match(input,RULE_OP500FX,FOLLOW_RULE_OP500FX_in_synpred35_InternalProlog2785); if (state.failed) return ;
 
         }
 
@@ -5254,7 +5339,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             this.transition = DFA13_transition;
         }
         public String getDescription() {
-            return "901:2: ( (lv_op_0_0= RULE_OP900FY ) )?";
+            return "901:1: ( ( ( (lv_op_0_0= RULE_OP900FY ) ) ( (lv_right_1_0= ruleExpression900fy ) ) ) | ( (lv_right_2_0= ruleExpression900fx ) ) )";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -5355,7 +5440,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             this.transition = DFA14_transition;
         }
         public String getDescription() {
-            return "958:2: ( (lv_op_0_0= RULE_OP900FX ) )?";
+            return "977:2: ( (lv_op_0_0= RULE_OP900FX ) )?";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -5456,7 +5541,7 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
             this.transition = DFA18_transition;
         }
         public String getDescription() {
-            return "1249:2: ( (lv_op_0_0= RULE_OP500FX ) )?";
+            return "1268:2: ( (lv_op_0_0= RULE_OP500FX ) )?";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
@@ -5557,70 +5642,72 @@ public class InternalPrologParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleExpression954xfy_in_ruleExpression954xfy1978 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleExpression900fy_in_entryRuleExpression900fy2016 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleExpression900fy2026 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_OP900FY_in_ruleExpression900fy2068 = new BitSet(new long[]{0x0000000179BFFFF0L});
-    public static final BitSet FOLLOW_ruleExpression900fx_in_ruleExpression900fy2095 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression900fx_in_entryRuleExpression900fx2131 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleExpression900fx2141 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_OP900FX_in_ruleExpression900fx2183 = new BitSet(new long[]{0x0000000179BFFFF0L});
-    public static final BitSet FOLLOW_ruleExpression700xfx_in_ruleExpression900fx2210 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression700xfx_in_entryRuleExpression700xfx2246 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleExpression700xfx2256 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression600xfy_in_ruleExpression700xfx2306 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_RULE_OP700XFX_in_ruleExpression700xfx2335 = new BitSet(new long[]{0x0000000179BFFFF0L});
-    public static final BitSet FOLLOW_ruleExpression600xfy_in_ruleExpression700xfx2361 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression600xfy_in_entryRuleExpression600xfy2399 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleExpression600xfy2409 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression500yfx_in_ruleExpression600xfy2459 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_RULE_OP600XFY_in_ruleExpression600xfy2488 = new BitSet(new long[]{0x0000000179BFFFF0L});
-    public static final BitSet FOLLOW_ruleExpression600xfy_in_ruleExpression600xfy2514 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression500yfx_in_entryRuleExpression500yfx2552 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleExpression500yfx2562 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression500fx_in_ruleExpression500yfx2612 = new BitSet(new long[]{0x0000000000010002L});
-    public static final BitSet FOLLOW_RULE_OP500YFX_in_ruleExpression500yfx2641 = new BitSet(new long[]{0x0000000179BFFFF0L});
-    public static final BitSet FOLLOW_ruleExpression500fx_in_ruleExpression500yfx2667 = new BitSet(new long[]{0x0000000000010002L});
-    public static final BitSet FOLLOW_ruleExpression500fx_in_entryRuleExpression500fx2705 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleExpression500fx2715 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_OP500FX_in_ruleExpression500fx2757 = new BitSet(new long[]{0x0000000179BFFFF0L});
-    public static final BitSet FOLLOW_ruleExpression400yfx_in_ruleExpression500fx2784 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression400yfx_in_entryRuleExpression400yfx2820 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleExpression400yfx2830 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression200xfx_in_ruleExpression400yfx2880 = new BitSet(new long[]{0x0000000000040002L});
-    public static final BitSet FOLLOW_RULE_OP400YFX_in_ruleExpression400yfx2909 = new BitSet(new long[]{0x0000000179BFFFF0L});
-    public static final BitSet FOLLOW_ruleExpression200xfx_in_ruleExpression400yfx2935 = new BitSet(new long[]{0x0000000000040002L});
-    public static final BitSet FOLLOW_ruleExpression200xfx_in_entryRuleExpression200xfx2973 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleExpression200xfx2983 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression200xfy_in_ruleExpression200xfx3033 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_RULE_OP200XFX_in_ruleExpression200xfx3062 = new BitSet(new long[]{0x0000000179BFFFF0L});
-    public static final BitSet FOLLOW_ruleExpression200xfy_in_ruleExpression200xfx3088 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression200xfy_in_entryRuleExpression200xfy3126 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleExpression200xfy3136 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression0_in_ruleExpression200xfy3186 = new BitSet(new long[]{0x0000000000100002L});
-    public static final BitSet FOLLOW_RULE_OP200XFY_in_ruleExpression200xfy3215 = new BitSet(new long[]{0x0000000179BFFFF0L});
-    public static final BitSet FOLLOW_ruleExpression200xfy_in_ruleExpression200xfy3241 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExpression0_in_entryRuleExpression03279 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleExpression03289 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleATOMS_in_ruleExpression03348 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_30_in_ruleExpression03361 = new BitSet(new long[]{0x00000001F9BFFFF0L});
-    public static final BitSet FOLLOW_ruleExpressionInfinity_in_ruleExpression03382 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_ruleExpression03394 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_VARIABLE_in_ruleExpression03433 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleExpression03475 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNUMBER_in_ruleExpression03521 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_ruleExpression03553 = new BitSet(new long[]{0x0000000779BFFFF0L});
-    public static final BitSet FOLLOW_ruleExpressionInfinity_in_ruleExpression03575 = new BitSet(new long[]{0x0000000600000000L});
-    public static final BitSet FOLLOW_33_in_ruleExpression03588 = new BitSet(new long[]{0x0000000579BFFFF0L});
-    public static final BitSet FOLLOW_ruleExpressionInfinity_in_ruleExpression03609 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_34_in_ruleExpression03625 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_ruleExpression03645 = new BitSet(new long[]{0x00000001F9BFFFF0L});
-    public static final BitSet FOLLOW_ruleExpressionInfinity_in_ruleExpression03670 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_ruleExpression03681 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_OP900FY_in_ruleExpression900fy2069 = new BitSet(new long[]{0x0000000179BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpression900fy_in_ruleExpression900fy2095 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression900fx_in_ruleExpression900fy2123 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression900fx_in_entryRuleExpression900fx2159 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleExpression900fx2169 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_OP900FX_in_ruleExpression900fx2211 = new BitSet(new long[]{0x0000000179BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpression700xfx_in_ruleExpression900fx2238 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression700xfx_in_entryRuleExpression700xfx2274 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleExpression700xfx2284 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression600xfy_in_ruleExpression700xfx2334 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_RULE_OP700XFX_in_ruleExpression700xfx2363 = new BitSet(new long[]{0x0000000179BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpression600xfy_in_ruleExpression700xfx2389 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression600xfy_in_entryRuleExpression600xfy2427 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleExpression600xfy2437 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression500yfx_in_ruleExpression600xfy2487 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_RULE_OP600XFY_in_ruleExpression600xfy2516 = new BitSet(new long[]{0x0000000179BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpression600xfy_in_ruleExpression600xfy2542 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression500yfx_in_entryRuleExpression500yfx2580 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleExpression500yfx2590 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression500fx_in_ruleExpression500yfx2640 = new BitSet(new long[]{0x0000000000010002L});
+    public static final BitSet FOLLOW_RULE_OP500YFX_in_ruleExpression500yfx2669 = new BitSet(new long[]{0x0000000179BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpression500fx_in_ruleExpression500yfx2695 = new BitSet(new long[]{0x0000000000010002L});
+    public static final BitSet FOLLOW_ruleExpression500fx_in_entryRuleExpression500fx2733 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleExpression500fx2743 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_OP500FX_in_ruleExpression500fx2785 = new BitSet(new long[]{0x0000000179BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpression400yfx_in_ruleExpression500fx2812 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression400yfx_in_entryRuleExpression400yfx2848 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleExpression400yfx2858 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression200xfx_in_ruleExpression400yfx2908 = new BitSet(new long[]{0x0000000000040002L});
+    public static final BitSet FOLLOW_RULE_OP400YFX_in_ruleExpression400yfx2937 = new BitSet(new long[]{0x0000000179BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpression200xfx_in_ruleExpression400yfx2963 = new BitSet(new long[]{0x0000000000040002L});
+    public static final BitSet FOLLOW_ruleExpression200xfx_in_entryRuleExpression200xfx3001 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleExpression200xfx3011 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression200xfy_in_ruleExpression200xfx3061 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_RULE_OP200XFX_in_ruleExpression200xfx3090 = new BitSet(new long[]{0x0000000179BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpression200xfy_in_ruleExpression200xfx3116 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression200xfy_in_entryRuleExpression200xfy3154 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleExpression200xfy3164 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression0_in_ruleExpression200xfy3214 = new BitSet(new long[]{0x0000000000100002L});
+    public static final BitSet FOLLOW_RULE_OP200XFY_in_ruleExpression200xfy3243 = new BitSet(new long[]{0x0000000179BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpression200xfy_in_ruleExpression200xfy3269 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExpression0_in_entryRuleExpression03307 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleExpression03317 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleATOMS_in_ruleExpression03376 = new BitSet(new long[]{0x0000000040000002L});
+    public static final BitSet FOLLOW_30_in_ruleExpression03389 = new BitSet(new long[]{0x00000001F9BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpressionInfinity_in_ruleExpression03410 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_ruleExpression03422 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_VARIABLE_in_ruleExpression03461 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleExpression03503 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNUMBER_in_ruleExpression03549 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_ruleExpression03581 = new BitSet(new long[]{0x0000000779BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpressionInfinity_in_ruleExpression03603 = new BitSet(new long[]{0x0000000600000000L});
+    public static final BitSet FOLLOW_33_in_ruleExpression03616 = new BitSet(new long[]{0x0000000579BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpressionInfinity_in_ruleExpression03637 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_34_in_ruleExpression03653 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_ruleExpression03673 = new BitSet(new long[]{0x00000001F9BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpressionInfinity_in_ruleExpression03698 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_ruleExpression03709 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_27_in_synpred22_InternalProlog834 = new BitSet(new long[]{0x0000000000600000L});
     public static final BitSet FOLLOW_RULE_EXT_INT_in_synpred22_InternalProlog850 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_synpred22_InternalProlog876 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_OP1200FX_in_synpred24_InternalProlog1226 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_OP1150FX_in_synpred25_InternalProlog1341 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_OP900FY_in_synpred30_InternalProlog2068 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_OP900FX_in_synpred31_InternalProlog2183 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_OP500FX_in_synpred35_InternalProlog2757 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_OP900FY_in_synpred30_InternalProlog2069 = new BitSet(new long[]{0x0000000179BFFFF0L});
+    public static final BitSet FOLLOW_ruleExpression900fy_in_synpred30_InternalProlog2095 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_OP900FX_in_synpred31_InternalProlog2211 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_OP500FX_in_synpred35_InternalProlog2785 = new BitSet(new long[]{0x0000000000000002L});
 
 }

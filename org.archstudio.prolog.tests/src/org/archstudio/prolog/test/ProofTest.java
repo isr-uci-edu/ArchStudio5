@@ -933,4 +933,27 @@ public class ProofTest {
 			Assert.assertEquals(2, ((ListTerm) value).length()); // of length 2
 		}
 	}
+
+	@Test
+	public void testNot() throws ParseException {
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b1).done());
+			Assert.assertEquals(expected, run("X=1, \\+ X=2."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			Assert.assertEquals(expected, run("X=1, \\+ X=1."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b1).done());
+			Assert.assertEquals(expected, run("X=1, \\+ \\+ X=1."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			Assert.assertEquals(expected, run("X=1, \\+ \\+ X=2."));
+		}
+	}
+
 }

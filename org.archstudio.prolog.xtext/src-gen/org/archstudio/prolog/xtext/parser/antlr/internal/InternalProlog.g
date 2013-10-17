@@ -898,11 +898,11 @@ ruleExpression900fy returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
+(((
 (
 		lv_op_0_0=RULE_OP900FY
 		{
-			newLeafNode(lv_op_0_0, grammarAccess.getExpression900fyAccess().getOpOP900FYTerminalRuleCall_0_0()); 
+			newLeafNode(lv_op_0_0, grammarAccess.getExpression900fyAccess().getOpOP900FYTerminalRuleCall_0_0_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -916,12 +916,12 @@ ruleExpression900fy returns [EObject current=null]
 	    }
 
 )
-)?(
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getExpression900fyAccess().getRightExpression900fxParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getExpression900fyAccess().getRightExpression900fyParserRuleCall_0_1_0()); 
 	    }
-		lv_right_1_0=ruleExpression900fx		{
+		lv_right_1_0=ruleExpression900fy		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getExpression900fyRule());
 	        }
@@ -929,6 +929,25 @@ ruleExpression900fy returns [EObject current=null]
        			$current, 
        			"right",
         		lv_right_1_0, 
+        		"Expression900fy");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getExpression900fyAccess().getRightExpression900fxParserRuleCall_1_0()); 
+	    }
+		lv_right_2_0=ruleExpression900fx		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getExpression900fyRule());
+	        }
+       		set(
+       			$current, 
+       			"right",
+        		lv_right_2_0, 
         		"Expression900fx");
 	        afterParserOrEnumRuleCall();
 	    }

@@ -116,9 +116,8 @@ Expression1000xfy returns Expression:
 Expression954xfy returns Expression:
 	Expression900fy ({Expression.left=current} op=OP954XFY right=Expression954xfy)?;
 
-	// TODO: Determine how to do right-associative UnaryExpressions, if necessary
 Expression900fy returns UnaryExpression:
-	(op=OP900FY)? right=Expression900fx;
+	op=OP900FY right=Expression900fy | right=Expression900fx;
 
 Expression900fx returns UnaryExpression:
 	(op=OP900FX)? right=Expression700xfx;

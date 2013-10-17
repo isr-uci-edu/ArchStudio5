@@ -470,27 +470,37 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class Expression900fyElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Expression900fy");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cOpAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cOpOP900FYTerminalRuleCall_0_0 = (RuleCall)cOpAssignment_0.eContents().get(0);
-		private final Assignment cRightAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Assignment cOpAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final RuleCall cOpOP900FYTerminalRuleCall_0_0_0 = (RuleCall)cOpAssignment_0_0.eContents().get(0);
+		private final Assignment cRightAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cRightExpression900fyParserRuleCall_0_1_0 = (RuleCall)cRightAssignment_0_1.eContents().get(0);
+		private final Assignment cRightAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final RuleCall cRightExpression900fxParserRuleCall_1_0 = (RuleCall)cRightAssignment_1.eContents().get(0);
 		
-		//// TODO: Determine how to do right-associative UnaryExpressions, if necessary
-		//
 		//Expression900fy returns UnaryExpression:
 		//
-		//	op=OP900FY? right=Expression900fx;
+		//	op=OP900FY right=Expression900fy | right=Expression900fx;
 		public ParserRule getRule() { return rule; }
 
-		//op=OP900FY? right=Expression900fx
-		public Group getGroup() { return cGroup; }
+		//op=OP900FY right=Expression900fy | right=Expression900fx
+		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//op=OP900FY?
-		public Assignment getOpAssignment_0() { return cOpAssignment_0; }
+		//op=OP900FY right=Expression900fy
+		public Group getGroup_0() { return cGroup_0; }
+
+		//op=OP900FY
+		public Assignment getOpAssignment_0_0() { return cOpAssignment_0_0; }
 
 		//OP900FY
-		public RuleCall getOpOP900FYTerminalRuleCall_0_0() { return cOpOP900FYTerminalRuleCall_0_0; }
+		public RuleCall getOpOP900FYTerminalRuleCall_0_0_0() { return cOpOP900FYTerminalRuleCall_0_0_0; }
+
+		//right=Expression900fy
+		public Assignment getRightAssignment_0_1() { return cRightAssignment_0_1; }
+
+		//Expression900fy
+		public RuleCall getRightExpression900fyParserRuleCall_0_1_0() { return cRightExpression900fyParserRuleCall_0_1_0; }
 
 		//right=Expression900fx
 		public Assignment getRightAssignment_1() { return cRightAssignment_1; }
@@ -1348,11 +1358,9 @@ public class PrologGrammarAccess extends AbstractGrammarElementFinder {
 		return getExpression954xfyAccess().getRule();
 	}
 
-	//// TODO: Determine how to do right-associative UnaryExpressions, if necessary
-	//
 	//Expression900fy returns UnaryExpression:
 	//
-	//	op=OP900FY? right=Expression900fx;
+	//	op=OP900FY right=Expression900fy | right=Expression900fx;
 	public Expression900fyElements getExpression900fyAccess() {
 		return (pExpression900fy != null) ? pExpression900fy : (pExpression900fy = new Expression900fyElements());
 	}

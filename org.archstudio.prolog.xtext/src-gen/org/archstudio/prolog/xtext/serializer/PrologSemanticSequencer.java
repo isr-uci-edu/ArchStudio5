@@ -435,7 +435,7 @@ public class PrologSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (op=OP900FY? right=Expression900fx)
+	 *     ((op=OP900FY right=Expression900fy) | right=Expression900fx)
 	 */
 	protected void sequence_Expression900fy(EObject context, UnaryExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

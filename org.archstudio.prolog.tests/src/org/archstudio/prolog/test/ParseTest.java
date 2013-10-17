@@ -292,8 +292,7 @@ public class ParseTest {
 	public void testFY() throws ParseException {
 		// fy prefix right-associative
 		assertParse(new Not("\\+", Lists.newArrayList(A)), "\\+ A.");
-		// FIXME: \\+ \\+ A doesn't work
-		// assertParse(new Not("\\+", Lists.newArrayList(new Not("\\+", Lists.newArrayList(A)))), "\\+ \\+ A.");
+		assertParse(new Not("\\+", Lists.newArrayList(new Not("\\+", Lists.newArrayList(A)))), "\\+ \\+ A.");
 	}
 
 	@Test
