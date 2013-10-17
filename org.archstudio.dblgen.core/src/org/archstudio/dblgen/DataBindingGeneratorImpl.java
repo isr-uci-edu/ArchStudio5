@@ -1084,6 +1084,31 @@ public class DataBindingGeneratorImpl implements IDataBindingGenerator {
 						}
 					}
 
+					// remove existing extension parser entries
+					for (IPluginExtension extension : extensions.getExtensions().getExtensions()) {
+						if ("org.eclipse.emf.ecore.extension_parser".equals(extension.getPoint())) {
+							extensions.getExtensions().remove(extension);
+						}
+					}
+
+					//// add an entry for each processed schema
+					//for (GenPackage genPackage : genModel.getGenPackages()) {
+					//	// only generate code for the schema in this project
+					//	if (primaryNSURIs.containsValue(genPackage.getNSURI())) {
+					//		String factoryImplClassName = "" + genPackage.getClassPackageName() + "."
+					//				+ genPackage.getFactoryClassName();
+					//
+					//		IPluginExtension extension = factory.createExtension();
+					//		extension.setPoint("org.eclipse.emf.ecore.extension_parser");
+					//		IPluginElement element = factory.createElement(extension);
+					//		element.setName("parser");
+					//		element.setAttribute("class", factoryImplClassName);
+					//		element.setAttribute("type", genPackage.getFileExtension());
+					//		extension.add(element);
+					//		extensions.getExtensions().add(extension);
+					//	}
+					//}
+
 					{
 						// save the editable IPluginModelBase
 						WorkspaceBundlePluginModel model = (WorkspaceBundlePluginModel) plugin;
