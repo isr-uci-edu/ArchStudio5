@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xadlcore_3_0:xADL xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hints_3_0="http://www.archstudio.org/xadl3/schemas/hints-3.0.xsd"
+    xmlns:statechart_1_0="http://www.archstudio.org/xadl3/schemas/statechart-1.0.xsd"
+    xmlns:structure_3_0="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd"
+    xmlns:xadlcore_3_0="http://www.archstudio.org/xadl3/schemas/xadlcore-3.0.xsd">
+  <structure_3_0:structure structure_3_0:id="structureffffffec-c9b12749-78a1b082-4c8e0002"
+      structure_3_0:name="cycle-3-red">
+    <structure_3_0:component structure_3_0:id="componentffffffec-c9b1cc81-394831ca-4c8e0004"
+        structure_3_0:name="Red">
+      <structure_3_0:subStructure structure_3_0:id="subStructureffffffec-cbaf125b-95693b47-34630007">
+        <structure_3_0:innerStructureLink>structureffffffec-c9b171b2-9626a030-4c8e0003</structure_3_0:innerStructureLink>
+      </structure_3_0:subStructure>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:132,56,120,80"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:255,128,128"
+            hints_3_0:name="color"/>
+        <hints_3_0:hint hints_3_0:hint="java.lang.Float:1.0" hints_3_0:name="alpha"/>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+  </structure_3_0:structure>
+  <structure_3_0:structure structure_3_0:id="structureffffffec-c9b171b2-9626a030-4c8e0003"
+      structure_3_0:name="cycle-3-green">
+    <structure_3_0:component structure_3_0:id="componentffffffec-c9b203f5-8882fd2e-4c8e0005"
+        structure_3_0:name="Green">
+      <structure_3_0:subStructure structure_3_0:id="subStructureffffffec-cbaf229e-81a666fa-34630008">
+        <structure_3_0:innerStructureLink>structureffffffec-cbad18ff-c0e7bc1f-34630002</structure_3_0:innerStructureLink>
+      </structure_3_0:subStructure>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:220,137,120,80"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:128,255,128"
+            hints_3_0:name="color"/>
+        <hints_3_0:hint hints_3_0:hint="java.lang.Float:1.0" hints_3_0:name="alpha"/>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+  </structure_3_0:structure>
+  <structure_3_0:structure structure_3_0:id="structureffffffec-cbad18ff-c0e7bc1f-34630002"
+      structure_3_0:name="cycle-3-blue">
+    <structure_3_0:component structure_3_0:id="componentffffffec-cbada2b3-dd5d3f6c-34630003"
+        structure_3_0:name="Blue">
+      <structure_3_0:subStructure structure_3_0:id="subStructureffffffec-cbaf3cff-f75a2bff-34630009">
+        <structure_3_0:innerStructureLink>structureffffffec-c9b12749-78a1b082-4c8e0002</structure_3_0:innerStructureLink>
+      </structure_3_0:subStructure>
+      <structure_3_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:145,88,120,80"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:0,128,255" hints_3_0:name="color"/>
+        <hints_3_0:hint hints_3_0:hint="java.lang.Float:1.0" hints_3_0:name="alpha"/>
+      </structure_3_0:ext>
+    </structure_3_0:component>
+  </structure_3_0:structure>
+  <statechart_1_0:statechart statechart_1_0:id="Statechartffffffec-cbca3961-c1a05eff-5f910002-"
+      statechart_1_0:name="cycle-1">
+    <statechart_1_0:state xsi:type="statechart_1_0:State" statechart_1_0:id="stateffffffec-cbca9d58-26b94c1f-5f910003"
+        statechart_1_0:name="Cycle" statechart_1_0:type="state">
+      <statechart_1_0:ext xsi:type="hints_3_0:HintsExtension">
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.Rectangle:185,161,144,96"
+            hints_3_0:name="bounds"/>
+        <hints_3_0:hint hints_3_0:hint="org.eclipse.swt.graphics.RGB:192,192,192"
+            hints_3_0:name="color"/>
+        <hints_3_0:hint hints_3_0:hint="java.lang.Float:1.0" hints_3_0:name="alpha"/>
+      </statechart_1_0:ext>
+      <statechart_1_0:subStatechart statechart_1_0:id="subStatechartffffffec-cbcaa904-5aab7d4b-5f910004">
+        <statechart_1_0:innerStatechart>Statechartffffffec-cbca3961-c1a05eff-5f910002-</statechart_1_0:innerStatechart>
+      </statechart_1_0:subStatechart>
+    </statechart_1_0:state>
+  </statechart_1_0:statechart>
+</xadlcore_3_0:xADL>

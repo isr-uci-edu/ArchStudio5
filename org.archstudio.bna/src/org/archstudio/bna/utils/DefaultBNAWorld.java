@@ -68,4 +68,8 @@ public class DefaultBNAWorld implements IBNAWorld, IThingLogicManagerListener {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return id.toString();
+	}
 }

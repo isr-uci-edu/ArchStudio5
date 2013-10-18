@@ -54,7 +54,7 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 
 	protected final ThingValueTrackingLogic valueLogic;
 	protected final IHintRepository hintRepository;
-	protected final ExecutorService asyncExecutor = new ThreadPoolExecutor(1, 5, 5L, TimeUnit.SECONDS,
+	protected final static ExecutorService asyncExecutor = new ThreadPoolExecutor(1, 5, 5L, TimeUnit.SECONDS,
 			new LinkedBlockingQueue<Runnable>(), new ThreadFactory() {
 				@Override
 				public Thread newThread(Runnable r) {

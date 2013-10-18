@@ -10,6 +10,7 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 
 public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThingPeer<T, Text> {
@@ -20,7 +21,15 @@ public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThi
 
 	@Override
 	protected Text createControl(final IBNAView view, ICoordinateMapper cm) {
+		// we only want one control for a thing, not many for each peer when there are recursive worlds
+		for (Control control : view.getBNAUI().getComposite().getChildren()) {
+			if (t.equals(control.getData())) {
+				return null;
+			}
+		}
+
 		final Text control = new Text(view.getBNAUI().getComposite(), SWT.BORDER | SWT.FLAT | SWT.SINGLE);
+		control.setData(t);
 		control.addFocusListener(new FocusAdapter() {
 
 			@Override
@@ -51,20 +60,22 @@ public class SWTTextThingPeer<T extends SWTTextThing> extends AbstractControlThi
 	protected Rectangle getBounds(IBNAView view, ICoordinateMapper cm) {
 		Rectangle bounds = super.getBounds(view, cm);
 
-		GC gc = null;
-		try {
-			gc = new GC(control.getDisplay());
-			if (control.getFont() != null) {
-				gc.setFont(control.getFont());
+		if (control != null) {
+			GC gc = null;
+			try {
+				gc = new GC(control.getDisplay());
+				if (control.getFont() != null) {
+					gc.setFont(control.getFont());
+				}
+				int minHeight = gc.getFontMetrics().getHeight();
+				int minWidth = gc.textExtent(control.getText()).x + gc.getFontMetrics().getAverageCharWidth() * 4;
+				Rectangle newBounds = control.computeTrim(bounds.x, bounds.y, minWidth, minHeight);
+				bounds.width = Math.max(newBounds.width, bounds.width);
+				bounds.height = Math.max(newBounds.height, bounds.height);
 			}
-			int minHeight = gc.getFontMetrics().getHeight();
-			int minWidth = gc.textExtent(control.getText()).x + gc.getFontMetrics().getAverageCharWidth() * 4;
-			Rectangle newBounds = control.computeTrim(bounds.x, bounds.y, minWidth, minHeight);
-			bounds.width = Math.max(newBounds.width, bounds.width);
-			bounds.height = Math.max(newBounds.height, bounds.height);
-		}
-		finally {
-			SWTWidgetUtils.quietlyDispose(gc);
+			finally {
+				SWTWidgetUtils.quietlyDispose(gc);
+			}
 		}
 
 		return bounds;

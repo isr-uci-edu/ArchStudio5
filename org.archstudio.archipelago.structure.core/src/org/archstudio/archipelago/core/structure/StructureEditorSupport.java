@@ -212,7 +212,7 @@ public class StructureEditorSupport {
 			return null;
 		}
 		IBNAModel bnaModel = new DefaultBNAModel();
-		IBNAWorld world = new DefaultBNAWorld("structure", bnaModel);
+		IBNAWorld world = new DefaultBNAWorld(XadlUtils.getName(xarch, structureRef), bnaModel);
 		if (services.has(IArchipelagoTreeNodeDataCache.class)) {
 			services.get(IArchipelagoTreeNodeDataCache.class).setData(documentRootRef, structureRef, BNA_WORLD_KEY,
 					world);

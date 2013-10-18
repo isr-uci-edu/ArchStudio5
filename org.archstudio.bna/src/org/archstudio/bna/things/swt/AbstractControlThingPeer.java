@@ -35,6 +35,9 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 			public void run() {
 				if (control == null) {
 					control = createControl(view, cm);
+					if (control == null) {
+						return;
+					}
 					// necessary for the AWT UI
 					control.moveAbove(null);
 				}

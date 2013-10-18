@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.WeakHashMap;
-import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -68,8 +68,8 @@ public abstract class AbstractXADLToBNAThingLogic<T extends IThing> extends Abst
 	 * and when thing events from those threads are received, ignore them. Thus, all updates should be performed by the
 	 * {@code executor} and the {@code executorThreads} keeps track of what threads are performing the updates.
 	 */
-	private final ThreadPoolExecutor executor = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 5L, TimeUnit.SECONDS,
-			new SynchronousQueue<Runnable>(), new ThreadFactory() {
+	private final ThreadPoolExecutor executor = new ThreadPoolExecutor(0, 5, 5L, TimeUnit.SECONDS,
+			new LinkedBlockingQueue<Runnable>(), new ThreadFactory() {
 				@Override
 				public Thread newThread(Runnable r) {
 					Thread t = new Thread(r);

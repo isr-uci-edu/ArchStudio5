@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -53,14 +53,14 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		private final Object EXIT_NOTIFICATION = Lists.newArrayList("Exiting " + this.getClass(), this);
 		private final BNAModelEvent EXIT_EVENT = BNAModelEvent.create(DefaultBNAModel.this,
 				EventType.STREAM_NOTIFICATION_EVENT, EXIT_NOTIFICATION);
-		private final ThreadPoolExecutor asyncExecutor = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L,
-				TimeUnit.SECONDS, new SynchronousQueue<Runnable>(), new ThreadFactory() {
+		private final ThreadPoolExecutor asyncExecutor = new ThreadPoolExecutor(0, 10, 60L, TimeUnit.SECONDS,
+				new LinkedBlockingQueue<Runnable>(), new ThreadFactory() {
 					@Override
 					public Thread newThread(Runnable r) {
 						Thread t = new Thread(r);
 						t.setPriority(Thread.MAX_PRIORITY);
 						t.setDaemon(true);
-						t.setName(DefaultBNAModelEventProcessingThread.class.getName());
+						t.setName(DefaultBNAModel.class.getName());
 						return t;
 					}
 				});
@@ -244,11 +244,12 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 					throw new IllegalArgumentException("BulkChangeBegin should be handled in process(...).");
 				}
 				else if (event.getEventType() == EventType.BULK_CHANGE_END) {
-					// process these later..., we don't want to sent it out
+					// process these later..., we don't want to send them out
 				}
 				else {
 					if (!firedBulkChangeBegin) {
-						fireBNAModelEvent(BULK_CHANGE_BEGIN);
+						fireBNAModelEvent(BNAModelEvent
+								.create(DefaultBNAModel.this, EventType.BULK_CHANGE_BEGIN, event));
 						firedBulkChangeBegin = true;
 					}
 					fireBNAModelEvent(event);

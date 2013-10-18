@@ -3,6 +3,7 @@ package org.archstudio.bna.logics.information;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.archstudio.bna.IBNAWorld;
@@ -50,7 +51,16 @@ public class ProgressLogic extends AbstractThingLogic {
 		}
 	}
 
-	ExecutorService asyncExecutor = Executors.newCachedThreadPool();
+	static ExecutorService asyncExecutor = Executors.newCachedThreadPool(new ThreadFactory() {
+
+		@Override
+		public Thread newThread(Runnable r) {
+			Thread t = new Thread(r);
+			t.setDaemon(true);
+			t.setName(ProgressLogic.class.getName());
+			return t;
+		}
+	});
 
 	private final AtomicInteger tasks = new AtomicInteger();
 
