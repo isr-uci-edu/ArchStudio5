@@ -56,7 +56,7 @@ public class AbstractThing implements IThing {
 	private final FastIntMap<Object> properties = new FastIntMap<Object>();
 	private final ReadWriteLock lock;
 	private boolean initedProperties = false;
-	private int modCount = 0;
+	volatile private int modCount = 0;
 
 	public AbstractThing(@Nullable Object id) {
 		this.id = id != null ? id : new Object();
@@ -276,13 +276,17 @@ public class AbstractThing implements IThing {
 
 	@Override
 	public int getModCount() {
-		lock.readLock().lock();
-		try {
-			return modCount;
-		}
-		finally {
-			lock.readLock().unlock();
-		}
+		/*
+		 * Note: Locking here causes deadlock with the synchronized eventQueue from
+		 * DefaultBNAModelEventProcessingThread.
+		 */
+		//lock.readLock().lock();
+		//try {
+		return modCount;
+		//}
+		//finally {
+		//	lock.readLock().unlock();
+		//}
 	}
 
 	@Override

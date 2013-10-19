@@ -230,11 +230,11 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 					if (isBulkChangeWorthyEvent(event)) {
 						pendingBulkChangeWorthyEvents--;
 					}
+					if (event.getEventType() == EventType.THING_ADDED) {
+						IThing thing = event.getTargetThing();
+						thingMinimumModCount.put(thing.getUID(), thing.getModCount());
+					}
 					eventQueue.notifyAll();
-				}
-				if (event.getEventType() == EventType.THING_ADDED) {
-					IThing thing = event.getTargetThing();
-					thingMinimumModCount.put(thing.getUID(), thing.getModCount());
 				}
 				if (event.getStreamNotification() instanceof RunnableStreamNotification) {
 					// run these, don't send them out

@@ -4,8 +4,18 @@ Bundle-Name: ArchStudio JOGL (Java Binding for the OpenGL)
 Bundle-SymbolicName: org.archstudio.jogl;singleton:=true
 Bundle-Version: 2.0.2.qualifier
 Bundle-ClassPath: .,
+ lib/gluegen-rt-natives-linux-amd64.jar,
+ lib/gluegen-rt-natives-linux-i586.jar,
+ lib/gluegen-rt-natives-macosx-universal.jar,
+ lib/gluegen-rt-natives-windows-amd64.jar,
+ lib/gluegen-rt-natives-windows-i586.jar,
  lib/gluegen-rt.jar,
  lib/gluegen.jar,
+ lib/jogl-all-natives-linux-amd64.jar,
+ lib/jogl-all-natives-linux-i586.jar,
+ lib/jogl-all-natives-macosx-universal.jar,
+ lib/jogl-all-natives-windows-amd64.jar,
+ lib/jogl-all-natives-windows-i586.jar,
  lib/jogl-all.jar
 Bundle-Activator: org.jogamp.jogl.Activator
 Bundle-Vendor: archstudio.org
