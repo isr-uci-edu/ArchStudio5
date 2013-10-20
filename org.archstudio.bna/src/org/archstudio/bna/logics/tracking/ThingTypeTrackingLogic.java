@@ -5,7 +5,6 @@ import static org.archstudio.sysutils.SystemUtils.filter;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAWorld;
@@ -17,7 +16,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 public class ThingTypeTrackingLogic extends AbstractThingLogic implements IPrivilegedBNAModelListener {
 
@@ -26,7 +24,7 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IPrivi
 
 				@Override
 				public Collection<Object> load(Class<? extends IThing> key) throws Exception {
-					Set<Object> things = Sets.newHashSet();
+					Collection<Object> things = Lists.newArrayList();
 					for (IThing t : model.getAllThings()) {
 						if (key.isInstance(t)) {
 							things.add(t.getID());

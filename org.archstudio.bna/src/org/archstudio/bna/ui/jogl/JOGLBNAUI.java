@@ -10,7 +10,6 @@ import javax.media.opengl.GLRunnable;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ui.utils.AbstractSWTUI;
-import org.archstudio.swtutils.SWTWidgetUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -20,6 +19,51 @@ import org.eclipse.swt.widgets.Composite;
 import com.jogamp.opengl.swt.GLCanvas;
 
 public class JOGLBNAUI extends AbstractSWTUI {
+
+	class RepaintThread {
+
+		private final Thread thread;
+		private boolean needsRepaint = false;
+		private boolean disposed = false;
+
+		public RepaintThread() {
+			thread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					while (!disposed) {
+						synchronized (RepaintThread.this) {
+							try {
+								if (!needsRepaint) {
+									RepaintThread.this.wait();
+								}
+							}
+							catch (InterruptedException e) {
+							}
+							needsRepaint = false;
+						}
+						glCanvas.display();
+					}
+				}
+			});
+			thread.setDaemon(true);
+			thread.start();
+		}
+
+		public void paint() {
+			needsRepaint = true;
+			synchronized (this) {
+				notifyAll();
+			}
+		}
+
+		public void dispose() {
+			disposed = true;
+			synchronized (this) {
+				notifyAll();
+			}
+		}
+
+	}
 
 	class BNAGLEventListener implements GLEventListener {
 
@@ -50,6 +94,7 @@ public class JOGLBNAUI extends AbstractSWTUI {
 	JOGLResources joglThreadResources;
 	Composite parent;
 	GLCanvas glCanvas;
+	RepaintThread repaintThread = new RepaintThread();
 
 	public JOGLBNAUI(IBNAView view) {
 		super(view);
@@ -58,6 +103,7 @@ public class JOGLBNAUI extends AbstractSWTUI {
 	@Override
 	public void dispose() {
 		super.dispose();
+		repaintThread.dispose();
 		if (!glCanvas.isDisposed()) {
 			glCanvas.dispose();
 		}
@@ -106,20 +152,9 @@ public class JOGLBNAUI extends AbstractSWTUI {
 		glCanvas.forceFocus();
 	}
 
-	private volatile boolean needsRepaint = false;
-
 	@Override
 	public void paint() {
-		if (!needsRepaint) {
-			needsRepaint = true;
-			SWTWidgetUtils.async(glCanvas, new Runnable() {
-				@Override
-				public void run() {
-					needsRepaint = false;
-					glCanvas.display();
-				}
-			});
-		}
+		repaintThread.paint();
 	}
 
 	@Override

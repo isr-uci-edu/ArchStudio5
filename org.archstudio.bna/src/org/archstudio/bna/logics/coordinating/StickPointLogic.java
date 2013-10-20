@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
-import java.util.Set;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
@@ -226,14 +225,8 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 			register(updater, pointThing, pointKey);
 
 			if (pointThing instanceof IHasShapeKeys) {
-				Set<IThingKey<?>> shapeModifyingKeys = ((IHasShapeKeys) pointThing).getShapeModifyingKeys();
-				track(updater, pointThing, shapeModifyingKeys);
-				if (!shapeModifyingKeys.contains(pointKey)) {
-					track(updater, pointThing, pointKey);
-				}
-			}
-			else {
-				track(updater, pointThing, pointKey);
+				track(updater, pointThing, ((IHasShapeKeys) pointThing).getShapeModifyingKeys());
+				untrack(updater, pointThing, pointKey);
 			}
 			track(updater, stickyThing, stickyThing.getShapeModifyingKeys());
 		}

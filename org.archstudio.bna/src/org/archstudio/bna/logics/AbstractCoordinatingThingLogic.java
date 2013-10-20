@@ -185,6 +185,7 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 
 	protected void track(Updater updater, IThing thing, Iterable<IThingKey<?>> keys) {
 		checkNotNull(updater);
+		checkNotNull(thing);
 		checkNotNull(keys);
 
 		registerAsExistential(updater, thing);
@@ -193,6 +194,28 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 
 			updater.trackedAsThingKeys.add(BNAUtils.getThingKeyUID(thing, key));
 			FastLongMap.createList(trackedThingKeys, BNAUtils.getThingKeyUID(thing, key)).add(updater);
+		}
+	}
+
+	protected void untrack(Updater updater, IThing thing, IThingKey<?> key) {
+		checkNotNull(updater);
+		checkNotNull(thing);
+		checkNotNull(key);
+
+		updater.trackedAsThingKeys.remove(BNAUtils.getThingKeyUID(thing, key));
+		FastLongMap.get(trackedThingKeys, BNAUtils.getThingKeyUID(thing, key)).remove(updater);
+	}
+
+	protected void untrack(Updater updater, IThing thing, Iterable<IThingKey<?>> keys) {
+		checkNotNull(updater);
+		checkNotNull(thing);
+		checkNotNull(keys);
+
+		for (IThingKey<?> key : keys) {
+			checkNotNull(key);
+
+			updater.trackedAsThingKeys.remove(BNAUtils.getThingKeyUID(thing, key));
+			FastLongMap.get(trackedThingKeys, BNAUtils.getThingKeyUID(thing, key)).remove(updater);
 		}
 	}
 
@@ -237,6 +260,7 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 					}
 					try {
 						updater.update();
+						toUpdate.remove(updater);
 					}
 					catch (Throwable t) {
 						t.printStackTrace();

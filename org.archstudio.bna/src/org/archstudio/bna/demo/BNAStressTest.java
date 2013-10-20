@@ -5,6 +5,7 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
@@ -31,6 +32,7 @@ import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.swtutils.constants.Orientation;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -40,8 +42,6 @@ import org.eclipse.swt.widgets.Shell;
 
 public class BNAStressTest {
 
-	private static boolean DEBUG = true;
-
 	public static void main(String[] args) {
 		final Display display = new Display();
 		final Shell shell = new Shell(display);
@@ -49,6 +49,7 @@ public class BNAStressTest {
 
 		final IBNAModel model = new DefaultBNAModel();
 		final IBNAWorld world = new DefaultBNAWorld("top view", model);
+		IThingLogicManager logics = world.getThingLogicManager();
 		final BNACanvas canvas = new BNACanvas(shell, SWT.V_SCROLL | SWT.H_SCROLL, world);
 
 		BNARenderingSettings.setAntialiasGraphics(canvas, true);
@@ -72,9 +73,9 @@ public class BNAStressTest {
 		}
 
 		model.dispose();
+		logics.dispose();
 		world.dispose();
 		display.dispose();
-		System.exit(0);
 	}
 
 	private static void addUILogics(IBNAView view) {
@@ -178,10 +179,46 @@ public class BNAStressTest {
 		finally {
 			model.endBulkChange();
 		}
-		if (DEBUG) {
-			lTime = System.nanoTime() - lTime;
-			System.err.println("Time to add elements: " + lTime / 1000000);
+		lTime = System.nanoTime() - lTime;
+		System.err.println("Time to add elements: " + lTime / 1000000f);
+
+		lTime = System.nanoTime();
+		for (IThing thing : model.getAllThings()) {
+			view.getThingPeer(thing);
 		}
+		lTime = System.nanoTime() - lTime;
+		System.err.println("Time to create peers: " + lTime / 1000000f);
+
+		lTime = System.nanoTime();
+		model.flush();
+		lTime = System.nanoTime() - lTime;
+		System.err.println("Time for first flush: " + lTime / 1000000f);
+
+		final RectangleThing b = (RectangleThing) model.getThing(id(0, 0));
+		Thread movement = new Thread(new Runnable() {
+			int degree = 0;
+
+			@Override
+			public void run() {
+				while (true) {
+					degree++;
+					double radius = 30;
+					double x = radius * Math.cos(degree * Math.PI / 180);
+					double y = radius * Math.sin(degree * Math.PI / 180);
+					Rectangle r = b.getBoundingBox();
+					r.x = SystemUtils.round(x);
+					r.y = SystemUtils.round(y);
+					b.setBoundingBox(r);
+					try {
+						Thread.sleep(1000 / 60);
+					}
+					catch (InterruptedException e) {
+					}
+				}
+			}
+		});
+		movement.setDaemon(true);
+		movement.start();
 	}
 
 	private static Object id(int cwi, int chi) {
@@ -192,8 +229,8 @@ public class BNAStressTest {
 		return "(" + id + ":" + orientation + "," + index + ")";
 	}
 
-	public static EndpointGlassThing createEndpoint(IBNAWorld world, Object id, IIsSticky parent, Point location,
-			Flow flow, Orientation orientation) {
+	public static void createEndpoint(IBNAWorld world, Object id, IIsSticky parent, Point location, Flow flow,
+			Orientation orientation) {
 		IBNAModel model = world.getBNAModel();
 
 		EndpointGlassThing e = Assemblies.createEndpoint(world, id, parent);
@@ -203,8 +240,6 @@ public class BNAStressTest {
 		Assemblies.DIRECTION_KEY.get(e, model).setOrientation(orientation);
 
 		UserEditableUtils.addEditableQualities(e, IRelativeMovable.USER_MAY_MOVE);
-
-		return e;
 	}
 
 	private static void createSpline(IBNAWorld world, Object id0, Object id1) {

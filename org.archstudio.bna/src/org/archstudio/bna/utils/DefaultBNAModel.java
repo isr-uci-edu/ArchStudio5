@@ -6,11 +6,10 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -25,6 +24,7 @@ import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.sysutils.FastIntMap;
 import org.archstudio.sysutils.FastLongMap;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.annotation.Nullable;
@@ -37,7 +37,7 @@ import com.google.common.collect.Lists;
 
 public class DefaultBNAModel implements IBNAModel, IThingListener {
 
-	public boolean PROFILE = true;
+	public boolean PROFILE = false;
 	protected static final LoadingCache<Object, AtomicLong> profileStats = CacheBuilder.newBuilder().weakKeys()
 			.build(new CacheLoader<Object, AtomicLong>() {
 				@Override
@@ -46,6 +46,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 				}
 			});
 	protected static int eventsNotFiredStats = 0;
+	protected static int eventsFiredStats = 0;
 
 	private class DefaultBNAModelEventProcessingThread extends Thread {
 
@@ -53,20 +54,21 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		private final Object EXIT_NOTIFICATION = Lists.newArrayList("Exiting " + this.getClass(), this);
 		private final BNAModelEvent EXIT_EVENT = BNAModelEvent.create(DefaultBNAModel.this,
 				EventType.STREAM_NOTIFICATION_EVENT, EXIT_NOTIFICATION);
-		private final ThreadPoolExecutor asyncExecutor = new ThreadPoolExecutor(0, 10, 60L, TimeUnit.SECONDS,
-				new LinkedBlockingQueue<Runnable>(), new ThreadFactory() {
+		private final ThreadPoolExecutor asyncExecutor = (ThreadPoolExecutor) Executors
+				.newCachedThreadPool(new ThreadFactory() {
 					@Override
 					public Thread newThread(Runnable r) {
 						Thread t = new Thread(r);
 						t.setPriority(Thread.MAX_PRIORITY);
 						t.setDaemon(true);
-						t.setName(DefaultBNAModel.class.getName());
+						t.setName(DefaultBNAModelEventProcessingThread.class.getName());
 						return t;
 					}
 				});
 		private final Deque<BNAModelEvent> eventQueue = new LinkedBlockingDeque<>();
 		private final FastIntMap<Integer> thingMinimumModCount = new FastIntMap<>();
 		private final FastLongMap<BNAModelEvent> pendingThingEvents = new FastLongMap<>();
+		private final List<BNAModelEvent> pendingThingAdds = Lists.newArrayList();
 		private boolean firedBulkChangeBegin = false;
 		private int bulkChangeCount = 0;
 		private int pendingBulkChangeWorthyEvents = 0;
@@ -90,6 +92,9 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 				return;
 			}
 			synchronized (eventQueue) {
+				if (event.getEventType() == EventType.THING_ADDED) {
+					pendingThingAdds.add(event);
+				}
 				ThingEvent thingEvent = event.getThingEvent();
 				if (thingEvent != null) {
 					{
@@ -215,9 +220,14 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 						asyncExecutor.shutdownNow();
 						if (PROFILE) {
 							synchronized (profileStats) {
-								System.err.println("Total events skipped: " + eventsNotFiredStats);
-								for (Entry<Object, AtomicLong> entry : sortedByValue(profileStats.asMap().entrySet())) {
-									System.err.println(entry.getValue() + "\t" + entry.getKey());
+								synchronized (System.err) {
+									System.err.println("Profile information for: " + this.getClass());
+									System.err.println("Total events fired: " + eventsFiredStats);
+									System.err.println("Total events skipped: " + eventsNotFiredStats);
+									for (Entry<Object, AtomicLong> entry : sortedByValue(profileStats.asMap()
+											.entrySet())) {
+										System.err.println(entry.getValue() + "\t" + entry.getKey());
+									}
 								}
 							}
 						}
@@ -230,10 +240,6 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 					if (isBulkChangeWorthyEvent(event)) {
 						pendingBulkChangeWorthyEvents--;
 					}
-					if (event.getEventType() == EventType.THING_ADDED) {
-						IThing thing = event.getTargetThing();
-						thingMinimumModCount.put(thing.getUID(), thing.getModCount());
-					}
 					eventQueue.notifyAll();
 				}
 				if (event.getStreamNotification() instanceof RunnableStreamNotification) {
@@ -244,7 +250,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 					throw new IllegalArgumentException("BulkChangeBegin should be handled in process(...).");
 				}
 				else if (event.getEventType() == EventType.BULK_CHANGE_END) {
-					// process these later..., we don't want to send them out
+					// process these later..., we don't want to send them out yet
 				}
 				else {
 					if (!firedBulkChangeBegin) {
@@ -252,15 +258,27 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 								.create(DefaultBNAModel.this, EventType.BULK_CHANGE_BEGIN, event));
 						firedBulkChangeBegin = true;
 					}
-					fireBNAModelEvent(event);
+					if (event.getEventType() == EventType.THING_ADDED) {
+						// process these later..., we don't want to send them out yet
+					}
+					else {
+						fireBNAModelEvent(event);
+					}
 				}
 				if (firedBulkChangeBegin && bulkChangeCount == 0 && pendingBulkChangeWorthyEvents == 0) {
-					fireBNAModelEvent(FLUSH_BULK_CHANGE_END);
+					for (BNAModelEvent addEvent : SystemUtils.getAndClear(pendingThingAdds)) {
+						fireBNAModelEvent(addEvent);
+						IThing thing = addEvent.getTargetThing();
+						thingMinimumModCount.put(thing.getUID(), thing.getModCount());
+					}
 					if (pendingBulkChangeWorthyEvents == 0) {
-						firedBulkChangeBegin = false;
-						fireBNAModelEvent(BULK_CHANGE_END);
-						synchronized (eventQueue) {
-							eventQueue.notifyAll();
+						fireBNAModelEvent(FLUSH_BULK_CHANGE_END);
+						if (pendingBulkChangeWorthyEvents == 0) {
+							firedBulkChangeBegin = false;
+							fireBNAModelEvent(BULK_CHANGE_END);
+							synchronized (eventQueue) {
+								eventQueue.notifyAll();
+							}
 						}
 					}
 				}
@@ -268,6 +286,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		}
 
 		private void fireBNAModelEvent(final BNAModelEvent event) {
+			eventsFiredStats++;
 			final AtomicInteger activeThreadCount = new AtomicInteger();
 			for (final IPrivilegedBNAModelListener l : privilegedListeners) {
 				activeThreadCount.incrementAndGet();
@@ -284,7 +303,9 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 						finally {
 							if (PROFILE) {
 								time = System.nanoTime() - time;
-								profileStats.getUnchecked(l).addAndGet(time);
+								synchronized (profileStats) {
+									profileStats.getUnchecked(l).addAndGet(time);
+								}
 							}
 							activeThreadCount.decrementAndGet();
 							synchronized (activeThreadCount) {

@@ -26,9 +26,9 @@ import com.google.common.collect.Maps;
 
 public class DefaultThingLogicManager implements IThingLogicManager {
 
-	public boolean DEBUG = true;
-	protected final LoadingCache<Object, AtomicLong> debugStats = !DEBUG ? null : CacheBuilder.newBuilder().weakKeys()
-			.build(new CacheLoader<Object, AtomicLong>() {
+	public boolean PROFILE = false;
+	protected final LoadingCache<Object, AtomicLong> profileStats = !PROFILE ? null : CacheBuilder.newBuilder()
+			.weakKeys().build(new CacheLoader<Object, AtomicLong>() {
 
 				@Override
 				public AtomicLong load(Object input) {
@@ -96,9 +96,9 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 		l.init();
 		logics.add(l);
 		typedLogics.put(l.getClass(), l);
-		if (DEBUG) {
+		if (PROFILE) {
 			time = System.nanoTime() - time;
-			debugStats.getUnchecked(l).addAndGet(time);
+			profileStats.getUnchecked(l).addAndGet(time);
 		}
 		fireThingLogicManagerEvent(EventType.LOGIC_ADDED, l);
 
@@ -112,9 +112,9 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 		logics.remove(tl);
 		typedLogics.remove(tl.getClass());
 		tl.dispose();
-		if (DEBUG) {
+		if (PROFILE) {
 			time = System.nanoTime() - time;
-			debugStats.getUnchecked(tl).addAndGet(time);
+			profileStats.getUnchecked(tl).addAndGet(time);
 		}
 		fireThingLogicManagerEvent(EventType.LOGIC_REMOVED, tl);
 	}
@@ -136,6 +136,18 @@ public class DefaultThingLogicManager implements IThingLogicManager {
 
 	@Override
 	synchronized public void dispose() {
+		if (PROFILE) {
+			synchronized (System.err) {
+				System.err.println("Profile information for: " + this.getClass());
+				for (IThingLogic logic : logics) {
+					System.err.println(logic);
+				}
+				for (java.util.Map.Entry<Object, AtomicLong> entry : SystemUtils.sortedByValue(profileStats.asMap()
+						.entrySet())) {
+					System.err.println(entry.getValue() + "\t" + entry.getKey());
+				}
+			}
+		}
 		// perform removals in reverse order since latter logics often depend on former logics
 		for (IThingLogic logic : Lists.newArrayList(Lists.reverse(logics))) {
 			removeThingLogic(logic);

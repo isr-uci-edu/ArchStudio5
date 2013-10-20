@@ -34,10 +34,9 @@ public class MirrorValueLogic extends AbstractCoordinatingThingLogic implements 
 		public void update() {
 			IThing fromThing = model.getThing(fromThingID);
 			if (fromThing != null) {
-				FV value = fromThing.get(fromKey);
 				IThing toThing = model.getThing(toThingID);
 				if (toThing != null) {
-					toThing.set(toKey, transformFunction.apply(value));
+					toThing.set(toKey, transformFunction.apply(fromThing.get(fromKey)));
 				}
 			}
 		}
@@ -67,7 +66,6 @@ public class MirrorValueLogic extends AbstractCoordinatingThingLogic implements 
 		register(updater, toThing, toKey);
 
 		track(updater, fromThing, fromKey);
-		track(updater, toThing, toKey);
 	}
 
 	synchronized public void unmirror(IThing toThing, IThingKey<?> toKey) {

@@ -2,60 +2,59 @@ package org.archstudio.bna.utils;
 
 import org.eclipse.swt.widgets.Widget;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+
 public class BNARenderingSettings {
+
+	private static class RenderSettings {
+		boolean antialiasText = true;
+		boolean antialiasGraphics = true;
+		boolean decorativeGraphics = true;
+		boolean displayShadows = true;
+	}
+
+	private static LoadingCache<Widget, RenderSettings> renderSettings = CacheBuilder.newBuilder().weakKeys()
+			.build(new CacheLoader<Widget, RenderSettings>() {
+				@Override
+				public RenderSettings load(Widget key) throws Exception {
+					return new RenderSettings();
+				};
+			});
+
 	private BNARenderingSettings() {
 	}
 
-	public static final String SETTING_ANTIALIAS_TEXT = "antialiasText";
-	public static final String SETTING_ANTIALIAS_GRAPHICS = "antialiasGraphics";
-	public static final String SETTING_DECORATIVE_GRAPHICS = "decorativeGraphics";
-	public static final String SETTING_DISPLAY_SHADOWS = "displayShadows";
-
 	public static boolean getAntialiasText(Widget c) {
-		Object o = c.getData(SETTING_ANTIALIAS_TEXT);
-		if (o != null && o instanceof Boolean) {
-			return ((Boolean) o).booleanValue();
-		}
-		return false;
+		return renderSettings.getUnchecked(c).antialiasText;
 	}
 
 	public static boolean getAntialiasGraphics(Widget c) {
-		Object o = c.getData(SETTING_ANTIALIAS_GRAPHICS);
-		if (o != null && o instanceof Boolean) {
-			return ((Boolean) o).booleanValue();
-		}
-		return false;
+		return renderSettings.getUnchecked(c).antialiasGraphics;
 	}
 
 	public static boolean getDecorativeGraphics(Widget c) {
-		Object o = c.getData(SETTING_DECORATIVE_GRAPHICS);
-		if (o != null && o instanceof Boolean) {
-			return ((Boolean) o).booleanValue();
-		}
-		return false;
+		return renderSettings.getUnchecked(c).decorativeGraphics;
 	}
 
 	public static boolean getDisplayShadows(Widget c) {
-		Object o = c.getData(SETTING_DISPLAY_SHADOWS);
-		if (o != null && o instanceof Boolean) {
-			return ((Boolean) o).booleanValue();
-		}
-		return false;
+		return renderSettings.getUnchecked(c).displayShadows;
 	}
 
 	public static void setAntialiasText(Widget c, boolean antialiasText) {
-		c.setData(SETTING_ANTIALIAS_TEXT, antialiasText);
+		renderSettings.getUnchecked(c).antialiasText = antialiasText;
 	}
 
 	public static void setAntialiasGraphics(Widget c, boolean antialiasGraphics) {
-		c.setData(SETTING_ANTIALIAS_GRAPHICS, antialiasGraphics);
+		renderSettings.getUnchecked(c).antialiasGraphics = antialiasGraphics;
 	}
 
 	public static void setDecorativeGraphics(Widget c, boolean decorativeGraphics) {
-		c.setData(SETTING_DECORATIVE_GRAPHICS, decorativeGraphics);
+		renderSettings.getUnchecked(c).decorativeGraphics = decorativeGraphics;
 	}
 
-	public static void setDisplayShadows(Widget c, boolean showShadows) {
-		c.setData(SETTING_DISPLAY_SHADOWS, showShadows);
+	public static void setDisplayShadows(Widget c, boolean displayShadows) {
+		renderSettings.getUnchecked(c).displayShadows = displayShadows;
 	}
 }

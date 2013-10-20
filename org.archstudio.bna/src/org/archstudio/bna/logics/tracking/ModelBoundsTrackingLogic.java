@@ -40,11 +40,13 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IPri
 		}
 			break;
 		case THING_CHANGED: {
-			ThingEvent thingEvent = evt.getThingEvent();
-			IThing thing = evt.getTargetThing();
-			if (thing instanceof IHasShapeKeys) {
-				if (((IHasShapeKeys) thing).getShapeModifyingKeys().contains(thingEvent.getPropertyName())) {
-					cachedBounds = null;
+			if (cachedBounds != null) {
+				ThingEvent thingEvent = evt.getThingEvent();
+				IThing thing = evt.getTargetThing();
+				if (thing instanceof IHasShapeKeys) {
+					if (((IHasShapeKeys) thing).getShapeModifyingKeys().contains(thingEvent.getPropertyName())) {
+						cachedBounds = null;
+					}
 				}
 			}
 		}

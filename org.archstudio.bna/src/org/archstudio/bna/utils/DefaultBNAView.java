@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.BNAModelEvent.EventType;
@@ -28,6 +29,15 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 
 public class DefaultBNAView implements IBNAView, IBNAModelListener {
+
+	public boolean PROFILE = false;
+	protected static final LoadingCache<Object, AtomicLong> profileStats = CacheBuilder.newBuilder().weakKeys()
+			.build(new CacheLoader<Object, AtomicLong>() {
+				@Override
+				public AtomicLong load(Object input) {
+					return new AtomicLong();
+				}
+			});
 
 	private static final LoadingCache<Class<? extends IThingPeer<?>>, Constructor<?>> constructorsCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<Class<? extends IThingPeer<?>>, Constructor<?>>() {
@@ -76,6 +86,12 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 			}
 		}
 		peers.clear();
+		if (PROFILE) {
+			for (java.util.Map.Entry<Object, AtomicLong> entry : SystemUtils.sortedByValue(profileStats.asMap()
+					.entrySet())) {
+				System.err.println(entry.getValue() + "\t" + entry.getKey());
+			}
+		}
 	}
 
 	@Override
@@ -123,7 +139,14 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 				continue;
 			}
 			try {
-				if (getThingPeer(t).isInThing(location)) {
+				IThingPeer<?> tp = getThingPeer(t);
+				long time = System.nanoTime();
+				boolean isInThing = tp.isInThing(location);
+				if (PROFILE) {
+					time = System.nanoTime() - time;
+					profileStats.get(tp.getClass()).addAndGet(time);
+				}
+				if (isInThing) {
 					things.add(t);
 				}
 			}
