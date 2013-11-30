@@ -5,9 +5,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.archstudio.prolog.engine.MostGeneralUnifierEngine;
+import org.archstudio.prolog.engine.PrologUtils;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
-import org.archstudio.prolog.op.Executable;
 import org.archstudio.prolog.parser.ParseException;
 import org.archstudio.prolog.parser.PrologParser;
 import org.archstudio.prolog.term.ComplexTerm;
@@ -50,9 +50,9 @@ public class ProofTest {
 
 	protected Set<Map<VariableTerm, Term>> run(String statement) throws ParseException {
 		Set<Map<VariableTerm, Term>> results = Sets.newHashSet();
-		for (Term t : PrologParser.parseTerms(proofContext, statement)) {
-			for (Map<VariableTerm, Term> v : ((Executable) t).execute(proofContext, unificationEngine, t,
-					Maps.<VariableTerm, Term> newHashMap())) {
+		ProofContext clonedContext = proofContext.clone();
+		for (Term t : PrologParser.parseTerms(clonedContext, statement)) {
+			for (Map<VariableTerm, Term> v : PrologUtils.execute(clonedContext, unificationEngine, t)) {
 				results.add(v);
 			}
 		}
@@ -253,6 +253,13 @@ public class ProofTest {
 			expected.add(new Variables().add(Y, c).done());
 			Assert.assertEquals(expected, run("dog(X), false -> Y=b ; Y=c."));
 		}
+	}
+
+	@Test
+	public void testSoftCut() throws ParseException {
+		proofContext.add(parse("dog(a)."));
+		proofContext.add(parse("dog(b)."));
+		proofContext.add(parse("dog(c)."));
 		{
 			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
 			expected.add(new Variables().add(X, a).add(Y, b).done());
@@ -307,30 +314,78 @@ public class ProofTest {
 		proofContext.add(parse("studies(angus, english)."));
 		proofContext.add(parse("studies(amelia, drama)."));
 		proofContext.add(parse("studies(alex, physics)."));
-		//FIXME: removed until implemented
-		//{
-		//	Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
-		//	expected.add(new Variables().add(Course, english).add(Student, alice).done());
-		//	expected.add(new Variables().add(Course, english).add(Student, angus).done());
-		//	expected.add(new Variables().add(Course, drama).add(Student, amelia).done());
-		//	Assert.assertEquals(expected, run("teaches(dr_fred, Course), studies(Student, Course)."));
-		//}
-		//{
-		//	Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
-		//	expected.add(new Variables().add(Course, english).add(Student, alice).done());
-		//	expected.add(new Variables().add(Course, english).add(Student, angus).done());
-		//	expected.add(new Variables().add(Course, drama).add(Student, amelia).done());
-		//	Assert.assertEquals(expected, run("!, teaches(dr_fred, Course), studies(Student, Course)."));
-		//}
-		//{
-		//	Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
-		//	Assert.assertEquals(expected, run("teaches(dr_fred, Course), !, studies(Student, Course)."));
-		//}
-		//{
-		//	Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
-		//	expected.add(new Variables().add(Course, english).add(Student, alice).done());
-		//	Assert.assertEquals(expected, run("teaches(dr_fred, Course), studies(Student, Course), !."));
-		//}
+
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Course, english).add(Student, alice).done());
+			expected.add(new Variables().add(Course, english).add(Student, angus).done());
+			expected.add(new Variables().add(Course, drama).add(Student, amelia).done());
+			Assert.assertEquals(expected, run("teaches(dr_fred, Course), studies(Student, Course)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Course, english).add(Student, alice).done());
+			expected.add(new Variables().add(Course, english).add(Student, angus).done());
+			expected.add(new Variables().add(Course, drama).add(Student, amelia).done());
+			Assert.assertEquals(expected, run("!, teaches(dr_fred, Course), studies(Student, Course)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			Assert.assertEquals(expected, run("teaches(dr_fred, Course), !, studies(Student, Course)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(Course, english).add(Student, alice).done());
+			Assert.assertEquals(expected, run("teaches(dr_fred, Course), studies(Student, Course), !."));
+		}
+
+		proofContext.add(parse("max(X, Y, Y) :- X =< Y, !."));
+		proofContext.add(parse("max(X, Y, X)."));
+
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, b2).done());
+			Assert.assertEquals(expected, run("max(1, 2, X)."));
+			Assert.assertEquals(expected, run("max(2, 1, X)."));
+		}
+
+		ConstantTerm invalid_pension = new ConstantTerm("invalid_pension");
+		ConstantTerm old_age_pension = new ConstantTerm("old_age_pension");
+		ConstantTerm supplementary_benefit = new ConstantTerm("supplementary_benefit");
+		ConstantTerm nothing = new ConstantTerm("nothing");
+
+		proofContext.add(parse("pension(X, invalid_pension) :- invalid(X), !."));
+		proofContext.add(parse("pension(X, old_age_pension) :- over_65(X), paid_up(X), !."));
+		proofContext.add(parse("pension(X, supplementary_benefit) :- over_65(X), !."));
+		proofContext.add(parse("pension(_, nothing)."));
+
+		proofContext.add(parse("invalid(fred)."));
+		proofContext.add(parse("over_65(fred)."));
+		proofContext.add(parse("over_65(joe)."));
+		proofContext.add(parse("over_65(jim)."));
+		proofContext.add(parse("paid_up(fred)."));
+		proofContext.add(parse("paid_up(joe)."));
+
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, invalid_pension).done());
+			Assert.assertEquals(expected, run("pension(fred, X)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, old_age_pension).done());
+			Assert.assertEquals(expected, run("pension(joe, X)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, supplementary_benefit).done());
+			Assert.assertEquals(expected, run("pension(jim, X)."));
+		}
+		{
+			Set<Map<VariableTerm, Term>> expected = Sets.newHashSet();
+			expected.add(new Variables().add(X, nothing).done());
+			Assert.assertEquals(expected, run("pension(sally, X)."));
+		}
 	}
 
 	@Test

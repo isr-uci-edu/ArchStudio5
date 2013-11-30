@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.archstudio.prolog.engine.MostGeneralUnifierEngine;
+import org.archstudio.prolog.engine.PrologUtils;
 import org.archstudio.prolog.engine.ProofContext;
 import org.archstudio.prolog.engine.UnificationEngine;
 import org.archstudio.prolog.op.Executable;
@@ -39,7 +40,6 @@ import org.eclipse.ui.part.IPageBookViewPage;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class PrologConsoleFactory implements IConsoleFactory {
 
@@ -55,7 +55,7 @@ public class PrologConsoleFactory implements IConsoleFactory {
 
 		@Override
 		public void run() {
-			((ProofContext) ((IOConsole) console).getAttribute(ProofContext.class.getName())).setCancelled(true);
+			((ProofContext) ((IOConsole) console).getAttribute(ProofContext.class.getName())).cancel();
 		}
 	}
 
@@ -162,7 +162,7 @@ public class PrologConsoleFactory implements IConsoleFactory {
 								}
 							}
 
-							proofContext.setCancelled(false);
+							proofContext.reset();
 							for (Term t : PrologParser.parseTerms(proofContext, command)) {
 								if (!(t instanceof Executable)) {
 									errpw.println("Not executable: ?- " + command);
@@ -170,8 +170,8 @@ public class PrologConsoleFactory implements IConsoleFactory {
 								}
 								int count = 1;
 								boolean firstResult = true;
-								for (Map<VariableTerm, Term> result : ((Executable) t).execute(proofContext,
-										unificationEngine, t, Maps.<VariableTerm, Term> newHashMap())) {
+								for (Map<VariableTerm, Term> result : PrologUtils.execute(proofContext,
+										unificationEngine, t)) {
 									if (!firstResult) {
 										outpw.println(";");
 									}
@@ -227,7 +227,7 @@ public class PrologConsoleFactory implements IConsoleFactory {
 								}
 							}
 
-							proofContext.setCancelled(false);
+							proofContext.reset();
 							for (Term t : PrologParser.parseTerms(proofContext, command)) {
 								if (!(t instanceof ComplexTerm || t instanceof Neck)) {
 									errpw.println("Expecting a complex term or rule: " + command);

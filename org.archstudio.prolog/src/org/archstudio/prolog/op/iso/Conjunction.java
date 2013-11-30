@@ -1,6 +1,5 @@
 package org.archstudio.prolog.op.iso;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +21,10 @@ public class Conjunction extends ComplexTerm implements Executable {
 	}
 
 	@Override
-	public Iterable<Map<VariableTerm, Term>> execute(final ProofContext proofContext,
+	public Iterable<Map<VariableTerm, Term>> execute(final ProofContext t0ProofContext,
 			final UnificationEngine unificationEngine, Term source, final Map<VariableTerm, Term> variables) {
 
-		final Executable term0 = PrologUtils.resolveExecutable(proofContext, getTerm(0), variables);
+		final Executable t0 = PrologUtils.resolveExecutable(t0ProofContext, getTerm(0), variables);
 
 		return new Iterable<Map<VariableTerm, Term>>() {
 
@@ -34,31 +33,30 @@ public class Conjunction extends ComplexTerm implements Executable {
 
 				return new AbstractIterator<Map<VariableTerm, Term>>() {
 
-					Iterator<Map<VariableTerm, Term>> term0Variables = term0.execute(proofContext, unificationEngine,
-							term0, variables).iterator();
-					Iterator<Map<VariableTerm, Term>> term1Variables = Collections
-							.<Map<VariableTerm, Term>> emptyList().iterator();
+					Iterator<Map<VariableTerm, Term>> t0Variables = t0.execute(t0ProofContext, unificationEngine, t0,
+							variables).iterator();
+					Iterator<Map<VariableTerm, Term>> t1Variables = PrologUtils.emptyVariablesList().iterator();
+
+					// if term0 is the cut operator, then create a new cut context for term1
+					ProofContext t1ProofContext = t0 instanceof Cut ? new ProofContext(t0ProofContext) : t0ProofContext;
 
 					@Override
 					protected Map<VariableTerm, Term> computeNext() {
-						if (proofContext.isCancelled()) {
-							return endOfData();
-						}
-						if (!term1Variables.hasNext()) {
-							while (term0Variables.hasNext()) {
-								Map<VariableTerm, Term> variables = term0Variables.next();
-								Executable term1 = PrologUtils.resolveExecutable(proofContext, getTerm(1), variables);
-								term1Variables = term1.execute(proofContext, unificationEngine, term1, variables)
-										.iterator();
-								if (term1Variables.hasNext()) {
-									break;
-								}
-							}
-							if (!term1Variables.hasNext()) {
+						while (true) {
+							if (t0ProofContext.isCancelled()) {
 								return endOfData();
 							}
+							if (t1Variables.hasNext()) {
+								return t1Variables.next();
+							}
+							if (t0Variables.hasNext()) {
+								Map<VariableTerm, Term> variables = t0Variables.next();
+								Executable t1 = PrologUtils.resolveExecutable(t1ProofContext, getTerm(1), variables);
+								t1Variables = t1.execute(t1ProofContext, unificationEngine, t1, variables).iterator();
+								continue;
+							}
+							return endOfData();
 						}
-						return term1Variables.next();
 					}
 				};
 			}

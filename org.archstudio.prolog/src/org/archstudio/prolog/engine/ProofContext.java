@@ -15,6 +15,7 @@ import org.archstudio.prolog.op.iso.AlphaLessThan;
 import org.archstudio.prolog.op.iso.AlphaLessThanEqual;
 import org.archstudio.prolog.op.iso.BagOf;
 import org.archstudio.prolog.op.iso.Conjunction;
+import org.archstudio.prolog.op.iso.Cut;
 import org.archstudio.prolog.op.iso.Disjunction;
 import org.archstudio.prolog.op.iso.Equals;
 import org.archstudio.prolog.op.iso.False;
@@ -81,6 +82,7 @@ public class ProofContext implements Cloneable {
 		operations.put("@</2", AlphaLessThan.class);
 		operations.put("@=</2", AlphaLessThanEqual.class);
 		operations.put(",/2", Conjunction.class);
+		operations.put("!/0", Cut.class);
 		operations.put(";/2", Disjunction.class);
 		operations.put("==/2", Equals.class);
 		operations.put("->/2", IfThen.class);
@@ -146,33 +148,48 @@ public class ProofContext implements Cloneable {
 			}
 		}
 	}
-	private final ListMultimap<Signature, ComplexTerm> knowledgeBase = ArrayListMultimap.create();
-	private final Map<Signature, ListMultimap<Object, ComplexTerm>[]> valueBasedKnowledgeBase = Maps.newHashMap();
-	private final LoadingCache<Signature, Map<ComplexTerm, Integer>> knowledgeBaseIndeces = CacheBuilder.newBuilder()
-			.build(new CacheLoader<Signature, Map<ComplexTerm, Integer>>() {
-				@Override
-				public Map<ComplexTerm, Integer> load(Signature key) throws Exception {
-					Map<ComplexTerm, Integer> indeces = Maps.newHashMap();
-					List<ComplexTerm> terms = knowledgeBase.get(key);
-					for (int i = 0; i < terms.size(); i++) {
-						indeces.put(terms.get(i), i);
-					}
-					return indeces;
-				}
-			});
 
-	private BufferedWriter output = new BufferedWriter(new OutputStreamWriter(System.out));
-	private boolean cancelled = false;
+	private static class BaseContext {
+		ListMultimap<Signature, ComplexTerm> knowledgeBase = ArrayListMultimap.create();
+		Map<Signature, ListMultimap<Object, ComplexTerm>[]> valueBasedKnowledgeBase = Maps.newHashMap();
+		LoadingCache<Signature, Map<ComplexTerm, Integer>> knowledgeBaseIndeces = CacheBuilder.newBuilder().build(
+				new CacheLoader<Signature, Map<ComplexTerm, Integer>>() {
+					@Override
+					public Map<ComplexTerm, Integer> load(Signature key) throws Exception {
+						Map<ComplexTerm, Integer> indeces = Maps.newHashMap();
+						List<ComplexTerm> terms = knowledgeBase.get(key);
+						for (int i = 0; i < terms.size(); i++) {
+							indeces.put(terms.get(i), i);
+						}
+						return indeces;
+					}
+				});
+		BufferedWriter output = new BufferedWriter(new OutputStreamWriter(System.out));
+		boolean cancelled = false;
+	}
+
+	private final ProofContext parentContext;
+	private final BaseContext baseContext;
+	private boolean cut = false;
 
 	public ProofContext() {
+		parentContext = null;
+		baseContext = new BaseContext();
 	}
 
-	public ProofContext(Iterable<ComplexTerm> knowledgeBase) {
-		add(knowledgeBase);
+	public ProofContext(ProofContext parentContext) {
+		this.parentContext = parentContext;
+		baseContext = parentContext.baseContext;
 	}
 
-	public ProofContext(ProofContext toCopy) {
-		add(toCopy.knowledgeBase.values());
+	@Override
+	public ProofContext clone() {
+		try {
+			return (ProofContext) super.clone();
+		}
+		catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void add(Iterable<ComplexTerm> terms) {
@@ -190,10 +207,10 @@ public class ProofContext implements Cloneable {
 		if (term instanceof Neck) {
 			head = (ComplexTerm) ((Neck) term).getTerm(0);
 		}
-		add(knowledgeBase.get(head.getSignature()), term, atEnd);
-		ListMultimap<Object, ComplexTerm>[] indexes = valueBasedKnowledgeBase.get(head.getSignature());
+		add(baseContext.knowledgeBase.get(head.getSignature()), term, atEnd);
+		ListMultimap<Object, ComplexTerm>[] indexes = baseContext.valueBasedKnowledgeBase.get(head.getSignature());
 		if (indexes == null) {
-			valueBasedKnowledgeBase.put(head.getSignature(), indexes = new ListMultimap[head.getArity()]);
+			baseContext.valueBasedKnowledgeBase.put(head.getSignature(), indexes = new ListMultimap[head.getArity()]);
 			for (int j = 0; j < head.getArity(); j++) {
 				indexes[j] = ArrayListMultimap.create();
 			}
@@ -202,7 +219,7 @@ public class ProofContext implements Cloneable {
 			ListMultimap<Object, ComplexTerm> index = indexes[termIndex];
 			add(index.get(head.getTerm(termIndex)), term, atEnd);
 		}
-		knowledgeBaseIndeces.invalidate(term.getSignature());
+		baseContext.knowledgeBaseIndeces.invalidate(term.getSignature());
 	}
 
 	private void add(List<ComplexTerm> list, ComplexTerm term, boolean atEnd) {
@@ -215,15 +232,16 @@ public class ProofContext implements Cloneable {
 	}
 
 	public List<ComplexTerm> getKnowledgeBaseTerms(ComplexTerm goal, Map<VariableTerm, Term> variables) {
-		if (!knowledgeBase.containsKey(goal.getSignature())) {
+		if (!baseContext.knowledgeBase.containsKey(goal.getSignature())) {
 			throw new IllegalArgumentException("Unrecognized signature: " + goal.getSignature());
 		}
-		List<ComplexTerm> result = knowledgeBase.get(goal.getSignature());
+		List<ComplexTerm> result = baseContext.knowledgeBase.get(goal.getSignature());
 		for (int termIndex = 0; termIndex < goal.getArity(); termIndex++) {
 			if (goal.getTerm(termIndex) instanceof VariableTerm) {
 				if (variables.containsKey(goal.getTerm(termIndex))) {
 					Object value = variables.get(goal.getTerm(termIndex));
-					ListMultimap<Object, ComplexTerm>[] v = valueBasedKnowledgeBase.get(goal.getSignature());
+					ListMultimap<Object, ComplexTerm>[] v = baseContext.valueBasedKnowledgeBase
+							.get(goal.getSignature());
 					if (v != null) {
 						List<ComplexTerm> t = v[termIndex].get(value);
 						if (t != null) {
@@ -237,7 +255,7 @@ public class ProofContext implements Cloneable {
 			}
 			else {
 				Object value = goal.getTerm(termIndex);
-				ListMultimap<Object, ComplexTerm>[] v = valueBasedKnowledgeBase.get(goal.getSignature());
+				ListMultimap<Object, ComplexTerm>[] v = baseContext.valueBasedKnowledgeBase.get(goal.getSignature());
 				if (v != null) {
 					List<ComplexTerm> t = (List<ComplexTerm>) v[termIndex].asMap().get(value);
 					if (t != null) {
@@ -253,7 +271,7 @@ public class ProofContext implements Cloneable {
 	}
 
 	public Integer getIndex(ComplexTerm complexTerm) {
-		return knowledgeBaseIndeces.getUnchecked(complexTerm.getSignature()).get(complexTerm);
+		return baseContext.knowledgeBaseIndeces.getUnchecked(complexTerm.getSignature()).get(complexTerm);
 	}
 
 	public Term create(String name, List<Term> terms) {
@@ -281,18 +299,35 @@ public class ProofContext implements Cloneable {
 	}
 
 	public BufferedWriter getOutput() {
-		return output;
+		return baseContext.output;
 	}
 
 	public void setOutput(BufferedWriter output) {
-		this.output = output;
+		baseContext.output = output;
 	}
 
 	public boolean isCancelled() {
-		return cancelled;
+		return baseContext.cancelled;
 	}
 
-	public void setCancelled(boolean cancelled) {
-		this.cancelled = cancelled;
+	public void cancel() {
+		baseContext.cancelled = true;
 	}
+
+	public boolean isCut() {
+		return cut;
+	}
+
+	public void cut() {
+		cut = true;
+		if (parentContext != null) {
+			parentContext.cut();
+		}
+	}
+
+	public void reset() {
+		baseContext.cancelled = false;
+		cut = false;
+	}
+
 }

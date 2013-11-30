@@ -137,10 +137,10 @@ public class ComplexTerm extends AbstractTerm implements Term, Executable {
 							if (proofContext.isCancelled()) {
 								return endOfData();
 							}
-							if (variablesIterator.hasNext()) {
+							if (!proofContext.isCut() && variablesIterator.hasNext()) {
 								return variablesIterator.next();
 							}
-							if (kbIndex < kbTerms.size()) {
+							if (!proofContext.isCut() && kbIndex < kbTerms.size()) {
 								ComplexTerm kbTerm = kbTerms.get(kbIndex++);
 								if (kbTerm instanceof Neck) {
 									variablesIterator = ((Neck) kbTerm).execute(proofContext, unificationEngine,

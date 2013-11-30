@@ -29,7 +29,7 @@ public class PrologUtils {
 
 	public static final Set<VariableTerm> extractVariables(Set<VariableTerm> variables, Term term) {
 		if (term instanceof VariableTerm) {
-			if (!"_".equals(((VariableTerm) term).getName())) {
+			if (!DONT_CARE_VARIABLE.equals(((VariableTerm) term).getName())) {
 				variables.add((VariableTerm) term);
 			}
 		}
@@ -121,5 +121,16 @@ public class PrologUtils {
 
 	public static final VariableTerm getTemporaryVariableTerm() {
 		return new VariableTerm("_G" + temporaryVarialeCounter.incrementAndGet());
+	}
+
+	public static Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext,
+			UnificationEngine unificationEngine, Term t) {
+		return execute(proofContext, unificationEngine, t, Collections.<VariableTerm, Term> emptyMap());
+	}
+
+	public static Iterable<Map<VariableTerm, Term>> execute(ProofContext proofContext,
+			UnificationEngine unificationEngine, Term t, Map<VariableTerm, Term> variables) {
+		proofContext.reset();
+		return resolveExecutable(proofContext, t, variables).execute(proofContext, unificationEngine, t, variables);
 	}
 }

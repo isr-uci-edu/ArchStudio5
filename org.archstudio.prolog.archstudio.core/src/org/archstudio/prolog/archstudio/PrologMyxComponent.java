@@ -1,7 +1,6 @@
 package org.archstudio.prolog.archstudio;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -125,13 +124,13 @@ public class PrologMyxComponent extends org.archstudio.prolog.archstudio.PrologM
 				for (String uid : testUIDs) {
 					TestData td = testData.get(uid);
 					if (td != null) {
-						ProofContext context = new ProofContext(proofContext);
+						ProofContext context = proofContext.clone();
 						context.add(Iterables.filter(PrologParser.parseTerms(context, td.prolog), ComplexTerm.class));
 						VariableTerm vid = new VariableTerm("ARCHLIGHT_FAILURE_ID");
 						VariableTerm vdesc = new VariableTerm("ARCHLIGHT_FAILURE_DESCRIPTION");
 						ComplexTerm goal = new ComplexTerm("error", Lists.newArrayList(vid, vdesc));
-						for (Map<VariableTerm, Term> variables : goal.execute(context, unifier, goal,
-								Collections.<VariableTerm, Term> emptyMap())) {
+						for (Map<VariableTerm, Term> variables : org.archstudio.prolog.engine.PrologUtils.execute(
+								context, unifier, goal)) {
 
 							Term idTerm = variables.get(vid);
 							String id = ((ConstantTerm) idTerm).getValue().toString();
