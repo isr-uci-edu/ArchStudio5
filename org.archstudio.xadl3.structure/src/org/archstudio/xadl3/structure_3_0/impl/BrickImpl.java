@@ -8,6 +8,7 @@ import org.archstudio.xadl3.structure_3_0.Brick;
 import org.archstudio.xadl3.structure_3_0.Interface;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xadl3.structure_3_0.SubStructure;
+import org.archstudio.xadl3.xadlcore_3_0.Extension;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -25,6 +26,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.BrickImpl#getInterface <em>Interface</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.BrickImpl#getSubStructure <em>Sub Structure</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.impl.BrickImpl#getExt <em>Ext</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.BrickImpl#getId <em>Id</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.impl.BrickImpl#getName <em>Name</em>}</li>
  * </ul>
@@ -52,6 +54,16 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 	 * @ordered
 	 */
 	protected SubStructure subStructure;
+
+	/**
+	 * The cached value of the '{@link #getExt() <em>Ext</em>}' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @see #getExt()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Extension> ext;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -189,6 +201,19 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	@Override
+	public EList<Extension> getExt() {
+		if (ext == null) {
+			ext = new EObjectContainmentEList<Extension>(Extension.class, this, Structure_3_0Package.BRICK__EXT);
+		}
+		return ext;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -243,6 +268,8 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 			return ((InternalEList<?>) getInterface()).basicRemove(otherEnd, msgs);
 		case Structure_3_0Package.BRICK__SUB_STRUCTURE:
 			return basicSetSubStructure(null, msgs);
+		case Structure_3_0Package.BRICK__EXT:
+			return ((InternalEList<?>) getExt()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -259,6 +286,8 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 			return getInterface();
 		case Structure_3_0Package.BRICK__SUB_STRUCTURE:
 			return getSubStructure();
+		case Structure_3_0Package.BRICK__EXT:
+			return getExt();
 		case Structure_3_0Package.BRICK__ID:
 			return getId();
 		case Structure_3_0Package.BRICK__NAME:
@@ -282,6 +311,10 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 			return;
 		case Structure_3_0Package.BRICK__SUB_STRUCTURE:
 			setSubStructure((SubStructure) newValue);
+			return;
+		case Structure_3_0Package.BRICK__EXT:
+			getExt().clear();
+			getExt().addAll((Collection<? extends Extension>) newValue);
 			return;
 		case Structure_3_0Package.BRICK__ID:
 			setId((String) newValue);
@@ -307,6 +340,9 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 		case Structure_3_0Package.BRICK__SUB_STRUCTURE:
 			setSubStructure((SubStructure) null);
 			return;
+		case Structure_3_0Package.BRICK__EXT:
+			getExt().clear();
+			return;
 		case Structure_3_0Package.BRICK__ID:
 			setId(ID_EDEFAULT);
 			return;
@@ -329,6 +365,8 @@ public abstract class BrickImpl extends MinimalEObjectImpl.Container implements 
 			return interface_ != null && !interface_.isEmpty();
 		case Structure_3_0Package.BRICK__SUB_STRUCTURE:
 			return subStructure != null;
+		case Structure_3_0Package.BRICK__EXT:
+			return ext != null && !ext.isEmpty();
 		case Structure_3_0Package.BRICK__ID:
 			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		case Structure_3_0Package.BRICK__NAME:

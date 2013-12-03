@@ -39,6 +39,8 @@ Require-Bundle: org.eclipse.ui,
  org.archstudio.xarchadt.variability,
  org.eclipse.jdt.annotation,
  org.archstudio.utils.bna.dot,
- org.archstudio.utils.bna.gexf
+ org.archstudio.utils.bna.gexf,
+ org.archstudio.archipelago.statechart.core,
+ org.archstudio.xadl3.statechart
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

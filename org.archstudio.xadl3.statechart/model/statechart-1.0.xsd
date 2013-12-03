@@ -108,4 +108,16 @@
 		<xs:attribute name="id" type="xs:ID" use="required"/>
 	</xs:complexType>
 	
+	<xs:complexType name="StatechartSpecification">
+		<xs:complexContent>
+			<xs:extension base="core:Extension">
+				<xs:sequence>
+					<xs:element name="statechart" type="xs:IDREF" ecore:reference="Statechart" />
+					<xs:element name="ext" type="core:Extension" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="id" type="xs:ID" use="required"/>
+			</xs:extension>				
+		</xs:complexContent>
+	</xs:complexType>
+
 </xs:schema>

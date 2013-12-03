@@ -10,9 +10,11 @@ import org.archstudio.xadl3.statechart_1_0.InitialState;
 import org.archstudio.xadl3.statechart_1_0.PseudoState;
 import org.archstudio.xadl3.statechart_1_0.State;
 import org.archstudio.xadl3.statechart_1_0.Statechart;
+import org.archstudio.xadl3.statechart_1_0.StatechartSpecification;
 import org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package;
 import org.archstudio.xadl3.statechart_1_0.SubStatechart;
 import org.archstudio.xadl3.statechart_1_0.Transition;
+import org.archstudio.xadl3.xadlcore_3_0.Extension;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
@@ -110,6 +112,11 @@ public class Statechart_1_0AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseStatechartSpecification(StatechartSpecification object) {
+			return createStatechartSpecificationAdapter();
+		}
+
+		@Override
 		public Adapter caseSubStatechart(SubStatechart object) {
 			return createSubStatechartAdapter();
 		}
@@ -117,6 +124,11 @@ public class Statechart_1_0AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseTransition(Transition object) {
 			return createTransitionAdapter();
+		}
+
+		@Override
+		public Adapter caseExtension(Extension object) {
+			return createExtensionAdapter();
 		}
 
 		@Override
@@ -250,6 +262,20 @@ public class Statechart_1_0AdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.archstudio.xadl3.statechart_1_0.StatechartSpecification
+	 * <em>Statechart Specification</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we
+	 * can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.archstudio.xadl3.statechart_1_0.StatechartSpecification
+	 * @generated
+	 */
+	public Adapter createStatechartSpecificationAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.archstudio.xadl3.statechart_1_0.SubStatechart
 	 * <em>Sub Statechart</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
 	 * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc
@@ -274,6 +300,20 @@ public class Statechart_1_0AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTransitionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.archstudio.xadl3.xadlcore_3_0.Extension
+	 * <em>Extension</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+	 * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc
+	 * -->
+	 * 
+	 * @return the new adapter.
+	 * @see org.archstudio.xadl3.xadlcore_3_0.Extension
+	 * @generated
+	 */
+	public Adapter createExtensionAdapter() {
 		return null;
 	}
 

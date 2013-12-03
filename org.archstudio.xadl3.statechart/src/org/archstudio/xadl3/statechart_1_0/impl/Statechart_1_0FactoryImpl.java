@@ -11,6 +11,7 @@ import org.archstudio.xadl3.statechart_1_0.PseudoState;
 import org.archstudio.xadl3.statechart_1_0.State;
 import org.archstudio.xadl3.statechart_1_0.StateType;
 import org.archstudio.xadl3.statechart_1_0.Statechart;
+import org.archstudio.xadl3.statechart_1_0.StatechartSpecification;
 import org.archstudio.xadl3.statechart_1_0.Statechart_1_0Factory;
 import org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package;
 import org.archstudio.xadl3.statechart_1_0.SubStatechart;
@@ -80,6 +81,8 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 			return createState();
 		case Statechart_1_0Package.STATECHART:
 			return createStatechart();
+		case Statechart_1_0Package.STATECHART_SPECIFICATION:
+			return createStatechartSpecification();
 		case Statechart_1_0Package.SUB_STATECHART:
 			return createSubStatechart();
 		case Statechart_1_0Package.TRANSITION:
@@ -209,6 +212,17 @@ public class Statechart_1_0FactoryImpl extends EFactoryImpl implements Statechar
 	public Statechart createStatechart() {
 		StatechartImpl statechart = new StatechartImpl();
 		return statechart;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public StatechartSpecification createStatechartSpecification() {
+		StatechartSpecificationImpl statechartSpecification = new StatechartSpecificationImpl();
+		return statechartSpecification;
 	}
 
 	/**

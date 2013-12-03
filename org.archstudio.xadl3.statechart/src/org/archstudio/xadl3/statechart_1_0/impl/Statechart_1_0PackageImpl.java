@@ -11,6 +11,7 @@ import org.archstudio.xadl3.statechart_1_0.PseudoState;
 import org.archstudio.xadl3.statechart_1_0.State;
 import org.archstudio.xadl3.statechart_1_0.StateType;
 import org.archstudio.xadl3.statechart_1_0.Statechart;
+import org.archstudio.xadl3.statechart_1_0.StatechartSpecification;
 import org.archstudio.xadl3.statechart_1_0.Statechart_1_0Factory;
 import org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package;
 import org.archstudio.xadl3.statechart_1_0.SubStatechart;
@@ -89,6 +90,13 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * @generated
 	 */
 	private EClass statechartEClass = null;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	private EClass statechartSpecificationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -502,6 +510,46 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 	 * @generated
 	 */
 	@Override
+	public EClass getStatechartSpecification() {
+		return statechartSpecificationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public EReference getStatechartSpecification_Statechart() {
+		return (EReference) statechartSpecificationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public EReference getStatechartSpecification_Ext() {
+		return (EReference) statechartSpecificationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public EAttribute getStatechartSpecification_Id() {
+		return (EAttribute) statechartSpecificationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public EClass getSubStatechart() {
 		return subStatechartEClass;
 	}
@@ -684,6 +732,11 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 		createEAttribute(statechartEClass, STATECHART__ID);
 		createEAttribute(statechartEClass, STATECHART__NAME);
 
+		statechartSpecificationEClass = createEClass(STATECHART_SPECIFICATION);
+		createEReference(statechartSpecificationEClass, STATECHART_SPECIFICATION__STATECHART);
+		createEReference(statechartSpecificationEClass, STATECHART_SPECIFICATION__EXT);
+		createEAttribute(statechartSpecificationEClass, STATECHART_SPECIFICATION__ID);
+
 		subStatechartEClass = createEClass(SUB_STATECHART);
 		createEReference(subStatechartEClass, SUB_STATECHART__INNER_STATECHART);
 		createEAttribute(subStatechartEClass, SUB_STATECHART__ID);
@@ -741,6 +794,7 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 		finalStateEClass.getESuperTypes().add(this.getPseudoState());
 		initialStateEClass.getESuperTypes().add(this.getPseudoState());
 		stateEClass.getESuperTypes().add(this.getPseudoState());
+		statechartSpecificationEClass.getESuperTypes().add(theXadlcore_3_0Package.getExtension());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(behaviorEClass, Behavior.class, "Behavior", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -820,6 +874,18 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatechart_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, Statechart.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(statechartSpecificationEClass, StatechartSpecification.class, "StatechartSpecification",
+				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getStatechartSpecification_Statechart(), this.getStatechart(), null, "statechart", null, 1, 1,
+				StatechartSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStatechartSpecification_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0,
+				-1, StatechartSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStatechartSpecification_Id(), theXMLTypePackage.getID(), "id", null, 1, 1,
+				StatechartSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(subStatechartEClass, SubStatechart.class, "SubStatechart", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -926,6 +992,14 @@ public class Statechart_1_0PackageImpl extends EPackageImpl implements Statechar
 				"##targetNamespace" });
 		addAnnotation(getStatechart_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
 				"##targetNamespace" });
+		addAnnotation(statechartSpecificationEClass, source, new String[] { "name", "StatechartSpecification", "kind",
+				"elementOnly" });
+		addAnnotation(getStatechartSpecification_Statechart(), source, new String[] { "kind", "element", "name",
+				"statechart", "namespace", "##targetNamespace" });
+		addAnnotation(getStatechartSpecification_Ext(), source, new String[] { "kind", "element", "name", "ext",
+				"namespace", "##targetNamespace" });
+		addAnnotation(getStatechartSpecification_Id(), source, new String[] { "kind", "attribute", "name", "id",
+				"namespace", "##targetNamespace" });
 		addAnnotation(stateTypeEEnum, source, new String[] { "name", "StateType" });
 		addAnnotation(stateTypeObjectEDataType, source, new String[] { "name", "StateType:Object", "baseType",
 				"StateType" });

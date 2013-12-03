@@ -224,8 +224,18 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * @generated
 	 */
 	@Override
+	public EReference getBrick_Ext() {
+		return (EReference) brickEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
 	public EAttribute getBrick_Id() {
-		return (EAttribute) brickEClass.getEStructuralFeatures().get(2);
+		return (EAttribute) brickEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -235,7 +245,7 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 */
 	@Override
 	public EAttribute getBrick_Name() {
-		return (EAttribute) brickEClass.getEStructuralFeatures().get(3);
+		return (EAttribute) brickEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -254,28 +264,8 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 	 * @generated
 	 */
 	@Override
-	public EReference getComponent_Ext() {
-		return (EReference) componentEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
 	public EClass getConnector() {
 		return connectorEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@Override
-	public EReference getConnector_Ext() {
-		return (EReference) connectorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -671,14 +661,13 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 		brickEClass = createEClass(BRICK);
 		createEReference(brickEClass, BRICK__INTERFACE);
 		createEReference(brickEClass, BRICK__SUB_STRUCTURE);
+		createEReference(brickEClass, BRICK__EXT);
 		createEAttribute(brickEClass, BRICK__ID);
 		createEAttribute(brickEClass, BRICK__NAME);
 
 		componentEClass = createEClass(COMPONENT);
-		createEReference(componentEClass, COMPONENT__EXT);
 
 		connectorEClass = createEClass(CONNECTOR);
-		createEReference(connectorEClass, CONNECTOR__EXT);
 
 		documentRootEClass = createEClass(DOCUMENT_ROOT);
 		createEAttribute(documentRootEClass, DOCUMENT_ROOT__MIXED);
@@ -752,10 +741,10 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
-				.getEPackage(XMLTypePackage.eNS_URI);
 		Xadlcore_3_0Package theXadlcore_3_0Package = (Xadlcore_3_0Package) EPackage.Registry.INSTANCE
 				.getEPackage(Xadlcore_3_0Package.eNS_URI);
+		XMLTypePackage theXMLTypePackage = (XMLTypePackage) EPackage.Registry.INSTANCE
+				.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -773,6 +762,9 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 		initEReference(getBrick_SubStructure(), this.getSubStructure(), null, "subStructure", null, 0, 1, Brick.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBrick_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1, Brick.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBrick_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Brick.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBrick_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, Brick.class, !IS_TRANSIENT,
@@ -780,15 +772,9 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 
 		initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getComponent_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1,
-				Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(connectorEClass, Connector.class, "Connector", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getConnector_Ext(), theXadlcore_3_0Package.getExtension(), null, "ext", null, 0, -1,
-				Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(documentRootEClass, DocumentRoot.class, "DocumentRoot", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -913,16 +899,14 @@ public class Structure_3_0PackageImpl extends EPackageImpl implements Structure_
 				"##targetNamespace" });
 		addAnnotation(getBrick_SubStructure(), source, new String[] { "kind", "element", "name", "subStructure",
 				"namespace", "##targetNamespace" });
+		addAnnotation(getBrick_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
+				"##targetNamespace" });
 		addAnnotation(getBrick_Id(), source, new String[] { "kind", "attribute", "name", "id", "namespace",
 				"##targetNamespace" });
 		addAnnotation(getBrick_Name(), source, new String[] { "kind", "attribute", "name", "name", "namespace",
 				"##targetNamespace" });
 		addAnnotation(componentEClass, source, new String[] { "name", "Component", "kind", "elementOnly" });
-		addAnnotation(getComponent_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
 		addAnnotation(connectorEClass, source, new String[] { "name", "Connector", "kind", "elementOnly" });
-		addAnnotation(getConnector_Ext(), source, new String[] { "kind", "element", "name", "ext", "namespace",
-				"##targetNamespace" });
 		addAnnotation(directionEEnum, source, new String[] { "name", "Direction" });
 		addAnnotation(directionObjectEDataType, source, new String[] { "name", "Direction:Object", "baseType",
 				"Direction" });

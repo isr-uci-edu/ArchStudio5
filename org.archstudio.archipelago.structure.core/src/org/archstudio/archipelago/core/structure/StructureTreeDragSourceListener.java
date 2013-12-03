@@ -7,6 +7,7 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.xadl.XadlUtils;
+import org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package;
 import org.archstudio.xadl3.structure_3_0.Structure_3_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
@@ -31,6 +32,25 @@ public class StructureTreeDragSourceListener implements DragSourceListener {
 		if (event.data != null && event.data instanceof ObjRef) {
 			if (XadlUtils.isInstanceOf(xarch, (ObjRef) event.data, Structure_3_0Package.Literals.STRUCTURE)) {
 				//For dropping structures on components & connectors; only allow if we're editing a structure.
+				BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(editor);
+				IBNAView view = bnaCanvas.getBNAView();
+				if (bnaCanvas != null) {
+					EnvironmentPropertiesThing ept = EnvironmentPropertiesThing.createIn(view.getBNAWorld());
+					String editingXArchID = ept.get(ArchipelagoUtils.XARCH_ID_KEY);
+					if (editingXArchID != null) {
+						ObjRef editingRef = xarch.getByID(documentRootRef, editingXArchID);
+						if (editingRef != null) {
+							if (XadlUtils.isInstanceOf(xarch, editingRef, Structure_3_0Package.Literals.STRUCTURE)) {
+								event.doit = true;
+							}
+						}
+					}
+				}
+			}
+		}
+		if (event.data != null && event.data instanceof ObjRef) {
+			if (XadlUtils.isInstanceOf(xarch, (ObjRef) event.data, Statechart_1_0Package.Literals.STATECHART)) {
+				//For dropping statecharts on components & connectors; only allow if we're editing a structure.
 				BNACanvas bnaCanvas = ArchipelagoUtils.getBNACanvas(editor);
 				IBNAView view = bnaCanvas.getBNAView();
 				if (bnaCanvas != null) {

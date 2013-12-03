@@ -2,6 +2,7 @@
  */
 package org.archstudio.xadl3.statechart_1_0;
 
+import org.archstudio.xadl3.xadlcore_3_0.Xadlcore_3_0Package;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -540,6 +541,59 @@ public interface Statechart_1_0Package extends EPackage {
 	int STATECHART_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartSpecificationImpl
+	 * <em>Statechart Specification</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @see org.archstudio.xadl3.statechart_1_0.impl.StatechartSpecificationImpl
+	 * @see org.archstudio.xadl3.statechart_1_0.impl.Statechart_1_0PackageImpl#getStatechartSpecification()
+	 * @generated
+	 */
+	int STATECHART_SPECIFICATION = 8;
+
+	/**
+	 * The feature id for the '<em><b>Statechart</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int STATECHART_SPECIFICATION__STATECHART = Xadlcore_3_0Package.EXTENSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int STATECHART_SPECIFICATION__EXT = Xadlcore_3_0Package.EXTENSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int STATECHART_SPECIFICATION__ID = Xadlcore_3_0Package.EXTENSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Statechart Specification</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int STATECHART_SPECIFICATION_FEATURE_COUNT = Xadlcore_3_0Package.EXTENSION_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of operations of the '<em>Statechart Specification</em>' class. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int STATECHART_SPECIFICATION_OPERATION_COUNT = Xadlcore_3_0Package.EXTENSION_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.archstudio.xadl3.statechart_1_0.impl.SubStatechartImpl
 	 * <em>Sub Statechart</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -547,7 +601,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.impl.Statechart_1_0PackageImpl#getSubStatechart()
 	 * @generated
 	 */
-	int SUB_STATECHART = 8;
+	int SUB_STATECHART = 9;
 
 	/**
 	 * The feature id for the '<em><b>Inner Statechart</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc
@@ -591,7 +645,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.impl.Statechart_1_0PackageImpl#getTransition()
 	 * @generated
 	 */
-	int TRANSITION = 9;
+	int TRANSITION = 10;
 
 	/**
 	 * The feature id for the '<em><b>From</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -668,7 +722,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.impl.Statechart_1_0PackageImpl#getStateType()
 	 * @generated
 	 */
-	int STATE_TYPE = 10;
+	int STATE_TYPE = 11;
 
 	/**
 	 * The meta object id for the '<em>State Type Object</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -677,7 +731,7 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @see org.archstudio.xadl3.statechart_1_0.impl.Statechart_1_0PackageImpl#getStateTypeObject()
 	 * @generated
 	 */
-	int STATE_TYPE_OBJECT = 11;
+	int STATE_TYPE_OBJECT = 12;
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.Behavior <em>Behavior</em>}'. <!--
@@ -1011,6 +1065,52 @@ public interface Statechart_1_0Package extends EPackage {
 	 * @generated
 	 */
 	EAttribute getStatechart_Name();
+
+	/**
+	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.StatechartSpecification
+	 * <em>Statechart Specification</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for class '<em>Statechart Specification</em>'.
+	 * @see org.archstudio.xadl3.statechart_1_0.StatechartSpecification
+	 * @generated
+	 */
+	EClass getStatechartSpecification();
+
+	/**
+	 * Returns the meta object for the reference '
+	 * {@link org.archstudio.xadl3.statechart_1_0.StatechartSpecification#getStatechart <em>Statechart</em>}'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the reference '<em>Statechart</em>'.
+	 * @see org.archstudio.xadl3.statechart_1_0.StatechartSpecification#getStatechart()
+	 * @see #getStatechartSpecification()
+	 * @generated
+	 */
+	EReference getStatechartSpecification_Statechart();
+
+	/**
+	 * Returns the meta object for the containment reference list '
+	 * {@link org.archstudio.xadl3.statechart_1_0.StatechartSpecification#getExt <em>Ext</em>}'. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference list '<em>Ext</em>'.
+	 * @see org.archstudio.xadl3.statechart_1_0.StatechartSpecification#getExt()
+	 * @see #getStatechartSpecification()
+	 * @generated
+	 */
+	EReference getStatechartSpecification_Ext();
+
+	/**
+	 * Returns the meta object for the attribute '
+	 * {@link org.archstudio.xadl3.statechart_1_0.StatechartSpecification#getId <em>Id</em>}'. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.archstudio.xadl3.statechart_1_0.StatechartSpecification#getId()
+	 * @see #getStatechartSpecification()
+	 * @generated
+	 */
+	EAttribute getStatechartSpecification_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.statechart_1_0.SubStatechart
@@ -1422,6 +1522,40 @@ public interface Statechart_1_0Package extends EPackage {
 		 * @generated
 		 */
 		EAttribute STATECHART__NAME = eINSTANCE.getStatechart_Name();
+
+		/**
+		 * The meta object literal for the '{@link org.archstudio.xadl3.statechart_1_0.impl.StatechartSpecificationImpl
+		 * <em>Statechart Specification</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @see org.archstudio.xadl3.statechart_1_0.impl.StatechartSpecificationImpl
+		 * @see org.archstudio.xadl3.statechart_1_0.impl.Statechart_1_0PackageImpl#getStatechartSpecification()
+		 * @generated
+		 */
+		EClass STATECHART_SPECIFICATION = eINSTANCE.getStatechartSpecification();
+
+		/**
+		 * The meta object literal for the '<em><b>Statechart</b></em>' reference feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference STATECHART_SPECIFICATION__STATECHART = eINSTANCE.getStatechartSpecification_Statechart();
+
+		/**
+		 * The meta object literal for the '<em><b>Ext</b></em>' containment reference list feature. <!-- begin-user-doc
+		 * --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference STATECHART_SPECIFICATION__EXT = eINSTANCE.getStatechartSpecification_Ext();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute STATECHART_SPECIFICATION__ID = eINSTANCE.getStatechartSpecification_Id();
 
 		/**
 		 * The meta object literal for the '{@link org.archstudio.xadl3.statechart_1_0.impl.SubStatechartImpl

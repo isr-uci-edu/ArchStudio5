@@ -150,6 +150,8 @@
 			            minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="subStructure" type="SubStructure"
                         minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ext" type="core:Extension"
+			            minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<xs:attribute name="id" type="xs:ID"/>
 		<xs:attribute name="name" type="xs:string"/>
@@ -170,8 +172,6 @@
 		<xs:complexContent>
 			<xs:extension base="Brick">
 				<xs:sequence>
-					<xs:element name="ext" type="core:Extension"
-					            minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -192,8 +192,6 @@
 		<xs:complexContent>
 			<xs:extension base="Brick">
 				<xs:sequence>
-					<xs:element name="ext" type="core:Extension"
-					            minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>

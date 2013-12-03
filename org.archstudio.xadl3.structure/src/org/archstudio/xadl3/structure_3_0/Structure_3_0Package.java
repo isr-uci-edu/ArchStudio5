@@ -104,12 +104,21 @@ public interface Structure_3_0Package extends EPackage {
 	int BRICK__SUB_STRUCTURE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int BRICK__EXT = 2;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int BRICK__ID = 2;
+	int BRICK__ID = 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -117,7 +126,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BRICK__NAME = 3;
+	int BRICK__NAME = 4;
 
 	/**
 	 * The number of structural features of the '<em>Brick</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -125,7 +134,7 @@ public interface Structure_3_0Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BRICK_FEATURE_COUNT = 4;
+	int BRICK_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Brick</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -164,6 +173,15 @@ public interface Structure_3_0Package extends EPackage {
 	int COMPONENT__SUB_STRUCTURE = BRICK__SUB_STRUCTURE;
 
 	/**
+	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT__EXT = BRICK__EXT;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -180,22 +198,13 @@ public interface Structure_3_0Package extends EPackage {
 	int COMPONENT__NAME = BRICK__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT__EXT = BRICK_FEATURE_COUNT + 0;
-
-	/**
 	 * The number of structural features of the '<em>Component</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_FEATURE_COUNT = BRICK_FEATURE_COUNT + 1;
+	int COMPONENT_FEATURE_COUNT = BRICK_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Component</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -234,6 +243,15 @@ public interface Structure_3_0Package extends EPackage {
 	int CONNECTOR__SUB_STRUCTURE = BRICK__SUB_STRUCTURE;
 
 	/**
+	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTOR__EXT = BRICK__EXT;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -250,22 +268,13 @@ public interface Structure_3_0Package extends EPackage {
 	int CONNECTOR__NAME = BRICK__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Ext</b></em>' containment reference list. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTOR__EXT = BRICK_FEATURE_COUNT + 0;
-
-	/**
 	 * The number of structural features of the '<em>Connector</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 * 
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR_FEATURE_COUNT = BRICK_FEATURE_COUNT + 1;
+	int CONNECTOR_FEATURE_COUNT = BRICK_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Connector</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -727,6 +736,18 @@ public interface Structure_3_0Package extends EPackage {
 	EReference getBrick_SubStructure();
 
 	/**
+	 * Returns the meta object for the containment reference list '
+	 * {@link org.archstudio.xadl3.structure_3_0.Brick#getExt <em>Ext</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
+	 * @return the meta object for the containment reference list '<em>Ext</em>'.
+	 * @see org.archstudio.xadl3.structure_3_0.Brick#getExt()
+	 * @see #getBrick()
+	 * @generated
+	 */
+	EReference getBrick_Ext();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.archstudio.xadl3.structure_3_0.Brick#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -759,18 +780,6 @@ public interface Structure_3_0Package extends EPackage {
 	EClass getComponent();
 
 	/**
-	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.structure_3_0.Component#getExt <em>Ext</em>}'. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference list '<em>Ext</em>'.
-	 * @see org.archstudio.xadl3.structure_3_0.Component#getExt()
-	 * @see #getComponent()
-	 * @generated
-	 */
-	EReference getComponent_Ext();
-
-	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.structure_3_0.Connector <em>Connector</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -779,18 +788,6 @@ public interface Structure_3_0Package extends EPackage {
 	 * @generated
 	 */
 	EClass getConnector();
-
-	/**
-	 * Returns the meta object for the containment reference list '
-	 * {@link org.archstudio.xadl3.structure_3_0.Connector#getExt <em>Ext</em>}'. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @return the meta object for the containment reference list '<em>Ext</em>'.
-	 * @see org.archstudio.xadl3.structure_3_0.Connector#getExt()
-	 * @see #getConnector()
-	 * @generated
-	 */
-	EReference getConnector_Ext();
 
 	/**
 	 * Returns the meta object for class '{@link org.archstudio.xadl3.structure_3_0.DocumentRoot <em>Document Root</em>}
@@ -1244,6 +1241,14 @@ public interface Structure_3_0Package extends EPackage {
 		EReference BRICK__SUB_STRUCTURE = eINSTANCE.getBrick_SubStructure();
 
 		/**
+		 * The meta object literal for the '<em><b>Ext</b></em>' containment reference list feature. <!-- begin-user-doc
+		 * --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EReference BRICK__EXT = eINSTANCE.getBrick_Ext();
+
+		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature. <!-- begin-user-doc --> <!--
 		 * end-user-doc -->
 		 * 
@@ -1270,14 +1275,6 @@ public interface Structure_3_0Package extends EPackage {
 		EClass COMPONENT = eINSTANCE.getComponent();
 
 		/**
-		 * The meta object literal for the '<em><b>Ext</b></em>' containment reference list feature. <!-- begin-user-doc
-		 * --> <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference COMPONENT__EXT = eINSTANCE.getComponent_Ext();
-
-		/**
 		 * The meta object literal for the '{@link org.archstudio.xadl3.structure_3_0.impl.ConnectorImpl
 		 * <em>Connector</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
@@ -1286,14 +1283,6 @@ public interface Structure_3_0Package extends EPackage {
 		 * @generated
 		 */
 		EClass CONNECTOR = eINSTANCE.getConnector();
-
-		/**
-		 * The meta object literal for the '<em><b>Ext</b></em>' containment reference list feature. <!-- begin-user-doc
-		 * --> <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
-		EReference CONNECTOR__EXT = eINSTANCE.getConnector_Ext();
 
 		/**
 		 * The meta object literal for the '{@link org.archstudio.xadl3.structure_3_0.impl.DocumentRootImpl

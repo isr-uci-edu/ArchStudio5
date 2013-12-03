@@ -10,9 +10,11 @@ import org.archstudio.xadl3.statechart_1_0.InitialState;
 import org.archstudio.xadl3.statechart_1_0.PseudoState;
 import org.archstudio.xadl3.statechart_1_0.State;
 import org.archstudio.xadl3.statechart_1_0.Statechart;
+import org.archstudio.xadl3.statechart_1_0.StatechartSpecification;
 import org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package;
 import org.archstudio.xadl3.statechart_1_0.SubStatechart;
 import org.archstudio.xadl3.statechart_1_0.Transition;
+import org.archstudio.xadl3.xadlcore_3_0.Extension;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
@@ -135,6 +137,17 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 		case Statechart_1_0Package.STATECHART: {
 			Statechart statechart = (Statechart) theEObject;
 			T result = caseStatechart(statechart);
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case Statechart_1_0Package.STATECHART_SPECIFICATION: {
+			StatechartSpecification statechartSpecification = (StatechartSpecification) theEObject;
+			T result = caseStatechartSpecification(statechartSpecification);
+			if (result == null) {
+				result = caseExtension(statechartSpecification);
+			}
 			if (result == null) {
 				result = defaultCase(theEObject);
 			}
@@ -274,6 +287,21 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Statechart Specification</em>'. <!--
+	 * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
+	 * end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Statechart Specification</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStatechartSpecification(StatechartSpecification object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Sub Statechart</em>'. <!-- begin-user-doc
 	 * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc
 	 * -->
@@ -299,6 +327,20 @@ public class Statechart_1_0Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTransition(Transition object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Extension</em>'. <!-- begin-user-doc -->
+	 * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
+	 * 
+	 * @param object
+	 *            the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Extension</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExtension(Extension object) {
 		return null;
 	}
 

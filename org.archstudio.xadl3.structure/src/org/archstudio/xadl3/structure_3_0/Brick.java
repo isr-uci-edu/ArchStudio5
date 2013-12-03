@@ -2,6 +2,7 @@
  */
 package org.archstudio.xadl3.structure_3_0;
 
+import org.archstudio.xadl3.xadlcore_3_0.Extension;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
@@ -23,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  * <li>{@link org.archstudio.xadl3.structure_3_0.Brick#getInterface <em>Interface</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.Brick#getSubStructure <em>Sub Structure</em>}</li>
+ * <li>{@link org.archstudio.xadl3.structure_3_0.Brick#getExt <em>Ext</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.Brick#getId <em>Id</em>}</li>
  * <li>{@link org.archstudio.xadl3.structure_3_0.Brick#getName <em>Name</em>}</li>
  * </ul>
@@ -75,6 +77,22 @@ public interface Brick extends EObject {
 	 * @generated
 	 */
 	void setSubStructure(SubStructure value);
+
+	/**
+	 * Returns the value of the '<em><b>Ext</b></em>' containment reference list. The list contents are of type
+	 * {@link org.archstudio.xadl3.xadlcore_3_0.Extension}. <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ext</em>' containment reference list isn't clear, there really should be more of a
+	 * description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @return the value of the '<em>Ext</em>' containment reference list.
+	 * @see org.archstudio.xadl3.structure_3_0.Structure_3_0Package#getBrick_Ext()
+	 * @model containment="true" extendedMetaData="kind='element' name='ext' namespace='##targetNamespace'"
+	 * @generated
+	 */
+	EList<Extension> getExt();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->

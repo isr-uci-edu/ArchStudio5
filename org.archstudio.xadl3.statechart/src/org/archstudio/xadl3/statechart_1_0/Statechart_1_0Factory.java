@@ -84,6 +84,14 @@ public interface Statechart_1_0Factory extends EFactory {
 	Statechart createStatechart();
 
 	/**
+	 * Returns a new object of class '<em>Statechart Specification</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return a new object of class '<em>Statechart Specification</em>'.
+	 * @generated
+	 */
+	StatechartSpecification createStatechartSpecification();
+
+	/**
 	 * Returns a new object of class '<em>Sub Statechart</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return a new object of class '<em>Sub Statechart</em>'.

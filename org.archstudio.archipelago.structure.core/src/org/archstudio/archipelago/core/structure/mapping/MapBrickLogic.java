@@ -8,6 +8,7 @@ import java.util.List;
 import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.archipelago.core.structure.StructureEditorSupport;
+import org.archstudio.archipelago.statechart.core.StatechartTreePlugin;
 import org.archstudio.archipelago.structure.core.Activator;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasColor;
@@ -32,9 +33,11 @@ import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.swtutils.constants.FontStyle;
+import org.archstudio.xadl.XadlUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
 import org.archstudio.xadl.bna.logics.mapping.AbstractXADLToBNAPathLogic;
+import org.archstudio.xadl3.statechart_1_0.Statechart_1_0Package;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.archstudio.xarchadt.XArchADTModelEvent;
@@ -182,28 +185,48 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 		IHasMutableWorld worldThing = castOrNull(
 				BNAPath.resolve(model, rootThing, BNAPath.create(Assemblies.WORLD_KEY)), IHasMutableWorld.class);
 		if (worldThing != null) {
-			ObjRef innerStructureRef = null;
+			{
+				ObjRef innerStructureRef = null;
 
-			ObjRef subStructureRef = (ObjRef) xarch.get(objRef, "subStructure");
-			if (subStructureRef != null) {
-				innerStructureRef = (ObjRef) xarch.get(subStructureRef, "innerStructureLink");
-			}
-			// If innerStructureRef is null, then we need to remove the world from the worldThing.
-			// Otherwise, we need to add it and hook it up.
-			if (innerStructureRef == null) {
-				worldThing.remove(IHasWorld.WORLD_KEY);
-				worldThing.set(IHasObjRef.OBJREF_KEY, null);
-			}
-			else {
-				ObjRef documentRootRef = xarch.getDocumentRootRef(objRef);
-				IBNAWorld internalWorld = StructureEditorSupport.setupWorld(services, xarch, documentRootRef,
-						innerStructureRef);
-				if (internalWorld != null) {
-					worldThing.setWorld(internalWorld);
-					worldThing.set(IHasObjRef.OBJREF_KEY, subStructureRef);
+				ObjRef subStructureRef = (ObjRef) xarch.get(objRef, "subStructure");
+				if (subStructureRef != null) {
+					innerStructureRef = (ObjRef) xarch.get(subStructureRef, "innerStructureLink");
+				}
+				// add it and hook it up
+				if (innerStructureRef != null) {
+					ObjRef documentRootRef = xarch.getDocumentRootRef(objRef);
+					IBNAWorld internalWorld = StructureEditorSupport.setupWorld(services, xarch, documentRootRef,
+							innerStructureRef);
+					if (internalWorld != null) {
+						worldThing.setWorld(internalWorld);
+						worldThing.set(IHasObjRef.OBJREF_KEY, subStructureRef);
+					}
+					return;
 				}
 			}
+			{
+				ObjRef innerStatechartRef = null;
+
+				ObjRef statechartSpecRef = XadlUtils.getExt(xarch, objRef, Statechart_1_0Package.eNS_URI,
+						Statechart_1_0Package.Literals.STATECHART_SPECIFICATION.getName());
+				if (statechartSpecRef != null) {
+					innerStatechartRef = (ObjRef) xarch.get(statechartSpecRef, "statechart");
+				}
+				if (innerStatechartRef != null) {
+					ObjRef documentRootRef = xarch.getDocumentRootRef(objRef);
+					IBNAWorld internalWorld = StatechartTreePlugin.setupEditor(services, xarch, documentRootRef,
+							innerStatechartRef);
+					if (internalWorld != null) {
+						worldThing.setWorld(internalWorld);
+						worldThing.set(IHasObjRef.OBJREF_KEY, statechartSpecRef);
+					}
+					return;
+				}
+			}
+
+			// if the inner structures were null, then we need to remove the world from the worldThing
+			worldThing.remove(IHasWorld.WORLD_KEY);
+			worldThing.set(IHasObjRef.OBJREF_KEY, null);
 		}
 	}
-
 }
