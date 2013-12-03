@@ -32,6 +32,7 @@ public abstract class AbstractCurvedSplineThingPeer<T extends AbstractCurvedSpli
 		Point p1 = cm.worldToLocal(t.getEndpoint1());
 		Point p2 = cm.worldToLocal(t.getEndpoint2());
 		double l = t.getValue() * cm.getLocalScale();
+		double a = (t.getValue() + t.getSpacing()) * cm.getLocalScale();
 
 		double mx = (p1.x + p2.x) / 2;
 		double my = (p1.y + p2.y) / 2;
@@ -44,8 +45,8 @@ public abstract class AbstractCurvedSplineThingPeer<T extends AbstractCurvedSpli
 		case NONE: {
 			double cx = mx + 2 * l * -Math.sin(angle);
 			double cy = my + 2 * l * -Math.cos(angle);
-			double ax = mx + l * -Math.sin(angle);
-			double ay = my + l * -Math.cos(angle);
+			double ax = mx + a * -Math.sin(angle);
+			double ay = my + a * -Math.cos(angle);
 			shapeInfo.shape = new QuadCurve2D.Double(p1.x, p1.y, cx, cy, p2.x, p2.y);
 			shapeInfo.anchorPoint = BNAUtils.toPoint(ax, ay);
 			double sx = (ax + cx) / 2;

@@ -7,6 +7,7 @@ import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
+import org.archstudio.bna.facets.IHasMutableSpacing;
 import org.archstudio.bna.facets.IHasMutableValue;
 import org.archstudio.bna.keys.ThingMetakey;
 import org.archstudio.bna.logics.coordinating.ArrowheadLogic.IHasArrowheadStemPoint;
@@ -20,7 +21,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
 public abstract class AbstractCurvedSplineThing extends AbstractAnchorPointThing implements IHasMutableEndpoints,
-		IHasMutableValue<Integer>, IHasBoundingBox, IHasLoopablePoint, IHasArrowheadStemPoint {
+		IHasMutableValue<Integer>, IHasBoundingBox, IHasLoopablePoint, IHasArrowheadStemPoint, IHasMutableSpacing {
 
 	private static final IThingKey<Point> ENDPOINT_1_ARROWHEAD_STEM_POINT_KEY = ThingMetakey.create(
 			".arrowheadStemPoint", ENDPOINT_1_KEY);
@@ -41,6 +42,7 @@ public abstract class AbstractCurvedSplineThing extends AbstractAnchorPointThing
 		set(ENDPOINT_2_ARROWHEAD_STEM_POINT_KEY, p1);
 		setLoopType(LoopType.NONE);
 		setValue(10);
+		setSpacing(5);
 		setAnchorPoint(new Point(0, 0));
 		set(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
 		addShapeModifyingKey(ENDPOINT_1_KEY);
@@ -109,6 +111,16 @@ public abstract class AbstractCurvedSplineThing extends AbstractAnchorPointThing
 	@Override
 	public void setValue(Integer value) {
 		set(VALUE_KEY, value);
+	}
+
+	@Override
+	public int getSpacing() {
+		return get(SPACING_KEY);
+	}
+
+	@Override
+	public void setSpacing(int spacing) {
+		set(SPACING_KEY, spacing);
 	}
 
 	@Override
