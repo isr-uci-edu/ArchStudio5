@@ -1,5 +1,8 @@
 package org.archstudio.bna.things.labels;
 
+import org.archstudio.bna.IBNAModel;
+import org.archstudio.bna.facets.IHasAnchorPoint;
+import org.archstudio.bna.facets.IHasIndicatorPoint;
 import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
@@ -10,6 +13,8 @@ import org.archstudio.bna.facets.IHasMutableLineData;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasMutableVerticalAlignment;
 import org.archstudio.bna.facets.IRelativeMovable;
+import org.archstudio.bna.logics.coordinating.StickPointLogic;
+import org.archstudio.bna.logics.coordinating.StickPointLogic.IHasSecondaryPoint;
 import org.archstudio.bna.things.AbstractMutableAnchorPointThing;
 import org.archstudio.swtutils.constants.FontStyle;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
@@ -23,7 +28,7 @@ import org.eclipse.swt.graphics.RGB;
 @NonNullByDefault
 public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implements IHasMutableText, IHasMutableColor,
 		IHasMutableHorizontalAlignment, IHasMutableVerticalAlignment, IHasMutableFontData, IRelativeMovable,
-		IHasMutableAngle, IHasMutableIndicatorPoint, IHasMutableLineData, IHasMutableEdgeColor {
+		IHasMutableAngle, IHasMutableIndicatorPoint, IHasMutableLineData, IHasMutableEdgeColor, IHasSecondaryPoint {
 
 	public AnchoredLabelThing(@Nullable Object id) {
 		super(id);
@@ -176,5 +181,16 @@ public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implemen
 	@Override
 	public void setLineWidth(int lineWidth) {
 		set(LINE_WIDTH_KEY, lineWidth);
+	}
+
+	@Override
+	public Point getSecondaryPoint(IBNAModel model, StickPointLogic stickLogic, IThingKey<Point> pointKey) {
+		if (IHasIndicatorPoint.INDICATOR_POINT_KEY.equals(pointKey)) {
+			return getAnchorPoint();
+		}
+		if (IHasAnchorPoint.ANCHOR_POINT_KEY.equals(pointKey)) {
+			return getIndicatorPoint();
+		}
+		return null;
 	}
 }
