@@ -56,7 +56,7 @@ public class RotaterLogic extends AbstractThingLogic implements IBNAMouseListene
 
 				@Override
 				public void run() {
-					rt = view.getBNAWorld().getBNAModel().insertThing(new RotaterThing(null), tt);
+					rt = view.getBNAWorld().getBNAModel().addThing(new RotaterThing(null), tt);
 					rt.setAngle(tt.getAngle());
 					mirrorLogic.mirrorValue(tt, IHasAnchorPoint.ANCHOR_POINT_KEY, rt);
 					mirrorLogic.mirrorValue(rt, IHasAngle.ANGLE_KEY, tt);
