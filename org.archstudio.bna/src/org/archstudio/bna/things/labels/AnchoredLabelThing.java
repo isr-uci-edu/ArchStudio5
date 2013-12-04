@@ -2,6 +2,7 @@ package org.archstudio.bna.things.labels;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.facets.IHasAnchorPoint;
+import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasIndicatorPoint;
 import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableColor;
@@ -24,11 +25,13 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.Rectangle;
 
 @NonNullByDefault
 public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implements IHasMutableText, IHasMutableColor,
 		IHasMutableHorizontalAlignment, IHasMutableVerticalAlignment, IHasMutableFontData, IRelativeMovable,
-		IHasMutableAngle, IHasMutableIndicatorPoint, IHasMutableLineData, IHasMutableEdgeColor, IHasSecondaryPoint {
+		IHasMutableAngle, IHasMutableIndicatorPoint, IHasMutableLineData, IHasMutableEdgeColor, IHasSecondaryPoint,
+		IHasBoundingBox {
 
 	public AnchoredLabelThing(@Nullable Object id) {
 		super(id);
@@ -48,6 +51,9 @@ public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implemen
 		setLineStyle(LINE_STYLE_SOLID);
 		setLineWidth(1);
 		setEdgeColor(null);
+		// the bounding box is set by the peer
+		set(BOUNDING_BOX_KEY, new Rectangle(0, 0, 0, 0));
+		addShapeModifyingKey(BOUNDING_BOX_KEY);
 		super.initProperties();
 	}
 
@@ -192,5 +198,10 @@ public class AnchoredLabelThing extends AbstractMutableAnchorPointThing implemen
 			return getIndicatorPoint();
 		}
 		return null;
+	}
+
+	@Override
+	public Rectangle getBoundingBox() {
+		return get(BOUNDING_BOX_KEY);
 	}
 }

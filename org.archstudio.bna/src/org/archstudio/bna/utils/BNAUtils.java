@@ -1241,7 +1241,7 @@ public class BNAUtils {
 		return ThingKey.getKey((int) thingKeyUID); // FIXME, use the correct bit operator here
 	}
 
-	public static Path2D worldToLocal(ICoordinateMapper cm, Path2D shape) {
+	public static Path2D worldToLocal(ICoordinateMapper cm, Shape shape) {
 		Path2D p = new Path2D.Double();
 		PathIterator i = shape.getPathIterator(new AffineTransform());
 		double[] coords = new double[6];

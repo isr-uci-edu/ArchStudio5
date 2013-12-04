@@ -12,6 +12,7 @@ import java.awt.geom.Rectangle2D;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
+import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.peers.IHasLocalBounds;
 import org.archstudio.bna.things.AbstractAnchorPointThingPeer;
@@ -39,61 +40,79 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 
 		if (r.setColor(t, IHasColor.COLOR_KEY)) {
 
-			Point lap = cm.worldToLocal(t.getAnchorPoint());
+			Point ap = t.getAnchorPoint();
+			Point lap = cm.worldToLocal(ap);
 			Point ip = t.getIndicatorPoint();
 			Point lip = ip != null ? cm.worldToLocal(ip) : null;
 			Font font = r.getFont(t, t.getFontSize());
+			Font lfont = r.getFont(t, (int) (t.getFontSize() * cm.getLocalScale()));
 			int angle = t.getAngle();
 
 			Dimension size = r.getTextSize(font, text);
+			Dimension lsize = r.getTextSize(lfont, text);
 
 			double offsetX = -size.width / 2;
+			double loffsetX = -lsize.width / 2;
 			switch (t.getHorizontalAlignment()) {
 			case LEFT:
 				offsetX -= size.width / 2;
+				loffsetX -= lsize.width / 2;
 				break;
 			case CENTER:
 				break;
 			case RIGHT:
 				offsetX += size.width / 2;
+				loffsetX += lsize.width / 2;
 				break;
 			}
 
 			double offsetY = -size.height / 2;
+			double loffsetY = -lsize.height / 2;
 			switch (t.getVerticalAlignment()) {
 			case TOP:
 				offsetY -= size.height / 2;
+				loffsetY -= lsize.height / 2;
 				break;
 			case MIDDLE:
 				break;
 			case BOTTOM:
 				offsetY += size.height / 2;
+				loffsetY += lsize.height / 2;
 				break;
 			}
 
 			Rectangle2D bounds = new Rectangle2D.Double(offsetX, offsetY, size.width, size.height);
+			Rectangle2D lbounds = new Rectangle2D.Double(loffsetX, loffsetY, lsize.width, lsize.height);
+
 			AffineTransform transform = new AffineTransform();
-			transform.translate(lap.x, lap.y);
+			transform.translate(ap.x, ap.y);
 			transform.rotate(Math.PI * angle / 180);
 			Path2D boundsPath = new Path2D.Double(bounds);
 			boundsPath.transform(transform);
-			lastTextLocalShape = boundsPath;
+			t.set(IHasBoundingBox.BOUNDING_BOX_KEY, BNAUtils.toRectangle(boundsPath.getBounds()));
+
+			AffineTransform lTransform = new AffineTransform();
+			lTransform.translate(lap.x, lap.y);
+			lTransform.rotate(Math.PI * angle / 180);
+			Path2D lBoundsPath = new Path2D.Double(lbounds);
+			lBoundsPath.transform(lTransform);
+			lastTextLocalShape = lBoundsPath;
 
 			r.pushMatrix(lap.x, lap.y, Math.PI * angle / 180);
 			try {
 				r.setColor(t, IHasColor.COLOR_KEY);
-				r.drawText(font, text, offsetX, offsetY);
+				r.drawText(lfont, text, loffsetX, loffsetY);
 			}
 			finally {
 				r.popMatrix();
 			}
 
 			if (lip != null && r.setLineStyle(t)) {
-				Point2D lap2d1 = new Point2D.Double(bounds.getMinX() - SPACING, bounds.getCenterY());
-				Point2D lap2d2 = new Point2D.Double(bounds.getMaxX() + SPACING, bounds.getCenterY());
+				Point2D lap2d1 = new Point2D.Double(lbounds.getMinX() - SPACING, lbounds.getCenterY());
+				Point2D lap2d2 = new Point2D.Double(lbounds.getMaxX() + SPACING, lbounds.getCenterY());
 				Point2D lip2D = BNAUtils.toPoint2D(lip);
-				transform.transform(lap2d1, lap2d1);
-				transform.transform(lap2d2, lap2d2);
+				lTransform.transform(lap2d1, lap2d1);
+				lTransform.transform(lap2d2, lap2d2);
 				double dist1 = lap2d1.distance(lip2D);
 				double dist2 = lap2d2.distance(lip2D);
 				Point2D fromPoint = dist1 < dist2 ? lap2d1 : lap2d2;
