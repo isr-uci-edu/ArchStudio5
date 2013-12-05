@@ -9,7 +9,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IIsBackground;
 import org.archstudio.bna.facets.IIsHidden;
-import org.archstudio.bna.keys.CollectionThingKey;
+import org.archstudio.bna.keys.CloneThingKey;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -18,8 +18,8 @@ import com.google.common.collect.Sets;
 
 public class UserEditableUtils {
 
-	private static final IThingKey<Set<String>> USER_EDITABLE_QUALITIES_KEY = CollectionThingKey.create(
-			"userEditableQualities", CollectionThingKey.<String> set(null));
+	private static final IThingKey<Set<String>> USER_EDITABLE_QUALITIES_KEY = CloneThingKey.create(
+			"userEditableQualities", CloneThingKey.<String> set(null));
 
 	public static void addEditableQualities(final IThing thing, final String... qualities) {
 		Set<String> newEditableQualities = Sets.newHashSet(thing.get(USER_EDITABLE_QUALITIES_KEY,

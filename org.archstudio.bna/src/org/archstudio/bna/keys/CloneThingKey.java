@@ -14,6 +14,8 @@ import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 import org.archstudio.bna.IThing.IThingKey;
 import org.eclipse.jdt.annotation.NonNullByDefault;
@@ -26,6 +28,9 @@ import com.google.common.base.Function;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 @NonNullByDefault
 public class CloneThingKey<D, V> extends AbstractCloneThingKey<D, V> {
@@ -100,8 +105,9 @@ public class CloneThingKey<D, V> extends AbstractCloneThingKey<D, V> {
 		@Override
 		public Shape apply(Shape input) {
 			return new Path2D.Double(input);
-		};
+		}
 	};
+
 	private static final LoadingCache<Class<?>, Function<? extends Shape, ? extends Shape>> shapeCloneFunctions = CacheBuilder
 			.newBuilder().build(new CacheLoader<Class<?>, Function<? extends Shape, ? extends Shape>>() {
 				@Override
@@ -184,6 +190,28 @@ public class CloneThingKey<D, V> extends AbstractCloneThingKey<D, V> {
 			Shape apply(Shape input) {
 				return input != null ? ((Function<Shape, Shape>) shapeCloneFunctions.getUnchecked(input.getClass()))
 						.apply(input) : null;
+			}
+		};
+	}
+
+	public static final <V> Function<List<V>, List<V>> list(final Function<V, V> cloneFunction) {
+		return new Function<List<V>, List<V>>() {
+
+			@Override
+			public List<V> apply(List<V> input) {
+				return input == null ? null : Lists.newArrayList(cloneFunction == null ? input : Collections2
+						.transform(input, cloneFunction));
+			}
+		};
+	}
+
+	public static final <V> Function<Set<V>, Set<V>> set(final Function<V, V> cloneFunction) {
+		return new Function<Set<V>, Set<V>>() {
+
+			@Override
+			public Set<V> apply(Set<V> input) {
+				return input == null ? null : Sets.newHashSet(cloneFunction == null ? input : Collections2.transform(
+						input, cloneFunction));
 			}
 		};
 	}
