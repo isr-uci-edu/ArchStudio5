@@ -5,6 +5,7 @@ import static org.archstudio.sysutils.SystemUtils.sortedByValue;
 import java.util.Deque;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -20,6 +21,7 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IPrivilegedBNAModelListener;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.sysutils.FastIntMap;
@@ -34,19 +36,20 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	public boolean PROFILE = false;
-	protected static final LoadingCache<Object, AtomicLong> profileStats = CacheBuilder.newBuilder().weakKeys()
+	private static final LoadingCache<Object, AtomicLong> profileStats = CacheBuilder.newBuilder().weakKeys()
 			.build(new CacheLoader<Object, AtomicLong>() {
 				@Override
 				public AtomicLong load(Object input) {
 					return new AtomicLong();
 				}
 			});
-	protected static int eventsNotFiredStats = 0;
-	protected static int eventsFiredStats = 0;
+	private static int eventsNotFiredStats = 0;
+	private static int eventsFiredStats = 0;
 
 	private class DefaultBNAModelEventProcessingThread extends Thread {
 
@@ -69,6 +72,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		private final FastIntMap<Integer> thingMinimumModCount = new FastIntMap<>();
 		private final FastLongMap<BNAModelEvent> pendingThingEvents = new FastLongMap<>();
 		private final List<BNAModelEvent> pendingThingAdds = Lists.newArrayList();
+		private final Set<IThingKey<?>> noClobberKeys = Sets.newHashSet();
 		private boolean firedBulkChangeBegin = false;
 		private int bulkChangeCount = 0;
 		private int pendingBulkChangeWorthyEvents = 0;
@@ -84,6 +88,12 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 				if (!firedBulkChangeBegin) {
 					process(FLUSH_ENSURE);
 				}
+			}
+		}
+
+		public void doNotMergeEventsForKey(IThingKey<?> key) {
+			synchronized (eventQueue) {
+				noClobberKeys.add(key);
 			}
 		}
 
@@ -114,15 +124,17 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 						 * If a thing key's value has already been updated, but the notification has not gone out yet,
 						 * then roll this update into that one to reduce the overall number of events sent out.
 						 */
-						long thingKeyUID = thingEvent.getThingKeyUID();
-						FastLongMap.Entry<BNAModelEvent> entry = pendingThingEvents.createEntry(thingKeyUID);
-						if (entry.getValue() != null && entry.getValue().getThread() == event.getThread()) {
-							entry.getValue().getThingEvent().setNewPropertyValue(thingEvent.getNewPropertyValue());
-							eventsNotFiredStats++;
-							return;
-						}
-						else {
-							entry.setValue(event);
+						if (!noClobberKeys.contains(thingEvent.getPropertyName())) {
+							long thingKeyUID = thingEvent.getThingKeyUID();
+							FastLongMap.Entry<BNAModelEvent> entry = pendingThingEvents.createEntry(thingKeyUID);
+							if (entry.getValue() != null && entry.getValue().getThread() == event.getThread()) {
+								entry.getValue().getThingEvent().setNewPropertyValue(thingEvent.getNewPropertyValue());
+								eventsNotFiredStats++;
+								return;
+							}
+							else {
+								entry.setValue(event);
+							}
 						}
 					}
 				}
@@ -361,19 +373,18 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 		}
 	}
 
-	protected final BNAModelEvent BULK_CHANGE_BEGIN = BNAModelEvent.create(this, EventType.BULK_CHANGE_BEGIN);
-	protected final BNAModelEvent FLUSH_MANUAL = BNAModelEvent.create(this, EventType.FLUSH, "Manual");
-	protected final BNAModelEvent FLUSH_EMPTY = BNAModelEvent.create(this, EventType.FLUSH, "Empty");
-	protected final BNAModelEvent FLUSH_ENSURE = BNAModelEvent.create(this, EventType.FLUSH, "Ensure");
-	protected final BNAModelEvent FLUSH_BULK_CHANGE_END = BNAModelEvent.create(this, EventType.FLUSH, "BulkChangeEnd");
-	protected final BNAModelEvent BULK_CHANGE_END = BNAModelEvent.create(this, EventType.BULK_CHANGE_END);
+	private final BNAModelEvent BULK_CHANGE_BEGIN = BNAModelEvent.create(this, EventType.BULK_CHANGE_BEGIN);
+	private final BNAModelEvent FLUSH_MANUAL = BNAModelEvent.create(this, EventType.FLUSH, "Manual");
+	private final BNAModelEvent FLUSH_ENSURE = BNAModelEvent.create(this, EventType.FLUSH, "Ensure");
+	private final BNAModelEvent FLUSH_BULK_CHANGE_END = BNAModelEvent.create(this, EventType.FLUSH, "BulkChangeEnd");
+	private final BNAModelEvent BULK_CHANGE_END = BNAModelEvent.create(this, EventType.BULK_CHANGE_END);
 
-	protected final ReentrantReadWriteLock lock = BNAUtils.LOCK_FACTORY.newReentrantReadWriteLock("Default BNA Model");
-	protected final ThingTree thingTree = new ThingTree();
-	protected final CopyOnWriteArrayList<IPrivilegedBNAModelListener> privilegedListeners = Lists
+	private final ReentrantReadWriteLock lock = BNAUtils.LOCK_FACTORY.newReentrantReadWriteLock("Default BNA Model");
+	private final ThingTree thingTree = new ThingTree();
+	private final CopyOnWriteArrayList<IPrivilegedBNAModelListener> privilegedListeners = Lists
 			.newCopyOnWriteArrayList();
-	protected final CopyOnWriteArrayList<IBNAModelListener> listeners = Lists.newCopyOnWriteArrayList();
-	protected final DefaultBNAModelEventProcessingThread eventProcessingThread;
+	private final CopyOnWriteArrayList<IBNAModelListener> listeners = Lists.newCopyOnWriteArrayList();
+	private final DefaultBNAModelEventProcessingThread eventProcessingThread;
 
 	public DefaultBNAModel() {
 		eventProcessingThread = new DefaultBNAModelEventProcessingThread();
@@ -424,6 +435,11 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 	@Override
 	public void endBulkChange() {
 		eventProcessingThread.process(BULK_CHANGE_END);
+	}
+
+	@Override
+	public void doNotMergeEventsForKey(IThingKey<?> key) {
+		eventProcessingThread.doNotMergeEventsForKey(key);
 	}
 
 	@Override

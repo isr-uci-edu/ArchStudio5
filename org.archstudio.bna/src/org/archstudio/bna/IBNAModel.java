@@ -2,6 +2,7 @@ package org.archstudio.bna;
 
 import java.util.List;
 
+import org.archstudio.bna.IThing.IThingKey;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -37,6 +38,8 @@ public interface IBNAModel {
 	 * of the bulk change. This method is optional; it need not be implemented by models.
 	 */
 	public void endBulkChange();
+
+	public void doNotMergeEventsForKey(IThingKey<?> key);
 
 	public boolean isInBulkChange();
 

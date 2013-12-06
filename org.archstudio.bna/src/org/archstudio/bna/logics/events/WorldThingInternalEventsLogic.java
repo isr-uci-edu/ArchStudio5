@@ -1,69 +1,202 @@
 package org.archstudio.bna.logics.events;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Collection;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
+import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
-import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasWorld;
-import org.archstudio.bna.keys.ThingKey;
+import org.archstudio.bna.keys.CloneThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
+import org.archstudio.bna.things.utility.NoThing;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+import com.google.common.cache.RemovalListener;
+import com.google.common.cache.RemovalNotification;
 import com.google.common.collect.Sets;
 
 public class WorldThingInternalEventsLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	public static interface IInternalBNAModelListener {
-
 		public void internalBNAModelChanged(IHasWorld worldThing, BNAModelEvent evt);
-
 	}
 
-	private class WorldData implements IBNAModelListener {
+	private static IThingKey<Set<WorldChange>> WORLD_CHANGES_TICKER_KEY = CloneThingKey.create(
+			"internal-world-changes-ticker", CloneThingKey.<WorldChange> set(null));
+
+	synchronized private static IThing getWorldChangedThing(IBNAWorld world) {
+		IBNAModel model = world.getBNAModel();
+		IThing worldChangeThing = model.getThing(WorldThingInternalEventsLogic.class);
+		if (worldChangeThing == null) {
+			worldChangeThing = model.addThing(new NoThing(WorldThingInternalEventsLogic.class));
+		}
+		return worldChangeThing;
+	}
+
+	private static class WorldChange {
+
+		private static AtomicLong uidGenerator = new AtomicLong();
+
+		private final long uid;
+		private final IBNAWorld world;
+		private final Set<IBNAWorld> worldsNotified;
+
+		public WorldChange(IBNAWorld world) {
+			this.uid = uidGenerator.getAndIncrement();
+			this.world = world;
+			this.worldsNotified = Sets.newHashSet(world);
+		}
+
+		public WorldChange(WorldChange worldChange, IBNAWorld notifiedWorld) {
+			this.uid = worldChange.uid;
+			this.world = worldChange.world;
+			Set<IBNAWorld> worldsNotified = Sets.newHashSet(worldChange.worldsNotified);
+			worldsNotified.add(notifiedWorld);
+			this.worldsNotified = worldsNotified;
+		}
+
+		public boolean isNotified(IBNAWorld world) {
+			return worldsNotified.contains(world);
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + (int) (uid ^ uid >>> 32);
+			result = prime * result + (world == null ? 0 : world.hashCode());
+			result = prime * result + (worldsNotified == null ? 0 : worldsNotified.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+			if (obj == null) {
+				return false;
+			}
+			if (getClass() != obj.getClass()) {
+				return false;
+			}
+			WorldChange other = (WorldChange) obj;
+			if (uid != other.uid) {
+				return false;
+			}
+			if (world == null) {
+				if (other.world != null) {
+					return false;
+				}
+			}
+			else if (!world.equals(other.world)) {
+				return false;
+			}
+			if (worldsNotified == null) {
+				if (other.worldsNotified != null) {
+					return false;
+				}
+			}
+			else if (!worldsNotified.equals(other.worldsNotified)) {
+				return false;
+			}
+			return true;
+		}
+	}
+
+	private class WorldChangeTicker implements IBNAModelListener {
 
 		private final IBNAWorld iWorld;
-		private final IThingLogicManager iLogics;
-		private final WorldThingInternalEventsLogic iInternalLogic;
-		private final List<IHasWorld> worldThings = Lists.newCopyOnWriteArrayList();
+		private Collection<IHasWorld> worldThings = Sets.newHashSet();
 
-		public WorldData(IBNAWorld iWorld) {
+		public WorldChangeTicker(IBNAWorld iWorld) {
 			this.iWorld = iWorld;
-			iLogics = iWorld.getThingLogicManager();
-			iInternalLogic = iLogics.addThingLogic(WorldThingInternalEventsLogic.class);
 			iWorld.getBNAModel().addBNAModelListener(this);
-			iInternalLogic.changeListeners.add(WorldThingInternalEventsLogic.this);
+		}
+
+		public void addWorldThing(IHasWorld worldThing) {
+			worldThings.add(worldThing);
+		}
+
+		public void removeWorldThing(IHasWorld worldThing) {
+			worldThings.remove(worldThing);
 		}
 
 		public void dispose() {
 			iWorld.getBNAModel().removeBNAModelListener(this);
-			iInternalLogic.changeListeners.remove(WorldThingInternalEventsLogic.this);
+			worldThings.clear();
 		}
 
+		boolean worldChanged = false;
+		Set<WorldChange> pendingWorldChanges = Sets.newHashSet();
+
+		@SuppressWarnings("unchecked")
 		@Override
 		public void bnaModelChanged(BNAModelEvent evt) {
-			for (IHasWorld worldThing : worldThings) {
+			if (!worldThings.isEmpty()) {
 				for (IInternalBNAModelListener l : logics.getThingLogics(IInternalBNAModelListener.class)) {
-					l.internalBNAModelChanged(worldThing, evt);
+					for (IHasWorld worldThing : worldThings) {
+						l.internalBNAModelChanged(worldThing, evt);
+					}
+				}
+
+				switch (evt.getEventType()) {
+				case THING_CHANGED:
+					IThing thing = evt.getTargetThing();
+					ThingEvent thingEvent = evt.getThingEvent();
+					if (WorldThingInternalEventsLogic.class.equals(thing.getID())) {
+						for (WorldChange worldChange : (Set<WorldChange>) thingEvent.getNewPropertyValue()) {
+							if (!worldChange.isNotified(iWorld)) {
+								pendingWorldChanges.add(new WorldChange(worldChange, iWorld));
+							}
+						}
+					}
+					else {
+						worldChanged = true;
+					}
+					break;
+
+				default:
+					if (evt.getEventType().isModelModifyingEvent()) {
+						worldChanged = true;
+					}
+					break;
+
+				case BULK_CHANGE_END:
+					if (worldChanged) {
+						pendingWorldChanges.add(new WorldChange(iWorld));
+					}
+					getWorldChangedThing(world).set(WORLD_CHANGES_TICKER_KEY, pendingWorldChanges);
+					worldChanged = false;
+					pendingWorldChanges.clear();
+					break;
 				}
 			}
 		}
-
 	}
 
-	private static final IThingKey<Integer> INTERNAL_MODEL_CHANGE_TICKER = ThingKey
-			.create(WorldThingInternalEventsLogic.class);
-
 	protected final ThingTypeTrackingLogic typeLogic;
-	private Map<IBNAWorld, WorldData> worldToWorldData = Maps.newHashMap();
-	private List<WorldThingInternalEventsLogic> changeListeners = Lists.newCopyOnWriteArrayList();
+	private LoadingCache<IBNAWorld, WorldChangeTicker> worldChangeTickers = CacheBuilder.newBuilder().weakKeys()
+			.removalListener(new RemovalListener<IBNAWorld, WorldChangeTicker>() {
+				@Override
+				public void onRemoval(RemovalNotification<IBNAWorld, WorldChangeTicker> notification) {
+					notification.getValue().dispose();
+				}
+			}).build(new CacheLoader<IBNAWorld, WorldChangeTicker>() {
+				@Override
+				public WorldChangeTicker load(IBNAWorld key) throws Exception {
+					return new WorldChangeTicker(key);
+				}
+			});
 
 	public WorldThingInternalEventsLogic(IBNAWorld world) {
 		super(world);
@@ -71,37 +204,25 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 		for (IHasWorld worldThing : typeLogic.getThings(IHasWorld.class)) {
 			register(worldThing, worldThing.getWorld());
 		}
+		model.doNotMergeEventsForKey(WORLD_CHANGES_TICKER_KEY);
 	}
 
 	@Override
 	synchronized public void dispose() {
-		for (WorldData worldData : worldToWorldData.values()) {
-			worldData.dispose();
-		}
-		worldToWorldData.clear();
+		worldChangeTickers.invalidateAll();
 	}
 
 	private void register(IHasWorld worldThing, IBNAWorld iWorld) {
 		if (iWorld != null) {
-			WorldData worldData = worldToWorldData.get(iWorld);
-			if (worldData == null) {
-				worldToWorldData.put(iWorld, worldData = new WorldData(iWorld));
-			}
-			worldThing.set(INTERNAL_MODEL_CHANGE_TICKER, 0);
-			worldData.worldThings.add(worldThing);
+			worldChangeTickers.getUnchecked(iWorld).addWorldThing(worldThing);
 		}
 	}
 
 	private void unregister(IHasWorld worldThing, IBNAWorld iWorld) {
 		if (iWorld != null) {
-			WorldData worldData = worldToWorldData.get(iWorld);
-			if (worldData != null) {
-				worldData.worldThings.remove(worldThing);
-			}
+			worldChangeTickers.getUnchecked(iWorld).removeWorldThing(worldThing);
 		}
 	}
-
-	private boolean modelChanged = false;
 
 	@Override
 	synchronized public void bnaModelChanged(BNAModelEvent evt) {
@@ -126,50 +247,6 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 			default:
 				// do nothing
 			}
-		}
-
-		// check for modifications to this world
-		switch (evt.getEventType()) {
-		case BULK_CHANGE_BEGIN:
-			modelChanged = false;
-			break;
-		case THING_ADDED:
-		case THING_REMOVED:
-		case THING_RESTACKED:
-			modelChanged = true;
-			break;
-		case THING_CHANGED:
-			ThingEvent thingEvent = evt.getThingEvent();
-			if (!INTERNAL_MODEL_CHANGE_TICKER.equals(thingEvent.getPropertyName())) {
-				modelChanged = true;
-			}
-			break;
-		case BULK_CHANGE_END:
-			if (modelChanged) {
-				fireInternalBNAModelChanged(world, Sets.newHashSet(world));
-			}
-		default:
-			// do nothing
-		}
-	}
-
-	private void fireInternalBNAModelChanged(IBNAWorld iWorld, Set<IBNAWorld> worldsAwareOfChange) {
-		for (WorldThingInternalEventsLogic l : changeListeners) {
-			l.internalBNAModelChanged(iWorld, worldsAwareOfChange);
-		}
-	}
-
-	private void internalBNAModelChanged(IBNAWorld iWorld, Set<IBNAWorld> worldsAwareOfChange) {
-		if (!worldsAwareOfChange.contains(world)) {
-			WorldData worldData = worldToWorldData.get(iWorld);
-			if (worldData != null) {
-				for (IHasWorld worldThing : worldData.worldThings) {
-					worldThing.set(INTERNAL_MODEL_CHANGE_TICKER, worldThing.get(INTERNAL_MODEL_CHANGE_TICKER) + 1);
-				}
-			}
-			Set<IBNAWorld> newWorldsAwareOfChange = Sets.newHashSet(worldsAwareOfChange);
-			newWorldsAwareOfChange.add(world);
-			fireInternalBNAModelChanged(iWorld, newWorldsAwareOfChange);
 		}
 	}
 }
