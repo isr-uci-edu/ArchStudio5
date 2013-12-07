@@ -10,6 +10,7 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.MouseType;
 import org.archstudio.bna.facets.IHasStandardCursor;
+import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAMouseListener;
 import org.archstudio.bna.ui.IBNAMouseMoveListener;
@@ -28,24 +29,32 @@ public class StandardCursorLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
+			ICoordinate location) {
 		isDown = true;
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
+			ICoordinate location) {
 		isDown = false;
 		updateCursor(view, evt, things, location);
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
+			ICoordinate location) {
 		if (!isDown) {
 			updateCursor(view, evt, things, location);
 		}
 	}
 
 	protected void updateCursor(IBNAView view, MouseEvent evt, List<IThing> things, ICoordinate location) {
+		IThing thing = firstOrNull(things);
+		if (thing instanceof IHasWorld && ((IHasWorld) thing).getWorld() != null) {
+			// let sub world logics deal with it
+			return;
+		}
 		int cursor = SWT.NONE;
 		Object src = evt.getSource();
 		if (src != null && src instanceof Control) {

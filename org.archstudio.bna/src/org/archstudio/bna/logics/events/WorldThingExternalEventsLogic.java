@@ -173,6 +173,16 @@ public class WorldThingExternalEventsLogic extends AbstractThingLogic {
 			if (capturedWorldThing != null) {
 				propagateEvent(view, capturedWorldThing, method, new Object[] { view, type, evt, things, location });
 			}
+			else {
+				for (IThing innerThing : view.getBNAWorld().getBNAModel().getAllThings()) {
+					if (innerThing instanceof IHasWorld) {
+						WorldThingPeer<?> worldThingPeer = (WorldThingPeer<?>) view.getThingPeer(innerThing);
+						if (worldThingPeer.isInThing(location)) {
+							propagateEvent(view, innerThing, method, new Object[] { view, type, evt, things, location });
+						}
+					}
+				}
+			}
 		}
 
 		@Override
