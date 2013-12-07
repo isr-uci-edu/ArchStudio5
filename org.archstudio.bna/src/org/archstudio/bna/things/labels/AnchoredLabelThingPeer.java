@@ -45,11 +45,12 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 			Point ip = t.getIndicatorPoint();
 			Point lip = ip != null ? cm.worldToLocal(ip) : null;
 			Font font = r.getFont(t, t.getFontSize());
-			Font lfont = r.getFont(t, (int) (t.getFontSize() * cm.getLocalScale()));
+			int lfontsize = (int) (t.getFontSize() * cm.getLocalScale());
+			Font lfont = lfontsize > 0 ? r.getFont(t, lfontsize) : null;
 			int angle = t.getAngle();
 
 			Dimension size = r.getTextSize(font, text);
-			Dimension lsize = r.getTextSize(lfont, text);
+			Dimension lsize = lfont == null ? new Dimension(0, 0) : r.getTextSize(lfont, text);
 
 			double offsetX = -size.width / 2;
 			double loffsetX = -lsize.width / 2;
@@ -82,8 +83,6 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 			}
 
 			Rectangle2D bounds = new Rectangle2D.Double(offsetX, offsetY, size.width, size.height);
-			Rectangle2D lbounds = new Rectangle2D.Double(loffsetX, loffsetY, lsize.width, lsize.height);
-
 			AffineTransform transform = new AffineTransform();
 			transform.translate(ap.x, ap.y);
 			transform.rotate(Math.PI * angle / 180);
@@ -91,34 +90,46 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 			boundsPath.transform(transform);
 			t.set(IHasBoundingBox.BOUNDING_BOX_KEY, BNAUtils.toRectangle(boundsPath.getBounds()));
 
-			AffineTransform lTransform = new AffineTransform();
-			lTransform.translate(lap.x, lap.y);
-			lTransform.rotate(Math.PI * angle / 180);
-			Path2D lBoundsPath = new Path2D.Double(lbounds);
-			lBoundsPath.transform(lTransform);
-			lastTextLocalShape = lBoundsPath;
+			if (lfont != null) {
+				Rectangle2D lbounds = new Rectangle2D.Double(loffsetX, loffsetY, lsize.width, lsize.height);
+				AffineTransform lTransform = new AffineTransform();
+				lTransform.translate(lap.x, lap.y);
+				lTransform.rotate(Math.PI * angle / 180);
+				Path2D lBoundsPath = new Path2D.Double(lbounds);
+				lBoundsPath.transform(lTransform);
+				lastTextLocalShape = lBoundsPath;
 
-			r.pushMatrix(lap.x, lap.y, Math.PI * angle / 180);
-			try {
-				r.setColor(t, IHasColor.COLOR_KEY);
-				r.drawText(lfont, text, loffsetX, loffsetY);
-			}
-			finally {
-				r.popMatrix();
-			}
+				r.pushMatrix(lap.x, lap.y, Math.PI * angle / 180);
+				try {
+					r.setColor(t, IHasColor.COLOR_KEY);
+					r.drawText(lfont, text, loffsetX, loffsetY);
+				}
+				finally {
+					r.popMatrix();
+				}
 
-			if (lip != null && r.setLineStyle(t)) {
-				Point2D lap2d1 = new Point2D.Double(lbounds.getMinX() - SPACING, lbounds.getCenterY());
-				Point2D lap2d2 = new Point2D.Double(lbounds.getMaxX() + SPACING, lbounds.getCenterY());
-				Point2D lip2D = BNAUtils.toPoint2D(lip);
-				lTransform.transform(lap2d1, lap2d1);
-				lTransform.transform(lap2d2, lap2d2);
-				double dist1 = lap2d1.distance(lip2D);
-				double dist2 = lap2d2.distance(lip2D);
-				Point2D fromPoint = dist1 < dist2 ? lap2d1 : lap2d2;
-				Line2D.Double line = new Line2D.Double(fromPoint, lip2D);
-				r.drawShape(line);
-				r.resetLineStyle();
+				if (lip != null && r.setLineStyle(t)) {
+					double spacing = SPACING * cm.getLocalScale();
+					Point2D lap2d1 = new Point2D.Double(lbounds.getMinX() - spacing, lbounds.getCenterY());
+					Point2D lap2d2 = new Point2D.Double(lbounds.getMaxX() + spacing, lbounds.getCenterY());
+					Point2D lip2D = BNAUtils.toPoint2D(lip);
+					lTransform.transform(lap2d1, lap2d1);
+					lTransform.transform(lap2d2, lap2d2);
+					double dist1 = lap2d1.distance(lip2D);
+					double dist2 = lap2d2.distance(lip2D);
+					Point2D fromPoint = dist1 < dist2 ? lap2d1 : lap2d2;
+					Line2D.Double line = new Line2D.Double(fromPoint, lip2D);
+					r.drawShape(line);
+					r.resetLineStyle();
+				}
+			}
+			else {
+				lastTextLocalShape = new Rectangle2D.Double(lap.x - 2, lap.y - 2, 4, 4);
+				if (lip != null && r.setLineStyle(t)) {
+					Line2D.Double line = new Line2D.Double(BNAUtils.toPoint2D(lip), BNAUtils.toPoint2D(lap));
+					r.drawShape(line);
+					r.resetLineStyle();
+				}
 			}
 		}
 
