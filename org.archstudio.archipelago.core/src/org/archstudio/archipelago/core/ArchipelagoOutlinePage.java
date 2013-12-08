@@ -15,6 +15,7 @@ import org.archstudio.filemanager.IFileManagerListener;
 import org.archstudio.graphlayout.IGraphLayout;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.resources.IResources;
+import org.archstudio.resources.ResourceCache;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.IXArchADTFileListener;
@@ -364,6 +365,14 @@ public class ArchipelagoOutlinePage extends AbstractArchStudioOutlinePage implem
 
 		@Override
 		public Image getImage(Object element) {
+
+			if (element instanceof ObjRef) {
+				Image img = ResourceCache.getIcon16(xarch, (ObjRef) element);
+				if (img != null) {
+					return img;
+				}
+			}
+
 			Image img = null;
 			for (IArchipelagoTreePlugin treePlugin : treePlugins) {
 				IArchipelagoLabelProvider labelProvider = treePlugin.getLabelProvider();

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio xADL Data Bindings
+Bundle-SymbolicName: org.archstudio.xadl3;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: archstudio.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: org.eclipse.core.runtime;resolution:=optional,
+ org.osgi.framework;resolution:=optional
+Export-Package: org.archstudio.xadl3

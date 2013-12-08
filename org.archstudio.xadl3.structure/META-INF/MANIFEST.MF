@@ -17,6 +17,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore.xmi,
  org.archstudio.xadl3.xadlcore,
  org.archstudio.dblgen,
- org.archstudio.prolog.archstudio
+ org.archstudio.prolog.archstudio,
+ org.archstudio.xadl3
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

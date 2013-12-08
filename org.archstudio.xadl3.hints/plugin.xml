@@ -2,6 +2,19 @@
 <plugin>
 
    <extension
+         point="org.archstudio.xadl3.icon">
+      <Icon
+            icon16="res/hint-16.png"
+            name="hint"
+            type="org.archstudio.xadl3.hints_3_0.Hint">
+      </Icon>
+      <Icon
+            icon16="res/hint-16.png"
+            name="hint extension"
+            type="org.archstudio.xadl3.hints_3_0.HintsExtension">
+      </Icon>
+   </extension>
+   <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.archstudio.org/xadl3/schemas/hints-3.0.xsd"

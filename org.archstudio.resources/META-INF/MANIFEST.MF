@@ -7,5 +7,10 @@ Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.resources
 Require-Bundle: org.archstudio.utils.swt,
  org.eclipse.ui,
- org.archstudio.utils.system
+ org.archstudio.utils.system,
+ org.archstudio.guava,
+ org.eclipse.equinox.registry,
+ org.eclipse.core.runtime,
+ org.archstudio.xarchadt,
+ org.archstudio.xadl3
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

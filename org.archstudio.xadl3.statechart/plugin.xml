@@ -2,6 +2,44 @@
 <plugin>
 
    <extension
+         point="org.archstudio.xadl3.icon">
+      <Icon
+            name="statechart"
+            icon16="res/statechart-16.png"
+            type="org.archstudio.xadl3.statechart_1_0.Statechart">
+      </Icon>
+      <Icon
+            icon16="res/statechart-16.png"
+            name="substatechart"
+            type="org.archstudio.xadl3.statechart_1_0.SubStatechart">
+      </Icon>
+      <Icon
+            name="statechart specification"
+            icon16="res/statechart-16.png"
+            type="org.archstudio.xadl3.statechart_1_0.StatechartSpecification">
+      </Icon>
+      <Icon
+            name="initial state"
+            icon16="res/initial-state-16.png"
+            type="org.archstudio.xadl3.statechart_1_0.InitialState">
+      </Icon>
+      <Icon
+            name="final state"
+            icon16="res/final-state-16.png"
+            type="org.archstudio.xadl3.statechart_1_0.FinalState">
+      </Icon>
+      <Icon
+            name="state"
+            icon16="res/state-16.png"
+            type="org.archstudio.xadl3.statechart_1_0.State">
+      </Icon>
+      <Icon
+            icon16="res/transition-16.png"
+            name="transition"
+            type="org.archstudio.xadl3.statechart_1_0.Transition">
+      </Icon>
+   </extension>
+   <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.archstudio.org/xadl3/schemas/statechart-1.0.xsd"

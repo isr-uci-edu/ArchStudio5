@@ -13,6 +13,7 @@ import javax.xml.xpath.XPathException;
 
 import org.archstudio.eclipse.ui.views.AbstractArchStudioOutlinePage;
 import org.archstudio.resources.IResources;
+import org.archstudio.resources.ResourceCache;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
@@ -65,6 +66,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 
 public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
+
 	protected boolean showIDs = false;
 	protected boolean showDescriptions = true;
 	protected boolean showObjRefs = false;
@@ -516,6 +518,12 @@ public class ArchEditOutlinePage extends AbstractArchStudioOutlinePage {
 
 		@Override
 		public Image getImage() {
+
+			Image image = ResourceCache.getIcon16(xarch, ref);
+			if (image != null) {
+				return image;
+			}
+
 			if (hasChildren()) {
 				return resources.getPlatformImage(ISharedImages.IMG_OBJ_FOLDER);
 			}

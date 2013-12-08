@@ -15,6 +15,44 @@ compatible_directions(&apos;none&apos;, &apos;none&apos;).
       </Statements>
    </extension>
    <extension
+         point="org.archstudio.xadl3.icon">
+      <Icon
+            name="structure"
+            icon16="res/structure-16.png"
+            type="org.archstudio.xadl3.structure_3_0.Structure">
+      </Icon>
+      <Icon
+            icon16="res/structure-16.png"
+            name="substructure"
+            type="org.archstudio.xadl3.structure_3_0.SubStructure">
+      </Icon>
+      <Icon
+            name="component"
+            icon16="res/component-16.png"
+            type="org.archstudio.xadl3.structure_3_0.Component">
+      </Icon>
+      <Icon
+            name="connector"
+            icon16="res/connector-16.png"
+            type="org.archstudio.xadl3.structure_3_0.Connector">
+      </Icon>
+      <Icon
+            name="interface"
+            icon16="res/interface-16.png"
+            type="org.archstudio.xadl3.structure_3_0.Interface">
+      </Icon>
+      <Icon
+            name="link"
+            icon16="res/link-16.png"
+            type="org.archstudio.xadl3.structure_3_0.Link">
+      </Icon>
+      <Icon
+            icon16="res/link-16.png"
+            name="mapping"
+            type="org.archstudio.xadl3.structure_3_0.InterfaceMapping">
+      </Icon>
+   </extension>
+   <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.archstudio.org/xadl3/schemas/structure-3.0.xsd"
