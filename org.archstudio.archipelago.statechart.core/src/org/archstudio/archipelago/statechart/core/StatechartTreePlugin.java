@@ -58,6 +58,8 @@ import org.archstudio.bna.logics.navigating.ViewAllLogic;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.GridThing;
 import org.archstudio.bna.things.utility.ShadowThing;
+import org.archstudio.bna.ui.IBNAUI;
+import org.archstudio.bna.ui.IBNAUI.AvailableUI;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
 import org.archstudio.bna.utils.BNAUtils;
@@ -499,6 +501,15 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 					gridThing.setGridSpacing(prefs.getInt(ArchipelagoConstants.PREF_GRID_SPACING));
 					gridThing.setGridDisplayType(GridDisplayType.valueOf(prefs
 							.getString(ArchipelagoConstants.PREF_GRID_DISPLAY_TYPE)));
+				}
+				try {
+					AvailableUI availableUI = AvailableUI.valueOf(prefs.getString(ArchipelagoConstants.PREF_BNA_UI));
+					IBNAUI bnaUI = (IBNAUI) availableUI.getBNAUIClass().getConstructors()[0].newInstance(bnaCanvas
+							.getBNAView());
+					bnaCanvas.setBNAUI(bnaUI);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
 				}
 				bnaCanvas.redraw();
 			}
