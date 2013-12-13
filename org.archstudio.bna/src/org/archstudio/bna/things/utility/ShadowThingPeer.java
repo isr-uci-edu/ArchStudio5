@@ -94,7 +94,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	private void updateShadowData() {
 		shadowSize = Math.min(BNAUtils.round(6 * cm.getLocalScale()), 5);
 		shadowOffset = Math.max(BNAUtils.round(6 * cm.getLocalScale()), shadowSize);
-		shadowAlpha = 0.8;
+		shadowAlpha = 0.4;
 	}
 
 	@Override
@@ -311,14 +311,15 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	public void draw(GC gc, Rectangle localBounds, IUIResources r) {
 		int shadowSize = this.shadowSize + this.shadowOffset;
 		int offsetStep = Math.max(1, (shadowSize + 2) / 5);
-		double cumulativeAlpha = 1 - shadowAlpha;
+		double cumulativeAlpha = 0;
 
 		for (int offset = shadowSize; offset > 0; offset -= offsetStep) {
-			double alpha = (float) Math.exp((float) -offset * offset / shadowSize / shadowSize);
+			double alpha = (float) Math.exp((float) -offset * offset / shadowSize / shadowSize) * shadowAlpha;
 			alpha = SystemUtils.bound(0, alpha * 2 - cumulativeAlpha, 1);
 			cumulativeAlpha += alpha;
 			int shadowOffset = shadowSize;
 			int translateOffset = shadowSize - offset;
+
 			r.pushMatrix(translateOffset, translateOffset, 0);
 			r.pushAlpha(alpha);
 			try {
