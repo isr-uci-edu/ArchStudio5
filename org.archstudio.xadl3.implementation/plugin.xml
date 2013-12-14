@@ -2,6 +2,19 @@
 <plugin>
 
    <extension
+         point="org.archstudio.xadl3.icon">
+      <Icon
+            icon16="res/impl.png"
+            name="implementation"
+            type="org.archstudio.xadl3.implementation_3_0.Implementation">
+      </Icon>
+      <Icon
+            icon16="res/impl.png"
+            name="implementation extension"
+            type="org.archstudio.xadl3.implementation_3_0.ImplementationExtension">
+      </Icon>
+   </extension>
+   <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.archstudio.org/xadl3/schemas/implementation-3.0.xsd"
