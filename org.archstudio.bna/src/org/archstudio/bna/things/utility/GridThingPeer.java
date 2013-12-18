@@ -9,6 +9,8 @@ import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
+import org.archstudio.bna.ui.jogl.IJOGLResources;
+import org.archstudio.bna.ui.swt.ISWTResources;
 import org.archstudio.swtutils.constants.LineStyle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
@@ -48,7 +50,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, IUIResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, IJOGLResources r) {
 
 		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY)) {
 
@@ -110,7 +112,7 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 	}
 
 	@Override
-	public void draw(GC gc, Rectangle localBounds, IUIResources r) {
+	public void draw(GC gc, Rectangle localBounds, ISWTResources r) {
 
 		if (r.setColor(t, IHasEdgeColor.EDGE_COLOR_KEY)) {
 

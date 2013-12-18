@@ -35,70 +35,84 @@ import com.google.common.collect.Sets;
 @NonNullByDefault
 public class CloneThingKey<D, V> extends AbstractCloneThingKey<D, V> {
 
-	public static final Function<Dimension, Dimension> dimension() {
-		return new Function<Dimension, Dimension>() {
+	private static final Function<Dimension, Dimension> CLONE_DIMENSION = new Function<Dimension, Dimension>() {
 
-			@Override
-			public @Nullable
-			Dimension apply(@Nullable Dimension input) {
-				return input != null ? new Dimension(input.width, input.height) : null;
-			}
-		};
+		@Override
+		public @Nullable
+		Dimension apply(@Nullable Dimension input) {
+			return input != null ? new Dimension(input.width, input.height) : null;
+		}
+	};
+
+	public static final Function<Dimension, Dimension> dimension() {
+		return CLONE_DIMENSION;
 	}
+
+	private static final Function<Insets, Insets> CLONE_INSETS = new Function<Insets, Insets>() {
+
+		@Override
+		public @Nullable
+		Insets apply(@Nullable Insets input) {
+			return input != null ? new Insets(input.top, input.left, input.bottom, input.right) : null;
+		}
+	};
 
 	public static final Function<Insets, Insets> insets() {
-		return new Function<Insets, Insets>() {
-
-			@Override
-			public @Nullable
-			Insets apply(@Nullable Insets input) {
-				return input != null ? new Insets(input.top, input.left, input.bottom, input.right) : null;
-			}
-		};
+		return CLONE_INSETS;
 	}
+
+	private static final Function<Point, Point> CLONE_POINT = new Function<Point, Point>() {
+
+		@Override
+		public @Nullable
+		Point apply(@Nullable Point input) {
+			return input != null ? new Point(input.x, input.y) : null;
+		}
+	};
 
 	public static final Function<Point, Point> point() {
-		return new Function<Point, Point>() {
-
-			@Override
-			public @Nullable
-			Point apply(@Nullable Point input) {
-				return input != null ? new Point(input.x, input.y) : null;
-			}
-		};
+		return CLONE_POINT;
 	}
+
+	private static final Function<Point2D, Point2D> CLONE_POINT2D =
+
+	new Function<Point2D, Point2D>() {
+
+		@Override
+		public @Nullable
+		Point2D apply(@Nullable Point2D input) {
+			return input != null ? (Point2D) input.clone() : null;
+		}
+	};
 
 	public static final Function<Point2D, Point2D> point2D() {
-		return new Function<Point2D, Point2D>() {
-
-			@Override
-			public @Nullable
-			Point2D apply(@Nullable Point2D input) {
-				return input != null ? (Point2D) input.clone() : null;
-			}
-		};
+		return CLONE_POINT2D;
 	}
+
+	private static final Function<Rectangle, Rectangle> CLONE_RECTANGLE = new Function<Rectangle, Rectangle>() {
+
+		@Override
+		public @Nullable
+		Rectangle apply(@Nullable Rectangle input) {
+			return input != null ? new Rectangle(input.x, input.y, input.width, input.height) : null;
+		}
+	};
 
 	public static final Function<Rectangle, Rectangle> rectangle() {
-		return new Function<Rectangle, Rectangle>() {
-
-			@Override
-			public @Nullable
-			Rectangle apply(@Nullable Rectangle input) {
-				return input != null ? new Rectangle(input.x, input.y, input.width, input.height) : null;
-			}
-		};
+		return CLONE_RECTANGLE;
 	}
 
-	public static final Function<RGB, RGB> rgb() {
-		return new Function<RGB, RGB>() {
+	private static final Function<RGB, RGB> CLONE_RGB = new Function<RGB, RGB>() {
 
-			@Override
-			public @Nullable
-			RGB apply(@Nullable RGB input) {
-				return input != null ? new RGB(input.red, input.green, input.blue) : null;
-			}
-		};
+		@Override
+		public @Nullable
+		RGB apply(@Nullable RGB input) {
+			return input != null ? new RGB(input.red, input.green, input.blue) : null;
+		}
+	};
+
+	public static final Function<RGB, RGB> rgb() {
+		return CLONE_RGB;
 	}
 
 	private static final Function<Shape, Shape> defaultShapeCloneFunction = new Function<Shape, Shape>() {

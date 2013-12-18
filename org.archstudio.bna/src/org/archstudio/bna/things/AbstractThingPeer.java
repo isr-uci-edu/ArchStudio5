@@ -9,6 +9,8 @@ import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.ui.IUIResources;
+import org.archstudio.bna.ui.jogl.IJOGLResources;
+import org.archstudio.bna.ui.swt.ISWTResources;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -37,11 +39,11 @@ public abstract class AbstractThingPeer<T extends IThing> implements IThingPeer<
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, IUIResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, IJOGLResources r) {
 	}
 
 	@Override
-	public void draw(GC gc, Rectangle localBounds, IUIResources r) {
+	public void draw(GC gc, Rectangle localBounds, ISWTResources r) {
 	}
 
 	public boolean drawShadow(Rectangle localBounds, IUIResources r) {

@@ -105,6 +105,7 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 	}
 
+	@Override
 	public void renderReshape(Rectangle localBounds) {
 		GLU glu = null;
 		try {
@@ -119,7 +120,7 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 			gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
 			gl.glLoadIdentity();
 			gl.glOrtho(localBounds.x, localBounds.x + localBounds.width, localBounds.y + localBounds.height,
-					localBounds.y, 0.0f, 1.0f);
+					localBounds.y, -Float.MAX_VALUE, Float.MAX_VALUE);
 			gl.glViewport(0, 0, localBounds.width, localBounds.height);
 		}
 		finally {

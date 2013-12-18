@@ -10,7 +10,8 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.things.AbstractAnchorPointThingPeer;
-import org.archstudio.bna.ui.IUIResources;
+import org.archstudio.bna.ui.jogl.IJOGLResources;
+import org.archstudio.bna.ui.swt.ISWTResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
@@ -27,7 +28,7 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, IUIResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, IJOGLResources r) {
 		Point lap = cm.worldToLocal(t.getAnchorPoint());
 		int Radius = t.getRadius();
 		int radius = Radius / 4;
@@ -90,7 +91,7 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 	}
 
 	@Override
-	public void draw(GC gc, Rectangle localBounds, IUIResources r) {
+	public void draw(GC gc, Rectangle localBounds, ISWTResources r) {
 		Point lap = cm.worldToLocal(t.getAnchorPoint());
 		int radius = t.getRadius();
 		int angle = t.getAngle();

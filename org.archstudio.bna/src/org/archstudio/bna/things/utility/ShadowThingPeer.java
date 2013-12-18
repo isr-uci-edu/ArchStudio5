@@ -14,6 +14,8 @@ import org.archstudio.bna.facets.peers.IHasLocalBounds;
 import org.archstudio.bna.facets.peers.IHasShadowPeer;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
+import org.archstudio.bna.ui.jogl.IJOGLResources;
+import org.archstudio.bna.ui.swt.ISWTResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.GC;
@@ -137,7 +139,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, IUIResources r) {
+	public void draw(GL2 gl, Rectangle localBounds, IJOGLResources r) {
 
 		boolean transparent = true;
 
@@ -308,7 +310,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	}
 
 	@Override
-	public void draw(GC gc, Rectangle localBounds, IUIResources r) {
+	public void draw(GC gc, Rectangle localBounds, ISWTResources r) {
 		int shadowSize = this.shadowSize + this.shadowOffset;
 		int offsetStep = Math.max(1, (shadowSize + 2) / 5);
 		double cumulativeAlpha = 0;

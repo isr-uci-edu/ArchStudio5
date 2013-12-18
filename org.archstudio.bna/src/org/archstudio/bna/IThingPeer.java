@@ -3,6 +3,8 @@ package org.archstudio.bna;
 import javax.media.opengl.GL2;
 
 import org.archstudio.bna.ui.IUIResources;
+import org.archstudio.bna.ui.jogl.IJOGLResources;
+import org.archstudio.bna.ui.swt.ISWTResources;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -21,9 +23,9 @@ public interface IThingPeer<T extends IThing> {
 
 	public boolean draw(Rectangle localBounds, IUIResources r);
 
-	public void draw(GL2 gl, Rectangle localBounds, IUIResources r);
+	public void draw(GL2 gl, Rectangle localBounds, IJOGLResources r);
 
-	public void draw(GC gc, Rectangle localBounds, IUIResources r);
+	public void draw(GC gc, Rectangle localBounds, ISWTResources r);
 
 	public void dispose();
 }
