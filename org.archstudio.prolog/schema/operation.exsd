@@ -3,7 +3,7 @@
 <schema targetNamespace="org.archstudio.prolog" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.archstudio.prolog" id="operation" name="Operation"/>
+         <meta.schema plugin="org.archstudio.prolog" id="operation" name="operation"/>
       </appinfo>
       <documentation>
          [Enter description of this extension point.]
