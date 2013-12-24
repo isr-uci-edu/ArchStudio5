@@ -135,12 +135,12 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       {
         Collection<MyxGenInterface> _interfaces_1 = b.getInterfaces();
         final Function1<MyxGenInterface,Boolean> _function = new Function1<MyxGenInterface,Boolean>() {
-            public Boolean apply(final MyxGenInterface i) {
-              EServiceObjectDelegate _serviceObjectDelegate = i.getServiceObjectDelegate();
-              boolean _equals = Objects.equal(_serviceObjectDelegate, EServiceObjectDelegate.brick);
-              return Boolean.valueOf(_equals);
-            }
-          };
+          public Boolean apply(final MyxGenInterface i) {
+            EServiceObjectDelegate _serviceObjectDelegate = i.getServiceObjectDelegate();
+            boolean _equals = Objects.equal(_serviceObjectDelegate, EServiceObjectDelegate.brick);
+            return Boolean.valueOf(_equals);
+          }
+        };
         Iterable<MyxGenInterface> _filter = IterableExtensions.<MyxGenInterface>filter(_interfaces_1, _function);
         boolean _hasElements = false;
         for(final MyxGenInterface i : _filter) {
@@ -723,12 +723,12 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       {
         Collection<MyxGenInterface> _interfaces_3 = b.getInterfaces();
         final Function1<MyxGenInterface,Boolean> _function_1 = new Function1<MyxGenInterface,Boolean>() {
-            public Boolean apply(final MyxGenInterface i) {
-              EMyxInterfaceDirection _direction = i.getDirection();
-              boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.IN);
-              return Boolean.valueOf(_equals);
-            }
-          };
+          public Boolean apply(final MyxGenInterface i) {
+            EMyxInterfaceDirection _direction = i.getDirection();
+            boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.IN);
+            return Boolean.valueOf(_equals);
+          }
+        };
         Iterable<MyxGenInterface> _filter_1 = IterableExtensions.<MyxGenInterface>filter(_interfaces_3, _function_1);
         for(final MyxGenInterface i_2 : _filter_1) {
           _builder.append("\t");
@@ -759,12 +759,12 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       {
         Collection<MyxGenInterface> _interfaces_4 = b.getInterfaces();
         final Function1<MyxGenInterface,Boolean> _function_2 = new Function1<MyxGenInterface,Boolean>() {
-            public Boolean apply(final MyxGenInterface i) {
-              EMyxInterfaceDirection _direction = i.getDirection();
-              boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.IN);
-              return Boolean.valueOf(_equals);
-            }
-          };
+          public Boolean apply(final MyxGenInterface i) {
+            EMyxInterfaceDirection _direction = i.getDirection();
+            boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.IN);
+            return Boolean.valueOf(_equals);
+          }
+        };
         Iterable<MyxGenInterface> _filter_2 = IterableExtensions.<MyxGenInterface>filter(_interfaces_4, _function_2);
         for(final MyxGenInterface i_3 : _filter_2) {
           _builder.append("\t");
@@ -868,12 +868,12 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       {
         Collection<MyxGenInterface> _interfaces_5 = b.getInterfaces();
         final Function1<MyxGenInterface,Boolean> _function_3 = new Function1<MyxGenInterface,Boolean>() {
-            public Boolean apply(final MyxGenInterface i) {
-              EMyxInterfaceDirection _direction = i.getDirection();
-              boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
-              return Boolean.valueOf(_equals);
-            }
-          };
+          public Boolean apply(final MyxGenInterface i) {
+            EMyxInterfaceDirection _direction = i.getDirection();
+            boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
+            return Boolean.valueOf(_equals);
+          }
+        };
         Iterable<MyxGenInterface> _filter_3 = IterableExtensions.<MyxGenInterface>filter(_interfaces_5, _function_3);
         for(final MyxGenInterface i_4 : _filter_3) {
           _builder.append("\t");
@@ -910,12 +910,12 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       {
         Collection<MyxGenInterface> _interfaces_6 = b.getInterfaces();
         final Function1<MyxGenInterface,Boolean> _function_4 = new Function1<MyxGenInterface,Boolean>() {
-            public Boolean apply(final MyxGenInterface i) {
-              EMyxInterfaceDirection _direction = i.getDirection();
-              boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
-              return Boolean.valueOf(_equals);
-            }
-          };
+          public Boolean apply(final MyxGenInterface i) {
+            EMyxInterfaceDirection _direction = i.getDirection();
+            boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
+            return Boolean.valueOf(_equals);
+          }
+        };
         Iterable<MyxGenInterface> _filter_4 = IterableExtensions.<MyxGenInterface>filter(_interfaces_6, _function_4);
         for(final MyxGenInterface i_5 : _filter_4) {
           _builder.newLine();
@@ -1007,12 +1007,12 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       {
         Collection<MyxGenInterface> _interfaces_7 = b.getInterfaces();
         final Function1<MyxGenInterface,Boolean> _function_5 = new Function1<MyxGenInterface,Boolean>() {
-            public Boolean apply(final MyxGenInterface i) {
-              EMyxInterfaceDirection _direction = i.getDirection();
-              boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
-              return Boolean.valueOf(_equals);
-            }
-          };
+          public Boolean apply(final MyxGenInterface i) {
+            EMyxInterfaceDirection _direction = i.getDirection();
+            boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
+            return Boolean.valueOf(_equals);
+          }
+        };
         Iterable<MyxGenInterface> _filter_5 = IterableExtensions.<MyxGenInterface>filter(_interfaces_7, _function_5);
         for(final MyxGenInterface i_6 : _filter_5) {
           _builder.append("\t");
@@ -1049,12 +1049,12 @@ public class MyxCompStubBuilder extends MyxCompUtils {
       {
         Collection<MyxGenInterface> _interfaces_8 = b.getInterfaces();
         final Function1<MyxGenInterface,Boolean> _function_6 = new Function1<MyxGenInterface,Boolean>() {
-            public Boolean apply(final MyxGenInterface i) {
-              EMyxInterfaceDirection _direction = i.getDirection();
-              boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
-              return Boolean.valueOf(_equals);
-            }
-          };
+          public Boolean apply(final MyxGenInterface i) {
+            EMyxInterfaceDirection _direction = i.getDirection();
+            boolean _equals = Objects.equal(_direction, EMyxInterfaceDirection.OUT);
+            return Boolean.valueOf(_equals);
+          }
+        };
         Iterable<MyxGenInterface> _filter_6 = IterableExtensions.<MyxGenInterface>filter(_interfaces_8, _function_6);
         for(final MyxGenInterface i_7 : _filter_6) {
           _builder.newLine();

@@ -248,7 +248,7 @@ public class MyxCompUtils {
         return type;
       }
       String[] _get_1 = resolved[0];
-      String _get_2 = _get_1[0];
+      Object _get_2 = _get_1[0];
       boolean _equals_1 = "".equals(_get_2);
       if (_equals_1) {
         return type;

@@ -11,4 +11,7 @@
 hs_err_pid*.log
 /*.feature/build.xml
 /*.p2/build.xml
+/*.p2.build/build.xml
 /*/javaCompilere...args
+org.archstudio.myxgen.builder/xtend-gen/org/archstudio/myxgen/jet/codegen/.gitignore
+org.archstudio.prolog.xtext/xtend-gen/org/archstudio/prolog/xtext/generator/.gitignore
