@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Example: XArchUCI Test
 Bundle-SymbolicName: org.archstudio.demo.xarchuci
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.0.1.qualifier
 Bundle-Vendor: archstudio.org
 Require-Bundle: org.archstudio.xadl3.xadlcore,
  org.archstudio.xadl3.structure,

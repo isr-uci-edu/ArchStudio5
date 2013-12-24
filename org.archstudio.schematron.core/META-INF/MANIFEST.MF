@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Schematron Core
 Bundle-SymbolicName: org.archstudio.schematron.core;singleton:=true
-Bundle-Version: 5.0.0.qualifier
+Bundle-Version: 5.0.1.qualifier
 Bundle-ClassPath: lib/xalan.jar,
  .
 Bundle-Activator: org.archstudio.schematron.core.Activator

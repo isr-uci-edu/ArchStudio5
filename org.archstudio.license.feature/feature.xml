@@ -2,7 +2,7 @@
 <feature
       id="org.archstudio.license.feature"
       label="ArchStudio License"
-      version="1.0.0.qualifier"
+      version="5.0.1.qualifier"
       provider-name="archstudio.org">
 
    <description url="http://www.example.com/description">

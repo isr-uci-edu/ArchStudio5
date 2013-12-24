@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Utilities OSGi
 Bundle-SymbolicName: org.archstudio.utils.osgi;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.0.1.qualifier
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.utils.osgi
 Require-Bundle: org.eclipse.osgi

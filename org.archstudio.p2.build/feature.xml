@@ -2,8 +2,10 @@
 <feature
       id="org.archstudio.p2.build"
       label="ArchStudio P2 Update Site with Dependencies"
-      version="1.0.0.qualifier"
-      provider-name="archstudio.org">
+      version="5.0.1.qualifier"
+      provider-name="archstudio.org"
+      license-feature="org.archstudio.license.feature"
+      license-feature-version="5.0.1.qualifier">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]

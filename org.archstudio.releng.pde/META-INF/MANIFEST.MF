@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Release Engineering Tools
 Bundle-SymbolicName: org.archstudio.releng.pde;singleton:=true
-Bundle-Version: 5.0.0.qualifier
+Bundle-Version: 5.0.1.qualifier
 Bundle-Activator: org.archstudio.releng.pde.Activator
 Bundle-Vendor: archstudio.org
 Require-Bundle: org.eclipse.core.resources,

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Myx Framework
 Bundle-SymbolicName: org.archstudio.myx.fw;singleton:=true
-Bundle-Version: 5.0.0.qualifier
+Bundle-Version: 5.0.1.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.myx.fw

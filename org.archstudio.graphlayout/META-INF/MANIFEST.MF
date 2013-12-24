@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Graph Layout Common
 Bundle-SymbolicName: org.archstudio.graphlayout;singleton:=true
-Bundle-Version: 5.0.0.qualifier
+Bundle-Version: 5.0.1.qualifier
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.graphlayout,
  org.archstudio.graphlayout.gui

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio File Manager Common
 Bundle-SymbolicName: org.archstudio.filemanager;singleton:=true
-Bundle-Version: 5.0.0.qualifier
+Bundle-Version: 5.0.1.qualifier
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.filemanager
 Require-Bundle: org.archstudio.xarchadt,

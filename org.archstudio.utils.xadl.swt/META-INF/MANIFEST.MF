@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Utilities xADL SWT
 Bundle-SymbolicName: org.archstudio.utils.xadl.swt;singleton:=true
-Bundle-Version: 5.0.0.qualifier
+Bundle-Version: 5.0.1.qualifier
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.xadl.swt
 Require-Bundle: org.archstudio.resources,

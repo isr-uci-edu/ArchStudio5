@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Prolog Parser
 Bundle-SymbolicName: org.archstudio.prolog.parser
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.0.1.qualifier
 Bundle-Activator: org.archstudio.prolog.parser.Activator
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.prolog.parser

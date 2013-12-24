@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio Lightweight Java Middleware
 Bundle-SymbolicName: org.archstudio.ljm
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.0.1.qualifier
 Bundle-Vendor: archstudio.org
 Export-Package: org.archstudio.ljm
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

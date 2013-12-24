@@ -2,10 +2,10 @@
 <feature
       id="org.archstudio.dblgen.feature"
       label="ArchStudio - xADL Data Binding Library (DBL) Generator"
-      version="5.0.0.qualifier"
+      version="5.0.1.qualifier"
       provider-name="archstudio.org"
       license-feature="org.archstudio.license.feature"
-      license-feature-version="1.0.0.qualifier">
+      license-feature-version="5.0.1.qualifier">
 
    <description>
       xADL data binding library (DBL) generator
