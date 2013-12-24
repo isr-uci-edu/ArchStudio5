@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.archstudio.p2.build"
+      label="ArchStudio P2 Update Site with Dependencies"
+      version="1.0.0.qualifier"
+      provider-name="archstudio.org">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <includes
+         id="org.archstudio.p2"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.emf.sdk"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.xsd.sdk"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.xtend.sdk"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.jdt"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.pde"
+         version="0.0.0"/>
+
+   <requires>
+      <import plugin="org.junit"/>
+      <import plugin="org.archstudio.xadl.tests"/>
+      <import plugin="org.archstudio.xarchadt.tests"/>
+      <import plugin="org.archstudio.xarchadt.variability.tests"/>
+      <import plugin="org.archstudio.prolog.tests"/>
+   </requires>
+
+   <plugin
+         id="org.archstudio.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

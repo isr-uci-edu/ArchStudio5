@@ -41,19 +41,4 @@
          id="org.archstudio.jogl.feature"
          version="0.0.0"/>
 
-   <requires>
-      <import plugin="org.junit"/>
-      <import plugin="org.archstudio.xadl.tests"/>
-      <import plugin="org.archstudio.xarchadt.tests"/>
-      <import plugin="org.archstudio.xarchadt.variability.tests"/>
-      <import plugin="org.archstudio.prolog.tests"/>
-   </requires>
-
-   <plugin
-         id="org.archstudio.tests"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
 </feature>

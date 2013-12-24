@@ -21,6 +21,7 @@
 
    <requires>
       <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.swt"/>
    </requires>
 
    <plugin
