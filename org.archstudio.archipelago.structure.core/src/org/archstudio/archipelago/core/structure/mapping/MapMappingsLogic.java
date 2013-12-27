@@ -15,6 +15,7 @@ import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.ReparentToThingIDLogic;
+import org.archstudio.bna.logics.events.WorldThingInternalEventsLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.things.shapes.MappingThing;
 import org.archstudio.bna.utils.Assemblies;
@@ -46,6 +47,7 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 		syncLogic = logics.addThingLogic(SynchronizeThingIDAndObjRefLogic.class);
 		reparentLogic = logics.addThingLogic(ReparentToThingIDLogic.class);
 		logics.addThingLogic(MaintainMappingLogic.class);
+		logics.addThingLogic(WorldThingInternalEventsLogic.class);
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), Assemblies.TEXT_KEY, true);

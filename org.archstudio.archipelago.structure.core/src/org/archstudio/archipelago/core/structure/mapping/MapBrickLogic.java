@@ -25,6 +25,7 @@ import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
+import org.archstudio.bna.logics.events.WorldThingInternalEventsLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.utils.Assemblies;
@@ -73,6 +74,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 			Dimension defaultSize, String defaultColorPref, int defaultCount, String defaultFontPref, String description) {
 		super(world, xarch, rootObjRef, objRefPath);
 		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
+		logics.addThingLogic(WorldThingInternalEventsLogic.class);
 		this.services = services;
 		this.defaultSize = defaultSize;
 		this.defaultColorPref = defaultColorPref;
@@ -181,7 +183,6 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 	}
 
 	protected void updateSubstructure(ObjRef objRef, String xadlPath, XArchADTModelEvent evt, RectangleThing rootThing) {
-
 		IHasMutableWorld worldThing = castOrNull(
 				BNAPath.resolve(model, rootThing, BNAPath.create(Assemblies.WORLD_KEY)), IHasMutableWorld.class);
 		if (worldThing != null) {
