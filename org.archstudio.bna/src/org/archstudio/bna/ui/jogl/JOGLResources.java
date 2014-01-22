@@ -37,6 +37,7 @@ import org.archstudio.bna.ui.utils.AbstractUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.ObscuredGL2;
 import org.archstudio.swtutils.constants.LineStyle;
+import org.archstudio.sysutils.Matrix;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
@@ -111,7 +112,7 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
 		gl.glLoadIdentity();
 		gl.glOrtho(localBounds.x, localBounds.x + localBounds.width, localBounds.y + localBounds.height, localBounds.y,
-				0, 1);
+				-10000, 10000);
 		gl.glViewport(0, 0, localBounds.width, localBounds.height);
 	}
 
@@ -517,5 +518,33 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 				fbObject.destroy(gl);
 			}
 		}
+	}
+
+	@Override
+	public Matrix getMatrix() {
+		int[] matrixMode = new int[1];
+		gl.glGetIntegerv(GL2.GL_MATRIX_MODE, matrixMode, 0);
+		switch (matrixMode[0]) {
+		case GL2.GL_MODELVIEW:
+			matrixMode[0] = GL2.GL_MODELVIEW_MATRIX;
+			break;
+		case GL2.GL_PROJECTION:
+			matrixMode[0] = GL2.GL_PROJECTION_MATRIX;
+			break;
+		case GL2.GL_TEXTURE:
+			matrixMode[0] = GL2.GL_TEXTURE_MATRIX;
+			break;
+		default:
+			throw new RuntimeException("Unrecognized matrix mode: " + matrixMode[0]);
+		}
+		double[] matrix = new double[16];
+		gl.glGetDoublev(matrixMode[0], matrix, 0);
+		return Matrix.newColumnMajorMatrix(4, matrix);
+	}
+
+	@Override
+	public Point2D.Double transformXY(Matrix matrix, double x, double y, double z) {
+		Matrix m = matrix.product(Matrix.newRowMajorMatrix(1, x, y, z, 1));
+		return new Point2D.Double(m.get(0, 0), m.get(0, 1));
 	}
 }

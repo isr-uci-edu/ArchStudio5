@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.archstudio.bna.IThing.IThingKey;
+import org.archstudio.sysutils.CloneableObject;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;
@@ -34,6 +35,19 @@ import com.google.common.collect.Sets;
 
 @NonNullByDefault
 public class CloneThingKey<D, V> extends AbstractCloneThingKey<D, V> {
+
+	private static final Function<CloneableObject, CloneableObject> CLONEABLE = new Function<CloneableObject, CloneableObject>() {
+
+		@Override
+		public CloneableObject apply(CloneableObject input) {
+			return (CloneableObject) (input != null ? input.clone() : null);
+		}
+	};
+
+	@SuppressWarnings("unchecked")
+	public static final <T extends CloneableObject> Function<T, T> cloneable() {
+		return (Function<T, T>) CLONEABLE;
+	}
 
 	private static final Function<Dimension, Dimension> CLONE_DIMENSION = new Function<Dimension, Dimension>() {
 
