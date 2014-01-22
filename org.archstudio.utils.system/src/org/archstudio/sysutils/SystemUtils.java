@@ -1410,32 +1410,32 @@ public class SystemUtils {
 	}
 
 	public static final int floor(double v) {
-		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE);
+		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE, v);
 		return (int) v;
 	}
 
 	public static final int floor(float v) {
-		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE);
+		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE, v);
 		return (int) v;
 	}
 
 	public static final int ceil(double v) {
-		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE);
+		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE, v);
 		return (int) Math.ceil(v);
 	}
 
 	public static final int ceil(float v) {
-		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE);
+		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE, v);
 		return (int) Math.ceil(v);
 	}
 
 	public static final int round(double v) {
-		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE);
+		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE, v);
 		return (int) Math.round(v);
 	}
 
 	public static final int round(float v) {
-		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE);
+		checkArgument(v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE, v);
 		return Math.round(v);
 	}
 
