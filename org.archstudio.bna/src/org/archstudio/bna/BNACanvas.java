@@ -137,9 +137,9 @@ public class BNACanvas extends Composite implements ControlListener, SelectionLi
 			@Override
 			public void run() {
 				updateScrollBars();
-				bnaUI.paint();
 			}
 		});
+		bnaUI.paint();
 	}
 
 	boolean isUpdatingScrollBars = false;
