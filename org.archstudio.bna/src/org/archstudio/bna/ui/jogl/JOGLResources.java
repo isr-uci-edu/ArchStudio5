@@ -214,6 +214,10 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 
 		// determine what text area needs to be rendered
 		Dimension size = getTextSize(font, text);
+		if (size.width <= 0 || size.height <= 0) {
+			// the empty string will have a width of 0
+			return;
+		}
 
 		// create a buffered image to back the text
 		if (bufferedImage == null || bufferedImage.getWidth() < size.width || bufferedImage.getHeight() < size.height) {
