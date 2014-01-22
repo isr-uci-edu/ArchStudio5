@@ -37,6 +37,7 @@ import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.ui.utils.AbstractUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.ObscuredGL2;
+import org.archstudio.swtutils.constants.LineStyle;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
@@ -192,7 +193,7 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 
 	@Override
 	public boolean setLineStyle(IHasLineData thing) {
-		if (setColor(thing, IHasEdgeColor.EDGE_COLOR_KEY)) {
+		if (thing.getLineStyle() != LineStyle.NONE && setColor(thing, IHasEdgeColor.EDGE_COLOR_KEY)) {
 			gl.glLineWidth(thing.getLineWidth());
 			gl.glLineStipple(1, (short) thing.getLineStyle().toBitPattern());
 			return true;

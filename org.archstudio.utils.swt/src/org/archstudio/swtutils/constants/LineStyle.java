@@ -3,6 +3,7 @@ package org.archstudio.swtutils.constants;
 import org.eclipse.swt.SWT;
 
 public enum LineStyle {
+	NONE(SWT.LINE_CUSTOM, 0x00000000), //
 	SOLID(SWT.LINE_SOLID, 0xffffffff), //
 	DASH(SWT.LINE_DASH, 0x0f0f0f0f), //
 	DOT(SWT.LINE_DOT, 0x55555555), //

@@ -27,6 +27,7 @@ import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.ui.utils.AbstractUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.FontStyle;
+import org.archstudio.swtutils.constants.LineStyle;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -215,7 +216,7 @@ public class SWTResources extends AbstractUIResources implements ISWTResources {
 
 	@Override
 	public boolean setLineStyle(IHasLineData thing) {
-		if (setColor(thing, IHasEdgeColor.EDGE_COLOR_KEY)) {
+		if (thing.getLineStyle() != LineStyle.NONE && setColor(thing, IHasEdgeColor.EDGE_COLOR_KEY)) {
 			gc.setLineWidth(thing.getLineWidth());
 			gc.setLineStyle(thing.getLineStyle().toSwtStyle());
 			return true;
