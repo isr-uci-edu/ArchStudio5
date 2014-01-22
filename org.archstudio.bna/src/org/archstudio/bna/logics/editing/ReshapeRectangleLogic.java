@@ -15,8 +15,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class ReshapeRectangleLogic extends
-		AbstractReshapeLogic<IHasMutableBoundingBox, Orientation> {
+public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBoundingBox, Orientation> {
 
 	public ReshapeRectangleLogic(IBNAWorld world) {
 		super(world, IHasMutableBoundingBox.class);
@@ -25,20 +24,17 @@ public class ReshapeRectangleLogic extends
 
 	@Override
 	protected void addHandles(IHasMutableBoundingBox reshapingThing) {
-		if (UserEditableUtils.isEditableForAnyQualities(reshapingThing,
-				IHasMutableSize.USER_MAY_RESIZE)) {
+		if (UserEditableUtils.isEditableForAnyQualities(reshapingThing, IHasMutableSize.USER_MAY_RESIZE)) {
 			for (Orientation o : Orientation.values()) {
 				if (o != Orientation.NONE) {
-					addHandle(reshapingThing,
-							Assemblies.createHandle(world, null, null), o);
+					addHandle(reshapingThing, Assemblies.createHandle(world, null, null), o);
 				}
 			}
 		}
 	}
 
 	@Override
-	protected void updateHandle(IHasMutableBoundingBox reshapingThing,
-			ReshapeHandleThing handle, Orientation data) {
+	protected void updateHandle(IHasMutableBoundingBox reshapingThing, ReshapeHandleThing handle, Orientation data) {
 		Rectangle boundingBox = reshapingThing.getBoundingBox();
 		int cursor = SWT.CURSOR_SIZEALL;
 		int x1 = boundingBox.x;
@@ -89,8 +85,8 @@ public class ReshapeRectangleLogic extends
 	}
 
 	@Override
-	protected void handleMoved(IHasMutableBoundingBox reshapingThing,
-			ReshapeHandleThing handle, Orientation data, DragMoveEvent evt) {
+	protected void handleMoved(IHasMutableBoundingBox reshapingThing, ReshapeHandleThing handle, Orientation data,
+			DragMoveEvent evt) {
 		Rectangle bb = reshapingThing.getBoundingBox();
 
 		int nx1 = bb.x;
