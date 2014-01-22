@@ -41,7 +41,12 @@ public class JOGLBNAUI extends AbstractSWTUI {
 							}
 							needsRepaint = false;
 						}
-						glCanvas.display();
+						try {
+							glCanvas.display();
+						}
+						catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			});
