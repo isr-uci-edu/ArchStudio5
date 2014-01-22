@@ -22,7 +22,6 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.GL2ES1;
 import javax.media.opengl.GL2GL3;
 import javax.media.opengl.fixedfunc.GLMatrixFunc;
-import javax.media.opengl.glu.GLU;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
@@ -106,29 +105,14 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 	}
 
-	@Override
 	public void renderReshape(Rectangle localBounds) {
-		GLU glu = null;
-		try {
-			glu = new GLU();
-			float fAspect = (float) localBounds.width / localBounds.height;
-			//gl.glViewport(-localBounds.x, -localBounds.y, localBounds.width, localBounds.height);
-			gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
-			gl.glLoadIdentity();
-			glu.gluPerspective(45.0f, fAspect, 0.0f, 1.0f);
-			gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
-			gl.glLoadIdentity();
-			gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
-			gl.glLoadIdentity();
-			gl.glOrtho(localBounds.x, localBounds.x + localBounds.width, localBounds.y + localBounds.height,
-					localBounds.y, -Float.MAX_VALUE, Float.MAX_VALUE);
-			gl.glViewport(0, 0, localBounds.width, localBounds.height);
-		}
-		finally {
-			if (glu != null) {
-				glu.destroy();
-			}
-		}
+		gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
+		gl.glLoadIdentity();
+		gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
+		gl.glLoadIdentity();
+		gl.glOrtho(localBounds.x, localBounds.x + localBounds.width, localBounds.y + localBounds.height, localBounds.y,
+				0, 1);
+		gl.glViewport(0, 0, localBounds.width, localBounds.height);
 	}
 
 	@Override
