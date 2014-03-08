@@ -43,6 +43,8 @@ public class JOGLBNAUI extends AbstractSWTUI {
 						}
 						try {
 							glCanvas.display();
+							// rate limit repaint
+							Thread.sleep(1000 / 30);
 						}
 						catch (Exception e) {
 							e.printStackTrace();
