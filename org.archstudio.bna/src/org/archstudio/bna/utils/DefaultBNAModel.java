@@ -22,6 +22,8 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 
 	private Deque<BNAModelEvent> eventQueue = new LinkedList<>();
 	private Thread eventThread;
+	private int bulkChangeCount = 0;
+	private boolean firedBulkChange = false;
 	{
 		eventThread = new Thread(new Runnable() {
 			@Override
@@ -41,16 +43,40 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 					if (event == null) {
 						return;
 					}
-					for (IBNAModelListener l : listeners) {
-						try {
-							l.bnaModelChanged(event);
+					if (event.getEventType() == EventType.BULK_CHANGE_BEGIN) {
+						bulkChangeCount++;
+						continue;
+					}
+					if (event.getEventType() == EventType.BULK_CHANGE_END) {
+						if (--bulkChangeCount <= 0) {
+							bulkChangeCount = 0;
+							if (!firedBulkChange) {
+								continue;
+							}
+							firedBulkChange = false;
+							fire(event);
+							continue;
 						}
-						catch (Throwable t) {
-							t.printStackTrace();
-						}
+					}
+					if (bulkChangeCount > 0 && !firedBulkChange) {
+						firedBulkChange = true;
+						fire(BNAModelEvent.create(DefaultBNAModel.this, EventType.BULK_CHANGE_BEGIN));
+					}
+					fire(event);
+				}
+			}
+
+			private void fire(BNAModelEvent event) {
+				for (IBNAModelListener l : listeners) {
+					try {
+						l.bnaModelChanged(event);
+					}
+					catch (Throwable t) {
+						t.printStackTrace();
 					}
 				}
 			}
+
 		});
 		eventThread.setDaemon(true);
 		eventThread.setName(DefaultBNAModel.class.getName());
