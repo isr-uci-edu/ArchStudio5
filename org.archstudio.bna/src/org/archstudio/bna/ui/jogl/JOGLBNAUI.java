@@ -121,6 +121,7 @@ public class JOGLBNAUI extends AbstractSWTUI {
 		GLCapabilities caps;
 		caps = new GLCapabilities(GLProfile.getDefault());
 		caps.setDoubleBuffered(true);
+		caps.setHardwareAccelerated(true);
 
 		glCanvas = new GLCanvas(parent, style, caps, null, null);
 		glCanvas.addPaintListener(new PaintListener() {
