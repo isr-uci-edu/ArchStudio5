@@ -2,19 +2,12 @@ package org.archstudio.bna;
 
 import java.util.List;
 
-import org.archstudio.bna.IThing.IThingKey;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.annotation.Nullable;
 
 public interface IBNAModel {
 
 	public interface RunnableStreamNotification extends Runnable {
-
 	}
-
-	public void addPrivilegedBNAModelListener(IPrivilegedBNAModelListener l);
-
-	public void removePrivilegedBNAModelListener(IPrivilegedBNAModelListener l);
 
 	public void addBNAModelListener(IBNAModelListener l);
 
@@ -39,16 +32,6 @@ public interface IBNAModel {
 	 */
 	public void endBulkChange();
 
-	public void doNotMergeEventsForKey(IThingKey<?> key);
-
-	public boolean isInBulkChange();
-
-	public void ensureFlush();
-
-	public void flush();
-
-	public void flush(IProgressMonitor monitor);
-
 	public <T extends IThing> T addThing(T thing);
 
 	public <T extends IThing> T addThing(T thing, IThing parentThing);
@@ -60,21 +43,11 @@ public interface IBNAModel {
 	public void removeThingAndChildren(IThing thing);
 
 	public @Nullable
-	IThing getThing(int thingUID);
-
-	public @Nullable
-	IThing getThing(@Nullable Integer thingUID);
-
-	public List<IThing> getThingsByUID(Iterable<Integer> thingUIDs);
-
-	public @Nullable
 	IThing getThing(@Nullable Object thingID);
 
 	public List<IThing> getThingsByID(Iterable<Object> thingIDs);
 
 	public List<IThing> getAllThings();
-
-	public List<IThing> getReverseThings();
 
 	public int getNumThings();
 

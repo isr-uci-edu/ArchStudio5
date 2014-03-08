@@ -6,8 +6,8 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
-import org.archstudio.bna.IPrivilegedBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -22,7 +22,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 
-public class ThingValueTrackingLogic extends AbstractThingLogic implements IPrivilegedBNAModelListener {
+public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	private final LoadingCache<IThingKey<?>, SetMultimap<Object, Object>> keyToValueToThingIDsCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<IThingKey<?>, SetMultimap<Object, Object>>() {
@@ -51,7 +51,7 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IPriv
 	}
 
 	@Override
-	synchronized public void privilegedBNAModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();

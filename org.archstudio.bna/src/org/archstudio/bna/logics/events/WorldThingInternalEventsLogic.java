@@ -204,7 +204,6 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 		for (IHasWorld worldThing : typeLogic.getThings(IHasWorld.class)) {
 			register(worldThing, worldThing.getWorld());
 		}
-		model.doNotMergeEventsForKey(WORLD_CHANGES_TICKER_KEY);
 	}
 
 	@Override

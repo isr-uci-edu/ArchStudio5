@@ -11,7 +11,6 @@ public class BNAModelEvent {
 		THING_RESTACKED(true), //
 		BULK_CHANGE_BEGIN(false), //
 		BULK_CHANGE_END(false), //
-		FLUSH(false), //
 		STREAM_NOTIFICATION_EVENT(false);
 
 		private final boolean modelModified;
@@ -37,9 +36,8 @@ public class BNAModelEvent {
 		return new BNAModelEvent(source, eventType, targetThing, null, null);
 	}
 
-	public static final BNAModelEvent create(IBNAModel source, EventType eventType, IThing targetThing,
-			ThingEvent thingEvent) {
-		return new BNAModelEvent(source, eventType, targetThing, thingEvent, null);
+	public static final BNAModelEvent create(IBNAModel source, EventType eventType, ThingEvent thingEvent) {
+		return new BNAModelEvent(source, eventType, thingEvent.getTargetThing(), thingEvent, null);
 	}
 
 	protected final EventType eventType;

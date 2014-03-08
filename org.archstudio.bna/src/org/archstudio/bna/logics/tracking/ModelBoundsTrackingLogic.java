@@ -1,8 +1,8 @@
 package org.archstudio.bna.logics.tracking;
 
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
-import org.archstudio.bna.IPrivilegedBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
@@ -12,7 +12,7 @@ import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IPrivilegedBNAModelListener {
+public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	protected final ThingTypeTrackingLogic typeLogic;
 	private Rectangle cachedBounds = null;
@@ -23,7 +23,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IPri
 	}
 
 	@Override
-	synchronized public void privilegedBNAModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();

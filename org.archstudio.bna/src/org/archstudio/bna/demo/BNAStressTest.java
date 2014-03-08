@@ -189,11 +189,6 @@ public class BNAStressTest {
 		lTime = System.nanoTime() - lTime;
 		System.err.println("Time to create peers: " + lTime / 1000000f);
 
-		lTime = System.nanoTime();
-		model.flush();
-		lTime = System.nanoTime() - lTime;
-		System.err.println("Time for first flush: " + lTime / 1000000f);
-
 		final RectangleThing b = (RectangleThing) model.getThing(id(0, 0));
 		Thread movement = new Thread(new Runnable() {
 			int degree = 0;

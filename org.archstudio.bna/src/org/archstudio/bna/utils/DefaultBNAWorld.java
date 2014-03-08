@@ -5,7 +5,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
-import org.archstudio.bna.IPrivilegedBNAModelListener;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.IThingLogicManagerListener;
 import org.archstudio.bna.ThingLogicManagerEvent;
@@ -48,17 +47,11 @@ public class DefaultBNAWorld implements IBNAWorld, IThingLogicManagerListener {
 	public void handleThingLogicManagerEvent(ThingLogicManagerEvent evt) {
 		switch (evt.getEventType()) {
 		case LOGIC_ADDED:
-			if (evt.getLogic() instanceof IPrivilegedBNAModelListener) {
-				model.addPrivilegedBNAModelListener((IPrivilegedBNAModelListener) evt.getLogic());
-			}
 			if (evt.getLogic() instanceof IBNAModelListener) {
 				model.addBNAModelListener((IBNAModelListener) evt.getLogic());
 			}
 			break;
 		case LOGIC_REMOVING:
-			if (evt.getLogic() instanceof IPrivilegedBNAModelListener) {
-				model.removePrivilegedBNAModelListener((IPrivilegedBNAModelListener) evt.getLogic());
-			}
 			if (evt.getLogic() instanceof IBNAModelListener) {
 				model.removeBNAModelListener((IBNAModelListener) evt.getLogic());
 			}

@@ -12,7 +12,6 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.utils.ThingKeyID;
 import org.archstudio.sysutils.FastMap;
-import org.archstudio.sysutils.SystemUtils;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -51,7 +50,6 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 	private final FastMap<ThingKeyID<?>, Updater> registeredThingKeys = new FastMap<>(true);
 	private final FastMap<Object, List<Updater>> trackedThings = new FastMap<>(true);
 	private final FastMap<ThingKeyID<?>, List<Updater>> trackedThingKeys = new FastMap<>(true);
-	private final Set<Updater> toUpdate = Sets.newHashSet();
 
 	public AbstractCoordinatingThingLogic(IBNAWorld world) {
 		super(world);
@@ -80,8 +78,7 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 			System.err.println("Registering: " + updater);
 		}
 
-		toUpdate.add(updater);
-		model.ensureFlush();
+		updater.update();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -111,8 +108,7 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 			System.err.println("Registering: " + updater);
 		}
 
-		toUpdate.add(updater);
-		model.ensureFlush();
+		updater.update();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -150,7 +146,6 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 				FastMap.getCollection(trackedThingKeys, thingKeyID).remove(updater);
 			}
 
-			toUpdate.remove(updater);
 		}
 	}
 
@@ -227,7 +222,9 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 					System.err.println("Adding: " + FastMap.getCollection(existentialThings, evt.getTargetThing()));
 				}
 			}
-			toUpdate.addAll(FastMap.getCollection(existentialThings, evt.getTargetThing()));
+			for (Updater updater : FastMap.getCollection(existentialThings, evt.getTargetThing())) {
+				updater.update();
+			}
 			break;
 		case THING_CHANGED:
 			if (DEBUG) {
@@ -238,8 +235,12 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 					System.err.println("Updating: " + updaters + " " + evt.getThingEvent());
 				}
 			}
-			toUpdate.addAll(FastMap.getCollection(trackedThingKeys, evt.getThingEvent().getThingKeyID()));
-			toUpdate.addAll(FastMap.getCollection(trackedThings, evt.getTargetThing()));
+			for (Updater updater : FastMap.getCollection(trackedThingKeys, evt.getThingEvent().getThingKeyID())) {
+				updater.update();
+			}
+			for (Updater updater : FastMap.getCollection(trackedThings, evt.getTargetThing())) {
+				updater.update();
+			}
 			break;
 		case THING_REMOVED:
 			if (DEBUG) {
@@ -249,22 +250,6 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 			}
 			for (Updater updater : Lists.newArrayList(FastMap.getCollection(existentialThings, evt.getTargetThing()))) {
 				unregister(updater);
-			}
-			break;
-		case FLUSH:
-			if (toUpdate.size() > 0) {
-				for (Updater updater : SystemUtils.getAndClear(toUpdate)) {
-					if (DEBUG) {
-						System.err.println("Flushing: " + updater);
-					}
-					try {
-						updater.update();
-						toUpdate.remove(updater);
-					}
-					catch (Throwable t) {
-						t.printStackTrace();
-					}
-				}
 			}
 			break;
 		default:

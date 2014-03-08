@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
-import org.archstudio.bna.IPrivilegedBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.logics.AbstractThingLogic;
 
@@ -17,7 +17,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 
-public class ThingTypeTrackingLogic extends AbstractThingLogic implements IPrivilegedBNAModelListener {
+public class ThingTypeTrackingLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	private final LoadingCache<Class<? extends IThing>, Collection<Object>> classToThingIDsCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<Class<? extends IThing>, Collection<Object>>() {
@@ -45,7 +45,7 @@ public class ThingTypeTrackingLogic extends AbstractThingLogic implements IPrivi
 	}
 
 	@Override
-	synchronized public void privilegedBNAModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing t = evt.getTargetThing();

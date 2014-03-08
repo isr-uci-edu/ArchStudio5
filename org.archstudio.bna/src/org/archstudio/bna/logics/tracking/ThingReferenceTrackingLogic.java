@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.archstudio.bna.BNAModelEvent;
+import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
-import org.archstudio.bna.IPrivilegedBNAModelListener;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
@@ -16,7 +16,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
-public class ThingReferenceTrackingLogic extends AbstractThingLogic implements IPrivilegedBNAModelListener {
+public class ThingReferenceTrackingLogic extends AbstractThingLogic implements IBNAModelListener {
 
 	public static final class Reference {
 		private final Object fromThingID;
@@ -134,7 +134,7 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 
 	@Override
 	@SuppressWarnings("rawtypes")
-	synchronized public void privilegedBNAModelChanged(BNAModelEvent evt) {
+	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
 		case THING_ADDED:
 			addReferences(evt.getTargetThing());

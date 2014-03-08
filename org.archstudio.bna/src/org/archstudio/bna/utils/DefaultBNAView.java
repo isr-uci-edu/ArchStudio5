@@ -134,7 +134,7 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 	public List<IThing> getThingsAt(ICoordinate location) {
 		location = DefaultCoordinate.forWorld(location.getWorldPoint(), cm);
 		List<IThing> things = Lists.newArrayList();
-		for (IThing t : getBNAWorld().getBNAModel().getReverseThings()) {
+		for (IThing t : Lists.reverse(getBNAWorld().getBNAModel().getAllThings())) {
 			if (t.has(IIsBackground.BACKGROUND_KEY, Boolean.TRUE)) {
 				continue;
 			}

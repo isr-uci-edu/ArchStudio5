@@ -2,7 +2,6 @@ package org.archstudio.bna.logics;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,9 +16,7 @@ import org.archstudio.bna.logics.tracking.ThingReferenceTrackingLogic;
 import org.archstudio.bna.logics.tracking.ThingReferenceTrackingLogic.Reference;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.utils.IgnoreEvents;
-import org.archstudio.sysutils.SystemUtils;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 public abstract class AbstractKeyCoordinatingThingLogic extends AbstractThingLogic implements IBNAModelListener {
@@ -29,7 +26,6 @@ public abstract class AbstractKeyCoordinatingThingLogic extends AbstractThingLog
 
 	private final Set<IThingKey<?>> trackedKeys = Sets.newHashSet();
 	private final Set<IThingRefKey<?>> trackedRefKeys = Sets.newHashSet();
-	private final Set<List<Object>> toUpdate = Sets.newHashSet();
 	private final IgnoreEvents ignoreEvents;
 	private final boolean ignoreUpdateEvents;
 
@@ -49,6 +45,25 @@ public abstract class AbstractKeyCoordinatingThingLogic extends AbstractThingLog
 		}
 	}
 
+	private void _update(IThing thing, IThingKey<?> key) {
+		if (ignoreUpdateEvents) {
+			ignoreEvents.startIgnoring();
+		}
+		try {
+			try {
+				update(thing, key);
+			}
+			catch (Throwable t) {
+				t.printStackTrace();
+			}
+		}
+		finally {
+			if (ignoreUpdateEvents) {
+				ignoreEvents.stopIgnoring();
+			}
+		}
+	}
+
 	@Override
 	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		switch (evt.getEventType()) {
@@ -57,7 +72,7 @@ public abstract class AbstractKeyCoordinatingThingLogic extends AbstractThingLog
 			for (Map.Entry<IThingKey<?>, ?> entry : thing.entrySet()) {
 				IThingKey<?> key = entry.getKey();
 				if (trackedKeys.contains(key)) {
-					toUpdate.add(Lists.newArrayList(thing, key));
+					_update(thing, key);
 				}
 			}
 			if (trackedRefKeys.size() > 0) {
@@ -66,7 +81,7 @@ public abstract class AbstractKeyCoordinatingThingLogic extends AbstractThingLog
 					if (trackedRefKeys.contains(fromKey)) {
 						IThing fromThing = model.getThing(reference.getFromThingID());
 						if (fromThing != null) {
-							toUpdate.add(Lists.newArrayList(fromThing, fromKey));
+							_update(fromThing, fromKey);
 						}
 					}
 				}
@@ -78,7 +93,7 @@ public abstract class AbstractKeyCoordinatingThingLogic extends AbstractThingLog
 				IThing thing = evt.getTargetThing();
 				for (IThingRefKey<?> fromKey : trackedRefKeys) {
 					for (IThing fromThing : valueLogic.getThings(fromKey, thing.getID())) {
-						toUpdate.add(Lists.newArrayList(fromThing, fromKey));
+						_update(fromThing, fromKey);
 					}
 				}
 			}
@@ -87,31 +102,7 @@ public abstract class AbstractKeyCoordinatingThingLogic extends AbstractThingLog
 			if (!ignoreUpdateEvents || !ignoreEvents.shouldIgnore(evt)) {
 				ThingEvent thingEvent = evt.getThingEvent();
 				if (trackedKeys.contains(thingEvent.getPropertyName())) {
-					toUpdate.add(Lists.newArrayList(thingEvent.getTargetThing(), thingEvent.getPropertyName()));
-				}
-			}
-			break;
-		case FLUSH:
-			if (toUpdate.size() > 0) {
-				if (ignoreUpdateEvents) {
-					ignoreEvents.startIgnoring();
-				}
-				try {
-					for (List<Object> update : SystemUtils.getAndClear(toUpdate)) {
-						try {
-							IThing thing = (IThing) update.get(0);
-							IThingKey<?> key = (IThingKey<?>) update.get(1);
-							update(thing, key);
-						}
-						catch (Throwable t) {
-							t.printStackTrace();
-						}
-					}
-				}
-				finally {
-					if (ignoreUpdateEvents) {
-						ignoreEvents.stopIgnoring();
-					}
+					_update(thingEvent.getTargetThing(), thingEvent.getPropertyName());
 				}
 			}
 			break;
