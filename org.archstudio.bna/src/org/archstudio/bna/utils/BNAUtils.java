@@ -1229,18 +1229,6 @@ public class BNAUtils {
 		return path;
 	}
 
-	public static final long getThingKeyUID(IThing targetThing, IThingKey<?> propertyName) {
-		return (long) targetThing.getUID() << 32 | propertyName.getUID();
-	}
-
-	public static final int getThingUID(long thingKeyUID) {
-		return (int) (thingKeyUID >> 32); // FIXME, use the correct bit operator here
-	}
-
-	public static final IThingKey<?> getThingKey(long thingKeyUID) {
-		return ThingKey.getKey((int) thingKeyUID); // FIXME, use the correct bit operator here
-	}
-
 	public static Path2D worldToLocal(ICoordinateMapper cm, Shape shape) {
 		Path2D p = new Path2D.Double();
 		PathIterator i = shape.getPathIterator(new AffineTransform());

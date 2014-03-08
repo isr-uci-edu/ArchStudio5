@@ -10,9 +10,8 @@ import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
-import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.sysutils.FastIntMap;
-import org.archstudio.sysutils.FastLongMap;
+import org.archstudio.bna.utils.ThingKeyID;
+import org.archstudio.sysutils.FastMap;
 import org.archstudio.sysutils.SystemUtils;
 
 import com.google.common.collect.Lists;
@@ -24,22 +23,22 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 
 	protected abstract class Updater {
 
-		final List<Integer> existentialAsThings = Lists.newArrayList();
-		final List<Integer> registeredAsThings = Lists.newArrayList();
-		final List<Long> registeredAsThingKeys = Lists.newArrayList();
-		final List<Integer> trackedAsThings = Lists.newArrayList();
-		final List<Long> trackedAsThingKeys = Lists.newArrayList();
+		final List<Object> existentialAsThings = Lists.newArrayList();
+		final List<Object> registeredAsThings = Lists.newArrayList();
+		final List<ThingKeyID<?>> registeredAsThingKeys = Lists.newArrayList();
+		final List<Object> trackedAsThings = Lists.newArrayList();
+		final List<ThingKeyID<?>> trackedAsThingKeys = Lists.newArrayList();
 
 		public abstract void update();
 
 		@Override
 		public String toString() {
 			StringBuffer sb = new StringBuffer();
-			for (int uid : registeredAsThings) {
-				sb.append("(" + uid + ")");
+			for (Object thingID : registeredAsThings) {
+				sb.append("(" + thingID + ")");
 			}
-			for (long uid : registeredAsThingKeys) {
-				sb.append("(" + BNAUtils.getThingUID(uid) + ")." + BNAUtils.getThingKey(uid));
+			for (ThingKeyID<?> thingKey : registeredAsThingKeys) {
+				sb.append("(" + thingKey.getThingID() + ")." + thingKey.getKey());
 			}
 			sb.append(super.toString());
 			return sb.toString();
@@ -47,11 +46,11 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 
 	}
 
-	private final FastIntMap<List<Updater>> existentialThings = new FastIntMap<>();
-	private final FastIntMap<Updater> registeredThings = new FastIntMap<>();
-	private final FastLongMap<Updater> registeredThingKeys = new FastLongMap<>();
-	private final FastIntMap<List<Updater>> trackedThings = new FastIntMap<>();
-	private final FastLongMap<List<Updater>> trackedThingKeys = new FastLongMap<>();
+	private final FastMap<Object, List<Updater>> existentialThings = new FastMap<>(true);
+	private final FastMap<Object, Updater> registeredThings = new FastMap<>(true);
+	private final FastMap<ThingKeyID<?>, Updater> registeredThingKeys = new FastMap<>(true);
+	private final FastMap<Object, List<Updater>> trackedThings = new FastMap<>(true);
+	private final FastMap<ThingKeyID<?>, List<Updater>> trackedThingKeys = new FastMap<>(true);
 	private final Set<Updater> toUpdate = Sets.newHashSet();
 
 	public AbstractCoordinatingThingLogic(IBNAWorld world) {
@@ -62,19 +61,19 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 		checkNotNull(updater);
 		checkNotNull(thing);
 
-		updater.existentialAsThings.add(thing.getUID());
-		FastIntMap.createList(existentialThings, thing.getUID()).add(updater);
+		updater.existentialAsThings.add(thing);
+		FastMap.createList(existentialThings, thing).add(updater);
 	}
 
 	protected void register(Updater updater, IThing thing) {
 		checkNotNull(updater);
 		checkNotNull(thing);
 
-		unregister(registeredThings.get(thing.getUID()));
+		unregister(registeredThings.get(thing));
 
 		registerAsExistential(updater, thing);
-		updater.registeredAsThings.add(thing.getUID());
-		registeredThings.put(thing.getUID(), updater);
+		updater.registeredAsThings.add(thing);
+		registeredThings.put(thing, updater);
 
 		if (DEBUG) {
 			System.err.println("---");
@@ -87,13 +86,13 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 
 	@SuppressWarnings("unchecked")
 	protected <T extends Updater> T getRegistered(IThing thing) {
-		return (T) registeredThings.get(thing.getUID());
+		return (T) registeredThings.get(thing);
 	}
 
 	protected void unregister(IThing thing) {
 		checkNotNull(thing);
 
-		unregister(registeredThings.get(thing.getUID()));
+		unregister(registeredThings.get(thing));
 	}
 
 	protected void register(Updater updater, IThing thing, IThingKey<?> key) {
@@ -101,11 +100,11 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 		checkNotNull(thing);
 		checkNotNull(key);
 
-		unregister(registeredThingKeys.get(BNAUtils.getThingKeyUID(thing, key)));
+		unregister(registeredThingKeys.get(ThingKeyID.create(thing, key)));
 
 		registerAsExistential(updater, thing);
-		updater.registeredAsThingKeys.add(BNAUtils.getThingKeyUID(thing, key));
-		registeredThingKeys.put(BNAUtils.getThingKeyUID(thing, key), updater);
+		updater.registeredAsThingKeys.add(ThingKeyID.create(thing, key));
+		registeredThingKeys.put(ThingKeyID.create(thing, key), updater);
 
 		if (DEBUG) {
 			System.err.println("---");
@@ -118,14 +117,14 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 
 	@SuppressWarnings("unchecked")
 	protected <T extends Updater> T getRegistered(IThing thing, IThingKey<?> key) {
-		return (T) registeredThingKeys.get(BNAUtils.getThingKeyUID(thing, key));
+		return (T) registeredThingKeys.get(ThingKeyID.create(thing, key));
 	}
 
 	protected void unregister(IThing thing, IThingKey<?> key) {
 		checkNotNull(thing);
 		checkNotNull(key);
 
-		unregister(registeredThingKeys.get(BNAUtils.getThingKeyUID(thing, key)));
+		unregister(registeredThingKeys.get(ThingKeyID.create(thing, key)));
 	}
 
 	protected void unregister(Updater updater) {
@@ -135,20 +134,20 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 				System.err.println("Unregistering: " + updater);
 			}
 
-			for (int thingUID : updater.existentialAsThings) {
-				FastIntMap.get(existentialThings, thingUID).remove(updater);
+			for (Object thingID : updater.existentialAsThings) {
+				FastMap.getCollection(existentialThings, thingID).remove(updater);
 			}
-			for (int thingUID : updater.registeredAsThings) {
-				registeredThings.remove(thingUID);
+			for (Object thingID : updater.registeredAsThings) {
+				registeredThings.remove(thingID);
 			}
-			for (long thingKeyUID : updater.registeredAsThingKeys) {
-				registeredThingKeys.remove(thingKeyUID);
+			for (ThingKeyID<?> thingKeyID : updater.registeredAsThingKeys) {
+				registeredThingKeys.remove(thingKeyID);
 			}
-			for (int thingUID : updater.trackedAsThings) {
-				FastIntMap.get(trackedThings, thingUID).remove(updater);
+			for (Object thingID : updater.trackedAsThings) {
+				FastMap.getCollection(trackedThings, thingID).remove(updater);
 			}
-			for (long thingKeyUID : updater.trackedAsThingKeys) {
-				FastLongMap.get(trackedThingKeys, thingKeyUID).remove(updater);
+			for (ThingKeyID<?> thingKeyID : updater.trackedAsThingKeys) {
+				FastMap.getCollection(trackedThingKeys, thingKeyID).remove(updater);
 			}
 
 			toUpdate.remove(updater);
@@ -160,8 +159,8 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 		checkNotNull(thing);
 
 		registerAsExistential(updater, thing);
-		updater.trackedAsThings.add(thing.getUID());
-		FastIntMap.createList(trackedThings, thing.getUID()).add(updater);
+		updater.trackedAsThings.add(thing);
+		FastMap.createList(trackedThings, thing).add(updater);
 	}
 
 	protected void track(Updater updater, IThing... things) {
@@ -179,8 +178,8 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 		checkNotNull(key);
 
 		registerAsExistential(updater, thing);
-		updater.trackedAsThingKeys.add(BNAUtils.getThingKeyUID(thing, key));
-		FastLongMap.createList(trackedThingKeys, BNAUtils.getThingKeyUID(thing, key)).add(updater);
+		updater.trackedAsThingKeys.add(ThingKeyID.create(thing, key));
+		FastMap.createList(trackedThingKeys, ThingKeyID.create(thing, key)).add(updater);
 	}
 
 	protected void track(Updater updater, IThing thing, Iterable<IThingKey<?>> keys) {
@@ -192,8 +191,8 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 		for (IThingKey<?> key : keys) {
 			checkNotNull(key);
 
-			updater.trackedAsThingKeys.add(BNAUtils.getThingKeyUID(thing, key));
-			FastLongMap.createList(trackedThingKeys, BNAUtils.getThingKeyUID(thing, key)).add(updater);
+			updater.trackedAsThingKeys.add(ThingKeyID.create(thing, key));
+			FastMap.createList(trackedThingKeys, ThingKeyID.create(thing, key)).add(updater);
 		}
 	}
 
@@ -202,8 +201,8 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 		checkNotNull(thing);
 		checkNotNull(key);
 
-		updater.trackedAsThingKeys.remove(BNAUtils.getThingKeyUID(thing, key));
-		FastLongMap.get(trackedThingKeys, BNAUtils.getThingKeyUID(thing, key)).remove(updater);
+		updater.trackedAsThingKeys.remove(ThingKeyID.create(thing, key));
+		FastMap.getCollection(trackedThingKeys, ThingKeyID.create(thing, key)).remove(updater);
 	}
 
 	protected void untrack(Updater updater, IThing thing, Iterable<IThingKey<?>> keys) {
@@ -214,8 +213,8 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 		for (IThingKey<?> key : keys) {
 			checkNotNull(key);
 
-			updater.trackedAsThingKeys.remove(BNAUtils.getThingKeyUID(thing, key));
-			FastLongMap.get(trackedThingKeys, BNAUtils.getThingKeyUID(thing, key)).remove(updater);
+			updater.trackedAsThingKeys.remove(ThingKeyID.create(thing, key));
+			FastMap.getCollection(trackedThingKeys, ThingKeyID.create(thing, key)).remove(updater);
 		}
 	}
 
@@ -224,31 +223,31 @@ public abstract class AbstractCoordinatingThingLogic extends AbstractThingLogic 
 		switch (evt.getEventType()) {
 		case THING_ADDED:
 			if (DEBUG) {
-				if (FastIntMap.get(existentialThings, evt.getTargetThing().getUID()).size() > 0) {
-					System.err.println("Adding: " + FastIntMap.get(existentialThings, evt.getTargetThing().getUID()));
+				if (FastMap.getCollection(existentialThings, evt.getTargetThing()).size() > 0) {
+					System.err.println("Adding: " + FastMap.getCollection(existentialThings, evt.getTargetThing()));
 				}
 			}
-			toUpdate.addAll(FastIntMap.get(existentialThings, evt.getTargetThing().getUID()));
+			toUpdate.addAll(FastMap.getCollection(existentialThings, evt.getTargetThing()));
 			break;
 		case THING_CHANGED:
 			if (DEBUG) {
 				Set<Updater> updaters = Sets.newHashSet();
-				updaters.addAll(FastLongMap.get(trackedThingKeys, evt.getThingEvent().getThingKeyUID()));
-				updaters.addAll(FastIntMap.get(trackedThings, evt.getTargetThing().getUID()));
+				updaters.addAll(FastMap.getCollection(trackedThingKeys, evt.getThingEvent().getThingKeyID()));
+				updaters.addAll(FastMap.getCollection(trackedThings, evt.getTargetThing()));
 				if (updaters.size() > 0) {
 					System.err.println("Updating: " + updaters + " " + evt.getThingEvent());
 				}
 			}
-			toUpdate.addAll(FastLongMap.get(trackedThingKeys, evt.getThingEvent().getThingKeyUID()));
-			toUpdate.addAll(FastIntMap.get(trackedThings, evt.getTargetThing().getUID()));
+			toUpdate.addAll(FastMap.getCollection(trackedThingKeys, evt.getThingEvent().getThingKeyID()));
+			toUpdate.addAll(FastMap.getCollection(trackedThings, evt.getTargetThing()));
 			break;
 		case THING_REMOVED:
 			if (DEBUG) {
-				if (FastIntMap.get(existentialThings, evt.getTargetThing().getUID()).size() > 0) {
-					System.err.println("Removing: " + FastIntMap.get(existentialThings, evt.getTargetThing().getUID()));
+				if (FastMap.getCollection(existentialThings, evt.getTargetThing()).size() > 0) {
+					System.err.println("Removing: " + FastMap.getCollection(existentialThings, evt.getTargetThing()));
 				}
 			}
-			for (Updater updater : Lists.newArrayList(FastIntMap.get(existentialThings, evt.getTargetThing().getUID()))) {
+			for (Updater updater : Lists.newArrayList(FastMap.getCollection(existentialThings, evt.getTargetThing()))) {
 				unregister(updater);
 			}
 			break;

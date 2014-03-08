@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.archstudio.bna.BNAModelEvent;
@@ -18,8 +19,7 @@ import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IIsBackground;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.ui.IBNAUI;
-import org.archstudio.sysutils.FastIntMap;
-import org.archstudio.sysutils.FastIntMap.Entry;
+import org.archstudio.sysutils.FastMap;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -62,7 +62,7 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 
 	protected final IBNAView parentView;
 	protected final IBNAWorld world;
-	protected final FastIntMap<IThingPeer<?>> peers = new FastIntMap<>(1000);
+	protected final FastMap<IThing, IThingPeer<?>> peers = new FastMap<>(true);
 	protected final ICoordinateMapper cm;
 	protected IBNAUI bnaUI;
 
@@ -77,7 +77,7 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 	@Override
 	synchronized public void dispose() {
 		world.getBNAModel().removeBNAModelListener(this);
-		for (Entry<IThingPeer<?>> entry : peers.entries()) {
+		for (Map.Entry<IThing, IThingPeer<?>> entry : peers.entrySet()) {
 			try {
 				entry.getValue().dispose();
 			}
@@ -159,7 +159,7 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 	@Override
 	@SuppressWarnings("unchecked")
 	synchronized public <T extends IThing> IThingPeer<T> getThingPeer(T thing) {
-		Entry<IThingPeer<?>> peerEntry = peers.createEntry(thing.getUID());
+		Map.Entry<IThing, IThingPeer<?>> peerEntry = peers.createEntry(thing);
 		if (peerEntry.getValue() == null) {
 			try {
 				peerEntry.setValue((IThingPeer<?>) constructorsCache.getUnchecked(thing.getPeerClass()).newInstance(
@@ -175,7 +175,7 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 	@Override
 	synchronized public void bnaModelChanged(BNAModelEvent evt) {
 		if (evt.getEventType() == EventType.THING_REMOVED) {
-			IThingPeer<?> peer = peers.remove(evt.getTargetThing().getUID());
+			IThingPeer<?> peer = peers.remove(evt.getTargetThing());
 			if (peer != null) {
 				peer.dispose();
 			}

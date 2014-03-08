@@ -1,12 +1,12 @@
 package org.archstudio.bna.logics.tracking;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IPrivilegedBNAModelListener;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IEntry;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.keys.IThingRefKey;
@@ -93,7 +93,7 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 	}
 
 	private void addReferences(IThing fromThing) {
-		for (IEntry entry : fromThing.entries()) {
+		for (Map.Entry<IThingKey<?>, ?> entry : fromThing.entrySet()) {
 			if (entry.getKey() instanceof IThingRefKey) {
 				IThingRefKey<?> refKey = (IThingRefKey<?>) entry.getKey();
 				addReference(fromThing, refKey, entry.getValue());
@@ -102,7 +102,7 @@ public class ThingReferenceTrackingLogic extends AbstractThingLogic implements I
 	}
 
 	private void removeReferences(IThing fromThing) {
-		for (IEntry entry : fromThing.entries()) {
+		for (Map.Entry<IThingKey<?>, ?> entry : fromThing.entrySet()) {
 			if (entry.getKey() instanceof IThingRefKey) {
 				IThingRefKey<?> refKey = (IThingRefKey<?>) entry.getKey();
 				removeReference(fromThing, refKey, entry.getValue());

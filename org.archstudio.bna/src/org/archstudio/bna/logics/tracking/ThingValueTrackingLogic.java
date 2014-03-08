@@ -3,12 +3,12 @@ package org.archstudio.bna.logics.tracking;
 import static org.archstudio.sysutils.SystemUtils.filter;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IPrivilegedBNAModelListener;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IEntry;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -56,7 +56,7 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IPriv
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
 			Object thingID = thing.getID();
-			for (IEntry entry : thing.entries()) {
+			for (Map.Entry<IThingKey<?>, ?> entry : thing.entrySet()) {
 				update(thingID, entry.getKey(), null, entry.getValue());
 			}
 		}
@@ -70,7 +70,7 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IPriv
 		case THING_REMOVED: {
 			IThing thing = evt.getTargetThing();
 			Object thingID = thing.getID();
-			for (IEntry entry : thing.entries()) {
+			for (Map.Entry<IThingKey<?>, ?> entry : thing.entrySet()) {
 				update(thingID, entry.getKey(), entry.getValue(), null);
 			}
 		}

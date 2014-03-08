@@ -1,5 +1,8 @@
 package org.archstudio.bna;
 
+import java.util.Map;
+import java.util.Set;
+
 import org.archstudio.bna.keys.IThingMetakey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.IThingRefMetakey;
@@ -12,12 +15,6 @@ import org.eclipse.jdt.annotation.Nullable;
  */
 @NonNullByDefault
 public interface IThing {
-
-	public static interface IEntry {
-		public IThingKey<?> getKey();
-
-		public Object getValue();
-	}
 
 	/**
 	 * Describes a key that stores a property value of type V.
@@ -73,14 +70,6 @@ public interface IThing {
 	 */
 	public Object getID();
 
-	/**
-	 * Gets the unique ID of this Thing. The UID is used by {@link IBNAModel#getThing(int)} and
-	 * {@link IBNAModel#getThing(Integer)}.
-	 * 
-	 * @return Thing UID.
-	 */
-	public int getUID();
-
 	public void insertThingListener(IThingListener thingListener);
 
 	public void addThingListener(IThingListener thingListener);
@@ -104,7 +93,7 @@ public interface IThing {
 	public @Nullable
 	<V> V remove(IThingKey<V> key);
 
-	public Iterable<IEntry> entries();
+	public Set<Map.Entry<IThingKey<?>, ?>> entrySet();
 
 	public int getModCount();
 }

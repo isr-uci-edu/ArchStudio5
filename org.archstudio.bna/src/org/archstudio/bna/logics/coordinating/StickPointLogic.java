@@ -77,8 +77,8 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 
 					if (DEBUG) {
 						System.err.println("    " + pointKey + " -> " + SystemUtils.simpleName(pointThing.getClass())
-								+ "(" + pointThing.getUID() + "):" + pointThing.get(pointKey) + " " + stickyMode + " "
-								+ SystemUtils.simpleName(stickyThing.getClass()) + "(" + stickyThing.getUID() + "):"
+								+ "(" + pointThing.getID() + "):" + pointThing.get(pointKey) + " " + stickyMode + " "
+								+ SystemUtils.simpleName(stickyThing.getClass()) + "(" + stickyThing.getID() + "):"
 								+ stickyThing.getStickyShape());
 					}
 

@@ -3,13 +3,13 @@ package org.archstudio.bna.logics;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IEntry;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.keys.IThingRefKey;
@@ -54,7 +54,7 @@ public abstract class AbstractKeyCoordinatingThingLogic extends AbstractThingLog
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
-			for (IEntry entry : thing.entries()) {
+			for (Map.Entry<IThingKey<?>, ?> entry : thing.entrySet()) {
 				IThingKey<?> key = entry.getKey();
 				if (trackedKeys.contains(key)) {
 					toUpdate.add(Lists.newArrayList(thing, key));

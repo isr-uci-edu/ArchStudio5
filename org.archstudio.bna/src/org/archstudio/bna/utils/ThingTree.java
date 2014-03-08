@@ -2,17 +2,13 @@ package org.archstudio.bna.utils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 import org.archstudio.bna.IThing;
-import org.archstudio.sysutils.FastIntMap;
+import org.archstudio.sysutils.FastMap;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 class ThingTree {
 
@@ -28,16 +24,27 @@ class ThingTree {
 	}
 
 	private final Node root = new Node(null);
-	private final FastIntMap<Node> nodesByUID = new FastIntMap<Node>(1000);
-	private final Map<Object, Node> nodesByID = Maps.newHashMap();
+	private final FastMap<Object, Node> nodesByID = new FastMap<>(true);
 	private List<IThing> allThings = null;
 
 	public ThingTree() {
 	}
 
-	public IThing getThing(int uid) {
-		Node node = nodesByUID.get(uid);
-		return node != null ? node.t : null;
+	private Node getNode(IThing t) {
+		if (t == null) {
+			return root;
+		}
+		return checkNotNull(nodesByID.get(t.getID()), "Thing not added: %s", t);
+	}
+
+	private Node createNode(IThing t) {
+		Map.Entry<Object, Node> entry = nodesByID.createEntry(t.getID());
+		if (entry.getValue() != null) {
+			throw new IllegalArgumentException("Thing already added: " + t);
+		}
+		Node node = new Node(t);
+		entry.setValue(node);
+		return node;
 	}
 
 	public IThing getThing(Object id) {
@@ -45,141 +52,98 @@ class ThingTree {
 		return node != null ? node.t : null;
 	}
 
-	private Node getNode(IThing t, boolean create) {
-		if (t == null) {
-			return root;
-		}
-		Node node = nodesByUID.get(t.getUID());
-		if (node == null && create) {
-			nodesByUID.put(t.getUID(), node = new Node(t));
-			nodesByID.put(t.getID(), node);
-		}
-		return node;
-	}
-
 	public void add(IThing t) {
-		add(t, null);
-	}
-
-	public void add(IThing t, IThing parent) {
-		Node parentNode = checkNotNull(getNode(parent, false));
-		Node childNode = getNode(t, true);
-		if (childNode.parent != null) {
-			throw new IllegalArgumentException("Thing already added!");
-		}
+		Node parentNode = root;
+		Node childNode = createNode(t);
 		parentNode.children.add(childNode);
 		childNode.parent = parentNode;
-		if (parent != null) {
-			allThings = null;
-		}
-		else if (allThings != null) {
+		if (allThings != null) {
 			allThings.add(t);
 		}
 	}
 
+	public void add(IThing t, IThing parentThing) {
+		Node parentNode = getNode(parentThing);
+		Node childNode = createNode(t);
+		parentNode.children.add(childNode);
+		childNode.parent = parentNode;
+		allThings = null;
+	}
+
 	public void insert(IThing t, IThing beforeThing) {
-		Node parentNode = checkNotNull(getNode(getParent(beforeThing), false));
-		Node beforeNode = checkNotNull(getNode(beforeThing, false));
-		Node childNode = getNode(t, true);
-		if (childNode.parent != null) {
-			throw new IllegalArgumentException("Thing already added!");
-		}
+		Node beforeNode = getNode(beforeThing);
+		Node parentNode = beforeNode.parent;
+		Node childNode = createNode(t);
 		parentNode.children.add(parentNode.children.indexOf(beforeNode), childNode);
 		childNode.parent = parentNode;
 		allThings = null;
 	}
 
 	public void remove(IThing t) {
-		Node childNode = nodesByUID.remove(t.getUID());
+		Node childNode = nodesByID.remove(t.getID());
 		if (childNode != null) {
-			nodesByID.remove(t.getID());
 			Node parentNode = childNode.parent;
-			if (parentNode != null) {
-				List<Node> siblings = parentNode.children;
-				int index = siblings.indexOf(childNode);
-				if (index >= 0) {
-					siblings.remove(index);
-					siblings.addAll(index, childNode.children);
-					for (Node grandchild : childNode.children) {
-						grandchild.parent = parentNode;
-					}
+			List<Node> siblings = parentNode.children;
+			int index = siblings.indexOf(childNode);
+			siblings.remove(index);
+			siblings.addAll(index, childNode.children);
+			for (Node grandchild : childNode.children) {
+				grandchild.parent = parentNode;
+			}
+			if (allThings != null && allThings.size() > 0) {
+				int lastIndex = allThings.size() - 1;
+				if (allThings.get(lastIndex).equals(t)) {
+					allThings.remove(lastIndex);
 				}
-			}
-		}
-		if (allThings != null) {
-			if (allThings.size() > 0 && allThings.get(allThings.size() - 1).equals(t)) {
-				allThings.remove(allThings.size() - 1);
-			}
-			else {
-				allThings = null;
+				else {
+					allThings = null;
+				}
 			}
 		}
 	}
 
-	private void move(Node parentNode, Node childNode, int toIndex) {
-		List<Node> siblings = parentNode.children;
-		int index = siblings.indexOf(childNode);
+	private void move(Node childNode, int toIndex) {
+		List<Node> siblings = childNode.parent.children;
 		if (toIndex < 0) {
 			toIndex = siblings.size() + toIndex + 1;
 		}
-		if (index >= 0 && index != toIndex) {
+		int index = siblings.indexOf(childNode);
+		if (index != toIndex) {
 			siblings.remove(index);
 			if (index < toIndex) {
 				toIndex--;
 			}
 			siblings.add(toIndex, childNode);
+			allThings = null;
 		}
-		allThings = null;
 	}
 
 	public void bringToFront(IThing t) {
-		Node childNode = getNode(t, false);
-		if (childNode != null) {
-			Node parentNode = childNode.parent;
-			if (parentNode != null) {
-				move(parentNode, childNode, -1);
-			}
-		}
-		allThings = null;
+		Node childNode = getNode(t);
+		move(childNode, -1);
 	}
 
 	public void sendToBack(IThing t) {
-		Node childNode = getNode(t, false);
-		if (childNode != null) {
-			Node parentNode = childNode.parent;
-			if (parentNode != null) {
-				move(parentNode, childNode, 0);
-			}
-		}
-		allThings = null;
+		Node childNode = getNode(t);
+		move(childNode, 0);
 	}
 
-	public void moveAfter(IThing t, IThing referenceThing) {
-		Node childNode = getNode(t, false);
-		Node referenceNode = getNode(referenceThing, false);
-		if (childNode != null && referenceNode != null) {
-			Node parentNode = childNode.parent;
-			if (parentNode != null && parentNode == referenceNode.parent) {
-				int referenceIndex = parentNode.children.indexOf(referenceNode);
-				if (referenceIndex >= 0) {
-					move(parentNode, childNode, referenceIndex + 1);
-				}
-			}
+	public void moveAfter(IThing t, IThing afterThing) {
+		Node childNode = getNode(t);
+		Node afterNode = getNode(afterThing);
+		if (childNode.parent != afterNode.parent) {
+			throw new IllegalArgumentException("Things do not share a parent!");
 		}
-		allThings = null;
+		int afterIndex = afterNode.parent.children.indexOf(afterNode);
+		move(childNode, afterIndex + 1);
 	}
 
-	public void reparent(IThing newParentThing, IThing thing) {
-		Node newParentThingNode = getNode(newParentThing, false);
-		Node thingNode = getNode(thing, false);
-		if (newParentThingNode != null && thingNode != null) {
-			if (thingNode.parent != null) {
-				thingNode.parent.children.remove(thingNode);
-				thingNode.parent = null;
-			}
-			newParentThingNode.children.add(thingNode);
-			thingNode.parent = newParentThingNode;
-		}
+	public void reparent(IThing t, IThing parentThing) {
+		Node parentNode = getNode(parentThing);
+		Node childNode = getNode(t);
+		childNode.parent.children.remove(childNode);
+		childNode.parent = parentNode;
+		parentNode.children.add(childNode);
 		allThings = null;
 	}
 
@@ -192,96 +156,44 @@ class ThingTree {
 	}
 
 	public List<IThing> getAllDescendantThings(IThing t) {
-		Node parentNode = getNode(t, false);
-		if (parentNode != null) {
-			return appendAllDescendants(parentNode, Lists.<IThing> newArrayList(t));
-		}
-		return Collections.emptyList();
-	}
-
-	private List<IThing> _getAllThings() {
-		synchronized (this) {
-			if (allThings == null) {
-				List<IThing> allThings = Lists.newArrayListWithCapacity(size());
-				appendAllDescendants(root, allThings);
-				this.allThings = allThings;
-			}
-		}
-		return allThings;
+		Node node = getNode(t);
+		return appendAllDescendants(node, Lists.<IThing> newArrayList(t));
 	}
 
 	public List<IThing> getAllThings() {
-		return Lists.newArrayList(_getAllThings());
+		if (allThings == null) {
+			allThings = Lists.newArrayListWithCapacity(size());
+			appendAllDescendants(root, allThings);
+		}
+		return Lists.newArrayList(allThings);
 	}
 
 	public List<IThing> getAncestorThings(IThing t) {
+		Node node = getNode(t);
 		List<IThing> ancestors = Lists.newArrayList();
-		if (t != null) {
-			Node node = getNode(t, false);
-			while (node != null) {
-				ancestors.add(node.t);
-				node = node.parent;
-			}
-		}
+		do {
+			ancestors.add(node.t);
+			node = node.parent;
+		} while (node != null && node != root);
 		return ancestors;
 	}
 
 	public List<IThing> getChildThings(IThing t) {
-		Node parentNode = getNode(t, false);
-		if (parentNode != null && parentNode.children.size() > 0) {
-			List<IThing> children = Lists.newArrayList();
-			for (Node child : parentNode.children) {
-				children.add(child.t);
-			}
-			return children;
+		Node parentNode = getNode(t);
+		List<IThing> children = Lists.newArrayListWithCapacity(parentNode.children.size());
+		for (Node child : parentNode.children) {
+			children.add(child.t);
 		}
-		return Collections.emptyList();
+		return children;
 	}
 
 	public IThing getParent(IThing t) {
-		if (t != null) {
-			Node childNode = getNode(t, false);
-			if (childNode != null) {
-				return childNode.parent.t;
-			}
-		}
-		return null;
+		Node childNode = getNode(t);
+		return childNode.parent.t;
 	}
 
 	public int size() {
-		return nodesByUID.size();
+		return nodesByID.size();
 	}
 
-	private FastIntMap<Long> _getOrderByUID() {
-		synchronized (this) {
-			FastIntMap<Long> orderByUID = new FastIntMap<>(nodesByUID.size());
-			long orderByUIDSpread = Long.MAX_VALUE / (nodesByUID.size() + 1);
-			long orderByUIDNumber = Long.MIN_VALUE + orderByUIDSpread;
-			for (IThing t : _getAllThings()) {
-				orderByUID.put(t.getUID(), orderByUIDNumber);
-				orderByUIDNumber += orderByUIDSpread;
-			}
-			return orderByUID;
-		}
-	}
-
-	public List<IThing> sortBackToFront(Collection<IThing> things) {
-		final FastIntMap<Long> orderByUID = _getOrderByUID();
-		List<IThing> sorted = Lists.newArrayList(things);
-		Collections.sort(sorted, new Comparator<IThing>() {
-			@Override
-			public int compare(IThing o1, IThing o2) {
-				long lo1 = orderByUID.get(o1.getUID());
-				long lo2 = orderByUID.get(o2.getUID());
-				if (lo1 < lo2) {
-					return -1;
-				}
-				if (lo1 == lo2) {
-					return 0;
-				}
-				return 1;
-			}
-		});
-		return sorted;
-	}
 }

@@ -4,6 +4,7 @@ import static org.archstudio.sysutils.SystemUtils.sortedByValue;
 
 import java.util.Deque;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -24,8 +25,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
-import org.archstudio.sysutils.FastIntMap;
-import org.archstudio.sysutils.FastLongMap;
+import org.archstudio.sysutils.FastMap;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
@@ -69,8 +69,8 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 					}
 				});
 		private final Deque<BNAModelEvent> eventQueue = new LinkedBlockingDeque<>();
-		private final FastIntMap<Integer> thingMinimumModCount = new FastIntMap<>();
-		private final FastLongMap<BNAModelEvent> pendingThingEvents = new FastLongMap<>();
+		private final FastMap<Object, Integer> thingMinimumModCount = new FastMap<>(true);
+		private final FastMap<ThingKeyID<?>, BNAModelEvent> pendingThingEvents = new FastMap<>(false);
 		private final List<BNAModelEvent> pendingThingAdds = Lists.newArrayList();
 		private final Set<IThingKey<?>> noClobberKeys = Sets.newHashSet();
 		private boolean firedBulkChangeBegin = false;
@@ -112,8 +112,8 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 						 * If a thing has recently been added, but the notification has not gone out yet, then ignore
 						 * it's property changes until the added notification goes out.
 						 */
-						int thingUID = thingEvent.getTargetThing().getUID();
-						FastIntMap.Entry<Integer> entry = thingMinimumModCount.getEntry(thingUID);
+						Object thingID = thingEvent.getTargetThing().getID();
+						Map.Entry<Object, Integer> entry = thingMinimumModCount.getEntry(thingID);
 						if (entry == null || entry.getValue() > thingEvent.getModCount()) {
 							eventsNotFiredStats++;
 							return;
@@ -125,8 +125,8 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 						 * then roll this update into that one to reduce the overall number of events sent out.
 						 */
 						if (!noClobberKeys.contains(thingEvent.getPropertyName())) {
-							long thingKeyUID = thingEvent.getThingKeyUID();
-							FastLongMap.Entry<BNAModelEvent> entry = pendingThingEvents.createEntry(thingKeyUID);
+							ThingKeyID<?> thingKeyID = thingEvent.getThingKeyID();
+							Map.Entry<ThingKeyID<?>, BNAModelEvent> entry = pendingThingEvents.createEntry(thingKeyID);
 							if (entry.getValue() != null && entry.getValue().getThread() == event.getThread()) {
 								entry.getValue().getThingEvent().setNewPropertyValue(thingEvent.getNewPropertyValue());
 								eventsNotFiredStats++;
@@ -247,7 +247,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 					}
 					ThingEvent thingEvent = event.getThingEvent();
 					if (thingEvent != null) {
-						pendingThingEvents.remove(thingEvent.getThingKeyUID());
+						pendingThingEvents.remove(thingEvent.getThingKeyID());
 					}
 					if (isBulkChangeWorthyEvent(event)) {
 						pendingBulkChangeWorthyEvents--;
@@ -281,7 +281,7 @@ public class DefaultBNAModel implements IBNAModel, IThingListener {
 					for (BNAModelEvent addEvent : SystemUtils.getAndClear(pendingThingAdds)) {
 						fireBNAModelEvent(addEvent);
 						IThing thing = addEvent.getTargetThing();
-						thingMinimumModCount.put(thing.getUID(), thing.getModCount());
+						thingMinimumModCount.put(thing.getID(), thing.getModCount());
 					}
 					if (pendingBulkChangeWorthyEvents == 0) {
 						fireBNAModelEvent(FLUSH_BULK_CHANGE_END);

@@ -29,7 +29,6 @@ import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
-import org.archstudio.bna.facets.IHasShapeKeys;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IRelativeMovable;
@@ -119,14 +118,14 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 		DocumentRoot document = XArchADTProxy.proxy(xarch, documentRef);
 
 		IBNAModel model = view.getBNAWorld().getBNAModel();
-		Map<Integer, NodeContent> nodes = Maps.newHashMap();
-		Map<Integer, EdgeContent> edges = Maps.newHashMap();
+		Map<Object, NodeContent> nodes = Maps.newHashMap();
+		Map<Object, EdgeContent> edges = Maps.newHashMap();
 
 		// extract nodes
 		for (IThing t : model.getAllThings()) {
 			if (isNodeOfInterest(model, t)) {
 				NodeContent node = XArchADTProxy.create(xarch, GexfPackage.Literals.NODE_CONTENT);
-				node.setId("thing:" + t.getUID());
+				node.setId("thing:" + t.getID());
 				node.setLabel(getText(model, t));
 
 				Point p = BNAUtils.getCentralPoint(t);
@@ -151,7 +150,7 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 					node.getColor().add(color);
 				}
 
-				nodes.put(t.getUID(), node);
+				nodes.put(t.getID(), node);
 			}
 		}
 
@@ -160,17 +159,16 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 		for (IHasEndpoints t : Iterables.filter(model.getAllThings(), IHasEndpoints.class)) {
 			IThing node1 = getNodeFromEdgeEndpoint(model, t, IHasEndpoints.ENDPOINT_1_KEY, spl);
 			IThing node2 = getNodeFromEdgeEndpoint(model, t, IHasEndpoints.ENDPOINT_2_KEY, spl);
-			if (node1 != null && node2 != null && nodes.containsKey(node1.getUID())
-					&& nodes.containsKey(node2.getUID())) {
+			if (node1 != null && node2 != null && nodes.containsKey(node1.getID()) && nodes.containsKey(node2.getID())) {
 				int weight = getEdgeWeight(model, t, node1, node2);
 				if (weight != 0) {
 					EdgeContent edge = XArchADTProxy.create(xarch, GexfPackage.Literals.EDGE_CONTENT);
-					edge.setId("thing:" + t.getUID());
-					edge.setSource(nodes.get(node1.getUID()).getId());
-					edge.setTarget(nodes.get(node2.getUID()).getId());
+					edge.setId("thing:" + t.getID());
+					edge.setSource(nodes.get(node1.getID()).getId());
+					edge.setTarget(nodes.get(node2.getID()).getId());
 					edge.setWeight(weight);
 					edge.setLabel(getText(model, t));
-					edges.put(t.getUID(), edge);
+					edges.put(t.getID(), edge);
 				}
 			}
 		}
@@ -208,7 +206,7 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 
 	protected IThing getNodeFromEdgeEndpoint(IBNAModel model, IThing edge, IThingKey<Point> endpointKey,
 			StickPointLogic spl) {
-		return Assemblies.getRoot(model, model.getThing(spl.getStickyThingID((IHasShapeKeys) edge, endpointKey)));
+		return Assemblies.getRoot(model, model.getThing(spl.getStickyThingID(edge, endpointKey)));
 	}
 
 	protected int getEdgeWeight(IBNAModel model, IHasEndpoints edge, IThing node1, IThing node2) {
@@ -251,7 +249,7 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 
 		// restore locations
 		for (IThing t : model.getAllThings()) {
-			Point p = positions.get(t.getUID());
+			Point p = positions.get(t.getID());
 			if (p != null) {
 				Point q = BNAUtils.getCentralPoint(t);
 				if (t instanceof IRelativeMovable) {

@@ -23,7 +23,6 @@ import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
-import org.archstudio.bna.facets.IHasShapeKeys;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.things.AbstractRelativeMovableReferencePointThing;
@@ -86,9 +85,9 @@ public class ExportImportDot extends AbstractThingLogic implements IBNAMenuListe
 		@Override
 		public String toString() {
 			StringBuffer sb = new StringBuffer();
-			sb.append(thing.getUID()).append("->[");
+			sb.append(thing.getID()).append("->[");
 			for (Node n : forward.asMap().keySet()) {
-				sb.append(n.thing.getUID()).append(",");
+				sb.append(n.thing.getID()).append(",");
 			}
 			sb.append("]");
 			return sb.toString();
@@ -241,17 +240,17 @@ public class ExportImportDot extends AbstractThingLogic implements IBNAMenuListe
 						// create dot input
 						StringBuffer sb = new StringBuffer();
 						sb.append("digraph G { overlap=false; splines=false;\n");
-						cb.append("subgraph cluster_").append(rootToNodes.getKey().thing.getUID()).append(" {\n");
+						cb.append("subgraph cluster_").append(rootToNodes.getKey().thing.getID()).append(" {\n");
 						for (Node node : rootToNodes.getValue()) {
-							sb.append(node.thing.getUID()).append(getNodeProperties(node.thing, spacing)).append(";\n");
-							cb.append(node.thing.getUID()).append(getNodeProperties(node.thing, spacing)).append(";\n");
+							sb.append(node.thing.getID()).append(getNodeProperties(node.thing, spacing)).append(";\n");
+							cb.append(node.thing.getID()).append(getNodeProperties(node.thing, spacing)).append(";\n");
 						}
 						for (Node node : rootToNodes.getValue()) {
 							for (Entry<Node, AtomicInteger> to : node.forward.asMap().entrySet()) {
 								if (Math.abs(to.getValue().get()) >= minimumRequiredWeight) {
-									sb.append(node.thing.getUID()).append("->").append(to.getKey().thing.getUID())
+									sb.append(node.thing.getID()).append("->").append(to.getKey().thing.getID())
 											.append(" [weight=").append(to.getValue().get()).append("];\n");
-									cb.append(node.thing.getUID()).append("->").append(to.getKey().thing.getUID())
+									cb.append(node.thing.getID()).append("->").append(to.getKey().thing.getID())
 											.append(" [weight=").append(to.getValue().get()).append("];\n");
 								}
 							}
@@ -293,15 +292,15 @@ public class ExportImportDot extends AbstractThingLogic implements IBNAMenuListe
 					sb.append("digraph G { overlap=false; splines=false;\n");
 					for (Entry<Node, Dimension> entry : rootSizes.entrySet()) {
 						Dimension size = entry.getValue();
-						sb.append(entry.getKey().thing.getUID()).append("[shape=box, fixedsize=true, width=")
+						sb.append(entry.getKey().thing.getID()).append("[shape=box, fixedsize=true, width=")
 								.append(size.width / factor).append(", height=").append(size.height / factor)
 								.append("];\n");
 					}
 					for (Node root : rootNodes.asMap().values()) {
 						for (Entry<Node, AtomicInteger> edge : root.forward.asMap().entrySet()) {
-							sb.append(root.thing.getUID()).append("->").append(edge.getKey().thing.getUID())
+							sb.append(root.thing.getID()).append("->").append(edge.getKey().thing.getID())
 									.append("[weight=").append(edge.getValue().get()).append("];\n");
-							cb.append(root.thing.getUID()).append("->").append(edge.getKey().thing.getUID())
+							cb.append(root.thing.getID()).append("->").append(edge.getKey().thing.getID())
 									.append("[weight=").append(edge.getValue().get()).append("];\n");
 						}
 					}
@@ -342,10 +341,10 @@ public class ExportImportDot extends AbstractThingLogic implements IBNAMenuListe
 						@Override
 						public void run() {
 							for (IThing t : model.getAllThings()) {
-								if (locations.containsKey(t.getUID())) {
+								if (locations.containsKey(t.getID())) {
 									if (t instanceof AbstractRelativeMovableReferencePointThing) {
 										Point op = ((AbstractRelativeMovableReferencePointThing) t).getReferencePoint();
-										Point np = locations.get(t.getUID());
+										Point np = locations.get(t.getID());
 										((AbstractRelativeMovableReferencePointThing) t).moveRelative(new Point(np.x
 												- op.x, np.y - op.y));
 									}
@@ -379,7 +378,7 @@ public class ExportImportDot extends AbstractThingLogic implements IBNAMenuListe
 
 	protected IThing getNodeFromEdgeEndpoint(IBNAModel model, IThing edge, IThingKey<Point> endpointKey,
 			StickPointLogic spl) {
-		return Assemblies.getRoot(model, model.getThing(spl.getStickyThingID((IHasShapeKeys) edge, endpointKey)));
+		return Assemblies.getRoot(model, model.getThing(spl.getStickyThingID(edge, endpointKey)));
 	}
 
 	protected int getEdgeWeight(IBNAModel model, IHasEndpoints edge, IThing node1, IThing node2) {

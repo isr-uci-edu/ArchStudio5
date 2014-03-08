@@ -4,32 +4,32 @@ import static com.google.common.base.Preconditions.checkState;
 import static org.archstudio.sysutils.SystemUtils.nullEquals;
 import static org.archstudio.sysutils.SystemUtils.simpleName;
 
-import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReadWriteLock;
 
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.ThingEvent;
-import org.archstudio.bna.keys.AbstractThingKey;
 import org.archstudio.bna.utils.BNAUtils;
-import org.archstudio.sysutils.FastIntMap;
-import org.archstudio.sysutils.FastIntMap.Entry;
+import org.archstudio.sysutils.FastMap;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
+import com.google.common.base.Function;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.google.common.collect.AbstractIterator;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 @NonNullByDefault
 public class AbstractThing implements IThing {
-
-	private static final AtomicInteger uidGenerator = new AtomicInteger(0);
 
 	private static final LoadingCache<Class<? extends IThing>, Class<IThingPeer<?>>> defaultPeerClassCache = CacheBuilder
 			.newBuilder().build(new CacheLoader<Class<? extends IThing>, Class<IThingPeer<?>>>() {
@@ -52,16 +52,14 @@ public class AbstractThing implements IThing {
 			});
 
 	private final Object id;
-	private final int uid;
-	private final FastIntMap<Object> properties = new FastIntMap<Object>();
+	private final FastMap<IThingKey<?>, Object> properties = new FastMap<>(true);
 	private final ReadWriteLock lock;
 	private boolean initedProperties = false;
 	volatile private int modCount = 0;
 
 	public AbstractThing(@Nullable Object id) {
 		this.id = id != null ? id : new Object();
-		this.uid = uidGenerator.incrementAndGet();
-		this.lock = BNAUtils.LOCK_FACTORY.newReentrantReadWriteLock("Thing " + uid);
+		this.lock = BNAUtils.LOCK_FACTORY.newReentrantReadWriteLock("Thing " + id);
 		initProperties();
 		checkState(initedProperties, "Thing %s must call super.initPropeties().", this.getClass().getName());
 	}
@@ -72,17 +70,15 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
-	public final int getUID() {
-		return uid;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (id == null ? 0 : id.hashCode());
+		return result;
 	}
 
 	@Override
-	public final int hashCode() {
-		return uid;
-	}
-
-	@Override
-	public final boolean equals(@Nullable Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -93,7 +89,12 @@ public class AbstractThing implements IThing {
 			return false;
 		}
 		AbstractThing other = (AbstractThing) obj;
-		if (uid != other.uid) {
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		}
+		else if (!id.equals(other.id)) {
 			return false;
 		}
 		return true;
@@ -154,7 +155,7 @@ public class AbstractThing implements IThing {
 	<V> V getRaw(IThingKey<V> key) {
 		lock.readLock().lock();
 		try {
-			return (V) properties.get(key.getUID());
+			return (V) properties.get(key);
 		}
 		finally {
 			lock.readLock().unlock();
@@ -177,7 +178,7 @@ public class AbstractThing implements IThing {
 	<V> V setRaw(IThingKey<V> key, @Nullable V value) {
 		lock.writeLock().lock();
 		try {
-			Entry<Object> entry = properties.createEntry(key.getUID());
+			Map.Entry<IThingKey<?>, Object> entry = properties.createEntry(key);
 			V oldValue = (V) entry.getValue();
 			if (!nullEquals(oldValue, value)) {
 				modCount++;
@@ -198,7 +199,7 @@ public class AbstractThing implements IThing {
 	public final boolean has(IThingKey<?> key) {
 		lock.readLock().lock();
 		try {
-			return properties.containsKey(key.getUID());
+			return properties.containsKey(key);
 		}
 		finally {
 			lock.readLock().unlock();
@@ -209,7 +210,7 @@ public class AbstractThing implements IThing {
 	public final <V> boolean has(IThingKey<V> key, @Nullable V value) {
 		lock.readLock().lock();
 		try {
-			return nullEquals(properties.get(key.getUID()), value);
+			return nullEquals(properties.get(key), value);
 		}
 		finally {
 			lock.readLock().unlock();
@@ -222,14 +223,14 @@ public class AbstractThing implements IThing {
 	<V> V remove(IThingKey<V> key) {
 		lock.writeLock().lock();
 		try {
-			Entry<V> entry = (Entry<V>) properties.removeEntry(key.getUID());
+			Map.Entry<IThingKey<?>, Object> entry = properties.removeEntry(key);
 			if (entry != null) {
 				modCount++;
 				if (key.isFireEventOnChange()) {
 					fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_REMOVED, this, key,
 							entry.getValue(), null));
 				}
-				return entry.getValue();
+				return (V) entry.getValue();
 			}
 			return null;
 		}
@@ -239,39 +240,30 @@ public class AbstractThing implements IThing {
 	}
 
 	@Override
-	public Iterable<IEntry> entries() {
-		return new Iterable<IEntry>() {
-			@Override
-			public Iterator<IEntry> iterator() {
-				return new AbstractIterator<IEntry>() {
-					Iterator<Entry<Object>> i = properties.entries().iterator();
-
+	public Set<Map.Entry<IThingKey<?>, ?>> entrySet() {
+		return Sets.newHashSet(Iterables.transform(properties.entrySet(),
+				new Function<Map.Entry<IThingKey<?>, Object>, Map.Entry<IThingKey<?>, ?>>() {
 					@Override
-					protected IEntry computeNext() {
-						if (i.hasNext()) {
-							final Entry<Object> entry = i.next();
-							return new IEntry() {
-								IThingKey<?> key = null;
+					public Entry<IThingKey<?>, ?> apply(final Entry<IThingKey<?>, Object> input) {
+						return new Map.Entry<IThingKey<?>, Object>() {
 
-								@Override
-								public IThingKey<?> getKey() {
-									if (key != null) {
-										return key;
-									}
-									return key = AbstractThingKey.getKey(entry.getKey());
-								}
+							@Override
+							public IThingKey<?> getKey() {
+								return input.getKey();
+							}
 
-								@Override
-								public Object getValue() {
-									return entry.getValue();
-								}
-							};
-						}
-						return endOfData();
+							@Override
+							public Object getValue() {
+								return input.getValue();
+							}
+
+							@Override
+							public Object setValue(Object value) {
+								throw new UnsupportedOperationException();
+							}
+						};
 					}
-				};
-			}
-		};
+				}));
 	}
 
 	@Override
@@ -294,9 +286,9 @@ public class AbstractThing implements IThing {
 		lock.readLock().lock();
 		try {
 			StringBuffer sb = new StringBuffer();
-			sb.append(simpleName(this.getClass())).append("[uid=").append(uid);
-			for (Entry<?> entry : properties.entries()) {
-				sb.append(",").append(AbstractThingKey.getKey(entry.getKey())).append("=").append(entry.getValue());
+			sb.append(simpleName(this.getClass())).append("[id=").append(id);
+			for (Map.Entry<IThingKey<?>, Object> entry : SystemUtils.sortedByKey(properties.entrySet())) {
+				sb.append(",").append(entry.getKey()).append("=").append(entry.getValue());
 			}
 			sb.append("]");
 			return sb.toString();
