@@ -16,7 +16,6 @@ public class ThingEvent {
 	private final IThingKey<?> propertyName;
 	private final Object oldPropertyValue;
 	private Object newPropertyValue;
-	private final int modCount;
 	private final ThingKeyID<?> thingKeyID;
 	private final IThing targetThing;
 
@@ -33,7 +32,6 @@ public class ThingEvent {
 		this.oldPropertyValue = oldPropertyValue;
 		this.newPropertyValue = newPropertyValue;
 		this.thingKeyID = ThingKeyID.create(targetThing, propertyName);
-		this.modCount = targetThing.getModCount();
 	}
 
 	public ThingKeyID<?> getThingKeyID() {
@@ -66,15 +64,11 @@ public class ThingEvent {
 		this.newPropertyValue = newPropertyValue;
 	}
 
-	public int getModCount() {
-		return modCount;
-	}
-
 	@Override
 	public String toString() {
 		return "ThingEvent [eventType=" + eventType + ", propertyName=" + propertyName + ", oldPropertyValue="
-				+ oldPropertyValue + ", newPropertyValue=" + newPropertyValue + ", modCount=" + modCount
-				+ ", thingKeyID=" + thingKeyID + ", targetThing=" + targetThing + "]";
+				+ oldPropertyValue + ", newPropertyValue=" + newPropertyValue + ", thingKeyID=" + thingKeyID
+				+ ", targetThing=" + targetThing + "]";
 	}
 
 }

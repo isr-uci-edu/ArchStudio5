@@ -55,7 +55,6 @@ public class AbstractThing implements IThing {
 	private final FastMap<IThingKey<?>, Object> properties = new FastMap<>(true);
 	private final ReadWriteLock lock;
 	private boolean initedProperties = false;
-	volatile private int modCount = 0;
 
 	public AbstractThing(@Nullable Object id) {
 		this.id = id != null ? id : new Object();
@@ -181,7 +180,6 @@ public class AbstractThing implements IThing {
 			Map.Entry<IThingKey<?>, Object> entry = properties.createEntry(key);
 			V oldValue = (V) entry.getValue();
 			if (!nullEquals(oldValue, value)) {
-				modCount++;
 				entry.setValue(key.preWrite(value));
 				if (key.isFireEventOnChange()) {
 					fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_SET, this, key, oldValue,
@@ -225,7 +223,6 @@ public class AbstractThing implements IThing {
 		try {
 			Map.Entry<IThingKey<?>, Object> entry = properties.removeEntry(key);
 			if (entry != null) {
-				modCount++;
 				if (key.isFireEventOnChange()) {
 					fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_REMOVED, this, key,
 							entry.getValue(), null));
@@ -264,21 +261,6 @@ public class AbstractThing implements IThing {
 						};
 					}
 				}));
-	}
-
-	@Override
-	public int getModCount() {
-		/*
-		 * Note: Locking here causes deadlock with the synchronized eventQueue from
-		 * DefaultBNAModelEventProcessingThread.
-		 */
-		//lock.readLock().lock();
-		//try {
-		return modCount;
-		//}
-		//finally {
-		//	lock.readLock().unlock();
-		//}
 	}
 
 	@Override

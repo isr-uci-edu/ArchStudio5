@@ -55,11 +55,6 @@ public abstract class AbstractThingKey<D, V> extends AbstractGenericKey<D, V> im
 	}
 
 	@Override
-	public final int getUID() {
-		return uid;
-	}
-
-	@Override
 	public final boolean isFireEventOnChange() {
 		return isFireEventOnChange;
 	}

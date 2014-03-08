@@ -47,8 +47,6 @@ public interface IThing {
 
 		public Object getID();
 
-		public int getUID();
-
 		public @Nullable
 		V preWrite(@Nullable V value);
 
@@ -94,6 +92,4 @@ public interface IThing {
 	<V> V remove(IThingKey<V> key);
 
 	public Set<Map.Entry<IThingKey<?>, ?>> entrySet();
-
-	public int getModCount();
 }

@@ -2,7 +2,6 @@ package org.archstudio.bna;
 
 import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
-import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.ui.IBNAUI;
 import org.archstudio.bna.ui.utils.AutodetectBNAUI;
 import org.archstudio.bna.utils.DefaultBNAView;
@@ -126,9 +125,7 @@ public class BNACanvas extends Composite implements ControlListener, SelectionLi
 
 	@Override
 	synchronized public void bnaModelChanged(BNAModelEvent evt) {
-		if (evt.getEventType() == EventType.BULK_CHANGE_END) {
-			bnaUI.paint();
-		}
+		bnaUI.paint();
 	}
 
 	@Override
