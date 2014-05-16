@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio JOGL (Java Binding for the OpenGL)
 Bundle-SymbolicName: org.archstudio.jogl;singleton:=true
-Bundle-Version: 2.0.2.qualifier
+Bundle-Version: 2.1.5.qualifier
 Bundle-ClassPath: .,
  lib/gluegen-rt-natives-linux-amd64.jar,
  lib/gluegen-rt-natives-linux-i586.jar,
@@ -17,7 +17,6 @@ Bundle-ClassPath: .,
  lib/jogl-all-natives-windows-amd64.jar,
  lib/jogl-all-natives-windows-i586.jar,
  lib/jogl-all.jar
-Bundle-Activator: org.jogamp.jogl.Activator
 Bundle-Vendor: archstudio.org
 Export-Package: com.jogamp.common,
  com.jogamp.common.jvm,
@@ -61,6 +60,7 @@ Export-Package: com.jogamp.common,
  com.jogamp.newt.opengl,
  com.jogamp.newt.swt,
  com.jogamp.newt.util,
+ com.jogamp.newt.util.applet,
  com.jogamp.opengl,
  com.jogamp.opengl.math,
  com.jogamp.opengl.math.geom,
@@ -120,6 +120,7 @@ Export-Package: com.jogamp.common,
  jogamp.newt.driver.bcm.vc.iv,
  jogamp.newt.driver.linux,
  jogamp.newt.driver.macosx,
+ jogamp.newt.driver.opengl,
  jogamp.newt.driver.windows,
  jogamp.newt.driver.x11,
  jogamp.newt.event,
@@ -153,9 +154,7 @@ Export-Package: com.jogamp.common,
  jogamp.opengl.windows.wgl,
  jogamp.opengl.windows.wgl.awt,
  jogamp.opengl.x11.glx,
- net.highteq.nativetaglet,
- org.jogamp.jogl
+ net.highteq.nativetaglet
 Require-Bundle: org.eclipse.osgi,
  org.eclipse.swt
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy

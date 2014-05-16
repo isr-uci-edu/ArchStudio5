@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ArchStudio JOGL for linux-x86
 Bundle-SymbolicName: org.archstudio.jogl-linux-x86;singleton:=true
-Bundle-Version: 2.0.2.qualifier
+Bundle-Version: 2.1.5.qualifier
 Bundle-Vendor: archstudio.org
 Fragment-Host: org.archstudio.jogl
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

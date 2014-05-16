@@ -2,7 +2,7 @@
 <feature
       id="org.archstudio.jogl.feature"
       label="ArchStudio - JOGL (Java bindings for OpenGL)"
-      version="2.0.2.qualifier"
+      version="2.1.5.qualifier"
       provider-name="archstudio.org"
       license-feature="org.archstudio.license.feature"
       license-feature-version="5.0.1.qualifier">

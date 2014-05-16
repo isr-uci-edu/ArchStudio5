@@ -12,6 +12,7 @@ import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GL2ES1;
 import javax.media.opengl.GL2ES2;
+import javax.media.opengl.GL2ES3;
 import javax.media.opengl.GL2GL3;
 import javax.media.opengl.GL3;
 import javax.media.opengl.GL3ES3;
@@ -20,6 +21,7 @@ import javax.media.opengl.GL4;
 import javax.media.opengl.GL4ES3;
 import javax.media.opengl.GL4bc;
 import javax.media.opengl.GLArrayData;
+import javax.media.opengl.GLBufferStorage;
 import javax.media.opengl.GLContext;
 import javax.media.opengl.GLES1;
 import javax.media.opengl.GLES2;
@@ -30,6 +32,7 @@ import javax.media.opengl.GLUniformData;
 
 import com.jogamp.common.nio.PointerBuffer;
 
+@SuppressWarnings("deprecation")
 public class GL2Delegate implements GL2 {
 
 	protected final GL2 gl;
@@ -39,13 +42,48 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
+	public int getBoundBuffer(int arg0) {
+		return gl.getBoundBuffer(arg0);
+	}
+
+	@Override
+	public int getBoundFramebuffer(int arg0) {
+		return gl.getBoundFramebuffer(arg0);
+	}
+
+	@Override
+	public GLBufferStorage getBufferStorage(int arg0) {
+		return gl.getBufferStorage(arg0);
+	}
+
+	@Override
+	public GLContext getContext() {
+		return gl.getContext();
+	}
+
+	@Override
+	public int getDefaultDrawFramebuffer() {
+		return gl.getDefaultDrawFramebuffer();
+	}
+
+	@Override
+	public int getDefaultReadBuffer() {
+		return gl.getDefaultReadBuffer();
+	}
+
+	@Override
+	public int getDefaultReadFramebuffer() {
+		return gl.getDefaultReadFramebuffer();
+	}
+
+	@Override
 	public GL getDownstreamGL() throws GLException {
 		return gl.getDownstreamGL();
 	}
 
 	@Override
-	public GL getRootGL() throws GLException {
-		return gl.getRootGL();
+	public Object getExtension(String arg0) {
+		return gl.getExtension(arg0);
 	}
 
 	@Override
@@ -54,18 +92,28 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public GL4bc getGL4bc() throws GLException {
-		return gl.getGL4bc();
+	public GL2 getGL2() throws GLException {
+		return gl.getGL2();
 	}
 
 	@Override
-	public GL4 getGL4() throws GLException {
-		return gl.getGL4();
+	public GL2ES1 getGL2ES1() throws GLException {
+		return gl.getGL2ES1();
 	}
 
 	@Override
-	public GL3bc getGL3bc() throws GLException {
-		return gl.getGL3bc();
+	public GL2ES2 getGL2ES2() throws GLException {
+		return gl.getGL2ES2();
+	}
+
+	@Override
+	public GL2ES3 getGL2ES3() throws GLException {
+		return gl.getGL2ES3();
+	}
+
+	@Override
+	public GL2GL3 getGL2GL3() throws GLException {
+		return gl.getGL2GL3();
 	}
 
 	@Override
@@ -74,8 +122,28 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public GL2 getGL2() throws GLException {
-		return gl.getGL2();
+	public GL3ES3 getGL3ES3() throws GLException {
+		return gl.getGL3ES3();
+	}
+
+	@Override
+	public GL3bc getGL3bc() throws GLException {
+		return gl.getGL3bc();
+	}
+
+	@Override
+	public GL4 getGL4() throws GLException {
+		return gl.getGL4();
+	}
+
+	@Override
+	public GL4ES3 getGL4ES3() throws GLException {
+		return gl.getGL4ES3();
+	}
+
+	@Override
+	public GL4bc getGL4bc() throws GLException {
+		return gl.getGL4bc();
 	}
 
 	@Override
@@ -94,38 +162,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public GL2ES1 getGL2ES1() throws GLException {
-		return gl.getGL2ES1();
-	}
-
-	@Override
-	public GL2ES2 getGL2ES2() throws GLException {
-		return gl.getGL2ES2();
-	}
-
-	@Override
-	public GL3ES3 getGL3ES3() throws GLException {
-		return gl.getGL3ES3();
-	}
-
-	@Override
-	public GL4ES3 getGL4ES3() throws GLException {
-		return gl.getGL4ES3();
-	}
-
-	@Override
-	public GL2GL3 getGL2GL3() throws GLException {
-		return gl.getGL2GL3();
-	}
-
-	@Override
 	public GLProfile getGLProfile() {
 		return gl.getGLProfile();
-	}
-
-	@Override
-	public GLContext getContext() {
-		return gl.getContext();
 	}
 
 	@Override
@@ -134,38 +172,18 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public int getSwapInterval() {
-		return gl.getSwapInterval();
-	}
-
-	@Override
 	public Object getPlatformGLExtensions() {
 		return gl.getPlatformGLExtensions();
 	}
 
 	@Override
-	public Object getExtension(String extensionName) {
-		return gl.getExtension(extensionName);
+	public GL getRootGL() throws GLException {
+		return gl.getRootGL();
 	}
 
 	@Override
-	public int getBoundFramebuffer(int target) {
-		return gl.getBoundFramebuffer(target);
-	}
-
-	@Override
-	public int getDefaultDrawFramebuffer() {
-		return gl.getDefaultDrawFramebuffer();
-	}
-
-	@Override
-	public int getDefaultReadFramebuffer() {
-		return gl.getDefaultReadFramebuffer();
-	}
-
-	@Override
-	public int getDefaultReadBuffer() {
-		return gl.getDefaultReadBuffer();
+	public int getSwapInterval() {
+		return gl.getSwapInterval();
 	}
 
 	@Override
@@ -545,8 +563,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glClearDepth(double depth) {
-		gl.glClearDepth(depth);
+	public void glClearDepth(double arg0) {
+		gl.glClearDepth(arg0);
 	}
 
 	@Override
@@ -770,8 +788,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glColor4f(float red, float green, float blue, float alpha) {
-		gl.glColor4f(red, green, blue, alpha);
+	public void glColor4f(float arg0, float arg1, float arg2, float arg3) {
+		gl.glColor4f(arg0, arg1, arg2, arg3);
 	}
 
 	@Override
@@ -900,18 +918,18 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glColorPointer(GLArrayData array) {
-		gl.glColorPointer(array);
+	public void glColorPointer(GLArrayData arg0) {
+		gl.glColorPointer(arg0);
 	}
 
 	@Override
-	public void glColorPointer(int size, int type, int stride, Buffer pointer) {
-		gl.glColorPointer(size, type, stride, pointer);
+	public void glColorPointer(int arg0, int arg1, int arg2, Buffer arg3) {
+		gl.glColorPointer(arg0, arg1, arg2, arg3);
 	}
 
 	@Override
-	public void glColorPointer(int size, int type, int stride, long pointer_buffer_offset) {
-		gl.glColorPointer(size, type, stride, pointer_buffer_offset);
+	public void glColorPointer(int arg0, int arg1, int arg2, long arg3) {
+		gl.glColorPointer(arg0, arg1, arg2, arg3);
 	}
 
 	@Override
@@ -1586,8 +1604,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glDepthRange(double zNear, double zFar) {
-		gl.glDepthRange(zNear, zFar);
+	public void glDepthRange(double arg0, double arg1) {
+		gl.glDepthRange(arg0, arg1);
 	}
 
 	@Override
@@ -1611,8 +1629,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glDisableClientState(int arrayName) {
-		gl.glDisableClientState(arrayName);
+	public void glDisableClientState(int arg0) {
+		gl.glDisableClientState(arg0);
 	}
 
 	@Override
@@ -1787,8 +1805,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glEnableClientState(int arrayName) {
-		gl.glEnableClientState(arrayName);
+	public void glEnableClientState(int arg0) {
+		gl.glEnableClientState(arg0);
 	}
 
 	@Override
@@ -2227,8 +2245,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glFrustumf(float left, float right, float bottom, float top, float zNear, float zFar) {
-		gl.glFrustumf(left, right, bottom, top, zNear, zFar);
+	public void glFrustumf(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5) {
+		gl.glFrustumf(arg0, arg1, arg2, arg3, arg4, arg5);
 	}
 
 	@Override
@@ -2528,8 +2546,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public int glGetBoundBuffer(int target) {
-		return gl.glGetBoundBuffer(target);
+	public int glGetBoundBuffer(int arg0) {
+		return gl.glGetBoundBuffer(arg0);
 	}
 
 	@Override
@@ -2553,8 +2571,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public long glGetBufferSize(int buffer) {
-		return gl.glGetBufferSize(buffer);
+	public long glGetBufferSize(int arg0) {
+		return gl.glGetBufferSize(arg0);
 	}
 
 	@Override
@@ -4850,13 +4868,13 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public boolean glIsPBOPackEnabled() {
-		return gl.glIsPBOPackEnabled();
+	public boolean glIsPBOPackBound() {
+		return gl.glIsPBOPackBound();
 	}
 
 	@Override
-	public boolean glIsPBOUnpackEnabled() {
-		return gl.glIsPBOUnpackEnabled();
+	public boolean glIsPBOUnpackBound() {
+		return gl.glIsPBOUnpackBound();
 	}
 
 	@Override
@@ -4915,13 +4933,13 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public boolean glIsVBOArrayEnabled() {
-		return gl.glIsVBOArrayEnabled();
+	public boolean glIsVBOArrayBound() {
+		return gl.glIsVBOArrayBound();
 	}
 
 	@Override
-	public boolean glIsVBOElementArrayEnabled() {
-		return gl.glIsVBOElementArrayEnabled();
+	public boolean glIsVBOElementArrayBound() {
+		return gl.glIsVBOElementArrayBound();
 	}
 
 	@Override
@@ -4975,13 +4993,13 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glLightfv(int light, int pname, FloatBuffer params) {
-		gl.glLightfv(light, pname, params);
+	public void glLightfv(int arg0, int arg1, float[] arg2, int arg3) {
+		gl.glLightfv(arg0, arg1, arg2, arg3);
 	}
 
 	@Override
-	public void glLightfv(int light, int pname, float[] params, int params_offset) {
-		gl.glLightfv(light, pname, params, params_offset);
+	public void glLightfv(int arg0, int arg1, FloatBuffer arg2) {
+		gl.glLightfv(arg0, arg1, arg2);
 	}
 
 	@Override
@@ -5040,13 +5058,13 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glLoadMatrixf(FloatBuffer m) {
-		gl.glLoadMatrixf(m);
+	public void glLoadMatrixf(float[] arg0, int arg1) {
+		gl.glLoadMatrixf(arg0, arg1);
 	}
 
 	@Override
-	public void glLoadMatrixf(float[] m, int m_offset) {
-		gl.glLoadMatrixf(m, m_offset);
+	public void glLoadMatrixf(FloatBuffer arg0) {
+		gl.glLoadMatrixf(arg0);
 	}
 
 	@Override
@@ -5293,18 +5311,18 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glMaterialf(int face, int pname, float param) {
-		gl.glMaterialf(face, pname, param);
+	public void glMaterialf(int arg0, int arg1, float arg2) {
+		gl.glMaterialf(arg0, arg1, arg2);
 	}
 
 	@Override
-	public void glMaterialfv(int face, int pname, FloatBuffer params) {
-		gl.glMaterialfv(face, pname, params);
+	public void glMaterialfv(int arg0, int arg1, float[] arg2, int arg3) {
+		gl.glMaterialfv(arg0, arg1, arg2, arg3);
 	}
 
 	@Override
-	public void glMaterialfv(int face, int pname, float[] params, int params_offset) {
-		gl.glMaterialfv(face, pname, params, params_offset);
+	public void glMaterialfv(int arg0, int arg1, FloatBuffer arg2) {
+		gl.glMaterialfv(arg0, arg1, arg2);
 	}
 
 	@Override
@@ -5409,8 +5427,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glMatrixMode(int mode) {
-		gl.glMatrixMode(mode);
+	public void glMatrixMode(int arg0) {
+		gl.glMatrixMode(arg0);
 	}
 
 	@Override
@@ -5514,13 +5532,13 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glMultMatrixf(FloatBuffer m) {
-		gl.glMultMatrixf(m);
+	public void glMultMatrixf(float[] arg0, int arg1) {
+		gl.glMultMatrixf(arg0, arg1);
 	}
 
 	@Override
-	public void glMultMatrixf(float[] m, int m_offset) {
-		gl.glMultMatrixf(m, m_offset);
+	public void glMultMatrixf(FloatBuffer arg0) {
+		gl.glMultMatrixf(arg0);
 	}
 
 	@Override
@@ -6378,18 +6396,18 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glNormalPointer(GLArrayData array) {
-		gl.glNormalPointer(array);
+	public void glNormalPointer(GLArrayData arg0) {
+		gl.glNormalPointer(arg0);
 	}
 
 	@Override
-	public void glNormalPointer(int type, int stride, Buffer pointer) {
-		gl.glNormalPointer(type, stride, pointer);
+	public void glNormalPointer(int arg0, int arg1, Buffer arg2) {
+		gl.glNormalPointer(arg0, arg1, arg2);
 	}
 
 	@Override
-	public void glNormalPointer(int type, int stride, long pointer_buffer_offset) {
-		gl.glNormalPointer(type, stride, pointer_buffer_offset);
+	public void glNormalPointer(int arg0, int arg1, long arg2) {
+		gl.glNormalPointer(arg0, arg1, arg2);
 	}
 
 	@Override
@@ -6428,8 +6446,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glOrthof(float left, float right, float bottom, float top, float zNear, float zFar) {
-		gl.glOrthof(left, right, bottom, top, zNear, zFar);
+	public void glOrthof(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5) {
+		gl.glOrthof(arg0, arg1, arg2, arg3, arg4, arg5);
 	}
 
 	@Override
@@ -7554,8 +7572,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glRotatef(float angle, float x, float y, float z) {
-		gl.glRotatef(angle, x, y, z);
+	public void glRotatef(float arg0, float arg1, float arg2, float arg3) {
+		gl.glRotatef(arg0, arg1, arg2, arg3);
 	}
 
 	@Override
@@ -7574,8 +7592,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glScalef(float x, float y, float z) {
-		gl.glScalef(x, y, z);
+	public void glScalef(float arg0, float arg1, float arg2) {
+		gl.glScalef(arg0, arg1, arg2);
 	}
 
 	@Override
@@ -7789,8 +7807,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glShadeModel(int mode) {
-		gl.glShadeModel(mode);
+	public void glShadeModel(int arg0) {
+		gl.glShadeModel(arg0);
 	}
 
 	@Override
@@ -8323,18 +8341,18 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glTexCoordPointer(GLArrayData array) {
-		gl.glTexCoordPointer(array);
+	public void glTexCoordPointer(GLArrayData arg0) {
+		gl.glTexCoordPointer(arg0);
 	}
 
 	@Override
-	public void glTexCoordPointer(int size, int type, int stride, Buffer pointer) {
-		gl.glTexCoordPointer(size, type, stride, pointer);
+	public void glTexCoordPointer(int arg0, int arg1, int arg2, Buffer arg3) {
+		gl.glTexCoordPointer(arg0, arg1, arg2, arg3);
 	}
 
 	@Override
-	public void glTexCoordPointer(int size, int type, int stride, long pointer_buffer_offset) {
-		gl.glTexCoordPointer(size, type, stride, pointer_buffer_offset);
+	public void glTexCoordPointer(int arg0, int arg1, int arg2, long arg3) {
+		gl.glTexCoordPointer(arg0, arg1, arg2, arg3);
 	}
 
 	@Override
@@ -8754,8 +8772,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glTranslatef(float x, float y, float z) {
-		gl.glTranslatef(x, y, z);
+	public void glTranslatef(float arg0, float arg1, float arg2) {
+		gl.glTranslatef(arg0, arg1, arg2);
 	}
 
 	@Override
@@ -10992,18 +11010,18 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public void glVertexPointer(GLArrayData array) {
-		gl.glVertexPointer(array);
+	public void glVertexPointer(GLArrayData arg0) {
+		gl.glVertexPointer(arg0);
 	}
 
 	@Override
-	public void glVertexPointer(int size, int type, int stride, Buffer pointer) {
-		gl.glVertexPointer(size, type, stride, pointer);
+	public void glVertexPointer(int arg0, int arg1, int arg2, Buffer arg3) {
+		gl.glVertexPointer(arg0, arg1, arg2, arg3);
 	}
 
 	@Override
-	public void glVertexPointer(int size, int type, int stride, long pointer_buffer_offset) {
-		gl.glVertexPointer(size, type, stride, pointer_buffer_offset);
+	public void glVertexPointer(int arg0, int arg1, int arg2, long arg3) {
+		gl.glVertexPointer(arg0, arg1, arg2, arg3);
 	}
 
 	@Override
@@ -11312,53 +11330,38 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
+	public boolean hasBasicFBOSupport() {
+		return gl.hasBasicFBOSupport();
+	}
+
+	@Override
+	public boolean hasFullFBOSupport() {
+		return gl.hasFullFBOSupport();
+	}
+
+	@Override
+	public boolean hasGLSL() {
+		return gl.hasGLSL();
+	}
+
+	@Override
+	public boolean isExtensionAvailable(String arg0) {
+		return gl.isExtensionAvailable(arg0);
+	}
+
+	@Override
+	public boolean isFunctionAvailable(String arg0) {
+		return gl.isFunctionAvailable(arg0);
+	}
+
+	@Override
 	public boolean isGL() {
 		return gl.isGL();
 	}
 
 	@Override
-	public boolean isGL4bc() {
-		return gl.isGL4bc();
-	}
-
-	@Override
-	public boolean isGL4() {
-		return gl.isGL4();
-	}
-
-	@Override
-	public boolean isGL3bc() {
-		return gl.isGL3bc();
-	}
-
-	@Override
-	public boolean isGL3() {
-		return gl.isGL3();
-	}
-
-	@Override
 	public boolean isGL2() {
 		return gl.isGL2();
-	}
-
-	@Override
-	public boolean isGLES1() {
-		return gl.isGLES1();
-	}
-
-	@Override
-	public boolean isGLES2() {
-		return gl.isGLES2();
-	}
-
-	@Override
-	public boolean isGLES3() {
-		return gl.isGLES3();
-	}
-
-	@Override
-	public boolean isGLES() {
-		return gl.isGLES();
 	}
 
 	@Override
@@ -11372,13 +11375,8 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public boolean isGL3ES3() {
-		return gl.isGL3ES3();
-	}
-
-	@Override
-	public boolean isGL4ES3() {
-		return gl.isGL4ES3();
+	public boolean isGL2ES3() {
+		return gl.isGL2ES3();
 	}
 
 	@Override
@@ -11387,8 +11385,18 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public boolean isGL4core() {
-		return gl.isGL4core();
+	public boolean isGL3() {
+		return gl.isGL3();
+	}
+
+	@Override
+	public boolean isGL3ES3() {
+		return gl.isGL3ES3();
+	}
+
+	@Override
+	public boolean isGL3bc() {
+		return gl.isGL3bc();
 	}
 
 	@Override
@@ -11397,8 +11405,38 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
-	public boolean isGLcore() {
-		return gl.isGLcore();
+	public boolean isGL4() {
+		return gl.isGL4();
+	}
+
+	@Override
+	public boolean isGL4ES3() {
+		return gl.isGL4ES3();
+	}
+
+	@Override
+	public boolean isGL4bc() {
+		return gl.isGL4bc();
+	}
+
+	@Override
+	public boolean isGL4core() {
+		return gl.isGL4core();
+	}
+
+	@Override
+	public boolean isGLES() {
+		return gl.isGLES();
+	}
+
+	@Override
+	public boolean isGLES1() {
+		return gl.isGLES1();
+	}
+
+	@Override
+	public boolean isGLES2() {
+		return gl.isGLES2();
 	}
 
 	@Override
@@ -11407,33 +11445,18 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
+	public boolean isGLES3() {
+		return gl.isGLES3();
+	}
+
+	@Override
 	public boolean isGLES3Compatible() {
 		return gl.isGLES3Compatible();
 	}
 
 	@Override
-	public boolean hasGLSL() {
-		return gl.hasGLSL();
-	}
-
-	@Override
-	public boolean isFunctionAvailable(String glFunctionName) {
-		return gl.isFunctionAvailable(glFunctionName);
-	}
-
-	@Override
-	public boolean isExtensionAvailable(String glExtensionName) {
-		return gl.isExtensionAvailable(glExtensionName);
-	}
-
-	@Override
-	public boolean hasBasicFBOSupport() {
-		return gl.hasBasicFBOSupport();
-	}
-
-	@Override
-	public boolean hasFullFBOSupport() {
-		return gl.hasFullFBOSupport();
+	public boolean isGLcore() {
+		return gl.isGLcore();
 	}
 
 	@Override
@@ -11442,13 +11465,53 @@ public class GL2Delegate implements GL2 {
 	}
 
 	@Override
+	public boolean isPBOPackBound() {
+		return gl.isPBOPackBound();
+	}
+
+	@Override
+	public boolean isPBOUnpackBound() {
+		return gl.isPBOUnpackBound();
+	}
+
+	@Override
 	public boolean isTextureFormatBGRA8888Available() {
 		return gl.isTextureFormatBGRA8888Available();
 	}
 
 	@Override
-	public void setSwapInterval(int interval) {
-		gl.setSwapInterval(interval);
+	public boolean isVBOArrayBound() {
+		return gl.isVBOArrayBound();
+	}
+
+	@Override
+	public boolean isVBOElementArrayBound() {
+		return gl.isVBOElementArrayBound();
+	}
+
+	@Override
+	public GLBufferStorage mapBuffer(int arg0, int arg1) throws GLException {
+		return gl.mapBuffer(arg0, arg1);
+	}
+
+	@Override
+	public GLBufferStorage mapBufferRange(int arg0, long arg1, long arg2, int arg3) throws GLException {
+		return gl.mapBufferRange(arg0, arg1, arg2, arg3);
+	}
+
+	@Override
+	public GLBufferStorage mapNamedBuffer(int arg0, int arg1) throws GLException {
+		return gl.mapNamedBuffer(arg0, arg1);
+	}
+
+	@Override
+	public GLBufferStorage mapNamedBufferRange(int arg0, long arg1, long arg2, int arg3) throws GLException {
+		return gl.mapNamedBufferRange(arg0, arg1, arg2, arg3);
+	}
+
+	@Override
+	public void setSwapInterval(int arg0) {
+		gl.setSwapInterval(arg0);
 	}
 
 }
