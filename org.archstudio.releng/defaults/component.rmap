@@ -1,48 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
-  <rm:property key="local.repos" value=""/>
-  <rm:locator pattern=".*" searchPathRef="local.repos" failOnError="false"/>
+  <rm:property key="git.clone.dir" value="${user.home}/git"/>
+  
   <rm:locator pattern="^org\.archstudio(\..*)?$" searchPathRef="org.archstudio" failOnError="false"/>
+  <rm:locator pattern=".*" searchPathRef="src:org.eclipse" failOnError="false"/>
   <rm:locator pattern=".*" searchPathRef="org.eclipse" failOnError="false"/>
-  <rm:searchPath name="local.repos">
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="url.catalog">
-      <rm:uri format="{1}/{0}">
-        <bc:propertyRef key="buckminster.component"/>
-        <bc:propertyRef key="local.repos"/>
-      </rm:uri>
-    </rm:provider>
-    <rm:provider componentTypes="osgi.bundle,buckminster" readerType="url.catalog">
-      <rm:uri format="{1}/plugins/{0}">
-        <bc:propertyRef key="buckminster.component"/>
-        <bc:propertyRef key="local.repos"/>
-      </rm:uri>
-    </rm:provider>
-    <rm:provider componentTypes="eclipse.feature,buckminster" readerType="url.catalog">
-      <rm:uri format="{1}/features/{0}">
-        <bc:propertyRef key="buckminster.component"/>
-        <bc:propertyRef key="local.repos"/>
-      </rm:uri>
-    </rm:provider>
-  </rm:searchPath>
+  <rm:redirect pattern=".*" href="http://git.eclipse.org/c/buckminster/buckminster.git/plain/org.eclipse.buckminster.releng/build.rmap" />
+  
   <rm:searchPath name="org.archstudio">
     <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="git" resolutionFilter="">
-      <rm:uri format="{0}/repos,{1}">
-        <bc:propertyRef key="workspace.root"/>
+      <rm:uri format="{0}/ArchStudio5,{1}">
+        <bc:propertyRef key="git.clone.dir"/>
         <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
       <rm:property key="git.remote.uri" value="git://github.com/isr-uci-edu/ArchStudio5.git"/>
       <rm:property key="git.auto.fetch" value="true"/>
     </rm:provider>
   </rm:searchPath>
+  
+  <rm:searchPath name="src:org.eclipse">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="git" resolutionFilter="">
+      <rm:uri format="{0}/buckminster,{1}">
+        <bc:propertyRef key="git.clone.dir"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+      <rm:property key="git.remote.uri" value="git://git.eclipse.org/gitroot/buckminster/buckminster.git"/>
+      <rm:property key="git.auto.fetch" value="true"/>
+    </rm:provider>
+  </rm:searchPath>
+  
   <rm:searchPath name="org.eclipse">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="http://download.eclipse.org/eclipse/updates/{0}?importType=binary">
         <bc:propertyRef key="eclipse.version"/>
       </rm:uri>
     </rm:provider>
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle,buckminster" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="{0}?importType=binary">
@@ -56,8 +51,9 @@
           <bc:match pattern="^3\.6$" replacement="http://download.eclipse.org/releases/helios/"/>
           <bc:match pattern="^3\.7$" replacement="http://download.eclipse.org/releases/indigo/"/>
           <bc:match pattern="^4\.2$" replacement="http://download.eclipse.org/releases/juno/"/>
-          <bc:match pattern="^4\.3$" replacement="http://download.eclipse.org/releases/kepler/"/> 
-          <bc:match pattern="^4\.4$" replacement="http://download.eclipse.org/releases/luna/"/> 
+          <bc:match pattern="^4\.3$" replacement="http://download.eclipse.org/releases/kepler/"/>
+          <bc:match pattern="^4\.4$" replacement="http://download.eclipse.org/releases/luna/"/>
+          <bc:match pattern="^4\.5$" replacement="http://download.eclipse.org/releases/mars/"/>
         </bc:replace>
       </rm:uri>
     </rm:provider>

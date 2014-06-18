@@ -19,13 +19,23 @@
 
 	</target>
 
-	<target name="install-buckminster">
+	<target name="install-buckminster-eclipse">
 
 		<property name="workspace.root" location="${env.WORKSPACE}" />
 		<property name="eclipse.home" location="${workspace.root}/buckminster" />
 		<property name="director.home" location="${workspace.root}/director" />
 
-		<install-buckminster todir="${eclipse.home}" director.home="${director.home}" />
+		<install-buckminster-eclipse todir="${eclipse.home}" director.home="${director.home}" />
+
+	</target>
+
+	<target name="install-buckminster-full">
+
+		<property name="workspace.root" location="${env.WORKSPACE}" />
+		<property name="eclipse.home" location="${workspace.root}/buckminster" />
+		<property name="director.home" location="${workspace.root}/director" />
+
+		<install-buckminster-full todir="${eclipse.home}" director.home="${director.home}" />
 
 	</target>
 
@@ -109,31 +119,44 @@
 		<mkdir dir="${buckminster.output.root}" />
 		<delete dir="${buckminster.temp}" />
 		<mkdir dir="${buckminster.temp}" />
-		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-			<arg value="build" />
-			<arg value="-c" />
-			<arg value="-t" />
-			<arg value="-P" />
-			<arg value="${basedir}/defaults/buckminster.properties" />
-			<syspropertyset>
-				<propertyref builtin="commandline" />
-				<propertyref prefix="buckminster.output" />
-				<propertyref prefix="buckminster.temp" />
-			</syspropertyset>
-		</buckminster>
-		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-			<arg value="perform" />
-			<arg value="-P" />
-			<arg value="${basedir}/defaults/buckminster.properties" />
-			<arg value="-D" />
-			<arg value="buckminster.output.root=${buckminster.output.root}" />
-			<arg value="${buckminster.component}#site.p2" />
-			<syspropertyset>
-				<propertyref builtin="commandline" />
-				<propertyref prefix="buckminster.output" />
-				<propertyref prefix="buckminster.temp" />
-			</syspropertyset>
-		</buckminster>
+
+		<retry retrycount="3">
+			<sequential>
+				<buckminster location="${eclipse.home}" workspace="${workspace.root}">
+					<arg value="clean" />
+					<syspropertyset>
+						<propertyref builtin="commandline" />
+						<propertyref prefix="buckminster.output" />
+						<propertyref prefix="buckminster.temp" />
+					</syspropertyset>
+				</buckminster>
+				<buckminster location="${eclipse.home}" workspace="${workspace.root}">
+					<arg value="build" />
+					<arg value="-c" />
+					<arg value="-t" />
+					<arg value="-P" />
+					<arg value="${basedir}/defaults/buckminster.properties" />
+					<syspropertyset>
+						<propertyref builtin="commandline" />
+						<propertyref prefix="buckminster.output" />
+						<propertyref prefix="buckminster.temp" />
+					</syspropertyset>
+				</buckminster>
+				<buckminster location="${eclipse.home}" workspace="${workspace.root}">
+					<arg value="perform" />
+					<arg value="-P" />
+					<arg value="${basedir}/defaults/buckminster.properties" />
+					<arg value="-D" />
+					<arg value="buckminster.output.root=${buckminster.output.root}" />
+					<arg value="${buckminster.component}#site.p2" />
+					<syspropertyset>
+						<propertyref builtin="commandline" />
+						<propertyref prefix="buckminster.output" />
+						<propertyref prefix="buckminster.temp" />
+					</syspropertyset>
+				</buckminster>
+			</sequential>
+		</retry>
 
 		<echo>Moving the update site to ${buckminster.component}</echo>
 		<mkdir dir="${workspace.root}/${buckminster.component}" />
@@ -194,21 +217,23 @@
 		<property name="eclipse.home" location="${workspace.root}/buckminster" />
 		<assert-nonempty property="emma.launch" message="Missing buckminster.component" />
 
-		<buckminster location="${eclipse.home}" workspace="${workspace.root}">
-			<arg value="emma" />
-			<arg value="-l" />
-			<arg value="${emma.launch}" />
-			<arg value="-o" />
-			<arg value="${workspace.root}/junit_result.xml" />
-			<arg value="--xml" />
-			<arg value="${workspace.root}/coverage_report.xml" />
-			<arg value="--flatXML" />
-			<syspropertyset>
-				<propertyref builtin="commandline" />
-				<propertyref prefix="buckminster.output" />
-				<propertyref prefix="buckminster.temp" />
-			</syspropertyset>
-		</buckminster>
+		<retry retrycount="3">
+			<buckminster location="${eclipse.home}" workspace="${workspace.root}">
+				<arg value="emma" />
+				<arg value="-l" />
+				<arg value="${emma.launch}" />
+				<arg value="-o" />
+				<arg value="${workspace.root}/junit_result.xml" />
+				<arg value="--xml" />
+				<arg value="${workspace.root}/coverage_report.xml" />
+				<arg value="--flatXML" />
+				<syspropertyset>
+					<propertyref builtin="commandline" />
+					<propertyref prefix="buckminster.output" />
+					<propertyref prefix="buckminster.temp" />
+				</syspropertyset>
+			</buckminster>
+		</retry>
 
 	</target>
 

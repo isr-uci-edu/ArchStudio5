@@ -5,6 +5,7 @@
 	<import file="utils.xml" />
 
 	<property name="default.buckminster.args" value="" />
+	<property name="default.buckminster.command.args" value="" />
 	<property name="default.buckminster.loglevel" value="INFO" />
 	<property name="default.buckminster.workspace" value="${default.eclipse.workspace}" />
 	<property name="default.buckminster.failonerror" value="${default.eclipse.failonerror}" />
@@ -29,11 +30,12 @@
 				<arg value="@{loglevel}" />
 				<arg value="--displaystacktrace" />
 				<args />
+				<arg line="${default.buckminster.command.args}" />
 			</eclipse>
 		</sequential>
 	</macrodef>
 
-	<macrodef name="install-buckminster">
+	<macrodef name="install-buckminster-eclipse">
 		<!-- todir must end in /buckminster -->
 		<attribute name="todir" />
 		<attribute name="director.home" />
@@ -50,27 +52,57 @@
 				<arg value="-p" />
 				<arg value="Buckminster" />
 				<arg value="-r" />
-				<arg value="http://download.eclipse.org/tools/buckminster/headless-@{eclipse.version}" />
+				<arg value="http://localhost/buckminster" />
 				<arg value="-r" />
-				<arg value="http://download.cloudsmith.com/buckminster/external-@{eclipse.version}" />
+				<arg value="http://download.eclipse.org/tools/buckminster/headless-@{eclipse.version}" />
 				<arg value="-installIU" />
-				<arg value="org.eclipse.equinox.p2.director.feature.feature.group," />
+				<arg value="org.eclipse.equinox.p2.director.feature.feature.group" />
 				<arg value="-installIU" />
-				<arg value="org.eclipse.buckminster.emma.headless.feature.feature.group," />
+				<arg value="org.eclipse.buckminster.pde.headless.feature.feature.group" />
 				<arg value="-installIU" />
-				<arg value="org.eclipse.buckminster.pde.headless.feature.feature.group," />
+				<arg value="org.eclipse.buckminster.cmdline.product" />
 				<arg value="-installIU" />
-				<arg value="org.eclipse.buckminster.subclipse.headless.feature.feature.group," />
+				<arg value="org.eclipse.buckminster.core.headless.feature.feature.group" />
 				<arg value="-installIU" />
-				<arg value="org.eclipse.buckminster.maven.headless.feature.feature.group," />
-				<arg value="-installIU" />
-				<arg value="org.eclipse.buckminster.cmdline.product," />
-				<arg value="-installIU" />
-				<arg value="org.eclipse.buckminster.core.headless.feature.feature.group," />
-				<arg value="-installIU" />
-				<arg value="org.eclipse.buckminster.git.headless.feature.feature.group," />
+				<arg value="org.eclipse.buckminster.git.headless.feature.feature.group" />
 				<arg value="-installIU" />
 				<arg value="org.eclipse.buckminster.cvs.headless.feature.feature.group" />
+			</director>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="install-buckminster-full">
+		<!-- todir must end in /buckminster -->
+		<attribute name="todir" />
+		<attribute name="director.home" />
+		<attribute name="eclipse.version" default="${eclipse.version}" />
+		<sequential>
+			<install-director todir="@{director.home}" />
+			<mkdir dir="@{todir}" />
+			<delete includeemptydirs="true" defaultexcludes="false">
+				<fileset dir="@{todir}" excludes="artifacts.xml,plugins/**/*" />
+			</delete>
+			<director location="${director.home}">
+				<arg value="-d" />
+				<arg value="@{todir}" />
+				<arg value="-p" />
+				<arg value="Buckminster" />
+				<arg value="-r" />
+				<arg value="http://localhost/buckminster" />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.pde.headless.feature.feature.group" />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.cmdline.product" />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.core.headless.feature.feature.group" />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.git.headless.feature.feature.group" />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.cvs.headless.feature.feature.group" />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.emma.headless.feature.feature.group" />
+				<arg value="-installIU" />
+				<arg value="org.eclipse.buckminster.subclipse.headless.feature.feature.group" />
 			</director>
 		</sequential>
 	</macrodef>

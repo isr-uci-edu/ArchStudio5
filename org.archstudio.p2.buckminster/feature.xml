@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.archstudio.p2.buckminster"
+      label="ArchStudio P2 Buckminster Update Site"
+      version="1.0.0.qualifier"
+      provider-name="archstudio.org"
+      license-feature="org.archstudio.license.feature"
+      license-feature-version="5.0.1.qualifier">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <url>
+      <discovery label="Eclipse Updates" url="http://download.eclipse.org/eclipse/updates/4.3"/>
+      <discovery label="Eclipse" url="http://download.eclipse.org/releases/kepler/"/>
+      <discovery label="Subclipse" url="http://subclipse.tigris.org/update_1.10.x"/>
+   </url>
+
+   <includes
+         id="org.eclipse.buckminster.subclipse.headless.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.buckminster.emma.headless.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.buckminster.core.headless.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.buckminster.cvs.headless.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.buckminster.git.headless.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.buckminster.maven.headless.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.buckminster.pde.headless.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.buckminster.product"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.buckminster.subversive.headless.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.buckminster.subversive.svnkit16.headless.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.buckminster.site.eclipse.headless"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.buckminster.site.external"
+         version="0.0.0"/>
+
+</feature>
