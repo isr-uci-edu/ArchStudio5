@@ -12,8 +12,8 @@ public interface IBNAUI {
 
 	public static enum AvailableUI {
 		AUTODETECT("Autodetect", "Automatically select the best graphical subsystem.", AutodetectBNAUI.class), //
-		JOGL("OpenGL", "Faster, but unstable on some systems.", JOGLBNAUI.class), //
-		SWT("SWT", "Slower, use this if OpenGL does not work or causes JVM crashes.", SWTBNAUI.class);
+		JOGL("OpenGL", "Faster if hardware accelerated.", JOGLBNAUI.class), //
+		SWT("SWT", "Use this if OpenGL is not hardware accelerated or unstable.", SWTBNAUI.class);
 
 		private final String name;
 		private final String description;

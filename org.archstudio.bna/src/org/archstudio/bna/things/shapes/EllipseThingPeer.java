@@ -3,7 +3,7 @@ package org.archstudio.bna.things.shapes;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
-import javax.media.opengl.GL2;
+import javax.media.opengl.GL2ES2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
@@ -51,7 +51,7 @@ public class EllipseThingPeer<T extends EllipseThing> extends AbstractEllipseThi
 	}
 
 	@Override
-	public void drawShadow(GL2 gl, Rectangle localBounds, IUIResources r) {
+	public void drawShadow(GL2ES2 gl, Rectangle localBounds, IUIResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		if (!localBounds.intersects(lbb) || t.getColor() == null) {
 			return;

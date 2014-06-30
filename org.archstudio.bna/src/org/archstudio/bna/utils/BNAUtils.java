@@ -128,6 +128,10 @@ public class BNAUtils {
 		return new Rectangle(r.x, r.y, r.width, r.height);
 	}
 
+	public static Dimension clone(Dimension d) {
+		return new Dimension(d.width, d.height);
+	}
+
 	public static final List<Point> worldToLocal(final ICoordinateMapper cm, List<Point> worldPoints) {
 		return Lists.transform(worldPoints, new Function<Point, Point>() {
 
@@ -1117,7 +1121,7 @@ public class BNAUtils {
 		return new Dimension(round(r.getWidth()), round(r.getHeight()));
 	}
 
-	public static Object toDimension(Rectangle lbb) {
+	public static Dimension toDimension(Rectangle lbb) {
 		return new Dimension(lbb.width, lbb.height);
 	}
 

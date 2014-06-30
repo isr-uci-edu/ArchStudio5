@@ -1,14 +1,24 @@
 package org.archstudio.bna.ui.jogl;
 
-import java.awt.geom.Point2D;
+import java.awt.Dimension;
+import java.nio.FloatBuffer;
 
 import org.archstudio.bna.ui.IUIResources;
-import org.archstudio.sysutils.Matrix;
+
+import com.jogamp.opengl.util.PMVMatrix;
 
 public interface IJOGLResources extends IUIResources {
 
-	public Matrix getMatrix();
+	public void fillShape(int mode, FloatBuffer xyzVertices, FloatBuffer rgbaColors, int n);
 
-	public Point2D.Double transformXY(Matrix matrix, double x, double y, double z);
+	public void drawShape(Dimension size, int mode, FloatBuffer xyzVertices, FloatBuffer rgbaColors, int n);
+
+	public PMVMatrix getMatrix();
+
+	// PMVMatrix.glPopMatrix is buggy, use these methods instead
+	public void pushMatrix(int matrixName);
+
+	// PMVMatrix.glPopMatrix is buggy, use these methods instead
+	public void popMatrix(int matrixName);
 
 }

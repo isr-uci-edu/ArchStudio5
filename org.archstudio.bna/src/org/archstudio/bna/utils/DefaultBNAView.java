@@ -77,6 +77,17 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 	@Override
 	synchronized public void dispose() {
 		world.getBNAModel().removeBNAModelListener(this);
+		disposePeers();
+		if (PROFILE) {
+			for (java.util.Map.Entry<Object, AtomicLong> entry : SystemUtils.sortedByValue(profileStats.asMap()
+					.entrySet())) {
+				System.err.println(entry.getValue() + "\t" + entry.getKey());
+			}
+		}
+	}
+
+	@Override
+	synchronized public void disposePeers() {
 		for (Map.Entry<IThing, IThingPeer<?>> entry : peers.entrySet()) {
 			try {
 				entry.getValue().dispose();
@@ -86,12 +97,6 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 			}
 		}
 		peers.clear();
-		if (PROFILE) {
-			for (java.util.Map.Entry<Object, AtomicLong> entry : SystemUtils.sortedByValue(profileStats.asMap()
-					.entrySet())) {
-				System.err.println(entry.getValue() + "\t" + entry.getKey());
-			}
-		}
 	}
 
 	@Override

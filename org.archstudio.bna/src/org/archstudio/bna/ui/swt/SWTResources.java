@@ -3,6 +3,7 @@ package org.archstudio.bna.ui.swt;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Shape;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
@@ -64,19 +65,6 @@ public class SWTResources extends AbstractUIResources implements ISWTResources {
 					return new Color(gc.getDevice(), rgb);
 				}
 			});
-	protected final LoadingCache<Shape, Path> shapePaths = CacheBuilder.newBuilder().maximumSize(16)
-			.removalListener(new RemovalListener<Shape, Path>() {
-				@Override
-				public void onRemoval(RemovalNotification<Shape, Path> notification) {
-					notification.getValue().dispose();
-				}
-			}).build(new CacheLoader<Shape, Path>() {
-				@Override
-				public Path load(Shape shape) throws Exception {
-					Path path = new Path(gc.getDevice());
-					return BNAUtils.toPath(path, shape);
-				}
-			});
 	protected final LoadingCache<Font, org.eclipse.swt.graphics.Font> fonts = CacheBuilder.newBuilder().maximumSize(16)
 			.removalListener(new RemovalListener<Font, org.eclipse.swt.graphics.Font>() {
 				@Override
@@ -102,7 +90,6 @@ public class SWTResources extends AbstractUIResources implements ISWTResources {
 	@Override
 	public void dispose() {
 		colors.invalidateAll();
-		shapePaths.invalidateAll();
 		fonts.invalidateAll();
 		super.dispose();
 	}
@@ -216,12 +203,21 @@ public class SWTResources extends AbstractUIResources implements ISWTResources {
 
 	@Override
 	public boolean setLineStyle(IHasLineData thing) {
-		if (thing.getLineStyle() != LineStyle.NONE && setColor(thing, IHasEdgeColor.EDGE_COLOR_KEY)) {
+		LineStyle style = thing.getLineStyle();
+		if (style != LineStyle.NONE && setColor(thing, IHasEdgeColor.EDGE_COLOR_KEY)) {
 			gc.setLineWidth(thing.getLineWidth());
-			gc.setLineStyle(thing.getLineStyle().toSwtStyle());
+			gc.setLineStyle(style.toSwtStyle());
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean setLineStyle(int width, int stipple) {
+		gc.setLineWidth(width);
+		gc.setLineStyle(SWT.LINE_CUSTOM);
+		gc.setLineDash(LineStyle.toSWTDashes(stipple));
+		return true;
 	}
 
 	@Override
@@ -273,9 +269,21 @@ public class SWTResources extends AbstractUIResources implements ISWTResources {
 	}
 
 	@Override
+	public void drawShape(Point2D localShape) {
+		gc.drawPoint(SystemUtils.round(localShape.getX()), SystemUtils.round(localShape.getY()));
+	}
+
+	@Override
 	public void drawShape(Shape localShape) {
 		if (gc.getAdvanced()) {
-			gc.drawPath(shapePaths.getUnchecked(localShape));
+			Path path = new Path(gc.getDevice());
+			try {
+				BNAUtils.toPath(path, localShape);
+				gc.drawPath(path);
+			}
+			finally {
+				path.dispose();
+			}
 		}
 		else {
 			int[] xyArray = toXYIntArray(localShape);
@@ -292,13 +300,19 @@ public class SWTResources extends AbstractUIResources implements ISWTResources {
 	public void glowShape(Shape localShape, RGB color, int width, double alpha) {
 		double cumulativeAlpha = 0;
 		if (gc.getAdvanced()) {
-			Path path = shapePaths.getUnchecked(localShape);
-			for (int i = width; i >= 1; i -= RESOLUTION) {
-				double actualAlpha = alpha * (width - i) / width - cumulativeAlpha;
-				cumulativeAlpha += actualAlpha;
-				gc.setLineWidth(i);
-				setColor(color, actualAlpha);
-				gc.drawPath(path);
+			Path path = new Path(gc.getDevice());
+			try {
+				BNAUtils.toPath(path, localShape);
+				for (int i = width; i >= 1; i -= RESOLUTION) {
+					double actualAlpha = alpha * (width - i) / width - cumulativeAlpha;
+					cumulativeAlpha += actualAlpha;
+					gc.setLineWidth(i);
+					setColor(color, actualAlpha);
+					gc.drawPath(path);
+				}
+			}
+			finally {
+				path.dispose();
 			}
 		}
 		else {
@@ -322,30 +336,36 @@ public class SWTResources extends AbstractUIResources implements ISWTResources {
 
 	@Override
 	public void selectShape(Shape localShape, int offset) {
-		offset = Math.abs(offset) % 2;
+		offset = Math.abs(offset) / 2 % 2;
 		int[] lineDash = new int[] { 4, 4 };
 		if (gc.getAdvanced()) {
-			Path path = shapePaths.getUnchecked(localShape);
-			if (offset == 0) {
-				setForeground(new RGB(0, 0, 0));
-				gc.drawPath(path);
-				gc.setLineStyle(SWT.LINE_CUSTOM);
-				gc.setLineDash(lineDash);
-				setForeground(new RGB(255, 255, 255));
-				gc.drawPath(path);
+			Path path = new Path(gc.getDevice());
+			try {
+				BNAUtils.toPath(path, localShape);
+				if (offset < 1) {
+					setForeground(new RGB(0, 0, 0));
+					gc.drawPath(path);
+					gc.setLineStyle(SWT.LINE_CUSTOM);
+					gc.setLineDash(lineDash);
+					setForeground(new RGB(255, 255, 255));
+					gc.drawPath(path);
+				}
+				else {
+					setForeground(new RGB(255, 255, 255));
+					gc.drawPath(path);
+					gc.setLineStyle(SWT.LINE_CUSTOM);
+					gc.setLineDash(lineDash);
+					setForeground(new RGB(0, 0, 0));
+					gc.drawPath(path);
+				}
 			}
-			else {
-				setForeground(new RGB(255, 255, 255));
-				gc.drawPath(path);
-				gc.setLineStyle(SWT.LINE_CUSTOM);
-				gc.setLineDash(lineDash);
-				setForeground(new RGB(0, 0, 0));
-				gc.drawPath(path);
+			finally {
+				path.dispose();
 			}
 		}
 		else {
 			int[] xyArray = toXYIntArray(localShape);
-			if (offset == 0) {
+			if (offset < 1) {
 				setForeground(new RGB(0, 0, 0));
 				gc.drawPolygon(xyArray);
 				gc.setLineStyle(SWT.LINE_CUSTOM);
@@ -381,13 +401,20 @@ public class SWTResources extends AbstractUIResources implements ISWTResources {
 					gc.fillGradientRectangle(r.x, r.y, r.width, r.height, true);
 				}
 				else {
-					gc.setClipping(shapePaths.getUnchecked(localShape));
+					Path path = new Path(gc.getDevice());
 					try {
-						r = BNAUtils.toRectangle(localShape.getBounds());
-						gc.fillGradientRectangle(r.x, r.y, r.width, r.height, true);
+						BNAUtils.toPath(path, localShape);
+						gc.setClipping(path);
+						try {
+							r = BNAUtils.toRectangle(localShape.getBounds());
+							gc.fillGradientRectangle(r.x, r.y, r.width, r.height, true);
+						}
+						finally {
+							gc.setClipping((Rectangle) null);
+						}
 					}
 					finally {
-						gc.setClipping((Rectangle) null);
+						path.dispose();
 					}
 				}
 			}
@@ -400,7 +427,14 @@ public class SWTResources extends AbstractUIResources implements ISWTResources {
 					gc.fillRectangle(r.x, r.y, r.width, r.height);
 				}
 				else {
-					gc.fillPath(shapePaths.getUnchecked(localShape));
+					Path path = new Path(gc.getDevice());
+					try {
+						BNAUtils.toPath(path, localShape);
+						gc.fillPath(path);
+					}
+					finally {
+						path.dispose();
+					}
 				}
 			}
 		}

@@ -106,7 +106,7 @@ public abstract class AbstractUIResources implements IUIResources {
 			});
 	private boolean antialiasGraphics = true;
 	private boolean antialiasText = true;
-	private FontRenderContext fontRenderContext = new FontRenderContext(null, antialiasText, antialiasText);
+	private FontRenderContext fontRenderContext = new FontRenderContext(null, antialiasText, false);
 	private boolean decorativeGraphics = true;
 	private boolean displayShadows = true;
 	private Deque<Float> globalAlphaStack = new LinkedList<>();
@@ -142,7 +142,7 @@ public abstract class AbstractUIResources implements IUIResources {
 	public void setAntialiasText(boolean antialiasText) {
 		if (this.antialiasText != antialiasText) {
 			this.antialiasText = antialiasText;
-			fontRenderContext = new FontRenderContext(null, antialiasText, antialiasText);
+			fontRenderContext = new FontRenderContext(null, antialiasText, false);
 			fontTextSizes.invalidateAll();
 		}
 	}
@@ -235,7 +235,7 @@ public abstract class AbstractUIResources implements IUIResources {
 
 	@Override
 	final public Dimension getTextSize(Font font, String text) {
-		return fontTextSizes.getUnchecked(Lists.newArrayList(font, text));
+		return BNAUtils.clone(fontTextSizes.getUnchecked(Lists.newArrayList(font, text)));
 	}
 
 	protected Dimension _getTextSize(Font font, String text) {

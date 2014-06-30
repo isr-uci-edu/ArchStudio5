@@ -20,5 +20,7 @@ public interface IBNAView {
 
 	public <T extends IThing> IThingPeer<T> getThingPeer(T t);
 
+	public void disposePeers();
+
 	public void dispose();
 }

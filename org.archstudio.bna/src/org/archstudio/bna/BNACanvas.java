@@ -53,17 +53,21 @@ public class BNACanvas extends Composite implements ControlListener, SelectionLi
 			public void widgetDisposed(DisposeEvent e) {
 				view.getCoordinateMapper().removeCoordinateMapperListener(BNACanvas.this);
 				view.getBNAWorld().getBNAModel().removeBNAModelListener(BNACanvas.this);
-				bnaUI.getComposite().removeControlListener(BNACanvas.this);
-				bnaUI.getComposite().removeMouseListener(BNACanvas.this);
-				bnaUI.dispose();
-				if (disposeView) {
-					view.dispose();
+				if (bnaUI != null) {
+					bnaUI.getComposite().removeControlListener(BNACanvas.this);
+					bnaUI.getComposite().removeMouseListener(BNACanvas.this);
+					bnaUI.dispose();
+					bnaUI = null;
+					if (disposeView) {
+						view.dispose();
+					}
 				}
 			}
 		});
 	}
 
 	synchronized public void setBNAUI(IBNAUI bnaUI) {
+		view.disposePeers();
 		if (hBar != null && !hBar.isDisposed()) {
 			hBar.removeSelectionListener(this);
 		}
@@ -75,7 +79,6 @@ public class BNACanvas extends Composite implements ControlListener, SelectionLi
 			this.bnaUI.getComposite().removeMouseListener(this);
 			this.bnaUI.dispose();
 		}
-		// FIXME: The current BNAUI setup always initializes the autodetect UI first, then switches to the selected one. It should use the selected one first.
 		this.bnaUI = bnaUI;
 		bnaUI.init(this, bnaUIStyle);
 		layout(true, true);

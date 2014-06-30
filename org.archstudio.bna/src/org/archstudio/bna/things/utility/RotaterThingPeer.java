@@ -1,10 +1,11 @@
 package org.archstudio.bna.things.utility;
 
 import java.awt.geom.Arc2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.util.List;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
+import javax.media.opengl.GL2ES2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
@@ -18,6 +19,10 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
+import com.google.common.collect.Lists;
+import com.google.common.primitives.Floats;
+import com.jogamp.common.nio.Buffers;
+
 public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPointThingPeer<T> {
 
 	protected static final int UNDERHANG = 4;
@@ -28,7 +33,7 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, IJOGLResources r) {
+	public void draw(GL2ES2 gl, Rectangle localBounds, IJOGLResources r) {
 		Point lap = cm.worldToLocal(t.getAnchorPoint());
 		int Radius = t.getRadius();
 		int radius = Radius / 4;
@@ -40,52 +45,100 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 		r.pushMatrix(lap.x, lap.y, 0);
 
 		{ // background circle
-			gl.glBegin(GL.GL_TRIANGLE_STRIP);
+			List<Float> vertices = Lists.newArrayList();
+			List<Float> colors = Lists.newArrayList();
+
 			for (float radians = 0; radians < 2f * Math.PI; radians += radianDelta) {
 				float x = (float) Math.cos(radians);
 				float y = (float) Math.sin(radians);
-				gl.glColor4f(0f, 0f, 0f, 0f);
-				gl.glVertex2f(x * radius, y * radius);
-				gl.glColor4f(0f, 0f, 0f, 0.25f);
-				gl.glVertex2f(x * (Radius - UNDERHANG), y * (Radius - UNDERHANG));
+
+				colors.add(0f);
+				colors.add(0f);
+				colors.add(0f);
+				colors.add(0f);
+				vertices.add(x * radius);
+				vertices.add(y * radius);
+				vertices.add(0f);
+
+				colors.add(0f);
+				colors.add(0f);
+				colors.add(0f);
+				colors.add(0.25f);
+				vertices.add(x * (Radius - UNDERHANG));
+				vertices.add(y * (Radius - UNDERHANG));
+				vertices.add(0f);
 			}
 			float x = 1;
 			float y = 0;
-			gl.glColor4f(0f, 0f, 0f, 0f);
-			gl.glVertex2f(x * radius, y * radius);
-			gl.glColor4f(0f, 0f, 0f, 0.25f);
-			gl.glVertex2f(x * (Radius - UNDERHANG), y * (Radius - UNDERHANG));
-			gl.glEnd();
+
+			colors.add(0f);
+			colors.add(0f);
+			colors.add(0f);
+			colors.add(0f);
+			vertices.add(x * radius);
+			vertices.add(y * radius);
+			vertices.add(0f);
+
+			colors.add(0f);
+			colors.add(0f);
+			colors.add(0f);
+			colors.add(0.25f);
+			vertices.add(x * (Radius - UNDERHANG));
+			vertices.add(y * (Radius - UNDERHANG));
+			vertices.add(0f);
+
+			r.fillShape(GL2ES2.GL_TRIANGLE_STRIP, //
+					Buffers.newDirectFloatBuffer(Floats.toArray(vertices)), //
+					Buffers.newDirectFloatBuffer(Floats.toArray(colors)), vertices.size() / 3);
 		}
 
 		{ // outer circle edge
-			gl.glBegin(GL.GL_LINE_LOOP);
-			gl.glColor4f(0f, 0f, 0f, 1f);
-			for (float radians = 0; radians < 2f * Math.PI; radians += radianDelta) {
-				float x = (float) Math.cos(radians) * (Radius - UNDERHANG);
-				float y = (float) Math.sin(radians) * (Radius - UNDERHANG);
-				gl.glVertex2f(x, y);
-			}
-			gl.glVertex2f(Radius - UNDERHANG, 0);
-			gl.glEnd();
+			r.setColor(new RGB(0, 0, 0), 1);
+			r.drawShape(new Ellipse2D.Double(-Radius + UNDERHANG, -Radius + UNDERHANG, 2 * (Radius - UNDERHANG) - 1,
+					2 * (Radius - UNDERHANG) - 1));
 		}
 
 		{ // red wedge
-			gl.glBegin(GL.GL_TRIANGLE_FAN);
-			gl.glColor4f(1f, 0f, 0f, 0.5f);
-			gl.glVertex2i(0, 0);
-			gl.glColor4f(1f, 0f, 0f, 0.5f);
+			List<Float> vertices = Lists.newArrayList();
+			List<Float> colors = Lists.newArrayList();
+
+			colors.add(1f);
+			colors.add(0f);
+			colors.add(0f);
+			colors.add(0.5f);
+			vertices.add(0f);
+			vertices.add(0f);
+			vertices.add(0f);
+
 			for (float radians = -WEDGE_SIZE * (float) Math.PI / 180; radians < WEDGE_SIZE * (float) Math.PI / 180; radians += radianDelta) {
 				float x = (float) Math.cos(radians + angleRadians) * Radius;
 				float y = (float) Math.sin(radians + angleRadians) * Radius;
-				gl.glVertex2f(x, y);
+
+				colors.add(1f);
+				colors.add(0f);
+				colors.add(0f);
+				colors.add(1f);
+				vertices.add(x);
+				vertices.add(y);
+				vertices.add(0f);
 			}
+
 			float radians = 10 * (float) Math.PI / 180;
 			float x = (float) Math.cos(radians + angleRadians) * Radius;
 			float y = (float) Math.sin(radians + angleRadians) * Radius;
-			gl.glVertex2f(x, y);
+
+			colors.add(1f);
+			colors.add(0f);
+			colors.add(0f);
+			colors.add(1f);
+			vertices.add(x);
+			vertices.add(y);
+			vertices.add(0f);
+
+			r.fillShape(GL2ES2.GL_TRIANGLE_FAN, //
+					Buffers.newDirectFloatBuffer(Floats.toArray(vertices)), //
+					Buffers.newDirectFloatBuffer(Floats.toArray(colors)), vertices.size() / 3);
 		}
-		gl.glEnd();
 
 		r.popMatrix();
 	}

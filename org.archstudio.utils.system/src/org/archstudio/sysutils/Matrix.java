@@ -41,6 +41,29 @@ public class Matrix {
 		return m;
 	}
 
+	public static Matrix newRowMajorMatrix(int columns, float... values) {
+		checkArgument(values.length % columns == 0, "Incomplete matrix");
+		Matrix m = new Matrix(columns, values.length / columns);
+		m.values = new double[values.length];
+		for (int i = 0; i < values.length; i++) {
+			m.values[i] = values[i];
+		}
+		return m;
+	}
+
+	public static Matrix newColumnMajorMatrix(int rows, float... values) {
+		checkArgument(values.length % rows == 0, "Incomplete matrix");
+		int columns = values.length / rows;
+		Matrix m = new Matrix(columns, rows);
+		int i = 0;
+		for (int column = 0; column < columns; column++) {
+			for (int row = 0; row < rows; row++) {
+				m.values[row * columns + column] = values[i++];
+			}
+		}
+		return m;
+	}
+
 	public static Matrix newIdentityMatrix(int size) {
 		Matrix m = new Matrix(size, size);
 		for (int i = 0; i < size; i++) {

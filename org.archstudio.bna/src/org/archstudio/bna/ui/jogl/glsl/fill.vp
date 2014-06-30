@@ -1,0 +1,25 @@
+// Many GPU drivers refuse to compile the shader if #version is different from the drivers internal GLSL version.
+// #version 130
+
+#if __VERSION__ >= 130
+	#define attribute in
+	#define varying out
+#endif
+
+#ifdef GL_ES
+	precision mediump float;
+	precision mediump int;
+#endif
+
+uniform mat4 uniform_projection;
+attribute vec4 attribute_position;
+attribute vec4 attribute_color;
+
+// Outgoing varying data sent to the fragment shader
+varying vec4 varying_color;
+
+void main(void)
+{
+	varying_color = attribute_color;
+	gl_Position = uniform_projection * attribute_position;
+}

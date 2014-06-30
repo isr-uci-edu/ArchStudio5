@@ -1,6 +1,6 @@
 package org.archstudio.bna;
 
-import javax.media.opengl.GL2;
+import javax.media.opengl.GL2ES2;
 
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.ui.jogl.IJOGLResources;
@@ -23,7 +23,7 @@ public interface IThingPeer<T extends IThing> {
 
 	public boolean draw(Rectangle localBounds, IUIResources r);
 
-	public void draw(GL2 gl, Rectangle localBounds, IJOGLResources r);
+	public void draw(GL2ES2 gl, Rectangle localBounds, IJOGLResources r);
 
 	public void draw(GC gc, Rectangle localBounds, ISWTResources r);
 

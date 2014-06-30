@@ -74,9 +74,12 @@ public class JOGLBNAUI extends AbstractSWTUI {
 
 	class BNAGLEventListener implements GLEventListener {
 
+		public BNAGLEventListener() {
+		}
+
 		@Override
 		public void init(GLAutoDrawable drawable) {
-			joglThreadResources = new JOGLResources(drawable.getGL().getGL2());
+			joglThreadResources = new JOGLResources(drawable.getGL().getGL2ES2());
 		}
 
 		@Override
@@ -102,6 +105,7 @@ public class JOGLBNAUI extends AbstractSWTUI {
 	Composite parent;
 	GLCanvas glCanvas;
 	RepaintThread repaintThread = new RepaintThread();
+	PaintListener paintListener;
 
 	public JOGLBNAUI(IBNAView view) {
 		super(view);
@@ -111,6 +115,7 @@ public class JOGLBNAUI extends AbstractSWTUI {
 	public void dispose() {
 		super.dispose();
 		repaintThread.dispose();
+		glCanvas.removePaintListener(paintListener);
 		if (!glCanvas.isDisposed()) {
 			glCanvas.dispose();
 		}
@@ -121,12 +126,14 @@ public class JOGLBNAUI extends AbstractSWTUI {
 		this.parent = parent;
 
 		GLCapabilities caps;
-		caps = new GLCapabilities(GLProfile.getDefault());
+		caps = new GLCapabilities(GLProfile.getGL2ES2());
 		caps.setDoubleBuffered(true);
 		caps.setHardwareAccelerated(true);
+		caps.setSampleBuffers(true);
+		caps.setNumSamples(4);
 
 		glCanvas = new GLCanvas(parent, style, caps, null);
-		glCanvas.addPaintListener(new PaintListener() {
+		glCanvas.addPaintListener(paintListener = new PaintListener() {
 
 			/*
 			 * This clears the display buffer so that old content does not flash up when, for instance, changing BNAUIs.

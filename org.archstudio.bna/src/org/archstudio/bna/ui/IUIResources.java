@@ -3,6 +3,7 @@ package org.archstudio.bna.ui;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Shape;
+import java.awt.geom.Point2D;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
@@ -69,6 +70,8 @@ public interface IUIResources {
 
 	public boolean setLineStyle(IHasLineData thing);
 
+	public boolean setLineStyle(int width, int stipple);
+
 	public void resetLineStyle();
 
 	public Font getFont(IHasFontData thing, ICoordinateMapper cm);
@@ -85,6 +88,8 @@ public interface IUIResources {
 	 */
 
 	public void drawText(Font font, String text, double x, double y);
+
+	public void drawShape(Point2D localShape);
 
 	public void drawShape(Shape localShape);
 

@@ -1,9 +1,10 @@
 package org.archstudio.bna.things.utility;
 
+import java.nio.FloatBuffer;
+
 import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
 import javax.media.opengl.GL2ES2;
-import javax.media.opengl.GL2GL3;
+import javax.media.opengl.GL2ES3;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
@@ -15,75 +16,20 @@ import org.archstudio.bna.facets.peers.IHasShadowPeer;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.ui.jogl.IJOGLResources;
+import org.archstudio.bna.ui.jogl.utils.GL2ES2Program;
+import org.archstudio.bna.ui.jogl.utils.GL2ES2Shader;
 import org.archstudio.bna.ui.swt.ISWTResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
-import com.google.common.cache.RemovalListener;
-import com.google.common.cache.RemovalNotification;
+import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.FBObject;
 import com.jogamp.opengl.FBObject.RenderAttachment;
 import com.jogamp.opengl.FBObject.TextureAttachment;
-import com.jogamp.opengl.util.glsl.ShaderCode;
-import com.jogamp.opengl.util.glsl.ShaderProgram;
 
 public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T> implements IHasLocalBounds {
-
-	private static class Blur {
-		GL2ES2 gl;
-		ShaderCode blurCode;
-		ShaderProgram blurProgram;
-		boolean blurInitialized;
-
-		public Blur(GL currentGL) {
-			gl = currentGL.getGL2ES2();
-			blurCode = ShaderCode.create(gl, GL2ES2.GL_FRAGMENT_SHADER, 1, ShadowThingPeer.class,
-					new String[] { "glsl/blur.fs" }, false);
-			if (blurCode != null) {
-				blurProgram = new ShaderProgram();
-				if (blurProgram.init(gl)) {
-					if (blurProgram.add(gl, blurCode, System.err)) {
-						if (blurProgram.link(gl, System.err)) {
-							blurInitialized = blurProgram.program() != 0 && blurProgram.linked();
-						}
-					}
-				}
-			}
-		}
-
-		public void dispose() {
-			if (gl != null) {
-				blurInitialized = false;
-				if (blurProgram != null) {
-					blurProgram.release(gl);
-					blurProgram = null;
-				}
-				if (blurCode != null) {
-					blurCode.destroy(gl);
-					blurCode = null;
-				}
-				gl = null;
-			}
-		}
-	}
-
-	protected static final LoadingCache<GL, Blur> blurs = CacheBuilder.newBuilder().maximumSize(16)
-			.removalListener(new RemovalListener<GL, Blur>() {
-				@Override
-				public void onRemoval(RemovalNotification<GL, Blur> notification) {
-					notification.getValue().dispose();
-				}
-			}).build(new CacheLoader<GL, Blur>() {
-				@Override
-				public Blur load(GL gl) throws Exception {
-					return new Blur(gl);
-				}
-			});
 
 	public ShadowThingPeer(T thing, IBNAView view, ICoordinateMapper cm) {
 		super(thing, view, cm);
@@ -93,10 +39,35 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	int shadowOffset;
 	double shadowAlpha;
 
+	private GL2ES2Shader blurVP;
+	private GL2ES2Shader blurFP;
+	private GL2ES2Program blurP;
+
 	private void updateShadowData() {
 		shadowSize = Math.min(BNAUtils.round(6 * cm.getLocalScale()), 5);
 		shadowOffset = Math.max(BNAUtils.round(6 * cm.getLocalScale()), shadowSize);
 		shadowAlpha = 0.4;
+	}
+
+	@Override
+	public void dispose() {
+
+		if (blurP != null) {
+			blurP.dispose();
+			blurP = null;
+		}
+
+		if (blurVP != null) {
+			blurVP.dispose();
+			blurVP = null;
+		}
+
+		if (blurFP != null) {
+			blurFP.dispose();
+			blurFP = null;
+		}
+
+		super.dispose();
 	}
 
 	@Override
@@ -139,172 +110,175 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, IJOGLResources r) {
+	public void draw(GL2ES2 gl, Rectangle localBounds, IJOGLResources r) {
 
-		boolean transparent = true;
-
-		// only render shadows if hardware accelerated
-		if (!gl.getGLProfile().isHardwareRasterizer()) {
-			return;
+		// load blur shader
+		if (blurVP == null) {
+			blurVP = GL2ES2Shader.create(gl, GL2ES2.GL_VERTEX_SHADER, //
+					ShadowThingPeer.class.getResource("glsl/blur.vp"));
+		}
+		if (blurFP == null) {
+			blurFP = GL2ES2Shader.create(gl, GL2ES2.GL_FRAGMENT_SHADER, //
+					ShadowThingPeer.class.getResource("glsl/blur.fp"));
+		}
+		if (blurP == null) {
+			blurP = GL2ES2Program.create(gl, blurVP, blurFP);
+			blurP.bindAttribute("attribute_position", 1);
+			blurP.bindAttribute("attribute_texture_position", 1);
+			blurP.link();
 		}
 
-		// initialize blur data
-		Blur blur = blurs.getUnchecked(gl.getGL());
+		// note current FBO binding to restore later on
+		int[] currentFrameBufferBindings = new int[3];
+		gl.glGetIntegerv(GL2ES2.GL_FRAMEBUFFER_BINDING, currentFrameBufferBindings, 0);
+		if (gl.hasFullFBOSupport()) {
+			currentFrameBufferBindings[1] = gl.getDefaultDrawFramebuffer();
+			currentFrameBufferBindings[2] = gl.getDefaultReadFramebuffer();
+		}
 
-		if (blur.blurInitialized) {
-			//gl = new TraceGL2(GLContext.getCurrentGL().getGL2(), System.err);
+		FBObject fbObject = null;
+		RenderAttachment renderAttachment = null;
+		TextureAttachment texture0Attachment = null;
+		TextureAttachment texture1Attachment = null;
+		try {
+			// create vertices
+			FloatBuffer vertices = Buffers.newDirectFloatBuffer(8);
+			vertices.put(localBounds.x);
+			vertices.put(localBounds.y);
+			vertices.put(localBounds.x);
+			vertices.put(localBounds.y + localBounds.height);
+			vertices.put(localBounds.x + localBounds.width);
+			vertices.put(localBounds.y + localBounds.height);
+			vertices.put(localBounds.x + localBounds.width);
+			vertices.put(localBounds.y);
 
-			int[] currentFrameBufferBindings = new int[3];
-			gl.glGetIntegerv(GL.GL_FRAMEBUFFER_BINDING, currentFrameBufferBindings, 0);
-			if (gl.hasFullFBOSupport()) {
-				currentFrameBufferBindings[1] = gl.getDefaultDrawFramebuffer();
-				currentFrameBufferBindings[2] = gl.getDefaultReadFramebuffer();
-			}
+			// create framebuffer
+			fbObject = new FBObject();
+			fbObject.reset(gl, localBounds.width, localBounds.height);
+			fbObject.bind(gl);
 
-			FBObject fbObject = null;
-			RenderAttachment renderAttachment = null;
-			TextureAttachment texture0Attachment = null;
-			TextureAttachment texture1Attachment = null;
+			// create and bind renderbuffers
+			fbObject.attachRenderbuffer(gl, GL2ES2.GL_DEPTH_COMPONENT16);
+			renderAttachment = fbObject.getDepthAttachment();
+			renderAttachment.initialize(gl);
+
+			// create and bind texture 0
+			texture0Attachment = fbObject.attachTexture2D(gl, 0, true);
+			texture0Attachment.initialize(gl);
+
+			// ... clear the background
+			gl.glClearColor(0, 0, 0, 0);
+			gl.glClear(GL2ES2.GL_COLOR_BUFFER_BIT | GL2ES2.GL_DEPTH_BUFFER_BIT | GL2ES2.GL_STENCIL_BUFFER_BIT);
+
+			// ... draw shadows
+			r.pushMatrix(shadowOffset, shadowOffset, 0);
 			try {
-				// create framebuffer
-				fbObject = new FBObject();
-				fbObject.reset(gl, localBounds.width, localBounds.height);
-				fbObject.bind(gl);
-
-				// create and bind renderbuffers
-				fbObject.attachRenderbuffer(gl, GL.GL_DEPTH_COMPONENT16);
-				renderAttachment = fbObject.getDepthAttachment();
-				renderAttachment.initialize(gl);
-
-				// create and bind texture 0
-				texture0Attachment = fbObject.attachTexture2D(gl, 0, transparent);
-				texture0Attachment.initialize(gl);
-
-				// draw shadows on texture 0 ...
-				gl.glDrawBuffers(1, new int[] { GL.GL_COLOR_ATTACHMENT0 + 0 }, 0);
-
-				// ... clear the background
-				gl.glClearColor(0, 0, 0, 0);
-				gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT | GL.GL_STENCIL_BUFFER_BIT);
-
-				// ... draw shadows
-				r.pushMatrix(shadowOffset, shadowOffset, 0);
-				try {
-					Rectangle newLocalBounds = new Rectangle(localBounds.x - shadowOffset,
-							localBounds.y - shadowOffset, localBounds.width, localBounds.height);
-					for (IThing t : model.getAllThings()) {
-						IThingPeer<?> tp = view.getThingPeer(t);
-						if (tp instanceof IHasShadowPeer) {
-							IHasShadowPeer<?> stp = (IHasShadowPeer<?>) tp;
-							if (stp.drawShadow(newLocalBounds, r)) {
-								stp.drawShadow(gl, newLocalBounds, r);
-							}
+				Rectangle newLocalBounds = new Rectangle(localBounds.x - shadowOffset, localBounds.y - shadowOffset,
+						localBounds.width, localBounds.height);
+				for (IThing t : model.getAllThings()) {
+					IThingPeer<?> tp = view.getThingPeer(t);
+					if (tp instanceof IHasShadowPeer) {
+						IHasShadowPeer<?> stp = (IHasShadowPeer<?>) tp;
+						if (stp.drawShadow(newLocalBounds, r)) {
+							stp.drawShadow(gl, newLocalBounds, r);
 						}
 					}
 				}
-				finally {
-					r.popMatrix();
-				}
+			}
+			finally {
+				r.popMatrix();
+			}
 
-				// create and bind texture 1
-				texture1Attachment = fbObject.attachTexture2D(gl, 1, transparent);
-				texture1Attachment.initialize(gl);
+			// create and bind texture 1
+			texture1Attachment = fbObject.attachTexture2D(gl, 1, true);
+			texture1Attachment.initialize(gl);
 
-				// draw a blur of texture 0 on texture 1 ...
-				gl.glDrawBuffers(1, new int[] { GL.GL_COLOR_ATTACHMENT0 + 1 }, 0);
-
-				// ... clear the background
-				gl.glClearColor(0, 0, 0, 0);
-				gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT | GL.GL_STENCIL_BUFFER_BIT);
-
+			// disable blending so that we simply blur the existing texture to the new one
+			boolean isBlendEnabled = gl.glIsEnabled(GL2ES2.GL_BLEND);
+			gl.glDisable(GL2ES2.GL_BLEND);
+			try {
 				// ... apply blur
-				blur.blurProgram.useProgram(gl, true);
+				blurP.use();
 				try {
-					gl.glUniform1i(gl.glGetUniformLocation(blur.blurProgram.program(), "texture"), 0);
-					gl.glActiveTexture(GL.GL_TEXTURE0 + 0);
-					gl.glBindTexture(GL.GL_TEXTURE_2D, texture0Attachment.getName());
-					gl.glUniform2f(gl.glGetUniformLocation(blur.blurProgram.program(), "resolution"),
-							localBounds.width, localBounds.height);
-					gl.glUniform1i(gl.glGetUniformLocation(blur.blurProgram.program(), "size"), shadowSize);
-					gl.glUniform2f(gl.glGetUniformLocation(blur.blurProgram.program(), "direction"), 1, 0);
-					gl.glUniform1f(gl.glGetUniformLocation(blur.blurProgram.program(), "alpha"), 1);
-					if (!blur.blurProgram.validateProgram(gl, System.err)) {
-						blur.blurInitialized = false;
-					}
+					gl.glUniformMatrix4fv(blurP.getUniform("uniform_projection"), 1, false, r.getMatrix()
+							.glGetMatrixf());
+					gl.glUniform1i(blurP.getUniform("uniform_texture"), 0);
+					gl.glActiveTexture(GL2ES2.GL_TEXTURE0);
+					gl.glBindTexture(GL2ES2.GL_TEXTURE_2D, texture0Attachment.getName());
+					gl.glUniform2f(blurP.getUniform("uniform_resolution"), localBounds.width, localBounds.height);
+					gl.glUniform1i(blurP.getUniform("uniform_size"), shadowSize);
+					gl.glUniform2f(blurP.getUniform("uniform_direction"), 1, 0);
+					gl.glUniform1f(blurP.getUniform("uniform_alpha"), 1);
 
-					// disable blending so that we simply blur the existing texture to the new one
-					boolean isBlendEnabled = gl.glIsEnabled(GL.GL_BLEND);
-					gl.glDisable(GL.GL_BLEND);
+					vertices.rewind();
+					blurP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2,
+							false);
 
-					gl.glBegin(GL2.GL_TRIANGLE_FAN);
-					gl.glVertex2i(localBounds.x, localBounds.y);
-					gl.glVertex2i(localBounds.x, localBounds.y + localBounds.height);
-					gl.glVertex2i(localBounds.x + localBounds.width, localBounds.y + localBounds.height);
-					gl.glVertex2i(localBounds.x + localBounds.width, localBounds.y);
-					gl.glEnd();
-
-					// restore blending
-					if (isBlendEnabled) {
-						gl.glEnable(GL.GL_BLEND);
-					}
+					gl.glDrawArrays(GL2ES2.GL_TRIANGLE_FAN, 0, 4);
 				}
 				finally {
-					blur.blurProgram.useProgram(gl, false);
-				}
-
-				// draw a blur of texture 1 on the main buffer ...
-				if (gl.hasFullFBOSupport()) {
-					gl.glBindFramebuffer(GL2GL3.GL_DRAW_FRAMEBUFFER, currentFrameBufferBindings[1]);
-					gl.glBindFramebuffer(GL2GL3.GL_READ_FRAMEBUFFER, currentFrameBufferBindings[2]);
-				}
-				gl.glBindFramebuffer(GL.GL_FRAMEBUFFER, currentFrameBufferBindings[0]);
-
-				// ... apply blur
-				blur.blurProgram.useProgram(gl, true);
-				try {
-					gl.glUniform1i(gl.glGetUniformLocation(blur.blurProgram.program(), "texture"), 0);
-					gl.glActiveTexture(GL.GL_TEXTURE0 + 0);
-					gl.glBindTexture(GL.GL_TEXTURE_2D, texture1Attachment.getName());
-					gl.glUniform2f(gl.glGetUniformLocation(blur.blurProgram.program(), "resolution"),
-							localBounds.width, localBounds.height);
-					gl.glUniform1i(gl.glGetUniformLocation(blur.blurProgram.program(), "size"), shadowSize);
-					gl.glUniform2f(gl.glGetUniformLocation(blur.blurProgram.program(), "direction"), 0f, 1f);
-					gl.glUniform1f(gl.glGetUniformLocation(blur.blurProgram.program(), "alpha"), (float) shadowAlpha);
-					if (!blur.blurProgram.validateProgram(gl, System.err)) {
-						blur.blurInitialized = false;
-					}
-
-					gl.glBegin(GL2.GL_TRIANGLE_FAN);
-					gl.glVertex2i(localBounds.x, localBounds.y);
-					gl.glVertex2i(localBounds.x, localBounds.y + localBounds.height);
-					gl.glVertex2i(localBounds.x + localBounds.width, localBounds.y + localBounds.height);
-					gl.glVertex2i(localBounds.x + localBounds.width, localBounds.y);
-					gl.glEnd();
-				}
-				finally {
-					blur.blurProgram.useProgram(gl, false);
+					blurP.done();
 				}
 			}
 			finally {
-				if (texture1Attachment != null) {
-					texture1Attachment.free(gl);
+				// restore blending
+				if (isBlendEnabled) {
+					gl.glEnable(GL2ES2.GL_BLEND);
 				}
-				if (texture0Attachment != null) {
-					texture0Attachment.free(gl);
-				}
-				if (renderAttachment != null) {
-					renderAttachment.free(gl);
-				}
-				if (fbObject != null) {
-					fbObject.unbind(gl);
-					fbObject.destroy(gl);
+			}
 
-					if (gl.hasFullFBOSupport()) {
-						gl.glBindFramebuffer(GL2GL3.GL_DRAW_FRAMEBUFFER, currentFrameBufferBindings[1]);
-						gl.glBindFramebuffer(GL2GL3.GL_READ_FRAMEBUFFER, currentFrameBufferBindings[2]);
-					}
-					gl.glBindFramebuffer(GL.GL_FRAMEBUFFER, currentFrameBufferBindings[0]);
-				}
+			// draw a blur of texture 1 on the main buffer ...
+			gl.glBindFramebuffer(GL2ES2.GL_FRAMEBUFFER, currentFrameBufferBindings[0]);
+			if (gl.hasFullFBOSupport()) {
+				gl.glBindFramebuffer(GL2ES3.GL_DRAW_FRAMEBUFFER, currentFrameBufferBindings[1]);
+				gl.glBindFramebuffer(GL2ES3.GL_READ_FRAMEBUFFER, currentFrameBufferBindings[2]);
+			}
+
+			// ... apply blur
+			blurP.use();
+			try {
+				gl.glUniformMatrix4fv(blurP.getUniform("uniform_projection"), 1, false, r.getMatrix().glGetMatrixf());
+				gl.glUniform1i(blurP.getUniform("uniform_texture"), 0);
+				gl.glActiveTexture(GL2ES2.GL_TEXTURE0);
+				gl.glBindTexture(GL2ES2.GL_TEXTURE_2D, texture0Attachment.getName());
+				gl.glUniform2f(blurP.getUniform("uniform_resolution"), localBounds.width, localBounds.height);
+				gl.glUniform1i(blurP.getUniform("uniform_size"), shadowSize);
+				gl.glUniform2f(blurP.getUniform("uniform_direction"), 0, 1);
+				gl.glUniform1f(blurP.getUniform("uniform_alpha"), (float) shadowAlpha);
+
+				vertices.rewind();
+				blurP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2,
+						false);
+
+				gl.glDrawArrays(GL2ES2.GL_TRIANGLE_FAN, 0, 4);
+			}
+			finally {
+				blurP.done();
+			}
+		}
+		finally {
+			if (texture1Attachment != null) {
+				texture1Attachment.free(gl);
+				texture1Attachment = null;
+			}
+			if (texture0Attachment != null) {
+				texture0Attachment.free(gl);
+				texture0Attachment = null;
+			}
+			if (renderAttachment != null) {
+				renderAttachment.free(gl);
+				renderAttachment = null;
+			}
+			if (fbObject != null) {
+				fbObject.unbind(gl);
+				fbObject.destroy(gl);
+				fbObject = null;
+			}
+
+			gl.glBindFramebuffer(GL2ES2.GL_FRAMEBUFFER, currentFrameBufferBindings[0]);
+			if (gl.hasFullFBOSupport()) {
+				gl.glBindFramebuffer(GL2ES3.GL_DRAW_FRAMEBUFFER, currentFrameBufferBindings[1]);
+				gl.glBindFramebuffer(GL2ES3.GL_READ_FRAMEBUFFER, currentFrameBufferBindings[2]);
 			}
 		}
 	}

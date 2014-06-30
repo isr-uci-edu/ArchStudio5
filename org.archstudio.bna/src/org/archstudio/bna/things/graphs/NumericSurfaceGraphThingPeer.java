@@ -5,13 +5,14 @@ import java.awt.Font;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.nio.FloatBuffer;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
 import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
+import javax.media.opengl.GL2ES2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
@@ -32,6 +33,8 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Lists;
+import com.jogamp.common.nio.Buffers;
+import com.jogamp.opengl.util.PMVMatrix;
 
 public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> extends AbstractRectangleThingPeer<T> {
 
@@ -39,23 +42,13 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 
 	private static class Point {
 		RGB rgb;
-		double nx, ny, nz;
 		double x, y, z;
 
-		public Point(RGB rgb, double nx, double ny, double nz, double x, double y, double z) {
+		public Point(RGB rgb, double x, double y, double z) {
 			this.rgb = rgb;
-			this.nx = nx;
-			this.ny = ny;
-			this.nz = nz;
 			this.x = x;
 			this.y = y;
 			this.z = z;
-		}
-
-		public void rnv(IJOGLResources r, GL2 gl) {
-			r.setColor(rgb, 1);
-			gl.glNormal3d(nx, ny, nz);
-			gl.glVertex3d(x, y, z);
 		}
 
 	}
@@ -77,10 +70,6 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			this(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z);
 		}
 
-		public void v(IJOGLResources r, GL2 gl) {
-			gl.glVertex3d(x1, y1, z1);
-			gl.glVertex3d(x2, y2, z2);
-		}
 	}
 
 	private static class Triangle {
@@ -123,12 +112,6 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			return (z - z0) / (z1 - z0) * (v1 - v0) + v0;
 		}
 
-		public void rnv(IJOGLResources r, GL2 gl) {
-			for (Point element : p) {
-				element.rnv(r, gl);
-			}
-		}
-
 	}
 
 	private double[] toValues(NumericAxis zAxis, Range zRange) {
@@ -138,6 +121,11 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			zValues[i] = zValuesList.get(i).linearOffset;
 		}
 		return zValues;
+	}
+
+	private Point2D.Double transformXY(Matrix matrix, double x, double y, double z) {
+		Matrix xy = matrix.product(Matrix.newRowMajorMatrix(1, x, y, z, 1));
+		return new Point2D.Double(xy.get(0, 0), xy.get(0, 1));
 	}
 
 	List<Object> cacheValidConditions = Lists.newArrayList();
@@ -153,11 +141,6 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 	double xLabelCrossOffset, yLabelCrossOffset, zLabelCrossOffset, zxLabelCrossOffset, zyLabelCrossOffset;
 	HorizontalAlignment xLabelHorizontalAlignment, yLabelHorizontalAlignment;
 	VerticalAlignment xLabelVerticalAlignment, yLabelVerticalAlignment;
-	double[] offsets;
-	double[] normalX;
-	double[] normalY;
-	double[] normalZ;
-	Point[] points;
 	List<Triangle> triangles = Lists.newArrayList();
 	NumericAxis zMajorAxis;
 	NumericAxis zMinorAxis;
@@ -187,11 +170,13 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 	}
 
 	@Override
-	public void draw(GL2 gl, Rectangle localBounds, IJOGLResources r) {
+	public void draw(GL2ES2 gl, Rectangle localBounds, IJOGLResources r) {
 		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
 		if (!lbb.intersects(localBounds)) {
 			return;
 		}
+
+		PMVMatrix glMatrix = r.getMatrix();
 
 		Data thingData = t.getData();
 		boolean flipData = false; // t.getFlipData();
@@ -269,19 +254,22 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			double zMaxYMin = Double.POSITIVE_INFINITY;
 			double zMaxXMax = Double.NEGATIVE_INFINITY;
 			double zMaxYMax = Double.NEGATIVE_INFINITY;
-			gl.glPushMatrix();
+			glMatrix.glMatrixMode(PMVMatrix.GL_PROJECTION);
+			r.pushMatrix(PMVMatrix.GL_PROJECTION);
 			try {
-				gl.glLoadIdentity();
-				gl.glRotated(90 - yRotation, 1, 0, 0);
-				gl.glRotated(xRotation, 0, 0, 1);
-				matrix = r.getMatrix();
+				glMatrix.glLoadIdentity();
+				glMatrix.glRotatef(90 - yRotation, 1, 0, 0);
+				glMatrix.glRotatef(xRotation, 0, 0, 1);
+				float[] f = new float[16];
+				glMatrix.glGetFloatv(PMVMatrix.GL_PROJECTION_MATRIX, f, 0);
+				matrix = Matrix.newColumnMajorMatrix(4, f);
 			}
 			finally {
-				gl.glPopMatrix();
+				r.popMatrix(PMVMatrix.GL_PROJECTION);
 			}
 			for (double x : new double[] { xRangeMinOffset, xRangeMaxOffset }) {
 				for (double y : new double[] { yRangeMinOffset, yRangeMaxOffset }) {
-					Point2D.Double p = r.transformXY(matrix, x, y, zRangeMinOffset);
+					Point2D.Double p = transformXY(matrix, x, y, zRangeMinOffset);
 					zMinXMin = Math.min(zMinXMin, p.x);
 					zMinYMin = Math.min(zMinYMin, p.y);
 					zMinXMax = Math.max(zMinXMax, p.x);
@@ -290,7 +278,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			}
 			for (double x : new double[] { xRangeMinOffset, xRangeMaxOffset }) {
 				for (double y : new double[] { yRangeMinOffset, yRangeMaxOffset }) {
-					Point2D.Double p = r.transformXY(matrix, x, y, zRangeMaxOffset);
+					Point2D.Double p = transformXY(matrix, x, y, zRangeMaxOffset);
 					zMaxXMin = Math.min(zMaxXMin, p.x);
 					zMaxYMin = Math.min(zMaxYMin, p.y);
 					zMaxXMax = Math.max(zMaxXMax, p.x);
@@ -380,7 +368,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			// calculate offsets for each data value
 			int width = data.getWidth();
 			int height = data.getHeight();
-			offsets = new double[width * height];
+			double[] offsets = new double[width * height];
 			for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++) {
 					double value = data.getValue(x, y);
@@ -393,75 +381,29 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 				}
 			}
 
-			// calculate normals for each data value
-			normalX = new double[width * height];
-			normalY = new double[width * height];
-			normalZ = new double[width * height];
-			for (int y = 0; y < height; y++) {
-				for (int x = 0; x < width - 1; x++) {
-					double o1 = offsets[y * width + x];
-					double o2 = offsets[y * width + x + 1];
-					if (!Double.isNaN(o1) && !Double.isNaN(o2)) {
-						normalX[y * width + x] += Math.atan2(o1 - o2, 1);
-					}
-				}
-				for (int x = 1; x < width; x++) {
-					double o1 = offsets[y * width + x - 1];
-					double o2 = offsets[y * width + x];
-					if (!Double.isNaN(o1) && !Double.isNaN(o2)) {
-						normalX[y * width + x] += Math.atan2(o1 - o2, 1);
-					}
-				}
-			}
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height - 1; y++) {
-					double o1 = offsets[y * width + x];
-					double o2 = offsets[(y + 1) * width + x];
-					if (!Double.isNaN(o1) && !Double.isNaN(o2)) {
-						normalY[y * width + x] += Math.atan2(o1 - o2, 1);
-					}
-				}
-				for (int y = 1; y < height; y++) {
-					double o1 = offsets[(y - 1) * width + x];
-					double o2 = offsets[y * width + x];
-					if (!Double.isNaN(o1) && !Double.isNaN(o2)) {
-						normalY[y * width + x] += Math.atan2(o1 - o2, 1);
-					}
-				}
-			}
-			Arrays.fill(normalZ, 1);
-			if (xMajorAxis.reverse) {
-				for (int i = 0; i < width * height; i++) {
-					normalX[i] *= -1;
-				}
-			}
-			if (yMajorAxis.reverse) {
-				for (int i = 0; i < width * height; i++) {
-					normalY[i] *= -1;
-				}
-			}
-
 			// calculate final matrix
-			gl.glPushMatrix();
+			r.pushMatrix(PMVMatrix.GL_PROJECTION);
 			try {
-				gl.glLoadIdentity();
-				gl.glRotated(90 - yRotation, 1, 0, 0);
-				gl.glRotated(xRotation, 0, 0, 1);
-				gl.glScaled(xyScale, xyScale, zScale);
-				matrix = r.getMatrix();
+				glMatrix.glMatrixMode(PMVMatrix.GL_PROJECTION);
+				glMatrix.glLoadIdentity();
+				glMatrix.glRotatef(90 - yRotation, 1, 0, 0);
+				glMatrix.glRotatef(xRotation, 0, 0, 1);
+				glMatrix.glScalef((float) xyScale, (float) xyScale, (float) zScale);
+				float[] f = new float[16];
+				glMatrix.glGetFloatv(PMVMatrix.GL_PROJECTION_MATRIX, f, 0);
+				matrix = Matrix.newColumnMajorMatrix(4, f);
 			}
 			finally {
-				gl.glPopMatrix();
+				r.popMatrix(PMVMatrix.GL_PROJECTION);
 			}
 
 			// calculate points
-			points = new Point[width * height];
+			Point[] points = new Point[width * height];
 			for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++) {
 					int index = y * width + x;
 					if (!Double.isNaN(offsets[index])) {
-						points[index] = new Point(data.getColor(x, y), normalX[index], normalY[index], normalZ[index],
-								x, y, offsets[index]);
+						points[index] = new Point(data.getColor(x, y), x, y, offsets[index]);
 					}
 				}
 			}
@@ -558,34 +500,35 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 		}
 
 		// render graph
-		gl.glMatrixMode(GL2.GL_PROJECTION);
-		gl.glPushMatrix();
+		r.pushMatrix(PMVMatrix.GL_PROJECTION);
 		try {
 			gl.glEnable(GL.GL_DEPTH_TEST);
-			gl.glDepthFunc(GL2.GL_LEQUAL);
+			gl.glDepthFunc(GL2ES2.GL_LEQUAL);
 
-			gl.glTranslated(lbb.x + originOffsetX, lbb.y + originOffsetY, 0);
-			gl.glRotated(90 - yRotation, 1, 0, 0);
-			gl.glRotated(xRotation, 0, 0, 1);
-			gl.glScaled(xyScale, xyScale, zScale);
+			glMatrix.glMatrixMode(PMVMatrix.GL_PROJECTION);
+			glMatrix.glTranslatef(lbb.x + (float) originOffsetX, lbb.y + (float) originOffsetY, 0);
+			glMatrix.glRotatef(90 - yRotation, 1, 0, 0);
+			glMatrix.glRotatef(xRotation, 0, 0, 1);
+			glMatrix.glScalef((float) xyScale, (float) xyScale, (float) zScale);
 			gl.glDepthRange(-10000, 10000);
 
-			drawGraph(gl, r, data, xMajorAxis, yMajorAxis, zMajorAxis);
-			drawAxis(gl, r, data, xMajorAxis, xMinorAxis, yMajorAxis, yMinorAxis, zMajorAxis, zMinorAxis);
+			drawGraph(gl, localBounds, r, data, xMajorAxis, yMajorAxis, zMajorAxis);
+			drawAxis(gl, localBounds, r, data, xMajorAxis, xMinorAxis, yMajorAxis, yMinorAxis, zMajorAxis, zMinorAxis);
 		}
 		finally {
-			gl.glPopMatrix();
+			r.popMatrix(PMVMatrix.GL_PROJECTION);
 			gl.glDisable(GL.GL_DEPTH_TEST);
 		}
 
 		// render labels
+		r.setColor(new RGB(0, 0, 0), 1);
 		Font font = new Font(Font.DIALOG, Font.PLAIN, 12);
 		int tick = r.getTextSize(font, "  ").width;
 		FontMetrics metrics = r.getFontMetrics(font);
 		for (Value v : xMajorAxis.getAxisValues(xRange)) {
 			String label = xMajorAxis.formatter.apply(v.actualValue);
 			Dimension size = r.getTextSize(font, label);
-			Point2D.Double p = r.transformXY(matrix, v.linearOffset, yLabelCrossOffset, zLabelCrossOffset);
+			Point2D.Double p = transformXY(matrix, v.linearOffset, yLabelCrossOffset, zLabelCrossOffset);
 			p.x += lbb.x + originOffsetX;
 			p.y += lbb.y + originOffsetY;
 			double x = p.x;
@@ -620,7 +563,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 		for (Value v : yMajorAxis.getAxisValues(yRange)) {
 			String label = yMajorAxis.formatter.apply(v.actualValue);
 			Dimension size = r.getTextSize(font, label);
-			Point2D.Double p = r.transformXY(matrix, xLabelCrossOffset, v.linearOffset, zLabelCrossOffset);
+			Point2D.Double p = transformXY(matrix, xLabelCrossOffset, v.linearOffset, zLabelCrossOffset);
 			p.x += lbb.x + originOffsetX;
 			p.y += lbb.y + originOffsetY;
 			double x = p.x;
@@ -655,7 +598,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 		for (Value v : zMajorAxis.getAxisValues(zRange)) {
 			String label = zMajorAxis.formatter.apply(v.actualValue);
 			Dimension size = r.getTextSize(font, label);
-			Point2D.Double p = r.transformXY(matrix, zxLabelCrossOffset, zyLabelCrossOffset, v.linearOffset);
+			Point2D.Double p = transformXY(matrix, zxLabelCrossOffset, zyLabelCrossOffset, v.linearOffset);
 			p.x += lbb.x + originOffsetX;
 			p.y += lbb.y + originOffsetY;
 			r.drawShape(new Line2D.Double(p.x, p.y, p.x - tick, p.y));
@@ -673,105 +616,117 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 		minorAxis.reverse = majorAxis.reverse;
 	}
 
-	private void drawGraph(GL2 gl, IJOGLResources r, Data data, NumericAxis xAxis, NumericAxis yAxis, NumericAxis zAxis) {
+	private void drawGraph(GL2ES2 gl, Rectangle localBounds, IJOGLResources r, Data data, NumericAxis xAxis,
+			NumericAxis yAxis, NumericAxis zAxis) {
 
+		PMVMatrix glMatrix = r.getMatrix();
+
+		// render triangles
+		FloatBuffer vertices = Buffers.newDirectFloatBuffer(triangles.size() * 3 * 3);
+		FloatBuffer colors = Buffers.newDirectFloatBuffer(triangles.size() * 3 * 4);
+		for (Triangle t : triangles) {
+
+			colors.put(t.p[0].rgb.red / 255f);
+			colors.put(t.p[0].rgb.green / 255f);
+			colors.put(t.p[0].rgb.blue / 255f);
+			colors.put(1f);
+			vertices.put((float) t.p[0].x);
+			vertices.put((float) t.p[0].y);
+			vertices.put((float) t.p[0].z);
+
+			colors.put(t.p[1].rgb.red / 255f);
+			colors.put(t.p[1].rgb.green / 255f);
+			colors.put(t.p[1].rgb.blue / 255f);
+			colors.put(1f);
+			vertices.put((float) t.p[1].x);
+			vertices.put((float) t.p[1].y);
+			vertices.put((float) t.p[1].z);
+
+			colors.put(t.p[2].rgb.red / 255f);
+			colors.put(t.p[2].rgb.green / 255f);
+			colors.put(t.p[2].rgb.blue / 255f);
+			colors.put(1f);
+			vertices.put((float) t.p[2].x);
+			vertices.put((float) t.p[2].y);
+			vertices.put((float) t.p[2].z);
+
+		}
+		r.fillShape(GL2ES2.GL_TRIANGLES, vertices, colors, triangles.size() * 3);
+
+		// render contours
+		double zNudge = NUDGE / zScale;
+		double xyNudge = NUDGE / xyScale;
+		r.pushMatrix(PMVMatrix.GL_PROJECTION);
 		try {
-			double zMax = zAxis.toValue(zRange.max, zRange).linearOffset;
-			float[] lightPos = { (float) 1 * (data.getWidth() - 1) / 2, 0, (float) zMax, 1 };
-			float ambient = 0.5f;
-			float[] lightColorAmbient = { ambient, ambient, ambient, ambient };
-			float specular = 1f;
-			float[] lightColorSpecular = { specular, specular, specular, specular };
-			float diffuse = 1f;
-			float[] lightColorDiffuse = { diffuse, diffuse, diffuse, diffuse };
-			float materialRGB = 0.2f;
-			float shininess = 0.5f;
+			glMatrix.glMatrixMode(PMVMatrix.GL_PROJECTION);
+			for (double nudge : new double[] { -1, 2 }) {
+				glMatrix.glTranslatef((float) (nudge * (xCrossMin ? -xyNudge : xyNudge)),
+						(float) (nudge * (yCrossMin ? -xyNudge : xyNudge)), (float) (nudge * (zCrossMin ? -zNudge
+								: zNudge)));
 
-			// Set light parameters.
-			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, lightPos, 0);
-			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, lightColorAmbient, 0);
-			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_SPECULAR, lightColorSpecular, 0);
-			gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, lightColorDiffuse, 0);
-
-			// Enable lighting in GL.
-			gl.glEnable(GL2.GL_LIGHT0);
-			gl.glEnable(GL2.GL_LIGHTING);
-			gl.glEnable(GL2.GL_COLOR_MATERIAL);
-			gl.glEnable(GL2.GL_NORMALIZE);
-			gl.glColorMaterial(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT_AND_DIFFUSE);
-
-			float[] materialRGBv = { materialRGB, materialRGB, materialRGB };
-			gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_AMBIENT, materialRGBv, 0);
-			gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_SPECULAR, materialRGBv, 0);
-			gl.glMaterialf(GL2.GL_FRONT, GL2.GL_SHININESS, shininess);
-
-			// render data
-			gl.glBegin(GL2.GL_TRIANGLES);
-			for (Triangle t : triangles) {
-				t.rnv(r, gl);
-			}
-			gl.glEnd();
-
-			// render contours
-			double zNudge = NUDGE / zScale;
-			double xyNudge = NUDGE / xyScale;
-			gl.glPushMatrix();
-			try {
-				for (double nudge : new double[] { -1, 2 }) {
-					gl.glTranslated(nudge * (xCrossMin ? -xyNudge : xyNudge), nudge * (yCrossMin ? -xyNudge : xyNudge),
-							nudge * (zCrossMin ? -zNudge : zNudge));
-
-					if (gridLinesAlpha > 0) {
-						gl.glColor4d(0, 0, 0, gridLinesAlpha);
-						gl.glBegin(GL.GL_LINES);
-						for (Line line : gridLines) {
-							line.v(r, gl);
-						}
-						gl.glEnd();
-					}
-					if (minorContourAlpha > 0) {
-						setLineStyle(gl, r, zMinorAxis);
-						gl.glColor4d(0, 0, 0, minorContourAlpha);
-						gl.glBegin(GL.GL_LINES);
-						for (Line line : minorContourLines) {
-							line.v(r, gl);
-						}
-						gl.glEnd();
-						resetLineStyle(gl, r);
-					}
-					if (majorContourAlpha > 0) {
-						setLineStyle(gl, r, zMajorAxis);
-						gl.glColor4d(0, 0, 0, majorContourAlpha);
-						gl.glBegin(GL.GL_LINES);
-						for (Line line : majorContourLines) {
-							line.v(r, gl);
-						}
-						gl.glEnd();
-						resetLineStyle(gl, r);
-					}
+				if (gridLinesAlpha > 0) {
+					drawLines(localBounds, r, gridLines, new RGB(0, 0, 0), gridLinesAlpha);
+				}
+				if (minorContourAlpha > 0) {
+					setLineStyle(gl, r, zMinorAxis);
+					drawLines(localBounds, r, minorContourLines, new RGB(0, 0, 0), minorContourAlpha);
+					resetLineStyle(gl, r);
+				}
+				if (majorContourAlpha > 0) {
+					setLineStyle(gl, r, zMajorAxis);
+					drawLines(localBounds, r, majorContourLines, new RGB(0, 0, 0), majorContourAlpha);
+					resetLineStyle(gl, r);
 				}
 			}
-			finally {
-				gl.glPopMatrix();
-			}
-
 		}
 		finally {
-			gl.glDisable(GL2.GL_LIGHT0);
-			gl.glDisable(GL2.GL_LIGHTING);
+			r.popMatrix(PMVMatrix.GL_PROJECTION);
 		}
 	}
 
-	private void setLineStyle(GL2 gl, IJOGLResources r, NumericAxis axis) {
-		gl.glLineStipple(0, (short) axis.lineStyle.toBitPattern());
+	private void drawLines(Rectangle localBounds, IJOGLResources r, List<Line> lines, RGB rgb, double alpha) {
+		float rf = rgb.red / 255f;
+		float gf = rgb.green / 255f;
+		float bf = rgb.blue / 255f;
+		float af = (float) alpha;
+
+		FloatBuffer vertices = Buffers.newDirectFloatBuffer(lines.size() * 2 * 3);
+		FloatBuffer colors = Buffers.newDirectFloatBuffer(lines.size() * 2 * 4);
+		for (Line line : lines) {
+
+			colors.put(rf);
+			colors.put(gf);
+			colors.put(bf);
+			colors.put(af);
+			vertices.put((float) line.x1);
+			vertices.put((float) line.y1);
+			vertices.put((float) line.z1);
+
+			colors.put(rf);
+			colors.put(gf);
+			colors.put(bf);
+			colors.put(af);
+			vertices.put((float) line.x2);
+			vertices.put((float) line.y2);
+			vertices.put((float) line.z2);
+		}
+
+		r.drawShape(BNAUtils.toDimension(localBounds), GL2ES2.GL_LINES, vertices, colors, lines.size() * 2);
 	}
 
-	private void resetLineStyle(GL2 gl, IJOGLResources r) {
-		gl.glLineStipple(1, (short) 0xffffffff);
+	private void setLineStyle(GL2ES2 gl, IJOGLResources r, NumericAxis axis) {
+		r.setLineStyle(1, axis.lineStyle.toBitPattern());
 	}
 
-	private void drawAxis(GL2 gl, IJOGLResources r, Data data, NumericAxis xMajorAxis, NumericAxis xMinorAxis,
-			NumericAxis yMajorAxis, NumericAxis yMinorAxis, NumericAxis zMajorAxis, NumericAxis zMinorAxis) {
+	private void resetLineStyle(GL2ES2 gl, IJOGLResources r) {
+		r.resetLineStyle();
+	}
+
+	private void drawAxis(GL2ES2 gl, Rectangle localBounds, IJOGLResources r, Data data, NumericAxis xMajorAxis,
+			NumericAxis xMinorAxis, NumericAxis yMajorAxis, NumericAxis yMinorAxis, NumericAxis zMajorAxis,
+			NumericAxis zMinorAxis) {
+
+		PMVMatrix glMatrix = r.getMatrix();
 
 		double xMin = xMajorAxis.toValue(xRange.min, xRange).linearOffset;
 		double xMax = xMajorAxis.toValue(xRange.max, xRange).linearOffset;
@@ -780,24 +735,27 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 		double zMin = zMajorAxis.toValue(zRange.min, zRange).linearOffset;
 		double zMax = zMajorAxis.toValue(zRange.max, zRange).linearOffset;
 
-		gl.glPushMatrix();
+		r.pushMatrix(PMVMatrix.GL_PROJECTION);
 		try {
 			double zNudge = NUDGE / zScale;
 			double xyNudge = NUDGE / xyScale;
-			gl.glTranslated(xCrossMin ? -xyNudge : xyNudge, yCrossMin ? -xyNudge : xyNudge, zCrossMin ? -zNudge
-					: zNudge);
+			glMatrix.glTranslatef((float) (xCrossMin ? -xyNudge : xyNudge), (float) (yCrossMin ? -xyNudge : xyNudge),
+					(float) (zCrossMin ? -zNudge : zNudge));
 
-			r.setColor(new RGB(0, 0, 0), 1);
+			FloatBuffer colors = Buffers.newDirectFloatBuffer(new float[] { 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0,
+					0, 1 });
 
 			for (NumericAxis axis : Lists.newArrayList(xMinorAxis, xMajorAxis)) {
 				setLineStyle(gl, r, axis);
 				for (Value v : axis.getAxisValues(xRange)) {
-					gl.glBegin(GL.GL_LINES);
-					gl.glVertex3d(v.linearOffset, yCrossOffset, zMin);
-					gl.glVertex3d(v.linearOffset, yCrossOffset, zMax);
-					gl.glVertex3d(v.linearOffset, yMin, zCrossOffset);
-					gl.glVertex3d(v.linearOffset, yMax, zCrossOffset);
-					gl.glEnd();
+					r.drawShape(BNAUtils.toDimension(localBounds), GL2ES2.GL_LINES,
+							Buffers.newDirectFloatBuffer(new float[] { //
+							//
+									(float) v.linearOffset, (float) yCrossOffset, (float) zMin, //
+									(float) v.linearOffset, (float) yCrossOffset, (float) zMax, //
+									(float) v.linearOffset, (float) yMin, (float) zCrossOffset, //
+									(float) v.linearOffset, (float) yMax, (float) zCrossOffset //
+							}), colors, 4);
 				}
 				resetLineStyle(gl, r);
 			}
@@ -805,12 +763,14 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			for (NumericAxis axis : Lists.newArrayList(yMinorAxis, yMajorAxis)) {
 				setLineStyle(gl, r, axis);
 				for (Value v : axis.getAxisValues(yRange)) {
-					gl.glBegin(GL.GL_LINES);
-					gl.glVertex3d(xMin, v.linearOffset, zCrossOffset);
-					gl.glVertex3d(xMax, v.linearOffset, zCrossOffset);
-					gl.glVertex3d(xCrossOffset, v.linearOffset, zMin);
-					gl.glVertex3d(xCrossOffset, v.linearOffset, zMax);
-					gl.glEnd();
+					r.drawShape(BNAUtils.toDimension(localBounds), GL2ES2.GL_LINES,
+							Buffers.newDirectFloatBuffer(new float[] { //
+							//
+									(float) xMin, (float) v.linearOffset, (float) zCrossOffset, //
+									(float) xMax, (float) v.linearOffset, (float) zCrossOffset, //
+									(float) xCrossOffset, (float) v.linearOffset, (float) zMin, //
+									(float) xCrossOffset, (float) v.linearOffset, (float) zMax //
+							}), colors, 4);
 				}
 				resetLineStyle(gl, r);
 			}
@@ -818,19 +778,20 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			for (NumericAxis axis : Lists.newArrayList(zMinorAxis, zMajorAxis)) {
 				setLineStyle(gl, r, axis);
 				for (Value v : axis.getAxisValues(zRange)) {
-					gl.glBegin(GL.GL_LINES);
-					gl.glVertex3d(xMin, yCrossOffset, v.linearOffset);
-					gl.glVertex3d(xMax, yCrossOffset, v.linearOffset);
-					gl.glVertex3d(xCrossOffset, yMin, v.linearOffset);
-					gl.glVertex3d(xCrossOffset, yMax, v.linearOffset);
-					gl.glEnd();
+					r.drawShape(BNAUtils.toDimension(localBounds), GL2ES2.GL_LINES,
+							Buffers.newDirectFloatBuffer(new float[] { //
+							//
+									(float) xMin, (float) yCrossOffset, (float) v.linearOffset, //
+									(float) xMax, (float) yCrossOffset, (float) v.linearOffset, //
+									(float) xCrossOffset, (float) yMin, (float) v.linearOffset, //
+									(float) xCrossOffset, (float) yMax, (float) v.linearOffset //
+							}), colors, 4);
 				}
 				resetLineStyle(gl, r);
 			}
 		}
 		finally {
-			gl.glPopMatrix();
+			r.popMatrix(PMVMatrix.GL_PROJECTION);
 		}
 	}
-
 }
