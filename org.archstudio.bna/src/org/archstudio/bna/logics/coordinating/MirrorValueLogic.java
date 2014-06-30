@@ -5,7 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.logics.AbstractCoordinatingThingLogic;
 
 import com.google.common.base.Function;

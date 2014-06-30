@@ -1,7 +1,6 @@
 package org.archstudio.bna.keys;
 
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 
 /**

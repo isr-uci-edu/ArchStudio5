@@ -2,6 +2,7 @@ package org.archstudio.bna.facets;
 
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.ArrowheadShape;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
 
 public interface IHasArrowhead extends IThing, IHasAnchorPoint, IHasSecondaryAnchorPoint {

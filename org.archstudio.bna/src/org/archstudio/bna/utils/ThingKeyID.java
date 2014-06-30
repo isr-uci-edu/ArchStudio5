@@ -1,7 +1,7 @@
 package org.archstudio.bna.utils;
 
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
+import org.archstudio.bna.keys.IThingKey;
 
 public final class ThingKeyID<V> {
 

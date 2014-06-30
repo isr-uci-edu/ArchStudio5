@@ -1,20 +1,17 @@
 package org.archstudio.bna.keys;
 
-import java.util.List;
-
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 
 import com.google.common.collect.Lists;
 
-public abstract class AbstractThingRefMetakey<T extends IThing, N, K extends IThingKey<?>> extends
-		AbstractThingRefKey<List<?>, T> implements IThingRefMetakey<T, N, K> {
+abstract class AbstractThingRefMetakey<T extends IThing, N, K extends IThingKey<?>> extends AbstractThingRefKey<T>
+		implements IThingRefMetakey<T, N, K> {
 
 	protected final N name;
 	protected final K key;
 
-	protected AbstractThingRefMetakey(boolean isFireEventOnChange, N name, K key) {
-		super(Lists.newArrayList(name, key), isFireEventOnChange);
+	protected AbstractThingRefMetakey(N name, K key) {
+		super(Lists.newArrayList(name, key));
 		this.name = name;
 		this.key = key;
 	}
@@ -28,4 +25,5 @@ public abstract class AbstractThingRefMetakey<T extends IThing, N, K extends ITh
 	public K getKey() {
 		return key;
 	}
+
 }

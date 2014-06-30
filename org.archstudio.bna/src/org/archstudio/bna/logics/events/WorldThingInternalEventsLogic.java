@@ -9,10 +9,10 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasWorld;
-import org.archstudio.bna.keys.CloneThingKey;
+import org.archstudio.bna.keys.IThingKey;
+import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.tracking.ThingTypeTrackingLogic;
 import org.archstudio.bna.things.utility.NoThing;
@@ -30,8 +30,8 @@ public class WorldThingInternalEventsLogic extends AbstractThingLogic implements
 		public void internalBNAModelChanged(IHasWorld worldThing, BNAModelEvent evt);
 	}
 
-	private static IThingKey<Set<WorldChange>> WORLD_CHANGES_TICKER_KEY = CloneThingKey.create(
-			"internal-world-changes-ticker", CloneThingKey.<WorldChange> set(null));
+	private static IThingKey<Set<WorldChange>> WORLD_CHANGES_TICKER_KEY = ThingKey.create(
+			"internal-world-changes-ticker", ThingKey.<WorldChange> set(null));
 
 	synchronized private static IThing getWorldChangedThing(IBNAWorld world) {
 		IBNAModel model = world.getBNAModel();

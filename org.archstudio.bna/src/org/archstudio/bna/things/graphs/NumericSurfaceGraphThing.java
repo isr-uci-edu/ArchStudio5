@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import org.archstudio.bna.facets.IHasMutableRotatingOffset;
 import org.archstudio.bna.facets.IHasMutableSelected;
-import org.archstudio.bna.keys.CloneThingKey;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.AbstractRectangleThing;
 import org.archstudio.swtutils.constants.LineStyle;
@@ -102,7 +102,7 @@ public class NumericSurfaceGraphThing extends AbstractRectangleThing implements 
 				clone.values = values.clone();
 				clone.colors = new RGB[colors.length];
 				for (int i = 0; i < colors.length; i++) {
-					clone.colors[i] = CloneThingKey.rgb().apply(colors[i]);
+					clone.colors[i] = ThingKey.rgb().apply(colors[i]);
 				}
 				return clone;
 			}
@@ -151,28 +151,22 @@ public class NumericSurfaceGraphThing extends AbstractRectangleThing implements 
 
 	}
 
-	public static final IThingKey<Data> DATA_KEY = CloneThingKey.create(
-			Lists.newArrayList("data", NumericSurfaceGraphThing.class), CloneThingKey.<Data> cloneable());
+	public static final IThingKey<Data> DATA_KEY = ThingKey.create(
+			Lists.newArrayList("data", NumericSurfaceGraphThing.class), ThingKey.<Data> cloneable());
 	public static final IThingKey<Boolean> FLIP_DATA_KEY = ThingKey.create(Lists.newArrayList("flip-data",
 			NumericSurfaceGraphThing.class));
-	public static final IThingKey<NumericAxis> X_MAJOR_AXIS_KEY = CloneThingKey
-			.create(Lists.newArrayList("x-major-axis", NumericSurfaceGraphThing.class),
-					CloneThingKey.<NumericAxis> cloneable());
-	public static final IThingKey<NumericAxis> X_MINOR_AXIS_KEY = CloneThingKey
-			.create(Lists.newArrayList("x-minor-axis", NumericSurfaceGraphThing.class),
-					CloneThingKey.<NumericAxis> cloneable());
-	public static final IThingKey<NumericAxis> Y_MAJOR_AXIS_KEY = CloneThingKey
-			.create(Lists.newArrayList("y-major-axis", NumericSurfaceGraphThing.class),
-					CloneThingKey.<NumericAxis> cloneable());
-	public static final IThingKey<NumericAxis> Y_MINOR_AXIS_KEY = CloneThingKey
-			.create(Lists.newArrayList("y-minor-axis", NumericSurfaceGraphThing.class),
-					CloneThingKey.<NumericAxis> cloneable());
-	public static final IThingKey<NumericAxis> Z_MAJOR_AXIS_KEY = CloneThingKey
-			.create(Lists.newArrayList("z-major-axis", NumericSurfaceGraphThing.class),
-					CloneThingKey.<NumericAxis> cloneable());
-	public static final IThingKey<NumericAxis> Z_MINOR_AXIS_KEY = CloneThingKey
-			.create(Lists.newArrayList("z-minor-axis", NumericSurfaceGraphThing.class),
-					CloneThingKey.<NumericAxis> cloneable());
+	public static final IThingKey<NumericAxis> X_MAJOR_AXIS_KEY = ThingKey.create(
+			Lists.newArrayList("x-major-axis", NumericSurfaceGraphThing.class), ThingKey.<NumericAxis> cloneable());
+	public static final IThingKey<NumericAxis> X_MINOR_AXIS_KEY = ThingKey.create(
+			Lists.newArrayList("x-minor-axis", NumericSurfaceGraphThing.class), ThingKey.<NumericAxis> cloneable());
+	public static final IThingKey<NumericAxis> Y_MAJOR_AXIS_KEY = ThingKey.create(
+			Lists.newArrayList("y-major-axis", NumericSurfaceGraphThing.class), ThingKey.<NumericAxis> cloneable());
+	public static final IThingKey<NumericAxis> Y_MINOR_AXIS_KEY = ThingKey.create(
+			Lists.newArrayList("y-minor-axis", NumericSurfaceGraphThing.class), ThingKey.<NumericAxis> cloneable());
+	public static final IThingKey<NumericAxis> Z_MAJOR_AXIS_KEY = ThingKey.create(
+			Lists.newArrayList("z-major-axis", NumericSurfaceGraphThing.class), ThingKey.<NumericAxis> cloneable());
+	public static final IThingKey<NumericAxis> Z_MINOR_AXIS_KEY = ThingKey.create(
+			Lists.newArrayList("z-minor-axis", NumericSurfaceGraphThing.class), ThingKey.<NumericAxis> cloneable());
 	public static final IThingKey<Integer> X_ROTATION_KEY = ThingKey.create(Lists.newArrayList("x-rotation",
 			NumericSurfaceGraphThing.class));
 	public static final IThingKey<Integer> Y_ROTATION_KEY = ThingKey.create(Lists.newArrayList("y-rotation",

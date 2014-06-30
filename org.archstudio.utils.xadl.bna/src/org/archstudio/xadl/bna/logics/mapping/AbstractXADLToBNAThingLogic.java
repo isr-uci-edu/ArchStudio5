@@ -17,7 +17,7 @@ import org.archstudio.bna.BNAModelEvent.EventType;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;

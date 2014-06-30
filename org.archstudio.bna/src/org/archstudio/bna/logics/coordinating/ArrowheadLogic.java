@@ -5,8 +5,8 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasShapeKeys;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.logics.AbstractCoordinatingThingLogic;
 import org.archstudio.bna.things.labels.ArrowheadThing;
 import org.eclipse.jdt.annotation.NonNullByDefault;

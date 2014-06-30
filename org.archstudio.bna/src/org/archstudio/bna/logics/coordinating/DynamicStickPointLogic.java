@@ -2,10 +2,10 @@ package org.archstudio.bna.logics.coordinating;
 
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasShapeKeys;
 import org.archstudio.bna.facets.IIsSticky;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.IThingMetakey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingMetakey;

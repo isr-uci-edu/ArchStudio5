@@ -6,8 +6,8 @@ import java.util.List;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.logics.hints.IHintRepository;
 import org.archstudio.bna.logics.hints.IHintRepository.HintValue;
@@ -109,7 +109,7 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 			if (partKey == null) {
 				break;
 			}
-			path.add(0, partKey.getKeyData().toString());
+			path.add(0, partKey.toString());
 			thing = Assemblies.getRootWithPart(model, thing);
 		}
 		path.add(hintNameSuffix);

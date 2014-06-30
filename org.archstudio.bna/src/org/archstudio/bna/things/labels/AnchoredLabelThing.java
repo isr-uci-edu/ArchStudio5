@@ -14,6 +14,7 @@ import org.archstudio.bna.facets.IHasMutableLineData;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasMutableVerticalAlignment;
 import org.archstudio.bna.facets.IRelativeMovable;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic.IHasSecondaryPoint;
 import org.archstudio.bna.things.AbstractMutableAnchorPointThing;

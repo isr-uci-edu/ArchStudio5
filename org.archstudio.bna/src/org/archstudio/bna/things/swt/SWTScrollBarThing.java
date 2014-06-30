@@ -1,5 +1,6 @@
 package org.archstudio.bna.things.swt;
 
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;

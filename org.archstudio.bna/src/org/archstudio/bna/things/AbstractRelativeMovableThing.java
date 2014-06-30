@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.archstudio.bna.facets.IHasShapeKeys;
 import org.archstudio.bna.facets.IRelativeMovable;
+import org.archstudio.bna.keys.IThingKey;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.graphics.Point;

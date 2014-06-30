@@ -9,6 +9,7 @@ import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableSpacing;
 import org.archstudio.bna.facets.IHasMutableValue;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingMetakey;
 import org.archstudio.bna.logics.coordinating.ArrowheadLogic.IHasArrowheadStemPoint;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;

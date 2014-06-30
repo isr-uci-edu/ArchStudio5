@@ -1,74 +1,75 @@
 package org.archstudio.bna.keys;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
-import org.archstudio.sysutils.AbstractGenericKey;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+import com.google.common.base.Function;
 import com.google.common.collect.Maps;
 
 @NonNullByDefault
-public abstract class AbstractThingKey<D, V> extends AbstractGenericKey<D, V> implements IThing.IThingKey<V> {
+abstract class AbstractThingKey<V> implements IThingKey<V> {
 
-	private static final AtomicInteger keyUIDGenerator = new AtomicInteger();
+	private static Map<IThingKey<?>, IThingKey<?>> identityMap = Maps.newHashMap();
 
-	private static final LoadingCache<Object, Integer> keyDataToUID = CacheBuilder.newBuilder().build(
-			new CacheLoader<Object, Integer>() {
-				@Override
-				public Integer load(Object key) throws Exception {
-					return (int) keyUIDGenerator.getAndIncrement();
-				};
-			});
-
-	private static final Map<Integer, IThingKey<?>> uidToKey = Maps.newHashMap();
-
-	public static final IThingKey<?> getKey(int uid) {
-		synchronized (uidToKey) {
-			return checkNotNull(uidToKey.get(uid));
+	@SuppressWarnings("unchecked")
+	synchronized protected static <K extends IThingKey<?>> K identity(K key) {
+		IThingKey<?> cached = identityMap.get(key);
+		if (cached == null) {
+			identityMap.put(key, cached = key);
 		}
+		return (K) cached;
 	}
 
-	private final int uid;
-	private final boolean isFireEventOnChange;
+	private final Object id;
+	private final int idHashCode;
+	private final Function<V, V> cloneFunction;
 
-	protected AbstractThingKey(D keyData, boolean isFireEventOnChange) {
-		super(keyData);
-		this.uid = keyDataToUID.getUnchecked(keyData);
-		this.isFireEventOnChange = isFireEventOnChange;
-		synchronized (uidToKey) {
-			uidToKey.put(uid, this);
-		}
+	protected AbstractThingKey(Object id, @Nullable Function<V, V> cloneFunction) {
+		this.id = id;
+		this.idHashCode = this.id.hashCode();
+		this.cloneFunction = cloneFunction;
 	}
 
 	@Override
-	public Object getID() {
-		return getKeyData();
+	public int hashCode() {
+		return idHashCode;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
-	public final boolean isFireEventOnChange() {
-		return isFireEventOnChange;
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		AbstractThingKey other = (AbstractThingKey) obj;
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		}
+		else if (!id.equals(other.id)) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public @Nullable
-	V preWrite(@Nullable V value) {
-		return value;
+	V clone(@Nullable V value) {
+		return value == null ? null : cloneFunction != null ? cloneFunction.apply(value) : value;
 	}
 
 	@Override
-	public @Nullable
-	V postRead(@Nullable V value) {
-		return value;
+	public String toString() {
+		return id.toString();
 	}
 
 }

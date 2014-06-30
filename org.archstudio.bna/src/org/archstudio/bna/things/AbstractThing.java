@@ -14,6 +14,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.sysutils.FastMap;
 import org.archstudio.sysutils.SystemUtils;
@@ -140,13 +141,13 @@ public class AbstractThing implements IThing {
 	@Override
 	public final @Nullable
 	<V> V get(IThingKey<V> key) {
-		return key.postRead(getRaw(key));
+		return key.clone(getRaw(key));
 	}
 
 	@Override
 	public final <V> V get(IThingKey<V> key, V valueIfNull) {
 		V value = getRaw(key);
-		return value != null ? key.postRead(value) : valueIfNull;
+		return value != null ? key.clone(value) : valueIfNull;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -169,7 +170,7 @@ public class AbstractThing implements IThing {
 	@Override
 	public final @Nullable
 	<V> V getAndSet(IThingKey<V> key, @Nullable V value) {
-		return key.postRead(setRaw(key, value));
+		return key.clone(setRaw(key, value));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -180,11 +181,8 @@ public class AbstractThing implements IThing {
 			Map.Entry<IThingKey<?>, Object> entry = properties.createEntry(key);
 			V oldValue = (V) entry.getValue();
 			if (!nullEquals(oldValue, value)) {
-				entry.setValue(key.preWrite(value));
-				if (key.isFireEventOnChange()) {
-					fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_SET, this, key, oldValue,
-							key.preWrite(value)));
-				}
+				entry.setValue(key.clone(value));
+				fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_SET, this, key, oldValue, value));
 			}
 			return oldValue;
 		}
@@ -223,10 +221,8 @@ public class AbstractThing implements IThing {
 		try {
 			Map.Entry<IThingKey<?>, Object> entry = properties.removeEntry(key);
 			if (entry != null) {
-				if (key.isFireEventOnChange()) {
-					fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_REMOVED, this, key,
-							entry.getValue(), null));
-				}
+				fireThingEvent(ThingEvent.create(ThingEvent.EventType.PROPERTY_REMOVED, this, key, entry.getValue(),
+						null));
 				return (V) entry.getValue();
 			}
 			return null;

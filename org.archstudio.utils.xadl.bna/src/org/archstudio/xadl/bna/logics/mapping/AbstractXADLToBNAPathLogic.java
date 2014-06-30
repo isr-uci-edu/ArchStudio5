@@ -7,6 +7,7 @@ import java.util.List;
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.utils.BNAPath;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
@@ -140,7 +141,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 */
 	protected <X extends Serializable, B> void syncValue(final String xADLAttributeName,
 			@Nullable final IXADLToBNATranslator<X, B> translator, @Nullable final B defaultBNAValue,
-			final BNAPath targetThingPath, final IThing.IThingKey<B> thingValueKey, final boolean reverse) {
+			final BNAPath targetThingPath, final IThingKey<B> thingValueKey, final boolean reverse) {
 		bnaUpdaters.add(new IBNAUpdater() {
 
 			@Override
@@ -206,7 +207,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 * @param value
 	 *            The value to set
 	 */
-	protected <V> void setValue(final BNAPath targetThingPath, final IThing.IThingKey<V> thingValueKey, final V value) {
+	protected <V> void setValue(final BNAPath targetThingPath, final IThingKey<V> thingValueKey, final V value) {
 		bnaUpdaters.add(new IBNAUpdater() {
 
 			@Override
@@ -230,8 +231,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	 * @param index
 	 *            The ancestor index starting from the mapped objRef (&gt>=0) or from the root ObjRef (&lt;0)
 	 */
-	protected void setAncestorObjRef(final BNAPath targetThingPath, final IThing.IThingKey<ObjRef> objRefKey,
-			final int index) {
+	protected void setAncestorObjRef(final BNAPath targetThingPath, final IThingKey<ObjRef> objRefKey, final int index) {
 		bnaUpdaters.add(new IBNAUpdater() {
 
 			@Override
@@ -252,7 +252,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 
 	protected <X extends Serializable, B> void syncXAttribute(final String xADLAttributeXPath,
 			@Nullable final IXADLToBNATranslator<X, B> translator, final B defaultBNAValue,
-			final BNAPath targetThingPath, final IThing.IThingKey<B> thingValueKey, final boolean reverse) {
+			final BNAPath targetThingPath, final IThingKey<B> thingValueKey, final boolean reverse) {
 		System.err.println("Warning: ignoring " + xADLAttributeXPath); // TODO: Implement xADLAttributeXPath
 		//bnaUpdaters.add(new IBNAUpdater() {
 		//
@@ -311,7 +311,7 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 	//	 */
 	//	
 	//	protected void loadAncestor(final int ancestorIndex, final BNAPath targetThingPath,
-	//			final IThing.IThingKey<ObjRef> thingValueKey) {
+	//			final IThingKey<ObjRef> thingValueKey) {
 	//
 	//		bnaUpdaters.add(new IBNAUpdater() {
 	//

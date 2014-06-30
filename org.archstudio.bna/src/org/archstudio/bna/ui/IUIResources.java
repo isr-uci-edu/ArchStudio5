@@ -8,9 +8,9 @@ import java.awt.geom.Point2D;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasFontData;
 import org.archstudio.bna.facets.IHasLineData;
+import org.archstudio.bna.keys.IThingKey;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 

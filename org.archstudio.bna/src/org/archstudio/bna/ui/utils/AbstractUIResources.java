@@ -13,8 +13,8 @@ import java.util.List;
 
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasFontData;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.FontStyle;

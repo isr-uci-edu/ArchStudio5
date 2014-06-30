@@ -3,6 +3,7 @@ package org.archstudio.bna.things.utility;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.facets.IHasMutableEdgeColor;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.AbstractThing;
 import org.eclipse.swt.graphics.RGB;

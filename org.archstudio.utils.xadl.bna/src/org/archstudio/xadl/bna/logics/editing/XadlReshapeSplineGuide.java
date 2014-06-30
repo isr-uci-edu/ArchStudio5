@@ -1,8 +1,8 @@
 package org.archstudio.xadl.bna.logics.editing;
 
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IIsSticky;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.logics.editing.AbstractReshapeSplineGuide;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.IXArchADT;

@@ -1,7 +1,8 @@
 package org.archstudio.bna.things.utility;
 
 import org.archstudio.bna.IBNAWorld;
-import org.archstudio.bna.keys.CloneThingKey;
+import org.archstudio.bna.keys.IThingKey;
+import org.archstudio.bna.keys.ThingKey;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -19,12 +20,9 @@ public class EnvironmentPropertiesThing extends NoThing {
 		return (EnvironmentPropertiesThing) world.getBNAModel().getThing(EnvironmentPropertiesThing.class);
 	}
 
-	public static final IThingKey<Point> NEW_THING_SPOT_KEY = CloneThingKey.create("#newThingSpot", false,
-			CloneThingKey.point());
-	public static final IThingKey<Point> LAST_OPEN_SPOT_KEY = CloneThingKey.create("#lastOpenSpot", false,
-			CloneThingKey.point());
-	public static final IThingKey<Rectangle> MODEL_BOUNDS_KEY = CloneThingKey.create("modelBounds", false,
-			CloneThingKey.rectangle());
+	public static final IThingKey<Point> NEW_THING_SPOT_KEY = ThingKey.create("#newThingSpot", ThingKey.point());
+	public static final IThingKey<Point> LAST_OPEN_SPOT_KEY = ThingKey.create("#lastOpenSpot", ThingKey.point());
+	public static final IThingKey<Rectangle> MODEL_BOUNDS_KEY = ThingKey.create("modelBounds", ThingKey.rectangle());
 
 	protected EnvironmentPropertiesThing() {
 		super(EnvironmentPropertiesThing.class);

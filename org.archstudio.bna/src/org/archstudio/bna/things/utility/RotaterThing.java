@@ -2,6 +2,7 @@ package org.archstudio.bna.things.utility;
 
 import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableRadius;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.AbstractMutableAnchorPointThing;
 import org.eclipse.jdt.annotation.Nullable;

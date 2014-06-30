@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.facets.IHasMutablePoints;
 import org.archstudio.bna.facets.IHasMutableReferencePoint;
+import org.archstudio.bna.keys.IThingKey;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.AbstractOperation;
 import org.eclipse.core.commands.operations.IOperationHistory;

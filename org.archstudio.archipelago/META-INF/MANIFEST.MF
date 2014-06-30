@@ -14,5 +14,6 @@ Require-Bundle: org.eclipse.jface,
  org.eclipse.ui,
  org.archstudio.resources,
  org.archstudio.editormanager,
- org.archstudio.graphlayout
+ org.archstudio.graphlayout,
+ org.archstudio.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

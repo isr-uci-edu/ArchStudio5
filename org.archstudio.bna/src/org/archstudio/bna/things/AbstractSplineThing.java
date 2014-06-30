@@ -10,6 +10,7 @@ import org.archstudio.bna.IThingListener;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
+import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic.IHasSecondaryPoint;
 import org.eclipse.jdt.annotation.NonNullByDefault;

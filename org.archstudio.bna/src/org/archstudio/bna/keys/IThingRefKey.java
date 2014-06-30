@@ -2,7 +2,6 @@ package org.archstudio.bna.keys;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.IThing.IThingKey;
 import org.archstudio.bna.logics.tracking.ThingReferenceTrackingLogic;
 
 /**
@@ -22,8 +21,6 @@ import org.archstudio.bna.logics.tracking.ThingReferenceTrackingLogic;
  */
 
 public interface IThingRefKey<T extends IThing> extends IThingKey<Object> {
-
-	public Object getKeyData();
 
 	public T get(IThing fromThing, IBNAModel inModel);
 

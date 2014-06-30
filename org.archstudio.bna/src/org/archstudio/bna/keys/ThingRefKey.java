@@ -2,13 +2,13 @@ package org.archstudio.bna.keys;
 
 import org.archstudio.bna.IThing;
 
-public class ThingRefKey<D, T extends IThing> extends AbstractThingRefKey<D, T> {
+public class ThingRefKey<T extends IThing> extends AbstractThingRefKey<T> {
 
-	public static <D, T extends IThing> IThingRefKey<T> create(D keyData) {
-		return new ThingRefKey<D, T>(keyData, true);
+	public static <T extends IThing> IThingRefKey<T> create(Object id) {
+		return identity(new ThingRefKey<T>(id));
 	}
 
-	protected ThingRefKey(D keyData, boolean isFireEventOnChange) {
-		super(keyData, isFireEventOnChange);
+	protected ThingRefKey(Object id) {
+		super(id);
 	}
 }
