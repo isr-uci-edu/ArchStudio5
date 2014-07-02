@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.archstudio.myxgen.MyxGenBrick;
+import org.archstudio.utils.eclipse.WorkspaceExtensionRegistry;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;

@@ -1,5 +1,6 @@
 package org.archstudio.utils.eclipse.jdt;
 
+import java.io.ByteArrayInputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -41,6 +42,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.io.ByteStreams;
 import com.google.common.primitives.Ints;
 
 @SuppressWarnings({ "restriction", "unchecked" })
@@ -70,6 +72,14 @@ public class CodeGeneration {
 					if (f.exists()) {
 						for (IResource r : f.members()) {
 							if (r instanceof IFile && "java".equalsIgnoreCase(((IFile) r).getFileExtension())) {
+
+								// do some sanity checks / corrections
+								IFile x = (IFile) r;
+								String c = new String(ByteStreams.toByteArray(x.getContents()), x.getCharset());
+								c = c.replaceAll("@Override\\s@Override", "@Override");
+								x.setContents(new ByteArrayInputStream(c.getBytes(x.getCharset())), IResource.FORCE,
+										null);
+
 								ICompilationUnit cu = JavaCore.createCompilationUnitFrom((IFile) r);
 								cu = cu.getPrimary();
 								cu = cu.getWorkingCopy(new NullProgressMonitor());
@@ -111,9 +121,18 @@ public class CodeGeneration {
 			}
 
 			// get compiler options
-			final Map<String, String> compilerOptions = Maps.newHashMap();
+			final Map<String, String> compilerOptions = Maps.newHashMap(JavaCore.getOptions());
+			// put some defaults
+			compilerOptions.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_6);
+			compilerOptions.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_6);
+			compilerOptions.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_6);
+			compilerOptions.put(JavaCore.COMPILER_PB_MISSING_OVERRIDE_ANNOTATION, JavaCore.WARNING);
+			compilerOptions.put(JavaCore.COMPILER_PB_MISSING_OVERRIDE_ANNOTATION_FOR_INTERFACE_METHOD_IMPLEMENTATION,
+					JavaCore.ENABLED);
+			compilerOptions.put(JavaCore.COMPILER_PB_SUPPRESS_WARNINGS, JavaCore.DISABLED);
+			compilerOptions.put(JavaCore.COMPILER_PB_SUPPRESS_OPTIONAL_ERRORS, JavaCore.DISABLED);
+			compilerOptions.put(JavaCore.COMPILER_PB_MAX_PER_UNIT, "0");
 			{
-				final Map<String, String> m = Maps.newHashMap(JavaCore.getOptions());
 				// read settings from format file
 				try {
 					factory.newSAXParser().parse(
@@ -124,7 +143,7 @@ public class CodeGeneration {
 								public void startElement(String uri, String localName, String qName,
 										Attributes attributes) throws SAXException {
 									if ("setting".equals(qName)) {
-										m.put(attributes.getValue("id"), attributes.getValue("value"));
+										compilerOptions.put(attributes.getValue("id"), attributes.getValue("value"));
 									}
 								}
 							});
@@ -132,16 +151,6 @@ public class CodeGeneration {
 				catch (Exception e) {
 					e.printStackTrace();
 				}
-				m.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_6);
-				m.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_6);
-				m.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_6);
-				m.put(JavaCore.COMPILER_PB_MISSING_OVERRIDE_ANNOTATION, JavaCore.WARNING);
-				m.put(JavaCore.COMPILER_PB_MISSING_OVERRIDE_ANNOTATION_FOR_INTERFACE_METHOD_IMPLEMENTATION,
-						JavaCore.ENABLED);
-				m.put(JavaCore.COMPILER_PB_SUPPRESS_WARNINGS, JavaCore.DISABLED);
-				m.put(JavaCore.COMPILER_PB_SUPPRESS_OPTIONAL_ERRORS, JavaCore.DISABLED);
-				m.put(JavaCore.COMPILER_PB_MAX_PER_UNIT, "0");
-				compilerOptions.putAll(m);
 			}
 
 			// iterate through cleanups

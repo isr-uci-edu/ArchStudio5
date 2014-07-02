@@ -1,9 +1,10 @@
-package org.archstudio.myxgen.eclipse.extension;
+package org.archstudio.utils.eclipse;
 
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -34,6 +35,8 @@ import org.eclipse.emf.ecore.xml.type.AnyType;
 import org.eclipse.osgi.service.resolver.BundleDescription;
 import org.eclipse.pde.core.plugin.IPluginModelBase;
 import org.osgi.framework.Bundle;
+
+import com.google.common.collect.Lists;
 
 @SuppressWarnings("deprecation")
 public class PDEUtils {
@@ -279,7 +282,14 @@ public class PDEUtils {
 
 		@Override
 		public String[] getAttributeNames() throws InvalidRegistryObjectException {
-			throw new UnsupportedOperationException();
+			List<String> names = Lists.newArrayList();
+			if (eObject instanceof AnyType) {
+				FeatureMap fMap = ((AnyType) eObject).getAnyAttribute();
+				for (int i = 0; i < fMap.size(); i++) {
+					names.add(fMap.get(i).getEStructuralFeature().getName());
+				}
+			}
+			return names.toArray(new String[names.size()]);
 		}
 
 		@Override
@@ -294,7 +304,20 @@ public class PDEUtils {
 
 		@Override
 		public IConfigurationElement[] getChildren(String name) throws InvalidRegistryObjectException {
-			throw new UnsupportedOperationException();
+			List<EObject> contents = Lists.newArrayList();
+			if (eObject instanceof AnyType) {
+				FeatureMap fMap = ((AnyType) eObject).getAny();
+				for (int i = 0; i < fMap.size(); i++) {
+					if (name.equals(fMap.get(i).getEStructuralFeature().getName())) {
+						contents.add((EObject) fMap.getValue(i));
+					}
+				}
+			}
+			IConfigurationElement[] children = new IConfigurationElement[contents.size()];
+			for (int i = 0; i < contents.size(); i++) {
+				children[i] = new EObjectToIConfigurationElement(pluginModel, contributor, this, contents.get(i));
+			}
+			return children;
 		}
 
 		@Override
@@ -363,6 +386,26 @@ public class PDEUtils {
 		public String getValue(String locale) throws InvalidRegistryObjectException {
 			throw new UnsupportedOperationException();
 		}
+	}
+
+	public static List<IConfigurationElement> getConfigurationElements(IConfigurationElement root, String path) {
+		return getConfigurationElements(Lists.<IConfigurationElement> newArrayList(), root, path);
+	}
+
+	private static List<IConfigurationElement> getConfigurationElements(List<IConfigurationElement> results,
+			IConfigurationElement root, String path) {
+		int index = path.indexOf(".");
+		if (index >= 0) {
+			String name = path.substring(0, index);
+			String subpath = path.substring(index + 1);
+			for (IConfigurationElement element : root.getChildren(name)) {
+				getConfigurationElements(results, element, subpath);
+			}
+		}
+		else {
+			results.addAll(Arrays.asList(root.getChildren(path)));
+		}
+		return results;
 	}
 
 	public static IExtensionPoint getExtensionPoint(String extensionPointId, IPluginModelBase[] pluginModelBases) {

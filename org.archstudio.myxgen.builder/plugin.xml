@@ -28,23 +28,4 @@
          </run>
       </builder>
    </extension>
-   <extension
-         point="org.archstudio.myxgen.brick">
-      <brick
-            class="org.archstudio.myxgen.MyxGenMyxComponent"
-            id="org.archstudio.myxgen.core.brick1"
-            name="Myx Component Stub Generator Impl">
-         <interface
-               class="org.archstudio.myxgen.IMyxStubGenerator"
-               delegate="variable"
-               direction="in"
-               domain="bottom"
-               getter="true"
-               id="myxgen"
-               name="myxgen"
-               single="true">
-         </interface>
-      </brick>
-   </extension>
-
 </plugin>

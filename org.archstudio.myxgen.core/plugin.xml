@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.archstudio.myxgen.brick">
+      <brick
+            class="org.archstudio.myxgen.MyxGenMyxComponent"
+            id="org.archstudio.myxgen.core.brick1"
+            name="Myx Component Stub Generator Impl">
+         <interface
+               class="org.archstudio.myxgen.IMyxStubGenerator"
+               delegate="variable"
+               direction="in"
+               domain="bottom"
+               getter="true"
+               id="myxgen"
+               name="myxgen"
+               single="true">
+         </interface>
+      </brick>
+   </extension>
+
+</plugin>

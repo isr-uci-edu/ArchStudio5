@@ -1,4 +1,4 @@
-package org.archstudio.myxgen.eclipse.extension;
+package org.archstudio.utils.eclipse;
 
 import java.io.InputStream;
 import java.util.Arrays;
@@ -82,16 +82,15 @@ public class WorkspaceExtensionRegistry implements IExtensionRegistry {
 
 	@Override
 	public IConfigurationElement[] getConfigurationElementsFor(String extensionPointId) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public IConfigurationElement[] getConfigurationElementsFor(String namespace, String extensionPointName) {
-		String extensionPointId = namespace + "." + extensionPointName;
 		List<IConfigurationElement> configurationElements = Lists.newArrayList();
 		configurationElements.addAll(Arrays.asList(PDEUtils.getExtensionPoint(extensionPointId,
 				e.findExtensionPlugins(extensionPointId, true)).getConfigurationElements()));
 		return configurationElements.toArray(new IConfigurationElement[configurationElements.size()]);
+	}
+
+	@Override
+	public IConfigurationElement[] getConfigurationElementsFor(String namespace, String extensionPointName) {
+		return getConfigurationElementsFor(namespace + "." + extensionPointName);
 	}
 
 	@Override
