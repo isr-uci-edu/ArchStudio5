@@ -7,6 +7,7 @@ import javax.media.opengl.GL2ES2;
 import javax.media.opengl.GL2ES3;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
@@ -19,7 +20,6 @@ import org.archstudio.bna.ui.jogl.IJOGLResources;
 import org.archstudio.bna.ui.jogl.utils.GL2ES2Program;
 import org.archstudio.bna.ui.jogl.utils.GL2ES2Shader;
 import org.archstudio.bna.ui.swt.ISWTResources;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
@@ -44,8 +44,8 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 	private GL2ES2Program blurP;
 
 	private void updateShadowData() {
-		shadowSize = Math.min(BNAUtils.round(6 * cm.getLocalScale()), 5);
-		shadowOffset = Math.max(BNAUtils.round(6 * cm.getLocalScale()), shadowSize);
+		shadowSize = Math.min(SystemUtils.round(6 * cm.getLocalScale()), 5);
+		shadowOffset = Math.max(SystemUtils.round(6 * cm.getLocalScale()), shadowSize);
 		shadowAlpha = 0.4;
 	}
 
@@ -78,7 +78,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 		for (IThing t : model.getAllThings()) {
 			IThingPeer<?> tp = view.getThingPeer(t);
 			if (tp instanceof IHasShadowPeer && t instanceof IHasBoundingBox) {
-				Rectangle tLBB = BNAUtils.getLocalBoundingBox(cm, (IHasBoundingBox) t);
+				Rectangle tLBB = cm.worldToLocal(((IHasBoundingBox) t).getBoundingBox());
 				tLBB.width += shadowOffset + shadowSize;
 				tLBB.height += shadowOffset + shadowSize;
 				if (lbb == null) {
@@ -130,7 +130,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 
 		// note current FBO binding to restore later on
 		int[] currentFrameBufferBindings = new int[3];
-		gl.glGetIntegerv(GL2ES2.GL_FRAMEBUFFER_BINDING, currentFrameBufferBindings, 0);
+		gl.glGetIntegerv(GL.GL_FRAMEBUFFER_BINDING, currentFrameBufferBindings, 0);
 		if (gl.hasFullFBOSupport()) {
 			currentFrameBufferBindings[1] = gl.getDefaultDrawFramebuffer();
 			currentFrameBufferBindings[2] = gl.getDefaultReadFramebuffer();
@@ -158,7 +158,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 			fbObject.bind(gl);
 
 			// create and bind renderbuffers
-			fbObject.attachRenderbuffer(gl, GL2ES2.GL_DEPTH_COMPONENT16);
+			fbObject.attachRenderbuffer(gl, GL.GL_DEPTH_COMPONENT16);
 			renderAttachment = fbObject.getDepthAttachment();
 			renderAttachment.initialize(gl);
 
@@ -168,7 +168,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 
 			// ... clear the background
 			gl.glClearColor(0, 0, 0, 0);
-			gl.glClear(GL2ES2.GL_COLOR_BUFFER_BIT | GL2ES2.GL_DEPTH_BUFFER_BIT | GL2ES2.GL_STENCIL_BUFFER_BIT);
+			gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT | GL.GL_STENCIL_BUFFER_BIT);
 
 			// ... draw shadows
 			r.pushMatrix(shadowOffset, shadowOffset, 0);
@@ -194,8 +194,8 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 			texture1Attachment.initialize(gl);
 
 			// disable blending so that we simply blur the existing texture to the new one
-			boolean isBlendEnabled = gl.glIsEnabled(GL2ES2.GL_BLEND);
-			gl.glDisable(GL2ES2.GL_BLEND);
+			boolean isBlendEnabled = gl.glIsEnabled(GL.GL_BLEND);
+			gl.glDisable(GL.GL_BLEND);
 			try {
 				// ... apply blur
 				blurP.use();
@@ -203,18 +203,18 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 					gl.glUniformMatrix4fv(blurP.getUniform("uniform_projection"), 1, false, r.getMatrix()
 							.glGetMatrixf());
 					gl.glUniform1i(blurP.getUniform("uniform_texture"), 0);
-					gl.glActiveTexture(GL2ES2.GL_TEXTURE0);
-					gl.glBindTexture(GL2ES2.GL_TEXTURE_2D, texture0Attachment.getName());
+					gl.glActiveTexture(GL.GL_TEXTURE0);
+					gl.glBindTexture(GL.GL_TEXTURE_2D, texture0Attachment.getName());
 					gl.glUniform2f(blurP.getUniform("uniform_resolution"), localBounds.width, localBounds.height);
 					gl.glUniform1i(blurP.getUniform("uniform_size"), shadowSize);
 					gl.glUniform2f(blurP.getUniform("uniform_direction"), 1, 0);
 					gl.glUniform1f(blurP.getUniform("uniform_alpha"), 1);
 
 					vertices.rewind();
-					blurP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2,
+					blurP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2,
 							false);
 
-					gl.glDrawArrays(GL2ES2.GL_TRIANGLE_FAN, 0, 4);
+					gl.glDrawArrays(GL.GL_TRIANGLE_FAN, 0, 4);
 				}
 				finally {
 					blurP.done();
@@ -223,12 +223,12 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 			finally {
 				// restore blending
 				if (isBlendEnabled) {
-					gl.glEnable(GL2ES2.GL_BLEND);
+					gl.glEnable(GL.GL_BLEND);
 				}
 			}
 
 			// draw a blur of texture 1 on the main buffer ...
-			gl.glBindFramebuffer(GL2ES2.GL_FRAMEBUFFER, currentFrameBufferBindings[0]);
+			gl.glBindFramebuffer(GL.GL_FRAMEBUFFER, currentFrameBufferBindings[0]);
 			if (gl.hasFullFBOSupport()) {
 				gl.glBindFramebuffer(GL2ES3.GL_DRAW_FRAMEBUFFER, currentFrameBufferBindings[1]);
 				gl.glBindFramebuffer(GL2ES3.GL_READ_FRAMEBUFFER, currentFrameBufferBindings[2]);
@@ -239,18 +239,17 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 			try {
 				gl.glUniformMatrix4fv(blurP.getUniform("uniform_projection"), 1, false, r.getMatrix().glGetMatrixf());
 				gl.glUniform1i(blurP.getUniform("uniform_texture"), 0);
-				gl.glActiveTexture(GL2ES2.GL_TEXTURE0);
-				gl.glBindTexture(GL2ES2.GL_TEXTURE_2D, texture0Attachment.getName());
+				gl.glActiveTexture(GL.GL_TEXTURE0);
+				gl.glBindTexture(GL.GL_TEXTURE_2D, texture0Attachment.getName());
 				gl.glUniform2f(blurP.getUniform("uniform_resolution"), localBounds.width, localBounds.height);
 				gl.glUniform1i(blurP.getUniform("uniform_size"), shadowSize);
 				gl.glUniform2f(blurP.getUniform("uniform_direction"), 0, 1);
 				gl.glUniform1f(blurP.getUniform("uniform_alpha"), (float) shadowAlpha);
 
 				vertices.rewind();
-				blurP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2,
-						false);
+				blurP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
 
-				gl.glDrawArrays(GL2ES2.GL_TRIANGLE_FAN, 0, 4);
+				gl.glDrawArrays(GL.GL_TRIANGLE_FAN, 0, 4);
 			}
 			finally {
 				blurP.done();
@@ -275,7 +274,7 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 				fbObject = null;
 			}
 
-			gl.glBindFramebuffer(GL2ES2.GL_FRAMEBUFFER, currentFrameBufferBindings[0]);
+			gl.glBindFramebuffer(GL.GL_FRAMEBUFFER, currentFrameBufferBindings[0]);
 			if (gl.hasFullFBOSupport()) {
 				gl.glBindFramebuffer(GL2ES3.GL_DRAW_FRAMEBUFFER, currentFrameBufferBindings[1]);
 				gl.glBindFramebuffer(GL2ES3.GL_READ_FRAMEBUFFER, currentFrameBufferBindings[2]);
@@ -317,4 +316,10 @@ public class ShadowThingPeer<T extends ShadowThing> extends AbstractThingPeer<T>
 			}
 		}
 	}
+
+	@Override
+	public boolean isInThing(ICoordinate location) {
+		return false;
+	}
+
 }

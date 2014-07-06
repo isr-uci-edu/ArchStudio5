@@ -43,7 +43,8 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t,
+			ICoordinate location) {
 		if (marqueeSelection != null) {
 			model.removeThing(marqueeSelection);
 			marqueeSelection = null;
@@ -58,7 +59,8 @@ public class MarqueeSelectionLogic extends AbstractThingLogic implements IBNAMou
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
+			ICoordinate location) {
 		if (marqueeSelection != null) {
 			Point worldPoint = location.getWorldPoint();
 			int x1 = Math.min(initDownWorldPoint.x, worldPoint.x);

@@ -8,7 +8,6 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasReferencePoint;
 import org.archstudio.bna.facets.IHasSelected;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.events.DragMoveEvent;
 import org.archstudio.bna.logics.events.DragMoveEventsLogic;
@@ -16,6 +15,7 @@ import org.archstudio.bna.logics.events.IDragMoveListener;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.things.shapes.ReshapeHandleThing;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 
 import com.google.common.collect.Maps;
@@ -24,7 +24,7 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 
 	protected final ThingValueTrackingLogic valueLogic;
 
-	protected final Map<IRelativeMovable, Point> movingThings = Maps.newHashMap();
+	protected final Map<IHasReferencePoint, Point> movingThings = Maps.newHashMap();
 	protected Runnable initialSnapshot = null;
 	protected Point totalRelativePoint = new Point(0, 0);
 	protected Point lastAdjustedMousePoint = new Point(0, 0);
@@ -49,24 +49,19 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 		lastAdjustedMousePoint = evt.getAdjustedThingLocation().getWorldPoint();
 		model.beginBulkChange();
 		try {
-			IRelativeMovable movingThing = Assemblies.getEditableThing(model, evt.getInitialThing(),
-					IRelativeMovable.class, IRelativeMovable.USER_MAY_MOVE);
+			IHasReferencePoint movingThing = Assemblies.getEditableThing(model, evt.getInitialThing(),
+					IHasReferencePoint.class, IHasMutableReferencePoint.USER_MAY_MOVE);
 			if (movingThing != null) {
-				Collection<IRelativeMovable> selectedThings = valueLogic.getThings(IHasSelected.SELECTED_KEY,
-						Boolean.TRUE, IRelativeMovable.class);
+				Collection<IHasReferencePoint> selectedThings = valueLogic.getThings(IHasSelected.SELECTED_KEY,
+						Boolean.TRUE, IHasReferencePoint.class);
 				if (selectedThings.contains(movingThing)) {
-					for (IRelativeMovable rmt : selectedThings) {
-						if (rmt instanceof IHasMutableReferencePoint) {
-							movingThings.put(rmt, ((IHasReferencePoint) rmt).getReferencePoint());
-						}
-						else {
-							movingThings.put(rmt, null);
-						}
+					for (IHasReferencePoint rmt : selectedThings) {
+						movingThings.put(rmt, rmt.getReferencePoint());
 					}
 				}
 				else {
-					if (movingThing instanceof IHasMutableReferencePoint) {
-						movingThings.put(movingThing, ((IHasReferencePoint) movingThing).getReferencePoint());
+					if (movingThing instanceof IHasReferencePoint) {
+						movingThings.put(movingThing, movingThing.getReferencePoint());
 					}
 					else {
 						movingThings.put(movingThing, null);
@@ -94,16 +89,12 @@ public class DragMovableLogic extends AbstractThingLogic implements IDragMoveLis
 			totalRelativePoint.x += relativePointDelta.x;
 			totalRelativePoint.y += relativePointDelta.y;
 
-			for (Entry<IRelativeMovable, Point> e : movingThings.entrySet()) {
-				if (e.getKey() instanceof IHasMutableReferencePoint) {
-					Point referencePoint = e.getValue();
-					referencePoint = new Point(referencePoint.x, referencePoint.y);
+			for (Entry<IHasReferencePoint, Point> e : movingThings.entrySet()) {
+				if (e.getKey() instanceof IHasReferencePoint) {
+					Point referencePoint = BNAUtils.clone(e.getValue());
 					referencePoint.x += referencePointDelta.x;
 					referencePoint.y += referencePointDelta.y;
-					((IHasMutableReferencePoint) e.getKey()).setReferencePoint(referencePoint);
-				}
-				else {
-					e.getKey().moveRelative(relativePointDelta);
+					e.getKey().setReferencePoint(referencePoint);
 				}
 			}
 		}

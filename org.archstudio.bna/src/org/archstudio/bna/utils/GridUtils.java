@@ -1,5 +1,6 @@
 package org.archstudio.bna.utils;
 
+import java.awt.geom.Point2D;
 import java.util.List;
 
 import org.archstudio.bna.IBNAWorld;
@@ -10,7 +11,7 @@ import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSize;
-import org.archstudio.bna.facets.IRelativeMovable;
+import org.archstudio.bna.facets.IHasReferencePoint;
 import org.archstudio.bna.things.utility.GridThing;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -39,13 +40,13 @@ public class GridUtils {
 				rectifyToGrid(gridSpacing, (IHasMutableBoundingBox) t);
 			}
 			else if (t instanceof IHasMutableReferencePoint
-					&& UserEditableUtils.isEditableForAllQualities(t, IRelativeMovable.USER_MAY_MOVE)) {
+					&& UserEditableUtils.isEditableForAllQualities(t, IHasMutableReferencePoint.USER_MAY_MOVE)) {
 				rectifyToGrid(gridSpacing, (IHasMutableReferencePoint) t);
 			}
 		}
 	}
 
-	private static void rectifyToGrid(int gridSpacing, IHasMutableReferencePoint t) {
+	private static void rectifyToGrid(int gridSpacing, IHasReferencePoint t) {
 		Point p = t.getReferencePoint();
 		p = GridUtils.snapToGrid(gridSpacing, p);
 		t.setReferencePoint(p);
@@ -54,7 +55,7 @@ public class GridUtils {
 	private static void rectifyToGrid(int gridSpacing, IHasMutableBoundingBox t) {
 		Rectangle r = t.getBoundingBox();
 
-		if (UserEditableUtils.isEditableForAllQualities(t, IRelativeMovable.USER_MAY_MOVE)) {
+		if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableReferencePoint.USER_MAY_MOVE)) {
 			r.x = GridUtils.snapToGrid(gridSpacing, r.x);
 			r.y = GridUtils.snapToGrid(gridSpacing, r.y);
 		}
@@ -84,33 +85,32 @@ public class GridUtils {
 	}
 
 	private static void rectifyToGrid(int gridSpacing, IHasMutableEndpoints t) {
-		Point ep1 = t.getEndpoint1();
-		if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1)) {
-			ep1 = GridUtils.snapToGrid(gridSpacing, new Point(ep1.x, ep1.y));
+		Point2D ep1 = t.getEndpoint1();
+		if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_1)) {
+			ep1 = GridUtils.snapToGrid(gridSpacing, ep1);
 		}
-		Point ep2 = t.getEndpoint2();
-		if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2)) {
-			ep2 = GridUtils.snapToGrid(gridSpacing, new Point(ep2.x, ep2.y));
+		Point2D ep2 = t.getEndpoint2();
+		if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_2)) {
+			ep2 = GridUtils.snapToGrid(gridSpacing, t.getEndpoint2());
 		}
-		if (ep1.x == ep2.x && ep1.y == ep2.y) {
-			ep1.x -= gridSpacing;
-			ep1.y += gridSpacing;
-			ep2.x += gridSpacing;
-			ep2.y -= gridSpacing;
+		if (Math.abs(ep2.getX() - ep1.getX()) / gridSpacing < 0.5
+				&& Math.abs(ep1.getY() - ep1.getY()) / gridSpacing < 0.5) {
+			if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_1)) {
+				ep1.setLocation(ep1.getX() - gridSpacing, ep1.getY() - gridSpacing);
+			}
+			if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_2)) {
+				ep2.setLocation(ep2.getX() + gridSpacing, ep2.getY() + gridSpacing);
+			}
 		}
-
 		t.setEndpoint1(ep1);
 		t.setEndpoint2(ep2);
 	}
 
 	private static void rectifyToGrid(int gridSpacing, IHasMutableMidpoints t) {
-		List<Point> midPoints = t.getMidpoints();
-
-		for (Point p : midPoints) {
-			p.x = GridUtils.snapToGrid(gridSpacing, p.x);
-			p.y = GridUtils.snapToGrid(gridSpacing, p.y);
+		List<Point2D> midPoints = t.getMidpoints();
+		for (int i = 0; i < midPoints.size(); i++) {
+			midPoints.set(i, GridUtils.snapToGrid(gridSpacing, midPoints.get(i)));
 		}
-
 		t.setMidpoints(midPoints);
 	}
 
@@ -152,13 +152,17 @@ public class GridUtils {
 	}
 
 	private static int snapToGrid(int gridSpacing, int coord) {
-		int diff = coord % gridSpacing;
+		return (coord + gridSpacing / 2) / gridSpacing * gridSpacing;
+	}
 
-		if (diff < gridSpacing / 2) {
-			return coord - diff;
+	public static Point2D snapToGrid(int gridSpacing, Point2D p) {
+		if (gridSpacing == 0) {
+			return p;
 		}
-		else {
-			return coord + gridSpacing - diff;
-		}
+		return new Point2D.Double(snapToGrid(gridSpacing, p.getX()), snapToGrid(gridSpacing, p.getY()));
+	}
+
+	private static double snapToGrid(int gridSpacing, double coord) {
+		return Math.round((coord + gridSpacing / 2) / gridSpacing) * gridSpacing;
 	}
 }

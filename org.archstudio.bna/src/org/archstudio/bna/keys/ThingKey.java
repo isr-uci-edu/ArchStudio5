@@ -44,11 +44,19 @@ import com.google.common.collect.Sets;
 public class ThingKey<V> extends AbstractThingKey<V> {
 
 	public static final <V> IThingKey<V> create(Object id) {
-		return create(id, null);
+		return create(id, null, false);
+	}
+
+	public static final <V> IThingKey<V> create(Object id, boolean nullable) {
+		return identity(new ThingKey<V>(id, null, nullable));
 	}
 
 	public static final <V> IThingKey<V> create(Object id, Function<V, V> cloneFunction) {
-		return identity(new ThingKey<V>(id, cloneFunction));
+		return identity(new ThingKey<V>(id, cloneFunction, false));
+	}
+
+	public static final <V> IThingKey<V> create(Object id, Function<V, V> cloneFunction, boolean nullable) {
+		return identity(new ThingKey<V>(id, cloneFunction, nullable));
 	}
 
 	private static final Function<CloneableObject, CloneableObject> CLONEABLE = new Function<CloneableObject, CloneableObject>() {
@@ -237,8 +245,8 @@ public class ThingKey<V> extends AbstractThingKey<V> {
 		};
 	}
 
-	protected ThingKey(Object id, @Nullable Function<V, V> cloneFunction) {
-		super(id, cloneFunction);
+	protected ThingKey(Object id, @Nullable Function<V, V> cloneFunction, boolean nullable) {
+		super(id, cloneFunction, nullable);
 	}
 
 }

@@ -9,7 +9,8 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.MouseType;
-import org.archstudio.bna.facets.IRelativeMovable;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
+import org.archstudio.bna.facets.IHasReferencePoint;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAMouseListener;
 import org.archstudio.bna.ui.IBNAMouseMoveListener;
@@ -32,14 +33,13 @@ public class DragMoveEventsLogic extends AbstractThingLogic implements IBNAMouse
 	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t,
 			ICoordinate location) {
 		if (evt.button == 1 && (evt.stateMask & SWT.MODIFIER_MASK) == 0) {
-			IRelativeMovable relativeMovableThing = Assemblies.getEditableThing(model, firstOrNull(t),
-					IRelativeMovable.class, IRelativeMovable.USER_MAY_MOVE);
+			IHasReferencePoint relativeMovableThing = Assemblies.getEditableThing(model, firstOrNull(t),
+					IHasReferencePoint.class, IHasMutableReferencePoint.USER_MAY_MOVE);
 			if (relativeMovableThing != null) {
 				Composite composite = view.getBNAUI().getComposite();
 				composite.setCursor(composite.getDisplay().getSystemCursor(SWT.CURSOR_HAND));
 				fireDragStartedEvent(currentEvent = new DragMoveEvent(view, evt, relativeMovableThing,
 						DefaultCoordinate.forLocal(new Point(evt.x, evt.y), view.getCoordinateMapper())));
-
 			}
 		}
 	}

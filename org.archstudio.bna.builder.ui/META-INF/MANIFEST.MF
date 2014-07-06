@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio BNA Builder UI
+Bundle-SymbolicName: org.archstudio.bna.builder.ui;singleton:=true
+Bundle-Version: 5.0.1.qualifier
+Bundle-Activator: org.archstudio.bna.builder.ui.Activator
+Bundle-Vendor: archstudio.org
+Require-Bundle: org.archstudio.eclipse,
+ org.archstudio.utils.osgi,
+ org.archstudio.myxgen.core,
+ org.archstudio.utils.eclipse.ui,
+ org.eclipse.core.resources,
+ org.eclipse.ui,
+ org.archstudio.myxgen.builder
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: org.archstudio.bna.builder.ui,
+ org.archstudio.bna.builder.ui.actions

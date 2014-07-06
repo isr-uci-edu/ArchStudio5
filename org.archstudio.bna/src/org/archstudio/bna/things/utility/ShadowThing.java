@@ -1,9 +1,8 @@
 package org.archstudio.bna.things.utility;
 
 import org.archstudio.bna.IBNAWorld;
-import org.archstudio.bna.things.AbstractThing;
 
-public class ShadowThing extends AbstractThing {
+public class ShadowThing extends ShadowThingBase {
 
 	public static ShadowThing createIn(IBNAWorld world) {
 		ShadowThing thing = getIn(world);

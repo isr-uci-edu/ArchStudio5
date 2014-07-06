@@ -11,8 +11,8 @@ abstract class AbstractThingMetakey<N, K extends IThingKey<?>, V> extends Abstra
 	protected final N name;
 	protected final K key;
 
-	protected AbstractThingMetakey(N name, K key, @Nullable Function<V, V> cloneFunction) {
-		super(Lists.newArrayList(name, key), cloneFunction);
+	protected AbstractThingMetakey(N name, K key, @Nullable Function<V, V> cloneFunction, boolean nullable) {
+		super(Lists.newArrayList(name, key), cloneFunction, nullable);
 		this.name = name;
 		this.key = key;
 	}

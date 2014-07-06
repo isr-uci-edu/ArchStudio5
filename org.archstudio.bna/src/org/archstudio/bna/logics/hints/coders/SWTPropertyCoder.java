@@ -38,20 +38,20 @@ public class SWTPropertyCoder implements IPropertyCoder {
 		try {
 			String type = encodedValue.getType();
 			String data = encodedValue.getData();
-			if (Rectangle.class.getName().equals(type)) {
+			if (Point.class.getName().equals(type)) {
+				String[] d = data.split(",");
+				Point v = new Point(0, 0);
+				v.x = Integer.parseInt(d[0]);
+				v.y = Integer.parseInt(d[1]);
+				return v;
+			}
+			else if (Rectangle.class.getName().equals(type)) {
 				String[] d = data.split(",");
 				Rectangle v = new Rectangle(0, 0, 0, 0);
 				v.x = Integer.parseInt(d[0]);
 				v.y = Integer.parseInt(d[1]);
 				v.width = Integer.parseInt(d[2]);
 				v.height = Integer.parseInt(d[3]);
-				return v;
-			}
-			else if (Point.class.getName().equals(type)) {
-				String[] d = data.split(",");
-				Point v = new Point(0, 0);
-				v.x = Integer.parseInt(d[0]);
-				v.y = Integer.parseInt(d[1]);
 				return v;
 			}
 			else if (RGB.class.getName().equals(type)) {

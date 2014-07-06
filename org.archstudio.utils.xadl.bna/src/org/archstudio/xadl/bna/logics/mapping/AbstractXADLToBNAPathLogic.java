@@ -165,7 +165,12 @@ public abstract class AbstractXADLToBNAPathLogic<T extends IThing> extends Abstr
 							thingValue = (B) xadlValue;
 						}
 					}
-					targetThing.set(thingValueKey, thingValue);
+					if (thingValue != null) {
+						targetThing.set(thingValueKey, thingValue);
+					}
+					else {
+						targetThing.remove(thingValueKey);
+					}
 				}
 			}
 		});

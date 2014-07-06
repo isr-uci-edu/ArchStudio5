@@ -13,10 +13,12 @@ import java.util.List;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2ES2;
+import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.things.AbstractRectangleThingPeer;
+import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.things.graphs.NumericAxis.Range;
 import org.archstudio.bna.things.graphs.NumericAxis.Value;
 import org.archstudio.bna.things.graphs.NumericSurfaceGraphThing.Data;
@@ -36,7 +38,7 @@ import com.google.common.collect.Lists;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.util.PMVMatrix;
 
-public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> extends AbstractRectangleThingPeer<T> {
+public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> extends AbstractThingPeer<T> {
 
 	private static final double NUDGE = 0.75;
 
@@ -157,7 +159,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 
 	@Override
 	public void draw(GC gc, Rectangle localBounds, ISWTResources r) {
-		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
 		if (!lbb.intersects(localBounds)) {
 			return;
 		}
@@ -171,26 +173,26 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 
 	@Override
 	public void draw(GL2ES2 gl, Rectangle localBounds, IJOGLResources r) {
-		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
 		if (!lbb.intersects(localBounds)) {
 			return;
 		}
 
 		PMVMatrix glMatrix = r.getMatrix();
 
-		Data thingData = t.getData();
-		boolean flipData = false; // t.getFlipData();
-		int xRotation = SystemUtils.loop(0, t.getXRotation(), 360);
-		int yRotation = SystemUtils.loop(0, t.getYRotation(), 360);
-		NumericAxis xMajorAxis = !flipData ? t.getXMajorAxis() : t.getYMajorAxis();
-		NumericAxis xMinorAxis = !flipData ? t.getXMinorAxis() : t.getYMinorAxis();
-		NumericAxis yMajorAxis = !flipData ? t.getYMajorAxis() : t.getXMajorAxis();
-		NumericAxis yMinorAxis = !flipData ? t.getYMinorAxis() : t.getXMinorAxis();
-		zMajorAxis = t.getZMajorAxis();
-		zMinorAxis = t.getZMinorAxis();
-		gridLinesAlpha = t.getGridAlpha();
-		minorContourAlpha = t.getMinorContourAlpha();
-		majorContourAlpha = t.getMajorContourAlpha();
+		Data thingData = t.getRawData();
+		boolean flipData = false;
+		int xRotation = SystemUtils.loop(0, t.getRawXRotation(), 360);
+		int yRotation = SystemUtils.loop(0, t.getRawYRotation(), 360);
+		NumericAxis xMajorAxis = !flipData ? t.getRawXMajorAxis() : t.getYMajorAxis();
+		NumericAxis xMinorAxis = !flipData ? t.getRawXMinorAxis() : t.getYMinorAxis();
+		NumericAxis yMajorAxis = !flipData ? t.getRawYMajorAxis() : t.getXMajorAxis();
+		NumericAxis yMinorAxis = !flipData ? t.getRawYMinorAxis() : t.getXMinorAxis();
+		zMajorAxis = t.getRawZMajorAxis();
+		zMinorAxis = t.getRawZMinorAxis();
+		gridLinesAlpha = t.getRawGridAlpha();
+		minorContourAlpha = t.getRawMinorContourAlpha();
+		majorContourAlpha = t.getRawMajorContourAlpha();
 
 		updateMinorAxis(xMajorAxis, xMinorAxis);
 		updateMinorAxis(yMajorAxis, yMinorAxis);
@@ -211,7 +213,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 		cacheValidConditions.add(minorContourAlpha > 0);
 		cacheValidConditions.add(majorContourAlpha > 0);
 		// don't use the local bounding box as it can vary slightly depending on location
-		cacheValidConditions.add(BNAUtils.toDimension(t.getBoundingBox()));
+		cacheValidConditions.add(BNAUtils.toDimension(t.getRawBoundingBox()));
 		cacheValidConditions.add(cm.getLocalScale());
 
 		if (!this.cacheValidConditions.equals(cacheValidConditions)) {
@@ -235,10 +237,10 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			}
 
 			// determine axis ranges
-			xRange = xMinorAxis.getAxisRange(0, data.getWidth() - 1);
+			xRange = xMajorAxis.getAxisRange(0, data.getWidth() - 1);
 			double xRangeMinOffset = xMajorAxis.toValue(xRange.min, xRange).linearOffset;
 			double xRangeMaxOffset = xMajorAxis.toValue(xRange.max, xRange).linearOffset;
-			yRange = yMinorAxis.getAxisRange(0, data.getHeight() - 1);
+			yRange = yMajorAxis.getAxisRange(0, data.getHeight() - 1);
 			double yRangeMinOffset = yMajorAxis.toValue(yRange.min, yRange).linearOffset;
 			double yRangeMaxOffset = yMajorAxis.toValue(yRange.max, yRange).linearOffset;
 			zRange = zMajorAxis.getAxisRange(dataMin, dataMax);
@@ -254,18 +256,18 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			double zMaxYMin = Double.POSITIVE_INFINITY;
 			double zMaxXMax = Double.NEGATIVE_INFINITY;
 			double zMaxYMax = Double.NEGATIVE_INFINITY;
-			glMatrix.glMatrixMode(PMVMatrix.GL_PROJECTION);
-			r.pushMatrix(PMVMatrix.GL_PROJECTION);
+			glMatrix.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
+			r.pushMatrix(GLMatrixFunc.GL_PROJECTION);
 			try {
 				glMatrix.glLoadIdentity();
 				glMatrix.glRotatef(90 - yRotation, 1, 0, 0);
 				glMatrix.glRotatef(xRotation, 0, 0, 1);
 				float[] f = new float[16];
-				glMatrix.glGetFloatv(PMVMatrix.GL_PROJECTION_MATRIX, f, 0);
+				glMatrix.glGetFloatv(GLMatrixFunc.GL_PROJECTION_MATRIX, f, 0);
 				matrix = Matrix.newColumnMajorMatrix(4, f);
 			}
 			finally {
-				r.popMatrix(PMVMatrix.GL_PROJECTION);
+				r.popMatrix(GLMatrixFunc.GL_PROJECTION);
 			}
 			for (double x : new double[] { xRangeMinOffset, xRangeMaxOffset }) {
 				for (double y : new double[] { yRangeMinOffset, yRangeMaxOffset }) {
@@ -382,19 +384,19 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			}
 
 			// calculate final matrix
-			r.pushMatrix(PMVMatrix.GL_PROJECTION);
+			r.pushMatrix(GLMatrixFunc.GL_PROJECTION);
 			try {
-				glMatrix.glMatrixMode(PMVMatrix.GL_PROJECTION);
+				glMatrix.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
 				glMatrix.glLoadIdentity();
 				glMatrix.glRotatef(90 - yRotation, 1, 0, 0);
 				glMatrix.glRotatef(xRotation, 0, 0, 1);
 				glMatrix.glScalef((float) xyScale, (float) xyScale, (float) zScale);
 				float[] f = new float[16];
-				glMatrix.glGetFloatv(PMVMatrix.GL_PROJECTION_MATRIX, f, 0);
+				glMatrix.glGetFloatv(GLMatrixFunc.GL_PROJECTION_MATRIX, f, 0);
 				matrix = Matrix.newColumnMajorMatrix(4, f);
 			}
 			finally {
-				r.popMatrix(PMVMatrix.GL_PROJECTION);
+				r.popMatrix(GLMatrixFunc.GL_PROJECTION);
 			}
 
 			// calculate points
@@ -500,12 +502,12 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 		}
 
 		// render graph
-		r.pushMatrix(PMVMatrix.GL_PROJECTION);
+		r.pushMatrix(GLMatrixFunc.GL_PROJECTION);
 		try {
 			gl.glEnable(GL.GL_DEPTH_TEST);
-			gl.glDepthFunc(GL2ES2.GL_LEQUAL);
+			gl.glDepthFunc(GL.GL_LEQUAL);
 
-			glMatrix.glMatrixMode(PMVMatrix.GL_PROJECTION);
+			glMatrix.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
 			glMatrix.glTranslatef(lbb.x + (float) originOffsetX, lbb.y + (float) originOffsetY, 0);
 			glMatrix.glRotatef(90 - yRotation, 1, 0, 0);
 			glMatrix.glRotatef(xRotation, 0, 0, 1);
@@ -516,7 +518,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			drawAxis(gl, localBounds, r, data, xMajorAxis, xMinorAxis, yMajorAxis, yMinorAxis, zMajorAxis, zMinorAxis);
 		}
 		finally {
-			r.popMatrix(PMVMatrix.GL_PROJECTION);
+			r.popMatrix(GLMatrixFunc.GL_PROJECTION);
 			gl.glDisable(GL.GL_DEPTH_TEST);
 		}
 
@@ -607,8 +609,8 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			r.drawText(font, label, x, y);
 		}
 
-		if (t.isSelected()) {
-			r.selectShape(new Rectangle2D.Double(lbb.x, lbb.y, lbb.width, lbb.height), t.getRotatingOffset());
+		if (t.isRawSelected()) {
+			r.selectShape(new Rectangle2D.Double(lbb.x, lbb.y, lbb.width, lbb.height), t.getRawRotatingOffset());
 		}
 	}
 
@@ -651,14 +653,14 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			vertices.put((float) t.p[2].z);
 
 		}
-		r.fillShape(GL2ES2.GL_TRIANGLES, vertices, colors, triangles.size() * 3);
+		r.fillShape(GL.GL_TRIANGLES, vertices, colors, triangles.size() * 3);
 
 		// render contours
 		double zNudge = NUDGE / zScale;
 		double xyNudge = NUDGE / xyScale;
-		r.pushMatrix(PMVMatrix.GL_PROJECTION);
+		r.pushMatrix(GLMatrixFunc.GL_PROJECTION);
 		try {
-			glMatrix.glMatrixMode(PMVMatrix.GL_PROJECTION);
+			glMatrix.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
 			for (double nudge : new double[] { -1, 2 }) {
 				glMatrix.glTranslatef((float) (nudge * (xCrossMin ? -xyNudge : xyNudge)),
 						(float) (nudge * (yCrossMin ? -xyNudge : xyNudge)), (float) (nudge * (zCrossMin ? -zNudge
@@ -680,7 +682,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			}
 		}
 		finally {
-			r.popMatrix(PMVMatrix.GL_PROJECTION);
+			r.popMatrix(GLMatrixFunc.GL_PROJECTION);
 		}
 	}
 
@@ -711,7 +713,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			vertices.put((float) line.z2);
 		}
 
-		r.drawShape(BNAUtils.toDimension(localBounds), GL2ES2.GL_LINES, vertices, colors, lines.size() * 2);
+		r.drawShape(BNAUtils.toDimension(localBounds), GL.GL_LINES, vertices, colors, lines.size() * 2);
 	}
 
 	private void setLineStyle(GL2ES2 gl, IJOGLResources r, NumericAxis axis) {
@@ -735,7 +737,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 		double zMin = zMajorAxis.toValue(zRange.min, zRange).linearOffset;
 		double zMax = zMajorAxis.toValue(zRange.max, zRange).linearOffset;
 
-		r.pushMatrix(PMVMatrix.GL_PROJECTION);
+		r.pushMatrix(GLMatrixFunc.GL_PROJECTION);
 		try {
 			double zNudge = NUDGE / zScale;
 			double xyNudge = NUDGE / xyScale;
@@ -748,7 +750,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			for (NumericAxis axis : Lists.newArrayList(xMinorAxis, xMajorAxis)) {
 				setLineStyle(gl, r, axis);
 				for (Value v : axis.getAxisValues(xRange)) {
-					r.drawShape(BNAUtils.toDimension(localBounds), GL2ES2.GL_LINES,
+					r.drawShape(BNAUtils.toDimension(localBounds), GL.GL_LINES,
 							Buffers.newDirectFloatBuffer(new float[] { //
 							//
 									(float) v.linearOffset, (float) yCrossOffset, (float) zMin, //
@@ -763,7 +765,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			for (NumericAxis axis : Lists.newArrayList(yMinorAxis, yMajorAxis)) {
 				setLineStyle(gl, r, axis);
 				for (Value v : axis.getAxisValues(yRange)) {
-					r.drawShape(BNAUtils.toDimension(localBounds), GL2ES2.GL_LINES,
+					r.drawShape(BNAUtils.toDimension(localBounds), GL.GL_LINES,
 							Buffers.newDirectFloatBuffer(new float[] { //
 							//
 									(float) xMin, (float) v.linearOffset, (float) zCrossOffset, //
@@ -778,7 +780,7 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			for (NumericAxis axis : Lists.newArrayList(zMinorAxis, zMajorAxis)) {
 				setLineStyle(gl, r, axis);
 				for (Value v : axis.getAxisValues(zRange)) {
-					r.drawShape(BNAUtils.toDimension(localBounds), GL2ES2.GL_LINES,
+					r.drawShape(BNAUtils.toDimension(localBounds), GL.GL_LINES,
 							Buffers.newDirectFloatBuffer(new float[] { //
 							//
 									(float) xMin, (float) yCrossOffset, (float) v.linearOffset, //
@@ -791,7 +793,12 @@ public class NumericSurfaceGraphThingPeer<T extends NumericSurfaceGraphThing> ex
 			}
 		}
 		finally {
-			r.popMatrix(PMVMatrix.GL_PROJECTION);
+			r.popMatrix(GLMatrixFunc.GL_PROJECTION);
 		}
+	}
+
+	@Override
+	public boolean isInThing(ICoordinate location) {
+		return t.getRawBoundingBox().contains(location.getWorldPoint());
 	}
 }

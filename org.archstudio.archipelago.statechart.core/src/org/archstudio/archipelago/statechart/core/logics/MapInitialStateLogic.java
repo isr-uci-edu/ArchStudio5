@@ -7,10 +7,10 @@ import org.archstudio.archipelago.core.ArchipelagoUtils;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasMutableAlpha;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.facets.IHasToolTip;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.things.shapes.EllipseThing;
 import org.archstudio.bna.utils.Assemblies;
@@ -67,7 +67,7 @@ public class MapInitialStateLogic extends AbstractXADLToBNAPathLogic<EllipseThin
 				});
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
-				IRelativeMovable.USER_MAY_MOVE, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
+				IHasMutableReferencePoint.USER_MAY_MOVE, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
 
 		return thing;
 	}

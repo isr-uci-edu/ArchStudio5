@@ -22,8 +22,8 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.IHasEdgeColor;
+import org.archstudio.bna.facets.IHasHidden;
 import org.archstudio.bna.facets.IHasLineData;
-import org.archstudio.bna.facets.IIsHidden;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.ui.utils.AbstractUIResources;
 import org.archstudio.bna.utils.BNAUtils;
@@ -139,7 +139,7 @@ public class SWTResources extends AbstractUIResources implements ISWTResources {
 		Map<Class<?>, AtomicLong[]> counts = Maps.newHashMap();
 		for (IThing thingToRender : model.getAllThings()) {
 			long time = System.nanoTime();
-			if (thingToRender.has(IIsHidden.HIDDEN_KEY, true)) {
+			if (thingToRender.has(IHasHidden.HIDDEN_KEY, true)) {
 				continue;
 			}
 			try {

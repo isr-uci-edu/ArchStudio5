@@ -5,9 +5,9 @@ import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThingLogicManager;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
@@ -136,6 +136,6 @@ public class SurfaceGraphDemo {
 		surface.setZMajorAxis(zAxis);
 
 		UserEditableUtils.addEditableQualities(surface, IHasMutableSelected.USER_MAY_SELECT,
-				IRelativeMovable.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE);
+				IHasMutableReferencePoint.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE);
 	}
 }

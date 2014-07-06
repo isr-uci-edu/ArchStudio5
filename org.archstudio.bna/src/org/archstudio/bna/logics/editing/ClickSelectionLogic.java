@@ -47,7 +47,8 @@ public class ClickSelectionLogic extends AbstractThingLogic implements IBNAMouse
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> t,
+			ICoordinate location) {
 		if (evt.button == 1) {
 			IHasMutableSelected selectableThing = Assemblies.getEditableThing(model, firstOrNull(t),
 					IHasMutableSelected.class, IHasMutableSelected.USER_MAY_SELECT);

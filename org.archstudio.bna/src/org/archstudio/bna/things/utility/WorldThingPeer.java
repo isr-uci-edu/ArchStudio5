@@ -7,15 +7,15 @@ import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.logics.tracking.ModelBoundsTrackingLogic;
-import org.archstudio.bna.things.AbstractRectangleThingPeer;
+import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAView;
 import org.archstudio.bna.utils.LinearCoordinateMapper;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThingPeer<T> implements IHasInnerViewPeer<T> {
+public class WorldThingPeer<T extends WorldThing> extends AbstractThingPeer<T> implements IHasInnerViewPeer<T> {
 
 	private IBNAView iView = null;
 
@@ -34,9 +34,9 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 	@Override
 	public IBNAView getInnerView() {
 		IBNAView iView = null;
-		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
 		if (lbb.height >= 5 && lbb.width >= 5) {
-			IBNAWorld iWorld = t.getWorld();
+			IBNAWorld iWorld = t.getRawWorld();
 			if (iWorld != null) {
 
 				// determine the offset and scale for the inner view
@@ -54,8 +54,8 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 					double yScale = (double) lbb.height / iBounds.height;
 					double parentScale = cm.getLocalScale();
 					double iScale = Math.min(parentScale, Math.min(xScale, yScale));
-					int dx = BNAUtils.round((lbb.width - iBounds.width * iScale) / 2);
-					int dy = BNAUtils.round((lbb.height - iBounds.height * iScale) / 2);
+					int dx = SystemUtils.round((lbb.width - iBounds.width * iScale) / 2);
+					int dy = SystemUtils.round((lbb.height - iBounds.height * iScale) / 2);
 					iMCM.setLocalScaleAndAlign(iScale, new Point(lbb.x + dx, lbb.y + dy), new Point(iBounds.x,
 							iBounds.y));
 				}
@@ -86,24 +86,29 @@ public class WorldThingPeer<T extends WorldThing> extends AbstractRectangleThing
 
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
-		if (localBounds.intersects(lbb)) {
-			IBNAView iView = getInnerView();
-			if (iView != null) {
-				r.renderThings(iView, localBounds);
-			}
+		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
+		if (!localBounds.intersects(lbb)) {
+			return false;
+		}
+
+		IBNAView iView = getInnerView();
+		if (iView != null) {
+			r.renderThings(iView, localBounds);
 		}
 
 		return true;
 	}
 
 	@Override
-	public boolean isInThing(ICoordinate coordinate) {
-		IBNAView iView = getInnerView();
-		if (iView != null) {
-			return super.isInThing(coordinate);
+	public boolean isInThing(ICoordinate location) {
+		Point worldPoint = location.getWorldPoint();
+
+		Rectangle wbb = t.getRawBoundingBox();
+		if (!wbb.contains(worldPoint)) {
+			return false;
 		}
-		return false;
+
+		return true;
 	}
 
 }

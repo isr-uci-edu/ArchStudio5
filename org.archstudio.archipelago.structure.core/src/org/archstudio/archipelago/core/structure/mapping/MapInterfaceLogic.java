@@ -11,19 +11,20 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasFlow;
-import org.archstudio.bna.facets.IHasLineWidth;
 import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableFlow;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
+import org.archstudio.bna.facets.IHasMutableToolTip;
 import org.archstudio.bna.facets.IHasToolTip;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.coordinating.ReorientDirectionalLabelToThingIDLogic;
 import org.archstudio.bna.logics.coordinating.ReparentToThingIDLogic;
 import org.archstudio.bna.logics.editing.ShowHideTagsLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
-import org.archstudio.bna.things.glass.EndpointGlassThing;
+import org.archstudio.bna.things.shapes.EndpointThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.archstudio.swtutils.constants.Flow;
 import org.archstudio.xadl.bna.facets.IHasXArchID;
@@ -36,10 +37,8 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
-import org.eclipse.swt.graphics.Point;
 
-public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassThing> implements
-		IPropertyChangeListener {
+public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointThing> implements IPropertyChangeListener {
 
 	private static final IXADLToBNATranslator<Direction, Flow> DIRECTION_TO_FLOW = new IXADLToBNATranslator<Direction, Flow>() {
 
@@ -90,7 +89,7 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
 		syncXAttribute("ext[*[namespace-uri()='" + Domain_3_0Package.eNS_URI + "']]/domain/type",
-				DOMAIN_TO_STICKY_MODE, null, BNAPath.create(Assemblies.BACKGROUND_KEY),
+				DOMAIN_TO_STICKY_MODE, null, BNAPath.emptyPath(),
 				stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), false);
 
 		loadPreferences();
@@ -118,31 +117,29 @@ public class MapInterfaceLogic extends AbstractXADLToBNAPathLogic<EndpointGlassT
 	synchronized public void propertyChange(PropertyChangeEvent event) {
 		loadPreferences();
 
-		for (EndpointGlassThing thing : getAddedThings()) {
-			Assemblies.BACKGROUND_KEY.get(thing, model).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
+		for (EndpointThing thing : getAddedThings()) {
+			thing.setLineWidth(defaultLineWidth);
 		}
 	}
 
 	@Override
-	protected EndpointGlassThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
+	protected EndpointThing addThing(List<ObjRef> relLineageRefs, ObjRef objRef) {
 
-		EndpointGlassThing thing = Assemblies.createEndpoint(world, null, null);
-		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(world);
-		thing.setAnchorPoint(newPointSpot);
+		EndpointThing thing = Assemblies.createEndpoint(world, null, null);
+		thing.setAnchorPoint(BNAUtils.toPoint2D(ArchipelagoUtils.getNewThingSpot(world)));
 
-		Assemblies.BACKGROUND_KEY.get(thing, model).set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
+		thing.setLineWidth(defaultLineWidth);
 
-		UserEditableUtils.addEditableQualities(thing, IRelativeMovable.USER_MAY_MOVE,
+		UserEditableUtils.addEditableQualities(thing, IHasMutableReferencePoint.USER_MAY_MOVE,
 				HighlightLogic.USER_MAY_HIGHLIGHT, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG,
-				IHasToolTip.USER_MAY_EDIT_TOOL_TIP, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
+				IHasMutableToolTip.USER_MAY_EDIT_TOOL_TIP, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
 		UserEditableUtils.addEditableQualities(Assemblies.DIRECTION_KEY.get(thing, model),
 				IHasMutableFlow.USER_MAY_EDIT_FLOW);
 
 		/*
 		 * restack on top of the thing representing the first ancestor (i.e., the component or connector)
 		 */
-		Assemblies.BACKGROUND_KEY.get(thing, model).set(
-				syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingKey()), relLineageRefs.get(1));
+		thing.set(syncLogic.syncObjRefKeyToThingIDKey(reparentLogic.getReparentToThingKey()), relLineageRefs.get(1));
 
 		/* orient to the parent thing */
 		Assemblies.DIRECTION_KEY.get(thing, model).set(

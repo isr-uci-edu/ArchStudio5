@@ -1,5 +1,7 @@
 package org.archstudio.bna.utils;
 
+import java.awt.geom.Point2D;
+
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
@@ -7,7 +9,7 @@ import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.swtutils.constants.HorizontalAlignment;
 import org.archstudio.swtutils.constants.VerticalAlignment;
-import org.eclipse.swt.graphics.Point;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Rectangle;
 
 public class BNAAlignUtils {
@@ -17,47 +19,43 @@ public class BNAAlignUtils {
 	public static void align(IThing[] things, VerticalAlignment a) {
 		switch (a) {
 		case TOP: {
-			int y = Integer.MAX_VALUE;
+			double y = Double.POSITIVE_INFINITY;
 			for (IThing t : things) {
 				if (t instanceof IHasBoundingBox) {
 					Rectangle boundingBox = ((IHasBoundingBox) t).getBoundingBox();
-					if (boundingBox.y < y) {
-						y = boundingBox.y;
-					}
+					y = Math.min(boundingBox.y, y);
 				}
 				else if (t instanceof IHasAnchorPoint) {
-					Point anchorPoint = ((IHasAnchorPoint) t).getAnchorPoint();
-					if (anchorPoint.y < y) {
-						y = anchorPoint.y;
-					}
+					Point2D anchorPoint = ((IHasAnchorPoint) t).getAnchorPoint();
+					y = Math.min(anchorPoint.getY(), y);
 				}
 			}
 			for (IThing t : things) {
 				if (t instanceof IHasMutableBoundingBox) {
 					Rectangle boundingBox = ((IHasMutableBoundingBox) t).getBoundingBox();
-					Rectangle newBoundingBox = new Rectangle(boundingBox.x, y, boundingBox.width, boundingBox.height);
-					((IHasMutableBoundingBox) t).setBoundingBox(newBoundingBox);
+					boundingBox.y = SystemUtils.round(y);
+					((IHasMutableBoundingBox) t).setBoundingBox(boundingBox);
 				}
 				else if (t instanceof IHasMutableAnchorPoint) {
-					Point anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
-					Point newAnchorPoint = new Point(anchorPoint.x, y);
-					((IHasMutableAnchorPoint) t).setAnchorPoint(newAnchorPoint);
+					Point2D anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
+					anchorPoint.setLocation(anchorPoint.getX(), y);
+					((IHasMutableAnchorPoint) t).setAnchorPoint(anchorPoint);
 				}
 			}
 		}
 			break;
 		case MIDDLE: {
-			int y = 0;
+			double y = 0;
 			int i = 0;
 			for (IThing t : things) {
 				if (t instanceof IHasBoundingBox) {
 					Rectangle boundingBox = ((IHasBoundingBox) t).getBoundingBox();
-					y = y + boundingBox.y + boundingBox.height / 2;
+					y += boundingBox.y + boundingBox.height / 2;
 					i++;
 				}
 				else if (t instanceof IHasAnchorPoint) {
-					Point anchorPoint = ((IHasAnchorPoint) t).getAnchorPoint();
-					y = y + anchorPoint.y;
+					Point2D anchorPoint = ((IHasAnchorPoint) t).getAnchorPoint();
+					y += anchorPoint.getY();
 					i++;
 				}
 			}
@@ -65,45 +63,39 @@ public class BNAAlignUtils {
 			for (IThing t : things) {
 				if (t instanceof IHasMutableBoundingBox) {
 					Rectangle boundingBox = ((IHasMutableBoundingBox) t).getBoundingBox();
-					Rectangle newBoundingBox = new Rectangle(boundingBox.x, y - boundingBox.height / 2,
-							boundingBox.width, boundingBox.height);
-					((IHasMutableBoundingBox) t).setBoundingBox(newBoundingBox);
+					boundingBox.y = SystemUtils.round(y) - boundingBox.height / 2;
+					((IHasMutableBoundingBox) t).setBoundingBox(boundingBox);
 				}
 				else if (t instanceof IHasMutableAnchorPoint) {
-					Point anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
-					Point newAnchorPoint = new Point(anchorPoint.x, y);
-					((IHasMutableAnchorPoint) t).setAnchorPoint(newAnchorPoint);
+					Point2D anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
+					anchorPoint.setLocation(anchorPoint.getX(), y);
+					((IHasMutableAnchorPoint) t).setAnchorPoint(anchorPoint);
 				}
 			}
 		}
 			break;
 		case BOTTOM: {
-			int y = Integer.MIN_VALUE;
+			double y = Double.NEGATIVE_INFINITY;
 			for (IThing t : things) {
 				if (t instanceof IHasBoundingBox) {
 					Rectangle boundingBox = ((IHasBoundingBox) t).getBoundingBox();
-					if (boundingBox.y + boundingBox.height > y) {
-						y = boundingBox.y + boundingBox.height;
-					}
+					y = Math.max(boundingBox.y + boundingBox.height, y);
 				}
 				else if (t instanceof IHasAnchorPoint) {
-					Point anchorPoint = ((IHasAnchorPoint) t).getAnchorPoint();
-					if (anchorPoint.y > y) {
-						y = anchorPoint.y;
-					}
+					Point2D anchorPoint = ((IHasAnchorPoint) t).getAnchorPoint();
+					y = Math.max(anchorPoint.getY(), y);
 				}
 			}
 			for (IThing t : things) {
 				if (t instanceof IHasMutableBoundingBox) {
 					Rectangle boundingBox = ((IHasMutableBoundingBox) t).getBoundingBox();
-					Rectangle newBoundingBox = new Rectangle(boundingBox.x, y - boundingBox.height, boundingBox.width,
-							boundingBox.height);
-					((IHasMutableBoundingBox) t).setBoundingBox(newBoundingBox);
+					boundingBox.y = SystemUtils.round(y) - boundingBox.height;
+					((IHasMutableBoundingBox) t).setBoundingBox(boundingBox);
 				}
 				else if (t instanceof IHasMutableAnchorPoint) {
-					Point anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
-					Point newAnchorPoint = new Point(anchorPoint.x, y);
-					((IHasMutableAnchorPoint) t).setAnchorPoint(newAnchorPoint);
+					Point2D anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
+					anchorPoint.setLocation(anchorPoint.getX(), y);
+					((IHasMutableAnchorPoint) t).setAnchorPoint(anchorPoint);
 				}
 			}
 		}
@@ -114,47 +106,43 @@ public class BNAAlignUtils {
 	public static void align(IThing[] things, HorizontalAlignment a) {
 		switch (a) {
 		case LEFT: {
-			int x = Integer.MAX_VALUE;
+			double x = Double.POSITIVE_INFINITY;
 			for (IThing t : things) {
 				if (t instanceof IHasBoundingBox) {
 					Rectangle boundingBox = ((IHasBoundingBox) t).getBoundingBox();
-					if (boundingBox.x < x) {
-						x = boundingBox.x;
-					}
+					x = Math.min(boundingBox.x, x);
 				}
 				else if (t instanceof IHasAnchorPoint) {
-					Point anchorPoint = ((IHasAnchorPoint) t).getAnchorPoint();
-					if (anchorPoint.y < x) {
-						x = anchorPoint.x;
-					}
+					Point2D anchorPoint = ((IHasAnchorPoint) t).getAnchorPoint();
+					x = Math.min(anchorPoint.getX(), x);
 				}
 			}
 			for (IThing t : things) {
 				if (t instanceof IHasMutableBoundingBox) {
 					Rectangle boundingBox = ((IHasMutableBoundingBox) t).getBoundingBox();
-					Rectangle newBoundingBox = new Rectangle(x, boundingBox.y, boundingBox.width, boundingBox.height);
-					((IHasMutableBoundingBox) t).setBoundingBox(newBoundingBox);
+					boundingBox.x = SystemUtils.round(x);
+					((IHasMutableBoundingBox) t).setBoundingBox(boundingBox);
 				}
 				else if (t instanceof IHasMutableAnchorPoint) {
-					Point anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
-					Point newAnchorPoint = new Point(x, anchorPoint.y);
-					((IHasMutableAnchorPoint) t).setAnchorPoint(newAnchorPoint);
+					Point2D anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
+					anchorPoint.setLocation(x, anchorPoint.getY());
+					((IHasMutableAnchorPoint) t).setAnchorPoint(anchorPoint);
 				}
 			}
 		}
 			break;
 		case CENTER: {
-			int x = 0;
+			double x = 0;
 			int i = 0;
 			for (IThing t : things) {
 				if (t instanceof IHasBoundingBox) {
 					Rectangle boundingBox = ((IHasBoundingBox) t).getBoundingBox();
-					x = x + boundingBox.x + boundingBox.width / 2;
+					x += boundingBox.x + boundingBox.width / 2;
 					i++;
 				}
 				else if (t instanceof IHasAnchorPoint) {
-					Point anchorPoint = ((IHasAnchorPoint) t).getAnchorPoint();
-					x = x + anchorPoint.x;
+					Point2D anchorPoint = ((IHasAnchorPoint) t).getAnchorPoint();
+					x += anchorPoint.getX();
 					i++;
 				}
 			}
@@ -162,45 +150,39 @@ public class BNAAlignUtils {
 			for (IThing t : things) {
 				if (t instanceof IHasMutableBoundingBox) {
 					Rectangle boundingBox = ((IHasMutableBoundingBox) t).getBoundingBox();
-					Rectangle newBoundingBox = new Rectangle(x - boundingBox.width / 2, boundingBox.y,
-							boundingBox.width, boundingBox.height);
-					((IHasMutableBoundingBox) t).setBoundingBox(newBoundingBox);
+					boundingBox.x = SystemUtils.round(x) - boundingBox.width / 2;
+					((IHasMutableBoundingBox) t).setBoundingBox(boundingBox);
 				}
 				else if (t instanceof IHasMutableAnchorPoint) {
-					Point anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
-					Point newAnchorPoint = new Point(x, anchorPoint.y);
-					((IHasMutableAnchorPoint) t).setAnchorPoint(newAnchorPoint);
+					Point2D anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
+					anchorPoint.setLocation(x, anchorPoint.getY());
+					((IHasMutableAnchorPoint) t).setAnchorPoint(anchorPoint);
 				}
 			}
 		}
 			break;
 		case RIGHT: {
-			int x = Integer.MIN_VALUE;
+			double x = Double.NEGATIVE_INFINITY;
 			for (IThing t : things) {
 				if (t instanceof IHasBoundingBox) {
 					Rectangle boundingBox = ((IHasBoundingBox) t).getBoundingBox();
-					if (boundingBox.x + boundingBox.width > x) {
-						x = boundingBox.x + boundingBox.width;
-					}
+					x = Math.max(boundingBox.x + boundingBox.width, x);
 				}
 				else if (t instanceof IHasAnchorPoint) {
-					Point anchorPoint = ((IHasAnchorPoint) t).getAnchorPoint();
-					if (anchorPoint.x > x) {
-						x = anchorPoint.x;
-					}
+					Point2D anchorPoint = ((IHasAnchorPoint) t).getAnchorPoint();
+					x = Math.max(anchorPoint.getX(), x);
 				}
 			}
 			for (IThing t : things) {
 				if (t instanceof IHasMutableBoundingBox) {
 					Rectangle boundingBox = ((IHasMutableBoundingBox) t).getBoundingBox();
-					Rectangle newBoundingBox = new Rectangle(x - boundingBox.width, boundingBox.y, boundingBox.width,
-							boundingBox.height);
-					((IHasMutableBoundingBox) t).setBoundingBox(newBoundingBox);
+					boundingBox.x = SystemUtils.round(x) - boundingBox.width;
+					((IHasMutableBoundingBox) t).setBoundingBox(boundingBox);
 				}
 				else if (t instanceof IHasMutableAnchorPoint) {
-					Point anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
-					Point newAnchorPoint = new Point(x, anchorPoint.y);
-					((IHasMutableAnchorPoint) t).setAnchorPoint(newAnchorPoint);
+					Point2D anchorPoint = ((IHasMutableAnchorPoint) t).getAnchorPoint();
+					anchorPoint.setLocation(x, anchorPoint.getY());
+					((IHasMutableAnchorPoint) t).setAnchorPoint(anchorPoint);
 				}
 			}
 		}

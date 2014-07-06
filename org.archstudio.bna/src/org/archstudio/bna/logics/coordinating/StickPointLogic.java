@@ -3,6 +3,7 @@ package org.archstudio.bna.logics.coordinating;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.awt.Shape;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import org.archstudio.bna.IBNAModel;
@@ -11,13 +12,12 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasShapeKeys;
-import org.archstudio.bna.facets.IIsSticky;
+import org.archstudio.bna.facets.IHasMutableLoopOrientation;
+import org.archstudio.bna.facets.IHasStickyShape;
 import org.archstudio.bna.keys.IThingKey;
-import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractCoordinatingThingLogic;
-import org.archstudio.bna.logics.coordinating.StickPointLogic.IHasLoopablePoint.LoopType;
 import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.swtutils.constants.Orientation;
 import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -30,37 +30,30 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 	public boolean DEBUG = false;
 
 	@NonNullByDefault
-	public static interface IHasSecondaryPoint extends IThing, IHasShapeKeys {
+	public static interface IHasSecondaryPoint extends IThing {
 
-		public Point getSecondaryPoint(IBNAModel model, StickPointLogic stickLogic, IThingKey<Point> pointKey);
+		public Point2D getSecondaryPoint(IBNAModel model, StickPointLogic stickLogic, IThingKey<Point2D> pointKey);
 
 	}
 
 	@NonNullByDefault
-	public static interface IHasLoopablePoint extends IHasSecondaryPoint {
+	public static interface IHasLoopablePoint extends IHasMutableLoopOrientation {
 
-		public static enum LoopType {
-			NONE, TOP_RIGHT, BOTTOM_LEFT
-		}
-
-		public static final IThingKey<LoopType> LOOP_TYPE_KEY = ThingKey.create("loop-type");
-
-		public LoopType getLoopType(IBNAModel model, StickPointLogic stickLogic, IThingKey<Point> pointKey);
-
-		public void setLoopType(LoopType loopType);
+		public Orientation getLoopOrientation(IBNAModel model, StickPointLogic stickLogic, IThingKey<Point2D> pointKey);
 
 	}
 
 	private class PointUpdater extends Updater {
 
 		final Object pointThingID;
-		final IThingKey<Point> pointKey;
+		final IThingKey<Point2D> pointKey;
 		final StickyMode stickyMode;
 		final Object stickyThingID;
 
 		Shape stickyShape = null;
 
-		public PointUpdater(IThing pointThing, IThingKey<Point> pointKey, StickyMode stickyMode, IIsSticky stickyThing) {
+		public PointUpdater(IThing pointThing, IThingKey<Point2D> pointKey, StickyMode stickyMode,
+				IHasStickyShape stickyThing) {
 			this.pointThingID = pointThing.getID();
 			this.pointKey = pointKey;
 			this.stickyMode = stickyMode;
@@ -68,11 +61,16 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 			stickyShape = stickyThing.getStickyShape();
 		}
 
+		private double select(int value, double negative, double zero, double positive) {
+			return value < 0 ? negative : value > 0 ? positive : zero;
+		}
+
 		@Override
 		public void update() {
 			IThing pointThing = model.getThing(pointThingID);
 			if (pointThing != null) {
-				IIsSticky stickyThing = SystemUtils.castOrNull(model.getThing(stickyThingID), IIsSticky.class);
+				IHasStickyShape stickyThing = SystemUtils.castOrNull(model.getThing(stickyThingID),
+						IHasStickyShape.class);
 				if (stickyThing != null) {
 
 					if (DEBUG) {
@@ -82,13 +80,19 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 								+ stickyThing.getStickyShape());
 					}
 
-					Point stuckPoint = pointThing.get(pointKey);
+					Point2D stuckPoint = pointThing.get(pointKey);
 
-					// adjust the point proportionally if the 'stickyThing' has resized/moved
+					// adjust the point proportionally if the 'stickyThing' has
+					// resized/moved
 					Shape newStickyShape = stickyThing.getStickyShape();
 					if (!newStickyShape.equals(stickyShape)) {
-						stuckPoint = BNAUtils.movePointWith(BNAUtils.toRectangle(stickyShape.getBounds()),
-								BNAUtils.toRectangle(newStickyShape.getBounds()), stuckPoint);
+						Rectangle2D from = stickyShape.getBounds2D();
+						Rectangle2D to = newStickyShape.getBounds2D();
+						double x = (stuckPoint.getX() - from.getMinX()) * to.getWidth() / from.getWidth()
+								+ to.getMinX();
+						double y = (stuckPoint.getY() - from.getMinY()) * to.getHeight() / from.getHeight()
+								+ to.getMinY();
+						stuckPoint.setLocation(x, y);
 						stickyShape = newStickyShape;
 					}
 
@@ -97,15 +101,16 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 
 						// get center point
 						Rectangle2D r = stickyShape.getBounds();
-						stuckPoint = new Point(BNAUtils.round(r.getCenterX()), BNAUtils.round(r.getCenterY()));
+						stuckPoint.setLocation(r.getCenterX(), r.getCenterY());
 
 					}
 						break;
 
 					case EDGE: {
 
-						// calculate the closest point on the sticky shape, given the current point as reference
-						stuckPoint = BNAUtils.getClosestPointOnShape(stickyShape, stuckPoint.x, stuckPoint.y);
+						// calculate the closest point on the sticky shape,
+						// given the current point as reference
+						stuckPoint = BNAUtils.getClosestPointOnShape(stickyShape, stuckPoint.getX(), stuckPoint.getY());
 
 					}
 						break;
@@ -116,62 +121,43 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 
 						// get center point
 						{
-							Rectangle2D r = stickyShape.getBounds();
-							stuckPoint = new Point(BNAUtils.round(r.getCenterX()), BNAUtils.round(r.getCenterY()));
+							Rectangle2D r = stickyShape.getBounds2D();
+							stuckPoint.setLocation(r.getCenterX(), r.getCenterY());
 						}
 
 						// get secondary point ...
-						Point secondaryPoint;
+						Point2D secondaryPoint;
 
 						// ... check for loop
-						LoopType loopType = LoopType.NONE;
 						if (pointThing instanceof IHasLoopablePoint) {
-							IHasLoopablePoint loopable = (IHasLoopablePoint) pointThing;
-							loopType = loopable.getLoopType(model, StickPointLogic.this, pointKey);
-						}
-						if (loopType != null && loopType != LoopType.NONE) {
+							Orientation loopOrientation = ((IHasLoopablePoint) pointThing).getLoopOrientation(model,
+									StickPointLogic.this, pointKey);
 
-							// determine top-right point offsets
-							Rectangle r = BNAUtils.toRectangle(stickyShape.getBounds());
-							int preferred = 30;
-							int x, dx = Math.min(preferred, r.width / 2);
-							int y, dy = Math.min(preferred, r.height / 2);
-							if (pointKey.equals(IHasEndpoints.ENDPOINT_1_KEY)) {
-								switch (loopType) {
-								case TOP_RIGHT:
-									x = r.x + r.width;
-									y = r.y + dy;
-									break;
-								case BOTTOM_LEFT:
-									x = r.x;
-									y = r.y + r.height - dy;
-									break;
-								default:
-									throw new IllegalArgumentException(loopType.toString());
+							if (loopOrientation != Orientation.NONE) {
+								// determine point offsets
+								Rectangle r = BNAUtils.toRectangle(stickyShape.getBounds());
+								double preferred = 30;
+								double x, dx = Math.min(preferred, r.width / 2);
+								double y, dy = Math.min(preferred, r.height / 2);
+								if (pointKey.equals(IHasEndpoints.ENDPOINT_1_KEY)) {
+									x = select(loopOrientation.getDeltaX(), r.x, 0, r.x + r.width);
+									y = select(loopOrientation.getDeltaY(), r.y + dy, 0, r.y + r.height - dy);
 								}
-							}
-							else if (pointKey.equals(IHasEndpoints.ENDPOINT_2_KEY)) {
-								switch (loopType) {
-								case TOP_RIGHT:
-									x = r.x + r.width - dx;
-									y = r.y;
-									break;
-								case BOTTOM_LEFT:
-									x = r.x + dx;
-									y = r.y + r.height;
-									break;
-								default:
-									throw new IllegalArgumentException(loopType.toString());
+								else if (pointKey.equals(IHasEndpoints.ENDPOINT_2_KEY)) {
+									x = select(loopOrientation.getDeltaX(), r.x + dx, 0, r.x + r.width - dx);
+									y = select(loopOrientation.getDeltaY(), r.y, 0, r.y + r.height);
 								}
+								else {
+									throw new IllegalArgumentException(pointKey.toString());
+								}
+								secondaryPoint = new Point2D.Double(x, y);
 							}
 							else {
-								throw new IllegalArgumentException(pointKey.toString());
+								// get secondary point
+								secondaryPoint = secondaryPointThing.getSecondaryPoint(model, StickPointLogic.this,
+										pointKey);
 							}
-
-							// get offset top-right point
-							secondaryPoint = new Point(x, y);
-
-							((IHasLoopablePoint) pointThing).setLoopType(loopType);
+							((IHasLoopablePoint) pointThing).setLoopOrientation(loopOrientation);
 						}
 						else {
 							// get secondary point
@@ -179,22 +165,23 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 									pointKey);
 
 							if (pointThing instanceof IHasLoopablePoint) {
-								((IHasLoopablePoint) pointThing).setLoopType(LoopType.NONE);
+								((IHasLoopablePoint) pointThing).setLoopOrientation(Orientation.NONE);
 							}
 						}
 
-						// calculate the closest point on the sticky shape, given the current point as reference
-						stuckPoint = BNAUtils.getClosestPointOnShape(stickyShape, secondaryPoint.x, secondaryPoint.y,
-								stuckPoint.x, stuckPoint.y);
+						// calculate the closest point on the sticky shape,
+						// given the current point as reference
+						stuckPoint = BNAUtils.getClosestPointOnShape(stickyShape, secondaryPoint.getX(),
+								secondaryPoint.getY(), stuckPoint.getX(), stuckPoint.getY());
 
 					}
 						break;
 					}
 
 					// update the actual stuck point
-					Point oldStuckPoint = pointThing.getAndSet(pointKey, stuckPoint);
-					if (!stuckPoint.equals(oldStuckPoint)) {
-						if (DEBUG) {
+					Point2D oldStuckPoint = pointThing.set(pointKey, stuckPoint);
+					if (DEBUG) {
+						if (!BNAUtils.like(stuckPoint, oldStuckPoint)) {
 							System.err.println("     -- " + oldStuckPoint + " -> " + stuckPoint);
 						}
 					}
@@ -207,8 +194,8 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 		super(world);
 	}
 
-	synchronized public void stick(IThing pointThing, IThingKey<Point> pointKey, StickyMode stickyMode,
-			IIsSticky stickyThing) {
+	synchronized public void stick(IThing pointThing, IThingKey<Point2D> pointKey, StickyMode stickyMode,
+			IHasStickyShape stickyThing) {
 		checkNotNull(pointThing);
 		checkNotNull(pointKey);
 		checkNotNull(stickyMode);
@@ -224,10 +211,8 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 			PointUpdater updater = new PointUpdater(pointThing, pointKey, stickyMode, stickyThing);
 			register(updater, pointThing, pointKey);
 
-			if (pointThing instanceof IHasShapeKeys) {
-				track(updater, pointThing, ((IHasShapeKeys) pointThing).getShapeModifyingKeys());
-				untrack(updater, pointThing, pointKey);
-			}
+			track(updater, pointThing, pointThing.getShapeModifyingKeys());
+			untrack(updater, pointThing, pointKey);
 			track(updater, stickyThing, stickyThing.getShapeModifyingKeys());
 		}
 		else {
@@ -235,7 +220,7 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 		}
 	}
 
-	synchronized public void unstick(IThing pointThing, IThingKey<Point> pointKey) {
+	synchronized public void unstick(IThing pointThing, IThingKey<Point2D> pointKey) {
 		checkNotNull(pointThing);
 		checkNotNull(pointKey);
 
@@ -255,7 +240,7 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 	}
 
 	synchronized public @Nullable
-	Object getStickyThingID(IThing pointThing, IThingKey<Point> pointKey) {
+	Object getStickyThingID(IThing pointThing, IThingKey<Point2D> pointKey) {
 		checkNotNull(pointThing);
 		checkNotNull(pointKey);
 
@@ -267,22 +252,22 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 	}
 
 	synchronized public @Nullable
-	IIsSticky getStickyThing(IThing pointThing, IThingKey<Point> pointKey) {
+	IHasStickyShape getStickyThing(IThing pointThing, IThingKey<Point2D> pointKey) {
 		checkNotNull(pointThing);
 		checkNotNull(pointKey);
 
 		PointUpdater updater = getRegistered(pointThing, pointKey);
 		if (updater != null) {
-			return SystemUtils.castOrNull(model.getThing(updater.stickyThingID), IIsSticky.class);
+			return SystemUtils.castOrNull(model.getThing(updater.stickyThingID), IHasStickyShape.class);
 		}
 		return null;
 	}
 
-	synchronized public Point getStuckPoint(IThing pointThing, IThingKey<Point> pointKey) {
+	synchronized public Point2D getStuckPoint(IThing pointThing, IThingKey<Point2D> pointKey) {
 		return getStuckPoint(pointThing, pointKey, pointThing.get(pointKey));
 	}
 
-	synchronized public Point getStuckPoint(IThing pointThing, IThingKey<Point> pointKey, Point stuckPoint) {
+	synchronized public Point2D getStuckPoint(IThing pointThing, IThingKey<Point2D> pointKey, Point2D stuckPoint) {
 		/*
 		 * Check to see if the point is stuck to something, and if stuck to the center point of that thing, return the
 		 * center point rather than the secondary point as this will be more accurate
@@ -290,7 +275,8 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 		PointUpdater updater = getRegistered(pointThing, pointKey);
 		if (updater != null) {
 			if (updater.stickyMode.isStuckToCenterPoint()) {
-				IIsSticky stickyThing = SystemUtils.castOrNull(model.getThing(updater.stickyThingID), IIsSticky.class);
+				IHasStickyShape stickyThing = SystemUtils.castOrNull(model.getThing(updater.stickyThingID),
+						IHasStickyShape.class);
 				if (stickyThing != null) {
 
 					// if so, get the center point of what it's stuck to
@@ -301,8 +287,8 @@ public class StickPointLogic extends AbstractCoordinatingThingLogic implements I
 		return stuckPoint;
 	}
 
-	synchronized public boolean isLoopingPoint(IThing pointThing, IThingKey<Point> endpoint1Key,
-			IThingKey<Point> endpoint2Key) {
+	synchronized public boolean isLoopingPoint(IThing pointThing, IThingKey<Point2D> endpoint1Key,
+			IThingKey<Point2D> endpoint2Key) {
 		PointUpdater endpoint1Updater = getRegistered(pointThing, endpoint1Key);
 		PointUpdater endpoint2Updater = getRegistered(pointThing, endpoint2Key);
 		if (endpoint1Updater != null && endpoint2Updater != null) {

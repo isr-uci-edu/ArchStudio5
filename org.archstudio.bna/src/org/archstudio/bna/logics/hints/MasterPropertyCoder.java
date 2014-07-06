@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.archstudio.bna.logics.hints.coders.CollectionPropertyCoder;
 import org.archstudio.bna.logics.hints.coders.EnumPropertyCoder;
+import org.archstudio.bna.logics.hints.coders.GeomPropertyCoder;
 import org.archstudio.bna.logics.hints.coders.NativePropertyCoder;
 import org.archstudio.bna.logics.hints.coders.SWTPropertyCoder;
 
@@ -19,6 +20,7 @@ public class MasterPropertyCoder implements IPropertyCoder {
 		propertyCoders.add(new CollectionPropertyCoder());
 		propertyCoders.add(new EnumPropertyCoder());
 		propertyCoders.add(new SWTPropertyCoder());
+		propertyCoders.add(new GeomPropertyCoder());
 	}
 
 	@Override

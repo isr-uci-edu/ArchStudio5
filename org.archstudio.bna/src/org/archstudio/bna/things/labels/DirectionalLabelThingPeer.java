@@ -4,9 +4,10 @@ import java.awt.Shape;
 import java.awt.geom.Path2D;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.facets.IHasColor;
-import org.archstudio.bna.things.AbstractRectangleThingPeer;
+import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.swtutils.constants.Flow;
@@ -14,7 +15,7 @@ import org.archstudio.swtutils.constants.Orientation;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends AbstractRectangleThingPeer<T> {
+public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends AbstractThingPeer<T> {
 
 	protected Shape createTriangle(Orientation o, Rectangle lbb) {
 
@@ -98,18 +99,18 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
-		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
 		if (!localBounds.intersects(lbb)) {
 			return false;
 		}
 
-		flow = t.getFlow();
-		if (flow.equals(Flow.NONE)) {
+		flow = t.getRawFlow();
+		if (flow == Flow.NONE) {
 			return false;
 		}
 
-		orientation = t.getOrientation();
-		if (orientation.equals(Orientation.NONE)) {
+		orientation = t.getRawOrientation();
+		if (orientation == Orientation.NONE) {
 			return false;
 		}
 
@@ -133,7 +134,7 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 				/*
 				 * For "in" facing flows, the triangle points in the opposite direction.
 				 */
-				r.fillShape(createTriangle(orientation.opposite(), lbb), null, null);
+				r.fillShape(createTriangle(orientation.getOpposite(), lbb), null, null);
 				break;
 
 			case OUT:
@@ -215,4 +216,8 @@ public class DirectionalLabelThingPeer<T extends DirectionalLabelThing> extends 
 		return true;
 	}
 
+	@Override
+	public boolean isInThing(ICoordinate location) {
+		return t.getRawBoundingBox().contains(location.getWorldPoint());
+	}
 }

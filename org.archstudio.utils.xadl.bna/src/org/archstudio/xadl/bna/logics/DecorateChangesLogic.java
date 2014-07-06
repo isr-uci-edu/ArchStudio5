@@ -6,22 +6,14 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasAlpha;
-import org.archstudio.bna.facets.IHasBoundingBox;
-import org.archstudio.bna.facets.IHasColor;
-import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasMidpoints;
-import org.archstudio.bna.facets.IHasPoints;
+import org.archstudio.bna.facets.IHasBackground;
+import org.archstudio.bna.facets.IHasMutableGlow;
 import org.archstudio.bna.facets.IHasSelected;
-import org.archstudio.bna.facets.IIsBackground;
 import org.archstudio.bna.keys.IThingKey;
-import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
-import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
-import org.archstudio.bna.things.borders.RectangleGlowThing;
-import org.archstudio.bna.things.borders.SplineGlowThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
@@ -39,7 +31,6 @@ import org.eclipse.swt.widgets.Display;
 public class DecorateChangesLogic extends AbstractThingLogic implements IXArchADTVariabilityListener, IBNAModelListener {
 
 	private static final IThingKey<ChangeStatus> CHANGE_STATUS_KEY = ThingKey.create("ChangeStatus");
-	private static final IThingRefKey<IThing> CHANGE_DECORATION_KEY = ThingRefKey.create("ChangeStatusDecoration");
 
 	protected final ThingValueTrackingLogic valueLogic;
 	protected final MirrorValueLogic mirrorLogic;
@@ -136,37 +127,23 @@ public class DecorateChangesLogic extends AbstractThingLogic implements IXArchAD
 	private void updateDecoration(IThing t, RGB rgb, float alpha, boolean editable) {
 		removeDecoration(t);
 		updateAttributes(t, alpha, editable);
-		IThing decoration = null;
-		if (t instanceof IHasPoints) {
-			decoration = model.addThing(new SplineGlowThing(null), t);
-			mirrorLogic.mirrorValue(t, IHasEndpoints.ENDPOINT_1_KEY, decoration);
-			mirrorLogic.mirrorValue(t, IHasEndpoints.ENDPOINT_2_KEY, decoration);
-			mirrorLogic.mirrorValue(t, IHasMidpoints.MIDPOINTS_KEY, decoration);
-		}
-		else if (t instanceof IHasBoundingBox) {
-			decoration = model.addThing(new RectangleGlowThing(null), t);
-			mirrorLogic.mirrorValue(t, IHasBoundingBox.BOUNDING_BOX_KEY, decoration);
-		}
-		if (decoration != null) {
-			model.sendToBack(decoration);
-			decoration.set(IHasColor.COLOR_KEY, rgb);
-			CHANGE_DECORATION_KEY.set(t, decoration);
+		if (t instanceof IHasMutableGlow) {
+			((IHasMutableGlow) t).setGlowColor(rgb);
+			((IHasMutableGlow) t).setGlowAlpha(alpha);
 		}
 	}
 
 	protected void removeDecoration(IThing t) {
-		IThing d = CHANGE_DECORATION_KEY.get(t, model);
-		if (d != null) {
-			model.removeThingAndChildren(d);
+		if (t instanceof IHasMutableGlow) {
+			((IHasMutableGlow) t).setGlowColor(null);
 		}
 		t.remove(CHANGE_STATUS_KEY);
-		t.remove(CHANGE_DECORATION_KEY);
 		updateAttributes(t, 1f, true);
 	}
 
 	private void updateAttributes(IThing t, float alpha, boolean editable) {
 		t.set(IHasAlpha.ALPHA_KEY, alpha);
-		t.set(IIsBackground.BACKGROUND_KEY, !editable);
+		t.set(IHasBackground.BACKGROUND_KEY, !editable);
 		if (!editable && t.has(IHasSelected.SELECTED_KEY, true)) {
 			t.set(IHasSelected.SELECTED_KEY, false);
 		}

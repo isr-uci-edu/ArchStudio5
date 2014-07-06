@@ -5,15 +5,19 @@ import static org.archstudio.sysutils.SystemUtils.simpleName;
 import java.util.List;
 
 import org.archstudio.bna.CoordinateMapperEvent;
+import org.archstudio.bna.CoordinateMapperEvent.EventType;
 import org.archstudio.bna.ICoordinateMapperListener;
 import org.archstudio.bna.IMutableCoordinateMapper;
-import org.archstudio.bna.CoordinateMapperEvent.EventType;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Lists;
 
 public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapper, Cloneable {
+
+	public static final double MIN_SCALE = Math.pow(Math.sqrt(2), -10);
+	public static final double MAX_SCALE = Math.pow(Math.sqrt(2), 10);
 
 	public static final Rectangle getDefaultBounds() {
 		return new Rectangle(-100000, -100000, 200000, 200000);
@@ -97,6 +101,7 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 
 	@Override
 	public void setLocalScale(double localScale) {
+		localScale = SystemUtils.bound(MIN_SCALE, localScale, MAX_SCALE);
 		if (Math.abs(this.localScale - localScale) > Double.MIN_VALUE) {
 			this.localScale = localScale;
 			fireCoordinateMapperEvent(EventType.LOCAL_SCALE);
@@ -116,6 +121,7 @@ public abstract class AbstractCoordinateMapper implements IMutableCoordinateMapp
 
 	@Override
 	public void setLocalScaleAndAlign(double localScale, Point localPoint, Point worldPoint) {
+		localScale = SystemUtils.bound(MIN_SCALE, localScale, MAX_SCALE);
 		if (Math.abs(this.localScale - localScale) > Double.MIN_VALUE) {
 			this.localScale = localScale;
 			Point oldLocalPoint = worldToLocal(new Point(worldPoint.x, worldPoint.y));

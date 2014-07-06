@@ -13,34 +13,24 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.StickyMode;
-import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
-import org.archstudio.bna.facets.IHasColor;
-import org.archstudio.bna.facets.IHasEdgeColor;
-import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasLineData;
-import org.archstudio.bna.facets.IHasLineStyle;
-import org.archstudio.bna.facets.IHasLineWidth;
-import org.archstudio.bna.facets.IHasText;
+import org.archstudio.bna.facets.IHasStickyShape;
 import org.archstudio.bna.facets.IHasWorld;
-import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.keys.ThingRefKey;
-import org.archstudio.bna.logics.coordinating.ArrowheadLogic;
-import org.archstudio.bna.logics.coordinating.ArrowheadLogic.IHasArrowheadStemPoint;
 import org.archstudio.bna.logics.coordinating.MirrorBoundingBoxLogic;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.coordinating.OrientDirectionalLabelLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.events.WorldThingExternalEventsLogic;
-import org.archstudio.bna.things.glass.EndpointGlassThing;
-import org.archstudio.bna.things.labels.ArrowheadThing;
+import org.archstudio.bna.things.labels.AnchoredLabelThing;
 import org.archstudio.bna.things.labels.BoundedLabelThing;
 import org.archstudio.bna.things.labels.DirectionalLabelThing;
 import org.archstudio.bna.things.shapes.EllipseThing;
+import org.archstudio.bna.things.shapes.EndpointThing;
 import org.archstudio.bna.things.shapes.MappingThing;
 import org.archstudio.bna.things.shapes.PolygonThing;
 import org.archstudio.bna.things.shapes.RectangleThing;
@@ -50,7 +40,6 @@ import org.archstudio.bna.things.utility.NoThing;
 import org.archstudio.bna.things.utility.WorldThing;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 
 import com.google.common.collect.Lists;
@@ -405,12 +394,11 @@ public final class Assemblies {
 		return layerThing;
 	}
 
-	public static final IThingRefKey<IThing> BACKGROUND_KEY = ThingRefKey.create("assembly-background");
-	public static final IThingRefKey<IHasText> TEXT_KEY = ThingRefKey.create("assembly-text");
+	public static final IThingRefKey<AnchoredLabelThing> ANCHORED_TEXT_KEY = ThingRefKey
+			.create("assembly-anchored_text");
+	public static final IThingRefKey<BoundedLabelThing> BOUNDED_TEXT_KEY = ThingRefKey.create("assembly-bounded-text");
 	public static final IThingRefKey<DirectionalLabelThing> DIRECTION_KEY = ThingRefKey.create("assembly-direction");
-	public static final IThingRefKey<IHasWorld> WORLD_KEY = ThingRefKey.create("assembly-world");
-	public static final IThingRefKey<ArrowheadThing> ARROWHEAD_1_KEY = ThingRefKey.create("assembly-arrowhead-1");
-	public static final IThingRefKey<ArrowheadThing> ARROWHEAD_2_KEY = ThingRefKey.create("assembly-arrowhead-2");
+	public static final IThingRefKey<WorldThing> WORLD_KEY = ThingRefKey.create("assembly-world");
 
 	public static final EllipseThing createEllipse(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
 		checkNotNull(world);
@@ -422,13 +410,11 @@ public final class Assemblies {
 		BoundedLabelThing label = model.addThing(new BoundedLabelThing(null), bkg);
 
 		markRoot(bkg);
-		markPart(bkg, TEXT_KEY, label);
+		markPart(bkg, BOUNDED_TEXT_KEY, label);
 
 		IThingLogicManager tlm = world.getThingLogicManager();
-		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
 
-		mvl.mirrorValue(bkg, IHasAlpha.ALPHA_KEY, label);
 		mbbl.mirrorBoundingBox(bkg, label, new Insets(3, 3, 3, 3));
 
 		return bkg;
@@ -444,13 +430,11 @@ public final class Assemblies {
 		BoundedLabelThing label = model.addThing(new BoundedLabelThing(null), bkg);
 
 		markRoot(bkg);
-		markPart(bkg, TEXT_KEY, label);
+		markPart(bkg, BOUNDED_TEXT_KEY, label);
 
 		IThingLogicManager tlm = world.getThingLogicManager();
-		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
 
-		mvl.mirrorValue(bkg, IHasAlpha.ALPHA_KEY, label);
 		mbbl.mirrorBoundingBox(bkg, label, new Insets(3, 3, 3, 3));
 
 		return bkg;
@@ -469,10 +453,8 @@ public final class Assemblies {
 
 		IThingLogicManager tlm = world.getThingLogicManager();
 		tlm.addThingLogic(WorldThingExternalEventsLogic.class);
-		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
 		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
 
-		mvl.mirrorValue(backgroundThing, IHasAlpha.ALPHA_KEY, worldThing);
 		mbbl.mirrorBoundingBox(backgroundThing, worldThing, new Insets(6, 6, 6, 6));
 
 		return backgroundThing;
@@ -491,42 +473,36 @@ public final class Assemblies {
 		return bkg;
 	}
 
-	public static final EndpointGlassThing createEndpoint(IBNAWorld world, @Nullable Object id,
-			@Nullable IIsSticky parent) {
+	public static final EndpointThing createEndpoint(IBNAWorld world, @Nullable Object id,
+			@Nullable IHasStickyShape parent) {
 		checkNotNull(world);
 
 		IBNAModel model = world.getBNAModel();
 
-		RectangleThing bkg = model.addThing(new RectangleThing(null),
-				parent != null ? parent : getLayer(model, Layer.TOP));
+		EndpointThing bkg = model.addThing(new EndpointThing(null), parent != null ? parent
+				: getLayer(model, Layer.TOP));
 		bkg.setColor(new RGB(255, 255, 255));
 		bkg.setSecondaryColor(null);
 		DirectionalLabelThing direction = model.addThing(new DirectionalLabelThing(null), bkg);
-		//FIXME: direction.setLocalInsets(new Insets(2, 2, 2, 2));
-		EndpointGlassThing glass = model.addThing(new EndpointGlassThing(id), bkg);
 
-		markRoot(glass);
-		markPart(glass, BACKGROUND_KEY, bkg);
-		markPart(glass, DIRECTION_KEY, direction);
+		markRoot(bkg);
+		markPart(bkg, DIRECTION_KEY, direction);
 
 		IThingLogicManager tlm = world.getThingLogicManager();
-		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
+		MirrorBoundingBoxLogic mbbl = tlm.addThingLogic(MirrorBoundingBoxLogic.class);
 
-		mvl.mirrorValue(glass, IHasAlpha.ALPHA_KEY, bkg);
-		mvl.mirrorValue(glass, IHasAlpha.ALPHA_KEY, direction);
-		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, bkg);
-		mvl.mirrorValue(glass, IHasBoundingBox.BOUNDING_BOX_KEY, direction);
+		mbbl.mirrorBoundingBox(bkg, direction, new Insets(2, 2, 2, 2));
 
 		if (parent != null) {
 			StickPointLogic stickLogic = tlm.addThingLogic(StickPointLogic.class);
-			stickLogic.stick(glass, IHasAnchorPoint.ANCHOR_POINT_KEY, StickyMode.EDGE, parent);
+			stickLogic.stick(bkg, IHasAnchorPoint.ANCHOR_POINT_KEY, StickyMode.EDGE, parent);
 			if (parent instanceof IHasBoundingBox) {
 				OrientDirectionalLabelLogic orientLogic = tlm.addThingLogic(OrientDirectionalLabelLogic.class);
 				orientLogic.orient((IHasBoundingBox) parent, direction);
 			}
 		}
 
-		return glass;
+		return bkg;
 	}
 
 	public static final SplineThing createSpline(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {
@@ -540,32 +516,6 @@ public final class Assemblies {
 		markRoot(bkg);
 
 		return bkg;
-	}
-
-	public static final <T extends IHasEndpoints & IHasArrowheadStemPoint & IHasEdgeColor & IHasLineData> T addArrowhead(
-			IBNAWorld world, T splineThing, IThingKey<Point> endpointKey, @Nullable Object id, @Nullable IThing parent) {
-		checkNotNull(world);
-
-		IBNAModel model = world.getBNAModel();
-
-		ArrowheadThing arrowheadThing = model.addThing(new ArrowheadThing(id),
-				parent != null ? parent : getLayer(model, Layer.ARROWHEAD));
-
-		markRoot(splineThing);
-		markPart(splineThing, endpointKey == IHasEndpoints.ENDPOINT_1_KEY ? ARROWHEAD_1_KEY : ARROWHEAD_2_KEY,
-				arrowheadThing);
-
-		IThingLogicManager tlm = world.getThingLogicManager();
-		ArrowheadLogic al = tlm.addThingLogic(ArrowheadLogic.class);
-		MirrorValueLogic mvl = tlm.addThingLogic(MirrorValueLogic.class);
-
-		mvl.mirrorValue(splineThing, IHasAlpha.ALPHA_KEY, arrowheadThing);
-		al.attach(arrowheadThing, splineThing, endpointKey);
-		mvl.mirrorValue(splineThing, IHasEdgeColor.EDGE_COLOR_KEY, arrowheadThing, IHasColor.COLOR_KEY);
-		mvl.mirrorValue(splineThing, IHasLineStyle.LINE_STYLE_KEY, arrowheadThing);
-		mvl.mirrorValue(splineThing, IHasLineWidth.LINE_WIDTH_KEY, arrowheadThing);
-
-		return splineThing;
 	}
 
 	public static final MappingThing createMapping(IBNAWorld world, @Nullable Object id, @Nullable IThing parent) {

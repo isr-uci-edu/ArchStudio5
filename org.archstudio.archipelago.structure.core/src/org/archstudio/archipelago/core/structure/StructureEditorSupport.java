@@ -1,6 +1,7 @@
 package org.archstudio.archipelago.core.structure;
 
 import java.awt.Dimension;
+import java.awt.geom.Point2D;
 
 import org.archstudio.archipelago.core.ArchipelagoConstants;
 import org.archstudio.archipelago.core.ArchipelagoMyxComponent;
@@ -20,8 +21,8 @@ import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.GridDisplayType;
+import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
@@ -87,7 +88,6 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
@@ -283,32 +283,28 @@ public class StructureEditorSupport {
 		logics.addThingLogic(new ExportImportGexf(world) {
 			@Override
 			protected boolean isNodeOfInterest(IBNAModel model, IThing node) {
-				return Assemblies.getEditableThing(model, node, IHasMutableBoundingBox.class,
-						IHasMutableSize.USER_MAY_RESIZE) == node;
+				return Assemblies.getEditableThing(model, node, IHasBoundingBox.class, IHasMutableSize.USER_MAY_RESIZE) == node;
 			}
 
 			@Override
-			protected IThing getNodeFromEdgeEndpoint(IBNAModel model, IThing edge, IThingKey<Point> endpointKey,
+			protected IThing getNodeFromEdgeEndpoint(IBNAModel model, IThing edge, IThingKey<Point2D> endpointKey,
 					StickPointLogic spl) {
 				IThing endpointRoot = super.getNodeFromEdgeEndpoint(model, edge, endpointKey, spl);
-				IThing endpointBkg = Assemblies.getPart(model, endpointRoot, Assemblies.BACKGROUND_KEY);
-				IThing brick = Assemblies.getRoot(model, model.getParentThing(endpointBkg));
+				IThing brick = Assemblies.getRoot(model, model.getParentThing(endpointRoot));
 				return brick;
 			}
 		});
 		logics.addThingLogic(new ExportImportDot(world) {
 			@Override
 			protected boolean isNodeOfInterest(IBNAModel model, IThing node) {
-				return Assemblies.getEditableThing(model, node, IHasMutableBoundingBox.class,
-						IHasMutableSize.USER_MAY_RESIZE) == node;
+				return Assemblies.getEditableThing(model, node, IHasBoundingBox.class, IHasMutableSize.USER_MAY_RESIZE) == node;
 			}
 
 			@Override
-			protected IThing getNodeFromEdgeEndpoint(IBNAModel model, IThing edge, IThingKey<Point> endpointKey,
+			protected IThing getNodeFromEdgeEndpoint(IBNAModel model, IThing edge, IThingKey<Point2D> endpointKey,
 					StickPointLogic spl) {
 				IThing endpointRoot = super.getNodeFromEdgeEndpoint(model, edge, endpointKey, spl);
-				IThing endpointBkg = Assemblies.getPart(model, endpointRoot, Assemblies.BACKGROUND_KEY);
-				IThing brick = Assemblies.getRoot(model, model.getParentThing(endpointBkg));
+				IThing brick = Assemblies.getRoot(model, model.getParentThing(endpointRoot));
 				return brick;
 			}
 		});

@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.bna.IScrollableCoordinateMapper;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -16,17 +17,17 @@ public class LinearCoordinateMapper extends AbstractCoordinateMapper implements 
 	@Override
 	public Rectangle getLocalBounds() {
 		return new Rectangle(//
-				BNAUtils.round(worldBounds.x * localScale), //
-				BNAUtils.round(worldBounds.y * localScale), //
-				BNAUtils.round(worldBounds.width * localScale), //
-				BNAUtils.round(worldBounds.height * localScale));
+				SystemUtils.round(worldBounds.x * localScale), //
+				SystemUtils.round(worldBounds.y * localScale), //
+				SystemUtils.round(worldBounds.width * localScale), //
+				SystemUtils.round(worldBounds.height * localScale));
 	}
 
 	@Override
 	public Point worldToLocal(Point worldPoint) {
 		return new Point(//
-				BNAUtils.round(worldPoint.x * localScale - localOrigin.x), //
-				BNAUtils.round(worldPoint.y * localScale - localOrigin.y));
+				SystemUtils.round(worldPoint.x * localScale - localOrigin.x), //
+				SystemUtils.round(worldPoint.y * localScale - localOrigin.y));
 	}
 
 	@Override
@@ -39,8 +40,8 @@ public class LinearCoordinateMapper extends AbstractCoordinateMapper implements 
 	@Override
 	public Point localToWorld(Point localPoint) {
 		return new Point(//
-				BNAUtils.round((localPoint.x + localOrigin.x) / localScale), //
-				BNAUtils.round((localPoint.y + localOrigin.y) / localScale));
+				SystemUtils.round((localPoint.x + localOrigin.x) / localScale), //
+				SystemUtils.round((localPoint.y + localOrigin.y) / localScale));
 	}
 
 	@Override

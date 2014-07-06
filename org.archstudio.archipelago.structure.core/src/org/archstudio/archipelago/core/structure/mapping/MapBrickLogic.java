@@ -14,7 +14,7 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableColor;
-import org.archstudio.bna.facets.IHasMutableFontData;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasMutableText;
@@ -23,10 +23,10 @@ import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IHasWorld;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.events.WorldThingInternalEventsLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
+import org.archstudio.bna.things.labels.BoundedLabelThing;
 import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAPath;
@@ -82,7 +82,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 		this.defaultFontPref = defaultFontPref;
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
-		syncValue("name", null, "[no name]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY, true);
+		syncValue("name", null, "[no name]", BNAPath.create(Assemblies.BOUNDED_TEXT_KEY), IHasText.TEXT_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
 		addBNAUpdater(new IBNAUpdater() {
 
@@ -128,10 +128,10 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 				}
 			}
 
-			((IHasMutableFontData) Assemblies.TEXT_KEY.get(thing, model)).setFontName(defaultFont.getName());
-			((IHasMutableFontData) Assemblies.TEXT_KEY.get(thing, model)).setFontSize(defaultFont.getHeight());
-			((IHasMutableFontData) Assemblies.TEXT_KEY.get(thing, model)).setFontStyle(FontStyle.fromSWT(defaultFont
-					.getStyle()));
+			BoundedLabelThing label = Assemblies.BOUNDED_TEXT_KEY.get(thing, model);
+			label.setFontName(defaultFont.getName());
+			label.setFontSize(defaultFont.getHeight());
+			label.setFontStyle(FontStyle.fromSWT(defaultFont.getStyle()));
 
 			thing.setLineWidth(defaultLineWidth);
 		}
@@ -157,10 +157,10 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 		thing.setCount(defaultCount);
 		thing.setLineWidth(defaultLineWidth);
 
-		((IHasMutableFontData) Assemblies.TEXT_KEY.get(thing, model)).setFontName(defaultFont.getName());
-		((IHasMutableFontData) Assemblies.TEXT_KEY.get(thing, model)).setFontSize(defaultFont.getHeight());
-		((IHasMutableFontData) Assemblies.TEXT_KEY.get(thing, model)).setFontStyle(FontStyle.fromSWT(defaultFont
-				.getStyle()));
+		BoundedLabelThing label = Assemblies.BOUNDED_TEXT_KEY.get(thing, model);
+		label.setFontName(defaultFont.getName());
+		label.setFontSize(defaultFont.getHeight());
+		label.setFontStyle(FontStyle.fromSWT(defaultFont.getStyle()));
 
 		mirrorLogic.mirrorValue(thing, IHasColor.COLOR_KEY, thing, IHasSecondaryColor.SECONDARY_COLOR_KEY,
 				new Function<RGB, RGB>() {
@@ -173,10 +173,10 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 				});
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
-				IHasMutableSize.USER_MAY_RESIZE, IRelativeMovable.USER_MAY_MOVE, HighlightLogic.USER_MAY_HIGHLIGHT,
-				IHasColor.USER_MAY_COPY_COLOR, IHasMutableColor.USER_MAY_EDIT_COLOR,
-				IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
-		UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, model),
+				IHasMutableSize.USER_MAY_RESIZE, IHasMutableReferencePoint.USER_MAY_MOVE,
+				HighlightLogic.USER_MAY_HIGHLIGHT, IHasMutableColor.USER_MAY_COPY_COLOR,
+				IHasMutableColor.USER_MAY_EDIT_COLOR, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
+		UserEditableUtils.addEditableQualities(Assemblies.BOUNDED_TEXT_KEY.get(thing, model),
 				IHasMutableText.USER_MAY_EDIT_TEXT);
 
 		return thing;
@@ -227,7 +227,7 @@ public class MapBrickLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 
 			// if the inner structures were null, then we need to remove the world from the worldThing
 			worldThing.remove(IHasWorld.WORLD_KEY);
-			worldThing.set(IHasObjRef.OBJREF_KEY, null);
+			worldThing.remove(IHasObjRef.OBJREF_KEY);
 		}
 	}
 }

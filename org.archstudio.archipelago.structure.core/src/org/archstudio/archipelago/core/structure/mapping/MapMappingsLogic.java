@@ -1,5 +1,6 @@
 package org.archstudio.archipelago.core.structure.mapping;
 
+import java.awt.geom.Point2D;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoConstants;
@@ -8,7 +9,7 @@ import org.archstudio.archipelago.structure.core.Activator;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasAnchorPoint;
-import org.archstudio.bna.facets.IHasInternalWorldEndpoint;
+import org.archstudio.bna.facets.IHasInternalWorldPoint;
 import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableText;
@@ -50,13 +51,13 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 		logics.addThingLogic(WorldThingInternalEventsLogic.class);
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
-		syncValue("name", null, "[no name]", BNAPath.create(), Assemblies.TEXT_KEY, true);
+		syncValue("name", null, "[no name]", BNAPath.create(), Assemblies.BOUNDED_TEXT_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, false);
 
 		// take the inner world objRef and interface objRef, set them on the MappingSplineThing
 		syncValue("innerInterfaceLink", null, null, BNAPath.create(), MaintainMappingLogic.INTERNAL_OBJREF_KEY, false);
 		setAncestorObjRef(BNAPath.create(),
-				syncLogic.syncObjRefKeyToThingIDKey(IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY), 1);
+				syncLogic.syncObjRefKeyToThingIDKey(IHasInternalWorldPoint.INTERNAL_WORLD_KEY), 1);
 
 		// take the outer interface objRef, find the thing with that objRef, and stick the anchor point to it
 		setValue(BNAPath.create(), stickLogic.getStickyModeKey(IHasAnchorPoint.ANCHOR_POINT_KEY), StickyMode.CENTER);
@@ -99,8 +100,8 @@ public class MapMappingsLogic extends AbstractXADLToBNAPathLogic<MappingThing> i
 
 		MappingThing thing = Assemblies.createMapping(world, null, null);
 		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(world);
-		thing.setAnchorPoint(new Point(newPointSpot.x - 50, newPointSpot.y + 50));
-		thing.setInternalEndpoint(new Point(newPointSpot.x + 50, newPointSpot.y - 50));
+		thing.setAnchorPoint(new Point2D.Double(newPointSpot.x - 50, newPointSpot.y + 50));
+		thing.setInternalPoint(new Point2D.Double(newPointSpot.x + 50, newPointSpot.y - 50));
 		thing.setLineWidth(defaultLineWidth);
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableText.USER_MAY_EDIT_TEXT,

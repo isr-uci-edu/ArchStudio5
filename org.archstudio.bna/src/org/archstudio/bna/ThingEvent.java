@@ -15,9 +15,9 @@ public class ThingEvent {
 	private final EventType eventType;
 	private final IThingKey<?> propertyName;
 	private final Object oldPropertyValue;
-	private Object newPropertyValue;
-	private final ThingKeyID<?> thingKeyID;
+	private final Object newPropertyValue;
 	private final IThing targetThing;
+	private final ThingKeyID<?> thingKeyID;
 
 	public static ThingEvent create(EventType eventType, IThing targetThing, IThingKey<?> propertyName,
 			@Nullable Object oldPropertyValue, @Nullable Object newPropertyValue) {
@@ -32,10 +32,6 @@ public class ThingEvent {
 		this.oldPropertyValue = oldPropertyValue;
 		this.newPropertyValue = newPropertyValue;
 		this.thingKeyID = ThingKeyID.create(targetThing, propertyName);
-	}
-
-	public ThingKeyID<?> getThingKeyID() {
-		return thingKeyID;
 	}
 
 	public EventType getEventType() {
@@ -60,15 +56,14 @@ public class ThingEvent {
 		return newPropertyValue;
 	}
 
-	public void setNewPropertyValue(@Nullable Object newPropertyValue) {
-		this.newPropertyValue = newPropertyValue;
+	public ThingKeyID<?> getThingKeyID() {
+		return thingKeyID;
 	}
 
 	@Override
 	public String toString() {
-		return "ThingEvent [eventType=" + eventType + ", propertyName=" + propertyName + ", oldPropertyValue="
-				+ oldPropertyValue + ", newPropertyValue=" + newPropertyValue + ", thingKeyID=" + thingKeyID
-				+ ", targetThing=" + targetThing + "]";
+		return "ThingEvent [eventType=" + eventType + ", propertyName=" + propertyName + ", newPropertyValue="
+				+ newPropertyValue + ", oldPropertyValue=" + oldPropertyValue + ", targetThing=" + targetThing + "]";
 	}
 
 }

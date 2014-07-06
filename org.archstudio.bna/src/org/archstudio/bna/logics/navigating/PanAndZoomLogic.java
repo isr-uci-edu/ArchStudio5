@@ -1,6 +1,5 @@
 package org.archstudio.bna.logics.navigating;
 
-import static org.archstudio.sysutils.SystemUtils.bound;
 import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
 import java.util.List;
@@ -23,7 +22,6 @@ import org.archstudio.bna.ui.IBNAMouseMoveListener;
 import org.archstudio.bna.ui.IBNAMouseWheelListener;
 import org.archstudio.bna.ui.IBNAPanGestureListener;
 import org.archstudio.bna.ui.IBNATrackGestureListener;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultCoordinate;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -39,15 +37,13 @@ import org.eclipse.swt.widgets.Listener;
 
 import com.google.common.collect.Sets;
 
-public class PanAndZoomLogic extends AbstractThingLogic implements
-		IBNAMouseWheelListener, IBNAMouseListener, IBNAMouseMoveListener,
-		IBNATrackGestureListener, IBNAMagnifyGestureListener,
-		IBNAPanGestureListener, IBNAKeyListener {
+public class PanAndZoomLogic extends AbstractThingLogic implements IBNAMouseWheelListener, IBNAMouseListener,
+		IBNAMouseMoveListener, IBNATrackGestureListener, IBNAMagnifyGestureListener, IBNAPanGestureListener,
+		IBNAKeyListener {
 
 	protected static final int PAN_BUTTON = 2; // middle button
-	protected static final int MIN_POWER = -10;
-	protected static final int MAX_POWER = 10;
 	protected static boolean inGesture = false;
+	protected static double originalScale = 1;
 	protected static Set<Composite> registeredComposites = Sets.newHashSet();
 	protected static Listener preventScrollListener = new Listener() {
 		@Override
@@ -69,10 +65,8 @@ public class PanAndZoomLogic extends AbstractThingLogic implements
 	synchronized protected static void registerView(IBNAView view) {
 		final Composite composite = view.getBNAUI().getComposite();
 		if (!registeredComposites.contains(composite)) {
-			composite
-					.addListener(SWT.MouseVerticalWheel, preventScrollListener);
-			composite.addListener(SWT.MouseHorizontalWheel,
-					preventScrollListener);
+			composite.addListener(SWT.MouseVerticalWheel, preventScrollListener);
+			composite.addListener(SWT.MouseHorizontalWheel, preventScrollListener);
 			composite.addDisposeListener(new DisposeListener() {
 				@Override
 				public void widgetDisposed(DisposeEvent e) {
@@ -83,8 +77,8 @@ public class PanAndZoomLogic extends AbstractThingLogic implements
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseType type,
-			MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
+			ICoordinate location) {
 		// only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -93,14 +87,13 @@ public class PanAndZoomLogic extends AbstractThingLogic implements
 		if (evt.button == PAN_BUTTON) {
 			startMouseCoordinate = location;
 			Composite composite = view.getBNAUI().getComposite();
-			composite.setCursor(composite.getDisplay().getSystemCursor(
-					SWT.CURSOR_HAND));
+			composite.setCursor(composite.getDisplay().getSystemCursor(SWT.CURSOR_HAND));
 		}
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseType type,
-			MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
+			ICoordinate location) {
 		// only handle events for the top world
 		if (view.getParentView() != null) {
 			return;
@@ -113,28 +106,34 @@ public class PanAndZoomLogic extends AbstractThingLogic implements
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseType type,
-			MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
+			ICoordinate location) {
+		// only handle events for the top world
+		if (view.getParentView() != null) {
+			return;
+		}
+
 		registerView(view);
 
 		if (startMouseCoordinate != null) {
-			IMutableCoordinateMapper mcm = castOrNull(
-					view.getCoordinateMapper(), IMutableCoordinateMapper.class);
+			IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
 			if (mcm != null) {
-				mcm.align(location.getLocalPoint(),
-						startMouseCoordinate.getWorldPoint());
+				mcm.align(location.getLocalPoint(), startMouseCoordinate.getWorldPoint());
 			}
 		}
 	}
 
 	@Override
-	public void mouseHorizontalWheel(IBNAView view, MouseType type,
-			MouseEvent e, List<IThing> t, ICoordinate location) {
+	public void mouseHorizontalWheel(IBNAView view, MouseType type, MouseEvent e, List<IThing> t, ICoordinate location) {
 	}
 
 	@Override
-	public void mouseVerticalWheel(IBNAView view, MouseType type, MouseEvent e,
-			List<IThing> t, ICoordinate location) {
+	public void mouseVerticalWheel(IBNAView view, MouseType type, MouseEvent e, List<IThing> t, ICoordinate location) {
+		// only handle events for the top world
+		if (view.getParentView() != null) {
+			return;
+		}
+
 		registerView(view);
 
 		// only handle events for the top world
@@ -148,37 +147,42 @@ public class PanAndZoomLogic extends AbstractThingLogic implements
 	}
 
 	@Override
-	public void magnifyGesture(IBNAView view, GestureType type, GestureEvent e,
-			List<IThing> t, ICoordinate location) {
-		IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(),
-				IMutableCoordinateMapper.class);
+	public void magnifyGesture(IBNAView view, GestureType type, GestureEvent e, List<IThing> t, ICoordinate location) {
+		// only handle events for the top world
+		if (view.getParentView() != null) {
+			return;
+		}
+
+		IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
 		if (mcm != null) {
-			double oldScale = mcm.getLocalScale();
-			double newScale = bound(Math.pow(Math.sqrt(2), MIN_POWER),
-					mcm.getLocalScale() * e.magnification,
-					Math.pow(Math.sqrt(2), MAX_POWER));
-			if (newScale != oldScale) {
-				mcm.setLocalScaleAndAlign(newScale, location.getLocalPoint(),
-						location.getWorldPoint());
-			}
+			mcm.setLocalScaleAndAlign(originalScale * e.magnification, location.getLocalPoint(),
+					location.getWorldPoint());
 		}
 	}
 
 	@Override
-	public void beginGesture(IBNAView view, GestureType type, GestureEvent e,
-			List<IThing> t, ICoordinate location) {
+	public void beginGesture(IBNAView view, GestureType type, GestureEvent e, List<IThing> t, ICoordinate location) {
+		// only handle events for the top world
+		if (view.getParentView() != null) {
+			return;
+		}
+
 		inGesture = true;
+		originalScale = view.getCoordinateMapper().getLocalScale();
 	}
 
 	@Override
-	public void endGesture(IBNAView view, GestureType type, GestureEvent e,
-			List<IThing> t, ICoordinate location) {
+	public void endGesture(IBNAView view, GestureType type, GestureEvent e, List<IThing> t, ICoordinate location) {
+		// only handle events for the top world
+		if (view.getParentView() != null) {
+			return;
+		}
+
 		inGesture = false;
 	}
 
 	@Override
-	public void panGesture(IBNAView view, GestureType type, GestureEvent e,
-			List<IThing> t, ICoordinate location) {
+	public void panGesture(IBNAView view, GestureType type, GestureEvent e, List<IThing> t, ICoordinate location) {
 		// This seems to happen automatically using the scrollbars
 	}
 
@@ -188,6 +192,11 @@ public class PanAndZoomLogic extends AbstractThingLogic implements
 
 	@Override
 	public void keyReleased(IBNAView view, KeyType type, KeyEvent e) {
+		// only handle events for the top world
+		if (view.getParentView() != null) {
+			return;
+		}
+
 		if ((e.stateMask & SWT.MOD1) != 0) {
 			int delta = 0;
 			switch (e.character) {
@@ -202,26 +211,20 @@ public class PanAndZoomLogic extends AbstractThingLogic implements
 			if (delta != 0) {
 				Rectangle bounds = view.getBNAUI().getComposite().getBounds();
 				Point center = new Point(bounds.width / 2, bounds.height / 2);
-				ICoordinate location = DefaultCoordinate.forLocal(center,
-						view.getCoordinateMapper());
+				ICoordinate location = DefaultCoordinate.forLocal(center, view.getCoordinateMapper());
 				zoom(view, location, delta);
 			}
 		}
 	}
 
 	private void zoom(IBNAView view, ICoordinate location, int delta) {
-		IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(),
-				IMutableCoordinateMapper.class);
+		IMutableCoordinateMapper mcm = castOrNull(view.getCoordinateMapper(), IMutableCoordinateMapper.class);
 		if (mcm != null) {
 			double oldScale = mcm.getLocalScale();
-			int oldPower = BNAUtils.round(Math.log(oldScale)
-					/ Math.log(Math.sqrt(2)));
-			int newPower = bound(MIN_POWER, oldPower + delta, MAX_POWER);
-			if (newPower != oldPower) {
-				final double newScale = Math.pow(Math.sqrt(2), newPower);
-				mcm.setLocalScaleAndAlign(newScale, location.getLocalPoint(),
-						location.getWorldPoint());
-			}
+			double oldPower = Math.log(oldScale) / Math.log(Math.sqrt(2));
+			double newPower = oldPower + delta;
+			double newScale = Math.pow(Math.sqrt(2), newPower);
+			mcm.setLocalScaleAndAlign(newScale, location.getLocalPoint(), location.getWorldPoint());
 		}
 	}
 

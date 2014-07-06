@@ -1,17 +1,17 @@
 package org.archstudio.bna.logics.coordinating;
 
+import java.awt.geom.Point2D;
+
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.StickyMode;
-import org.archstudio.bna.facets.IHasShapeKeys;
-import org.archstudio.bna.facets.IIsSticky;
+import org.archstudio.bna.facets.IHasStickyShape;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.IThingMetakey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingMetakey;
 import org.archstudio.bna.keys.ThingRefMetakey;
 import org.archstudio.bna.logics.AbstractKeyCoordinatingThingLogic;
-import org.eclipse.swt.graphics.Point;
 
 public class DynamicStickPointLogic extends AbstractKeyCoordinatingThingLogic {
 
@@ -25,14 +25,14 @@ public class DynamicStickPointLogic extends AbstractKeyCoordinatingThingLogic {
 		stickLogic = logics.addThingLogic(StickPointLogic.class);
 	}
 
-	synchronized public IThingKey<StickyMode> getStickyModeKey(IThingKey<Point> pointKey) {
+	synchronized public IThingKey<StickyMode> getStickyModeKey(IThingKey<Point2D> pointKey) {
 		IThingKey<StickyMode> stickyModeKey = ThingMetakey.create(STICKY_MODE_KEY_NAME, pointKey);
 		track(stickyModeKey);
 		return stickyModeKey;
 	}
 
-	synchronized public IThingRefKey<IIsSticky> getStickyThingKey(IThingKey<Point> pointKey) {
-		IThingRefKey<IIsSticky> stickyThingKey = ThingRefMetakey.create(STICKY_THING_ID_KEY_NAME, pointKey);
+	synchronized public IThingRefKey<IHasStickyShape> getStickyThingKey(IThingKey<Point2D> pointKey) {
+		IThingRefKey<IHasStickyShape> stickyThingKey = ThingRefMetakey.create(STICKY_THING_ID_KEY_NAME, pointKey);
 		track(stickyThingKey);
 		return stickyThingKey;
 	}
@@ -40,16 +40,15 @@ public class DynamicStickPointLogic extends AbstractKeyCoordinatingThingLogic {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	protected void update(IThing thing, IThingKey<?> key) {
-		if (thing instanceof IHasShapeKeys && key instanceof IThingMetakey) {
-			IHasShapeKeys pointThing = (IHasShapeKeys) thing;
-			IThingKey<Point> pointKey = ((IThingMetakey) key).getKey();
-			StickyMode stickyMode = pointThing.get(getStickyModeKey(pointKey));
-			IIsSticky stickyThing = getStickyThingKey(pointKey).get(pointThing, model);
+		if (key instanceof IThingMetakey) {
+			IThingKey<Point2D> pointKey = ((IThingMetakey) key).getKey();
+			StickyMode stickyMode = thing.get(getStickyModeKey(pointKey));
+			IHasStickyShape stickyThing = getStickyThingKey(pointKey).get(thing, model);
 			if (stickyMode != null && stickyThing != null) {
-				stickLogic.stick(pointThing, pointKey, stickyMode, stickyThing);
+				stickLogic.stick(thing, pointKey, stickyMode, stickyThing);
 			}
 			else {
-				stickLogic.unstick(pointThing, pointKey);
+				stickLogic.unstick(thing, pointKey);
 			}
 		}
 	}

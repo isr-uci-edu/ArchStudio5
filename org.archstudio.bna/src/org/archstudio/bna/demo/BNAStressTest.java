@@ -8,25 +8,25 @@ import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingLogicManager;
 import org.archstudio.bna.constants.StickyMode;
-import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasEndpoints;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSelected;
+import org.archstudio.bna.facets.IHasStickyShape;
 import org.archstudio.bna.facets.IHasText;
-import org.archstudio.bna.facets.IIsSticky;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.background.RotatingOffsetLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
 import org.archstudio.bna.logics.editing.ClickSelectionLogic;
 import org.archstudio.bna.logics.editing.DragMovableLogic;
 import org.archstudio.bna.logics.editing.MarqueeSelectionLogic;
 import org.archstudio.bna.logics.navigating.PanAndZoomLogic;
-import org.archstudio.bna.things.glass.EndpointGlassThing;
+import org.archstudio.bna.things.shapes.EndpointThing;
 import org.archstudio.bna.things.shapes.RectangleThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.GridThing;
 import org.archstudio.bna.things.utility.ShadowThing;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNARenderingSettings;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.DefaultBNAModel;
 import org.archstudio.bna.utils.DefaultBNAWorld;
 import org.archstudio.bna.utils.UserEditableUtils;
@@ -119,12 +119,12 @@ public class BNAStressTest {
 
 					RectangleThing b = Assemblies.createRectangle(world, id, null);
 					b.setBoundingBox(new Rectangle(cx1, cy1, w, h));
-					Assemblies.TEXT_KEY.get(b, model).set(
+					Assemblies.BOUNDED_TEXT_KEY.get(b, model).set(
 							IHasText.TEXT_KEY,
 							"Now is the time for all good men to come to the aid of their country (" + (cwi + chi * cw)
 									+ ")");
 					UserEditableUtils.addEditableQualities(b, IHasMutableSelected.USER_MAY_SELECT,
-							IRelativeMovable.USER_MAY_MOVE);
+							IHasMutableReferencePoint.USER_MAY_MOVE);
 
 					Flow f = Flow.values()[(cwi + chi) % 4];
 
@@ -224,17 +224,17 @@ public class BNAStressTest {
 		return "(" + id + ":" + orientation + "," + index + ")";
 	}
 
-	public static void createEndpoint(IBNAWorld world, Object id, IIsSticky parent, Point location, Flow flow,
+	public static void createEndpoint(IBNAWorld world, Object id, IHasStickyShape parent, Point location, Flow flow,
 			Orientation orientation) {
 		IBNAModel model = world.getBNAModel();
 
-		EndpointGlassThing e = Assemblies.createEndpoint(world, id, parent);
-		e.setAnchorPoint(location);
+		EndpointThing e = Assemblies.createEndpoint(world, id, parent);
+		e.setAnchorPoint(BNAUtils.toPoint2D(location));
 
 		Assemblies.DIRECTION_KEY.get(e, model).setFlow(flow);
 		Assemblies.DIRECTION_KEY.get(e, model).setOrientation(orientation);
 
-		UserEditableUtils.addEditableQualities(e, IRelativeMovable.USER_MAY_MOVE);
+		UserEditableUtils.addEditableQualities(e, IHasMutableReferencePoint.USER_MAY_MOVE);
 	}
 
 	private static void createSpline(IBNAWorld world, Object id0, Object id1) {
@@ -242,8 +242,8 @@ public class BNAStressTest {
 		IThingLogicManager tlm = world.getThingLogicManager();
 
 		SplineThing s = Assemblies.createSpline(world, null, null);
-		IHasAnchorPoint a0 = (IHasAnchorPoint) model.getThing(id0);
-		IHasAnchorPoint a1 = (IHasAnchorPoint) model.getThing(id1);
+		IHasStickyShape a0 = (IHasStickyShape) model.getThing(id0);
+		IHasStickyShape a1 = (IHasStickyShape) model.getThing(id1);
 
 		StickPointLogic spl = tlm.addThingLogic(StickPointLogic.class);
 		spl.stick(s, IHasEndpoints.ENDPOINT_1_KEY, StickyMode.CENTER, a0);

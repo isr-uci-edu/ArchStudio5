@@ -9,10 +9,10 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEdgeColor;
 import org.archstudio.bna.facets.IHasMutableAlpha;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.facets.IHasToolTip;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingRefKey;
 import org.archstudio.bna.logics.coordinating.MirrorBoundingBoxLogic;
@@ -78,7 +78,7 @@ public class MapFinalStateLogic extends AbstractXADLToBNAPathLogic<FinalStateThi
 				});
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
-				IRelativeMovable.USER_MAY_MOVE, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
+				IHasMutableReferencePoint.USER_MAY_MOVE, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
 
 		return thing;
 	}

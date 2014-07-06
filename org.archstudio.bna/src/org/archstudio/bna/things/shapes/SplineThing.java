@@ -1,85 +1,107 @@
 package org.archstudio.bna.things.shapes;
 
-import org.archstudio.bna.facets.IHasLineData;
-import org.archstudio.bna.facets.IHasMutableEdgeColor;
-import org.archstudio.bna.facets.IHasMutableLineStyle;
-import org.archstudio.bna.facets.IHasMutableLineWidth;
-import org.archstudio.bna.facets.IHasMutableRotatingOffset;
-import org.archstudio.bna.facets.IHasMutableSelected;
-import org.archstudio.bna.things.AbstractSplineThing;
-import org.archstudio.swtutils.constants.LineStyle;
-import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.swt.graphics.RGB;
+import java.awt.geom.Point2D;
+import java.util.List;
 
-public class SplineThing extends AbstractSplineThing implements IHasMutableEdgeColor, IHasMutableLineWidth,
-		IHasMutableLineStyle, IHasLineData, IHasMutableSelected, IHasMutableRotatingOffset {
+import org.archstudio.bna.IBNAModel;
+import org.archstudio.bna.IThingListener;
+import org.archstudio.bna.ThingEvent;
+import org.archstudio.bna.keys.IThingKey;
+import org.archstudio.bna.logics.coordinating.StickPointLogic;
+import org.archstudio.bna.utils.BNAUtils;
+import org.archstudio.sysutils.SystemUtils;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
+
+import com.google.common.collect.Lists;
+
+@NonNullByDefault
+public class SplineThing extends SplineThingBase {
+
+	private Point referencePoint = new Point(0, 0);
 
 	public SplineThing(@Nullable Object id) {
 		super(id);
+		updateProperties();
+		addThingListener(new IThingListener() {
+
+			@Override
+			public void thingChanged(ThingEvent thingEvent) {
+				if (isShapeModifyingKey(thingEvent.getPropertyName())) {
+					updateProperties();
+				}
+			}
+		});
+	}
+
+	protected void updateProperties() {
+		List<Point2D> points = Lists.newArrayListWithCapacity(getRawMidpoints().size() + 2);
+		points.add(getRawEndpoint1());
+		points.addAll(getRawMidpoints());
+		points.add(getRawEndpoint2());
+		double x1 = Double.POSITIVE_INFINITY;
+		double y1 = Double.POSITIVE_INFINITY;
+		double x2 = Double.NEGATIVE_INFINITY;
+		double y2 = Double.NEGATIVE_INFINITY;
+		for (Point2D p : points) {
+			x1 = Math.min(x1, p.getX());
+			y1 = Math.min(y1, p.getY());
+			x2 = Math.max(x2, p.getX());
+			y2 = Math.max(y2, p.getY());
+		}
+		int ix = SystemUtils.floor(x1);
+		int iy = SystemUtils.floor(y1);
+		int iw = SystemUtils.ceil(x2 - ix);
+		int ih = SystemUtils.ceil(y2 - iy);
+		setRawPoints(points);
+		setRawBoundingBox(new Rectangle(ix, iy, iw, ih));
 	}
 
 	@Override
-	protected void initProperties() {
-		setLineStyle(LineStyle.SOLID);
-		setEdgeColor(new RGB(0, 0, 0));
-		setLineWidth(1);
-		setSelected(false);
-		set(ROTATING_OFFSET_KEY, 0);
-		super.initProperties();
+	public Point getReferencePoint() {
+		return BNAUtils.clone(referencePoint);
 	}
 
 	@Override
-	public void setEdgeColor(RGB c) {
-		set(EDGE_COLOR_KEY, c);
+	public void setReferencePoint(Point value) {
+		double dx = value.x - referencePoint.x;
+		double dy = value.y - referencePoint.y;
+		referencePoint.x = value.x;
+		referencePoint.y = value.y;
+
+		List<Point2D> points = getPoints();
+		for (Point2D p : points) {
+			p.setLocation(p.getX() + dx, p.getY() + dy);
+		}
+
+		setRawEndpoint1(points.get(0));
+		setRawMidpoints(points.subList(1, points.size() - 1));
+		setRawEndpoint2(points.get(points.size() - 1));
 	}
 
 	@Override
-	public RGB getEdgeColor() {
-		return get(EDGE_COLOR_KEY);
-	}
-
-	@Override
-	public LineStyle getLineStyle() {
-		return get(LINE_STYLE_KEY);
-	}
-
-	@Override
-	public void setLineStyle(LineStyle lineStyle) {
-		set(LINE_STYLE_KEY, lineStyle);
-	}
-
-	@Override
-	public int getLineWidth() {
-		return get(LINE_WIDTH_KEY);
-	}
-
-	@Override
-	public void setLineWidth(int lineWidth) {
-		set(LINE_WIDTH_KEY, lineWidth);
-	}
-
-	@Override
-	public boolean isSelected() {
-		return has(SELECTED_KEY, true);
-	}
-
-	@Override
-	public void setSelected(boolean selected) {
-		set(SELECTED_KEY, selected);
-	}
-
-	@Override
-	public int getRotatingOffset() {
-		return get(ROTATING_OFFSET_KEY);
+	public Point2D getSecondaryPoint(IBNAModel model, StickPointLogic stickLogic, IThingKey<Point2D> pointKey) {
+		if (pointKey.equals(ENDPOINT_1_KEY)) {
+			List<? extends Point2D> points = getRawPoints();
+			if (points.size() > 2) {
+				return points.get(1);
+			}
+			return stickLogic.getStuckPoint(this, ENDPOINT_2_KEY, points.get(1));
+		}
+		if (pointKey.equals(ENDPOINT_2_KEY)) {
+			List<? extends Point2D> points = getRawPoints();
+			if (points.size() > 2) {
+				return points.get(points.size() - 2);
+			}
+			return stickLogic.getStuckPoint(this, ENDPOINT_1_KEY, points.get(points.size() - 2));
+		}
+		throw new IllegalArgumentException(pointKey.toString());
 	}
 
 	@Override
 	public boolean shouldIncrementRotatingOffset() {
-		return isSelected();
-	}
-
-	@Override
-	public void incrementRotatingOffset() {
-		set(ROTATING_OFFSET_KEY, get(ROTATING_OFFSET_KEY) + 1);
+		return isRawSelected();
 	}
 }

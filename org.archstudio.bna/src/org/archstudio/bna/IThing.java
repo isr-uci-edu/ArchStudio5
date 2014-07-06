@@ -14,11 +14,11 @@ import org.eclipse.jdt.annotation.Nullable;
 public interface IThing {
 
 	/**
-	 * Gets the class that maintains and draws the graphical representation of this Thing.
+	 * Gets a peer that draws the graphical representation of this Thing.
 	 * 
-	 * @return The Thing's Peer's class.
+	 * @return A new instance of the Thing's peer.
 	 */
-	public Class<? extends IThingPeer<?>> getPeerClass();
+	public IThingPeer<? extends IThing> createPeer(IBNAView view, ICoordinateMapper cm);
 
 	/**
 	 * Gets the unique ID of this Thing. The ID is used by {@link IBNAModel#getThing(Object)}.
@@ -26,8 +26,6 @@ public interface IThing {
 	 * @return Thing ID.
 	 */
 	public Object getID();
-
-	public void insertThingListener(IThingListener thingListener);
 
 	public void addThingListener(IThingListener thingListener);
 
@@ -38,17 +36,19 @@ public interface IThing {
 
 	public <V> V get(IThingKey<V> key, V valueIfNull);
 
-	public <V> void set(IThingKey<V> key, @Nullable V value);
-
-	public @Nullable
-	<V> V getAndSet(IThingKey<V> key, @Nullable V value);
-
 	public boolean has(IThingKey<?> key);
 
 	public <V> boolean has(IThingKey<V> key, @Nullable V value);
+
+	public <V> V set(IThingKey<V> key, @Nullable V value);
 
 	public @Nullable
 	<V> V remove(IThingKey<V> key);
 
 	public Set<Map.Entry<IThingKey<?>, ?>> entrySet();
+
+	public boolean isShapeModifyingKey(IThingKey<?> key);
+
+	public Set<IThingKey<?>> getShapeModifyingKeys();
+
 }

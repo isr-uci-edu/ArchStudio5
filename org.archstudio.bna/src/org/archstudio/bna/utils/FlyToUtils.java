@@ -4,6 +4,7 @@ import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IMutableCoordinateMapper;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 
@@ -55,8 +56,8 @@ public class FlyToUtils {
 						double d = Math.PI / 2 * (currentTime - startTime) / duration;
 						double transposeFactor = Math.sin(d);
 						final Point worldIntermediate = new Point(//
-								worldStart.x + BNAUtils.round(worldDiff.x * transposeFactor),//
-								worldStart.y + BNAUtils.round(worldDiff.y * transposeFactor));
+								worldStart.x + SystemUtils.round(worldDiff.x * transposeFactor),//
+								worldStart.y + SystemUtils.round(worldDiff.y * transposeFactor));
 						final double intermediateScale = Math.max(0.0001,
 								originalScale - originalScale * 0.7 * Math.sin(d * 2));
 						cm.setLocalScaleAndAlign(intermediateScale, localCenter, worldIntermediate);

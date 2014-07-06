@@ -6,8 +6,7 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.ThingEvent;
 import org.archstudio.bna.facets.IHasBoundingBox;
-import org.archstudio.bna.facets.IHasShapeKeys;
-import org.archstudio.bna.facets.IIsHidden;
+import org.archstudio.bna.facets.IHasHidden;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Rectangle;
@@ -27,14 +26,14 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 		switch (evt.getEventType()) {
 		case THING_ADDED: {
 			IThing thing = evt.getTargetThing();
-			if (thing instanceof IHasShapeKeys) {
+			if (thing instanceof IHasBoundingBox) {
 				cachedBounds = null;
 			}
 		}
 			break;
 		case THING_REMOVED: {
 			IThing thing = evt.getTargetThing();
-			if (thing instanceof IHasShapeKeys) {
+			if (thing instanceof IHasBoundingBox) {
 				cachedBounds = null;
 			}
 		}
@@ -43,8 +42,8 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 			if (cachedBounds != null) {
 				ThingEvent thingEvent = evt.getThingEvent();
 				IThing thing = evt.getTargetThing();
-				if (thing instanceof IHasShapeKeys) {
-					if (((IHasShapeKeys) thing).getShapeModifyingKeys().contains(thingEvent.getPropertyName())) {
+				if (thing instanceof IHasBoundingBox) {
+					if (thing.isShapeModifyingKey(thingEvent.getPropertyName())) {
 						cachedBounds = null;
 					}
 				}
@@ -64,7 +63,7 @@ public class ModelBoundsTrackingLogic extends AbstractThingLogic implements IBNA
 			int y2 = Integer.MIN_VALUE;
 
 			for (IHasBoundingBox t : typeLogic.getThings(IHasBoundingBox.class)) {
-				if (!t.has(IIsHidden.HIDDEN_KEY, true)) {
+				if (!t.has(IHasHidden.HIDDEN_KEY, true)) {
 					Rectangle bb = t.getBoundingBox();
 					if (bb.x < x1) {
 						x1 = bb.x;

@@ -1,13 +1,18 @@
 package org.archstudio.bna.logics.editing;
 
+import java.awt.geom.Point2D;
 import java.util.List;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
-import org.archstudio.bna.facets.IHasMutablePoints;
+import org.archstudio.bna.facets.IHasMutableEndpoints;
+import org.archstudio.bna.facets.IHasMutableMidpoints;
 import org.archstudio.bna.facets.IHasMutableReferencePoint;
+import org.archstudio.bna.facets.IHasMutableSize;
+import org.archstudio.bna.facets.IHasReferencePoint;
 import org.archstudio.bna.keys.IThingKey;
+import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.AbstractOperation;
 import org.eclipse.core.commands.operations.IOperationHistory;
@@ -103,7 +108,24 @@ public class BNAOperations {
 		final List<Runnable> runnables = Lists.newArrayList();
 		for (IThing t : things) {
 			final Object tID = t.getID();
-			if (t instanceof IHasMutableBoundingBox) {
+			if (t instanceof IHasReferencePoint
+					&& UserEditableUtils.isEditableForAnyQualities(t, IHasMutableReferencePoint.USER_MAY_MOVE)) {
+				final Point p = ((IHasReferencePoint) t).getReferencePoint();
+				runnables.add(new Runnable() {
+
+					@Override
+					public void run() {
+						IThing t = model.getThing(tID);
+						if (t != null) {
+							((IHasReferencePoint) t).setReferencePoint(p);
+						}
+					}
+				});
+				continue;
+			}
+			if (t instanceof IHasMutableBoundingBox
+					&& UserEditableUtils.isEditableForAnyQualities(t, IHasMutableReferencePoint.USER_MAY_MOVE,
+							IHasMutableSize.USER_MAY_RESIZE)) {
 				final Rectangle r = ((IHasMutableBoundingBox) t).getBoundingBox();
 				runnables.add(new Runnable() {
 
@@ -117,29 +139,46 @@ public class BNAOperations {
 				});
 				continue;
 			}
-			if (t instanceof IHasMutablePoints) {
-				final List<Point> p = ((IHasMutablePoints) t).getPoints();
+			if (t instanceof IHasMutableEndpoints
+					&& UserEditableUtils.isEditableForAllQualities(t, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_1)) {
+				final Point2D ep1 = ((IHasMutableEndpoints) t).getEndpoint1();
 				runnables.add(new Runnable() {
 
 					@Override
 					public void run() {
 						IThing t = model.getThing(tID);
 						if (t != null) {
-							((IHasMutablePoints) t).setPoints(p);
+							((IHasMutableEndpoints) t).setEndpoint1(ep1);
 						}
 					}
 				});
 				continue;
 			}
-			if (t instanceof IHasMutableReferencePoint) {
-				final Point p = ((IHasMutableReferencePoint) t).getReferencePoint();
+			if (t instanceof IHasMutableEndpoints
+					&& UserEditableUtils.isEditableForAllQualities(t, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_2)) {
+				final Point2D ep2 = ((IHasMutableEndpoints) t).getEndpoint2();
 				runnables.add(new Runnable() {
 
 					@Override
 					public void run() {
 						IThing t = model.getThing(tID);
 						if (t != null) {
-							((IHasMutableReferencePoint) t).setReferencePoint(p);
+							((IHasMutableEndpoints) t).setEndpoint2(ep2);
+						}
+					}
+				});
+				continue;
+			}
+			if (t instanceof IHasMutableMidpoints
+					&& UserEditableUtils.isEditableForAllQualities(t, IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS)) {
+				final List<Point2D> p = ((IHasMutableMidpoints) t).getMidpoints();
+				runnables.add(new Runnable() {
+
+					@Override
+					public void run() {
+						IThing t = model.getThing(tID);
+						if (t != null) {
+							((IHasMutableMidpoints) t).setMidpoints(p);
 						}
 					}
 				});

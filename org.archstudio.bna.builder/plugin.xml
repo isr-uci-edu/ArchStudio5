@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="org.archstudio.bna.builder.nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.archstudio.bna.builder.ProjectNature">
+         </run>
+      </runtime>
+      <builder
+            id="org.archstudio.bna.builder.builder">
+      </builder>
+      <requires-nature
+            id="org.eclipse.pde.PluginNature">
+      </requires-nature>
+   </extension>
+   <extension
+         id="org.archstudio.bna.builder.builder"
+         name="ArchStudio BNA Thing Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            callOnEmptyDelta="true"
+            hasNature="true"
+            isConfigurable="false"
+            supportsConfigurations="false">
+         <run
+               class="org.archstudio.bna.builder.ThingIncrementalProjectBuilder">
+         </run>
+      </builder>
+   </extension>
+
+</plugin>

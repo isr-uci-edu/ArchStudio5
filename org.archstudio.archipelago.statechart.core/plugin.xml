@@ -16,5 +16,29 @@
             name="Statechart">
       </page>
    </extension>
+   <extension
+         point="org.archstudio.bna.thingdefinition">
+      <Package
+            name="org.archstudio.archipelago.statechart.core.things.shapes">
+         <Thing
+               name="FinalState">
+            <ImplementsFacet
+                  facet="BoundingBox">
+            </ImplementsFacet>
+            <ImplementsFacet
+                  facet="Selected">
+            </ImplementsFacet>
+            <ImplementsFacet
+                  facet="Glow">
+            </ImplementsFacet>
+            <ImplementsFacet
+                  facet="ReferencePoint">
+            </ImplementsFacet>
+            <ImplementsFacet
+                  facet="StickyShape">
+            </ImplementsFacet>
+         </Thing>
+      </Package>
+   </extension>
 
 </plugin>

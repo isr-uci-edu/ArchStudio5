@@ -4,6 +4,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.constants.GridDisplayType;
 import org.archstudio.bna.facets.IHasEdgeColor;
@@ -19,9 +20,6 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 		super(thing, view, cm);
 	}
 
-	int worldGridStep;
-	GridDisplayType gridDisplayType;
-
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
 
@@ -30,14 +28,12 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 			return false;
 		}
 
-		if ((worldGridStep = t.getGridSpacing()) == 0) {
+		GridDisplayType gridDisplayType = t.getRawGridDisplayType();
+		if (gridDisplayType == GridDisplayType.NONE) {
 			return false;
 		}
 
-		if ((gridDisplayType = t.getGridDisplayType()) == GridDisplayType.NONE) {
-			return false;
-		}
-
+		int worldGridStep = t.getRawGridSpacing();
 		while (worldGridStep * cm.getLocalScale() <= 8) {
 			worldGridStep *= 2;
 		}
@@ -109,5 +105,10 @@ public class GridThingPeer<T extends GridThing> extends AbstractThingPeer<T> {
 		}
 
 		return true;
+	}
+
+	@Override
+	public boolean isInThing(ICoordinate location) {
+		return false;
 	}
 }

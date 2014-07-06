@@ -3,6 +3,7 @@ package org.archstudio.archipelago.core.structure;
 import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
+import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.List;
 
@@ -96,9 +97,9 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 						return new Action("New Interface-Interface Mapping...") {
 							@Override
 							public void run() {
-								Point p1 = BNAUtils.getCentralPoint(t);
+								Point2D p1 = BNAUtils.getCentralPoint(t);
 								if (p1 == null) {
-									p1 = new Point(worldX, worldY);
+									p1 = new Point2D.Double(worldX, worldY);
 								}
 
 								indicatorSpline = view.getBNAWorld().getBNAModel().addThing(new SplineThing(null), t);
@@ -116,18 +117,21 @@ public class StructureNewInterfaceMappingLogic extends AbstractThingLogic implem
 	}
 
 	@Override
-	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseUp(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
+			ICoordinate location) {
 	}
 
 	@Override
-	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseMove(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
+			ICoordinate location) {
 		if (indicatorSpline != null) {
-			indicatorSpline.setEndpoint2(location.getWorldPoint());
+			indicatorSpline.setEndpoint2(BNAUtils.toPoint2D(location.getWorldPoint()));
 		}
 	}
 
 	@Override
-	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things, ICoordinate location) {
+	synchronized public void mouseDown(IBNAView view, MouseType type, MouseEvent evt, List<IThing> things,
+			ICoordinate location) {
 		if (indicatorSpline != null) {
 			if (evt.button == 1) {
 				List<IThing> otherThings = Lists.newArrayList(things);

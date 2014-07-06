@@ -25,11 +25,13 @@ abstract class AbstractThingKey<V> implements IThingKey<V> {
 	private final Object id;
 	private final int idHashCode;
 	private final Function<V, V> cloneFunction;
+	private final boolean nullable;
 
-	protected AbstractThingKey(Object id, @Nullable Function<V, V> cloneFunction) {
+	protected AbstractThingKey(Object id, @Nullable Function<V, V> cloneFunction, boolean nullable) {
 		this.id = id;
 		this.idHashCode = this.id.hashCode();
 		this.cloneFunction = cloneFunction;
+		this.nullable = nullable;
 	}
 
 	@Override
@@ -65,6 +67,10 @@ abstract class AbstractThingKey<V> implements IThingKey<V> {
 	public @Nullable
 	V clone(@Nullable V value) {
 		return value == null ? null : cloneFunction != null ? cloneFunction.apply(value) : value;
+	}
+
+	public boolean isNullable() {
+		return nullable;
 	}
 
 	@Override

@@ -11,7 +11,7 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.DNDActionType;
 import org.archstudio.bna.constants.DNDData;
 import org.archstudio.bna.constants.DNDType;
-import org.archstudio.bna.facets.IHasMutableWorld;
+import org.archstudio.bna.facets.IHasWorld;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.myx.fw.Services;
 import org.archstudio.sysutils.UIDGenerator;
@@ -32,7 +32,7 @@ public class StatechartDropLogic extends AbstractTreeDropLogic {
 	}
 
 	protected ObjRef getStateRef(IBNAView view, Iterable<IThing> things) {
-		IHasMutableWorld w = Assemblies.getThingOfType(model, firstOrNull(things), IHasMutableWorld.class);
+		IHasWorld w = Assemblies.getThingOfType(model, firstOrNull(things), IHasWorld.class);
 		IThing o = Assemblies.getThingWithProperty(model, w, IHasObjRef.OBJREF_KEY);
 		if (o != null) {
 			ObjRef stateRef = o.get(IHasObjRef.OBJREF_KEY);

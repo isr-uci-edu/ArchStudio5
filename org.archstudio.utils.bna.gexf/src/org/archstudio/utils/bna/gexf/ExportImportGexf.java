@@ -1,5 +1,6 @@
 package org.archstudio.utils.bna.gexf;
 
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -27,10 +28,9 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasMutableBoundingBox;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
@@ -128,10 +128,10 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 				node.setId("thing:" + t.getID());
 				node.setLabel(getText(model, t));
 
-				Point p = BNAUtils.getCentralPoint(t);
+				Point2D p = BNAUtils.getCentralPoint(t);
 				PositionContent position = XArchADTProxy.create(xarch, VizPackage.Literals.POSITION_CONTENT);
-				position.setX(p.x);
-				position.setY(-p.y);
+				position.setX((float) p.getX());
+				position.setY((float) -p.getY());
 				node.getPosition().add(position);
 
 				if (t instanceof IHasBoundingBox) {
@@ -201,10 +201,10 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 	}
 
 	protected boolean isNodeOfInterest(IBNAModel model, IThing node) {
-		return node instanceof IHasMutableBoundingBox && Assemblies.isRoot(node);
+		return node instanceof IHasBoundingBox && Assemblies.isRoot(node);
 	}
 
-	protected IThing getNodeFromEdgeEndpoint(IBNAModel model, IThing edge, IThingKey<Point> endpointKey,
+	protected IThing getNodeFromEdgeEndpoint(IBNAModel model, IThing edge, IThingKey<Point2D> endpointKey,
 			StickPointLogic spl) {
 		return Assemblies.getRoot(model, model.getThing(spl.getStickyThingID(edge, endpointKey)));
 	}
@@ -251,9 +251,8 @@ public class ExportImportGexf extends AbstractThingLogic implements IBNAMenuList
 		for (IThing t : model.getAllThings()) {
 			Point p = positions.get(t.getID());
 			if (p != null) {
-				Point q = BNAUtils.getCentralPoint(t);
-				if (t instanceof IRelativeMovable) {
-					((IRelativeMovable) t).moveRelative(new Point(p.x - q.x, p.y - q.y));
+				if (t instanceof IHasMutableReferencePoint) {
+					((IHasMutableReferencePoint) t).setReferencePoint(p);
 				}
 			}
 		}

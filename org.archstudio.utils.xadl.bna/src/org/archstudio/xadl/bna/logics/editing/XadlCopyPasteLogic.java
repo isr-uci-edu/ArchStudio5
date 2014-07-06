@@ -9,9 +9,9 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasSelected;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.ui.IBNAMenuListener;
@@ -165,8 +165,11 @@ public class XadlCopyPasteLogic extends AbstractThingLogic implements IBNAMenuLi
 				if (selectAndMoveObjRefs.containsKey(ct.get(IHasObjRef.OBJREF_KEY))) {
 					int move = selectAndMoveObjRefs.remove(ct.get(IHasObjRef.OBJREF_KEY));
 					ct.set(IHasSelected.SELECTED_KEY, true);
-					if (ct instanceof IRelativeMovable) {
-						((IRelativeMovable) ct).moveRelative(new Point(move, move));
+					if (ct instanceof IHasMutableReferencePoint) {
+						Point p = ((IHasMutableReferencePoint) ct).getReferencePoint();
+						p.x += move;
+						p.y += move;
+						((IHasMutableReferencePoint) ct).setReferencePoint(p);
 					}
 				}
 			}

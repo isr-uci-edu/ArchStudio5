@@ -14,15 +14,13 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
-import org.archstudio.bna.facets.peers.IHasLocalBounds;
-import org.archstudio.bna.things.AbstractAnchorPointThingPeer;
+import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends AbstractAnchorPointThingPeer<T> implements
-		IHasLocalBounds {
+public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends AbstractThingPeer<T> {
 
 	Shape lastTextLocalShape = null;
 	int SPACING = 4;
@@ -40,10 +38,10 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 
 		if (r.setColor(t, IHasColor.COLOR_KEY)) {
 
-			Point ap = t.getAnchorPoint();
-			Point lap = cm.worldToLocal(ap);
-			Point ip = t.getIndicatorPoint();
-			Point lip = ip != null ? cm.worldToLocal(ip) : null;
+			Point2D ap = t.getRawAnchorPoint();
+			Point2D lap = cm.worldToLocal(ap);
+			Point2D ip = t.getRawIndicatorPoint();
+			Point2D lip = ip != null ? cm.worldToLocal(ip) : null;
 			Font font = r.getFont(t, t.getFontSize());
 			int lfontsize = (int) (t.getFontSize() * cm.getLocalScale());
 			Font lfont = lfontsize > 0 ? r.getFont(t, lfontsize) : null;
@@ -84,7 +82,7 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 
 			Rectangle2D bounds = new Rectangle2D.Double(offsetX, offsetY, size.width, size.height);
 			AffineTransform transform = new AffineTransform();
-			transform.translate(ap.x, ap.y);
+			transform.translate(ap.getX(), ap.getY());
 			transform.rotate(Math.PI * angle / 180);
 			Path2D boundsPath = new Path2D.Double(bounds);
 			boundsPath.transform(transform);
@@ -93,13 +91,13 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 			if (lfont != null) {
 				Rectangle2D lbounds = new Rectangle2D.Double(loffsetX, loffsetY, lsize.width, lsize.height);
 				AffineTransform lTransform = new AffineTransform();
-				lTransform.translate(lap.x, lap.y);
+				lTransform.translate(lap.getX(), lap.getY());
 				lTransform.rotate(Math.PI * angle / 180);
 				Path2D lBoundsPath = new Path2D.Double(lbounds);
 				lBoundsPath.transform(lTransform);
 				lastTextLocalShape = lBoundsPath;
 
-				r.pushMatrix(lap.x, lap.y, Math.PI * angle / 180);
+				r.pushMatrix(lap.getX(), lap.getY(), Math.PI * angle / 180);
 				try {
 					r.setColor(t, IHasColor.COLOR_KEY);
 					r.drawText(lfont, text, loffsetX, loffsetY);
@@ -112,7 +110,7 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 					double spacing = SPACING * cm.getLocalScale();
 					Point2D lap2d1 = new Point2D.Double(lbounds.getMinX() - spacing, lbounds.getCenterY());
 					Point2D lap2d2 = new Point2D.Double(lbounds.getMaxX() + spacing, lbounds.getCenterY());
-					Point2D lip2D = BNAUtils.toPoint2D(lip);
+					Point2D lip2D = lip;
 					lTransform.transform(lap2d1, lap2d1);
 					lTransform.transform(lap2d2, lap2d2);
 					double dist1 = lap2d1.distance(lip2D);
@@ -124,9 +122,9 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 				}
 			}
 			else {
-				lastTextLocalShape = new Rectangle2D.Double(lap.x - 2, lap.y - 2, 4, 4);
+				lastTextLocalShape = new Rectangle2D.Double(lap.getX() - 2, lap.getY() - 2, 4, 4);
 				if (lip != null && r.setLineStyle(t)) {
-					Line2D.Double line = new Line2D.Double(BNAUtils.toPoint2D(lip), BNAUtils.toPoint2D(lap));
+					Line2D.Double line = new Line2D.Double(lip, lap);
 					r.drawShape(line);
 					r.resetLineStyle();
 				}
@@ -134,14 +132,6 @@ public class AnchoredLabelThingPeer<T extends AnchoredLabelThing> extends Abstra
 		}
 
 		return true;
-	}
-
-	@Override
-	public Rectangle getLocalBounds() {
-		if (lastTextLocalShape != null) {
-			return BNAUtils.toRectangle(lastTextLocalShape.getBounds2D());
-		}
-		return null;
 	}
 
 	@Override

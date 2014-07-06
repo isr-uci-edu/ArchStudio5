@@ -2,6 +2,7 @@ package org.archstudio.bna.logics.hints;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -14,23 +15,21 @@ import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.ThingEvent;
-import org.archstudio.bna.facets.IHasAlpha;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasAngle;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasColor;
 import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasHighlight;
+import org.archstudio.bna.facets.IHasGlow;
 import org.archstudio.bna.facets.IHasMidpoints;
-import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableAnchorPoint;
 import org.archstudio.bna.facets.IHasMutableAngle;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.facets.IHasMutableColor;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSize;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -39,10 +38,13 @@ import org.archstudio.bna.logics.hints.synchronizers.PropertyHintSynchronizer;
 import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.logics.tracking.ThingValueTrackingLogic;
 import org.archstudio.bna.utils.Assemblies;
+import org.archstudio.bna.utils.BNAUtils;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAModelListener,
@@ -70,26 +72,46 @@ public class SynchronizeHintsLogic extends AbstractThingLogic implements IBNAMod
 		this.valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
 		this.hintRepository = hintRepository;
 
-		addHintSynchronizer(new PropertyHintSynchronizer(world, "bounds", IHasBoundingBox.BOUNDING_BOX_KEY,
-				IHasMutableBoundingBox.class, IRelativeMovable.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE));
+		final Function<Object, Object> toPoint2D = new Function<Object, Object>() {
+			@Override
+			public Object apply(Object input) {
+				if (input instanceof Point) {
+					return BNAUtils.toPoint2D((Point) input);
+				}
+				return input;
+			}
+		};
+
+		final Function<Object, Object> toPoint2Ds = new Function<Object, Object>() {
+			@Override
+			public Object apply(Object input) {
+				@SuppressWarnings("unchecked")
+				List<Object> list = (List<Object>) input;
+				for (int i = 0; i < list.size(); i++) {
+					list.set(i, toPoint2D.apply(list.get(i)));
+				}
+				return input;
+			}
+		};
+
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "bounds", IHasBoundingBox.BOUNDING_BOX_KEY, null,
+				IHasMutableBoundingBox.class, IHasMutableReferencePoint.USER_MAY_MOVE, IHasMutableSize.USER_MAY_RESIZE));
 		addHintSynchronizer(new PropertyHintSynchronizer(world, "location", IHasAnchorPoint.ANCHOR_POINT_KEY,
-				IHasMutableAnchorPoint.class, IRelativeMovable.USER_MAY_MOVE));
-		addHintSynchronizer(new PropertyHintSynchronizer(world, "tagged", ShowHideTagsLogic.SHOW_TAG_KEY, IThing.class,
-				ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG));
-		addHintSynchronizer(new PropertyHintSynchronizer(world, "angle", IHasAngle.ANGLE_KEY, IHasMutableAngle.class,
-				IHasMutableAngle.USER_MAY_CHANGE_ANGLE));
-		addHintSynchronizer(new PropertyHintSynchronizer(world, "endpoint1", IHasEndpoints.ENDPOINT_1_KEY,
-				IHasMutableEndpoints.class, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1));
-		addHintSynchronizer(new PropertyHintSynchronizer(world, "endpoint2", IHasEndpoints.ENDPOINT_2_KEY,
-				IHasMutableEndpoints.class, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2));
-		addHintSynchronizer(new PropertyHintSynchronizer(world, "midpoints", IHasMidpoints.MIDPOINTS_KEY,
+				toPoint2D, IHasMutableAnchorPoint.class, IHasMutableReferencePoint.USER_MAY_MOVE));
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "tagged", ShowHideTagsLogic.SHOW_TAG_KEY, null,
+				IThing.class, ShowHideTagsLogic.USER_MAY_SHOW_HIDE_TAG));
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "angle", IHasAngle.ANGLE_KEY, null,
+				IHasMutableAngle.class, IHasMutableAngle.USER_MAY_CHANGE_ANGLE));
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "endpoint1", IHasEndpoints.ENDPOINT_1_KEY, toPoint2D,
+				IHasMutableEndpoints.class, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_1));
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "endpoint2", IHasEndpoints.ENDPOINT_2_KEY, toPoint2D,
+				IHasMutableEndpoints.class, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_2));
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "midpoints", IHasMidpoints.MIDPOINTS_KEY, toPoint2Ds,
 				IHasMutableMidpoints.class, IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS));
-		addHintSynchronizer(new PropertyHintSynchronizer(world, "color", IHasColor.COLOR_KEY, IHasMutableColor.class,
-				IHasMutableColor.USER_MAY_EDIT_COLOR));
-		addHintSynchronizer(new PropertyHintSynchronizer(world, "highlight", IHasHighlight.HIGHLIGHT_KEY, IThing.class,
-				HighlightLogic.USER_MAY_HIGHLIGHT));
-		addHintSynchronizer(new PropertyHintSynchronizer(world, "alpha", IHasAlpha.ALPHA_KEY, IThing.class,
-				IHasMutableAlpha.USER_MAY_CHANGE_ALPHA));
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "color", IHasColor.COLOR_KEY, null,
+				IHasMutableColor.class, IHasMutableColor.USER_MAY_EDIT_COLOR));
+		addHintSynchronizer(new PropertyHintSynchronizer(world, "highlight", IHasGlow.GLOW_COLOR_KEY, null,
+				IThing.class, HighlightLogic.USER_MAY_HIGHLIGHT));
 
 		hintRepository.addHintRepositoryChangeListener(this);
 		for (IThing thing : model.getAllThings()) {

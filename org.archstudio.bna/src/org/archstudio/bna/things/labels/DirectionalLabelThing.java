@@ -1,57 +1,30 @@
 package org.archstudio.bna.things.labels;
 
-import org.archstudio.bna.facets.IHasMinimumSize;
-import org.archstudio.bna.facets.IHasMutableColor;
-import org.archstudio.bna.facets.IHasMutableFlow;
-import org.archstudio.bna.facets.IHasMutableOrientation;
-import org.archstudio.bna.things.AbstractRectangleThing;
-import org.archstudio.swtutils.constants.Flow;
-import org.archstudio.swtutils.constants.Orientation;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
-public class DirectionalLabelThing extends AbstractRectangleThing implements IHasMinimumSize, IHasMutableColor,
-		IHasMutableOrientation, IHasMutableFlow {
+@NonNullByDefault
+public class DirectionalLabelThing extends DirectionalLabelThingBase {
 
 	public DirectionalLabelThing(@Nullable Object id) {
 		super(id);
 	}
 
 	@Override
-	protected void initProperties() {
-		setOrientation(Orientation.NONE);
-		setFlow(Flow.NONE);
-		setColor(new RGB(0, 0, 0));
-		super.initProperties();
+	public Point getReferencePoint() {
+		Rectangle r = getRawBoundingBox();
+		return new Point(r.x + r.width / 2, r.y + r.height / 2);
 	}
 
 	@Override
-	public void setColor(RGB c) {
-		set(COLOR_KEY, c);
+	public void setReferencePoint(Point value) {
+		Point oldReferencePoint = getReferencePoint();
+		Rectangle r = getBoundingBox();
+		r.x += value.x - oldReferencePoint.x;
+		r.y += value.y - oldReferencePoint.y;
+		setRawBoundingBox(r);
 	}
 
-	@Override
-	public RGB getColor() {
-		return get(COLOR_KEY);
-	}
-
-	@Override
-	public Orientation getOrientation() {
-		return get(ORIENTATION_KEY);
-	}
-
-	@Override
-	public void setOrientation(Orientation o) {
-		set(ORIENTATION_KEY, o);
-	}
-
-	@Override
-	public Flow getFlow() {
-		return get(FLOW_KEY);
-	}
-
-	@Override
-	public void setFlow(Flow f) {
-		set(FLOW_KEY, f);
-	}
 }

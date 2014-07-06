@@ -37,7 +37,7 @@ public final class RotatingOffsetLogic extends AbstractThingLogic {
 							ThingTypeTrackingLogic typesLogic = logics.addThingLogic(ThingTypeTrackingLogic.class);
 							for (IHasMutableRotatingOffset t : typesLogic.getThings(IHasMutableRotatingOffset.class)) {
 								if (t.shouldIncrementRotatingOffset()) {
-									t.incrementRotatingOffset();
+									t.setRotatingOffset(t.getRotatingOffset() + 1);
 								}
 							}
 						}

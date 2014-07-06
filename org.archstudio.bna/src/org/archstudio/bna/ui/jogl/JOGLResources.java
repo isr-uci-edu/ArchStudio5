@@ -22,14 +22,15 @@ import javax.media.opengl.DebugGL4bc;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2ES2;
 import javax.media.opengl.GL4bc;
+import javax.media.opengl.fixedfunc.GLMatrixFunc;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IHasEdgeColor;
+import org.archstudio.bna.facets.IHasHidden;
 import org.archstudio.bna.facets.IHasLineData;
-import org.archstudio.bna.facets.IIsHidden;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.ui.jogl.utils.GL2ES2Program;
 import org.archstudio.bna.ui.jogl.utils.GL2ES2Shader;
@@ -165,13 +166,13 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 	@Override
 	public void setAntialiasGraphics(boolean antialiasGraphics) {
 		if (antialiasGraphics) {
-			gl.glEnable(GL2ES2.GL_MULTISAMPLE);
-			gl.glEnable(GL2ES2.GL_LINE_SMOOTH);
-			gl.glHint(GL2ES2.GL_LINE_SMOOTH_HINT, GL.GL_NICEST);
+			gl.glEnable(GL.GL_MULTISAMPLE);
+			gl.glEnable(GL.GL_LINE_SMOOTH);
+			gl.glHint(GL.GL_LINE_SMOOTH_HINT, GL.GL_NICEST);
 		}
 		else {
-			gl.glDisable(GL2ES2.GL_MULTISAMPLE);
-			gl.glDisable(GL2ES2.GL_LINE_SMOOTH);
+			gl.glDisable(GL.GL_MULTISAMPLE);
+			gl.glDisable(GL.GL_LINE_SMOOTH);
 		}
 		super.setAntialiasGraphics(antialiasGraphics);
 	}
@@ -183,9 +184,9 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 	}
 
 	public void renderReshape(Rectangle localBounds) {
-		matrix.glMatrixMode(PMVMatrix.GL_MODELVIEW);
+		matrix.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
 		matrix.glLoadIdentity();
-		matrix.glMatrixMode(PMVMatrix.GL_PROJECTION);
+		matrix.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
 		matrix.glLoadIdentity();
 		matrix.glOrthof(localBounds.x, localBounds.x + localBounds.width, localBounds.y + localBounds.height,
 				localBounds.y, -10000, 10000);
@@ -205,7 +206,7 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		Map<Class<?>, AtomicLong[]> counts = Maps.newHashMap();
 		for (IThing thingToRender : model.getAllThings()) {
 			long time = System.nanoTime();
-			if (thingToRender.has(IIsHidden.HIDDEN_KEY, true)) {
+			if (thingToRender.has(IHasHidden.HIDDEN_KEY, true)) {
 				continue;
 			}
 			try {
@@ -301,8 +302,8 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 			}
 			textureData = new AWTTextureData(gl.getGLProfile(), 0, 0, false, bufferedImage);
 			texture = AWTTextureIO.newTexture(gl.getGLProfile(), bufferedImage, false);
-			texture.setTexParameteri(gl, GL2ES2.GL_TEXTURE_MIN_FILTER, GL2ES2.GL_NEAREST);
-			texture.setTexParameteri(gl, GL2ES2.GL_TEXTURE_MAG_FILTER, GL2ES2.GL_NEAREST);
+			texture.setTexParameteri(gl, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST);
+			texture.setTexParameteri(gl, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
 		}
 
 		// draw text on the buffered image
@@ -374,12 +375,11 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 				gl.glActiveTexture(GL.GL_TEXTURE0 + 0);
 				texture.bind(gl);
 				vertices.rewind();
-				textP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2,
-						false);
+				textP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
 				texture_coords.rewind();
-				textP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_texture_position", texture_coords,
+				textP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_texture_position", texture_coords,
 						GL.GL_STATIC_DRAW, 2, false);
-				gl.glDrawArrays(GL2ES2.GL_TRIANGLE_FAN, 0, 4);
+				gl.glDrawArrays(GL.GL_TRIANGLE_FAN, 0, 4);
 			}
 			finally {
 				textP.done();
@@ -433,13 +433,12 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 			gl.glUniformMatrix4fv(lineP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
 			gl.glUniform1i(lineP.getUniform("uniform_stipple"), stipple);
 			vertices.rewind();
-			lineP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
+			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
 			colors.rewind();
-			lineP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_color", colors, GL.GL_STATIC_DRAW, 4, false);
+			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", colors, GL.GL_STATIC_DRAW, 4, false);
 			offsets.rewind();
-			lineP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_stipple_offset", offsets, GL.GL_STATIC_DRAW, 1,
-					false);
-			gl.glDrawArrays(GL2ES2.GL_LINE_STRIP, 0, xy.length / 2);
+			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_stipple_offset", offsets, GL.GL_STATIC_DRAW, 1, false);
+			gl.glDrawArrays(GL.GL_LINE_STRIP, 0, xy.length / 2);
 		}
 		finally {
 			lineP.done();
@@ -468,13 +467,12 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 			gl.glUniformMatrix4fv(lineP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
 			gl.glUniform1i(lineP.getUniform("uniform_stipple"), 0xFFFFFFFF);
 			vertices.rewind();
-			lineP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
+			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
 			colors.rewind();
-			lineP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_color", colors, GL.GL_STATIC_DRAW, 4, false);
+			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", colors, GL.GL_STATIC_DRAW, 4, false);
 			offsets.rewind();
-			lineP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_stipple_offset", offsets, GL.GL_STATIC_DRAW, 1,
-					false);
-			gl.glDrawArrays(GL2ES2.GL_POINTS, 0, xy.length / 2);
+			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_stipple_offset", offsets, GL.GL_STATIC_DRAW, 1, false);
+			gl.glDrawArrays(GL.GL_POINTS, 0, xy.length / 2);
 		}
 		finally {
 			lineP.done();
@@ -575,10 +573,10 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		try {
 			gl.glUniformMatrix4fv(fillP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
 			vertices.rewind();
-			fillP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
+			fillP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
 			colors.rewind();
-			fillP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_color", colors, GL.GL_STATIC_DRAW, 4, false);
-			gl.glDrawArrays(GL2ES2.GL_TRIANGLE_STRIP, 0, n);
+			fillP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", colors, GL.GL_STATIC_DRAW, 4, false);
+			gl.glDrawArrays(GL.GL_TRIANGLE_STRIP, 0, n);
 		}
 		finally {
 			fillP.done();
@@ -641,10 +639,10 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		try {
 			gl.glUniformMatrix4fv(fillP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
 			vertices.rewind();
-			fillP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
+			fillP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", vertices, GL.GL_STATIC_DRAW, 2, false);
 			colors.rewind();
-			fillP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_color", colors, GL.GL_STATIC_DRAW, 4, false);
-			gl.glDrawArrays(GL2ES2.GL_TRIANGLE_FAN, 0, xy.length / 2);
+			fillP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", colors, GL.GL_STATIC_DRAW, 4, false);
+			gl.glDrawArrays(GL.GL_TRIANGLE_FAN, 0, xy.length / 2);
 		}
 		finally {
 			fillP.done();
@@ -658,9 +656,9 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		try {
 			gl.glUniformMatrix4fv(fillP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
 			xyzVertices.rewind();
-			fillP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_position", xyzVertices, GL.GL_STATIC_DRAW, 3, false);
+			fillP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", xyzVertices, GL.GL_STATIC_DRAW, 3, false);
 			rgbaColors.rewind();
-			fillP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_color", rgbaColors, GL.GL_STATIC_DRAW, 4, false);
+			fillP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", rgbaColors, GL.GL_STATIC_DRAW, 4, false);
 			gl.glDrawArrays(mode, 0, n);
 		}
 		finally {
@@ -676,7 +674,7 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 		offsets.put(0);
 		xyzVertices.rewind();
 		float[] values = new float[16];
-		matrix.glGetFloatv(PMVMatrix.GL_PROJECTION, values, 0);
+		matrix.glGetFloatv(GLMatrixFunc.GL_PROJECTION, values, 0);
 		Matrix m = Matrix.newColumnMajorMatrix(4, values);
 		Matrix p1 = m.product(Matrix.newRowMajorMatrix(1, xyzVertices.get(), xyzVertices.get(), xyzVertices.get(), 1));
 		for (int i = 1; i < n; i++) {
@@ -694,12 +692,11 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 			gl.glUniformMatrix4fv(fillP.getUniform("uniform_projection"), 1, false, matrix.glGetMatrixf());
 			gl.glUniform1i(lineP.getUniform("uniform_stipple"), stipple);
 			xyzVertices.rewind();
-			lineP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_position", xyzVertices, GL.GL_STATIC_DRAW, 3, false);
+			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_position", xyzVertices, GL.GL_STATIC_DRAW, 3, false);
 			rgbaColors.rewind();
-			lineP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_color", rgbaColors, GL.GL_STATIC_DRAW, 4, false);
+			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_color", rgbaColors, GL.GL_STATIC_DRAW, 4, false);
 			offsets.rewind();
-			lineP.bindBufferData(GL2ES2.GL_ARRAY_BUFFER, "attribute_stipple_offset", offsets, GL.GL_STATIC_DRAW, 1,
-					false);
+			lineP.bindBufferData(GL.GL_ARRAY_BUFFER, "attribute_stipple_offset", offsets, GL.GL_STATIC_DRAW, 1, false);
 			gl.glDrawArrays(mode, 0, n);
 		}
 		finally {
@@ -717,10 +714,10 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 	@Override
 	public void pushMatrix(double x, double y, double angle) {
 		int oldMatrixMode = matrix.glGetMatrixMode();
-		pushMatrix(PMVMatrix.GL_MODELVIEW);
-		pushMatrix(PMVMatrix.GL_PROJECTION);
-		pushMatrix(GL2ES2.GL_TEXTURE);
-		matrix.glMatrixMode(PMVMatrix.GL_PROJECTION);
+		pushMatrix(GLMatrixFunc.GL_MODELVIEW);
+		pushMatrix(GLMatrixFunc.GL_PROJECTION);
+		pushMatrix(GL.GL_TEXTURE);
+		matrix.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
 		matrix.glTranslatef((float) x, (float) y, 0);
 		matrix.glRotatef((float) (angle / Math.PI * 180), 0, 0, 1);
 		matrix.glMatrixMode(oldMatrixMode);
@@ -729,9 +726,9 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 	@Override
 	public void popMatrix() {
 		int oldMatrixMode = matrix.glGetMatrixMode();
-		popMatrix(PMVMatrix.GL_MODELVIEW);
-		popMatrix(PMVMatrix.GL_PROJECTION);
-		popMatrix(GL2ES2.GL_TEXTURE);
+		popMatrix(GLMatrixFunc.GL_MODELVIEW);
+		popMatrix(GLMatrixFunc.GL_PROJECTION);
+		popMatrix(GL.GL_TEXTURE);
 		matrix.glMatrixMode(oldMatrixMode);
 	}
 
@@ -817,13 +814,13 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 	public void pushMatrix(int matrixName) {
 		List<float[]> stack;
 		switch (matrixName) {
-		case PMVMatrix.GL_MODELVIEW:
+		case GLMatrixFunc.GL_MODELVIEW:
 			stack = modelViewMatrixStack;
 			break;
-		case PMVMatrix.GL_PROJECTION:
+		case GLMatrixFunc.GL_PROJECTION:
 			stack = projectionMatrixStack;
 			break;
-		case GL2ES2.GL_TEXTURE:
+		case GL.GL_TEXTURE:
 			stack = textureMatrixStack;
 			break;
 		default:
@@ -841,13 +838,13 @@ public class JOGLResources extends AbstractUIResources implements IJOGLResources
 	public void popMatrix(int matrixName) {
 		List<float[]> stack;
 		switch (matrixName) {
-		case PMVMatrix.GL_MODELVIEW:
+		case GLMatrixFunc.GL_MODELVIEW:
 			stack = modelViewMatrixStack;
 			break;
-		case PMVMatrix.GL_PROJECTION:
+		case GLMatrixFunc.GL_PROJECTION:
 			stack = projectionMatrixStack;
 			break;
-		case GL2ES2.GL_TEXTURE:
+		case GL.GL_TEXTURE:
 			stack = textureMatrixStack;
 			break;
 		default:

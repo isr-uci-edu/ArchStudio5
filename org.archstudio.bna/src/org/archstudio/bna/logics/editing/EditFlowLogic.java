@@ -27,8 +27,8 @@ public class EditFlowLogic extends AbstractThingLogic implements IBNAMenuListene
 	@Override
 	synchronized public void fillMenu(final IBNAView view, List<IThing> things, final ICoordinate location,
 			IMenuManager menu) {
-		final IHasMutableFlow editThing = Assemblies.getEditableThing(model, firstOrNull(things),
-				IHasMutableFlow.class, IHasMutableFlow.USER_MAY_EDIT_FLOW);
+		final IHasFlow editThing = Assemblies.getEditableThing(model, firstOrNull(things), IHasFlow.class,
+				IHasMutableFlow.USER_MAY_EDIT_FLOW);
 		if (editThing != null) {
 			MenuManager editDirectionMenu = new MenuManager("Edit Direction...");
 			for (final Flow f : Flow.values()) {

@@ -5,14 +5,16 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.List;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2ES2;
 
 import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
-import org.archstudio.bna.things.AbstractAnchorPointThingPeer;
+import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.jogl.IJOGLResources;
 import org.archstudio.bna.ui.swt.ISWTResources;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
@@ -23,7 +25,7 @@ import com.google.common.collect.Lists;
 import com.google.common.primitives.Floats;
 import com.jogamp.common.nio.Buffers;
 
-public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPointThingPeer<T> {
+public class RotaterThingPeer<T extends RotaterThing> extends AbstractThingPeer<T> {
 
 	protected static final int UNDERHANG = 4;
 	protected static final int WEDGE_SIZE = 10;
@@ -34,15 +36,15 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 
 	@Override
 	public void draw(GL2ES2 gl, Rectangle localBounds, IJOGLResources r) {
-		Point lap = cm.worldToLocal(t.getAnchorPoint());
-		int Radius = t.getRadius();
+		Point2D lap = cm.worldToLocal(t.getRawAnchorPoint());
+		int Radius = t.getRawRadius();
 		int radius = Radius / 4;
-		int angle = t.getAngle();
+		int angle = t.getRawAngle();
 		float angleRadians = (float) Math.PI * angle / 180;
 		float error = 0.25f;
 		float radianDelta = (float) Math.acos(2 * (1 - error / Radius) * (1 - error / Radius) - 1);
 
-		r.pushMatrix(lap.x, lap.y, 0);
+		r.pushMatrix(lap.getX(), lap.getY(), 0);
 
 		{ // background circle
 			List<Float> vertices = Lists.newArrayList();
@@ -87,7 +89,7 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 			vertices.add(y * (Radius - UNDERHANG));
 			vertices.add(0f);
 
-			r.fillShape(GL2ES2.GL_TRIANGLE_STRIP, //
+			r.fillShape(GL.GL_TRIANGLE_STRIP, //
 					Buffers.newDirectFloatBuffer(Floats.toArray(vertices)), //
 					Buffers.newDirectFloatBuffer(Floats.toArray(colors)), vertices.size() / 3);
 		}
@@ -135,7 +137,7 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 			vertices.add(y);
 			vertices.add(0f);
 
-			r.fillShape(GL2ES2.GL_TRIANGLE_FAN, //
+			r.fillShape(GL.GL_TRIANGLE_FAN, //
 					Buffers.newDirectFloatBuffer(Floats.toArray(vertices)), //
 					Buffers.newDirectFloatBuffer(Floats.toArray(colors)), vertices.size() / 3);
 		}
@@ -145,13 +147,13 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 
 	@Override
 	public void draw(GC gc, Rectangle localBounds, ISWTResources r) {
-		Point lap = cm.worldToLocal(t.getAnchorPoint());
-		int radius = t.getRadius();
-		int angle = t.getAngle();
+		Point2D lap = cm.worldToLocal(t.getRawAnchorPoint());
+		int radius = t.getRawRadius();
+		int angle = t.getRawAngle();
 		Rectangle o;
 
-		o = new Rectangle(lap.x - (radius - UNDERHANG), lap.y - (radius - UNDERHANG), 2 * (radius - UNDERHANG),
-				2 * (radius - UNDERHANG));
+		o = new Rectangle(SystemUtils.round(lap.getX()) - (radius - UNDERHANG), SystemUtils.round(lap.getY())
+				- (radius - UNDERHANG), 2 * (radius - UNDERHANG), 2 * (radius - UNDERHANG));
 
 		gc.setAlpha(64);
 		gc.setBackground(gc.getDevice().getSystemColor(SWT.COLOR_GRAY));
@@ -161,7 +163,8 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 		gc.setForeground(gc.getDevice().getSystemColor(SWT.COLOR_BLACK));
 		gc.drawOval(o.x, o.y, o.width, o.height);
 
-		o = new Rectangle(lap.x - radius, lap.y - radius, 2 * radius, 2 * radius);
+		o = new Rectangle(SystemUtils.round(lap.getX()) - radius, SystemUtils.round(lap.getY()) - radius, 2 * radius,
+				2 * radius);
 
 		r.setColor(new RGB(255, 0, 0), 0.25);
 		r.fillShape(new Arc2D.Double(o.x, o.y, o.width, o.height, -angle - WEDGE_SIZE, WEDGE_SIZE * 2, Arc2D.PIE));
@@ -169,10 +172,10 @@ public class RotaterThingPeer<T extends RotaterThing> extends AbstractAnchorPoin
 
 	@Override
 	public boolean isInThing(ICoordinate location) {
-		Point lap = cm.worldToLocal(t.getAnchorPoint());
-		int radius = t.getRadius();
+		Point2D lap = cm.worldToLocal(t.getRawAnchorPoint());
+		int radius = t.getRawRadius();
 		Point lLocation = location.getLocalPoint();
-		float distance = (float) Point2D.distance(lap.x, lap.y, lLocation.x, lLocation.y);
+		float distance = (float) Point2D.distance(lap.getX(), lap.getY(), lLocation.x, lLocation.y);
 		return distance <= radius;
 	}
 

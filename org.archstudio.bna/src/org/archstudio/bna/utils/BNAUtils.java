@@ -1,7 +1,6 @@
 package org.archstudio.bna.utils;
 
 import java.awt.Dimension;
-import java.awt.Insets;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
@@ -10,6 +9,7 @@ import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 import org.archstudio.bna.IBNAModel;
@@ -21,17 +21,16 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
 import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.facets.IHasBoundingBox;
-import org.archstudio.bna.facets.IHasLocalInsets;
-import org.archstudio.bna.facets.IHasPoints;
 import org.archstudio.bna.facets.IHasSelected;
+import org.archstudio.bna.facets.IHasStickyShape;
 import org.archstudio.bna.facets.IHasWorld;
-import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.swtutils.SWTWidgetUtils;
 import org.archstudio.swtutils.constants.Orientation;
+import org.archstudio.sysutils.FastMap;
 import org.archstudio.sysutils.SystemUtils;
 import org.archstudio.sysutils.UIDGenerator;
 import org.eclipse.jdt.annotation.Nullable;
@@ -57,26 +56,18 @@ public class BNAUtils {
 
 	public static final CycleDetectingLockFactory LOCK_FACTORY = CycleDetectingLockFactory
 			.newInstance(CycleDetectingLockFactory.Policies.DISABLED);
-	public static final double TO_POINTS_ERROR = 0.25d;
+	public static final double TO_POINTS_ERROR = 0.5d;
+	public static final double REAL_EQUAL_THRESHOLD = 0.0000001d;
+	public static final int LINE_CLICK_DISTANCE = 5;
 
 	@SuppressWarnings("unchecked")
 	public static final <T> T castOrNull(IThing thing, Class<T> thingClass) {
 		return thingClass.isInstance(thing) ? (T) thing : null;
 	}
 
-	public static final Rectangle NONEXISTENT_RECTANGLE = new Rectangle(Integer.MIN_VALUE, Integer.MIN_VALUE, 0, 0);
-
 	public static final IThingKey<Double> SCALE_KEY = ThingKey.create("scale");
 	public static final IThingKey<Point> LOCAL_KEY = ThingKey.create("local");
 	public static final IThingKey<Point> WORLD_KEY = ThingKey.create("world");
-
-	public static final int round(double d) {
-		return (int) Math.round(d);
-	}
-
-	public static final int round(float f) {
-		return Math.round(f);
-	}
 
 	public static Rectangle normalizeRectangle(Rectangle rectangleResult) {
 		if (rectangleResult.width < 0) {
@@ -112,12 +103,39 @@ public class BNAUtils {
 				&& isWithin(outsideRect, in.x + in.width, in.y + in.height);
 	}
 
-	/**
-	 * @deprecated Use {@link SystemUtils#nullEquals(Object, Object)} instead.
-	 */
-	@Deprecated
-	public static final boolean nulleq(Object o1, Object o2) {
-		return SystemUtils.nullEquals(o1, o2);
+	private static boolean eq(double v1, double v2) {
+		return Math.abs(v2 - v1) < REAL_EQUAL_THRESHOLD;
+	}
+
+	private static FastMap<Class<?>, Comparator<?>> likeHelpers = new FastMap<>(true);
+	static {
+		likeHelpers.put(Point2D.Float.class, new Comparator<Point2D>() {
+			@Override
+			public int compare(Point2D o1, Point2D o2) {
+				return eq(o1.getX(), o2.getX()) && eq(o1.getY(), o2.getY()) ? 0 : -1;
+			}
+		});
+		likeHelpers.put(Point2D.Double.class, new Comparator<Point2D>() {
+			@Override
+			public int compare(Point2D o1, Point2D o2) {
+				return eq(o1.getX(), o2.getX()) && eq(o1.getY(), o2.getY()) ? 0 : -1;
+			}
+		});
+	}
+
+	public static final boolean like(Object o1, Object o2) {
+		if (o1 == null || o2 == null) {
+			if (o1 != null || o2 != null) {
+				return false;
+			}
+			return true;
+		}
+		@SuppressWarnings("unchecked")
+		Comparator<Object> c = (Comparator<Object>) likeHelpers.get(o1.getClass());
+		if (c == null) {
+			return o1.equals(o2);
+		}
+		return c.compare(o1, o2) == 0;
 	}
 
 	public static final Point clone(Point p) {
@@ -132,12 +150,23 @@ public class BNAUtils {
 		return new Dimension(d.width, d.height);
 	}
 
-	public static final List<Point> worldToLocal(final ICoordinateMapper cm, List<Point> worldPoints) {
+	public static final List<Point> worldToLocalPoint(final ICoordinateMapper cm, List<Point> worldPoints) {
 		return Lists.transform(worldPoints, new Function<Point, Point>() {
 
 			@Override
 			public Point apply(Point input) {
 				return cm.worldToLocal(new Point(input.x, input.y));
+			}
+		});
+	}
+
+	public static final List<Point2D> worldToLocalPoint2D(final ICoordinateMapper cm,
+			List<? extends Point2D> worldPoints) {
+		return Lists.transform(worldPoints, new Function<Point2D, Point2D>() {
+
+			@Override
+			public Point2D apply(Point2D input) {
+				return cm.worldToLocal(input);
 			}
 		});
 	}
@@ -503,7 +532,7 @@ public class BNAUtils {
 
 			if (dw != 0) {
 				// Scale that distance
-				dist = BNAUtils.round(dist * sx);
+				dist = SystemUtils.round(dist * sx);
 			}
 
 			// Also perform translation
@@ -521,7 +550,7 @@ public class BNAUtils {
 
 			if (dw != 0) {
 				// Scale that distance
-				dist = BNAUtils.round(dist * sx);
+				dist = SystemUtils.round(dist * sx);
 			}
 
 			// Also perform translation
@@ -538,7 +567,7 @@ public class BNAUtils {
 
 			if (dh != 0) {
 				// Scale that distance
-				dist = BNAUtils.round(dist * sy);
+				dist = SystemUtils.round(dist * sy);
 			}
 
 			// Also perform translation
@@ -556,7 +585,7 @@ public class BNAUtils {
 
 			if (dh != 0) {
 				// Scale that distance
-				dist = BNAUtils.round(dist * sy);
+				dist = SystemUtils.round(dist * sy);
 			}
 
 			// Also perform translation
@@ -707,37 +736,17 @@ public class BNAUtils {
 	//	}
 
 	public static @Nullable
-	Point getCentralPoint(IThing t) {
-		if (t instanceof IIsSticky) {
-			java.awt.Rectangle r = ((IIsSticky) t).getStickyShape().getBounds();
-			return new Point(round(r.getCenterX()), round(r.getCenterY()));
-		}
-		if (t instanceof IHasPoints) {
-			List<Point> points = ((IHasPoints) t).getPoints();
-			int x1 = Integer.MAX_VALUE;
-			int y1 = Integer.MAX_VALUE;
-			int x2 = Integer.MIN_VALUE;
-			int y2 = Integer.MIN_VALUE;
-			for (Point p : points) {
-				x1 = Math.min(x1, p.x);
-				x2 = Math.max(x2, p.x);
-				y1 = Math.min(y1, p.y);
-				y2 = Math.max(y2, p.y);
-			}
-			Point p = new Point((x1 + x2) / 2, (y1 + y2) / 2);
-			if (t instanceof IHasAnchorPoint) {
-				Point a = ((IHasAnchorPoint) t).getAnchorPoint();
-				p.x += a.x;
-				p.y += a.y;
-			}
-			return p;
+	Point2D getCentralPoint(IThing t) {
+		if (t instanceof IHasBoundingBox) {
+			Rectangle r = ((IHasBoundingBox) t).getBoundingBox();
+			return new Point2D.Double(r.x + r.width / 2, r.y + r.height / 2);
 		}
 		if (t instanceof IHasAnchorPoint) {
 			return ((IHasAnchorPoint) t).getAnchorPoint();
 		}
-		if (t instanceof IHasBoundingBox) {
-			Rectangle r = ((IHasBoundingBox) t).getBoundingBox();
-			return new Point(r.x + r.width / 2, r.y + r.height / 2);
+		if (t instanceof IHasStickyShape) {
+			java.awt.Rectangle r = ((IHasStickyShape) t).getStickyShape().getBounds();
+			return new Point2D.Double(r.getCenterX(), r.getCenterY());
 		}
 		return null;
 	}
@@ -791,82 +800,49 @@ public class BNAUtils {
 		return false;
 	}
 
-	/**
-	 * Determines a point that represents the same relative location on new bounding box, as the old point represented
-	 * on the old bounding box. For example, if the old point was midway down the left edge of the old bounding box, the
-	 * new point will be midway down the left edge of the new bounding box. Likewise, if the old point was in the center
-	 * of the old bounding box, the new point will be in the center of the new bounding box.
-	 */
-	public static Point movePointWith(Rectangle oldBoundingBox, Rectangle newBoundingBox, Point oldPoint) {
-		if (oldBoundingBox != null && newBoundingBox != null && oldPoint != null) {
-			int dx;
-			if (oldPoint.x <= oldBoundingBox.x) {
-				dx = newBoundingBox.x - oldBoundingBox.x;
-			}
-			else if (oldPoint.x >= oldBoundingBox.x + oldBoundingBox.width) {
-				dx = newBoundingBox.x + newBoundingBox.width - (oldBoundingBox.x + oldBoundingBox.width);
-			}
-			else {
-				float fx = (oldPoint.x - (float) oldBoundingBox.x) / oldBoundingBox.width;
-				int nx = Math.round(fx * newBoundingBox.width) + newBoundingBox.x;
-				dx = nx - oldPoint.x;
-			}
-
-			int dy;
-			if (oldPoint.y <= oldBoundingBox.y) {
-				dy = newBoundingBox.y - oldBoundingBox.y;
-			}
-			else if (oldPoint.y >= oldBoundingBox.y + oldBoundingBox.height) {
-				dy = newBoundingBox.y + newBoundingBox.height - (oldBoundingBox.y + oldBoundingBox.height);
-			}
-			else {
-				float fy = (oldPoint.y - (float) oldBoundingBox.y) / oldBoundingBox.height;
-				int ny = Math.round(fy * newBoundingBox.height) + newBoundingBox.y;
-				dy = ny - oldPoint.y;
-			}
-
-			return new Point(oldPoint.x + dx, oldPoint.y + dy);
-		}
-		return oldPoint;
-	}
-
 	public static final Dimension getSize(Rectangle r) {
 		return new Dimension(r.width, r.height);
 	}
 
-	public static float getDistance(Point p1, Point p2) {
+	public static double getDistance(Point p1, Point p2) {
 		if (p1 != null && p2 != null) {
-			int dx = p2.x - p1.x;
-			int dy = p2.y - p1.y;
-			return (float) Math.sqrt(dx * dx + dy * dy);
+			double dx = p2.x - p1.x;
+			double dy = p2.y - p1.y;
+			return Math.sqrt(dx * dx + dy * dy);
 		}
-		return Float.POSITIVE_INFINITY;
+		return Double.POSITIVE_INFINITY;
 	}
 
-	public static Point getClosestPointOnShape(Shape shape, int nearX, int nearY, int refX, int refY) {
+	public static double getDistance(Point2D p1, Point2D p2) {
+		if (p1 != null && p2 != null) {
+			return p1.distance(p2);
+		}
+		return Double.POSITIVE_INFINITY;
+	}
+
+	public static Point2D getClosestPointOnShape(Shape shape, double nearX, double nearY, double refX, double refY) {
 
 		// search for the point closest to (nearX,nearY) that intersects the referenceLine
 		Line2D referenceLine = new Line2D.Double(refX, refY, nearX, nearY);
 		double[] pathCoords = new double[6];
 		double closestDistanceSq = Double.POSITIVE_INFINITY;
-		Point closestIntersection = new Point(refX, refY);
+		Point2D closestIntersection = new Point2D.Double(refX, refY);
 		{
-			Point2D lastMoveTo = null;
-			Point2D lastPoint = null;
+			Point2D lastMoveTo = new Point2D.Double();
+			Point2D lastPoint = new Point2D.Double();
+			Line2D lineSegment = new Line2D.Double();
 			for (PathIterator i = shape.getPathIterator(new AffineTransform(), 0.5f); !i.isDone(); i.next()) {
-				Line2D lineSegment = null;
 				switch (i.currentSegment(pathCoords)) {
 				case PathIterator.SEG_MOVETO:
-					lastMoveTo = new Point2D.Double(pathCoords[0], pathCoords[1]);
-					lastPoint = lastMoveTo;
+					lastMoveTo.setLocation(pathCoords[0], pathCoords[1]);
+					lastPoint.setLocation(pathCoords[0], pathCoords[1]);
 					continue;
 				case PathIterator.SEG_CLOSE:
-					lineSegment = new Line2D.Double(lastPoint, lastMoveTo);
+					lineSegment.setLine(lastPoint, lastMoveTo);
 					break;
 				case PathIterator.SEG_LINETO:
-					Point2D lineTo = new Point2D.Double(pathCoords[0], pathCoords[1]);
-					lineSegment = new Line2D.Double(lastPoint, lineTo);
-					lastPoint = lineTo;
+					lineSegment.setLine(lastPoint.getX(), lastPoint.getY(), pathCoords[0], pathCoords[1]);
+					lastPoint.setLocation(pathCoords[0], pathCoords[1]);
 					break;
 				default:
 					throw new UnsupportedOperationException();
@@ -877,7 +853,7 @@ public class BNAUtils {
 					double distanceSq = intersection.distanceSq(nearX, nearY);
 					if (distanceSq < closestDistanceSq) {
 						closestDistanceSq = distanceSq;
-						closestIntersection = new Point(round(intersection.getX()), round(intersection.getY()));
+						closestIntersection = intersection;
 					}
 				}
 			}
@@ -906,7 +882,7 @@ public class BNAUtils {
 		return new Point2D.Double(xNumerator / denominator, yNumerator / denominator);
 	}
 
-	private static Point getClosestPointOnLineSegment(Line2D l, final int x3, final int y3) {
+	private static Point2D getClosestPointOnLineSegment(Line2D l, double x3, double y3) {
 		// see: http://paulbourke.net/geometry/pointline/
 		double x1 = l.getX1();
 		double y1 = l.getY1();
@@ -920,16 +896,16 @@ public class BNAUtils {
 
 		// determine if the calculated intersection is between the segment points
 		if (l.ptSegDistSq(x, y) < 0.0000001d) {
-			return new Point(round(x), round(y));
+			return new Point2D.Double(x, y);
 		}
 		// its not, so use the closest end point
 		double dp1 = p1.distanceSq(x3, y3);
 		double dp2 = p2.distanceSq(x3, y3);
 		Point2D p = dp1 < dp2 ? p1 : p2;
-		return new Point(round(p.getX()), round(p.getY()));
+		return p;
 	}
 
-	public static Point getClosestPointOnShape(Shape shape, int nearX, int nearY) {
+	public static Point2D getClosestPointOnShape(Shape shape, double nearX, double nearY) {
 
 		// search for the closest line segment
 		double[] pathCoords = new double[6];
@@ -1032,18 +1008,6 @@ public class BNAUtils {
 		return xyArray;
 	}
 
-	public static final Rectangle getLocalBoundingBox(ICoordinateMapper cm, IHasBoundingBox t) {
-		Rectangle localBoundingBox = cm.worldToLocal(t.getBoundingBox());
-		Insets insets = t.get(IHasLocalInsets.LOCAL_INSETS_KEY);
-		if (insets != null) {
-			localBoundingBox.x += insets.left;
-			localBoundingBox.y += insets.top;
-			localBoundingBox.width -= insets.left + insets.right;
-			localBoundingBox.height -= insets.top + insets.bottom;
-		}
-		return localBoundingBox;
-	}
-
 	private static final Function<IThing, Object> thingToIDFunction = new Function<IThing, Object>() {
 
 		@Override
@@ -1076,9 +1040,9 @@ public class BNAUtils {
 				/ ((r > 255 ? 1 : 0) + (g > 255 ? 1 : 0) + (b > 255 ? 1 : 0));
 
 		return new RGB(//
-				SystemUtils.bound(0, BNAUtils.round(r + w), 255),// 
-				SystemUtils.bound(0, BNAUtils.round(g + w), 255),// 
-				SystemUtils.bound(0, BNAUtils.round(b + w), 255));
+				SystemUtils.bound(0, SystemUtils.round(r + w), 255),// 
+				SystemUtils.bound(0, SystemUtils.round(g + w), 255),// 
+				SystemUtils.bound(0, SystemUtils.round(b + w), 255));
 	}
 
 	public static final Rectangle toRectangle(java.awt.Rectangle bounds) {
@@ -1086,10 +1050,10 @@ public class BNAUtils {
 	}
 
 	public static final Rectangle toRectangle(java.awt.geom.Rectangle2D bounds) {
-		int x1 = round(bounds.getMinX());
-		int y1 = round(bounds.getMinY());
-		int x2 = round(bounds.getMaxX());
-		int y2 = round(bounds.getMaxY());
+		int x1 = SystemUtils.round(bounds.getMinX());
+		int y1 = SystemUtils.round(bounds.getMinY());
+		int x2 = SystemUtils.round(bounds.getMaxX());
+		int y2 = SystemUtils.round(bounds.getMaxY());
 		return new Rectangle(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 	}
 
@@ -1106,7 +1070,7 @@ public class BNAUtils {
 	}
 
 	public static Point toPoint(Point2D p) {
-		return new Point(round(p.getX()), round(p.getY()));
+		return new Point(SystemUtils.round(p.getX()), SystemUtils.round(p.getY()));
 	}
 
 	public static final Point2D toPoint2D(Point p) {
@@ -1118,7 +1082,7 @@ public class BNAUtils {
 	}
 
 	public static Dimension toDimension(Rectangle2D r) {
-		return new Dimension(round(r.getWidth()), round(r.getHeight()));
+		return new Dimension(SystemUtils.round(r.getWidth()), SystemUtils.round(r.getHeight()));
 	}
 
 	public static Dimension toDimension(Rectangle lbb) {
@@ -1163,8 +1127,8 @@ public class BNAUtils {
 		int xyArrayIndex = 0;
 
 		for (Point2D point : points) {
-			int x = round(point.getX());
-			int y = round(point.getY());
+			int x = SystemUtils.round(point.getX());
+			int y = SystemUtils.round(point.getY());
 			// remove duplicate points, especially necessary for glow things
 			if (xyArrayIndex >= 2) {
 				if (xyArray[xyArrayIndex - 2] == x && xyArray[xyArrayIndex - 1] == y) {

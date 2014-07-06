@@ -2,6 +2,7 @@ package org.archstudio.archipelago.core.util;
 
 import static org.archstudio.sysutils.SystemUtils.castOrNull;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -67,7 +68,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 			ObjRef objRef = assembly != null ? assembly.get(IHasObjRef.OBJREF_KEY) : null;
 			if (assembly != null && objRef != null
 					&& XadlUtils.isInstanceOf(xarch, objRef, Structure_3_0Package.Literals.COMPONENT)) {
-				String text = Assemblies.TEXT_KEY.get(assembly, m).getText();
+				String text = Assemblies.BOUNDED_TEXT_KEY.get(assembly, m).getText();
 				if (matches(search, text)) {
 					r = createFindResult(context, assembly, prefix, text,
 							resources.getImageDescriptor(ArchStudioCommonResources.ICON_COMPONENT));
@@ -76,7 +77,7 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 			}
 			if (assembly != null && objRef != null
 					&& XadlUtils.isInstanceOf(xarch, objRef, Structure_3_0Package.Literals.CONNECTOR)) {
-				String text = Assemblies.TEXT_KEY.get(assembly, m).getText();
+				String text = Assemblies.BOUNDED_TEXT_KEY.get(assembly, m).getText();
 				if (matches(search, text)) {
 					r = createFindResult(context, assembly, prefix, text,
 							resources.getImageDescriptor(ArchStudioCommonResources.ICON_CONNECTOR));
@@ -142,14 +143,14 @@ public class ArchipelagoFinder implements IFinder<IBNAView> {
 		if (text == null) {
 			return null;
 		}
-		Point p = BNAUtils.getCentralPoint(t);
+		Point2D p = BNAUtils.getCentralPoint(t);
 		if (p == null) {
 			return null;
 		}
 		if (prefix == null) {
 			prefix = "";
 		}
-		return new DefaultFindResult(new FindResultData(view, t, p), prefix + text, image);
+		return new DefaultFindResult(new FindResultData(view, t, BNAUtils.toPoint(p)), prefix + text, image);
 	}
 
 	class FindResultData {

@@ -1,6 +1,7 @@
 package org.archstudio.utils.bna.dot;
 
 import java.awt.Dimension;
+import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -21,11 +22,10 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.facets.IHasEndpoints;
-import org.archstudio.bna.facets.IHasMutableBoundingBox;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.logics.coordinating.StickPointLogic;
-import org.archstudio.bna.things.AbstractRelativeMovableReferencePointThing;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.BNAUtils;
@@ -342,11 +342,9 @@ public class ExportImportDot extends AbstractThingLogic implements IBNAMenuListe
 						public void run() {
 							for (IThing t : model.getAllThings()) {
 								if (locations.containsKey(t.getID())) {
-									if (t instanceof AbstractRelativeMovableReferencePointThing) {
-										Point op = ((AbstractRelativeMovableReferencePointThing) t).getReferencePoint();
+									if (t instanceof IHasMutableReferencePoint) {
 										Point np = locations.get(t.getID());
-										((AbstractRelativeMovableReferencePointThing) t).moveRelative(new Point(np.x
-												- op.x, np.y - op.y));
+										((IHasMutableReferencePoint) t).setReferencePoint(np);
 									}
 								}
 							}
@@ -373,10 +371,10 @@ public class ExportImportDot extends AbstractThingLogic implements IBNAMenuListe
 	}
 
 	protected boolean isNodeOfInterest(IBNAModel model, IThing node) {
-		return node instanceof IHasMutableBoundingBox && Assemblies.isRoot(node);
+		return node instanceof IHasBoundingBox && Assemblies.isRoot(node);
 	}
 
-	protected IThing getNodeFromEdgeEndpoint(IBNAModel model, IThing edge, IThingKey<Point> endpointKey,
+	protected IThing getNodeFromEdgeEndpoint(IBNAModel model, IThing edge, IThingKey<Point2D> endpointKey,
 			StickPointLogic spl) {
 		return Assemblies.getRoot(model, model.getThing(spl.getStickyThingID(edge, endpointKey)));
 	}

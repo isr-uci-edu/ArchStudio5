@@ -13,11 +13,16 @@ public class ThingMetakey<N, K extends IThingKey<?>, V> extends AbstractThingMet
 
 	public static <N, K extends IThingKey<?>, V> IThingMetakey<N, K, V> create(N name, K key,
 			Function<V, V> cloneFunction) {
-		return identity(new ThingMetakey<N, K, V>(name, key, cloneFunction));
+		return identity(new ThingMetakey<N, K, V>(name, key, cloneFunction, false));
 	}
 
-	protected ThingMetakey(N name, K key, @Nullable Function<V, V> cloneFunction) {
-		super(name, key, cloneFunction);
+	public static <N, K extends IThingKey<?>, V> IThingMetakey<N, K, V> create(N name, K key,
+			Function<V, V> cloneFunction, boolean nullable) {
+		return identity(new ThingMetakey<N, K, V>(name, key, cloneFunction, nullable));
+	}
+
+	protected ThingMetakey(N name, K key, @Nullable Function<V, V> cloneFunction, boolean nullable) {
+		super(name, key, cloneFunction, nullable);
 	}
 
 }

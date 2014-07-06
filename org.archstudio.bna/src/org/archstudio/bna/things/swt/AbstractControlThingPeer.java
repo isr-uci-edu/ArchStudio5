@@ -1,6 +1,7 @@
 package org.archstudio.bna.things.swt;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
@@ -64,6 +65,11 @@ public abstract class AbstractControlThingPeer<T extends AbstractControlThing, C
 	public void dispose() {
 		control = SWTWidgetUtils.quietlyDispose(control);
 		super.dispose();
+	}
+
+	@Override
+	public boolean isInThing(ICoordinate location) {
+		return false;
 	}
 
 }

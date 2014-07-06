@@ -1,8 +1,12 @@
 package org.archstudio.bna.logics.editing;
 
+import java.awt.Dimension;
+import java.awt.geom.Point2D;
+
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasBoundingBox;
+import org.archstudio.bna.facets.IHasMinimumSize;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasStandardCursor;
@@ -80,7 +84,7 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 			cursor = SWT.CURSOR_SIZESW;
 			break;
 		}
-		handle.setAnchorPoint(location);
+		handle.setAnchorPoint(new Point2D.Double(location.x, location.y));
 		handle.set(IHasStandardCursor.STANDARD_CURSOR_KEY, cursor);
 	}
 
@@ -134,6 +138,12 @@ public class ReshapeRectangleLogic extends AbstractReshapeLogic<IHasMutableBound
 		bb.y = Math.min(ny1, ny2);
 		bb.width = Math.max(0, Math.max(nx1, nx2) - bb.x);
 		bb.height = Math.max(0, Math.max(ny1, ny2) - bb.y);
+
+		if (reshapingThing instanceof IHasMinimumSize) {
+			Dimension min = ((IHasMinimumSize) reshapingThing).getMinimumSize();
+			bb.width = Math.max(min.width, bb.width);
+			bb.height = Math.max(min.height, bb.height);
+		}
 
 		reshapingThing.setBoundingBox(bb);
 	}

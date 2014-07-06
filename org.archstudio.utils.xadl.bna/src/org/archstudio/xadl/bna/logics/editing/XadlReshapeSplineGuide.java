@@ -1,14 +1,15 @@
 package org.archstudio.xadl.bna.logics.editing;
 
+import java.awt.geom.Point2D;
+
 import org.archstudio.bna.IThing;
-import org.archstudio.bna.facets.IIsSticky;
+import org.archstudio.bna.facets.IHasStickyShape;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.logics.editing.AbstractReshapeSplineGuide;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.swt.graphics.Point;
 
 public class XadlReshapeSplineGuide extends AbstractReshapeSplineGuide {
 
@@ -18,7 +19,7 @@ public class XadlReshapeSplineGuide extends AbstractReshapeSplineGuide {
 
 	@SafeVarargs
 	public XadlReshapeSplineGuide(IXArchADT xarch, EClass splineEClass, EClass stickyEClass,
-			IThingKey<Point>... pointKeys) {
+			IThingKey<Point2D>... pointKeys) {
 		super(pointKeys);
 		this.xarch = xarch;
 		this.splineEClass = splineEClass;
@@ -35,7 +36,7 @@ public class XadlReshapeSplineGuide extends AbstractReshapeSplineGuide {
 	}
 
 	@Override
-	protected boolean isRelevantStickyThing(IIsSticky stickyThing) {
+	protected boolean isRelevantStickyThing(IHasStickyShape stickyThing) {
 		ObjRef objRef = stickyThing.get(IHasObjRef.OBJREF_KEY);
 		if (objRef != null) {
 			return xarch.isInstanceOf(objRef, stickyEClass.getEPackage().getNsURI(), stickyEClass.getName());

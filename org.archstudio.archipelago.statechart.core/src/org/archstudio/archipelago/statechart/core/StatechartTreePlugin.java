@@ -1,6 +1,7 @@
 package org.archstudio.archipelago.statechart.core;
 
 import java.awt.Dimension;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,7 +109,6 @@ import org.eclipse.swt.dnd.DragSourceEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
@@ -407,9 +407,9 @@ public class StatechartTreePlugin extends AbstractArchipelagoTreePlugin {
 						if (t != null) {
 							IThing rootThing = Assemblies.getRoot(structureModel, t);
 							if (rootThing != null) {
-								Point p = BNAUtils.getCentralPoint(rootThing);
+								Point2D p = BNAUtils.getCentralPoint(rootThing);
 								if (p != null) {
-									FlyToUtils.flyTo(view, p);
+									FlyToUtils.flyTo(view, BNAUtils.toPoint(p));
 									ArchipelagoUtils.pulseNotify(structureModel, rootThing);
 								}
 							}

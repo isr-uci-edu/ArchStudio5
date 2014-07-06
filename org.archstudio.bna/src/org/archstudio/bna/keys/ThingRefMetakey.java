@@ -6,11 +6,16 @@ public class ThingRefMetakey<T extends IThing, N, K extends IThingKey<?>> extend
 		implements IThingRefMetakey<T, N, K> {
 
 	public static <D, T extends IThing, N, K extends IThingKey<?>> IThingRefMetakey<T, N, K> create(N name, K key) {
-		return identity(new ThingRefMetakey<T, N, K>(name, key));
+		return identity(new ThingRefMetakey<T, N, K>(name, key, true));
 	}
 
-	public ThingRefMetakey(N name, K key) {
-		super(name, key);
+	public static <D, T extends IThing, N, K extends IThingKey<?>> IThingRefMetakey<T, N, K> create(N name, K key,
+			boolean nullable) {
+		return identity(new ThingRefMetakey<T, N, K>(name, key, nullable));
+	}
+
+	public ThingRefMetakey(N name, K key, boolean nullable) {
+		super(name, key, nullable);
 	}
 
 }

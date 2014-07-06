@@ -7,9 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.archstudio.bna.IBNAView;
+import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.facets.IHasColor;
-import org.archstudio.bna.things.AbstractRectangleThingPeer;
+import org.archstudio.bna.things.AbstractThingPeer;
 import org.archstudio.bna.ui.IUIResources;
 import org.archstudio.bna.ui.IUIResources.FontMetrics;
 import org.archstudio.bna.utils.BNAUtils;
@@ -18,7 +19,7 @@ import org.eclipse.swt.graphics.Rectangle;
 
 import com.google.common.collect.Lists;
 
-public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends AbstractRectangleThingPeer<T> {
+public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends AbstractThingPeer<T> {
 
 	private static final int MIN_FONT_SIZE = 2;
 	private static final int MIN_LOCAL_WIDTH = 4;
@@ -66,7 +67,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 			float totalWidth = 0;
 			float totalHeight = 0;
 
-			String text = t.getText();
+			String text = t.getRawText();
 			int minFontSize = MIN_FONT_SIZE;
 			int originalMinFontSize = minFontSize;
 			int maxFontSize = t.getFontSize();
@@ -183,8 +184,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 
 	@Override
 	public boolean draw(Rectangle localBounds, IUIResources r) {
-
-		Rectangle lbb = BNAUtils.getLocalBoundingBox(cm, t);
+		Rectangle lbb = cm.worldToLocal(t.getRawBoundingBox());
 		if (!lbb.intersects(localBounds)) {
 			return false;
 		}
@@ -196,15 +196,15 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 		if (r.setColor(t, IHasColor.COLOR_KEY)) {
 
 			List<Object> layoutDataCacheConditions = Lists.newArrayList();
-			layoutDataCacheConditions.add(t.getText());
-			layoutDataCacheConditions.add(t.getFontName());
-			layoutDataCacheConditions.add(t.getFontStyle());
-			layoutDataCacheConditions.add(t.getFontSize());
-			layoutDataCacheConditions.add(t.getDontIncreaseFontSize());
+			layoutDataCacheConditions.add(t.getRawText());
+			layoutDataCacheConditions.add(t.getRawFontName());
+			layoutDataCacheConditions.add(t.getRawFontStyle());
+			layoutDataCacheConditions.add(t.getRawFontSize());
+			layoutDataCacheConditions.add(t.isRawDontIncreaseFontSize());
 			layoutDataCacheConditions.add(r.isAntialiasText());
 			layoutDataCacheConditions.add(r.getClass());
 			// don't use the local bounding box as it can vary slightly depending on location
-			layoutDataCacheConditions.add(BNAUtils.toDimension(t.getBoundingBox()));
+			layoutDataCacheConditions.add(BNAUtils.toDimension(t.getRawBoundingBox()));
 			layoutDataCacheConditions.add(cm.getLocalScale());
 			if (!layoutDataCacheConditions.equals(this.layoutDataCacheConditions)) {
 				this.layoutDataCacheConditions = layoutDataCacheConditions;
@@ -214,7 +214,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 			if (layoutData.font != null) {
 				float scale = 1.0f;
 				float y = lbb.y;
-				switch (t.getVerticalAlignment()) {
+				switch (t.getRawVerticalAlignment()) {
 				case BOTTOM:
 					y += lbb.height - layoutData.totalHeight * scale;
 					break;
@@ -227,7 +227,7 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 				for (int i = 0; i < layoutData.lines.size(); i++) {
 					String line = layoutData.lines.get(i);
 					float x = lbb.x;
-					switch (t.getHorizontalAlignment()) {
+					switch (t.getRawHorizontalAlignment()) {
 					case RIGHT:
 						x += lbb.width - layoutData.lineWidths.get(i) * scale;
 						break;
@@ -244,5 +244,10 @@ public class BoundedLabelThingPeer<T extends BoundedLabelThing> extends Abstract
 		}
 
 		return true;
+	}
+
+	@Override
+	public boolean isInThing(ICoordinate location) {
+		return t.getRawBoundingBox().contains(location.getWorldPoint());
 	}
 }

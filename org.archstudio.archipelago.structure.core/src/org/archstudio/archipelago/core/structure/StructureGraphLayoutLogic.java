@@ -2,7 +2,6 @@ package org.archstudio.archipelago.core.structure;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -15,10 +14,11 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasMutableBoundingBox;
 import org.archstudio.bna.logics.AbstractThingLogic;
-import org.archstudio.bna.things.glass.EndpointGlassThing;
+import org.archstudio.bna.things.shapes.EndpointThing;
 import org.archstudio.bna.things.shapes.SplineThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.ui.IBNAMenuListener;
+import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.graphlayout.GraphLayout;
 import org.archstudio.graphlayout.GraphLayoutException;
 import org.archstudio.graphlayout.GraphLayoutParameters;
@@ -46,6 +46,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.ui.IWorkbenchActionConstants;
+
+import com.google.common.collect.Lists;
 
 public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBNAMenuListener {
 	protected final IXArchADT xarch;
@@ -218,7 +220,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 
 		for (String interfaceXArchID : interfaceIDtoPointListMap.keySet()) {
 			IThing nodeRootThing = ArchipelagoUtils.findThing(view.getBNAWorld().getBNAModel(), interfaceXArchID);
-			if (nodeRootThing instanceof EndpointGlassThing) {
+			if (nodeRootThing instanceof EndpointThing) {
 				List<Point> pointList = interfaceIDtoPointListMap.get(interfaceXArchID);
 				if (pointList.size() > 0) {
 					//Average the points
@@ -233,7 +235,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 					p.x += worldX;
 					p.y += worldY;
 
-					((EndpointGlassThing) nodeRootThing).setAnchorPoint(p);
+					((EndpointThing) nodeRootThing).setAnchorPoint(BNAUtils.toPoint2D(p));
 				}
 			}
 		}
@@ -262,7 +264,11 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 
 			IThing linkRootThing = ArchipelagoUtils.findThing(view.getBNAWorld().getBNAModel(), edgeID);
 			if (linkRootThing instanceof SplineThing) {
-				((SplineThing) linkRootThing).setMidpoints(Arrays.asList(midpoints));
+				List<Point2D> points = Lists.newArrayList();
+				for (Point p : midpoints) {
+					points.add(BNAUtils.toPoint2D(p));
+				}
+				((SplineThing) linkRootThing).setMidpoints(points);
 			}
 		}
 	}
@@ -296,7 +302,7 @@ public class StructureGraphLayoutLogic extends AbstractThingLogic implements IBN
 
 			IThing linkRootThing = ArchipelagoUtils.findThing(view.getBNAWorld().getBNAModel(), edgeID);
 			if (linkRootThing instanceof SplineThing) {
-				((SplineThing) linkRootThing).setMidpoints(Collections.<Point> emptyList());
+				((SplineThing) linkRootThing).setMidpoints(Collections.<Point2D> emptyList());
 			}
 		}
 	}

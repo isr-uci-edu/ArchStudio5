@@ -1,5 +1,6 @@
 package org.archstudio.archipelago.core.structure.mapping;
 
+import java.awt.geom.Point2D;
 import java.util.List;
 
 import org.archstudio.archipelago.core.ArchipelagoConstants;
@@ -11,10 +12,10 @@ import org.archstudio.bna.facets.IHasEndpoints;
 import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableEndpoints;
 import org.archstudio.bna.facets.IHasMutableMidpoints;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableText;
 import org.archstudio.bna.facets.IHasToolTip;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.DynamicStickPointLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
 import org.archstudio.bna.things.shapes.SplineThing;
@@ -43,7 +44,7 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineThing> implem
 		stickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
-		syncValue("name", null, "[no name]", BNAPath.create(), Assemblies.TEXT_KEY, true);
+		syncValue("name", null, "[no name]", BNAPath.create(), Assemblies.BOUNDED_TEXT_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, false);
 
 		syncValue("point1", null, null, BNAPath.create(),
@@ -86,16 +87,16 @@ public class MapLinkLogic extends AbstractXADLToBNAPathLogic<SplineThing> implem
 
 		SplineThing thing = Assemblies.createSpline(world, null, null);
 		Point newPointSpot = ArchipelagoUtils.getNewThingSpot(world);
-		thing.setPoint(0, new Point(newPointSpot.x - 50, newPointSpot.y + 50));
-		thing.setPoint(-1, new Point(newPointSpot.x + 50, newPointSpot.y - 50));
+		thing.setEndpoint1(new Point2D.Double(newPointSpot.x - 50, newPointSpot.y + 50));
+		thing.setEndpoint2(new Point2D.Double(newPointSpot.x + 50, newPointSpot.y - 50));
 		thing.setLineWidth(defaultLineWidth);
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
-				IRelativeMovable.USER_MAY_MOVE, IHasMutableText.USER_MAY_EDIT_TEXT,
+				IHasMutableReferencePoint.USER_MAY_MOVE, IHasMutableText.USER_MAY_EDIT_TEXT,
 				IHasMutableMidpoints.USER_MAY_MOVE_MIDPOINTS, IHasMutableMidpoints.USER_MAY_ADD_MIDPOINTS,
-				IHasMutableMidpoints.USER_MAY_REMOVE_MIDPOINTS, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT1,
-				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT1, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT2,
-				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT2, HighlightLogic.USER_MAY_HIGHLIGHT,
+				IHasMutableMidpoints.USER_MAY_REMOVE_MIDPOINTS, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_1,
+				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT_1, IHasMutableEndpoints.USER_MAY_MOVE_ENDPOINT_2,
+				IHasMutableEndpoints.USER_MAY_RESTICK_ENDPOINT_2, HighlightLogic.USER_MAY_HIGHLIGHT,
 				IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
 
 		thing.set(stickLogic.getStickyModeKey(IHasEndpoints.ENDPOINT_1_KEY), StickyMode.EDGE_FROM_CENTER);

@@ -10,8 +10,8 @@ abstract class AbstractThingRefMetakey<T extends IThing, N, K extends IThingKey<
 	protected final N name;
 	protected final K key;
 
-	protected AbstractThingRefMetakey(N name, K key) {
-		super(Lists.newArrayList(name, key));
+	protected AbstractThingRefMetakey(N name, K key, boolean nullable) {
+		super(Lists.newArrayList(name, key), nullable);
 		this.name = name;
 		this.key = key;
 	}

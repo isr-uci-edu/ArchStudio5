@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.archstudio.bna.builder.ui.generateBNAThingStubs"
+            name="Generate BNA Thing Stubs">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.archstudio.bna.builder.ui.actions.ToggleBNABuilderNatureAction"
+            commandId="org.archstudio.bna.builder.ui.generateBNAThingStubs">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.archstudio.eclipse.ui.menu">
+         <command
+               commandId="org.archstudio.bna.builder.ui.generateBNAThingStubs"
+               label="Generate BNA Thing Stubs"
+               style="toggle">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="org.archstudio.bna.builder.ui.actions.ToggleBNABuilderNatureAction"></startup>
+   </extension>
+</plugin>

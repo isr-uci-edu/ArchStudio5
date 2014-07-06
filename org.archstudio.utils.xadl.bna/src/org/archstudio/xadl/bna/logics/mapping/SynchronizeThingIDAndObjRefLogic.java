@@ -61,7 +61,7 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractKeyCoordinatingThi
 				thing.set(objRefKey.getKey(), firstOrNull(valueLogic.getThingIDs(IHasObjRef.OBJREF_KEY, objRef)));
 			}
 			else {
-				thing.set(objRefKey.getKey(), null);
+				thing.remove(objRefKey.getKey());
 			}
 		}
 		else if (key instanceof IThingRefKey) {
@@ -70,7 +70,12 @@ public class SynchronizeThingIDAndObjRefLogic extends AbstractKeyCoordinatingThi
 			if (thing.has(objRefKey)) {
 				IThing referencedThing = refKey.get(thing, model);
 				ObjRef objRef = referencedThing != null ? referencedThing.get(IHasObjRef.OBJREF_KEY) : null;
-				thing.set(objRefKey, objRef);
+				if (objRef != null) {
+					thing.set(objRefKey, objRef);
+				}
+				else {
+					thing.remove(objRefKey);
+				}
 			}
 		}
 	}

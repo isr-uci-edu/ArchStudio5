@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchStudio BNA Builder
+Bundle-SymbolicName: org.archstudio.bna.builder;singleton:=true
+Bundle-Version: 5.0.1.qualifier
+Bundle-Vendor: archstudio.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.archstudio.bna,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.archstudio.utils.eclipse,
+ org.archstudio.guava,
+ org.eclipse.xtend.lib,
+ org.archstudio.utils.eclipse.formatcode

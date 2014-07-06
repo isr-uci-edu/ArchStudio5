@@ -32,4 +32,6 @@ import org.eclipse.jdt.annotation.Nullable;
 public interface IThingKey<V> extends TypedMap.Key<V> {
 	public @Nullable
 	V clone(@Nullable V value);
+
+	public boolean isNullable();
 }

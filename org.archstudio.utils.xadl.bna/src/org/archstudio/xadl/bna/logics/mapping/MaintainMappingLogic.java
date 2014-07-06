@@ -3,14 +3,16 @@ package org.archstudio.xadl.bna.logics.mapping;
 import static org.archstudio.sysutils.SystemUtils.castOrNull;
 import static org.archstudio.sysutils.SystemUtils.firstOrNull;
 
+import java.awt.geom.Point2D;
+
 import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.ThingEvent;
-import org.archstudio.bna.facets.IHasInternalWorldEndpoint;
+import org.archstudio.bna.facets.IHasInternalWorldPoint;
+import org.archstudio.bna.facets.IHasStickyShape;
 import org.archstudio.bna.facets.IHasWorld;
-import org.archstudio.bna.facets.IIsSticky;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.IThingMetakey;
 import org.archstudio.bna.keys.ThingMetakey;
@@ -22,14 +24,13 @@ import org.archstudio.bna.things.shapes.MappingThing;
 import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.xadl.bna.facets.IHasObjRef;
 import org.archstudio.xarchadt.ObjRef;
-import org.eclipse.swt.graphics.Point;
 
 public class MaintainMappingLogic extends AbstractThingLogic implements IBNAModelListener, IInternalBNAModelListener {
 
-	public static final IThingMetakey<String, IThingKey<Point>, Object> INTERNAL_THING_KEY = ThingMetakey.create(
-			".&internalThingID", IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_KEY);
-	public static final IThingMetakey<String, IThingKey<Point>, ObjRef> INTERNAL_OBJREF_KEY = ThingMetakey.create(
-			".internalObjRef", IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_KEY);
+	public static final IThingMetakey<String, IThingKey<Point2D>, Object> INTERNAL_THING_KEY = ThingMetakey.create(
+			".&internalThingID", IHasInternalWorldPoint.INTERNAL_POINT_KEY);
+	public static final IThingMetakey<String, IThingKey<Point2D>, ObjRef> INTERNAL_OBJREF_KEY = ThingMetakey.create(
+			".internalObjRef", IHasInternalWorldPoint.INTERNAL_POINT_KEY);
 
 	protected final ThingValueTrackingLogic valueLogic;
 
@@ -54,8 +55,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 			if (t instanceof MappingThing) {
 				if (evt.getThingEvent().getPropertyName().equals(INTERNAL_THING_KEY)
 						|| evt.getThingEvent().getPropertyName().equals(INTERNAL_OBJREF_KEY)
-						|| evt.getThingEvent().getPropertyName()
-								.equals(IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY)) {
+						|| evt.getThingEvent().getPropertyName().equals(IHasInternalWorldPoint.INTERNAL_WORLD_KEY)) {
 					updateThing((MappingThing) t);
 				}
 			}
@@ -97,7 +97,7 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 	}
 
 	private void updateThing(MappingThing t) {
-		IHasWorld worldThing = castOrNull(model.getThing(t.getInternalEndpointWorldThingID()), IHasWorld.class);
+		IHasWorld worldThing = t.getInternalWorld(model);
 		if (worldThing != null) {
 			IBNAWorld iWorld = worldThing.getWorld();
 			if (iWorld != null) {
@@ -105,11 +105,11 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 				if (objRef != null) {
 					ThingValueTrackingLogic iValueLogic = iWorld.getThingLogicManager().addThingLogic(
 							ThingValueTrackingLogic.class);
-					IIsSticky iThing = castOrNull(firstOrNull(iValueLogic.getThings(IHasObjRef.OBJREF_KEY, objRef)),
-							IIsSticky.class);
+					IHasStickyShape iThing = castOrNull(
+							firstOrNull(iValueLogic.getThings(IHasObjRef.OBJREF_KEY, objRef)), IHasStickyShape.class);
 					if (iThing != null) {
 						t.set(INTERNAL_THING_KEY, iThing.getID());
-						t.setInternalEndpoint(BNAUtils.getCentralPoint(iThing));
+						t.setInternalPoint(BNAUtils.getCentralPoint(iThing));
 					}
 				}
 			}
@@ -119,24 +119,24 @@ public class MaintainMappingLogic extends AbstractThingLogic implements IBNAMode
 	protected void updateObjRef(IHasWorld worldThing, Object innerThingId, ObjRef oldObjRef, ObjRef newObjRef) {
 		if (oldObjRef != null) {
 			for (IThing t : valueLogic.getThings(INTERNAL_OBJREF_KEY, oldObjRef,
-					IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY, worldThing.getID())) {
+					IHasInternalWorldPoint.INTERNAL_WORLD_KEY, worldThing.getID())) {
 				t.set(INTERNAL_THING_KEY, null);
 			}
 		}
 		if (newObjRef != null) {
 			for (IThing t : valueLogic.getThings(INTERNAL_OBJREF_KEY, newObjRef,
-					IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY, worldThing.getID())) {
+					IHasInternalWorldPoint.INTERNAL_WORLD_KEY, worldThing.getID())) {
 				t.set(INTERNAL_THING_KEY, innerThingId);
 			}
 		}
 	}
 
 	private void updateEndpoint(IHasWorld worldThing, IThing changedThing) {
-		if (changedThing instanceof IIsSticky) {
-			Point endpoint = BNAUtils.getCentralPoint(changedThing);
+		if (changedThing instanceof IHasStickyShape) {
+			Point2D endpoint = BNAUtils.getCentralPoint(changedThing);
 			for (IThing t : valueLogic.getThings(INTERNAL_THING_KEY, changedThing.getID(),
-					IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_WORLD_THING_KEY, worldThing.getID())) {
-				t.set(IHasInternalWorldEndpoint.INTERNAL_ENDPOINT_KEY, endpoint);
+					IHasInternalWorldPoint.INTERNAL_WORLD_KEY, worldThing.getID())) {
+				t.set(IHasInternalWorldPoint.INTERNAL_POINT_KEY, endpoint);
 			}
 		}
 	}

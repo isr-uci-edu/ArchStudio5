@@ -2,7 +2,6 @@ package org.archstudio.bna.utils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -16,7 +15,7 @@ import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
-import org.archstudio.bna.facets.IIsBackground;
+import org.archstudio.bna.facets.IHasBackground;
 import org.archstudio.bna.facets.peers.IHasInnerViewPeer;
 import org.archstudio.bna.ui.IBNAUI;
 import org.archstudio.sysutils.FastMap;
@@ -36,27 +35,6 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 				@Override
 				public AtomicLong load(Object input) {
 					return new AtomicLong();
-				}
-			});
-
-	private static final LoadingCache<Class<? extends IThingPeer<?>>, Constructor<?>> constructorsCache = CacheBuilder
-			.newBuilder().build(new CacheLoader<Class<? extends IThingPeer<?>>, Constructor<?>>() {
-
-				@Override
-				public Constructor<?> load(Class<? extends IThingPeer<?>> key) throws Exception {
-					for (Constructor<?> c : key.getConstructors()) {
-						Class<?>[] p = c.getParameterTypes();
-						if (p.length == 3) {
-							if (IThing.class.isAssignableFrom(p[0])) {
-								if (IBNAView.class.isAssignableFrom(p[1])) {
-									if (ICoordinateMapper.class.isAssignableFrom(p[2])) {
-										return c;
-									}
-								}
-							}
-						}
-					}
-					throw new IllegalArgumentException("Cannot create peer for " + key);
 				}
 			});
 
@@ -140,7 +118,7 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 		location = DefaultCoordinate.forWorld(location.getWorldPoint(), cm);
 		List<IThing> things = Lists.newArrayList();
 		for (IThing t : Lists.reverse(getBNAWorld().getBNAModel().getAllThings())) {
-			if (t.has(IIsBackground.BACKGROUND_KEY, Boolean.TRUE)) {
+			if (t.has(IHasBackground.BACKGROUND_KEY, Boolean.TRUE)) {
 				continue;
 			}
 			try {
@@ -166,13 +144,7 @@ public class DefaultBNAView implements IBNAView, IBNAModelListener {
 	synchronized public <T extends IThing> IThingPeer<T> getThingPeer(T thing) {
 		Map.Entry<IThing, IThingPeer<?>> peerEntry = peers.createEntry(thing);
 		if (peerEntry.getValue() == null) {
-			try {
-				peerEntry.setValue((IThingPeer<?>) constructorsCache.getUnchecked(thing.getPeerClass()).newInstance(
-						thing, this, cm));
-			}
-			catch (Throwable t) {
-				throw new RuntimeException(t);
-			}
+			peerEntry.setValue(thing.createPeer(this, cm));
 		}
 		return (IThingPeer<T>) peerEntry.getValue();
 	}

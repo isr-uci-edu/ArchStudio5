@@ -13,10 +13,10 @@ import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.StickyMode;
 import org.archstudio.bna.facets.IHasIndicatorPoint;
 import org.archstudio.bna.facets.IHasMutableAngle;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
+import org.archstudio.bna.facets.IHasStickyShape;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
-import org.archstudio.bna.facets.IIsSticky;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.IThingRefKey;
 import org.archstudio.bna.keys.ThingKey;
@@ -54,7 +54,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 		valueLogic = logics.addThingLogic(ThingValueTrackingLogic.class);
 		stickLogic = logics.addThingLogic(DynamicStickPointLogic.class);
 		mirrorLogic = logics.addThingLogic(MirrorValueLogic.class);
-		for (IIsSticky forThing : valueLogic.getThings(SHOW_TAG_KEY, true, IIsSticky.class)) {
+		for (IHasStickyShape forThing : valueLogic.getThings(SHOW_TAG_KEY, true, IHasStickyShape.class)) {
 			showTag(forThing);
 		}
 	}
@@ -62,7 +62,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 	@Override
 	synchronized public void fillMenu(IBNAView view, List<IThing> things, ICoordinate location, IMenuManager menu) {
 		if (!things.isEmpty()) {
-			final IIsSticky st = Assemblies.getEditableThing(model, firstOrNull(things), IIsSticky.class,
+			final IHasStickyShape st = Assemblies.getEditableThing(model, firstOrNull(things), IHasStickyShape.class,
 					USER_MAY_SHOW_HIDE_TAG);
 			if (st != null) {
 				final AnchoredLabelThing tt = getTag(st);
@@ -94,18 +94,18 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 			}
 			// fall through
 		case THING_ADDED:
-			if (evt.getTargetThing() instanceof IIsSticky) {
+			if (evt.getTargetThing() instanceof IHasStickyShape) {
 				if (evt.getTargetThing().has(SHOW_TAG_KEY, true)) {
-					showTag((IIsSticky) evt.getTargetThing());
+					showTag((IHasStickyShape) evt.getTargetThing());
 				}
 				else {
-					hideTag((IIsSticky) evt.getTargetThing());
+					hideTag((IHasStickyShape) evt.getTargetThing());
 				}
 			}
 			break;
 		case THING_REMOVED:
-			if (evt.getTargetThing() instanceof IIsSticky) {
-				hideTag((IIsSticky) evt.getTargetThing());
+			if (evt.getTargetThing() instanceof IHasStickyShape) {
+				hideTag((IHasStickyShape) evt.getTargetThing());
 			}
 			break;
 		default:
@@ -113,18 +113,18 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 		}
 	}
 
-	protected AnchoredLabelThing getTag(IIsSticky forThing) {
+	protected AnchoredLabelThing getTag(IHasStickyShape forThing) {
 		return firstOrNull(valueLogic.getThings(stickLogic.getStickyThingKey(IHasIndicatorPoint.INDICATOR_POINT_KEY),
 				forThing.getID(), AnchoredLabelThing.class));
 	}
 
-	protected AnchoredLabelThing showTag(IIsSticky forThing) {
+	protected AnchoredLabelThing showTag(IHasStickyShape forThing) {
 		AnchoredLabelThing t = getTag(forThing);
 		if (t == null) {
 			t = model.addThing(new AnchoredLabelThing(Lists.newArrayList(forThing.getID(), "tag")));
 			t.setAnchorPoint(BNAUtils.getCentralPoint(forThing));
 			t.setEdgeColor(new RGB(0, 0, 0));
-			UserEditableUtils.addEditableQualities(t, IRelativeMovable.USER_MAY_MOVE,
+			UserEditableUtils.addEditableQualities(t, IHasMutableReferencePoint.USER_MAY_MOVE,
 					IHasMutableAngle.USER_MAY_CHANGE_ANGLE);
 			t.set(stickLogic.getStickyModeKey(IHasIndicatorPoint.INDICATOR_POINT_KEY), StickyMode.EDGE_FROM_CENTER);
 			stickLogic.getStickyThingKey(IHasIndicatorPoint.INDICATOR_POINT_KEY).set(t, forThing);
@@ -139,7 +139,7 @@ public class ShowHideTagsLogic extends AbstractThingLogic implements IBNAMenuLis
 		return t;
 	}
 
-	protected void hideTag(IIsSticky forThing) {
+	protected void hideTag(IHasStickyShape forThing) {
 		AnchoredLabelThing t = getTag(forThing);
 		if (t != null) {
 			t.remove(stickLogic.getStickyThingKey(IHasIndicatorPoint.INDICATOR_POINT_KEY));

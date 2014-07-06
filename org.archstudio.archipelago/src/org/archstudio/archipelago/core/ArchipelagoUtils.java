@@ -16,14 +16,14 @@ import org.archstudio.bna.facets.IHasBoundingBox;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.background.LifeSapperLogic;
-import org.archstudio.bna.things.AbstractMappingThing;
 import org.archstudio.bna.things.borders.PulsingBorderThing;
 import org.archstudio.bna.things.labels.UserNotificationThing;
+import org.archstudio.bna.things.shapes.MappingThing;
 import org.archstudio.bna.things.utility.EnvironmentPropertiesThing;
 import org.archstudio.bna.things.utility.NoThing;
-import org.archstudio.bna.utils.BNAUtils;
 import org.archstudio.bna.utils.GridUtils;
 import org.archstudio.bna.utils.ZoomUtils;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -171,7 +171,7 @@ public class ArchipelagoUtils {
 
 		UserNotificationThing unt = w.getBNAModel().addThing(new UserNotificationThing(null));
 		unt.setText(text);
-		unt.setAnchorPoint(new Point(worldX, worldY));
+		unt.setAnchorPoint(new Point2D.Double(worldX, worldY));
 	}
 
 	public static void beginTreeCellEditing(TreeViewer viewer, Object allowEditing) {
@@ -214,13 +214,9 @@ public class ArchipelagoUtils {
 			if (t instanceof IHasBoundingBox) {
 				bb = ((IHasBoundingBox) t).getBoundingBox();
 			}
-			else if (t instanceof AbstractMappingThing) {
-				Point p1 = ((AbstractMappingThing) t).getAnchorPoint();
-				Point2D p2 = ((AbstractMappingThing) t).getExternalEndpoint();
-				if (p2 == null) {
-					p2 = BNAUtils.toPoint2D(p1);
-				}
-				bb = new Rectangle(p1.x, p1.y, BNAUtils.round(p2.getX() - p1.x), BNAUtils.round(p2.getY() - p1.y));
+			else if (t instanceof MappingThing) {
+				Point2D p1 = ((MappingThing) t).getAnchorPoint();
+				bb = new Rectangle(SystemUtils.round(p1.getX()), SystemUtils.round(p1.getY()), 1, 1);
 			}
 			else {
 				bb = null;

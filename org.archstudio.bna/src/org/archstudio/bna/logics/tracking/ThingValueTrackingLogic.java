@@ -122,4 +122,8 @@ public class ThingValueTrackingLogic extends AbstractThingLogic implements IBNAM
 				keyToValueToThingIDsCache.getUnchecked(withKey1).get(ofValue1),
 				keyToValueToThingIDsCache.getUnchecked(withKey2).get(ofValue2))), ofType);
 	}
+
+	synchronized public Collection<IThing> getThings(IThingKey<?> withKey) {
+		return model.getThingsByID(keyToValueToThingIDsCache.getUnchecked(withKey).values());
+	}
 }

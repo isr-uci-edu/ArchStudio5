@@ -4,7 +4,8 @@ import org.archstudio.bna.IBNAView;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.constants.KeyType;
-import org.archstudio.bna.facets.IRelativeMovable;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
+import org.archstudio.bna.facets.IHasReferencePoint;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAKeyListener;
 import org.archstudio.bna.utils.BNAUtils;
@@ -34,9 +35,9 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 				boolean nudged = false;
 				Runnable undoRunnable = BNAOperations.takeSnapshotOfLocations(model, BNAUtils.getSelectedThings(model));
 				for (IThing t : BNAUtils.getSelectedThings(model)) {
-					if (t instanceof IRelativeMovable) {
+					if (t instanceof IHasReferencePoint) {
 						nudged = true;
-						nudge(o, distance, (IRelativeMovable) t);
+						nudge(o, distance, (IHasReferencePoint) t);
 						//if(gridSpacing != 0){
 						//	GridUtils.rectifyToGrid(gridSpacing, (IRelativeMovable)t);
 						//}
@@ -94,9 +95,9 @@ public class KeyNudgerLogic extends AbstractThingLogic implements IBNAKeyListene
 		return p2;
 	}
 
-	protected void nudge(final Orientation o, final int distance, final IRelativeMovable t) {
-		if (UserEditableUtils.isEditableForAllQualities(t, IRelativeMovable.USER_MAY_MOVE)) {
-			t.moveRelative(nudge(o, distance, new Point(0, 0)));
+	protected void nudge(Orientation o, int distance, IHasReferencePoint t) {
+		if (UserEditableUtils.isEditableForAllQualities(t, IHasMutableReferencePoint.USER_MAY_MOVE)) {
+			t.setReferencePoint(nudge(o, distance, t.getReferencePoint()));
 		}
 	}
 }

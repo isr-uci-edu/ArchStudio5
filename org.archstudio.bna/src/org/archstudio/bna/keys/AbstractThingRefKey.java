@@ -9,8 +9,8 @@ import org.eclipse.jdt.annotation.Nullable;
 abstract class AbstractThingRefKey<T extends IThing> extends AbstractThingKey<Object> implements IThingKey<Object>,
 		IThingRefKey<T> {
 
-	protected AbstractThingRefKey(Object id) {
-		super(id, null);
+	protected AbstractThingRefKey(Object id, boolean nullable) {
+		super(id, null, nullable);
 	}
 
 	@Override

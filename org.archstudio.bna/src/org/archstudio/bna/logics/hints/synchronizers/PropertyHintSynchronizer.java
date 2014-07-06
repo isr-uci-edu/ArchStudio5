@@ -16,6 +16,7 @@ import org.archstudio.bna.utils.Assemblies;
 import org.archstudio.bna.utils.UserEditableUtils;
 import org.eclipse.jdt.annotation.Nullable;
 
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
@@ -25,16 +26,18 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 
 	protected final String hintNameSuffix;
 	protected final IThingKey<Object> propertyName;
-	protected final Class<?> requiredClass;
+	protected final Function<Object, Object> propertyTranslator;
+	protected final Class<?> requiredThingClass;
 	protected final String[] editableQualities;
 
 	@SuppressWarnings("unchecked")
-	public PropertyHintSynchronizer(IBNAWorld world, String hintNameSuffix, IThingKey<?> propertyName,
-			Class<?> requiredClass, String... editableQualities) {
+	public <T> PropertyHintSynchronizer(IBNAWorld world, String hintNameSuffix, IThingKey<T> propertyName,
+			Function<Object, Object> propertyTranslator, Class<?> requiredThingClass, String... editableQualities) {
 		super(world);
 		this.hintNameSuffix = hintNameSuffix;
 		this.propertyName = (IThingKey<Object>) propertyName;
-		this.requiredClass = requiredClass;
+		this.propertyTranslator = propertyTranslator;
+		this.requiredThingClass = requiredThingClass;
 		this.editableQualities = editableQualities;
 	}
 
@@ -47,16 +50,20 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 		}
 		if (ourName.equals(name)) {
 			if (!wasIgnored(context, name)) {
-				if (requiredClass.isInstance(thing)
-						&& UserEditableUtils.isEditableForAnyQualities(thing, editableQualities)) {
+				if (requiredThingClass.isInstance(thing)
+						&& UserEditableUtils.isEditableForAllQualities(thing, editableQualities)) {
 					try {
 						HintValue value = repository.getHint(context, name);
 						if (value.isPresent()) {
 							if (DEBUG) {
 								System.err.println("Restoring: " + name);
 							}
+							Object o = value.getValue();
+							if (propertyTranslator != null) {
+								o = propertyTranslator.apply(o);
+							}
 							if (value.getValue() != null) {
-								thing.set(propertyName, value.getValue());
+								thing.set(propertyName, o);
 							}
 							else {
 								thing.remove(propertyName);
@@ -83,7 +90,8 @@ public class PropertyHintSynchronizer extends AbstractHintSynchronizer {
 				}
 			}
 		}
-		if (requiredClass.isInstance(thing) && UserEditableUtils.isEditableForAnyQualities(thing, editableQualities)) {
+		if (requiredThingClass.isInstance(thing)
+				&& UserEditableUtils.isEditableForAllQualities(thing, editableQualities)) {
 			Object value = thing.get(propertyName);
 			String name = getHintName(thing);
 			if (DEBUG) {

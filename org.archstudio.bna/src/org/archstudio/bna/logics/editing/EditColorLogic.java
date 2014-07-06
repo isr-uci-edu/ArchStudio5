@@ -48,7 +48,7 @@ public class EditColorLogic extends AbstractThingLogic implements IBNAMenuListen
 				editableColoredThings.add(editableColorThing);
 			}
 			IHasColor colorThing = Assemblies.getEditableThing(model, selectedThing, IHasColor.class,
-					IHasColor.USER_MAY_COPY_COLOR);
+					IHasMutableColor.USER_MAY_COPY_COLOR);
 			if (colorThing != null) {
 				coloredThings.add(colorThing);
 			}

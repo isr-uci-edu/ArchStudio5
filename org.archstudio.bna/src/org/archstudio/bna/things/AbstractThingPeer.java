@@ -4,7 +4,6 @@ import javax.media.opengl.GL2ES2;
 
 import org.archstudio.bna.IBNAModel;
 import org.archstudio.bna.IBNAView;
-import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.IThingPeer;
@@ -54,11 +53,6 @@ public abstract class AbstractThingPeer<T extends IThing> implements IThingPeer<
 	}
 
 	public void drawShadow(GC gc, Rectangle localBounds, IUIResources r) {
-	}
-
-	@Override
-	public boolean isInThing(ICoordinate location) {
-		return false;
 	}
 
 }

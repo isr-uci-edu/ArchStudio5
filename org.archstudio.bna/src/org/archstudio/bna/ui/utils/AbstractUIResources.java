@@ -197,7 +197,7 @@ public abstract class AbstractUIResources implements IUIResources {
 	public Font getFont(IHasFontData thing, ICoordinateMapper cm) {
 		int size = thing.getFontSize();
 		double scaledSize = size * cm.getLocalScale();
-		if (thing.getDontIncreaseFontSize() && scaledSize > size) {
+		if (thing.isDontIncreaseFontSize() && scaledSize > size) {
 			scaledSize = size;
 		}
 		return getFont(thing, SystemUtils.round(scaledSize));

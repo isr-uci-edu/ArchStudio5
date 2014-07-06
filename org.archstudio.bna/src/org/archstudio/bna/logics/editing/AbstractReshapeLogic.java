@@ -8,8 +8,8 @@ import org.archstudio.bna.BNAModelEvent;
 import org.archstudio.bna.IBNAModelListener;
 import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.IThing;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasSelected;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.keys.IThingKey;
 import org.archstudio.bna.keys.ThingKey;
 import org.archstudio.bna.logics.AbstractThingLogic;
@@ -84,7 +84,7 @@ public abstract class AbstractReshapeLogic<R extends IThing, D> extends Abstract
 	protected ReshapeHandleThing addHandle(R reshapingThing, ReshapeHandleThing handle, D data) {
 		handle.set(HANDLE_DATA_KEY, data);
 		handles.add(handle);
-		UserEditableUtils.addEditableQualities(handle, IRelativeMovable.USER_MAY_MOVE);
+		UserEditableUtils.addEditableQualities(handle, IHasMutableReferencePoint.USER_MAY_MOVE);
 		return handle;
 	}
 

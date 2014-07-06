@@ -16,6 +16,7 @@ import org.archstudio.bna.facets.IHasFontData;
 import org.archstudio.bna.facets.IHasLineWidth;
 import org.archstudio.bna.facets.IHasMutableAlpha;
 import org.archstudio.bna.facets.IHasMutableColor;
+import org.archstudio.bna.facets.IHasMutableReferencePoint;
 import org.archstudio.bna.facets.IHasMutableSelected;
 import org.archstudio.bna.facets.IHasMutableSize;
 import org.archstudio.bna.facets.IHasMutableText;
@@ -24,7 +25,6 @@ import org.archstudio.bna.facets.IHasSecondaryColor;
 import org.archstudio.bna.facets.IHasText;
 import org.archstudio.bna.facets.IHasToolTip;
 import org.archstudio.bna.facets.IHasWorld;
-import org.archstudio.bna.facets.IRelativeMovable;
 import org.archstudio.bna.logics.coordinating.MirrorValueLogic;
 import org.archstudio.bna.logics.events.WorldThingInternalEventsLogic;
 import org.archstudio.bna.logics.information.HighlightLogic;
@@ -76,7 +76,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 		this.defaultCount = defaultCount;
 
 		syncValue("id", null, null, BNAPath.create(), IHasXArchID.XARCH_ID_KEY, true);
-		syncValue("name", null, "[no name]", BNAPath.create(Assemblies.TEXT_KEY), IHasText.TEXT_KEY, true);
+		syncValue("name", null, "[no name]", BNAPath.create(Assemblies.BOUNDED_TEXT_KEY), IHasText.TEXT_KEY, true);
 		syncValue("name", null, "[no name]", BNAPath.create(), IHasToolTip.TOOL_TIP_KEY, true);
 		addBNAUpdater(new IBNAUpdater() {
 
@@ -122,9 +122,9 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 				}
 			}
 
-			Assemblies.TEXT_KEY.get(thing, model).set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
-			Assemblies.TEXT_KEY.get(thing, model).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
-			Assemblies.TEXT_KEY.get(thing, model).set(IHasFontData.FONT_STYLE_KEY,
+			Assemblies.BOUNDED_TEXT_KEY.get(thing, model).set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
+			Assemblies.BOUNDED_TEXT_KEY.get(thing, model).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
+			Assemblies.BOUNDED_TEXT_KEY.get(thing, model).set(IHasFontData.FONT_STYLE_KEY,
 					FontStyle.fromSWT(defaultFont.getStyle()));
 			thing.set(IHasLineWidth.LINE_WIDTH_KEY, defaultLineWidth);
 		}
@@ -145,12 +145,12 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 
 		RectangleThing thing = Assemblies.addWorld(world, null, Assemblies.createRectangle(world, null, null));
 		thing.setBoundingBox(new Rectangle(newPointSpot.x, newPointSpot.y, defaultSize.width, defaultSize.height));
-		thing.setCornerSize(new Dimension(30, 30));
+		thing.setRoundCorners(new Dimension(30, 30));
 		thing.setColor(defaultColor);
 		thing.setCount(defaultCount);
-		Assemblies.TEXT_KEY.get(thing, model).set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
-		Assemblies.TEXT_KEY.get(thing, model).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
-		Assemblies.TEXT_KEY.get(thing, model).set(IHasFontData.FONT_STYLE_KEY,
+		Assemblies.BOUNDED_TEXT_KEY.get(thing, model).set(IHasFontData.FONT_NAME_KEY, defaultFont.getName());
+		Assemblies.BOUNDED_TEXT_KEY.get(thing, model).set(IHasFontData.FONT_SIZE_KEY, defaultFont.getHeight());
+		Assemblies.BOUNDED_TEXT_KEY.get(thing, model).set(IHasFontData.FONT_STYLE_KEY,
 				FontStyle.fromSWT(defaultFont.getStyle()));
 		thing.setLineWidth(defaultLineWidth);
 
@@ -165,10 +165,10 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 				});
 
 		UserEditableUtils.addEditableQualities(thing, IHasMutableSelected.USER_MAY_SELECT,
-				IHasMutableSize.USER_MAY_RESIZE, IRelativeMovable.USER_MAY_MOVE, HighlightLogic.USER_MAY_HIGHLIGHT,
-				IHasColor.USER_MAY_COPY_COLOR, IHasMutableColor.USER_MAY_EDIT_COLOR,
-				IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
-		UserEditableUtils.addEditableQualities(Assemblies.TEXT_KEY.get(thing, model),
+				IHasMutableSize.USER_MAY_RESIZE, IHasMutableReferencePoint.USER_MAY_MOVE,
+				HighlightLogic.USER_MAY_HIGHLIGHT, IHasMutableColor.USER_MAY_COPY_COLOR,
+				IHasMutableColor.USER_MAY_EDIT_COLOR, IHasMutableAlpha.USER_MAY_CHANGE_ALPHA);
+		UserEditableUtils.addEditableQualities(Assemblies.BOUNDED_TEXT_KEY.get(thing, model),
 				IHasMutableText.USER_MAY_EDIT_TEXT);
 
 		return thing;
@@ -188,7 +188,7 @@ public class MapStateLogic extends AbstractXADLToBNAPathLogic<RectangleThing> im
 			// Otherwise, we need to add it and hook it up.
 			if (innerStructureRef == null) {
 				worldThing.remove(IHasWorld.WORLD_KEY);
-				worldThing.set(IHasObjRef.OBJREF_KEY, null);
+				worldThing.remove(IHasObjRef.OBJREF_KEY);
 			}
 			else {
 				ObjRef documentRootRef = xarch.getDocumentRootRef(objRef);

@@ -1,11 +1,13 @@
 package org.archstudio.bna.things.swt;
 
-import org.archstudio.bna.things.AbstractRectangleThing;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
-public class AbstractControlThing extends AbstractRectangleThing {
+@NonNullByDefault
+public abstract class AbstractControlThing extends AbstractControlThingBase {
 
 	public AbstractControlThing(@Nullable Object id) {
 		super(id);
 	}
+
 }

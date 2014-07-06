@@ -1,5 +1,6 @@
 package org.archstudio.archipelago.core.structure;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,6 @@ import org.archstudio.xarchadt.IXArchADT;
 import org.archstudio.xarchadt.ObjRef;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.graphics.Point;
 
 public class StructureEditorFocuser implements IArchipelagoEditorFocuser {
 	protected TreeViewer viewer = null;
@@ -87,9 +87,9 @@ public class StructureEditorFocuser implements IArchipelagoEditorFocuser {
 				if (t != null) {
 					IThing rootThing = Assemblies.getRoot(structureModel, t);
 					if (rootThing != null) {
-						Point p = BNAUtils.getCentralPoint(rootThing);
+						Point2D p = BNAUtils.getCentralPoint(rootThing);
 						if (p != null) {
-							FlyToUtils.flyTo(view, p);
+							FlyToUtils.flyTo(view, BNAUtils.toPoint(p));
 							ArchipelagoUtils.pulseNotify(structureModel, rootThing);
 						}
 					}

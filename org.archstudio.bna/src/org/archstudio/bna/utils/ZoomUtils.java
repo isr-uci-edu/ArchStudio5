@@ -5,6 +5,7 @@ import org.archstudio.bna.ICoordinateMapper;
 import org.archstudio.bna.ICoordinateMapperListener;
 import org.archstudio.bna.IMutableCoordinateMapper;
 import org.archstudio.swtutils.SWTWidgetUtils;
+import org.archstudio.sysutils.SystemUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -72,7 +73,7 @@ public class ZoomUtils {
 	}
 
 	public static String zoomLevelToString(double zoom) {
-		return BNAUtils.round(zoom * 100.0d) + "%";
+		return SystemUtils.round(zoom * 100.0d) + "%";
 	}
 
 	public static double stringToZoomLevel(String s) throws NumberFormatException {

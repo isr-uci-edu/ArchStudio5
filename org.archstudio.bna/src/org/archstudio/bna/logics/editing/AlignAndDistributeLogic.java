@@ -9,7 +9,7 @@ import org.archstudio.bna.IBNAWorld;
 import org.archstudio.bna.ICoordinate;
 import org.archstudio.bna.IThing;
 import org.archstudio.bna.facets.IHasBoundingBox;
-import org.archstudio.bna.facets.IHasMutableAnchorPoint;
+import org.archstudio.bna.facets.IHasAnchorPoint;
 import org.archstudio.bna.logics.AbstractThingLogic;
 import org.archstudio.bna.ui.IBNAMenuListener;
 import org.archstudio.bna.utils.BNAAlignUtils;
@@ -90,7 +90,7 @@ public class AlignAndDistributeLogic extends AbstractThingLogic implements IBNAM
 
 		//Make sure at least two things have either an anchor point or bounding box
 		for (IThing st : selectedThings) {
-			if (st instanceof IHasBoundingBox || st instanceof IHasMutableAnchorPoint) {
+			if (st instanceof IHasBoundingBox || st instanceof IHasAnchorPoint) {
 				thingsToEditList.add(st);
 			}
 		}
