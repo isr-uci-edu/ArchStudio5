@@ -58,14 +58,6 @@
          version="0.0.0"/>
 
    <includes
-         id="org.eclipse.buckminster.subversive.headless.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="org.eclipse.buckminster.subversive.svnkit16.headless.feature"
-         version="0.0.0"/>
-
-   <includes
          id="org.eclipse.buckminster.site.eclipse.headless"
          version="0.0.0"/>
 
